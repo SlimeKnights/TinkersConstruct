@@ -90,7 +90,7 @@ public class CartRender extends Render
 
         if (cart.getCartType() != 0)
         {
-            //this.loadTexture("/terrain.png");
+            // this.loadTexture("/terrain.png");
             float var29 = 0.75F;
             GL11.glScalef(var29, var29, var29);
 
@@ -111,20 +111,22 @@ public class CartRender extends Render
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             }
 
-            //GL11.glScalef(1.0F / var29, 1.0F / var29, 1.0F / var29);
+            // GL11.glScalef(1.0F / var29, 1.0F / var29, 1.0F / var29);
         }
 
-        //this.loadTexture("/tinkertextures/entity/pullcart.png");
+        // this.loadTexture("/tinkertextures/entity/pullcart.png");
         GL11.glScalef(-1.0F, -1.0F, 1.0F);
         this.modelCart.render(cart, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
         GL11.glPopMatrix();
     }
 
     /**
-     * Actually renders the given argument. This is a synthetic bridge method, always casting down its argument and then
-     * handing it off to a worker function which does the actual work. In all probabilty, the class Render is generic
-     * (Render<T extends Entity) and this method has signature public void doRender(T entity, double d, double d1,
-     * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
+     * Actually renders the given argument. This is a synthetic bridge method,
+     * always casting down its argument and then handing it off to a worker
+     * function which does the actual work. In all probabilty, the class Render
+     * is generic (Render<T extends Entity) and this method has signature public
+     * void doRender(T entity, double d, double d1, double d2, float f, float
+     * f1). But JAD is pre 1.5 so doesn't do that.
      */
     public void doRender (Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
     {

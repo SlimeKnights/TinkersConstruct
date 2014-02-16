@@ -1,8 +1,5 @@
 package tconstruct.blocks.logic;
 
-import tconstruct.common.TContent;
-import tconstruct.common.TRepo;
-import tconstruct.inventory.PatternShaperContainer;
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -10,6 +7,8 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import tconstruct.common.TRepo;
+import tconstruct.inventory.PatternShaperContainer;
 
 public class StencilTableLogic extends InventoryLogic implements ISidedInventory
 {
@@ -35,24 +34,25 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
         return new PatternShaperContainer(inventoryplayer, this);
     }
 
-    /*@Override
-    public void markDirty()
-    {
-    	if (inventory[0] == null)
-    		inventory[1] = null;
-    	super.markDirty();
-    }*/
+    /*
+     * @Override public void markDirty() { if (inventory[0] == null)
+     * inventory[1] = null; super.markDirty(); }
+     */
 
     @Override
     public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
         super.setInventorySlotContents(slot, itemstack);
-        if (slot == 0 && itemstack != null && itemstack.getItem() == TRepo.blankPattern)//instanceof tconstruct.items.Pattern)
+        if (slot == 0 && itemstack != null && itemstack.getItem() == TRepo.blankPattern)// instanceof
+                                                                                        // tconstruct.items.Pattern)
         {
             if (itemstack.getItemDamage() == 0)
                 setInventorySlotContents(1, new ItemStack(TRepo.woodPattern, 1, 1));
-            /*else if (itemstack.getItemDamage() == 1)
-                setInventorySlotContents(1, new ItemStack(TContent.metalPattern, 1, 0));*/
+            /*
+             * else if (itemstack.getItemDamage() == 1)
+             * setInventorySlotContents(1, new ItemStack(TContent.metalPattern,
+             * 1, 0));
+             */
         }
     }
 
@@ -121,7 +121,7 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
     {
         return false;
     }
-    
+
     @Override
     public String getInventoryName ()
     {

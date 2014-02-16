@@ -5,7 +5,8 @@ package tconstruct.library.tools;
  */
 public class TToolMaterial
 {
-    //mining level, durability, mining speed, baseDamage, handle modifier, Reinforced level, shoddy/spiny level, color/style on name
+    // mining level, durability, mining speed, baseDamage, handle modifier,
+    // Reinforced level, shoddy/spiny level, color/style on name
 
     public final String materialName;
     public final String displayName;

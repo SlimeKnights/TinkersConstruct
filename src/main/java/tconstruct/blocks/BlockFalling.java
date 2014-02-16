@@ -52,9 +52,15 @@ public class BlockFalling extends Block
             {
                 if (!p_149830_1_.isRemote)
                 {
-                    //EntityFallingBlock entityfallingblock = new EntityFallingBlock(p_149830_1_, (double)((float)p_149830_2_ + 0.5F), (double)((float)p_149830_3_ + 0.5F), (double)((float)p_149830_4_ + 0.5F), this, p_149830_1_.getBlockMetadata(p_149830_2_, p_149830_3_, p_149830_4_));
-                    //this.func_149829_a(entityfallingblock);
-                    //p_149830_1_.spawnEntityInWorld(entityfallingblock);
+                    // EntityFallingBlock entityfallingblock = new
+                    // EntityFallingBlock(p_149830_1_,
+                    // (double)((float)p_149830_2_ + 0.5F),
+                    // (double)((float)p_149830_3_ + 0.5F),
+                    // (double)((float)p_149830_4_ + 0.5F), this,
+                    // p_149830_1_.getBlockMetadata(p_149830_2_, p_149830_3_,
+                    // p_149830_4_));
+                    // this.func_149829_a(entityfallingblock);
+                    // p_149830_1_.spawnEntityInWorld(entityfallingblock);
                 }
             }
             else
@@ -97,9 +103,10 @@ public class BlockFalling extends Block
         }
         else
         {
-            //TODO: King, take a look here when doing liquids!
-            //Material material = block.blockMaterial;
-            //return material == Material.water ? true : material == Material.lava;
+            // TODO: King, take a look here when doing liquids!
+            // Material material = block.blockMaterial;
+            // return material == Material.water ? true : material ==
+            // Material.lava;
             return false;
         }
     }

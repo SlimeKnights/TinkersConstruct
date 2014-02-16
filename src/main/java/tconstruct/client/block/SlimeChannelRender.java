@@ -46,7 +46,7 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
             Tessellator tessellator = Tessellator.instance;
             int bMeta = world.getBlockMetadata(x, y, z);
             IIcon iconStill = block.getIcon(1, bMeta);
-            float flowDir = (float) (bMeta / 8f * 2 * Math.PI); //Tau, radians
+            float flowDir = (float) (bMeta / 8f * 2 * Math.PI); // Tau, radians
 
             double u1, u2, u3, u4, v1, v2, v3, v4;
 
@@ -87,19 +87,15 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
             tessellator.addVertexWithUV(x + 1, y + 0.5, z + 0, u3, v3);
         }
         renderer.renderStandardBlock(block, x, y, z);
-        /*int direction = world.getBlockMetadata(x, y, z) % 4;
-        if (direction == 0)
-            renderer.uvRotateTop = 2;
-        if (direction == 1)
-            renderer.uvRotateTop = 1;
-        if (direction == 2)
-            renderer.uvRotateTop = 0;
-        if (direction == 3)
-            renderer.uvRotateTop = 3;
-
-        boolean flag = renderer.renderStandardBlock(block, x, y, z);
-        renderer.uvRotateTop = 0;
-        return flag;*/
+        /*
+         * int direction = world.getBlockMetadata(x, y, z) % 4; if (direction ==
+         * 0) renderer.uvRotateTop = 2; if (direction == 1) renderer.uvRotateTop
+         * = 1; if (direction == 2) renderer.uvRotateTop = 0; if (direction ==
+         * 3) renderer.uvRotateTop = 3;
+         * 
+         * boolean flag = renderer.renderStandardBlock(block, x, y, z);
+         * renderer.uvRotateTop = 0; return flag;
+         */
         return true;
     }
 

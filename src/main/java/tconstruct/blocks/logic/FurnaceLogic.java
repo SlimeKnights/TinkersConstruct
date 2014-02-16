@@ -98,7 +98,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
             fuel = fuelGague = (int) (getItemBurnTime(inventory[1]));
             if (fuel > 0)
             {
-                if (inventory[1].getItem().hasContainerItem()) //Fuel slot
+                if (inventory[1].getItem().hasContainerItem()) // Fuel slot
                 {
                     inventory[1] = new ItemStack(inventory[1].getItem().getContainerItem());
                 }
@@ -169,7 +169,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
 
     public boolean canSmelt ()
     {
-        if (inventory[0] == null) //Nothing here!
+        if (inventory[0] == null) // Nothing here!
             return false;
         else
         {
@@ -193,7 +193,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     public ItemStack getResultFor (ItemStack stack)
     {
         ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(stack);
-        if (result != null) //Only valid for food
+        if (result != null) // Only valid for food
             return result.copy();
 
         return null;
@@ -321,7 +321,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     @Deprecated
     public void setDirection (int side)
     {
-        //Nope!
+        // Nope!
     }
 
     @Override

@@ -22,7 +22,7 @@ public class MetalOre extends TConstructBlock
             return 10f;
         else
             return 3f;
-        //return this.blockHardness;
+        // return this.blockHardness;
     }
 
     @Override

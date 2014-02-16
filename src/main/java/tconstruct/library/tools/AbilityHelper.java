@@ -200,7 +200,7 @@ public class AbilityHelper
                         {
                             damageTool(stack, 1, tags, player, false);
                         }
-                        //damageTool(stack, 1, player, false);
+                        // damageTool(stack, 1, player, false);
                         tool.onEntityDamaged(player.worldObj, player, entity);
                         if (!necroticUHS || (entity instanceof IMob && entity instanceof EntityLivingBase && ((EntityLivingBase) entity).getHealth() <= 0))
                         {
@@ -240,7 +240,9 @@ public class AbilityHelper
 
                         if (entity instanceof EntityLivingBase)
                         {
-                            DamageSource.causeThornsDamage(entity);//(((EntityLivingBase)player, (EntityLivingBase) entity);
+                            DamageSource.causeThornsDamage(entity);// (((EntityLivingBase)player,
+                                                                   // (EntityLivingBase)
+                                                                   // entity);
                         }
                     }
 
@@ -469,7 +471,7 @@ public class AbilityHelper
     public static void knockbackEntity (EntityLivingBase living, double boost)
     {
         living.motionX *= boost;
-        //living.motionY *= boost/2;
+        // living.motionY *= boost/2;
         living.motionZ *= boost;
     }
 
@@ -527,19 +529,16 @@ public class AbilityHelper
         player.worldObj.spawnEntityInWorld(entityitem);
         if (!(player instanceof FakePlayer))
             entityitem.onCollideWithPlayer(player);
-        /*if (!player.inventory.addItemStackToInventory(stack))
-        {
-            if (!player.worldObj.isRemote)
-            {
-                EntityItem entityitem = new EntityItem(player.worldObj, player.posX + 0.5D, player.posY + 0.5D, player.posZ + 0.5D, stack);
-                player.worldObj.spawnEntityInWorld(entityitem);
-                entityitem.onCollideWithPlayer(player);
-            }
-        }
-        else
-        {
-            player.worldObj.playSoundAtEntity(player, "random.pop", 0.2F, ((random.nextFloat() - random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-        }*/
+        /*
+         * if (!player.inventory.addItemStackToInventory(stack)) { if
+         * (!player.worldObj.isRemote) { EntityItem entityitem = new
+         * EntityItem(player.worldObj, player.posX + 0.5D, player.posY + 0.5D,
+         * player.posZ + 0.5D, stack);
+         * player.worldObj.spawnEntityInWorld(entityitem);
+         * entityitem.onCollideWithPlayer(player); } } else {
+         * player.worldObj.playSoundAtEntity(player, "random.pop", 0.2F,
+         * ((random.nextFloat() - random.nextFloat()) * 0.7F + 1.0F) * 2.0F); }
+         */
     }
 
     /* Ranged weapons */

@@ -21,11 +21,14 @@ public abstract class ToolModTypeFilter extends ToolMod
         }
     }
 
-    /** Checks to see if the inputs match the stored items
-     * Note: Filters types, doesn't care about amount
+    /**
+     * Checks to see if the inputs match the stored items Note: Filters types,
+     * doesn't care about amount
      * 
-     * @param input The ItemStacks to compare against
-     * @param tool Item to modify, used for restrictions
+     * @param input
+     *            The ItemStacks to compare against
+     * @param tool
+     *            Item to modify, used for restrictions
      * @return Whether the recipe matches the input
      */
     @Override
@@ -91,10 +94,13 @@ public abstract class ToolModTypeFilter extends ToolMod
         return amount;
     }
 
-    /** Adds a new itemstack to the list for increases
+    /**
+     * Adds a new itemstack to the list for increases
      * 
-     * @param stack ItemStack to compare against
-     * @param amount Amount to increase
+     * @param stack
+     *            ItemStack to compare against
+     * @param amount
+     *            Amount to increase
      */
     public void addStackToMatchList (ItemStack stack, int amount)
     {

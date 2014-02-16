@@ -74,13 +74,15 @@ public class ASMInterfaceRepair implements IClassTransformer
         try
         {
             obj = Class.forName(inf.replace("/", "."));
-            //obj = ReflectionHelper.getClass( getClass().getClassLoader(), inf.replace( "/", "." ) );
+            // obj = ReflectionHelper.getClass( getClass().getClassLoader(),
+            // inf.replace( "/", "." ) );
         }
         catch (Throwable _)
         {
         }
 
-        // java.io.InputStream is = this.getClass().getResourceAsStream( "/" + inf + ".class" );
+        // java.io.InputStream is = this.getClass().getResourceAsStream( "/" +
+        // inf + ".class" );
         APIInterfaces.put(inf, isAvailable = (obj != null));
         return isAvailable;
     }

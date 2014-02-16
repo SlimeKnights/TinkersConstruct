@@ -12,8 +12,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tconstruct.util.config.PHConstruct;
 
-/** @author fuj1n
- *
+/**
+ * @author fuj1n
+ * 
  */
 
 public class GlassBlockConnectedMeta extends GlassBlockConnected

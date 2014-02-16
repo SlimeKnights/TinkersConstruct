@@ -5,16 +5,14 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
-import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
 import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
 
-public class ComponentSmeltery extends StructureVillagePieces.House1
+public class ComponentSmeltery extends StructureVillagePieces.Village
 {
     private int averageGroundLevel = -1;
 
@@ -22,14 +20,14 @@ public class ComponentSmeltery extends StructureVillagePieces.House1
     {
     }
 
-    public ComponentSmeltery(Start villagePiece, int par2, Random par3Random, StructureBoundingBox par4StructureBoundingBox, int par5)
+    public ComponentSmeltery(StructureVillagePieces.Start par1ComponentVillageStartPiece, int par2, Random par3Random, StructureBoundingBox par4StructureBoundingBox, int par5)
     {
-        super();
+        super(par1ComponentVillageStartPiece, par2);
         this.coordBaseMode = par5;
         this.boundingBox = par4StructureBoundingBox;
     }
 
-    public static ComponentSmeltery buildComponent (Start villagePiece, List pieces, Random random, int p1, int p2, int p3, int p4, int p5)
+    public static ComponentSmeltery func_74898_a (StructureVillagePieces.Start villagePiece, List pieces, Random random, int p1, int p2, int p3, int p4, int p5)
     {
         StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p1, p2, p3, 0, 0, 0, 9, 3, 7, p4);
         return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(pieces, structureboundingbox) == null ? new ComponentSmeltery(villagePiece, p5, random,
@@ -37,8 +35,8 @@ public class ComponentSmeltery extends StructureVillagePieces.House1
     }
 
     /**
-     * second Part of Structure generating, this for example places Spiderwebs, Mob Spawners, it closes Mineshafts at
-     * the end, it adds Fences...
+     * second Part of Structure generating, this for example places Spiderwebs,
+     * Mob Spawners, it closes Mineshafts at the end, it adds Fences...
      */
     public boolean addComponentParts (World world, Random random, StructureBoundingBox sbb)
     {
@@ -55,16 +53,17 @@ public class ComponentSmeltery extends StructureVillagePieces.House1
         }
 
         /**
-         * arguments: (World worldObj, StructureBoundingBox structBB, int minX, int minY, int minZ, int maxX, int maxY, int
-         * maxZ, int placeBlockId, int replaceBlockId, boolean alwaysreplace)
+         * arguments: (World worldObj, StructureBoundingBox structBB, int minX,
+         * int minY, int minZ, int maxX, int maxY, int maxZ, int placeBlockId,
+         * int replaceBlockId, boolean alwaysreplace)
          */
 
-        this.fillWithBlocks(world, sbb, 1, 0, 0, 7, 0, 6, Blocks.stonebrick, Blocks.stonebrick, false); //Base
+        this.fillWithBlocks(world, sbb, 1, 0, 0, 7, 0, 6, Blocks.stonebrick, Blocks.stonebrick, false); // Base
         this.fillWithBlocks(world, sbb, 0, 0, 1, 0, 0, 5, Blocks.stonebrick, Blocks.stonebrick, false);
         this.fillWithBlocks(world, sbb, 8, 0, 1, 8, 0, 5, Blocks.stonebrick, Blocks.stonebrick, false);
         this.fillWithBlocks(world, sbb, 0, 1, 0, 9, 3, 7, Blocks.air, Blocks.air, false);
 
-        this.fillWithMetaBlocks(world, sbb, 2, 0, 1, 6, 2, 5, TRepo.smeltery, 2, TRepo.smeltery, 2, false); //Basin
+        this.fillWithMetaBlocks(world, sbb, 2, 0, 1, 6, 2, 5, TRepo.smeltery, 2, TRepo.smeltery, 2, false); // Basin
         this.fillWithBlocks(world, sbb, 3, 1, 2, 5, 2, 4, Blocks.air, Blocks.air, false);
 
         this.placeBlockAtCurrentPosition(world, TRepo.searedBlock, 0, 1, 1, 2, sbb);
@@ -77,7 +76,6 @@ public class ComponentSmeltery extends StructureVillagePieces.House1
             for (int i1 = 0; i1 < 9; ++i1)
             {
                 this.clearCurrentPositionBlocksUpwards(world, i1, 9, l, sbb);
-                //TODO fillCurrentPositionBlocksDownwards 
                 this.func_151554_b(world, Blocks.stonebrick, 0, i1, -1, l, sbb);
             }
         }
@@ -119,19 +117,5 @@ public class ComponentSmeltery extends StructureVillagePieces.House1
         Block k2 = this.func_151558_b(replaceBlockID, replaceBlockMeta);
         int l2 = this.func_151557_c(replaceBlockID, replaceBlockMeta);
         super.fillWithMetadataBlocks(par1World, par2StructureBoundingBox, minX, minY, minZ, maxX, maxY, maxZ, i2, j2, k2, l2, alwaysReplace);
-    }
-
-    @Override
-    protected void func_143012_a (NBTTagCompound var1)
-    {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    protected void func_143011_b (NBTTagCompound var1)
-    {
-        // TODO Auto-generated method stub
-
     }
 }

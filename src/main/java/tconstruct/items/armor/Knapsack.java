@@ -31,23 +31,17 @@ public class Knapsack extends CraftingItem
         }
     }
 
-    //TODO feel fix this so that stuff ticks in backpacks
-    /*@Override
-    public void onArmorTickUpdate (World world, EntityPlayer player, ItemStack itemStack)
-    {
-        TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
-        KnapsackInventory inv = stats.knapsack;
-
-        if (stats != null && inv != null)
-        {
-            for (int i = 0; i < inv.getSizeInventory(); i++)
-            {
-                if (inv.getStackInSlot(i) != null)
-                {
-                    inv.getStackInSlot(i).getItem().onUpdate(inv.getStackInSlot(i), player.worldObj, player, i, false);
-                }
-            }
-        }
-    }*/
+    // TODO feel fix this so that stuff ticks in backpacks
+    /*
+     * @Override public void onArmorTickUpdate (World world, EntityPlayer
+     * player, ItemStack itemStack) { TPlayerStats stats =
+     * TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
+     * KnapsackInventory inv = stats.knapsack;
+     * 
+     * if (stats != null && inv != null) { for (int i = 0; i <
+     * inv.getSizeInventory(); i++) { if (inv.getStackInSlot(i) != null) {
+     * inv.getStackInSlot(i).getItem().onUpdate(inv.getStackInSlot(i),
+     * player.worldObj, player, i, false); } } } }
+     */
 
 }

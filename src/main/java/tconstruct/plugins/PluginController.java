@@ -42,11 +42,14 @@ public class PluginController
 
     /**
      * Register a plugin with the controller.
-     *
-     * Warning: Make sure your plugin class imports no APIs directly! Any API interaction should be done by handlers called in pre/init/post so
-     *          merely creating an instance to check the mod ID isn't a hazard to the controller.
-     *
-     * @param plugin Plugin to register
+     * 
+     * Warning: Make sure your plugin class imports no APIs directly! Any API
+     * interaction should be done by handlers called in pre/init/post so merely
+     * creating an instance to check the mod ID isn't a hazard to the
+     * controller.
+     * 
+     * @param plugin
+     *            Plugin to register
      */
     public void registerPlugin (ICompatPlugin plugin)
     {
@@ -58,7 +61,8 @@ public class PluginController
             loadPlugin(plugin);
     }
 
-    // This does the actual plugin loading if mod is present; needed to allow force-enabling.
+    // This does the actual plugin loading if mod is present; needed to allow
+    // force-enabling.
     private void loadPlugin (ICompatPlugin plugin)
     {
         if (!Loader.isModLoaded(plugin.getModId()))
@@ -117,10 +121,10 @@ public class PluginController
 
         registerPlugin(new AppEng());
         registerPlugin(new BuildcraftTransport());
-        //registerPlugin(new ForgeMultiPart());
+        // registerPlugin(new ForgeMultiPart());
         registerPlugin(new IC2());
         // registerPlugin(new MineFactoryReloaded());
-        //registerPlugin(new NotEnoughItems());
+        // registerPlugin(new NotEnoughItems());
         registerPlugin(new Thaumcraft());
         // registerPlugin(new Waila());
     }

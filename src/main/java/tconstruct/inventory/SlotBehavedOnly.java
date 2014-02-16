@@ -39,7 +39,7 @@ public class SlotBehavedOnly extends Slot
         }
 
         return false;
-        //return b != null;
+        // return b != null;
     }
 
     public int getSlotStackLimit (ItemStack par1ItemStack)

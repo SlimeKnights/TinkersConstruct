@@ -22,7 +22,7 @@ public class GravelOre extends BlockFalling
         super();
         this.setCreativeTab(TConstructRegistry.blockTab);
         this.stepSound = soundTypeGravel;
-        //this.blockMaterial = Material.craftedSnow;
+        // this.blockMaterial = Material.craftedSnow;
     }
 
     @Override
@@ -54,15 +54,17 @@ public class GravelOre extends BlockFalling
     @Override
     public int damageDropped (int meta)
     {
-        /*if (meta == 1)
-            return 0;*/
+        /*
+         * if (meta == 1) return 0;
+         */
         return meta;
     }
 
     public Block idDropped (int par1, Random par2Random, int par3)
     {
-        /*if (par1 == 1)
-            return Item.goldNugget.itemID;*/
+        /*
+         * if (par1 == 1) return Item.goldNugget.itemID;
+         */
         return this;
     }
 

@@ -11,7 +11,8 @@ import tconstruct.items.TitleIcon;
 public class TDispenserBehaviorSpawnEgg extends BehaviorDefaultDispenseItem
 {
     /**
-     * Dispense the specified stack, play the dispense sound and spawn particles.
+     * Dispense the specified stack, play the dispense sound and spawn
+     * particles.
      */
     public ItemStack dispenseStack (IBlockSource par1IBlockSource, ItemStack par2ItemStack)
     {

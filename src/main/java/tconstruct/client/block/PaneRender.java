@@ -96,27 +96,22 @@ public class PaneRender implements ISimpleBlockRenderingHandler
         double d8 = (double) icon1.getInterpolatedV(8.0D);
         double d9 = (double) icon1.getMaxV();
 
-        /*int blockTextureIndex;
-        int blockSideIndex;
-
-        int j1 = iblockaccess.getBlockMetadata(x, y, z);
-        blockTextureIndex = pane.getBlockTextureFromSideAndMetadata(0, j1);
-        blockSideIndex = pane.getSideTextureIndex(j1);
-
-        int k1 = (blockTextureIndex & 0xf) << 4;
-        int j2 = blockTextureIndex & 0xf0;
-        double d = (float) k1 / 256F;
-        double d1 = ((float) k1 + 7.99F) / 256F;
-        double d2 = ((float) k1 + 15.99F) / 256F;
-        double d3 = (float) j2 / 256F;
-        double d4 = ((float) j2 + 15.99F) / 256F;
-        int k2 = (blockSideIndex & 0xf) << 4;
-        int l2 = blockSideIndex & 0xf0;
-        double d5 = (float) (k2 + 7) / 256F;
-        double d6 = ((float) k2 + 8.99F) / 256F;
-        double d7 = (float) l2 / 256F;
-        double d8 = (float) (l2 + 8) / 256F;
-        double d9 = ((float) l2 + 15.99F) / 256F;*/
+        /*
+         * int blockTextureIndex; int blockSideIndex;
+         * 
+         * int j1 = iblockaccess.getBlockMetadata(x, y, z); blockTextureIndex =
+         * pane.getBlockTextureFromSideAndMetadata(0, j1); blockSideIndex =
+         * pane.getSideTextureIndex(j1);
+         * 
+         * int k1 = (blockTextureIndex & 0xf) << 4; int j2 = blockTextureIndex &
+         * 0xf0; double d = (float) k1 / 256F; double d1 = ((float) k1 + 7.99F)
+         * / 256F; double d2 = ((float) k1 + 15.99F) / 256F; double d3 = (float)
+         * j2 / 256F; double d4 = ((float) j2 + 15.99F) / 256F; int k2 =
+         * (blockSideIndex & 0xf) << 4; int l2 = blockSideIndex & 0xf0; double
+         * d5 = (float) (k2 + 7) / 256F; double d6 = ((float) k2 + 8.99F) /
+         * 256F; double d7 = (float) l2 / 256F; double d8 = (float) (l2 + 8) /
+         * 256F; double d9 = ((float) l2 + 15.99F) / 256F;
+         */
 
         double xBot = x;
         double xMid = (double) x + 0.5D;

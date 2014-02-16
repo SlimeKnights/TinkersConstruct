@@ -32,19 +32,20 @@ public class ToolPart extends CraftingItem implements IToolPart
 
         return name;
 
-        /*StringBuilder builder = new StringBuilder();
-        builder.append(StatCollector.translateToLocal("parttype." + toolTextureNames[par1ItemStack.getItemDamage()])).append(" ").append(StatCollector.translateToLocal("toolpart." + partName));
-        return builder.toString();
-        --
-        String s = ("" + StatCollector.translateToLocal("toolpart."+partName)).trim();
-        String s1 = toolMaterialNames[par1ItemStack.getItemDamage()];
-
-        if (s1 != null)
-        {
-            s = s + " " + StatCollector.translateToLocal(s1);
-        }
-
-        return s;*/
+        /*
+         * StringBuilder builder = new StringBuilder();
+         * builder.append(StatCollector.translateToLocal("parttype." +
+         * toolTextureNames
+         * [par1ItemStack.getItemDamage()])).append(" ").append(StatCollector
+         * .translateToLocal("toolpart." + partName)); return
+         * builder.toString(); -- String s = ("" +
+         * StatCollector.translateToLocal("toolpart."+partName)).trim(); String
+         * s1 = toolMaterialNames[par1ItemStack.getItemDamage()];
+         * 
+         * if (s1 != null) { s = s + " " + StatCollector.translateToLocal(s1); }
+         * 
+         * return s;
+         */
     }
 
     private static String[] buildTextureNames (String textureType)

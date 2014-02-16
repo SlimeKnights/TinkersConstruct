@@ -29,7 +29,7 @@ public class CraftingStationBlock extends InventoryBlock
         this.stepSound = Block.soundTypeWood;
     }
 
-    //Block.hasComparatorInputOverride and Block.getComparatorInputOverride
+    // Block.hasComparatorInputOverride and Block.getComparatorInputOverride
 
     /* Rendering */
     @Override

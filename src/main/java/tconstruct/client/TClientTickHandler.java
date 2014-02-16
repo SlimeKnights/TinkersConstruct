@@ -33,10 +33,8 @@ public class TClientTickHandler
         }
     }
 
-    /*  @Override
-      public EnumSet<TickType> ticks ()
-      {
-          return EnumSet.of(TickType.RENDER);
-      }
-    */
+    /*
+     * @Override public EnumSet<TickType> ticks () { return
+     * EnumSet.of(TickType.RENDER); }
+     */
 }

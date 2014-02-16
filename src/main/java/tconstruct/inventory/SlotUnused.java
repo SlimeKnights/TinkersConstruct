@@ -12,8 +12,8 @@ public class SlotUnused extends Slot
     }
 
     /**
-     * Returns the maximum stack size for a given slot (usually the same as getInventoryStackLimit(), but 1 in the case
-     * of armor slots)
+     * Returns the maximum stack size for a given slot (usually the same as
+     * getInventoryStackLimit(), but 1 in the case of armor slots)
      */
     public int getSlotStackLimit ()
     {
@@ -21,7 +21,8 @@ public class SlotUnused extends Slot
     }
 
     /**
-     * Check if the stack is a valid item for this slot. Always true beside for the armor slots.
+     * Check if the stack is a valid item for this slot. Always true beside for
+     * the armor slots.
      */
     public boolean isItemValid (ItemStack par1ItemStack)
     {

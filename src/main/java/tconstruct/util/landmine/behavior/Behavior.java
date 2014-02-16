@@ -1,21 +1,27 @@
 package tconstruct.util.landmine.behavior;
 
-import tconstruct.util.landmine.LandmineStack;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
-import java.util.*;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.Entity;
-import net.minecraft.init.*;
-import net.minecraft.item.*;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import tconstruct.util.landmine.*;
+import tconstruct.util.landmine.Helper;
+import tconstruct.util.landmine.LandmineStack;
 
 /**
  * 
  * @author fuj1n
- *
+ * 
  */
 public abstract class Behavior
 {
@@ -37,7 +43,7 @@ public abstract class Behavior
 
     public static void registerBuiltInBehaviors ()
     {
-    	System.out.println("Test");
+        System.out.println("Test");
         defaultBehavior = new BehaviorDefault();
 
         addBehavior(new LandmineStack(Items.stick), dummy);
@@ -54,7 +60,8 @@ public abstract class Behavior
         addBehavior(new LandmineStack(Items.ender_pearl), shoot);
         addBehavior(new LandmineStack(Items.shears), shear);
 
-        //Make sure the part below this comment is executed last(to avoid conflicts)
+        // Make sure the part below this comment is executed last(to avoid
+        // conflicts)
         Iterator i1 = Block.blockRegistry.iterator();
         while (i1.hasNext())
         {
@@ -81,11 +88,13 @@ public abstract class Behavior
         {
             if (!behaviorsListBlocks.isEmpty())
             {
-                for(int i = 0; i < behaviorsListBlocks.size(); i++){
-                	LandmineStack st = (LandmineStack) behaviorsListBlocks.keySet().toArray()[i];
-                	if(st.equals(par1ItemStack)){
-                		return (Behavior) behaviorsListBlocks.values().toArray()[i];
-                	}
+                for (int i = 0; i < behaviorsListBlocks.size(); i++)
+                {
+                    LandmineStack st = (LandmineStack) behaviorsListBlocks.keySet().toArray()[i];
+                    if (st.equals(par1ItemStack))
+                    {
+                        return (Behavior) behaviorsListBlocks.values().toArray()[i];
+                    }
                 }
                 return null;
             }
@@ -98,11 +107,13 @@ public abstract class Behavior
         {
             if (!behaviorsListItems.isEmpty())
             {
-                for(int i = 0; i < behaviorsListItems.size(); i++){
-                	LandmineStack st = (LandmineStack) behaviorsListItems.keySet().toArray()[i];
-                	if(st.equals(par1ItemStack)){
-                		return (Behavior) behaviorsListItems.values().toArray()[i];
-                	}
+                for (int i = 0; i < behaviorsListItems.size(); i++)
+                {
+                    LandmineStack st = (LandmineStack) behaviorsListItems.keySet().toArray()[i];
+                    if (st.equals(par1ItemStack))
+                    {
+                        return (Behavior) behaviorsListItems.values().toArray()[i];
+                    }
                 }
                 return null;
             }
@@ -147,7 +158,7 @@ public abstract class Behavior
     {
     }
 
-    //Will return false if the effect does not stack among the slots
+    // Will return false if the effect does not stack among the slots
     public boolean effectStacks ()
     {
         return true;

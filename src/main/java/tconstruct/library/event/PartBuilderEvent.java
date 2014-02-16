@@ -29,12 +29,11 @@ public class PartBuilderEvent extends Event
             super(material, pattern, otherPattern);
         }
 
-        /** Fires before other processing is done
+        /**
+         * Fires before other processing is done
          * 
-         * Result is significant:
-         *    DEFAULT: Allows part to be crafted normally 
-         *    ALLOW:   Uses resultStack instead 
-         *    DENY:    Stops part crafting altogether
+         * Result is significant: DEFAULT: Allows part to be crafted normally
+         * ALLOW: Uses resultStack instead DENY: Stops part crafting altogether
          */
 
         public void overrideResult (ItemStack[] result)

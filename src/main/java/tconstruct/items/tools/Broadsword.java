@@ -59,19 +59,15 @@ public class Broadsword extends Weapon
         return "broadsword";
     }
 
-    /*@Override
-    @SideOnly(Side.CLIENT)
-    public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
-    {
-        super.onUpdate(stack, world, entity, par4, par5);
-        if (entity instanceof EntityPlayerSP)
-        {
-            EntityPlayerSP player = (EntityPlayerSP) entity;
-            if (player.itemInUse != null && player.itemInUse.getItem() == this)
-            {
-                player.movementInput.moveForward *= 5.0F;
-                player.movementInput.moveStrafe *= 5.0F;
-            }
-        }
-    }*/
+    /*
+     * @Override
+     * 
+     * @SideOnly(Side.CLIENT) public void onUpdate (ItemStack stack, World
+     * world, Entity entity, int par4, boolean par5) { super.onUpdate(stack,
+     * world, entity, par4, par5); if (entity instanceof EntityPlayerSP) {
+     * EntityPlayerSP player = (EntityPlayerSP) entity; if (player.itemInUse !=
+     * null && player.itemInUse.getItem() == this) {
+     * player.movementInput.moveForward *= 5.0F; player.movementInput.moveStrafe
+     * *= 5.0F; } } }
+     */
 }

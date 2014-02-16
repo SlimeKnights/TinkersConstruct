@@ -50,7 +50,7 @@ public class ToolBuilder
 
     public static void addNormalToolRecipe (ToolCore output, Item head, Item handle, Item accessory)
     {
-        //instance.combos.add(new ToolRecipe(head, accessory, output));
+        // instance.combos.add(new ToolRecipe(head, accessory, output));
         ToolRecipe recipe = instance.recipeList.get(output.getToolName());
         if (recipe != null)
         {
@@ -109,7 +109,7 @@ public class ToolBuilder
         return null;
     }
 
-    //Builds a tool from the parts given
+    // Builds a tool from the parts given
     public ItemStack buildTool (ItemStack headStack, ItemStack handleStack, ItemStack accessoryStack, String name)
     {
         return buildTool(headStack, handleStack, accessoryStack, null, name);
@@ -140,7 +140,10 @@ public class ToolBuilder
                 return modifyArmor(headStack, new ItemStack[] { handleStack, accessoryStack, extraStack }, name);
         }
 
-        if (headStack == null || handleStack == null) //Nothing to build without these. All tools need at least two parts!
+        if (headStack == null || handleStack == null) // Nothing to build
+                                                      // without these. All
+                                                      // tools need at least
+                                                      // two parts!
             return null;
 
         ToolCore item;
@@ -163,10 +166,12 @@ public class ToolBuilder
         }
         else
         {
-            /*if (accessoryStack.getItem() instanceof IToolPart)
-                accessory = ((IToolPart) accessoryStack.getItem()).getMaterialID(accessoryStack);
-            else
-                return null;*/
+            /*
+             * if (accessoryStack.getItem() instanceof IToolPart) accessory =
+             * ((IToolPart)
+             * accessoryStack.getItem()).getMaterialID(accessoryStack); else
+             * return null;
+             */
 
             accessory = getMaterialID(accessoryStack);
             if (accessory == -1)
@@ -174,10 +179,11 @@ public class ToolBuilder
 
             if (extraStack != null)
             {
-                /*if (extraStack.getItem() instanceof IToolPart)
-                    extra = ((IToolPart) extraStack.getItem()).getMaterialID(extraStack);
-                else
-                    return null;*/
+                /*
+                 * if (extraStack.getItem() instanceof IToolPart) extra =
+                 * ((IToolPart) extraStack.getItem()).getMaterialID(extraStack);
+                 * else return null;
+                 */
 
                 extra = getMaterialID(extraStack);
                 if (extra == -1)
@@ -191,7 +197,7 @@ public class ToolBuilder
             }
         }
 
-        //TConstruct.logger.info("Valid: "+item);
+        // TConstruct.logger.info("Valid: "+item);
 
         if (item == null)
             return null;
@@ -286,11 +292,16 @@ public class ToolBuilder
             compound.getCompoundTag("InfiTool").setInteger("RenderExtra", extra);
         }
 
-        compound.getCompoundTag("InfiTool").setInteger("Damage", 0); //Damage is damage to the tool
+        compound.getCompoundTag("InfiTool").setInteger("Damage", 0); // Damage
+                                                                     // is
+                                                                     // damage
+                                                                     // to
+                                                                     // the
+                                                                     // tool
         compound.getCompoundTag("InfiTool").setInteger("TotalDurability", durability);
         compound.getCompoundTag("InfiTool").setInteger("BaseDurability", durability);
-        compound.getCompoundTag("InfiTool").setInteger("BonusDurability", 0); //Modifier
-        compound.getCompoundTag("InfiTool").setFloat("ModDurability", 0f); //Modifier
+        compound.getCompoundTag("InfiTool").setInteger("BonusDurability", 0); // Modifier
+        compound.getCompoundTag("InfiTool").setFloat("ModDurability", 0f); // Modifier
         compound.getCompoundTag("InfiTool").setBoolean("Broken", false);
         compound.getCompoundTag("InfiTool").setInteger("Attack", attack);
 
@@ -451,7 +462,7 @@ public class ToolBuilder
             return null;
     }
 
-    public void addArmorTag (ItemStack armor) //Not sure if temporary or not
+    public void addArmorTag (ItemStack armor) // Not sure if temporary or not
     {
         NBTTagCompound baseTag = new NBTTagCompound();
         NBTTagList list = new NBTTagList();

@@ -12,7 +12,8 @@ public class InventoryCraftingStation extends InventoryCrafting
     private int inventoryWidth;
 
     /**
-     * Class containing the callbacks for the events on_GUIClosed and on_CraftMaxtrixChanged.
+     * Class containing the callbacks for the events on_GUIClosed and
+     * on_CraftMaxtrixChanged.
      */
     private Container eventHandler;
     private InventoryLogic logic;
@@ -67,8 +68,8 @@ public class InventoryCraftingStation extends InventoryCrafting
     }
 
     /**
-     * Removes from an inventory slot (first arg) up to a specified number (second arg) of items and returns them in a
-     * new stack.
+     * Removes from an inventory slot (first arg) up to a specified number
+     * (second arg) of items and returns them in a new stack.
      */
     @Override
     public ItemStack decrStackSize (int slotID, int par2)
@@ -106,7 +107,8 @@ public class InventoryCraftingStation extends InventoryCrafting
     }
 
     /**
-     * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
+     * Sets the given item stack to the specified slot in the inventory (can be
+     * crafting or armor sections).
      */
     public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
@@ -115,8 +117,8 @@ public class InventoryCraftingStation extends InventoryCrafting
     }
 
     /**
-     * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended. *Isn't
-     * this more of a set than a get?*
+     * Returns the maximum stack size for a inventory slot. Seems to always be
+     * 64, possibly will be extended. *Isn't this more of a set than a get?*
      */
     public int getInventoryStackLimit ()
     {
@@ -131,7 +133,8 @@ public class InventoryCraftingStation extends InventoryCrafting
     }
 
     /**
-     * Do not make give this method the name canInteractWith because it clashes with Container
+     * Do not make give this method the name canInteractWith because it clashes
+     * with Container
      */
     public boolean isUseableByPlayer (EntityPlayer par1EntityPlayer)
     {
@@ -147,7 +150,8 @@ public class InventoryCraftingStation extends InventoryCrafting
     }
 
     /**
-     * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot.
+     * Returns true if automation is allowed to insert the given stack (ignoring
+     * stack size) into the given slot.
      */
     public boolean isStackValidForSlot (int par1, ItemStack par2ItemStack)
     {

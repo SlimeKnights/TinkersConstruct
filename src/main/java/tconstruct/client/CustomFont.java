@@ -19,9 +19,9 @@ import org.lwjgl.opengl.GL11;
 /**
  * 
  * @author TheObliterator
- *
- * A class to create and draw true type
- * fonts onto the Minecraft game engine.
+ * 
+ *         A class to create and draw true type fonts onto the Minecraft game
+ *         engine.
  */
 public class CustomFont
 {
@@ -33,15 +33,17 @@ public class CustomFont
     private FontMetrics metrics;
 
     /**
-     * Instantiates the font, filling in default start
-     * and end character parameters.
+     * Instantiates the font, filling in default start and end character
+     * parameters.
      * 
-     * 'new CustomFont(ModLoader.getMinecraftInstance(),
-     *                              "Arial", 12);
+     * 'new CustomFont(ModLoader.getMinecraftInstance(), "Arial", 12);
      * 
-     * @param mc The Minecraft instance for the font to be bound to.
-     * @param fontName The name of the font to be drawn.
-     * @param size The size of the font to be drawn.
+     * @param mc
+     *            The Minecraft instance for the font to be bound to.
+     * @param fontName
+     *            The name of the font to be drawn.
+     * @param size
+     *            The size of the font to be drawn.
      */
     public CustomFont(Minecraft mc, Object font, int size)
     {
@@ -49,19 +51,22 @@ public class CustomFont
     }
 
     /**
-     * Instantiates the font, pre-rendering a sprite
-     * font image by using a true type font on a
-     * bitmap. Then allocating that bitmap to the
-     * Minecraft rendering engine for later use.
+     * Instantiates the font, pre-rendering a sprite font image by using a true
+     * type font on a bitmap. Then allocating that bitmap to the Minecraft
+     * rendering engine for later use.
      * 
-     * 'new CustomFont(ModLoader.getMinecraftInstance(),
-     *                              "Arial", 12, 32, 126);'
+     * 'new CustomFont(ModLoader.getMinecraftInstance(), "Arial", 12, 32, 126);'
      * 
-     * @param mc The Minecraft instance for the font to be bound to.
-     * @param fontName The name of the font to be drawn.
-     * @param size The size of the font to be drawn.
-     * @param startChar The starting ASCII character id to be drawable. (Default 32)
-     * @param endChar The ending ASCII character id to be drawable. (Default 126)
+     * @param mc
+     *            The Minecraft instance for the font to be bound to.
+     * @param fontName
+     *            The name of the font to be drawn.
+     * @param size
+     *            The size of the font to be drawn.
+     * @param startChar
+     *            The starting ASCII character id to be drawable. (Default 32)
+     * @param endChar
+     *            The ending ASCII character id to be drawable. (Default 126)
      */
     public CustomFont(Minecraft mc, Object font, int size, int startChar, int endChar)
     {
@@ -128,17 +133,22 @@ public class CustomFont
         // Render the finished bitmap into the Minecraft
         // graphics engine.
         // Sadly broken by 1.6
-        //texID = mc.renderEngine.allocateAndSetupTexture(img);
+        // texID = mc.renderEngine.allocateAndSetupTexture(img);
     }
 
     /**
-     * Draws a given string with an automatically
-     * calculated shadow below it.
-     * @param gui The gui/subclass to be drawn on
-     * @param text The string to be drawn
-     * @param x The x position to start drawing
-     * @param y The y position to start drawing
-     * @param color The color of the non-shadowed text (Hex)
+     * Draws a given string with an automatically calculated shadow below it.
+     * 
+     * @param gui
+     *            The gui/subclass to be drawn on
+     * @param text
+     *            The string to be drawn
+     * @param x
+     *            The x position to start drawing
+     * @param y
+     *            The y position to start drawing
+     * @param color
+     *            The color of the non-shadowed text (Hex)
      */
     public void drawStringS (Gui gui, String text, int x, int y, int color)
     {
@@ -151,17 +161,23 @@ public class CustomFont
 
     /**
      * Draws a given string onto a gui/subclass.
-     * @param gui The gui/subclass to be drawn on
-     * @param text The string to be drawn
-     * @param x The x position to start drawing
-     * @param y The y position to start drawing
-     * @param color The color of the non-shadowed text (Hex)
+     * 
+     * @param gui
+     *            The gui/subclass to be drawn on
+     * @param text
+     *            The string to be drawn
+     * @param x
+     *            The x position to start drawing
+     * @param y
+     *            The y position to start drawing
+     * @param color
+     *            The color of the non-shadowed text (Hex)
      */
     public void drawString (Gui gui, String text, int x, int y, int color)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glEnable(3553 /*GL_TEXTURE_2D*/);
-        GL11.glBindTexture(3553 /*GL_TEXTURE_2D*/, texID);
+        GL11.glEnable(3553 /* GL_TEXTURE_2D */);
+        GL11.glBindTexture(3553 /* GL_TEXTURE_2D */, texID);
         float red = (float) (color >> 16 & 0xff) / 255F;
         float green = (float) (color >> 8 & 0xff) / 255F;
         float blue = (float) (color & 0xff) / 255F;
@@ -188,9 +204,9 @@ public class CustomFont
     }
 
     /**
-     * Returns the created FontMetrics
-     * which is used to retrive various
+     * Returns the created FontMetrics which is used to retrive various
      * information about the True Type Font
+     * 
      * @return FontMetrics of the created font.
      */
     public FontMetrics getMetrics ()
@@ -199,9 +215,10 @@ public class CustomFont
     }
 
     /**
-     * Gets the drawing width of a given
-     * string of string.
-     * @param text The string to be measured
+     * Gets the drawing width of a given string of string.
+     * 
+     * @param text
+     *            The string to be measured
      * @return The width of the given string.
      */
     public int getStringWidth (String text)
@@ -210,9 +227,10 @@ public class CustomFont
     }
 
     /**
-     * Gets the drawing height of a given
-     * string of string.
-     * @param text The string to be measured
+     * Gets the drawing height of a given string of string.
+     * 
+     * @param text
+     *            The string to be measured
      * @return The height of the given string.
      */
     public int getStringHeight (String text)
@@ -221,12 +239,13 @@ public class CustomFont
     }
 
     /**
-     * A method that returns a Rectangle that
-     * contains the width and height demensions
-     * of the given string.
-     * @param text The string to be measured
-     * @return Rectangle containing width and height that
-     * the text will consume when drawn.
+     * A method that returns a Rectangle that contains the width and height
+     * demensions of the given string.
+     * 
+     * @param text
+     *            The string to be measured
+     * @return Rectangle containing width and height that the text will consume
+     *         when drawn.
      */
     private Rectangle getBounds (String text)
     {
@@ -259,8 +278,7 @@ public class CustomFont
     }
 
     /**
-     * Private drawing method used within other
-     * drawing methods.
+     * Private drawing method used within other drawing methods.
      */
     private void drawChar (Gui gui, char c, int x, int y)
     {

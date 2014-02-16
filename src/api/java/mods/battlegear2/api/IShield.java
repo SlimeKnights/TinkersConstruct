@@ -1,10 +1,10 @@
 package mods.battlegear2.api;
 
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 
-public interface IShield {
+public interface IShield
+{
 
     /**
      * Gets the decay rate for the stamina bar when the shield is in use.
@@ -14,7 +14,7 @@ public interface IShield {
      * @param shield The {@link #ItemStack} representing the shield
      * @return a value between 0 & 1 representing the decay rate per tick
      */
-    public float getDecayRate(ItemStack shield);
+    public float getDecayRate (ItemStack shield);
 
     /**
      * Returns true if the current shield can and should block the given damage source
@@ -23,7 +23,7 @@ public interface IShield {
      * @param source The {@link #DamageSource} representing the current damage
      * @return true if the shield can block the given damage type
      */
-    public boolean canBlock(ItemStack shield, DamageSource source);
+    public boolean canBlock (ItemStack shield, DamageSource source);
 
     /**
      * Gets the extra decay rate to the stamina bar when the shield is damaged
@@ -32,7 +32,7 @@ public interface IShield {
      * @param amount The amount of damage the shield has absorbed
      * @return a value between 0 & 1 representing the decay rate
      */
-    public float getDamageDecayRate(ItemStack shield, float amount);
+    public float getDamageDecayRate (ItemStack shield, float amount);
 
     /**
      * Returns the block angle in degrees that the shield can block.
@@ -41,8 +41,7 @@ public interface IShield {
      * @param shield The {@link #ItemStack} representing the shield
      * @return The maximum angle the shield should be able to block at
      */
-    public float getBlockAngle(ItemStack shield);
-
+    public float getBlockAngle (ItemStack shield);
 
     /**
      * Returns the time a shield bash should take to be preformed. A shield bash will disallow actions
@@ -50,5 +49,5 @@ public interface IShield {
      *
      * @return The amount of ticks the shield bash animation will play
      */
-    public int getBashTimer(ItemStack shield);
+    public int getBashTimer (ItemStack shield);
 }

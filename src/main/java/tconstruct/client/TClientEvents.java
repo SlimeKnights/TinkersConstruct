@@ -47,12 +47,13 @@ public class TClientEvents
             initSounds = true;
             try
             {
-                /*    SoundManager soundmanager = event.manager;
-                   soundmanager.addSound("tinker:frypan_hit.ogg");
-                   soundmanager.addSound("tinker:little_saw.ogg");
-                    soundmanager.addSound("tinker:launcher_clank.ogg");
-                    TConstruct.logger.info("Successfully loaded sounds.");
-                */
+                /*
+                 * SoundManager soundmanager = event.manager;
+                 * soundmanager.addSound("tinker:frypan_hit.ogg");
+                 * soundmanager.addSound("tinker:little_saw.ogg");
+                 * soundmanager.addSound("tinker:launcher_clank.ogg");
+                 * TConstruct.logger.info("Successfully loaded sounds.");
+                 */
             }
             catch (Exception e)
             {
@@ -92,8 +93,8 @@ public class TClientEvents
 
     private static final ResourceLocation hearts = new ResourceLocation("tinker", "textures/gui/newhearts.png");
     private static final ResourceLocation icons = new ResourceLocation("textures/gui/icons.png");
-    //public static int left_height = 39;
-    //public static int right_height = 39;
+    // public static int left_height = 39;
+    // public static int right_height = 39;
     Random rand = new Random();
     int updateCounter = 0;
 
@@ -103,7 +104,8 @@ public class TClientEvents
     @SubscribeEvent
     public void renderHealthbar (RenderGameOverlayEvent.Pre event)
     {
-        if (!Loader.isModLoaded("tukmc_Vz"))// Loader check to avoid conflicting with a GUI mod (thanks Vazkii!)
+        if (!Loader.isModLoaded("tukmc_Vz"))// Loader check to avoid conflicting
+                                            // with a GUI mod (thanks Vazkii!)
         {
             if (event.type == ElementType.HEALTH)
             {
@@ -171,25 +173,25 @@ public class TClientEvents
                     if (highlight)
                     {
                         if (i * 2 + 1 < healthLast)
-                            drawTexturedModalRect(x, y, MARGIN + 54, TOP, 9, 9); //6
+                            drawTexturedModalRect(x, y, MARGIN + 54, TOP, 9, 9); // 6
                         else if (i * 2 + 1 == healthLast)
-                            drawTexturedModalRect(x, y, MARGIN + 63, TOP, 9, 9); //7
+                            drawTexturedModalRect(x, y, MARGIN + 63, TOP, 9, 9); // 7
                     }
 
                     if (absorbRemaining > 0.0F)
                     {
                         if (absorbRemaining == absorb && absorb % 2.0F == 1.0F)
-                            drawTexturedModalRect(x, y, MARGIN + 153, TOP, 9, 9); //17
+                            drawTexturedModalRect(x, y, MARGIN + 153, TOP, 9, 9); // 17
                         else
-                            drawTexturedModalRect(x, y, MARGIN + 144, TOP, 9, 9); //16
+                            drawTexturedModalRect(x, y, MARGIN + 144, TOP, 9, 9); // 16
                         absorbRemaining -= 2.0F;
                     }
                     else
                     {
                         if (i * 2 + 1 < health)
-                            drawTexturedModalRect(x, y, MARGIN + 36, TOP, 9, 9); //4
+                            drawTexturedModalRect(x, y, MARGIN + 36, TOP, 9, 9); // 4
                         else if (i * 2 + 1 == health)
-                            drawTexturedModalRect(x, y, MARGIN + 45, TOP, 9, 9); //5
+                            drawTexturedModalRect(x, y, MARGIN + 45, TOP, 9, 9); // 5
                     }
                 }
 
@@ -200,7 +202,7 @@ public class TClientEvents
                 if (potion != null)
                     return;
 
-                //Extra hearts
+                // Extra hearts
                 this.mc.getTextureManager().bindTexture(hearts);
 
                 int hp = MathHelper.ceiling_float_int(this.mc.thePlayer.getHealth());
@@ -248,43 +250,28 @@ public class TClientEvents
 
     double zLevel = 0;
 
-    /*@SubscribeEvent
-    public void fovModifier(FOVUpdateEvent event)
-    {
-        float f = 1.0F;
-
-        if (event.entity.capabilities.isFlying)
-        {
-            f *= 1.1F;
-        }
-
-        if (event.entity.isUsingItem() && event.entity.getItemInUse().getItem() == Items.bow)
-        {
-            int i = event.entity.getItemInUseDuration();
-            float f1 = (float) i / 20.0F;
-
-            if (f1 > 1.0F)
-            {
-                f1 = 1.0F;
-            }
-            else
-            {
-                f1 *= f1;
-            }
-
-            f *= 1.0F - f1 * 0.15F;
-        }
-        event.newfov = f;
-    }*/
+    /*
+     * @SubscribeEvent public void fovModifier(FOVUpdateEvent event) { float f =
+     * 1.0F;
+     * 
+     * if (event.entity.capabilities.isFlying) { f *= 1.1F; }
+     * 
+     * if (event.entity.isUsingItem() && event.entity.getItemInUse().getItem()
+     * == Items.bow) { int i = event.entity.getItemInUseDuration(); float f1 =
+     * (float) i / 20.0F;
+     * 
+     * if (f1 > 1.0F) { f1 = 1.0F; } else { f1 *= f1; }
+     * 
+     * f *= 1.0F - f1 * 0.15F; } event.newfov = f; }
+     */
 
     /* Armor */
     ModelBiped model = new ModelBiped(5f);
     WingModel wings = new WingModel();
 
-    /*static
-    {
-    	model.bipedHead.showModel = false;
-    }*/
+    /*
+     * static { model.bipedHead.showModel = false; }
+     */
 
     private float interpolateRotation (float par1, float par2, float par3)
     {

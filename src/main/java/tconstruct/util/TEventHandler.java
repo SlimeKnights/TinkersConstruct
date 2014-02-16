@@ -33,7 +33,6 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
@@ -57,7 +56,6 @@ import tconstruct.library.tools.FletchingMaterial;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.Weapon;
 import tconstruct.util.config.PHConstruct;
-import tconstruct.util.player.ArmorExtended;
 import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.Event.Result;
@@ -236,7 +234,7 @@ public class TEventHandler
         if (event.entityLiving instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer) event.entityLiving;
-            //Cutlass
+            // Cutlass
             ItemStack stack = player.getCurrentEquippedItem();
             if (stack != null && stack.getItem() == TRepo.cutlass && player.isUsingItem())
             {
@@ -290,19 +288,20 @@ public class TEventHandler
             event.drops.add(entityitem);
         }
 
-        //if (event.entityLiving.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot"))
-        //{
+        // if
+        // (event.entityLiving.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot"))
+        // {
         if (!event.entityLiving.isChild())
         {
-            /*if (event.entityLiving.getClass() == EntityCow.class)
-            {
-                int amount = random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + 1;
-
-                for (int iter = 0; iter < amount; ++iter)
-                {
-                    addDrops(event, new ItemStack(Item.leather, 1));
-                }
-            }*/
+            /*
+             * if (event.entityLiving.getClass() == EntityCow.class) { int
+             * amount = random.nextInt(3) + random.nextInt(1 +
+             * event.lootingLevel) + random.nextInt(3) + random.nextInt(1 +
+             * event.lootingLevel) + 1;
+             * 
+             * for (int iter = 0; iter < amount; ++iter) { addDrops(event, new
+             * ItemStack(Item.leather, 1)); } }
+             */
 
             if (event.entityLiving.getClass() == EntityChicken.class)
             {
@@ -361,10 +360,12 @@ public class TEventHandler
                             addDrops(event, new ItemStack(Items.skull, 1, 2));
                         }
                     }
-                    /*if (stack.getItem() == TRepo.breakerBlade && random.nextInt(100) < 10) //Swap out for real beheading
-                    {
-                        addDrops(event, new ItemStack(Item.skull.itemID, 1, 2));
-                    }*/
+                    /*
+                     * if (stack.getItem() == TRepo.breakerBlade &&
+                     * random.nextInt(100) < 10) //Swap out for real beheading {
+                     * addDrops(event, new ItemStack(Item.skull.itemID, 1, 2));
+                     * }
+                     */
                 }
             }
 
@@ -407,7 +408,7 @@ public class TEventHandler
                 addDrops(event, new ItemStack(Items.ghast_tear, 1));
             }
         }
-        //}
+        // }
 
         if (event.entityLiving instanceof EntityPlayer)
         {
@@ -442,7 +443,9 @@ public class TEventHandler
                 }
             }
 
-            GameRules rules = player.worldObj.getGameRules(); //Player is null if this crashes
+            GameRules rules = player.worldObj.getGameRules(); // Player is null
+                                                              // if this
+                                                              // crashes
             if (rules == null || !rules.getGameRuleBooleanValue("keepInventory"))
             {
                 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
@@ -477,14 +480,11 @@ public class TEventHandler
         event.drops.add(entityitem);
     }
 
-    /*@ForgeSubscribe
-    public void onLivingSpawn (EntityJoinWorldEvent event)
-    {
-    	if (event.entity instanceof EntityXPOrb)
-    	{
-    		TConstruct.logger.info("Entity: " + event.entity);
-    	}
-    }*/
+    /*
+     * @ForgeSubscribe public void onLivingSpawn (EntityJoinWorldEvent event) {
+     * if (event.entity instanceof EntityXPOrb) {
+     * TConstruct.logger.info("Entity: " + event.entity); } }
+     */
 
     @SubscribeEvent
     public void onLivingSpawn (LivingSpawnEvent.SpecialSpawn event)
@@ -573,41 +573,26 @@ public class TEventHandler
                         if (TRepo.fluidBlocks[id] instanceof LiquidMetalFinite)
                         {
                             WorldHelper.setBlockToAir(evt.world, hitX, hitY, hitZ);
-                            /*int quanta = 0;
-                            for (int posX = -1; posX <= 1; posX++)
-                            {
-                                for (int posZ = -1; posZ <= 1; posZ++)
-                                {
-                                    int localID = evt.world.getBlockId(hitX + posX, hitY, hitZ + posZ);
-                                    if (localID == bID)
-                                    {
-                                        quanta += evt.world.getBlockMetadata(hitX + posX, hitY, hitZ + posZ) + 1;
-                                    }
-                                }
-                            }
-
-                            if (quanta >= 8)
-                            {
-                                while (quanta > 0)
-                                {
-                                    for (int posX = -1; posX <= 1; posX++)
-                                    {
-                                        for (int posZ = -1; posZ <= 1; posZ++)
-                                        {
-                                            int localID = evt.world.getBlockId(hitX + posX, hitY, hitZ + posZ);
-                                            if (localID == bID)
-                                            {
-                                                quanta -= 1;
-                                                int meta = evt.world.getBlockMetadata(hitX + posX, hitY, hitZ + posZ);
-                                                if (meta > 0)
-                                                    evt.world.setBlockMetadataWithNotify(hitX + posX, hitY, hitZ + posZ, meta - 1, 3);
-                                                else
-                                                    evt.world.setBlockToAir(hitX + posX, hitY, hitZ + posZ);
-                                            }
-                                        }
-                                    }
-                                }
-                            }*/
+                            /*
+                             * int quanta = 0; for (int posX = -1; posX <= 1;
+                             * posX++) { for (int posZ = -1; posZ <= 1; posZ++)
+                             * { int localID = evt.world.getBlockId(hitX + posX,
+                             * hitY, hitZ + posZ); if (localID == bID) { quanta
+                             * += evt.world.getBlockMetadata(hitX + posX, hitY,
+                             * hitZ + posZ) + 1; } } }
+                             * 
+                             * if (quanta >= 8) { while (quanta > 0) { for (int
+                             * posX = -1; posX <= 1; posX++) { for (int posZ =
+                             * -1; posZ <= 1; posZ++) { int localID =
+                             * evt.world.getBlockId(hitX + posX, hitY, hitZ +
+                             * posZ); if (localID == bID) { quanta -= 1; int
+                             * meta = evt.world.getBlockMetadata(hitX + posX,
+                             * hitY, hitZ + posZ); if (meta > 0)
+                             * evt.world.setBlockMetadataWithNotify(hitX + posX,
+                             * hitY, hitZ + posZ, meta - 1, 3); else
+                             * evt.world.setBlockToAir(hitX + posX, hitY, hitZ +
+                             * posZ); } } } } }
+                             */
                         }
                         else
                         {
@@ -621,31 +606,23 @@ public class TEventHandler
             }
         }
     }
-    //TODO 1.7 Fix this -- for ticking stuffs in extra armor slots
-    /*@SubscribeEvent
-    public void livingUpdate (LivingUpdateEvent event)
-    {
-        if (event.entityLiving instanceof EntityPlayer)
-        {
-            EntityPlayer player = (EntityPlayer) event.entityLiving;
-            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
 
-            if (stats != null)
-            {
-                ArmorExtended armor = stats.armor;
-                for (int i = 0; i < armor.getSizeInventory(); i++)
-                {
-                    if (armor.getStackInSlot(i) != null)
-                    {
-                        armor.getStackInSlot(i).getItem().onUpdate(armor.getStackInSlot(i), player.worldObj, player, i, false);
-                        armor.getStackInSlot(i).getItem().onArmorTick(player.worldObj, player, armor.getStackInSlot(i));
-                    }
-                }
-            }
-        }
-    }*/
+    // TODO 1.7 Fix this -- for ticking stuffs in extra armor slots
+    /*
+     * @SubscribeEvent public void livingUpdate (LivingUpdateEvent event) { if
+     * (event.entityLiving instanceof EntityPlayer) { EntityPlayer player =
+     * (EntityPlayer) event.entityLiving; TPlayerStats stats =
+     * TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
+     * 
+     * if (stats != null) { ArmorExtended armor = stats.armor; for (int i = 0; i
+     * < armor.getSizeInventory(); i++) { if (armor.getStackInSlot(i) != null) {
+     * armor.getStackInSlot(i).getItem().onUpdate(armor.getStackInSlot(i),
+     * player.worldObj, player, i, false);
+     * armor.getStackInSlot(i).getItem().onArmorTick(player.worldObj, player,
+     * armor.getStackInSlot(i)); } } } } }
+     */
 
-    //Player interact event - prevent breaking of tank air blocks in creative
+    // Player interact event - prevent breaking of tank air blocks in creative
     @SubscribeEvent
     public void playerInteract (PlayerInteractEvent event)
     {

@@ -28,11 +28,9 @@ public class Scythe extends Weapon
         this.setUnlocalizedName("InfiTool.Scythe");
     }
 
-    /*@Override
-    protected String getHarvestType()
-    {
-    	return "sword";
-    }*/
+    /*
+     * @Override protected String getHarvestType() { return "sword"; }
+     */
 
     @Override
     protected Material[] getEffectiveMaterials ()
@@ -40,7 +38,9 @@ public class Scythe extends Weapon
         return materials;
     }
 
-    static Material[] materials = new Material[] { Material.web, Material.cactus };//TODO find this//, Material.pumpkin, Material.plants, Material.vine, Material.leaves };
+    static Material[] materials = new Material[] { Material.web, Material.cactus };// TODO find this//, Material.pumpkin,
+                                                                                   // Material.plants, Material.vine,
+                                                                                   // Material.leaves };
 
     @Override
     public Item getHeadItem ()
@@ -178,7 +178,10 @@ public class Scythe extends Weapon
                         if (!cancelHarvest)
                         {
                             Block block = world.getBlock(xPos, yPos, zPos);
-                            if (block != null)// && (block.getMaterial() == Material.leaves || block.isLeaves(world, xPos, yPos, zPos)))
+                            if (block != null)// && (block.getMaterial() ==
+                                              // Material.leaves ||
+                                              // block.isLeaves(world, xPos,
+                                              // yPos, zPos)))
                             {
                                 for (int iter = 0; iter < materials.length; iter++)
                                 {

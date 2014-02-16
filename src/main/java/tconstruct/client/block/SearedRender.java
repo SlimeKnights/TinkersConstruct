@@ -26,11 +26,11 @@ public class SearedRender implements ISimpleBlockRenderingHandler
         {
             if (metadata == 0)
             {
-                //Top
+                // Top
                 renderer.setRenderBounds(0.0F, 0.625F, 0.0F, 1.0F, 0.9375F, 1.0F);
                 TProxyClient.renderStandardInvBlock(renderer, block, metadata);
 
-                //Lip
+                // Lip
                 renderer.setRenderBounds(0.0F, 0.9375, 0.0F, 0.0625, 1.0, 1.0F);
                 TProxyClient.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.0625, 0.9375, 0.9375, 0.9375, 1.0, 1.0F);
@@ -40,7 +40,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.0625, 0.9375, 0.0F, 0.9375, 1.0, 0.0625);
                 TProxyClient.renderStandardInvBlock(renderer, block, metadata);
 
-                //Legs
+                // Legs
                 renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 0.3125F, 0.625F, 0.3125F);
                 TProxyClient.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.6875, 0.0F, 0.0F, 1.0F, 0.625F, 0.25F);
@@ -65,7 +65,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.125F, 0.125f, 0.125F, 0.875F, 0.25F, 0.875F);
                 TProxyClient.renderStandardInvBlock(renderer, block, metadata);
 
-                //Details                
+                // Details
                 renderer.setRenderBounds(0.001f, 0.1245f, 0.001f, 0.1245f, 0.999f, 0.4375f);
                 TProxyClient.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.001f, 0.1245f, 0.5625f, 0.1245f, 0.999f, 0.999f);
@@ -102,7 +102,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.4375f, 0.1245f, 0.001f, 0.5625f, 0.25F, 0.1245f);
                 TProxyClient.renderStandardInvBlock(renderer, block, metadata);
 
-                //Legs
+                // Legs
                 renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 0.3125F, 0.125, 0.3125F);
                 TProxyClient.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.6875F, 0.0F, 0.0F, 1.0F, 0.125, 0.3125F);
@@ -112,7 +112,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.6875F, 0.0F, 0.6875F, 1.0F, 0.125, 1.0F);
                 TProxyClient.renderStandardInvBlock(renderer, block, metadata);
 
-                //Outside
+                // Outside
                 renderer.setRenderBounds(0.0f, 0.125, 0f, 0.125, 1.0F, 1);
                 TProxyClient.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.875f, 0.125, 0f, 1, 1.0F, 1);
@@ -138,11 +138,11 @@ public class SearedRender implements ISimpleBlockRenderingHandler
             int metadata = world.getBlockMetadata(x, y, z);
             if (metadata == 0)
             {
-                //Top
+                // Top
                 renderer.setRenderBounds(0.0F, 0.625F, 0.0F, 1.0F, 0.9375F, 1.0F);
                 renderer.renderStandardBlock(block, x, y, z);
 
-                //Lip
+                // Lip
                 renderer.setRenderBounds(0.0F, 0.9375, 0.0F, 0.0625, 1.0, 1.0F);
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.0625, 0.9375, 0.9375, 0.9375, 1.0, 1.0F);
@@ -152,7 +152,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.0625, 0.9375, 0.0F, 0.9375, 1.0, 0.0625);
                 renderer.renderStandardBlock(block, x, y, z);
 
-                //Legs
+                // Legs
                 renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 0.3125F, 0.625F, 0.3125F);
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.6875, 0.0F, 0.0F, 1.0F, 0.625F, 0.25F);
@@ -193,7 +193,8 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 
                         float percent = (float) logic.getLiquidAmount() / (float) logic.getCapacity();
                         float height = percent * (maxHeight - minHeight);
-                        //float height = logic.getLiquidAmount() / (logic.getCapacity() * 1.03F) / 16F;
+                        // float height = logic.getLiquidAmount() /
+                        // (logic.getCapacity() * 1.03F) / 16F;
                         renderer.setRenderBounds(minX, minHeight, minZ, maxX, minHeight + height, maxZ);
 
                         Fluid fluid = logic.liquid.getFluid();
@@ -218,7 +219,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                         renderer.renderStandardBlock(block, x, y, z);
                         renderer.setRenderBounds(0.375, 0.375, 0.625, 0.625, 0.625, 1);
                         zMin = 0.5F;
-                        //zMin = 0.625F;
+                        // zMin = 0.625F;
                         break;
                     case 3:
                         renderer.setRenderBounds(0.25, 0.25, 0, 0.75, 0.375, 0.375);
@@ -278,7 +279,8 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                         renderer.setRenderBounds(xMin, yMin, zMin, xMax, 0.625, zMax);
                         BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world);
 
-                        //float xMin = 0.375F, zMin = 0.375F, xMax = 0.625F, zMax = 0.625F;
+                        // float xMin = 0.375F, zMin = 0.375F, xMax = 0.625F,
+                        // zMax = 0.625F;
                         switch (logic.getRenderDirection())
                         {
                         case 3:
@@ -308,7 +310,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.125F, 0.125f, 0.125F, 0.875F, 0.25F, 0.875F);
                 renderer.renderStandardBlock(block, x, y, z);
 
-                //Outside
+                // Outside
                 renderer.setRenderBounds(0.0f, 0.125, 0f, 0.125, 1.0F, 1);
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.875f, 0.125, 0f, 1, 1.0F, 1);
@@ -318,7 +320,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.125f, 0.125, 0.875f, 0.875f, 1.0F, 1);
                 renderer.renderStandardBlock(block, x, y, z);
 
-                //Details
+                // Details
 
                 renderer.setRenderBounds(0.001f, 0.1245f, 0.001f, 0.1245f, 0.999f, 0.4375f);
                 renderer.renderStandardBlock(block, x, y, z);
@@ -356,7 +358,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.4375f, 0.1245f, 0.001f, 0.5625f, 0.25F, 0.1245f);
                 renderer.renderStandardBlock(block, x, y, z);
 
-                //Legs
+                // Legs
                 renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 0.3125F, 0.125, 0.3125F);
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.6875F, 0.0F, 0.0F, 1.0F, 0.125, 0.3125F);
@@ -366,7 +368,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.6875F, 0.0F, 0.6875F, 1.0F, 0.125, 1.0F);
                 renderer.renderStandardBlock(block, x, y, z);
 
-                //Liquids
+                // Liquids
                 if (world.getTileEntity(x, y, z) instanceof CastingBasinLogic)
                 {
                     CastingBasinLogic logic = (CastingBasinLogic) world.getTileEntity(x, y, z);
@@ -398,7 +400,8 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                         float percent = (float) logic.getLiquidAmount() / (float) logic.getCapacity();
                         float height = percent * (maxHeight - minHeight);
 
-                        //float height = (logic.getLiquidAmount() / (logic.getCapacity() * 1.05F) * 0.6875F) / maxHeight;
+                        // float height = (logic.getLiquidAmount() /
+                        // (logic.getCapacity() * 1.05F) * 0.6875F) / maxHeight;
                         renderer.setRenderBounds(minX, minHeight, minZ, maxX, minHeight + height, maxZ);
 
                         Fluid fluid = logic.liquid.getFluid();

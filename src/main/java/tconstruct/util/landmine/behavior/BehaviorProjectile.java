@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 /**
  * 
  * @author fuj1n
- *
+ * 
  */
 public class BehaviorProjectile extends Behavior
 {
@@ -58,7 +58,7 @@ public class BehaviorProjectile extends Behavior
         par1World.playAuxSFX(1002, par2, par3, par4, 0);
     }
 
-    //Projectiles: snowballs, arrows
+    // Projectiles: snowballs, arrows
 
     @Override
     public boolean isOffensive (ItemStack par1ItemStack)

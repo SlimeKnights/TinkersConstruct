@@ -9,10 +9,10 @@ import net.minecraftforge.common.AchievementPage;
 public class TAchievements
 {
 
-    //Add achievements in here before the load executes(end of TC's init event)
+    // Add achievements in here before the load executes(end of TC's init event)
     public static HashMap<String, Achievement> achievements = new HashMap<String, Achievement>();
 
-    //Warning: Will be null until after the init stage
+    // Warning: Will be null until after the init stage
     public static AchievementPage achievementPage = null;
 
     public static void init ()

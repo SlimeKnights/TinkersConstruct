@@ -103,7 +103,8 @@ public class SlimeLeaves extends BlockLeaves
     }
 
     /**
-     * Drops the block items with a specified chance of dropping the specified items
+     * Drops the block items with a specified chance of dropping the specified
+     * items
      */
     public void dropBlockAsItemWithChance (World world, int x, int y, int z, int meta, float chance, int fortune)
     {
@@ -111,10 +112,9 @@ public class SlimeLeaves extends BlockLeaves
         {
             int dropChance = 35;
 
-            /*if ((meta & 3) == 3)
-            {
-                j1 = 40;
-            }*/
+            /*
+             * if ((meta & 3) == 3) { j1 = 40; }
+             */
 
             if (fortune > 0)
             {

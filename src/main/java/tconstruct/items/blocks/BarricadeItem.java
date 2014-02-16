@@ -86,7 +86,7 @@ public class BarricadeItem extends ItemBlock
         else if (world.canPlaceEntityOnSide(this.b, x, y, z, false, side, player, stack))
         {
             Block block = this.b;
-            //int meta = this.getMetadata(stack.getItemDamage());
+            // int meta = this.getMetadata(stack.getItemDamage());
             int rotation = MathHelper.floor_double((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
             int meta = rotation * 4;
             int metadata = this.b.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, meta);

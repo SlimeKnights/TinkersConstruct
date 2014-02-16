@@ -22,7 +22,7 @@ public class DaggerEntity extends RotatingBase
     public DaggerEntity(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
         super(world, entityplayer, 0.75F, 0.8F);
-        //TConstruct.logger.info("Stack: "+itemstack);
+        // TConstruct.logger.info("Stack: "+itemstack);
         returnStackSlot = entityplayer.inventory.currentItem;
         returnStack = itemstack;
     }
@@ -32,10 +32,9 @@ public class DaggerEntity extends RotatingBase
         super(world, entityplayer, f, g);
     }
 
-    /*public void entityInit ()
-    {
-        super.entityInit();
-    }*/
+    /*
+     * public void entityInit () { super.entityInit(); }
+     */
 
     @Override
     public void onHit (MovingObjectPosition movingobjectposition)

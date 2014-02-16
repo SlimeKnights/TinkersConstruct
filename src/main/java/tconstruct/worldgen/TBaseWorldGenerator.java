@@ -117,8 +117,10 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.seaLevel, 0);
                 if (yPos != -1)
                 {
-                    /*CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
-                    TConstruct.logger.info("Iron: "+coord.toString());*/
+                    /*
+                     * CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
+                     * TConstruct.logger.info("Iron: "+coord.toString());
+                     */
                     ironBush.generate(world, random, xPos, yPos, zPos);
                 }
             }
@@ -133,13 +135,18 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 yPos = findAdequateLocation(world, xPos, yPos, zPos, 32, 0);
                 if (yPos != -1)
                 {
-                    /*CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
-                    TConstruct.logger.info("Gold: "+coord.toString());*/
+                    /*
+                     * CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
+                     * TConstruct.logger.info("Gold: "+coord.toString());
+                     */
                     goldBush.generate(world, random, xPos, yPos, zPos);
                 }
             }
         }
-        if (PHConstruct.generateCopperBush && random.nextInt(PHConstruct.copperBushRarity + 1) == 0)// && random.nextInt(PHConstruct.copperbRarity) == 0)
+        if (PHConstruct.generateCopperBush && random.nextInt(PHConstruct.copperBushRarity + 1) == 0)// &&
+                                                                                                    // random.nextInt(PHConstruct.copperbRarity)
+                                                                                                    // ==
+                                                                                                    // 0)
         {
             for (int i = 0; i < PHConstruct.copperBushDensity; i++)
             {
@@ -149,13 +156,17 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.copperBushMaxY, PHConstruct.copperBushMinY);
                 if (yPos != -1)
                 {
-                    /*CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
-                    TConstruct.logger.info("Copper: "+coord.toString());*/
+                    /*
+                     * CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
+                     * TConstruct.logger.info("Copper: "+coord.toString());
+                     */
                     copperBush.generate(world, random, xPos, yPos, zPos);
                 }
             }
         }
-        if (PHConstruct.generateTinBush && random.nextInt(PHConstruct.tinBushRarity + 1) == 0)// && random.nextInt(PHConstruct.tinbRarity) == 0)
+        if (PHConstruct.generateTinBush && random.nextInt(PHConstruct.tinBushRarity + 1) == 0)// &&
+                                                                                              // random.nextInt(PHConstruct.tinbRarity)
+                                                                                              // == 0)
         {
             for (int i = 0; i < PHConstruct.tinBushDensity; i++)
             {
@@ -165,13 +176,18 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.tinBushMaxY, PHConstruct.tinBushMinY);
                 if (yPos != -1)
                 {
-                    /*CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
-                    TConstruct.logger.info("Tin: "+coord.toString());*/
+                    /*
+                     * CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
+                     * TConstruct.logger.info("Tin: "+coord.toString());
+                     */
                     tinBush.generate(world, random, xPos, yPos, zPos);
                 }
             }
         }
-        if (PHConstruct.generateAluminumBush && random.nextInt(PHConstruct.aluminumBushRarity + 1) == 0)// && random.nextInt(PHConstruct.aluminumbRarity) == 0)
+        if (PHConstruct.generateAluminumBush && random.nextInt(PHConstruct.aluminumBushRarity + 1) == 0)// &&
+                                                                                                        // random.nextInt(PHConstruct.aluminumbRarity)
+                                                                                                        // ==
+                                                                                                        // 0)
         {
             for (int i = 0; i < PHConstruct.aluminumBushDensity; i++)
             {
@@ -181,8 +197,10 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.aluminumBushMaxY, PHConstruct.aluminumBushMinY);
                 if (yPos != -1)
                 {
-                    /*CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
-                    TConstruct.logger.info("Aluminum: "+coord.toString());*/
+                    /*
+                     * CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
+                     * TConstruct.logger.info("Aluminum: "+coord.toString());
+                     */
                     aluminumBush.generate(world, random, xPos, yPos, zPos);
                 }
             }
@@ -197,8 +215,10 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 yPos = findAdequateLocation(world, xPos, yPos, zPos, 32, 0);
                 if (yPos != -1)
                 {
-                    /*CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
-                    TConstruct.logger.info("Silver: "+coord.toString());*/
+                    /*
+                     * CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
+                     * TConstruct.logger.info("Silver: "+coord.toString());
+                     */
                     silverBush.generate(world, random, xPos, yPos, zPos);
                 }
             }
@@ -261,9 +281,10 @@ public class TBaseWorldGenerator implements IWorldGenerator
 
     void superfunGenerate (Random random, int chunkX, int chunkZ, World world)
     {
-        /*for (int x = 0; x < 16; x++)
-            for (int z = 0; z < 16; z++)
-                world.setBlock(x+chunkX, 192, z+chunkZ, Block.glowStone);*/
+        /*
+         * for (int x = 0; x < 16; x++) for (int z = 0; z < 16; z++)
+         * world.setBlock(x+chunkX, 192, z+chunkZ, Block.glowStone);
+         */
 
         for (int x = 0; x < 16; x++)
         {

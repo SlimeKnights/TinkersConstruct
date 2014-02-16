@@ -46,7 +46,8 @@ public abstract class ArmorMod extends ToolMod
         tag.setString("AttributeName", attributeType);
         tag.setString("Name", modifierName);
         tag.setDouble("Amount", amount);
-        tag.setInteger("Operation", flat ? 0 : 1);//0 = flat increase, 1 = % increase
+        tag.setInteger("Operation", flat ? 0 : 1);// 0 = flat increase, 1 = %
+                                                  // increase
         tag.setLong("UUIDMost", uuid.getMostSignificantBits());
         tag.setLong("UUIDLeast", uuid.getLeastSignificantBits());
         return tag;

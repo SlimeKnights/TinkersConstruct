@@ -17,7 +17,7 @@ public abstract class ToolMod
 
     public ToolMod(ItemStack[] items, int effect, String dataKey)
     {
-        //recipeItems = items;
+        // recipeItems = items;
         List<ItemStack> itemstacks = new ArrayList<ItemStack>();
         for (int iter = 0; iter < items.length; iter++)
             itemstacks.add(items[iter]);
@@ -26,11 +26,14 @@ public abstract class ToolMod
         key = dataKey;
     }
 
-    /** Checks to see if the inputs match the stored items
-     * Note: Works like ShapelessRecipes
+    /**
+     * Checks to see if the inputs match the stored items Note: Works like
+     * ShapelessRecipes
      * 
-     * @param input The ItemStacks to compare against
-     * @param tool Item to modify, used for restrictions
+     * @param input
+     *            The ItemStacks to compare against
+     * @param tool
+     *            Item to modify, used for restrictions
      * @return Whether the recipe matches the input
      */
     public boolean matches (ItemStack[] input, ItemStack tool)
@@ -78,7 +81,8 @@ public abstract class ToolMod
 
     /**
      * 
-     * @param tool Tool to compare against
+     * @param tool
+     *            Tool to compare against
      * @return Whether the tool can be modified
      */
 
@@ -88,10 +92,14 @@ public abstract class ToolMod
         return tags.getInteger("Modifiers") > 0;
     }
 
-    /** Modifies the tool. Adds nbttags, changes existing ones, ticks down modification counter, etc
+    /**
+     * Modifies the tool. Adds nbttags, changes existing ones, ticks down
+     * modification counter, etc
      * 
-     * @param input ItemStacks to pull info from
-     * @param tool The tool to modify
+     * @param input
+     *            ItemStacks to pull info from
+     * @param tool
+     *            The tool to modify
      */
     public abstract void modify (ItemStack[] input, ItemStack tool);
 

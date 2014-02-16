@@ -21,7 +21,8 @@ import tconstruct.library.tools.FletchingMaterial;
 import tconstruct.library.tools.TToolMaterial;
 import tconstruct.library.tools.ToolCore;
 
-/** A registry to store any relevant API work
+/**
+ * A registry to store any relevant API work
  * 
  * @author mDiyo
  */
@@ -39,29 +40,30 @@ public class TConstructRegistry
 
     /* Items */
 
-    /** A directory of crafting items and tools used by the mod.
+    /**
+     * A directory of crafting items and tools used by the mod.
      * 
-     * Tools:
-     * pickaxe, shovel, hatchet, broadsword, longsword, rapier, dagger, cutlass
-     * frypan, battlesign, mattock, chisel
-     * lumberaxe, cleaver, scythe, excavator, hammer, battleaxe
+     * Tools: pickaxe, shovel, hatchet, broadsword, longsword, rapier, dagger,
+     * cutlass frypan, battlesign, mattock, chisel lumberaxe, cleaver, scythe,
+     * excavator, hammer, battleaxe
      * 
-     * Patterns:
-     * blankPattern, woodPattern, metalPattern
+     * Patterns: blankPattern, woodPattern, metalPattern
      * 
-     * Tool crafting parts:
-     * toolRod, toolShard, binding, toughBinding, toughRod, heavyPlate
-     * pickaxeHead, shovelhead, hatchetHead, swordBlade, wideguard, handGuard, crossbar, knifeBlade,
-     * fullGuard, frypanHead, signHead, chiselHead
-     * scytheBlade, broadAxeHead, excavatorHead, largeSwordBlade, hammerHead
-     * bowstring, fletching, arrowhead
+     * Tool crafting parts: toolRod, toolShard, binding, toughBinding, toughRod,
+     * heavyPlate pickaxeHead, shovelhead, hatchetHead, swordBlade, wideguard,
+     * handGuard, crossbar, knifeBlade, fullGuard, frypanHead, signHead,
+     * chiselHead scytheBlade, broadAxeHead, excavatorHead, largeSwordBlade,
+     * hammerHead bowstring, fletching, arrowhead
      */
     public static HashMap<String, Item> itemDirectory = new HashMap<String, Item>();
 
-    /** Adds an item to the directory
+    /**
+     * Adds an item to the directory
      * 
-     * @param name Associates the name with the stack
-     * @param itemstack The stack to add to the directory
+     * @param name
+     *            Associates the name with the stack
+     * @param itemstack
+     *            The stack to add to the directory
      */
 
     public static void addItemToDirectory (String name, Item itemstack)
@@ -73,9 +75,11 @@ public class TConstructRegistry
         itemDirectory.put(name, itemstack);
     }
 
-    /** Retrieves an itemstack from the directory
+    /**
+     * Retrieves an itemstack from the directory
      * 
-     * @param name The name of the item to get
+     * @param name
+     *            The name of the item to get
      * @return Item associated with the name, or null if not present.
      */
 
@@ -88,26 +92,33 @@ public class TConstructRegistry
         return ret;
     }
 
-    /** A directory of ItemStacks. Contains mostly crafting items
+    /**
+     * A directory of ItemStacks. Contains mostly crafting items
      * 
-     * Materials:
-     * paperStack, greenSlimeCrystal, blueSlimeCrystal, searedBrick, mossBall, lavaCrystal, necroticBone, silkyCloth, silkyJewel
-     * ingotCobalt, ingotArdite, ingotManyullyn, ingotCopper, ingotTin, ingotAluminum, rawAluminum,
-     * ingotBronze, ingotAluminumBrass, ingotAlumite, ingotSteel, ingotObsidian
-     * nuggetIron, nuggetCopper, nuggetTin, nuggetAluminum, nuggetSilver, nuggetAluminumBrass
-     * oreberryIron, oreberryGold, oreberryCopper, oreberryTin, oreberryTin, oreberrySilver, 
-     * diamondApple, blueSlimeFood, canisterEmpty, miniRedHeart, canisterRedHeart
+     * Materials: paperStack, greenSlimeCrystal, blueSlimeCrystal, searedBrick,
+     * mossBall, lavaCrystal, necroticBone, silkyCloth, silkyJewel ingotCobalt,
+     * ingotArdite, ingotManyullyn, ingotCopper, ingotTin, ingotAluminum,
+     * rawAluminum, ingotBronze, ingotAluminumBrass, ingotAlumite, ingotSteel,
+     * ingotObsidian nuggetIron, nuggetCopper, nuggetTin, nuggetAluminum,
+     * nuggetSilver, nuggetAluminumBrass oreberryIron, oreberryGold,
+     * oreberryCopper, oreberryTin, oreberryTin, oreberrySilver, diamondApple,
+     * blueSlimeFood, canisterEmpty, miniRedHeart, canisterRedHeart
      * 
      * Patterns - These have a suffix of Pattern or Cast. ex: hatchetHeadPattern
-     * ingot, toolRod, pickaxeHead, shovelHead, hatchetHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead, 
-     * knifeBlade, chiselHead, toughRod, toughBinding, largePlate, broadAxeHead, scytheHead, excavatorHead, largeBlade, hammerHead, fullGuard, bowstring
+     * ingot, toolRod, pickaxeHead, shovelHead, hatchetHead, swordBlade,
+     * wideGuard, handGuard, crossbar, binding, frypanHead, signHead,
+     * knifeBlade, chiselHead, toughRod, toughBinding, largePlate, broadAxeHead,
+     * scytheHead, excavatorHead, largeBlade, hammerHead, fullGuard, bowstring
      */
     static HashMap<String, ItemStack> itemstackDirectory = new HashMap<String, ItemStack>();
 
-    /** Adds an itemstack to the directory
+    /**
+     * Adds an itemstack to the directory
      * 
-     * @param name Associates the name with the stack
-     * @param itemstack The stack to add to the directory
+     * @param name
+     *            Associates the name with the stack
+     * @param itemstack
+     *            The stack to add to the directory
      */
 
     public static void addItemStackToDirectory (String name, ItemStack itemstack)
@@ -119,9 +130,11 @@ public class TConstructRegistry
         itemstackDirectory.put(name, itemstack);
     }
 
-    /** Retrieves an itemstack from the directory
+    /**
+     * Retrieves an itemstack from the directory
      * 
-     * @param name The name of the item to get
+     * @param name
+     *            The name of the item to get
      * @return Item associated with the name, or null if not present.
      */
 
@@ -136,19 +149,25 @@ public class TConstructRegistry
 
     public static ArrayList<ToolCore> tools = new ArrayList<ToolCore>(20);
 
-    //Parts
+    // Parts
 
-    /** List: Item ID, metadata, material ID
-     *  ItemStack: Output. Ex: Cactus Binding
+    /**
+     * List: Item ID, metadata, material ID ItemStack: Output. Ex: Cactus
+     * Binding
      */
     public static HashMap<List, ItemStack> patternPartMapping = new HashMap<List, ItemStack>();
 
-    /** Maps an item and a material ID to an output part
+    /**
+     * Maps an item and a material ID to an output part
      * 
-     * @param woodPattern ID to check against
-     * @param patternMeta Metadata to check against
-     * @param materialID Material that goes with the item
-     * @param output The resulting part
+     * @param woodPattern
+     *            ID to check against
+     * @param patternMeta
+     *            Metadata to check against
+     * @param materialID
+     *            Material that goes with the item
+     * @param output
+     *            The resulting part
      */
     public static void addPartMapping (Item woodPattern, int patternMeta, int materialID, ItemStack output)
     {
@@ -163,9 +182,10 @@ public class TConstructRegistry
         return null;
     }
 
-    //Tools
+    // Tools
 
-    /** Internal tool mapping, used for adding textures
+    /**
+     * Internal tool mapping, used for adding textures
      * 
      * @param tool
      */
@@ -175,7 +195,8 @@ public class TConstructRegistry
         tools.add(tool);
     }
 
-    /** Internal tool mapping, used for adding textures
+    /**
+     * Internal tool mapping, used for adding textures
      * 
      * @return List of tools
      */
@@ -185,13 +206,16 @@ public class TConstructRegistry
         return tools;
     }
 
-    /** Registers a tool to its crafting parts.
-     * If an output is registered multiple times the parts are added to the recipe's input list
-     * Valid part amounts are 2, 3, and 4.
+    /**
+     * Registers a tool to its crafting parts. If an output is registered
+     * multiple times the parts are added to the recipe's input list Valid part
+     * amounts are 2, 3, and 4.
      * 
      * @see ToolBuidler
-     * @param output The ToolCore to craft
-     * @param parts Pieces to make the tool with
+     * @param output
+     *            The ToolCore to craft
+     * @param parts
+     *            Pieces to make the tool with
      */
     public static void addToolRecipe (ToolCore output, Item... parts)
     {
@@ -202,22 +226,36 @@ public class TConstructRegistry
         tb.addToolRecipe(output, parts);
     }
 
-    //Materials
+    // Materials
     public static HashMap<Integer, TToolMaterial> toolMaterials = new HashMap<Integer, TToolMaterial>(40);
     public static HashMap<String, TToolMaterial> toolMaterialStrings = new HashMap<String, TToolMaterial>(40);
 
-    /** Adds a tool material to the registry
+    /**
+     * Adds a tool material to the registry
      * 
-     * @param materialID Unique ID, stored for each part
-     * @exception materialID must be unique
-     * @param materialName Unique name for data lookup purposes
-     * @param harvestLevel The materials which the tool can harvest. Pickaxe levels - 0: Wood, 1: Stone, 2: Redstone/Diamond, 3: Obsidian, 4: Cobalt/Ardite, 5: Manyullyn
-     * @param durability Base durability of the tool, affects tool heads.
-     * @param miningspeed Base mining speed, divided by 100 in use
-     * @param attack Base attack
-     * @param handleModifier Durability multiplier on the tool
-     * @param reinforced Reinforced level
-     * @param stonebound Amount of Stonebound to put on the tool. Negative numbers are Spiny.
+     * @param materialID
+     *            Unique ID, stored for each part
+     * @exception materialID
+     *                must be unique
+     * @param materialName
+     *            Unique name for data lookup purposes
+     * @param harvestLevel
+     *            The materials which the tool can harvest. Pickaxe levels - 0:
+     *            Wood, 1: Stone, 2: Redstone/Diamond, 3: Obsidian, 4:
+     *            Cobalt/Ardite, 5: Manyullyn
+     * @param durability
+     *            Base durability of the tool, affects tool heads.
+     * @param miningspeed
+     *            Base mining speed, divided by 100 in use
+     * @param attack
+     *            Base attack
+     * @param handleModifier
+     *            Durability multiplier on the tool
+     * @param reinforced
+     *            Reinforced level
+     * @param stonebound
+     *            Amount of Stonebound to put on the tool. Negative numbers are
+     *            Spiny.
      */
 
     public static void addToolMaterial (int materialID, String materialName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced, float stonebound,
@@ -234,19 +272,34 @@ public class TConstructRegistry
             throw new IllegalArgumentException("[TCon API] Material ID " + materialID + " is already occupied by " + mat.materialName);
     }
 
-    /** Adds a tool material to the registry
+    /**
+     * Adds a tool material to the registry
      * 
-     * @param materialID Unique ID, stored for each part
-     * @exception materialID must be unique
-     * @param materialName Unique name for data lookup purposes
-     * @param displayName Prefix for creative mode tools
-     * @param harvestLevel The materials which the tool can harvest. Pickaxe levels - 0: Wood, 1: Stone, 2: Redstone/Diamond, 3: Obsidian, 4: Cobalt/Ardite, 5: Manyullyn
-     * @param durability Base durability of the tool, affects tool heads.
-     * @param miningspeed Base mining speed, divided by 100 in use
-     * @param attack Base attack
-     * @param handleModifier Durability multiplier on the tool
-     * @param reinforced Reinforced level
-     * @param stonebound Amount of Stonebound to put on the tool. Negative numbers are Spiny.
+     * @param materialID
+     *            Unique ID, stored for each part
+     * @exception materialID
+     *                must be unique
+     * @param materialName
+     *            Unique name for data lookup purposes
+     * @param displayName
+     *            Prefix for creative mode tools
+     * @param harvestLevel
+     *            The materials which the tool can harvest. Pickaxe levels - 0:
+     *            Wood, 1: Stone, 2: Redstone/Diamond, 3: Obsidian, 4:
+     *            Cobalt/Ardite, 5: Manyullyn
+     * @param durability
+     *            Base durability of the tool, affects tool heads.
+     * @param miningspeed
+     *            Base mining speed, divided by 100 in use
+     * @param attack
+     *            Base attack
+     * @param handleModifier
+     *            Durability multiplier on the tool
+     * @param reinforced
+     *            Reinforced level
+     * @param stonebound
+     *            Amount of Stonebound to put on the tool. Negative numbers are
+     *            Spiny.
      */
 
     public static void addToolMaterial (int materialID, String materialName, String displayName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced,
@@ -263,11 +316,16 @@ public class TConstructRegistry
             throw new IllegalArgumentException("[TCon API] Material ID " + materialID + " is already occupied by " + mat.materialName);
     }
 
-    /** Adds a tool material to the registry
+    /**
+     * Adds a tool material to the registry
      * 
-     * @param materialID Unique ID, stored for each part
-     * @exception materialID must be unique
-     * @param material Complete tool material to add. Uses the name in the material for lookup purposes.
+     * @param materialID
+     *            Unique ID, stored for each part
+     * @exception materialID
+     *                must be unique
+     * @param material
+     *            Complete tool material to add. Uses the name in the material
+     *            for lookup purposes.
      */
 
     public static void addtoolMaterial (int materialID, TToolMaterial material)
@@ -282,9 +340,11 @@ public class TConstructRegistry
             throw new IllegalArgumentException("[TCon API] Material ID " + materialID + " is already occupied by " + mat.materialName);
     }
 
-    /** Looks up a tool material by ID
+    /**
+     * Looks up a tool material by ID
      * 
-     * @param key The ID to look up
+     * @param key
+     *            The ID to look up
      * @return Tool Material
      */
 
@@ -293,9 +353,11 @@ public class TConstructRegistry
         return (toolMaterials.get(key));
     }
 
-    /** Looks up a tool material by name
+    /**
+     * Looks up a tool material by name
      * 
-     * @param key the name to look up
+     * @param key
+     *            the name to look up
      * @return Tool Material
      */
 
@@ -304,7 +366,7 @@ public class TConstructRegistry
         return (toolMaterialStrings.get(key));
     }
 
-    //Bow materials
+    // Bow materials
     public static HashMap<Integer, BowMaterial> bowMaterials = new HashMap<Integer, BowMaterial>(40);
 
     public static void addBowMaterial (int materialID, int durability, int drawSpeed, float speedMax)
@@ -353,7 +415,7 @@ public class TConstructRegistry
         return arrowMaterials.get(materialID);
     }
 
-    //Custom materials - bowstrings, fletching, etc
+    // Custom materials - bowstrings, fletching, etc
     public static ArrayList<CustomMaterial> customMaterials = new ArrayList<CustomMaterial>();
 
     public static void addCustomMaterial (CustomMaterial mat)
@@ -394,41 +456,26 @@ public class TConstructRegistry
         return null;
     }
 
-    /*public static CustomMaterial getCustomMaterial(ItemStack input, ItemStack pattern)
-    {
-        for (CustomMaterial mat : customMaterials)
-        {
-            if (mat.matches(input, pattern))
-                return mat;
-        }
-        return null;
-    }*/
+    /*
+     * public static CustomMaterial getCustomMaterial(ItemStack input, ItemStack
+     * pattern) { for (CustomMaterial mat : customMaterials) { if
+     * (mat.matches(input, pattern)) return mat; } return null; }
+     */
 
-    /*public static ItemStack craftBowString(ItemStack stack)
-    {
-        if (stack.stackSize < 3)
-            return null;
-        
-        for (BowstringMaterial mat : bowstringMaterials)
-        {
-            if (stack.isItemEqual(mat.input))
-                return mat.craftingItem.copy();
-        }
-        return null;
-    }
-    
-    public static BowstringMaterial getBowstringMaterial(ItemStack stack)
-    {
-        if (stack.stackSize < 3)
-            return null;
-        
-        for (BowstringMaterial mat : bowstringMaterials)
-        {
-            if (stack.isItemEqual(mat.input))
-                return mat;
-        }
-        return null;
-    }*/
+    /*
+     * public static ItemStack craftBowString(ItemStack stack) { if
+     * (stack.stackSize < 3) return null;
+     * 
+     * for (BowstringMaterial mat : bowstringMaterials) { if
+     * (stack.isItemEqual(mat.input)) return mat.craftingItem.copy(); } return
+     * null; }
+     * 
+     * public static BowstringMaterial getBowstringMaterial(ItemStack stack) {
+     * if (stack.stackSize < 3) return null;
+     * 
+     * for (BowstringMaterial mat : bowstringMaterials) { if
+     * (stack.isItemEqual(mat.input)) return mat; } return null; }
+     */
 
     public static LiquidCasting getTableCasting ()
     {
@@ -500,181 +547,173 @@ public class TConstructRegistry
         activeModifiers.add(mod);
     }
 
-    /* Used to determine how blocks are laid out in the drawbridge
-     * 0: Metadata has to match
-     * 1: Metadata has no meaning
-     * 2: Should not be placed
-     * 3: Has rotational metadata
-     * 4: Rails
-     * 5: Has rotational TileEntity data
-     * 6: Custom placement logic
+    /*
+     * Used to determine how blocks are laid out in the drawbridge 0: Metadata
+     * has to match 1: Metadata has no meaning 2: Should not be placed 3: Has
+     * rotational metadata 4: Rails 5: Has rotational TileEntity data 6: Custom
+     * placement logic
      */
 
-    //moved to TMech
-    //public static HashMap<ItemStack, Integer> drawbridgeState = new HashMap<ItemStack, Integer>();
-    /* Blocks that are interchangable with each other. Ex: Still and flowing water */
-    // static HashMap<Block, Block>  interchangableBlockMapping = new HashMap<Block, Block> ();
-    /*Blocks that place items, and vice versa */
-    // public static HashBiMap<Block, Item>  blockToItemMapping;
+    // moved to TMech
+    // public static HashMap<ItemStack, Integer> drawbridgeState = new
+    // HashMap<ItemStack, Integer>();
+    /*
+     * Blocks that are interchangable with each other. Ex: Still and flowing
+     * water
+     */
+    // static HashMap<Block, Block> interchangableBlockMapping = new
+    // HashMap<Block, Block> ();
+    /* Blocks that place items, and vice versa */
+    // public static HashBiMap<Block, Item> blockToItemMapping;
 
     static void initializeDrawbridgeState ()
     {
-        //TODO fix this mess and move to TMech
-        /* drawbridgeState[Blocks.stone] = 1;
-         drawbridgeState[Blocks.grass] = 1;
-         drawbridgeState[Blocks.dirt] = 1;
-         drawbridgeState[Blocks.cobblestone] = 1;
-         drawbridgeState[Blocks.bedrock] = 2;
-         drawbridgeState[Blocks.water] = 1;
-         drawbridgeState[Blocks.lava] = 1;
-         drawbridgeState[Blocks.sand] = 1;
-         drawbridgeState[Blocks.gravel] = 1;
-         drawbridgeState[Blocks.gold_ore] = 1;
-         drawbridgeState[Blocks.iron_ore] = 1;
-         drawbridgeState[Blocks.coal_ore] = 1;
-         drawbridgeState[Blocks.sponge] = 1;
-         drawbridgeState[Blocks.lapis_ore] = 1;
-         drawbridgeState[Blocks.lapis_block] = 1;
-         drawbridgeState[Blocks.dispenser] = 3;
-         drawbridgeState[Blocks.music] = 1;
-         drawbridgeState[Blocks.bed] = 2;
-         drawbridgeState[Blocks.railPowered] = 4;
-         drawbridgeState[Blocks.railDetector] = 4;
-         drawbridgeState[Blocks.sticky_piston] = 3;
-         drawbridgeState[Blocks.web] = 1;
-         drawbridgeState[Blocks.piston] = 3;
-         drawbridgeState[Blocks.piston_extension] = 2;
-         drawbridgeState[Blocks.plantYellow] = 1;
-         drawbridgeState[Blocks.plantRed] = 1;
-         drawbridgeState[Blocks.mushroomBrown] = 1;
-         drawbridgeState[Blocks.mushroomRed] = 1;
-         drawbridgeState[Blocks.gold_block] = 1;
-         drawbridgeState[Blocks.iron_block] = 1;
-         drawbridgeState[Blocks.brick_block] = 1;
-         drawbridgeState[Blocks.tnt] = 1;
-         drawbridgeState[Blocks.bookshelf] = 1;
-         drawbridgeState[Blocks.mossy_cobblestone] = 1;
-         drawbridgeState[Blocks.obsidian] = 1;
-         drawbridgeState[Blocks.torchWood] = 1;
-         drawbridgeState[Blocks.fire] = 1;
-         drawbridgeState[Blocks.mobSpawner] = 2;
-         drawbridgeState[Blocks.stairsWoodOak] = 3;
-         drawbridgeState[Blocks.chest] = 5;
-         drawbridgeState[Blocks.redstoneWire] = 1;
-         blockToItemMapping[Blocks.redstoneWire] = Items.redstone;
-         blockToItemMapping[Items.redstone] = Blocks.redstoneWire;
-         drawbridgeState[Blocks.diamond_ore] = 1;
-         drawbridgeState[Blocks.diamond_block] = 1;
-         drawbridgeState[Blocks.crafting_table] = 1;
-         drawbridgeState[Blocks.crops] = 2;
-         drawbridgeState[Blocks.tilledField] = 1;
-         drawbridgeState[Blocks.furnaceIdle] = 3;
-         drawbridgeState[Blocks.furnaceBurning] = 3;
-         interchangableBlockMapping[Blocks.furnaceIdle] = Blocks.furnaceBurning;
-         interchangableBlockMapping[Blocks.furnaceBurning] = Blocks.furnaceIdle;
-         drawbridgeState[Blocks.tilledField] = 1;
-         drawbridgeState[Blocks.signPost] = 3;
-         drawbridgeState[Blocks.doorWood] = 2;
-         drawbridgeState[Blocks.ladder] = 1;
-         drawbridgeState[Blocks.rail] = 4;
-         drawbridgeState[Blocks.stairsCobblestone] = 3;
-         drawbridgeState[Blocks.signWall] = 3;
-         drawbridgeState[Blocks.lever] = 3;
-         drawbridgeState[Blocks.pressurePlateStone] = 1;
-         drawbridgeState[Blocks.doorIron] = 2;
-         drawbridgeState[Blocks.pressurePlatePlanks] = 1;
-         drawbridgeState[Blocks.oreRedstone] = 1;
-         drawbridgeState[Blocks.oreRedstoneGlowing] = 1;
-         drawbridgeState[Blocks.torchRedstoneIdle] = 1;
-         drawbridgeState[Blocks.torchRedstoneActive] = 1;
-         drawbridgeState[Blocks.stoneButton] = 3;
-         drawbridgeState[Blocks.snow] = 1;
-         drawbridgeState[Blocks.ice] = 1;
-         drawbridgeState[Blocks.blockSnow] = 1;
-         drawbridgeState[Blocks.cactus] = 2;
-         drawbridgeState[Blocks.blockClay] = 1;
-         drawbridgeState[Blocks.reed] = 1;
-         drawbridgeState[Blocks.jukebox] = 1;
-         drawbridgeState[Blocks.fence] = 1;
-         drawbridgeState[Blocks.pumpkin] = 1;
-         drawbridgeState[Blocks.netherrack] = 1;
-         drawbridgeState[Blocks.slowSand] = 1;
-         drawbridgeState[Blocks.glowStone] = 1;
-         drawbridgeState[Blocks.portal] = 2;
-         drawbridgeState[Blocks.pumpkinLantern] = 1;
-         drawbridgeState[Blocks.cake] = 2;
-         drawbridgeState[Blocks.redstoneRepeaterIdle] = 3;
-         drawbridgeState[Blocks.redstoneRepeaterActive] = 3;
-         interchangableBlockMapping[Blocks.redstoneRepeaterIdle] = Blocks.redstoneRepeaterActive;
-         interchangableBlockMapping[Blocks.redstoneRepeaterActive] = Blocks.redstoneRepeaterIdle;
-         blockToItemMapping[Blocks.redstoneRepeaterIdle] = Items.redstoneRepeater.itemID;
-         blockToItemMapping[Blocks.redstoneRepeaterActive] = Items.redstoneRepeater.itemID;
-         blockToItemMapping[Items.redstoneRepeater] = Blocks.redstoneRepeaterIdle;
-         drawbridgeState[Blocks.lockedChest] = 5;
-         drawbridgeState[Blocks.trapdoor] = 3;
-         drawbridgeState[Blocks.mushroomCapBrown] = 1;
-         drawbridgeState[Blocks.mushroomCapRed] = 1;
-         drawbridgeState[Blocks.fenceIron] = 1;
-         drawbridgeState[Blocks.thinGlass] = 1;
-         drawbridgeState[Blocks.melon] = 1;
-         drawbridgeState[Blocks.pumpkinStem] = 2;
-         drawbridgeState[Blocks.melonStem] = 2;
-         drawbridgeState[Blocks.vine] = 3;
-         drawbridgeState[Blocks.fenceGate] = 3;
-         drawbridgeState[Blocks.stairsBrick] = 3;
-         drawbridgeState[Blocks.stairsStoneBrick] = 3;
-         drawbridgeState[Blocks.mycelium] = 1;
-         drawbridgeState[Blocks.waterlily] = 1;
-         drawbridgeState[Blocks.netherBrick] = 1;
-         drawbridgeState[Blocks.netherFence] = 1;
-         drawbridgeState[Blocks.netherFence] = 3;
-         drawbridgeState[Blocks.netherStalk] = 2;
-         drawbridgeState[Blocks.enchantmentTable] = 1;
-         drawbridgeState[Blocks.brewingStand] = 1;
-         drawbridgeState[Blocks.cauldron] = 1;
-         drawbridgeState[Blocks.endPortal] = 2;
-         drawbridgeState[Blocks.dragonEgg] = 1;
-         drawbridgeState[Blocks.redstoneLampIdle] = 1;
-         drawbridgeState[Blocks.redstoneLampActive] = 1;
-         drawbridgeState[Blocks.cocoaPlant] = 2;
-         drawbridgeState[Blocks.stairsSandStone] = 3;
-         drawbridgeState[Blocks.oreEmerald] = 1;
-         drawbridgeState[Blocks.enderChest] = 5;
-         drawbridgeState[Blocks.tripWireSource] = 1;
-         drawbridgeState[Blocks.tripWire] = 1;
-         drawbridgeState[Blocks.blockEmerald] = 1;
-         drawbridgeState[Blocks.stairsWoodSpruce] = 3;
-         drawbridgeState[Blocks.stairsWoodBirch] = 3;
-         drawbridgeState[Blocks.stairsWoodJungle] = 3;
-         drawbridgeState[Blocks.commandBlock] = 1;
-         drawbridgeState[Blocks.beacon] = 1;
-         drawbridgeState[Blocks.cobblestoneWall] = 1;
-         drawbridgeState[Blocks.flowerPot] = 1;
-         drawbridgeState[Blocks.carrot] = 2;
-         drawbridgeState[Blocks.potato] = 1;
-         drawbridgeState[Blocks.woodenButton] = 3;
-         drawbridgeState[Blocks.skull] = 2;
-         drawbridgeState[Blocks.chestTrapped] = 5;
-         drawbridgeState[Blocks.pressurePlateGold] = 1;
-         drawbridgeState[Blocks.pressurePlateIron] = 1;
-         drawbridgeState[Blocks.redstoneComparatorIdle] = 1;
-         drawbridgeState[Blocks.redstoneComparatorActive] = 1;
-         interchangableBlockMapping[Blocks.redstoneComparatorIdle] = Blocks.redstoneComparatorActive;
-         interchangableBlockMapping[Blocks.redstoneComparatorActive] = Blocks.redstoneComparatorIdle;
-         blockToItemMapping[Blocks.redstoneComparatorIdle] = Items.comparator.itemID;
-         blockToItemMapping[Blocks.redstoneComparatorActive] = Items.comparator.itemID;
-         blockToItemMapping[Items.comparator] = Blocks.redstoneComparatorIdle;
-         drawbridgeState[Blocks.daylightSensor] = 1;
-         drawbridgeState[Blocks.blockRedstone] = 1;
-         drawbridgeState[Blocks.oreNetherQuartz] = 1;
-         drawbridgeState[Blocks.hopperBlock] = 3;
-         drawbridgeState[Blocks.blockNetherQuartz] = 1;
-         drawbridgeState[Blocks.stairsNetherQuartz] = 3;
-         drawbridgeState[Blocks.railActivator] = 4;
-         drawbridgeState[Blocks.dropper] = 3;
-         interchangableBlockMapping[Blocks.dirt] = Blocks.grass;
-         interchangableBlockMapping[Blocks.grass] = Blocks.dirt;
-        */
+        // TODO fix this mess and move to TMech
+        /*
+         * drawbridgeState[Blocks.stone] = 1; drawbridgeState[Blocks.grass] = 1;
+         * drawbridgeState[Blocks.dirt] = 1; drawbridgeState[Blocks.cobblestone]
+         * = 1; drawbridgeState[Blocks.bedrock] = 2;
+         * drawbridgeState[Blocks.water] = 1; drawbridgeState[Blocks.lava] = 1;
+         * drawbridgeState[Blocks.sand] = 1; drawbridgeState[Blocks.gravel] = 1;
+         * drawbridgeState[Blocks.gold_ore] = 1;
+         * drawbridgeState[Blocks.iron_ore] = 1;
+         * drawbridgeState[Blocks.coal_ore] = 1; drawbridgeState[Blocks.sponge]
+         * = 1; drawbridgeState[Blocks.lapis_ore] = 1;
+         * drawbridgeState[Blocks.lapis_block] = 1;
+         * drawbridgeState[Blocks.dispenser] = 3; drawbridgeState[Blocks.music]
+         * = 1; drawbridgeState[Blocks.bed] = 2;
+         * drawbridgeState[Blocks.railPowered] = 4;
+         * drawbridgeState[Blocks.railDetector] = 4;
+         * drawbridgeState[Blocks.sticky_piston] = 3;
+         * drawbridgeState[Blocks.web] = 1; drawbridgeState[Blocks.piston] = 3;
+         * drawbridgeState[Blocks.piston_extension] = 2;
+         * drawbridgeState[Blocks.plantYellow] = 1;
+         * drawbridgeState[Blocks.plantRed] = 1;
+         * drawbridgeState[Blocks.mushroomBrown] = 1;
+         * drawbridgeState[Blocks.mushroomRed] = 1;
+         * drawbridgeState[Blocks.gold_block] = 1;
+         * drawbridgeState[Blocks.iron_block] = 1;
+         * drawbridgeState[Blocks.brick_block] = 1; drawbridgeState[Blocks.tnt]
+         * = 1; drawbridgeState[Blocks.bookshelf] = 1;
+         * drawbridgeState[Blocks.mossy_cobblestone] = 1;
+         * drawbridgeState[Blocks.obsidian] = 1;
+         * drawbridgeState[Blocks.torchWood] = 1; drawbridgeState[Blocks.fire] =
+         * 1; drawbridgeState[Blocks.mobSpawner] = 2;
+         * drawbridgeState[Blocks.stairsWoodOak] = 3;
+         * drawbridgeState[Blocks.chest] = 5;
+         * drawbridgeState[Blocks.redstoneWire] = 1;
+         * blockToItemMapping[Blocks.redstoneWire] = Items.redstone;
+         * blockToItemMapping[Items.redstone] = Blocks.redstoneWire;
+         * drawbridgeState[Blocks.diamond_ore] = 1;
+         * drawbridgeState[Blocks.diamond_block] = 1;
+         * drawbridgeState[Blocks.crafting_table] = 1;
+         * drawbridgeState[Blocks.crops] = 2;
+         * drawbridgeState[Blocks.tilledField] = 1;
+         * drawbridgeState[Blocks.furnaceIdle] = 3;
+         * drawbridgeState[Blocks.furnaceBurning] = 3;
+         * interchangableBlockMapping[Blocks.furnaceIdle] =
+         * Blocks.furnaceBurning;
+         * interchangableBlockMapping[Blocks.furnaceBurning] =
+         * Blocks.furnaceIdle; drawbridgeState[Blocks.tilledField] = 1;
+         * drawbridgeState[Blocks.signPost] = 3;
+         * drawbridgeState[Blocks.doorWood] = 2; drawbridgeState[Blocks.ladder]
+         * = 1; drawbridgeState[Blocks.rail] = 4;
+         * drawbridgeState[Blocks.stairsCobblestone] = 3;
+         * drawbridgeState[Blocks.signWall] = 3; drawbridgeState[Blocks.lever] =
+         * 3; drawbridgeState[Blocks.pressurePlateStone] = 1;
+         * drawbridgeState[Blocks.doorIron] = 2;
+         * drawbridgeState[Blocks.pressurePlatePlanks] = 1;
+         * drawbridgeState[Blocks.oreRedstone] = 1;
+         * drawbridgeState[Blocks.oreRedstoneGlowing] = 1;
+         * drawbridgeState[Blocks.torchRedstoneIdle] = 1;
+         * drawbridgeState[Blocks.torchRedstoneActive] = 1;
+         * drawbridgeState[Blocks.stoneButton] = 3; drawbridgeState[Blocks.snow]
+         * = 1; drawbridgeState[Blocks.ice] = 1;
+         * drawbridgeState[Blocks.blockSnow] = 1; drawbridgeState[Blocks.cactus]
+         * = 2; drawbridgeState[Blocks.blockClay] = 1;
+         * drawbridgeState[Blocks.reed] = 1; drawbridgeState[Blocks.jukebox] =
+         * 1; drawbridgeState[Blocks.fence] = 1; drawbridgeState[Blocks.pumpkin]
+         * = 1; drawbridgeState[Blocks.netherrack] = 1;
+         * drawbridgeState[Blocks.slowSand] = 1;
+         * drawbridgeState[Blocks.glowStone] = 1; drawbridgeState[Blocks.portal]
+         * = 2; drawbridgeState[Blocks.pumpkinLantern] = 1;
+         * drawbridgeState[Blocks.cake] = 2;
+         * drawbridgeState[Blocks.redstoneRepeaterIdle] = 3;
+         * drawbridgeState[Blocks.redstoneRepeaterActive] = 3;
+         * interchangableBlockMapping[Blocks.redstoneRepeaterIdle] =
+         * Blocks.redstoneRepeaterActive;
+         * interchangableBlockMapping[Blocks.redstoneRepeaterActive] =
+         * Blocks.redstoneRepeaterIdle;
+         * blockToItemMapping[Blocks.redstoneRepeaterIdle] =
+         * Items.redstoneRepeater.itemID;
+         * blockToItemMapping[Blocks.redstoneRepeaterActive] =
+         * Items.redstoneRepeater.itemID;
+         * blockToItemMapping[Items.redstoneRepeater] =
+         * Blocks.redstoneRepeaterIdle; drawbridgeState[Blocks.lockedChest] = 5;
+         * drawbridgeState[Blocks.trapdoor] = 3;
+         * drawbridgeState[Blocks.mushroomCapBrown] = 1;
+         * drawbridgeState[Blocks.mushroomCapRed] = 1;
+         * drawbridgeState[Blocks.fenceIron] = 1;
+         * drawbridgeState[Blocks.thinGlass] = 1; drawbridgeState[Blocks.melon]
+         * = 1; drawbridgeState[Blocks.pumpkinStem] = 2;
+         * drawbridgeState[Blocks.melonStem] = 2; drawbridgeState[Blocks.vine] =
+         * 3; drawbridgeState[Blocks.fenceGate] = 3;
+         * drawbridgeState[Blocks.stairsBrick] = 3;
+         * drawbridgeState[Blocks.stairsStoneBrick] = 3;
+         * drawbridgeState[Blocks.mycelium] = 1;
+         * drawbridgeState[Blocks.waterlily] = 1;
+         * drawbridgeState[Blocks.netherBrick] = 1;
+         * drawbridgeState[Blocks.netherFence] = 1;
+         * drawbridgeState[Blocks.netherFence] = 3;
+         * drawbridgeState[Blocks.netherStalk] = 2;
+         * drawbridgeState[Blocks.enchantmentTable] = 1;
+         * drawbridgeState[Blocks.brewingStand] = 1;
+         * drawbridgeState[Blocks.cauldron] = 1;
+         * drawbridgeState[Blocks.endPortal] = 2;
+         * drawbridgeState[Blocks.dragonEgg] = 1;
+         * drawbridgeState[Blocks.redstoneLampIdle] = 1;
+         * drawbridgeState[Blocks.redstoneLampActive] = 1;
+         * drawbridgeState[Blocks.cocoaPlant] = 2;
+         * drawbridgeState[Blocks.stairsSandStone] = 3;
+         * drawbridgeState[Blocks.oreEmerald] = 1;
+         * drawbridgeState[Blocks.enderChest] = 5;
+         * drawbridgeState[Blocks.tripWireSource] = 1;
+         * drawbridgeState[Blocks.tripWire] = 1;
+         * drawbridgeState[Blocks.blockEmerald] = 1;
+         * drawbridgeState[Blocks.stairsWoodSpruce] = 3;
+         * drawbridgeState[Blocks.stairsWoodBirch] = 3;
+         * drawbridgeState[Blocks.stairsWoodJungle] = 3;
+         * drawbridgeState[Blocks.commandBlock] = 1;
+         * drawbridgeState[Blocks.beacon] = 1;
+         * drawbridgeState[Blocks.cobblestoneWall] = 1;
+         * drawbridgeState[Blocks.flowerPot] = 1; drawbridgeState[Blocks.carrot]
+         * = 2; drawbridgeState[Blocks.potato] = 1;
+         * drawbridgeState[Blocks.woodenButton] = 3;
+         * drawbridgeState[Blocks.skull] = 2;
+         * drawbridgeState[Blocks.chestTrapped] = 5;
+         * drawbridgeState[Blocks.pressurePlateGold] = 1;
+         * drawbridgeState[Blocks.pressurePlateIron] = 1;
+         * drawbridgeState[Blocks.redstoneComparatorIdle] = 1;
+         * drawbridgeState[Blocks.redstoneComparatorActive] = 1;
+         * interchangableBlockMapping[Blocks.redstoneComparatorIdle] =
+         * Blocks.redstoneComparatorActive;
+         * interchangableBlockMapping[Blocks.redstoneComparatorActive] =
+         * Blocks.redstoneComparatorIdle;
+         * blockToItemMapping[Blocks.redstoneComparatorIdle] =
+         * Items.comparator.itemID;
+         * blockToItemMapping[Blocks.redstoneComparatorActive] =
+         * Items.comparator.itemID; blockToItemMapping[Items.comparator] =
+         * Blocks.redstoneComparatorIdle; drawbridgeState[Blocks.daylightSensor]
+         * = 1; drawbridgeState[Blocks.blockRedstone] = 1;
+         * drawbridgeState[Blocks.oreNetherQuartz] = 1;
+         * drawbridgeState[Blocks.hopperBlock] = 3;
+         * drawbridgeState[Blocks.blockNetherQuartz] = 1;
+         * drawbridgeState[Blocks.stairsNetherQuartz] = 3;
+         * drawbridgeState[Blocks.railActivator] = 4;
+         * drawbridgeState[Blocks.dropper] = 3;
+         * interchangableBlockMapping[Blocks.dirt] = Blocks.grass;
+         * interchangableBlockMapping[Blocks.grass] = Blocks.dirt;
+         */
     }
 
     static
@@ -682,24 +721,10 @@ public class TConstructRegistry
         initializeDrawbridgeState();
     }
 
-    /** Default Material Index
-     * 0:  Wood
-     * 1:  Stone
-     * 2:  Iron
-     * 3:  Flint
-     * 4:  Cactus
-     * 5:  Bone
-     * 6:  Obsidian
-     * 7:  Netherrack
-     * 8:  Green Slime
-     * 9:  Paper
-     * 10: Cobalt
-     * 11: Ardite
-     * 12: Manyullyn
-     * 13: Copper
-     * 14: Bronze
-     * 15: Alumite
-     * 16: Steel
-     * 17: Blue Slime
+    /**
+     * Default Material Index 0: Wood 1: Stone 2: Iron 3: Flint 4: Cactus 5:
+     * Bone 6: Obsidian 7: Netherrack 8: Green Slime 9: Paper 10: Cobalt 11:
+     * Ardite 12: Manyullyn 13: Copper 14: Bronze 15: Alumite 16: Steel 17: Blue
+     * Slime
      */
 }

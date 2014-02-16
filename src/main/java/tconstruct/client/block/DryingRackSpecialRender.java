@@ -69,7 +69,7 @@ public class DryingRackSpecialRender extends TileEntitySpecialRenderer
         GL11.glScalef(2F, 2F, 2F);
         if (stack.getItem() instanceof ItemBlock)
         {
-            //GL11.glRotatef(90F, -1, 0F, 0F);
+            // GL11.glRotatef(90F, -1, 0F, 0F);
             GL11.glTranslatef(0F, 0.2125F, 0.0375F);
         }
 

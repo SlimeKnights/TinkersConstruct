@@ -23,7 +23,7 @@ public class CastingTableSpecialRenderer extends TileEntitySpecialRenderer
     @Override
     public void renderTileEntityAt (TileEntity logic, double var2, double var4, double var6, float var8)
     {
-        //TConstruct.logger.info("Render!!!");
+        // TConstruct.logger.info("Render!!!");
         this.render((CastingTableLogic) logic, var2, var4, var6, var8);
     }
 

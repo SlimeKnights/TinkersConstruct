@@ -29,9 +29,13 @@ public class Manual extends CraftingItem
     {
         player.addStat(TAchievements.achievements.get("tconstruct.beginner"), 1);
         player.openGui(TConstruct.instance, mantle.client.MProxyClient.manualGuiID, world, 0, 0, 0);
-        /*Side side = FMLCommonHandler.instance().getEffectiveSide();
-        if (side.isClient())
-        	FMLClientHandler.instance().displayGuiScreen(player, new GuiManual(player.getCurrentEquippedItem(), getManualFromStack(stack)));*/
+        /*
+         * Side side = FMLCommonHandler.instance().getEffectiveSide(); if
+         * (side.isClient())
+         * FMLClientHandler.instance().displayGuiScreen(player, new
+         * GuiManual(player.getCurrentEquippedItem(),
+         * getManualFromStack(stack)));
+         */
         return stack;
     }
 

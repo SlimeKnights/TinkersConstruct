@@ -70,10 +70,10 @@ public class AdaptiveSmelteryGui extends NewContainerGui
             int topo = this.guiTop;
             int xScroll = lefto + 67;
             int yScroll = topo + 8;
-            int scrollwidth = xScroll + 14;
-            int scrollheight = yScroll + 144;
+            int scrollWidth = xScroll + 14;
+            int scrollHeight = yScroll + 144;
 
-            if (!this.wasClicking && mouseDown && mouseX >= xScroll && mouseY >= yScroll && mouseX < scrollwidth && mouseY < scrollheight)
+            if (!this.wasClicking && mouseDown && mouseX >= xScroll && mouseY >= yScroll && mouseX < scrollWidth && mouseY < scrollHeight)
             {
                 this.isScrolling = true;
             }
@@ -92,7 +92,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
 
             if (this.isScrolling)
             {
-                this.currentScroll = (mouseY - yScroll - 7.5F) / (scrollheight - yScroll - 15.0F);
+                this.currentScroll = (mouseY - yScroll - 7.5F) / (scrollHeight - yScroll - 15.0F);
 
                 if (this.currentScroll < 0.0F)
                 {
@@ -182,7 +182,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         int cornerY = (height - ySize) / 2;
         drawTexturedModalRect(cornerX + 46, cornerY, 0, 0, 176, ySize);
 
-        //Fuel - Lava
+        // Fuel - Lava
         this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
         if (scomp.fuelGague > 0)
         {
@@ -208,7 +208,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
                 capacity += info[i].capacity;
         }
 
-        //Liquids - molten metal
+        // Liquids - molten metal
         int base = 0;
         for (int i = 0; i < info.length - 1; i++)
         {
@@ -234,35 +234,32 @@ public class AdaptiveSmelteryGui extends NewContainerGui
             }
         }
 
-        //Liquid gague
+        // Liquid gague
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
         this.mc.getTextureManager().bindTexture(background);
         drawTexturedModalRect(cornerX + 54, cornerY + 16, 176, 76, 52, 52);
 
-        //Side inventory
+        // Side inventory
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(backgroundSide);
-        //if (logic.layers > 0)
+        // if (logic.layers > 0)
         {
-            /*if (logic.layers == 1)
-            {
-                drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 98, 43);
-                drawTexturedModalRect(cornerX - 46, cornerY + 43, 0, 133, 98, 25);
-            }
-            else if (logic.layers == 2)
-            {
-                drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 98, 61);
-                drawTexturedModalRect(cornerX - 46, cornerY + 61, 0, 97, 98, 61);
-            }
-            else*/
+            /*
+             * if (logic.layers == 1) { drawTexturedModalRect(cornerX - 46,
+             * cornerY, 0, 0, 98, 43); drawTexturedModalRect(cornerX - 46,
+             * cornerY + 43, 0, 133, 98, 25); } else if (logic.layers == 2) {
+             * drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 98, 61);
+             * drawTexturedModalRect(cornerX - 46, cornerY + 61, 0, 97, 98, 61);
+             * } else
+             */
             {
                 drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 98, ySize - 8);
             }
             drawTexturedModalRect(cornerX + 32, (int) (cornerY + 8 + 127 * currentScroll), 98, 0, 12, 15);
         }
 
-        //Temperature
+        // Temperature
         int slotSize = logic.getSizeInventory();
         if (slotSize > 24)
             slotSize = 24;
@@ -297,7 +294,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         ArrayList list = new ArrayList();
         if (liquid.fluidID == -37)
         {
-            list.add("\u00A7f" + (StatCollector.translateToLocal("gui.smeltery1")));
+            list.add("\u00A7f" + StatCollector.translateToLocal("gui.smeltery1"));
             list.add("mB: " + liquid.amount);
         }
         else
@@ -431,80 +428,54 @@ public class AdaptiveSmelteryGui extends NewContainerGui
     {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV(startU + 0, startV + endV, this.zLevel, par3Icon.getMinU(), par3Icon.getMaxV());//Bottom left
-        tessellator.addVertexWithUV(startU + endU, startV + endV, this.zLevel, par3Icon.getMaxU(), par3Icon.getMaxV());//Bottom right
-        tessellator.addVertexWithUV(startU + endU, startV + 0, this.zLevel, par3Icon.getMaxU(), par3Icon.getMinV());//Top right
-        tessellator.addVertexWithUV(startU + 0, startV + 0, this.zLevel, par3Icon.getMinU(), par3Icon.getMinV()); //Top left
+        tessellator.addVertexWithUV(startU + 0, startV + endV, this.zLevel, par3Icon.getMinU(), par3Icon.getMaxV());// Bottom left
+        tessellator.addVertexWithUV(startU + endU, startV + endV, this.zLevel, par3Icon.getMaxU(), par3Icon.getMaxV());// Bottom right
+        tessellator.addVertexWithUV(startU + endU, startV + 0, this.zLevel, par3Icon.getMaxU(), par3Icon.getMinV());// Top right
+        tessellator.addVertexWithUV(startU + 0, startV + 0, this.zLevel, par3Icon.getMinU(), par3Icon.getMinV()); // Top left
         tessellator.draw();
     }
 
-    /*@Override
-    public void mouseClicked(int mouseX, int mouseY, int mouseButton)
-    {
-            super.mouseClicked(mouseX, mouseY, mouseButton);
-            
-            int base = 0;
-        int cornerX = (width - xSize) / 2 + 36;
-        int cornerY = (height - ySize) / 2;
-        int fluidToBeBroughtUp = -1;
-        
-        for (FluidStack liquid : multitank.getAllFluids())
-        {
-            int basePos = 54;
-            int initialLiquidSize = 0;
-            int liquidSize = 0;//liquid.amount * 52 / liquidLayers;
-            if (multitank.getCapacity() > 0)
-            {
-                int total = multitank.getFluidAmount();
-                int liquidLayers = (total / 20000 + 1) * 20000;
-                if (liquidLayers > 0)
-                {
-                    liquidSize = liquid.amount * 52 / liquidLayers;
-                    if (liquidSize == 0)
-                        liquidSize = 1;
-                    base += liquidSize;
-                }
-            }
-
-            int leftX = cornerX + basePos;
-            int topY = (cornerY + 68) - base;
-            int sizeX = 52;
-            int sizeY = liquidSize;
-            if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
-            {
-                fluidToBeBroughtUp = liquid.fluidID;
-                        
-                Packet250CustomPayload packet = new Packet250CustomPayload();
-                        
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                DataOutputStream dos = new DataOutputStream(bos);
-                        
-                try
-                {
-                            dos.write(11);
-                            
-                            dos.writeInt(logic.getWorld().provider.dimensionId);
-                            dos.writeInt(logic.xCoord);
-                            dos.writeInt(logic.yCoord);
-                            dos.writeInt(logic.zCoord);
-                            
-                            dos.writeBoolean(this.isShiftKeyDown());
-                            
-                            dos.writeInt(fluidToBeBroughtUp);
-                    }
-                    catch (Exception e)
-                    {
-                            e.printStackTrace();
-                    }
-                    
-                    packet.channel = "TConstruct";
-                    packet.data = bos.toByteArray();
-                    packet.length = bos.size();
-                    
-                    PacketDispatcher.sendPacketToServer(packet);
-            }
-        }
-    }*/
+    /*
+     * @Override public void mouseClicked(int mouseX, int mouseY, int
+     * mouseButton) { super.mouseClicked(mouseX, mouseY, mouseButton);
+     * 
+     * int base = 0; int cornerX = (width - xSize) / 2 + 36; int cornerY =
+     * (height - ySize) / 2; int fluidToBeBroughtUp = -1;
+     * 
+     * for (FluidStack liquid : multitank.getAllFluids()) { int basePos = 54;
+     * int initialLiquidSize = 0; int liquidSize = 0;//liquid.amount * 52 /
+     * liquidLayers; if (multitank.getCapacity() > 0) { int total =
+     * multitank.getFluidAmount(); int liquidLayers = (total / 20000 + 1) *
+     * 20000; if (liquidLayers > 0) { liquidSize = liquid.amount * 52 /
+     * liquidLayers; if (liquidSize == 0) liquidSize = 1; base += liquidSize; }
+     * }
+     * 
+     * int leftX = cornerX + basePos; int topY = (cornerY + 68) - base; int
+     * sizeX = 52; int sizeY = liquidSize; if (mouseX >= leftX && mouseX <=
+     * leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY) {
+     * fluidToBeBroughtUp = liquid.fluidID;
+     * 
+     * Packet250CustomPayload packet = new Packet250CustomPayload();
+     * 
+     * ByteArrayOutputStream bos = new ByteArrayOutputStream(); DataOutputStream
+     * dos = new DataOutputStream(bos);
+     * 
+     * try { dos.write(11);
+     * 
+     * dos.writeInt(logic.worldObj.provider.dimensionId);
+     * dos.writeInt(logic.xCoord); dos.writeInt(logic.yCoord);
+     * dos.writeInt(logic.zCoord);
+     * 
+     * dos.writeBoolean(this.isShiftKeyDown());
+     * 
+     * dos.writeInt(fluidToBeBroughtUp); } catch (Exception e) {
+     * e.printStackTrace(); }
+     * 
+     * packet.channel = "TConstruct"; packet.data = bos.toByteArray();
+     * packet.length = bos.size();
+     * 
+     * PacketDispatcher.sendPacketToServer(packet); } } }
+     */
 
     @Override
     public void onGuiClosed ()

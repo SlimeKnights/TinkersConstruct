@@ -95,7 +95,7 @@ public class ModRedstone extends ToolModTypeFilter
 
         if (tags.hasKey("DrawSpeed"))
         {
-            //int drawSpeed = tags.getInteger("DrawSpeed");
+            // int drawSpeed = tags.getInteger("DrawSpeed");
             int baseDrawSpeed = tags.getInteger("BaseDrawSpeed");
             int drawSpeed = (int) (baseDrawSpeed - (0.1f * baseDrawSpeed * (keyPair[0] / 50f)));
             tags.setInteger("DrawSpeed", drawSpeed);

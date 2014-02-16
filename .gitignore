@@ -28,3 +28,4 @@ version.properties
 /.classpath
 /.project
 /.settings/
+/debug/

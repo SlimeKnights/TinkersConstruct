@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 /**
  * 
  * @author fuj1n
- *
+ * 
  */
 public class BehaviorBlockThrow extends Behavior
 {
@@ -28,19 +28,19 @@ public class BehaviorBlockThrow extends Behavior
             {
             case 0:
                 vec0 = speed + par1World.rand.nextDouble() * randomnessFactor;
-                //vec2 = par1World.rand.nextDouble() * randomnessFactor;
+                // vec2 = par1World.rand.nextDouble() * randomnessFactor;
                 break;
             case 1:
                 vec0 = -speed + par1World.rand.nextDouble() * randomnessFactor;
-                //vec2 = par1World.rand.nextDouble() * randomnessFactor;
+                // vec2 = par1World.rand.nextDouble() * randomnessFactor;
                 break;
             case 2:
                 vec2 = speed + par1World.rand.nextDouble() * randomnessFactor;
-                //vec0 = par1World.rand.nextDouble() * randomnessFactor;
+                // vec0 = par1World.rand.nextDouble() * randomnessFactor;
                 break;
             case 3:
                 vec2 = -speed + par1World.rand.nextDouble() * randomnessFactor;
-                //vec0 = par1World.rand.nextDouble() * randomnessFactor;
+                // vec0 = par1World.rand.nextDouble() * randomnessFactor;
                 break;
             case 4:
                 vec0 = speed + par1World.rand.nextDouble() * randomnessFactor;

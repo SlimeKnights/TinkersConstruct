@@ -82,7 +82,8 @@ public class PotionLauncher extends Item
     }
 
     /**
-     * returns the action that specifies what animation to play when the items is being used
+     * returns the action that specifies what animation to play when the items
+     * is being used
      */
     public EnumAction getItemUseAction (ItemStack stack)
     {
@@ -131,7 +132,7 @@ public class PotionLauncher extends Item
         if (tags.getBoolean("Loaded"))
         {
             NBTTagCompound potionTag = tags.getCompoundTag("LoadedPotion");
-            ItemStack potion = ItemStack.loadItemStackFromNBT(potionTag);//findPotion(player);InventoryLogic
+            ItemStack potion = ItemStack.loadItemStackFromNBT(potionTag);// findPotion(player);InventoryLogic
             if (potion != null)
             {
                 World world = player.worldObj;

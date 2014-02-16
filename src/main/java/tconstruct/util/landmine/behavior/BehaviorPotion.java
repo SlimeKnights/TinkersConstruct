@@ -17,7 +17,7 @@ import tconstruct.items.blocks.ItemBlockLandmine;
 /**
  * 
  * @author fuj1n
- *
+ * 
  */
 public class BehaviorPotion extends Behavior
 {

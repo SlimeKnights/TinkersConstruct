@@ -70,7 +70,10 @@ public class PacketSmeltery extends AbstractPacket
             FluidStack temp = null;
 
             for (FluidStack liquid : ((SmelteryLogic) te).moltenMetal)
-            {//TODO update fluid stuffs
+            {// TODO
+             // update
+             // fluid
+             // stuffs
                 if (liquid.fluidID == fluidID)
                 {
                     temp = liquid;
@@ -85,8 +88,10 @@ public class PacketSmeltery extends AbstractPacket
                 else
                     ((SmelteryLogic) te).moltenMetal.add(0, temp);
             }
-            //TODO check if this works like it should
-            //Old code: PacketDispatcher.sendPacketToAllInDimension(te.getDescriptionPacket(), dimension);
+            // TODO check if this works like it should
+            // Old code:
+            // PacketDispatcher.sendPacketToAllInDimension(te.getDescriptionPacket(),
+            // dimension);
             FMLCommonHandler.instance().getClientToServerNetworkManager().scheduleOutboundPacket(te.getDescriptionPacket());
         }
     }

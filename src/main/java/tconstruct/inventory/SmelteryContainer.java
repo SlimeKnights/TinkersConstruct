@@ -49,7 +49,7 @@ public class SmelteryContainer extends ActiveContainer
         if (invRow != slotRow)
         {
             slotRow = invRow;
-            //TConstruct.logger.info(invRow);
+            // TConstruct.logger.info(invRow);
             int basePos = invRow * 3;
             for (int iter = 0; iter < activeInventorySlots.size(); iter++)
             {
@@ -80,29 +80,20 @@ public class SmelteryContainer extends ActiveContainer
     }
 
     @Override
-    public void detectAndSendChanges () //TODO: Sync with this
+    public void detectAndSendChanges () // TODO: Sync with this
     {
         super.detectAndSendChanges();
-        /*for (int i = 0; i < crafters.size(); i++)
-        {
-            ICrafting icrafting = (ICrafting)crafters.get(i);
-            if (progress != logic.progress)
-            {
-                icrafting.sendProgressBarUpdate(this, 0, logic.progress);
-            }
-            if (fuel != logic.fuel)
-            {
-                icrafting.sendProgressBarUpdate(this, 1, logic.fuel);
-            }
-            if (fuelGague != logic.fuelGague)
-            {
-                icrafting.sendProgressBarUpdate(this, 2, logic.fuelGague);
-            }
-        }
-
-        progress = logic.progress;
-        fuel = logic.fuel;
-        fuelGague = logic.fuelGague;*/
+        /*
+         * for (int i = 0; i < crafters.size(); i++) { ICrafting icrafting =
+         * (ICrafting)crafters.get(i); if (progress != logic.progress) {
+         * icrafting.sendProgressBarUpdate(this, 0, logic.progress); } if (fuel
+         * != logic.fuel) { icrafting.sendProgressBarUpdate(this, 1,
+         * logic.fuel); } if (fuelGague != logic.fuelGague) {
+         * icrafting.sendProgressBarUpdate(this, 2, logic.fuelGague); } }
+         * 
+         * progress = logic.progress; fuel = logic.fuel; fuelGague =
+         * logic.fuelGague;
+         */
     }
 
     public void updateProgressBar (int id, int value)
@@ -111,14 +102,12 @@ public class SmelteryContainer extends ActiveContainer
         {
             logic.fuelGague = value;
         }
-        /* if (id == 1)
-         {
-             logic.fuel = value;
-         }*/
-        /*if (id == 2)
-        {
-            logic.fuelGague = value;
-        }*/
+        /*
+         * if (id == 1) { logic.fuel = value; }
+         */
+        /*
+         * if (id == 2) { logic.fuelGague = value; }
+         */
     }
 
     @Override
@@ -166,7 +155,7 @@ public class SmelteryContainer extends ActiveContainer
     @Override
     protected boolean mergeItemStack (ItemStack inputStack, int startSlot, int endSlot, boolean flag)
     {
-        //TConstruct.logger.info("Merge");
+        // TConstruct.logger.info("Merge");
         boolean merged = false;
         int slotPos = startSlot;
 
@@ -178,44 +167,27 @@ public class SmelteryContainer extends ActiveContainer
         Slot slot;
         ItemStack slotStack;
 
-        /*if (inputStack.isStackable() && startSlot >= logic.getSizeInventory())
-        {
-            TConstruct.logger.info("Rawr!");
-            while (inputStack.stackSize > 0 && (!flag && slotPos < endSlot || flag && slotPos >= startSlot))
-            {
-                slot = (Slot) this.inventorySlots.get(slotPos);
-                slotStack = slot.getStack();
-
-                if (slotStack != null && ItemStack.areItemStacksEqual(inputStack, slotStack) && !inputStack.getHasSubtypes())
-                {
-                    int totalSize = slotStack.stackSize + inputStack.stackSize;
-
-                    if (totalSize <= inputStack.getMaxStackSize())
-                    {
-                        inputStack.stackSize = 0;
-                        slotStack.stackSize = totalSize;
-                        slot.onSlotChanged();
-                        merged = true;
-                    }
-                    else if (slotStack.stackSize < inputStack.getMaxStackSize())
-                    {
-                        inputStack.stackSize -= inputStack.getMaxStackSize() - slotStack.stackSize;
-                        slotStack.stackSize = inputStack.getMaxStackSize();
-                        slot.onSlotChanged();
-                        merged = true;
-                    }
-                }
-
-                if (flag)
-                {
-                    --slotPos;
-                }
-                else
-                {
-                    ++slotPos;
-                }
-            }
-        }*/
+        /*
+         * if (inputStack.isStackable() && startSlot >=
+         * logic.getSizeInventory()) { TConstruct.logger.info("Rawr!"); while
+         * (inputStack.stackSize > 0 && (!flag && slotPos < endSlot || flag &&
+         * slotPos >= startSlot)) { slot = (Slot)
+         * this.inventorySlots.get(slotPos); slotStack = slot.getStack();
+         * 
+         * if (slotStack != null && ItemStack.areItemStacksEqual(inputStack,
+         * slotStack) && !inputStack.getHasSubtypes()) { int totalSize =
+         * slotStack.stackSize + inputStack.stackSize;
+         * 
+         * if (totalSize <= inputStack.getMaxStackSize()) { inputStack.stackSize
+         * = 0; slotStack.stackSize = totalSize; slot.onSlotChanged(); merged =
+         * true; } else if (slotStack.stackSize < inputStack.getMaxStackSize())
+         * { inputStack.stackSize -= inputStack.getMaxStackSize() -
+         * slotStack.stackSize; slotStack.stackSize =
+         * inputStack.getMaxStackSize(); slot.onSlotChanged(); merged = true; }
+         * }
+         * 
+         * if (flag) { --slotPos; } else { ++slotPos; } } }
+         */
 
         if (inputStack.isStackable() && startSlot >= logic.getSizeInventory())
         {
@@ -224,7 +196,8 @@ public class SmelteryContainer extends ActiveContainer
                 slot = (Slot) this.inventorySlots.get(slotPos);
                 slotStack = slot.getStack();
 
-                if (slotStack != null && (!inputStack.getHasSubtypes() || inputStack.getItemDamage() == slotStack.getItemDamage()) && ItemStack.areItemStackTagsEqual(inputStack, slotStack))
+                if (slotStack != null && slotStack.getItem() == inputStack.getItem() && (!inputStack.getHasSubtypes() || inputStack.getItemDamage() == slotStack.getItemDamage())
+                        && ItemStack.areItemStackTagsEqual(inputStack, slotStack))
                 {
                     int l = slotStack.stackSize + inputStack.stackSize;
 

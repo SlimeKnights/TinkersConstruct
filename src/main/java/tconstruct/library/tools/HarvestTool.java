@@ -30,7 +30,7 @@ public abstract class HarvestTool extends ToolCore
         World world = player.worldObj;
         Block block = player.worldObj.getBlock(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
-        //Block block = Block.blocksList[bID];
+        // Block block = Block.blocksList[bID];
         if (block == null || block == Blocks.air)
             return false;
         int hlvl = -1;
@@ -130,7 +130,9 @@ public abstract class HarvestTool extends ToolCore
         }
         if (block.getHarvestLevel(meta) > 0)
         {
-            return calculateStrength(tags, block, meta); //No issue if the harvest level is too low
+            return calculateStrength(tags, block, meta); // No issue if the
+                                                         // harvest level is
+                                                         // too low
         }
         return super.getDigSpeed(stack, block, meta);
     }

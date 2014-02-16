@@ -50,8 +50,9 @@ public class Punji extends MantleBlock
     @Override
     public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int par6, float hitX, float hitY, float hitZ)
     {
-        /*if (world.isRemote)
-            return false;*/
+        /*
+         * if (world.isRemote) return false;
+         */
 
         int meta = world.getBlockMetadata(x, y, z);
         if (meta < 4)
@@ -81,8 +82,9 @@ public class Punji extends MantleBlock
     }
 
     /**
-     * Is this block (a) opaque and (b) a full 1m cube?  This determines whether or not to render the shared face of two
-     * adjacent blocks and also whether the player can attach torches, redstone wire, etc to this block.
+     * Is this block (a) opaque and (b) a full 1m cube? This determines whether
+     * or not to render the shared face of two adjacent blocks and also whether
+     * the player can attach torches, redstone wire, etc to this block.
      */
     public boolean isOpaqueCube ()
     {
@@ -90,7 +92,8 @@ public class Punji extends MantleBlock
     }
 
     /**
-     * If this block doesn't render as an ordinary block it will return False (examples: signs, buttons, stairs, etc)
+     * If this block doesn't render as an ordinary block it will return False
+     * (examples: signs, buttons, stairs, etc)
      */
     public boolean renderAsNormalBlock ()
     {

@@ -686,11 +686,11 @@ public class GlassPaneConnected extends GlassBlockConnected
     @Override
     public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
-        //		if(par5 == 0 || par5 == 1){
-        //			return par1IBlockAccess.getBlock(par2, par3, par4) != this.blockID;
-        //		}else{
-        //			return true;
-        //		}
+        // if(par5 == 0 || par5 == 1){
+        // return par1IBlockAccess.getBlock(par2, par3, par4) != this.blockID;
+        // }else{
+        // return true;
+        // }
         return true;
     }
 }

@@ -38,7 +38,7 @@ public class TankRender implements ISimpleBlockRenderingHandler
     {
         if (modelID == tankModelID)
         {
-            //Liquid
+            // Liquid
             LavaTankLogic logic = (LavaTankLogic) world.getTileEntity(x, y, z);
             if (logic.containsFluid())
             {
@@ -53,7 +53,7 @@ public class TankRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(00, 0.001, 0.001, 0.999, logic.getFluidAmountScaled(), 0.999);
             }
 
-            //Block
+            // Block
             int meta = world.getBlockMetadata(x, y, z);
             if (meta == 0 && world.getBlock(x, y + 1, z) == Blocks.air)
             {

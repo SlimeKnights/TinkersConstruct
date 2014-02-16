@@ -1,8 +1,5 @@
 package tconstruct.client.gui;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -15,7 +12,6 @@ import org.lwjgl.opengl.GL11;
 
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.StencilTableLogic;
-import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
 import tconstruct.inventory.PatternShaperContainer;
 import tconstruct.util.network.packet.PacketStencilTable;
@@ -66,20 +62,27 @@ public class StencilTableGui extends GuiContainer
         int cornerY = (this.height - this.ySize) / 2;
 
         this.buttonList.clear();
-        /*ToolGuiElement repair = TConstruct.toolButtons.get(0);
-        GuiButtonTool repairButton = new GuiButtonTool(0, cornerX - 110, cornerY, repair.buttonIconX, repair.buttonIconY, repair.texture); // Repair
-        repairButton.enabled = false;
-        this.buttonList.add(repairButton);*/
+        /*
+         * ToolGuiElement repair = TConstruct.toolButtons.get(0); GuiButtonTool
+         * repairButton = new GuiButtonTool(0, cornerX - 110, cornerY,
+         * repair.buttonIconX, repair.buttonIconY, repair.texture); // Repair
+         * repairButton.enabled = false; this.buttonList.add(repairButton);
+         */
         this.buttonList.add(new GuiButton(0, cornerX - 120, cornerY, 120, 20, (StatCollector.translateToLocal("gui.stenciltable1"))));
         this.buttonList.add(new GuiButton(1, cornerX - 120, cornerY + 20, 120, 20, (StatCollector.translateToLocal("gui.stenciltable2"))));
 
-        //for (int iter = 0; iter < TConstructContent.patternOutputs.length; iter++)
-        //{
+        // for (int iter = 0; iter < TConstructContent.patternOutputs.length;
+        // iter++)
+        // {
 
-        /*ToolGuiElement element = TConstruct.toolButtons.get(iter);
-        GuiButtonTool button = new GuiButtonTool(iter, cornerX - 110 + 22 * (iter % 5), cornerY + 22 * (iter / 5), element.buttonIconX, element.buttonIconY, element.texture); // Repair
-        this.buttonList.add(button);*/
-        //}
+        /*
+         * ToolGuiElement element = TConstruct.toolButtons.get(iter);
+         * GuiButtonTool button = new GuiButtonTool(iter, cornerX - 110 + 22 *
+         * (iter % 5), cornerY + 22 * (iter / 5), element.buttonIconX,
+         * element.buttonIconY, element.texture); // Repair
+         * this.buttonList.add(button);
+         */
+        // }
     }
 
     protected void actionPerformed (GuiButton button)
@@ -110,12 +113,11 @@ public class StencilTableGui extends GuiContainer
                 logic.setInventorySlotContents(1, stack);
                 updateServer(stack);
             }
-            /*else if (meta == 1 || meta == 2)
-            {
-                ItemStack stack = new ItemStack(TContent.metalPattern, 1, 0);
-                logic.setInventorySlotContents(1, stack);
-                updateServer(stack);
-            }*/
+            /*
+             * else if (meta == 1 || meta == 2) { ItemStack stack = new
+             * ItemStack(TContent.metalPattern, 1, 0);
+             * logic.setInventorySlotContents(1, stack); updateServer(stack); }
+             */
         }
     }
 

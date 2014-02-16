@@ -11,7 +11,8 @@ import net.minecraft.world.World;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.util.config.PHConstruct;
 
-/** @author fuj1n
+/**
+ * @author fuj1n
  * 
  */
 
@@ -32,7 +33,7 @@ public class GlassBlockConnected extends MantleBlock
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
-    //For FMP support
+    // For FMP support
     public IIcon[] getIcons ()
     {
         return icons;
@@ -58,11 +59,18 @@ public class GlassBlockConnected extends MantleBlock
 
     /**
      * This is checked to see if the texture should connect to this block
-     * @param par2 x
-     * @param par3 y
-     * @param par4 z
-     * @param par5 ID this block is asking to connect to (may be 0 if there is no block)
-     * @param par6 Metadata of the block this block is trying to connect to
+     * 
+     * @param par2
+     *            x
+     * @param par3
+     *            y
+     * @param par4
+     *            z
+     * @param par5
+     *            ID this block is asking to connect to (may be 0 if there is no
+     *            block)
+     * @param par6
+     *            Metadata of the block this block is trying to connect to
      * @return true if should connect
      */
     public boolean shouldConnectToBlock (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, Block par5, int par6)

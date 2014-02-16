@@ -50,7 +50,7 @@ public class CraftingStationContainer extends Container
             }
         }
 
-        //Player Inventory
+        // Player Inventory
         for (row = 0; row < 3; ++row)
         {
             for (column = 0; column < 9; ++column)
@@ -64,7 +64,7 @@ public class CraftingStationContainer extends Container
             this.addSlotToContainer(new Slot(inventorplayer, column, 8 + column * 18, 142));
         }
 
-        //Side inventory
+        // Side inventory
         if (logic.chest != null)
         {
             IInventory chest = logic.chest.get();

@@ -22,7 +22,7 @@ public class MultiBrickFancy extends TConstructBlock
         super(Material.rock, 3f, blockTextures);
     }
 
-    //TODO getBlockHardness
+    // TODO getBlockHardness
     @Override
     public float getBlockHardness (World world, int x, int y, int z)
     {
@@ -104,7 +104,7 @@ public class MultiBrickFancy extends TConstructBlock
         }
     }
 
-    //TODO onEntityCollidedWithBlock
+    // TODO onEntityCollidedWithBlock
     @Override
     public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
     {
@@ -126,11 +126,9 @@ public class MultiBrickFancy extends TConstructBlock
         return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
 
-    /*@Override
-    public int getRenderType ()
-    {
-        return BrickRender.model;
-    }*/
+    /*
+     * @Override public int getRenderType () { return BrickRender.model; }
+     */
 
     @Override
     public boolean isNormalCube (IBlockAccess world, int x, int y, int z)
@@ -138,14 +136,14 @@ public class MultiBrickFancy extends TConstructBlock
         return world.getBlockMetadata(x, y, z) != 8;
     }
 
-    //TODO canProvidePower
+    // TODO canProvidePower
     @Override
     public boolean canProvidePower ()
     {
         return false;
     }
 
-    //TODO isProvindingWeakPower
+    // TODO isProvindingWeakPower
     @Override
     public int isProvidingWeakPower (IBlockAccess world, int x, int y, int z, int side)
     {

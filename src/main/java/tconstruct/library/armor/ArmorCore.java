@@ -15,8 +15,7 @@ import net.minecraftforge.common.ISpecialArmor;
 import cofh.api.energy.IEnergyContainerItem;
 
 /**
- * NBTTags
- * Main tag - InfiArmor
+ * NBTTags Main tag - InfiArmor
  */
 public abstract class ArmorCore extends ItemArmor implements IEnergyContainerItem, ISpecialArmor
 {
@@ -26,7 +25,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
     private static final IBehaviorDispenseItem dispenserBehavior = new BehaviorDispenseArmorCopy();
     public final int baseProtection;
 
-    //TE power constants -- TODO grab these from the items added
+    // TE power constants -- TODO grab these from the items added
     protected int capacity = 400000;
     protected int maxReceive = 75;
     protected int maxExtract = 75;
@@ -54,14 +53,24 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
 
         if (itemstack1 == null)
         {
-            par3EntityPlayer.setCurrentItemOrArmor(i + 1, par1ItemStack.copy()); //Forge: Vanilla bug fix associated with fixed setCurrentItemOrArmor indexs for players.
+            par3EntityPlayer.setCurrentItemOrArmor(i + 1, par1ItemStack.copy()); // Forge:
+                                                                                 // Vanilla
+                                                                                 // bug
+                                                                                 // fix
+                                                                                 // associated
+                                                                                 // with
+                                                                                 // fixed
+                                                                                 // setCurrentItemOrArmor
+                                                                                 // indexs
+                                                                                 // for
+                                                                                 // players.
             par1ItemStack.stackSize = 0;
         }
 
         return par1ItemStack;
     }
 
-    //ISpecialArmor overrides
+    // ISpecialArmor overrides
     @Override
     public ArmorProperties getProperties (EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot)
     {
@@ -146,7 +155,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
         }
     }
 
-    //TE support section -- from COFH core API reference section
+    // TE support section -- from COFH core API reference section
     public void setMaxTransfer (int maxTransfer)
     {
         setMaxReceive(maxTransfer);
@@ -222,7 +231,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
         return capacity;
     }
 
-    //end of TE support section
+    // end of TE support section
 
     // Vanilla overrides
     public boolean isItemTool (ItemStack par1ItemStack)

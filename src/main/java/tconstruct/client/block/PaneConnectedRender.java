@@ -47,11 +47,11 @@ public class PaneConnectedRender implements ISimpleBlockRenderingHandler
         }
         else
         {
-            //			renderer.setRenderBounds(0.45D, 0D, 0.45D, 0.55D, 1D, 0.55D);
-            //			renderer.renderStandardBlock(block, x, y, z);
+            // renderer.setRenderBounds(0.45D, 0D, 0.45D, 0.55D, 1D, 0.55D);
+            // renderer.renderStandardBlock(block, x, y, z);
         }
 
-        //		renderer.setOverrideBlockTexture(sideTexture);
+        // renderer.setOverrideBlockTexture(sideTexture);
 
         if (flag)
         {

@@ -14,7 +14,7 @@ import tconstruct.util.landmine.behavior.Behavior;
 /**
  * 
  * @author fuj1n
- *
+ * 
  */
 public abstract class SpecialStackHandler
 {

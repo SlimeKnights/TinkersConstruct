@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 /**
  * 
  * @author fuj1n
- *
+ * 
  */
 public class BehaviorDummy extends Behavior
 {

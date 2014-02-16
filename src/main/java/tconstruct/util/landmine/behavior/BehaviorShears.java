@@ -21,7 +21,7 @@ import tconstruct.items.blocks.ItemBlockLandmine;
 /**
  * 
  * @author fuj1n
- *
+ * 
  */
 public class BehaviorShears extends Behavior
 {
@@ -87,7 +87,7 @@ public class BehaviorShears extends Behavior
         }
     }
 
-    //Shear some sheep around a small area
+    // Shear some sheep around a small area
 
     @Override
     public boolean shouldItemBeRemoved (ItemStack par1ItemStack, boolean willBlockBeRemoved)

@@ -46,7 +46,8 @@ public abstract class Weapon extends ToolCore
     }
 
     /**
-     * returns the action that specifies what animation to play when the items is being used
+     * returns the action that specifies what animation to play when the items
+     * is being used
      */
     public EnumAction getItemUseAction (ItemStack par1ItemStack)
     {
@@ -62,7 +63,8 @@ public abstract class Weapon extends ToolCore
     }
 
     /**
-     * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
+     * Called whenever this item is equipped and the right mouse button is
+     * pressed. Args: itemStack, world, entityPlayer
      */
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
@@ -110,12 +112,11 @@ public abstract class Weapon extends ToolCore
         }
     }
 
-    /*@Override
-    public boolean onLeftClickEntity (ItemStack stack, EntityPlayer player, Entity entity)
-    {
-        TContent.modL.midStreamModify(stack);
-        return super.onLeftClickEntity(stack, player, entity);
-    }*/
+    /*
+     * @Override public boolean onLeftClickEntity (ItemStack stack, EntityPlayer
+     * player, Entity entity) { TContent.modL.midStreamModify(stack); return
+     * super.onLeftClickEntity(stack, player, entity); }
+     */
 
     @Override
     public String[] toolCategories ()

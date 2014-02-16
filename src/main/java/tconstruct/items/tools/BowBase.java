@@ -89,7 +89,7 @@ public abstract class BowBase extends ToolCore
             }
 
             EntityArrow arrowEntity = null;
-            //if (tinkerArrow != null)
+            // if (tinkerArrow != null)
             if (slotID != -1 && (arrowID == -1 || slotID < arrowID))
             {
                 ItemStack arrowStack = tinkerArrow.copy();
@@ -117,7 +117,7 @@ public abstract class BowBase extends ToolCore
 
             if (slotID != -1 && (arrowID == -1 || slotID < arrowID))
                 ((ArrowEntity) arrowEntity).setKnockbackModStrength(toolTag.getFloat("Knockback"));
-            //var10 += toolTag.getFloat("Knockback");
+            // var10 += toolTag.getFloat("Knockback");
 
             if (var10 > 0)
             {
@@ -146,7 +146,7 @@ public abstract class BowBase extends ToolCore
             }
             else
             {
-                //if (tinkerArrow != null)
+                // if (tinkerArrow != null)
                 if (slotID != -1 && (arrowID == -1 || slotID < arrowID))
                 {
                     player.inventory.consumeInventoryItem(TRepo.arrow);
@@ -191,7 +191,8 @@ public abstract class BowBase extends ToolCore
     }
 
     /**
-     * returns the action that specifies what animation to play when the items is being used
+     * returns the action that specifies what animation to play when the items
+     * is being used
      */
     public EnumAction getItemUseAction (ItemStack par1ItemStack)
     {
@@ -199,7 +200,8 @@ public abstract class BowBase extends ToolCore
     }
 
     /**
-     * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
+     * Called whenever this item is equipped and the right mouse button is
+     * pressed. Args: itemStack, world, entityPlayer
      */
     public ItemStack onItemRightClick (ItemStack stack, World par2World, EntityPlayer player)
     {
@@ -471,8 +473,8 @@ public abstract class BowBase extends ToolCore
     public void registerPartPaths (int index, String[] location)
     {
         headStrings.put(index, location[0]);
-        //brokenHeadStrings.put(index, location[1]);
-        //handleStrings.put(index, location[2]);
+        // brokenHeadStrings.put(index, location[1]);
+        // handleStrings.put(index, location[2]);
         if (location.length > 3)
             accessoryStrings.put(index, location[3]);
         if (location.length > 4)

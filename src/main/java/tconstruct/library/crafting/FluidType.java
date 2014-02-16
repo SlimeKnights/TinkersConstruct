@@ -12,11 +12,11 @@ public enum FluidType
     Water(Blocks.snow, 0, 20, FluidRegistry.getFluid("water"), false),
     /** Iron Smelting **/
     Iron(Blocks.iron_block, 0, 600, TRepo.moltenIronFluid, true),
-    /** Gold  Smelting **/
+    /** Gold Smelting **/
     Gold(Blocks.gold_block, 0, 400, TRepo.moltenGoldFluid, false),
-    /** Tin  Smelting **/
+    /** Tin Smelting **/
     Tin(TRepo.metalBlock, 5, 400, TRepo.moltenTinFluid, false),
-    /** Copper  Smelting **/
+    /** Copper Smelting **/
     Copper(TRepo.metalBlock, 3, 550, TRepo.moltenCopperFluid, true),
     /** Aluminum Smelting **/
     Aluminum(TRepo.metalBlock, 6, 350, TRepo.moltenAluminumFluid, false),

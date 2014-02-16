@@ -54,7 +54,7 @@ public class CustomBowRenderer implements IItemRenderer
             block = BlockUtils.getBlockFromItem(stack.getItem());
         }
 
-        IIcon icon = null; //living.getItemIcon(stack, renderPass);
+        IIcon icon = null; // living.getItemIcon(stack, renderPass);
         if (living instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer) living;

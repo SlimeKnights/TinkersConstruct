@@ -46,7 +46,7 @@ public class Pattern extends CraftingItem implements IPattern
     {
         for (int i = 1; i < patternName.length; i++)
         {
-            //if (i != 23)
+            // if (i != 23)
             list.add(new ItemStack(b, 1, i));
         }
     }
@@ -80,7 +80,7 @@ public class Pattern extends CraftingItem implements IPattern
         }
     }
 
-    //2 for full material, 1 for half.
+    // 2 for full material, 1 for half.
     @Override
     public int getPatternCost (ItemStack pattern)
     {

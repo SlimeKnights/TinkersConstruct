@@ -25,7 +25,8 @@ public class FurnaceGui extends GuiContainer
     }
 
     /**
-     * Draw the foreground layer for the GuiContainer (everything in front of the items)
+     * Draw the foreground layer for the GuiContainer (everything in front of
+     * the items)
      */
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
@@ -35,7 +36,8 @@ public class FurnaceGui extends GuiContainer
     }
 
     /**
-     * Draw the background layer for the GuiContainer (everything behind the items)
+     * Draw the background layer for the GuiContainer (everything behind the
+     * items)
      */
     protected void drawGuiContainerBackgroundLayer (float par1, int par2, int par3)
     {

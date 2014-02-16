@@ -1,26 +1,44 @@
 package tconstruct.blocks;
 
-import static net.minecraftforge.common.util.ForgeDirection.*;
+import static net.minecraftforge.common.util.ForgeDirection.DOWN;
+import static net.minecraftforge.common.util.ForgeDirection.EAST;
+import static net.minecraftforge.common.util.ForgeDirection.NORTH;
+import static net.minecraftforge.common.util.ForgeDirection.SOUTH;
+import static net.minecraftforge.common.util.ForgeDirection.UP;
+import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+
 import mantle.blocks.BlockUtils;
 import mantle.world.WorldHelper;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockPressurePlate.Sensitivity;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.*;
-import net.minecraft.entity.item.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.Explosion;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.TConstruct;
-import tconstruct.blocks.logic.*;
+import tconstruct.blocks.logic.LandmineExplodeLogic;
+import tconstruct.blocks.logic.TileEntityLandmine;
 import tconstruct.client.block.RenderLandmine;
 import tconstruct.common.TProxyCommon;
 import tconstruct.util.landmine.Helper;
@@ -33,7 +51,8 @@ import tconstruct.util.landmine.Helper;
 public class BlockLandmine extends BlockContainer
 {
 
-    // Should explode when broken instead of dropping items(may not actually work
+    // Should explode when broken instead of dropping items(may not actually
+    // work
     boolean explodeOnBroken = false;
 
     public BlockLandmine()
@@ -445,7 +464,7 @@ public class BlockLandmine extends BlockContainer
         TileEntityLandmine te = (TileEntityLandmine) par1World.getTileEntity(par2, par3, par4);
 
         Sensitivity triggerType;
-        
+
         // Change to return 1 if you want the landmine to blow up when the block
         // holding it is broken
         if (te == null)
@@ -509,7 +528,9 @@ public class BlockLandmine extends BlockContainer
     protected AxisAlignedBB getSensitiveAABB (World par1World, int par2, int par3, int par4)
     {
         float f = 0.125F;
-        //        return AxisAlignedBB.getAABBPool().getAABB((double)((float)par1 + f), (double)par2, (double)((float)par3 + f), (double)((float)(par1 + 1) - f), (double)par2 + 0.25D, (double)((float)(par3 + 1) - f));
+        // return AxisAlignedBB.getAABBPool().getAABB((double)((float)par1 + f),
+        // (double)par2, (double)((float)par3 + f), (double)((float)(par1 + 1) -
+        // f), (double)par2 + 0.25D, (double)((float)(par3 + 1) - f));
 
         int l = par1World.getBlockMetadata(par2, par3, par4);
         int i1 = l & 7;
@@ -543,7 +564,7 @@ public class BlockLandmine extends BlockContainer
         TileEntityLandmine te = (TileEntityLandmine) par1World.getTileEntity(par2, par3, par4);
 
         Sensitivity triggerType;
-        
+
         // Change to return 1 if you want the landmine to blow up when the
         // block holding it is broken
         if (te == null)
@@ -639,16 +660,17 @@ public class BlockLandmine extends BlockContainer
             this.setBlockBounds(0.0F, 0.0625F, 0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F);
             break;
         default:
-        	this.setBlockBounds(0, 0, 0, 1, 1, 1);
-        	break;
+            this.setBlockBounds(0, 0, 0, 1, 1, 1);
+            break;
         }
     }
 
     @Override
-    public int damageDropped (int par1){
-    	return par1;
+    public int damageDropped (int par1)
+    {
+        return par1;
     }
-    
+
     @Override
     public Item getItemDropped (int par1, Random par2Random, int par3)
     {

@@ -43,19 +43,19 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
     }
 
     @Override
-    public String getInvName () //Not a gui block
+    public String getInvName () // Not a gui block
     {
         return null;
     }
 
     @Override
-    public String getDefaultName () //Still not a gui block
+    public String getDefaultName () // Still not a gui block
     {
         return null;
     }
 
     @Override
-    public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z) //Definitely not a gui block
+    public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z) // Definitely not a gui block
     {
         return null;
     }
@@ -68,7 +68,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
         return this.capacity;
     }
 
-    public int updateCapacity () //Only used to initialize
+    public int updateCapacity () // Only used to initialize
     {
         int ret = TConstruct.ingotLiquidValue;
 
@@ -156,7 +156,9 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
 
         else if (resource.isFluidEqual(this.liquid))
         {
-            if (resource.amount + this.liquid.amount >= this.capacity) //Start timer here
+            if (resource.amount + this.liquid.amount >= this.capacity) // Start
+                                                                       // timer
+                                                                       // here
             {
                 int roomInTank = this.capacity - liquid.amount;
                 if (doFill && roomInTank > 0)
@@ -189,7 +191,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
     }
 
     @Override
-    public void markDirty () //Isn't actually called?
+    public void markDirty () // Isn't actually called?
     {
         super.markDirty();
         worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
@@ -220,7 +222,8 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
             liquid.amount -= used;
         }
 
-        FluidStack drained = liquid.copy();//new FluidStack(liquid.itemID, used, liquid.itemMeta);
+        FluidStack drained = liquid.copy();// new FluidStack(liquid.itemID,
+                                           // used, liquid.itemMeta);
         drained.amount = used;
 
         // Reset liquid if emptied
@@ -238,9 +241,9 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
     @Override
     public int fill (ForgeDirection from, FluidStack resource, boolean doFill)
     {
-        //if (from == ForgeDirection.UP)
+        // if (from == ForgeDirection.UP)
         return fill(resource, doFill);
-        //return 0;
+        // return 0;
     }
 
     @Override
@@ -303,7 +306,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
     {
         if (castingDelay > 0)
         {
-            //TConstruct.logger.info("Casting");
+            // TConstruct.logger.info("Casting");
             castingDelay--;
             if (castingDelay == 0)
                 castLiquid();
@@ -351,8 +354,9 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
         {
             this.liquid = FluidStack.loadFluidStackFromNBT(tags.getCompoundTag("Fluid"));
         }
-        //FluidStack fluid = FluidStack.loadFluidStackFromNBT(nbt);
-        //this.liquid = new FluidStack(tags.getInteger("itemID"), tags.getInteger("amount"), tags.getInteger("itemMeta"));
+        // FluidStack fluid = FluidStack.loadFluidStackFromNBT(nbt);
+        // this.liquid = new FluidStack(tags.getInteger("itemID"),
+        // tags.getInteger("amount"), tags.getInteger("itemMeta"));
         else
             this.liquid = null;
 

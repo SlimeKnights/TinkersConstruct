@@ -52,24 +52,20 @@ public class PunjiRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.75, 0.0, 0.125, 0.875, 0.375f, 0.25);
                 renderer.renderStandardBlock(block, x, y, z);
             }
-            /*if (metadata == 5)
-            {
-                renderer.setRenderBounds(0.0F, 0.0, 0.0F, 1.0F, 0.875F, 1.0F);
-                renderer.renderStandardBlock(block, x, y, z);
-            }
-            else
-            {
-                renderer.setRenderBounds(0.0F, 0.75F, 0.0F, 1.0F, 1.0F, 1.0F);
-                renderer.renderStandardBlock(block, x, y, z);
-                renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 0.25F, 0.75F, 0.25F);
-                renderer.renderStandardBlock(block, x, y, z);
-                renderer.setRenderBounds(0.75F, 0.0F, 0.0F, 1.0F, 0.75F, 0.25F);
-                renderer.renderStandardBlock(block, x, y, z);
-                renderer.setRenderBounds(0.0F, 0.0F, 0.75F, 0.25F, 0.75F, 1.0F);
-                renderer.renderStandardBlock(block, x, y, z);
-                renderer.setRenderBounds(0.75F, 0.0F, 0.75F, 1.0F, 0.75F, 1.0F);
-                renderer.renderStandardBlock(block, x, y, z);
-            }*/
+            /*
+             * if (metadata == 5) { renderer.setRenderBounds(0.0F, 0.0, 0.0F,
+             * 1.0F, 0.875F, 1.0F); renderer.renderStandardBlock(block, x, y,
+             * z); } else { renderer.setRenderBounds(0.0F, 0.75F, 0.0F, 1.0F,
+             * 1.0F, 1.0F); renderer.renderStandardBlock(block, x, y, z);
+             * renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 0.25F, 0.75F, 0.25F);
+             * renderer.renderStandardBlock(block, x, y, z);
+             * renderer.setRenderBounds(0.75F, 0.0F, 0.0F, 1.0F, 0.75F, 0.25F);
+             * renderer.renderStandardBlock(block, x, y, z);
+             * renderer.setRenderBounds(0.0F, 0.0F, 0.75F, 0.25F, 0.75F, 1.0F);
+             * renderer.renderStandardBlock(block, x, y, z);
+             * renderer.setRenderBounds(0.75F, 0.0F, 0.75F, 1.0F, 0.75F, 1.0F);
+             * renderer.renderStandardBlock(block, x, y, z); }
+             */
         }
         return true;
     }

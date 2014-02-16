@@ -145,26 +145,20 @@ public abstract class NewContainerGui extends GuiScreen
             }
         }
 
-        /*for (int slotIter = 0; slotIter < this.container.otherInventorySlots.size(); ++slotIter)
-        {
-            ActiveSlot slot = (ActiveSlot) this.container.otherInventorySlots.get(slotIter);
-            if (slot.getActive())
-            {
-                this.drawSlotInventory(slot);
-
-                if (this.isMouseOverSlot(slot, mouseX, mouseY))
-                {
-                    this.mainSlot = slot;
-                    GL11.glDisable(GL11.GL_LIGHTING);
-                    GL11.glDisable(GL11.GL_DEPTH_TEST);
-                    slotXPos = slot.xDisplayPosition;
-                    slotYPos = slot.yDisplayPosition;
-                    this.drawGradientRect(slotXPos, slotYPos, slotXPos + 16, slotYPos + 16, -2130706433, -2130706433);
-                    GL11.glEnable(GL11.GL_LIGHTING);
-                    GL11.glEnable(GL11.GL_DEPTH_TEST);
-                }
-            }
-        }*/
+        /*
+         * for (int slotIter = 0; slotIter <
+         * this.container.otherInventorySlots.size(); ++slotIter) { ActiveSlot
+         * slot = (ActiveSlot) this.container.otherInventorySlots.get(slotIter);
+         * if (slot.getActive()) { this.drawSlotInventory(slot);
+         * 
+         * if (this.isMouseOverSlot(slot, mouseX, mouseY)) { this.mainSlot =
+         * slot; GL11.glDisable(GL11.GL_LIGHTING);
+         * GL11.glDisable(GL11.GL_DEPTH_TEST); slotXPos = slot.xDisplayPosition;
+         * slotYPos = slot.yDisplayPosition; this.drawGradientRect(slotXPos,
+         * slotYPos, slotXPos + 16, slotYPos + 16, -2130706433, -2130706433);
+         * GL11.glEnable(GL11.GL_LIGHTING); GL11.glEnable(GL11.GL_DEPTH_TEST); }
+         * } }
+         */
 
         this.drawGuiContainerForegroundLayer(mouseX, mouseY);
         InventoryPlayer inventoryplayer = this.mc.thePlayer.inventory;
@@ -256,8 +250,9 @@ public abstract class NewContainerGui extends GuiScreen
     }
 
     /**
-     * Draws the text when mouse is over creative inventory tab. Params: current creative tab to be checked, current
-     * mouse x position, current mouse y position.
+     * Draws the text when mouse is over creative inventory tab. Params: current
+     * creative tab to be checked, current mouse x position, current mouse y
+     * position.
      */
     protected void drawCreativeTabHoveringText (String par1Str, int par2, int par3)
     {
@@ -343,14 +338,16 @@ public abstract class NewContainerGui extends GuiScreen
     }
 
     /**
-     * Draw the foreground layer for the GuiContainer (everything in front of the items)
+     * Draw the foreground layer for the GuiContainer (everything in front of
+     * the items)
      */
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
     }
 
     /**
-     * Draw the background layer for the GuiContainer (everything behind the items)
+     * Draw the background layer for the GuiContainer (everything behind the
+     * items)
      */
     protected abstract void drawGuiContainerBackgroundLayer (float f, int i, int j);
 
@@ -635,8 +632,9 @@ public abstract class NewContainerGui extends GuiScreen
     }
 
     /**
-     * Called when the mouse is moved or a mouse button is released.  Signature: (mouseX, mouseY, which) which==-1 is
-     * mouseMove, which==0 or which==1 is mouseUp
+     * Called when the mouse is moved or a mouse button is released. Signature:
+     * (mouseX, mouseY, which) which==-1 is mouseMove, which==0 or which==1 is
+     * mouseUp
      */
     protected void mouseMovedOrUp (int par1, int par2, int par3)
     {
@@ -802,8 +800,8 @@ public abstract class NewContainerGui extends GuiScreen
     }
 
     /**
-     * Args: left, top, width, height, pointX, pointY. Note: left, top are local to Gui, pointX, pointY are local to
-     * screen
+     * Args: left, top, width, height, pointX, pointY. Note: left, top are local
+     * to Gui, pointX, pointY are local to screen
      */
     protected boolean isPointInRegion (int par1, int par2, int par3, int par4, int par5, int par6)
     {
@@ -825,7 +823,8 @@ public abstract class NewContainerGui extends GuiScreen
     }
 
     /**
-     * Fired when a key is typed. This is the equivalent of KeyListener.keyTyped(KeyEvent e).
+     * Fired when a key is typed. This is the equivalent of
+     * KeyListener.keyTyped(KeyEvent e).
      */
     protected void keyTyped (char par1, int par2)
     {
@@ -850,7 +849,8 @@ public abstract class NewContainerGui extends GuiScreen
     }
 
     /**
-     * This function is what controls the hotbar shortcut check when you press a number key when hovering a stack.
+     * This function is what controls the hotbar shortcut check when you press a
+     * number key when hovering a stack.
      */
     protected boolean checkHotbarKeys (int par1)
     {
@@ -870,7 +870,8 @@ public abstract class NewContainerGui extends GuiScreen
     }
 
     /**
-     * Called when the screen is unloaded. Used to disable keyboard repeat events
+     * Called when the screen is unloaded. Used to disable keyboard repeat
+     * events
      */
     public void onGuiClosed ()
     {
@@ -881,7 +882,8 @@ public abstract class NewContainerGui extends GuiScreen
     }
 
     /**
-     * Returns true if this GUI should pause the game when it is displayed in single-player
+     * Returns true if this GUI should pause the game when it is displayed in
+     * single-player
      */
     public boolean doesGuiPauseGame ()
     {

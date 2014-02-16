@@ -137,8 +137,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class TContent implements IFuelHandler
 {
-    //Temporary items
-    //public static Item armorTest = new ArmorStandard(2445, 4, EnumArmorPart.HELMET).setCreativeTab(CreativeTabs.tabAllSearch);
+    // Temporary items
+    // public static Item armorTest = new ArmorStandard(2445, 4,
+    // EnumArmorPart.HELMET).setCreativeTab(CreativeTabs.tabAllSearch);
 
     public TContent()
     {
@@ -165,15 +166,17 @@ public class TContent implements IFuelHandler
         EntityRegistry.registerModEntity(ArrowEntity.class, "Arrow", 4, TConstruct.instance, 32, 5, true);
         EntityRegistry.registerModEntity(EntityLandmineFirework.class, "LandmineFirework", 5, TConstruct.instance, 32, 5, true);
         EntityRegistry.registerModEntity(ExplosivePrimed.class, "SlimeExplosive", 6, TConstruct.instance, 32, 5, true);
-        //EntityRegistry.registerModEntity(CartEntity.class, "Small Wagon", 1, TConstruct.instance, 32, 5, true);
+        // EntityRegistry.registerModEntity(CartEntity.class, "Small Wagon", 1,
+        // TConstruct.instance, 32, 5, true);
 
         EntityRegistry.registerModEntity(BlueSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);
-        //EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13, TConstruct.instance, 64, 5, true);
+        // EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13,
+        // TConstruct.instance, 64, 5, true);
     }
 
     void registerBlocks ()
     {
-        //Tool Station
+        // Tool Station
         TRepo.toolStationWood = new ToolStationBlock(Material.wood).setBlockName("ToolStation");
         TRepo.toolForge = new ToolForgeBlock(Material.iron).setBlockName("ToolForge");
         TRepo.craftingStationWood = new CraftingStationBlock(Material.wood).setBlockName("CraftingStation");
@@ -202,7 +205,7 @@ public class TContent implements IFuelHandler
         TRepo.woolSlab2 = new SlabBase(Material.cloth, Blocks.wool, 8, 8).setBlockName("cloth");
         TRepo.woolSlab2.setStepSound(Block.soundTypeCloth).setCreativeTab(CreativeTabs.tabDecorations);
 
-        //Smeltery
+        // Smeltery
         TRepo.smeltery = new SmelteryBlock().setBlockName("Smeltery");
         TRepo.smelteryNether = new SmelteryBlock("nether").setBlockName("Smeltery");
         TRepo.lavaTank = new LavaTankBlock().setBlockName("LavaTank");
@@ -216,7 +219,7 @@ public class TContent implements IFuelHandler
 
         TRepo.tankAir = new TankAirBlock(Material.leaves).setBlockUnbreakable().setBlockName("tconstruct.tank.air");
 
-        //Traps
+        // Traps
         TRepo.landmine = new BlockLandmine().setHardness(0.5F).setResistance(0F).setStepSound(Block.soundTypeMetal).setCreativeTab(CreativeTabs.tabRedstone).setBlockName("landmine");
         TRepo.punji = new Punji().setBlockName("trap.punji");
         TRepo.barricadeOak = new BarricadeBlock(Blocks.log, 0).setBlockName("trap.barricade.oak");
@@ -227,7 +230,7 @@ public class TContent implements IFuelHandler
 
         TRepo.dryingRack = new DryingRack().setBlockName("Armor.DryingRack");
 
-        //Liquids
+        // Liquids
         TRepo.liquidMetal = new MaterialLiquid(MapColor.tntColor);
 
         TRepo.moltenIronFluid = new Fluid("iron.molten");
@@ -430,7 +433,7 @@ public class TContent implements IFuelHandler
             FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenEnderFluid, 1000), new ItemStack(TRepo.buckets, 1, 23), new ItemStack(Items.bucket)));
         }
 
-        //Slime
+        // Slime
         TRepo.slimeStep = new StepSoundSlime("mob.slime", 1.0f, 1.0f);
 
         TRepo.blueSlimeFluid = new Fluid("slime.blue");
@@ -441,7 +444,7 @@ public class TContent implements IFuelHandler
         TRepo.blueSlimeFluid.setBlock(TRepo.slimePool);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.blueSlimeFluid, 1000), new ItemStack(TRepo.buckets, 1, 24), new ItemStack(Items.bucket)));
 
-        //Glue
+        // Glue
         TRepo.glueFluid = new Fluid("glue").setDensity(6000).setViscosity(6000).setTemperature(200);
         if (!FluidRegistry.registerFluid(TRepo.glueFluid))
             TRepo.glueFluid = FluidRegistry.getFluid("glue");
@@ -462,7 +465,7 @@ public class TContent implements IFuelHandler
         TRepo.fluidBlocks = new Block[] { TRepo.moltenIron, TRepo.moltenGold, TRepo.moltenCopper, TRepo.moltenTin, TRepo.moltenAluminum, TRepo.moltenCobalt, TRepo.moltenArdite, TRepo.moltenBronze,
                 TRepo.moltenAlubrass, TRepo.moltenManyullyn, TRepo.moltenAlumite, TRepo.moltenObsidian, TRepo.moltenSteel, TRepo.moltenGlass, TRepo.moltenStone, TRepo.moltenEmerald, TRepo.blood,
                 TRepo.moltenNickel, TRepo.moltenLead, TRepo.moltenSilver, TRepo.moltenShiny, TRepo.moltenInvar, TRepo.moltenElectrum, TRepo.moltenEnder, TRepo.slimePool, TRepo.glueFluidBlock };
-        //Slime Islands
+        // Slime Islands
         TRepo.slimeGel = new SlimeGel().setStepSound(TRepo.slimeStep).setLightOpacity(0).setBlockName("slime.gel");
         TRepo.slimeGrass = new SlimeGrass().setStepSound(Block.soundTypeGrass).setLightOpacity(0).setBlockName("slime.grass");
         TRepo.slimeTallGrass = new SlimeTallGrass().setStepSound(Block.soundTypeGrass).setBlockName("slime.grass.tall");
@@ -472,13 +475,13 @@ public class TContent implements IFuelHandler
         TRepo.bloodChannel = new ConveyorBase(Material.water, "liquid_cow").setHardness(0.3f).setStepSound(TRepo.slimeStep).setBlockName("blood.channel");
         TRepo.slimePad = new SlimePad(Material.cloth).setStepSound(TRepo.slimeStep).setHardness(0.3f).setBlockName("slime.pad");
 
-        //Decoration
+        // Decoration
         TRepo.stoneTorch = new StoneTorch().setBlockName("decoration.stonetorch");
         TRepo.stoneLadder = new StoneLadder().setBlockName("decoration.stoneladder");
         TRepo.multiBrick = new MultiBrick().setBlockName("Decoration.Brick");
         TRepo.multiBrickFancy = new MultiBrickFancy().setBlockName("Decoration.BrickFancy");
 
-        //Ores
+        // Ores
         String[] berryOres = new String[] { "berry_iron", "berry_gold", "berry_copper", "berry_tin", "berry_iron_ripe", "berry_gold_ripe", "berry_copper_ripe", "berry_tin_ripe" };
         TRepo.oreBerry = (OreberryBush) new OreberryBush(berryOres, 0, 4, new String[] { "oreIron", "oreGold", "oreCopper", "oreTin" }).setBlockName("ore.berries.one");
         String[] berryOresTwo = new String[] { "berry_aluminum", "berry_essence", "", "", "berry_aluminum_ripe", "berry_essence_ripe", "", "" };
@@ -502,7 +505,7 @@ public class TContent implements IFuelHandler
 
         TRepo.speedBlock = new SpeedBlock().setBlockName("SpeedBlock");
 
-        //Glass
+        // Glass
         TRepo.clearGlass = new GlassBlockConnected("clear", false).setBlockName("GlassBlock");
         TRepo.clearGlass.stepSound = Block.soundTypeGlass;
         TRepo.glassPane = new GlassPaneConnected("clear", false);
@@ -511,7 +514,7 @@ public class TContent implements IFuelHandler
         TRepo.stainedGlassClear.stepSound = Block.soundTypeGlass;
         TRepo.stainedGlassClearPane = new GlassPaneStained();
 
-        //Rail
+        // Rail
         TRepo.woodenRail = new WoodRail().setStepSound(Block.soundTypeWood).setCreativeTab(TConstructRegistry.blockTab).setBlockName("rail.wood");
 
     }
@@ -529,16 +532,18 @@ public class TContent implements IFuelHandler
         TRepo.toolShard = new ToolShard("_chunk").setUnlocalizedName("tconstruct.ToolShard");
         TRepo.woodPattern = new Pattern("pattern_", "materials/").setUnlocalizedName("tconstruct.Pattern");
         TRepo.metalPattern = new MetalPattern("cast_", "materials/").setUnlocalizedName("tconstruct.MetalPattern");
-        //armorPattern = new ArmorPattern(PHConstruct.armorPattern, "armorcast_", "materials/").setUnlocalizedName("tconstruct.ArmorPattern");
+        // armorPattern = new ArmorPattern(PHConstruct.armorPattern,
+        // "armorcast_",
+        // "materials/").setUnlocalizedName("tconstruct.ArmorPattern");
         GameRegistry.registerItem(TRepo.materials, "materials");
         GameRegistry.registerItem(TRepo.woodPattern, "woodPattern");
         GameRegistry.registerItem(TRepo.metalPattern, "metalPattern");
-        //GameRegistry.registerItem(TRepo.armorPattern, "armorPattern");
+        // GameRegistry.registerItem(TRepo.armorPattern, "armorPattern");
 
         TConstructRegistry.addItemToDirectory("blankPattern", TRepo.blankPattern);
         TConstructRegistry.addItemToDirectory("woodPattern", TRepo.woodPattern);
         TConstructRegistry.addItemToDirectory("metalPattern", TRepo.metalPattern);
-        //TConstructRegistry.addItemToDirectory("armorPattern", armorPattern);
+        // TConstructRegistry.addItemToDirectory("armorPattern", armorPattern);
 
         String[] patternTypes = { "ingot", "toolRod", "pickaxeHead", "shovelHead", "hatchetHead", "swordBlade", "wideGuard", "handGuard", "crossbar", "binding", "frypanHead", "signHead",
                 "knifeBlade", "chiselHead", "toughRod", "toughBinding", "largePlate", "broadAxeHead", "scytheHead", "excavatorHead", "largeBlade", "hammerHead", "fullGuard" };
@@ -551,11 +556,12 @@ public class TContent implements IFuelHandler
         {
             TConstructRegistry.addItemStackToDirectory(patternTypes[i] + "Cast", new ItemStack(TRepo.metalPattern, 1, i));
         }
-        /*String[] armorPartTypes = { "helmet", "chestplate", "leggings", "boots" };
-        for (int i = 1; i < armorPartTypes.length; i++)
-        {
-            TConstructRegistry.addItemStackToDirectory(armorPartTypes[i] + "Cast", new ItemStack(armorPattern, 1, i));
-        }*/
+        /*
+         * String[] armorPartTypes = { "helmet", "chestplate", "leggings",
+         * "boots" }; for (int i = 1; i < armorPartTypes.length; i++) {
+         * TConstructRegistry.addItemStackToDirectory(armorPartTypes[i] +
+         * "Cast", new ItemStack(armorPattern, 1, i)); }
+         */
 
         TRepo.manualBook = new Manual();
         GameRegistry.registerItem(TRepo.manualBook, "manualBook");
@@ -638,7 +644,8 @@ public class TContent implements IFuelHandler
 
         for (int i = 0; i < toolParts.length; i++)
         {
-            GameRegistry.registerItem(toolParts[i], toolPartStrings[i]); // 1.7 compat
+            GameRegistry.registerItem(toolParts[i], toolPartStrings[i]); // 1.7
+                                                                         // compat
             TConstructRegistry.addItemToDirectory(toolPartStrings[i], toolParts[i]);
         }
 
@@ -658,17 +665,20 @@ public class TContent implements IFuelHandler
         TRepo.jerky = new Jerky(foodOverhaul).setUnlocalizedName("tconstruct.jerky");
         GameRegistry.registerItem(TRepo.jerky, "jerky");
 
-        //Wearables
-        //heavyHelmet = new TArmorBase(PHConstruct.heavyHelmet, 0).setUnlocalizedName("tconstruct.HeavyHelmet");
+        // Wearables
+        // heavyHelmet = new TArmorBase(PHConstruct.heavyHelmet,
+        // 0).setUnlocalizedName("tconstruct.HeavyHelmet");
         TRepo.heartCanister = new HeartCanister().setUnlocalizedName("tconstruct.canister");
-        //heavyBoots = new TArmorBase(PHConstruct.heavyBoots, 3).setUnlocalizedName("tconstruct.HeavyBoots");
-        //glove = new Glove(PHConstruct.glove).setUnlocalizedName("tconstruct.Glove");
+        // heavyBoots = new TArmorBase(PHConstruct.heavyBoots,
+        // 3).setUnlocalizedName("tconstruct.HeavyBoots");
+        // glove = new
+        // Glove(PHConstruct.glove).setUnlocalizedName("tconstruct.Glove");
         TRepo.knapsack = new Knapsack().setUnlocalizedName("tconstruct.storage");
         TRepo.goldHead = new GoldenHead(4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).setUnlocalizedName("goldenhead");
-        //GameRegistry.registerItem(TRepo.heavyHelmet, "heavyHelmet");
+        // GameRegistry.registerItem(TRepo.heavyHelmet, "heavyHelmet");
         GameRegistry.registerItem(TRepo.heartCanister, "heartCanister");
-        //GameRegistry.registerItem(TRepo.heavyBoots, "heavyBoots");
-        //GameRegistry.registerItem(TRepo.glove, "glove");
+        // GameRegistry.registerItem(TRepo.heavyBoots, "heavyBoots");
+        // GameRegistry.registerItem(TRepo.glove, "glove");
         GameRegistry.registerItem(TRepo.knapsack, "knapsack");
         GameRegistry.registerItem(TRepo.goldHead, "goldHead");
 
@@ -712,17 +722,17 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addItemStackToDirectory("miniRedHeart", new ItemStack(TRepo.heartCanister, 1, 1));
         TConstructRegistry.addItemStackToDirectory("canisterRedHeart", new ItemStack(TRepo.heartCanister, 1, 2));
 
-        //Vanilla stack sizes
+        // Vanilla stack sizes
         Items.wooden_door.setMaxStackSize(16);
         Items.iron_door.setMaxStackSize(16);
         Items.snowball.setMaxStackSize(64);
         Items.boat.setMaxStackSize(16);
         Items.minecart.setMaxStackSize(3);
-        //Items.minecartEmpty.setMaxStackSize(3);
-        //Items.minecartCrate.setMaxStackSize(3);
-        //Items.minecartPowered.setMaxStackSize(3);
+        // Items.minecartEmpty.setMaxStackSize(3);
+        // Items.minecartCrate.setMaxStackSize(3);
+        // Items.minecartPowered.setMaxStackSize(3);
         Items.cake.setMaxStackSize(16);
-        //Block.torchWood.setTickRandomly(false);
+        // Block.torchWood.setTickRandomly(false);
     }
 
     void registerMaterials ()
@@ -747,53 +757,54 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addToolMaterial(17, "BlueSlime", "Slime ", 0, 1200, 150, 0, 2.0F, 0, 0f, "\u00A7b", "");
         TConstructRegistry.addToolMaterial(18, "PigIron", "Pig Iron ", 3, 250, 600, 2, 1.3F, 1, 0f, "\u00A7c", "Tasty");
 
-        TConstructRegistry.addBowMaterial(0, 384, 20, 1.0f); //Wood
-        TConstructRegistry.addBowMaterial(1, 10, 80, 0.2f); //Stone
-        TConstructRegistry.addBowMaterial(2, 576, 40, 1.2f); //Iron
-        TConstructRegistry.addBowMaterial(3, 10, 80, 0.2f); //Flint
-        TConstructRegistry.addBowMaterial(4, 384, 20, 1.0f); //Cactus
-        TConstructRegistry.addBowMaterial(5, 192, 30, 1.0f); //Bone
-        TConstructRegistry.addBowMaterial(6, 10, 80, 0.2f); //Obsidian
-        TConstructRegistry.addBowMaterial(7, 10, 80, 0.2f); //Netherrack
-        TConstructRegistry.addBowMaterial(8, 1536, 20, 1.2f); //Slime
-        TConstructRegistry.addBowMaterial(9, 48, 25, 0.5f); //Paper
-        TConstructRegistry.addBowMaterial(10, 1152, 40, 1.2f); //Cobalt
-        TConstructRegistry.addBowMaterial(11, 960, 40, 1.2f); //Ardite
-        TConstructRegistry.addBowMaterial(12, 1536, 40, 1.2f); //Manyullyn
-        TConstructRegistry.addBowMaterial(13, 384, 40, 1.2f); //Copper
-        TConstructRegistry.addBowMaterial(14, 576, 40, 1.2f); //Bronze
-        TConstructRegistry.addBowMaterial(15, 768, 40, 1.2f); //Alumite
-        TConstructRegistry.addBowMaterial(16, 768, 40, 1.2f); //Steel
-        TConstructRegistry.addBowMaterial(17, 576, 20, 1.2f); //Blue Slime
-        TConstructRegistry.addBowMaterial(18, 384, 20, 1.2f); //Slime
+        TConstructRegistry.addBowMaterial(0, 384, 20, 1.0f); // Wood
+        TConstructRegistry.addBowMaterial(1, 10, 80, 0.2f); // Stone
+        TConstructRegistry.addBowMaterial(2, 576, 40, 1.2f); // Iron
+        TConstructRegistry.addBowMaterial(3, 10, 80, 0.2f); // Flint
+        TConstructRegistry.addBowMaterial(4, 384, 20, 1.0f); // Cactus
+        TConstructRegistry.addBowMaterial(5, 192, 30, 1.0f); // Bone
+        TConstructRegistry.addBowMaterial(6, 10, 80, 0.2f); // Obsidian
+        TConstructRegistry.addBowMaterial(7, 10, 80, 0.2f); // Netherrack
+        TConstructRegistry.addBowMaterial(8, 1536, 20, 1.2f); // Slime
+        TConstructRegistry.addBowMaterial(9, 48, 25, 0.5f); // Paper
+        TConstructRegistry.addBowMaterial(10, 1152, 40, 1.2f); // Cobalt
+        TConstructRegistry.addBowMaterial(11, 960, 40, 1.2f); // Ardite
+        TConstructRegistry.addBowMaterial(12, 1536, 40, 1.2f); // Manyullyn
+        TConstructRegistry.addBowMaterial(13, 384, 40, 1.2f); // Copper
+        TConstructRegistry.addBowMaterial(14, 576, 40, 1.2f); // Bronze
+        TConstructRegistry.addBowMaterial(15, 768, 40, 1.2f); // Alumite
+        TConstructRegistry.addBowMaterial(16, 768, 40, 1.2f); // Steel
+        TConstructRegistry.addBowMaterial(17, 576, 20, 1.2f); // Blue Slime
+        TConstructRegistry.addBowMaterial(18, 384, 20, 1.2f); // Slime
 
-        //Material ID, mass, fragility
-        TConstructRegistry.addArrowMaterial(0, 0.69F, 1.0F, 100F); //Wood
-        TConstructRegistry.addArrowMaterial(1, 2.5F, 5.0F, 100F); //Stone
-        TConstructRegistry.addArrowMaterial(2, 7.2F, 0.5F, 100F); //Iron
-        TConstructRegistry.addArrowMaterial(3, 2.65F, 1.0F, 100F); //Flint
-        TConstructRegistry.addArrowMaterial(4, 0.76F, 1.0F, 100F); //Cactus
-        TConstructRegistry.addArrowMaterial(5, 0.69F, 1.0F, 100); //Bone
-        TConstructRegistry.addArrowMaterial(6, 2.4F, 1.0F, 100F); //Obsidian
-        TConstructRegistry.addArrowMaterial(7, 3.5F, 1.0F, 100F); //Netherrack
-        TConstructRegistry.addArrowMaterial(8, 0.42F, 0.0F, 100F); //Slime
-        TConstructRegistry.addArrowMaterial(9, 1.1F, 3.0F, 90F); //Paper
-        TConstructRegistry.addArrowMaterial(10, 8.9F, 0.25F, 100F); //Cobalt
-        TConstructRegistry.addArrowMaterial(11, 7.2F, 0.25F, 100F); //Ardite
-        TConstructRegistry.addArrowMaterial(12, 10.6F, 0.1F, 100F); //Manyullyn
-        TConstructRegistry.addArrowMaterial(13, 8.96F, 0.5F, 100F); //Copper
-        TConstructRegistry.addArrowMaterial(14, 7.9F, 0.25F, 100F); //Bronze
-        TConstructRegistry.addArrowMaterial(15, 4.7F, 0.25F, 100F); //Alumite
-        TConstructRegistry.addArrowMaterial(16, 7.6F, 0.25F, 100F); //Steel
-        TConstructRegistry.addArrowMaterial(17, 0.42F, 0.0F, 100F); //Blue Slime
-        TConstructRegistry.addArrowMaterial(18, 6.8F, 0.5F, 100F); //Iron
+        // Material ID, mass, fragility
+        TConstructRegistry.addArrowMaterial(0, 0.69F, 1.0F, 100F); // Wood
+        TConstructRegistry.addArrowMaterial(1, 2.5F, 5.0F, 100F); // Stone
+        TConstructRegistry.addArrowMaterial(2, 7.2F, 0.5F, 100F); // Iron
+        TConstructRegistry.addArrowMaterial(3, 2.65F, 1.0F, 100F); // Flint
+        TConstructRegistry.addArrowMaterial(4, 0.76F, 1.0F, 100F); // Cactus
+        TConstructRegistry.addArrowMaterial(5, 0.69F, 1.0F, 100); // Bone
+        TConstructRegistry.addArrowMaterial(6, 2.4F, 1.0F, 100F); // Obsidian
+        TConstructRegistry.addArrowMaterial(7, 3.5F, 1.0F, 100F); // Netherrack
+        TConstructRegistry.addArrowMaterial(8, 0.42F, 0.0F, 100F); // Slime
+        TConstructRegistry.addArrowMaterial(9, 1.1F, 3.0F, 90F); // Paper
+        TConstructRegistry.addArrowMaterial(10, 8.9F, 0.25F, 100F); // Cobalt
+        TConstructRegistry.addArrowMaterial(11, 7.2F, 0.25F, 100F); // Ardite
+        TConstructRegistry.addArrowMaterial(12, 10.6F, 0.1F, 100F); // Manyullyn
+        TConstructRegistry.addArrowMaterial(13, 8.96F, 0.5F, 100F); // Copper
+        TConstructRegistry.addArrowMaterial(14, 7.9F, 0.25F, 100F); // Bronze
+        TConstructRegistry.addArrowMaterial(15, 4.7F, 0.25F, 100F); // Alumite
+        TConstructRegistry.addArrowMaterial(16, 7.6F, 0.25F, 100F); // Steel
+        TConstructRegistry.addArrowMaterial(17, 0.42F, 0.0F, 100F); // Blue
+                                                                    // Slime
+        TConstructRegistry.addArrowMaterial(18, 6.8F, 0.5F, 100F); // Iron
 
-        TConstructRegistry.addBowstringMaterial(0, 2, new ItemStack(Items.string), new ItemStack(TRepo.bowstring, 1, 0), 1F, 1F, 1f); //String
-        TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Items.feather), new ItemStack(TRepo.fletching, 1, 0), 100F, 0F, 0.05F); //Feather
+        TConstructRegistry.addBowstringMaterial(0, 2, new ItemStack(Items.string), new ItemStack(TRepo.bowstring, 1, 0), 1F, 1F, 1f); // String
+        TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Items.feather), new ItemStack(TRepo.fletching, 1, 0), 100F, 0F, 0.05F); // Feather
         for (int i = 0; i < 4; i++)
-            TConstructRegistry.addFletchingMaterial(1, 2, new ItemStack(Blocks.leaves, 1, i), new ItemStack(TRepo.fletching, 1, 1), 75F, 0F, 0.2F); //All four vanialla Leaves
-        TConstructRegistry.addFletchingMaterial(2, 2, new ItemStack(TRepo.materials, 1, 1), new ItemStack(TRepo.fletching, 1, 2), 100F, 0F, 0.12F); //Slime
-        TConstructRegistry.addFletchingMaterial(3, 2, new ItemStack(TRepo.materials, 1, 17), new ItemStack(TRepo.fletching, 1, 3), 100F, 0F, 0.12F); //BlueSlime
+            TConstructRegistry.addFletchingMaterial(1, 2, new ItemStack(Blocks.leaves, 1, i), new ItemStack(TRepo.fletching, 1, 1), 75F, 0F, 0.2F); // All four vanialla Leaves
+        TConstructRegistry.addFletchingMaterial(2, 2, new ItemStack(TRepo.materials, 1, 1), new ItemStack(TRepo.fletching, 1, 2), 100F, 0F, 0.12F); // Slime
+        TConstructRegistry.addFletchingMaterial(3, 2, new ItemStack(TRepo.materials, 1, 17), new ItemStack(TRepo.fletching, 1, 3), 100F, 0F, 0.12F); // BlueSlime
 
         PatternBuilder pb = PatternBuilder.instance;
         if (PHConstruct.enableTWood)
@@ -876,13 +887,13 @@ public class TContent implements IFuelHandler
         compound.getCompoundTag("InfiTool").setInteger("RenderAccessory", 10);
         tool.setTagCompound(compound);
 
-        //TConstruct.
+        // TConstruct.
         TConstructRegistry.toolTab.init(tool);
     }
 
     public void addLoot ()
     {
-        //Item, min, max, weight
+        // Item, min, max, weight
         ChestGenHooks.getInfo(ChestGenHooks.DUNGEON_CHEST).addItem(new WeightedRandomChestContent(new ItemStack(TRepo.heartCanister, 1, 1), 1, 1, 5));
         ChestGenHooks.getInfo(ChestGenHooks.PYRAMID_DESERT_CHEST).addItem(new WeightedRandomChestContent(new ItemStack(TRepo.heartCanister, 1, 1), 1, 1, 10));
         ChestGenHooks.getInfo(ChestGenHooks.PYRAMID_JUNGLE_CHEST).addItem(new WeightedRandomChestContent(new ItemStack(TRepo.heartCanister, 1, 1), 1, 1, 10));
@@ -923,7 +934,7 @@ public class TContent implements IFuelHandler
     {
         HashMap<String, Achievement> achievements = TAchievements.achievements;
 
-        achievements.put("tconstruct.beginner", new Achievement("" + 2741, "tconstruct.beginner", 0, 0, TRepo.manualBook, null));//.setIndependent());
+        achievements.put("tconstruct.beginner", new Achievement("" + 2741, "tconstruct.beginner", 0, 0, TRepo.manualBook, null));// .setIndependent());
         achievements.put("tconstruct.pattern", new Achievement("" + 2742, "tconstruct.pattern", 2, 1, TRepo.blankPattern, achievements.get("tconstruct.beginner")));
         achievements.put("tconstruct.tinkerer", new Achievement("" + 2743, "tconstruct.tinkerer", 2, 2, new ItemStack(TRepo.titleIcon, 1, 4096), achievements.get("tconstruct.pattern")));
         achievements.put("tconstruct.preparedFight", new Achievement("" + 2744, "tconstruct.preparedFight", 1, 3, new ItemStack(TRepo.titleIcon, 1, 4097), achievements.get("tconstruct.tinkerer")));

@@ -8,7 +8,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 /**
  * 
  * @author fuj1n
- *
+ * 
  */
 public class Helper
 {
