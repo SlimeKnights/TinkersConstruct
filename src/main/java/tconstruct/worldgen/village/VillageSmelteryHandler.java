@@ -12,7 +12,7 @@ public class VillageSmelteryHandler implements IVillageCreationHandler
     @Override
     public PieceWeight getVillagePieceWeight (Random random, int i)
     {
-        return new PieceWeight(ComponentSmeltery.class, 9, i + random.nextInt(10) == 0 ? 1 : 0);
+        return new PieceWeight(ComponentSmeltery.class, 9, 1);
     }
 
     @Override

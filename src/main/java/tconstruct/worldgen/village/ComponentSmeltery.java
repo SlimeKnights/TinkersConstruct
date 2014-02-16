@@ -29,7 +29,7 @@ public class ComponentSmeltery extends StructureVillagePieces.House1
 
     public static ComponentSmeltery buildComponent (Start villagePiece, List pieces, Random random, int p1, int p2, int p3, int p4, int p5)
     {
-        StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p1, p2, p3, 0, 0, 0, 7, 6, 7, p4);
+        StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p1, p2, p3, 0, 0, 0, 9, 3, 7, p4);
         return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(pieces, structureboundingbox) == null ? new ComponentSmeltery(villagePiece, p5, random,
                 structureboundingbox, p4) : null;
     }
@@ -53,17 +53,16 @@ public class ComponentSmeltery extends StructureVillagePieces.House1
         }
 
         /**
-         * arguments: (World worldObj, StructureBoundingBox structBB, int minX,
-         * int minY, int minZ, int maxX, int maxY, int maxZ, int placeBlockId,
-         * int replaceBlockId, boolean alwaysreplace)
+         * arguments: (World worldObj, StructureBoundingBox structBB, int minX, int minY, int minZ, int maxX, int maxY, int
+         * maxZ, int placeBlockId, int replaceBlockId, boolean alwaysreplace)
          */
 
-        this.fillWithBlocks(world, sbb, 1, 0, 0, 7, 0, 6, Blocks.stonebrick, Blocks.stonebrick, false); // Base
+        this.fillWithBlocks(world, sbb, 1, 0, 0, 7, 0, 6, Blocks.stonebrick, Blocks.stonebrick, false); //Base
         this.fillWithBlocks(world, sbb, 0, 0, 1, 0, 0, 5, Blocks.stonebrick, Blocks.stonebrick, false);
         this.fillWithBlocks(world, sbb, 8, 0, 1, 8, 0, 5, Blocks.stonebrick, Blocks.stonebrick, false);
         this.fillWithBlocks(world, sbb, 0, 1, 0, 9, 3, 7, Blocks.air, Blocks.air, false);
 
-        this.fillWithMetaBlocks(world, sbb, 2, 0, 1, 6, 2, 5, TRepo.smeltery, 2, TRepo.smeltery, 2, false); // Basin
+        this.fillWithMetaBlocks(world, sbb, 2, 0, 1, 6, 2, 5, TRepo.smeltery, 2, TRepo.smeltery, 2, false); //Basin
         this.fillWithBlocks(world, sbb, 3, 1, 2, 5, 2, 4, Blocks.air, Blocks.air, false);
 
         this.placeBlockAtCurrentPosition(world, TRepo.searedBlock, 0, 1, 1, 2, sbb);
@@ -88,7 +87,6 @@ public class ComponentSmeltery extends StructureVillagePieces.House1
                 this.func_151554_b(world, Blocks.stonebrick, 0, i1, -1, l, sbb);
             }
         }
-
         return true;
     }
     
