@@ -9,10 +9,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
-import tconstruct.TConstruct;
+import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
 import tconstruct.common.TRepo;
 
-public class ComponentSmeltery extends StructureVillagePieces.Village
+public class ComponentSmeltery extends StructureVillagePieces.House1
 {
     private int averageGroundLevel = -1;
 
@@ -20,14 +20,14 @@ public class ComponentSmeltery extends StructureVillagePieces.Village
     {
     }
 
-    public ComponentSmeltery(StructureVillagePieces.Start par1ComponentVillageStartPiece, int par2, Random par3Random, StructureBoundingBox par4StructureBoundingBox, int par5)
+    public ComponentSmeltery(Start villagePiece, int par2, Random par3Random, StructureBoundingBox par4StructureBoundingBox, int par5)
     {
-        super(par1ComponentVillageStartPiece, par2);
+        super();
         this.coordBaseMode = par5;
         this.boundingBox = par4StructureBoundingBox;
     }
 
-    public static ComponentSmeltery func_74898_a (StructureVillagePieces.Start villagePiece, List pieces, Random random, int p1, int p2, int p3, int p4, int p5)
+    public static ComponentSmeltery buildComponent (Start villagePiece, List pieces, Random random, int p1, int p2, int p3, int p4, int p5)
     {
         StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p1, p2, p3, 0, 0, 0, 9, 3, 7, p4);
         return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(pieces, structureboundingbox) == null ? new ComponentSmeltery(villagePiece, p5, random,
@@ -53,17 +53,16 @@ public class ComponentSmeltery extends StructureVillagePieces.Village
         }
 
         /**
-         * arguments: (World worldObj, StructureBoundingBox structBB, int minX,
-         * int minY, int minZ, int maxX, int maxY, int maxZ, int placeBlockId,
-         * int replaceBlockId, boolean alwaysreplace)
+         * arguments: (World worldObj, StructureBoundingBox structBB, int minX, int minY, int minZ, int maxX, int maxY, int
+         * maxZ, int placeBlockId, int replaceBlockId, boolean alwaysreplace)
          */
 
-        this.fillWithBlocks(world, sbb, 1, 0, 0, 7, 0, 6, Blocks.stonebrick, Blocks.stonebrick, false); // Base
+        this.fillWithBlocks(world, sbb, 1, 0, 0, 7, 0, 6, Blocks.stonebrick, Blocks.stonebrick, false); //Base
         this.fillWithBlocks(world, sbb, 0, 0, 1, 0, 0, 5, Blocks.stonebrick, Blocks.stonebrick, false);
         this.fillWithBlocks(world, sbb, 8, 0, 1, 8, 0, 5, Blocks.stonebrick, Blocks.stonebrick, false);
         this.fillWithBlocks(world, sbb, 0, 1, 0, 9, 3, 7, Blocks.air, Blocks.air, false);
 
-        this.fillWithMetaBlocks(world, sbb, 2, 0, 1, 6, 2, 5, TRepo.smeltery, 2, TRepo.smeltery, 2, false); // Basin
+        this.fillWithMetaBlocks(world, sbb, 2, 0, 1, 6, 2, 5, TRepo.smeltery, 2, TRepo.smeltery, 2, false); //Basin
         this.fillWithBlocks(world, sbb, 3, 1, 2, 5, 2, 4, Blocks.air, Blocks.air, false);
 
         this.placeBlockAtCurrentPosition(world, TRepo.searedBlock, 0, 1, 1, 2, sbb);
@@ -90,25 +89,7 @@ public class ComponentSmeltery extends StructureVillagePieces.Village
         }
         return true;
     }
-
-    int remapDirection (int direction)
-    {
-        TConstruct.logger.info("Direction: " + direction);
-        switch (direction)
-        {
-        case 0:
-            return 2;
-        case 1:
-            return 3;
-        case 2:
-            return 1;
-        case 3:
-            return 0;
-        }
-        TConstruct.logger.error("This shouldn't happen (remapDirection in tconstruct.worldgen.village.ComponentSmeltery)");
-        return -1;
-    }
-
+    
     protected void fillWithMetaBlocks (World par1World, StructureBoundingBox par2StructureBoundingBox, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, Block placeBlockID,
             int placeBlockMeta, Block replaceBlockID, int replaceBlockMeta, boolean alwaysReplace)
     {

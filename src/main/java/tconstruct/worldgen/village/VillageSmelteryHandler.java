@@ -12,7 +12,7 @@ public class VillageSmelteryHandler implements IVillageCreationHandler
     @Override
     public PieceWeight getVillagePieceWeight (Random random, int i)
     {
-        return new PieceWeight(ComponentSmeltery.class, 9, i + random.nextInt(10) == 0 ? 1 : 0);
+        return new PieceWeight(ComponentSmeltery.class, 9, 1);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class VillageSmelteryHandler implements IVillageCreationHandler
     @Override
     public Object buildComponent (PieceWeight villagePiece, Start startPiece, List pieces, Random random, int p1, int p2, int p3, int p4, int p5)
     {
-        return ComponentSmeltery.func_74898_a(startPiece, pieces, random, p1, p2, p3, p4, p5);
+        return ComponentSmeltery.buildComponent(startPiece, pieces, random, p1, p2, p3, p4, p5);
     }
 
 }
