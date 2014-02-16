@@ -79,9 +79,6 @@ public class TConstruct
     @SidedProxy(clientSide = "tconstruct.client.TProxyClient", serverSide = "tconstruct.common.TProxyCommon")
     public static TProxyCommon proxy;
 
-    //The name of the enum is accompanied by numbers because I have no idea what will happen if another mod will try to add the same enum, just to be safe
-    //public static EnumCreatureType creatureTypePlayer = EnumHelper.addCreatureType("PLAYER_5821443", EntityPlayer.class, 0, Material.air, true);
-
     //The packet pipeline
     public static final PacketPipeline packetPipeline = new PacketPipeline();
 

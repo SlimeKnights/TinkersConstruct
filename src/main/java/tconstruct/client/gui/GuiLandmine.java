@@ -47,7 +47,7 @@ public class GuiLandmine extends GuiContainer
         {
             if (k == 0)
             {
-                list.set(k, "\u00a7" + Integer.toHexString(par1ItemStack.getRarity().rarityColor.getFormattingCode()) + (String) list.get(k));
+                list.set(k, par1ItemStack.getRarity().rarityColor + (String)list.get(k));
             }
             else
             {

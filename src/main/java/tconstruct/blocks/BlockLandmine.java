@@ -1,43 +1,26 @@
 package tconstruct.blocks;
 
-import static net.minecraftforge.common.util.ForgeDirection.DOWN;
-import static net.minecraftforge.common.util.ForgeDirection.EAST;
-import static net.minecraftforge.common.util.ForgeDirection.NORTH;
-import static net.minecraftforge.common.util.ForgeDirection.SOUTH;
-import static net.minecraftforge.common.util.ForgeDirection.UP;
-import static net.minecraftforge.common.util.ForgeDirection.WEST;
+import static net.minecraftforge.common.util.ForgeDirection.*;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-
+import java.util.*;
 import mantle.blocks.BlockUtils;
 import mantle.world.WorldHelper;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
+import net.minecraft.block.*;
+import net.minecraft.block.BlockPressurePlate.Sensitivity;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.item.EntityTNTPrimed;
+import net.minecraft.entity.*;
+import net.minecraft.entity.item.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.Explosion;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.TConstruct;
-import tconstruct.blocks.logic.LandmineExplodeLogic;
-import tconstruct.blocks.logic.TileEntityLandmine;
+import tconstruct.blocks.logic.*;
 import tconstruct.client.block.RenderLandmine;
 import tconstruct.common.TProxyCommon;
 import tconstruct.util.landmine.Helper;
@@ -52,7 +35,6 @@ public class BlockLandmine extends BlockContainer
 
     // Should explode when broken instead of dropping items(may not actually work
     boolean explodeOnBroken = false;
-    private Sensitivity field_150069_a;
 
     public BlockLandmine()
     {
@@ -190,7 +172,7 @@ public class BlockLandmine extends BlockContainer
                 }
             }
 
-            par1World.setBlock(par2, par3, par4, par5Block);
+            WorldHelper.setBlockToAir(par1World, par2, par3, par4);
         }
         else if (explodeOnBroken)
         {
@@ -458,15 +440,12 @@ public class BlockLandmine extends BlockContainer
         }
     }
 
-    public static enum Sensitivity
-    {
-        everything, mobs, players;
-    }
-
     protected int getMineState (World par1World, int par2, int par3, int par4)
     {
         TileEntityLandmine te = (TileEntityLandmine) par1World.getTileEntity(par2, par3, par4);
 
+        Sensitivity triggerType;
+        
         // Change to return 1 if you want the landmine to blow up when the block
         // holding it is broken
         if (te == null)
@@ -476,34 +455,34 @@ public class BlockLandmine extends BlockContainer
         switch (te.triggerType)
         {
         case 0:
-            field_150069_a = Sensitivity.everything;
+            triggerType = Sensitivity.everything;
             break;
         case 1:
-            field_150069_a = Sensitivity.mobs;
+            triggerType = Sensitivity.mobs;
             break;
         case 2:
-            field_150069_a = Sensitivity.players;
+            triggerType = Sensitivity.players;
             break;
         default:
-            field_150069_a = null;
+            triggerType = null;
             break;
         }
 
-        if (field_150069_a != null)
+        if (triggerType != null)
         {
             List list = null;
 
-            if (field_150069_a == Sensitivity.everything)
+            if (triggerType == Sensitivity.everything)
             {
                 list = par1World.getEntitiesWithinAABBExcludingEntity((Entity) null, getSensitiveAABB(par1World, par2, par3, par4));
             }
 
-            if (field_150069_a == Sensitivity.mobs)
+            if (triggerType == Sensitivity.mobs)
             {
                 list = par1World.getEntitiesWithinAABB(EntityLivingBase.class, getSensitiveAABB(par1World, par2, par3, par4));
             }
 
-            if (field_150069_a == Sensitivity.players)
+            if (triggerType == Sensitivity.players)
             {
                 list = par1World.getEntitiesWithinAABB(EntityPlayer.class, this.getSensitiveAABB(par1World, par2, par3, par4));
             }
@@ -563,6 +542,8 @@ public class BlockLandmine extends BlockContainer
 
         TileEntityLandmine te = (TileEntityLandmine) par1World.getTileEntity(par2, par3, par4);
 
+        Sensitivity triggerType;
+        
         // Change to return 1 if you want the landmine to blow up when the
         // block holding it is broken
         if (te == null)
@@ -572,34 +553,34 @@ public class BlockLandmine extends BlockContainer
         switch (te.triggerType)
         {
         case 0:
-            field_150069_a = Sensitivity.everything;
+            triggerType = Sensitivity.everything;
             break;
         case 1:
-            field_150069_a = Sensitivity.mobs;
+            triggerType = Sensitivity.mobs;
             break;
         case 2:
-            field_150069_a = Sensitivity.players;
+            triggerType = Sensitivity.players;
             break;
         default:
-            field_150069_a = null;
+            triggerType = null;
             break;
         }
 
-        if (field_150069_a != null)
+        if (triggerType != null)
         {
             List list = null;
 
-            if (field_150069_a == Sensitivity.everything)
+            if (triggerType == Sensitivity.everything)
             {
                 list = par1World.getEntitiesWithinAABBExcludingEntity((Entity) null, AxisAlignedBB.getAABBPool().getAABB(par2 + 0D, par3 + 0D, par4 + 0D, par2 + 1D, par3 + 1D, par4 + 1D));
             }
 
-            if (field_150069_a == Sensitivity.mobs)
+            if (triggerType == Sensitivity.mobs)
             {
                 list = par1World.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getAABBPool().getAABB(par2 + 0D, par3 + 0D, par4 + 0D, par2 + 1D, par3 + 1D, par4 + 1D));
             }
 
-            if (field_150069_a == Sensitivity.players)
+            if (triggerType == Sensitivity.players)
             {
                 list = par1World.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getAABBPool().getAABB(par2 + 0D, par3 + 0D, par4 + 0D, par2 + 1D, par3 + 1D, par4 + 1D));
             }
@@ -629,7 +610,6 @@ public class BlockLandmine extends BlockContainer
         return false;
     }
 
-    @SuppressWarnings("incomplete-switch")
     @Override
     public void setBlockBoundsBasedOnState (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
     {
@@ -658,9 +638,17 @@ public class BlockLandmine extends BlockContainer
         case WEST:
             this.setBlockBounds(0.0F, 0.0625F, 0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F);
             break;
+        default:
+        	this.setBlockBounds(0, 0, 0, 1, 1, 1);
+        	break;
         }
     }
 
+    @Override
+    public int damageDropped (int par1){
+    	return par1;
+    }
+    
     @Override
     public Item getItemDropped (int par1, Random par2Random, int par3)
     {
