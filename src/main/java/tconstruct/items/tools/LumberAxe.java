@@ -62,24 +62,20 @@ public class LumberAxe extends HarvestTool
         return AbilityHelper.onBlockChanged(itemstack, world, block, x, y, z, player, random);
     }
 
-    static Material[] materials = { Material.wood, Material.vine, Material.circuits, Material.cactus };//TODO find this//, Material.pumpkin };
+    static Material[] materials = { Material.wood, Material.vine, Material.circuits, Material.cactus };// TODO find this//,
+                                                                                                       // Material.pumpkin };
 
     /* Lumber axe specific */
 
-    /*@Override
-    public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
-    {
-        super.onUpdate(stack, world, entity, par4, par5);
-        if (entity instanceof EntityPlayer)
-        {
-            EntityPlayer player = (EntityPlayer) entity;
-            ItemStack equipped = player.getCurrentEquippedItem();
-            if (equipped == stack)
-            {
-                player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 1, 1));
-            }
-        }
-    }*/
+    /*
+     * @Override public void onUpdate (ItemStack stack, World world, Entity
+     * entity, int par4, boolean par5) { super.onUpdate(stack, world, entity,
+     * par4, par5); if (entity instanceof EntityPlayer) { EntityPlayer player =
+     * (EntityPlayer) entity; ItemStack equipped =
+     * player.getCurrentEquippedItem(); if (equipped == stack) {
+     * player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 1, 1)); }
+     * } }
+     */
 
     @Override
     public float getDigSpeed (ItemStack stack, Block block, int meta)
@@ -232,12 +228,16 @@ public class LumberAxe extends HarvestTool
                                 {
                                     if (localblock == bID && world.getBlockMetadata(xPos, yPos, zPos) % 4 == meta % 4)
                                     {
-                                        /* world.setBlock(xPos, yPos, zPos, 0, 0, 3);
-                                         if (!player.capabilities.isCreativeMode)
-                                         {
-                                             Block.blocksList[bID].harvestBlock(world, player, xPos, yPos, zPos, meta);
-                                             onBlockDestroyed(stack, world, bID, xPos, yPos, zPos, player);
-                                         }*/
+                                        /*
+                                         * world.setBlock(xPos, yPos, zPos, 0,
+                                         * 0, 3); if
+                                         * (!player.capabilities.isCreativeMode)
+                                         * {
+                                         * Block.blocksList[bID].harvestBlock(world
+                                         * , player, xPos, yPos, zPos, meta);
+                                         * onBlockDestroyed(stack, world, bID,
+                                         * xPos, yPos, zPos, player); }
+                                         */
                                         if (!player.capabilities.isCreativeMode)
                                         {
                                             if (block.removedByPlayer(world, player, xPos, yPos, zPos))
@@ -254,19 +254,19 @@ public class LumberAxe extends HarvestTool
                                         }
                                         breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player);
                                     }
-                                    /*else
-                                    {
-                                        Block leaves = Block.blocksList[localID];
-                                        if (leaves != null && leaves.isLeaves(world, xPos, yPos, zPos))
-                                        {
-                                            WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
-                                            if (!player.capabilities.isCreativeMode)
-                                            {
-                                                Block.blocksList[bID].harvestBlock(world, player, xPos, yPos, zPos, meta);
-                                                onBlockDestroyed(stack, world, bID, xPos, yPos, zPos, player);
-                                            }
-                                        }
-                                    }*/
+                                    /*
+                                     * else { Block leaves =
+                                     * Block.blocksList[localID]; if (leaves !=
+                                     * null && leaves.isLeaves(world, xPos,
+                                     * yPos, zPos)) {
+                                     * WorldHelper.setBlockToAir(world, xPos,
+                                     * yPos, zPos); if
+                                     * (!player.capabilities.isCreativeMode) {
+                                     * Block.blocksList[bID].harvestBlock(world,
+                                     * player, xPos, yPos, zPos, meta);
+                                     * onBlockDestroyed(stack, world, bID, xPos,
+                                     * yPos, zPos, player); } } }
+                                     */
                                 }
                             }
                         }
@@ -306,7 +306,7 @@ public class LumberAxe extends HarvestTool
                                     WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
                                     if (!player.capabilities.isCreativeMode)
                                     {
-                                        //TODO harvestBlock
+                                        // TODO harvestBlock
                                         block.harvestBlock(world, player, xPos, yPos, zPos, meta);
                                         onBlockDestroyed(stack, world, block, xPos, yPos, zPos, player);
                                     }

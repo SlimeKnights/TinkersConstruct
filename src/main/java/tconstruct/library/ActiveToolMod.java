@@ -21,7 +21,7 @@ public class ActiveToolMod
         return false;
     }
 
-    public boolean afterBlockBreak () //Unfinished, not called
+    public boolean afterBlockBreak () // Unfinished, not called
     {
         return false;
     }
@@ -33,7 +33,7 @@ public class ActiveToolMod
         return 0;
     }
 
-    //Calculated after sprinting and enchant bonuses
+    // Calculated after sprinting and enchant bonuses
     public float knockback (float modKnockback, float currentKnockback, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLivingBase player, Entity entity)
     {
         return 0f;
@@ -44,7 +44,7 @@ public class ActiveToolMod
         return 0;
     }
 
-    public void lateAttackEntity () //Unfinished, not called
+    public void lateAttackEntity () // Unfinished, not called
     {
 
     }

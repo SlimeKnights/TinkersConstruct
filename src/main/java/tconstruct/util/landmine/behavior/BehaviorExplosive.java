@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 /**
  * 
  * @author fuj1n
- *
+ * 
  */
 public class BehaviorExplosive extends Behavior
 {
@@ -48,7 +48,8 @@ public class BehaviorExplosive extends Behavior
             str = "small";
         }
 
-        //par2List.add("This item explodes with " + str + " power when the landmine is triggered.");
+        // par2List.add("This item explodes with " + str +
+        // " power when the landmine is triggered.");
     }
 
     @Override
@@ -58,7 +59,9 @@ public class BehaviorExplosive extends Behavior
     }
 
     @Override
-    //Change this to false to greatly decrease the maximum potential of explosions but at the same time, make them launch the player much higher(I mean the explosions with 2 or more TNT
+    // Change this to false to greatly decrease the maximum potential of
+    // explosions but at the same time, make them launch the player much
+    // higher(I mean the explosions with 2 or more TNT
     public boolean effectStacks ()
     {
         return true;

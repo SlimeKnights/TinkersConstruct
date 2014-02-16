@@ -18,7 +18,7 @@ public class TConstructFluid extends BlockFluidClassic
     {
         super(fluid, material);
         this.texture = texture;
-        //TODO setCreativeTab()
+        // TODO setCreativeTab()
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
@@ -34,7 +34,7 @@ public class TConstructFluid extends BlockFluidClassic
         return alpha ? 1 : 0;
     }
 
-    //TODO registerBlockIcons
+    // TODO registerBlockIcons
     @Override
     public void registerBlockIcons (IIconRegister iconRegister)
     {
@@ -42,7 +42,7 @@ public class TConstructFluid extends BlockFluidClassic
         flowIcon = iconRegister.registerIcon("tinker:" + texture + "_flow");
     }
 
-    //TODO getIcon()
+    // TODO getIcon()
     @Override
     public IIcon getIcon (int side, int meta)
     {

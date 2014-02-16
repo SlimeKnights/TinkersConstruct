@@ -57,9 +57,9 @@ public class PartCrafterGui extends NewContainerGui
     void drawMaterialInformation ()
     {
         ItemStack top = logic.getStackInSlot(2);
-        //ItemStack topResult = logic.getStackInSlot(4);
+        // ItemStack topResult = logic.getStackInSlot(4);
         ItemStack bottom = logic.getStackInSlot(3);
-        //ItemStack bottomResult = logic.getStackInSlot(6);
+        // ItemStack bottomResult = logic.getStackInSlot(6);
         if (topMaterial != top)
         {
             topMaterial = top;

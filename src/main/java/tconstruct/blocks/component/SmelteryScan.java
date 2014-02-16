@@ -122,7 +122,7 @@ public class SmelteryScan extends TankLayerScan
         }
     }
 
-    //Sync lava tanks for fuel values
+    // Sync lava tanks for fuel values
     @Override
     public void readNetworkNBT (NBTTagCompound tags)
     {

@@ -2,16 +2,6 @@ package tconstruct.blocks;
 
 import java.util.List;
 
-import tconstruct.TConstruct;
-import tconstruct.blocks.logic.PartBuilderLogic;
-import tconstruct.blocks.logic.PatternChestLogic;
-import tconstruct.blocks.logic.StencilTableLogic;
-import tconstruct.blocks.logic.ToolStationLogic;
-import tconstruct.client.block.TableRender;
-import tconstruct.common.TContent;
-import tconstruct.common.TRepo;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.util.config.PHConstruct;
 import mantle.blocks.abstracts.InventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -26,6 +16,15 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import tconstruct.TConstruct;
+import tconstruct.blocks.logic.PartBuilderLogic;
+import tconstruct.blocks.logic.PatternChestLogic;
+import tconstruct.blocks.logic.StencilTableLogic;
+import tconstruct.blocks.logic.ToolStationLogic;
+import tconstruct.client.block.TableRender;
+import tconstruct.common.TRepo;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.util.config.PHConstruct;
 
 public class ToolStationBlock extends InventoryBlock
 {
@@ -37,7 +36,7 @@ public class ToolStationBlock extends InventoryBlock
         this.setStepSound(Block.soundTypeWood);
     }
 
-    //Block.hasComparatorInputOverride and Block.getComparatorInputOverride
+    // Block.hasComparatorInputOverride and Block.getComparatorInputOverride
 
     /* Rendering */
     @Override
@@ -151,8 +150,9 @@ public class ToolStationBlock extends InventoryBlock
             return new StencilTableLogic();
         case 13:
             return new StencilTableLogic();
-            /*case 14:
-                return new CastingTableLogic();*/
+            /*
+             * case 14: return new CastingTableLogic();
+             */
         default:
             return null;
         }
@@ -171,7 +171,7 @@ public class ToolStationBlock extends InventoryBlock
         else
             return 3;
 
-        //return -1;
+        // return -1;
     }
 
     @Override

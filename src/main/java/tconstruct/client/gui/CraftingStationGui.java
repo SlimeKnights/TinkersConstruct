@@ -32,8 +32,9 @@ public class CraftingStationGui extends GuiContainer
     {
         super(logic.getGuiContainer(inventory, world, x, y, z));
         this.logic = logic;
-        //text = new GuiTextField(this.fontRendererObj, this.xSize / 2 - 5, 8, 30, 12);
-        //this.text.setText("");
+        // text = new GuiTextField(this.fontRendererObj, this.xSize / 2 - 5, 8,
+        // 30, 12);
+        // this.text.setText("");
         title = "\u00A7n" + StatCollector.translateToLocal("gui.toolforge1");
         body = StatCollector.translateToLocal("gui.toolforge2");
         toolName = "";
@@ -46,7 +47,8 @@ public class CraftingStationGui extends GuiContainer
         this.fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 0x202020);
         if (logic.chest != null)
             this.fontRendererObj.drawString(StatCollector.translateToLocal(logic.chest.get().getInventoryName()), -108, this.ySize - 160, 0x202020);
-        //this.fontRendererObj.drawString(toolName + "_", this.xSize / 2 - 18, 8, 0xffffff);
+        // this.fontRendererObj.drawString(toolName + "_", this.xSize / 2 - 18,
+        // 8, 0xffffff);
 
         if (logic.tinkerTable)
         {
@@ -111,7 +113,7 @@ public class CraftingStationGui extends GuiContainer
         final int maxDur = tags.getInteger("TotalDurability");
         int availableDurability = maxDur - durability;
 
-        //Durability
+        // Durability
         int base = 24;
         int offset = 0;
         if (maxDur > 0)
@@ -131,7 +133,7 @@ public class CraftingStationGui extends GuiContainer
         }
 
         final float stonebound = tags.getFloat("Shoddy");
-        //Attack
+        // Attack
         if (categories.contains("weapon"))
         {
             int attack = (int) (tags.getInteger("Attack"));
@@ -202,12 +204,15 @@ public class CraftingStationGui extends GuiContainer
             offset++;
             this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation9") + df.format(accuracy - 4) + "%", xSize + 8, base + offset * 10, 0xffffff);
             offset++;
-            /*this.fontRendererObj.drawString("Chance to break: " + df.format(shatter)+"%", xSize + 8, base + offset * 10, 0xffffff);
-            offset++;*/
+            /*
+             * this.fontRendererObj.drawString("Chance to break: " +
+             * df.format(shatter)+"%", xSize + 8, base + offset * 10, 0xffffff);
+             * offset++;
+             */
             offset++;
         }
 
-        //Mining
+        // Mining
         if (categories.contains("dualharvest"))
         {
             float mineSpeed = tags.getInteger("MiningSpeed") / 100f;
@@ -371,7 +376,7 @@ public class CraftingStationGui extends GuiContainer
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(icons);
 
-        //Draw chest side
+        // Draw chest side
         if (logic.chest != null)
         {
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

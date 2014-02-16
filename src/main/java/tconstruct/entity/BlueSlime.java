@@ -39,7 +39,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     public BlueSlime(World world)
     {
         super(world);
-        //this.texture = "/mods/tinker/textures/mob/slimeedible.png";
+        // this.texture = "/mods/tinker/textures/mob/slimeedible.png";
         int offset = this.rand.nextInt(299);
         if (offset < 149)
             offset = 1;
@@ -262,7 +262,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     {
         super.readEntityFromNBT(par1NBTTagCompound);
         this.setSlimeSize(par1NBTTagCompound.getInteger("Size") + 1);
-        //this.dataWatcher.updateObject(17, Integer.valueOf(this.health));
+        // this.dataWatcher.updateObject(17, Integer.valueOf(this.health));
     }
 
     /**
@@ -325,7 +325,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 
     protected void updateEntityActionState ()
     {
-        //Minecraft.getMinecraft().getLogAgent().logInfo("Collided with "+entity.getEntityName());
+        // Minecraft.getMinecraft().getLogAgent().logInfo("Collided with "+entity.getEntityName());
         this.despawnEntity();
         EntityPlayer entityplayer = this.worldObj.getClosestVulnerablePlayerToEntity(this, 16.0D);
 
@@ -485,7 +485,8 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     }
 
     /**
-     * Indicates weather the slime is able to damage the player (based upon the slime's size)
+     * Indicates weather the slime is able to damage the player (based upon the
+     * slime's size)
      */
     protected boolean canDamagePlayer ()
     {
@@ -493,7 +494,8 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     }
 
     /**
-     * Gets the amount of damage dealt to the player when "attacked" by the slime.
+     * Gets the amount of damage dealt to the player when "attacked" by the
+     * slime.
      */
     protected int getAttackStrength ()
     {
@@ -533,8 +535,8 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     }
 
     /**
-     * The speed it takes to move the entityliving's rotationPitch through the faceEntity method. This is only currently
-     * use in wolves.
+     * The speed it takes to move the entityliving's rotationPitch through the
+     * faceEntity method. This is only currently use in wolves.
      */
     public int getVerticalFaceSpeed ()
     {
@@ -542,7 +544,8 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     }
 
     /**
-     * Returns true if the slime makes a sound when it jumps (based upon the slime's size)
+     * Returns true if the slime makes a sound when it jumps (based upon the
+     * slime's size)
      */
     protected boolean makesSoundOnJump ()
     {
@@ -550,16 +553,16 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     }
 
     /**
-     * Returns true if the slime makes a sound when it lands after a jump (based upon the slime's size)
+     * Returns true if the slime makes a sound when it lands after a jump (based
+     * upon the slime's size)
      */
     protected boolean makesSoundOnLand ()
     {
         return this.getSlimeSize() > 2;
     }
 
-    /*@Override
-    public int getBossHealth ()
-    {
-        return this.dataWatcher.getWatchableObjectInt(17);
-    }*/
+    /*
+     * @Override public int getBossHealth () { return
+     * this.dataWatcher.getWatchableObjectInt(17); }
+     */
 }

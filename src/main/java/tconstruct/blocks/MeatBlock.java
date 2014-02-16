@@ -24,7 +24,7 @@ public class MeatBlock extends BlockWood
     {
         this.setHardness(1.0F);
         this.setStepSound(Block.soundTypeWood);
-        //setBurnProperties(this.blockID, 5, 20);
+        // setBurnProperties(this.blockID, 5, 20);
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
@@ -36,7 +36,7 @@ public class MeatBlock extends BlockWood
         int orientation = metadata / 4;
 
         switch (orientation)
-        //Ends of logs
+        // Ends of logs
         {
         case 0:
             if (side == 0 || side == 1)
@@ -73,7 +73,8 @@ public class MeatBlock extends BlockWood
     }
 
     /**
-     * ejects contained items into the world, and notifies neighbours of an update, as appropriate
+     * ejects contained items into the world, and notifies neighbours of an
+     * update, as appropriate
      */
     public void breakBlock (World par1World, int par2, int par3, int par4, int par5, int par6)
     {
@@ -101,7 +102,8 @@ public class MeatBlock extends BlockWood
     }
 
     /**
-     * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z, side, hitX, hitY, hitZ, block metadata
+     * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z,
+     * side, hitX, hitY, hitZ, block metadata
      */
     public int onBlockPlaced (World par1World, int par2, int par3, int par4, int par5, float par6, float par7, float par8, int par9)
     {
@@ -127,7 +129,8 @@ public class MeatBlock extends BlockWood
     }
 
     /**
-     * Determines the damage on the item the block drops. Used in cloth and wood.
+     * Determines the damage on the item the block drops. Used in cloth and
+     * wood.
      */
     public int damageDropped (int par1)
     {
@@ -152,16 +155,12 @@ public class MeatBlock extends BlockWood
         return false;
     }
 
-    /*public void onBlockHarvested (World world, int x, int y, int z, int meta, EntityPlayer player)
-    {
-        if (meta % 4 == 1)
-        {
-            if (world.difficultySetting > 2)
-                world.createExplosion(null, x, y, z, 1.75f, false);
-            else
-                world.createExplosion(null, x, y, z, 2f, false);
-        }
-    }*/
+    /*
+     * public void onBlockHarvested (World world, int x, int y, int z, int meta,
+     * EntityPlayer player) { if (meta % 4 == 1) { if (world.difficultySetting >
+     * 2) world.createExplosion(null, x, y, z, 1.75f, false); else
+     * world.createExplosion(null, x, y, z, 2f, false); } }
+     */
 
     @SideOnly(Side.CLIENT)
     @Override
@@ -171,17 +170,17 @@ public class MeatBlock extends BlockWood
             par3List.add(new ItemStack(b, 1, i));
     }
 
-    //    @Override
-    //    public boolean canSustainLeaves (World world, int x, int y, int z)
-    //    {
-    //        return true;
-    //    }
+    // @Override
+    // public boolean canSustainLeaves (World world, int x, int y, int z)
+    // {
+    // return true;
+    // }
     //
-    //    @Override
-    //    public boolean isWood (World world, int x, int y, int z)
-    //    {
-    //        return true;
-    //    }
+    // @Override
+    // public boolean isWood (World world, int x, int y, int z)
+    // {
+    // return true;
+    // }
 
     public boolean isBeaconBase (World worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ)
     {

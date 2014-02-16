@@ -38,7 +38,7 @@ public class SoilSlab extends SlabBase
         switch (meta % 8)
         {
         case 0:
-            return this.blockIcon;//Block.grass.getIcon(1, 0);
+            return this.blockIcon;// Block.grass.getIcon(1, 0);
         case 1:
             return Blocks.dirt.getIcon(side, 0);
         case 2:
@@ -70,9 +70,9 @@ public class SoilSlab extends SlabBase
     @SideOnly(Side.CLIENT)
     public int getRenderColor (int par1)
     {
-        //if (par1 % 8 == 0)
+        // if (par1 % 8 == 0)
         return this.getBlockColor();
-        //return 0xFFFFFF;
+        // return 0xFFFFFF;
     }
 
     @Override

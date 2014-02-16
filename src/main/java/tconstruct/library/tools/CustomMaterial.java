@@ -17,10 +17,10 @@ public abstract class CustomMaterial
         this.craftingItem = craftingItem;
     }
 
-    /*public boolean matches(ItemStack input, ItemStack pattern)
-    {
-        if (ItemStack.areItemStacksEqual(this.input, input) && ItemStack.areItemStacksEqual(this.craftingPattern, pattern))
-            return true;
-        return false;
-    }*/
+    /*
+     * public boolean matches(ItemStack input, ItemStack pattern) { if
+     * (ItemStack.areItemStacksEqual(this.input, input) &&
+     * ItemStack.areItemStacksEqual(this.craftingPattern, pattern)) return true;
+     * return false; }
+     */
 }

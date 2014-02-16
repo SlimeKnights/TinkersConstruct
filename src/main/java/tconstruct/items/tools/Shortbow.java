@@ -103,7 +103,7 @@ public class Shortbow extends BowBase
         if (tags.hasKey("Energy"))
         {
             String color = "";
-            //double joules = this.getJoules(stack);
+            // double joules = this.getJoules(stack);
             int power = tags.getInteger("Energy");
 
             if (power != 0)
@@ -188,7 +188,7 @@ public class Shortbow extends BowBase
         default:
             return "";
         }
-        //return TConstructRegistry.getMaterial(type).ability();
+        // return TConstructRegistry.getMaterial(type).ability();
     }
 
     @Override

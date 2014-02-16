@@ -24,7 +24,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class SlimeGrass extends MantleBlock
 {
-    public String[] textureNames = { "slimegrass_green_top", "slimedirt_blue", "slimegrass_green_blue_side", "slimegrass_green_dirt_side" };//green, purple
+    public String[] textureNames = { "slimegrass_green_top", "slimedirt_blue", "slimegrass_green_blue_side", "slimegrass_green_dirt_side" };// green,
+                                                                                                                                            // purple
     public IIcon[] icons;
 
     public SlimeGrass()
@@ -38,11 +39,11 @@ public class SlimeGrass extends MantleBlock
     @Override
     public int damageDropped (int meta)
     {
-        if (meta == 1) //dirt
+        if (meta == 1) // dirt
             return 0;
 
         else
-            //slime dirt
+            // slime dirt
             return 5;
     }
 

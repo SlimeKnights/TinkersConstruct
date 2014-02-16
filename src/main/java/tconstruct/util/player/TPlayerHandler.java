@@ -34,7 +34,7 @@ import cpw.mods.fml.relauncher.Side;
 public class TPlayerHandler
 {
     /* Player */
-    //public int hunger;
+    // public int hunger;
 
     public ConcurrentHashMap<String, TPlayerStats> playerStats = new ConcurrentHashMap<String, TPlayerStats>();
 
@@ -64,8 +64,8 @@ public class TPlayerHandler
 
     public void onPlayerLogin (EntityPlayer entityplayer)
     {
-        //TConstruct.logger.info("Player: "+entityplayer);
-        //Lookup player
+        // TConstruct.logger.info("Player: "+entityplayer);
+        // Lookup player
         NBTTagCompound tags = entityplayer.getEntityData();
         if (!tags.hasKey("TConstruct"))
         {
@@ -86,7 +86,7 @@ public class TPlayerHandler
         stats.beginnerManual = tags.getCompoundTag("TConstruct").getBoolean("beginnerManual");
         stats.materialManual = tags.getCompoundTag("TConstruct").getBoolean("materialManual");
         stats.smelteryManual = tags.getCompoundTag("TConstruct").getBoolean("smelteryManual");
-        //gamerule naturalRegeneration false
+        // gamerule naturalRegeneration false
         if (!PHConstruct.enableHealthRegen)
             entityplayer.worldObj.getGameRules().setOrCreateGameRule("naturalRegeneration", "false");
         if (!stats.beginnerManual)
@@ -157,14 +157,15 @@ public class TPlayerHandler
 
     void updateClientPlayer (ByteArrayOutputStream bos, EntityPlayer player)
     {
-        /*Packet250CustomPayload packet = new Packet250CustomPayload();
-        packet.channel = "TConstruct";
-        packet.data = bos.toByteArray();
-        packet.length = bos.size();
-
-        PacketDispatcher.sendPacketToPlayer(packet, (Player) player);
-        */
-        //TODO find out what packet needs to be used here (and make sure that player actually is a playerMP and this gets called)
+        /*
+         * Packet250CustomPayload packet = new Packet250CustomPayload();
+         * packet.channel = "TConstruct"; packet.data = bos.toByteArray();
+         * packet.length = bos.size();
+         * 
+         * PacketDispatcher.sendPacketToPlayer(packet, (Player) player);
+         */
+        // TODO find out what packet needs to be used here (and make sure that
+        // player actually is a playerMP and this gets called)
         if (player instanceof EntityPlayerMP)
         {
             TConstruct.packetPipeline.sendTo(new PacketDoubleJump(), (EntityPlayerMP) player);
@@ -184,7 +185,7 @@ public class TPlayerHandler
                     playerStats.remove(player.getDisplayName());
             }
             else
-            //Revalidate all players
+            // Revalidate all players
             {
 
             }
@@ -193,13 +194,14 @@ public class TPlayerHandler
 
     public void onPlayerRespawn (EntityPlayer entityplayer)
     {
-        //Boom!
+        // Boom!
         TPlayerStats stats = getPlayerStats(entityplayer.getDisplayName());
         stats.player = new WeakReference<EntityPlayer>(entityplayer);
         stats.armor.recalculateHealth(entityplayer, stats);
 
-        /*TFoodStats food = new TFoodStats();
-        entityplayer.foodStats = food;*/
+        /*
+         * TFoodStats food = new TFoodStats(); entityplayer.foodStats = food;
+         */
 
         if (PHConstruct.keepLevels)
             entityplayer.experienceLevel = stats.level;
@@ -215,14 +217,14 @@ public class TPlayerHandler
         Side side = FMLCommonHandler.instance().getEffectiveSide();
         if (side == Side.CLIENT)
         {
-            //TProxyClient.controlInstance.resetControls();
+            // TProxyClient.controlInstance.resetControls();
             if (PHConstruct.keepHunger)
                 entityplayer.getFoodStats().setFoodLevel(stats.hunger);
         }
     }
 
     @SubscribeEvent
-    public void livingFall (LivingFallEvent evt) //Only for negating fall damage
+    public void livingFall (LivingFallEvent evt) // Only for negating fall damage
     {
         if (evt.entityLiving instanceof EntityPlayer)
         {
@@ -230,34 +232,25 @@ public class TPlayerHandler
         }
     }
 
-    /*@SubscribeEvent
-    public void livingUpdate (LivingUpdateEvent evt)
-    {
-    	Side side = FMLCommonHandler.instance().getEffectiveSide();
-    	if (side == Side.CLIENT && evt.entityLiving instanceof EntityPlayer)
-    	{
-    		EntityPlayer player = (EntityPlayer) evt.entityLiving;
-    		TPlayerStats stats = playerStats.get(player.getDisplayName());
-    		if (player.onGround != stats.prevOnGround)
-    		{
-    			if (player.onGround)// && -stats.prevMotionY > 0.1)
-    				//player.motionY = 0.5;
-    				player.motionY = -stats.prevMotionY * 0.8;
-    				//player.motionY *= -1.2;
-    			stats.prevOnGround = player.onGround;
-    			//if ()
-    				
-    			//TConstruct.logger.info("Fall: "+player.fallDistance);
-    		}
-    	}
-    }*/
+    /*
+     * @SubscribeEvent public void livingUpdate (LivingUpdateEvent evt) { Side
+     * side = FMLCommonHandler.instance().getEffectiveSide(); if (side ==
+     * Side.CLIENT && evt.entityLiving instanceof EntityPlayer) { EntityPlayer
+     * player = (EntityPlayer) evt.entityLiving; TPlayerStats stats =
+     * playerStats.get(player.getDisplayName()); if (player.onGround !=
+     * stats.prevOnGround) { if (player.onGround)// && -stats.prevMotionY > 0.1)
+     * //player.motionY = 0.5; player.motionY = -stats.prevMotionY * 0.8;
+     * //player.motionY *= -1.2; stats.prevOnGround = player.onGround; //if ()
+     * 
+     * //TConstruct.logger.info("Fall: "+player.fallDistance); } } }
+     */
 
     @SubscribeEvent
     public void playerDrops (PlayerDropsEvent evt)
     {
         TPlayerStats stats = getPlayerStats(evt.entityPlayer.getDisplayName());
         stats.level = evt.entityPlayer.experienceLevel / 2;
-        //stats.health = 20;
+        // stats.health = 20;
         int hunger = evt.entityPlayer.getFoodStats().getFoodLevel();
         if (hunger < 6)
             stats.hunger = 6;
@@ -269,7 +262,7 @@ public class TPlayerHandler
     public TPlayerStats getPlayerStats (String username)
     {
         TPlayerStats stats = playerStats.get(username);
-        //TConstruct.logger.info("Stats: "+stats);
+        // TConstruct.logger.info("Stats: "+stats);
         if (stats == null)
         {
             stats = new TPlayerStats();
@@ -294,14 +287,15 @@ public class TPlayerHandler
     /* Modify Player */
     public void updateSize (String user, float offset)
     {
-        /*EntityPlayer player = getEntityPlayer(user);
-        setEntitySize(0.6F, offset, player);
-        player.yOffset = offset - 0.18f;*/
+        /*
+         * EntityPlayer player = getEntityPlayer(user); setEntitySize(0.6F,
+         * offset, player); player.yOffset = offset - 0.18f;
+         */
     }
 
     public static void setEntitySize (float width, float height, Entity entity)
     {
-        //TConstruct.logger.info("Size: " + height);
+        // TConstruct.logger.info("Size: " + height);
         if (width != entity.width || height != entity.height)
         {
             entity.width = width;
@@ -337,7 +331,7 @@ public class TPlayerHandler
         {
             entity.myEntitySize = EnumEntitySize.SIZE_6;
         }
-        //entity.yOffset = height;
+        // entity.yOffset = height;
     }
 
     Random rand = new Random();

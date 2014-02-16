@@ -4,10 +4,8 @@ import mantle.lib.TabTools;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.config.LoggerConfig;
 
 import tconstruct.achievements.TAchievements;
 import tconstruct.client.TControls;
@@ -51,8 +49,10 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-/** TConstruct, the tool mod.
- * Craft your tools with style, then modify until the original is gone!
+/**
+ * TConstruct, the tool mod. Craft your tools with style, then modify until the
+ * original is gone!
+ * 
  * @author mDiyo
  */
 
@@ -79,13 +79,13 @@ public class TConstruct
     @SidedProxy(clientSide = "tconstruct.client.TProxyClient", serverSide = "tconstruct.common.TProxyCommon")
     public static TProxyCommon proxy;
 
-    //The packet pipeline
+    // The packet pipeline
     public static final PacketPipeline packetPipeline = new PacketPipeline();
 
     public TConstruct()
     {
 
-        //logger.setParent(FMLCommonHandler.instance().getFMLLogger());
+        // logger.setParent(FMLCommonHandler.instance().getFMLLogger());
         if (Loader.isModLoaded("Natura"))
         {
             logger.info("Natura, what are we going to do tomorrow night?");
@@ -132,7 +132,7 @@ public class TConstruct
         GameRegistry.registerWorldGenerator(new TBaseWorldGenerator(), 0);
         MinecraftForge.TERRAIN_GEN_BUS.register(new TerrainGenEventHandler());
         GameRegistry.registerFuelHandler(content);
-        //GameRegistry.registerCraftingHandler(new TCraftingHandler());
+        // GameRegistry.registerCraftingHandler(new TCraftingHandler());
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 
         if (PHConstruct.addToVillages)
@@ -155,7 +155,7 @@ public class TConstruct
         }
 
         playerTracker = new TPlayerHandler();
-        //GameRegistry.registerPlayerTracker(playerTracker);
+        // GameRegistry.registerPlayerTracker(playerTracker);
         FMLCommonHandler.instance().bus().register(playerTracker);
 
         if (event.getSide() == Side.CLIENT)

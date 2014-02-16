@@ -10,7 +10,7 @@ public class GlassPaneStained extends PaneBase
     public GlassPaneStained()
     {
         super(Material.glass, "glass/", assembleBlockTextures());
-        //TODO setHardness
+        // TODO setHardness
         this.setHardness(0.3F);
         this.stepSound = soundTypeGlass;
         this.setBlockName("tconstruct.glasspanestained");

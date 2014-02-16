@@ -33,7 +33,7 @@ public class EquipBlock extends InventoryBlock
         super(material);
         this.setHardness(0.3f);
         this.setBlockBounds(0, 0, 0, 1, 0.25f, 1);
-        //this.setCreativeTab(ToolConstruct.materialTab);
+        // this.setCreativeTab(ToolConstruct.materialTab);
     }
 
     @Override
@@ -50,7 +50,8 @@ public class EquipBlock extends InventoryBlock
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons (IIconRegister par1IconRegister)
     {
-        //this.blockIcon = par1iconRegister.registerIcon(Block.blockIron.getUnlocalizedName());
+        // this.blockIcon =
+        // par1iconRegister.registerIcon(Block.blockIron.getUnlocalizedName());
     }
 
     @Override

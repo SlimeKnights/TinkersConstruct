@@ -34,7 +34,7 @@ public class Arrow extends ToolCore
         case 0:
             return "_arrow_head";
         case 1:
-            return ""; //Doesn't break
+            return ""; // Doesn't break
         case 2:
             return "_arrow_shaft";
         case 3:
@@ -96,7 +96,7 @@ public class Arrow extends ToolCore
     @Override
     public void getSubItems (Item id, CreativeTabs tab, List list)
     {
-        //Vanilla style arrow
+        // Vanilla style arrow
         Item accessory = getAccessoryItem();
         ItemStack accessoryStack = accessory != null ? new ItemStack(getAccessoryItem(), 1, 0) : null;
         Item extra = getExtraItem();
@@ -117,7 +117,7 @@ public class Arrow extends ToolCore
             list.add(tool);
         }
 
-        //Random arrow
+        // Random arrow
         accessory = getAccessoryItem();
         accessoryStack = accessory != null ? new ItemStack(getAccessoryItem(), 1, random.nextInt(4)) : null;
         extra = getExtraItem();
@@ -182,7 +182,7 @@ public class Arrow extends ToolCore
         if (tags.hasKey("Energy"))
         {
             String color = "";
-            //double joules = this.getJoules(stack);
+            // double joules = this.getJoules(stack);
             int power = tags.getInteger("Energy");
 
             if (power != 0)

@@ -23,7 +23,8 @@ public class OreberryBushEssence extends OreberryBush implements IPlantable
             return;
         }
 
-        if (random1.nextInt(20) == 0)// && world.getBlockLightValue(x, y, z) <= 8)
+        if (random1.nextInt(20) == 0)// && world.getBlockLightValue(x, y, z) <=
+                                     // 8)
         {
             int meta = world.getBlockMetadata(x, y, z);
             if (world.getFullBlockLightValue(x, y, z) < 10 || meta % 4 == 1)
@@ -33,18 +34,19 @@ public class OreberryBushEssence extends OreberryBush implements IPlantable
                     world.setBlock(x, y, z, (Block) this, meta + 4, 3);
                 }
             }
-            /*else if (meta < 8)
-            {
-            	world.setBlock(x, y, z, blockID, meta + 4, 3);
-            }*/
+            /*
+             * else if (meta < 8) { world.setBlock(x, y, z, blockID, meta + 4,
+             * 3); }
+             */
         }
     }
 
     public boolean canPlaceBlockAt (World world, int x, int y, int z)
     {
         return true;
-        /*if (world.getFullBlockLightValue(x, y, z) < 13)
-        	return super.canPlaceBlockAt(world, x, y, z);
-        return false;*/
+        /*
+         * if (world.getFullBlockLightValue(x, y, z) < 13) return
+         * super.canPlaceBlockAt(world, x, y, z); return false;
+         */
     }
 }

@@ -32,12 +32,11 @@ public class ToolCraftEvent extends Event
             super(tool, toolTag, materials);
         }
 
-        /** Fires just before the tool is put together
+        /**
+         * Fires just before the tool is put together
          * 
-         * Result is significant:
-         *    DEFAULT: Allows tool to be crafted normally 
-         *    ALLOW:   Uses resultStack instead 
-         *    DENY:    Stops tool crafting altogether
+         * Result is significant: DEFAULT: Allows tool to be crafted normally
+         * ALLOW: Uses resultStack instead DENY: Stops tool crafting altogether
          */
 
         public void overrideResult (ItemStack result)

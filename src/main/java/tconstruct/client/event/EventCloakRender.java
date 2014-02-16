@@ -15,10 +15,10 @@ import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 
-import tconstruct.TConstruct;
 import mantle.lib.environment.EnvironmentChecks;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import tconstruct.TConstruct;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 

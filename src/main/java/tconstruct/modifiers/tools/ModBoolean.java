@@ -22,7 +22,18 @@ public class ModBoolean extends ToolMod
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
-        return tags.getInteger("Modifiers") > 0 && !tags.getBoolean(key); //Will fail if the modifier is false or the tag doesn't exist
+        return tags.getInteger("Modifiers") > 0 && !tags.getBoolean(key); // Will
+                                                                          // fail
+                                                                          // if
+                                                                          // the
+                                                                          // modifier
+                                                                          // is
+                                                                          // false
+                                                                          // or
+                                                                          // the
+                                                                          // tag
+                                                                          // doesn't
+                                                                          // exist
     }
 
     @Override
@@ -31,7 +42,7 @@ public class ModBoolean extends ToolMod
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
 
         tags.setBoolean(key, true);
-        //TConstruct.logger.info("Key: "+key+" "+tags.getBoolean(key));
+        // TConstruct.logger.info("Key: "+key+" "+tags.getBoolean(key));
 
         int modifiers = tags.getInteger("Modifiers");
         modifiers -= 1;

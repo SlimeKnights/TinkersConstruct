@@ -12,11 +12,13 @@ import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 
-public class TCraftingHandler //implements ICraftingHandler
+public class TCraftingHandler // implements ICraftingHandler
 {
 
     @SubscribeEvent
-    public void onCrafting (ItemCraftedEvent event)//EntityPlayer player, ItemStack itemstack, IInventory craftMatrix)
+    public void onCrafting (ItemCraftedEvent event)// EntityPlayer player,
+                                                   // ItemStack itemstack,
+                                                   // IInventory craftMatrix)
     {
         Item item = event.crafting.getItem();
         if (!event.player.worldObj.isRemote)

@@ -14,13 +14,16 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class GuiButtonTool extends GuiButton
 {
     /**
-     * True for pointing right (next page), false for pointing left (previous page).
+     * True for pointing right (next page), false for pointing left (previous
+     * page).
      */
     int textureX;
     int textureY;
     public String texture;
     public ToolGuiElement element;
-    private static ResourceLocation background;// = new ResourceLocation("tinker", "textures/gui/armorextended.png");
+    private static ResourceLocation background;// = new
+                                               // ResourceLocation("tinker",
+                                               // "textures/gui/armorextended.png");
 
     public GuiButtonTool(int id, int posX, int posY, int texX, int texY, String domain, String tex, ToolGuiElement e)
     {

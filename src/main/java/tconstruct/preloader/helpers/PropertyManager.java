@@ -10,9 +10,10 @@ import tconstruct.preloader.TConstructLoaderContainer;
 
 /**
  * TCon Preloader properties file helper.
- *
- * We need this as at an early stage as we don't have access to Forge's Configuration object.
- *
+ * 
+ * We need this as at an early stage as we don't have access to Forge's
+ * Configuration object.
+ * 
  * @author Sunstrike
  */
 public class PropertyManager
@@ -30,8 +31,10 @@ public class PropertyManager
 
     /**
      * Gets or creates the TCorestruct properties file.
-     *
-     * @throws PropAccessException Thrown if a properties file wasn't found and could not be created. Should be treated as a SEVERE log message.
+     * 
+     * @throws PropAccessException
+     *             Thrown if a properties file wasn't found and could not be
+     *             created. Should be treated as a SEVERE log message.
      * @return True if loaded from disk, false if file created instead.
      */
     public static boolean getOrCreateProps () throws PropAccessException

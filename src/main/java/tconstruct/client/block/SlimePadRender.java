@@ -41,7 +41,7 @@ public class SlimePadRender implements ISimpleBlockRenderingHandler
 
     float[] size (int meta)
     {
-        //xMin, zMin, xMax, zMax
+        // xMin, zMin, xMax, zMax
         switch (meta)
         {
         case 0:

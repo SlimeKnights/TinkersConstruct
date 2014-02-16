@@ -14,7 +14,7 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 /**
  * 
  * @author fuj1n
- *
+ * 
  */
 public class RenderLandmine implements ISimpleBlockRenderingHandler
 {
@@ -56,7 +56,7 @@ public class RenderLandmine implements ISimpleBlockRenderingHandler
 
         ForgeDirection dir = Helper.convertMetaToForgeOrientation(i1);
 
-        //TConstruct.logger.info(i1 + " for " + dir);
+        // TConstruct.logger.info(i1 + " for " + dir);
 
         switch (dir)
         {

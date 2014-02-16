@@ -59,7 +59,7 @@ public class TActiveOmniMod extends ActiveToolMod
         World world = entity.worldObj;
         Block block = entity.worldObj.getBlock(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
-        //TODO do we need the next to lines????????
+        // TODO do we need the next to lines????????
         if (block == null)
             return false;
 

@@ -43,7 +43,7 @@ public class ToolForgeContainer extends ToolStationContainer
         }
     }
 
-    //posX and posY must be the same length
+    // posX and posY must be the same length
     public void resetSlots (int[] posX, int[] posY)
     {
         inventorySlots.clear();

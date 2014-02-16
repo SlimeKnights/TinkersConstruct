@@ -25,27 +25,27 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
     @Override
     public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
     {
-        //Floor
+        // Floor
         renderer.setRenderBounds(0.3125D, 0.375D, 0.3125D, 0.6875D, 0.5D, 0.6875D);
         this.renderStandardBlock(block, metadata, renderer);
-        //Channel Z-
+        // Channel Z-
         renderer.setRenderBounds(0.3125D, 0.375D, 0D, 0.6875D, 0.5D, 0.3125D);
         this.renderStandardBlock(block, metadata, renderer);
         renderer.setRenderBounds(0.3125D, 0.5D, 0D, 0.375D, 0.625D, 0.3125D);
         this.renderStandardBlock(block, metadata, renderer);
         renderer.setRenderBounds(0.625D, 0.5D, 0D, 0.6875D, 0.625D, 0.3125D);
         this.renderStandardBlock(block, metadata, renderer);
-        //Channel Z+
+        // Channel Z+
         renderer.setRenderBounds(0.3125D, 0.375D, 0.6875D, 0.6875D, 0.5D, 1D);
         this.renderStandardBlock(block, metadata, renderer);
         renderer.setRenderBounds(0.3125D, 0.5D, 0.6875D, 0.375D, 0.625D, 1D);
         this.renderStandardBlock(block, metadata, renderer);
         renderer.setRenderBounds(0.625D, 0.5D, 0.6875D, 0.6875D, 0.625D, 1D);
         this.renderStandardBlock(block, metadata, renderer);
-        //Wall X-
+        // Wall X-
         renderer.setRenderBounds(0.3125D, 0.375D, 0.3125D, 0.375D, 0.625D, 0.6875D);
         this.renderStandardBlock(block, metadata, renderer);
-        //Wall X+
+        // Wall X+
         renderer.setRenderBounds(0.625D, 0.375D, 0.3125D, 0.6875D, 0.625D, 0.6875D);
         this.renderStandardBlock(block, metadata, renderer);
     }
@@ -57,13 +57,16 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
         {
             CastingChannelLogic tile = (CastingChannelLogic) world.getTileEntity(x, y, z);
 
-            if (!tile.hasTankConnected(ForgeDirection.DOWN))//CentrePiece, floor is removed if tank below is found
+            if (!tile.hasTankConnected(ForgeDirection.DOWN))// CentrePiece,
+                                                            // floor is removed
+                                                            // if tank below is
+                                                            // found
             {
                 renderer.setRenderBounds(0.3125D, 0.375D, 0.3125D, 0.6875D, 0.5D, 0.6875D);
                 renderer.renderStandardBlock(block, x, y, z);
             }
             else
-            //"Guiding Borders" when tank below is found
+            // "Guiding Borders" when tank below is found
             {
                 renderer.setRenderBounds(0.375D, 0.125D, 0.3125D, 0.625D, 0.5D, 0.375D);
                 renderer.renderStandardBlock(block, x, y, z);
@@ -74,15 +77,17 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.625D, 0.125D, 0.3125D, 0.6875D, 0.5D, 0.6875D);
                 renderer.renderStandardBlock(block, x, y, z);
             }
-            /*renderer.setRenderBounds(0.3125D, 0.375D, 0.3125D, 0.375D, 0.625D, 0.375D);
-            renderer.renderStandardBlock(block, x, y, z);
-            renderer.setRenderBounds(0.3125D, 0.375D, 0.625D, 0.375D, 0.625D, 0.6875D);
-            renderer.renderStandardBlock(block, x, y, z);
-            renderer.setRenderBounds(0.625D, 0.375D, 0.3125D, 0.6875D, 0.625D, 0.375D);
-            renderer.renderStandardBlock(block, x, y, z);
-            renderer.setRenderBounds(0.625D, 0.375D, 0.625D, 0.6875D, 0.625D, 0.6875D);
-            renderer.renderStandardBlock(block, x, y, z);*/
-            if (tile.hasTankConnected(ForgeDirection.NORTH))//Channel to Z-
+            /*
+             * renderer.setRenderBounds(0.3125D, 0.375D, 0.3125D, 0.375D,
+             * 0.625D, 0.375D); renderer.renderStandardBlock(block, x, y, z);
+             * renderer.setRenderBounds(0.3125D, 0.375D, 0.625D, 0.375D, 0.625D,
+             * 0.6875D); renderer.renderStandardBlock(block, x, y, z);
+             * renderer.setRenderBounds(0.625D, 0.375D, 0.3125D, 0.6875D,
+             * 0.625D, 0.375D); renderer.renderStandardBlock(block, x, y, z);
+             * renderer.setRenderBounds(0.625D, 0.375D, 0.625D, 0.6875D, 0.625D,
+             * 0.6875D); renderer.renderStandardBlock(block, x, y, z);
+             */
+            if (tile.hasTankConnected(ForgeDirection.NORTH))// Channel to Z-
             {
                 renderer.setRenderBounds(0.3125D, 0.375D, 0D, 0.6875D, 0.5D, 0.3125D);
                 renderer.renderStandardBlock(block, x, y, z);
@@ -92,13 +97,13 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
                 renderer.renderStandardBlock(block, x, y, z);
             }
             else
-            //Wall to Z-
+            // Wall to Z-
             {
                 renderer.setRenderBounds(0.375D, 0.5D, 0.3125D, 0.625D, 0.625D, 0.375D);
                 renderer.renderStandardBlock(block, x, y, z);
             }
 
-            if (tile.hasTankConnected(ForgeDirection.SOUTH))//Channel to Z+
+            if (tile.hasTankConnected(ForgeDirection.SOUTH))// Channel to Z+
             {
                 renderer.setRenderBounds(0.3125D, 0.375D, 0.6875D, 0.6875D, 0.5D, 1D);
                 renderer.renderStandardBlock(block, x, y, z);
@@ -108,13 +113,13 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
                 renderer.renderStandardBlock(block, x, y, z);
             }
             else
-            //Wall to Z+
+            // Wall to Z+
             {
                 renderer.setRenderBounds(0.375D, 0.5D, 0.625D, 0.625D, 0.625D, 0.6875D);
                 renderer.renderStandardBlock(block, x, y, z);
             }
 
-            if (tile.hasTankConnected(ForgeDirection.WEST))//Channel to X-
+            if (tile.hasTankConnected(ForgeDirection.WEST))// Channel to X-
             {
                 renderer.setRenderBounds(0D, 0.375D, 0.3125D, 0.3125D, 0.5D, 0.6875D);
                 renderer.renderStandardBlock(block, x, y, z);
@@ -124,13 +129,13 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
                 renderer.renderStandardBlock(block, x, y, z);
             }
             else
-            //Wall to X-
+            // Wall to X-
             {
                 renderer.setRenderBounds(0.3125D, 0.5D, 0.3125D, 0.375D, 0.625D, 0.6875D);
                 renderer.renderStandardBlock(block, x, y, z);
             }
 
-            if (tile.hasTankConnected(ForgeDirection.EAST))//Channel to X+
+            if (tile.hasTankConnected(ForgeDirection.EAST))// Channel to X+
             {
                 renderer.setRenderBounds(0.6875D, 0.375D, 0.3125D, 1D, 0.5D, 0.6875D);
                 renderer.renderStandardBlock(block, x, y, z);
@@ -140,7 +145,7 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
                 renderer.renderStandardBlock(block, x, y, z);
             }
             else
-            //Wall to X+
+            // Wall to X+
             {
                 renderer.setRenderBounds(0.625D, 0.5D, 0.3125D, 0.6875D, 0.625D, 0.6875D);
                 renderer.renderStandardBlock(block, x, y, z);
@@ -151,12 +156,13 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
                 float height = tile.getLiquidAmount() / (tile.getCapacity() * 1.05F);
                 float j = tile.liquid.amount / tile.fillMax;
                 double startY = tile.tankBelow();
-                //if(tile.nearbyChannel(ForgeDirection.DOWN))startY = -0.5D;
-                //else if(tile.hasTankConnected(ForgeDirection.DOWN))startY = 0D;
+                // if(tile.nearbyChannel(ForgeDirection.DOWN))startY = -0.5D;
+                // else if(tile.hasTankConnected(ForgeDirection.DOWN))startY =
+                // 0D;
                 float liquidAmount = tile.liquid.amount / 288f * 0.125f;
-                renderer.setRenderBounds(0.375D, startY, 0.375D, 0.625D, 0.5 + liquidAmount, 0.625D); //Center
+                renderer.setRenderBounds(0.375D, startY, 0.375D, 0.625D, 0.5 + liquidAmount, 0.625D); // Center
                 renderLiquidPart(world, x, y, z, block, renderer, tile);
-                //TConstruct.logger.info(tile.recentlyFilledDelay);
+                // TConstruct.logger.info(tile.recentlyFilledDelay);
 
                 if (tile.hasTankConnected(ForgeDirection.NORTH))
                 {
@@ -223,84 +229,71 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
                     }
 
                 }
-                /*if(tile.lastProvider==ForgeDirection.UP && tile.recentlyFilledDelay != 0)
-                {
-                	renderer.setRenderBounds(0.375D, 0.5D, 0.375D, 0.625D, 1D, 0.625D);
-                	renderLiquidPart(world, x, y, z, block, renderer, tile);
-                }*/
+                /*
+                 * if(tile.lastProvider==ForgeDirection.UP &&
+                 * tile.recentlyFilledDelay != 0) {
+                 * renderer.setRenderBounds(0.375D, 0.5D, 0.375D, 0.625D, 1D,
+                 * 0.625D); renderLiquidPart(world, x, y, z, block, renderer,
+                 * tile); }
+                 */
 
-                /*if(tile.hasTankConnected(ForgeDirection.NORTH)&&tile.lastProvider!=ForgeDirection.NORTH)//Channel to Z-
-                {
-                	if(tile.recentlyFilledDelay == 0 || tile.lastProvider == ForgeDirection.UP)
-                	{
-                		renderer.setRenderBounds(0.375D, 0.5D, 0D, 0.625D, 0.625D, 0.375D);
-                		renderLiquidPart(world, x, y, z, block, renderer, tile);
-                	}
-                	if(tile.recentlyFilledDelay != 0 && tile.lastProvider == ForgeDirection.UP)					
-                	{
-                			renderer.setRenderBounds(0.375D, 0.375D, 0.375D, 0.625D, 1D, 0.625D);
-                			renderLiquidPart(world, x, y, z, block, renderer, tile);
-                	}
-                }
-                if(tile.hasTankConnected(ForgeDirection.SOUTH)&&tile.lastProvider!=ForgeDirection.SOUTH)//Channel to Z+
-                {
-                	if(tile.recentlyFilledDelay == 0 || tile.lastProvider == ForgeDirection.UP)
-                	{
-                		renderer.setRenderBounds(0.375D, 0.5D, 0.625D, 0.625D, 0.625D, 1D);
-                		renderLiquidPart(world, x, y, z, block, renderer, tile);
-                	}
-                	if(tile.recentlyFilledDelay != 0 && tile.lastProvider == ForgeDirection.UP)
-                	{
-                		renderer.setRenderBounds(0.375D, 0.375D, 0.375D, 0.625D, 1D, 0.625D);
-                		renderLiquidPart(world, x, y, z, block, renderer, tile);
-                	}
-                }
-                if(tile.hasTankConnected(ForgeDirection.WEST)&&tile.lastProvider!=ForgeDirection.WEST)//Channel to X-
-                {
-                	if(tile.recentlyFilledDelay == 0 || tile.lastProvider == ForgeDirection.UP)
-                	{
-                		renderer.setRenderBounds(0D, 0.5D, 0.375D, 0.375D, 0.625D, 0.625D);
-                		renderLiquidPart(world, x, y, z, block, renderer, tile);
-                	}
-                	if(tile.recentlyFilledDelay != 0 && tile.lastProvider == ForgeDirection.UP)
-                	{
-                		renderer.setRenderBounds(0.375D, 0.375D, 0.375D, 0.625D, 1D, 0.625D);
-                		renderLiquidPart(world, x, y, z, block, renderer, tile);
-                	}
-                }
-                if(tile.hasTankConnected(ForgeDirection.EAST)&&tile.lastProvider!=ForgeDirection.EAST)//Channel to X+
-                {
-                	if(tile.recentlyFilledDelay == 0 || tile.lastProvider == ForgeDirection.UP)
-                	{
-                		renderer.setRenderBounds(0.625D, 0.5D, 0.375D, 1D, 0.625D, 0.625D);
-                		renderLiquidPart(world, x, y, z, block, renderer, tile);
-                	}
-                	if(tile.recentlyFilledDelay != 0 && tile.lastProvider == ForgeDirection.UP)
-                	{
-                		renderer.setRenderBounds(0.375D, 0.375D, 0.375D, 0.625D, 1D, 0.625D);
-                		renderLiquidPart(world, x, y, z, block, renderer, tile);
-                	}
-                }
-                if(tile.lastProvider==ForgeDirection.NORTH && tile.recentlyFilledDelay != 0)
-                {
-                	renderer.setRenderBounds(0.375D, 0.5D, 0.625D, 0.625D, 0.625D, 1D);
-                	renderLiquidPart(world, x, y, z, block, renderer, tile);
-                }
-                if(tile.lastProvider==ForgeDirection.SOUTH && tile.recentlyFilledDelay != 0)
-                {
-                	renderer.setRenderBounds(0.375D, 0.5D, 0D, 0.625D, 0.625D, 0.375D);
-                	renderLiquidPart(world, x, y, z, block, renderer, tile);
-                }
-                if(tile.lastProvider==ForgeDirection.WEST && tile.recentlyFilledDelay != 0)
-                {
-                	renderer.setRenderBounds(0.625D, 0.5D, 0.375D, 1D, 0.625D, 0.625D);
-                	renderLiquidPart(world, x, y, z, block, renderer, tile);
-                }
-                if(tile.lastProvider==ForgeDirection.EAST && tile.recentlyFilledDelay != 0)
-                {
-                	renderer.setRenderBounds(0D, 0.5D, 0.375D, 0.375D, 0.625D, 0.625D);
-                	renderLiquidPart(world, x, y, z, block, renderer, tile);
-                }*/
+                /*
+                 * if(tile.hasTankConnected(ForgeDirection.NORTH)&&tile.lastProvider
+                 * !=ForgeDirection.NORTH)//Channel to Z- {
+                 * if(tile.recentlyFilledDelay == 0 || tile.lastProvider ==
+                 * ForgeDirection.UP) { renderer.setRenderBounds(0.375D, 0.5D,
+                 * 0D, 0.625D, 0.625D, 0.375D); renderLiquidPart(world, x, y, z,
+                 * block, renderer, tile); } if(tile.recentlyFilledDelay != 0 &&
+                 * tile.lastProvider == ForgeDirection.UP) {
+                 * renderer.setRenderBounds(0.375D, 0.375D, 0.375D, 0.625D, 1D,
+                 * 0.625D); renderLiquidPart(world, x, y, z, block, renderer,
+                 * tile); } }
+                 * if(tile.hasTankConnected(ForgeDirection.SOUTH)&&tile
+                 * .lastProvider!=ForgeDirection.SOUTH)//Channel to Z+ {
+                 * if(tile.recentlyFilledDelay == 0 || tile.lastProvider ==
+                 * ForgeDirection.UP) { renderer.setRenderBounds(0.375D, 0.5D,
+                 * 0.625D, 0.625D, 0.625D, 1D); renderLiquidPart(world, x, y, z,
+                 * block, renderer, tile); } if(tile.recentlyFilledDelay != 0 &&
+                 * tile.lastProvider == ForgeDirection.UP) {
+                 * renderer.setRenderBounds(0.375D, 0.375D, 0.375D, 0.625D, 1D,
+                 * 0.625D); renderLiquidPart(world, x, y, z, block, renderer,
+                 * tile); } }
+                 * if(tile.hasTankConnected(ForgeDirection.WEST)&&tile
+                 * .lastProvider!=ForgeDirection.WEST)//Channel to X- {
+                 * if(tile.recentlyFilledDelay == 0 || tile.lastProvider ==
+                 * ForgeDirection.UP) { renderer.setRenderBounds(0D, 0.5D,
+                 * 0.375D, 0.375D, 0.625D, 0.625D); renderLiquidPart(world, x,
+                 * y, z, block, renderer, tile); } if(tile.recentlyFilledDelay
+                 * != 0 && tile.lastProvider == ForgeDirection.UP) {
+                 * renderer.setRenderBounds(0.375D, 0.375D, 0.375D, 0.625D, 1D,
+                 * 0.625D); renderLiquidPart(world, x, y, z, block, renderer,
+                 * tile); } }
+                 * if(tile.hasTankConnected(ForgeDirection.EAST)&&tile
+                 * .lastProvider!=ForgeDirection.EAST)//Channel to X+ {
+                 * if(tile.recentlyFilledDelay == 0 || tile.lastProvider ==
+                 * ForgeDirection.UP) { renderer.setRenderBounds(0.625D, 0.5D,
+                 * 0.375D, 1D, 0.625D, 0.625D); renderLiquidPart(world, x, y, z,
+                 * block, renderer, tile); } if(tile.recentlyFilledDelay != 0 &&
+                 * tile.lastProvider == ForgeDirection.UP) {
+                 * renderer.setRenderBounds(0.375D, 0.375D, 0.375D, 0.625D, 1D,
+                 * 0.625D); renderLiquidPart(world, x, y, z, block, renderer,
+                 * tile); } } if(tile.lastProvider==ForgeDirection.NORTH &&
+                 * tile.recentlyFilledDelay != 0) {
+                 * renderer.setRenderBounds(0.375D, 0.5D, 0.625D, 0.625D,
+                 * 0.625D, 1D); renderLiquidPart(world, x, y, z, block,
+                 * renderer, tile); } if(tile.lastProvider==ForgeDirection.SOUTH
+                 * && tile.recentlyFilledDelay != 0) {
+                 * renderer.setRenderBounds(0.375D, 0.5D, 0D, 0.625D, 0.625D,
+                 * 0.375D); renderLiquidPart(world, x, y, z, block, renderer,
+                 * tile); } if(tile.lastProvider==ForgeDirection.WEST &&
+                 * tile.recentlyFilledDelay != 0) {
+                 * renderer.setRenderBounds(0.625D, 0.5D, 0.375D, 1D, 0.625D,
+                 * 0.625D); renderLiquidPart(world, x, y, z, block, renderer,
+                 * tile); } if(tile.lastProvider==ForgeDirection.EAST &&
+                 * tile.recentlyFilledDelay != 0) { renderer.setRenderBounds(0D,
+                 * 0.5D, 0.375D, 0.375D, 0.625D, 0.625D);
+                 * renderLiquidPart(world, x, y, z, block, renderer, tile); }
+                 */
             }
 
         }

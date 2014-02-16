@@ -17,7 +17,7 @@ public class SearedSlab extends SlabBase
 {
     public SearedSlab()
     {
-        //TODO material.rock
+        // TODO material.rock
         super(Material.rock);
         this.setCreativeTab(TConstructRegistry.blockTab);
         setHardness(12F);

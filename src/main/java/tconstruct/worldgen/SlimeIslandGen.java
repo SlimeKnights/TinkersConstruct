@@ -23,7 +23,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
     private int gelMeta;
     int randomness = 2;
     Random random = new Random();
-    Block base = TRepo.craftedSoil;//Block.dirt.blockID;
+    Block base = TRepo.craftedSoil;// Block.dirt.blockID;
     Block top = TRepo.slimeGrass;
     SlimeTreeGen trees = new SlimeTreeGen(false, 5, 4, 1, 0);
 
@@ -34,9 +34,10 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
     }
 
     @Override
-    public void generate (Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) //IWorldGenerator version
+    public void generate (Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) // IWorldGenerator
+                                                                                                                                           // version
     {
-        //dim 0 only?
+        // dim 0 only?
         if ((chunkGenerator instanceof ChunkProviderFlat || world.provider.terrainType == WorldType.FLAT) && PHConstruct.genIslandsFlat)
         {
             return;
@@ -49,7 +50,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
         }
     }
 
-    //Island is biased towards one direction. Quadrants would be more useful
+    // Island is biased towards one direction. Quadrants would be more useful
     public void generateIsland (World world, Random rand, int xChunk, int zChunk)
     {
         int xRange = random.nextInt(13) + 20;
@@ -59,7 +60,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
         int initialHeight = height;
         Ellipse2D.Double ellipse = new Ellipse2D.Double(0, 0, xRange, zRange);
 
-        //Basic shape
+        // Basic shape
         for (int x = 0; x <= xRange; x++)
         {
             for (int z = 0; z <= zRange; z++)
@@ -72,7 +73,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
             }
         }
 
-        //Erode bottom
+        // Erode bottom
         height = 8;
         for (int x = 0; x <= xRange; x++)
         {
@@ -97,7 +98,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
             }
         }
 
-        //Erode top
+        // Erode top
         height = 3;
         for (int x = 0; x <= xRange; x++)
         {
@@ -121,7 +122,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
             }
         }
 
-        //Replace blocks
+        // Replace blocks
         for (int x = 0; x <= xRange; x++)
         {
             for (int z = 0; z <= zRange; z++)
@@ -141,7 +142,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
             }
         }
 
-        //Decorate
+        // Decorate
         if (!DimensionBlacklist.isDimNoPool(world.provider.dimensionId))
         {
             generateSlimePool(world, rand, xChunk + xRange / 2, yCenter + initialHeight, zChunk + zRange / 2);
@@ -160,21 +161,16 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
 
     }
 
-    public boolean generate (World world, Random rand, int x, int y, int z) //WorldGenerator version
+    public boolean generate (World world, Random rand, int x, int y, int z) // WorldGenerator
+                                                                            // version
     {
         x -= 8;
         z -= 8;
-        /*for (z -= 8; y > 5 && world.isAirBlock(x, y, z); --y)
-        {
-            ;
-        }
-
-        if (y <= 4)
-        {
-            return false;
-        }
-        else
-        {*/
+        /*
+         * for (z -= 8; y > 5 && world.isAirBlock(x, y, z); --y) { ; }
+         * 
+         * if (y <= 4) { return false; } else {
+         */
         y -= 4;
         boolean[] validLocations = new boolean[2048];
         int var7 = rand.nextInt(4) + 4;
@@ -271,7 +267,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
             }
         }
 
-        //Generate blocks around
+        // Generate blocks around
         if (this.liquidBlock.getMaterial() == Material.water)
         {
             for (xPos = 0; xPos < 16; ++xPos)
@@ -296,6 +292,6 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
         }
 
         return true;
-        //}
+        // }
     }
 }

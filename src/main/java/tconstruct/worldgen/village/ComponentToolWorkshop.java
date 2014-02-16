@@ -37,8 +37,8 @@ public class ComponentToolWorkshop extends StructureVillagePieces.House1
     }
 
     /**
-     * second Part of Structure generating, this for example places Spiderwebs, Mob Spawners, it closes Mineshafts at
-     * the end, it adds Fences...
+     * second Part of Structure generating, this for example places Spiderwebs,
+     * Mob Spawners, it closes Mineshafts at the end, it adds Fences...
      */
     public boolean addComponentParts (World world, Random random, StructureBoundingBox sbb)
     {
@@ -55,23 +55,25 @@ public class ComponentToolWorkshop extends StructureVillagePieces.House1
         }
 
         /**
-         * arguments: (World worldObj, StructureBoundingBox structBB, int minX, int minY, int minZ, int maxX, int maxY, int
-         * maxZ, int placeBlockId, int replaceBlockId, boolean alwaysreplace)
+         * arguments: (World worldObj, StructureBoundingBox structBB, int minX,
+         * int minY, int minZ, int maxX, int maxY, int maxZ, int placeBlockId,
+         * int replaceBlockId, boolean alwaysreplace)
          */
 
-        this.fillWithBlocks(world, sbb, 0, 0, 0, 6, 0, 6, Blocks.cobblestone, Blocks.cobblestone, false); //Base
+        this.fillWithBlocks(world, sbb, 0, 0, 0, 6, 0, 6, Blocks.cobblestone, Blocks.cobblestone, false); // Base
         this.fillWithBlocks(world, sbb, 0, 5, 0, 6, 5, 6, Blocks.fence, Blocks.fence, false);
         this.fillWithBlocks(world, sbb, 1, 0, 1, 5, 0, 5, Blocks.planks, Blocks.planks, false);
         this.fillWithBlocks(world, sbb, 2, 0, 2, 4, 0, 4, Blocks.wool, Blocks.wool, false);
 
-        //this.fillWithBlocks(world, sbb, 0, 5, 0, 6, 5, 6, Blocks.log, Blocks.log, false);
+        // this.fillWithBlocks(world, sbb, 0, 5, 0, 6, 5, 6, Blocks.log,
+        // Blocks.log, false);
 
-        this.fillWithBlocks(world, sbb, 0, 1, 0, 0, 4, 0, Blocks.log, Blocks.log, false); //Edges
+        this.fillWithBlocks(world, sbb, 0, 1, 0, 0, 4, 0, Blocks.log, Blocks.log, false); // Edges
         this.fillWithBlocks(world, sbb, 0, 1, 6, 0, 4, 6, Blocks.log, Blocks.log, false);
         this.fillWithBlocks(world, sbb, 6, 1, 0, 6, 4, 0, Blocks.log, Blocks.log, false);
         this.fillWithBlocks(world, sbb, 6, 1, 6, 6, 4, 6, Blocks.log, Blocks.log, false);
 
-        this.fillWithBlocks(world, sbb, 0, 1, 1, 0, 1, 5, Blocks.planks, Blocks.planks, false); //Walls
+        this.fillWithBlocks(world, sbb, 0, 1, 1, 0, 1, 5, Blocks.planks, Blocks.planks, false); // Walls
         this.fillWithBlocks(world, sbb, 1, 1, 0, 5, 1, 0, Blocks.planks, Blocks.planks, false);
         this.fillWithBlocks(world, sbb, 6, 1, 1, 6, 1, 5, Blocks.planks, Blocks.planks, false);
         this.fillWithBlocks(world, sbb, 1, 1, 6, 5, 1, 6, Blocks.planks, Blocks.planks, false);
@@ -89,8 +91,8 @@ public class ComponentToolWorkshop extends StructureVillagePieces.House1
         this.fillWithBlocks(world, sbb, 1, 1, 1, 5, 5, 5, Blocks.air, Blocks.air, false);
         this.fillWithBlocks(world, sbb, 1, 4, 1, 5, 4, 5, Blocks.planks, Blocks.planks, false);
 
-        //world, blockID, metadata, x, y, z, bounds
-        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 1, 2, 0, sbb);//Glass and door
+        // world, blockID, metadata, x, y, z, bounds
+        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 1, 2, 0, sbb);// Glass and door
         this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 2, 2, 0, sbb);
         this.placeDoorAtCurrentPosition(world, sbb, random, 3, 1, 0, this.getMetadataWithOffset(Blocks.wooden_door, 1));
         this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 4, 2, 0, sbb);
@@ -114,24 +116,27 @@ public class ComponentToolWorkshop extends StructureVillagePieces.House1
         this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 6, 2, 4, sbb);
         this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 6, 2, 5, sbb);
 
-        int i = this.getMetadataWithOffset(Blocks.ladder, 3); //Ladders
+        int i = this.getMetadataWithOffset(Blocks.ladder, 3); // Ladders
         this.placeBlockAtCurrentPosition(world, Blocks.ladder, i, 3, 1, 5, sbb);
         this.placeBlockAtCurrentPosition(world, Blocks.ladder, i, 3, 2, 5, sbb);
         this.placeBlockAtCurrentPosition(world, Blocks.ladder, i, 3, 3, 5, sbb);
         this.placeBlockAtCurrentPosition(world, Blocks.ladder, i, 3, 4, 5, sbb);
 
-        this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood, 0, 1, 1, 1, sbb); //Inside
+        this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood, 0, 1, 1, 1, sbb); // Inside
         this.generateStructurePatternChestContents(world, sbb, random, 1, 1, 2, TRepo.tinkerHousePatterns.getItems(random), TRepo.tinkerHousePatterns.getCount(random));
-        //this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood, 5, 1, 1, 2, sbb);
+        // this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood, 5, 1,
+        // 1, 2, sbb);
         this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood, 1, 1, 1, 3, sbb);
         this.generateStructureCraftingStationContents(world, sbb, random, 1, 1, 4, TRepo.tinkerHouseChest.getItems(random), TRepo.tinkerHouseChest.getCount(random));
-        // this.placeBlockAtCurrentPosition(world, TRepo.craftingStationWood, 0, 1, 1, 4, sbb);
+        // this.placeBlockAtCurrentPosition(world, TRepo.craftingStationWood, 0,
+        // 1, 1, 4, sbb);
         this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood, 10, 1, 1, 5, sbb);
 
-        //ChestGenHooks info = ChestGenHooks.getInfo("TinkerHouse");
+        // ChestGenHooks info = ChestGenHooks.getInfo("TinkerHouse");
 
         this.generateStructureChestContents(world, sbb, random, 4, 1, 5, TRepo.tinkerHouseChest.getItems(random), TRepo.tinkerHouseChest.getCount(random));
-        //this.placeBlockAtCurrentPosition(world, Block.chest, i, 4, 1, 5, sbb);
+        // this.placeBlockAtCurrentPosition(world, Block.chest, i, 4, 1, 5,
+        // sbb);
         i = this.getMetadataWithOffset(Blocks.piston, 3);
         this.placeBlockAtCurrentPosition(world, Blocks.piston, i, 5, 1, 5, sbb);
 
@@ -199,7 +204,8 @@ public class ComponentToolWorkshop extends StructureVillagePieces.House1
     }
 
     /**
-     * Returns the villager type to spawn in this component, based on the number of villagers already spawned.
+     * Returns the villager type to spawn in this component, based on the number
+     * of villagers already spawned.
      */
     protected int getVillagerType (int par1)
     {

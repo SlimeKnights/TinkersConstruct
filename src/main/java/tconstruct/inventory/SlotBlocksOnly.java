@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 /**
  * 
  * @author fuj1n
- *
+ * 
  */
 public class SlotBlocksOnly extends Slot
 {

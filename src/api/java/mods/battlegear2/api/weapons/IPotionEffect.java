@@ -1,13 +1,12 @@
 package mods.battlegear2.api.weapons;
 
+import java.util.Map;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.PotionEffect;
 
-import java.util.Map;
-
-public interface IPotionEffect {
-
+public interface IPotionEffect
+{
 
     /**
      * Returns a map containing the potion effects to apply to an entity hit by the weapon. Each effect
@@ -18,6 +17,6 @@ public interface IPotionEffect {
      * @param entityHitting
      * @return A Map of {@link PotionEffect} with chance value ranging from 0 to 1, to be dealt to the entityHit
      */
-    public Map<PotionEffect,Float> getEffectsOnHit(EntityLivingBase entityHit, EntityLivingBase entityHitting);
+    public Map<PotionEffect, Float> getEffectsOnHit (EntityLivingBase entityHit, EntityLivingBase entityHitting);
 
 }

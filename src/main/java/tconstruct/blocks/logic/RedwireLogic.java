@@ -15,29 +15,24 @@ public class RedwireLogic extends TileEntity
 
     public void readCustomNBT (NBTTagCompound tags)
     {
-        /*hasMaster = tags.getBoolean("HasMaster");
-        if (hasMaster)
-        {
-        	int xCenter = tags.getInteger("xCenter");
-        	int yCenter = tags.getInteger("yCenter");
-        	int zCenter = tags.getInteger("zCenter");
-        	master = new CoordTuple(xCenter, yCenter, zCenter);
-        	masterID = tags.getShort("MasterID");
-        	masterMeat = tags.getByte("masterMeat");
-        }*/
+        /*
+         * hasMaster = tags.getBoolean("HasMaster"); if (hasMaster) { int
+         * xCenter = tags.getInteger("xCenter"); int yCenter =
+         * tags.getInteger("yCenter"); int zCenter = tags.getInteger("zCenter");
+         * master = new CoordTuple(xCenter, yCenter, zCenter); masterID =
+         * tags.getShort("MasterID"); masterMeat = tags.getByte("masterMeat"); }
+         */
     }
 
     public void writeCustomNBT (NBTTagCompound tags)
     {
-        /*tags.setBoolean("HasMaster", hasMaster);
-        if (hasMaster)
-        {
-        	tags.setInteger("xCenter", master.x);
-        	tags.setInteger("yCenter", master.y);
-        	tags.setInteger("zCenter", master.z);
-        	tags.setShort("MasterID", masterID);
-        	tags.setByte("masterMeat", masterMeat);
-        }*/
+        /*
+         * tags.setBoolean("HasMaster", hasMaster); if (hasMaster) {
+         * tags.setInteger("xCenter", master.x); tags.setInteger("yCenter",
+         * master.y); tags.setInteger("zCenter", master.z);
+         * tags.setShort("MasterID", masterID); tags.setByte("masterMeat",
+         * masterMeat); }
+         */
     }
 
     @Override

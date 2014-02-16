@@ -96,42 +96,26 @@ public class Shovel extends HarvestTool
         return false;
     }
 
-    /*@Override
-    public Icon getIcon (ItemStack stack, int renderPass)
-    {
-    	NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-
-    	if (renderPass == 0) // Handle
-    	{
-    		return (handleIcons.get(tags.getInteger("RenderHandle")));
-    	}
-
-    	if (renderPass == 1) // Head
-    	{
-    		if (tags.getBoolean("Broken"))
-    			return (brokenHeadIcons.get(tags.getInteger("RenderHead")));
-    		else
-    			return (headIcons.get(tags.getInteger("RenderHead")));
-    	}
-
-    	if (renderPass == 2)
-    	{
-    		if (tags.hasKey("Effect1"))
-    			return (effectIcons.get(tags.getInteger("Effect1")));
-    	}
-
-    	if (renderPass == 3)
-    	{
-    		if (tags.hasKey("Effect2"))
-    			return (effectIcons.get(tags.getInteger("Effect2")));
-    	}
-
-    	if (renderPass == 4)
-    	{
-    		if (tags.hasKey("Effect3"))
-    			return (effectIcons.get(tags.getInteger("Effect3")));
-    	}
-
-    	return TProxyClient.blankSprite;
-    }*/
+    /*
+     * @Override public Icon getIcon (ItemStack stack, int renderPass) {
+     * NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+     * 
+     * if (renderPass == 0) // Handle { return
+     * (handleIcons.get(tags.getInteger("RenderHandle"))); }
+     * 
+     * if (renderPass == 1) // Head { if (tags.getBoolean("Broken")) return
+     * (brokenHeadIcons.get(tags.getInteger("RenderHead"))); else return
+     * (headIcons.get(tags.getInteger("RenderHead"))); }
+     * 
+     * if (renderPass == 2) { if (tags.hasKey("Effect1")) return
+     * (effectIcons.get(tags.getInteger("Effect1"))); }
+     * 
+     * if (renderPass == 3) { if (tags.hasKey("Effect2")) return
+     * (effectIcons.get(tags.getInteger("Effect2"))); }
+     * 
+     * if (renderPass == 4) { if (tags.hasKey("Effect3")) return
+     * (effectIcons.get(tags.getInteger("Effect3"))); }
+     * 
+     * return TProxyClient.blankSprite; }
+     */
 }

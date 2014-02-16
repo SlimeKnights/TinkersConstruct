@@ -31,7 +31,8 @@ public class TerrainGenEventHandler
     @SubscribeEvent
     public void onDecorateEvent (Decorate e)
     {
-        // Trigger just before sand pass one--which comes just after vanilla ore generation.
+        // Trigger just before sand pass one--which comes just after vanilla ore
+        // generation.
         if (e.type != SAND)
             return;
 

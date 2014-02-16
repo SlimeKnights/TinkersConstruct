@@ -1,9 +1,5 @@
 package tconstruct.blocks.logic;
 
-import tconstruct.inventory.PartCrafterChestContainer;
-import tconstruct.inventory.PartCrafterContainer;
-import tconstruct.library.crafting.PatternBuilder;
-import tconstruct.library.util.IPattern;
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -12,6 +8,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import tconstruct.inventory.PartCrafterChestContainer;
+import tconstruct.inventory.PartCrafterContainer;
+import tconstruct.library.crafting.PatternBuilder;
+import tconstruct.library.util.IPattern;
 
 public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
 {
@@ -49,7 +49,7 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
         return new PartCrafterContainer(inventoryplayer, this);
     }
 
-    //Called when emptying a slot, not when another item is placed in it
+    // Called when emptying a slot, not when another item is placed in it
     public ItemStack decrStackSize (int slotID, int quantity)
     {
         ItemStack returnStack = super.decrStackSize(slotID, quantity);
@@ -71,7 +71,8 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
                     int decrease = cost / value;
                     if (cost % value != 0)
                         decrease++;
-                    super.decrStackSize(2, decrease); //Call super to avoid crafting again
+                    super.decrStackSize(2, decrease); // Call super to avoid
+                                                      // crafting again
                 }
             }
 
@@ -96,7 +97,8 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
                     int decrease = cost / value;
                     if (cost % value != 0)
                         decrease++;
-                    super.decrStackSize(3, decrease); //Call super to avoid crafting again
+                    super.decrStackSize(3, decrease); // Call super to avoid
+                                                      // crafting again
                 }
             }
 
@@ -110,7 +112,7 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
             buildBottomPart();
     }
 
-    //Called when a slot has something placed into it.
+    // Called when a slot has something placed into it.
     public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
         super.setInventorySlotContents(slot, itemstack);

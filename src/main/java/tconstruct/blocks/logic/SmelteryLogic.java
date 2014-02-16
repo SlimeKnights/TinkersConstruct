@@ -270,8 +270,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     /* Updating */
     public void updateEntity ()
     {
-        /*if (worldObj.isRemote)
-            return;*/
+        /*
+         * if (worldObj.isRemote) return;
+         */
 
         tick++;
         if (tick % 4 == 0)
@@ -381,13 +382,15 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     private void handleItemEntity (EntityItem item)
     {
-        // Clients like to play merry hell with this and cause breakage (we update their inv on syncs)
+        // Clients like to play merry hell with this and cause breakage (we
+        // update their inv on syncs)
         if (worldObj.isRemote)
             return;
 
         item.age = 0;
         ItemStack istack = item.getEntityItem();
-        if (istack == null || istack.stackSize <= 0) //Probably most definitely not necessary
+        if (istack == null || istack.stackSize <= 0) // Probably most definitely
+                                                     // not necessary
             return;
 
         int maxSlot = this.getSizeInventory();
@@ -481,12 +484,13 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 return false;
 
             currentLiquid += liquid.amount;
-            //TConstruct.logger.info("Current liquid: "+currentLiquid);
+            // TConstruct.logger.info("Current liquid: "+currentLiquid);
             boolean added = false;
             for (int i = 0; i < moltenMetal.size(); i++)
             {
                 FluidStack l = moltenMetal.get(i);
-                //if (l.itemID == liquid.itemID && l.itemMeta == liquid.itemMeta)
+                // if (l.itemID == liquid.itemID && l.itemMeta ==
+                // liquid.itemMeta)
                 if (l.isFluidEqual(liquid))
                 {
                     l.amount += liquid.amount;
@@ -559,7 +563,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
     }
 
-    void updateFuelGague () //TODO: Call this method when the GUI is opened
+    void updateFuelGague () // TODO: Call this method when the GUI is opened
     {
         if (activeLavaTank == null || useTime > 0)
             return;
@@ -611,18 +615,21 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     TileEntity newTankContainer = worldObj.getTileEntity(possibleTank.x, possibleTank.y, possibleTank.z);
                     if (newTankContainer instanceof IFluidHandler)
                     {
-                        //TConstruct.logger.info("Tank: "+possibleTank.toString());
+                        // TConstruct.logger.info("Tank: "+possibleTank.toString());
                         FluidStack newliquid = ((IFluidHandler) newTankContainer).drain(ForgeDirection.UNKNOWN, 150, false);
                         if (newliquid != null && newliquid.getFluid().getBlock() == Blocks.lava && newliquid.amount > 0)
                         {
-                            //TConstruct.logger.info("Tank: "+possibleTank.toString());
+                            // TConstruct.logger.info("Tank: "+possibleTank.toString());
                             foundTank = true;
                             activeLavaTank = possibleTank;
                             iter = lavaTanks.size();
 
-                            /*IFluidTank newTank = ((IFluidHandler) newTankContainer).getTank(ForgeDirection.UNKNOWN, liquid);
-                            liquid = newTank.getFluid();
-                            int capacity = newTank.getCapacity();*/
+                            /*
+                             * IFluidTank newTank = ((IFluidHandler)
+                             * newTankContainer).getTank(ForgeDirection.UNKNOWN,
+                             * liquid); liquid = newTank.getFluid(); int
+                             * capacity = newTank.getCapacity();
+                             */
                             FluidTankInfo[] info = ((IFluidHandler) tankContainer).getTankInfo(ForgeDirection.DOWN);
                             liquid = info[0].fluid;
                             int capacity = info[0].capacity;
@@ -642,7 +649,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     if (iter >= lavaTanks.size())
                         foundTank = true;
                 }
-                //TConstruct.logger.info("Searching for tank, size: "+lavaTanks.size());
+                // TConstruct.logger.info("Searching for tank, size: "+lavaTanks.size());
             }
         }
     }
@@ -653,13 +660,11 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     }
 
     /* Inventory */
-    /*public int getMaxStackStackSize (ItemStack stack)
-    {
-        FluidStack liquid = getResultFor(stack);
-        if (liquid == null)
-            return 0;
-        return liquid.amount;
-    }*/
+    /*
+     * public int getMaxStackStackSize (ItemStack stack) { FluidStack liquid =
+     * getResultFor(stack); if (liquid == null) return 0; return liquid.amount;
+     * }
+     */
 
     public int getInventoryStackLimit ()
     {
@@ -672,15 +677,16 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         updateEntity();
         super.markDirty();
         needsUpdate = true;
-        //worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-        //worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        // worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        // worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 
-    /*@Override
-    public void setInventorySlotContents (int slot, ItemStack itemstack)
-    {
-        inventory[slot] = itemstack != null ? itemstack.splitStack(1) : null; //May include unintended side effects. Possible fix for max stack size of 1?
-    }*/
+    /*
+     * @Override public void setInventorySlotContents (int slot, ItemStack
+     * itemstack) { inventory[slot] = itemstack != null ?
+     * itemstack.splitStack(1) : null; //May include unintended side effects.
+     * Possible fix for max stack size of 1? }
+     */
 
     /* Multiblock */
     @Override
@@ -745,7 +751,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             checkValidStructure(x + 1, y, z);
         }
 
-        //Not valid, sorry
+        // Not valid, sorry
     }
 
     public void checkValidStructure (int x, int y, int z)
@@ -759,7 +765,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             checkLayers += recurseStructureDown(x, y - 1, z, 0);
         }
 
-        //maxLiquid = capacity * 20000;
+        // maxLiquid = capacity * 20000;
 
         if (tempValidStructure != validStructure || checkLayers != this.layers)
         {
@@ -785,7 +791,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         lavaTanks.clear();
         Block block;
 
-        //Check inside
+        // Check inside
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
@@ -796,7 +802,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             }
         }
 
-        //Check outer layer
+        // Check outer layer
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
             numBricks += checkBricks(xPos, y, z - 2);
@@ -818,7 +824,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     public int recurseStructureUp (int x, int y, int z, int count)
     {
         numBricks = 0;
-        //Check inside
+        // Check inside
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
@@ -829,7 +835,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             }
         }
 
-        //Check outer layer
+        // Check outer layer
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
             numBricks += checkBricks(xPos, y, z - 2);
@@ -852,7 +858,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     public int recurseStructureDown (int x, int y, int z, int count)
     {
         numBricks = 0;
-        //Check inside
+        // Check inside
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
@@ -868,7 +874,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             }
         }
 
-        //Check outer layer
+        // Check outer layer
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
             numBricks += checkBricks(xPos, y, z - 2);
@@ -908,8 +914,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         return count;
     }
 
-    /* Returns whether the brick is a lava tank or not.
-     * Increments bricks, sets them as part of the structure, and adds tanks to the list.
+    /*
+     * Returns whether the brick is a lava tank or not. Increments bricks, sets
+     * them as part of the structure, and adds tanks to the list.
      */
     int checkBricks (int x, int y, int z)
     {
@@ -978,7 +985,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 FluidStack liq = liquid.copy();
                 if (doDrain)
                 {
-                    //liquid = null;
+                    // liquid = null;
                     moltenMetal.remove(liquid);
                     worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                     currentLiquid = 0;
@@ -1007,7 +1014,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     @Override
     public int fill (FluidStack resource, boolean doFill)
     {
-        if (resource != null && currentLiquid < maxLiquid)//resource.amount + currentLiquid < maxLiquid)
+        if (resource != null && currentLiquid < maxLiquid)// resource.amount +
+                                                          // currentLiquid <
+                                                          // maxLiquid)
         {
             if (resource.amount + currentLiquid > maxLiquid)
                 resource.amount = maxLiquid - currentLiquid;
@@ -1074,7 +1083,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         inventory = new ItemStack[layers * 9];
         super.readFromNBT(tags);
 
-        //validStructure = tags.getBoolean("ValidStructure");
+        // validStructure = tags.getBoolean("ValidStructure");
         internalTemp = tags.getInteger("InternalTemp");
         inUse = tags.getBoolean("InUse");
 
@@ -1101,8 +1110,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             if (fluid != null)
                 moltenMetal.add(fluid);
         }
-        //adjustLayers(layers, true);
-        //checkValidPlacement();
+        // adjustLayers(layers, true);
+        // checkValidPlacement();
     }
 
     @Override
@@ -1110,7 +1119,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         super.writeToNBT(tags);
 
-        //tags.setBoolean("ValidStructure", validStructure);
+        // tags.setBoolean("ValidStructure", validStructure);
         tags.setInteger("InternalTemp", internalTemp);
         tags.setBoolean("InUse", inUse);
 

@@ -49,7 +49,7 @@ public class ArmorExtended implements IInventory
     {
         if (inventory[slot] != null)
         {
-            //TConstruct.logger.info("Took something from slot " + slot);
+            // TConstruct.logger.info("Took something from slot " + slot);
             if (inventory[slot].stackSize <= quantity)
             {
                 ItemStack stack = inventory[slot];
@@ -82,7 +82,8 @@ public class ArmorExtended implements IInventory
     public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
         inventory[slot] = itemstack;
-        //TConstruct.logger.info("Changed slot " + slot + " on side " + FMLCommonHandler.instance().getEffectiveSide());
+        // TConstruct.logger.info("Changed slot " + slot + " on side " +
+        // FMLCommonHandler.instance().getEffectiveSide());
         if (itemstack != null && itemstack.stackSize > getInventoryStackLimit())
         {
             itemstack.stackSize = getInventoryStackLimit();
@@ -116,39 +117,23 @@ public class ArmorExtended implements IInventory
     {
         EntityPlayer player = parent.get();
         TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
-        //recalculateSkills(player, stats);
+        // recalculateSkills(player, stats);
         recalculateHealth(player, stats);
 
-        /*if (inventory[2] == null && stats.knapsack != null)
-        {
-            stats.knapsack.unequipItems();
-        }*/
+        /*
+         * if (inventory[2] == null && stats.knapsack != null) {
+         * stats.knapsack.unequipItems(); }
+         */
     }
 
-    /*public void recalculateSkills(EntityPlayer player, TPlayerStats stats)
-    {
-    	if (inventory[1] != null && inventory[1].getItem() == TRepo.glove)
-    	{
-    		if (stats.skillList.size() < 1)
-    		{
-    			try
-    			{
-    				stats.skillList.add(SkillRegistry.skills.get("Wall Building").copy());
-    			}
-    			catch (Exception e)
-    			{
-    				e.printStackTrace();
-    			}
-    		}
-    	}
-    	else
-    	{
-    		if (stats.skillList.size() > 0)
-    		{
-    			stats.skillList.remove(0);
-    		}
-    	}
-    }*/
+    /*
+     * public void recalculateSkills(EntityPlayer player, TPlayerStats stats) {
+     * if (inventory[1] != null && inventory[1].getItem() == TRepo.glove) { if
+     * (stats.skillList.size() < 1) { try {
+     * stats.skillList.add(SkillRegistry.skills.get("Wall Building").copy()); }
+     * catch (Exception e) { e.printStackTrace(); } } } else { if
+     * (stats.skillList.size() > 0) { stats.skillList.remove(0); } } }
+     */
 
     public void recalculateHealth (EntityPlayer player, TPlayerStats stats)
     {
@@ -158,7 +143,8 @@ public class ArmorExtended implements IInventory
         {
             ItemStack stack = inventory[6];
             int meta = stack.getItemDamage();
-            //TConstruct.logger.info("Calculating HP on side " + FMLCommonHandler.instance().getEffectiveSide());
+            // TConstruct.logger.info("Calculating HP on side " +
+            // FMLCommonHandler.instance().getEffectiveSide());
             if (meta == 2)
             {
                 int prevHealth = stats.bonusHealth;
@@ -172,7 +158,7 @@ public class ArmorExtended implements IInventory
                     stats.bonusHealth = bonusHP;
 
                 int healthChange = bonusHP - prevHealth;
-                //TConstruct.logger.info("healthChange: "+healthChange+" on side "+FMLCommonHandler.instance().getEffectiveSide());
+                // TConstruct.logger.info("healthChange: "+healthChange+" on side "+FMLCommonHandler.instance().getEffectiveSide());
                 if (healthChange != 0)
                 {
                     IAttributeInstance attributeinstance = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth);

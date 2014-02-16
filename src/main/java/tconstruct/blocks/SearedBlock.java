@@ -182,12 +182,12 @@ public class SearedBlock extends InventoryBlock
     public void addItemToInventory (EntityPlayer player, World world, int x, int y, int z, ItemStack stack)
     {
         AbilityHelper.spawnItemAtPlayer(player, stack);
-        /*if (!world.isRemote)
-        {
-        	EntityItem entityitem = new EntityItem(world, (double) x + 0.5D, (double) y + 0.9325D, (double) z + 0.5D, stack);
-        	world.spawnEntityInWorld(entityitem);
-        	entityitem.onCollideWithPlayer(player);
-        }*/
+        /*
+         * if (!world.isRemote) { EntityItem entityitem = new EntityItem(world,
+         * (double) x + 0.5D, (double) y + 0.9325D, (double) z + 0.5D, stack);
+         * world.spawnEntityInWorld(entityitem);
+         * entityitem.onCollideWithPlayer(player); }
+         */
     }
 
     /* Rendering */
@@ -211,7 +211,7 @@ public class SearedBlock extends InventoryBlock
         return textureNames;
     }
 
-    //TODO getIcon
+    // TODO getIcon
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)

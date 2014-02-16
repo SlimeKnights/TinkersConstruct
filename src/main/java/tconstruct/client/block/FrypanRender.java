@@ -13,7 +13,7 @@ public class FrypanRender implements ISimpleBlockRenderingHandler
     @Override
     public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
     {
-        //Inventory should be an item. This is not here!
+        // Inventory should be an item. This is not here!
     }
 
     @Override
@@ -29,8 +29,8 @@ public class FrypanRender implements ISimpleBlockRenderingHandler
         renderer.renderStandardBlock(block, x, y, z);
         renderer.setRenderBounds(0.125F, 0.125F, 0.0F, 0.875F, 0.25F, 0.125F);
         renderer.renderStandardBlock(block, x, y, z);
-        //        renderer.setRenderBounds(1F, 0.0F, 0.4375F, 2F, 0.125F, 0.5625F);
-        //        renderer.renderStandardBlock(block, x, y, z);
+        // renderer.setRenderBounds(1F, 0.0F, 0.4375F, 2F, 0.125F, 0.5625F);
+        // renderer.renderStandardBlock(block, x, y, z);
         renderHandle(world, x, y, z, block, renderer);
         return true;
     }

@@ -52,12 +52,14 @@ public class HamboneItemBlock extends ItemBlock
     private final boolean isWolfsFavoriteMeat;
 
     /**
-     * If this field is true, the food can be consumed even if the player don't need to eat.
+     * If this field is true, the food can be consumed even if the player don't
+     * need to eat.
      */
     private boolean alwaysEdible;
 
     /**
-     * represents the potion effect that will occurr upon eating this food. Set by setPotionEffect
+     * represents the potion effect that will occurr upon eating this food. Set
+     * by setPotionEffect
      */
     private int potionId;
 
@@ -70,20 +72,15 @@ public class HamboneItemBlock extends ItemBlock
     /** probably of the set potion effect occurring */
     private float potionEffectProbability;
 
-    /*public ItemFood(int par1, int par2, float par3, boolean par4)
-    {
-        super(par1);
-        this.itemUseDuration = 32;
-        this.healAmount = par2;
-        this.isWolfsFavoriteMeat = par4;
-        this.saturationModifier = par3;
-        this.setCreativeTab(CreativeTabs.tabFood);
-    }
-
-    public ItemFood(int par1, int par2, boolean par3)
-    {
-        this(par1, par2, 0.6F, par3);
-    }*/
+    /*
+     * public ItemFood(int par1, int par2, float par3, boolean par4) {
+     * super(par1); this.itemUseDuration = 32; this.healAmount = par2;
+     * this.isWolfsFavoriteMeat = par4; this.saturationModifier = par3;
+     * this.setCreativeTab(CreativeTabs.tabFood); }
+     * 
+     * public ItemFood(int par1, int par2, boolean par3) { this(par1, par2,
+     * 0.6F, par3); }
+     */
 
     public ItemStack onEaten (ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
@@ -111,7 +108,8 @@ public class HamboneItemBlock extends ItemBlock
     }
 
     /**
-     * returns the action that specifies what animation to play when the items is being used
+     * returns the action that specifies what animation to play when the items
+     * is being used
      */
     public EnumAction getItemUseAction (ItemStack par1ItemStack)
     {
@@ -119,7 +117,8 @@ public class HamboneItemBlock extends ItemBlock
     }
 
     /**
-     * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
+     * Called whenever this item is equipped and the right mouse button is
+     * pressed. Args: itemStack, world, entityPlayer
      */
     public ItemStack onItemRightClick (ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {

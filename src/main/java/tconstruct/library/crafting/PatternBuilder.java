@@ -18,11 +18,11 @@ import cpw.mods.fml.common.eventhandler.Event.Result;
 public class PatternBuilder
 {
     public static PatternBuilder instance = new PatternBuilder();
-    //Map items to their parts with a hashmap
+    // Map items to their parts with a hashmap
     public List<ItemKey> materials = new ArrayList<ItemKey>();
     public HashMap materialSets = new HashMap<String, MaterialSet>();
 
-    //We could use IRecipe if it wasn't tied to InventoryCrafting
+    // We could use IRecipe if it wasn't tied to InventoryCrafting
     public List<IPattern> toolPatterns = new ArrayList<IPattern>();
 
     /* Register methods */
@@ -80,36 +80,36 @@ public class PatternBuilder
                     if (totalMaterial < patternValue) // Not enough material
                         return null;
 
-                    else if (patternValue == key.value) //Material only
+                    else if (patternValue == key.value) // Material only
                         return new ItemStack[] { toolPart, null };
 
                     else
                     {
                         if (patternValue % 2 == 1)
                         {
-                            return new ItemStack[] { toolPart, mat.shard.copy() }; //Material + shard
+                            return new ItemStack[] { toolPart, mat.shard.copy() }; // Material
+                                                                                   // +
+                                                                                   // shard
                         }
                         else
                             return new ItemStack[] { toolPart, null };
                     }
-                    /*if ( patternValue < totalMaterial )
-                    {
-                    	if (otherPattern != null)
-                    	{
-                    		int otherValue = ((IPattern)otherPattern.getItem()).getPatternCost(otherPattern.getItemDamage());
-                    		if (patternValue + otherValue <= key.value)
-                    		{
-                    			ItemStack otherPart = getMatchingPattern(otherPattern, mat);
-                    			return new ItemStack[] { toolPart, otherPart }; //Material + Material
-                    		}
-                    	}
-                    }
-                    
-                    else if ( patternValue == key.value )
-                    	return new ItemStack[] { new ItemStack(toolPart, 1, mat.materialID), null }; //Material only
-                    
-                    else
-                    	return null; //Not a valid match*/
+                    /*
+                     * if ( patternValue < totalMaterial ) { if (otherPattern !=
+                     * null) { int otherValue =
+                     * ((IPattern)otherPattern.getItem()
+                     * ).getPatternCost(otherPattern.getItemDamage()); if
+                     * (patternValue + otherValue <= key.value) { ItemStack
+                     * otherPart = getMatchingPattern(otherPattern, mat); return
+                     * new ItemStack[] { toolPart, otherPart }; //Material +
+                     * Material } } }
+                     * 
+                     * else if ( patternValue == key.value ) return new
+                     * ItemStack[] { new ItemStack(toolPart, 1, mat.materialID),
+                     * null }; //Material only
+                     * 
+                     * else return null; //Not a valid match
+                     */
                 }
             }
         }
@@ -186,7 +186,8 @@ public class PatternBuilder
         return null;
     }
 
-    //Small data classes. I would prefer the struct from C#, but we do what we can.
+    // Small data classes. I would prefer the struct from C#, but we do what we
+    // can.
     public class ItemKey
     {
         public final Item item;
@@ -217,7 +218,7 @@ public class PatternBuilder
         }
     }
 
-    //Helper Methods
+    // Helper Methods
     public void registerMaterial (Block material, int value, String key)
     {
         registerMaterial(new ItemStack(material, 1, Short.MAX_VALUE), value, key);
@@ -238,13 +239,17 @@ public class PatternBuilder
         registerFullMaterial(new ItemStack(material, 1, Short.MAX_VALUE), value, key, shard, rod, materialID);
     }
 
-    /*public void registerFullMaterial (Block material, int value, String key, int materialID)
-    {
-    	registerFullMaterial(new ItemStack(material, 1, Short.MAX_VALUE), value, key, new ItemStack(TContent.toolShard, 1, materialID), new ItemStack(TContent.toolRod, 1, materialID), materialID);
-    }
-
-    public void registerFullMaterial (Item material, int value, String key, int materialID)
-    {
-    	registerFullMaterial(new ItemStack(material, 1, Short.MAX_VALUE), value, key, new ItemStack(TContent.toolShard, 1, materialID), new ItemStack(TContent.toolRod, 1, materialID), materialID);
-    }*/
+    /*
+     * public void registerFullMaterial (Block material, int value, String key,
+     * int materialID) { registerFullMaterial(new ItemStack(material, 1,
+     * Short.MAX_VALUE), value, key, new ItemStack(TContent.toolShard, 1,
+     * materialID), new ItemStack(TContent.toolRod, 1, materialID), materialID);
+     * }
+     * 
+     * public void registerFullMaterial (Item material, int value, String key,
+     * int materialID) { registerFullMaterial(new ItemStack(material, 1,
+     * Short.MAX_VALUE), value, key, new ItemStack(TContent.toolShard, 1,
+     * materialID), new ItemStack(TContent.toolRod, 1, materialID), materialID);
+     * }
+     */
 }

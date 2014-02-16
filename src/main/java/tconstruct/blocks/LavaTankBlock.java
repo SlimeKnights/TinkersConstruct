@@ -22,7 +22,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
-import tconstruct.TConstruct;
 import tconstruct.blocks.logic.LavaTankLogic;
 import tconstruct.client.block.TankRender;
 import tconstruct.library.TConstructRegistry;
@@ -91,11 +90,11 @@ public class LavaTankBlock extends BlockContainer
     @Override
     public boolean shouldSideBeRendered (IBlockAccess world, int x, int y, int z, int side)
     {
-        //if (side == 0 && world.getBlockMetadata(x, y, z) == 0)
-        //return super.shouldSideBeRendered(world, x, y, z, side);
+        // if (side == 0 && world.getBlockMetadata(x, y, z) == 0)
+        // return super.shouldSideBeRendered(world, x, y, z, side);
         Block bID = world.getBlock(x, y, z);
         return bID == this ? false : super.shouldSideBeRendered(world, x, y, z, side);
-        //return true;
+        // return true;
     }
 
     @Override
@@ -107,11 +106,9 @@ public class LavaTankBlock extends BlockContainer
         return 0;
     }
 
-    /*@Override
-    public int getRenderBlockPass()
-    {
-    	return 1;
-    }*/
+    /*
+     * @Override public int getRenderBlockPass() { return 1; }
+     */
 
     @Override
     public int getRenderType ()
@@ -159,38 +156,10 @@ public class LavaTankBlock extends BlockContainer
     @Override
     public boolean onBlockActivated (World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9)
     {
-        /**ItemStack current = entityplayer.inventory.getCurrentItem();
-
-        if (current != null)
-        {
-            FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(current);
-
-            LavaTankLogic tank = (LavaTankLogic) world.getTileEntity(i, j, k);
-
-            if (liquid != null)
-            {
-                int qty = tank.fill(ForgeDirection.UNKNOWN, liquid, true);
-
-                if (qty != 0 && !entityplayer.capabilities.isCreativeMode)
-                {
-                    entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, consumeItem(current));
-                }
-
-                return true;
-
-            }
-            else
-            {
-
-            }
-        }*/
-
         ItemStack current = entityplayer.inventory.getCurrentItem();
         if (current != null)
         {
             FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(current);
-            //FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(current);
-            TConstruct.logger.error(liquid);
             LavaTankLogic logic = (LavaTankLogic) world.getTileEntity(i, j, k);
             if (liquid != null)
             {
@@ -208,7 +177,7 @@ public class LavaTankBlock extends BlockContainer
             else if (FluidContainerRegistry.isBucket(current))
             {
                 FluidTankInfo[] tanks = logic.getTankInfo(ForgeDirection.UNKNOWN);
-                FluidStack fillFluid = tanks[0].fluid;//getFluid();
+                FluidStack fillFluid = tanks[0].fluid;// getFluid();
                 ItemStack fillStack = FluidContainerRegistry.fillFluidContainer(fillFluid, current);
                 if (fillStack != null)
                 {

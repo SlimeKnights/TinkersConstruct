@@ -103,7 +103,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     @Override
     public void setDirection (int side)
     {
-        //direction = (byte) side;
+        // direction = (byte) side;
     }
 
     @Override

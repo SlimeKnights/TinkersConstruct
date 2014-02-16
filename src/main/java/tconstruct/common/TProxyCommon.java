@@ -28,10 +28,10 @@ public class TProxyCommon implements IGuiHandler
 
     public static int smelteryGuiID = 7;
     public static int furnaceID = 8;
-    //    public static int drawbridgeID = 9;  // Moved to TMechworks
+    // public static int drawbridgeID = 9; // Moved to TMechworks
     public static int landmineID = 10;
     public static int craftingStationID = 11;
-    //    public static int advDrawbridgeID = 12;  // Moved to TMechworks
+    // public static int advDrawbridgeID = 12; // Moved to TMechworks
     public static int inventoryGui = 100;
     public static int armorGuiID = 101;
     public static int knapsackGuiID = 102;
@@ -61,7 +61,7 @@ public class TProxyCommon implements IGuiHandler
         {
             if (ID == inventoryGui)
             {
-                //GuiInventory inv = new GuiInventory(player);
+                // GuiInventory inv = new GuiInventory(player);
                 return player.inventoryContainer;
             }
             if (ID == armorGuiID)
@@ -86,7 +86,7 @@ public class TProxyCommon implements IGuiHandler
 
     public void registerTickHandler ()
     {
-        //TickRegistry.registerTickHandler(new TimeTicker(), Side.SERVER);
+        // TickRegistry.registerTickHandler(new TimeTicker(), Side.SERVER);
     }
 
     /* Registers any rendering code. Does nothing server-side */
@@ -97,7 +97,8 @@ public class TProxyCommon implements IGuiHandler
     /* Ties an internal name to a visible one. */
     public void addNames ()
     {
-        // As of 1.6.x, this is now handled by Minecraft itself for the most part.
+        // As of 1.6.x, this is now handled by Minecraft itself for the most
+        // part.
 
         LanguageRegistry.addName(TRepo.potionLauncher, "Potion Launcher");
         LanguageRegistry.addName(TRepo.knapsack, "Knapsack");

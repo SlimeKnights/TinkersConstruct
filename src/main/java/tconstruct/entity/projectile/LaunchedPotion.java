@@ -80,7 +80,8 @@ public class LaunchedPotion extends EntityThrowable
     }
 
     /**
-     * Returns the damage value of the thrown potion that this EntityPotion represents.
+     * Returns the damage value of the thrown potion that this EntityPotion
+     * represents.
      */
     public int getPotionDamage ()
     {

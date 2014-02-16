@@ -27,7 +27,7 @@ public class InventoryCraftingStationResult extends InventoryCraftResult
      */
     public ItemStack getStackInSlot (int par1)
     {
-        return logic.getStackInSlot(0);//this.stackResult[0];
+        return logic.getStackInSlot(0);// this.stackResult[0];
     }
 
     /**
@@ -39,8 +39,9 @@ public class InventoryCraftingStationResult extends InventoryCraftResult
     }
 
     /**
-     * If this returns false, the inventory name will be used as an unlocalized name, and translated into the player's
-     * language. Otherwise it will be used directly.
+     * If this returns false, the inventory name will be used as an unlocalized
+     * name, and translated into the player's language. Otherwise it will be
+     * used directly.
      */
     public boolean isInvNameLocalized ()
     {
@@ -48,8 +49,8 @@ public class InventoryCraftingStationResult extends InventoryCraftResult
     }
 
     /**
-     * Removes from an inventory slot (first arg) up to a specified number (second arg) of items and returns them in a
-     * new stack.
+     * Removes from an inventory slot (first arg) up to a specified number
+     * (second arg) of items and returns them in a new stack.
      */
     public ItemStack decrStackSize (int par1, int par2)
     {
@@ -67,8 +68,9 @@ public class InventoryCraftingStationResult extends InventoryCraftResult
     }
 
     /**
-     * When some containers are closed they call this on each slot, then drop whatever it returns as an EntityItem -
-     * like when you close a workbench GUI.
+     * When some containers are closed they call this on each slot, then drop
+     * whatever it returns as an EntityItem - like when you close a workbench
+     * GUI.
      */
     public ItemStack getStackInSlotOnClosing (int par1)
     {
@@ -76,7 +78,8 @@ public class InventoryCraftingStationResult extends InventoryCraftResult
     }
 
     /**
-     * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
+     * Sets the given item stack to the specified slot in the inventory (can be
+     * crafting or armor sections).
      */
     @Override
     public void setInventorySlotContents (int par1, ItemStack par2ItemStack)
@@ -85,8 +88,8 @@ public class InventoryCraftingStationResult extends InventoryCraftResult
     }
 
     /**
-     * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended. *Isn't
-     * this more of a set than a get?*
+     * Returns the maximum stack size for a inventory slot. Seems to always be
+     * 64, possibly will be extended. *Isn't this more of a set than a get?*
      */
     public int getInventoryStackLimit ()
     {
@@ -101,7 +104,8 @@ public class InventoryCraftingStationResult extends InventoryCraftResult
     }
 
     /**
-     * Do not make give this method the name canInteractWith because it clashes with Container
+     * Do not make give this method the name canInteractWith because it clashes
+     * with Container
      */
     public boolean isUseableByPlayer (EntityPlayer par1EntityPlayer)
     {
@@ -117,7 +121,8 @@ public class InventoryCraftingStationResult extends InventoryCraftResult
     }
 
     /**
-     * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot.
+     * Returns true if automation is allowed to insert the given stack (ignoring
+     * stack size) into the given slot.
      */
     public boolean isStackValidForSlot (int par1, ItemStack par2ItemStack)
     {

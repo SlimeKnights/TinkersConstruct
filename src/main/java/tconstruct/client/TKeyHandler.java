@@ -24,7 +24,7 @@ public abstract class TKeyHandler
 
     /**
      * Pass an array of keybindings and a repeat flag for each one
-     *
+     * 
      * @param keyBindings
      * @param repeatings
      */
@@ -40,9 +40,9 @@ public abstract class TKeyHandler
     }
 
     /**
-     * Register the keys into the system. You will do your own keyboard management elsewhere. No events will fire
-     * if you use this method
-     *
+     * Register the keys into the system. You will do your own keyboard
+     * management elsewhere. No events will fire if you use this method
+     * 
      * @param keyBindings
      */
     public TKeyHandler(KeyBinding[] keyBindings)
@@ -116,24 +116,30 @@ public abstract class TKeyHandler
     }
 
     /**
-     * Called when the key is first in the down position on any tick from the {@link #ticks()}
-     * set. Will be called subsequently with isRepeat set to true
-     *
+     * Called when the key is first in the down position on any tick from the
+     * {@link #ticks()} set. Will be called subsequently with isRepeat set to
+     * true
+     * 
      * @see #keyUp(EnumSet, KeyBinding, boolean)
-     *
-     * @param types the type(s) of tick that fired when this key was first down
-     * @param tickEnd was it an end or start tick which fired the key
-     * @param isRepeat is it a repeat key event
+     * 
+     * @param types
+     *            the type(s) of tick that fired when this key was first down
+     * @param tickEnd
+     *            was it an end or start tick which fired the key
+     * @param isRepeat
+     *            is it a repeat key event
      */
     public abstract void keyDown (Type types, KeyBinding kb, boolean tickEnd, boolean isRepeat);
 
     /**
      * Fired once when the key changes state from down to up
-     *
+     * 
      * @see #keyDown(EnumSet, KeyBinding, boolean, boolean)
-     *
-     * @param types the type(s) of tick that fired when this key was first down
-     * @param tickEnd was it an end or start tick which fired the key
+     * 
+     * @param types
+     *            the type(s) of tick that fired when this key was first down
+     * @param tickEnd
+     *            was it an end or start tick which fired the key
      */
     public abstract void keyUp (Type types, KeyBinding kb, boolean tickEnd);
 

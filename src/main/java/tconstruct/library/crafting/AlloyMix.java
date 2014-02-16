@@ -17,11 +17,10 @@ public class AlloyMix
         mixers = inputs;
     }
 
-    /*public boolean matches(List liquids)
-    {
-    	ArrayList list = new ArrayList(mixers);
-    	return false;
-    }*/
+    /*
+     * public boolean matches(List liquids) { ArrayList list = new
+     * ArrayList(mixers); return false; }
+     */
 
     public FluidStack mix (ArrayList<FluidStack> liquids)
     {
@@ -35,23 +34,24 @@ public class AlloyMix
             while (iter.hasNext())
             {
                 FluidStack mixer = (FluidStack) iter.next();
-                //if (mixer.itemID == liquid.itemID && mixer.itemMeta == liquid.itemMeta)
+                // if (mixer.itemID == liquid.itemID && mixer.itemMeta ==
+                // liquid.itemMeta)
                 if (mixer.isFluidEqual(liquid))
                 {
                     int eAmt = liquid.amount / mixer.amount;
                     effectiveAmount.add(eAmt);
                     copyMix.remove(mixer);
-                    //inputs.add(liquid);
+                    // inputs.add(liquid);
                     break;
                 }
             }
         }
-        //}
+        // }
 
         if (copyMix.size() > 0)
             return null;
 
-        //Remove old liquids
+        // Remove old liquids
         int low = getLowestAmount(effectiveAmount);
         ArrayList<FluidStack> copyMix2 = new ArrayList(mixers);
 
@@ -62,7 +62,8 @@ public class AlloyMix
             while (iter.hasNext())
             {
                 FluidStack mixer = (FluidStack) iter.next();
-                //if (mixer.itemID == liquid.itemID && mixer.itemMeta == liquid.itemMeta)
+                // if (mixer.itemID == liquid.itemID && mixer.itemMeta ==
+                // liquid.itemMeta)
                 if (mixer.isFluidEqual(liquid))
                 {
                     int eAmt = low * mixer.amount;
@@ -85,7 +86,7 @@ public class AlloyMix
 
     int getLowestAmount (ArrayList list)
     {
-        int frist = (Integer) list.get(0); //FRIST!!!
+        int frist = (Integer) list.get(0); // FRIST!!!
         for (int i = 1; i < list.size(); i++)
         {
             int compare = (Integer) list.get(i);

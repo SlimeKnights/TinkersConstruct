@@ -15,7 +15,8 @@ public class EntityLandmineFirework extends Entity
     private int fireworkAge;
 
     /**
-     * The lifetime of the firework in ticks. When the age reaches the lifetime the firework explodes.
+     * The lifetime of the firework in ticks. When the age reaches the lifetime
+     * the firework explodes.
      */
     private int lifetime;
 

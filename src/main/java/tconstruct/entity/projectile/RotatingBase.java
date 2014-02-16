@@ -65,16 +65,14 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         setArrowHeading(motionX, motionY, motionZ, f, f1);
     }
 
-    /*public void setOnGround(boolean flag)
-    {
-        onGround = flag;
-        this.dataWatcher.updateObject(6, Byte.valueOf((byte) (flag == true ? 1 : 0)));
-    }
-    
-    public boolean getOnGround()
-    {
-        return this.dataWatcher.getWatchableObjectByte(0) == 1 ? true : false;
-    }*/
+    /*
+     * public void setOnGround(boolean flag) { onGround = flag;
+     * this.dataWatcher.updateObject(6, Byte.valueOf((byte) (flag == true ? 1 :
+     * 0))); }
+     * 
+     * public boolean getOnGround() { return
+     * this.dataWatcher.getWatchableObjectByte(0) == 1 ? true : false; }
+     */
 
     @Override
     protected void entityInit ()
@@ -94,27 +92,17 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
                 worldObj.spawnParticle("snowballpoof", posX, posY, posZ, 0.0D, 0.0D, 0.0D);
             }
 
-            //kill();
+            // kill();
         }
     }
 
     /*
-    public void returnToPlayer()
-    {
-        damageDagger(0, true);
-        if(returnStack.stackSize < 1)
-        {
-            return;
-        }
-        if(returnStackSlot > 0)
-        {
-            mod_Infi2x2.forceAddToInv((EntityPlayer)returnsTo, returnStack, returnStackSlot, true);
-        } else
-        {
-            mod_Infi2x2.addToInv((EntityPlayer)returnsTo, returnStack, true);
-        }
-    }
-    */
+     * public void returnToPlayer() { damageDagger(0, true);
+     * if(returnStack.stackSize < 1) { return; } if(returnStackSlot > 0) {
+     * mod_Infi2x2.forceAddToInv((EntityPlayer)returnsTo, returnStack,
+     * returnStackSlot, true); } else {
+     * mod_Infi2x2.addToInv((EntityPlayer)returnsTo, returnStack, true); } }
+     */
 
     public void determineRotation ()
     {
@@ -190,18 +178,13 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
             }
             else
             {
-                /*this.motionX = 0;
-                this.motionY = 0;
-                this.motionZ = 0;*/
-                /*ticksInGround++;
-                if (ticksInGround == 1200)
-                {
-                    setDead();
-                }
-                if (ticksInGround == maxGroundTicks)
-                {
-                    setDead();
-                }*/
+                /*
+                 * this.motionX = 0; this.motionY = 0; this.motionZ = 0;
+                 */
+                /*
+                 * ticksInGround++; if (ticksInGround == 1200) { setDead(); } if
+                 * (ticksInGround == maxGroundTicks) { setDead(); }
+                 */
                 if (!hasHitGround)
                 {
                     hasHitGround = true;
@@ -303,34 +286,24 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         }
     }
 
-    /*public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound)
-    {
-        super.readEntityFromNBT(par1NBTTagCompound);
-
-        if (par1NBTTagCompound.hasKey("Potion"))
-        {
-            this.potionDamage = ItemStack.loadItemStackFromNBT(par1NBTTagCompound.getCompoundTag("Potion"));
-        }
-        else
-        {
-            this.setPotionDamage(par1NBTTagCompound.getInteger("potionValue"));
-        }
-
-        if (this.potionDamage == null)
-        {
-            this.setDead();
-        }
-    }
-
-    public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound)
-    {
-        super.writeEntityToNBT(par1NBTTagCompound);
-
-        if (this.potionDamage != null)
-        {
-            
-        }
-    }*/
+    /*
+     * public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
+     * super.readEntityFromNBT(par1NBTTagCompound);
+     * 
+     * if (par1NBTTagCompound.hasKey("Potion")) { this.potionDamage =
+     * ItemStack.loadItemStackFromNBT
+     * (par1NBTTagCompound.getCompoundTag("Potion")); } else {
+     * this.setPotionDamage(par1NBTTagCompound.getInteger("potionValue")); }
+     * 
+     * if (this.potionDamage == null) { this.setDead(); } }
+     * 
+     * public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
+     * super.writeEntityToNBT(par1NBTTagCompound);
+     * 
+     * if (this.potionDamage != null) {
+     * 
+     * } }
+     */
 
     public void writeEntityToNBT (NBTTagCompound tags)
     {
@@ -346,14 +319,14 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
 
     public void readEntityFromNBT (NBTTagCompound tags)
     {
-        //super.readEntityFromNBT(tags);
+        // super.readEntityFromNBT(tags);
 
         this.returnStack = ItemStack.loadItemStackFromNBT(tags.getCompoundTag("Throwable"));
         xTile = tags.getShort("xTile");
         yTile = tags.getShort("yTile");
         zTile = tags.getShort("zTile");
-        //TODO fix this\/
-        //inTile = tags.getString("inTile");
+        // TODO fix this\/
+        // inTile = tags.getString("inTile");
         arrowShake = tags.getByte("shake") & 0xff;
         onGround = tags.getByte("onGround") == 1;
         doNotRetrieve = tags.getBoolean("Retrieval");

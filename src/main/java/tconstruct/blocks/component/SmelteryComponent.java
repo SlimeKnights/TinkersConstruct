@@ -43,8 +43,9 @@ public class SmelteryComponent extends LogicComponent
 
     public void update ()
     {
-        /*if (useTime > 0 && inUse)
-            useTime -= 3;*/
+        /*
+         * if (useTime > 0 && inUse) useTime -= 3;
+         */
         if (activeTemps.length == 0)
             inUse = false;
 

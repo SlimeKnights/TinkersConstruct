@@ -17,7 +17,18 @@ public class ModAutoSmelt extends ModBoolean
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         if (tags.getBoolean("Silk Touch"))
             return false;
-        return tags.getInteger("Modifiers") > 0 && !tags.getBoolean(key); //Will fail if the modifier is false or the tag doesn't exist
+        return tags.getInteger("Modifiers") > 0 && !tags.getBoolean(key); // Will
+                                                                          // fail
+                                                                          // if
+                                                                          // the
+                                                                          // modifier
+                                                                          // is
+                                                                          // false
+                                                                          // or
+                                                                          // the
+                                                                          // tag
+                                                                          // doesn't
+                                                                          // exist
     }
 
 }

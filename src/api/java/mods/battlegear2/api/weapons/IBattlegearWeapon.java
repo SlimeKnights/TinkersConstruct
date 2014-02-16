@@ -1,30 +1,31 @@
 package mods.battlegear2.api.weapons;
 
-import cpw.mods.fml.relauncher.Side;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import cpw.mods.fml.relauncher.Side;
 
-public interface IBattlegearWeapon {
+public interface IBattlegearWeapon
+{
 
     /**
      * Returns true if the weapon will allow other weapons to be placed in the partner offhand slot
      */
-    public boolean willAllowOffhandWeapon();
+    public boolean willAllowOffhandWeapon ();
 
     /**
      * Will allow shield
      */
-    public boolean willAllowShield();
+    public boolean willAllowShield ();
 
     /**
      * Returns true if the weapon be dual wielded in the offhand slot
      */
-    public boolean isOffhandHandDualWeapon();
+    public boolean isOffhandHandDualWeapon ();
 
     /**
      * Returns true if the weapon should always be sheathed on the back, false if it should be sheathed on the hip
      */
-    public boolean sheatheOnBack();
+    public boolean sheatheOnBack ();
 
     /**
      * Perform any function when the item is held in the offhand and the user right clicks an entity.
@@ -36,7 +37,7 @@ public interface IBattlegearWeapon {
      * @param offhandItem  the ItemStack currently being held in the left hand
      * @return true if the off hand swing animation should be performed
      */
-    public boolean offhandAttackEntity(OffhandAttackEvent event, ItemStack mainhandItem, ItemStack offhandItem);
+    public boolean offhandAttackEntity (OffhandAttackEvent event, ItemStack mainhandItem, ItemStack offhandItem);
 
     /**
      * Perform any function when the item is held in the offhand and the user right clicks "Air".
@@ -46,7 +47,7 @@ public interface IBattlegearWeapon {
      * @param offhandItem  the ItemStack currently being held in the left hand
      * @return true if the off hand swing animation should be performed
      */
-    public boolean offhandClickAir(PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem);
+    public boolean offhandClickAir (PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem);
 
     /**
      * Perform any function when the item is held in the offhand and the user right clicks a block.
@@ -56,7 +57,7 @@ public interface IBattlegearWeapon {
      * @param mainhandItem the ItemStack currently being held in the right hand
      * @param offhandItem  the ItemStack currently being held in the left hand
      */
-    public boolean offhandClickBlock(PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem);
+    public boolean offhandClickBlock (PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem);
 
     /**
      * Perform any passive effects on each game tick when the item is held in the offhand
@@ -65,6 +66,6 @@ public interface IBattlegearWeapon {
      * @param mainhandItem  the ItemStack currently being held in the right hand
      * @param offhandItem   the ItemStack currently being held in the left hand
      */
-    public void performPassiveEffects(Side effectiveSide, ItemStack mainhandItem, ItemStack offhandItem);
+    public void performPassiveEffects (Side effectiveSide, ItemStack mainhandItem, ItemStack offhandItem);
 
 }

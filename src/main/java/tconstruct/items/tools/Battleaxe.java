@@ -169,18 +169,18 @@ public class Battleaxe extends HarvestTool
     @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
-        //player.rotationYaw += 1;
-        //if (player.onGround)
-        //{
+        // player.rotationYaw += 1;
+        // if (player.onGround)
+        // {
         player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
-        //}
+        // }
         return stack;
     }
 
     @Override
     public void onPlayerStoppedUsing (ItemStack stack, World world, EntityPlayer player, int useCount)
     {
-        //if (player.onGround)
+        // if (player.onGround)
         {
             int time = this.getMaxItemUseDuration(stack) - useCount;
             int boost = time / 100;

@@ -79,7 +79,7 @@ public class TitleIcon extends Item
                 return achievementIcons[index];
             }
         }
-        //Not returning null to prevent crashes
+        // Not returning null to prevent crashes
         return itemIcon;
     }
 

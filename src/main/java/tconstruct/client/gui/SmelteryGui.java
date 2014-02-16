@@ -62,10 +62,10 @@ public class SmelteryGui extends NewContainerGui
             int topo = this.guiTop;
             int xScroll = lefto + 67;
             int yScroll = topo + 8;
-            int scrollwidth = xScroll + 14;
-            int scrollheight = yScroll + 144;
+            int scrollWidth = xScroll + 14;
+            int scrollHeight = yScroll + 144;
 
-            if (!this.wasClicking && mouseDown && mouseX >= xScroll && mouseY >= yScroll && mouseX < scrollwidth && mouseY < scrollheight)
+            if (!this.wasClicking && mouseDown && mouseX >= xScroll && mouseY >= yScroll && mouseX < scrollWidth && mouseY < scrollHeight)
             {
                 this.isScrolling = true;
             }
@@ -84,7 +84,7 @@ public class SmelteryGui extends NewContainerGui
 
             if (this.isScrolling)
             {
-                this.currentScroll = (mouseY - yScroll - 7.5F) / (scrollheight - yScroll - 15.0F);
+                this.currentScroll = (mouseY - yScroll - 7.5F) / (scrollHeight - yScroll - 15.0F);
 
                 if (this.currentScroll < 0.0F)
                 {
@@ -117,7 +117,7 @@ public class SmelteryGui extends NewContainerGui
         {
             int basePos = 54;
             int initialLiquidSize = 0;
-            int liquidSize = 0;//liquid.amount * 52 / liquidLayers;
+            int liquidSize = 0;// liquid.amount * 52 / liquidLayers;
             if (logic.getCapacity() > 0)
             {
                 int total = logic.getTotalLiquid();
@@ -167,7 +167,7 @@ public class SmelteryGui extends NewContainerGui
         int cornerY = (height - ySize) / 2;
         drawTexturedModalRect(cornerX + 46, cornerY, 0, 0, 176, ySize);
 
-        //Fuel - Lava
+        // Fuel - Lava
         this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
         if (logic.fuelGague > 0)
         {
@@ -183,7 +183,7 @@ public class SmelteryGui extends NewContainerGui
             }
         }
 
-        //Liquids - molten metal
+        // Liquids - molten metal
         int base = 0;
         for (FluidStack liquid : logic.moltenMetal)
         {
@@ -215,13 +215,13 @@ public class SmelteryGui extends NewContainerGui
             }
         }
 
-        //Liquid gague
+        // Liquid gague
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
         this.mc.getTextureManager().bindTexture(background);
         drawTexturedModalRect(cornerX + 54, cornerY + 16, 176, 76, 52, 52);
 
-        //Side inventory
+        // Side inventory
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(backgroundSide);
         if (logic.layers > 0)
@@ -243,7 +243,7 @@ public class SmelteryGui extends NewContainerGui
             drawTexturedModalRect(cornerX + 32, (int) (cornerY + 8 + 127 * currentScroll), 98, 0, 12, 15);
         }
 
-        //Temperature
+        // Temperature
         int slotSize = logic.layers * 9;
         if (slotSize > 24)
             slotSize = 24;
@@ -412,10 +412,10 @@ public class SmelteryGui extends NewContainerGui
     {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV(startU + 0, startV + endV, this.zLevel, par3Icon.getMinU(), par3Icon.getMaxV());//Bottom left
-        tessellator.addVertexWithUV(startU + endU, startV + endV, this.zLevel, par3Icon.getMaxU(), par3Icon.getMaxV());//Bottom right
-        tessellator.addVertexWithUV(startU + endU, startV + 0, this.zLevel, par3Icon.getMaxU(), par3Icon.getMinV());//Top right
-        tessellator.addVertexWithUV(startU + 0, startV + 0, this.zLevel, par3Icon.getMinU(), par3Icon.getMinV()); //Top left
+        tessellator.addVertexWithUV(startU + 0, startV + endV, this.zLevel, par3Icon.getMinU(), par3Icon.getMaxV());// Bottom left
+        tessellator.addVertexWithUV(startU + endU, startV + endV, this.zLevel, par3Icon.getMaxU(), par3Icon.getMaxV());// Bottom right
+        tessellator.addVertexWithUV(startU + endU, startV + 0, this.zLevel, par3Icon.getMaxU(), par3Icon.getMinV());// Top right
+        tessellator.addVertexWithUV(startU + 0, startV + 0, this.zLevel, par3Icon.getMinU(), par3Icon.getMinV()); // Top left
         tessellator.draw();
     }
 
@@ -433,7 +433,7 @@ public class SmelteryGui extends NewContainerGui
         {
             int basePos = 54;
             int initialLiquidSize = 0;
-            int liquidSize = 0;//liquid.amount * 52 / liquidLayers;
+            int liquidSize = 0;// liquid.amount * 52 / liquidLayers;
             if (logic.getCapacity() > 0)
             {
                 int total = logic.getTotalLiquid();
@@ -453,37 +453,7 @@ public class SmelteryGui extends NewContainerGui
             int sizeY = liquidSize;
             if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
             {
-                //TODO Update fluid stuff
                 fluidToBeBroughtUp = liquid.fluidID;
-
-                /*Packet250CustomPayload packet = new Packet250CustomPayload();
-
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                DataOutputStream dos = new DataOutputStream(bos);
-
-                try
-                {
-                    dos.write(11);
-
-                    dos.writeInt(logic.getWorld().provider.dimensionId);
-                    dos.writeInt(logic.xCoord);
-                    dos.writeInt(logic.yCoord);
-                    dos.writeInt(logic.zCoord);
-
-                    dos.writeBoolean(this.isShiftKeyDown());
-
-                    dos.writeInt(fluidToBeBroughtUp);
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-
-                packet.channel = "TConstruct";
-                packet.data = bos.toByteArray();
-                packet.length = bos.size();
-
-                PacketDispatcher.sendPacketToServer(packet);*/
 
                 TConstruct.packetPipeline
                         .sendToServer(new PacketSmeltery(logic.getWorldObj().provider.dimensionId, logic.xCoord, logic.yCoord, logic.zCoord, this.isShiftKeyDown(), fluidToBeBroughtUp));

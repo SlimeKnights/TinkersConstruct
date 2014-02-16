@@ -27,8 +27,8 @@ public class FilledBucket extends ItemBucket
     public FilledBucket(Block b)
     {
         super(b);
-        //setTextureFile(TRepo.craftingTexture);
-        //setIconIndex(224);
+        // setTextureFile(TRepo.craftingTexture);
+        // setIconIndex(224);
         setUnlocalizedName("tconstruct.bucket");
         setContainerItem(Items.bucket);
         this.setHasSubtypes(true);
@@ -49,31 +49,21 @@ public class FilledBucket extends ItemBucket
         }
         else
         {
-            /*FillBucketEvent event = new FillBucketEvent(player, stack, world, position);
-            if (MinecraftForge.EVENT_BUS.post(event))
-            {
-            	return stack;
-            }
-
-            if (event.getResult() == Event.Result.ALLOW)
-            {
-            	if (player.capabilities.isCreativeMode)
-            	{
-            		return stack;
-            	}
-
-            	if (--stack.stackSize <= 0)
-            	{
-            		return event.result;
-            	}
-
-            	if (!player.inventory.addItemStackToInventory(event.result))
-            	{
-            		player.dropPlayerItem(event.result);
-            	}
-
-            	return stack;
-            }*/
+            /*
+             * FillBucketEvent event = new FillBucketEvent(player, stack, world,
+             * position); if (MinecraftForge.EVENT_BUS.post(event)) { return
+             * stack; }
+             * 
+             * if (event.getResult() == Event.Result.ALLOW) { if
+             * (player.capabilities.isCreativeMode) { return stack; }
+             * 
+             * if (--stack.stackSize <= 0) { return event.result; }
+             * 
+             * if (!player.inventory.addItemStackToInventory(event.result)) {
+             * player.dropPlayerItem(event.result); }
+             * 
+             * return stack; }
+             */
 
             if (position.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
             {
@@ -145,7 +135,7 @@ public class FilledBucket extends ItemBucket
                 if (TRepo.fluidBlocks[type] instanceof BlockFluidFinite)
                     metadata = 7;
 
-                world.setBlock(clickX, clickY, clickZ, TRepo.fluidBlocks[type], metadata, 3); //TODO: Merge liquids
+                world.setBlock(clickX, clickY, clickZ, TRepo.fluidBlocks[type], metadata, 3); // TODO: Merge liquids
             }
             catch (ArrayIndexOutOfBoundsException ex)
             {

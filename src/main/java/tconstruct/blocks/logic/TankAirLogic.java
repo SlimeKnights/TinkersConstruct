@@ -32,8 +32,10 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
 
     public void overrideFluids (ArrayList<FluidStack> fluids)
     {
-        /*multitank.overrideFluids(fluids);
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);*/
+        /*
+         * multitank.overrideFluids(fluids); worldObj.markBlockForUpdate(xCoord,
+         * yCoord, zCoord);
+         */
     }
 
     public boolean hasItem ()
@@ -54,25 +56,26 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     @Override
     public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
-        /*inventory[slot] = itemstack;
-        if (itemstack != null && itemstack.stackSize > getInventoryStackLimit())
-        {
-            itemstack.stackSize = getInventoryStackLimit();
-            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, itemstack.getItemDamage(), 3);
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-        }*/
+        /*
+         * inventory[slot] = itemstack; if (itemstack != null &&
+         * itemstack.stackSize > getInventoryStackLimit()) { itemstack.stackSize
+         * = getInventoryStackLimit();
+         * worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord,
+         * itemstack.getItemDamage(), 3); worldObj.markBlockForUpdate(xCoord,
+         * yCoord, zCoord); }
+         */
     }
 
     @Override
     public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
     {
-        return null; //Not a gui block
+        return null; // Not a gui block
     }
 
     @Override
     protected String getDefaultName ()
     {
-        return null; //Not a gui block
+        return null; // Not a gui block
     }
 
     @Override
@@ -84,20 +87,21 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     @Override
     public void notifyMasterOfChange ()
     {
-        //Probably not useful here
+        // Probably not useful here
     }
 
     @Override
     public boolean setPotentialMaster (IMasterLogic master, World world, int xMaster, int yMaster, int zMaster)
     {
-        return false; //Master should be verified right after placement
+        return false; // Master should be verified right after placement
     }
 
     @Override
     public boolean verifyMaster (IMasterLogic logic, World world, int xMaster, int yMaster, int zMaster)
     {
-        /*if (master != null) //Is this even needed?
-            return false;*/
+        /*
+         * if (master != null) //Is this even needed? return false;
+         */
 
         master = new CoordTuple(xMaster, yMaster, zMaster);
         return true;
@@ -127,19 +131,17 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
         return false;
     }
 
-    /*@Override
-    public boolean canUpdate()
-    {
-        return false;
-    }*/
+    /*
+     * @Override public boolean canUpdate() { return false; }
+     */
 
-    //DELETE
+    // DELETE
     public void updateEntity ()
     {
         worldObj.setBlockToAir(xCoord, yCoord, zCoord);
     }
 
-    //Keep TE regardless of metadata
+    // Keep TE regardless of metadata
     public boolean shouldRefresh (int oldID, int newID, int oldMeta, int newMeta, World world, int x, int y, int z)
     {
         return oldID != newID;

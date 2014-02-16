@@ -16,8 +16,8 @@ import cpw.mods.fml.common.gameevent.TickEvent.Type;
 
 public class TControls extends TKeyHandler
 {
-    //static KeyBinding grabKey = new KeyBinding("key.grab", 29);
-    //static KeyBinding stiltsKey = new KeyBinding("key.stilts", 46);
+    // static KeyBinding grabKey = new KeyBinding("key.grab", 29);
+    // static KeyBinding stiltsKey = new KeyBinding("key.stilts", 46);
     public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24, null);
     public static KeyBinding refreshCapes = new KeyBinding("key.tcapes.reload", 88, null);
     static KeyBinding jumpKey;
@@ -32,12 +32,12 @@ public class TControls extends TKeyHandler
 
     int currentTab = 1;
 
-    //boolean onStilts = false;
+    // boolean onStilts = false;
 
     public TControls()
     {
         super(new KeyBinding[] { armorKey, refreshCapes }, new boolean[] { false, false }, getVanillaKeyBindings(), new boolean[] { false, false });
-        //TConstruct.logger.info("Controls registered");
+        // TConstruct.logger.info("Controls registered");
     }
 
     private static KeyBinding[] getVanillaKeyBindings ()
@@ -53,11 +53,12 @@ public class TControls extends TKeyHandler
     {
         if (tickEnd && mc.theWorld != null)
         {
-            if (kb == armorKey && mc.currentScreen == null) //Extended Armor
+            if (kb == armorKey && mc.currentScreen == null) // Extended Armor
             {
-                openArmorGui();//mc.thePlayer.username);
+                openArmorGui();// mc.thePlayer.username);
             }
-            if (kb == invKey && mc.currentScreen != null && mc.currentScreen.getClass() == GuiInventory.class)// && !mc.playerController.isInCreativeMode())
+            if (kb == invKey && mc.currentScreen != null && mc.currentScreen.getClass() == GuiInventory.class)// &&
+                                                                                                              // !mc.playerController.isInCreativeMode())
             {
                 TabRegistry.addTabsToInventory((GuiContainer) mc.currentScreen);
             }
@@ -65,7 +66,7 @@ public class TControls extends TKeyHandler
             {
                 EventCloakRender.instance.refreshCapes();
             }
-            if (kb == jumpKey) //Double jump
+            if (kb == jumpKey) // Double jump
             {
                 if (mc.thePlayer.capabilities.isCreativeMode)
                     return;
@@ -88,29 +89,19 @@ public class TControls extends TKeyHandler
                     jumping = mc.thePlayer.isAirBorne;
             }
         }
-        /*else if (kb == stiltsKey) //Stilts
-        {
-        	float size = 1.8F;
-        	if (!onStilts)
-        		size = 0.8F;
-        	TConstruct.playerTracker.updateSize(mc.thePlayer.username, size);
-        	onStilts = !onStilts;
-        	//updateServer(mc.thePlayer.username, (byte) 11);
-        	if (onStilts)
-        	{
-        		onStilts = false;
-        	}
-        	else
-        	{
-        		onStilts = true;
-        	}
-        }*/
+        /*
+         * else if (kb == stiltsKey) //Stilts { float size = 1.8F; if
+         * (!onStilts) size = 0.8F;
+         * TConstruct.playerTracker.updateSize(mc.thePlayer.username, size);
+         * onStilts = !onStilts; //updateServer(mc.thePlayer.username, (byte)
+         * 11); if (onStilts) { onStilts = false; } else { onStilts = true; } }
+         */
     }
 
     @Override
     public void keyUp (Type types, KeyBinding kb, boolean tickEnd)
     {
-        //landOnGround();
+        // landOnGround();
     }
 
     public void landOnGround ()
@@ -216,14 +207,15 @@ public class TControls extends TKeyHandler
 
     static void updateServer (ByteArrayOutputStream bos)
     {
-        /*Packet250CustomPayload packet = new Packet250CustomPayload();
-        packet.channel = "TConstruct";
-        packet.data = bos.toByteArray();
-        packet.length = bos.size();
+        /*
+         * Packet250CustomPayload packet = new Packet250CustomPayload();
+         * packet.channel = "TConstruct"; packet.data = bos.toByteArray();
+         * packet.length = bos.size();
+         * 
+         * PacketDispatcher.sendPacketToServer(packet);
+         */
 
-        PacketDispatcher.sendPacketToServer(packet);*/
-
-        //TODO Find out what packet should be used here
+        // TODO Find out what packet should be used here
         TConstruct.packetPipeline.sendToServer(new PacketDoubleJump());
     }
 

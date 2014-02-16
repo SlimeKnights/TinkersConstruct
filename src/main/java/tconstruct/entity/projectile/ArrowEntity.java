@@ -291,7 +291,9 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                                     && this.shootingEntity instanceof EntityPlayerMP)
                             {
                                 ((EntityPlayerMP) this.shootingEntity).playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(6, 0));
-                                //TConstruct.packetPipeline.sendTo(new S2BPacketChangeGameState(6, 0), (EntityPlayerMP) this.shootingEntity);
+                                // TConstruct.packetPipeline.sendTo(new
+                                // S2BPacketChangeGameState(6, 0),
+                                // (EntityPlayerMP) this.shootingEntity);
                             }
                         }
 
@@ -425,23 +427,15 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             {
                 int stackSize;
 
-                /*if (par1ItemStack.isItemDamaged())
-                {
-                    slotID = this.getFirstEmptyStack(living);
-
-                    if (slotID >= 0)
-                    {
-                        living.setCurrentItemOrArmor(slotID, par1ItemStack);
-                        living.setEquipmentDropChance(slotID, 2.0f);
-                        par1ItemStack.stackSize = 0;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else*/
+                /*
+                 * if (par1ItemStack.isItemDamaged()) { slotID =
+                 * this.getFirstEmptyStack(living);
+                 * 
+                 * if (slotID >= 0) { living.setCurrentItemOrArmor(slotID,
+                 * par1ItemStack); living.setEquipmentDropChance(slotID, 2.0f);
+                 * par1ItemStack.stackSize = 0; return true; } else { return
+                 * false; } } else
+                 */
                 {
                     do
                     {
@@ -456,10 +450,12 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Adding item to inventory");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Item being added");
-                //TODO is this needed???
-                //crashreportcategory.addCrashSection("Item ID", Integer.valueOf(par1ItemStack.itemID));
+                // TODO is this needed???
+                // crashreportcategory.addCrashSection("Item ID",
+                // Integer.valueOf(par1ItemStack.itemID));
                 crashreportcategory.addCrashSection("Item data", Integer.valueOf(par1ItemStack.getItemDamage()));
-                //crashreportcategory.addCrashSectionCallable("Item name", new CallableItemName(this, par1ItemStack));
+                // crashreportcategory.addCrashSectionCallable("Item name", new
+                // CallableItemName(this, par1ItemStack));
                 throw new ReportedException(crashreport);
             }
         }
@@ -494,10 +490,10 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             }
             else
             {
-                /*if (this.mainInventory[k] == null)
-                {
-                    this.mainInventory[k] = par1ItemStack;
-                }*/
+                /*
+                 * if (this.mainInventory[k] == null) { this.mainInventory[k] =
+                 * par1ItemStack; }
+                 */
                 if (living.getEquipmentInSlot(slotID) == null)
                 {
                     living.setCurrentItemOrArmor(slotID, par1ItemStack);

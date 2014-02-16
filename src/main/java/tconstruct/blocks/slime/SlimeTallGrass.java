@@ -39,10 +39,9 @@ public class SlimeTallGrass extends BlockBush implements IShearable
      */
     public IIcon getIcon (int side, int meta)
     {
-        /*if (meta >= this.iconArray.length)
-        {
-            meta = 0;
-        }*/
+        /*
+         * if (meta >= this.iconArray.length) { meta = 0; }
+         */
 
         return this.iconArray[meta];
     }
@@ -56,7 +55,8 @@ public class SlimeTallGrass extends BlockBush implements IShearable
     }
 
     /**
-     * Returns the usual quantity dropped by the block plus a bonus of 1 to 'i' (inclusive).
+     * Returns the usual quantity dropped by the block plus a bonus of 1 to 'i'
+     * (inclusive).
      */
     public int quantityDroppedWithBonus (int par1, Random par2Random)
     {

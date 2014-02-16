@@ -138,7 +138,8 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     {
         if (!worldObj.isRemote)
         {
-            //System.out.println("Notifying of change from "+new CoordTuple(x, y, z));
+            // System.out.println("Notifying of change from "+new CoordTuple(x,
+            // y, z));
             recheckStructure = true;
         }
     }
@@ -294,21 +295,22 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
 
     static final int pixelLayer = 162;
 
-    //Do the Monster Mash~
+    // Do the Monster Mash~
     public void distributeFluids ()
     {
-        //Calculate liquids in each block
+        // Calculate liquids in each block
         int size = structure.getAirLayerSize();
-        //HashMap<CoordTuple, LiquidDataInstance> blocks = new HashMap<CoordTuple, LiquidDataInstance>();
+        // HashMap<CoordTuple, LiquidDataInstance> blocks = new
+        // HashMap<CoordTuple, LiquidDataInstance>();
 
         for (FluidStack fluid : multitank.fluidlist)
         {
-            //Base calculations per liquid
+            // Base calculations per liquid
             LiquidData data = new LiquidData(fluid.amount, size);
             int baseY = structure.airCoords.get(0).y;
             int layerSize = structure.getAirLayerSize();
 
-            //Calculate where to distribute liquids
+            // Calculate where to distribute liquids
             for (int i = 0; i < structure.airCoords.size(); i++)
             {
                 LiquidDataInstance instance;
@@ -326,32 +328,35 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
                     instance = airUpdates.get(coord);
                 }
 
-                if (instance.openLayers() > 0) //This is capable of sending negative liquid sizes to blocks without the stopgap check
+                if (instance.openLayers() > 0) // This is capable of sending
+                                               // negative liquid sizes to
+                                               // blocks without the stopgap
+                                               // check
                 {
                     if (position > data.blocksWithExtra)
                     {
-                        //Calculate open layers
+                        // Calculate open layers
                         int open = data.layers - height + 1;
-                        if (open < 1) //Temporary stopgap check
+                        if (open < 1) // Temporary stopgap check
                             continue;
                         if (open > instance.openLayers())
                             open = instance.openLayers();
 
-                        //Copy fluid
+                        // Copy fluid
                         FluidStack newFluid = fluid.copy();
                         newFluid.amount = pixelLayer * open;
                         instance.addFluid(open, newFluid);
 
-                        //Subtract from total
+                        // Subtract from total
                         data.totalAmount -= newFluid.amount;
                         if (data.totalAmount <= 0)
                             break;
                     }
                     else if (position == data.blocksWithExtra && data.leftovers > 0)
                     {
-                        //Calculate open layers
+                        // Calculate open layers
                         int open = data.layers - height + 1;
-                        if (open < 1) //Temporary stopgap check
+                        if (open < 1) // Temporary stopgap check
                             continue;
                         boolean full = false;
                         if (open > instance.openLayers())
@@ -360,33 +365,33 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
                             full = true;
                         }
 
-                        //Copy fluid
+                        // Copy fluid
                         FluidStack newFluid = fluid.copy();
                         newFluid.amount = pixelLayer * open;
                         if (!full)
                             newFluid.amount += data.leftovers;
                         instance.addFluid(open, newFluid);
 
-                        //Subtract from total
+                        // Subtract from total
                         data.totalAmount -= newFluid.amount;
                         if (data.totalAmount <= 0)
                             break;
                     }
                     else
                     {
-                        //Calculate open layers
+                        // Calculate open layers
                         int open = data.layers - height;
-                        if (open < 1) //Temporary stopgap check
+                        if (open < 1) // Temporary stopgap check
                             continue;
                         if (open > instance.openLayers())
                             open = instance.openLayers();
 
-                        //Copy fluid
+                        // Copy fluid
                         FluidStack newFluid = fluid.copy();
                         newFluid.amount = pixelLayer * open;
                         instance.addFluid(open, newFluid);
 
-                        //Subtract from total
+                        // Subtract from total
                         data.totalAmount -= newFluid.amount;
                         if (data.totalAmount <= 0)
                             break;
@@ -395,7 +400,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
             }
         }
 
-        //Distribute liquids to each block
+        // Distribute liquids to each block
     }
 
     protected void updateFluidBlocks ()

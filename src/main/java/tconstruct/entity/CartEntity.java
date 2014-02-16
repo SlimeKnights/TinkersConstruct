@@ -119,8 +119,8 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * returns if this entity triggers Block.onEntityWalking on the blocks they walk on. used for spiders and wolves to
-     * prevent them from trampling crops
+     * returns if this entity triggers Block.onEntityWalking on the blocks they
+     * walk on. used for spiders and wolves to prevent them from trampling crops
      */
     protected boolean canTriggerWalking ()
     {
@@ -136,8 +136,9 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Returns a boundingBox used to collide the entity with other entities and blocks. This enables the entity to be
-     * pushable on contact, like boats or minecarts.
+     * Returns a boundingBox used to collide the entity with other entities and
+     * blocks. This enables the entity to be pushable on contact, like boats or
+     * minecarts.
      */
     public AxisAlignedBB getCollisionBox (Entity par1Entity)
     {
@@ -153,7 +154,8 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Returns true if this entity should push and be pushed by other entities when colliding.
+     * Returns true if this entity should push and be pushed by other entities
+     * when colliding.
      */
     public boolean canBePushed ()
     {
@@ -161,7 +163,8 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Returns the Y offset from the entity's position for any entity riding this one.
+     * Returns the Y offset from the entity's position for any entity riding
+     * this one.
      */
     public double getMountedYOffset ()
     {
@@ -223,7 +226,8 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Returns true if other Entities should be prevented from moving through this Entity.
+     * Returns true if other Entities should be prevented from moving through
+     * this Entity.
      */
     public boolean canBeCollidedWith ()
     {
@@ -279,7 +283,8 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Teleports the entity to another dimension. Params: Dimension number to teleport to
+     * Teleports the entity to another dimension. Params: Dimension number to
+     * teleport to
      */
     public void travelToDimension (int par1)
     {
@@ -325,38 +330,26 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
                 if (var1.getAllowNether())
                 {
                     /*
-                    if (this.ridingEntity == null && this.timeInPortal++ >= var2)
-                    {
-                        this.timeInPortal = var2;
-                        this.timeUntilPortal = this.getPortalCooldown();
-                        byte var3;
-
-                        if (this.worldObj.provider.dimensionId == -1)
-                        {
-                            var3 = 0;
-                        }
-                        else
-                        {
-                            var3 = -1;
-                        }
-
-                        this.travelToDimension(var3);
-                    }
-
-                    this.inPortal = false;*/
+                     * if (this.ridingEntity == null && this.timeInPortal++ >=
+                     * var2) { this.timeInPortal = var2; this.timeUntilPortal =
+                     * this.getPortalCooldown(); byte var3;
+                     * 
+                     * if (this.worldObj.provider.dimensionId == -1) { var3 = 0;
+                     * } else { var3 = -1; }
+                     * 
+                     * this.travelToDimension(var3); }
+                     * 
+                     * this.inPortal = false;
+                     */
                 }
             }
             else
             {
-                /*if (this.timeInPortal > 0)
-                {
-                    this.timeInPortal -= 4;
-                }
-
-                if (this.timeInPortal < 0)
-                {
-                    this.timeInPortal = 0;
-                }*/
+                /*
+                 * if (this.timeInPortal > 0) { this.timeInPortal -= 4; }
+                 * 
+                 * if (this.timeInPortal < 0) { this.timeInPortal = 0; }
+                 */
             }
 
             if (this.timeUntilPortal > 0)
@@ -468,18 +461,14 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
 
     void moveTowardsEntity (Entity entity)
     {
-        //TConstruct.logger.info("Moving towards entity");
-        /*double distX = this.posX - entity.posX;
-        double distZ = this.posZ - entity.posZ;
-        //posY = posY + 0.1;
-
-        if (entity.posY > this.posY)
-        	motionY += 0.1;
-        if (distX > 0.5 && distZ > 0.5)
-        {
-        	motionX = -distX;
-        	motionZ = -distZ;
-        }*/
+        // TConstruct.logger.info("Moving towards entity");
+        /*
+         * double distX = this.posX - entity.posX; double distZ = this.posZ -
+         * entity.posZ; //posY = posY + 0.1;
+         * 
+         * if (entity.posY > this.posY) motionY += 0.1; if (distX > 0.5 && distZ
+         * > 0.5) { motionX = -distX; motionZ = -distZ; }
+         */
 
         double var15 = entity.posX;
         double var19 = entity.posZ;
@@ -529,28 +518,22 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
             }
         }
 
-        /*if (entity.posY > this.posY)
-        	motionY += 0.1;*/
+        /*
+         * if (entity.posY > this.posY) motionY += 0.1;
+         */
     }
 
     public double calculateDistance (double pos1, double pos2)
     {
-        double distance = Math.abs(pos1 - pos2); //0.0D;
-        /*double absPos1 = Math.abs(pos1);
-        double absPos2 = Math.abs(pos2);
-
-        if ((pos1 <= 0.0D || pos2 <= 0.0D) && (pos1 >= 0.0D || pos2 >= 0.0D))
-        {
-            distance = absPos1 + absPos2;
-        }
-        else if (absPos1 > absPos2)
-        {
-            distance = absPos1 - absPos2;
-        }
-        else if (absPos2 > absPos1)
-        {
-            distance = absPos2 - absPos1;
-        }*/
+        double distance = Math.abs(pos1 - pos2); // 0.0D;
+        /*
+         * double absPos1 = Math.abs(pos1); double absPos2 = Math.abs(pos2);
+         * 
+         * if ((pos1 <= 0.0D || pos2 <= 0.0D) && (pos1 >= 0.0D || pos2 >= 0.0D))
+         * { distance = absPos1 + absPos2; } else if (absPos1 > absPos2) {
+         * distance = absPos1 - absPos2; } else if (absPos2 > absPos1) {
+         * distance = absPos2 - absPos1; }
+         */
 
         return distance;
     }
@@ -727,7 +710,8 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Applies a velocity to each of the entities pushing them away from each other. Args: entity
+     * Applies a velocity to each of the entities pushing them away from each
+     * other. Args: entity
      */
     public void applyEntityCollision (Entity par1Entity)
     {
@@ -839,8 +823,8 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Removes from an inventory slot (first arg) up to a specified number (second arg) of items and returns them in a
-     * new stack.
+     * Removes from an inventory slot (first arg) up to a specified number
+     * (second arg) of items and returns them in a new stack.
      */
     public ItemStack decrStackSize (int par1, int par2)
     {
@@ -873,8 +857,9 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * When some containers are closed they call this on each slot, then drop whatever it returns as an EntityItem -
-     * like when you close a workbench GUI.
+     * When some containers are closed they call this on each slot, then drop
+     * whatever it returns as an EntityItem - like when you close a workbench
+     * GUI.
      */
     public ItemStack getStackInSlotOnClosing (int par1)
     {
@@ -891,7 +876,8 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
+     * Sets the given item stack to the specified slot in the inventory (can be
+     * crafting or armor sections).
      */
     public void setInventorySlotContents (int par1, ItemStack par2ItemStack)
     {
@@ -912,8 +898,8 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended. *Isn't
-     * this more of a set than a get?*
+     * Returns the maximum stack size for a inventory slot. Seems to always be
+     * 64, possibly will be extended. *Isn't this more of a set than a get?*
      */
     public int getInventoryStackLimit ()
     {
@@ -928,7 +914,8 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Called when a player interacts with a mob. e.g. gets milk from a cow, gets into the saddle on a pig.
+     * Called when a player interacts with a mob. e.g. gets milk from a cow,
+     * gets into the saddle on a pig.
      */
     public boolean interact (EntityPlayer player)
     {
@@ -937,14 +924,14 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
             if (entityFollowing == null)
             {
                 entityFollowing = player;
-                //if (!worldObj.isRemote)
-                //player.addChatMessage("The cart is following you");
+                // if (!worldObj.isRemote)
+                // player.addChatMessage("The cart is following you");
             }
             else
             {
                 entityFollowing = null;
-                //if (!worldObj.isRemote)
-                //player.addChatMessage("The cart has stopped following you");
+                // if (!worldObj.isRemote)
+                // player.addChatMessage("The cart has stopped following you");
             }
             return true;
         }
@@ -1018,7 +1005,8 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Do not make give this method the name canInteractWith because it clashes with Container
+     * Do not make give this method the name canInteractWith because it clashes
+     * with Container
      */
     public boolean isUseableByPlayer (EntityPlayer par1EntityPlayer)
     {
@@ -1057,8 +1045,8 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Sets the current amount of damage the minecart has taken. Decreases over time. The cart breaks when this is over
-     * 40.
+     * Sets the current amount of damage the minecart has taken. Decreases over
+     * time. The cart breaks when this is over 40.
      */
     public void setDamage (int par1)
     {
@@ -1066,8 +1054,8 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Gets the current amount of damage the minecart has taken. Decreases over time. The cart breaks when this is over
-     * 40.
+     * Gets the current amount of damage the minecart has taken. Decreases over
+     * time. The cart breaks when this is over 40.
      */
     public int getDamage ()
     {
@@ -1095,7 +1083,8 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Drops the cart as a item. The exact item dropped is defined by getItemDropped().
+     * Drops the cart as a item. The exact item dropped is defined by
+     * getItemDropped().
      */
     public void dropCartAsItem ()
     {
@@ -1106,44 +1095,42 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Override this to define which items your cart drops when broken.
-     * This does not include items contained in the inventory,
-     * that is handled elsewhere.
+     * Override this to define which items your cart drops when broken. This
+     * does not include items contained in the inventory, that is handled
+     * elsewhere.
+     * 
      * @return A list of items dropped.
      */
     public List<ItemStack> getItemsDropped ()
     {
-        /*List<ItemStack> items = new ArrayList<ItemStack>();
-        items.add(new ItemStack(Item.minecartEmpty));
-
-        switch(cartType)
-        {
-            case 1:
-                items.add(new ItemStack(Block.chest));
-                break;
-            case 2:
-                items.add(new ItemStack(Block.stoneOvenIdle));
-                break;
-        }
-        return items;*/
+        /*
+         * List<ItemStack> items = new ArrayList<ItemStack>(); items.add(new
+         * ItemStack(Item.minecartEmpty));
+         * 
+         * switch(cartType) { case 1: items.add(new ItemStack(Block.chest));
+         * break; case 2: items.add(new ItemStack(Block.stoneOvenIdle)); break;
+         * } return items;
+         */
         return new ArrayList<ItemStack>();
     }
 
     /**
-     * This function returns an ItemStack that represents this cart.
-     * This should be an ItemStack that can be used by the player to place the cart.
-     * This is the item that was registered with the cart via the registerMinecart function,
-     * but is not necessary the item the cart drops when destroyed.
+     * This function returns an ItemStack that represents this cart. This should
+     * be an ItemStack that can be used by the player to place the cart. This is
+     * the item that was registered with the cart via the registerMinecart
+     * function, but is not necessary the item the cart drops when destroyed.
+     * 
      * @return An ItemStack that can be used to place the cart.
      */
     public ItemStack getCartItem ()
     {
         return null;
-        //return MinecartRegistry.getItemForCart(this);
+        // return MinecartRegistry.getItemForCart(this);
     }
 
     /**
      * Returns true if this cart is self propelled.
+     * 
      * @return True if powered.
      */
     public boolean isPoweredCart ()
@@ -1152,9 +1139,10 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Returns true if this cart is a storage cart
-     * Some carts may have inventories but not be storage carts
-     * and some carts without inventories may be storage carts.
+     * Returns true if this cart is a storage cart Some carts may have
+     * inventories but not be storage carts and some carts without inventories
+     * may be storage carts.
+     * 
      * @return True if this cart should be classified as a storage cart.
      */
     public boolean isStorageCart ()
@@ -1164,6 +1152,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
 
     /**
      * Returns true if this cart can be ridden by an Entity.
+     * 
      * @return True if this cart can be ridden.
      */
     public boolean canBeRidden ()
@@ -1176,8 +1165,9 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Returns true if this cart can currently use rails.
-     * This function is mainly used to gracefully detach a minecart from a rail.
+     * Returns true if this cart can currently use rails. This function is
+     * mainly used to gracefully detach a minecart from a rail.
+     * 
      * @return True if the minecart can use rails.
      */
     public boolean canUseRail ()
@@ -1186,9 +1176,11 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Set whether the minecart can use rails.
-     * This function is mainly used to gracefully detach a minecart from a rail.
-     * @param use Whether the minecart can currently use rails.
+     * Set whether the minecart can use rails. This function is mainly used to
+     * gracefully detach a minecart from a rail.
+     * 
+     * @param use
+     *            Whether the minecart can currently use rails.
      */
     public void setCanUseRail (boolean use)
     {
@@ -1196,7 +1188,9 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Return false if this cart should not call IRail.onMinecartPass() and should ignore Powered Rails.
+     * Return false if this cart should not call IRail.onMinecartPass() and
+     * should ignore Powered Rails.
+     * 
      * @return True if this cart should call IRail.onMinecartPass().
      */
     public boolean shouldDoRailFunctions ()
@@ -1206,6 +1200,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
 
     /**
      * Simply returns the minecartType variable.
+     * 
      * @return minecartType
      */
     public int getCartType ()
@@ -1215,6 +1210,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
 
     /**
      * Carts should return their drag factor here
+     * 
      * @return The drag rate.
      */
     protected double getDrag ()
@@ -1223,8 +1219,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Moved to allow overrides.
-     * This code applies drag and updates push forces.
+     * Moved to allow overrides. This code applies drag and updates push forces.
      */
     protected void applyDragAndPushForces ()
     {
@@ -1255,8 +1250,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Moved to allow overrides.
-     * This code updates push forces.
+     * Moved to allow overrides. This code updates push forces.
      */
     protected void updatePushForces ()
     {
@@ -1282,8 +1276,8 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Moved to allow overrides.
-     * This code handles minecart movement and speed capping when not on a rail.
+     * Moved to allow overrides. This code handles minecart movement and speed
+     * capping when not on a rail.
      */
     protected void moveMinecartOffRail (int i, int j, int k)
     {
@@ -1326,8 +1320,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     /**
-     * Moved to allow overrides.
-     * This code applies fuel consumption.
+     * Moved to allow overrides. This code applies fuel consumption.
      */
     protected void updateFuel ()
     {
@@ -1340,7 +1333,9 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
 
     /**
      * Moved to allow overrides, This code handle slopes affecting velocity.
-     * @param metadata The blocks position metadata
+     * 
+     * @param metadata
+     *            The blocks position metadata
      */
     protected void adjustSlopeVelocities (int metadata)
     {
@@ -1368,11 +1363,11 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
      */
 
     /**
-     * Returns the carts max speed.
-     * Carts going faster than 1.1 cause issues with chunk loading.
-     * Carts cant traverse slopes or corners at greater than 0.5 - 0.6.
-     * This value is compared with the rails max speed to determine
+     * Returns the carts max speed. Carts going faster than 1.1 cause issues
+     * with chunk loading. Carts cant traverse slopes or corners at greater than
+     * 0.5 - 0.6. This value is compared with the rails max speed to determine
      * the carts current max speed. A normal rails max speed is 0.4.
+     * 
      * @return Carts max speed.
      */
     public float getMaxSpeedRail ()
@@ -1448,7 +1443,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     @Override
     public String getInventoryName ()
     {
-        //TODO get inventory name
+        // TODO get inventory name
         return null;
     }
 

@@ -216,8 +216,10 @@ public class DaggerRender extends Render
         float f11;
         float rotation = dagger.prevRotationPitch + (dagger.rotationPitch - dagger.prevRotationPitch) * par7 * -20;
 
-        //GL11.glRotatef(arrow.prevRotationYaw + (arrow.rotationYaw - arrow.prevRotationYaw) * par4 - 90.0F, 0.0F, 1.0F, 0.0F);
-        //GL11.glRotatef(arrow.prevRotationPitch + (arrow.rotationPitch - arrow.prevRotationPitch) * par4 - 45.0F, 0.0F, 0.0F, 1.0F);
+        // GL11.glRotatef(arrow.prevRotationYaw + (arrow.rotationYaw -
+        // arrow.prevRotationYaw) * par4 - 90.0F, 0.0F, 1.0F, 0.0F);
+        // GL11.glRotatef(arrow.prevRotationPitch + (arrow.rotationPitch -
+        // arrow.prevRotationPitch) * par4 - 45.0F, 0.0F, 0.0F, 1.0F);
 
         GL11.glPushMatrix();
 
@@ -240,7 +242,8 @@ public class DaggerRender extends Render
 
         for (int k = 0; k < b0; ++k)
         {
-            // Makes items offset when in 3D, like when in 2D, looks much better. Considered a vanilla bug...
+            // Makes items offset when in 3D, like when in 2D, looks much
+            // better. Considered a vanilla bug...
             GL11.glTranslatef(0f, 0f, f12 + f11);
 
             if (itemstack.getItemSpriteNumber() == 0)
@@ -257,36 +260,28 @@ public class DaggerRender extends Render
             GL11.glRotatef(rotation, 0.0F, 0.0F, 1.0F);
             ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, ((IIcon) par2Icon).getIconWidth(), ((IIcon) par2Icon).getIconHeight(), f12);
 
-            /*if (itemstack.hasEffect(pass))
-            {
-                GL11.glDepthFunc(GL11.GL_EQUAL);
-                GL11.glDisable(GL11.GL_LIGHTING);
-                this.renderManager.renderEngine.bindTexture(RES_ITEM_GLINT);
-                GL11.glEnable(GL11.GL_BLEND);
-                GL11.glBlendFunc(GL11.GL_SRC_COLOR, GL11.GL_ONE);
-                float f13 = 0.76F;
-                GL11.glColor4f(0.5F * f13, 0.25F * f13, 0.8F * f13, 1.0F);
-                GL11.glMatrixMode(GL11.GL_TEXTURE);
-                GL11.glPushMatrix();
-                float f14 = 0.125F;
-                GL11.glScalef(f14, f14, f14);
-                float f15 = (float) (Minecraft.getSystemTime() % 3000L) / 3000.0F * 8.0F;
-                GL11.glTranslatef(f15, 0.0F, 0.0F);
-                GL11.glRotatef(-50.0F, 0.0F, 0.0F, 1.0F);
-                ItemRenderer.renderItemIn2D(tessellator, 0.0F, 0.0F, 1.0F, 1.0F, 255, 255, f12);
-                GL11.glPopMatrix();
-                GL11.glPushMatrix();
-                GL11.glScalef(f14, f14, f14);
-                f15 = (float) (Minecraft.getSystemTime() % 4873L) / 4873.0F * 8.0F;
-                GL11.glTranslatef(-f15, 0.0F, 0.0F);
-                GL11.glRotatef(10.0F, 0.0F, 0.0F, 1.0F);
-                ItemRenderer.renderItemIn2D(tessellator, 0.0F, 0.0F, 1.0F, 1.0F, 255, 255, f12);
-                GL11.glPopMatrix();
-                GL11.glMatrixMode(GL11.GL_MODELVIEW);
-                GL11.glDisable(GL11.GL_BLEND);
-                GL11.glEnable(GL11.GL_LIGHTING);
-                GL11.glDepthFunc(GL11.GL_LEQUAL);
-            }*/
+            /*
+             * if (itemstack.hasEffect(pass)) { GL11.glDepthFunc(GL11.GL_EQUAL);
+             * GL11.glDisable(GL11.GL_LIGHTING);
+             * this.renderManager.renderEngine.bindTexture(RES_ITEM_GLINT);
+             * GL11.glEnable(GL11.GL_BLEND); GL11.glBlendFunc(GL11.GL_SRC_COLOR,
+             * GL11.GL_ONE); float f13 = 0.76F; GL11.glColor4f(0.5F * f13, 0.25F
+             * * f13, 0.8F * f13, 1.0F); GL11.glMatrixMode(GL11.GL_TEXTURE);
+             * GL11.glPushMatrix(); float f14 = 0.125F; GL11.glScalef(f14, f14,
+             * f14); float f15 = (float) (Minecraft.getSystemTime() % 3000L) /
+             * 3000.0F * 8.0F; GL11.glTranslatef(f15, 0.0F, 0.0F);
+             * GL11.glRotatef(-50.0F, 0.0F, 0.0F, 1.0F);
+             * ItemRenderer.renderItemIn2D(tessellator, 0.0F, 0.0F, 1.0F, 1.0F,
+             * 255, 255, f12); GL11.glPopMatrix(); GL11.glPushMatrix();
+             * GL11.glScalef(f14, f14, f14); f15 = (float)
+             * (Minecraft.getSystemTime() % 4873L) / 4873.0F * 8.0F;
+             * GL11.glTranslatef(-f15, 0.0F, 0.0F); GL11.glRotatef(10.0F, 0.0F,
+             * 0.0F, 1.0F); ItemRenderer.renderItemIn2D(tessellator, 0.0F, 0.0F,
+             * 1.0F, 1.0F, 255, 255, f12); GL11.glPopMatrix();
+             * GL11.glMatrixMode(GL11.GL_MODELVIEW);
+             * GL11.glDisable(GL11.GL_BLEND); GL11.glEnable(GL11.GL_LIGHTING);
+             * GL11.glDepthFunc(GL11.GL_LEQUAL); }
+             */
         }
 
         GL11.glPopMatrix();
@@ -428,25 +423,20 @@ public class DaggerRender extends Render
                 this.renderItemIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5, true);
             }
 
-            /* Modders must handle this themselves if they use custom renderers!
-            if (par3ItemStack.hasEffect())
-            {
-                GL11.glDepthFunc(GL11.GL_GREATER);
-                GL11.glDisable(GL11.GL_LIGHTING);
-                GL11.glDepthMask(false);
-                par2TextureManager.bindTexture(RES_ITEM_GLINT);
-                this.zLevel -= 50.0F;
-                GL11.glEnable(GL11.GL_BLEND);
-                GL11.glBlendFunc(GL11.GL_DST_COLOR, GL11.GL_DST_COLOR);
-                GL11.glColor4f(0.5F, 0.25F, 0.8F, 1.0F);
-                this.renderGlint(par4 * 431278612 + par5 * 32178161, par4 - 2, par5 - 2, 20, 20);
-                GL11.glDisable(GL11.GL_BLEND);
-                GL11.glDepthMask(true);
-                this.zLevel += 50.0F;
-                GL11.glEnable(GL11.GL_LIGHTING);
-                GL11.glDepthFunc(GL11.GL_LEQUAL);
-            }
-            */
+            /*
+             * Modders must handle this themselves if they use custom renderers!
+             * if (par3ItemStack.hasEffect()) {
+             * GL11.glDepthFunc(GL11.GL_GREATER);
+             * GL11.glDisable(GL11.GL_LIGHTING); GL11.glDepthMask(false);
+             * par2TextureManager.bindTexture(RES_ITEM_GLINT); this.zLevel -=
+             * 50.0F; GL11.glEnable(GL11.GL_BLEND);
+             * GL11.glBlendFunc(GL11.GL_DST_COLOR, GL11.GL_DST_COLOR);
+             * GL11.glColor4f(0.5F, 0.25F, 0.8F, 1.0F); this.renderGlint(par4 *
+             * 431278612 + par5 * 32178161, par4 - 2, par5 - 2, 20, 20);
+             * GL11.glDisable(GL11.GL_BLEND); GL11.glDepthMask(true);
+             * this.zLevel += 50.0F; GL11.glEnable(GL11.GL_LIGHTING);
+             * GL11.glDepthFunc(GL11.GL_LEQUAL); }
+             */
         }
     }
 
@@ -487,8 +477,8 @@ public class DaggerRender extends Render
     }
 
     /**
-     * Renders the item's overlay information. Examples being stack count or damage on top of the item's image at the
-     * specified position.
+     * Renders the item's overlay information. Examples being stack count or
+     * damage on top of the item's image at the specified position.
      */
     public void renderItemOverlayIntoGUI (FontRenderer par1FontRenderer, TextureManager par2TextureManager, ItemStack par3ItemStack, int par4, int par5)
     {
@@ -531,8 +521,8 @@ public class DaggerRender extends Render
     }
 
     /**
-     * Adds a quad to the tesselator at the specified position with the set width and height and color.  Args:
-     * tessellator, x, y, width, height, color
+     * Adds a quad to the tesselator at the specified position with the set
+     * width and height and color. Args: tessellator, x, y, width, height, color
      */
     private void renderQuad (Tessellator par1Tessellator, int par2, int par3, int par4, int par5, int par6)
     {
@@ -562,10 +552,12 @@ public class DaggerRender extends Render
     }
 
     /**
-     * Actually renders the given argument. This is a synthetic bridge method, always casting down its argument and then
-     * handing it off to a worker function which does the actual work. In all probabilty, the class Render is generic
-     * (Render<T extends Entity) and this method has signature public void doRender(T entity, double d, double d1,
-     * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
+     * Actually renders the given argument. This is a synthetic bridge method,
+     * always casting down its argument and then handing it off to a worker
+     * function which does the actual work. In all probabilty, the class Render
+     * is generic (Render<T extends Entity) and this method has signature public
+     * void doRender(T entity, double d, double d1, double d2, float f, float
+     * f1). But JAD is pre 1.5 so doesn't do that.
      */
     public void doRender (Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
     {
@@ -574,6 +566,7 @@ public class DaggerRender extends Render
 
     /**
      * Items should spread out when rendered in 3d?
+     * 
      * @return
      */
     public boolean shouldSpreadItems ()
@@ -583,6 +576,7 @@ public class DaggerRender extends Render
 
     /**
      * Items should have a bob effect
+     * 
      * @return
      */
     public boolean shouldBob ()
@@ -607,6 +601,7 @@ public class DaggerRender extends Render
     /**
      * Allows for a subclass to override how many rendered items appear in a
      * "mini item 3d stack"
+     * 
      * @param stack
      * @return
      */
