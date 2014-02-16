@@ -621,8 +621,8 @@ public class TEventHandler
             }
         }
     }
-
-    @SubscribeEvent
+    //TODO 1.7 Fix this -- for ticking stuffs in extra armor slots
+    /*@SubscribeEvent
     public void livingUpdate (LivingUpdateEvent event)
     {
         if (event.entityLiving instanceof EntityPlayer)
@@ -643,7 +643,7 @@ public class TEventHandler
                 }
             }
         }
-    }
+    }*/
 
     //Player interact event - prevent breaking of tank air blocks in creative
     @SubscribeEvent
