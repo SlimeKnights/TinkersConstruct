@@ -13,8 +13,7 @@ public class SlotPattern extends Slot
     }
 
     /**
-     * Check if the stack is a valid item for this slot. Always true beside for
-     * the armor slots.
+     * Check if the stack is a valid item for this slot. Always true beside for the armor slots.
      */
     @Override
     public boolean isItemValid (ItemStack stack)

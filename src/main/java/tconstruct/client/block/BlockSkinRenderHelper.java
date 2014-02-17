@@ -8,13 +8,11 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
-import tconstruct.TConstruct;
 
 public class BlockSkinRenderHelper
 {
     public static boolean renderMetadataBlock (Block block, int metadata, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
     {
-        TConstruct.logger.error(block);
         // TODO CHECK THESE!!!!
         int var5 = block.colorMultiplier(world, x, y, z);
         float var6 = (float) (var5 >> 16 & 255) / 255.0F;

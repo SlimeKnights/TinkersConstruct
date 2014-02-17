@@ -58,9 +58,9 @@ public class PartCrafterGui extends NewContainerGui
     void drawMaterialInformation ()
     {
         ItemStack top = logic.getStackInSlot(2);
-        // ItemStack topResult = logic.getStackInSlot(4);
+        //ItemStack topResult = logic.getStackInSlot(4);
         ItemStack bottom = logic.getStackInSlot(3);
-        // ItemStack bottomResult = logic.getStackInSlot(6);
+        //ItemStack bottomResult = logic.getStackInSlot(6);
         if (topMaterial != top)
         {
             topMaterial = top;
@@ -133,17 +133,17 @@ public class PartCrafterGui extends NewContainerGui
         switch (num)
         {
         case 0:
-            return StatCollector.translateToLocal("gui.partcrafter.mining1");
+            return (StatCollector.translateToLocal("gui.partcrafter.mining1"));
         case 1:
-            return StatCollector.translateToLocal("gui.partcrafter.mining2");
+            return (StatCollector.translateToLocal("gui.partcrafter.mining2"));
         case 2:
-            return StatCollector.translateToLocal("gui.partcrafter.mining3");
+            return (StatCollector.translateToLocal("gui.partcrafter.mining3"));
         case 3:
-            return StatCollector.translateToLocal("gui.partcrafter.mining4");
+            return (StatCollector.translateToLocal("gui.partcrafter.mining4"));
         case 4:
-            return StatCollector.translateToLocal("gui.partcrafter.mining5");
+            return (StatCollector.translateToLocal("gui.partcrafter.mining5"));
         case 5:
-            return StatCollector.translateToLocal("gui.partcrafter.mining6");
+            return (StatCollector.translateToLocal("gui.partcrafter.mining6"));
         default:
             return String.valueOf(num);
         }
