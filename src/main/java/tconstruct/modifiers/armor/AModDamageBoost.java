@@ -53,7 +53,7 @@ public class AModDamageBoost extends ArmorModTypeFilter
         NBTTagList attributes;
         if (baseTag.hasKey("AttributeModifiers"))
         {
-            attributes = baseTag.getTagList("AttributeModifiers", 9);
+            attributes = baseTag.getTagList("AttributeModifiers", 10);
             for (int iter = 0; iter < attributes.tagCount(); iter++)
             {
                 NBTTagCompound tag = (NBTTagCompound) attributes.getCompoundTagAt(iter);

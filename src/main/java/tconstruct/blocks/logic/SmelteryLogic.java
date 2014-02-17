@@ -1104,7 +1104,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         meltingTemps = tags.getIntArray("MeltingTemps");
         activeTemps = tags.getIntArray("ActiveTemps");
 
-        NBTTagList liquidTag = tags.getTagList("Liquids", 9);
+        NBTTagList liquidTag = tags.getTagList("Liquids", 10);
         moltenMetal.clear();
 
         for (int iter = 0; iter < liquidTag.tagCount(); iter++)

@@ -1,21 +1,14 @@
 package tconstruct.library.component;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
-import mantle.blocks.iface.IFacingLogic;
-import mantle.blocks.iface.IMasterLogic;
-import mantle.blocks.iface.IServantLogic;
-import mantle.world.CoordTuple;
-import mantle.world.CoordTupleSort;
+import mantle.blocks.iface.*;
+import mantle.world.*;
 import net.minecraft.block.Block;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagIntArray;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.*;
 import net.minecraft.tileentity.TileEntity;
 import tconstruct.TConstruct;
+import tconstruct.library.util.*;
 
 public class TankLayerScan extends LogicComponent
 {
@@ -38,14 +31,7 @@ public class TankLayerScan extends LogicComponent
     protected CoordTuple returnStone;
 
     private static boolean debug = System.getenv("DBG_MANTLE_TankLayerScan") != null;
-    private static int MAX_LAYER_RECURSION_DEPTH = System.getProperty("os.arch").equals("amd64") ? 4000 : 2000; // Recursion
-                                                                                                                // causes
-                                                                                                                // overflows
-                                                                                                                // on
-                                                                                                                // 32-bit,
-                                                                                                                // so reduce
-                                                                                                                // if not
-                                                                                                                // 64-bit
+    private static int MAX_LAYER_RECURSION_DEPTH = System.getProperty("os.arch").equals("amd64") ? 4000 : 2000; // Recursion causes overflows on 32-bit, so reduce if not 64-bit
 
     public TankLayerScan(TileEntity te, Block... ids)
     {
@@ -72,7 +58,7 @@ public class TankLayerScan extends LogicComponent
         blockCoords.clear();
         airCoords.clear();
         boolean validAir = false;
-        // Check for air space in front of and behind the structure
+        //Check for air space in front of and behind the structure
         byte dir = getDirection();
         switch (getDirection())
         {
@@ -88,7 +74,7 @@ public class TankLayerScan extends LogicComponent
             break;
         }
 
-        // Recurse the structure
+        //Recurse the structure
         boolean validBlocks = false;
 
         int xPos = 0, zPos = 0;
@@ -126,7 +112,7 @@ public class TankLayerScan extends LogicComponent
             blockCoords.clear();
             bricks = 0;
 
-            // Does the actual adding of blocks in the ring
+            //Does the actual adding of blocks in the ring
             boolean sealed = floodTest(master.xCoord + xPos, master.yCoord, master.zCoord + zPos);
             if (!world.isRemote && debug)
             {
@@ -136,7 +122,7 @@ public class TankLayerScan extends LogicComponent
 
             if (sealed)
             {
-                blockCoords.add(new CoordTuple(master.xCoord, master.yCoord, master.zCoord)); // Don't forget me!
+                blockCoords.add(new CoordTuple(master.xCoord, master.yCoord, master.zCoord)); //Don't forget me!
                 layerAirCoords = new HashSet<CoordTuple>(airCoords);
                 layerBlockCoords = new HashSet<CoordTuple>(blockCoords);
 
@@ -157,7 +143,7 @@ public class TankLayerScan extends LogicComponent
         }
     }
 
-    // @SuppressWarnings({ "unchecked" })
+    //@SuppressWarnings({ "unchecked" })
     protected void finalizeStructure ()
     {
         Collections.sort(blockCoords, new CoordTupleSort());
@@ -204,8 +190,7 @@ public class TankLayerScan extends LogicComponent
     protected boolean checkAir (int x, int y, int z)
     {
         Block block = world.getBlock(x, y, z);
-        if (block == null || world.isAirBlock(x, y, z))// || block ==
-                                                       // TContent.tankAir)
+        if (block == null || world.isAirBlock(x, y, z))// || block == TContent.tankAir)
             return true;
 
         return false;
@@ -304,9 +289,9 @@ public class TankLayerScan extends LogicComponent
             if (checkAir(coord.x, y, coord.z))
             {
                 boolean valid = true;
-                addAirBlock(coord.x, y, coord.z); // Don't skip first one
+                addAirBlock(coord.x, y, coord.z); //Don't skip first one
 
-                // Air blocks
+                //Air blocks
                 while (i.hasNext())
                 {
                     coord = (CoordTuple) i.next();
@@ -321,7 +306,7 @@ public class TankLayerScan extends LogicComponent
                     }
                 }
 
-                // Bricks
+                //Bricks
                 i = layerBlockCoords.iterator();
                 while (i.hasNext())
                 {
@@ -341,7 +326,7 @@ public class TankLayerScan extends LogicComponent
             }
             else if (checkServant(coord.x, y, coord.z))
             {
-                // Bottom floor. All blocks, please vacate the elevator
+                //Bottom floor. All blocks, please vacate the elevator
                 boolean valid = true;
                 while (i.hasNext())
                 {
@@ -374,7 +359,7 @@ public class TankLayerScan extends LogicComponent
             {
                 boolean valid = true;
 
-                // Bricks
+                //Bricks
                 while (i.hasNext())
                 {
                     coord = (CoordTuple) i.next();
@@ -388,7 +373,7 @@ public class TankLayerScan extends LogicComponent
                     }
                 }
 
-                // Air blocks
+                //Air blocks
                 if (valid)
                 {
                     i = layerAirCoords.iterator();
@@ -453,7 +438,7 @@ public class TankLayerScan extends LogicComponent
         }
         else
         {
-            if (structureTop == 0) // Workaround for missing data
+            if (structureTop == 0) //Workaround for missing data
             {
                 for (CoordTuple coord : blockCoords)
                     structureTop = coord.y;
@@ -488,10 +473,7 @@ public class TankLayerScan extends LogicComponent
         }
     }
 
-    /**
-     * Do any necessary cleanup here. Remove air blocks, invalidate servants,
-     * etc
-     */
+    /** Do any necessary cleanup here. Remove air blocks, invalidate servants, etc */
     public void cleanup ()
     {
         Iterator i = blockCoords.iterator();
@@ -511,7 +493,7 @@ public class TankLayerScan extends LogicComponent
     public void readFromNBT (NBTTagCompound tags)
     {
         super.readFromNBT(tags);
-        NBTTagList layerAir = tags.getTagList("AirLayer", 9);
+        NBTTagList layerAir = tags.getTagList("AirLayer", 10);
         if (layerAir != null)
         {
             layerAirCoords.clear();
@@ -523,7 +505,7 @@ public class TankLayerScan extends LogicComponent
             }
         }
 
-        NBTTagList blocks = tags.getTagList("Blocks", 9);
+        NBTTagList blocks = tags.getTagList("Blocks", 10);
         if (blocks != null)
         {
             blockCoords.clear();
@@ -535,7 +517,7 @@ public class TankLayerScan extends LogicComponent
             }
         }
 
-        NBTTagList air = tags.getTagList("Air", 9);
+        NBTTagList air = tags.getTagList("Air", 10);
         if (air != null)
         {
             airCoords.clear();
@@ -549,7 +531,6 @@ public class TankLayerScan extends LogicComponent
         structureTop = tags.getInteger("structureTop");
     }
 
-    @Override
     public void readNetworkNBT (NBTTagCompound tags)
     {
         completeStructure = tags.getBoolean("Complete");
@@ -582,7 +563,6 @@ public class TankLayerScan extends LogicComponent
         tags.setInteger("structureTop", structureTop);
     }
 
-    @Override
     public void writeNetworkNBT (NBTTagCompound tags)
     {
         tags.setBoolean("Complete", completeStructure);

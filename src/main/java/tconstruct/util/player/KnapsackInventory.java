@@ -144,7 +144,7 @@ public class KnapsackInventory implements IInventory
     public void readFromNBT (EntityPlayer entityplayer)
     {
         NBTTagCompound tags = entityplayer.getEntityData();
-        NBTTagList tagList = tags.getTagList("TConstruct.Knapsack", 9);
+        NBTTagList tagList = tags.getTagList("TConstruct.Knapsack", 10);
         for (int i = 0; i < tagList.tagCount(); ++i)
         {
             NBTTagCompound nbttagcompound = (NBTTagCompound) tagList.getCompoundTagAt(i);

@@ -129,7 +129,7 @@ public class SmelteryScan extends TankLayerScan
     {
         super.readNetworkNBT(tags);
 
-        NBTTagList tanks = tags.getTagList("Tanks", 9);
+        NBTTagList tanks = tags.getTagList("Tanks", 10);
         if (tanks != null)
         {
             lavaTanks.clear();

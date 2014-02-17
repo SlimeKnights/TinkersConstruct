@@ -698,7 +698,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
 
         if (getSizeInventory() > 0)
         {
-            NBTTagList var2 = par1NBTTagCompound.getTagList("Items", 9);
+            NBTTagList var2 = par1NBTTagCompound.getTagList("Items", 10);
             this.cargoItems = new ItemStack[this.getSizeInventory()];
 
             for (int var3 = 0; var3 < var2.tagCount(); ++var3)
