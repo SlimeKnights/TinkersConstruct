@@ -24,6 +24,7 @@ public class KnapsackGui extends GuiContainer
         stats = holder;
     }
 
+    @Override
     public void initGui ()
     {
         super.initGui();
@@ -47,6 +48,7 @@ public class KnapsackGui extends GuiContainer
         // this.buttonList.add(tab);
     }
 
+    @Override
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
         fontRendererObj.drawString(StatCollector.translateToLocal("inventory.knapsack"), 8, 6, 0x404040);
@@ -55,6 +57,7 @@ public class KnapsackGui extends GuiContainer
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/knapsack.png");
 
+    @Override
     protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

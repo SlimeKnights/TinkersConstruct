@@ -1,6 +1,5 @@
 package tconstruct.client.block;
 
-import mantle.blocks.BlockUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.item.ItemStack;
@@ -47,7 +46,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
         if (logic.validStructure)
         {
             int posX = logic.centerPos.x - 1, posY = logic.centerPos.y, posZ = logic.centerPos.z - 1;
-            // Melting
+            //Melting
             if (logic.getSizeInventory() > 0)
             {
                 for (int i = 0; i < logic.layers; i++)
@@ -56,7 +55,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                 }
             }
 
-            // Liquids
+            //Liquids
             float base = 0F;
             int yBase = 0;
             int liquidBase = 0;
@@ -70,8 +69,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                     liquidSize -= countSize;
 
                     float height = countSize > 20000 ? 1.0F : countSize / 20000F;
-                    // renderer.setRenderBounds(0, base, 0, 1, height + base,
-                    // 1);
+                    //renderer.setRenderBounds(0, base, 0, 1, height + base, 1);
                     float renderBase = base;
                     float renderHeight = height + base;
                     base += height;
@@ -90,27 +88,33 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                         else
                             BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), posX + i % 3, posY + yBase, posZ + i / 3, renderer, world);
                     }
-                    /*
-                     * if (liquid.itemID < 4096) //Block { Block liquidBlock =
-                     * Block.blocksList[liquid.itemID]; for (int i = 0; i < 9;
-                     * i++) { float minX = i % 3 == 0 ? -0.001F : 0F; float minZ
-                     * = i / 3 == 0 ? -0.001F : 0F; float maxX = i % 3 == 2 ?
-                     * 1.001F : 1F; float maxZ = i / 3 == 2 ? 1.001F : 1F;
-                     * renderer.setRenderBounds(minX, renderBase, minZ, maxX,
-                     * renderHeight, maxZ);
-                     * BlockSkinRenderHelper.renderMetadataBlock(liquidBlock,
-                     * liquid.itemMeta, posX + i % 3, posY + yBase, posZ + i /
-                     * 3, renderer, world); } } else //Item { Item liquidItem =
-                     * Item.itemsList[liquid.itemID]; for (int i = 0; i < 9;
-                     * i++) { float minX = i % 3 == 0 ? -0.001F : 0F; float minZ
-                     * = i / 3 == 0 ? -0.001F : 0F; float maxX = i % 3 == 2 ?
-                     * 1.001F : 1F; float maxZ = i / 3 == 2 ? 1.001F : 1F;
-                     * renderer.setRenderBounds(minX, renderBase, minZ, maxX,
-                     * renderHeight, maxZ);
-                     * BlockSkinRenderHelper.renderFakeBlock
-                     * (liquidItem.getIconFromDamage(liquid.itemMeta), posX,
-                     * posY + yBase, posZ, renderer, world); } }
-                     */
+                    /*if (liquid.itemID < 4096) //Block
+                    {
+                        Block liquidBlock = Block.blocksList[liquid.itemID];
+                        for (int i = 0; i < 9; i++)
+                        {
+                            float minX = i % 3 == 0 ? -0.001F : 0F;
+                            float minZ = i / 3 == 0 ? -0.001F : 0F;
+                            float maxX = i % 3 == 2 ? 1.001F : 1F;
+                            float maxZ = i / 3 == 2 ? 1.001F : 1F;
+                            renderer.setRenderBounds(minX, renderBase, minZ, maxX, renderHeight, maxZ);
+                            BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, liquid.itemMeta, posX + i % 3, posY + yBase, posZ + i / 3, renderer, world);
+                        }
+                    }
+                    else
+                    //Item
+                    {
+                        Item liquidItem = Item.itemsList[liquid.itemID];
+                        for (int i = 0; i < 9; i++)
+                        {
+                            float minX = i % 3 == 0 ? -0.001F : 0F;
+                            float minZ = i / 3 == 0 ? -0.001F : 0F;
+                            float maxX = i % 3 == 2 ? 1.001F : 1F;
+                            float maxZ = i / 3 == 2 ? 1.001F : 1F;
+                            renderer.setRenderBounds(minX, renderBase, minZ, maxX, renderHeight, maxZ);
+                            BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(liquid.itemMeta), posX, posY + yBase, posZ, renderer, world);
+                        }
+                    }*/
 
                     if (countSize == room)
                     {
@@ -138,28 +142,23 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                     float blockHeight = input.stackSize / (float) blockToRender.stackSize;
                     renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, MathHelper.clamp_float(blockHeight, 0.01F, 1.0F), 1.0F);
 
-                    // TODO is this needed???
-                    // if (blockToRender.itemID < 4096) //Block
-                    // {
-                    Block liquidBlock = BlockUtils.getBlockFromItemStack(blockToRender);
+                    Block liquidBlock = Block.getBlockFromItem(blockToRender.getItem());
                     BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), posX + i % 3, posY, posZ + i / 3, renderer, world);
-                    // }
 
-                    /*
-                     * else //No items, only blocks //Item { Item liquidItem =
-                     * Item.itemsList[blockToRender.itemID]; int metadata =
-                     * blockToRender.getItemDamage();
-                     * BlockSkinRenderHelper.renderFakeBlock
-                     * (liquidItem.getIconFromDamage(metadata), posX + i % 3,
-                     * posY, posZ + i / 3, renderer, world); }
-                     */
+                    /*else //No items, only blocks
+                    //Item                        
+                    {
+                        Item liquidItem = Item.itemsList[blockToRender.itemID];
+                        int metadata = blockToRender.getItemDamage();
+                        BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(metadata), posX + i % 3, posY, posZ + i / 3, renderer, world);
+                    }*/
                 }
             }
         }
     }
 
     @Override
-    public boolean shouldRender3DInInventory (int modelID)
+    public boolean shouldRender3DInInventory (int modelId)
     {
         return true;
     }

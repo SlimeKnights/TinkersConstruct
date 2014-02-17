@@ -96,11 +96,13 @@ public class SlimeGrass extends MantleBlock
         return plantType == EnumPlantType.Plains && plant.getPlant(world, x, y + 1, z) != Blocks.tallgrass;
     }
 
+    @Override
     public void onPlantGrow (World world, int x, int y, int z, int sourceX, int sourceY, int sourceZ)
     {
         world.setBlock(x, y, z, TRepo.craftedSoil, 5, 3);
     }
 
+    @Override
     public void updateTick (World par1World, int par2, int par3, int par4, Random par5Random)
     {
         if (!par1World.isRemote)

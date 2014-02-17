@@ -30,6 +30,7 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
         toolName = "";
     }
 
+    @Override
     public boolean canDropInventorySlot (int slot)
     {
         if (slot == 0)
@@ -55,6 +56,7 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
         return new ToolStationContainer(inventoryplayer, this);
     }
 
+    @Override
     public void markDirty ()
     {
         buildTool(toolName);
@@ -87,6 +89,7 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
         buildTool(name);
     }
 
+    @Override
     public boolean canUpdate ()
     {
         return false;

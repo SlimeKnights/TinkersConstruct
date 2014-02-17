@@ -33,6 +33,7 @@ public class ModExtraModifier extends ToolMod
         tags.setInteger("Modifiers", modifiers);
     }
 
+    @Override
     public void addMatchingEffect (ItemStack tool)
     {
     }

@@ -305,6 +305,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
      * } }
      */
 
+    @Override
     public void writeEntityToNBT (NBTTagCompound tags)
     {
         tags.setTag("Throwable", this.returnStack.writeToNBT(new NBTTagCompound()));
@@ -317,6 +318,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         tags.setBoolean("Retrieval", doNotRetrieve);
     }
 
+    @Override
     public void readEntityFromNBT (NBTTagCompound tags)
     {
         // super.readEntityFromNBT(tags);
@@ -332,6 +334,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         doNotRetrieve = tags.getBoolean("Retrieval");
     }
 
+    @Override
     public void onCollideWithPlayer (EntityPlayer entityplayer)
     {
         onCollideWithPlayer(entityplayer, true);
@@ -357,6 +360,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         }
     }
 
+    @Override
     public float getShadowSize ()
     {
         return 0.0F;

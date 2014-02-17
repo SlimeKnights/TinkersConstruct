@@ -345,7 +345,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
         }
     }
 
-    private HashMap getOutputs ()
+    public HashMap getOutputs ()
     {
         HashMap map = new HashMap();
         TileEntity tankXplus = this.worldObj.getTileEntity(this.xCoord + 1, this.yCoord, this.zCoord);
@@ -404,6 +404,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
         return map;
     }
 
+    @Override
     public int fill (FluidStack stack, boolean doFill)
     {
         if (stack == null)
@@ -465,6 +466,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
         return filled;
     }
 
+    @Override
     public FluidStack drain (int maxDrain, boolean doDrain)
     {
         if ((this.liquid == null))

@@ -58,6 +58,7 @@ public class LavaTankBlock extends BlockContainer
         return textureNames;
     }
 
+    @Override
     public void registerBlockIcons (IIconRegister IIconRegister)
     {
         String[] textureNames = getTextureNames();
@@ -116,6 +117,7 @@ public class LavaTankBlock extends BlockContainer
         return TankRender.tankModelID;
     }
 
+    @Override
     public IIcon getIcon (int side, int meta)
     {
         if (meta >= 3)
@@ -243,6 +245,7 @@ public class LavaTankBlock extends BlockContainer
     }
 
     /* Data */
+    @Override
     public int damageDropped (int meta)
     {
         return meta;
@@ -294,6 +297,7 @@ public class LavaTankBlock extends BlockContainer
         }
     }
 
+    @Override
     public void harvestBlock (World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6)
     {
 

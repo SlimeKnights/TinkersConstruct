@@ -20,6 +20,7 @@ public class ToolForgeGui extends ToolStationGui
         super(inventoryplayer, stationlogic, world, x, y, z);
     }
 
+    @Override
     protected void mouseClicked (int mouseX, int mouseY, int mouseButton)
     {
         super.mouseClicked(mouseX, mouseY, mouseButton);
@@ -33,6 +34,7 @@ public class ToolForgeGui extends ToolStationGui
         }
     }
 
+    @Override
     public void initGui ()
     {
         super.initGui();
@@ -63,6 +65,7 @@ public class ToolForgeGui extends ToolStationGui
         }
     }
 
+    @Override
     protected void actionPerformed (GuiButton button)
     {
         GuiButtonTool b = (GuiButtonTool) button;
@@ -89,6 +92,7 @@ public class ToolForgeGui extends ToolStationGui
         body = StatCollector.translateToLocal("gui.toolforge2");
     }
 
+    @Override
     void setSlotType (int type)
     {
         switch (type)

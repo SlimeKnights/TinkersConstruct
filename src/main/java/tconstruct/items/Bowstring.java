@@ -43,6 +43,7 @@ public class Bowstring extends CraftingItem implements IToolPart
         return stack.getItemDamage();
     }
 
+    @Override
     public void getSubItems (Item b, CreativeTabs tab, List list)
     {
         list.add(new ItemStack(b, 1, 0));

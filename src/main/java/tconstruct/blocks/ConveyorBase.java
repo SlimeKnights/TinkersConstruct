@@ -100,6 +100,7 @@ public class ConveyorBase extends MantleBlock
         world.setBlockMetadataWithNotify(x, y, z, face | meta, 2);
     }
 
+    @Override
     public boolean shouldSideBeRendered (IBlockAccess world, int x, int y, int z, int side)
     {
         if (side == 1)

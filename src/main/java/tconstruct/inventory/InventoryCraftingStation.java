@@ -29,16 +29,19 @@ public class InventoryCraftingStation extends InventoryCrafting
     /**
      * Returns the number of slots in the inventory.
      */
+    @Override
     public int getSizeInventory ()
     {
         return 9;
     }
 
+    @Override
     public ItemStack getStackInSlot (int slot)
     {
         return slot >= this.getSizeInventory() + 1 ? null : logic.getStackInSlot(slot + 1);
     }
 
+    @Override
     public ItemStack getStackInRowAndColumn (int row, int column)
     {
         if (row >= 0 && row < this.inventoryWidth)
@@ -62,6 +65,7 @@ public class InventoryCraftingStation extends InventoryCrafting
         return false;
     }
 
+    @Override
     public ItemStack getStackInSlotOnClosing (int par1)
     {
         return null;
@@ -110,6 +114,7 @@ public class InventoryCraftingStation extends InventoryCrafting
      * Sets the given item stack to the specified slot in the inventory (can be
      * crafting or armor sections).
      */
+    @Override
     public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
         logic.setInventorySlotContents(slot + 1, itemstack);
@@ -120,6 +125,7 @@ public class InventoryCraftingStation extends InventoryCrafting
      * Returns the maximum stack size for a inventory slot. Seems to always be
      * 64, possibly will be extended. *Isn't this more of a set than a get?*
      */
+    @Override
     public int getInventoryStackLimit ()
     {
         return 64;
@@ -128,6 +134,7 @@ public class InventoryCraftingStation extends InventoryCrafting
     /**
      * Called when an the contents of an Inventory change, usually
      */
+    @Override
     public void markDirty ()
     {
     }
@@ -136,6 +143,7 @@ public class InventoryCraftingStation extends InventoryCrafting
      * Do not make give this method the name canInteractWith because it clashes
      * with Container
      */
+    @Override
     public boolean isUseableByPlayer (EntityPlayer par1EntityPlayer)
     {
         return true;

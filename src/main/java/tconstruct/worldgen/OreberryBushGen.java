@@ -28,6 +28,7 @@ public class OreberryBushGen extends WorldGenerator
         this.replaceBlocks = target;
     }
 
+    @Override
     public boolean generate (World world, Random random, int x, int y, int z)
     {
         int type = random.nextInt(chance);

@@ -99,6 +99,7 @@ public class Scythe extends Weapon
         }
     }
 
+    @Override
     public float getDurabilityModifier ()
     {
         return 3.0f;
@@ -209,6 +210,7 @@ public class Scythe extends Weapon
         return super.onBlockStartBreak(stack, x, y, z, player);
     }
 
+    @Override
     public boolean onLeftClickEntity (ItemStack stack, EntityPlayer player, Entity entity)
     {
         AxisAlignedBB box = AxisAlignedBB.getAABBPool().getAABB(entity.posX, entity.posY, entity.posZ, entity.posX + 1.0D, entity.posY + 1.0D, entity.posZ + 1.0D).expand(1.0D, 1.0D, 1.0D);

@@ -199,6 +199,7 @@ public class TActiveOmniMod extends ActiveToolMod
         return bonus;
     }
 
+    @Override
     public boolean doesCriticalHit (ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLivingBase player, Entity entity)
     {
         if (tool == TRepo.cutlass && random.nextInt(10) == 0)

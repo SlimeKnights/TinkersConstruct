@@ -44,11 +44,13 @@ public class Hammer extends HarvestTool
         return 4;
     }
 
+    @Override
     public int durabilityTypeAccessory ()
     {
         return 2;
     }
 
+    @Override
     public int durabilityTypeExtra ()
     {
         return 2;
@@ -92,6 +94,7 @@ public class Hammer extends HarvestTool
         return TRepo.largePlate;
     }
 
+    @Override
     public float getDurabilityModifier ()
     {
         return 4.5f;

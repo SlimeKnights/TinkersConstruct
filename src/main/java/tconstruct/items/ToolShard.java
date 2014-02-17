@@ -32,6 +32,7 @@ public class ToolShard extends ToolPart
         return names;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons (IIconRegister iconRegister)
     {

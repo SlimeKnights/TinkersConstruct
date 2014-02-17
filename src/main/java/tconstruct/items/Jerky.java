@@ -40,6 +40,7 @@ public class Jerky extends SpecialFood
         }
     }
 
+    @Override
     public String getUnlocalizedName (ItemStack stack)
     {
         int arr = MathHelper.clamp_int(stack.getItemDamage(), 0, unlocalizedNames.length);

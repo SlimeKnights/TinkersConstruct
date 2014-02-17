@@ -50,6 +50,7 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
     }
 
     // Called when emptying a slot, not when another item is placed in it
+    @Override
     public ItemStack decrStackSize (int slotID, int quantity)
     {
         ItemStack returnStack = super.decrStackSize(slotID, quantity);
@@ -113,6 +114,7 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
     }
 
     // Called when a slot has something placed into it.
+    @Override
     public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
         super.setInventorySlotContents(slot, itemstack);
@@ -151,6 +153,7 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
     }
 
     /* NBT */
+    @Override
     public void readFromNBT (NBTTagCompound tags)
     {
         super.readFromNBT(tags);
@@ -158,6 +161,7 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
         craftedBottom = tags.getBoolean("CraftedBottom");
     }
 
+    @Override
     public void writeToNBT (NBTTagCompound tags)
     {
         super.writeToNBT(tags);

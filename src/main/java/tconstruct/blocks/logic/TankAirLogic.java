@@ -136,6 +136,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
      */
 
     // DELETE
+    @Override
     public void updateEntity ()
     {
         worldObj.setBlockToAir(xCoord, yCoord, zCoord);

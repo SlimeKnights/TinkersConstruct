@@ -16,6 +16,7 @@ public class BloodBlock extends TConstructFluid
         super(fluid, material, texture);
     }
 
+    @Override
     public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
     {
         if (entity instanceof EntityLivingBase)

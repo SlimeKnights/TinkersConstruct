@@ -41,6 +41,7 @@ public class OreberryBushEssence extends OreberryBush implements IPlantable
         }
     }
 
+    @Override
     public boolean canPlaceBlockAt (World world, int x, int y, int z)
     {
         return true;

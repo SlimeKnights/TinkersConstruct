@@ -91,6 +91,7 @@ public class ModBlaze extends ToolModTypeFilter
         tags.setString(tip, modName);
     }
 
+    @Override
     public boolean validType (ToolCore tool)
     {
         List list = Arrays.asList(tool.toolCategories());

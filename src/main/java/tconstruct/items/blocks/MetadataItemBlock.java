@@ -12,6 +12,7 @@ public class MetadataItemBlock extends ItemBlock
         setHasSubtypes(true);
     }
 
+    @Override
     public int getMetadata (int meta)
     {
         return meta;

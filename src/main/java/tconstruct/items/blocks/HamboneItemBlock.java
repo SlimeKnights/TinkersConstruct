@@ -82,6 +82,7 @@ public class HamboneItemBlock extends ItemBlock
      * 0.6F, par3); }
      */
 
+    @Override
     public ItemStack onEaten (ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
         --par1ItemStack.stackSize;
@@ -102,6 +103,7 @@ public class HamboneItemBlock extends ItemBlock
     /**
      * How long it takes to use or consume an item
      */
+    @Override
     public int getMaxItemUseDuration (ItemStack par1ItemStack)
     {
         return 32;
@@ -111,6 +113,7 @@ public class HamboneItemBlock extends ItemBlock
      * returns the action that specifies what animation to play when the items
      * is being used
      */
+    @Override
     public EnumAction getItemUseAction (ItemStack par1ItemStack)
     {
         return EnumAction.eat;
@@ -120,6 +123,7 @@ public class HamboneItemBlock extends ItemBlock
      * Called whenever this item is equipped and the right mouse button is
      * pressed. Args: itemStack, world, entityPlayer
      */
+    @Override
     public ItemStack onItemRightClick (ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
         if (par3EntityPlayer.canEat(this.alwaysEdible))

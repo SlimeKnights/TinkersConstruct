@@ -19,11 +19,13 @@ public class Rapier extends Weapon
         this.setUnlocalizedName("InfiTool.Rapier");
     }
 
+    @Override
     public EnumAction getItemUseAction (ItemStack par1ItemStack)
     {
         return EnumAction.none;
     }
 
+    @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
         if (player.onGround)
@@ -64,6 +66,7 @@ public class Rapier extends Weapon
      * public float chargeAttack () { return 1.0f; }
      */
 
+    @Override
     public boolean pierceArmor ()
     {
         return true;
@@ -111,6 +114,7 @@ public class Rapier extends Weapon
         return "rapier";
     }
 
+    @Override
     protected Material[] getEffectiveMaterials ()
     {
         return none;

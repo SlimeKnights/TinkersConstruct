@@ -42,6 +42,7 @@ public class SpecialFood extends ItemFood
         return stack;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage (int meta)
     {
@@ -60,12 +61,14 @@ public class SpecialFood extends ItemFood
         }
     }
 
+    @Override
     public String getUnlocalizedName (ItemStack stack)
     {
         int arr = MathHelper.clamp_int(stack.getItemDamage(), 0, unlocalizedNames.length);
         return getUnlocalizedName() + "." + unlocalizedNames[arr];
     }
 
+    @Override
     public void getSubItems (Item b, CreativeTabs tab, List list)
     {
         for (int i = 0; i < unlocalizedNames.length; i++)

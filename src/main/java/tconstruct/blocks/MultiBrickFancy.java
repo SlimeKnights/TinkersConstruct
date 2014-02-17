@@ -64,6 +64,7 @@ public class MultiBrickFancy extends TConstructBlock
         }
     }
 
+    @Override
     public float getExplosionResistance (Entity entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ)
     {
         int meta = world.getBlockMetadata(x, y, z);

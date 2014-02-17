@@ -34,6 +34,7 @@ public class MiningExplosion extends Explosion
         world = par1World;
     }
 
+    @Override
     public void doExplosionA ()
     {
         float f = this.explosionSize;
@@ -142,6 +143,7 @@ public class MiningExplosion extends Explosion
         this.explosionSize = f;
     }
 
+    @Override
     public void doExplosionB (boolean par1)
     {
         this.world.playSoundEffect(this.explosionX, this.explosionY, this.explosionZ, "random.explode", 4.0F, (1.0F + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.2F) * 0.7F);

@@ -36,7 +36,7 @@ public class ToolStationBlock extends InventoryBlock
         this.setStepSound(Block.soundTypeWood);
     }
 
-    // Block.hasComparatorInputOverride and Block.getComparatorInputOverride
+    //Block.hasComparatorInputOverride and Block.getComparatorInputOverride
 
     /* Rendering */
     @Override
@@ -108,6 +108,7 @@ public class ToolStationBlock extends InventoryBlock
         return true;
     }
 
+    @Override
     public AxisAlignedBB getSelectedBoundingBoxFromPool (World world, int x, int y, int z)
     {
         int metadata = world.getBlockMetadata(x, y, z);
@@ -150,9 +151,8 @@ public class ToolStationBlock extends InventoryBlock
             return new StencilTableLogic();
         case 13:
             return new StencilTableLogic();
-            /*
-             * case 14: return new CastingTableLogic();
-             */
+            /*case 14:
+            	return new CastingTableLogic();*/
         default:
             return null;
         }
@@ -171,7 +171,7 @@ public class ToolStationBlock extends InventoryBlock
         else
             return 3;
 
-        // return -1;
+        //return -1;
     }
 
     @Override

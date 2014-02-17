@@ -13,6 +13,7 @@ public class ModPotion extends ToolMod
         super(new ItemStack[] { new ItemStack(Items.potionitem, 1, Short.MAX_VALUE) }, 0, "");
     }
 
+    @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");

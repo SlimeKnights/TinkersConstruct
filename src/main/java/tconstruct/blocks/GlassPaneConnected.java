@@ -671,6 +671,7 @@ public class GlassPaneConnected extends GlassBlockConnected
         return b.isOpaqueCube() || b == (Block) this || b == Blocks.glass;
     }
 
+    @Override
     public void registerBlockIcons (IIconRegister par1IconRegister)
     {
         super.registerBlockIcons(par1IconRegister);

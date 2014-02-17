@@ -35,6 +35,7 @@ public class PlantGen extends WorldGenerator
         this.clumped = clumped;
     }
 
+    @Override
     public boolean generate (World world, Random random, int x, int y, int z)
     {
         for (int iter = 0; iter < chances; ++iter)

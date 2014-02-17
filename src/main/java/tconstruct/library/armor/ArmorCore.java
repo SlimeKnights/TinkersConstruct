@@ -46,6 +46,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
         return this.getClass().getSimpleName();
     }
 
+    @Override
     public ItemStack onItemRightClick (ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
         int i = EntityLiving.getArmorPosition(par1ItemStack) - 1;
@@ -234,6 +235,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
     // end of TE support section
 
     // Vanilla overrides
+    @Override
     public boolean isItemTool (ItemStack par1ItemStack)
     {
         return false;
@@ -245,21 +247,25 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
         return false;
     }
 
+    @Override
     public boolean isRepairable ()
     {
         return false;
     }
 
+    @Override
     public int getItemEnchantability ()
     {
         return 0;
     }
 
+    @Override
     public boolean isFull3D ()
     {
         return true;
     }
 
+    @Override
     public boolean isValidArmor (ItemStack stack, int armorType, Entity entity)
     {
         return this.armorPart.getPartId() == armorType;

@@ -68,6 +68,7 @@ public class Mattock extends DualHarvestTool
         return TRepo.shovelHead;
     }
 
+    @Override
     public int durabilityTypeAccessory ()
     {
         return 2;
@@ -115,6 +116,7 @@ public class Mattock extends DualHarvestTool
         return AbilityHelper.hoeGround(stack, player, world, x, y, z, side, random);
     }
 
+    @Override
     public void buildTool (int id, String name, List list)
     {
         if (!PHConstruct.denyMattock || allowCrafting(id))

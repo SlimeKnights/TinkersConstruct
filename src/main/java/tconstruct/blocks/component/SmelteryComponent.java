@@ -261,6 +261,7 @@ public class SmelteryComponent extends LogicComponent
     }
 
     /* NBT */
+    @Override
     public void readNetworkNBT (NBTTagCompound tags)
     {
         activeTemps = tags.getIntArray("Temperature");
@@ -271,6 +272,7 @@ public class SmelteryComponent extends LogicComponent
             activeLavaTank = new CoordTuple(tank[0], tank[1], tank[2]);
     }
 
+    @Override
     public void writeNetworkNBT (NBTTagCompound tags)
     {
         tags.setIntArray("Temperature", activeTemps);

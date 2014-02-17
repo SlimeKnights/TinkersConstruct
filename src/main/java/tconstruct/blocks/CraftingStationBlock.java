@@ -26,10 +26,10 @@ public class CraftingStationBlock extends InventoryBlock
         super(material);
         this.setCreativeTab(TConstructRegistry.blockTab);
         this.setHardness(2f);
-        this.stepSound = Block.soundTypeWood;
+        this.setStepSound(Block.soundTypeWood);
     }
 
-    // Block.hasComparatorInputOverride and Block.getComparatorInputOverride
+    //Block.hasComparatorInputOverride and Block.getComparatorInputOverride
 
     /* Rendering */
     @Override
@@ -43,7 +43,7 @@ public class CraftingStationBlock extends InventoryBlock
     @Override
     public IIcon getIcon (int side, int meta)
     {
-        return icons[meta * 3 + getTextureIndex(side)];
+        return icons[getTextureIndex(side)];
     }
 
     public int getTextureIndex (int side)

@@ -11,11 +11,13 @@ public class OverworldProvider extends WorldProvider
         return "Overworld";
     }
 
+    @Override
     public boolean getWorldHasVoidParticles ()
     {
         return this.terrainType.hasVoidParticles(this.hasNoSky);
     }
 
+    @Override
     public float calculateCelestialAngle (long worldtime, float par3)
     {
         int timeOfDay = 18000;

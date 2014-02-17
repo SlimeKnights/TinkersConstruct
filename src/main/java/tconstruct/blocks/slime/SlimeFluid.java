@@ -42,6 +42,7 @@ public class SlimeFluid extends BlockFluidClassic
         return flowIcon;
     }
 
+    @Override
     public void updateTick (World world, int x, int y, int z, Random rand)
     {
         super.updateTick(world, x, y, z, rand);

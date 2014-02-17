@@ -23,6 +23,7 @@ public class BowRecipe extends ToolRecipe
         super(head, handle, accessory, extra, tool);
     }
 
+    @Override
     public boolean validHead (Item input)
     {
         for (Item part : headList)

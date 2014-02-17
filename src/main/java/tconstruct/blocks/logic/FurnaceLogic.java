@@ -89,6 +89,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     }
 
     /* Item cooking */
+    @Override
     public void updateEntity ()
     {
         boolean burning = isBurning();
@@ -255,6 +256,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     }
 
     /* NBT */
+    @Override
     public void readFromNBT (NBTTagCompound tags)
     {
         super.readFromNBT(tags);
@@ -264,6 +266,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
         readNetworkNBT(tags);
     }
 
+    @Override
     public void writeToNBT (NBTTagCompound tags)
     {
         super.writeToNBT(tags);

@@ -67,6 +67,7 @@ public class MeatBlock extends BlockWood
         }
     }
 
+    @Override
     public Item getItemDropped (int par1, Random par2Random, int par3)
     {
         return new ItemStack(this).getItem();
@@ -105,6 +106,7 @@ public class MeatBlock extends BlockWood
      * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z,
      * side, hitX, hitY, hitZ, block metadata
      */
+    @Override
     public int onBlockPlaced (World par1World, int par2, int par3, int par4, int par5, float par6, float par7, float par8, int par9)
     {
         int j1 = par9 & 3;
@@ -132,6 +134,7 @@ public class MeatBlock extends BlockWood
      * Determines the damage on the item the block drops. Used in cloth and
      * wood.
      */
+    @Override
     public int damageDropped (int par1)
     {
         return par1 & 3;
@@ -145,6 +148,7 @@ public class MeatBlock extends BlockWood
         return par0 & 3;
     }
 
+    @Override
     protected ItemStack createStackedBlock (int par1)
     {
         return new ItemStack(this, 1, limitToValidMetadata(par1));

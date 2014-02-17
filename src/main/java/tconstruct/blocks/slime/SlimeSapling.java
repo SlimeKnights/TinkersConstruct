@@ -52,6 +52,7 @@ public class SlimeSapling extends BlockSapling
         return b == Blocks.grass || b == Blocks.dirt || b == TRepo.slimeGrass || b == TRepo.craftedSoil;
     }
 
+    @Override
     public void updateTick (World world, int x, int y, int z, Random random)
     {
         if (world.isRemote)
@@ -114,6 +115,7 @@ public class SlimeSapling extends BlockSapling
             world.setBlock(x, y, z, Blocks.air, md + 8, 3);
     }
 
+    @Override
     public int damageDropped (int i)
     {
         return i % 8;

@@ -25,11 +25,13 @@ public class GlassBlockStained extends TConstructBlock
         return 1;
     }
 
+    @Override
     public boolean isOpaqueCube ()
     {
         return false;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered (IBlockAccess world, int x, int y, int z, int side)
     {

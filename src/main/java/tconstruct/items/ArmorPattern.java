@@ -50,6 +50,7 @@ public class ArmorPattern extends CraftingItem implements ItemBlocklike
 
     private static final String[] patternName = new String[] { "helmet", "chestplate", "leggings", "boots" };
 
+    @Override
     public void getSubItems (Item block, CreativeTabs tab, List list)
     {
         for (int i = 0; i < patternName.length; i++)

@@ -1,6 +1,5 @@
 package tconstruct.client.block;
 
-import mantle.blocks.BlockUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.item.ItemBlock;
@@ -21,7 +20,7 @@ public class TankAirRender implements ISimpleBlockRenderingHandler
     @Override
     public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
     {
-        // No inventory block
+        //No inventory block
     }
 
     @Override
@@ -35,7 +34,7 @@ public class TankAirRender implements ISimpleBlockRenderingHandler
                 ItemStack item = logic.getStackInSlot(0);
                 if (item.getItem() instanceof ItemBlock)
                 {
-                    Block inv = BlockUtils.getBlockFromItemStack(item);
+                    Block inv = Block.getBlockFromItem(item.getItem());
                     renderer.setOverrideBlockTexture(inv.getIcon(1, item.getItemDamage()));
                     renderer.renderBlockByRenderType(inv, x, y, z);
                     renderer.clearOverrideBlockTexture();
@@ -47,8 +46,7 @@ public class TankAirRender implements ISimpleBlockRenderingHandler
                 for (FluidStack fluidstack : logic.getFluids())
                 {
                     Fluid fluid = fluidstack.getFluid();
-                    // System.out.println("Base: "+getBaseAmount(base)+", Height: "+getHeightAmount(base,
-                    // fluidstack.amount)+", fluid amount: "+fluidstack.amount);
+                    //System.out.println("Base: "+getBaseAmount(base)+", Height: "+getHeightAmount(base, fluidstack.amount)+", fluid amount: "+fluidstack.amount);
                     renderer.setRenderBounds(0.0, getBaseAmount(base), 0.0, 1.0, getHeightAmount(base, fluidstack.amount), 1.0);
                     if (fluid.canBePlacedInWorld())
                         BlockSkinRenderHelper.renderMetadataBlock(fluid.getBlock(), 0, x, y, z, renderer, world);

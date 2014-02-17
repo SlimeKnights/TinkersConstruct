@@ -96,6 +96,7 @@ public class SmelteryContainer extends ActiveContainer
          */
     }
 
+    @Override
     public void updateProgressBar (int id, int value)
     {
         if (id == 0)

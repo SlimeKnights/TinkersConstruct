@@ -21,6 +21,7 @@ public class BattleSign extends Weapon
      * stack; }
      */
 
+    @Override
     public String getToolName ()
     {
         return "Battlesign";

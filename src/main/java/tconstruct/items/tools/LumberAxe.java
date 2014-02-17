@@ -43,11 +43,13 @@ public class LumberAxe extends HarvestTool
         return 4.0f;
     }
 
+    @Override
     public float getDurabilityModifier ()
     {
         return 2.5f;
     }
 
+    @Override
     public String getToolName ()
     {
         return "Lumber Axe";

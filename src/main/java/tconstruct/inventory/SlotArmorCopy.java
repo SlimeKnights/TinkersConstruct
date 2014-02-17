@@ -36,6 +36,7 @@ public class SlotArmorCopy extends Slot
      * Returns the maximum stack size for a given slot (usually the same as
      * getInventoryStackLimit(), but 1 in the case of armor slots)
      */
+    @Override
     public int getSlotStackLimit ()
     {
         return 1;
@@ -45,6 +46,7 @@ public class SlotArmorCopy extends Slot
      * Check if the stack is a valid item for this slot. Always true beside for
      * the armor slots.
      */
+    @Override
     public boolean isItemValid (ItemStack par1ItemStack)
     {
         Item item = (par1ItemStack == null ? null : par1ItemStack.getItem());
@@ -56,6 +58,7 @@ public class SlotArmorCopy extends Slot
         return item != null && (isValidArmor || (item instanceof ItemBlock && armorType == 0));
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     /**
      * Returns the icon index on items.png that is used as background image of the slot.

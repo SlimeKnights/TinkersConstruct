@@ -18,6 +18,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
 {
     byte direction;
 
+    @Override
     public boolean canUpdate ()
     {
         return false;
@@ -155,6 +156,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
         }
     }
 
+    @Override
     public void readFromNBT (NBTTagCompound tags)
     {
         super.readFromNBT(tags);

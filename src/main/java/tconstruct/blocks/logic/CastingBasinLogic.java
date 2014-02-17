@@ -198,6 +198,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
         needsUpdate = true;
     }
 
+    @Override
     public ItemStack decrStackSize (int slot, int quantity)
     {
         ItemStack stack = super.decrStackSize(slot, quantity);

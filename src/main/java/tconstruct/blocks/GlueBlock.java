@@ -48,6 +48,7 @@ public class GlueBlock extends TConstructBlock
         }
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
     {
         return Blocks.soul_sand.getCollisionBoundingBoxFromPool(world, x, y, z);

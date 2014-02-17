@@ -71,6 +71,7 @@ public class SmelteryBlock extends InventoryBlock
         return textureNames;
     }
 
+    @Override
     public IIcon getIcon (int side, int meta)
     {
         if (meta < 2)
@@ -91,6 +92,7 @@ public class SmelteryBlock extends InventoryBlock
         return icons[3 + meta];
     }
 
+    @Override
     public IIcon getIcon (IBlockAccess world, int x, int y, int z, int side)
     {
         TileEntity logic = world.getTileEntity(x, y, z);
@@ -140,11 +142,13 @@ public class SmelteryBlock extends InventoryBlock
      * @Override public int getRenderBlockPass() { return 1; }
      */
 
+    @Override
     public int damageDropped (int meta)
     {
         return meta;
     }
 
+    @Override
     public int quantityDropped (Random random)
     {
         return 1;
@@ -157,6 +161,7 @@ public class SmelteryBlock extends InventoryBlock
         return TConstruct.proxy.smelteryGuiID;
     }
 
+    @Override
     public void randomDisplayTick (World world, int x, int y, int z, Random random)
     {
         if (isActive(world, x, y, z))
@@ -195,6 +200,7 @@ public class SmelteryBlock extends InventoryBlock
         }
     }
 
+    @Override
     public int getLightValue (IBlockAccess world, int x, int y, int z)
     {
         return !isActive(world, x, y, z) ? 0 : 9;

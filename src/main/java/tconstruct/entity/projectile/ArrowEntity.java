@@ -580,12 +580,14 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         this.knockbackStrengthMod = par1;
     }
 
+    @Override
     public void writeEntityToNBT (NBTTagCompound tags)
     {
         super.writeEntityToNBT(tags);
         tags.setTag("Throwable", this.returnStack.writeToNBT(new NBTTagCompound()));
     }
 
+    @Override
     public void readEntityFromNBT (NBTTagCompound tags)
     {
         super.readEntityFromNBT(tags);

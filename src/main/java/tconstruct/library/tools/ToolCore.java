@@ -120,7 +120,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
     public HashMap<Integer, IIcon> effectIcons = new HashMap<Integer, IIcon>();
     public HashMap<Integer, IIcon> extraIcons = new HashMap<Integer, IIcon>();
 
-    // Not liking this
+    //Not liking this
     public HashMap<Integer, String> headStrings = new HashMap<Integer, String>();
     public HashMap<Integer, String> brokenPartStrings = new HashMap<Integer, String>();
     public HashMap<Integer, String> handleStrings = new HashMap<Integer, String>();
@@ -142,6 +142,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
         return 9;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public boolean hasEffect (ItemStack par1ItemStack)
     {
@@ -519,7 +520,8 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
 
     /* Creative mode tools */
 
-    public void getSubItems (int id, CreativeTabs tab, List list)
+    @Override
+    public void getSubItems (Item id, CreativeTabs tab, List list)
     {
         Iterator iter = TConstructRegistry.toolMaterials.entrySet().iterator();
         while (iter.hasNext())
@@ -679,6 +681,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
     }
 
     // Right-click
+    @Override
     public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
     {
         /*
@@ -758,6 +761,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
         return used;
     }
 
+    @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
         boolean used = false;
@@ -786,6 +790,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
     }
 
     /* Vanilla overrides */
+    @Override
     public boolean isItemTool (ItemStack par1ItemStack)
     {
         return false;
@@ -797,21 +802,25 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
         return false;
     }
 
+    @Override
     public boolean isRepairable ()
     {
         return false;
     }
 
+    @Override
     public int getItemEnchantability ()
     {
         return 0;
     }
 
+    @Override
     public boolean isFull3D ()
     {
         return true;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public boolean hasEffect (ItemStack par1ItemStack, int pass)
     {

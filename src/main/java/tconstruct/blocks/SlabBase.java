@@ -46,11 +46,13 @@ public class SlabBase extends MantleBlock
         super.addCollisionBoxesToList(world, x, y, z, axisalignedbb, arraylist, entity);
     }
 
+    @Override
     public void setBlockBoundsForItemRender ()
     {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState (IBlockAccess world, int x, int y, int z)
     {
         int meta = world.getBlockMetadata(x, y, z) / 8;
@@ -59,6 +61,7 @@ public class SlabBase extends MantleBlock
         setBlockBounds(0.0F, minY, 0F, 1.0F, maxY, 1.0F);
     }
 
+    @Override
     public int onBlockPlaced (World par1World, int blockX, int blockY, int blockZ, int side, float clickX, float clickY, float clickZ, int metadata)
     {
         if (side == 1)
@@ -69,11 +72,13 @@ public class SlabBase extends MantleBlock
         return metadata;
     }
 
+    @Override
     public boolean isOpaqueCube ()
     {
         return false;
     }
 
+    @Override
     public boolean renderAsNormalBlock ()
     {
         return false;
@@ -102,6 +107,7 @@ public class SlabBase extends MantleBlock
         }
     }
 
+    @Override
     public int damageDropped (int meta)
     {
         return meta % 8;

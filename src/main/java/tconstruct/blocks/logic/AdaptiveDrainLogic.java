@@ -20,6 +20,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
 {
     byte direction;
 
+    @Override
     public boolean canUpdate ()
     {
         return false;
@@ -149,6 +150,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
         }
     }
 
+    @Override
     public void readFromNBT (NBTTagCompound tags)
     {
         super.readFromNBT(tags);

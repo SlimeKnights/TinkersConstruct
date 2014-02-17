@@ -10,6 +10,7 @@ public class LiquidTextureLogic extends TileEntity
 {
     int texturePos;
 
+    @Override
     public boolean canUpdate ()
     {
         return false;
@@ -26,6 +27,7 @@ public class LiquidTextureLogic extends TileEntity
         return texturePos;
     }
 
+    @Override
     public void readFromNBT (NBTTagCompound tags)
     {
         super.readFromNBT(tags);
@@ -37,6 +39,7 @@ public class LiquidTextureLogic extends TileEntity
         texturePos = tags.getInteger("Texture");
     }
 
+    @Override
     public void writeToNBT (NBTTagCompound tags)
     {
         super.writeToNBT(tags);

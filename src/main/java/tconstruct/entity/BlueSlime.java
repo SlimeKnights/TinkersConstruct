@@ -77,6 +77,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         return StatCollector.translateToLocal("entity." + s + ".name");
     }
 
+    @Override
     public IEntityLivingData onSpawnWithEgg (IEntityLivingData par1EntityLivingData)
     {
         Object par1EntityLivingData1 = super.onSpawnWithEgg(par1EntityLivingData);
@@ -128,6 +129,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         return this.height * 0.3;
     }
 
+    @Override
     public void jump ()
     {
         this.motionY = 0.05 * getSlimeSize() + 0.37;
@@ -161,6 +163,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         ForgeHooks.onLivingJump(this);
     }
 
+    @Override
     protected void fall (float par1)
     {
     }
@@ -208,6 +211,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         }
     }
 
+    @Override
     protected void entityInit ()
     {
         super.entityInit();
@@ -249,6 +253,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     /**
      * (abstract) Protected helper method to write subclass entity data to NBT.
      */
+    @Override
     public void writeEntityToNBT (NBTTagCompound par1NBTTagCompound)
     {
         super.writeEntityToNBT(par1NBTTagCompound);
@@ -258,6 +263,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
+    @Override
     public void readEntityFromNBT (NBTTagCompound par1NBTTagCompound)
     {
         super.readEntityFromNBT(par1NBTTagCompound);
@@ -276,6 +282,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     /**
      * Called to update the entity's position/logic.
      */
+    @Override
     public void onUpdate ()
     {
         if (!this.worldObj.isRemote && this.worldObj.difficultySetting == EnumDifficulty.PEACEFUL && this.getSlimeSize() > 0)
@@ -323,6 +330,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         }
     }
 
+    @Override
     protected void updateEntityActionState ()
     {
         // Minecraft.getMinecraft().getLogAgent().logInfo("Collided with "+entity.getEntityName());
@@ -372,6 +380,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         }
     }
 
+    @Override
     public boolean handleWaterMovement ()
     {
         return false;
@@ -398,6 +407,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     /**
      * Will get destroyed next tick.
      */
+    @Override
     public void setDead ()
     {
         int size = this.getSlimeSize();
@@ -415,6 +425,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         super.setDead();
     }
 
+    @Override
     protected void dropFewItems (boolean par1, int par2)
     {
         int size = this.getSlimeSize();
@@ -470,6 +481,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     /**
      * Called by a player entity when they collide with an entity
      */
+    @Override
     public void onCollideWithPlayer (EntityPlayer par1EntityPlayer)
     {
         if (this.canDamagePlayer())
@@ -505,6 +517,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     /**
      * Returns the sound this mob makes when it is hurt.
      */
+    @Override
     protected String getHurtSound ()
     {
         return "mob.slime." + (this.getSlimeSize() > 1 ? "big" : "small");
@@ -513,6 +526,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     /**
      * Returns the sound this mob makes on death.
      */
+    @Override
     protected String getDeathSound ()
     {
         return "mob.slime." + (this.getSlimeSize() > 1 ? "big" : "small");
@@ -521,6 +535,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     /**
      * Returns the item ID for the item the mob drops on death.
      */
+    @Override
     protected Item getDropItem ()
     {
         return TRepo.strangeFood;
@@ -529,6 +544,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     /**
      * Returns the volume for the sounds this mob makes.
      */
+    @Override
     protected float getSoundVolume ()
     {
         return Math.min(0.05F * (float) this.getSlimeSize(), 0.3f);
@@ -538,6 +554,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
      * The speed it takes to move the entityliving's rotationPitch through the
      * faceEntity method. This is only currently use in wolves.
      */
+    @Override
     public int getVerticalFaceSpeed ()
     {
         return 0;

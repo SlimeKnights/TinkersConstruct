@@ -13,6 +13,7 @@ public class DamageSourceLandmine extends DamageSource
         this.setDamageBypassesArmor();
     }
 
+    @Override
     public IChatComponent func_151519_b (EntityLivingBase par1EntityLivingBase)
     {
         // TODO getDeathMessage????

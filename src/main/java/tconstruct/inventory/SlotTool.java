@@ -27,12 +27,14 @@ public class SlotTool extends Slot
      * Check if the stack is a valid item for this slot. Always true beside for
      * the armor slots.
      */
+    @Override
     public boolean isItemValid (ItemStack stack)
     {
         return false;
         // return stack.getItem() instanceof ToolCore;
     }
 
+    @Override
     public void onPickupFromSlot (EntityPlayer par1EntityPlayer, ItemStack stack)
     {
         this.onCrafting(stack);
@@ -45,6 +47,7 @@ public class SlotTool extends Slot
      * not ore and wood. Typically increases an internal count then calls
      * onCrafting(item).
      */
+    @Override
     protected void onCrafting (ItemStack stack, int par2)
     {
         // this.field_75228_b += par2;
@@ -55,6 +58,7 @@ public class SlotTool extends Slot
      * the itemStack passed in is the output - ie, iron ingots, and pickaxes,
      * not ore and wood.
      */
+    @Override
     protected void onCrafting (ItemStack stack)
     {
         NBTTagCompound tags = stack.getTagCompound();

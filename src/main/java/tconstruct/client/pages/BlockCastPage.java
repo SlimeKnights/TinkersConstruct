@@ -65,6 +65,7 @@ public class BlockCastPage extends BookPage
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/booksmeltery.png");
 
+    @Override
     public void renderBackgroundLayer (int localWidth, int localHeight)
     {
         manual.getMC().getTextureManager().bindTexture(background);

@@ -348,6 +348,7 @@ public class SearedBlock extends InventoryBlock
     }
 
     /* Redstone */
+    @Override
     public boolean canConnectRedstone (IBlockAccess world, int x, int y, int z, int side)
     {
         return world.getBlockMetadata(x, y, z) == 1;

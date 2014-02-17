@@ -65,6 +65,7 @@ public class FrypanContainer extends Container
         fuelGague = logic.fuelGague;
     }
 
+    @Override
     public void updateProgressBar (int i, int j)
     {
         if (i == 0)
@@ -87,6 +88,7 @@ public class FrypanContainer extends Container
         return logic.isUseableByPlayer(entityplayer);
     }
 
+    @Override
     public ItemStack transferStackInSlot (EntityPlayer player, int slotID)
     {
         ItemStack stack = null;

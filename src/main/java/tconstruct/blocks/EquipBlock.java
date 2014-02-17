@@ -42,11 +42,13 @@ public class EquipBlock extends InventoryBlock
         return new String[] { "toolstation_top" };
     }
 
+    @Override
     public IIcon getIcon (int side, int meta)
     {
         return Blocks.iron_block.getIcon(side, meta);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons (IIconRegister par1IconRegister)
     {
@@ -84,6 +86,7 @@ public class EquipBlock extends InventoryBlock
         return new FrypanLogic();
     }
 
+    @Override
     public void randomDisplayTick (World world, int x, int y, int z, Random random)
     {
         if (isActive(world, x, y, z))
@@ -97,6 +100,7 @@ public class EquipBlock extends InventoryBlock
         }
     }
 
+    @Override
     public void onBlockPlacedBy (World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack)
     {
         super.onBlockPlacedBy(par1World, par2, par3, par4, par5EntityLivingBase, par6ItemStack);
@@ -171,6 +175,7 @@ public class EquipBlock extends InventoryBlock
         super.breakBlock(par1World, x, y, z, par5, meta);
     }
 
+    @Override
     public int getLightValue (IBlockAccess world, int x, int y, int z)
     {
         return !isActive(world, x, y, z) ? 0 : 9;

@@ -87,6 +87,7 @@ public class DaggerEntity extends RotatingBase
         return true;
     }
 
+    @Override
     protected void dealFireDamage (int i)
     {
     }

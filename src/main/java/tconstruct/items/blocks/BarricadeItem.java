@@ -30,6 +30,7 @@ public class BarricadeItem extends ItemBlock
         list.add(StatCollector.translateToLocal("barricade.tooltip"));
     }
 
+    @Override
     public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
     {
         Block b = world.getBlock(x, y, z);

@@ -24,12 +24,14 @@ public class GoldenHead extends ItemFood
         this.setHasSubtypes(true);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public boolean hasEffect (ItemStack par1ItemStack)
     {
         return par1ItemStack.getItemDamage() > 0;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     /**
      * Return an item rarity from EnumRarity
@@ -39,6 +41,7 @@ public class GoldenHead extends ItemFood
         return par1ItemStack.getItemDamage() == 0 ? EnumRarity.rare : EnumRarity.epic;
     }
 
+    @Override
     protected void onFoodEaten (ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
         if (par1ItemStack.getItemDamage() > 0)
@@ -56,6 +59,7 @@ public class GoldenHead extends ItemFood
         }
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     /**
      * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)

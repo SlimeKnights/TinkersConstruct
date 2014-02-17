@@ -286,6 +286,7 @@ public class TProxyClient extends TProxyCommon
         }
     }
 
+    @Override
     public void registerTickHandler ()
     {
         new TClientTickHandler();
@@ -295,6 +296,7 @@ public class TProxyClient extends TProxyCommon
     }
 
     /* Registers any rendering code. */
+    @Override
     public void registerRenderer ()
     {
         Minecraft mc = Minecraft.getMinecraft();
@@ -358,6 +360,7 @@ public class TProxyClient extends TProxyCommon
     public static Document volume2;
     public static Document smelter;
 
+    @Override
     public void readManuals ()
     {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -803,6 +806,7 @@ public class TProxyClient extends TProxyCommon
     /* Keybindings */
     public static TControls controlInstance;
 
+    @Override
     public void registerKeys ()
     {
         controlInstance = new TControls();
@@ -829,6 +833,7 @@ public class TProxyClient extends TProxyCommon
         settings.loadOptions();
     }
 
+    @Override
     public void spawnParticle (String particle, double xPos, double yPos, double zPos, double velX, double velY, double velZ)
     {
         this.doSpawnParticle(particle, xPos, yPos, zPos, velX, velY, velZ);

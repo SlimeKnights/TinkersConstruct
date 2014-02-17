@@ -48,6 +48,7 @@ public class ExoArmor extends ArmorCore
         // Deimplemented for now
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems (Item b, CreativeTabs par2CreativeTabs, List par3List)
     {
@@ -63,6 +64,7 @@ public class ExoArmor extends ArmorCore
         par3List.add(armor);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
