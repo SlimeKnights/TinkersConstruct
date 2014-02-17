@@ -3,7 +3,7 @@ package tconstruct.library.client;
 public class FluidRenderProperties
 {
 
-    // Constant defaults
+    //Constant defaults
     public static final FluidRenderProperties DEFAULT_TABLE = new FluidRenderProperties(Applications.TABLE);
     public static final FluidRenderProperties DEFAULT_BASIN = new FluidRenderProperties(Applications.BASIN);
 

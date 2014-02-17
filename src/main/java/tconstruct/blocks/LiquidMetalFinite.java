@@ -9,10 +9,9 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidFinite;
 import net.minecraftforge.fluids.Fluid;
+import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class LiquidMetalFinite extends BlockFluidFinite
 {
@@ -41,7 +40,6 @@ public class LiquidMetalFinite extends BlockFluidFinite
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
         if (side == 0 || side == 1)
