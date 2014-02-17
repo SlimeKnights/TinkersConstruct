@@ -11,6 +11,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tconstruct.util.config.PHConstruct;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * @author fuj1n
@@ -31,6 +33,7 @@ public class GlassBlockConnectedMeta extends GlassBlockConnected
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         int meta = par1IBlockAccess.getBlockMetadata(par2, par3, par4);
@@ -51,6 +54,7 @@ public class GlassBlockConnectedMeta extends GlassBlockConnected
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon (int par1, int par2)
     {
         return icons[par2][0];

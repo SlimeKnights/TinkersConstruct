@@ -33,6 +33,7 @@ public class BarricadeBlock extends MantleBlock
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
         return modelBlock.getIcon(2, modelMeta);

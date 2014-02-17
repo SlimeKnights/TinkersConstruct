@@ -20,6 +20,8 @@ import tconstruct.blocks.logic.DryingRackLogic;
 import tconstruct.client.block.DryingRackRender;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.AbilityHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class DryingRack extends InventoryBlock
 {
@@ -225,6 +227,7 @@ public class DryingRack extends InventoryBlock
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
         return Blocks.planks.getIcon(side, 0);

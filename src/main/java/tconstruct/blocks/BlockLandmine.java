@@ -42,6 +42,8 @@ import tconstruct.blocks.logic.TileEntityLandmine;
 import tconstruct.client.block.RenderLandmine;
 import tconstruct.common.TProxyCommon;
 import tconstruct.util.landmine.Helper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * 
@@ -87,6 +89,7 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         TileEntityLandmine te = (TileEntityLandmine) par1IBlockAccess.getTileEntity(par2, par3, par4);

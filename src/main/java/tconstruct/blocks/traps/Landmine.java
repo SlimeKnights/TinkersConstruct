@@ -19,6 +19,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tconstruct.library.TConstructRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class Landmine extends MantleBlock
 {
@@ -36,6 +38,7 @@ public class Landmine extends MantleBlock
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon (IBlockAccess world, int x, int y, int z, int side)
     {
         Block block = world.getBlock(x, y - 1, z);
@@ -47,6 +50,7 @@ public class Landmine extends MantleBlock
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
         return Blocks.sponge.getIcon(1, meta);

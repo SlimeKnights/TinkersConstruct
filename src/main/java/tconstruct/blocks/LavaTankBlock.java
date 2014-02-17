@@ -25,6 +25,8 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import tconstruct.blocks.logic.LavaTankLogic;
 import tconstruct.client.block.TankRender;
 import tconstruct.library.TConstructRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class LavaTankBlock extends BlockContainer
 {
@@ -118,6 +120,7 @@ public class LavaTankBlock extends BlockContainer
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
         if (meta >= 3)

@@ -6,6 +6,8 @@ import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import tconstruct.library.TConstructRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TConstructFluid extends BlockFluidClassic
 {
@@ -44,6 +46,7 @@ public class TConstructFluid extends BlockFluidClassic
 
     // TODO getIcon()
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
         if (side == 0 || side == 1)

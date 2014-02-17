@@ -27,6 +27,8 @@ import tconstruct.blocks.logic.SmelteryLogic;
 import tconstruct.client.block.SmelteryRender;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.util.config.PHConstruct;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class SmelteryBlock extends InventoryBlock
 {
@@ -72,6 +74,7 @@ public class SmelteryBlock extends InventoryBlock
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
         if (meta < 2)
@@ -93,6 +96,7 @@ public class SmelteryBlock extends InventoryBlock
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon (IBlockAccess world, int x, int y, int z, int side)
     {
         TileEntity logic = world.getTileEntity(x, y, z);
