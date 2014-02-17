@@ -54,16 +54,19 @@ public class LaunchedPotion extends EntityThrowable
     /**
      * Gets the amount of gravity to apply to the thrown entity with each tick.
      */
+    @Override
     protected float getGravityVelocity ()
     {
         return 0.05F;
     }
 
+    @Override
     protected float func_70182_d ()
     {
         return 1.0F;
     }
 
+    @Override
     protected float func_70183_g ()
     {
         return -10.0F;
@@ -96,6 +99,7 @@ public class LaunchedPotion extends EntityThrowable
     /**
      * Called when this EntityThrowable hits a block or entity.
      */
+    @Override
     protected void onImpact (MovingObjectPosition par1MovingObjectPosition)
     {
         if (!this.worldObj.isRemote)
@@ -159,6 +163,7 @@ public class LaunchedPotion extends EntityThrowable
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
+    @Override
     public void readEntityFromNBT (NBTTagCompound par1NBTTagCompound)
     {
         super.readEntityFromNBT(par1NBTTagCompound);
@@ -181,6 +186,7 @@ public class LaunchedPotion extends EntityThrowable
     /**
      * (abstract) Protected helper method to write subclass entity data to NBT.
      */
+    @Override
     public void writeEntityToNBT (NBTTagCompound par1NBTTagCompound)
     {
         super.writeEntityToNBT(par1NBTTagCompound);

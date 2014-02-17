@@ -62,6 +62,7 @@ public class FurnaceSlab extends InventorySlab
         return icons[(meta % 8) * 3 + getTextureIndex(side)];
     }
 
+    @Override
     public IIcon getIcon (IBlockAccess world, int x, int y, int z, int side)
     {
         TileEntity logic = world.getTileEntity(x, y, z);

@@ -127,6 +127,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
         }
     }
 
+    @Override
     public AxisAlignedBB getSelectedBoundingBoxFromPool (World world, int x, int y, int z)
     {
         int l = world.getBlockMetadata(x, y, z);
@@ -231,11 +232,13 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
         return false;
     }
 
+    @Override
     public int getRenderType ()
     {
         return OreberryRender.model;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered (IBlockAccess iblockaccess, int x, int y, int z, int meta)
     {
@@ -284,6 +287,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
         return super.canSustainPlant(world, x, y, z, direction, plant);
     }
 
+    @Override
     public boolean canPlaceBlockAt (World world, int x, int y, int z)
     {
         if (world.getFullBlockLightValue(x, y, z) < 13)

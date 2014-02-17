@@ -50,12 +50,14 @@ public class TitleIcon extends Item
         }
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public boolean requiresMultipleRenderPasses ()
     {
         return true;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamageForRenderPass (int par1, int par2)
     {
@@ -68,6 +70,7 @@ public class TitleIcon extends Item
         return new ItemStack(Blocks.mob_spawner).getItem().getIconFromDamageForRenderPass(par1, par2);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage (int par1)
     {
@@ -104,6 +107,7 @@ public class TitleIcon extends Item
             list.add(new ItemStack(b, 1, i));
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack (ItemStack stack, int pass)
     {
@@ -115,6 +119,7 @@ public class TitleIcon extends Item
         return pass == 0 ? primaryColor[damage] : secondaryColor[damage];
     }
 
+    @Override
     public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int posX, int posY, int posZ, int par7, float par8, float par9, float par10)
     {
         if (!world.isRemote)

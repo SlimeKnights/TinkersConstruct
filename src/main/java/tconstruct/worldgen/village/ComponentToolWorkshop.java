@@ -40,6 +40,7 @@ public class ComponentToolWorkshop extends StructureVillagePieces.House1
      * second Part of Structure generating, this for example places Spiderwebs,
      * Mob Spawners, it closes Mineshafts at the end, it adds Fences...
      */
+    @Override
     public boolean addComponentParts (World world, Random random, StructureBoundingBox sbb)
     {
         if (this.averageGroundLevel < 0)
@@ -207,6 +208,7 @@ public class ComponentToolWorkshop extends StructureVillagePieces.House1
      * Returns the villager type to spawn in this component, based on the number
      * of villagers already spawned.
      */
+    @Override
     protected int getVillagerType (int par1)
     {
         return 78943;

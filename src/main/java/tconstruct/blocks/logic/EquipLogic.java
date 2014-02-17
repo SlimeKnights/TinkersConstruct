@@ -51,6 +51,7 @@ public abstract class EquipLogic extends InventoryLogic
         return slot != 0 ? inventory[slot] : null;
     }
 
+    @Override
     public boolean isStackInSlot (int slot)
     {
         return slot != 0 ? inventory[slot] != null : false;

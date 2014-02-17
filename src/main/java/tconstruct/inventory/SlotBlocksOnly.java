@@ -18,6 +18,7 @@ public class SlotBlocksOnly extends Slot
         super(par1iInventory, par2, par3, par4);
     }
 
+    @Override
     public boolean isItemValid (ItemStack par1ItemStack)
     {
         return par1ItemStack.getItem() instanceof ItemBlock;

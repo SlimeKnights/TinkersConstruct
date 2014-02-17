@@ -29,6 +29,7 @@ public class SlimeTreeGen extends WorldGenerator
         this.seekHeight = !notify;
     }
 
+    @Override
     public boolean generate (World world, Random random, int xPos, int yPos, int zPos)
     {
         int height = random.nextInt(this.treeHeightRange) + this.minTreeHeight;

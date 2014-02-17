@@ -58,6 +58,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         return smeltery;
     }
 
+    @Override
     public void updateEntity ()
     {
         tick++;

@@ -17,6 +17,7 @@ public class InventoryCraftingStationResult extends InventoryCraftResult
     /**
      * Returns the number of slots in the inventory.
      */
+    @Override
     public int getSizeInventory ()
     {
         return 1;
@@ -25,6 +26,7 @@ public class InventoryCraftingStationResult extends InventoryCraftResult
     /**
      * Returns the stack in slot i
      */
+    @Override
     public ItemStack getStackInSlot (int par1)
     {
         return logic.getStackInSlot(0);// this.stackResult[0];
@@ -52,6 +54,7 @@ public class InventoryCraftingStationResult extends InventoryCraftResult
      * Removes from an inventory slot (first arg) up to a specified number
      * (second arg) of items and returns them in a new stack.
      */
+    @Override
     public ItemStack decrStackSize (int par1, int par2)
     {
         ItemStack stack = logic.getStackInSlot(0);
@@ -72,6 +75,7 @@ public class InventoryCraftingStationResult extends InventoryCraftResult
      * whatever it returns as an EntityItem - like when you close a workbench
      * GUI.
      */
+    @Override
     public ItemStack getStackInSlotOnClosing (int par1)
     {
         return null;
@@ -91,6 +95,7 @@ public class InventoryCraftingStationResult extends InventoryCraftResult
      * Returns the maximum stack size for a inventory slot. Seems to always be
      * 64, possibly will be extended. *Isn't this more of a set than a get?*
      */
+    @Override
     public int getInventoryStackLimit ()
     {
         return 64;
@@ -99,6 +104,7 @@ public class InventoryCraftingStationResult extends InventoryCraftResult
     /**
      * Called when an the contents of an Inventory change, usually
      */
+    @Override
     public void markDirty ()
     {
     }
@@ -107,6 +113,7 @@ public class InventoryCraftingStationResult extends InventoryCraftResult
      * Do not make give this method the name canInteractWith because it clashes
      * with Container
      */
+    @Override
     public boolean isUseableByPlayer (EntityPlayer par1EntityPlayer)
     {
         return true;

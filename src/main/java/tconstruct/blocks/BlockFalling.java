@@ -24,16 +24,19 @@ public class BlockFalling extends Block
         super(p_i45405_1_);
     }
 
+    @Override
     public void onBlockAdded (World p_149726_1_, int p_149726_2_, int p_149726_3_, int p_149726_4_)
     {
         p_149726_1_.scheduleBlockUpdate(p_149726_2_, p_149726_3_, p_149726_4_, this, this.tickRate(p_149726_1_));
     }
 
+    @Override
     public void onNeighborBlockChange (World p_149695_1_, int p_149695_2_, int p_149695_3_, int p_149695_4_, Block p_149695_5_)
     {
         p_149695_1_.scheduleBlockUpdate(p_149695_2_, p_149695_3_, p_149695_4_, this, this.tickRate(p_149695_1_));
     }
 
+    @Override
     public void updateTick (World p_149674_1_, int p_149674_2_, int p_149674_3_, int p_149674_4_, Random p_149674_5_)
     {
         if (!p_149674_1_.isRemote)
@@ -84,6 +87,7 @@ public class BlockFalling extends Block
     {
     }
 
+    @Override
     public int tickRate (World p_149738_1_)
     {
         return 2;

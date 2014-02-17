@@ -98,6 +98,7 @@ public class DaggerRenderCustom extends Render
         this.doRenderItem((DaggerEntity) par1Entity, par2, par4, par6, par8, par9);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture (Entity par1Entity)
     {
         return this.func_110796_a((DaggerEntity) par1Entity);

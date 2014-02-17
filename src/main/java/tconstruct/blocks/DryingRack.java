@@ -56,6 +56,7 @@ public class DryingRack extends InventoryBlock
         return TConstruct.instance;
     }
 
+    @Override
     public int onBlockPlaced (World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
     {
         if (side > 1)
@@ -117,6 +118,7 @@ public class DryingRack extends InventoryBlock
         AbilityHelper.spawnItemAtPlayer(player, stack);
     }
 
+    @Override
     public AxisAlignedBB getSelectedBoundingBoxFromPool (World world, int x, int y, int z)
     {
         int metadata = world.getBlockMetadata(x, y, z);
@@ -158,6 +160,7 @@ public class DryingRack extends InventoryBlock
         return AxisAlignedBB.getAABBPool().getAABB((double) x + xMin, (double) y + yMin, (double) z + zMin, (double) x + xMax, (double) y + yMax, (double) z + zMax);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState (IBlockAccess world, int x, int y, int z)
     {
         int metadata = world.getBlockMetadata(x, y, z);
@@ -199,6 +202,7 @@ public class DryingRack extends InventoryBlock
         this.setBlockBounds(xMin, yMin, zMin, xMax, yMax, zMax);
     }
 
+    @Override
     public void addCollisionBoxesToList (World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity)
     {
         this.setBlockBoundsBasedOnState(world, x, y, z);

@@ -69,6 +69,7 @@ public class Excavator extends HarvestTool
         return 4.0f;
     }
 
+    @Override
     public float getDurabilityModifier ()
     {
         return 2.75f;

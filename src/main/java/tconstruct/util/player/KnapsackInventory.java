@@ -94,6 +94,7 @@ public class KnapsackInventory implements IInventory
         return false;
     }
 
+    @Override
     public ItemStack getStackInSlotOnClosing (int slot)
     {
         return null;

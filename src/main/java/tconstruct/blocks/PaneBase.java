@@ -80,21 +80,25 @@ public class PaneBase extends Block
         }
     }
 
+    @Override
     public boolean isOpaqueCube ()
     {
         return false;
     }
 
+    @Override
     public boolean renderAsNormalBlock ()
     {
         return false;
     }
 
+    @Override
     public int getRenderType ()
     {
         return PaneRender.model;
     }
 
+    @Override
     public boolean shouldSideBeRendered (IBlockAccess iblockaccess, int i, int j, int k, int l)
     {
         Block b = iblockaccess.getBlock(i, j, k);
@@ -147,11 +151,13 @@ public class PaneBase extends Block
         }
     }
 
+    @Override
     public void setBlockBoundsForItemRender ()
     {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState (IBlockAccess iblockaccess, int i, int j, int k)
     {
         float f = 0.4375F;

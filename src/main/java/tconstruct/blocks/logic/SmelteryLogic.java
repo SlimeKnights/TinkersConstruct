@@ -268,6 +268,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     }
 
     /* Updating */
+    @Override
     public void updateEntity ()
     {
         /*
@@ -666,11 +667,13 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
      * }
      */
 
+    @Override
     public int getInventoryStackLimit ()
     {
         return 1;
     }
 
+    @Override
     public void markDirty ()
     {
         updateTemperatures();
@@ -961,6 +964,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         return blockID == TRepo.lavaTank || blockID == TRepo.lavaTankNether;
     }
 
+    @Override
     public int getCapacity ()
     {
         return maxLiquid;

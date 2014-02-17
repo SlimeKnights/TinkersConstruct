@@ -32,6 +32,7 @@ public class BarricadeBlock extends MantleBlock
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
+    @Override
     public IIcon getIcon (int side, int meta)
     {
         return modelBlock.getIcon(2, modelMeta);
@@ -43,31 +44,37 @@ public class BarricadeBlock extends MantleBlock
 
     }
 
+    @Override
     public boolean renderAsNormalBlock ()
     {
         return false;
     }
 
+    @Override
     public boolean isOpaqueCube ()
     {
         return false;
     }
 
+    @Override
     public int getRenderType ()
     {
         return BarricadeRender.model;
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool (World par1World, int x, int y, int z)
     {
         return AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1);
     }
 
+    @Override
     public void setBlockBoundsBasedOnState (IBlockAccess par1IBlockAccess, int x, int y, int z)
     {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
+    @Override
     public void harvestBlock (World world, EntityPlayer player, int x, int y, int z, int meta)
     {
         if (meta % 4 > 0)

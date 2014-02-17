@@ -33,6 +33,7 @@ public class PotionLauncher extends Item
         this.setMaxDamage(3);
     }
 
+    @Override
     public ItemStack onEaten (ItemStack stack, World world, EntityPlayer player)
     {
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
@@ -59,11 +60,13 @@ public class PotionLauncher extends Item
         return stack;
     }
 
+    @Override
     public void onPlayerStoppedUsing (ItemStack stack, World world, EntityPlayer player, int time)
     {
 
     }
 
+    @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
@@ -76,6 +79,7 @@ public class PotionLauncher extends Item
     /**
      * How long it takes to use or consume an item
      */
+    @Override
     public int getMaxItemUseDuration (ItemStack stack)
     {
         return 30;
@@ -85,6 +89,7 @@ public class PotionLauncher extends Item
      * returns the action that specifies what animation to play when the items
      * is being used
      */
+    @Override
     public EnumAction getItemUseAction (ItemStack stack)
     {
         if (!stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Loaded"))
@@ -93,6 +98,7 @@ public class PotionLauncher extends Item
             return EnumAction.none;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons (IIconRegister par1IconRegister)
     {
@@ -104,6 +110,7 @@ public class PotionLauncher extends Item
         }
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage (int meta)
     {

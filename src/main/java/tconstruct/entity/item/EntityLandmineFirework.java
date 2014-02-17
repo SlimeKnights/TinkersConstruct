@@ -30,6 +30,7 @@ public class EntityLandmineFirework extends Entity
         this.setSize(0.25F, 0.25F);
     }
 
+    @Override
     protected void entityInit ()
     {
         this.dataWatcher.addObjectByDataType(8, 5);
@@ -41,6 +42,7 @@ public class EntityLandmineFirework extends Entity
         return this;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     /**
      * Checks if the entity is in range to render by using the past in distance and comparing it to its average edge
@@ -79,6 +81,7 @@ public class EntityLandmineFirework extends Entity
         this.moveDirection = moveDirection;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     /**
      * Sets the velocity to the args. Args: x, y, z
@@ -100,6 +103,7 @@ public class EntityLandmineFirework extends Entity
     /**
      * Called to update the entity's position/logic.
      */
+    @Override
     public void onUpdate ()
     {
         if (this.riddenByEntity == null && this.rider != null)
@@ -161,6 +165,7 @@ public class EntityLandmineFirework extends Entity
         }
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public void handleHealthUpdate (byte par1)
     {
@@ -183,6 +188,7 @@ public class EntityLandmineFirework extends Entity
     /**
      * (abstract) Protected helper method to write subclass entity data to NBT.
      */
+    @Override
     public void writeEntityToNBT (NBTTagCompound par1NBTTagCompound)
     {
         par1NBTTagCompound.setInteger("Life", this.fireworkAge);
@@ -200,6 +206,7 @@ public class EntityLandmineFirework extends Entity
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
+    @Override
     public void readEntityFromNBT (NBTTagCompound par1NBTTagCompound)
     {
         this.fireworkAge = par1NBTTagCompound.getInteger("Life");
@@ -217,6 +224,7 @@ public class EntityLandmineFirework extends Entity
         }
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public float getShadowSize ()
     {
@@ -226,11 +234,13 @@ public class EntityLandmineFirework extends Entity
     /**
      * Gets how bright this entity is.
      */
+    @Override
     public float getBrightness (float par1)
     {
         return super.getBrightness(par1);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public int getBrightnessForRender (float par1)
     {
@@ -240,6 +250,7 @@ public class EntityLandmineFirework extends Entity
     /**
      * If returns false, the item will not inflict any damage against entities.
      */
+    @Override
     public boolean canAttackWithItem ()
     {
         return false;

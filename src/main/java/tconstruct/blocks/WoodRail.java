@@ -20,6 +20,7 @@ public class WoodRail extends BlockRailBase
         super(false);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     /**
      * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
@@ -29,6 +30,7 @@ public class WoodRail extends BlockRailBase
         return par2 >= 6 ? this.theIcon : this.blockIcon;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     /**
      * When this method is called, your block should register all the icons it needs with the given IconRegister. This

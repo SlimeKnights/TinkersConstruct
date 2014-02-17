@@ -96,6 +96,7 @@ public class Battleaxe extends HarvestTool
         return 4.0f;
     }
 
+    @Override
     public float getDurabilityModifier ()
     {
         return 2.5f;
@@ -210,6 +211,7 @@ public class Battleaxe extends HarvestTool
         }
     }
 
+    @Override
     public int getMaxItemUseDuration (ItemStack par1ItemStack)
     {
         return 72000;

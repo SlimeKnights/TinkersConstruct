@@ -37,6 +37,7 @@ public abstract class BowBase extends ToolCore
         super(0);
     }
 
+    @Override
     public int durabilityTypeAccessory ()
     {
         return 2;
@@ -50,6 +51,7 @@ public abstract class BowBase extends ToolCore
     }
 
     /* Bow usage */
+    @Override
     public void onPlayerStoppedUsing (ItemStack stack, World world, EntityPlayer player, int useRemaining)
     {
         int time = this.getMaxItemUseDuration(stack) - useRemaining;
@@ -185,6 +187,7 @@ public abstract class BowBase extends ToolCore
     /**
      * How long it takes to use or consume an item
      */
+    @Override
     public int getMaxItemUseDuration (ItemStack par1ItemStack)
     {
         return 72000;
@@ -194,6 +197,7 @@ public abstract class BowBase extends ToolCore
      * returns the action that specifies what animation to play when the items
      * is being used
      */
+    @Override
     public EnumAction getItemUseAction (ItemStack par1ItemStack)
     {
         return EnumAction.bow;
@@ -203,6 +207,7 @@ public abstract class BowBase extends ToolCore
      * Called whenever this item is equipped and the right mouse button is
      * pressed. Args: itemStack, world, entityPlayer
      */
+    @Override
     public ItemStack onItemRightClick (ItemStack stack, World par2World, EntityPlayer player)
     {
         if (stack.hasTagCompound())
@@ -227,6 +232,7 @@ public abstract class BowBase extends ToolCore
         return stack;
     }
 
+    @Override
     public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
     {
         return false;

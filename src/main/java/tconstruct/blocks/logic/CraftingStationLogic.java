@@ -78,6 +78,7 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
         return "crafters.CraftingStation";
     }
 
+    @Override
     public boolean canDropInventorySlot (int slot)
     {
         if (slot == 0)

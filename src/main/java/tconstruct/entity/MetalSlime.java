@@ -30,11 +30,13 @@ public class MetalSlime extends BlueSlime
         return (float) Math.min(i * i + 20, 100);
     }
 
+    @Override
     public int getTotalArmorValue ()
     {
         return super.getTotalArmorValue() + 12;
     }
 
+    @Override
     public void setDead ()
     {
         this.isDead = true;
@@ -51,6 +53,7 @@ public class MetalSlime extends BlueSlime
      * for (int l = 0; l < k; ++l) { this.dropItem(j, 1); } } }
      */
 
+    @Override
     protected void updateEntityActionState ()
     {
         this.despawnEntity();

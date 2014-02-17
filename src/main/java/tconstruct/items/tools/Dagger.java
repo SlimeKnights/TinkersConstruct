@@ -17,6 +17,7 @@ public class Dagger extends Weapon
         this.setUnlocalizedName("InfiTool.Dagger");
     }
 
+    @Override
     public ItemStack onItemRightClick (ItemStack itemstack, World world, EntityPlayer player)
     {
         ItemStack stack = itemstack.copy();
@@ -31,6 +32,7 @@ public class Dagger extends Weapon
         return itemstack;
     }
 
+    @Override
     public ItemStack onEaten (ItemStack itemstack, World world, EntityPlayer player)
     {
         ItemStack stack = itemstack.copy();
@@ -49,11 +51,13 @@ public class Dagger extends Weapon
         return new String[] { "weapon", "melee", "throwing" };
     }
 
+    @Override
     public EnumAction getItemUseAction (ItemStack par1ItemStack)
     {
         return EnumAction.bow;
     }
 
+    @Override
     public int getMaxItemUseDuration (ItemStack stack)
     {
         return 10;

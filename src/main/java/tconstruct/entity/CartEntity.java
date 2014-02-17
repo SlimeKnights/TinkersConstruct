@@ -122,11 +122,13 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
      * returns if this entity triggers Block.onEntityWalking on the blocks they
      * walk on. used for spiders and wolves to prevent them from trampling crops
      */
+    @Override
     protected boolean canTriggerWalking ()
     {
         return false;
     }
 
+    @Override
     protected void entityInit ()
     {
         this.dataWatcher.addObject(16, new Byte((byte) 0));
@@ -140,6 +142,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
      * blocks. This enables the entity to be pushable on contact, like boats or
      * minecarts.
      */
+    @Override
     public AxisAlignedBB getCollisionBox (Entity par1Entity)
     {
         return par1Entity.boundingBox;
@@ -148,6 +151,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     /**
      * returns the bounding box for this entity
      */
+    @Override
     public AxisAlignedBB getBoundingBox ()
     {
         return this.boundingBox;
@@ -157,6 +161,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
      * Returns true if this entity should push and be pushed by other entities
      * when colliding.
      */
+    @Override
     public boolean canBePushed ()
     {
         return canBePushed;
@@ -166,6 +171,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
      * Returns the Y offset from the entity's position for any entity riding
      * this one.
      */
+    @Override
     public double getMountedYOffset ()
     {
         return (double) this.height * 0.0D - 0.30000001192092896D;
@@ -214,6 +220,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
         }
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     /**
      * Setups the entity to do the hurt animation. Only used by packets in multiplayer.
@@ -229,6 +236,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
      * Returns true if other Entities should be prevented from moving through
      * this Entity.
      */
+    @Override
     public boolean canBeCollidedWith ()
     {
         return !this.isDead;
@@ -237,6 +245,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     /**
      * Will get destroyed next tick.
      */
+    @Override
     public void setDead ()
     {
         if (this.field_82345_h)
@@ -286,6 +295,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
      * Teleports the entity to another dimension. Params: Dimension number to
      * teleport to
      */
+    @Override
     public void travelToDimension (int par1)
     {
         this.field_82345_h = false;
@@ -295,6 +305,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     /**
      * Called to update the entity's position/logic.
      */
+    @Override
     public void onUpdate ()
     {
         if (this.getRollingAmplitude() > 0)
@@ -703,6 +714,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
         }
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public float getShadowSize ()
     {
@@ -713,6 +725,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
      * Applies a velocity to each of the entities pushing them away from each
      * other. Args: entity
      */
+    @Override
     public void applyEntityCollision (Entity par1Entity)
     {
         if (!this.worldObj.isRemote)
@@ -809,6 +822,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     /**
      * Returns the number of slots in the inventory.
      */
+    @Override
     public int getSizeInventory ()
     {
         return (pullcartType == 1 && getClass() == CartEntity.class ? 27 : 0);
@@ -817,6 +831,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     /**
      * Returns the stack in slot i
      */
+    @Override
     public ItemStack getStackInSlot (int par1)
     {
         return this.cargoItems[par1];
@@ -826,6 +841,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
      * Removes from an inventory slot (first arg) up to a specified number
      * (second arg) of items and returns them in a new stack.
      */
+    @Override
     public ItemStack decrStackSize (int par1, int par2)
     {
         if (this.cargoItems[par1] != null)
@@ -861,6 +877,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
      * whatever it returns as an EntityItem - like when you close a workbench
      * GUI.
      */
+    @Override
     public ItemStack getStackInSlotOnClosing (int par1)
     {
         if (this.cargoItems[par1] != null)
@@ -879,6 +896,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
      * Sets the given item stack to the specified slot in the inventory (can be
      * crafting or armor sections).
      */
+    @Override
     public void setInventorySlotContents (int par1, ItemStack par2ItemStack)
     {
         this.cargoItems[par1] = par2ItemStack;
@@ -901,6 +919,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
      * Returns the maximum stack size for a inventory slot. Seems to always be
      * 64, possibly will be extended. *Isn't this more of a set than a get?*
      */
+    @Override
     public int getInventoryStackLimit ()
     {
         return 64;
@@ -909,6 +928,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     /**
      * Called when an the contents of an Inventory change, usually
      */
+    @Override
     public void markDirty ()
     {
     }
@@ -975,6 +995,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
         return true;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     /**
      * Sets the position and rotation. Only difference from the other one is no bounding on the rotation. Args: posX,
@@ -993,6 +1014,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
         this.motionZ = this.velocityZ;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     /**
      * Sets the velocity to the args. Args: x, y, z
@@ -1008,6 +1030,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
      * Do not make give this method the name canInteractWith because it clashes
      * with Container
      */
+    @Override
     public boolean isUseableByPlayer (EntityPlayer par1EntityPlayer)
     {
         return this.isDead ? false : par1EntityPlayer.getDistanceSqToEntity(this) <= 64.0D;

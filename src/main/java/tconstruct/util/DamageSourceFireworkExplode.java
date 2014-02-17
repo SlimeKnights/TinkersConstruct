@@ -13,6 +13,7 @@ public class DamageSourceFireworkExplode extends DamageSource
         this.setDamageBypassesArmor();
     }
 
+    @Override
     public IChatComponent func_151519_b (EntityLivingBase par1EntityLivingBase)
     {
         return super.func_151519_b(par1EntityLivingBase);

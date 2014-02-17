@@ -12,6 +12,7 @@ import tconstruct.entity.projectile.ArrowEntity;
 public class TDispenserBehaviorArrow extends BehaviorDefaultDispenseItem
 {
 
+    @Override
     public ItemStack dispenseStack (IBlockSource dispenser, ItemStack stack)
     {
         World world = dispenser.getWorld();
@@ -31,6 +32,7 @@ public class TDispenserBehaviorArrow extends BehaviorDefaultDispenseItem
         return stack;
     }
 
+    @Override
     protected void playDispenseSound (IBlockSource dispenser)
     {
         dispenser.getWorld().playAuxSFX(1002, dispenser.getXInt(), dispenser.getYInt(), dispenser.getZInt(), 0);

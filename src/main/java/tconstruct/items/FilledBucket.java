@@ -34,6 +34,7 @@ public class FilledBucket extends ItemBucket
         this.setHasSubtypes(true);
     }
 
+    @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
         float var4 = 1.0F;
@@ -156,12 +157,14 @@ public class FilledBucket extends ItemBucket
 
     public IIcon[] icons;
 
+    @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage (int meta)
     {
         return icons[meta];
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons (IIconRegister iconRegister)
     {
@@ -173,6 +176,7 @@ public class FilledBucket extends ItemBucket
         }
     }
 
+    @Override
     public String getUnlocalizedName (ItemStack stack)
     {
         int arr = MathHelper.clamp_int(stack.getItemDamage(), 0, materialNames.length);

@@ -25,6 +25,7 @@ public class DiamondApple extends ItemFood
         this.setAlwaysEdible();
     }
 
+    @Override
     protected void onFoodEaten (ItemStack stack, World world, EntityPlayer player)
     {
         if (!world.isRemote)

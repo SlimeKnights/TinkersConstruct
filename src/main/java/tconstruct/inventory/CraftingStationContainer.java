@@ -88,6 +88,7 @@ public class CraftingStationContainer extends Container
         this.onCraftMatrixChanged(this.craftMatrix);
     }
 
+    @Override
     public void onCraftMatrixChanged (IInventory par1IInventory)
     {
         ItemStack tool = modifyTool();
@@ -131,6 +132,7 @@ public class CraftingStationContainer extends Container
         return null;
     }
 
+    @Override
     public void onContainerClosed (EntityPlayer par1EntityPlayer)
     {
         super.onContainerClosed(par1EntityPlayer);
@@ -149,11 +151,13 @@ public class CraftingStationContainer extends Container
         }
     }
 
+    @Override
     public boolean canInteractWith (EntityPlayer par1EntityPlayer)
     {
         return par1EntityPlayer.getDistanceSq((double) this.posX + 0.5D, (double) this.posY + 0.5D, (double) this.posZ + 0.5D) <= 64.0D;
     }
 
+    @Override
     public ItemStack transferStackInSlot (EntityPlayer par1EntityPlayer, int par2)
     {
         ItemStack itemstack = null;
@@ -212,6 +216,7 @@ public class CraftingStationContainer extends Container
         return itemstack;
     }
 
+    @Override
     public boolean func_94530_a (ItemStack par1ItemStack, Slot par2Slot)
     {
         return par2Slot.inventory != this.craftResult && super.func_94530_a(par1ItemStack, par2Slot);

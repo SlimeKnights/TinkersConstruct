@@ -20,6 +20,7 @@ public class LavaTankItemBlock extends MultiItemBlock
         setHasSubtypes(true);
     }
 
+    @Override
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
         if (stack.hasTagCompound())

@@ -268,6 +268,7 @@ public class ArrowRender extends Render
         GL11.glPopMatrix();
     }
 
+    @Override
     protected ResourceLocation getEntityTexture (Entity par1Entity)
     {
         return this.func_110796_a((ArrowEntity) par1Entity);
@@ -281,6 +282,7 @@ public class ArrowRender extends Render
      * void doRender(T entity, double d, double d1, double d2, float f, float
      * f1). But JAD is pre 1.5 so doesn't do that.
      */
+    @Override
     public void doRender (Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
     {
         this.doRenderItem((ArrowEntity) par1Entity, par2, par4, par6, par8, par9);

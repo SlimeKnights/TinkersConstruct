@@ -16,6 +16,7 @@ public class ToolForgeContainer extends ToolStationContainer
         super(inventoryplayer, logic);
     }
 
+    @Override
     public void initializeContainer (InventoryPlayer inventoryplayer, ToolStationLogic builderlogic)
     {
         invPlayer = inventoryplayer;
@@ -44,6 +45,7 @@ public class ToolForgeContainer extends ToolStationContainer
     }
 
     // posX and posY must be the same length
+    @Override
     public void resetSlots (int[] posX, int[] posY)
     {
         inventorySlots.clear();

@@ -41,6 +41,7 @@ public class SoilBlock extends TConstructBlock
         }
     }
 
+    @Override
     public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
     {
         int meta = world.getBlockMetadata(x, y, z);
@@ -56,6 +57,7 @@ public class SoilBlock extends TConstructBlock
         }
     }
 
+    @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
     {
         return Blocks.soul_sand.getCollisionBoundingBoxFromPool(world, x, y, z);

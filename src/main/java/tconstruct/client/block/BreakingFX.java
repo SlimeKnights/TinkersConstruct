@@ -36,11 +36,13 @@ public class BreakingFX extends EntityFX
         this.motionZ += par12;
     }
 
+    @Override
     public int getFXLayer ()
     {
         return 2;
     }
 
+    @Override
     public void renderParticle (Tessellator par1Tessellator, float par2, float par3, float par4, float par5, float par6, float par7)
     {
         float f6 = ((float) this.particleTextureIndexX + this.particleTextureJitterX / 4.0F) / 16.0F;

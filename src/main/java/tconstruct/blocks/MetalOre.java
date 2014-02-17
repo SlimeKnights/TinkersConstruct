@@ -15,6 +15,7 @@ public class MetalOre extends TConstructBlock
         super(material, hardness, tex);
     }
 
+    @Override
     public float getBlockHardness (World world, int x, int y, int z)
     {
         int meta = world.getBlockMetadata(x, y, z);

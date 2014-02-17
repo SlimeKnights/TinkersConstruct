@@ -31,6 +31,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         stats = holder;
     }
 
+    @Override
     public void initGui ()
     {
         super.initGui();
@@ -51,6 +52,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         TabRegistry.addTabsToList(this.buttonList);
     }
 
+    @Override
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
         // fontRenderer.drawString(StatCollector.translateToLocal("inventory.armorextended"),
@@ -59,6 +61,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         // 17, (ySize - 96) + 2, 0x404040);
     }
 
+    @Override
     public void drawScreen (int par1, int par2, float par3)
     {
         super.drawScreen(par1, par2, par3);
@@ -87,6 +90,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/armorextended.png");
 
+    @Override
     protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

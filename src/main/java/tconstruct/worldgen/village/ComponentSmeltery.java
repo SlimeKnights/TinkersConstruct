@@ -38,6 +38,7 @@ public class ComponentSmeltery extends StructureVillagePieces.House1
      * second Part of Structure generating, this for example places Spiderwebs,
      * Mob Spawners, it closes Mineshafts at the end, it adds Fences...
      */
+    @Override
     public boolean addComponentParts (World world, Random random, StructureBoundingBox sbb)
     {
         if (this.averageGroundLevel < 0)
@@ -89,7 +90,7 @@ public class ComponentSmeltery extends StructureVillagePieces.House1
         }
         return true;
     }
-    
+
     protected void fillWithMetaBlocks (World par1World, StructureBoundingBox par2StructureBoundingBox, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, Block placeBlockID,
             int placeBlockMeta, Block replaceBlockID, int replaceBlockMeta, boolean alwaysReplace)
     {

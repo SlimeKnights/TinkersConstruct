@@ -57,6 +57,7 @@ public class ToolStationGui extends NewContainerGui
         Keyboard.enableRepeatEvents(true);
     }
 
+    @Override
     protected void mouseClicked (int mouseX, int mouseY, int mouseButton)
     {
         super.mouseClicked(mouseX, mouseY, mouseButton);
@@ -81,6 +82,7 @@ public class ToolStationGui extends NewContainerGui
         body = StatCollector.translateToLocal("gui.toolforge2");
     }
 
+    @Override
     public void initGui ()
     {
         super.initGui();
@@ -102,6 +104,7 @@ public class ToolStationGui extends NewContainerGui
         }
     }
 
+    @Override
     protected void actionPerformed (GuiButton button)
     {
         ((GuiButton) this.buttonList.get(guiType)).enabled = true;
@@ -144,6 +147,7 @@ public class ToolStationGui extends NewContainerGui
         toolSlots.resetSlots(slotX, slotY);
     }
 
+    @Override
     public void updateScreen ()
     {
         super.updateScreen();
@@ -154,6 +158,7 @@ public class ToolStationGui extends NewContainerGui
      * Draw the foreground layer for the GuiContainer (everything in front of
      * the items)
      */
+    @Override
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
         this.fontRendererObj.drawString(StatCollector.translateToLocal(logic.getInvName()), 6, 8, 0x000000);
@@ -428,6 +433,7 @@ public class ToolStationGui extends NewContainerGui
      * Draw the background layer for the GuiContainer (everything behind the
      * items)
      */
+    @Override
     protected void drawGuiContainerBackgroundLayer (float par1, int par2, int par3)
     {
         // Draw the background
@@ -464,6 +470,7 @@ public class ToolStationGui extends NewContainerGui
 
     }
 
+    @Override
     protected void keyTyped (char par1, int keyCode)
     {
         if (keyCode == 1 || (!active && keyCode == this.mc.gameSettings.keyBindInventory.getKeyCode()))

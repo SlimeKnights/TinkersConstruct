@@ -20,6 +20,7 @@ public class FrypanGui extends GuiContainer
         logic = frypan;
     }
 
+    @Override
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
         fontRendererObj.drawString(StatCollector.translateToLocal("crafters.Frypan"), 60, 6, 0x404040);
@@ -28,6 +29,7 @@ public class FrypanGui extends GuiContainer
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/frypan.png");
 
+    @Override
     protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

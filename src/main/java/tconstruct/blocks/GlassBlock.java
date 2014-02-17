@@ -19,11 +19,13 @@ public class GlassBlock extends TConstructBlock
         super(Material.glass, 3f, blockTextures);
     }
 
+    @Override
     public boolean isOpaqueCube ()
     {
         return false;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
@@ -48,6 +50,7 @@ public class GlassBlock extends TConstructBlock
         }
     }
 
+    @Override
     public float getExplosionResistance (Entity entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ)
     {
         int meta = world.getBlockMetadata(x, y, z);

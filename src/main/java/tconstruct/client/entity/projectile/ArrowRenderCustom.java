@@ -91,6 +91,7 @@ public class ArrowRenderCustom extends Render
         this.doRenderItem((ArrowEntity) par1Entity, par2, par4, par6, par8, par9);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture (Entity par1Entity)
     {
         return this.func_110796_a((ArrowEntity) par1Entity);

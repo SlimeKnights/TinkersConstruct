@@ -65,6 +65,7 @@ public class CrystalRender extends RenderLiving
         return this.func_77061_b((Crystal) par1EntityLiving, par2, par3);
     }
 
+    @Override
     protected ResourceLocation getEntityTexture (Entity par1Entity)
     {
         return texture;

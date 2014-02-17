@@ -86,6 +86,7 @@ public class Punji extends MantleBlock
      * or not to render the shared face of two adjacent blocks and also whether
      * the player can attach torches, redstone wire, etc to this block.
      */
+    @Override
     public boolean isOpaqueCube ()
     {
         return false;
@@ -95,11 +96,13 @@ public class Punji extends MantleBlock
      * If this block doesn't render as an ordinary block it will return False
      * (examples: signs, buttons, stairs, etc)
      */
+    @Override
     public boolean renderAsNormalBlock ()
     {
         return false;
     }
 
+    @Override
     public int getRenderType ()
     {
         return PunjiRender.model;

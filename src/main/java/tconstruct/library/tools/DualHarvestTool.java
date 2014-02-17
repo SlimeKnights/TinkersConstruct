@@ -105,6 +105,7 @@ public abstract class DualHarvestTool extends HarvestTool
         return super.getDigSpeed(stack, block, meta);
     }
 
+    @Override
     public boolean canHarvestBlock (Block block)
     {
         if (block.getMaterial().isToolNotRequired())

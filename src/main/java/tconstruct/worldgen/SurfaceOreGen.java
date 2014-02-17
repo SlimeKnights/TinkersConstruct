@@ -63,6 +63,7 @@ public class SurfaceOreGen extends WorldGenerator
         return returnHeight;
     }
 
+    @Override
     public boolean generate (World world, Random random, int startX, int startY, int startZ)
     {
         if (alterSize)

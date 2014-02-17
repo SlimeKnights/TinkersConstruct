@@ -107,6 +107,7 @@ public class ModButtertouch extends ModBoolean
         tool.stackTagCompound.setTag("ench", tags);
     }
 
+    @Override
     public boolean validType (ToolCore tool)
     {
         List list = Arrays.asList(tool.toolCategories());

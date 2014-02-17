@@ -12,6 +12,7 @@ public class SlotPartBuilder extends Slot
         super(inv, index, posX, posY);
     }
 
+    @Override
     protected void onCrafting (ItemStack par1ItemStack, int par2)
     {
 

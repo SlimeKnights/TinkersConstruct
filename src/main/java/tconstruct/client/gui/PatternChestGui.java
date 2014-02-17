@@ -22,6 +22,7 @@ public class PatternChestGui extends GuiContainer
         ySize = 168;
     }
 
+    @Override
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
         fontRendererObj.drawString(StatCollector.translateToLocal("inventory.PatternChest"), 60, 6, 0x404040);
@@ -30,6 +31,7 @@ public class PatternChestGui extends GuiContainer
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/patternchest.png");
 
+    @Override
     protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

@@ -63,6 +63,7 @@ public class CraftingSlab extends InventorySlab
         return 1;
     }
 
+    @Override
     public AxisAlignedBB getSelectedBoundingBoxFromPool (World world, int x, int y, int z)
     {
         int metadata = world.getBlockMetadata(x, y, z);

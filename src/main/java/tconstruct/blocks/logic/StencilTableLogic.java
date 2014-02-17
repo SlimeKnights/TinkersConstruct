@@ -17,6 +17,7 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
         super(2);
     }
 
+    @Override
     public boolean canUpdate ()
     {
         return false;

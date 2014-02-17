@@ -2,7 +2,6 @@ package tconstruct.client.entity;
 
 import java.util.Random;
 
-import mantle.blocks.BlockUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -30,7 +29,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class FancyItemRender extends Render
 {
-    private static final ResourceLocation RES_ITEM_GLINT = new ResourceLocation("textures/misc/enchanted_item_glint.png");
+    private static final ResourceLocation field_110798_h = new ResourceLocation("textures/misc/enchanted_item_glint.png");
     private RenderBlocks itemRenderBlocks = new RenderBlocks();
 
     /** The RNG used in RenderItem (for bobbing itemstacks on the ground) */
@@ -72,13 +71,13 @@ public class FancyItemRender extends Render
 
             Block block = null;
 
-            block = BlockUtils.getBlockFromItem(itemstack.getItem());
+            block = Block.getBlockFromItem(itemstack.getItem());
 
             if (ForgeHooksClient.renderEntityItem(par1EntityItem, itemstack, f2, f3, random, renderManager.renderEngine, field_147909_c, 1))
             {
                 ;
             }
-            else if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(BlockUtils.getBlockFromItem(itemstack.getItem()).getRenderType()))
+            else if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(Block.getBlockFromItem(itemstack.getItem()).getRenderType()))
             {
                 GL11.glRotatef(f3, 0.0F, 1.0F, 0.0F);
 
@@ -242,8 +241,7 @@ public class FancyItemRender extends Render
 
         for (int k = 0; k < b0; ++k)
         {
-            // Makes items offset when in 3D, like when in 2D, looks much
-            // better. Considered a vanilla bug...
+            // Makes items offset when in 3D, like when in 2D, looks much better. Considered a vanilla bug...
             if (k > 0 && shouldSpreadItems())
             {
                 float x = (random.nextFloat() * 2.0F - 1.0F) * 0.3F / 0.5F;
@@ -272,7 +270,7 @@ public class FancyItemRender extends Render
             {
                 GL11.glDepthFunc(GL11.GL_EQUAL);
                 GL11.glDisable(GL11.GL_LIGHTING);
-                this.renderManager.renderEngine.bindTexture(RES_ITEM_GLINT);
+                this.renderManager.renderEngine.bindTexture(field_110798_h);
                 GL11.glEnable(GL11.GL_BLEND);
                 GL11.glBlendFunc(GL11.GL_SRC_COLOR, GL11.GL_ONE);
                 float f13 = 0.76F;
@@ -321,8 +319,8 @@ public class FancyItemRender extends Render
         int i1;
         float f1;
         float f2;
-        // TODO make this be the block equivalent to k
-        Block block = BlockUtils.getBlockFromItem(k);
+
+        Block block = Block.getBlockFromItem(k);//(k < Block.blocksList.length ? Block.blocksList[k] : null);
         if (par3ItemStack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(block.getRenderType()))
         {
             par2TextureManager.bindTexture(TextureMap.locationBlocksTexture);
@@ -415,7 +413,7 @@ public class FancyItemRender extends Render
         GL11.glDepthFunc(GL11.GL_GREATER);
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDepthMask(false);
-        manager.bindTexture(RES_ITEM_GLINT);
+        manager.bindTexture(field_110798_h);
         this.zLevel -= 50.0F;
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_DST_COLOR, GL11.GL_DST_COLOR);
@@ -440,20 +438,25 @@ public class FancyItemRender extends Render
                 this.renderItemIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5, true);
             }
 
-            /*
-             * Modders must handle this themselves if they use custom renderers!
-             * if (par3ItemStack.hasEffect()) {
-             * GL11.glDepthFunc(GL11.GL_GREATER);
-             * GL11.glDisable(GL11.GL_LIGHTING); GL11.glDepthMask(false);
-             * par2TextureManager.bindTexture(RES_ITEM_GLINT); this.zLevel -=
-             * 50.0F; GL11.glEnable(GL11.GL_BLEND);
-             * GL11.glBlendFunc(GL11.GL_DST_COLOR, GL11.GL_DST_COLOR);
-             * GL11.glColor4f(0.5F, 0.25F, 0.8F, 1.0F); this.renderGlint(par4 *
-             * 431278612 + par5 * 32178161, par4 - 2, par5 - 2, 20, 20);
-             * GL11.glDisable(GL11.GL_BLEND); GL11.glDepthMask(true);
-             * this.zLevel += 50.0F; GL11.glEnable(GL11.GL_LIGHTING);
-             * GL11.glDepthFunc(GL11.GL_LEQUAL); }
-             */
+            /* Modders must handle this themselves if they use custom renderers!
+            if (par3ItemStack.hasEffect())
+            {
+                GL11.glDepthFunc(GL11.GL_GREATER);
+                GL11.glDisable(GL11.GL_LIGHTING);
+                GL11.glDepthMask(false);
+                par2TextureManager.bindTexture(field_110798_h);
+                this.zLevel -= 50.0F;
+                GL11.glEnable(GL11.GL_BLEND);
+                GL11.glBlendFunc(GL11.GL_DST_COLOR, GL11.GL_DST_COLOR);
+                GL11.glColor4f(0.5F, 0.25F, 0.8F, 1.0F);
+                this.renderGlint(par4 * 431278612 + par5 * 32178161, par4 - 2, par5 - 2, 20, 20);
+                GL11.glDisable(GL11.GL_BLEND);
+                GL11.glDepthMask(true);
+                this.zLevel += 50.0F;
+                GL11.glEnable(GL11.GL_LIGHTING);
+                GL11.glDepthFunc(GL11.GL_LEQUAL);
+            }
+            */
         }
     }
 
@@ -494,8 +497,8 @@ public class FancyItemRender extends Render
     }
 
     /**
-     * Renders the item's overlay information. Examples being stack count or
-     * damage on top of the item's image at the specified position.
+     * Renders the item's overlay information. Examples being stack count or damage on top of the item's image at the
+     * specified position.
      */
     public void renderItemOverlayIntoGUI (FontRenderer par1FontRenderer, TextureManager par2TextureManager, ItemStack par3ItemStack, int par4, int par5)
     {
@@ -538,8 +541,8 @@ public class FancyItemRender extends Render
     }
 
     /**
-     * Adds a quad to the tesselator at the specified position with the set
-     * width and height and color. Args: tessellator, x, y, width, height, color
+     * Adds a quad to the tesselator at the specified position with the set width and height and color.  Args:
+     * tessellator, x, y, width, height, color
      */
     private void renderQuad (Tessellator par1Tessellator, int par2, int par3, int par4, int par5, int par6)
     {
@@ -563,19 +566,19 @@ public class FancyItemRender extends Render
         tessellator.draw();
     }
 
+    @Override
     protected ResourceLocation getEntityTexture (Entity par1Entity)
     {
         return this.func_110796_a((EntityItem) par1Entity);
     }
 
     /**
-     * Actually renders the given argument. This is a synthetic bridge method,
-     * always casting down its argument and then handing it off to a worker
-     * function which does the actual work. In all probabilty, the class Render
-     * is generic (Render<T extends Entity) and this method has signature public
-     * void doRender(T entity, double d, double d1, double d2, float f, float
-     * f1). But JAD is pre 1.5 so doesn't do that.
+     * Actually renders the given argument. This is a synthetic bridge method, always casting down its argument and then
+     * handing it off to a worker function which does the actual work. In all probabilty, the class Render is generic
+     * (Render<T extends Entity) and this method has signature public void doRender(T entity, double d, double d1,
+     * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
      */
+    @Override
     public void doRender (Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
     {
         this.doRenderItem((EntityItem) par1Entity, par2, par4, par6, par8, par9);
@@ -583,7 +586,6 @@ public class FancyItemRender extends Render
 
     /**
      * Items should spread out when rendered in 3d?
-     * 
      * @return
      */
     public boolean shouldSpreadItems ()
@@ -593,7 +595,6 @@ public class FancyItemRender extends Render
 
     /**
      * Items should have a bob effect
-     * 
      * @return
      */
     public boolean shouldBob ()
@@ -618,7 +619,6 @@ public class FancyItemRender extends Render
     /**
      * Allows for a subclass to override how many rendered items appear in a
      * "mini item 3d stack"
-     * 
      * @param stack
      * @return
      */

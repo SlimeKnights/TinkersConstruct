@@ -35,6 +35,7 @@ public class ToolForgeLogic extends ToolStationLogic implements ISidedInventory
         return new ToolForgeContainer(inventoryplayer, this);
     }
 
+    @Override
     public void buildTool (String name)
     {
         toolName = name;

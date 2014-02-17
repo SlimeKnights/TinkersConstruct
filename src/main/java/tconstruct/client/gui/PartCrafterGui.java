@@ -37,6 +37,7 @@ public class PartCrafterGui extends NewContainerGui
         title = "\u00A7n" + (StatCollector.translateToLocal("gui.partcrafter1"));
     }
 
+    @Override
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
         this.fontRendererObj.drawString(StatCollector.translateToLocal("crafters.PartBuilder"), 6, 6, 4210752);
@@ -152,6 +153,7 @@ public class PartCrafterGui extends NewContainerGui
     private static final ResourceLocation minichest = new ResourceLocation("tinker", "textures/gui/patternchestmini.png");
     private static final ResourceLocation description = new ResourceLocation("tinker", "textures/gui/description.png");
 
+    @Override
     protected void drawGuiContainerBackgroundLayer (float par1, int par2, int par3)
     {
         // Draw the background

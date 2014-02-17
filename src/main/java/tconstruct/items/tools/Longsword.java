@@ -21,11 +21,13 @@ public class Longsword extends Weapon
         this.setUnlocalizedName("InfiTool.Longsword");
     }
 
+    @Override
     public EnumAction getItemUseAction (ItemStack par1ItemStack)
     {
         return EnumAction.bow;
     }
 
+    @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
         if (player.onGround)
@@ -35,11 +37,13 @@ public class Longsword extends Weapon
         return stack;
     }
 
+    @Override
     public float chargeAttack ()
     {
         return 1.5f;
     }
 
+    @Override
     public void onPlayerStoppedUsing (ItemStack stack, World world, EntityPlayer player, int useCount)
     {
         /*

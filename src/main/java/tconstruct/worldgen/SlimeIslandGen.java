@@ -161,6 +161,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
 
     }
 
+    @Override
     public boolean generate (World world, Random rand, int x, int y, int z) // WorldGenerator
                                                                             // version
     {

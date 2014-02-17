@@ -24,6 +24,7 @@ public class Broadsword extends Weapon
         return TRepo.wideGuard;
     }
 
+    @Override
     public float getDurabilityModifier ()
     {
         return 1.2f;

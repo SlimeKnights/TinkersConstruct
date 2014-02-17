@@ -549,6 +549,7 @@ public class TankLayerScan extends LogicComponent
         structureTop = tags.getInteger("structureTop");
     }
 
+    @Override
     public void readNetworkNBT (NBTTagCompound tags)
     {
         completeStructure = tags.getBoolean("Complete");
@@ -581,6 +582,7 @@ public class TankLayerScan extends LogicComponent
         tags.setInteger("structureTop", structureTop);
     }
 
+    @Override
     public void writeNetworkNBT (NBTTagCompound tags)
     {
         tags.setBoolean("Complete", completeStructure);

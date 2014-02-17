@@ -20,6 +20,7 @@ public class SlotToolForge extends SlotTool
         super(entityplayer, builder, par3, par4, par5);
     }
 
+    @Override
     protected void onCrafting (ItemStack stack)
     {
         NBTTagCompound tags = stack.getTagCompound();

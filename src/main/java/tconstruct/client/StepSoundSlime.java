@@ -14,6 +14,7 @@ public class StepSoundSlime extends SoundType
     /**
      * Used when a block breaks, EXA: Player break, Shep eating grass, etc..
      */
+    @Override
     public String getBreakSound ()
     {
         return this.soundName + ".big";

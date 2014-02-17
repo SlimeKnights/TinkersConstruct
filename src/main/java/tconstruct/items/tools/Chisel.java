@@ -1,6 +1,5 @@
 package tconstruct.items.tools;
 
-import mantle.blocks.BlockUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
@@ -60,6 +59,7 @@ public class Chisel extends ToolCore
         return detailed;
     }
 
+    @Override
     public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
     {
         return false;
@@ -102,7 +102,7 @@ public class Chisel extends ToolCore
                 DetailInput details = TConstruct.chiselDetailing.getDetailing(block, meta);
                 if (details != null)
                 {
-                    world.setBlock(x, y, z, BlockUtils.getBlockFromItemStack(details.output), details.outputMeta, 3);
+                    world.setBlock(x, y, z, Block.getBlockFromItem(details.output.getItem()), details.outputMeta, 3);
                     if (!(entityplayer.capabilities.isCreativeMode))
                     {
                         int reinforced = 0;

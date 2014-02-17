@@ -33,6 +33,7 @@ public class SlimeTallGrass extends BlockBush implements IShearable
         setCreativeTab(TConstructRegistry.blockTab);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     /**
      * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
@@ -58,6 +59,7 @@ public class SlimeTallGrass extends BlockBush implements IShearable
      * Returns the usual quantity dropped by the block plus a bonus of 1 to 'i'
      * (inclusive).
      */
+    @Override
     public int quantityDroppedWithBonus (int par1, Random par2Random)
     {
         return 1 + par2Random.nextInt(par1 * 2 + 1);
@@ -66,6 +68,7 @@ public class SlimeTallGrass extends BlockBush implements IShearable
     /**
      * Get the block's damage value (for use with pick block).
      */
+    @Override
     public int getDamageValue (World par1World, int par2, int par3, int par4)
     {
         return par1World.getBlockMetadata(par2, par3, par4);
@@ -83,6 +86,7 @@ public class SlimeTallGrass extends BlockBush implements IShearable
         }
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     /**
      * When this method is called, your block should register all the icons it needs with the given IconRegister. This

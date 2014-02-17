@@ -13,6 +13,7 @@ public class PatternChestLogic extends InventoryLogic
         super(30);
     }
 
+    @Override
     public boolean canUpdate ()
     {
         return false;

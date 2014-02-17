@@ -106,6 +106,7 @@ public class ModAttack extends ToolModTypeFilter
         tags.setString(tip, modName);
     }
 
+    @Override
     public boolean validType (ToolCore tool)
     {
         return true;

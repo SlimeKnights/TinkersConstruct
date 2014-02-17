@@ -79,6 +79,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
     }
 
     /* Item cooking */
+    @Override
     public void updateEntity ()
     {
         boolean burning = isBurning();
@@ -272,6 +273,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
     }
 
     /* NBT */
+    @Override
     public void readFromNBT (NBTTagCompound tags)
     {
         super.readFromNBT(tags);
@@ -280,6 +282,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
         fuelGague = tags.getInteger("FuelGague");
     }
 
+    @Override
     public void writeToNBT (NBTTagCompound tags)
     {
         super.writeToNBT(tags);

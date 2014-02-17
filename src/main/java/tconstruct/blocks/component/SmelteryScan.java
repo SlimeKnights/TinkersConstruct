@@ -29,6 +29,7 @@ public class SmelteryScan extends TankLayerScan
         super.checkValidStructure();
     }
 
+    @Override
     protected boolean checkAir (int x, int y, int z)
     {
         Block block = world.getBlock(x, y, z);

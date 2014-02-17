@@ -124,6 +124,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
         writeCustomNBT(tags);
     }
 
+    @Override
     public void readCustomNBT (NBTTagCompound tags)
     {
         if (tags.getBoolean("hasFluid"))
@@ -132,6 +133,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
             tank.setFluid(null);
     }
 
+    @Override
     public void writeCustomNBT (NBTTagCompound tags)
     {
         FluidStack liquid = tank.getFluid();
@@ -160,6 +162,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
     }
 
     /* Updating */
+    @Override
     public boolean canUpdate ()
     {
         return true;

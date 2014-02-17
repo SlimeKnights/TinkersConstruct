@@ -83,6 +83,7 @@ public class TArmorBase extends ItemArmor
         return null;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public boolean requiresMultipleRenderPasses ()
     {

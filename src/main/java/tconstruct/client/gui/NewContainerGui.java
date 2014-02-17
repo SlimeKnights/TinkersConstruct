@@ -85,6 +85,7 @@ public abstract class NewContainerGui extends GuiScreen
     /**
      * Adds the buttons (and other controls) to the screen in question.
      */
+    @Override
     public void initGui ()
     {
         super.initGui();
@@ -96,6 +97,7 @@ public abstract class NewContainerGui extends GuiScreen
     /**
      * Draws the screen and all the components in it.
      */
+    @Override
     public void drawScreen (int mouseX, int mouseY, float par3)
     {
         this.drawDefaultBackground();
@@ -230,6 +232,7 @@ public abstract class NewContainerGui extends GuiScreen
         itemRenderer.zLevel = 0.0F;
     }
 
+    @Override
     protected void renderToolTip (ItemStack par1ItemStack, int par2, int par3)
     {
         List list = par1ItemStack.getTooltip(this.mc.thePlayer, this.mc.gameSettings.advancedItemTooltips);
@@ -254,6 +257,7 @@ public abstract class NewContainerGui extends GuiScreen
      * creative tab to be checked, current mouse x position, current mouse y
      * position.
      */
+    @Override
     protected void drawCreativeTabHoveringText (String par1Str, int par2, int par3)
     {
         this.func_102021_a(Arrays.asList(new String[] { par1Str }), par2, par3);
@@ -485,6 +489,7 @@ public abstract class NewContainerGui extends GuiScreen
     /**
      * Called when the mouse is clicked.
      */
+    @Override
     protected void mouseClicked (int mouseX, int mouseY, int mouseButton)
     {
         super.mouseClicked(mouseX, mouseY, mouseButton);
@@ -636,6 +641,7 @@ public abstract class NewContainerGui extends GuiScreen
      * (mouseX, mouseY, which) which==-1 is mouseMove, which==0 or which==1 is
      * mouseUp
      */
+    @Override
     protected void mouseMovedOrUp (int par1, int par2, int par3)
     {
         Slot slot = this.getSlotAtPosition(par1, par2);
@@ -826,6 +832,7 @@ public abstract class NewContainerGui extends GuiScreen
      * Fired when a key is typed. This is the equivalent of
      * KeyListener.keyTyped(KeyEvent e).
      */
+    @Override
     protected void keyTyped (char par1, int par2)
     {
         if (par2 == 1 || par2 == this.mc.gameSettings.keyBindInventory.getKeyCode())
@@ -873,6 +880,7 @@ public abstract class NewContainerGui extends GuiScreen
      * Called when the screen is unloaded. Used to disable keyboard repeat
      * events
      */
+    @Override
     public void onGuiClosed ()
     {
         if (this.mc.thePlayer != null)
@@ -885,6 +893,7 @@ public abstract class NewContainerGui extends GuiScreen
      * Returns true if this GUI should pause the game when it is displayed in
      * single-player
      */
+    @Override
     public boolean doesGuiPauseGame ()
     {
         return false;
@@ -893,6 +902,7 @@ public abstract class NewContainerGui extends GuiScreen
     /**
      * Called from the main game loop to update the screen.
      */
+    @Override
     public void updateScreen ()
     {
         super.updateScreen();

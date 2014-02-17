@@ -13,6 +13,7 @@ public class ToolPartHidden extends ToolPart
         super(textureType, name);
     }
 
+    @Override
     public void getSubItems (Item id, CreativeTabs tab, List list)
     {
 

@@ -19,6 +19,7 @@ public class SlimeTallGrassItem extends MultiItemBlock
         setHasSubtypes(true);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage (int meta)
     {
