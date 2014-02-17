@@ -79,43 +79,6 @@ public class TConstructClientRegistry
         tool.registerEffectPath(materialID, icon);
     }
 
-    public static void registerManualIcon (String name, ItemStack stack)
-    {
-        manualIcons.put(name, stack);
-    }
-
-    public static ItemStack getManualIcon (String textContent)
-    {
-        ItemStack stack = manualIcons.get(textContent);
-        if (stack != null)
-            return stack;
-        return defaultStack;
-    }
-
-    public static void registerManualSmallRecipe (String name, ItemStack output, ItemStack... stacks)
-    {
-        ItemStack[] recipe = new ItemStack[5];
-        recipe[0] = output;
-        System.arraycopy(stacks, 0, recipe, 1, 4);
-        recipeIcons.put(name, recipe);
-    }
-
-    public static void registerManualLargeRecipe (String name, ItemStack output, ItemStack... stacks)
-    {
-        ItemStack[] recipe = new ItemStack[10];
-        recipe[0] = output;
-        System.arraycopy(stacks, 0, recipe, 1, 9);
-        recipeIcons.put(name, recipe);
-    }
-
-    public static void registerManualFurnaceRecipe (String name, ItemStack output, ItemStack input)
-    {
-        ItemStack[] recipe = new ItemStack[2];
-        recipe[0] = output;
-        recipe[1] = input;
-        recipeIcons.put(name, recipe);
-    }
-
     public static void registerManualModifier (String name, ItemStack output, ItemStack topinput)
     {
         registerManualModifier(name, output, topinput, null);
@@ -137,11 +100,6 @@ public class TConstructClientRegistry
         recipe[1] = liquid;
         recipe[2] = cast;
         recipeIcons.put(name, recipe);
-    }
-
-    public static ItemStack[] getRecipeIcons (String recipeName)
-    {
-        return recipeIcons.get(recipeName);
     }
 
     //Gui
