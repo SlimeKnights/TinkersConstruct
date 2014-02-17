@@ -38,10 +38,10 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
-                for (int yPos = y - 1; zPos <= y + 1; zPos++)
+                for (int yPos = y - 1; yPos <= y + 1; yPos++)
                 {
                     TileEntity tile = world.getTileEntity(xPos, yPos, zPos);
-                    if (tile != null && tile instanceof PatternChestLogic)
+                    if (tile != null && tile instanceof PatternChestLogic && (x == xPos || z == zPos))
                         return new PartCrafterChestContainer(inventoryplayer, this, (PatternChestLogic) tile);
                 }
             }
@@ -49,7 +49,7 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
         return new PartCrafterContainer(inventoryplayer, this);
     }
 
-    // Called when emptying a slot, not when another item is placed in it
+    //Called when emptying a slot, not when another item is placed in it
     @Override
     public ItemStack decrStackSize (int slotID, int quantity)
     {
@@ -72,8 +72,7 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
                     int decrease = cost / value;
                     if (cost % value != 0)
                         decrease++;
-                    super.decrStackSize(2, decrease); // Call super to avoid
-                                                      // crafting again
+                    super.decrStackSize(2, decrease); //Call super to avoid crafting again
                 }
             }
 
@@ -98,8 +97,7 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
                     int decrease = cost / value;
                     if (cost % value != 0)
                         decrease++;
-                    super.decrStackSize(3, decrease); // Call super to avoid
-                                                      // crafting again
+                    super.decrStackSize(3, decrease); //Call super to avoid crafting again
                 }
             }
 
@@ -113,7 +111,7 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
             buildBottomPart();
     }
 
-    // Called when a slot has something placed into it.
+    //Called when a slot has something placed into it.
     @Override
     public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
