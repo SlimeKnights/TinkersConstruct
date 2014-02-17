@@ -13,6 +13,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class GravelOre extends BlockSand
 {
@@ -39,6 +41,7 @@ public class GravelOre extends BlockSand
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
         return icons[meta];

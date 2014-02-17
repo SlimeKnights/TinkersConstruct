@@ -43,6 +43,7 @@ public class EquipBlock extends InventoryBlock
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
         return Blocks.iron_block.getIcon(side, meta);

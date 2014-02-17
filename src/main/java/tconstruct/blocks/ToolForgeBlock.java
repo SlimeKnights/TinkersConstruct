@@ -22,6 +22,8 @@ import tconstruct.client.block.TableForgeRender;
 import tconstruct.common.TProxyCommon;
 import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ToolForgeBlock extends InventoryBlock
 {
@@ -54,6 +56,7 @@ public class ToolForgeBlock extends InventoryBlock
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
         if (side == 1)

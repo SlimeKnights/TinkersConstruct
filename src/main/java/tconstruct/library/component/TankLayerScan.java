@@ -1,14 +1,21 @@
 package tconstruct.library.component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 
-import mantle.blocks.iface.*;
-import mantle.world.*;
+import mantle.blocks.iface.IFacingLogic;
+import mantle.blocks.iface.IMasterLogic;
+import mantle.blocks.iface.IServantLogic;
+import mantle.world.CoordTuple;
+import mantle.world.CoordTupleSort;
 import net.minecraft.block.Block;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagIntArray;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import tconstruct.TConstruct;
-import tconstruct.library.util.*;
 
 public class TankLayerScan extends LogicComponent
 {
@@ -531,6 +538,7 @@ public class TankLayerScan extends LogicComponent
         structureTop = tags.getInteger("structureTop");
     }
 
+    @Override
     public void readNetworkNBT (NBTTagCompound tags)
     {
         completeStructure = tags.getBoolean("Complete");
@@ -563,6 +571,7 @@ public class TankLayerScan extends LogicComponent
         tags.setInteger("structureTop", structureTop);
     }
 
+    @Override
     public void writeNetworkNBT (NBTTagCompound tags)
     {
         tags.setBoolean("Complete", completeStructure);

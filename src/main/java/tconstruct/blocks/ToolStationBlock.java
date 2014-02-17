@@ -25,6 +25,8 @@ import tconstruct.client.block.TableRender;
 import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.util.config.PHConstruct;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ToolStationBlock extends InventoryBlock
 {
@@ -52,6 +54,7 @@ public class ToolStationBlock extends InventoryBlock
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
         if (meta <= 4)

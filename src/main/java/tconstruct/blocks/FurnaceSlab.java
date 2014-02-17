@@ -14,6 +14,8 @@ import tconstruct.TConstruct;
 import tconstruct.blocks.logic.FurnaceLogic;
 import tconstruct.common.TProxyCommon;
 import tconstruct.library.TConstructRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class FurnaceSlab extends InventorySlab
 {
@@ -57,12 +59,14 @@ public class FurnaceSlab extends InventorySlab
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
         return icons[(meta % 8) * 3 + getTextureIndex(side)];
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon (IBlockAccess world, int x, int y, int z, int side)
     {
         TileEntity logic = world.getTileEntity(x, y, z);
