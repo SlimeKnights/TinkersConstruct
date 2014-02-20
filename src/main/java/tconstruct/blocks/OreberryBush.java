@@ -3,10 +3,6 @@ package tconstruct.blocks;
 import java.util.List;
 import java.util.Random;
 
-import tconstruct.client.block.OreberryRender;
-import tconstruct.common.TRepo;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.tools.AbilityHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.block.material.Material;
@@ -25,6 +21,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
+import tconstruct.client.block.OreberryRender;
+import tconstruct.common.TRepo;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.tools.AbilityHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

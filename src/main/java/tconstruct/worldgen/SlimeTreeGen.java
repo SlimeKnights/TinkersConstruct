@@ -28,7 +28,7 @@ public class SlimeTreeGen extends WorldGenerator
         this.metaLeaves = leavesMeta;
         this.seekHeight = !notify;
     }
-    
+
     @Override
     public boolean generate (World world, Random random, int xPos, int yPos, int zPos)
     {
@@ -45,7 +45,7 @@ public class SlimeTreeGen extends WorldGenerator
         {
             Block soil = world.getBlock(xPos, yPos - 1, zPos);
             boolean isSoil = (soil != null && soil.canSustainPlant(world, xPos, yPos - 1, zPos, ForgeDirection.UP, TRepo.slimeSapling));
-            
+
             if (isSoil)
             {
                 //TODO Fix this for 1.7
