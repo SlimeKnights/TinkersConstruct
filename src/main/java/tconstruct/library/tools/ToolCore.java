@@ -58,8 +58,8 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
 {
     // TE power constants -- TODO grab these from the items added
     protected int capacity = 400000;
-    protected int maxReceive = 75;
-    protected int maxExtract = 75;
+    protected int maxReceive = 80;
+    protected int maxExtract = 80;
 
     protected Random random = new Random();
     protected int damageVsEntity;
@@ -546,23 +546,19 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
             boolean supress = false;
             try
             {
-                clazz = Class.forName("tconstruct.common.TRepo"); // TODO: Make
-                                                                  // sure this
-                                                                  // is still
-                                                                  // working
-                                                                  // in 1.7.
+                clazz = Class.forName("tconstruct.common.TRepo");
                 fld = clazz.getField("supressMissingToolLogs");
                 supress = fld.getBoolean(fld);
             }
             catch (Exception e)
             {
-                TConstructRegistry.logger.severe("TConstruct Library could not find parts of TContent");
+                TConstructRegistry.logger.error("TConstruct Library could not find parts of TContent");
                 e.printStackTrace();
             }
             if (!supress)
             {
-                TConstructRegistry.logger.severe("Creative builder failed tool for " + name + this.getToolName());
-                TConstructRegistry.logger.severe("Make sure you do not have item ID conflicts");
+                TConstructRegistry.logger.error("Creative builder failed tool for " + name + this.getToolName());
+                TConstructRegistry.logger.error("Make sure you do not have item ID conflicts");
             }
         }
         else
