@@ -11,6 +11,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,8 +21,10 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
+import tconstruct.TConstruct;
 import tconstruct.blocks.logic.LavaTankLogic;
 import tconstruct.client.block.TankRender;
 import tconstruct.library.TConstructRegistry;
@@ -164,8 +167,16 @@ public class LavaTankBlock extends BlockContainer
         ItemStack current = entityplayer.inventory.getCurrentItem();
         if (current != null)
         {
-            FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(current);
+            FluidStack liquid;
             LavaTankLogic logic = (LavaTankLogic) world.getTileEntity(i, j, k);
+            if (current.getItem() == Items.lava_bucket)
+            {
+                liquid = new FluidStack(FluidRegistry.LAVA, TConstruct.blockLiquidValue);
+            }
+            else
+            {
+                liquid = FluidContainerRegistry.getFluidForFilledItem(current);
+            }
             if (liquid != null)
             {
                 int amount = logic.fill(ForgeDirection.UNKNOWN, liquid, false);
@@ -178,6 +189,33 @@ public class LavaTankBlock extends BlockContainer
                 }
                 else
                     return true;
+            }
+            else if (current.getItem() == Items.lava_bucket)
+            {
+                FluidTankInfo[] tanks = logic.getTankInfo(ForgeDirection.UNKNOWN);
+                FluidStack fillFluid = tanks[0].fluid;// getFluid();
+                ItemStack fillStack = new ItemStack(Items.bucket);
+                if (fillStack != null)
+                {
+                    logic.drain(ForgeDirection.UNKNOWN, TConstruct.blockLiquidValue, true);
+                    if (!entityplayer.capabilities.isCreativeMode)
+                    {
+                        if (current.stackSize == 1)
+                        {
+                            entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, fillStack);
+                        }
+                        else
+                        {
+                            entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, consumeItem(current));
+
+                            if (!entityplayer.inventory.addItemStackToInventory(fillStack))
+                            {
+                                entityplayer.dropPlayerItemWithRandomChoice(fillStack, false);
+                            }
+                        }
+                    }
+                    return true;
+                }
             }
             else if (FluidContainerRegistry.isBucket(current))
             {
