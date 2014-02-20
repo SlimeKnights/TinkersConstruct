@@ -90,7 +90,7 @@ public class SlimeLeaves extends BlockLeaves
     }
 
     @Override
-    public boolean isLeaves(IBlockAccess world, int x, int y, int z)
+    public boolean isLeaves (IBlockAccess world, int x, int y, int z)
     {
         return true;
     }
@@ -101,7 +101,7 @@ public class SlimeLeaves extends BlockLeaves
      * Returns the ID of the items to drop on destruction.
      */
     @Override
-    public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
+    public Item getItemDropped (int p_149650_1_, Random p_149650_2_, int p_149650_3_)
     {
         return Item.getItemFromBlock(TRepo.slimeSapling);
     }

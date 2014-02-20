@@ -363,6 +363,7 @@ public class TProxyClient extends TProxyCommon
     public static Document volume2;
     public static Document smelter;
     public static ManualInfo manualData;
+
     @Override
     public void readManuals ()
     {
