@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import mantle.lib.TabTools;
 import net.minecraft.item.Item;
@@ -31,7 +33,7 @@ public class TConstructRegistry
 {
     public static TConstructRegistry instance = new TConstructRegistry();
 
-    public static Logger logger = Logger.getLogger("TCon-API");
+    public static Logger logger = LogManager.getLogger("TCon-API");
 
     /* Creative tabs */
     public static TabTools toolTab;
@@ -70,7 +72,7 @@ public class TConstructRegistry
     {
         Item add = itemDirectory.get(name);
         if (add != null)
-            logger.warning(name + " is already present in the Item directory");
+            logger.warn(name + " is already present in the Item directory");
 
         itemDirectory.put(name, itemstack);
     }
@@ -87,7 +89,7 @@ public class TConstructRegistry
     {
         Item ret = itemDirectory.get(name);
         if (ret == null)
-            logger.warning("Could not find " + name + " in the Item directory");
+            logger.warn("Could not find " + name + " in the Item directory");
 
         return ret;
     }
@@ -125,7 +127,7 @@ public class TConstructRegistry
     {
         ItemStack add = itemstackDirectory.get(name);
         if (add != null)
-            logger.warning(name + " is already present in the ItemStack directory");
+            logger.warn(name + " is already present in the ItemStack directory");
 
         itemstackDirectory.put(name, itemstack);
     }
@@ -142,7 +144,7 @@ public class TConstructRegistry
     {
         ItemStack ret = itemstackDirectory.get(name);
         if (ret == null)
-            logger.warning("Could not find " + name + " in the ItemStack directory");
+            logger.warn("Could not find " + name + " in the ItemStack directory");
 
         return ret;
     }
@@ -221,7 +223,7 @@ public class TConstructRegistry
     {
         ToolBuilder tb = ToolBuilder.instance;
         if (parts.length < 2 || parts.length > 4)
-            logger.warning("Wrong amount of items to craft into a tool");
+            logger.warn("Wrong amount of items to craft into a tool");
 
         tb.addToolRecipe(output, parts);
     }
@@ -493,7 +495,7 @@ public class TConstructRegistry
         }
         catch (Exception e)
         {
-            logger.warning("Could not find casting table recipes.");
+            logger.warn("Could not find casting table recipes.");
             return null;
         }
     }
@@ -514,7 +516,7 @@ public class TConstructRegistry
         }
         catch (Exception e)
         {
-            logger.warning("Could not find casting basin recipes.");
+            logger.warn("Could not find casting basin recipes.");
             return null;
         }
     }
@@ -535,7 +537,7 @@ public class TConstructRegistry
         }
         catch (Exception e)
         {
-            logger.warning("Could not find chisel detailing recipes.");
+            logger.warn("Could not find chisel detailing recipes.");
             return null;
         }
     }
