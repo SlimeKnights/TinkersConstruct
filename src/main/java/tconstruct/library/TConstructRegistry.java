@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import mantle.lib.TabTools;
 import net.minecraft.item.Item;
@@ -31,7 +33,7 @@ public class TConstructRegistry
 {
     public static TConstructRegistry instance = new TConstructRegistry();
 
-    public static Logger logger = Logger.getLogger("TCon-API");
+    public static Logger logger = LogManager.getLogger("TCon-API");
 
     /* Creative tabs */
     public static TabTools toolTab;
@@ -70,7 +72,7 @@ public class TConstructRegistry
     {
         Item add = itemDirectory.get(name);
         if (add != null)
-            logger.warning(name + " is already present in the Item directory");
+            logger.warn(name + " is already present in the Item directory");
 
         itemDirectory.put(name, itemstack);
     }
@@ -87,7 +89,7 @@ public class TConstructRegistry
     {
         Item ret = itemDirectory.get(name);
         if (ret == null)
-            logger.warning("Could not find " + name + " in the Item directory");
+            logger.warn("Could not find " + name + " in the Item directory");
 
         return ret;
     }
@@ -125,7 +127,7 @@ public class TConstructRegistry
     {
         ItemStack add = itemstackDirectory.get(name);
         if (add != null)
-            logger.warning(name + " is already present in the ItemStack directory");
+            logger.warn(name + " is already present in the ItemStack directory");
 
         itemstackDirectory.put(name, itemstack);
     }
@@ -142,7 +144,7 @@ public class TConstructRegistry
     {
         ItemStack ret = itemstackDirectory.get(name);
         if (ret == null)
-            logger.warning("Could not find " + name + " in the ItemStack directory");
+            logger.warn("Could not find " + name + " in the ItemStack directory");
 
         return ret;
     }
@@ -221,7 +223,7 @@ public class TConstructRegistry
     {
         ToolBuilder tb = ToolBuilder.instance;
         if (parts.length < 2 || parts.length > 4)
-            logger.warning("Wrong amount of items to craft into a tool");
+            logger.warn("Wrong amount of items to craft into a tool");
 
         tb.addToolRecipe(output, parts);
     }
@@ -493,7 +495,7 @@ public class TConstructRegistry
         }
         catch (Exception e)
         {
-            logger.warning("Could not find casting table recipes.");
+            logger.warn("Could not find casting table recipes.");
             return null;
         }
     }
@@ -514,7 +516,7 @@ public class TConstructRegistry
         }
         catch (Exception e)
         {
-            logger.warning("Could not find casting basin recipes.");
+            logger.warn("Could not find casting basin recipes.");
             return null;
         }
     }
@@ -535,7 +537,7 @@ public class TConstructRegistry
         }
         catch (Exception e)
         {
-            logger.warning("Could not find chisel detailing recipes.");
+            logger.warn("Could not find chisel detailing recipes.");
             return null;
         }
     }
@@ -545,180 +547,6 @@ public class TConstructRegistry
     public static void registerActiveToolMod (ActiveToolMod mod)
     {
         activeModifiers.add(mod);
-    }
-
-    /*
-     * Used to determine how blocks are laid out in the drawbridge 0: Metadata
-     * has to match 1: Metadata has no meaning 2: Should not be placed 3: Has
-     * rotational metadata 4: Rails 5: Has rotational TileEntity data 6: Custom
-     * placement logic
-     */
-
-    // moved to TMech
-    // public static HashMap<ItemStack, Integer> drawbridgeState = new
-    // HashMap<ItemStack, Integer>();
-    /*
-     * Blocks that are interchangable with each other. Ex: Still and flowing
-     * water
-     */
-    // static HashMap<Block, Block> interchangableBlockMapping = new
-    // HashMap<Block, Block> ();
-    /* Blocks that place items, and vice versa */
-    // public static HashBiMap<Block, Item> blockToItemMapping;
-
-    static void initializeDrawbridgeState ()
-    {
-        // TODO fix this mess and move to TMech
-        /*
-         * drawbridgeState[Blocks.stone] = 1; drawbridgeState[Blocks.grass] = 1;
-         * drawbridgeState[Blocks.dirt] = 1; drawbridgeState[Blocks.cobblestone]
-         * = 1; drawbridgeState[Blocks.bedrock] = 2;
-         * drawbridgeState[Blocks.water] = 1; drawbridgeState[Blocks.lava] = 1;
-         * drawbridgeState[Blocks.sand] = 1; drawbridgeState[Blocks.gravel] = 1;
-         * drawbridgeState[Blocks.gold_ore] = 1;
-         * drawbridgeState[Blocks.iron_ore] = 1;
-         * drawbridgeState[Blocks.coal_ore] = 1; drawbridgeState[Blocks.sponge]
-         * = 1; drawbridgeState[Blocks.lapis_ore] = 1;
-         * drawbridgeState[Blocks.lapis_block] = 1;
-         * drawbridgeState[Blocks.dispenser] = 3; drawbridgeState[Blocks.music]
-         * = 1; drawbridgeState[Blocks.bed] = 2;
-         * drawbridgeState[Blocks.railPowered] = 4;
-         * drawbridgeState[Blocks.railDetector] = 4;
-         * drawbridgeState[Blocks.sticky_piston] = 3;
-         * drawbridgeState[Blocks.web] = 1; drawbridgeState[Blocks.piston] = 3;
-         * drawbridgeState[Blocks.piston_extension] = 2;
-         * drawbridgeState[Blocks.plantYellow] = 1;
-         * drawbridgeState[Blocks.plantRed] = 1;
-         * drawbridgeState[Blocks.mushroomBrown] = 1;
-         * drawbridgeState[Blocks.mushroomRed] = 1;
-         * drawbridgeState[Blocks.gold_block] = 1;
-         * drawbridgeState[Blocks.iron_block] = 1;
-         * drawbridgeState[Blocks.brick_block] = 1; drawbridgeState[Blocks.tnt]
-         * = 1; drawbridgeState[Blocks.bookshelf] = 1;
-         * drawbridgeState[Blocks.mossy_cobblestone] = 1;
-         * drawbridgeState[Blocks.obsidian] = 1;
-         * drawbridgeState[Blocks.torchWood] = 1; drawbridgeState[Blocks.fire] =
-         * 1; drawbridgeState[Blocks.mobSpawner] = 2;
-         * drawbridgeState[Blocks.stairsWoodOak] = 3;
-         * drawbridgeState[Blocks.chest] = 5;
-         * drawbridgeState[Blocks.redstoneWire] = 1;
-         * blockToItemMapping[Blocks.redstoneWire] = Items.redstone;
-         * blockToItemMapping[Items.redstone] = Blocks.redstoneWire;
-         * drawbridgeState[Blocks.diamond_ore] = 1;
-         * drawbridgeState[Blocks.diamond_block] = 1;
-         * drawbridgeState[Blocks.crafting_table] = 1;
-         * drawbridgeState[Blocks.crops] = 2;
-         * drawbridgeState[Blocks.tilledField] = 1;
-         * drawbridgeState[Blocks.furnaceIdle] = 3;
-         * drawbridgeState[Blocks.furnaceBurning] = 3;
-         * interchangableBlockMapping[Blocks.furnaceIdle] =
-         * Blocks.furnaceBurning;
-         * interchangableBlockMapping[Blocks.furnaceBurning] =
-         * Blocks.furnaceIdle; drawbridgeState[Blocks.tilledField] = 1;
-         * drawbridgeState[Blocks.signPost] = 3;
-         * drawbridgeState[Blocks.doorWood] = 2; drawbridgeState[Blocks.ladder]
-         * = 1; drawbridgeState[Blocks.rail] = 4;
-         * drawbridgeState[Blocks.stairsCobblestone] = 3;
-         * drawbridgeState[Blocks.signWall] = 3; drawbridgeState[Blocks.lever] =
-         * 3; drawbridgeState[Blocks.pressurePlateStone] = 1;
-         * drawbridgeState[Blocks.doorIron] = 2;
-         * drawbridgeState[Blocks.pressurePlatePlanks] = 1;
-         * drawbridgeState[Blocks.oreRedstone] = 1;
-         * drawbridgeState[Blocks.oreRedstoneGlowing] = 1;
-         * drawbridgeState[Blocks.torchRedstoneIdle] = 1;
-         * drawbridgeState[Blocks.torchRedstoneActive] = 1;
-         * drawbridgeState[Blocks.stoneButton] = 3; drawbridgeState[Blocks.snow]
-         * = 1; drawbridgeState[Blocks.ice] = 1;
-         * drawbridgeState[Blocks.blockSnow] = 1; drawbridgeState[Blocks.cactus]
-         * = 2; drawbridgeState[Blocks.blockClay] = 1;
-         * drawbridgeState[Blocks.reed] = 1; drawbridgeState[Blocks.jukebox] =
-         * 1; drawbridgeState[Blocks.fence] = 1; drawbridgeState[Blocks.pumpkin]
-         * = 1; drawbridgeState[Blocks.netherrack] = 1;
-         * drawbridgeState[Blocks.slowSand] = 1;
-         * drawbridgeState[Blocks.glowStone] = 1; drawbridgeState[Blocks.portal]
-         * = 2; drawbridgeState[Blocks.pumpkinLantern] = 1;
-         * drawbridgeState[Blocks.cake] = 2;
-         * drawbridgeState[Blocks.redstoneRepeaterIdle] = 3;
-         * drawbridgeState[Blocks.redstoneRepeaterActive] = 3;
-         * interchangableBlockMapping[Blocks.redstoneRepeaterIdle] =
-         * Blocks.redstoneRepeaterActive;
-         * interchangableBlockMapping[Blocks.redstoneRepeaterActive] =
-         * Blocks.redstoneRepeaterIdle;
-         * blockToItemMapping[Blocks.redstoneRepeaterIdle] =
-         * Items.redstoneRepeater.itemID;
-         * blockToItemMapping[Blocks.redstoneRepeaterActive] =
-         * Items.redstoneRepeater.itemID;
-         * blockToItemMapping[Items.redstoneRepeater] =
-         * Blocks.redstoneRepeaterIdle; drawbridgeState[Blocks.lockedChest] = 5;
-         * drawbridgeState[Blocks.trapdoor] = 3;
-         * drawbridgeState[Blocks.mushroomCapBrown] = 1;
-         * drawbridgeState[Blocks.mushroomCapRed] = 1;
-         * drawbridgeState[Blocks.fenceIron] = 1;
-         * drawbridgeState[Blocks.thinGlass] = 1; drawbridgeState[Blocks.melon]
-         * = 1; drawbridgeState[Blocks.pumpkinStem] = 2;
-         * drawbridgeState[Blocks.melonStem] = 2; drawbridgeState[Blocks.vine] =
-         * 3; drawbridgeState[Blocks.fenceGate] = 3;
-         * drawbridgeState[Blocks.stairsBrick] = 3;
-         * drawbridgeState[Blocks.stairsStoneBrick] = 3;
-         * drawbridgeState[Blocks.mycelium] = 1;
-         * drawbridgeState[Blocks.waterlily] = 1;
-         * drawbridgeState[Blocks.netherBrick] = 1;
-         * drawbridgeState[Blocks.netherFence] = 1;
-         * drawbridgeState[Blocks.netherFence] = 3;
-         * drawbridgeState[Blocks.netherStalk] = 2;
-         * drawbridgeState[Blocks.enchantmentTable] = 1;
-         * drawbridgeState[Blocks.brewingStand] = 1;
-         * drawbridgeState[Blocks.cauldron] = 1;
-         * drawbridgeState[Blocks.endPortal] = 2;
-         * drawbridgeState[Blocks.dragonEgg] = 1;
-         * drawbridgeState[Blocks.redstoneLampIdle] = 1;
-         * drawbridgeState[Blocks.redstoneLampActive] = 1;
-         * drawbridgeState[Blocks.cocoaPlant] = 2;
-         * drawbridgeState[Blocks.stairsSandStone] = 3;
-         * drawbridgeState[Blocks.oreEmerald] = 1;
-         * drawbridgeState[Blocks.enderChest] = 5;
-         * drawbridgeState[Blocks.tripWireSource] = 1;
-         * drawbridgeState[Blocks.tripWire] = 1;
-         * drawbridgeState[Blocks.blockEmerald] = 1;
-         * drawbridgeState[Blocks.stairsWoodSpruce] = 3;
-         * drawbridgeState[Blocks.stairsWoodBirch] = 3;
-         * drawbridgeState[Blocks.stairsWoodJungle] = 3;
-         * drawbridgeState[Blocks.commandBlock] = 1;
-         * drawbridgeState[Blocks.beacon] = 1;
-         * drawbridgeState[Blocks.cobblestoneWall] = 1;
-         * drawbridgeState[Blocks.flowerPot] = 1; drawbridgeState[Blocks.carrot]
-         * = 2; drawbridgeState[Blocks.potato] = 1;
-         * drawbridgeState[Blocks.woodenButton] = 3;
-         * drawbridgeState[Blocks.skull] = 2;
-         * drawbridgeState[Blocks.chestTrapped] = 5;
-         * drawbridgeState[Blocks.pressurePlateGold] = 1;
-         * drawbridgeState[Blocks.pressurePlateIron] = 1;
-         * drawbridgeState[Blocks.redstoneComparatorIdle] = 1;
-         * drawbridgeState[Blocks.redstoneComparatorActive] = 1;
-         * interchangableBlockMapping[Blocks.redstoneComparatorIdle] =
-         * Blocks.redstoneComparatorActive;
-         * interchangableBlockMapping[Blocks.redstoneComparatorActive] =
-         * Blocks.redstoneComparatorIdle;
-         * blockToItemMapping[Blocks.redstoneComparatorIdle] =
-         * Items.comparator.itemID;
-         * blockToItemMapping[Blocks.redstoneComparatorActive] =
-         * Items.comparator.itemID; blockToItemMapping[Items.comparator] =
-         * Blocks.redstoneComparatorIdle; drawbridgeState[Blocks.daylightSensor]
-         * = 1; drawbridgeState[Blocks.blockRedstone] = 1;
-         * drawbridgeState[Blocks.oreNetherQuartz] = 1;
-         * drawbridgeState[Blocks.hopperBlock] = 3;
-         * drawbridgeState[Blocks.blockNetherQuartz] = 1;
-         * drawbridgeState[Blocks.stairsNetherQuartz] = 3;
-         * drawbridgeState[Blocks.railActivator] = 4;
-         * drawbridgeState[Blocks.dropper] = 3;
-         * interchangableBlockMapping[Blocks.dirt] = Blocks.grass;
-         * interchangableBlockMapping[Blocks.grass] = Blocks.dirt;
-         */
-    }
-
-    static
-    {
-        initializeDrawbridgeState();
     }
 
     /**

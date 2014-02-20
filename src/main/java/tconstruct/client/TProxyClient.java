@@ -135,6 +135,7 @@ import tconstruct.entity.projectile.ArrowEntity;
 import tconstruct.entity.projectile.DaggerEntity;
 import tconstruct.entity.projectile.LaunchedPotion;
 import tconstruct.inventory.ContainerLandmine;
+import tconstruct.items.ManualInfo;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.client.ToolGuiElement;
@@ -361,7 +362,7 @@ public class TProxyClient extends TProxyCommon
     public static Document volume1;
     public static Document volume2;
     public static Document smelter;
-
+    public static ManualInfo manualData;
     @Override
     public void readManuals ()
     {
@@ -373,6 +374,7 @@ public class TProxyClient extends TProxyCommon
         initManualIcons();
         initManualRecipes();
         initManualPages();
+        manualData = new ManualInfo();
     }
 
     Document readManual (String location, DocumentBuilderFactory dbFactory)
