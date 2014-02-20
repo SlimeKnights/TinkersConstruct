@@ -40,8 +40,9 @@ public class TankAirBlock extends BlockContainer
         return TankAirRender.model;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IIconRegister par1IconRegister)
+    public void registerBlockIcons (IIconRegister par1IconRegister)
     {
 
     }

@@ -149,6 +149,7 @@ import com.google.common.collect.Lists;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.VillagerRegistry;
 
 public class TProxyClient extends TProxyCommon
@@ -290,6 +291,7 @@ public class TProxyClient extends TProxyCommon
     @Override
     public void registerTickHandler ()
     {
+        FMLCommonHandler.instance().bus().register(new TClientTickHandler());
         new TClientTickHandler();
         // TickRegistry.registerTickHandler(new TimeTicker(), Side.CLIENT);
         // TickRegistry.registerTickHandler(new TCommonTickHandler(),
