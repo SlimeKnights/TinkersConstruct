@@ -74,23 +74,23 @@ public class SlimeLeaves extends BlockLeaves
     {
         int tex = meta % 4;
 
-        if (net.minecraft.client.Minecraft.getMinecraft().gameSettings.fancyGraphics)
+        if (this.field_150121_P)
             return fancyIcons[tex];
         else
             return fastIcons[tex];
     }
 
     @Override
-    public void getSubBlocks (Item b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item id, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < fastIcons.length; iter++)
         {
-            list.add(new ItemStack(b, 1, iter));
+            list.add(new ItemStack(id, 1, iter));
         }
     }
 
     @Override
-    public boolean isLeaves (IBlockAccess world, int x, int y, int z)
+    public boolean isLeaves(IBlockAccess world, int x, int y, int z)
     {
         return true;
     }
@@ -101,14 +101,13 @@ public class SlimeLeaves extends BlockLeaves
      * Returns the ID of the items to drop on destruction.
      */
     @Override
-    public Item getItemDropped (int par1, Random par2Random, int par3)
+    public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
     {
-        return new ItemStack(TRepo.slimeSapling).getItem();
+        return Item.getItemFromBlock(TRepo.slimeSapling);
     }
 
     /**
-     * Drops the block items with a specified chance of dropping the specified
-     * items
+     * Drops the block items with a specified chance of dropping the specified items
      */
     @Override
     public void dropBlockAsItemWithChance (World world, int x, int y, int z, int meta, float chance, int fortune)
@@ -117,9 +116,10 @@ public class SlimeLeaves extends BlockLeaves
         {
             int dropChance = 35;
 
-            /*
-             * if ((meta & 3) == 3) { j1 = 40; }
-             */
+            /*if ((meta & 3) == 3)
+            {
+                j1 = 40;
+            }*/
 
             if (fortune > 0)
             {

@@ -3,6 +3,10 @@ package tconstruct.blocks;
 import java.util.List;
 import java.util.Random;
 
+import tconstruct.client.block.OreberryRender;
+import tconstruct.common.TRepo;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.tools.AbilityHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.block.material.Material;
@@ -21,10 +25,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
-import tconstruct.client.block.OreberryRender;
-import tconstruct.common.TRepo;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.tools.AbilityHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -37,8 +37,6 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     public String[] oreTypes;
     public int itemMeat;
     private int subitems;
-    @SideOnly(Side.CLIENT)
-    protected int field_150127_b;
 
     public OreberryBush(String[] textureNames, int meta, int sub, String[] oreTypes)
     {
@@ -50,7 +48,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
         this.setTickRandomly(true);
         random = new Random();
         this.setHardness(0.3F);
-        this.setStepSound(soundTypeMetal);
+        this.setStepSound(Block.soundTypeMetal);
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
@@ -74,10 +72,9 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int metadata)
     {
-        if (net.minecraft.client.Minecraft.getMinecraft().gameSettings.fancyGraphics)
+        if (field_150121_P)
         {
             if (metadata < 12)
             {
@@ -200,9 +197,8 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     @Override
     public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
     {
-        /*
-         * if (world.isRemote) return false;
-         */
+        /*if (world.isRemote)
+            return false;*/
 
         int meta = world.getBlockMetadata(x, y, z);
         if (meta >= 12)
@@ -226,6 +222,11 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
         return false;
     }
 
+    public void setGraphicsLevel (boolean flag)
+    {
+        field_150121_P = flag;
+    }
+
     @Override
     public boolean renderAsNormalBlock ()
     {
@@ -239,10 +240,9 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered (IBlockAccess iblockaccess, int x, int y, int z, int meta)
     {
-        if (meta > 7 || net.minecraft.client.Minecraft.getMinecraft().gameSettings.fancyGraphics)
+        if (meta > 7 || field_150121_P)
         {
             return super.shouldSideBeRendered(iblockaccess, x, y, z, meta);
         }
@@ -262,8 +262,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
             return;
         }
 
-        if (random1.nextInt(20) == 0)// && world.getBlockLightValue(x, y, z) <=
-                                     // 8)
+        if (random1.nextInt(20) == 0)// && world.getBlockLightValue(x, y, z) <= 8)
         {
             if (world.getFullBlockLightValue(x, y, z) < 10)
             {
@@ -273,10 +272,10 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
                     world.setBlock(x, y, z, this, meta + 4, 3);
                 }
             }
-            /*
-             * else if (meta < 8) { world.setBlock(x, y, z, blockID, meta + 4,
-             * 3); }
-             */
+            /*else if (meta < 8)
+            {
+            	world.setBlock(x, y, z, blockID, meta + 4, 3);
+            }*/
         }
     }
 
@@ -295,18 +294,25 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
         return false;
     }
 
+    /* Resistance to fire */
+
     /**
-     * returns a list of items with the same ID, but different meta (eg: dye
-     * returns 16 items)
+     * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
      */
     @SideOnly(Side.CLIENT)
     @Override
-    public void getSubBlocks (Item b, CreativeTabs par2CreativeTabs, List par3List)
+    public void getSubBlocks (Item par1, CreativeTabs par2CreativeTabs, List par3List)
     {
         for (int var4 = 8; var4 < 8 + subitems; ++var4)
         {
-            par3List.add(new ItemStack(b, 1, var4));
+            par3List.add(new ItemStack(par1, 1, var4));
         }
+    }
+
+    @Override
+    public EnumPlantType getPlantType (IBlockAccess world, int x, int y, int z)
+    {
+        return EnumPlantType.Cave;
     }
 
     @Override
@@ -327,18 +333,4 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
         if (!(entity instanceof EntityItem))
             entity.attackEntityFrom(DamageSource.cactus, 1);
     }
-
-    @Override
-    public EnumPlantType getPlantType (IBlockAccess world, int x, int y, int z)
-    {
-        return EnumPlantType.Cave;
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void setGraphicsLevel (boolean p_150122_1_)
-    {
-        this.field_150121_P = p_150122_1_;
-        this.field_150127_b = (p_150122_1_ ? 0 : 1);
-    }
-
 }
