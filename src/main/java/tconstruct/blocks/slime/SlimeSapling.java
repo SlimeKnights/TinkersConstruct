@@ -31,7 +31,7 @@ public class SlimeSapling extends BlockSapling
         float f = 0.4F;
         setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f * 2.0F, 0.5F + f);
         this.setHardness(0.0F);
-        this.stepSound = Block.soundTypeGrass;
+        this.setStepSound(Block.soundTypeGrass);
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
@@ -47,9 +47,10 @@ public class SlimeSapling extends BlockSapling
         }
     }
 
-    public boolean canThisPlantGrowOnThisBlockID (Block b)
+    @Override
+    protected boolean canPlaceBlockOn (Block p_149854_1_)
     {
-        return b == Blocks.grass || b == Blocks.dirt || b == TRepo.slimeGrass || b == TRepo.craftedSoil;
+        return p_149854_1_ == Blocks.grass || p_149854_1_ == Blocks.dirt || p_149854_1_ == TRepo.slimeGrass || p_149854_1_ == TRepo.craftedSoil;
     }
 
     @Override
@@ -112,7 +113,7 @@ public class SlimeSapling extends BlockSapling
         obj = new SlimeTreeGen(true, 5, 4, 1, 0);
 
         if (!(obj.generate(world, random, x, y, z)))
-            world.setBlock(x, y, z, Blocks.air, md + 8, 3);
+            world.setBlock(x, y, z, this, md + 8, 3);
     }
 
     @Override
@@ -123,9 +124,9 @@ public class SlimeSapling extends BlockSapling
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void getSubBlocks (Item b, CreativeTabs par2CreativeTabs, List par3List)
+    public void getSubBlocks (Item par1, CreativeTabs par2CreativeTabs, List par3List)
     {
         for (int i = 0; i < 1; i++)
-            par3List.add(new ItemStack(b, 1, i));
+            par3List.add(new ItemStack(par1, 1, i));
     }
 }

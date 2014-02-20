@@ -22,7 +22,7 @@ public class Manual extends CraftingItem
     {
         super(name, textureName, "", "tinker", TConstructRegistry.materialTab);
         setUnlocalizedName("tconstruct.manual");
-        
+
     }
 
     @Override

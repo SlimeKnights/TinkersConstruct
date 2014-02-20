@@ -48,8 +48,9 @@ public class SlimeTreeGen extends WorldGenerator
 
             if (isSoil)
             {
-                if (!checkClear(world, xPos, yPos, zPos, height))
-                    return false;
+                //TODO Fix this for 1.7
+                //if (!checkClear(world, xPos, yPos, zPos, height))
+                //    return false;
 
                 soil.onPlantGrow(world, xPos, yPos - 1, zPos, xPos, yPos, zPos);
                 placeCanopy(world, random, xPos, yPos, zPos, height);
@@ -75,8 +76,8 @@ public class SlimeTreeGen extends WorldGenerator
             {
                 for (int zPos = range; zPos <= range; zPos++)
                 {
-                    Block block = world.getBlock(x + xPos, y + yPos, z + zPos);
-                    if (block != null && block != TRepo.slimeSapling && !block.isLeaves(world, x + xPos, y + yPos, z + zPos))
+                    Block blockID = world.getBlock(x + xPos, y + yPos, z + zPos);
+                    if (blockID != null && blockID != TRepo.slimeSapling && !blockID.isLeaves(world, x + xPos, y + yPos, z + zPos))
                         return false;
                 }
             }
@@ -90,8 +91,8 @@ public class SlimeTreeGen extends WorldGenerator
         int height = y;
         do
         {
-            Block heightBL = world.getBlock(x, height, z);
-            if ((heightBL == TRepo.craftedSoil || heightBL == TRepo.slimeGrass) && !world.getBlock(x, height + 1, z).isOpaqueCube())
+            Block heightID = world.getBlock(x, height, z);
+            if ((heightID == TRepo.craftedSoil || heightID == TRepo.slimeGrass) && !world.getBlock(x, height + 1, z).isOpaqueCube())
             {
                 ret = height + 1;
                 break;
@@ -117,7 +118,7 @@ public class SlimeTreeGen extends WorldGenerator
         this.setBlockAndMetadata(world, xPos - 1, yPos + height - 3, zPos + 1, Blocks.air, 0);
         this.setBlockAndMetadata(world, xPos - 1, yPos + height - 3, zPos - 1, Blocks.air, 0);
 
-        // Drippers
+        //Drippers
         this.setBlockAndMetadata(world, xPos + 3, yPos + height - 4, zPos, TRepo.slimeLeaves, this.metaLeaves);
         this.setBlockAndMetadata(world, xPos - 3, yPos + height - 4, zPos, TRepo.slimeLeaves, this.metaLeaves);
         this.setBlockAndMetadata(world, xPos, yPos + height - 4, zPos - 3, TRepo.slimeLeaves, this.metaLeaves);
@@ -155,27 +156,27 @@ public class SlimeTreeGen extends WorldGenerator
     {
         for (int localHeight = 0; localHeight < height; ++localHeight)
         {
-            Block block = world.getBlock(xPos, yPos + localHeight, zPos);
+            Block blockID = world.getBlock(xPos, yPos + localHeight, zPos);
 
-            if (block == null || block == Blocks.air || block.isLeaves(world, xPos, yPos + localHeight, zPos))
+            if (blockID == Blocks.air || blockID == null || blockID.isLeaves(world, xPos, yPos + localHeight, zPos))
             {
                 this.setBlockAndMetadata(world, xPos, yPos + localHeight, zPos, TRepo.slimeGel, this.metaWood);
             }
         }
     }
 
-    protected void setBlockAndMetadata (World world, int x, int y, int z, Block block, int blockMeta)
+    protected void setBlockAndMetadata (World world, int x, int y, int z, Block blockID, int blockMeta)
     {
-        Block blockWorld = world.getBlock(x, y, z);
-        if (blockWorld == null || blockWorld == Blocks.air || blockWorld.canPlaceBlockAt(world, x, y, z))
+        Block block = world.getBlock(x, y, z);
+        if (block == null || block.canPlaceBlockAt(world, x, y, z))
         {
             if (this.notify)
             {
-                world.setBlock(x, y, z, block, blockMeta, 3);
+                world.setBlock(x, y, z, blockID, blockMeta, 3);
             }
             else
             {
-                world.setBlock(x, y, z, block, blockMeta, 2);
+                world.setBlock(x, y, z, blockID, blockMeta, 2);
             }
         }
     }

@@ -6,8 +6,8 @@ import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import cpw.mods.fml.common.gameevent.TickEvent.Type;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TClientTickHandler
 {
@@ -15,22 +15,15 @@ public class TClientTickHandler
 
     TControls controlInstance = ((TProxyClient) TConstruct.proxy).controlInstance;
 
-    public TClientTickHandler()
-    {
-    }
-
+    @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void onTick (ClientTickEvent event)
+    public void tickEnd (ClientTickEvent event)
     {
-
-        if (event.phase.equals(Phase.END) && event.type.equals(Type.RENDER))
-        {
-            TRepo.oreBerry.setGraphicsLevel(Blocks.leaves.field_150121_P);
-            TRepo.oreBerrySecond.setGraphicsLevel(Blocks.leaves.field_150121_P);
-            TRepo.slimeLeaves.setGraphicsLevel(Blocks.leaves.field_150121_P);
-            if (mc.thePlayer != null && mc.thePlayer.onGround)
-                controlInstance.landOnGround();
-        }
+        TRepo.oreBerry.setGraphicsLevel(Blocks.leaves.field_150121_P);
+        TRepo.oreBerrySecond.setGraphicsLevel(Blocks.leaves.field_150121_P);
+        TRepo.slimeLeaves.setGraphicsLevel(Blocks.leaves.field_150121_P);
+        if (mc.thePlayer != null && mc.thePlayer.onGround)
+            controlInstance.landOnGround();
     }
 
     /*

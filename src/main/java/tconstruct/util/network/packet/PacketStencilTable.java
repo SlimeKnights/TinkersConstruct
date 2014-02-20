@@ -43,6 +43,7 @@ public class PacketStencilTable extends AbstractPacket
         x = buffer.readInt();
         y = buffer.readInt();
         z = buffer.readInt();
+        contents = ByteBufUtils.readItemStack(buffer);
     }
 
     @Override
