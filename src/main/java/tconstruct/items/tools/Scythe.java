@@ -38,7 +38,8 @@ public class Scythe extends Weapon
         return materials;
     }
 
-    static Material[] materials = new Material[] { Material.web, Material.cactus };// TODO find this//, Material.pumpkin,
+    static Material[] materials = new Material[] { Material.web, Material.cactus, Material.plants
+    	, Material.leaves, Material.vine };// TODO find this//, Material.pumpkin,
                                                                                    // Material.plants, Material.vine,
                                                                                    // Material.leaves };
 
@@ -179,10 +180,7 @@ public class Scythe extends Weapon
                         if (!cancelHarvest)
                         {
                             Block block = world.getBlock(xPos, yPos, zPos);
-                            if (block != null)// && (block.getMaterial() ==
-                                              // Material.leaves ||
-                                              // block.isLeaves(world, xPos,
-                                              // yPos, zPos)))
+                            if ((block != null))
                             {
                                 for (int iter = 0; iter < materials.length; iter++)
                                 {
