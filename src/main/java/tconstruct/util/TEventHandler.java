@@ -19,6 +19,7 @@ import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -33,6 +34,7 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
@@ -56,6 +58,7 @@ import tconstruct.library.tools.FletchingMaterial;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.Weapon;
 import tconstruct.util.config.PHConstruct;
+import tconstruct.util.player.ArmorExtended;
 import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.Event.Result;
@@ -288,20 +291,21 @@ public class TEventHandler
             event.drops.add(entityitem);
         }
 
-        // if
-        // (event.entityLiving.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot"))
-        // {
-        if (!event.entityLiving.isChild())
+        if (!event.entityLiving.isChild() && event.entityLiving.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot"))
         {
-            /*
-             * if (event.entityLiving.getClass() == EntityCow.class) { int
-             * amount = random.nextInt(3) + random.nextInt(1 +
-             * event.lootingLevel) + random.nextInt(3) + random.nextInt(1 +
-             * event.lootingLevel) + 1;
-             * 
-             * for (int iter = 0; iter < amount; ++iter) { addDrops(event, new
-             * ItemStack(Item.leather, 1)); } }
-             */
+            
+            if (event.entityLiving.getClass() == EntityCow.class) 
+            { 
+            	int amount = random.nextInt(3) + random.nextInt(1 +
+            		event.lootingLevel) + random.nextInt(3) + random.nextInt(1 +
+            		event.lootingLevel) + 1;
+            
+            	for (int iter = 0; iter < amount; ++iter) 
+            	{ 
+            		addDrops(event, new ItemStack(Items.leather, 1)); 
+            	} 
+            }
+             
 
             if (event.entityLiving.getClass() == EntityChicken.class)
             {
@@ -360,12 +364,13 @@ public class TEventHandler
                             addDrops(event, new ItemStack(Items.skull, 1, 2));
                         }
                     }
-                    /*
-                     * if (stack.getItem() == TRepo.breakerBlade &&
-                     * random.nextInt(100) < 10) //Swap out for real beheading {
-                     * addDrops(event, new ItemStack(Item.skull.itemID, 1, 2));
-                     * }
-                     */
+                    
+                     if (stack.getItem() == TRepo.cleaver &&
+                    		 random.nextInt(100) < 10) //Swap out for real beheading 
+                    	 {
+                    	 	addDrops(event, new ItemStack(Items.skull, 1, 2));
+                    	 }
+                     
                 }
             }
 
@@ -608,19 +613,31 @@ public class TEventHandler
     }
 
     // TODO 1.7 Fix this -- for ticking stuffs in extra armor slots
-    /*
-     * @SubscribeEvent public void livingUpdate (LivingUpdateEvent event) { if
-     * (event.entityLiving instanceof EntityPlayer) { EntityPlayer player =
-     * (EntityPlayer) event.entityLiving; TPlayerStats stats =
-     * TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
-     * 
-     * if (stats != null) { ArmorExtended armor = stats.armor; for (int i = 0; i
-     * < armor.getSizeInventory(); i++) { if (armor.getStackInSlot(i) != null) {
-     * armor.getStackInSlot(i).getItem().onUpdate(armor.getStackInSlot(i),
-     * player.worldObj, player, i, false);
-     * armor.getStackInSlot(i).getItem().onArmorTick(player.worldObj, player,
-     * armor.getStackInSlot(i)); } } } } }
-     */
+    
+     @SubscribeEvent 
+     public void livingUpdate (LivingUpdateEvent event) 
+     { if (event.entityLiving instanceof EntityPlayer) 
+     	{ 
+    	 EntityPlayer player = (EntityPlayer) event.entityLiving; 
+     	 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
+
+     	 if (stats != null) 
+     	 { 
+     		 ArmorExtended armor = stats.armor;
+     		 for (int i = 0; i < armor.getSizeInventory(); i++) 
+     		 {
+     			 if (armor.getStackInSlot(i) != null) 
+     			 {
+     				 armor.getStackInSlot(i).getItem().onUpdate(armor.getStackInSlot(i),
+     						 player.worldObj, player, i, false);
+     				 armor.getStackInSlot(i).getItem().onArmorTick(player.worldObj, player,
+     						 armor.getStackInSlot(i)); 
+     				 } 
+     			 } 
+     		 } 
+     	 } 
+     }
+
 
     // Player interact event - prevent breaking of tank air blocks in creative
     @SubscribeEvent

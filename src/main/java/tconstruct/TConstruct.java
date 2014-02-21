@@ -19,6 +19,7 @@ import tconstruct.library.crafting.Detailing;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.plugins.PluginController;
 import tconstruct.util.EnvironmentChecks;
+import tconstruct.util.TCraftingHandler;
 import tconstruct.util.TEventHandler;
 import tconstruct.util.TEventHandlerAchievement;
 import tconstruct.util.config.DimensionBlacklist;
@@ -85,7 +86,7 @@ public class TConstruct
     public TConstruct()
     {
 
-        // logger.setParent(FMLCommonHandler.instance().getFMLLogger());
+        //logger.setParent(FMLCommonHandler.instance().getFMLLogger());
         if (Loader.isModLoaded("Natura"))
         {
             logger.info("Natura, what are we going to do tomorrow night?");
@@ -132,7 +133,7 @@ public class TConstruct
         GameRegistry.registerWorldGenerator(new TBaseWorldGenerator(), 0);
         MinecraftForge.TERRAIN_GEN_BUS.register(new TerrainGenEventHandler());
         GameRegistry.registerFuelHandler(content);
-        // GameRegistry.registerCraftingHandler(new TCraftingHandler());
+        MinecraftForge.EVENT_BUS.register(new TCraftingHandler());
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 
         if (PHConstruct.addToVillages)

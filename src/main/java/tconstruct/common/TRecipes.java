@@ -80,6 +80,7 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.armor.EnumArmorPart;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.Detailing;
+import tconstruct.library.crafting.Detailing.DetailInput;
 import tconstruct.library.crafting.DryingRackRecipes;
 import tconstruct.library.crafting.FluidType;
 import tconstruct.library.crafting.LiquidCasting;
@@ -876,6 +877,14 @@ public class TRecipes
                 new ItemStack(TRepo.strangeFood, 1, 1), new ItemStack(TRepo.strangeFood, 1, 1), new ItemStack(Items.redstone));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TRepo.slimeChannel, 1, 0), "slimeball", "slimeball", "slimeball", "slimeball", new ItemStack(Items.redstone)));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TRepo.slimePad, 1, 0), TRepo.slimeChannel, "slimeball"));
+        
+        // Crafting Table detailing
+        Detailing detail = TConstruct.chiselDetailing;
+        
+        for (DetailInput inp : detail.detailing) {
+			GameRegistry.addShapelessRecipe(new ItemStack(inp.output.getItem(), inp.outputMeta), new ItemStack(inp.input.getItem(),
+					inp.inputMeta), TRepo.chisel);
+		}
     }
 
     protected static void addRecipesForDryingRack ()
