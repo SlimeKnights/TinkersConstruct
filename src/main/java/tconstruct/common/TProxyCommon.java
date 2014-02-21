@@ -100,10 +100,9 @@ public class TProxyCommon implements IGuiHandler
         // As of 1.6.x, this is now handled by Minecraft itself for the most
         // part.
 
-        LanguageRegistry.addName(TRepo.potionLauncher, "Potion Launcher");
-        LanguageRegistry.addName(TRepo.knapsack, "Knapsack");
+        //LanguageRegistry.addName(TRepo.potionLauncher, "Potion Launcher");
+        //LanguageRegistry.addName(TRepo.knapsack, "Knapsack");
 
-        LanguageRegistry.addName(TRepo.meatBlock, "Hambone");
     }
 
     public void readManuals ()
