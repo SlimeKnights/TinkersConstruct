@@ -2,6 +2,8 @@ package tconstruct.items;
 
 import java.util.List;
 
+import mantle.books.BookData;
+import mantle.client.gui.GuiManual;
 import mantle.items.abstracts.CraftingItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -9,7 +11,10 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
 import tconstruct.achievements.TAchievements;
+import tconstruct.client.TProxyClient;
 import tconstruct.library.TConstructRegistry;
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -30,17 +35,26 @@ public class Manual extends CraftingItem
     {
         player.addStat(TAchievements.achievements.get("tconstruct.beginner"), 1);
         player.openGui(TConstruct.instance, mantle.client.MProxyClient.manualGuiID, world, 0, 0, 0);
-        /*
-         * Side side = FMLCommonHandler.instance().getEffectiveSide(); if
-         * (side.isClient())
-         * FMLClientHandler.instance().displayGuiScreen(player, new
-         * GuiManual(player.getCurrentEquippedItem(),
-         * getManualFromStack(stack)));
-         */
-        return stack;
+         Side side = FMLCommonHandler.instance().getEffectiveSide(); 
+         if (side.isClient())
+        	 FMLClientHandler.instance().displayGuiScreen(player, new GuiManual(stack, getData(stack)));
+         return stack;
     }
 
-    @Override
+    private BookData getData(ItemStack stack) {
+    	switch(stack.getItemDamage()) {
+    	case 0:
+    		return TProxyClient.manualData.beginner;
+    	case 1:
+    		return TProxyClient.manualData.toolStation;
+    	case 2:
+    		return TProxyClient.manualData.smeltery;
+    	default:
+    		return TProxyClient.manualData.diary;
+    	}
+    }
+
+	@Override
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
