@@ -621,7 +621,7 @@ public class TEventHandler
     	 EntityPlayer player = (EntityPlayer) event.entityLiving; 
      	 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
 
-     	 if (stats != null) 
+     	 if (stats != null && stats.armor != null) 
      	 { 
      		 ArmorExtended armor = stats.armor;
      		 for (int i = 0; i < armor.getSizeInventory(); i++) 
