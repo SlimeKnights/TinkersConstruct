@@ -58,28 +58,17 @@ configFile.withReader {
     prop.load(it)
     project.ext.config = new ConfigSlurper().parse prop
 }
-
-ext.artifact_version_override = 'NotUsed'
-//gitignored config file -- if this has the entry for override it will override the version for local builds
-//create a file called version.properties with the line artifact_version_override=NotUsed
-//replace not used w/ version #'s for manual local overrides
-ext.configFile2 = file "version.properties"
-if (configFile2.exists()){
-    configFile2.withReader {
-        def prop2 = new Properties()
-        prop2.load(it)
-        ext.GIVersionFL = new ConfigSlurper().parse prop2
-        if (GIVersionFL != null){
-            project.artifact_version_override = GIVersionFL.artifact_version_override
-        }
-    }
+configurations {
+    deployerJars
 }
+
 
 dependencies {
     compile "mantle:Mantle:${config.minecraft_version}-${config.mantle_version}:deobf"
     //compile name: 'ForgeMultipart', version: "${config.minecraft_version}-${config.FMP_version}", ext: 'jar'
     //compile name: 'CodeChickenLib', version: "${config.minecraft_version}-${config.CCLIB_version}", ext: 'jar'
     //compile name: 'NotEnoughItems', version: "${config.NEI_version}", type: 'jar'
+	deployerJars 'org.apache.maven.wagon:wagon-ssh-external:2.2'
 }
 
 // Finds and sets version data
@@ -94,21 +83,19 @@ task buildInfo {
     }
 
     if (System.getenv().BUILD_NUMBER != null) {
-        ext.buildNum = System.getenv().BUILD_NUMBER
+        ext.buildNum = "jenkins${System.getenv().BUILD_NUMBER}"
     } else {
-        ext.buildNum = "DEV"
+        ext.buildNum = "DEV.${project.buildInfo.revision}"
     }
 }
 ext.artifact_version = 'NFG'
-if (System.getenv().ARTIFACT_VERSION == null && artifact_version_override == 'NotUsed') {
-    artifact_version = "${project.buildInfo.buildNum}.${project.buildInfo.revision}"
+if (System.getenv().ARTIFACT_VERSION == null) {
+    artifact_version = "${config.mod_version}.${project.buildInfo.buildNum}"
 }
-if (System.getenv().ARTIFACT_VERSION != null && artifact_version_override == 'NotUsed') {
+if (System.getenv().ARTIFACT_VERSION != null) {
     artifact_version = "${system.getenv().ARTIFACT_VERSION}"
 }
-if (artifact_version_override != 'NotUsed') {
-    artifact_version = "${artifact_version_override}"
-}
+
 version = "${config.minecraft_version}-${artifact_version}"
 
 minecraft {
@@ -175,7 +162,10 @@ if (!project.hasProperty("keystore_location")) // keystore location
     
 if (!project.hasProperty("keystore_user_alias")) // keystore user alias
     ext.keystore_user_alias = "";
-    
+if (!project.hasProperty("sftp_username"))
+    ext.sftp_username = "";
+if (!project.hasProperty("sftp_key"))
+    ext.sftp_key = "";
 if (!project.hasProperty("keystore_user_password")) // keystore user pass
     ext.keystore_user_password = "";
 if (System.getenv().KSK_PW != null && !project.hasProperty("keystore_user_password"))
@@ -205,19 +195,31 @@ task("signJar", dependsOn: "build")
     }
 }
 
+
+
 task("uploadJars", dependsOn:"signJar") {
     
     description = "uploads JARs"
 
-    if (project.hasProperty("local_maven")) {
+    if (project.hasProperty("local_maven") || project.hasProperty("sftp_maven")) {
 	    apply plugin: 'maven'
-            uploadArchives {
-                repositories {
+        uploadArchives {
+            repositories {
+		    	if(project.hasProperty("local_maven"))
+			    {
                     mavenDeployer {
                         repository(url: "file://${local_maven}")
+				    }
+                }
+				if(project.hasProperty("sftp_maven")) {
+                    repositories.mavenDeployer {
+					    configuration = configurations.deployerJars
+                        repository(url: "sftp://${sftp_maven}")
+						authentication(userName: "${project.sftp_username}",privateKey: ${project.sftp_key})
+				    }
                 }
             }
-        }
+        }    
     }
 }
 
