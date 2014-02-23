@@ -191,7 +191,7 @@ task("signJar", dependsOn: "build")
             jar: jar.getArchivePath(),
             keystore: keystore_location,
             alias: keystore_user_alias,
-            storepass: keystore_user_password
+            storepass: keystore_user_password,
 			keypass: keystore_user_password
         )
     }
