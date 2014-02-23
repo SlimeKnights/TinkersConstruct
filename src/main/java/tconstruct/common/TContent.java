@@ -2255,6 +2255,39 @@ public class TContent implements IFuelHandler
                 RecipeRemover.removeAnyRecipe(new ItemStack(Item.hoeGold));
                 RecipeRemover.removeAnyRecipe(new ItemStack(Item.swordGold));
             }
+            
+            if (PHConstruct.labotimizeVanillaTools)
+            {
+                Item.pickaxeWood.setMaxDamage(1);
+                Item.axeWood.setMaxDamage(1);
+                Item.shovelWood.setMaxDamage(1);
+                Item.hoeWood.setMaxDamage(1);
+                Item.swordWood.setMaxDamage(1);
+                
+                Item.pickaxeStone.setMaxDamage(1);
+                Item.axeStone.setMaxDamage(1);
+                Item.shovelStone.setMaxDamage(1);
+                Item.hoeStone.setMaxDamage(1);
+                Item.swordStone.setMaxDamage(1);
+                
+                Item.pickaxeIron.setMaxDamage(1);
+                Item.axeIron.setMaxDamage(1);
+                Item.shovelIron.setMaxDamage(1);
+                Item.hoeIron.setMaxDamage(1);
+                Item.swordIron.setMaxDamage(1);
+                
+                Item.pickaxeDiamond.setMaxDamage(1);
+                Item.axeDiamond.setMaxDamage(1);
+                Item.shovelDiamond.setMaxDamage(1);
+                Item.hoeDiamond.setMaxDamage(1);
+                Item.swordDiamond.setMaxDamage(1);
+                
+                Item.pickaxeGold.setMaxDamage(1);
+                Item.axeGold.setMaxDamage(1);
+                Item.shovelGold.setMaxDamage(1);
+                Item.hoeGold.setMaxDamage(1);
+                Item.swordGold.setMaxDamage(1);
+            }
         }
     }
 
