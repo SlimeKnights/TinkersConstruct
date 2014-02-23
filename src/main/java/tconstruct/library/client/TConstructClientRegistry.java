@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import tconstruct.library.TConstructRegistry;
@@ -15,7 +16,6 @@ public class TConstructClientRegistry
     public static ArrayList<ToolGuiElement> toolButtons = new ArrayList<ToolGuiElement>(20);
     public static ArrayList<ToolGuiElement> tierTwoButtons = new ArrayList<ToolGuiElement>();
     public static Map<String, ItemStack> manualIcons = new HashMap<String, ItemStack>();
-    public static Map<String, ItemStack[]> recipeIcons = new HashMap<String, ItemStack[]>();
     public static ItemStack defaultStack = new ItemStack(Items.iron_ingot);
 
     public static void addMaterialRenderMapping (int materialID, String domain, String renderName, boolean useDefaultFolder)
@@ -90,7 +90,7 @@ public class TConstructClientRegistry
         recipe[0] = ToolBuilder.instance.buildTool(output, topinput, bottominput, "");
         recipe[1] = topinput;
         recipe[2] = bottominput;
-        recipeIcons.put(name, recipe);
+        MantleClientRegistry.recipeIcons.put(name, recipe);
     }
 
     public static void registerManualSmeltery (String name, ItemStack output, ItemStack liquid, ItemStack cast)
@@ -99,7 +99,7 @@ public class TConstructClientRegistry
         recipe[0] = output;
         recipe[1] = liquid;
         recipe[2] = cast;
-        recipeIcons.put(name, recipe);
+        MantleClientRegistry.recipeIcons.put(name, recipe);
     }
 
     //Gui
