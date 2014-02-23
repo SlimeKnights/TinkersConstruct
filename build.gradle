@@ -182,7 +182,8 @@ task("signJar", dependsOn: "build")
     onlyIf {
         return keystore_location != "."
     }
-	print jar.getArchivePath()
+	println "archive path >> "+jar.getArchivePath()
+	println jar.getArchivePath()
     // the actual action.. sign the jar.
     doLast {
         ant.signjar(
