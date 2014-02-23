@@ -192,6 +192,7 @@ task("signJar", dependsOn: "build")
             keystore: keystore_location,
             alias: keystore_user_alias,
             storepass: keystore_user_password
+			keypass: keystore_user_password
         )
     }
 }
