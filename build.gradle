@@ -68,7 +68,7 @@ dependencies {
     //compile name: 'ForgeMultipart', version: "${config.minecraft_version}-${config.FMP_version}", ext: 'jar'
     //compile name: 'CodeChickenLib', version: "${config.minecraft_version}-${config.CCLIB_version}", ext: 'jar'
     //compile name: 'NotEnoughItems', version: "${config.NEI_version}", type: 'jar'
-	deployerJars 'org.apache.maven.wagon:wagon-ssh-external:2.2'
+	deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 }
 
 // Finds and sets version data
@@ -168,7 +168,7 @@ if (!project.hasProperty("sftp_key"))
     ext.sftp_key = "";
 if (!project.hasProperty("keystore_user_password")) // keystore user pass
     ext.keystore_user_password = "";
-if (System.getenv().KSK_PW != null && !project.hasProperty("keystore_user_password"))
+if (System.getenv().KSK_PW != null && project.keystore_user_password != "")
 	ext.keystore_user_password =System.getenv().KSK_PW;
 task("signJar", dependsOn: "build")
 {
