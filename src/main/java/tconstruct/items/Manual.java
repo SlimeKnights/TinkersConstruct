@@ -34,27 +34,31 @@ public class Manual extends CraftingItem
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
         player.addStat(TAchievements.achievements.get("tconstruct.beginner"), 1);
-        player.openGui(TConstruct.instance, mantle.client.MProxyClient.manualGuiID, world, 0, 0, 0);
-         Side side = FMLCommonHandler.instance().getEffectiveSide(); 
-         if (side.isClient())
-        	 FMLClientHandler.instance().displayGuiScreen(player, new GuiManual(stack, getData(stack)));
-         return stack;
+        Side side = FMLCommonHandler.instance().getEffectiveSide();
+        if (side.isClient())
+        {
+            player.openGui(TConstruct.instance, mantle.client.MProxyClient.manualGuiID, world, 0, 0, 0);
+            FMLClientHandler.instance().displayGuiScreen(player, new GuiManual(stack, getData(stack)));
+        }
+        return stack;
     }
 
-    private BookData getData(ItemStack stack) {
-    	switch(stack.getItemDamage()) {
-    	case 0:
-    		return TProxyClient.manualData.beginner;
-    	case 1:
-    		return TProxyClient.manualData.toolStation;
-    	case 2:
-    		return TProxyClient.manualData.smeltery;
-    	default:
-    		return TProxyClient.manualData.diary;
-    	}
+    private BookData getData (ItemStack stack)
+    {
+        switch (stack.getItemDamage())
+        {
+        case 0:
+            return TProxyClient.manualData.beginner;
+        case 1:
+            return TProxyClient.manualData.toolStation;
+        case 2:
+            return TProxyClient.manualData.smeltery;
+        default:
+            return TProxyClient.manualData.diary;
+        }
     }
 
-	@Override
+    @Override
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
