@@ -215,7 +215,7 @@ task("uploadJars", dependsOn:"signJar") {
                     repositories.mavenDeployer {
 					    configuration = configurations.deployerJars
                         repository(url: "sftp://${sftp_maven}")
-						authentication(userName: "${project.sftp_username}",privateKey: ${project.sftp_key})
+						authentication(userName: "${sftp_username}",privateKey: "${sftp_key}")
 				    }
                 }
             }
