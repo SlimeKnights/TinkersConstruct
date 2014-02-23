@@ -135,6 +135,8 @@ item.oreberry.essence.name=Konzentrierte Essenzbeere
 item.goldenhead.name=Goldener Kopf
 item.tconstruct.titleicon.name=Erschaffe 
 
+tile.tconstruct.meatblock.name=Knochenschinken
+
 item.InfiTool.Pickaxe.name=Spitzhacke
 item.InfiTool.Shovel.name=Schaufel
 item.InfiTool.Axe.name=Beil
@@ -385,6 +387,7 @@ block.slime.grass.dirt.name=Schleimiges Gras
 block.slime.tallgrass.name=Schleimiges Gras
 block.slime.congealed.blue.name=Erstarrter Blauschleim
 block.slime.congealed.green.name=Erstarrter Grüner Schleim
+block.slime.congealed.purple.name=Erstarrter Violetter Schleim
 
 item.tconstruct.storage.knapsack.name=Rucksack
 item.tconstruct.blankpattern.pattern.name=Leere Schablone
