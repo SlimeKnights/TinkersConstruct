@@ -31,15 +31,13 @@ public class Manual extends CraftingItem
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
         player.addStat(TAchievements.achievements.get("tconstruct.beginner"), 1);
         Side side = FMLCommonHandler.instance().getEffectiveSide();
-        if (side.isClient())
-        {
-            player.openGui(TConstruct.instance, mantle.client.MProxyClient.manualGuiID, world, 0, 0, 0);
-            FMLClientHandler.instance().displayGuiScreen(player, new GuiManual(stack, getData(stack)));
-        }
+        player.openGui(TConstruct.instance, mantle.client.MProxyClient.manualGuiID, world, 0, 0, 0);
+        FMLClientHandler.instance().displayGuiScreen(player, new GuiManual(stack, getData(stack)));
         return stack;
     }
 
