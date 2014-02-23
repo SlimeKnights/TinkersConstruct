@@ -125,4 +125,9 @@ public class TProxyCommon implements IGuiHandler
     {
 
     }
+    
+    public void recalculateHealth()
+    {
+        
+    }
 }

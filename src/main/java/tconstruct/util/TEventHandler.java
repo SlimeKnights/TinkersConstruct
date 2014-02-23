@@ -7,7 +7,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityLivingData;
-import net.minecraft.entity.boss.EntityWither;
+import net.minecraft.entity.boss.EntityDragon;
+import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -40,19 +41,24 @@ import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
-
-import tconstruct.*;
-import tconstruct.achievements.*;
-import tconstruct.blocks.*;
-import tconstruct.common.*;
-import tconstruct.items.tools.*;
-import tconstruct.library.*;
-import tconstruct.library.crafting.*;
-import tconstruct.library.event.*;
-import tconstruct.library.tools.*;
-import tconstruct.modifiers.*;
-import tconstruct.util.config.*;
-import tconstruct.util.player.*;
+import tconstruct.TConstruct;
+import tconstruct.achievements.TAchievements;
+import tconstruct.blocks.LiquidMetalFinite;
+import tconstruct.blocks.TankAirBlock;
+import tconstruct.common.TContent;
+import tconstruct.entity.BlueSlime;
+import tconstruct.items.tools.FryingPan;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.event.PartBuilderEvent;
+import tconstruct.library.event.ToolCraftEvent;
+import tconstruct.library.tools.ArrowMaterial;
+import tconstruct.library.tools.BowMaterial;
+import tconstruct.library.tools.BowstringMaterial;
+import tconstruct.library.tools.FletchingMaterial;
+import tconstruct.library.tools.ToolCore;
+import tconstruct.library.tools.Weapon;
+import tconstruct.util.config.PHConstruct;
+import tconstruct.util.player.TPlayerStats;
 
 public class TEventHandler
 {
@@ -247,7 +253,7 @@ public class TEventHandler
     {
         if (event.entityLiving == null)
             return;
-        
+
         if (event.source.getEntity() != null && event.source.getEntity() instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer) event.source.getEntity();
@@ -270,7 +276,7 @@ public class TEventHandler
             }
         }
 
-        if (random.nextInt(500) == 0 && event.entityLiving instanceof IMob)
+        if (random.nextInt(200) == 0 && event.entityLiving instanceof IMob && event.source.damageType.equals("player"))
         {
             ItemStack dropStack = new ItemStack(TContent.heartCanister, 1, 1);
             EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
@@ -278,16 +284,24 @@ public class TEventHandler
             event.drops.add(entityitem);
         }
 
-        if (event.entityLiving instanceof EntityWither && random.nextInt(5) == 0)
+        if (event.entityLiving instanceof IBossDisplayData)
         {
-            ItemStack dropStack = new ItemStack(TContent.heartCanister, 1, 1);
-            EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
-            entityitem.delayBeforeCanPickup = 10;
-            event.drops.add(entityitem);
+            if (event.entityLiving instanceof BlueSlime)
+            {
+                BlueSlime slime = (BlueSlime) event.entityLiving;
+                if (slime.getSlimeSize() < 8)
+                    return;
+            }
+            int count = event.entityLiving instanceof EntityDragon ? 5 : 1;
+            for (int i = 0; i < count; i++)
+            {
+                ItemStack dropStack = new ItemStack(TContent.heartCanister, 1, 3);
+                EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
+                entityitem.delayBeforeCanPickup = 10;
+                event.drops.add(entityitem);
+            }
         }
 
-        //if (event.entityLiving.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot"))
-        //{
         if (!event.entityLiving.isChild())
         {
             /*if (event.entityLiving.getClass() == EntityCow.class)
@@ -403,7 +417,6 @@ public class TEventHandler
                 addDrops(event, new ItemStack(Item.ghastTear, 1));
             }
         }
-        //}
 
         if (event.entityLiving instanceof EntityPlayer)
         {

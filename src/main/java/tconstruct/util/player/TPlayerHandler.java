@@ -1,6 +1,8 @@
 package tconstruct.util.player;
 
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutput;
+import java.io.DataOutputStream;
 import java.lang.ref.WeakReference;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
@@ -122,13 +125,20 @@ public class TPlayerHandler implements IPlayerTracker
         updatePlayerInventory(entityplayer, stats);
     }
 
-    void updatePlayerInventory (EntityPlayer entityplayer, TPlayerStats stats)
+    void updatePlayerInventory (EntityPlayer player, TPlayerStats stats)
     {
-
-    }
-
-    void updateClientPlayer (ByteArrayOutputStream bos, EntityPlayer player)
-    {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+        DataOutputStream outputStream = new DataOutputStream(bos);
+        try
+        {
+            outputStream.writeByte(4);
+            stats.armor.writeInventoryToStream(outputStream);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        
         Packet250CustomPayload packet = new Packet250CustomPayload();
         packet.channel = "TConstruct";
         packet.data = bos.toByteArray();
@@ -147,6 +157,7 @@ public class TPlayerHandler implements IPlayerTracker
     public void onPlayerChangedDimension (EntityPlayer entityplayer)
     {
         savePlayerStats(entityplayer, false);
+        updatePlayerInventory(entityplayer, getPlayerStats(entityplayer.username));
     }
 
     void savePlayerStats (EntityPlayer player, boolean clean)
@@ -198,6 +209,8 @@ public class TPlayerHandler implements IPlayerTracker
             if (PHConstruct.keepHunger)
                 entityplayer.getFoodStats().setFoodLevel(stats.hunger);
         }
+
+        updatePlayerInventory(entityplayer, getPlayerStats(entityplayer.username));
     }
 
     @ForgeSubscribe

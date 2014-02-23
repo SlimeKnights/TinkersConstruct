@@ -968,4 +968,8 @@ public class TProxyClient extends TProxyCommon
         //MinecraftForgeClient.registerItemRenderer(TContent.armorPattern.itemID, new RenderArmorCast());
     }
 
+    public void recalculateHealth()
+    {
+        armorExtended.recalculateHealth(mc.thePlayer, TConstruct.playerTracker.getPlayerStats(mc.thePlayer.username));
+    }
 }

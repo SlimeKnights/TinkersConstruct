@@ -969,10 +969,11 @@ public class TContent implements IFuelHandler
         GameRegistry.registerItem(oreBerries, "oreBerries");
 
         boolean foodOverhaul = false;
-        if (Loader.isModLoaded("HungerOverhaul") || Loader.isModLoaded("fc_food")) {
+        if (Loader.isModLoaded("HungerOverhaul") || Loader.isModLoaded("fc_food"))
+        {
             foodOverhaul = true;
         }
-        
+
         jerky = new Jerky(PHConstruct.jerky, foodOverhaul).setUnlocalizedName("tconstruct.jerky");
         GameRegistry.registerItem(jerky, "jerky");
 
@@ -1178,7 +1179,7 @@ public class TContent implements IFuelHandler
         addRecipesForDryingRack();
     }
 
-	private void addRecipesForCraftingTable ()
+    private void addRecipesForCraftingTable ()
     {
         String[] patBlock = { "###", "###", "###" };
         String[] patSurround = { "###", "#m#", "###" };
@@ -1407,6 +1408,9 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(diamondApple), " d ", "d#d", " d ", 'd', new ItemStack(Item.diamond), '#', new ItemStack(Item.appleRed));
         GameRegistry.addShapelessRecipe(new ItemStack(heartCanister, 1, 2), new ItemStack(diamondApple), new ItemStack(materials, 1, 8), new ItemStack(heartCanister, 1, 0), new ItemStack(
                 heartCanister, 1, 1));
+        GameRegistry.addShapelessRecipe(new ItemStack(heartCanister, 1, 4), new ItemStack(heartCanister, 1, 2), new ItemStack(heartCanister, 1, 3), new ItemStack(
+                Item.appleGold, 1, 1));
+        //GameRegistry.addShapelessRecipe(new ItemStack(heartCanister, 1, 6), new ItemStack(heartCanister, 1, 0), new ItemStack(heartCanister, 1, 4), new ItemStack(heartCanister, 1, 5));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', "ingotGold"));
         GameRegistry.addRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', aluBrass);
         // Drying Rack Recipes
@@ -1518,7 +1522,7 @@ public class TContent implements IFuelHandler
         FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 4, new ItemStack(materials, 1, 11), 0.2f);
 
         FurnaceRecipes.smelting().addSmelting(speedBlock.blockID, 0, new ItemStack(speedBlock, 1, 2), 0.2f);
-        
+
         FurnaceRecipes.smelting().addSmelting(materials.itemID, 38, new ItemStack(materials, 1, 4), 0.2f);
         FurnaceRecipes.smelting().addSmelting(materials.itemID, 39, new ItemStack(materials, 1, 3), 0.2f);
         FurnaceRecipes.smelting().addSmelting(materials.itemID, 40, new ItemStack(materials, 1, 11), 0.2f);
@@ -1792,7 +1796,6 @@ public class TContent implements IFuelHandler
         Smeltery.addAlloyMixing(new FluidStack(pigIronFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsPigironAlloy), new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue),
                 new FluidStack(moltenEmeraldFluid, 640), new FluidStack(bloodFluid, 80)); //Pigiron
         Smeltery.addAlloyMixing(new FluidStack(moltenObsidianFluid, TConstruct.oreLiquidValue), new FluidStack(FluidRegistry.LAVA, 1000), new FluidStack(FluidRegistry.WATER, 1000)); //Obsidian
-        
 
         // Stone parts
         for (int sc = 0; sc < patternOutputs.length; sc++)
@@ -1835,7 +1838,7 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.cauldron), 0, TConstruct.ingotLiquidValue * 7);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.shears), 0, TConstruct.ingotLiquidValue * 2);
         Smeltery.addMelting(FluidType.Emerald, new ItemStack(Item.emerald), -50, 640);
-        
+
         Smeltery.addMelting(FluidType.Ardite, new ItemStack(materials, 1, 38), 0, TConstruct.ingotLiquidValue);
         Smeltery.addMelting(FluidType.Cobalt, new ItemStack(materials, 1, 39), 0, TConstruct.ingotLiquidValue);
         Smeltery.addMelting(FluidType.Aluminum, new ItemStack(materials, 1, 40), 0, TConstruct.ingotLiquidValue);
@@ -2112,7 +2115,7 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("nuggetGold", new ItemStack(oreBerries, 1, 1));
         ensureOreIsRegistered("nuggetGold", new ItemStack(Item.goldNugget));
         OreDictionary.registerOre("nuggetPigIron", new ItemStack(materials, 1, 35));
-        
+
         OreDictionary.registerOre("dustArdite", new ItemStack(materials, 1, 38));
         OreDictionary.registerOre("dustCobalt", new ItemStack(materials, 1, 39));
         OreDictionary.registerOre("dustAluminium", new ItemStack(materials, 1, 40));
@@ -2209,7 +2212,7 @@ public class TContent implements IFuelHandler
         {
             AEImcHandler.registerForSpatialIO();
         }
-        
+
         addTE3Recipes();
     }
 
@@ -2603,26 +2606,26 @@ public class TContent implements IFuelHandler
         }
 
     }
-    
-    private void addTE3Recipes()
+
+    private void addTE3Recipes ()
     {
-    	if(Loader.isModLoaded("ThermalExpansion"))
-    	{
-			ItemStack crystalCinnabar = OreDictionary.getOres("crystalCinnabar").get(0);
-			
-			TE3Helper.addPulveriserRecipe(1000, new ItemStack(materials, 1, 11), new ItemStack(materials, 1, 40), null, 0);
-			TE3Helper.addPulveriserRecipe(1000, new ItemStack(materials, 1, 3), new ItemStack(materials, 1, 39), null, 0);
-			TE3Helper.addPulveriserRecipe(1000, new ItemStack(materials, 1, 4), new ItemStack(materials, 1, 38), null, 0);
-			
-			TE3Helper.addPulveriserRecipe(12000, new ItemStack(oreSlag, 1, 1), new ItemStack(materials, 2, 39), GameRegistry.findItemStack("ThermalExpansion", "dustIron", 1), 10);
-			TE3Helper.addInductionSmelterRecipe(12000, new ItemStack(oreSlag, 1, 1), crystalCinnabar.copy(), new ItemStack(materials, 3, 3), new ItemStack(Item.ingotIron), 100);
-			TE3Helper.addPulveriserRecipe(12000, new ItemStack(oreSlag, 1, 2), new ItemStack(materials, 2, 38), GameRegistry.findItemStack("ThermalExpansion", "dustGold", 1), 10);
-			TE3Helper.addInductionSmelterRecipe(12000, new ItemStack(oreSlag, 1, 2), crystalCinnabar.copy(), new ItemStack(materials, 3, 4), new ItemStack(Item.ingotGold), 100);
-			
-			TE3Helper.addInductionSmelterRecipe(4000, new ItemStack(materials, 1, 4), new ItemStack(materials, 1, 3), new ItemStack(materials, 1, 18), null, 0);
-			TE3Helper.addInductionSmelterRecipe(4000, new ItemStack(materials, 1, 9), new ItemStack(materials, 3, 11), new ItemStack(materials, 4, 14), null, 0);
-    	}
-	}
+        if (Loader.isModLoaded("ThermalExpansion"))
+        {
+            ItemStack crystalCinnabar = OreDictionary.getOres("crystalCinnabar").get(0);
+
+            TE3Helper.addPulveriserRecipe(1000, new ItemStack(materials, 1, 11), new ItemStack(materials, 1, 40), null, 0);
+            TE3Helper.addPulveriserRecipe(1000, new ItemStack(materials, 1, 3), new ItemStack(materials, 1, 39), null, 0);
+            TE3Helper.addPulveriserRecipe(1000, new ItemStack(materials, 1, 4), new ItemStack(materials, 1, 38), null, 0);
+
+            TE3Helper.addPulveriserRecipe(12000, new ItemStack(oreSlag, 1, 1), new ItemStack(materials, 2, 39), GameRegistry.findItemStack("ThermalExpansion", "dustIron", 1), 10);
+            TE3Helper.addInductionSmelterRecipe(12000, new ItemStack(oreSlag, 1, 1), crystalCinnabar.copy(), new ItemStack(materials, 3, 3), new ItemStack(Item.ingotIron), 100);
+            TE3Helper.addPulveriserRecipe(12000, new ItemStack(oreSlag, 1, 2), new ItemStack(materials, 2, 38), GameRegistry.findItemStack("ThermalExpansion", "dustGold", 1), 10);
+            TE3Helper.addInductionSmelterRecipe(12000, new ItemStack(oreSlag, 1, 2), crystalCinnabar.copy(), new ItemStack(materials, 3, 4), new ItemStack(Item.ingotGold), 100);
+
+            TE3Helper.addInductionSmelterRecipe(4000, new ItemStack(materials, 1, 4), new ItemStack(materials, 1, 3), new ItemStack(materials, 1, 18), null, 0);
+            TE3Helper.addInductionSmelterRecipe(4000, new ItemStack(materials, 1, 9), new ItemStack(materials, 3, 11), new ItemStack(materials, 4, 14), null, 0);
+        }
+    }
 
     public void addAchievements ()
     {

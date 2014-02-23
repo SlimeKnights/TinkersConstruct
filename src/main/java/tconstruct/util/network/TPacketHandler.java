@@ -18,6 +18,7 @@ import tconstruct.TConstruct;
 import tconstruct.blocks.logic.SmelteryLogic;
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
+import tconstruct.client.TProxyClient;
 import tconstruct.library.blocks.InventoryLogic;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IPacketHandler;
@@ -121,6 +122,12 @@ public class TPacketHandler implements IPacketHandler
                     player.openGui(TConstruct.instance, TConstruct.proxy.knapsackGuiID, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
                     break;
                 }
+            }
+            
+            else if (packetID == 4) //Sync inventory
+            {
+                TProxyClient.armorExtended.readInventoryFromStream(inputStream);
+                TProxyClient.armorExtended.recalculateHealth(player, TConstruct.playerTracker.getPlayerStats(player.username));
             }
 
             else if (packetID == 10) //Double jump

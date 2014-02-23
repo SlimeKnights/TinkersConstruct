@@ -1,7 +1,10 @@
 package tconstruct.util.player;
 
-import java.util.UUID;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.UUID;
 
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeInstance;
@@ -11,9 +14,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.MathHelper;
+import net.minecraft.network.packet.Packet;
 import tconstruct.TConstruct;
-import tconstruct.common.TContent;
+import tconstruct.library.IHealthAccessory;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 
@@ -155,39 +158,41 @@ public class ArmorExtended implements IInventory
     {
         Side side = FMLCommonHandler.instance().getEffectiveSide();
 
-        if (inventory[6] != null && inventory[6].getItem() == TContent.heartCanister)
+        if (inventory[4] != null && inventory[5] != null && inventory[6] != null)
         {
-            ItemStack stack = inventory[6];
-            int meta = stack.getItemDamage();
-            //TConstruct.logger.info("Calculating HP on side " + FMLCommonHandler.instance().getEffectiveSide());
-            if (meta == 2)
+            int bonusHP = 0;
+            for (int i = 0; i < 3; i++)
             {
-                int prevHealth = stats.bonusHealth;
-                if (side == Side.CLIENT)
-                    prevHealth = stats.bonusHealthClient;
-
-                int bonusHP = stack.stackSize * 2;
-                if (side == Side.CLIENT)
-                    stats.bonusHealthClient = bonusHP;
-                else
-                    stats.bonusHealth = bonusHP;
-
-                int healthChange = bonusHP - prevHealth;
-                //TConstruct.logger.info("healthChange: "+healthChange+" on side "+FMLCommonHandler.instance().getEffectiveSide());
-                if (healthChange != 0)
+                ItemStack stack = inventory[i+4];
+                if (stack != null && stack.getItem() instanceof IHealthAccessory)
                 {
-                    AttributeInstance attributeinstance = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth);
-                    try
-                    {
-                        attributeinstance.removeModifier(attributeinstance.getModifier(globalID));
-                    }
-                    catch (Exception e)
-                    {
-                    }
-
-                    attributeinstance.applyModifier(new AttributeModifier(globalID, "tconstruct.heartCanister", bonusHP, 0));
+                    bonusHP += ((IHealthAccessory)stack.getItem()).getHealthBoost(stack);
                 }
             }
+            int prevHealth = stats.bonusHealth;
+            if (side == Side.CLIENT)
+                prevHealth = stats.bonusHealthClient;
+
+            if (side == Side.CLIENT)
+                stats.bonusHealthClient = bonusHP;
+            else
+                stats.bonusHealth = bonusHP;
+
+            int healthChange = bonusHP - prevHealth;
+            if (healthChange != 0)
+            {
+                AttributeInstance attributeinstance = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth);
+                try
+                {
+                    attributeinstance.removeModifier(attributeinstance.getModifier(globalID));
+                }
+                catch (Exception e)
+                {
+                }
+
+                attributeinstance.applyModifier(new AttributeModifier(globalID, "tconstruct.heartCanister", bonusHP, 0));
+            }
+
         }
         else if (parent != null && parent.get() != null)
         {
@@ -283,5 +288,17 @@ public class ArmorExtended implements IInventory
                 this.inventory[i] = null;
             }
         }
+    }
+
+    public void writeInventoryToStream (DataOutputStream os) throws IOException
+    {
+        for (int i = 0; i < 7; i++)
+            Packet.writeItemStack(inventory[i], os);
+    }
+
+    public void readInventoryFromStream (DataInputStream is) throws IOException
+    {
+        for (int i = 0; i < 7; i++)
+            inventory[i] = Packet.readItemStack(is);
     }
 }
