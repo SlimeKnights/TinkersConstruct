@@ -134,6 +134,8 @@ item.oreberry.essence.name=Concentrated Essence Berry
 item.goldenhead.name=Golden Head
 item.tconstruct.titleicon.name=Spawn
 
+tile.tconstruct.meatblock.name=Hambone
+
 item.InfiTool.Pickaxe.name=Pickaxe
 item.InfiTool.Shovel.name=Shovel
 item.InfiTool.Axe.name=Hatchet
@@ -388,6 +390,7 @@ block.slime.grass.dirt.name=Slimy Grass
 block.slime.tallgrass.name=Slimy Grass
 block.slime.congealed.blue.name=Congealed Blue Slime
 block.slime.congealed.green.name=Congealed Green Slime
+block.slime.congealed.purple.name=Congealed Purple Slime
 
 item.tconstruct.storage.knapsack.name=Knapsack  
 item.tconstruct.blankpattern.pattern.name=Blank Pattern
