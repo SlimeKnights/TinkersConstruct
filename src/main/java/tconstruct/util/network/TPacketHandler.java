@@ -126,6 +126,7 @@ public class TPacketHandler implements IPacketHandler
             
             else if (packetID == 4) //Sync inventory
             {
+                System.out.println("Syncing inventory");
                 TProxyClient.armorExtended.readInventoryFromStream(inputStream);
                 TProxyClient.armorExtended.recalculateHealth(player, TConstruct.playerTracker.getPlayerStats(player.username));
             }

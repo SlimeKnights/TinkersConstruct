@@ -118,9 +118,9 @@ public class ArmorExtended implements IInventory
     @Override
     public void onInventoryChanged ()
     {
+        System.out.println("Inventory Changed");
         EntityPlayer player = parent.get();
         TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
-        //recalculateSkills(player, stats);
         recalculateHealth(player, stats);
 
         /*if (inventory[2] == null && stats.knapsack != null)
@@ -129,36 +129,11 @@ public class ArmorExtended implements IInventory
         }*/
     }
 
-    /*public void recalculateSkills(EntityPlayer player, TPlayerStats stats)
-    {
-    	if (inventory[1] != null && inventory[1].getItem() == TContent.glove)
-    	{
-    		if (stats.skillList.size() < 1)
-    		{
-    			try
-    			{
-    				stats.skillList.add(SkillRegistry.skills.get("Wall Building").copy());
-    			}
-    			catch (Exception e)
-    			{
-    				e.printStackTrace();
-    			}
-    		}
-    	}
-    	else
-    	{
-    		if (stats.skillList.size() > 0)
-    		{
-    			stats.skillList.remove(0);
-    		}
-    	}
-    }*/
-
     public void recalculateHealth (EntityPlayer player, TPlayerStats stats)
     {
         Side side = FMLCommonHandler.instance().getEffectiveSide();
 
-        if (inventory[4] != null && inventory[5] != null && inventory[6] != null)
+        if (inventory[4] != null || inventory[5] != null || inventory[6] != null)
         {
             int bonusHP = 0;
             for (int i = 0; i < 3; i++)
