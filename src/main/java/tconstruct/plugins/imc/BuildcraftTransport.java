@@ -32,37 +32,9 @@ public class BuildcraftTransport implements ICompatPlugin
         {
             addFacade(TRepo.smeltery, sc);
         }
-        // Multi Brick + Fancy
-        for (int sc = 0; sc < 13; sc++)
-        {
-            addFacade(TRepo.multiBrick, sc);
-        }
-        for (int sc = 0; sc < 16; sc++)
-        {
-            addFacade(TRepo.multiBrickFancy, sc);
-        }
-        // Special Soil
-        for (int sc = 0; sc < 6; sc++)
-        {
-            addFacade(TRepo.craftedSoil, sc);
-        }
-        // Metal Storage
-        for (int sc = 0; sc < 11; sc++)
-        {
-            addFacade(TRepo.metalBlock, sc);
-        }
-        // Speed Block
-        for (int sc = 0; sc < 7; sc++)
-        {
-            addFacade(TRepo.speedBlock, sc);
-        }
-        // Hambone
-        addFacade(TRepo.meatBlock, 4);
-        addFacade(TRepo.meatBlock, 8);
-
-        // Slime Gel
-        addFacade(TRepo.slimeGel, 0);
-        addFacade(TRepo.slimeGel, 1);
+        
+        addFacade(TRepo.searedBlock, 0);
+		addFacade(TRepo.searedBlockNether, 0);
     }
 
     @Override
@@ -73,7 +45,7 @@ public class BuildcraftTransport implements ICompatPlugin
 
     private void addFacade (Block b, int meta)
     {
-        FMLInterModComms.sendMessage("BuildCraft|Transport", "add-facade", new ItemStack(b, meta));
+        FMLInterModComms.sendMessage("BuildCraft|Transport", "add-facade", new ItemStack(b, 1, meta));
     }
 
 }
