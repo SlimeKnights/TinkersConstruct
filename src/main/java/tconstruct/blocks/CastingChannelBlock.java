@@ -33,25 +33,11 @@ public class CastingChannelBlock extends BlockContainer
     @Override
     public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
     {
-        if (!world.isRemote)
-        {
-            CastingChannelLogic tile = (CastingChannelLogic) world.getTileEntity(x, y, z);
-            if (player.isSneaking())
-            {
-            }
-            else
-            {
-                // int amount = 0;
-                // if (tile.getFluid() != null)
-                // amount = tile.getLiquidAmount();
-                // player.addChatMessage("LiquidAmount: " + amount);
-                tile.setActive(true);
-            }
-        }
-
         ItemStack stack = player.getCurrentEquippedItem();
-        if (stack != null && ComparisonHelper.areEquivalent(stack.getItem(), this))
-            return false;
+        CastingChannelLogic tile = (CastingChannelLogic) world.getTileEntity(x, y, z);
+
+        if (stack == null)
+            tile.changeOutputs(player, side, hitX, hitY, hitZ);
         return true;
     }
 
@@ -63,15 +49,10 @@ public class CastingChannelBlock extends BlockContainer
         float maxX = 0.6875F;
         float minZ = 0.3125F;
         float maxZ = 0.6875F;
-        if (tile.hasTankConnected(ForgeDirection.NORTH))
-            minZ = 0F;
-        if (tile.hasTankConnected(ForgeDirection.SOUTH))
-            maxZ = 1F;
-        if (tile.hasTankConnected(ForgeDirection.WEST))
-            minX = 0F;
-        if (tile.hasTankConnected(ForgeDirection.EAST))
-            maxX = 1F;
-
+        minZ = 0F;
+        maxZ = 1F;
+        minX = 0F;
+        maxX = 1F;
         this.setBlockBounds(minX, 0.375F, minZ, maxX, 0.625F, maxZ);
     }
 
@@ -81,10 +62,9 @@ public class CastingChannelBlock extends BlockContainer
         return false;
     }
 
-    @Override
-    public boolean isOpaqueCube ()
+    public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
-        return false;
+        return true;
     }
 
     @Override

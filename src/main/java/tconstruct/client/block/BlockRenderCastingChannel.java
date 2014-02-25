@@ -230,14 +230,14 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
     }
 
     @Override
-    public boolean shouldRender3DInInventory (int modelID)
-    {
-        return true;
-    }
-
-    @Override
     public int getRenderId ()
     {
         return renderID;
+    }
+
+    @Override
+    public boolean shouldRender3DInInventory (int modelId)
+    {
+        return true;
     }
 }
