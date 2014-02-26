@@ -1048,6 +1048,11 @@ public class TProxyClient extends TProxyCommon
         // new RenderArmorCast());
     }
 
+    public void recalculateHealth ()
+    {
+        armorExtended.recalculateHealth(mc.thePlayer, TConstruct.playerTracker.getPlayerStats(mc.thePlayer.getDisplayName()));
+    }
+
     private static IIcon getIcon (IIcon icon)
     {
         if (icon != null)

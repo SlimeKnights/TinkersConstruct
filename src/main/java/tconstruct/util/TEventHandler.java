@@ -9,7 +9,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
+import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -47,6 +49,7 @@ import tconstruct.achievements.TAchievements;
 import tconstruct.blocks.LiquidMetalFinite;
 import tconstruct.blocks.TankAirBlock;
 import tconstruct.common.TRepo;
+import tconstruct.entity.BlueSlime;
 import tconstruct.items.tools.FryingPan;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.event.PartBuilderEvent;
@@ -275,15 +278,25 @@ public class TEventHandler
             }
         }
 
-        if (random.nextInt(500) == 0 && event.entityLiving instanceof IMob)
+        if (random.nextInt(200) == 0 && event.entityLiving instanceof IMob && event.source.damageType.equals("player"))
         {
-            ItemStack dropStack = new ItemStack(TRepo.heartCanister, 1, 1);
-            EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
-            entityitem.delayBeforeCanPickup = 10;
-            event.drops.add(entityitem);
+            if (event.entityLiving instanceof BlueSlime)
+            {
+                BlueSlime slime = (BlueSlime) event.entityLiving;
+                if (slime.getSlimeSize() < 8)
+                    return;
+            }
+            int count = event.entityLiving instanceof EntityDragon ? 5 : 1;
+            for (int i = 0; i < count; i++)
+            {
+                ItemStack dropStack = new ItemStack(TRepo.heartCanister, 1, 3);
+                EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
+                entityitem.delayBeforeCanPickup = 10;
+                event.drops.add(entityitem);
+            }
         }
 
-        if (event.entityLiving instanceof EntityWither && random.nextInt(5) == 0)
+        if (event.entityLiving instanceof IBossDisplayData)
         {
             ItemStack dropStack = new ItemStack(TRepo.heartCanister, 1, 1);
             EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
@@ -293,19 +306,16 @@ public class TEventHandler
 
         if (!event.entityLiving.isChild() && event.entityLiving.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot"))
         {
-            
-            if (event.entityLiving.getClass() == EntityCow.class) 
-            { 
-            	int amount = random.nextInt(3) + random.nextInt(1 +
-            		event.lootingLevel) + random.nextInt(3) + random.nextInt(1 +
-            		event.lootingLevel) + 1;
-            
-            	for (int iter = 0; iter < amount; ++iter) 
-            	{ 
-            		addDrops(event, new ItemStack(Items.leather, 1)); 
-            	} 
+
+            if (event.entityLiving.getClass() == EntityCow.class)
+            {
+                int amount = random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + 1;
+
+                for (int iter = 0; iter < amount; ++iter)
+                {
+                    addDrops(event, new ItemStack(Items.leather, 1));
+                }
             }
-             
 
             if (event.entityLiving.getClass() == EntityChicken.class)
             {
@@ -364,13 +374,12 @@ public class TEventHandler
                             addDrops(event, new ItemStack(Items.skull, 1, 2));
                         }
                     }
-                    
-                     if (stack.getItem() == TRepo.cleaver &&
-                    		 random.nextInt(100) < 10) //Swap out for real beheading 
-                    	 {
-                    	 	addDrops(event, new ItemStack(Items.skull, 1, 2));
-                    	 }
-                     
+
+                    if (stack.getItem() == TRepo.cleaver && random.nextInt(100) < 10) //Swap out for real beheading 
+                    {
+                        addDrops(event, new ItemStack(Items.skull, 1, 2));
+                    }
+
                 }
             }
 
@@ -613,31 +622,29 @@ public class TEventHandler
     }
 
     // TODO 1.7 Fix this -- for ticking stuffs in extra armor slots
-    
-     @SubscribeEvent 
-     public void livingUpdate (LivingUpdateEvent event) 
-     { if (event.entityLiving instanceof EntityPlayer) 
-     	{ 
-    	 EntityPlayer player = (EntityPlayer) event.entityLiving; 
-     	 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
 
-     	 if (stats != null && stats.armor != null) 
-     	 { 
-     		 ArmorExtended armor = stats.armor;
-     		 for (int i = 0; i < armor.getSizeInventory(); i++) 
-     		 {
-     			 if (armor.getStackInSlot(i) != null) 
-     			 {
-     				 armor.getStackInSlot(i).getItem().onUpdate(armor.getStackInSlot(i),
-     						 player.worldObj, player, i, false);
-     				 armor.getStackInSlot(i).getItem().onArmorTick(player.worldObj, player,
-     						 armor.getStackInSlot(i)); 
-     				 } 
-     			 } 
-     		 } 
-     	 } 
-     }
+    @SubscribeEvent
+    public void livingUpdate (LivingUpdateEvent event)
+    {
+        if (event.entityLiving instanceof EntityPlayer)
+        {
+            EntityPlayer player = (EntityPlayer) event.entityLiving;
+            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
 
+            if (stats != null && stats.armor != null)
+            {
+                ArmorExtended armor = stats.armor;
+                for (int i = 0; i < armor.getSizeInventory(); i++)
+                {
+                    if (armor.getStackInSlot(i) != null)
+                    {
+                        armor.getStackInSlot(i).getItem().onUpdate(armor.getStackInSlot(i), player.worldObj, player, i, false);
+                        armor.getStackInSlot(i).getItem().onArmorTick(player.worldObj, player, armor.getStackInSlot(i));
+                    }
+                }
+            }
+        }
+    }
 
     // Player interact event - prevent breaking of tank air blocks in creative
     @SubscribeEvent
