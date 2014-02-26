@@ -1,11 +1,5 @@
 package tconstruct.util.player;
 
-import static io.netty.buffer.Unpooled.*;
-
-import cpw.mods.fml.common.network.FMLNetworkEvent.ClientDisconnectionFromServerEvent;
-import io.netty.buffer.ByteBuf;
-
-import java.io.ByteArrayOutputStream;
 import java.lang.ref.WeakReference;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -28,7 +22,6 @@ import tconstruct.library.tools.AbilityHelper;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.util.network.packet.AbstractPacket;
 import tconstruct.util.network.packet.PacketArmorSync;
-import tconstruct.util.network.packet.PacketDoubleJump;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

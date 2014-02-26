@@ -6,7 +6,6 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import tconstruct.TConstruct;
 import tconstruct.client.TProxyClient;
-import tconstruct.common.TProxyCommon;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.entity.player.EntityPlayer;
