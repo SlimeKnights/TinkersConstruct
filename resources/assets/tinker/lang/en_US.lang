@@ -505,6 +505,7 @@ entity.TConstruct.KingSlime.name=King Slime
 entity.TConstruct.Gardeslime.name=Gardeslime 
 entity.TConstruct.MiniGardy.name=Gardeslime 
 
+key.tconstruct.category=Tinkers Construct
 key.tarmor=Armor Gui
 key.tcapes.reload=Reload Capes
 

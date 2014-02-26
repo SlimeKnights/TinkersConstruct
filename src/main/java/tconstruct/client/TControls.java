@@ -16,10 +16,11 @@ import cpw.mods.fml.common.gameevent.TickEvent.Type;
 
 public class TControls extends TKeyHandler
 {
+    public static final String keybindCategory = "key.tconstruct.category";
     // static KeyBinding grabKey = new KeyBinding("key.grab", 29);
     // static KeyBinding stiltsKey = new KeyBinding("key.stilts", 46);
-    public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24, null);
-    public static KeyBinding refreshCapes = new KeyBinding("key.tcapes.reload", 88, null);
+    public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24, keybindCategory);
+    public static KeyBinding refreshCapes = new KeyBinding("key.tcapes.reload", 88, keybindCategory);
     static KeyBinding jumpKey;
     static KeyBinding invKey;
     static Minecraft mc;
