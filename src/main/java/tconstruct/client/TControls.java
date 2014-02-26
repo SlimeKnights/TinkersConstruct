@@ -155,55 +155,16 @@ public class TControls extends TKeyHandler
         updateServer(bos);
     }
 
-    public static void openInventoryGui ()
-    {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
-        DataOutputStream outputStream = new DataOutputStream(bos);
-        try
-        {
-            outputStream.writeByte(3);
-            outputStream.writeByte(0);
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-
-        updateServer(bos);
-    }
-
     public static void openArmorGui ()
     {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
-        DataOutputStream outputStream = new DataOutputStream(bos);
-        try
-        {
-            outputStream.writeByte(3);
-            outputStream.writeByte(1);
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-
-        updateServer(bos);
+        // Position is unused. Set to 0.
+        mc.thePlayer.openGui(TConstruct.instance, TProxyClient.armorGuiID, mc.theWorld, 0, 0, 0);
     }
 
     public static void openKnapsackGui ()
     {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
-        DataOutputStream outputStream = new DataOutputStream(bos);
-        try
-        {
-            outputStream.writeByte(3);
-            outputStream.writeByte(2);
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-
-        updateServer(bos);
+        // Position is unused. Set to 0.
+        mc.thePlayer.openGui(TConstruct.instance, TProxyClient.knapsackGuiID, mc.theWorld, 0, 0, 0);
     }
 
     static void updateServer (ByteArrayOutputStream bos)
