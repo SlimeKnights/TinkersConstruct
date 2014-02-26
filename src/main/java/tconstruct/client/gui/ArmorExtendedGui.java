@@ -37,7 +37,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         super.initGui();
 
         int cornerX = guiLeft;
-        int cornerY = (this.width - this.ySize) / 2;
+        int cornerY = guiTop;
         this.buttonList.clear();
 
         // InventoryTab tab = new InventoryTab(2, cornerX, cornerY - 28, new
@@ -48,7 +48,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         // tab.enabled = false;
         // this.buttonList.add(tab);
 
-        TabRegistry.updateTabValues(cornerX, cornerY, InventoryTabArmorExtended.class);
+        TabRegistry.updateTabValues(cornerX + 51, cornerY, InventoryTabArmorExtended.class);
         TabRegistry.addTabsToList(this.buttonList);
     }
 
@@ -97,8 +97,8 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         // mc.renderEngine.bindTexture("/mods/tinker/textures/gui/armorextended.png");
         this.mc.getTextureManager().bindTexture(background);
         int cornerX = guiLeft;
-        int cornerY = (width - ySize) / 2;
-        drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);
+        int cornerY = guiTop;
+        drawTexturedModalRect(cornerX, guiTop, 0, 0, xSize, ySize);
 
         if (!stats.isStackInSlot(0))
             drawTexturedModalRect(cornerX + 79, cornerY + 16, 176, 9, 18, 18);
