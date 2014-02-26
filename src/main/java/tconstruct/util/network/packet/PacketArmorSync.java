@@ -24,7 +24,7 @@ public class PacketArmorSync extends AbstractPacket
     @Override
     public void decodeInto (ChannelHandlerContext ctx, ByteBuf buffer)
     {
-        if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
         {
             try
             {
@@ -32,7 +32,7 @@ public class PacketArmorSync extends AbstractPacket
             }
             catch (Exception e)
             {
-                TConstruct.logger.warn("Failed at reading server packet for TConstruct.");
+                TConstruct.logger.warn("Failed at reading Client packet for TConstruct.");
                 e.printStackTrace();
             }
             try
@@ -49,6 +49,7 @@ public class PacketArmorSync extends AbstractPacket
     @Override
     public void handleClientSide (EntityPlayer player)
     {
+        TProxyClient.armorExtended.recalculateHealth(player, TConstruct.playerTracker.getPlayerStats(player.getDisplayName()));
 
 
     }
@@ -56,7 +57,6 @@ public class PacketArmorSync extends AbstractPacket
     @Override
     public void handleServerSide (EntityPlayer player)
     {
-        TProxyClient.armorExtended.recalculateHealth(player, TConstruct.playerTracker.getPlayerStats(player.getDisplayName()));
 
     }
 }
