@@ -30,10 +30,10 @@ public class KnapsackGui extends GuiContainer
         super.initGui();
 
         int cornerX = guiLeft;
-        int cornerY = (this.width - this.ySize) / 2;
+        int cornerY = guiTop;
         this.buttonList.clear();
 
-        TabRegistry.updateTabValues(cornerX, cornerY, InventoryTabKnapsack.class);
+        TabRegistry.updateTabValues(cornerX + 51, cornerY, InventoryTabKnapsack.class);
         TabRegistry.addTabsToList(this.buttonList);
 
         // InventoryTab tab = new InventoryTab(2, cornerX, cornerY - 28, new
@@ -63,7 +63,7 @@ public class KnapsackGui extends GuiContainer
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(background);
         int cornerX = guiLeft;
-        int cornerY = (width - ySize) / 2;
+        int cornerY = guiTop;
         drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);
     }
 

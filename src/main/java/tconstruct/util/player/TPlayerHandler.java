@@ -1,9 +1,5 @@
 package tconstruct.util.player;
 
-import static io.netty.buffer.Unpooled.*;
-import io.netty.buffer.ByteBuf;
-
-import java.io.ByteArrayOutputStream;
 import java.lang.ref.WeakReference;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,7 +20,8 @@ import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.util.config.PHConstruct;
-import tconstruct.util.network.packet.PacketDoubleJump;
+import tconstruct.util.network.packet.AbstractPacket;
+import tconstruct.util.network.packet.PacketArmorSync;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -156,30 +153,11 @@ public class TPlayerHandler
 
     void updatePlayerInventory (EntityPlayer player, TPlayerStats stats)
     {
-        ByteBuf outputStream = buffer(8);
-        try
-        {
-            outputStream.writeByte(4);
-            stats.armor.writeInventoryToStream(outputStream);
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
         if (player instanceof EntityPlayerMP)
         {
-            TConstruct.packetPipeline.sendTo(new PacketDoubleJump(), (EntityPlayerMP) player);
+            AbstractPacket packet = new PacketArmorSync(stats.armor, stats.knapsack);
+            TConstruct.packetPipeline.sendTo(packet, (EntityPlayerMP) player);
         }
-        /*
-        * Packet250CustomPayload packet = new Packet250CustomPayload();
-        * packet.channel = "TConstruct"; packet.data = bos.toByteArray();
-        * packet.length = bos.size();
-        * 
-        * PacketDispatcher.sendPacketToPlayer(packet, (Player) player);
-        */
-        // TODO find out what packet needs to be used here (and make sure that
-        // player actually is a playerMP and this gets called)
-
     }
 
     void savePlayerStats (EntityPlayer player, boolean clean)

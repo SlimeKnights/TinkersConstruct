@@ -1,5 +1,6 @@
 package tconstruct.common;
 
+import cpw.mods.fml.common.network.IGuiHandler;
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -10,8 +11,6 @@ import tconstruct.inventory.ArmorExtendedContainer;
 import tconstruct.inventory.ContainerLandmine;
 import tconstruct.inventory.KnapsackContainer;
 import tconstruct.util.player.TPlayerStats;
-import cpw.mods.fml.common.network.IGuiHandler;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 /**
  * Common proxy class for InfiTools
@@ -19,22 +18,22 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class TProxyCommon implements IGuiHandler
 {
-    public static int toolStationID = 0;
-    public static int partBuilderID = 1;
-    public static int patternChestID = 2;
-    public static int stencilTableID = 3;
-    public static int frypanGuiID = 4;
-    public static int toolForgeID = 5;
+    public static final int toolStationID = 0;
+    public static final int partBuilderID = 1;
+    public static final int patternChestID = 2;
+    public static final int stencilTableID = 3;
+    public static final int frypanGuiID = 4;
+    public static final int toolForgeID = 5;
 
-    public static int smelteryGuiID = 7;
-    public static int furnaceID = 8;
+    public static final int smelteryGuiID = 7;
+    public static final int furnaceID = 8;
     // public static int drawbridgeID = 9; // Moved to TMechworks
-    public static int landmineID = 10;
-    public static int craftingStationID = 11;
+    public static final int landmineID = 10;
+    public static final int craftingStationID = 11;
     // public static int advDrawbridgeID = 12; // Moved to TMechworks
-    public static int inventoryGui = 100;
-    public static int armorGuiID = 101;
-    public static int knapsackGuiID = 102;
+    public static final int inventoryGui = 100;
+    public static final int armorGuiID = 101;
+    public static final int knapsackGuiID = 102;
 
     // public static int manualGuiID = -1;// moved to Mantle
 
