@@ -1,8 +1,6 @@
 package tconstruct.client;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-
+import cpw.mods.fml.common.gameevent.TickEvent.Type;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
@@ -11,8 +9,10 @@ import net.minecraft.potion.Potion;
 import tconstruct.TConstruct;
 import tconstruct.client.event.EventCloakRender;
 import tconstruct.client.tabs.TabRegistry;
+import tconstruct.common.TProxyCommon;
+import tconstruct.util.network.packet.AbstractPacket;
 import tconstruct.util.network.packet.PacketDoubleJump;
-import cpw.mods.fml.common.gameevent.TickEvent.Type;
+import tconstruct.util.network.packet.PacketExtendedInventory;
 
 public class TControls extends TKeyHandler
 {
@@ -83,7 +83,7 @@ public class TControls extends TKeyHandler
                     }
 
                     midairJumps--;
-                    resetFallDamage(mc.thePlayer.getDisplayName());
+                    resetFallDamage();
                 }
 
                 if (!jumping)
@@ -120,26 +120,15 @@ public class TControls extends TKeyHandler
         onStilts = false;
     }
 
-    void resetFallDamage (String name)
+    void resetFallDamage()
     {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
-        DataOutputStream outputStream = new DataOutputStream(bos);
-        try
-        {
-            outputStream.writeByte(10);
-            outputStream.writeUTF(name);
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-
-        updateServer(bos);
+        AbstractPacket packet = new PacketDoubleJump();
+        updateServer(packet);
     }
 
     void updateSize (String name, float size)
     {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+        /*ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
         DataOutputStream outputStream = new DataOutputStream(bos);
         try
         {
@@ -152,33 +141,28 @@ public class TControls extends TKeyHandler
             ex.printStackTrace();
         }
 
-        updateServer(bos);
+        updateServer(bos);*/
+
+        //TODO: Enable code with right packet
+        //AbstractPacket packet = new ();
+        //updateServer(packet);
     }
 
     public static void openArmorGui ()
     {
-        // Position is unused. Set to 0.
-        mc.thePlayer.openGui(TConstruct.instance, TProxyClient.armorGuiID, mc.theWorld, 0, 0, 0);
+        AbstractPacket packet = new PacketExtendedInventory(TProxyCommon.armorGuiID);
+        updateServer(packet);
     }
 
     public static void openKnapsackGui ()
     {
-        // Position is unused. Set to 0.
-        mc.thePlayer.openGui(TConstruct.instance, TProxyClient.knapsackGuiID, mc.theWorld, 0, 0, 0);
+        AbstractPacket packet = new PacketExtendedInventory(TProxyCommon.knapsackGuiID);
+        updateServer(packet);
     }
 
-    static void updateServer (ByteArrayOutputStream bos)
+    static void updateServer (AbstractPacket abstractPacket)
     {
-        /*
-         * Packet250CustomPayload packet = new Packet250CustomPayload();
-         * packet.channel = "TConstruct"; packet.data = bos.toByteArray();
-         * packet.length = bos.size();
-         * 
-         * PacketDispatcher.sendPacketToServer(packet);
-         */
-
-        // TODO Find out what packet should be used here
-        TConstruct.packetPipeline.sendToServer(new PacketDoubleJump());
+        TConstruct.packetPipeline.sendToServer(abstractPacket);
     }
 
 }

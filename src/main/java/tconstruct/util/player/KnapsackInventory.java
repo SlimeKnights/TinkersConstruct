@@ -1,7 +1,10 @@
 package tconstruct.util.player;
 
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 
+import cpw.mods.fml.common.network.ByteBufUtils;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -203,6 +206,18 @@ public class KnapsackInventory implements IInventory
     @Override
     public void closeInventory ()
     {
+    }
+
+    public void writeInventoryToStream (ByteBuf os) throws IOException
+    {
+        for (int i = 0; i < 27; i++)
+            ByteBufUtils.writeItemStack(os, inventory[i]);
+    }
+
+    public void readInventoryFromStream (ByteBuf is) throws IOException
+    {
+        for (int i = 0; i < 27; i++)
+            inventory[i] = ByteBufUtils.readItemStack(is);
     }
 
 }
