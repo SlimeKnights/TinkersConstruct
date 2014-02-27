@@ -102,6 +102,12 @@ public class FurnaceSlab extends InventorySlab
     }
 
     @Override
+    public String getTextureDomain (int textureNameIndex)
+    {
+        return "tinker";
+    }
+
+    @Override
     public void registerBlockIcons (IIconRegister iconRegister)
     {
         String[] textureNames = getTextureNames();

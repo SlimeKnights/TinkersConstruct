@@ -46,6 +46,12 @@ public class ToolForgeBlock extends InventoryBlock
         return textureNames;
     }
 
+    @Override
+    public String getTextureDomain (int textureNameIndex)
+    {
+        return "tinker";
+    }
+
     IIcon textureTop;
 
     @Override

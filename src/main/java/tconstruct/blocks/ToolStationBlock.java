@@ -215,4 +215,10 @@ public class ToolStationBlock extends InventoryBlock
         }
         super.onBlockPlacedBy(world, x, y, z, par5EntityLiving, par6ItemStack);
     }
+
+    @Override
+    public String getTextureDomain (int textureNameIndex)
+    {
+        return "tinker";
+    }
 }

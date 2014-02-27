@@ -211,6 +211,12 @@ public class SearedBlock extends InventoryBlock
         return textureNames;
     }
 
+    @Override
+    public String getTextureDomain (int textureNameIndex)
+    {
+        return "tinker";
+    }
+
     // TODO getIcon
     @Override
     @SideOnly(Side.CLIENT)

@@ -43,6 +43,12 @@ public class CraftingStationBlock extends InventoryBlock
     }
 
     @Override
+    public String getTextureDomain (int textureNameIndex)
+    {
+        return "tinker";
+    }
+
+    @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
