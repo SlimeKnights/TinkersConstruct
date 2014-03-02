@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tconstruct.common.TContent;
 import cpw.mods.fml.relauncher.Side;
@@ -193,6 +194,9 @@ public class Shortbow extends BowBase
                 }
             }
         }
+
+        list.add("");
+        list.add("\u00A79+"+tags.getCompoundTag("InfiTool").getInteger("Attack")+" "+StatCollector.translateToLocalFormatted("attribute.name.generic.attackDamage"));
     }
 
     public String getBowstringName (int type)

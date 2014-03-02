@@ -24,6 +24,7 @@ import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import tconstruct.library.ActiveToolMod;
@@ -434,6 +435,9 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
                 }
             }
         }
+        list.add("");
+        int attack = (int) (tags.getCompoundTag("InfiTool").getInteger("Attack") * this.getDamageModifier());
+        list.add("\u00A79+"+attack+" "+StatCollector.translateToLocalFormatted("attribute.name.generic.attackDamage"));
     }
 
     public static String getStyleForType (int type)

@@ -484,7 +484,8 @@ Class: Ranged Projectile Launcher</text>
 - Reinforced: 10% chance per level of not using durability
 - Stonebound: The tool mines faster as it wears out, but does less damage
 - Jagged: The tool attacks with does more damage as it wears out, but mines slower
-- Writable: One extra modifier per piece</text>
+- Writable: One extra modifier per piece
+- Tasty: Sometimes drops food items</text>
 </page>
 
 <page type="materialstats">
@@ -874,6 +875,7 @@ Stackable: Yes</text>
 
 Effects:
 - Allows blocks to be harvested directly
+- Scythes modified with Silky act as shears on blocks
 - Not compatible with Luck or Auto-Smelt
 
 Type: Single-use

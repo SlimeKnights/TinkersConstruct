@@ -19,7 +19,7 @@ public class Cleaver extends Weapon
 {
     public Cleaver(int itemID)
     {
-        super(itemID, 6);
+        super(itemID, 5);
         this.setUnlocalizedName("InfiTool.Cleaver");
     }
 
