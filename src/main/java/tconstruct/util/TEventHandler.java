@@ -224,11 +224,14 @@ public class TEventHandler
 
     public static boolean matchesLeaves (ItemStack stack)
     {
-        Block block = BlockUtils.getBlockFromItem(stack.getItem());
-        if (block != null)
+        if (stack != null)
         {
-            if (block.isLeaves(null, 0, 0, 0))
-                return true;
+            Block block = BlockUtils.getBlockFromItem(stack.getItem());
+            if (block != null)
+            {
+                if (block.isLeaves(null, 0, 0, 0))
+                    return true;
+            }
         }
         return false;
     }
@@ -367,7 +370,7 @@ public class TEventHandler
                     if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
                     {
                         int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
-                        if (stack.getItem() == TRepo.cleaver)
+                        if (stack != null && stack.hasTagCompound() && stack.getItem() == TRepo.cleaver)
                             beheading += 2;
                         if (beheading > 0 && random.nextInt(100) < beheading * 10)
                         {
@@ -375,7 +378,7 @@ public class TEventHandler
                         }
                     }
 
-                    if (stack.getItem() == TRepo.cleaver && random.nextInt(100) < 10) //Swap out for real beheading 
+                    if (stack != null && stack.hasTagCompound() && stack.getItem() == TRepo.cleaver && random.nextInt(100) < 10) //Swap out for real beheading 
                     {
                         addDrops(event, new ItemStack(Items.skull, 1, 2));
                     }
