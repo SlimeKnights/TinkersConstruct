@@ -29,10 +29,6 @@ repositories {
         artifactPattern "http://www.chickenbones.craftsaddle.org/Files/New_Versions/1.6.4/[module]-dev%20[revision].[ext]"
     }
     maven {
-        name 'SlimeKnights Maven FS'
-        url 'http://aeon.sunstrike.io'
-    }
-    maven {
         name 'ForgeFS'
         url 'http://files.minecraftforge.net/maven'
      }
