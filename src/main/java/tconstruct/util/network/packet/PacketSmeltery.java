@@ -38,6 +38,7 @@ public class PacketSmeltery extends AbstractPacket
         buffer.writeInt(y);
         buffer.writeInt(z);
         buffer.writeBoolean(isShiftPressed);
+        buffer.writeInt(fluidID);
 
     }
 
