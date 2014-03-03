@@ -3,7 +3,7 @@ itemGroup.TConstructMaterials=TConstruct Materiali
 itemGroup.TConstructBlocks=TConstruct Blocchi
 
 crafters.ToolStation=T.d. Attrezzi
-crafters.CraftingStation=Crafting Station
+crafters.CraftingStation=Tavolo da Lavoro
 crafters.ToolForge=Forgia
 crafters.PartBuilder=Costruttore di Parti
 crafters.PatternShaper=Tavolo dei Modelli
