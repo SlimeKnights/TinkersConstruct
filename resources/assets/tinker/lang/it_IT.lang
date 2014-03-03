@@ -134,6 +134,8 @@ item.oreberry.essence.name=Bacca Concentrata di Essenza
 item.goldenhead.name=Testa d'Oro
 item.tconstruct.titleicon.name=Uovo di
 
+tile.tconstruct.meatblock.name=Osso di Prosciutto
+
 item.InfiTool.Pickaxe.name=Piccone
 item.InfiTool.Shovel.name=Pala
 item.InfiTool.Axe.name=Accetta
@@ -248,7 +250,7 @@ item.tconstruct.Materials.AlumiteNugget.name=Pepita di Alumite
 item.tconstruct.Materials.SteelNugget.name=Pepita d'Acciaio
 item.tconstruct.Materials.PigIronIngot.name=Lingotto di Ferro Suino
 item.tconstruct.Materials.PigIronNugget.name=Piatto di Ferro Suino
-item.tconstruct.Materials.GlueIngot.name=Lingotto di Colla
+item.tconstruct.Materials.GlueBall.name=Palla di Colla
 
 item.tconstruct.helmetWood.name=Elmo di Legno
 item.tconstruct.chestplateWood.name=Corazza di Legno
@@ -384,6 +386,7 @@ block.slime.grass.dirt.name=Erba Viscida
 block.slime.tallgrass.name=Erba Viscida
 block.slime.congealed.blue.name=Slime Blu Solidificato
 block.slime.congealed.green.name=Slime Verde Solidificato
+block.slime.congealed.purple.name=Slime Viola Solidificato
 
 item.tconstruct.storage.knapsack.name=Zaino  
 item.tconstruct.blankpattern.pattern.name=Modello
@@ -501,6 +504,7 @@ entity.TConstruct.KingSlime.name=Re Slime
 entity.TConstruct.Gardeslime.name=Slime Guardiani 
 entity.TConstruct.MiniGardy.name=Slime Guardiani 
 
+key.tconstruct.category=Tinkers Construct
 key.tarmor=Gui dell'Armatura
 key.tcapes.reload=Ricarica Mantelli
 
