@@ -2,6 +2,7 @@ package tconstruct.util.player;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
@@ -124,9 +125,8 @@ public class KnapsackInventory implements IInventory
     }
 
     /* Save/Load */
-    public void saveToNBT (EntityPlayer entityplayer)
+    public void saveToNBT (NBTTagCompound tagCompound)
     {
-        NBTTagCompound tags = entityplayer.getEntityData();
         NBTTagList tagList = new NBTTagList();
         NBTTagCompound invSlot;
 
@@ -141,13 +141,12 @@ public class KnapsackInventory implements IInventory
             }
         }
 
-        tags.setTag("TConstruct.Knapsack", tagList);
+        tagCompound.setTag("Knapsack", tagList);
     }
 
-    public void readFromNBT (EntityPlayer entityplayer)
+    public void readFromNBT (NBTTagCompound tagCompound)
     {
-        NBTTagCompound tags = entityplayer.getEntityData();
-        NBTTagList tagList = tags.getTagList("TConstruct.Knapsack", 10);
+        NBTTagList tagList = tagCompound.getTagList("Knapsack", 10);
         for (int i = 0; i < tagList.tagCount(); ++i)
         {
             NBTTagCompound nbttagcompound = (NBTTagCompound) tagList.getCompoundTagAt(i);
@@ -161,14 +160,15 @@ public class KnapsackInventory implements IInventory
         }
     }
 
-    public void dropItems ()
+    public void dropItems(ArrayList<EntityItem> drops)
     {
         EntityPlayer player = parent.get();
         for (int i = 0; i < inventory.length; ++i)
         {
             if (this.inventory[i] != null)
             {
-                player.dropPlayerItemWithRandomChoice(this.inventory[i], true);
+                EntityItem entityItem = player.func_146097_a(this.inventory[i], true, false);
+                drops.add(entityItem);
                 this.inventory[i] = null;
             }
         }

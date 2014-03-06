@@ -2,32 +2,29 @@ package tconstruct.util.player;
 
 import java.lang.ref.WeakReference;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import mantle.player.PlayerUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.Entity.EnumEntitySize;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraftforge.event.entity.EntityEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
-import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.util.config.PHConstruct;
-import tconstruct.util.network.packet.AbstractPacket;
-import tconstruct.util.network.packet.PacketArmorSync;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
 import cpw.mods.fml.relauncher.Side;
 
@@ -36,7 +33,7 @@ public class TPlayerHandler
     /* Player */
     // public int hunger;
 
-    public ConcurrentHashMap<String, TPlayerStats> playerStats = new ConcurrentHashMap<String, TPlayerStats>();
+    public ConcurrentHashMap<UUID, TPlayerStats> playerStats = new ConcurrentHashMap<UUID, TPlayerStats>();
 
     @SubscribeEvent
     public void PlayerLoggedInEvent (PlayerLoggedInEvent event)
@@ -45,55 +42,41 @@ public class TPlayerHandler
     }
 
     @SubscribeEvent
-    public void PlayerLoggedOutEvent (PlayerLoggedOutEvent event)
-    {
-        savePlayerStats(event.player, true);
-    }
-
-    @SubscribeEvent
-    public void onPlayerChangedDimension (PlayerChangedDimensionEvent event)
-    {
-        savePlayerStats(event.player, false);
-        updatePlayerInventory(event.player, getPlayerStats(event.player.getDisplayName()));
-    }
-
-    @SubscribeEvent
     public void onPlayerRespawn (PlayerRespawnEvent event)
     {
         onPlayerRespawn(event.player);
     }
 
+    @SubscribeEvent
+    public void onEntityConstructing(EntityEvent.EntityConstructing event)
+    {
+        if (event.entity instanceof EntityPlayer && TPlayerStats.get((EntityPlayer) event.entity) == null)
+        {
+            TPlayerStats.register((EntityPlayer) event.entity);
+        }
+    }
+
     public void onPlayerLogin (EntityPlayer entityplayer)
     {
+        TPlayerStats playerData = playerStats.remove(entityplayer.getPersistentID());
+        if(playerData != null)
+        {
+            playerData.saveNBTData(entityplayer.getEntityData());
+        }
+
         // TConstruct.logger.info("Player: "+entityplayer);
         // Lookup player
-        NBTTagCompound tags = entityplayer.getEntityData();
-        if (!tags.hasKey("TConstruct"))
-        {
-            tags.setTag("TConstruct", new NBTTagCompound());
-        }
-        TPlayerStats stats = new TPlayerStats();
-        stats.player = new WeakReference<EntityPlayer>(entityplayer);
-        stats.armor = new ArmorExtended();
-        stats.armor.init(entityplayer);
-        stats.armor.readFromNBT(entityplayer);
-
-        stats.knapsack = new KnapsackInventory();
-        stats.knapsack.init(entityplayer);
-        stats.knapsack.readFromNBT(entityplayer);
+        TPlayerStats stats = TPlayerStats.get(entityplayer);
 
         stats.level = entityplayer.experienceLevel;
         stats.hunger = entityplayer.getFoodStats().getFoodLevel();
-        stats.beginnerManual = tags.getCompoundTag("TConstruct").getBoolean("beginnerManual");
-        stats.materialManual = tags.getCompoundTag("TConstruct").getBoolean("materialManual");
-        stats.smelteryManual = tags.getCompoundTag("TConstruct").getBoolean("smelteryManual");
+
         // gamerule naturalRegeneration false
         if (!PHConstruct.enableHealthRegen)
             entityplayer.worldObj.getGameRules().setOrCreateGameRule("naturalRegeneration", "false");
         if (!stats.beginnerManual)
         {
             stats.beginnerManual = true;
-            tags.getCompoundTag("TConstruct").setBoolean("beginnerManual", true);
             if (PHConstruct.beginnerBook)
             {
                 ItemStack diary = new ItemStack(TRepo.manualBook);
@@ -135,8 +118,6 @@ public class TPlayerHandler
             }
         }
 
-        playerStats.put(entityplayer.getDisplayName(), stats);
-
         if (PHConstruct.gregtech && Loader.isModLoaded("GregTech-Addon"))
         {
             PHConstruct.gregtech = false;
@@ -147,43 +128,18 @@ public class TPlayerHandler
                 PlayerUtils.sendChatMessage(entityplayer, "Solution 2: Disable Auto-Smelt/Fortune interaction from TConstruct.");
             }
         }
-
-        updatePlayerInventory(entityplayer, stats);
-    }
-
-    void updatePlayerInventory (EntityPlayer player, TPlayerStats stats)
-    {
-        if (player instanceof EntityPlayerMP)
-        {
-            AbstractPacket packet = new PacketArmorSync(stats.armor, stats.knapsack);
-            TConstruct.packetPipeline.sendTo(packet, (EntityPlayerMP) player);
-        }
-    }
-
-    void savePlayerStats (EntityPlayer player, boolean clean)
-    {
-        if (player != null)
-        {
-            TPlayerStats stats = getPlayerStats(player.getDisplayName());
-            if (stats != null && stats.armor != null)
-            {
-                stats.armor.saveToNBT(player);
-                stats.knapsack.saveToNBT(player);
-                if (clean)
-                    playerStats.remove(player.getDisplayName());
-            }
-            else
-            // Revalidate all players
-            {
-
-            }
-        }
     }
 
     public void onPlayerRespawn (EntityPlayer entityplayer)
     {
         // Boom!
-        TPlayerStats stats = getPlayerStats(entityplayer.getDisplayName());
+        TPlayerStats playerData = playerStats.remove(entityplayer.getPersistentID());
+        TPlayerStats stats = TPlayerStats.get(entityplayer);
+        if(playerData != null)
+        {
+            stats = playerData;
+        }
+
         stats.player = new WeakReference<EntityPlayer>(entityplayer);
         stats.armor.recalculateHealth(entityplayer, stats);
 
@@ -195,12 +151,6 @@ public class TPlayerHandler
             entityplayer.experienceLevel = stats.level;
         if (PHConstruct.keepHunger)
             entityplayer.getFoodStats().addStats(-1 * (20 - stats.hunger), 0);
-        NBTTagCompound tags = entityplayer.getEntityData();
-        NBTTagCompound tTag = new NBTTagCompound();
-        tTag.setBoolean("beginnerManual", stats.beginnerManual);
-        tTag.setBoolean("materialManual", stats.materialManual);
-        tTag.setBoolean("smelteryManual", stats.smelteryManual);
-        tags.setTag("TConstruct", tTag);
 
         Side side = FMLCommonHandler.instance().getEffectiveSide();
         if (side == Side.CLIENT)
@@ -209,7 +159,6 @@ public class TPlayerHandler
             if (PHConstruct.keepHunger)
                 entityplayer.getFoodStats().setFoodLevel(stats.hunger);
         }
-        updatePlayerInventory(entityplayer, getPlayerStats(entityplayer.getDisplayName()));
     }
 
     @SubscribeEvent
@@ -235,9 +184,23 @@ public class TPlayerHandler
      */
 
     @SubscribeEvent
+    public void playerDeath(LivingDeathEvent event)
+    {
+        if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer)
+        {
+            TPlayerStats properties = (TPlayerStats) event.entity.getExtendedProperties(TPlayerStats.PROP_NAME);
+            properties.hunger = ((EntityPlayer) event.entity).getFoodStats().getFoodLevel();
+            playerStats.put(((EntityPlayer) event.entity).getPersistentID(), properties);
+        }
+
+    }
+
+    @SubscribeEvent
     public void playerDrops (PlayerDropsEvent evt)
     {
-        TPlayerStats stats = getPlayerStats(evt.entityPlayer.getDisplayName());
+        // After playerDeath event. Modifying saved data.
+        TPlayerStats stats = playerStats.get(evt.entityPlayer.getPersistentID());
+
         stats.level = evt.entityPlayer.experienceLevel / 2;
         // stats.health = 20;
         int hunger = evt.entityPlayer.getFoodStats().getFoodLevel();
@@ -245,32 +208,11 @@ public class TPlayerHandler
             stats.hunger = 6;
         else
             stats.hunger = evt.entityPlayer.getFoodStats().getFoodLevel();
-    }
 
-    /* Find the right player */
-    public TPlayerStats getPlayerStats (String username)
-    {
-        TPlayerStats stats = playerStats.get(username);
-        // TConstruct.logger.info("Stats: "+stats);
-        if (stats == null)
-        {
-            stats = new TPlayerStats();
-            playerStats.put(username, stats);
-        }
-        return stats;
-    }
+        stats.armor.dropItems(evt.drops);
+        stats.knapsack.dropItems(evt.drops);
 
-    public EntityPlayer getEntityPlayer (String username)
-    {
-        TPlayerStats stats = playerStats.get(username);
-        if (stats == null)
-        {
-            return null;
-        }
-        else
-        {
-            return stats.player.get();
-        }
+        playerStats.put(evt.entityPlayer.getPersistentID(), stats);
     }
 
     /* Modify Player */

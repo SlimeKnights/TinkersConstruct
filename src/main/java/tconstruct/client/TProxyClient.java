@@ -151,6 +151,7 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.VillagerRegistry;
+import tconstruct.util.player.TPlayerStats;
 
 public class TProxyClient extends TProxyCommon
 {
@@ -1050,7 +1051,7 @@ public class TProxyClient extends TProxyCommon
 
     public void recalculateHealth ()
     {
-        armorExtended.recalculateHealth(mc.thePlayer, TConstruct.playerTracker.getPlayerStats(mc.thePlayer.getDisplayName()));
+        armorExtended.recalculateHealth(mc.thePlayer, TPlayerStats.get(mc.thePlayer));
     }
 
     private static IIcon getIcon (IIcon icon)

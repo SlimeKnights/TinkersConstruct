@@ -25,7 +25,7 @@ public class TCraftingHandler // implements ICraftingHandler
         {
             if (ComparisonHelper.areEquivalent(item, TRepo.toolStationWood))
             {
-                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(event.player.getDisplayName());
+                TPlayerStats stats = TPlayerStats.get(event.player);
                 NBTTagCompound tags = event.player.getEntityData().getCompoundTag("TConstruct");
                 if (!tags.getBoolean("materialManual") || !stats.materialManual)
                 {
@@ -36,7 +36,7 @@ public class TCraftingHandler // implements ICraftingHandler
             }
             if (ComparisonHelper.areEquivalent(item, TRepo.smeltery) || ComparisonHelper.areEquivalent(item, TRepo.lavaTank))
             {
-                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(event.player.getDisplayName());
+                TPlayerStats stats = TPlayerStats.get(event.player);
                 NBTTagCompound tags = event.player.getEntityData().getCompoundTag("TConstruct");
                 if (!tags.getBoolean("smelteryManual") || !stats.smelteryManual)
                 {

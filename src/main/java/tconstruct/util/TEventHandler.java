@@ -459,19 +459,6 @@ public class TEventHandler
                     }
                 }
             }
-
-            GameRules rules = player.worldObj.getGameRules(); // Player is null
-                                                              // if this
-                                                              // crashes
-            if (rules == null || !rules.getGameRuleBooleanValue("keepInventory"))
-            {
-                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
-                if (stats != null)
-                {
-                    stats.armor.dropItems();
-                    stats.knapsack.dropItems();
-                }
-            }
         }
     }
 
@@ -632,7 +619,7 @@ public class TEventHandler
         if (event.entityLiving instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer) event.entityLiving;
-            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
+            TPlayerStats stats = TPlayerStats.get(player);
 
             if (stats != null && stats.armor != null)
             {
