@@ -36,7 +36,7 @@ public class HeartCanister extends CraftingItem implements IHealthAccessory
         }
         if (!world.isRemote && meta == 2)
         {
-            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
+            TPlayerStats stats = TPlayerStats.get(player);
             if (stats != null)
             {
                 ArmorExtended armor = stats.armor;

@@ -158,6 +158,7 @@ public class TConstruct
         playerTracker = new TPlayerHandler();
         // GameRegistry.registerPlayerTracker(playerTracker);
         FMLCommonHandler.instance().bus().register(playerTracker);
+        MinecraftForge.EVENT_BUS.register(playerTracker);
 
         if (event.getSide() == Side.CLIENT)
         {

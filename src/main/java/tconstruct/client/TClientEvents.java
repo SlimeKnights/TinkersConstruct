@@ -116,7 +116,6 @@ public class TClientEvents
                 int scaledHeight = scaledresolution.getScaledHeight();
                 int xBasePos = scaledWidth / 2 - 91;
                 int yBasePos = scaledHeight - 39;
-                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(mc.thePlayer.getDisplayName());
 
                 boolean highlight = mc.thePlayer.hurtResistantTime / 3 % 2 == 1;
 

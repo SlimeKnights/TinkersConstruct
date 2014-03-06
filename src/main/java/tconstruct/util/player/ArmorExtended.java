@@ -4,11 +4,13 @@ import io.netty.buffer.ByteBuf;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -66,7 +68,7 @@ public class ArmorExtended implements IInventory
                 inventory[slot] = null;
             }
             EntityPlayer player = parent.get();
-            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
+            TPlayerStats stats = TPlayerStats.get(player);
             recalculateHealth(player, stats);
             return split;
         }
@@ -94,7 +96,7 @@ public class ArmorExtended implements IInventory
         }
 
         EntityPlayer player = parent.get();
-        TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
+        TPlayerStats stats = TPlayerStats.get(player);
         recalculateHealth(player, stats);
     }
 
@@ -120,7 +122,7 @@ public class ArmorExtended implements IInventory
     public void markDirty ()
     {
         EntityPlayer player = parent.get();
-        TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
+        TPlayerStats stats = TPlayerStats.get(player);
         // recalculateSkills(player, stats);
         recalculateHealth(player, stats);
 
@@ -223,9 +225,8 @@ public class ArmorExtended implements IInventory
     }
 
     /* Save/Load */
-    public void saveToNBT (EntityPlayer entityplayer)
+    public void saveToNBT (NBTTagCompound tagCompound)
     {
-        NBTTagCompound tags = entityplayer.getEntityData();
         NBTTagList tagList = new NBTTagList();
         NBTTagCompound invSlot;
 
@@ -240,13 +241,12 @@ public class ArmorExtended implements IInventory
             }
         }
 
-        tags.setTag("TConstruct.Inventory", tagList);
+        tagCompound.setTag("Inventory", tagList);
     }
 
-    public void readFromNBT (EntityPlayer entityplayer)
+    public void readFromNBT (NBTTagCompound tagCompound)
     {
-        NBTTagCompound tags = entityplayer.getEntityData();
-        NBTTagList tagList = tags.getTagList("TConstruct.Inventory", 10);
+        NBTTagList tagList = tagCompound.getTagList("Inventory", 10);
         for (int i = 0; i < tagList.tagCount(); ++i)
         {
             NBTTagCompound nbttagcompound = (NBTTagCompound) tagList.getCompoundTagAt(i);
@@ -260,14 +260,15 @@ public class ArmorExtended implements IInventory
         }
     }
 
-    public void dropItems ()
+    public void dropItems(ArrayList<EntityItem> drops)
     {
         EntityPlayer player = parent.get();
         for (int i = 0; i < 4; ++i)
         {
             if (this.inventory[i] != null)
             {
-                player.dropPlayerItemWithRandomChoice(this.inventory[i], true);
+                EntityItem entityItem = player.func_146097_a(this.inventory[i], true, false);
+                drops.add(entityItem);
                 this.inventory[i] = null;
             }
         }
