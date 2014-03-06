@@ -299,22 +299,4 @@ public class Battleaxe extends HarvestTool
             world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(wood) + (meta << 12));
         return super.onBlockStartBreak(stack, x, y, z, player);
     }
-
-    @Override
-    public boolean willAllowOffhandWeapon ()
-    {
-        return false;
-    }
-
-    @Override
-    public boolean willAllowShield ()
-    {
-        return false;
-    }
-
-    @Override
-    public boolean isOffhandHandDualWeapon ()
-    {
-        return false;
-    }
 }

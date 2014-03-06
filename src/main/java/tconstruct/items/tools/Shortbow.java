@@ -190,28 +190,4 @@ public class Shortbow extends BowBase
         }
         // return TConstructRegistry.getMaterial(type).ability();
     }
-
-    @Override
-    public boolean willAllowOffhandWeapon ()
-    {
-        return false;
-    }
-
-    @Override
-    public boolean willAllowShield ()
-    {
-        return false;
-    }
-
-    @Override
-    public boolean isOffhandHandDualWeapon ()
-    {
-        return false;
-    }
-
-    @Override
-    public boolean sheatheOnBack ()
-    {
-        return true;
-    }
 }

@@ -90,12 +90,6 @@ public class Shovel extends HarvestTool
         return "shovel";
     }
 
-    @Override
-    public boolean isOffhandHandDualWeapon ()
-    {
-        return false;
-    }
-
     /*
      * @Override public Icon getIcon (ItemStack stack, int renderPass) {
      * NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");

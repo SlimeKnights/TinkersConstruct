@@ -159,28 +159,4 @@ public class Cleaver extends Weapon
      * @Override public boolean onEntitySwing (EntityLiving entity, ItemStack
      * stack) { entity.swingProgressInt /= 2; return false; }
      */
-
-    @Override
-    public boolean willAllowOffhandWeapon ()
-    {
-        return false;
-    }
-
-    @Override
-    public boolean willAllowShield ()
-    {
-        return PHConstruct.isCleaverTwoHanded;
-    }
-
-    @Override
-    public boolean isOffhandHandDualWeapon ()
-    {
-        return false;
-    }
-
-    @Override
-    public boolean sheatheOnBack ()
-    {
-        return true;
-    }
 }

@@ -228,21 +228,4 @@ public class Chisel extends ToolCore
         return new String[] { "utility" };
     }
 
-    @Override
-    public boolean willAllowOffhandWeapon ()
-    {
-        return false;
-    }
-
-    @Override
-    public boolean willAllowShield ()
-    {
-        return false;
-    }
-
-    @Override
-    public boolean isOffhandHandDualWeapon ()
-    {
-        return false;
-    }
 }
