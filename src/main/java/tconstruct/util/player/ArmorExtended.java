@@ -246,6 +246,8 @@ public class ArmorExtended implements IInventory
 
     public void readFromNBT (NBTTagCompound tagCompound)
     {
+        if(tagCompound != null)
+        {
         NBTTagList tagList = tagCompound.getTagList("Inventory", 10);
         for (int i = 0; i < tagList.tagCount(); ++i)
         {
@@ -258,6 +260,7 @@ public class ArmorExtended implements IInventory
                 this.inventory[j] = itemstack;
             }
         }
+    }
     }
 
     public void dropItems(ArrayList<EntityItem> drops)
