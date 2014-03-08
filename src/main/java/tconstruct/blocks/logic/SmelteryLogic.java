@@ -44,6 +44,7 @@ import tconstruct.library.crafting.Smeltery;
 import tconstruct.util.SmelteryDamageSource;
 import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 
 /* Simple class for storing items in the block
  */
@@ -420,7 +421,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         if (itemAdded)
         {
             this.needsUpdate = true;
-            FMLCommonHandler.instance().getClientToServerNetworkManager().scheduleOutboundPacket(getDescriptionPacket());
+            if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
+                FMLCommonHandler.instance().getClientToServerNetworkManager().scheduleOutboundPacket(getDescriptionPacket());
         }
     }
 
