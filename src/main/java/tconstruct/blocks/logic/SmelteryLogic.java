@@ -43,8 +43,6 @@ import tconstruct.inventory.SmelteryContainer;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.util.SmelteryDamageSource;
 import tconstruct.util.config.PHConstruct;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 
 /* Simple class for storing items in the block
  */
@@ -421,8 +419,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         if (itemAdded)
         {
             this.needsUpdate = true;
-            if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
-                FMLCommonHandler.instance().getClientToServerNetworkManager().scheduleOutboundPacket(getDescriptionPacket());
+            //TODO 1.7.5 send description packet in better way to not cause render update
+            this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         }
     }
 
