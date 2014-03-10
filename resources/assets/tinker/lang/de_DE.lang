@@ -133,7 +133,9 @@ item.oreberry.aluminum.name=Aluminiumbeere
 item.oreberry.essence.name=Konzentrierte Essenzbeere
 
 item.goldenhead.name=Goldener Kopf
-item.tconstruct.titleicon.name=Erschaffe 
+item.tconstruct.titleicon.name=Erschaffe
+
+tile.tconstruct.meatblock.name=Schinkenknochen
 
 item.InfiTool.Pickaxe.name=Spitzhacke
 item.InfiTool.Shovel.name=Schaufel
@@ -385,6 +387,7 @@ block.slime.grass.dirt.name=Schleimiges Gras
 block.slime.tallgrass.name=Schleimiges Gras
 block.slime.congealed.blue.name=Erstarrter Blauschleim
 block.slime.congealed.green.name=Erstarrter Grüner Schleim
+block.slime.congealed.purple.name=Erstarrtet Violetter Schleim
 
 item.tconstruct.storage.knapsack.name=Rucksack
 item.tconstruct.blankpattern.pattern.name=Leere Schablone
@@ -502,6 +505,7 @@ entity.TConstruct.KingSlime.name=Königsschleim
 entity.TConstruct.Gardeslime.name=Guardeschleim
 entity.TConstruct.MiniGardy.name=Guardeschleim 
 
+key.tconstruct.category=Tinkers Construct
 key.tarmor=Rüstungs-GUI
 key.tcapes.reload=Lade Capes neu
 
