@@ -133,7 +133,9 @@ item.oreberry.aluminum.name=Aluminiumbeere
 item.oreberry.essence.name=Konzentrierte Essenzbeere
 
 item.goldenhead.name=Goldener Kopf
-item.tconstruct.titleicon.name=Erschaffe 
+item.tconstruct.titleicon.name=Erschaffe
+
+tile.tconstruct.meatblock.name=Schinkenknochen
 
 item.InfiTool.Pickaxe.name=Spitzhacke
 item.InfiTool.Shovel.name=Schaufel
@@ -166,7 +168,7 @@ item.tconstruct.Pattern.swordblade.name=Schwertklingenschablone
 item.tconstruct.Pattern.largeguard.name=Breite Schützerschablone
 item.tconstruct.Pattern.mediumguard.name=Handschützerschablone
 item.tconstruct.Pattern.crossbar.name=Querstangenschablone
-item.tconstruct.Pattern.binding.name=Wekzeugbindungsschablone
+item.tconstruct.Pattern.binding.name=Werkzeugbindungsschablone
 item.tconstruct.Pattern.frypan.name=Pfannenschablone
 item.tconstruct.Pattern.sign.name=Große Schildbrettschablone
 item.tconstruct.Pattern.knifeblade.name=Messerklingenschablone
@@ -193,7 +195,7 @@ item.tconstruct.MetalPattern.swordblade.name=Schwertklingengussform
 item.tconstruct.MetalPattern.largeguard.name=Breite Schützergussform
 item.tconstruct.MetalPattern.mediumguard.name=Handschützergussform
 item.tconstruct.MetalPattern.crossbar.name=Querstangengussform
-item.tconstruct.MetalPattern.binding.name=Wekzeugbindungsgussform
+item.tconstruct.MetalPattern.binding.name=Werkzeugbindungsgussform
 item.tconstruct.MetalPattern.frypan.name=Pfannengussform
 item.tconstruct.MetalPattern.sign.name=Große Schildbrettgussform
 item.tconstruct.MetalPattern.knifeblade.name=Messerklingengussform
@@ -385,6 +387,7 @@ block.slime.grass.dirt.name=Schleimiges Gras
 block.slime.tallgrass.name=Schleimiges Gras
 block.slime.congealed.blue.name=Erstarrter Blauschleim
 block.slime.congealed.green.name=Erstarrter Grüner Schleim
+block.slime.congealed.purple.name=Erstarrter Violetter Schleim
 
 item.tconstruct.storage.knapsack.name=Rucksack
 item.tconstruct.blankpattern.pattern.name=Leere Schablone
@@ -502,13 +505,14 @@ entity.TConstruct.KingSlime.name=Königsschleim
 entity.TConstruct.Gardeslime.name=Guardeschleim
 entity.TConstruct.MiniGardy.name=Guardeschleim 
 
+key.tconstruct.category=Tinkers Construct
 key.tarmor=Rüstungs-GUI
 key.tcapes.reload=Lade Capes neu
 
 death.one.smeltery=%1$s wurde in eine Proteinmasse verwandelt
 death.two.smeltery=%1$s ist mit der Schmelzerei eins geworden
 death.three.smeltery=%1$s wird ein Meilenstein für unsere Revolution sein!
-death.four.smeltery=%1$s dachte, das Schwimmen in heißen Flüssigkeiten wäre eine ntry>
+death.four.smeltery=%1$s dachte, das Schwimmen in heißen Flüssigkeiten wäre eine gute Idee.
 
 death.attack.Landmine=%1$s wurde von einer Landmine gesprengt.
 death.attack.FireworkExplode=%1$s wurde von einer wilden Feuerwerksexplosion auseinandergerissen.
@@ -516,7 +520,7 @@ death.attack.FireworkExplode=%1$s wurde von einer wilden Feuerwerksexplosion aus
 parttype.wood=Holz
 parttype.stone=Stein
 parttype.iron=Eisen
-parttype.flint=Feuterstein
+parttype.flint=Feuerstein
 parttype.cactus=Kaktus
 parttype.bone=Knochen
 parttype.obsidian=Obsidian
@@ -538,7 +542,7 @@ toolpart.ToolRod=%%material-Werkzeuggriff
 toolpart.PickHead=%%material-Spitzhackenkopf
 toolpart.ShovelHead=%%material-Schaufelkopf
 toolpart.AxeHead=%%material-Axtkopf
-toolpart.Binding=%%material-Wekzeugbindung
+toolpart.Binding=%%material-Werkzeugbindung
 toolpart.ToughBind=Robuste %%materialbindung
 toolpart.ToughRod=Robuster %%materialgriff
 toolpart.LargePlate=Große %%materialplatte
