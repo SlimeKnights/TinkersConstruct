@@ -25,7 +25,6 @@ public class PacketUpdateTE extends AbstractPacket {
 
 	@Override
 	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		System.out.println("Encoding...");
 		PacketBuffer pbuff = new PacketBuffer(buffer);
 		pbuff.writeInt(x);
 		pbuff.writeShort(y);
@@ -39,7 +38,6 @@ public class PacketUpdateTE extends AbstractPacket {
 
 	@Override
 	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		System.out.println("Decoding...");
 		PacketBuffer pbuff = new PacketBuffer(buffer);
 		x = pbuff.readInt();
 		y = pbuff.readShort();
@@ -53,7 +51,6 @@ public class PacketUpdateTE extends AbstractPacket {
 
 	@Override
 	public void handleClientSide(EntityPlayer player) {
-		System.out.println("Handling client...");
 		TileEntity te = player.worldObj.getTileEntity(x, y, z);
 
 		if (te != null) {
@@ -63,7 +60,6 @@ public class PacketUpdateTE extends AbstractPacket {
 
 	@Override
 	public void handleServerSide(EntityPlayer player) {
-		System.out.println("Handling server...");
 	}
 
 }
