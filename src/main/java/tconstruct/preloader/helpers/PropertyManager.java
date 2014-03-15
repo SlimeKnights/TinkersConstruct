@@ -23,6 +23,7 @@ public class PropertyManager
     {
     } // Singleton
 
+    //TODO 1.8 rename to TCorestruct.cfg
     public static final String propFileName = "TConPreloader.cfg";
 
     private static String[] vars = new String[] { "preloaderContainer_verboseLog", "asmInterfaceRepair_verboseLog" };
