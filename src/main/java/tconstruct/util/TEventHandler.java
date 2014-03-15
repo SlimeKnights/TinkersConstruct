@@ -472,7 +472,7 @@ public class TEventHandler
             ItemStack stack = murderer.getHeldItem();
             if (stack != null && stack.getItem() instanceof Weapon)
             {
-                murderer.addStat(TAchievements.achievements.get("tconstruct.enemySlayer"), 1);
+                murderer.addStat(TAchievements.achievements.get("tconstruct:enemySlayer"), 1);
             }
         }
     }

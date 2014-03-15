@@ -30,7 +30,7 @@ public class SlotFrypan extends Slot
             {
                 return;
             }
-            player.addStat(TAchievements.achievements.get("tconstruct.dualConvenience"), 1);
+            player.addStat(TAchievements.achievements.get("tconstruct:dualConvenience"), 1);
         }
     }
 

@@ -934,17 +934,15 @@ public class TContent implements IFuelHandler
     {
         HashMap<String, Achievement> achievements = TAchievements.achievements;
 
-        achievements.put("tconstruct.beginner", new Achievement("" + 2741, "tconstruct.beginner", 0, 0, TRepo.manualBook, null));// .setIndependent());
-        achievements.put("tconstruct.pattern", new Achievement("" + 2742, "tconstruct.pattern", 2, 1, TRepo.blankPattern, achievements.get("tconstruct.beginner")));
-        achievements.put("tconstruct.tinkerer", new Achievement("" + 2743, "tconstruct.tinkerer", 2, 2, new ItemStack(TRepo.titleIcon, 1, 4096), achievements.get("tconstruct.pattern")));
-        achievements.put("tconstruct.preparedFight", new Achievement("" + 2744, "tconstruct.preparedFight", 1, 3, new ItemStack(TRepo.titleIcon, 1, 4097), achievements.get("tconstruct.tinkerer")));
-        achievements.put("tconstruct.proTinkerer",
-                new Achievement("" + 2745, "tconstruct.proTinkerer", 4, 4, new ItemStack(TRepo.titleIcon, 1, 4098), achievements.get("tconstruct.tinkerer")).setSpecial());
-        achievements.put("tconstruct.smelteryMaker", new Achievement("" + 2746, "tconstruct.smelteryMaker", -2, -1, TRepo.smeltery, achievements.get("tconstruct.beginner")));
-        achievements.put("tconstruct.enemySlayer", new Achievement("" + 2747, "tconstruct.enemySlayer", 0, 5, new ItemStack(TRepo.titleIcon, 1, 4099), achievements.get("tconstruct.preparedFight")));
-        achievements.put("tconstruct.dualConvenience",
-                new Achievement("" + 2748, "tconstruct.dualConvenience", 0, 7, new ItemStack(TRepo.titleIcon, 1, 4100), achievements.get("tconstruct.enemySlayer")).setSpecial());
-        achievements.put("tconstruct.doingItWrong", new Achievement("" + 2749, "tconstruct.doingItWrong", -2, -3, new ItemStack(TRepo.manualBook, 1, 2), achievements.get("tconstruct.smelteryMaker")));
-        achievements.put("tconstruct.betterCrafting", new Achievement("" + 2750, "tconstruct.betterCrafting", -2, 2, TRepo.craftingStationWood, achievements.get("tconstruct.beginner")));
+        achievements.put("tconstruct:beginner", new Achievement("tconstruct:beginner", "tconstruct.beginner", 0, 0, TRepo.manualBook, null));// .setIndependent());
+        achievements.put("tconstruct:pattern", new Achievement("tconstruct:pattern", "tconstruct.pattern", 2, 1, TRepo.blankPattern, achievements.get("tconstruct:beginner")));
+        achievements.put("tconstruct:tinkerer", new Achievement("tconstruct:tinkerer", "tconstruct.tinkerer", 2, 2, new ItemStack(TRepo.titleIcon, 1, 4096), achievements.get("tconstruct:pattern")));
+        achievements.put("tconstruct:preparedFight", new Achievement("tconstruct:preparedFight", "tconstruct.preparedFight", 1, 3, new ItemStack(TRepo.titleIcon, 1, 4097), achievements.get("tconstruct:tinkerer")));
+        achievements.put("tconstruct:proTinkerer", new Achievement("tconstruct:proTinkerer", "tconstruct.proTinkerer", 4, 4, new ItemStack(TRepo.titleIcon, 1, 4098), achievements.get("tconstruct:tinkerer")).setSpecial());
+        achievements.put("tconstruct:smelteryMaker", new Achievement("tconstruct:smelteryMaker", "tconstruct.smelteryMaker", -2, -1, TRepo.smeltery, achievements.get("tconstruct:beginner")));
+        achievements.put("tconstruct:enemySlayer", new Achievement("tconstruct:enemySlayer", "tconstruct.enemySlayer", 0, 5, new ItemStack(TRepo.titleIcon, 1, 4099), achievements.get("tconstruct:preparedFight")));
+        achievements.put("tconstruct:dualConvenience", new Achievement("tconstruct:dualConvenience", "tconstruct.dualConvenience", 0, 7, new ItemStack(TRepo.titleIcon, 1, 4100), achievements.get("tconstruct:enemySlayer")).setSpecial());
+        achievements.put("tconstruct:doingItWrong", new Achievement("tconstruct:doingItWrong", "tconstruct.doingItWrong", -2, -3, new ItemStack(TRepo.manualBook, 1, 2), achievements.get("tconstruct:smelteryMaker")));
+        achievements.put("tconstruct:betterCrafting", new Achievement("tconstruct:betterCrafting", "tconstruct.betterCrafting", -2, 2, TRepo.craftingStationWood, achievements.get("tconstruct:beginner")));
     }
 }

@@ -44,12 +44,12 @@ public class TCraftingHandler // implements ICraftingHandler
                     tags.setBoolean("smelteryManual", true);
                     AbilityHelper.spawnItemAtPlayer(event.player, new ItemStack(TRepo.manualBook, 1, 2));
                 }
-                event.player.addStat(TAchievements.achievements.get("tconstruct.smelteryMaker"), 1);
+                event.player.addStat(TAchievements.achievements.get("tconstruct:smelteryMaker"), 1);
             }
 
             if (ComparisonHelper.areEquivalent(item, TRepo.craftingStationWood))
             {
-                event.player.addStat(TAchievements.achievements.get("tconstruct.betterCrafting"), 1);
+                event.player.addStat(TAchievements.achievements.get("tconstruct:betterCrafting"), 1);
             }
         }
     }
