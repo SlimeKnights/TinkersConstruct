@@ -15,7 +15,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * @author fuj1n
- * @author jmanpenilla aka Alix_The_Alicorn
+ * 
  */
 
 public class GlassBlockConnected extends MantleBlock
