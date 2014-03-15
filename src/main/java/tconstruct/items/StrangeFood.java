@@ -15,7 +15,7 @@ public class StrangeFood extends SpecialFood
 {
     public StrangeFood()
     {
-        super(new int[] { 2, 2 }, new float[] { 1f, 1f }, new String[] { "edibleslime", "edibleblood" }, new String[] { "food/edibleslime", "food/edibleblood" });
+        super(new int[] { 2, 2 }, new float[] { 1f, 1f }, new String[] { "edibleslime", "edibleblood", "bacon" }, new String[] { "food/edibleslime", "food/edibleblood", "food/bacon" });
     }
 
     @Override
@@ -39,6 +39,9 @@ public class StrangeFood extends SpecialFood
         case 1:
             list.add("\u00a74\u00a7o" + StatCollector.translateToLocal("strangefood3.tooltip"));
             list.add("\u00a74\u00a7o" + StatCollector.translateToLocal("strangefood4.tooltip"));
+            break;
+        case 2:
+            list.add("\u00a7c" + StatCollector.translateToLocal("strangefood7.tooltip"));
             break;
         }
     }

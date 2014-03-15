@@ -19,6 +19,7 @@ import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import tconstruct.library.ActiveToolMod;
@@ -408,6 +409,10 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem
                 }
             }
         }
+        list.add("");
+        int attack = (int) (tags.getCompoundTag("InfiTool").getInteger("Attack") * this.getDamageModifier());
+        list.add("\u00A79+" + attack + " " + StatCollector.translateToLocalFormatted("attribute.name.generic.attackDamage"));
+
     }
 
     public static String getStyleForType (int type)
@@ -672,87 +677,6 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem
     public float getDamageModifier ()
     {
         return 1.0f;
-    }
-
-    // Right-click
-    @Override
-    public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
-    {
-        /*
-         * if (world.isRemote) return true;
-         */
-
-        boolean used = false;
-        int hotbarSlot = player.inventory.currentItem;
-        int itemSlot = hotbarSlot == 0 ? 8 : hotbarSlot + 1;
-        ItemStack nearbyStack = null;
-
-        if (hotbarSlot < 8)
-        {
-            nearbyStack = player.inventory.getStackInSlot(itemSlot);
-            if (nearbyStack != null)
-            {
-                Item item = nearbyStack.getItem();
-                if (item instanceof ItemBlock)
-                {
-                    int posX = x;
-                    int posY = y;
-                    int posZ = z;
-                    int playerPosX = (int) Math.floor(player.posX);
-                    int playerPosY = (int) Math.floor(player.posY);
-                    int playerPosZ = (int) Math.floor(player.posZ);
-                    if (side == 0)
-                    {
-                        --posY;
-                    }
-
-                    if (side == 1)
-                    {
-                        ++posY;
-                    }
-
-                    if (side == 2)
-                    {
-                        --posZ;
-                    }
-
-                    if (side == 3)
-                    {
-                        ++posZ;
-                    }
-
-                    if (side == 4)
-                    {
-                        --posX;
-                    }
-
-                    if (side == 5)
-                    {
-                        ++posX;
-                    }
-                    if (posX == playerPosX && (posY == playerPosY || posY == playerPosY + 1 || posY == playerPosY - 1) && posZ == playerPosZ)
-                    {
-                        return false;
-                    }
-
-                    used = item.onItemUse(nearbyStack, player, world, x, y, z, side, clickX, clickY, clickZ);
-                    if (nearbyStack.stackSize < 1)
-                    {
-                        nearbyStack = null;
-                        player.inventory.setInventorySlotContents(itemSlot, null);
-                    }
-                }
-            }
-        }
-
-        /*
-         * if (used) //Update client { Packet103SetSlot packet = new
-         * Packet103SetSlot(player.openContainer.windowId, itemSlot,
-         * nearbyStack);
-         * ((EntityPlayerMP)player).playerNetServerHandler.sendPacketToPlayer
-         * (packet); }
-         */
-        return used;
     }
 
     @Override

@@ -1,17 +1,24 @@
 package tconstruct.items.tools;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.stats.StatList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.common.IShearable;
 import tconstruct.common.TRepo;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
@@ -38,10 +45,9 @@ public class Scythe extends Weapon
         return materials;
     }
 
-    static Material[] materials = new Material[] { Material.web, Material.cactus, Material.plants
-    	, Material.leaves, Material.vine };// TODO find this//, Material.pumpkin,
-                                                                                   // Material.plants, Material.vine,
-                                                                                   // Material.leaves };
+    static Material[] materials = new Material[] { Material.web, Material.cactus, Material.plants, Material.leaves, Material.vine };// TODO find this//, Material.pumpkin,
+                                                                                                                                    // Material.plants, Material.vine,
+                                                                                                                                    // Material.leaves };
 
     @Override
     public Item getHeadItem ()
@@ -162,6 +168,7 @@ public class Scythe extends Weapon
         if (!stack.hasTagCompound())
             return false;
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        boolean butter = EnchantmentHelper.getEnchantmentLevel(Enchantment.silkTouch.effectId, stack) > 0;
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
             for (int yPos = y - 1; yPos <= y + 1; yPos++)
@@ -179,21 +186,55 @@ public class Scythe extends Weapon
 
                         if (!cancelHarvest)
                         {
-                            Block block = world.getBlock(xPos, yPos, zPos);
-                            if ((block != null))
+                            Block localBlock = world.getBlock(xPos, yPos, zPos);
+                            int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
+                            float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.getBlockHardness(world, xPos, yPos, zPos);
+                            if (localBlock != null)// && (block.blockMaterial == Material.leaves || block.isLeaves(world, xPos, yPos, zPos)))
                             {
                                 for (int iter = 0; iter < materials.length; iter++)
                                 {
-                                    if (materials[iter] == block.getMaterial())
+                                    if (materials[iter] == localBlock.getMaterial())
                                     {
-                                        int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
-                                        WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
                                         if (!player.capabilities.isCreativeMode)
                                         {
-                                            block.onBlockDestroyedByPlayer(world, x, y, z, meta);
-                                            block.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
-                                            block.onBlockHarvested(world, x, y, z, localMeta, player);
-                                            onBlockDestroyed(stack, world, blockB, xPos, yPos, zPos, player);
+                                            if (butter && localBlock instanceof IShearable && ((IShearable) localBlock).isShearable(stack, player.worldObj, x, y, z))
+                                            {
+                                                ArrayList<ItemStack> drops = ((IShearable) localBlock).onSheared(stack, player.worldObj, x, y, z,
+                                                        EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack));
+                                                Random rand = new Random();
+
+                                                if (!world.isRemote)
+                                                    for (ItemStack dropStack : drops)
+                                                    {
+                                                        float f = 0.7F;
+                                                        double d = (double) (rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                                                        double d1 = (double) (rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                                                        double d2 = (double) (rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                                                        EntityItem entityitem = new EntityItem(player.worldObj, (double) xPos + d, (double) yPos + d1, (double) zPos + d2, dropStack);
+                                                        entityitem.delayBeforeCanPickup = 10;
+                                                        player.worldObj.spawnEntityInWorld(entityitem);
+                                                    }
+
+                                                if (localHardness > 0f)
+                                                    onBlockDestroyed(stack, world, localBlock, xPos, yPos, zPos, player);
+                                                player.addStat(StatList.mineBlockStatArray[Block.getIdFromBlock(localBlock)], 1);
+                                                world.setBlockToAir(xPos, yPos, zPos);
+                                            }
+                                            else
+                                            {
+                                                if (localBlock.removedByPlayer(world, player, xPos, yPos, zPos))
+                                                {
+                                                    localBlock.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
+                                                }
+                                                localBlock.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
+                                                localBlock.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
+                                                if (localHardness > 0f)
+                                                    onBlockDestroyed(stack, world, localBlock, xPos, yPos, zPos, player);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            world.setBlockToAir(xPos, yPos, zPos);
                                         }
                                     }
                                 }

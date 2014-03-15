@@ -51,11 +51,13 @@ public class TActiveOmniMod extends ActiveToolMod
     @Override
     public boolean beforeBlockBreak (ToolCore tool, ItemStack stack, int x, int y, int z, EntityLivingBase entity)
     {
+        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        baconator(tool, stack, entity, tags);
+
         if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode)
             return false;
         TRepo.modLapis.midStreamModify(stack, tool);
 
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         World world = entity.worldObj;
         Block block = entity.worldObj.getBlock(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
@@ -150,7 +152,25 @@ public class TActiveOmniMod extends ActiveToolMod
     public int baseAttackDamage (int earlyModDamage, int damage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLivingBase player, Entity entity)
     {
         TRepo.modLapis.midStreamModify(stack, tool);
+        baconator(tool, stack, player, tags);
         return 0;
+    }
+
+    private void baconator (ToolCore tool, ItemStack stack, EntityLivingBase entity, NBTTagCompound tags)
+    {
+        int bacon = 0;
+        bacon += tags.getInteger("Head") == 18 ? 1 : 0;
+        bacon += tags.getInteger("Handle") == 18 ? 1 : 0;
+        bacon += tags.getInteger("Accessory") == 18 ? 1 : 0;
+        bacon += tags.getInteger("Extra") == 18 ? 1 : 0;
+        int chance = tool.getPartAmount() * 100;
+        if (random.nextInt(chance) < bacon)
+        {
+            if (entity instanceof EntityPlayer)
+                AbilityHelper.spawnItemAtPlayer((EntityPlayer) entity, new ItemStack(TRepo.strangeFood, 1, 2));
+            else
+                AbilityHelper.spawnItemAtEntity(entity, new ItemStack(TRepo.strangeFood, 1, 2), 0);
+        }
     }
 
     @Override
