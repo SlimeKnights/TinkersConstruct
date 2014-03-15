@@ -232,12 +232,6 @@ public abstract class BowBase extends ToolCore
         return stack;
     }
 
-    @Override
-    public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
-    {
-        return false;
-    }
-
     @SideOnly(Side.CLIENT)
     @Override
     public boolean requiresMultipleRenderPasses ()

@@ -214,7 +214,7 @@ public class ToolStationGui extends NewContainerGui
         // Attack
         if (categories.contains("weapon"))
         {
-            int attack = (int) (tags.getInteger("Attack"));
+            int attack = (int) (tags.getInteger("Attack")) + 1;
             float stoneboundDamage = (float) Math.log(durability / 72f + 1) * -2 * stonebound;
             attack += stoneboundDamage;
             attack *= tool.getDamageModifier();
@@ -295,7 +295,7 @@ public class ToolStationGui extends NewContainerGui
         {
             float mineSpeed = tags.getInteger("MiningSpeed") / 100f;
             float mineSpeed2 = tags.getInteger("MiningSpeed2") / 100f;
-            float stoneboundSpeed = (float) Math.log(durability / 90f + 1) * 2 * stonebound;
+            float stoneboundSpeed = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
             DecimalFormat df = new DecimalFormat("##.##");
             df.setRoundingMode(RoundingMode.DOWN);
             float trueSpeed = mineSpeed + stoneboundSpeed;
@@ -344,7 +344,7 @@ public class ToolStationGui extends NewContainerGui
 
             float trueSpeed = mineSpeed / (heads * 100f);
 
-            float stoneboundSpeed = (float) Math.log(durability / 90f + 1) * 2 * stonebound;
+            float stoneboundSpeed = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
             DecimalFormat df = new DecimalFormat("##.##");
             df.setRoundingMode(RoundingMode.DOWN);
             trueSpeed += stoneboundSpeed;

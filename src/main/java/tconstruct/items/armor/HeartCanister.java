@@ -62,7 +62,7 @@ public class HeartCanister extends CraftingItem implements IHealthAccessory
     {
         int meta = stack.getItemDamage();
         --stack.stackSize;
-        player.heal((meta + 1) * 5);
+        player.heal((meta + 1) * 10);
         world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
         return stack;
     }

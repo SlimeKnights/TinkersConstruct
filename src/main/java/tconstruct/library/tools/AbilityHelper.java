@@ -523,22 +523,26 @@ public class AbilityHelper
         }
     }
 
+    public static void spawnItemAtEntity (Entity entity, ItemStack stack, int delay)
+    {
+        if (!entity.worldObj.isRemote)
+        {
+            EntityItem entityitem = new EntityItem(entity.worldObj, entity.posX + 0.5D, entity.posY + 0.5D, entity.posZ + 0.5D, stack);
+            entityitem.delayBeforeCanPickup = delay;
+            entity.worldObj.spawnEntityInWorld(entityitem);
+        }
+    }
+
     public static void spawnItemAtPlayer (EntityPlayer player, ItemStack stack)
     {
-        EntityItem entityitem = new EntityItem(player.worldObj, player.posX + 0.5D, player.posY + 0.5D, player.posZ + 0.5D, stack);
-        player.worldObj.spawnEntityInWorld(entityitem);
-        if (!(player instanceof FakePlayer))
-            entityitem.onCollideWithPlayer(player);
-        /*
-         * if (!player.inventory.addItemStackToInventory(stack)) { if
-         * (!player.worldObj.isRemote) { EntityItem entityitem = new
-         * EntityItem(player.worldObj, player.posX + 0.5D, player.posY + 0.5D,
-         * player.posZ + 0.5D, stack);
-         * player.worldObj.spawnEntityInWorld(entityitem);
-         * entityitem.onCollideWithPlayer(player); } } else {
-         * player.worldObj.playSoundAtEntity(player, "random.pop", 0.2F,
-         * ((random.nextFloat() - random.nextFloat()) * 0.7F + 1.0F) * 2.0F); }
-         */
+        if (!player.worldObj.isRemote)
+        {
+            EntityItem entityitem = new EntityItem(player.worldObj, player.posX + 0.5D, player.posY + 0.5D, player.posZ + 0.5D, stack);
+            player.worldObj.spawnEntityInWorld(entityitem);
+            if (!(player instanceof FakePlayer))
+                entityitem.onCollideWithPlayer(player);
+        }
+
     }
 
     /* Ranged weapons */
@@ -632,4 +636,5 @@ public class AbilityHelper
         Vec3 vec31 = vec3.addVector((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
         return world.func_147447_a(vec3, vec31, par3, !par3, par3);
     }
+
 }

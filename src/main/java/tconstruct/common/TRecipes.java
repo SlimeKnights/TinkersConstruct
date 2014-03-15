@@ -1284,7 +1284,7 @@ public class TRecipes
                 TConstruct.ingotLiquidValue), new FluidStack(TRepo.moltenArditeFluid, TConstruct.ingotLiquidValue)); // Manyullyn
         Smeltery.addAlloyMixing(new FluidStack(TRepo.pigIronFluid, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsPigironAlloy)), new FluidStack(TRepo.moltenIronFluid,
                 TConstruct.ingotLiquidValue), new FluidStack(TRepo.moltenEmeraldFluid, 640), new FluidStack(TRepo.bloodFluid, 80)); // Pigiron
-
+        Smeltery.addAlloyMixing(new FluidStack(TRepo.moltenObsidianFluid, TConstruct.oreLiquidValue), new FluidStack(FluidRegistry.LAVA, 1000), new FluidStack(FluidRegistry.WATER, 1000)); //Obsidian
         // Stone parts
         for (int sc = 0; sc < TRepo.patternOutputs.length; sc++)
         {
