@@ -31,7 +31,7 @@ public class PacketUpdateTE extends AbstractPacket {
 		pbuff.writeInt(z);
 		try {
 			pbuff.writeNBTTagCompoundToBuffer(data);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -44,7 +44,7 @@ public class PacketUpdateTE extends AbstractPacket {
 		z = pbuff.readInt();
 		try {
 			data = pbuff.readNBTTagCompoundFromBuffer();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
