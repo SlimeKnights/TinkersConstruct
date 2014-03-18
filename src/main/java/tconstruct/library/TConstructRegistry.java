@@ -36,6 +36,7 @@ public class TConstructRegistry
 
     /* Creative tabs */
     public static TabTools toolTab;
+    public static TabTools partTab;
     public static TabTools materialTab;
     public static TabTools blockTab;
 

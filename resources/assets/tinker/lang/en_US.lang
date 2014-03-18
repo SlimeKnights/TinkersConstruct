@@ -1,6 +1,7 @@
 itemGroup.TConstructTools=TConstruct Tools
 itemGroup.TConstructMaterials=TConstruct Materials
 itemGroup.TConstructBlocks=TConstruct Blocks
+itemGroup.TConstructParts=TConstruct Tool Parts
 
 crafters.ToolStation=Tool Station
 crafters.CraftingStation=Crafting Station
@@ -503,6 +504,7 @@ item.tconstruct.canister.yellow.name=Yellow Heart Canister
 item.tconstruct.canister.miniheart.green.name=Miniature Green Heart
 item.tconstruct.canister.green.name=Green Heart Canister
 item.tconstruct.glove.name=Dirtmover Gloves
+item.tconstruct.modifier.creative.name=Creative Tool Modifier
 
 SearedBlock.Table.name=Casting Table
 SearedBlock.Faucet.name=Seared Faucet
@@ -733,6 +735,8 @@ gui.toolstation15=Mining Level:
 gui.toolstation16=Usage Speed: 
 gui.toolstation17=Modifiers
 gui.toolstation18=Modifiers remaining: 
+
+creativeModLock.tooltip=Target Lock: 
 
 tconstruct.waila.empty=Empty
 tconstruct.waila.liquidtag=Liquid: 

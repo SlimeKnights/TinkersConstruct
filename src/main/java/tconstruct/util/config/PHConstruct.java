@@ -265,6 +265,9 @@ public class PHConstruct
         exoPants = config.getItem("Equipables", "Exo-Legs", 14118).getInt(14118);
         exoShoes = config.getItem("Equipables", "Exo-Boots", 14119).getInt(14119);
         exoCraftingEnabled = config.get("Equipables", "Exo-Armor-Craftable", false).getBoolean(false);
+        
+        creativeModifier = config.getItem("Patterns and Misc", "Creative Modifier Item", 14120).getInt(14120);
+        
         capesEnabled = config.get("Superfun", "Enable-TCon-Capes", true).getBoolean(true);
 
         boolean ic2 = true;
@@ -585,6 +588,9 @@ public class PHConstruct
     public static int bowstring;
     public static int arrowhead;
     public static int fletching;
+    
+    //Tool Modifiers
+    public static int creativeModifier;
 
     //Wearables
     public static int woodHelmet;

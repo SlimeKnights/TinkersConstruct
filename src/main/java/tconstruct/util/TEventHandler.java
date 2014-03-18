@@ -19,6 +19,7 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -26,12 +27,16 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumMovingObjectType;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraftforge.event.Event;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -156,6 +161,13 @@ public class TEventHandler
                 event.overrideResult(arrow);
             }
         }
+
+        if (event.tool == TContent.battlesign)
+        {
+            int modifiers = toolTag.getInteger("Modifiers");
+            modifiers += 1;
+            toolTag.setInteger("Modifiers", modifiers);
+        }
     }
 
     private boolean allowCrafting (int head, int handle, int accessory)
@@ -235,7 +247,8 @@ public class TEventHandler
     public void onHurt (LivingHurtEvent event)
     {
         //System.out.println("Damage: "+event.ammount);
-        if (event.entityLiving instanceof EntityPlayer)
+        EntityLivingBase reciever = event.entityLiving;
+        if (reciever instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer) event.entityLiving;
             //Cutlass
@@ -243,6 +256,72 @@ public class TEventHandler
             if (stack != null && stack.getItem() == TContent.cutlass && player.isUsingItem())
             {
                 player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 3 * 20, 1));
+
+            }
+        }
+        else if (reciever instanceof EntityCreeper)
+        {
+            Entity attacker = event.source.getEntity();
+            if (attacker instanceof EntityLivingBase)
+            {
+                float d1 = reciever.getDistanceToEntity(((EntityCreeper) reciever).getAttackTarget());
+                float d2 = reciever.getDistanceToEntity(attacker);
+                if (d2 < d1)
+                {
+                    ((EntityCreeper) event.entityLiving).setAttackTarget((EntityLivingBase) event.source.getEntity());
+                }
+            }
+        }
+    }
+
+    @ForgeSubscribe
+    public void onAttack (LivingAttackEvent event)
+    {
+        //System.out.println("Damage: "+event.ammount);
+        if (event.entityLiving instanceof EntityPlayer)
+        {
+            EntityPlayer player = (EntityPlayer) event.entityLiving;
+            //Cutlass
+            ItemStack stack = player.getCurrentEquippedItem();
+            if (stack != null && stack.getItem() == TContent.battlesign && player.isUsingItem())
+            {
+                DamageSource source = event.source;
+                if (!source.isUnblockable() && !source.isMagicDamage() && !source.isExplosion())
+                {
+                    if (source instanceof EntityDamageSourceIndirect)
+                    {
+                        Entity attacker = source.getEntity();
+                        Entity projectile = ((EntityDamageSourceIndirect) source).getSourceOfDamage();
+                        projectile.motionX *= -1;
+                        projectile.motionZ *= -1;
+                        projectile.setDead();
+                        event.setCanceled(true);
+
+                        if (projectile.getClass() == EntityArrow.class && !player.worldObj.isRemote)
+                        {
+                            EntityArrow reflection = null;
+                            if (attacker instanceof EntityLivingBase)
+                                reflection = new EntityArrow(player.worldObj, (EntityLivingBase) attacker, 0);
+                            else
+                                reflection = new EntityArrow(player.worldObj, player, 0);
+
+                            Vec3 look = player.getLookVec();
+                            reflection.posX = projectile.posX;
+                            reflection.posY = projectile.posY;
+                            reflection.posZ = projectile.posZ;
+                            reflection.motionX = (projectile.motionX + (look.xCoord * 8)) / 6;
+                            reflection.motionY = (projectile.motionY + (look.yCoord * 8)) / 6;
+                            reflection.motionZ = (projectile.motionZ + (look.zCoord * 8)) / 6;
+                            reflection.damage = ((EntityArrow) projectile).damage;
+                            player.worldObj.spawnEntityInWorld(reflection);
+                        }
+                    }
+                    else
+                    {
+                        Entity attacker = source.getEntity();
+                        attacker.attackEntityFrom(DamageSource.causeThornsDamage(player), event.ammount);
+                    }
+                }
             }
         }
     }

@@ -139,6 +139,7 @@ public class TContent implements IFuelHandler
     public static Block furnaceSlab;
 
     public static Block heldItemBlock;
+    public static Block battlesignBlock;
     public static Block craftedSoil;
 
     public static Block smeltery;
@@ -272,6 +273,8 @@ public class TContent implements IFuelHandler
     public static ModLapis modLapis;
     public static ModAttack modAttack;
 
+    public static Item creativeModifier;
+
     //Wearables
     public static Item glove;
     public static Item knapsack;
@@ -362,6 +365,10 @@ public class TContent implements IFuelHandler
         heldItemBlock = new EquipBlock(PHConstruct.heldItemBlock, Material.wood).setUnlocalizedName("Frypan");
         GameRegistry.registerBlock(heldItemBlock, "HeldItemBlock");
         GameRegistry.registerTileEntity(FrypanLogic.class, "FrypanLogic");
+
+        /*battlesignBlock = new BattlesignBlock(PHConstruct.battlesignBlock).setUnlocalizedName("Battlesign");
+        GameRegistry.registerBlock(battlesignBlock, "BattlesignBlock");
+        GameRegistry.registerTileEntity(BattlesignLogic.class, "BattlesignLogic");*/
 
         craftedSoil = new SoilBlock(PHConstruct.craftedSoil).setLightOpacity(0).setUnlocalizedName("TConstruct.Soil");
         craftedSoil.stepSound = Block.soundGravelFootstep;
@@ -985,6 +992,9 @@ public class TContent implements IFuelHandler
         GameRegistry.registerItem(knapsack, "knapsack");
         GameRegistry.registerItem(goldHead, "goldHead");
 
+        creativeModifier = new CreativeModifier(PHConstruct.creativeModifier).setUnlocalizedName("tconstruct.modifier.creative");
+        GameRegistry.registerItem(creativeModifier, "creativeModifier");
+
         LiquidCasting basinCasting = TConstruct.getBasinCasting();
         materialWood = EnumHelper.addArmorMaterial("WOOD", 2, new int[] { 1, 2, 2, 1 }, 3);
         helmetWood = new ArmorBasic(PHConstruct.woodHelmet, materialWood, 0, "wood").setUnlocalizedName("tconstruct.helmetWood");
@@ -1028,7 +1038,6 @@ public class TContent implements IFuelHandler
         //Vanilla stack sizes
         Item.doorWood.setMaxStackSize(16);
         Item.doorIron.setMaxStackSize(16);
-        Item.snowball.setMaxStackSize(64);
         Item.boat.setMaxStackSize(16);
         Item.minecartEmpty.setMaxStackSize(3);
         Item.minecartCrate.setMaxStackSize(3);
@@ -1408,8 +1417,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(diamondApple), " d ", "d#d", " d ", 'd', new ItemStack(Item.diamond), '#', new ItemStack(Item.appleRed));
         GameRegistry.addShapelessRecipe(new ItemStack(heartCanister, 1, 2), new ItemStack(diamondApple), new ItemStack(materials, 1, 8), new ItemStack(heartCanister, 1, 0), new ItemStack(
                 heartCanister, 1, 1));
-        GameRegistry.addShapelessRecipe(new ItemStack(heartCanister, 1, 4), new ItemStack(heartCanister, 1, 2), new ItemStack(heartCanister, 1, 3), new ItemStack(
-                Item.appleGold, 1, 1));
+        GameRegistry.addShapelessRecipe(new ItemStack(heartCanister, 1, 4), new ItemStack(heartCanister, 1, 2), new ItemStack(heartCanister, 1, 3), new ItemStack(Item.appleGold, 1, 1));
         //GameRegistry.addShapelessRecipe(new ItemStack(heartCanister, 1, 6), new ItemStack(heartCanister, 1, 0), new ItemStack(heartCanister, 1, 4), new ItemStack(heartCanister, 1, 5));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', "ingotGold"));
         GameRegistry.addRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', aluBrass);
@@ -1619,6 +1627,7 @@ public class TContent implements IFuelHandler
         tb.registerToolMod(new ModExtraModifier(new ItemStack[] { diamond, new ItemStack(Block.blockGold) }, "Tier1Free"));
         tb.registerToolMod(new ModExtraModifier(new ItemStack[] { new ItemStack(Block.blockDiamond), new ItemStack(Item.appleGold, 1, 1) }, "Tier1.5Free"));
         tb.registerToolMod(new ModExtraModifier(new ItemStack[] { new ItemStack(Item.netherStar) }, "Tier2Free"));
+        tb.registerToolMod(new ModCreativeToolModifier(new ItemStack[] { new ItemStack(creativeModifier) }));
 
         ItemStack silkyJewel = new ItemStack(this.materials, 1, 26);
         tb.registerToolMod(new ModButtertouch(new ItemStack[] { silkyJewel }, 12));
@@ -1998,7 +2007,8 @@ public class TContent implements IFuelHandler
 
     void setupToolTabs ()
     {
-        TConstructRegistry.materialTab.init(new ItemStack(titleIcon, 1, 255));
+        TConstructRegistry.materialTab.init(new ItemStack(manualBook, 1, 0));
+        TConstructRegistry.partTab.init(new ItemStack(titleIcon, 1, 255));
         TConstructRegistry.blockTab.init(new ItemStack(toolStationWood));
         ItemStack tool = new ItemStack(longsword, 1, 0);
 
@@ -2255,7 +2265,7 @@ public class TContent implements IFuelHandler
                 RecipeRemover.removeAnyRecipe(new ItemStack(Item.hoeGold));
                 RecipeRemover.removeAnyRecipe(new ItemStack(Item.swordGold));
             }
-            
+
             if (PHConstruct.labotimizeVanillaTools)
             {
                 Item.pickaxeWood.setMaxDamage(1);
@@ -2263,25 +2273,25 @@ public class TContent implements IFuelHandler
                 Item.shovelWood.setMaxDamage(1);
                 Item.hoeWood.setMaxDamage(1);
                 Item.swordWood.setMaxDamage(1);
-                
+
                 Item.pickaxeStone.setMaxDamage(1);
                 Item.axeStone.setMaxDamage(1);
                 Item.shovelStone.setMaxDamage(1);
                 Item.hoeStone.setMaxDamage(1);
                 Item.swordStone.setMaxDamage(1);
-                
+
                 Item.pickaxeIron.setMaxDamage(1);
                 Item.axeIron.setMaxDamage(1);
                 Item.shovelIron.setMaxDamage(1);
                 Item.hoeIron.setMaxDamage(1);
                 Item.swordIron.setMaxDamage(1);
-                
+
                 Item.pickaxeDiamond.setMaxDamage(1);
                 Item.axeDiamond.setMaxDamage(1);
                 Item.shovelDiamond.setMaxDamage(1);
                 Item.hoeDiamond.setMaxDamage(1);
                 Item.swordDiamond.setMaxDamage(1);
-                
+
                 Item.pickaxeGold.setMaxDamage(1);
                 Item.axeGold.setMaxDamage(1);
                 Item.shovelGold.setMaxDamage(1);

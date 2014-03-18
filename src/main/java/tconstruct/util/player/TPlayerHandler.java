@@ -61,12 +61,14 @@ public class TPlayerHandler implements IPlayerTracker
         stats.beginnerManual = tags.getCompoundTag("TConstruct").getBoolean("beginnerManual");
         stats.materialManual = tags.getCompoundTag("TConstruct").getBoolean("materialManual");
         stats.smelteryManual = tags.getCompoundTag("TConstruct").getBoolean("smelteryManual");
+        stats.battlesignBonus = tags.getCompoundTag("TConstruct").getBoolean("battlesignBonus");
         //gamerule naturalRegeneration false
         if (!PHConstruct.enableHealthRegen)
             entityplayer.worldObj.getGameRules().setOrCreateGameRule("naturalRegeneration", "false");
         if (!stats.beginnerManual)
         {
             stats.beginnerManual = true;
+            stats.battlesignBonus = true;
             tags.getCompoundTag("TConstruct").setBoolean("beginnerManual", true);
             if (PHConstruct.beginnerBook)
             {
@@ -107,6 +109,35 @@ public class TPlayerHandler implements IPlayerTracker
 
                 AbilityHelper.spawnItemAtPlayer(entityplayer, pattern);
             }
+            
+            if (entityplayer.username.toLowerCase().equals("zisteau"))
+            {
+                spawnPigmanModifier(entityplayer);
+            }
+        }
+        else
+        {
+            if (!stats.battlesignBonus)
+            {
+                stats.battlesignBonus = true;
+                ItemStack modifier = new ItemStack(TContent.creativeModifier);
+                
+                NBTTagCompound compound = new NBTTagCompound();
+                compound.setCompoundTag("display", new NBTTagCompound());
+                NBTTagList list = new NBTTagList();
+                list.appendTag(new NBTTagString("Lore", "Battlesigns were buffed recently."));
+                list.appendTag(new NBTTagString("Lore", "This might make up for it."));
+                compound.getCompoundTag("display").setTag("Lore", list);
+                compound.setString("TargetLock", TContent.battlesign.getToolName());
+                modifier.setTagCompound(compound);
+
+                AbilityHelper.spawnItemAtPlayer(entityplayer, modifier);
+                
+                if (entityplayer.username.toLowerCase().equals("zisteau"))
+                {
+                    spawnPigmanModifier(entityplayer);
+                }
+            }
         }
 
         playerStats.put(entityplayer.username, stats);
@@ -123,6 +154,23 @@ public class TPlayerHandler implements IPlayerTracker
         }
 
         updatePlayerInventory(entityplayer, stats);
+    }
+    
+    void spawnPigmanModifier(EntityPlayer entityplayer)
+    {
+        ItemStack modifier = new ItemStack(TContent.creativeModifier);
+        
+        NBTTagCompound compound = new NBTTagCompound();
+        compound.setCompoundTag("display", new NBTTagCompound());
+        compound.getCompoundTag("display").setString("Name", "Zistonian Bonus Modifier");
+        NBTTagList list = new NBTTagList();
+        list.appendTag(new NBTTagString("Lore", "Zombie Pigmen seem to have a natural affinty"));
+        list.appendTag(new NBTTagString("Lore", "for these types of weapons."));
+        compound.getCompoundTag("display").setTag("Lore", list);
+        compound.setString("TargetLock", TContent.battlesign.getToolName());
+        modifier.setTagCompound(compound);
+
+        AbilityHelper.spawnItemAtPlayer(entityplayer, modifier);
     }
 
     void updatePlayerInventory (EntityPlayer player, TPlayerStats stats)

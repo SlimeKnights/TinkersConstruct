@@ -6,6 +6,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import tconstruct.common.TContent;
+import tconstruct.library.TConstructRegistry;
 import tconstruct.library.util.IToolPart;
 
 public class ToolPart extends CraftingItem implements IToolPart
@@ -15,6 +16,7 @@ public class ToolPart extends CraftingItem implements IToolPart
     public ToolPart(int id, String textureType, String name)
     {
         super(id, toolMaterialNames, buildTextureNames(textureType), "parts/");
+        this.setCreativeTab(TConstructRegistry.partTab);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.partName = name;

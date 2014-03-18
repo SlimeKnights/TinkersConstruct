@@ -14,6 +14,7 @@ public class TPlayerStats
     public boolean beginnerManual;
     public boolean materialManual;
     public boolean smelteryManual;
+    public boolean battlesignBonus;
     public ArmorExtended armor;
     public KnapsackInventory knapsack;
 }

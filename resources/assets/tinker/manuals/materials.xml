@@ -1053,6 +1053,22 @@ Stackable: No</text>
 
 <page type="sectionpage">
 <title>Additional Modifiers</title>
+<text>Attaching a solid gold apple and encrusting the tool with a block of diamond warps the tool in places you did not notice before.
+
+Effects:
+- Adds an additional modifier slot to the tool
+
+Type: Single-use
+Stackable: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>tier1.5free</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Additional Modifiers</title>
 <text>Working the tool with a nether star gives it the ability to attach parts they would not otherwise stay.
 
 Effects:
@@ -1065,6 +1081,23 @@ Stackable: No</text>
 <page type="modifier">
 <tooltype>tool</tooltype>
 <recipe>tier2free</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Additional Modifiers</title>
+<text>For the creative types or the map makers in the world, this item is for you.
+
+Effects:
+- Adds an additional modifier slot to the tool
+- If it has a target lock, it will only work on that tool.
+
+Type: Single-use
+Stackable: Yes</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>creativefree</recipe>
 </page>
 
 </book>
