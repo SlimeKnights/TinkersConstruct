@@ -248,6 +248,7 @@ public class TPlayerHandler implements IPlayerTracker
         tTag.setBoolean("beginnerManual", stats.beginnerManual);
         tTag.setBoolean("materialManual", stats.materialManual);
         tTag.setBoolean("smelteryManual", stats.smelteryManual);
+        tTag.setBoolean("battlesignBonus", stats.battlesignBonus);
         tags.setCompoundTag("TConstruct", tTag);
 
         Side side = FMLCommonHandler.instance().getEffectiveSide();
