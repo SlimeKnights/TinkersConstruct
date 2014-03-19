@@ -106,7 +106,7 @@ public abstract class DualHarvestTool extends HarvestTool
     }
 
     @Override
-    public boolean canHarvestBlock (Block block)
+    public boolean func_150897_b (Block block)
     {
         if (block.getMaterial().isToolNotRequired())
         {
@@ -123,6 +123,12 @@ public abstract class DualHarvestTool extends HarvestTool
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean canHarvestBlock(Block block, ItemStack itemStack)
+    {
+        return func_150897_b(block);
     }
 
     @Override
