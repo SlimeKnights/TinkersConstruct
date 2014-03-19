@@ -126,6 +126,12 @@ public abstract class DualHarvestTool extends HarvestTool
     }
 
     @Override
+    public boolean canHarvestBlock(Block block, ItemStack itemStack)
+    {
+        return func_150897_b(block);
+    }
+
+    @Override
     public String[] toolCategories ()
     {
         return new String[] { "harvest", "dualharvest" };

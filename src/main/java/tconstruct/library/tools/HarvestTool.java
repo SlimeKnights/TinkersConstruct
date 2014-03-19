@@ -173,6 +173,7 @@ public abstract class HarvestTool extends ToolCore
         return 0.1f;
     }
 
+    @Override
     public boolean func_150897_b (Block block)
     {
         if (block.getMaterial().isToolNotRequired())
@@ -185,6 +186,12 @@ public abstract class HarvestTool extends ToolCore
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean canHarvestBlock(Block block, ItemStack itemStack)
+    {
+        return func_150897_b(block);
     }
 
     @Override
