@@ -173,7 +173,7 @@ public abstract class HarvestTool extends ToolCore
         return 0.1f;
     }
 
-    public boolean canHarvestBlock (Block block)
+    public boolean func_150897_b (Block block)
     {
         if (block.getMaterial().isToolNotRequired())
         {
