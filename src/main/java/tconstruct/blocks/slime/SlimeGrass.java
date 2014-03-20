@@ -17,10 +17,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
+import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import tconstruct.world.TinkerWorld;
 
 public class SlimeGrass extends MantleBlock
 {
@@ -103,36 +106,37 @@ public class SlimeGrass extends MantleBlock
     }
 
     @Override
-    public void updateTick (World par1World, int par2, int par3, int par4, Random par5Random)
+    public void updateTick (World world, int x, int y, int z, Random random)
     {
-        if (!par1World.isRemote)
+        if (!world.isRemote)
         {
-            if (par1World.getBlockLightValue(par2, par3 + 1, par4) < 4 && par1World.getBlockLightOpacity(par2, par3 + 1, par4) > 2)
+            if (world.getBlockLightValue(x, y + 1, z) < 4 && world.getBlockLightOpacity(x, y + 1, z) > 2)
             {
-                par1World.setBlock(par2, par3, par4, TinkerTools.craftedSoil, 5, 3);
+                world.setBlock(x, y, z, TinkerTools.craftedSoil, 5, 3);
             }
-            else if (par1World.getBlockLightValue(par2, par3 + 1, par4) >= 9)
+            else if (world.getBlockLightValue(x, y + 1, z) >= 9)
             {
                 for (int l = 0; l < 4; ++l)
                 {
-                    int posX = par2 + par5Random.nextInt(3) - 1;
-                    int posY = par3 + par5Random.nextInt(5) - 3;
-                    int posZ = par4 + par5Random.nextInt(3) - 1;
-                    Block l1 = par1World.getBlock(posX, posY + 1, posZ);
+                    int posX = x + random.nextInt(3) - 1;
+                    int posY = y + random.nextInt(5) - 3;
+                    int posZ = z + random.nextInt(3) - 1;
+                    Block blockAbove = world.getBlock(posX, posY + 1, posZ);
 
-                    if (par1World.getBlockLightValue(posX, posY + 1, posZ) >= 4 && par1World.getBlockLightOpacity(posX, posY + 1, posZ) <= 2)
+                    if (world.getBlockLightValue(posX, posY + 1, posZ) >= 4 && world.getBlockLightOpacity(posX, posY + 1, posZ) <= 2
+                            && blockAbove != TinkerTools.craftedSoil && blockAbove != this)
                     {
-                        Block block = par1World.getBlock(posX, posY, posZ);
+                        Block block = world.getBlock(posX, posY, posZ);
                         if (block == Blocks.dirt)
                         {
-                            par1World.setBlock(posX, posY, posZ, (Block) this, 1, 3);
+                            world.setBlock(posX, posY, posZ, (Block) this, 1, 3);
                             return;
                         }
-                        int blockMeta = par1World.getBlockMetadata(posX, posY, posZ);
+                        int blockMeta = world.getBlockMetadata(posX, posY, posZ);
                         if (block == TinkerTools.craftedSoil)
                         {
                             if (blockMeta == 5)
-                                par1World.setBlock(posX, posY, posZ, (Block) this, 0, 3);
+                                world.setBlock(posX, posY, posZ, (Block) this, 0, 3);
                         }
                     }
                 }
