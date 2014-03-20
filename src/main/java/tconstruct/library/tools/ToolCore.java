@@ -17,9 +17,9 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -27,6 +27,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import tconstruct.entity.FancyEntityItem;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
@@ -65,8 +66,8 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
 {
     //TE power constants -- TODO grab these from the 
     protected int capacity = 400000;
-    protected int maxReceive = 75;
-    protected int maxExtract = 75;
+    protected int maxReceive = 2000;
+    protected int maxExtract = 2000;
 
     protected Random random = new Random();
     protected int damageVsEntity;
@@ -809,6 +810,17 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
                 return getMaxEnergyStored(stack) - energy;
         }
         return tags.getCompoundTag("InfiTool").getInteger("Damage");
+    }
+    
+    /* Prevent tools from dying */
+    public boolean hasCustomEntity (ItemStack stack)
+    {
+        return true;
+    }
+    
+    public Entity createEntity (World world, Entity location, ItemStack itemstack)
+    {
+        return new FancyEntityItem(world, location, itemstack);
     }
 
     /* IC2 Support
