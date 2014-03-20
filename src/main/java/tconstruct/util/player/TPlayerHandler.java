@@ -62,6 +62,7 @@ public class TPlayerHandler implements IPlayerTracker
         stats.materialManual = tags.getCompoundTag("TConstruct").getBoolean("materialManual");
         stats.smelteryManual = tags.getCompoundTag("TConstruct").getBoolean("smelteryManual");
         stats.battlesignBonus = tags.getCompoundTag("TConstruct").getBoolean("battlesignBonus");
+        System.out.println("Battlesign bonus Login: "+stats.battlesignBonus);
         //gamerule naturalRegeneration false
         if (!PHConstruct.enableHealthRegen)
             entityplayer.worldObj.getGameRules().setOrCreateGameRule("naturalRegeneration", "false");
@@ -70,6 +71,7 @@ public class TPlayerHandler implements IPlayerTracker
             stats.beginnerManual = true;
             stats.battlesignBonus = true;
             tags.getCompoundTag("TConstruct").setBoolean("beginnerManual", true);
+            tags.getCompoundTag("TConstruct").setBoolean("battlesignBonus", true);
             if (PHConstruct.beginnerBook)
             {
                 ItemStack diary = new ItemStack(TContent.manualBook);
@@ -121,6 +123,7 @@ public class TPlayerHandler implements IPlayerTracker
             {
                 stats.battlesignBonus = true;
                 ItemStack modifier = new ItemStack(TContent.creativeModifier);
+                tags.getCompoundTag("TConstruct").setBoolean("battlesignBonus", true);
                 
                 NBTTagCompound compound = new NBTTagCompound();
                 compound.setCompoundTag("display", new NBTTagCompound());

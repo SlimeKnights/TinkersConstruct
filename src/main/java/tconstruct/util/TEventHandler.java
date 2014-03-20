@@ -253,10 +253,17 @@ public class TEventHandler
             EntityPlayer player = (EntityPlayer) event.entityLiving;
             //Cutlass
             ItemStack stack = player.getCurrentEquippedItem();
-            if (stack != null && stack.getItem() == TContent.cutlass && player.isUsingItem())
+            if (stack != null && player.isUsingItem())
             {
-                player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 3 * 20, 1));
-
+                Item item = stack.getItem();
+                if (item == TContent.cutlass)
+                {
+                    player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 3 * 20, 1));
+                }
+                else if (item == TContent.battlesign)
+                {
+                    event.ammount *= 1.5; //Puts battlesign blocking at 3/4 instead of 1/2
+                }
             }
         }
         else if (reciever instanceof EntityCreeper)
@@ -264,11 +271,15 @@ public class TEventHandler
             Entity attacker = event.source.getEntity();
             if (attacker instanceof EntityLivingBase)
             {
-                float d1 = reciever.getDistanceToEntity(((EntityCreeper) reciever).getAttackTarget());
-                float d2 = reciever.getDistanceToEntity(attacker);
-                if (d2 < d1)
+                Entity target = ((EntityCreeper) reciever).getAttackTarget();
+                if (target != null)
                 {
-                    ((EntityCreeper) event.entityLiving).setAttackTarget((EntityLivingBase) event.source.getEntity());
+                    float d1 = reciever.getDistanceToEntity(((EntityCreeper) reciever).getAttackTarget());
+                    float d2 = reciever.getDistanceToEntity(attacker);
+                    if (d2 < d1)
+                    {
+                        ((EntityCreeper) event.entityLiving).setAttackTarget((EntityLivingBase) event.source.getEntity());
+                    }
                 }
             }
         }
@@ -290,30 +301,33 @@ public class TEventHandler
                 {
                     if (source instanceof EntityDamageSourceIndirect)
                     {
-                        Entity attacker = source.getEntity();
-                        Entity projectile = ((EntityDamageSourceIndirect) source).getSourceOfDamage();
-                        projectile.motionX *= -1;
-                        projectile.motionZ *= -1;
-                        projectile.setDead();
-                        event.setCanceled(true);
-
-                        if (projectile.getClass() == EntityArrow.class && !player.worldObj.isRemote)
+                        if (random.nextInt(3) == 0)
                         {
-                            EntityArrow reflection = null;
-                            if (attacker instanceof EntityLivingBase)
-                                reflection = new EntityArrow(player.worldObj, (EntityLivingBase) attacker, 0);
-                            else
-                                reflection = new EntityArrow(player.worldObj, player, 0);
+                            Entity attacker = source.getEntity();
+                            Entity projectile = ((EntityDamageSourceIndirect) source).getSourceOfDamage();
+                            projectile.motionX *= -1;
+                            projectile.motionZ *= -1;
+                            projectile.setDead();
+                            event.setCanceled(true);
 
-                            Vec3 look = player.getLookVec();
-                            reflection.posX = projectile.posX;
-                            reflection.posY = projectile.posY;
-                            reflection.posZ = projectile.posZ;
-                            reflection.motionX = (projectile.motionX + (look.xCoord * 8)) / 6;
-                            reflection.motionY = (projectile.motionY + (look.yCoord * 8)) / 6;
-                            reflection.motionZ = (projectile.motionZ + (look.zCoord * 8)) / 6;
-                            reflection.damage = ((EntityArrow) projectile).damage;
-                            player.worldObj.spawnEntityInWorld(reflection);
+                            if (projectile.getClass() == EntityArrow.class && !player.worldObj.isRemote)
+                            {
+                                EntityArrow reflection = null;
+                                if (attacker instanceof EntityLivingBase)
+                                    reflection = new EntityArrow(player.worldObj, (EntityLivingBase) attacker, 0);
+                                else
+                                    reflection = new EntityArrow(player.worldObj, player, 0);
+
+                                Vec3 look = player.getLookVec();
+                                reflection.posX = projectile.posX;
+                                reflection.posY = projectile.posY;
+                                reflection.posZ = projectile.posZ;
+                                reflection.motionX = (projectile.motionX + (look.xCoord * 8)) / 6;
+                                reflection.motionY = (projectile.motionY + (look.yCoord * 8)) / 6;
+                                reflection.motionZ = (projectile.motionZ + (look.zCoord * 8)) / 6;
+                                reflection.damage = ((EntityArrow) projectile).damage;
+                                player.worldObj.spawnEntityInWorld(reflection);
+                            }
                         }
                     }
                     else
