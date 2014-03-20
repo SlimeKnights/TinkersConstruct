@@ -96,36 +96,39 @@ public class SlimeGrass extends Block
         world.setBlock(x, y, z, TContent.craftedSoil.blockID, 5, 3);
     }
 
-    public void updateTick (World par1World, int par2, int par3, int par4, Random par5Random)
+    public void updateTick (World world, int x, int y, int z, Random random)
     {
-        if (!par1World.isRemote)
+        if (!world.isRemote)
         {
-            if (par1World.getBlockLightValue(par2, par3 + 1, par4) < 4 && par1World.getBlockLightOpacity(par2, par3 + 1, par4) > 2)
+            int aboveID = world.getBlockId(x, y + 1, z);
+            if ((world.getBlockLightValue(x, y + 1, z) < 4 && world.getBlockLightOpacity(x, y + 1, z) > 2) || (aboveID == TContent.craftedSoil.blockID || aboveID == this.blockID))
             {
-                par1World.setBlock(par2, par3, par4, TContent.craftedSoil.blockID, 5, 3);
+                world.setBlock(x, y, z, TContent.craftedSoil.blockID, 5, 3);
             }
-            else if (par1World.getBlockLightValue(par2, par3 + 1, par4) >= 9)
+            else if (world.getBlockLightValue(x, y + 1, z) >= 9)
             {
                 for (int l = 0; l < 4; ++l)
                 {
-                    int posX = par2 + par5Random.nextInt(3) - 1;
-                    int posY = par3 + par5Random.nextInt(5) - 3;
-                    int posZ = par4 + par5Random.nextInt(3) - 1;
-                    int l1 = par1World.getBlockId(posX, posY + 1, posZ);
+                    int posX = x + random.nextInt(3) - 1;
+                    int posY = y + random.nextInt(5) - 3;
+                    int posZ = z + random.nextInt(3) - 1;
+                    int l1 = world.getBlockId(posX, posY + 1, posZ);
 
-                    if (par1World.getBlockLightValue(posX, posY + 1, posZ) >= 4 && par1World.getBlockLightOpacity(posX, posY + 1, posZ) <= 2)
+                    aboveID = world.getBlockId(posX, posY + 1, posZ);
+                    if (world.getBlockLightValue(posX, posY + 1, posZ) >= 4 && world.getBlockLightOpacity(posX, posY + 1, posZ) <= 2
+                            && (aboveID != TContent.craftedSoil.blockID && aboveID != this.blockID))
                     {
-                        int blockID = par1World.getBlockId(posX, posY, posZ);
+                        int blockID = world.getBlockId(posX, posY, posZ);
                         if (blockID == Block.dirt.blockID)
                         {
-                            par1World.setBlock(posX, posY, posZ, this.blockID, 1, 3);
+                            world.setBlock(posX, posY, posZ, this.blockID, 1, 3);
                             return;
                         }
-                        int blockMeta = par1World.getBlockMetadata(posX, posY, posZ);
+                        int blockMeta = world.getBlockMetadata(posX, posY, posZ);
                         if (blockID == TContent.craftedSoil.blockID)
                         {
                             if (blockMeta == 5)
-                                par1World.setBlock(posX, posY, posZ, this.blockID, 0, 3);
+                                world.setBlock(posX, posY, posZ, this.blockID, 0, 3);
                         }
                     }
                 }

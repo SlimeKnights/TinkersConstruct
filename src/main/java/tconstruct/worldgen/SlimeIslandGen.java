@@ -8,7 +8,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraft.world.gen.ChunkProviderFlat;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import tconstruct.common.TContent;
@@ -66,7 +68,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                 for (int y = 0; y <= height; y++)
                 {
                     if (ellipse.contains(x, z))
-                        world.setBlock(x + xChunk, y + yCenter, z + zChunk, baseID, 5, 0);
+                        this.setBlockAndMetadata(world, x + xChunk, y + yCenter, z + zChunk, baseID, 5);
                 }
             }
         }
@@ -89,7 +91,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                     }
                     else
                     {
-                        world.setBlock(xPos, yPos, zPos, 0, 0, 0);
+                        this.setBlockAndMetadata(world, xPos, yPos, zPos, 0, 0);
 
                     }
                 }
@@ -114,7 +116,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                     }
                     else
                     {
-                        world.setBlock(xPos, yPos, zPos, 0, 0, 0);
+                        this.setBlockAndMetadata(world, xPos, yPos, zPos, 0, 0);
                     }
                 }
             }
@@ -134,7 +136,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                     {
                         Block block = Block.blocksList[world.getBlockId(xPos, yPos + 1, zPos)];
                         if (block == null || block.isAirBlock(world, xPos, yPos + 1, zPos))
-                            world.setBlock(xPos, yPos, zPos, topID, 0, 0);
+                            this.setBlockAndMetadata(world, xPos, yPos, zPos, topID, 0);
                     }
                 }
             }
@@ -249,7 +251,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                 {
                     if (validLocations[(xPos * 16 + zPos) * 8 + yPos])
                     {
-                        world.setBlock(x + xPos, y + yPos, z + zPos, yPos >= 4 ? 0 : this.liquidBlock);
+                        this.setBlockAndMetadata(world, x + xPos, y + yPos, z + zPos, yPos >= 4 ? 0 : this.liquidBlock, 0);
                     }
                 }
             }
@@ -264,7 +266,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                     if (validLocations[(xPos * 16 + zPos) * 8 + yPos] && world.getBlockId(x + xPos, y + yPos - 1, z + zPos) == baseID
                             && world.getSavedLightValue(EnumSkyBlock.Sky, x + xPos, y + yPos, z + zPos) > 0)
                     {
-                        world.setBlock(x + xPos, y + yPos - 1, z + zPos, topID, 0, 0);
+                        this.setBlockAndMetadata(world, x + xPos, y + yPos - 1, z + zPos, topID, 0);
                     }
                 }
             }
@@ -287,7 +289,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                         if (var33 && (yPos < 4 || rand.nextInt(2) != 0) && world.getBlockMaterial(x + xPos, y + yPos, z + zPos).isSolid()
                                 && world.getBlockMaterial(x + xPos, y + yPos + 1, z + zPos) != Material.water)
                         {
-                            world.setBlock(x + xPos, y + yPos, z + zPos, TContent.slimeGel.blockID, gelMeta, 2);
+                            this.setBlockAndMetadata(world, x + xPos, y + yPos, z + zPos, TContent.slimeGel.blockID, gelMeta);
                         }
                     }
                 }
@@ -297,4 +299,22 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
         return true;
         //}
     }
+
+    /*@Override
+    public void setBlockAndMetadata (World world, int x, int y, int z, int id, int meta)
+    {
+        if (y < 0 | y > 255)
+            return;
+        Chunk chunk = world.getChunkFromBlockCoords(x, z);
+        chunk.removeChunkBlockTileEntity(x & 15, y, z & 15);
+        ExtendedBlockStorage[] storage = chunk.getBlockStorageArray();
+        ExtendedBlockStorage subChunk = storage[y >> 4];
+        if (subChunk == null)
+            storage[y >> 4] = subChunk = new ExtendedBlockStorage(y & ~15, !world.provider.hasNoSky);
+        subChunk.setExtBlockID(x & 15, y & 15, z & 15, id);
+        subChunk.setExtBlockMetadata(x & 15, y & 15, z & 15, meta);
+        //subChunk.setExtBlocklightValue(x & 15, y & 15, z & 15, 0);
+        //subChunk.setExtSkylightValue(x & 15, y & 15, z & 15, 0);
+        world.markBlockForUpdate(x, y, z);
+    }*/
 }
