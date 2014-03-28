@@ -135,24 +135,27 @@ public class PotionLauncher extends Item
     @Override
     public boolean onEntitySwing (EntityLivingBase player, ItemStack stack)
     {
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-        if (tags.getBoolean("Loaded"))
+        if (stack != null && stack.hasTagCompound())
         {
-            NBTTagCompound potionTag = tags.getCompoundTag("LoadedPotion");
-            ItemStack potion = ItemStack.loadItemStackFromNBT(potionTag);// findPotion(player);InventoryLogic
-            if (potion != null)
+            NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+            if (tags.getBoolean("Loaded"))
             {
-                World world = player.worldObj;
-                world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-
-                if (!world.isRemote)
+                NBTTagCompound potionTag = tags.getCompoundTag("LoadedPotion");
+                ItemStack potion = ItemStack.loadItemStackFromNBT(potionTag);// findPotion(player);InventoryLogic
+                if (potion != null)
                 {
-                    world.spawnEntityInWorld(new LaunchedPotion(world, player, potion));
+                    World world = player.worldObj;
+                    world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+
+                    if (!world.isRemote)
+                    {
+                        world.spawnEntityInWorld(new LaunchedPotion(world, player, potion));
+                    }
+                    tags.removeTag("LoadedPotion");
+                    tags.setBoolean("Loaded", false);
                 }
-                tags.removeTag("LoadedPotion");
-                tags.setBoolean("Loaded", false);
+                return true;
             }
-            return true;
         }
         return false;
     }
