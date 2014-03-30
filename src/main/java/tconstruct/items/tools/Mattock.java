@@ -145,45 +145,4 @@ public class Mattock extends DualHarvestTool
         return true;
     }
 
-    //1.6.4 start
-    @Override
-    public boolean allowOffhand(ItemStack mainhand, ItemStack offhand)
-    {
-        return false;
-    }
-
-    @Override
-    public boolean isOffhandHandDual(ItemStack off)
-    {
-        return false;
-    }
-
-    @Override
-    public boolean sheatheOnBack(ItemStack item)
-    {
-        return true;
-    }
-    //1.6.4 end
-    
-    //1.6.2 start
-    @Override
-	public boolean willAllowOffhandWeapon() {
-		return false;
-	}
-
-	@Override
-	public boolean willAllowShield() {
-		return false;
-	}
-
-	@Override
-	public boolean isOffhandHandDualWeapon() {
-		return false;
-	}
-
-	@Override
-	public boolean sheatheOnBack() {
-		return true;
-	}
-	//1.6.2 end
 }

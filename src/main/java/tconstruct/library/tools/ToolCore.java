@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import mods.battlegear2.api.weapons.IBattlegearWeapon;
-import mods.battlegear2.api.weapons.OffhandAttackEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -62,7 +60,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @see ToolMod
  */
 
-public abstract class ToolCore extends Item implements IEnergyContainerItem, ICustomElectricItem, IBoxable, IBattlegearWeapon
+public abstract class ToolCore extends Item implements IEnergyContainerItem, ICustomElectricItem, IBoxable
 {
     //TE power constants -- TODO grab these from the 
     protected int capacity = 400000;
@@ -960,68 +958,6 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         return false;
     }
 
-    /* Battlegear support, IBattlegearWeapon */
-    // 1.6.4 start
-    public boolean allowOffhand(ItemStack mainhand, ItemStack offhand)
-    {
-        return true;
-    }
-
-    public boolean isOffhandHandDual(ItemStack off)
-    {
-        return true;
-    }
-
-    public boolean sheatheOnBack(ItemStack item)
-    {
-        return false;
-    }
-    //1.6.4 end
-    
-    //1.6.2 start
-    public boolean willAllowOffhandWeapon()
-    {
-    	return true;
-    }
-
-    public boolean willAllowShield()
-    {
-    	return true;
-    }
-    
-    public boolean isOffhandHandDualWeapon()
-    {
-    	return true;
-    }
-    
-    public boolean sheatheOnBack()
-    {
-    	return false;
-    }
-    //1.6.2 end
-
-    @Override
-    public boolean offhandAttackEntity (OffhandAttackEvent event, ItemStack mainhandItem, ItemStack offhandItem)
-    {
-        return true;
-    }
-
-    @Override
-    public boolean offhandClickAir (PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem)
-    {
-        return true;
-    }
-
-	@Override
-    public boolean offhandClickBlock (PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem)
-    {
-        return true;
-    }
-
-    @Override
-    public void performPassiveEffects (Side effectiveSide, ItemStack mainhandItem, ItemStack offhandItem)
-    {
-    }
 
     //TE support section -- from COFH core API reference section
     public void setMaxTransfer (int maxTransfer)

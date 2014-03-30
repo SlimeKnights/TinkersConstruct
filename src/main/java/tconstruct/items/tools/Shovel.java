@@ -91,18 +91,6 @@ public class Shovel extends HarvestTool
         return "shovel";
     }
 
-    //1.6.4
-	@Override
-    public boolean isOffhandHandDual(ItemStack off)
-    {
-        return false;
-    }
-    
-    //1.6.2
-	@Override
-	public boolean isOffhandHandDualWeapon() {
-		return false;
-	}
 
     /*@Override
     public Icon getIcon (ItemStack stack, int renderPass)
