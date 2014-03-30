@@ -1,10 +1,12 @@
 package tconstruct;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.crash.CallableMinecraftVersion;
+import net.minecraft.util.StringUtils;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.achievements.TAchievements;
@@ -108,7 +110,7 @@ public class TConstruct
         PHConstruct.initProps(event.getModConfigurationDirectory());
         TConstructRegistry.materialTab = new TabTools("TConstructMaterials");
         TConstructRegistry.toolTab = new TabTools("TConstructTools");
-        TConstructRegistry.partTab = new TabTools("TConstructParts");        
+        TConstructRegistry.partTab = new TabTools("TConstructParts");
         TConstructRegistry.blockTab = new TabTools("TConstructBlocks");
 
         tableCasting = new LiquidCasting();
@@ -127,7 +129,7 @@ public class TConstruct
         proxy.readManuals();
         proxy.registerKeys();
         proxy.registerTickHandler();
-        
+
         GameRegistry.registerWorldGenerator(new TBaseWorldGenerator());
         MinecraftForge.TERRAIN_GEN_BUS.register(new TerrainGenEventHandler());
         GameRegistry.registerFuelHandler(content);
@@ -191,11 +193,18 @@ public class TConstruct
         ImmutableList<IMCMessage> messages = event.getMessages();
         for (IMCMessage message : messages)
         {
-            if (message.key.equals("Bind_Knapsack_Dimension"))
+            try
             {
-                String string = message.getStringValue();
-                Integer i = Integer.valueOf(string);
-                TPlayerHandler.knapsackDimensions.add(i);
+                if (message.key.equals("Bind_Knapsack_Dimension"))
+                {
+                    String string = message.getStringValue();
+                    Integer i = Integer.valueOf(string);
+                    TPlayerHandler.knapsackDimensions.add(i);
+                }
+            }
+            catch (Exception e)
+            {
+                logger.log(Level.SEVERE, "Error parsing IMC message from " + message.getSender() == null ? "unknown" : message.getSender(), e);
             }
         }
     }
