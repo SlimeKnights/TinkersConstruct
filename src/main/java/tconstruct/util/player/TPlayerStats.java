@@ -11,6 +11,7 @@ public class TPlayerStats
     public int bonusHealth;
     public int bonusHealthClient;
     public int hunger;
+    public int previousDimension;
     public boolean beginnerManual;
     public boolean materialManual;
     public boolean smelteryManual;

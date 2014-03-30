@@ -1,6 +1,10 @@
 package tconstruct.util.player;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.UUID;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -9,15 +13,27 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.packet.Packet;
 
 public class KnapsackInventory implements IInventory
 {
     public ItemStack[] inventory = new ItemStack[27];
     public WeakReference<EntityPlayer> parent;
+    String playerID;
+    int dimensionID;
+    boolean globalKnapsack = true;
 
     public void init (EntityPlayer player)
     {
         parent = new WeakReference<EntityPlayer>(player);
+    }
+    
+    public void init (EntityPlayer player, String playerID, int dimensionID, boolean global)
+    {
+        init(player);
+        this.playerID = playerID;
+        this.dimensionID = dimensionID;
+        this.globalKnapsack = global;
     }
 
     @Override
@@ -126,7 +142,7 @@ public class KnapsackInventory implements IInventory
     }
 
     /* Save/Load */
-    public void saveToNBT (EntityPlayer entityplayer)
+    /*public void saveToNBT (EntityPlayer entityplayer)
     {
         NBTTagCompound tags = entityplayer.getEntityData();
         NBTTagList tagList = new NBTTagList();
@@ -161,6 +177,83 @@ public class KnapsackInventory implements IInventory
                 this.inventory[j] = itemstack;
             }
         }
+    }*/
+    
+    public void saveToNBT (EntityPlayer player)
+    {
+        NBTTagCompound baseTag = player.getEntityData();
+        NBTTagCompound tags = baseTag.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+        NBTTagList tagList = new NBTTagList();
+        NBTTagCompound invSlot;
+
+        for (int i = 0; i < this.inventory.length; ++i)
+        {
+            if (this.inventory[i] != null)
+            {
+                invSlot = new NBTTagCompound();
+                invSlot.setByte("Slot", (byte) i);
+                this.inventory[i].writeToNBT(invSlot);
+                tagList.appendTag(invSlot);
+            }
+        }
+        
+        tags.setTag(getPlayerTagname(), tagList);
+        if (!baseTag.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
+            baseTag.setCompoundTag(EntityPlayer.PERSISTED_NBT_TAG, tags);
+    }
+
+    public void readFromNBT (EntityPlayer entityplayer)
+    {
+        NBTTagCompound tags = entityplayer.getEntityData();
+        NBTTagList tagList = tags.getTagList("TConstruct.Knapsack"); //Load old knapsack first
+        if (tagList.tagCount() == 0)
+        {
+            tags = entityplayer.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+            tagList = tags.getTagList(getPlayerTagname());            
+        }
+        for (int i = 0; i < tagList.tagCount(); ++i)
+        {
+            NBTTagCompound nbttagcompound = (NBTTagCompound) tagList.tagAt(i);
+            int j = nbttagcompound.getByte("Slot") & 255;
+            ItemStack itemstack = ItemStack.loadItemStackFromNBT(nbttagcompound);
+
+            if (itemstack != null)
+            {
+                this.inventory[j] = itemstack;
+            }
+        }
+    }
+    
+    public void writeInventoryToStream (DataOutputStream os) throws IOException
+    {
+        for (int i = 0; i < 27; i++)
+            Packet.writeItemStack(inventory[i], os);
+    }
+
+    public void readInventoryFromStream (DataInputStream is) throws IOException
+    {
+        for (int i = 0; i < 27; i++)
+        {
+            inventory[i] = Packet.readItemStack(is);
+        }
+    }
+    
+    private String getPlayerTagname()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("TConstruct.Knapsack.");
+        
+        //Dimensional awareness
+        if (globalKnapsack)
+            builder.append("Global");
+        else
+            builder.append(dimensionID);
+        
+        //Player clones
+        if (playerID != null && !(playerID.equals("")))
+            builder.append(playerID);
+        
+        return builder.toString();
     }
 
     public void dropItems ()

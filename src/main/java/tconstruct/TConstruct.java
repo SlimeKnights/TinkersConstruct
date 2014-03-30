@@ -1,38 +1,65 @@
 package tconstruct;
 
-import tconstruct.achievements.TAchievements;
-
-import cpw.mods.fml.common.*;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.event.*;
-import cpw.mods.fml.common.network.*;
-import cpw.mods.fml.common.registry.*;
-import cpw.mods.fml.relauncher.Side;
 import java.util.logging.Logger;
+
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.crash.CallableMinecraftVersion;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
+import tconstruct.achievements.TAchievements;
 import tconstruct.client.event.EventCloakRender;
-import tconstruct.common.*;
+import tconstruct.common.TContent;
+import tconstruct.common.TProxyCommon;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.crafting.*;
+import tconstruct.library.crafting.Detailing;
+import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.util.TabTools;
 import tconstruct.plugins.PluginController;
-import tconstruct.util.*;
-import tconstruct.util.config.*;
+import tconstruct.util.EnvironmentChecks;
+import tconstruct.util.TCraftingHandler;
+import tconstruct.util.TEventHandler;
+import tconstruct.util.TEventHandlerAchievement;
+import tconstruct.util.config.BOPConfig;
+import tconstruct.util.config.DimensionBlacklist;
+import tconstruct.util.config.PHConstruct;
+import tconstruct.util.config.TwilightForestConfig;
 import tconstruct.util.landmine.behavior.Behavior;
 import tconstruct.util.landmine.behavior.stackCombo.SpecialStackHandler;
 import tconstruct.util.player.TPlayerHandler;
-import tconstruct.worldgen.*;
-import tconstruct.worldgen.village.*;
+import tconstruct.worldgen.SlimeIslandGen;
+import tconstruct.worldgen.TBaseWorldGenerator;
+import tconstruct.worldgen.TerrainGenEventHandler;
+import tconstruct.worldgen.village.ComponentSmeltery;
+import tconstruct.worldgen.village.ComponentToolWorkshop;
+import tconstruct.worldgen.village.TVillageTrades;
+import tconstruct.worldgen.village.VillageSmelteryHandler;
+import tconstruct.worldgen.village.VillageToolStationHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
+import cpw.mods.fml.common.event.FMLInterModComms.IMCEvent;
+import cpw.mods.fml.common.event.FMLInterModComms.IMCMessage;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.VillagerRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 /** TConstruct, the tool mod.
  * Craft your tools with style, then modify until the original is gone!
  * @author mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.X_1.5.4dev", dependencies = "required-after:Forge@[8.9,);after:ForgeMultipart;after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.X_1.5.4dev",
+        dependencies = "required-after:Forge@[8.9,);after:ForgeMultipart;after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
@@ -151,9 +178,25 @@ public class TConstruct
         GameRegistry.registerWorldGenerator(new SlimeIslandGen(TContent.slimePool.blockID, 0));
 
         PluginController.getController().init();
-        
-        if(PHConstruct.achievementsEnabled){
-        	TAchievements.init();
+
+        if (PHConstruct.achievementsEnabled)
+        {
+            TAchievements.init();
+        }
+    }
+
+    @EventHandler
+    public void intermodCommunication (IMCEvent event)
+    {
+        ImmutableList<IMCMessage> messages = event.getMessages();
+        for (IMCMessage message : messages)
+        {
+            if (message.key.equals("Bind_Knapsack_Dimension"))
+            {
+                String string = message.getStringValue();
+                Integer i = Integer.valueOf(string);
+                TPlayerHandler.knapsackDimensions.add(i);
+            }
         }
     }
 

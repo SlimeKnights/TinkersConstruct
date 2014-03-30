@@ -118,7 +118,6 @@ public class ArmorExtended implements IInventory
     @Override
     public void onInventoryChanged ()
     {
-        System.out.println("Inventory Changed");
         EntityPlayer player = parent.get();
         TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
         recalculateHealth(player, stats);

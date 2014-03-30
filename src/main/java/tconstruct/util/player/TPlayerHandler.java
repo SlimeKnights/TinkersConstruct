@@ -1,9 +1,9 @@
 package tconstruct.util.player;
 
 import java.io.ByteArrayOutputStream;
-import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.lang.ref.WeakReference;
+import java.util.HashSet;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,7 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
@@ -35,37 +34,46 @@ public class TPlayerHandler implements IPlayerTracker
     /* Player */
     //public int hunger;
     public ConcurrentHashMap<String, TPlayerStats> playerStats = new ConcurrentHashMap<String, TPlayerStats>();
+    public static HashSet<Integer> knapsackDimensions = new HashSet<Integer>();
 
     @Override
-    public void onPlayerLogin (EntityPlayer entityplayer)
+    public void onPlayerLogin (EntityPlayer player)
     {
         //TConstruct.logger.info("Player: "+entityplayer);
         //Lookup player
-        NBTTagCompound tags = entityplayer.getEntityData();
+        NBTTagCompound tags = player.getEntityData();
         if (!tags.hasKey("TConstruct"))
         {
             tags.setCompoundTag("TConstruct", new NBTTagCompound());
         }
         TPlayerStats stats = new TPlayerStats();
-        stats.player = new WeakReference<EntityPlayer>(entityplayer);
+        stats.player = new WeakReference<EntityPlayer>(player);
         stats.armor = new ArmorExtended();
-        stats.armor.init(entityplayer);
-        stats.armor.readFromNBT(entityplayer);
+        stats.armor.init(player);
+        stats.armor.readFromNBT(player);
 
         stats.knapsack = new KnapsackInventory();
-        stats.knapsack.init(entityplayer);
-        stats.knapsack.readFromNBT(entityplayer);
+        if (knapsackDimensions.contains(player.dimension))
+        {
+            stats.knapsack.init(player, "", player.dimension, false);
+        }
+        else
+        {
+            stats.knapsack.init(player);
+        }
+        stats.knapsack.readFromNBT(player);
 
-        stats.level = entityplayer.experienceLevel;
-        stats.hunger = entityplayer.getFoodStats().getFoodLevel();
+        stats.level = player.experienceLevel;
+        stats.hunger = player.getFoodStats().getFoodLevel();
+        stats.previousDimension = player.dimension;
         stats.beginnerManual = tags.getCompoundTag("TConstruct").getBoolean("beginnerManual");
         stats.materialManual = tags.getCompoundTag("TConstruct").getBoolean("materialManual");
         stats.smelteryManual = tags.getCompoundTag("TConstruct").getBoolean("smelteryManual");
         stats.battlesignBonus = tags.getCompoundTag("TConstruct").getBoolean("battlesignBonus");
-        System.out.println("Battlesign bonus Login: "+stats.battlesignBonus);
-        //gamerule naturalRegeneration false
+
         if (!PHConstruct.enableHealthRegen)
-            entityplayer.worldObj.getGameRules().setOrCreateGameRule("naturalRegeneration", "false");
+            player.worldObj.getGameRules().setOrCreateGameRule("naturalRegeneration", "false");
+
         if (!stats.beginnerManual)
         {
             stats.beginnerManual = true;
@@ -75,13 +83,13 @@ public class TPlayerHandler implements IPlayerTracker
             if (PHConstruct.beginnerBook)
             {
                 ItemStack diary = new ItemStack(TContent.manualBook);
-                if (!entityplayer.inventory.addItemStackToInventory(diary))
+                if (!player.inventory.addItemStackToInventory(diary))
                 {
-                    AbilityHelper.spawnItemAtPlayer(entityplayer, diary);
+                    AbilityHelper.spawnItemAtPlayer(player, diary);
                 }
             }
 
-            if (entityplayer.username.toLowerCase().equals("fudgy_fetus"))
+            if (player.username.toLowerCase().equals("fudgy_fetus"))
             {
                 ItemStack pattern = new ItemStack(TContent.woodPattern, 1, 22);
 
@@ -94,10 +102,10 @@ public class TPlayerHandler implements IPlayerTracker
                 compound.getCompoundTag("display").setTag("Lore", list);
                 pattern.setTagCompound(compound);
 
-                AbilityHelper.spawnItemAtPlayer(entityplayer, pattern);
+                AbilityHelper.spawnItemAtPlayer(player, pattern);
             }
 
-            if (entityplayer.username.toLowerCase().equals("zerokyuuni"))
+            if (player.username.toLowerCase().equals("zerokyuuni"))
             {
                 ItemStack pattern = new ItemStack(Item.stick);
 
@@ -109,12 +117,12 @@ public class TPlayerHandler implements IPlayerTracker
                 compound.getCompoundTag("display").setTag("Lore", list);
                 pattern.setTagCompound(compound);
 
-                AbilityHelper.spawnItemAtPlayer(entityplayer, pattern);
+                AbilityHelper.spawnItemAtPlayer(player, pattern);
             }
-            
-            if (entityplayer.username.toLowerCase().equals("zisteau"))
+
+            if (player.username.toLowerCase().equals("zisteau"))
             {
-                spawnPigmanModifier(entityplayer);
+                spawnPigmanModifier(player);
             }
         }
         else
@@ -124,7 +132,7 @@ public class TPlayerHandler implements IPlayerTracker
                 stats.battlesignBonus = true;
                 ItemStack modifier = new ItemStack(TContent.creativeModifier);
                 tags.getCompoundTag("TConstruct").setBoolean("battlesignBonus", true);
-                
+
                 NBTTagCompound compound = new NBTTagCompound();
                 compound.setCompoundTag("display", new NBTTagCompound());
                 NBTTagList list = new NBTTagList();
@@ -134,35 +142,35 @@ public class TPlayerHandler implements IPlayerTracker
                 compound.setString("TargetLock", TContent.battlesign.getToolName());
                 modifier.setTagCompound(compound);
 
-                AbilityHelper.spawnItemAtPlayer(entityplayer, modifier);
-                
-                if (entityplayer.username.toLowerCase().equals("zisteau"))
+                AbilityHelper.spawnItemAtPlayer(player, modifier);
+
+                if (player.username.toLowerCase().equals("zisteau"))
                 {
-                    spawnPigmanModifier(entityplayer);
+                    spawnPigmanModifier(player);
                 }
             }
         }
 
-        playerStats.put(entityplayer.username, stats);
+        playerStats.put(player.username, stats);
 
         if (PHConstruct.gregtech && Loader.isModLoaded("GregTech-Addon"))
         {
             PHConstruct.gregtech = false;
             if (PHConstruct.lavaFortuneInteraction)
             {
-                entityplayer.addChatMessage("Warning: Cross-mod Exploit Present!");
-                entityplayer.addChatMessage("Solution 1: Disable Reverse Smelting recipes from GregTech.");
-                entityplayer.addChatMessage("Solution 2: Disable Auto-Smelt/Fortune interaction from TConstruct.");
+                player.addChatMessage("Warning: Cross-mod Exploit Present!");
+                player.addChatMessage("Solution 1: Disable Reverse Smelting recipes from GregTech.");
+                player.addChatMessage("Solution 2: Disable Auto-Smelt/Fortune interaction from TConstruct.");
             }
         }
 
-        updatePlayerInventory(entityplayer, stats);
+        updatePlayerInventory(player, stats);
     }
-    
-    void spawnPigmanModifier(EntityPlayer entityplayer)
+
+    void spawnPigmanModifier (EntityPlayer entityplayer)
     {
         ItemStack modifier = new ItemStack(TContent.creativeModifier);
-        
+
         NBTTagCompound compound = new NBTTagCompound();
         compound.setCompoundTag("display", new NBTTagCompound());
         compound.getCompoundTag("display").setString("Name", "Zistonian Bonus Modifier");
@@ -178,18 +186,31 @@ public class TPlayerHandler implements IPlayerTracker
 
     void updatePlayerInventory (EntityPlayer player, TPlayerStats stats)
     {
+        updatePlayerInventory(player, stats, true);
+    }
+
+    void updatePlayerInventory (EntityPlayer player, TPlayerStats stats, boolean armor)
+    {
         ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
         DataOutputStream outputStream = new DataOutputStream(bos);
         try
         {
-            outputStream.writeByte(4);
-            stats.armor.writeInventoryToStream(outputStream);
+            if (armor)
+            {
+                outputStream.writeByte(4);
+                stats.armor.writeInventoryToStream(outputStream);
+            }
+            else
+            {
+                outputStream.writeByte(3);
+                stats.knapsack.writeInventoryToStream(outputStream);
+            }
         }
         catch (Exception ex)
         {
             ex.printStackTrace();
         }
-        
+
         Packet250CustomPayload packet = new Packet250CustomPayload();
         packet.channel = "TConstruct";
         packet.data = bos.toByteArray();
@@ -205,10 +226,20 @@ public class TPlayerHandler implements IPlayerTracker
     }
 
     @Override
-    public void onPlayerChangedDimension (EntityPlayer entityplayer)
+    public void onPlayerChangedDimension (EntityPlayer player)
     {
-        savePlayerStats(entityplayer, false);
-        updatePlayerInventory(entityplayer, getPlayerStats(entityplayer.username));
+        savePlayerStats(player, false);
+        updatePlayerInventory(player, getPlayerStats(player.username));
+
+        //Reload knapsack
+        TPlayerStats stats = getPlayerStats(player.username);
+        boolean global = knapsackDimensions.contains(player.dimension);
+        if (!global || !stats.knapsack.globalKnapsack)
+        {
+            stats.knapsack.init(player, "", player.dimension, !global);
+            stats.knapsack.readFromNBT(player);
+            updatePlayerInventory(player, stats, false);
+        }
     }
 
     void savePlayerStats (EntityPlayer player, boolean clean)

@@ -548,7 +548,7 @@ public class TEventHandler
             if (rules == null || !rules.getGameRuleBooleanValue("keepInventory"))
             {
                 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
-                if (stats != null)
+                if (stats != null && stats.armor != null)
                 {
                     stats.armor.dropItems();
                     stats.knapsack.dropItems();

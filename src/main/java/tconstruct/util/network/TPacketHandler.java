@@ -52,6 +52,17 @@ public class TPacketHandler implements IPacketHandler
         try
         {
             packetID = inputStream.readByte();
+            
+            if (packetID == 3) //Sync knapsack
+            {
+                TProxyClient.knapsack.readInventoryFromStream(inputStream);
+            }
+            
+            if (packetID == 4) //Sync inventory
+            {
+                TProxyClient.armorExtended.readInventoryFromStream(inputStream);
+                TProxyClient.armorExtended.recalculateHealth(player, TConstruct.playerTracker.getPlayerStats(player.username));
+            }
         }
         catch (Exception e)
         {
@@ -122,13 +133,6 @@ public class TPacketHandler implements IPacketHandler
                     player.openGui(TConstruct.instance, TConstruct.proxy.knapsackGuiID, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
                     break;
                 }
-            }
-            
-            else if (packetID == 4) //Sync inventory
-            {
-                System.out.println("Syncing inventory");
-                TProxyClient.armorExtended.readInventoryFromStream(inputStream);
-                TProxyClient.armorExtended.recalculateHealth(player, TConstruct.playerTracker.getPlayerStats(player.username));
             }
 
             else if (packetID == 10) //Double jump
