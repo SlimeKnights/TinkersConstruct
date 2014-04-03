@@ -239,7 +239,7 @@ public class TEventHandler
     {
         if (stack != null)
         {
-            Block block = BlockUtils.getBlockFromItem(stack.getItem());
+            Block block = BlockUtils.getBlockFromItemStack(stack);
             if (block != null)
             {
                 if (block.isLeaves(null, 0, 0, 0))
@@ -386,7 +386,7 @@ public class TEventHandler
             int count = event.entityLiving instanceof EntityDragon ? 5 : 1;
             for (int i = 0; i < count; i++)
             {
-                ItemStack dropStack = new ItemStack(TRepo.heartCanister, 1, 3);
+                ItemStack dropStack = new ItemStack(TRepo.heartCanister, 1, 1);
                 EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
                 entityitem.delayBeforeCanPickup = 10;
                 event.drops.add(entityitem);
@@ -395,7 +395,7 @@ public class TEventHandler
 
         if (event.entityLiving instanceof IBossDisplayData)
         {
-            ItemStack dropStack = new ItemStack(TRepo.heartCanister, 1, 1);
+            ItemStack dropStack = new ItemStack(TRepo.heartCanister, 1, 3);
             EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
             entityitem.delayBeforeCanPickup = 10;
             event.drops.add(entityitem);
