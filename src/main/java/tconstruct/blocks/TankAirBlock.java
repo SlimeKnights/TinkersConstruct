@@ -15,6 +15,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import tconstruct.blocks.logic.TankAirLogic;
 import tconstruct.client.block.TankAirRender;
 import cpw.mods.fml.relauncher.Side;
@@ -29,7 +30,7 @@ public class TankAirBlock extends BlockContainer
     }
 
     @Override
-    public TileEntity createNewTileEntity (World world, int i)
+    public TileEntity createNewTileEntity (World world, int var2)
     {
         return new TankAirLogic();
     }

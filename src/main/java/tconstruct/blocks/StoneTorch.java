@@ -89,11 +89,14 @@ public class StoneTorch extends MantleBlock
      * Checks to see if its valid to put this block at the specified
      * coordinates. Args: world, x, y, z
      */
-    @Override
-    public boolean canPlaceBlockAt (World par1World, int par2, int par3, int par4)
+    @Override 
+    public boolean canPlaceBlockAt(World par1World, int par2, int par3, int par4)
     {
-        return par1World.isSideSolid(par2 - 1, par3, par4, EAST, true) || par1World.isSideSolid(par2 + 1, par3, par4, WEST, true) || par1World.isSideSolid(par2, par3, par4 - 1, SOUTH, true)
-                || par1World.isSideSolid(par2, par3, par4 + 1, NORTH, true) || canPlaceTorchOn(par1World, par2, par3 - 1, par4);
+        return par1World.isSideSolid(par2 - 1, par3, par4, EAST,  true) ||
+               par1World.isSideSolid(par2 + 1, par3, par4, WEST,  true) ||
+               par1World.isSideSolid(par2, par3, par4 - 1, SOUTH, true) ||
+               par1World.isSideSolid(par2, par3, par4 + 1, NORTH, true) ||
+               canPlaceTorchOn(par1World, par2, par3 - 1, par4);
     }
 
     /**
@@ -101,33 +104,9 @@ public class StoneTorch extends MantleBlock
      * side, hitX, hitY, hitZ, block metadata
      */
     @Override
-    public int onBlockPlaced (World par1World, int par2, int par3, int par4, int par5, float par6, float par7, float par8, int par9)
+    public int onBlockPlaced(World par1World, int par2, int par3, int par4, int par5, float par6, float par7, float par8, int par9)
     {
         int j1 = par9;
-
-        if (par5 == 0)
-        {
-            if (this.canPlaceTorchOn(par1World, par2, par3 - 1, par4))
-            {
-                j1 = 5;
-            }
-            else if (par1World.isSideSolid(par2, par3, par4 + 1, NORTH, true))
-            {
-                j1 = 4;
-            }
-            else if (par1World.isSideSolid(par2, par3, par4 - 1, SOUTH, true))
-            {
-                j1 = 3;
-            }
-            else if (par1World.isSideSolid(par2 + 1, par3, par4, WEST, true))
-            {
-                j1 = 2;
-            }
-            else if (par1World.isSideSolid(par2 - 1, par3, par4, EAST, true))
-            {
-                j1 = 1;
-            }
-        }
 
         if (par5 == 1 && this.canPlaceTorchOn(par1World, par2, par3 - 1, par4))
         {
@@ -156,6 +135,46 @@ public class StoneTorch extends MantleBlock
 
         return j1;
     }
+    
+    public void updateTick(World par1World, int par2, int par3, int par4, Random random)
+    {
+        super.updateTick(par1World, par2, par3, par4, random);
+
+        if (par1World.getBlockMetadata(par2, par3, par4) == 0)
+        {
+            this.onBlockAdded(par1World, par2, par3, par4);
+        }
+    }
+
+    // JAVADOC METHOD $$ func_149726_b
+    public void onBlockAdded(World p_149726_1_, int p_149726_2_, int p_149726_3_, int p_149726_4_)
+    {
+        if (p_149726_1_.getBlockMetadata(p_149726_2_, p_149726_3_, p_149726_4_) == 0)
+        {
+            if (p_149726_1_.isSideSolid(p_149726_2_ - 1, p_149726_3_, p_149726_4_, EAST, true))
+            {
+                p_149726_1_.setBlockMetadataWithNotify(p_149726_2_, p_149726_3_, p_149726_4_, 1, 2);
+            }
+            else if (p_149726_1_.isSideSolid(p_149726_2_ + 1, p_149726_3_, p_149726_4_, WEST, true))
+            {
+                p_149726_1_.setBlockMetadataWithNotify(p_149726_2_, p_149726_3_, p_149726_4_, 2, 2);
+            }
+            else if (p_149726_1_.isSideSolid(p_149726_2_, p_149726_3_, p_149726_4_ - 1, SOUTH, true))
+            {
+                p_149726_1_.setBlockMetadataWithNotify(p_149726_2_, p_149726_3_, p_149726_4_, 3, 2);
+            }
+            else if (p_149726_1_.isSideSolid(p_149726_2_, p_149726_3_, p_149726_4_ + 1, NORTH, true))
+            {
+                p_149726_1_.setBlockMetadataWithNotify(p_149726_2_, p_149726_3_, p_149726_4_, 4, 2);
+            }
+            else if (this.canPlaceTorchOn(p_149726_1_, p_149726_2_, p_149726_3_ - 1, p_149726_4_))
+            {
+                p_149726_1_.setBlockMetadataWithNotify(p_149726_2_, p_149726_3_, p_149726_4_, 5, 2);
+            }
+        }
+
+        this.dropTorchIfCantStay(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_);
+    }
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -169,12 +188,13 @@ public class StoneTorch extends MantleBlock
      * neighbor changed (coordinates passed are their own) Args: x, y, z,
      * neighbor blockID
      */
-    public void onNeighborBlockChange (World par1World, int par2, int par3, int par4, int par5)
+    @Override
+    public void onNeighborBlockChange (World par1World, int par2, int par3, int par4, Block par5)
     {
         this.func_94397_d(par1World, par2, par3, par4, par5);
     }
-
-    protected boolean func_94397_d (World par1World, int par2, int par3, int par4, int par5)
+    
+    protected boolean func_94397_d(World par1World, int par2, int par3, int par4, Block par5)
     {
         if (this.dropTorchIfCantStay(par1World, par2, par3, par4))
         {
@@ -209,6 +229,7 @@ public class StoneTorch extends MantleBlock
             if (flag)
             {
                 this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
+                par1World.setBlockToAir(par2, par3, par4);
                 return true;
             }
             else
@@ -234,7 +255,8 @@ public class StoneTorch extends MantleBlock
             if (par1World.getBlock(par2, par3, par4) == (Block) this)
             {
                 this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
-                WorldHelper.setBlockToAir(par1World, par2, par3, par4);
+                par1World.setBlockToAir(par2, par3, par4);
+                //WorldHelper.setBlockToAir(par1World, par2, par3, par4);
             }
 
             return false;

@@ -1,5 +1,6 @@
 package tconstruct.blocks.logic;
 
+import tconstruct.TConstruct;
 import mantle.blocks.iface.IActiveLogic;
 import mantle.blocks.iface.IFacingLogic;
 import net.minecraft.entity.EntityLivingBase;
@@ -14,7 +15,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
-import tconstruct.TConstruct;
 
 public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogic, IFluidHandler
 {
@@ -103,7 +103,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     @Override
     public void setDirection (int side)
     {
-        // direction = (byte) side;
+        //direction = (byte) side;
     }
 
     @Override

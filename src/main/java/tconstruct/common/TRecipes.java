@@ -99,6 +99,7 @@ import tconstruct.modifiers.tools.ModAttack;
 import tconstruct.modifiers.tools.ModAutoSmelt;
 import tconstruct.modifiers.tools.ModBlaze;
 import tconstruct.modifiers.tools.ModButtertouch;
+import tconstruct.modifiers.tools.ModCreativeToolModifier;
 import tconstruct.modifiers.tools.ModDurability;
 import tconstruct.modifiers.tools.ModExtraModifier;
 import tconstruct.modifiers.tools.ModFlux;
@@ -374,6 +375,7 @@ public class TRecipes
         tb.registerToolMod(new ModExtraModifier(new ItemStack[] { diamond, new ItemStack(Blocks.gold_block) }, "Tier1Free"));
         tb.registerToolMod(new ModExtraModifier(new ItemStack[] { new ItemStack(Blocks.diamond_block), new ItemStack(Items.golden_apple, 1, 1) }, "Tier1.5Free"));
         tb.registerToolMod(new ModExtraModifier(new ItemStack[] { new ItemStack(Items.nether_star) }, "Tier2Free"));
+        tb.registerToolMod(new ModCreativeToolModifier(new ItemStack[] { new ItemStack(TRepo.creativeModifier) }));
 
         ItemStack silkyJewel = new ItemStack(TRepo.materials, 1, 26);
         tb.registerToolMod(new ModButtertouch(new ItemStack[] { silkyJewel }, 12));
@@ -675,7 +677,7 @@ public class TRecipes
         GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 2), patBlock, '#', new ItemStack(TRepo.materials, 1, 5)); // Manyullyn
         GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 8), patBlock, '#', new ItemStack(TRepo.materials, 1, 15)); // Alumite
         GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 9), patBlock, '#', new ItemStack(TRepo.materials, 1, 16)); // Steel
-        GameRegistry.addRecipe(new ItemStack(TRepo.materials, 1, 11), patBlock, '#', new ItemStack(TRepo.materials, 1, 12)); // Aluminum raw ->
+        GameRegistry.addRecipe(new ItemStack(TRepo.materials, 1, 11), "#", '#', new ItemStack(TRepo.materials, 1, 12)); // Aluminum raw ->
                                                                                                                              // ingot
 
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 9), "m", 'm', new ItemStack(TRepo.metalBlock, 1, 3)); // Copper
@@ -794,8 +796,7 @@ public class TRecipes
         GameRegistry.addRecipe(new ItemStack(TRepo.diamondApple), " d ", "d#d", " d ", 'd', new ItemStack(Items.diamond), '#', new ItemStack(Items.apple));
         GameRegistry.addShapelessRecipe(new ItemStack(TRepo.heartCanister, 1, 2), new ItemStack(TRepo.diamondApple), new ItemStack(TRepo.materials, 1, 8), new ItemStack(TRepo.heartCanister, 1, 0),
                 new ItemStack(TRepo.heartCanister, 1, 1));
-        GameRegistry.addShapelessRecipe(new ItemStack(TRepo.heartCanister, 1, 4), new ItemStack(TRepo.heartCanister, 1, 2), new ItemStack(TRepo.heartCanister, 1, 3), new ItemStack(Items.golden_apple,
-                1, 1));
+        GameRegistry.addShapelessRecipe(new ItemStack(TRepo.heartCanister, 1, 4), new ItemStack(TRepo.heartCanister, 1, 2), new ItemStack(TRepo.heartCanister, 1, 3), new ItemStack(Items.golden_apple, 1, 1));
         //GameRegistry.addShapelessRecipe(new ItemStack(heartCanister, 1, 6), new ItemStack(heartCanister, 1, 0), new ItemStack(heartCanister, 1, 4), new ItemStack(heartCanister, 1, 5));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Items.leather), 'r', new ItemStack(TRepo.toughRod, 1, 2), 'm',
