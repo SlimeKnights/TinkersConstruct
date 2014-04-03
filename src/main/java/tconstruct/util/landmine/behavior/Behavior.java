@@ -43,7 +43,6 @@ public abstract class Behavior
 
     public static void registerBuiltInBehaviors ()
     {
-        System.out.println("Test");
         defaultBehavior = new BehaviorDefault();
 
         addBehavior(new LandmineStack(Items.stick), dummy);
