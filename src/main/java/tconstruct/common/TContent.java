@@ -883,7 +883,6 @@ public class TContent implements IFuelHandler
 
     void setupToolTabs ()
     {
-        TConstructRegistry.materialTab.init(new ItemStack(TRepo.titleIcon, 1, 255));
         TConstructRegistry.materialTab.init(new ItemStack(TRepo.manualBook, 1, 0));
         TConstructRegistry.partTab.init(new ItemStack(TRepo.titleIcon, 1, 255));
         TConstructRegistry.blockTab.init(new ItemStack(TRepo.toolStationWood));
