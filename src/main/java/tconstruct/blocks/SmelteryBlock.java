@@ -295,9 +295,9 @@ public class SmelteryBlock extends InventoryBlock
 
     /* Updating */
     @Override
-    public void onNeighborBlockChange (World world, int x, int y, int z, Block nBlockID)
+    public void onNeighborBlockChange (World world, int x, int y, int z, Block block)
     {
-        // System.out.println("Neighbor changed");
+        //System.out.println("Neighbor changed");
         TileEntity logic = world.getTileEntity(x, y, z);
         if (logic instanceof IServantLogic)
         {

@@ -6,8 +6,6 @@ import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import tconstruct.library.TConstructRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class TConstructFluid extends BlockFluidClassic
 {
@@ -20,7 +18,6 @@ public class TConstructFluid extends BlockFluidClassic
     {
         super(fluid, material);
         this.texture = texture;
-        // TODO setCreativeTab()
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
@@ -36,7 +33,6 @@ public class TConstructFluid extends BlockFluidClassic
         return alpha ? 1 : 0;
     }
 
-    // TODO registerBlockIcons
     @Override
     public void registerBlockIcons (IIconRegister iconRegister)
     {
@@ -44,9 +40,7 @@ public class TConstructFluid extends BlockFluidClassic
         flowIcon = iconRegister.registerIcon("tinker:" + texture + "_flow");
     }
 
-    // TODO getIcon()
     @Override
-    @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
         if (side == 0 || side == 1)

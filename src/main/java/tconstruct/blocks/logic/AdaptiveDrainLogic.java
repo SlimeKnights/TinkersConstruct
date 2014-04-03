@@ -1,5 +1,7 @@
 package tconstruct.blocks.logic;
 
+import tconstruct.TConstruct;
+import tconstruct.library.crafting.AlloyMix;
 import mantle.blocks.abstracts.MultiServantLogic;
 import mantle.blocks.iface.IFacingLogic;
 import mantle.blocks.iface.IMasterLogic;
@@ -20,7 +22,6 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
 {
     byte direction;
 
-    @Override
     public boolean canUpdate ()
     {
         return false;
@@ -51,7 +52,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
         if (hasValidMaster() && canDrain(from, null))
         {
             AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
-            // TConstruct.logger.info("Found master");
+            //  TConstruct.logger.info("Found master");
             return smeltery.drain(from, maxDrain, doDrain);
         }
         return null;
@@ -150,7 +151,6 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
         }
     }
 
-    @Override
     public void readFromNBT (NBTTagCompound tags)
     {
         super.readFromNBT(tags);
@@ -176,7 +176,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
         readFromNBT(packet.func_148857_g());
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
     }
 }

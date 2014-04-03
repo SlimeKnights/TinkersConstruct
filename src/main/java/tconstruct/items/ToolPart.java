@@ -18,6 +18,7 @@ public class ToolPart extends CraftingItem implements IToolPart
     public ToolPart(String textureType, String name)
     {
         super(toolMaterialNames, buildTextureNames(textureType), "parts/", "tinker", TConstructRegistry.materialTab);
+        this.setCreativeTab(TConstructRegistry.partTab);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.partName = name;

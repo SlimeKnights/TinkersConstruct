@@ -18,6 +18,7 @@ import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
+import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.util.config.PHConstruct;
@@ -70,6 +71,8 @@ public class TPlayerHandler
 
         stats.level = entityplayer.experienceLevel;
         stats.hunger = entityplayer.getFoodStats().getFoodLevel();
+        
+        //stats.battlesignBonus = tags.getCompoundTag("TConstruct").getBoolean("battlesignBonus");
 
         // gamerule naturalRegeneration false
         if (!PHConstruct.enableHealthRegen)
@@ -77,6 +80,7 @@ public class TPlayerHandler
         if (!stats.beginnerManual)
         {
             stats.beginnerManual = true;
+            stats.battlesignBonus = true;
             if (PHConstruct.beginnerBook)
             {
                 ItemStack diary = new ItemStack(TRepo.manualBook);
@@ -116,6 +120,34 @@ public class TPlayerHandler
 
                 AbilityHelper.spawnItemAtPlayer(entityplayer, pattern);
             }
+            if (entityplayer.getDisplayName().toLowerCase().equals("zisteau"))
+            {
+                spawnPigmanModifier(entityplayer);
+            }
+        }
+        else
+        {
+            if (!stats.battlesignBonus)
+            {
+                stats.battlesignBonus = true;
+                ItemStack modifier = new ItemStack(TRepo.creativeModifier);
+                
+                NBTTagCompound compound = new NBTTagCompound();
+                compound.setTag("display", new NBTTagCompound());
+                NBTTagList list = new NBTTagList();
+                list.appendTag(new NBTTagString("Battlesigns were buffed recently."));
+                list.appendTag(new NBTTagString("This might make up for it."));
+                compound.getCompoundTag("display").setTag("Lore", list);
+                compound.setString("TargetLock", TRepo.battlesign.getToolName());
+                modifier.setTagCompound(compound);
+
+                AbilityHelper.spawnItemAtPlayer(entityplayer, modifier);
+                
+                if (entityplayer.getDisplayName().toLowerCase().equals("zisteau"))
+                {
+                    spawnPigmanModifier(entityplayer);
+                }
+            }
         }
 
         if (PHConstruct.gregtech && Loader.isModLoaded("GregTech-Addon"))
@@ -128,6 +160,23 @@ public class TPlayerHandler
                 PlayerUtils.sendChatMessage(entityplayer, "Solution 2: Disable Auto-Smelt/Fortune interaction from TConstruct.");
             }
         }
+    }
+    
+    void spawnPigmanModifier(EntityPlayer entityplayer)
+    {
+        ItemStack modifier = new ItemStack(TRepo.creativeModifier);
+        
+        NBTTagCompound compound = new NBTTagCompound();
+        compound.setTag("display", new NBTTagCompound());
+        compound.getCompoundTag("display").setString("Name", "Zistonian Bonus Modifier");
+        NBTTagList list = new NBTTagList();
+        list.appendTag(new NBTTagString("Zombie Pigmen seem to have a natural affinty"));
+        list.appendTag(new NBTTagString("for these types of weapons."));
+        compound.getCompoundTag("display").setTag("Lore", list);
+        compound.setString("TargetLock", TRepo.battlesign.getToolName());
+        modifier.setTagCompound(compound);
+
+        AbilityHelper.spawnItemAtPlayer(entityplayer, modifier);
     }
 
     public void onPlayerRespawn (EntityPlayer entityplayer)

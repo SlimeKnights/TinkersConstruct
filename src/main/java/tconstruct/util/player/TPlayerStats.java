@@ -20,6 +20,7 @@ public class TPlayerStats implements IExtendedEntityProperties
     public boolean beginnerManual;
     public boolean materialManual;
     public boolean smelteryManual;
+    public boolean battlesignBonus;
     public ArmorExtended armor;
     public KnapsackInventory knapsack;
 
@@ -47,6 +48,7 @@ public class TPlayerStats implements IExtendedEntityProperties
         tTag.setBoolean("beginnerManual", this.beginnerManual);
         tTag.setBoolean("materialManual", this.materialManual);
         tTag.setBoolean("smelteryManual", this.smelteryManual);
+        tTag.setBoolean("battlesignBonus", this.battlesignBonus);
         compound.setTag(PROP_NAME, tTag);
     }
 
@@ -60,6 +62,7 @@ public class TPlayerStats implements IExtendedEntityProperties
         this.beginnerManual = properties.getBoolean("beginnerManual");
         this.materialManual = properties.getBoolean("materialManual");
         this.smelteryManual = properties.getBoolean("smelteryManual");
+        this.battlesignBonus = properties.getBoolean("battlesignBonus");
     }
 
     @Override

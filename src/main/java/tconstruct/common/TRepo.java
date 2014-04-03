@@ -106,6 +106,7 @@ public class TRepo
     public static Block furnaceSlab;
 
     public static Block heldItemBlock;
+    public static Block battlesignBlock;
     public static Block craftedSoil;
 
     public static Block smeltery;
@@ -238,6 +239,8 @@ public class TRepo
     public static ModFlux modFlux;
     public static ModLapis modLapis;
     public static ModAttack modAttack;
+    
+    public static Item creativeModifier;
 
     // Wearables
     public static Item heavyHelmet;

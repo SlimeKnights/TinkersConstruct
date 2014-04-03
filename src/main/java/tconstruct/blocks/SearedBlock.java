@@ -3,6 +3,7 @@ package tconstruct.blocks;
 import java.util.List;
 
 import mantle.blocks.abstracts.InventoryBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -360,7 +361,8 @@ public class SearedBlock extends InventoryBlock
         return world.getBlockMetadata(x, y, z) == 1;
     }
 
-    public void onNeighborBlockChange (World world, int x, int y, int z, int neighborBlockID)
+    @Override
+    public void onNeighborBlockChange (World world, int x, int y, int z, Block neighborBlock)
     {
         if (world.isBlockIndirectlyGettingPowered(x, y, z) && world.getBlockMetadata(x, y, z) == 1)
         {

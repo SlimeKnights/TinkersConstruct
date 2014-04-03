@@ -644,7 +644,9 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualModifier("fluxmod2", ironpick.copy(), new ItemStack(Blocks.dirt));
 
         TConstructClientRegistry.registerManualModifier("tier1free", ironpick.copy(), new ItemStack(Items.diamond), new ItemStack(Blocks.gold_block));
+        TConstructClientRegistry.registerManualModifier("tier1.5free", ironpick.copy(), new ItemStack(Items.golden_apple, 1, 1), new ItemStack(Blocks.diamond_block));
         TConstructClientRegistry.registerManualModifier("tier2free", ironpick.copy(), new ItemStack(Items.nether_star));
+        TConstructClientRegistry.registerManualModifier("creativefree", ironpick.copy(), new ItemStack(TRepo.creativeModifier));
 
         TConstructClientRegistry.registerManualSmeltery("brownstone", new ItemStack(TRepo.speedBlock), new ItemStack(TRepo.moltenTin, 1), new ItemStack(Blocks.gravel));
         TConstructClientRegistry.registerManualSmeltery("clearglass", new ItemStack(TRepo.clearGlass), new ItemStack(TRepo.moltenGlass, 1), null);
@@ -733,7 +735,7 @@ public class TProxyClient extends TProxyCommon
             "The Dagger is a short blade that can be thrown.\n\nSpecial Ability:\n- Throw Item\n\nDamage: Low\nDurability: Moderate\n\nRequired parts:\n- Knife Blade\n- Crossbar\n- Handle",
             "The Frying is a heavy weapon that uses sheer weight to stun foes.\n\nSpecial Ability: Block\nNatural Ability: Heavy\nShift+rClick: Place Frying Pan\nDamage: Low\nDurability: High\n\nRequired parts:\n- Pan\n- Handle",
             // "The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nShift-rClick: Place sign\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Board\n- Handle"
-            "The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Sign Board\n- Handle",
+            "The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability:\nDamage Reflector\n\nNatural Ability: Writable\n\nDamage: Low\nDurability: Average",
             "The Chisel is a utility tool that carves shapes into blocks.\n\nCrafting Grid:\n- Shape Items\nSpecial Ability: Chisel\nDurability: Average\n\nRequired parts:\n- Chisel Head\n- Handle" };
 
     void addToolButtons ()

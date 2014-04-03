@@ -22,6 +22,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import tconstruct.entity.FancyEntityItem;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
@@ -57,8 +58,8 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem
 {
     // TE power constants -- TODO grab these from the items added
     protected int capacity = 400000;
-    protected int maxReceive = 80;
-    protected int maxExtract = 80;
+    protected int maxReceive = 2000;
+    protected int maxExtract = 2000;
 
     protected Random random = new Random();
     protected int damageVsEntity;
@@ -776,6 +777,17 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem
                 return getMaxEnergyStored(stack) - energy;
         }
         return tags.getCompoundTag("InfiTool").getInteger("Damage");
+    }
+    
+    /* Prevent tools from dying */
+    public boolean hasCustomEntity (ItemStack stack)
+    {
+        return true;
+    }
+    
+    public Entity createEntity (World world, Entity location, ItemStack itemstack)
+    {
+        return new FancyEntityItem(world, location, itemstack);
     }
 
     // TE support section -- from COFH core API reference section

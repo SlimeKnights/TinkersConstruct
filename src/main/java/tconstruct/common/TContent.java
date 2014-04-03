@@ -84,6 +84,7 @@ import tconstruct.entity.projectile.ArrowEntity;
 import tconstruct.entity.projectile.DaggerEntity;
 import tconstruct.entity.projectile.LaunchedPotion;
 import tconstruct.items.Bowstring;
+import tconstruct.items.CreativeModifier;
 import tconstruct.items.DiamondApple;
 import tconstruct.items.FilledBucket;
 import tconstruct.items.Fletching;
@@ -184,6 +185,10 @@ public class TContent implements IFuelHandler
         TRepo.furnaceSlab = new FurnaceSlab(Material.rock).setBlockName("FurnaceSlab");
 
         TRepo.heldItemBlock = new EquipBlock(Material.wood).setBlockName("Frypan");
+        
+        /* battlesignBlock = new BattlesignBlock(PHConstruct.battlesignBlock).setUnlocalizedName("Battlesign");
+        GameRegistry.registerBlock(battlesignBlock, "BattlesignBlock");
+        ameRegistry.registerTileEntity(BattlesignLogic.class, "BattlesignLogic");*/
 
         TRepo.craftedSoil = new SoilBlock().setLightOpacity(0).setBlockName("TConstruct.Soil");
         TRepo.craftedSoil.stepSound = Block.soundTypeGravel;
@@ -681,6 +686,9 @@ public class TContent implements IFuelHandler
         // GameRegistry.registerItem(TRepo.glove, "glove");
         GameRegistry.registerItem(TRepo.knapsack, "knapsack");
         GameRegistry.registerItem(TRepo.goldHead, "goldHead");
+        
+        TRepo.creativeModifier = new CreativeModifier().setUnlocalizedName("tconstruct.modifier.creative");
+        GameRegistry.registerItem(TRepo.creativeModifier, "creativeModifier");
 
         LiquidCasting basinCasting = TConstruct.getBasinCasting();
         TRepo.materialWood = EnumHelper.addArmorMaterial("WOOD", 2, new int[] { 1, 2, 2, 1 }, 3);
@@ -725,7 +733,6 @@ public class TContent implements IFuelHandler
         // Vanilla stack sizes
         Items.wooden_door.setMaxStackSize(16);
         Items.iron_door.setMaxStackSize(16);
-        Items.snowball.setMaxStackSize(64);
         Items.boat.setMaxStackSize(16);
         Items.minecart.setMaxStackSize(3);
         // Items.minecartEmpty.setMaxStackSize(3);
@@ -877,6 +884,8 @@ public class TContent implements IFuelHandler
     void setupToolTabs ()
     {
         TConstructRegistry.materialTab.init(new ItemStack(TRepo.titleIcon, 1, 255));
+        TConstructRegistry.materialTab.init(new ItemStack(TRepo.manualBook, 1, 0));
+        TConstructRegistry.partTab.init(new ItemStack(TRepo.titleIcon, 1, 255));
         TConstructRegistry.blockTab.init(new ItemStack(TRepo.toolStationWood));
         ItemStack tool = new ItemStack(TRepo.longsword, 1, 0);
 
