@@ -3,6 +3,8 @@ package tconstruct.blocks;
 import java.util.List;
 import java.util.Random;
 
+import tconstruct.common.TRepo;
+import tconstruct.library.TConstructRegistry;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -11,10 +13,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import tconstruct.common.TRepo;
-import tconstruct.library.TConstructRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class GravelOre extends BlockSand
 {
@@ -24,12 +22,11 @@ public class GravelOre extends BlockSand
     public GravelOre()
     {
         //super(Material.craftedSnow);
-        this.blockMaterial = Material.craftedSnow;
+        //this.blockMaterial = Material.craftedSnow;
         this.setCreativeTab(TConstructRegistry.blockTab);
         this.setStepSound(soundTypeGravel);
     }
 
-    @Override
     public void registerBlockIcons (IIconRegister iconRegister)
     {
         this.icons = new IIcon[textureNames.length];
@@ -41,13 +38,11 @@ public class GravelOre extends BlockSand
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
         return icons[meta];
     }
 
-    @Override
     public float getBlockHardness (World world, int x, int y, int z)
     {
         int meta = world.getBlockMetadata(x, y, z);
@@ -65,8 +60,7 @@ public class GravelOre extends BlockSand
         return meta;
     }
 
-    @Override
-    public Item getItemDropped (int p_149650_1_, Random p_149650_2_, int p_149650_3_)
+    public Item getItemDropped (int par1, Random par2Random, int par3)
     {
         /*if (par1 == 1)
             return Item.goldNugget.itemID;*/

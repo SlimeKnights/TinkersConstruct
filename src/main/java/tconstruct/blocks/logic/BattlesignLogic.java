@@ -53,18 +53,18 @@ public class BattlesignLogic extends EquipLogic
     }
 
     @Override
-    public String getInventoryName()
+    public String getInventoryName ()
     {
         return null;
     }
 
     @Override
-    public void openInventory()
+    public void openInventory ()
     {
     }
 
     @Override
-    public void closeInventory()
+    public void closeInventory ()
     {
     }
 }

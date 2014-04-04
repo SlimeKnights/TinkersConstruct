@@ -49,7 +49,7 @@ public class TPlayerHandler
     }
 
     @SubscribeEvent
-    public void onEntityConstructing(EntityEvent.EntityConstructing event)
+    public void onEntityConstructing (EntityEvent.EntityConstructing event)
     {
         if (event.entity instanceof EntityPlayer && TPlayerStats.get((EntityPlayer) event.entity) == null)
         {
@@ -60,7 +60,7 @@ public class TPlayerHandler
     public void onPlayerLogin (EntityPlayer entityplayer)
     {
         TPlayerStats playerData = playerStats.remove(entityplayer.getPersistentID());
-        if(playerData != null)
+        if (playerData != null)
         {
             playerData.saveNBTData(entityplayer.getEntityData());
         }
@@ -71,7 +71,7 @@ public class TPlayerHandler
 
         stats.level = entityplayer.experienceLevel;
         stats.hunger = entityplayer.getFoodStats().getFoodLevel();
-        
+
         //stats.battlesignBonus = tags.getCompoundTag("TConstruct").getBoolean("battlesignBonus");
 
         // gamerule naturalRegeneration false
@@ -131,7 +131,7 @@ public class TPlayerHandler
             {
                 stats.battlesignBonus = true;
                 ItemStack modifier = new ItemStack(TRepo.creativeModifier);
-                
+
                 NBTTagCompound compound = new NBTTagCompound();
                 compound.setTag("display", new NBTTagCompound());
                 NBTTagList list = new NBTTagList();
@@ -142,7 +142,7 @@ public class TPlayerHandler
                 modifier.setTagCompound(compound);
 
                 AbilityHelper.spawnItemAtPlayer(entityplayer, modifier);
-                
+
                 if (entityplayer.getDisplayName().toLowerCase().equals("zisteau"))
                 {
                     spawnPigmanModifier(entityplayer);
@@ -161,11 +161,11 @@ public class TPlayerHandler
             }
         }
     }
-    
-    void spawnPigmanModifier(EntityPlayer entityplayer)
+
+    void spawnPigmanModifier (EntityPlayer entityplayer)
     {
         ItemStack modifier = new ItemStack(TRepo.creativeModifier);
-        
+
         NBTTagCompound compound = new NBTTagCompound();
         compound.setTag("display", new NBTTagCompound());
         compound.getCompoundTag("display").setString("Name", "Zistonian Bonus Modifier");
@@ -184,7 +184,7 @@ public class TPlayerHandler
         // Boom!
         TPlayerStats playerData = playerStats.remove(entityplayer.getPersistentID());
         TPlayerStats stats = TPlayerStats.get(entityplayer);
-        if(playerData != null)
+        if (playerData != null)
         {
             stats = playerData;
         }
@@ -233,7 +233,7 @@ public class TPlayerHandler
      */
 
     @SubscribeEvent
-    public void playerDeath(LivingDeathEvent event)
+    public void playerDeath (LivingDeathEvent event)
     {
         if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer)
         {

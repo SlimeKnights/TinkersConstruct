@@ -32,9 +32,9 @@ public class BuildcraftTransport implements ICompatPlugin
         {
             addFacade(TRepo.smeltery, sc);
         }
-        
+
         addFacade(TRepo.searedBlock, 0);
-		addFacade(TRepo.searedBlockNether, 0);
+        addFacade(TRepo.searedBlockNether, 0);
     }
 
     @Override

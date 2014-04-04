@@ -40,7 +40,7 @@ public class TPlayerStats implements IExtendedEntityProperties
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound compound)
+    public void saveNBTData (NBTTagCompound compound)
     {
         NBTTagCompound tTag = new NBTTagCompound();
         armor.saveToNBT(tTag);
@@ -53,9 +53,9 @@ public class TPlayerStats implements IExtendedEntityProperties
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound compound)
+    public void loadNBTData (NBTTagCompound compound)
     {
-        NBTTagCompound properties = (NBTTagCompound)compound.getTag(PROP_NAME);
+        NBTTagCompound properties = (NBTTagCompound) compound.getTag(PROP_NAME);
 
         this.armor.readFromNBT(properties);
         this.knapsack.readFromNBT(properties);
@@ -66,16 +66,16 @@ public class TPlayerStats implements IExtendedEntityProperties
     }
 
     @Override
-    public void init(Entity entity, World world)
+    public void init (Entity entity, World world)
     {
     }
 
-    public static final void register(EntityPlayer player)
+    public static final void register (EntityPlayer player)
     {
         player.registerExtendedProperties(TPlayerStats.PROP_NAME, new TPlayerStats(player));
     }
 
-    public static final TPlayerStats get(EntityPlayer player)
+    public static final TPlayerStats get (EntityPlayer player)
     {
         return (TPlayerStats) player.getExtendedProperties(PROP_NAME);
     }

@@ -189,7 +189,7 @@ public abstract class HarvestTool extends ToolCore
     }
 
     @Override
-    public boolean canHarvestBlock(Block block, ItemStack itemStack)
+    public boolean canHarvestBlock (Block block, ItemStack itemStack)
     {
         return func_150897_b(block);
     }

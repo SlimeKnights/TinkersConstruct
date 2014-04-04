@@ -58,8 +58,8 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem
 {
     // TE power constants -- TODO grab these from the items added
     protected int capacity = 400000;
-    protected int maxReceive = 2000;
-    protected int maxExtract = 2000;
+    protected int maxReceive = 80;
+    protected int maxExtract = 80;
 
     protected Random random = new Random();
     protected int damageVsEntity;
@@ -778,13 +778,13 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem
         }
         return tags.getCompoundTag("InfiTool").getInteger("Damage");
     }
-    
+
     /* Prevent tools from dying */
     public boolean hasCustomEntity (ItemStack stack)
     {
         return true;
     }
-    
+
     public Entity createEntity (World world, Entity location, ItemStack itemstack)
     {
         return new FancyEntityItem(world, location, itemstack);

@@ -185,7 +185,7 @@ public class TContent implements IFuelHandler
         TRepo.furnaceSlab = new FurnaceSlab(Material.rock).setBlockName("FurnaceSlab");
 
         TRepo.heldItemBlock = new EquipBlock(Material.wood).setBlockName("Frypan");
-        
+
         /* battlesignBlock = new BattlesignBlock(PHConstruct.battlesignBlock).setUnlocalizedName("Battlesign");
         GameRegistry.registerBlock(battlesignBlock, "BattlesignBlock");
         ameRegistry.registerTileEntity(BattlesignLogic.class, "BattlesignLogic");*/
@@ -205,10 +205,10 @@ public class TContent implements IFuelHandler
         TRepo.meatBlock = new MeatBlock().setBlockName("tconstruct.meatblock");
         TRepo.glueBlock = new GlueBlock().setBlockName("GlueBlock").setCreativeTab(TConstructRegistry.blockTab);
 
-        TRepo.woolSlab1 = new SlabBase(Material.cloth, Blocks.wool, 0, 8).setBlockName("cloth");
-        TRepo.woolSlab1.setStepSound(Block.soundTypeCloth).setCreativeTab(CreativeTabs.tabDecorations);
-        TRepo.woolSlab2 = new SlabBase(Material.cloth, Blocks.wool, 8, 8).setBlockName("cloth");
-        TRepo.woolSlab2.setStepSound(Block.soundTypeCloth).setCreativeTab(CreativeTabs.tabDecorations);
+        //TRepo.woolSlab1 = new SlabBase(Material.cloth, Blocks.wool, 0, 8).setBlockName("cloth");
+        //TRepo.woolSlab1.setStepSound(Block.soundTypeCloth).setCreativeTab(CreativeTabs.tabDecorations);
+        //TRepo.woolSlab2 = new SlabBase(Material.cloth, Blocks.wool, 8, 8).setBlockName("cloth");
+        //TRepo.woolSlab2.setStepSound(Block.soundTypeCloth).setCreativeTab(CreativeTabs.tabDecorations);
 
         // Smeltery
         TRepo.smeltery = new SmelteryBlock().setBlockName("Smeltery");
@@ -686,7 +686,7 @@ public class TContent implements IFuelHandler
         // GameRegistry.registerItem(TRepo.glove, "glove");
         GameRegistry.registerItem(TRepo.knapsack, "knapsack");
         GameRegistry.registerItem(TRepo.goldHead, "goldHead");
-        
+
         TRepo.creativeModifier = new CreativeModifier().setUnlocalizedName("tconstruct.modifier.creative");
         GameRegistry.registerItem(TRepo.creativeModifier, "creativeModifier");
 
@@ -945,12 +945,18 @@ public class TContent implements IFuelHandler
         achievements.put("tconstruct:beginner", new Achievement("tconstruct:beginner", "tconstruct.beginner", 0, 0, TRepo.manualBook, null));// .setIndependent());
         achievements.put("tconstruct:pattern", new Achievement("tconstruct:pattern", "tconstruct.pattern", 2, 1, TRepo.blankPattern, achievements.get("tconstruct:beginner")));
         achievements.put("tconstruct:tinkerer", new Achievement("tconstruct:tinkerer", "tconstruct.tinkerer", 2, 2, new ItemStack(TRepo.titleIcon, 1, 4096), achievements.get("tconstruct:pattern")));
-        achievements.put("tconstruct:preparedFight", new Achievement("tconstruct:preparedFight", "tconstruct.preparedFight", 1, 3, new ItemStack(TRepo.titleIcon, 1, 4097), achievements.get("tconstruct:tinkerer")));
-        achievements.put("tconstruct:proTinkerer", new Achievement("tconstruct:proTinkerer", "tconstruct.proTinkerer", 4, 4, new ItemStack(TRepo.titleIcon, 1, 4098), achievements.get("tconstruct:tinkerer")).setSpecial());
+        achievements.put("tconstruct:preparedFight",
+                new Achievement("tconstruct:preparedFight", "tconstruct.preparedFight", 1, 3, new ItemStack(TRepo.titleIcon, 1, 4097), achievements.get("tconstruct:tinkerer")));
+        achievements.put("tconstruct:proTinkerer",
+                new Achievement("tconstruct:proTinkerer", "tconstruct.proTinkerer", 4, 4, new ItemStack(TRepo.titleIcon, 1, 4098), achievements.get("tconstruct:tinkerer")).setSpecial());
         achievements.put("tconstruct:smelteryMaker", new Achievement("tconstruct:smelteryMaker", "tconstruct.smelteryMaker", -2, -1, TRepo.smeltery, achievements.get("tconstruct:beginner")));
-        achievements.put("tconstruct:enemySlayer", new Achievement("tconstruct:enemySlayer", "tconstruct.enemySlayer", 0, 5, new ItemStack(TRepo.titleIcon, 1, 4099), achievements.get("tconstruct:preparedFight")));
-        achievements.put("tconstruct:dualConvenience", new Achievement("tconstruct:dualConvenience", "tconstruct.dualConvenience", 0, 7, new ItemStack(TRepo.titleIcon, 1, 4100), achievements.get("tconstruct:enemySlayer")).setSpecial());
-        achievements.put("tconstruct:doingItWrong", new Achievement("tconstruct:doingItWrong", "tconstruct.doingItWrong", -2, -3, new ItemStack(TRepo.manualBook, 1, 2), achievements.get("tconstruct:smelteryMaker")));
-        achievements.put("tconstruct:betterCrafting", new Achievement("tconstruct:betterCrafting", "tconstruct.betterCrafting", -2, 2, TRepo.craftingStationWood, achievements.get("tconstruct:beginner")));
+        achievements.put("tconstruct:enemySlayer",
+                new Achievement("tconstruct:enemySlayer", "tconstruct.enemySlayer", 0, 5, new ItemStack(TRepo.titleIcon, 1, 4099), achievements.get("tconstruct:preparedFight")));
+        achievements.put("tconstruct:dualConvenience",
+                new Achievement("tconstruct:dualConvenience", "tconstruct.dualConvenience", 0, 7, new ItemStack(TRepo.titleIcon, 1, 4100), achievements.get("tconstruct:enemySlayer")).setSpecial());
+        achievements.put("tconstruct:doingItWrong",
+                new Achievement("tconstruct:doingItWrong", "tconstruct.doingItWrong", -2, -3, new ItemStack(TRepo.manualBook, 1, 2), achievements.get("tconstruct:smelteryMaker")));
+        achievements.put("tconstruct:betterCrafting",
+                new Achievement("tconstruct:betterCrafting", "tconstruct.betterCrafting", -2, 2, TRepo.craftingStationWood, achievements.get("tconstruct:beginner")));
     }
 }

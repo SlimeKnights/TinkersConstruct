@@ -126,7 +126,7 @@ public abstract class DualHarvestTool extends HarvestTool
     }
 
     @Override
-    public boolean canHarvestBlock(Block block, ItemStack itemStack)
+    public boolean canHarvestBlock (Block block, ItemStack itemStack)
     {
         return func_150897_b(block);
     }

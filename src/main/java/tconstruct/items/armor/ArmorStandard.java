@@ -3,6 +3,7 @@ package tconstruct.items.armor;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
+import tconstruct.common.TRepo;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.EnumArmorPart;
 
@@ -23,7 +24,8 @@ public class ArmorStandard extends ArmorCore
     @Override
     public String getArmorTexture (ItemStack stack, Entity entity, int slot, String layer)
     {
-        return "tinker:textures/armor/wood_" + layer + ".png";
+        int suffix = this.armorType == 2 ? 2 : 1;
+        return "tinker:textures/armor/wood_" + suffix + ".png";
     }
 
 }

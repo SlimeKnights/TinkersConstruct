@@ -120,7 +120,7 @@ public class TControls extends TKeyHandler
         onStilts = false;
     }
 
-    void resetFallDamage()
+    void resetFallDamage ()
     {
         AbstractPacket packet = new PacketDoubleJump();
         updateServer(packet);

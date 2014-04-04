@@ -160,7 +160,7 @@ public class KnapsackInventory implements IInventory
         }
     }
 
-    public void dropItems(ArrayList<EntityItem> drops)
+    public void dropItems (ArrayList<EntityItem> drops)
     {
         EntityPlayer player = parent.get();
         for (int i = 0; i < inventory.length; ++i)

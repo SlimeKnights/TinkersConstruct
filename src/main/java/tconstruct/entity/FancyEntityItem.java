@@ -28,7 +28,7 @@ public class FancyEntityItem extends EntityItem
         this.isImmuneToFire = true;
         this.lifespan = 72000;
     }
-    
+
     public FancyEntityItem(World world, Entity original, ItemStack stack)
     {
         this(world, original.posX, original.posY, original.posZ);

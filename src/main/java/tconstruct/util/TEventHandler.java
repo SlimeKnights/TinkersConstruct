@@ -168,7 +168,7 @@ public class TEventHandler
                 event.overrideResult(arrow);
             }
         }
-        
+
         if (event.tool == TRepo.battlesign)
         {
             int modifiers = toolTag.getInteger("Modifiers");
@@ -290,7 +290,7 @@ public class TEventHandler
             }
         }
     }
-    
+
     @SubscribeEvent
     public void onAttack (LivingAttackEvent event)
     {

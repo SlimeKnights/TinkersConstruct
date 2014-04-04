@@ -109,7 +109,7 @@ public class TConstruct
         PHConstruct.initProps(event.getSuggestedConfigurationFile());
         TConstructRegistry.materialTab = new TabTools("TConstructMaterials");
         TConstructRegistry.toolTab = new TabTools("TConstructTools");
-        TConstructRegistry.partTab = new TabTools("TConstructParts");  
+        TConstructRegistry.partTab = new TabTools("TConstructParts");
         TConstructRegistry.blockTab = new TabTools("TConstructBlocks");
 
         tableCasting = new LiquidCasting();

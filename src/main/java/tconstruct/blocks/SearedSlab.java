@@ -2,14 +2,14 @@ package tconstruct.blocks;
 
 import java.util.List;
 
+import tconstruct.common.TRepo;
+import tconstruct.library.TConstructRegistry;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import tconstruct.common.TRepo;
-import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -17,7 +17,6 @@ public class SearedSlab extends SlabBase
 {
     public SearedSlab()
     {
-        // TODO material.rock
         super(Material.rock);
         this.setCreativeTab(TConstructRegistry.blockTab);
         setHardness(12F);
@@ -43,11 +42,11 @@ public class SearedSlab extends SlabBase
     }
 
     @Override
-    public void getSubBlocks (Item b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item id, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 8; iter++)
         {
-            list.add(new ItemStack(b, 1, iter));
+            list.add(new ItemStack(id, 1, iter));
         }
     }
 }

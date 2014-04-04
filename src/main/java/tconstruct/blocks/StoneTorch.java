@@ -89,14 +89,11 @@ public class StoneTorch extends MantleBlock
      * Checks to see if its valid to put this block at the specified
      * coordinates. Args: world, x, y, z
      */
-    @Override 
-    public boolean canPlaceBlockAt(World par1World, int par2, int par3, int par4)
+    @Override
+    public boolean canPlaceBlockAt (World par1World, int par2, int par3, int par4)
     {
-        return par1World.isSideSolid(par2 - 1, par3, par4, EAST,  true) ||
-               par1World.isSideSolid(par2 + 1, par3, par4, WEST,  true) ||
-               par1World.isSideSolid(par2, par3, par4 - 1, SOUTH, true) ||
-               par1World.isSideSolid(par2, par3, par4 + 1, NORTH, true) ||
-               canPlaceTorchOn(par1World, par2, par3 - 1, par4);
+        return par1World.isSideSolid(par2 - 1, par3, par4, EAST, true) || par1World.isSideSolid(par2 + 1, par3, par4, WEST, true) || par1World.isSideSolid(par2, par3, par4 - 1, SOUTH, true)
+                || par1World.isSideSolid(par2, par3, par4 + 1, NORTH, true) || canPlaceTorchOn(par1World, par2, par3 - 1, par4);
     }
 
     /**
@@ -104,7 +101,7 @@ public class StoneTorch extends MantleBlock
      * side, hitX, hitY, hitZ, block metadata
      */
     @Override
-    public int onBlockPlaced(World par1World, int par2, int par3, int par4, int par5, float par6, float par7, float par8, int par9)
+    public int onBlockPlaced (World par1World, int par2, int par3, int par4, int par5, float par6, float par7, float par8, int par9)
     {
         int j1 = par9;
 
@@ -135,8 +132,8 @@ public class StoneTorch extends MantleBlock
 
         return j1;
     }
-    
-    public void updateTick(World par1World, int par2, int par3, int par4, Random random)
+
+    public void updateTick (World par1World, int par2, int par3, int par4, Random random)
     {
         super.updateTick(par1World, par2, par3, par4, random);
 
@@ -147,7 +144,7 @@ public class StoneTorch extends MantleBlock
     }
 
     // JAVADOC METHOD $$ func_149726_b
-    public void onBlockAdded(World p_149726_1_, int p_149726_2_, int p_149726_3_, int p_149726_4_)
+    public void onBlockAdded (World p_149726_1_, int p_149726_2_, int p_149726_3_, int p_149726_4_)
     {
         if (p_149726_1_.getBlockMetadata(p_149726_2_, p_149726_3_, p_149726_4_) == 0)
         {
@@ -193,8 +190,8 @@ public class StoneTorch extends MantleBlock
     {
         this.func_94397_d(par1World, par2, par3, par4, par5);
     }
-    
-    protected boolean func_94397_d(World par1World, int par2, int par3, int par4, Block par5)
+
+    protected boolean func_94397_d (World par1World, int par2, int par3, int par4, Block par5)
     {
         if (this.dropTorchIfCantStay(par1World, par2, par3, par4))
         {

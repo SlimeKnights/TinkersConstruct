@@ -145,7 +145,8 @@ public class ArmorExtended implements IInventory
     {
         Side side = FMLCommonHandler.instance().getEffectiveSide();
 
-        if (inventory[4] != null || inventory[5] != null || inventory[6] != null)        {
+        if (inventory[4] != null || inventory[5] != null || inventory[6] != null)
+        {
             int bonusHP = 0;
             for (int i = 0; i < 3; i++)
             {
@@ -246,24 +247,24 @@ public class ArmorExtended implements IInventory
 
     public void readFromNBT (NBTTagCompound tagCompound)
     {
-        if(tagCompound != null)
+        if (tagCompound != null)
         {
-        NBTTagList tagList = tagCompound.getTagList("Inventory", 10);
-        for (int i = 0; i < tagList.tagCount(); ++i)
-        {
-            NBTTagCompound nbttagcompound = (NBTTagCompound) tagList.getCompoundTagAt(i);
-            int j = nbttagcompound.getByte("Slot") & 255;
-            ItemStack itemstack = ItemStack.loadItemStackFromNBT(nbttagcompound);
-
-            if (itemstack != null)
+            NBTTagList tagList = tagCompound.getTagList("Inventory", 10);
+            for (int i = 0; i < tagList.tagCount(); ++i)
             {
-                this.inventory[j] = itemstack;
+                NBTTagCompound nbttagcompound = (NBTTagCompound) tagList.getCompoundTagAt(i);
+                int j = nbttagcompound.getByte("Slot") & 255;
+                ItemStack itemstack = ItemStack.loadItemStackFromNBT(nbttagcompound);
+
+                if (itemstack != null)
+                {
+                    this.inventory[j] = itemstack;
+                }
             }
         }
     }
-    }
 
-    public void dropItems(ArrayList<EntityItem> drops)
+    public void dropItems (ArrayList<EntityItem> drops)
     {
         EntityPlayer player = parent.get();
         for (int i = 0; i < 4; ++i)
@@ -290,7 +291,7 @@ public class ArmorExtended implements IInventory
     public void writeInventoryToStream (ByteBuf os) throws IOException
     {
         for (int i = 0; i < 7; i++)
-            ByteBufUtils.writeItemStack(os,inventory[i]);
+            ByteBufUtils.writeItemStack(os, inventory[i]);
     }
 
     public void readInventoryFromStream (ByteBuf is) throws IOException
