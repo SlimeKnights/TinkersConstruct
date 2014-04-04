@@ -3,6 +3,8 @@ package tconstruct.blocks;
 import java.util.List;
 import java.util.Random;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import net.minecraft.block.BlockSand;
@@ -27,6 +29,7 @@ public class GravelOre extends BlockSand
         this.setStepSound(soundTypeGravel);
     }
 
+    @Override
     public void registerBlockIcons (IIconRegister iconRegister)
     {
         this.icons = new IIcon[textureNames.length];
@@ -38,6 +41,7 @@ public class GravelOre extends BlockSand
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
         return icons[meta];
@@ -60,6 +64,7 @@ public class GravelOre extends BlockSand
         return meta;
     }
 
+    @Override
     public Item getItemDropped (int par1, Random par2Random, int par3)
     {
         /*if (par1 == 1)

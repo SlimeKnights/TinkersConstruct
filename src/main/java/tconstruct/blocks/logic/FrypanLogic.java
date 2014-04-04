@@ -1,5 +1,6 @@
 package tconstruct.blocks.logic;
 
+import tconstruct.inventory.FrypanContainer;
 import mantle.blocks.BlockUtils;
 import mantle.blocks.iface.IActiveLogic;
 import net.minecraft.block.Block;
@@ -18,7 +19,6 @@ import net.minecraft.item.ItemTool;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import tconstruct.inventory.FrypanContainer;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 /* Slots
@@ -89,7 +89,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
             fuel = fuelGague = (int) (getItemBurnTime(inventory[1]) * 2.5);
             if (fuel > 0)
             {
-                if (inventory[1].getItem().hasContainerItem()) // Fuel slot
+                if (inventory[1].getItem().hasContainerItem()) //Fuel slot
                 {
                     inventory[1] = new ItemStack(inventory[1].getItem().getContainerItem());
                 }
@@ -138,7 +138,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
         if (!canCook())
             return;
 
-        for (int id = 2; id < 10; id++) // Check every slot
+        for (int id = 2; id < 10; id++) //Check every slot
         {
             if (canCook())
             {
@@ -147,7 +147,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
                 {
                     int ids = 2;
                     boolean placed = false;
-                    while (ids < 10 && !placed) // Try to merge stacks first
+                    while (ids < 10 && !placed) //Try to merge stacks first
                     {
                         if (inventory[ids] != null && inventory[ids].isItemEqual(result) && inventory[ids].stackSize < inventory[ids].getMaxStackSize())
                         {
@@ -167,7 +167,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
                     }
 
                     ids = 2;
-                    while (!placed && ids < 10) // Place remaining in slot
+                    while (!placed && ids < 10) //Place remaining in slot
                     {
                         if (inventory[ids] == null)
                         {
@@ -188,11 +188,11 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
     {
         for (int id = 2; id < 10; id++)
         {
-            if (inventory[id] == null) // Nothing here!
+            if (inventory[id] == null) //Nothing here!
                 continue;
 
             ItemStack result = getResultFor(inventory[id]);
-            if (result == null) // Doesn't cook into anything
+            if (result == null) //Doesn't cook into anything
                 continue;
 
             for (int slotid = 2; slotid < 10; slotid++)
@@ -214,13 +214,18 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
 
     public ItemStack getResultFor (ItemStack stack)
     {
-        ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(stack);
-        if (result != null && result.getItem() instanceof ItemFood) // Only
-                                                                    // valid for
-                                                                    // food
-            return result.copy();
+        if (stack == null)
+        {
+            return null;
+        }
+        else
+        {
+            ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(stack);
+            if (result != null && result.getItem() instanceof ItemFood) //Only valid for food
+                return result.copy();
 
-        return null;
+            return null;
+        }
     }
 
     public static int getItemBurnTime (ItemStack stack)
@@ -273,7 +278,6 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
     }
 
     /* NBT */
-    @Override
     public void readFromNBT (NBTTagCompound tags)
     {
         super.readFromNBT(tags);
@@ -282,7 +286,6 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
         fuelGague = tags.getInteger("FuelGague");
     }
 
-    @Override
     public void writeToNBT (NBTTagCompound tags)
     {
         super.writeToNBT(tags);
@@ -308,11 +311,6 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
     {
         return true;
     }
-
-    /*
-     * @Override public boolean canDropInventorySlot(int slot) { if (slot == 0)
-     * return false; else return true; }
-     */
 
     @Override
     public void openInventory ()
