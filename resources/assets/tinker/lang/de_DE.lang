@@ -1,6 +1,7 @@
 itemGroup.TConstructTools=TConstuct Werkzeuge
 itemGroup.TConstructMaterials=TConstruct Materialien
 itemGroup.TConstructBlocks=TConstruct Blöcke
+itemGroup.TConstructParts=TConstruct Werkzeugteile
 
 crafters.ToolStation=Werkzeugstation
 crafters.CraftingStation=Handwerksstation
@@ -252,7 +253,7 @@ item.tconstruct.Materials.PigIronIngot.name=Schweineisenbarren
 item.tconstruct.Materials.PigIronNugget.name=Schweineisenplatte
 item.tconstruct.Materials.GlueBall.name=Klebstoffball
 item.tconstruct.Materials.ArditeDust.name=Arditstaub
-item.tconstruct.Materials.CobaltDust.name=Coblatstaub
+item.tconstruct.Materials.CobaltDust.name=Cobaltstaub
 item.tconstruct.Materials.AluminumDust.name=Aluminiumstaub
 item.tconstruct.Materials.ManyullynDust.name=Manyullynstaub
 item.tconstruct.Materials.AluBrassDust.name=Duraluminiumstaub
@@ -503,6 +504,7 @@ item.tconstruct.canister.yellow.name=Gelber Herzkanister
 item.tconstruct.canister.miniheart.green.name=Grünes Miniaturherz
 item.tconstruct.canister.green.name=Grüner Herzkanister
 item.tconstruct.glove.name=Erdtreiber-Handschuhe
+item.tconstruct.modifier.creative.name=Kreativ-Werkzeugmodifikator
 
 SearedBlock.Table.name=Gusstisch
 SearedBlock.Faucet.name=Zapfhahn
@@ -733,6 +735,8 @@ gui.toolstation15=Abbaulevel:
 gui.toolstation16=Nutzungsgeschw.: 
 gui.toolstation17=Modifikatoren
 gui.toolstation18=Modifikatoren übrig: 
+
+creativeModLock.tooltip=Ziel gesetzt: 
 
 tconstruct.waila.empty=Leer
 tconstruct.waila.liquidtag=Flüssigk.: 
