@@ -381,18 +381,6 @@ public class SearedBlock extends InventoryBlock
     }
 
     @Override
-    public boolean canPlaceBlockOnSide (World world, int x, int y, int z, int side)
-    {
-        ForgeDirection dir = ForgeDirection.getOrientation(side ^ 1);
-        TileEntity tile = world.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
-        if (tile instanceof IFluidHandler)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public TileEntity createNewTileEntity (World world, int metadata)
     {
         switch (metadata)
