@@ -2,16 +2,6 @@ package tconstruct.blocks;
 
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import tconstruct.TConstruct;
-import tconstruct.blocks.logic.CastingBasinLogic;
-import tconstruct.blocks.logic.CastingTableLogic;
-import tconstruct.blocks.logic.FaucetLogic;
-import tconstruct.client.block.SearedRender;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.event.SmelteryEvent;
-import tconstruct.library.tools.AbilityHelper;
 import mantle.blocks.abstracts.InventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -25,6 +15,18 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.IFluidHandler;
+import tconstruct.TConstruct;
+import tconstruct.blocks.logic.CastingBasinLogic;
+import tconstruct.blocks.logic.CastingTableLogic;
+import tconstruct.blocks.logic.FaucetLogic;
+import tconstruct.client.block.SearedRender;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.event.SmelteryEvent;
+import tconstruct.library.tools.AbilityHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class SearedBlock extends InventoryBlock
 {
@@ -361,13 +363,20 @@ public class SearedBlock extends InventoryBlock
         return world.getBlockMetadata(x, y, z) == 1;
     }
 
+    private boolean wasPowered = false;
+
     @Override
     public void onNeighborBlockChange (World world, int x, int y, int z, Block neighborBlockID)
     {
-        if (world.isBlockIndirectlyGettingPowered(x, y, z) && world.getBlockMetadata(x, y, z) == 1)
+        if (world.getBlockMetadata(x, y, z) == 1)
         {
-            FaucetLogic logic = (FaucetLogic) world.getTileEntity(x, y, z);
-            logic.setActive(true);
+            boolean isPowered = world.isBlockIndirectlyGettingPowered(x, y, z);
+            if (!wasPowered && isPowered)
+            {
+                FaucetLogic logic = (FaucetLogic) world.getTileEntity(x, y, z);
+                logic.setActive(true);
+            }
+            wasPowered = isPowered;
         }
     }
 
