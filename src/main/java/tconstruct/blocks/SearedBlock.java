@@ -2,6 +2,16 @@ package tconstruct.blocks;
 
 import java.util.List;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import tconstruct.TConstruct;
+import tconstruct.blocks.logic.CastingBasinLogic;
+import tconstruct.blocks.logic.CastingTableLogic;
+import tconstruct.blocks.logic.FaucetLogic;
+import tconstruct.client.block.SearedRender;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.event.SmelteryEvent;
+import tconstruct.library.tools.AbilityHelper;
 import mantle.blocks.abstracts.InventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -15,16 +25,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import tconstruct.TConstruct;
-import tconstruct.blocks.logic.CastingBasinLogic;
-import tconstruct.blocks.logic.CastingTableLogic;
-import tconstruct.blocks.logic.FaucetLogic;
-import tconstruct.client.block.SearedRender;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.event.SmelteryEvent;
-import tconstruct.library.tools.AbilityHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class SearedBlock extends InventoryBlock
 {
@@ -183,12 +183,12 @@ public class SearedBlock extends InventoryBlock
     public void addItemToInventory (EntityPlayer player, World world, int x, int y, int z, ItemStack stack)
     {
         AbilityHelper.spawnItemAtPlayer(player, stack);
-        /*
-         * if (!world.isRemote) { EntityItem entityitem = new EntityItem(world,
-         * (double) x + 0.5D, (double) y + 0.9325D, (double) z + 0.5D, stack);
-         * world.spawnEntityInWorld(entityitem);
-         * entityitem.onCollideWithPlayer(player); }
-         */
+        /*if (!world.isRemote)
+        {
+        	EntityItem entityitem = new EntityItem(world, (double) x + 0.5D, (double) y + 0.9325D, (double) z + 0.5D, stack);
+        	world.spawnEntityInWorld(entityitem);
+        	entityitem.onCollideWithPlayer(player);
+        }*/
     }
 
     /* Rendering */
@@ -260,11 +260,11 @@ public class SearedBlock extends InventoryBlock
     }
 
     @Override
-    public void getSubBlocks (Item b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item id, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 3; iter++)
         {
-            list.add(new ItemStack(b, 1, iter));
+            list.add(new ItemStack(id, 1, iter));
         }
     }
 
@@ -362,7 +362,7 @@ public class SearedBlock extends InventoryBlock
     }
 
     @Override
-    public void onNeighborBlockChange (World world, int x, int y, int z, Block neighborBlock)
+    public void onNeighborBlockChange (World world, int x, int y, int z, Block neighborBlockID)
     {
         if (world.isBlockIndirectlyGettingPowered(x, y, z) && world.getBlockMetadata(x, y, z) == 1)
         {
@@ -372,7 +372,7 @@ public class SearedBlock extends InventoryBlock
     }
 
     @Override
-    public TileEntity createNewTileEntity (World var1, int metadata)
+    public TileEntity createNewTileEntity (World world, int metadata)
     {
         switch (metadata)
         {
@@ -385,6 +385,5 @@ public class SearedBlock extends InventoryBlock
         default:
             return null;
         }
-
     }
 }

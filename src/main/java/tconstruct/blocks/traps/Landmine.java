@@ -122,7 +122,7 @@ public class Landmine extends MantleBlock
      * neighbor changed (coordinates passed are their own) Args: x, y, z,
      * neighbor blockID
      */
-    public void onNeighborBlockChange (World par1World, int par2, int par3, int par4, int par5)
+    public void onNeighborBlockChange (World par1World, int par2, int par3, int par4, Block par5)
     {
         boolean var6 = false;
 
@@ -230,7 +230,7 @@ public class Landmine extends MantleBlock
              * par1World.notifyBlocksOfNeighborChange(posX, posY, posZ,
              * this.blockID); par1World.notifyBlocksOfNeighborChange(posX, posY
              * - 1, posZ, this.blockID);
-             * par1World.markBlockRangeForRenderUpdate(posX, posY, posZ, posX,
+             * par1World.func_147479_m(posX, posY, posZ, posX,
              * posY, posZ); par1World.playSoundEffect((double)posX + 0.5D,
              * (double)posY + 0.1D, (double)posZ + 0.5D, "random.click", 0.3F,
              * 0.6F);
@@ -241,7 +241,7 @@ public class Landmine extends MantleBlock
          * if (!var6 && var5) { par1World.setBlockMetadataWithNotify(posX, posY,
          * posZ, 0); par1World.notifyBlocksOfNeighborChange(posX, posY, posZ,
          * this.blockID); par1World.notifyBlocksOfNeighborChange(posX, posY - 1,
-         * posZ, this.blockID); par1World.markBlockRangeForRenderUpdate(posX,
+         * posZ, this.blockID); par1World.func_147479_m(posX,
          * posY, posZ, posX, posY, posZ); par1World.playSoundEffect((double)posX
          * + 0.5D, (double)posY + 0.1D, (double)posZ + 0.5D, "random.click",
          * 0.3F, 0.5F); }

@@ -257,7 +257,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     {
         if (shouldUpdateLogic)
         {
-            worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
+            worldObj.func_147479_m(xCoord, yCoord, zCoord);
             shouldUpdateLogic = false;
         }
         if (soundcountything > 0)

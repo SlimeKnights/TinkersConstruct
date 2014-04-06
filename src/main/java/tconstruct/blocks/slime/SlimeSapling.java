@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.worldgen.SlimeTreeGen;
@@ -48,9 +49,9 @@ public class SlimeSapling extends BlockSapling
     }
 
     @Override
-    protected boolean canPlaceBlockOn (Block p_149854_1_)
+    public boolean canPlaceBlockOn (Block id)
     {
-        return p_149854_1_ == Blocks.grass || p_149854_1_ == Blocks.dirt || p_149854_1_ == TRepo.slimeGrass || p_149854_1_ == TRepo.craftedSoil;
+        return id == Blocks.grass || id == Blocks.dirt || id == TRepo.slimeGrass || id == TRepo.craftedSoil;
     }
 
     @Override
@@ -116,7 +117,6 @@ public class SlimeSapling extends BlockSapling
             world.setBlock(x, y, z, this, md + 8, 3);
     }
 
-    @Override
     public int damageDropped (int i)
     {
         return i % 8;

@@ -1,6 +1,7 @@
 mDiyoNoWantCape:https://dl.dropboxusercontent.com/u/42769935/mCape.png
 fuj1n:https://dl.dropboxusercontent.com/s/i6gra1pc6gxawwz/capeTCLogo.png
 progwml6:https://dl.dropboxusercontent.com/s/i6gra1pc6gxawwz/capeTCLogo.png
+alexbegt:https://dl.dropboxusercontent.com/s/i6gra1pc6gxawwz/capeTCLogo.png
 jadedcat:https://dl.dropboxusercontent.com/u/57416963/Minecraft/Capes/jadedcat.png
 Myrathi:https://dl.dropboxusercontent.com/u/39079855/minecraft_dev/TE_Cape_Myrathi.png
 Fudgy_Fetus:https://dl.dropboxusercontent.com/u/27415688/fudgecape.png
@@ -9,7 +10,6 @@ pillbox:https://raw.github.com/SlimeKnights/TinkersConstruct/master/capes/defaul
 Hysting:https://raw.github.com/SlimeKnights/TinkersConstruct/master/capes/default_blue.png
 Xythyl:https://raw.github.com/SlimeKnights/TinkersConstruct/master/capes/default_blue.png
 andrejsavikin:https://raw.github.com/SlimeKnights/TinkersConstruct/master/capes/default_blue.png
-alexbegt:https://dl.dropboxusercontent.com/s/i6gra1pc6gxawwz/capeTCLogo.png
 DentedLeftFender:https://raw.github.com/SlimeKnights/TinkersConstruct/master/capes/default_green.png
 Pokefenn:https://dl.dropboxusercontent.com/s/etrersgka8n7g3s/vineCape.png
 sondrex76:http://i.imgur.com/a7QMfjc.png
@@ -49,6 +49,8 @@ SatanicSanta:https://dl.dropboxusercontent.com/s/etrersgka8n7g3s/vineCape.png
 GPuzzle:https://dl.dropboxusercontent.com/s/etrersgka8n7g3s/vineCape.png
 ajloveslily14:https://dl.dropboxusercontent.com/s/8yl77gjf4cygnzo/cape.png
 multisofteis:http://i.imgur.com/AgGBsX8.png
+Drullkus:https://dl.dropboxusercontent.com/u/48633261/cape.png
+--------------------------------------------------DRULLKUS WANTED A CAPE-----------------------------------------------
 --------------------------------------------------PATRONS - TEMPORARY--------------------------------------------------
 Reaverblade:https://raw.github.com/SlimeKnights/TinkersConstruct/master/capes/patron_slime.png
 ----------------------------------------FINALISED - ONLY ALLOW REMOVAL OF CAPES----------------------------------------

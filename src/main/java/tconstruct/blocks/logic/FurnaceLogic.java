@@ -299,7 +299,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
         readNetworkNBT(packet.func_148857_g());
-        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
+        worldObj.func_147479_m(xCoord, yCoord, zCoord);
     }
 
     @Override

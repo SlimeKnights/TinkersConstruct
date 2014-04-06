@@ -516,7 +516,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
         readCustomNBT(packet.func_148857_g());
-        this.worldObj.markBlockRangeForRenderUpdate(this.xCoord, this.yCoord, this.zCoord, xCoord, yCoord, zCoord);
+        this.worldObj.func_147479_m(this.xCoord, this.yCoord, this.zCoord);
     }
 
     public int convertFDToInt (ForgeDirection dir)

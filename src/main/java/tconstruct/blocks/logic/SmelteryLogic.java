@@ -1038,7 +1038,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     }
                 }
                 needsUpdate = true;
-                worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
+                worldObj.func_147479_m(xCoord, yCoord, zCoord);
             }
             return amount;
         }
@@ -1167,7 +1167,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         readFromNBT(packet.func_148857_g());
         markDirty();
-        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
+        worldObj.func_147479_m(xCoord, yCoord, zCoord);
         this.needsUpdate = true;
     }
 
