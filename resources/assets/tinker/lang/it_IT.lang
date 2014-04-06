@@ -1,6 +1,7 @@
 itemGroup.TConstructTools=TConstruct Attrezzi
 itemGroup.TConstructMaterials=TConstruct Materiali
 itemGroup.TConstructBlocks=TConstruct Blocchi
+itemGroup.TConstructParts=TConstruct Parti di Attrezzi
 
 crafters.ToolStation=T.d. Attrezzi
 crafters.CraftingStation=Tavolo da Lavoro
@@ -504,6 +505,7 @@ item.tconstruct.canister.yellow.name=Contenitore di Cuore Giallo
 item.tconstruct.canister.miniheart.green.name=Cuore Verde Miniaturizzato
 item.tconstruct.canister.green.name=Contenitore di Cuore Verde
 item.tconstruct.glove.name=Guanti dello Scavatore
+item.tconstruct.modifier.creative.name=Modificatore di Attrezzi Creativa
 
 SearedBlock.Table.name=Tavolo della Fonderia
 SearedBlock.Faucet.name=Rubinetto della Fonderia
@@ -735,9 +737,11 @@ gui.toolstation16=Velocità dell'Uso:
 gui.toolstation17=Modificatori
 gui.toolstation18=Modificatori Rimanenti: 
 
+creativeModLock.tooltip=Bersaglio Selezionato: 
+
+attribute.generic.ammo.attackDamage=Danno Medio per Tiro
+
 tconstruct.waila.empty=Vuoto
 tconstruct.waila.liquidtag=Liquido: 
 tconstruct.waila.amounttag=Quantità: 
 tconstruct.waila.invalidstructure=Struttura Invalida
-
-attribute.generic.ammo.attackDamage=Danno Medio per Tiro
