@@ -103,13 +103,13 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     @Override
     public void setDirection (int side)
     {
-        //direction = (byte) side;
+        direction = (byte) side;
     }
 
     @Override
     public void setDirection (float yaw, float pitch, EntityLivingBase player)
     {
-        int facing = MathHelper.floor_double((double) (yaw / 360) + 0.5D) & 3;
+        /*int facing = MathHelper.floor_double((double) (yaw / 360) + 0.5D) & 3;
         switch (facing)
         {
         case 0:
@@ -127,7 +127,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
         case 3:
             direction = 4;
             break;
-        }
+        }*/
     }
 
     @Override
