@@ -167,16 +167,8 @@ public class LavaTankBlock extends BlockContainer
         ItemStack current = entityplayer.inventory.getCurrentItem();
         if (current != null)
         {
-            FluidStack liquid;
+            FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(current);
             LavaTankLogic logic = (LavaTankLogic) world.getTileEntity(i, j, k);
-            if (current.getItem() == Items.lava_bucket)
-            {
-                liquid = new FluidStack(FluidRegistry.LAVA, TConstruct.blockLiquidValue);
-            }
-            else
-            {
-                liquid = FluidContainerRegistry.getFluidForFilledItem(current);
-            }
             if (liquid != null)
             {
                 int amount = logic.fill(ForgeDirection.UNKNOWN, liquid, false);
@@ -189,33 +181,6 @@ public class LavaTankBlock extends BlockContainer
                 }
                 else
                     return true;
-            }
-            else if (current.getItem() == Items.lava_bucket)
-            {
-                FluidTankInfo[] tanks = logic.getTankInfo(ForgeDirection.UNKNOWN);
-                FluidStack fillFluid = tanks[0].fluid;// getFluid();
-                ItemStack fillStack = new ItemStack(Items.bucket);
-                if (fillStack != null)
-                {
-                    logic.drain(ForgeDirection.UNKNOWN, TConstruct.blockLiquidValue, true);
-                    if (!entityplayer.capabilities.isCreativeMode)
-                    {
-                        if (current.stackSize == 1)
-                        {
-                            entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, fillStack);
-                        }
-                        else
-                        {
-                            entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, consumeItem(current));
-
-                            if (!entityplayer.inventory.addItemStackToInventory(fillStack))
-                            {
-                                entityplayer.dropPlayerItemWithRandomChoice(fillStack, false);
-                            }
-                        }
-                    }
-                    return true;
-                }
             }
             else if (FluidContainerRegistry.isBucket(current))
             {
