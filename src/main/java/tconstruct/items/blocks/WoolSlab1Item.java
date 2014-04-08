@@ -1,12 +1,13 @@
 package tconstruct.items.blocks;
 
-import mantle.blocks.abstracts.MultiItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import mantle.blocks.abstracts.MultiItemBlock;
 
 public class WoolSlab1Item extends MultiItemBlock
 {
@@ -19,6 +20,13 @@ public class WoolSlab1Item extends MultiItemBlock
         this.block = b;
         setMaxDamage(0);
         setHasSubtypes(true);
+    }
+    
+    @Override
+    public String getUnlocalizedName (ItemStack par1ItemStack)
+    {
+        int i = MathHelper.clamp_int(par1ItemStack.getItemDamage(), 0, 7);
+        return super.getUnlocalizedName() + "." + ItemDye.field_150923_a[7 - i] + ".slab";
     }
 
     @Override

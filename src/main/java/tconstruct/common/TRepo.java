@@ -131,8 +131,8 @@ public class TRepo
     public static Block speedSlab;
 
     public static Block meatBlock;
-    //public static Block woolSlab1;
-    //public static Block woolSlab2;
+    public static Block woolSlab1;
+    public static Block woolSlab2;
     public static Block glueBlock;
 
     // Traps

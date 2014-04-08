@@ -152,8 +152,8 @@ public class TRecipes
         GameRegistry.registerBlock(TRepo.glueBlock, "GlueBlock");
         OreDictionary.registerOre("blockRubber", new ItemStack(TRepo.glueBlock));
 
-        //GameRegistry.registerBlock(TRepo.woolSlab1, WoolSlab1Item.class, "WoolSlab1");
-        //GameRegistry.registerBlock(TRepo.woolSlab2, WoolSlab2Item.class, "WoolSlab2");
+        GameRegistry.registerBlock(TRepo.woolSlab1, WoolSlab1Item.class, "WoolSlab1");
+        GameRegistry.registerBlock(TRepo.woolSlab2, WoolSlab2Item.class, "WoolSlab2");
 
         // Smeltery stuff
         GameRegistry.registerBlock(TRepo.smeltery, SmelteryItemBlock.class, "Smeltery");
@@ -833,7 +833,7 @@ public class TRecipes
         GameRegistry.addRecipe(new ItemStack(TRepo.searedSlab, 6, 7), "bbb", 'b', new ItemStack(TRepo.smeltery, 1, 11));
 
         // Wool Slab Recipes
-        /**for (int sc = 0; sc <= 7; sc++)
+        for (int sc = 0; sc <= 7; sc++)
         {
             GameRegistry.addRecipe(new ItemStack(TRepo.woolSlab1, 6, sc), "www", 'w', new ItemStack(Blocks.wool, 1, sc));
             GameRegistry.addRecipe(new ItemStack(TRepo.woolSlab2, 6, sc), "www", 'w', new ItemStack(Blocks.wool, 1, sc + 8));
@@ -841,7 +841,7 @@ public class TRecipes
             GameRegistry.addShapelessRecipe(new ItemStack(Blocks.wool, 1, sc), new ItemStack(TRepo.woolSlab1, 1, sc), new ItemStack(TRepo.woolSlab1, 1, sc));
             GameRegistry.addShapelessRecipe(new ItemStack(Blocks.wool, 1, sc + 8), new ItemStack(TRepo.woolSlab2, 1, sc), new ItemStack(TRepo.woolSlab2, 1, sc));
         }
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Blocks.wool, 1, 0), "slabCloth", "slabCloth"));*/
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Blocks.wool, 1, 0), "slabCloth", "slabCloth"));
         // Trap Recipes
         GameRegistry.addRecipe(new ItemStack(TRepo.punji, 5, 0), "b b", " b ", "b b", 'b', new ItemStack(Items.reeds));
         GameRegistry.addRecipe(new ItemStack(TRepo.barricadeSpruce, 1, 0), "b", "b", 'b', new ItemStack(Blocks.log, 1, 1));
@@ -1035,8 +1035,8 @@ public class TRecipes
         ensureOreIsRegistered("nuggetGold", new ItemStack(Items.gold_nugget));
         OreDictionary.registerOre("nuggetPigIron", new ItemStack(TRepo.materials, 1, 35));
 
-        //OreDictionary.registerOre("slabCloth", new ItemStack(TRepo.woolSlab1, 1, Short.MAX_VALUE));
-        //OreDictionary.registerOre("slabCloth", new ItemStack(TRepo.woolSlab2, 1, Short.MAX_VALUE));
+        OreDictionary.registerOre("slabCloth", new ItemStack(TRepo.woolSlab1, 1, Short.MAX_VALUE));
+        OreDictionary.registerOre("slabCloth", new ItemStack(TRepo.woolSlab2, 1, Short.MAX_VALUE));
 
         ensureOreIsRegistered("stoneMossy", new ItemStack(Blocks.stonebrick, 1, 1));
         ensureOreIsRegistered("stoneMossy", new ItemStack(Blocks.mossy_cobblestone));
