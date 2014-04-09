@@ -229,9 +229,10 @@ public class ToolStationGui extends NewContainerGui
 
             if (stoneboundDamage != 0)
             {
+                DecimalFormat df = new DecimalFormat("##.##");
                 heart = stoneboundDamage == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
                 String bloss = stoneboundDamage > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
-                this.fontRenderer.drawString(bloss + (int) stoneboundDamage / 2 + heart, xSize + 8, base + offset * 10, 0xffffff);
+                this.fontRenderer.drawString(bloss + df.format(stoneboundDamage / 2f) + heart, xSize + 8, base + offset * 10, 0xffffff);
                 offset++;
             }
             offset++;
@@ -291,11 +292,11 @@ public class ToolStationGui extends NewContainerGui
         {
             float mineSpeed = tags.getInteger("MiningSpeed") / 100f;
             float mineSpeed2 = tags.getInteger("MiningSpeed2") / 100f;
-            float stoneboundSpeed = (float) Math.log(durability / 72 + 1) * 2 * stonebound;
+            float stoneboundSpeed = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
             DecimalFormat df = new DecimalFormat("##.##");
             df.setRoundingMode(RoundingMode.DOWN);
             float trueSpeed = mineSpeed + stoneboundSpeed;
-            float trueSpeed2 = mineSpeed + stoneboundSpeed;
+            float trueSpeed2 = mineSpeed2 + stoneboundSpeed;
 
             fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation12"), xSize + 8, base + offset * 10, 0xffffff);
             offset++;
