@@ -80,7 +80,7 @@ public class AbilityHelper
                 NBTTagCompound toolTags = stack.getTagCompound().getCompoundTag("InfiTool");
                 float attribute = (float) player.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
                 int damage = toolTags.getInteger("Attack") + baseDamage + 1;
-                damage *= attribute;
+                damage += attribute;
                 boolean broken = toolTags.getBoolean("Broken");
 
                 int durability = tags.getCompoundTag("InfiTool").getInteger("Damage");
