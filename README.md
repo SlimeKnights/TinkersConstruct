@@ -1,6 +1,5 @@
 #[Tinkers' Construct](http://www.minecraftforum.net/topic/1659892-tinkers-construct/)
 
-# 1.6.x is now Final, and is no longer being updated by the Slime Knights. Fixes are via PR only.
 Modify all the things, then do it again! 	 
 Melt down any metals you find. 	 
 Turn everything into golems!
