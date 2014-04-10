@@ -83,6 +83,17 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
             return false;
         return true;
     }
+    
+    @Override
+    public ItemStack decrStackSize (int slot, int quantity)
+    {
+        if (slot == 0)
+        {
+            for (int i = 1; i < getSizeInventory(); i++)
+                decrStackSize(i, 1);
+        }
+        return super.decrStackSize(slot, quantity);
+    }
 
     @Override
     public int[] getAccessibleSlotsFromSide (int var1)
@@ -99,6 +110,6 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
     @Override
     public boolean canExtractItem (int i, ItemStack itemstack, int j)
     {
-        return true;
+        return i == 0;
     }
 }

@@ -1,9 +1,11 @@
 package tconstruct.inventory;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import tconstruct.blocks.logic.FrypanLogic;
+import tconstruct.common.TContent;
 
 public class FrypanContainer extends Container
 {
@@ -81,6 +83,9 @@ public class FrypanContainer extends Container
     @Override
     public boolean canInteractWith (EntityPlayer entityplayer)
     {
+        Block block = Block.blocksList[logic.worldObj.getBlockId(logic.xCoord, logic.yCoord, logic.zCoord)];
+        if (block != TContent.heldItemBlock)
+            return false;
         return logic.isUseableByPlayer(entityplayer);
     }
 

@@ -1,6 +1,8 @@
 package tconstruct.inventory;
 
 import tconstruct.blocks.logic.SmelteryLogic;
+import tconstruct.common.TContent;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
@@ -124,6 +126,9 @@ public class SmelteryContainer extends ActiveContainer
     @Override
     public boolean canInteractWith (EntityPlayer entityplayer)
     {
+        Block block = Block.blocksList[logic.worldObj.getBlockId(logic.xCoord, logic.yCoord, logic.zCoord)];
+        if (block != TContent.smeltery && block != TContent.smelteryNether)
+            return false;
         return logic.isUseableByPlayer(entityplayer);
     }
 

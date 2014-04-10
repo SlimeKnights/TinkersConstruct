@@ -5,7 +5,9 @@ import java.util.Iterator;
 import java.util.Set;
 
 import tconstruct.blocks.logic.TileEntityLandmine;
+import tconstruct.common.TContent;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -64,6 +66,9 @@ public class ContainerLandmine extends Container
     @Override
     public boolean canInteractWith (EntityPlayer entityplayer)
     {
+        Block block = Block.blocksList[te.worldObj.getBlockId(te.xCoord, te.yCoord, te.zCoord)];
+        if (block != TContent.landmine)
+            return false;
         return te.isUseableByPlayer(entityplayer);
     }
 

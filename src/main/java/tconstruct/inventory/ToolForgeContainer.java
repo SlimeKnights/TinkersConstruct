@@ -2,7 +2,10 @@ package tconstruct.inventory;
 
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
+import tconstruct.common.TContent;
 import tconstruct.library.tools.ToolCore;
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -84,5 +87,14 @@ public class ToolForgeContainer extends ToolStationContainer
             if (!logic.worldObj.isRemote)
                 logic.worldObj.playAuxSFX(1021, (int) logic.xCoord, (int) logic.yCoord, (int) logic.zCoord, 0);
         }
+    }
+    
+    @Override
+    public boolean canInteractWith (EntityPlayer entityplayer)
+    {
+        Block block = Block.blocksList[logic.worldObj.getBlockId(logic.xCoord, logic.yCoord, logic.zCoord)];
+        if (block != TContent.toolForge && block != TContent.craftingSlabWood)
+            return false;
+        return logic.isUseableByPlayer(entityplayer);
     }
 }

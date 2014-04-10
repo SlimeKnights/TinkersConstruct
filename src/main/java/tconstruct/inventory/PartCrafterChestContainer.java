@@ -2,7 +2,9 @@ package tconstruct.inventory;
 
 import tconstruct.blocks.logic.PartBuilderLogic;
 import tconstruct.blocks.logic.PatternChestLogic;
+import tconstruct.common.TContent;
 import tconstruct.library.util.IPattern;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
@@ -54,9 +56,12 @@ public class PartCrafterChestContainer extends ActiveContainer
     }
 
     @Override
-    public boolean canInteractWith (EntityPlayer var1)
+    public boolean canInteractWith (EntityPlayer entityplayer)
     {
-        return true;
+        Block block = Block.blocksList[logic.worldObj.getBlockId(logic.xCoord, logic.yCoord, logic.zCoord)];
+        if (block != TContent.toolStationWood && block != TContent.craftingSlabWood)
+            return false;
+        return logic.isUseableByPlayer(entityplayer);
     }
 
     @Override

@@ -426,6 +426,7 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(lavaTank, LavaTankItemBlock.class, "LavaTank");
         GameRegistry.registerBlock(lavaTankNether, LavaTankItemBlock.class, "LavaTankNether");
         GameRegistry.registerTileEntity(LavaTankLogic.class, "TConstruct.LavaTank");
+        TConstructRegistry.drawbridgeState[lavaTank.blockID] = 2;
 
         searedBlock = new SearedBlock(PHConstruct.searedTable).setUnlocalizedName("SearedBlock");
         searedBlockNether = new SearedBlock(PHConstruct.searedTableNether, "nether").setUnlocalizedName("SearedBlock");

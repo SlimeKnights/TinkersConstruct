@@ -6,6 +6,7 @@ import java.io.IOException;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
 import tconstruct.TConstruct;
+import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.AbilityHelper;
 
 public class PHConstruct
@@ -379,15 +380,18 @@ public class PHConstruct
         newSmeltery = config.get("Experimental", "Use new adaptive Smeltery code", false, "Warning: Very buggy").getBoolean(false);
         meltableHorses = config.get("Experimental", "Allow horses to be melted down for glue", true).getBoolean(true);
 
-        //Addon stuff
-        isCleaverTwoHanded = config.get("Battlegear", "Can Cleavers have shields", true).getBoolean(true);
-        isHatchetWeapon = config.get("Battlegear", "Are Hatches also weapons", true).getBoolean(true);
-
         //Achievement Properties
         achievementsEnabled = config.get("Achievement Properties", "AchievementsEnabled", true).getBoolean(true);
 
         //Environment checks
         isModpack = config.get("Environment Checks", "IsModpack", false, "Change env check warnings to reflect that this is a modpack.").getBoolean(false);
+        
+        //Drawbridge
+        drawbridgeBlacklist = config.get("Drawbridge", "Drawbridge Blacklist", new int[] {}, "Add block or item IDs that should not be placed from the drawbridge").getIntList();
+        for (int i = 0; i < drawbridgeBlacklist.length; i++)
+        {
+            TConstructRegistry.drawbridgeState[drawbridgeBlacklist[i]] = 2;
+        }
 
         /* Save the configuration file */
         config.save();
@@ -759,4 +763,6 @@ public class PHConstruct
     //Environment checks
     public static boolean isModpack;
 
+    //Drawbridge
+    public static int[] drawbridgeBlacklist;
 }

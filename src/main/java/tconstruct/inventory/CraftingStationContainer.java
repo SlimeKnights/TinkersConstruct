@@ -1,5 +1,6 @@
 package tconstruct.inventory;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -12,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.world.World;
 import tconstruct.blocks.logic.CraftingStationLogic;
+import tconstruct.common.TContent;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
@@ -149,9 +151,12 @@ public class CraftingStationContainer extends Container
         }
     }
 
-    public boolean canInteractWith (EntityPlayer par1EntityPlayer)
+    public boolean canInteractWith (EntityPlayer player)
     {
-        return par1EntityPlayer.getDistanceSq((double) this.posX + 0.5D, (double) this.posY + 0.5D, (double) this.posZ + 0.5D) <= 64.0D;
+        Block block = Block.blocksList[worldObj.getBlockId(this.posX, this.posY, this.posZ)];
+        if (block != TContent.craftingStationWood && block != TContent.craftingSlabWood)
+            return false;
+        return player.getDistanceSq((double) this.posX + 0.5D, (double) this.posY + 0.5D, (double) this.posZ + 0.5D) <= 64.0D;
     }
 
     public ItemStack transferStackInSlot (EntityPlayer par1EntityPlayer, int par2)

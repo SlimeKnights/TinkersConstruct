@@ -1,6 +1,8 @@
 package tconstruct.inventory;
 
 import tconstruct.blocks.logic.StencilTableLogic;
+import tconstruct.common.TContent;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -58,11 +60,14 @@ public class PatternShaperContainer extends Container
             entityplayer.dropPlayerItem(itemstack);
         }
     }*/
-
+    
     @Override
     public boolean canInteractWith (EntityPlayer entityplayer)
     {
-        return true;
+        Block block = Block.blocksList[logic.worldObj.getBlockId(logic.xCoord, logic.yCoord, logic.zCoord)];
+        if (block != TContent.toolStationWood && block != TContent.craftingSlabWood)
+            return false;
+        return logic.isUseableByPlayer(entityplayer);
     }
 
     @Override

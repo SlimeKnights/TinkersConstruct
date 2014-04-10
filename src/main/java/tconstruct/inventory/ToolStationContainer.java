@@ -3,8 +3,10 @@ package tconstruct.inventory;
 import java.util.Random;
 
 import tconstruct.blocks.logic.ToolStationLogic;
+import tconstruct.common.TContent;
 import tconstruct.library.tools.ToolCore;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
@@ -81,9 +83,12 @@ public class ToolStationContainer extends ActiveContainer
     }
 
     @Override
-    public boolean canInteractWith (EntityPlayer var1)
+    public boolean canInteractWith (EntityPlayer entityplayer)
     {
-        return true;
+        Block block = Block.blocksList[logic.worldObj.getBlockId(logic.xCoord, logic.yCoord, logic.zCoord)];
+        if (block != TContent.toolStationWood && block != TContent.craftingSlabWood)
+            return false;
+        return logic.isUseableByPlayer(entityplayer);
     }
 
     public ItemStack transferStackInSlot (EntityPlayer player, int slotID)
