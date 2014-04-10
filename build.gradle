@@ -36,6 +36,8 @@ repositories {
 
 // Load ForgeGradle
 apply plugin: 'forge'
+group = 'tconstruct'
+
 
 // Define properties file
 ext.configFile = file "build.properties"
@@ -153,4 +155,20 @@ task libJar(type: Jar) {
 artifacts {
     archives deobfJar
     archives libJar
+}
+
+task("uploadJars", dependsOn:"build") {
+    
+    description = "uploads JARs"
+
+    if (project.hasProperty("local_maven")) {
+	    apply plugin: 'maven'
+            uploadArchives {
+                repositories {
+                    mavenDeployer {
+                        repository(url: "file://${local_maven}")
+                }
+            }
+        }
+    }
 }
