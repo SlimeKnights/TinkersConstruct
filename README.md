@@ -1,7 +1,5 @@
 #[Tinkers' Construct](http://www.minecraftforum.net/topic/1659892-tinkers-construct/)
 
-Tinkers' Construct for Minecraft 1.6.2/1.6.4 is now final and is located in the 1.6.4 branch
-
 Modify all the things, then do it again!
 Melt down any metals you find. 	 
 Turn everything into golems!
