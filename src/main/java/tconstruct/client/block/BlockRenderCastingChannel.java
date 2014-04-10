@@ -147,7 +147,7 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
 			{
 				float liquidAmount = (float)tankMain.fluid.amount / (float)tankMain.capacity * 0.125f;
 				double startY = tile.tankBelow();
-				renderer.setRenderBounds(0.375D, startY, 0.375D, 0.625D, 0.5 + liquidAmount, 0.625D); //Center
+				renderer.setRenderBounds(0.375D, startY, 0.375D, 0.625D, 0.51 + liquidAmount, 0.625D); //Center
 				renderLiquidPart(world, x, y, z, block, renderer, tankMain.fluid, false);
 			}
 			for(ForgeDirection dir: outputs)
@@ -159,8 +159,8 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
 				if(tankSub == null || tankSub.fluid == null)
 					break;
 				float liquidAmount = (float)tankSub.fluid.amount / (float)tankSub.capacity * 0.125f / 2;
-				renderer.setRenderBounds(bounds[0], 0.5, bounds[1], bounds[2], 0.5 + liquidAmount, bounds[3]);
-				renderLiquidPart(world, x, y, z, block, renderer, tankSub.fluid, true);
+				renderer.setRenderBounds(bounds[0], 0.5, bounds[1], bounds[2], 0.51 + liquidAmount, bounds[3]);
+				renderLiquidPart(world, x, y, z, block, renderer, tankSub.fluid, false);
 			}
 		}
 		return true;
