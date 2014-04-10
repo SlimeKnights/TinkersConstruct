@@ -17,8 +17,8 @@ import net.minecraftforge.event.ForgeSubscribe;
 
 public class EventCloakRender
 {
-
-    private final String serverLocation = "https://raw.github.com/SlimeKnights/TinkersConstruct/master/capes.txt";
+    private final String serverLocation = "https://raw.githubusercontent.com/SlimeKnights/TinkersCapes/master/capes.txt";
+    private final String serverPatronLocation = "https://raw.githubusercontent.com/SlimeKnights/TinkersCapes/master/patroncapes.txt";
     private final int timeout = 1000;
 
     private static final Graphics TEST_GRAPHICS = new BufferedImage(128, 128, BufferedImage.TYPE_INT_RGB).getGraphics();
@@ -29,7 +29,8 @@ public class EventCloakRender
 
     public EventCloakRender()
     {
-        buildCloakURLDatabase();
+        buildCloakURLDatabase(serverLocation);
+        buildCloakURLDatabase(serverPatronLocation);
         instance = this;
     }
 
@@ -61,12 +62,12 @@ public class EventCloakRender
         }
     }
 
-    public void buildCloakURLDatabase ()
+    public void buildCloakURLDatabase (String location)
     {
         URL url;
         try
         {
-            url = new URL(serverLocation);
+            url = new URL(location);
             URLConnection con = url.openConnection();
             con.setConnectTimeout(timeout);
             con.setReadTimeout(timeout);
@@ -162,6 +163,7 @@ public class EventCloakRender
     {
         cloaks.clear();
         capePlayers.clear();
-        buildCloakURLDatabase();
+        buildCloakURLDatabase(serverLocation);
+        buildCloakURLDatabase(serverPatronLocation);
     }
 }

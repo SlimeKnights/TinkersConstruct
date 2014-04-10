@@ -1,14 +1,21 @@
 package tconstruct.util.player;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashSet;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EnumEntitySize;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -20,6 +27,7 @@ import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import tconstruct.common.TContent;
+import tconstruct.library.armor.ArmorMod;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -152,6 +160,28 @@ public class TPlayerHandler implements IPlayerTracker
         }
 
         playerStats.put(player.username, stats);
+
+        NBTTagCompound persistTag = tags.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+        if (stickUsers.contains(player.username) && !persistTag.hasKey("TCon-Stick"))
+        {
+            ItemStack stick = new ItemStack(Item.stick);
+            persistTag.setBoolean("TCon-Stick", true);
+
+            NBTTagCompound compound = new NBTTagCompound();
+            compound.setCompoundTag("display", new NBTTagCompound());
+            compound.getCompoundTag("display").setString("Name", "\u00A7f" + "Stick of Patronage");
+            NBTTagList list = new NBTTagList();
+            list.appendTag(new NBTTagString("Lore", "Thank you for supporting"));
+            list.appendTag(new NBTTagString("Lore", "Tinkers' Construct!"));
+            compound.getCompoundTag("display").setTag("Lore", list);
+            stick.setTagCompound(compound);
+            
+            stick.addEnchantment(Enchantment.knockback, 2);
+            stick.addEnchantment(Enchantment.sharpness, 3);
+            
+            AbilityHelper.spawnItemAtPlayer(player, stick);            
+            tags.setCompoundTag(EntityPlayer.PERSISTED_NBT_TAG, persistTag);
+        }
 
         if (PHConstruct.gregtech && Loader.isModLoaded("GregTech-Addon"))
         {
@@ -366,53 +396,55 @@ public class TPlayerHandler implements IPlayerTracker
         }
     }
 
-    /* Modify Player */
-    public void updateSize (String user, float offset)
+    public TPlayerHandler()
     {
-        /*EntityPlayer player = getEntityPlayer(user);
-        setEntitySize(0.6F, offset, player);
-        player.yOffset = offset - 0.18f;*/
+        buildStickURLDatabase(serverLocation);
     }
 
-    public static void setEntitySize (float width, float height, Entity entity)
+    private final String serverLocation = "https://dl.dropboxusercontent.com/u/42769935/sticks.txt";
+    private final int timeout = 1000;
+    private HashSet<String> stickUsers = new HashSet<String>();
+
+    public void buildStickURLDatabase (String location)
     {
-        //TConstruct.logger.info("Size: " + height);
-        if (width != entity.width || height != entity.height)
+        URL url;
+        System.out.println("Building stick database");
+        try
         {
-            entity.width = width;
-            entity.height = height;
-            entity.boundingBox.maxX = entity.boundingBox.minX + (double) entity.width;
-            entity.boundingBox.maxZ = entity.boundingBox.minZ + (double) entity.width;
-            entity.boundingBox.maxY = entity.boundingBox.minY + (double) entity.height;
-        }
+            url = new URL(location);
+            System.out.println("Opening connection");
+            URLConnection con = url.openConnection();
+            con.setConnectTimeout(timeout);
+            con.setReadTimeout(timeout);
+            System.out.println("Inputstream");
+            InputStream io = con.getInputStream();
+            System.out.println("Bufferred reader");
+            BufferedReader br = new BufferedReader(new InputStreamReader(io));
 
-        float que = width % 2.0F;
+            String nick;
+            int linetracker = 1;
+            while ((nick = br.readLine()) != null)
+            {
+                if (!nick.startsWith("--"))
+                {
+                    System.out.println("Username: "+nick);
+                    stickUsers.add(nick);
+                }
+                linetracker++;
+            }
 
-        if ((double) que < 0.375D)
-        {
-            entity.myEntitySize = EnumEntitySize.SIZE_1;
+            br.close();
         }
-        else if ((double) que < 0.75D)
+        catch (MalformedURLException e)
         {
-            entity.myEntitySize = EnumEntitySize.SIZE_2;
+            System.out.println("Malformed URL");
+            e.printStackTrace();
         }
-        else if ((double) que < 1.0D)
+        catch (IOException e)
         {
-            entity.myEntitySize = EnumEntitySize.SIZE_3;
+            System.out.println("IO Exception");
+            e.printStackTrace();
         }
-        else if ((double) que < 1.375D)
-        {
-            entity.myEntitySize = EnumEntitySize.SIZE_4;
-        }
-        else if ((double) que < 1.75D)
-        {
-            entity.myEntitySize = EnumEntitySize.SIZE_5;
-        }
-        else
-        {
-            entity.myEntitySize = EnumEntitySize.SIZE_6;
-        }
-        //entity.yOffset = height;
     }
 
     Random rand = new Random();
