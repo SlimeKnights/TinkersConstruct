@@ -36,6 +36,8 @@ repositories {
 
 // Load ForgeGradle
 apply plugin: 'forge'
+group = 'tconstruct'
+
 
 // Define properties file
 ext.configFile = file "build.properties"
