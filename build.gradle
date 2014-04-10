@@ -154,3 +154,19 @@ artifacts {
     archives deobfJar
     archives libJar
 }
+
+task("uploadJars", dependsOn:"build") {
+    
+    description = "uploads JARs"
+
+    if (project.hasProperty("local_maven")) {
+	    apply plugin: 'maven'
+            uploadArchives {
+                repositories {
+                    mavenDeployer {
+                        repository(url: "file://${local_maven}")
+                }
+            }
+        }
+    }
+}
