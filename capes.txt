@@ -54,3 +54,4 @@ Drullkus:https://dl.dropboxusercontent.com/u/48633261/cape.png
 --------------------------------------------------PATRONS - TEMPORARY--------------------------------------------------
 Reaverblade:https://raw.github.com/SlimeKnights/TinkersConstruct/master/capes/patron_slime.png
 ----------------------------------------FINALISED - ONLY ALLOW REMOVAL OF CAPES----------------------------------------
+----------------------------------------FILE RETIRED ONLY HERE FOR LEGACY COMPATABILITY--------------------------------
