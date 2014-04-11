@@ -8,17 +8,19 @@ import tconstruct.plugins.fmp.register.RegisterWithFMP;
 public class ForgeMultiPart implements ICompatPlugin
 {
     @Override
-    public String getModId() {
+    public String getModId ()
+    {
         return "ForgeMultipart";
     }
 
     @Override
-    public void preInit() {
+    public void preInit ()
+    {
         // Nothing
     }
 
     @Override
-    public void init()
+    public void init ()
     {
         TConstruct.logger.info("ForgeMultipart detected. Registering TConstruct decorative blocks with FMP.");
         RegisterWithFMP.registerBlock(TContent.clearGlass);
@@ -31,7 +33,8 @@ public class ForgeMultiPart implements ICompatPlugin
     }
 
     @Override
-    public void postInit() {
+    public void postInit ()
+    {
         // Nothing
     }
 

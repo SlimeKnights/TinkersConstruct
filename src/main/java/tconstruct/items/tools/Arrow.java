@@ -108,8 +108,8 @@ public class Arrow extends ToolCore
         {
             if (!TContent.supressMissingToolLogs)
             {
-	            TConstruct.logger.warning("Creative builder failed tool for Vanilla style" + this.getToolName());
-	            TConstruct.logger.warning("Make sure you do not have item ID conflicts");
+                TConstruct.logger.warning("Creative builder failed tool for Vanilla style" + this.getToolName());
+                TConstruct.logger.warning("Make sure you do not have item ID conflicts");
             }
         }
         else
@@ -156,8 +156,8 @@ public class Arrow extends ToolCore
         {
             if (!TContent.supressMissingToolLogs)
             {
-	            TConstruct.logger.warning("Creative builder failed tool for " + name + this.getToolName());
-	            TConstruct.logger.warning("Make sure you do not have item ID conflicts");
+                TConstruct.logger.warning("Creative builder failed tool for " + name + this.getToolName());
+                TConstruct.logger.warning("Make sure you do not have item ID conflicts");
             }
         }
         else
@@ -236,8 +236,8 @@ public class Arrow extends ToolCore
             }
         }
         int attack = (int) (tags.getCompoundTag("InfiTool").getInteger("Attack") * this.getDamageModifier());
-        list.add("\u00A79+"+attack+" "+StatCollector.translateToLocalFormatted("attribute.name.generic.attackDamage"));
-        list.add("\u00A79+"+tags.getCompoundTag("InfiTool").getInteger("Attack")+" "+StatCollector.translateToLocalFormatted("attribute.name.ammo.attackDamage"));
+        list.add("\u00A79+" + attack + " " + StatCollector.translateToLocalFormatted("attribute.name.generic.attackDamage"));
+        list.add("\u00A79+" + tags.getCompoundTag("InfiTool").getInteger("Attack") + " " + StatCollector.translateToLocalFormatted("attribute.name.ammo.attackDamage"));
     }
 
 }

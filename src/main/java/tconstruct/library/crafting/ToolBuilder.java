@@ -382,7 +382,7 @@ public class ToolBuilder
                 mod.modify(slots, tool);
             }
         }
-        
+
         tags = tool.getTagCompound();
         if (name != null && !name.equals("") && !tags.hasKey("display"))
         {
@@ -395,7 +395,7 @@ public class ToolBuilder
         else
             return null;
     }
-    
+
     public ItemStack modifyTool (ItemStack input, ItemStack[] slots, String name)
     {
         ItemStack tool = input.copy();
@@ -425,7 +425,7 @@ public class ToolBuilder
         else
             return null;
     }
-    
+
     public ItemStack modifyArmor (ItemStack input, ItemStack[] slots, String name)
     {
         ItemStack armor = input.copy();
@@ -462,11 +462,11 @@ public class ToolBuilder
     {
         NBTTagCompound baseTag = new NBTTagCompound();
         NBTTagList list = new NBTTagList();
-        
+
         NBTTagCompound armorTag = new NBTTagCompound();
         armorTag.setInteger("Modifiers", 30);
         baseTag.setTag("TinkerArmor", armorTag);
-        
+
         armor.setTagCompound(baseTag);
     }
 
@@ -520,8 +520,8 @@ public class ToolBuilder
             throw new NullPointerException("Tool modifier cannot be null.");
         instance.toolMods.add(mod);
     }
-    
-    public static void registerArmorMod(ArmorMod mod)
+
+    public static void registerArmorMod (ArmorMod mod)
     {
         if (mod == null)
             throw new NullPointerException("Armor modifier cannot be null.");

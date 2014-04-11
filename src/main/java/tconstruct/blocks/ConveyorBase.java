@@ -20,6 +20,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ConveyorBase extends Block
 {
     String textureName;
+
     public ConveyorBase(int ID, Material material, String name)
     {
         super(ID, material);
@@ -136,7 +137,7 @@ public class ConveyorBase extends Block
     @Override
     public void registerIcons (IconRegister iconRegister)
     {
-        String[] textureNames = new String[] { textureName, textureName+"_flow" };
+        String[] textureNames = new String[] { textureName, textureName + "_flow" };
         this.icons = new Icon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)

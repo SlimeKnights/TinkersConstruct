@@ -139,7 +139,7 @@ public abstract class HarvestTool extends ToolCore
     protected abstract Material[] getEffectiveMaterials ();
 
     protected abstract String getHarvestType ();
-    
+
     //Right-click
     @Override
     public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)

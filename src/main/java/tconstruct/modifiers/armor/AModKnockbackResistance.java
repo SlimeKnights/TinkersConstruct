@@ -63,7 +63,7 @@ public class AModKnockbackResistance extends ArmorModTypeFilter
             attributes = new NBTTagList();
             baseTag.setTag("AttributeModifiers", attributes);
         }
-        attributes.appendTag(getAttributeTag("generic.knockbackResistance", key, amount*0.01, modifierType, getUUIDFromItem(armor)));
+        attributes.appendTag(getAttributeTag("generic.knockbackResistance", key, amount * 0.01, modifierType, getUUIDFromItem(armor)));
     }
 
     private static final UUID head = UUID.fromString("4188779d-69d4-487c-b307-c4c182522c44");

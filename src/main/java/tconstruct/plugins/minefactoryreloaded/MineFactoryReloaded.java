@@ -6,17 +6,19 @@ import tconstruct.plugins.ICompatPlugin;
 public class MineFactoryReloaded implements ICompatPlugin
 {
     @Override
-    public String getModId() {
+    public String getModId ()
+    {
         return "MineFactoryReloaded";
     }
 
     @Override
-    public void preInit() {
+    public void preInit ()
+    {
         // Nothing
     }
 
     @Override
-    public void init()
+    public void init ()
     {
         TConstruct.logger.info("MineFactoryReloaded detected. Registering TConstruct farmables/grindables with MFR's Farming Registry.");
         mfrRegistering.registerWithMFR();
@@ -28,7 +30,8 @@ public class MineFactoryReloaded implements ICompatPlugin
     }
 
     @Override
-    public void postInit() {
+    public void postInit ()
+    {
         // Nothing
     }
 

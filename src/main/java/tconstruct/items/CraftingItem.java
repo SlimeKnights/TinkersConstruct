@@ -69,13 +69,13 @@ public class CraftingItem extends Item
             if (!(textureNames[i].equals("")))
                 list.add(new ItemStack(id, 1, i));
     }
-    
-    
+
     @Override
-    public void onCreated(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) 
+    public void onCreated (ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
-    	if(par1ItemStack.itemID == TContent.blankPattern.itemID){
-    		par3EntityPlayer.addStat(TAchievements.achievements.get("tconstruct.pattern"), 1);
-    	}
+        if (par1ItemStack.itemID == TContent.blankPattern.itemID)
+        {
+            par3EntityPlayer.addStat(TAchievements.achievements.get("tconstruct.pattern"), 1);
+        }
     }
 }

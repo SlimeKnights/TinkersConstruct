@@ -9,6 +9,7 @@ import tconstruct.library.IHealthAccessory;
 public class SlotCanister extends Slot
 {
     private final int slotID;
+
     public SlotCanister(IInventory par2IInventory, int par3, int par4, int par5)
     {
         super(par2IInventory, par3, par4, par5);
@@ -31,6 +32,6 @@ public class SlotCanister extends Slot
     public boolean isItemValid (ItemStack par1ItemStack)
     {
         Item item = (par1ItemStack == null ? null : par1ItemStack.getItem());
-        return item != null && (item instanceof IHealthAccessory) && ((IHealthAccessory)item).canEquipItem(par1ItemStack, this.slotID);
+        return item != null && (item instanceof IHealthAccessory) && ((IHealthAccessory) item).canEquipItem(par1ItemStack, this.slotID);
     }
 }

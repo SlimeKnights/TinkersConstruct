@@ -175,11 +175,11 @@ public class TPlayerHandler implements IPlayerTracker
             list.appendTag(new NBTTagString("Lore", "Tinkers' Construct!"));
             compound.getCompoundTag("display").setTag("Lore", list);
             stick.setTagCompound(compound);
-            
+
             stick.addEnchantment(Enchantment.knockback, 2);
             stick.addEnchantment(Enchantment.sharpness, 3);
-            
-            AbilityHelper.spawnItemAtPlayer(player, stick);            
+
+            AbilityHelper.spawnItemAtPlayer(player, stick);
             tags.setCompoundTag(EntityPlayer.PERSISTED_NBT_TAG, persistTag);
         }
 
@@ -427,7 +427,7 @@ public class TPlayerHandler implements IPlayerTracker
             {
                 if (!nick.startsWith("--"))
                 {
-                    System.out.println("Username: "+nick);
+                    System.out.println("Username: " + nick);
                     stickUsers.add(nick);
                 }
                 linetracker++;

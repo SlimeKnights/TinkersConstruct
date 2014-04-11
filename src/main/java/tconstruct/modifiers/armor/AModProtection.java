@@ -13,6 +13,7 @@ import tconstruct.library.armor.EnumArmorPart;
 public class AModProtection extends ArmorModTypeFilter
 {
     int modifyAmount = 3;
+
     public AModProtection(int effect, EnumSet<EnumArmorPart> armorTypes, ItemStack[] items, int[] values)
     {
         super(effect, "ExoProtection", armorTypes, items, values);
@@ -39,6 +40,6 @@ public class AModProtection extends ArmorModTypeFilter
         int amount = matchingAmount(input);
         double absorb = armorTag.getDouble("protection");
         absorb += amount;
-        armorTag.setDouble("protection", absorb);     
+        armorTag.setDouble("protection", absorb);
     }
 }

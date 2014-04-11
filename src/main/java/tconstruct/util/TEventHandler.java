@@ -388,7 +388,7 @@ public class TEventHandler
             String entityName = event.entityLiving.getClass().getSimpleName().toLowerCase();
             if (entityName.contains("entitynpc"))
                 return;
-            
+
             int count = event.entityLiving instanceof EntityDragon ? 5 : 1;
             for (int i = 0; i < count; i++)
             {

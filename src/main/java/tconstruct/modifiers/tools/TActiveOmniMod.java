@@ -154,8 +154,8 @@ public class TActiveOmniMod extends ActiveToolMod
         baconator(tool, stack, player, tags);
         return 0;
     }
-    
-    private void baconator(ToolCore tool, ItemStack stack, EntityLivingBase entity, NBTTagCompound tags)
+
+    private void baconator (ToolCore tool, ItemStack stack, EntityLivingBase entity, NBTTagCompound tags)
     {
         int bacon = 0;
         bacon += tags.getInteger("Head") == 18 ? 1 : 0;

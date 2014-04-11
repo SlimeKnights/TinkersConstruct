@@ -26,7 +26,8 @@ public class CallableUnsuppConfig implements ICrashCallable
     public String call () throws Exception
     {
         // Check for modpack flag, if so use the pack callable
-        if (PHConstruct.isModpack) return new CallablePackUnsuppConfig(modIds).call();
+        if (PHConstruct.isModpack)
+            return new CallablePackUnsuppConfig(modIds).call();
 
         String str = "DO NOT REPORT THIS CRASH! Unsupported mods in environment: ";
         Boolean firstEntry = true;

@@ -25,13 +25,14 @@ import tconstruct.library.armor.EnumArmorPart;
 public class ExoArmor extends ArmorCore
 {
     String textureName;
+
     public ExoArmor(int id, EnumArmorPart part, String texture)
     {
         super(id, 0, part);
         this.textureName = texture;
         this.setCreativeTab(TConstructRegistry.materialTab);
     }
-    
+
     @Override
     public void registerIcons (IconRegister par1IconRegister)
     {
@@ -44,7 +45,7 @@ public class ExoArmor extends ArmorCore
     {
         return "tinker:textures/armor/" + textureName + "_" + layer + ".png";
     }
-    
+
     @Override
     public void damageArmor (EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot)
     {
@@ -57,15 +58,15 @@ public class ExoArmor extends ArmorCore
         ItemStack armor = new ItemStack(par1, 1, 0);
         NBTTagCompound baseTag = new NBTTagCompound();
         NBTTagList list = new NBTTagList();
-        
+
         NBTTagCompound armorTag = new NBTTagCompound();
         armorTag.setInteger("Modifiers", 30);
         baseTag.setTag(SET_NAME, armorTag);
-        
+
         armor.setTagCompound(baseTag);
         par3List.add(armor);
     }
-    
+
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
@@ -75,8 +76,8 @@ public class ExoArmor extends ArmorCore
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag(SET_NAME);
         double protection = tags.getDouble("protection");
         if (protection > 0)
-        list.add("\u00a7aProtection: "+protection+"%");
-        
+            list.add("\u00a7aProtection: " + protection + "%");
+
         boolean displayToolTips = true;
         int tipNum = 0;
         while (displayToolTips)

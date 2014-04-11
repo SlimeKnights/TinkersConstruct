@@ -38,8 +38,8 @@ public class AModMoveSpeed extends ArmorModTypeFilter
         int modifiers = armorTag.getInteger("Modifiers");
         modifiers -= matchingAmount(input);
         armorTag.setInteger("Modifiers", modifiers);
-        
-        int amount = matchingAmount(input);        
+
+        int amount = matchingAmount(input);
         if (armorTag.hasKey(key))
         {
             amount += armorTag.getInteger(key);

@@ -85,7 +85,7 @@ public class ToolForgeGui extends ToolStationGui
         setSlotType(0);
         iconX = new int[] { 0, 1, 2, 13 };
         iconY = new int[] { 13, 13, 13, 13 };
-        title = "\u00A7n"+(StatCollector.translateToLocal("gui.toolforge1"));
+        title = "\u00A7n" + (StatCollector.translateToLocal("gui.toolforge1"));
         body = (StatCollector.translateToLocal("gui.toolforge2"));
     }
 

@@ -16,7 +16,7 @@ public class Pattern extends CraftingItem implements IPattern
     {
         this(id, patternName, getPatternNames(patternType), folder);
     }
-    
+
     public Pattern(int id, String[] names, String[] patternTypes, String folder)
     {
         super(id, names, patternTypes, folder);

@@ -673,7 +673,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         //worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         //worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
-    
+
     /*@Override
     public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
@@ -947,13 +947,13 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
         return tempBricks;
     }
-    
-    boolean validBlockID(int blockID)
+
+    boolean validBlockID (int blockID)
     {
         return blockID == TContent.smeltery.blockID || blockID == TContent.smelteryNether.blockID;
     }
-    
-    boolean validTankID(int blockID)
+
+    boolean validTankID (int blockID)
     {
         return blockID == TContent.lavaTank.blockID || blockID == TContent.lavaTankNether.blockID;
     }

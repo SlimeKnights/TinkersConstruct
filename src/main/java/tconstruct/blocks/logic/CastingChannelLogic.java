@@ -347,8 +347,8 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler
 
         return 0.5f;
     }
-    
-    private void markDirtyForRendering()
+
+    private void markDirtyForRendering ()
     {
         this.worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }

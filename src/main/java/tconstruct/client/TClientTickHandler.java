@@ -12,7 +12,7 @@ import cpw.mods.fml.common.TickType;
 public class TClientTickHandler implements ITickHandler
 {
     Minecraft mc = Minecraft.getMinecraft();
-    TControls controlInstance = ((TProxyClient)TConstruct.proxy).controlInstance;
+    TControls controlInstance = ((TProxyClient) TConstruct.proxy).controlInstance;
 
     @Override
     public void tickEnd (EnumSet<TickType> type, Object... tickData)

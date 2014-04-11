@@ -38,7 +38,7 @@ public class SoilSlabItem extends ItemBlock
     {
         switch (stack.getItemDamage())
         {
-       case 3:
+        case 3:
             list.add(StatCollector.translateToLocal("craftedsoil.slab1.tooltip"));
             break;
         case 4:

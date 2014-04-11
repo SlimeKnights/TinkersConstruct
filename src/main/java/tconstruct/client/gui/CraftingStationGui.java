@@ -72,7 +72,7 @@ public class CraftingStationGui extends GuiContainer
         {
             ArmorCore armor = (ArmorCore) stack.getItem();
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag("TinkerArmor");
-            this.drawCenteredString(fontRenderer, "\u00A7n" + StatCollector.translateToLocal("armortype."+armor.getArmorName()), xSize + 63, 8, 0xffffff);
+            this.drawCenteredString(fontRenderer, "\u00A7n" + StatCollector.translateToLocal("armortype." + armor.getArmorName()), xSize + 63, 8, 0xffffff);
 
             drawModularArmorStats(stack, armor, tags);
         }
@@ -88,7 +88,7 @@ public class CraftingStationGui extends GuiContainer
             fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation18") + tags.getInteger("Modifiers"), xSize + 8, base + offset * 10, 0xffffff);
             offset++;
         }
-        
+
         boolean displayToolTips = true;
         int tipNum = 0;
         while (displayToolTips)

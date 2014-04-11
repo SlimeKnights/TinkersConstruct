@@ -60,7 +60,7 @@ public class PatternShaperContainer extends Container
             entityplayer.dropPlayerItem(itemstack);
         }
     }*/
-    
+
     @Override
     public boolean canInteractWith (EntityPlayer entityplayer)
     {

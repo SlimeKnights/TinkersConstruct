@@ -369,7 +369,7 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualIcon("bowstring", new ItemStack(TContent.bowstring, 1, 0));
         TConstructClientRegistry.registerManualIcon("arrowhead", new ItemStack(TContent.arrowhead, 1, 2));
         TConstructClientRegistry.registerManualIcon("fletching", new ItemStack(TContent.fletching, 1, 0));
-        
+
         TConstructClientRegistry.registerManualIcon("bloodbucket", new ItemStack(TContent.buckets, 1, 16));
         TConstructClientRegistry.registerManualIcon("emeraldbucket", new ItemStack(TContent.buckets, 1, 15));
         TConstructClientRegistry.registerManualIcon("gluebucket", new ItemStack(TContent.buckets, 1, 25));
@@ -460,7 +460,8 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualSmallRecipe("partcrafter", new ItemStack(TContent.toolStationWood, 1, 1), null, pattern, null, log);
         TConstructClientRegistry.registerManualSmallRecipe("patternchest", new ItemStack(TContent.toolStationWood, 1, 5), null, pattern, null, chest);
         TConstructClientRegistry.registerManualSmallRecipe("stenciltable", new ItemStack(TContent.toolStationWood, 1, 10), null, pattern, null, plank);
-        TConstructClientRegistry.registerManualSmallRecipe("slimechannel", new ItemStack(TContent.slimeChannel, 1, 0), new ItemStack(TContent.slimeGel, 1, 0), new ItemStack(Item.redstone), null, null);
+        TConstructClientRegistry
+                .registerManualSmallRecipe("slimechannel", new ItemStack(TContent.slimeChannel, 1, 0), new ItemStack(TContent.slimeGel, 1, 0), new ItemStack(Item.redstone), null, null);
         TConstructClientRegistry.registerManualSmallRecipe("bouncepad", new ItemStack(TContent.slimePad, 1, 0), new ItemStack(TContent.slimeChannel), new ItemStack(Item.slimeBall), null, null);
         TConstructClientRegistry.registerManualLargeRecipe("toolforge", new ItemStack(TContent.toolForge, 1, 0), searedbrickBlock, searedbrickBlock, searedbrickBlock, ironblock, new ItemStack(
                 TContent.toolStationWood, 1, 0), ironblock, ironblock, null, ironblock);
@@ -484,8 +485,7 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualSmallRecipe("searedbricks", new ItemStack(TContent.smeltery, 1, 2), searedbrick, searedbrick, searedbrick, searedbrick);
         TConstructClientRegistry.registerManualLargeRecipe("smelterycontroller", new ItemStack(TContent.smeltery, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, null, searedbrick,
                 searedbrick, searedbrick, searedbrick);
-        TConstructClientRegistry.registerManualLargeRecipe("dryingrack", new ItemStack(TContent.dryingRack, 1, 0), null, null, null, plankSlab, plankSlab, plankSlab, null, null,
-                null);
+        TConstructClientRegistry.registerManualLargeRecipe("dryingrack", new ItemStack(TContent.dryingRack, 1, 0), null, null, null, plankSlab, plankSlab, plankSlab, null, null, null);
         TConstructClientRegistry.registerManualLargeRecipe("smelterydrain", new ItemStack(TContent.smeltery, 1, 1), searedbrick, null, searedbrick, searedbrick, null, searedbrick, searedbrick, null,
                 searedbrick);
 
@@ -540,7 +540,7 @@ public class TProxyClient extends TProxyCommon
 
         TConstructClientRegistry.registerManualModifier("electricmod", ironpick.copy(), new ItemStack(Block.dirt), new ItemStack(Block.dirt));
         TConstructClientRegistry.registerManualModifier("fluxmod", ironpick.copy(), new ItemStack(Block.dirt));
-		TConstructClientRegistry.registerManualModifier("fluxmod2", ironpick.copy(), new ItemStack(Block.dirt));
+        TConstructClientRegistry.registerManualModifier("fluxmod2", ironpick.copy(), new ItemStack(Block.dirt));
 
         TConstructClientRegistry.registerManualModifier("tier1free", ironpick.copy(), new ItemStack(Item.diamond), new ItemStack(Block.blockGold));
         TConstructClientRegistry.registerManualModifier("tier1.5free", ironpick.copy(), new ItemStack(Item.appleGold, 1, 1), new ItemStack(Block.blockDiamond));
@@ -970,7 +970,7 @@ public class TProxyClient extends TProxyCommon
         //MinecraftForgeClient.registerItemRenderer(TContent.armorPattern.itemID, new RenderArmorCast());
     }
 
-    public void recalculateHealth()
+    public void recalculateHealth ()
     {
         armorExtended.recalculateHealth(mc.thePlayer, TConstruct.playerTracker.getPlayerStats(mc.thePlayer.username));
     }

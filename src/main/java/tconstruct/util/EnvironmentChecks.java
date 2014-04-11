@@ -28,7 +28,8 @@ public class EnvironmentChecks
 
         if (Loader.isModLoaded("gregtech_addon"))
         {
-            TConstruct.logger.severe("[Environment Checks] Gelatinous iceberg dead ahead! Entering Greggy waters! Abandon hope all ye who enter here! (No, seriously, we don't support GT. Don't report any issues. Thanks.)");
+            TConstruct.logger
+                    .severe("[Environment Checks] Gelatinous iceberg dead ahead! Entering Greggy waters! Abandon hope all ye who enter here! (No, seriously, we don't support GT. Don't report any issues. Thanks.)");
             modIds.add("gregtech_addon");
         }
 

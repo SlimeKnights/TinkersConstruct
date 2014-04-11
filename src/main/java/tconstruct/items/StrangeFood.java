@@ -15,15 +15,15 @@ public class StrangeFood extends SpecialFood
 {
     public StrangeFood(int id)
     {
-        super(id, new int[] { 2, 2, 4 }, new float[] { 1f, 1f, 0.6f }, new String[] { "edibleslime", "edibleblood", "bacon"  }, new String[] { "food/edibleslime", "food/edibleblood", "food/bacon" });
+        super(id, new int[] { 2, 2, 4 }, new float[] { 1f, 1f, 0.6f }, new String[] { "edibleslime", "edibleblood", "bacon" }, new String[] { "food/edibleslime", "food/edibleblood", "food/bacon" });
         this.setHasSubtypes(true);
     }
-    
+
     @Override
     protected void onFoodEaten (ItemStack stack, World world, EntityPlayer player)
     {
         if (stack.getItemDamage() == 1)
-            player.addPotionEffect(new PotionEffect(Potion.field_76434_w.id, 20*15, 0));
+            player.addPotionEffect(new PotionEffect(Potion.field_76434_w.id, 20 * 15, 0));
     }
 
     @Override

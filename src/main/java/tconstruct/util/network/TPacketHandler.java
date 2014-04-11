@@ -52,12 +52,12 @@ public class TPacketHandler implements IPacketHandler
         try
         {
             packetID = inputStream.readByte();
-            
+
             if (packetID == 3) //Sync knapsack
             {
                 TProxyClient.knapsack.readInventoryFromStream(inputStream);
             }
-            
+
             if (packetID == 4) //Sync inventory
             {
                 TProxyClient.armorExtended.readInventoryFromStream(inputStream);
