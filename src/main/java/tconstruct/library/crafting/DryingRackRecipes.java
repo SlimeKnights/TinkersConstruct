@@ -58,7 +58,7 @@ public class DryingRackRecipes
         return null;
     }
 
-    static class DryingRecipe
+    public static class DryingRecipe
     {
         public final int time;
         public final ItemStack input;
