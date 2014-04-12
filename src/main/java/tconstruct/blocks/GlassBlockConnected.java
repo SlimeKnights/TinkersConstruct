@@ -371,11 +371,11 @@ public class GlassBlockConnected extends MantleBlock
             }
             else if (isOpenUp && isOpenDown && isOpenLeft)
             {
-                return icons[14];
+                return icons[13];
             }
             else if (isOpenUp && isOpenDown && isOpenRight)
             {
-                return icons[13];
+                return icons[14];
             }
             else if (isOpenUp && isOpenLeft && isOpenRight)
             {
@@ -395,19 +395,19 @@ public class GlassBlockConnected extends MantleBlock
             }
             else if (isOpenDown && isOpenLeft)
             {
-                return icons[10];
+                return icons[9];
             }
             else if (isOpenDown && isOpenRight)
             {
-                return icons[9];
+                return icons[10];
             }
             else if (isOpenUp && isOpenLeft)
             {
-                return icons[8];
+                return icons[7];
             }
             else if (isOpenUp && isOpenRight)
             {
-                return icons[7];
+                return icons[8];
             }
             else if (isOpenDown)
             {
@@ -419,11 +419,11 @@ public class GlassBlockConnected extends MantleBlock
             }
             else if (isOpenLeft)
             {
-                return icons[3];
+                return icons[4];
             }
             else if (isOpenRight)
             {
-                return icons[4];
+                return icons[3];
             }
             break;
         case 4:
@@ -535,11 +535,11 @@ public class GlassBlockConnected extends MantleBlock
             }
             else if (isOpenUp && isOpenDown && isOpenLeft)
             {
-                return icons[13];
+                return icons[14];
             }
             else if (isOpenUp && isOpenDown && isOpenRight)
             {
-                return icons[14];
+                return icons[13];
             }
             else if (isOpenUp && isOpenLeft && isOpenRight)
             {
@@ -559,19 +559,19 @@ public class GlassBlockConnected extends MantleBlock
             }
             else if (isOpenDown && isOpenLeft)
             {
-                return icons[9];
+                return icons[10];
             }
             else if (isOpenDown && isOpenRight)
             {
-                return icons[10];
+                return icons[9];
             }
             else if (isOpenUp && isOpenLeft)
             {
-                return icons[7];
+                return icons[8];
             }
             else if (isOpenUp && isOpenRight)
             {
-                return icons[8];
+                return icons[7];
             }
             else if (isOpenDown)
             {
@@ -583,11 +583,11 @@ public class GlassBlockConnected extends MantleBlock
             }
             else if (isOpenLeft)
             {
-                return icons[4];
+                return icons[3];
             }
             else if (isOpenRight)
             {
-                return icons[3];
+                return icons[4];
             }
             break;
         }
