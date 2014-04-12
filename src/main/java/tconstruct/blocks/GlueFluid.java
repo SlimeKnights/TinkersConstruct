@@ -49,26 +49,12 @@ public class GlueFluid extends BlockFluidFinite
 
         if (entity instanceof EntityLivingBase)
         {
-            EntityLivingBase lvb = (EntityLivingBase) entity;
+            EntityLivingBase living = (EntityLivingBase) entity;
             // Well you'd feel ill too standing in glue...
-            if (lvb.isPotionActive(Potion.hunger))
-            {
-                lvb.getActivePotionEffect(Potion.hunger).duration = 20;
-            }
-            else
-            {
-                lvb.addPotionEffect(new PotionEffect(Potion.hunger.getId(), 20, 4));
-            }
+            living.addPotionEffect(new PotionEffect(Potion.hunger.getId(), 20, 4));
 
             // Glue is sticky stuff
-            if (lvb.isPotionActive(Potion.moveSlowdown))
-            {
-                lvb.getActivePotionEffect(Potion.moveSlowdown).duration = 30;
-            }
-            else
-            {
-                lvb.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), 30, 4));
-            }
+            living.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), 30, 4));
         }
     }
 }

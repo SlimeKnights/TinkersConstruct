@@ -206,7 +206,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                 if (movingobjectposition.entityHit != null)
                 {
                     speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-                    double damageSpeed = (double) speed * this.damage;
+                    double damageSpeed = (double) speed * this.getDamage();
                     damageSpeed *= baseDamage;
                     damageSpeed /= 5D;
                     int damageInflicted = MathHelper.ceiling_double_int(damageSpeed);

@@ -31,7 +31,7 @@ public class CartRender extends Render
     public void renderPullcart (CartEntity cart, double posX, double posY, double posZ, float par8, float par9)
     {
         GL11.glPushMatrix();
-        long var10 = (long) cart.entityId * 493286711L;
+        long var10 = (long) cart.hashCode() * 493286711L;
         var10 = var10 * var10 * 4392167121L + var10 * 98761L;
         float var12 = (((float) (var10 >> 16 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
         float var13 = (((float) (var10 >> 20 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
