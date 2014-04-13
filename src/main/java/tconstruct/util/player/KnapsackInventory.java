@@ -27,7 +27,7 @@ public class KnapsackInventory implements IInventory
     {
         parent = new WeakReference<EntityPlayer>(player);
     }
-    
+
     public void init (EntityPlayer player, String playerID, int dimensionID, boolean global)
     {
         init(player);
@@ -178,7 +178,7 @@ public class KnapsackInventory implements IInventory
             }
         }
     }*/
-    
+
     public void saveToNBT (EntityPlayer player)
     {
         NBTTagCompound baseTag = player.getEntityData();
@@ -196,7 +196,7 @@ public class KnapsackInventory implements IInventory
                 tagList.appendTag(invSlot);
             }
         }
-        
+
         tags.setTag(getPlayerTagname(), tagList);
         if (!baseTag.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
             baseTag.setCompoundTag(EntityPlayer.PERSISTED_NBT_TAG, tags);
@@ -209,7 +209,7 @@ public class KnapsackInventory implements IInventory
         if (tagList.tagCount() == 0)
         {
             tags = entityplayer.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-            tagList = tags.getTagList(getPlayerTagname());            
+            tagList = tags.getTagList(getPlayerTagname());
         }
         for (int i = 0; i < tagList.tagCount(); ++i)
         {
@@ -223,7 +223,7 @@ public class KnapsackInventory implements IInventory
             }
         }
     }
-    
+
     public void writeInventoryToStream (DataOutputStream os) throws IOException
     {
         for (int i = 0; i < 27; i++)
@@ -237,22 +237,22 @@ public class KnapsackInventory implements IInventory
             inventory[i] = Packet.readItemStack(is);
         }
     }
-    
-    private String getPlayerTagname()
+
+    private String getPlayerTagname ()
     {
         StringBuilder builder = new StringBuilder();
         builder.append("TConstruct.Knapsack.");
-        
+
         //Dimensional awareness
         if (globalKnapsack)
             builder.append("Global");
         else
             builder.append(dimensionID);
-        
+
         //Player clones
         if (playerID != null && !(playerID.equals("")))
             builder.append(playerID);
-        
+
         return builder.toString();
     }
 

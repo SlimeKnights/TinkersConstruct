@@ -27,7 +27,7 @@ public class Manual extends CraftingItem
     @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
-    	player.addStat(TAchievements.achievements.get("tconstruct.beginner"), 1);
+        player.addStat(TAchievements.achievements.get("tconstruct.beginner"), 1);
         player.openGui(TConstruct.instance, TConstruct.proxy.manualGuiID, world, 0, 0, 0);
         /*Side side = FMLCommonHandler.instance().getEffectiveSide();
         if (side.isClient())
@@ -41,13 +41,13 @@ public class Manual extends CraftingItem
         switch (stack.getItemDamage())
         {
         case 0:
-            list.add("\u00a7o"+StatCollector.translateToLocal("manual1.tooltip"));
+            list.add("\u00a7o" + StatCollector.translateToLocal("manual1.tooltip"));
             break;
         case 1:
-            list.add("\u00a7o"+StatCollector.translateToLocal("manual2.tooltip"));
+            list.add("\u00a7o" + StatCollector.translateToLocal("manual2.tooltip"));
             break;
         case 2:
-            list.add("\u00a7o"+StatCollector.translateToLocal("manual3.tooltip"));
+            list.add("\u00a7o" + StatCollector.translateToLocal("manual3.tooltip"));
             break;
         }
     }

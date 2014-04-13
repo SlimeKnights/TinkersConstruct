@@ -57,7 +57,7 @@ public abstract class ToolModTypeFilter extends ToolMod
             }
             if (!match)
                 return false;
-            
+
             minimumMatch = true;
         }
         return minimumMatch;

@@ -37,7 +37,7 @@ public class EventCloakRender
     @ForgeSubscribe
     public void onPreRenderSpecials (RenderPlayerEvent.Specials.Pre event)
     {
-        if (Loader.isModLoaded("shadersmod")|| !PHConstruct.capesEnabled)
+        if (Loader.isModLoaded("shadersmod") || !PHConstruct.capesEnabled)
         {
             return;
         }
@@ -53,10 +53,10 @@ public class EventCloakRender
                 {
                     return;
                 }
-                    capePlayers.add(abstractClientPlayer);
-                    abstractClientPlayer.getTextureCape().textureUploaded = false;
-                    new Thread(new CloakThread(abstractClientPlayer, cloakURL)).start();
-                    event.renderCape = true;
+                capePlayers.add(abstractClientPlayer);
+                abstractClientPlayer.getTextureCape().textureUploaded = false;
+                new Thread(new CloakThread(abstractClientPlayer, cloakURL)).start();
+                event.renderCape = true;
 
             }
         }

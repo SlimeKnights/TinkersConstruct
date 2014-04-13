@@ -97,7 +97,7 @@ public class Shortbow extends BowBase
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-       if (!stack.hasTagCompound())
+        if (!stack.hasTagCompound())
             return;
 
         NBTTagCompound tags = stack.getTagCompound();
@@ -196,7 +196,7 @@ public class Shortbow extends BowBase
         }
 
         list.add("");
-        list.add("\u00A79+"+tags.getCompoundTag("InfiTool").getInteger("Attack")+" "+StatCollector.translateToLocalFormatted("attribute.name.generic.attackDamage"));
+        list.add("\u00A79+" + tags.getCompoundTag("InfiTool").getInteger("Attack") + " " + StatCollector.translateToLocalFormatted("attribute.name.generic.attackDamage"));
     }
 
     public String getBowstringName (int type)

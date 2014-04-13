@@ -97,6 +97,7 @@ public class TClientEvents
 
     boolean tukmc = Loader.isModLoaded("tukmc_Vz");
     GameSettings gs = Minecraft.getMinecraft().gameSettings;
+
     /* HUD */
     @ForgeSubscribe
     public void renderHealthbar (RenderGameOverlayEvent.Pre event)
@@ -227,7 +228,7 @@ public class TClientEvents
 
             if (event.type == ElementType.CROSSHAIRS && gs.thirdPersonView != 0)
             {
-                event.setCanceled(true);                
+                event.setCanceled(true);
             }
         }
     }

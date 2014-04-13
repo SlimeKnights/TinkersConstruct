@@ -23,7 +23,8 @@ public class CallableSuppConfig implements ICrashCallable
     public String call () throws Exception
     {
         // Check for modpack flag, if so use the pack callable
-        if (PHConstruct.isModpack) return new CallablePackSuppConfig().call();
+        if (PHConstruct.isModpack)
+            return new CallablePackSuppConfig().call();
 
         return "Sane and ready for action. Bugs may be reported.";
     }

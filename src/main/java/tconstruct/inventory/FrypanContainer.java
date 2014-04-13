@@ -16,7 +16,7 @@ public class FrypanContainer extends Container
 
     public FrypanContainer(EntityPlayer player, FrypanLogic frypan)
     {
-    	InventoryPlayer inventoryplayer = player.inventory;
+        InventoryPlayer inventoryplayer = player.inventory;
         logic = frypan;
         this.addSlotToContainer(new Slot(frypan, 1, 26, 45));
         for (int y = 0; y < 2; y++)

@@ -176,7 +176,10 @@ public abstract class ToolMod
 
     protected String getProperName (String tooltip, String tag)
     {
-        if (tag.equals(tooltip))
+        if (tag.isEmpty())
+            return tooltip + " I";
+
+        if (tag.equals(tooltip) || tag.equals(tooltip + " I"))
             return tooltip + " II";
 
         if (tag.equals(tooltip + " II"))

@@ -59,7 +59,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor
         {
             return new ArmorProperties(0, 0, baseProtection);
         }
-        
+
         NBTTagCompound tags = armor.getTagCompound();
 
         if (tags == null)
@@ -74,7 +74,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor
         clamp_double(amount, 0, 1);
         return new ArmorProperties(0, amount, 100);
     }
-    
+
     public static double clamp_double (double par0, double par1, double par2)
     {
         return par0 < par1 ? par1 : (par0 > par2 ? par2 : par0);

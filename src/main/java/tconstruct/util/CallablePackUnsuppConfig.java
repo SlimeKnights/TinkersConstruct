@@ -24,8 +24,7 @@ public class CallablePackUnsuppConfig implements ICrashCallable
     @Override
     public String call () throws Exception
     {
-        String str = "Environment is NOT clean! THIS CRASH MUST NOT BE REPORTED TO A MOD AUTHOR; however, please report it to your modpack creator(s).\n" +
-                     "Unsupported mods: ";
+        String str = "Environment is NOT clean! THIS CRASH MUST NOT BE REPORTED TO A MOD AUTHOR; however, please report it to your modpack creator(s).\n" + "Unsupported mods: ";
         Boolean firstEntry = true;
         for (String id : modIds)
         {

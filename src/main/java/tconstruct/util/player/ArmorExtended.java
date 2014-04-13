@@ -137,10 +137,10 @@ public class ArmorExtended implements IInventory
             int bonusHP = 0;
             for (int i = 0; i < 3; i++)
             {
-                ItemStack stack = inventory[i+4];
+                ItemStack stack = inventory[i + 4];
                 if (stack != null && stack.getItem() instanceof IHealthAccessory)
                 {
-                    bonusHP += ((IHealthAccessory)stack.getItem()).getHealthBoost(stack);
+                    bonusHP += ((IHealthAccessory) stack.getItem()).getHealthBoost(stack);
                 }
             }
             int prevHealth = stats.bonusHealth;

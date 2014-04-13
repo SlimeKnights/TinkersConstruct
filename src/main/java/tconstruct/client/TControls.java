@@ -79,30 +79,30 @@ public class TControls extends TKeyHandler
                 if (mc.thePlayer.capabilities.isCreativeMode)
                     return;
 
-            	if (jumping && midairJumps > 0)
-            	{
-            		mc.thePlayer.motionY = 0.42D;
-            		mc.thePlayer.fallDistance = 0;
+                if (jumping && midairJumps > 0)
+                {
+                    mc.thePlayer.motionY = 0.42D;
+                    mc.thePlayer.fallDistance = 0;
 
-            		if (mc.thePlayer.isPotionActive(Potion.jump))
-            		{
-            			mc.thePlayer.motionY += (double) ((float) (mc.thePlayer.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
-            		}
+                    if (mc.thePlayer.isPotionActive(Potion.jump))
+                    {
+                        mc.thePlayer.motionY += (double) ((float) (mc.thePlayer.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
+                    }
 
-            		midairJumps--;
-            		resetFallDamage(mc.thePlayer.username);
-            	}
+                    midairJumps--;
+                    resetFallDamage(mc.thePlayer.username);
+                }
 
-            	if (!jumping)
-            	{
-            		jumping = mc.thePlayer.isAirBorne;
-            		ItemStack shoes = mc.thePlayer.getCurrentArmor(0);
-            		if (shoes != null && shoes.hasTagCompound() && shoes.getTagCompound().hasKey("TinkerArmor"))
-            		{
-            		    NBTTagCompound shoeTag = shoes.getTagCompound().getCompoundTag("TinkerArmor");
-            		    midairJumps = shoeTag.getInteger("Double-Jump");
-            		}
-            	}
+                if (!jumping)
+                {
+                    jumping = mc.thePlayer.isAirBorne;
+                    ItemStack shoes = mc.thePlayer.getCurrentArmor(0);
+                    if (shoes != null && shoes.hasTagCompound() && shoes.getTagCompound().hasKey("TinkerArmor"))
+                    {
+                        NBTTagCompound shoeTag = shoes.getTagCompound().getCompoundTag("TinkerArmor");
+                        midairJumps = shoeTag.getInteger("Double-Jump");
+                    }
+                }
             }
         }
     }

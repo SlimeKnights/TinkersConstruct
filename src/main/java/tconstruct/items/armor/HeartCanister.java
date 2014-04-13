@@ -20,8 +20,8 @@ public class HeartCanister extends CraftingItem implements IHealthAccessory
 
     public HeartCanister(int id)
     {
-        super(id, new String[] { "empty", "miniheart.red", "red", "miniheart.yellow", "yellow", "miniheart.green", "green" }, 
-                new String[] { "canister_empty", "miniheart_red", "canister_red", "miniheart_yellow", "canister_yellow", "miniheart_green", "canister_green" }, "");
+        super(id, new String[] { "empty", "miniheart.red", "red", "miniheart.yellow", "yellow", "miniheart.green", "green" }, new String[] { "canister_empty", "miniheart_red", "canister_red",
+                "miniheart_yellow", "canister_yellow", "miniheart_green", "canister_green" }, "");
         this.setMaxStackSize(10);
     }
 
@@ -55,23 +55,23 @@ public class HeartCanister extends CraftingItem implements IHealthAccessory
         }
         return stack;
     }
-    
+
     @Override
     public ItemStack onEaten (ItemStack stack, World world, EntityPlayer player)
     {
         int meta = stack.getItemDamage();
         --stack.stackSize;
-        player.heal((meta+1)*10);
+        player.heal((meta + 1) * 10);
         world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
         return stack;
     }
-    
+
     @Override
     public EnumAction getItemUseAction (ItemStack par1ItemStack)
     {
         return EnumAction.eat;
     }
-    
+
     public int getMaxItemUseDuration (ItemStack par1ItemStack)
     {
         return 32;
@@ -89,7 +89,7 @@ public class HeartCanister extends CraftingItem implements IHealthAccessory
             list.add(StatCollector.translateToLocal("item.accessory.tooltip"));
             list.add(StatCollector.translateToLocal("canister.tooltip"));
         }
-        
+
         switch (meta)
         {
         case 1:

@@ -26,7 +26,7 @@ public class AModHealthBoost extends ArmorModTypeFilter
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName());
-        int amount = matchingItems(input)*modifyAmount;
+        int amount = matchingItems(input) * modifyAmount;
         return tags.getInteger("Modifiers") >= amount;
     }
 
@@ -37,7 +37,7 @@ public class AModHealthBoost extends ArmorModTypeFilter
         NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(getTagName());
 
         int modifiers = armorTag.getInteger("Modifiers");
-        modifiers -= matchingAmount(input)*modifyAmount;
+        modifiers -= matchingAmount(input) * modifyAmount;
         armorTag.setInteger("Modifiers", modifiers);
 
         int amount = matchingAmount(input);

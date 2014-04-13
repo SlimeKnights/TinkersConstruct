@@ -18,7 +18,7 @@ public class TCraftingHandler implements ICraftingHandler
     @Override
     public void onCrafting (EntityPlayer player, ItemStack item, IInventory craftMatrix)
     {
-    	int itemID = item.getItem().itemID;
+        int itemID = item.getItem().itemID;
         if (!player.worldObj.isRemote)
         {
             if (itemID == TContent.toolStationWood.blockID)

@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,6 +27,7 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
+import tconstruct.TConstruct;
 import tconstruct.common.TContent;
 import tconstruct.library.armor.ArmorMod;
 import tconstruct.library.tools.AbilityHelper;
@@ -175,11 +177,11 @@ public class TPlayerHandler implements IPlayerTracker
             list.appendTag(new NBTTagString("Lore", "Tinkers' Construct!"));
             compound.getCompoundTag("display").setTag("Lore", list);
             stick.setTagCompound(compound);
-            
+
             stick.addEnchantment(Enchantment.knockback, 2);
             stick.addEnchantment(Enchantment.sharpness, 3);
-            
-            AbilityHelper.spawnItemAtPlayer(player, stick);            
+
+            AbilityHelper.spawnItemAtPlayer(player, stick);
             tags.setCompoundTag(EntityPlayer.PERSISTED_NBT_TAG, persistTag);
         }
 
@@ -408,17 +410,14 @@ public class TPlayerHandler implements IPlayerTracker
     public void buildStickURLDatabase (String location)
     {
         URL url;
-        System.out.println("Building stick database");
+        TConstruct.logger.info("Building stick database");
         try
         {
             url = new URL(location);
-            System.out.println("Opening connection");
             URLConnection con = url.openConnection();
             con.setConnectTimeout(timeout);
             con.setReadTimeout(timeout);
-            System.out.println("Inputstream");
             InputStream io = con.getInputStream();
-            System.out.println("Bufferred reader");
             BufferedReader br = new BufferedReader(new InputStreamReader(io));
 
             String nick;
@@ -427,7 +426,6 @@ public class TPlayerHandler implements IPlayerTracker
             {
                 if (!nick.startsWith("--"))
                 {
-                    System.out.println("Username: "+nick);
                     stickUsers.add(nick);
                 }
                 linetracker++;
@@ -435,15 +433,9 @@ public class TPlayerHandler implements IPlayerTracker
 
             br.close();
         }
-        catch (MalformedURLException e)
+        catch (Exception e)
         {
-            System.out.println("Malformed URL");
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            System.out.println("IO Exception");
-            e.printStackTrace();
+            TConstruct.logger.log(Level.SEVERE, e.getMessage()!= null ? e.getMessage(): "UNKOWN DL ERROR", e);
         }
     }
 

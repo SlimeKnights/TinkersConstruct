@@ -88,7 +88,7 @@ public class ToolForgeContainer extends ToolStationContainer
                 logic.worldObj.playAuxSFX(1021, (int) logic.xCoord, (int) logic.yCoord, (int) logic.zCoord, 0);
         }
     }
-    
+
     @Override
     public boolean canInteractWith (EntityPlayer entityplayer)
     {

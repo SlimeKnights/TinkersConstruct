@@ -436,7 +436,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         }
         list.add("");
         int attack = (int) (tags.getCompoundTag("InfiTool").getInteger("Attack") * this.getDamageModifier());
-        list.add("\u00A79+"+attack+" "+StatCollector.translateToLocalFormatted("attribute.name.generic.attackDamage"));
+        list.add("\u00A79+" + attack + " " + StatCollector.translateToLocalFormatted("attribute.name.generic.attackDamage"));
     }
 
     public static String getStyleForType (int type)
@@ -809,13 +809,13 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         }
         return tags.getCompoundTag("InfiTool").getInteger("Damage");
     }
-    
+
     /* Prevent tools from dying */
     public boolean hasCustomEntity (ItemStack stack)
     {
         return true;
     }
-    
+
     public Entity createEntity (World world, Entity location, ItemStack itemstack)
     {
         return new FancyEntityItem(world, location, itemstack);
@@ -958,7 +958,6 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         return false;
     }
 
-
     //TE support section -- from COFH core API reference section
     public void setMaxTransfer (int maxTransfer)
     {
@@ -1025,6 +1024,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         }
         return tags.getInteger("Energy");
     }
+
     @Override
     public int getMaxEnergyStored (ItemStack container)
     {

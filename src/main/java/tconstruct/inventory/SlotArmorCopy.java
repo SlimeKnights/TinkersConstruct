@@ -45,10 +45,11 @@ public class SlotArmorCopy extends Slot
     public boolean isItemValid (ItemStack par1ItemStack)
     {
         Item item = (par1ItemStack == null ? null : par1ItemStack.getItem());
-		boolean isValidArmor = false;
-		if (item instanceof ItemArmor) {
-			isValidArmor = (((ItemArmor)item).armorType == armorType);
-		}
+        boolean isValidArmor = false;
+        if (item instanceof ItemArmor)
+        {
+            isValidArmor = (((ItemArmor) item).armorType == armorType);
+        }
         return item != null && (isValidArmor || (item instanceof ItemBlock && armorType == 0));
     }
 

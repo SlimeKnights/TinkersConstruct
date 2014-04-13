@@ -60,7 +60,7 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
                 }
             }
         }
-        
+
         return new CraftingStationContainer(inventoryplayer, this, x, y, z);
     }
 
@@ -83,7 +83,7 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
             return false;
         return true;
     }
-    
+
     @Override
     public ItemStack decrStackSize (int slot, int quantity)
     {
