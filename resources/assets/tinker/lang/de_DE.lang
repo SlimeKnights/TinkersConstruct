@@ -284,15 +284,15 @@ item.tconstruct.jerky.blood.name=Geronnener Bluttropfen
 
 Smeltery.Controller.name=Schmelzereikern
 Smeltery.Drain.name=Schmelzereiausguss
-Smeltery.Brick.name=Versengter Ziegel
+Smeltery.Brick.name=Versengte Ziegel
 Smeltery.Stone.name=Versengter Stein
 Smeltery.Cobblestone.name=Versengter Pflasterstein
-Smeltery.Paver.name=Versengter Pflasterziegel
-Smeltery.Brick.Cracked.name=Rissiger versengter Ziegel
+Smeltery.Paver.name=Versengte Pflasterziegel
+Smeltery.Brick.Cracked.name=Rissige versengte Ziegel
 Smeltery.Road.name=Versengte Straße
-Smeltery.Brick.Fancy.name=Versengter schöner Ziegel
-Smeltery.Brick.Square.name=Versengter ziselierter Ziegel
-Smeltery.Brick.Creeper.name=Versengter ziselierter Ziegel
+Smeltery.Brick.Fancy.name=Schicke versengte Ziegel
+Smeltery.Brick.Square.name=Gemeißelte versengte Ziegel
+Smeltery.Brick.Creeper.name=Ziselierte versengte Ziegel
 Smeltery.Channel.name=Gusskanal
 
 LavaTank.Tank.name=Versengter Tank
