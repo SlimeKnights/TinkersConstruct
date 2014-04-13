@@ -2518,6 +2518,19 @@ public class TContent implements IFuelHandler
         {
             basinCasting.addCastingRecipe(new ItemStack(speedBlock, 81), new FluidStack(moltenElectrumFluid, TConstruct.blockLiquidValue * 9), ores.get(0), 100);
         }
+        ores = OreDictionary.getOres("compressedCobblestone1x");
+        if (ores.size() > 0)
+        {
+            Smeltery.addDictionaryMelting("compressedCobblestone1x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 2);
+            Smeltery.addDictionaryMelting("compressedCobblestone2x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 2 * 9);
+            Smeltery.addDictionaryMelting("compressedCobblestone3x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 2 * 81);
+        }
+
+        /*for (int i = 1; i <= 8; i++)
+        {
+            Smeltery.addDictionaryMelting("compressedCobblestone" + i + "x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 18 * (9 ^ i));
+        }*/
+        Smeltery.addDictionaryMelting("compressedSand1x", FluidType.Glass, 175, FluidContainerRegistry.BUCKET_VOLUME * 9);
 
         /* Rubber */
         ores = OreDictionary.getOres("itemRubber");
@@ -2616,13 +2629,6 @@ public class TContent implements IFuelHandler
                 registerPatternMaterial("block" + ft.toString(), 18, ft.toString());
             }
         }
-
-        //Compressed materials
-        for (int i = 1; i <= 8; i++)
-        {
-            Smeltery.addDictionaryMelting("compressedCobblestone" + i + "x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 18 * (9 ^ i));
-        }
-        Smeltery.addDictionaryMelting("compressedSand1x", FluidType.Glass, 175, FluidContainerRegistry.BUCKET_VOLUME * 9);
 
         registerPatternMaterial("plankWood", 2, "Wood");
         registerPatternMaterial("stickWood", 1, "Wood");
