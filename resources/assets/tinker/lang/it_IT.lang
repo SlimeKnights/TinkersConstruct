@@ -736,7 +736,7 @@ gui.toolstation18=Modificatori Rimanenti:
 
 attribute.generic.ammo.attackDamage=Danno Medio per Tiro
 
-creativeModLock.tooltip=Bersaglio Selezionato: 
+creativeModLock.tooltip=Attrezzo Selezionato: 
 
 tconstruct.waila.empty=Vuoto
 tconstruct.waila.liquidtag=Liquido: 
