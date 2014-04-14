@@ -21,7 +21,7 @@ public class ModSmite extends ToolModTypeFilter
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         if (!tags.hasKey(key))
-            return tags.getInteger("Modifiers") > 0;
+            return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
 
         int keyPair[] = tags.getIntArray(key);
         if (keyPair[0] + matchingAmount(input) <= keyPair[1])
