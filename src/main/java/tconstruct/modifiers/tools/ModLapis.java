@@ -39,7 +39,7 @@ public class ModLapis extends ToolModTypeFilter
             return false;
 
         if (!tags.hasKey(key))
-            return tags.getInteger("Modifiers") > 0;
+            return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
 
         int keyPair[] = tags.getIntArray(key);
         if (keyPair[0] + matchingAmount(input) <= max)
