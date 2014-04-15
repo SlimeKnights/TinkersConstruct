@@ -7,7 +7,7 @@ import tconstruct.library.tools.*;
 
 /* Little mod for actually adding the lapis modifier */
 
-public class ModRepair extends ToolMod
+public class ModRepair extends ItemModifier
 {
 
     public ModRepair()

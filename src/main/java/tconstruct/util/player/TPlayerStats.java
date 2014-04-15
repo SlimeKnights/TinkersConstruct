@@ -10,6 +10,7 @@ public class TPlayerStats
     public int level;
     public int bonusHealth;
     public int bonusHealthClient;
+    public int damage;
     public int hunger;
     public int previousDimension;
     public boolean beginnerManual;

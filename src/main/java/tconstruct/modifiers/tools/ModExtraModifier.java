@@ -1,10 +1,10 @@
 package tconstruct.modifiers.tools;
 
-import tconstruct.library.tools.ToolMod;
+import tconstruct.library.tools.ItemModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class ModExtraModifier extends ToolMod
+public class ModExtraModifier extends ItemModifier
 {
     public ModExtraModifier(ItemStack[] items, String dataKey)
     {

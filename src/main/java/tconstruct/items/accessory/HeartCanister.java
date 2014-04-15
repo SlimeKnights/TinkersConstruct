@@ -1,4 +1,4 @@
-package tconstruct.items.armor;
+package tconstruct.items.accessory;
 
 import java.util.List;
 
@@ -50,7 +50,7 @@ public class HeartCanister extends CraftingItem implements IHealthAccessory
                     slotStack.stackSize++;
                     stack.stackSize--;
                 }
-                armor.recalculateHealth(player, stats);
+                armor.recalculateAttributes(player, stats);
             }
         }
         return stack;

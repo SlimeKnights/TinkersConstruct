@@ -24,7 +24,8 @@ public class ArmorExtended implements IInventory
 {
     public ItemStack[] inventory = new ItemStack[7];
     public WeakReference<EntityPlayer> parent;
-    public UUID globalID = UUID.fromString("B243BE32-DC1B-4C53-8D13-8752D5C69D5B");
+    public UUID healthID = UUID.fromString("B243BE32-DC1B-4C53-8D13-8752D5C69D5B");
+    public UUID attackID = UUID.fromString("B243BE32-DC1B-4C53-8D13-8752D5C69D5C");
 
     public void init (EntityPlayer player)
     {
@@ -67,7 +68,7 @@ public class ArmorExtended implements IInventory
             }
             EntityPlayer player = parent.get();
             TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
-            recalculateHealth(player, stats);
+            recalculateAttributes(player, stats);
             return split;
         }
         else
@@ -94,7 +95,7 @@ public class ArmorExtended implements IInventory
 
         EntityPlayer player = parent.get();
         TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
-        recalculateHealth(player, stats);
+        recalculateAttributes(player, stats);
     }
 
     @Override
@@ -120,7 +121,7 @@ public class ArmorExtended implements IInventory
     {
         EntityPlayer player = parent.get();
         TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
-        recalculateHealth(player, stats);
+        recalculateAttributes(player, stats);
 
         /*if (inventory[2] == null && stats.knapsack != null)
         {
@@ -128,7 +129,7 @@ public class ArmorExtended implements IInventory
         }*/
     }
 
-    public void recalculateHealth (EntityPlayer player, TPlayerStats stats)
+    public void recalculateAttributes (EntityPlayer player, TPlayerStats stats)
     {
         Side side = FMLCommonHandler.instance().getEffectiveSide();
 
@@ -158,13 +159,13 @@ public class ArmorExtended implements IInventory
                 AttributeInstance attributeinstance = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth);
                 try
                 {
-                    attributeinstance.removeModifier(attributeinstance.getModifier(globalID));
+                    attributeinstance.removeModifier(attributeinstance.getModifier(healthID));
                 }
                 catch (Exception e)
                 {
                 }
 
-                attributeinstance.applyModifier(new AttributeModifier(globalID, "tconstruct.heartCanister", bonusHP, 0));
+                attributeinstance.applyModifier(new AttributeModifier(healthID, "tconstruct.heartCanister", bonusHP, 0));
             }
 
         }
@@ -184,11 +185,37 @@ public class ArmorExtended implements IInventory
                 AttributeInstance attributeinstance = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth);
                 try
                 {
-                    attributeinstance.removeModifier(attributeinstance.getModifier(globalID));
+                    attributeinstance.removeModifier(attributeinstance.getModifier(healthID));
                 }
                 catch (Exception e)
                 {
                 }
+            }
+        }
+        
+        if (inventory[1] != null)
+        {
+            AttributeInstance attributeinstance = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.attackDamage);
+
+            try
+            {
+                attributeinstance.removeModifier(attributeinstance.getModifier(attackID));
+            }
+            catch (Exception e)
+            {
+            }
+
+            attributeinstance.applyModifier(new AttributeModifier(attackID, "tconstruct.glove", 30, 0));
+        }
+        else
+        {
+            AttributeInstance attributeinstance = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.attackDamage);
+            try
+            {
+                attributeinstance.removeModifier(attributeinstance.getModifier(attackID));
+            }
+            catch (Exception e)
+            {
             }
         }
     }

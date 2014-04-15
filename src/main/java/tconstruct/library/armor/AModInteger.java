@@ -2,6 +2,9 @@ package tconstruct.library.armor;
 
 import java.util.EnumSet;
 
+import tconstruct.library.IModifyable;
+
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -26,11 +29,14 @@ public class AModInteger extends ArmorMod
     @Override
     protected boolean canModify (ItemStack armor, ItemStack[] input)
     {
+        Item i = armor.getItem();
+        if (!(i instanceof ArmorCore))
+            return false;
         ArmorCore item = (ArmorCore) armor.getItem();
         if (armorTypes.contains(item.armorPart))
         {
-            NBTTagCompound tags = armor.getTagCompound().getCompoundTag(getTagName());
-            return tags.getInteger("Modifiers") >= modifyCount;
+            NBTTagCompound tags = armor.getTagCompound().getCompoundTag(getTagName(armor));
+            return tags.getInteger("Modifiers") > modifyCount;
         }
         return false;
     }
@@ -38,7 +44,7 @@ public class AModInteger extends ArmorMod
     @Override
     public void modify (ItemStack[] input, ItemStack tool)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName());
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName(tool));
         if (tags.hasKey(key))
         {
             int increase = tags.getInteger(key);

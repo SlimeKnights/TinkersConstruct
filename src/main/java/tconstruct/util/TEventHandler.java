@@ -43,6 +43,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
@@ -741,4 +742,10 @@ public class TEventHandler
         }
     }
 
+    /* Mining */
+    @ForgeSubscribe
+    public void armorMineSpeed (PlayerEvent.BreakSpeed event)
+    {
+        event.newSpeed += 50f;
+    }
 }

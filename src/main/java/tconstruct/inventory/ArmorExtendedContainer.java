@@ -16,13 +16,13 @@ public class ArmorExtendedContainer extends ActiveContainer
         invPlayer = inventoryplayer;
         this.armor = armor;
 
-        this.addSlotToContainer(new SlotUnused(armor, 0, 80, 17));
-        this.addSlotToContainer(new SlotUnused(armor, 1, 80, 35));
-        this.addSlotToContainer(new SlotKnapsack(armor, 2, 116, 17));
-        this.addSlotToContainer(new SlotUnused(armor, 3, 116, 35));
-        this.addSlotToContainer(new SlotCanister(armor, 4, 152, 53));
-        this.addSlotToContainer(new SlotCanister(armor, 5, 152, 35));
-        this.addSlotToContainer(new SlotCanister(armor, 6, 152, 17));
+        this.addSlotToContainer(new SlotAccessory(armor, 0, 80, 17));
+        this.addSlotToContainer(new SlotAccessory(armor, 1, 80, 35));
+        this.addSlotToContainer(new SlotAccessory(armor, 2, 116, 17));
+        this.addSlotToContainer(new SlotAccessory(armor, 3, 116, 35));
+        this.addSlotToContainer(new SlotAccessory(armor, 4, 152, 53));
+        this.addSlotToContainer(new SlotAccessory(armor, 5, 152, 35));
+        this.addSlotToContainer(new SlotAccessory(armor, 6, 152, 17));
 
         /* Player inventory */
         for (int playerArmor = 0; playerArmor < 4; ++playerArmor)

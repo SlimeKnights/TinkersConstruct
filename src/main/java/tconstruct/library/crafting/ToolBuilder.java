@@ -16,7 +16,7 @@ import tconstruct.library.armor.ArmorMod;
 import tconstruct.library.event.ToolCraftEvent;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.ToolMaterial;
-import tconstruct.library.tools.ToolMod;
+import tconstruct.library.tools.ItemModifier;
 import tconstruct.library.util.IToolPart;
 
 public class ToolBuilder
@@ -26,8 +26,6 @@ public class ToolBuilder
     public HashMap<String, ToolRecipe> recipeList = new HashMap<String, ToolRecipe>();
     public List<ToolRecipe> combos = new ArrayList<ToolRecipe>();
     public HashMap<String, String> modifiers = new HashMap<String, String>();
-    public List<ToolMod> toolMods = new ArrayList<ToolMod>();
-    public List<ArmorMod> armorMods = new ArrayList<ArmorMod>();
 
     /* Build tools */
     public static void addNormalToolRecipe (ToolCore output, Item head, Item handle)
@@ -130,8 +128,8 @@ public class ToolBuilder
 
     public ItemStack buildTool (ItemStack headStack, ItemStack handleStack, ItemStack accessoryStack, ItemStack extraStack, String name)
     {
-        if (headStack != null && headStack.getItem() instanceof ToolCore)
-            return modifyTool(headStack, handleStack, accessoryStack, extraStack, name);
+        /*if (headStack != null && headStack.getItem() instanceof ToolCore)
+            return modifyTool(headStack, new ItemStack[] { handleStack, accessoryStack, extraStack }, name);*/
 
         if (headStack == null || handleStack == null) //Nothing to build without these. All tools need at least two parts!
             return null;
@@ -139,12 +137,6 @@ public class ToolBuilder
         ToolCore item;
         boolean validMaterials = true;
         int head = -1, handle = -1, accessory = -1, extra = -1;
-        /*if (headStack.getItem() instanceof IToolPart)
-        {
-            head = ((IToolPart) headStack.getItem()).getMaterialID(headStack);
-        }
-        else
-            validMaterials = false;*/
         head = getMaterialID(headStack);
         if (head == -1)
             validMaterials = false;
@@ -152,14 +144,6 @@ public class ToolBuilder
         handle = getMaterialID(handleStack);
         if (handle == -1)
             validMaterials = false;
-        /*if (handleItem == Item.stick)
-            handle = 0;
-        else if (handleItem == Item.bone)
-            handle = 5;
-        else if (handleItem instanceof IToolPart)
-            handle = ((IToolPart) handleItem).getMaterialID(handleStack);
-        else
-            validMaterials = false;*/
 
         if (!validMaterials)
             return null;
@@ -170,10 +154,6 @@ public class ToolBuilder
         }
         else
         {
-            /*if (accessoryStack.getItem() instanceof IToolPart)
-                accessory = ((IToolPart) accessoryStack.getItem()).getMaterialID(accessoryStack);
-            else
-                return null;*/
 
             accessory = getMaterialID(accessoryStack);
             if (accessory == -1)
@@ -181,10 +161,6 @@ public class ToolBuilder
 
             if (extraStack != null)
             {
-                /*if (extraStack.getItem() instanceof IToolPart)
-                    extra = ((IToolPart) extraStack.getItem()).getMaterialID(extraStack);
-                else
-                    return null;*/
 
                 extra = getMaterialID(extraStack);
                 if (extra == -1)
@@ -197,8 +173,6 @@ public class ToolBuilder
                 item = getMatchingRecipe(headStack.getItem(), handleStack.getItem(), accessoryStack.getItem(), null);
             }
         }
-
-        //TConstruct.logger.info("Valid: "+item);
 
         if (item == null)
             return null;
@@ -358,7 +332,7 @@ public class ToolBuilder
         return tool;
     }
 
-    @Deprecated
+    /*@Deprecated
     public ItemStack modifyTool (ItemStack input, ItemStack topSlot, ItemStack bottomSlot, ItemStack extraStack, String name)
     {
         if (extraStack != null)
@@ -394,81 +368,8 @@ public class ToolBuilder
             return tool;
         else
             return null;
-    }
+    }*/
 
-    public ItemStack modifyTool (ItemStack input, ItemStack[] slots, String name)
-    {
-        ItemStack tool = input.copy();
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
-        tags.removeTag("Built");
-
-        boolean built = false;
-        for (ToolMod mod : toolMods)
-        {
-            if (mod.matches(slots, tool))
-            {
-                built = true;
-                mod.addMatchingEffect(tool);
-                mod.modify(slots, tool);
-            }
-        }
-
-        tags = tool.getTagCompound();
-        if (name != null && !name.equals("") && !tags.hasKey("display"))
-        {
-            tags.setCompoundTag("display", new NBTTagCompound());
-            tags.getCompoundTag("display").setString("Name", "\u00A7f" + name);
-        }
-
-        if (built)
-            return tool;
-        else
-            return null;
-    }
-
-    public ItemStack modifyArmor (ItemStack input, ItemStack[] slots, String name)
-    {
-        ItemStack armor = input.copy();
-        if (!armor.hasTagCompound())
-            addArmorTag(input);
-        NBTTagCompound tags = armor.getTagCompound().getCompoundTag("TinkerArmor");
-        tags.removeTag("Built");
-
-        boolean built = false;
-        for (ArmorMod mod : armorMods)
-        {
-            if (mod.matches(slots, armor))
-            {
-                built = true;
-                mod.addMatchingEffect(armor);
-                mod.modify(slots, armor);
-            }
-        }
-
-        tags = armor.getTagCompound();
-        if (name != null && !name.equals("") && !tags.hasKey("display"))
-        {
-            tags.setCompoundTag("display", new NBTTagCompound());
-            tags.getCompoundTag("display").setString("Name", "\u00A7f" + name);
-        }
-
-        if (built)
-            return armor;
-        else
-            return null;
-    }
-
-    public void addArmorTag (ItemStack armor) //Not sure if temporary or not
-    {
-        NBTTagCompound baseTag = new NBTTagCompound();
-        NBTTagList list = new NBTTagList();
-
-        NBTTagCompound armorTag = new NBTTagCompound();
-        armorTag.setInteger("Modifiers", 30);
-        baseTag.setTag("TinkerArmor", armorTag);
-
-        armor.setTagCompound(baseTag);
-    }
 
     int buildReinforced (ToolMaterial headMat, ToolMaterial handleMat, ToolMaterial accessoryMat, ToolMaterial extraMat)
     {
@@ -512,19 +413,5 @@ public class ToolBuilder
             return (sHead + sHandle + sAccessory) / 3f;
         }
         return (sHead + sHandle) / 2f;
-    }
-
-    public static void registerToolMod (ToolMod mod)
-    {
-        if (mod == null)
-            throw new NullPointerException("Tool modifier cannot be null.");
-        instance.toolMods.add(mod);
-    }
-
-    public static void registerArmorMod (ArmorMod mod)
-    {
-        if (mod == null)
-            throw new NullPointerException("Armor modifier cannot be null.");
-        instance.armorMods.add(mod);
     }
 }

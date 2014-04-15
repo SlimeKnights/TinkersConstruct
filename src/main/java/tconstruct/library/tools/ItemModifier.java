@@ -4,18 +4,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.library.IModifyable;
 
-public abstract class ToolMod
+public abstract class ItemModifier
 {
     public final String key;
     public final List stacks;
     public final int effectIndex;
     public static Random random = new Random();
 
-    public ToolMod(ItemStack[] items, int effect, String dataKey)
+    public ItemModifier(ItemStack[] items, int effect, String dataKey)
     {
         List<ItemStack> itemstacks = new ArrayList<ItemStack>();
         for (int iter = 0; iter < items.length; iter++)
@@ -28,20 +30,20 @@ public abstract class ToolMod
     /** Checks to see if the inputs match the stored items
      * Note: Works like ShapelessRecipes
      * 
-     * @param input The ItemStacks to compare against
-     * @param tool Item to modify, used for restrictions
+     * @param modifiers The ItemStacks to compare against
+     * @param input Item to modify, used for restrictions
      * @return Whether the recipe matches the input
      */
-    public boolean matches (ItemStack[] input, ItemStack tool)
+    public boolean matches (ItemStack[] modifiers, ItemStack input)
     {
-        if (!canModify(tool, input))
+        if (!canModify(input, modifiers))
             return false;
 
         ArrayList list = new ArrayList(this.stacks);
 
-        for (int iter = 0; iter < input.length; ++iter)
+        for (int iter = 0; iter < modifiers.length; ++iter)
         {
-            ItemStack craftingStack = input[iter];
+            ItemStack craftingStack = modifiers[iter];
 
             if (craftingStack != null)
             {
@@ -70,20 +72,20 @@ public abstract class ToolMod
         return list.isEmpty();
     }
 
-    protected String getTagName ()
+    protected String getTagName(ItemStack stack)
     {
-        return "InfiTool";
+         return ((IModifyable)stack.getItem()).getBaseTag();
     }
 
     /**
-     * 
-     * @param tool Tool to compare against
+     * @param input Tool to compare against
+     * @param modifiers Items to modify with
      * @return Whether the tool can be modified
      */
 
-    protected boolean canModify (ItemStack tool, ItemStack[] input)
+    protected boolean canModify (ItemStack input, ItemStack[] modifiers)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName());
+        NBTTagCompound tags = input.getTagCompound().getCompoundTag(getTagName(input));
         return tags.getInteger("Modifiers") > 0;
     }
 
@@ -92,11 +94,11 @@ public abstract class ToolMod
      * @param input ItemStacks to pull info from
      * @param tool The tool to modify
      */
-    public abstract void modify (ItemStack[] input, ItemStack tool);
+    public abstract void modify (ItemStack[] modifiers, ItemStack input);
 
-    public void addMatchingEffect (ItemStack tool)
+    public void addMatchingEffect (ItemStack input)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName());
+        NBTTagCompound tags = input.getTagCompound().getCompoundTag(getTagName(input));
         if (tags.hasKey("Effect6") || tags.hasKey(key))
             return;
 
@@ -126,9 +128,9 @@ public abstract class ToolMod
         }
     }
 
-    protected int addModifierTip (ItemStack tool, String modifierTip)
+    protected int addModifierTip (ItemStack input, String modifierTip)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName());
+        NBTTagCompound tags = input.getTagCompound().getCompoundTag(getTagName(input));
         int tipNum = 0;
         while (true)
         {
@@ -144,9 +146,9 @@ public abstract class ToolMod
         }
     }
 
-    protected int addToolTip (ItemStack tool, String tooltip, String modifierTip)
+    protected int addToolTip (ItemStack input, String tooltip, String modifierTip)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName());
+        NBTTagCompound tags = input.getTagCompound().getCompoundTag(getTagName(input));
         int tipNum = 0;
         while (true)
         {
@@ -209,24 +211,37 @@ public abstract class ToolMod
         return tooltip + " X+";
     }
 
-    public boolean validType (ToolCore tool)
+    public boolean validType (IModifyable input)
     {
-        return true;
+        return input.getModifyType().equals("Tool");
     }
 
-    public boolean areItemsEquivalent (ItemStack stack1, ItemStack stack2)
+    // Helper methods
+    public static boolean areItemsEquivalent (ItemStack stack1, ItemStack stack2)
     {
         if (stack1.itemID != stack2.itemID)
             return false;
         return ItemStack.areItemStackTagsEqual(stack1, stack2);
     }
 
-    public boolean areItemStacksEquivalent (ItemStack stack1, ItemStack stack2)
+    public static boolean areItemStacksEquivalent (ItemStack stack1, ItemStack stack2)
     {
         if (stack1.itemID != stack2.itemID)
             return false;
         if (stack1.getItemDamage() != stack2.getItemDamage())
             return false;
         return ItemStack.areItemStackTagsEqual(stack1, stack2);
+    }
+    
+    public static NBTTagCompound getAttributeTag (String attributeType, String modifierName, double amount, boolean flat, UUID uuid)
+    {
+        NBTTagCompound tag = new NBTTagCompound();
+        tag.setString("AttributeName", attributeType);
+        tag.setString("Name", modifierName);
+        tag.setDouble("Amount", amount);
+        tag.setInteger("Operation", flat ? 0 : 1);//0 = flat increase, 1 = % increase
+        tag.setLong("UUIDMost", uuid.getMostSignificantBits());
+        tag.setLong("UUIDLeast", uuid.getLeastSignificantBits());
+        return tag;
     }
 }

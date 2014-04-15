@@ -11,11 +11,11 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
+import tconstruct.library.IModifyable;
 
-public abstract class ArmorCore extends ItemArmor implements ISpecialArmor
+public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IModifyable
 {
     public static final String SET_NAME = "TinkerArmor";
     public final EnumArmorPart armorPart;
@@ -35,6 +35,18 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor
     public String getArmorName ()
     {
         return this.getClass().getSimpleName();
+    }
+    
+    @Override
+    public String getBaseTag()
+    {
+        return SET_NAME;
+    }
+    
+    @Override
+    public String getModifyType()
+    {
+        return "Armor";
     }
 
     public ItemStack onItemRightClick (ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)

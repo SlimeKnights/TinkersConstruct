@@ -24,7 +24,7 @@ public class AModMoveSpeed extends ArmorModTypeFilter
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName());
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName(tool));
         int amount = matchingAmount(input);
         return tags.getInteger("Modifiers") >= amount;
     }
@@ -33,7 +33,7 @@ public class AModMoveSpeed extends ArmorModTypeFilter
     public void modify (ItemStack[] input, ItemStack armor)
     {
         NBTTagCompound baseTag = armor.getTagCompound();
-        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(getTagName());
+        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(getTagName(armor));
 
         int modifiers = armorTag.getInteger("Modifiers");
         modifiers -= matchingAmount(input);

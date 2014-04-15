@@ -300,7 +300,7 @@ public class TPlayerHandler implements IPlayerTracker
         //Boom!
         TPlayerStats stats = getPlayerStats(entityplayer.username);
         stats.player = new WeakReference<EntityPlayer>(entityplayer);
-        stats.armor.recalculateHealth(entityplayer, stats);
+        stats.armor.recalculateAttributes(entityplayer, stats);
 
         /*TFoodStats food = new TFoodStats();
         entityplayer.foodStats = food;*/

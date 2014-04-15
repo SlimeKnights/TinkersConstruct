@@ -35,6 +35,9 @@ import tconstruct.entity.*;
 import tconstruct.entity.item.*;
 import tconstruct.entity.projectile.*;
 import tconstruct.items.*;
+import tconstruct.items.accessory.Glove;
+import tconstruct.items.accessory.HeartCanister;
+import tconstruct.items.accessory.Knapsack;
 import tconstruct.items.armor.*;
 import tconstruct.items.blocks.*;
 import tconstruct.items.tools.*;
@@ -988,9 +991,12 @@ public class TContent implements IFuelHandler
         //Wearables
         heartCanister = new HeartCanister(PHConstruct.heartCanister).setUnlocalizedName("tconstruct.canister");
         knapsack = new Knapsack(PHConstruct.knapsack).setUnlocalizedName("tconstruct.storage");
-        goldHead = new GoldenHead(PHConstruct.goldHead, 4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).setUnlocalizedName("goldenhead");
+        glove = new Glove(PHConstruct.glove).setUnlocalizedName("tconstruct.glove");
         GameRegistry.registerItem(heartCanister, "heartCanister");
         GameRegistry.registerItem(knapsack, "knapsack");
+        GameRegistry.registerItem(glove, "glove");
+        
+        goldHead = new GoldenHead(PHConstruct.goldHead, 4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).setUnlocalizedName("goldenhead");
         GameRegistry.registerItem(goldHead, "goldHead");
 
         creativeModifier = new CreativeModifier(PHConstruct.creativeModifier).setUnlocalizedName("tconstruct.modifier.creative");
@@ -1282,10 +1288,10 @@ public class TContent implements IFuelHandler
         ItemStack exoShoesStack = new ItemStack(exoShoes);
         if (!PHConstruct.exoCraftingEnabled)
         {
-            ToolBuilder.instance.addArmorTag(exoGoggleStack);
-            ToolBuilder.instance.addArmorTag(exoChestStack);
-            ToolBuilder.instance.addArmorTag(exoPantsStack);
-            ToolBuilder.instance.addArmorTag(exoShoesStack);
+            ModifyBuilder.instance.addArmorTag(exoGoggleStack);
+            ModifyBuilder.instance.addArmorTag(exoChestStack);
+            ModifyBuilder.instance.addArmorTag(exoPantsStack);
+            ModifyBuilder.instance.addArmorTag(exoShoesStack);
             GameRegistry.addShapedRecipe(exoGoggleStack, helm, 'w', new ItemStack(largePlate, 1, 14));
             GameRegistry.addShapedRecipe(exoChestStack, chest, 'w', new ItemStack(largePlate, 1, 14));
             GameRegistry.addShapedRecipe(exoPantsStack, pants, 'w', new ItemStack(largePlate, 1, 14));
@@ -1600,63 +1606,63 @@ public class TContent implements IFuelHandler
         tb.addNormalToolRecipe(arrow, arrowhead, toolRod, fletching);
 
         ItemStack diamond = new ItemStack(Item.diamond);
-        tb.registerToolMod(new ModRepair());
-        tb.registerToolMod(new ModDurability(new ItemStack[] { diamond }, 0, 500, 0f, 3, "Diamond", "\u00a7bDurability +500", "\u00a7b"));
-        tb.registerToolMod(new ModDurability(new ItemStack[] { new ItemStack(Item.emerald) }, 1, 0, 0.5f, 2, "Emerald", "\u00a72Durability +50%", "\u00a72"));
+        ModifyBuilder.registerToolMod(new ModRepair());
+        ModifyBuilder.registerToolMod(new ModDurability(new ItemStack[] { diamond }, 0, 500, 0f, 3, "Diamond", "\u00a7bDurability +500", "\u00a7b"));
+        ModifyBuilder.registerToolMod(new ModDurability(new ItemStack[] { new ItemStack(Item.emerald) }, 1, 0, 0.5f, 2, "Emerald", "\u00a72Durability +50%", "\u00a72"));
 
         modFlux = new ModFlux();
-        tb.registerToolMod(modFlux);
+        ModifyBuilder.registerToolMod(modFlux);
 
         ItemStack redstoneItem = new ItemStack(Item.redstone);
         ItemStack redstoneBlock = new ItemStack(Block.blockRedstone);
-        tb.registerToolMod(new ModRedstone(2, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
+        ModifyBuilder.registerToolMod(new ModRedstone(2, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
 
         ItemStack lapisItem = new ItemStack(Item.dyePowder, 1, 4);
         ItemStack lapisBlock = new ItemStack(Block.blockLapis);
         this.modLapis = new ModLapis(10, new ItemStack[] { lapisItem, lapisBlock }, new int[] { 1, 9 });
-        tb.registerToolMod(this.modLapis);
+        ModifyBuilder.registerToolMod(this.modLapis);
 
-        tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(this.materials, 1, 6) }, 4, "Moss", 3, "\u00a72", "Auto-Repair"));
+        ModifyBuilder.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(this.materials, 1, 6) }, 4, "Moss", 3, "\u00a72", "Auto-Repair"));
         ItemStack blazePowder = new ItemStack(Item.blazePowder);
-        tb.registerToolMod(new ModBlaze(7, new ItemStack[] { blazePowder }, new int[] { 1 }));
-        tb.registerToolMod(new ModAutoSmelt(new ItemStack[] { new ItemStack(this.materials, 1, 7) }, 6, "Lava", "\u00a74", "Auto-Smelt"));
-        tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(this.materials, 1, 8) }, 8, "Necrotic", 1, "\u00a78", "Life Steal"));
+        ModifyBuilder.registerToolMod(new ModBlaze(7, new ItemStack[] { blazePowder }, new int[] { 1 }));
+        ModifyBuilder.registerToolMod(new ModAutoSmelt(new ItemStack[] { new ItemStack(this.materials, 1, 7) }, 6, "Lava", "\u00a74", "Auto-Smelt"));
+        ModifyBuilder.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(this.materials, 1, 8) }, 8, "Necrotic", 1, "\u00a78", "Life Steal"));
 
         this.modAttack = new ModAttack("Quartz", 11, new ItemStack[] { new ItemStack(Item.netherQuartz), new ItemStack(Block.blockNetherQuartz, 1, Short.MAX_VALUE) }, new int[] { 1, 4 });
-        tb.registerToolMod(this.modAttack);
+        ModifyBuilder.registerToolMod(this.modAttack);
 
-        tb.registerToolMod(new ModExtraModifier(new ItemStack[] { diamond, new ItemStack(Block.blockGold) }, "Tier1Free"));
-        tb.registerToolMod(new ModExtraModifier(new ItemStack[] { new ItemStack(Block.blockDiamond), new ItemStack(Item.appleGold, 1, 1) }, "Tier1.5Free"));
-        tb.registerToolMod(new ModExtraModifier(new ItemStack[] { new ItemStack(Item.netherStar) }, "Tier2Free"));
-        tb.registerToolMod(new ModCreativeToolModifier(new ItemStack[] { new ItemStack(creativeModifier) }));
+        ModifyBuilder.registerToolMod(new ModExtraModifier(new ItemStack[] { diamond, new ItemStack(Block.blockGold) }, "Tier1Free"));
+        ModifyBuilder.registerToolMod(new ModExtraModifier(new ItemStack[] { new ItemStack(Block.blockDiamond), new ItemStack(Item.appleGold, 1, 1) }, "Tier1.5Free"));
+        ModifyBuilder.registerToolMod(new ModExtraModifier(new ItemStack[] { new ItemStack(Item.netherStar) }, "Tier2Free"));
+        ModifyBuilder.registerToolMod(new ModCreativeToolModifier(new ItemStack[] { new ItemStack(creativeModifier) }));
 
         ItemStack silkyJewel = new ItemStack(this.materials, 1, 26);
-        tb.registerToolMod(new ModButtertouch(new ItemStack[] { silkyJewel }, 12));
+        ModifyBuilder.registerToolMod(new ModButtertouch(new ItemStack[] { silkyJewel }, 12));
 
         ItemStack piston = new ItemStack(Block.pistonBase);
-        tb.registerToolMod(new ModPiston(3, new ItemStack[] { piston }, new int[] { 1 }));
+        ModifyBuilder.registerToolMod(new ModPiston(3, new ItemStack[] { piston }, new int[] { 1 }));
 
-        tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(Block.obsidian), new ItemStack(Item.enderPearl) }, 13, "Beheading", 1, "\u00a7d", "Beheading"));
+        ModifyBuilder.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(Block.obsidian), new ItemStack(Item.enderPearl) }, 13, "Beheading", 1, "\u00a7d", "Beheading"));
 
         ItemStack holySoil = new ItemStack(this.craftedSoil, 1, 4);
-        tb.registerToolMod(new ModSmite("Smite", 14, new ItemStack[] { holySoil }, new int[] { 1 }));
+        ModifyBuilder.registerToolMod(new ModSmite("Smite", 14, new ItemStack[] { holySoil }, new int[] { 1 }));
 
         ItemStack spidereyeball = new ItemStack(Item.fermentedSpiderEye);
-        tb.registerToolMod(new ModAntiSpider("Anti-Spider", 15, new ItemStack[] { spidereyeball }, new int[] { 1 }));
+        ModifyBuilder.registerToolMod(new ModAntiSpider("Anti-Spider", 15, new ItemStack[] { spidereyeball }, new int[] { 1 }));
 
         ItemStack obsidianPlate = new ItemStack(this.largePlate, 1, 6);
-        tb.registerToolMod(new ModReinforced(new ItemStack[] { obsidianPlate }, 16, 1));
+        ModifyBuilder.registerToolMod(new ModReinforced(new ItemStack[] { obsidianPlate }, 16, 1));
 
         EnumSet<EnumArmorPart> allArmors = EnumSet.of(EnumArmorPart.HELMET, EnumArmorPart.CHEST, EnumArmorPart.PANTS, EnumArmorPart.SHOES);
         EnumSet<EnumArmorPart> chest = EnumSet.of(EnumArmorPart.CHEST);
-        tb.registerArmorMod(new AModMoveSpeed(0, allArmors, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }, false));
-        tb.registerArmorMod(new AModKnockbackResistance(1, allArmors, new ItemStack[] { new ItemStack(Item.ingotGold), new ItemStack(Block.blockGold) }, new int[] { 1, 9 }, false));
-        tb.registerArmorMod(new AModHealthBoost(2, allArmors, new ItemStack[] { new ItemStack(heartCanister, 1, 2) }, new int[] { 2 }, true));
-        tb.registerArmorMod(new AModDamageBoost(3, allArmors, new ItemStack[] { new ItemStack(Item.diamond), new ItemStack(Block.blockDiamond) }, new int[] { 1, 9 }, false, 3, 0.05));
-        tb.registerArmorMod(new AModDamageBoost(4, chest, new ItemStack[] { new ItemStack(Block.blockNetherQuartz, 1, Short.MAX_VALUE) }, new int[] { 1 }, true, 5, 1));
-        tb.registerArmorMod(new AModProtection(5, allArmors, new ItemStack[] { new ItemStack(largePlate, 1, 2) }, new int[] { 2 }));
+        ModifyBuilder.registerArmorMod(new AModMoveSpeed(0, allArmors, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }, false));
+        ModifyBuilder.registerArmorMod(new AModKnockbackResistance(1, allArmors, new ItemStack[] { new ItemStack(Item.ingotGold), new ItemStack(Block.blockGold) }, new int[] { 1, 9 }, false));
+        ModifyBuilder.registerArmorMod(new AModHealthBoost(2, allArmors, new ItemStack[] { new ItemStack(heartCanister, 1, 2) }, new int[] { 2 }, true));
+        ModifyBuilder.registerArmorMod(new AModDamageBoost(3, allArmors, new ItemStack[] { new ItemStack(Item.diamond), new ItemStack(Block.blockDiamond) }, new int[] { 1, 9 }, false, 3, 0.05));
+        ModifyBuilder.registerArmorMod(new AModDamageBoost(4, chest, new ItemStack[] { new ItemStack(Block.blockNetherQuartz, 1, Short.MAX_VALUE) }, new int[] { 1 }, true, 5, 1));
+        ModifyBuilder.registerArmorMod(new AModProtection(5, allArmors, new ItemStack[] { new ItemStack(largePlate, 1, 2) }, new int[] { 2 }));
 
-        tb.registerArmorMod(new AModDoubleJump(new ItemStack[] { new ItemStack(Item.ghastTear), new ItemStack(slimeGel, 1, 0), new ItemStack(slimeGel, 1, 1) }));
+        ModifyBuilder.registerArmorMod(new AModDoubleJump(new ItemStack[] { new ItemStack(Item.ghastTear), new ItemStack(slimeGel, 1, 0), new ItemStack(slimeGel, 1, 1) }));
 
         TConstructRegistry.registerActiveToolMod(new TActiveOmniMod());
     }

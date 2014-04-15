@@ -1,12 +1,12 @@
 package tconstruct.modifiers.tools;
 
-import tconstruct.library.tools.ToolMod;
+import tconstruct.library.tools.ItemModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 /* Adds a boolean NBTTag */
 
-public class ModBoolean extends ToolMod
+public class ModBoolean extends ItemModifier
 {
     String color;
     String tooltipName;

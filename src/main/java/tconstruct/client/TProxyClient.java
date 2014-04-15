@@ -193,10 +193,8 @@ public class TProxyClient extends TProxyCommon
 
     public void registerTickHandler ()
     {
+        super.registerTickHandler();
         TickRegistry.registerTickHandler(new TClientTickHandler(), Side.CLIENT);
-        // TickRegistry.registerTickHandler(new TimeTicker(), Side.CLIENT);
-        // TickRegistry.registerTickHandler(new TCommonTickHandler(),
-        // Side.CLIENT);
     }
 
     /* Registers any rendering code. */
@@ -251,6 +249,7 @@ public class TProxyClient extends TProxyCommon
         VillagerRegistry.instance().registerVillagerSkin(78943, new ResourceLocation("tinker", "textures/mob/villagertools.png"));
 
         ToolCoreRenderer renderer = new ToolCoreRenderer();
+        MinecraftForgeClient.registerItemRenderer(TContent.shortbow.itemID, renderer);
         MinecraftForgeClient.registerItemRenderer(TContent.arrow.itemID, renderer);
         MinecraftForgeClient.registerItemRenderer(TContent.dagger.itemID, renderer);
 
@@ -972,6 +971,6 @@ public class TProxyClient extends TProxyCommon
 
     public void recalculateHealth ()
     {
-        armorExtended.recalculateHealth(mc.thePlayer, TConstruct.playerTracker.getPlayerStats(mc.thePlayer.username));
+        armorExtended.recalculateAttributes(mc.thePlayer, TConstruct.playerTracker.getPlayerStats(mc.thePlayer.username));
     }
 }

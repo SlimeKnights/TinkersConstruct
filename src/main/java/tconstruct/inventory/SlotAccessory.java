@@ -2,13 +2,19 @@ package tconstruct.inventory;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import tconstruct.library.IAccessory;
 
-public class SlotUnused extends Slot
+public class SlotAccessory extends Slot
 {
-    public SlotUnused(IInventory par2IInventory, int par3, int par4, int par5)
+    private final int slotID;
+
+    public SlotAccessory(IInventory par2IInventory, int par3, int par4, int par5)
     {
         super(par2IInventory, par3, par4, par5);
+        this.slotID = par3;
+        //this.parent = container;
     }
 
     /**
@@ -17,7 +23,7 @@ public class SlotUnused extends Slot
      */
     public int getSlotStackLimit ()
     {
-        return 0;
+        return 10;
     }
 
     /**
@@ -25,6 +31,7 @@ public class SlotUnused extends Slot
      */
     public boolean isItemValid (ItemStack par1ItemStack)
     {
-        return false;
+        Item item = (par1ItemStack == null ? null : par1ItemStack.getItem());
+        return item != null && (item instanceof IAccessory) && ((IAccessory) item).canEquipItem(par1ItemStack, this.slotID);
     }
 }

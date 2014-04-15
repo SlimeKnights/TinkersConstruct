@@ -1,15 +1,16 @@
-package tconstruct.items.armor;
+package tconstruct.items.accessory;
 
 import java.util.List;
 
-import tconstruct.items.CraftingItem;
-import net.minecraft.util.StatCollector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
+import tconstruct.items.CraftingItem;
+import tconstruct.library.IAccessory;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class Knapsack extends CraftingItem
+public class Knapsack extends CraftingItem implements IAccessory
 {
 
     public Knapsack(int id)
@@ -28,6 +29,12 @@ public class Knapsack extends CraftingItem
             list.add(StatCollector.translateToLocal("knapsack.tooltip"));
             break;
         }
+    }
+
+    @Override
+    public boolean canEquipItem (ItemStack item, int slot)
+    {
+        return slot == 2;
     }
 
 }

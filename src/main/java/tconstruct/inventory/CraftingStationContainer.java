@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 import tconstruct.blocks.logic.CraftingStationLogic;
 import tconstruct.common.TContent;
 import tconstruct.library.armor.ArmorCore;
-import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.crafting.ModifyBuilder;
 import tconstruct.library.tools.ToolCore;
 
 public class CraftingStationContainer extends Container
@@ -113,7 +113,7 @@ public class CraftingStationContainer extends Container
                     slots[i] = craftMatrix.getStackInSlot(i);
                     slots[i + 4] = craftMatrix.getStackInSlot(i + 5);
                 }
-                ItemStack output = ToolBuilder.instance.modifyTool(input, slots, "");
+                ItemStack output = ModifyBuilder.instance.modifyTool(input, slots, "");
                 if (output != null)
                     return output;
             }
@@ -125,7 +125,7 @@ public class CraftingStationContainer extends Container
                     slots[i] = craftMatrix.getStackInSlot(i);
                     slots[i + 4] = craftMatrix.getStackInSlot(i + 5);
                 }
-                ItemStack output = ToolBuilder.instance.modifyArmor(input, slots, "");
+                ItemStack output = ModifyBuilder.instance.modifyArmor(input, slots, "");
                 if (output != null)
                     return output;
             }

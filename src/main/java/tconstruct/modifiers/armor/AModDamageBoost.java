@@ -6,6 +6,7 @@ import java.util.UUID;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import tconstruct.library.IModifyable;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.ArmorModTypeFilter;
 import tconstruct.library.armor.EnumArmorPart;
@@ -28,7 +29,7 @@ public class AModDamageBoost extends ArmorModTypeFilter
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName());
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(((IModifyable)tool.getItem()).getBaseTag());
         int amount = matchingAmount(input) * modifyAmount;
         return tags.getInteger("Modifiers") >= amount;
     }
@@ -37,7 +38,7 @@ public class AModDamageBoost extends ArmorModTypeFilter
     public void modify (ItemStack[] input, ItemStack armor)
     {
         NBTTagCompound baseTag = armor.getTagCompound();
-        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(getTagName());
+        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(((IModifyable)armor.getItem()).getBaseTag());
 
         int modifiers = armorTag.getInteger("Modifiers");
         modifiers -= matchingAmount(input) * modifyAmount;

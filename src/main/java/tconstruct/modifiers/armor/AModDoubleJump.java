@@ -21,7 +21,7 @@ public class AModDoubleJump extends AModInteger
         ArmorCore item = (ArmorCore) armor.getItem();
         if (armorTypes.contains(item.armorPart))
         {
-            NBTTagCompound tags = armor.getTagCompound().getCompoundTag(getTagName());
+            NBTTagCompound tags = armor.getTagCompound().getCompoundTag(getTagName(armor));
             return tags.getInteger("Modifiers") >= modifyCount && tags.getInteger("Double-Jump") < 3;
         }
         return false;
@@ -30,7 +30,7 @@ public class AModDoubleJump extends AModInteger
     @Override
     protected int addToolTip (ItemStack tool, String tooltip, String modifierTip)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName());
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName(tool));
         int tipNum = 0;
         while (true)
         {

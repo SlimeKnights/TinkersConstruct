@@ -4,6 +4,7 @@ import java.util.EnumSet;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import tconstruct.TConstruct;
 import tconstruct.common.TContent;
 import cpw.mods.fml.common.ITickHandler;
@@ -20,10 +21,22 @@ public class TClientTickHandler implements ITickHandler
         TContent.oreBerry.setGraphicsLevel(Block.leaves.graphicsLevel);
         TContent.oreBerrySecond.setGraphicsLevel(Block.leaves.graphicsLevel);
         TContent.slimeLeaves.setGraphicsLevel(Block.leaves.graphicsLevel);
-        if (mc.thePlayer != null && mc.thePlayer.onGround)
+        EntityPlayer player = getPlayer();
+        if (player != null && mc.thePlayer.onGround)
         {
             controlInstance.landOnGround();
         }
+        
+        if (player != null && player.isCollidedHorizontally && !player.isSneaking())
+        {
+            player.motionY = 0.1176D;
+            player.fallDistance = 0.0f;
+        }
+    }
+
+    EntityPlayer getPlayer ()
+    {
+        return mc.thePlayer;
     }
 
     @Override
