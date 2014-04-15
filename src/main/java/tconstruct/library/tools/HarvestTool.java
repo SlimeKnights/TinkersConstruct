@@ -103,17 +103,27 @@ public abstract class HarvestTool extends ToolCore
             mineSpeed += tags.getInteger("MiningSpeedExtra");
             heads++;
         }
-        float trueSpeed = mineSpeed / (heads * 100f);
+        float trueSpeed = mineSpeed / (heads * 100f) * breakSpeedModifier();
         int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
         int durability = tags.getInteger("Damage");
 
         float stonebound = tags.getFloat("Shoddy");
-        float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
+        float bonusLog = (float) Math.log(durability / stoneboundModifier() + 1) * 2 * stonebound;
         trueSpeed += bonusLog;
 
         if (hlvl <= tags.getInteger("HarvestLevel"))
             return trueSpeed;
         return 0.1f;
+    }
+    
+    public float breakSpeedModifier()
+    {
+        return 1.0f;
+    }
+    
+    public float stoneboundModifier()
+    {
+        return 72f;
     }
 
     public boolean canHarvestBlock (Block block)

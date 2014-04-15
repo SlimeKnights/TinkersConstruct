@@ -52,7 +52,7 @@ public class TProxyCommon implements IGuiHandler
         else if (ID < 100)
         {
             TileEntity tile = world.getBlockTileEntity(x, y, z);
-            System.out.println(tile instanceof InventoryLogic);
+            //System.out.println(tile instanceof InventoryLogic);
             if (tile != null && tile instanceof InventoryLogic)
             {
                 return ((InventoryLogic) tile).getGuiContainer(player.inventory, world, x, y, z);

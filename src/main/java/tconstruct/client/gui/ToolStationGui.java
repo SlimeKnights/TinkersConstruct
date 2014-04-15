@@ -25,8 +25,8 @@ import tconstruct.inventory.ActiveContainer;
 import tconstruct.inventory.ToolStationContainer;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.client.ToolGuiElement;
+import tconstruct.library.tools.HarvestTool;
 import tconstruct.library.tools.ToolCore;
-
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -290,9 +290,9 @@ public class ToolStationGui extends NewContainerGui
         //Mining
         if (categories.contains("dualharvest"))
         {
-            float mineSpeed = tags.getInteger("MiningSpeed") / 100f;
-            float mineSpeed2 = tags.getInteger("MiningSpeed2") / 100f;
-            float stoneboundSpeed = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
+            float mineSpeed = tags.getInteger("MiningSpeed") / 100f * ((HarvestTool) tool).breakSpeedModifier();
+            float mineSpeed2 = tags.getInteger("MiningSpeed2") / 100f * ((HarvestTool) tool).breakSpeedModifier();
+            float stoneboundSpeed = (float) Math.log(durability / ((HarvestTool) tool).stoneboundModifier() + 1) * 2 * stonebound;
             DecimalFormat df = new DecimalFormat("##.##");
             df.setRoundingMode(RoundingMode.DOWN);
             float trueSpeed = mineSpeed + stoneboundSpeed;
@@ -339,9 +339,9 @@ public class ToolStationGui extends NewContainerGui
                 heads++;
             }
 
-            float trueSpeed = mineSpeed / (heads * 100f);
+            float trueSpeed = mineSpeed / (heads * 100f) * ((HarvestTool) tool).breakSpeedModifier();
 
-            float stoneboundSpeed = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
+            float stoneboundSpeed = (float) Math.log(durability / ((HarvestTool) tool).stoneboundModifier() + 1) * 2 * stonebound;
             DecimalFormat df = new DecimalFormat("##.##");
             df.setRoundingMode(RoundingMode.DOWN);
             trueSpeed += stoneboundSpeed;

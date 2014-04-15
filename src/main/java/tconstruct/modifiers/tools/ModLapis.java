@@ -5,15 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.ToolMod;
-import tconstruct.library.tools.Weapon;
-
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import tconstruct.library.tools.ToolCore;
+import tconstruct.library.tools.Weapon;
 
 public class ModLapis extends ToolModTypeFilter
 {
@@ -70,7 +68,18 @@ public class ModLapis extends ToolModTypeFilter
         int keyPair[] = tags.getIntArray(key);
         keyPair[0] += increase;
         tags.setIntArray(key, keyPair);
-        if (tool.getItem() instanceof Weapon)
+        ToolCore toolcore = (ToolCore) tool.getItem();
+        String[] types = toolcore.toolCategories();
+        boolean weapon = false;
+        boolean harvest = false;
+        for (String s : types)
+        {
+            if (s.equals("harvest"))
+                harvest = true;
+            else if (s.equals("weapon"))
+                weapon = true;
+        }
+        if (weapon)
         {
             if (keyPair[0] >= 450)
                 addEnchantment(tool, Enchantment.looting, 3);
@@ -79,7 +88,7 @@ public class ModLapis extends ToolModTypeFilter
             else if (keyPair[0] >= 100)
                 addEnchantment(tool, Enchantment.looting, 1);
         }
-        else
+        if (harvest)
         {
             if (keyPair[0] >= 450)
                 addEnchantment(tool, Enchantment.fortune, 3);

@@ -245,53 +245,15 @@ public class Excavator extends HarvestTool
     }
 
     @Override
-    public float getStrVsBlock (ItemStack stack, Block block, int meta)
+    public float breakSpeedModifier ()
     {
-        if (!stack.hasTagCompound())
-            return 1.0f;
+        return 0.4f;
+    }
 
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-        if (tags.getBoolean("Broken"))
-            return 0.1f;
-
-        Material[] materials = getEffectiveMaterials();
-        for (int i = 0; i < materials.length; i++)
-        {
-            if (materials[i] == block.blockMaterial)
-            {
-                float mineSpeed = tags.getInteger("MiningSpeed");
-                int heads = 1;
-                if (tags.hasKey("MiningSpeed2"))
-                {
-                    mineSpeed += tags.getInteger("MiningSpeed2");
-                    heads++;
-                }
-
-                if (tags.hasKey("MiningSpeedHandle"))
-                {
-                    mineSpeed += tags.getInteger("MiningSpeedHandle");
-                    heads++;
-                }
-
-                if (tags.hasKey("MiningSpeedExtra"))
-                {
-                    mineSpeed += tags.getInteger("MiningSpeedExtra");
-                    heads++;
-                }
-                float trueSpeed = mineSpeed / (heads * 300f);
-                int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
-                int durability = tags.getInteger("Damage");
-
-                float stonebound = tags.getFloat("Shoddy");
-                float bonusLog = (float) Math.log(durability / 216f + 1) * 2 * stonebound;
-                trueSpeed += bonusLog;
-
-                if (hlvl <= tags.getInteger("HarvestLevel"))
-                    return trueSpeed;
-                return 0.1f;
-            }
-        }
-        return super.getStrVsBlock(stack, block, meta);
+    @Override
+    public float stoneboundModifier ()
+    {
+        return 216f;
     }
 
 }
