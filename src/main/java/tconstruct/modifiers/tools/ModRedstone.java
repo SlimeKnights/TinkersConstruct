@@ -99,6 +99,7 @@ public class ModRedstone extends ItemModTypeFilter
             if (toolcore.durabilityTypeExtra() == 2)
                 boost += 2;
         }
+        System.out.println("Boost: "+boost);
         miningSpeed += (increase * boost);
         tags.setInteger("MiningSpeed", miningSpeed);
 

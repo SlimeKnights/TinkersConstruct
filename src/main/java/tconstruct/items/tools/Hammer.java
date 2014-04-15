@@ -344,74 +344,16 @@ public class Hammer extends HarvestTool
     }
 
     @Override
-    public float getDigSpeed (ItemStack stack, Block block, int meta)
+    public float breakSpeedModifier ()
     {
-        if (!stack.hasTagCompound())
-            return 1.0f;
-
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-        if (tags.getBoolean("Broken"))
-            return 0.1f;
-
-        Material[] materials = getEffectiveMaterials();
-        for (int i = 0; i < materials.length; i++)
-        {
-            if (materials[i] == block.getMaterial())
-            {
-                return getblockSpeed(tags, block, meta);
-            }
-        }
-
-        /*
-         * if (block == Block.silverfish) return getblockSpeed(tags, block,
-         * meta);
-         */
-
-        return super.getDigSpeed(stack, block, meta);
+        return 0.4f;
     }
 
-    float getblockSpeed (NBTTagCompound tags, Block block, int meta)
+    @Override
+    public float stoneboundModifier ()
     {
-        float mineSpeed = tags.getInteger("MiningSpeed");
-        int heads = 1;
-        if (tags.hasKey("MiningSpeed2"))
-        {
-            mineSpeed += tags.getInteger("MiningSpeed2");
-            heads++;
-        }
-        if (tags.hasKey("MiningSpeedHandle"))
-        {
-            mineSpeed += tags.getInteger("MiningSpeedHandle");
-            heads++;
-        }
-
-        if (tags.hasKey("MiningSpeedExtra"))
-        {
-            mineSpeed += tags.getInteger("MiningSpeedExtra");
-            heads++;
-        }
-        float trueSpeed = mineSpeed / (heads * 300f);
-        int hlvl = block.getHarvestLevel(meta);
-        int durability = tags.getInteger("Damage");
-
-        float stonebound = tags.getFloat("Shoddy");
-        float bonusLog = (float) Math.log(durability / 216f + 1) * 2 * stonebound;
-        trueSpeed += bonusLog;
-
-        if (hlvl <= tags.getInteger("HarvestLevel"))
-            return trueSpeed;
-        return 0.1f;
+        return 216f;
     }
-
-    /*
-     * @Override public void onUpdate (ItemStack stack, World world, Entity
-     * entity, int par4, boolean par5) { super.onUpdate(stack, world, entity,
-     * par4, par5); if (entity instanceof EntityPlayer) { EntityPlayer player =
-     * (EntityPlayer) entity; ItemStack equipped =
-     * player.getCurrentEquippedItem(); if (equipped == stack) {
-     * player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 1, 1)); }
-     * } }
-     */
 
     @Override
     public String[] getTraits ()
