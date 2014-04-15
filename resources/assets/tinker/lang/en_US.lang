@@ -736,6 +736,10 @@ gui.toolstation16=Usage Speed:
 gui.toolstation17=Modifiers
 gui.toolstation18=Modifiers remaining: 
 
+modifier.
+
+
+
 creativeModLock.tooltip=Target Lock: 
 
 attribute.generic.ammo.attackDamage=Average Shot Damage
