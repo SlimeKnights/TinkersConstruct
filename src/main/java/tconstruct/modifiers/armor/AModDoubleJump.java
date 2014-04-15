@@ -7,12 +7,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.armor.AModInteger;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.EnumArmorPart;
+import net.minecraft.util.StatCollector;
 
 public class AModDoubleJump extends AModInteger
 {
     public AModDoubleJump(ItemStack[] items)
     {
-        super(6, "Double-Jump", EnumSet.of(EnumArmorPart.SHOES), items, 5, 1, "\u00a7a", "Double-Jump");
+        super(6, "Double-Jump", EnumSet.of(EnumArmorPart.SHOES), items, 5, 1, "\u00a7a", StatCollector.translateToLocal("modifier.armour.jump.double");
     }
 
     @Override
@@ -62,11 +63,11 @@ public class AModDoubleJump extends AModInteger
     protected String getProperName (String tooltip, String tag)
     {
         if (tag.contains("Double-Jump"))
-            return color + "Triple-Jump";
+            return color + StatCollector.translateToLocal("modifier.armour.jump.triple");
 
         if (tag.contains("Triple-Jump"))
-            return color + "Quadruple-Jump";
+            return color + StatCollector.translateToLocal("modifier.armour.jump.quad");
 
-        return color + "Double-Jump";
+        return color + StatCollector.translateToLocal("modifier.armour.jump.double");
     }
 }
