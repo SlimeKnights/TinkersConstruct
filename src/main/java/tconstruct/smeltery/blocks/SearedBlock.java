@@ -320,9 +320,10 @@ public class SearedBlock extends InventoryBlock
         }
         else
         {
-            FaucetLogic logic = (FaucetLogic) world.getTileEntity(x, y, z);
-            if (logic != null)
+            TileEntity tile = world.getBlockTileEntity(x, y, z);
+            if (tile != null && tile instanceof FaucetLogic)
             {
+                FaucetLogic logic = (FaucetLogic) tile;
                 float xMin = 0.25F;
                 float xMax = 0.75F;
                 float zMin = 0.25F;
