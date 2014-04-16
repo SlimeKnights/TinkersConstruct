@@ -28,10 +28,6 @@ buildscript {
 
 repositories {
     ivy {
-        name 'Forge FS legacy'
-        artifactPattern "http://files.minecraftforge.net/[module]/[module]-dev-[revision].[ext]"
-    }
-    ivy {
         name 'CB FS'
         artifactPattern "http://www.chickenbones.craftsaddle.org/Files/New_Versions/1.6.4/[module]-dev%20[revision].[ext]"
     }
@@ -65,8 +61,8 @@ configurations {
 
 dependencies {
     compile "mantle:Mantle:${config.minecraft_version}-${config.mantle_version}:deobf"
-    //compile name: 'ForgeMultipart', version: "${config.minecraft_version}-${config.FMP_version}", ext: 'jar'
-    //compile name: 'CodeChickenLib', version: "${config.minecraft_version}-${config.CCLIB_version}", ext: 'jar'
+	compile "codechicken:CodeChickenLib:${config.minecraft_version}-${config.CCLIB_version}:dev"
+    compile "codechicken:ForgeMultipart:${config.minecraft_version}-${config.FMP_version}:dev"
     //compile name: 'NotEnoughItems', version: "${config.NEI_version}", type: 'jar'
 	deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.minecraftforge.common.config.Configuration;
 import tconstruct.TConstruct;
+import tconstruct.plugins.fmp.ForgeMultiPart;
 import tconstruct.plugins.ic2.IC2;
 import tconstruct.plugins.imc.AppEng;
 import tconstruct.plugins.imc.BuildcraftTransport;
@@ -121,7 +122,7 @@ public class PluginController
 
         registerPlugin(new AppEng());
         registerPlugin(new BuildcraftTransport());
-        // registerPlugin(new ForgeMultiPart());
+        registerPlugin(new ForgeMultiPart());
         registerPlugin(new IC2());
         // registerPlugin(new MineFactoryReloaded());
         // registerPlugin(new NotEnoughItems());

@@ -21,7 +21,7 @@ public class RegisterWithFMP
     //For blocks without metadata values only.
     public static void registerBlock (Block block)
     {
-        BlockMicroMaterial.createAndRegister(block);
+        BlockMicroMaterial.createAndRegister(block, 0);
     }
 
     //For blocks with metadata values and special MicroMaterial only
