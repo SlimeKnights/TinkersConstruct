@@ -27,18 +27,23 @@ public class AModDamageBoost extends ArmorModTypeFilter
     }
 
     @Override
-    protected boolean canModify (ItemStack tool, ItemStack[] input)
+    protected boolean canModify (ItemStack input, ItemStack[] modifiers)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(((IModifyable)tool.getItem()).getBaseTag());
-        int amount = matchingAmount(input) * modifyAmount;
-        return tags.getInteger("Modifiers") >= amount;
+        IModifyable imod = (IModifyable) input.getItem();
+        if (imod.getModifyType().equals("Armor"))
+        {
+            NBTTagCompound tags = input.getTagCompound().getCompoundTag(((IModifyable) input.getItem()).getBaseTag());
+            int amount = matchingAmount(modifiers) * modifyAmount;
+            return tags.getInteger("Modifiers") >= amount;
+        }
+        return false;
     }
 
     @Override
     public void modify (ItemStack[] input, ItemStack armor)
     {
         NBTTagCompound baseTag = armor.getTagCompound();
-        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(((IModifyable)armor.getItem()).getBaseTag());
+        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(((IModifyable) armor.getItem()).getBaseTag());
 
         int modifiers = armorTag.getInteger("Modifiers");
         modifiers -= matchingAmount(input) * modifyAmount;

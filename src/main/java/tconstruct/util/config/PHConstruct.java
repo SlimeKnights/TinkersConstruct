@@ -265,7 +265,7 @@ public class PHConstruct
         exoChest = config.getItem("Equipables", "Exo-Chestpiece", 14117).getInt(14117);
         exoPants = config.getItem("Equipables", "Exo-Legs", 14118).getInt(14118);
         exoShoes = config.getItem("Equipables", "Exo-Boots", 14119).getInt(14119);
-        exoCraftingEnabled = config.get("Equipables", "Exo-Armor-Craftable", false).getBoolean(false);
+        exoCraftingEnabled = config.get("Equipables", "Exo-Armor-Craftable", true).getBoolean(true);
 
         creativeModifier = config.getItem("Patterns and Misc", "Creative Modifier Item", 14120).getInt(14120);
 
