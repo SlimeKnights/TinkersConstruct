@@ -64,18 +64,18 @@ public class ModRepair extends ItemModifier
         if (numInputs == 0)
             return false;
 
-        int totalRepairValue = calculateIncrease(tool, materialValue);
+        int totalRepairValue = calculateIncrease(tool, materialValue, numInputs);
         float averageRepairValue = totalRepairValue / numInputs;
 
         return numInputs == 1 || (damage - totalRepairValue >= -averageRepairValue);
     }
 
-    private int calculateIncrease (ItemStack tool, int materialValue)
+    private int calculateIncrease (ItemStack tool, int materialValue, int itemsUsed)
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         int damage = tags.getInteger("Damage");
         int dur = tags.getInteger("BaseDurability");
-        int increase = (int) (50 + (dur * 0.4f * materialValue));
+        int increase = (int) (50 * itemsUsed + (dur * 0.4f * materialValue));
 
         int modifiers = tags.getInteger("Modifiers");
         float mods = 1.0f;
@@ -116,7 +116,7 @@ public class ModRepair extends ItemModifier
             }
         }
 
-        int increase = calculateIncrease(tool, materialValue);
+        int increase = calculateIncrease(tool, materialValue, itemsUsed);
         int repair = tags.getInteger("RepairCount");
         repair += itemsUsed;
         tags.setInteger("RepairCount", repair);
