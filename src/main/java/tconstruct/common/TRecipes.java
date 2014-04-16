@@ -1452,7 +1452,7 @@ public class TRecipes
             TRepo.thaumcraftAvailable = true;
             TConstructClientRegistry.addMaterialRenderMapping(31, "tinker", "thaumium", true);
             TConstructRegistry.addToolMaterial(31, "Thaumium", 3, 400, 700, 2, 1.3F, 0, 0f, "\u00A75", StatCollector.translateToLocal("materialtraits.thaumic"));
-            PatternBuilder.instance.registerFullMaterial(new ItemStack((Item) obj, 1, 2), 2, "Thaumium", new ItemStack(TRepo.toolShard, 1, 31), new ItemStack(TRepo.toolRod, 1, 31), 31);
+            PatternBuilder.instance.registerFullMaterial(new ItemStack((Item) obj, 1, 2), 2, StatCollector.translateToLocal("gui.partbuilder.material.thaumium"), new ItemStack(TRepo.toolShard, 1, 31), new ItemStack(TRepo.toolRod, 1, 31), 31);
             for (int meta = 0; meta < TRepo.patternOutputs.length; meta++)
             {
                 if (TRepo.patternOutputs[meta] != null)
