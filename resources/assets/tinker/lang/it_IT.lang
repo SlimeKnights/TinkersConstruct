@@ -504,7 +504,7 @@ item.tconstruct.canister.miniheart.yellow.name=Cuore Giallo Miniaturizzato
 item.tconstruct.canister.yellow.name=Contenitore di Cuore Giallo
 item.tconstruct.canister.miniheart.green.name=Cuore Verde Miniaturizzato
 item.tconstruct.canister.green.name=Contenitore di Cuore Verde
-item.tconstruct.glove.name=Guanti dello Scavatore
+item.tconstruct.glove.name=Guanto
 item.tconstruct.modifier.creative.name=Modificatore di Attrezzi Creativa
 
 SearedBlock.Table.name=Tavolo della Fonderia
