@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.tools.ToolCore;
+import net.minecraft.util.StatCollector;
 
 public class ModRedstone extends ToolModTypeFilter
 {
@@ -15,7 +16,7 @@ public class ModRedstone extends ToolModTypeFilter
     public ModRedstone(int effect, ItemStack[] items, int[] values)
     {
         super(effect, "Redstone", items, values);
-        tooltipName = "\u00a74Haste";
+        tooltipName = "\u00a74" + StatCollector.translateToLocal("modifier.tool.redstone");
     }
 
     @Override
@@ -71,7 +72,7 @@ public class ModRedstone extends ToolModTypeFilter
             int modifiers = tags.getInteger("Modifiers");
             modifiers -= 1;
             tags.setInteger("Modifiers", modifiers);
-            String modName = "\u00a74Redstone (" + increase + "/" + max + ")";
+            String modName = "\u00a74" + StatCollector.translateToLocal("modifier.tool.redstone") + (" + increase + "/" + max + ");
             int tooltipIndex = addToolTip(tool, tooltipName, modName);
             keyPair = new int[] { increase, max, tooltipIndex };
             tags.setIntArray(key, keyPair);
@@ -106,7 +107,7 @@ public class ModRedstone extends ToolModTypeFilter
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         String tip = "ModifierTip" + keys[2];
-        String modName = "\u00a74Redstone (" + keys[0] + "/" + keys[1] + ")";
+        String modName = "\u00a74" + StatCollector.translateToLocal("modifier.tool.redstone") + (" + keys[0] + "/" + keys[1] + ");
         tags.setString(tip, modName);
     }
 
