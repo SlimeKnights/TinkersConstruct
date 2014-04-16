@@ -2,13 +2,14 @@ package tconstruct.modifiers.tools;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 
 public class ModReinforced extends ModInteger
 {
 
     public ModReinforced(ItemStack[] items, int effect, int increase)
     {
-        super(items, effect, "Reinforced", 1, "\u00a75", "Reinforced");
+        super(items, effect, StatCollector.translateToLocal("modifier.tool.reinforced"), 1, "\u00a75", StatCollector.translateToLocal("modifier.tool.reinforced"));
     }
 
     @Override

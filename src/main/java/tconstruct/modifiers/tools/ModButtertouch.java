@@ -11,13 +11,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import tconstruct.library.tools.ToolCore;
+import net.minecraft.util.StatCollector;
 
 public class ModButtertouch extends ModBoolean
 {
 
     public ModButtertouch(ItemStack[] items, int effect)
     {
-        super(items, effect, "Silk Touch", "\u00a7e", "Silky");
+        super(items, effect, StatCollector.translateToLocal("gui.modifier.silk"), "\u00a7e", StatCollector.translateToLocal("modifier.tool.silk"));
     }
 
     @Override

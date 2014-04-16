@@ -124,7 +124,7 @@ public class Arrow extends ToolCore
         extra = getExtraItem();
         extraStack = extra != null ? new ItemStack(extra, 1, 0) : null;
         tool = ToolBuilder.instance
-                .buildTool(new ItemStack(getHeadItem(), 1, random.nextInt(18)), new ItemStack(getHandleItem(), 1, random.nextInt(18)), accessoryStack, extraStack, "Random Streamer");
+                .buildTool(new ItemStack(getHeadItem(), 1, random.nextInt(18)), new ItemStack(getHandleItem(), 1, random.nextInt(18)), accessoryStack, extraStack, StatCollector.translateToLocal("item.tool.randomarrow"));
 
         if (tool == null)
         {

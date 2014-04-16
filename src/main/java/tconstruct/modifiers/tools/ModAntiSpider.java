@@ -2,6 +2,7 @@ package tconstruct.modifiers.tools;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 
 public class ModAntiSpider extends ToolModTypeFilter
 {
@@ -12,7 +13,7 @@ public class ModAntiSpider extends ToolModTypeFilter
     public ModAntiSpider(String type, int effect, ItemStack[] items, int[] values)
     {
         super(effect, "ModAntiSpider", items, values);
-        tooltipName = "\u00a72Bane of Arthropods";
+        tooltipName = "\u00a72" + StatCollector.translateToLocal("modifier.tool.spider");
         guiType = type;
     }
 
