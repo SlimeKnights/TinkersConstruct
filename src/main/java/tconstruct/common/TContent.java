@@ -2672,7 +2672,7 @@ public class TContent implements IFuelHandler
             TE3Helper.addPulveriserRecipe(12000, new ItemStack(oreSlag, 1, 2), new ItemStack(materials, 2, 38), GameRegistry.findItemStack("ThermalExpansion", "dustGold", 1), 10);
             TE3Helper.addInductionSmelterRecipe(12000, new ItemStack(oreSlag, 1, 2), crystalCinnabar.copy(), new ItemStack(materials, 3, 4), new ItemStack(Item.ingotGold), 100);
 
-            TE3Helper.addInductionSmelterRecipe(4000, new ItemStack(materials, 1, 4), new ItemStack(materials, 1, 3), new ItemStack(materials, 1, 18), null, 0);
+            TE3Helper.addInductionSmelterRecipe(4000, new ItemStack(materials, 1, 4), new ItemStack(materials, 1, 3), new ItemStack(materials, 1, 5), null, 0);
             TE3Helper.addInductionSmelterRecipe(4000, new ItemStack(materials, 1, 9), new ItemStack(materials, 3, 11), new ItemStack(materials, 4, 14), null, 0);
         }
     }
