@@ -88,7 +88,7 @@ public class ModBlaze extends ToolModTypeFilter
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         String tip = "ModifierTip" + keys[2];
-        String modName = "\u00a76" + StatCollector.translateToLocal("gui.modifier.blaze") (" + keys[0] + "/" + keys[1] + ");
+        String modName = "\u00a76" + StatCollector.translateToLocal("gui.modifier.blaze") + (" + keys[0] + "/" + keys[1] + ");
         tags.setString(tip, modName);
     }
 
