@@ -736,9 +736,23 @@ gui.toolstation16=Usage Speed:
 gui.toolstation17=Modifiers
 gui.toolstation18=Modifiers remaining: 
 
-modifier.
+gui.modifier.blaze=Blaze
+gui.modifier.silk=Silk Touch
+gui.modifier.lapis=Luck
+gui.modifier.redstone=Redstone
 
-
+modifier.armour.jump.double=Double-Jump
+modifier.armour.jump.triple=Triple-Jump
+modifier.armour.jump.quad=Quadruple-Jump
+modifier.armour.protection=
+modifier.tool.spider=Bane of Arthropods
+modifier.tool.quartz=Sharpness
+modifier.tool.blaze=Fiery
+modifier.tool.silk=Silky
+mofifier.tool.flux=Flux
+modifier.tool.lapis=Luck
+modifier.tool.piston=Knockback
+modifier.tool.redstone=Haste
 
 creativeModLock.tooltip=Target Lock: 
 
