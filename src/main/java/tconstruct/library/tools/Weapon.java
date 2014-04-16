@@ -118,7 +118,7 @@ public abstract class Weapon extends ToolCore
     }*/
 
     @Override
-    public String[] toolCategories ()
+    public String[] getTraits ()
     {
         return new String[] { "weapon", "melee" };
     }

@@ -13,7 +13,7 @@ import net.minecraft.nbt.NBTTagList;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.Weapon;
 
-public class ModLapis extends ToolModTypeFilter
+public class ModLapis extends ItemModTypeFilter
 {
     String tooltipName;
     int max = 450;
@@ -27,23 +27,25 @@ public class ModLapis extends ToolModTypeFilter
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        ToolCore toolItem = (ToolCore) tool.getItem();
-        if (!validType(toolItem))
-            return false;
+        if (tool.getItem() instanceof ToolCore)
+        {
+            ToolCore toolItem = (ToolCore) tool.getItem();
+            if (!validType(toolItem))
+                return false;
 
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+            NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
 
-        if (tags.getBoolean("Silk Touch"))
-            return false;
+            if (tags.getBoolean("Silk Touch"))
+                return false;
 
-        if (!tags.hasKey(key))
-            return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
+            if (!tags.hasKey(key))
+                return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
 
-        int keyPair[] = tags.getIntArray(key);
-        if (keyPair[0] + matchingAmount(input) <= max)
-            return true;
-        else
-            return false;
+            int keyPair[] = tags.getIntArray(key);
+            if (keyPair[0] + matchingAmount(input) <= max)
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -69,7 +71,7 @@ public class ModLapis extends ToolModTypeFilter
         keyPair[0] += increase;
         tags.setIntArray(key, keyPair);
         ToolCore toolcore = (ToolCore) tool.getItem();
-        String[] types = toolcore.toolCategories();
+        String[] types = toolcore.getTraits();
         boolean weapon = false;
         boolean harvest = false;
         for (String s : types)
@@ -118,7 +120,7 @@ public class ModLapis extends ToolModTypeFilter
             updateModTag(tool, keyPair);
         }
 
-        List list = Arrays.asList(toolItem.toolCategories());
+        List list = Arrays.asList(toolItem.getTraits());
         if (list.contains("weapon"))
         {
             if (keyPair[0] >= 450)
@@ -219,7 +221,7 @@ public class ModLapis extends ToolModTypeFilter
 
     public boolean validType (ToolCore tool)
     {
-        List list = Arrays.asList(tool.toolCategories());
+        List list = Arrays.asList(tool.getTraits());
         return list.contains("weapon") || list.contains("harvest");
     }
 }

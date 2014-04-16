@@ -633,7 +633,7 @@ public abstract class ToolCore extends Item implements IModifyable, IEnergyConta
     /* Tool uses */
 
     //Types
-    public abstract String[] toolCategories ();
+    public abstract String[] getTraits ();
 
     //Mining
     @Override

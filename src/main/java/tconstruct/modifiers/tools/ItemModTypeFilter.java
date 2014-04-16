@@ -6,11 +6,11 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 import tconstruct.library.tools.ItemModifier;
 
-public abstract class ToolModTypeFilter extends ItemModifier
+public abstract class ItemModTypeFilter extends ItemModifier
 {
     public final List<Integer> increase;
 
-    public ToolModTypeFilter(int effect, String dataKey, ItemStack[] items, int[] values)
+    public ItemModTypeFilter(int effect, String dataKey, ItemStack[] items, int[] values)
     {
         super(items, effect, dataKey);
         assert items.length == values.length : "Itemstacks and their values for tool modifiers must be the same length";

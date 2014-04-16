@@ -503,7 +503,7 @@ item.tconstruct.canister.miniheart.yellow.name=Miniature Yellow Heart
 item.tconstruct.canister.yellow.name=Yellow Heart Canister
 item.tconstruct.canister.miniheart.green.name=Miniature Green Heart
 item.tconstruct.canister.green.name=Green Heart Canister
-item.tconstruct.glove.name=Dirtmover Gloves
+item.tconstruct.glove.name=Glove
 item.tconstruct.modifier.creative.name=Creative Tool Modifier
 
 SearedBlock.Table.name=Casting Table

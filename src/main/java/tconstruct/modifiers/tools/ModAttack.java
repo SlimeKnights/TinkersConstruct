@@ -5,57 +5,78 @@ import java.util.List;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.library.IModifyable;
 import tconstruct.library.tools.ToolCore;
 
-public class ModAttack extends ToolModTypeFilter
+public class ModAttack extends ItemModTypeFilter
 {
     String tooltipName;
-    int max = 72;
+    int max;
+    int threshold;
     String guiType;
+    String modifierType;
 
     public ModAttack(String type, int effect, ItemStack[] items, int[] value)
     {
         super(effect, "ModAttack", items, value);
         tooltipName = "\u00a7fSharpness";
         guiType = type;
+        max = 72;
+        threshold = 24;
+        modifierType = "Tool";
+    }
+    
+    public ModAttack(String type, int effect, ItemStack[] items, int[] value, int max, int threshold, String modifierType)
+    {
+        super(effect, "ModAttack", items, value);
+        tooltipName = "\u00a7fKnuckles";
+        guiType = type;
+        this.max = max;
+        this.threshold = threshold;
+        this.modifierType = modifierType;
     }
 
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        ToolCore toolItem = (ToolCore) tool.getItem();
-        if (!validType(toolItem))
-            return false;
+        if (tool.getItem() instanceof IModifyable)
+        {
+            IModifyable toolItem = (IModifyable) tool.getItem();
+            if (!validType(toolItem))
+                return false;
 
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
-        if (!tags.hasKey(key))
-            return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
+            NBTTagCompound tags = tool.getTagCompound().getCompoundTag(toolItem.getBaseTag());
+            if (!tags.hasKey(key))
+                return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
 
-        int keyPair[] = tags.getIntArray(key);
-        if (keyPair[0] + matchingAmount(input) <= keyPair[1])
-            return true;
+            int keyPair[] = tags.getIntArray(key);
+            if (keyPair[0] + matchingAmount(input) <= keyPair[1])
+                return true;
 
-        else if (keyPair[0] == keyPair[1])
-            return tags.getInteger("Modifiers") > 0;
-
+            else if (keyPair[0] == keyPair[1])
+                return tags.getInteger("Modifiers") > 0;
+        }
         return false;
+    }
+    
+    @Override
+    public boolean validType (IModifyable input)
+    {
+        String type = input.getModifyType();
+        return type.equals(modifierType);
     }
 
     @Override
     public void modify (ItemStack[] input, ItemStack tool)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        IModifyable toolItem = (IModifyable) tool.getItem();
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(toolItem.getBaseTag());
         if (tags.hasKey(key))
         {
-            int amount = 24;
-            ToolCore toolItem = (ToolCore) tool.getItem();
-            if (toolItem.pierceArmor() || !nerfType(toolItem))
-                amount = 36;
-
             int[] keyPair = tags.getIntArray(key);
             int increase = matchingAmount(input);
 
-            int leftToBoost = amount - (keyPair[0] % amount);
+            int leftToBoost = threshold - (keyPair[0] % threshold);
             if (increase >= leftToBoost)
             {
                 int attack = tags.getInteger("Attack");
@@ -100,20 +121,9 @@ public class ModAttack extends ToolModTypeFilter
 
     void updateModTag (ItemStack tool, int[] keys)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName(tool));
         String tip = "ModifierTip" + keys[2];
         String modName = "\u00a7f" + guiType + " (" + keys[0] + "/" + keys[1] + ")";
         tags.setString(tip, modName);
-    }
-
-    public boolean validType (ToolCore tool)
-    {
-        return true;
-    }
-
-    public boolean nerfType (ToolCore tool)
-    {
-        List list = Arrays.asList(tool.toolCategories());
-        return list.contains("throwing") || list.contains("ammo");
     }
 }

@@ -108,7 +108,7 @@ public class HeartCanister extends CraftingItem implements IHealthAccessory
     }
 
     @Override
-    public boolean canEquipItem (ItemStack item, int slot)
+    public boolean canEquipAccessory (ItemStack item, int slot)
     {
         int type = item.getItemDamage();
         return ((type == 2 && slot == 6) || (type == 4 && slot == 5) || (type == 6 && slot == 4));

@@ -643,11 +643,13 @@ public class TEventHandler
         if (evt.Name == "crystalQuartz")
         {
             TContent.modAttack.addStackToMatchList(evt.Ore, 2);
+            TContent.modAttackGlove.addStackToMatchList(evt.Ore, 2);
         }
 
         else if (evt.Name == "crystalCerusQuartz")
         {
             TContent.modAttack.addStackToMatchList(evt.Ore, 24);
+            TContent.modAttackGlove.addStackToMatchList(evt.Ore, 24);
         }
     }
 
@@ -746,6 +748,7 @@ public class TEventHandler
     @ForgeSubscribe
     public void armorMineSpeed (PlayerEvent.BreakSpeed event)
     {
-        event.newSpeed += 50f;
+        TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(event.entityPlayer.username);
+        event.newSpeed += stats.mineSpeed / 100f;
     }
 }

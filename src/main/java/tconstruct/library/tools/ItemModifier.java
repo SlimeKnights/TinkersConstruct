@@ -16,12 +16,19 @@ public abstract class ItemModifier
     public final List stacks;
     public final int effectIndex;
     public static Random random = new Random();
+    
+    /** Default constructor
+     * 
+     * @param recipe Items to compare against when checking the modifier
+     * @param effect Render index for sprite layering
+     * @param dataKey NBT string to put on the item
+     */
 
-    public ItemModifier(ItemStack[] items, int effect, String dataKey)
+    public ItemModifier(ItemStack[] recipe, int effect, String dataKey)
     {
         List<ItemStack> itemstacks = new ArrayList<ItemStack>();
-        for (int iter = 0; iter < items.length; iter++)
-            itemstacks.add(items[iter]);
+        for (int iter = 0; iter < recipe.length; iter++)
+            itemstacks.add(recipe[iter]);
         stacks = itemstacks;
         effectIndex = effect;
         key = dataKey;
@@ -30,20 +37,20 @@ public abstract class ItemModifier
     /** Checks to see if the inputs match the stored items
      * Note: Works like ShapelessRecipes
      * 
-     * @param modifiers The ItemStacks to compare against
+     * @param recipe The ItemStacks to compare against
      * @param input Item to modify, used for restrictions
      * @return Whether the recipe matches the input
      */
-    public boolean matches (ItemStack[] modifiers, ItemStack input)
+    public boolean matches (ItemStack[] recipe, ItemStack input)
     {
-        if (!canModify(input, modifiers))
+        if (!canModify(input, recipe))
             return false;
 
         ArrayList list = new ArrayList(this.stacks);
 
-        for (int iter = 0; iter < modifiers.length; ++iter)
+        for (int iter = 0; iter < recipe.length; ++iter)
         {
-            ItemStack craftingStack = modifiers[iter];
+            ItemStack craftingStack = recipe[iter];
 
             if (craftingStack != null)
             {
@@ -76,14 +83,19 @@ public abstract class ItemModifier
     {
          return ((IModifyable)stack.getItem()).getBaseTag();
     }
+    
+    protected NBTTagCompound getModifierTag(ItemStack stack)
+    {
+        return stack.getTagCompound().getCompoundTag(getTagName(stack));
+    }
 
     /**
      * @param input Tool to compare against
-     * @param modifiers Items to modify with
+     * @param recipe Items to modify with
      * @return Whether the tool can be modified
      */
 
-    protected boolean canModify (ItemStack input, ItemStack[] modifiers)
+    protected boolean canModify (ItemStack input, ItemStack[] recipe)
     {
         NBTTagCompound tags = input.getTagCompound().getCompoundTag(getTagName(input));
         return tags.getInteger("Modifiers") > 0;
@@ -91,10 +103,10 @@ public abstract class ItemModifier
 
     /** Modifies the tool. Adds nbttags, changes existing ones, ticks down modification counter, etc
      * 
-     * @param input ItemStacks to pull info from
-     * @param tool The tool to modify
+     * @param recipe ItemStacks to pull info from
+     * @param input The tool to modify
      */
-    public abstract void modify (ItemStack[] modifiers, ItemStack input);
+    public abstract void modify (ItemStack[] recipe, ItemStack input);
 
     public void addMatchingEffect (ItemStack input)
     {
@@ -128,6 +140,7 @@ public abstract class ItemModifier
         }
     }
 
+    //Gui
     protected int addModifierTip (ItemStack input, String modifierTip)
     {
         NBTTagCompound tags = input.getTagCompound().getCompoundTag(getTagName(input));
@@ -146,6 +159,7 @@ public abstract class ItemModifier
         }
     }
 
+    //Item
     protected int addToolTip (ItemStack input, String tooltip, String modifierTip)
     {
         NBTTagCompound tags = input.getTagCompound().getCompoundTag(getTagName(input));

@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.tools.ToolCore;
 
-public class ModBlaze extends ToolModTypeFilter
+public class ModBlaze extends ItemModTypeFilter
 {
     String tooltipName;
     int max;
@@ -22,23 +22,25 @@ public class ModBlaze extends ToolModTypeFilter
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        ToolCore toolItem = (ToolCore) tool.getItem();
-        if (!validType(toolItem))
-            return false;
+        if (tool.getItem() instanceof ToolCore)
+        {
+            ToolCore toolItem = (ToolCore) tool.getItem();
+            if (!validType(toolItem))
+                return false;
 
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
-        if (!tags.hasKey(key))
-            return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
+            NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+            if (!tags.hasKey(key))
+                return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
 
-        int keyPair[] = tags.getIntArray(key);
-        if (keyPair[0] + matchingAmount(input) <= keyPair[1])
-            return true;
+            int keyPair[] = tags.getIntArray(key);
+            if (keyPair[0] + matchingAmount(input) <= keyPair[1])
+                return true;
 
-        else if (keyPair[0] == keyPair[1])
-            return tags.getInteger("Modifiers") > 0;
+            else if (keyPair[0] == keyPair[1])
+                return tags.getInteger("Modifiers") > 0;
 
-        else
-            return false;
+        }
+        return false;
     }
 
     @Override
@@ -93,7 +95,7 @@ public class ModBlaze extends ToolModTypeFilter
 
     public boolean validType (ToolCore tool)
     {
-        List list = Arrays.asList(tool.toolCategories());
+        List list = Arrays.asList(tool.getTraits());
         return list.contains("melee") || list.contains("ammo");
     }
 }

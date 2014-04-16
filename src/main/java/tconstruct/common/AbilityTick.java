@@ -22,13 +22,16 @@ public class AbilityTick implements ITickHandler
     {
         for (TPlayerStats stats : TConstruct.playerTracker.playerStats.values())
         {
-            EntityPlayer player = stats.player.get();
-            double motionX = player.posX - player.lastTickPosX;
-            double motionZ = player.posZ - player.lastTickPosZ;
-            double motionY = player.posY - player.lastTickPosY; 
-            if (motionY > 0.0D && (motionX == 0D || motionZ == 0D))
+            if (stats.climbWalls)
             {
-                player.fallDistance = 0.0F;
+                EntityPlayer player = stats.player.get();
+                double motionX = player.posX - player.lastTickPosX;
+                double motionZ = player.posZ - player.lastTickPosZ;
+                double motionY = player.posY - player.lastTickPosY;
+                if (motionY > 0.0D && (motionX == 0D || motionZ == 0D))
+                {
+                    player.fallDistance = 0.0F;
+                }
             }
         }
     }

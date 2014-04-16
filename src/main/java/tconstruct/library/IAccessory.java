@@ -4,5 +4,5 @@ import net.minecraft.item.ItemStack;
 
 public interface IAccessory
 {
-    public boolean canEquipItem (ItemStack item, int slot);
+    public boolean canEquipAccessory (ItemStack item, int slot);
 }

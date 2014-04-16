@@ -2,6 +2,7 @@ package tconstruct.modifiers.armor;
 
 import java.util.EnumSet;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.armor.AModInteger;
@@ -18,6 +19,9 @@ public class AModDoubleJump extends AModInteger
     @Override
     protected boolean canModify (ItemStack armor, ItemStack[] input)
     {
+        Item i = armor.getItem();
+        if (!(i instanceof ArmorCore))
+            return false;
         ArmorCore item = (ArmorCore) armor.getItem();
         if (armorTypes.contains(item.armorPart))
         {

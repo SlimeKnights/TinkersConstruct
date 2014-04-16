@@ -32,7 +32,7 @@ public class Knapsack extends CraftingItem implements IAccessory
     }
 
     @Override
-    public boolean canEquipItem (ItemStack item, int slot)
+    public boolean canEquipAccessory (ItemStack item, int slot)
     {
         return slot == 2;
     }

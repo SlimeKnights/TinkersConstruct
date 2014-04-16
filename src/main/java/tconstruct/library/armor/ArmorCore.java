@@ -48,6 +48,13 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
     {
         return "Armor";
     }
+    
+    @Override
+    public String[] getTraits ()
+    {
+        // TODO Auto-generated method stub
+        return new String[] {"armor"};
+    }
 
     public ItemStack onItemRightClick (ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {

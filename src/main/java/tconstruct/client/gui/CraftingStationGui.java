@@ -108,7 +108,7 @@ public class CraftingStationGui extends GuiContainer
 
     void drawModularToolStats (ItemStack stack, ToolCore tool, NBTTagCompound tags)
     {
-        List categories = Arrays.asList(tool.toolCategories());
+        List categories = Arrays.asList(tool.getTraits());
         final int durability = tags.getInteger("Damage");
         final int maxDur = tags.getInteger("TotalDurability");
         int availableDurability = maxDur - durability;

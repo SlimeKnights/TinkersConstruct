@@ -148,7 +148,7 @@ public class Battleaxe extends HarvestTool
     }
 
     @Override
-    public String[] toolCategories ()
+    public String[] getTraits ()
     {
         return new String[] { "weapon", "harvest", "melee", "slicing" };
     }

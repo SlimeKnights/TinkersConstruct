@@ -6,6 +6,7 @@ import java.util.UUID;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import tconstruct.library.IModifyable;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.ArmorModTypeFilter;
 import tconstruct.library.armor.EnumArmorPart;
@@ -22,11 +23,16 @@ public class AModMoveSpeed extends ArmorModTypeFilter
     }
 
     @Override
-    protected boolean canModify (ItemStack tool, ItemStack[] input)
+    protected boolean canModify (ItemStack input, ItemStack[] modifiers)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName(tool));
-        int amount = matchingAmount(input);
-        return tags.getInteger("Modifiers") >= amount;
+        IModifyable imod = (IModifyable) input.getItem();
+        if (imod.getModifyType().equals("Armor"))
+        {
+            NBTTagCompound tags = input.getTagCompound().getCompoundTag(getTagName(input));
+            int amount = matchingAmount(modifiers);
+            return tags.getInteger("Modifiers") >= amount;
+        }
+        return false;
     }
 
     @Override

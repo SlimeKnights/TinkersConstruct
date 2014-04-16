@@ -8,4 +8,6 @@ public interface IModifyable
     public String getBaseTag();
     
     public String getModifyType();
+    
+    public String[] getTraits();
 }

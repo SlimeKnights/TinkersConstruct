@@ -66,24 +66,17 @@ public class StencilTableGui extends GuiContainer
         int cornerY = (this.height - this.ySize) / 2;
 
         this.buttonList.clear();
-        /*ToolGuiElement repair = TConstruct.toolButtons.get(0);
-        GuiButtonTool repairButton = new GuiButtonTool(0, cornerX - 110, cornerY, repair.buttonIconX, repair.buttonIconY, repair.texture); // Repair
-        repairButton.enabled = false;
-        this.buttonList.add(repairButton);*/
-        this.buttonList.add(new GuiButton(0, cornerX - 120, cornerY, 120, 20, (StatCollector.translateToLocal("gui.stenciltable1"))));
-        this.buttonList.add(new GuiButton(1, cornerX - 120, cornerY + 20, 120, 20, (StatCollector.translateToLocal("gui.stenciltable2"))));
-
-        //for (int iter = 0; iter < TConstructContent.patternOutputs.length; iter++)
-        //{
-
-        /*ToolGuiElement element = TConstruct.toolButtons.get(iter);
-        GuiButtonTool button = new GuiButtonTool(iter, cornerX - 110 + 22 * (iter % 5), cornerY + 22 * (iter / 5), element.buttonIconX, element.buttonIconY, element.texture); // Repair
-        this.buttonList.add(button);*/
-        //}
+        this.buttonList.add(new GuiButtonItem(0, cornerX - 110, cornerY, new ItemStack(TContent.toolRod, 1, 0)));
+        this.buttonList.add(new GuiButtonItem(1, cornerX - 88, cornerY, new ItemStack(TContent.pickaxeHead, 1, 0)));
+        this.buttonList.add(new GuiButtonItem(2, cornerX - 66, cornerY, new ItemStack(TContent.binding, 1, 0)));
+        this.buttonList.add(new GuiButtonItem(3, cornerX - 44, cornerY, new ItemStack(TContent.shovelHead, 1, 0)));
+        this.buttonList.add(new GuiButtonItem(4, cornerX - 22, cornerY, new ItemStack(TContent.hatchetHead, 1, 0)));
+        /*this.buttonList.add(new GuiButton(0, cornerX - 120, cornerY, 120, 20, (StatCollector.translateToLocal("gui.stenciltable1"))));
+        this.buttonList.add(new GuiButton(1, cornerX - 120, cornerY + 20, 120, 20, (StatCollector.translateToLocal("gui.stenciltable2"))));*/
     }
 
     protected void actionPerformed (GuiButton button)
-    {
+    {        
         ItemStack pattern = logic.getStackInSlot(0);
         if (pattern != null && pattern.getItem() == TContent.blankPattern)
         {

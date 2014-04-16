@@ -192,7 +192,7 @@ public class ArmorExtended implements IInventory
                 }
             }
         }
-        
+
         if (inventory[1] != null)
         {
             AttributeInstance attributeinstance = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.attackDamage);
@@ -205,7 +205,13 @@ public class ArmorExtended implements IInventory
             {
             }
 
-            attributeinstance.applyModifier(new AttributeModifier(attackID, "tconstruct.glove", 30, 0));
+            if (inventory[1].hasTagCompound())
+            {
+                NBTTagCompound tag = inventory[1].getTagCompound().getCompoundTag("TinkerAccessory");
+                stats.mineSpeed = tag.getInteger("MiningSpeed");
+                stats.climbWalls = tag.getBoolean("WallClimb");
+                attributeinstance.applyModifier(new AttributeModifier(attackID, "tconstruct.glove", tag.getInteger("Attack"), 0));
+            }
         }
         else
         {
@@ -217,6 +223,8 @@ public class ArmorExtended implements IInventory
             catch (Exception e)
             {
             }
+            stats.mineSpeed = 0;
+            stats.climbWalls = false;
         }
     }
 

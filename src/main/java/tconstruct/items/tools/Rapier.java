@@ -116,4 +116,10 @@ public class Rapier extends Weapon
     {
         return none;
     }
+    
+    @Override
+    public String[] getTraits ()
+    {
+        return new String[] { "weapon", "melee", "piercing" };
+    }
 }

@@ -84,7 +84,7 @@ public class Arrow extends ToolCore
     }
 
     @Override
-    public String[] toolCategories ()
+    public String[] getTraits ()
     {
         return new String[] { "ammo" };
     }

@@ -71,7 +71,7 @@ public class Shortbow extends BowBase
     }
 
     @Override
-    public String[] toolCategories ()
+    public String[] getTraits ()
     {
         return new String[] { "weapon", "ranged", "bow" };
     }

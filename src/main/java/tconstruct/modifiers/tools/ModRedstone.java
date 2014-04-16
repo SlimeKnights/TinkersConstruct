@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.tools.ToolCore;
 
-public class ModRedstone extends ToolModTypeFilter
+public class ModRedstone extends ItemModTypeFilter
 {
     String tooltipName;
     int max = 50;
@@ -22,23 +22,25 @@ public class ModRedstone extends ToolModTypeFilter
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        ToolCore toolItem = (ToolCore) tool.getItem();
-        if (!validType(toolItem))
-            return false;
+        if (tool.getItem() instanceof ToolCore)
+        {
+            ToolCore toolItem = (ToolCore) tool.getItem();
+            if (!validType(toolItem))
+                return false;
 
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
-        if (!tags.hasKey(key))
-            return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
+            NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+            if (!tags.hasKey(key))
+                return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
 
-        int keyPair[] = tags.getIntArray(key);
-        if (keyPair[0] + matchingAmount(input) <= keyPair[1])
-            return true;
+            int keyPair[] = tags.getIntArray(key);
+            if (keyPair[0] + matchingAmount(input) <= keyPair[1])
+                return true;
 
-        else if (keyPair[0] == keyPair[1])
-            return tags.getInteger("Modifiers") > 0;
+            else if (keyPair[0] == keyPair[1])
+                return tags.getInteger("Modifiers") > 0;
+        }
 
-        else
-            return false;
+        return false;
     }
 
     @Override
@@ -82,7 +84,7 @@ public class ModRedstone extends ToolModTypeFilter
         }
 
         int miningSpeed = tags.getInteger("MiningSpeed");
-        int boost = 8 + ((current-1) / 50 * 2);
+        int boost = 8 + ((current - 1) / 50 * 2);
         Item temp = tool.getItem();
         if (temp instanceof ToolCore)
         {
@@ -94,7 +96,7 @@ public class ModRedstone extends ToolModTypeFilter
             if (toolcore.durabilityTypeExtra() == 2)
                 boost += 2;
         }
-        System.out.println("Boost: "+boost);
+
         miningSpeed += (increase * boost);
         tags.setInteger("MiningSpeed", miningSpeed);
 
@@ -128,7 +130,7 @@ public class ModRedstone extends ToolModTypeFilter
 
     public boolean validType (ToolCore tool)
     {
-        List list = Arrays.asList(tool.toolCategories());
+        List list = Arrays.asList(tool.getTraits());
         return list.contains("harvest") || list.contains("utility") || list.contains("bow");
     }
 }
