@@ -14,41 +14,41 @@ public class TFoodStats extends FoodStats
     
     public TFoodStats(FoodStats fs)
     {
-        this.foodLevel = fs.foodLevel;
-        this.foodSaturationLevel = fs.foodSaturationLevel;
+        this.setFoodLevel(foodTimer);
+        this.setFoodSaturationLevel(fs.getSaturationLevel());
         this.foodExhaustionLevel = fs.foodExhaustionLevel;
         this.foodTimer = fs.foodTimer;
-        this.prevFoodLevel = fs.prevFoodLevel;
+        this.prevFoodLevel = fs.getPrevFoodLevel();
     }
     
     @Override
     public void addStats (int par1, float par2)
     {
-        this.foodLevel = par1 + this.foodLevel;//Math.min(par1 + this.foodLevel, maxFoodLevel);
-        this.foodSaturationLevel = Math.min(this.foodSaturationLevel + (float) par1 * par2 * 2.0F, (float) this.foodLevel);
+        this.setFoodLevel(par1 + this.getFoodLevel());//Math.min(par1 + this.foodLevel, maxFoodLevel);
+        this.setFoodSaturationLevel(Math.min(this.getSaturationLevel() + (float) par1 * par2 * 2.0F, (float) this.getFoodLevel()));
     }
     
     @Override
     public void onUpdate (EntityPlayer par1EntityPlayer)
     {
         int i = par1EntityPlayer.worldObj.difficultySetting;
-        this.prevFoodLevel = this.foodLevel;
+        this.prevFoodLevel = this.getFoodLevel();
 
         if (this.foodExhaustionLevel > foodExhaustionThreshold)
         {
             this.foodExhaustionLevel -= foodExhaustionThreshold;
 
-            if (this.foodSaturationLevel > 0.0F)
+            if (this.getSaturationLevel() > 0.0F)
             {
-                this.foodSaturationLevel = Math.max(this.foodSaturationLevel - 1.0F, 0.0F);
+                this.setFoodSaturationLevel(Math.max(this.getSaturationLevel() - 1.0F, 0.0F));
             }
             else if (i > 0)
             {
-                this.foodLevel = Math.max(this.foodLevel - 1, 0);
+                this.setFoodLevel(Math.max(this.getFoodLevel() - 1, 0));
             }
         }
 
-        if (par1EntityPlayer.shouldHeal() && par1EntityPlayer.worldObj.getGameRules().getGameRuleBooleanValue("naturalRegeneration") && this.foodLevel >= 18)
+        if (par1EntityPlayer.shouldHeal() && par1EntityPlayer.worldObj.getGameRules().getGameRuleBooleanValue("naturalRegeneration") && this.getFoodLevel() >= 18)
         {
             ++this.foodTimer;
 
@@ -59,7 +59,7 @@ public class TFoodStats extends FoodStats
                 this.foodTimer = 0;
             }
         }
-        else if (this.foodLevel <= 0)
+        else if (this.getFoodLevel() <= 0)
         {
             ++this.foodTimer;
 
@@ -82,7 +82,7 @@ public class TFoodStats extends FoodStats
     @Override
     public boolean needFood ()
     {
-        return this.foodLevel < maxFoodLevel;
+        return this.getFoodLevel() < maxFoodLevel;
     }
     
     public void setMaxFoodLevel(int food)
