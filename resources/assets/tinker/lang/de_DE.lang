@@ -273,6 +273,11 @@ item.tconstruct.exoChest.name=Exo-Brustteil
 item.tconstruct.exoPants.name=Exo-Beine
 item.tconstruct.exoShoes.name=Exo-Schuhe
 
+item.tconstruct.travelgoggles.name=Reisebrille
+item.tconstruct.travelwings.name=Reiseflügel
+item.tconstruct.travelgloves.name=Reisehandschuhe
+item.tconstruct.travelboots.name=Reisestiefel
+
 item.tconstruct.jerky.beef.name=Rindfleisch-Charqui
 item.tconstruct.jerky.pig.name=Schweinefleisch-Charqui
 item.tconstruct.jerky.chicken.name=Hühnchen-Charqui
