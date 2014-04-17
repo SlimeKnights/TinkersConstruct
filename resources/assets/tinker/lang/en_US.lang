@@ -160,6 +160,8 @@ item.InfiTool.Arrow.name=Arrow
 item.InfiTool.PotionLauncher.name=Potion Launcher
 item.InfiTool.Mattock.name=Mattock
 
+item.tool.randomarrow=Random Streamer
+
 item.tconstruct.Pattern.blank_pattern.name=Blank Pattern
 item.tconstruct.Pattern.rod.name=Tool Rod Pattern
 item.tconstruct.Pattern.pickaxe.name=Pickaxe Head Pattern
@@ -695,7 +697,12 @@ smeltery.drain.tooltip2=fluids in the Smeltery
 smeltery.brick.tooltip1=Smeltery structure block
 smeltery.brick.tooltip2=(Safe for decoration)
 
-gui.smeltery1=Fuel
+gui.smeltery.fuel=Fuel
+gui.smeltery.emerald=Emeralds: 
+gui.smeltery.glass.block=Blocks: 
+gui.smeltery.glass.pannel=Pannels: 
+gui.smeltery.metal.ingot=Ingots: 
+gui.smeltery.metal.nugget=Nuggets: 
 gui.landmine=Landmine
 gui.partcrafter1=Tool Part Crafting
 gui.partcrafter2=Tool Part Building
@@ -735,6 +742,67 @@ gui.toolstation15=Mining Level:
 gui.toolstation16=Usage Speed: 
 gui.toolstation17=Modifiers
 gui.toolstation18=Modifiers remaining: 
+
+gui.partbuilder.material.wood=Wood
+gui.partbuilder.material.stone=Stone
+gui.partbuilder.material.iron=Iron
+gui.partbuilder.material.flint=Flint
+gui.partbuilder.material.cactus=Cactus
+gui.partbuilder.material.bone=Bone
+gui.partbuilder.material.obsidian=Obsidian
+gui.partbuilder.material.netherrack=Netherrack
+gui.partbuilder.material.slime=Slime
+gui.partbuilder.material.paper=Paper
+gui.partbuilder.material.blueslime=BlueSlime
+gui.partbuilder.material.cobalt=Cobalt
+gui.partbuilder.material.ardite=Ardite
+gui.partbuilder.material.manyullyn=Manyullyn
+gui.partbuilder.material.copper=Copper
+gui.partbuilder.material.bronze=Bronze
+gui.partbuilder.material.alumite=Alumite
+gui.partbuilder.material.steel=Steel
+gui.partbuilder.material.pigiron=Pigiron
+gui.partbuilder.material.thaumium=Thaumium
+
+gui.modifier.blaze=Blaze
+gui.modifier.silk=Silk Touch
+gui.modifier.lapis=Luck
+gui.modifier.redstone=Redstone
+gui.modifier.diamond=Diamond
+gui.modifier.emerald=Emerald
+gui.modifier.moss=Moss
+gui.modifier.lava=Lava
+gui.modifier.necro=Necrotic
+gui.modifier.spider=Anti-Spider
+gui.modifier.quartz=Quartz
+
+modifier.armour.jump.double=Double-Jump
+modifier.armour.jump.triple=Triple-Jump
+modifier.armour.jump.quad=Quadruple-Jump
+modifier.armour.protection=
+modifier.tool.spider=Bane of Arthropods
+modifier.tool.quartz=Sharpness
+modifier.tool.blaze=Fiery
+modifier.tool.silk=Silky
+mofifier.tool.flux=Flux
+modifier.tool.lapis=Luck
+modifier.tool.piston=Knockback
+modifier.tool.redstone=Haste
+modifier.tool.reinforced=Reinforced
+modifier.tool.unbreaking=
+modifier.tool.smite=Smite
+modifier.tool.diamond=Durability +500
+modifier.tool.emerald=Durability +50%
+modifier.tool.moss=Auto-Repair
+modifier.tool.lava=Auto-Smelt
+modifier.tool.necro=Life Steal
+modifier.tool.beheading=Beheading
+
+materialtraits.stonebound=Stonebound
+materialtraits.jagged=Jagged
+materialtraits.writable=Writable
+materialtraits.tasty=Tasty
+materialtraits.thaumic=Thaumic
 
 creativeModLock.tooltip=Target Lock: 
 

@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.tools.ToolCore;
+import net.minecraft.util.StatCollector;
 
 public class ModAttack extends ToolModTypeFilter
 {
@@ -16,7 +17,7 @@ public class ModAttack extends ToolModTypeFilter
     public ModAttack(String type, int effect, ItemStack[] items, int[] value)
     {
         super(effect, "ModAttack", items, value);
-        tooltipName = "\u00a7fSharpness";
+        tooltipName = "\u00a7f" + StatCollector.translateToLocal("modifier.tool.quartz");
         guiType = type;
     }
 

@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.stats.Achievement;
+import net.minecraft.util.StatCollector;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.util.EnumHelper;
@@ -745,24 +746,24 @@ public class TContent implements IFuelHandler
     void registerMaterials ()
     {
         TConstructRegistry.addToolMaterial(0, "Wood", "Wooden ", 0, 59, 200, 0, 1.0F, 0, 0f, "\u00A7e", "");
-        TConstructRegistry.addToolMaterial(1, "Stone", 1, 131, 400, 1, 0.5F, 0, 1f, "", "Stonebound");
+        TConstructRegistry.addToolMaterial(1, "Stone", 1, 131, 400, 1, 0.5F, 0, 1f, "", StatCollector.translateToLocal("materialtraits.stonebound"));
         TConstructRegistry.addToolMaterial(2, "Iron", 2, 250, 600, 2, 1.3F, 1, 0f, "\u00A7f", "");
         TConstructRegistry.addToolMaterial(3, "Flint", 1, 171, 525, 2, 0.7F, 0, 0f, "\u00A78", "");
-        TConstructRegistry.addToolMaterial(4, "Cactus", 1, 150, 500, 2, 1.0F, 0, -1f, "\u00A72", "Jagged");
+        TConstructRegistry.addToolMaterial(4, "Cactus", 1, 150, 500, 2, 1.0F, 0, -1f, "\u00A72", StatCollector.translateToLocal("materialtraits.jagged"));
         TConstructRegistry.addToolMaterial(5, "Bone", 1, 200, 400, 1, 1.0F, 0, 0f, "\u00A7e", "");
         TConstructRegistry.addToolMaterial(6, "Obsidian", 3, 89, 700, 2, 0.8F, 3, 0f, "\u00A7d", "");
-        TConstructRegistry.addToolMaterial(7, "Netherrack", 2, 131, 400, 1, 1.2F, 0, 1f, "\u00A74", "Stonebound");
+        TConstructRegistry.addToolMaterial(7, "Netherrack", 2, 131, 400, 1, 1.2F, 0, 1f, "\u00A74", StatCollector.translateToLocal("materialtraits.stonebound"));
         TConstructRegistry.addToolMaterial(8, "Slime", 0, 500, 150, 0, 1.5F, 0, 0f, "\u00A7a", "");
-        TConstructRegistry.addToolMaterial(9, "Paper", 0, 30, 200, 0, 0.3F, 0, 0f, "\u00A7f", "Writable");
+        TConstructRegistry.addToolMaterial(9, "Paper", 0, 30, 200, 0, 0.3F, 0, 0f, "\u00A7f", StatCollector.translateToLocal("materialtraits.writable"));
         TConstructRegistry.addToolMaterial(10, "Cobalt", 4, 800, 1100, 3, 1.75F, 2, 0f, "\u00A73", "");
-        TConstructRegistry.addToolMaterial(11, "Ardite", 4, 600, 800, 3, 2.0F, 0, 2f, "\u00A74", "Stonebound");
+        TConstructRegistry.addToolMaterial(11, "Ardite", 4, 600, 800, 3, 2.0F, 0, 2f, "\u00A74", StatCollector.translateToLocal("materialtraits.stonebound"));
         TConstructRegistry.addToolMaterial(12, "Manyullyn", 5, 1200, 900, 4, 2.5F, 0, 0f, "\u00A75", "");
         TConstructRegistry.addToolMaterial(13, "Copper", 1, 180, 500, 2, 1.15F, 0, 0f, "\u00A7c", "");
         TConstructRegistry.addToolMaterial(14, "Bronze", 2, 350, 700, 2, 1.3F, 1, 0f, "\u00A76", "");
         TConstructRegistry.addToolMaterial(15, "Alumite", 4, 550, 800, 3, 1.3F, 2, 0f, "\u00A7d", "");
         TConstructRegistry.addToolMaterial(16, "Steel", 4, 750, 800, 3, 1.3F, 2, 0f, "", "");
         TConstructRegistry.addToolMaterial(17, "BlueSlime", "Slime ", 0, 1200, 150, 0, 2.0F, 0, 0f, "\u00A7b", "");
-        TConstructRegistry.addToolMaterial(18, "PigIron", "Pig Iron ", 3, 250, 600, 2, 1.3F, 1, 0f, "\u00A7c", "Tasty");
+        TConstructRegistry.addToolMaterial(18, "PigIron", "Pig Iron ", 3, 250, 600, 2, 1.3F, 1, 0f, "\u00A7c", StatCollector.translateToLocal("materialtraits.tasty"));
 
         TConstructRegistry.addBowMaterial(0, 384, 20, 1.0f); // Wood
         TConstructRegistry.addBowMaterial(1, 10, 80, 0.2f); // Stone
@@ -815,55 +816,55 @@ public class TContent implements IFuelHandler
 
         PatternBuilder pb = PatternBuilder.instance;
         if (PHConstruct.enableTWood)
-            pb.registerFullMaterial(Blocks.planks, 2, "Wood", new ItemStack(Items.stick), new ItemStack(Items.stick), 0);
+            pb.registerFullMaterial(Blocks.planks, 2, StatCollector.translateToLocal("gui.partbuilder.material.wood"), new ItemStack(Items.stick), new ItemStack(Items.stick), 0);
         else
-            pb.registerMaterialSet("Wood", new ItemStack(Items.stick, 2), new ItemStack(Items.stick), 0);
+            pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.wood"), new ItemStack(Items.stick, 2), new ItemStack(Items.stick), 0);
         if (PHConstruct.enableTStone)
         {
-            pb.registerFullMaterial(Blocks.stone, 2, "Stone", new ItemStack(TRepo.toolShard, 1, 1), new ItemStack(TRepo.toolRod, 1, 1), 1);
-            pb.registerMaterial(Blocks.cobblestone, 2, "Stone");
+            pb.registerFullMaterial(Blocks.stone, 2, StatCollector.translateToLocal("gui.partbuilder.material.stone"), new ItemStack(TRepo.toolShard, 1, 1), new ItemStack(TRepo.toolRod, 1, 1), 1);
+            pb.registerMaterial(Blocks.cobblestone, 2, StatCollector.translateToLocal("gui.partbuilder.material.stone"));
         }
         else
-            pb.registerMaterialSet("Stone", new ItemStack(TRepo.toolShard, 1, 1), new ItemStack(TRepo.toolRod, 1, 1), 0);
-        pb.registerFullMaterial(Items.iron_ingot, 2, "Iron", new ItemStack(TRepo.toolShard, 1, 2), new ItemStack(TRepo.toolRod, 1, 2), 2);
+            pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.stone"), new ItemStack(TRepo.toolShard, 1, 1), new ItemStack(TRepo.toolRod, 1, 1), 0);
+        pb.registerFullMaterial(Items.iron_ingot, 2, StatCollector.translateToLocal("gui.partbuilder.material.iron"), new ItemStack(TRepo.toolShard, 1, 2), new ItemStack(TRepo.toolRod, 1, 2), 2);
         if (PHConstruct.enableTFlint)
-            pb.registerFullMaterial(Items.flint, 2, "Flint", new ItemStack(TRepo.toolShard, 1, 3), new ItemStack(TRepo.toolRod, 1, 3), 3);
+            pb.registerFullMaterial(Items.flint, 2, StatCollector.translateToLocal("gui.partbuilder.material.flint"), new ItemStack(TRepo.toolShard, 1, 3), new ItemStack(TRepo.toolRod, 1, 3), 3);
         else
-            pb.registerMaterialSet("Flint", new ItemStack(TRepo.toolShard, 1, 3), new ItemStack(TRepo.toolRod, 1, 3), 3);
+            pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.flint"), new ItemStack(TRepo.toolShard, 1, 3), new ItemStack(TRepo.toolRod, 1, 3), 3);
         if (PHConstruct.enableTCactus)
-            pb.registerFullMaterial(Blocks.cactus, 2, "Cactus", new ItemStack(TRepo.toolShard, 1, 4), new ItemStack(TRepo.toolRod, 1, 4), 4);
+            pb.registerFullMaterial(Blocks.cactus, 2, StatCollector.translateToLocal("gui.partbuilder.material.cactus"), new ItemStack(TRepo.toolShard, 1, 4), new ItemStack(TRepo.toolRod, 1, 4), 4);
         else
-            pb.registerMaterialSet("Cactus", new ItemStack(TRepo.toolShard, 1, 4), new ItemStack(TRepo.toolRod, 1, 4), 4);
+            pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.cactus"), new ItemStack(TRepo.toolShard, 1, 4), new ItemStack(TRepo.toolRod, 1, 4), 4);
         if (PHConstruct.enableTBone)
-            pb.registerFullMaterial(Items.bone, 2, "Bone", new ItemStack(Items.dye, 1, 15), new ItemStack(Items.bone), 5);
+            pb.registerFullMaterial(Items.bone, 2, StatCollector.translateToLocal("gui.partbuilder.material.bone"), new ItemStack(Items.dye, 1, 15), new ItemStack(Items.bone), 5);
         else
-            pb.registerMaterialSet("Bone", new ItemStack(Items.dye, 1, 15), new ItemStack(Items.bone), 5);
-        pb.registerFullMaterial(Blocks.obsidian, 2, "Obsidian", new ItemStack(TRepo.toolShard, 1, 6), new ItemStack(TRepo.toolRod, 1, 6), 6);
-        pb.registerMaterial(new ItemStack(TRepo.materials, 1, 18), 2, "Obsidian");
+            pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.bone"), new ItemStack(Items.dye, 1, 15), new ItemStack(Items.bone), 5);
+        pb.registerFullMaterial(Blocks.obsidian, 2, StatCollector.translateToLocal("gui.partbuilder.material.obsidian"), new ItemStack(TRepo.toolShard, 1, 6), new ItemStack(TRepo.toolRod, 1, 6), 6);
+        pb.registerMaterial(new ItemStack(TRepo.materials, 1, 18), 2, StatCollector.translateToLocal("gui.partbuilder.material.obsidian"));
         if (PHConstruct.enableTNetherrack)
-            pb.registerFullMaterial(Blocks.netherrack, 2, "Netherrack", new ItemStack(TRepo.toolShard, 1, 7), new ItemStack(TRepo.toolRod, 1, 7), 7);
+            pb.registerFullMaterial(Blocks.netherrack, 2, StatCollector.translateToLocal("gui.partbuilder.material.netherrack"), new ItemStack(TRepo.toolShard, 1, 7), new ItemStack(TRepo.toolRod, 1, 7), 7);
         else
-            pb.registerMaterialSet("Netherrack", new ItemStack(TRepo.toolShard, 1, 7), new ItemStack(TRepo.toolRod, 1, 7), 7);
+            pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.netherrack"), new ItemStack(TRepo.toolShard, 1, 7), new ItemStack(TRepo.toolRod, 1, 7), 7);
         if (PHConstruct.enableTSlime)
-            pb.registerFullMaterial(new ItemStack(TRepo.materials, 1, 1), 2, "Slime", new ItemStack(TRepo.toolShard, 1, 8), new ItemStack(TRepo.toolRod, 1, 8), 8);
+            pb.registerFullMaterial(new ItemStack(TRepo.materials, 1, 1), 2, StatCollector.translateToLocal("gui.partbuilder.material.slime"), new ItemStack(TRepo.toolShard, 1, 8), new ItemStack(TRepo.toolRod, 1, 8), 8);
         else
-            pb.registerMaterialSet("Slime", new ItemStack(TRepo.toolShard, 1, 8), new ItemStack(TRepo.toolRod, 1, 17), 8);
+            pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.slime"), new ItemStack(TRepo.toolShard, 1, 8), new ItemStack(TRepo.toolRod, 1, 17), 8);
         if (PHConstruct.enableTPaper)
-            pb.registerFullMaterial(new ItemStack(TRepo.materials, 1, 0), 2, "Paper", new ItemStack(Items.paper, 2), new ItemStack(TRepo.toolRod, 1, 9), 9);
+            pb.registerFullMaterial(new ItemStack(TRepo.materials, 1, 0), 2, StatCollector.translateToLocal("gui.partbuilder.material.paper"), new ItemStack(Items.paper, 2), new ItemStack(TRepo.toolRod, 1, 9), 9);
         else
-            pb.registerMaterialSet("BlueSlime", new ItemStack(Items.paper, 2), new ItemStack(TRepo.toolRod, 1, 9), 9);
-        pb.registerMaterialSet("Cobalt", new ItemStack(TRepo.toolShard, 1, 10), new ItemStack(TRepo.toolRod, 1, 10), 10);
-        pb.registerMaterialSet("Ardite", new ItemStack(TRepo.toolShard, 1, 11), new ItemStack(TRepo.toolRod, 1, 11), 11);
-        pb.registerMaterialSet("Manyullyn", new ItemStack(TRepo.toolShard, 1, 12), new ItemStack(TRepo.toolRod, 1, 12), 12);
-        pb.registerMaterialSet("Copper", new ItemStack(TRepo.toolShard, 1, 13), new ItemStack(TRepo.toolRod, 1, 13), 13);
-        pb.registerMaterialSet("Bronze", new ItemStack(TRepo.toolShard, 1, 14), new ItemStack(TRepo.toolRod, 1, 14), 14);
-        pb.registerMaterialSet("Alumite", new ItemStack(TRepo.toolShard, 1, 15), new ItemStack(TRepo.toolRod, 1, 15), 15);
-        pb.registerMaterialSet("Steel", new ItemStack(TRepo.toolShard, 1, 16), new ItemStack(TRepo.toolRod, 1, 16), 16);
+            pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.blueslime"), new ItemStack(Items.paper, 2), new ItemStack(TRepo.toolRod, 1, 9), 9);
+        pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.cobalt"), new ItemStack(TRepo.toolShard, 1, 10), new ItemStack(TRepo.toolRod, 1, 10), 10);
+        pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.ardite"), new ItemStack(TRepo.toolShard, 1, 11), new ItemStack(TRepo.toolRod, 1, 11), 11);
+        pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.manyullyn"), new ItemStack(TRepo.toolShard, 1, 12), new ItemStack(TRepo.toolRod, 1, 12), 12);
+        pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.copper"), new ItemStack(TRepo.toolShard, 1, 13), new ItemStack(TRepo.toolRod, 1, 13), 13);
+        pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.bronze"), new ItemStack(TRepo.toolShard, 1, 14), new ItemStack(TRepo.toolRod, 1, 14), 14);
+        pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.alumite"), new ItemStack(TRepo.toolShard, 1, 15), new ItemStack(TRepo.toolRod, 1, 15), 15);
+        pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.steel"), new ItemStack(TRepo.toolShard, 1, 16), new ItemStack(TRepo.toolRod, 1, 16), 16);
         if (PHConstruct.enableTBlueSlime)
-            pb.registerFullMaterial(new ItemStack(TRepo.materials, 1, 17), 2, "BlueSlime", new ItemStack(TRepo.toolShard, 1, 17), new ItemStack(TRepo.toolRod, 1, 17), 17);
+            pb.registerFullMaterial(new ItemStack(TRepo.materials, 1, 17), 2, StatCollector.translateToLocal("gui.partbuilder.material.blueslime"), new ItemStack(TRepo.toolShard, 1, 17), new ItemStack(TRepo.toolRod, 1, 17), 17);
         else
-            pb.registerMaterialSet("BlueSlime", new ItemStack(TRepo.toolShard, 1, 17), new ItemStack(TRepo.toolRod, 1, 17), 17);
-        pb.registerFullMaterial(new ItemStack(TRepo.materials, 1, 34), 2, "PigIron", new ItemStack(TRepo.toolShard, 1, 18), new ItemStack(TRepo.toolRod, 1, 18), 18);
+            pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.blueslime"), new ItemStack(TRepo.toolShard, 1, 17), new ItemStack(TRepo.toolRod, 1, 17), 17);
+        pb.registerFullMaterial(new ItemStack(TRepo.materials, 1, 34), 2, StatCollector.translateToLocal("gui.partbuilder.material.pigiron"), new ItemStack(TRepo.toolShard, 1, 18), new ItemStack(TRepo.toolRod, 1, 18), 18);
 
         pb.addToolPattern((IPattern) TRepo.woodPattern);
     }

@@ -12,6 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.Weapon;
+import net.minecraft.util.StatCollector;
 
 public class ModLapis extends ToolModTypeFilter
 {
@@ -21,7 +22,7 @@ public class ModLapis extends ToolModTypeFilter
     public ModLapis(int effect, ItemStack[] items, int[] values)
     {
         super(effect, "Lapis", items, values);
-        tooltipName = "\u00a79Luck";
+        tooltipName = "\u00a79" + StatCollector.translateToLocal("modifier.tool.lapis");
     }
 
     @Override
@@ -55,7 +56,7 @@ public class ModLapis extends ToolModTypeFilter
             tags.setBoolean(key, true);
 
             String modName = "\u00a79Lapis (0/450)";
-            int tooltipIndex = addToolTip(tool, "\u00a79Luck", modName);
+            int tooltipIndex = addToolTip(tool, "\u00a79" + StatCollector.translateToLocal("modifier.tool.lapis"), modName);
             int[] keyPair = new int[] { 0, tooltipIndex };
             tags.setIntArray(key, keyPair);
 
@@ -202,7 +203,7 @@ public class ModLapis extends ToolModTypeFilter
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         String tip = "ModifierTip" + keys[1];
-        String modName = "\u00a79Lapis (" + keys[0] + "/" + max + ")";
+        String modName = "\u00a79" + StatCollector.translateToLocal("gui.modifier.lapis") + (" + keys[0] + "/" + max + ");
         tags.setString(tip, modName);
     }
 

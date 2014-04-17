@@ -2,6 +2,7 @@ package tconstruct.modifiers.tools;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 
 public class ModSmite extends ToolModTypeFilter
 {
@@ -12,7 +13,7 @@ public class ModSmite extends ToolModTypeFilter
     public ModSmite(String type, int effect, ItemStack[] items, int[] values)
     {
         super(effect, "ModSmite", items, values);
-        tooltipName = "\u00a7eSmite";
+        tooltipName = "\u00a7e" + StatCollector.translateToLocal("modifier.tool.smite");
         tagName = type;
     }
 

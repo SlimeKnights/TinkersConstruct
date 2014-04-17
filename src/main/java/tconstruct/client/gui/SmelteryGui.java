@@ -278,7 +278,7 @@ public class SmelteryGui extends NewContainerGui
         ArrayList list = new ArrayList();
         if (liquid.fluidID == -37)
         {
-            list.add("\u00A7f" + StatCollector.translateToLocal("gui.smeltery1"));
+            list.add("\u00A7f" + StatCollector.translateToLocal("gui.smeltery.fuel"));
             list.add("mB: " + liquid.amount);
         }
         else
@@ -287,16 +287,16 @@ public class SmelteryGui extends NewContainerGui
             list.add("\u00A7f" + name);
             if (name.equals("Liquified Emerald"))
             {
-                list.add("Emeralds: " + liquid.amount / 640f);
+                list.add(StatCollector.translateToLocal("gui.smeltery.emerald") + liquid.amount / 640f);
             }
             else if (name.equals("Molten Glass"))
             {
                 int blocks = liquid.amount / 1000;
                 if (blocks > 0)
-                    list.add("Blocks: " + blocks);
+                    list.add(StatCollector.translateToLocal("gui.smeltery.glass.block") + blocks);
                 int panels = (liquid.amount % 1000) / 250;
                 if (panels > 0)
-                    list.add("Panels: " + panels);
+                    list.add(StatCollector.translateToLocal("gui.smeltery.glass.pannel") + panels);
                 int mB = (liquid.amount % 1000) % 250;
                 if (mB > 0)
                     list.add("mB: " + mB);
@@ -305,14 +305,14 @@ public class SmelteryGui extends NewContainerGui
             {
                 int ingots = liquid.amount / TConstruct.ingotLiquidValue;
                 if (ingots > 0)
-                    list.add("Ingots: " + ingots);
+                    list.add(StatCollector.translateToLocal("gui.smeltery.metal.ingot") + ingots);
                 int mB = liquid.amount % TConstruct.ingotLiquidValue;
                 if (mB > 0)
                 {
                     int nuggets = mB / TConstruct.nuggetLiquidValue;
                     int junk = (mB % TConstruct.nuggetLiquidValue);
                     if (nuggets > 0)
-                        list.add("Nuggets: " + nuggets);
+                        list.add(StatCollector.translateToLocal("gui.smeltery.metal.nugget") + nuggets);
                     if (junk > 0)
                         list.add("mB: " + junk);
                 }
@@ -321,7 +321,7 @@ public class SmelteryGui extends NewContainerGui
             {
                 int ingots = liquid.amount / TConstruct.ingotLiquidValue;
                 if (ingots > 0)
-                    list.add("Blocks: " + ingots);
+                    list.add(StatCollector.translateToLocal("gui.smeltery.glass.block") + ingots);
                 int mB = liquid.amount % TConstruct.ingotLiquidValue;
                 if (mB > 0)
                     list.add("mB: " + mB);

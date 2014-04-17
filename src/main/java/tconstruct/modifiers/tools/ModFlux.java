@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.tools.ToolCore;
 import cofh.api.energy.IEnergyContainerItem;
+import net.minecraft.util.StatCollector;
 
 /* TE3 support */
 
@@ -16,7 +17,7 @@ public class ModFlux extends ModBoolean
 
     public ModFlux()
     {
-        super(new ItemStack[0], 9, "Flux", "\u00a7e", "");
+        super(new ItemStack[0], 9, StatCollector.translateToLocal("mofifier.tool.flux"), "\u00a7e", "");
     }
 
     @Override
