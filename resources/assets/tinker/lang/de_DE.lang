@@ -503,7 +503,7 @@ item.tconstruct.canister.miniheart.yellow.name=Gelbes Miniherz
 item.tconstruct.canister.yellow.name=Gelber Herzkanister
 item.tconstruct.canister.miniheart.green.name=Grünes Miniherz
 item.tconstruct.canister.green.name=Grüner Herzkanister
-item.tconstruct.glove.name=Handschuhe
+item.tconstruct.glove.name=Handschuh
 item.tconstruct.modifier.creative.name=Kreativ-Werkzeugmodifikator
 
 SearedBlock.Table.name=Gusstisch
