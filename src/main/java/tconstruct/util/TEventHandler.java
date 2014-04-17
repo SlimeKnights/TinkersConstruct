@@ -401,7 +401,7 @@ public class TEventHandler
 
         if (!event.entityLiving.isChild())
         {
-            /*if (event.entityLiving.getClass() == EntityCow.class)
+            /*if (EntityCow.class.isAssignableFrom(event.entityLiving.getClass()))
             {
                 int amount = random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + 1;
 
@@ -411,7 +411,7 @@ public class TEventHandler
                 }
             }*/
 
-            if (event.entityLiving.getClass() == EntityChicken.class)
+            if (EntityChicken.class.isAssignableFrom(event.entityLiving.getClass()))
             {
                 int amount = random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + 1;
 
@@ -424,7 +424,7 @@ public class TEventHandler
 
         if (event.recentlyHit)
         {
-            if (event.entityLiving.getClass() == EntitySkeleton.class)
+            if (EntitySkeleton.class.isAssignableFrom(event.entityLiving.getClass()))
             {
                 EntitySkeleton enemy = (EntitySkeleton) event.entityLiving;
 
@@ -449,7 +449,7 @@ public class TEventHandler
                 }
             }
 
-            if (event.entityLiving.getClass() == EntityZombie.class)
+            if (EntityZombie.class.isAssignableFrom(event.entityLiving.getClass()))
             {
                 EntityZombie enemy = (EntityZombie) event.entityLiving;
 
@@ -475,7 +475,7 @@ public class TEventHandler
                 }
             }
 
-            if (event.entityLiving.getClass() == EntityCreeper.class)
+            if (EntityCreeper.class.isAssignableFrom(event.entityLiving.getClass()))
             {
                 EntityCreeper enemy = (EntityCreeper) event.entityLiving;
 
@@ -497,7 +497,7 @@ public class TEventHandler
             }
         }
 
-        if (event.entityLiving.getClass() == EntityGhast.class)
+        if (EntityGhast.class.isAssignableFrom(event.entityLiving.getClass()))
         {
             if (PHConstruct.uhcGhastDrops)
             {
@@ -596,7 +596,7 @@ public class TEventHandler
     public void onLivingSpawn (LivingSpawnEvent.SpecialSpawn event)
     {
         EntityLivingBase living = event.entityLiving;
-        if (living.getClass() == EntitySpider.class && random.nextInt(100) == 0)
+        if (EntitySpider.class.isAssignableFrom(living.getClass()) && random.nextInt(100) == 0)
         {
             EntityCreeper creeper = new EntityCreeper(living.worldObj);
             spawnEntityLiving(living.posX, living.posY + 1, living.posZ, creeper, living.worldObj);
