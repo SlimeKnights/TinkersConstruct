@@ -766,7 +766,7 @@ gui.partbuilder.material.thaumium=Thaumium
 
 gui.modifier.blaze=Blaze
 gui.modifier.silk=Silk Touch
-gui.modifier.lapis=Luck
+gui.modifier.lapis=Lapis
 gui.modifier.redstone=Redstone
 gui.modifier.diamond=Diamond
 gui.modifier.emerald=Emerald
