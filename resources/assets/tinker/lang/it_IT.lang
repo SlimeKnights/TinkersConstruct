@@ -160,6 +160,8 @@ item.InfiTool.Arrow.name=Freccia
 item.InfiTool.PotionLauncher.name=Lanciatore di Pozioni
 item.InfiTool.Mattock.name=Zappa
 
+item.tool.randomarrow=Freccia Casuale
+
 item.tconstruct.Pattern.blank_pattern.name=Modello
 item.tconstruct.Pattern.rod.name=Modello per Manico
 item.tconstruct.Pattern.pickaxe.name=Modello per Testa di Piccone
@@ -609,6 +611,8 @@ achievement.tconstruct.smelteryMaker=Creatore di una Fonderia
 achievement.tconstruct.preparedFight=Preparato a Combattere
 achievement.tconstruct.enemySlayer=Uccisore di Nemici
 achievement.tconstruct.dualConvenience=Duo Conveniente
+achievement.tconstruct.doingItWrong=Stai Sbagliando
+achievement.tconstruct.betterCrafting=Crafting Migliore
 
 achievement.tconstruct.beginner.desc=Apri il tuo manuale "Materiali e Tu"
 achievement.tconstruct.pattern.desc=Crea il tuo primo modello
@@ -618,6 +622,8 @@ achievement.tconstruct.smelteryMaker.desc=Crea un componente della fonderia
 achievement.tconstruct.preparedFight.desc=Crea la tua prima arma
 achievement.tconstruct.enemySlayer.desc=Uccidi un mob
 achievement.tconstruct.convenientDuo=Uccidi un mob con una padella, e cuoci la sua carne in questa
+achievement.tconstruct.doingItWrong.desc=Lo stai facendo nel modo sbagliato!
+achievement.tconstruct.betterCrafting.desc=Crea un Tavolo da Lavoro mettendo un Banco da Lavoro nella griglia di crafting
 
 armortype.ExoArmor=Exo-Armatura
 
@@ -693,7 +699,12 @@ smeltery.drain.tooltip2=uscita per fluidi nella Fonderia
 smeltery.brick.tooltip1=Blocco per la Fonderia
 smeltery.brick.tooltip2=(Usabile anche come decorazione)
 
-gui.smeltery1=Carburante
+gui.smeltery.fuel=Carburante
+gui.smeltery.emerald=Smeraldi: 
+gui.smeltery.glass.block=Blocchi: 
+gui.smeltery.glass.pannel=Pannelli: 
+gui.smeltery.metal.ingot=Lingotti: 
+gui.smeltery.metal.nugget=Pepite:
 gui.landmine=Mina
 gui.partcrafter1=Costruire Parti
 gui.partcrafter2=Costruire Parti
@@ -733,6 +744,67 @@ gui.toolstation15=Livello di Estrazione:
 gui.toolstation16=Velocità dell'Uso: 
 gui.toolstation17=Modificatori
 gui.toolstation18=Modificatori Rimanenti: 
+
+gui.partbuilder.material.wood=Legno
+gui.partbuilder.material.stone=Pietra
+gui.partbuilder.material.iron=Ferro
+gui.partbuilder.material.flint=Selce
+gui.partbuilder.material.cactus=Cactus
+gui.partbuilder.material.bone=Osso
+gui.partbuilder.material.obsidian=Ossidiana
+gui.partbuilder.material.netherrack=Netherrack
+gui.partbuilder.material.slime=Slime
+gui.partbuilder.material.paper=Carta
+gui.partbuilder.material.blueslime=Slime Blu
+gui.partbuilder.material.cobalt=Cobalto
+gui.partbuilder.material.ardite=Ardite
+gui.partbuilder.material.manyullyn=Manyullyn
+gui.partbuilder.material.copper=Rame
+gui.partbuilder.material.bronze=Bronzo
+gui.partbuilder.material.alumite=Alumite
+gui.partbuilder.material.steel=Acciaio
+gui.partbuilder.material.pigiron=Ferro Suino
+gui.partbuilder.material.thaumium=Taumio
+
+gui.modifier.blaze=Blaze
+gui.modifier.silk=Tocco di Velluto
+gui.modifier.lapis=Lapis
+gui.modifier.redstone=Pietrarossa
+gui.modifier.diamond=Diamante
+gui.modifier.emerald=Smeraldo
+gui.modifier.moss=Muschio
+gui.modifier.lava=Lava
+gui.modifier.necro=Necrotico
+gui.modifier.spider=Anti Ragno
+gui.modifier.quartz=Quarzo
+
+modifier.armour.jump.double=Salto Doppio
+modifier.armour.jump.triple=Salto Triplo
+modifier.armour.jump.quad=Salto Quadruplo
+modifier.armour.protection=
+modifier.tool.spider=Flagello degli Artropodi
+modifier.tool.quartz=Affilatezza
+modifier.tool.blaze=Infuocato
+modifier.tool.silk=Vellutato
+mofifier.tool.flux=Flux
+modifier.tool.lapis=Fortuna
+modifier.tool.piston=Contraccolpo
+modifier.tool.redstone=Fretta
+modifier.tool.reinforced=Rinforzato
+modifier.tool.unbreaking=
+modifier.tool.smite=Anatema
+modifier.tool.diamond=Durabilità +500
+modifier.tool.emerald=Durabilità +50%
+modifier.tool.moss=Auto Riparazione
+modifier.tool.lava=Auto Fusione
+modifier.tool.necro=Assorbimento
+modifier.tool.beheading=Ghigliottina
+
+materialtraits.stonebound=Roccioso
+materialtraits.jagged=Segettato
+materialtraits.writable=Scrivibile
+materialtraits.tasty=Gustoso
+materialtraits.thaumic=Taumico
 
 attribute.generic.ammo.attackDamage=Danno Medio per Tiro
 
