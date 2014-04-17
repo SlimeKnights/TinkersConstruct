@@ -1319,11 +1319,6 @@ public class TContent implements IFuelHandler
         GameRegistry.addShapedRecipe(new ItemStack(travelWings), "g#g", "#q#", "###", '#', leather, 'q', quartz, 'g', new ItemStack(Block.glowStone));
         GameRegistry.addShapedRecipe(new ItemStack(travelGloves), "qq", "gg", 'g', new ItemStack(glove), 'q', quartz);
         GameRegistry.addShapedRecipe(new ItemStack(travelBoots), "l l", "s s", "l l", 'l', leather, 's', new ItemStack(Item.silk));
-        //GameRegistry.addRecipe(new ItemStack(materials, 1, 0), "pp", "pp", 'p', Item.paper);
-        /*travelGoggles = new TravelGear(PHConstruct.travelGoggles, EnumArmorPart.HELMET, "travel").setUnlocalizedName("tconstruct.travelgoggles");
-        travelWings = new TravelGear(PHConstruct.travelWings, EnumArmorPart.CHEST, "travel").setUnlocalizedName("tconstruct.travelwings");
-        travelPants = new TravelGear(PHConstruct.travelPants, EnumArmorPart.PANTS, "travel").setUnlocalizedName("tconstruct.travelgloves");
-        travelBoots = new TravelGear(PHConstruct.travelBoots, EnumArmorPart.SHOES, "travel").setUnlocalizedName("tconstruct.travelboots");*/
 
         // Metal conversion Recipes
         GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 3), patBlock, '#', new ItemStack(materials, 1, 9)); // Copper
