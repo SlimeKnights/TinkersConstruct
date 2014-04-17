@@ -71,7 +71,7 @@ public class ModPiston extends ToolModTypeFilter
             int modifiers = tags.getInteger("Modifiers");
             modifiers -= 1;
             tags.setInteger("Modifiers", modifiers);
-            String modName = "\u00a74" + StatCollector.translateToLocal("modifier.tool.piston") + (" + increase + "/" + max + ");
+            String modName = "\u00a74" + StatCollector.translateToLocal("modifier.tool.piston") + "(" + increase + "/" + max + ")";
             int tooltipIndex = addToolTip(tool, tooltipName, modName);
             int[] keyPair = new int[] { increase, max, tooltipIndex };
             tags.setIntArray(key, keyPair);
@@ -87,7 +87,7 @@ public class ModPiston extends ToolModTypeFilter
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         String tip = "ModifierTip" + keys[2];
-        String modName = "\u00a77" + StatCollector.translateToLocal("modifier.tool.piston") + (" + keys[0] + "/" + keys[1] + ");
+        String modName = "\u00a77" + StatCollector.translateToLocal("modifier.tool.piston") + "(" + keys[0] + "/" + keys[1] + ")";
         tags.setString(tip, modName);
     }
 

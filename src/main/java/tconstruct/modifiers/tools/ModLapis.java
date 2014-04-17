@@ -203,7 +203,7 @@ public class ModLapis extends ToolModTypeFilter
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         String tip = "ModifierTip" + keys[1];
-        String modName = "\u00a79" + StatCollector.translateToLocal("gui.modifier.lapis") + (" + keys[0] + "/" + max + ");
+        String modName = "\u00a79" + StatCollector.translateToLocal("gui.modifier.lapis") + "(" + keys[0] + "/" + max + ")";
         tags.setString(tip, modName);
     }
 
