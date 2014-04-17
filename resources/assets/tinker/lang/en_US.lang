@@ -273,6 +273,11 @@ item.tconstruct.exoChest.name=Exo-Chestpiece
 item.tconstruct.exoPants.name=Exo-Legs
 item.tconstruct.exoShoes.name=Exo-Shoes
 
+item.tconstruct.travelgoggles.name=Traveller's Goggles
+item.tconstruct.travelwings.name=Traveller's Wings
+item.tconstruct.travelgloves.name=Traveller's Gloves
+item.tconstruct.travelboots.name=Traveller's Boots
+
 item.tconstruct.jerky.beef.name=Beef Jerky
 item.tconstruct.jerky.pig.name=Bacon Jerky
 item.tconstruct.jerky.chicken.name=Chicken Jerky

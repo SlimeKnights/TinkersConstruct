@@ -39,6 +39,7 @@ import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
@@ -53,6 +54,7 @@ import tconstruct.blocks.LiquidMetalFinite;
 import tconstruct.blocks.TankAirBlock;
 import tconstruct.common.TContent;
 import tconstruct.entity.BlueSlime;
+import tconstruct.items.armor.TravelGear;
 import tconstruct.items.tools.FryingPan;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.event.PartBuilderEvent;
@@ -744,11 +746,21 @@ public class TEventHandler
         }
     }
 
-    /* Mining */
+    /* Abilities */
     @ForgeSubscribe
     public void armorMineSpeed (PlayerEvent.BreakSpeed event)
     {
         TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(event.entityPlayer.username);
         event.newSpeed += stats.mineSpeed / 100f;
+    }
+    
+    @ForgeSubscribe
+    public void jumpHeight (LivingJumpEvent event)
+    {
+        ItemStack stack = event.entityLiving.getCurrentItemOrArmor(2);
+        if (stack != null && stack.getItem() instanceof TravelGear)
+        {
+            event.entityLiving.motionY += 0.2;
+        }
     }
 }

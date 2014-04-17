@@ -307,6 +307,12 @@ public class TContent implements IFuelHandler
     public static Item exoChest;
     public static Item exoPants;
     public static Item exoShoes;
+    
+    //Clothing - Travel Gear
+    public static Item travelGoggles;
+    public static Item travelWings;
+    public static Item travelGloves;
+    public static Item travelBoots;
 
     //Temporary items
     //public static Item armorTest = new ArmorStandard(2445, 4, EnumArmorPart.HELMET).setCreativeTab(CreativeTabs.tabAllSearch);
@@ -1020,6 +1026,11 @@ public class TContent implements IFuelHandler
         exoChest = new ExoArmor(PHConstruct.exoChest, EnumArmorPart.CHEST, "exosuit").setUnlocalizedName("tconstruct.exoChest");
         exoPants = new ExoArmor(PHConstruct.exoPants, EnumArmorPart.PANTS, "exosuit").setUnlocalizedName("tconstruct.exoPants");
         exoShoes = new ExoArmor(PHConstruct.exoShoes, EnumArmorPart.SHOES, "exosuit").setUnlocalizedName("tconstruct.exoShoes");
+        
+        travelGoggles = new TravelGear(PHConstruct.travelGoggles, EnumArmorPart.HELMET, "travel").setUnlocalizedName("tconstruct.travelgoggles");
+        travelWings = new TravelGear(PHConstruct.travelWings, EnumArmorPart.CHEST, "travel").setUnlocalizedName("tconstruct.travelwings");
+        travelGloves = new TravelGear(PHConstruct.travelPants, EnumArmorPart.PANTS, "travel").setUnlocalizedName("tconstruct.travelgloves");
+        travelBoots = new TravelGear(PHConstruct.travelBoots, EnumArmorPart.SHOES, "travel").setUnlocalizedName("tconstruct.travelboots");
 
         String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper",
                 "ingotTin", "ingotAluminum", "rawAluminum", "ingotBronze", "ingotAluminumBrass", "ingotAlumite", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper",
@@ -1300,6 +1311,19 @@ public class TContent implements IFuelHandler
             GameRegistry.addShapedRecipe(exoPantsStack, pants, 'w', new ItemStack(largePlate, 1, 14));
             GameRegistry.addShapedRecipe(exoShoesStack, shoes, 'w', new ItemStack(largePlate, 1, 14));
         }
+        
+        //Temporary recipes
+        ItemStack leather = new ItemStack(Item.leather);
+        ItemStack quartz = new ItemStack(Item.netherQuartz);
+        GameRegistry.addShapedRecipe(new ItemStack(travelGoggles), "# #", "q#q", '#', leather, 'q', quartz);
+        GameRegistry.addShapedRecipe(new ItemStack(travelWings), "g#g", "#q#", "###", '#', leather, 'q', quartz, 'g', new ItemStack(Block.glowStone));
+        GameRegistry.addShapedRecipe(new ItemStack(travelGloves), "qq", "gg", 'g', new ItemStack(glove), 'q', quartz);
+        GameRegistry.addShapedRecipe(new ItemStack(travelBoots), "l l", "s s", "l l", 'l', leather, 's', new ItemStack(Item.silk));
+        //GameRegistry.addRecipe(new ItemStack(materials, 1, 0), "pp", "pp", 'p', Item.paper);
+        /*travelGoggles = new TravelGear(PHConstruct.travelGoggles, EnumArmorPart.HELMET, "travel").setUnlocalizedName("tconstruct.travelgoggles");
+        travelWings = new TravelGear(PHConstruct.travelWings, EnumArmorPart.CHEST, "travel").setUnlocalizedName("tconstruct.travelwings");
+        travelPants = new TravelGear(PHConstruct.travelPants, EnumArmorPart.PANTS, "travel").setUnlocalizedName("tconstruct.travelgloves");
+        travelBoots = new TravelGear(PHConstruct.travelBoots, EnumArmorPart.SHOES, "travel").setUnlocalizedName("tconstruct.travelboots");*/
 
         // Metal conversion Recipes
         GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 3), patBlock, '#', new ItemStack(materials, 1, 9)); // Copper
@@ -1691,7 +1715,7 @@ public class TContent implements IFuelHandler
         tag.setInteger("Modifiers", 5);
         baseTag.setTag("TinkerAccessory", tag);
         gloveStack.setTagCompound(baseTag);
-        GameRegistry.addRecipe(gloveStack, " # ", "###", " ##", '#', new ItemStack(Item.leather, 1, 0));
+        GameRegistry.addRecipe(gloveStack, "  #", "###", " ##", '#', new ItemStack(Item.leather, 1, 0));
         
         //Accessory modifiers
         ModifyBuilder.registerModifier(new GloveSpeed(1, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
@@ -2189,6 +2213,7 @@ public class TContent implements IFuelHandler
                 "blueslime" };
         for (int i = 0; i < matNames.length; i++)
             OreDictionary.registerOre(matNames[i] + "Rod", new ItemStack(toolRod, 1, i));
+        OreDictionary.registerOre("stickWood", new ItemStack(toolRod, 1, 0));
         OreDictionary.registerOre("thaumiumRod", new ItemStack(toolRod, 1, 31));
 
         String[] glassTypes = { "glassBlack", "glassRed", "glassGreen", "glassBrown", "glassBlue", "glassPurple", "glassCyan", "glassLightGray", "glassGray", "glassPink", "glassLime", "glassYellow",

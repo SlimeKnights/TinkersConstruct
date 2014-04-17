@@ -16,6 +16,8 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import tconstruct.client.armor.BootBump;
+import tconstruct.client.armor.GloveModel;
 import tconstruct.client.armor.WingModel;
 import tconstruct.common.TContent;
 import tconstruct.library.TConstructRegistry;
@@ -25,27 +27,35 @@ import tconstruct.library.tools.ItemModifier;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ExoArmor extends ArmorCore
+public class TravelGear extends ArmorCore
 {
     String textureName;
 
-    public ExoArmor(int id, EnumArmorPart part, String texture)
+    public TravelGear(int id, EnumArmorPart part, String texture)
     {
         super(id, 0, part);
         this.textureName = texture;
         this.setCreativeTab(TConstructRegistry.materialTab);
+    }
+    
+    @Override
+    public String getModifyType()
+    {
+        return "Clothing";
     }
 
     @Override
     public void registerIcons (IconRegister par1IconRegister)
     {
         this.itemIcon = par1IconRegister.registerIcon("tinker:armor/" + textureName + "_"
-                + (this.armorType == 0 ? "helmet" : this.armorType == 1 ? "chestplate" : this.armorType == 2 ? "leggings" : this.armorType == 3 ? "boots" : "helmet"));
+                + (this.armorType == 0 ? "goggles" : this.armorType == 1 ? "wings" : this.armorType == 2 ? "gloves" : this.armorType == 3 ? "boots" : "helmet"));
     }
 
     @Override
     public String getArmorTexture (ItemStack stack, Entity entity, int slot, int layer)
     {
+        if (slot == 1)
+            return "tinker:textures/armor/" + textureName + "_" + 3 + ".png";
         return "tinker:textures/armor/" + textureName + "_" + layer + ".png";
     }
 
@@ -54,15 +64,23 @@ public class ExoArmor extends ArmorCore
     {
         //Deimplemented for now
     }
-    
+
     @SideOnly(Side.CLIENT)
-    WingModel moel = new WingModel();
-    
+    static WingModel wings = new WingModel();
+    @SideOnly(Side.CLIENT)
+    static BootBump bump = new BootBump();
+    @SideOnly(Side.CLIENT)
+    static GloveModel glove = new GloveModel();
+
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel (EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot)
     {
         if (armorSlot == 1)
-            return moel;
+            return wings;
+        if (armorSlot == 2)
+            return glove;
+        if (armorSlot == 3)
+            return bump;
         return null;
     }
 
@@ -119,18 +137,27 @@ public class ExoArmor extends ArmorCore
     @Override
     public void onArmorTickUpdate (World world, EntityPlayer player, ItemStack itemStack)
     {
-        if (player.stepHeight < 1.0f)
-            player.stepHeight = 1.0f;
-
-        player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 15 * 20, 0, true));
-
-        player.fallDistance = 0;
-        float terminalVelocity = -0.32f;
-        boolean flying = false;
-            flying = player.capabilities.isFlying;
-        if (!flying && player.motionY < terminalVelocity)
+        if (armorPart == EnumArmorPart.SHOES)
         {
-            player.motionY = terminalVelocity;
+            if (player.stepHeight < 1.0f)
+                player.stepHeight = 1.0f;
+        }
+
+        if (armorPart == EnumArmorPart.HELMET)
+        {
+            player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 15 * 20, 0, true));
+        }
+
+        if (armorPart == EnumArmorPart.SHOES)
+        {
+            player.fallDistance = 0;
+            float terminalVelocity = -0.32f;
+            boolean flying = false;
+            flying = player.capabilities.isFlying;
+            if (!flying && player.motionY < terminalVelocity)
+            {
+                player.motionY = terminalVelocity;
+            }
         }
     }
 }

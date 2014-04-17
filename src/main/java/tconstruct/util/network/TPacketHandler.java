@@ -19,7 +19,9 @@ import tconstruct.blocks.logic.SmelteryLogic;
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
 import tconstruct.client.TProxyClient;
+import tconstruct.common.TFoodStats;
 import tconstruct.library.blocks.InventoryLogic;
+import tconstruct.util.player.TPlayerHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
@@ -52,6 +54,11 @@ public class TPacketHandler implements IPacketHandler
         try
         {
             packetID = inputStream.readByte();
+            
+            if (packetID == 1) //Player logged in or respawned
+            {
+                player.foodStats = new TFoodStats(player.foodStats);
+            }
 
             if (packetID == 3) //Sync knapsack
             {

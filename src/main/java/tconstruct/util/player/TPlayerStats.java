@@ -3,6 +3,7 @@ package tconstruct.util.player;
 import java.lang.ref.WeakReference;
 
 import net.minecraft.entity.player.EntityPlayer;
+import tconstruct.common.TFoodStats;
 
 public class TPlayerStats
 {
@@ -17,6 +18,7 @@ public class TPlayerStats
     public int mineSpeed;
     
     public boolean climbWalls;
+    private int maxHunger;
     
     public boolean beginnerManual;
     public boolean materialManual;
@@ -25,4 +27,10 @@ public class TPlayerStats
     
     public ArmorExtended armor;
     public KnapsackInventory knapsack;
+    
+    public void setMaxHunger(int h)
+    {
+        maxHunger = h;
+        ((TFoodStats) player.get().foodStats).setMaxFoodLevel(h);
+    }
 }

@@ -3,20 +3,20 @@ package tconstruct.util.player;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashSet;
 import java.util.Random;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.ai.attributes.Attribute;
+import net.minecraft.entity.ai.attributes.AttributeInstance;
+import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,7 +29,7 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import tconstruct.TConstruct;
 import tconstruct.common.TContent;
-import tconstruct.library.armor.ArmorMod;
+import tconstruct.common.TFoodStats;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -49,13 +49,15 @@ public class TPlayerHandler implements IPlayerTracker
     @Override
     public void onPlayerLogin (EntityPlayer player)
     {
-        //TConstruct.logger.info("Player: "+entityplayer);
+        TConstruct.logger.info("Player logged in: " + player);
         //Lookup player
         NBTTagCompound tags = player.getEntityData();
         if (!tags.hasKey("TConstruct"))
         {
             tags.setCompoundTag("TConstruct", new NBTTagCompound());
         }
+
+        player.foodStats = new TFoodStats(player.foodStats);
         TPlayerStats stats = new TPlayerStats();
         stats.player = new WeakReference<EntityPlayer>(player);
         stats.armor = new ArmorExtended();
@@ -196,6 +198,7 @@ public class TPlayerHandler implements IPlayerTracker
             }
         }
 
+        updateFoodstats(player);
         updatePlayerInventory(player, stats);
     }
 
@@ -214,6 +217,27 @@ public class TPlayerHandler implements IPlayerTracker
         modifier.setTagCompound(compound);
 
         AbilityHelper.spawnItemAtPlayer(entityplayer, modifier);
+    }
+
+    void updateFoodstats (EntityPlayer player)
+    {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+        DataOutputStream outputStream = new DataOutputStream(bos);
+        try
+        {
+            outputStream.writeByte(1);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        Packet250CustomPayload packet = new Packet250CustomPayload();
+        packet.channel = "TConstruct";
+        packet.data = bos.toByteArray();
+        packet.length = bos.size();
+
+        PacketDispatcher.sendPacketToPlayer(packet, (Player) player);
     }
 
     void updatePlayerInventory (EntityPlayer player, TPlayerStats stats)
@@ -262,6 +286,7 @@ public class TPlayerHandler implements IPlayerTracker
     {
         savePlayerStats(player, false);
         updatePlayerInventory(player, getPlayerStats(player.username));
+        updateFoodstats(player);
 
         //Reload knapsack
         TPlayerStats stats = getPlayerStats(player.username);
@@ -295,21 +320,22 @@ public class TPlayerHandler implements IPlayerTracker
     }
 
     @Override
-    public void onPlayerRespawn (EntityPlayer entityplayer)
+    public void onPlayerRespawn (EntityPlayer player)
     {
         //Boom!
-        TPlayerStats stats = getPlayerStats(entityplayer.username);
-        stats.player = new WeakReference<EntityPlayer>(entityplayer);
-        stats.armor.recalculateAttributes(entityplayer, stats);
+        TPlayerStats stats = getPlayerStats(player.username);
+        stats.player = new WeakReference<EntityPlayer>(player);
+        stats.armor.recalculateAttributes(player, stats);
+        updateFoodstats(player);
 
         /*TFoodStats food = new TFoodStats();
         entityplayer.foodStats = food;*/
 
         if (PHConstruct.keepLevels)
-            entityplayer.experienceLevel = stats.level;
+            player.experienceLevel = stats.level;
         if (PHConstruct.keepHunger)
-            entityplayer.getFoodStats().addStats(-1 * (20 - stats.hunger), 0);
-        NBTTagCompound tags = entityplayer.getEntityData();
+            player.getFoodStats().addStats(-1 * (20 - stats.hunger), 0);
+        NBTTagCompound tags = player.getEntityData();
         NBTTagCompound tTag = new NBTTagCompound();
         tTag.setBoolean("beginnerManual", stats.beginnerManual);
         tTag.setBoolean("materialManual", stats.materialManual);
@@ -322,10 +348,10 @@ public class TPlayerHandler implements IPlayerTracker
         {
             //TProxyClient.controlInstance.resetControls();
             if (PHConstruct.keepHunger)
-                entityplayer.getFoodStats().setFoodLevel(stats.hunger);
+                player.getFoodStats().setFoodLevel(stats.hunger);
         }
 
-        updatePlayerInventory(entityplayer, getPlayerStats(entityplayer.username));
+        updatePlayerInventory(player, getPlayerStats(player.username));
     }
 
     @ForgeSubscribe
@@ -410,7 +436,6 @@ public class TPlayerHandler implements IPlayerTracker
     public void buildStickURLDatabase (String location)
     {
         URL url;
-        TConstruct.logger.info("Building stick database");
         try
         {
             url = new URL(location);
@@ -435,7 +460,7 @@ public class TPlayerHandler implements IPlayerTracker
         }
         catch (Exception e)
         {
-            TConstruct.logger.log(Level.SEVERE, e.getMessage()!= null ? e.getMessage(): "UNKOWN DL ERROR", e);
+            TConstruct.logger.log(Level.SEVERE, e.getMessage() != null ? e.getMessage() : "UNKOWN DL ERROR", e);
         }
     }
 

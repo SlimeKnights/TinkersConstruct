@@ -14,12 +14,14 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeInstance;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.FoodStats;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -192,12 +194,13 @@ public class TClientEvents
                     }
                 }
 
+                int potionOffset = 0;
                 PotionEffect potion = mc.thePlayer.getActivePotionEffect(Potion.wither);
                 if (potion != null)
-                    return;
+                    potionOffset = 18;
                 potion = mc.thePlayer.getActivePotionEffect(Potion.poison);
                 if (potion != null)
-                    return;
+                    potionOffset = 9;
 
                 //Extra hearts
                 this.mc.getTextureManager().bindTexture(hearts);
@@ -210,11 +213,14 @@ public class TClientEvents
                         renderHearts = 10;
                     for (int i = 0; i < renderHearts; i++)
                     {
-                        this.drawTexturedModalRect(xBasePos + 8 * i, yBasePos, 0 + 18 * iter, 0, 8, 8);
+                        int y = 0;
+                        if (i == regen)
+                            y -= 2;
+                        this.drawTexturedModalRect(xBasePos + 8 * i, yBasePos+y, 0 + 18 * iter, potionOffset, 9, 9);
                     }
                     if (hp % 2 == 1 && renderHearts < 10)
                     {
-                        this.drawTexturedModalRect(xBasePos + 8 * renderHearts, yBasePos, 9 + 18 * iter, 0, 8, 8);
+                        this.drawTexturedModalRect(xBasePos + 8 * renderHearts, yBasePos, 9 + 18 * iter, potionOffset, 9, 9);
                     }
                 }
 
@@ -223,6 +229,92 @@ public class TClientEvents
                 if (absorb > 0)
                     GuiIngameForge.left_height += 10;
 
+                event.setCanceled(true);
+            }
+            
+            if (event.type == ElementType.FOOD)
+            {
+                mc.mcProfiler.startSection("food");
+
+                /*int xBasePos = scaledWidth / 2 - 91;
+                int yBasePos = scaledHeight - 39;*/
+                ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
+                int scaledWidth = scaledresolution.getScaledWidth();
+                int scaledHeight = scaledresolution.getScaledHeight();
+                int left = scaledWidth / 2 + 91;
+                int top = scaledHeight - GuiIngameForge.right_height;
+                GuiIngameForge.right_height += 10;
+                boolean unused = false;// Unused flag in vanilla, seems to be part of a 'fade out' mechanic
+
+                FoodStats stats = mc.thePlayer.getFoodStats();
+                int level = stats.getFoodLevel();
+                int levelLast = stats.getPrevFoodLevel();
+
+                for (int i = 0; i < 10; ++i) //Default food
+                {
+                    int idx = i * 2 + 1;
+                    int x = left - i * 8 - 9;
+                    int y = top;
+                    int icon = 16;
+                    byte backgound = 0;
+
+                    if (mc.thePlayer.isPotionActive(Potion.hunger))
+                    {
+                        icon += 36;
+                        backgound = 13;
+                    }
+                    if (unused)
+                        backgound = 1; //Probably should be a += 1 but vanilla never uses this
+
+                    if (mc.thePlayer.getFoodStats().getSaturationLevel() <= 0.0F && updateCounter % (level * 3 + 1) == 0)
+                    {
+                        y = top + (rand.nextInt(3) - 1);
+                    }
+                    
+
+                    drawTexturedModalRect(x, y, 16 + backgound * 9, 27, 9, 9);
+
+                    if (idx < level)
+                        drawTexturedModalRect(x, y, icon + 36, 27, 9, 9);
+                    else if (idx == level)
+                        drawTexturedModalRect(x, y, icon + 45, 27, 9, 9);
+                    
+                }
+                
+                //Extra food
+                this.mc.getTextureManager().bindTexture(hearts);
+                left += 88;
+                for (int i = 11; i < 20; i++)
+                {
+                    int idx = i * 2 + 1;
+                    int x = left - i * 8 - 9;
+                    int y = top;
+                    int icon = 0;
+                    byte backgound = 0;
+
+                    if (mc.thePlayer.isPotionActive(Potion.hunger))
+                    {
+                        icon += 36;
+                        backgound = 13;
+                    }
+                    if (unused)
+                        backgound = 1; //Probably should be a += 1 but vanilla never uses this
+
+                    if (mc.thePlayer.getFoodStats().getSaturationLevel() <= 0.0F && updateCounter % (level * 3 + 1) == 0)
+                    {
+                        y = top + (rand.nextInt(3) - 1);
+                    }
+                    
+
+                    //drawTexturedModalRect(x, y, 16 + backgound * 9, 27, 9, 9);
+
+                    if (idx < level)
+                        drawTexturedModalRect(x, y, icon + 0, 27, 9, 9);
+                    else if (idx == level)
+                        drawTexturedModalRect(x, y, icon + 9, 27, 9, 9);
+                }
+                this.mc.getTextureManager().bindTexture(icons);
+                mc.mcProfiler.endSection();
                 event.setCanceled(true);
             }
 
@@ -247,44 +339,6 @@ public class TClientEvents
     }
 
     double zLevel = 0;
-
-    /*@ForgeSubscribe
-    public void getFOV(FOVUpdateEvent event)
-    {
-        float f = 1.0F;
-
-        if (event.entity.capabilities.isFlying)
-        {
-            f *= 1.1F;
-        }
-
-        if (event.entity.isUsingItem() && event.entity.getItemInUse().itemID == Item.bow.itemID)
-        {
-            int i = event.entity.getItemInUseDuration();
-            float f1 = (float) i / 20.0F;
-
-            if (f1 > 1.0F)
-            {
-                f1 = 1.0F;
-            }
-            else
-            {
-                f1 *= f1;
-            }
-
-            f *= 1.0F - f1 * 0.15F;
-        }
-        event.newfov = f;
-    }*/
-
-    /* Armor */
-    ModelBiped model = new ModelBiped(5f);
-    WingModel wings = new WingModel();
-
-    /*static
-    {
-    	model.bipedHead.showModel = false;
-    }*/
 
     private float interpolateRotation (float par1, float par2, float par3)
     {

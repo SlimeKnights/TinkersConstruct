@@ -3,6 +3,7 @@ package tconstruct.common;
 import java.util.EnumSet;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import tconstruct.TConstruct;
 import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.ITickHandler;

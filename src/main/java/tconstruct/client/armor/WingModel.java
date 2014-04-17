@@ -1,10 +1,10 @@
 package tconstruct.client.armor;
 
-import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class WingModel extends ModelBase
+public class WingModel extends ModelBiped
 {
     ModelRenderer WingBaseRight;
     ModelRenderer WingEdgeRight;
@@ -21,6 +21,10 @@ public class WingModel extends ModelBase
 
     public WingModel()
     {
+        super(0.25f, 0, 64, 64);
+        textureWidth = 64;
+        textureHeight = 64;
+
         textureWidth = 64;
         textureHeight = 64;
 
@@ -97,6 +101,15 @@ public class WingModel extends ModelBase
         WingBaseLeft.addChild(WingCenterLeft);
         WingBaseLeft.addChild(WingFlangeLeft);
         WingBaseLeft.addChild(WingAuxLeft);
+        
+        this.bipedCloak.isHidden = true;
+        this.bipedEars.isHidden = true;
+        this.bipedHead.isHidden = true;
+        this.bipedHeadwear.isHidden = true;
+        this.bipedRightArm.isHidden = true;
+        this.bipedLeftArm.isHidden = true;
+        this.bipedRightLeg.isHidden = true;
+        this.bipedLeftLeg.isHidden = true;
     }
 
     public void render (Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
