@@ -53,7 +53,7 @@ public class PHConstruct
         ingotsManyullynAlloy = config.get("Smeltery Output Modification", "Manyullyn ingot return", 1, "Number of ingots returned from smelting Manyullyn in the smeltery").getDouble(1);
         ingotsPigironAlloy = config.get("Smeltery Output Modification", "Pig Iron ingot return", 1, "Number of ingots returned from smelting Pig Iron in the smeltery").getDouble(1);
         
-        exoCraftingEnabled = config.get("Equipables", "Exo-Armor-Craftable", false).getBoolean(false);
+        exoCraftingEnabled = config.get("Equipables", "Exo-Armor-Craftable", true).getBoolean(true);
         capesEnabled = config.get("Superfun", "Enable-TCon-Capes", true).getBoolean(true);
 
         boolean ic2 = true;
