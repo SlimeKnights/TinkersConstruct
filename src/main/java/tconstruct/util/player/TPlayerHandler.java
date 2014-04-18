@@ -14,9 +14,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeInstance;
-import net.minecraft.entity.ai.attributes.RangedAttribute;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,7 +26,6 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import tconstruct.TConstruct;
 import tconstruct.common.TContent;
-import tconstruct.common.TFoodStats;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -49,7 +45,6 @@ public class TPlayerHandler implements IPlayerTracker
     @Override
     public void onPlayerLogin (EntityPlayer player)
     {
-        TConstruct.logger.info("Player logged in: " + player);
         //Lookup player
         NBTTagCompound tags = player.getEntityData();
         if (!tags.hasKey("TConstruct"))
@@ -57,7 +52,6 @@ public class TPlayerHandler implements IPlayerTracker
             tags.setCompoundTag("TConstruct", new NBTTagCompound());
         }
 
-        player.foodStats = new TFoodStats(player.foodStats);
         TPlayerStats stats = new TPlayerStats();
         stats.player = new WeakReference<EntityPlayer>(player);
         stats.armor = new ArmorExtended();
@@ -198,7 +192,6 @@ public class TPlayerHandler implements IPlayerTracker
             }
         }
 
-        updateFoodstats(player);
         updatePlayerInventory(player, stats);
     }
 
@@ -217,27 +210,6 @@ public class TPlayerHandler implements IPlayerTracker
         modifier.setTagCompound(compound);
 
         AbilityHelper.spawnItemAtPlayer(entityplayer, modifier);
-    }
-
-    void updateFoodstats (EntityPlayer player)
-    {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
-        DataOutputStream outputStream = new DataOutputStream(bos);
-        try
-        {
-            outputStream.writeByte(1);
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-
-        Packet250CustomPayload packet = new Packet250CustomPayload();
-        packet.channel = "TConstruct";
-        packet.data = bos.toByteArray();
-        packet.length = bos.size();
-
-        PacketDispatcher.sendPacketToPlayer(packet, (Player) player);
     }
 
     void updatePlayerInventory (EntityPlayer player, TPlayerStats stats)
@@ -286,7 +258,6 @@ public class TPlayerHandler implements IPlayerTracker
     {
         savePlayerStats(player, false);
         updatePlayerInventory(player, getPlayerStats(player.username));
-        updateFoodstats(player);
 
         //Reload knapsack
         TPlayerStats stats = getPlayerStats(player.username);
@@ -326,7 +297,6 @@ public class TPlayerHandler implements IPlayerTracker
         TPlayerStats stats = getPlayerStats(player.username);
         stats.player = new WeakReference<EntityPlayer>(player);
         stats.armor.recalculateAttributes(player, stats);
-        updateFoodstats(player);
 
         /*TFoodStats food = new TFoodStats();
         entityplayer.foodStats = food;*/
