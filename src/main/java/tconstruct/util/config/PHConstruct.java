@@ -52,6 +52,9 @@ public class PHConstruct
         ingotsAlumiteAlloy = config.get("Smeltery Output Modification", "Alumite ingot return", 3, "Number of ingots returned from smelting Alumite in the smeltery").getDouble(3);
         ingotsManyullynAlloy = config.get("Smeltery Output Modification", "Manyullyn ingot return", 1, "Number of ingots returned from smelting Manyullyn in the smeltery").getDouble(1);
         ingotsPigironAlloy = config.get("Smeltery Output Modification", "Pig Iron ingot return", 1, "Number of ingots returned from smelting Pig Iron in the smeltery").getDouble(1);
+        
+        exoCraftingEnabled = config.get("Equipables", "Exo-Armor-Craftable", false).getBoolean(false);
+        capesEnabled = config.get("Superfun", "Enable-TCon-Capes", true).getBoolean(true);
 
         boolean ic2 = true;
         boolean xycraft = true;
@@ -182,6 +185,9 @@ public class PHConstruct
             gregtech = gtConfig.get("smelting", "tile.anvil.slightlyDamaged", false).getBoolean(false);
         }
     }
+    
+    public static boolean exoCraftingEnabled;
+    public static boolean capesEnabled;
 
     // Ore values
     public static boolean generateCopper;

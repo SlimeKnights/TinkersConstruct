@@ -656,14 +656,17 @@ public class TRecipes
         ItemStack exoChestStack = new ItemStack(TRepo.exoChest);
         ItemStack exoPantsStack = new ItemStack(TRepo.exoPants);
         ItemStack exoShoesStack = new ItemStack(TRepo.exoShoes);
-        ToolBuilder.instance.addArmorTag(exoGoggleStack);
-        ToolBuilder.instance.addArmorTag(exoChestStack);
-        ToolBuilder.instance.addArmorTag(exoPantsStack);
-        ToolBuilder.instance.addArmorTag(exoShoesStack);
-        GameRegistry.addShapedRecipe(exoGoggleStack, helm, 'w', new ItemStack(TRepo.largePlate, 1, 14));
-        GameRegistry.addShapedRecipe(exoChestStack, chest, 'w', new ItemStack(TRepo.largePlate, 1, 14));
-        GameRegistry.addShapedRecipe(exoPantsStack, pants, 'w', new ItemStack(TRepo.largePlate, 1, 14));
-        GameRegistry.addShapedRecipe(exoShoesStack, shoes, 'w', new ItemStack(TRepo.largePlate, 1, 14));
+        if (!PHConstruct.exoCraftingEnabled)
+        {
+            ToolBuilder.instance.addArmorTag(exoGoggleStack);
+            ToolBuilder.instance.addArmorTag(exoChestStack);
+            ToolBuilder.instance.addArmorTag(exoPantsStack);
+            ToolBuilder.instance.addArmorTag(exoShoesStack);
+            GameRegistry.addShapedRecipe(exoGoggleStack, helm, 'w', new ItemStack(TRepo.largePlate, 1, 14));
+            GameRegistry.addShapedRecipe(exoChestStack, chest, 'w', new ItemStack(TRepo.largePlate, 1, 14));
+            GameRegistry.addShapedRecipe(exoPantsStack, pants, 'w', new ItemStack(TRepo.largePlate, 1, 14));
+            GameRegistry.addShapedRecipe(exoShoesStack, shoes, 'w', new ItemStack(TRepo.largePlate, 1, 14));
+        }
 
         // Metal conversion Recipes
         GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 3), patBlock, '#', new ItemStack(TRepo.materials, 1, 9)); // Copper
@@ -1197,6 +1200,39 @@ public class TRecipes
                 RecipeRemover.removeAnyRecipe(new ItemStack(Items.golden_shovel));
                 RecipeRemover.removeAnyRecipe(new ItemStack(Items.golden_hoe));
                 RecipeRemover.removeAnyRecipe(new ItemStack(Items.golden_sword));
+            }
+            
+            if (PHConstruct.labotimizeVanillaTools)
+            {
+                Items.wooden_pickaxe.setMaxDamage(1);
+                Items.wooden_axe.setMaxDamage(1);
+                Items.wooden_shovel.setMaxDamage(1);
+                Items.wooden_hoe.setMaxDamage(1);
+                Items.wooden_sword.setMaxDamage(1);
+                
+                Items.stone_pickaxe.setMaxDamage(1);
+                Items.stone_axe.setMaxDamage(1);
+                Items.stone_shovel.setMaxDamage(1);
+                Items.stone_hoe.setMaxDamage(1);
+                Items.stone_sword.setMaxDamage(1);
+                
+                Items.iron_pickaxe.setMaxDamage(1);
+                Items.iron_axe.setMaxDamage(1);
+                Items.iron_shovel.setMaxDamage(1);
+                Items.iron_hoe.setMaxDamage(1);
+                Items.iron_sword.setMaxDamage(1);
+                
+                Items.diamond_pickaxe.setMaxDamage(1);
+                Items.diamond_axe.setMaxDamage(1);
+                Items.diamond_shovel.setMaxDamage(1);
+                Items.diamond_hoe.setMaxDamage(1);
+                Items.diamond_sword.setMaxDamage(1);
+                
+                Items.golden_pickaxe.setMaxDamage(1);
+                Items.golden_axe.setMaxDamage(1);
+                Items.golden_shovel.setMaxDamage(1);
+                Items.golden_hoe.setMaxDamage(1);
+                Items.golden_sword.setMaxDamage(1);
             }
         }
     }

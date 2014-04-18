@@ -4,12 +4,14 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import tconstruct.blocks.logic.TileEntityLandmine;
+import tconstruct.common.TRepo;
 
 /**
  * 
@@ -60,6 +62,9 @@ public class ContainerLandmine extends Container
     @Override
     public boolean canInteractWith (EntityPlayer entityplayer)
     {
+        Block block = te.getWorldObj().getBlock(te.xCoord, te.yCoord, te.zCoord);
+        if (block != TRepo.landmine)
+            return false;
         return te.isUseableByPlayer(entityplayer);
     }
 

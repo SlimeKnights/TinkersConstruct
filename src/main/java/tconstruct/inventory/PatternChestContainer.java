@@ -1,11 +1,13 @@
 package tconstruct.inventory;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import tconstruct.blocks.logic.PatternChestLogic;
+import tconstruct.common.TRepo;
 import tconstruct.library.util.IPattern;
 
 public class PatternChestContainer extends Container
@@ -44,6 +46,9 @@ public class PatternChestContainer extends Container
     @Override
     public boolean canInteractWith (EntityPlayer entityplayer)
     {
+        Block block = logic.getWorldObj().getBlock(logic.xCoord, logic.yCoord, logic.zCoord);
+        if (block != TRepo.toolStationWood && block != TRepo.craftingSlabWood)
+            return false;
         return logic.isUseableByPlayer(entityplayer);
     }
 

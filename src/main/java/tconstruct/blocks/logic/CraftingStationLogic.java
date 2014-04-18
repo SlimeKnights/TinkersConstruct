@@ -97,11 +97,22 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
     {
         return i != 0;
     }
+    
+    @Override
+    public ItemStack decrStackSize (int slot, int quantity)
+    {
+        if (slot == 0)
+        {
+            for (int i = 1; i < getSizeInventory(); i++)
+                decrStackSize(i, 1);
+        }
+        return super.decrStackSize(slot, quantity);
+    }
 
     @Override
     public boolean canExtractItem (int i, ItemStack itemstack, int j)
     {
-        return true;
+        return i == 0;
     }
 
     @Override

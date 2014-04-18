@@ -1,11 +1,13 @@
 package tconstruct.inventory;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import tconstruct.blocks.logic.StencilTableLogic;
+import tconstruct.common.TRepo;
 
 public class PatternShaperContainer extends Container
 {
@@ -41,7 +43,7 @@ public class PatternShaperContainer extends Container
 
     /*public void onCraftMatrixChanged(IInventory iinventory)
     {
-        craftResult.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(craftMatrix, worldObj));
+        craftResult.setInventorySloTRepos(0, CraftingManager.getInstance().findMatchingRecipe(craftMatrix, worldObj));
     }*/
 
     /*@Override
@@ -62,7 +64,10 @@ public class PatternShaperContainer extends Container
     @Override
     public boolean canInteractWith (EntityPlayer entityplayer)
     {
-        return true;
+        Block block = logic.getWorldObj().getBlock(logic.xCoord, logic.yCoord, logic.zCoord);
+        if (block != TRepo.toolStationWood && block != TRepo.craftingSlabWood)
+            return false;
+        return logic.isUseableByPlayer(entityplayer);
     }
 
     @Override

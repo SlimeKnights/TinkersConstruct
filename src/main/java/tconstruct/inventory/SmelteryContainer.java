@@ -1,10 +1,12 @@
 package tconstruct.inventory;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import tconstruct.blocks.logic.SmelteryLogic;
+import tconstruct.common.TRepo;
 
 public class SmelteryContainer extends ActiveContainer
 {
@@ -114,6 +116,9 @@ public class SmelteryContainer extends ActiveContainer
     @Override
     public boolean canInteractWith (EntityPlayer entityplayer)
     {
+        Block block = logic.getWorldObj().getBlock(logic.xCoord, logic.yCoord, logic.zCoord);
+        if (block != TRepo.smeltery && block != TRepo.smelteryNether)
+            return false;
         return logic.isUseableByPlayer(entityplayer);
     }
 
