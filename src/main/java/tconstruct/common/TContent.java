@@ -706,6 +706,11 @@ public class TContent implements IFuelHandler
         TRepo.exoChest = new ExoArmor(EnumArmorPart.CHEST, "exosuit").setUnlocalizedName("tconstruct.exoChest");
         TRepo.exoPants = new ExoArmor(EnumArmorPart.PANTS, "exosuit").setUnlocalizedName("tconstruct.exoPants");
         TRepo.exoShoes = new ExoArmor(EnumArmorPart.SHOES, "exosuit").setUnlocalizedName("tconstruct.exoShoes");
+        
+        GameRegistry.registerItem(TRepo.exoGoggles, "helmetExo");
+        GameRegistry.registerItem(TRepo.exoChest, "chestplateExo");
+        GameRegistry.registerItem(TRepo.exoPants, "leggingsExo");
+        GameRegistry.registerItem(TRepo.exoShoes, "bootsExo");
 
         String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper",
                 "ingotTin", "ingotAluminum", "rawAluminum", "ingotBronze", "ingotAluminumBrass", "ingotAlumite", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper",
