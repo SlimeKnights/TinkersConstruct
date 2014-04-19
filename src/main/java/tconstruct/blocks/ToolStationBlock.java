@@ -236,7 +236,6 @@ public class ToolStationBlock extends InventoryBlock
                     entityitem.delayBeforeCanPickup = 10;
                     world.spawnEntityInWorld(entityitem);
                 }
-
             }
         }
         return world.setBlockToAir(x, y, z);
