@@ -2101,6 +2101,7 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("blockAluminiumBrass", new ItemStack(metalBlock, 1, 7));
         OreDictionary.registerOre("blockAlumite", new ItemStack(metalBlock, 1, 8));
         OreDictionary.registerOre("blockSteel", new ItemStack(metalBlock, 1, 9));
+        OreDictionary.registerOre("blockEnder", new ItemStack(metalBlock, 1, 10));
         ensureOreIsRegistered("blockIron", new ItemStack(Block.blockIron));
         ensureOreIsRegistered("blockGold", new ItemStack(Block.blockGold));
 
