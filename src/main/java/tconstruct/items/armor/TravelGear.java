@@ -66,11 +66,11 @@ public class TravelGear extends ArmorCore
     }
 
     @SideOnly(Side.CLIENT)
-    static WingModel wings = new WingModel();
+    public static WingModel wings = new WingModel();
     @SideOnly(Side.CLIENT)
-    static BootBump bump = new BootBump();
+    public static BootBump bootbump = new BootBump();
     @SideOnly(Side.CLIENT)
-    static GloveModel glove = new GloveModel();
+    public static GloveModel glove = new GloveModel();
 
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel (EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot)
@@ -80,7 +80,7 @@ public class TravelGear extends ArmorCore
         if (armorSlot == 2)
             return glove;
         if (armorSlot == 3)
-            return bump;
+            return bootbump;
         return null;
     }
 

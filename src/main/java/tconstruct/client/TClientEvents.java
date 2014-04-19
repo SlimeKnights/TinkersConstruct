@@ -5,7 +5,6 @@ import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundManager;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.settings.GameSettings;
@@ -26,8 +25,8 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 import tconstruct.TConstruct;
-import tconstruct.client.armor.WingModel;
 import tconstruct.common.TContent;
+import tconstruct.items.armor.TravelGear;
 import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
@@ -216,7 +215,7 @@ public class TClientEvents
                         int y = 0;
                         if (i == regen)
                             y -= 2;
-                        this.drawTexturedModalRect(xBasePos + 8 * i, yBasePos+y, 0 + 18 * iter, potionOffset, 9, 9);
+                        this.drawTexturedModalRect(xBasePos + 8 * i, yBasePos + y, 0 + 18 * iter, potionOffset, 9, 9);
                     }
                     if (hp % 2 == 1 && renderHearts < 10)
                     {
@@ -231,7 +230,7 @@ public class TClientEvents
 
                 event.setCanceled(true);
             }
-            
+
             if (event.type == ElementType.FOOD)
             {
                 mc.mcProfiler.startSection("food");
@@ -270,7 +269,6 @@ public class TClientEvents
                     {
                         y = top + (rand.nextInt(3) - 1);
                     }
-                    
 
                     drawTexturedModalRect(x, y, 16 + backgound * 9, 27, 9, 9);
 
@@ -278,9 +276,9 @@ public class TClientEvents
                         drawTexturedModalRect(x, y, icon + 36, 27, 9, 9);
                     else if (idx == level)
                         drawTexturedModalRect(x, y, icon + 45, 27, 9, 9);
-                    
+
                 }
-                
+
                 //Extra food
                 this.mc.getTextureManager().bindTexture(hearts);
                 left += 88;
@@ -304,7 +302,6 @@ public class TClientEvents
                     {
                         y = top + (rand.nextInt(3) - 1);
                     }
-                    
 
                     //drawTexturedModalRect(x, y, 16 + backgound * 9, 27, 9, 9);
 
