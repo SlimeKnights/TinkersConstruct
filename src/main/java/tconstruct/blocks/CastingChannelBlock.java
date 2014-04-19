@@ -61,6 +61,12 @@ public class CastingChannelBlock extends BlockContainer
     {
         return false;
     }
+    
+    @Override
+    public boolean isOpaqueCube ()
+    {
+        return false;
+    }
 
     public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
