@@ -200,7 +200,7 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
 
     private void renderStandardBlock (Block block, int meta, RenderBlocks renderer)
     {
-        /*Tessellator tessellator = Tessellator.instance;
+        Tessellator tessellator = Tessellator.instance;
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, -1.0F, 0.0F);
@@ -226,7 +226,7 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
         tessellator.setNormal(1.0F, 0.0F, 0.0F);
         renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(5, meta));
         tessellator.draw();
-        GL11.glTranslatef(0.5F, 0.5F, 0.5F);*/
+        GL11.glTranslatef(0.5F, 0.5F, 0.5F);
     }
 
     @Override
