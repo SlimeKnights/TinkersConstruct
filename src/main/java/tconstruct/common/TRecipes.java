@@ -1013,6 +1013,7 @@ public class TRecipes
         OreDictionary.registerOre("blockAluminiumBrass", new ItemStack(TRepo.metalBlock, 1, 7));
         OreDictionary.registerOre("blockAlumite", new ItemStack(TRepo.metalBlock, 1, 8));
         OreDictionary.registerOre("blockSteel", new ItemStack(TRepo.metalBlock, 1, 9));
+        OreDictionary.registerOre("blockEnder", new ItemStack(TRepo.metalBlock, 1, 10));
         ensureOreIsRegistered("blockIron", new ItemStack(Blocks.iron_block));
         ensureOreIsRegistered("blockGold", new ItemStack(Blocks.gold_block));
 
