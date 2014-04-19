@@ -1,6 +1,7 @@
 itemGroup.TConstructTools=TConstruct: Инструменты
 itemGroup.TConstructMaterials=TConstruct: Материалы
 itemGroup.TConstructBlocks=TConstruct: Блоки
+itemGroup.TConstructParts=TConstruct: Составные части
 
 crafters.ToolStation=Инженерная станция
 crafters.ToolForge=Инженерная кузня
@@ -100,7 +101,7 @@ block.fancybrick.slime.name=Красивый слизистый кирпич
 block.fancybrick.blueslime.name=Красивый слизистый кирпич
 block.fancybrick.endstone.name=Кирпич из красивого камня края
 block.fancybrick.obsidian.ingot.name=Красивый обсидиановый кирпич
-block.fancybrick.stone.road.name=Каменная дорого
+block.fancybrick.stone.road.name=Каменная дорога
 block.fancybrick.stone.name=Кирпич из красивого камня
 
 tile.rail.wood.name=Деревянные рельсы
@@ -158,6 +159,8 @@ item.InfiTool.Shortbow.name=Лук
 item.InfiTool.Arrow.name=Стрела
 item.InfiTool.PotionLauncher.name=Зельемёт
 item.InfiTool.Mattock.name=Мотыготопор
+
+item.tool.randomarrow=Серпантин
 
 item.tconstruct.Pattern.blank_pattern.name=Пустая схема
 item.tconstruct.Pattern.rod.name=Схема стержня
@@ -374,7 +377,7 @@ block.searedstone.slab.creeper.name=Резная обожжённая плита
 block.soil.slab.dirt.name=Земляная плита
 block.soil.slab.mycelium.name=Плита из широкого мицелия
 block.soil.slab.slime.name=Плита из слизистой грязи
-block.soil.slab.grout.name=Плита из осадка
+block.soil.slab.grout.name=Плита из цемента
 block.soil.slab.blueslime.name=Плита из слизистой грязи
 block.soil.slab.graveyardsoil.name=Плита из кладбищенской почвы
 block.soil.slab.consecratedsoil.name=Плита из священной почвы
@@ -387,6 +390,7 @@ block.slime.grass.dirt.name=Слизистая трава
 block.slime.tallgrass.name=Слизистая трава
 block.slime.congealed.blue.name=Застывшая синяя слизь
 block.slime.congealed.green.name=Застывшая зелёная слизь
+block.slime.congealed.purple.name=Застывшая фиолетовая слизь
 
 item.tconstruct.storage.knapsack.name=Ранец  
 item.tconstruct.blankpattern.pattern.name=Пустая схема
@@ -499,6 +503,7 @@ item.tconstruct.canister.yellow.name=Банка с сердцем (жёлтая)
 item.tconstruct.canister.miniheart.green.name=Маленькое зелёное сердечко
 item.tconstruct.canister.green.name=Банка с сердцем (зелёная)
 item.tconstruct.glove.name=Земленосные перчатки
+item.tconstruct.modifier.creative.name=Модификатор инструмента
 
 SearedBlock.Table.name=Литейный стол
 SearedBlock.Faucet.name=Литейный слив
@@ -693,6 +698,11 @@ smeltery.brick.tooltip1=Структурный блок плавильни
 smeltery.brick.tooltip2=(Безопасен для декораций)
 
 gui.smeltery1=Топливо
+gui.smeltery.emerald=Изумрудов: 
+gui.smeltery.glass.block=Блоков: 
+gui.smeltery.glass.pannel=Панелей: 
+gui.smeltery.metal.ingot=Слитков: 
+gui.smeltery.metal.nugget=Самородков: 
 gui.landmine=Мина
 gui.partcrafter1=Создание частей
 gui.partcrafter2=Сбор частей
@@ -732,5 +742,68 @@ gui.toolstation15=Уровень добычи:
 gui.toolstation16=Скорость использования: 
 gui.toolstation17=Модификаторы
 gui.toolstation18=Модификаторов осталось: 
+
+gui.partbuilder.material.wood=Дерево
+gui.partbuilder.material.stone=Камень
+gui.partbuilder.material.iron=Железо
+gui.partbuilder.material.flint=Кремень
+gui.partbuilder.material.cactus=Кактус
+gui.partbuilder.material.bone=Кость
+gui.partbuilder.material.obsidian=Обсидиан
+gui.partbuilder.material.netherrack=Адский камень
+gui.partbuilder.material.slime=Слизь
+gui.partbuilder.material.paper=Бумага
+gui.partbuilder.material.blueslime=Синяя слизь
+gui.partbuilder.material.cobalt=Кобальт
+gui.partbuilder.material.ardite=Ардит
+gui.partbuilder.material.manyullyn=Мануллин
+gui.partbuilder.material.copper=Медь
+gui.partbuilder.material.bronze=Бронза
+gui.partbuilder.material.alumite=Алюмит
+gui.partbuilder.material.steel=Сталь
+gui.partbuilder.material.pigiron=Свиное железо
+gui.partbuilder.material.thaumium=Таум-металл
+
+gui.modifier.blaze=Огонь
+gui.modifier.silk=Шёлковое касание
+gui.modifier.lapis=Лазурит
+gui.modifier.redstone=Редстоун
+gui.modifier.diamond=Алмаз
+gui.modifier.emerald=Изумруд
+gui.modifier.moss=Мох
+gui.modifier.lava=Лава
+gui.modifier.necro=Некроз
+gui.modifier.spider=Анти-паук
+gui.modifier.quartz=Кварц
+
+modifier.armour.jump.double=Двойной прыжок
+modifier.armour.jump.triple=Тройной прыжок
+modifier.armour.jump.quad=Четверной прыжок
+modifier.armour.protection=
+modifier.tool.spider=Бич членистоногих
+modifier.tool.quartz=Острота
+modifier.tool.blaze=Огненное касание
+modifier.tool.silk=Шелковистость
+mofifier.tool.flux=Поток
+modifier.tool.lapis=Удача
+modifier.tool.piston=Отдача
+modifier.tool.redstone=Ускорение
+modifier.tool.reinforced=Неразрушимость
+modifier.tool.unbreaking=
+modifier.tool.smite=Небесная кара
+modifier.tool.diamond=Прочность +500
+modifier.tool.emerald=Прочность +50%
+modifier.tool.moss=Автовосстановление
+modifier.tool.lava=Автожарка
+modifier.tool.necro=Вампиризм
+modifier.tool.beheading=Палач
+
+materialtraits.stonebound=Сила камня
+materialtraits.jagged=Шипы
+materialtraits.writable=Переписываемость
+materialtraits.tasty=Вкусность
+materialtraits.thaumic=Таум-сила
+
+creativeModLock.tooltip=Цель: 
 
 attribute.generic.ammo.attackDamage=Средний урон
