@@ -142,7 +142,7 @@ public class WingModel extends ModelBiped
             this.WingBaseLeft.rotateAngleY = -MathHelper.sin(f2 / slow) / 5.0f + 0.7f;
             this.WingBaseLeft.rotateAngleZ = -MathHelper.sin(f2 / slow) / 2.5f + 0.3f;
         }
-        else if (player.inWater)
+        else if (player.isInWater())
         {
             float slow = 17f;
             this.WingBaseRight.rotateAngleX = MathHelper.sin(f2 / slow) / 15f + 0.5235988F;
