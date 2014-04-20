@@ -1314,7 +1314,7 @@ public class TContent implements IFuelHandler
         //Temporary recipes
         ItemStack leather = new ItemStack(Item.leather);
         ItemStack glass = new ItemStack(Block.glass);
-        GameRegistry.addShapedRecipe(new ItemStack(travelGoggles), "#p#", "q#q", "g g" '#', leather, 'q', glass, 'p', new ItemStack(Item.potion, 1, 8230), 'g', new ItemStack(Item.ingotGold));
+        GameRegistry.addShapedRecipe(new ItemStack(travelGoggles), "#p#", "q#q", "g g", '#', leather, 'q', glass, 'p', new ItemStack(Item.potion, 1, 8230), 'g', new ItemStack(Item.ingotGold));
         GameRegistry.addShapedRecipe(new ItemStack(travelWings), "g g", "i#i", "i i", '#', Item.plateLeather, 'g', Item.ingotGold, 'i', Item.ingotIron);
         GameRegistry.addShapedRecipe(new ItemStack(travelGloves), "qq", "gg", 'g', new ItemStack(glove), 'q', glass);
         GameRegistry.addShapedRecipe(new ItemStack(travelBoots), "l l", "s#s", "l l", '#', Item.bootsLeather, 'l', leather, 's', new ItemStack(Item.silk));
