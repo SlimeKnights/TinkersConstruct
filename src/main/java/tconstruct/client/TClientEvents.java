@@ -128,6 +128,9 @@ public class TClientEvents
 
     boolean tukmc = Loader.isModLoaded("tukmc_Vz");
     GameSettings gs = Minecraft.getMinecraft().gameSettings;
+    
+    int scaledWidth;
+    int scaledHeight;
 
     /* HUD */
     @ForgeSubscribe
@@ -140,8 +143,8 @@ public class TClientEvents
                 updateCounter++;
 
                 ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
-                int scaledWidth = scaledresolution.getScaledWidth();
-                int scaledHeight = scaledresolution.getScaledHeight();
+                scaledWidth = scaledresolution.getScaledWidth();
+                scaledHeight = scaledresolution.getScaledHeight();
                 int xBasePos = scaledWidth / 2 - 91;
                 int yBasePos = scaledHeight - 39;
                 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(mc.thePlayer.username);
