@@ -14,6 +14,7 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.potion.Potion;
 import tconstruct.client.event.EventCloakRender;
 import tconstruct.client.tabs.TabRegistry;
+import tconstruct.common.PlayerAbilityHelper;
 import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
@@ -23,6 +24,7 @@ public class TControls extends TKeyHandler
     //static KeyBinding stiltsKey = new KeyBinding("key.stilts", 46);
     public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24);
     public static KeyBinding refreshCapes = new KeyBinding("key.tcapes.reload", 88);
+    public static KeyBinding toggleGoggles = new KeyBinding("key.tgoggles", 44);
     static KeyBinding jumpKey;
     static KeyBinding invKey;
     static Minecraft mc;
@@ -39,8 +41,7 @@ public class TControls extends TKeyHandler
 
     public TControls()
     {
-        super(new KeyBinding[] { armorKey, refreshCapes }, new boolean[] { false, false }, getVanillaKeyBindings(), new boolean[] { false, false });
-        //TConstruct.logger.info("Controls registered");
+        super(new KeyBinding[] { armorKey, refreshCapes, toggleGoggles }, new boolean[] { false, false, false }, getVanillaKeyBindings(), new boolean[] { false, false });
     }
 
     private static KeyBinding[] getVanillaKeyBindings ()
@@ -90,7 +91,7 @@ public class TControls extends TKeyHandler
                     }
 
                     midairJumps--;
-                    resetFallDamage(mc.thePlayer.username);
+                    updateServer((byte) 10);
                 }
 
                 if (!jumping)
@@ -103,6 +104,11 @@ public class TControls extends TKeyHandler
                         midairJumps = shoeTag.getInteger("Double-Jump");
                     }
                 }
+            }
+            if (kb == toggleGoggles)
+            {
+                PlayerAbilityHelper.toggleGoggles(mc.thePlayer);
+                updateServer((byte) 9);
             }
         }
     }
@@ -133,33 +139,19 @@ public class TControls extends TKeyHandler
         onGround = false;
         onStilts = false;
     }
+    
+    /* Packet IDs:
+     * 9 - Toggle goggles
+     * 10 - reset fall damage 
+     */
 
-    void resetFallDamage (String name)
+    void updateServer (byte packetID)
     {
         ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
         DataOutputStream outputStream = new DataOutputStream(bos);
         try
         {
-            outputStream.writeByte(10);
-            outputStream.writeUTF(name);
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-
-        updateServer(bos);
-    }
-
-    void updateSize (String name, float size)
-    {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
-        DataOutputStream outputStream = new DataOutputStream(bos);
-        try
-        {
-            outputStream.writeByte(11);
-            outputStream.writeUTF(name);
-            outputStream.writeFloat(size);
+            outputStream.writeByte(packetID);
         }
         catch (Exception ex)
         {

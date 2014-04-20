@@ -10,13 +10,13 @@ public class TPlayerStats
     
     public int level;
     public int bonusHealth;
-    public int bonusHealthClient;
     public int damage;
     public int hunger;
     public int previousDimension;
     public int mineSpeed;
     
     public boolean climbWalls;
+    public boolean activeGoggles = true;
     
     public boolean beginnerManual;
     public boolean materialManual;

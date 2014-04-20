@@ -145,13 +145,7 @@ public class ArmorExtended implements IInventory
                 }
             }
             int prevHealth = stats.bonusHealth;
-            if (side == Side.CLIENT)
-                prevHealth = stats.bonusHealthClient;
-
-            if (side == Side.CLIENT)
-                stats.bonusHealthClient = bonusHP;
-            else
-                stats.bonusHealth = bonusHP;
+            stats.bonusHealth = bonusHP;
 
             int healthChange = bonusHP - prevHealth;
             if (healthChange != 0)
@@ -172,13 +166,8 @@ public class ArmorExtended implements IInventory
         else if (parent != null && parent.get() != null)
         {
             int prevHealth = stats.bonusHealth;
-            if (side == Side.CLIENT)
-                prevHealth = stats.bonusHealthClient;
             int bonusHP = 0;
-            if (side == Side.CLIENT)
-                stats.bonusHealthClient = bonusHP;
-            else
-                stats.bonusHealth = bonusHP;
+            stats.bonusHealth = bonusHP;
             int healthChange = bonusHP - prevHealth;
             if (healthChange != 0)
             {

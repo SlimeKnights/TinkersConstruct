@@ -34,13 +34,22 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TPlayerHandler implements IPlayerTracker
 {
     /* Player */
     //public int hunger;
-    public ConcurrentHashMap<String, TPlayerStats> playerStats = new ConcurrentHashMap<String, TPlayerStats>();
+    private ConcurrentHashMap<String, TPlayerStats> playerStats = new ConcurrentHashMap<String, TPlayerStats>();
     public static HashSet<Integer> knapsackDimensions = new HashSet<Integer>();
+
+    @SideOnly(Side.CLIENT)
+    private TPlayerStats clientPlayerStats;
+
+    public ConcurrentHashMap<String, TPlayerStats> getServerStatList ()
+    {
+        return playerStats;
+    }
 
     @Override
     public void onPlayerLogin (EntityPlayer player)
@@ -371,14 +380,26 @@ public class TPlayerHandler implements IPlayerTracker
     /* Find the right player */
     public TPlayerStats getPlayerStats (String username)
     {
-        TPlayerStats stats = playerStats.get(username);
-        //TConstruct.logger.info("Stats: "+stats);
-        if (stats == null)
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
         {
-            stats = new TPlayerStats();
-            playerStats.put(username, stats);
+            if (clientPlayerStats == null || clientPlayerStats.player.get() == null)
+            {
+                clientPlayerStats = new TPlayerStats();
+                clientPlayerStats.player = new WeakReference<EntityPlayer>(net.minecraft.client.Minecraft.getMinecraft().thePlayer);
+            }
+            return clientPlayerStats;
         }
-        return stats;
+        else
+        {
+            TPlayerStats stats = null;
+            stats = playerStats.get(username);
+            if (stats == null)
+            {
+                stats = new TPlayerStats();
+                playerStats.put(username, stats);
+            }
+            return stats;
+        }
     }
 
     public EntityPlayer getEntityPlayer (String username)

@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import cpw.mods.fml.client.registry.*;
 import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 import java.io.InputStream;
 import java.util.*;
 import javax.xml.parsers.*;
@@ -28,7 +30,10 @@ import org.w3c.dom.Document;
 import tconstruct.TConstruct;
 import tconstruct.blocks.SlimeExplosive;
 import tconstruct.blocks.logic.*;
+import tconstruct.client.armor.BootBump;
+import tconstruct.client.armor.GloveModel;
 import tconstruct.client.armor.RenderArmorCast;
+import tconstruct.client.armor.WingModel;
 import tconstruct.client.block.*;
 import tconstruct.client.entity.*;
 import tconstruct.client.entity.item.ExplosiveRender;
@@ -58,6 +63,10 @@ public class TProxyClient extends TProxyCommon
 
     public static ArmorExtended armorExtended = new ArmorExtended();
     public static KnapsackInventory knapsack = new KnapsackInventory();
+    
+    public static WingModel wings = new WingModel();
+    public static BootBump bootbump = new BootBump();
+    public static GloveModel glove = new GloveModel();
 
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)

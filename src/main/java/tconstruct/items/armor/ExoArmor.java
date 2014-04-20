@@ -54,17 +54,6 @@ public class ExoArmor extends ArmorCore
     {
         //Deimplemented for now
     }
-    
-    @SideOnly(Side.CLIENT)
-    WingModel moel = new WingModel();
-    
-    @SideOnly(Side.CLIENT)
-    public ModelBiped getArmorModel (EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot)
-    {
-        if (armorSlot == 1)
-            return moel;
-        return null;
-    }
 
     @SideOnly(Side.CLIENT)
     public void getSubItems (int par1, CreativeTabs par2CreativeTabs, List par3List)

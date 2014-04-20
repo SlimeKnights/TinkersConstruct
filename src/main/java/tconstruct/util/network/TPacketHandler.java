@@ -19,6 +19,7 @@ import tconstruct.blocks.logic.SmelteryLogic;
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
 import tconstruct.client.TProxyClient;
+import tconstruct.common.PlayerAbilityHelper;
 import tconstruct.library.blocks.InventoryLogic;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IPacketHandler;
@@ -134,11 +135,14 @@ public class TPacketHandler implements IPacketHandler
                     break;
                 }
             }
+            
+            else if (packetID == 9)
+            {
+                PlayerAbilityHelper.toggleGoggles(player);
+            }
 
             else if (packetID == 10) //Double jump
             {
-                //String user = inputStream.readUTF();
-                //EntityPlayer player = TConstruct.playerTracker.getEntityPlayer(user);
                 player.fallDistance = 0;
             }
 

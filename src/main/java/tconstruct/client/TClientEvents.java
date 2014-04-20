@@ -90,6 +90,36 @@ public class TClientEvents
             TContent.pigIronFluid.setIcons(stillIcons[0], flowIcons[0]);
         }
     }
+    
+    /* Equipables */
+    
+    @ForgeSubscribe
+    public void adjustArmor(RenderPlayerEvent.SetArmorModel event)
+    {
+        switch(event.slot)
+        {
+        case 1:
+            TProxyClient.wings.onGround = event.renderer.modelBipedMain.onGround;
+            TProxyClient.wings.isRiding = event.renderer.modelBipedMain.isRiding;
+            TProxyClient.wings.isChild = event.renderer.modelBipedMain.isChild;
+            TProxyClient.wings.isSneak = event.renderer.modelBipedMain.isSneak;
+            break;
+        case 2:
+            TProxyClient.glove.onGround = event.renderer.modelBipedMain.onGround;
+            TProxyClient.glove.isRiding = event.renderer.modelBipedMain.isRiding;
+            TProxyClient.glove.isChild = event.renderer.modelBipedMain.isChild;
+            TProxyClient.glove.isSneak = event.renderer.modelBipedMain.isSneak;
+            TProxyClient.glove.heldItemLeft = event.renderer.modelBipedMain.heldItemLeft;
+            TProxyClient.glove.heldItemRight = event.renderer.modelBipedMain.heldItemRight;
+            break;
+        case 3:
+            TProxyClient.bootbump.onGround = event.renderer.modelBipedMain.onGround;
+            TProxyClient.bootbump.isRiding = event.renderer.modelBipedMain.isRiding;
+            TProxyClient.bootbump.isChild = event.renderer.modelBipedMain.isChild;
+            TProxyClient.bootbump.isSneak = event.renderer.modelBipedMain.isSneak;
+            break;
+        }
+    }
 
     private static final ResourceLocation hearts = new ResourceLocation("tinker", "textures/gui/newhearts.png");
     private static final ResourceLocation icons = new ResourceLocation("textures/gui/icons.png");
@@ -228,90 +258,6 @@ public class TClientEvents
                 if (absorb > 0)
                     GuiIngameForge.left_height += 10;
 
-                event.setCanceled(true);
-            }
-
-            if (event.type == ElementType.FOOD)
-            {
-                mc.mcProfiler.startSection("food");
-
-                /*int xBasePos = scaledWidth / 2 - 91;
-                int yBasePos = scaledHeight - 39;*/
-                ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
-                int scaledWidth = scaledresolution.getScaledWidth();
-                int scaledHeight = scaledresolution.getScaledHeight();
-                int left = scaledWidth / 2 + 91;
-                int top = scaledHeight - GuiIngameForge.right_height;
-                GuiIngameForge.right_height += 10;
-                boolean unused = false;// Unused flag in vanilla, seems to be part of a 'fade out' mechanic
-
-                FoodStats stats = mc.thePlayer.getFoodStats();
-                int level = stats.getFoodLevel();
-                int levelLast = stats.getPrevFoodLevel();
-
-                for (int i = 0; i < 10; ++i) //Default food
-                {
-                    int idx = i * 2 + 1;
-                    int x = left - i * 8 - 9;
-                    int y = top;
-                    int icon = 16;
-                    byte backgound = 0;
-
-                    if (mc.thePlayer.isPotionActive(Potion.hunger))
-                    {
-                        icon += 36;
-                        backgound = 13;
-                    }
-                    if (unused)
-                        backgound = 1; //Probably should be a += 1 but vanilla never uses this
-
-                    if (mc.thePlayer.getFoodStats().getSaturationLevel() <= 0.0F && updateCounter % (level * 3 + 1) == 0)
-                    {
-                        y = top + (rand.nextInt(3) - 1);
-                    }
-
-                    drawTexturedModalRect(x, y, 16 + backgound * 9, 27, 9, 9);
-
-                    if (idx < level)
-                        drawTexturedModalRect(x, y, icon + 36, 27, 9, 9);
-                    else if (idx == level)
-                        drawTexturedModalRect(x, y, icon + 45, 27, 9, 9);
-
-                }
-
-                //Extra food
-                this.mc.getTextureManager().bindTexture(hearts);
-                left += 88;
-                for (int i = 11; i < 20; i++)
-                {
-                    int idx = i * 2 + 1;
-                    int x = left - i * 8 - 9;
-                    int y = top;
-                    int icon = 0;
-                    byte backgound = 0;
-
-                    if (mc.thePlayer.isPotionActive(Potion.hunger))
-                    {
-                        icon += 36;
-                        backgound = 13;
-                    }
-                    if (unused)
-                        backgound = 1; //Probably should be a += 1 but vanilla never uses this
-
-                    if (mc.thePlayer.getFoodStats().getSaturationLevel() <= 0.0F && updateCounter % (level * 3 + 1) == 0)
-                    {
-                        y = top + (rand.nextInt(3) - 1);
-                    }
-
-                    //drawTexturedModalRect(x, y, 16 + backgound * 9, 27, 9, 9);
-
-                    if (idx < level)
-                        drawTexturedModalRect(x, y, icon + 0, 27, 9, 9);
-                    else if (idx == level)
-                        drawTexturedModalRect(x, y, icon + 9, 27, 9, 9);
-                }
-                this.mc.getTextureManager().bindTexture(icons);
-                mc.mcProfiler.endSection();
                 event.setCanceled(true);
             }
 

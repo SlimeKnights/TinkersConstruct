@@ -1,7 +1,6 @@
 package tconstruct.items.armor;
 
 import java.util.List;
-import java.util.UUID;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -16,14 +15,13 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-import tconstruct.client.armor.BootBump;
-import tconstruct.client.armor.GloveModel;
-import tconstruct.client.armor.WingModel;
-import tconstruct.common.TContent;
+import tconstruct.TConstruct;
+import tconstruct.client.TProxyClient;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.EnumArmorPart;
-import tconstruct.library.tools.ItemModifier;
+import tconstruct.util.player.TPlayerStats;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -37,9 +35,9 @@ public class TravelGear extends ArmorCore
         this.textureName = texture;
         this.setCreativeTab(TConstructRegistry.materialTab);
     }
-    
+
     @Override
-    public String getModifyType()
+    public String getModifyType ()
     {
         return "Clothing";
     }
@@ -65,25 +63,20 @@ public class TravelGear extends ArmorCore
         //Deimplemented for now
     }
 
-    @SideOnly(Side.CLIENT)
-    public static WingModel wings = new WingModel();
-    @SideOnly(Side.CLIENT)
-    public static BootBump bootbump = new BootBump();
-    @SideOnly(Side.CLIENT)
-    public static GloveModel glove = new GloveModel();
-
+    @Override
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel (EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot)
     {
         if (armorSlot == 1)
-            return wings;
+            return TProxyClient.wings;
         if (armorSlot == 2)
-            return glove;
+            return TProxyClient.glove;
         if (armorSlot == 3)
-            return bootbump;
+            return TProxyClient.bootbump;
         return null;
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems (int par1, CreativeTabs par2CreativeTabs, List par3List)
     {
@@ -95,17 +88,11 @@ public class TravelGear extends ArmorCore
         armorTag.setInteger("Modifiers", 30);
         baseTag.setTag(SET_NAME, armorTag);
 
-        if (par1 == TContent.exoChest.itemID)
-        {
-            NBTTagList attributes = new NBTTagList();
-            baseTag.setTag("AttributeModifiers", attributes);
-            attributes.appendTag(ItemModifier.getAttributeTag("generic.maxHunger", "ExoHunger", 20, true, UUID.fromString("8d39e761-cccc-4f81-853d-12dc8b424c14")));
-        }
-
         armor.setTagCompound(baseTag);
         par3List.add(armor);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
@@ -145,7 +132,12 @@ public class TravelGear extends ArmorCore
 
         if (armorPart == EnumArmorPart.HELMET)
         {
-            player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 15 * 20, 0, true));
+            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+            if (stats.activeGoggles)
+            {
+                player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 15 * 20, 0, true));
+            }
+
         }
 
         if (armorPart == EnumArmorPart.SHOES)
