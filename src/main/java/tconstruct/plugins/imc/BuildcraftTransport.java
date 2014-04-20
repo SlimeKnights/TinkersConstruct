@@ -1,5 +1,6 @@
 package tconstruct.plugins.imc;
 
+import mantle.module.ILoadableModule;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import tconstruct.TConstruct;
@@ -7,14 +8,11 @@ import tconstruct.common.TRepo;
 import tconstruct.plugins.ICompatPlugin;
 import cpw.mods.fml.common.event.FMLInterModComms;
 
-public class BuildcraftTransport implements ICompatPlugin
+public class BuildcraftTransport implements ILoadableModule
 {
 
-    @Override
-    public String getModId ()
-    {
-        return "BuildCraft|Transport";
-    }
+    @SuppressWarnings("unused")
+    public static String modId = "BuildCraft|Transport";
 
     @Override
     public void preInit ()

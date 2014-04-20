@@ -1,6 +1,7 @@
 package tconstruct;
 
 import mantle.lib.TabTools;
+import mantle.module.ModuleController;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -80,6 +81,9 @@ public class TConstruct
     @SidedProxy(clientSide = "tconstruct.client.TProxyClient", serverSide = "tconstruct.common.TProxyCommon")
     public static TProxyCommon proxy;
 
+    // Module loader
+    public static final ModuleController moduleLoader = new ModuleController("TDynstruct.cfg", "TConstruct");
+
     // The packet pipeline
     public static final PacketPipeline packetPipeline = new PacketPipeline();
 
@@ -99,7 +103,7 @@ public class TConstruct
 
         EnvironmentChecks.verifyEnvironmentSanity();
         MinecraftForge.EVENT_BUS.register(events = new TEventHandler());
-        PluginController.getController().registerBuiltins();
+        PluginController.registerModules();
     }
 
     @EventHandler
@@ -166,7 +170,7 @@ public class TConstruct
             FMLCommonHandler.instance().bus().register(new TControls());
         }
 
-        PluginController.getController().preInit();
+        moduleLoader.preInit();
     }
 
     @EventHandler
@@ -181,12 +185,12 @@ public class TConstruct
         DimensionBlacklist.getBadBimensions();
         GameRegistry.registerWorldGenerator(new SlimeIslandGen(TRepo.slimePool, 2), 2);
 
-        PluginController.getController().init();
-
         if (PHConstruct.achievementsEnabled)
         {
             TAchievements.init();
         }
+
+        moduleLoader.init();
     }
 
     @EventHandler
@@ -201,7 +205,7 @@ public class TConstruct
         content.createEntities();
         recipes.modRecipes();
 
-        PluginController.getController().postInit();
+        moduleLoader.postInit();
     }
 
     public static LiquidCasting getTableCasting ()

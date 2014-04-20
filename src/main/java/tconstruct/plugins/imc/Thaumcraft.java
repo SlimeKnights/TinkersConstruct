@@ -1,19 +1,17 @@
 package tconstruct.plugins.imc;
 
+import mantle.module.ILoadableModule;
 import net.minecraft.item.ItemStack;
 import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
 import tconstruct.plugins.ICompatPlugin;
 import cpw.mods.fml.common.event.FMLInterModComms;
 
-public class Thaumcraft implements ICompatPlugin
+public class Thaumcraft implements ILoadableModule
 {
 
-    @Override
-    public String getModId ()
-    {
-        return "Thaumcraft";
-    }
+    @SuppressWarnings("unused")
+    public static String modId = "Thaumcraft";
 
     @Override
     public void preInit ()

@@ -3,22 +3,20 @@ package tconstruct.plugins.imc;
 import java.util.Arrays;
 import java.util.List;
 
+import mantle.module.ILoadableModule;
 import tconstruct.TConstruct;
 import tconstruct.plugins.ICompatPlugin;
 import cpw.mods.fml.common.event.FMLInterModComms;
 
-public class AppEng implements ICompatPlugin
+public class AppEng implements ILoadableModule
 {
 
     private static List<String> spatialIOLogics = Arrays.asList("AdaptiveSmelteryLogic", "AqueductLogic", "CastingBasinLogic", "CastingChannelLogic", "CastingTableLogic", "CraftingStationLogic",
             "DryingRackLogic", "EssenceExtractorLogic", "FaucetLogic", "FrypanLogic", "GolemPedestalLogic", "LavaTankLogic", "PartBuilderLogic", "PatternChestLogic", "SmelteryDrainLogic",
             "SmelteryLogic", "StencilTableLogic", "TankAirLogic", "TileEntityLandmine", "ToolForgeLogic", "ToolStationLogic", "TowerFurnaceLogic", "MultiServantLogic");
 
-    @Override
-    public String getModId ()
-    {
-        return "AppliedEnergistics";
-    }
+    @SuppressWarnings("unused")
+    public static String modId = "AppliedEnergistics";
 
     @Override
     public void preInit ()
