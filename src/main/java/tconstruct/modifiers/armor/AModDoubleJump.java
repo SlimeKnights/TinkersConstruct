@@ -13,7 +13,7 @@ public class AModDoubleJump extends AModInteger
 {
     public AModDoubleJump(ItemStack[] items)
     {
-        super(6, "Double-Jump", EnumSet.of(EnumArmorPart.SHOES), items, 5, 1, "\u00a7a", "Double-Jump");
+        super(6, "Double-Jump", EnumSet.of(EnumArmorPart.Feet), items, 5, 1, "\u00a7a", "Double-Jump");
     }
 
     @Override

@@ -1021,15 +1021,15 @@ public class TContent implements IFuelHandler
         GameRegistry.registerItem(leggingsWood, "leggingsWood");
         GameRegistry.registerItem(bootsWood, "bootsWood");
 
-        exoGoggles = new ExoArmor(PHConstruct.exoGoggles, EnumArmorPart.HELMET, "exosuit").setUnlocalizedName("tconstruct.exoGoggles");
-        exoChest = new ExoArmor(PHConstruct.exoChest, EnumArmorPart.CHEST, "exosuit").setUnlocalizedName("tconstruct.exoChest");
-        exoPants = new ExoArmor(PHConstruct.exoPants, EnumArmorPart.PANTS, "exosuit").setUnlocalizedName("tconstruct.exoPants");
-        exoShoes = new ExoArmor(PHConstruct.exoShoes, EnumArmorPart.SHOES, "exosuit").setUnlocalizedName("tconstruct.exoShoes");
+        exoGoggles = new ExoArmor(PHConstruct.exoGoggles, EnumArmorPart.Head, "exosuit").setUnlocalizedName("tconstruct.exoGoggles");
+        exoChest = new ExoArmor(PHConstruct.exoChest, EnumArmorPart.Chest, "exosuit").setUnlocalizedName("tconstruct.exoChest");
+        exoPants = new ExoArmor(PHConstruct.exoPants, EnumArmorPart.Legs, "exosuit").setUnlocalizedName("tconstruct.exoPants");
+        exoShoes = new ExoArmor(PHConstruct.exoShoes, EnumArmorPart.Feet, "exosuit").setUnlocalizedName("tconstruct.exoShoes");
         
-        travelGoggles = new TravelGear(PHConstruct.travelGoggles, EnumArmorPart.HELMET, "travel").setUnlocalizedName("tconstruct.travelgoggles");
-        travelWings = new TravelGear(PHConstruct.travelWings, EnumArmorPart.CHEST, "travel").setUnlocalizedName("tconstruct.travelwings");
-        travelGloves = new TravelGear(PHConstruct.travelPants, EnumArmorPart.PANTS, "travel").setUnlocalizedName("tconstruct.travelgloves");
-        travelBoots = new TravelGear(PHConstruct.travelBoots, EnumArmorPart.SHOES, "travel").setUnlocalizedName("tconstruct.travelboots");
+        travelGoggles = new TravelGear(PHConstruct.travelGoggles, EnumArmorPart.Head, "travel").setUnlocalizedName("tconstruct.travelgoggles");
+        travelWings = new TravelGear(PHConstruct.travelWings, EnumArmorPart.Chest, "travel").setUnlocalizedName("tconstruct.travelwings");
+        travelGloves = new TravelGear(PHConstruct.travelPants, EnumArmorPart.Legs, "travel").setUnlocalizedName("tconstruct.travelgloves");
+        travelBoots = new TravelGear(PHConstruct.travelBoots, EnumArmorPart.Feet, "travel").setUnlocalizedName("tconstruct.travelboots");
 
         String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper",
                 "ingotTin", "ingotAluminum", "rawAluminum", "ingotBronze", "ingotAluminumBrass", "ingotAlumite", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper",
@@ -1313,11 +1313,11 @@ public class TContent implements IFuelHandler
         
         //Temporary recipes
         ItemStack leather = new ItemStack(Item.leather);
-        ItemStack quartz = new ItemStack(Item.netherQuartz);
-        GameRegistry.addShapedRecipe(new ItemStack(travelGoggles), "# #", "q#q", '#', leather, 'q', quartz);
-        GameRegistry.addShapedRecipe(new ItemStack(travelWings), "g#g", "#q#", "###", '#', leather, 'q', quartz, 'g', new ItemStack(Block.glowStone));
-        GameRegistry.addShapedRecipe(new ItemStack(travelGloves), "qq", "gg", 'g', new ItemStack(glove), 'q', quartz);
-        GameRegistry.addShapedRecipe(new ItemStack(travelBoots), "l l", "s s", "l l", 'l', leather, 's', new ItemStack(Item.silk));
+        ItemStack glass = new ItemStack(Block.glass);
+        GameRegistry.addShapedRecipe(new ItemStack(travelGoggles), "#p#", "q#q", "g g" '#', leather, 'q', glass, 'p', new ItemStack(Item.potion, 1, 8230), 'g', new ItemStack(Item.ingotGold));
+        GameRegistry.addShapedRecipe(new ItemStack(travelWings), "g g", "i#i", "i i", '#', Item.plateLeather, 'g', Item.ingotGold, 'i', Item.ingotIron);
+        GameRegistry.addShapedRecipe(new ItemStack(travelGloves), "qq", "gg", 'g', new ItemStack(glove), 'q', glass);
+        GameRegistry.addShapedRecipe(new ItemStack(travelBoots), "l l", "s#s", "l l", '#', Item.bootsLeather, 'l', leather, 's', new ItemStack(Item.silk));
 
         // Metal conversion Recipes
         GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 3), patBlock, '#', new ItemStack(materials, 1, 9)); // Copper
@@ -1690,8 +1690,8 @@ public class TContent implements IFuelHandler
         TConstructRegistry.registerActiveToolMod(new TActiveOmniMod());
 
         //Armor modifiers
-        EnumSet<EnumArmorPart> allArmors = EnumSet.of(EnumArmorPart.HELMET, EnumArmorPart.CHEST, EnumArmorPart.PANTS, EnumArmorPart.SHOES);
-        EnumSet<EnumArmorPart> chest = EnumSet.of(EnumArmorPart.CHEST);
+        EnumSet<EnumArmorPart> allArmors = EnumSet.of(EnumArmorPart.Head, EnumArmorPart.Chest, EnumArmorPart.Legs, EnumArmorPart.Feet);
+        EnumSet<EnumArmorPart> chest = EnumSet.of(EnumArmorPart.Chest);
         ModifyBuilder.registerModifier(new AModMoveSpeed(0, allArmors, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }, false));
         ModifyBuilder.registerModifier(new AModKnockbackResistance(1, allArmors, new ItemStack[] { new ItemStack(Item.ingotGold), new ItemStack(Block.blockGold) }, new int[] { 1, 9 }, false));
         ModifyBuilder.registerModifier(new AModHealthBoost(2, allArmors, new ItemStack[] { new ItemStack(heartCanister, 1, 2) }, new int[] { 2 }, true));

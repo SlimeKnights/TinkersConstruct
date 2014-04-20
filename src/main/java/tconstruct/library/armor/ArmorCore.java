@@ -17,7 +17,6 @@ import tconstruct.library.IModifyable;
 
 public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IModifyable
 {
-    public static final String SET_NAME = "TinkerArmor";
     public final EnumArmorPart armorPart;
     private static final IBehaviorDispenseItem dispenserBehavior = new BehaviorDispenseArmorCopy();
     public final int baseProtection;
@@ -40,7 +39,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
     @Override
     public String getBaseTag()
     {
-        return SET_NAME;
+        return "TinkerArmor";
     }
     
     @Override
@@ -86,8 +85,8 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
             return new ArmorProperties(0, damage / baseProtection, baseProtection);
         }
 
-        NBTTagCompound data = tags.getCompoundTag(SET_NAME);
-        double amount = (data.getInteger("defense") / damage) + (data.getDouble("protection") / 100);
+        NBTTagCompound data = tags.getCompoundTag(getBaseTag());
+        double amount = (data.getInteger("Defense") / damage) + (data.getDouble("Protection") / 100);
         if (source.isUnblockable())
             amount = 0;
         clamp_double(amount, 0, 1);
@@ -104,8 +103,8 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
     {
         if (!armor.hasTagCompound())
             return this.baseProtection;
-        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(SET_NAME);
-        double amount = armorTag.getDouble("protection") / 4;
+        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(getBaseTag());
+        double amount = armorTag.getDouble("Protection") / 4;
         if (amount > 0 && amount < 1)
             amount = 1;
         return (int) (Math.floor(amount));
@@ -122,11 +121,11 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
             tags = new NBTTagCompound();
             stack.setTagCompound(tags);
             data = new NBTTagCompound();
-            tags.setCompoundTag(SET_NAME, data);
-            data.setDouble("damageReduction", baseProtection);
+            tags.setCompoundTag(getBaseTag(), data);
+            data.setDouble("DamageReduction", baseProtection);
         }
 
-        data = tags.getCompoundTag(SET_NAME);
+        data = tags.getCompoundTag(getBaseTag());
         int dmg = data.getInteger("Damage");
         dmg += damage;
         data.setDouble("Damage", dmg);
@@ -173,7 +172,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
             return 0;
         }
 
-        return tags.getCompoundTag(SET_NAME).getInteger("TotalDurability");
+        return tags.getCompoundTag(getBaseTag()).getInteger("TotalDurability");
     }
 
     public int getItemMaxDamageFromStackForDisplay (ItemStack stack)
@@ -184,7 +183,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
             return 0;
         }
 
-        return tags.getCompoundTag(SET_NAME).getInteger("Damage");
+        return tags.getCompoundTag(getBaseTag()).getInteger("Damage");
     }
 
 }

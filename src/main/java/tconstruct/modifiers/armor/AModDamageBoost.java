@@ -91,13 +91,13 @@ public class AModDamageBoost extends ArmorModTypeFilter
         ArmorCore item = (ArmorCore) stack.getItem();
         switch (item.armorPart)
         {
-        case HELMET:
+        case Head:
             return modifierType ? headScale : headFlat;
-        case CHEST:
+        case Chest:
             return modifierType ? chestScale : chestFlat;
-        case PANTS:
+        case Legs:
             return modifierType ? pantsScale : pantsFlat;
-        case SHOES:
+        case Feet:
             return modifierType ? shoesScale : pantsFlat;
         }
         return null;

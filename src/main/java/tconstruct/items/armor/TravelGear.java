@@ -84,9 +84,13 @@ public class TravelGear extends ArmorCore
         NBTTagCompound baseTag = new NBTTagCompound();
         NBTTagList list = new NBTTagList();
 
-        NBTTagCompound armorTag = new NBTTagCompound();
-        armorTag.setInteger("Modifiers", 30);
-        baseTag.setTag(SET_NAME, armorTag);
+        NBTTagCompound tag = new NBTTagCompound();
+        tag.setInteger("Modifiers", 3);
+        if (this.armorPart == EnumArmorPart.Head)
+            tag.setDouble("Protection", 4);
+        else
+            tag.setDouble("Protection", 8);
+        baseTag.setTag(getBaseTag(), tag);
 
         armor.setTagCompound(baseTag);
         par3List.add(armor);
@@ -99,7 +103,7 @@ public class TravelGear extends ArmorCore
         if (!stack.hasTagCompound())
             return;
 
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag(SET_NAME);
+        NBTTagCompound tags = stack.getTagCompound().getCompoundTag(getBaseTag());
         double protection = tags.getDouble("protection");
         if (protection > 0)
             list.add("\u00a7aProtection: " + protection + "%");
@@ -124,13 +128,13 @@ public class TravelGear extends ArmorCore
     @Override
     public void onArmorTickUpdate (World world, EntityPlayer player, ItemStack itemStack)
     {
-        if (armorPart == EnumArmorPart.SHOES)
+        if (armorPart == EnumArmorPart.Feet)
         {
             if (player.stepHeight < 1.0f)
                 player.stepHeight = 1.0f;
         }
 
-        if (armorPart == EnumArmorPart.HELMET)
+        if (armorPart == EnumArmorPart.Head)
         {
             TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
             if (stats.activeGoggles)
@@ -140,7 +144,7 @@ public class TravelGear extends ArmorCore
 
         }
 
-        if (armorPart == EnumArmorPart.SHOES)
+        if (armorPart == EnumArmorPart.Feet)
         {
             player.fallDistance = 0;
             float terminalVelocity = -0.32f;

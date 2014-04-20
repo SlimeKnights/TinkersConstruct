@@ -3,7 +3,7 @@ package tconstruct.library.armor;
 public enum EnumArmorPart
 {
 
-    HELMET(0), CHEST(1), PANTS(2), SHOES(3);
+    Head(0), Chest(1), Legs(2), Feet(3);
 
     private final int partID;
 

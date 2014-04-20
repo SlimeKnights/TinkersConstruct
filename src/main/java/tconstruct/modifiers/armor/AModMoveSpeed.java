@@ -81,13 +81,13 @@ public class AModMoveSpeed extends ArmorModTypeFilter
         ArmorCore item = (ArmorCore) stack.getItem();
         switch (item.armorPart)
         {
-        case HELMET:
+        case Head:
             return head;
-        case CHEST:
+        case Chest:
             return chest;
-        case PANTS:
+        case Legs:
             return pants;
-        case SHOES:
+        case Feet:
             return shoes;
         }
         return null;
