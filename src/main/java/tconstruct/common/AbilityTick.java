@@ -3,6 +3,7 @@ package tconstruct.common;
 import java.util.EnumSet;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -35,6 +36,11 @@ public class AbilityTick implements ITickHandler
                 {
                     player.fallDistance = 0.0F;
                 }
+            }
+            ItemStack stack = player.inventory.getStackInSlot(8);
+            if (stack != null && stack.getItem() instanceof ItemMap)
+            {
+                stack.getItem().onUpdate(stack, player.worldObj, player, 8, true);
             }
         }
     }

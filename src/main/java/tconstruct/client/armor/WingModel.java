@@ -3,6 +3,7 @@ package tconstruct.client.armor;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.MathHelper;
 
 public class WingModel extends ModelBiped
 {
@@ -101,7 +102,7 @@ public class WingModel extends ModelBiped
         WingBaseLeft.addChild(WingCenterLeft);
         WingBaseLeft.addChild(WingFlangeLeft);
         WingBaseLeft.addChild(WingAuxLeft);
-        
+
         this.bipedCloak.isHidden = true;
         this.bipedEars.isHidden = true;
         this.bipedHead.isHidden = true;
@@ -127,9 +128,72 @@ public class WingModel extends ModelBiped
         model.rotateAngleZ = z;
     }
 
-    public void setRotationAngles (float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
+    public void setRotationAngles (float f, float f1, float f2, float f3, float f4, float f5, Entity player)
     {
-        super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+        super.setRotationAngles(f, f1, f2, f3, f4, f5, player);
+        if (this.isRiding)
+        {
+            float slow = 17f;
+            this.WingBaseRight.rotateAngleX = MathHelper.sin(f2 / slow) / 10f + 0.9F;
+            this.WingBaseRight.rotateAngleY = MathHelper.sin(f2 / slow) / 5.0f - 0.7f;
+            this.WingBaseRight.rotateAngleZ = MathHelper.sin(f2 / slow) / 2.5f - 0.3f;
+
+            this.WingBaseLeft.rotateAngleX = MathHelper.sin(f2 / slow) / 10 + 0.9F;
+            this.WingBaseLeft.rotateAngleY = -MathHelper.sin(f2 / slow) / 5.0f + 0.7f;
+            this.WingBaseLeft.rotateAngleZ = -MathHelper.sin(f2 / slow) / 2.5f + 0.3f;
+        }
+        else if (player.inWater)
+        {
+            float slow = 17f;
+            this.WingBaseRight.rotateAngleX = MathHelper.sin(f2 / slow) / 15f + 0.5235988F;
+            this.WingBaseRight.rotateAngleY = MathHelper.sin(f2 / slow) / 15f - 0.8f;
+            this.WingBaseRight.rotateAngleZ = MathHelper.sin(f2 / slow) / 15f - 0.8f;
+
+            this.WingBaseLeft.rotateAngleX = MathHelper.sin(f2 / slow) / 15f + 0.5235988F;
+            this.WingBaseLeft.rotateAngleY = -MathHelper.sin(f2 / slow) / 15f + 0.8f;
+            this.WingBaseLeft.rotateAngleZ = -MathHelper.sin(f2 / slow) / 15f + 0.8f;
+        }
+        else if (player.posY - player.prevPosY < 0f)
+        {
+            float slow = 20f;
+            this.WingBaseRight.rotateAngleX = MathHelper.sin(f2 / slow) / 15f + 0.7F;
+            this.WingBaseRight.rotateAngleY = MathHelper.sin(f2 / slow) / 15f - 0.8f;
+            this.WingBaseRight.rotateAngleZ = MathHelper.sin(f2 / slow) / 15f - 0.3f;
+
+            this.WingBaseLeft.rotateAngleX = MathHelper.sin(f2 / slow) / 15f + 0.7F;
+            this.WingBaseLeft.rotateAngleY = -MathHelper.sin(f2 / slow) / 15f + 0.8f;
+            this.WingBaseLeft.rotateAngleZ = -MathHelper.sin(f2 / slow) / 15f + 0.3f;
+        }
+        else if (player.isSprinting() || this.onGround > 0)
+        {
+            float slow = 1.73f;
+            this.WingBaseRight.rotateAngleX = MathHelper.sin(f2 / slow) / 15f + 0.5235988F;
+            this.WingBaseRight.rotateAngleY = MathHelper.sin(f2 / slow) / 15f - 0.6f;
+            this.WingBaseRight.rotateAngleZ = MathHelper.sin(f2 / slow) / 15f - 0.3f;
+
+            this.WingBaseLeft.rotateAngleX = MathHelper.sin(f2 / slow) / 15f + 0.5235988F;
+            this.WingBaseLeft.rotateAngleY = -MathHelper.sin(f2 / slow) / 15f + 0.6f;
+            this.WingBaseLeft.rotateAngleZ = -MathHelper.sin(f2 / slow) / 15f + 0.3f;
+        }
+        else
+        {
+            float slow = 17f;
+            if (player.motionX != 0 || player.motionZ != 0)
+                slow = 6f;
+            this.WingBaseRight.rotateAngleX = MathHelper.sin(f2 / slow) / 5f + 0.5235988F;
+            this.WingBaseRight.rotateAngleY = MathHelper.sin(f2 / slow) / 3.0f - 0.6f;
+            this.WingBaseRight.rotateAngleZ = MathHelper.sin(f2 / slow) / 1.5f - 0.3f;
+
+            this.WingBaseLeft.rotateAngleX = MathHelper.sin(f2 / slow) / 5f + 0.5235988F;
+            this.WingBaseLeft.rotateAngleY = -MathHelper.sin(f2 / slow) / 3.0f + 0.6f;
+            this.WingBaseLeft.rotateAngleZ = -MathHelper.sin(f2 / slow) / 1.5f + 0.3f;
+        }
+
+        if (this.isSneak)
+        {
+            this.WingBaseRight.rotateAngleX += 0.4f;
+            this.WingBaseLeft.rotateAngleX += 0.4f;
+        }
     }
 
 }
