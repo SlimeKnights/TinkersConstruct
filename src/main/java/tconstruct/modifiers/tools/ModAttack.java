@@ -49,8 +49,6 @@ public class ModAttack extends ToolModTypeFilter
         {
             int amount = 24;
             ToolCore toolItem = (ToolCore) tool.getItem();
-            if (toolItem.pierceArmor() || !nerfType(toolItem))
-                amount = 36;
 
             int[] keyPair = tags.getIntArray(key);
             int increase = matchingAmount(input);
@@ -109,11 +107,5 @@ public class ModAttack extends ToolModTypeFilter
     public boolean validType (ToolCore tool)
     {
         return true;
-    }
-
-    public boolean nerfType (ToolCore tool)
-    {
-        List list = Arrays.asList(tool.toolCategories());
-        return list.contains("throwing") || list.contains("ammo");
     }
 }
