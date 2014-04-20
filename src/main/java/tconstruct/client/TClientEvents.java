@@ -6,17 +6,20 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundManager;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeInstance;
+import net.minecraft.item.ItemMap;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.FoodStats;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.storage.MapData;
 import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
@@ -26,7 +29,6 @@ import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 import tconstruct.TConstruct;
 import tconstruct.common.TContent;
-import tconstruct.items.armor.TravelGear;
 import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
@@ -90,13 +92,13 @@ public class TClientEvents
             TContent.pigIronFluid.setIcons(stillIcons[0], flowIcons[0]);
         }
     }
-    
+
     /* Equipables */
-    
+
     @ForgeSubscribe
-    public void adjustArmor(RenderPlayerEvent.SetArmorModel event)
+    public void adjustArmor (RenderPlayerEvent.SetArmorModel event)
     {
-        switch(event.slot)
+        switch (event.slot)
         {
         case 1:
             TProxyClient.wings.onGround = event.renderer.modelBipedMain.onGround;
@@ -128,7 +130,7 @@ public class TClientEvents
 
     boolean tukmc = Loader.isModLoaded("tukmc_Vz");
     GameSettings gs = Minecraft.getMinecraft().gameSettings;
-    
+
     int scaledWidth;
     int scaledHeight;
 
@@ -263,10 +265,22 @@ public class TClientEvents
 
                 event.setCanceled(true);
             }
+        }
+    }
 
-            if (event.type == ElementType.CROSSHAIRS && gs.thirdPersonView != 0)
+    @ForgeSubscribe
+    public void renderMinimap (RenderGameOverlayEvent.Post event)
+    {
+        if (event.type == ElementType.ALL)
+        {
+            ItemStack stack = mc.thePlayer.inventory.getStackInSlot(8);
+            if (stack != null && stack.getItem() instanceof ItemMap)
             {
-                event.setCanceled(true);
+                MapData mapdata = ((ItemMap) stack.getItem()).getMapData(stack, this.mc.theWorld);
+                if (mapdata != null)
+                {
+                    RenderManager.instance.itemRenderer.mapItemRenderer.renderMap(this.mc.thePlayer, this.mc.getTextureManager(), mapdata);
+                }
             }
         }
     }
