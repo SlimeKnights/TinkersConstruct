@@ -265,14 +265,14 @@ public class PHConstruct
         exoChest = config.getItem("Equipables", "Exo-Chestpiece", 14117).getInt(14117);
         exoPants = config.getItem("Equipables", "Exo-Legs", 14118).getInt(14118);
         exoShoes = config.getItem("Equipables", "Exo-Boots", 14119).getInt(14119);
-        exoCraftingEnabled = config.get("Equipables", "Exo-Armor-Craftable", true).getBoolean(true);
+        exoCraftingEnabled = config.get("Equipables", "Exo-Armor-Craftable", false).getBoolean(false);
 
         creativeModifier = config.getItem("Patterns and Misc", "Creative Modifier Item", 14120).getInt(14120);
         
-        travelGoggles = config.getItem("Equipables", "Travellers Goggles", 14116).getInt(14116);
-        travelWings = config.getItem("Equipables", "Travellers Wings", 14117).getInt(14117);
-        travelPants = config.getItem("Equipables", "Travellers Pants", 14118).getInt(14118);
-        travelBoots = config.getItem("Equipables", "Travellers Boots", 14119).getInt(14119);
+        travelGoggles = config.getItem("Equipables", "Travellers Goggles", 14221).getInt(14221);
+        travelVest = config.getItem("Equipables", "Travellers Vest", 14222).getInt(14222);
+        travelWings = config.getItem("Equipables", "Travellers Wings", 14223).getInt(14223);
+        travelBoots = config.getItem("Equipables", "Travellers Boots", 14224).getInt(14224);
 
         capesEnabled = config.get("Superfun", "Enable-TCon-Capes", true).getBoolean(true);
 
@@ -618,7 +618,7 @@ public class PHConstruct
     public static boolean exoCraftingEnabled;
     public static int travelGoggles;
     public static int travelWings;
-    public static int travelPants;
+    public static int travelVest;
     public static int travelBoots;
         
     public static boolean capesEnabled;

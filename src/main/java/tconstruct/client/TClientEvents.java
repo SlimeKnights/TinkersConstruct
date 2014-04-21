@@ -6,37 +6,24 @@ import java.util.Iterator;
 import java.util.Random;
 
 import net.minecraft.block.material.MapColor;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SoundManager;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.*;
+import net.minecraft.client.audio.*;
+import net.minecraft.client.entity.*;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderPlayer;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.settings.GameSettings;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.client.settings.*;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemMap;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.Icon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.MapCoord;
-import net.minecraft.world.storage.MapData;
-import net.minecraftforge.client.GuiIngameForge;
-import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraft.item.*;
+import net.minecraft.potion.*;
+import net.minecraft.util.*;
+import net.minecraft.world.storage.*;
+import net.minecraftforge.client.*;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-import net.minecraftforge.client.event.RenderPlayerEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 
@@ -117,12 +104,16 @@ public class TClientEvents
         switch (event.slot)
         {
         case 1:
+            TProxyClient.vest.onGround = event.renderer.modelBipedMain.onGround;
+            TProxyClient.vest.isRiding = event.renderer.modelBipedMain.isRiding;
+            TProxyClient.vest.isChild = event.renderer.modelBipedMain.isChild;
+            TProxyClient.vest.isSneak = event.renderer.modelBipedMain.isSneak;
+        case 2:
             TProxyClient.wings.onGround = event.renderer.modelBipedMain.onGround;
             TProxyClient.wings.isRiding = event.renderer.modelBipedMain.isRiding;
             TProxyClient.wings.isChild = event.renderer.modelBipedMain.isChild;
             TProxyClient.wings.isSneak = event.renderer.modelBipedMain.isSneak;
-            break;
-        case 2:
+
             TProxyClient.glove.onGround = event.renderer.modelBipedMain.onGround;
             TProxyClient.glove.isRiding = event.renderer.modelBipedMain.isRiding;
             TProxyClient.glove.isChild = event.renderer.modelBipedMain.isChild;
@@ -285,6 +276,7 @@ public class TClientEvents
     }
 
     private static final ResourceLocation RES_MAP_BACKGROUND = new ResourceLocation("textures/map/map_background.png");
+
     @ForgeSubscribe
     public void renderMinimap (RenderGameOverlayEvent.Post event)
     {
@@ -294,7 +286,7 @@ public class TClientEvents
             if (stack != null && stack.getItem() instanceof ItemMap)
             {
                 //stack.getItem().onUpdate(stack, mc.thePlayer.worldObj, mc.thePlayer, 8, true);
-                float scale = 2/3F;
+                float scale = 2 / 3F;
                 float position = 8f;
                 GL11.glTranslatef(position, position, 0f);
                 GL11.glScalef(scale, scale, scale);
@@ -325,20 +317,13 @@ public class TClientEvents
                 }
                 GL11.glTranslatef(0f, 0F, 100f);
                 renderMap(mc.thePlayer, mc.renderEngine, mapdata);
-                scale = 3.0F/2.0F;
+                scale = 3.0F / 2.0F;
                 GL11.glScalef(scale, scale, scale);
                 GL11.glTranslatef(-position, -position, 0f);
-                /*
-                // Map itself
-                MapData mapdata = ((ItemMap) stack.getItem()).getMapData(stack, this.mc.theWorld);
-                if (mapdata != null)
-                {
-                    RenderManager.instance.itemRenderer.mapItemRenderer.renderMap(this.mc.thePlayer, this.mc.getTextureManager(), mapdata);
-                }*/
             }
         }
     }
-    
+
     public void renderMap (EntityPlayer par1EntityPlayer, TextureManager par2TextureManager, MapData par3MapData)
     {
         Tessellator tessellator = Tessellator.instance;
@@ -373,20 +358,176 @@ public class TClientEvents
         GL11.glPopMatrix();
     }
 
-    public void drawTexturedModalRect (int par1, int par2, int par3, int par4, int par5, int par6)
+    @ForgeSubscribe
+    public void googleZoom (FOVUpdateEvent event)
     {
-        float f = 0.00390625F;
-        float f1 = 0.00390625F;
-        Tessellator tessellator = Tessellator.instance;
-        tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV((double) (par1 + 0), (double) (par2 + par6), (double) this.zLevel, (double) ((float) (par3 + 0) * f), (double) ((float) (par4 + par6) * f1));
-        tessellator.addVertexWithUV((double) (par1 + par5), (double) (par2 + par6), (double) this.zLevel, (double) ((float) (par3 + par5) * f), (double) ((float) (par4 + par6) * f1));
-        tessellator.addVertexWithUV((double) (par1 + par5), (double) (par2 + 0), (double) this.zLevel, (double) ((float) (par3 + par5) * f), (double) ((float) (par4 + 0) * f1));
-        tessellator.addVertexWithUV((double) (par1 + 0), (double) (par2 + 0), (double) this.zLevel, (double) ((float) (par3 + 0) * f), (double) ((float) (par4 + 0) * f1));
-        tessellator.draw();
+        //event.newfov = 1.0f;
     }
 
-    double zLevel = 0;
+    private static final ResourceLocation glove = new ResourceLocation("tinker", "textures/armor/travel_1.png");
+
+    @ForgeSubscribe
+    public void renderArmorExtras (RenderPlayerEvent.Post event)
+    {
+        EntityPlayer player = event.entityPlayer;
+        TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+        if (stats != null && stats.armor.inventory[1] != null)
+        {
+            //TODO: Fix black lighting in gui
+            /*if (mc.currentScreen != null)
+                RenderHelper.enableGUIStandardItemLighting();*/
+            GL11.glDisable(GL11.GL_CULL_FACE);
+            float partialTick = event.partialRenderTick;
+
+            float posX = (float) (player.lastTickPosX + (player.posX - player.lastTickPosX) * partialTick);
+            float posY = (float) (player.lastTickPosY + (player.posY - player.lastTickPosY) * partialTick);
+            float posZ = (float) (player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialTick);
+
+            float yawOffset = this.interpolateRotation(player.prevRenderYawOffset, player.renderYawOffset, partialTick);
+            float yawRotation = this.interpolateRotation(player.prevRotationYawHead, player.rotationYawHead, partialTick);
+            float pitch;
+
+            if (player.isRiding() && player.ridingEntity instanceof EntityLivingBase)
+            {
+                EntityLivingBase entitylivingbase1 = (EntityLivingBase) player.ridingEntity;
+                yawOffset = this.interpolateRotation(entitylivingbase1.prevRenderYawOffset, entitylivingbase1.renderYawOffset, partialTick);
+                pitch = MathHelper.wrapAngleTo180_float(yawRotation - yawOffset);
+
+                if (pitch < -85.0F)
+                {
+                    pitch = -85.0F;
+                }
+
+                if (pitch >= 85.0F)
+                {
+                    pitch = 85.0F;
+                }
+
+                yawOffset = yawRotation - pitch;
+
+                if (pitch * pitch > 2500.0F)
+                {
+                    yawOffset += pitch * 0.2F;
+                }
+            }
+
+            float bodyRotation = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTick;
+
+            final float zeropointsixtwofive = 0.0625F;
+            pitch = this.handleRotationFloat(player, partialTick);
+            this.rotateCorpse(player, pitch, yawOffset, partialTick);
+            GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+            GL11.glScalef(-1.0F, -1.0F, 1.0F);
+
+            float transformValue = 0.2F;
+            GL11.glTranslatef(0.0F, transformValue, 0.0F);
+            float limbSwing = player.prevLimbSwingAmount + (player.limbSwingAmount - player.prevLimbSwingAmount) * partialTick;
+            float limbSwingMod = player.limbSwing - player.limbSwingAmount * (1.0F - partialTick);
+
+            if (player.isChild())
+            {
+                limbSwingMod *= 3.0F;
+            }
+
+            if (limbSwing > 1.0F)
+            {
+                limbSwing = 1.0F;
+            }
+
+            GL11.glEnable(GL11.GL_ALPHA_TEST);
+            renderPlayerScale((AbstractClientPlayer) player, 15f / 16f);
+            this.mc.getTextureManager().bindTexture(glove);
+            TProxyClient.glove.setLivingAnimations(player, limbSwingMod, limbSwing, partialTick);
+            TProxyClient.glove.render(player, limbSwingMod, limbSwing, pitch, yawRotation - yawOffset, bodyRotation, zeropointsixtwofive);
+            GL11.glTranslatef(0.0F, -transformValue, 0.0F);
+            GL11.glScalef(-1.0F, -1.0F, 1.0F);
+            renderPlayerScale((AbstractClientPlayer) player, 1 / (15f / 16f));
+            this.rotateCorpseBack(player, pitch, yawOffset, partialTick);
+            GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+            GL11.glEnable(GL11.GL_CULL_FACE);
+            /*if (mc.currentScreen != null)
+                RenderHelper.disableStandardItemLighting();*/
+        }
+    }
+
+    private void bindEntityTexture (EntityLivingBase par1EntityLivingBase)
+    {
+        this.mc.getTextureManager().bindTexture(glove);
+    }
+
+    /* Auxillary methods to rendering armor models */
+
+    protected float handleRotationFloat (EntityLivingBase par1EntityLivingBase, float par2)
+    {
+        return (float) par1EntityLivingBase.ticksExisted + par2;
+    }
+
+    protected void rotateCorpse (EntityLivingBase par1EntityLivingBase, float par2, float par3, float par4)
+    {
+        GL11.glRotatef(180.0F - par3, 0.0F, 1.0F, 0.0F);
+
+        if (par1EntityLivingBase.deathTime > 0)
+        {
+            float f3 = ((float) par1EntityLivingBase.deathTime + par4 - 1.0F) / 20.0F * 1.6F;
+            f3 = MathHelper.sqrt_float(f3);
+
+            if (f3 > 1.0F)
+            {
+                f3 = 1.0F;
+            }
+
+            GL11.glRotatef(f3 * this.getDeathMaxRotation(par1EntityLivingBase), 0.0F, 0.0F, 1.0F);
+        }
+        else
+        {
+            String s = EnumChatFormatting.func_110646_a(par1EntityLivingBase.getEntityName());
+
+            if ((s.equals("Dinnerbone") || s.equals("Grumm")) && (!(par1EntityLivingBase instanceof EntityPlayer) || !((EntityPlayer) par1EntityLivingBase).getHideCape()))
+            {
+                GL11.glTranslatef(0.0F, par1EntityLivingBase.height + 0.1F, 0.0F);
+                GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
+            }
+        }
+    }
+
+    protected void rotateCorpseBack (EntityLivingBase par1EntityLivingBase, float par2, float par3, float par4)
+    {
+        GL11.glRotatef(180.0F - par3, 0.0F, -1.0F, 0.0F);
+
+        if (par1EntityLivingBase.deathTime > 0)
+        {
+            float f3 = ((float) par1EntityLivingBase.deathTime + par4 - 1.0F) / 20.0F * 1.6F;
+            f3 = MathHelper.sqrt_float(f3);
+
+            if (f3 > 1.0F)
+            {
+                f3 = 1.0F;
+            }
+
+            GL11.glRotatef(f3 * this.getDeathMaxRotation(par1EntityLivingBase), 0.0F, 0.0F, -1.0F);
+        }
+        else
+        {
+            String s = EnumChatFormatting.func_110646_a(par1EntityLivingBase.getEntityName());
+
+            if ((s.equals("Dinnerbone") || s.equals("Grumm")) && (!(par1EntityLivingBase instanceof EntityPlayer) || !((EntityPlayer) par1EntityLivingBase).getHideCape()))
+            {
+                GL11.glTranslatef(0.0F, par1EntityLivingBase.height + 0.1F, 0.0F);
+                GL11.glRotatef(180.0F, 0.0F, 0.0F, -1.0F);
+            }
+        }
+    }
+
+    protected float getDeathMaxRotation (EntityLivingBase par1EntityLivingBase)
+    {
+        return 90.0F;
+    }
+
+    protected void renderPlayerScale (AbstractClientPlayer par1AbstractClientPlayer, float par2)
+    {
+        float f1 = par2;
+        GL11.glScalef(f1, f1, f1);
+    }
 
     private float interpolateRotation (float par1, float par2, float par3)
     {
@@ -405,8 +546,18 @@ public class TClientEvents
         return par1 + par3 * f3;
     }
 
-    protected float handleRotationFloat (EntityLiving par1EntityLiving, float par2)
+    public void drawTexturedModalRect (int par1, int par2, int par3, int par4, int par5, int par6)
     {
-        return (float) par1EntityLiving.ticksExisted + par2;
+        float f = 0.00390625F;
+        float f1 = 0.00390625F;
+        Tessellator tessellator = Tessellator.instance;
+        tessellator.startDrawingQuads();
+        tessellator.addVertexWithUV((double) (par1 + 0), (double) (par2 + par6), (double) this.zLevel, (double) ((float) (par3 + 0) * f), (double) ((float) (par4 + par6) * f1));
+        tessellator.addVertexWithUV((double) (par1 + par5), (double) (par2 + par6), (double) this.zLevel, (double) ((float) (par3 + par5) * f), (double) ((float) (par4 + par6) * f1));
+        tessellator.addVertexWithUV((double) (par1 + par5), (double) (par2 + 0), (double) this.zLevel, (double) ((float) (par3 + par5) * f), (double) ((float) (par4 + 0) * f1));
+        tessellator.addVertexWithUV((double) (par1 + 0), (double) (par2 + 0), (double) this.zLevel, (double) ((float) (par3 + 0) * f), (double) ((float) (par4 + 0) * f1));
+        tessellator.draw();
     }
+
+    double zLevel = 0;
 }

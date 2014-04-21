@@ -242,8 +242,10 @@ public class ToolStationBlock extends InventoryBlock
     }
 
     @Override
-    public void harvestBlock (World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6)
+    public void harvestBlock (World world, EntityPlayer player, int x, int y, int z, int meta)
     {
+        if (meta < 5 || meta > 9)
+        super.harvestBlock(world, player, x, y, z, meta);
         //Do nothing
     }
 

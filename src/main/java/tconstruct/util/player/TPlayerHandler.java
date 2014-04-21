@@ -25,6 +25,7 @@ import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import tconstruct.TConstruct;
+import tconstruct.client.TProxyClient;
 import tconstruct.common.TContent;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.util.config.PHConstruct;
@@ -385,7 +386,21 @@ public class TPlayerHandler implements IPlayerTracker
             if (clientPlayerStats == null || clientPlayerStats.player.get() == null)
             {
                 clientPlayerStats = new TPlayerStats();
-                clientPlayerStats.player = new WeakReference<EntityPlayer>(net.minecraft.client.Minecraft.getMinecraft().thePlayer);
+                EntityPlayer player = net.minecraft.client.Minecraft.getMinecraft().thePlayer;
+                clientPlayerStats.player = new WeakReference<EntityPlayer>(player);
+
+                clientPlayerStats.armor = TProxyClient.armorExtended;
+                clientPlayerStats.armor.init(player);
+
+                clientPlayerStats.knapsack = TProxyClient.knapsack;
+                if (knapsackDimensions.contains(player.dimension))
+                {
+                    clientPlayerStats.knapsack.init(player, "", player.dimension, false);
+                }
+                else
+                {
+                    clientPlayerStats.knapsack.init(player);
+                }
             }
             return clientPlayerStats;
         }

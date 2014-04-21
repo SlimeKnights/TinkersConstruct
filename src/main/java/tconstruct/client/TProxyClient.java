@@ -1,39 +1,64 @@
 package tconstruct.client;
 
-import com.google.common.collect.Lists;
-import cpw.mods.fml.client.registry.*;
-import cpw.mods.fml.common.registry.*;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 import java.io.InputStream;
-import java.util.*;
-import javax.xml.parsers.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.model.ModelSlime;
-import net.minecraft.client.particle.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.settings.*;
+import net.minecraft.client.particle.EntityAuraFX;
+import net.minecraft.client.particle.EntityBreakingFX;
+import net.minecraft.client.particle.EntityBubbleFX;
+import net.minecraft.client.particle.EntityCloudFX;
+import net.minecraft.client.particle.EntityCritFX;
+import net.minecraft.client.particle.EntityDropParticleFX;
+import net.minecraft.client.particle.EntityEnchantmentTableParticleFX;
+import net.minecraft.client.particle.EntityExplodeFX;
+import net.minecraft.client.particle.EntityFX;
+import net.minecraft.client.particle.EntityFireworkSparkFX;
+import net.minecraft.client.particle.EntityFlameFX;
+import net.minecraft.client.particle.EntityFootStepFX;
+import net.minecraft.client.particle.EntityHeartFX;
+import net.minecraft.client.particle.EntityHugeExplodeFX;
+import net.minecraft.client.particle.EntityLargeExplodeFX;
+import net.minecraft.client.particle.EntityLavaFX;
+import net.minecraft.client.particle.EntityNoteFX;
+import net.minecraft.client.particle.EntityPortalFX;
+import net.minecraft.client.particle.EntityReddustFX;
+import net.minecraft.client.particle.EntitySmokeFX;
+import net.minecraft.client.particle.EntitySnowShovelFX;
+import net.minecraft.client.particle.EntitySpellParticleFX;
+import net.minecraft.client.particle.EntitySplashFX;
+import net.minecraft.client.particle.EntitySuspendFX;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Icon;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.RenderBlockFluid;
+
 import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Document;
+
 import tconstruct.TConstruct;
-import tconstruct.blocks.SlimeExplosive;
 import tconstruct.blocks.logic.*;
-import tconstruct.client.armor.BootBump;
-import tconstruct.client.armor.GloveModel;
-import tconstruct.client.armor.RenderArmorCast;
-import tconstruct.client.armor.WingModel;
+import tconstruct.client.armor.*;
 import tconstruct.client.block.*;
 import tconstruct.client.entity.*;
 import tconstruct.client.entity.item.ExplosiveRender;
@@ -44,15 +69,20 @@ import tconstruct.client.tabs.*;
 import tconstruct.common.*;
 import tconstruct.entity.*;
 import tconstruct.entity.item.*;
-import tconstruct.entity.item.*;
 import tconstruct.entity.projectile.*;
-import tconstruct.inventory.ContainerLandmine;
-import tconstruct.library.TConstructRegistry;
+import tconstruct.inventory.*;
+import tconstruct.library.*;
 import tconstruct.library.client.*;
-import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.tools.ToolCore;
+import tconstruct.library.crafting.*;
+import tconstruct.library.tools.*;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.util.player.*;
+
+import com.google.common.collect.Lists;
+
+import cpw.mods.fml.client.registry.*;
+import cpw.mods.fml.common.registry.*;
+import cpw.mods.fml.relauncher.Side;
 
 public class TProxyClient extends TProxyCommon
 {
@@ -66,7 +96,8 @@ public class TProxyClient extends TProxyCommon
     
     public static WingModel wings = new WingModel();
     public static BootBump bootbump = new BootBump();
-    public static GloveModel glove = new GloveModel();
+    public static HiddenPlayerModel glove = new HiddenPlayerModel(0.25F, 4);
+    public static HiddenPlayerModel vest = new HiddenPlayerModel(0.25f, 1);
 
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)

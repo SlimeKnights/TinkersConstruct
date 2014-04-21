@@ -14,12 +14,14 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
 import tconstruct.client.TProxyClient;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.EnumArmorPart;
+import tconstruct.library.tools.ToolCore;
 import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -41,26 +43,81 @@ public class TravelGear extends ArmorCore
     {
         return "Clothing";
     }
+    
+    @SideOnly(Side.CLIENT)
+    protected Icon[] modifiers;
 
     @Override
-    public void registerIcons (IconRegister par1IconRegister)
+    @SideOnly(Side.CLIENT)
+    public void registerIcons (IconRegister iconRegister)
     {
-        this.itemIcon = par1IconRegister.registerIcon("tinker:armor/" + textureName + "_"
-                + (this.armorType == 0 ? "goggles" : this.armorType == 1 ? "wings" : this.armorType == 2 ? "gloves" : this.armorType == 3 ? "boots" : "helmet"));
+        this.itemIcon = iconRegister.registerIcon("tinker:armor/" + textureName + "_"
+                + (this.armorType == 0 ? "goggles" : this.armorType == 1 ? "vest" : this.armorType == 2 ? "wings" : this.armorType == 3 ? "boots" : "helmet"));
+        registerModifiers(iconRegister);
+    }
+    
+    @SideOnly(Side.CLIENT)
+    protected void registerModifiers(IconRegister iconRegister)
+    {
+        
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public String getArmorTexture (ItemStack stack, Entity entity, int slot, int layer)
     {
-        if (slot == 1)
-            return "tinker:textures/armor/" + textureName + "_" + 3 + ".png";
+        if (slot == 2)
+            return "tinker:textures/armor/" + textureName + "_" + 2 + ".png";
         return "tinker:textures/armor/" + textureName + "_" + layer + ".png";
+    }
+    
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public boolean requiresMultipleRenderPasses ()
+    {
+        return true;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public int getRenderPasses (int metadata)
+    {
+        return 4;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public boolean hasEffect (ItemStack par1ItemStack)
+    {
+        return false;
     }
 
     @Override
-    public void damageArmor (EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot)
+    @SideOnly(Side.CLIENT)
+    public Icon getIcon (ItemStack stack, int renderPass)
     {
-        //Deimplemented for now
+        if (renderPass > 0)
+        {
+            if (stack.hasTagCompound())
+            {
+                NBTTagCompound tags = stack.getTagCompound().getCompoundTag(getBaseTag());
+                if (renderPass == 1 && tags.hasKey("Effect1"))
+                {
+                    return modifiers[tags.getInteger("Effect1")];
+                }
+                if (renderPass == 2 && tags.hasKey("Effect2"))
+                {
+                    return modifiers[tags.getInteger("Effect2")];
+                }
+                if (renderPass == 3 && tags.hasKey("Effect3"))
+                {
+                    return modifiers[tags.getInteger("Effect3")];
+                }
+            }
+            return ToolCore.blankSprite;
+        }
+
+        return itemIcon;
     }
 
     @Override
@@ -68,9 +125,9 @@ public class TravelGear extends ArmorCore
     public ModelBiped getArmorModel (EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot)
     {
         if (armorSlot == 1)
-            return TProxyClient.wings;
+            return TProxyClient.vest;
         if (armorSlot == 2)
-            return TProxyClient.glove;
+            return TProxyClient.wings;
         if (armorSlot == 3)
             return TProxyClient.bootbump;
         return null;
@@ -126,6 +183,12 @@ public class TravelGear extends ArmorCore
     }
 
     @Override
+    public void damageArmor (EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot)
+    {
+        //Deimplemented for now
+    }
+
+    @Override
     public void onArmorTickUpdate (World world, EntityPlayer player, ItemStack itemStack)
     {
         if (armorPart == EnumArmorPart.Feet)
@@ -142,18 +205,6 @@ public class TravelGear extends ArmorCore
                 player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 15 * 20, 0, true));
             }
 
-        }
-
-        if (armorPart == EnumArmorPart.Feet)
-        {
-            player.fallDistance = 0;
-            float terminalVelocity = -0.32f;
-            boolean flying = false;
-            flying = player.capabilities.isFlying;
-            if (!flying && player.motionY < terminalVelocity)
-            {
-                player.motionY = terminalVelocity;
-            }
         }
     }
 }
