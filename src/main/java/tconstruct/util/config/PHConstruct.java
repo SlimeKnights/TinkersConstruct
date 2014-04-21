@@ -256,7 +256,7 @@ public class PHConstruct
         woodChestplate = config.getItem("Equipables", "Wooden Chestplate", 14108).getInt(14108);
         woodPants = config.getItem("Equipables", "Wooden Pants", 14109).getInt(14109);
         woodBoots = config.getItem("Equipables", "Wooden Boots", 14110).getInt(14110);
-        glove = config.getItem("Equipables", "Gloves", 14111).getInt(14111);
+        //14111
         knapsack = config.getItem("Equipables", "Knapsack", 14112).getInt(14112);
         goldHead = config.getItem("Patterns and Misc", "Golden Head", 14113).getInt(14113);
         jerky = config.getItem("Patterns and Misc", "Jerky", 14115).getInt(14115);
@@ -273,6 +273,8 @@ public class PHConstruct
         travelVest = config.getItem("Equipables", "Travellers Vest", 14222).getInt(14222);
         travelWings = config.getItem("Equipables", "Travellers Wings", 14223).getInt(14223);
         travelBoots = config.getItem("Equipables", "Travellers Boots", 14224).getInt(14224);
+        travelGlove = config.getItem("Equipables", "Travellers Gloves", 14225).getInt(14225);
+        travelBelt = config.getItem("Equipables", "Travellers Belt", 14226).getInt(14226);
 
         capesEnabled = config.get("Superfun", "Enable-TCon-Capes", true).getBoolean(true);
 
@@ -606,7 +608,6 @@ public class PHConstruct
     public static int woodChestplate;
     public static int woodPants;
     public static int woodBoots;
-    public static int glove;
     public static int knapsack;
 
     public static int heartCanister;
@@ -616,10 +617,13 @@ public class PHConstruct
     public static int exoPants;
     public static int exoShoes;
     public static boolean exoCraftingEnabled;
+    
     public static int travelGoggles;
     public static int travelWings;
     public static int travelVest;
     public static int travelBoots;
+    public static int travelGlove;
+    public static int travelBelt;
         
     public static boolean capesEnabled;
 

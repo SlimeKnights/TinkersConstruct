@@ -17,13 +17,18 @@ import tconstruct.library.tools.ToolCore;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class Glove extends Item implements IAccessory, IModifyable
+public abstract class AccessoryCore extends Item implements IAccessory, IModifyable
 {
-    public Glove(int par1)
+    /**
+     * Override getArmorModel() to have render on the player.
+     */
+    protected String texture;
+    public AccessoryCore(int par1, String texture)
     {
         super(par1);
         this.setCreativeTab(TConstructRegistry.materialTab);
         this.setMaxStackSize(1);
+        this.texture = texture;
     }
 
     @Override
@@ -38,19 +43,14 @@ public class Glove extends Item implements IAccessory, IModifyable
         return "Accessory";
     }
 
-    final static String[] traits = new String[] {"accessory"};
+    final static String[] traits = new String[] { "accessory" };
+
     @Override
     public String[] getTraits ()
     {
         return traits;
     }
 
-    @Override
-    public boolean canEquipAccessory (ItemStack item, int slot)
-    {
-        return slot == 1;
-    }
-    
     public void getSubItems (int id, CreativeTabs tab, List list)
     {
         ItemStack glove = new ItemStack(this);
@@ -63,43 +63,6 @@ public class Glove extends Item implements IAccessory, IModifyable
         list.add(glove);
     }
 
-    /* Color */
-
-    @SideOnly(Side.CLIENT)
-    public int getColorFromItemStack (ItemStack stack, int renderpass)
-    {
-        if (renderpass > 0)
-        {
-            return 0xFFFFFF;
-        }
-        else
-        {
-            int color = this.getColor(stack);
-
-            if (color < 0)
-            {
-                color = 0xFFFFFF;
-            }
-
-            return color;
-        }
-    }
-
-    public int getColor (ItemStack stack)
-    {
-        NBTTagCompound tags = stack.getTagCompound();
-
-        if (tags == null)
-        {
-            return 0xA0F540;
-        }
-        else
-        {
-            NBTTagCompound display = tags.getCompoundTag("display");
-            return display == null ? 0xA06540 : (display.hasKey("color") ? display.getInteger("color") : 0xA06540);
-        }
-    }
-
     /* Icons */
 
     Icon[] modifiers;
@@ -107,12 +70,11 @@ public class Glove extends Item implements IAccessory, IModifyable
     @Override
     public void registerIcons (IconRegister iconRegister)
     {
-        itemIcon = iconRegister.registerIcon("tinker:armor/glovebase_leather");
-        modifiers = new Icon[4];
-        modifiers[0] = iconRegister.registerIcon("tinker:armor/glove_guard");
-        modifiers[1] = iconRegister.registerIcon("tinker:armor/glove_speedaura");
-        modifiers[2] = iconRegister.registerIcon("tinker:armor/glove_spines");
-        modifiers[3] = iconRegister.registerIcon("tinker:armor/glove_sticky");
+        itemIcon = iconRegister.registerIcon("tinker:"+texture);
+    }
+    
+    protected void registerModifiers(IconRegister iconRegister)
+    {
     }
 
     @SideOnly(Side.CLIENT)
@@ -162,9 +124,9 @@ public class Glove extends Item implements IAccessory, IModifyable
 
         return itemIcon;
     }
-    
+
     /* Tooltips */
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)

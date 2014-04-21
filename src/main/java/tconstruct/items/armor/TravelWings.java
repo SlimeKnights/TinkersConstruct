@@ -1,6 +1,7 @@
 package tconstruct.items.armor;
 
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
@@ -23,16 +24,16 @@ public class TravelWings extends TravelGear
     {
         String base = "tinker:armor/travel_wings_";
         modifiers = new Icon[3];
-        modifiers[0] = iconRegister.registerIcon(base+"slimewings");
-        modifiers[1] = iconRegister.registerIcon(base+"piston");
-        modifiers[2] = iconRegister.registerIcon(base+"pearl");
+        modifiers[0] = iconRegister.registerIcon(base + "slimewings");
+        modifiers[1] = iconRegister.registerIcon(base + "piston");
+        modifiers[2] = iconRegister.registerIcon(base + "pearl");
     }
 
     @Override
     public void onArmorTickUpdate (World world, EntityPlayer player, ItemStack itemStack)
     {
         if (player.fallDistance > 2.5)
-        player.fallDistance = 2.5f;
+            player.fallDistance = 2.5f;
         float terminalVelocity = -0.32f;
         boolean flying = false;
         flying = player.capabilities.isFlying;
@@ -40,5 +41,12 @@ public class TravelWings extends TravelGear
         {
             player.motionY = terminalVelocity;
         }
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public String getArmorTexture (ItemStack stack, Entity entity, int slot, int layer)
+    {
+        return "tinker:textures/armor/travel_wings.png";
     }
 }

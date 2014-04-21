@@ -39,6 +39,7 @@ public class TConstructRegistry
     public static TabTools partTab;
     public static TabTools materialTab;
     public static TabTools blockTab;
+    public static TabTools equipableTab;
 
     /* Items */
 

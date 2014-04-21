@@ -98,6 +98,7 @@ public class TProxyClient extends TProxyCommon
     public static BootBump bootbump = new BootBump();
     public static HiddenPlayerModel glove = new HiddenPlayerModel(0.25F, 4);
     public static HiddenPlayerModel vest = new HiddenPlayerModel(0.25f, 1);
+    public static BeltModel belt = new BeltModel();
 
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)

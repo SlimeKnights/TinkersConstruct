@@ -36,9 +36,7 @@ import tconstruct.entity.*;
 import tconstruct.entity.item.*;
 import tconstruct.entity.projectile.*;
 import tconstruct.items.*;
-import tconstruct.items.accessory.Glove;
-import tconstruct.items.accessory.HeartCanister;
-import tconstruct.items.accessory.Knapsack;
+import tconstruct.items.accessory.*;
 import tconstruct.items.armor.*;
 import tconstruct.items.blocks.*;
 import tconstruct.items.tools.*;
@@ -282,7 +280,6 @@ public class TContent implements IFuelHandler
     public static Item creativeModifier;
 
     //Wearables
-    public static Item glove;
     public static Item knapsack;
 
     public static Item heartCanister;
@@ -313,6 +310,8 @@ public class TContent implements IFuelHandler
     public static Item travelWings;
     public static Item travelVest;
     public static Item travelBoots;
+    public static Item travelGlove;
+    public static Item travelBelt;
 
     //Temporary items
     //public static Item armorTest = new ArmorStandard(2445, 4, EnumArmorPart.HELMET).setCreativeTab(CreativeTabs.tabAllSearch);
@@ -999,10 +998,8 @@ public class TContent implements IFuelHandler
         //Wearables
         heartCanister = new HeartCanister(PHConstruct.heartCanister).setUnlocalizedName("tconstruct.canister");
         knapsack = new Knapsack(PHConstruct.knapsack).setUnlocalizedName("tconstruct.storage");
-        glove = new Glove(PHConstruct.glove).setUnlocalizedName("tconstruct.glove");
         GameRegistry.registerItem(heartCanister, "heartCanister");
         GameRegistry.registerItem(knapsack, "knapsack");
-        GameRegistry.registerItem(glove, "glove");
 
         goldHead = new GoldenHead(PHConstruct.goldHead, 4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).setUnlocalizedName("goldenhead");
         GameRegistry.registerItem(goldHead, "goldHead");
@@ -1030,6 +1027,8 @@ public class TContent implements IFuelHandler
         travelVest = new TravelGear(PHConstruct.travelVest, EnumArmorPart.Chest, "travel").setUnlocalizedName("tconstruct.travelvest");
         travelWings = new TravelWings(PHConstruct.travelWings, "travel").setUnlocalizedName("tconstruct.travelwings");
         travelBoots = new TravelGear(PHConstruct.travelBoots, EnumArmorPart.Feet, "travel").setUnlocalizedName("tconstruct.travelboots");
+        travelGlove = new TravelGlove(PHConstruct.travelGlove).setUnlocalizedName("tconstruct.travelgloves");
+        travelBelt = new TravelBelt(PHConstruct.travelBelt).setUnlocalizedName("tconstruct.travelbelt");
 
         String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper",
                 "ingotTin", "ingotAluminum", "rawAluminum", "ingotBronze", "ingotAluminumBrass", "ingotAlumite", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper",
@@ -1316,7 +1315,7 @@ public class TContent implements IFuelHandler
         ItemStack glass = new ItemStack(Block.glass);
         GameRegistry.addShapedRecipe(new ItemStack(travelGoggles), "#p#", "q#q", "g g", '#', leather, 'q', glass, 'p', new ItemStack(Item.potion, 1, 8230), 'g', new ItemStack(Item.ingotGold));
         GameRegistry.addShapedRecipe(new ItemStack(travelWings), "g g", "i#i", "i i", '#', Item.plateLeather, 'g', Item.ingotGold, 'i', Item.ingotIron);
-        GameRegistry.addShapedRecipe(new ItemStack(travelVest), "qq", "gg", 'g', new ItemStack(glove), 'q', glass);
+        GameRegistry.addShapedRecipe(new ItemStack(travelVest), "qq", "gg", 'g', new ItemStack(travelGlove), 'q', glass);
         GameRegistry.addShapedRecipe(new ItemStack(travelBoots), "l l", "s#s", "l l", '#', Item.bootsLeather, 'l', leather, 's', new ItemStack(Item.silk));
 
         // Metal conversion Recipes
@@ -1710,7 +1709,7 @@ public class TContent implements IFuelHandler
             new ItemStack(Block.pistonBase) }));
 
         //temp recipe
-        ItemStack gloveStack = new ItemStack(glove);
+        ItemStack gloveStack = new ItemStack(travelGlove);
         NBTTagCompound baseTag = new NBTTagCompound();
         NBTTagCompound tag = new NBTTagCompound();
         tag.setBoolean("Built", true);

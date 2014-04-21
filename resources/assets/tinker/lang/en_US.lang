@@ -277,6 +277,8 @@ item.tconstruct.travelgoggles.name=Traveller's Goggles
 item.tconstruct.travelvest.name=Traveller's Vest
 item.tconstruct.travelwings.name=Traveller's Wings
 item.tconstruct.travelboots.name=Traveller's Boots
+item.tconstruct.travelgloves.name=Traveller's Gloves
+item.tconstruct.travelbelt.name=Traveller's Belt
 
 item.tconstruct.jerky.beef.name=Beef Jerky
 item.tconstruct.jerky.pig.name=Bacon Jerky

@@ -5,25 +5,39 @@ import static net.minecraftforge.client.IItemRenderer.ItemRenderType.FIRST_PERSO
 import java.util.Iterator;
 import java.util.Random;
 
-import net.minecraft.block.material.MapColor;
-import net.minecraft.client.*;
-import net.minecraft.client.audio.*;
-import net.minecraft.client.entity.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SoundManager;
+import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraft.client.settings.*;
-import net.minecraft.entity.*;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.settings.GameSettings;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
-import net.minecraft.potion.*;
-import net.minecraft.util.*;
-import net.minecraft.world.storage.*;
-import net.minecraftforge.client.*;
-import net.minecraftforge.client.event.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemMap;
+import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.Icon;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.storage.MapCoord;
+import net.minecraft.world.storage.MapData;
+import net.minecraftforge.client.GuiIngameForge;
+import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.client.event.FOVUpdateEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 
@@ -32,6 +46,7 @@ import org.lwjgl.opengl.GL12;
 
 import tconstruct.TConstruct;
 import tconstruct.common.TContent;
+import tconstruct.library.IAccessoryModel;
 import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
@@ -364,14 +379,13 @@ public class TClientEvents
         //event.newfov = 1.0f;
     }
 
-    private static final ResourceLocation glove = new ResourceLocation("tinker", "textures/armor/travel_1.png");
-
+    // Code pulled from RenderPlayer and RenderLiving
     @ForgeSubscribe
     public void renderArmorExtras (RenderPlayerEvent.Post event)
     {
         EntityPlayer player = event.entityPlayer;
         TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
-        if (stats != null && stats.armor.inventory[1] != null)
+        if (stats != null && (stats.armor.inventory[1] != null || stats.armor.inventory[3] != null))
         {
             //TODO: Fix black lighting in gui
             /*if (mc.currentScreen != null)
@@ -436,9 +450,33 @@ public class TClientEvents
 
             GL11.glEnable(GL11.GL_ALPHA_TEST);
             renderPlayerScale((AbstractClientPlayer) player, 15f / 16f);
-            this.mc.getTextureManager().bindTexture(glove);
-            TProxyClient.glove.setLivingAnimations(player, limbSwingMod, limbSwing, partialTick);
-            TProxyClient.glove.render(player, limbSwingMod, limbSwing, pitch, yawRotation - yawOffset, bodyRotation, zeropointsixtwofive);
+            if (stats.armor.inventory[1] != null)
+            {
+                Item item = stats.armor.inventory[1].getItem();
+                ModelBiped model = item.getArmorModel(player, stats.armor.inventory[1], 4);
+
+                if (item instanceof IAccessoryModel)
+                {
+                    this.mc.getTextureManager().bindTexture(((IAccessoryModel) item).getWearbleTexture(player, stats.armor.inventory[1], 1));
+                    model.setLivingAnimations(player, limbSwingMod, limbSwing, partialTick);
+                    model.render(player, limbSwingMod, limbSwing, pitch, yawRotation - yawOffset, bodyRotation, zeropointsixtwofive);
+                }
+            }
+
+            if (stats.armor.inventory[3] != null)
+            {
+                Item item = stats.armor.inventory[3].getItem();
+                ModelBiped model = item.getArmorModel(player, stats.armor.inventory[3], 5);
+
+                if (item instanceof IAccessoryModel)
+                {
+                    this.mc.getTextureManager().bindTexture(((IAccessoryModel) item).getWearbleTexture(player, stats.armor.inventory[1], 1));
+                    model.setLivingAnimations(player, limbSwingMod, limbSwing, partialTick);
+                    model.render(player, limbSwingMod, limbSwing, pitch, yawRotation - yawOffset, bodyRotation, zeropointsixtwofive);
+                }
+            }
+
+            //Undo camera transform
             GL11.glTranslatef(0.0F, -transformValue, 0.0F);
             GL11.glScalef(-1.0F, -1.0F, 1.0F);
             renderPlayerScale((AbstractClientPlayer) player, 1 / (15f / 16f));
@@ -448,11 +486,6 @@ public class TClientEvents
             /*if (mc.currentScreen != null)
                 RenderHelper.disableStandardItemLighting();*/
         }
-    }
-
-    private void bindEntityTexture (EntityLivingBase par1EntityLivingBase)
-    {
-        this.mc.getTextureManager().bindTexture(glove);
     }
 
     /* Auxillary methods to rendering armor models */
