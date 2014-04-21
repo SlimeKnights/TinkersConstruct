@@ -135,6 +135,11 @@ public class TClientEvents
             TProxyClient.glove.isSneak = event.renderer.modelBipedMain.isSneak;
             TProxyClient.glove.heldItemLeft = event.renderer.modelBipedMain.heldItemLeft;
             TProxyClient.glove.heldItemRight = event.renderer.modelBipedMain.heldItemRight;
+            
+            TProxyClient.belt.onGround = event.renderer.modelBipedMain.onGround;
+            TProxyClient.belt.isRiding = event.renderer.modelBipedMain.isRiding;
+            TProxyClient.belt.isChild = event.renderer.modelBipedMain.isChild;
+            TProxyClient.belt.isSneak = event.renderer.modelBipedMain.isSneak;
             break;
         case 3:
             TProxyClient.bootbump.onGround = event.renderer.modelBipedMain.onGround;

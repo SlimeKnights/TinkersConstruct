@@ -12,9 +12,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.potion.Potion;
+import tconstruct.TConstruct;
 import tconstruct.client.event.EventCloakRender;
 import tconstruct.client.tabs.TabRegistry;
 import tconstruct.common.PlayerAbilityHelper;
+import tconstruct.items.armor.TravelGear;
+import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
@@ -24,7 +27,9 @@ public class TControls extends TKeyHandler
     //static KeyBinding stiltsKey = new KeyBinding("key.stilts", 46);
     public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24);
     public static KeyBinding refreshCapes = new KeyBinding("key.tcapes.reload", 88);
-    public static KeyBinding toggleGoggles = new KeyBinding("key.tgoggles", 44);
+    public static KeyBinding toggleGoggles = new KeyBinding("key.tgoggles", 34);
+    public static KeyBinding beltSwap = new KeyBinding("key.tbelt", 48);
+    public static KeyBinding zoomKey = new KeyBinding("key.tzoom", 29);
     static KeyBinding jumpKey;
     static KeyBinding invKey;
     static Minecraft mc;
@@ -41,7 +46,8 @@ public class TControls extends TKeyHandler
 
     public TControls()
     {
-        super(new KeyBinding[] { armorKey, refreshCapes, toggleGoggles }, new boolean[] { false, false, false }, getVanillaKeyBindings(), new boolean[] { false, false });
+        super(new KeyBinding[] { armorKey, refreshCapes, toggleGoggles, beltSwap, zoomKey }, new boolean[] { false, false, false, false, true }, getVanillaKeyBindings(),
+                new boolean[] { false, false });
     }
 
     private static KeyBinding[] getVanillaKeyBindings ()
@@ -101,20 +107,36 @@ public class TControls extends TKeyHandler
                     if (shoes != null && shoes.hasTagCompound() && shoes.getTagCompound().hasKey("TinkerArmor"))
                     {
                         NBTTagCompound shoeTag = shoes.getTagCompound().getCompoundTag("TinkerArmor");
-                        midairJumps = shoeTag.getInteger("Double-Jump");
+                        midairJumps += shoeTag.getInteger("Double-Jump");
                     }
                     ItemStack wings = mc.thePlayer.getCurrentArmor(1);
                     if (shoes != null && wings.hasTagCompound() && wings.getTagCompound().hasKey("TinkerArmor"))
                     {
                         NBTTagCompound shoeTag = wings.getTagCompound().getCompoundTag("TinkerArmor");
-                        midairJumps = shoeTag.getInteger("Double-Jump");
+                        midairJumps += shoeTag.getInteger("Double-Jump");
                     }
                 }
             }
-            if (kb == toggleGoggles)
+            if (mc.currentScreen == null)
             {
-                PlayerAbilityHelper.toggleGoggles(mc.thePlayer);
-                updateServer((byte) 9);
+                if (kb == toggleGoggles)
+                {
+                    ItemStack goggles = mc.thePlayer.getCurrentArmor(0);
+                    if (goggles != null && goggles.getItem() instanceof TravelGear) //TODO: Genericize this
+                    {
+                        PlayerAbilityHelper.toggleGoggles(mc.thePlayer);
+                        updateServer((byte) 9);
+                    }
+                }
+                if (kb == beltSwap)
+                {
+                    TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(mc.thePlayer.username);
+                    if (stats.armor.inventory[3] != null)
+                    {
+                        //PlayerAbilityHelper.swapBelt(mc.thePlayer, stats);
+                        updateServer((byte) 8);
+                    }
+                }
             }
         }
     }
@@ -145,8 +167,9 @@ public class TControls extends TKeyHandler
         onGround = false;
         onStilts = false;
     }
-    
+
     /* Packet IDs:
+     * 8 - Swaps belt
      * 9 - Toggle goggles
      * 10 - reset fall damage 
      */

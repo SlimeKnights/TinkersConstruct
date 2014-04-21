@@ -8,11 +8,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
 import tconstruct.library.IAccessory;
 import tconstruct.library.IModifyable;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.armor.EnumArmorPart;
 import tconstruct.library.tools.ToolCore;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -51,7 +53,7 @@ public abstract class AccessoryCore extends Item implements IAccessory, IModifya
         return traits;
     }
 
-    public void getSubItems (int id, CreativeTabs tab, List list)
+    /*public void getSubItems (int id, CreativeTabs tab, List list)
     {
         ItemStack glove = new ItemStack(this);
         NBTTagCompound baseTag = new NBTTagCompound();
@@ -61,16 +63,43 @@ public abstract class AccessoryCore extends Item implements IAccessory, IModifya
         baseTag.setTag(getBaseTag(), tag);
         glove.setTagCompound(baseTag);
         list.add(glove);
+    }*/
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void getSubItems (int par1, CreativeTabs par2CreativeTabs, List par3List)
+    {
+        par3List.add(getDefaultItem());
+    }
+    
+    public ItemStack getDefaultItem()
+    {
+        ItemStack gear = new ItemStack(this.itemID, 1, 0);
+        NBTTagCompound baseTag = new NBTTagCompound();
+        
+        int baseDurability = 500;
+        
+        baseTag.setInteger("Damage", 0); //Damage is damage to the tool
+        baseTag.setInteger("TotalDurability", baseDurability);
+        baseTag.setInteger("BaseDurability", baseDurability);
+        baseTag.setInteger("BonusDurability", 0); //Modifier
+        baseTag.setFloat("ModDurability", 0f); //Modifier
+        baseTag.setBoolean("Broken", false);
+        baseTag.setBoolean("Built", true);
+
+        gear.setTagCompound(baseTag);
+        return gear;
     }
 
     /* Icons */
 
-    Icon[] modifiers;
+    protected Icon[] modifiers;
 
     @Override
     public void registerIcons (IconRegister iconRegister)
     {
         itemIcon = iconRegister.registerIcon("tinker:"+texture);
+        registerModifiers(iconRegister);
     }
     
     protected void registerModifiers(IconRegister iconRegister)

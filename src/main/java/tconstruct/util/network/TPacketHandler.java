@@ -21,6 +21,7 @@ import tconstruct.blocks.logic.ToolStationLogic;
 import tconstruct.client.TProxyClient;
 import tconstruct.common.PlayerAbilityHelper;
 import tconstruct.library.blocks.InventoryLogic;
+import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
@@ -135,7 +136,13 @@ public class TPacketHandler implements IPacketHandler
                     break;
                 }
             }
-            
+
+            else if (packetID == 8)
+            {
+                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+                PlayerAbilityHelper.swapBelt(player, stats);
+            }
+
             else if (packetID == 9)
             {
                 PlayerAbilityHelper.toggleGoggles(player);

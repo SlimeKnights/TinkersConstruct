@@ -137,9 +137,13 @@ public class TravelGear extends ArmorCore
     @SideOnly(Side.CLIENT)
     public void getSubItems (int par1, CreativeTabs par2CreativeTabs, List par3List)
     {
-        ItemStack armor = new ItemStack(par1, 1, 0);
+        par3List.add(getDefaultItem());
+    }
+    
+    public ItemStack getDefaultItem()
+    {
+        ItemStack gear = new ItemStack(this.itemID, 1, 0);
         NBTTagCompound baseTag = new NBTTagCompound();
-        NBTTagList list = new NBTTagList();
 
         NBTTagCompound tag = new NBTTagCompound();
         tag.setInteger("Modifiers", 3);
@@ -148,9 +152,19 @@ public class TravelGear extends ArmorCore
         else
             tag.setDouble("Protection", 8);
         baseTag.setTag(getBaseTag(), tag);
+        
+        int baseDurability = 500;
+        
+        baseTag.setInteger("Damage", 0); //Damage is damage to the tool
+        baseTag.setInteger("TotalDurability", baseDurability);
+        baseTag.setInteger("BaseDurability", baseDurability);
+        baseTag.setInteger("BonusDurability", 0); //Modifier
+        baseTag.setFloat("ModDurability", 0f); //Modifier
+        baseTag.setBoolean("Broken", false);
+        baseTag.setBoolean("Built", true);
 
-        armor.setTagCompound(baseTag);
-        par3List.add(armor);
+        gear.setTagCompound(baseTag);
+        return gear;
     }
 
     @Override
@@ -191,6 +205,40 @@ public class TravelGear extends ArmorCore
     @Override
     public void onArmorTickUpdate (World world, EntityPlayer player, ItemStack itemStack)
     {
+        if (armorPart == EnumArmorPart.Chest)
+        {
+            if(player.isInWater())
+            {
+                player.motionX *= 1.2D;
+                if(player.motionY > 0.0D)
+                {
+                    player.motionY *= 1.2D;
+                }
+                player.motionZ *= 1.2D;
+                double maxSpeed = 0.2D;
+                if(player.motionX > maxSpeed)
+                {
+                    player.motionX = maxSpeed;
+                }
+                else if(player.motionX < -maxSpeed)
+                {
+                    player.motionX = -maxSpeed;
+                }
+                if(player.motionY > maxSpeed)
+                {
+                    player.motionY = maxSpeed;
+                }
+                if(player.motionZ > maxSpeed)
+                {
+                    player.motionZ = maxSpeed;
+                }
+                else if(player.motionZ < -maxSpeed)
+                {
+                    player.motionZ = -maxSpeed;
+                }
+            }
+        }
+        
         if (armorPart == EnumArmorPart.Feet)
         {
             if (player.stepHeight < 1.0f)
@@ -204,7 +252,6 @@ public class TravelGear extends ArmorCore
             {
                 player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 15 * 20, 0, true));
             }
-
         }
     }
 }
