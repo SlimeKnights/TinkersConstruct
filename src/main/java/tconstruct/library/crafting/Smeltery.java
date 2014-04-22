@@ -1,8 +1,12 @@
 package tconstruct.library.crafting;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -183,8 +187,11 @@ public class Smeltery
         int temp = type.baseTemperature + temperatureDifference;
         if (temp <= 20)
             temp = type.baseTemperature;
-
-        addMelting(input, type.renderBlockID, type.renderMeta, type.baseTemperature + temperatureDifference, new FluidStack(type.fluid, fluidAmount));
+        
+        if (input.getItem() instanceof ItemBlock)
+            addMelting(input, input.itemID, input.getItemDamage(), type.baseTemperature + temperatureDifference, new FluidStack(type.fluid, fluidAmount));
+        else
+            addMelting(input, type.renderBlockID, type.renderMeta, type.baseTemperature + temperatureDifference, new FluidStack(type.fluid, fluidAmount));
     }
 
     /**

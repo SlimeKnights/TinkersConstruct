@@ -50,6 +50,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 {
     public boolean validStructure;
     public boolean tempValidStructure;
+    public boolean previouslyScanned;
     byte direction;
     int internalTemp;
     public int useTime;
@@ -277,8 +278,11 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
         if (tick % 20 == 0)
         {
-            if (!validStructure)
+            if (!validStructure || !previouslyScanned)
+            {
                 checkValidPlacement();
+                previouslyScanned = true;
+            }
 
             if (useTime > 0 && inUse)
                 useTime -= 3;
@@ -667,7 +671,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     public void onInventoryChanged ()
     {
         updateTemperatures();
-        updateEntity();
+        //updateEntity();
         super.onInventoryChanged();
         needsUpdate = true;
         //worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
@@ -768,7 +772,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             if (tempValidStructure)
             {
-                internalTemp = 800;
+                internalTemp = 900;
                 activeLavaTank = lavaTanks.get(0);
                 adjustLayers(checkLayers, false);
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
@@ -1078,7 +1082,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         inventory = new ItemStack[layers * 9];
         super.readFromNBT(tags);
 
-        //validStructure = tags.getBoolean("ValidStructure");
+        validStructure = tags.getBoolean("ValidStructure");
         internalTemp = tags.getInteger("InternalTemp");
         inUse = tags.getBoolean("InUse");
 
@@ -1106,7 +1110,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 moltenMetal.add(fluid);
         }
         //adjustLayers(layers, true);
-        //checkValidPlacement();
     }
 
     @Override
@@ -1114,7 +1117,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         super.writeToNBT(tags);
 
-        //tags.setBoolean("ValidStructure", validStructure);
+        tags.setBoolean("ValidStructure", validStructure);
         tags.setInteger("InternalTemp", internalTemp);
         tags.setBoolean("InUse", inUse);
 

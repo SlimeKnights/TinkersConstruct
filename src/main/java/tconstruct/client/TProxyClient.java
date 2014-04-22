@@ -247,10 +247,11 @@ public class TProxyClient extends TProxyCommon
         // RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class,
         // new PlayerArmorRender()); // <-- Works, woo!
 
-        MinecraftForgeClient.registerItemRenderer(TContent.shortbow.itemID, new CustomBowRenderer());
+        //MinecraftForgeClient.registerItemRenderer(TContent.shortbow.itemID, new CustomBowRenderer());
         VillagerRegistry.instance().registerVillagerSkin(78943, new ResourceLocation("tinker", "textures/mob/villagertools.png"));
 
-        ToolCoreRenderer renderer = new ToolCoreRenderer();
+        ToolCoreRenderer renderer = new ToolCoreRenderer(true);
+        MinecraftForgeClient.registerItemRenderer(TContent.shortbow.itemID, new ToolCoreRenderer(false));
         MinecraftForgeClient.registerItemRenderer(TContent.arrow.itemID, renderer);
         MinecraftForgeClient.registerItemRenderer(TContent.dagger.itemID, renderer);
 

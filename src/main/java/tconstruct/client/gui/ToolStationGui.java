@@ -339,9 +339,14 @@ public class ToolStationGui extends NewContainerGui
                 heads++;
             }
 
-            float trueSpeed = mineSpeed / (heads * 100f) * ((HarvestTool) tool).breakSpeedModifier();
+            float trueSpeed = mineSpeed / (heads * 100f);
+            if (tool instanceof HarvestTool)
+                trueSpeed *= ((HarvestTool) tool).breakSpeedModifier();
 
-            float stoneboundSpeed = (float) Math.log(durability / ((HarvestTool) tool).stoneboundModifier() + 1) * 2 * stonebound;
+            float localStonebound = 72f;
+            if (tool instanceof HarvestTool)
+                localStonebound = ((HarvestTool) tool).stoneboundModifier();
+            float stoneboundSpeed = (float) Math.log(durability / localStonebound + 1) * 2 * stonebound;
             DecimalFormat df = new DecimalFormat("##.##");
             df.setRoundingMode(RoundingMode.DOWN);
             trueSpeed += stoneboundSpeed;
@@ -349,8 +354,9 @@ public class ToolStationGui extends NewContainerGui
                 trueSpeed = 0;
             fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation14") + df.format(trueSpeed), xSize + 8, base + offset * 10, 0xffffff);
             offset++;
-            if (stoneboundSpeed != 0)
+            if (stoneboundSpeed != 0 && !Float.isNaN(stoneboundSpeed))
             {
+                System.out.println("Stonebound: "+stoneboundSpeed);
                 String bloss = stoneboundSpeed > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
                 fontRenderer.drawString(bloss + df.format(stoneboundSpeed), xSize + 8, base + offset * 10, 0xffffff);
                 offset++;
