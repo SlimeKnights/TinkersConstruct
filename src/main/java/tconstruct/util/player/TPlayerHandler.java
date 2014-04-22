@@ -259,9 +259,10 @@ public class TPlayerHandler implements IPlayerTracker
     }
 
     @Override
-    public void onPlayerLogout (EntityPlayer entityplayer)
+    public void onPlayerLogout (EntityPlayer player)
     {
-        savePlayerStats(entityplayer, true);
+        savePlayerStats(player, true);
+        playerStats.remove(player.username);
     }
 
     @Override
