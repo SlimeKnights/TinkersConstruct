@@ -139,9 +139,9 @@ public class SmelteryGui extends NewContainerGui
         if (logic.fuelGague > 0)
         {
             int leftX = cornerX + 117;
-            int topY = (cornerY + 68) - logic.getScaledFuelGague(52);
+            int topY = (cornerY + 68-52);
             int sizeX = 12;
-            int sizeY = logic.getScaledFuelGague(52);
+            int sizeY = 52;
             if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
             {
                 drawFluidStackTooltip(new FluidStack(-37, logic.fuelAmount), mouseX - cornerX + 36, mouseY - cornerY);

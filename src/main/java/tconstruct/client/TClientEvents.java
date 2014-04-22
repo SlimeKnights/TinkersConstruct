@@ -156,6 +156,7 @@ public class TClientEvents
     int updateCounter = 0;
 
     boolean tukmc = Loader.isModLoaded("tukmc_Vz");
+    boolean borderlands = Loader.isModLoaded("borderlands");
     GameSettings gs = Minecraft.getMinecraft().gameSettings;
 
     int scaledWidth;
@@ -165,7 +166,7 @@ public class TClientEvents
     @ForgeSubscribe
     public void renderHealthbar (RenderGameOverlayEvent.Pre event)
     {
-        if (!tukmc)// Loader check to avoid conflicting with a GUI mod (thanks Vazkii!)
+        if (!tukmc && !borderlands)// Loader check to avoid conflicting with a GUI mod (thanks Vazkii!)
         {
             if (event.type == ElementType.HEALTH)
             {

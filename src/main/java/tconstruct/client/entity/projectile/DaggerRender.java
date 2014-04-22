@@ -50,20 +50,22 @@ public class DaggerRender extends Render
     /**
      * Renders the item
      */
-    public void doRenderItem (DaggerEntity par1ArrowEntity, double par2, double par4, double par6, float par8, float par9)
+    public void doRenderItem (DaggerEntity dagger, double posX, double posY, double posZ, float par8, float partialTicks)
     {
-        this.bindEntityTexture(par1ArrowEntity);
+        this.bindEntityTexture(dagger);
         this.random.setSeed(187L);
-        ItemStack itemstack = par1ArrowEntity.getEntityItem();
+        ItemStack itemstack = dagger.getEntityItem();
 
         if (itemstack.getItem() != null)
         {
             GL11.glPushMatrix();
-            float f2 = shouldBob() ? MathHelper.sin(((float) 0 + par9) / 10.0F + 0) * 0.1F + 0.1F : 0F;
-            float f3 = (((float) 0 + par9) / 20.0F + 0) * (180F / (float) Math.PI);
+            float f2 = shouldBob() ? MathHelper.sin(((float) 0 + partialTicks) / 10.0F + 0) * 0.1F + 0.1F : 0F;
+            float f3 = (((float) 0 + partialTicks) / 20.0F + 0) * (180F / (float) Math.PI);
             byte b0 = getMiniBlockCount(itemstack);
 
-            GL11.glTranslatef((float) par2, (float) par4 + f2, (float) par6);
+            //GL11.glRotatef(dagger.prevRotationYaw + (dagger.rotationYaw - dagger.prevRotationYaw) * partialTicks - 90.0F, 0.0F, 1.0F, 0.0F);
+            //GL11.glRotatef(dagger.prevRotationPitch + (dagger.rotationPitch - dagger.prevRotationPitch) * partialTicks - 45.0F, 0.0F, 0.0F, 1.0F);
+            GL11.glTranslatef((float) posX, (float) posY, (float) posZ);
             GL11.glEnable(GL12.GL_RESCALE_NORMAL);
             float f4;
             float f5;
@@ -143,11 +145,11 @@ public class DaggerRender extends Render
                             f4 = (float) (i >> 8 & 255) / 255.0F;
                             f6 = (float) (i & 255) / 255.0F;
                             GL11.glColor4f(f5 * f8, f4 * f8, f6 * f8, 1.0F);
-                            this.renderDroppedItem(par1ArrowEntity, icon, b0, par9, f5 * f8, f4 * f8, f6 * f8, k);
+                            this.renderDroppedItem(dagger, icon, b0, partialTicks, f5 * f8, f4 * f8, f6 * f8, k);
                         }
                         else
                         {
-                            this.renderDroppedItem(par1ArrowEntity, icon, b0, par9, 1.0F, 1.0F, 1.0F, k);
+                            this.renderDroppedItem(dagger, icon, b0, partialTicks, 1.0F, 1.0F, 1.0F, k);
                         }
                     }
                 }
@@ -165,6 +167,9 @@ public class DaggerRender extends Render
 
                     Icon icon1 = itemstack.getIconIndex();
 
+
+                    GL11.glRotatef(dagger.prevRotationYaw + (dagger.rotationYaw - dagger.prevRotationYaw) * partialTicks - 90.0F, 0.0F, 1.0F, 0.0F);
+                    GL11.glRotatef(dagger.prevRotationPitch + (dagger.rotationPitch - dagger.prevRotationPitch) * partialTicks - 45.0F, 0.0F, 0.0F, 1.0F);
                     if (this.renderWithColor)
                     {
                         int l = Item.itemsList[itemstack.itemID].getColorFromItemStack(itemstack, 0);
@@ -172,11 +177,11 @@ public class DaggerRender extends Render
                         float f9 = (float) (l >> 8 & 255) / 255.0F;
                         f5 = (float) (l & 255) / 255.0F;
                         f4 = 1.0F;
-                        this.renderDroppedItem(par1ArrowEntity, icon1, b0, par9, f8 * f4, f9 * f4, f5 * f4);
+                        this.renderDroppedItem(dagger, icon1, b0, partialTicks, f8 * f4, f9 * f4, f5 * f4);
                     }
                     else
                     {
-                        this.renderDroppedItem(par1ArrowEntity, icon1, b0, par9, 1.0F, 1.0F, 1.0F);
+                        this.renderDroppedItem(dagger, icon1, b0, partialTicks, 1.0F, 1.0F, 1.0F);
                     }
                 }
             }
@@ -219,9 +224,6 @@ public class DaggerRender extends Render
         float f10 = 0.25F;
         float f11;
         float rotation = dagger.prevRotationPitch + (dagger.rotationPitch - dagger.prevRotationPitch) * par7 * -20;
-
-        //GL11.glRotatef(arrow.prevRotationYaw + (arrow.rotationYaw - arrow.prevRotationYaw) * par4 - 90.0F, 0.0F, 1.0F, 0.0F);
-        //GL11.glRotatef(arrow.prevRotationPitch + (arrow.rotationPitch - arrow.prevRotationPitch) * par4 - 45.0F, 0.0F, 0.0F, 1.0F);
 
         GL11.glPushMatrix();
 
