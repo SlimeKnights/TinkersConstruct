@@ -2,6 +2,8 @@ package tconstruct.client;
 
 import java.util.EnumSet;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,6 +38,8 @@ public class TClientTickHandler implements ITickHandler
                 player.motionY = 0.1176D;
                 player.fallDistance = 0.0f;
             }
+
+            //GL11.glFogf(GL11.GL_FOG_DENSITY, 0.01F);
         }
     }
 

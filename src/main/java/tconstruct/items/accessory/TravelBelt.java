@@ -1,11 +1,17 @@
 package tconstruct.items.accessory;
 
+import java.util.List;
+
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import tconstruct.client.TControls;
 import tconstruct.client.TProxyClient;
 import tconstruct.library.IAccessoryModel;
 import cpw.mods.fml.relauncher.Side;
@@ -45,5 +51,16 @@ public class TravelBelt extends AccessoryCore implements IAccessoryModel
     public ResourceLocation getWearbleTexture (Entity entity, ItemStack stack, int slot)
     {
         return texture;
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
+    {
+        if (!stack.hasTagCompound())
+            return;
+        
+        list.add("\u00a76Ability: Swap Hotbar");
+        list.add("\u00a76Control: "+GameSettings.getKeyDisplayString(TControls.beltSwap.keyCode));
     }
 }

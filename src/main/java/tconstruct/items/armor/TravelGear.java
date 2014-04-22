@@ -2,28 +2,29 @@ package tconstruct.items.armor;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
+import tconstruct.client.TControls;
 import tconstruct.client.TProxyClient;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.EnumArmorPart;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.util.player.TPlayerStats;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -43,7 +44,7 @@ public class TravelGear extends ArmorCore
     {
         return "Clothing";
     }
-    
+
     @SideOnly(Side.CLIENT)
     protected Icon[] modifiers;
 
@@ -55,11 +56,11 @@ public class TravelGear extends ArmorCore
                 + (this.armorType == 0 ? "goggles" : this.armorType == 1 ? "vest" : this.armorType == 2 ? "wings" : this.armorType == 3 ? "boots" : "helmet"));
         registerModifiers(iconRegister);
     }
-    
+
     @SideOnly(Side.CLIENT)
-    protected void registerModifiers(IconRegister iconRegister)
+    protected void registerModifiers (IconRegister iconRegister)
     {
-        
+
     }
 
     @Override
@@ -70,7 +71,6 @@ public class TravelGear extends ArmorCore
             return "tinker:textures/armor/" + textureName + "_" + 2 + ".png";
         return "tinker:textures/armor/" + textureName + "_" + layer + ".png";
     }
-    
 
     @SideOnly(Side.CLIENT)
     @Override
@@ -139,8 +139,8 @@ public class TravelGear extends ArmorCore
     {
         par3List.add(getDefaultItem());
     }
-    
-    public ItemStack getDefaultItem()
+
+    public ItemStack getDefaultItem ()
     {
         ItemStack gear = new ItemStack(this.itemID, 1, 0);
         NBTTagCompound baseTag = new NBTTagCompound();
@@ -152,9 +152,9 @@ public class TravelGear extends ArmorCore
         else
             tag.setDouble("Protection", 8);
         baseTag.setTag(getBaseTag(), tag);
-        
+
         int baseDurability = 500;
-        
+
         baseTag.setInteger("Damage", 0); //Damage is damage to the tool
         baseTag.setInteger("TotalDurability", baseDurability);
         baseTag.setInteger("BaseDurability", baseDurability);
@@ -174,10 +174,28 @@ public class TravelGear extends ArmorCore
         if (!stack.hasTagCompound())
             return;
 
+        switch (armorPart)
+        {
+        case Head:
+            list.add("\u00a76Ability: Clear Vision");
+            list.add("\u00a76Toggle with: "+GameSettings.getKeyDisplayString(TControls.toggleGoggles.keyCode));
+            break;
+        case Chest:
+            list.add("\u00a76Ability: Swift Swim");
+            break;
+        case Legs:
+            list.add("\u00a76Ability: Featherfall");
+            break;
+        case Feet:
+            list.add("\u00a76Ability: High Step");
+            break;
+        default:            
+        }
+
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag(getBaseTag());
-        double protection = tags.getDouble("protection");
+        double protection = tags.getDouble("Protection");
         if (protection > 0)
-            list.add("\u00a7aProtection: " + protection + "%");
+            list.add("\u00a77Protection: " + protection + "%");
 
         boolean displayToolTips = true;
         int tipNum = 0;
@@ -207,42 +225,53 @@ public class TravelGear extends ArmorCore
     {
         if (armorPart == EnumArmorPart.Chest)
         {
-            if(player.isInWater())
+            if (player.isInWater())
             {
                 player.motionX *= 1.2D;
-                if(player.motionY > 0.0D)
+                if (player.motionY > 0.0D)
                 {
                     player.motionY *= 1.2D;
                 }
                 player.motionZ *= 1.2D;
                 double maxSpeed = 0.2D;
-                if(player.motionX > maxSpeed)
+                if (player.motionX > maxSpeed)
                 {
                     player.motionX = maxSpeed;
                 }
-                else if(player.motionX < -maxSpeed)
+                else if (player.motionX < -maxSpeed)
                 {
                     player.motionX = -maxSpeed;
                 }
-                if(player.motionY > maxSpeed)
+                if (player.motionY > maxSpeed)
                 {
                     player.motionY = maxSpeed;
                 }
-                if(player.motionZ > maxSpeed)
+                if (player.motionZ > maxSpeed)
                 {
                     player.motionZ = maxSpeed;
                 }
-                else if(player.motionZ < -maxSpeed)
+                else if (player.motionZ < -maxSpeed)
                 {
                     player.motionZ = -maxSpeed;
                 }
             }
         }
-        
+
         if (armorPart == EnumArmorPart.Feet)
         {
             if (player.stepHeight < 1.0f)
                 player.stepHeight = 1.0f;
+            /*if (player.isInWater())
+                world.setBlock((int) Math.floor(player.posX), (int) Math.floor(player.posY) - 1, (int) Math.floor(player.posZ), Block.ice.blockID);*/
+            /*for (int x = -1; x <= 1; x++)
+            {
+                for (int z = -1; z <= 1; z++)
+                {
+                    Block block = Block.blocksList[world.getBlockId((int) Math.floor(player.posX) + x, (int) Math.floor(player.posY) - 1, (int) Math.floor(player.posZ) + z)];
+                    if (block == Block.waterStill || block == Block.waterMoving)
+                        world.setBlock((int) Math.floor(player.posX) + x, (int) Math.floor(player.posY) - 1, (int) Math.floor(player.posZ) + z, Block.ice.blockID);
+                }
+            }*/
         }
 
         if (armorPart == EnumArmorPart.Head)
@@ -251,6 +280,7 @@ public class TravelGear extends ArmorCore
             if (stats.activeGoggles)
             {
                 player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 15 * 20, 0, true));
+                //player.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 1, 0, true));
             }
         }
     }
