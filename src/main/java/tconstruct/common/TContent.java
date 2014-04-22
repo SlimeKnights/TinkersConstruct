@@ -1317,7 +1317,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addShapedRecipe(travelGoggles.getDefaultItem(), "#p#", "q#q", "g g", '#', leather, 'q', glass, 'p', new ItemStack(Item.potion, 1, 8230), 'g', new ItemStack(Item.ingotGold));
         GameRegistry.addRecipe(new ShapedOreRecipe(travelWings.getDefaultItem(), "g g", "i#i", "i i", '#', Item.plateLeather, 'g', Item.ingotGold, 'i', "ingotBronze"));
         GameRegistry.addRecipe(new ShapedOreRecipe(travelVest.getDefaultItem(), "#s#", "#i#", "#s#", '#', leather, 's', string, 'i', "ingotAluminum"));
-        GameRegistry.addShapedRecipe(travelBoots.getDefaultItem(), "#s#", "#i#", "#s#", '#', leather, 's', string, 'i', "ingotAluminum");
+        GameRegistry.addRecipe(new ShapedOreRecipe(travelBoots.getDefaultItem(), "#s#", "#i#", "#s#", '#', leather, 's', string, 'i', "ingotAluminum"));
         GameRegistry.addShapedRecipe(travelGlove.getDefaultItem(), "  #", "###", " ##", '#', leather);
         GameRegistry.addRecipe(new ShapedOreRecipe(travelBelt.getDefaultItem(), "###", "ici", "###", '#', leather, 'c', new ItemStack(Block.chest), 'i', "ingotAluminum"));
 
