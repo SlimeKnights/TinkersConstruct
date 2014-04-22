@@ -127,6 +127,8 @@ tile.cloth.black.slab.name=Black Wool Slab
 tile.GlueBlock.name=Glue Block
 tile.liquid.glue.name=Glue
 
+tile.Frypan.name=Frying Pan
+
 item.oreberry.iron.name=Iron Oreberry
 item.oreberry.gold.name=Gold Oreberry
 item.oreberry.copper.name=Copper Oreberry
