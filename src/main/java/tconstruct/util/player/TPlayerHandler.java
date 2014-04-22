@@ -384,7 +384,7 @@ public class TPlayerHandler implements IPlayerTracker
     {
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
         {
-            if (clientPlayerStats == null || clientPlayerStats.player.get() == null)
+            if (clientPlayerStats == null || clientPlayerStats.player == null || clientPlayerStats.player.get() == null)
             {
                 clientPlayerStats = new TPlayerStats();
                 EntityPlayer player = TConstruct.proxy.getPlayer(); //TODO: Hotfix?!

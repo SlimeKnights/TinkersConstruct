@@ -88,7 +88,7 @@ public class TProxyClient extends TProxyCommon
 {
     public static SmallFontRenderer smallFontRenderer;
     public static Icon metalBall;
-    public static Minecraft mc;
+    public static Minecraft mc = Minecraft.getMinecraft();
     public static RenderItem itemRenderer = new RenderItem();
 
     public static ArmorExtended armorExtended = new ArmorExtended();
@@ -809,9 +809,6 @@ public class TProxyClient extends TProxyCommon
 
     public EntityFX doSpawnParticle (String par1Str, double par2, double par4, double par6, double par8, double par10, double par12)
     {
-        if (this.mc == null)
-            this.mc = Minecraft.getMinecraft();
-
         if (this.mc.renderViewEntity != null && this.mc.effectRenderer != null)
         {
             int i = this.mc.gameSettings.particleSetting;
