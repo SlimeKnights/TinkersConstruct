@@ -50,7 +50,6 @@ public class TravelGlove extends AccessoryCore implements IAccessoryModel
         return TProxyClient.glove;
     }
 
-    @SideOnly(Side.CLIENT)
     ResourceLocation texture = new ResourceLocation("tinker", "textures/armor/travel_1.png");
 
     @Override

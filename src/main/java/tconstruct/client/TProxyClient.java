@@ -1014,4 +1014,10 @@ public class TProxyClient extends TProxyCommon
     {
         armorExtended.recalculateAttributes(mc.thePlayer, TConstruct.playerTracker.getPlayerStats(mc.thePlayer.username));
     }
+
+    @Override
+    public EntityPlayer getPlayer ()
+    {
+        return mc.thePlayer;
+    }
 }

@@ -132,4 +132,9 @@ public class TProxyCommon implements IGuiHandler
     {
 
     }
+
+    public EntityPlayer getPlayer ()
+    {
+        return null;
+    }
 }

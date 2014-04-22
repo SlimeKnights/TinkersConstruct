@@ -27,6 +27,7 @@ import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import tconstruct.TConstruct;
 import tconstruct.client.TProxyClient;
 import tconstruct.common.TContent;
+import tconstruct.common.TProxyCommon;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -386,7 +387,7 @@ public class TPlayerHandler implements IPlayerTracker
             if (clientPlayerStats == null || clientPlayerStats.player.get() == null)
             {
                 clientPlayerStats = new TPlayerStats();
-                EntityPlayer player = net.minecraft.client.Minecraft.getMinecraft().thePlayer;
+                EntityPlayer player = TConstruct.proxy.getPlayer(); //TODO: Hotfix?!
                 clientPlayerStats.player = new WeakReference<EntityPlayer>(player);
 
                 clientPlayerStats.armor = TProxyClient.armorExtended;

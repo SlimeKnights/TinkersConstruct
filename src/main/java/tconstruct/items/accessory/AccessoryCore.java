@@ -93,15 +93,18 @@ public abstract class AccessoryCore extends Item implements IAccessory, IModifya
 
     /* Icons */
 
+    @SideOnly(Side.CLIENT)
     protected Icon[] modifiers;
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void registerIcons (IconRegister iconRegister)
     {
         itemIcon = iconRegister.registerIcon("tinker:"+texture);
         registerModifiers(iconRegister);
     }
-    
+
+    @SideOnly(Side.CLIENT)
     protected void registerModifiers(IconRegister iconRegister)
     {
     }
