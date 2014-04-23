@@ -10,6 +10,7 @@ import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import tconstruct.TConstruct;
 import tconstruct.library.tools.ToolCore;
 
 public class ToolCoreRenderer implements IItemRenderer
@@ -36,7 +37,7 @@ public class ToolCoreRenderer implements IItemRenderer
         case INVENTORY:
             return true;
         default:
-            System.out.println("[TCon] Unhandled render case!");
+            TConstruct.logger.warning("Unhandled render case!");
         case FIRST_PERSON_MAP:
             return false;
         }
