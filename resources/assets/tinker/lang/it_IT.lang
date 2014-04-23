@@ -274,9 +274,11 @@ item.tconstruct.exoPants.name=Exo-Gambali
 item.tconstruct.exoShoes.name=Exo-Stivali
 
 item.tconstruct.travelgoggles.name=Occhiali del Viaggiatore
+item.tconstruct.travelvest.name=Veste del Viaggiatore
 item.tconstruct.travelwings.name=Ali del Viaggiatore
-item.tconstruct.travelgloves.name=Guanti del Viaggiatore
 item.tconstruct.travelboots.name=Stivali del Viaggiatore
+item.tconstruct.travelgloves.name=Guanti del Viaggiatore
+item.tconstruct.travelbelt.name=Cintura del Viaggiatore
 
 item.tconstruct.jerky.beef.name=Bisteccha Essicata
 item.tconstruct.jerky.pig.name=Pancetta Essicata
