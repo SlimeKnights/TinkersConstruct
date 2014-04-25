@@ -79,7 +79,7 @@ public class ToolForgeContainer extends ToolStationContainer
     {
         if (stack != null && stack.getItem() instanceof IModifyable)
         {
-            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTag());
+            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
             if (!tags.hasKey("Built"))
             {
                 tags.setBoolean("Built", true);

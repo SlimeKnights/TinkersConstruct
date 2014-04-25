@@ -37,7 +37,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
     }
     
     @Override
-    public String getBaseTag()
+    public String getBaseTagName()
     {
         return "TinkerArmor";
     }
@@ -85,7 +85,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
             return new ArmorProperties(0, damage / baseProtection, baseProtection);
         }
 
-        NBTTagCompound data = tags.getCompoundTag(getBaseTag());
+        NBTTagCompound data = tags.getCompoundTag(getBaseTagName());
         double amount = (data.getInteger("Defense") / damage) + (data.getDouble("Protection") / 100);
         if (source.isUnblockable())
             amount = 0;
@@ -103,7 +103,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
     {
         if (!armor.hasTagCompound())
             return this.baseProtection;
-        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(getBaseTag());
+        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(getBaseTagName());
         double amount = armorTag.getDouble("Protection") / 4;
         if (amount > 0 && amount < 1)
             amount = 1;
@@ -121,11 +121,11 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
             tags = new NBTTagCompound();
             stack.setTagCompound(tags);
             data = new NBTTagCompound();
-            tags.setCompoundTag(getBaseTag(), data);
+            tags.setCompoundTag(getBaseTagName(), data);
             data.setDouble("DamageReduction", baseProtection);
         }
 
-        data = tags.getCompoundTag(getBaseTag());
+        data = tags.getCompoundTag(getBaseTagName());
         int dmg = data.getInteger("Damage");
         dmg += damage;
         data.setDouble("Damage", dmg);
@@ -172,7 +172,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
             return 0;
         }
 
-        return tags.getCompoundTag(getBaseTag()).getInteger("TotalDurability");
+        return tags.getCompoundTag(getBaseTagName()).getInteger("TotalDurability");
     }
 
     public int getItemMaxDamageFromStackForDisplay (ItemStack stack)
@@ -183,7 +183,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
             return 0;
         }
 
-        return tags.getCompoundTag(getBaseTag()).getInteger("Damage");
+        return tags.getCompoundTag(getBaseTagName()).getInteger("Damage");
     }
 
 }

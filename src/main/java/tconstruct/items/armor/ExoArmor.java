@@ -64,7 +64,7 @@ public class ExoArmor extends ArmorCore
 
         NBTTagCompound armorTag = new NBTTagCompound();
         armorTag.setInteger("Modifiers", 30);
-        baseTag.setTag(getBaseTag(), armorTag);
+        baseTag.setTag(getBaseTagName(), armorTag);
 
         armor.setTagCompound(baseTag);
         par3List.add(armor);
@@ -76,7 +76,7 @@ public class ExoArmor extends ArmorCore
         if (!stack.hasTagCompound())
             return;
 
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag(getBaseTag());
+        NBTTagCompound tags = stack.getTagCompound().getCompoundTag(getBaseTagName());
         double protection = tags.getDouble("protection");
         if (protection > 0)
             list.add("\u00a7aProtection: " + protection + "%");

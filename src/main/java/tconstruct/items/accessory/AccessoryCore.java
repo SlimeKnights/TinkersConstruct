@@ -34,7 +34,7 @@ public abstract class AccessoryCore extends Item implements IAccessory, IModifya
     }
 
     @Override
-    public String getBaseTag ()
+    public String getBaseTagName ()
     {
         return "TinkerAccessory";
     }
@@ -75,18 +75,21 @@ public abstract class AccessoryCore extends Item implements IAccessory, IModifya
     public ItemStack getDefaultItem()
     {
         ItemStack gear = new ItemStack(this.itemID, 1, 0);
-        NBTTagCompound baseTag = new NBTTagCompound();
+        NBTTagCompound itemTag = new NBTTagCompound();
         
         int baseDurability = 500;
         
-        baseTag.setInteger("Damage", 0); //Damage is damage to the tool
-        baseTag.setInteger("TotalDurability", baseDurability);
-        baseTag.setInteger("BaseDurability", baseDurability);
-        baseTag.setInteger("BonusDurability", 0); //Modifier
-        baseTag.setFloat("ModDurability", 0f); //Modifier
-        baseTag.setBoolean("Broken", false);
-        baseTag.setBoolean("Built", true);
-
+        itemTag.setInteger("Damage", 0); //Damage is damage to the tool
+        itemTag.setInteger("TotalDurability", baseDurability);
+        itemTag.setInteger("BaseDurability", baseDurability);
+        itemTag.setInteger("BonusDurability", 0); //Modifier
+        itemTag.setFloat("ModDurability", 0f); //Modifier
+        itemTag.setInteger("Modifiers", 5);
+        itemTag.setBoolean("Broken", false);
+        itemTag.setBoolean("Built", true);
+        
+        NBTTagCompound baseTag = new NBTTagCompound();
+        baseTag.setCompoundTag(getBaseTagName(), itemTag);
         gear.setTagCompound(baseTag);
         return gear;
     }
@@ -167,9 +170,10 @@ public abstract class AccessoryCore extends Item implements IAccessory, IModifya
             return;
 
         NBTTagCompound tags = stack.getTagCompound();
-        if (tags.hasKey("TinkerAccessory"))
+        if (tags.hasKey(getBaseTagName()))
         {
-            boolean broken = tags.getCompoundTag("TinkerAccessory").getBoolean("Broken");
+            tags = stack.getTagCompound().getCompoundTag(getBaseTagName());
+            boolean broken = tags.getBoolean("Broken");
             if (broken)
                 list.add("\u00A7oBroken");
             else
@@ -180,9 +184,9 @@ public abstract class AccessoryCore extends Item implements IAccessory, IModifya
                 {
                     tipNum++;
                     String tooltip = "Tooltip" + tipNum;
-                    if (tags.getCompoundTag("TinkerAccessory").hasKey(tooltip))
+                    if (tags.hasKey(tooltip))
                     {
-                        String tipName = tags.getCompoundTag("TinkerAccessory").getString(tooltip);
+                        String tipName = tags.getString(tooltip);
                         if (!tipName.equals(""))
                             list.add(tipName);
                     }

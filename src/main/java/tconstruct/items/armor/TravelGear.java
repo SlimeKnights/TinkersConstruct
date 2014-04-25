@@ -100,7 +100,7 @@ public class TravelGear extends ArmorCore
         {
             if (stack.hasTagCompound())
             {
-                NBTTagCompound tags = stack.getTagCompound().getCompoundTag(getBaseTag());
+                NBTTagCompound tags = stack.getTagCompound().getCompoundTag(getBaseTagName());
                 if (renderPass == 1 && tags.hasKey("Effect1"))
                 {
                     return modifiers[tags.getInteger("Effect1")];
@@ -151,7 +151,7 @@ public class TravelGear extends ArmorCore
             tag.setDouble("Protection", 4);
         else
             tag.setDouble("Protection", 8);
-        baseTag.setTag(getBaseTag(), tag);
+        baseTag.setTag(getBaseTagName(), tag);
 
         int baseDurability = 500;
 
@@ -192,7 +192,7 @@ public class TravelGear extends ArmorCore
         default:            
         }
 
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag(getBaseTag());
+        NBTTagCompound tags = stack.getTagCompound().getCompoundTag(getBaseTagName());
         double protection = tags.getDouble("Protection");
         if (protection > 0)
             list.add("\u00a77Protection: " + protection + "%");

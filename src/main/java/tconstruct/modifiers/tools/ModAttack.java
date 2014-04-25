@@ -45,7 +45,7 @@ public class ModAttack extends ItemModTypeFilter
             if (!validType(toolItem))
                 return false;
 
-            NBTTagCompound tags = tool.getTagCompound().getCompoundTag(toolItem.getBaseTag());
+            NBTTagCompound tags = tool.getTagCompound().getCompoundTag(toolItem.getBaseTagName());
             if (!tags.hasKey(key))
                 return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
 
@@ -70,7 +70,7 @@ public class ModAttack extends ItemModTypeFilter
     public void modify (ItemStack[] input, ItemStack tool)
     {
         IModifyable toolItem = (IModifyable) tool.getItem();
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(toolItem.getBaseTag());
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(toolItem.getBaseTagName());
         if (tags.hasKey(key))
         {
             int[] keyPair = tags.getIntArray(key);

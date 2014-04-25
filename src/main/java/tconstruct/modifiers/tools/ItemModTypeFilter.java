@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
-import tconstruct.TConstruct;
 import tconstruct.library.tools.ItemModifier;
 
 public abstract class ItemModTypeFilter extends ItemModifier
@@ -35,7 +34,6 @@ public abstract class ItemModTypeFilter extends ItemModifier
         if (!canModify(tool, input))
             return false;
 
-        TConstruct.logger.info("Item can be modified");
         boolean minimumMatch = false;
         for (ItemStack inputStack : input)
         {
@@ -56,16 +54,12 @@ public abstract class ItemModTypeFilter extends ItemModifier
                     if (this.areItemStacksEquivalent(inputStack, stack))
                         match = true;
                 }
-                TConstruct.logger.info("Input: "+inputStack);
-                TConstruct.logger.info("Checking against: "+stack);
-                TConstruct.logger.info("Match: "+match);
             }
             if (!match)
                 return false;
 
             minimumMatch = true;
         }
-        TConstruct.logger.info("Minimum match: "+minimumMatch);
         return minimumMatch;
     }
 

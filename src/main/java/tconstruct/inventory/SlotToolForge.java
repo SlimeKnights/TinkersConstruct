@@ -24,7 +24,7 @@ public class SlotToolForge extends SlotTool
     {
         if (stack.getItem() instanceof IModifyable)
         {
-            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTag());
+            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
 
             if (!tags.hasKey("Built"))
             {

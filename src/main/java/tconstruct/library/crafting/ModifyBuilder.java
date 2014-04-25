@@ -22,7 +22,7 @@ public class ModifyBuilder
         if (copy.getItem() instanceof IModifyable)
         {
             IModifyable item = (IModifyable) copy.getItem();
-            NBTTagCompound tags = input.getTagCompound().getCompoundTag(item.getBaseTag());
+            NBTTagCompound tags = input.getTagCompound().getCompoundTag(item.getBaseTagName());
             tags.removeTag("Built");
             
             boolean built = false;
