@@ -23,19 +23,19 @@ public class GloveSpeed extends ItemModTypeFilter
     protected boolean canModify (ItemStack input, ItemStack[] modifiers)
     {
         IModifyable imod = (IModifyable) input.getItem();
-        TConstruct.logger.log(Level.ALL, "Beginning modifier check");
+        TConstruct.logger.info("Beginning modifier check");
         if (imod.getModifyType().equals("Accessory"))
         {
-            TConstruct.logger.log(Level.ALL, "Item is an accessory");
+            TConstruct.logger.info("Item is an accessory");
             NBTTagCompound tags = getModifierTag(input);
             if (!tags.hasKey(key))
                 return tags.getInteger("Modifiers") > 0 && matchingAmount(modifiers) <= max;
 
-            TConstruct.logger.log(Level.ALL, "Item has modifiers");
+            TConstruct.logger.info("Item has modifiers");
             int keyPair[] = tags.getIntArray(key);
             if (keyPair[0] + matchingAmount(modifiers) <= keyPair[1])
             {
-                TConstruct.logger.log(Level.ALL, "Item can add more to current modifier");
+                TConstruct.logger.info("Item can add more to current modifier");
                 return true;
             }
 
@@ -49,14 +49,14 @@ public class GloveSpeed extends ItemModTypeFilter
     @Override
     public void modify (ItemStack[] modifiers, ItemStack input)
     {
-        TConstruct.logger.log(Level.ALL, "Adding redstone to accessory");
+        TConstruct.logger.info("Adding redstone to accessory");
         NBTTagCompound tags = getModifierTag(input);
         int[] keyPair;
         int increase = matchingAmount(modifiers);
         int current = 0;
         if (tags.hasKey(key))
         {
-            TConstruct.logger.log(Level.ALL, "Item has tag");
+            TConstruct.logger.info("Item has tag");
             keyPair = tags.getIntArray(key);
             if (keyPair[0] % max == 0)
             {
@@ -78,7 +78,7 @@ public class GloveSpeed extends ItemModTypeFilter
         }
         else
         {
-            TConstruct.logger.log(Level.ALL, "Item does not have tag");
+            TConstruct.logger.info("Item does not have tag");
             int mods = tags.getInteger("Modifiers");
             mods -= 1;
             tags.setInteger("Modifiers", mods);
@@ -98,7 +98,7 @@ public class GloveSpeed extends ItemModTypeFilter
 
     void updateModTag (ItemStack input, int[] keys)
     {
-        TConstruct.logger.log(Level.ALL, "Updating modifier tag");
+        TConstruct.logger.info("Updating modifier tag");
         NBTTagCompound tags = getModifierTag(input);
         String tip = "ModifierTip" + keys[2];
         String modName = "\u00a74Redstone (" + keys[0] + "/" + keys[1] + ")";
