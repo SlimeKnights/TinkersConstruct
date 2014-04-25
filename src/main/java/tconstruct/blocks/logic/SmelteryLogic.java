@@ -50,7 +50,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 {
     public boolean validStructure;
     public boolean tempValidStructure;
-    public boolean previouslyScanned;
     byte direction;
     int internalTemp;
     public int useTime;
@@ -278,11 +277,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
         if (tick % 20 == 0)
         {
-            if (!validStructure || !previouslyScanned)
-            {
+            if (!validStructure)
                 checkValidPlacement();
-                previouslyScanned = true;
-            }
 
             if (useTime > 0 && inUse)
                 useTime -= 3;
@@ -302,13 +298,15 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         if (tick == 60)
         {
             tick = 0;
-            if (validStructure)
+            //if (validStructure)
                 detectEntities();
         }
     }
 
     void detectEntities ()
     {
+        if (centerPos == null)
+            return;
         AxisAlignedBB box = AxisAlignedBB.getAABBPool().getAABB(centerPos.x, centerPos.y, centerPos.z, centerPos.x + 1.0D, centerPos.y + 1.0D, centerPos.z + 1.0D).expand(1.0D, 0.0D, 1.0D);
 
         List list = worldObj.getEntitiesWithinAABB(Entity.class, box);
@@ -1082,7 +1080,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         inventory = new ItemStack[layers * 9];
         super.readFromNBT(tags);
 
-        validStructure = tags.getBoolean("ValidStructure");
+        //validStructure = tags.getBoolean("ValidStructure"); //Uncommenting this causes issues, somehow
         internalTemp = tags.getInteger("InternalTemp");
         inUse = tags.getBoolean("InUse");
 
@@ -1117,7 +1115,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         super.writeToNBT(tags);
 
-        tags.setBoolean("ValidStructure", validStructure);
+        //tags.setBoolean("ValidStructure", validStructure); //Uncommenting this causes issues, somehow
         tags.setInteger("InternalTemp", internalTemp);
         tags.setBoolean("InUse", inUse);
 
