@@ -6,6 +6,7 @@ import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
+import tconstruct.library.IModifyable;
 import tconstruct.library.event.ToolCraftedEvent;
 import tconstruct.library.tools.ToolCore;
 

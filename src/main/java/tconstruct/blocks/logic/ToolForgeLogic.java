@@ -1,16 +1,15 @@
 package tconstruct.blocks.logic;
 
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 import tconstruct.inventory.ToolForgeContainer;
 import tconstruct.library.IModifyable;
 import tconstruct.library.crafting.ModifyBuilder;
 import tconstruct.library.crafting.ToolBuilder;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
 
 /* Simple class for storing items in the block
  */
@@ -22,7 +21,7 @@ public class ToolForgeLogic extends ToolStationLogic implements ISidedInventory
 
     public ToolForgeLogic()
     {
-        super(6);
+        super(5);
         toolName = "";
     }
 
@@ -38,45 +37,63 @@ public class ToolForgeLogic extends ToolStationLogic implements ISidedInventory
         return new ToolForgeContainer(inventoryplayer, this);
     }
 
-    /*public void buildTool (String name)
-    {
-        toolName = name;
-        ItemStack tool = ToolBuilder.instance.buildTool(inventory[1], inventory[2], inventory[3], inventory[4], name);
-        if (inventory[0] == null)
-            inventory[0] = tool;
-        else
-        {
-            NBTTagCompound tags = inventory[0].getTagCompound();
-            if (!tags.getCompoundTag("InfiTool").hasKey("Built"))
-            {
-                inventory[0] = tool;
-            }
-        }
-    }*/
-    
     public void buildTool (String name)
     {
-        
-        if (inventory[1] != null && inventory[1].getItem() instanceof IModifyable)
+        ItemStack output = null;
+        if (inventory[1] != null)
         {
-            ItemStack output = ModifyBuilder.instance.modifyItem(inventory[1], new ItemStack[] {inventory[2], inventory[3], inventory[4]});
-            if (output != null)
-                inventory[0] = output;
-        }
-        else
-        {
-            toolName = name;
-            ItemStack tool = ToolBuilder.instance.buildTool(inventory[1], inventory[2], inventory[3], inventory[4], name);
-            if (inventory[0] == null)
-                inventory[0] = tool;
-            else
+            if (inventory[1].getItem() instanceof IModifyable) //Modify item
             {
-                NBTTagCompound tags = inventory[0].getTagCompound();
-                if (!tags.getCompoundTag("InfiTool").hasKey("Built"))
+                if (inventory[2] == null && inventory[3] == null && inventory[4] == null)
+                    output = inventory[1].copy();
+                else
                 {
-                    inventory[0] = tool;
+                    output = ModifyBuilder.instance.modifyItem(inventory[1], new ItemStack[] { inventory[2], inventory[3], inventory[4] });
                 }
             }
+            else
+            //Build new item
+            {
+                toolName = name;
+                ItemStack tool = ToolBuilder.instance.buildTool(inventory[1], inventory[2], inventory[3], inventory[4], name);
+                if (inventory[0] == null)
+                    output = tool;
+                else if (tool != null)
+                {
+                    NBTTagCompound tags = tool.getTagCompound(); 
+                    if (!tags.getCompoundTag(((IModifyable) tool.getItem()).getBaseTag()).hasKey("Built"))
+                    {
+                        output = tool;
+                    }
+                }
+            }
+            if (!name.equals("")) //Name item
+            {
+                ItemStack temp = inventory[1].copy();
+                if (output != null)
+                    temp = output;
+                
+                if (temp != null)
+                {
+                    NBTTagCompound tags = temp.getTagCompound();
+                    if (tags == null)
+                    {
+                        tags = new NBTTagCompound();                        
+                        temp.setTagCompound(tags);
+                    }
+
+                    if (!(tags.hasKey("display")))
+                    {
+                        NBTTagCompound display = new NBTTagCompound();
+                        String dName = temp.getItem() instanceof IModifyable ? "\u00A7f" + name : name;
+                        display.setString("Name", dName);
+                        tags.setCompoundTag("display", display);
+                        output = temp;
+                    }
+                }
+
+            }
         }
+        inventory[0] = output;
     }
 }

@@ -110,7 +110,7 @@ public class TControls extends TKeyHandler
                         midairJumps += shoeTag.getInteger("Double-Jump");
                     }
                     ItemStack wings = mc.thePlayer.getCurrentArmor(1);
-                    if (shoes != null && wings.hasTagCompound() && wings.getTagCompound().hasKey("TinkerArmor"))
+                    if (wings != null && wings.hasTagCompound() && wings.getTagCompound().hasKey("TinkerArmor"))
                     {
                         NBTTagCompound shoeTag = wings.getTagCompound().getCompoundTag("TinkerArmor");
                         midairJumps += shoeTag.getInteger("Double-Jump");

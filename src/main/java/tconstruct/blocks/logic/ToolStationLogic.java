@@ -70,27 +70,62 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
 
     public void buildTool (String name)
     {
-        if (inventory[1] != null && inventory[1].getItem() instanceof IModifyable)
+        ItemStack output = null;
+        if (inventory[1] != null)
         {
-            ItemStack output = ModifyBuilder.instance.modifyItem(inventory[1], new ItemStack[] {inventory[2], inventory[3]});
-            if (output != null)
-                inventory[0] = output;
-        }
-        else
-        {
-            toolName = name;
-            ItemStack tool = ToolBuilder.instance.buildTool(inventory[1], inventory[2], inventory[3], name);
-            if (inventory[0] == null)
-                inventory[0] = tool;
-            else
+            if (inventory[1].getItem() instanceof IModifyable) //Modify item
             {
-                NBTTagCompound tags = inventory[0].getTagCompound();
-                if (!tags.getCompoundTag("InfiTool").hasKey("Built"))
+                if (inventory[2] == null && inventory[3] == null)
+                    output = inventory[1].copy();
+                else
                 {
-                    inventory[0] = tool;
+                    output = ModifyBuilder.instance.modifyItem(inventory[1], new ItemStack[] { inventory[2], inventory[3] });
                 }
             }
+            else
+            //Build new item
+            {
+                toolName = name;
+                ItemStack tool = ToolBuilder.instance.buildTool(inventory[1], inventory[2], inventory[3], name);
+                if (inventory[0] == null)
+                    output = tool;
+                else if (tool != null)
+                {
+                    NBTTagCompound tags = tool.getTagCompound();
+                    if (!tags.getCompoundTag(((IModifyable) tool.getItem()).getBaseTag()).hasKey("Built"))
+                    {
+                        output = tool;
+                    }
+                }
+            }
+            if (!name.equals("")) //Name item
+            {
+                ItemStack temp = inventory[1].copy();
+                if (output != null)
+                    temp = output;
+
+                if (temp != null)
+                {
+                    NBTTagCompound tags = temp.getTagCompound();
+                    if (tags == null)
+                    {
+                        tags = new NBTTagCompound();
+                        temp.setTagCompound(tags);
+                    }
+
+                    if (!(tags.hasKey("display")))
+                    {
+                        NBTTagCompound display = new NBTTagCompound();
+                        String dName = temp.getItem() instanceof IModifyable ? "\u00A7f" + name : name;
+                        display.setString("Name", dName);
+                        tags.setCompoundTag("display", display);
+                        output = temp;
+                    }
+                }
+
+            }
         }
+        inventory[0] = output;
     }
 
     public void setToolname (String name)
