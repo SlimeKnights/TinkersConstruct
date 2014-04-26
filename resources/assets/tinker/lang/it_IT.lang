@@ -126,6 +126,8 @@ tile.cloth.black.slab.name=Lastra di Lana Nera
 tile.GlueBlock.name=Blocco di Colla
 tile.liquid.glue.name=Colla
 
+tile.Frypan.name=Padella
+
 item.oreberry.iron.name=Baccagrezza di Ferro
 item.oreberry.gold.name=Baccagrezza d'Oro
 item.oreberry.copper.name=Baccagrezza di Rame
@@ -806,7 +808,7 @@ materialtraits.writable=Scrivibile
 materialtraits.tasty=Gustoso
 materialtraits.thaumic=Taumico
 
-attribute.generic.ammo.attackDamage=Danno Medio per Tiro
+attribute.name.ammo.attackDamage=Danno Medio per Tiro
 
 creativeModLock.tooltip=Attrezzo Selezionato: 
 
