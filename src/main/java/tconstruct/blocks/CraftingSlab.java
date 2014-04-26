@@ -137,7 +137,7 @@ public class CraftingSlab extends InventorySlab
     @Override
     public void breakBlock (World par1World, int x, int y, int z, int blockID, int meta)
     {
-        if (meta < 5 || meta > 9)
+        if (meta != 4)
             super.breakBlock(par1World, x, y, z, blockID, meta);
         else
         {
@@ -153,9 +153,9 @@ public class CraftingSlab extends InventorySlab
         if (!world.isRemote && world.getGameRules().getGameRuleBooleanValue("doTileDrops"))
         {
             int meta = world.getBlockMetadata(x, y, z);
-            if (meta != 4)
+            if (meta == 4)
             {
-                ItemStack chest = new ItemStack(this, 1, 5);
+                ItemStack chest = new ItemStack(this, 1, 4);
                 NBTTagCompound inventory = new NBTTagCompound();
                 PatternChestLogic logic = (PatternChestLogic) world.getBlockTileEntity(x, y, z);
                 logic.writeInventoryToNBT(inventory);
