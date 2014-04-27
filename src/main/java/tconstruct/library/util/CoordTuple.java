@@ -26,6 +26,19 @@ public class CoordTuple implements Comparable
         y = tuple.y;
         z = tuple.z;
     }
+    
+    public int getDistanceFrom(CoordTuple tuple)
+    {
+        return getDistanceFrom(tuple.x, tuple.y, tuple.z);
+    }
+    
+    public int getDistanceFrom (int x1, int y1, int z1)
+    {
+        int xPos = x - x1;
+        int yPos = y - y1;
+        int zPos = z - z1;
+        return xPos * xPos + yPos * yPos + zPos * zPos;
+    }
 
     public boolean equalCoords (int posX, int posY, int posZ)
     {

@@ -145,6 +145,7 @@ public class TContent implements IFuelHandler
     public static Block battlesignBlock;
     public static Block craftedSoil;
 
+    //Smeltery
     public static Block smeltery;
     public static Block lavaTank;
     public static Block searedBlock;
@@ -179,6 +180,9 @@ public class TContent implements IFuelHandler
     public static Block barricadeBirch;
     public static Block barricadeJungle;
     public static Block slimeExplosive;
+    
+    //Unique
+    public static Block enderwarp;
 
     //InfiBlocks
     public static Block speedBlock;
@@ -188,9 +192,6 @@ public class TContent implements IFuelHandler
     public static Block glassPane;
     //public static Block stainedGlassPane;
     public static Block stainedGlassClearPane;
-    public static Block glassMagicSlab;
-    public static Block stainedGlassMagicSlab;
-    public static Block stainedGlassClearMagicSlab;
 
     //Liquids
     public static Material liquidMetal;
@@ -481,6 +482,10 @@ public class TContent implements IFuelHandler
         dryingRack = new DryingRack(PHConstruct.dryingRack).setUnlocalizedName("Armor.DryingRack");
         GameRegistry.registerBlock(dryingRack, "Armor.DryingRack");
         GameRegistry.registerTileEntity(DryingRackLogic.class, "Armor.DryingRack");
+        
+        enderwarp = new EnderWarp(PHConstruct.enderwarp).setUnlocalizedName("enderwarp");
+        GameRegistry.registerBlock(enderwarp, EnderWarpItem.class, "EnderWarp");
+        GameRegistry.registerTileEntity(EnderWarpLogic.class, "EnderWarp");
 
         //Liquids
         liquidMetal = new MaterialLiquid(MapColor.tntColor);
@@ -488,7 +493,7 @@ public class TContent implements IFuelHandler
         moltenIronFluid = new Fluid("iron.molten");
         if (!FluidRegistry.registerFluid(moltenIronFluid))
             moltenIronFluid = FluidRegistry.getFluid("iron.molten");
-        moltenIron = new TConstructFluid(PHConstruct.moltenIron, moltenIronFluid, Material.lava, "liquid_iron").setUnlocalizedName("metal.molten.iron");
+        moltenIron = new TConstructFluid(PHConstruct.moltenIron, moltenIronFluid, Material.lava, "liquid_iron", 0xffffff).setUnlocalizedName("metal.molten.iron");
         GameRegistry.registerBlock(moltenIron, "metal.molten.iron");
         fluids[0] = moltenIronFluid;
         fluidBlocks[0] = moltenIron;
@@ -498,7 +503,7 @@ public class TContent implements IFuelHandler
         moltenGoldFluid = new Fluid("gold.molten");
         if (!FluidRegistry.registerFluid(moltenGoldFluid))
             moltenGoldFluid = FluidRegistry.getFluid("gold.molten");
-        moltenGold = new TConstructFluid(PHConstruct.moltenGold, moltenGoldFluid, Material.lava, "liquid_gold").setUnlocalizedName("metal.molten.gold");
+        moltenGold = new TConstructFluid(PHConstruct.moltenGold, moltenGoldFluid, Material.lava, "metal", 0xf6da1f).setUnlocalizedName("metal.molten.gold");
         GameRegistry.registerBlock(moltenGold, "metal.molten.gold");
         fluids[1] = moltenGoldFluid;
         fluidBlocks[1] = moltenGold;
@@ -508,7 +513,7 @@ public class TContent implements IFuelHandler
         moltenCopperFluid = new Fluid("copper.molten");
         if (!FluidRegistry.registerFluid(moltenCopperFluid))
             moltenCopperFluid = FluidRegistry.getFluid("copper.molten");
-        moltenCopper = new TConstructFluid(PHConstruct.moltenCopper, moltenCopperFluid, Material.lava, "liquid_copper").setUnlocalizedName("metal.molten.copper");
+        moltenCopper = new TConstructFluid(PHConstruct.moltenCopper, moltenCopperFluid, Material.lava, "metal", 0xf99e1d).setUnlocalizedName("metal.molten.copper");
         GameRegistry.registerBlock(moltenCopper, "metal.molten.copper");
         fluids[2] = moltenCopperFluid;
         fluidBlocks[2] = moltenCopper;
@@ -518,7 +523,7 @@ public class TContent implements IFuelHandler
         moltenTinFluid = new Fluid("tin.molten");
         if (!FluidRegistry.registerFluid(moltenTinFluid))
             moltenTinFluid = FluidRegistry.getFluid("tin.molten");
-        moltenTin = new TConstructFluid(PHConstruct.moltenTin, moltenTinFluid, Material.lava, "liquid_tin").setUnlocalizedName("metal.molten.tin");
+        moltenTin = new TConstructFluid(PHConstruct.moltenTin, moltenTinFluid, Material.lava, "metal", 0xffffff).setUnlocalizedName("metal.molten.tin");
         GameRegistry.registerBlock(moltenTin, "metal.molten.tin");
         fluids[3] = moltenTinFluid;
         fluidBlocks[3] = moltenTin;
@@ -528,7 +533,7 @@ public class TContent implements IFuelHandler
         moltenAluminumFluid = new Fluid("aluminum.molten");
         if (!FluidRegistry.registerFluid(moltenAluminumFluid))
             moltenAluminumFluid = FluidRegistry.getFluid("aluminum.molten");
-        moltenAluminum = new TConstructFluid(PHConstruct.moltenAluminum, moltenAluminumFluid, Material.lava, "liquid_aluminum").setUnlocalizedName("metal.molten.aluminum");
+        moltenAluminum = new TConstructFluid(PHConstruct.moltenAluminum, moltenAluminumFluid, Material.lava, "metal", 0xffb7b7).setUnlocalizedName("metal.molten.aluminum");
         GameRegistry.registerBlock(moltenAluminum, "metal.molten.aluminum");
         fluids[4] = moltenAluminumFluid;
         fluidBlocks[4] = moltenAluminum;
@@ -538,7 +543,7 @@ public class TContent implements IFuelHandler
         moltenCobaltFluid = new Fluid("cobalt.molten");
         if (!FluidRegistry.registerFluid(moltenCobaltFluid))
             moltenCobaltFluid = FluidRegistry.getFluid("cobalt.molten");
-        moltenCobalt = new TConstructFluid(PHConstruct.moltenCobalt, moltenCobaltFluid, Material.lava, "liquid_cobalt").setUnlocalizedName("metal.molten.cobalt");
+        moltenCobalt = new TConstructFluid(PHConstruct.moltenCobalt, moltenCobaltFluid, Material.lava, "metal", 0x4c66c3).setUnlocalizedName("metal.molten.cobalt");
         GameRegistry.registerBlock(moltenCobalt, "metal.molten.cobalt");
         fluids[5] = moltenCobaltFluid;
         fluidBlocks[5] = moltenCobalt;
@@ -548,7 +553,7 @@ public class TContent implements IFuelHandler
         moltenArditeFluid = new Fluid("ardite.molten");
         if (!FluidRegistry.registerFluid(moltenArditeFluid))
             moltenArditeFluid = FluidRegistry.getFluid("ardite.molten");
-        moltenArdite = new TConstructFluid(PHConstruct.moltenArdite, moltenArditeFluid, Material.lava, "liquid_ardite").setUnlocalizedName("metal.molten.ardite");
+        moltenArdite = new TConstructFluid(PHConstruct.moltenArdite, moltenArditeFluid, Material.lava, "metal", 0xac8836).setUnlocalizedName("metal.molten.ardite");
         GameRegistry.registerBlock(moltenArdite, "metal.molten.ardite");
         fluids[6] = moltenArditeFluid;
         fluidBlocks[6] = moltenArdite;
@@ -558,7 +563,7 @@ public class TContent implements IFuelHandler
         moltenBronzeFluid = new Fluid("bronze.molten");
         if (!FluidRegistry.registerFluid(moltenBronzeFluid))
             moltenBronzeFluid = FluidRegistry.getFluid("bronze.molten");
-        moltenBronze = new TConstructFluid(PHConstruct.moltenBronze, moltenBronzeFluid, Material.lava, "liquid_bronze").setUnlocalizedName("metal.molten.bronze");
+        moltenBronze = new TConstructFluid(PHConstruct.moltenBronze, moltenBronzeFluid, Material.lava, "metal", 0xd5b68d).setUnlocalizedName("metal.molten.bronze");
         GameRegistry.registerBlock(moltenBronze, "metal.molten.bronze");
         fluids[7] = moltenBronzeFluid;
         fluidBlocks[7] = moltenBronze;
@@ -568,7 +573,7 @@ public class TContent implements IFuelHandler
         moltenAlubrassFluid = new Fluid("aluminumbrass.molten");
         if (!FluidRegistry.registerFluid(moltenAlubrassFluid))
             moltenAlubrassFluid = FluidRegistry.getFluid("aluminumbrass.molten");
-        moltenAlubrass = new TConstructFluid(PHConstruct.moltenAlubrass, moltenAlubrassFluid, Material.lava, "liquid_alubrass").setUnlocalizedName("metal.molten.alubrass");
+        moltenAlubrass = new TConstructFluid(PHConstruct.moltenAlubrass, moltenAlubrassFluid, Material.lava, "metal", 0xfffdb5).setUnlocalizedName("metal.molten.alubrass");
         GameRegistry.registerBlock(moltenAlubrass, "metal.molten.alubrass");
         fluids[8] = moltenAlubrassFluid;
         fluidBlocks[8] = moltenAlubrass;
@@ -578,7 +583,7 @@ public class TContent implements IFuelHandler
         moltenManyullynFluid = new Fluid("manyullyn.molten");
         if (!FluidRegistry.registerFluid(moltenManyullynFluid))
             moltenManyullynFluid = FluidRegistry.getFluid("manyullyn.molten");
-        moltenManyullyn = new TConstructFluid(PHConstruct.moltenManyullyn, moltenManyullynFluid, Material.lava, "liquid_manyullyn").setUnlocalizedName("metal.molten.manyullyn");
+        moltenManyullyn = new TConstructFluid(PHConstruct.moltenManyullyn, moltenManyullynFluid, Material.lava, "metal", 0x9c4fba).setUnlocalizedName("metal.molten.manyullyn");
         GameRegistry.registerBlock(moltenManyullyn, "metal.molten.manyullyn");
         fluids[9] = moltenManyullynFluid;
         fluidBlocks[9] = moltenManyullyn;
@@ -588,7 +593,7 @@ public class TContent implements IFuelHandler
         moltenAlumiteFluid = new Fluid("alumite.molten");
         if (!FluidRegistry.registerFluid(moltenAlumiteFluid))
             moltenAlumiteFluid = FluidRegistry.getFluid("alumite.molten");
-        moltenAlumite = new TConstructFluid(PHConstruct.moltenAlumite, moltenAlumiteFluid, Material.lava, "liquid_alumite").setUnlocalizedName("metal.molten.alumite");
+        moltenAlumite = new TConstructFluid(PHConstruct.moltenAlumite, moltenAlumiteFluid, Material.lava, "metal", 0xf6e9e8).setUnlocalizedName("metal.molten.alumite");
         GameRegistry.registerBlock(moltenAlumite, "metal.molten.alumite");
         fluids[10] = moltenAlumiteFluid;
         fluidBlocks[10] = moltenAlumite;
@@ -598,7 +603,7 @@ public class TContent implements IFuelHandler
         moltenObsidianFluid = new Fluid("obsidian.molten");
         if (!FluidRegistry.registerFluid(moltenObsidianFluid))
             moltenObsidianFluid = FluidRegistry.getFluid("obsidian.molten");
-        moltenObsidian = new TConstructFluid(PHConstruct.moltenObsidian, moltenObsidianFluid, Material.lava, "liquid_obsidian").setUnlocalizedName("metal.molten.obsidian");
+        moltenObsidian = new TConstructFluid(PHConstruct.moltenObsidian, moltenObsidianFluid, Material.lava, "liquid_obsidian", 0xFFFFFF).setUnlocalizedName("metal.molten.obsidian");
         GameRegistry.registerBlock(moltenObsidian, "metal.molten.obsidian");
         fluids[11] = moltenObsidianFluid;
         fluidBlocks[11] = moltenObsidian;
@@ -608,7 +613,7 @@ public class TContent implements IFuelHandler
         moltenSteelFluid = new Fluid("steel.molten");
         if (!FluidRegistry.registerFluid(moltenSteelFluid))
             moltenSteelFluid = FluidRegistry.getFluid("steel.molten");
-        moltenSteel = new TConstructFluid(PHConstruct.moltenSteel, moltenSteelFluid, Material.lava, "liquid_steel").setUnlocalizedName("metal.molten.steel");
+        moltenSteel = new TConstructFluid(PHConstruct.moltenSteel, moltenSteelFluid, Material.lava, "metal", 0x555555).setUnlocalizedName("metal.molten.steel");
         GameRegistry.registerBlock(moltenSteel, "metal.molten.steel");
         fluids[12] = moltenSteelFluid;
         fluidBlocks[12] = moltenSteel;
@@ -618,7 +623,7 @@ public class TContent implements IFuelHandler
         moltenGlassFluid = new Fluid("glass.molten");
         if (!FluidRegistry.registerFluid(moltenGlassFluid))
             moltenGlassFluid = FluidRegistry.getFluid("glass.molten");
-        moltenGlass = new TConstructFluid(PHConstruct.moltenGlass, moltenGlassFluid, Material.lava, "liquid_glass", true).setUnlocalizedName("metal.molten.glass");
+        moltenGlass = new TConstructFluid(PHConstruct.moltenGlass, moltenGlassFluid, Material.lava, "liquid", true, 0x9feffd).setUnlocalizedName("metal.molten.glass");
         GameRegistry.registerBlock(moltenGlass, "metal.molten.glass");
         fluids[13] = moltenGlassFluid;
         fluidBlocks[13] = moltenGlass;
@@ -628,7 +633,7 @@ public class TContent implements IFuelHandler
         moltenStoneFluid = new Fluid("stone.seared");
         if (!FluidRegistry.registerFluid(moltenStoneFluid))
             moltenStoneFluid = FluidRegistry.getFluid("stone.seared");
-        moltenStone = new TConstructFluid(PHConstruct.moltenStone, moltenStoneFluid, Material.lava, "liquid_stone").setUnlocalizedName("molten.stone");
+        moltenStone = new TConstructFluid(PHConstruct.moltenStone, moltenStoneFluid, Material.lava, "liquid_stone", 0xFFFFFF).setUnlocalizedName("molten.stone");
         GameRegistry.registerBlock(moltenStone, "molten.stone");
         fluids[14] = moltenStoneFluid;
         fluidBlocks[14] = moltenStone;
@@ -638,7 +643,7 @@ public class TContent implements IFuelHandler
         moltenEmeraldFluid = new Fluid("emerald.liquid");
         if (!FluidRegistry.registerFluid(moltenEmeraldFluid))
             moltenEmeraldFluid = FluidRegistry.getFluid("emerald.liquid");
-        moltenEmerald = new TConstructFluid(PHConstruct.moltenEmerald, moltenEmeraldFluid, Material.water, "liquid_villager").setUnlocalizedName("molten.emerald");
+        moltenEmerald = new TConstructFluid(PHConstruct.moltenEmerald, moltenEmeraldFluid, Material.water, "metal", 0x54cf4b).setUnlocalizedName("molten.emerald");
         GameRegistry.registerBlock(moltenEmerald, "molten.emerald");
         fluids[15] = moltenEmeraldFluid;
         fluidBlocks[15] = moltenEmerald;
@@ -648,17 +653,17 @@ public class TContent implements IFuelHandler
         bloodFluid = new Fluid("blood");
         if (!FluidRegistry.registerFluid(bloodFluid))
             bloodFluid = FluidRegistry.getFluid("blood");
-        blood = new BloodBlock(PHConstruct.blood, bloodFluid, Material.water, "liquid_cow").setUnlocalizedName("liquid.blood");
+        blood = new BloodBlock(PHConstruct.blood, bloodFluid, Material.water, "liquid", 0xc40000).setUnlocalizedName("liquid.blood");
         GameRegistry.registerBlock(blood, "liquid.blood");
         fluids[16] = bloodFluid;
         fluidBlocks[16] = blood;
-        bloodFluid.setBlockID(blood).setDensity(3000).setViscosity(6000).setTemperature(1300);
+        bloodFluid.setBlockID(blood);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(bloodFluid, 1000), new ItemStack(buckets, 1, 16), new ItemStack(Item.bucketEmpty)));
 
         moltenNickelFluid = new Fluid("nickel.molten");
         if (!FluidRegistry.registerFluid(moltenNickelFluid))
             moltenNickelFluid = FluidRegistry.getFluid("nickel.molten");
-        moltenNickel = new TConstructFluid(PHConstruct.moltenNickel, moltenNickelFluid, Material.lava, "liquid_ferrous").setUnlocalizedName("metal.molten.nickel");
+        moltenNickel = new TConstructFluid(PHConstruct.moltenNickel, moltenNickelFluid, Material.lava, "metal", 0xe8e1a2).setUnlocalizedName("metal.molten.nickel");
         GameRegistry.registerBlock(moltenNickel, "metal.molten.nickel");
         fluids[17] = moltenNickelFluid;
         fluidBlocks[17] = moltenNickel;
@@ -668,7 +673,7 @@ public class TContent implements IFuelHandler
         moltenLeadFluid = new Fluid("lead.molten");
         if (!FluidRegistry.registerFluid(moltenLeadFluid))
             moltenLeadFluid = FluidRegistry.getFluid("lead.molten");
-        moltenLead = new TConstructFluid(PHConstruct.moltenLead, moltenLeadFluid, Material.lava, "liquid_lead").setUnlocalizedName("metal.molten.lead");
+        moltenLead = new TConstructFluid(PHConstruct.moltenLead, moltenLeadFluid, Material.lava, "metal", 0x776ea4).setUnlocalizedName("metal.molten.lead");
         GameRegistry.registerBlock(moltenLead, "metal.molten.lead");
         fluids[18] = moltenLeadFluid;
         fluidBlocks[18] = moltenLead;
@@ -678,7 +683,7 @@ public class TContent implements IFuelHandler
         moltenSilverFluid = new Fluid("silver.molten");
         if (!FluidRegistry.registerFluid(moltenSilverFluid))
             moltenSilverFluid = FluidRegistry.getFluid("silver.molten");
-        moltenSilver = new TConstructFluid(PHConstruct.moltenSilver, moltenSilverFluid, Material.lava, "liquid_silver").setUnlocalizedName("metal.molten.silver");
+        moltenSilver = new TConstructFluid(PHConstruct.moltenSilver, moltenSilverFluid, Material.lava, "metal", 0x8fcfd7).setUnlocalizedName("metal.molten.silver");
         GameRegistry.registerBlock(moltenSilver, "metal.molten.silver");
         fluids[19] = moltenSilverFluid;
         fluidBlocks[19] = moltenSilver;
@@ -688,7 +693,7 @@ public class TContent implements IFuelHandler
         moltenShinyFluid = new Fluid("platinum.molten");
         if (!FluidRegistry.registerFluid(moltenShinyFluid))
             moltenShinyFluid = FluidRegistry.getFluid("platinum.molten");
-        moltenShiny = new TConstructFluid(PHConstruct.moltenShiny, moltenShinyFluid, Material.lava, "liquid_shiny").setUnlocalizedName("metal.molten.shiny");
+        moltenShiny = new TConstructFluid(PHConstruct.moltenShiny, moltenShinyFluid, Material.lava, "metal", 0xbfdfe7).setUnlocalizedName("metal.molten.shiny");
         GameRegistry.registerBlock(moltenShiny, "metal.molten.shiny");
         fluids[20] = moltenShinyFluid;
         fluidBlocks[20] = moltenShiny;
@@ -698,7 +703,7 @@ public class TContent implements IFuelHandler
         moltenInvarFluid = new Fluid("invar.molten");
         if (!FluidRegistry.registerFluid(moltenInvarFluid))
             moltenInvarFluid = FluidRegistry.getFluid("invar.molten");
-        moltenInvar = new TConstructFluid(PHConstruct.moltenInvar, moltenInvarFluid, Material.lava, "liquid_invar").setUnlocalizedName("metal.molten.invar");
+        moltenInvar = new TConstructFluid(PHConstruct.moltenInvar, moltenInvarFluid, Material.lava, "metal", 0xeeeeee).setUnlocalizedName("metal.molten.invar");
         GameRegistry.registerBlock(moltenInvar, "metal.molten.invar");
         fluids[21] = moltenInvarFluid;
         fluidBlocks[21] = moltenInvar;
@@ -708,7 +713,7 @@ public class TContent implements IFuelHandler
         moltenElectrumFluid = new Fluid("electrum.molten");
         if (!FluidRegistry.registerFluid(moltenElectrumFluid))
             moltenElectrumFluid = FluidRegistry.getFluid("electrum.molten");
-        moltenElectrum = new TConstructFluid(PHConstruct.moltenElectrum, moltenElectrumFluid, Material.lava, "liquid_electrum").setUnlocalizedName("metal.molten.electrum");
+        moltenElectrum = new TConstructFluid(PHConstruct.moltenElectrum, moltenElectrumFluid, Material.lava, "metal", 0xedc923).setUnlocalizedName("metal.molten.electrum");
         GameRegistry.registerBlock(moltenElectrum, "metal.molten.electrum");
         fluids[22] = moltenElectrumFluid;
         fluidBlocks[22] = moltenElectrum;
@@ -725,7 +730,7 @@ public class TContent implements IFuelHandler
         }
         else
         {
-            moltenEnder = new TConstructFluid(PHConstruct.moltenEnder, moltenEnderFluid, Material.water, "liquid_ender").setUnlocalizedName("fluid.ender");
+            moltenEnder = new EnderFluidBlock(PHConstruct.moltenEnder, moltenEnderFluid, Material.water, "liquid_ender", 0xFFFFFF).setUnlocalizedName("fluid.ender");
             GameRegistry.registerBlock(moltenEnder, "fluid.ender");
             moltenEnderFluid.setBlockID(moltenEnder).setDensity(3000).setViscosity(6000);
             FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenEnderFluid, 1000), new ItemStack(buckets, 1, 23), new ItemStack(Item.bucketEmpty)));
@@ -779,11 +784,11 @@ public class TContent implements IFuelHandler
         slimeSapling = (SlimeSapling) new SlimeSapling(PHConstruct.slimeSapling).setStepSound(slimeStep).setUnlocalizedName("slime.sapling");
         GameRegistry.registerBlock(slimeSapling, SlimeSaplingItemBlock.class, "slime.sapling");
 
-        slimeChannel = new ConveyorBase(PHConstruct.slimeChannel, Material.water, "greencurrent").setHardness(0.3f).setStepSound(slimeStep).setUnlocalizedName("slime.channel");
+        slimeChannel = new ConveyorBase(PHConstruct.slimeChannel, Material.water, "liquid", 0x54cf4b).setHardness(0.3f).setStepSound(slimeStep).setUnlocalizedName("slime.channel");
         GameRegistry.registerBlock(slimeChannel, "slime.channel");
         TConstructRegistry.drawbridgeState[slimeChannel.blockID] = 1;
 
-        bloodChannel = new ConveyorBase(PHConstruct.bloodChannel, Material.water, "liquid_cow").setHardness(0.3f).setStepSound(slimeStep).setUnlocalizedName("blood.channel");
+        bloodChannel = new ConveyorBase(PHConstruct.bloodChannel, Material.water, "liquid", 0xc40000).setHardness(0.3f).setStepSound(slimeStep).setUnlocalizedName("blood.channel");
         GameRegistry.registerBlock(bloodChannel, "blood.channel");
         TConstructRegistry.drawbridgeState[bloodChannel.blockID] = 1;
 
@@ -1257,7 +1262,6 @@ public class TContent implements IFuelHandler
         GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 1, 3), new ItemStack(manualBook, 1, 2));
         // alternative Vanilla Book Recipe
         GameRegistry.addShapelessRecipe(new ItemStack(Item.book), Item.paper, Item.paper, Item.paper, Item.silk, blankPattern, blankPattern);
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Item.nameTag), "P~ ", "~O ", "  ~", '~', Item.silk, 'P', Item.paper, 'O', "slimeball"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimeExplosive, 1, 0), "slimeball", Block.tnt));
         // Paperstack Recipe
         GameRegistry.addRecipe(new ItemStack(materials, 1, 0), "pp", "pp", 'p', Item.paper);
@@ -1372,6 +1376,8 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(materials, 9, 31), "m", 'm', new ItemStack(materials, 1, 13)); //Bronze
         GameRegistry.addRecipe(new ItemStack(materials, 9, 32), "m", 'm', new ItemStack(materials, 1, 15)); //Alumite
         GameRegistry.addRecipe(new ItemStack(materials, 9, 33), "m", 'm', new ItemStack(materials, 1, 16)); //Steel 
+        
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 10), patBlock, '#', new ItemStack(enderwarp)); //Ender warp
 
         // stained Glass Recipes
         String[] dyeTypes = { "dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue",
@@ -1833,21 +1839,8 @@ public class TContent implements IFuelHandler
             basinCasting.addCastingRecipe(new ItemStack(Block.whiteStone), new FluidStack(moltenEnderFluid, 50), new ItemStack(Block.obsidian), true, 100);
             basinCasting.addCastingRecipe(new ItemStack(Block.whiteStone), new FluidStack(moltenEnderFluid, 250), new ItemStack(Block.sandStone), true, 100);
         }
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock.blockID, 1, 10), new FluidStack(moltenEnderFluid, 1000), null, true, 100); //ender
+        basinCasting.addCastingRecipe(new ItemStack(enderwarp), new FluidStack(moltenEnderFluid, 1000), null, true, 100); //enderwarp
         basinCasting.addCastingRecipe(new ItemStack(glueBlock), new FluidStack(glueFluid, TConstruct.blockLiquidValue), null, true, 100); //glue
-
-        // basinCasting.addCastingRecipe(new ItemStack(slimeGel, 1, 0), new FluidStack(blueSlimeFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100);
-
-        //Armor casts
-        /*FluidRenderProperties frp = new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN);
-        FluidStack aluFlu = new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10);
-        FluidStack gloFlu = new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10);
-        ItemStack[] armor = { new ItemStack(helmetWood), new ItemStack(chestplateWood), new ItemStack(leggingsWood), new ItemStack(bootsWood) };
-        for (int sc = 0; sc < armor.length; sc++)
-        {
-            basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, sc), aluFlu, armor[sc], 50, frp);
-            basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, sc), gloFlu, armor[sc], 50, frp);
-        }*/
     }
 
     private void addRecipesForSmeltery ()
@@ -2635,7 +2628,7 @@ public class TContent implements IFuelHandler
                 continue;
 
             // Nuggets
-            Smeltery.addDictionaryMelting("nugget" + ft.toString(), ft, -100, TConstruct.nuggetLiquidValue);
+            Smeltery.addDictionaryMelting("nugget" + ft.toString(), ft, -200, TConstruct.nuggetLiquidValue);
 
             // Ingots, Dust
             registerIngotCasting(ft);

@@ -269,7 +269,7 @@ public class TEventHandler
                 }
             }
         }
-        else if (reciever instanceof EntityCreeper)
+        /*else if (reciever instanceof EntityCreeper)
         {
             Entity attacker = event.source.getEntity();
             if (attacker instanceof EntityLivingBase)
@@ -285,7 +285,7 @@ public class TEventHandler
                     }
                 }
             }
-        }
+        }*/
     }
 
     @ForgeSubscribe
@@ -414,7 +414,7 @@ public class TEventHandler
                 }
             }*/
 
-            if (event.entityLiving.getClass() == EntityChicken.class)
+            /*if (event.entityLiving.getClass() == EntityChicken.class)
             {
                 int amount = random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + 1;
 
@@ -422,7 +422,7 @@ public class TEventHandler
                 {
                     addDrops(event, new ItemStack(Item.feather, 1));
                 }
-            }
+            }*/
         }
 
         if (event.recentlyHit)
@@ -594,34 +594,6 @@ public class TEventHandler
     		TConstruct.logger.info("Entity: " + event.entity);
     	}
     }*/
-
-    @ForgeSubscribe
-    public void onLivingSpawn (LivingSpawnEvent.SpecialSpawn event)
-    {
-        EntityLivingBase living = event.entityLiving;
-        if (living.getClass() == EntitySpider.class && random.nextInt(100) == 0)
-        {
-            EntityCreeper creeper = new EntityCreeper(living.worldObj);
-            spawnEntityLiving(living.posX, living.posY + 1, living.posZ, creeper, living.worldObj);
-            if (living.riddenByEntity != null)
-                creeper.mountEntity(living.riddenByEntity);
-            else
-                creeper.mountEntity(living);
-
-            EntityXPOrb orb = new EntityXPOrb(living.worldObj, living.posX, living.posY, living.posZ, random.nextInt(20) + 20);
-            orb.mountEntity(creeper);
-        }
-    }
-
-    public static void spawnEntityLiving (double x, double y, double z, EntityLiving entity, World world)
-    {
-        if (!world.isRemote)
-        {
-            entity.setPosition(x, y, z);
-            entity.onSpawnWithEgg((EntityLivingData) null);
-            world.spawnEntityInWorld(entity);
-        }
-    }
 
     /* Bonemeal */
 

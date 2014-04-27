@@ -28,8 +28,8 @@ public class GlueFluid extends BlockFluidFinite
     @SideOnly(Side.CLIENT)
     public void registerIcons (IconRegister iconRegister)
     {
-        stillIcon = iconRegister.registerIcon("tinker:liquid_glue");
-        flowIcon = iconRegister.registerIcon("tinker:liquid_glue_flow");
+        stillIcon = iconRegister.registerIcon("tinker:liquid_still");
+        flowIcon = iconRegister.registerIcon("tinker:liquid_flow");
     }
 
     @Override

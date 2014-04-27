@@ -11,9 +11,9 @@ import net.minecraftforge.fluids.Fluid;
 public class BloodBlock extends TConstructFluid
 {
 
-    public BloodBlock(int id, Fluid fluid, Material material, String texture)
+    public BloodBlock(int id, Fluid fluid, Material material, String texture, int color)
     {
-        super(id, fluid, material, texture);
+        super(id, fluid, material, texture, true, color);
     }
 
     public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)

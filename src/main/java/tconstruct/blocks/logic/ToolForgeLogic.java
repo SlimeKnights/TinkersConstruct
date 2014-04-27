@@ -88,6 +88,7 @@ public class ToolForgeLogic extends ToolStationLogic implements ISidedInventory
                         String dName = temp.getItem() instanceof IModifyable ? "\u00A7f" + name : name;
                         display.setString("Name", dName);
                         tags.setCompoundTag("display", display);
+                        temp.setRepairCost(2);
                         output = temp;
                     }
                 }

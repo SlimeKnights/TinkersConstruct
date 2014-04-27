@@ -292,5 +292,9 @@ Part casts must be created by pouring metal around existing parts, like a pickax
 <recipe>glueball</recipe>
 </page>
 
+<page type="blockcast">
+<text>Enderwarp</text>
+<recipe>enderwarp</recipe>
+</page>
 
 </book>

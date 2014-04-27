@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
@@ -19,6 +20,7 @@ public class SlimeFluid extends BlockFluidClassic
 {
     Icon stillIcon;
     Icon flowIcon;
+    int blockColor = 0x00d8d5;
 
     public SlimeFluid(int id, Fluid fluid, Material material)
     {
@@ -29,8 +31,8 @@ public class SlimeFluid extends BlockFluidClassic
     @SideOnly(Side.CLIENT)
     public void registerIcons (IconRegister iconRegister)
     {
-        stillIcon = iconRegister.registerIcon("tinker:slime_blue");
-        flowIcon = iconRegister.registerIcon("tinker:slime_blue_flow");
+        stillIcon = iconRegister.registerIcon("tinker:liquid_still");
+        flowIcon = iconRegister.registerIcon("tinker:liquid_flow");
     }
 
     @Override
@@ -56,5 +58,27 @@ public class SlimeFluid extends BlockFluidClassic
     public void getSubBlocks (int par1, CreativeTabs par2CreativeTabs, List par3List)
     {
 
+    }
+    
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int getBlockColor ()
+    {
+        return blockColor;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int getRenderColor (int par1)
+    {
+        return blockColor;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int colorMultiplier (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
+    {
+        return blockColor;
     }
 }

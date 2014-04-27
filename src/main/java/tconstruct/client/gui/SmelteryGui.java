@@ -183,6 +183,8 @@ public class SmelteryGui extends NewContainerGui
         for (FluidStack liquid : logic.moltenMetal)
         {
             Icon renderIndex = liquid.getFluid().getStillIcon();
+            int fluidBlockID = liquid.getFluid().getBlockID();
+            int color = fluidBlockID == -1 ? 0xFFFFFF : Block.blocksList[fluidBlockID].getBlockColor();
             int basePos = 54;
             if (logic.getCapacity() > 0)
             {
@@ -198,6 +200,12 @@ public class SmelteryGui extends NewContainerGui
                         int size = liquidSize >= 16 ? 16 : liquidSize;
                         if (renderIndex != null)
                         {
+                            float par3 = 1f;
+
+                            float f1 = (float) (color >> 16 & 255) / 255.0F;
+                            float f2 = (float) (color >> 8 & 255) / 255.0F;
+                            float f3 = (float) (color & 255) / 255.0F;
+                            GL11.glColor4f(f1 * par3, f2 * par3, f3 * par3, 1.0F);
                             drawLiquidRect(cornerX + basePos, (cornerY + 68) - size - base, renderIndex, 16, size);
                             drawLiquidRect(cornerX + basePos + 16, (cornerY + 68) - size - base, renderIndex, 16, size);
                             drawLiquidRect(cornerX + basePos + 32, (cornerY + 68) - size - base, renderIndex, 16, size);

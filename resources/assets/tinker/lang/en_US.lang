@@ -326,6 +326,7 @@ StorageMetals.AlBrass.name=Block of Aluminum Brass
 StorageMetals.Alumite.name=Block of Alumite
 StorageMetals.Steel.name=Block of Steel
 StorageMetals.Ender.name=Block of Solid Ender
+tile.enderwarp.name=EnderWarp
 
 tile.decoration.stonetorch.name=Torch
 tile.decoration.stoneladder.name=Ladder
@@ -701,6 +702,8 @@ smeltery.drain.tooltip1=Works both as input and output for
 smeltery.drain.tooltip2=fluids in the Smeltery
 smeltery.brick.tooltip1=Smeltery structure block
 smeltery.brick.tooltip2=(Safe for decoration)
+enderwarp.tooltip1=Choose your path with touching blocks
+enderwarp.tooltip2=Power with redstone to warp
 
 gui.smeltery1=Fuel
 gui.landmine=Landmine

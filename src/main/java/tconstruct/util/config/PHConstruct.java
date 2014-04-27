@@ -76,7 +76,10 @@ public class PHConstruct
         ingotsManyullynAlloy = config.get("Smeltery Output Modification", "Manyullyn ingot return", 1, "Number of ingots returned from smelting Manyullyn in the smeltery").getInt(1);
         ingotsPigironAlloy = config.get("Smeltery Output Modification", "Pig Iron ingot return", 1, "Number of ingots returned from smelting Pig Iron in the smeltery").getInt(1);
 
-        //1467-1489
+        multiBrickFancy = config.getBlock("Multi Brick Fancy", 1467).getInt(1467);
+        toolForge = config.getBlock("Tool Forge", 1468).getInt(1468);
+        barricadeOak = config.getBlock("Oak Barricade", 1469).getInt(1469);
+        landmine = config.getBlock("Landmine", 1470).getInt(1470);
         woodStation = config.getBlock("Wood Tool Station", 1471).getInt(1471);
         heldItemBlock = config.getBlock("Held Item Block", 1472).getInt(1472);
         lavaTank = config.getBlock("Lava Tank", 1473).getInt(1473);
@@ -85,27 +88,19 @@ public class PHConstruct
         craftedSoil = config.getBlock("Special Soil", 1476).getInt(1476);
         searedTable = config.getBlock("Seared Table", 1477).getInt(1477);
         metalBlock = config.getBlock("Metal Storage", 1478).getInt(1478);
-        /*metalFlowing = config.getBlock("Liquid Metal Flowing", 1479).getInt(1479);
-        metalStill = config.getBlock("Liquid Metal Still", 1480).getInt(1480);*/
-
+        stoneLadder = config.getBlock("Stone Ladder", 1479).getInt(1479);
+        enderwarp = config.getBlock("Enderporter", 1480).getInt(1480);
         multiBrick = config.getBlock("Multi Brick", 1481).getInt(1481);
+        barricadeSpruce = config.getBlock("Spruce Barricade", 1482).getInt(1482);
+        barricadeBirch = config.getBlock("Birch Barricade", 1483).getInt(1483);
 
         stoneTorch = config.getBlock("Stone Torch", 1484).getInt(1484);
-        stoneLadder = config.getBlock("Stone Ladder", 1479).getInt(1479);
         oreBerry = config.getBlock("Ore Berry One", 1485).getInt(1485);
         oreBerrySecond = config.getBlock("Ore Berry Two", 1486).getInt(1486);
+        barricadeJungle = config.getBlock("Jungle Barricade", 1487).getInt(1487);
 
         oreGravel = config.getBlock("Ores Gravel", 1488).getInt(1488);
         speedBlock = config.getBlock("Speed Block", 1489).getInt(1489);
-
-        landmine = config.getBlock("Landmine", 1470).getInt(1470);
-        toolForge = config.getBlock("Tool Forge", 1468).getInt(1468);
-        multiBrickFancy = config.getBlock("Multi Brick Fancy", 1467).getInt(1467);
-
-        barricadeOak = config.getBlock("Oak Barricade", 1469).getInt(1469);
-        barricadeSpruce = config.getBlock("Spruce Barricade", 1482).getInt(1482);
-        barricadeBirch = config.getBlock("Birch Barricade", 1483).getInt(1483);
-        barricadeJungle = config.getBlock("Jungle Barricade", 1487).getInt(1487);
 
         lavaTankNether = config.getBlock("Nether Lava Tank", 3186).getInt(3186);
         smelteryNether = config.getBlock("Nether Smeltery", 3187).getInt(3187);
@@ -259,6 +254,7 @@ public class PHConstruct
         //14111
         knapsack = config.getItem("Equipables", "Knapsack", 14112).getInt(14112);
         goldHead = config.getItem("Patterns and Misc", "Golden Head", 14113).getInt(14113);
+        //14114
         jerky = config.getItem("Patterns and Misc", "Jerky", 14115).getInt(14115);
 
         exoGoggles = config.getItem("Equipables", "Exo-Goggles", 14116).getInt(14116);
@@ -533,6 +529,8 @@ public class PHConstruct
     public static int buckets;
     public static int uselessItem;
     public static int oreChunks;
+    
+    public static int enderwarp;
 
     //Food
     public static int diamondApple;

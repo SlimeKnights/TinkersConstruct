@@ -20,6 +20,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ConveyorBase extends Block
 {
     String textureName;
+    int blockColor = 0xFFFFFF;
 
     public ConveyorBase(int ID, Material material, String name)
     {
@@ -27,6 +28,12 @@ public class ConveyorBase extends Block
         this.setCreativeTab(TConstructRegistry.blockTab);
         setBlockBounds(0f, 0f, 0f, 1f, 0.5f, 1f);
         textureName = name;
+    }
+
+    public ConveyorBase(int ID, Material material, String name, int color)
+    {
+        this(ID, material, name);
+        this.blockColor = color;
     }
 
     public boolean isBlockReplaceable (World world, int x, int y, int z)
@@ -142,7 +149,7 @@ public class ConveyorBase extends Block
 
         for (int i = 0; i < this.icons.length; ++i)
         {
-            this.icons[i] = iconRegister.registerIcon("tinker:" + textureNames[i]);
+            this.icons[i] = iconRegister.registerIcon("tinker:" + textureNames[i]+"_still");
         }
     }
 
@@ -153,5 +160,26 @@ public class ConveyorBase extends Block
         if (meta >= 8)
             return icons[0];
         return side == 1 ? icons[1] : icons[0];
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int getBlockColor ()
+    {
+        return blockColor;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int getRenderColor (int par1)
+    {
+        return blockColor;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int colorMultiplier (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
+    {
+        return blockColor;
     }
 }
