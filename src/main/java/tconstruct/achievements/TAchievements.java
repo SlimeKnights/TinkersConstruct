@@ -17,11 +17,11 @@ public class TAchievements
 
     public static void init ()
     {
-        Achievement[] achs = new Achievement[achievements.values().size()];
+        Achievement[] achs = achievements.values().toArray(new Achievement[0]);
 
-        for (int i = 0; i < achs.length; i++)
+        for (Achievement a : achs)
         {
-            achs[i] = (Achievement) achievements.values().toArray()[i];
+            a.registerStat();
         }
 
         achievementPage = new AchievementPage(StatCollector.translateToLocal("tconstruct.achievementPage.name"), achs);

@@ -138,7 +138,7 @@ public class TConstruct
         GameRegistry.registerWorldGenerator(new TBaseWorldGenerator(), 0);
         MinecraftForge.TERRAIN_GEN_BUS.register(new TerrainGenEventHandler());
         GameRegistry.registerFuelHandler(content);
-        MinecraftForge.EVENT_BUS.register(new TCraftingHandler());
+        FMLCommonHandler.instance().bus().register(new TCraftingHandler());
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 
         if (PHConstruct.addToVillages)
