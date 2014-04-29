@@ -70,22 +70,19 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
 
     public int updateCapacity () // Only used to initialize
     {
-        int ret = TConstruct.ingotLiquidValue;
-
         ItemStack inv = inventory[0];
+        int ret = TConstruct.ingotLiquidValue;
+        int rec = TConstruct.basinCasting.getCastingAmount(this.liquid, inv);
 
-        if (inv != null && inv.getItem() instanceof IPattern)
-        {
-            int cost = ((IPattern) inv.getItem()).getPatternCost(inv);
-            if (cost > 0)
-                ret *= ((IPattern) inv.getItem()).getPatternCost(inv) * 0.5;
-            else
-                ret = TConstruct.basinCasting.getCastingAmount(this.liquid, inv);
-        }
-
-        else
-        {
-            ret = TConstruct.basinCasting.getCastingAmount(this.liquid, inv);
+        if (rec > 0)
+            ret = rec;
+        else {
+            if (inv != null && inv.getItem() instanceof IPattern)
+            {
+                int cost = ((IPattern) inv.getItem()).getPatternCost(inv);
+                if (cost > 0)
+                    ret *= ((IPattern) inv.getItem()).getPatternCost(inv) * 0.5;
+            }
         }
 
         TConstruct.logger.info("Ret: " + ret);
@@ -96,19 +93,18 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
     {
         int ret = TConstruct.ingotLiquidValue;
 
-        ItemStack inv = inventory[0];
-
-        if (inv != null && inv.getItem() instanceof IPattern)
-        {
-            int cost = ((IPattern) inv.getItem()).getPatternCost(inv);
-            if (cost > 0)
-                ret *= ((IPattern) inv.getItem()).getPatternCost(inv) * 0.5;
-            else
-                ret = capacity;
-        }
-
-        else
+        if (capacity > 0)
             ret = capacity;
+        else {
+            ItemStack inv = inventory[0];
+
+            if (inv != null && inv.getItem() instanceof IPattern)
+            {
+                int cost = ((IPattern) inv.getItem()).getPatternCost(inv);
+                if (cost > 0)
+                    ret *= cost * 0.5;
+            }
+        }
 
         return ret;
     }
