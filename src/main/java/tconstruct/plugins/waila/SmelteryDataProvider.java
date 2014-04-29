@@ -49,7 +49,6 @@ public class SmelteryDataProvider implements IWailaDataProvider
             }
             else
             {
-                //currenttip.add("§oInvalid structure");
                 currenttip.add("§o" + StatCollector.translateToLocal("tconstruct.waila.invalidstructure"));
             }
         }
@@ -57,4 +56,9 @@ public class SmelteryDataProvider implements IWailaDataProvider
         return currenttip;
     }
 
+    @Override
+    public List<String> getWailaTail (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
+    {
+        return currenttip;
+    }
 }
