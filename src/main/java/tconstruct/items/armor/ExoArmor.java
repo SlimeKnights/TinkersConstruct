@@ -74,7 +74,7 @@ public class ExoArmor extends ArmorCore
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag(SET_NAME);
         double protection = tags.getDouble("protection");
         if (protection > 0)
-            list.add("\u00a7a" + StatCollector.translateToLocal("modifier.armour.protection")  + protection + "%");
+            list.add("\u00a7a" + StatCollector.translateToLocal("modifier.armour.protection") + protection + "%");
         boolean displayToolTips = true;
         int tipNum = 0;
         while (displayToolTips)
