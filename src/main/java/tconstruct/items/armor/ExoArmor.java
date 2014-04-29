@@ -39,7 +39,8 @@ public class ExoArmor extends ArmorCore
     @Override
     public String getArmorTexture (ItemStack stack, Entity entity, int slot, String layer)
     {
-        return "tinker:textures/armor/" + textureName + "_" + layer + ".png";
+        int suffix = this.armorType == 2 ? 2 : 1;
+        return "tinker:textures/armor/" + textureName + "_" + suffix + ".png";
     }
 
     @Override
