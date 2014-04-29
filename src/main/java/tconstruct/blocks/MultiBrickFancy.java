@@ -132,19 +132,10 @@ public class MultiBrickFancy extends TConstructBlock
      */
 
     @Override
-    public boolean isNormalCube (IBlockAccess world, int x, int y, int z)
-    {
-        return world.getBlockMetadata(x, y, z) != 8;
-    }
-
-    // TODO canProvidePower
-    @Override
     public boolean canProvidePower ()
     {
-        return false;
+        return true;
     }
-
-    // TODO isProvindingWeakPower
     @Override
     public int isProvidingWeakPower (IBlockAccess world, int x, int y, int z, int side)
     {
