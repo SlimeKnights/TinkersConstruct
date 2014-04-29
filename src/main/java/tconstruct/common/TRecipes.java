@@ -656,7 +656,7 @@ public class TRecipes
         ItemStack exoChestStack = new ItemStack(TRepo.exoChest);
         ItemStack exoPantsStack = new ItemStack(TRepo.exoPants);
         ItemStack exoShoesStack = new ItemStack(TRepo.exoShoes);
-        if (!PHConstruct.exoCraftingEnabled)
+        if (PHConstruct.exoCraftingEnabled)
         {
             ToolBuilder.instance.addArmorTag(exoGoggleStack);
             ToolBuilder.instance.addArmorTag(exoChestStack);
