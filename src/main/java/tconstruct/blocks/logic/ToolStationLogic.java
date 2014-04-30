@@ -3,10 +3,10 @@ package tconstruct.blocks.logic;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import tconstruct.TConstruct;
 import tconstruct.inventory.ToolStationContainer;
 import tconstruct.library.IModifyable;
 import tconstruct.library.blocks.InventoryLogic;
@@ -73,19 +73,13 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
         ItemStack output = null;
         if (inventory[1] != null)
         {
-            TConstruct.logger.info("Attempting to build a new item. [ToolStationLogic]");
             if (inventory[1].getItem() instanceof IModifyable) //Modify item
             {
-                TConstruct.logger.info("Modifying item");
                 if (inventory[2] == null && inventory[3] == null)
-                {
                     output = inventory[1].copy();
-                    TConstruct.logger.info("Copying item for output");
-                }
                 else
                 {
                     output = ModifyBuilder.instance.modifyItem(inventory[1], new ItemStack[] { inventory[2], inventory[3] });
-                    TConstruct.logger.info("Returning a modified item");
                 }
             }
             else

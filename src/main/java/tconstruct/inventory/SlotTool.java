@@ -62,13 +62,13 @@ public class SlotTool extends Slot
             {
                 tags.setBoolean("Built", true);
                 tags.setBoolean("Modifying", false);
-                Boolean full = (inventory.getStackInSlot(2) != null || inventory.getStackInSlot(3) != null || inventory.getStackInSlot(4) != null);
+                Boolean full = (inventory.getStackInSlot(2) != null || inventory.getStackInSlot(3) != null);
                 for (int i = 2; i <= 3; i++)
                     inventory.decrStackSize(i, 1);
                 int amount = inventory.getStackInSlot(1).stackSize;
                 inventory.decrStackSize(1, amount);
                 if (!player.worldObj.isRemote && full)
-                    player.worldObj.playAuxSFX(1021, (int) player.posX, (int) player.posY, (int) player.posZ, 0);
+                    player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "tinker:little_saw", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
                 MinecraftForge.EVENT_BUS.post(new ToolCraftedEvent(this.inventory, player, stack));
             }
             else
