@@ -1,4 +1,3 @@
-#THIS BRANCH IS NOW FINAL!
 #[Tinkers' Construct](http://www.minecraftforum.net/topic/1659892-tinkers-construct/)
 
 Modify all the things, then do it again! 	 
