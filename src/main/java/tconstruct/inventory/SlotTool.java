@@ -6,6 +6,7 @@ import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
+import tconstruct.TConstruct;
 import tconstruct.library.IModifyable;
 import tconstruct.library.event.ToolCraftedEvent;
 import tconstruct.library.tools.ToolCore;
@@ -53,6 +54,8 @@ public class SlotTool extends Slot
      */
     protected void onCrafting (ItemStack stack)
     {
+        TConstruct.logger.info("onCraftingTriggered. [SlotToolStation]");
+        TConstruct.logger.info("This block cannot rename vanilla items.");
         NBTTagCompound tags = stack.getTagCompound();
         if (!tags.getCompoundTag("InfiTool").hasKey("Built"))
         {

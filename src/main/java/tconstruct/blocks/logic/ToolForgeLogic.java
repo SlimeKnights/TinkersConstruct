@@ -6,6 +6,7 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import tconstruct.TConstruct;
 import tconstruct.inventory.ToolForgeContainer;
 import tconstruct.library.IModifyable;
 import tconstruct.library.crafting.ModifyBuilder;
@@ -42,10 +43,15 @@ public class ToolForgeLogic extends ToolStationLogic implements ISidedInventory
         ItemStack output = null;
         if (inventory[1] != null)
         {
+            TConstruct.logger.info("Attempting to build a new item. [ToolForgeLogic]");
             if (inventory[1].getItem() instanceof IModifyable) //Modify item
             {
+                TConstruct.logger.info("Modifying item");
                 if (inventory[2] == null && inventory[3] == null && inventory[4] == null)
+                {
+                    TConstruct.logger.info("Copying item for output");
                     output = inventory[1].copy();
+                }
                 else
                 {
                     output = ModifyBuilder.instance.modifyItem(inventory[1], new ItemStack[] { inventory[2], inventory[3], inventory[4] });

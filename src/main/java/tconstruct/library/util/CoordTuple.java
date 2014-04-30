@@ -26,18 +26,76 @@ public class CoordTuple implements Comparable
         y = tuple.y;
         z = tuple.z;
     }
-    
-    public int getDistanceFrom(CoordTuple tuple)
+
+    public int getDistanceFrom (CoordTuple tuple)
     {
         return getDistanceFrom(tuple.x, tuple.y, tuple.z);
     }
-    
+
     public int getDistanceFrom (int x1, int y1, int z1)
     {
         int xPos = x - x1;
         int yPos = y - y1;
         int zPos = z - z1;
         return xPos * xPos + yPos * yPos + zPos * zPos;
+    }
+
+    public static CoordTuple up (int x, int y, int z)
+    {
+        return new CoordTuple(x, y + 1, z);
+    }
+
+    public static CoordTuple down (int x, int y, int z)
+    {
+        return new CoordTuple(x, y - 1, z);
+    }
+
+    public static CoordTuple north (int x, int y, int z)
+    {
+        return new CoordTuple(x, y, z - 1);
+    }
+
+    public static CoordTuple south (int x, int y, int z)
+    {
+        return new CoordTuple(x, y, z + 1);
+    }
+
+    public static CoordTuple east (int x, int y, int z)
+    {
+        return new CoordTuple(x + 1, y, z);
+    }
+
+    public static CoordTuple west (int x, int y, int z)
+    {
+        return new CoordTuple(x - 1, y, z);
+    }
+    
+    public static CoordTuple inFront(int x, int y, int z, int meta)
+    {
+        switch (meta)
+        {
+        case 0: return down(x, y, z);
+        case 1: return up(x, y, z);
+        case 2: return north(x, y, z);
+        case 3: return south(x, y, z);
+        case 4: return west(x, y, z);
+        case 5: return east(x, y, z);
+        default: return new CoordTuple(x, y, z);
+        }
+    }
+    
+    public static CoordTuple behind(int x, int y, int z, int meta)
+    {
+        switch (meta)
+        {
+        case 1: return down(x, y, z);
+        case 0: return up(x, y, z);
+        case 3: return north(x, y, z);
+        case 2: return south(x, y, z);
+        case 5: return west(x, y, z);
+        case 4: return east(x, y, z);
+        default: return new CoordTuple(x, y, z);
+        }
     }
 
     public boolean equalCoords (int posX, int posY, int posZ)
