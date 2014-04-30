@@ -271,6 +271,8 @@ public class PHConstruct
         travelBoots = config.getItem("Equipables", "Travellers Boots", 14224).getInt(14224);
         travelGlove = config.getItem("Equipables", "Travellers Gloves", 14225).getInt(14225);
         travelBelt = config.getItem("Equipables", "Travellers Belt", 14226).getInt(14226);
+        
+        leather = config.getItem("Patterns and Misc", "Leather", 14227).getInt(14227);
 
         capesEnabled = config.get("Superfun", "Enable-TCon-Capes", true).getBoolean(true);
 
@@ -519,6 +521,7 @@ public class PHConstruct
     //Patterns and misc
     public static int blankPattern;
     public static int materials;
+    public static int leather;
     public static int toolRod;
     public static int toolShard;
     public static int woodPattern;

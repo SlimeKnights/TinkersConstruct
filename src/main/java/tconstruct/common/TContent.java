@@ -60,6 +60,7 @@ public class TContent implements IFuelHandler
     //Patterns and other materials
     public static Item blankPattern;
     public static Item materials;
+    public static Item leather;
     public static Item toolRod;
     public static Item toolShard;
     public static Item woodPattern;
@@ -868,12 +869,14 @@ public class TContent implements IFuelHandler
         GameRegistry.registerItem(blankPattern, "blankPattern");
 
         materials = new MaterialItem(PHConstruct.materials).setUnlocalizedName("tconstruct.Materials");
+        leather = new Leather(PHConstruct.leather).setUnlocalizedName("tconstruct.leather").setTextureName("tconstruct:materials/leather_chocolate").setCreativeTab(TConstructRegistry.materialTab);
         toolRod = new ToolPart(PHConstruct.toolRod, "_rod", "ToolRod").setUnlocalizedName("tconstruct.ToolRod");
         toolShard = new ToolShard(PHConstruct.toolShard, "_chunk").setUnlocalizedName("tconstruct.ToolShard");
         woodPattern = new Pattern(PHConstruct.woodPattern, "pattern_", "materials/").setUnlocalizedName("tconstruct.Pattern");
         metalPattern = new MetalPattern(PHConstruct.metalPattern, "cast_", "materials/").setUnlocalizedName("tconstruct.MetalPattern");
         //armorPattern = new ArmorPattern(PHConstruct.armorPattern, "armorcast_", "materials/").setUnlocalizedName("tconstruct.ArmorPattern");
         GameRegistry.registerItem(materials, "materials");
+        GameRegistry.registerItem(leather, "leather");
         GameRegistry.registerItem(woodPattern, "woodPattern");
         GameRegistry.registerItem(metalPattern, "metalPattern");
         //GameRegistry.registerItem(armorPattern, "armorPattern");
@@ -1297,8 +1300,8 @@ public class TContent implements IFuelHandler
         // Dust Recipes
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(materials, 1, 41), "dustArdite", "dustCobalt"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(materials, 4, 42), "dustAluminum", "dustAluminum", "dustAluminum", "dustCopper"));
-
-        if (!PHConstruct.exoCraftingEnabled)
+        
+        if (PHConstruct.exoCraftingEnabled)
         {
             ItemStack exoGoggleStack = new ItemStack(exoGoggles);
             ItemStack exoChestStack = new ItemStack(exoChest);
@@ -1315,12 +1318,13 @@ public class TContent implements IFuelHandler
         }
 
         //Temporary recipes
-        ItemStack leather = new ItemStack(Item.leather);
+        GameRegistry.addShapelessRecipe(new ItemStack(this.leather, 1, 0), new ItemStack(Item.leather), new ItemStack(Item.dyePowder, 1, 3), new ItemStack(Item.dyePowder, 1, 3));
+        ItemStack leather = new ItemStack(this.leather);
         ItemStack glass = new ItemStack(Block.glass);
         ItemStack string = new ItemStack(Item.silk);
         GameRegistry.addShapedRecipe(travelGoggles.getDefaultItem(), "#p#", "q#q", "g g", '#', leather, 'q', glass, 'p', new ItemStack(Item.potion, 1, 8230), 'g', new ItemStack(Item.ingotGold));
         GameRegistry.addRecipe(new ShapedOreRecipe(travelWings.getDefaultItem(), "g g", "i#i", "i i", '#', Item.plateLeather, 'g', Item.ingotGold, 'i', "ingotBronze"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(travelVest.getDefaultItem(), "#s#", "#i#", "#s#", '#', leather, 's', string, 'i', "ingotAluminum"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(travelVest.getDefaultItem(), "#w#", "#i#", "#w#", '#', leather, 'i', "ingotAluminum", 'w', new ItemStack(Block.cloth, 1, Short.MAX_VALUE)));
         GameRegistry.addRecipe(new ShapedOreRecipe(travelBoots.getDefaultItem(), "#s#", "#i#", "#s#", '#', leather, 's', string, 'i', "ingotAluminum"));
         GameRegistry.addShapedRecipe(travelGlove.getDefaultItem(), "  #", "###", " ##", '#', leather);
         GameRegistry.addRecipe(new ShapedOreRecipe(travelBelt.getDefaultItem(), "###", "ici", "###", '#', leather, 'c', new ItemStack(Block.chest), 'i', "ingotAluminum"));

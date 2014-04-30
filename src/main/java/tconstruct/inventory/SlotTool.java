@@ -77,23 +77,4 @@ public class SlotTool extends Slot
             }
         }
     }
-    /*protected void onCrafting (ItemStack stack)
-    {
-        TConstruct.logger.info("onCraftingTriggered. [SlotToolStation]");
-        TConstruct.logger.info("This block cannot rename vanilla items.");
-        NBTTagCompound tags = stack.getTagCompound();
-        if (!tags.getCompoundTag("InfiTool").hasKey("Built"))
-        {
-            tags.getCompoundTag("InfiTool").setBoolean("Built", true);
-            Boolean full = (inventory.getStackInSlot(2) != null || inventory.getStackInSlot(3) != null);
-            for (int i = 2; i <= 3; i++)
-                inventory.decrStackSize(i, 1);
-            int amount = inventory.getStackInSlot(1).getItem() instanceof ToolCore ? stack.stackSize : 1;
-            inventory.decrStackSize(1, amount);
-            if (!player.worldObj.isRemote && full)
-                player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "tinker:little_saw", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
-            //player.worldObj.playAuxSFX(1021, (int)player.posX, (int)player.posY, (int)player.posZ, 0);
-            MinecraftForge.EVENT_BUS.post(new ToolCraftedEvent(this.inventory, player, stack));
-        }
-    }*/
 }
