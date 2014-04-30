@@ -148,9 +148,9 @@ public class ArmorExtended implements IInventory
         if (inventory[4] != null || inventory[5] != null || inventory[6] != null)
         {
             int bonusHP = 0;
-            for (int i = 0; i < 3; i++)
+            for (int i = 4; i < 7; i++)
             {
-                ItemStack stack = inventory[i + 4];
+                ItemStack stack = inventory[i];
                 if (stack != null && stack.getItem() instanceof IHealthAccessory)
                 {
                     bonusHP += ((IHealthAccessory) stack.getItem()).getHealthBoost(stack);
@@ -267,7 +267,7 @@ public class ArmorExtended implements IInventory
     public void dropItems (ArrayList<EntityItem> drops)
     {
         EntityPlayer player = parent.get();
-        for (int i = 0; i < 4; ++i)
+        for (int i = 0; i < this.inventory.length; ++i)
         {
             if (this.inventory[i] != null)
             {
@@ -290,13 +290,13 @@ public class ArmorExtended implements IInventory
 
     public void writeInventoryToStream (ByteBuf os) throws IOException
     {
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < inventory.length; i++)
             ByteBufUtils.writeItemStack(os, inventory[i]);
     }
 
     public void readInventoryFromStream (ByteBuf is) throws IOException
     {
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < inventory.length; i++)
             inventory[i] = ByteBufUtils.readItemStack(is);
     }
 }

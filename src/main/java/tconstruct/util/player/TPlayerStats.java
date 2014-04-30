@@ -70,6 +70,23 @@ public class TPlayerStats implements IExtendedEntityProperties
     {
     }
 
+    public void copyFrom(TPlayerStats stats, boolean copyCalc)
+    {
+        this.armor = stats.armor;
+        this.knapsack = stats.knapsack;
+        this.beginnerManual = stats.beginnerManual;
+        this.materialManual = stats.materialManual;
+        this.smelteryManual = stats.smelteryManual;
+        this.battlesignBonus = stats.battlesignBonus;
+
+        if (copyCalc) {
+            this.bonusHealth = stats.bonusHealth;
+            this.bonusHealthClient = stats.bonusHealthClient;
+            this.hunger = stats.hunger;
+            this.level = stats.level;
+        }
+    }
+
     public static final void register (EntityPlayer player)
     {
         player.registerExtendedProperties(TPlayerStats.PROP_NAME, new TPlayerStats(player));
