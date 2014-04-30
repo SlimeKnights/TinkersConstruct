@@ -23,16 +23,14 @@ public class SlotToolForge extends SlotTool
 
     protected void onCrafting (ItemStack stack)
     {
-        TConstruct.logger.info("onCraftingTriggered. [SlotToolForge]");
         if (stack.getItem() instanceof IModifyable)
         {
-            TConstruct.logger.info("Item is modifyable");
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
 
-            if (!tags.hasKey("Built"))
+            if (!tags.getBoolean("Built") || tags.getBoolean("Modifying"))
             {
-                TConstruct.logger.info("Item does not have the built tag");
                 tags.setBoolean("Built", true);
+                tags.setBoolean("Modifying", false);
                 Boolean full = (inventory.getStackInSlot(2) != null || inventory.getStackInSlot(3) != null || inventory.getStackInSlot(4) != null);
                 for (int i = 2; i <= 4; i++)
                     inventory.decrStackSize(i, 1);
@@ -41,6 +39,10 @@ public class SlotToolForge extends SlotTool
                 if (!player.worldObj.isRemote && full)
                     player.worldObj.playAuxSFX(1021, (int) player.posX, (int) player.posY, (int) player.posZ, 0);
                 MinecraftForge.EVENT_BUS.post(new ToolCraftedEvent(this.inventory, player, stack));
+            }
+            else
+            {
+                inventory.decrStackSize(1, 1);
             }
         }
         else //Simply naming items
