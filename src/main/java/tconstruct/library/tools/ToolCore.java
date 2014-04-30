@@ -63,7 +63,7 @@ public abstract class ToolCore extends Item implements IModifyable, IEnergyConta
 {
     //TE power constants -- TODO grab these from the 
     protected int capacity = 400000;
-    protected int maxReceive = 2000;
+    protected int maxReceive = 5000;
     protected int maxExtract = 2000;
 
     protected Random random = new Random();

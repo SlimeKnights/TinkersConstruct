@@ -5,6 +5,13 @@ public class CoordTuple implements Comparable
     public final int x;
     public final int y;
     public final int z;
+    
+    public static final CoordTuple North = new CoordTuple(0, 0, -1);
+    public static final CoordTuple South = new CoordTuple(0, 0, +1);
+    public static final CoordTuple East = new CoordTuple(+1, 0, 0);
+    public static final CoordTuple West = new CoordTuple(-1, 0, 0);
+    public static final CoordTuple Up = new CoordTuple(0, +1, 0);
+    public static final CoordTuple Down = new CoordTuple(0,-1, 0);
 
     public CoordTuple(int posX, int posY, int posZ)
     {
@@ -66,6 +73,36 @@ public class CoordTuple implements Comparable
     }
 
     public static CoordTuple west (int x, int y, int z)
+    {
+        return new CoordTuple(x - 1, y, z);
+    }
+    
+    public CoordTuple up ()
+    {
+        return new CoordTuple(x, y + 1, z);
+    }
+
+    public CoordTuple down ()
+    {
+        return new CoordTuple(x, y - 1, z);
+    }
+
+    public CoordTuple north ()
+    {
+        return new CoordTuple(x, y, z - 1);
+    }
+
+    public CoordTuple south ()
+    {
+        return new CoordTuple(x, y, z + 1);
+    }
+
+    public CoordTuple east ()
+    {
+        return new CoordTuple(x + 1, y, z);
+    }
+
+    public CoordTuple west ()
     {
         return new CoordTuple(x - 1, y, z);
     }

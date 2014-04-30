@@ -1502,10 +1502,10 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Block.cloth, 1, 0), "slabCloth", "slabCloth"));
         //Trap Recipes
         GameRegistry.addRecipe(new ItemStack(punji, 5, 0), "b b", " b ", "b b", 'b', new ItemStack(Item.reed));
-        GameRegistry.addRecipe(new ItemStack(barricadeSpruce, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 1));
-        GameRegistry.addRecipe(new ItemStack(barricadeBirch, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 2));
-        GameRegistry.addRecipe(new ItemStack(barricadeJungle, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 3));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(barricadeOak, 1, 0), "b", "b", 'b', "logWood"));
+        GameRegistry.addRecipe(new ItemStack(barricadeSpruce, 16, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 1));
+        GameRegistry.addRecipe(new ItemStack(barricadeBirch, 16, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 2));
+        GameRegistry.addRecipe(new ItemStack(barricadeJungle, 16, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 3));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(barricadeOak, 16, 0), "b", "b", 'b', "logWood"));
         // Advanced WorkBench Recipes
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', "crafterWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', "craftingTableWood"));
