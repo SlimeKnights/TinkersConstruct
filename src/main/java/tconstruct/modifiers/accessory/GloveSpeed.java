@@ -80,7 +80,7 @@ public class GloveSpeed extends ItemModTypeFilter
         }
 
         int miningSpeed = tags.getInteger("MiningSpeed");
-        int boost = 5;
+        int boost = 1;
 
         miningSpeed += (increase * boost);
         tags.setInteger("MiningSpeed", miningSpeed);

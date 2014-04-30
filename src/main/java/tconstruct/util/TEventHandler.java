@@ -723,9 +723,11 @@ public class TEventHandler
     public void armorMineSpeed (PlayerEvent.BreakSpeed event)
     {
         TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(event.entityPlayer.username);
-        event.newSpeed += stats.mineSpeed / 100f;
+        float modifier = 1f + stats.mineSpeed / 1000f;
+        float base = stats.mineSpeed / 375f;
+        event.newSpeed = (event.newSpeed + base) * modifier;
     }
-    
+
     @ForgeSubscribe
     public void jumpHeight (LivingJumpEvent event)
     {
