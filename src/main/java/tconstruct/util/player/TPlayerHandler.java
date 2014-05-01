@@ -186,7 +186,9 @@ public class TPlayerHandler
         TPlayerStats stats = TPlayerStats.get(entityplayer);
         if (playerData != null)
         {
-            stats.copyFrom(playerData, true);
+            stats.copyFrom(playerData, false);
+            stats.level = playerData.level;
+            stats.hunger = playerData.hunger;
         }
 
         stats.player = new WeakReference<EntityPlayer>(entityplayer);
