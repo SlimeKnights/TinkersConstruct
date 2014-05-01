@@ -258,6 +258,8 @@ item.tconstruct.Materials.AluminumDust.name=Polvere di Alluminio
 item.tconstruct.Materials.ManyullynDust.name=Polvere di Manyullyn
 item.tconstruct.Materials.AluBrassDust.name=Polvere di Ottone
 
+item.tconstruct.leather.name=Pezzo di Pelle
+
 item.tconstruct.helmetWood.name=Elmo di Legno
 item.tconstruct.chestplateWood.name=Corazza di Legno
 item.tconstruct.leggingsWood.name=Gambali di Legno
