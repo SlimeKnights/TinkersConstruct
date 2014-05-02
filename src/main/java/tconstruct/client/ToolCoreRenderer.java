@@ -15,15 +15,17 @@ import tconstruct.library.tools.ToolCore;
 public class ToolCoreRenderer implements IItemRenderer
 {
     private boolean isEntity;
-    
+
     public ToolCoreRenderer(boolean entity)
     {
         this.isEntity = entity;
     }
-    
+
     @Override
     public boolean handleRenderType (ItemStack item, ItemRenderType type)
     {
+        if (!item.hasTagCompound())
+            return false;
         switch (type)
         {
         case ENTITY:
@@ -189,14 +191,14 @@ public class ToolCoreRenderer implements IItemRenderer
 
             for (int i = 0; i < iconParts; ++i)
             {
-            	float w = width[i], m = xMax[i], d = xDiff[i], s = xSub[i];
-                for (int k = 0, e = (int)w; k < e; ++k)
+                float w = width[i], m = xMax[i], d = xDiff[i], s = xSub[i];
+                for (int k = 0, e = (int) w; k < e; ++k)
                 {
                     pos = k / w;
                     iconPos = m + d * pos - s;
                     tess.addVertexWithUV(pos, 0, -depth, iconPos, yMax[i]);
-                    tess.addVertexWithUV(pos, 0,      0, iconPos, yMax[i]);
-                    tess.addVertexWithUV(pos, 1,      0, iconPos, yMin[i]);
+                    tess.addVertexWithUV(pos, 0, 0, iconPos, yMax[i]);
+                    tess.addVertexWithUV(pos, 1, 0, iconPos, yMin[i]);
                     tess.addVertexWithUV(pos, 1, -depth, iconPos, yMin[i]);
                 }
             }
@@ -208,16 +210,16 @@ public class ToolCoreRenderer implements IItemRenderer
 
             for (int i = 0; i < iconParts; ++i)
             {
-            	float w = width[i], m = xMax[i], d = xDiff[i], s = xSub[i];
-            	float d2 = 1f / w;
-            	for (int k = 0, e = (int)w; k < e; ++k)
+                float w = width[i], m = xMax[i], d = xDiff[i], s = xSub[i];
+                float d2 = 1f / w;
+                for (int k = 0, e = (int) w; k < e; ++k)
                 {
                     pos = k / w;
                     iconPos = m + d * pos - s;
                     posEnd = pos + d2;
                     tess.addVertexWithUV(posEnd, 1, -depth, iconPos, yMin[i]);
-                    tess.addVertexWithUV(posEnd, 1,      0, iconPos, yMin[i]);
-                    tess.addVertexWithUV(posEnd, 0,      0, iconPos, yMax[i]);
+                    tess.addVertexWithUV(posEnd, 1, 0, iconPos, yMin[i]);
+                    tess.addVertexWithUV(posEnd, 0, 0, iconPos, yMax[i]);
                     tess.addVertexWithUV(posEnd, 0, -depth, iconPos, yMax[i]);
                 }
             }
@@ -228,15 +230,15 @@ public class ToolCoreRenderer implements IItemRenderer
 
             for (int i = 0; i < iconParts; ++i)
             {
-            	float h = height[i], m = yMax[i], d = yDiff[i], s = ySub[i];
-            	float d2 = 1f / h;
-            	for (int k = 0, e = (int)h; k < e; ++k)
+                float h = height[i], m = yMax[i], d = yDiff[i], s = ySub[i];
+                float d2 = 1f / h;
+                for (int k = 0, e = (int) h; k < e; ++k)
                 {
                     pos = k / h;
                     iconPos = m + d * pos - s;
                     posEnd = pos + d2;
-                    tess.addVertexWithUV(0, posEnd,      0, xMax[i], iconPos);
-                    tess.addVertexWithUV(1, posEnd,      0, xMin[i], iconPos);
+                    tess.addVertexWithUV(0, posEnd, 0, xMax[i], iconPos);
+                    tess.addVertexWithUV(1, posEnd, 0, xMin[i], iconPos);
                     tess.addVertexWithUV(1, posEnd, -depth, xMin[i], iconPos);
                     tess.addVertexWithUV(0, posEnd, -depth, xMax[i], iconPos);
                 }
@@ -248,13 +250,13 @@ public class ToolCoreRenderer implements IItemRenderer
 
             for (int i = 0; i < iconParts; ++i)
             {
-            	float h = height[i], m = yMax[i], d = yDiff[i], s = ySub[i];
-            	for (int k = 0, e = (int)h; k < e; ++k)
+                float h = height[i], m = yMax[i], d = yDiff[i], s = ySub[i];
+                for (int k = 0, e = (int) h; k < e; ++k)
                 {
                     pos = k / h;
                     iconPos = m + d * pos - s;
-                    tess.addVertexWithUV(1, pos,      0, xMin[i], iconPos);
-                    tess.addVertexWithUV(0, pos,      0, xMax[i], iconPos);
+                    tess.addVertexWithUV(1, pos, 0, xMin[i], iconPos);
+                    tess.addVertexWithUV(0, pos, 0, xMax[i], iconPos);
                     tess.addVertexWithUV(0, pos, -depth, xMax[i], iconPos);
                     tess.addVertexWithUV(1, pos, -depth, xMin[i], iconPos);
                 }
