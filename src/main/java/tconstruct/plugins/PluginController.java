@@ -7,6 +7,7 @@ import tconstruct.plugins.imc.AppEng;
 import tconstruct.plugins.imc.BuildcraftTransport;
 import tconstruct.plugins.imc.Mystcraft;
 import tconstruct.plugins.imc.Thaumcraft;
+import tconstruct.plugins.nei.NotEnoughItems;
 
 public class PluginController
 {
@@ -24,6 +25,8 @@ public class PluginController
         moduleLoader.registerModule(ForgeMultiPart.class);
         moduleLoader.registerModule(IC2.class);
         moduleLoader.registerModule(Thaumcraft.class);
-    }
+        moduleLoader.registerModule(NotEnoughItems.class);
+        
+    }   
 
 }

@@ -4,7 +4,6 @@ import mantle.module.ILoadableModule;
 import net.minecraft.item.ItemStack;
 import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
-import tconstruct.plugins.ICompatPlugin;
 import cpw.mods.fml.common.event.FMLInterModComms;
 
 public class Thaumcraft implements ILoadableModule

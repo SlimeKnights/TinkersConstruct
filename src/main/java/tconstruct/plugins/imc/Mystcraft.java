@@ -3,7 +3,6 @@ package tconstruct.plugins.imc;
 import mantle.module.ILoadableModule;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.TConstruct;
-import tconstruct.plugins.ICompatPlugin;
 import cpw.mods.fml.common.event.FMLInterModComms;
 
 public class Mystcraft implements ILoadableModule

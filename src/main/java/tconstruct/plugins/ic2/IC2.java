@@ -9,7 +9,6 @@ import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.LiquidCasting;
-import tconstruct.plugins.ICompatPlugin;
 
 public class IC2 implements ILoadableModule
 {

@@ -5,7 +5,6 @@ import java.util.List;
 
 import mantle.module.ILoadableModule;
 import tconstruct.TConstruct;
-import tconstruct.plugins.ICompatPlugin;
 import cpw.mods.fml.common.event.FMLInterModComms;
 
 public class AppEng implements ILoadableModule

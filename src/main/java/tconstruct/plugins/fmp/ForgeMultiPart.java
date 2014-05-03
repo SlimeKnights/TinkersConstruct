@@ -6,7 +6,6 @@ import mantle.module.ILoadableModule;
 import net.minecraft.block.Block;
 import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
-import tconstruct.plugins.ICompatPlugin;
 
 public class ForgeMultiPart implements ILoadableModule
 {

@@ -27,9 +27,9 @@ buildscript {
 
 
 repositories {
-    ivy {
-        name 'CB FS'
-        artifactPattern "http://www.chickenbones.craftsaddle.org/Files/New_Versions/1.6.4/[module]-dev%20[revision].[ext]"
+    maven {
+        name 'CB Maven FS'
+        url "http://chickenbones.net/maven/"
     }
     maven {
         name 'DVS1 Maven FS'
@@ -63,7 +63,8 @@ dependencies {
     compile "mantle:Mantle:${config.minecraft_version}-${config.mantle_version}:deobf"
 	compile "codechicken:CodeChickenLib:${config.minecraft_version}-${config.CCLIB_version}:dev"
     compile "codechicken:ForgeMultipart:${config.minecraft_version}-${config.FMP_version}:dev"
-    //compile name: 'NotEnoughItems', version: "${config.NEI_version}", type: 'jar'
+	compile "codechicken:CodeChickenCore:${config.minecraft_version}-${config.ccc_version}:dev"
+    compile "codechicken:NotEnoughItems:${config.minecraft_version}-${config.NEI_version}:dev"
 	deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 }
 
