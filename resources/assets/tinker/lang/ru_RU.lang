@@ -465,7 +465,7 @@ tile.metal.molten.silver.name=Расплавленное серебро
 tile.metal.molten.lead.name=Расплавленный свинец
 tile.metal.molten.shiny.name=Расплавленная платина
 tile.metal.molten.invar.name=Расплавленный инвар
-tile.metal.molten.Electrum.name=Расплавленный электрум
+tile.metal.molten.electrum.name=Расплавленный электрум
 tile.fluid.ender.name=Жидкость Края
 tile.liquid.slime.name=Сжиженная слизь
 
