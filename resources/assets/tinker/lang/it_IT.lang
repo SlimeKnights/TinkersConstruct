@@ -329,7 +329,7 @@ StorageMetals.AlBrass.name=Blocco di Ottone
 StorageMetals.Alumite.name=Blocco di Alumite
 StorageMetals.Steel.name=Blocco d'Acciaio
 StorageMetals.Ender.name=Blocco di Ender Solido
-tile.enderwarp.name=EnderWarp
+tile.enderwarp.name=EnderTrasportatore
 
 tile.decoration.stonetorch.name=Torcia
 tile.decoration.stoneladder.name=Scala a Pioli
@@ -705,8 +705,8 @@ smeltery.drain.tooltip1=Funziona sia come entrata che come
 smeltery.drain.tooltip2=uscita per fluidi nella Fonderia
 smeltery.brick.tooltip1=Blocco per la Fonderia
 smeltery.brick.tooltip2=(Usabile anche come decorazione)
-enderwarp.tooltip1=Scegli la tua strada tra i blocchi adiacenti
-enderwarp.tooltip2=Alimentalo con pietrarossa per avvolgere
+enderwarp.tooltip1=Scegli la frequenza posizionando dei blocchi intorno
+enderwarp.tooltip2=Alimentalo con pietrarossa per teletrasportare
 
 gui.smeltery1=Carburante
 gui.landmine=Mina
