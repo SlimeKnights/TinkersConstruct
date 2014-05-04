@@ -745,7 +745,7 @@ public class TContent implements IFuelHandler
         fluids[25] = glueFluid;
         fluidBlocks[25] = glueFluidBlock;
         glueFluid.setBlockID(glueFluidBlock);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(glueFluid, 1000), new ItemStack(buckets, 1, 26), new ItemStack(Item.bucketEmpty)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(glueFluid, 1000), new ItemStack(buckets, 1, 25), new ItemStack(Item.bucketEmpty)));
 
         pigIronFluid = new Fluid("pigiron.molten");
         if (!FluidRegistry.registerFluid(pigIronFluid))
@@ -753,6 +753,7 @@ public class TContent implements IFuelHandler
         else
             pigIronFluid.setDensity(3000).setViscosity(6000).setTemperature(1300);
         fluids[26] = pigIronFluid;
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(pigIronFluid, 1000), new ItemStack(buckets, 1, 26), new ItemStack(Item.bucketEmpty)));
 
         slimeGel = new SlimeGel(PHConstruct.slimeGel).setStepSound(slimeStep).setLightOpacity(0).setUnlocalizedName("slime.gel");
         GameRegistry.registerBlock(slimeGel, SlimeGelItemBlock.class, "slime.gel");
