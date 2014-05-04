@@ -4,13 +4,17 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import tconstruct.items.armor.Knapsack;
+import tconstruct.library.IAccessory;
+import tconstruct.library.IHealthAccessory;
 
-public class SlotKnapsack extends Slot
+public class SlotAccessory extends Slot
 {
-    public SlotKnapsack(IInventory par2IInventory, int par3, int par4, int par5)
+    private final int slotID;
+
+    public SlotAccessory(IInventory par2IInventory, int par3, int par4, int par5)
     {
         super(par2IInventory, par3, par4, par5);
+        this.slotID = par3;
     }
 
     /**
@@ -20,7 +24,7 @@ public class SlotKnapsack extends Slot
     @Override
     public int getSlotStackLimit ()
     {
-        return 1;
+        return 10;
     }
 
     /**
@@ -31,6 +35,7 @@ public class SlotKnapsack extends Slot
     public boolean isItemValid (ItemStack par1ItemStack)
     {
         Item item = (par1ItemStack == null ? null : par1ItemStack.getItem());
-        return item != null && (item instanceof Knapsack);
+        return item != null && (item instanceof IAccessory) && ((IAccessory) item).canEquipAccessory(par1ItemStack, this.slotID);
+
     }
 }

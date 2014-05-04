@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 
-public class ModAntiSpider extends ToolModTypeFilter
+public class ModAntiSpider extends ItemModTypeFilter
 {
     String tooltipName;
     int max = 4;

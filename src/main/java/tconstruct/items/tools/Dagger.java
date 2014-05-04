@@ -46,7 +46,7 @@ public class Dagger extends Weapon
     }
 
     @Override
-    public String[] toolCategories ()
+    public String[] getTraits ()
     {
         return new String[] { "weapon", "melee", "throwing" };
     }

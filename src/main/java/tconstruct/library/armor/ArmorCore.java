@@ -1,5 +1,6 @@
 package tconstruct.library.armor;
 
+import tconstruct.library.IModifyable;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.entity.Entity;
@@ -17,25 +18,24 @@ import cofh.api.energy.IEnergyContainerItem;
 /**
  * NBTTags Main tag - InfiArmor
  */
-public abstract class ArmorCore extends ItemArmor implements IEnergyContainerItem, ISpecialArmor
+public abstract class ArmorCore extends ItemArmor implements IEnergyContainerItem, ISpecialArmor, IModifyable
 {
 
-    public static final String SET_NAME = "TinkerArmor";
     public final EnumArmorPart armorPart;
     private static final IBehaviorDispenseItem dispenserBehavior = new BehaviorDispenseArmorCopy();
     public final int baseProtection;
 
     // TE power constants -- TODO grab these from the items added
     protected int capacity = 400000;
-    protected int maxReceive = 75;
-    protected int maxExtract = 75;
+    protected int maxReceive = 2000;
+    protected int maxExtract = 2000;
 
     public ArmorCore(int baseProtection, EnumArmorPart part)
     {
         super(ArmorMaterial.CHAIN, 0, part.getPartId());
         this.maxStackSize = 1;
         this.setMaxDamage(100);
-        this.setUnlocalizedName(SET_NAME);
+        this.setUnlocalizedName(getBaseTag());
         this.armorPart = part;
         this.baseProtection = baseProtection;
         BlockDispenser.dispenseBehaviorRegistry.putObject(this, dispenserBehavior);
@@ -44,6 +44,24 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
     public String getArmorName ()
     {
         return this.getClass().getSimpleName();
+    }
+
+    @Override
+    public String getBaseTag ()
+    {
+        return "TinkerArmor";
+    }
+
+    @Override
+    public String getModifyType ()
+    {
+        return "Armor";
+    }
+
+    @Override
+    public String[] getTraits ()
+    {
+        return new String[] { "armor" };
     }
 
     @Override
@@ -86,7 +104,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
             return new ArmorProperties(0, damage / baseProtection, baseProtection);
         }
 
-        NBTTagCompound data = tags.getCompoundTag(SET_NAME);
+        NBTTagCompound data = tags.getCompoundTag(getBaseTag());
 
         double amount = (data.getInteger("defense") / damage) + (data.getDouble("protection") / 100);
         if (source.isUnblockable())
@@ -105,7 +123,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
     {
         if (!armor.hasTagCompound())
             return this.baseProtection;
-        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(SET_NAME);
+        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(getBaseTag());
         double amount = armorTag.getDouble("protection") / 4;
         if (amount > 0 && amount < 1)
             amount = 1;
@@ -123,11 +141,11 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
             tags = new NBTTagCompound();
             stack.setTagCompound(tags);
             data = new NBTTagCompound();
-            tags.setTag(SET_NAME, data);
+            tags.setTag(getBaseTag(), data);
             data.setDouble("damageReduction", baseProtection);
         }
 
-        data = tags.getCompoundTag(SET_NAME);
+        data = tags.getCompoundTag(getBaseTag());
 
         if (tags.hasKey("Energy"))
         {
@@ -289,7 +307,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
             }
         }
 
-        return tags.getCompoundTag(SET_NAME).getInteger("TotalDurability");
+        return tags.getCompoundTag(getBaseTag()).getInteger("TotalDurability");
     }
 
     public int getItemMaxDamageFromStackForDisplay (ItemStack stack)
@@ -309,7 +327,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
             }
         }
 
-        return tags.getCompoundTag(SET_NAME).getInteger("Damage");
+        return tags.getCompoundTag(getBaseTag()).getInteger("Damage");
     }
 
 }

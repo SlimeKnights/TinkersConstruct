@@ -25,7 +25,7 @@ public class AModKnockbackResistance extends ArmorModTypeFilter
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName());
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName(tool));
         int amount = matchingItems(input) * modifyAmount;
         return tags.getInteger("Modifiers") >= amount;
     }
@@ -34,7 +34,7 @@ public class AModKnockbackResistance extends ArmorModTypeFilter
     public void modify (ItemStack[] input, ItemStack armor)
     {
         NBTTagCompound baseTag = armor.getTagCompound();
-        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(getTagName());
+        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(getTagName(armor));
 
         int modifiers = armorTag.getInteger("Modifiers");
         modifiers -= matchingAmount(input) * modifyAmount;
@@ -76,13 +76,13 @@ public class AModKnockbackResistance extends ArmorModTypeFilter
         ArmorCore item = (ArmorCore) stack.getItem();
         switch (item.armorPart)
         {
-        case HELMET:
+        case Head:
             return head;
-        case CHEST:
+        case Chest:
             return chest;
-        case PANTS:
+        case Legs:
             return pants;
-        case SHOES:
+        case Feet:
             return shoes;
         }
         return null;

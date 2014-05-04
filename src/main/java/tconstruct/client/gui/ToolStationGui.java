@@ -21,8 +21,10 @@ import tconstruct.TConstruct;
 import tconstruct.blocks.logic.ToolStationLogic;
 import tconstruct.inventory.ActiveContainer;
 import tconstruct.inventory.ToolStationContainer;
+import tconstruct.library.IModifyable;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.client.ToolGuiElement;
+import tconstruct.library.tools.HarvestTool;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.util.network.packet.PacketToolStation;
 import cpw.mods.fml.relauncher.Side;
@@ -174,19 +176,20 @@ public class ToolStationGui extends NewContainerGui
     void drawToolStats ()
     {
         ItemStack stack = logic.getStackInSlot(0);
-        if (stack.getItem() instanceof ToolCore)
+        if (stack.getItem() instanceof IModifyable)
         {
-            ToolCore tool = (ToolCore) stack.getItem();
-            NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-            this.drawCenteredString(fontRendererObj, "\u00A7n" + tool.getToolName(), xSize + 63, 8, 0xffffff);
+            IModifyable item = (IModifyable) stack.getItem();
+            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(item.getBaseTag());
+            String name = item instanceof ToolCore ? ((ToolCore) item).getToolName() : item.getClass().getSimpleName();
+            this.drawCenteredString(fontRendererObj, "\u00A7n" + name, xSize + 63, 8, 0xffffff);
 
-            drawModularToolStats(stack, tool, tags);
+            drawModularToolStats(stack, item, tags);
         }
     }
 
-    void drawModularToolStats (ItemStack stack, ToolCore tool, NBTTagCompound tags)
+    void drawModularToolStats (ItemStack stack, IModifyable item, NBTTagCompound tags)
     {
-        List categories = Arrays.asList(tool.toolCategories());
+        List categories = Arrays.asList(item.getTraits());
         final int durability = tags.getInteger("Damage");
         final int maxDur = tags.getInteger("TotalDurability");
         int availableDurability = maxDur - durability;
@@ -217,7 +220,7 @@ public class ToolStationGui extends NewContainerGui
             int attack = (int) (tags.getInteger("Attack")) + 1;
             float stoneboundDamage = (float) Math.log(durability / 72f + 1) * -2 * stonebound;
             attack += stoneboundDamage;
-            attack *= tool.getDamageModifier();
+            attack *= ((ToolCore)item).getDamageModifier();
             if (attack < 1)
                 attack = 1;
 
@@ -293,9 +296,9 @@ public class ToolStationGui extends NewContainerGui
         // Mining
         if (categories.contains("dualharvest"))
         {
-            float mineSpeed = tags.getInteger("MiningSpeed") / 100f;
-            float mineSpeed2 = tags.getInteger("MiningSpeed2") / 100f;
-            float stoneboundSpeed = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
+            float mineSpeed = tags.getInteger("MiningSpeed") / 100f * ((HarvestTool) item).breakSpeedModifier();
+            float mineSpeed2 = tags.getInteger("MiningSpeed2") / 100f * ((HarvestTool) item).breakSpeedModifier();
+            float stoneboundSpeed = (float) Math.log(durability / ((HarvestTool) item).stoneboundModifier() + 1) * 2 * stonebound;
             DecimalFormat df = new DecimalFormat("##.##");
             df.setRoundingMode(RoundingMode.DOWN);
             float trueSpeed = mineSpeed + stoneboundSpeed;

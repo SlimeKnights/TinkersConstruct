@@ -40,6 +40,12 @@ public class Rapier extends Weapon
     }
 
     @Override
+    public String[] getTraits ()
+    {
+        return new String[] { "weapon", "melee", "piercing" };
+    }
+
+    @Override
     public boolean hitEntity (ItemStack stack, EntityLivingBase mob, EntityLivingBase player)
     {
         // AbilityHelper.hitEntity(stack, mob, player, damageVsEntity);

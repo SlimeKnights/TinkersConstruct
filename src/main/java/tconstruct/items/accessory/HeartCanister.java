@@ -1,4 +1,4 @@
-package tconstruct.items.armor;
+package tconstruct.items.accessory;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
+import tconstruct.library.IHealthAccessory;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.armor.IHealthAccessory;
 import tconstruct.util.player.ArmorExtended;
 import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.relauncher.Side;
@@ -51,7 +51,7 @@ public class HeartCanister extends CraftingItem implements IHealthAccessory
                     slotStack.stackSize++;
                     stack.stackSize--;
                 }
-                armor.recalculateHealth(player, stats);
+                armor.recalculateAttributes(player, stats);
             }
         }
         return stack;
@@ -105,7 +105,7 @@ public class HeartCanister extends CraftingItem implements IHealthAccessory
     }
 
     @Override
-    public boolean canEquipItem (ItemStack item, int slot)
+    public boolean canEquipAccessory (ItemStack item, int slot)
     {
         int type = item.getItemDamage();
         return ((type == 2 && slot == 6) || (type == 4 && slot == 5) || (type == 6 && slot == 4));

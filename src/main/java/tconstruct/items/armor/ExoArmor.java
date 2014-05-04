@@ -2,6 +2,7 @@ package tconstruct.items.armor;
 
 import java.util.List;
 
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -11,7 +12,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.world.World;
+import tconstruct.client.armor.WingModel;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.EnumArmorPart;
@@ -47,6 +52,17 @@ public class ExoArmor extends ArmorCore
     public void damageArmor (EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot)
     {
         // Deimplemented for now
+    }
+
+    @SideOnly(Side.CLIENT)
+    WingModel moel = new WingModel();
+
+    @SideOnly(Side.CLIENT)
+    public ModelBiped getArmorModel (EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot)
+    {
+        if (armorSlot == 1)
+            return moel;
+        return null;
     }
 
     @Override
@@ -91,4 +107,23 @@ public class ExoArmor extends ArmorCore
                 displayToolTips = false;
         }
     }
+
+    @Override
+    public void onArmorTickUpdate (World world, EntityPlayer player, ItemStack itemStack)
+    {
+        if (player.stepHeight < 1.0f)
+            player.stepHeight = 1.0f;
+
+        player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 15 * 20, 0, true));
+
+        player.fallDistance = 0;
+        float terminalVelocity = -0.32f;
+        boolean flying = false;
+        flying = player.capabilities.isFlying;
+        if (!flying && player.motionY < terminalVelocity)
+        {
+            player.motionY = terminalVelocity;
+        }
+    }
+
 }

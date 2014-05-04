@@ -2,12 +2,12 @@ package tconstruct.modifiers.tools;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import tconstruct.library.tools.ToolMod;
+import tconstruct.library.tools.ItemModifier;
 import tconstruct.util.config.PHConstruct;
 
 /* Adds an integer NBTTag */
 
-public class ModDurability extends ToolMod
+public class ModDurability extends ItemModifier
 {
     String tooltipName;
     String color;

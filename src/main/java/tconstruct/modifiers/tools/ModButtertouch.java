@@ -24,14 +24,19 @@ public class ModButtertouch extends ModBoolean
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        ToolCore toolItem = (ToolCore) tool.getItem();
-        if (!validType(toolItem))
-            return false;
-
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
-        if (!tags.getBoolean("Lava") && !tags.hasKey("Lapis"))
+        if (tool.getItem() instanceof ToolCore)
         {
-            return tags.getInteger("Modifiers") > 0 && !tags.getBoolean(key);
+            ToolCore toolItem = (ToolCore) tool.getItem();
+            for (ItemStack stack : input)
+            {
+                if (stack != null && stack.hasTagCompound())
+                {
+                    String targetLock = stack.getTagCompound().getString("TargetLock");
+                    if (!targetLock.equals("") && !targetLock.equals(toolItem.getToolName()))
+                        return false;
+                }
+            }
+            return true;
         }
         return false;
     }
@@ -111,7 +116,7 @@ public class ModButtertouch extends ModBoolean
     @Override
     public boolean validType (ToolCore tool)
     {
-        List list = Arrays.asList(tool.toolCategories());
+        List list = Arrays.asList(tool.getTraits());
         return list.contains("weapon") || list.contains("harvest");
     }
 }

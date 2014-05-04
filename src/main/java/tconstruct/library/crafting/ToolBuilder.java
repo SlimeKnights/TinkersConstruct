@@ -17,7 +17,7 @@ import tconstruct.library.armor.ArmorMod;
 import tconstruct.library.event.ToolCraftEvent;
 import tconstruct.library.tools.TToolMaterial;
 import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.ToolMod;
+import tconstruct.library.tools.ItemModifier;
 import tconstruct.library.util.IToolPart;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 
@@ -28,7 +28,7 @@ public class ToolBuilder
     public HashMap<String, ToolRecipe> recipeList = new HashMap<String, ToolRecipe>();
     public List<ToolRecipe> combos = new ArrayList<ToolRecipe>();
     public HashMap<String, String> modifiers = new HashMap<String, String>();
-    public List<ToolMod> toolMods = new ArrayList<ToolMod>();
+    public List<ItemModifier> toolMods = new ArrayList<ItemModifier>();
     public List<ArmorMod> armorMods = new ArrayList<ArmorMod>();
 
     /* Build tools */
@@ -369,7 +369,7 @@ public class ToolBuilder
         tags.removeTag("Built");
 
         boolean built = false;
-        for (ToolMod mod : toolMods)
+        for (ItemModifier mod : toolMods)
         {
             if (mod.matches(slots, tool))
             {
@@ -438,7 +438,7 @@ public class ToolBuilder
             return tool;
 
         boolean built = false;
-        for (ToolMod mod : toolMods)
+        for (ItemModifier mod : toolMods)
         {
             ItemStack[] slots = new ItemStack[] { topSlot, bottomSlot };
             if (mod.matches(slots, tool))
@@ -518,7 +518,7 @@ public class ToolBuilder
         return (sHead + sHandle) / 2f;
     }
 
-    public static void registerToolMod (ToolMod mod)
+    public static void registerToolMod (ItemModifier mod)
     {
         if (mod == null)
             throw new NullPointerException("Tool modifier cannot be null.");

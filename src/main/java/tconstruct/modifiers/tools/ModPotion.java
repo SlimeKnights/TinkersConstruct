@@ -3,9 +3,9 @@ package tconstruct.modifiers.tools;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import tconstruct.library.tools.ToolMod;
+import tconstruct.library.tools.ItemModifier;
 
-public class ModPotion extends ToolMod
+public class ModPotion extends ItemModifier
 {
 
     public ModPotion(ItemStack[] items, int effect, String dataKey)

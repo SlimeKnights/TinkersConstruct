@@ -101,10 +101,10 @@ import tconstruct.items.TitleIcon;
 import tconstruct.items.ToolPart;
 import tconstruct.items.ToolPartHidden;
 import tconstruct.items.ToolShard;
+import tconstruct.items.accessory.HeartCanister;
+import tconstruct.items.accessory.Knapsack;
 import tconstruct.items.armor.ArmorBasic;
 import tconstruct.items.armor.ExoArmor;
-import tconstruct.items.armor.HeartCanister;
-import tconstruct.items.armor.Knapsack;
 import tconstruct.items.tools.Arrow;
 import tconstruct.items.tools.BattleSign;
 import tconstruct.items.tools.Battleaxe;
@@ -702,10 +702,10 @@ public class TContent implements IFuelHandler
         GameRegistry.registerItem(TRepo.leggingsWood, "leggingsWood");
         GameRegistry.registerItem(TRepo.bootsWood, "bootsWood");
 
-        TRepo.exoGoggles = new ExoArmor(EnumArmorPart.HELMET, "exosuit").setUnlocalizedName("tconstruct.exoGoggles");
-        TRepo.exoChest = new ExoArmor(EnumArmorPart.CHEST, "exosuit").setUnlocalizedName("tconstruct.exoChest");
-        TRepo.exoPants = new ExoArmor(EnumArmorPart.PANTS, "exosuit").setUnlocalizedName("tconstruct.exoPants");
-        TRepo.exoShoes = new ExoArmor(EnumArmorPart.SHOES, "exosuit").setUnlocalizedName("tconstruct.exoShoes");
+        TRepo.exoGoggles = new ExoArmor(EnumArmorPart.Head, "exosuit").setUnlocalizedName("tconstruct.exoGoggles");
+        TRepo.exoChest = new ExoArmor(EnumArmorPart.Chest, "exosuit").setUnlocalizedName("tconstruct.exoChest");
+        TRepo.exoPants = new ExoArmor(EnumArmorPart.Legs, "exosuit").setUnlocalizedName("tconstruct.exoPants");
+        TRepo.exoShoes = new ExoArmor(EnumArmorPart.Feet, "exosuit").setUnlocalizedName("tconstruct.exoShoes");
         
         GameRegistry.registerItem(TRepo.exoGoggles, "helmetExo");
         GameRegistry.registerItem(TRepo.exoChest, "chestplateExo");

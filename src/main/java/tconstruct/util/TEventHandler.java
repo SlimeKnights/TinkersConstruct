@@ -42,11 +42,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
@@ -56,6 +58,7 @@ import tconstruct.blocks.LiquidMetalFinite;
 import tconstruct.blocks.TankAirBlock;
 import tconstruct.common.TRepo;
 import tconstruct.entity.BlueSlime;
+import tconstruct.items.armor.TravelGear;
 import tconstruct.items.tools.FryingPan;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.event.PartBuilderEvent;
@@ -635,11 +638,13 @@ public class TEventHandler
         if (evt.Name == "crystalQuartz")
         {
             TRepo.modAttack.addStackToMatchList(evt.Ore, 2);
+            TRepo.modAttackGlove.addStackToMatchList(evt.Ore, 2);
         }
 
         else if (evt.Name == "crystalCerusQuartz")
         {
             TRepo.modAttack.addStackToMatchList(evt.Ore, 24);
+            TRepo.modAttackGlove.addStackToMatchList(evt.Ore, 24);
         }
     }
 
@@ -741,6 +746,24 @@ public class TEventHandler
             {
                 event.setCanceled(true);
             }
+        }
+    }
+
+    /* Mining */
+    @SubscribeEvent
+    public void armorMineSpeed (PlayerEvent.BreakSpeed event)
+    {
+        TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(event.entityPlayer.getUniqueID());
+        event.newSpeed += stats.mineSpeed / 100f;
+    }
+
+    @SubscribeEvent
+    public void jumpHeight (LivingJumpEvent event)
+    {
+        ItemStack stack = event.entityLiving.getEquipmentInSlot(2);
+        if (stack != null && stack.getItem() instanceof TravelGear)
+        {
+            event.entityLiving.motionY += 0.2;
         }
     }
 

@@ -1,9 +1,11 @@
 package tconstruct.client;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
+import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.relauncher.Side;
@@ -22,12 +24,25 @@ public class TClientTickHandler
         TRepo.oreBerry.setGraphicsLevel(Blocks.leaves.field_150121_P);
         TRepo.oreBerrySecond.setGraphicsLevel(Blocks.leaves.field_150121_P);
         TRepo.slimeLeaves.setGraphicsLevel(Blocks.leaves.field_150121_P);
-        if (mc.thePlayer != null && mc.thePlayer.onGround)
-            controlInstance.landOnGround();
+        EntityPlayer player = getPlayer();
+        if (player != null ){
+            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getUniqueID());
+            if (mc.thePlayer.onGround)
+            {
+                controlInstance.landOnGround();
+            }
+            if (stats.climbWalls && player.isCollidedHorizontally && !player.isSneaking())
+            {
+                player.motionY = 0.1176D;
+                player.fallDistance = 0.0f;
+            }
+
+        }
+
     }
 
-    /*
-     * @Override public EnumSet<TickType> ticks () { return
-     * EnumSet.of(TickType.RENDER); }
-     */
+    EntityPlayer getPlayer ()
+    {
+        return mc.thePlayer;
+    }
 }

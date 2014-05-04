@@ -1,12 +1,15 @@
 package tconstruct.common;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IGuiHandler;
+import cpw.mods.fml.relauncher.Side;
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.TileEntityLandmine;
+import tconstruct.client.TClientTickHandler;
 import tconstruct.inventory.ArmorExtendedContainer;
 import tconstruct.inventory.ContainerLandmine;
 import tconstruct.inventory.KnapsackContainer;
@@ -85,7 +88,8 @@ public class TProxyCommon implements IGuiHandler
 
     public void registerTickHandler ()
     {
-        // TickRegistry.registerTickHandler(new TimeTicker(), Side.SERVER);
+        if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+        FMLCommonHandler.instance().bus().register(new AbilityTick());
     }
 
     /* Registers any rendering code. Does nothing server-side */

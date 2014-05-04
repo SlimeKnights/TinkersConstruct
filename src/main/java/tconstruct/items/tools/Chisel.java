@@ -223,7 +223,7 @@ public class Chisel extends ToolCore
     }
 
     @Override
-    public String[] toolCategories ()
+    public String[] getTraits ()
     {
         return new String[] { "utility" };
     }

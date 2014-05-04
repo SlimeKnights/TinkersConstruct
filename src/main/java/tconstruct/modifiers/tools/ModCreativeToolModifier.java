@@ -3,9 +3,9 @@ package tconstruct.modifiers.tools;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.ToolMod;
+import tconstruct.library.tools.ItemModifier;
 
-public class ModCreativeToolModifier extends ToolMod
+public class ModCreativeToolModifier extends ItemModifier
 {
     public ModCreativeToolModifier(ItemStack[] items)
     {

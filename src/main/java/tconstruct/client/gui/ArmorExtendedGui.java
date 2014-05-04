@@ -108,12 +108,12 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
             drawTexturedModalRect(cornerX + 115, cornerY + 16, 212, 9, 18, 18);
         if (!stats.isStackInSlot(3))
             drawTexturedModalRect(cornerX + 115, cornerY + 34, 212, 27, 18, 18);
-        if (!stats.isStackInSlot(4))
-            drawTexturedModalRect(cornerX + 151, cornerY + 52, 230, 0, 18, 18);
+        if (!stats.isStackInSlot(6))
+            drawTexturedModalRect(cornerX + 151, cornerY + 16, 230, 0, 18, 18);
         if (!stats.isStackInSlot(5))
             drawTexturedModalRect(cornerX + 151, cornerY + 34, 230, 18, 18, 18);
-        if (!stats.isStackInSlot(6))
-            drawTexturedModalRect(cornerX + 151, cornerY + 16, 230, 36, 18, 18);
+        if (!stats.isStackInSlot(4))
+            drawTexturedModalRect(cornerX + 151, cornerY + 52, 230, 36, 18, 18);
 
         cornerX = this.guiLeft;
         cornerY = this.guiTop;

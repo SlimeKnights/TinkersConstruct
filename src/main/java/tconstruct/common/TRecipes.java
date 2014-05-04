@@ -395,8 +395,8 @@ public class TRecipes
         ItemStack obsidianPlate = new ItemStack(TRepo.largePlate, 1, 6);
         tb.registerToolMod(new ModReinforced(new ItemStack[] { obsidianPlate }, 16, 1));
 
-        EnumSet<EnumArmorPart> allArmors = EnumSet.of(EnumArmorPart.HELMET, EnumArmorPart.CHEST, EnumArmorPart.PANTS, EnumArmorPart.SHOES);
-        EnumSet<EnumArmorPart> chest = EnumSet.of(EnumArmorPart.CHEST);
+        EnumSet<EnumArmorPart> allArmors = EnumSet.of(EnumArmorPart.Head, EnumArmorPart.Chest, EnumArmorPart.Legs, EnumArmorPart.Feet);
+        EnumSet<EnumArmorPart> chest = EnumSet.of(EnumArmorPart.Chest);
         tb.registerArmorMod(new AModMoveSpeed(0, allArmors, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }, false));
         tb.registerArmorMod(new AModKnockbackResistance(1, allArmors, new ItemStack[] { new ItemStack(Items.gold_ingot), new ItemStack(Blocks.gold_block) }, new int[] { 1, 9 }, false));
         tb.registerArmorMod(new AModHealthBoost(2, allArmors, new ItemStack[] { new ItemStack(TRepo.heartCanister, 1, 2) }, new int[] { 2 }, true));

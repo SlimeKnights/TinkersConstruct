@@ -163,6 +163,10 @@ public class TProxyClient extends TProxyCommon
     public static ArmorExtended armorExtended = new ArmorExtended();
     public static KnapsackInventory knapsack = new KnapsackInventory();
 
+    public static WingModel wings = new WingModel();
+    public static BootBump bootbump = new BootBump();
+    public static GloveModel glove = new GloveModel();
+
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {
@@ -292,11 +296,9 @@ public class TProxyClient extends TProxyCommon
     @Override
     public void registerTickHandler ()
     {
+        super.registerTickHandler();
         FMLCommonHandler.instance().bus().register(new TClientTickHandler());
         new TClientTickHandler();
-        // TickRegistry.registerTickHandler(new TimeTicker(), Side.CLIENT);
-        // TickRegistry.registerTickHandler(new TCommonTickHandler(),
-        // Side.CLIENT);
     }
 
     /* Registers any rendering code. */
@@ -352,6 +354,7 @@ public class TProxyClient extends TProxyCommon
         VillagerRegistry.instance().registerVillagerSkin(78943, new ResourceLocation("tinker", "textures/mob/villagertools.png"));
 
         ToolCoreRenderer renderer = new ToolCoreRenderer();
+        MinecraftForgeClient.registerItemRenderer(TRepo.shortbow, renderer);
         MinecraftForgeClient.registerItemRenderer(TRepo.arrow, renderer);
         MinecraftForgeClient.registerItemRenderer(TRepo.dagger, renderer);
 
@@ -1053,7 +1056,7 @@ public class TProxyClient extends TProxyCommon
 
     public void recalculateHealth ()
     {
-        armorExtended.recalculateHealth(mc.thePlayer, TPlayerStats.get(mc.thePlayer));
+        armorExtended.recalculateAttributes(mc.thePlayer, TPlayerStats.get(mc.thePlayer));
     }
 
     private static IIcon getIcon (IIcon icon)

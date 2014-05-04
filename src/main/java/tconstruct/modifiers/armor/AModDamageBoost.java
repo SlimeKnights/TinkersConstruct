@@ -9,7 +9,7 @@ import net.minecraft.nbt.NBTTagList;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.ArmorModTypeFilter;
 import tconstruct.library.armor.EnumArmorPart;
-
+import tconstruct.library.IModifyable;
 //TODO: Condense attribute modifiers into one class
 public class AModDamageBoost extends ArmorModTypeFilter
 {
@@ -26,18 +26,23 @@ public class AModDamageBoost extends ArmorModTypeFilter
     }
 
     @Override
-    protected boolean canModify (ItemStack tool, ItemStack[] input)
+    protected boolean canModify (ItemStack input, ItemStack[] modifiers)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName());
-        int amount = matchingAmount(input) * modifyAmount;
-        return tags.getInteger("Modifiers") >= amount;
+        IModifyable imod = (IModifyable) input.getItem();
+        if (imod.getModifyType().equals("Armor"))
+        {
+            NBTTagCompound tags = input.getTagCompound().getCompoundTag(((IModifyable) input.getItem()).getBaseTag());
+            int amount = matchingAmount(modifiers) * modifyAmount;
+            return tags.getInteger("Modifiers") >= amount;
+        }
+        return false;
     }
 
     @Override
     public void modify (ItemStack[] input, ItemStack armor)
     {
         NBTTagCompound baseTag = armor.getTagCompound();
-        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(getTagName());
+        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(((IModifyable)armor.getItem()).getBaseTag());
 
         int modifiers = armorTag.getInteger("Modifiers");
         modifiers -= matchingAmount(input) * modifyAmount;
@@ -85,13 +90,13 @@ public class AModDamageBoost extends ArmorModTypeFilter
         ArmorCore item = (ArmorCore) stack.getItem();
         switch (item.armorPart)
         {
-        case HELMET:
+        case Head:
             return modifierType ? headScale : headFlat;
-        case CHEST:
+        case Chest:
             return modifierType ? chestScale : chestFlat;
-        case PANTS:
+        case Legs:
             return modifierType ? pantsScale : pantsFlat;
-        case SHOES:
+        case Feet:
             return modifierType ? shoesScale : pantsFlat;
         }
         return null;

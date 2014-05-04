@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.tools.ToolCore;
 import net.minecraft.util.StatCollector;
 
-public class ModRedstone extends ToolModTypeFilter
+public class ModRedstone extends ItemModTypeFilter
 {
     String tooltipName;
     int max = 50;
@@ -114,7 +114,7 @@ public class ModRedstone extends ToolModTypeFilter
     @Override
     public boolean validType (ToolCore tool)
     {
-        List list = Arrays.asList(tool.toolCategories());
+        List list = Arrays.asList(tool.getTraits());
         return list.contains("harvest") || list.contains("utility") || list.contains("bow");
     }
 }

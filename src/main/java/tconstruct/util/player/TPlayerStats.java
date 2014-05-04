@@ -17,12 +17,17 @@ public class TPlayerStats implements IExtendedEntityProperties
     public int bonusHealth;
     public int bonusHealthClient;
     public int hunger;
+    public int damage;
     public boolean beginnerManual;
     public boolean materialManual;
     public boolean smelteryManual;
     public boolean battlesignBonus;
     public ArmorExtended armor;
     public KnapsackInventory knapsack;
+    public int mineSpeed;
+
+    public boolean climbWalls;
+    public boolean activeGoggles = true;
 
     public TPlayerStats()
     {
@@ -70,7 +75,7 @@ public class TPlayerStats implements IExtendedEntityProperties
     {
     }
 
-    public void copyFrom(TPlayerStats stats, boolean copyCalc)
+    public void copyFrom (TPlayerStats stats, boolean copyCalc)
     {
         this.armor = stats.armor;
         this.knapsack = stats.knapsack;
@@ -79,7 +84,8 @@ public class TPlayerStats implements IExtendedEntityProperties
         this.smelteryManual = stats.smelteryManual;
         this.battlesignBonus = stats.battlesignBonus;
 
-        if (copyCalc) {
+        if (copyCalc)
+        {
             this.bonusHealth = stats.bonusHealth;
             this.bonusHealthClient = stats.bonusHealthClient;
             this.hunger = stats.hunger;

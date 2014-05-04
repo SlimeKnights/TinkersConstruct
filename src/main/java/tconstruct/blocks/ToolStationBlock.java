@@ -7,9 +7,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -22,6 +24,7 @@ import tconstruct.blocks.logic.PatternChestLogic;
 import tconstruct.blocks.logic.StencilTableLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
 import tconstruct.client.block.TableRender;
+import tconstruct.common.TProxyCommon;
 import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.util.config.PHConstruct;
@@ -166,13 +169,13 @@ public class ToolStationBlock extends InventoryBlock
     {
         int md = world.getBlockMetadata(x, y, z);
         if (md == 0)
-            return 0;
+            return TProxyCommon.toolStationID;
         else if (md < 5)
-            return 1;
+            return TProxyCommon.partBuilderID;
         else if (md < 10)
-            return 2;
+            return TProxyCommon.patternChestID;
         else
-            return 3;
+            return TProxyCommon.stencilTableID;
 
         //return -1;
     }
@@ -198,9 +201,75 @@ public class ToolStationBlock extends InventoryBlock
     }
 
     @Override
-    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase par5EntityLiving, ItemStack par6ItemStack)
+    public void breakBlock (World par1World, int x, int y, int z, Block blockID, int meta)
     {
-        if (PHConstruct.freePatterns)
+        if (meta < 5 || meta > 9)
+            super.breakBlock(par1World, x, y, z, blockID, meta);
+        else
+        {
+            par1World.removeTileEntity(x, y, z);
+        }
+    }
+    
+    @Override
+    public boolean removedByPlayer (World world, EntityPlayer player, int x, int y, int z)
+    {
+        player.addExhaustion(0.025F);
+
+        if (!world.isRemote && world.getGameRules().getGameRuleBooleanValue("doTileDrops"))
+        {
+            int meta = world.getBlockMetadata(x, y, z);
+            if (meta >= 5 && meta <= 9)
+            {
+                ItemStack chest = new ItemStack(this, 1, 5);
+                NBTTagCompound inventory = new NBTTagCompound();
+                PatternChestLogic logic = (PatternChestLogic) world.getTileEntity(x, y, z);
+                logic.writeInventoryToNBT(inventory);
+                NBTTagCompound baseTag = new NBTTagCompound();
+                baseTag.setTag("Inventory", inventory);
+                chest.setTagCompound(baseTag);
+
+                //Spawn item
+                if (!player.capabilities.isCreativeMode || player.isSneaking())
+                {
+                    float f = 0.7F;
+                    double d0 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                    double d1 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                    double d2 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                    EntityItem entityitem = new EntityItem(world, (double) x + d0, (double) y + d1, (double) z + d2, chest);
+                    entityitem.delayBeforeCanPickup = 10;
+                    world.spawnEntityInWorld(entityitem);
+                }
+
+            }
+        }
+        return world.setBlockToAir(x, y, z);
+    }
+
+    @Override
+    public void harvestBlock (World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6)
+    {
+        //Do nothing
+    }
+
+    @Override
+    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase living, ItemStack stack)
+    {
+        boolean keptInventory = false;
+        if (stack.hasTagCompound())
+        {
+            NBTTagCompound inventory = stack.getTagCompound().getCompoundTag("Inventory");
+            if (inventory != null)
+            {
+                PatternChestLogic logic = (PatternChestLogic) world.getTileEntity(x, y, z);
+                logic.readInventoryFromNBT(inventory);
+                logic.xCoord = x;
+                logic.yCoord = y;
+                logic.zCoord = z;
+                keptInventory = true;
+            }
+        }
+        if (!keptInventory && PHConstruct.freePatterns)
         {
             int meta = world.getBlockMetadata(x, y, z);
             if (meta == 5)
@@ -213,7 +282,7 @@ public class ToolStationBlock extends InventoryBlock
                 logic.setInventorySlotContents(13, new ItemStack(TRepo.woodPattern, 1, 22));
             }
         }
-        super.onBlockPlacedBy(world, x, y, z, par5EntityLiving, par6ItemStack);
+        super.onBlockPlacedBy(world, x, y, z, living, stack);
     }
 
     @Override

@@ -160,28 +160,6 @@ public class ToolStationContainer extends ActiveContainer
         Slot otherInventorySlot;
         ItemStack copyStack = null;
 
-        /*
-         * if (stack.isStackable()) { while (stack.stackSize > 0 &&
-         * (!playerInventory && slotIndex < slotsTotal || playerInventory &&
-         * slotIndex >= slotsStart)) { otherInventorySlot =
-         * (Slot)this.inventorySlots.get(slotIndex); copyStack =
-         * otherInventorySlot.getStack();
-         * 
-         * if (copyStack != null && copyStack.itemID == stack.itemID &&
-         * (!stack.getHasSubtypes() || stack.getItemDamage() ==
-         * copyStack.getItemDamage()) && ItemStack.areItemStackTagsEqual(stack,
-         * copyStack)) { int totalSize = copyStack.stackSize + stack.stackSize;
-         * 
-         * if (totalSize <= stack.getMaxStackSize()) { stack.stackSize = 0;
-         * copyStack.stackSize = totalSize; otherInventorySlot.onSlotChanged();
-         * failedToMerge = true; } else if (copyStack.stackSize <
-         * stack.getMaxStackSize()) { stack.stackSize -= stack.getMaxStackSize()
-         * - copyStack.stackSize; copyStack.stackSize = stack.getMaxStackSize();
-         * otherInventorySlot.onSlotChanged(); failedToMerge = true; } }
-         * 
-         * if (playerInventory) { --slotIndex; } else { ++slotIndex; } } }
-         */
-
         if (stack.stackSize > 0)
         {
             if (playerInventory)
@@ -218,14 +196,6 @@ public class ToolStationContainer extends ActiveContainer
                 }
             }
         }
-
-        /*
-         * boolean emptySlots = ( ((Slot) inventorySlots.get(2)).getStack() ==
-         * null && ((Slot) inventorySlots.get(3)).getStack() == null );
-         * TConstruct.logger.info("Empty slots"); if (!failedToMerge &&
-         * emptySlots) player.worldObj.playAuxSFX(1021, (int)player.posX,
-         * (int)player.posY, (int)player.posZ, 0);
-         */
 
         return failedToMerge;
     }

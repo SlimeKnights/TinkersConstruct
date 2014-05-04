@@ -18,6 +18,8 @@ import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
+import tconstruct.TConstruct;
+import tconstruct.client.TProxyClient;
 import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
 import tconstruct.library.tools.AbilityHelper;
@@ -28,13 +30,22 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
 import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TPlayerHandler
 {
     /* Player */
     // public int hunger;
 
-    public ConcurrentHashMap<UUID, TPlayerStats> playerStats = new ConcurrentHashMap<UUID, TPlayerStats>();
+    private ConcurrentHashMap<UUID, TPlayerStats> playerStats = new ConcurrentHashMap<UUID, TPlayerStats>();
+
+    @SideOnly(Side.CLIENT)
+    private TPlayerStats clientPlayerStats;
+
+    public ConcurrentHashMap<UUID, TPlayerStats> getServerStatList ()
+    {
+        return playerStats;
+    }
 
     @SubscribeEvent
     public void PlayerLoggedInEvent (PlayerLoggedInEvent event)
@@ -192,7 +203,7 @@ public class TPlayerHandler
         }
 
         stats.player = new WeakReference<EntityPlayer>(entityplayer);
-        stats.armor.recalculateHealth(entityplayer, stats);
+        stats.armor.recalculateAttributes(entityplayer, stats);
 
         /*
          * TFoodStats food = new TFoodStats(); entityplayer.foodStats = food;
@@ -218,6 +229,45 @@ public class TPlayerHandler
         if (evt.entityLiving instanceof EntityPlayer)
         {
             evt.distance -= 1;
+        }
+    }
+
+    /* Find the right player */
+    public TPlayerStats getPlayerStats (UUID uniqID)
+    {
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
+        {
+            if (clientPlayerStats == null || clientPlayerStats.player == null || clientPlayerStats.player.get() == null)
+            {
+                clientPlayerStats = new TPlayerStats();
+                EntityPlayer player = TConstruct.proxy.getPlayer(); //TODO: Hotfix?!
+                clientPlayerStats.player = new WeakReference<EntityPlayer>(player);
+
+                clientPlayerStats.armor = TProxyClient.armorExtended;
+                clientPlayerStats.armor.init(player);
+
+                clientPlayerStats.knapsack = TProxyClient.knapsack;
+                /* if (knapsackDimensions.contains(player.dimension))
+                 {
+                     clientPlayerStats.knapsack.init(player, "", player.dimension, false);
+                 }
+                 else
+                 {
+                     clientPlayerStats.knapsack.init(player);
+                 }*/
+            }
+            return clientPlayerStats;
+        }
+        else
+        {
+            TPlayerStats stats = null;
+            stats = playerStats.get(uniqID);
+            if (stats == null)
+            {
+                stats = new TPlayerStats();
+                playerStats.put(uniqID, stats);
+            }
+            return stats;
         }
     }
 

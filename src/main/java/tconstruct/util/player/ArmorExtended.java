@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import tconstruct.TConstruct;
-import tconstruct.library.armor.IHealthAccessory;
+import tconstruct.library.IHealthAccessory;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.relauncher.Side;
@@ -26,7 +26,8 @@ public class ArmorExtended implements IInventory
 {
     public ItemStack[] inventory = new ItemStack[7];
     public WeakReference<EntityPlayer> parent;
-    public UUID globalID = UUID.fromString("B243BE32-DC1B-4C53-8D13-8752D5C69D5B");
+    public UUID healthID = UUID.fromString("B243BE32-DC1B-4C53-8D13-8752D5C69D5B");
+    public UUID attackID = UUID.fromString("B243BE32-DC1B-4C53-8D13-8752D5C69D5C");
 
     public void init (EntityPlayer player)
     {
@@ -69,7 +70,7 @@ public class ArmorExtended implements IInventory
             }
             EntityPlayer player = parent.get();
             TPlayerStats stats = TPlayerStats.get(player);
-            recalculateHealth(player, stats);
+            recalculateAttributes(player, stats);
             return split;
         }
         else
@@ -97,7 +98,7 @@ public class ArmorExtended implements IInventory
 
         EntityPlayer player = parent.get();
         TPlayerStats stats = TPlayerStats.get(player);
-        recalculateHealth(player, stats);
+        recalculateAttributes(player, stats);
     }
 
     @Override
@@ -124,7 +125,7 @@ public class ArmorExtended implements IInventory
         EntityPlayer player = parent.get();
         TPlayerStats stats = TPlayerStats.get(player);
         // recalculateSkills(player, stats);
-        recalculateHealth(player, stats);
+        recalculateAttributes(player, stats);
 
         /*
          * if (inventory[2] == null && stats.knapsack != null) {
@@ -141,7 +142,7 @@ public class ArmorExtended implements IInventory
      * (stats.skillList.size() > 0) { stats.skillList.remove(0); } } }
      */
 
-    public void recalculateHealth (EntityPlayer player, TPlayerStats stats)
+    public void recalculateAttributes (EntityPlayer player, TPlayerStats stats)
     {
         Side side = FMLCommonHandler.instance().getEffectiveSide();
 
@@ -157,13 +158,7 @@ public class ArmorExtended implements IInventory
                 }
             }
             int prevHealth = stats.bonusHealth;
-            if (side == Side.CLIENT)
-                prevHealth = stats.bonusHealthClient;
-
-            if (side == Side.CLIENT)
-                stats.bonusHealthClient = bonusHP;
-            else
-                stats.bonusHealth = bonusHP;
+            stats.bonusHealth = bonusHP;
 
             int healthChange = bonusHP - prevHealth;
             if (healthChange != 0)
@@ -171,38 +166,68 @@ public class ArmorExtended implements IInventory
                 IAttributeInstance attributeinstance = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth);
                 try
                 {
-                    attributeinstance.removeModifier(attributeinstance.getModifier(globalID));
+                    attributeinstance.removeModifier(attributeinstance.getModifier(healthID));
                 }
                 catch (Exception e)
                 {
                 }
-                attributeinstance.applyModifier(new AttributeModifier(globalID, "tconstruct.heartCanister", bonusHP, 0));
+                attributeinstance.applyModifier(new AttributeModifier(healthID, "tconstruct.heartCanister", bonusHP, 0));
 
             }
         }
         else if (parent != null && parent.get() != null)
         {
             int prevHealth = stats.bonusHealth;
-            if (side == Side.CLIENT)
-                prevHealth = stats.bonusHealthClient;
             int bonusHP = 0;
-            if (side == Side.CLIENT)
-                stats.bonusHealthClient = bonusHP;
-            else
-                stats.bonusHealth = bonusHP;
+            stats.bonusHealth = bonusHP;
             int healthChange = bonusHP - prevHealth;
             if (healthChange != 0)
             {
                 IAttributeInstance attributeinstance = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth);
                 try
                 {
-                    attributeinstance.removeModifier(attributeinstance.getModifier(globalID));
+                    attributeinstance.removeModifier(attributeinstance.getModifier(healthID));
                 }
                 catch (Exception e)
                 {
                 }
             }
         }
+
+        if (inventory[1] != null)
+        {
+            IAttributeInstance attributeinstance = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.attackDamage);
+
+            try
+            {
+                attributeinstance.removeModifier(attributeinstance.getModifier(attackID));
+            }
+            catch (Exception e)
+            {
+            }
+
+            if (inventory[1].hasTagCompound())
+            {
+                NBTTagCompound tag = inventory[1].getTagCompound().getCompoundTag("TinkerAccessory");
+                stats.mineSpeed = tag.getInteger("MiningSpeed");
+                stats.climbWalls = tag.getBoolean("WallClimb");
+                attributeinstance.applyModifier(new AttributeModifier(attackID, "tconstruct.glove", tag.getInteger("Attack"), 0));
+            }
+        }
+        else
+        {
+            IAttributeInstance attributeinstance = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.attackDamage);
+            try
+            {
+                attributeinstance.removeModifier(attributeinstance.getModifier(attackID));
+            }
+            catch (Exception e)
+            {
+            }
+            stats.mineSpeed = 0;
+            stats.climbWalls = false;
+        }
+
     }
 
     @Override

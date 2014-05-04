@@ -24,6 +24,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import tconstruct.entity.FancyEntityItem;
 import tconstruct.library.ActiveToolMod;
+import tconstruct.library.IModifyable;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
 import cofh.api.energy.IEnergyContainerItem;
@@ -51,10 +52,10 @@ import cpw.mods.fml.relauncher.SideOnly;
  *      attack Spiny: Opposite of stonebound
  * 
  *      Modifiers have their own tags.
- * @see ToolMod
+ * @see ItemModifier
  */
 
-public abstract class ToolCore extends Item implements IEnergyContainerItem
+public abstract class ToolCore extends Item implements IModifyable, IEnergyContainerItem
 {
     // TE power constants -- TODO grab these from the items added
     protected int capacity = 400000;
@@ -78,6 +79,19 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem
         setNoRepair();
         canRepair = false;
     }
+    
+    @Override
+    public String getBaseTag()
+    {
+        return "InfiTool";
+    }
+    
+    @Override
+    public String getModifyType()
+    {
+        return "Tool";
+    }
+
 
     /**
      * Determines crafting behavior with regards to durability 0: None 1: Adds
@@ -600,7 +614,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem
     /* Tool uses */
 
     // Types
-    public abstract String[] toolCategories ();
+    public abstract String[] getTraits ();
 
     // Mining
     @Override

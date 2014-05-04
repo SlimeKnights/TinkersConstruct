@@ -13,12 +13,14 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.FoodStats;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import tconstruct.TConstruct;
@@ -34,7 +36,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TClientEvents
 {
     Minecraft mc = Minecraft.getMinecraft();
-
+    int scaledWidth;
+    int scaledHeight;
     /* Sounds */
 
     boolean initSounds;
@@ -91,6 +94,36 @@ public class TClientEvents
         }
     }
 
+    /* Equipables */
+
+    @SubscribeEvent
+    public void adjustArmor (RenderPlayerEvent.SetArmorModel event)
+    {
+        switch (event.slot)
+        {
+        case 1:
+            TProxyClient.wings.onGround = event.renderer.modelBipedMain.onGround;
+            TProxyClient.wings.isRiding = event.renderer.modelBipedMain.isRiding;
+            TProxyClient.wings.isChild = event.renderer.modelBipedMain.isChild;
+            TProxyClient.wings.isSneak = event.renderer.modelBipedMain.isSneak;
+            break;
+        case 2:
+            TProxyClient.glove.onGround = event.renderer.modelBipedMain.onGround;
+            TProxyClient.glove.isRiding = event.renderer.modelBipedMain.isRiding;
+            TProxyClient.glove.isChild = event.renderer.modelBipedMain.isChild;
+            TProxyClient.glove.isSneak = event.renderer.modelBipedMain.isSneak;
+            TProxyClient.glove.heldItemLeft = event.renderer.modelBipedMain.heldItemLeft;
+            TProxyClient.glove.heldItemRight = event.renderer.modelBipedMain.heldItemRight;
+            break;
+        case 3:
+            TProxyClient.bootbump.onGround = event.renderer.modelBipedMain.onGround;
+            TProxyClient.bootbump.isRiding = event.renderer.modelBipedMain.isRiding;
+            TProxyClient.bootbump.isChild = event.renderer.modelBipedMain.isChild;
+            TProxyClient.bootbump.isSneak = event.renderer.modelBipedMain.isSneak;
+            break;
+        }
+    }
+
     private static final ResourceLocation hearts = new ResourceLocation("tinker", "textures/gui/newhearts.png");
     private static final ResourceLocation icons = new ResourceLocation("textures/gui/icons.png");
     // public static int left_height = 39;
@@ -112,8 +145,8 @@ public class TClientEvents
                 updateCounter++;
 
                 ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
-                int scaledWidth = scaledresolution.getScaledWidth();
-                int scaledHeight = scaledresolution.getScaledHeight();
+                scaledWidth = scaledresolution.getScaledWidth();
+                scaledHeight = scaledresolution.getScaledHeight();
                 int xBasePos = scaledWidth / 2 - 91;
                 int yBasePos = scaledHeight - 39;
 
@@ -193,14 +226,13 @@ public class TClientEvents
                             drawTexturedModalRect(x, y, MARGIN + 45, TOP, 9, 9); // 5
                     }
                 }
-
+                int potionOffset = 0;
                 PotionEffect potion = mc.thePlayer.getActivePotionEffect(Potion.wither);
                 if (potion != null)
-                    return;
+                    potionOffset = 18;
                 potion = mc.thePlayer.getActivePotionEffect(Potion.poison);
                 if (potion != null)
-                    return;
-
+                    potionOffset = 9;
                 // Extra hearts
                 this.mc.getTextureManager().bindTexture(hearts);
 
@@ -212,11 +244,14 @@ public class TClientEvents
                         renderHearts = 10;
                     for (int i = 0; i < renderHearts; i++)
                     {
-                        this.drawTexturedModalRect(xBasePos + 8 * i, yBasePos, 0 + 18 * iter, 0, 8, 8);
+                        int y = 0;
+                        if (i == regen)
+                            y -= 2;
+                        this.drawTexturedModalRect(xBasePos + 8 * i, yBasePos + y, 0 + 18 * iter, potionOffset, 9, 9);
                     }
                     if (hp % 2 == 1 && renderHearts < 10)
                     {
-                        this.drawTexturedModalRect(xBasePos + 8 * renderHearts, yBasePos, 9 + 18 * iter, 0, 8, 8);
+                        this.drawTexturedModalRect(xBasePos + 8 * renderHearts, yBasePos, 9 + 18 * iter, potionOffset, 9, 9);
                     }
                 }
 
@@ -230,7 +265,9 @@ public class TClientEvents
                 {
                     event.setCanceled(true);
                 }
+
             }
+
         }
     }
 

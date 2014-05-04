@@ -13,16 +13,19 @@ public class AModDoubleJump extends AModInteger
 {
     public AModDoubleJump(ItemStack[] items)
     {
-        super(6, "Double-Jump", EnumSet.of(EnumArmorPart.SHOES), items, 5, 1, "\u00a7a", StatCollector.translateToLocal("modifier.armour.jump.double"));
+        super(6, "Double-Jump", EnumSet.of(EnumArmorPart.Feet), items, 5, 1, "\u00a7a", StatCollector.translateToLocal("modifier.armour.jump.double"));
     }
 
     @Override
     protected boolean canModify (ItemStack armor, ItemStack[] input)
     {
+        Item i = armor.getItem();
+        if (!(i instanceof ArmorCore))
+            return false;
         ArmorCore item = (ArmorCore) armor.getItem();
         if (armorTypes.contains(item.armorPart))
         {
-            NBTTagCompound tags = armor.getTagCompound().getCompoundTag(getTagName());
+            NBTTagCompound tags = armor.getTagCompound().getCompoundTag(getTagName(armor));
             return tags.getInteger("Modifiers") >= modifyCount && tags.getInteger("Double-Jump") < 3;
         }
         return false;
@@ -31,7 +34,7 @@ public class AModDoubleJump extends AModInteger
     @Override
     protected int addToolTip (ItemStack tool, String tooltip, String modifierTip)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName());
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName(tool));
         int tipNum = 0;
         while (true)
         {
