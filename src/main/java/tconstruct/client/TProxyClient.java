@@ -74,6 +74,8 @@ import tconstruct.blocks.logic.StencilTableLogic;
 import tconstruct.blocks.logic.TileEntityLandmine;
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
+import tconstruct.client.armor.BootBump;
+import tconstruct.client.armor.WingModel;
 import tconstruct.client.block.BarricadeRender;
 import tconstruct.client.block.BlockRenderCastingChannel;
 import tconstruct.client.block.CastingBasinSpecialRender;
@@ -165,7 +167,8 @@ public class TProxyClient extends TProxyCommon
 
     public static WingModel wings = new WingModel();
     public static BootBump bootbump = new BootBump();
-    public static GloveModel glove = new GloveModel();
+    public static HiddenPlayerModel glove = new HiddenPlayerModel(0.25F, 4);
+    public static HiddenPlayerModel vest = new HiddenPlayerModel(0.25f, 1);
 
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)

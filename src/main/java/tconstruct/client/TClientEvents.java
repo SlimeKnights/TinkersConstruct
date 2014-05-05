@@ -1,23 +1,33 @@
 package tconstruct.client;
 
+import static net.minecraftforge.client.IItemRenderer.ItemRenderType.FIRST_PERSON_MAP;
+
 import java.util.Random;
+
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.item.ItemMap;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.storage.MapData;
 import net.minecraftforge.client.GuiIngameForge;
+import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.client.event.RenderPlayerEvent;
@@ -261,14 +271,101 @@ public class TClientEvents
                     GuiIngameForge.left_height += 10;
 
                 event.setCanceled(true);
-                if (event.type == ElementType.CROSSHAIRS && gs.thirdPersonView != 0)
+            }
+        }
+    }
+
+    private static final ResourceLocation RES_MAP_BACKGROUND = new ResourceLocation("textures/map/map_background.png");
+
+    @SubscribeEvent
+    public void renderMinimap (RenderGameOverlayEvent.Post event)
+    {
+        if (event.type == ElementType.ALL)
+        {
+            ItemStack stack = mc.thePlayer.inventory.getStackInSlot(8);
+            if (stack != null && stack.getItem() instanceof ItemMap)
+            {
+                //stack.getItem().onUpdate(stack, mc.thePlayer.worldObj, mc.thePlayer, 8, true);
+                float scale = 2 / 3F;
+                float position = 8f;
+                GL11.glTranslatef(position, position, 0f);
+                GL11.glScalef(scale, scale, scale);
+                this.mc.getTextureManager().bindTexture(RES_MAP_BACKGROUND);
+                Tessellator tessellator = Tessellator.instance;
+                tessellator.startDrawingQuads();
+                byte b0 = 7;
+                tessellator.addVertexWithUV((double) (0 - b0), (double) (128 + b0), 0.0D, 0.0D, 1.0D);
+                tessellator.addVertexWithUV((double) (128 + b0), (double) (128 + b0), 0.0D, 1.0D, 1.0D);
+                tessellator.addVertexWithUV((double) (128 + b0), (double) (0 - b0), 0.0D, 1.0D, 0.0D);
+                tessellator.addVertexWithUV((double) (0 - b0), (double) (0 - b0), 0.0D, 0.0D, 0.0D);
+                tessellator.draw();
+
+                GL11.glTranslatef(0f, 0F, 100f);
+                IItemRenderer custom = MinecraftForgeClient.getItemRenderer(stack, FIRST_PERSON_MAP);
+                MapData mapdata = ((ItemMap) stack.getItem()).getMapData(stack, this.mc.theWorld);
+
+                if (custom == null)
                 {
-                    event.setCanceled(true);
+                    if (mapdata != null)
+                    {
+                        RenderManager.instance.itemRenderer.mapItemRenderer.renderMap(this.mc.thePlayer, this.mc.getTextureManager(), mapdata);
+                    }
                 }
+                else
+                {
+                    custom.renderItem(FIRST_PERSON_MAP, stack, mc.thePlayer, mc.getTextureManager(), mapdata);
+                }
+                GL11.glTranslatef(0f, 0F, 100f);
+                renderMap(mc.thePlayer, mc.renderEngine, mapdata);
+                scale = 3.0F / 2.0F;
+                GL11.glScalef(scale, scale, scale);
+                GL11.glTranslatef(-position, -position, 0f);
+                /*
+                // Map itself
+
+                MapData mapdata = ((ItemMap) stack.getItem()).getMapData(stack, this.mc.theWorld);
+                if (mapdata != null)
+                {
+                    RenderManager.instance.itemRenderer.renderMap(this.mc.thePlayer, this.mc.getTextureManager(), mapdata);
+                }*/
 
             }
 
         }
+    }
+
+    public void renderMap (EntityPlayer par1EntityPlayer, TextureManager par2TextureManager, MapData par3MapData)
+    {
+        Tessellator tessellator = Tessellator.instance;
+
+        int k1 = 0;
+        int b1 = 0;
+        int b2 = 0;
+        for (Iterator iterator = par3MapData.playersVisibleOnMap.values().iterator(); iterator.hasNext(); ++k1)
+        {
+            MapCoord mapcoord = (MapCoord) iterator.next();
+            GL11.glPushMatrix();
+            GL11.glTranslatef((float) b1 + (float) mapcoord.centerX / 2.0F + 64.0F, (float) b2 + (float) mapcoord.centerZ / 2.0F + 64.0F, -0.02F);
+            GL11.glRotatef((float) (mapcoord.iconRotation * 360) / 16.0F, 0.0F, 0.0F, 1.0F);
+            GL11.glScalef(4.0F, 4.0F, 3.0F);
+            GL11.glTranslatef(-0.125F, 0.125F, 0.0F);
+            float f1 = (float) (mapcoord.iconSize % 4 + 0) / 4.0F;
+            float f2 = (float) (mapcoord.iconSize / 4 + 0) / 4.0F;
+            float f3 = (float) (mapcoord.iconSize % 4 + 1) / 4.0F;
+            float f4 = (float) (mapcoord.iconSize / 4 + 1) / 4.0F;
+            tessellator.startDrawingQuads();
+            tessellator.addVertexWithUV(-1.0D, 1.0D, (double) ((float) k1 * 0.001F), (double) f1, (double) f2);
+            tessellator.addVertexWithUV(1.0D, 1.0D, (double) ((float) k1 * 0.001F), (double) f3, (double) f2);
+            tessellator.addVertexWithUV(1.0D, -1.0D, (double) ((float) k1 * 0.001F), (double) f3, (double) f4);
+            tessellator.addVertexWithUV(-1.0D, -1.0D, (double) ((float) k1 * 0.001F), (double) f1, (double) f4);
+            tessellator.draw();
+            GL11.glPopMatrix();
+        }
+
+        GL11.glPushMatrix();
+        GL11.glTranslatef(0.0F, 0.0F, -0.04F);
+        GL11.glScalef(1.0F, 1.0F, 1.0F);
+        GL11.glPopMatrix();
     }
 
     public void drawTexturedModalRect (int par1, int par2, int par3, int par4, int par5, int par6)
