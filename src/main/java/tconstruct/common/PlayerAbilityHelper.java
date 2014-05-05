@@ -12,7 +12,7 @@ public class PlayerAbilityHelper
 
     public static void toggleGoggles (EntityPlayer player)
     {
-        TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+        TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getUniqueID());
         stats.activeGoggles = !stats.activeGoggles;
         if (!stats.activeGoggles)
         {

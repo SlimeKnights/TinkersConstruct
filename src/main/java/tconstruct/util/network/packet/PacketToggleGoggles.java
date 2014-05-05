@@ -3,6 +3,7 @@ package tconstruct.util.network.packet;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.entity.player.EntityPlayer;
+import tconstruct.common.PlayerAbilityHelper;
 
 public class PacketToggleGoggles extends AbstractPacket
 {
