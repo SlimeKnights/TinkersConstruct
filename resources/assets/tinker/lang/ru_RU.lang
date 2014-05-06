@@ -259,6 +259,11 @@ item.tconstruct.Materials.CobaltDust.name=Кобальтовая пыль
 item.tconstruct.Materials.AluminumDust.name=Алюминиевая пыль
 item.tconstruct.Materials.ManyullynDust.name=Мануллиновая пыль
 item.tconstruct.Materials.AluBrassDust.name=Пыль алюминиевой латуни
+<<<<<<< HEAD
+=======
+
+item.tconstruct.leather.name=Кусок кожи
+>>>>>>> 5915057981fd9b042dbb5e895a98f8a26e3c0a5b
 
 item.tconstruct.ArmorPattern.helmet.name=Слепок шлема
 item.tconstruct.ArmorPattern.chestplate.name=Слепок кирасы
@@ -274,6 +279,13 @@ item.tconstruct.exoGoggles.name=Экзо-очки
 item.tconstruct.exoChest.name=Экзо-кираса
 item.tconstruct.exoPants.name=Экзо-поножи
 item.tconstruct.exoShoes.name=Экзо-обувь
+
+item.tconstruct.travelgoggles.name=Очки путешественника
+item.tconstruct.travelvest.name=Жилет путешественника
+item.tconstruct.travelwings.name=Крылья путешественника
+item.tconstruct.travelboots.name=Ботинки путешественника
+item.tconstruct.travelgloves.name=Перчатки путешественника
+item.tconstruct.travelbelt.name=Пояс путешественника
 
 item.tconstruct.jerky.beef.name=Вяленая говядина
 item.tconstruct.jerky.pig.name=Вяленый бекон
@@ -321,6 +333,10 @@ StorageMetals.AlBrass.name=Блок алюминиевой латуни
 StorageMetals.Alumite.name=Алюмитовый блок
 StorageMetals.Steel.name=Стальной блок
 StorageMetals.Ender.name=Блок спрессованного глаза Края
+<<<<<<< HEAD
+=======
+tile.enderwarp.name=Искривление Края
+>>>>>>> 5915057981fd9b042dbb5e895a98f8a26e3c0a5b
 
 tile.decoration.stonetorch.name=Факел
 tile.decoration.stoneladder.name=Лестница
@@ -517,7 +533,7 @@ entity.TConstruct.KingSlime.name=Король слизней
 entity.TConstruct.Gardeslime.name=Слизень-охраник
 entity.TConstruct.MiniGardy.name=Малый слизень-охраник
 
-key.tarmor=Gui брони
+key.tarmor=Интерфейс брони
 key.tcapes.reload=Перезагрузить плащи
 
 death.one.smeltery=%1$s превратился в зелёный сойлент
@@ -696,6 +712,8 @@ smeltery.drain.tooltip1=Работает в качестве входа и вы�
 smeltery.drain.tooltip2=жидкостей в плавильне
 smeltery.brick.tooltip1=Структурный блок плавильни
 smeltery.brick.tooltip2=(Безопасен для декораций)
+enderwarp.tooltip1=Выбери свой путь прикасаясь к блокам
+enderwarp.tooltip2=Запитайте красным камнем для искривления
 
 gui.smeltery1=Топливо
 gui.landmine=Мина
@@ -745,6 +763,7 @@ tconstruct.waila.liquidtag=Жидкость:
 tconstruct.waila.amounttag=Количество: 
 tconstruct.waila.invalidstructure=Неверная cтруктура
 
+<<<<<<< HEAD
 fluid.water=Вода
 fluid.lava=Лава
 iron.molten=Расплавленное железо
@@ -775,4 +794,6 @@ slime.blue=Сжиженная слизь
 glue=Клей
 pigiron.molten=Расплавленное свинное железо
 
+=======
+>>>>>>> 5915057981fd9b042dbb5e895a98f8a26e3c0a5b
 attribute.name.ammo.attackDamage=Средний урон от выстрела

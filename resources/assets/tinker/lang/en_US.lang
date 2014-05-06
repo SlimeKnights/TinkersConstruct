@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 itemGroup.TConstructTools=TConstruct Tools
 itemGroup.TConstructMaterials=TConstruct Materials
 itemGroup.TConstructBlocks=TConstruct Blocks
@@ -1536,4 +1535,3 @@ glue=Glue
 pigiron.molten=Molten Pig Iron
 
 attribute.name.ammo.attackDamage=Average Shot Damage
->>>>>>> 1.6.4
