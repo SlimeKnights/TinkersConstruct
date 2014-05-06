@@ -87,8 +87,8 @@ public class TravelGear extends ArmorCore
                 }
                 else
                 {
-                    tags.setInteger("Damage", currentDurability + damage*50);
-                    armor.setItemDamage(currentDurability + damage*50);
+                    tags.setInteger("Damage", currentDurability + damage);
+                    armor.setItemDamage(currentDurability + damage);
                 }
             }
         }
@@ -97,9 +97,19 @@ public class TravelGear extends ArmorCore
     @Override
     public int getArmorDisplay (EntityPlayer player, ItemStack armor, int slot)
     {
-        /*if (slot == 2)
-            return 20;
-        return 0;*/
+        if (slot != 1)
+        {
+            ItemStack stack = player.getCurrentArmor(1);
+            if (stack != null && stack.getItem() instanceof TravelGear)
+                return 0;
+            return disconnectedArmorDisplay(player, armor, slot);
+        }
+
+        return combinedArmorDisplay(player, armor);
+    }
+
+    int disconnectedArmorDisplay (EntityPlayer player, ItemStack armor, int slot)
+    {
         if (!armor.hasTagCompound())
             return 0;
 
@@ -113,6 +123,42 @@ public class TravelGear extends ArmorCore
         if (slot == 2 && amount < 1)
             amount = 1;
         return (int) amount;
+    }
+
+    int combinedArmorDisplay (EntityPlayer player, ItemStack legs)
+    {
+        ItemStack[] armors = new ItemStack[] { player.getCurrentArmor(3), player.getCurrentArmor(2), legs, player.getCurrentArmor(0) };
+        int types = 0;
+        int max = 0;
+        int damage = 0;
+        boolean anyAlive = false;
+        for (int i = 0; i < 4; i++)
+        {
+            ItemStack stack = armors[i];
+            if (stack != null && stack.hasTagCompound())
+            {
+                NBTTagCompound armorTag = stack.getTagCompound().getCompoundTag(getBaseTagName());
+                if (stack.getItem() instanceof TravelGear)
+                {
+                    types++;
+                    max += armorTag.getInteger("TotalDurability");
+                    if (armorTag.getBoolean("Broken"))
+                    {
+                        damage += armorTag.getInteger("TotalDurability");
+                    }
+                    else
+                    {
+                        damage += armorTag.getInteger("Damage");
+                        anyAlive = true;
+                    }
+                }
+            }
+        }
+        float ratio = ((float) max - (float) damage) / (float) max * (types * 5) + 0.1f;
+        int minimum = anyAlive ? 1 : 0;
+        if (ratio < minimum)
+            ratio = minimum;
+        return (int) ratio;
     }
 
     @Override
@@ -168,9 +214,9 @@ public class TravelGear extends ArmorCore
             }
         }
     }
-    
+
     //Temporary?
-    public ItemStack getRepairMaterial(ItemStack input)
+    public ItemStack getRepairMaterial (ItemStack input)
     {
         return new ItemStack(TContent.chocolateLeather);
     }
@@ -319,6 +365,7 @@ public class TravelGear extends ArmorCore
     }
 
     DecimalFormat df = new DecimalFormat("##.#");
+
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
