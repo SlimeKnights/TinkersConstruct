@@ -1801,19 +1801,23 @@ public class TContent implements IFuelHandler
         tableCasting.addCastingRecipe(fullguardCast, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(fullGuard, 1, Short.MAX_VALUE), false, 50);
 
         // Golden Food Stuff
-        FluidStack goldAmount = null;
-        if (PHConstruct.goldAppleRecipe)
-        {
-            goldAmount = new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 8);
-        }
-        else
-        {
-            goldAmount = new FluidStack(moltenGoldFluid, TConstruct.nuggetLiquidValue * 8);
-        }
+        FluidStack goldAmount = new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 8);
         tableCasting.addCastingRecipe(new ItemStack(Item.appleGold, 1), goldAmount, new ItemStack(Item.appleRed), true, 50);
         tableCasting.addCastingRecipe(new ItemStack(Item.goldenCarrot, 1), goldAmount, new ItemStack(Item.carrot), true, 50);
         tableCasting.addCastingRecipe(new ItemStack(Item.speckledMelon, 1), goldAmount, new ItemStack(Item.melon), true, 50);
         tableCasting.addCastingRecipe(new ItemStack(goldHead), goldAmount, new ItemStack(Item.skull, 1, 3), true, 50);
+        
+        //Ensure TConstruct ingots pour from the Smeltery
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 9), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue), 50); //Copper
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 10), new FluidStack(moltenTinFluid, TConstruct.ingotLiquidValue), 50); //Tin
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 11), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue), 50); //Aluminum
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 3), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue), 50); //Cobalt
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 4), new FluidStack(moltenArditeFluid, TConstruct.ingotLiquidValue), 50); //Ardite
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 5), new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue), 50); //Manyullyn
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 13), new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue), 50); //Bronze
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 14), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue), 50); //Alubrass
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 15), new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue), 50); //Alumite
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 16), new FluidStack(moltenSteelFluid, TConstruct.ingotLiquidValue), 50); //Steel
     }
 
     private void addRecipesForBasinCasting ()

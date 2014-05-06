@@ -2,15 +2,6 @@ package tconstruct.blocks;
 
 import java.util.List;
 
-import tconstruct.TConstruct;
-import tconstruct.blocks.logic.CastingBasinLogic;
-import tconstruct.blocks.logic.CastingTableLogic;
-import tconstruct.blocks.logic.FaucetLogic;
-import tconstruct.client.block.SearedRender;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.blocks.InventoryBlock;
-import tconstruct.library.tools.AbilityHelper;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,6 +11,15 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import tconstruct.TConstruct;
+import tconstruct.blocks.logic.CastingBasinLogic;
+import tconstruct.blocks.logic.CastingTableLogic;
+import tconstruct.blocks.logic.FaucetLogic;
+import tconstruct.client.block.SearedRender;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.blocks.InventoryBlock;
+import tconstruct.library.tools.AbilityHelper;
+import tconstruct.library.util.IFacingLogic;
 
 public class SearedBlock extends InventoryBlock
 {
@@ -259,30 +259,34 @@ public class SearedBlock extends InventoryBlock
         }
         else
         {
-            FaucetLogic logic = (FaucetLogic) world.getBlockTileEntity(x, y, z);
+            TileEntity te = (TileEntity) world.getBlockTileEntity(x, y, z);
             float xMin = 0.25F;
             float xMax = 0.75F;
             float zMin = 0.25F;
             float zMax = 0.75F;
 
-            switch (logic.getRenderDirection())
+            if (te instanceof IFacingLogic)
             {
-            case 2:
-                zMin = 0.625F;
-                zMax = 1.0F;
-                break;
-            case 3:
-                zMax = 0.375F;
-                zMin = 0F;
-                break;
-            case 4:
-                xMin = 0.625F;
-                xMax = 1.0F;
-                break;
-            case 5:
-                xMax = 0.375F;
-                xMin = 0F;
-                break;
+                IFacingLogic logic = (IFacingLogic) te;
+                switch (logic.getRenderDirection())
+                {
+                case 2:
+                    zMin = 0.625F;
+                    zMax = 1.0F;
+                    break;
+                case 3:
+                    zMax = 0.375F;
+                    zMin = 0F;
+                    break;
+                case 4:
+                    xMin = 0.625F;
+                    xMax = 1.0F;
+                    break;
+                case 5:
+                    xMax = 0.375F;
+                    xMin = 0F;
+                    break;
+                }
             }
 
             this.setBlockBounds(xMin, 0.25F, zMin, xMax, 0.625F, zMax);
@@ -299,7 +303,7 @@ public class SearedBlock extends InventoryBlock
         }
         else
         {
-        	TileEntity tile = world.getBlockTileEntity(x, y, z);
+            TileEntity tile = world.getBlockTileEntity(x, y, z);
             if (tile != null && tile instanceof FaucetLogic)
             {
                 FaucetLogic logic = (FaucetLogic) tile;
