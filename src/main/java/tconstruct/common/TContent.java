@@ -60,7 +60,6 @@ public class TContent implements IFuelHandler
     //Patterns and other materials
     public static Item blankPattern;
     public static Item materials;
-    public static Item chocolateLeather;
     public static Item toolRod;
     public static Item toolShard;
     public static Item woodPattern;
@@ -869,14 +868,12 @@ public class TContent implements IFuelHandler
         GameRegistry.registerItem(blankPattern, "blankPattern");
 
         materials = new MaterialItem(PHConstruct.materials).setUnlocalizedName("tconstruct.Materials");
-        chocolateLeather = new Leather(PHConstruct.leather).setUnlocalizedName("tconstruct.leather").setTextureName("tconstruct:materials/leather_chocolate").setCreativeTab(TConstructRegistry.materialTab);
         toolRod = new ToolPart(PHConstruct.toolRod, "_rod", "ToolRod").setUnlocalizedName("tconstruct.ToolRod");
         toolShard = new ToolShard(PHConstruct.toolShard, "_chunk").setUnlocalizedName("tconstruct.ToolShard");
         woodPattern = new Pattern(PHConstruct.woodPattern, "pattern_", "materials/").setUnlocalizedName("tconstruct.Pattern");
         metalPattern = new MetalPattern(PHConstruct.metalPattern, "cast_", "materials/").setUnlocalizedName("tconstruct.MetalPattern");
         //armorPattern = new ArmorPattern(PHConstruct.armorPattern, "armorcast_", "materials/").setUnlocalizedName("tconstruct.ArmorPattern");
         GameRegistry.registerItem(materials, "materials");
-        GameRegistry.registerItem(chocolateLeather, "leather");
         GameRegistry.registerItem(woodPattern, "woodPattern");
         GameRegistry.registerItem(metalPattern, "metalPattern");
         //GameRegistry.registerItem(armorPattern, "armorPattern");
@@ -1318,8 +1315,7 @@ public class TContent implements IFuelHandler
         }
 
         //Temporary recipes
-        GameRegistry.addShapelessRecipe(new ItemStack(this.chocolateLeather, 1, 0), new ItemStack(Item.leather), new ItemStack(Item.dyePowder, 1, 3), new ItemStack(Item.dyePowder, 1, 3));
-        ItemStack leather = new ItemStack(this.chocolateLeather);
+        ItemStack leather = new ItemStack(Item.leather);
         ItemStack glass = new ItemStack(Block.glass);
         ItemStack string = new ItemStack(Item.silk);
         GameRegistry.addShapedRecipe(travelGoggles.getDefaultItem(), "#p#", "q#q", "g g", '#', leather, 'q', glass, 'p', new ItemStack(Item.potion, 1, 8230), 'g', new ItemStack(Item.ingotGold));

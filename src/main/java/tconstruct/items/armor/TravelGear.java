@@ -10,6 +10,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -20,7 +21,6 @@ import net.minecraft.world.World;
 import tconstruct.TConstruct;
 import tconstruct.client.TControls;
 import tconstruct.client.TProxyClient;
-import tconstruct.common.TContent;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.EnumArmorPart;
@@ -218,7 +218,7 @@ public class TravelGear extends ArmorCore
     //Temporary?
     public ItemStack getRepairMaterial (ItemStack input)
     {
-        return new ItemStack(TContent.chocolateLeather);
+        return new ItemStack(Item.leather);
     }
 
     @SideOnly(Side.CLIENT)
