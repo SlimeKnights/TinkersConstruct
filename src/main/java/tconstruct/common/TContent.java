@@ -60,7 +60,7 @@ public class TContent implements IFuelHandler
     //Patterns and other materials
     public static Item blankPattern;
     public static Item materials;
-    public static Item leather;
+    public static Item chocolateLeather;
     public static Item toolRod;
     public static Item toolShard;
     public static Item woodPattern;
@@ -869,14 +869,14 @@ public class TContent implements IFuelHandler
         GameRegistry.registerItem(blankPattern, "blankPattern");
 
         materials = new MaterialItem(PHConstruct.materials).setUnlocalizedName("tconstruct.Materials");
-        leather = new Leather(PHConstruct.leather).setUnlocalizedName("tconstruct.leather").setTextureName("tconstruct:materials/leather_chocolate").setCreativeTab(TConstructRegistry.materialTab);
+        chocolateLeather = new Leather(PHConstruct.leather).setUnlocalizedName("tconstruct.leather").setTextureName("tconstruct:materials/leather_chocolate").setCreativeTab(TConstructRegistry.materialTab);
         toolRod = new ToolPart(PHConstruct.toolRod, "_rod", "ToolRod").setUnlocalizedName("tconstruct.ToolRod");
         toolShard = new ToolShard(PHConstruct.toolShard, "_chunk").setUnlocalizedName("tconstruct.ToolShard");
         woodPattern = new Pattern(PHConstruct.woodPattern, "pattern_", "materials/").setUnlocalizedName("tconstruct.Pattern");
         metalPattern = new MetalPattern(PHConstruct.metalPattern, "cast_", "materials/").setUnlocalizedName("tconstruct.MetalPattern");
         //armorPattern = new ArmorPattern(PHConstruct.armorPattern, "armorcast_", "materials/").setUnlocalizedName("tconstruct.ArmorPattern");
         GameRegistry.registerItem(materials, "materials");
-        GameRegistry.registerItem(leather, "leather");
+        GameRegistry.registerItem(chocolateLeather, "leather");
         GameRegistry.registerItem(woodPattern, "woodPattern");
         GameRegistry.registerItem(metalPattern, "metalPattern");
         //GameRegistry.registerItem(armorPattern, "armorPattern");
@@ -1318,12 +1318,12 @@ public class TContent implements IFuelHandler
         }
 
         //Temporary recipes
-        GameRegistry.addShapelessRecipe(new ItemStack(this.leather, 1, 0), new ItemStack(Item.leather), new ItemStack(Item.dyePowder, 1, 3), new ItemStack(Item.dyePowder, 1, 3));
-        ItemStack leather = new ItemStack(this.leather);
+        GameRegistry.addShapelessRecipe(new ItemStack(this.chocolateLeather, 1, 0), new ItemStack(Item.leather), new ItemStack(Item.dyePowder, 1, 3), new ItemStack(Item.dyePowder, 1, 3));
+        ItemStack leather = new ItemStack(this.chocolateLeather);
         ItemStack glass = new ItemStack(Block.glass);
         ItemStack string = new ItemStack(Item.silk);
         GameRegistry.addShapedRecipe(travelGoggles.getDefaultItem(), "#p#", "q#q", "g g", '#', leather, 'q', glass, 'p', new ItemStack(Item.potion, 1, 8230), 'g', new ItemStack(Item.ingotGold));
-        GameRegistry.addRecipe(new ShapedOreRecipe(travelWings.getDefaultItem(), "g g", "i#i", "i i", '#', Item.plateLeather, 'g', Item.ingotGold, 'i', "ingotBronze"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(travelWings.getDefaultItem(), "g g", "i#i", "i i", '#', Item.enderPearl, 'g', Item.ingotGold, 'i', "ingotBronze"));
         GameRegistry.addRecipe(new ShapedOreRecipe(travelVest.getDefaultItem(), "#w#", "#i#", "#w#", '#', leather, 'i', "ingotAluminum", 'w', new ItemStack(Block.cloth, 1, Short.MAX_VALUE)));
         GameRegistry.addRecipe(new ShapedOreRecipe(travelBoots.getDefaultItem(), "#s#", "#i#", "#s#", '#', leather, 's', string, 'i', "ingotAluminum"));
         GameRegistry.addShapedRecipe(travelGlove.getDefaultItem(), "  #", "###", " ##", '#', leather);
@@ -1652,7 +1652,7 @@ public class TContent implements IFuelHandler
 
         //Tool modifiers
         ItemStack diamond = new ItemStack(Item.diamond);
-        ModifyBuilder.registerModifier(new ModRepair());
+        ModifyBuilder.registerModifier(new ModToolRepair());
         ModifyBuilder.registerModifier(new ModDurability(new ItemStack[] { diamond }, 0, 500, 0f, 3, "Diamond", "\u00a7bDurability +500", "\u00a7b"));
         ModifyBuilder.registerModifier(new ModDurability(new ItemStack[] { new ItemStack(Item.emerald) }, 1, 0, 0.5f, 2, "Emerald", "\u00a72Durability +50%", "\u00a72"));
 
@@ -1720,6 +1720,7 @@ public class TContent implements IFuelHandler
             new ItemStack(Block.pistonBase) }));
         ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(EnumArmorPart.Legs, EnumArmorPart.Feet), new ItemStack[] { new ItemStack(Item.ghastTear), new ItemStack(slimeGel, 1, 1),
             new ItemStack(Block.pistonBase) }));
+        ModifyBuilder.registerModifier(new TravelModRepair());
 
         //Accessory modifiers
         ModifyBuilder.registerModifier(new GloveSpeed(1, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));

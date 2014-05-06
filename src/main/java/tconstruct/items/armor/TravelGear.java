@@ -3,7 +3,6 @@ package tconstruct.items.armor;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.client.settings.GameSettings;
@@ -18,10 +17,10 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 import tconstruct.TConstruct;
 import tconstruct.client.TControls;
 import tconstruct.client.TProxyClient;
+import tconstruct.common.TContent;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.EnumArmorPart;
@@ -84,11 +83,12 @@ public class TravelGear extends ArmorCore
                     tags.setInteger("Damage", 0);
                     tags.setBoolean("Broken", true);
                     armor.setItemDamage(0);
+                    entity.worldObj.playSound(entity.posX, entity.posY, entity.posZ, "random.break", 1f, 1f, true);
                 }
                 else
                 {
-                    tags.setInteger("Damage", currentDurability + damage);
-                    armor.setItemDamage(currentDurability + damage);
+                    tags.setInteger("Damage", currentDurability + damage*50);
+                    armor.setItemDamage(currentDurability + damage*50);
                 }
             }
         }
@@ -167,6 +167,12 @@ public class TravelGear extends ArmorCore
                 //player.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 1, 0, true));
             }
         }
+    }
+    
+    //Temporary?
+    public ItemStack getRepairMaterial(ItemStack input)
+    {
+        return new ItemStack(TContent.chocolateLeather);
     }
 
     @SideOnly(Side.CLIENT)

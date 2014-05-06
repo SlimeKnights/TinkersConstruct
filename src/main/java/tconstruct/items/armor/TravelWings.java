@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
+import tconstruct.common.TContent;
 import tconstruct.library.armor.EnumArmorPart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -48,5 +49,11 @@ public class TravelWings extends TravelGear
     public String getArmorTexture (ItemStack stack, Entity entity, int slot, int layer)
     {
         return "tinker:textures/armor/travel_wings.png";
+    }
+    
+    @Override
+    public ItemStack getRepairMaterial(ItemStack input)
+    {
+        return new ItemStack(TContent.materials, 1, 13);
     }
 }

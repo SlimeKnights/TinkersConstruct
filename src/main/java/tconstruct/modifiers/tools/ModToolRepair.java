@@ -5,12 +5,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.tools.*;
 
-/* Little mod for actually adding the lapis modifier */
-
-public class ModRepair extends ItemModifier
+public class ModToolRepair extends ItemModifier
 {
 
-    public ModRepair()
+    public ModToolRepair()
     {
         super(new ItemStack[0], 0, "");
     }
