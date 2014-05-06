@@ -2,13 +2,13 @@ package tconstruct.client;
 
 import java.util.EnumSet;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import tconstruct.TConstruct;
 import tconstruct.common.TContent;
+import tconstruct.items.armor.TravelGear;
 import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
@@ -17,6 +17,7 @@ public class TClientTickHandler implements ITickHandler
 {
     Minecraft mc = Minecraft.getMinecraft();
     TControls controlInstance = ((TProxyClient) TConstruct.proxy).controlInstance;
+    ItemStack prevFeet;
 
     @Override
     public void tickEnd (EnumSet<TickType> type, Object... tickData)
@@ -38,8 +39,15 @@ public class TClientTickHandler implements ITickHandler
                 player.motionY = 0.1176D;
                 player.fallDistance = 0.0f;
             }
-
-            //GL11.glFogf(GL11.GL_FOG_DENSITY, 0.01F);
+            ItemStack feet = player.getCurrentArmor(0);
+            if (feet != prevFeet)
+            {
+                if (prevFeet != null && prevFeet.getItem() instanceof TravelGear)
+                    player.stepHeight -= 0.6f;
+                if (feet != null && feet.getItem() instanceof TravelGear)
+                    player.stepHeight += 0.6f;
+                prevFeet = feet;
+            }
         }
     }
 
@@ -51,7 +59,7 @@ public class TClientTickHandler implements ITickHandler
     @Override
     public EnumSet<TickType> ticks ()
     {
-        return EnumSet.of(TickType.RENDER);
+        return EnumSet.of(TickType.PLAYER);
     }
 
     @Override

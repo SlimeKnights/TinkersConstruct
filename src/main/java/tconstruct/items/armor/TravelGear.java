@@ -1,5 +1,6 @@
 package tconstruct.items.armor;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -17,6 +18,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 import tconstruct.TConstruct;
 import tconstruct.client.TControls;
 import tconstruct.client.TProxyClient;
@@ -37,12 +39,134 @@ public class TravelGear extends ArmorCore
         super(id, 0, part);
         this.textureName = texture;
         this.setCreativeTab(TConstructRegistry.materialTab);
+        this.setMaxDamage(1035);
     }
 
     @Override
     public String getModifyType ()
     {
         return "Clothing";
+    }
+
+    @Override
+    public ArmorProperties getProperties (EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot)
+    {
+        //Priority, absorbRatio, max
+        if (!armor.hasTagCompound() || source.isUnblockable())
+            return new ArmorProperties(0, 0, 0);
+
+        NBTTagCompound tags = armor.getTagCompound().getCompoundTag(getBaseTagName());
+        if (tags.getBoolean("Broken"))
+            return new ArmorProperties(0, 0, 0);
+
+        float maxDurability = tags.getInteger("TotalDurability");
+        float currentDurability = maxDurability - tags.getInteger("Damage");
+        float ratio = currentDurability / maxDurability;
+        double base = tags.getDouble("BaseDefense");
+        double max = tags.getDouble("MaxDefense");
+        double current = (max - base) * ratio + base;
+
+        return new ArmorProperties(0, current / 100, 100);
+    }
+
+    @Override
+    public void damageArmor (EntityLivingBase entity, ItemStack armor, DamageSource source, int damage, int slot)
+    {
+        if (armor.hasTagCompound())
+        {
+            NBTTagCompound tags = armor.getTagCompound().getCompoundTag(getBaseTagName());
+            if (!tags.getBoolean("Broken"))
+            {
+                int maxDurability = tags.getInteger("TotalDurability");
+                int currentDurability = tags.getInteger("Damage");
+                if (currentDurability + damage > maxDurability)
+                {
+                    tags.setInteger("Damage", 0);
+                    tags.setBoolean("Broken", true);
+                    armor.setItemDamage(0);
+                }
+                else
+                {
+                    tags.setInteger("Damage", currentDurability + damage);
+                    armor.setItemDamage(currentDurability + damage);
+                }
+            }
+        }
+    }
+
+    @Override
+    public int getArmorDisplay (EntityPlayer player, ItemStack armor, int slot)
+    {
+        /*if (slot == 2)
+            return 20;
+        return 0;*/
+        if (!armor.hasTagCompound())
+            return 0;
+
+        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(getBaseTagName());
+        if (armorTag.getBoolean("Broken"))
+            return 0;
+
+        float max = armorTag.getInteger("TotalDurability");
+        float current = max - armorTag.getInteger("Damage");
+        float amount = current / max * 5 + 0.09F;
+        if (slot == 2 && amount < 1)
+            amount = 1;
+        return (int) amount;
+    }
+
+    @Override
+    public void onArmorTickUpdate (World world, EntityPlayer player, ItemStack itemStack)
+    {
+        if (armorPart == EnumArmorPart.Chest)
+        {
+            if (player.isInWater())
+            {
+                player.motionX *= 1.2D;
+                if (player.motionY > 0.0D)
+                {
+                    player.motionY *= 1.2D;
+                }
+                player.motionZ *= 1.2D;
+                double maxSpeed = 0.2D;
+                if (player.motionX > maxSpeed)
+                {
+                    player.motionX = maxSpeed;
+                }
+                else if (player.motionX < -maxSpeed)
+                {
+                    player.motionX = -maxSpeed;
+                }
+                if (player.motionY > maxSpeed)
+                {
+                    player.motionY = maxSpeed;
+                }
+                if (player.motionZ > maxSpeed)
+                {
+                    player.motionZ = maxSpeed;
+                }
+                else if (player.motionZ < -maxSpeed)
+                {
+                    player.motionZ = -maxSpeed;
+                }
+            }
+        }
+
+        /*else if (armorPart == EnumArmorPart.Feet)
+        {
+            if (player.stepHeight < 1.0f)
+                player.stepHeight = 1.0f;
+        }*/
+
+        else if (armorPart == EnumArmorPart.Head)
+        {
+            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+            if (stats.activeGoggles)
+            {
+                player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 15 * 20, 0, true));
+                //player.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 1, 0, true));
+            }
+        }
     }
 
     @SideOnly(Side.CLIENT)
@@ -147,38 +271,58 @@ public class TravelGear extends ArmorCore
 
         NBTTagCompound tag = new NBTTagCompound();
         tag.setInteger("Modifiers", 3);
-        if (this.armorPart == EnumArmorPart.Head)
-            tag.setDouble("Protection", 4);
-        else
-            tag.setDouble("Protection", 8);
+        double flat = 0; //Light armor, always 0
+        double base = 0;
+        double max = 0;
+        switch (armorPart)
+        {
+        case Head:
+            base = 0;
+            max = 4;
+            break;
+        case Chest:
+            base = 4;
+            max = 10;
+            break;
+        case Legs:
+            base = 2;
+            max = 8;
+            break;
+        case Feet:
+            base = 2;
+            max = 6;
+            break;
+        }
+        tag.setDouble("DamageReduction", flat);
+        tag.setDouble("BaseDefense", base);
+        tag.setDouble("MaxDefense", max);
+
+        int baseDurability = 1035;
+
+        tag.setInteger("Damage", 0); //Damage is damage to the armor
+        tag.setInteger("TotalDurability", baseDurability);
+        tag.setInteger("BaseDurability", baseDurability);
+        tag.setInteger("BonusDurability", 0); //Modifier
+        tag.setFloat("ModDurability", 0f); //Modifier
+        tag.setBoolean("Broken", false);
+        tag.setBoolean("Built", true);
+
         baseTag.setTag(getBaseTagName(), tag);
-
-        int baseDurability = 500;
-
-        baseTag.setInteger("Damage", 0); //Damage is damage to the tool
-        baseTag.setInteger("TotalDurability", baseDurability);
-        baseTag.setInteger("BaseDurability", baseDurability);
-        baseTag.setInteger("BonusDurability", 0); //Modifier
-        baseTag.setFloat("ModDurability", 0f); //Modifier
-        baseTag.setBoolean("Broken", false);
-        baseTag.setBoolean("Built", true);
-
         gear.setTagCompound(baseTag);
         return gear;
     }
 
+    DecimalFormat df = new DecimalFormat("##.#");
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        if (!stack.hasTagCompound())
-            return;
 
         switch (armorPart)
         {
         case Head:
             list.add("\u00a76Ability: Clear Vision");
-            list.add("\u00a76Toggle with: "+GameSettings.getKeyDisplayString(TControls.toggleGoggles.keyCode));
+            list.add("\u00a76Toggle with: " + GameSettings.getKeyDisplayString(TControls.toggleGoggles.keyCode));
             break;
         case Chest:
             list.add("\u00a76Ability: Swift Swim");
@@ -189,13 +333,26 @@ public class TravelGear extends ArmorCore
         case Feet:
             list.add("\u00a76Ability: High Step");
             break;
-        default:            
+        default:
         }
 
+        if (!stack.hasTagCompound())
+            return;
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag(getBaseTagName());
-        double protection = tags.getDouble("Protection");
+        double protection = 0;
+        if (!tags.getBoolean("Broken"))
+        {
+            float maxDurability = tags.getInteger("TotalDurability");
+            float currentDurability = maxDurability - tags.getInteger("Damage");
+            float ratio = currentDurability / maxDurability;
+            double base = tags.getDouble("BaseDefense");
+            double max = tags.getDouble("MaxDefense");
+            protection = (max - base) * ratio + base;
+        }
         if (protection > 0)
-            list.add("\u00a77Protection: " + protection + "%");
+            list.add("\u00a77Protection: " + df.format(protection) + "%");
+        else
+            list.add("\u00A7oBroken");
 
         boolean displayToolTips = true;
         int tipNum = 0;
@@ -211,77 +368,6 @@ public class TravelGear extends ArmorCore
             }
             else
                 displayToolTips = false;
-        }
-    }
-
-    @Override
-    public void damageArmor (EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot)
-    {
-        //Deimplemented for now
-    }
-
-    @Override
-    public void onArmorTickUpdate (World world, EntityPlayer player, ItemStack itemStack)
-    {
-        if (armorPart == EnumArmorPart.Chest)
-        {
-            if (player.isInWater())
-            {
-                player.motionX *= 1.2D;
-                if (player.motionY > 0.0D)
-                {
-                    player.motionY *= 1.2D;
-                }
-                player.motionZ *= 1.2D;
-                double maxSpeed = 0.2D;
-                if (player.motionX > maxSpeed)
-                {
-                    player.motionX = maxSpeed;
-                }
-                else if (player.motionX < -maxSpeed)
-                {
-                    player.motionX = -maxSpeed;
-                }
-                if (player.motionY > maxSpeed)
-                {
-                    player.motionY = maxSpeed;
-                }
-                if (player.motionZ > maxSpeed)
-                {
-                    player.motionZ = maxSpeed;
-                }
-                else if (player.motionZ < -maxSpeed)
-                {
-                    player.motionZ = -maxSpeed;
-                }
-            }
-        }
-
-        if (armorPart == EnumArmorPart.Feet)
-        {
-            if (player.stepHeight < 1.0f)
-                player.stepHeight = 1.0f;
-            /*if (player.isInWater())
-                world.setBlock((int) Math.floor(player.posX), (int) Math.floor(player.posY) - 1, (int) Math.floor(player.posZ), Block.ice.blockID);*/
-            /*for (int x = -1; x <= 1; x++)
-            {
-                for (int z = -1; z <= 1; z++)
-                {
-                    Block block = Block.blocksList[world.getBlockId((int) Math.floor(player.posX) + x, (int) Math.floor(player.posY) - 1, (int) Math.floor(player.posZ) + z)];
-                    if (block == Block.waterStill || block == Block.waterMoving)
-                        world.setBlock((int) Math.floor(player.posX) + x, (int) Math.floor(player.posY) - 1, (int) Math.floor(player.posZ) + z, Block.ice.blockID);
-                }
-            }*/
-        }
-
-        if (armorPart == EnumArmorPart.Head)
-        {
-            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
-            if (stats.activeGoggles)
-            {
-                player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 15 * 20, 0, true));
-                //player.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 1, 0, true));
-            }
         }
     }
 }

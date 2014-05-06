@@ -51,7 +51,6 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
     @Override
     public String[] getTraits ()
     {
-        // TODO Auto-generated method stub
         return new String[] {"armor"};
     }
 

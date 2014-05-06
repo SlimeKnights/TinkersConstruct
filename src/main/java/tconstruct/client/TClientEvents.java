@@ -394,12 +394,12 @@ public class TClientEvents
     public void renderArmorExtras (RenderPlayerEvent.Post event)
     {
         EntityPlayer player = event.entityPlayer;
+        if (player != mc.thePlayer) //TODO: Render extras on every player
+            return;
+        
         TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
         if (stats != null && (stats.armor.inventory[1] != null || stats.armor.inventory[3] != null))
         {
-            //TODO: Fix black lighting in gui
-            /*if (mc.currentScreen != null)
-                RenderHelper.enableGUIStandardItemLighting();*/
             GL11.glDisable(GL11.GL_CULL_FACE);
             float partialTick = event.partialRenderTick;
 
@@ -493,8 +493,6 @@ public class TClientEvents
             this.rotateCorpseBack(player, pitch, yawOffset, partialTick);
             GL11.glDisable(GL12.GL_RESCALE_NORMAL);
             GL11.glEnable(GL11.GL_CULL_FACE);
-            /*if (mc.currentScreen != null)
-                RenderHelper.disableStandardItemLighting();*/
         }
     }
 
