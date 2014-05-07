@@ -4,9 +4,9 @@ import java.util.EnumSet;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import tconstruct.library.IModifyable;
 import tconstruct.library.armor.ArmorMod;
 import tconstruct.library.armor.EnumArmorPart;
+import tconstruct.library.modifier.IModifyable;
 
 public class TravelModDoubleJump extends ArmorMod
 {

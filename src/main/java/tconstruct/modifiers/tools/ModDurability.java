@@ -2,7 +2,7 @@ package tconstruct.modifiers.tools;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import tconstruct.library.tools.ItemModifier;
+import tconstruct.library.modifier.ItemModifier;
 import tconstruct.util.config.PHConstruct;
 
 /* Adds an integer NBTTag */

@@ -3,9 +3,9 @@ package tconstruct.modifiers.armor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.items.armor.TravelGear;
-import tconstruct.library.IModifyable;
 import tconstruct.library.crafting.PatternBuilder;
-import tconstruct.library.tools.ItemModifier;
+import tconstruct.library.modifier.IModifyable;
+import tconstruct.library.modifier.ItemModifier;
 import tconstruct.library.tools.ToolCore;
 
 public class TravelModRepair extends ItemModifier

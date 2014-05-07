@@ -4,7 +4,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import tconstruct.library.IAccessory;
+import tconstruct.library.accessory.IAccessory;
 
 public class SlotAccessory extends Slot
 {

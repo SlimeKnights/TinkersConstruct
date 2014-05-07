@@ -13,7 +13,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import tconstruct.client.TControls;
 import tconstruct.client.TProxyClient;
-import tconstruct.library.IAccessoryModel;
+import tconstruct.library.accessory.IAccessoryModel;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

@@ -1,4 +1,4 @@
-package tconstruct.library;
+package tconstruct.library.accessory;
 
 import net.minecraft.item.ItemStack;
 

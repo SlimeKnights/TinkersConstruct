@@ -9,7 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
 import tconstruct.common.TContent;
-import tconstruct.library.IModifyable;
+import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.tools.ToolCore;
 
 public class ToolForgeContainer extends ToolStationContainer

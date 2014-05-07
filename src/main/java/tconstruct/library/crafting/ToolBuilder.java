@@ -14,9 +14,9 @@ import net.minecraftforge.event.Event.Result;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.armor.ArmorMod;
 import tconstruct.library.event.ToolCraftEvent;
+import tconstruct.library.modifier.ItemModifier;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.ToolMaterial;
-import tconstruct.library.tools.ItemModifier;
 import tconstruct.library.util.IToolPart;
 
 public class ToolBuilder
@@ -413,5 +413,12 @@ public class ToolBuilder
             return (sHead + sHandle + sAccessory) / 3f;
         }
         return (sHead + sHandle) / 2f;
+    }
+    
+    //Passthrough for now
+    @Deprecated
+    public static void registerToolMod(ItemModifier mod)
+    {
+        ModifyBuilder.registerModifier(mod);
     }
 }

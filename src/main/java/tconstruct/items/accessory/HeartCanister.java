@@ -9,7 +9,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
 import tconstruct.items.CraftingItem;
-import tconstruct.library.IHealthAccessory;
+import tconstruct.library.accessory.IHealthAccessory;
 import tconstruct.util.player.ArmorExtended;
 import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.relauncher.Side;

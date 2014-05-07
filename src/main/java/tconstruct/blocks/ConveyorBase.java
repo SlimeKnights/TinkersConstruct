@@ -144,13 +144,9 @@ public class ConveyorBase extends Block
     @Override
     public void registerIcons (IconRegister iconRegister)
     {
-        String[] textureNames = new String[] { textureName, textureName + "_flow" };
-        this.icons = new Icon[textureNames.length];
-
-        for (int i = 0; i < this.icons.length; ++i)
-        {
-            this.icons[i] = iconRegister.registerIcon("tinker:" + textureNames[i]+"_still");
-        }
+        this.icons = new Icon[2];
+        this.icons[0] = iconRegister.registerIcon("tinker:" + textureName+"_flow");
+        this.icons[1] = iconRegister.registerIcon("tinker:" + textureName+"_still");
     }
 
     @Override
@@ -159,7 +155,7 @@ public class ConveyorBase extends Block
     {
         if (meta >= 8)
             return icons[0];
-        return side == 1 ? icons[1] : icons[0];
+        return side == 1 ? icons[0] : icons[1];
     }
     
     @Override

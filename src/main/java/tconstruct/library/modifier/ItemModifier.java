@@ -1,4 +1,4 @@
-package tconstruct.library.tools;
+package tconstruct.library.modifier;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,7 +8,6 @@ import java.util.UUID;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import tconstruct.library.IModifyable;
 
 public abstract class ItemModifier
 {

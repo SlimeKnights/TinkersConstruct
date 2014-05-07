@@ -121,7 +121,7 @@ public class TControls extends TKeyHandler
             {
                 if (kb == toggleGoggles)
                 {
-                    ItemStack goggles = mc.thePlayer.getCurrentArmor(0);
+                    ItemStack goggles = mc.thePlayer.getCurrentArmor(3);
                     if (goggles != null && goggles.getItem() instanceof TravelGear) //TODO: Genericize this
                     {
                         PlayerAbilityHelper.toggleGoggles(mc.thePlayer);

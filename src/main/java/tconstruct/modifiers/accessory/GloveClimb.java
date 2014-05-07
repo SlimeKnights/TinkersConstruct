@@ -1,6 +1,6 @@
 package tconstruct.modifiers.accessory;
 
-import tconstruct.library.tools.ItemModifier;
+import tconstruct.library.modifier.ItemModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 

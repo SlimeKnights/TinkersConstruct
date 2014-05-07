@@ -8,8 +8,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.TConstruct;
-import tconstruct.library.IModifyable;
 import tconstruct.library.event.ToolCraftedEvent;
+import tconstruct.library.modifier.IModifyable;
 
 public class SlotToolForge extends SlotTool
 {

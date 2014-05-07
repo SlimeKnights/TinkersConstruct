@@ -16,7 +16,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.packet.Packet;
 import tconstruct.TConstruct;
-import tconstruct.library.IHealthAccessory;
+import tconstruct.library.accessory.IHealthAccessory;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 

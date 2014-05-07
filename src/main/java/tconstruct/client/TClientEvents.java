@@ -46,7 +46,7 @@ import org.lwjgl.opengl.GL12;
 
 import tconstruct.TConstruct;
 import tconstruct.common.TContent;
-import tconstruct.library.IAccessoryModel;
+import tconstruct.library.accessory.IAccessoryModel;
 import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;

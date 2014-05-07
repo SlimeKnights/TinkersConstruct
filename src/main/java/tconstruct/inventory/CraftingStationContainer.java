@@ -14,8 +14,8 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.world.World;
 import tconstruct.blocks.logic.CraftingStationLogic;
 import tconstruct.common.TContent;
-import tconstruct.library.IModifyable;
 import tconstruct.library.crafting.ModifyBuilder;
+import tconstruct.library.modifier.IModifyable;
 
 public class CraftingStationContainer extends Container
 {

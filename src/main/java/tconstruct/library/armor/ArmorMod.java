@@ -6,8 +6,8 @@ import java.util.UUID;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import tconstruct.library.IModifyable;
-import tconstruct.library.tools.ItemModifier;
+import tconstruct.library.modifier.IModifyable;
+import tconstruct.library.modifier.ItemModifier;
 
 public abstract class ArmorMod extends ItemModifier
 {

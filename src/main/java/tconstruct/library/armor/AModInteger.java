@@ -2,7 +2,7 @@ package tconstruct.library.armor;
 
 import java.util.EnumSet;
 
-import tconstruct.library.IModifyable;
+import tconstruct.library.modifier.IModifyable;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -3,8 +3,8 @@ package tconstruct.modifiers.tools;
 import java.util.Arrays;
 import java.util.List;
 
+import tconstruct.library.modifier.ItemModifier;
 import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.ItemModifier;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

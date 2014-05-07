@@ -21,7 +21,7 @@ import tconstruct.common.TContent;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.EnumArmorPart;
-import tconstruct.library.tools.ItemModifier;
+import tconstruct.library.modifier.ItemModifier;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

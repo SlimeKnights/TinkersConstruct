@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
+/* TODO: Move to modifier package */
 public class ActiveToolMod
 {
     /* Updating */

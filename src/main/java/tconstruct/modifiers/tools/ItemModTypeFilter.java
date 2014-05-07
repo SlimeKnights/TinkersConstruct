@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
-import tconstruct.library.tools.ItemModifier;
+import tconstruct.library.modifier.ItemModifier;
 
 public abstract class ItemModTypeFilter extends ItemModifier
 {

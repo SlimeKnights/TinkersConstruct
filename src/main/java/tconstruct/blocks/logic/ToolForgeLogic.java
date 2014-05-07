@@ -7,9 +7,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import tconstruct.inventory.ToolForgeContainer;
-import tconstruct.library.IModifyable;
 import tconstruct.library.crafting.ModifyBuilder;
 import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.modifier.IModifyable;
 
 /* Simple class for storing items in the block
  */

@@ -7,9 +7,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import tconstruct.library.IModifyable;
 import tconstruct.library.armor.ArmorMod;
-import tconstruct.library.tools.ItemModifier;
+import tconstruct.library.modifier.IModifyable;
+import tconstruct.library.modifier.ItemModifier;
 
 public class ModifyBuilder
 {

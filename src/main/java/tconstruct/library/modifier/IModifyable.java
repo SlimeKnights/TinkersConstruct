@@ -1,4 +1,4 @@
-package tconstruct.library;
+package tconstruct.library.modifier;
 
 public interface IModifyable
 {

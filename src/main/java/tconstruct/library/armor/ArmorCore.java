@@ -23,7 +23,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import tconstruct.client.TControls;
-import tconstruct.library.IModifyable;
+import tconstruct.library.modifier.IModifyable;
 
 public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IModifyable
 {

@@ -25,9 +25,10 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tconstruct.entity.FancyEntityItem;
 import tconstruct.library.ActiveToolMod;
-import tconstruct.library.IModifyable;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.modifier.IModifyable;
+import tconstruct.library.modifier.ItemModifier;
 import tconstruct.library.util.MathUtils;
 import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
@@ -633,6 +634,11 @@ public abstract class ToolCore extends Item implements IModifyable, IEnergyConta
     /* Tool uses */
 
     //Types
+    @Deprecated
+    public String[] toolCategories()
+    {
+        return getTraits();
+    }
     public abstract String[] getTraits ();
 
     //Mining
