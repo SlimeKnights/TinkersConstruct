@@ -1,8 +1,9 @@
 package tconstruct.modifiers.tools;
 
-import tconstruct.library.modifier.ItemModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.library.modifier.ItemModifier;
+import tconstruct.library.tools.ToolCore;
 
 public class ModExtraModifier extends ItemModifier
 {
@@ -14,12 +15,16 @@ public class ModExtraModifier extends ItemModifier
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
-        if (tags.getBoolean(key))
+        if (tool != null && tool.getItem() instanceof ToolCore)
         {
-            return false;
+            NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+            if (tags.getBoolean(key))
+            {
+                return false;
+            }
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override
