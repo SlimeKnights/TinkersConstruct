@@ -22,6 +22,7 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
     public WeakReference<IInventory> furnace;
     public boolean tinkerTable;
     public boolean stencilTable;
+    public boolean doubleFirst;
 
     public CraftingStationLogic()
     {
@@ -37,8 +38,10 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
         patternChest = null;
         furnace = null;
         tinkerTable = false;
-        for (int yPos = y - 1; yPos <= y + 1; yPos++)
+        int[] ys = {y, y - 1, y + 1};
+        for (byte iy = 0; iy < 3; iy++)
         {
+            int yPos = ys[iy];
             for (int xPos = x - 1; xPos <= x + 1; xPos++)
             {
                 for (int zPos = z - 1; zPos <= z + 1; zPos++)
@@ -47,10 +50,10 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
                     if (chest == null && tile instanceof TileEntityChest)
                     {
                         chest = new WeakReference(tile);
-                        checkForChest(world, xPos + 1, yPos, zPos);
-                        checkForChest(world, xPos - 1, yPos, zPos);
-                        checkForChest(world, xPos, yPos, zPos + 1);
-                        checkForChest(world, xPos, yPos, zPos - 1);
+                        checkForChest(world, xPos, yPos, zPos, 1, 0);
+                        checkForChest(world, xPos, yPos, zPos, -1, 0);
+                        checkForChest(world, xPos, yPos, zPos, 0, 1);
+                        checkForChest(world, xPos, yPos, zPos, 0, -1);
                     }
                     else if (patternChest == null && tile instanceof PatternChestLogic)
                         patternChest = new WeakReference(tile);
@@ -65,11 +68,14 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
         return new CraftingStationContainer(inventoryplayer, this, x, y, z);
     }
 
-    void checkForChest (World world, int x, int y, int z)
+    void checkForChest (World world, int x, int y, int z, int dx, int dz)
     {
-        TileEntity tile = world.getTileEntity(x, y, z);
+        TileEntity tile = world.getTileEntity(x + dx, y, z + dz);
         if (tile instanceof TileEntityChest)
+        {
             doubleChest = new WeakReference(tile);
+            doubleFirst = dx + dz < 0;
+        }
     }
 
     @Override
