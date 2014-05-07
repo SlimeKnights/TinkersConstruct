@@ -27,12 +27,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ExoArmor extends ArmorCore
 {
-    String textureName;
 
     public ExoArmor(int id, EnumArmorPart part, String texture)
     {
-        super(id, 0, part);
-        this.textureName = texture;
+        super(id, 0, part, "ExoArmor", texture);
         this.setCreativeTab(TConstructRegistry.materialTab);
     }
 
@@ -70,49 +68,27 @@ public class ExoArmor extends ArmorCore
         par3List.add(armor);
     }
 
-    @SideOnly(Side.CLIENT)
-    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
+    @Override
+    public ItemStack getRepairMaterial (ItemStack input)
     {
-        if (!stack.hasTagCompound())
-            return;
-
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag(getBaseTagName());
-        double protection = tags.getDouble("protection");
-        if (protection > 0)
-            list.add("\u00a7aProtection: " + protection + "%");
-
-        boolean displayToolTips = true;
-        int tipNum = 0;
-        while (displayToolTips)
-        {
-            tipNum++;
-            String tooltip = "Tooltip" + tipNum;
-            if (tags.hasKey(tooltip))
-            {
-                String tipName = tags.getString(tooltip);
-                if (!tipName.equals(""))
-                    list.add(tipName);
-            }
-            else
-                displayToolTips = false;
-        }
+        return null;
     }
 
     @Override
-    public void onArmorTickUpdate (World world, EntityPlayer player, ItemStack itemStack)
+    protected double getBaseDefense ()
     {
-        if (player.stepHeight < 1.0f)
-            player.stepHeight = 1.0f;
+        return 0;
+    }
 
-        player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 15 * 20, 0, true));
-
-        player.fallDistance = 0;
-        float terminalVelocity = -0.32f;
-        boolean flying = false;
-            flying = player.capabilities.isFlying;
-        if (!flying && player.motionY < terminalVelocity)
-        {
-            player.motionY = terminalVelocity;
-        }
+    @Override
+    protected double getMaxDefense ()
+    {
+        return 0;
+    }
+    
+    @Override
+    protected int getDurability()
+    {
+        return 1035;
     }
 }

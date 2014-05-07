@@ -313,9 +313,12 @@ public class TContent implements IFuelHandler
     public static TravelGear travelBoots;
     public static AccessoryCore travelGlove;
     public static AccessoryCore travelBelt;
-
-    //Temporary items
-    //public static Item armorTest = new ArmorStandard(2445, 4, EnumArmorPart.HELMET).setCreativeTab(CreativeTabs.tabAllSearch);
+    
+    //Clothing - Leather Suit
+    public static Item leatherHat;
+    public static Item leatherVest;
+    public static Item leatherPants;
+    public static Item leatherBoots;
 
     public TContent()
     {
@@ -1027,6 +1030,10 @@ public class TContent implements IFuelHandler
         exoChest = new ExoArmor(PHConstruct.exoChest, EnumArmorPart.Chest, "exosuit").setUnlocalizedName("tconstruct.exoChest");
         exoPants = new ExoArmor(PHConstruct.exoPants, EnumArmorPart.Legs, "exosuit").setUnlocalizedName("tconstruct.exoPants");
         exoShoes = new ExoArmor(PHConstruct.exoShoes, EnumArmorPart.Feet, "exosuit").setUnlocalizedName("tconstruct.exoShoes");
+        GameRegistry.registerItem(exoGoggles, "exoGoggles");
+        GameRegistry.registerItem(exoChest, "exoChest");
+        GameRegistry.registerItem(exoPants, "exoPants");
+        GameRegistry.registerItem(exoShoes, "exoShoes");
 
         travelGoggles = (TravelGear) new TravelGear(PHConstruct.travelGoggles, EnumArmorPart.Head, "travel").setUnlocalizedName("tconstruct.travelgoggles");
         travelVest = (TravelGear) new TravelGear(PHConstruct.travelVest, EnumArmorPart.Chest, "travel").setUnlocalizedName("tconstruct.travelvest");
@@ -1034,6 +1041,29 @@ public class TContent implements IFuelHandler
         travelBoots = (TravelGear) new TravelGear(PHConstruct.travelBoots, EnumArmorPart.Feet, "travel").setUnlocalizedName("tconstruct.travelboots");
         travelGlove = (AccessoryCore) new TravelGlove(PHConstruct.travelGlove).setUnlocalizedName("tconstruct.travelgloves");
         travelBelt = (AccessoryCore) new TravelBelt(PHConstruct.travelBelt).setUnlocalizedName("tconstruct.travelbelt");
+        GameRegistry.registerItem(travelGoggles, "travelGoggles");
+        GameRegistry.registerItem(travelVest, "travelVest");
+        GameRegistry.registerItem(travelWings, "travelWings");
+        GameRegistry.registerItem(travelBoots, "travelBoots");
+        GameRegistry.registerItem(travelGlove, "travelGlove");
+        GameRegistry.registerItem(travelBelt, "travelBelt");
+        
+        leatherHat = new LeatherSuit(PHConstruct.leatherHat, EnumArmorPart.Head, "leather").setUnlocalizedName("tconstruct.leatherHat");
+        leatherVest = new LeatherSuit(PHConstruct.leatherVest, EnumArmorPart.Chest, "leather").setUnlocalizedName("tconstruct.leatherVest");
+        leatherPants = new LeatherSuit(PHConstruct.leatherPants, EnumArmorPart.Legs, "leather").setUnlocalizedName("tconstruct.leatherPants");
+        leatherBoots = new LeatherSuit(PHConstruct.leatherBoots, EnumArmorPart.Feet, "leather").setUnlocalizedName("tconstruct.leatherBoots");
+        GameRegistry.registerItem(leatherHat, "leatherHat");
+        GameRegistry.registerItem(leatherVest, "leatherVest");
+        GameRegistry.registerItem(leatherPants, "leatherPants");
+        GameRegistry.registerItem(leatherBoots, "leatherBoots");
+        
+        /*
+         * 
+    public static Item leatherHat;
+    public static Item leatherVest;
+    public static Item leatherPants;
+    public static Item leatherBoots;
+         */
 
         String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper",
                 "ingotTin", "ingotAluminum", "rawAluminum", "ingotBronze", "ingotAluminumBrass", "ingotAlumite", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper",

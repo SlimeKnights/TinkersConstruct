@@ -31,134 +31,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class TravelGear extends ArmorCore
 {
-    String textureName;
 
     public TravelGear(int id, EnumArmorPart part, String texture)
     {
-        super(id, 0, part);
-        this.textureName = texture;
+        super(id, 0, part, "Clothing", texture);
         this.setCreativeTab(TConstructRegistry.materialTab);
         this.setMaxDamage(1035);
-    }
-
-    @Override
-    public String getModifyType ()
-    {
-        return "Clothing";
-    }
-
-    @Override
-    public ArmorProperties getProperties (EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot)
-    {
-        //Priority, absorbRatio, max
-        if (!armor.hasTagCompound() || source.isUnblockable())
-            return new ArmorProperties(0, 0, 0);
-
-        NBTTagCompound tags = armor.getTagCompound().getCompoundTag(getBaseTagName());
-        if (tags.getBoolean("Broken"))
-            return new ArmorProperties(0, 0, 0);
-
-        float maxDurability = tags.getInteger("TotalDurability");
-        float currentDurability = maxDurability - tags.getInteger("Damage");
-        float ratio = currentDurability / maxDurability;
-        double base = tags.getDouble("BaseDefense");
-        double max = tags.getDouble("MaxDefense");
-        double current = (max - base) * ratio + base;
-
-        return new ArmorProperties(0, current / 100, 100);
-    }
-
-    @Override
-    public void damageArmor (EntityLivingBase entity, ItemStack armor, DamageSource source, int damage, int slot)
-    {
-        if (armor.hasTagCompound())
-        {
-            NBTTagCompound tags = armor.getTagCompound().getCompoundTag(getBaseTagName());
-            if (!tags.getBoolean("Broken"))
-            {
-                int maxDurability = tags.getInteger("TotalDurability");
-                int currentDurability = tags.getInteger("Damage");
-                if (currentDurability + damage > maxDurability)
-                {
-                    tags.setInteger("Damage", 0);
-                    tags.setBoolean("Broken", true);
-                    armor.setItemDamage(0);
-                    entity.worldObj.playSound(entity.posX, entity.posY, entity.posZ, "random.break", 1f, 1f, true);
-                }
-                else
-                {
-                    tags.setInteger("Damage", currentDurability + damage);
-                    armor.setItemDamage(currentDurability + damage);
-                }
-            }
-        }
-    }
-
-    @Override
-    public int getArmorDisplay (EntityPlayer player, ItemStack armor, int slot)
-    {
-        if (slot != 1)
-        {
-            ItemStack stack = player.getCurrentArmor(1);
-            if (stack != null && stack.getItem() instanceof TravelGear)
-                return 0;
-            return disconnectedArmorDisplay(player, armor, slot);
-        }
-
-        return combinedArmorDisplay(player, armor);
-    }
-
-    int disconnectedArmorDisplay (EntityPlayer player, ItemStack armor, int slot)
-    {
-        if (!armor.hasTagCompound())
-            return 0;
-
-        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(getBaseTagName());
-        if (armorTag.getBoolean("Broken"))
-            return 0;
-
-        float max = armorTag.getInteger("TotalDurability");
-        float current = max - armorTag.getInteger("Damage");
-        float amount = current / max * 5 + 0.09F;
-        if (slot == 2 && amount < 1)
-            amount = 1;
-        return (int) amount;
-    }
-
-    int combinedArmorDisplay (EntityPlayer player, ItemStack legs)
-    {
-        ItemStack[] armors = new ItemStack[] { player.getCurrentArmor(3), player.getCurrentArmor(2), legs, player.getCurrentArmor(0) };
-        int types = 0;
-        int max = 0;
-        int damage = 0;
-        boolean anyAlive = false;
-        for (int i = 0; i < 4; i++)
-        {
-            ItemStack stack = armors[i];
-            if (stack != null && stack.hasTagCompound())
-            {
-                NBTTagCompound armorTag = stack.getTagCompound().getCompoundTag(getBaseTagName());
-                if (stack.getItem() instanceof TravelGear)
-                {
-                    types++;
-                    max += armorTag.getInteger("TotalDurability");
-                    if (armorTag.getBoolean("Broken"))
-                    {
-                        damage += armorTag.getInteger("TotalDurability");
-                    }
-                    else
-                    {
-                        damage += armorTag.getInteger("Damage");
-                        anyAlive = true;
-                    }
-                }
-            }
-        }
-        float ratio = ((float) max - (float) damage) / (float) max * (types * 5) + 0.1f;
-        int minimum = anyAlive ? 1 : 0;
-        if (ratio < minimum)
-            ratio = minimum;
-        return (int) ratio;
     }
 
     @Override
@@ -215,57 +93,50 @@ public class TravelGear extends ArmorCore
         }
     }
 
+    @Override
+    protected double getBaseDefense ()
+    {
+        switch (armorPart)
+        {
+        case Head:
+            return 0;
+        case Chest:
+            return 4;
+        case Legs:
+            return 2;
+        case Feet:
+            return 2;
+        }
+        return 0;
+    }
+    
+    @Override
+    protected double getMaxDefense ()
+    {
+        switch (armorPart)
+        {
+        case Head:
+            return 4;
+        case Chest:
+            return 10;
+        case Legs:
+            return 8;
+        case Feet:
+            return 6;
+        }
+        return 0;
+    }
+    
+    @Override
+    protected int getDurability()
+    {
+        return 1035;
+    }
+
     //Temporary?
     public ItemStack getRepairMaterial (ItemStack input)
     {
         return new ItemStack(Item.leather);
-    }
-
-    @SideOnly(Side.CLIENT)
-    protected Icon[] modifiers;
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerIcons (IconRegister iconRegister)
-    {
-        this.itemIcon = iconRegister.registerIcon("tinker:armor/" + textureName + "_"
-                + (this.armorType == 0 ? "goggles" : this.armorType == 1 ? "vest" : this.armorType == 2 ? "wings" : this.armorType == 3 ? "boots" : "helmet"));
-        registerModifiers(iconRegister);
-    }
-
-    @SideOnly(Side.CLIENT)
-    protected void registerModifiers (IconRegister iconRegister)
-    {
-
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public String getArmorTexture (ItemStack stack, Entity entity, int slot, int layer)
-    {
-        if (slot == 2)
-            return "tinker:textures/armor/" + textureName + "_" + 2 + ".png";
-        return "tinker:textures/armor/" + textureName + "_" + layer + ".png";
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public boolean requiresMultipleRenderPasses ()
-    {
-        return true;
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public int getRenderPasses (int metadata)
-    {
-        return 4;
-    }
-
-    @SideOnly(Side.CLIENT)
-    public boolean hasEffect (ItemStack par1ItemStack)
-    {
-        return false;
     }
 
     @Override
@@ -307,120 +178,5 @@ public class TravelGear extends ArmorCore
         if (armorSlot == 3)
             return TProxyClient.bootbump;
         return null;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubItems (int par1, CreativeTabs par2CreativeTabs, List par3List)
-    {
-        par3List.add(getDefaultItem());
-    }
-
-    public ItemStack getDefaultItem ()
-    {
-        ItemStack gear = new ItemStack(this.itemID, 1, 0);
-        NBTTagCompound baseTag = new NBTTagCompound();
-
-        NBTTagCompound tag = new NBTTagCompound();
-        tag.setInteger("Modifiers", 3);
-        double flat = 0; //Light armor, always 0
-        double base = 0;
-        double max = 0;
-        switch (armorPart)
-        {
-        case Head:
-            base = 0;
-            max = 4;
-            break;
-        case Chest:
-            base = 4;
-            max = 10;
-            break;
-        case Legs:
-            base = 2;
-            max = 8;
-            break;
-        case Feet:
-            base = 2;
-            max = 6;
-            break;
-        }
-        tag.setDouble("DamageReduction", flat);
-        tag.setDouble("BaseDefense", base);
-        tag.setDouble("MaxDefense", max);
-
-        int baseDurability = 1035;
-
-        tag.setInteger("Damage", 0); //Damage is damage to the armor
-        tag.setInteger("TotalDurability", baseDurability);
-        tag.setInteger("BaseDurability", baseDurability);
-        tag.setInteger("BonusDurability", 0); //Modifier
-        tag.setFloat("ModDurability", 0f); //Modifier
-        tag.setBoolean("Broken", false);
-        tag.setBoolean("Built", true);
-
-        baseTag.setTag(getBaseTagName(), tag);
-        gear.setTagCompound(baseTag);
-        return gear;
-    }
-
-    DecimalFormat df = new DecimalFormat("##.#");
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
-    {
-
-        switch (armorPart)
-        {
-        case Head:
-            list.add("\u00a76Ability: Clear Vision");
-            list.add("\u00a76Toggle with: " + GameSettings.getKeyDisplayString(TControls.toggleGoggles.keyCode));
-            break;
-        case Chest:
-            list.add("\u00a76Ability: Swift Swim");
-            break;
-        case Legs:
-            list.add("\u00a76Ability: Featherfall");
-            break;
-        case Feet:
-            list.add("\u00a76Ability: High Step");
-            break;
-        default:
-        }
-
-        if (!stack.hasTagCompound())
-            return;
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag(getBaseTagName());
-        double protection = 0;
-        if (!tags.getBoolean("Broken"))
-        {
-            float maxDurability = tags.getInteger("TotalDurability");
-            float currentDurability = maxDurability - tags.getInteger("Damage");
-            float ratio = currentDurability / maxDurability;
-            double base = tags.getDouble("BaseDefense");
-            double max = tags.getDouble("MaxDefense");
-            protection = (max - base) * ratio + base;
-        }
-        if (protection > 0)
-            list.add("\u00a77Protection: " + df.format(protection) + "%");
-        else
-            list.add("\u00A7oBroken");
-
-        boolean displayToolTips = true;
-        int tipNum = 0;
-        while (displayToolTips)
-        {
-            tipNum++;
-            String tooltip = "Tooltip" + tipNum;
-            if (tags.hasKey(tooltip))
-            {
-                String tipName = tags.getString(tooltip);
-                if (!tipName.equals(""))
-                    list.add(tipName);
-            }
-            else
-                displayToolTips = false;
-        }
     }
 }

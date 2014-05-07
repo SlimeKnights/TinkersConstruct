@@ -6,7 +6,6 @@ import net.minecraft.item.*;
 
 public class ArmorBasic extends ItemArmor
 {
-
     public String textureName;
 
     public ArmorBasic(int par1, EnumArmorMaterial par2EnumArmorMaterial, int par3, String textureName)

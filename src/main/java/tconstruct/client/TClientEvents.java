@@ -140,6 +140,9 @@ public class TClientEvents
             TProxyClient.belt.isRiding = event.renderer.modelBipedMain.isRiding;
             TProxyClient.belt.isChild = event.renderer.modelBipedMain.isChild;
             TProxyClient.belt.isSneak = event.renderer.modelBipedMain.isSneak;
+            
+            renderArmorExtras(event);
+            
             break;
         case 3:
             TProxyClient.bootbump.onGround = event.renderer.modelBipedMain.onGround;
@@ -149,7 +152,99 @@ public class TClientEvents
             break;
         }
     }
+    
+    void renderArmorExtras(RenderPlayerEvent.SetArmorModel event)
+    {
+        float partialTick = event.partialRenderTick;
 
+        EntityPlayer player = event.entityPlayer;
+        float posX = (float) (player.lastTickPosX + (player.posX - player.lastTickPosX) * partialTick);
+        float posY = (float) (player.lastTickPosY + (player.posY - player.lastTickPosY) * partialTick);
+        float posZ = (float) (player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialTick);
+
+        float yawOffset = this.interpolateRotation(player.prevRenderYawOffset, player.renderYawOffset, partialTick);
+        float yawRotation = this.interpolateRotation(player.prevRotationYawHead, player.rotationYawHead, partialTick);
+        float pitch;
+        final float zeropointsixtwofive = 0.0625F;
+
+        if (player.isRiding() && player.ridingEntity instanceof EntityLivingBase)
+        {
+            EntityLivingBase entitylivingbase1 = (EntityLivingBase) player.ridingEntity;
+            yawOffset = this.interpolateRotation(entitylivingbase1.prevRenderYawOffset, entitylivingbase1.renderYawOffset, partialTick);
+            pitch = MathHelper.wrapAngleTo180_float(yawRotation - yawOffset);
+
+            if (pitch < -85.0F)
+            {
+                pitch = -85.0F;
+            }
+
+            if (pitch >= 85.0F)
+            {
+                pitch = 85.0F;
+            }
+
+            yawOffset = yawRotation - pitch;
+
+            if (pitch * pitch > 2500.0F)
+            {
+                yawOffset += pitch * 0.2F;
+            }
+        }
+
+        pitch = this.handleRotationFloat(player, partialTick);
+        float bodyRotation = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTick;
+        float limbSwing = player.prevLimbSwingAmount + (player.limbSwingAmount - player.prevLimbSwingAmount) * partialTick;
+        float limbSwingMod = player.limbSwing - player.limbSwingAmount * (1.0F - partialTick);
+        TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+        if (stats.armor.inventory[1] != null)
+        {
+            Item item = stats.armor.inventory[1].getItem();
+            ModelBiped model = item.getArmorModel(player, stats.armor.inventory[1], 4);
+
+            if (item instanceof IAccessoryModel)
+            {
+                this.mc.getTextureManager().bindTexture(((IAccessoryModel) item).getWearbleTexture(player, stats.armor.inventory[1], 1));
+                model.setLivingAnimations(player, limbSwingMod, limbSwing, partialTick);
+                model.render(player, limbSwingMod, limbSwing, pitch, yawRotation - yawOffset, bodyRotation, zeropointsixtwofive);
+            }
+        }
+
+        if (stats.armor.inventory[3] != null)
+        {
+            Item item = stats.armor.inventory[3].getItem();
+            ModelBiped model = item.getArmorModel(player, stats.armor.inventory[3], 5);
+
+            if (item instanceof IAccessoryModel)
+            {
+                this.mc.getTextureManager().bindTexture(((IAccessoryModel) item).getWearbleTexture(player, stats.armor.inventory[1], 1));
+                model.setLivingAnimations(player, limbSwingMod, limbSwing, partialTick);
+                model.render(player, limbSwingMod, limbSwing, pitch, yawRotation - yawOffset, bodyRotation, zeropointsixtwofive);
+            }
+        }
+    }
+    
+    private float interpolateRotation (float par1, float par2, float par3)
+    {
+        float f3;
+
+        for (f3 = par2 - par1; f3 < -180.0F; f3 += 360.0F)
+        {
+            ;
+        }
+
+        while (f3 >= 180.0F)
+        {
+            f3 -= 360.0F;
+        }
+
+        return par1 + par3 * f3;
+    }
+    
+    protected float handleRotationFloat (EntityLivingBase par1EntityLivingBase, float par2)
+    {
+        return (float) par1EntityLivingBase.ticksExisted + par2;
+    }
+     
     private static final ResourceLocation hearts = new ResourceLocation("tinker", "textures/gui/newhearts.png");
     private static final ResourceLocation icons = new ResourceLocation("textures/gui/icons.png");
     Random rand = new Random();
@@ -387,204 +482,6 @@ public class TClientEvents
     public void googleZoom (FOVUpdateEvent event)
     {
         //event.newfov = 1.0f;
-    }
-
-    // Code pulled from RenderPlayer and RenderLiving
-    @ForgeSubscribe
-    public void renderArmorExtras (RenderPlayerEvent.Post event)
-    {
-        EntityPlayer player = event.entityPlayer;
-        if (player != mc.thePlayer) //TODO: Render extras on every player
-            return;
-        
-        TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
-        if (stats != null && (stats.armor.inventory[1] != null || stats.armor.inventory[3] != null))
-        {
-            GL11.glDisable(GL11.GL_CULL_FACE);
-            float partialTick = event.partialRenderTick;
-
-            float posX = (float) (player.lastTickPosX + (player.posX - player.lastTickPosX) * partialTick);
-            float posY = (float) (player.lastTickPosY + (player.posY - player.lastTickPosY) * partialTick);
-            float posZ = (float) (player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialTick);
-
-            float yawOffset = this.interpolateRotation(player.prevRenderYawOffset, player.renderYawOffset, partialTick);
-            float yawRotation = this.interpolateRotation(player.prevRotationYawHead, player.rotationYawHead, partialTick);
-            float pitch;
-
-            if (player.isRiding() && player.ridingEntity instanceof EntityLivingBase)
-            {
-                EntityLivingBase entitylivingbase1 = (EntityLivingBase) player.ridingEntity;
-                yawOffset = this.interpolateRotation(entitylivingbase1.prevRenderYawOffset, entitylivingbase1.renderYawOffset, partialTick);
-                pitch = MathHelper.wrapAngleTo180_float(yawRotation - yawOffset);
-
-                if (pitch < -85.0F)
-                {
-                    pitch = -85.0F;
-                }
-
-                if (pitch >= 85.0F)
-                {
-                    pitch = 85.0F;
-                }
-
-                yawOffset = yawRotation - pitch;
-
-                if (pitch * pitch > 2500.0F)
-                {
-                    yawOffset += pitch * 0.2F;
-                }
-            }
-
-            float bodyRotation = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTick;
-
-            final float zeropointsixtwofive = 0.0625F;
-            pitch = this.handleRotationFloat(player, partialTick);
-            this.rotateCorpse(player, pitch, yawOffset, partialTick);
-            GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-            GL11.glScalef(-1.0F, -1.0F, 1.0F);
-
-            float transformValue = 0.2F;
-            GL11.glTranslatef(0.0F, transformValue, 0.0F);
-            float limbSwing = player.prevLimbSwingAmount + (player.limbSwingAmount - player.prevLimbSwingAmount) * partialTick;
-            float limbSwingMod = player.limbSwing - player.limbSwingAmount * (1.0F - partialTick);
-
-            if (player.isChild())
-            {
-                limbSwingMod *= 3.0F;
-            }
-
-            if (limbSwing > 1.0F)
-            {
-                limbSwing = 1.0F;
-            }
-
-            GL11.glEnable(GL11.GL_ALPHA_TEST);
-            renderPlayerScale((AbstractClientPlayer) player, 15f / 16f);
-            if (stats.armor.inventory[1] != null)
-            {
-                Item item = stats.armor.inventory[1].getItem();
-                ModelBiped model = item.getArmorModel(player, stats.armor.inventory[1], 4);
-
-                if (item instanceof IAccessoryModel)
-                {
-                    this.mc.getTextureManager().bindTexture(((IAccessoryModel) item).getWearbleTexture(player, stats.armor.inventory[1], 1));
-                    model.setLivingAnimations(player, limbSwingMod, limbSwing, partialTick);
-                    model.render(player, limbSwingMod, limbSwing, pitch, yawRotation - yawOffset, bodyRotation, zeropointsixtwofive);
-                }
-            }
-
-            if (stats.armor.inventory[3] != null)
-            {
-                Item item = stats.armor.inventory[3].getItem();
-                ModelBiped model = item.getArmorModel(player, stats.armor.inventory[3], 5);
-
-                if (item instanceof IAccessoryModel)
-                {
-                    this.mc.getTextureManager().bindTexture(((IAccessoryModel) item).getWearbleTexture(player, stats.armor.inventory[1], 1));
-                    model.setLivingAnimations(player, limbSwingMod, limbSwing, partialTick);
-                    model.render(player, limbSwingMod, limbSwing, pitch, yawRotation - yawOffset, bodyRotation, zeropointsixtwofive);
-                }
-            }
-
-            //Undo camera transform
-            GL11.glTranslatef(0.0F, -transformValue, 0.0F);
-            GL11.glScalef(-1.0F, -1.0F, 1.0F);
-            renderPlayerScale((AbstractClientPlayer) player, 1 / (15f / 16f));
-            this.rotateCorpseBack(player, pitch, yawOffset, partialTick);
-            GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-            GL11.glEnable(GL11.GL_CULL_FACE);
-        }
-    }
-
-    /* Auxillary methods to rendering armor models */
-
-    protected float handleRotationFloat (EntityLivingBase par1EntityLivingBase, float par2)
-    {
-        return (float) par1EntityLivingBase.ticksExisted + par2;
-    }
-
-    protected void rotateCorpse (EntityLivingBase par1EntityLivingBase, float par2, float par3, float par4)
-    {
-        GL11.glRotatef(180.0F - par3, 0.0F, 1.0F, 0.0F);
-
-        if (par1EntityLivingBase.deathTime > 0)
-        {
-            float f3 = ((float) par1EntityLivingBase.deathTime + par4 - 1.0F) / 20.0F * 1.6F;
-            f3 = MathHelper.sqrt_float(f3);
-
-            if (f3 > 1.0F)
-            {
-                f3 = 1.0F;
-            }
-
-            GL11.glRotatef(f3 * this.getDeathMaxRotation(par1EntityLivingBase), 0.0F, 0.0F, 1.0F);
-        }
-        else
-        {
-            String s = EnumChatFormatting.func_110646_a(par1EntityLivingBase.getEntityName());
-
-            if ((s.equals("Dinnerbone") || s.equals("Grumm")) && (!(par1EntityLivingBase instanceof EntityPlayer) || !((EntityPlayer) par1EntityLivingBase).getHideCape()))
-            {
-                GL11.glTranslatef(0.0F, par1EntityLivingBase.height + 0.1F, 0.0F);
-                GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
-            }
-        }
-    }
-
-    protected void rotateCorpseBack (EntityLivingBase par1EntityLivingBase, float par2, float par3, float par4)
-    {
-        GL11.glRotatef(180.0F - par3, 0.0F, -1.0F, 0.0F);
-
-        if (par1EntityLivingBase.deathTime > 0)
-        {
-            float f3 = ((float) par1EntityLivingBase.deathTime + par4 - 1.0F) / 20.0F * 1.6F;
-            f3 = MathHelper.sqrt_float(f3);
-
-            if (f3 > 1.0F)
-            {
-                f3 = 1.0F;
-            }
-
-            GL11.glRotatef(f3 * this.getDeathMaxRotation(par1EntityLivingBase), 0.0F, 0.0F, -1.0F);
-        }
-        else
-        {
-            String s = EnumChatFormatting.func_110646_a(par1EntityLivingBase.getEntityName());
-
-            if ((s.equals("Dinnerbone") || s.equals("Grumm")) && (!(par1EntityLivingBase instanceof EntityPlayer) || !((EntityPlayer) par1EntityLivingBase).getHideCape()))
-            {
-                GL11.glTranslatef(0.0F, par1EntityLivingBase.height + 0.1F, 0.0F);
-                GL11.glRotatef(180.0F, 0.0F, 0.0F, -1.0F);
-            }
-        }
-    }
-
-    protected float getDeathMaxRotation (EntityLivingBase par1EntityLivingBase)
-    {
-        return 90.0F;
-    }
-
-    protected void renderPlayerScale (AbstractClientPlayer par1AbstractClientPlayer, float par2)
-    {
-        float f1 = par2;
-        GL11.glScalef(f1, f1, f1);
-    }
-
-    private float interpolateRotation (float par1, float par2, float par3)
-    {
-        float f3;
-
-        for (f3 = par2 - par1; f3 < -180.0F; f3 += 360.0F)
-        {
-            ;
-        }
-
-        while (f3 >= 180.0F)
-        {
-            f3 -= 360.0F;
-        }
-
-        return par1 + par3 * f3;
     }
 
     public void drawTexturedModalRect (int par1, int par2, int par3, int par4, int par5, int par6)
