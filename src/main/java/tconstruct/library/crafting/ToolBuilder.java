@@ -8,15 +8,13 @@ import java.util.List;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.Event.Result;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.armor.ArmorMod;
 import tconstruct.library.event.ToolCraftEvent;
-import tconstruct.library.modifier.ItemModifier;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.ToolMaterial;
+import tconstruct.library.tools.ToolMod;
 import tconstruct.library.util.IToolPart;
 
 public class ToolBuilder
@@ -417,7 +415,7 @@ public class ToolBuilder
     
     //Passthrough for now
     @Deprecated
-    public static void registerToolMod(ItemModifier mod)
+    public static void registerToolMod(ToolMod mod)
     {
         ModifyBuilder.registerModifier(mod);
     }
