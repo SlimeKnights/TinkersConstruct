@@ -135,7 +135,6 @@ public class TContent implements IFuelHandler
 
     //Crafting blocks
     public static Block toolStationWood;
-    public static Block partBuilderWorld;
     public static Block toolStationStone;
     public static Block toolForge;
     public static Block craftingStationWood;
@@ -358,11 +357,8 @@ public class TContent implements IFuelHandler
         //Tool Station
         toolStationWood = new ToolStationBlock(PHConstruct.woodStation, Material.wood).setUnlocalizedName("ToolStation");
         GameRegistry.registerBlock(toolStationWood, ToolStationItemBlock.class, "ToolStationBlock");
-        partBuilderWorld = new PartBuilderWorldBlock(PHConstruct.partBuilderWorld, Material.wood).setUnlocalizedName("ToolStation");
-        GameRegistry.registerBlock(partBuilderWorld, ToolStationItemBlock.class, "PartBuilderWorldBlock");
         GameRegistry.registerTileEntity(ToolStationLogic.class, "ToolStation");
         GameRegistry.registerTileEntity(PartBuilderLogic.class, "PartCrafter");
-        GameRegistry.registerTileEntity(PartBuilderWorldLogic.class, "PartCrafterWorld");
         GameRegistry.registerTileEntity(PatternChestLogic.class, "PatternHolder");
         GameRegistry.registerTileEntity(StencilTableLogic.class, "PatternShaper");
 
@@ -1266,10 +1262,6 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 4), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 3));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 5), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.chest);
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "logWood"));
-        GameRegistry.addRecipe(new ItemStack(partBuilderWorld, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(toolStationWood, 1, 1));
-        GameRegistry.addRecipe(new ItemStack(partBuilderWorld, 1, 2), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(toolStationWood, 1, 2));
-        GameRegistry.addRecipe(new ItemStack(partBuilderWorld, 1, 3), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(toolStationWood, 1, 3));
-        GameRegistry.addRecipe(new ItemStack(partBuilderWorld, 1, 4), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(toolStationWood, 1, 4));
         if (PHConstruct.stencilTableCrafting)
         {
             GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 0));

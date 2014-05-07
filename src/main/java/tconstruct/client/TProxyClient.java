@@ -245,7 +245,6 @@ public class TProxyClient extends TProxyCommon
         MinecraftForge.EVENT_BUS.register(new TClientEvents());
         smallFontRenderer = new SmallFontRenderer(mc.gameSettings, new ResourceLocation("textures/font/ascii.png"), mc.renderEngine, false);
         RenderingRegistry.registerBlockHandler(new TableRender());
-        RenderingRegistry.registerBlockHandler(new PartBuilderWorldRender());
         RenderingRegistry.registerBlockHandler(new TableForgeRender());
         RenderingRegistry.registerBlockHandler(new FrypanRender());
         RenderingRegistry.registerBlockHandler(new TankRender());
@@ -270,7 +269,6 @@ public class TProxyClient extends TProxyCommon
         ClientRegistry.bindTileEntitySpecialRenderer(CastingTableLogic.class, new CastingTableSpecialRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(CastingBasinLogic.class, new CastingBasinSpecialRender());
         ClientRegistry.bindTileEntitySpecialRenderer(DryingRackLogic.class, new DryingRackSpecialRender());
-        ClientRegistry.bindTileEntitySpecialRenderer(PartBuilderWorldLogic.class, new PartBuilderSpecialRender());
         // ClientRegistry.bindTileEntitySpecialRenderer(GolemCoreLogic.class,
         // new GolemCoreSpecialRender());
 
