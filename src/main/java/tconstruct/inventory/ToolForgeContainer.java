@@ -9,6 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
 import tconstruct.common.TRepo;
+import tconstruct.library.IModifyable;
 import tconstruct.library.tools.ToolCore;
 
 public class ToolForgeContainer extends ToolStationContainer
@@ -78,19 +79,22 @@ public class ToolForgeContainer extends ToolStationContainer
     @Override
     protected void craftTool (ItemStack stack)
     {
-        NBTTagCompound tags = stack.getTagCompound();
-        if (!tags.getCompoundTag("InfiTool").hasKey("Built"))
+        if (stack != null && stack.getItem() instanceof IModifyable)
         {
-            tags.getCompoundTag("InfiTool").setBoolean("Built", true);
-            for (int i = 2; i <= 4; i++)
-                logic.decrStackSize(i, 1);
-            int amount = logic.getStackInSlot(1).getItem() instanceof ToolCore ? stack.stackSize : 1;
-            logic.decrStackSize(1, amount);
-            if (!logic.getWorldObj().isRemote)
-                logic.getWorldObj().playAuxSFX(1021, (int) logic.xCoord, (int) logic.yCoord, (int) logic.zCoord, 0);
+            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
+            if (!tags.hasKey("Built"))
+            {
+                tags.setBoolean("Built", true);
+                for (int i = 2; i <= 4; i++)
+                    logic.decrStackSize(i, 1);
+                int amount = logic.getStackInSlot(1).getItem() instanceof ToolCore ? stack.stackSize : 1;
+                logic.decrStackSize(1, amount);
+                if (!logic.getWorldObj().isRemote)
+                    logic.getWorldObj().playAuxSFX(1021, (int) logic.xCoord, (int) logic.yCoord, (int) logic.zCoord, 0);
+            }
         }
     }
-    
+
     @Override
     public boolean canInteractWith (EntityPlayer entityplayer)
     {

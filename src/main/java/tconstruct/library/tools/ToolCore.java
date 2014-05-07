@@ -81,7 +81,7 @@ public abstract class ToolCore extends Item implements IModifyable, IEnergyConta
     }
     
     @Override
-    public String getBaseTag()
+    public String getBaseTagName()
     {
         return "InfiTool";
     }

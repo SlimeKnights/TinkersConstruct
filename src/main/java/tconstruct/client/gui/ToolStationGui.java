@@ -179,7 +179,7 @@ public class ToolStationGui extends NewContainerGui
         if (stack.getItem() instanceof IModifyable)
         {
             IModifyable item = (IModifyable) stack.getItem();
-            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(item.getBaseTag());
+            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(item.getBaseTagName());
             String name = item instanceof ToolCore ? ((ToolCore) item).getToolName() : item.getClass().getSimpleName();
             this.drawCenteredString(fontRendererObj, "\u00A7n" + name, xSize + 63, 8, 0xffffff);
 

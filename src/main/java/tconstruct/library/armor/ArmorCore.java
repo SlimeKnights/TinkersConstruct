@@ -35,7 +35,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
         super(ArmorMaterial.CHAIN, 0, part.getPartId());
         this.maxStackSize = 1;
         this.setMaxDamage(100);
-        this.setUnlocalizedName(getBaseTag());
+        this.setUnlocalizedName(getBaseTagName());
         this.armorPart = part;
         this.baseProtection = baseProtection;
         BlockDispenser.dispenseBehaviorRegistry.putObject(this, dispenserBehavior);
@@ -47,7 +47,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
     }
 
     @Override
-    public String getBaseTag ()
+    public String getBaseTagName ()
     {
         return "TinkerArmor";
     }
@@ -104,7 +104,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
             return new ArmorProperties(0, damage / baseProtection, baseProtection);
         }
 
-        NBTTagCompound data = tags.getCompoundTag(getBaseTag());
+        NBTTagCompound data = tags.getCompoundTag(getBaseTagName());
 
         double amount = (data.getInteger("Defense") / damage) + (data.getDouble("Protection") / 100);
         if (source.isUnblockable())
@@ -123,7 +123,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
     {
         if (!armor.hasTagCompound())
             return this.baseProtection;
-        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(getBaseTag());
+        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(getBaseTagName());
         double amount = armorTag.getDouble("Protection") / 4;
         if (amount > 0 && amount < 1)
             amount = 1;
@@ -141,11 +141,11 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
             tags = new NBTTagCompound();
             stack.setTagCompound(tags);
             data = new NBTTagCompound();
-            tags.setTag(getBaseTag(), data);
+            tags.setTag(getBaseTagName(), data);
             data.setDouble("DamageReduction", baseProtection);
         }
 
-        data = tags.getCompoundTag(getBaseTag());
+        data = tags.getCompoundTag(getBaseTagName());
 
         if (tags.hasKey("Energy"))
         {
@@ -307,7 +307,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
             }
         }
 
-        return tags.getCompoundTag(getBaseTag()).getInteger("TotalDurability");
+        return tags.getCompoundTag(getBaseTagName()).getInteger("TotalDurability");
     }
 
     public int getItemMaxDamageFromStackForDisplay (ItemStack stack)
@@ -327,7 +327,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
             }
         }
 
-        return tags.getCompoundTag(getBaseTag()).getInteger("Damage");
+        return tags.getCompoundTag(getBaseTagName()).getInteger("Damage");
     }
 
 }

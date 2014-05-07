@@ -81,7 +81,7 @@ public abstract class ItemModifier
 
     protected String getTagName (ItemStack stack)
     {
-        return ((IModifyable) stack.getItem()).getBaseTag();
+        return ((IModifyable) stack.getItem()).getBaseTagName();
     }
 
     /**

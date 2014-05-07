@@ -5,7 +5,7 @@ public interface IModifyable
     /**
      * @return The base tag to modify. Ex: InfiTool
      */
-    public String getBaseTag();
+    public String getBaseTagName();
     
     public String getModifyType();
     
