@@ -106,7 +106,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
 
         NBTTagCompound data = tags.getCompoundTag(getBaseTag());
 
-        double amount = (data.getInteger("defense") / damage) + (data.getDouble("protection") / 100);
+        double amount = (data.getInteger("Defense") / damage) + (data.getDouble("Protection") / 100);
         if (source.isUnblockable())
             amount = 0;
         clamp_double(amount, 0, 1);
@@ -124,7 +124,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
         if (!armor.hasTagCompound())
             return this.baseProtection;
         NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(getBaseTag());
-        double amount = armorTag.getDouble("protection") / 4;
+        double amount = armorTag.getDouble("Protection") / 4;
         if (amount > 0 && amount < 1)
             amount = 1;
         return (int) (Math.floor(amount));
@@ -142,7 +142,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
             stack.setTagCompound(tags);
             data = new NBTTagCompound();
             tags.setTag(getBaseTag(), data);
-            data.setDouble("damageReduction", baseProtection);
+            data.setDouble("DamageReduction", baseProtection);
         }
 
         data = tags.getCompoundTag(getBaseTag());

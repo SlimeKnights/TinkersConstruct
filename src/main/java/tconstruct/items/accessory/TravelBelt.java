@@ -4,57 +4,62 @@ import java.util.List;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+import tconstruct.client.TControls;
 import tconstruct.client.TProxyClient;
 import tconstruct.library.IAccessoryModel;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.tools.ToolCore;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TravelGlove extends AccessoryCore implements IAccessoryModel
+public class TravelBelt extends AccessoryCore implements IAccessoryModel
 {
-    public TravelGlove()
+    public TravelBelt()
     {
-        super("armor/travel_glove");
+        super("armor/travel_belt");
     }
 
     @Override
     public boolean canEquipAccessory (ItemStack item, int slot)
     {
-        return slot == 1;
+        return slot == 3;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     protected void registerModifiers (IIconRegister iconRegister)
     {
-        this.modifiers = new IIcon[4];
-        this.modifiers[0] = iconRegister.registerIcon("tinker:armor/glove_guard");
-        this.modifiers[1] = iconRegister.registerIcon("tinker:armor/glove_speedaura");
-        this.modifiers[2] = iconRegister.registerIcon("tinker:armor/glove_spines");
-        this.modifiers[3] = iconRegister.registerIcon("tinker:armor/glove_sticky");
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel (EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot)
     {
-        return TProxyClient.glove;
+        return TProxyClient.belt;
     }
 
-    ResourceLocation texture = new ResourceLocation("tinker", "textures/armor/travel_1.png");
+    ResourceLocation texture = new ResourceLocation("tinker", "textures/armor/travel_2.png");
 
     @Override
     @SideOnly(Side.CLIENT)
     public ResourceLocation getWearbleTexture (Entity entity, ItemStack stack, int slot)
     {
         return texture;
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
+    {
+        if (!stack.hasTagCompound())
+            return;
+        
+        list.add("\u00a76Ability: Swap Hotbar");
+        list.add("\u00a76Control: "+GameSettings.getKeyDisplayString(TControls.beltSwap.keyCode));
     }
 }

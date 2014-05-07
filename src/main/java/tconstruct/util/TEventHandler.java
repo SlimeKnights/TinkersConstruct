@@ -59,6 +59,7 @@ import tconstruct.blocks.TankAirBlock;
 import tconstruct.common.TRepo;
 import tconstruct.entity.BlueSlime;
 import tconstruct.items.armor.TravelGear;
+import tconstruct.items.armor.TravelWings;
 import tconstruct.items.tools.FryingPan;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.event.PartBuilderEvent;
@@ -761,7 +762,7 @@ public class TEventHandler
     public void jumpHeight (LivingJumpEvent event)
     {
         ItemStack stack = event.entityLiving.getEquipmentInSlot(2);
-        if (stack != null && stack.getItem() instanceof TravelGear)
+        if (stack != null && stack.getItem() instanceof TravelWings)
         {
             event.entityLiving.motionY += 0.2;
         }

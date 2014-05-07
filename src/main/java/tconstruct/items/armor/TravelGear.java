@@ -278,7 +278,7 @@ public class TravelGear extends ArmorCore
 
         if (armorPart == EnumArmorPart.Head)
         {
-            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getUniqueID());
             if (stats.activeGoggles)
             {
                 player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 15 * 20, 0, true));

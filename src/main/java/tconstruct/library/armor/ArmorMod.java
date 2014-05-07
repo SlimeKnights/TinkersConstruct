@@ -34,8 +34,8 @@ public abstract class ArmorMod extends ItemModifier
         return false;
     }
 
-    public boolean validType (IModifyable tool)
+    public boolean validType (IModifyable type)
     {
-        return tool.getModifyType().equals("Armor");
+        return type.getModifyType().equals("Armor");
     }
 }

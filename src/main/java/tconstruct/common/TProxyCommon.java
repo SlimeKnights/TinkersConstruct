@@ -88,8 +88,8 @@ public class TProxyCommon implements IGuiHandler
 
     public void registerTickHandler ()
     {
-        if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
-        FMLCommonHandler.instance().bus().register(new AbilityTick());
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+            FMLCommonHandler.instance().bus().register(new AbilityTick());
     }
 
     /* Registers any rendering code. Does nothing server-side */
@@ -132,4 +132,10 @@ public class TProxyCommon implements IGuiHandler
     {
 
     }
+
+    public EntityPlayer getPlayer ()
+    {
+        return null;
+    }
+
 }

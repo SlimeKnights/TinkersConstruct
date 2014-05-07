@@ -22,23 +22,25 @@ public class ModRedstone extends ItemModTypeFilter
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        ToolCore toolItem = (ToolCore) tool.getItem();
-        if (!validType(toolItem))
-            return false;
+        if (tool.getItem() instanceof ToolCore)
+        {
+            ToolCore toolItem = (ToolCore) tool.getItem();
+            if (!validType(toolItem))
+                return false;
 
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
-        if (!tags.hasKey(key))
-            return tags.getInteger("Modifiers") > 0;
+            NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+            if (!tags.hasKey(key))
+                return tags.getInteger("Modifiers") > 0;
 
-        int keyPair[] = tags.getIntArray(key);
-        if (keyPair[0] + matchingAmount(input) <= keyPair[1])
-            return true;
+            int keyPair[] = tags.getIntArray(key);
+            if (keyPair[0] + matchingAmount(input) <= keyPair[1])
+                return true;
 
-        else if (keyPair[0] == keyPair[1])
-            return tags.getInteger("Modifiers") > 0;
+            else if (keyPair[0] == keyPair[1])
+                return tags.getInteger("Modifiers") > 0;
 
-        else
-            return false;
+        }
+        return false;
     }
 
     @Override

@@ -14,6 +14,7 @@ import cpw.mods.fml.client.registry.*;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.VillagerRegistry;
 import mantle.client.*;
+import mantle.client.block.SmallFontRenderer;
 import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -60,7 +61,7 @@ public class TProxyClient extends TProxyCommon
 {
     public static SmallFontRenderer smallFontRenderer;
     public static IIcon metalBall;
-    public static Minecraft mc;
+    public static Minecraft mc = Minecraft.getMinecraft();
     public static RenderItem itemRenderer = new RenderItem();
 
     public static ArmorExtended armorExtended = new ArmorExtended();
@@ -70,6 +71,7 @@ public class TProxyClient extends TProxyCommon
     public static BootBump bootbump = new BootBump();
     public static HiddenPlayerModel glove = new HiddenPlayerModel(0.25F, 4);
     public static HiddenPlayerModel vest = new HiddenPlayerModel(0.25f, 1);
+    public static BeltModel belt = new BeltModel();
 
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
@@ -756,8 +758,6 @@ public class TProxyClient extends TProxyCommon
 
     public EntityFX doSpawnParticle (String par1Str, double par2, double par4, double par6, double par8, double par10, double par12)
     {
-        if (this.mc == null)
-            this.mc = Minecraft.getMinecraft();
 
         if (this.mc.renderViewEntity != null && this.mc.effectRenderer != null)
         {
@@ -968,6 +968,12 @@ public class TProxyClient extends TProxyCommon
         if (icon != null)
             return icon;
         return ((TextureMap) Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.locationBlocksTexture)).getAtlasSprite("missingno");
+    }
+
+    @Override
+    public EntityPlayer getPlayer ()
+    {
+        return mc.thePlayer;
     }
 
 }
