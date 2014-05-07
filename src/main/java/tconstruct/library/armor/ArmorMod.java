@@ -11,9 +11,9 @@ import tconstruct.library.modifier.ItemModifier;
 
 public abstract class ArmorMod extends ItemModifier
 {
-    protected final EnumSet<EnumArmorPart> armorTypes;
+    protected final EnumSet<ArmorPart> armorTypes;
 
-    public ArmorMod(int effect, String dataKey, EnumSet<EnumArmorPart> armorTypes, ItemStack[] items)
+    public ArmorMod(int effect, String dataKey, EnumSet<ArmorPart> armorTypes, ItemStack[] items)
     {
         super(items, effect, dataKey);
         this.armorTypes = armorTypes;

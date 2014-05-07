@@ -13,7 +13,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.accessory.IAccessory;
-import tconstruct.library.armor.EnumArmorPart;
+import tconstruct.library.armor.ArmorPart;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.tools.ToolCore;
 import cpw.mods.fml.relauncher.Side;

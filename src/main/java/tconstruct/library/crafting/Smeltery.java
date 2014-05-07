@@ -206,7 +206,16 @@ public class Smeltery
      */
     public static void addDictionaryMelting (String oreName, FluidType type, int temperatureDifference, int fluidAmount)
     {
+        addDictionaryMelting(oreName, type, temperatureDifference, fluidAmount, 1);
+    }
+    
+    public static void addDictionaryMelting (String oreName, FluidType type, int temperatureDifference, int fluidAmount, int renderSize)
+    {
         for (ItemStack is : OreDictionary.getOres(oreName))
-            addMelting(type, is, temperatureDifference, fluidAmount);
+        {
+            ItemStack copy = is.copy();
+            copy.stackSize = renderSize;
+            addMelting(type, copy, temperatureDifference, fluidAmount);
+        }
     }
 }

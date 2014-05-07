@@ -7,13 +7,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.armor.AModInteger;
 import tconstruct.library.armor.ArmorCore;
-import tconstruct.library.armor.EnumArmorPart;
+import tconstruct.library.armor.ArmorPart;
 
 public class AModDoubleJump extends AModInteger
 {
     public AModDoubleJump(ItemStack[] items)
     {
-        super(6, "Double-Jump", EnumSet.of(EnumArmorPart.Feet), items, 5, 1, "\u00a7a", "Double-Jump");
+        super(6, "Double-Jump", EnumSet.of(ArmorPart.Feet), items, 5, 1, "\u00a7a", "Double-Jump");
     }
 
     @Override

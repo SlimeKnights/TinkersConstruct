@@ -70,7 +70,7 @@ public class CraftingStationBlock extends InventoryBlock
     @Override
     public int getRenderType ()
     {
-        return TableRender.tabelModelID;
+        return TableRender.model;
     }
 
     @Override

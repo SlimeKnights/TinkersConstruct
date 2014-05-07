@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.ArmorModTypeFilter;
-import tconstruct.library.armor.EnumArmorPart;
+import tconstruct.library.armor.ArmorPart;
 import tconstruct.library.modifier.IModifyable;
 
 //TODO: Condense attribute modifiers into one class
@@ -18,7 +18,7 @@ public class AModDamageBoost extends ArmorModTypeFilter
     final int modifyAmount;
     final double scaleAmount;
 
-    public AModDamageBoost(int effect, EnumSet<EnumArmorPart> armorTypes, ItemStack[] items, int[] values, boolean type, int modifiers, double scale)
+    public AModDamageBoost(int effect, EnumSet<ArmorPart> armorTypes, ItemStack[] items, int[] values, boolean type, int modifiers, double scale)
     {
         super(effect, "ExoAttack" + (type ? "Percent" : "Flat"), armorTypes, items, values);
         this.modifierType = type;

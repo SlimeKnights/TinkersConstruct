@@ -111,6 +111,7 @@ public class PHConstruct
         slimePad = config.getBlock("Slime Pad", 3191).getInt(3191);
 
         furnaceSlab = config.getBlock("Furnace Slab", 3192).getInt(3192);
+        partBuilderWorld = config.getBlock("World Part Builder", 3193).getInt(3193);
 
         //Thermal Expansion
         moltenSilver = config.getBlock("Molten Silver", 3195).getInt(3195);
@@ -416,6 +417,7 @@ public class PHConstruct
 
     //Blocks
     public static int woodStation;
+    public static int partBuilderWorld;
     public static int toolForge;
     public static int heldItemBlock;
     public static int woodCrafter;

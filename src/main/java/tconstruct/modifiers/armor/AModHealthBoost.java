@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.ArmorModTypeFilter;
-import tconstruct.library.armor.EnumArmorPart;
+import tconstruct.library.armor.ArmorPart;
 
 //TODO: Condense attribute modifiers into one class
 public class AModHealthBoost extends ArmorModTypeFilter
@@ -16,7 +16,7 @@ public class AModHealthBoost extends ArmorModTypeFilter
     final boolean modifierType;
     final int modifyAmount = 3;
 
-    public AModHealthBoost(int effect, EnumSet<EnumArmorPart> armorTypes, ItemStack[] items, int[] values, boolean type)
+    public AModHealthBoost(int effect, EnumSet<ArmorPart> armorTypes, ItemStack[] items, int[] values, boolean type)
     {
         super(effect, "ExoHealth" + (type ? "Percent" : "Flat"), armorTypes, items, values);
         this.modifierType = type;

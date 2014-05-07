@@ -2,7 +2,7 @@ package tconstruct.common;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import tconstruct.library.armor.EnumArmorPart;
+import tconstruct.library.armor.ArmorPart;
 import tconstruct.library.crafting.ToolBuilder;
 import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.event.FMLInterModComms;
@@ -135,6 +135,7 @@ public class TContent implements IFuelHandler
 
     //Crafting blocks
     public static Block toolStationWood;
+    public static Block partBuilderWorld;
     public static Block toolStationStone;
     public static Block toolForge;
     public static Block craftingStationWood;
@@ -357,8 +358,11 @@ public class TContent implements IFuelHandler
         //Tool Station
         toolStationWood = new ToolStationBlock(PHConstruct.woodStation, Material.wood).setUnlocalizedName("ToolStation");
         GameRegistry.registerBlock(toolStationWood, ToolStationItemBlock.class, "ToolStationBlock");
+        partBuilderWorld = new PartBuilderWorldBlock(PHConstruct.partBuilderWorld, Material.wood).setUnlocalizedName("ToolStation");
+        GameRegistry.registerBlock(partBuilderWorld, ToolStationItemBlock.class, "PartBuilderWorldBlock");
         GameRegistry.registerTileEntity(ToolStationLogic.class, "ToolStation");
         GameRegistry.registerTileEntity(PartBuilderLogic.class, "PartCrafter");
+        GameRegistry.registerTileEntity(PartBuilderWorldLogic.class, "PartCrafterWorld");
         GameRegistry.registerTileEntity(PatternChestLogic.class, "PatternHolder");
         GameRegistry.registerTileEntity(StencilTableLogic.class, "PatternShaper");
 
@@ -1026,19 +1030,19 @@ public class TContent implements IFuelHandler
         GameRegistry.registerItem(leggingsWood, "leggingsWood");
         GameRegistry.registerItem(bootsWood, "bootsWood");
 
-        exoGoggles = new ExoArmor(PHConstruct.exoGoggles, EnumArmorPart.Head, "exosuit").setUnlocalizedName("tconstruct.exoGoggles");
-        exoChest = new ExoArmor(PHConstruct.exoChest, EnumArmorPart.Chest, "exosuit").setUnlocalizedName("tconstruct.exoChest");
-        exoPants = new ExoArmor(PHConstruct.exoPants, EnumArmorPart.Legs, "exosuit").setUnlocalizedName("tconstruct.exoPants");
-        exoShoes = new ExoArmor(PHConstruct.exoShoes, EnumArmorPart.Feet, "exosuit").setUnlocalizedName("tconstruct.exoShoes");
+        exoGoggles = new ExoArmor(PHConstruct.exoGoggles, ArmorPart.Head, "exosuit_").setUnlocalizedName("tconstruct.exoGoggles");
+        exoChest = new ExoArmor(PHConstruct.exoChest, ArmorPart.Chest, "exosuit_").setUnlocalizedName("tconstruct.exoChest");
+        exoPants = new ExoArmor(PHConstruct.exoPants, ArmorPart.Legs, "exosuit_").setUnlocalizedName("tconstruct.exoPants");
+        exoShoes = new ExoArmor(PHConstruct.exoShoes, ArmorPart.Feet, "exosuit_").setUnlocalizedName("tconstruct.exoShoes");
         GameRegistry.registerItem(exoGoggles, "exoGoggles");
         GameRegistry.registerItem(exoChest, "exoChest");
         GameRegistry.registerItem(exoPants, "exoPants");
         GameRegistry.registerItem(exoShoes, "exoShoes");
 
-        travelGoggles = (TravelGear) new TravelGear(PHConstruct.travelGoggles, EnumArmorPart.Head, "travel").setUnlocalizedName("tconstruct.travelgoggles");
-        travelVest = (TravelGear) new TravelGear(PHConstruct.travelVest, EnumArmorPart.Chest, "travel").setUnlocalizedName("tconstruct.travelvest");
-        travelWings = (TravelGear) new TravelWings(PHConstruct.travelWings, "travel").setUnlocalizedName("tconstruct.travelwings");
-        travelBoots = (TravelGear) new TravelGear(PHConstruct.travelBoots, EnumArmorPart.Feet, "travel").setUnlocalizedName("tconstruct.travelboots");
+        travelGoggles = (TravelGear) new TravelGear(PHConstruct.travelGoggles, ArmorPart.Head).setUnlocalizedName("tconstruct.travelgoggles");
+        travelVest = (TravelGear) new TravelGear(PHConstruct.travelVest, ArmorPart.Chest).setUnlocalizedName("tconstruct.travelvest");
+        travelWings = (TravelGear) new TravelWings(PHConstruct.travelWings).setUnlocalizedName("tconstruct.travelwings");
+        travelBoots = (TravelGear) new TravelGear(PHConstruct.travelBoots, ArmorPart.Feet).setUnlocalizedName("tconstruct.travelboots");
         travelGlove = (AccessoryCore) new TravelGlove(PHConstruct.travelGlove).setUnlocalizedName("tconstruct.travelgloves");
         travelBelt = (AccessoryCore) new TravelBelt(PHConstruct.travelBelt).setUnlocalizedName("tconstruct.travelbelt");
         GameRegistry.registerItem(travelGoggles, "travelGoggles");
@@ -1048,23 +1052,15 @@ public class TContent implements IFuelHandler
         GameRegistry.registerItem(travelGlove, "travelGlove");
         GameRegistry.registerItem(travelBelt, "travelBelt");
         
-        leatherHat = new LeatherSuit(PHConstruct.leatherHat, EnumArmorPart.Head, "leather").setUnlocalizedName("tconstruct.leatherHat");
-        leatherVest = new LeatherSuit(PHConstruct.leatherVest, EnumArmorPart.Chest, "leather").setUnlocalizedName("tconstruct.leatherVest");
-        leatherPants = new LeatherSuit(PHConstruct.leatherPants, EnumArmorPart.Legs, "leather").setUnlocalizedName("tconstruct.leatherPants");
-        leatherBoots = new LeatherSuit(PHConstruct.leatherBoots, EnumArmorPart.Feet, "leather").setUnlocalizedName("tconstruct.leatherBoots");
+        leatherHat = new LeatherSuit(PHConstruct.leatherHat, ArmorPart.Head).setUnlocalizedName("tconstruct.leatherHat");
+        leatherVest = new LeatherSuit(PHConstruct.leatherVest, ArmorPart.Chest).setUnlocalizedName("tconstruct.leatherVest");
+        leatherPants = new LeatherSuit(PHConstruct.leatherPants, ArmorPart.Legs).setUnlocalizedName("tconstruct.leatherPants");
+        leatherBoots = new LeatherSuit(PHConstruct.leatherBoots, ArmorPart.Feet).setUnlocalizedName("tconstruct.leatherBoots");
         GameRegistry.registerItem(leatherHat, "leatherHat");
         GameRegistry.registerItem(leatherVest, "leatherVest");
         GameRegistry.registerItem(leatherPants, "leatherPants");
         GameRegistry.registerItem(leatherBoots, "leatherBoots");
         
-        /*
-         * 
-    public static Item leatherHat;
-    public static Item leatherVest;
-    public static Item leatherPants;
-    public static Item leatherBoots;
-         */
-
         String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper",
                 "ingotTin", "ingotAluminum", "rawAluminum", "ingotBronze", "ingotAluminumBrass", "ingotAlumite", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper",
                 "nuggetTin", "nuggetAluminum", "nuggetSilver", "nuggetAluminumBrass", "silkyCloth", "silkyJewel", "nuggetObsidian", "nuggetCobalt", "nuggetArdite", "nuggetManyullyn", "nuggetBronze",
@@ -1270,6 +1266,10 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 4), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 3));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 5), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.chest);
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "logWood"));
+        GameRegistry.addRecipe(new ItemStack(partBuilderWorld, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(toolStationWood, 1, 1));
+        GameRegistry.addRecipe(new ItemStack(partBuilderWorld, 1, 2), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(toolStationWood, 1, 2));
+        GameRegistry.addRecipe(new ItemStack(partBuilderWorld, 1, 3), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(toolStationWood, 1, 3));
+        GameRegistry.addRecipe(new ItemStack(partBuilderWorld, 1, 4), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(toolStationWood, 1, 4));
         if (PHConstruct.stencilTableCrafting)
         {
             GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 0));
@@ -1725,11 +1725,11 @@ public class TContent implements IFuelHandler
         ItemStack obsidianPlate = new ItemStack(this.largePlate, 1, 6);
         ModifyBuilder.registerModifier(new ModReinforced(new ItemStack[] { obsidianPlate }, 16, 1));
 
-        TConstructRegistry.registerActiveToolMod(new TActiveOmniMod());
+        TConstructRegistry.registerActiveToolMod(new ActiveTinkerTools());
 
         //Armor modifiers
-        EnumSet<EnumArmorPart> allArmors = EnumSet.of(EnumArmorPart.Head, EnumArmorPart.Chest, EnumArmorPart.Legs, EnumArmorPart.Feet);
-        EnumSet<EnumArmorPart> chest = EnumSet.of(EnumArmorPart.Chest);
+        EnumSet<ArmorPart> allArmors = EnumSet.of(ArmorPart.Head, ArmorPart.Chest, ArmorPart.Legs, ArmorPart.Feet);
+        EnumSet<ArmorPart> chest = EnumSet.of(ArmorPart.Chest);
         /*ModifyBuilder.registerModifier(new AModMoveSpeed(0, allArmors, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }, false));
         ModifyBuilder.registerModifier(new AModKnockbackResistance(1, allArmors, new ItemStack[] { new ItemStack(Item.ingotGold), new ItemStack(Block.blockGold) }, new int[] { 1, 9 }, false));
         ModifyBuilder.registerModifier(new AModHealthBoost(2, allArmors, new ItemStack[] { new ItemStack(heartCanister, 1, 2) }, new int[] { 2 }, true));
@@ -1742,11 +1742,12 @@ public class TContent implements IFuelHandler
         //Travel gear modifiers
         /*ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(EnumArmorPart.Chest, EnumArmorPart.Feet), new ItemStack[] { new ItemStack(Item.ghastTear), new ItemStack(slimeGel, 1, 0),
                 new ItemStack(Block.pistonBase) }));*/
-        ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(EnumArmorPart.Legs, EnumArmorPart.Feet), new ItemStack[] { new ItemStack(Item.ghastTear), new ItemStack(slimeGel, 1, 0),
+        ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(ArmorPart.Legs, ArmorPart.Feet), new ItemStack[] { new ItemStack(Item.ghastTear), new ItemStack(slimeGel, 1, 0),
             new ItemStack(Block.pistonBase) }));
-        ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(EnumArmorPart.Legs, EnumArmorPart.Feet), new ItemStack[] { new ItemStack(Item.ghastTear), new ItemStack(slimeGel, 1, 1),
+        ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(ArmorPart.Legs, ArmorPart.Feet), new ItemStack[] { new ItemStack(Item.ghastTear), new ItemStack(slimeGel, 1, 1),
             new ItemStack(Block.pistonBase) }));
         ModifyBuilder.registerModifier(new TravelModRepair());
+        TConstructRegistry.registerActiveArmorMod(new ActiveTinkerArmor());
 
         //Accessory modifiers
         ModifyBuilder.registerModifier(new GloveSpeed(1, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
@@ -2609,16 +2610,16 @@ public class TContent implements IFuelHandler
         ores = OreDictionary.getOres("compressedCobblestone1x");
         if (ores.size() > 0)
         {
-            Smeltery.addDictionaryMelting("compressedCobblestone1x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 2);
-            Smeltery.addDictionaryMelting("compressedCobblestone2x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 2 * 9);
-            Smeltery.addDictionaryMelting("compressedCobblestone3x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 2 * 81);
+            Smeltery.addDictionaryMelting("compressedCobblestone1x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 2, 1);
+            Smeltery.addDictionaryMelting("compressedCobblestone2x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 2 * 9, 1);
+            Smeltery.addDictionaryMelting("compressedCobblestone3x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 2 * 81, 1);
         }
 
         /*for (int i = 1; i <= 8; i++)
         {
             Smeltery.addDictionaryMelting("compressedCobblestone" + i + "x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 18 * (9 ^ i));
         }*/
-        Smeltery.addDictionaryMelting("compressedSand1x", FluidType.Glass, 175, FluidContainerRegistry.BUCKET_VOLUME * 9);
+        Smeltery.addDictionaryMelting("compressedSand1x", FluidType.Glass, 175, FluidContainerRegistry.BUCKET_VOLUME * 9, 1);
 
         /* Rubber */
         ores = OreDictionary.getOres("itemRubber");
@@ -2663,24 +2664,24 @@ public class TContent implements IFuelHandler
                 continue;
 
             // Nuggets
-            Smeltery.addDictionaryMelting("nugget" + ft.toString(), ft, -200, TConstruct.nuggetLiquidValue);
+            Smeltery.addDictionaryMelting("nugget" + ft.toString(), ft, -200, TConstruct.nuggetLiquidValue, 8);
 
             // Ingots, Dust
             registerIngotCasting(ft);
-            Smeltery.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
-            Smeltery.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue);
+            Smeltery.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue, 4);
+            Smeltery.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue, 4);
 
             // Factorization support
-            Smeltery.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
+            Smeltery.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue, 4);
 
             // Ores
-            Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre);
+            Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre, 1);
 
             // NetherOres support
-            Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 2);
+            Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 2, 1);
 
             // Blocks
-            Smeltery.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue);
+            Smeltery.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue, 1);
 
             if (ft.isToolpart)
             {
@@ -2692,24 +2693,24 @@ public class TContent implements IFuelHandler
         //Obsidian, different dust amount
         {
             FluidType ft = FluidType.Obsidian;
-            Smeltery.addDictionaryMelting("nugget" + ft.toString(), ft, -100, TConstruct.nuggetLiquidValue);
+            Smeltery.addDictionaryMelting("nugget" + ft.toString(), ft, -100, TConstruct.nuggetLiquidValue, 8);
 
             // Ingots, Dust
             registerIngotCasting(ft);
-            Smeltery.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
-            Smeltery.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue / 4);
+            Smeltery.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue, 4);
+            Smeltery.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue / 4, 4);
 
             // Factorization support
-            Smeltery.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
+            Smeltery.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue, 4);
 
             // Ores
-            Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre);
+            Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre, 1);
 
             // NetherOres support
-            Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 2);
+            Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 2, 1);
 
             // Blocks
-            Smeltery.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue);
+            Smeltery.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue, 1);
 
             if (ft.isToolpart)
             {

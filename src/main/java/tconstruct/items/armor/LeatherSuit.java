@@ -16,19 +16,16 @@ import net.minecraft.util.Icon;
 import tconstruct.client.TProxyClient;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.armor.ArmorCore;
-import tconstruct.library.armor.EnumArmorPart;
+import tconstruct.library.armor.ArmorPart;
 import tconstruct.library.tools.ToolCore;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class LeatherSuit extends ArmorCore
 {
-    String textureName;
-
-    public LeatherSuit(int id, EnumArmorPart part, String texture)
+    public LeatherSuit(int id, ArmorPart part)
     {
-        super(id, 0, part, "Clothing", texture);
-        this.textureName = texture;
+        super(id, 0, part, "Clothing", "leathersuit", "");
         this.setCreativeTab(TConstructRegistry.materialTab);
         this.setMaxDamage(1035);
     }
@@ -80,24 +77,17 @@ public class LeatherSuit extends ArmorCore
     }
 
     @SideOnly(Side.CLIENT)
-    protected Icon[] modifiers;
     protected Icon overlayIcon;
 
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons (IconRegister iconRegister)
     {
-        this.itemIcon = iconRegister.registerIcon("tinker:armor/" + textureName + "_"
+        this.itemIcon = iconRegister.registerIcon("tinker:leathersuit/" + textureName
                 + (this.armorType == 0 ? "hat" : this.armorType == 1 ? "vest" : this.armorType == 2 ? "pants" : this.armorType == 3 ? "boots" : "hat"));
-        this.overlayIcon = iconRegister.registerIcon("tinker:armor/" + textureName + "_"
+        this.overlayIcon = iconRegister.registerIcon("tinker:leathersuit/" + textureName
                 + (this.armorType == 0 ? "hat" : this.armorType == 1 ? "vest" : this.armorType == 2 ? "pants" : this.armorType == 3 ? "boots" : "hat") + "_overlay");
         registerModifiers(iconRegister);
-    }
-
-    @SideOnly(Side.CLIENT)
-    protected void registerModifiers (IconRegister iconRegister)
-    {
-
     }
 
     @Override
@@ -105,8 +95,8 @@ public class LeatherSuit extends ArmorCore
     public String getArmorTexture (ItemStack stack, Entity entity, int slot, String type)
     {
         if (type == "overlay")
-            return "tinker:textures/armor/" + textureName + "_" + (slot == 2 ? 2 : 1) + "_b.png";
-        return "tinker:textures/armor/" + textureName + "_" + (slot == 2 ? 2 : 1) + ".png";
+            return "tinker:textures/armor/leather_" + (slot == 2 ? 2 : 1) + "_b.png";
+        return "tinker:textures/armor/leather_" + (slot == 2 ? 2 : 1) + ".png";
     }
 
     @SideOnly(Side.CLIENT)

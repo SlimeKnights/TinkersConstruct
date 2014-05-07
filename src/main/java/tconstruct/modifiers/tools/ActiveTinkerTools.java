@@ -23,7 +23,7 @@ import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.util.config.PHConstruct;
 
-public class TActiveOmniMod extends ActiveToolMod
+public class ActiveTinkerTools extends ActiveToolMod
 {
     Random random = new Random();
 

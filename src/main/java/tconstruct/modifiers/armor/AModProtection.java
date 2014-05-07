@@ -8,13 +8,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.ArmorModTypeFilter;
-import tconstruct.library.armor.EnumArmorPart;
+import tconstruct.library.armor.ArmorPart;
 
 public class AModProtection extends ArmorModTypeFilter
 {
     int modifyAmount = 3;
 
-    public AModProtection(int effect, EnumSet<EnumArmorPart> armorTypes, ItemStack[] items, int[] values)
+    public AModProtection(int effect, EnumSet<ArmorPart> armorTypes, ItemStack[] items, int[] values)
     {
         super(effect, "ExoProtection", armorTypes, items, values);
     }

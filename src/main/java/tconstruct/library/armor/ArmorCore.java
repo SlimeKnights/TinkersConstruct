@@ -3,8 +3,6 @@ package tconstruct.library.armor;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.client.settings.GameSettings;
@@ -23,17 +21,23 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import tconstruct.client.TControls;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.modifier.ActiveArmorMod;
 import tconstruct.library.modifier.IModifyable;
+import tconstruct.library.tools.ToolCore;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IModifyable
 {
-    public final EnumArmorPart armorPart;
+    public final ArmorPart armorPart;
     private static final IBehaviorDispenseItem dispenserBehavior = new BehaviorDispenseArmorCopy();
     public final int baseProtection;
     protected final String modifyType;
+    protected final String textureFolder;
     protected final String textureName;
 
-    public ArmorCore(int id, int baseProtection, EnumArmorPart part, String type, String textureName)
+    public ArmorCore(int id, int baseProtection, ArmorPart part, String type, String textureFolder, String textureName)
     {
         super(id, EnumArmorMaterial.CHAIN, 0, part.getPartId());
         this.maxStackSize = 1;
@@ -41,10 +45,16 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
         this.armorPart = part;
         this.baseProtection = baseProtection;
         this.modifyType = type;
+        this.textureFolder = textureFolder;
         this.textureName = textureName;
         BlockDispenser.dispenseBehaviorRegistry.putObject(this, dispenserBehavior);
     }
-    
+
+    public ArmorCore(int id, int baseProtection, ArmorPart part, String type, String textureName)
+    {
+        this(id, baseProtection, part, type, "armor", textureName);
+    }
+
     //Temporary?
     public abstract ItemStack getRepairMaterial (ItemStack input);
 
@@ -71,18 +81,28 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
         return new String[] { "armor" };
     }
 
-    public ItemStack onItemRightClick (ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
+    @Override
+    public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
-        int i = EntityLiving.getArmorPosition(par1ItemStack) - 1;
-        ItemStack itemstack1 = par3EntityPlayer.getCurrentArmor(i);
+        int i = EntityLiving.getArmorPosition(stack) - 1;
+        ItemStack itemstack1 = player.getCurrentArmor(i);
 
         if (itemstack1 == null)
         {
-            par3EntityPlayer.setCurrentItemOrArmor(i + 1, par1ItemStack.copy()); //Forge: Vanilla bug fix associated with fixed setCurrentItemOrArmor indexs for players.
-            par1ItemStack.stackSize = 0;
+            player.setCurrentItemOrArmor(i + 1, stack.copy()); //Forge: Vanilla bug fix associated with fixed setCurrentItemOrArmor indexs for players.
+            stack.stackSize = 0;
         }
 
-        return par1ItemStack;
+        return stack;
+    }
+
+    @Override
+    public void onArmorTickUpdate (World world, EntityPlayer player, ItemStack itemStack)
+    {
+        for (ActiveArmorMod mod : TConstructRegistry.activeArmorModifiers)
+        {
+            mod.onArmorTick(world, player, itemStack, this, this.armorPart);
+        }
     }
 
     @Override
@@ -101,9 +121,37 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
     @SideOnly(Side.CLIENT)
     public void registerIcons (IconRegister iconRegister)
     {
-        this.itemIcon = iconRegister.registerIcon("tinker:armor/" + textureName + "_"
-                + (this.armorType == 0 ? "goggles" : this.armorType == 1 ? "vest" : this.armorType == 2 ? "wings" : this.armorType == 3 ? "boots" : "helmet"));
+        this.itemIcon = iconRegister.registerIcon("tinker:" + textureFolder + "/" + textureName
+                + (this.armorType == 0 ? "helmet" : this.armorType == 1 ? "chestplate" : this.armorType == 2 ? "pants" : this.armorType == 3 ? "boots" : "helmet"));
         registerModifiers(iconRegister);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public Icon getIcon (ItemStack stack, int renderPass)
+    {
+        if (renderPass > 0)
+        {
+            if (stack.hasTagCompound())
+            {
+                NBTTagCompound tags = stack.getTagCompound().getCompoundTag(getBaseTagName());
+                if (renderPass == 1 && tags.hasKey("Effect1"))
+                {
+                    return modifiers[tags.getInteger("Effect1")];
+                }
+                if (renderPass == 2 && tags.hasKey("Effect2"))
+                {
+                    return modifiers[tags.getInteger("Effect2")];
+                }
+                if (renderPass == 3 && tags.hasKey("Effect3"))
+                {
+                    return modifiers[tags.getInteger("Effect3")];
+                }
+            }
+            return ToolCore.blankSprite;
+        }
+
+        return itemIcon;
     }
 
     @SideOnly(Side.CLIENT)
@@ -247,7 +295,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
             }
         }
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems (int par1, CreativeTabs par2CreativeTabs, List par3List)
@@ -262,7 +310,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
 
         NBTTagCompound tag = new NBTTagCompound();
         tag.setInteger("Modifiers", 3);
-        double flat = getFlatDefense(); 
+        double flat = getFlatDefense();
         double base = getBaseDefense();
         double max = getMaxDefense();
         tag.setDouble("DamageReduction", flat);
@@ -283,14 +331,17 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
         gear.setTagCompound(baseTag);
         return gear;
     }
-    
-    protected double getFlatDefense()
+
+    protected double getFlatDefense ()
     {
         return 0;
     }
-    protected abstract double getBaseDefense();
-    protected abstract double getMaxDefense();
-    protected abstract int getDurability();
+
+    protected abstract double getBaseDefense ();
+
+    protected abstract double getMaxDefense ();
+
+    protected abstract int getDurability ();
 
     // Vanilla overrides
     public boolean isItemTool (ItemStack par1ItemStack)

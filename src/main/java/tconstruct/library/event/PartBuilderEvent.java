@@ -1,6 +1,7 @@
 package tconstruct.library.event;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.event.Cancelable;
 import net.minecraftforge.event.Event;
 
 /* This event fires after all of the other construction. The resulting nbttag is added to the tool 
@@ -18,7 +19,7 @@ public class PartBuilderEvent extends Event
     {
         this.material = material;
         this.pattern = pattern;
-        this.otherPattern = otherPattern;
+        this.otherPattern = pattern;
     }
 
     @HasResult
@@ -46,6 +47,15 @@ public class PartBuilderEvent extends Event
         public ItemStack[] getResultStacks ()
         {
             return resultStacks;
+        }
+    }
+
+    @HasResult
+    public static class BeginBuild extends PartBuilderEvent
+    {
+        public BeginBuild(ItemStack material, ItemStack pattern, ItemStack otherPattern)
+        {
+            super(material, pattern, otherPattern);
         }
     }
 }

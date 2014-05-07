@@ -23,7 +23,7 @@ import tconstruct.client.TControls;
 import tconstruct.client.TProxyClient;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.armor.ArmorCore;
-import tconstruct.library.armor.EnumArmorPart;
+import tconstruct.library.armor.ArmorPart;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.relauncher.Side;
@@ -32,9 +32,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TravelGear extends ArmorCore
 {
 
-    public TravelGear(int id, EnumArmorPart part, String texture)
+    public TravelGear(int id, ArmorPart part)
     {
-        super(id, 0, part, "Clothing", texture);
+        super(id, 0, part, "Clothing", "travelgear", "travel");
         this.setCreativeTab(TConstructRegistry.materialTab);
         this.setMaxDamage(1035);
     }
@@ -42,7 +42,8 @@ public class TravelGear extends ArmorCore
     @Override
     public void onArmorTickUpdate (World world, EntityPlayer player, ItemStack itemStack)
     {
-        if (armorPart == EnumArmorPart.Chest)
+        super.onArmorTickUpdate(world, player, itemStack);
+        if (armorPart == ArmorPart.Chest)
         {
             if (player.isInWater())
             {
@@ -76,19 +77,12 @@ public class TravelGear extends ArmorCore
             }
         }
 
-        /*else if (armorPart == EnumArmorPart.Feet)
-        {
-            if (player.stepHeight < 1.0f)
-                player.stepHeight = 1.0f;
-        }*/
-
-        else if (armorPart == EnumArmorPart.Head)
+        else if (armorPart == ArmorPart.Head)
         {
             TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
             if (stats.activeGoggles)
             {
                 player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 15 * 20, 0, true));
-                //player.addPotionEffect(new PotionEffect(Potion.waterBreathing.id, 1, 0, true));
             }
         }
     }
@@ -138,33 +132,14 @@ public class TravelGear extends ArmorCore
     {
         return new ItemStack(Item.leather);
     }
-
+    
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon (ItemStack stack, int renderPass)
+    public void registerIcons (IconRegister iconRegister)
     {
-        if (renderPass > 0)
-        {
-            if (stack.hasTagCompound())
-            {
-                NBTTagCompound tags = stack.getTagCompound().getCompoundTag(getBaseTagName());
-                if (renderPass == 1 && tags.hasKey("Effect1"))
-                {
-                    return modifiers[tags.getInteger("Effect1")];
-                }
-                if (renderPass == 2 && tags.hasKey("Effect2"))
-                {
-                    return modifiers[tags.getInteger("Effect2")];
-                }
-                if (renderPass == 3 && tags.hasKey("Effect3"))
-                {
-                    return modifiers[tags.getInteger("Effect3")];
-                }
-            }
-            return ToolCore.blankSprite;
-        }
-
-        return itemIcon;
+        this.itemIcon = iconRegister.registerIcon("tinker:" + textureFolder + "/" + textureName + "_"
+                + (this.armorType == 0 ? "goggles" : this.armorType == 1 ? "vest" : this.armorType == 2 ? "wings" : this.armorType == 3 ? "boots" : "helmet"));
+        registerModifiers(iconRegister);
     }
 
     @Override

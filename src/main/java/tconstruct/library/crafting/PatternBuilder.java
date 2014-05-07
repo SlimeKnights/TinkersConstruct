@@ -50,12 +50,12 @@ public class PatternBuilder
         toolPatterns.add(item);
     }
 
-    /* Build tool parts from patterns */
-    public ItemStack[] getToolPart (ItemStack material, ItemStack pattern, ItemStack otherPattern)
+    /* Build tool parts from patterns, single pattern version */
+    public ItemStack[] getToolPart (ItemStack material, ItemStack pattern)
     {
         if (material != null && pattern != null)
         {
-            PartBuilderEvent.NormalPart event = new PartBuilderEvent.NormalPart(material, pattern, otherPattern);
+            PartBuilderEvent.NormalPart event = new PartBuilderEvent.NormalPart(material, pattern, null);
             MinecraftForge.EVENT_BUS.post(event);
 
             if (event.getResult() == Result.ALLOW)
@@ -64,7 +64,7 @@ public class PatternBuilder
             }
             else if (event.getResult() == Result.DENY)
             {
-                return null;
+                return new ItemStack[2];
             }
 
             ItemKey key = getItemKey(material);
@@ -79,7 +79,7 @@ public class PatternBuilder
                     int totalMaterial = key.value * material.stackSize;
 
                     if (totalMaterial < patternValue) // Not enough material
-                        return null;
+                        return new ItemStack[2];
 
                     else if (patternValue == key.value) //Material only
                         return new ItemStack[] { toolPart, null };
@@ -93,28 +93,89 @@ public class PatternBuilder
                         else
                             return new ItemStack[] { toolPart, null };
                     }
-                    /*if ( patternValue < totalMaterial )
-                    {
-                    	if (otherPattern != null)
-                    	{
-                    		int otherValue = ((IPattern)otherPattern.getItem()).getPatternCost(otherPattern.getItemDamage());
-                    		if (patternValue + otherValue <= key.value)
-                    		{
-                    			ItemStack otherPart = getMatchingPattern(otherPattern, mat);
-                    			return new ItemStack[] { toolPart, otherPart }; //Material + Material
-                    		}
-                    	}
-                    }
-                    
-                    else if ( patternValue == key.value )
-                    	return new ItemStack[] { new ItemStack(toolPart, 1, mat.materialID), null }; //Material only
-                    
-                    else
-                    	return null; //Not a valid match*/
                 }
             }
         }
+        return new ItemStack[2];
+    }
+
+    private ItemStack getValidPart (ItemKey key, ItemStack pattern, ItemStack material)
+    {
+        MaterialSet mat = (MaterialSet) materialSets.get(key.key);
+        ItemStack toolPart = getMatchingPattern(pattern, material, mat);
+        int totalMaterial = key.value * material.stackSize;
+
+        if (toolPart != null)
+        {
+            int patternValue = ((IPattern) pattern.getItem()).getPatternCost(pattern);
+
+            if (totalMaterial < patternValue) // Not enough material
+                return null;
+
+            else
+                return toolPart;
+        }
         return null;
+    }
+
+    /* Checks to see whether a given material is a valid material */
+    public boolean validItemPart (ItemStack material, ItemStack pattern)
+    {
+        ItemKey key = getItemKey(material);
+        PartBuilderEvent.BeginBuild event = new PartBuilderEvent.BeginBuild(material, pattern, null);
+        MinecraftForge.EVENT_BUS.post(event);
+
+        if (event.getResult() == Result.ALLOW)
+            return true;
+        else if (event.getResult() == Result.DENY)
+            return false;
+
+        if (key != null)
+            return true;
+
+        return false;
+    }
+
+    /* Build tool parts from patterns, double pattern version */
+    public ItemStack[] getToolPart (ItemStack material, ItemStack pattern, ItemStack otherPattern)
+    {
+        if (material != null && pattern != null)
+        {
+            PartBuilderEvent.NormalPart event = new PartBuilderEvent.NormalPart(material, pattern, otherPattern);
+            MinecraftForge.EVENT_BUS.post(event);
+
+            if (event.getResult() == Result.ALLOW)
+            {
+                return event.getResultStacks();
+            }
+            else if (event.getResult() == Result.DENY)
+            {
+                return new ItemStack[2];
+            }
+
+            ItemKey key = getItemKey(material);
+            if (key != null)
+            {
+                MaterialSet mat = (MaterialSet) materialSets.get(key.key);
+                ItemStack toolPart = getMatchingPattern(pattern, material, mat);
+
+                if (toolPart != null)
+                {
+                    int patternValue = ((IPattern) pattern.getItem()).getPatternCost(pattern);
+                    int totalMaterial = key.value * material.stackSize;
+
+                    if (totalMaterial < patternValue) // Not enough material
+                        return new ItemStack[2];
+
+                    else if (patternValue == key.value) //Material only
+                        return new ItemStack[] { toolPart, null };
+
+                    else
+                        return new ItemStack[] { toolPart, getValidPart(key, otherPattern, mat.shard) };
+                }
+            }
+        }
+        return new ItemStack[2];
     }
 
     public int getPartID (ItemStack material)

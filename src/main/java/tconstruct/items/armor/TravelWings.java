@@ -7,16 +7,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import tconstruct.common.TContent;
-import tconstruct.library.armor.EnumArmorPart;
+import tconstruct.library.armor.ArmorPart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class TravelWings extends TravelGear
 {
 
-    public TravelWings(int id, String texture)
+    public TravelWings(int id)
     {
-        super(id, EnumArmorPart.Legs, texture);
+        super(id, ArmorPart.Legs);
     }
 
     @Override

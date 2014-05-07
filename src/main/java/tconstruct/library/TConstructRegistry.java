@@ -1,23 +1,13 @@
 package tconstruct.library;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 
-import tconstruct.library.crafting.Detailing;
-import tconstruct.library.crafting.LiquidCasting;
-import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.tools.ArrowMaterial;
-import tconstruct.library.tools.BowMaterial;
-import tconstruct.library.tools.BowstringMaterial;
-import tconstruct.library.tools.CustomMaterial;
-import tconstruct.library.tools.FletchingMaterial;
-import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.ToolMaterial;
-import tconstruct.library.util.TabTools;
+import tconstruct.library.crafting.*;
+import tconstruct.library.modifier.*;
+import tconstruct.library.tools.*;
+import tconstruct.library.util.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -32,7 +22,7 @@ public class TConstructRegistry
 {
     public static TConstructRegistry instance = new TConstructRegistry();
 
-    public static Logger logger = Logger.getLogger("TCon-API");
+    public static Logger logger = Logger.getLogger("TCon-Library");
 
     /* Creative tabs */
     public static TabTools toolTab;
@@ -498,10 +488,16 @@ public class TConstructRegistry
     }
 
     public static ArrayList<ActiveToolMod> activeModifiers = new ArrayList<ActiveToolMod>();
+    public static LinkedList<ActiveArmorMod> activeArmorModifiers = new LinkedList<ActiveArmorMod>();
 
     public static void registerActiveToolMod (ActiveToolMod mod)
     {
         activeModifiers.add(mod);
+    }
+
+    public static void registerActiveArmorMod (ActiveArmorMod mod)
+    {
+        activeArmorModifiers.add(mod);
     }
 
     /* Used to determine how blocks are laid out in the drawbridge

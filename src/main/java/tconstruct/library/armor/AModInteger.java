@@ -17,7 +17,7 @@ public class AModInteger extends ArmorMod
     public final String color;
     public final String tooltipName;
 
-    public AModInteger(int effect, String dataKey, EnumSet<EnumArmorPart> armorTypes, ItemStack[] items, int count, int increase, String c, String tip)
+    public AModInteger(int effect, String dataKey, EnumSet<ArmorPart> armorTypes, ItemStack[] items, int count, int increase, String c, String tip)
     {
         super(effect, dataKey, armorTypes, items);
         this.modifyCount = count;
