@@ -21,7 +21,7 @@ public class TravelBelt extends AccessoryCore implements IAccessoryModel
 {
     public TravelBelt(int id)
     {
-        super(id, "armor/travel_belt");
+        super(id, "travelgear/travel_belt");
     }
 
     @Override

@@ -169,9 +169,8 @@ public class PatternBuilder
 
                     else if (patternValue == key.value) //Material only
                         return new ItemStack[] { toolPart, null };
-
                     else
-                        return new ItemStack[] { toolPart, getValidPart(key, otherPattern, mat.shard) };
+                        return new ItemStack[] { toolPart, mat.shard.copy() };
                 }
             }
         }

@@ -24,7 +24,7 @@ public class TravelGlove extends AccessoryCore implements IAccessoryModel
 {
     public TravelGlove(int id)
     {
-        super(id, "armor/travel_glove");
+        super(id, "travelgear/travel_glove");
     }
 
     @Override
