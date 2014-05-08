@@ -775,9 +775,9 @@ public class TRecipes
         // Jack o'Latern Recipe - Stone Torch
         GameRegistry.addRecipe(new ItemStack(Blocks.lit_pumpkin, 1, 0), "p", "s", 'p', new ItemStack(Blocks.pumpkin), 's', new ItemStack(TRepo.stoneTorch));
         // Stone Torch Recipe
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.stoneTorch, 4), "p", "w", 'p', new ItemStack(Items.coal, 1, Short.MAX_VALUE), 'w', "stoneRod"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.stoneTorch, 4), "p", "w", 'p', new ItemStack(Items.coal, 1, Short.MAX_VALUE), 'w', "rodStone"));
         // Stone Ladder Recipe
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.stoneLadder, 3), "w w", "www", "w w", 'w', "stoneRod"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.stoneLadder, 3), "w w", "www", "w w", 'w', "rodStone"));
         // Wooden Rail Recipe
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.woodenRail, 4, 0), "b b", "bxb", "b b", 'b', "plankWood", 'x', "stickWood"));
         // Stonesticks Recipes
