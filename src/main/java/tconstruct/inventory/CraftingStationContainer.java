@@ -71,13 +71,15 @@ public class CraftingStationContainer extends Container
         {
             IInventory chest = logic.chest.get();
             IInventory doubleChest = logic.doubleChest == null ? null : logic.doubleChest.get();
+            IInventory firstChest = (logic.doubleFirst ? doubleChest : chest);
+            IInventory secondChest = (logic.doubleFirst ? chest : doubleChest);
             int count = 0;
             for (column = 0; column < 9; column++)
             {
                 for (row = 0; row < 6; row++)
                 {
                     int value = count < 27 ? count : count - 27;
-                    this.addSlotToContainer(new Slot(count < 27 ? chest : doubleChest, value, -108 + row * 18, 19 + column * 18));
+                    this.addSlotToContainer(new Slot(count < 27 ? firstChest : secondChest, value, -108 + row * 18, 19 + column * 18));
                     count++;
                     if (count >= 27 && doubleChest == null)
                         break;
