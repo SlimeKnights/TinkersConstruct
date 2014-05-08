@@ -1051,10 +1051,13 @@ public class TRecipes
 
         OreDictionary.registerOre("torchStone", new ItemStack(TRepo.stoneTorch));
 
-        String[] matNames = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
-                "blueslime" };
-        for (int i = 0; i < matNames.length; i++)
-            OreDictionary.registerOre(matNames[i] + "Rod", new ItemStack(TRepo.toolRod, 1, i));
+        String[] matNames = { "Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn", "Copper", "Bronze", "Alumite", "Steel",
+                "Blueslime" };
+        for (int i = 0; i < matNames.length; i++){
+            //TODO 1.8 remove this ore dict entry as it's outdated(use materialRod instead)
+            OreDictionary.registerOre(matNames[i].toLowerCase() + "Rod", new ItemStack(TRepo.toolRod, 1, i));
+            OreDictionary.registerOre("rod" + matNames[i] , new ItemStack(TRepo.toolRod, 1, i));
+        }
         OreDictionary.registerOre("thaumiumRod", new ItemStack(TRepo.toolRod, 1, 31));
 
         String[] glassTypes = { "glassBlack", "glassRed", "glassGreen", "glassBrown", "glassBlue", "glassPurple", "glassCyan", "glassLightGray", "glassGray", "glassPink", "glassLime", "glassYellow",
