@@ -457,13 +457,14 @@ public class TContent implements IFuelHandler
         TRepo.glueFluidBlock = new GlueFluid(TRepo.glueFluid, Material.water).setCreativeTab(TConstructRegistry.blockTab).setStepSound(TRepo.slimeStep).setBlockName("liquid.glue");
         GameRegistry.registerBlock(TRepo.glueFluidBlock, "liquid.glue");
         TRepo.glueFluid.setBlock(TRepo.glueFluidBlock);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.glueFluid, 1000), new ItemStack(TRepo.buckets, 1, 26), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.glueFluid, 1000), new ItemStack(TRepo.buckets, 1, 25), new ItemStack(Items.bucket)));
 
         TRepo.pigIronFluid = new Fluid("pigiron.molten");
         if (!FluidRegistry.registerFluid(TRepo.pigIronFluid))
             TRepo.pigIronFluid = FluidRegistry.getFluid("pigiron.molten");
         else
             TRepo.pigIronFluid.setDensity(3000).setViscosity(6000).setTemperature(1300);
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.pigIronFluid, 1000), new ItemStack(TRepo.buckets, 1, 26), new ItemStack(Items.bucket)));
         TRepo.fluids = new Fluid[] { TRepo.moltenIronFluid, TRepo.moltenGoldFluid, TRepo.moltenCopperFluid, TRepo.moltenTinFluid, TRepo.moltenAluminumFluid, TRepo.moltenCobaltFluid,
                 TRepo.moltenArditeFluid, TRepo.moltenBronzeFluid, TRepo.moltenAlubrassFluid, TRepo.moltenManyullynFluid, TRepo.moltenAlumiteFluid, TRepo.moltenObsidianFluid, TRepo.moltenSteelFluid,
                 TRepo.moltenGlassFluid, TRepo.moltenStoneFluid, TRepo.moltenEmeraldFluid, TRepo.bloodFluid, TRepo.moltenNickelFluid, TRepo.moltenLeadFluid, TRepo.moltenSilverFluid,
