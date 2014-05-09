@@ -1,6 +1,5 @@
 package tconstruct.util;
 
-import mantle.common.ComparisonHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,7 +22,7 @@ public class TCraftingHandler // implements ICraftingHandler
         Item item = event.crafting.getItem();
         if (!event.player.worldObj.isRemote)
         {
-            if (ComparisonHelper.areEquivalent(item, TRepo.toolStationWood))
+            if (item == Item.getItemFromBlock(TRepo.toolStationWood))
             {
                 TPlayerStats stats = TPlayerStats.get(event.player);
                 NBTTagCompound tags = event.player.getEntityData().getCompoundTag("TConstruct");
@@ -34,7 +33,7 @@ public class TCraftingHandler // implements ICraftingHandler
                     AbilityHelper.spawnItemAtPlayer(event.player, new ItemStack(TRepo.manualBook, 1, 1));
                 }
             }
-            if (ComparisonHelper.areEquivalent(item, TRepo.smeltery) || ComparisonHelper.areEquivalent(item, TRepo.lavaTank))
+            if (item == Item.getItemFromBlock(TRepo.smeltery) || item == Item.getItemFromBlock(TRepo.lavaTank))
             {
                 TPlayerStats stats = TPlayerStats.get(event.player);
                 NBTTagCompound tags = event.player.getEntityData().getCompoundTag("TConstruct");
@@ -47,7 +46,7 @@ public class TCraftingHandler // implements ICraftingHandler
                 event.player.addStat(TAchievements.achievements.get("tconstruct:smelteryMaker"), 1);
             }
 
-            if (ComparisonHelper.areEquivalent(item, TRepo.craftingStationWood))
+            if (item == Item.getItemFromBlock(TRepo.craftingStationWood))
             {
                 event.player.addStat(TAchievements.achievements.get("tconstruct:betterCrafting"), 1);
             }

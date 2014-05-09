@@ -202,8 +202,7 @@ public class SmelteryContainer extends ActiveContainer
                 slot = (Slot) this.inventorySlots.get(slotPos);
                 slotStack = slot.getStack();
 
-                if (slotStack != null && slotStack.getItem() == inputStack.getItem() && (!inputStack.getHasSubtypes() || inputStack.getItemDamage() == slotStack.getItemDamage())
-                        && ItemStack.areItemStackTagsEqual(inputStack, slotStack))
+                if (slotStack != null && ItemStack.areItemStacksEqual(slotStack, inputStack))
                 {
                     int l = slotStack.stackSize + inputStack.stackSize;
 
