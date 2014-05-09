@@ -565,8 +565,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         for (int slotID = 0; slotID < 5; ++slotID)
         {
             ItemStack stack = living.getEquipmentInSlot(slotID);
-            if (stack != null && stack == par1ItemStack && stack.isStackable() && stack.stackSize < stack.getMaxStackSize() && stack.stackSize < 64
-                    && (!stack.getHasSubtypes() || stack.getItemDamage() == par1ItemStack.getItemDamage()) && ItemStack.areItemStackTagsEqual(stack, par1ItemStack))
+            if (stack != null && ItemStack.areItemStacksEqual(stack, par1ItemStack) && stack.isStackable() && stack.stackSize < stack.getMaxStackSize())
             {
                 return slotID;
             }

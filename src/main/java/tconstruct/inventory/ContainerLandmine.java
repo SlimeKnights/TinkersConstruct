@@ -344,7 +344,7 @@ public class ContainerLandmine extends Container
                             }
                             else if (slot2.isItemValid(itemstack4))
                             {
-                                if (itemstack1 == itemstack4 && itemstack1.getItemDamage() == itemstack4.getItemDamage() && ItemStack.areItemStackTagsEqual(itemstack1, itemstack4))
+                                if (ItemStack.areItemStacksEqual(itemstack1, itemstack4))
                                 {
                                     k1 = par2 == 0 ? itemstack4.stackSize : 1;
 
@@ -373,8 +373,7 @@ public class ContainerLandmine extends Container
                                     inventoryplayer.setItemStack(itemstack1);
                                 }
                             }
-                            else if (itemstack1 == itemstack4 && itemstack4.getMaxStackSize() > 1 && (!itemstack1.getHasSubtypes() || itemstack1.getItemDamage() == itemstack4.getItemDamage())
-                                    && ItemStack.areItemStackTagsEqual(itemstack1, itemstack4))
+                            else if (ItemStack.areItemStacksEqual(itemstack1, itemstack4))
                             {
                                 k1 = itemstack1.stackSize;
 

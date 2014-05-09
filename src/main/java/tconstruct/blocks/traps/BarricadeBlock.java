@@ -1,13 +1,13 @@
 package tconstruct.blocks.traps;
 
 import mantle.blocks.MantleBlock;
-import mantle.common.ComparisonHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Item;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.Explosion;
@@ -93,7 +93,7 @@ public class BarricadeBlock extends MantleBlock
     public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
     {
         ItemStack stack = player.getCurrentEquippedItem();
-        if ((stack != null) && (ComparisonHelper.areEquivalent(stack.getItem(), this)) && (!player.isSneaking()))
+        if ((stack != null) && (stack.getItem() == Item.getItemFromBlock(this)) && (!player.isSneaking()))
         {
             int meta = world.getBlockMetadata(x, y, z);
             if (meta % 4 != 3)

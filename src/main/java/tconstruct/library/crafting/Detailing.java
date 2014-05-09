@@ -99,7 +99,7 @@ public class Detailing
         for (int i = 0; i < detailing.size(); i++)
         {
             DetailInput detail = (DetailInput) detailing.get(i);
-            if (new ItemStack(block) == detail.input && inputMeta == detail.inputMeta)
+            if (Item.getItemFromBlock(block) == detail.input.getItem() && inputMeta == detail.inputMeta)
             {
                 return detail;
             }
