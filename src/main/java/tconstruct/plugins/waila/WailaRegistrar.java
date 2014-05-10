@@ -20,7 +20,6 @@ public class WailaRegistrar
         // Configs
         registrar.addConfig("Tinkers' Construct", "tcon.searedtank", "Seared Tank");
         registrar.addConfig("Tinkers' Construct", "tcon.castingchannel", "Casting Channel");
-        //registrar.addConfig("Tinkers' Construct", "tcon.essenceetractor", "Essence Extractor");
         registrar.addConfig("Tinkers' Construct", "tcon.basin", "Casting Basin");
         registrar.addConfig("Tinkers' Construct", "tcon.table", "Casting Table");
         registrar.addConfig("Tinkers' Construct", "tcon.smeltery", "Smeltery status");

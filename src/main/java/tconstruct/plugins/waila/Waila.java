@@ -1,31 +1,34 @@
 package tconstruct.plugins.waila;
 
+import mantle.module.ILoadableModule;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import tconstruct.TConstruct;
-import tconstruct.plugins.ICompatPlugin;
 
-public class Waila implements ICompatPlugin
+public class Waila implements ILoadableModule
 {
-    @Override
-    public String getModId() {
-        return "Waila";
-    }
+    @SuppressWarnings("unused")
+    public static String modId = "Waila";
 
     @Override
-    public void preInit() {
+    public void preInit ()
+    {
         // Nothing
     }
 
     @Override
-    public void init() {
+    public void init ()
+    {
         TConstruct.logger.info("Waila detected. Registering TConstruct tank blocks with Waila registry.");
 
         FMLInterModComms.sendMessage("Waila", "register", "tconstruct.plugins.waila.WailaRegistrar.wailaCallback");
     }
 
     @Override
-    public void postInit() {
+    public void postInit ()
+    {
         // Nothing
     }
+    
+
 
 }

@@ -9,27 +9,31 @@ import tconstruct.blocks.logic.CastingBasinLogic;
 
 import java.util.List;
 
-public class BasinDataProvider implements IWailaDataProvider {
+public class BasinDataProvider implements IWailaDataProvider
+{
 
     @Override
-    public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
+    public ItemStack getWailaStack (IWailaDataAccessor accessor, IWailaConfigHandler config)
+    {
         if (accessor.getTileEntity() instanceof CastingBasinLogic)
         {
-            return ((CastingBasinLogic)accessor.getTileEntity()).getStackInSlot(0);
+            return ((CastingBasinLogic) accessor.getTileEntity()).getStackInSlot(0);
         }
         return null;
     }
 
     @Override
-    public List<String> getWailaHead(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+    public List<String> getWailaHead (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
+    {
         return currenttip;
     }
 
     @Override
-    public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+    public List<String> getWailaBody (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
+    {
         if (accessor.getTileEntity() instanceof CastingBasinLogic && config.getConfig("tcon.basin", true))
         {
-            CastingBasinLogic te = (CastingBasinLogic)accessor.getTileEntity();
+            CastingBasinLogic te = (CastingBasinLogic) accessor.getTileEntity();
             if (te.getFluidAmount() != 0)
             {
                 FluidStack fs = te.getFluid();
@@ -38,13 +42,22 @@ public class BasinDataProvider implements IWailaDataProvider {
             }
             else
             {
-                if (te.getStackInSlot(0) != null) {
+                if (te.getStackInSlot(0) != null)
+                {
                     currenttip.add("Contains: " + te.getStackInSlot(0).getDisplayName());
-                } else {
+                }
+                else
+                {
                     currenttip.add("§oEmpty"); // "§o" == Italics
                 }
             }
         }
+        return currenttip;
+    }
+
+    @Override
+    public List<String> getWailaTail (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
+    {
         return currenttip;
     }
 

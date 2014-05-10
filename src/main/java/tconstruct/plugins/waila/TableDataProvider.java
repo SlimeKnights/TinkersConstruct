@@ -8,28 +8,32 @@ import tconstruct.blocks.logic.CastingTableLogic;
 
 import java.util.List;
 
-public class TableDataProvider implements IWailaDataProvider {
+public class TableDataProvider implements IWailaDataProvider
+{
 
     @Override
-    public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
+    public ItemStack getWailaStack (IWailaDataAccessor accessor, IWailaConfigHandler config)
+    {
         if (accessor.getTileEntity() instanceof CastingTableLogic)
         {
-            CastingTableLogic te = (CastingTableLogic)accessor.getTileEntity();
+            CastingTableLogic te = (CastingTableLogic) accessor.getTileEntity();
             return te.getStackInSlot(0);
         }
         return null;
     }
 
     @Override
-    public List<String> getWailaHead(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+    public List<String> getWailaHead (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
+    {
         return currenttip;
     }
 
     @Override
-    public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+    public List<String> getWailaBody (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
+    {
         if (accessor.getTileEntity() instanceof CastingTableLogic && config.getConfig("tcon.table", true))
         {
-            CastingTableLogic te = (CastingTableLogic)accessor.getTileEntity();
+            CastingTableLogic te = (CastingTableLogic) accessor.getTileEntity();
             if (te.getStackInSlot(1) != null)
             {
                 currenttip.add("Contains: " + te.getStackInSlot(1).getDisplayName());
@@ -40,6 +44,12 @@ public class TableDataProvider implements IWailaDataProvider {
                 currenttip.add("Amount: " + te.getFluidAmount() + "/" + te.getCapacity());
             }
         }
+        return currenttip;
+    }
+
+    @Override
+    public List<String> getWailaTail (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
+    {
         return currenttip;
     }
 
