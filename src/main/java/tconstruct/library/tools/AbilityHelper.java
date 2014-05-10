@@ -39,6 +39,7 @@ import net.minecraftforge.event.entity.player.UseHoeEvent;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.util.PiercingEntityDamage;
+import cofh.api.energy.IEnergyContainerItem;
 
 public class AbilityHelper
 {
@@ -447,7 +448,7 @@ public class AbilityHelper
                 stack.setItemDamage(1 + (tool.getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 1) / tool.getMaxCharge(stack));
                 tags.setInteger("charge", charge);
                 if (entity instanceof EntityPlayer)
-                    chargeFromArmor(stack, (EntityPlayer) entity);
+                    chargeEUFromArmor(stack, (EntityPlayer) entity);
             }
             if (energy != -1)
             {
@@ -460,8 +461,10 @@ public class AbilityHelper
 
                 energy -= trueSpeed * 2;
                 ToolCore tool = (ToolCore) stack.getItem();
-                stack.setItemDamage(1 + (tool.getMaxEnergyStored(stack) - energy) * (stack.getMaxDamage() - 1) / tool.getMaxEnergyStored(stack));
                 tags.setInteger("Energy", energy);
+                if (entity instanceof EntityPlayer)
+                    chargeEnergyFromHotbar(stack, (EntityPlayer) entity, tags);
+                stack.setItemDamage(1 + (tool.getMaxEnergyStored(stack) - energy) * (stack.getMaxDamage() - 1) / tool.getMaxEnergyStored(stack));
             }
             return true;
         }
@@ -471,7 +474,7 @@ public class AbilityHelper
         }
     }
 
-    static void chargeFromArmor (ItemStack stack, EntityPlayer player)
+    static void chargeEUFromArmor (ItemStack stack, EntityPlayer player)
     {
         boolean inContainer = false;
 
@@ -501,6 +504,31 @@ public class AbilityHelper
         if (inContainer)
         {
             player.openContainer.detectAndSendChanges();
+        }
+    }
+
+    static void chargeEnergyFromHotbar (ItemStack stack, EntityPlayer player, NBTTagCompound tags)
+    {
+        int buffer = tags.getInteger("Energy");
+        int start = buffer;
+        if (buffer < ToolCore.fluxCapacity)
+        {
+            ToolCore tool = (ToolCore) stack.getItem();
+            for (int iter = 0; iter < 9; ++iter)
+            {
+                ItemStack slot = player.inventory.mainInventory[iter];
+
+                if (slot != null && slot.getItem() instanceof IEnergyContainerItem && !(slot.getItem() instanceof ToolCore))
+                {
+                    IEnergyContainerItem fluxItem = (IEnergyContainerItem) slot.getItem();
+
+                    if (fluxItem.extractEnergy(slot, Math.min(ToolCore.fluxCapacity - buffer, ToolCore.maxReceive), true) > 0)
+                    {
+                        buffer += fluxItem.extractEnergy(slot, Math.min(ToolCore.fluxCapacity - buffer, ToolCore.maxReceive), false);
+                    }
+                }
+            }
+            tool.receiveEnergy(stack, buffer - start, false);
         }
     }
 

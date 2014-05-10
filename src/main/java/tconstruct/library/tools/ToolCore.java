@@ -62,10 +62,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class ToolCore extends Item implements IEnergyContainerItem, ICustomElectricItem, IBoxable
 {
-    //TE power constants -- TODO grab these from the 
-    protected int capacity = 400000;
-    protected int maxReceive = 2000;
-    protected int maxExtract = 2000;
+    //Flux power constants
+    public static int fluxCapacity = 400000;
+    public static int maxReceive = 2000;
+    public static int maxExtract = 2000;
 
     protected Random random = new Random();
     protected int damageVsEntity;
@@ -572,7 +572,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
             boolean supress = false;
             try
             {
-                clazz = Class.forName("tconstruct.common.TContent"); //TODO: Make sure this is still working in 1.7.
+                clazz = Class.forName("tconstruct.common.TContent");
                 fld = clazz.getField("supressMissingToolLogs");
                 supress = fld.getBoolean(fld);
             }
@@ -983,7 +983,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         if (tags == null || !tags.hasKey("Energy"))
             return 0;
         int energy = tags.getInteger("Energy");
-        int energyReceived = MathUtils.minInt(capacity - energy, MathUtils.minInt(this.maxReceive, maxReceive));
+        int energyReceived = MathUtils.minInt(fluxCapacity - energy, MathUtils.minInt(this.maxReceive, maxReceive));
         if (!simulate)
         {
             energy += energyReceived;
@@ -1031,7 +1031,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         NBTTagCompound tags = container.getTagCompound();
         if (tags == null || !tags.hasKey("Energy"))
             return 0;
-        return capacity;
+        return fluxCapacity;
     }
     //end of TE support section
 }
