@@ -18,7 +18,10 @@ public class TControls extends TKeyHandler
     // static KeyBinding stiltsKey = new KeyBinding("key.stilts", 46);
     public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24, keybindCategory);
     public static KeyBinding refreshCapes = new KeyBinding("key.tcapes.reload", 88, keybindCategory);
-    public static KeyBinding toggleGoggles = new KeyBinding("key.tgoggles", 44, keybindCategory);
+    public static KeyBinding toggleGoggles = new KeyBinding("key.tgoggles", 34, keybindCategory);
+    public static KeyBinding beltSwap = new KeyBinding("key.tbelt", 48, keybindCategory);
+    public static KeyBinding zoomKey = new KeyBinding("key.tzoom", 29, keybindCategory);
+
     static KeyBinding jumpKey;
     static KeyBinding invKey;
     static Minecraft mc;
@@ -35,7 +38,8 @@ public class TControls extends TKeyHandler
 
     public TControls()
     {
-        super(new KeyBinding[] { armorKey, refreshCapes, toggleGoggles }, new boolean[] { false, false, false }, getVanillaKeyBindings(), new boolean[] { false, false });
+        super(new KeyBinding[] { armorKey, refreshCapes, toggleGoggles, beltSwap, zoomKey }, new boolean[] { false, false, false, false, true }, getVanillaKeyBindings(),
+                new boolean[] { false, false });
         // TConstruct.logger.info("Controls registered");
     }
 

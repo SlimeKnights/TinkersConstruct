@@ -367,5 +367,10 @@ public class TPlayerHandler
     }
 
     Random rand = new Random();
+    public void onPlayerLogout (EntityPlayer player)
+    {
+        savePlayerStats(player, true);
+        playerStats.remove(player.getPersistentID());
+    }
 
 }

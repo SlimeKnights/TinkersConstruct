@@ -329,6 +329,7 @@ public class TClientEvents
                 {
                     custom.renderItem(FIRST_PERSON_MAP, stack, mc.thePlayer, mc.getTextureManager(), mapdata);
                 }
+
                 GL11.glTranslatef(0f, 0F, 100f);
                 renderMap(mc.thePlayer, mc.renderEngine, mapdata);
                 scale = 3.0F / 2.0F;
