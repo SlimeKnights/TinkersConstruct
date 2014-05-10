@@ -64,7 +64,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
 {
     //Flux power constants
     public static int fluxCapacity = 400000;
-    public static int maxReceive = 2000;
+    public static int maxReceive = 400000;
     public static int maxExtract = 2000;
 
     protected Random random = new Random();
