@@ -349,8 +349,10 @@ public class TRecipes
 
         ItemStack diamond = new ItemStack(Items.diamond);
         tb.registerToolMod(new ModRepair());
-        tb.registerToolMod(new ModDurability(new ItemStack[] { diamond }, 0, 500, 0f, 3, StatCollector.translateToLocal("gui.modifier.diamond"), "\u00a7b" + StatCollector.translateToLocal("modifier.tool.diamond"), "\u00a7b"));
-        tb.registerToolMod(new ModDurability(new ItemStack[] { new ItemStack(Items.emerald) }, 1, 0, 0.5f, 2, StatCollector.translateToLocal("gui.modifier.emerald"), "\u00a72" + StatCollector.translateToLocal("modifier.tool.emerald"), "\u00a72"));
+        tb.registerToolMod(new ModDurability(new ItemStack[] { diamond }, 0, 500, 0f, 3, StatCollector.translateToLocal("gui.modifier.diamond"), "\u00a7b"
+                + StatCollector.translateToLocal("modifier.tool.diamond"), "\u00a7b"));
+        tb.registerToolMod(new ModDurability(new ItemStack[] { new ItemStack(Items.emerald) }, 1, 0, 0.5f, 2, StatCollector.translateToLocal("gui.modifier.emerald"), "\u00a72"
+                + StatCollector.translateToLocal("modifier.tool.emerald"), "\u00a72"));
 
         TRepo.modFlux = new ModFlux();
         tb.registerToolMod(TRepo.modFlux);
@@ -364,13 +366,17 @@ public class TRecipes
         TRepo.modLapis = new ModLapis(10, new ItemStack[] { lapisItem, lapisBlock }, new int[] { 1, 9 });
         tb.registerToolMod(TRepo.modLapis);
 
-        tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(TRepo.materials, 1, 6) }, 4, StatCollector.translateToLocal("gui.modifier.moss"), 3, "\u00a72", StatCollector.translateToLocal("modifier.tool.moss")));
+        tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(TRepo.materials, 1, 6) }, 4, StatCollector.translateToLocal("gui.modifier.moss"), 3, "\u00a72", StatCollector
+                .translateToLocal("modifier.tool.moss")));
         ItemStack blazePowder = new ItemStack(Items.blaze_powder);
         tb.registerToolMod(new ModBlaze(7, new ItemStack[] { blazePowder }, new int[] { 1 }));
-        tb.registerToolMod(new ModAutoSmelt(new ItemStack[] { new ItemStack(TRepo.materials, 1, 7) }, 6, StatCollector.translateToLocal("gui.modifier.lava"), "\u00a74", StatCollector.translateToLocal("modifier.tool.lava")));
-        tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(TRepo.materials, 1, 8) }, 8, StatCollector.translateToLocal("gui.modifier.necro"), 1, "\u00a78", StatCollector.translateToLocal("modifier.tool.necro")));
+        tb.registerToolMod(new ModAutoSmelt(new ItemStack[] { new ItemStack(TRepo.materials, 1, 7) }, 6, StatCollector.translateToLocal("gui.modifier.lava"), "\u00a74", StatCollector
+                .translateToLocal("modifier.tool.lava")));
+        tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(TRepo.materials, 1, 8) }, 8, StatCollector.translateToLocal("gui.modifier.necro"), 1, "\u00a78", StatCollector
+                .translateToLocal("modifier.tool.necro")));
 
-        TRepo.modAttack = new ModAttack(StatCollector.translateToLocal("gui.modifier.quartz"), 11, new ItemStack[] { new ItemStack(Items.quartz), new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1, 4 });
+        TRepo.modAttack = new ModAttack(StatCollector.translateToLocal("gui.modifier.quartz"), 11, new ItemStack[] { new ItemStack(Items.quartz),
+                new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1, 4 });
         tb.registerToolMod(TRepo.modAttack);
 
         tb.registerToolMod(new ModExtraModifier(new ItemStack[] { diamond, new ItemStack(Blocks.gold_block) }, "Tier1Free"));
@@ -384,7 +390,8 @@ public class TRecipes
         ItemStack piston = new ItemStack(Blocks.piston);
         tb.registerToolMod(new ModPiston(3, new ItemStack[] { piston }, new int[] { 1 }));
 
-        tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(Blocks.obsidian), new ItemStack(Items.ender_pearl) }, 13, StatCollector.translateToLocal("modifier.tool.beheading"), 1, "\u00a7d", StatCollector.translateToLocal("modifier.tool.beheading")));
+        tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(Blocks.obsidian), new ItemStack(Items.ender_pearl) }, 13, StatCollector.translateToLocal("modifier.tool.beheading"), 1,
+                "\u00a7d", StatCollector.translateToLocal("modifier.tool.beheading")));
 
         ItemStack holySoil = new ItemStack(TRepo.craftedSoil, 1, 4);
         tb.registerToolMod(new ModSmite(StatCollector.translateToLocal("modifier.tool.smite"), 14, new ItemStack[] { holySoil }, new int[] { 1 }));
@@ -566,6 +573,12 @@ public class TRecipes
         FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreGravel, 1, 4), new ItemStack(TRepo.materials, 1, 11), 0.2f);
 
         FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.speedBlock, 1, 0), new ItemStack(TRepo.speedBlock, 1, 2), 0.2f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.materials, 1, 38), new ItemStack(TRepo.materials, 1, 4), 0.2f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.materials, 1, 39), new ItemStack(TRepo.materials, 1, 3), 0.2f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.materials, 1, 40), new ItemStack(TRepo.materials, 1, 11), 0.2f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.materials, 1, 41), new ItemStack(TRepo.materials, 1, 5), 0.2f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.materials, 1, 42), new ItemStack(TRepo.materials, 1, 14), 0.2f);
+
     }
 
     protected static void addRecipesForCraftingTable ()
@@ -886,6 +899,10 @@ public class TRecipes
                 new ItemStack(TRepo.strangeFood, 1, 1), new ItemStack(TRepo.strangeFood, 1, 1), new ItemStack(Items.redstone));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TRepo.slimeChannel, 1, 0), "slimeball", "slimeball", "slimeball", "slimeball", new ItemStack(Items.redstone)));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TRepo.slimePad, 1, 0), TRepo.slimeChannel, "slimeball"));
+
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TRepo.materials, 1, 41), "dustArdite", "dustCobalt"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TRepo.materials, 4, 42), "dustAluminium", "dustCopper", "dustCopper", "dustCopper"));
+
     }
 
     protected static void addRecipesForDryingRack ()
@@ -1032,6 +1049,14 @@ public class TRecipes
         ensureOreIsRegistered("nuggetGold", new ItemStack(Items.gold_nugget));
         OreDictionary.registerOre("nuggetPigIron", new ItemStack(TRepo.materials, 1, 35));
 
+        OreDictionary.registerOre("dustArdite", new ItemStack(TRepo.materials, 1, 38));
+        OreDictionary.registerOre("dustCobalt", new ItemStack(TRepo.materials, 1, 39));
+        OreDictionary.registerOre("dustAluminium", new ItemStack(TRepo.materials, 1, 40));
+        OreDictionary.registerOre("dustAluminum", new ItemStack(TRepo.materials, 1, 40));
+        OreDictionary.registerOre("dustManyullyn", new ItemStack(TRepo.materials, 1, 41));
+        OreDictionary.registerOre("dustAluminiumBrass", new ItemStack(TRepo.materials, 1, 42));
+        OreDictionary.registerOre("dustAluminumBrass", new ItemStack(TRepo.materials, 1, 42));
+
         OreDictionary.registerOre("slabCloth", new ItemStack(TRepo.woolSlab1, 1, Short.MAX_VALUE));
         OreDictionary.registerOre("slabCloth", new ItemStack(TRepo.woolSlab2, 1, Short.MAX_VALUE));
 
@@ -1045,10 +1070,11 @@ public class TRecipes
 
         String[] matNames = { "Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn", "Copper", "Bronze", "Alumite", "Steel",
                 "Blueslime" };
-        for (int i = 0; i < matNames.length; i++){
+        for (int i = 0; i < matNames.length; i++)
+        {
             //TODO 1.8 remove this ore dict entry as it's outdated(use materialRod instead)
             OreDictionary.registerOre(matNames[i].toLowerCase() + "Rod", new ItemStack(TRepo.toolRod, 1, i));
-            OreDictionary.registerOre("rod" + matNames[i] , new ItemStack(TRepo.toolRod, 1, i));
+            OreDictionary.registerOre("rod" + matNames[i], new ItemStack(TRepo.toolRod, 1, i));
         }
         OreDictionary.registerOre("thaumiumRod", new ItemStack(TRepo.toolRod, 1, 31));
 
@@ -1197,7 +1223,7 @@ public class TRecipes
                 RecipeRemover.removeAnyRecipe(new ItemStack(Items.golden_hoe));
                 RecipeRemover.removeAnyRecipe(new ItemStack(Items.golden_sword));
             }
-            
+
             if (PHConstruct.labotimizeVanillaTools)
             {
                 Items.wooden_pickaxe.setMaxDamage(1);
@@ -1205,25 +1231,25 @@ public class TRecipes
                 Items.wooden_shovel.setMaxDamage(1);
                 Items.wooden_hoe.setMaxDamage(1);
                 Items.wooden_sword.setMaxDamage(1);
-                
+
                 Items.stone_pickaxe.setMaxDamage(1);
                 Items.stone_axe.setMaxDamage(1);
                 Items.stone_shovel.setMaxDamage(1);
                 Items.stone_hoe.setMaxDamage(1);
                 Items.stone_sword.setMaxDamage(1);
-                
+
                 Items.iron_pickaxe.setMaxDamage(1);
                 Items.iron_axe.setMaxDamage(1);
                 Items.iron_shovel.setMaxDamage(1);
                 Items.iron_hoe.setMaxDamage(1);
                 Items.iron_sword.setMaxDamage(1);
-                
+
                 Items.diamond_pickaxe.setMaxDamage(1);
                 Items.diamond_axe.setMaxDamage(1);
                 Items.diamond_shovel.setMaxDamage(1);
                 Items.diamond_hoe.setMaxDamage(1);
                 Items.diamond_sword.setMaxDamage(1);
-                
+
                 Items.golden_pickaxe.setMaxDamage(1);
                 Items.golden_axe.setMaxDamage(1);
                 Items.golden_shovel.setMaxDamage(1);
@@ -1362,6 +1388,12 @@ public class TRecipes
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.shears), 0, TConstruct.ingotLiquidValue * 2);
         Smeltery.addMelting(FluidType.Emerald, new ItemStack(Items.emerald), -50, 640);
 
+        Smeltery.addMelting(FluidType.Ardite, new ItemStack(TRepo.materials, 1, 38), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Cobalt, new ItemStack(TRepo.materials, 1, 39), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Aluminum, new ItemStack(TRepo.materials, 1, 40), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Manyullyn, new ItemStack(TRepo.materials, 1, 41), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.AluminumBrass, new ItemStack(TRepo.materials, 1, 42), 0, TConstruct.ingotLiquidValue);
+
         // Blocks melt as themselves!
         // Ore
         Smeltery.addMelting(Blocks.iron_ore, 0, 600, new FluidStack(TRepo.moltenIronFluid, TConstruct.ingotLiquidValue * 2));
@@ -1484,7 +1516,8 @@ public class TRecipes
             TRepo.thaumcraftAvailable = true;
             TConstructClientRegistry.addMaterialRenderMapping(31, "tinker", "thaumium", true);
             TConstructRegistry.addToolMaterial(31, "Thaumium", 3, 400, 700, 2, 1.3F, 0, 0f, "\u00A75", StatCollector.translateToLocal("materialtraits.thaumic"));
-            PatternBuilder.instance.registerFullMaterial(new ItemStack((Item) obj, 1, 2), 2, StatCollector.translateToLocal("gui.partbuilder.material.thaumium"), new ItemStack(TRepo.toolShard, 1, 31), new ItemStack(TRepo.toolRod, 1, 31), 31);
+            PatternBuilder.instance.registerFullMaterial(new ItemStack((Item) obj, 1, 2), 2, StatCollector.translateToLocal("gui.partbuilder.material.thaumium"),
+                    new ItemStack(TRepo.toolShard, 1, 31), new ItemStack(TRepo.toolRod, 1, 31), 31);
             for (int meta = 0; meta < TRepo.patternOutputs.length; meta++)
             {
                 if (TRepo.patternOutputs[meta] != null)

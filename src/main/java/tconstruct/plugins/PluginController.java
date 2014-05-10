@@ -8,6 +8,8 @@ import tconstruct.plugins.imc.BuildcraftTransport;
 import tconstruct.plugins.imc.Mystcraft;
 import tconstruct.plugins.imc.Thaumcraft;
 import tconstruct.plugins.nei.NotEnoughItems;
+import tconstruct.plugins.te3.ThermalExpansion;
+import tconstruct.plugins.waila.Waila;
 
 public class PluginController
 {
@@ -26,7 +28,8 @@ public class PluginController
         moduleLoader.registerModule(IC2.class);
         moduleLoader.registerModule(Thaumcraft.class);
         moduleLoader.registerModule(NotEnoughItems.class);
-        
+        moduleLoader.registerModule(Waila.class);
+        moduleLoader.registerModule(ThermalExpansion.class);
     }   
 
 }
