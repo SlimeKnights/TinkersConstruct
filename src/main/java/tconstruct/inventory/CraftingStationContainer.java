@@ -38,32 +38,35 @@ public class CraftingStationContainer extends Container
         this.logic = logic;
         craftMatrix = new InventoryCraftingStation(this, 3, 3, logic);
         craftResult = new InventoryCraftingStationResult(logic);
+        final int lOffset = (this.logic.chest == null ? 0 : 117);
 
-        this.addSlotToContainer(new SlotCrafting(inventorplayer.player, this.craftMatrix, this.craftResult, 0, 124, 35));
+        this.addSlotToContainer(new SlotCrafting(inventorplayer.player, this.craftMatrix, this.craftResult, 0, 124 + lOffset, 35));
 
         int row;
         int column;
 
+        int xx = 30 + lOffset;
         for (row = 0; row < 3; ++row)
         {
             for (column = 0; column < 3; ++column)
             {
-                this.addSlotToContainer(new Slot(this.craftMatrix, column + row * 3, 30 + column * 18, 17 + row * 18));
+                this.addSlotToContainer(new Slot(this.craftMatrix, column + row * 3, xx + column * 18, 17 + row * 18));
             }
         }
 
         // Player Inventory
+        xx = 8 + lOffset;
         for (row = 0; row < 3; ++row)
         {
             for (column = 0; column < 9; ++column)
             {
-                this.addSlotToContainer(new Slot(inventorplayer, column + row * 9 + 9, 8 + column * 18, 84 + row * 18));
+                this.addSlotToContainer(new Slot(inventorplayer, column + row * 9 + 9, xx + column * 18, 84 + row * 18));
             }
         }
 
         for (column = 0; column < 9; ++column)
         {
-            this.addSlotToContainer(new Slot(inventorplayer, column, 8 + column * 18, 142));
+            this.addSlotToContainer(new Slot(inventorplayer, column, xx + column * 18, 142));
         }
 
         // Side inventory
@@ -79,7 +82,7 @@ public class CraftingStationContainer extends Container
                 for (row = 0; row < 6; row++)
                 {
                     int value = count < 27 ? count : count - 27;
-                    this.addSlotToContainer(new Slot(count < 27 ? firstChest : secondChest, value, -108 + row * 18, 19 + column * 18));
+                    this.addSlotToContainer(new Slot(count < 27 ? firstChest : secondChest, value, 8 + row * 18, 19 + column * 18));
                     count++;
                     if (count >= 27 && doubleChest == null)
                         break;
