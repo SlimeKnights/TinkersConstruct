@@ -21,7 +21,7 @@ Please include the following:
 * Forge version/build
 * Versions of any mods potentially related to the issue 
 * Any relevant screenshots are greatly appreciated.
-* For crashes:
+* For crashes: 
 	* Steps to reproduce
 	* ForgeModLoader-client-0.log (the FML log) from the root folder of the client
 
