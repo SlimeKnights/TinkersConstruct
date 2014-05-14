@@ -25,9 +25,9 @@ public class ToolForgeContainer extends ToolStationContainer
         invPlayer = inventoryplayer;
         this.logic = builderlogic;
 
-        toolSlot = new SlotToolForge(inventoryplayer.player, logic, 0, 115, 38);
+        toolSlot = new SlotToolForge(inventoryplayer.player, logic, 0, 225, 38);
         this.addSlotToContainer(toolSlot);
-        slots = new Slot[] { new Slot(logic, 1, 57, 29), new Slot(logic, 2, 39, 29), new Slot(logic, 3, 57, 47), new Slot(logic, 4, 39, 47) };
+        slots = new Slot[] { new Slot(logic, 1, 167, 29), new Slot(logic, 2, 169, 29), new Slot(logic, 3, 167, 47), new Slot(logic, 4, 149, 47) };
 
         for (int iter = 0; iter < 4; iter++)
             this.addSlotToContainer(slots[iter]);
@@ -37,13 +37,13 @@ public class ToolForgeContainer extends ToolStationContainer
         {
             for (int row = 0; row < 9; row++)
             {
-                this.addSlotToContainer(new Slot(inventoryplayer, row + column * 9 + 9, 8 + row * 18, 84 + column * 18));
+                this.addSlotToContainer(new Slot(inventoryplayer, row + column * 9 + 9, 118 + row * 18, 84 + column * 18));
             }
         }
 
         for (int column = 0; column < 9; column++)
         {
-            this.addSlotToContainer(new Slot(inventoryplayer, column, 8 + column * 18, 142));
+            this.addSlotToContainer(new Slot(inventoryplayer, column, 118 + column * 18, 142));
         }
     }
 
@@ -56,7 +56,7 @@ public class ToolForgeContainer extends ToolStationContainer
         this.addSlotToContainer(toolSlot);
         for (int iter = 0; iter < 4; iter++)
         {
-            slots[iter].xDisplayPosition = posX[iter] + 1;
+            slots[iter].xDisplayPosition = posX[iter] + 111;
             slots[iter].yDisplayPosition = posY[iter] + 1;
             addSlotToContainer(slots[iter]);
         }
@@ -65,13 +65,13 @@ public class ToolForgeContainer extends ToolStationContainer
         {
             for (int row = 0; row < 9; row++)
             {
-                this.addSlotToContainer(new Slot(invPlayer, row + column * 9 + 9, 8 + row * 18, 84 + column * 18));
+                this.addSlotToContainer(new Slot(invPlayer, row + column * 9 + 9, 118 + row * 18, 84 + column * 18));
             }
         }
 
         for (int column = 0; column < 9; column++)
         {
-            this.addSlotToContainer(new Slot(invPlayer, column, 8 + column * 18, 142));
+            this.addSlotToContainer(new Slot(invPlayer, column, 118 + column * 18, 142));
         }
     }
 

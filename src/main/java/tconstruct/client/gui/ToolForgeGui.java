@@ -38,12 +38,10 @@ public class ToolForgeGui extends ToolStationGui
     public void initGui ()
     {
         super.initGui();
-        int cornerX = (this.width - this.xSize) / 2;
-        int cornerY = (this.height - this.ySize) / 2;
 
         this.buttonList.clear();
         ToolGuiElement repair = TConstructClientRegistry.toolButtons.get(0);
-        GuiButtonTool repairButton = new GuiButtonTool(0, cornerX - 110, cornerY, repair.buttonIconX, repair.buttonIconY, repair.domain, repair.texture, repair); // Repair
+        GuiButtonTool repairButton = new GuiButtonTool(0, this.guiLeft, this.guiTop, repair.buttonIconX, repair.buttonIconY, repair.domain, repair.texture, repair); // Repair
         repairButton.enabled = false;
         this.buttonList.add(repairButton);
         int offset = TConstructClientRegistry.tierTwoButtons.size();
@@ -51,7 +49,7 @@ public class ToolForgeGui extends ToolStationGui
         for (int iter = 0; iter < TConstructClientRegistry.tierTwoButtons.size(); iter++)
         {
             ToolGuiElement element = TConstructClientRegistry.tierTwoButtons.get(iter);
-            GuiButtonTool button = new GuiButtonTool(iter + 1, cornerX - 110 + 22 * ((iter + 1) % 5), cornerY + 22 * ((iter + 1) / 5), element.buttonIconX, element.buttonIconY, repair.domain,
+            GuiButtonTool button = new GuiButtonTool(iter + 1, this.guiLeft + 22 * ((iter + 1) % 5), this.guiTop + 22 * ((iter + 1) / 5), element.buttonIconX, element.buttonIconY, repair.domain,
                     element.texture, element);
             this.buttonList.add(button);
         }
@@ -59,7 +57,7 @@ public class ToolForgeGui extends ToolStationGui
         for (int iter = 1; iter < TConstructClientRegistry.toolButtons.size(); iter++)
         {
             ToolGuiElement element = TConstructClientRegistry.toolButtons.get(iter);
-            GuiButtonTool button = new GuiButtonTool(iter + offset, cornerX - 110 + 22 * ((iter + offset) % 5), cornerY + 22 * ((iter + offset) / 5), element.buttonIconX, element.buttonIconY,
+            GuiButtonTool button = new GuiButtonTool(iter + offset, this.guiLeft + 22 * ((iter + offset) % 5), this.guiTop + 22 * ((iter + offset) / 5), element.buttonIconX, element.buttonIconY,
                     repair.domain, element.texture, element);
             this.buttonList.add(button);
         }
