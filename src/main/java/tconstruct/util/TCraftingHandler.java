@@ -25,22 +25,18 @@ public class TCraftingHandler // implements ICraftingHandler
             if (item == Item.getItemFromBlock(TRepo.toolStationWood))
             {
                 TPlayerStats stats = TPlayerStats.get(event.player);
-                NBTTagCompound tags = event.player.getEntityData().getCompoundTag("TConstruct");
-                if (!tags.getBoolean("materialManual") || !stats.materialManual)
+                if (!stats.materialManual)
                 {
                     stats.materialManual = true;
-                    tags.setBoolean("materialManual", true);
                     AbilityHelper.spawnItemAtPlayer(event.player, new ItemStack(TRepo.manualBook, 1, 1));
                 }
             }
             if (item == Item.getItemFromBlock(TRepo.smeltery) || item == Item.getItemFromBlock(TRepo.lavaTank))
             {
                 TPlayerStats stats = TPlayerStats.get(event.player);
-                NBTTagCompound tags = event.player.getEntityData().getCompoundTag("TConstruct");
-                if (!tags.getBoolean("smelteryManual") || !stats.smelteryManual)
+                if (!stats.smelteryManual)
                 {
                     stats.smelteryManual = true;
-                    tags.setBoolean("smelteryManual", true);
                     AbilityHelper.spawnItemAtPlayer(event.player, new ItemStack(TRepo.manualBook, 1, 2));
                 }
                 event.player.addStat(TAchievements.achievements.get("tconstruct:smelteryMaker"), 1);
@@ -49,6 +45,10 @@ public class TCraftingHandler // implements ICraftingHandler
             if (item == Item.getItemFromBlock(TRepo.craftingStationWood))
             {
                 event.player.addStat(TAchievements.achievements.get("tconstruct:betterCrafting"), 1);
+            }
+            else if (item == TRepo.blankPattern)
+            {
+                event.player.addStat(TAchievements.achievements.get("tconstruct:pattern"), 1);
             }
         }
     }
