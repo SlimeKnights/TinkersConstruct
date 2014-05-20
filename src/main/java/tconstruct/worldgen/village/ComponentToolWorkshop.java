@@ -141,9 +141,9 @@ public class ComponentToolWorkshop extends StructureVillagePieces.House1
         i = this.getMetadataWithOffset(Blocks.piston, 3);
         this.placeBlockAtCurrentPosition(world, Blocks.piston, i, 5, 1, 5, sbb);
 
-        for (int l = 0; l < 6; ++l)
+        for (int l = 0; l < 7; ++l)
         {
-            for (int i1 = 0; i1 < 9; ++i1)
+            for (int i1 = 0; i1 < 7; ++i1)
             {
                 this.clearCurrentPositionBlocksUpwards(world, i1, 9, l, sbb);
                 this.func_151554_b(world, Blocks.cobblestone, 0, i1, -1, l, sbb);
