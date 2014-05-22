@@ -60,11 +60,11 @@ public class ToolForgeLogic extends ToolStationLogic implements ISidedInventory
                     output = tool;
                 else if (tool != null)
                 {
-                    NBTTagCompound tags = tool.getTagCompound(); 
-                    if (!tags.getCompoundTag(((IModifyable) tool.getItem()).getBaseTagName()).hasKey("Built"))
-                    {
+                    //NBTTagCompound tags = tool.getTagCompound(); 
+                    //if (!tags.getCompoundTag(((IModifyable) tool.getItem()).getBaseTagName()).hasKey("Built"))
+                    //{
                         output = tool;
-                    }
+                    //}
                 }
             }
             if (!name.equals("")) //Name item

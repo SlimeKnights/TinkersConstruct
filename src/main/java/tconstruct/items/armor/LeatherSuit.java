@@ -26,7 +26,6 @@ public class LeatherSuit extends ArmorCore
     public LeatherSuit(int id, ArmorPart part)
     {
         super(id, 0, part, "Clothing", "leathersuit", "");
-        this.setCreativeTab(TConstructRegistry.materialTab);
         this.setMaxDamage(1035);
     }
 

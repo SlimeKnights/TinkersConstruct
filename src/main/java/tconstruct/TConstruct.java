@@ -113,6 +113,7 @@ public class TConstruct
         TConstructRegistry.toolTab = new TabTools("TConstructTools");
         TConstructRegistry.partTab = new TabTools("TConstructParts");
         TConstructRegistry.blockTab = new TabTools("TConstructBlocks");
+        TConstructRegistry.equipableTab = new TabTools("TConstructEquipables");
 
         tableCasting = new LiquidCasting();
         basinCasting = new LiquidCasting();

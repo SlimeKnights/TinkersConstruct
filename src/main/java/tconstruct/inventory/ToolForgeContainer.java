@@ -6,11 +6,12 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.MinecraftForge;
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
 import tconstruct.common.TContent;
+import tconstruct.library.event.ToolCraftedEvent;
 import tconstruct.library.modifier.IModifyable;
-import tconstruct.library.tools.ToolCore;
 
 public class ToolForgeContainer extends ToolStationContainer
 {
@@ -77,19 +78,24 @@ public class ToolForgeContainer extends ToolStationContainer
     @Override
     protected void craftTool (ItemStack stack)
     {
-        if (stack != null && stack.getItem() instanceof IModifyable)
+        if (stack.getItem() instanceof IModifyable)
         {
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
-            if (!tags.hasKey("Built"))
-            {
-                tags.setBoolean("Built", true);
-                for (int i = 2; i <= 4; i++)
-                    logic.decrStackSize(i, 1);
-                int amount = logic.getStackInSlot(1).getItem() instanceof ToolCore ? stack.stackSize : 1;
-                logic.decrStackSize(1, amount);
-                if (!logic.worldObj.isRemote)
-                    logic.worldObj.playAuxSFX(1021, (int) logic.xCoord, (int) logic.yCoord, (int) logic.zCoord, 0);
-            }
+            Boolean full = (logic.getStackInSlot(2) != null || logic.getStackInSlot(3) != null || logic.getStackInSlot(4) != null);
+            for (int i = 2; i <= 4; i++)
+                logic.decrStackSize(i, 1);
+            ItemStack compare = logic.getStackInSlot(1);
+            int amount = compare.getItem() instanceof IModifyable ? compare.stackSize : 1;
+            logic.decrStackSize(1, amount);
+            EntityPlayer player = invPlayer.player;
+            if (!player.worldObj.isRemote && full)
+                player.worldObj.playAuxSFX(1021, (int) player.posX, (int) player.posY, (int) player.posZ, 0);
+            MinecraftForge.EVENT_BUS.post(new ToolCraftedEvent(this.logic, player, stack));
+        }
+        else //Simply naming items
+        {
+            int amount = logic.getStackInSlot(1).stackSize;
+            logic.decrStackSize(1, amount);
         }
     }
 

@@ -11,10 +11,13 @@ import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import tconstruct.blocks.logic.CraftingStationLogic;
 import tconstruct.common.TContent;
 import tconstruct.library.crafting.ModifyBuilder;
+import tconstruct.library.event.ToolCraftedEvent;
 import tconstruct.library.modifier.IModifyable;
 
 public class CraftingStationContainer extends Container
@@ -24,6 +27,7 @@ public class CraftingStationContainer extends Container
     public IInventory craftResult;// = new InventoryCraftResult();
     private CraftingStationLogic logic;
     private World worldObj;
+    EntityPlayer player;
     private int posX;
     private int posY;
     private int posZ;
@@ -31,6 +35,7 @@ public class CraftingStationContainer extends Container
     public CraftingStationContainer(InventoryPlayer inventorplayer, CraftingStationLogic logic, int x, int y, int z)
     {
         this.worldObj = logic.worldObj;
+        this.player = inventorplayer.player;
         this.posX = x;
         this.posY = y;
         this.posZ = z;
@@ -38,7 +43,7 @@ public class CraftingStationContainer extends Container
         craftMatrix = new InventoryCraftingStation(this, 3, 3, logic);
         craftResult = new InventoryCraftingStationResult(logic);
 
-        this.addSlotToContainer(new SlotCrafting(inventorplayer.player, this.craftMatrix, this.craftResult, 0, 124, 35));
+        this.addSlotToContainer(new SlotCraftingStation(inventorplayer.player, this.craftMatrix, this.craftResult, 0, 124, 35));
 
         int row;
         int column;
@@ -158,9 +163,19 @@ public class CraftingStationContainer extends Container
 
             if (par2 == 0)
             {
-                if (!this.mergeItemStack(itemstack1, 10, 46, true))
+                if (itemstack.getItem() instanceof IModifyable)
                 {
-                    return null;
+                    if (!this.mergeCraftedStack(itemstack1, logic.getSizeInventory(), this.inventorySlots.size(), true, par1EntityPlayer))
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    if (!this.mergeItemStack(itemstack1, 10, 46, true))
+                    {
+                        return null;
+                    }
                 }
 
                 slot.onSlotChange(itemstack1, itemstack);
@@ -202,6 +217,78 @@ public class CraftingStationContainer extends Container
         }
 
         return itemstack;
+    }
+
+    protected void craftTool (ItemStack stack)
+    {
+        if (stack.getItem() instanceof IModifyable)
+        {
+            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
+            Boolean full = (logic.getStackInSlot(2) != null || logic.getStackInSlot(3) != null);
+            /*for (int i = 1; i <= 4; i++)
+                logic.decrStackSize(i, 1);
+            for (int i = 6; i <= 9; i++)
+                logic.decrStackSize(i, 1);*/
+            ItemStack compare = logic.getStackInSlot(5);
+            int amount = compare.getItem() instanceof IModifyable ? compare.stackSize : 1;
+            logic.decrStackSize(5, amount);
+            if (!player.worldObj.isRemote && full)
+                logic.worldObj.playSoundEffect(logic.xCoord, logic.yCoord, logic.zCoord, "tinker:little_saw", 1.0F, (player.rand.nextFloat() - player.rand.nextFloat()) * 0.2F + 1.0F);
+            MinecraftForge.EVENT_BUS.post(new ToolCraftedEvent(this.logic, player, stack));
+        }
+    }
+
+    protected boolean mergeCraftedStack (ItemStack stack, int slotsStart, int slotsTotal, boolean playerInventory, EntityPlayer player)
+    {
+        boolean failedToMerge = false;
+        int slotIndex = slotsStart;
+
+        if (playerInventory)
+        {
+            slotIndex = slotsTotal - 1;
+        }
+
+        Slot otherInventorySlot;
+        ItemStack copyStack = null;
+
+        if (stack.stackSize > 0)
+        {
+            if (playerInventory)
+            {
+                slotIndex = slotsTotal - 1;
+            }
+            else
+            {
+                slotIndex = slotsStart;
+            }
+
+            while (!playerInventory && slotIndex < slotsTotal || playerInventory && slotIndex >= slotsStart)
+            {
+                otherInventorySlot = (Slot) this.inventorySlots.get(slotIndex);
+                copyStack = otherInventorySlot.getStack();
+
+                if (copyStack == null)
+                {
+                    craftTool(stack);
+                    otherInventorySlot.putStack(stack.copy());
+                    otherInventorySlot.onSlotChanged();
+                    stack.stackSize = 0;
+                    failedToMerge = true;
+                    break;
+                }
+
+                if (playerInventory)
+                {
+                    --slotIndex;
+                }
+                else
+                {
+                    ++slotIndex;
+                }
+            }
+        }
+
+        return failedToMerge;
     }
 
     public boolean func_94530_a (ItemStack par1ItemStack, Slot par2Slot)

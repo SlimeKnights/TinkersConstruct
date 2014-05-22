@@ -1,5 +1,6 @@
 package tconstruct.items.armor;
 
+import tconstruct.library.TConstructRegistry;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.*;
@@ -11,6 +12,7 @@ public class ArmorBasic extends ItemArmor
     public ArmorBasic(int par1, EnumArmorMaterial par2EnumArmorMaterial, int par3, String textureName)
     {
         super(par1, par2EnumArmorMaterial, 0, par3);
+        this.setCreativeTab(TConstructRegistry.equipableTab);
         this.textureName = textureName;
     }
 

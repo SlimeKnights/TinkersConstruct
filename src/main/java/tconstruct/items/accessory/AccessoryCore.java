@@ -28,7 +28,7 @@ public abstract class AccessoryCore extends Item implements IAccessory, IModifya
     public AccessoryCore(int par1, String texture)
     {
         super(par1);
-        this.setCreativeTab(TConstructRegistry.materialTab);
+        this.setCreativeTab(TConstructRegistry.equipableTab);
         this.setMaxStackSize(1);
         this.texture = texture;
     }

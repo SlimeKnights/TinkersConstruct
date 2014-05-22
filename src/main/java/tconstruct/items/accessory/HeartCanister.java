@@ -9,6 +9,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
 import tconstruct.items.CraftingItem;
+import tconstruct.library.TConstructRegistry;
 import tconstruct.library.accessory.IHealthAccessory;
 import tconstruct.util.player.ArmorExtended;
 import tconstruct.util.player.TPlayerStats;
@@ -22,6 +23,7 @@ public class HeartCanister extends CraftingItem implements IHealthAccessory
     {
         super(id, new String[] { "empty", "miniheart.red", "red", "miniheart.yellow", "yellow", "miniheart.green", "green" }, new String[] { "canister_empty", "miniheart_red", "canister_red",
                 "miniheart_yellow", "canister_yellow", "miniheart_green", "canister_green" }, "");
+        this.setCreativeTab(TConstructRegistry.equipableTab);
         this.setMaxStackSize(10);
     }
 

@@ -35,7 +35,6 @@ public class TravelGear extends ArmorCore
     public TravelGear(int id, ArmorPart part)
     {
         super(id, 0, part, "Clothing", "travelgear", "travel");
-        this.setCreativeTab(TConstructRegistry.materialTab);
         this.setMaxDamage(1035);
     }
 

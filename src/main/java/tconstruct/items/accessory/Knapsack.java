@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import tconstruct.items.CraftingItem;
+import tconstruct.library.TConstructRegistry;
 import tconstruct.library.accessory.IAccessory;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -16,6 +17,7 @@ public class Knapsack extends CraftingItem implements IAccessory
     public Knapsack(int id)
     {
         super(id, new String[] { "knapsack" }, new String[] { "knapsack" }, "armor/");
+        this.setCreativeTab(TConstructRegistry.equipableTab);
         this.setMaxStackSize(10);
     }
 

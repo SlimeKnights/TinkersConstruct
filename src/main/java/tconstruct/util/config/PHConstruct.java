@@ -50,7 +50,7 @@ public class PHConstruct
         beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", true).getBoolean(true);
 
         enableTWood = config.get("Difficulty Changes", "Enable mod wooden tools", true).getBoolean(true);
-        enableTStone = config.get("Difficulty Changes", "Enable mod stone tools", true).getBoolean(true);
+        //enableTStone = config.get("Difficulty Changes", "Enable mod stone tools", true).getBoolean(true);
         enableTCactus = config.get("Difficulty Changes", "Enable mod cactus tools", true).getBoolean(true);
         enableTBone = config.get("Difficulty Changes", "Enable mod bone tools", true).getBoolean(true);
         enableTFlint = config.get("Difficulty Changes", "Enable mod flint tools", true).getBoolean(true);
@@ -714,7 +714,7 @@ public class PHConstruct
     public static boolean disableGoldTools;
 
     public static boolean enableTWood;
-    public static boolean enableTStone;
+    //public static boolean enableTStone;
     public static boolean enableTCactus;
     public static boolean enableTBone;
     public static boolean enableTFlint;

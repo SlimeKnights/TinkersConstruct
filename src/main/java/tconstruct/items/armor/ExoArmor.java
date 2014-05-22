@@ -31,7 +31,6 @@ public class ExoArmor extends ArmorCore
     public ExoArmor(int id, ArmorPart part, String texture)
     {
         super(id, 0, part, "ExoArmor", texture);
-        this.setCreativeTab(TConstructRegistry.materialTab);
     }
 
     @Override

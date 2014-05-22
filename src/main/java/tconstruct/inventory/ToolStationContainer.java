@@ -4,6 +4,8 @@ import java.util.Random;
 
 import tconstruct.blocks.logic.ToolStationLogic;
 import tconstruct.common.TContent;
+import tconstruct.library.event.ToolCraftedEvent;
+import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.tools.ToolCore;
 
 import net.minecraft.block.Block;
@@ -12,6 +14,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.MinecraftForge;
 
 public class ToolStationContainer extends ActiveContainer
 {
@@ -91,6 +94,7 @@ public class ToolStationContainer extends ActiveContainer
         return logic.isUseableByPlayer(entityplayer);
     }
 
+    @Override
     public ItemStack transferStackInSlot (EntityPlayer player, int slotID)
     {
         ItemStack stack = null;
@@ -134,16 +138,25 @@ public class ToolStationContainer extends ActiveContainer
 
     protected void craftTool (ItemStack stack)
     {
-        NBTTagCompound tags = stack.getTagCompound();
-        if (!tags.getCompoundTag("InfiTool").hasKey("Built"))
+        if (stack.getItem() instanceof IModifyable)
         {
-            tags.getCompoundTag("InfiTool").setBoolean("Built", true);
+            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
+            Boolean full = (logic.getStackInSlot(2) != null || logic.getStackInSlot(3) != null);
             for (int i = 2; i <= 3; i++)
                 logic.decrStackSize(i, 1);
-            int amount = logic.getStackInSlot(1).getItem() instanceof ToolCore ? stack.stackSize : 1;
+            ItemStack compare = logic.getStackInSlot(1);
+            int amount = compare.getItem() instanceof IModifyable ? compare.stackSize : 1;
             logic.decrStackSize(1, amount);
-
-            logic.worldObj.playSoundEffect(logic.xCoord, logic.yCoord, logic.zCoord, "tinker:little_saw", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
+            EntityPlayer player = invPlayer.player;
+            if (!player.worldObj.isRemote && full)
+                logic.worldObj.playSoundEffect(logic.xCoord, logic.yCoord, logic.zCoord, "tinker:little_saw", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
+            MinecraftForge.EVENT_BUS.post(new ToolCraftedEvent(this.logic, player, stack));
+        }
+        else
+        //Simply naming items        
+        {
+            int amount = logic.getStackInSlot(1).stackSize;
+            logic.decrStackSize(1, amount);
         }
     }
 

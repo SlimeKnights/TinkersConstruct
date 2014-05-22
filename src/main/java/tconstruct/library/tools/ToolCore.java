@@ -601,7 +601,6 @@ public abstract class ToolCore extends Item implements IModifyable, IEnergyConta
         }
         else
         {
-            tool.getTagCompound().getCompoundTag("InfiTool").setBoolean("Built", true);
             list.add(tool);
         }
     }

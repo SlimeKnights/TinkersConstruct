@@ -48,6 +48,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
         this.textureFolder = textureFolder;
         this.textureName = textureName;
         BlockDispenser.dispenseBehaviorRegistry.putObject(this, dispenserBehavior);
+        this.setCreativeTab(TConstructRegistry.equipableTab);
     }
 
     public ArmorCore(int id, int baseProtection, ArmorPart part, String type, String textureName)

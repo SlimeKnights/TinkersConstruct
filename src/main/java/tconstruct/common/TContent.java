@@ -180,7 +180,7 @@ public class TContent implements IFuelHandler
     public static Block barricadeBirch;
     public static Block barricadeJungle;
     public static Block slimeExplosive;
-    
+
     //Unique
     public static Block enderwarp;
 
@@ -313,7 +313,7 @@ public class TContent implements IFuelHandler
     public static TravelGear travelBoots;
     public static AccessoryCore travelGlove;
     public static AccessoryCore travelBelt;
-    
+
     //Clothing - Leather Suit
     public static Item leatherHat;
     public static Item leatherVest;
@@ -485,7 +485,7 @@ public class TContent implements IFuelHandler
         dryingRack = new DryingRack(PHConstruct.dryingRack).setUnlocalizedName("Armor.DryingRack");
         GameRegistry.registerBlock(dryingRack, "Armor.DryingRack");
         GameRegistry.registerTileEntity(DryingRackLogic.class, "Armor.DryingRack");
-        
+
         enderwarp = new EnderWarp(PHConstruct.enderwarp).setUnlocalizedName("enderwarp");
         GameRegistry.registerBlock(enderwarp, EnderWarpItem.class, "EnderWarp");
         GameRegistry.registerTileEntity(EnderWarpLogic.class, "EnderWarp");
@@ -1026,10 +1026,10 @@ public class TContent implements IFuelHandler
         GameRegistry.registerItem(leggingsWood, "leggingsWood");
         GameRegistry.registerItem(bootsWood, "bootsWood");
 
-        exoGoggles = new ExoArmor(PHConstruct.exoGoggles, ArmorPart.Head, "exosuit_").setUnlocalizedName("tconstruct.exoGoggles");
-        exoChest = new ExoArmor(PHConstruct.exoChest, ArmorPart.Chest, "exosuit_").setUnlocalizedName("tconstruct.exoChest");
-        exoPants = new ExoArmor(PHConstruct.exoPants, ArmorPart.Legs, "exosuit_").setUnlocalizedName("tconstruct.exoPants");
-        exoShoes = new ExoArmor(PHConstruct.exoShoes, ArmorPart.Feet, "exosuit_").setUnlocalizedName("tconstruct.exoShoes");
+        exoGoggles = new ExoArmor(PHConstruct.exoGoggles, ArmorPart.Head, "exosuit").setUnlocalizedName("tconstruct.exoGoggles");
+        exoChest = new ExoArmor(PHConstruct.exoChest, ArmorPart.Chest, "exosuit").setUnlocalizedName("tconstruct.exoChest");
+        exoPants = new ExoArmor(PHConstruct.exoPants, ArmorPart.Legs, "exosuit").setUnlocalizedName("tconstruct.exoPants");
+        exoShoes = new ExoArmor(PHConstruct.exoShoes, ArmorPart.Feet, "exosuit").setUnlocalizedName("tconstruct.exoShoes");
         GameRegistry.registerItem(exoGoggles, "exoGoggles");
         GameRegistry.registerItem(exoChest, "exoChest");
         GameRegistry.registerItem(exoPants, "exoPants");
@@ -1047,7 +1047,7 @@ public class TContent implements IFuelHandler
         GameRegistry.registerItem(travelBoots, "travelBoots");
         GameRegistry.registerItem(travelGlove, "travelGlove");
         GameRegistry.registerItem(travelBelt, "travelBelt");
-        
+
         leatherHat = new LeatherSuit(PHConstruct.leatherHat, ArmorPart.Head).setUnlocalizedName("tconstruct.leatherHat");
         leatherVest = new LeatherSuit(PHConstruct.leatherVest, ArmorPart.Chest).setUnlocalizedName("tconstruct.leatherVest");
         leatherPants = new LeatherSuit(PHConstruct.leatherPants, ArmorPart.Legs).setUnlocalizedName("tconstruct.leatherPants");
@@ -1056,7 +1056,7 @@ public class TContent implements IFuelHandler
         GameRegistry.registerItem(leatherVest, "leatherVest");
         GameRegistry.registerItem(leatherPants, "leatherPants");
         GameRegistry.registerItem(leatherBoots, "leatherBoots");
-        
+
         String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper",
                 "ingotTin", "ingotAluminum", "rawAluminum", "ingotBronze", "ingotAluminumBrass", "ingotAlumite", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper",
                 "nuggetTin", "nuggetAluminum", "nuggetSilver", "nuggetAluminumBrass", "silkyCloth", "silkyJewel", "nuggetObsidian", "nuggetCobalt", "nuggetArdite", "nuggetManyullyn", "nuggetBronze",
@@ -1094,12 +1094,12 @@ public class TContent implements IFuelHandler
 
     void registerMaterials ()
     {
-        TConstructRegistry.addToolMaterial(0, "Wood", "Wooden ", 0, 59, 200, 0, 1.0F, 0, 0f, "\u00A7e", "");
+        TConstructRegistry.addToolMaterial(0, "Wood", "Wooden ", 1, 96, 350, 0, 1.0F, 0, 0f, "\u00A7e", "");
         TConstructRegistry.addToolMaterial(1, "Stone", 1, 131, 400, 1, 0.5F, 0, 1f, "", "Stonebound");
         TConstructRegistry.addToolMaterial(2, "Iron", 2, 250, 600, 2, 1.3F, 1, 0f, "\u00A7f", "");
         TConstructRegistry.addToolMaterial(3, "Flint", 1, 171, 525, 2, 0.7F, 0, 0f, "\u00A78", "");
         TConstructRegistry.addToolMaterial(4, "Cactus", 1, 150, 500, 2, 1.0F, 0, -1f, "\u00A72", "Jagged");
-        TConstructRegistry.addToolMaterial(5, "Bone", 1, 200, 400, 1, 1.0F, 0, 0f, "\u00A7e", "");
+        TConstructRegistry.addToolMaterial(5, "Bone", 1, 200, 500, 1, 1.0F, 0, 0f, "\u00A7e", "");
         TConstructRegistry.addToolMaterial(6, "Obsidian", 3, 89, 700, 2, 0.8F, 3, 0f, "\u00A7d", "");
         TConstructRegistry.addToolMaterial(7, "Netherrack", 2, 131, 400, 1, 1.2F, 0, 1f, "\u00A74", "Stonebound");
         TConstructRegistry.addToolMaterial(8, "Slime", 0, 500, 150, 0, 1.5F, 0, 0f, "\u00A7a", "");
@@ -1167,13 +1167,13 @@ public class TContent implements IFuelHandler
             pb.registerFullMaterial(Block.planks, 2, "Wood", new ItemStack(Item.stick), new ItemStack(Item.stick), 0);
         else
             pb.registerMaterialSet("Wood", new ItemStack(Item.stick, 2), new ItemStack(Item.stick), 0);
-        if (PHConstruct.enableTStone)
+        /*if (PHConstruct.enableTStone)
         {
             pb.registerFullMaterial(Block.stone, 2, "Stone", new ItemStack(TContent.toolShard, 1, 1), new ItemStack(TContent.toolRod, 1, 1), 1);
             pb.registerMaterial(Block.cobblestone, 2, "Stone");
         }
-        else
-            pb.registerMaterialSet("Stone", new ItemStack(TContent.toolShard, 1, 1), new ItemStack(TContent.toolRod, 1, 1), 0);
+        else*/
+        pb.registerMaterialSet("Stone", new ItemStack(TContent.toolShard, 1, 1), new ItemStack(TContent.toolRod, 1, 1), 0);
         pb.registerFullMaterial(Item.ingotIron, 2, "Iron", new ItemStack(TContent.toolShard, 1, 2), new ItemStack(TContent.toolRod, 1, 2), 2);
         if (PHConstruct.enableTFlint)
             pb.registerFullMaterial(Item.flint, 2, "Flint", new ItemStack(TContent.toolShard, 1, 3), new ItemStack(TContent.toolRod, 1, 3), 3);
@@ -1273,7 +1273,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(furnaceSlab, 1, 0), "###", "# #", "###", '#', new ItemStack(Block.stoneSingleSlab, 1, 3));
 
         // Blank Pattern Recipe
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blankPattern, 1, 0), "ps", "sp", 'p', "plankWood", 's', "stickWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blankPattern, 4, 0), "ps", "sp", 'p', "plankWood", 's', "stickWood"));
         // Manual Book Recipes
         GameRegistry.addRecipe(new ItemStack(manualBook), "wp", 'w', new ItemStack(blankPattern, 1, 0), 'p', Item.paper);
         GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 2, 0), new ItemStack(manualBook, 1, 0), Item.book);
@@ -1319,7 +1319,7 @@ public class TContent implements IFuelHandler
         // Dust Recipes
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(materials, 1, 41), "dustArdite", "dustCobalt"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(materials, 4, 42), "dustAluminum", "dustAluminum", "dustAluminum", "dustCopper"));
-        
+
         if (PHConstruct.exoCraftingEnabled)
         {
             ItemStack exoGoggleStack = new ItemStack(exoGoggles);
@@ -1398,7 +1398,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(materials, 9, 31), "m", 'm', new ItemStack(materials, 1, 13)); //Bronze
         GameRegistry.addRecipe(new ItemStack(materials, 9, 32), "m", 'm', new ItemStack(materials, 1, 15)); //Alumite
         GameRegistry.addRecipe(new ItemStack(materials, 9, 33), "m", 'm', new ItemStack(materials, 1, 16)); //Steel 
-        
+
         GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 10), patBlock, '#', new ItemStack(enderwarp)); //Ender warp
 
         // stained Glass Recipes
@@ -1735,9 +1735,9 @@ public class TContent implements IFuelHandler
         /*ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(EnumArmorPart.Chest, EnumArmorPart.Feet), new ItemStack[] { new ItemStack(Item.ghastTear), new ItemStack(slimeGel, 1, 0),
                 new ItemStack(Block.pistonBase) }));*/
         ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(ArmorPart.Legs, ArmorPart.Feet), new ItemStack[] { new ItemStack(Item.ghastTear), new ItemStack(slimeGel, 1, 0),
-            new ItemStack(Block.pistonBase) }));
+                new ItemStack(Block.pistonBase) }));
         ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(ArmorPart.Legs, ArmorPart.Feet), new ItemStack[] { new ItemStack(Item.ghastTear), new ItemStack(slimeGel, 1, 1),
-            new ItemStack(Block.pistonBase) }));
+                new ItemStack(Block.pistonBase) }));
         ModifyBuilder.registerModifier(new TravelModRepair());
         TConstructRegistry.registerActiveArmorMod(new ActiveTinkerArmor());
 
@@ -1826,7 +1826,7 @@ public class TContent implements IFuelHandler
         tableCasting.addCastingRecipe(new ItemStack(Item.goldenCarrot, 1), goldAmount, new ItemStack(Item.carrot), true, 50);
         tableCasting.addCastingRecipe(new ItemStack(Item.speckledMelon, 1), goldAmount, new ItemStack(Item.melon), true, 50);
         tableCasting.addCastingRecipe(new ItemStack(goldHead), goldAmount, new ItemStack(Item.skull, 1, 3), true, 50);
-        
+
         //Ensure TConstruct ingots pour from the Smeltery
         tableCasting.addCastingRecipe(new ItemStack(materials, 1, 9), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue), 50); //Copper
         tableCasting.addCastingRecipe(new ItemStack(materials, 1, 10), new FluidStack(moltenTinFluid, TConstruct.ingotLiquidValue), 50); //Tin
@@ -2099,8 +2099,8 @@ public class TContent implements IFuelHandler
         compound.getCompoundTag("InfiTool").setInteger("RenderAccessory", 10);
         tool.setTagCompound(compound);
 
-        //TConstruct.
         TConstructRegistry.toolTab.init(tool);
+        TConstructRegistry.equipableTab.init(travelGoggles.getDefaultItem());
     }
 
     public void addLoot ()

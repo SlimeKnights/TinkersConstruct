@@ -23,8 +23,6 @@ public class ModifyBuilder
         {
             IModifyable item = (IModifyable) copy.getItem();
             NBTTagCompound tags = input.getTagCompound().getCompoundTag(item.getBaseTagName());
-            tags.setBoolean("Built", false);
-            tags.setBoolean("Modifying", true);
             
             boolean built = false;
             for (ItemModifier mod : itemModifiers)

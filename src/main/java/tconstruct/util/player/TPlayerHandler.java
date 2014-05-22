@@ -21,6 +21,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.network.packet.Packet250CustomPayload;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
@@ -28,6 +29,7 @@ import tconstruct.TConstruct;
 import tconstruct.client.TProxyClient;
 import tconstruct.common.TContent;
 import tconstruct.common.TProxyCommon;
+import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -99,11 +101,19 @@ public class TPlayerHandler implements IPlayerTracker
             tags.getCompoundTag("TConstruct").setBoolean("battlesignBonus", true);
             if (PHConstruct.beginnerBook)
             {
-                ItemStack diary = new ItemStack(TContent.manualBook);
-                if (!player.inventory.addItemStackToInventory(diary))
-                {
-                    AbilityHelper.spawnItemAtPlayer(player, diary);
-                }
+                ItemStack spawn = new ItemStack(TContent.manualBook);
+                if (!player.inventory.addItemStackToInventory(spawn))
+                    AbilityHelper.spawnItemAtPlayer(player, spawn);
+
+                spawn = ToolBuilder.instance.buildTool(new ItemStack(TContent.pickaxe.getHeadItem(), 1, 0), new ItemStack(TContent.pickaxe.getHandleItem(), 1, 0),
+                        new ItemStack(TContent.pickaxe.getAccessoryItem(), 1, 0), StatCollector.translateToLocalFormatted("beginnertool.pickaxe"));
+                if (!player.inventory.addItemStackToInventory(spawn))
+                    AbilityHelper.spawnItemAtPlayer(player, spawn);
+
+                spawn = ToolBuilder.instance.buildTool(new ItemStack(TContent.hatchet.getHeadItem(), 1, 0), new ItemStack(TContent.hatchet.getHandleItem(), 1, 0), null,
+                        StatCollector.translateToLocalFormatted("beginnertool.hatchet"));
+                if (!player.inventory.addItemStackToInventory(spawn))
+                    AbilityHelper.spawnItemAtPlayer(player, spawn);
             }
 
             if (player.username.toLowerCase().equals("fudgy_fetus"))
