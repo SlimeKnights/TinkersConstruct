@@ -293,7 +293,7 @@ item.tconstruct.jerky.blueslime.name=Goccia di Slime Gelatinoso
 item.tconstruct.jerky.blood.name=Goccia di Sangue Coagulato
 
 beginnertool.pickaxe=Piccone del Principiante
-beginnertool.hatchet=Zappa del Principiante
+beginnertool.hatchet=Accetta del Principiante
 
 Smeltery.Controller.name=Pannello di Controllo della Fonderia
 Smeltery.Drain.name=Scarico della Fonderia
