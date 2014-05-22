@@ -7,13 +7,13 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import tconstruct.TConstruct;
 import tconstruct.blocks.logic.CraftingStationLogic;
 import tconstruct.common.TContent;
 import tconstruct.library.crafting.ModifyBuilder;
@@ -233,7 +233,7 @@ public class CraftingStationContainer extends Container
             int amount = compare.getItem() instanceof IModifyable ? compare.stackSize : 1;
             logic.decrStackSize(5, amount);
             if (!player.worldObj.isRemote && full)
-                logic.worldObj.playSoundEffect(logic.xCoord, logic.yCoord, logic.zCoord, "tinker:little_saw", 1.0F, (player.rand.nextFloat() - player.rand.nextFloat()) * 0.2F + 1.0F);
+                logic.worldObj.playSoundEffect(logic.xCoord, logic.yCoord, logic.zCoord, "tinker:little_saw", 1.0F, (TConstruct.rand.nextFloat() - TConstruct.rand.nextFloat()) * 0.2F + 1.0F);
             MinecraftForge.EVENT_BUS.post(new ToolCraftedEvent(this.logic, player, stack));
         }
     }

@@ -74,6 +74,7 @@ public class TConstruct
     public static final int nuggetLiquidValue = ingotLiquidValue / 9;
 
     public static final int liquidUpdateAmount = 6;
+    public static Random rand = new Random();
 
     // Shared mod logger
     public static final Logger logger = Logger.getLogger("TConstruct");

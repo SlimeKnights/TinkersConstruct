@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
+import tconstruct.TConstruct;
 import tconstruct.library.modifier.IModifyable;
 
 public class SlotCraftingStation extends SlotCrafting
@@ -24,7 +25,7 @@ public class SlotCraftingStation extends SlotCrafting
         if (stack.getItem() instanceof IModifyable && tool != null && tool.getItem() instanceof IModifyable)
         {
             matrix.setInventorySlotContents(4, null);
-            player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "tinker:little_saw", 1.0F, (player.rand.nextFloat() - player.rand.nextFloat()) * 0.2F + 1.0F);
+            player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "tinker:little_saw", 1.0F, (TConstruct.rand.nextFloat() - TConstruct.rand.nextFloat()) * 0.2F + 1.0F);
         }
         super.onPickupFromSlot(player, stack);
     }
