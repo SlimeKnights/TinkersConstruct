@@ -514,8 +514,8 @@ SearedBlock.Basin.name=Литейный резервуар
 
 entity.TConstruct.EdibleSlime.name=Синий слизень
 entity.TConstruct.KingSlime.name=Король слизней
-entity.TConstruct.Gardeslime.name=Слизень-охраник
-entity.TConstruct.MiniGardy.name=Малый слизень-охраник
+entity.TConstruct.Gardeslime.name=Слизень-охранник
+entity.TConstruct.MiniGardy.name=Малый слизень-охранник
 
 key.tarmor=Интерфейс брони
 key.tcapes.reload=Перезагрузить плащи
