@@ -5,9 +5,11 @@ import java.util.EnumSet;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import tconstruct.TConstruct;
+import tconstruct.library.modifier.IModifyable;
 import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
@@ -41,6 +43,23 @@ public class AbilityTick implements ITickHandler
             if (stack != null && stack.getItem() instanceof ItemMap)
             {
                 stack.getItem().onUpdate(stack, player.worldObj, player, 8, true);
+            }
+            if (!player.isPlayerSleeping())
+            {
+                ItemStack chest = player.getCurrentArmor(2);
+                if (chest == null || !(chest.getItem() instanceof IModifyable))
+                {
+                    player.setSize(0.6F, 1.8F);
+                }
+                else
+                {
+                    NBTTagCompound tag = chest.getTagCompound().getCompoundTag(((IModifyable) chest.getItem()).getBaseTagName());
+                    int dodge = tag.getInteger("Perfect Dodge");
+                    if (dodge > 0)
+                    {
+                        player.setSize(Math.max(0.1F, 0.6F - (dodge * 0.1f)), 1.8F - (dodge * 0.04f));
+                    }
+                }
             }
         }
     }

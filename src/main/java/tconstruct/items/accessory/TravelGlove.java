@@ -38,10 +38,10 @@ public class TravelGlove extends AccessoryCore implements IAccessoryModel
     protected void registerModifiers (IconRegister iconRegister)
     {
         this.modifiers = new Icon[4];
-        this.modifiers[0] = iconRegister.registerIcon("tinker:armor/glove_guard");
-        this.modifiers[1] = iconRegister.registerIcon("tinker:armor/glove_speedaura");
-        this.modifiers[2] = iconRegister.registerIcon("tinker:armor/glove_spines");
-        this.modifiers[3] = iconRegister.registerIcon("tinker:armor/glove_sticky");
+        this.modifiers[0] = iconRegister.registerIcon("tinker:travelgear/glove_guard");
+        this.modifiers[1] = iconRegister.registerIcon("tinker:travelgear/glove_speedaura");
+        this.modifiers[2] = iconRegister.registerIcon("tinker:travelgear/glove_spines");
+        this.modifiers[3] = iconRegister.registerIcon("tinker:travelgear/glove_sticky");
     }
 
     @SideOnly(Side.CLIENT)

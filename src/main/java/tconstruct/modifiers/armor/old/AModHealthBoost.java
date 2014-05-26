@@ -1,4 +1,4 @@
-package tconstruct.modifiers.armor;
+package tconstruct.modifiers.armor.old;
 
 import java.util.EnumSet;
 import java.util.UUID;
@@ -9,30 +9,25 @@ import net.minecraft.nbt.NBTTagList;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.ArmorModTypeFilter;
 import tconstruct.library.armor.ArmorPart;
-import tconstruct.library.modifier.IModifyable;
 
 //TODO: Condense attribute modifiers into one class
-public class AModMoveSpeed extends ArmorModTypeFilter
+public class AModHealthBoost extends ArmorModTypeFilter
 {
     final boolean modifierType;
+    final int modifyAmount = 3;
 
-    public AModMoveSpeed(int effect, EnumSet<ArmorPart> armorTypes, ItemStack[] items, int[] values, boolean type)
+    public AModHealthBoost(int effect, EnumSet<ArmorPart> armorTypes, ItemStack[] items, int[] values, boolean type)
     {
-        super(effect, "ExoSpeed" + (type ? "Percent" : "Flat"), armorTypes, items, values);
+        super(effect, "ExoHealth" + (type ? "Percent" : "Flat"), armorTypes, items, values);
         this.modifierType = type;
     }
 
     @Override
-    protected boolean canModify (ItemStack input, ItemStack[] modifiers)
+    protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        IModifyable imod = (IModifyable) input.getItem();
-        if (imod.getModifyType().equals("Armor"))
-        {
-            NBTTagCompound tags = input.getTagCompound().getCompoundTag(getTagName(input));
-            int amount = matchingAmount(modifiers);
-            return tags.getInteger("Modifiers") >= amount;
-        }
-        return false;
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName(tool));
+        int amount = matchingItems(input) * modifyAmount;
+        return tags.getInteger("Modifiers") >= amount;
     }
 
     @Override
@@ -42,7 +37,7 @@ public class AModMoveSpeed extends ArmorModTypeFilter
         NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(getTagName(armor));
 
         int modifiers = armorTag.getInteger("Modifiers");
-        modifiers -= matchingAmount(input);
+        modifiers -= matchingAmount(input) * modifyAmount;
         armorTag.setInteger("Modifiers", modifiers);
 
         int amount = matchingAmount(input);
@@ -59,7 +54,7 @@ public class AModMoveSpeed extends ArmorModTypeFilter
             for (int iter = 0; iter < attributes.tagCount(); iter++)
             {
                 NBTTagCompound tag = (NBTTagCompound) attributes.tagAt(iter);
-                if (tag.getString("AttributeName").equals("generic.movementSpeed"))
+                if (tag.getString("AttributeName").equals("generic.maxHealth"))
                     attributes.removeTag(iter);
             }
         }
@@ -68,13 +63,13 @@ public class AModMoveSpeed extends ArmorModTypeFilter
             attributes = new NBTTagList();
             baseTag.setTag("AttributeModifiers", attributes);
         }
-        attributes.appendTag(getAttributeTag("generic.movementSpeed", key, amount / 100d, modifierType, getUUIDFromItem(armor)));
+        attributes.appendTag(getAttributeTag("generic.maxHealth", key, amount, modifierType, getUUIDFromItem(armor)));
     }
 
-    private static final UUID head = UUID.fromString("2ba6c8ae-4a19-49c6-aab4-ca3a5eb7c730");
-    private static final UUID chest = UUID.fromString("2ba6c8ae-4a19-49c6-aab4-ca3a5eb7c731");
-    private static final UUID pants = UUID.fromString("2ba6c8ae-4a19-49c6-aab4-ca3a5eb7c732");
-    private static final UUID shoes = UUID.fromString("2ba6c8ae-4a19-49c6-aab4-ca3a5eb7c733");
+    private static final UUID head = UUID.fromString("a2eac357-cae3-4a8f-994c-a8bcbbd6dab8");
+    private static final UUID chest = UUID.fromString("a2eac357-cae3-4a8f-994c-a8bcbbd6dab9");
+    private static final UUID pants = UUID.fromString("a2eac357-cae3-4a8f-994c-a8bcbbd6daba");
+    private static final UUID shoes = UUID.fromString("a2eac357-cae3-4a8f-994c-a8bcbbd6dabb");
 
     UUID getUUIDFromItem (ItemStack stack)
     {

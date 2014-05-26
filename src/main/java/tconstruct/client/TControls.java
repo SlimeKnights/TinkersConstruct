@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.potion.Potion;
+import net.minecraftforge.common.ForgeHooks;
 import tconstruct.TConstruct;
 import tconstruct.client.event.EventCloakRender;
 import tconstruct.client.tabs.TabRegistry;
@@ -39,6 +40,7 @@ public class TControls extends TKeyHandler
     boolean climbing = false;
     boolean onGround = false;
     boolean onStilts = false;
+    public static boolean zoom = false;
 
     int currentTab = 1;
 
@@ -46,7 +48,7 @@ public class TControls extends TKeyHandler
 
     public TControls()
     {
-        super(new KeyBinding[] { armorKey, refreshCapes, toggleGoggles, beltSwap, zoomKey }, new boolean[] { false, false, false, false, true }, getVanillaKeyBindings(),
+        super(new KeyBinding[] { armorKey, refreshCapes, toggleGoggles, beltSwap, zoomKey }, new boolean[] { false, false, false, false, false }, getVanillaKeyBindings(),
                 new boolean[] { false, false });
     }
 
@@ -95,6 +97,7 @@ public class TControls extends TKeyHandler
                     {
                         mc.thePlayer.motionY += (double) ((float) (mc.thePlayer.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
                     }
+                    ForgeHooks.onLivingJump(mc.thePlayer);
 
                     midairJumps--;
                     updateServer((byte) 10);
@@ -137,6 +140,8 @@ public class TControls extends TKeyHandler
                         updateServer((byte) 8);
                     }
                 }
+                if (kb == zoomKey)
+                    zoom = !zoom;
             }
         }
     }

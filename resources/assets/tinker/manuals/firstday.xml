@@ -21,6 +21,11 @@ By Skyla</text>
  <icon>workbench</icon>
  <jump>5</jump>
 </link>
+<link>
+ <text>Armor Modifiers</text>
+ <icon>travelvest</icon>
+ <jump>4</jump>
+</link>
 </page>
 
 <page type="text">
@@ -217,6 +222,89 @@ Note: The Smeltery is required to process all metals, including iron.</text>
  <name>patternbook3</name>
  <size>two</size>
 </recipe>
+</page>
+
+<page type="modifier">
+<tooltype>travelgoggles</tooltype>
+<recipe>nightvision</recipe>
+</page>
+
+<page type="crafting">
+<text>Modifier</text>
+<recipe>
+ <name>dodge</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Modifier</text>
+<recipe>
+ <name>stealth</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="modifier">
+<tooltype>travelwings</tooltype>
+<recipe>doublejump</recipe>
+</page>
+
+<page type="crafting">
+<text>Modifier</text>
+<recipe>
+ <name>doublejump</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Modifier</text>
+<recipe>
+ <name>featherfall</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Modifier</text>
+<recipe>
+ <name>doublejumpboots</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="modifier">
+<tooltype>travelboots</tooltype>
+<recipe>waterwalk</recipe>
+</page>
+
+<page type="modifier">
+<tooltype>travelboots</tooltype>
+<recipe>leadboots</recipe>
+</page>
+
+<page type="modifier">
+<tooltype>travelboots</tooltype>
+<recipe>slimysoles</recipe>
+</page>
+
+<page type="modifier">
+<tooltype>travelgloves</tooltype>
+<recipe>glovehaste</recipe>
+</page>
+
+<page type="crafting">
+<text>Modifier</text>
+<recipe>
+ <name>gloveclimb</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="modifier">
+<tooltype>travelgloves</tooltype>
+<recipe>gloveknuckles</recipe>
 </page>
 
 </book>

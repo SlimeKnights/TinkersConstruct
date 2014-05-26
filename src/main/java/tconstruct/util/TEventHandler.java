@@ -4,20 +4,15 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityLivingData;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.Item;
@@ -32,7 +27,6 @@ import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.GameRules;
-import net.minecraft.world.World;
 import net.minecraftforge.event.Event;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -40,8 +34,8 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
+import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -59,6 +53,7 @@ import tconstruct.items.tools.FryingPan;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.event.PartBuilderEvent;
 import tconstruct.library.event.ToolCraftEvent;
+import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.tools.ArrowMaterial;
 import tconstruct.library.tools.BowMaterial;
 import tconstruct.library.tools.BowstringMaterial;
@@ -254,8 +249,20 @@ public class TEventHandler
         if (reciever instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer) event.entityLiving;
+            //Chest
+            ItemStack stack = player.getCurrentArmor(2);
+            if (stack != null && stack.getItem() instanceof IModifyable)
+            {
+                NBTTagCompound tag = stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
+                int dodge = tag.getInteger("Perfect Dodge");
+                if (random.nextInt(20) < dodge)
+                {
+                    event.setCanceled(true);
+                    return;
+                }
+            }
             //Cutlass
-            ItemStack stack = player.getCurrentEquippedItem();
+            stack = player.getCurrentEquippedItem();
             if (stack != null && player.isUsingItem())
             {
                 Item item = stack.getItem();
@@ -724,7 +731,7 @@ public class TEventHandler
     {
         TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(event.entityPlayer.username);
         float modifier = 1f + stats.mineSpeed / 1000f;
-        float base = stats.mineSpeed / 375f;
+        float base = stats.mineSpeed / 250f;
         event.newSpeed = (event.newSpeed + base) * modifier;
     }
 
@@ -735,6 +742,22 @@ public class TEventHandler
         if (stack != null && stack.getItem() instanceof TravelWings)
         {
             event.entityLiving.motionY += 0.2;
+        }
+    }
+
+    @ForgeSubscribe
+    public void slimefall (LivingFallEvent event)
+    {
+        ItemStack boots = event.entityLiving.getCurrentItemOrArmor(1);
+        if (boots != null && boots.getItem() instanceof IModifyable)
+        {
+            NBTTagCompound tag = boots.getTagCompound().getCompoundTag(((IModifyable) boots.getItem()).getBaseTagName());
+            int sole = tag.getInteger("Slimy Soles");
+            if (sole > 0)
+            {
+                event.distance /= (1 + sole);
+                event.entityLiving.fallDistance /= (1+sole);
+            }
         }
     }
 }

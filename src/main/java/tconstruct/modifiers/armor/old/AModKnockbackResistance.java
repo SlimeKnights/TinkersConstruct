@@ -1,4 +1,4 @@
-package tconstruct.modifiers.armor;
+package tconstruct.modifiers.armor.old;
 
 import java.util.EnumSet;
 import java.util.UUID;
@@ -11,14 +11,14 @@ import tconstruct.library.armor.ArmorModTypeFilter;
 import tconstruct.library.armor.ArmorPart;
 
 //TODO: Condense attribute modifiers into one class
-public class AModHealthBoost extends ArmorModTypeFilter
+public class AModKnockbackResistance extends ArmorModTypeFilter
 {
     final boolean modifierType;
-    final int modifyAmount = 3;
+    final int modifyAmount = 2;
 
-    public AModHealthBoost(int effect, EnumSet<ArmorPart> armorTypes, ItemStack[] items, int[] values, boolean type)
+    public AModKnockbackResistance(int effect, EnumSet<ArmorPart> armorTypes, ItemStack[] items, int[] values, boolean type)
     {
-        super(effect, "ExoHealth" + (type ? "Percent" : "Flat"), armorTypes, items, values);
+        super(effect, "ExoKnockback" + (type ? "Percent" : "Flat"), armorTypes, items, values);
         this.modifierType = type;
     }
 
@@ -54,7 +54,7 @@ public class AModHealthBoost extends ArmorModTypeFilter
             for (int iter = 0; iter < attributes.tagCount(); iter++)
             {
                 NBTTagCompound tag = (NBTTagCompound) attributes.tagAt(iter);
-                if (tag.getString("AttributeName").equals("generic.maxHealth"))
+                if (tag.getString("AttributeName").equals("generic.knockbackResistance"))
                     attributes.removeTag(iter);
             }
         }
@@ -63,13 +63,13 @@ public class AModHealthBoost extends ArmorModTypeFilter
             attributes = new NBTTagList();
             baseTag.setTag("AttributeModifiers", attributes);
         }
-        attributes.appendTag(getAttributeTag("generic.maxHealth", key, amount, modifierType, getUUIDFromItem(armor)));
+        attributes.appendTag(getAttributeTag("generic.knockbackResistance", key, amount * 0.01, modifierType, getUUIDFromItem(armor)));
     }
 
-    private static final UUID head = UUID.fromString("a2eac357-cae3-4a8f-994c-a8bcbbd6dab8");
-    private static final UUID chest = UUID.fromString("a2eac357-cae3-4a8f-994c-a8bcbbd6dab9");
-    private static final UUID pants = UUID.fromString("a2eac357-cae3-4a8f-994c-a8bcbbd6daba");
-    private static final UUID shoes = UUID.fromString("a2eac357-cae3-4a8f-994c-a8bcbbd6dabb");
+    private static final UUID head = UUID.fromString("4188779d-69d4-487c-b307-c4c182522c44");
+    private static final UUID chest = UUID.fromString("4188779d-69d4-487c-b307-c4c182522c45");
+    private static final UUID pants = UUID.fromString("4188779d-69d4-487c-b307-c4c182522c46");
+    private static final UUID shoes = UUID.fromString("4188779d-69d4-487c-b307-c4c182522c47");
 
     UUID getUUIDFromItem (ItemStack stack)
     {

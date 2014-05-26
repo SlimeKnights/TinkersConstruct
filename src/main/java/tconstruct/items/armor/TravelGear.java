@@ -24,6 +24,7 @@ import tconstruct.client.TProxyClient;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.ArmorPart;
+import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.relauncher.Side;
@@ -75,15 +76,6 @@ public class TravelGear extends ArmorCore
                 }
             }
         }
-
-        else if (armorPart == ArmorPart.Head)
-        {
-            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
-            if (stats.activeGoggles)
-            {
-                player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 15 * 20, 0, true));
-            }
-        }
     }
 
     @Override
@@ -102,7 +94,7 @@ public class TravelGear extends ArmorCore
         }
         return 0;
     }
-    
+
     @Override
     protected double getMaxDefense ()
     {
@@ -119,9 +111,9 @@ public class TravelGear extends ArmorCore
         }
         return 0;
     }
-    
+
     @Override
-    protected int getDurability()
+    protected int getDurability ()
     {
         return 1035;
     }
@@ -131,7 +123,7 @@ public class TravelGear extends ArmorCore
     {
         return new ItemStack(Item.leather);
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons (IconRegister iconRegister)
@@ -152,5 +144,35 @@ public class TravelGear extends ArmorCore
         if (armorSlot == 3)
             return TProxyClient.bootbump;
         return null;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    protected void registerModifiers (IconRegister iconRegister) //temporary
+    {
+        switch (armorType)
+        {
+        case 0:
+            modifiers = new Icon[1];
+            modifiers[0] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "goggles" + "_"+"nightvision");
+            break;
+        case 1:
+            modifiers = new Icon[2];
+            modifiers[0] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "vest" + "_"+"dodge");
+            modifiers[1] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "vest" + "_"+"stealth");
+            break;
+        case 2:
+            modifiers = new Icon[2];
+            modifiers[0] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "wings" + "_"+"doublejump");
+            modifiers[1] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "wings" + "_"+"featherfall");
+            break;
+        case 3:
+            modifiers = new Icon[4];
+            modifiers[0] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "boots" + "_"+"doublejump");
+            modifiers[1] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "boots" + "_"+"waterwalk");  
+            modifiers[2] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "boots" + "_"+"leadweight");
+            modifiers[3] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "boots" + "_"+"slimysole");  
+            break;          
+        }
     }
 }

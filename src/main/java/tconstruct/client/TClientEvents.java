@@ -7,7 +7,6 @@ import java.util.Random;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundManager;
-import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
@@ -24,7 +23,6 @@ import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -42,10 +40,10 @@ import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 import tconstruct.TConstruct;
 import tconstruct.common.TContent;
+import tconstruct.items.armor.TravelGear;
 import tconstruct.library.accessory.IAccessoryModel;
 import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.Loader;
@@ -479,8 +477,17 @@ public class TClientEvents
     }
 
     @ForgeSubscribe
-    public void googleZoom (FOVUpdateEvent event)
+    public void goggleZoom (FOVUpdateEvent event)
     {
+        if (TControls.zoom)
+        {
+            ItemStack helmet = event.entity.getCurrentArmor(3);
+            if (helmet != null && helmet.getItem() instanceof TravelGear)
+            {
+                event.newfov = 0.3f;
+            }
+        }
+        //ItemStack feet = player.getCurrentArmor(0);
         //event.newfov = 1.0f;
     }
 

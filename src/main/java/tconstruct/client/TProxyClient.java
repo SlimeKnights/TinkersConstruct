@@ -93,7 +93,7 @@ public class TProxyClient extends TProxyCommon
 
     public static ArmorExtended armorExtended = new ArmorExtended();
     public static KnapsackInventory knapsack = new KnapsackInventory();
-    
+
     public static WingModel wings = new WingModel();
     public static BootBump bootbump = new BootBump();
     public static HiddenPlayerModel glove = new HiddenPlayerModel(0.25F, 4);
@@ -484,6 +484,7 @@ public class TProxyClient extends TProxyCommon
         ItemStack blazerod = new ItemStack(Item.blazeRod);
         ItemStack firecharge = new ItemStack(Item.fireballCharge);
         ItemStack string = new ItemStack(Item.silk);
+        ItemStack feather = new ItemStack(Item.feather);
 
         ItemStack silkyCloth = new ItemStack(TContent.materials, 1, 25);
 
@@ -586,6 +587,36 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualModifier("tier1.5free", ironpick.copy(), new ItemStack(Item.appleGold, 1, 1), new ItemStack(Block.blockDiamond));
         TConstructClientRegistry.registerManualModifier("tier2free", ironpick.copy(), new ItemStack(Item.netherStar));
         TConstructClientRegistry.registerManualModifier("creativefree", ironpick.copy(), new ItemStack(TContent.creativeModifier));
+
+        //Travel Gear
+        ItemStack goggles = new ItemStack(TContent.travelGoggles);
+        TConstructClientRegistry.registerManualIcon("travelgoggles", goggles);
+        TConstructClientRegistry.registerManualModifier("nightvision", goggles.copy(), new ItemStack(Item.flintAndSteel), new ItemStack(Item.potion, 1, 8198));
+
+        ItemStack vest = new ItemStack(TContent.travelVest);
+        TConstructClientRegistry.registerManualIcon("travelvest", vest);
+        TConstructClientRegistry.registerManualSmallRecipe("dodge", vest.copy(), new ItemStack(Item.eyeOfEnder), new ItemStack(Item.enderPearl), new ItemStack(Item.sugar), null);
+        TConstructClientRegistry.registerManualSmallRecipe("stealth", vest.copy(), new ItemStack(Block.ice), new ItemStack(Item.eyeOfEnder), new ItemStack(Item.potion, 1, 8206), null);
+
+        ItemStack wings = new ItemStack(TContent.travelWings);
+        TConstructClientRegistry.registerManualIcon("travelwings", wings);
+        TConstructClientRegistry.registerManualSmallRecipe("doublejump", vest.copy(), new ItemStack(Item.ghastTear), new ItemStack(TContent.slimeGel, 1, 0), new ItemStack(Block.pistonBase), null);
+        TConstructClientRegistry.registerManualLargeRecipe("featherfall", feather, new ItemStack(TContent.slimeGel, 1, 0), feather, feather, feather, vest.copy(), feather, feather, new ItemStack(
+                Item.enderPearl), feather);
+
+        ItemStack boots = new ItemStack(TContent.travelBoots);
+        TConstructClientRegistry.registerManualIcon("travelboots", boots);
+        TConstructClientRegistry.registerManualSmallRecipe("doublejumpboots", boots.copy(), new ItemStack(Item.ghastTear), new ItemStack(TContent.slimeGel, 1, 1), new ItemStack(Block.pistonBase),
+                null);
+        TConstructClientRegistry.registerManualModifier("waterwalk", boots.copy(), new ItemStack(Block.waterlily), new ItemStack(Block.waterlily));
+        TConstructClientRegistry.registerManualModifier("leadboots", boots.copy(), new ItemStack(Block.blockIron));
+        TConstructClientRegistry.registerManualModifier("slimysoles", boots.copy(), new ItemStack(TContent.slimePad, 1, 0), new ItemStack(TContent.slimePad, 1, 0));
+
+        ItemStack gloves = new ItemStack(TContent.travelGlove);
+        TConstructClientRegistry.registerManualIcon("travelgloves", gloves);
+        TConstructClientRegistry.registerManualModifier("glovehaste", gloves.copy(), redstone, new ItemStack(Block.blockRedstone));
+        TConstructClientRegistry.registerManualSmallRecipe("gloveclimb", gloves.copy(), new ItemStack(Item.ghastTear), new ItemStack(TContent.slimeGel, 1, 1), new ItemStack(Block.pistonBase), null);
+        TConstructClientRegistry.registerManualModifier("gloveknuckles", gloves.copy(), new ItemStack(Item.netherQuartz), new ItemStack(Block.blockNetherQuartz, 1, Short.MAX_VALUE));
 
         TConstructClientRegistry.registerManualSmeltery("brownstone", new ItemStack(TContent.speedBlock), new ItemStack(TContent.moltenTin, 1), new ItemStack(Block.gravel));
         TConstructClientRegistry.registerManualSmeltery("clearglass", new ItemStack(TContent.clearGlass), new ItemStack(TContent.moltenGlass, 1), null);

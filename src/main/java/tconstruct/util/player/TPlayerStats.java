@@ -3,6 +3,7 @@ package tconstruct.util.player;
 import java.lang.ref.WeakReference;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 
 public class TPlayerStats
 {

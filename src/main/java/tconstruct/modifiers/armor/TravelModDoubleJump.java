@@ -10,11 +10,11 @@ import tconstruct.library.modifier.IModifyable;
 
 public class TravelModDoubleJump extends ArmorMod
 {
-    String color = "\u00a7a";
+    String color = "\u00a77";
     String tooltipName = "Double-Jump";
     public TravelModDoubleJump(EnumSet<ArmorPart> armorTypes, ItemStack[] items)
     {
-        super(1, "Double-Jump", armorTypes, items);
+        super(0, "Double-Jump", armorTypes, items);
     }
 
     @Override
@@ -45,5 +45,57 @@ public class TravelModDoubleJump extends ArmorMod
         tags.setInteger("Modifiers", modifiers);
 
         addToolTip(input, color + tooltipName, color + key);
+    }
+    
+    @Override
+    protected int addToolTip (ItemStack tool, String tooltip, String modifierTip)
+    {
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName(tool));
+        int tipNum = 0;
+        while (true)
+        {
+            tipNum++;
+            String tip = "Tooltip" + tipNum;
+            if (!tags.hasKey(tip))
+            {
+                tags.setString(tip, tooltip);
+                String modTip = "ModifierTip" + tipNum;
+                tags.setString(modTip, modifierTip);
+                return tipNum;
+            }
+            else
+            {
+                String tag = tags.getString(tip);
+                if (tag.contains("Double-Jump") || tag.contains("Triple-Jump"))
+                {
+                    tags.setString(tip, getProperName(tooltip, tag));
+                    String modTip = "ModifierTip" + tipNum;
+                    tag = tags.getString(modTip);
+                    tags.setString(modTip, getProperName(modifierTip, tag));
+                    return tipNum;
+                }
+            }
+        }
+    }
+
+    @Override
+    protected String getProperName (String tooltip, String tag)
+    {
+        if (tag.contains("Double-Jump"))
+            return color + "Triple-Jump";
+
+        if (tag.contains("Triple-Jump"))
+            return color + "Quadruple-Jump";
+
+        if (tag.contains("Quadruple-Jump"))
+            return color + "Quintuple-Jump";
+        
+        if (tag.contains("Quintuple-Jump"))
+            return color + "Sextuple-Jump";
+        
+        if (tag.contains("Sextuple-Jump"))
+            return color + "Septuple-Jump";
+
+        return color + "Double-Jump";
     }
 }

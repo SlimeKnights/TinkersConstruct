@@ -39,6 +39,16 @@ public class ModifierPage extends BookPage
         ItemStack toolstack = TConstructClientRegistry.getManualIcon("ironpick");
         if (type.equals("weapon"))
             toolstack = TConstructClientRegistry.getManualIcon("ironlongsword");
+        if (type.equals("travelgoggles"))
+            toolstack = TConstructClientRegistry.getManualIcon("travelgoggles");//Temporary?
+        if (type.equals("travelvest"))
+            toolstack = TConstructClientRegistry.getManualIcon("travelvest");
+        if (type.equals("travelwings"))
+            toolstack = TConstructClientRegistry.getManualIcon("travelwings");
+        if (type.equals("travelboots"))
+            toolstack = TConstructClientRegistry.getManualIcon("travelboots");
+        if (type.equals("travelgloves"))
+            toolstack = TConstructClientRegistry.getManualIcon("travelgloves");
 
         manual.renderitem.zLevel = 100;
         manual.renderitem.renderItemAndEffectIntoGUI(manual.fonts, manual.getMC().renderEngine, toolstack, (localWidth + 54) / 2, (localHeight + 54) / 2);

@@ -31,7 +31,6 @@ public class ModBoolean extends ToolMod
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
 
         tags.setBoolean(key, true);
-        //TConstruct.logger.info("Key: "+key+" "+tags.getBoolean(key));
 
         int modifiers = tags.getInteger("Modifiers");
         modifiers -= 1;

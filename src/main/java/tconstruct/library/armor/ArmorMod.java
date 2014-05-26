@@ -28,7 +28,7 @@ public abstract class ArmorMod extends ItemModifier
         ArmorCore item = (ArmorCore) armor.getItem();
         if (armorTypes.contains(item.armorPart))
         {
-            NBTTagCompound tags = armor.getTagCompound().getCompoundTag(getTagName(armor));
+            NBTTagCompound tags = getModifierTag(armor);
             return tags.getInteger("Modifiers") > 0;
         }
         return false;

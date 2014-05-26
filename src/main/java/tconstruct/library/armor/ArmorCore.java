@@ -158,7 +158,6 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
     @SideOnly(Side.CLIENT)
     protected void registerModifiers (IconRegister iconRegister)
     {
-
     }
 
     @Override
@@ -409,8 +408,8 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
         switch (armorPart)
         {
         case Head:
-            list.add("\u00a76Ability: Clear Vision");
-            list.add("\u00a76Toggle with: " + GameSettings.getKeyDisplayString(TControls.toggleGoggles.keyCode));
+            list.add("\u00a76Ability: Zoom with");
+            list.add("\u00a76Toggle Abilities: " + GameSettings.getKeyDisplayString(TControls.toggleGoggles.keyCode));
             break;
         case Chest:
             list.add("\u00a76Ability: Swift Swim");

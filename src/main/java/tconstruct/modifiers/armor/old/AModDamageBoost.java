@@ -1,4 +1,4 @@
-package tconstruct.modifiers.armor;
+package tconstruct.modifiers.armor.old;
 
 import java.util.EnumSet;
 import java.util.UUID;
