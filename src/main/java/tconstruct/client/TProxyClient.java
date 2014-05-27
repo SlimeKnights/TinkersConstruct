@@ -600,8 +600,8 @@ public class TProxyClient extends TProxyCommon
 
         ItemStack wings = new ItemStack(TContent.travelWings);
         TConstructClientRegistry.registerManualIcon("travelwings", wings);
-        TConstructClientRegistry.registerManualSmallRecipe("doublejump", null, new ItemStack(Item.ghastTear), new ItemStack(TContent.slimeGel, 1, 0), new ItemStack(Block.pistonBase), null);
-        TConstructClientRegistry.registerManualLargeRecipe("featherfall", null, new ItemStack(TContent.slimeGel, 1, 0), feather, feather, feather, vest.copy(), feather, feather, new ItemStack(
+        TConstructClientRegistry.registerManualSmallRecipe("doublejump", wings.copy(), new ItemStack(Item.ghastTear), new ItemStack(TContent.slimeGel, 1, 0), new ItemStack(Block.pistonBase), null);
+        TConstructClientRegistry.registerManualLargeRecipe("featherfall", wings.copy(), new ItemStack(TContent.slimeGel, 1, 0), feather, feather, feather, vest.copy(), feather, feather, new ItemStack(
                 Item.enderPearl), feather);
 
         ItemStack boots = new ItemStack(TContent.travelBoots);
