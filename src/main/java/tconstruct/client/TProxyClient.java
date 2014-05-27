@@ -600,8 +600,8 @@ public class TProxyClient extends TProxyCommon
 
         ItemStack wings = new ItemStack(TContent.travelWings);
         TConstructClientRegistry.registerManualIcon("travelwings", wings);
-        TConstructClientRegistry.registerManualSmallRecipe("doublejump", vest.copy(), new ItemStack(Item.ghastTear), new ItemStack(TContent.slimeGel, 1, 0), new ItemStack(Block.pistonBase), null);
-        TConstructClientRegistry.registerManualLargeRecipe("featherfall", feather, new ItemStack(TContent.slimeGel, 1, 0), feather, feather, feather, vest.copy(), feather, feather, new ItemStack(
+        TConstructClientRegistry.registerManualSmallRecipe("doublejump", null, new ItemStack(Item.ghastTear), new ItemStack(TContent.slimeGel, 1, 0), new ItemStack(Block.pistonBase), null);
+        TConstructClientRegistry.registerManualLargeRecipe("featherfall", null, new ItemStack(TContent.slimeGel, 1, 0), feather, feather, feather, vest.copy(), feather, feather, new ItemStack(
                 Item.enderPearl), feather);
 
         ItemStack boots = new ItemStack(TContent.travelBoots);
@@ -615,7 +615,7 @@ public class TProxyClient extends TProxyCommon
         ItemStack gloves = new ItemStack(TContent.travelGlove);
         TConstructClientRegistry.registerManualIcon("travelgloves", gloves);
         TConstructClientRegistry.registerManualModifier("glovehaste", gloves.copy(), redstone, new ItemStack(Block.blockRedstone));
-        TConstructClientRegistry.registerManualSmallRecipe("gloveclimb", gloves.copy(), new ItemStack(Item.ghastTear), new ItemStack(TContent.slimeGel, 1, 1), new ItemStack(Block.pistonBase), null);
+        TConstructClientRegistry.registerManualSmallRecipe("gloveclimb", gloves.copy(), new ItemStack(Item.slimeBall), new ItemStack(Block.web), new ItemStack(TContent.materials, 1, 25), null);
         TConstructClientRegistry.registerManualModifier("gloveknuckles", gloves.copy(), new ItemStack(Item.netherQuartz), new ItemStack(Block.blockNetherQuartz, 1, Short.MAX_VALUE));
 
         TConstructClientRegistry.registerManualSmeltery("brownstone", new ItemStack(TContent.speedBlock), new ItemStack(TContent.moltenTin, 1), new ItemStack(Block.gravel));

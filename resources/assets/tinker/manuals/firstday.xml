@@ -230,7 +230,7 @@ Note: The Smeltery is required to process all metals, including iron.</text>
 </page>
 
 <page type="crafting">
-<text>Modifier</text>
+<text>Vision</text>
 <recipe>
  <name>dodge</name>
  <size>two</size>
@@ -238,7 +238,7 @@ Note: The Smeltery is required to process all metals, including iron.</text>
 </page>
 
 <page type="crafting">
-<text>Modifier</text>
+<text>Corrupted Sight</text>
 <recipe>
  <name>stealth</name>
  <size>two</size>
@@ -251,7 +251,7 @@ Note: The Smeltery is required to process all metals, including iron.</text>
 </page>
 
 <page type="crafting">
-<text>Modifier</text>
+<text>Freefall</text>
 <recipe>
  <name>doublejump</name>
  <size>two</size>
@@ -259,7 +259,7 @@ Note: The Smeltery is required to process all metals, including iron.</text>
 </page>
 
 <page type="crafting">
-<text>Modifier</text>
+<text>Aer</text>
 <recipe>
  <name>featherfall</name>
  <size>three</size>
@@ -267,7 +267,7 @@ Note: The Smeltery is required to process all metals, including iron.</text>
 </page>
 
 <page type="crafting">
-<text>Modifier</text>
+<text>Travel</text>
 <recipe>
  <name>doublejumpboots</name>
  <size>two</size>
@@ -295,7 +295,7 @@ Note: The Smeltery is required to process all metals, including iron.</text>
 </page>
 
 <page type="crafting">
-<text>Modifier</text>
+<text>Flesh</text>
 <recipe>
  <name>gloveclimb</name>
  <size>two</size>
