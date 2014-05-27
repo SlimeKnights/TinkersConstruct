@@ -19,6 +19,8 @@ public class SlimePadRender implements ISimpleBlockRenderingHandler
         if (modelID == model)
         {
             TProxyClient.renderStandardInvBlock(renderer, TContent.slimeGel, metadata);
+            renderer.setRenderBounds(0f, 0f, 0f, 1f, 0.5f, 1f);
+            TProxyClient.renderStandardInvBlock(renderer, TContent.slimeGel, 1);
         }
     }
 

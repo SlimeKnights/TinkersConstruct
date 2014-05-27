@@ -39,7 +39,7 @@ public class ActiveTinkerArmor extends ActiveArmorMod
             NBTTagCompound tag = itemStack.getTagCompound().getCompoundTag(armor.getBaseTagName());
             if (player.isInWater())
             {
-                if (tag.getBoolean("WaterWalk") && player.motionY <= 0)
+                if (!player.isSneaking() && tag.getBoolean("WaterWalk") && player.motionY <= 0)
                 {
                     player.motionY = 0;
                 }
