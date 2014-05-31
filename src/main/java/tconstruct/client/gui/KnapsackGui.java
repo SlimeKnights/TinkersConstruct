@@ -1,6 +1,7 @@
 package tconstruct.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.InventoryEffectRenderer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -12,7 +13,7 @@ import tconstruct.client.tabs.TabRegistry;
 import tconstruct.inventory.KnapsackContainer;
 import tconstruct.util.player.KnapsackInventory;
 
-public class KnapsackGui extends GuiContainer
+public class KnapsackGui extends InventoryEffectRenderer
 {
     public InventoryPlayer inv;
     public KnapsackInventory stats;
@@ -33,7 +34,7 @@ public class KnapsackGui extends GuiContainer
         int cornerY = guiTop;
         this.buttonList.clear();
 
-        TabRegistry.updateTabValues(cornerX + 51, cornerY, InventoryTabKnapsack.class);
+        TabRegistry.updateTabValues(cornerX, cornerY, InventoryTabKnapsack.class);
         TabRegistry.addTabsToList(this.buttonList);
 
         // InventoryTab tab = new InventoryTab(2, cornerX, cornerY - 28, new

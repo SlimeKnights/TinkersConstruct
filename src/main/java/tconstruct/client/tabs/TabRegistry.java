@@ -27,7 +27,7 @@ public class TabRegistry
         if (gui.getClass() == GuiInventory.class)
         {
             // Values are public at runtime.
-            int cornerX = gui.xSize;
+            int cornerX = gui.guiLeft;
             int cornerY = gui.guiTop;
             gui.buttonList.clear();
 

@@ -48,7 +48,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         // tab.enabled = false;
         // this.buttonList.add(tab);
 
-        TabRegistry.updateTabValues(cornerX + 51, cornerY, InventoryTabArmorExtended.class);
+        TabRegistry.updateTabValues(cornerX, cornerY, InventoryTabArmorExtended.class);
         TabRegistry.addTabsToList(this.buttonList);
     }
 
