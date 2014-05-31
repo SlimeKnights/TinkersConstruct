@@ -72,7 +72,7 @@ public class ModBlaze extends ToolModTypeFilter
             int modifiers = tags.getInteger("Modifiers");
             modifiers -= 1;
             tags.setInteger("Modifiers", modifiers);
-            String modName = "\u00a76Blaze (" + increase + "/" + max + ")";
+            String modName = "\u00a76" + StatCollector.translateToLocal("gui.modifier.blaze") + " (" + keys[0] + "/" + keys[1] + ")";
             int tooltipIndex = addToolTip(tool, tooltipName, modName);
             int[] keyPair = new int[] { increase, max, tooltipIndex };
             tags.setIntArray(key, keyPair);
@@ -88,7 +88,7 @@ public class ModBlaze extends ToolModTypeFilter
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         String tip = "ModifierTip" + keys[2];
-        String modName = "\u00a76" + StatCollector.translateToLocal("gui.modifier.blaze") + "(" + keys[0] + "/" + keys[1] + ")";
+        String modName = "\u00a76" + StatCollector.translateToLocal("gui.modifier.blaze") + " (" + keys[0] + "/" + keys[1] + ")";
         tags.setString(tip, modName);
     }
 

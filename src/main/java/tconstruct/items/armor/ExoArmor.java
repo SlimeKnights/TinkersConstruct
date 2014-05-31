@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.StatCollector;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.EnumArmorPart;
@@ -74,7 +75,7 @@ public class ExoArmor extends ArmorCore
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag(SET_NAME);
         double protection = tags.getDouble("protection");
         if (protection > 0)
-            list.add("\u00a7aProtection: " + protection + "%");
+            list.add("\u00a7a" + StatCollector.translateToLocal("modifier.armour.protection") + protection + "%");
         boolean displayToolTips = true;
         int tipNum = 0;
         while (displayToolTips)
