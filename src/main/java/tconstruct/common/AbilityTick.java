@@ -57,7 +57,7 @@ public class AbilityTick implements ITickHandler
                     int dodge = tag.getInteger("Perfect Dodge");
                     if (dodge > 0)
                     {
-                        player.setSize(Math.max(0.1F, 0.6F - (dodge * 0.1f)), 1.8F - (dodge * 0.04f));
+                        player.setSize(Math.max(0.15F, 0.6F - (dodge * 0.09f)), 1.8F - (dodge * 0.04f));
                     }
                 }
             }

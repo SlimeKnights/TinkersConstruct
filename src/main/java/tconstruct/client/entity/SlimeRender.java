@@ -17,13 +17,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class SlimeRender extends RenderLiving
 {
-    static final ResourceLocation texture = new ResourceLocation("tinker", "textures/mob/slimeedible.png");
+    final ResourceLocation texture;
     private ModelBase scaleAmount;
 
-    public SlimeRender(ModelBase par1ModelBase, ModelBase par2ModelBase, float par3)
+    public SlimeRender(ModelBase par1ModelBase, ModelBase par2ModelBase, float par3, ResourceLocation texture)
     {
         super(par1ModelBase, par3);
         this.scaleAmount = par2ModelBase;
+        this.texture = texture;
     }
 
     @Override

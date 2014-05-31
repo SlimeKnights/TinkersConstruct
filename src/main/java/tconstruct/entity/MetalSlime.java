@@ -2,6 +2,8 @@ package tconstruct.entity;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 
 public class MetalSlime extends BlueSlime
@@ -10,8 +12,13 @@ public class MetalSlime extends BlueSlime
     public MetalSlime(World world)
     {
         super(world);
-        //this.texture = "/mods/tinker/textures/mob/slimemetal.png";
-        this.setHealth(getMaxHealthForSize());
+    }
+    
+    @Override
+    protected void initializeSlime()
+    {
+        this.slimeJumpDelay = this.rand.nextInt(30) + 20;
+        this.setSlimeSize(3);
     }
 
     public boolean attackEntityFrom (DamageSource damageSource, int damage)
@@ -21,12 +28,11 @@ public class MetalSlime extends BlueSlime
         return super.attackEntityFrom(damageSource, damage);
     }
 
-    // Invoked by constructor to set max health dependant on current size
     private float getMaxHealthForSize ()
     {
         int i = this.getSlimeSize();
         if (i == 1)
-            return 4;
+            return 20;
         return (float) Math.min(i * i + 20, 100);
     }
 
@@ -40,9 +46,10 @@ public class MetalSlime extends BlueSlime
         this.isDead = true;
     }
 
-    /*protected void dropFewItems (boolean par1, int par2)
+    @Override
+    protected void dropFewItems (boolean par1, int par2)
     {
-    	int j = this.getDropItemId();
+    	/*int j = this.getDropItemId();
 
     	if (j > 0)
     	{
@@ -57,8 +64,8 @@ public class MetalSlime extends BlueSlime
     		{
     			this.dropItem(j, 1);
     		}
-    	}
-    }*/
+    	}*/
+    }
 
     protected void updateEntityActionState ()
     {

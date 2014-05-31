@@ -14,6 +14,7 @@ import java.util.*;
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.*;
 import net.minecraft.nbt.NBTTagCompound;
@@ -22,6 +23,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.*;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
 import net.minecraftforge.oredict.*;
@@ -268,8 +270,8 @@ public class TContent implements IFuelHandler
     //Ores
     public static Block oreSlag;
     public static Block oreGravel;
-    public static OreberryBush oreBerry;
-    public static OreberryBush oreBerrySecond;
+    public static EssenceberryBush oreBerry;
+    public static EssenceberryBush oreBerrySecond;
     public static Item oreBerries;
 
     //Tool modifiers
@@ -338,7 +340,7 @@ public class TContent implements IFuelHandler
     {
         EntityRegistry.registerModEntity(FancyEntityItem.class, "Fancy Item", 0, TConstruct.instance, 32, 5, true);
         EntityRegistry.registerModEntity(DaggerEntity.class, "Dagger", 1, TConstruct.instance, 32, 5, true);
-        EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 3, true);
+        //EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 3, true);
         EntityRegistry.registerModEntity(LaunchedPotion.class, "Launched Potion", 3, TConstruct.instance, 32, 3, true);
         EntityRegistry.registerModEntity(ArrowEntity.class, "Arrow", 4, TConstruct.instance, 32, 5, true);
         EntityRegistry.registerModEntity(EntityLandmineFirework.class, "LandmineFirework", 5, TConstruct.instance, 32, 5, true);
@@ -346,7 +348,33 @@ public class TContent implements IFuelHandler
         //EntityRegistry.registerModEntity(CartEntity.class, "Small Wagon", 1, TConstruct.instance, 32, 5, true);
 
         EntityRegistry.registerModEntity(BlueSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);
-        //EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13, TConstruct.instance, 64, 5, true);
+        EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13, TConstruct.instance, 64, 5, true);
+        if (PHConstruct.naturalSlimeSpawn > 0)
+        {
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.FOREST));
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.PLAINS));
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.MOUNTAIN));
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.HILLS));
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.SWAMP));
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.JUNGLE));
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.WASTELAND));
+        }
+        if (PHConstruct.metalSlimeSpawn > 0)
+        {
+            EntityRegistry.addSpawn(MetalSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.FOREST));
+            EntityRegistry.addSpawn(MetalSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.PLAINS));
+            EntityRegistry.addSpawn(MetalSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.MOUNTAIN));
+            EntityRegistry.addSpawn(MetalSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.HILLS));
+            EntityRegistry.addSpawn(MetalSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.SWAMP));
+            EntityRegistry.addSpawn(MetalSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.WATER));
+            EntityRegistry.addSpawn(MetalSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.DESERT));
+            EntityRegistry.addSpawn(MetalSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.FROZEN));
+            EntityRegistry.addSpawn(MetalSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.JUNGLE));
+            EntityRegistry.addSpawn(MetalSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.WASTELAND));
+            EntityRegistry.addSpawn(MetalSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.BEACH));
+            EntityRegistry.addSpawn(MetalSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.MUSHROOM));
+            EntityRegistry.addSpawn(MetalSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(Type.MAGICAL));
+        }
     }
 
     public static Fluid[] fluids = new Fluid[27];
@@ -811,12 +839,11 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(multiBrickFancy, MultiBrickFancyItem.class, "decoration.multibrickfancy");
 
         //Ores
-        String[] berryOres = new String[] { "berry_iron", "berry_gold", "berry_copper", "berry_tin", "berry_iron_ripe", "berry_gold_ripe", "berry_copper_ripe", "berry_tin_ripe" };
-        oreBerry = (OreberryBush) new OreberryBush(PHConstruct.oreBerry, berryOres, 0, 4, new String[] { "oreIron", "oreGold", "oreCopper", "oreTin" }).setUnlocalizedName("ore.berries.one");
-        GameRegistry.registerBlock(oreBerry, OreberryBushItem.class, "ore.berries.one");
-        String[] berryOresTwo = new String[] { "berry_aluminum", "berry_essence", "", "", "berry_aluminum_ripe", "berry_essence_ripe", "", "" };
-        oreBerrySecond = (OreberryBush) new OreberryBushEssence(PHConstruct.oreBerrySecond, berryOresTwo, 4, 2, new String[] { "oreAluminum", "oreSilver" }).setUnlocalizedName("ore.berries.two");
-        GameRegistry.registerBlock(oreBerrySecond, OreberryBushSecondItem.class, "ore.berries.two");
+        String[] berryOres = new String[] { "berry_essence", "berry_essence", "berry_essence", "berry_essence", "berry_essence_ripe", "berry_essence_ripe", "berry_essence_ripe", "berry_essence_ripe" };
+        oreBerry = (EssenceberryBush) new EssenceberryBush(PHConstruct.oreBerry, berryOres, 0, 4).setUnlocalizedName("ore.berries.one");
+        GameRegistry.registerBlock(oreBerry, EssenceberryBushItem.class, "ore.berries.one");
+        oreBerrySecond = (EssenceberryBush) new EssenceberryBush(PHConstruct.oreBerrySecond, berryOres, 4, 2).setUnlocalizedName("ore.berries.two");
+        GameRegistry.registerBlock(oreBerrySecond, EssenceberryBushItem.class, "ore.berries.two");
 
         String[] oreTypes = new String[] { "nether_slag", "nether_cobalt", "nether_ardite", "ore_copper", "ore_tin", "ore_aluminum", "ore_slag" };
         oreSlag = new MetalOre(PHConstruct.oreSlag, Material.rock, 10.0F, oreTypes).setUnlocalizedName("tconstruct.stoneore");
@@ -826,6 +853,9 @@ public class TContent implements IFuelHandler
         MinecraftForge.setBlockHarvestLevel(oreSlag, 3, "pickaxe", 1);
         MinecraftForge.setBlockHarvestLevel(oreSlag, 4, "pickaxe", 1);
         MinecraftForge.setBlockHarvestLevel(oreSlag, 5, "pickaxe", 1);
+
+        if (PHConstruct.hardStone)
+            MinecraftForge.setBlockHarvestLevel(Block.stone, "pickaxe", 2);
 
         oreGravel = new GravelOre(PHConstruct.oreGravel).setUnlocalizedName("GravelOre").setUnlocalizedName("tconstruct.gravelore");
         GameRegistry.registerBlock(oreGravel, GravelOreItem.class, "GravelOre");
@@ -1095,8 +1125,8 @@ public class TContent implements IFuelHandler
     void registerMaterials ()
     {
         TConstructRegistry.addToolMaterial(0, "Wood", "Wooden ", 1, 96, 350, 0, 1.0F, 0, 0f, "\u00A7e", "");
-        TConstructRegistry.addToolMaterial(1, "Stone", 1, 131, 400, 1, 0.5F, 0, 1f, "", "Stonebound");
-        TConstructRegistry.addToolMaterial(2, "Iron", 2, 250, 600, 2, 1.3F, 1, 0f, "\u00A7f", "");
+        TConstructRegistry.addToolMaterial(1, "Stone", 1, 131, 350, 1, 0.5F, 0, 1f, "", "Stonebound");
+        TConstructRegistry.addToolMaterial(2, "Iron", 2, 250, 600, 2, 1.2F, 1, 0f, "\u00A7f", "");
         TConstructRegistry.addToolMaterial(3, "Flint", 1, 171, 525, 2, 0.7F, 0, 0f, "\u00A78", "");
         TConstructRegistry.addToolMaterial(4, "Cactus", 1, 150, 500, 2, 1.0F, 0, -1f, "\u00A72", "Jagged");
         TConstructRegistry.addToolMaterial(5, "Bone", 1, 200, 500, 1, 1.0F, 0, 0f, "\u00A7e", "");
@@ -1104,61 +1134,61 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addToolMaterial(7, "Netherrack", 2, 131, 400, 1, 1.2F, 0, 1f, "\u00A74", "Stonebound");
         TConstructRegistry.addToolMaterial(8, "Slime", 0, 500, 150, 0, 1.5F, 0, 0f, "\u00A7a", "");
         TConstructRegistry.addToolMaterial(9, "Paper", 0, 30, 200, 0, 0.3F, 0, 0f, "\u00A7f", "Writable");
-        TConstructRegistry.addToolMaterial(10, "Cobalt", 4, 800, 1100, 3, 1.75F, 2, 0f, "\u00A73", "");
-        TConstructRegistry.addToolMaterial(11, "Ardite", 4, 600, 800, 3, 2.0F, 0, 2f, "\u00A74", "Stonebound");
-        TConstructRegistry.addToolMaterial(12, "Manyullyn", 5, 1200, 900, 4, 2.5F, 0, 0f, "\u00A75", "");
+        TConstructRegistry.addToolMaterial(10, "Cobalt", 4, 750, 800, 3, 1.3F, 2, 0f, "\u00A73", "");
+        TConstructRegistry.addToolMaterial(11, "Ardite", 4, 600, 350, 4, 1.3F, 0, 2f, "\u00A74", "Stonebound");
+        TConstructRegistry.addToolMaterial(12, "Manyullyn", 5, 1200, 800, 3, 2.0F, 0, 0f, "\u00A75", "");
         TConstructRegistry.addToolMaterial(13, "Copper", 1, 180, 500, 2, 1.15F, 0, 0f, "\u00A7c", "");
         TConstructRegistry.addToolMaterial(14, "Bronze", 2, 350, 700, 2, 1.3F, 1, 0f, "\u00A76", "");
         TConstructRegistry.addToolMaterial(15, "Alumite", 4, 550, 800, 3, 1.3F, 2, 0f, "\u00A7d", "");
-        TConstructRegistry.addToolMaterial(16, "Steel", 4, 750, 800, 3, 1.3F, 2, 0f, "", "");
+        TConstructRegistry.addToolMaterial(16, "Steel", 4, 750, 800, 4, 1.3F, 2, 0f, "", "");
         TConstructRegistry.addToolMaterial(17, "BlueSlime", "Slime ", 0, 1200, 150, 0, 2.0F, 0, 0f, "\u00A7b", "");
         TConstructRegistry.addToolMaterial(18, "PigIron", "Pig Iron ", 3, 250, 600, 2, 1.3F, 1, 0f, "\u00A7c", "Tasty");
 
         TConstructRegistry.addBowMaterial(0, 384, 20, 1.0f); //Wood
         TConstructRegistry.addBowMaterial(1, 10, 80, 0.2f); //Stone
-        TConstructRegistry.addBowMaterial(2, 576, 40, 1.2f); //Iron
+        TConstructRegistry.addBowMaterial(2, 576, 25, 1.1f); //Iron
         TConstructRegistry.addBowMaterial(3, 10, 80, 0.2f); //Flint
-        TConstructRegistry.addBowMaterial(4, 384, 20, 1.0f); //Cactus
+        TConstructRegistry.addBowMaterial(4, 384, 14, 1.0f); //Cactus
         TConstructRegistry.addBowMaterial(5, 192, 30, 1.0f); //Bone
         TConstructRegistry.addBowMaterial(6, 10, 80, 0.2f); //Obsidian
         TConstructRegistry.addBowMaterial(7, 10, 80, 0.2f); //Netherrack
         TConstructRegistry.addBowMaterial(8, 1536, 20, 1.2f); //Slime
         TConstructRegistry.addBowMaterial(9, 48, 25, 0.5f); //Paper
-        TConstructRegistry.addBowMaterial(10, 1152, 40, 1.2f); //Cobalt
-        TConstructRegistry.addBowMaterial(11, 960, 40, 1.2f); //Ardite
-        TConstructRegistry.addBowMaterial(12, 1536, 40, 1.2f); //Manyullyn
-        TConstructRegistry.addBowMaterial(13, 384, 40, 1.2f); //Copper
-        TConstructRegistry.addBowMaterial(14, 576, 40, 1.2f); //Bronze
-        TConstructRegistry.addBowMaterial(15, 768, 40, 1.2f); //Alumite
-        TConstructRegistry.addBowMaterial(16, 768, 40, 1.2f); //Steel
+        TConstructRegistry.addBowMaterial(10, 1152, 24, 1.3f); //Cobalt
+        TConstructRegistry.addBowMaterial(11, 960, 26, 1.0f); //Ardite
+        TConstructRegistry.addBowMaterial(12, 1536, 26, 1.3f); //Manyullyn
+        TConstructRegistry.addBowMaterial(13, 384, 25, 1.0f); //Copper
+        TConstructRegistry.addBowMaterial(14, 576, 22, 1.1f); //Bronze
+        TConstructRegistry.addBowMaterial(15, 768, 26, 1.3f); //Alumite
+        TConstructRegistry.addBowMaterial(16, 768, 28, 1.4f); //Steel
         TConstructRegistry.addBowMaterial(17, 576, 20, 1.2f); //Blue Slime
-        TConstructRegistry.addBowMaterial(18, 384, 20, 1.2f); //Slime
+        TConstructRegistry.addBowMaterial(18, 384, 28, 1.2f); //Pigiron
 
         //Material ID, mass, fragility
         TConstructRegistry.addArrowMaterial(0, 0.69F, 1.0F, 100F); //Wood
-        TConstructRegistry.addArrowMaterial(1, 2.5F, 5.0F, 100F); //Stone
-        TConstructRegistry.addArrowMaterial(2, 7.2F, 0.5F, 100F); //Iron
-        TConstructRegistry.addArrowMaterial(3, 2.65F, 1.0F, 100F); //Flint
+        TConstructRegistry.addArrowMaterial(1, 2.05F, 5.0F, 100F); //Stone
+        TConstructRegistry.addArrowMaterial(2, 3.6F, 0.5F, 100F); //Iron
+        TConstructRegistry.addArrowMaterial(3, 1.325F, 1.0F, 100F); //Flint
         TConstructRegistry.addArrowMaterial(4, 0.76F, 1.0F, 100F); //Cactus
         TConstructRegistry.addArrowMaterial(5, 0.69F, 1.0F, 100); //Bone
         TConstructRegistry.addArrowMaterial(6, 2.4F, 1.0F, 100F); //Obsidian
-        TConstructRegistry.addArrowMaterial(7, 3.5F, 1.0F, 100F); //Netherrack
-        TConstructRegistry.addArrowMaterial(8, 0.42F, 0.0F, 100F); //Slime
-        TConstructRegistry.addArrowMaterial(9, 1.1F, 3.0F, 90F); //Paper
-        TConstructRegistry.addArrowMaterial(10, 8.9F, 0.25F, 100F); //Cobalt
-        TConstructRegistry.addArrowMaterial(11, 7.2F, 0.25F, 100F); //Ardite
-        TConstructRegistry.addArrowMaterial(12, 10.6F, 0.1F, 100F); //Manyullyn
-        TConstructRegistry.addArrowMaterial(13, 8.96F, 0.5F, 100F); //Copper
-        TConstructRegistry.addArrowMaterial(14, 7.9F, 0.25F, 100F); //Bronze
-        TConstructRegistry.addArrowMaterial(15, 4.7F, 0.25F, 100F); //Alumite
-        TConstructRegistry.addArrowMaterial(16, 7.6F, 0.25F, 100F); //Steel
-        TConstructRegistry.addArrowMaterial(17, 0.42F, 0.0F, 100F); //Blue Slime
-        TConstructRegistry.addArrowMaterial(18, 6.8F, 0.5F, 100F); //Iron
+        TConstructRegistry.addArrowMaterial(7, 1.5F, 1.0F, 100F); //Netherrack
+        TConstructRegistry.addArrowMaterial(8, 0.22F, 0.0F, 100F); //Slime
+        TConstructRegistry.addArrowMaterial(9, 0.69F, 3.0F, 90F); //Paper
+        TConstructRegistry.addArrowMaterial(10, 3.0F, 0.25F, 100F); //Cobalt
+        TConstructRegistry.addArrowMaterial(11, 1.25F, 0.25F, 100F); //Ardite
+        TConstructRegistry.addArrowMaterial(12, 2.25F, 0.1F, 100F); //Manyullyn
+        TConstructRegistry.addArrowMaterial(13, 2.7F, 0.5F, 100F); //Copper
+        TConstructRegistry.addArrowMaterial(14, 3.6F, 0.25F, 100F); //Bronze
+        TConstructRegistry.addArrowMaterial(15, 1.1F, 0.25F, 100F); //Alumite
+        TConstructRegistry.addArrowMaterial(16, 3.6F, 0.25F, 100F); //Steel
+        TConstructRegistry.addArrowMaterial(17, 0.22F, 0.0F, 100F); //Blue Slime
+        TConstructRegistry.addArrowMaterial(18, 3.6F, 0.5F, 100F); //Pigiron
 
         TConstructRegistry.addBowstringMaterial(0, 2, new ItemStack(Item.silk), new ItemStack(bowstring, 1, 0), 1F, 1F, 1f); //String
         TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Item.feather), new ItemStack(fletching, 1, 0), 100F, 0F, 0.05F); //Feather
         for (int i = 0; i < 4; i++)
-            TConstructRegistry.addFletchingMaterial(1, 2, new ItemStack(Block.leaves, 1, i), new ItemStack(fletching, 1, 1), 75F, 0F, 0.2F); //All four vanialla Leaves
+            TConstructRegistry.addFletchingMaterial(1, 2, new ItemStack(Block.leaves, 1, i), new ItemStack(fletching, 1, 1), 75F, 0F, 0.2F); //All four vanilla Leaves
         TConstructRegistry.addFletchingMaterial(2, 2, new ItemStack(materials, 1, 1), new ItemStack(fletching, 1, 2), 100F, 0F, 0.12F); //Slime
         TConstructRegistry.addFletchingMaterial(3, 2, new ItemStack(materials, 1, 17), new ItemStack(fletching, 1, 3), 100F, 0F, 0.12F); //BlueSlime
 
@@ -1167,13 +1197,13 @@ public class TContent implements IFuelHandler
             pb.registerFullMaterial(Block.planks, 2, "Wood", new ItemStack(Item.stick), new ItemStack(Item.stick), 0);
         else
             pb.registerMaterialSet("Wood", new ItemStack(Item.stick, 2), new ItemStack(Item.stick), 0);
-        /*if (PHConstruct.enableTStone)
+        if (PHConstruct.enableTStone)
         {
             pb.registerFullMaterial(Block.stone, 2, "Stone", new ItemStack(TContent.toolShard, 1, 1), new ItemStack(TContent.toolRod, 1, 1), 1);
             pb.registerMaterial(Block.cobblestone, 2, "Stone");
         }
-        else*/
-        pb.registerMaterialSet("Stone", new ItemStack(TContent.toolShard, 1, 1), new ItemStack(TContent.toolRod, 1, 1), 0);
+        else
+            pb.registerMaterialSet("Stone", new ItemStack(TContent.toolShard, 1, 1), new ItemStack(TContent.toolRod, 1, 1), 0);
         pb.registerFullMaterial(Item.ingotIron, 2, "Iron", new ItemStack(TContent.toolShard, 1, 2), new ItemStack(TContent.toolRod, 1, 2), 2);
         if (PHConstruct.enableTFlint)
             pb.registerFullMaterial(Item.flint, 2, "Flint", new ItemStack(TContent.toolShard, 1, 3), new ItemStack(TContent.toolRod, 1, 3), 3);
@@ -1542,7 +1572,6 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 12));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 13));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 5), "b", 'b', new ItemStack(toolForge, 1, Short.MAX_VALUE));
-        // EssenceExtractor Recipe
         //Slime Recipes
         GameRegistry.addRecipe(new ItemStack(slimeGel, 1, 0), "##", "##", '#', strangeFood);
         GameRegistry.addRecipe(new ItemStack(strangeFood, 4, 0), "#", '#', new ItemStack(slimeGel, 1, 0));
@@ -1733,8 +1762,8 @@ public class TContent implements IFuelHandler
         TConstructRegistry.registerActiveArmorMod(new ActiveTinkerArmor());
 
         //Head
-        ModifyBuilder.registerModifier(new AModBoolean(0, "Night Vision", EnumSet.of(ArmorPart.Head), new ItemStack[] { new ItemStack(Item.flintAndSteel), new ItemStack(Item.potion, 1, 8198) }, "\u00a78",
-                "Night Vision"));
+        ModifyBuilder.registerModifier(new AModBoolean(0, "Night Vision", EnumSet.of(ArmorPart.Head), new ItemStack[] { new ItemStack(Item.flintAndSteel), new ItemStack(Item.potion, 1, 8198) },
+                "\u00a78", "Night Vision"));
 
         //Chest
         ModifyBuilder.registerModifier(new AModInteger(0, "Perfect Dodge", EnumSet.of(ArmorPart.Chest), new ItemStack[] { new ItemStack(Item.eyeOfEnder), new ItemStack(Item.enderPearl),
@@ -1747,7 +1776,7 @@ public class TContent implements IFuelHandler
         ModifyBuilder.registerModifier(new AModInteger(1, "Feather Fall", EnumSet.of(ArmorPart.Legs), new ItemStack[] { new ItemStack(this.slimeGel, 1, 0), new ItemStack(Item.enderPearl), feather,
                 feather, feather, feather, feather, feather }, 1, "\u00a7f", "Feather Fall"));
         ModifyBuilder.registerModifier(new AModInteger(1, "Feather Fall", EnumSet.of(ArmorPart.Legs), new ItemStack[] { new ItemStack(this.slimeGel, 1, 1), new ItemStack(Item.enderPearl), feather,
-            feather, feather, feather, feather, feather }, 1, "\u00a7f", "Feather Fall"));
+                feather, feather, feather, feather, feather }, 1, "\u00a7f", "Feather Fall"));
 
         //Feet
         ModifyBuilder.registerModifier(new AModBoolean(1, "WaterWalk", EnumSet.of(ArmorPart.Feet), new ItemStack[] { new ItemStack(Block.waterlily), new ItemStack(Block.waterlily) }, "\u00a79",

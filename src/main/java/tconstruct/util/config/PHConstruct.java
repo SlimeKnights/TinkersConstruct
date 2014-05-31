@@ -48,9 +48,10 @@ public class PHConstruct
         keepHunger = config.get("Difficulty Changes", "Keep hunger on death", true).getBoolean(true);
         keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
         beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", true).getBoolean(true);
+        hardStone = config.get("Difficulty Changes", "Harvesting Stone requires Iron or better", false).getBoolean(false);
 
         enableTWood = config.get("Difficulty Changes", "Enable mod wooden tools", true).getBoolean(true);
-        //enableTStone = config.get("Difficulty Changes", "Enable mod stone tools", true).getBoolean(true);
+        enableTStone = config.get("Difficulty Changes", "Enable mod stone tools", true).getBoolean(true);
         enableTCactus = config.get("Difficulty Changes", "Enable mod cactus tools", true).getBoolean(true);
         enableTBone = config.get("Difficulty Changes", "Enable mod bone tools", true).getBoolean(true);
         enableTFlint = config.get("Difficulty Changes", "Enable mod flint tools", true).getBoolean(true);
@@ -68,6 +69,10 @@ public class PHConstruct
         miningLevelIncrease = config.get("Difficulty Changes", "Modifiers increase Mining Level", true).getBoolean(true);
         denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
         craftEndstone = config.get("Difficulty Changes", "Allow creation of endstone", true).getBoolean(true);
+        craftEndstone = config.get("Difficulty Changes", "Allow creation of endstone", true).getBoolean(true);
+        
+        naturalSlimeSpawn = config.get("Mobs", "Blue Slime spawn chance", 2, "Set to 0 to disable").getInt(2);
+        metalSlimeSpawn = config.get("Mobs", "Metal Slime spawn chance", 1, "Set to 0 to disable").getInt(1);
 
         ingotsPerOre = config.get("Smeltery Output Modification", "Ingots per ore", 2, "Number of ingots returned from smelting ores in the smeltery").getInt(2);
         ingotsBronzeAlloy = config.get("Smeltery Output Modification", "Bronze ingot return", 4, "Number of ingots returned from smelting Bronze in the smeltery").getInt(4);
@@ -309,11 +314,6 @@ public class PHConstruct
         generateTinSurface = config.get("Worldgen Disabler", "Generate Surface Tin", true).getBoolean(true);
         generateAluminumSurface = config.get("Worldgen Disabler", "Generate Surface Aluminum", true).getBoolean(true);
 
-        generateIronBush = config.get("Worldgen Disabler", "Generate Iron Bushes", true).getBoolean(true);
-        generateGoldBush = config.get("Worldgen Disabler", "Generate Gold Bushes", true).getBoolean(true);
-        generateCopperBush = config.get("Worldgen Disabler", "Generate Copper Bushes", true).getBoolean(true);
-        generateTinBush = config.get("Worldgen Disabler", "Generate Tin Bushes", true).getBoolean(true);
-        generateAluminumBush = config.get("Worldgen Disabler", "Generate Aluminum Bushes", true).getBoolean(true);
         generateEssenceBush = config.get("Worldgen Disabler", "Generate Essence Bushes", true).getBoolean(true);
         addToVillages = config.get("Worldgen Disabler", "Add Village Generation", true).getBoolean(true);
 
@@ -336,19 +336,8 @@ public class PHConstruct
         aluminumsRarity = config.get("Worldgen", "Aluminum Surface Rarity", 50).getInt(50);
         cobaltsRarity = config.get("Worldgen", "Cobalt Surface Rarity", 2000).getInt(2000);
 
-        ironBushDensity = config.get("Worldgen", "Iron Bush Density", 1).getInt(1);
-        goldBushDensity = config.get("Worldgen", "Gold Bush Density", 1).getInt(1);
-        copperBushDensity = config.get("Worldgen", "Copper Bush Density", 2).getInt(2);
-        tinBushDensity = config.get("Worldgen", "Tin Bush Density", 2).getInt(2);
-        aluminumBushDensity = config.get("Worldgen", "Aluminum Bush Density", 2).getInt(2);
-        silverBushDensity = config.get("Worldgen", "Silver Bush Density", 1).getInt(1);
-
-        ironBushRarity = config.get("Worldgen", "Iron Bush Rarity", 5).getInt(5);
-        goldBushRarity = config.get("Worldgen", "Gold Bush Rarity", 8).getInt(8);
-        copperBushRarity = config.get("Worldgen", "Copper Bush Rarity", 3).getInt(3);
-        tinBushRarity = config.get("Worldgen", "Tin Bush Rarity", 3).getInt(3);
-        aluminumBushRarity = config.get("Worldgen", "Aluminum Bush Rarity", 2).getInt(2);
-        essenceBushRarity = config.get("Worldgen", "Essence Bush Rarity", 6).getInt(6);
+        essenceBushDensity = config.get("Worldgen", "Essence Bush Density", 10).getInt(10);
+        essenceBushRarity = config.get("Worldgen", "Essence Bush Rarity", 2).getInt(2);
 
         copperBushMinY = config.get("Worldgen", "Copper Bush Min Y", 20).getInt(20);
         copperBushMaxY = config.get("Worldgen", "Copper Bush Max Y", 60).getInt(60);
@@ -648,12 +637,6 @@ public class PHConstruct
     public static boolean generateAluminumSurface;
     public static boolean generateCobaltSurface;
 
-    public static boolean generateIronBush;
-    public static boolean generateGoldBush;
-    public static boolean generateCopperBush;
-    public static boolean generateTinBush;
-    public static boolean generateAluminumBush;
-    public static boolean generateEssenceBush;
 
     public static boolean addToVillages;
 
@@ -669,18 +652,8 @@ public class PHConstruct
     public static int aluminumsRarity;
     public static int cobaltsRarity;
 
-    public static int ironBushDensity;
-    public static int goldBushDensity;
-    public static int copperBushDensity;
-    public static int tinBushDensity;
-    public static int aluminumBushDensity;
-    public static int silverBushDensity;
-
-    public static int ironBushRarity;
-    public static int goldBushRarity;
-    public static int copperBushRarity;
-    public static int tinBushRarity;
-    public static int aluminumBushRarity;
+    public static boolean generateEssenceBush;
+    public static int essenceBushDensity;
     public static int essenceBushRarity;
 
     public static int copperuMinY;
@@ -700,12 +673,13 @@ public class PHConstruct
     public static int seaLevel;
 
     //Mobs
+    public static int naturalSlimeSpawn;
+    public static int metalSlimeSpawn;
 
     //Difficulty modifiers
     public static boolean keepHunger;
     public static boolean keepLevels;
-    public static boolean alphaRegen;
-    public static boolean alphaHunger;
+    public static boolean hardStone;
 
     public static boolean disableWoodTools;
     public static boolean disableStoneTools;
@@ -714,7 +688,7 @@ public class PHConstruct
     public static boolean disableGoldTools;
 
     public static boolean enableTWood;
-    //public static boolean enableTStone;
+    public static boolean enableTStone;
     public static boolean enableTCactus;
     public static boolean enableTBone;
     public static boolean enableTFlint;

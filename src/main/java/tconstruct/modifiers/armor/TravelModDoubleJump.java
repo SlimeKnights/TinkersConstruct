@@ -20,7 +20,6 @@ public class TravelModDoubleJump extends ArmorMod
     @Override
     public boolean validType (IModifyable type)
     {
-        System.out.println("Valid type check");
         return type.getModifyType().equals("Clothing");
     }
 

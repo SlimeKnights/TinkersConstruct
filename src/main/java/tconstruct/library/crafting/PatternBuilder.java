@@ -150,7 +150,7 @@ public class PatternBuilder
             }
             else if (event.getResult() == Result.DENY)
             {
-                return new ItemStack[2];
+                return null;
             }
 
             ItemKey key = getItemKey(material);
@@ -165,6 +165,51 @@ public class PatternBuilder
                     int totalMaterial = key.value * material.stackSize;
 
                     if (totalMaterial < patternValue) // Not enough material
+                        return null;
+
+                    else if (patternValue == key.value) //Material only
+                        return new ItemStack[] { toolPart, null };
+
+                    else
+                    {
+                        if (patternValue % 2 == 1)
+                        {
+                            return new ItemStack[] { toolPart, mat.shard.copy() }; //Material + shard
+                        }
+                        else
+                            return new ItemStack[] { toolPart, null };
+                    }
+                }
+            }
+        }
+        return null;
+        /*if (material != null && pattern != null)
+        {
+            PartBuilderEvent.NormalPart event = new PartBuilderEvent.NormalPart(material, pattern, otherPattern);
+            MinecraftForge.EVENT_BUS.post(event);
+
+            if (event.getResult() == Result.ALLOW)
+            {
+                return event.getResultStacks();
+            }
+            else if (event.getResult() == Result.DENY)
+            {
+                return new ItemStack[2];
+            }
+
+            ItemKey key = getItemKey(material);
+            if (key != null)
+            {
+                MaterialSet mat = (MaterialSet) materialSets.get(key.key);
+                ItemStack toolPart = getMatchingPattern(pattern, material, mat);
+
+                if (toolPart != null)
+                {
+                    int patternValue = ((IPattern) pattern.getItem()).getPatternCost(pattern);
+                    int totalMaterial = key.value * material.stackSize;
+                    System.out.println("Material: "+totalMaterial);
+
+                    if (totalMaterial < patternValue) // Not enough material
                         return new ItemStack[2];
 
                     else if (patternValue == key.value) //Material only
@@ -174,7 +219,7 @@ public class PatternBuilder
                 }
             }
         }
-        return new ItemStack[2];
+        return new ItemStack[2];*/
     }
 
     public int getPartID (ItemStack material)

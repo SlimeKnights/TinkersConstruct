@@ -4,13 +4,13 @@ import java.util.EnumSet;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.TConstruct;
 import tconstruct.common.TContent;
 import tconstruct.items.armor.TravelGear;
-import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.ITickHandler;
@@ -19,10 +19,13 @@ import cpw.mods.fml.common.TickType;
 public class TClientTickHandler implements ITickHandler
 {
     Minecraft mc = Minecraft.getMinecraft();
+    GameSettings gs = mc.gameSettings;
     TControls controlInstance = ((TProxyClient) TConstruct.proxy).controlInstance;
     ItemStack prevFeet;
     double prevMotionY;
     boolean morphed;
+    float prevMouseSensitivity;
+    boolean sprint;
 
     @Override
     public void tickEnd (EnumSet<TickType> type, Object... tickData)
@@ -44,6 +47,8 @@ public class TClientTickHandler implements ITickHandler
                 player.motionY = 0.1176D;
                 player.fallDistance = 0.0f;
             }
+            
+            //Feet changes
             ItemStack feet = player.getCurrentArmor(0);
             if (feet != null && feet.getItem() instanceof IModifyable)
             {
@@ -67,6 +72,31 @@ public class TClientTickHandler implements ITickHandler
                     player.stepHeight += 0.6f;
                 prevFeet = feet;
             }
+            
+            //Legs or wing changes
+            ItemStack legs = player.getCurrentArmor(1);
+            if (legs != null && legs.getItem() instanceof IModifyable)
+            {
+                NBTTagCompound tag = legs.getTagCompound().getCompoundTag(((IModifyable) legs.getItem()).getBaseTagName());
+                if (player.isSprinting())
+                {
+                    if (!sprint)
+                    {
+                        sprint = true;
+                        int sprintboost = tag.getInteger("Sprint Assist");
+                        if (player.isSprinting() && sprintboost > 0)
+                        {
+                            prevMouseSensitivity = gs.mouseSensitivity;
+                            gs.mouseSensitivity *= 1 - (0.15 * sprintboost);
+                        }
+                    }
+                }
+                else if (sprint)
+                {
+                    sprint = false;
+                    gs.mouseSensitivity = prevMouseSensitivity;
+                }
+            }
             if (!player.isPlayerSleeping() && !morphed)
             {
                 ItemStack chest = player.getCurrentArmor(2);
@@ -80,7 +110,7 @@ public class TClientTickHandler implements ITickHandler
                     int dodge = tag.getInteger("Perfect Dodge");
                     if (dodge > 0)
                     {
-                        player.setSize(Math.max(0.1F, 0.6F - (dodge * 0.1f)), 1.8F - (dodge * 0.04f));
+                        player.setSize(Math.max(0.15F, 0.6F - (dodge * 0.09f)), 1.8F - (dodge * 0.04f));
                     }
                 }
             }

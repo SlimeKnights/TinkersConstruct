@@ -274,7 +274,8 @@ public class TProxyClient extends TProxyCommon
 
         // Entities
         RenderingRegistry.registerEntityRenderingHandler(FancyEntityItem.class, new FancyItemRender());
-        RenderingRegistry.registerEntityRenderingHandler(BlueSlime.class, new SlimeRender(new ModelSlime(16), new ModelSlime(0), 0.25F));
+        RenderingRegistry.registerEntityRenderingHandler(BlueSlime.class, new SlimeRender(new ModelSlime(16), new ModelSlime(0), 0.25F, new ResourceLocation("tinker", "textures/mob/slimeedible.png")));
+        RenderingRegistry.registerEntityRenderingHandler(MetalSlime.class, new SlimeRender(new ModelSlime(16), new ModelSlime(0), 0.25F, new ResourceLocation("tinker", "textures/mob/slimemetal.png")));
 
         RenderingRegistry.registerEntityRenderingHandler(CartEntity.class, new CartRender());
         RenderingRegistry.registerEntityRenderingHandler(Crystal.class, new CrystalRender());
