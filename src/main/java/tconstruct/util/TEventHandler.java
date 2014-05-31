@@ -339,7 +339,10 @@ public class TEventHandler
                     else
                     {
                         Entity attacker = source.getEntity();
-                        attacker.attackEntityFrom(DamageSource.causeThornsDamage(player), event.ammount);
+                        if(attacker != null)
+                        {
+                            attacker.attackEntityFrom(DamageSource.causeThornsDamage(player), event.ammount);
+                        }
                     }
                 }
             }
