@@ -2,6 +2,7 @@ itemGroup.TConstructTools=TConstruct Attrezzi
 itemGroup.TConstructMaterials=TConstruct Materiali
 itemGroup.TConstructBlocks=TConstruct Blocchi
 itemGroup.TConstructParts=TConstruct Parti di Attrezzi
+itemGroup.TConstructEquipables=TConstruct Equipaggiabili
 
 crafters.ToolStation=T.d. Attrezzi
 crafters.CraftingStation=Tavolo da Lavoro
@@ -290,6 +291,9 @@ item.tconstruct.jerky.fish.name=Pesce Essicato
 item.tconstruct.jerky.zombie.name=Carne Marcia Essicata
 item.tconstruct.jerky.blueslime.name=Goccia di Slime Gelatinoso
 item.tconstruct.jerky.blood.name=Goccia di Sangue Coagulato
+
+beginnertool.pickaxe=Piccone del Principiante
+beginnertool.hatchet=Accetta del Principiante
 
 Smeltery.Controller.name=Pannello di Controllo della Fonderia
 Smeltery.Drain.name=Scarico della Fonderia
