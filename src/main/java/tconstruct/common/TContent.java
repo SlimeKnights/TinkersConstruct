@@ -326,7 +326,10 @@ public class TContent implements IFuelHandler
     {
         registerItems();
         registerBlocks();
-        registerMaterials();
+        if (!Loader.isModLoaded("terrafirmacraft"))
+            registerMaterials();
+        else
+            registerTFCMaterials();
         addCraftingRecipes();
         setupToolTabs();
         addLoot();
@@ -1242,6 +1245,131 @@ public class TContent implements IFuelHandler
             pb.registerFullMaterial(new ItemStack(materials, 1, 17), 2, "BlueSlime", new ItemStack(toolShard, 1, 17), new ItemStack(toolRod, 1, 17), 17);
         else
             pb.registerMaterialSet("BlueSlime", new ItemStack(TContent.toolShard, 1, 17), new ItemStack(TContent.toolRod, 1, 17), 17);
+        pb.registerFullMaterial(new ItemStack(materials, 1, 34), 2, "PigIron", new ItemStack(toolShard, 1, 18), new ItemStack(toolRod, 1, 18), 18);
+
+        pb.addToolPattern((IPattern) woodPattern);
+    }
+
+    void registerTFCMaterials ()
+    {
+        //TConstructRegistry.addToolMaterial(0, "Wood", "Wooden ", 1, 96, 350, 0, 1.0F, 0, 0f, "\u00A7e", "");
+        TConstructRegistry.addToolMaterial(1, "Stone", 1, 131, 350, 40, 0.5F, 0, 1f, "", "Stonebound");
+        TConstructRegistry.addToolMaterial(2, "Iron", 2, 250, 600, 80, 1.2F, 1, 0f, "\u00A7f", "");
+        //TConstructRegistry.addToolMaterial(3, "Flint", 1, 171, 525, 2, 0.7F, 0, 0f, "\u00A78", "");
+        //TConstructRegistry.addToolMaterial(4, "Cactus", 1, 150, 500, 2, 1.0F, 0, -1f, "\u00A72", "Jagged");
+        TConstructRegistry.addToolMaterial(5, "Bone", 1, 200, 500, 40, 1.0F, 0, 0f, "\u00A7e", "");
+        TConstructRegistry.addToolMaterial(6, "Obsidian", 3, 89, 700, 80, 0.8F, 3, 0f, "\u00A7d", "");
+        TConstructRegistry.addToolMaterial(7, "Netherrack", 2, 131, 400, 40, 1.2F, 0, 1f, "\u00A74", "Stonebound");
+        //TConstructRegistry.addToolMaterial(8, "Slime", 0, 500, 150, 0, 1.5F, 0, 0f, "\u00A7a", "");
+        //TConstructRegistry.addToolMaterial(9, "Paper", 0, 30, 200, 0, 0.3F, 0, 0f, "\u00A7f", "Writable");
+        TConstructRegistry.addToolMaterial(10, "Cobalt", 4, 750, 800, 200, 1.3F, 2, 0f, "\u00A73", "");
+        TConstructRegistry.addToolMaterial(11, "Ardite", 4, 600, 350, 200, 1.3F, 0, 2f, "\u00A74", "Stonebound");
+        TConstructRegistry.addToolMaterial(12, "Manyullyn", 5, 1200, 800, 300, 2.0F, 0, 0f, "\u00A75", "");
+        TConstructRegistry.addToolMaterial(13, "Copper", 1, 180, 500, 80, 1.15F, 0, 0f, "\u00A7c", "");
+        TConstructRegistry.addToolMaterial(14, "Bronze", 2, 350, 700, 120, 1.3F, 1, 0f, "\u00A76", "");
+        TConstructRegistry.addToolMaterial(15, "Alumite", 4, 550, 800, 120, 1.3F, 2, 0f, "\u00A7d", "");
+        TConstructRegistry.addToolMaterial(16, "Steel", 4, 750, 800, 200, 1.3F, 2, 0f, "", "");
+        //TConstructRegistry.addToolMaterial(17, "BlueSlime", "Slime ", 0, 1200, 150, 0, 2.0F, 0, 0f, "\u00A7b", "");
+        TConstructRegistry.addToolMaterial(18, "PigIron", "Pig Iron ", 3, 250, 600, 120, 1.3F, 1, 0f, "\u00A7c", "Tasty");
+
+        //TConstructRegistry.addBowMaterial(0, 384, 20, 1.0f); //Wood
+        TConstructRegistry.addBowMaterial(1, 10, 80, 0.2f); //Stone
+        TConstructRegistry.addBowMaterial(2, 576, 25, 1.1f); //Iron
+        //TConstructRegistry.addBowMaterial(3, 10, 80, 0.2f); //Flint
+        //TConstructRegistry.addBowMaterial(4, 384, 14, 1.0f); //Cactus
+        TConstructRegistry.addBowMaterial(5, 192, 30, 1.0f); //Bone
+        TConstructRegistry.addBowMaterial(6, 10, 80, 0.2f); //Obsidian
+        TConstructRegistry.addBowMaterial(7, 10, 80, 0.2f); //Netherrack
+        //TConstructRegistry.addBowMaterial(8, 1536, 20, 1.2f); //Slime
+        //TConstructRegistry.addBowMaterial(9, 48, 25, 0.5f); //Paper
+        TConstructRegistry.addBowMaterial(10, 1152, 24, 1.3f); //Cobalt
+        TConstructRegistry.addBowMaterial(11, 960, 26, 1.0f); //Ardite
+        TConstructRegistry.addBowMaterial(12, 1536, 26, 1.3f); //Manyullyn
+        TConstructRegistry.addBowMaterial(13, 384, 25, 1.0f); //Copper
+        TConstructRegistry.addBowMaterial(14, 576, 22, 1.1f); //Bronze
+        TConstructRegistry.addBowMaterial(15, 768, 26, 1.3f); //Alumite
+        TConstructRegistry.addBowMaterial(16, 768, 28, 1.4f); //Steel
+        //TConstructRegistry.addBowMaterial(17, 576, 20, 1.2f); //Blue Slime
+        TConstructRegistry.addBowMaterial(18, 384, 28, 1.2f); //Pigiron
+
+        //Material ID, mass, fragility
+        //TConstructRegistry.addArrowMaterial(0, 0.69F, 1.0F, 100F); //Wood
+        TConstructRegistry.addArrowMaterial(1, 2.05F, 5.0F, 100F); //Stone
+        TConstructRegistry.addArrowMaterial(2, 3.6F, 0.5F, 100F); //Iron
+        //TConstructRegistry.addArrowMaterial(3, 1.325F, 1.0F, 100F); //Flint
+        //TConstructRegistry.addArrowMaterial(4, 0.76F, 1.0F, 100F); //Cactus
+        TConstructRegistry.addArrowMaterial(5, 0.69F, 1.0F, 100); //Bone
+        TConstructRegistry.addArrowMaterial(6, 2.4F, 1.0F, 100F); //Obsidian
+        TConstructRegistry.addArrowMaterial(7, 1.5F, 1.0F, 100F); //Netherrack
+        //TConstructRegistry.addArrowMaterial(8, 0.22F, 0.0F, 100F); //Slime
+        //TConstructRegistry.addArrowMaterial(9, 0.69F, 3.0F, 90F); //Paper
+        TConstructRegistry.addArrowMaterial(10, 3.0F, 0.25F, 100F); //Cobalt
+        TConstructRegistry.addArrowMaterial(11, 1.25F, 0.25F, 100F); //Ardite
+        TConstructRegistry.addArrowMaterial(12, 2.25F, 0.1F, 100F); //Manyullyn
+        TConstructRegistry.addArrowMaterial(13, 2.7F, 0.5F, 100F); //Copper
+        TConstructRegistry.addArrowMaterial(14, 3.6F, 0.25F, 100F); //Bronze
+        TConstructRegistry.addArrowMaterial(15, 1.1F, 0.25F, 100F); //Alumite
+        TConstructRegistry.addArrowMaterial(16, 3.6F, 0.25F, 100F); //Steel
+        //TConstructRegistry.addArrowMaterial(17, 0.22F, 0.0F, 100F); //Blue Slime
+        TConstructRegistry.addArrowMaterial(18, 3.6F, 0.5F, 100F); //Pigiron
+
+        TConstructRegistry.addBowstringMaterial(0, 2, new ItemStack(Item.silk), new ItemStack(bowstring, 1, 0), 1F, 1F, 1f); //String
+        TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Item.feather), new ItemStack(fletching, 1, 0), 100F, 0F, 0.05F); //Feather
+        for (int i = 0; i < 4; i++)
+            TConstructRegistry.addFletchingMaterial(1, 2, new ItemStack(Block.leaves, 1, i), new ItemStack(fletching, 1, 1), 75F, 0F, 0.2F); //All four vanilla Leaves
+        TConstructRegistry.addFletchingMaterial(2, 2, new ItemStack(materials, 1, 1), new ItemStack(fletching, 1, 2), 100F, 0F, 0.12F); //Slime
+        TConstructRegistry.addFletchingMaterial(3, 2, new ItemStack(materials, 1, 17), new ItemStack(fletching, 1, 3), 100F, 0F, 0.12F); //BlueSlime
+
+        PatternBuilder pb = PatternBuilder.instance;
+        /*if (PHConstruct.enableTWood)
+            pb.registerFullMaterial(Block.planks, 2, "Wood", new ItemStack(Item.stick), new ItemStack(Item.stick), 0);
+        else
+            pb.registerMaterialSet("Wood", new ItemStack(Item.stick, 2), new ItemStack(Item.stick), 0);*/
+        if (PHConstruct.enableTStone)
+        {
+            pb.registerFullMaterial(Block.stone, 2, "Stone", new ItemStack(TContent.toolShard, 1, 1), new ItemStack(TContent.toolRod, 1, 1), 1);
+            pb.registerMaterial(Block.cobblestone, 2, "Stone");
+        }
+        else
+            pb.registerMaterialSet("Stone", new ItemStack(TContent.toolShard, 1, 1), new ItemStack(TContent.toolRod, 1, 1), 0);
+        pb.registerFullMaterial(Item.ingotIron, 2, "Iron", new ItemStack(TContent.toolShard, 1, 2), new ItemStack(TContent.toolRod, 1, 2), 2);
+        /*if (PHConstruct.enableTFlint)
+            pb.registerFullMaterial(Item.flint, 2, "Flint", new ItemStack(TContent.toolShard, 1, 3), new ItemStack(TContent.toolRod, 1, 3), 3);
+        else
+            pb.registerMaterialSet("Flint", new ItemStack(TContent.toolShard, 1, 3), new ItemStack(TContent.toolRod, 1, 3), 3);
+        if (PHConstruct.enableTCactus)
+            pb.registerFullMaterial(Block.cactus, 2, "Cactus", new ItemStack(TContent.toolShard, 1, 4), new ItemStack(TContent.toolRod, 1, 4), 4);
+        else
+            pb.registerMaterialSet("Cactus", new ItemStack(TContent.toolShard, 1, 4), new ItemStack(TContent.toolRod, 1, 4), 4);*/
+        if (PHConstruct.enableTBone)
+            pb.registerFullMaterial(Item.bone, 2, "Bone", new ItemStack(Item.dyePowder, 1, 15), new ItemStack(Item.bone), 5);
+        else
+            pb.registerMaterialSet("Bone", new ItemStack(Item.dyePowder, 1, 15), new ItemStack(Item.bone), 5);
+        pb.registerFullMaterial(Block.obsidian, 2, "Obsidian", new ItemStack(TContent.toolShard, 1, 6), new ItemStack(TContent.toolRod, 1, 6), 6);
+        pb.registerMaterial(new ItemStack(materials, 1, 18), 2, "Obsidian");
+        if (PHConstruct.enableTNetherrack)
+            pb.registerFullMaterial(Block.netherrack, 2, "Netherrack", new ItemStack(TContent.toolShard, 1, 7), new ItemStack(TContent.toolRod, 1, 7), 7);
+        else
+            pb.registerMaterialSet("Netherrack", new ItemStack(TContent.toolShard, 1, 7), new ItemStack(TContent.toolRod, 1, 7), 7);
+        /*if (PHConstruct.enableTSlime)
+            pb.registerFullMaterial(new ItemStack(materials, 1, 1), 2, "Slime", new ItemStack(toolShard, 1, 8), new ItemStack(toolRod, 1, 8), 8);
+        else
+            pb.registerMaterialSet("Slime", new ItemStack(TContent.toolShard, 1, 8), new ItemStack(TContent.toolRod, 1, 17), 8);*/
+        if (PHConstruct.enableTPaper)
+            pb.registerFullMaterial(new ItemStack(materials, 1, 0), 2, "Paper", new ItemStack(Item.paper, 2), new ItemStack(toolRod, 1, 9), 9);
+        else
+            pb.registerMaterialSet("BlueSlime", new ItemStack(Item.paper, 2), new ItemStack(TContent.toolRod, 1, 9), 9);
+        pb.registerMaterialSet("Cobalt", new ItemStack(toolShard, 1, 10), new ItemStack(toolRod, 1, 10), 10);
+        pb.registerMaterialSet("Ardite", new ItemStack(toolShard, 1, 11), new ItemStack(toolRod, 1, 11), 11);
+        pb.registerMaterialSet("Manyullyn", new ItemStack(toolShard, 1, 12), new ItemStack(toolRod, 1, 12), 12);
+        pb.registerMaterialSet("Copper", new ItemStack(toolShard, 1, 13), new ItemStack(toolRod, 1, 13), 13);
+        pb.registerMaterialSet("Bronze", new ItemStack(toolShard, 1, 14), new ItemStack(toolRod, 1, 14), 14);
+        pb.registerMaterialSet("Alumite", new ItemStack(toolShard, 1, 15), new ItemStack(toolRod, 1, 15), 15);
+        pb.registerMaterialSet("Steel", new ItemStack(toolShard, 1, 16), new ItemStack(toolRod, 1, 16), 16);
+        /*if (PHConstruct.enableTBlueSlime)
+            pb.registerFullMaterial(new ItemStack(materials, 1, 17), 2, "BlueSlime", new ItemStack(toolShard, 1, 17), new ItemStack(toolRod, 1, 17), 17);
+        else
+            pb.registerMaterialSet("BlueSlime", new ItemStack(TContent.toolShard, 1, 17), new ItemStack(TContent.toolRod, 1, 17), 17);*/
         pb.registerFullMaterial(new ItemStack(materials, 1, 34), 2, "PigIron", new ItemStack(toolShard, 1, 18), new ItemStack(toolRod, 1, 18), 18);
 
         pb.addToolPattern((IPattern) woodPattern);
