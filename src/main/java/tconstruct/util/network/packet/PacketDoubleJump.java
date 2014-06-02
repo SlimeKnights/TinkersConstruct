@@ -2,6 +2,7 @@ package tconstruct.util.network.packet;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
+import mantle.common.network.AbstractPacket;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class PacketDoubleJump extends AbstractPacket

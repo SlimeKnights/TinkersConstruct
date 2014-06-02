@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import mantle.blocks.abstracts.MultiServantLogic;
+import mantle.utils.RecipeRemover;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.init.Blocks;
@@ -112,7 +113,6 @@ import tconstruct.modifiers.tools.ModReinforced;
 import tconstruct.modifiers.tools.ModRepair;
 import tconstruct.modifiers.tools.ModSmite;
 import tconstruct.modifiers.tools.TActiveOmniMod;
-import tconstruct.util.RecipeRemover;
 import tconstruct.util.TDispenserBehaviorArrow;
 import tconstruct.util.TDispenserBehaviorSpawnEgg;
 import tconstruct.util.config.PHConstruct;

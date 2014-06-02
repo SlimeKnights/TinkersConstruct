@@ -1,6 +1,7 @@
 package tconstruct.client;
 
 import cpw.mods.fml.common.gameevent.TickEvent.Type;
+import mantle.common.network.AbstractPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
@@ -10,7 +11,6 @@ import tconstruct.TConstruct;
 import tconstruct.client.event.EventCloakRender;
 import tconstruct.client.tabs.TabRegistry;
 import tconstruct.common.TProxyCommon;
-import tconstruct.util.network.packet.AbstractPacket;
 import tconstruct.util.network.packet.PacketDoubleJump;
 import tconstruct.util.network.packet.PacketExtendedInventory;
 

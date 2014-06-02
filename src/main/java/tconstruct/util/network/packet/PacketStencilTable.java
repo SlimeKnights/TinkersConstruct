@@ -3,6 +3,7 @@ package tconstruct.util.network.packet;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import mantle.blocks.abstracts.InventoryLogic;
+import mantle.common.network.AbstractPacket;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
