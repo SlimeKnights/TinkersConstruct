@@ -665,41 +665,9 @@ public class TEventHandler
             {
                 if (bID == TRepo.fluidBlocks[id])
                 {
-                    if (evt.entityPlayer.capabilities.isCreativeMode)
+                    WorldHelper.setBlockToAir(evt.world, hitX, hitY, hitZ);
+                    if (!evt.entityPlayer.capabilities.isCreativeMode)
                     {
-                        WorldHelper.setBlockToAir(evt.world, hitX, hitY, hitZ);
-                    }
-                    else
-                    {
-                        if (TRepo.fluidBlocks[id] instanceof LiquidMetalFinite)
-                        {
-                            WorldHelper.setBlockToAir(evt.world, hitX, hitY, hitZ);
-                            /*
-                             * int quanta = 0; for (int posX = -1; posX <= 1;
-                             * posX++) { for (int posZ = -1; posZ <= 1; posZ++)
-                             * { int localID = evt.world.getBlockId(hitX + posX,
-                             * hitY, hitZ + posZ); if (localID == bID) { quanta
-                             * += evt.world.getBlockMetadata(hitX + posX, hitY,
-                             * hitZ + posZ) + 1; } } }
-                             * 
-                             * if (quanta >= 8) { while (quanta > 0) { for (int
-                             * posX = -1; posX <= 1; posX++) { for (int posZ =
-                             * -1; posZ <= 1; posZ++) { int localID =
-                             * evt.world.getBlockId(hitX + posX, hitY, hitZ +
-                             * posZ); if (localID == bID) { quanta -= 1; int
-                             * meta = evt.world.getBlockMetadata(hitX + posX,
-                             * hitY, hitZ + posZ); if (meta > 0)
-                             * evt.world.setBlockMetadataWithNotify(hitX + posX,
-                             * hitY, hitZ + posZ, meta - 1, 3); else
-                             * evt.world.setBlockToAir(hitX + posX, hitY, hitZ +
-                             * posZ); } } } } }
-                             */
-                        }
-                        else
-                        {
-                            WorldHelper.setBlockToAir(evt.world, hitX, hitY, hitZ);
-                        }
-
                         evt.setResult(Result.ALLOW);
                         evt.result = new ItemStack(TRepo.buckets, 1, id);
                     }
