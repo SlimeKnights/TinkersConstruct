@@ -31,6 +31,13 @@ public class ActiveTinkerArmor extends ActiveArmorMod
                 if (tag.getBoolean("Night Vision"))
                     player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 15 * 20, 0, true));
             }
+            
+            /*List list = world.getEntitiesWithinAABB(EntityItem.class, player.boundingBox.addCoord(0.0D, 0.0D, 0.0D).expand(5.0D, 5.0D, 5.0D)); //TODO: Add modifier code
+            for (int k = 0; k < list.size(); k++)
+            {
+                EntityItem entity = (EntityItem) list.get(k);
+                entity.onCollideWithPlayer(player);
+            }*/
         }
         if (type == ArmorPart.Chest)
         {
@@ -38,16 +45,9 @@ public class ActiveTinkerArmor extends ActiveArmorMod
             if (player.isSneaking() && tag.getBoolean("Stealth"))
                 player.addPotionEffect(new PotionEffect(Potion.invisibility.id, 2, 0, true));
 
-            int sprintboost = tag.getInteger("Sprint Assist");
+            /*int sprintboost = tag.getInteger("Sprint Assist");
             if (player.isSprinting() && sprintboost > 0)
-                player.moveEntityWithHeading(-player.moveStrafing * 0.1f * sprintboost, player.moveForward * 0.2F * sprintboost); //Max of 0-1
-
-            List list = world.getEntitiesWithinAABB(EntityItem.class, player.boundingBox.addCoord(0.0D, 0.0D, 0.0D).expand(5.0D, 5.0D, 5.0D));
-            for (int k = 0; k < list.size(); k++)
-            {
-                EntityItem entity = (EntityItem) list.get(k);
-                entity.onCollideWithPlayer(player);
-            }
+                player.moveEntityWithHeading(-player.moveStrafing * 0.1f * sprintboost, player.moveForward * 0.2F * sprintboost); //Max of 0-1*/
         }
         if (type == ArmorPart.Feet)
         {

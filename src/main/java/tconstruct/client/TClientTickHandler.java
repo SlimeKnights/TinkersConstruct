@@ -47,12 +47,16 @@ public class TClientTickHandler implements ITickHandler
                 player.motionY = 0.1176D;
                 player.fallDistance = 0.0f;
             }
-            
+
             //Feet changes
             ItemStack feet = player.getCurrentArmor(0);
-            if (feet != null && feet.getItem() instanceof IModifyable)
+            if (feet != null)
             {
-                if (!player.isSneaking())
+                if (feet.getItem() instanceof TravelGear && player.stepHeight < 1.0f)
+                {
+                    player.stepHeight += 0.6f;
+                }
+                if (feet.getItem() instanceof IModifyable && !player.isSneaking())
                 {
                     NBTTagCompound tag = feet.getTagCompound().getCompoundTag(((IModifyable) feet.getItem()).getBaseTagName());
                     int sole = tag.getInteger("Slimy Soles");
@@ -72,9 +76,9 @@ public class TClientTickHandler implements ITickHandler
                     player.stepHeight += 0.6f;
                 prevFeet = feet;
             }
-            
+
             //Legs or wing changes
-            ItemStack legs = player.getCurrentArmor(1);
+            /*ItemStack legs = player.getCurrentArmor(1);
             if (legs != null && legs.getItem() instanceof IModifyable)
             {
                 NBTTagCompound tag = legs.getTagCompound().getCompoundTag(((IModifyable) legs.getItem()).getBaseTagName());
@@ -96,7 +100,7 @@ public class TClientTickHandler implements ITickHandler
                     sprint = false;
                     gs.mouseSensitivity = prevMouseSensitivity;
                 }
-            }
+            }*/
             if (!player.isPlayerSleeping() && !morphed)
             {
                 ItemStack chest = player.getCurrentArmor(2);

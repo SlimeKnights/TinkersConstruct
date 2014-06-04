@@ -41,9 +41,9 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     public int progress;
     public int fuelScale = 200;
     byte direction;
-    private static final int[] slots_top = new int[] {0};
-    private static final int[] slots_bottom = new int[] {2, 1};
-    private static final int[] slots_sides = new int[] {1};
+    private static final int[] slots_top = new int[] { 0 };
+    private static final int[] slots_bottom = new int[] { 2, 1 };
+    private static final int[] slots_sides = new int[] { 1 };
 
     public FurnaceLogic()
     {
@@ -94,49 +94,55 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     {
         boolean burning = isBurning();
         boolean updateInventory = false;
-        if (fuel <= 0 && canSmelt())
+
+        if (this.fuel > 0)
         {
-            fuel = fuelGague = (int) (getItemBurnTime(inventory[1]));
-            if (fuel > 0)
-            {
-                if (inventory[1].getItem().hasContainerItem()) //Fuel slot
-                {
-                    inventory[1] = new ItemStack(inventory[1].getItem().getContainerItem());
-                }
-                else
-                {
-                    inventory[1].stackSize--;
-                }
-                if (inventory[1].stackSize <= 0)
-                {
-                    inventory[1] = null;
-                }
-                updateInventory = true;
-            }
+            --this.fuel;
         }
-        if (isBurning() && canSmelt())
+
+        if (!this.worldObj.isRemote)
         {
-            progress++;
-            if (progress >= fuelScale)
+            if (fuel <= 0 && canSmelt())
+            {
+                fuel = fuelGague = (int) (getItemBurnTime(inventory[1]));
+                if (fuel > 0)
+                {
+                    if (inventory[1].getItem().hasContainerItem()) //Fuel slot
+                    {
+                        inventory[1] = new ItemStack(inventory[1].getItem().getContainerItem());
+                    }
+                    else
+                    {
+                        inventory[1].stackSize--;
+                    }
+                    if (inventory[1].stackSize <= 0)
+                    {
+                        inventory[1] = null;
+                    }
+                    updateInventory = true;
+                }
+            }
+            if (isBurning() && canSmelt())
+            {
+                progress++;
+                if (progress >= fuelScale)
+                {
+                    progress = 0;
+                    cookItems();
+                    updateInventory = true;
+                }
+            }
+            else
             {
                 progress = 0;
-                cookItems();
+            }
+            if (burning != isBurning())
+            {
+                setActive(isBurning());
                 updateInventory = true;
             }
         }
-        else
-        {
-            progress = 0;
-        }
-        if (fuel > 0)
-        {
-            fuel--;
-        }
-        if (burning != isBurning())
-        {
-            setActive(isBurning());
-            updateInventory = true;
-        }
+
         if (updateInventory)
         {
             onInventoryChanged();
@@ -260,29 +266,29 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     public void readFromNBT (NBTTagCompound tags)
     {
         super.readFromNBT(tags);
-        active = tags.getBoolean("Active");
         fuel = tags.getInteger("Fuel");
         fuelGague = tags.getInteger("FuelGague");
         readNetworkNBT(tags);
     }
 
+    public void readNetworkNBT (NBTTagCompound tags)
+    {
+        direction = tags.getByte("Direction");
+        active = tags.getBoolean("Active");
+    }
+
     public void writeToNBT (NBTTagCompound tags)
     {
         super.writeToNBT(tags);
-        tags.setBoolean("Active", active);
         tags.setInteger("Fuel", fuel);
         tags.setInteger("FuelGague", fuelGague);
         writeNetworkNBT(tags);
     }
 
-    public void readNetworkNBT (NBTTagCompound tags)
-    {
-        direction = tags.getByte("Direction");
-    }
-
     public void writeNetworkNBT (NBTTagCompound tags)
     {
         tags.setByte("Direction", direction);
+        tags.setBoolean("Active", active);
     }
 
     /* Packets */
@@ -351,31 +357,31 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
         }
     }
 
-    public static boolean isItemFuel(ItemStack par0ItemStack)
+    public static boolean isItemFuel (ItemStack par0ItemStack)
     {
         return getItemBurnTime(par0ItemStack) > 0;
     }
 
     @Override
-    public boolean isItemValidForSlot(int par1, ItemStack par2ItemStack)
+    public boolean isItemValidForSlot (int par1, ItemStack par2ItemStack)
     {
         return par1 == 2 ? false : (par1 == 1 ? isItemFuel(par2ItemStack) : true);
     }
 
     @Override
-    public int[] getAccessibleSlotsFromSide(int par1)
+    public int[] getAccessibleSlotsFromSide (int par1)
     {
         return par1 == 0 ? slots_bottom : (par1 == 1 ? slots_top : slots_sides);
     }
-    
+
     @Override
-    public boolean canInsertItem(int par1, ItemStack par2ItemStack, int par3)
+    public boolean canInsertItem (int par1, ItemStack par2ItemStack, int par3)
     {
         return this.isItemValidForSlot(par1, par2ItemStack);
     }
 
     @Override
-    public boolean canExtractItem(int par1, ItemStack par2ItemStack, int par3)
+    public boolean canExtractItem (int par1, ItemStack par2ItemStack, int par3)
     {
         return par3 != 0 || par1 != 1 || par2ItemStack.itemID == Item.bucketEmpty.itemID;
     }
