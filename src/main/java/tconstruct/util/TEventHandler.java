@@ -50,6 +50,8 @@ import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
+import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
+import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import tconstruct.TConstruct;
 import tconstruct.achievements.TAchievements;
 import tconstruct.blocks.LiquidMetalFinite;
@@ -58,6 +60,7 @@ import tconstruct.common.TRepo;
 import tconstruct.entity.BlueSlime;
 import tconstruct.items.tools.FryingPan;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.ActiveToolMod;
 import tconstruct.library.event.PartBuilderEvent;
 import tconstruct.library.event.ToolCraftEvent;
 import tconstruct.library.tools.ArrowMaterial;
@@ -747,4 +750,40 @@ public class TEventHandler
         }
     }
 
+    @SubscribeEvent
+    public void harvestBlock (HarvestDropsEvent event)
+    {
+        if (event.harvester == null)
+            return;
+        ItemStack stack = event.harvester.getCurrentEquippedItem();
+        if (stack == null || stack.getItem() == null || !(stack.getItem() instanceof ToolCore))
+            return;
+        if (stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Lava"))
+        {
+            for (int i = 0; i < event.drops.size(); i++)
+            {
+                ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(event.drops.get(i));
+                if (result != null)
+                    event.drops.set(i, result.copy());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void breakBlock (BreakEvent event)
+    {
+        ItemStack stack = event.getPlayer().getCurrentEquippedItem();
+        if (stack == null || stack.getItem() == null || !(stack.getItem() instanceof ToolCore))
+            return;
+        if (stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Broken"))
+        {
+            event.setCanceled(true);
+        }
+        else
+        {
+            for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+                if (mod.beforeBlockBreak((ToolCore)stack.getItem(), stack, event.x, event.y, event.z, event.getPlayer()))
+                    event.setCanceled(true);
+        }
+    }
 }

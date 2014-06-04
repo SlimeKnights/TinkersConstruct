@@ -105,7 +105,6 @@ public class TConstruct
         }
 
         EnvironmentChecks.verifyEnvironmentSanity();
-        MinecraftForge.EVENT_BUS.register(events = new TEventHandler());
         PluginController.registerModules();
     }
 
