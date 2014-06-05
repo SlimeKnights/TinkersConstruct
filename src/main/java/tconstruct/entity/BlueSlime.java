@@ -40,8 +40,8 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         super(world);
         initializeSlime();
     }
-    
-    protected void initializeSlime()
+
+    protected void initializeSlime ()
     {
         int offset = this.rand.nextInt(299);
         if (offset < 149)
@@ -350,7 +350,8 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     protected void updateEntityActionState ()
     {
         //Minecraft.getMinecraft().getLogAgent().logInfo("Collided with "+entity.getEntityName());
-        this.despawnEntity();
+        if (this.getSlimeSize() < 8)
+            this.despawnEntity();
         EntityPlayer entityplayer = this.worldObj.getClosestVulnerablePlayerToEntity(this, 16.0D);
 
         if (entityplayer != null)
@@ -469,7 +470,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
                     "King Slime " + tool.getToolName());
 
             NBTTagCompound tags = toolStack.getTagCompound().getCompoundTag("InfiTool");
-            tags.setInteger("Attack", 3 + tool.getDamageVsEntity(null));
+            tags.setInteger("Attack", 5 + tool.getDamageVsEntity(null));
             tags.setInteger("TotalDurability", 2500);
             tags.setInteger("BaseDurability", 2500);
             tags.setInteger("MiningSpeed", 1400);
@@ -486,8 +487,8 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     ToolCore getValidTool ()
     {
         ToolCore tool = TConstructRegistry.tools.get(rand.nextInt(TConstructRegistry.tools.size()));
-        if (tool.getAccessoryItem() != null)
-            tool = getValidTool();
+        /*if (tool.getExtraItem() != null)
+            tool = getValidTool();*/
         return tool;
     }
 
