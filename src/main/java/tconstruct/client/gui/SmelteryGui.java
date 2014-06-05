@@ -22,9 +22,9 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import tconstruct.TConstruct;
-import tconstruct.blocks.logic.SmelteryLogic;
-import tconstruct.inventory.ActiveContainer;
-import tconstruct.inventory.SmelteryContainer;
+import tconstruct.smeltery.inventory.ActiveContainer;
+import tconstruct.smeltery.inventory.SmelteryContainer;
+import tconstruct.smeltery.logic.SmelteryLogic;
 import tconstruct.util.network.packet.PacketSmeltery;
 
 public class SmelteryGui extends NewContainerGui

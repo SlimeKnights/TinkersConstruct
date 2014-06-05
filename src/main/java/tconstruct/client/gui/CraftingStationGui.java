@@ -16,9 +16,9 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
-import tconstruct.blocks.logic.CraftingStationLogic;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.tools.ToolCore;
+import tconstruct.tools.logic.CraftingStationLogic;
 
 public class CraftingStationGui extends GuiContainer
 {

@@ -11,7 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
-import tconstruct.blocks.logic.SmelteryLogic;
+import tconstruct.smeltery.logic.SmelteryLogic;
 
 public class PacketSmeltery extends AbstractPacket
 {

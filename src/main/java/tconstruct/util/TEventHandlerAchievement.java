@@ -1,16 +1,12 @@
 package tconstruct.util;
 
-import tconstruct.common.TRepo;
-
-import mantle.event.ManualOpenEvent;
-
 import net.minecraftforge.common.util.FakePlayer;
 import tconstruct.achievements.TAchievements;
-import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.library.event.SmelteryEvent;
 import tconstruct.library.event.ToolCraftedEvent;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.Weapon;
+import tconstruct.tools.logic.ToolForgeLogic;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class TEventHandlerAchievement

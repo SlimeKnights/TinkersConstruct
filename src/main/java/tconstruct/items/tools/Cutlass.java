@@ -1,8 +1,8 @@
 package tconstruct.items.tools;
 
 import net.minecraft.item.Item;
-import tconstruct.common.TRepo;
 import tconstruct.library.tools.Weapon;
+import tconstruct.tools.TinkerTools;
 
 public class Cutlass extends Weapon
 {
@@ -15,13 +15,13 @@ public class Cutlass extends Weapon
     @Override
     public Item getHeadItem ()
     {
-        return TRepo.swordBlade;
+        return TinkerTools.swordBlade;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TRepo.fullGuard;
+        return TinkerTools.fullGuard;
     }
 
     @Override

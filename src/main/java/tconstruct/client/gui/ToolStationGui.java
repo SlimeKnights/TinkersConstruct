@@ -19,12 +19,12 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import tconstruct.TConstruct;
-import tconstruct.blocks.logic.ToolStationLogic;
-import tconstruct.inventory.ActiveContainer;
-import tconstruct.inventory.ToolStationContainer;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.client.ToolGuiElement;
 import tconstruct.library.tools.ToolCore;
+import tconstruct.smeltery.inventory.ActiveContainer;
+import tconstruct.tools.inventory.ToolStationContainer;
+import tconstruct.tools.logic.ToolStationLogic;
 import tconstruct.util.network.packet.PacketToolStation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

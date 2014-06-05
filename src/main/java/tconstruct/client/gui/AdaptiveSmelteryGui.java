@@ -24,11 +24,11 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import tconstruct.TConstruct;
-import tconstruct.blocks.component.SmelteryComponent;
-import tconstruct.blocks.logic.AdaptiveSmelteryLogic;
-import tconstruct.inventory.ActiveContainer;
-import tconstruct.inventory.AdaptiveSmelteryContainer;
 import tconstruct.library.component.MultiFluidTank;
+import tconstruct.smeltery.component.SmelteryComponent;
+import tconstruct.smeltery.inventory.ActiveContainer;
+import tconstruct.smeltery.inventory.AdaptiveSmelteryContainer;
+import tconstruct.smeltery.logic.AdaptiveSmelteryLogic;
 
 public class AdaptiveSmelteryGui extends NewContainerGui
 {

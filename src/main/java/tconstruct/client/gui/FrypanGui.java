@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
-import tconstruct.blocks.logic.FrypanLogic;
+import tconstruct.tools.logic.FrypanLogic;
 
 public class FrypanGui extends GuiContainer
 {

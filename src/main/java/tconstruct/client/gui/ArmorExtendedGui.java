@@ -11,9 +11,9 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import tconstruct.armor.inventory.ArmorExtendedContainer;
 import tconstruct.client.tabs.InventoryTabArmorExtended;
 import tconstruct.client.tabs.TabRegistry;
-import tconstruct.inventory.ArmorExtendedContainer;
 import tconstruct.util.player.ArmorExtended;
 
 public class ArmorExtendedGui extends InventoryEffectRenderer

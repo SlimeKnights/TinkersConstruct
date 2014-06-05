@@ -12,10 +12,10 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
-import tconstruct.common.TRepo;
 import tconstruct.library.crafting.Detailing.DetailInput;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ToolCore;
+import tconstruct.tools.TinkerTools;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -213,7 +213,7 @@ public class Chisel extends ToolCore
     @Override
     public Item getHeadItem ()
     {
-        return TRepo.chiselHead;
+        return TinkerTools.chiselHead;
     }
 
     @Override

@@ -6,7 +6,7 @@ import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import tconstruct.items.TitleIcon;
+import tconstruct.tools.items.TitleIcon;
 
 public class TDispenserBehaviorSpawnEgg extends BehaviorDefaultDispenseItem
 {

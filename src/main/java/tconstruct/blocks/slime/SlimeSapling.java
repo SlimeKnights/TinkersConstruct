@@ -14,10 +14,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import tconstruct.common.TContent;
-import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.worldgen.SlimeTreeGen;
+import tconstruct.tools.TinkerTools;
+import tconstruct.world.TinkerWorld;
+import tconstruct.world.gen.SlimeTreeGen;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -51,7 +51,7 @@ public class SlimeSapling extends BlockSapling
     @Override
     public boolean canPlaceBlockOn (Block id)
     {
-        return id == Blocks.grass || id == Blocks.dirt || id == TRepo.slimeGrass || id == TRepo.craftedSoil;
+        return id == Blocks.grass || id == Blocks.dirt || id == TinkerWorld.slimeGrass || id == TinkerTools.craftedSoil;
     }
 
     @Override

@@ -7,8 +7,8 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import tconstruct.blocks.logic.FurnaceLogic;
-import tconstruct.inventory.FurnaceContainer;
+import tconstruct.tools.inventory.FurnaceContainer;
+import tconstruct.tools.logic.FurnaceLogic;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

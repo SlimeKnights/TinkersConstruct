@@ -5,9 +5,9 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import tconstruct.common.TRepo;
-import tconstruct.entity.projectile.DaggerEntity;
 import tconstruct.library.tools.Weapon;
+import tconstruct.tools.TinkerTools;
+import tconstruct.tools.entity.DaggerEntity;
 
 public class Dagger extends Weapon
 {
@@ -101,12 +101,12 @@ public class Dagger extends Weapon
     @Override
     public Item getHeadItem ()
     {
-        return TRepo.knifeBlade;
+        return TinkerTools.knifeBlade;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TRepo.crossbar;
+        return TinkerTools.crossbar;
     }
 }

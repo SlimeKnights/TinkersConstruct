@@ -9,11 +9,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import tconstruct.common.TRepo;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.HarvestTool;
+import tconstruct.tools.TinkerTools;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -324,25 +324,25 @@ public class LumberAxe extends HarvestTool
     @Override
     public Item getHeadItem ()
     {
-        return TRepo.broadAxeHead;
+        return TinkerTools.broadAxeHead;
     }
 
     @Override
     public Item getHandleItem ()
     {
-        return TRepo.toughRod;
+        return TinkerTools.toughRod;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TRepo.largePlate;
+        return TinkerTools.largePlate;
     }
 
     @Override
     public Item getExtraItem ()
     {
-        return TRepo.toughBinding;
+        return TinkerTools.toughBinding;
     }
 
     @SideOnly(Side.CLIENT)

@@ -11,9 +11,9 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import tconstruct.TConstruct;
-import tconstruct.blocks.logic.StencilTableLogic;
-import tconstruct.common.TRepo;
-import tconstruct.inventory.PatternShaperContainer;
+import tconstruct.tools.TinkerTools;
+import tconstruct.tools.inventory.PatternShaperContainer;
+import tconstruct.tools.logic.StencilTableLogic;
 import tconstruct.util.network.packet.PacketStencilTable;
 
 public class StencilTableGui extends GuiContainer
@@ -85,7 +85,7 @@ public class StencilTableGui extends GuiContainer
     protected void actionPerformed (GuiButton button)
     {
         ItemStack pattern = logic.getStackInSlot(0);
-        if (pattern != null && pattern.getItem() == TRepo.blankPattern)
+        if (pattern != null && pattern.getItem() == TinkerTools.blankPattern)
         {
             int meta = pattern.getItemDamage();
             if (meta == 0)
@@ -95,18 +95,18 @@ public class StencilTableGui extends GuiContainer
                     patternIndex++;
                     if (patternIndex == 21)
                         patternIndex++;
-                    if (patternIndex >= TRepo.patternOutputs.length - 1)
+                    if (patternIndex >= TinkerTools.patternOutputs.length - 1)
                         patternIndex = 0;
                 }
                 else if (button.id == 1)
                 {
                     patternIndex--;
                     if (patternIndex < 0)
-                        patternIndex = TRepo.patternOutputs.length - 2;
+                        patternIndex = TinkerTools.patternOutputs.length - 2;
                     if (patternIndex == 21)
                         patternIndex--;
                 }
-                ItemStack stack = new ItemStack(TRepo.woodPattern, 1, patternIndex + 1);
+                ItemStack stack = new ItemStack(TinkerTools.woodPattern, 1, patternIndex + 1);
                 logic.setInventorySlotContents(1, stack);
                 updateServer(stack);
             }

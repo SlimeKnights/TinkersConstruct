@@ -11,32 +11,29 @@ import org.apache.logging.log4j.Logger;
 import tconstruct.achievements.TAchievements;
 import tconstruct.client.TControls;
 import tconstruct.client.event.EventCloakRender;
-import tconstruct.common.TContent;
 import tconstruct.common.TProxyCommon;
-import tconstruct.common.TRecipes;
-import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.Detailing;
 import tconstruct.library.crafting.LiquidCasting;
-import tconstruct.plugins.PluginController;
+import tconstruct.mechworks.landmine.behavior.Behavior;
+import tconstruct.mechworks.landmine.behavior.stackCombo.SpecialStackHandler;
 import tconstruct.util.EnvironmentChecks;
 import tconstruct.util.TCraftingHandler;
 import tconstruct.util.TEventHandler;
 import tconstruct.util.TEventHandlerAchievement;
 import tconstruct.util.config.DimensionBlacklist;
 import tconstruct.util.config.PHConstruct;
-import tconstruct.util.landmine.behavior.Behavior;
-import tconstruct.util.landmine.behavior.stackCombo.SpecialStackHandler;
 import tconstruct.util.network.packet.PacketPipeline;
 import tconstruct.util.player.TPlayerHandler;
-import tconstruct.worldgen.SlimeIslandGen;
-import tconstruct.worldgen.TBaseWorldGenerator;
-import tconstruct.worldgen.TerrainGenEventHandler;
-import tconstruct.worldgen.village.ComponentSmeltery;
-import tconstruct.worldgen.village.ComponentToolWorkshop;
-import tconstruct.worldgen.village.TVillageTrades;
-import tconstruct.worldgen.village.VillageSmelteryHandler;
-import tconstruct.worldgen.village.VillageToolStationHandler;
+import tconstruct.world.TinkerWorld;
+import tconstruct.world.gen.SlimeIslandGen;
+import tconstruct.world.gen.TBaseWorldGenerator;
+import tconstruct.world.gen.TerrainGenEventHandler;
+import tconstruct.world.village.ComponentSmeltery;
+import tconstruct.world.village.ComponentToolWorkshop;
+import tconstruct.world.village.TVillageTrades;
+import tconstruct.world.village.VillageSmelteryHandler;
+import tconstruct.world.village.VillageToolStationHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -103,7 +100,7 @@ public class TConstruct
 
         EnvironmentChecks.verifyEnvironmentSanity();
         MinecraftForge.EVENT_BUS.register(events = new TEventHandler());
-        PluginController.registerModules();
+        //PluginController.registerModules();
     }
 
     @EventHandler
@@ -120,14 +117,9 @@ public class TConstruct
         basinCasting = new LiquidCasting();
         chiselDetailing = new Detailing();
 
-        content = new TContent();
-
-        recipes = new TRecipes();
-
         events = new TEventHandler();
         MinecraftForge.EVENT_BUS.register(events);
         MinecraftForge.EVENT_BUS.register(new TEventHandlerAchievement());
-        recipes.oreRegistry();
 
         proxy.registerRenderer();
         proxy.addNames();
@@ -137,7 +129,7 @@ public class TConstruct
 
         GameRegistry.registerWorldGenerator(new TBaseWorldGenerator(), 0);
         MinecraftForge.TERRAIN_GEN_BUS.register(new TerrainGenEventHandler());
-        GameRegistry.registerFuelHandler(content);
+        //GameRegistry.registerFuelHandler(content);
         FMLCommonHandler.instance().bus().register(new TCraftingHandler());
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 
@@ -183,7 +175,7 @@ public class TConstruct
         }
 
         DimensionBlacklist.getBadBimensions();
-        GameRegistry.registerWorldGenerator(new SlimeIslandGen(TRepo.slimePool, 2), 2);
+        GameRegistry.registerWorldGenerator(new SlimeIslandGen(TinkerWorld.slimePool, 2), 2);
 
         if (PHConstruct.achievementsEnabled)
         {
@@ -200,10 +192,6 @@ public class TConstruct
         packetPipeline.postInitialise();
         Behavior.registerBuiltInBehaviors();
         SpecialStackHandler.registerBuiltInStackHandlers();
-        recipes.modIntegration();
-        recipes.addOreDictionarySmelteryRecipes();
-        content.createEntities();
-        recipes.modRecipes();
 
         moduleLoader.postInit();
     }
@@ -223,8 +211,6 @@ public class TConstruct
         return chiselDetailing;
     }
 
-    public static TContent content;
-    public static TRecipes recipes;
     public static TEventHandler events;
     public static TPlayerHandler playerTracker;
     public static LiquidCasting tableCasting;

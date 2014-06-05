@@ -60,44 +60,10 @@ import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Document;
 
 import tconstruct.TConstruct;
-import tconstruct.blocks.logic.AdaptiveSmelteryLogic;
-import tconstruct.blocks.logic.CastingBasinLogic;
-import tconstruct.blocks.logic.CastingTableLogic;
-import tconstruct.blocks.logic.CraftingStationLogic;
+import tconstruct.armor.TinkerArmor;
+import tconstruct.armor.modelblock.DryingRackRender;
+import tconstruct.armor.modelblock.DryingRackSpecialRender;
 import tconstruct.blocks.logic.DryingRackLogic;
-import tconstruct.blocks.logic.FrypanLogic;
-import tconstruct.blocks.logic.FurnaceLogic;
-import tconstruct.blocks.logic.PartBuilderLogic;
-import tconstruct.blocks.logic.PatternChestLogic;
-import tconstruct.blocks.logic.SmelteryLogic;
-import tconstruct.blocks.logic.StencilTableLogic;
-import tconstruct.blocks.logic.TileEntityLandmine;
-import tconstruct.blocks.logic.ToolForgeLogic;
-import tconstruct.blocks.logic.ToolStationLogic;
-import tconstruct.client.block.BarricadeRender;
-import tconstruct.client.block.BlockRenderCastingChannel;
-import tconstruct.client.block.CastingBasinSpecialRender;
-import tconstruct.client.block.CastingTableSpecialRenderer;
-import tconstruct.client.block.DryingRackRender;
-import tconstruct.client.block.DryingRackSpecialRender;
-import tconstruct.client.block.FrypanRender;
-import tconstruct.client.block.OreberryRender;
-import tconstruct.client.block.PaneConnectedRender;
-import tconstruct.client.block.PaneRender;
-import tconstruct.client.block.PunjiRender;
-import tconstruct.client.block.RenderLandmine;
-import tconstruct.client.block.SearedRender;
-import tconstruct.client.block.SlimeChannelRender;
-import tconstruct.client.block.SlimePadRender;
-import tconstruct.client.block.SmelteryRender;
-import tconstruct.client.block.TableForgeRender;
-import tconstruct.client.block.TableRender;
-import tconstruct.client.block.TankAirRender;
-import tconstruct.client.block.TankRender;
-import tconstruct.client.entity.CartRender;
-import tconstruct.client.entity.CrystalRender;
-import tconstruct.client.entity.FancyItemRender;
-import tconstruct.client.entity.SlimeRender;
 import tconstruct.client.entity.item.ExplosiveRender;
 import tconstruct.client.entity.projectile.ArrowRenderCustom;
 import tconstruct.client.entity.projectile.DaggerRenderCustom;
@@ -124,23 +90,48 @@ import tconstruct.client.tabs.InventoryTabKnapsack;
 import tconstruct.client.tabs.InventoryTabVanilla;
 import tconstruct.client.tabs.TabRegistry;
 import tconstruct.common.TProxyCommon;
-import tconstruct.common.TRepo;
-import tconstruct.entity.BlueSlime;
-import tconstruct.entity.CartEntity;
-import tconstruct.entity.Crystal;
-import tconstruct.entity.FancyEntityItem;
-import tconstruct.entity.item.EntityLandmineFirework;
-import tconstruct.entity.item.ExplosivePrimed;
-import tconstruct.entity.projectile.ArrowEntity;
-import tconstruct.entity.projectile.DaggerEntity;
-import tconstruct.entity.projectile.LaunchedPotion;
-import tconstruct.inventory.ContainerLandmine;
-import tconstruct.items.ManualInfo;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.client.ToolGuiElement;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
+import tconstruct.mechworks.entity.item.EntityLandmineFirework;
+import tconstruct.mechworks.entity.item.ExplosivePrimed;
+import tconstruct.mechworks.inventory.ContainerLandmine;
+import tconstruct.mechworks.logic.TileEntityLandmine;
+import tconstruct.mechworks.model.CartRender;
+import tconstruct.smeltery.TinkerSmeltery;
+import tconstruct.smeltery.logic.AdaptiveSmelteryLogic;
+import tconstruct.smeltery.logic.CastingBasinLogic;
+import tconstruct.smeltery.logic.CastingTableLogic;
+import tconstruct.smeltery.logic.SmelteryLogic;
+import tconstruct.smeltery.model.BlockRenderCastingChannel;
+import tconstruct.smeltery.model.CastingBasinSpecialRender;
+import tconstruct.smeltery.model.CastingTableSpecialRenderer;
+import tconstruct.smeltery.model.PaneConnectedRender;
+import tconstruct.smeltery.model.PaneRender;
+import tconstruct.smeltery.model.SearedRender;
+import tconstruct.smeltery.model.SmelteryRender;
+import tconstruct.smeltery.model.TankAirRender;
+import tconstruct.smeltery.model.TankRender;
+import tconstruct.tools.TinkerTools;
+import tconstruct.tools.entity.ArrowEntity;
+import tconstruct.tools.entity.DaggerEntity;
+import tconstruct.tools.entity.FancyEntityItem;
+import tconstruct.tools.entity.LaunchedPotion;
+import tconstruct.tools.items.ManualInfo;
+import tconstruct.tools.logic.CraftingStationLogic;
+import tconstruct.tools.logic.FrypanLogic;
+import tconstruct.tools.logic.FurnaceLogic;
+import tconstruct.tools.logic.PartBuilderLogic;
+import tconstruct.tools.logic.PatternChestLogic;
+import tconstruct.tools.logic.StencilTableLogic;
+import tconstruct.tools.logic.ToolForgeLogic;
+import tconstruct.tools.logic.ToolStationLogic;
+import tconstruct.tools.model.FancyItemRender;
+import tconstruct.tools.model.FrypanRender;
+import tconstruct.tools.model.TableForgeRender;
+import tconstruct.tools.model.TableRender;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.util.player.ArmorExtended;
 import tconstruct.util.player.KnapsackInventory;
@@ -152,6 +143,18 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.VillagerRegistry;
 import tconstruct.util.player.TPlayerStats;
+import tconstruct.world.TinkerWorld;
+import tconstruct.world.entity.BlueSlime;
+import tconstruct.world.entity.CartEntity;
+import tconstruct.world.entity.Crystal;
+import tconstruct.world.model.BarricadeRender;
+import tconstruct.world.model.CrystalRender;
+import tconstruct.world.model.OreberryRender;
+import tconstruct.world.model.PunjiRender;
+import tconstruct.world.model.RenderLandmine;
+import tconstruct.world.model.SlimeChannelRender;
+import tconstruct.world.model.SlimePadRender;
+import tconstruct.world.model.SlimeRender;
 
 public class TProxyClient extends TProxyCommon
 {
@@ -348,12 +351,12 @@ public class TProxyClient extends TProxyCommon
         // RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class,
         // new PlayerArmorRender()); // <-- Works, woo!
 
-        MinecraftForgeClient.registerItemRenderer(TRepo.shortbow, new CustomBowRenderer());
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.shortbow, new CustomBowRenderer());
         VillagerRegistry.instance().registerVillagerSkin(78943, new ResourceLocation("tinker", "textures/mob/villagertools.png"));
 
         ToolCoreRenderer renderer = new ToolCoreRenderer();
-        MinecraftForgeClient.registerItemRenderer(TRepo.arrow, renderer);
-        MinecraftForgeClient.registerItemRenderer(TRepo.dagger, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.arrow, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.dagger, renderer);
 
         addRenderMappings();
         addToolButtons();
@@ -398,32 +401,32 @@ public class TProxyClient extends TProxyCommon
 
     public void initManualIcons ()
     {
-        MantleClientRegistry.registerManualIcon("smelterybook", new ItemStack(TRepo.manualBook, 1, 2));
-        MantleClientRegistry.registerManualIcon("smeltery", new ItemStack(TRepo.smeltery));
-        MantleClientRegistry.registerManualIcon("blankcast", new ItemStack(TRepo.blankPattern, 1, 1));
-        MantleClientRegistry.registerManualIcon("castingtable", new ItemStack(TRepo.searedBlock));
+        MantleClientRegistry.registerManualIcon("smelterybook", new ItemStack(TinkerTools.manualBook, 1, 2));
+        MantleClientRegistry.registerManualIcon("smeltery", new ItemStack(TinkerSmeltery.smeltery));
+        MantleClientRegistry.registerManualIcon("blankcast", new ItemStack(TinkerTools.blankPattern, 1, 1));
+        MantleClientRegistry.registerManualIcon("castingtable", new ItemStack(TinkerSmeltery.searedBlock));
         // MantleClientRegistry.registerManualIcon("liquidiron", new
         // ItemStack(TRepo.liquidMetalStill));
-        MantleClientRegistry.registerManualIcon("lavatank", new ItemStack(TRepo.lavaTank));
-        MantleClientRegistry.registerManualIcon("searedbrick", new ItemStack(TRepo.smeltery, 1, 2));
-        MantleClientRegistry.registerManualIcon("drain", new ItemStack(TRepo.smeltery, 1, 1));
-        MantleClientRegistry.registerManualIcon("faucet", new ItemStack(TRepo.searedBlock, 1, 1));
-        MantleClientRegistry.registerManualIcon("bronzeingot", new ItemStack(TRepo.materials, 1, 13));
-        MantleClientRegistry.registerManualIcon("alubrassingot", new ItemStack(TRepo.materials, 1, 14));
-        MantleClientRegistry.registerManualIcon("manyullyningot", new ItemStack(TRepo.materials, 1, 5));
-        MantleClientRegistry.registerManualIcon("alumiteingot", new ItemStack(TRepo.materials, 1, 15));
-        MantleClientRegistry.registerManualIcon("blankpattern", new ItemStack(TRepo.blankPattern, 1, 0));
-        MantleClientRegistry.registerManualIcon("toolstation", new ItemStack(TRepo.toolStationWood, 1, 0));
-        MantleClientRegistry.registerManualIcon("partcrafter", new ItemStack(TRepo.toolStationWood, 1, 1));
-        MantleClientRegistry.registerManualIcon("patternchest", new ItemStack(TRepo.toolStationWood, 1, 5));
-        MantleClientRegistry.registerManualIcon("stenciltable", new ItemStack(TRepo.toolStationWood, 1, 10));
+        MantleClientRegistry.registerManualIcon("lavatank", new ItemStack(TinkerSmeltery.lavaTank));
+        MantleClientRegistry.registerManualIcon("searedbrick", new ItemStack(TinkerSmeltery.smeltery, 1, 2));
+        MantleClientRegistry.registerManualIcon("drain", new ItemStack(TinkerSmeltery.smeltery, 1, 1));
+        MantleClientRegistry.registerManualIcon("faucet", new ItemStack(TinkerSmeltery.searedBlock, 1, 1));
+        MantleClientRegistry.registerManualIcon("bronzeingot", new ItemStack(TinkerTools.materials, 1, 13));
+        MantleClientRegistry.registerManualIcon("alubrassingot", new ItemStack(TinkerTools.materials, 1, 14));
+        MantleClientRegistry.registerManualIcon("manyullyningot", new ItemStack(TinkerTools.materials, 1, 5));
+        MantleClientRegistry.registerManualIcon("alumiteingot", new ItemStack(TinkerTools.materials, 1, 15));
+        MantleClientRegistry.registerManualIcon("blankpattern", new ItemStack(TinkerTools.blankPattern, 1, 0));
+        MantleClientRegistry.registerManualIcon("toolstation", new ItemStack(TinkerTools.toolStationWood, 1, 0));
+        MantleClientRegistry.registerManualIcon("partcrafter", new ItemStack(TinkerTools.toolStationWood, 1, 1));
+        MantleClientRegistry.registerManualIcon("patternchest", new ItemStack(TinkerTools.toolStationWood, 1, 5));
+        MantleClientRegistry.registerManualIcon("stenciltable", new ItemStack(TinkerTools.toolStationWood, 1, 10));
         MantleClientRegistry.registerManualIcon("torch", new ItemStack(Blocks.torch));
         MantleClientRegistry.registerManualIcon("sapling", new ItemStack(Blocks.sapling));
         MantleClientRegistry.registerManualIcon("workbench", new ItemStack(Blocks.crafting_table));
         MantleClientRegistry.registerManualIcon("coal", new ItemStack(Items.coal));
 
-        MantleClientRegistry.registerManualIcon("obsidianingot", new ItemStack(TRepo.materials, 1, 18));
-        MantleClientRegistry.registerManualIcon("lavacrystal", new ItemStack(TRepo.materials, 1, 7));
+        MantleClientRegistry.registerManualIcon("obsidianingot", new ItemStack(TinkerTools.materials, 1, 18));
+        MantleClientRegistry.registerManualIcon("lavacrystal", new ItemStack(TinkerTools.materials, 1, 7));
 
         // Tool Materials
         MantleClientRegistry.registerManualIcon("woodplanks", new ItemStack(Blocks.planks));
@@ -434,92 +437,92 @@ public class TProxyClient extends TProxyCommon
         MantleClientRegistry.registerManualIcon("bone", new ItemStack(Items.bone));
         MantleClientRegistry.registerManualIcon("obsidian", new ItemStack(Blocks.obsidian));
         MantleClientRegistry.registerManualIcon("netherrack", new ItemStack(Blocks.netherrack));
-        MantleClientRegistry.registerManualIcon("blueslimecrystal", new ItemStack(TRepo.materials, 1, 17));
-        MantleClientRegistry.registerManualIcon("slimecrystal", new ItemStack(TRepo.materials, 1, 1));
-        MantleClientRegistry.registerManualIcon("paperstack", new ItemStack(TRepo.materials, 1, 0));
-        MantleClientRegistry.registerManualIcon("cobaltingot", new ItemStack(TRepo.materials, 1, 3));
-        MantleClientRegistry.registerManualIcon("arditeingot", new ItemStack(TRepo.materials, 1, 4));
-        MantleClientRegistry.registerManualIcon("copperingot", new ItemStack(TRepo.materials, 1, 9));
-        MantleClientRegistry.registerManualIcon("steelingot", new ItemStack(TRepo.materials, 1, 16));
-        MantleClientRegistry.registerManualIcon("pigironingot", new ItemStack(TRepo.materials, 1, 34));
+        MantleClientRegistry.registerManualIcon("blueslimecrystal", new ItemStack(TinkerTools.materials, 1, 17));
+        MantleClientRegistry.registerManualIcon("slimecrystal", new ItemStack(TinkerTools.materials, 1, 1));
+        MantleClientRegistry.registerManualIcon("paperstack", new ItemStack(TinkerTools.materials, 1, 0));
+        MantleClientRegistry.registerManualIcon("cobaltingot", new ItemStack(TinkerTools.materials, 1, 3));
+        MantleClientRegistry.registerManualIcon("arditeingot", new ItemStack(TinkerTools.materials, 1, 4));
+        MantleClientRegistry.registerManualIcon("copperingot", new ItemStack(TinkerTools.materials, 1, 9));
+        MantleClientRegistry.registerManualIcon("steelingot", new ItemStack(TinkerTools.materials, 1, 16));
+        MantleClientRegistry.registerManualIcon("pigironingot", new ItemStack(TinkerTools.materials, 1, 34));
 
         // Tool parts
-        MantleClientRegistry.registerManualIcon("pickhead", new ItemStack(TRepo.pickaxeHead, 1, 2));
-        MantleClientRegistry.registerManualIcon("shovelhead", new ItemStack(TRepo.shovelHead, 1, 2));
-        MantleClientRegistry.registerManualIcon("axehead", new ItemStack(TRepo.hatchetHead, 1, 2));
-        MantleClientRegistry.registerManualIcon("swordblade", new ItemStack(TRepo.swordBlade, 1, 2));
-        MantleClientRegistry.registerManualIcon("pan", new ItemStack(TRepo.frypanHead, 1, 2));
-        MantleClientRegistry.registerManualIcon("board", new ItemStack(TRepo.signHead, 1, 2));
-        MantleClientRegistry.registerManualIcon("knifeblade", new ItemStack(TRepo.knifeBlade, 1, 2));
-        MantleClientRegistry.registerManualIcon("chiselhead", new ItemStack(TRepo.chiselHead, 1, 2));
+        MantleClientRegistry.registerManualIcon("pickhead", new ItemStack(TinkerTools.pickaxeHead, 1, 2));
+        MantleClientRegistry.registerManualIcon("shovelhead", new ItemStack(TinkerTools.shovelHead, 1, 2));
+        MantleClientRegistry.registerManualIcon("axehead", new ItemStack(TinkerTools.hatchetHead, 1, 2));
+        MantleClientRegistry.registerManualIcon("swordblade", new ItemStack(TinkerTools.swordBlade, 1, 2));
+        MantleClientRegistry.registerManualIcon("pan", new ItemStack(TinkerTools.frypanHead, 1, 2));
+        MantleClientRegistry.registerManualIcon("board", new ItemStack(TinkerTools.signHead, 1, 2));
+        MantleClientRegistry.registerManualIcon("knifeblade", new ItemStack(TinkerTools.knifeBlade, 1, 2));
+        MantleClientRegistry.registerManualIcon("chiselhead", new ItemStack(TinkerTools.chiselHead, 1, 2));
 
-        MantleClientRegistry.registerManualIcon("hammerhead", new ItemStack(TRepo.hammerHead, 1, 2));
-        MantleClientRegistry.registerManualIcon("excavatorhead", new ItemStack(TRepo.excavatorHead, 1, 2));
-        MantleClientRegistry.registerManualIcon("scythehead", new ItemStack(TRepo.scytheBlade, 1, 2));
-        MantleClientRegistry.registerManualIcon("broadaxehead", new ItemStack(TRepo.broadAxeHead, 1, 2));
-        MantleClientRegistry.registerManualIcon("largeswordblade", new ItemStack(TRepo.largeSwordBlade, 1, 2));
+        MantleClientRegistry.registerManualIcon("hammerhead", new ItemStack(TinkerTools.hammerHead, 1, 2));
+        MantleClientRegistry.registerManualIcon("excavatorhead", new ItemStack(TinkerTools.excavatorHead, 1, 2));
+        MantleClientRegistry.registerManualIcon("scythehead", new ItemStack(TinkerTools.scytheBlade, 1, 2));
+        MantleClientRegistry.registerManualIcon("broadaxehead", new ItemStack(TinkerTools.broadAxeHead, 1, 2));
+        MantleClientRegistry.registerManualIcon("largeswordblade", new ItemStack(TinkerTools.largeSwordBlade, 1, 2));
 
         MantleClientRegistry.registerManualIcon("toolrod", new ItemStack(Items.stick));
 
-        MantleClientRegistry.registerManualIcon("binding", new ItemStack(TRepo.binding, 1, 4));
-        MantleClientRegistry.registerManualIcon("wideguard", new ItemStack(TRepo.wideGuard, 1, 4));
-        MantleClientRegistry.registerManualIcon("handguard", new ItemStack(TRepo.handGuard, 1, 4));
-        MantleClientRegistry.registerManualIcon("crossbar", new ItemStack(TRepo.crossbar, 1, 4));
+        MantleClientRegistry.registerManualIcon("binding", new ItemStack(TinkerTools.binding, 1, 4));
+        MantleClientRegistry.registerManualIcon("wideguard", new ItemStack(TinkerTools.wideGuard, 1, 4));
+        MantleClientRegistry.registerManualIcon("handguard", new ItemStack(TinkerTools.handGuard, 1, 4));
+        MantleClientRegistry.registerManualIcon("crossbar", new ItemStack(TinkerTools.crossbar, 1, 4));
 
-        MantleClientRegistry.registerManualIcon("toughrod", new ItemStack(TRepo.toughRod, 1, 0));
-        MantleClientRegistry.registerManualIcon("toughbinding", new ItemStack(TRepo.toughBinding, 1, 17));
-        MantleClientRegistry.registerManualIcon("largeplate", new ItemStack(TRepo.largePlate, 1, 17));
+        MantleClientRegistry.registerManualIcon("toughrod", new ItemStack(TinkerTools.toughRod, 1, 0));
+        MantleClientRegistry.registerManualIcon("toughbinding", new ItemStack(TinkerTools.toughBinding, 1, 17));
+        MantleClientRegistry.registerManualIcon("largeplate", new ItemStack(TinkerTools.largePlate, 1, 17));
 
-        MantleClientRegistry.registerManualIcon("bowstring", new ItemStack(TRepo.bowstring, 1, 0));
-        MantleClientRegistry.registerManualIcon("arrowhead", new ItemStack(TRepo.arrowhead, 1, 2));
-        MantleClientRegistry.registerManualIcon("fletching", new ItemStack(TRepo.fletching, 1, 0));
+        MantleClientRegistry.registerManualIcon("bowstring", new ItemStack(TinkerTools.bowstring, 1, 0));
+        MantleClientRegistry.registerManualIcon("arrowhead", new ItemStack(TinkerTools.arrowhead, 1, 2));
+        MantleClientRegistry.registerManualIcon("fletching", new ItemStack(TinkerTools.fletching, 1, 0));
 
-        MantleClientRegistry.registerManualIcon("bloodbucket", new ItemStack(TRepo.buckets, 1, 16));
-        MantleClientRegistry.registerManualIcon("emeraldbucket", new ItemStack(TRepo.buckets, 1, 15));
-        MantleClientRegistry.registerManualIcon("gluebucket", new ItemStack(TRepo.buckets, 1, 25));
-        MantleClientRegistry.registerManualIcon("slimebucket", new ItemStack(TRepo.buckets, 1, 24));
-        MantleClientRegistry.registerManualIcon("enderbucket", new ItemStack(TRepo.buckets, 1, 23));
+        MantleClientRegistry.registerManualIcon("bloodbucket", new ItemStack(TinkerSmeltery.buckets, 1, 16));
+        MantleClientRegistry.registerManualIcon("emeraldbucket", new ItemStack(TinkerSmeltery.buckets, 1, 15));
+        MantleClientRegistry.registerManualIcon("gluebucket", new ItemStack(TinkerSmeltery.buckets, 1, 25));
+        MantleClientRegistry.registerManualIcon("slimebucket", new ItemStack(TinkerSmeltery.buckets, 1, 24));
+        MantleClientRegistry.registerManualIcon("enderbucket", new ItemStack(TinkerSmeltery.buckets, 1, 23));
 
         // ToolIcons
         MantleClientRegistry.registerManualIcon("pickicon",
-                ToolBuilder.instance.buildTool(new ItemStack(TRepo.pickaxeHead, 1, 10), new ItemStack(TRepo.toolRod, 1, 11), new ItemStack(TRepo.binding, 1, 12), ""));
-        MantleClientRegistry.registerManualIcon("shovelicon", ToolBuilder.instance.buildTool(new ItemStack(TRepo.shovelHead, 1, 10), new ItemStack(TRepo.toolRod, 1, 11), null, ""));
-        MantleClientRegistry.registerManualIcon("axeicon", ToolBuilder.instance.buildTool(new ItemStack(TRepo.hatchetHead, 1, 10), new ItemStack(TRepo.toolRod, 1, 11), null, ""));
+                ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.pickaxeHead, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 11), new ItemStack(TinkerTools.binding, 1, 12), ""));
+        MantleClientRegistry.registerManualIcon("shovelicon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.shovelHead, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 11), null, ""));
+        MantleClientRegistry.registerManualIcon("axeicon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.hatchetHead, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 11), null, ""));
         MantleClientRegistry.registerManualIcon("mattockicon",
-                ToolBuilder.instance.buildTool(new ItemStack(TRepo.hatchetHead, 1, 10), new ItemStack(TRepo.toolRod, 1, 11), new ItemStack(TRepo.shovelHead, 1, 12), ""));
+                ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.hatchetHead, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 11), new ItemStack(TinkerTools.shovelHead, 1, 12), ""));
         MantleClientRegistry.registerManualIcon("swordicon",
-                ToolBuilder.instance.buildTool(new ItemStack(TRepo.swordBlade, 1, 10), new ItemStack(TRepo.toolRod, 1, 11), new ItemStack(TRepo.wideGuard, 1, 12), ""));
+                ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.swordBlade, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 11), new ItemStack(TinkerTools.wideGuard, 1, 12), ""));
         MantleClientRegistry.registerManualIcon("longswordicon",
-                ToolBuilder.instance.buildTool(new ItemStack(TRepo.swordBlade, 1, 10), new ItemStack(TRepo.toolRod, 1, 11), new ItemStack(TRepo.handGuard, 1, 12), ""));
+                ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.swordBlade, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 11), new ItemStack(TinkerTools.handGuard, 1, 12), ""));
         MantleClientRegistry.registerManualIcon("rapiericon",
-                ToolBuilder.instance.buildTool(new ItemStack(TRepo.swordBlade, 1, 10), new ItemStack(TRepo.toolRod, 1, 11), new ItemStack(TRepo.crossbar, 1, 12), ""));
+                ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.swordBlade, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 11), new ItemStack(TinkerTools.crossbar, 1, 12), ""));
         MantleClientRegistry.registerManualIcon("daggerIcon",
-                ToolBuilder.instance.buildTool(new ItemStack(TRepo.knifeBlade, 1, 10), new ItemStack(TRepo.toolRod, 1, 11), new ItemStack(TRepo.crossbar, 1, 12), ""));
-        MantleClientRegistry.registerManualIcon("frypanicon", ToolBuilder.instance.buildTool(new ItemStack(TRepo.frypanHead, 1, 10), new ItemStack(TRepo.toolRod, 1, 11), null, ""));
-        MantleClientRegistry.registerManualIcon("battlesignicon", ToolBuilder.instance.buildTool(new ItemStack(TRepo.signHead, 1, 10), new ItemStack(TRepo.toolRod, 1, 11), null, ""));
-        MantleClientRegistry.registerManualIcon("chiselicon", ToolBuilder.instance.buildTool(new ItemStack(TRepo.chiselHead, 1, 10), new ItemStack(TRepo.toolRod, 1, 11), null, ""));
+                ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.knifeBlade, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 11), new ItemStack(TinkerTools.crossbar, 1, 12), ""));
+        MantleClientRegistry.registerManualIcon("frypanicon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.frypanHead, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 11), null, ""));
+        MantleClientRegistry.registerManualIcon("battlesignicon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.signHead, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 11), null, ""));
+        MantleClientRegistry.registerManualIcon("chiselicon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.chiselHead, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 11), null, ""));
         MantleClientRegistry.registerManualIcon("shortbowIcon",
-                ToolBuilder.instance.buildTool(new ItemStack(TRepo.toolRod, 1, 10), new ItemStack(TRepo.bowstring, 1, 0), new ItemStack(TRepo.toolRod, 1, 12), ""));
+                ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.toolRod, 1, 10), new ItemStack(TinkerTools.bowstring, 1, 0), new ItemStack(TinkerTools.toolRod, 1, 12), ""));
         MantleClientRegistry.registerManualIcon("arrowIcon",
-                ToolBuilder.instance.buildTool(new ItemStack(TRepo.arrowhead, 1, 10), new ItemStack(TRepo.toolRod, 1, 11), new ItemStack(TRepo.fletching, 1, 0), ""));
+                ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.arrowhead, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 11), new ItemStack(TinkerTools.fletching, 1, 0), ""));
 
-        MantleClientRegistry.registerManualIcon("hammericon", ToolBuilder.instance.buildTool(new ItemStack(TRepo.hammerHead, 1, 10), new ItemStack(TRepo.toughRod, 1, 11), new ItemStack(
-                TRepo.largePlate, 1, 12), new ItemStack(TRepo.largePlate, 8), ""));
-        MantleClientRegistry.registerManualIcon("lumbericon", ToolBuilder.instance.buildTool(new ItemStack(TRepo.broadAxeHead, 1, 10), new ItemStack(TRepo.toughRod, 1, 11), new ItemStack(
-                TRepo.largePlate, 1, 12), new ItemStack(TRepo.toughBinding, 8), ""));
-        MantleClientRegistry.registerManualIcon("excavatoricon", ToolBuilder.instance.buildTool(new ItemStack(TRepo.excavatorHead, 1, 10), new ItemStack(TRepo.toughRod, 1, 11), new ItemStack(
-                TRepo.largePlate, 1, 12), new ItemStack(TRepo.toughBinding, 8), ""));
-        MantleClientRegistry.registerManualIcon("scytheicon", ToolBuilder.instance.buildTool(new ItemStack(TRepo.scytheBlade, 1, 10), new ItemStack(TRepo.toughRod, 1, 11), new ItemStack(
-                TRepo.toughBinding, 1, 12), new ItemStack(TRepo.toughRod, 8), ""));
-        MantleClientRegistry.registerManualIcon("cleavericon", ToolBuilder.instance.buildTool(new ItemStack(TRepo.largeSwordBlade, 1, 10), new ItemStack(TRepo.toughRod, 1, 11), new ItemStack(
-                TRepo.largePlate, 1, 12), new ItemStack(TRepo.toughRod, 8), ""));
-        MantleClientRegistry.registerManualIcon("battleaxeicon", ToolBuilder.instance.buildTool(new ItemStack(TRepo.broadAxeHead, 1, 10), new ItemStack(TRepo.toughRod, 1, 11), new ItemStack(
-                TRepo.broadAxeHead, 1, 12), new ItemStack(TRepo.toughBinding, 8), ""));
+        MantleClientRegistry.registerManualIcon("hammericon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.hammerHead, 1, 10), new ItemStack(TinkerTools.toughRod, 1, 11), new ItemStack(
+                TinkerTools.largePlate, 1, 12), new ItemStack(TinkerTools.largePlate, 8), ""));
+        MantleClientRegistry.registerManualIcon("lumbericon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.broadAxeHead, 1, 10), new ItemStack(TinkerTools.toughRod, 1, 11), new ItemStack(
+                TinkerTools.largePlate, 1, 12), new ItemStack(TinkerTools.toughBinding, 8), ""));
+        MantleClientRegistry.registerManualIcon("excavatoricon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.excavatorHead, 1, 10), new ItemStack(TinkerTools.toughRod, 1, 11), new ItemStack(
+                TinkerTools.largePlate, 1, 12), new ItemStack(TinkerTools.toughBinding, 8), ""));
+        MantleClientRegistry.registerManualIcon("scytheicon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.scytheBlade, 1, 10), new ItemStack(TinkerTools.toughRod, 1, 11), new ItemStack(
+                TinkerTools.toughBinding, 1, 12), new ItemStack(TinkerTools.toughRod, 8), ""));
+        MantleClientRegistry.registerManualIcon("cleavericon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.largeSwordBlade, 1, 10), new ItemStack(TinkerTools.toughRod, 1, 11), new ItemStack(
+                TinkerTools.largePlate, 1, 12), new ItemStack(TinkerTools.toughRod, 8), ""));
+        MantleClientRegistry.registerManualIcon("battleaxeicon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.broadAxeHead, 1, 10), new ItemStack(TinkerTools.toughRod, 1, 11), new ItemStack(
+                TinkerTools.broadAxeHead, 1, 12), new ItemStack(TinkerTools.toughBinding, 8), ""));
     }
 
     public void initManualRecipes ()
     {
-        ItemStack pattern = new ItemStack(TRepo.blankPattern, 1, 0);
+        ItemStack pattern = new ItemStack(TinkerTools.blankPattern, 1, 0);
 
         ItemStack stick = new ItemStack(Items.stick, 1, 0);
         ItemStack plank = new ItemStack(Blocks.planks, 1, 0);
@@ -537,47 +540,47 @@ public class TProxyClient extends TProxyCommon
         ItemStack glass = new ItemStack(Blocks.glass, 1, 0);
         ItemStack ironblock = new ItemStack(Blocks.iron_block, 1, 0);
 
-        ItemStack grout = new ItemStack(TRepo.craftedSoil, 2, 1);
-        ItemStack searedbrick = new ItemStack(TRepo.materials, 1, 2);
-        ItemStack searedbrickBlock = new ItemStack(TRepo.smeltery, 1, 2);
+        ItemStack grout = new ItemStack(TinkerTools.craftedSoil, 2, 1);
+        ItemStack searedbrick = new ItemStack(TinkerTools.materials, 1, 2);
+        ItemStack searedbrickBlock = new ItemStack(TinkerSmeltery.smeltery, 1, 2);
 
         ItemStack coal = new ItemStack(Items.coal);
         ItemStack paper = new ItemStack(Items.paper);
         ItemStack slimeball = new ItemStack(Items.slime_ball);
-        ItemStack slimyMud = new ItemStack(TRepo.craftedSoil);
+        ItemStack slimyMud = new ItemStack(TinkerTools.craftedSoil);
         ItemStack blazerod = new ItemStack(Items.blaze_rod);
         ItemStack firecharge = new ItemStack(Items.fire_charge);
         ItemStack string = new ItemStack(Items.string);
 
-        ItemStack silkyCloth = new ItemStack(TRepo.materials, 1, 25);
+        ItemStack silkyCloth = new ItemStack(TinkerTools.materials, 1, 25);
 
-        ItemStack graveyardsoil = new ItemStack(TRepo.craftedSoil, 1, 3);
-        ItemStack consecratedsoil = new ItemStack(TRepo.craftedSoil, 1, 4);
+        ItemStack graveyardsoil = new ItemStack(TinkerTools.craftedSoil, 1, 3);
+        ItemStack consecratedsoil = new ItemStack(TinkerTools.craftedSoil, 1, 4);
 
         // TConstruct recipes
         MantleClientRegistry.registerManualLargeRecipe("alternatebook", new ItemStack(Items.book), paper, paper, paper, string, pattern, pattern, null, null, null);
-        MantleClientRegistry.registerManualSmallRecipe("patternbook1", new ItemStack(TRepo.manualBook, 1, 0), new ItemStack(Items.paper), pattern, null, null);
-        MantleClientRegistry.registerManualSmallRecipe("patternbook2", new ItemStack(TRepo.manualBook, 1, 1), new ItemStack(TRepo.manualBook, 1, 0), null, null, null);
-        MantleClientRegistry.registerManualSmallRecipe("patternbook3", new ItemStack(TRepo.manualBook, 1, 2), new ItemStack(TRepo.manualBook, 1, 1), null, null, null);
+        MantleClientRegistry.registerManualSmallRecipe("patternbook1", new ItemStack(TinkerTools.manualBook, 1, 0), new ItemStack(Items.paper), pattern, null, null);
+        MantleClientRegistry.registerManualSmallRecipe("patternbook2", new ItemStack(TinkerTools.manualBook, 1, 1), new ItemStack(TinkerTools.manualBook, 1, 0), null, null, null);
+        MantleClientRegistry.registerManualSmallRecipe("patternbook3", new ItemStack(TinkerTools.manualBook, 1, 2), new ItemStack(TinkerTools.manualBook, 1, 1), null, null, null);
         MantleClientRegistry.registerManualSmallRecipe("blankpattern", pattern, plank, stick, stick, plank);
-        MantleClientRegistry.registerManualSmallRecipe("toolstation", new ItemStack(TRepo.toolStationWood, 1, 0), null, pattern, null, workbench);
-        MantleClientRegistry.registerManualSmallRecipe("partcrafter", new ItemStack(TRepo.toolStationWood, 1, 1), null, pattern, null, log);
-        MantleClientRegistry.registerManualSmallRecipe("patternchest", new ItemStack(TRepo.toolStationWood, 1, 5), null, pattern, null, chest);
-        MantleClientRegistry.registerManualSmallRecipe("stenciltable", new ItemStack(TRepo.toolStationWood, 1, 10), null, pattern, null, plank);
-        MantleClientRegistry.registerManualSmallRecipe("slimechannel", new ItemStack(TRepo.slimeChannel, 1, 0), new ItemStack(TRepo.slimeGel, 1, 0), new ItemStack(Items.redstone), null, null);
-        MantleClientRegistry.registerManualSmallRecipe("bouncepad", new ItemStack(TRepo.slimePad, 1, 0), new ItemStack(TRepo.slimeChannel), new ItemStack(Items.slime_ball), null, null);
-        MantleClientRegistry.registerManualLargeRecipe("toolforge", new ItemStack(TRepo.toolForge, 1, 0), searedbrickBlock, searedbrickBlock, searedbrickBlock, ironblock, new ItemStack(
-                TRepo.toolStationWood, 1, 0), ironblock, ironblock, null, ironblock);
+        MantleClientRegistry.registerManualSmallRecipe("toolstation", new ItemStack(TinkerTools.toolStationWood, 1, 0), null, pattern, null, workbench);
+        MantleClientRegistry.registerManualSmallRecipe("partcrafter", new ItemStack(TinkerTools.toolStationWood, 1, 1), null, pattern, null, log);
+        MantleClientRegistry.registerManualSmallRecipe("patternchest", new ItemStack(TinkerTools.toolStationWood, 1, 5), null, pattern, null, chest);
+        MantleClientRegistry.registerManualSmallRecipe("stenciltable", new ItemStack(TinkerTools.toolStationWood, 1, 10), null, pattern, null, plank);
+        MantleClientRegistry.registerManualSmallRecipe("slimechannel", new ItemStack(TinkerWorld.slimeChannel, 1, 0), new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Items.redstone), null, null);
+        MantleClientRegistry.registerManualSmallRecipe("bouncepad", new ItemStack(TinkerWorld.slimePad, 1, 0), new ItemStack(TinkerWorld.slimeChannel), new ItemStack(Items.slime_ball), null, null);
+        MantleClientRegistry.registerManualLargeRecipe("toolforge", new ItemStack(TinkerTools.toolForge, 1, 0), searedbrickBlock, searedbrickBlock, searedbrickBlock, ironblock, new ItemStack(
+                TinkerTools.toolStationWood, 1, 0), ironblock, ironblock, null, ironblock);
 
         MantleClientRegistry.registerManualLargeRecipe("slimymud", slimyMud, null, slimeball, slimeball, null, slimeball, slimeball, null, dirt, sand);
-        MantleClientRegistry.registerManualFurnaceRecipe("slimecrystal", new ItemStack(TRepo.materials, 1, 1), slimyMud);
-        MantleClientRegistry.registerManualSmallRecipe("paperstack", new ItemStack(TRepo.materials, 1, 0), paper, paper, paper, paper);
-        MantleClientRegistry.registerManualLargeRecipe("mossball", new ItemStack(TRepo.materials, 1, 6), mossycobble, mossycobble, mossycobble, mossycobble, mossycobble, mossycobble, mossycobble,
+        MantleClientRegistry.registerManualFurnaceRecipe("slimecrystal", new ItemStack(TinkerTools.materials, 1, 1), slimyMud);
+        MantleClientRegistry.registerManualSmallRecipe("paperstack", new ItemStack(TinkerTools.materials, 1, 0), paper, paper, paper, paper);
+        MantleClientRegistry.registerManualLargeRecipe("mossball", new ItemStack(TinkerTools.materials, 1, 6), mossycobble, mossycobble, mossycobble, mossycobble, mossycobble, mossycobble, mossycobble,
                 mossycobble, mossycobble);
-        MantleClientRegistry.registerManualLargeRecipe("lavacrystal", new ItemStack(TRepo.materials, 1, 7), blazerod, firecharge, blazerod, firecharge, new ItemStack(Items.lava_bucket), firecharge,
+        MantleClientRegistry.registerManualLargeRecipe("lavacrystal", new ItemStack(TinkerTools.materials, 1, 7), blazerod, firecharge, blazerod, firecharge, new ItemStack(Items.lava_bucket), firecharge,
                 blazerod, firecharge, blazerod);
-        MantleClientRegistry.registerManualLargeRecipe("silkycloth", silkyCloth, string, string, string, string, new ItemStack(TRepo.materials, 1, 24), string, string, string, string);
-        MantleClientRegistry.registerManualLargeRecipe("silkyjewel", new ItemStack(TRepo.materials, 1, 26), null, silkyCloth, null, silkyCloth, new ItemStack(Items.emerald), silkyCloth, null,
+        MantleClientRegistry.registerManualLargeRecipe("silkycloth", silkyCloth, string, string, string, string, new ItemStack(TinkerTools.materials, 1, 24), string, string, string, string);
+        MantleClientRegistry.registerManualLargeRecipe("silkyjewel", new ItemStack(TinkerTools.materials, 1, 26), null, silkyCloth, null, silkyCloth, new ItemStack(Items.emerald), silkyCloth, null,
                 silkyCloth, null);
 
         MantleClientRegistry.registerManualSmallRecipe("graveyardsoil", graveyardsoil, new ItemStack(Blocks.dirt), new ItemStack(Items.rotten_flesh), new ItemStack(Items.dye, 1, 15), null);
@@ -585,60 +588,60 @@ public class TProxyClient extends TProxyCommon
 
         MantleClientRegistry.registerManualSmallRecipe("grout", grout, sand, gravel, null, clay);
         MantleClientRegistry.registerManualFurnaceRecipe("searedbrick", searedbrick, grout);
-        MantleClientRegistry.registerManualSmallRecipe("searedbricks", new ItemStack(TRepo.smeltery, 1, 2), searedbrick, searedbrick, searedbrick, searedbrick);
-        MantleClientRegistry.registerManualLargeRecipe("smelterycontroller", new ItemStack(TRepo.smeltery, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, null, searedbrick, searedbrick,
+        MantleClientRegistry.registerManualSmallRecipe("searedbricks", new ItemStack(TinkerSmeltery.smeltery, 1, 2), searedbrick, searedbrick, searedbrick, searedbrick);
+        MantleClientRegistry.registerManualLargeRecipe("smelterycontroller", new ItemStack(TinkerSmeltery.smeltery, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, null, searedbrick, searedbrick,
                 searedbrick, searedbrick);
-        MantleClientRegistry.registerManualLargeRecipe("dryingrack", new ItemStack(TRepo.dryingRack, 1, 0), null, null, null, plankSlab, plankSlab, plankSlab, null, null, null);
+        MantleClientRegistry.registerManualLargeRecipe("dryingrack", new ItemStack(TinkerArmor.dryingRack, 1, 0), null, null, null, plankSlab, plankSlab, plankSlab, null, null, null);
 
-        MantleClientRegistry.registerManualLargeRecipe("smelterydrain", new ItemStack(TRepo.smeltery, 1, 1), searedbrick, null, searedbrick, searedbrick, null, searedbrick, searedbrick, null,
+        MantleClientRegistry.registerManualLargeRecipe("smelterydrain", new ItemStack(TinkerSmeltery.smeltery, 1, 1), searedbrick, null, searedbrick, searedbrick, null, searedbrick, searedbrick, null,
                 searedbrick);
 
-        MantleClientRegistry.registerManualLargeRecipe("smelterytank1", new ItemStack(TRepo.lavaTank, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, glass, searedbrick, searedbrick,
+        MantleClientRegistry.registerManualLargeRecipe("smelterytank1", new ItemStack(TinkerSmeltery.lavaTank, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, glass, searedbrick, searedbrick,
                 searedbrick, searedbrick);
-        MantleClientRegistry.registerManualLargeRecipe("smelterytank2", new ItemStack(TRepo.lavaTank, 1, 1), searedbrick, glass, searedbrick, glass, glass, glass, searedbrick, glass, searedbrick);
-        MantleClientRegistry.registerManualLargeRecipe("smelterytank3", new ItemStack(TRepo.lavaTank, 1, 2), searedbrick, glass, searedbrick, searedbrick, glass, searedbrick, searedbrick, glass,
+        MantleClientRegistry.registerManualLargeRecipe("smelterytank2", new ItemStack(TinkerSmeltery.lavaTank, 1, 1), searedbrick, glass, searedbrick, glass, glass, glass, searedbrick, glass, searedbrick);
+        MantleClientRegistry.registerManualLargeRecipe("smelterytank3", new ItemStack(TinkerSmeltery.lavaTank, 1, 2), searedbrick, glass, searedbrick, searedbrick, glass, searedbrick, searedbrick, glass,
                 searedbrick);
 
-        MantleClientRegistry.registerManualLargeRecipe("smelterytable", new ItemStack(TRepo.searedBlock, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, null, searedbrick, searedbrick,
+        MantleClientRegistry.registerManualLargeRecipe("smelterytable", new ItemStack(TinkerSmeltery.searedBlock, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, null, searedbrick, searedbrick,
                 null, searedbrick);
-        MantleClientRegistry.registerManualLargeRecipe("smelteryfaucet", new ItemStack(TRepo.searedBlock, 1, 1), searedbrick, null, searedbrick, null, searedbrick, null, null, null, null);
-        MantleClientRegistry.registerManualLargeRecipe("castingchannel", new ItemStack(TRepo.castingChannel), null, null, null, searedbrick, null, searedbrick, searedbrick, searedbrick, searedbrick);
-        MantleClientRegistry.registerManualLargeRecipe("smelterybasin", new ItemStack(TRepo.searedBlock, 1, 2), searedbrick, null, searedbrick, searedbrick, null, searedbrick, searedbrick,
+        MantleClientRegistry.registerManualLargeRecipe("smelteryfaucet", new ItemStack(TinkerSmeltery.searedBlock, 1, 1), searedbrick, null, searedbrick, null, searedbrick, null, null, null, null);
+        MantleClientRegistry.registerManualLargeRecipe("castingchannel", new ItemStack(TinkerSmeltery.castingChannel), null, null, null, searedbrick, null, searedbrick, searedbrick, searedbrick, searedbrick);
+        MantleClientRegistry.registerManualLargeRecipe("smelterybasin", new ItemStack(TinkerSmeltery.searedBlock, 1, 2), searedbrick, null, searedbrick, searedbrick, null, searedbrick, searedbrick,
                 searedbrick, searedbrick);
 
         // Traps
         ItemStack reed = new ItemStack(Items.sugar);
-        MantleClientRegistry.registerManualLargeRecipe("punji", new ItemStack(TRepo.punji), reed, null, reed, null, reed, null, reed, null, reed);
-        MantleClientRegistry.registerManualSmallRecipe("barricade", new ItemStack(TRepo.barricadeOak), null, log, null, log);
+        MantleClientRegistry.registerManualLargeRecipe("punji", new ItemStack(TinkerWorld.punji), reed, null, reed, null, reed, null, reed, null, reed);
+        MantleClientRegistry.registerManualSmallRecipe("barricade", new ItemStack(TinkerWorld.barricadeOak), null, log, null, log);
 
         // Machines
-        ItemStack alubrassIngot = new ItemStack(TRepo.materials, 1, 14);
-        ItemStack bronzeIngot = new ItemStack(TRepo.materials, 1, 13);
-        ItemStack blankCast = new ItemStack(TRepo.blankPattern, 1, 1);
+        ItemStack alubrassIngot = new ItemStack(TinkerTools.materials, 1, 14);
+        ItemStack bronzeIngot = new ItemStack(TinkerTools.materials, 1, 13);
+        ItemStack blankCast = new ItemStack(TinkerTools.blankPattern, 1, 1);
         ItemStack redstone = new ItemStack(Items.redstone);
 
         // Modifier recipes
-        ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TRepo.pickaxeHead, 1, 6), new ItemStack(TRepo.toolRod, 1, 2), new ItemStack(TRepo.binding, 1, 6), "");
+        ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.pickaxeHead, 1, 6), new ItemStack(TinkerTools.toolRod, 1, 2), new ItemStack(TinkerTools.binding, 1, 6), "");
         MantleClientRegistry.registerManualIcon("ironpick", ironpick);
-        ItemStack ironlongsword = ToolBuilder.instance.buildTool(new ItemStack(TRepo.swordBlade, 1, 6), new ItemStack(TRepo.toolRod, 1, 2), new ItemStack(TRepo.handGuard, 1, 10), "");
+        ItemStack ironlongsword = ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.swordBlade, 1, 6), new ItemStack(TinkerTools.toolRod, 1, 2), new ItemStack(TinkerTools.handGuard, 1, 10), "");
         MantleClientRegistry.registerManualIcon("ironlongsword", ironlongsword);
 
         TConstructClientRegistry.registerManualModifier("diamondmod", ironpick.copy(), new ItemStack(Items.diamond));
         TConstructClientRegistry.registerManualModifier("emeraldmod", ironpick.copy(), new ItemStack(Items.emerald));
         TConstructClientRegistry.registerManualModifier("redstonemod", ironpick.copy(), new ItemStack(Items.redstone), new ItemStack(Blocks.redstone_block));
-        TConstructClientRegistry.registerManualModifier("lavacrystalmod", ironpick.copy(), new ItemStack(TRepo.materials, 1, 7));
+        TConstructClientRegistry.registerManualModifier("lavacrystalmod", ironpick.copy(), new ItemStack(TinkerTools.materials, 1, 7));
         TConstructClientRegistry.registerManualModifier("lapismod", ironpick.copy(), new ItemStack(Items.dye, 1, 4), new ItemStack(Blocks.lapis_block));
-        TConstructClientRegistry.registerManualModifier("mossmod", ironpick.copy(), new ItemStack(TRepo.materials, 1, 6));
+        TConstructClientRegistry.registerManualModifier("mossmod", ironpick.copy(), new ItemStack(TinkerTools.materials, 1, 6));
         TConstructClientRegistry.registerManualModifier("quartzmod", ironlongsword.copy(), new ItemStack(Items.quartz), new ItemStack(Blocks.quartz_block));
         TConstructClientRegistry.registerManualModifier("blazemod", ironlongsword.copy(), new ItemStack(Items.blaze_powder));
-        TConstructClientRegistry.registerManualModifier("necroticmod", ironlongsword.copy(), new ItemStack(TRepo.materials, 1, 8));
-        TConstructClientRegistry.registerManualModifier("silkymod", ironpick.copy(), new ItemStack(TRepo.materials, 1, 26));
-        TConstructClientRegistry.registerManualModifier("reinforcedmod", ironpick.copy(), new ItemStack(TRepo.largePlate, 1, 6));
+        TConstructClientRegistry.registerManualModifier("necroticmod", ironlongsword.copy(), new ItemStack(TinkerTools.materials, 1, 8));
+        TConstructClientRegistry.registerManualModifier("silkymod", ironpick.copy(), new ItemStack(TinkerTools.materials, 1, 26));
+        TConstructClientRegistry.registerManualModifier("reinforcedmod", ironpick.copy(), new ItemStack(TinkerTools.largePlate, 1, 6));
 
         TConstructClientRegistry.registerManualModifier("pistonmod", ironlongsword.copy(), new ItemStack(Blocks.piston));
         TConstructClientRegistry.registerManualModifier("beheadingmod", ironlongsword.copy(), new ItemStack(Items.ender_pearl), new ItemStack(Blocks.obsidian));
         TConstructClientRegistry.registerManualModifier("spidermod", ironlongsword.copy(), new ItemStack(Items.fermented_spider_eye));
-        TConstructClientRegistry.registerManualModifier("smitemod", ironlongsword.copy(), new ItemStack(TRepo.craftedSoil, 1, 4));
+        TConstructClientRegistry.registerManualModifier("smitemod", ironlongsword.copy(), new ItemStack(TinkerTools.craftedSoil, 1, 4));
 
         TConstructClientRegistry.registerManualModifier("fluxmod", ironpick.copy(), new ItemStack(Blocks.dirt));
         TConstructClientRegistry.registerManualModifier("fluxmod2", ironpick.copy(), new ItemStack(Blocks.dirt));
@@ -646,13 +649,13 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualModifier("tier1free", ironpick.copy(), new ItemStack(Items.diamond), new ItemStack(Blocks.gold_block));
         TConstructClientRegistry.registerManualModifier("tier1.5free", ironpick.copy(), new ItemStack(Items.golden_apple, 1, 1), new ItemStack(Blocks.diamond_block));
         TConstructClientRegistry.registerManualModifier("tier2free", ironpick.copy(), new ItemStack(Items.nether_star));
-        TConstructClientRegistry.registerManualModifier("creativefree", ironpick.copy(), new ItemStack(TRepo.creativeModifier));
+        TConstructClientRegistry.registerManualModifier("creativefree", ironpick.copy(), new ItemStack(TinkerTools.creativeModifier));
 
-        TConstructClientRegistry.registerManualSmeltery("brownstone", new ItemStack(TRepo.speedBlock), new ItemStack(TRepo.moltenTin, 1), new ItemStack(Blocks.gravel));
-        TConstructClientRegistry.registerManualSmeltery("clearglass", new ItemStack(TRepo.clearGlass), new ItemStack(TRepo.moltenGlass, 1), null);
-        TConstructClientRegistry.registerManualSmeltery("searedstone", new ItemStack(TRepo.smeltery, 1, 4), new ItemStack(TRepo.moltenStone, 1), null);
-        TConstructClientRegistry.registerManualSmeltery("endstone", new ItemStack(Blocks.end_stone), new ItemStack(TRepo.moltenEnder, 1), new ItemStack(Blocks.obsidian));
-        TConstructClientRegistry.registerManualSmeltery("glueball", new ItemStack(TRepo.materials, 1, 36), new ItemStack(TRepo.glueFluidBlock, 1), null);
+        TConstructClientRegistry.registerManualSmeltery("brownstone", new ItemStack(TinkerSmeltery.speedBlock), new ItemStack(TinkerSmeltery.moltenTin, 1), new ItemStack(Blocks.gravel));
+        TConstructClientRegistry.registerManualSmeltery("clearglass", new ItemStack(TinkerSmeltery.clearGlass), new ItemStack(TinkerSmeltery.moltenGlass, 1), null);
+        TConstructClientRegistry.registerManualSmeltery("searedstone", new ItemStack(TinkerSmeltery.smeltery, 1, 4), new ItemStack(TinkerSmeltery.moltenStone, 1), null);
+        TConstructClientRegistry.registerManualSmeltery("endstone", new ItemStack(Blocks.end_stone), new ItemStack(TinkerSmeltery.moltenEnder, 1), new ItemStack(Blocks.obsidian));
+        TConstructClientRegistry.registerManualSmeltery("glueball", new ItemStack(TinkerTools.materials, 1, 36), new ItemStack(TinkerSmeltery.glueFluidBlock, 1), null);
 
     }
 
@@ -801,13 +804,13 @@ public class TProxyClient extends TProxyCommon
         String[] bowstringTypes = { "string", "magicfabric", "flamestring" };
         for (int bowIter = 0; bowIter < bowstringTypes.length; bowIter++)
         {
-            TConstructClientRegistry.addAlternateMaterialRenderMapping(TRepo.shortbow, bowIter, "tinker", bowstringTypes[bowIter], true);
+            TConstructClientRegistry.addAlternateMaterialRenderMapping(TinkerTools.shortbow, bowIter, "tinker", bowstringTypes[bowIter], true);
         }
 
         String[] fletching = { "feather", "leaf", "slime", "blueslime" };
         for (int arrowIter = 0; arrowIter < fletching.length; arrowIter++)
         {
-            TConstructClientRegistry.addAlternateMaterialRenderMapping(TRepo.arrow, arrowIter, "tinker", fletching[arrowIter], true);
+            TConstructClientRegistry.addAlternateMaterialRenderMapping(TinkerTools.arrow, arrowIter, "tinker", fletching[arrowIter], true);
         }
     }
 
@@ -1010,7 +1013,7 @@ public class TProxyClient extends TProxyCommon
                     }
                     else if (par1Str.equals("blueslime"))
                     {
-                        entityfx = new EntityBreakingFX(mc.theWorld, par2, par4, par6, TRepo.strangeFood);
+                        entityfx = new EntityBreakingFX(mc.theWorld, par2, par4, par6, TinkerWorld.strangeFood);
                     }
                     else if (par1Str.equals("heart"))
                     {

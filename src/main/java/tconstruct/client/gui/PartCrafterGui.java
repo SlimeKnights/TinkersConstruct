@@ -12,12 +12,12 @@ import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import tconstruct.blocks.logic.PartBuilderLogic;
-import tconstruct.inventory.ActiveContainer;
-import tconstruct.inventory.PartCrafterChestContainer;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.tools.TToolMaterial;
+import tconstruct.smeltery.inventory.ActiveContainer;
+import tconstruct.tools.inventory.PartCrafterChestContainer;
+import tconstruct.tools.logic.PartBuilderLogic;
 
 public class PartCrafterGui extends NewContainerGui
 {

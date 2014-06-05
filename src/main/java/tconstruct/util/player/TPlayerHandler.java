@@ -18,9 +18,8 @@ import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
-import tconstruct.common.TContent;
-import tconstruct.common.TRepo;
 import tconstruct.library.tools.AbilityHelper;
+import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
@@ -83,7 +82,7 @@ public class TPlayerHandler
             stats.battlesignBonus = true;
             if (PHConstruct.beginnerBook)
             {
-                ItemStack diary = new ItemStack(TRepo.manualBook);
+                ItemStack diary = new ItemStack(TinkerTools.manualBook);
                 if (!entityplayer.inventory.addItemStackToInventory(diary))
                 {
                     AbilityHelper.spawnItemAtPlayer(entityplayer, diary);
@@ -92,7 +91,7 @@ public class TPlayerHandler
 
             if (entityplayer.getDisplayName().toLowerCase().equals("fudgy_fetus"))
             {
-                ItemStack pattern = new ItemStack(TRepo.woodPattern, 1, 22);
+                ItemStack pattern = new ItemStack(TinkerTools.woodPattern, 1, 22);
 
                 NBTTagCompound compound = new NBTTagCompound();
                 compound.setTag("display", new NBTTagCompound());
@@ -130,7 +129,7 @@ public class TPlayerHandler
             if (!stats.battlesignBonus)
             {
                 stats.battlesignBonus = true;
-                ItemStack modifier = new ItemStack(TRepo.creativeModifier);
+                ItemStack modifier = new ItemStack(TinkerTools.creativeModifier);
 
                 NBTTagCompound compound = new NBTTagCompound();
                 compound.setTag("display", new NBTTagCompound());
@@ -138,7 +137,7 @@ public class TPlayerHandler
                 list.appendTag(new NBTTagString("Battlesigns were buffed recently."));
                 list.appendTag(new NBTTagString("This might make up for it."));
                 compound.getCompoundTag("display").setTag("Lore", list);
-                compound.setString("TargetLock", TRepo.battlesign.getToolName());
+                compound.setString("TargetLock", TinkerTools.battlesign.getToolName());
                 modifier.setTagCompound(compound);
 
                 AbilityHelper.spawnItemAtPlayer(entityplayer, modifier);
@@ -164,7 +163,7 @@ public class TPlayerHandler
 
     void spawnPigmanModifier (EntityPlayer entityplayer)
     {
-        ItemStack modifier = new ItemStack(TRepo.creativeModifier);
+        ItemStack modifier = new ItemStack(TinkerTools.creativeModifier);
 
         NBTTagCompound compound = new NBTTagCompound();
         compound.setTag("display", new NBTTagCompound());
@@ -173,7 +172,7 @@ public class TPlayerHandler
         list.appendTag(new NBTTagString("Zombie Pigmen seem to have a natural affinty"));
         list.appendTag(new NBTTagString("for these types of weapons."));
         compound.getCompoundTag("display").setTag("Lore", list);
-        compound.setString("TargetLock", TRepo.battlesign.getToolName());
+        compound.setString("TargetLock", TinkerTools.battlesign.getToolName());
         modifier.setTagCompound(compound);
 
         AbilityHelper.spawnItemAtPlayer(entityplayer, modifier);

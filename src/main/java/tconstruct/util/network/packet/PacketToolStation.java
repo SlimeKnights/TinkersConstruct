@@ -6,8 +6,8 @@ import mantle.common.network.AbstractPacket;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import tconstruct.blocks.logic.ToolForgeLogic;
-import tconstruct.blocks.logic.ToolStationLogic;
+import tconstruct.tools.logic.ToolForgeLogic;
+import tconstruct.tools.logic.ToolStationLogic;
 import cpw.mods.fml.common.network.ByteBufUtils;
 
 public class PacketToolStation extends AbstractPacket

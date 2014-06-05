@@ -24,8 +24,8 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import tconstruct.inventory.ActiveContainer;
-import tconstruct.inventory.ActiveSlot;
+import tconstruct.smeltery.inventory.ActiveContainer;
+import tconstruct.smeltery.inventory.ActiveSlot;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

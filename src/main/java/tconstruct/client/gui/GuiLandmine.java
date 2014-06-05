@@ -11,8 +11,8 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
-import tconstruct.inventory.ContainerLandmine;
-import tconstruct.util.landmine.behavior.Behavior;
+import tconstruct.mechworks.inventory.ContainerLandmine;
+import tconstruct.mechworks.landmine.behavior.Behavior;
 
 /**
  * 

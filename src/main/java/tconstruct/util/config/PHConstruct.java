@@ -4,8 +4,8 @@ import java.io.File;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-import tconstruct.common.TRepo;
 import tconstruct.library.tools.AbilityHelper;
+import tconstruct.tools.TinkerTools;
 import cpw.mods.fml.common.Loader;
 
 public class PHConstruct
@@ -20,7 +20,7 @@ public class PHConstruct
         config.load();
 
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
-        TRepo.supressMissingToolLogs = config.get("Logging", "Disable tool build messages", false).getBoolean(false);
+        TinkerTools.supressMissingToolLogs = config.get("Logging", "Disable tool build messages", false).getBoolean(false);
 
         keepHunger = config.get("Difficulty Changes", "Keep hunger on death", true).getBoolean(true);
         keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
@@ -41,7 +41,6 @@ public class PHConstruct
         lavaFortuneInteraction = config.get("Difficulty Changes", "Enable Auto-Smelt and Fortune interaction", true).getBoolean(true);
         removeVanillaToolRecipes = config.get("Difficulty Changes", "Remove Vanilla Tool Recipes", false).getBoolean(false);
         labotimizeVanillaTools = config.get("Difficulty Changes", "Remove Vanilla Tool Effectiveness", false).getBoolean(false);
-        stencilTableCrafting = config.get("Difficulty Changes", "Craft Stencil Tables", true).getBoolean(true);
         miningLevelIncrease = config.get("Difficulty Changes", "Modifiers increase Mining Level", true).getBoolean(true);
         denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
         craftEndstone = config.get("Difficulty Changes", "Allow creation of endstone", true).getBoolean(true);
@@ -281,7 +280,6 @@ public class PHConstruct
     public static boolean vanillaMetalBlocks;
     public static boolean removeVanillaToolRecipes;
     public static boolean labotimizeVanillaTools;
-    public static boolean stencilTableCrafting;
     public static boolean miningLevelIncrease;
     public static boolean denyMattock;
 

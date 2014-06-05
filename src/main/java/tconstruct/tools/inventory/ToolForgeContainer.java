@@ -1,0 +1,102 @@
+package tconstruct.tools.inventory;
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.library.tools.ToolCore;
+import tconstruct.tools.TinkerTools;
+import tconstruct.tools.logic.ToolForgeLogic;
+import tconstruct.tools.logic.ToolStationLogic;
+
+public class ToolForgeContainer extends ToolStationContainer
+{
+
+    public ToolForgeContainer(InventoryPlayer inventoryplayer, ToolForgeLogic logic)
+    {
+        super(inventoryplayer, logic);
+    }
+
+    @Override
+    public void initializeContainer (InventoryPlayer inventoryplayer, ToolStationLogic builderlogic)
+    {
+        invPlayer = inventoryplayer;
+        this.logic = builderlogic;
+
+        toolSlot = new SlotToolForge(inventoryplayer.player, logic, 0, 225, 38);
+        this.addSlotToContainer(toolSlot);
+        slots = new Slot[] { new Slot(logic, 1, 167, 29), new Slot(logic, 2, 169, 29), new Slot(logic, 3, 167, 47), new Slot(logic, 4, 149, 47) };
+
+        for (int iter = 0; iter < 4; iter++)
+            this.addSlotToContainer(slots[iter]);
+
+        /* Player inventory */
+        for (int column = 0; column < 3; column++)
+        {
+            for (int row = 0; row < 9; row++)
+            {
+                this.addSlotToContainer(new Slot(inventoryplayer, row + column * 9 + 9, 118 + row * 18, 84 + column * 18));
+            }
+        }
+
+        for (int column = 0; column < 9; column++)
+        {
+            this.addSlotToContainer(new Slot(inventoryplayer, column, 118 + column * 18, 142));
+        }
+    }
+
+    // posX and posY must be the same length
+    @Override
+    public void resetSlots (int[] posX, int[] posY)
+    {
+        inventorySlots.clear();
+        inventoryItemStacks.clear();
+        this.addSlotToContainer(toolSlot);
+        for (int iter = 0; iter < 4; iter++)
+        {
+            slots[iter].xDisplayPosition = posX[iter] + 111;
+            slots[iter].yDisplayPosition = posY[iter] + 1;
+            addSlotToContainer(slots[iter]);
+        }
+
+        for (int column = 0; column < 3; column++)
+        {
+            for (int row = 0; row < 9; row++)
+            {
+                this.addSlotToContainer(new Slot(invPlayer, row + column * 9 + 9, 118 + row * 18, 84 + column * 18));
+            }
+        }
+
+        for (int column = 0; column < 9; column++)
+        {
+            this.addSlotToContainer(new Slot(invPlayer, column, 118 + column * 18, 142));
+        }
+    }
+
+    @Override
+    protected void craftTool (ItemStack stack)
+    {
+        NBTTagCompound tags = stack.getTagCompound();
+        if (!tags.getCompoundTag("InfiTool").hasKey("Built"))
+        {
+            tags.getCompoundTag("InfiTool").setBoolean("Built", true);
+            for (int i = 2; i <= 4; i++)
+                logic.decrStackSize(i, 1);
+            int amount = logic.getStackInSlot(1).getItem() instanceof ToolCore ? stack.stackSize : 1;
+            logic.decrStackSize(1, amount);
+            if (!logic.getWorldObj().isRemote)
+                logic.getWorldObj().playAuxSFX(1021, (int) logic.xCoord, (int) logic.yCoord, (int) logic.zCoord, 0);
+        }
+    }
+    
+    @Override
+    public boolean canInteractWith (EntityPlayer entityplayer)
+    {
+        Block block = logic.getWorldObj().getBlock(logic.xCoord, logic.yCoord, logic.zCoord);
+        if (block != TinkerTools.toolForge && block != TinkerTools.craftingSlabWood)
+            return false;
+        return logic.isUseableByPlayer(entityplayer);
+    }
+}

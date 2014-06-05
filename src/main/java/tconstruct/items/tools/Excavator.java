@@ -9,11 +9,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import tconstruct.common.TRepo;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.HarvestTool;
+import tconstruct.tools.TinkerTools;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -42,25 +42,25 @@ public class Excavator extends HarvestTool
     @Override
     public Item getHeadItem ()
     {
-        return TRepo.excavatorHead;
+        return TinkerTools.excavatorHead;
     }
 
     @Override
     public Item getHandleItem ()
     {
-        return TRepo.toughRod;
+        return TinkerTools.toughRod;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TRepo.largePlate;
+        return TinkerTools.largePlate;
     }
 
     @Override
     public Item getExtraItem ()
     {
-        return TRepo.toughBinding;
+        return TinkerTools.toughBinding;
     }
 
     @Override

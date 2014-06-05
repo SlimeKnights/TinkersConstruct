@@ -10,9 +10,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
-import tconstruct.common.TRepo;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
+import tconstruct.tools.TinkerTools;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -73,13 +73,13 @@ public class Arrow extends ToolCore
     @Override
     public Item getHeadItem ()
     {
-        return TRepo.arrowhead;
+        return TinkerTools.arrowhead;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TRepo.fletching;
+        return TinkerTools.fletching;
     }
 
     @Override
@@ -105,7 +105,7 @@ public class Arrow extends ToolCore
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, 3), new ItemStack(getHandleItem(), 1, 0), accessoryStack, extraStack, "");
         if (tool == null)
         {
-            if (!TRepo.supressMissingToolLogs)
+            if (!TinkerTools.supressMissingToolLogs)
             {
                 TConstruct.logger.warn("Creative builder failed tool for Vanilla style" + this.getToolName());
                 TConstruct.logger.warn("Make sure you do not have item ID conflicts");
@@ -128,9 +128,9 @@ public class Arrow extends ToolCore
 
         if (tool == null)
         {
-            if (!TRepo.supressMissingToolLogs)
+            if (!TinkerTools.supressMissingToolLogs)
             {
-                if (!TRepo.supressMissingToolLogs)
+                if (!TinkerTools.supressMissingToolLogs)
                 {
                     TConstruct.logger.warn("Creative builder failed tool for Vanilla style" + this.getToolName());
                     TConstruct.logger.warn("Make sure you do not have item ID conflicts");

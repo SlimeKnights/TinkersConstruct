@@ -1,8 +1,8 @@
 package tconstruct.items.tools;
 
 import net.minecraft.item.Item;
-import tconstruct.common.TRepo;
 import tconstruct.library.tools.Weapon;
+import tconstruct.tools.TinkerTools;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -61,7 +61,7 @@ public class BattleSign extends Weapon
     @Override
     public Item getHeadItem ()
     {
-        return TRepo.signHead;
+        return TinkerTools.signHead;
     }
 
     @Override

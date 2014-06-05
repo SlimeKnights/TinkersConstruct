@@ -6,9 +6,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import tconstruct.common.TRepo;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.HarvestTool;
+import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -50,7 +50,7 @@ public class Hatchet extends HarvestTool
     @Override
     public Item getHeadItem ()
     {
-        return TRepo.hatchetHead;
+        return TinkerTools.hatchetHead;
     }
 
     @Override

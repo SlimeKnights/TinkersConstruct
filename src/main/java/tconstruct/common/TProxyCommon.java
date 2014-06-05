@@ -6,10 +6,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
-import tconstruct.blocks.logic.TileEntityLandmine;
-import tconstruct.inventory.ArmorExtendedContainer;
-import tconstruct.inventory.ContainerLandmine;
-import tconstruct.inventory.KnapsackContainer;
+import tconstruct.armor.inventory.ArmorExtendedContainer;
+import tconstruct.armor.inventory.KnapsackContainer;
+import tconstruct.mechworks.inventory.ContainerLandmine;
+import tconstruct.mechworks.logic.TileEntityLandmine;
 import tconstruct.util.player.TPlayerStats;
 
 /**

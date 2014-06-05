@@ -22,8 +22,8 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import tconstruct.TConstruct;
-import tconstruct.client.armor.WingModel;
-import tconstruct.common.TRepo;
+import tconstruct.armor.model.WingModel;
+import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -83,11 +83,11 @@ public class TClientEvents
     {
         if (event.map.getTextureType() == 0)
         {
-            for (int i = 0; i < TRepo.fluidBlocks.length; i++)
+            for (int i = 0; i < TinkerSmeltery.fluidBlocks.length; i++)
             {
-                TRepo.fluids[i].setIcons(TRepo.fluidBlocks[i].getIcon(0, 0), TRepo.fluidBlocks[i].getIcon(2, 0));
+                TinkerSmeltery.fluids[i].setIcons(TinkerSmeltery.fluidBlocks[i].getIcon(0, 0), TinkerSmeltery.fluidBlocks[i].getIcon(2, 0));
             }
-            TRepo.pigIronFluid.setIcons(stillIcons[0], flowIcons[0]);
+            TinkerSmeltery.pigIronFluid.setIcons(stillIcons[0], flowIcons[0]);
         }
     }
 

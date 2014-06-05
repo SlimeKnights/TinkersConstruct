@@ -13,8 +13,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import tconstruct.client.block.BarricadeRender;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.world.model.BarricadeRender;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

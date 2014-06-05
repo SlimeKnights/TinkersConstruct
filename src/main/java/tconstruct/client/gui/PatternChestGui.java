@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
-import tconstruct.blocks.logic.PatternChestLogic;
+import tconstruct.tools.logic.PatternChestLogic;
 
 public class PatternChestGui extends GuiContainer
 {

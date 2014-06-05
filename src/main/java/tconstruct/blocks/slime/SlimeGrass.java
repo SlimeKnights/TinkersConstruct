@@ -17,8 +17,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
-import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.tools.TinkerTools;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -99,7 +99,7 @@ public class SlimeGrass extends MantleBlock
     @Override
     public void onPlantGrow (World world, int x, int y, int z, int sourceX, int sourceY, int sourceZ)
     {
-        world.setBlock(x, y, z, TRepo.craftedSoil, 5, 3);
+        world.setBlock(x, y, z, TinkerTools.craftedSoil, 5, 3);
     }
 
     @Override
@@ -109,7 +109,7 @@ public class SlimeGrass extends MantleBlock
         {
             if (par1World.getBlockLightValue(par2, par3 + 1, par4) < 4 && par1World.getBlockLightOpacity(par2, par3 + 1, par4) > 2)
             {
-                par1World.setBlock(par2, par3, par4, TRepo.craftedSoil, 5, 3);
+                par1World.setBlock(par2, par3, par4, TinkerTools.craftedSoil, 5, 3);
             }
             else if (par1World.getBlockLightValue(par2, par3 + 1, par4) >= 9)
             {
@@ -129,7 +129,7 @@ public class SlimeGrass extends MantleBlock
                             return;
                         }
                         int blockMeta = par1World.getBlockMetadata(posX, posY, posZ);
-                        if (block == TRepo.craftedSoil)
+                        if (block == TinkerTools.craftedSoil)
                         {
                             if (blockMeta == 5)
                                 par1World.setBlock(posX, posY, posZ, (Block) this, 0, 3);
@@ -145,6 +145,6 @@ public class SlimeGrass extends MantleBlock
         if (metadata == 1)
             return Blocks.dirt;
         else
-            return TRepo.craftedSoil;
+            return TinkerTools.craftedSoil;
     }
 }

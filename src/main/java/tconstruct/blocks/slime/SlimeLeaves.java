@@ -11,8 +11,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.world.TinkerWorld;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -103,7 +103,7 @@ public class SlimeLeaves extends BlockLeaves
     @Override
     public Item getItemDropped (int p_149650_1_, Random p_149650_2_, int p_149650_3_)
     {
-        return Item.getItemFromBlock(TRepo.slimeSapling);
+        return Item.getItemFromBlock(TinkerWorld.slimeSapling);
     }
 
     /**
@@ -151,7 +151,7 @@ public class SlimeLeaves extends BlockLeaves
 
             if ((meta & 3) == 0 && world.rand.nextInt(dropChance) == 0)
             {
-                this.dropBlockAsItem(world, x, y, z, new ItemStack(TRepo.strangeFood, 1, 0));
+                this.dropBlockAsItem(world, x, y, z, new ItemStack(TinkerWorld.strangeFood, 1, 0));
             }
         }
     }

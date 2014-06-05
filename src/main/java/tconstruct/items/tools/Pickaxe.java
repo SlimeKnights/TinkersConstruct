@@ -2,8 +2,8 @@ package tconstruct.items.tools;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
-import tconstruct.common.TRepo;
 import tconstruct.library.tools.HarvestTool;
+import tconstruct.tools.TinkerTools;
 
 public class Pickaxe extends HarvestTool
 {
@@ -30,13 +30,13 @@ public class Pickaxe extends HarvestTool
     @Override
     public Item getHeadItem ()
     {
-        return TRepo.pickaxeHead;
+        return TinkerTools.pickaxeHead;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TRepo.binding;
+        return TinkerTools.binding;
     }
 
     @Override

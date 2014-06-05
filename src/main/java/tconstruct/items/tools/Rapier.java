@@ -8,8 +8,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import tconstruct.common.TRepo;
 import tconstruct.library.tools.Weapon;
+import tconstruct.tools.TinkerTools;
 
 public class Rapier extends Weapon
 {
@@ -75,13 +75,13 @@ public class Rapier extends Weapon
     @Override
     public Item getHeadItem ()
     {
-        return TRepo.swordBlade;
+        return TinkerTools.swordBlade;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TRepo.crossbar;
+        return TinkerTools.crossbar;
     }
 
     @Override

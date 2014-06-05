@@ -8,9 +8,9 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
+import tconstruct.armor.inventory.KnapsackContainer;
 import tconstruct.client.tabs.InventoryTabKnapsack;
 import tconstruct.client.tabs.TabRegistry;
-import tconstruct.inventory.KnapsackContainer;
 import tconstruct.util.player.KnapsackInventory;
 
 public class KnapsackGui extends InventoryEffectRenderer
