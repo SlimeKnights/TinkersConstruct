@@ -1078,24 +1078,27 @@ public class TRecipes
         }
         OreDictionary.registerOre("thaumiumRod", new ItemStack(TRepo.toolRod, 1, 31));
 
-        String[] glassTypes = { "glassBlack", "glassRed", "glassGreen", "glassBrown", "glassBlue", "glassPurple", "glassCyan", "glassLightGray", "glassGray", "glassPink", "glassLime", "glassYellow",
-                "glassLightBlue", "glassMagenta", "glassOrange", "glassWhite" };
+        String[] glassTypes = { "GlassBlack", "GlassRed", "GlassGreen", "GlassBrown", "GlassBlue", "GlassPurple", "GlassCyan", "GlassLightGray", "GlassGray", "GlassPink", "GlassLime", "GlassYellow",
+                "GlassLightBlue", "GlassMagenta", "GlassOrange", "GlassWhite" };
         for (int i = 0; i < 16; i++)
         {
-            OreDictionary.registerOre(glassTypes[15 - i], new ItemStack(TRepo.stainedGlassClear, 1, i));
+            OreDictionary.registerOre("block"+glassTypes[i], new ItemStack(TRepo.stainedGlassClear, 1, i));
         }
-
+        OreDictionary.registerOre("blockGlass", new ItemStack(TRepo.stainedGlassClear, 1, OreDictionary.WILDCARD_VALUE));
+        
         BlockDispenser.dispenseBehaviorRegistry.putObject(TRepo.titleIcon, new TDispenserBehaviorSpawnEgg());
 
         BlockDispenser.dispenseBehaviorRegistry.putObject(TRepo.arrow, new TDispenserBehaviorArrow());
 
         // Vanilla stuff
-        OreDictionary.registerOre("slimeball", new ItemStack(Items.slime_ball));
+        ensureOreIsRegistered("slimeball", new ItemStack(Items.slime_ball));
         OreDictionary.registerOre("slimeball", new ItemStack(TRepo.strangeFood, 1, 0));
         OreDictionary.registerOre("slimeball", new ItemStack(TRepo.strangeFood, 1, 1));
         OreDictionary.registerOre("slimeball", new ItemStack(TRepo.materials, 1, 36));
         OreDictionary.registerOre("blockGlass", new ItemStack(TRepo.clearGlass));
-        OreDictionary.registerOre("blockGlass", new ItemStack(Blocks.glass));
+        OreDictionary.registerOre("blockGlassColorless", new ItemStack(TRepo.clearGlass));
+        ensureOreIsRegistered("blockGlass", new ItemStack(Blocks.glass));
+        ensureOreIsRegistered("blockGlassColorless", new ItemStack(Blocks.glass));
         RecipeRemover.removeShapedRecipe(new ItemStack(Blocks.sticky_piston));
         RecipeRemover.removeShapedRecipe(new ItemStack(Items.magma_cream));
         RecipeRemover.removeShapedRecipe(new ItemStack(Items.lead));
