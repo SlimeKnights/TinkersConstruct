@@ -1,4 +1,4 @@
-package tconstruct.util;
+package tconstruct.smeltery;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ChatComponentTranslation;

@@ -3,10 +3,6 @@ package tconstruct.tools.inventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import tconstruct.achievements.TAchievements;
 
 public class SlotFrypan extends Slot
 {
@@ -19,7 +15,7 @@ public class SlotFrypan extends Slot
         this.player = player;
     }
 
-    @Override
+    /*@Override
     public void putStack (ItemStack par1ItemStack)
     {
         super.putStack(par1ItemStack);
@@ -32,6 +28,6 @@ public class SlotFrypan extends Slot
             }
             player.addStat(TAchievements.achievements.get("tconstruct:dualConvenience"), 1);
         }
-    }
+    }*/
 
 }

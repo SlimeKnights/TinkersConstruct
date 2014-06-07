@@ -19,6 +19,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
+import tconstruct.tools.ToolProxyCommon;
 import tconstruct.tools.logic.EquipLogic;
 import tconstruct.tools.logic.FrypanLogic;
 import tconstruct.tools.model.FrypanRender;
@@ -191,7 +192,7 @@ public class EquipBlock extends InventoryBlock
     @Override
     public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
     {
-        return TConstruct.proxy.frypanGuiID;
+        return ToolProxyCommon.frypanGuiID;
     }
 
     @Override

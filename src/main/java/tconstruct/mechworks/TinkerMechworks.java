@@ -35,7 +35,6 @@ import tconstruct.tools.blocks.MultiBrick;
 import tconstruct.tools.blocks.MultiBrickFancy;
 import tconstruct.tools.itemblocks.MultiBrickFancyItem;
 import tconstruct.tools.itemblocks.MultiBrickItem;
-import tconstruct.world.TinkerWorld;
 import tconstruct.world.blocks.ConveyorBase;
 import tconstruct.world.blocks.GravelOre;
 import tconstruct.world.blocks.MeatBlock;
@@ -72,11 +71,15 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class TinkerMechworks
 {
 
+    // Traps
+    public static Block landmine;
+
     @EventHandler
     public void preInit (FMLPreInitializationEvent event)
     {
         // Traps
-        GameRegistry.registerBlock(TinkerWorld.landmine, ItemBlockLandmine.class, "Redstone.Landmine");
+        TinkerMechworks.landmine = new BlockLandmine().setHardness(0.5F).setResistance(0F).setStepSound(Block.soundTypeMetal).setCreativeTab(CreativeTabs.tabRedstone).setBlockName("landmine");
+        GameRegistry.registerBlock(TinkerMechworks.landmine, ItemBlockLandmine.class, "Redstone.Landmine");
         GameRegistry.registerTileEntity(TileEntityLandmine.class, "Landmine");
     }
     

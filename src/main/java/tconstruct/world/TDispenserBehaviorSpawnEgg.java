@@ -1,4 +1,4 @@
-package tconstruct.util;
+package tconstruct.world;
 
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;

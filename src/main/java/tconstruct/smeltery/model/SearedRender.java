@@ -7,12 +7,12 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fluids.Fluid;
 import tconstruct.TConstruct;
 import tconstruct.client.BlockSkinRenderHelper;
-import tconstruct.client.TProxyClient;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.smeltery.logic.CastingBasinLogic;
 import tconstruct.smeltery.logic.CastingTableLogic;
 import tconstruct.smeltery.logic.FaucetLogic;
+import tconstruct.util.ItemHelper;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
@@ -29,104 +29,104 @@ public class SearedRender implements ISimpleBlockRenderingHandler
             {
                 // Top
                 renderer.setRenderBounds(0.0F, 0.625F, 0.0F, 1.0F, 0.9375F, 1.0F);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
 
                 // Lip
                 renderer.setRenderBounds(0.0F, 0.9375, 0.0F, 0.0625, 1.0, 1.0F);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.0625, 0.9375, 0.9375, 0.9375, 1.0, 1.0F);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.9375, 0.9375, 0.0F, 1.0F, 1.0, 1.0F);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.0625, 0.9375, 0.0F, 0.9375, 1.0, 0.0625);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
 
                 // Legs
                 renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 0.3125F, 0.625F, 0.3125F);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.6875, 0.0F, 0.0F, 1.0F, 0.625F, 0.25F);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.0F, 0.0F, 0.6875, 0.3125F, 0.625F, 1.0F);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.6875, 0.0F, 0.6875, 1.0F, 0.625F, 1.0F);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
             }
             else if (metadata == 1)
             {
                 renderer.setRenderBounds(0.25, 0.25, 0.625, 0.75, 0.375, 1);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.25, 0.25, 0.625, 0.375, 0.625, 1);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.625, 0.25, 0.625, 0.75, 0.625, 1);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.375, 0.375, 0.625, 0.625, 0.625, 1);
             }
             else if (metadata == 2)
             {
                 renderer.setRenderBounds(0.125F, 0.125f, 0.125F, 0.875F, 0.25F, 0.875F);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
 
                 // Details
                 renderer.setRenderBounds(0.001f, 0.1245f, 0.001f, 0.1245f, 0.999f, 0.4375f);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.001f, 0.1245f, 0.5625f, 0.1245f, 0.999f, 0.999f);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.001f, 0.8755f, 0.4375f, 0.1245f, 0.999f, 0.5625f);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.001f, 0.1245f, 0.4375f, 0.1245f, 0.25F, 0.5625f);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
 
                 renderer.setRenderBounds(0.8755f, 0.1245f, 0f, 0.999f, 0.999f, 0.4375f);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.8755f, 0.1245f, 0.5625f, 0.999f, 0.999f, 0.999f);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.8755f, 0.8755f, 0.4375f, 0.999f, 0.999f, 0.5625f);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.8755f, 0.1245f, 0.4375f, 0.999f, 0.25F, 0.5625f);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
 
                 renderer.setRenderBounds(0.1245f, 0.1245f, 0.8755f, 0.4375f, 0.999f, 0.999f);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.5625f, 0.1245f, 0.8755f, 0.8755f, 0.999f, 0.999f);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.4375f, 0.8755f, 0.8755f, 0.5625f, 0.999f, 0.999f);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.4375f, 0.1245f, 0.8755f, 0.5625f, 0.2495F, 0.999f);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
 
                 renderer.setRenderBounds(0.1245f, 0.1245f, 0.001f, 0.4375f, 0.999f, 0.1245f);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.5625f, 0.1245f, 0.001f, 0.8755f, 0.999f, 0.1245f);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.4375f, 0.8755f, 0.001f, 0.5625f, 0.999f, 0.1245f);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.4375f, 0.1245f, 0.001f, 0.5625f, 0.25F, 0.1245f);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
 
                 // Legs
                 renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 0.3125F, 0.125, 0.3125F);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.6875F, 0.0F, 0.0F, 1.0F, 0.125, 0.3125F);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.0F, 0.0F, 0.6875F, 0.3125F, 0.125, 1.0F);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.6875F, 0.0F, 0.6875F, 1.0F, 0.125, 1.0F);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
 
                 // Outside
                 renderer.setRenderBounds(0.0f, 0.125, 0f, 0.125, 1.0F, 1);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.875f, 0.125, 0f, 1, 1.0F, 1);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.125f, 0.125, 0f, 0.875f, 1.0F, 0.125f);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.125f, 0.125, 0.875f, 0.875f, 1.0F, 1);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
             }
             else
             {
                 renderer.setRenderBounds(0, 0, 0, 1, 1, 1);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
             }
         }
     }

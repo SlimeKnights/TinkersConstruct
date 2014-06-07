@@ -168,9 +168,6 @@ public class PHConstruct
         isCleaverTwoHanded = config.get("Battlegear", "Can Cleavers have shields", true).getBoolean(true);
         isHatchetWeapon = config.get("Battlegear", "Are Hatches also weapons", true).getBoolean(true);
 
-        // Achievement Properties
-        achievementsEnabled = config.get("Achievement Properties", "AchievementsEnabled", true).getBoolean(true);
-
         /* Save the configuration file */
         config.save();
 
@@ -329,7 +326,4 @@ public class PHConstruct
     // Addon stuff
     public static boolean isCleaverTwoHanded;
     public static boolean isHatchetWeapon;
-
-    // Achievement options
-    public static boolean achievementsEnabled;
 }

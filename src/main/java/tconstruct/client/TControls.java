@@ -8,9 +8,9 @@ import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.potion.Potion;
 import tconstruct.TConstruct;
+import tconstruct.armor.ArmorProxyCommon;
 import tconstruct.client.event.EventCloakRender;
 import tconstruct.client.tabs.TabRegistry;
-import tconstruct.common.TProxyCommon;
 import tconstruct.util.network.packet.PacketDoubleJump;
 import tconstruct.util.network.packet.PacketExtendedInventory;
 
@@ -150,13 +150,13 @@ public class TControls extends TKeyHandler
 
     public static void openArmorGui ()
     {
-        AbstractPacket packet = new PacketExtendedInventory(TProxyCommon.armorGuiID);
+        AbstractPacket packet = new PacketExtendedInventory(ArmorProxyCommon.armorGuiID);
         updateServer(packet);
     }
 
     public static void openKnapsackGui ()
     {
-        AbstractPacket packet = new PacketExtendedInventory(TProxyCommon.knapsackGuiID);
+        AbstractPacket packet = new PacketExtendedInventory(ArmorProxyCommon.knapsackGuiID);
         updateServer(packet);
     }
 

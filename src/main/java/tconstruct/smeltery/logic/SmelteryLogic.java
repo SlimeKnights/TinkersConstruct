@@ -39,9 +39,9 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
 import tconstruct.library.crafting.Smeltery;
+import tconstruct.smeltery.SmelteryDamageSource;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.smeltery.inventory.SmelteryContainer;
-import tconstruct.util.SmelteryDamageSource;
 import tconstruct.util.config.PHConstruct;
 
 /* Simple class for storing items in the block

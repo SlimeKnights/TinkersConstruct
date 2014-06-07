@@ -8,9 +8,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.client.BlockSkinRenderHelper;
-import tconstruct.client.TProxyClient;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.logic.SmelteryLogic;
+import tconstruct.util.ItemHelper;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
@@ -23,7 +23,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
     {
         if (modelID == smelteryModel)
         {
-            TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+            ItemHelper.renderStandardInvBlock(renderer, block, metadata);
         }
     }
 

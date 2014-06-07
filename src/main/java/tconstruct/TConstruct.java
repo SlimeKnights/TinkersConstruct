@@ -1,5 +1,7 @@
 package tconstruct;
 
+import java.util.Random;
+
 import mantle.lib.TabTools;
 import mantle.module.ModuleController;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
@@ -8,7 +10,6 @@ import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import tconstruct.achievements.TAchievements;
 import tconstruct.client.TControls;
 import tconstruct.client.event.EventCloakRender;
 import tconstruct.common.TProxyCommon;
@@ -18,9 +19,6 @@ import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.mechworks.landmine.behavior.Behavior;
 import tconstruct.mechworks.landmine.behavior.stackCombo.SpecialStackHandler;
 import tconstruct.util.EnvironmentChecks;
-import tconstruct.util.TCraftingHandler;
-import tconstruct.util.TEventHandler;
-import tconstruct.util.TEventHandlerAchievement;
 import tconstruct.util.config.DimensionBlacklist;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.util.network.packet.PacketPipeline;
@@ -83,6 +81,8 @@ public class TConstruct
 
     // The packet pipeline
     public static final PacketPipeline packetPipeline = new PacketPipeline();
+    
+    public static Random random = new Random();
 
     public TConstruct()
     {
@@ -99,7 +99,6 @@ public class TConstruct
         }
 
         EnvironmentChecks.verifyEnvironmentSanity();
-        MinecraftForge.EVENT_BUS.register(events = new TEventHandler());
         //PluginController.registerModules();
     }
 
@@ -117,21 +116,10 @@ public class TConstruct
         basinCasting = new LiquidCasting();
         chiselDetailing = new Detailing();
 
-        events = new TEventHandler();
-        MinecraftForge.EVENT_BUS.register(events);
-        MinecraftForge.EVENT_BUS.register(new TEventHandlerAchievement());
-
-        proxy.registerRenderer();
-        proxy.addNames();
-        proxy.readManuals();
-        proxy.registerKeys();
-        proxy.registerTickHandler();
-
         GameRegistry.registerWorldGenerator(new TBaseWorldGenerator(), 0);
         MinecraftForge.TERRAIN_GEN_BUS.register(new TerrainGenEventHandler());
         //GameRegistry.registerFuelHandler(content);
-        FMLCommonHandler.instance().bus().register(new TCraftingHandler());
-        NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
+        //NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 
         if (PHConstruct.addToVillages)
         {
@@ -177,18 +165,12 @@ public class TConstruct
         DimensionBlacklist.getBadBimensions();
         GameRegistry.registerWorldGenerator(new SlimeIslandGen(TinkerWorld.slimePool, 2), 2);
 
-        if (PHConstruct.achievementsEnabled)
-        {
-            TAchievements.init();
-        }
-
         moduleLoader.init();
     }
 
     @EventHandler
     public void postInit (FMLPostInitializationEvent evt)
     {
-        proxy.postInit();
         packetPipeline.postInitialise();
         Behavior.registerBuiltInBehaviors();
         SpecialStackHandler.registerBuiltInStackHandlers();
@@ -211,7 +193,6 @@ public class TConstruct
         return chiselDetailing;
     }
 
-    public static TEventHandler events;
     public static TPlayerHandler playerTracker;
     public static LiquidCasting tableCasting;
     public static LiquidCasting basinCasting;

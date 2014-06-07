@@ -1,5 +1,14 @@
 package tconstruct.armor;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import tconstruct.TConstruct;
 import tconstruct.armor.blocks.DryingRack;
 import tconstruct.armor.items.ArmorBasic;
@@ -13,20 +22,14 @@ import tconstruct.library.armor.EnumArmorPart;
 import tconstruct.library.crafting.DryingRackRecipes;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.smeltery.SmelteryProxyCommon;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.items.GoldenHead;
-import net.minecraft.block.Block;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraft.potion.Potion;
-import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -39,6 +42,9 @@ public class TinkerArmor
 {
     @Instance("TinkerArmor")
     public static TinkerArmor instance;
+    @SidedProxy(clientSide = "tconstruct.armor.ArmorProxyClient", serverSide = "tconstruct.armor.ArmorProxyCommon")
+    public static ArmorProxyCommon proxy;
+    
     public static Item diamondApple;
     public static Item jerky;
     // public static Item stonePattern;
@@ -63,12 +69,15 @@ public class TinkerArmor
     public static Item exoShoes;
     public static Item bootsWood;
     public static ArmorMaterial materialWood;
+    
+    public TinkerArmor()
+    {
+        MinecraftForge.EVENT_BUS.register(new TinkerArmorEvents());
+    }
 
     @EventHandler
     public void preInit (FMLPreInitializationEvent event)
     {
-
-
         TinkerArmor.dryingRack = new DryingRack().setBlockName("Armor.DryingRack");
         TinkerArmor.diamondApple = new DiamondApple().setUnlocalizedName("tconstruct.apple.diamond");
         GameRegistry.registerItem(TinkerArmor.diamondApple, "diamondApple");

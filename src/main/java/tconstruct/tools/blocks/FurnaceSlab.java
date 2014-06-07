@@ -11,8 +11,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
-import tconstruct.common.TProxyCommon;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.tools.ToolProxyCommon;
 import tconstruct.tools.logic.FurnaceLogic;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -41,7 +41,7 @@ public class FurnaceSlab extends InventorySlab
     @Override
     public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
     {
-        return TProxyCommon.furnaceID;
+        return ToolProxyCommon.furnaceID;
     }
 
     @Override

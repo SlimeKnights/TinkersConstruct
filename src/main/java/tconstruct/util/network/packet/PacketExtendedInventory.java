@@ -5,7 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import mantle.common.network.AbstractPacket;
 import net.minecraft.entity.player.EntityPlayer;
 import tconstruct.TConstruct;
-import tconstruct.common.TProxyCommon;
+import tconstruct.armor.ArmorProxyCommon;
 
 public class PacketExtendedInventory extends AbstractPacket
 {
@@ -45,14 +45,14 @@ public class PacketExtendedInventory extends AbstractPacket
     {
         switch (type)
         {
-        case TProxyCommon.inventoryGui:
-            player.openGui(TConstruct.instance, TConstruct.proxy.inventoryGui, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
+        case ArmorProxyCommon.inventoryGui:
+            player.openGui(TConstruct.instance, ArmorProxyCommon.inventoryGui, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
             break;
-        case TProxyCommon.armorGuiID:
-            player.openGui(TConstruct.instance, TConstruct.proxy.armorGuiID, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
+        case ArmorProxyCommon.armorGuiID:
+            player.openGui(TConstruct.instance, ArmorProxyCommon.armorGuiID, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
             break;
-        case TProxyCommon.knapsackGuiID:
-            player.openGui(TConstruct.instance, TConstruct.proxy.knapsackGuiID, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
+        case ArmorProxyCommon.knapsackGuiID:
+            player.openGui(TConstruct.instance, ArmorProxyCommon.knapsackGuiID, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
             break;
         }
     }

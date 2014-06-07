@@ -21,6 +21,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.smeltery.SmelteryProxyCommon;
 import tconstruct.smeltery.logic.AdaptiveDrainLogic;
 import tconstruct.smeltery.logic.AdaptiveSmelteryLogic;
 import tconstruct.smeltery.logic.SmelteryDrainLogic;
@@ -168,7 +169,7 @@ public class SmelteryBlock extends InventoryBlock
     public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
     {
         // return -1;
-        return TConstruct.proxy.smelteryGuiID;
+        return SmelteryProxyCommon.smelteryGuiID;
     }
 
     @Override

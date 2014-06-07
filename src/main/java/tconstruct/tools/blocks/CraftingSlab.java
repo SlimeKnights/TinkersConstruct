@@ -15,9 +15,9 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
-import tconstruct.common.TProxyCommon;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.tools.TinkerTools;
+import tconstruct.tools.ToolProxyCommon;
 import tconstruct.tools.logic.CraftingStationLogic;
 import tconstruct.tools.logic.PartBuilderLogic;
 import tconstruct.tools.logic.PatternChestLogic;
@@ -111,17 +111,17 @@ public class CraftingSlab extends InventorySlab
         switch (meta)
         {
         case 0:
-            return TProxyCommon.craftingStationID;
+            return ToolProxyCommon.craftingStationID;
         case 1:
-            return TProxyCommon.toolStationID;
+            return ToolProxyCommon.toolStationID;
         case 2:
-            return TProxyCommon.partBuilderID;
+            return ToolProxyCommon.partBuilderID;
         case 3:
-            return TProxyCommon.stencilTableID;
+            return ToolProxyCommon.stencilTableID;
         case 4:
-            return TProxyCommon.patternChestID;
+            return ToolProxyCommon.patternChestID;
         case 5:
-            return TProxyCommon.toolForgeID;
+            return ToolProxyCommon.toolForgeID;
         }
 
         return -1;

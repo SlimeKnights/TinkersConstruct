@@ -1,11 +1,9 @@
 package tconstruct.world;
 
-import java.util.HashMap;
-
 import mantle.utils.RecipeRemover;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.Block.SoundType;
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -13,19 +11,18 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.stats.Achievement;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import tconstruct.TConstruct;
-import tconstruct.achievements.TAchievements;
 import tconstruct.armor.TinkerArmor;
 import tconstruct.blocks.SlabBase;
 import tconstruct.blocks.logic.DryingRackLogic;
@@ -40,13 +37,14 @@ import tconstruct.blocks.traps.Punji;
 import tconstruct.client.StepSoundSlime;
 import tconstruct.common.itemblocks.MetadataItemBlock;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.mechworks.blocks.BlockLandmine;
+import tconstruct.mechworks.TinkerMechworks;
 import tconstruct.mechworks.entity.item.EntityLandmineFirework;
 import tconstruct.mechworks.entity.item.ExplosivePrimed;
 import tconstruct.mechworks.itemblocks.ItemBlockLandmine;
 import tconstruct.mechworks.logic.TileEntityLandmine;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.smeltery.blocks.MetalOre;
+import tconstruct.tools.TDispenserBehaviorArrow;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.blocks.MultiBrick;
 import tconstruct.tools.blocks.MultiBrickFancy;
@@ -56,8 +54,6 @@ import tconstruct.tools.entity.FancyEntityItem;
 import tconstruct.tools.entity.LaunchedPotion;
 import tconstruct.tools.itemblocks.MultiBrickFancyItem;
 import tconstruct.tools.itemblocks.MultiBrickItem;
-import tconstruct.util.TDispenserBehaviorArrow;
-import tconstruct.util.TDispenserBehaviorSpawnEgg;
 import tconstruct.world.blocks.ConveyorBase;
 import tconstruct.world.blocks.GravelOre;
 import tconstruct.world.blocks.MeatBlock;
@@ -88,6 +84,7 @@ import tconstruct.world.items.StrangeFood;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -97,8 +94,11 @@ import cpw.mods.fml.common.registry.GameRegistry;
 @Mod(modid = "TinkerWorld", name = "TinkerWorld", version = "${tinkerworldversion}")
 public class TinkerWorld
 {
-    @Instance("TinkerArmor")
+    @Instance("TinkerWorld")
     public static TinkerWorld instance;
+    @SidedProxy(clientSide = "tconstruct.world.TinkerWorldProxyClient", serverSide = "tconstruct.world.TinkerWorldProxyCommon")
+    public static TinkerWorldProxyCommon proxy;
+    
     public static Item strangeFood;
     // Decoration
     public static Block stoneTorch;
@@ -134,9 +134,12 @@ public class TinkerWorld
     // Chest hooks
     public static ChestGenHooks tinkerHouseChest;
     public static ChestGenHooks tinkerHousePatterns;
-    // Traps
-    public static Block landmine;
     public static Block punji;
+    
+    public TinkerWorld()
+    {
+        MinecraftForge.EVENT_BUS.register(new TinkerWorldEvents());
+    }
 
     @EventHandler
     public void preInit (FMLPreInitializationEvent event)
@@ -148,7 +151,6 @@ public class TinkerWorld
         TinkerWorld.woolSlab2 = new SlabBase(Material.cloth, Blocks.wool, 8, 8).setBlockName("cloth");
         TinkerWorld.woolSlab2.setStepSound(Block.soundTypeCloth).setCreativeTab(CreativeTabs.tabDecorations);
         // Traps
-        TinkerWorld.landmine = new BlockLandmine().setHardness(0.5F).setResistance(0F).setStepSound(Block.soundTypeMetal).setCreativeTab(CreativeTabs.tabRedstone).setBlockName("landmine");
         TinkerWorld.punji = new Punji().setBlockName("trap.punji");
         TinkerWorld.barricadeOak = new BarricadeBlock(Blocks.log, 0).setBlockName("trap.barricade.oak");
         TinkerWorld.barricadeSpruce = new BarricadeBlock(Blocks.log, 1).setBlockName("trap.barricade.spruce");
@@ -212,7 +214,7 @@ public class TinkerWorld
         GameRegistry.registerBlock(TinkerWorld.woolSlab2, WoolSlab2Item.class, "WoolSlab2");
         
         // Traps
-        GameRegistry.registerBlock(TinkerWorld.landmine, ItemBlockLandmine.class, "Redstone.Landmine");
+        GameRegistry.registerBlock(TinkerMechworks.landmine, ItemBlockLandmine.class, "Redstone.Landmine");
         GameRegistry.registerTileEntity(TileEntityLandmine.class, "Landmine");
         GameRegistry.registerBlock(TinkerWorld.punji, "trap.punji");
         GameRegistry.registerBlock(TinkerWorld.barricadeOak, BarricadeItem.class, "trap.barricade.oak");
@@ -405,13 +407,13 @@ public class TinkerWorld
         
 
         // Landmine Recipes
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerWorld.landmine, 1, 0), "mcm", "rpr", 'm', "plankWood", 'c', new ItemStack(TinkerTools.blankPattern, 1, 1), 'r', Items.redstone,
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerMechworks.landmine, 1, 0), "mcm", "rpr", 'm', "plankWood", 'c', new ItemStack(TinkerTools.blankPattern, 1, 1), 'r', Items.redstone,
                 'p', Blocks.stone_pressure_plate));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerWorld.landmine, 1, 1), "mcm", "rpr", 'm', Blocks.stone, 'c', new ItemStack(TinkerTools.blankPattern, 1, 1), 'r', Items.redstone,
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerMechworks.landmine, 1, 1), "mcm", "rpr", 'm', Blocks.stone, 'c', new ItemStack(TinkerTools.blankPattern, 1, 1), 'r', Items.redstone,
                 'p', Blocks.stone_pressure_plate));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerWorld.landmine, 1, 2), "mcm", "rpr", 'm', Blocks.obsidian, 'c', new ItemStack(TinkerTools.blankPattern, 1, 1), 'r',
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerMechworks.landmine, 1, 2), "mcm", "rpr", 'm', Blocks.obsidian, 'c', new ItemStack(TinkerTools.blankPattern, 1, 1), 'r',
                 Items.redstone, 'p', Blocks.stone_pressure_plate));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerWorld.landmine, 1, 3), "mcm", "rpr", 'm', Items.repeater, 'c', new ItemStack(TinkerTools.blankPattern, 1, 1), 'r',
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerMechworks.landmine, 1, 3), "mcm", "rpr", 'm', Items.repeater, 'c', new ItemStack(TinkerTools.blankPattern, 1, 1), 'r',
                 Items.redstone, 'p', Blocks.stone_pressure_plate));
 
         // Ultra hardcore recipes
@@ -635,29 +637,6 @@ public class TinkerWorld
             OreDictionary.registerOre(oreName, is);
         }
     }
-    
-    public void addAchievements ()
-    {
-        HashMap<String, Achievement> achievements = TAchievements.achievements;
-
-        achievements.put("tconstruct:beginner", new Achievement("tconstruct:beginner", "tconstruct.beginner", 0, 0, TinkerTools.manualBook, null));// .setIndependent());
-        achievements.put("tconstruct:pattern", new Achievement("tconstruct:pattern", "tconstruct.pattern", 2, 1, TinkerTools.blankPattern, achievements.get("tconstruct:beginner")));
-        achievements.put("tconstruct:tinkerer", new Achievement("tconstruct:tinkerer", "tconstruct.tinkerer", 2, 2, new ItemStack(TinkerTools.titleIcon, 1, 4096), achievements.get("tconstruct:pattern")));
-        achievements.put("tconstruct:preparedFight",
-                new Achievement("tconstruct:preparedFight", "tconstruct.preparedFight", 1, 3, new ItemStack(TinkerTools.titleIcon, 1, 4097), achievements.get("tconstruct:tinkerer")));
-        achievements.put("tconstruct:proTinkerer",
-                new Achievement("tconstruct:proTinkerer", "tconstruct.proTinkerer", 4, 4, new ItemStack(TinkerTools.titleIcon, 1, 4098), achievements.get("tconstruct:tinkerer")).setSpecial());
-        achievements.put("tconstruct:smelteryMaker", new Achievement("tconstruct:smelteryMaker", "tconstruct.smelteryMaker", -2, -1, TinkerSmeltery.smeltery, achievements.get("tconstruct:beginner")));
-        achievements.put("tconstruct:enemySlayer",
-                new Achievement("tconstruct:enemySlayer", "tconstruct.enemySlayer", 0, 5, new ItemStack(TinkerTools.titleIcon, 1, 4099), achievements.get("tconstruct:preparedFight")));
-        achievements.put("tconstruct:dualConvenience",
-                new Achievement("tconstruct:dualConvenience", "tconstruct.dualConvenience", 0, 7, new ItemStack(TinkerTools.titleIcon, 1, 4100), achievements.get("tconstruct:enemySlayer")).setSpecial());
-        achievements.put("tconstruct:doingItWrong",
-                new Achievement("tconstruct:doingItWrong", "tconstruct.doingItWrong", -2, -3, new ItemStack(TinkerTools.manualBook, 1, 2), achievements.get("tconstruct:smelteryMaker")));
-        achievements.put("tconstruct:betterCrafting",
-                new Achievement("tconstruct:betterCrafting", "tconstruct.betterCrafting", -2, 2, TinkerTools.craftingStationWood, achievements.get("tconstruct:beginner")));
-    }
-    
 
 
     public void addLoot ()

@@ -1,86 +1,70 @@
-package tconstruct.util;
-
-import java.util.Random;
+package tconstruct.tools;
 
 import mantle.blocks.BlockUtils;
-import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
-import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent;
-import net.minecraftforge.event.entity.player.BonemealEvent;
-import net.minecraftforge.event.entity.player.FillBucketEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import tconstruct.TConstruct;
-import tconstruct.achievements.TAchievements;
 import tconstruct.armor.TinkerArmor;
-import tconstruct.items.tools.FryingPan;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.event.PartBuilderEvent;
 import tconstruct.library.event.ToolCraftEvent;
+import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ArrowMaterial;
 import tconstruct.library.tools.BowMaterial;
 import tconstruct.library.tools.BowstringMaterial;
 import tconstruct.library.tools.FletchingMaterial;
 import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.Weapon;
 import tconstruct.smeltery.TinkerSmeltery;
-import tconstruct.smeltery.blocks.LiquidMetalFinite;
-import tconstruct.smeltery.blocks.TankAirBlock;
-import tconstruct.tools.TinkerTools;
+import tconstruct.util.ItemHelper;
 import tconstruct.util.config.PHConstruct;
-import tconstruct.util.player.ArmorExtended;
 import tconstruct.util.player.TPlayerStats;
-import tconstruct.world.TinkerWorld;
 import tconstruct.world.entity.BlueSlime;
-import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 
-public class TEventHandler
+public class TinkerToolEvents
 {
-    Random random = new Random();
-
-    /* Crafting */
+    @SubscribeEvent
+    public void onCrafting (ItemCraftedEvent event)
+    {
+        Item item = event.crafting.getItem();
+        if (!event.player.worldObj.isRemote)
+        {
+            if (item == Item.getItemFromBlock(TinkerTools.toolStationWood))
+            {
+                TPlayerStats stats = TPlayerStats.get(event.player);
+                if (!stats.materialManual)
+                {
+                    stats.materialManual = true;
+                    AbilityHelper.spawnItemAtPlayer(event.player, new ItemStack(TinkerTools.manualBook, 1, 1));
+                }
+            }
+        }
+    }
+    
     @SubscribeEvent
     public void craftTool (ToolCraftEvent.NormalTool event)
     {
@@ -251,48 +235,8 @@ public class TEventHandler
         }
         return false;
     }
+    
 
-    /* Damage */
-    @SubscribeEvent
-    public void onHurt (LivingHurtEvent event)
-    {
-        EntityLivingBase reciever = event.entityLiving;
-        if (reciever instanceof EntityPlayer)
-        {
-            EntityPlayer player = (EntityPlayer) event.entityLiving;
-            // Cutlass
-            ItemStack stack = player.getCurrentEquippedItem();
-            if (stack != null && player.isUsingItem())
-            {
-                Item item = stack.getItem();
-                if (item == TinkerTools.cutlass)
-                {
-                    player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 3 * 20, 1));
-                }
-                else if (item == TinkerTools.battlesign)
-                {
-                    event.ammount *= 1.5; //Puts battlesign blocking at 3/4 instead of 1/2
-                }
-            }
-        }
-        else if (reciever instanceof EntityCreeper)
-        {
-            Entity attacker = event.source.getEntity();
-            if (attacker instanceof EntityLivingBase)
-            {
-                Entity target = ((EntityCreeper) reciever).getAttackTarget();
-                if (target != null)
-                {
-                    float d1 = reciever.getDistanceToEntity(((EntityCreeper) reciever).getAttackTarget());
-                    float d2 = reciever.getDistanceToEntity(attacker);
-                    if (d2 < d1)
-                    {
-                        ((EntityCreeper) event.entityLiving).setAttackTarget((EntityLivingBase) event.source.getEntity());
-                    }
-                }
-            }
-        }
-    }
 
     @SubscribeEvent
     public void onAttack (LivingAttackEvent event)
@@ -310,7 +254,7 @@ public class TEventHandler
                 {
                     if (source instanceof EntityDamageSourceIndirect)
                     {
-                        if (random.nextInt(3) == 0)
+                        if (TConstruct.random.nextInt(3) == 0)
                         {
                             Entity attacker = source.getEntity();
                             Entity projectile = ((EntityDamageSourceIndirect) source).getSourceOfDamage();
@@ -351,85 +295,12 @@ public class TEventHandler
             }
         }
     }
-
-    /* Drops */
+    
     @SubscribeEvent
     public void onLivingDrop (LivingDropsEvent event)
     {
         if (event.entityLiving == null)
             return;
-
-        if (event.source.getEntity() != null && event.source.getEntity() instanceof EntityPlayer)
-        {
-            EntityPlayer player = (EntityPlayer) event.source.getEntity();
-            if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof FryingPan)
-            {
-                for (int i = 0; i < event.drops.size(); i++)
-                {
-                    ItemStack is = event.drops.get(i).getEntityItem();
-                    if (FurnaceRecipes.smelting().getSmeltingResult(is) != null && FurnaceRecipes.smelting().getSmeltingResult(is).getItem() instanceof ItemFood)
-                    {
-                        NBTTagCompound stackCompound = is.getTagCompound();
-                        if (stackCompound == null)
-                        {
-                            stackCompound = new NBTTagCompound();
-                        }
-                        stackCompound.setBoolean("frypanKill", true);
-                        is.setTagCompound(stackCompound);
-                    }
-                }
-            }
-        }
-
-        if (random.nextInt(200) == 0 && event.entityLiving instanceof IMob && event.source.damageType.equals("player"))
-        {
-            if (event.entityLiving instanceof BlueSlime)
-            {
-                BlueSlime slime = (BlueSlime) event.entityLiving;
-                if (slime.getSlimeSize() < 8)
-                    return;
-            }
-            int count = event.entityLiving instanceof EntityDragon ? 5 : 1;
-            for (int i = 0; i < count; i++)
-            {
-                ItemStack dropStack = new ItemStack(TinkerArmor.heartCanister, 1, 1);
-                EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
-                entityitem.delayBeforeCanPickup = 10;
-                event.drops.add(entityitem);
-            }
-        }
-
-        if (event.entityLiving instanceof IBossDisplayData)
-        {
-            ItemStack dropStack = new ItemStack(TinkerArmor.heartCanister, 1, 3);
-            EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
-            entityitem.delayBeforeCanPickup = 10;
-            event.drops.add(entityitem);
-        }
-
-        if (!event.entityLiving.isChild() && event.entityLiving.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot"))
-        {
-
-            if (event.entityLiving.getClass() == EntityCow.class)
-            {
-                int amount = random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + 1;
-
-                for (int iter = 0; iter < amount; ++iter)
-                {
-                    addDrops(event, new ItemStack(Items.leather, 1));
-                }
-            }
-
-            if (event.entityLiving.getClass() == EntityChicken.class)
-            {
-                int amount = random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + 1;
-
-                for (int iter = 0; iter < amount; ++iter)
-                {
-                    addDrops(event, new ItemStack(Items.feather, 1));
-                }
-            }
-        }
 
         if (event.recentlyHit)
         {
@@ -446,15 +317,15 @@ public class TEventHandler
                         int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
                         if (stack.getItem() == TinkerTools.cleaver)
                             beheading += 2;
-                        if (beheading > 0 && random.nextInt(100) < beheading * 10)
+                        if (beheading > 0 && TConstruct.random.nextInt(100) < beheading * 10)
                         {
-                            addDrops(event, new ItemStack(Items.skull, 1, enemy.getSkeletonType()));
+                            ItemHelper.addDrops(event, new ItemStack(Items.skull, 1, enemy.getSkeletonType()));
                         }
                     }
                 }
-                if (enemy.getSkeletonType() == 1 && random.nextInt(Math.max(1, 5 - event.lootingLevel)) == 0)
+                if (enemy.getSkeletonType() == 1 && TConstruct.random.nextInt(Math.max(1, 5 - event.lootingLevel)) == 0)
                 {
-                    addDrops(event, new ItemStack(TinkerTools.materials, 1, 8));
+                    ItemHelper.addDrops(event, new ItemStack(TinkerTools.materials, 1, 8));
                 }
             }
 
@@ -472,15 +343,15 @@ public class TEventHandler
                         int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
                         if (stack != null && stack.hasTagCompound() && stack.getItem() == TinkerTools.cleaver)
                             beheading += 2;
-                        if (beheading > 0 && random.nextInt(100) < beheading * 10)
+                        if (beheading > 0 && TConstruct.random.nextInt(100) < beheading * 10)
                         {
-                            addDrops(event, new ItemStack(Items.skull, 1, 2));
+                            ItemHelper.addDrops(event, new ItemStack(Items.skull, 1, 2));
                         }
                     }
 
-                    if (stack != null && stack.hasTagCompound() && stack.getItem() == TinkerTools.cleaver && random.nextInt(100) < 10) //Swap out for real beheading 
+                    if (stack != null && stack.hasTagCompound() && stack.getItem() == TinkerTools.cleaver && TConstruct.random.nextInt(100) < 10)
                     {
-                        addDrops(event, new ItemStack(Items.skull, 1, 2));
+                        ItemHelper.addDrops(event, new ItemStack(Items.skull, 1, 2));
                     }
 
                 }
@@ -499,33 +370,14 @@ public class TEventHandler
                         int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
                         if (stack.getItem() == TinkerTools.cleaver)
                             beheading += 2;
-                        if (beheading > 0 && random.nextInt(100) < beheading * 5)
+                        if (beheading > 0 && TConstruct.random.nextInt(100) < beheading * 5)
                         {
-                            addDrops(event, new ItemStack(Items.skull, 1, 4));
+                            ItemHelper.addDrops(event, new ItemStack(Items.skull, 1, 4));
                         }
                     }
                 }
             }
         }
-
-        if (event.entityLiving.getClass() == EntityGhast.class)
-        {
-            if (PHConstruct.uhcGhastDrops)
-            {
-                for (EntityItem o : event.drops)
-                {
-                    if (o.getEntityItem().getItem() == Items.ghast_tear)
-                    {
-                        o.setEntityItemStack(new ItemStack(Items.gold_ingot, 1));
-                    }
-                }
-            }
-            else
-            {
-                addDrops(event, new ItemStack(Items.ghast_tear, 1));
-            }
-        }
-        // }
 
         if (event.entityLiving instanceof EntityPlayer)
         {
@@ -537,7 +389,7 @@ public class TEventHandler
                 NBTTagCompound nametag = new NBTTagCompound();
                 nametag.setString("SkullOwner", player.getDisplayName());
                 dropStack.setTagCompound(nametag);
-                addDrops(event, dropStack);
+                ItemHelper.addDrops(event, dropStack);
             }
 
             else if (event.source.damageType.equals("player"))
@@ -549,91 +401,19 @@ public class TEventHandler
                     int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
                     if (stack.getItem() == TinkerTools.cleaver)
                         beheading += 2;
-                    if (beheading > 0 && random.nextInt(100) < beheading * 50)
+                    if (beheading > 0 && TConstruct.random.nextInt(100) < beheading * 50)
                     {
                         ItemStack dropStack = new ItemStack(Items.skull, 1, 3);
                         NBTTagCompound nametag = new NBTTagCompound();
                         nametag.setString("SkullOwner", player.getDisplayName());
                         dropStack.setTagCompound(nametag);
-                        addDrops(event, dropStack);
+                        ItemHelper.addDrops(event, dropStack);
                     }
                 }
             }
         }
     }
-
-    @SubscribeEvent
-    public void onLivingDeath (LivingDeathEvent event)
-    {
-        Entity cause = event.source.getSourceOfDamage();
-        if (cause != null && cause instanceof EntityPlayer)
-        {
-            EntityPlayer murderer = (EntityPlayer) cause;
-            ItemStack stack = murderer.getHeldItem();
-            if (stack != null && stack.getItem() instanceof Weapon)
-            {
-                murderer.addStat(TAchievements.achievements.get("tconstruct:enemySlayer"), 1);
-            }
-        }
-    }
-
-    void addDrops (LivingDropsEvent event, ItemStack dropStack)
-    {
-        EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
-        entityitem.delayBeforeCanPickup = 10;
-        event.drops.add(entityitem);
-    }
-
-    /*
-     * @ForgeSubscribe public void onLivingSpawn (EntityJoinWorldEvent event) {
-     * if (event.entity instanceof EntityXPOrb) {
-     * TConstruct.logger.info("Entity: " + event.entity); } }
-     */
-
-    @SubscribeEvent
-    public void onLivingSpawn (LivingSpawnEvent.SpecialSpawn event)
-    {
-        EntityLivingBase living = event.entityLiving;
-        if (living.getClass() == EntitySpider.class && random.nextInt(100) == 0)
-        {
-            EntityCreeper creeper = new EntityCreeper(living.worldObj);
-            spawnEntityLiving(living.posX, living.posY + 1, living.posZ, creeper, living.worldObj);
-            if (living.riddenByEntity != null)
-                creeper.mountEntity(living.riddenByEntity);
-            else
-                creeper.mountEntity(living);
-
-            EntityXPOrb orb = new EntityXPOrb(living.worldObj, living.posX, living.posY, living.posZ, random.nextInt(20) + 20);
-            orb.mountEntity(creeper);
-        }
-    }
-
-    public static void spawnEntityLiving (double x, double y, double z, EntityLiving entity, World world)
-    {
-        if (!world.isRemote)
-        {
-            entity.setPosition(x, y, z);
-            entity.onSpawnWithEgg((IEntityLivingData) null);
-            world.spawnEntityInWorld(entity);
-        }
-    }
-
-    /* Bonemeal */
-
-    @SubscribeEvent
-    public void bonemealEvent (BonemealEvent event)
-    {
-        if (!event.world.isRemote)
-        {
-            if (event.block == TinkerWorld.slimeSapling)
-            {
-                if (TinkerWorld.slimeSapling.boneFertilize(event.world, event.x, event.y, event.z, event.world.rand, event.entityPlayer))
-                    event.setResult(Event.Result.ALLOW);
-            }
-        }
-    }
-
-    /* Ore Dictionary */
+    
     @SubscribeEvent
     public void registerOre (OreRegisterEvent evt)
     {
@@ -648,106 +428,4 @@ public class TEventHandler
             TinkerTools.modAttack.addStackToMatchList(evt.Ore, 24);
         }
     }
-
-    @SubscribeEvent
-    public void bucketFill (FillBucketEvent evt)
-    {
-        if (evt.current.getItem() == Items.bucket && evt.target.typeOfHit == MovingObjectType.ENTITY)
-        {
-            int hitX = evt.target.blockX;
-            int hitY = evt.target.blockY;
-            int hitZ = evt.target.blockZ;
-
-            if (evt.entityPlayer != null && !evt.entityPlayer.canPlayerEdit(hitX, hitY, hitZ, evt.target.sideHit, evt.current))
-            {
-                return;
-            }
-
-            Block bID = evt.world.getBlock(hitX, hitY, hitZ);
-            for (int id = 0; id < TinkerSmeltery.fluidBlocks.length; id++)
-            {
-                if (bID == TinkerSmeltery.fluidBlocks[id])
-                {
-                    if (evt.entityPlayer.capabilities.isCreativeMode)
-                    {
-                        WorldHelper.setBlockToAir(evt.world, hitX, hitY, hitZ);
-                    }
-                    else
-                    {
-                        if (TinkerSmeltery.fluidBlocks[id] instanceof LiquidMetalFinite)
-                        {
-                            WorldHelper.setBlockToAir(evt.world, hitX, hitY, hitZ);
-                            /*
-                             * int quanta = 0; for (int posX = -1; posX <= 1;
-                             * posX++) { for (int posZ = -1; posZ <= 1; posZ++)
-                             * { int localID = evt.world.getBlockId(hitX + posX,
-                             * hitY, hitZ + posZ); if (localID == bID) { quanta
-                             * += evt.world.getBlockMetadata(hitX + posX, hitY,
-                             * hitZ + posZ) + 1; } } }
-                             * 
-                             * if (quanta >= 8) { while (quanta > 0) { for (int
-                             * posX = -1; posX <= 1; posX++) { for (int posZ =
-                             * -1; posZ <= 1; posZ++) { int localID =
-                             * evt.world.getBlockId(hitX + posX, hitY, hitZ +
-                             * posZ); if (localID == bID) { quanta -= 1; int
-                             * meta = evt.world.getBlockMetadata(hitX + posX,
-                             * hitY, hitZ + posZ); if (meta > 0)
-                             * evt.world.setBlockMetadataWithNotify(hitX + posX,
-                             * hitY, hitZ + posZ, meta - 1, 3); else
-                             * evt.world.setBlockToAir(hitX + posX, hitY, hitZ +
-                             * posZ); } } } } }
-                             */
-                        }
-                        else
-                        {
-                            WorldHelper.setBlockToAir(evt.world, hitX, hitY, hitZ);
-                        }
-
-                        evt.setResult(Result.ALLOW);
-                        evt.result = new ItemStack(TinkerSmeltery.buckets, 1, id);
-                    }
-                }
-            }
-        }
-    }
-
-    // TODO 1.7 Fix this -- for ticking stuffs in extra armor slots
-
-    @SubscribeEvent
-    public void livingUpdate (LivingUpdateEvent event)
-    {
-        if (event.entityLiving instanceof EntityPlayer)
-        {
-            EntityPlayer player = (EntityPlayer) event.entityLiving;
-            TPlayerStats stats = TPlayerStats.get(player);
-
-            if (stats != null && stats.armor != null)
-            {
-                ArmorExtended armor = stats.armor;
-                for (int i = 0; i < armor.getSizeInventory(); i++)
-                {
-                    if (armor.getStackInSlot(i) != null)
-                    {
-                        armor.getStackInSlot(i).getItem().onUpdate(armor.getStackInSlot(i), player.worldObj, player, i, false);
-                        armor.getStackInSlot(i).getItem().onArmorTick(player.worldObj, player, armor.getStackInSlot(i));
-                    }
-                }
-            }
-        }
-    }
-
-    // Player interact event - prevent breaking of tank air blocks in creative
-    @SubscribeEvent
-    public void playerInteract (PlayerInteractEvent event)
-    {
-        if (event.action == Action.LEFT_CLICK_BLOCK)
-        {
-            Block block = event.entity.worldObj.getBlock(event.x, event.y, event.z);
-            if (block instanceof TankAirBlock)
-            {
-                event.setCanceled(true);
-            }
-        }
-    }
-
 }

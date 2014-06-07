@@ -37,7 +37,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.TConstruct;
-import tconstruct.common.TProxyCommon;
+import tconstruct.mechworks.MechworksProxyCommon;
 import tconstruct.mechworks.landmine.Helper;
 import tconstruct.mechworks.logic.LandmineExplodeLogic;
 import tconstruct.mechworks.logic.TileEntityLandmine;
@@ -143,7 +143,7 @@ public class BlockLandmine extends BlockContainer
     @Override
     public boolean onBlockActivated (World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
     {
-        par5EntityPlayer.openGui(TConstruct.instance, TProxyCommon.landmineID, par1World, par2, par3, par4);
+        par5EntityPlayer.openGui(TConstruct.instance, MechworksProxyCommon.landmineID, par1World, par2, par3, par4);
         return true;
     }
 

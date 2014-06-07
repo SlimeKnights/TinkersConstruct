@@ -12,8 +12,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import tconstruct.armor.inventory.SlotBehavedOnly;
 import tconstruct.armor.inventory.SlotOpaqueBlocksOnly;
+import tconstruct.mechworks.TinkerMechworks;
 import tconstruct.mechworks.logic.TileEntityLandmine;
-import tconstruct.world.TinkerWorld;
 
 /**
  * 
@@ -65,7 +65,7 @@ public class ContainerLandmine extends Container
     public boolean canInteractWith (EntityPlayer entityplayer)
     {
         Block block = te.getWorldObj().getBlock(te.xCoord, te.yCoord, te.zCoord);
-        if (block != TinkerWorld.landmine)
+        if (block != TinkerMechworks.landmine)
             return false;
         return te.isUseableByPlayer(entityplayer);
     }

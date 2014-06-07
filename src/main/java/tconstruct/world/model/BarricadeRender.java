@@ -3,7 +3,7 @@ package tconstruct.world.model;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
-import tconstruct.client.TProxyClient;
+import tconstruct.util.ItemHelper;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
@@ -136,9 +136,9 @@ public class BarricadeRender implements ISimpleBlockRenderingHandler
         if (modelID == model)
         {
             renderer.setRenderBounds(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
-            TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+            ItemHelper.renderStandardInvBlock(renderer, block, metadata);
             renderer.setRenderBounds(0.375F, 0.375F, 0.0F, 0.625F, 0.625F, 1.0F);
-            TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+            ItemHelper.renderStandardInvBlock(renderer, block, metadata);
         }
     }
 

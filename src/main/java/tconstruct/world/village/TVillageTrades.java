@@ -9,6 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
+import tconstruct.mechworks.TinkerMechworks;
 import tconstruct.tools.TinkerTools;
 import tconstruct.world.TinkerWorld;
 import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
@@ -40,7 +41,7 @@ public class TVillageTrades implements IVillageTradeHandler
         allowedIngredients.add(new ItemStack(TinkerTools.toolStationWood, 3, 10));
         for (int sc = 0; sc < 4; sc++)
         {
-            allowedIngredients.add(new ItemStack(TinkerWorld.landmine, 64, sc));
+            allowedIngredients.add(new ItemStack(TinkerMechworks.landmine, 64, sc));
         }
     }
 

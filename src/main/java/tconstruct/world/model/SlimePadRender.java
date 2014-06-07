@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
 import tconstruct.client.BlockSkinRenderHelper;
-import tconstruct.client.TProxyClient;
+import tconstruct.util.ItemHelper;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.blocks.SlimePad;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -19,7 +19,7 @@ public class SlimePadRender implements ISimpleBlockRenderingHandler
     {
         if (modelID == model)
         {
-            TProxyClient.renderStandardInvBlock(renderer, TinkerWorld.slimeGel, metadata);
+            ItemHelper.renderStandardInvBlock(renderer, TinkerWorld.slimeGel, metadata);
         }
     }
 

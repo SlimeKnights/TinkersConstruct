@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
-import tconstruct.achievements.TAchievements;
 import tconstruct.client.TProxyClient;
 import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.client.FMLClientHandler;
@@ -34,7 +33,6 @@ public class Manual extends CraftingItem
     @SideOnly(Side.CLIENT)
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
-        player.addStat(TAchievements.achievements.get("tconstruct:beginner"), 1);
         Side side = FMLCommonHandler.instance().getEffectiveSide();
         player.openGui(TConstruct.instance, mantle.client.MProxyClient.manualGuiID, world, 0, 0, 0);
         FMLClientHandler.instance().displayGuiScreen(player, new GuiManual(stack, getData(stack)));

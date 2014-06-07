@@ -11,8 +11,8 @@ import net.minecraftforge.fluids.FluidStack;
 import org.lwjgl.opengl.GL11;
 
 import tconstruct.client.BlockSkinRenderHelper;
-import tconstruct.client.TProxyClient;
 import tconstruct.smeltery.logic.LavaTankLogic;
+import tconstruct.util.ItemHelper;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
@@ -25,7 +25,7 @@ public class TankRender implements ISimpleBlockRenderingHandler
     {
         if (modelID == tankModelID)
         {
-            TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+            ItemHelper.renderStandardInvBlock(renderer, block, metadata);
             if (metadata == 0)
             {
                 renderer.setRenderBounds(0.1875, 0, 0.1875, 0.8125, 0.125, 0.8125);

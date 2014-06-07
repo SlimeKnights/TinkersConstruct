@@ -15,11 +15,12 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -73,14 +74,22 @@ import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.blocks.CastingChannelBlock;
 import tconstruct.world.blocks.TMetalBlock;
+import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 
+@Mod(modid = "TinkerSmeltery", name = "TinkerSmeltery", version = "${tinkersmelteryversion}")
 public class TinkerSmeltery
 {
+    @Instance("TinkerSmeltery")
+    public static TinkerSmeltery instance;
+    @SidedProxy(clientSide = "tconstruct.smeltery.SmelteryProxyClient", serverSide = "tconstruct.smeltery.SmelteryProxyCommon")
+    public static SmelteryProxyCommon proxy;
 
     public static Item metalPattern;
     // public static Item armorPattern;
@@ -166,7 +175,10 @@ public class TinkerSmeltery
     public static Fluid bloodFluid;
     public static Block blood;
     
-
+    public TinkerSmeltery()
+    {
+        MinecraftForge.EVENT_BUS.register(new TinkerSmelteryEvents());
+    }
 
     @EventHandler
     public void preInit (FMLPreInitializationEvent event)

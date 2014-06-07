@@ -1,95 +1,137 @@
-package tconstruct.client;
+package tconstruct.armor;
 
+import java.util.ArrayList;
 import java.util.Random;
+
+import com.google.common.collect.Lists;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.client.event.sound.SoundLoadEvent;
-import tconstruct.TConstruct;
-import tconstruct.armor.model.WingModel;
-import tconstruct.smeltery.TinkerSmeltery;
-import tconstruct.util.player.TPlayerStats;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.common.MinecraftForge;
+import tconstruct.client.TControls;
+import tconstruct.client.TKeyHandler;
+import tconstruct.client.TProxyClient;
+import tconstruct.client.gui.AdaptiveSmelteryGui;
+import tconstruct.client.gui.ArmorExtendedGui;
+import tconstruct.client.gui.CraftingStationGui;
+import tconstruct.client.gui.FrypanGui;
+import tconstruct.client.gui.FurnaceGui;
+import tconstruct.client.gui.GuiLandmine;
+import tconstruct.client.gui.KnapsackGui;
+import tconstruct.client.gui.PartCrafterGui;
+import tconstruct.client.gui.PatternChestGui;
+import tconstruct.client.gui.SmelteryGui;
+import tconstruct.client.gui.StencilTableGui;
+import tconstruct.client.gui.ToolForgeGui;
+import tconstruct.client.gui.ToolStationGui;
+import tconstruct.client.tabs.InventoryTabArmorExtended;
+import tconstruct.client.tabs.InventoryTabKnapsack;
+import tconstruct.client.tabs.InventoryTabVanilla;
+import tconstruct.client.tabs.TabRegistry;
+import tconstruct.mechworks.MechworksProxyCommon;
+import tconstruct.mechworks.inventory.ContainerLandmine;
+import tconstruct.mechworks.logic.TileEntityLandmine;
+import tconstruct.smeltery.SmelteryProxyCommon;
+import tconstruct.smeltery.logic.AdaptiveSmelteryLogic;
+import tconstruct.smeltery.logic.SmelteryLogic;
+import tconstruct.tools.ToolProxyCommon;
+import tconstruct.tools.logic.CraftingStationLogic;
+import tconstruct.tools.logic.FrypanLogic;
+import tconstruct.tools.logic.FurnaceLogic;
+import tconstruct.tools.logic.PartBuilderLogic;
+import tconstruct.tools.logic.PatternChestLogic;
+import tconstruct.tools.logic.StencilTableLogic;
+import tconstruct.tools.logic.ToolForgeLogic;
+import tconstruct.tools.logic.ToolStationLogic;
+import tconstruct.util.config.PHConstruct;
 
-@SideOnly(Side.CLIENT)
-public class TClientEvents
+public class ArmorProxyClient extends ArmorProxyCommon
 {
+    public ArmorProxyClient()
+    {
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+    
+    @Override
+    public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
+    {
+        if (ID == ArmorProxyCommon.inventoryGui)
+        {
+            GuiInventory inventory = new GuiInventory(player);
+            TabRegistry.addTabsToInventory(inventory);
+            return inventory;
+        }
+        if (ID == ArmorProxyCommon.armorGuiID)
+        {
+            TProxyClient.armorExtended.init(Minecraft.getMinecraft().thePlayer);
+            return new ArmorExtendedGui(player.inventory, TProxyClient.armorExtended);
+        }
+        if (ID == ArmorProxyCommon.knapsackGuiID)
+        {
+            TProxyClient.knapsack.init(Minecraft.getMinecraft().thePlayer);
+            return new KnapsackGui(player.inventory, TProxyClient.knapsack);
+        }
+        return null;
+    }
+
+    @Override
+    public void registerTickHandler ()
+    {
+        FMLCommonHandler.instance().bus().register(new ArmorTickHandler());
+        new ArmorTickHandler();
+    }
+    
+    /* Keybindings */
+    public static TControls controlInstance;
+
+    @Override
+    public void registerKeys ()
+    {
+        controlInstance = new TControls();
+        uploadKeyBindingsToGame(Minecraft.getMinecraft().gameSettings, controlInstance);
+
+        TabRegistry.registerTab(new InventoryTabVanilla());
+        TabRegistry.registerTab(new InventoryTabArmorExtended());
+        TabRegistry.registerTab(new InventoryTabKnapsack());
+    }
+
+    public void uploadKeyBindingsToGame (GameSettings settings, TKeyHandler keyhandler)
+    {
+        ArrayList<KeyBinding> harvestedBindings = Lists.newArrayList();
+        for (KeyBinding kb : keyhandler.keyBindings)
+        {
+            harvestedBindings.add(kb);
+        }
+
+        KeyBinding[] modKeyBindings = harvestedBindings.toArray(new KeyBinding[harvestedBindings.size()]);
+        KeyBinding[] allKeys = new KeyBinding[settings.keyBindings.length + modKeyBindings.length];
+        System.arraycopy(settings.keyBindings, 0, allKeys, 0, settings.keyBindings.length);
+        System.arraycopy(modKeyBindings, 0, allKeys, settings.keyBindings.length, modKeyBindings.length);
+        settings.keyBindings = allKeys;
+        settings.loadOptions();
+    }
+    
+
     Minecraft mc = Minecraft.getMinecraft();
-
-    /* Sounds */
-
-    boolean initSounds;
-
-    @SubscribeEvent
-    public void onSound (SoundLoadEvent event)
-    {
-        if (!initSounds)
-        {
-            initSounds = true;
-            try
-            {
-                /*
-                 * SoundManager soundmanager = event.manager;
-                 * soundmanager.addSound("tinker:frypan_hit.ogg");
-                 * soundmanager.addSound("tinker:little_saw.ogg");
-                 * soundmanager.addSound("tinker:launcher_clank.ogg");
-                 * TConstruct.logger.info("Successfully loaded sounds.");
-                 */
-            }
-            catch (Exception e)
-            {
-                TConstruct.logger.error("Failed to register one or more sounds");
-            }
-        }
-    }
-
-    /* Liquids */
-
-    IIcon[] stillIcons = new IIcon[2];
-    IIcon[] flowIcons = new IIcon[2];
-
-    @SubscribeEvent
-    public void preStitch (TextureStitchEvent.Pre event)
-    {
-        TextureMap register = event.map;
-        if (register.getTextureType() == 0)
-        {
-            stillIcons[0] = register.registerIcon("tinker:liquid_pigiron");
-            flowIcons[0] = register.registerIcon("tinker:liquid_pigiron");
-        }
-    }
-
-    @SubscribeEvent
-    public void postStitch (TextureStitchEvent.Post event)
-    {
-        if (event.map.getTextureType() == 0)
-        {
-            for (int i = 0; i < TinkerSmeltery.fluidBlocks.length; i++)
-            {
-                TinkerSmeltery.fluids[i].setIcons(TinkerSmeltery.fluidBlocks[i].getIcon(0, 0), TinkerSmeltery.fluidBlocks[i].getIcon(2, 0));
-            }
-            TinkerSmeltery.pigIronFluid.setIcons(stillIcons[0], flowIcons[0]);
-        }
-    }
 
     private static final ResourceLocation hearts = new ResourceLocation("tinker", "textures/gui/newhearts.png");
     private static final ResourceLocation icons = new ResourceLocation("textures/gui/icons.png");
@@ -248,49 +290,4 @@ public class TClientEvents
     }
 
     double zLevel = 0;
-
-    /*
-     * @SubscribeEvent public void fovModifier(FOVUpdateEvent event) { float f =
-     * 1.0F;
-     * 
-     * if (event.entity.capabilities.isFlying) { f *= 1.1F; }
-     * 
-     * if (event.entity.isUsingItem() && event.entity.getItemInUse().getItem()
-     * == Items.bow) { int i = event.entity.getItemInUseDuration(); float f1 =
-     * (float) i / 20.0F;
-     * 
-     * if (f1 > 1.0F) { f1 = 1.0F; } else { f1 *= f1; }
-     * 
-     * f *= 1.0F - f1 * 0.15F; } event.newfov = f; }
-     */
-
-    /* Armor */
-    ModelBiped model = new ModelBiped(5f);
-    WingModel wings = new WingModel();
-
-    /*
-     * static { model.bipedHead.showModel = false; }
-     */
-
-    private float interpolateRotation (float par1, float par2, float par3)
-    {
-        float f3;
-
-        for (f3 = par2 - par1; f3 < -180.0F; f3 += 360.0F)
-        {
-            ;
-        }
-
-        while (f3 >= 180.0F)
-        {
-            f3 -= 360.0F;
-        }
-
-        return par1 + par3 * f3;
-    }
-
-    protected float handleRotationFloat (EntityLiving par1EntityLiving, float par2)
-    {
-        return (float) par1EntityLiving.ticksExisted + par2;
-    }
 }

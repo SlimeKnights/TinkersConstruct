@@ -17,11 +17,11 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.TConstruct;
-import tconstruct.common.TProxyCommon;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.smeltery.TinkerSmeltery;
+import tconstruct.tools.ToolProxyCommon;
 import tconstruct.tools.logic.ToolForgeLogic;
-import tconstruct.tools.model.TableForgeRender;
+import tconstruct.tools.model.TableRender;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -110,7 +110,7 @@ public class ToolForgeBlock extends InventoryBlock
     @Override
     public int getRenderType ()
     {
-        return TableForgeRender.model;
+        return TableRender.model;
     }
 
     @Override
@@ -129,7 +129,7 @@ public class ToolForgeBlock extends InventoryBlock
     public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
     {
         int md = world.getBlockMetadata(x, y, z);
-        return TProxyCommon.toolForgeID;
+        return ToolProxyCommon.toolForgeID;
     }
 
     @Override

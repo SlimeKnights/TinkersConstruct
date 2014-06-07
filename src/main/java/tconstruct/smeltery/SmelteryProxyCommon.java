@@ -1,4 +1,4 @@
-package tconstruct.tools;
+package tconstruct.smeltery;
 
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.EntityPlayer;
@@ -6,24 +6,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 
-public class ToolProxyCommon implements IGuiHandler
+public class SmelteryProxyCommon implements IGuiHandler
 {
-    public static final int toolStationID = 0;
-    public static final int partBuilderID = 1;
-    public static final int patternChestID = 2;
-    public static final int stencilTableID = 3;
-    public static final int frypanGuiID = 4;
-    public static final int toolForgeID = 5;
-    public static final int furnaceID = 8;
-    public static final int craftingStationID = 11;
-    public void preInit()
-    {
-        
-    }
-    public void postInit()
-    {
-        
-    }
+    public static final int smelteryGuiID = 7;
+
     @Override
     public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {
@@ -32,11 +18,15 @@ public class ToolProxyCommon implements IGuiHandler
         {
             return ((InventoryLogic) tile).getGuiContainer(player.inventory, world, x, y, z);
         }
+    
         return null;
     }
+
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {
+        // TODO Auto-generated method stub
         return null;
     }
+
 }

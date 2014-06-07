@@ -8,8 +8,8 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
-import tconstruct.client.TProxyClient;
 import tconstruct.smeltery.blocks.PaneBase;
+import tconstruct.util.ItemHelper;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
@@ -23,7 +23,7 @@ public class PaneRender implements ISimpleBlockRenderingHandler
         if (modelID == model)
         {
             renderer.setRenderBounds(0.0F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
-            TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+            ItemHelper.renderStandardInvBlock(renderer, block, metadata);
         }
     }
 
