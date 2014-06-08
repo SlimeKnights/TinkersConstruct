@@ -309,7 +309,7 @@ public class AbilityHelper
             if (!(living instanceof EntityPlayer) || player.canAttackPlayer((EntityPlayer) living))
             {
                 List var6 = player.worldObj.getEntitiesWithinAABB(EntityWolf.class,
-                        AxisAlignedBB.getAABBPool().getAABB(player.posX, player.posY, player.posZ, player.posX + 1.0D, player.posY + 1.0D, player.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D));
+                        AxisAlignedBB.getBoundingBox(player.posX, player.posY, player.posZ, player.posX + 1.0D, player.posY + 1.0D, player.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D));
                 Iterator var4 = var6.iterator();
 
                 while (var4.hasNext())

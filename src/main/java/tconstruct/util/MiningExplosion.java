@@ -103,7 +103,7 @@ public class MiningExplosion extends Explosion
         int l1 = MathHelper.floor_double(this.explosionY + (double) this.explosionSize + 1.0D);
         int i2 = MathHelper.floor_double(this.explosionZ - (double) this.explosionSize - 1.0D);
         int j2 = MathHelper.floor_double(this.explosionZ + (double) this.explosionSize + 1.0D);
-        List list = this.world.getEntitiesWithinAABBExcludingEntity(this.exploder, AxisAlignedBB.getAABBPool().getAABB((double) i, (double) k, (double) i2, (double) j, (double) l1, (double) j2));
+        List list = this.world.getEntitiesWithinAABBExcludingEntity(this.exploder, AxisAlignedBB.getBoundingBox((double) i, (double) k, (double) i2, (double) j, (double) l1, (double) j2));
         Vec3 vec3 = this.world.getWorldVec3Pool().getVecFromPool(this.explosionX, this.explosionY, this.explosionZ);
 
         for (int k2 = 0; k2 < list.size(); ++k2)

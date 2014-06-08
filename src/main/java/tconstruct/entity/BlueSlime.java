@@ -442,7 +442,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 
             for (int l = 0; l < k; ++l)
             {
-                this.entityDropItem(new ItemStack(j), 1);
+                this.dropItem(j, 0);
             }
         }
 

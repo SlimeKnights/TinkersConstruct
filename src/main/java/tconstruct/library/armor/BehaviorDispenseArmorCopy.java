@@ -26,7 +26,7 @@ final class BehaviorDispenseArmorCopy extends BehaviorDefaultDispenseItem
         int i = par1IBlockSource.getXInt() + enumfacing.getFrontOffsetX();
         int j = par1IBlockSource.getYInt() + enumfacing.getFrontOffsetY();
         int k = par1IBlockSource.getZInt() + enumfacing.getFrontOffsetZ();
-        AxisAlignedBB axisalignedbb = AxisAlignedBB.getAABBPool().getAABB((double) i, (double) j, (double) k, (double) (i + 1), (double) (j + 1), (double) (k + 1));
+        AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox((double) i, (double) j, (double) k, (double) (i + 1), (double) (j + 1), (double) (k + 1));
         List list = par1IBlockSource.getWorld().selectEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb, new IEntitySelector.ArmoredMob(par2ItemStack));
 
         if (list.size() > 0)

@@ -1,5 +1,6 @@
 package tconstruct.common;
 
+import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.material.Material;
@@ -15,7 +16,9 @@ import tconstruct.library.tools.ToolCore;
 import tconstruct.modifiers.tools.ModAttack;
 import tconstruct.modifiers.tools.ModFlux;
 import tconstruct.modifiers.tools.ModLapis;
+import tconstruct.TConstruct;
 
+@ObjectHolder(TConstruct.modID)
 public class TRepo
 {
     // Supresses console spam when iguana's tweaks remove stuff

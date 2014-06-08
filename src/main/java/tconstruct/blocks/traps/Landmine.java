@@ -184,7 +184,7 @@ public class Landmine extends MantleBlock
         {
             var8 = world.getEntitiesWithinAABBExcludingEntity(
                     (Entity) null,
-                    AxisAlignedBB.getAABBPool().getAABB((double) ((float) posX + var7), (double) posY, (double) ((float) posZ + var7), (double) ((float) (posX + 1) - var7), (double) posY + 0.25D,
+                    AxisAlignedBB.getBoundingBox((double) ((float) posX + var7), (double) posY, (double) ((float) posZ + var7), (double) ((float) (posX + 1) - var7), (double) posY + 0.25D,
                             (double) ((float) (posZ + 1) - var7)));
         }
 
@@ -192,14 +192,14 @@ public class Landmine extends MantleBlock
         {
             var8 = world.getEntitiesWithinAABB(
                     EntityLiving.class,
-                    AxisAlignedBB.getAABBPool().getAABB((double) ((float) posX + var7), (double) posY, (double) ((float) posZ + var7), (double) ((float) (posX + 1) - var7), (double) posY + 0.25D,
+                    AxisAlignedBB.getBoundingBox((double) ((float) posX + var7), (double) posY, (double) ((float) posZ + var7), (double) ((float) (posX + 1) - var7), (double) posY + 0.25D,
                             (double) ((float) (posZ + 1) - var7)));
         }
 
         /*
          * if (this.triggerMobType == EnumCreatureType.players) { var8 =
          * world.getEntitiesWithinAABB( EntityPlayer.class,
-         * AxisAlignedBB.getAABBPool().getAABB((double) ((float) posX + var7),
+         * AxisAlignedBB.getBoundingBox((double) ((float) posX + var7),
          * (double) posY, (double) ((float) posZ + var7), (double) ((float)
          * (posX + 1) - var7), (double) posY + 0.25D, (double) ((float) (posZ +
          * 1) - var7))); }
