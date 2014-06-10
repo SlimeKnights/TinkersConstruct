@@ -47,8 +47,8 @@ public class TravelWings extends TravelGear
             float terminalVelocity = -0.4f + (feather * 0.08f);
             if (terminalVelocity > -0.05f)
                 terminalVelocity = - 0.05f;
-            if (player.isSneaking() && terminalVelocity > -0.4f)
-                terminalVelocity = -0.4F;
+            if (player.isSneaking() && terminalVelocity > -0.8f)
+                terminalVelocity = -0.8F;
             boolean flying = false;
             flying = player.capabilities.isFlying;
             if (!flying && player.motionY < terminalVelocity)
