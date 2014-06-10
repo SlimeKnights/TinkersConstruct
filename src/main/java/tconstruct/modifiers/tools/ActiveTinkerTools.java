@@ -1,7 +1,5 @@
 package tconstruct.modifiers.tools;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -17,6 +15,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import tconstruct.TConstruct;
 import tconstruct.common.TContent;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.tools.AbilityHelper;
@@ -25,7 +24,6 @@ import tconstruct.util.config.PHConstruct;
 
 public class ActiveTinkerTools extends ActiveToolMod
 {
-    Random random = new Random();
 
     /* Updating */
     @Override
@@ -38,7 +36,7 @@ public class ActiveTinkerTools extends ActiveToolMod
             {
                 int chance = tags.getInteger("Moss");
                 int check = world.canBlockSeeTheSky((int) entity.posX, (int) entity.posY, (int) entity.posZ) ? 350 : 1150;
-                if (random.nextInt(check) < chance)
+                if (TConstruct.rand.nextInt(check) < chance)
                 {
                     AbilityHelper.healTool(stack, 1, (EntityLivingBase) entity, true);
                 }
@@ -64,9 +62,9 @@ public class ActiveTinkerTools extends ActiveToolMod
         if (block == null || bID < 1 || bID > 4095)
             return false;
 
-        if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
+        if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, TConstruct.rand) != 0)
         {
-            ItemStack smeltStack = new ItemStack(block.idDropped(meta, random, 0), block.quantityDropped(meta, 0, random), block.damageDropped(meta));
+            ItemStack smeltStack = new ItemStack(block.idDropped(meta, TConstruct.rand, 0), block.quantityDropped(meta, 0, TConstruct.rand), block.damageDropped(meta));
             if (smeltStack.itemID < 0 || smeltStack.itemID >= 32000 || smeltStack.getItem() == null)
                 return false;
             ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(smeltStack);
@@ -83,7 +81,7 @@ public class ActiveTinkerTools extends ActiveToolMod
                         int loot = EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack);
                         if (loot > 0)
                         {
-                            spawnme.stackSize *= (random.nextInt(loot + 1) + 1);
+                            spawnme.stackSize *= (TConstruct.rand.nextInt(loot + 1) + 1);
                         }
                     }
                     EntityItem entityitem = new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, spawnme);
@@ -121,11 +119,11 @@ public class ActiveTinkerTools extends ActiveToolMod
                 }
                 for (int i = 0; i < 5; i++)
                 {
-                    float f = (float) x + random.nextFloat();
-                    float f1 = (float) y + random.nextFloat();
-                    float f2 = (float) z + random.nextFloat();
+                    float f = (float) x + TConstruct.rand.nextFloat();
+                    float f1 = (float) y + TConstruct.rand.nextFloat();
+                    float f2 = (float) z + TConstruct.rand.nextFloat();
                     float f3 = 0.52F;
-                    float f4 = random.nextFloat() * 0.6F - 0.3F;
+                    float f4 = TConstruct.rand.nextFloat() * 0.6F - 0.3F;
                     world.spawnParticle("smoke", f - f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
                     world.spawnParticle("flame", f - f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
 
@@ -163,7 +161,7 @@ public class ActiveTinkerTools extends ActiveToolMod
         bacon += tags.getInteger("Accessory") == 18 ? 1 : 0;
         bacon += tags.getInteger("Extra") == 18 ? 1 : 0;
         int chance = tool.getPartAmount() * 100;
-        if (random.nextInt(chance) < bacon)
+        if (TConstruct.rand.nextInt(chance) < bacon)
         {
             if (entity instanceof EntityPlayer)
                 AbilityHelper.spawnItemAtPlayer((EntityPlayer) entity, new ItemStack(TContent.strangeFood, 1, 2));
@@ -184,13 +182,13 @@ public class ActiveTinkerTools extends ActiveToolMod
                 if (tool == TContent.hammer)
                 {
                     int level = 2;
-                    bonus += random.nextInt(level * 2 + 1) + level * 2;
+                    bonus += TConstruct.rand.nextInt(level * 2 + 1) + level * 2;
                 }
                 if (toolTags.hasKey("ModSmite"))
                 {
                     int[] array = toolTags.getIntArray("ModSmite");
                     int base = array[0] / 18;
-                    bonus += 1 + base + random.nextInt(base + 1);
+                    bonus += 1 + base + TConstruct.rand.nextInt(base + 1);
                 }
             }
             if (attribute == EnumCreatureAttribute.ARTHROPOD)
@@ -199,7 +197,7 @@ public class ActiveTinkerTools extends ActiveToolMod
                 {
                     int[] array = toolTags.getIntArray("ModAntiSpider");
                     int base = array[0] / 2;
-                    bonus += 1 + base + random.nextInt(base + 1);
+                    bonus += 1 + base + TConstruct.rand.nextInt(base + 1);
                 }
             }
         }
@@ -220,7 +218,7 @@ public class ActiveTinkerTools extends ActiveToolMod
 
     public boolean doesCriticalHit (ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLivingBase player, Entity entity)
     {
-        if (tool == TContent.cutlass && random.nextInt(10) == 0)
+        if (tool == TContent.cutlass && TConstruct.rand.nextInt(10) == 0)
             return true;
         return false;
     }

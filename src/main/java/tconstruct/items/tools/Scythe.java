@@ -46,7 +46,7 @@ public class Scythe extends Weapon
         return materials;
     }
 
-    static Material[] materials = new Material[] { Material.web, Material.cactus, Material.pumpkin, Material.plants, Material.vine, Material.leaves };
+    static Material[] materials = new Material[] { Material.web, Material.cactus, Material.pumpkin, Material.plants, Material.vine, Material.leaves, Material.cloth, Material.sponge, Material.coral };
 
     @Override
     public Item getHeadItem ()

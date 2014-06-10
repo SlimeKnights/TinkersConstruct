@@ -123,7 +123,7 @@ public abstract class Weapon extends ToolCore
         return new String[] { "weapon", "melee" };
     }
 
-    public static Material[] web = new Material[] { Material.web };
+    public static Material[] web = new Material[] { Material.web, Material.cloth, Material.coral, Material.cake };
     public static Material[] none = new Material[0];
 
 }

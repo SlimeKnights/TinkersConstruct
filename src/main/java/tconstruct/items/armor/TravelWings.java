@@ -25,9 +25,10 @@ public class TravelWings extends TravelGear
     protected void registerModifiers (IconRegister iconRegister)
     {
         String base = "tinker:armor/travel_wings_";
-        modifiers = new Icon[2];
+        modifiers = new Icon[5];
         modifiers[0] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "wings" + "_"+"doublejump");
         modifiers[1] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "wings" + "_"+"featherfall");
+        modifiers[4] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "wings" + "_"+"moss");
         /*modifiers = new Icon[3];
         modifiers[0] = iconRegister.registerIcon(base + "slimewings");
         modifiers[1] = iconRegister.registerIcon(base + "piston");

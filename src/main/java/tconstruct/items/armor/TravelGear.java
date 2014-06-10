@@ -153,25 +153,29 @@ public class TravelGear extends ArmorCore
         switch (armorType)
         {
         case 0:
-            modifiers = new Icon[1];
+            modifiers = new Icon[5];
             modifiers[0] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "goggles" + "_"+"nightvision");
+            modifiers[4] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "goggles" + "_"+"moss");
             break;
         case 1:
-            modifiers = new Icon[2];
+            modifiers = new Icon[5];
             modifiers[0] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "vest" + "_"+"dodge");
             modifiers[1] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "vest" + "_"+"stealth");
+            modifiers[4] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "vest" + "_"+"moss");
             break;
         case 2:
-            modifiers = new Icon[2];
+            modifiers = new Icon[5];
             modifiers[0] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "wings" + "_"+"doublejump");
             modifiers[1] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "wings" + "_"+"featherfall");
+            modifiers[4] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "wings" + "_"+"moss");
             break;
         case 3:
-            modifiers = new Icon[4];
+            modifiers = new Icon[5];
             modifiers[0] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "boots" + "_"+"doublejump");
             modifiers[1] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "boots" + "_"+"waterwalk");  
             modifiers[2] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "boots" + "_"+"leadweight");
             modifiers[3] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "boots" + "_"+"slimysole");  
+            modifiers[4] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "boots" + "_"+"moss");
             break;          
         }
     }

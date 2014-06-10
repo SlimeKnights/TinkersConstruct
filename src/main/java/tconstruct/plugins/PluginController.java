@@ -1,14 +1,13 @@
 package tconstruct.plugins;
 
-import cpw.mods.fml.common.Loader;
+import java.util.ArrayList;
+import java.util.List;
+
 import tconstruct.TConstruct;
-import tconstruct.plugins.fmp.ForgeMultiPart;
 import tconstruct.plugins.minefactoryreloaded.MineFactoryReloaded;
 import tconstruct.plugins.nei.NotEnoughItems;
 import tconstruct.plugins.waila.Waila;
-
-import java.util.ArrayList;
-import java.util.List;
+import cpw.mods.fml.common.Loader;
 
 public class PluginController
 {
@@ -86,7 +85,6 @@ public class PluginController
 
     public void registerBuiltins ()
     {
-        registerPlugin(new ForgeMultiPart());
         registerPlugin(new MineFactoryReloaded());
         registerPlugin(new NotEnoughItems());
         registerPlugin(new Waila());
