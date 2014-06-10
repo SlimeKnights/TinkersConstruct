@@ -845,7 +845,7 @@ public class TContent implements IFuelHandler
         String[] berryOres = new String[] { "berry_essence", "berry_essence", "berry_essence", "berry_essence", "berry_essence_ripe", "berry_essence_ripe", "berry_essence_ripe", "berry_essence_ripe" };
         oreBerry = (EssenceberryBush) new EssenceberryBush(PHConstruct.oreBerry, berryOres, 0, 4).setUnlocalizedName("ore.berries.one");
         GameRegistry.registerBlock(oreBerry, EssenceberryBushItem.class, "ore.berries.one");
-        oreBerrySecond = (EssenceberryBush) new EssenceberryBush(PHConstruct.oreBerrySecond, berryOres, 4, 2).setUnlocalizedName("ore.berries.two");
+        oreBerrySecond = (EssenceberryBush) new EssenceberryBush(PHConstruct.oreBerrySecond, berryOres, 4, 0).setUnlocalizedName("ore.berries.two");
         GameRegistry.registerBlock(oreBerrySecond, EssenceberryBushItem.class, "ore.berries.two");
 
         String[] oreTypes = new String[] { "nether_slag", "nether_cobalt", "nether_ardite", "ore_copper", "ore_tin", "ore_aluminum", "ore_slag" };
