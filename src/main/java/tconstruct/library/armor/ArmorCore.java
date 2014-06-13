@@ -20,7 +20,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
-import tconstruct.client.TControls;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.modifier.ActiveArmorMod;
 import tconstruct.library.modifier.IModifyable;
@@ -404,25 +403,6 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-
-        switch (armorPart)
-        {
-        case Head:
-            list.add("\u00a76Ability: Zoom with");
-            list.add("\u00a76Toggle Abilities: " + GameSettings.getKeyDisplayString(TControls.toggleGoggles.keyCode));
-            break;
-        case Chest:
-            list.add("\u00a76Ability: Swift Swim");
-            break;
-        case Legs:
-            list.add("\u00a76Ability: Featherfall");
-            break;
-        case Feet:
-            list.add("\u00a76Ability: High Step");
-            break;
-        default:
-        }
-
         if (!stack.hasTagCompound())
             return;
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag(getBaseTagName());

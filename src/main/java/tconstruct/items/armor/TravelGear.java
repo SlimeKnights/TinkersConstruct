@@ -1,32 +1,18 @@
 package tconstruct.items.armor;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
-import tconstruct.TConstruct;
-import tconstruct.client.TControls;
-import tconstruct.client.TProxyClient;
-import tconstruct.library.TConstructRegistry;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.ArmorPart;
-import tconstruct.library.modifier.IModifyable;
-import tconstruct.library.tools.ToolCore;
-import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -138,11 +124,11 @@ public class TravelGear extends ArmorCore
     public ModelBiped getArmorModel (EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot)
     {
         if (armorSlot == 1)
-            return TProxyClient.vest;
+            return tconstruct.client.TProxyClient.vest;
         if (armorSlot == 2)
-            return TProxyClient.wings;
+            return tconstruct.client.TProxyClient.wings;
         if (armorSlot == 3)
-            return TProxyClient.bootbump;
+            return tconstruct.client.TProxyClient.bootbump;
         return null;
     }
 
@@ -178,5 +164,31 @@ public class TravelGear extends ArmorCore
             modifiers[4] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "boots" + "_"+"moss");
             break;          
         }
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
+    {
+
+        switch (armorPart)
+        {
+        case Head:
+            list.add("\u00a76Ability: Zoom with");
+            list.add("\u00a76Toggle Abilities: " + GameSettings.getKeyDisplayString(tconstruct.client.TControls.toggleGoggles.keyCode));
+            break;
+        case Chest:
+            list.add("\u00a76Ability: Swift Swim");
+            break;
+        case Legs:
+            list.add("\u00a76Ability: Featherfall");
+            break;
+        case Feet:
+            list.add("\u00a76Ability: High Step");
+            break;
+        default:
+        }
+        
+        super.addInformation(stack, player, list, par4);
     }
 }
