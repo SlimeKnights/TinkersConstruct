@@ -36,6 +36,7 @@ public class EssenceberryBush extends BlockLeavesBase implements IPlantable
     public String[] textureNames;
     public int itemMeat;
     private int subitems;
+    public boolean creativeItems = true;
 
     public EssenceberryBush(int id, String[] textureNames, int meta, int sub)
     {
@@ -185,7 +186,7 @@ public class EssenceberryBush extends BlockLeavesBase implements IPlantable
             if (meta >= 12)
             {
                 world.setBlock(x, y, z, blockID, meta - 4, 3);
-                AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TContent.oreBerries, 1, 0));
+                AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TContent.oreBerries, random.nextInt(3) + 1, 0));
             }
         }
     }
@@ -204,7 +205,7 @@ public class EssenceberryBush extends BlockLeavesBase implements IPlantable
                 return true;
 
             world.setBlock(x, y, z, blockID, meta - 4, 3);
-            AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TContent.oreBerries, random.nextInt(3) + 1, meta % 4 + itemMeat));
+            AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TContent.oreBerries, random.nextInt(3) + 1, 0));
             return true;
         }
 
@@ -281,13 +282,6 @@ public class EssenceberryBush extends BlockLeavesBase implements IPlantable
         return super.canSustainPlant(world, x, y, z, direction, plant);
     }
 
-    public boolean canPlaceBlockAt (World world, int x, int y, int z)
-    {
-        if (world.getFullBlockLightValue(x, y, z) < 13)
-            return super.canPlaceBlockAt(world, x, y, z);
-        return false;
-    }
-
     /* Resistance to fire */
 
     @Override
@@ -311,14 +305,19 @@ public class EssenceberryBush extends BlockLeavesBase implements IPlantable
     /**
      * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
      */
+
+    public Block disableCreativeItems ()
+    {
+        this.creativeItems = false;
+        return this;
+    }
+
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubBlocks (int par1, CreativeTabs par2CreativeTabs, List par3List)
     {
-        for (int var4 = 8; var4 < 8 + subitems; ++var4)
-        {
-            par3List.add(new ItemStack(par1, 1, var4));
-        }
+        if (creativeItems)
+            par3List.add(new ItemStack(par1, 1, 12));
     }
 
     @Override

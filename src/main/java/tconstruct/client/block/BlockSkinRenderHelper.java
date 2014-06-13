@@ -870,6 +870,28 @@ public class BlockSkinRenderHelper
         return Minecraft.isAmbientOcclusionEnabled() ? renderFakeBlockWithAmbientOcclusion(stillIcon, flowingIcon, x, y, z, var6, var7, var8, renderer, world) : renderFakeBlockWithColorMultiplier(
                 stillIcon, flowingIcon, x, y, z, var6, var7, var8, renderer, world);
     }
+    
+    public static boolean renderLiquidBlock (Icon stillIcon, Icon flowingIcon, int x, int y, int z, RenderBlocks renderer, IBlockAccess world, int color)
+    {
+        Block block = Block.stone;
+        int var5 = color;
+        float var6 = (float) (var5 >> 16 & 255) / 255.0F;
+        float var7 = (float) (var5 >> 8 & 255) / 255.0F;
+        float var8 = (float) (var5 & 255) / 255.0F;
+
+        if (EntityRenderer.anaglyphEnable)
+        {
+            float var9 = (var6 * 30.0F + var7 * 59.0F + var8 * 11.0F) / 100.0F;
+            float var10 = (var6 * 30.0F + var7 * 70.0F) / 100.0F;
+            float var11 = (var6 * 30.0F + var8 * 70.0F) / 100.0F;
+            var6 = var9;
+            var7 = var10;
+            var8 = var11;
+        }
+
+        return Minecraft.isAmbientOcclusionEnabled() ? renderFakeBlockWithAmbientOcclusion(stillIcon, flowingIcon, x, y, z, var6, var7, var8, renderer, world) : renderFakeBlockWithColorMultiplier(
+                stillIcon, flowingIcon, x, y, z, var6, var7, var8, renderer, world);
+    }
 
     static boolean renderFakeBlockWithAmbientOcclusion (Icon stillIcon, Icon flowingIcon, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render,
             IBlockAccess world)

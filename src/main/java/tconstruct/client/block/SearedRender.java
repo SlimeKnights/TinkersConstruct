@@ -194,7 +194,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                         renderer.setRenderBounds(minX, minHeight, minZ, maxX, minHeight + height, maxZ);
 
                         Fluid fluid = logic.liquid.getFluid();
-                        BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world);
+                        BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world, fluid.getColor());
                     }
                 }
             }
@@ -273,7 +273,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                     {
                         Fluid fluid = logic.liquid.getFluid();
                         renderer.setRenderBounds(xMin, yMin, zMin, xMax, 0.625, zMax);
-                        BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world);
+                        BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world, fluid.getColor());
 
                         //float xMin = 0.375F, zMin = 0.375F, xMax = 0.625F, zMax = 0.625F;
                         switch (logic.getRenderDirection())
@@ -296,7 +296,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                             break;
                         }
                         renderer.setRenderBounds(xMin, 0.5F, zMin, xMax, 0.625F, zMax);
-                        BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world);
+                        BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world, fluid.getColor());
                     }
                 }
             }
@@ -399,7 +399,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                         renderer.setRenderBounds(minX, minHeight, minZ, maxX, minHeight + height, maxZ);
 
                         Fluid fluid = logic.liquid.getFluid();
-                        BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world);
+                        BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world, fluid.getColor());
                     }
                 }
             }

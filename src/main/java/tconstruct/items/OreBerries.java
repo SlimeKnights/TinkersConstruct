@@ -7,6 +7,8 @@ import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraft.util.Icon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -31,11 +33,11 @@ public class OreBerries extends CraftingItem
     @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
-            EntityXPOrb entity = new EntityXPOrb(world, player.posX, player.posY + 1, player.posZ, itemRand.nextInt(14) + 6);
-            spawnEntity(player.posX, player.posY + 1, player.posZ, entity, world, player);
-            if (!player.capabilities.isCreativeMode)
-                stack.stackSize--;
-        
+        EntityXPOrb entity = new EntityXPOrb(world, player.posX, player.posY + 1, player.posZ, itemRand.nextInt(14) + 6);
+        spawnEntity(player.posX, player.posY + 1, player.posZ, entity, world, player);
+        if (!player.capabilities.isCreativeMode)
+            stack.stackSize--;
+
         return stack;
     }
 
@@ -47,4 +49,9 @@ public class OreBerries extends CraftingItem
         }
     }
 
+    @SideOnly(Side.CLIENT)
+    public Icon getIconFromDamage (int meta)
+    {
+        return icons[0];
+    }
 }

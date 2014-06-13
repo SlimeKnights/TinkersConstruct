@@ -87,7 +87,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                         if (fluid.canBePlacedInWorld())
                             BlockSkinRenderHelper.renderMetadataBlock(Block.blocksList[fluid.getBlockID()], 0, posX + i % 3, posY + yBase, posZ + i / 3, renderer, world);
                         else
-                            BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), posX + i % 3, posY + yBase, posZ + i / 3, renderer, world);
+                            BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), posX + i % 3, posY + yBase, posZ + i / 3, renderer, world, fluid.getColor());
                     }
                     /*if (liquid.itemID < 4096) //Block
                     {
