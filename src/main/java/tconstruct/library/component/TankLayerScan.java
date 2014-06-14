@@ -1,11 +1,20 @@
 package tconstruct.library.component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+
 import net.minecraft.block.Block;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagIntArray;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import tconstruct.TConstruct;
-import tconstruct.library.util.*;
+import tconstruct.library.util.CoordTuple;
+import tconstruct.library.util.CoordTupleSort;
+import tconstruct.library.util.IFacingLogic;
+import tconstruct.library.util.IMasterLogic;
+import tconstruct.library.util.IServantLogic;
 
 public class TankLayerScan extends LogicComponent
 {
@@ -43,8 +52,8 @@ public class TankLayerScan extends LogicComponent
         validAirCoords.add(new int[] { 0, -1 });
         if (debug)
         {
-            TConstruct.logger.info("In debug mode: " + this);
-            TConstruct.logger.info("Using recursion size " + MAX_LAYER_RECURSION_DEPTH + " on JVM arch " + System.getProperty("os.arch"));
+            System.out.println("In debug mode: " + this);
+            System.out.println("Using recursion size " + MAX_LAYER_RECURSION_DEPTH + " on JVM arch " + System.getProperty("os.arch"));
         }
     }
 
@@ -105,7 +114,7 @@ public class TankLayerScan extends LogicComponent
                 break;
             }
             if (!world.isRemote && debug)
-                TConstruct.logger.info("Bricks in recursion: " + blockCoords.size());
+                System.out.println("Bricks in recursion: " + blockCoords.size());
             blockCoords.clear();
             bricks = 0;
 
@@ -113,8 +122,8 @@ public class TankLayerScan extends LogicComponent
             boolean sealed = floodTest(master.xCoord + xPos, master.yCoord, master.zCoord + zPos);
             if (!world.isRemote && debug)
             {
-                TConstruct.logger.info("Air in ring: " + airBlocks);
-                TConstruct.logger.info("Bricks in ring: " + bricks);
+                System.out.println("Air in ring: " + airBlocks);
+                System.out.println("Bricks in ring: " + bricks);
             }
 
             if (sealed)
@@ -132,8 +141,8 @@ public class TankLayerScan extends LogicComponent
 
                     if (!world.isRemote && debug)
                     {
-                        TConstruct.logger.info("Air in structure: " + airCoords.size());
-                        TConstruct.logger.info("Bricks in structure: " + blockCoords.size());
+                        System.out.println("Air in structure: " + airCoords.size());
+                        System.out.println("Bricks in structure: " + blockCoords.size());
                     }
                 }
             }

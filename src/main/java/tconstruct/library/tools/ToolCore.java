@@ -23,7 +23,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import tconstruct.entity.FancyEntityItem;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
@@ -834,7 +833,7 @@ public abstract class ToolCore extends Item implements IModifyable, IEnergyConta
 
     public Entity createEntity (World world, Entity location, ItemStack itemstack)
     {
-        return new FancyEntityItem(world, location, itemstack);
+        return new ToolEntityItem(world, location, itemstack);
     }
 
     /* IC2 Support

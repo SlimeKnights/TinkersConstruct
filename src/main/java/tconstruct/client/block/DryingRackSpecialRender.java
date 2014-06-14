@@ -10,7 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 import org.lwjgl.opengl.GL11;
 
 import tconstruct.blocks.logic.DryingRackLogic;
-import tconstruct.entity.FancyEntityItem;
+import tconstruct.library.tools.ToolEntityItem;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -48,7 +48,7 @@ public class DryingRackSpecialRender extends TileEntitySpecialRenderer
 
     void renderItem (DryingRackLogic logic, ItemStack stack)
     {
-        FancyEntityItem entityitem = new FancyEntityItem(logic.worldObj, 0.0D, 0.0D, 0.0D, stack);
+        ToolEntityItem entityitem = new ToolEntityItem(logic.worldObj, 0.0D, 0.0D, 0.0D, stack);
         entityitem.getEntityItem().stackSize = 1;
         entityitem.hoverStart = 0.0F;
         GL11.glPushMatrix();

@@ -45,6 +45,7 @@ import tconstruct.items.tools.*;
 import tconstruct.library.*;
 import tconstruct.library.client.*;
 import tconstruct.library.crafting.*;
+import tconstruct.library.tools.ToolEntityItem;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.IPattern;
 import tconstruct.library.util.TE3Helper;
@@ -341,7 +342,7 @@ public class TContent implements IFuelHandler
 
     public void createEntities ()
     {
-        EntityRegistry.registerModEntity(FancyEntityItem.class, "Fancy Item", 0, TConstruct.instance, 32, 5, true);
+        EntityRegistry.registerModEntity(ToolEntityItem.class, "Fancy Item", 0, TConstruct.instance, 32, 5, true);
         EntityRegistry.registerModEntity(DaggerEntity.class, "Dagger", 1, TConstruct.instance, 32, 5, true);
         //EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 3, true);
         EntityRegistry.registerModEntity(LaunchedPotion.class, "Launched Potion", 3, TConstruct.instance, 32, 3, true);
@@ -2774,16 +2775,16 @@ public class TContent implements IFuelHandler
         ores = OreDictionary.getOres("compressedCobblestone1x");
         if (ores.size() > 0)
         {
-            Smeltery.addDictionaryMelting("compressedCobblestone1x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 2, 1);
-            Smeltery.addDictionaryMelting("compressedCobblestone2x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 2 * 9, 1);
-            Smeltery.addDictionaryMelting("compressedCobblestone3x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 2 * 81, 1);
+            this.addDictionaryMelting("compressedCobblestone1x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 2, 1);
+            this.addDictionaryMelting("compressedCobblestone2x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 2 * 9, 1);
+            this.addDictionaryMelting("compressedCobblestone3x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 2 * 81, 1);
         }
 
         /*for (int i = 1; i <= 8; i++)
         {
             Smeltery.addDictionaryMelting("compressedCobblestone" + i + "x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 18 * (9 ^ i));
         }*/
-        Smeltery.addDictionaryMelting("compressedSand1x", FluidType.Glass, 175, FluidContainerRegistry.BUCKET_VOLUME * 9, 1);
+        this.addDictionaryMelting("compressedSand1x", FluidType.Glass, 175, FluidContainerRegistry.BUCKET_VOLUME * 9, 1);
 
         /* Rubber */
         ores = OreDictionary.getOres("itemRubber");
@@ -2810,6 +2811,31 @@ public class TContent implements IFuelHandler
             return null;
         }
     }
+    
+    /**
+     * Adds all Items to the Smeltery based on the oreDictionary Name
+     * 
+     * @author samtrion
+     * 
+     * @param oreName oreDictionary name e.g. oreIron
+     * @param type Type of Fluid
+     * @param temperatureDifference Difference between FluidType BaseTemperature
+     * @param fluidAmount Amount of Fluid
+     */
+    public static void addDictionaryMelting (String oreName, FluidType type, int temperatureDifference, int fluidAmount)
+    {
+        addDictionaryMelting(oreName, type, temperatureDifference, fluidAmount, 1);
+    }
+    
+    public static void addDictionaryMelting (String oreName, FluidType type, int temperatureDifference, int fluidAmount, int renderSize)
+    {
+        for (ItemStack is : OreDictionary.getOres(oreName))
+        {
+            ItemStack copy = is.copy();
+            copy.stackSize = renderSize;
+            Smeltery.addMelting(type, copy, temperatureDifference, fluidAmount);
+        }
+    }
 
     @Override
     public int getBurnTime (ItemStack fuel)
@@ -2828,24 +2854,24 @@ public class TContent implements IFuelHandler
                 continue;
 
             // Nuggets
-            Smeltery.addDictionaryMelting("nugget" + ft.toString(), ft, -200, TConstruct.nuggetLiquidValue, 8);
+            this.addDictionaryMelting("nugget" + ft.toString(), ft, -200, TConstruct.nuggetLiquidValue, 8);
 
             // Ingots, Dust
             registerIngotCasting(ft);
-            Smeltery.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue, 4);
-            Smeltery.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue, 4);
+            this.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue, 4);
+            this.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue, 4);
 
             // Factorization support
-            Smeltery.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue, 4);
+            this.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue, 4);
 
             // Ores
-            Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre, 1);
+            this.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre, 1);
 
             // NetherOres support
-            Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 2, 1);
+            this.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 2, 1);
 
             // Blocks
-            Smeltery.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue, 1);
+            this.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue, 1);
 
             if (ft.isToolpart)
             {
@@ -2857,24 +2883,24 @@ public class TContent implements IFuelHandler
         //Obsidian, different dust amount
         {
             FluidType ft = FluidType.Obsidian;
-            Smeltery.addDictionaryMelting("nugget" + ft.toString(), ft, -100, TConstruct.nuggetLiquidValue, 8);
+            this.addDictionaryMelting("nugget" + ft.toString(), ft, -100, TConstruct.nuggetLiquidValue, 8);
 
             // Ingots, Dust
             registerIngotCasting(ft);
-            Smeltery.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue, 4);
-            Smeltery.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue / 4, 4);
+            this.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue, 4);
+            this.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue / 4, 4);
 
             // Factorization support
-            Smeltery.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue, 4);
+            this.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue, 4);
 
             // Ores
-            Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre, 1);
+            this.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre, 1);
 
             // NetherOres support
-            Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 2, 1);
+            this.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 2, 1);
 
             // Blocks
-            Smeltery.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue, 1);
+            this.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue, 1);
 
             if (ft.isToolpart)
             {

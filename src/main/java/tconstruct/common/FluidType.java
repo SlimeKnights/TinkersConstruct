@@ -1,8 +1,7 @@
-package tconstruct.library.crafting;
+package tconstruct.common;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.fluids.*;
-import tconstruct.common.TContent;
 
 public enum FluidType
 {
