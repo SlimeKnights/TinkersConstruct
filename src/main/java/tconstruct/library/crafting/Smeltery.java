@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import tconstruct.common.FluidType;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -194,5 +192,30 @@ public class Smeltery
             addMelting(input, input.itemID, input.getItemDamage(), type.baseTemperature + temperatureDifference, new FluidStack(type.fluid, fluidAmount));
         else
             addMelting(input, type.renderBlockID, type.renderMeta, type.baseTemperature + temperatureDifference, new FluidStack(type.fluid, fluidAmount));
+    }
+
+    /**
+     * Adds all Items to the Smeltery based on the oreDictionary Name
+     * 
+     * @author samtrion
+     * 
+     * @param oreName oreDictionary name e.g. oreIron
+     * @param type Type of Fluid
+     * @param temperatureDifference Difference between FluidType BaseTemperature
+     * @param fluidAmount Amount of Fluid
+     */
+    public static void addDictionaryMelting (String oreName, FluidType type, int temperatureDifference, int fluidAmount)
+    {
+        addDictionaryMelting(oreName, type, temperatureDifference, fluidAmount, 1);
+    }
+    
+    public static void addDictionaryMelting (String oreName, FluidType type, int temperatureDifference, int fluidAmount, int renderSize)
+    {
+        for (ItemStack is : OreDictionary.getOres(oreName))
+        {
+            ItemStack copy = is.copy();
+            copy.stackSize = renderSize;
+            addMelting(type, copy, temperatureDifference, fluidAmount);
+        }
     }
 }
