@@ -183,4 +183,10 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
         readFromNBT(packet.data);
         worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
+
+    public int comparatorStrength ()
+    {
+        SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+        return 15 * smeltery.currentLiquid / smeltery.maxLiquid;
+    }
 }

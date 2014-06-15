@@ -487,9 +487,12 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(castingChannel, CastingChannelItem.class, "CastingChannel");
         GameRegistry.registerTileEntity(CastingChannelLogic.class, "CastingChannel");
 
-        tankAir = new TankAirBlock(PHConstruct.airTank, Material.leaves).setBlockUnbreakable().setUnlocalizedName("tconstruct.tank.air");
-        GameRegistry.registerBlock(tankAir, "TankAir");
-        GameRegistry.registerTileEntity(TankAirLogic.class, "tconstruct.tank.air");
+        if (PHConstruct.newSmeltery)
+        {
+            tankAir = new TankAirBlock(PHConstruct.airTank, Material.leaves).setBlockUnbreakable().setUnlocalizedName("tconstruct.tank.air");
+            GameRegistry.registerBlock(tankAir, "TankAir");
+            GameRegistry.registerTileEntity(TankAirLogic.class, "tconstruct.tank.air");
+        }
 
         //Traps
         landmine = new BlockLandmine(PHConstruct.landmine).setHardness(0.5F).setResistance(0F).setStepSound(Block.soundMetalFootstep).setCreativeTab(CreativeTabs.tabRedstone)
@@ -2866,14 +2869,14 @@ public class TContent implements IFuelHandler
             FluidType ft = (FluidType) pairs.getValue();
             if (exceptions.contains(ft))
                 continue;
-            
+
             String fluidTypeName = (String) pairs.getKey();
 
             // Nuggets
             Smeltery.addDictionaryMelting("nugget" + fluidTypeName, ft, -200, TConstruct.nuggetLiquidValue, 8);
 
             // Ingots, Dust
-            registerIngotCasting(ft, "ingot"+fluidTypeName);
+            registerIngotCasting(ft, "ingot" + fluidTypeName);
             Smeltery.addDictionaryMelting("ingot" + fluidTypeName, ft, -50, TConstruct.ingotLiquidValue, 4);
             Smeltery.addDictionaryMelting("dust" + fluidTypeName, ft, -75, TConstruct.ingotLiquidValue, 4);
 
@@ -2903,7 +2906,7 @@ public class TContent implements IFuelHandler
             Smeltery.addDictionaryMelting("nugget" + fluidTypeName, ft, -100, TConstruct.nuggetLiquidValue, 8);
 
             // Ingots, Dust
-            registerIngotCasting(ft, "ingot"+fluidTypeName);
+            registerIngotCasting(ft, "ingot" + fluidTypeName);
             Smeltery.addDictionaryMelting("ingot" + fluidTypeName, ft, -50, TConstruct.ingotLiquidValue, 4);
             Smeltery.addDictionaryMelting("dust" + fluidTypeName, ft, -75, TConstruct.ingotLiquidValue / 4, 4);
 

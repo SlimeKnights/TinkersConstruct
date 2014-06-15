@@ -7,6 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
@@ -14,6 +15,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.AdaptiveSmelteryLogic;
+import tconstruct.blocks.logic.LavaTankLogic;
 import tconstruct.blocks.logic.MultiServantLogic;
 import tconstruct.blocks.logic.AdaptiveDrainLogic;
 import tconstruct.blocks.logic.SmelteryDrainLogic;
@@ -302,5 +304,32 @@ public class SmelteryBlock extends InventoryBlock
             ((IServantLogic) logic).notifyMasterOfChange();
         }
         super.breakBlock(world, x, y, z, blockID, meta);
+    }
+
+    //Comparator
+
+    public boolean hasComparatorInputOverride ()
+    {
+        return true;
+    }
+
+    public int getComparatorInputOverride (World world, int x, int y, int z, int comparatorSide)
+    {
+        int meta = world.getBlockMetadata(x, y, z);
+        if (meta == 0)
+        {
+            if (PHConstruct.newSmeltery)
+                return 0;
+            else
+                return Container.calcRedstoneFromInventory(((SmelteryLogic) world.getBlockTileEntity(x, y, z)));
+        }
+        if (meta == 1)
+        {
+            if (PHConstruct.newSmeltery)
+                return 0;
+            else
+                return ((SmelteryDrainLogic) world.getBlockTileEntity(x, y, z)).comparatorStrength();
+        }
+        return 0;
     }
 }

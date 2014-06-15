@@ -14,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -314,5 +315,22 @@ public class LavaTankBlock extends BlockContainer
                 logic.tank.setFluid(liquid);
             }
         }
+    }
+    
+    //Comparator
+    
+    public boolean hasComparatorInputOverride()
+    {
+        return true;
+    }
+
+    public int getComparatorInputOverride(World world, int x, int y, int z, int comparatorSide)
+    {
+        return getTankLogic(world, x, y, z).comparatorStrength();
+    }
+    
+    public static LavaTankLogic getTankLogic(IBlockAccess par0IBlockAccess, int par1, int par2, int par3)
+    {
+        return (LavaTankLogic)par0IBlockAccess.getBlockTileEntity(par1, par2, par3);
     }
 }
