@@ -2031,16 +2031,16 @@ public class TContent implements IFuelHandler
         tableCasting.addCastingRecipe(new ItemStack(goldHead), goldAmount, new ItemStack(Item.skull, 1, 3), true, 50);
 
         //Ensure TConstruct ingots pour from the Smeltery
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 9), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue), 50); //Copper
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 10), new FluidStack(moltenTinFluid, TConstruct.ingotLiquidValue), 50); //Tin
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 11), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue), 50); //Aluminum
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 3), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue), 50); //Cobalt
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 4), new FluidStack(moltenArditeFluid, TConstruct.ingotLiquidValue), 50); //Ardite
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 5), new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue), 50); //Manyullyn
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 13), new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue), 50); //Bronze
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 14), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue), 50); //Alubrass
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 15), new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue), 50); //Alumite
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 16), new FluidStack(moltenSteelFluid, TConstruct.ingotLiquidValue), 50); //Steel
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 9), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue), ingotcast, 50); //Copper
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 10), new FluidStack(moltenTinFluid, TConstruct.ingotLiquidValue), ingotcast, 50); //Tin
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 11), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue), ingotcast, 50); //Aluminum
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 3), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue), ingotcast, 50); //Cobalt
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 4), new FluidStack(moltenArditeFluid, TConstruct.ingotLiquidValue), ingotcast, 50); //Ardite
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 5), new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue), ingotcast, 50); //Manyullyn
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 13), new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue), ingotcast, 50); //Bronze
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 14), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue), ingotcast, 50); //Alubrass
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 15), new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue), ingotcast, 50); //Alumite
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 16), new FluidStack(moltenSteelFluid, TConstruct.ingotLiquidValue), ingotcast, 50); //Steel
     }
 
     private void addRecipesForBasinCasting ()
@@ -2873,7 +2873,7 @@ public class TContent implements IFuelHandler
             Smeltery.addDictionaryMelting("nugget" + fluidTypeName, ft, -200, TConstruct.nuggetLiquidValue, 8);
 
             // Ingots, Dust
-            registerIngotCasting(ft);
+            registerIngotCasting(ft, "ingot"+fluidTypeName);
             Smeltery.addDictionaryMelting("ingot" + fluidTypeName, ft, -50, TConstruct.ingotLiquidValue, 4);
             Smeltery.addDictionaryMelting("dust" + fluidTypeName, ft, -75, TConstruct.ingotLiquidValue, 4);
 
@@ -2903,7 +2903,7 @@ public class TContent implements IFuelHandler
             Smeltery.addDictionaryMelting("nugget" + fluidTypeName, ft, -100, TConstruct.nuggetLiquidValue, 8);
 
             // Ingots, Dust
-            registerIngotCasting(ft);
+            registerIngotCasting(ft, "ingot"+fluidTypeName);
             Smeltery.addDictionaryMelting("ingot" + fluidTypeName, ft, -50, TConstruct.ingotLiquidValue, 4);
             Smeltery.addDictionaryMelting("dust" + fluidTypeName, ft, -75, TConstruct.ingotLiquidValue / 4, 4);
 
@@ -2940,11 +2940,11 @@ public class TContent implements IFuelHandler
         }
     }
 
-    private void registerIngotCasting (FluidType ft)
+    private void registerIngotCasting (FluidType ft, String name)
     {
         ItemStack pattern = new ItemStack(TContent.metalPattern, 1, 0);
         LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
-        for (ItemStack ore : OreDictionary.getOres("ingot" + ft.toString()))
+        for (ItemStack ore : OreDictionary.getOres(name))
         {
             tableCasting.addCastingRecipe(pattern, new FluidStack(TContent.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(ore.itemID, 1, ore.getItemDamage()), false, 50);
             tableCasting.addCastingRecipe(pattern, new FluidStack(TContent.moltenGoldFluid, TConstruct.oreLiquidValue), new ItemStack(ore.itemID, 1, ore.getItemDamage()), false, 50);

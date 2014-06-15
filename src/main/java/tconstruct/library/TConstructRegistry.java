@@ -92,7 +92,8 @@ public class TConstructRegistry
      * oreberryIron, oreberryGold, oreberryCopper, oreberryTin, oreberryTin, oreberrySilver, 
      * diamondApple, blueSlimeFood, canisterEmpty, miniRedHeart, canisterRedHeart
      * 
-     * Patterns - These have a suffix of Pattern or Cast. ex: hatchetHeadPattern
+     * Patterns - These have a suffix of Pattern (wood) or Cast (metal). ex: hatchetHeadPattern
+     * Not all types have both a pattern and cast. Double-check to see if it does.
      * ingot, toolRod, pickaxeHead, shovelHead, hatchetHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead, 
      * knifeBlade, chiselHead, toughRod, toughBinding, largePlate, broadAxeHead, scytheHead, excavatorHead, largeBlade, hammerHead, fullGuard, bowstring
      */

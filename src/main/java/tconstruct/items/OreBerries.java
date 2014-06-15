@@ -21,6 +21,7 @@ public class OreBerries extends CraftingItem
     public OreBerries(int id)
     {
         super(id, names, tex, "oreberries/");
+        this.setHasSubtypes(false);
     }
 
     @Override
@@ -53,5 +54,10 @@ public class OreBerries extends CraftingItem
     public Icon getIconFromDamage (int meta)
     {
         return icons[0];
+    }
+    
+    public String getUnlocalizedName (ItemStack stack)
+    {
+        return getUnlocalizedName() + "." + unlocalizedNames[0];
     }
 }

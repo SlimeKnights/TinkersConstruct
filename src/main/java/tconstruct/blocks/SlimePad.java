@@ -23,7 +23,7 @@ public class SlimePad extends Block
     public SlimePad(int par1, Material par2Material)
     {
         super(par1, par2Material);
-        setBlockBounds(0.125F, 0.0F, 0.125F, 0.875F, 0.625F, 0.875F);
+        setBlockBounds(0.125F, 0.0625F, 0.125F, 0.875F, 0.625F, 0.875F);
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
