@@ -811,4 +811,4 @@ materialtraits.thaumic=Thaumic
 
 creativeModLock.tooltip=Target Lock: 
 
-attribute.generic.ammo.attackDamage=Average Shot Damage
+attribute.name.ammo.attackDamage=Average Shot Damage
