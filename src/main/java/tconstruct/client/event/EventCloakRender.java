@@ -62,9 +62,9 @@ public class EventCloakRender
 
                 capePlayers.add(abstractClientPlayer);
 
-                abstractClientPlayer.getTextureCape().textureUploaded = false;
-                new Thread(new CloakThread(abstractClientPlayer, cloakURL)).start();
-                event.renderCape = true;
+                //abstractClientPlayer.getTextureCape().textureUploaded = false;
+                //new Thread(new CloakThread(abstractClientPlayer, cloakURL)).start();
+                //event.renderCape = true;
             }
         }
     }
@@ -132,9 +132,9 @@ public class EventCloakRender
             try
             {
                 Image cape = new ImageIcon(new URL(cloakURL)).getImage();
-                BufferedImage bo = new BufferedImage(cape.getWidth(null), cape.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-                bo.getGraphics().drawImage(cape, 0, 0, null);
-                abstractClientPlayer.getTextureCape().setBufferedImage(bo);
+                //BufferedImage bo = new BufferedImage(cape.getWidth(null), cape.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+                //bo.getGraphics().drawImage(cape, 0, 0, null);
+                //abstractClientPlayer.getTextureCape().setBufferedImage(bo);
             }
             catch (MalformedURLException e)
             {

@@ -182,7 +182,7 @@ public class TConstruct
         packetPipeline.initalise();
         if (event.getSide() == Side.CLIENT)
         {
-            MinecraftForge.EVENT_BUS.register(new EventCloakRender());
+            //MinecraftForge.EVENT_BUS.register(new EventCloakRender());
         }
 
         DimensionBlacklist.getBadBimensions();

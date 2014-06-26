@@ -632,7 +632,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
                 par3 += 0.5D;
             }
 
-            return this.worldObj.getWorldVec3Pool().getVecFromPool(par1, par3, par5);
+            return Vec3.createVectorHelper(par1, par3, par5);
         }
         else
         {
@@ -767,9 +767,9 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
                     {
                         double var10 = par1Entity.posX - this.posX;
                         double var12 = par1Entity.posZ - this.posZ;
-                        Vec3 var14 = this.worldObj.getWorldVec3Pool().getVecFromPool(var10, 0.0D, var12).normalize();
-                        Vec3 var15 = this.worldObj.getWorldVec3Pool()
-                                .getVecFromPool((double) MathHelper.cos(this.rotationYaw * (float) Math.PI / 180.0F), 0.0D, (double) MathHelper.sin(this.rotationYaw * (float) Math.PI / 180.0F))
+                        Vec3 var14 = Vec3.createVectorHelper(var10, 0.0D, var12).normalize();
+                        Vec3 var15 = Vec3.createVectorHelper
+                                ((double) MathHelper.cos(this.rotationYaw * (float) Math.PI / 180.0F), 0.0D, (double) MathHelper.sin(this.rotationYaw * (float) Math.PI / 180.0F))
                                 .normalize();
                         double var16 = Math.abs(var14.dotProduct(var15));
 
