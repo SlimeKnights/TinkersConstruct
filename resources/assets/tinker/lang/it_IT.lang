@@ -257,6 +257,11 @@ item.tconstruct.Materials.SteelNugget.name=Pepita d'Acciaio
 item.tconstruct.Materials.PigIronIngot.name=Lingotto di Ferro Suino
 item.tconstruct.Materials.PigIronNugget.name=Piatto di Ferro Suino
 item.tconstruct.Materials.GlueBall.name=Palla di Colla
+item.tconstruct.Materials.ArditeDust.name=Polvere di Ardite
+item.tconstruct.Materials.CobaltDust.name=Polvere di Coblato
+item.tconstruct.Materials.AluminumDust.name=Polvere di Alluminio
+item.tconstruct.Materials.ManyullynDust.name=Polvere di Manyullyn
+item.tconstruct.Materials.AluBrassDust.name=Polvere di Ottone
 
 item.tconstruct.helmetWood.name=Elmo di Legno
 item.tconstruct.chestplateWood.name=Corazza di Legno
