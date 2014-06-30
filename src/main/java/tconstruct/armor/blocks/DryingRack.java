@@ -159,7 +159,7 @@ public class DryingRack extends InventoryBlock
             yMin = 0.75F;
             break;
         }
-        return AxisAlignedBB.getAABBPool().getAABB((double) x + xMin, (double) y + yMin, (double) z + zMin, (double) x + xMax, (double) y + yMax, (double) z + zMax);
+        return AxisAlignedBB.getBoundingBox((double) x + xMin, (double) y + yMin, (double) z + zMin, (double) x + xMax, (double) y + yMax, (double) z + zMax);
     }
 
     @Override
@@ -296,7 +296,7 @@ public class DryingRack extends InventoryBlock
     /*
      * @Override public AxisAlignedBB getCollisionBoundingBoxFromPool (World
      * world, int x, int y, int z) { int meta = world.getBlockMetadata(x, y, z);
-     * if (meta != 1) { return AxisAlignedBB.getAABBPool().getAABB(x, y, z, x +
+     * if (meta != 1) { return AxisAlignedBB.getBoundingBox(x, y, z, x +
      * 1, y + 1, z + 1); } else { FaucetLogic logic = (FaucetLogic)
      * world.getBlockTileEntity(x, y, z); if (logic != null) { float xMin =
      * 0.25F; float xMax = 0.75F; float zMin = 0.25F; float zMax = 0.75F;
@@ -305,7 +305,7 @@ public class DryingRack extends InventoryBlock
      * break; case 3: zMax = 0.375F; zMin = 0F; break; case 4: xMin = 0.625F;
      * xMax = 1.0F; break; case 5: xMax = 0.375F; xMin = 0F; break; }
      * 
-     * return AxisAlignedBB.getAABBPool().getAABB((double) ((float) x + xMin),
+     * return AxisAlignedBB.getBoundingBox((double) ((float) x + xMin),
      * (double) y + 0.25, (double) ((float) z + zMin), (double) ((float) x +
      * xMax), (double) y + 0.625, (double) ((float) z + zMax)); } }
      * 

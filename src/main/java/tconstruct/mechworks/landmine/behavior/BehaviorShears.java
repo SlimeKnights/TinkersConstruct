@@ -31,7 +31,7 @@ public class BehaviorShears extends Behavior
     {
         Random rand = ItemBlockLandmine.getRandom();
 
-        List<IShearable> sheeps = par1World.getEntitiesWithinAABB(IShearable.class, AxisAlignedBB.getAABBPool().getAABB(par2 - 2, par3 - 2, par4 - 2, par2 + 2, par3 + 2, par4 + 2));
+        List<IShearable> sheeps = par1World.getEntitiesWithinAABB(IShearable.class, AxisAlignedBB.getBoundingBox(par2 - 2, par3 - 2, par4 - 2, par2 + 2, par3 + 2, par4 + 2));
 
         if (sheeps != null && !sheeps.isEmpty())
         {

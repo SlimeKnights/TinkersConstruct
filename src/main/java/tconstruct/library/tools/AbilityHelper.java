@@ -300,7 +300,7 @@ public class AbilityHelper
             {
                 EntityWolf var3 = (EntityWolf) living;
 
-                if (var3.isTamed() && player.getDisplayName().equals(var3.getOwnerName()))
+                if (var3.isTamed() && player.getDisplayName().equals(var3.func_152113_b()))
                 {
                     return;
                 }
@@ -309,14 +309,14 @@ public class AbilityHelper
             if (!(living instanceof EntityPlayer) || player.canAttackPlayer((EntityPlayer) living))
             {
                 List var6 = player.worldObj.getEntitiesWithinAABB(EntityWolf.class,
-                        AxisAlignedBB.getAABBPool().getAABB(player.posX, player.posY, player.posZ, player.posX + 1.0D, player.posY + 1.0D, player.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D));
+                        AxisAlignedBB.getBoundingBox(player.posX, player.posY, player.posZ, player.posX + 1.0D, player.posY + 1.0D, player.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D));
                 Iterator var4 = var6.iterator();
 
                 while (var4.hasNext())
                 {
                     EntityWolf var5 = (EntityWolf) var4.next();
 
-                    if (var5.isTamed() && var5.getEntityToAttack() == null && player.getDisplayName().equals(var5.getOwnerName()) && (!par2 || !var5.isSitting()))
+                    if (var5.isTamed() && var5.getEntityToAttack() == null && player.getDisplayName().equals(var5.func_152113_b()) && (!par2 || !var5.isSitting()))
                     {
                         var5.setSitting(false);
                         var5.setTarget(living);
@@ -621,7 +621,7 @@ public class AbilityHelper
         if (!world.isRemote && player instanceof EntityPlayer)
             d1 += 1.62D;
         double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * (double) f;
-        Vec3 vec3 = world.getWorldVec3Pool().getVecFromPool(d0, d1, d2);
+        Vec3 vec3 = Vec3.createVectorHelper(d0, d1, d2);
         float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);
         float f4 = MathHelper.sin(-f2 * 0.017453292F - (float) Math.PI);
         float f5 = -MathHelper.cos(-f1 * 0.017453292F);

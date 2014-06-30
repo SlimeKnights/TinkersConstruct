@@ -122,7 +122,7 @@ public class DryingRackLogic extends InventoryLogic
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox ()
     {
-        AxisAlignedBB cbb = AxisAlignedBB.getAABBPool().getAABB(xCoord, yCoord - 1, zCoord, xCoord + 1, yCoord + 1, zCoord + 1);
+        AxisAlignedBB cbb = AxisAlignedBB.getBoundingBox(xCoord, yCoord - 1, zCoord, xCoord + 1, yCoord + 1, zCoord + 1);
         return cbb;
     }
 

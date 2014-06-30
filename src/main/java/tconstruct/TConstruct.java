@@ -66,18 +66,21 @@ public class TConstruct
 
     public static final int liquidUpdateAmount = 6;
 
+    // the entire mod
+    public static final String modID = "TConstruct";
+    
     // Shared mod logger
-    public static final Logger logger = LogManager.getLogger("TConstruct");
+    public static final Logger logger = LogManager.getLogger(modID);
 
     /* Instance of this mod, used for grabbing prototype fields */
-    @Instance("TConstruct")
+    @Instance(modID)
     public static TConstruct instance;
     /* Proxies for sides, used for graphics processing */
     @SidedProxy(clientSide = "tconstruct.client.TProxyClient", serverSide = "tconstruct.common.TProxyCommon")
     public static TProxyCommon proxy;
 
     // Module loader
-    public static final ModuleController moduleLoader = new ModuleController("TDynstruct.cfg", "TConstruct");
+    public static final ModuleController moduleLoader = new ModuleController("TDynstruct.cfg", modID);
 
     // The packet pipeline
     public static final PacketPipeline packetPipeline = new PacketPipeline();
@@ -159,7 +162,7 @@ public class TConstruct
         packetPipeline.initalise();
         if (event.getSide() == Side.CLIENT)
         {
-            MinecraftForge.EVENT_BUS.register(new EventCloakRender());
+            //MinecraftForge.EVENT_BUS.register(new EventCloakRender());
         }
 
         DimensionBlacklist.getBadBimensions();

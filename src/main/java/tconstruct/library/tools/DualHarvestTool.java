@@ -21,44 +21,6 @@ public abstract class DualHarvestTool extends HarvestTool
     }
 
     @Override
-    public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
-    {
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-        World world = player.worldObj;
-        int meta = world.getBlockMetadata(x, y, z);
-        Block block = player.worldObj.getBlock(x, y, z);
-        if (block == null || block == Blocks.air)
-            return false;
-        int hlvl = -1;
-        int shlvl = -1;
-        if (block.getHarvestTool(meta) == null || block.getHarvestTool(meta).equals(getHarvestType()))
-            hlvl = block.getHarvestLevel(meta);
-        if (block.getHarvestTool(meta) == null || block.getHarvestTool(meta).equals(getSecondHarvestType()))
-            shlvl = block.getHarvestLevel(meta);
-
-        if (hlvl <= tags.getInteger("HarvestLevel") && shlvl <= tags.getInteger("HarvestLevel2"))
-        {
-            boolean cancelHarvest = false;
-            for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
-            {
-                if (mod.beforeBlockBreak(this, stack, x, y, z, player))
-                    cancelHarvest = true;
-            }
-
-            return cancelHarvest;
-        }
-        else
-        {
-            if (!player.capabilities.isCreativeMode)
-                onBlockDestroyed(stack, world, block, x, y, z, player);
-            WorldHelper.setBlockToAir(world, x, y, z);
-            if (!world.isRemote)
-                world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
-            return true;
-        }
-    }
-
-    @Override
     public float getDigSpeed (ItemStack stack, Block block, int meta)
     {
 

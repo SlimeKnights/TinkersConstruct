@@ -316,7 +316,7 @@ public class SearedBlock extends InventoryBlock
         int meta = world.getBlockMetadata(x, y, z);
         if (meta != 1)
         {
-            return AxisAlignedBB.getAABBPool().getAABB(x, y, z, x + 1, y + 1, z + 1);
+            return AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1);
         }
         else
         {
@@ -348,7 +348,7 @@ public class SearedBlock extends InventoryBlock
                     break;
                 }
 
-                return AxisAlignedBB.getAABBPool().getAABB((double) ((float) x + xMin), (double) y + 0.25, (double) ((float) z + zMin), (double) ((float) x + xMax), (double) y + 0.625,
+                return AxisAlignedBB.getBoundingBox((double) ((float) x + xMin), (double) y + 0.25, (double) ((float) z + zMin), (double) ((float) x + xMax), (double) y + 0.625,
                         (double) ((float) z + zMax));
             }
         }

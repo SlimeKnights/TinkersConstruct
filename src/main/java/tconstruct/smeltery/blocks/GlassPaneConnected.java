@@ -338,11 +338,11 @@ public class GlassPaneConnected extends GlassBlockConnected
             }
             else if (isOpenUp && isOpenDown && isOpenLeft)
             {
-                return icons[13];
+                return icons[14];
             }
             else if (isOpenUp && isOpenDown && isOpenRight)
             {
-                return icons[14];
+                return icons[13];
             }
             else if (isOpenUp && isOpenLeft && isOpenRight)
             {
@@ -362,19 +362,19 @@ public class GlassPaneConnected extends GlassBlockConnected
             }
             else if (isOpenDown && isOpenLeft)
             {
-                return icons[9];
+                return icons[10];
             }
             else if (isOpenDown && isOpenRight)
             {
-                return icons[10];
+                return icons[9];
             }
             else if (isOpenUp && isOpenLeft)
             {
-                return icons[7];
+                return icons[8];
             }
             else if (isOpenUp && isOpenRight)
             {
-                return icons[8];
+                return icons[7];
             }
             else if (isOpenDown)
             {
@@ -386,11 +386,11 @@ public class GlassPaneConnected extends GlassBlockConnected
             }
             else if (isOpenLeft)
             {
-                return icons[4];
+                return icons[3];
             }
             else if (isOpenRight)
             {
-                return icons[3];
+                return icons[4];
             }
             break;
         case 4:
@@ -526,19 +526,19 @@ public class GlassPaneConnected extends GlassBlockConnected
             }
             else if (isOpenDown && isOpenLeft)
             {
-                return icons[10];
+                return icons[9];
             }
             else if (isOpenDown && isOpenRight)
             {
-                return icons[9];
+                return icons[10];
             }
             else if (isOpenUp && isOpenLeft)
             {
-                return icons[8];
+                return icons[7];
             }
             else if (isOpenUp && isOpenRight)
             {
-                return icons[7];
+                return icons[8];
             }
             else if (isOpenDown)
             {
@@ -550,11 +550,11 @@ public class GlassPaneConnected extends GlassBlockConnected
             }
             else if (isOpenLeft)
             {
-                return icons[3];
+                return icons[4];
             }
             else if (isOpenRight)
             {
-                return icons[4];
+                return icons[3];
             }
             break;
         }
@@ -690,11 +690,6 @@ public class GlassPaneConnected extends GlassBlockConnected
     @Override
     public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
-        // if(par5 == 0 || par5 == 1){
-        // return par1IBlockAccess.getBlock(par2, par3, par4) != this.blockID;
-        // }else{
-        // return true;
-        // }
         return true;
     }
 }
