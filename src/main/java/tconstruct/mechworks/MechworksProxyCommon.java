@@ -1,16 +1,25 @@
 package tconstruct.mechworks;
 
-import tconstruct.mechworks.inventory.ContainerLandmine;
-import tconstruct.mechworks.logic.TileEntityLandmine;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import tconstruct.common.TProxyCommon;
+import tconstruct.mechworks.inventory.ContainerLandmine;
+import tconstruct.mechworks.logic.TileEntityLandmine;
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class MechworksProxyCommon implements IGuiHandler
 {
-
+    public MechworksProxyCommon()
+    {
+        registerGuiHandler();
+    }
     // public static int drawbridgeID = 9; // Moved to TMechworks
     public static final int landmineID = 10;
+    
+    protected void registerGuiHandler()
+    {
+        TProxyCommon.registerServerGuiHandler(landmineID, this);
+    }
 
     @Override
     public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)

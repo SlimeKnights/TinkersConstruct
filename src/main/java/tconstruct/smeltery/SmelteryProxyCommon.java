@@ -1,14 +1,26 @@
 package tconstruct.smeltery;
 
+import tconstruct.common.TProxyCommon;
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class SmelteryProxyCommon implements IGuiHandler
 {
     public static final int smelteryGuiID = 7;
+    
+    public SmelteryProxyCommon()
+    {
+        registerGuiHandler();
+    }
+    
+    protected void registerGuiHandler()
+    {
+        TProxyCommon.registerServerGuiHandler(smelteryGuiID, this);
+    }
 
     @Override
     public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)

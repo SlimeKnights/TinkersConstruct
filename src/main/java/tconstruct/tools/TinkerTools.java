@@ -3,6 +3,9 @@ package tconstruct.tools;
 import java.util.EnumSet;
 
 import mantle.items.abstracts.CraftingItem;
+import mantle.pulsar.pulse.IPulse;
+import mantle.pulsar.pulse.Pulse;
+import mantle.pulsar.pulse.PulseProxy;
 import mantle.utils.RecipeRemover;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -11,6 +14,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
@@ -103,21 +107,24 @@ import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.blocks.SoilBlock;
 import tconstruct.world.itemblocks.CraftedSoilItemBlock;
+import tconstruct.world.items.GoldenHead;
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
-@Mod(modid = "TinkerTools", name = "TinkerTools", version = "${tinkertoolversion}")
-public class TinkerTools
+@ObjectHolder(TConstruct.modID)
+@Pulse(id = TConstruct.modID)
+public class TinkerTools implements IPulse //TODO: Remove IPulse implementation, keep annotation
 {
     /* Proxies for sides, used for graphics processing */
-    @SidedProxy(clientSide = "tconstruct.tools.ToolProxyClient", serverSide = "tconstruct.tools.ToolProxyCommon")
+    @PulseProxy(client = "tconstruct.tools.ToolProxyClient", server = "tconstruct.tools.ToolProxyCommon")
     public static ToolProxyCommon proxy;
 
     @Instance("TinkerTools")
@@ -356,6 +363,7 @@ public class TinkerTools
                                                                          // compat
             TConstructRegistry.addItemToDirectory(toolPartStrings[i], toolParts[i]);
         }
+        goldHead = new GoldenHead(4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).setUnlocalizedName("goldenhead");
         GameRegistry.registerItem(TinkerTools.goldHead, "goldHead");
 
         TinkerTools.creativeModifier = new CreativeModifier().setUnlocalizedName("tconstruct.modifier.creative");

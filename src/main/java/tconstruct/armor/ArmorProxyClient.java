@@ -47,6 +47,7 @@ import tconstruct.client.tabs.InventoryTabArmorExtended;
 import tconstruct.client.tabs.InventoryTabKnapsack;
 import tconstruct.client.tabs.InventoryTabVanilla;
 import tconstruct.client.tabs.TabRegistry;
+import tconstruct.common.TProxyCommon;
 import tconstruct.mechworks.MechworksProxyCommon;
 import tconstruct.mechworks.inventory.ContainerLandmine;
 import tconstruct.mechworks.logic.TileEntityLandmine;
@@ -68,7 +69,17 @@ public class ArmorProxyClient extends ArmorProxyCommon
 {
     public ArmorProxyClient()
     {
+        registerGuiHandler();
         MinecraftForge.EVENT_BUS.register(this);
+    }
+    
+    @Override
+    protected void registerGuiHandler()
+    {
+        super.registerGuiHandler();
+        TProxyCommon.registerClientGuiHandler(inventoryGui, this);
+        TProxyCommon.registerClientGuiHandler(armorGuiID, this);
+        TProxyCommon.registerClientGuiHandler(knapsackGuiID, this);
     }
     
     @Override

@@ -23,6 +23,7 @@ import tconstruct.client.gui.StencilTableGui;
 import tconstruct.client.gui.ToolForgeGui;
 import tconstruct.client.gui.ToolStationGui;
 import tconstruct.client.tabs.TabRegistry;
+import tconstruct.common.TProxyCommon;
 import tconstruct.mechworks.MechworksProxyCommon;
 import tconstruct.mechworks.inventory.ContainerLandmine;
 import tconstruct.mechworks.logic.TileEntityLandmine;
@@ -49,6 +50,21 @@ public class ToolProxyClient extends ToolProxyCommon
     public ToolProxyClient()
     {
         MinecraftForge.EVENT_BUS.register(this);
+        registerGuiHandler();
+    }
+    
+    @Override
+    protected void registerGuiHandler()
+    {
+        super.registerGuiHandler();
+        TProxyCommon.registerClientGuiHandler(toolStationID, this);
+        TProxyCommon.registerClientGuiHandler(partBuilderID, this);
+        TProxyCommon.registerClientGuiHandler(patternChestID, this);
+        TProxyCommon.registerClientGuiHandler(stencilTableID, this);
+        TProxyCommon.registerClientGuiHandler(frypanGuiID, this);
+        TProxyCommon.registerClientGuiHandler(toolForgeID, this);
+        TProxyCommon.registerClientGuiHandler(furnaceID, this);
+        TProxyCommon.registerClientGuiHandler(craftingStationID, this);
     }
 
     @Override

@@ -1,26 +1,49 @@
 package tconstruct.common;
 
-import cpw.mods.fml.common.network.IGuiHandler;
-import mantle.blocks.abstracts.InventoryLogic;
+import java.util.HashMap;
+
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import tconstruct.TConstruct;
-import tconstruct.armor.ArmorProxyCommon;
-import tconstruct.armor.inventory.ArmorExtendedContainer;
-import tconstruct.armor.inventory.KnapsackContainer;
-import tconstruct.mechworks.MechworksProxyCommon;
-import tconstruct.mechworks.inventory.ContainerLandmine;
-import tconstruct.mechworks.logic.TileEntityLandmine;
-import tconstruct.util.player.TPlayerStats;
+import cpw.mods.fml.common.network.IGuiHandler;
 
-/**
- * Common proxy class for InfiTools
- */
-
-public class TProxyCommon
+public class TProxyCommon implements IGuiHandler
 {
+    public void initialize()
+    {
+        
+    }
     public void spawnParticle (String slimeParticle, double xPos, double yPos, double zPos, double velX, double velY, double velZ)
     {
+    }
+    
+    @Override
+    public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
+    {
+        IGuiHandler handler = serverGuiHandlers.get(ID);
+        if (handler != null)
+            return handler.getServerGuiElement(ID, player, world, x, y, z);
+        return null;
+    }
+    
+    @Override
+    public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
+    {
+        IGuiHandler handler = clientGuiHandlers.get(ID);
+        if (handler != null)
+            return handler.getClientGuiElement(ID, player, world, x, y, z);
+        return null;
+    }
+
+    private static HashMap<Integer, IGuiHandler> serverGuiHandlers = new HashMap<Integer, IGuiHandler>();
+    private static HashMap<Integer, IGuiHandler> clientGuiHandlers = new HashMap<Integer, IGuiHandler>();
+    
+    public static void registerServerGuiHandler(int gui, IGuiHandler handler)
+    {
+        serverGuiHandlers.put(gui, handler);
+    }
+    
+    public static void registerClientGuiHandler(int gui, IGuiHandler handler)
+    {
+        clientGuiHandlers.put(gui, handler);
     }
 }

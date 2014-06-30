@@ -6,6 +6,9 @@ import java.util.List;
 
 import mantle.blocks.BlockUtils;
 import mantle.blocks.abstracts.MultiServantLogic;
+import mantle.pulsar.pulse.IPulse;
+import mantle.pulsar.pulse.Pulse;
+import mantle.pulsar.pulse.PulseProxy;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -31,6 +34,7 @@ import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.library.util.IPattern;
 import tconstruct.smeltery.blocks.BloodBlock;
+import tconstruct.smeltery.blocks.CastingChannelBlock;
 import tconstruct.smeltery.blocks.GlassBlockConnected;
 import tconstruct.smeltery.blocks.GlassBlockConnectedMeta;
 import tconstruct.smeltery.blocks.GlassPaneConnected;
@@ -49,7 +53,6 @@ import tconstruct.smeltery.itemblocks.CastingChannelItem;
 import tconstruct.smeltery.itemblocks.GlassBlockItem;
 import tconstruct.smeltery.itemblocks.GlassPaneItem;
 import tconstruct.smeltery.itemblocks.LavaTankItemBlock;
-import tconstruct.smeltery.itemblocks.MetalItemBlock;
 import tconstruct.smeltery.itemblocks.SearedSlabItem;
 import tconstruct.smeltery.itemblocks.SearedTableItemBlock;
 import tconstruct.smeltery.itemblocks.SmelteryItemBlock;
@@ -72,23 +75,23 @@ import tconstruct.smeltery.logic.TankAirLogic;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
-import tconstruct.world.blocks.CastingChannelBlock;
-import tconstruct.world.blocks.TMetalBlock;
-import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
-@Mod(modid = "TinkerSmeltery", name = "TinkerSmeltery", version = "${tinkersmelteryversion}")
-public class TinkerSmeltery
+@ObjectHolder(TConstruct.modID)
+@Pulse(id = TConstruct.modID)
+public class TinkerSmeltery implements IPulse //TODO: Remove IPulse implementation, keep annotation
 {
     @Instance("TinkerSmeltery")
     public static TinkerSmeltery instance;
-    @SidedProxy(clientSide = "tconstruct.smeltery.SmelteryProxyClient", serverSide = "tconstruct.smeltery.SmelteryProxyCommon")
+    @PulseProxy(client = "tconstruct.smeltery.SmelteryProxyClient", server = "tconstruct.smeltery.SmelteryProxyCommon")
     public static SmelteryProxyCommon proxy;
 
     public static Item metalPattern;
@@ -98,7 +101,6 @@ public class TinkerSmeltery
     public static Block lavaTank;
     public static Block searedBlock;
     public static Block castingChannel;
-    public static Block metalBlock;
     public static Block tankAir;
     public static Block smelteryNether;
     public static Block lavaTankNether;
@@ -166,15 +168,15 @@ public class TinkerSmeltery
     // Glue
     public static Fluid glueFluid;
     public static Block glueFluidBlock;
-    public static Fluid[] fluids = new Fluid[27];
-    public static Block[] fluidBlocks = new Block[26];
+    public static Fluid[] fluids = new Fluid[26];
+    public static Block[] fluidBlocks = new Block[25];
     public static FluidStack[] liquids;
     public static Block speedSlab;
     // InfiBlocks
     public static Block speedBlock;
     public static Fluid bloodFluid;
     public static Block blood;
-    
+
     public TinkerSmeltery()
     {
         MinecraftForge.EVENT_BUS.register(new TinkerSmelteryEvents());
@@ -184,15 +186,14 @@ public class TinkerSmeltery
     public void preInit (FMLPreInitializationEvent event)
     {
 
+        TinkerSmeltery.buckets = new FilledBucket(BlockUtils.getBlockFromItem(TinkerSmeltery.buckets));
+        GameRegistry.registerItem(TinkerSmeltery.buckets, "buckets");
 
         TinkerSmeltery.searedSlab = new SearedSlab().setBlockName("SearedSlab");
         TinkerSmeltery.searedSlab.stepSound = Block.soundTypeStone;
 
         TinkerSmeltery.speedSlab = new SpeedSlab().setBlockName("SpeedSlab");
         TinkerSmeltery.speedSlab.stepSound = Block.soundTypeStone;
-
-        TinkerSmeltery.metalBlock = new TMetalBlock(Material.iron, 10.0F).setBlockName("tconstruct.metalblock");
-        TinkerSmeltery.metalBlock.stepSound = Block.soundTypeMetal;
 
         TinkerSmeltery.glueBlock = new GlueBlock().setBlockName("GlueBlock").setCreativeTab(TConstructRegistry.blockTab);
 
@@ -219,7 +220,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenIron = new TConstructFluid(TinkerSmeltery.moltenIronFluid, Material.lava, "liquid_iron").setBlockName("fluid.molten.iron");
         GameRegistry.registerBlock(TinkerSmeltery.moltenIron, "fluid.molten.iron");
         TinkerSmeltery.moltenIronFluid.setBlock(TinkerSmeltery.moltenIron).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenIronFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 0), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenIronFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 0), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenGoldFluid = new Fluid("gold.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenGoldFluid))
@@ -227,7 +229,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenGold = new TConstructFluid(TinkerSmeltery.moltenGoldFluid, Material.lava, "liquid_gold").setBlockName("fluid.molten.gold");
         GameRegistry.registerBlock(TinkerSmeltery.moltenGold, "fluid.molten.gold");
         TinkerSmeltery.moltenGoldFluid.setBlock(TinkerSmeltery.moltenGold).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenGoldFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 1), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenGoldFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 1), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenCopperFluid = new Fluid("copper.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenCopperFluid))
@@ -235,7 +238,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenCopper = new TConstructFluid(TinkerSmeltery.moltenCopperFluid, Material.lava, "liquid_copper").setBlockName("fluid.molten.copper");
         GameRegistry.registerBlock(TinkerSmeltery.moltenCopper, "fluid.molten.copper");
         TinkerSmeltery.moltenCopperFluid.setBlock(TinkerSmeltery.moltenCopper).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenCopperFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 2), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenCopperFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 2), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenTinFluid = new Fluid("tin.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenTinFluid))
@@ -243,7 +247,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenTin = new TConstructFluid(TinkerSmeltery.moltenTinFluid, Material.lava, "liquid_tin").setBlockName("fluid.molten.tin");
         GameRegistry.registerBlock(TinkerSmeltery.moltenTin, "fluid.molten.tin");
         TinkerSmeltery.moltenTinFluid.setBlock(TinkerSmeltery.moltenTin).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenTinFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 3), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenTinFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 3), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenAluminumFluid = new Fluid("aluminum.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenAluminumFluid))
@@ -251,7 +256,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenAluminum = new TConstructFluid(TinkerSmeltery.moltenAluminumFluid, Material.lava, "liquid_aluminum").setBlockName("fluid.molten.aluminum");
         GameRegistry.registerBlock(TinkerSmeltery.moltenAluminum, "fluid.molten.aluminum");
         TinkerSmeltery.moltenAluminumFluid.setBlock(TinkerSmeltery.moltenAluminum).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenAluminumFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 4), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenAluminumFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 4), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenCobaltFluid = new Fluid("cobalt.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenCobaltFluid))
@@ -259,7 +265,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenCobalt = new TConstructFluid(TinkerSmeltery.moltenCobaltFluid, Material.lava, "liquid_cobalt").setBlockName("fluid.molten.cobalt");
         GameRegistry.registerBlock(TinkerSmeltery.moltenCobalt, "fluid.molten.cobalt");
         TinkerSmeltery.moltenCobaltFluid.setBlock(TinkerSmeltery.moltenCobalt).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenCobaltFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 5), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenCobaltFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 5), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenArditeFluid = new Fluid("ardite.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenArditeFluid))
@@ -267,7 +274,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenArdite = new TConstructFluid(TinkerSmeltery.moltenArditeFluid, Material.lava, "liquid_ardite").setBlockName("fluid.molten.ardite");
         GameRegistry.registerBlock(TinkerSmeltery.moltenArdite, "fluid.molten.ardite");
         TinkerSmeltery.moltenArditeFluid.setBlock(TinkerSmeltery.moltenArdite).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenArditeFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 6), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenArditeFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 6), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenBronzeFluid = new Fluid("bronze.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenBronzeFluid))
@@ -275,7 +283,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenBronze = new TConstructFluid(TinkerSmeltery.moltenBronzeFluid, Material.lava, "liquid_bronze").setBlockName("fluid.molten.bronze");
         GameRegistry.registerBlock(TinkerSmeltery.moltenBronze, "fluid.molten.bronze");
         TinkerSmeltery.moltenBronzeFluid.setBlock(TinkerSmeltery.moltenBronze).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenBronzeFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 7), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenBronzeFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 7), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenAlubrassFluid = new Fluid("aluminumbrass.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenAlubrassFluid))
@@ -283,7 +292,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenAlubrass = new TConstructFluid(TinkerSmeltery.moltenAlubrassFluid, Material.lava, "liquid_alubrass").setBlockName("fluid.molten.alubrass");
         GameRegistry.registerBlock(TinkerSmeltery.moltenAlubrass, "fluid.molten.alubrass");
         TinkerSmeltery.moltenAlubrassFluid.setBlock(TinkerSmeltery.moltenAlubrass).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenAlubrassFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 8), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenAlubrassFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 8), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenManyullynFluid = new Fluid("manyullyn.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenManyullynFluid))
@@ -291,7 +301,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenManyullyn = new TConstructFluid(TinkerSmeltery.moltenManyullynFluid, Material.lava, "liquid_manyullyn").setBlockName("fluid.molten.manyullyn");
         GameRegistry.registerBlock(TinkerSmeltery.moltenManyullyn, "fluid.molten.manyullyn");
         TinkerSmeltery.moltenManyullynFluid.setBlock(TinkerSmeltery.moltenManyullyn).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenManyullynFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 9), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenManyullynFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 9), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenAlumiteFluid = new Fluid("alumite.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenAlumiteFluid))
@@ -299,7 +310,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenAlumite = new TConstructFluid(TinkerSmeltery.moltenAlumiteFluid, Material.lava, "liquid_alumite").setBlockName("fluid.molten.alumite");
         GameRegistry.registerBlock(TinkerSmeltery.moltenAlumite, "fluid.molten.alumite");
         TinkerSmeltery.moltenAlumiteFluid.setBlock(TinkerSmeltery.moltenAlumite).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenAlumiteFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 10), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenAlumiteFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 10), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenObsidianFluid = new Fluid("obsidian.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenObsidianFluid))
@@ -307,7 +319,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenObsidian = new TConstructFluid(TinkerSmeltery.moltenObsidianFluid, Material.lava, "liquid_obsidian").setBlockName("fluid.molten.obsidian");
         GameRegistry.registerBlock(TinkerSmeltery.moltenObsidian, "fluid.molten.obsidian");
         TinkerSmeltery.moltenObsidianFluid.setBlock(TinkerSmeltery.moltenObsidian).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenObsidianFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 11), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenObsidianFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 11), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenSteelFluid = new Fluid("steel.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenSteelFluid))
@@ -315,7 +328,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenSteel = new TConstructFluid(TinkerSmeltery.moltenSteelFluid, Material.lava, "liquid_steel").setBlockName("fluid.molten.steel");
         GameRegistry.registerBlock(TinkerSmeltery.moltenSteel, "fluid.molten.steel");
         TinkerSmeltery.moltenSteelFluid.setBlock(TinkerSmeltery.moltenSteel).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenSteelFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 12), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenSteelFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 12), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenGlassFluid = new Fluid("glass.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenGlassFluid))
@@ -323,7 +337,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenGlass = new TConstructFluid(TinkerSmeltery.moltenGlassFluid, Material.lava, "liquid_glass", true).setBlockName("fluid.molten.glass");
         GameRegistry.registerBlock(TinkerSmeltery.moltenGlass, "fluid.molten.glass");
         TinkerSmeltery.moltenGlassFluid.setBlock(TinkerSmeltery.moltenGlass).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenGlassFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 13), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenGlassFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 13), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenStoneFluid = new Fluid("stone.seared");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenStoneFluid))
@@ -331,7 +346,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenStone = new TConstructFluid(TinkerSmeltery.moltenStoneFluid, Material.lava, "liquid_stone").setBlockName("molten.stone");
         GameRegistry.registerBlock(TinkerSmeltery.moltenStone, "molten.stone");
         TinkerSmeltery.moltenStoneFluid.setBlock(TinkerSmeltery.moltenStone).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenStoneFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 14), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenStoneFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 14), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenEmeraldFluid = new Fluid("emerald.liquid");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenEmeraldFluid))
@@ -339,7 +355,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenEmerald = new TConstructFluid(TinkerSmeltery.moltenEmeraldFluid, Material.water, "liquid_villager").setBlockName("molten.emerald");
         GameRegistry.registerBlock(TinkerSmeltery.moltenEmerald, "molten.emerald");
         TinkerSmeltery.moltenEmeraldFluid.setBlock(TinkerSmeltery.moltenEmerald).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenEmeraldFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 15), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenEmeraldFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 15), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.bloodFluid = new Fluid("blood");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.bloodFluid))
@@ -347,7 +364,8 @@ public class TinkerSmeltery
         TinkerSmeltery.blood = new BloodBlock(TinkerSmeltery.bloodFluid, Material.water, "liquid_cow").setBlockName("liquid.blood");
         GameRegistry.registerBlock(TinkerSmeltery.blood, "liquid.blood");
         TinkerSmeltery.bloodFluid.setBlock(TinkerSmeltery.blood).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.bloodFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 16), new ItemStack(Items.bucket)));
+        FluidContainerRegistry
+                .registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.bloodFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 16), new ItemStack(Items.bucket)));
 
         TinkerSmeltery.moltenNickelFluid = new Fluid("nickel.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenNickelFluid))
@@ -355,7 +373,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenNickel = new TConstructFluid(TinkerSmeltery.moltenNickelFluid, Material.lava, "liquid_ferrous").setBlockName("fluid.molten.nickel");
         GameRegistry.registerBlock(TinkerSmeltery.moltenNickel, "fluid.molten.nickel");
         TinkerSmeltery.moltenNickelFluid.setBlock(TinkerSmeltery.moltenNickel).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenNickelFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 17), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenNickelFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 17), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenLeadFluid = new Fluid("lead.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenLeadFluid))
@@ -363,7 +382,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenLead = new TConstructFluid(TinkerSmeltery.moltenLeadFluid, Material.lava, "liquid_lead").setBlockName("fluid.molten.lead");
         GameRegistry.registerBlock(TinkerSmeltery.moltenLead, "fluid.molten.lead");
         TinkerSmeltery.moltenLeadFluid.setBlock(TinkerSmeltery.moltenLead).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenLeadFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 18), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenLeadFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 18), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenSilverFluid = new Fluid("silver.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenSilverFluid))
@@ -371,7 +391,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenSilver = new TConstructFluid(TinkerSmeltery.moltenSilverFluid, Material.lava, "liquid_silver").setBlockName("fluid.molten.silver");
         GameRegistry.registerBlock(TinkerSmeltery.moltenSilver, "fluid.molten.silver");
         TinkerSmeltery.moltenSilverFluid.setBlock(TinkerSmeltery.moltenSilver).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenSilverFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 19), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenSilverFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 19), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenShinyFluid = new Fluid("platinum.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenShinyFluid))
@@ -379,7 +400,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenShiny = new TConstructFluid(TinkerSmeltery.moltenShinyFluid, Material.lava, "liquid_shiny").setBlockName("fluid.molten.shiny");
         GameRegistry.registerBlock(TinkerSmeltery.moltenShiny, "fluid.molten.shiny");
         TinkerSmeltery.moltenShinyFluid.setBlock(TinkerSmeltery.moltenShiny).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenShinyFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 20), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenShinyFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 20), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenInvarFluid = new Fluid("invar.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenInvarFluid))
@@ -387,7 +409,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenInvar = new TConstructFluid(TinkerSmeltery.moltenInvarFluid, Material.lava, "liquid_invar").setBlockName("fluid.molten.invar");
         GameRegistry.registerBlock(TinkerSmeltery.moltenInvar, "fluid.molten.invar");
         TinkerSmeltery.moltenInvarFluid.setBlock(TinkerSmeltery.moltenInvar).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenInvarFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 21), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenInvarFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 21), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenElectrumFluid = new Fluid("electrum.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenElectrumFluid))
@@ -395,7 +418,8 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenElectrum = new TConstructFluid(TinkerSmeltery.moltenElectrumFluid, Material.lava, "liquid_electrum").setBlockName("fluid.molten.electrum");
         GameRegistry.registerBlock(TinkerSmeltery.moltenElectrum, "fluid.molten.electrum");
         TinkerSmeltery.moltenElectrumFluid.setBlock(TinkerSmeltery.moltenElectrum).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenElectrumFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 22), new ItemStack(Items.bucket)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenElectrumFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 22), new ItemStack(
+                Items.bucket)));
 
         TinkerSmeltery.moltenEnderFluid = new Fluid("ender");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenEnderFluid))
@@ -410,33 +434,39 @@ public class TinkerSmeltery
             TinkerSmeltery.moltenEnder = new TConstructFluid(TinkerSmeltery.moltenEnderFluid, Material.water, "liquid_ender").setBlockName("fluid.ender");
             GameRegistry.registerBlock(TinkerSmeltery.moltenEnder, "fluid.ender");
             TinkerSmeltery.moltenEnderFluid.setBlock(TinkerSmeltery.moltenEnder).setDensity(3000).setViscosity(6000);
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenEnderFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 23), new ItemStack(Items.bucket)));
+            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenEnderFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 23), new ItemStack(
+                    Items.bucket)));
         }
-
 
         // Glue
         TinkerSmeltery.glueFluid = new Fluid("glue").setDensity(6000).setViscosity(6000).setTemperature(200);
         if (!FluidRegistry.registerFluid(TinkerSmeltery.glueFluid))
             TinkerSmeltery.glueFluid = FluidRegistry.getFluid("glue");
-        TinkerSmeltery.glueFluidBlock = new GlueFluid(TinkerSmeltery.glueFluid, Material.water).setCreativeTab(TConstructRegistry.blockTab).setStepSound(TinkerWorld.slimeStep).setBlockName("liquid.glue");
+        TinkerSmeltery.glueFluidBlock = new GlueFluid(TinkerSmeltery.glueFluid, Material.water).setCreativeTab(TConstructRegistry.blockTab).setStepSound(TinkerWorld.slimeStep)
+                .setBlockName("liquid.glue");
         GameRegistry.registerBlock(TinkerSmeltery.glueFluidBlock, "liquid.glue");
         TinkerSmeltery.glueFluid.setBlock(TinkerSmeltery.glueFluidBlock);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.glueFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 25), new ItemStack(Items.bucket)));
+        FluidContainerRegistry
+                .registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.glueFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 25), new ItemStack(Items.bucket)));
 
         TinkerSmeltery.pigIronFluid = new Fluid("pigiron.molten");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.pigIronFluid))
             TinkerSmeltery.pigIronFluid = FluidRegistry.getFluid("pigiron.molten");
         else
             TinkerSmeltery.pigIronFluid.setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.pigIronFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 26), new ItemStack(Items.bucket)));
-        TinkerSmeltery.fluids = new Fluid[] { TinkerSmeltery.moltenIronFluid, TinkerSmeltery.moltenGoldFluid, TinkerSmeltery.moltenCopperFluid, TinkerSmeltery.moltenTinFluid, TinkerSmeltery.moltenAluminumFluid, TinkerSmeltery.moltenCobaltFluid,
-                TinkerSmeltery.moltenArditeFluid, TinkerSmeltery.moltenBronzeFluid, TinkerSmeltery.moltenAlubrassFluid, TinkerSmeltery.moltenManyullynFluid, TinkerSmeltery.moltenAlumiteFluid, TinkerSmeltery.moltenObsidianFluid, TinkerSmeltery.moltenSteelFluid,
-                TinkerSmeltery.moltenGlassFluid, TinkerSmeltery.moltenStoneFluid, TinkerSmeltery.moltenEmeraldFluid, TinkerSmeltery.bloodFluid, TinkerSmeltery.moltenNickelFluid, TinkerSmeltery.moltenLeadFluid, TinkerSmeltery.moltenSilverFluid,
-                TinkerSmeltery.moltenShinyFluid, TinkerSmeltery.moltenInvarFluid, TinkerSmeltery.moltenElectrumFluid, TinkerSmeltery.moltenEnderFluid, TinkerWorld.blueSlimeFluid, TinkerSmeltery.glueFluid, TinkerSmeltery.pigIronFluid };
-        TinkerSmeltery.fluidBlocks = new Block[] { TinkerSmeltery.moltenIron, TinkerSmeltery.moltenGold, TinkerSmeltery.moltenCopper, TinkerSmeltery.moltenTin, TinkerSmeltery.moltenAluminum, TinkerSmeltery.moltenCobalt, TinkerSmeltery.moltenArdite, TinkerSmeltery.moltenBronze,
-                TinkerSmeltery.moltenAlubrass, TinkerSmeltery.moltenManyullyn, TinkerSmeltery.moltenAlumite, TinkerSmeltery.moltenObsidian, TinkerSmeltery.moltenSteel, TinkerSmeltery.moltenGlass, TinkerSmeltery.moltenStone, TinkerSmeltery.moltenEmerald, TinkerSmeltery.blood,
-                TinkerSmeltery.moltenNickel, TinkerSmeltery.moltenLead, TinkerSmeltery.moltenSilver, TinkerSmeltery.moltenShiny, TinkerSmeltery.moltenInvar, TinkerSmeltery.moltenElectrum, TinkerSmeltery.moltenEnder, TinkerWorld.slimePool, TinkerSmeltery.glueFluidBlock };
-        
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.pigIronFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 26), new ItemStack(
+                Items.bucket)));
+        TinkerSmeltery.fluids = new Fluid[] { TinkerSmeltery.moltenIronFluid, TinkerSmeltery.moltenGoldFluid, TinkerSmeltery.moltenCopperFluid, TinkerSmeltery.moltenTinFluid,
+                TinkerSmeltery.moltenAluminumFluid, TinkerSmeltery.moltenCobaltFluid, TinkerSmeltery.moltenArditeFluid, TinkerSmeltery.moltenBronzeFluid, TinkerSmeltery.moltenAlubrassFluid,
+                TinkerSmeltery.moltenManyullynFluid, TinkerSmeltery.moltenAlumiteFluid, TinkerSmeltery.moltenObsidianFluid, TinkerSmeltery.moltenSteelFluid, TinkerSmeltery.moltenGlassFluid,
+                TinkerSmeltery.moltenStoneFluid, TinkerSmeltery.moltenEmeraldFluid, TinkerSmeltery.bloodFluid, TinkerSmeltery.moltenNickelFluid, TinkerSmeltery.moltenLeadFluid,
+                TinkerSmeltery.moltenSilverFluid, TinkerSmeltery.moltenShinyFluid, TinkerSmeltery.moltenInvarFluid, TinkerSmeltery.moltenElectrumFluid, TinkerSmeltery.moltenEnderFluid,
+                TinkerSmeltery.glueFluid, TinkerSmeltery.pigIronFluid };
+        TinkerSmeltery.fluidBlocks = new Block[] { TinkerSmeltery.moltenIron, TinkerSmeltery.moltenGold, TinkerSmeltery.moltenCopper, TinkerSmeltery.moltenTin, TinkerSmeltery.moltenAluminum,
+                TinkerSmeltery.moltenCobalt, TinkerSmeltery.moltenArdite, TinkerSmeltery.moltenBronze, TinkerSmeltery.moltenAlubrass, TinkerSmeltery.moltenManyullyn, TinkerSmeltery.moltenAlumite,
+                TinkerSmeltery.moltenObsidian, TinkerSmeltery.moltenSteel, TinkerSmeltery.moltenGlass, TinkerSmeltery.moltenStone, TinkerSmeltery.moltenEmerald, TinkerSmeltery.blood,
+                TinkerSmeltery.moltenNickel, TinkerSmeltery.moltenLead, TinkerSmeltery.moltenSilver, TinkerSmeltery.moltenShiny, TinkerSmeltery.moltenInvar, TinkerSmeltery.moltenElectrum,
+                TinkerSmeltery.moltenEnder, TinkerSmeltery.glueFluidBlock };
 
         TinkerSmeltery.speedBlock = new SpeedBlock().setBlockName("SpeedBlock");
 
@@ -444,18 +474,13 @@ public class TinkerSmeltery
         TinkerSmeltery.clearGlass = new GlassBlockConnected("clear", false).setBlockName("GlassBlock");
         TinkerSmeltery.clearGlass.stepSound = Block.soundTypeGlass;
         TinkerSmeltery.glassPane = new GlassPaneConnected("clear", false);
-        TinkerSmeltery.stainedGlassClear = new GlassBlockConnectedMeta("stained", true, "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue",
-                "brown", "green", "red", "black").setBlockName("GlassBlock.StainedClear");
+        TinkerSmeltery.stainedGlassClear = new GlassBlockConnectedMeta("stained", true, "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple",
+                "blue", "brown", "green", "red", "black").setBlockName("GlassBlock.StainedClear");
         TinkerSmeltery.stainedGlassClear.stepSound = Block.soundTypeGlass;
         TinkerSmeltery.stainedGlassClearPane = new GlassPaneStained();
 
         GameRegistry.registerBlock(TinkerSmeltery.searedSlab, SearedSlabItem.class, "SearedSlab");
         GameRegistry.registerBlock(TinkerSmeltery.speedSlab, SpeedSlabItem.class, "SpeedSlab");
-
-        GameRegistry.registerBlock(TinkerSmeltery.metalBlock, MetalItemBlock.class, "MetalBlock");
-
-        OreDictionary.registerOre("hambone", new ItemStack(TinkerWorld.meatBlock));
-        GameRegistry.addRecipe(new ItemStack(TinkerWorld.meatBlock), "mmm", "mbm", "mmm", 'b', new ItemStack(Items.bone), 'm', new ItemStack(Items.porkchop));
 
         GameRegistry.registerBlock(TinkerSmeltery.glueBlock, "GlueBlock");
         OreDictionary.registerOre("blockRubber", new ItemStack(TinkerSmeltery.glueBlock));
@@ -497,7 +522,7 @@ public class TinkerSmeltery
         GameRegistry.registerBlock(TinkerSmeltery.glassPane, GlassPaneItem.class, "GlassPane");
         GameRegistry.registerBlock(TinkerSmeltery.stainedGlassClear, StainedGlassClearItem.class, "GlassBlock.StainedClear");
         GameRegistry.registerBlock(TinkerSmeltery.stainedGlassClearPane, StainedGlassClearPaneItem.class, "GlassPaneClearStained");
-        
+
         //Items
         TinkerSmeltery.metalPattern = new MetalPattern("cast_", "materials/").setUnlocalizedName("tconstruct.MetalPattern");
         GameRegistry.registerItem(TinkerSmeltery.metalPattern, "metalPattern");
@@ -508,14 +533,12 @@ public class TinkerSmeltery
         {
             TConstructRegistry.addItemStackToDirectory(patternTypes[i] + "Cast", new ItemStack(TinkerSmeltery.metalPattern, 1, i));
         }
-        TinkerSmeltery.buckets = new FilledBucket(BlockUtils.getBlockFromItem(TinkerSmeltery.buckets));
-        GameRegistry.registerItem(TinkerSmeltery.buckets, "buckets");
     }
-    
+
     @EventHandler
     public void init (FMLInitializationEvent event)
     {
-        
+
     }
 
     @EventHandler
@@ -525,12 +548,11 @@ public class TinkerSmeltery
         addOreDictionarySmelteryRecipes();
         addRecipesForTableCasting();
     }
-    
-    private void craftingTableRecipes()
+
+    private void craftingTableRecipes ()
     {
 
         String[] patSurround = { "###", "#m#", "###" };
-
 
         // stained Glass Recipes
         String[] dyeTypes = { "dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue",
@@ -550,8 +572,6 @@ public class TinkerSmeltery
                     Short.MAX_VALUE)));
             GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerSmeltery.stainedGlassClearPane, 1, i), color, new ItemStack(TinkerSmeltery.stainedGlassClearPane, 1, Short.MAX_VALUE)));
         }
-        
-
 
         // Glass Recipes
         GameRegistry.addRecipe(new ItemStack(Items.glass_bottle, 3), new Object[] { "# #", " # ", '#', TinkerSmeltery.clearGlass });
@@ -583,7 +603,6 @@ public class TinkerSmeltery
         GameRegistry.addRecipe(new ItemStack(TinkerSmeltery.searedBlockNether, 1, 1), "b b", " b ", 'b', searedBrick); // Faucet
         GameRegistry.addRecipe(new ItemStack(TinkerSmeltery.searedBlockNether, 1, 2), "b b", "b b", "bbb", 'b', searedBrick); // Basin
         GameRegistry.addRecipe(new ItemStack(TinkerSmeltery.castingChannel, 4, 0), "b b", "bbb", 'b', searedBrick); // Channel
-        
 
         // Slab Smeltery Components Recipes
         for (int i = 0; i < 7; i++)
@@ -670,7 +689,7 @@ public class TinkerSmeltery
         }
         Smeltery.addDictionaryMelting("compressedSand1x", FluidType.Glass, 175, FluidContainerRegistry.BUCKET_VOLUME * 9);
     }
-    
+
     private void addRecipesForTableCasting ()
     {
         /* Smeltery */
@@ -694,19 +713,20 @@ public class TinkerSmeltery
         // Buckets
         ItemStack bucket = new ItemStack(Items.bucket);
 
-        for (int sc = 0; sc < 24; sc++)
+        for (int sc = 0; sc < 23; sc++)
         {
             tableCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.buckets, 1, sc), new FluidStack(TinkerSmeltery.fluids[sc], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
         }
-        tableCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.buckets, 1, 26), new FluidStack(TinkerSmeltery.fluids[26], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
+        tableCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.buckets, 1, 25), new FluidStack(TinkerSmeltery.fluids[25], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
 
         // Clear glass pane casting
         tableCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.glassPane), new FluidStack(TinkerSmeltery.moltenGlassFluid, 250), null, 80);
 
         // Metal toolpart casting
-        TinkerSmeltery.liquids = new FluidStack[] { new FluidStack(TinkerSmeltery.moltenIronFluid, 1), new FluidStack(TinkerSmeltery.moltenCopperFluid, 1), new FluidStack(TinkerSmeltery.moltenCobaltFluid, 1),
-                new FluidStack(TinkerSmeltery.moltenArditeFluid, 1), new FluidStack(TinkerSmeltery.moltenManyullynFluid, 1), new FluidStack(TinkerSmeltery.moltenBronzeFluid, 1), new FluidStack(TinkerSmeltery.moltenAlumiteFluid, 1),
-                new FluidStack(TinkerSmeltery.moltenObsidianFluid, 1), new FluidStack(TinkerSmeltery.moltenSteelFluid, 1), new FluidStack(TinkerSmeltery.pigIronFluid, 1) };
+        TinkerSmeltery.liquids = new FluidStack[] { new FluidStack(TinkerSmeltery.moltenIronFluid, 1), new FluidStack(TinkerSmeltery.moltenCopperFluid, 1),
+                new FluidStack(TinkerSmeltery.moltenCobaltFluid, 1), new FluidStack(TinkerSmeltery.moltenArditeFluid, 1), new FluidStack(TinkerSmeltery.moltenManyullynFluid, 1),
+                new FluidStack(TinkerSmeltery.moltenBronzeFluid, 1), new FluidStack(TinkerSmeltery.moltenAlumiteFluid, 1), new FluidStack(TinkerSmeltery.moltenObsidianFluid, 1),
+                new FluidStack(TinkerSmeltery.moltenSteelFluid, 1), new FluidStack(TinkerSmeltery.pigIronFluid, 1) };
         int[] liquidDamage = new int[] { 2, 13, 10, 11, 12, 14, 15, 6, 16, 18 }; // ItemStack
                                                                                  // damage
                                                                                  // value
@@ -719,8 +739,10 @@ public class TinkerSmeltery
             {
                 ItemStack cast = new ItemStack(TinkerSmeltery.metalPattern, 1, iter + 1);
 
-                tableCasting.addCastingRecipe(cast, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(TinkerTools.patternOutputs[iter], 1, Short.MAX_VALUE), false, 50);
-                tableCasting.addCastingRecipe(cast, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(TinkerTools.patternOutputs[iter], 1, Short.MAX_VALUE), false, 50);
+                tableCasting.addCastingRecipe(cast, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue),
+                        new ItemStack(TinkerTools.patternOutputs[iter], 1, Short.MAX_VALUE), false, 50);
+                tableCasting.addCastingRecipe(cast, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2),
+                        new ItemStack(TinkerTools.patternOutputs[iter], 1, Short.MAX_VALUE), false, 50);
 
                 for (int iterTwo = 0; iterTwo < TinkerSmeltery.liquids.length; iterTwo++)
                 {
@@ -741,8 +763,10 @@ public class TinkerSmeltery
         }
 
         ItemStack fullguardCast = new ItemStack(TinkerSmeltery.metalPattern, 1, 22);
-        tableCasting.addCastingRecipe(fullguardCast, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(TinkerTools.fullGuard, 1, Short.MAX_VALUE), false, 50);
-        tableCasting.addCastingRecipe(fullguardCast, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(TinkerTools.fullGuard, 1, Short.MAX_VALUE), false, 50);
+        tableCasting.addCastingRecipe(fullguardCast, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(TinkerTools.fullGuard, 1, Short.MAX_VALUE), false,
+                50);
+        tableCasting.addCastingRecipe(fullguardCast, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(TinkerTools.fullGuard, 1, Short.MAX_VALUE), false,
+                50);
 
         // Golden Food Stuff
         FluidStack goldAmount = null;
@@ -759,7 +783,6 @@ public class TinkerSmeltery
         tableCasting.addCastingRecipe(new ItemStack(Items.speckled_melon, 1), goldAmount, new ItemStack(Items.melon), true, 50);
         tableCasting.addCastingRecipe(new ItemStack(TinkerTools.goldHead), goldAmount, new ItemStack(Items.skull, 1, 3), true, 50);
     }
-    
 
     protected static void addRecipesForBasinCasting ()
     {
@@ -767,29 +790,31 @@ public class TinkerSmeltery
         // Block Casting
         basinCasting.addCastingRecipe(new ItemStack(Blocks.iron_block), new FluidStack(TinkerSmeltery.moltenIronFluid, TConstruct.blockLiquidValue), null, true, 100); // Iron
         basinCasting.addCastingRecipe(new ItemStack(Blocks.gold_block), new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.blockLiquidValue), null, true, 100); // gold
-        basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.metalBlock, 1, 3), new FluidStack(TinkerSmeltery.moltenCopperFluid, TConstruct.blockLiquidValue), null, true, 100); // copper
-        basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.metalBlock, 1, 5), new FluidStack(TinkerSmeltery.moltenTinFluid, TConstruct.blockLiquidValue), null, true, 100); // tin
-        basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.metalBlock, 1, 6), new FluidStack(TinkerSmeltery.moltenAluminumFluid, TConstruct.blockLiquidValue), null, true, 100); // aluminum
-        basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.metalBlock, 1, 0), new FluidStack(TinkerSmeltery.moltenCobaltFluid, TConstruct.blockLiquidValue), null, true, 100); // cobalt
-        basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.metalBlock, 1, 1), new FluidStack(TinkerSmeltery.moltenArditeFluid, TConstruct.blockLiquidValue), null, true, 100); // ardite
-        basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.metalBlock, 1, 4), new FluidStack(TinkerSmeltery.moltenBronzeFluid, TConstruct.blockLiquidValue), null, true, 100); // bronze
-        basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.metalBlock, 1, 7), new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.blockLiquidValue), null, true, 100); // albrass
-        basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.metalBlock, 1, 2), new FluidStack(TinkerSmeltery.moltenManyullynFluid, TConstruct.blockLiquidValue), null, true, 100); // manyullyn
-        basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.metalBlock, 1, 8), new FluidStack(TinkerSmeltery.moltenAlumiteFluid, TConstruct.blockLiquidValue), null, true, 100); // alumite
+        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 3), new FluidStack(TinkerSmeltery.moltenCopperFluid, TConstruct.blockLiquidValue), null, true, 100); // copper
+        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 5), new FluidStack(TinkerSmeltery.moltenTinFluid, TConstruct.blockLiquidValue), null, true, 100); // tin
+        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 6), new FluidStack(TinkerSmeltery.moltenAluminumFluid, TConstruct.blockLiquidValue), null, true, 100); // aluminum
+        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 0), new FluidStack(TinkerSmeltery.moltenCobaltFluid, TConstruct.blockLiquidValue), null, true, 100); // cobalt
+        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 1), new FluidStack(TinkerSmeltery.moltenArditeFluid, TConstruct.blockLiquidValue), null, true, 100); // ardite
+        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 4), new FluidStack(TinkerSmeltery.moltenBronzeFluid, TConstruct.blockLiquidValue), null, true, 100); // bronze
+        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 7), new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.blockLiquidValue), null, true, 100); // albrass
+        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 2), new FluidStack(TinkerSmeltery.moltenManyullynFluid, TConstruct.blockLiquidValue), null, true, 100); // manyullyn
+        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 8), new FluidStack(TinkerSmeltery.moltenAlumiteFluid, TConstruct.blockLiquidValue), null, true, 100); // alumite
         basinCasting.addCastingRecipe(new ItemStack(Blocks.obsidian), new FluidStack(TinkerSmeltery.moltenObsidianFluid, TConstruct.oreLiquidValue), null, true, 100);// obsidian
-        basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.metalBlock, 1, 9), new FluidStack(TinkerSmeltery.moltenSteelFluid, TConstruct.blockLiquidValue), null, true, 100); // steel
+        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 9), new FluidStack(TinkerSmeltery.moltenSteelFluid, TConstruct.blockLiquidValue), null, true, 100); // steel
         basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.clearGlass, 1, 0), new FluidStack(TinkerSmeltery.moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100); // glass
         basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.smeltery, 1, 4), new FluidStack(TinkerSmeltery.moltenStoneFluid, TConstruct.ingotLiquidValue), null, true, 100); // seared
-                                                                                                                                                                  // stone
-        basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.smeltery, 1, 5), new FluidStack(TinkerSmeltery.moltenStoneFluid, TConstruct.chunkLiquidValue), new ItemStack(Blocks.cobblestone), true, 100);
+        // stone
+        basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.smeltery, 1, 5), new FluidStack(TinkerSmeltery.moltenStoneFluid, TConstruct.chunkLiquidValue), new ItemStack(Blocks.cobblestone),
+                true, 100);
         basinCasting.addCastingRecipe(new ItemStack(Blocks.emerald_block), new FluidStack(TinkerSmeltery.moltenEmeraldFluid, 640 * 9), null, true, 100); // emerald
-        basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.speedBlock, 1, 0), new FluidStack(TinkerSmeltery.moltenTinFluid, TConstruct.nuggetLiquidValue), new ItemStack(Blocks.gravel), true, 100); // brownstone
+        basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.speedBlock, 1, 0), new FluidStack(TinkerSmeltery.moltenTinFluid, TConstruct.nuggetLiquidValue), new ItemStack(Blocks.gravel), true,
+                100); // brownstone
         if (PHConstruct.craftEndstone)
         {
             basinCasting.addCastingRecipe(new ItemStack(Blocks.end_stone), new FluidStack(TinkerSmeltery.moltenEnderFluid, 50), new ItemStack(Blocks.obsidian), true, 100);
             basinCasting.addCastingRecipe(new ItemStack(Blocks.end_stone), new FluidStack(TinkerSmeltery.moltenEnderFluid, 250), new ItemStack(Blocks.sandstone), true, 100);
         }
-        basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.metalBlock, 1, 10), new FluidStack(TinkerSmeltery.moltenEnderFluid, 1000), null, true, 100); // ender
+        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 10), new FluidStack(TinkerSmeltery.moltenEnderFluid, 1000), null, true, 100); // ender
         basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.glueBlock), new FluidStack(TinkerSmeltery.glueFluid, TConstruct.blockLiquidValue), null, true, 100); // glue
 
         // basinCasting.addCastingRecipe(new ItemStack(slimeGel, 1, 0), new
@@ -818,12 +843,13 @@ public class TinkerSmeltery
         // Alloy Smelting
         Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenBronzeFluid, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsBronzeAlloy)), new FluidStack(TinkerSmeltery.moltenCopperFluid,
                 TConstruct.ingotLiquidValue * 3), new FluidStack(TinkerSmeltery.moltenTinFluid, TConstruct.ingotLiquidValue)); // Bronze
-        Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenAlubrassFluid, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsAluminumBrassAlloy)), new FluidStack(TinkerSmeltery.moltenAluminumFluid,
-                TConstruct.ingotLiquidValue * 3), new FluidStack(TinkerSmeltery.moltenCopperFluid, TConstruct.ingotLiquidValue * 1)); // Aluminum Brass
-        Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenAlumiteFluid, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsAlumiteAlloy)), new FluidStack(TinkerSmeltery.moltenAluminumFluid,
-                TConstruct.ingotLiquidValue * 5), new FluidStack(TinkerSmeltery.moltenIronFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(TinkerSmeltery.moltenObsidianFluid, TConstruct.ingotLiquidValue * 2)); // Alumite
-        Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenManyullynFluid, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsManyullynAlloy)), new FluidStack(TinkerSmeltery.moltenCobaltFluid,
-                TConstruct.ingotLiquidValue), new FluidStack(TinkerSmeltery.moltenArditeFluid, TConstruct.ingotLiquidValue)); // Manyullyn
+        Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenAlubrassFluid, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsAluminumBrassAlloy)), new FluidStack(
+                TinkerSmeltery.moltenAluminumFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(TinkerSmeltery.moltenCopperFluid, TConstruct.ingotLiquidValue * 1)); // Aluminum Brass
+        Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenAlumiteFluid, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsAlumiteAlloy)), new FluidStack(
+                TinkerSmeltery.moltenAluminumFluid, TConstruct.ingotLiquidValue * 5), new FluidStack(TinkerSmeltery.moltenIronFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(
+                TinkerSmeltery.moltenObsidianFluid, TConstruct.ingotLiquidValue * 2)); // Alumite
+        Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenManyullynFluid, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsManyullynAlloy)), new FluidStack(
+                TinkerSmeltery.moltenCobaltFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkerSmeltery.moltenArditeFluid, TConstruct.ingotLiquidValue)); // Manyullyn
         Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.pigIronFluid, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsPigironAlloy)), new FluidStack(TinkerSmeltery.moltenIronFluid,
                 TConstruct.ingotLiquidValue), new FluidStack(TinkerSmeltery.moltenEmeraldFluid, 640), new FluidStack(TinkerSmeltery.bloodFluid, 80)); // Pigiron
         Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenObsidianFluid, TConstruct.oreLiquidValue), new FluidStack(FluidRegistry.LAVA, 1000), new FluidStack(FluidRegistry.WATER, 1000)); //Obsidian
@@ -856,7 +882,7 @@ public class TinkerSmeltery
         Smeltery.addMelting(FluidType.Glue, new ItemStack(TinkerTools.materials, 1, 36), 0, TConstruct.ingotLiquidValue);
 
         Smeltery.addMelting(FluidType.Ender, new ItemStack(Items.ender_pearl, 4), 0, 250);
-        Smeltery.addMelting(TinkerSmeltery.metalBlock, 10, 50, new FluidStack(TinkerSmeltery.moltenEnderFluid, 1000));
+        Smeltery.addMelting(TinkerWorld.metalBlock, 10, 50, new FluidStack(TinkerSmeltery.moltenEnderFluid, 1000));
         Smeltery.addMelting(FluidType.Water, new ItemStack(Items.snowball, 1, 0), 0, 125);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.flint_and_steel, 1, 0), 0, TConstruct.ingotLiquidValue);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.compass, 1, 0), 0, TConstruct.ingotLiquidValue * 4);
@@ -963,7 +989,7 @@ public class TinkerSmeltery
         Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.golden_pickaxe, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
         Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.golden_axe, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
     }
-    
+
     private void registerIngotCasting (FluidType ft)
     {
         ItemStack pattern = new ItemStack(TinkerSmeltery.metalPattern, 1, 0);

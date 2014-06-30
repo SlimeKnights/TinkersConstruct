@@ -1,9 +1,11 @@
 package tconstruct.util.config;
 
 import java.io.File;
+import java.io.IOException;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
+import tconstruct.TConstruct;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.tools.TinkerTools;
 import cpw.mods.fml.common.Loader;
@@ -11,11 +13,51 @@ import cpw.mods.fml.common.Loader;
 public class PHConstruct
 {
 
-    public static void initProps (File confFile)
+    public static void initProps (File location)
     {
-
+        /* Before we do anything, let's set up which modules can and cannot load. */
+        File modules = new File(location + "/TinkersModules.txt");
+        
+        /* Some basic debugging will go a long way */
+        try
+        {
+            modules.createNewFile();
+        }
+        catch (IOException e)
+        {
+            TConstruct.logger.warn("Could not create module configuration file for TConstruct. Reason:");
+            TConstruct.logger.warn(e.getLocalizedMessage());
+        }
         /* [Forge] Configuration class, used as config method */
-        Configuration config = new Configuration(confFile);
+        Configuration config = new Configuration(modules);
+        config.load();
+        worldModule = config.get("Modules: Disabling these will disable a chunk of the mod", "World", true, "Ores, slime islands, essence berries, and the like.").getBoolean(true);
+        toolModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Tools", true, "The main core of the mod! All of the tools, the tables, and the patterns are here.").getBoolean(true);
+        smelteryModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Smeltery", true, "Liquid metals, casting, and the multiblock structure.").getBoolean(true);
+        mechworksModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Smeltery", true, "Mechanical machinations and steampunk inspired shenanigans.").getBoolean(true);
+        armorModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Armor", true, "Modifyable armors, such as the traveller's gear.").getBoolean(true);
+        prayerModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Prayers", true, "Area of effect and time delayed status changes. Scrolltastic!").getBoolean(true);
+        cropifyModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Cropify", true, "Tinkering with the world never felt this bushy.").getBoolean(true);
+        config.save();
+        
+        /* Here we will set up the config file for the mod
+        * First: Create a folder inside the config folder
+        * Second: Create the actual config file
+        * Note: Configs are a pain, but absolutely necessary for every mod.
+        */
+        File newFile = new File(location + "/TinkersWorkshop.txt");
+        try
+        {
+            newFile.createNewFile();
+        }
+        catch (IOException e)
+        {
+            TConstruct.logger.warn("Could not create configuration file for TConstruct. Reason:");
+            TConstruct.logger.warn(e.getLocalizedMessage());
+        }
+
+        config = new Configuration(newFile);
+        cfglocation = location;
         /* Load the configuration file */
         config.load();
 
@@ -51,7 +93,7 @@ public class PHConstruct
         ingotsAlumiteAlloy = config.get("Smeltery Output Modification", "Alumite ingot return", 3, "Number of ingots returned from smelting Alumite in the smeltery").getDouble(3);
         ingotsManyullynAlloy = config.get("Smeltery Output Modification", "Manyullyn ingot return", 1, "Number of ingots returned from smelting Manyullyn in the smeltery").getDouble(1);
         ingotsPigironAlloy = config.get("Smeltery Output Modification", "Pig Iron ingot return", 1, "Number of ingots returned from smelting Pig Iron in the smeltery").getDouble(1);
-        
+
         exoCraftingEnabled = config.get("Equipables", "Exo-Armor-Craftable", true).getBoolean(true);
         capesEnabled = config.get("Superfun", "Enable-TCon-Capes", true).getBoolean(true);
 
@@ -171,7 +213,6 @@ public class PHConstruct
         /* Save the configuration file */
         config.save();
 
-        String location = Loader.instance().getConfigDir().toString();
         File gt = new File(location + "/GregTech");
         if (gt.exists())
         {
@@ -182,6 +223,15 @@ public class PHConstruct
         }
     }
     
+    //Modules
+    public static boolean worldModule;
+    public static boolean toolModule;
+    public static boolean smelteryModule;
+    public static boolean mechworksModule;
+    public static boolean armorModule;
+    public static boolean prayerModule;
+    public static boolean cropifyModule;
+
     public static boolean exoCraftingEnabled;
     public static boolean capesEnabled;
 

@@ -1,5 +1,8 @@
 package tconstruct.armor;
 
+import mantle.pulsar.pulse.IPulse;
+import mantle.pulsar.pulse.Pulse;
+import mantle.pulsar.pulse.PulseProxy;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -17,34 +20,36 @@ import tconstruct.armor.items.ExoArmor;
 import tconstruct.armor.items.HeartCanister;
 import tconstruct.armor.items.Jerky;
 import tconstruct.armor.items.Knapsack;
+import tconstruct.blocks.logic.DryingRackLogic;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.armor.EnumArmorPart;
 import tconstruct.library.crafting.DryingRackRecipes;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.smeltery.SmelteryProxyCommon;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.items.GoldenHead;
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
-@Mod(modid = "TinkerArmor", name = "TinkerArmor", version = "${tinkerarmorversion}")
-public class TinkerArmor
+@ObjectHolder(TConstruct.modID)
+@Pulse(id = TConstruct.modID)
+public class TinkerArmor implements IPulse //TODO: Remove IPulse implementation, keep annotation
 {
     @Instance("TinkerArmor")
     public static TinkerArmor instance;
-    @SidedProxy(clientSide = "tconstruct.armor.ArmorProxyClient", serverSide = "tconstruct.armor.ArmorProxyCommon")
+    @PulseProxy(client = "tconstruct.armor.ArmorProxyClient", server = "tconstruct.armor.ArmorProxyCommon")
     public static ArmorProxyCommon proxy;
-    
+
     public static Item diamondApple;
     public static Item jerky;
     // public static Item stonePattern;
@@ -69,7 +74,7 @@ public class TinkerArmor
     public static Item exoShoes;
     public static Item bootsWood;
     public static ArmorMaterial materialWood;
-    
+
     public TinkerArmor()
     {
         MinecraftForge.EVENT_BUS.register(new TinkerArmorEvents());
@@ -79,6 +84,8 @@ public class TinkerArmor
     public void preInit (FMLPreInitializationEvent event)
     {
         TinkerArmor.dryingRack = new DryingRack().setBlockName("Armor.DryingRack");
+        GameRegistry.registerBlock(TinkerArmor.dryingRack, "Armor.DryingRack");
+        GameRegistry.registerTileEntity(DryingRackLogic.class, "Armor.DryingRack");
         TinkerArmor.diamondApple = new DiamondApple().setUnlocalizedName("tconstruct.apple.diamond");
         GameRegistry.registerItem(TinkerArmor.diamondApple, "diamondApple");
         boolean foodOverhaul = false;
@@ -121,7 +128,7 @@ public class TinkerArmor
         TinkerArmor.exoChest = new ExoArmor(EnumArmorPart.CHEST, "exosuit").setUnlocalizedName("tconstruct.exoChest");
         TinkerArmor.exoPants = new ExoArmor(EnumArmorPart.PANTS, "exosuit").setUnlocalizedName("tconstruct.exoPants");
         TinkerArmor.exoShoes = new ExoArmor(EnumArmorPart.SHOES, "exosuit").setUnlocalizedName("tconstruct.exoShoes");
-        
+
         GameRegistry.registerItem(TinkerArmor.exoGoggles, "helmetExo");
         GameRegistry.registerItem(TinkerArmor.exoChest, "chestplateExo");
         GameRegistry.registerItem(TinkerArmor.exoPants, "leggingsExo");

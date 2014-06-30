@@ -11,6 +11,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
+import tconstruct.world.TinkerWorld;
 import tconstruct.world.entity.BlueSlime;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -31,6 +32,8 @@ public class SlimeFluid extends BlockFluidClassic
     {
         stillIcon = iconRegister.registerIcon("tinker:slime_blue");
         flowIcon = iconRegister.registerIcon("tinker:slime_blue_flow");
+        TinkerWorld.blueSlimeFluid.setStillIcon(stillIcon);
+        TinkerWorld.blueSlimeFluid.setFlowingIcon(flowIcon);
     }
 
     @Override

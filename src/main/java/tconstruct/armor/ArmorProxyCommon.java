@@ -2,6 +2,7 @@ package tconstruct.armor;
 
 import tconstruct.armor.inventory.ArmorExtendedContainer;
 import tconstruct.armor.inventory.KnapsackContainer;
+import tconstruct.common.TProxyCommon;
 import tconstruct.util.player.TPlayerStats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
@@ -12,6 +13,17 @@ public class ArmorProxyCommon implements IGuiHandler
     public static final int inventoryGui = 100;
     public static final int armorGuiID = 101;
     public static final int knapsackGuiID = 102;
+    public ArmorProxyCommon()
+    {
+        registerGuiHandler();
+    }
+    
+    protected void registerGuiHandler()
+    {
+        TProxyCommon.registerServerGuiHandler(inventoryGui, this);
+        TProxyCommon.registerServerGuiHandler(armorGuiID, this);
+        TProxyCommon.registerServerGuiHandler(knapsackGuiID, this);
+    }
     
     @Override
     public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)

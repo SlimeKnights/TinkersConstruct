@@ -1,76 +1,41 @@
 package tconstruct.mechworks;
 
+import mantle.pulsar.pulse.IPulse;
+import mantle.pulsar.pulse.Pulse;
+import mantle.pulsar.pulse.PulseProxy;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
-import tconstruct.armor.TinkerArmor;
-import tconstruct.blocks.SlabBase;
-import tconstruct.blocks.logic.DryingRackLogic;
-import tconstruct.blocks.slime.SlimeFluid;
-import tconstruct.blocks.slime.SlimeGel;
-import tconstruct.blocks.slime.SlimeGrass;
-import tconstruct.blocks.slime.SlimeLeaves;
-import tconstruct.blocks.slime.SlimeSapling;
-import tconstruct.blocks.slime.SlimeTallGrass;
-import tconstruct.blocks.traps.BarricadeBlock;
-import tconstruct.blocks.traps.Punji;
-import tconstruct.client.StepSoundSlime;
-import tconstruct.common.itemblocks.MetadataItemBlock;
-import tconstruct.library.TConstructRegistry;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import tconstruct.TConstruct;
+import tconstruct.armor.ArmorProxyCommon;
 import tconstruct.mechworks.blocks.BlockLandmine;
+import tconstruct.mechworks.entity.item.EntityLandmineFirework;
+import tconstruct.mechworks.entity.item.ExplosivePrimed;
 import tconstruct.mechworks.itemblocks.ItemBlockLandmine;
 import tconstruct.mechworks.logic.TileEntityLandmine;
-import tconstruct.smeltery.TinkerSmeltery;
-import tconstruct.smeltery.blocks.MetalOre;
 import tconstruct.tools.TinkerTools;
-import tconstruct.tools.blocks.MultiBrick;
-import tconstruct.tools.blocks.MultiBrickFancy;
-import tconstruct.tools.itemblocks.MultiBrickFancyItem;
-import tconstruct.tools.itemblocks.MultiBrickItem;
-import tconstruct.world.blocks.ConveyorBase;
-import tconstruct.world.blocks.GravelOre;
-import tconstruct.world.blocks.MeatBlock;
-import tconstruct.world.blocks.OreberryBush;
-import tconstruct.world.blocks.OreberryBushEssence;
-import tconstruct.world.blocks.SlimeExplosive;
-import tconstruct.world.blocks.SlimePad;
-import tconstruct.world.blocks.StoneLadder;
-import tconstruct.world.blocks.StoneTorch;
-import tconstruct.world.blocks.WoodRail;
-import tconstruct.world.itemblocks.BarricadeItem;
-import tconstruct.world.itemblocks.GravelOreItem;
-import tconstruct.world.itemblocks.HamboneItemBlock;
-import tconstruct.world.itemblocks.MetalOreItemBlock;
-import tconstruct.world.itemblocks.OreberryBushItem;
-import tconstruct.world.itemblocks.OreberryBushSecondItem;
-import tconstruct.world.itemblocks.SlimeGelItemBlock;
-import tconstruct.world.itemblocks.SlimeGrassItemBlock;
-import tconstruct.world.itemblocks.SlimeLeavesItemBlock;
-import tconstruct.world.itemblocks.SlimeSaplingItemBlock;
-import tconstruct.world.itemblocks.SlimeTallGrassItem;
-import tconstruct.world.itemblocks.WoolSlab1Item;
-import tconstruct.world.itemblocks.WoolSlab2Item;
-import tconstruct.world.items.OreBerries;
-import tconstruct.world.items.StrangeFood;
-import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
-@Mod(modid = "TinkerMechworks", name = "TinkerMechworks", version = "${tinkermechworksversion}")
-public class TinkerMechworks
+@ObjectHolder(TConstruct.modID)
+@Pulse(id = TConstruct.modID)
+public class TinkerMechworks implements IPulse //TODO: Remove IPulse implementation, keep annotation
 {
-
+    @PulseProxy(client = "tconstruct.mechworks.MechworksProxyClient", server = "tconstruct.mechworks.MechworksProxyCommon")
+    public static MechworksProxyCommon proxy;
+    public TinkerMechworks()
+    {
+        NetworkRegistry.INSTANCE.registerGuiHandler(TConstruct.instance, proxy);
+    }
     // Traps
     public static Block landmine;
 
@@ -81,8 +46,21 @@ public class TinkerMechworks
         TinkerMechworks.landmine = new BlockLandmine().setHardness(0.5F).setResistance(0F).setStepSound(Block.soundTypeMetal).setCreativeTab(CreativeTabs.tabRedstone).setBlockName("landmine");
         GameRegistry.registerBlock(TinkerMechworks.landmine, ItemBlockLandmine.class, "Redstone.Landmine");
         GameRegistry.registerTileEntity(TileEntityLandmine.class, "Landmine");
+
+        // Landmine Recipes
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerMechworks.landmine, 1, 0), "mcm", "rpr", 'm', "plankWood", 'c', new ItemStack(TinkerTools.blankPattern, 1, 1), 'r',
+                Items.redstone, 'p', Blocks.stone_pressure_plate));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerMechworks.landmine, 1, 1), "mcm", "rpr", 'm', Blocks.stone, 'c', new ItemStack(TinkerTools.blankPattern, 1, 1), 'r',
+                Items.redstone, 'p', Blocks.stone_pressure_plate));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerMechworks.landmine, 1, 2), "mcm", "rpr", 'm', Blocks.obsidian, 'c', new ItemStack(TinkerTools.blankPattern, 1, 1), 'r',
+                Items.redstone, 'p', Blocks.stone_pressure_plate));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerMechworks.landmine, 1, 3), "mcm", "rpr", 'm', Items.repeater, 'c', new ItemStack(TinkerTools.blankPattern, 1, 1), 'r',
+                Items.redstone, 'p', Blocks.stone_pressure_plate));
+
+        EntityRegistry.registerModEntity(EntityLandmineFirework.class, "LandmineFirework", 5, TConstruct.instance, 32, 5, true);
+        EntityRegistry.registerModEntity(ExplosivePrimed.class, "SlimeExplosive", 6, TConstruct.instance, 32, 5, true);
     }
-    
+
     @EventHandler
     public void init (FMLInitializationEvent event)
     {
@@ -91,6 +69,6 @@ public class TinkerMechworks
     @EventHandler
     public void postInit (FMLPostInitializationEvent evt)
     {
-        
+
     }
 }

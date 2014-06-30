@@ -157,6 +157,7 @@ import tconstruct.world.model.SlimeRender;
 
 public class TProxyClient extends TProxyCommon
 {
+    /* TODO: Split this class up into its respective parts */
     public static SmallFontRenderer smallFontRenderer;
     public static IIcon metalBall;
     public static Minecraft mc;
@@ -164,7 +165,13 @@ public class TProxyClient extends TProxyCommon
 
     public static ArmorExtended armorExtended = new ArmorExtended();
     public static KnapsackInventory knapsack = new KnapsackInventory();
-
+    
+    public void initialize()
+    {
+        registerRenderer();
+        readManuals();
+    }
+    
     /* Registers any rendering code. */
     public void registerRenderer ()
     {

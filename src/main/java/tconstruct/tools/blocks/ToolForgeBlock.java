@@ -18,10 +18,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.ToolProxyCommon;
 import tconstruct.tools.logic.ToolForgeLogic;
 import tconstruct.tools.model.TableRender;
+import tconstruct.world.TinkerWorld;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -82,7 +82,7 @@ public class ToolForgeBlock extends InventoryBlock
             case 3:
                 return Blocks.emerald_block.getIcon(side, 0);
             default:
-                return TinkerSmeltery.metalBlock.getIcon(side, meta - 4);
+                return TinkerWorld.metalBlock.getIcon(side, meta - 4);
             }
         }
 

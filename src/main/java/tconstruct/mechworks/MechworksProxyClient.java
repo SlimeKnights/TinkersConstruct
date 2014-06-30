@@ -20,6 +20,7 @@ import tconstruct.client.gui.StencilTableGui;
 import tconstruct.client.gui.ToolForgeGui;
 import tconstruct.client.gui.ToolStationGui;
 import tconstruct.client.tabs.TabRegistry;
+import tconstruct.common.TProxyCommon;
 import tconstruct.mechworks.inventory.ContainerLandmine;
 import tconstruct.mechworks.logic.TileEntityLandmine;
 import tconstruct.smeltery.SmelteryProxyCommon;
@@ -38,6 +39,17 @@ import tconstruct.util.config.PHConstruct;
 
 public class MechworksProxyClient extends MechworksProxyCommon
 {
+    public MechworksProxyClient()
+    {
+        registerGuiHandler();
+    }
+    
+    protected void registerGuiHandler()
+    {
+        super.registerGuiHandler();
+        TProxyCommon.registerClientGuiHandler(landmineID, this);
+    }
+    
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {

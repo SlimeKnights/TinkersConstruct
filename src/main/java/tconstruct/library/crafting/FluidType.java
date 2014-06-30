@@ -16,43 +16,43 @@ public enum FluidType
     /** Gold Smelting **/
     Gold(Blocks.gold_block, 0, 400, TinkerSmeltery.moltenGoldFluid, false),
     /** Tin Smelting **/
-    Tin(TinkerSmeltery.metalBlock, 5, 400, TinkerSmeltery.moltenTinFluid, false),
+    Tin(TinkerWorld.metalBlock, 5, 400, TinkerSmeltery.moltenTinFluid, false),
     /** Copper Smelting **/
-    Copper(TinkerSmeltery.metalBlock, 3, 550, TinkerSmeltery.moltenCopperFluid, true),
+    Copper(TinkerWorld.metalBlock, 3, 550, TinkerSmeltery.moltenCopperFluid, true),
     /** Aluminum Smelting **/
-    Aluminum(TinkerSmeltery.metalBlock, 6, 350, TinkerSmeltery.moltenAluminumFluid, false),
+    Aluminum(TinkerWorld.metalBlock, 6, 350, TinkerSmeltery.moltenAluminumFluid, false),
     /** Natural Aluminum Smelting **/
     NaturalAluminum(TinkerWorld.oreSlag, 6, 350, TinkerSmeltery.moltenAluminumFluid, false),
     /** Cobalt Smelting **/
-    Cobalt(TinkerSmeltery.metalBlock, 0, 650, TinkerSmeltery.moltenCobaltFluid, true),
+    Cobalt(TinkerWorld.metalBlock, 0, 650, TinkerSmeltery.moltenCobaltFluid, true),
     /** Ardite Smelting **/
-    Ardite(TinkerSmeltery.metalBlock, 1, 650, TinkerSmeltery.moltenArditeFluid, true),
+    Ardite(TinkerWorld.metalBlock, 1, 650, TinkerSmeltery.moltenArditeFluid, true),
     /** AluminumBrass Smelting **/
-    AluminumBrass(TinkerSmeltery.metalBlock, 7, 350, TinkerSmeltery.moltenAlubrassFluid, false),
+    AluminumBrass(TinkerWorld.metalBlock, 7, 350, TinkerSmeltery.moltenAlubrassFluid, false),
     /** Alumite Smelting **/
-    Alumite(TinkerSmeltery.metalBlock, 8, 800, TinkerSmeltery.moltenAlumiteFluid, true),
+    Alumite(TinkerWorld.metalBlock, 8, 800, TinkerSmeltery.moltenAlumiteFluid, true),
     /** Manyullyn Smelting **/
-    Manyullyn(TinkerSmeltery.metalBlock, 2, 750, TinkerSmeltery.moltenManyullynFluid, true),
+    Manyullyn(TinkerWorld.metalBlock, 2, 750, TinkerSmeltery.moltenManyullynFluid, true),
     /** Bronze Smelting **/
-    Bronze(TinkerSmeltery.metalBlock, 4, 500, TinkerSmeltery.moltenBronzeFluid, true),
+    Bronze(TinkerWorld.metalBlock, 4, 500, TinkerSmeltery.moltenBronzeFluid, true),
     /** Steel Smelting **/
-    Steel(TinkerSmeltery.metalBlock, 9, 700, TinkerSmeltery.moltenSteelFluid, true),
+    Steel(TinkerWorld.metalBlock, 9, 700, TinkerSmeltery.moltenSteelFluid, true),
     /** Nickel Smelting **/
-    Nickel(TinkerSmeltery.metalBlock, 0, 400, TinkerSmeltery.moltenNickelFluid, false),
+    Nickel(TinkerWorld.metalBlock, 0, 400, TinkerSmeltery.moltenNickelFluid, false),
     /** Lead Smelting **/
-    Lead(TinkerSmeltery.metalBlock, 0, 400, TinkerSmeltery.moltenLeadFluid, false),
+    Lead(TinkerWorld.metalBlock, 0, 400, TinkerSmeltery.moltenLeadFluid, false),
     /** Silver Smelting **/
-    Silver(TinkerSmeltery.metalBlock, 0, 400, TinkerSmeltery.moltenSilverFluid, false),
+    Silver(TinkerWorld.metalBlock, 0, 400, TinkerSmeltery.moltenSilverFluid, false),
     /** Platinum Smelting **/
-    Platinum(TinkerSmeltery.metalBlock, 0, 400, TinkerSmeltery.moltenShinyFluid, false),
+    Platinum(TinkerWorld.metalBlock, 0, 400, TinkerSmeltery.moltenShinyFluid, false),
     /** Invar Smelting **/
-    Invar(TinkerSmeltery.metalBlock, 0, 400, TinkerSmeltery.moltenInvarFluid, false),
+    Invar(TinkerWorld.metalBlock, 0, 400, TinkerSmeltery.moltenInvarFluid, false),
     /** Electrum Smelting **/
-    Electrum(TinkerSmeltery.metalBlock, 0, 400, TinkerSmeltery.moltenElectrumFluid, false),
+    Electrum(TinkerWorld.metalBlock, 0, 400, TinkerSmeltery.moltenElectrumFluid, false),
     /** Obsidian Smelting **/
     Obsidian(Blocks.obsidian, 0, 750, TinkerSmeltery.moltenObsidianFluid, true),
     /** Ender Smelting **/
-    Ender(TinkerSmeltery.metalBlock, 10, 500, TinkerSmeltery.moltenEnderFluid, false),
+    Ender(TinkerWorld.metalBlock, 10, 500, TinkerSmeltery.moltenEnderFluid, false),
     /** Glass Smelting **/
     Glass(Blocks.sand, 0, 625, TinkerSmeltery.moltenGlassFluid, false),
     /** Stone Smelting **/

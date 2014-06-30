@@ -9,6 +9,7 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.client.gui.AdaptiveSmelteryGui;
 import tconstruct.client.gui.SmelteryGui;
+import tconstruct.common.TProxyCommon;
 import tconstruct.smeltery.logic.AdaptiveSmelteryLogic;
 import tconstruct.smeltery.logic.SmelteryLogic;
 import tconstruct.util.config.PHConstruct;
@@ -18,8 +19,16 @@ public class SmelteryProxyClient extends SmelteryProxyCommon
     public SmelteryProxyClient()
     {
         MinecraftForge.EVENT_BUS.register(this);
+        registerGuiHandler();
     }
     
+    @Override
+    protected void registerGuiHandler()
+    {
+        super.registerGuiHandler();
+        TProxyCommon.registerClientGuiHandler(smelteryGuiID, this);
+    }
+
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {
@@ -32,11 +41,11 @@ public class SmelteryProxyClient extends SmelteryProxyCommon
         }
         return null;
     }
-    
+
     /* Liquids */
 
-    IIcon[] stillIcons = new IIcon[2];
-    IIcon[] flowIcons = new IIcon[2];
+    IIcon[] stillIcons = new IIcon[1];
+    IIcon[] flowIcons = new IIcon[1];
 
     @SubscribeEvent
     public void preStitch (TextureStitchEvent.Pre event)

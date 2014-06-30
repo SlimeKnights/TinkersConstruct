@@ -3,21 +3,25 @@ package tconstruct;
 import java.util.Random;
 
 import mantle.lib.TabTools;
-import mantle.module.ModuleController;
+import mantle.pulsar.control.PulseManager;
+import mantle.pulsar.pulse.IPulse;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import tconstruct.armor.TinkerArmor;
 import tconstruct.client.TControls;
-import tconstruct.client.event.EventCloakRender;
 import tconstruct.common.TProxyCommon;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.Detailing;
 import tconstruct.library.crafting.LiquidCasting;
+import tconstruct.mechworks.TinkerMechworks;
 import tconstruct.mechworks.landmine.behavior.Behavior;
 import tconstruct.mechworks.landmine.behavior.stackCombo.SpecialStackHandler;
+import tconstruct.smeltery.TinkerSmeltery;
+import tconstruct.tools.TinkerTools;
 import tconstruct.util.EnvironmentChecks;
 import tconstruct.util.config.DimensionBlacklist;
 import tconstruct.util.config.PHConstruct;
@@ -25,8 +29,6 @@ import tconstruct.util.network.packet.PacketPipeline;
 import tconstruct.util.player.TPlayerHandler;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.gen.SlimeIslandGen;
-import tconstruct.world.gen.TBaseWorldGenerator;
-import tconstruct.world.gen.TerrainGenEventHandler;
 import tconstruct.world.village.ComponentSmeltery;
 import tconstruct.world.village.ComponentToolWorkshop;
 import tconstruct.world.village.TVillageTrades;
@@ -54,7 +56,7 @@ import cpw.mods.fml.relauncher.Side;
  */
 
 @Mod(modid = "TConstruct", name = "TConstruct", version = "${version}",
-        dependencies = "required-after:Forge@[9.11,);required-after:Mantle;after:ForgeMultipart;after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion")
+        dependencies = "required-after:Forge@[9.11,);required-after:Mantle;after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion")
 public class TConstruct
 {
     /** The value of one ingot in millibuckets */
@@ -65,32 +67,23 @@ public class TConstruct
     public static final int nuggetLiquidValue = ingotLiquidValue / 9;
 
     public static final int liquidUpdateAmount = 6;
-
-    // the entire mod
     public static final String modID = "TConstruct";
-    
-    // Shared mod logger
     public static final Logger logger = LogManager.getLogger(modID);
+    public static final PacketPipeline packetPipeline = new PacketPipeline();
+    public static Random random = new Random();
 
     /* Instance of this mod, used for grabbing prototype fields */
     @Instance(modID)
     public static TConstruct instance;
-    /* Proxies for sides, used for graphics processing */
+    /* Proxies for sides, used for graphics processing and client controls */
     @SidedProxy(clientSide = "tconstruct.client.TProxyClient", serverSide = "tconstruct.common.TProxyCommon")
     public static TProxyCommon proxy;
 
-    // Module loader
-    public static final ModuleController moduleLoader = new ModuleController("TDynstruct.cfg", modID);
-
-    // The packet pipeline
-    public static final PacketPipeline packetPipeline = new PacketPipeline();
-    
-    public static Random random = new Random();
+    /* Loads modules in a way that doesn't clutter the @Mod list */
+    private PulseManager pulsar = new PulseManager(modID); //Scheduled to change shortly.
 
     public TConstruct()
     {
-
-        //logger.setParent(FMLCommonHandler.instance().getFMLLogger());
         if (Loader.isModLoaded("Natura"))
         {
             logger.info("Natura, what are we going to do tomorrow night?");
@@ -102,14 +95,29 @@ public class TConstruct
         }
 
         EnvironmentChecks.verifyEnvironmentSanity();
-        //PluginController.registerModules();
     }
 
     @EventHandler
     public void preInit (FMLPreInitializationEvent event)
     {
+        PHConstruct.initProps(event.getModConfigurationDirectory());
 
-        PHConstruct.initProps(event.getSuggestedConfigurationFile());
+        //Temporarily hijacked
+        if (PHConstruct.worldModule)
+            pulsar.registerPulse(new TinkerWorld());
+        if (PHConstruct.toolModule)
+            pulsar.registerPulse(new TinkerTools());
+        if (PHConstruct.smelteryModule)
+            pulsar.registerPulse(new TinkerSmeltery());
+        if (PHConstruct.mechworksModule)
+            pulsar.registerPulse(new TinkerMechworks());
+        if (PHConstruct.armorModule)
+            pulsar.registerPulse(new TinkerArmor());
+        /*if (PHConstruct.prayerModule)
+            pulsar.registerPulse(new TinkerPrayers());
+        if (PHConstruct.cropifyModule)
+            pulsar.registerPulse(new TinkerCropify());*/
+
         TConstructRegistry.materialTab = new TabTools("TConstructMaterials");
         TConstructRegistry.toolTab = new TabTools("TConstructTools");
         TConstructRegistry.partTab = new TabTools("TConstructParts");
@@ -119,10 +127,7 @@ public class TConstruct
         basinCasting = new LiquidCasting();
         chiselDetailing = new Detailing();
 
-        GameRegistry.registerWorldGenerator(new TBaseWorldGenerator(), 0);
-        MinecraftForge.TERRAIN_GEN_BUS.register(new TerrainGenEventHandler());
         //GameRegistry.registerFuelHandler(content);
-        //NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 
         if (PHConstruct.addToVillages)
         {
@@ -147,13 +152,14 @@ public class TConstruct
         // GameRegistry.registerPlayerTracker(playerTracker);
         FMLCommonHandler.instance().bus().register(playerTracker);
         MinecraftForge.EVENT_BUS.register(playerTracker);
+        NetworkRegistry.INSTANCE.registerGuiHandler(TConstruct.instance, proxy);
 
         if (event.getSide() == Side.CLIENT)
         {
             FMLCommonHandler.instance().bus().register(new TControls());
         }
 
-        moduleLoader.preInit();
+        pulsar.preInit(event);
     }
 
     @EventHandler
@@ -168,17 +174,18 @@ public class TConstruct
         DimensionBlacklist.getBadBimensions();
         GameRegistry.registerWorldGenerator(new SlimeIslandGen(TinkerWorld.slimePool, 2), 2);
 
-        moduleLoader.init();
+        pulsar.init(event);
     }
 
     @EventHandler
-    public void postInit (FMLPostInitializationEvent evt)
+    public void postInit (FMLPostInitializationEvent event)
     {
         packetPipeline.postInitialise();
         Behavior.registerBuiltInBehaviors();
         SpecialStackHandler.registerBuiltInStackHandlers();
 
-        moduleLoader.postInit();
+        proxy.initialize();
+        pulsar.postInit(event);
     }
 
     public static LiquidCasting getTableCasting ()
