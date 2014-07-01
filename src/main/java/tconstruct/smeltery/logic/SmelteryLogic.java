@@ -301,8 +301,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         if (tick == 60)
         {
             tick = 0;
-            if (validStructure)
-                detectEntities();
+            detectEntities();
         }
     }
 

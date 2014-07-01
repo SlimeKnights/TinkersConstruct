@@ -54,17 +54,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
 
         if (itemstack1 == null)
         {
-            par3EntityPlayer.setCurrentItemOrArmor(i + 1, par1ItemStack.copy()); // Forge:
-                                                                                 // Vanilla
-                                                                                 // bug
-                                                                                 // fix
-                                                                                 // associated
-                                                                                 // with
-                                                                                 // fixed
-                                                                                 // setCurrentItemOrArmor
-                                                                                 // indexs
-                                                                                 // for
-                                                                                 // players.
+            par3EntityPlayer.setCurrentItemOrArmor(i + 1, par1ItemStack.copy());
             par1ItemStack.stackSize = 0;
         }
 
