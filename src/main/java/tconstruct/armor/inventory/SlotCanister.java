@@ -4,7 +4,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import tconstruct.library.armor.IHealthAccessory;
+import tconstruct.library.accessory.IHealthAccessory;
 
 public class SlotCanister extends Slot
 {
@@ -34,7 +34,7 @@ public class SlotCanister extends Slot
     public boolean isItemValid (ItemStack par1ItemStack)
     {
         Item item = (par1ItemStack == null ? null : par1ItemStack.getItem());
-        return item != null && (item instanceof IHealthAccessory) && ((IHealthAccessory) item).canEquipItem(par1ItemStack, this.slotID);
+        return item != null && (item instanceof IHealthAccessory) && ((IHealthAccessory) item).canEquipAccessory(par1ItemStack, this.slotID);
 
     }
 }

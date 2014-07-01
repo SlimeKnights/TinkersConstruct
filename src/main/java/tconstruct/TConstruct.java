@@ -114,6 +114,7 @@ public class TConstruct
         TConstructRegistry.toolTab = new TabTools("TConstructTools");
         TConstructRegistry.partTab = new TabTools("TConstructParts");
         TConstructRegistry.blockTab = new TabTools("TConstructBlocks");
+        TConstructRegistry.equipableTab = new TabTools("TConstructEquipables");
 
         tableCasting = new LiquidCasting();
         basinCasting = new LiquidCasting();
@@ -129,15 +130,8 @@ public class TConstruct
             VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
-            try
-            {
-                MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
-                MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
-            }
-            catch (Throwable e)
-            {
-                logger.error("Error registering TConstruct Structures with Vanilla Minecraft: this is expected in versions earlier than 1.6.4");
-            }
+            MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
+            MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
         }
 
         playerTracker = new TPlayerHandler();

@@ -78,7 +78,6 @@ import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
 import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -86,11 +85,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "TinkerSmeltery", description = "Liquid metals, casting, and the multiblock structure.")
+@Pulse(id = "Tinker's Smeltery", description = "Liquid metals, casting, and the multiblock structure.")
 public class TinkerSmeltery implements IPulse //TODO: Remove IPulse implementation, keep annotation
 {
-    @Instance("TinkerSmeltery")
-    public static TinkerSmeltery instance;
     @PulseProxy(client = "tconstruct.smeltery.SmelteryProxyClient", server = "tconstruct.smeltery.SmelteryProxyCommon")
     public static SmelteryProxyCommon proxy;
 

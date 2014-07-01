@@ -28,6 +28,7 @@ import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
 import cpw.mods.fml.relauncher.Side;
 
+//TODO: Redesign this class
 public class TPlayerHandler
 {
     /* Player */
@@ -58,7 +59,8 @@ public class TPlayerHandler
 
     public void onPlayerLogin (EntityPlayer entityplayer)
     {
-        TPlayerStats playerData = playerStats.remove(entityplayer.getPersistentID());
+        TPlayerStats playerData = new TPlayerStats();//playerStats.remove(entityplayer.getPersistentID());
+        playerStats.put(entityplayer.getPersistentID(), playerData); //TODO: wtf was going on with removing a nonexistant player in the login?!
         if (playerData != null)
         {
             playerData.saveNBTData(entityplayer.getEntityData());
@@ -220,19 +222,6 @@ public class TPlayerHandler
         }
     }
 
-    /*
-     * @SubscribeEvent public void livingUpdate (LivingUpdateEvent evt) { Side
-     * side = FMLCommonHandler.instance().getEffectiveSide(); if (side ==
-     * Side.CLIENT && evt.entityLiving instanceof EntityPlayer) { EntityPlayer
-     * player = (EntityPlayer) evt.entityLiving; TPlayerStats stats =
-     * playerStats.get(player.getDisplayName()); if (player.onGround !=
-     * stats.prevOnGround) { if (player.onGround)// && -stats.prevMotionY > 0.1)
-     * //player.motionY = 0.5; player.motionY = -stats.prevMotionY * 0.8;
-     * //player.motionY *= -1.2; stats.prevOnGround = player.onGround; //if ()
-     * 
-     * //TConstruct.logger.info("Fall: "+player.fallDistance); } } }
-     */
-
     @SubscribeEvent
     public void playerDeath (LivingDeathEvent event)
     {
@@ -316,5 +305,18 @@ public class TPlayerHandler
     }
 
     Random rand = new Random();
+    
+
+    public TPlayerStats getPlayerStats (UUID playerID)
+    {
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
+        {
+            return playerStats.get(playerID);
+        }
+        else
+        {
+            return playerStats.get(playerID);
+        }
+    }
 
 }

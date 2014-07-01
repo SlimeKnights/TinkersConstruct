@@ -1,11 +1,12 @@
 package tconstruct.client;
 
-import cpw.mods.fml.common.gameevent.TickEvent.Type;
 import mantle.common.network.AbstractPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import tconstruct.TConstruct;
 import tconstruct.armor.ArmorProxyCommon;
@@ -13,14 +14,16 @@ import tconstruct.client.event.EventCloakRender;
 import tconstruct.client.tabs.TabRegistry;
 import tconstruct.util.network.packet.PacketDoubleJump;
 import tconstruct.util.network.packet.PacketExtendedInventory;
+import cpw.mods.fml.common.gameevent.TickEvent.Type;
 
 public class TControls extends TKeyHandler
 {
     public static final String keybindCategory = "key.tconstruct.category";
-    // static KeyBinding grabKey = new KeyBinding("key.grab", 29);
-    // static KeyBinding stiltsKey = new KeyBinding("key.stilts", 46);
     public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24, keybindCategory);
     public static KeyBinding refreshCapes = new KeyBinding("key.tcapes.reload", 88, keybindCategory);
+    public static KeyBinding toggleGoggles = new KeyBinding("key.tgoggles", 34, keybindCategory);
+    public static KeyBinding beltSwap = new KeyBinding("key.tbelt", 48, keybindCategory);
+    public static KeyBinding zoomKey = new KeyBinding("key.tzoom", 29, keybindCategory); //TODO: Make this hold, not toggle
     static KeyBinding jumpKey;
     static KeyBinding invKey;
     static Minecraft mc;
@@ -30,6 +33,7 @@ public class TControls extends TKeyHandler
     boolean climbing = false;
     boolean onGround = false;
     boolean onStilts = false;
+    public static boolean zoom = false;
 
     int currentTab = 1;
 
@@ -37,7 +41,7 @@ public class TControls extends TKeyHandler
 
     public TControls()
     {
-        super(new KeyBinding[] { armorKey, refreshCapes }, new boolean[] { false, false }, getVanillaKeyBindings(), new boolean[] { false, false });
+        super(new KeyBinding[] { armorKey, refreshCapes, toggleGoggles, beltSwap, zoomKey }, new boolean[] { false, false, false, false, false }, getVanillaKeyBindings(), new boolean[] { false, false });
         // TConstruct.logger.info("Controls registered");
     }
 
@@ -87,8 +91,46 @@ public class TControls extends TKeyHandler
                 }
 
                 if (!jumping)
+                {
                     jumping = mc.thePlayer.isAirBorne;
+                    ItemStack shoes = mc.thePlayer.getCurrentArmor(0);
+                    if (shoes != null && shoes.hasTagCompound() && shoes.getTagCompound().hasKey("TinkerArmor"))
+                    {
+                        NBTTagCompound shoeTag = shoes.getTagCompound().getCompoundTag("TinkerArmor");
+                        midairJumps += shoeTag.getInteger("Double-Jump");
+                    }
+                    ItemStack wings = mc.thePlayer.getCurrentArmor(1);
+                    if (wings != null && wings.hasTagCompound() && wings.getTagCompound().hasKey("TinkerArmor"))
+                    {
+                        NBTTagCompound shoeTag = wings.getTagCompound().getCompoundTag("TinkerArmor");
+                        midairJumps += shoeTag.getInteger("Double-Jump");
+                    }
+                }
             }
+
+            /*if (mc.currentScreen == null)
+            {
+                if (kb == toggleGoggles)
+                {
+                    ItemStack goggles = mc.thePlayer.getCurrentArmor(3);
+                    if (goggles != null && goggles.getItem() instanceof TravelGear) //TODO: Genericize this
+                    {
+                        PlayerAbilityHelper.toggleGoggles(mc.thePlayer);
+                        updateServer((byte) 9);
+                    }
+                }
+                if (kb == beltSwap)
+                {
+                    TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(mc.thePlayer.username);
+                    if (stats.armor.inventory[3] != null)
+                    {
+                        //PlayerAbilityHelper.swapBelt(mc.thePlayer, stats);
+                        updateServer((byte) 8);
+                    }
+                }
+                if (kb == zoomKey)
+                    zoom = !zoom;
+            }*/
         }
         /*
          * else if (kb == stiltsKey) //Stilts { float size = 1.8F; if

@@ -14,7 +14,7 @@ import org.lwjgl.opengl.GL11;
 
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder;
-import tconstruct.library.tools.TToolMaterial;
+import tconstruct.library.tools.ToolMaterial;
 import tconstruct.smeltery.inventory.ActiveContainer;
 import tconstruct.tools.inventory.PartCrafterChestContainer;
 import tconstruct.tools.logic.PartBuilderLogic;
@@ -26,7 +26,7 @@ public class PartCrafterGui extends NewContainerGui
     boolean drawChestPart;
     boolean hasTop, hasBottom;
     ItemStack topMaterial, bottomMaterial;
-    TToolMaterial topEnum, bottomEnum;
+    ToolMaterial topEnum, bottomEnum;
 
     public PartCrafterGui(InventoryPlayer inventoryplayer, PartBuilderLogic partlogic, World world, int x, int y, int z)
     {

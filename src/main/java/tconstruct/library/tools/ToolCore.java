@@ -1,6 +1,5 @@
 package tconstruct.library.tools;
 
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -25,6 +24,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.modifier.IModifyable;
 import tconstruct.tools.entity.FancyEntityItem;
 import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
@@ -35,26 +35,26 @@ import cpw.mods.fml.relauncher.SideOnly;
  * 
  * @see ToolBuilder
  * 
- *      Required: Head: Base and render tag, above the handle Handle: Base and
- *      render tag, bottom layer
+ * Required: Head: Base and render tag, above the handle Handle: Base and
+ * render tag, bottom layer
  * 
- *      Damage: Replacement for metadata MaxDamage: ItemStacks only read
- *      setMaxDamage() Broken: Represents whether the tool is broken (boolean)
- *      Attack: How much damage a mob will take MiningSpeed: The speed at which
- *      a tool mines
+ * Damage: Replacement for metadata MaxDamage: ItemStacks only read
+ * setMaxDamage() Broken: Represents whether the tool is broken (boolean)
+ * Attack: How much damage a mob will take MiningSpeed: The speed at which
+ * a tool mines
  * 
- *      Others: Accessory: Base and tag, above head. Sword guards, binding, etc
- *      Effects: Render tag, top layer. Fancy effects like moss or diamond edge.
- *      Render order: Handle > Head > Accessory > Effect1 > Effect2 > Effect3 >
- *      etc Unbreaking: Reinforced in-game, 10% chance to not use durability per
- *      level Stonebound: Mines faster as the tool takes damage, but has less
- *      attack Spiny: Opposite of stonebound
+ * Others: Accessory: Base and tag, above head. Sword guards, binding, etc
+ * Effects: Render tag, top layer. Fancy effects like moss or diamond edge.
+ * Render order: Handle > Head > Accessory > Effect1 > Effect2 > Effect3 >
+ * etc Unbreaking: Reinforced in-game, 10% chance to not use durability per
+ * level Stonebound: Mines faster as the tool takes damage, but has less
+ * attack Spiny: Opposite of stonebound
  * 
- *      Modifiers have their own tags.
- * @see ToolMod
+ * Modifiers have their own tags.
+ * @see ItemModifier
  */
 
-public abstract class ToolCore extends Item implements IEnergyContainerItem
+public abstract class ToolCore extends Item implements IEnergyContainerItem, IModifyable
 {
     // TE power constants -- TODO grab these from the items added
     protected int capacity = 400000;
@@ -77,6 +77,18 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem
         TConstructRegistry.addToolMapping(this);
         setNoRepair();
         canRepair = false;
+    }
+    
+    @Override
+    public String getBaseTagName()
+    {
+        return "InfiTool";
+    }
+    
+    @Override
+    public String getModifyType()
+    {
+        return "Tool";
     }
 
     /**
@@ -428,10 +440,10 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem
 
     public String getReinforcedName (int head, int handle, int accessory, int extra, int unbreaking)
     {
-        TToolMaterial headMat = TConstructRegistry.getMaterial(head);
-        TToolMaterial handleMat = TConstructRegistry.getMaterial(handle);
-        TToolMaterial accessoryMat = TConstructRegistry.getMaterial(accessory);
-        TToolMaterial extraMat = TConstructRegistry.getMaterial(extra);
+        tconstruct.library.tools.ToolMaterial headMat = TConstructRegistry.getMaterial(head);
+        tconstruct.library.tools.ToolMaterial handleMat = TConstructRegistry.getMaterial(handle);
+        tconstruct.library.tools.ToolMaterial accessoryMat = TConstructRegistry.getMaterial(accessory);
+        tconstruct.library.tools.ToolMaterial extraMat = TConstructRegistry.getMaterial(extra);
 
         int reinforced = 0;
         String style = "";
@@ -531,7 +543,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem
         while (iter.hasNext())
         {
             Map.Entry pairs = (Map.Entry) iter.next();
-            TToolMaterial material = (TToolMaterial) pairs.getValue();
+            tconstruct.library.tools.ToolMaterial material = (tconstruct.library.tools.ToolMaterial) pairs.getValue();
             buildTool((Integer) pairs.getKey(), material.displayName, list);
         }
     }
@@ -545,20 +557,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, name + getToolName());
         if (tool == null)
         {
-            Class clazz;
-            Field fld;
-            boolean supress = false;
-            try
-            {
-                clazz = Class.forName("tconstruct.common.TRepo");
-                fld = clazz.getField("supressMissingToolLogs");
-                supress = fld.getBoolean(fld);
-            }
-            catch (Exception e)
-            {
-                TConstructRegistry.logger.error("TConstruct Library could not find parts of TContent");
-                e.printStackTrace();
-            }
+            boolean supress = false; //TODO: Find this for iguana tweaks
             if (!supress)
             {
                 TConstructRegistry.logger.error("Creative builder failed tool for " + name + this.getToolName());
@@ -600,7 +599,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem
     /* Tool uses */
 
     // Types
-    public abstract String[] toolCategories ();
+    public abstract String[] getTraits ();
 
     // Mining
     @Override

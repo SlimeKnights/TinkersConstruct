@@ -94,7 +94,7 @@ public abstract class DualHarvestTool extends HarvestTool
     }
 
     @Override
-    public String[] toolCategories ()
+    public String[] getTraits ()
     {
         return new String[] { "harvest", "dualharvest" };
     }

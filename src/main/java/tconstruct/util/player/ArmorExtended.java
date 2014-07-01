@@ -16,8 +16,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import tconstruct.TConstruct;
-import tconstruct.library.armor.IHealthAccessory;
+import tconstruct.library.accessory.IHealthAccessory;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.relauncher.Side;
@@ -132,15 +131,6 @@ public class ArmorExtended implements IInventory
          */
     }
 
-    /*
-     * public void recalculateSkills(EntityPlayer player, TPlayerStats stats) {
-     * if (inventory[1] != null && inventory[1].getItem() == TRepo.glove) { if
-     * (stats.skillList.size() < 1) { try {
-     * stats.skillList.add(SkillRegistry.skills.get("Wall Building").copy()); }
-     * catch (Exception e) { e.printStackTrace(); } } } else { if
-     * (stats.skillList.size() > 0) { stats.skillList.remove(0); } } }
-     */
-
     public void recalculateHealth (EntityPlayer player, TPlayerStats stats)
     {
         Side side = FMLCommonHandler.instance().getEffectiveSide();
@@ -157,13 +147,7 @@ public class ArmorExtended implements IInventory
                 }
             }
             int prevHealth = stats.bonusHealth;
-            if (side == Side.CLIENT)
-                prevHealth = stats.bonusHealthClient;
-
-            if (side == Side.CLIENT)
-                stats.bonusHealthClient = bonusHP;
-            else
-                stats.bonusHealth = bonusHP;
+            stats.bonusHealth = bonusHP;
 
             int healthChange = bonusHP - prevHealth;
             if (healthChange != 0)
@@ -183,13 +167,8 @@ public class ArmorExtended implements IInventory
         else if (parent != null && parent.get() != null)
         {
             int prevHealth = stats.bonusHealth;
-            if (side == Side.CLIENT)
-                prevHealth = stats.bonusHealthClient;
             int bonusHP = 0;
-            if (side == Side.CLIENT)
-                stats.bonusHealthClient = bonusHP;
-            else
-                stats.bonusHealth = bonusHP;
+            stats.bonusHealth = bonusHP;
             int healthChange = bonusHP - prevHealth;
             if (healthChange != 0)
             {

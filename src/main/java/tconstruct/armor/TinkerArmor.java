@@ -16,37 +16,34 @@ import tconstruct.TConstruct;
 import tconstruct.armor.blocks.DryingRack;
 import tconstruct.armor.items.ArmorBasic;
 import tconstruct.armor.items.DiamondApple;
-import tconstruct.armor.items.ExoArmor;
 import tconstruct.armor.items.HeartCanister;
 import tconstruct.armor.items.Jerky;
 import tconstruct.armor.items.Knapsack;
+import tconstruct.armor.items.TravelBelt;
+import tconstruct.armor.items.TravelGear;
+import tconstruct.armor.items.TravelGlove;
+import tconstruct.armor.items.TravelWings;
 import tconstruct.blocks.logic.DryingRackLogic;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.armor.EnumArmorPart;
+import tconstruct.library.accessory.AccessoryCore;
+import tconstruct.library.armor.ArmorPart;
 import tconstruct.library.crafting.DryingRackRecipes;
 import tconstruct.library.crafting.LiquidCasting;
-import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.tools.TinkerTools;
-import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.items.GoldenHead;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "TinkerArmor", description = "Modifyable armors, such as the traveller's gear.")
+@Pulse(id = "Tinkers' Armor", description = "Modifyable armors, such as the traveller's gear.")
 public class TinkerArmor implements IPulse //TODO: Remove IPulse implementation, keep annotation
 {
-    @Instance("TinkerArmor")
-    public static TinkerArmor instance;
     @PulseProxy(client = "tconstruct.armor.ArmorProxyClient", server = "tconstruct.armor.ArmorProxyCommon")
     public static ArmorProxyCommon proxy;
 
@@ -67,13 +64,16 @@ public class TinkerArmor implements IPulse //TODO: Remove IPulse implementation,
     public static Item helmetWood;
     public static Item chestplateWood;
     public static Item leggingsWood;
-    // Armor - exosuit
-    public static Item exoGoggles;
-    public static Item exoChest;
-    public static Item exoPants;
-    public static Item exoShoes;
     public static Item bootsWood;
     public static ArmorMaterial materialWood;
+
+    //Clothing - Travel Gear
+    public static TravelGear travelGoggles;
+    public static TravelGear travelWings;
+    public static TravelGear travelVest;
+    public static TravelGear travelBoots;
+    public static AccessoryCore travelGlove;
+    public static AccessoryCore travelBelt;
 
     public TinkerArmor()
     {
@@ -123,22 +123,24 @@ public class TinkerArmor implements IPulse //TODO: Remove IPulse implementation,
         GameRegistry.registerItem(TinkerArmor.chestplateWood, "chestplateWood");
         GameRegistry.registerItem(TinkerArmor.leggingsWood, "leggingsWood");
         GameRegistry.registerItem(TinkerArmor.bootsWood, "bootsWood");
-
-        TinkerArmor.exoGoggles = new ExoArmor(EnumArmorPart.HELMET, "exosuit").setUnlocalizedName("tconstruct.exoGoggles");
-        TinkerArmor.exoChest = new ExoArmor(EnumArmorPart.CHEST, "exosuit").setUnlocalizedName("tconstruct.exoChest");
-        TinkerArmor.exoPants = new ExoArmor(EnumArmorPart.PANTS, "exosuit").setUnlocalizedName("tconstruct.exoPants");
-        TinkerArmor.exoShoes = new ExoArmor(EnumArmorPart.SHOES, "exosuit").setUnlocalizedName("tconstruct.exoShoes");
-
-        GameRegistry.registerItem(TinkerArmor.exoGoggles, "helmetExo");
-        GameRegistry.registerItem(TinkerArmor.exoChest, "chestplateExo");
-        GameRegistry.registerItem(TinkerArmor.exoPants, "leggingsExo");
-        GameRegistry.registerItem(TinkerArmor.exoShoes, "bootsExo");
-
         TConstructRegistry.addItemStackToDirectory("diamondApple", new ItemStack(TinkerArmor.diamondApple, 1, 0));
 
         TConstructRegistry.addItemStackToDirectory("canisterEmpty", new ItemStack(TinkerArmor.heartCanister, 1, 0));
         TConstructRegistry.addItemStackToDirectory("miniRedHeart", new ItemStack(TinkerArmor.heartCanister, 1, 1));
         TConstructRegistry.addItemStackToDirectory("canisterRedHeart", new ItemStack(TinkerArmor.heartCanister, 1, 2));
+        
+        travelGoggles = (TravelGear) new TravelGear(ArmorPart.Head).setUnlocalizedName("tconstruct.travelgoggles");
+        travelVest = (TravelGear) new TravelGear(ArmorPart.Chest).setUnlocalizedName("tconstruct.travelvest");
+        travelWings = (TravelGear) new TravelWings().setUnlocalizedName("tconstruct.travelwings");
+        travelBoots = (TravelGear) new TravelGear(ArmorPart.Feet).setUnlocalizedName("tconstruct.travelboots");
+        travelGlove = (AccessoryCore) new TravelGlove().setUnlocalizedName("tconstruct.travelgloves");
+        travelBelt = (AccessoryCore) new TravelBelt().setUnlocalizedName("tconstruct.travelbelt");
+        GameRegistry.registerItem(travelGoggles, "travelGoggles");
+        GameRegistry.registerItem(travelVest, "travelVest");
+        GameRegistry.registerItem(travelWings, "travelWings");
+        GameRegistry.registerItem(travelBoots, "travelBoots");
+        GameRegistry.registerItem(travelGlove, "travelGlove");
+        GameRegistry.registerItem(travelBelt, "travelBelt");
     }
 
     @EventHandler
@@ -146,6 +148,7 @@ public class TinkerArmor implements IPulse //TODO: Remove IPulse implementation,
     {
         craftingTableRecipes();
         addRecipesForDryingRack();
+        TConstructRegistry.equipableTab.init(travelGoggles.getDefaultItem());
     }
 
     @EventHandler
@@ -166,22 +169,6 @@ public class TinkerArmor implements IPulse //TODO: Remove IPulse implementation,
         GameRegistry.addRecipe(new ShapedOreRecipe(TinkerArmor.chestplateWood, chest, 'w', "logWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(TinkerArmor.leggingsWood, pants, 'w', "logWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(TinkerArmor.bootsWood, shoes, 'w', "logWood"));
-
-        ItemStack exoGoggleStack = new ItemStack(TinkerArmor.exoGoggles);
-        ItemStack exoChestStack = new ItemStack(TinkerArmor.exoChest);
-        ItemStack exoPantsStack = new ItemStack(TinkerArmor.exoPants);
-        ItemStack exoShoesStack = new ItemStack(TinkerArmor.exoShoes);
-        if (PHConstruct.exoCraftingEnabled)
-        {
-            ToolBuilder.instance.addArmorTag(exoGoggleStack);
-            ToolBuilder.instance.addArmorTag(exoChestStack);
-            ToolBuilder.instance.addArmorTag(exoPantsStack);
-            ToolBuilder.instance.addArmorTag(exoShoesStack);
-            GameRegistry.addShapedRecipe(exoGoggleStack, helm, 'w', new ItemStack(TinkerTools.largePlate, 1, 14));
-            GameRegistry.addShapedRecipe(exoChestStack, chest, 'w', new ItemStack(TinkerTools.largePlate, 1, 14));
-            GameRegistry.addShapedRecipe(exoPantsStack, pants, 'w', new ItemStack(TinkerTools.largePlate, 1, 14));
-            GameRegistry.addShapedRecipe(exoShoesStack, shoes, 'w', new ItemStack(TinkerTools.largePlate, 1, 14));
-        }
 
         // Accessories
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerArmor.heartCanister, 1, 0), "##", "##", '#', "ingotAluminum"));

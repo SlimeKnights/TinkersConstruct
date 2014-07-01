@@ -8,19 +8,27 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 
-public class TPlayerStats implements IExtendedEntityProperties
+public class TPlayerStats implements IExtendedEntityProperties //TODO: IExtendedEntityProperties is not appropriate!
 {
     public static final String PROP_NAME = "TConstruct";
 
     public WeakReference<EntityPlayer> player;
+    
     public int level;
     public int bonusHealth;
-    public int bonusHealthClient;
+    public int damage;
     public int hunger;
+    public int previousDimension;
+    public int mineSpeed;
+    
+    public boolean climbWalls;
+    public boolean activeGoggles = true;
+    
     public boolean beginnerManual;
     public boolean materialManual;
     public boolean smelteryManual;
     public boolean battlesignBonus;
+    
     public ArmorExtended armor;
     public KnapsackInventory knapsack;
 
@@ -81,7 +89,6 @@ public class TPlayerStats implements IExtendedEntityProperties
 
         if (copyCalc) {
             this.bonusHealth = stats.bonusHealth;
-            this.bonusHealthClient = stats.bonusHealthClient;
             this.hunger = stats.hunger;
             this.level = stats.level;
         }

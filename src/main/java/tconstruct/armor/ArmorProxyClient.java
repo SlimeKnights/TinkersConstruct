@@ -3,21 +3,18 @@ package tconstruct.armor;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.google.common.collect.Lists;
-
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiInventory;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
@@ -26,47 +23,40 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
+import tconstruct.TConstruct;
+import tconstruct.armor.model.BeltModel;
+import tconstruct.armor.model.BootBump;
+import tconstruct.armor.model.HiddenPlayerModel;
+import tconstruct.armor.model.WingModel;
 import tconstruct.client.TControls;
 import tconstruct.client.TKeyHandler;
 import tconstruct.client.TProxyClient;
-import tconstruct.client.gui.AdaptiveSmelteryGui;
 import tconstruct.client.gui.ArmorExtendedGui;
-import tconstruct.client.gui.CraftingStationGui;
-import tconstruct.client.gui.FrypanGui;
-import tconstruct.client.gui.FurnaceGui;
-import tconstruct.client.gui.GuiLandmine;
 import tconstruct.client.gui.KnapsackGui;
-import tconstruct.client.gui.PartCrafterGui;
-import tconstruct.client.gui.PatternChestGui;
-import tconstruct.client.gui.SmelteryGui;
-import tconstruct.client.gui.StencilTableGui;
-import tconstruct.client.gui.ToolForgeGui;
-import tconstruct.client.gui.ToolStationGui;
 import tconstruct.client.tabs.InventoryTabArmorExtended;
 import tconstruct.client.tabs.InventoryTabKnapsack;
 import tconstruct.client.tabs.InventoryTabVanilla;
 import tconstruct.client.tabs.TabRegistry;
 import tconstruct.common.TProxyCommon;
-import tconstruct.mechworks.MechworksProxyCommon;
-import tconstruct.mechworks.inventory.ContainerLandmine;
-import tconstruct.mechworks.logic.TileEntityLandmine;
-import tconstruct.smeltery.SmelteryProxyCommon;
-import tconstruct.smeltery.logic.AdaptiveSmelteryLogic;
-import tconstruct.smeltery.logic.SmelteryLogic;
-import tconstruct.tools.ToolProxyCommon;
-import tconstruct.tools.logic.CraftingStationLogic;
-import tconstruct.tools.logic.FrypanLogic;
-import tconstruct.tools.logic.FurnaceLogic;
-import tconstruct.tools.logic.PartBuilderLogic;
-import tconstruct.tools.logic.PatternChestLogic;
-import tconstruct.tools.logic.StencilTableLogic;
-import tconstruct.tools.logic.ToolForgeLogic;
-import tconstruct.tools.logic.ToolStationLogic;
-import tconstruct.util.config.PHConstruct;
+import tconstruct.library.accessory.IAccessoryModel;
+import tconstruct.util.player.TPlayerStats;
+
+import com.google.common.collect.Lists;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ArmorProxyClient extends ArmorProxyCommon
 {
+    public static WingModel wings = new WingModel();
+    public static BootBump bootbump = new BootBump();
+    public static HiddenPlayerModel glove = new HiddenPlayerModel(0.25F, 4);
+    public static HiddenPlayerModel vest = new HiddenPlayerModel(0.25f, 1);
+    public static BeltModel belt = new BeltModel();
+    
     public ArmorProxyClient()
     {
         registerGuiHandler();
@@ -301,4 +291,136 @@ public class ArmorProxyClient extends ArmorProxyCommon
     }
 
     double zLevel = 0;
+    
+    @SubscribeEvent
+    public void adjustArmor (RenderPlayerEvent.SetArmorModel event)
+    {
+        switch (event.slot)
+        {
+        case 1:
+            ArmorProxyClient.vest.onGround = event.renderer.modelBipedMain.onGround;
+            ArmorProxyClient.vest.isRiding = event.renderer.modelBipedMain.isRiding;
+            ArmorProxyClient.vest.isChild = event.renderer.modelBipedMain.isChild;
+            ArmorProxyClient.vest.isSneak = event.renderer.modelBipedMain.isSneak;
+        case 2:
+            ArmorProxyClient.wings.onGround = event.renderer.modelBipedMain.onGround;
+            ArmorProxyClient.wings.isRiding = event.renderer.modelBipedMain.isRiding;
+            ArmorProxyClient.wings.isChild = event.renderer.modelBipedMain.isChild;
+            ArmorProxyClient.wings.isSneak = event.renderer.modelBipedMain.isSneak;
+
+            ArmorProxyClient.glove.onGround = event.renderer.modelBipedMain.onGround;
+            ArmorProxyClient.glove.isRiding = event.renderer.modelBipedMain.isRiding;
+            ArmorProxyClient.glove.isChild = event.renderer.modelBipedMain.isChild;
+            ArmorProxyClient.glove.isSneak = event.renderer.modelBipedMain.isSneak;
+            ArmorProxyClient.glove.heldItemLeft = event.renderer.modelBipedMain.heldItemLeft;
+            ArmorProxyClient.glove.heldItemRight = event.renderer.modelBipedMain.heldItemRight;
+            
+            ArmorProxyClient.belt.onGround = event.renderer.modelBipedMain.onGround;
+            ArmorProxyClient.belt.isRiding = event.renderer.modelBipedMain.isRiding;
+            ArmorProxyClient.belt.isChild = event.renderer.modelBipedMain.isChild;
+            ArmorProxyClient.belt.isSneak = event.renderer.modelBipedMain.isSneak;
+            
+            renderArmorExtras(event);
+            
+            break;
+        case 3:
+            ArmorProxyClient.bootbump.onGround = event.renderer.modelBipedMain.onGround;
+            ArmorProxyClient.bootbump.isRiding = event.renderer.modelBipedMain.isRiding;
+            ArmorProxyClient.bootbump.isChild = event.renderer.modelBipedMain.isChild;
+            ArmorProxyClient.bootbump.isSneak = event.renderer.modelBipedMain.isSneak;
+            break;
+        }
+    }
+    
+    void renderArmorExtras(RenderPlayerEvent.SetArmorModel event)
+    {
+        float partialTick = event.partialRenderTick;
+
+        EntityPlayer player = event.entityPlayer;
+        float posX = (float) (player.lastTickPosX + (player.posX - player.lastTickPosX) * partialTick);
+        float posY = (float) (player.lastTickPosY + (player.posY - player.lastTickPosY) * partialTick);
+        float posZ = (float) (player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialTick);
+
+        float yawOffset = this.interpolateRotation(player.prevRenderYawOffset, player.renderYawOffset, partialTick);
+        float yawRotation = this.interpolateRotation(player.prevRotationYawHead, player.rotationYawHead, partialTick);
+        float pitch;
+        final float zeropointsixtwofive = 0.0625F;
+
+        if (player.isRiding() && player.ridingEntity instanceof EntityLivingBase)
+        {
+            EntityLivingBase entitylivingbase1 = (EntityLivingBase) player.ridingEntity;
+            yawOffset = this.interpolateRotation(entitylivingbase1.prevRenderYawOffset, entitylivingbase1.renderYawOffset, partialTick);
+            pitch = MathHelper.wrapAngleTo180_float(yawRotation - yawOffset);
+
+            if (pitch < -85.0F)
+            {
+                pitch = -85.0F;
+            }
+
+            if (pitch >= 85.0F)
+            {
+                pitch = 85.0F;
+            }
+
+            yawOffset = yawRotation - pitch;
+
+            if (pitch * pitch > 2500.0F)
+            {
+                yawOffset += pitch * 0.2F;
+            }
+        }
+
+        pitch = this.handleRotationFloat(player, partialTick);
+        float bodyRotation = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTick;
+        float limbSwing = player.prevLimbSwingAmount + (player.limbSwingAmount - player.prevLimbSwingAmount) * partialTick;
+        float limbSwingMod = player.limbSwing - player.limbSwingAmount * (1.0F - partialTick);
+        TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getPersistentID());
+        if (stats.armor.inventory[1] != null)
+        {
+            Item item = stats.armor.inventory[1].getItem();
+            ModelBiped model = item.getArmorModel(player, stats.armor.inventory[1], 4);
+
+            if (item instanceof IAccessoryModel)
+            {
+                this.mc.getTextureManager().bindTexture(((IAccessoryModel) item).getWearbleTexture(player, stats.armor.inventory[1], 1));
+                model.setLivingAnimations(player, limbSwingMod, limbSwing, partialTick);
+                model.render(player, limbSwingMod, limbSwing, pitch, yawRotation - yawOffset, bodyRotation, zeropointsixtwofive);
+            }
+        }
+
+        if (stats.armor.inventory[3] != null)
+        {
+            Item item = stats.armor.inventory[3].getItem();
+            ModelBiped model = item.getArmorModel(player, stats.armor.inventory[3], 5);
+
+            if (item instanceof IAccessoryModel)
+            {
+                this.mc.getTextureManager().bindTexture(((IAccessoryModel) item).getWearbleTexture(player, stats.armor.inventory[1], 1));
+                model.setLivingAnimations(player, limbSwingMod, limbSwing, partialTick);
+                model.render(player, limbSwingMod, limbSwing, pitch, yawRotation - yawOffset, bodyRotation, zeropointsixtwofive);
+            }
+        }
+    }
+    
+    private float interpolateRotation (float par1, float par2, float par3)
+    {
+        float f3;
+
+        for (f3 = par2 - par1; f3 < -180.0F; f3 += 360.0F)
+        {
+            ;
+        }
+
+        while (f3 >= 180.0F)
+        {
+            f3 -= 360.0F;
+        }
+
+        return par1 + par3 * f3;
+    }
+    
+    protected float handleRotationFloat (EntityLivingBase par1EntityLivingBase, float par2)
+    {
+        return (float) par1EntityLivingBase.ticksExisted + par2;
+    }
 }

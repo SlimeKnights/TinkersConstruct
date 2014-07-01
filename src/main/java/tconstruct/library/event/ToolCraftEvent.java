@@ -2,7 +2,7 @@ package tconstruct.library.event;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import tconstruct.library.tools.TToolMaterial;
+import tconstruct.library.tools.ToolMaterial;
 import tconstruct.library.tools.ToolCore;
 import cpw.mods.fml.common.eventhandler.Event;
 
@@ -14,10 +14,10 @@ public class ToolCraftEvent extends Event
 {
     public final ToolCore tool;
     public final NBTTagCompound toolTag;
-    public final TToolMaterial[] materials;
+    public final ToolMaterial[] materials;
     protected ItemStack resultStack;
 
-    public ToolCraftEvent(ToolCore tool, NBTTagCompound toolTag, TToolMaterial[] materials)
+    public ToolCraftEvent(ToolCore tool, NBTTagCompound toolTag, ToolMaterial[] materials)
     {
         this.tool = tool;
         this.toolTag = toolTag;
@@ -27,7 +27,7 @@ public class ToolCraftEvent extends Event
     @HasResult
     public static class NormalTool extends ToolCraftEvent
     {
-        public NormalTool(ToolCore tool, NBTTagCompound toolTag, TToolMaterial[] materials)
+        public NormalTool(ToolCore tool, NBTTagCompound toolTag, ToolMaterial[] materials)
         {
             super(tool, toolTag, materials);
         }

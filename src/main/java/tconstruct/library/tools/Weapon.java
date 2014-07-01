@@ -117,19 +117,13 @@ public abstract class Weapon extends ToolCore
         }
     }
 
-    /*
-     * @Override public boolean onLeftClickEntity (ItemStack stack, EntityPlayer
-     * player, Entity entity) { TContent.modL.midStreamModify(stack); return
-     * super.onLeftClickEntity(stack, player, entity); }
-     */
-
     @Override
-    public String[] toolCategories ()
+    public String[] getTraits ()
     {
         return new String[] { "weapon", "melee" };
     }
 
-    public static Material[] web = new Material[] { Material.web };
+    public static Material[] web = new Material[] { Material.web, Material.cloth, Material.coral, Material.cake };
     public static Material[] none = new Material[0];
 
 }

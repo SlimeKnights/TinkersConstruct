@@ -105,7 +105,7 @@ public abstract class HarvestTool extends ToolCore
     }
 
     @Override
-    public String[] toolCategories ()
+    public String[] getTraits ()
     {
         return new String[] { "harvest" };
     }

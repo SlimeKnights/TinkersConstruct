@@ -28,7 +28,7 @@ import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
 @ObjectHolder(TConstruct.modID)
 //TODO handle migration of all items/blocks that were owned by the previously seperate mod
-@Pulse(id = "TinkerMechworks", description = "Mechanical machinations and steampunk inspired shenanigans.")
+@Pulse(id = "Tinkers' Mechworks", description = "Mechanical machinations and steampunk inspired shenanigans.")
 public class TinkerMechworks implements IPulse //TODO: Remove IPulse implementation, keep annotation
 {
     @PulseProxy(client = "tconstruct.mechworks.MechworksProxyClient", server = "tconstruct.mechworks.MechworksProxyCommon")

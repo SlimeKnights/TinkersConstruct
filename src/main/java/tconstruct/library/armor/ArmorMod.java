@@ -3,15 +3,17 @@ package tconstruct.library.armor;
 import java.util.EnumSet;
 import java.util.UUID;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import tconstruct.library.tools.ToolMod;
+import tconstruct.library.modifier.IModifyable;
+import tconstruct.library.modifier.ItemModifier;
 
-public abstract class ArmorMod extends ToolMod
+public abstract class ArmorMod extends ItemModifier
 {
-    protected final EnumSet<EnumArmorPart> armorTypes;
+    protected final EnumSet<ArmorPart> armorTypes;
 
-    public ArmorMod(int effect, String dataKey, EnumSet<EnumArmorPart> armorTypes, ItemStack[] items)
+    public ArmorMod(int effect, String dataKey, EnumSet<ArmorPart> armorTypes, ItemStack[] items)
     {
         super(items, effect, dataKey);
         this.armorTypes = armorTypes;
@@ -20,36 +22,21 @@ public abstract class ArmorMod extends ToolMod
     @Override
     protected boolean canModify (ItemStack armor, ItemStack[] input)
     {
+        Item i = armor.getItem();
+        if (!(i instanceof ArmorCore))
+            return false;
         ArmorCore item = (ArmorCore) armor.getItem();
         if (armorTypes.contains(item.armorPart))
         {
-            NBTTagCompound tags = armor.getTagCompound().getCompoundTag(getTagName());
+            NBTTagCompound tags = getModifierTag(armor);
             return tags.getInteger("Modifiers") > 0;
         }
         return false;
     }
-
+    
     @Override
-    protected String getTagName ()
+    public boolean validType (IModifyable type)
     {
-        return "TinkerArmor";
-    }
-
-    public boolean validArmorType (ArmorCore armor)
-    {
-        return true;
-    }
-
-    protected NBTTagCompound getAttributeTag (String attributeType, String modifierName, double amount, boolean flat, UUID uuid)
-    {
-        NBTTagCompound tag = new NBTTagCompound();
-        tag.setString("AttributeName", attributeType);
-        tag.setString("Name", modifierName);
-        tag.setDouble("Amount", amount);
-        tag.setInteger("Operation", flat ? 0 : 1);// 0 = flat increase, 1 = %
-                                                  // increase
-        tag.setLong("UUIDMost", uuid.getMostSignificantBits());
-        tag.setLong("UUIDLeast", uuid.getLeastSignificantBits());
-        return tag;
+        return type.getModifyType().equals("Armor");
     }
 }

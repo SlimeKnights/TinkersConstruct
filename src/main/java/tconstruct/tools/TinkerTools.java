@@ -1,7 +1,5 @@
 package tconstruct.tools;
 
-import java.util.EnumSet;
-
 import mantle.items.abstracts.CraftingItem;
 import mantle.pulsar.pulse.IPulse;
 import mantle.pulsar.pulse.Pulse;
@@ -21,13 +19,6 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import tconstruct.TConstruct;
-import tconstruct.armor.TinkerArmor;
-import tconstruct.armor.modifiers.AModDamageBoost;
-import tconstruct.armor.modifiers.AModDoubleJump;
-import tconstruct.armor.modifiers.AModHealthBoost;
-import tconstruct.armor.modifiers.AModKnockbackResistance;
-import tconstruct.armor.modifiers.AModMoveSpeed;
-import tconstruct.armor.modifiers.AModProtection;
 import tconstruct.common.itemblocks.MetadataItemBlock;
 import tconstruct.items.tools.Arrow;
 import tconstruct.items.tools.BattleSign;
@@ -51,13 +42,28 @@ import tconstruct.items.tools.Scythe;
 import tconstruct.items.tools.Shortbow;
 import tconstruct.items.tools.Shovel;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.armor.EnumArmorPart;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.Detailing;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.IPattern;
+import tconstruct.modifiers.tools.ModAntiSpider;
+import tconstruct.modifiers.tools.ModAttack;
+import tconstruct.modifiers.tools.ModAutoSmelt;
+import tconstruct.modifiers.tools.ModBlaze;
+import tconstruct.modifiers.tools.ModButtertouch;
+import tconstruct.modifiers.tools.ModCreativeToolModifier;
+import tconstruct.modifiers.tools.ModDurability;
+import tconstruct.modifiers.tools.ModExtraModifier;
+import tconstruct.modifiers.tools.ModFlux;
+import tconstruct.modifiers.tools.ModInteger;
+import tconstruct.modifiers.tools.ModLapis;
+import tconstruct.modifiers.tools.ModPiston;
+import tconstruct.modifiers.tools.ModRedstone;
+import tconstruct.modifiers.tools.ModReinforced;
+import tconstruct.modifiers.tools.ModRepair;
+import tconstruct.modifiers.tools.ModSmite;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.blocks.CraftingSlab;
 import tconstruct.tools.blocks.CraftingStationBlock;
@@ -85,23 +91,6 @@ import tconstruct.tools.logic.PatternChestLogic;
 import tconstruct.tools.logic.StencilTableLogic;
 import tconstruct.tools.logic.ToolForgeLogic;
 import tconstruct.tools.logic.ToolStationLogic;
-import tconstruct.tools.modifiers.ModAntiSpider;
-import tconstruct.tools.modifiers.ModAttack;
-import tconstruct.tools.modifiers.ModAutoSmelt;
-import tconstruct.tools.modifiers.ModBlaze;
-import tconstruct.tools.modifiers.ModButtertouch;
-import tconstruct.tools.modifiers.ModCreativeToolModifier;
-import tconstruct.tools.modifiers.ModDurability;
-import tconstruct.tools.modifiers.ModExtraModifier;
-import tconstruct.tools.modifiers.ModFlux;
-import tconstruct.tools.modifiers.ModInteger;
-import tconstruct.tools.modifiers.ModLapis;
-import tconstruct.tools.modifiers.ModPiston;
-import tconstruct.tools.modifiers.ModRedstone;
-import tconstruct.tools.modifiers.ModReinforced;
-import tconstruct.tools.modifiers.ModRepair;
-import tconstruct.tools.modifiers.ModSmite;
-import tconstruct.tools.modifiers.TActiveOmniMod;
 import tconstruct.util.ItemHelper;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
@@ -110,25 +99,19 @@ import tconstruct.world.itemblocks.CraftedSoilItemBlock;
 import tconstruct.world.items.GoldenHead;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "TinkerTools", description = "The main core of the mod! All of the tools, the tables, and the patterns are here.")
+@Pulse(id = "Tinker's Tools", description = "The main core of the mod! All of the tools, the tables, and the patterns are here.")
 public class TinkerTools implements IPulse //TODO: Remove IPulse implementation, keep annotation
 {
     /* Proxies for sides, used for graphics processing */
     @PulseProxy(client = "tconstruct.tools.ToolProxyClient", server = "tconstruct.tools.ToolProxyCommon")
     public static ToolProxyCommon proxy;
-
-    @Instance("TinkerTools")
-    public static TinkerTools instance;
 
     // Crafting blocks
     public static Block toolStationWood;
@@ -398,7 +381,6 @@ public class TinkerTools implements IPulse //TODO: Remove IPulse implementation,
         compound.getCompoundTag("InfiTool").setInteger("RenderAccessory", 10);
         tool.setTagCompound(compound);
 
-        // TConstruct.
         TConstructRegistry.toolTab.init(tool);
     }
 
@@ -547,8 +529,8 @@ public class TinkerTools implements IPulse //TODO: Remove IPulse implementation,
         ItemStack obsidianPlate = new ItemStack(TinkerTools.largePlate, 1, 6);
         tb.registerToolMod(new ModReinforced(new ItemStack[] { obsidianPlate }, 16, 1));
 
-        EnumSet<EnumArmorPart> allArmors = EnumSet.of(EnumArmorPart.HELMET, EnumArmorPart.CHEST, EnumArmorPart.PANTS, EnumArmorPart.SHOES);
-        EnumSet<EnumArmorPart> chest = EnumSet.of(EnumArmorPart.CHEST);
+        /*EnumSet<ArmorPart> allArmors = EnumSet.of(ArmorPart.Head, ArmorPart.Chest, ArmorPart.Legs, ArmorPart.Feet);
+        EnumSet<ArmorPart> chest = EnumSet.of(ArmorPart.Chest);
         tb.registerArmorMod(new AModMoveSpeed(0, allArmors, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }, false));
         tb.registerArmorMod(new AModKnockbackResistance(1, allArmors, new ItemStack[] { new ItemStack(Items.gold_ingot), new ItemStack(Blocks.gold_block) }, new int[] { 1, 9 }, false));
         tb.registerArmorMod(new AModHealthBoost(2, allArmors, new ItemStack[] { new ItemStack(TinkerArmor.heartCanister, 1, 2) }, new int[] { 2 }, true));
@@ -556,7 +538,7 @@ public class TinkerTools implements IPulse //TODO: Remove IPulse implementation,
         tb.registerArmorMod(new AModDamageBoost(4, chest, new ItemStack[] { new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1 }, true, 5, 1));
         tb.registerArmorMod(new AModProtection(5, allArmors, new ItemStack[] { new ItemStack(TinkerTools.largePlate, 1, 2) }, new int[] { 2 }));
 
-        tb.registerArmorMod(new AModDoubleJump(new ItemStack[] { new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(TinkerWorld.slimeGel, 1, 1) }));
+        tb.registerArmorMod(new AModDoubleJump(new ItemStack[] { new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(TinkerWorld.slimeGel, 1, 1) }));*/
 
         TConstructRegistry.registerActiveToolMod(new TActiveOmniMod());
     }
