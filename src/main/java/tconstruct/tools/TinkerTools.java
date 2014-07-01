@@ -120,7 +120,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = TConstruct.modID)
+@Pulse(id = "TinkerTools", description = "The main core of the mod! All of the tools, the tables, and the patterns are here.")
 public class TinkerTools implements IPulse //TODO: Remove IPulse implementation, keep annotation
 {
     /* Proxies for sides, used for graphics processing */

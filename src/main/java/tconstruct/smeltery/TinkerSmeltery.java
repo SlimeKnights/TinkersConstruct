@@ -86,7 +86,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = TConstruct.modID)
+@Pulse(id = "TinkerSmeltery", description = "Liquid metals, casting, and the multiblock structure.")
 public class TinkerSmeltery implements IPulse //TODO: Remove IPulse implementation, keep annotation
 {
     @Instance("TinkerSmeltery")

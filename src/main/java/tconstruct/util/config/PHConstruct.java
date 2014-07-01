@@ -15,48 +15,20 @@ public class PHConstruct
 
     public static void initProps (File location)
     {
-        /* Before we do anything, let's set up which modules can and cannot load. */
-        File modules = new File(location + "/TinkersModules.txt");
-        
-        /* Some basic debugging will go a long way */
+        File currentConfig = new File(location + "/TConstruct.cfg");
+        File legacyConfig = new File(location + "/TinkersWorkshop.txt");
         try
         {
-            modules.createNewFile();
+            if(!currentConfig.exists() && legacyConfig.exists())
+                legacyConfig.renameTo(currentConfig);
         }
-        catch (IOException e)
+        catch (Exception e)
         {
-            TConstruct.logger.warn("Could not create module configuration file for TConstruct. Reason:");
-            TConstruct.logger.warn(e.getLocalizedMessage());
-        }
-        /* [Forge] Configuration class, used as config method */
-        Configuration config = new Configuration(modules);
-        config.load();
-        worldModule = config.get("Modules: Disabling these will disable a chunk of the mod", "World", true, "Ores, slime islands, essence berries, and the like.").getBoolean(true);
-        toolModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Tools", true, "The main core of the mod! All of the tools, the tables, and the patterns are here.").getBoolean(true);
-        smelteryModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Smeltery", true, "Liquid metals, casting, and the multiblock structure.").getBoolean(true);
-        mechworksModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Smeltery", true, "Mechanical machinations and steampunk inspired shenanigans.").getBoolean(true);
-        armorModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Armor", true, "Modifyable armors, such as the traveller's gear.").getBoolean(true);
-        prayerModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Prayers", true, "Area of effect and time delayed status changes. Scrolltastic!").getBoolean(true);
-        cropifyModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Cropify", true, "Tinkering with the world never felt this bushy.").getBoolean(true);
-        config.save();
-        
-        /* Here we will set up the config file for the mod
-        * First: Create a folder inside the config folder
-        * Second: Create the actual config file
-        * Note: Configs are a pain, but absolutely necessary for every mod.
-        */
-        File newFile = new File(location + "/TinkersWorkshop.txt");
-        try
-        {
-            newFile.createNewFile();
-        }
-        catch (IOException e)
-        {
-            TConstruct.logger.warn("Could not create configuration file for TConstruct. Reason:");
+            TConstruct.logger.warn("Could not update legacy configuration file for TConstruct. Reason:");
             TConstruct.logger.warn(e.getLocalizedMessage());
         }
 
-        config = new Configuration(newFile);
+        Configuration config = new Configuration(currentConfig);
         cfglocation = location;
         /* Load the configuration file */
         config.load();
@@ -206,12 +178,9 @@ public class PHConstruct
         newSmeltery = config.get("Experimental", "Use new adaptive Smeltery code", false, "Warning: Very buggy").getBoolean(false);
         meltableHorses = config.get("Experimental", "Allow horses to be melted down for glue", true).getBoolean(true);
 
-        // Addon stuff
-        isCleaverTwoHanded = config.get("Battlegear", "Can Cleavers have shields", true).getBoolean(true);
-        isHatchetWeapon = config.get("Battlegear", "Are Hatches also weapons", true).getBoolean(true);
-
-        /* Save the configuration file */
-        config.save();
+        /* Save the configuration file only if it has changed */
+        if(config.hasChanged())
+            config.save();
 
         File gt = new File(location + "/GregTech");
         if (gt.exists())
@@ -222,15 +191,6 @@ public class PHConstruct
             gregtech = gtConfig.get("smelting", "tile.anvil.slightlyDamaged", false).getBoolean(false);
         }
     }
-    
-    //Modules
-    public static boolean worldModule;
-    public static boolean toolModule;
-    public static boolean smelteryModule;
-    public static boolean mechworksModule;
-    public static boolean armorModule;
-    public static boolean prayerModule;
-    public static boolean cropifyModule;
 
     public static boolean exoCraftingEnabled;
     public static boolean capesEnabled;
@@ -373,7 +333,4 @@ public class PHConstruct
     public static boolean newSmeltery;
     public static boolean meltableHorses;
 
-    // Addon stuff
-    public static boolean isCleaverTwoHanded;
-    public static boolean isHatchetWeapon;
 }
