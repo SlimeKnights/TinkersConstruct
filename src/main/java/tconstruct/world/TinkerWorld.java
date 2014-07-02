@@ -1,6 +1,5 @@
 package tconstruct.world;
 
-import mantle.pulsar.pulse.IPulse;
 import mantle.pulsar.pulse.Pulse;
 import mantle.pulsar.pulse.PulseProxy;
 import mantle.utils.RecipeRemover;
@@ -91,11 +90,11 @@ import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
 @ObjectHolder(TConstruct.modID)
 @Pulse(id = "Tinker's World", description = "Ores, slime islands, essence berries, and the like.")
-public class TinkerWorld implements IPulse //TODO: Remove IPulse implementation, keep annotation
+public class TinkerWorld
 {
     @Instance("TinkerWorld")
     public static TinkerWorld instance;
-    @PulseProxy(client = "tconstruct.world.TinkerWorldProxyClient", server = "tconstruct.world.TinkerWorldProxyCommon")
+    @PulseProxy(clientSide = "tconstruct.world.TinkerWorldProxyClient", serverSide = "tconstruct.world.TinkerWorldProxyCommon")
     public static TinkerWorldProxyCommon proxy;
     
     public static Item strangeFood;

@@ -80,7 +80,7 @@ public class TConstruct
     public static TProxyCommon proxy;
 
     /* Loads modules in a way that doesn't clutter the @Mod list */
-    private PulseManager pulsar = new PulseManager(modID, "TinkersModules"); //Scheduled to change shortly.
+    private PulseManager pulsar = new PulseManager(modID);
 
     public TConstruct()
     {
@@ -102,13 +102,20 @@ public class TConstruct
     {
         PHConstruct.initProps(event.getModConfigurationDirectory());
 
-        pulsar.registerPulse(new TinkerWorld());
-        pulsar.registerPulse(new TinkerTools());
-        pulsar.registerPulse(new TinkerSmeltery());
-        pulsar.registerPulse(new TinkerMechworks());
-        pulsar.registerPulse(new TinkerArmor());
-        /*pulsar.registerPulse(new TinkerPrayers());
-        pulsar.registerPulse(new TinkerCropify());*/
+        if (PHConstruct.worldModule)
+            pulsar.registerPulse(new TinkerWorld());
+        if (PHConstruct.toolModule)
+            pulsar.registerPulse(new TinkerTools());
+        if (PHConstruct.smelteryModule)
+            pulsar.registerPulse(new TinkerSmeltery());
+        if (PHConstruct.mechworksModule)
+            pulsar.registerPulse(new TinkerMechworks());
+        if (PHConstruct.armorModule)
+            pulsar.registerPulse(new TinkerArmor());
+        /*if (PHConstruct.prayerModule)
+            pulsar.registerPulse(new TinkerPrayers());
+        if (PHConstruct.cropifyModule)
+            pulsar.registerPulse(new TinkerCropify());*/
 
         TConstructRegistry.materialTab = new TabTools("TConstructMaterials");
         TConstructRegistry.toolTab = new TabTools("TConstructTools");

@@ -1,7 +1,6 @@
 package tconstruct.tools;
 
 import mantle.items.abstracts.CraftingItem;
-import mantle.pulsar.pulse.IPulse;
 import mantle.pulsar.pulse.Pulse;
 import mantle.pulsar.pulse.PulseProxy;
 import mantle.utils.RecipeRemover;
@@ -107,10 +106,10 @@ import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
 @ObjectHolder(TConstruct.modID)
 @Pulse(id = "Tinker's Tools", description = "The main core of the mod! All of the tools, the tables, and the patterns are here.")
-public class TinkerTools implements IPulse //TODO: Remove IPulse implementation, keep annotation
+public class TinkerTools
 {
     /* Proxies for sides, used for graphics processing */
-    @PulseProxy(client = "tconstruct.tools.ToolProxyClient", server = "tconstruct.tools.ToolProxyCommon")
+    @PulseProxy(clientSide = "tconstruct.tools.ToolProxyClient", serverSide = "tconstruct.tools.ToolProxyCommon")
     public static ToolProxyCommon proxy;
 
     // Crafting blocks

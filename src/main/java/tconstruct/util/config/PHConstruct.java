@@ -15,12 +15,48 @@ public class PHConstruct
 
     public static void initProps (File location)
     {
-        File currentConfig = new File(location + "/TConstruct.cfg");
-        File legacyConfig = new File(location + "/TinkersWorkshop.txt");
+        /* Before we do anything, let's set up which modules can and cannot load. */
+        File modules = new File(location + "/TinkersModules.cfg");
+
+        /* Some basic debugging will go a long way */
         try
         {
-            if(!currentConfig.exists() && legacyConfig.exists())
-                legacyConfig.renameTo(currentConfig);
+            modules.createNewFile();
+        }
+        catch (IOException e)
+        {
+            TConstruct.logger.warn("Could not create module configuration file for TConstruct. Reason:");
+            TConstruct.logger.warn(e.getLocalizedMessage());
+        }
+        Configuration config = new Configuration(modules);
+        config.load();
+        worldModule = config.get("Modules: Disabling these will disable a chunk of the mod", "World", true, "Ores, slime islands, essence berries, and the like.").getBoolean(true);
+        toolModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Tools", true, "The main core of the mod! All of the tools, the tables, and the patterns are here.")
+                .getBoolean(true);
+        smelteryModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Smeltery", true, "Liquid metals, casting, and the multiblock structure.").getBoolean(true);
+        mechworksModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Smeltery", true, "Mechanical machinations and steampunk inspired shenanigans.").getBoolean(true);
+        armorModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Armor", true, "Modifyable armors, such as the traveller's gear.").getBoolean(true);
+        prayerModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Prayers", true, "Area of effect and time delayed status changes. Scrolltastic!").getBoolean(true);
+        cropifyModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Cropify", true, "Tinkering with the world never felt this bushy.").getBoolean(true);
+        config.save();
+
+        /* Here we will set up the config file for the mod
+         * First: Create a folder inside the config folder
+         * Make sure to read any old configs file if they exist
+         * Second: Create the actual config file
+         */
+        File mainFile = new File(location + "/TinkersConstruct.cfg");
+        File legacyFile16 = new File(location + "/TinkersWorkshop.txt");
+        File legacyFile17 = new File(location + "/TConstruct.cfg");
+        try
+        {
+            if (!mainFile.exists())
+            {
+                if (legacyFile16.exists())
+                    legacyFile16.renameTo(mainFile);
+                if (legacyFile17.exists())
+                    legacyFile17.renameTo(mainFile);
+            }
         }
         catch (Exception e)
         {
@@ -28,10 +64,8 @@ public class PHConstruct
             TConstruct.logger.warn(e.getLocalizedMessage());
         }
 
-        Configuration config = new Configuration(currentConfig);
-        cfglocation = location;
-        /* Load the configuration file */
-        config.load();
+        config = new Configuration(mainFile);
+        //config.load(); /* Load happens in the constructor */
 
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
         TinkerTools.supressMissingToolLogs = config.get("Logging", "Disable tool build messages", false).getBoolean(false);
@@ -66,7 +100,6 @@ public class PHConstruct
         ingotsManyullynAlloy = config.get("Smeltery Output Modification", "Manyullyn ingot return", 1, "Number of ingots returned from smelting Manyullyn in the smeltery").getDouble(1);
         ingotsPigironAlloy = config.get("Smeltery Output Modification", "Pig Iron ingot return", 1, "Number of ingots returned from smelting Pig Iron in the smeltery").getDouble(1);
 
-        exoCraftingEnabled = config.get("Equipables", "Exo-Armor-Craftable", true).getBoolean(true);
         capesEnabled = config.get("Superfun", "Enable-TCon-Capes", true).getBoolean(true);
 
         boolean ic2 = true;
@@ -179,7 +212,7 @@ public class PHConstruct
         meltableHorses = config.get("Experimental", "Allow horses to be melted down for glue", true).getBoolean(true);
 
         /* Save the configuration file only if it has changed */
-        if(config.hasChanged())
+        if (config.hasChanged())
             config.save();
 
         File gt = new File(location + "/GregTech");
@@ -192,7 +225,15 @@ public class PHConstruct
         }
     }
 
-    public static boolean exoCraftingEnabled;
+    //Modules
+    public static boolean worldModule;
+    public static boolean toolModule;
+    public static boolean smelteryModule;
+    public static boolean mechworksModule;
+    public static boolean armorModule;
+    public static boolean prayerModule;
+    public static boolean cropifyModule;
+
     public static boolean capesEnabled;
 
     // Ore values
@@ -320,7 +361,6 @@ public class PHConstruct
 
     // Looks
     public static int connectedTexturesMode;
-    public static File cfglocation;
 
     // dimensionblacklist
     public static boolean slimeIslGenDim0Only;

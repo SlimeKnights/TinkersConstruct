@@ -8,7 +8,6 @@ import java.util.Map;
 
 import mantle.blocks.BlockUtils;
 import mantle.blocks.abstracts.MultiServantLogic;
-import mantle.pulsar.pulse.IPulse;
 import mantle.pulsar.pulse.Pulse;
 import mantle.pulsar.pulse.PulseProxy;
 import net.minecraft.block.Block;
@@ -86,9 +85,9 @@ import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
 @ObjectHolder(TConstruct.modID)
 @Pulse(id = "Tinker's Smeltery", description = "Liquid metals, casting, and the multiblock structure.")
-public class TinkerSmeltery implements IPulse //TODO: Remove IPulse implementation, keep annotation
+public class TinkerSmeltery
 {
-    @PulseProxy(client = "tconstruct.smeltery.SmelteryProxyClient", server = "tconstruct.smeltery.SmelteryProxyCommon")
+    @PulseProxy(clientSide = "tconstruct.smeltery.SmelteryProxyClient", serverSide = "tconstruct.smeltery.SmelteryProxyCommon")
     public static SmelteryProxyCommon proxy;
 
     public static Item metalPattern;

@@ -1,6 +1,5 @@
 package tconstruct.armor;
 
-import mantle.pulsar.pulse.IPulse;
 import mantle.pulsar.pulse.Pulse;
 import mantle.pulsar.pulse.PulseProxy;
 import net.minecraft.block.Block;
@@ -42,9 +41,9 @@ import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
 @ObjectHolder(TConstruct.modID)
 @Pulse(id = "Tinkers' Armor", description = "Modifyable armors, such as the traveller's gear.")
-public class TinkerArmor implements IPulse //TODO: Remove IPulse implementation, keep annotation
+public class TinkerArmor
 {
-    @PulseProxy(client = "tconstruct.armor.ArmorProxyClient", server = "tconstruct.armor.ArmorProxyCommon")
+    @PulseProxy(clientSide = "tconstruct.armor.ArmorProxyClient", serverSide = "tconstruct.armor.ArmorProxyCommon")
     public static ArmorProxyCommon proxy;
 
     public static Item diamondApple;

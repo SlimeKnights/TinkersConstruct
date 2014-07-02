@@ -1,6 +1,5 @@
 package tconstruct.mechworks;
 
-import mantle.pulsar.pulse.IPulse;
 import mantle.pulsar.pulse.Pulse;
 import mantle.pulsar.pulse.PulseProxy;
 import net.minecraft.block.Block;
@@ -10,7 +9,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import tconstruct.TConstruct;
-import tconstruct.armor.ArmorProxyCommon;
 import tconstruct.mechworks.blocks.BlockLandmine;
 import tconstruct.mechworks.entity.item.EntityLandmineFirework;
 import tconstruct.mechworks.entity.item.ExplosivePrimed;
@@ -29,9 +27,9 @@ import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 @ObjectHolder(TConstruct.modID)
 //TODO handle migration of all items/blocks that were owned by the previously seperate mod
 @Pulse(id = "Tinkers' Mechworks", description = "Mechanical machinations and steampunk inspired shenanigans.")
-public class TinkerMechworks implements IPulse //TODO: Remove IPulse implementation, keep annotation
+public class TinkerMechworks
 {
-    @PulseProxy(client = "tconstruct.mechworks.MechworksProxyClient", server = "tconstruct.mechworks.MechworksProxyCommon")
+    @PulseProxy(clientSide = "tconstruct.mechworks.MechworksProxyClient", serverSide = "tconstruct.mechworks.MechworksProxyCommon")
     public static MechworksProxyCommon proxy;
     public TinkerMechworks()
     {
