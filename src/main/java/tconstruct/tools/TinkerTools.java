@@ -179,7 +179,7 @@ public class TinkerTools
     public static Item bowstring;
     public static Item arrowhead;
     public static Item fletching;
-    public static Block craftedSoil;
+    public static Block craftedSoil; //TODO: Untwine this
     public static Block multiBrick;
     public static Block multiBrickFancy;
     // Tool modifiers
@@ -204,7 +204,6 @@ public class TinkerTools
     @Handler
     public void preInit (FMLPreInitializationEvent event)
     {
-        System.out.println("This is the ultimate showdown");
         //Blocks
         TinkerTools.toolStationWood = new ToolStationBlock(Material.wood).setBlockName("ToolStation");
         TinkerTools.toolForge = new ToolForgeBlock(Material.iron).setBlockName("ToolForge");

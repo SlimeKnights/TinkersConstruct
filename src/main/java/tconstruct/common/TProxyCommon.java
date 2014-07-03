@@ -12,9 +12,6 @@ public class TProxyCommon implements IGuiHandler
     {
         
     }
-    public void spawnParticle (String slimeParticle, double xPos, double yPos, double zPos, double velX, double velY, double velZ)
-    {
-    }
     
     @Override
     public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)

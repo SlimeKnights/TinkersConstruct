@@ -1,11 +1,15 @@
 package tconstruct.mechworks;
 
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiInventory;
+import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.world.World;
 import tconstruct.armor.ArmorProxyCommon;
 import tconstruct.client.TProxyClient;
+import tconstruct.client.entity.item.ExplosiveRender;
 import tconstruct.client.gui.AdaptiveSmelteryGui;
 import tconstruct.client.gui.ArmorExtendedGui;
 import tconstruct.client.gui.CraftingStationGui;
@@ -21,6 +25,8 @@ import tconstruct.client.gui.ToolForgeGui;
 import tconstruct.client.gui.ToolStationGui;
 import tconstruct.client.tabs.TabRegistry;
 import tconstruct.common.TProxyCommon;
+import tconstruct.mechworks.entity.item.EntityLandmineFirework;
+import tconstruct.mechworks.entity.item.ExplosivePrimed;
 import tconstruct.mechworks.inventory.ContainerLandmine;
 import tconstruct.mechworks.logic.TileEntityLandmine;
 import tconstruct.smeltery.SmelteryProxyCommon;
@@ -41,7 +47,14 @@ public class MechworksProxyClient extends MechworksProxyCommon
 {    
     public void initialize()
     {
+        registerRenderer();
         registerGuiHandler();        
+    }
+
+    void registerRenderer()
+    {
+        RenderingRegistry.registerEntityRenderingHandler(EntityLandmineFirework.class, new RenderSnowball(Items.fireworks));
+        RenderingRegistry.registerEntityRenderingHandler(ExplosivePrimed.class, new ExplosiveRender());
     }
     
     protected void registerGuiHandler()

@@ -1,7 +1,9 @@
 package tconstruct.world;
 
+import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelSlime;
 import net.minecraft.client.particle.EntityAuraFX;
 import net.minecraft.client.particle.EntityBreakingFX;
 import net.minecraft.client.particle.EntityBubbleFX;
@@ -26,10 +28,77 @@ import net.minecraft.client.particle.EntitySnowShovelFX;
 import net.minecraft.client.particle.EntitySpellParticleFX;
 import net.minecraft.client.particle.EntitySplashFX;
 import net.minecraft.client.particle.EntitySuspendFX;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import tconstruct.mechworks.model.CartRender;
+import tconstruct.tools.TinkerTools;
+import tconstruct.world.entity.BlueSlime;
+import tconstruct.world.entity.CartEntity;
+import tconstruct.world.model.BarricadeRender;
+import tconstruct.world.model.OreberryRender;
+import tconstruct.world.model.PunjiRender;
+import tconstruct.world.model.RenderLandmine;
+import tconstruct.world.model.SlimeChannelRender;
+import tconstruct.world.model.SlimePadRender;
+import tconstruct.world.model.SlimeRender;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.VillagerRegistry;
 
 public class TinkerWorldProxyClient extends TinkerWorldProxyCommon
 {
+    @Override
+    public void initialize()
+    {
+        registerRenderer();
+        registerManualIcons();
+        registerManualRecipes();
+    }
+
+    void registerRenderer ()
+    {       
+        RenderingRegistry.registerBlockHandler(new OreberryRender());
+        RenderingRegistry.registerBlockHandler(new BarricadeRender());
+        RenderingRegistry.registerBlockHandler(new RenderLandmine());
+        RenderingRegistry.registerBlockHandler(new PunjiRender());
+        RenderingRegistry.registerBlockHandler(new SlimeChannelRender());
+        RenderingRegistry.registerBlockHandler(new SlimePadRender());
+
+        // Entities
+        RenderingRegistry.registerEntityRenderingHandler(BlueSlime.class, new SlimeRender(new ModelSlime(16), new ModelSlime(0), 0.25F));
+        RenderingRegistry.registerEntityRenderingHandler(CartEntity.class, new CartRender());
+
+        VillagerRegistry.instance().registerVillagerSkin(78943, new ResourceLocation("tinker", "textures/mob/villagertools.png"));
+    }
+
+    void registerManualIcons ()
+    {
+        
+    }
+    
+    void registerManualRecipes ()
+    {
+        ItemStack netherrack = new ItemStack(Blocks.netherrack);
+        ItemStack coal = new ItemStack(Items.coal);
+        ItemStack log = new ItemStack(Blocks.log, 1, 0);
+
+        ItemStack graveyardsoil = new ItemStack(TinkerTools.craftedSoil, 1, 3);
+        ItemStack consecratedsoil = new ItemStack(TinkerTools.craftedSoil, 1, 4);
+
+        MantleClientRegistry.registerManualSmallRecipe("slimechannel", new ItemStack(TinkerWorld.slimeChannel, 1, 0), new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Items.redstone), null, null);
+        MantleClientRegistry.registerManualSmallRecipe("bouncepad", new ItemStack(TinkerWorld.slimePad, 1, 0), new ItemStack(TinkerWorld.slimeChannel), new ItemStack(Items.slime_ball), null, null);        
+
+        MantleClientRegistry.registerManualSmallRecipe("graveyardsoil", graveyardsoil, new ItemStack(Blocks.dirt), new ItemStack(Items.rotten_flesh), new ItemStack(Items.dye, 1, 15), null);
+        MantleClientRegistry.registerManualFurnaceRecipe("consecratedsoil", consecratedsoil, graveyardsoil);
+
+        // Traps
+        ItemStack reed = new ItemStack(Items.sugar);
+        MantleClientRegistry.registerManualLargeRecipe("punji", new ItemStack(TinkerWorld.punji), reed, null, reed, null, reed, null, reed, null, reed);
+        MantleClientRegistry.registerManualSmallRecipe("barricade", new ItemStack(TinkerWorld.barricadeOak), null, log, null, log);
+        
+    }
+
     Minecraft mc = Minecraft.getMinecraft();
 
     @Override

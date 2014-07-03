@@ -20,7 +20,6 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
-import tconstruct.TConstruct;
 import tconstruct.armor.TinkerArmor;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
@@ -307,7 +306,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
                 float offset = this.rand.nextFloat() * 0.5F + 0.5F;
                 float xPos = MathHelper.sin(f) * (float) i * 0.5F * offset;
                 float zPos = MathHelper.cos(f) * (float) i * 0.5F * offset;
-                TConstruct.proxy.spawnParticle(this.getSlimeParticle(), this.posX + (double) xPos, this.boundingBox.minY, this.posZ + (double) zPos, 0.0D, 0.0D, 0.0D);
+                TinkerWorld.proxy.spawnParticle(this.getSlimeParticle(), this.posX + (double) xPos, this.boundingBox.minY, this.posZ + (double) zPos, 0.0D, 0.0D, 0.0D);
             }
 
             if (this.makesSoundOnLand())
