@@ -31,16 +31,13 @@ public class TinkerMechworks
 {
     @PulseProxy(clientSide = "tconstruct.mechworks.MechworksProxyClient", serverSide = "tconstruct.mechworks.MechworksProxyCommon")
     public static MechworksProxyCommon proxy;
-    public TinkerMechworks()
-    {
-        NetworkRegistry.INSTANCE.registerGuiHandler(TConstruct.instance, proxy);
-    }
     // Traps
     public static Block landmine;
 
     @Handler
     public void preInit (FMLPreInitializationEvent event)
     {
+        //NetworkRegistry.INSTANCE.registerGuiHandler(TConstruct.instance, proxy);
         // Traps
         TinkerMechworks.landmine = new BlockLandmine().setHardness(0.5F).setResistance(0F).setStepSound(Block.soundTypeMetal).setCreativeTab(CreativeTabs.tabRedstone).setBlockName("landmine");
         GameRegistry.registerBlock(TinkerMechworks.landmine, ItemBlockLandmine.class, "Redstone.Landmine");

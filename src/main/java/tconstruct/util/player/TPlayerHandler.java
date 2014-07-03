@@ -34,7 +34,7 @@ public class TPlayerHandler
     /* Player */
     // public int hunger;
 
-    public ConcurrentHashMap<UUID, TPlayerStats> playerStats = new ConcurrentHashMap<UUID, TPlayerStats>();
+    private ConcurrentHashMap<UUID, TPlayerStats> playerStats = new ConcurrentHashMap<UUID, TPlayerStats>();
 
     @SubscribeEvent
     public void PlayerLoggedInEvent (PlayerLoggedInEvent event)
@@ -297,18 +297,5 @@ public class TPlayerHandler
     }
 
     Random rand = new Random();
-    
-
-    public TPlayerStats getPlayerStats (UUID playerID)
-    {
-        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
-        {
-            return playerStats.get(playerID);
-        }
-        else
-        {
-            return playerStats.get(playerID);
-        }
-    }
 
 }

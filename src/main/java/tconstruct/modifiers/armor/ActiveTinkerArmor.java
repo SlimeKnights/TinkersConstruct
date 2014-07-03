@@ -38,7 +38,7 @@ public class ActiveTinkerArmor extends ActiveArmorMod
         }
         if (type == ArmorPart.Head)
         {
-            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getPersistentID());
+            TPlayerStats stats = TPlayerStats.get(player);
             if (stats.activeGoggles)
             {
                 if (tag.getBoolean("Night Vision"))

@@ -15,6 +15,8 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
@@ -25,7 +27,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
-import tconstruct.TConstruct;
+import tconstruct.armor.items.TravelGear;
 import tconstruct.armor.model.BeltModel;
 import tconstruct.armor.model.BootBump;
 import tconstruct.armor.model.HiddenPlayerModel;
@@ -41,13 +43,16 @@ import tconstruct.client.tabs.InventoryTabVanilla;
 import tconstruct.client.tabs.TabRegistry;
 import tconstruct.common.TProxyCommon;
 import tconstruct.library.accessory.IAccessoryModel;
+import tconstruct.library.modifier.IModifyable;
 import tconstruct.util.player.TPlayerStats;
 
 import com.google.common.collect.Lists;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 
 public class ArmorProxyClient extends ArmorProxyCommon
 {
@@ -56,23 +61,24 @@ public class ArmorProxyClient extends ArmorProxyCommon
     public static HiddenPlayerModel glove = new HiddenPlayerModel(0.25F, 4);
     public static HiddenPlayerModel vest = new HiddenPlayerModel(0.25f, 1);
     public static BeltModel belt = new BeltModel();
-    
+
     @Override
-    public void initialize()
+    public void initialize ()
     {
         registerGuiHandler();
         MinecraftForge.EVENT_BUS.register(this);
+        FMLCommonHandler.instance().bus().register(this);
     }
-    
+
     @Override
-    protected void registerGuiHandler()
+    protected void registerGuiHandler ()
     {
         super.registerGuiHandler();
         TProxyCommon.registerClientGuiHandler(inventoryGui, this);
         TProxyCommon.registerClientGuiHandler(armorGuiID, this);
         TProxyCommon.registerClientGuiHandler(knapsackGuiID, this);
     }
-    
+
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {
@@ -101,7 +107,7 @@ public class ArmorProxyClient extends ArmorProxyCommon
         FMLCommonHandler.instance().bus().register(new ArmorTickHandler());
         new ArmorTickHandler();
     }
-    
+
     /* Keybindings */
     public static TControls controlInstance;
 
@@ -131,7 +137,6 @@ public class ArmorProxyClient extends ArmorProxyCommon
         settings.keyBindings = allKeys;
         settings.loadOptions();
     }
-    
 
     Minecraft mc = Minecraft.getMinecraft();
 
@@ -292,7 +297,8 @@ public class ArmorProxyClient extends ArmorProxyCommon
     }
 
     double zLevel = 0;
-    
+
+    /* Armor rendering */
     @SubscribeEvent
     public void adjustArmor (RenderPlayerEvent.SetArmorModel event)
     {
@@ -315,14 +321,14 @@ public class ArmorProxyClient extends ArmorProxyCommon
             ArmorProxyClient.glove.isSneak = event.renderer.modelBipedMain.isSneak;
             ArmorProxyClient.glove.heldItemLeft = event.renderer.modelBipedMain.heldItemLeft;
             ArmorProxyClient.glove.heldItemRight = event.renderer.modelBipedMain.heldItemRight;
-            
+
             ArmorProxyClient.belt.onGround = event.renderer.modelBipedMain.onGround;
             ArmorProxyClient.belt.isRiding = event.renderer.modelBipedMain.isRiding;
             ArmorProxyClient.belt.isChild = event.renderer.modelBipedMain.isChild;
             ArmorProxyClient.belt.isSneak = event.renderer.modelBipedMain.isSneak;
-            
+
             renderArmorExtras(event);
-            
+
             break;
         case 3:
             ArmorProxyClient.bootbump.onGround = event.renderer.modelBipedMain.onGround;
@@ -332,8 +338,8 @@ public class ArmorProxyClient extends ArmorProxyCommon
             break;
         }
     }
-    
-    void renderArmorExtras(RenderPlayerEvent.SetArmorModel event)
+
+    void renderArmorExtras (RenderPlayerEvent.SetArmorModel event)
     {
         float partialTick = event.partialRenderTick;
 
@@ -375,7 +381,7 @@ public class ArmorProxyClient extends ArmorProxyCommon
         float bodyRotation = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTick;
         float limbSwing = player.prevLimbSwingAmount + (player.limbSwingAmount - player.prevLimbSwingAmount) * partialTick;
         float limbSwingMod = player.limbSwing - player.limbSwingAmount * (1.0F - partialTick);
-        TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getPersistentID());
+        TPlayerStats stats = TPlayerStats.get(player);
         if (stats.armor.inventory[1] != null)
         {
             Item item = stats.armor.inventory[1].getItem();
@@ -402,7 +408,7 @@ public class ArmorProxyClient extends ArmorProxyCommon
             }
         }
     }
-    
+
     private float interpolateRotation (float par1, float par2, float par3)
     {
         float f3;
@@ -419,9 +425,110 @@ public class ArmorProxyClient extends ArmorProxyCommon
 
         return par1 + par3 * f3;
     }
-    
+
     protected float handleRotationFloat (EntityLivingBase par1EntityLivingBase, float par2)
     {
         return (float) par1EntityLivingBase.ticksExisted + par2;
+    }
+
+    /* Abilities */
+
+    ItemStack prevFeet;
+    double prevMotionY;
+    boolean morphed;
+    float prevMouseSensitivity;
+    boolean sprint;
+
+    @EventHandler
+    public void playerTick (TickEvent.PlayerTickEvent event)
+    {
+        System.out.println("Client Tick!");
+        EntityPlayer player = event.player;
+        TPlayerStats stats = TPlayerStats.get(player);
+        if (mc.thePlayer.onGround)
+        {
+            controlInstance.landOnGround();
+        }
+        if (stats.climbWalls && player.isCollidedHorizontally && !player.isSneaking())
+        {
+            player.motionY = 0.1176D;
+            player.fallDistance = 0.0f;
+        }
+
+        //Feet changes
+        ItemStack feet = player.getCurrentArmor(0);
+        if (feet != null)
+        {
+            if (feet.getItem() instanceof TravelGear && player.stepHeight < 1.0f)
+            {
+                player.stepHeight += 0.6f;
+            }
+            if (feet.getItem() instanceof IModifyable && !player.isSneaking())
+            {
+                NBTTagCompound tag = feet.getTagCompound().getCompoundTag(((IModifyable) feet.getItem()).getBaseTagName());
+                int sole = tag.getInteger("Slimy Soles");
+                if (sole > 0)
+                {
+                    if (!player.isSneaking() && player.onGround && prevMotionY < -0.4)
+                        player.motionY = -prevMotionY * (Math.min(0.99, sole * 0.2));
+                }
+            }
+            prevMotionY = player.motionY;
+        }
+        if (feet != prevFeet)
+        {
+            if (prevFeet != null && prevFeet.getItem() instanceof TravelGear)
+                player.stepHeight -= 0.6f;
+            if (feet != null && feet.getItem() instanceof TravelGear)
+                player.stepHeight += 0.6f;
+            prevFeet = feet;
+        }
+
+        //Legs or wing changes
+        /*ItemStack legs = player.getCurrentArmor(1);
+        if (legs != null && legs.getItem() instanceof IModifyable)
+        {
+            NBTTagCompound tag = legs.getTagCompound().getCompoundTag(((IModifyable) legs.getItem()).getBaseTagName());
+            if (player.isSprinting())
+            {
+                if (!sprint)
+                {
+                    sprint = true;
+                    int sprintboost = tag.getInteger("Sprint Assist");
+                    if (player.isSprinting() && sprintboost > 0)
+                    {
+                        prevMouseSensitivity = gs.mouseSensitivity;
+                        gs.mouseSensitivity *= 1 - (0.15 * sprintboost);
+                    }
+                }
+            }
+            else if (sprint)
+            {
+                sprint = false;
+                gs.mouseSensitivity = prevMouseSensitivity;
+            }
+        }*/
+        if (!player.isPlayerSleeping() && !morphed)
+        {
+            ItemStack chest = player.getCurrentArmor(2);
+            if (chest == null || !(chest.getItem() instanceof IModifyable))
+            {
+                PlayerAbilityHelper.setEntitySize(player, 0.6F, 1.8F);
+            }
+            else
+            {
+                NBTTagCompound tag = chest.getTagCompound().getCompoundTag(((IModifyable) chest.getItem()).getBaseTagName());
+                int dodge = tag.getInteger("Perfect Dodge");
+                if (dodge > 0)
+                {
+                    PlayerAbilityHelper.setEntitySize(player, Math.max(0.15F, 0.6F - (dodge * 0.09f)), 1.8F - (dodge * 0.04f));
+                }
+            }
+        }
+    }
+
+    EntityPlayer getPlayer ()
+    {
+        return mc.thePlayer;
     }
 }

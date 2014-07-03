@@ -173,14 +173,10 @@ public class TinkerSmeltery
     public static Fluid bloodFluid;
     public static Block blood;
 
-    public TinkerSmeltery()
-    {
-        MinecraftForge.EVENT_BUS.register(new TinkerSmelteryEvents());
-    }
-
     @Handler
     public void preInit (FMLPreInitializationEvent event)
     {
+        MinecraftForge.EVENT_BUS.register(new TinkerSmelteryEvents());
 
         TinkerSmeltery.buckets = new FilledBucket(BlockUtils.getBlockFromItem(TinkerSmeltery.buckets));
         GameRegistry.registerItem(TinkerSmeltery.buckets, "buckets");
@@ -463,7 +459,7 @@ public class TinkerSmeltery
                 TinkerSmeltery.moltenObsidian, TinkerSmeltery.moltenSteel, TinkerSmeltery.moltenGlass, TinkerSmeltery.moltenStone, TinkerSmeltery.moltenEmerald, TinkerSmeltery.blood,
                 TinkerSmeltery.moltenNickel, TinkerSmeltery.moltenLead, TinkerSmeltery.moltenSilver, TinkerSmeltery.moltenShiny, TinkerSmeltery.moltenInvar, TinkerSmeltery.moltenElectrum,
                 TinkerSmeltery.moltenEnder, TinkerSmeltery.glueFluidBlock };
-        
+
         FluidType.registerFluidType("Water", Blocks.snow, 0, 20, FluidRegistry.getFluid("water"), false); //TODO: Too much reliance on World.
         FluidType.registerFluidType("Iron", Blocks.iron_block, 0, 600, TinkerSmeltery.moltenIronFluid, true);
         FluidType.registerFluidType("Gold", Blocks.gold_block, 0, 400, TinkerSmeltery.moltenGoldFluid, false);
@@ -686,7 +682,6 @@ public class TinkerSmeltery
         // Obsidian, different dust amount
         {
             FluidType ft = FluidType.getFluidType("Obsidian");
-            System.out.println("Obsidian fluid? "+ft);
             String fluidTypeName = "Obsidian";
             Smeltery.addDictionaryMelting("nugget" + fluidTypeName, ft, -100, TConstruct.nuggetLiquidValue);
 
@@ -700,6 +695,9 @@ public class TinkerSmeltery
 
             // Ores
             Smeltery.addDictionaryMelting("ore" + fluidTypeName, ft, 0, ((int) TConstruct.ingotLiquidValue * (int) PHConstruct.ingotsPerOre));
+
+            // Poor ores
+            Smeltery.addDictionaryMelting("orePoor" + fluidTypeName, ft, 0, (int) (TConstruct.nuggetLiquidValue * PHConstruct.ingotsPerOre * 1.5f));
 
             // NetherOres support
             Smeltery.addDictionaryMelting("oreNether" + fluidTypeName, ft, 75, ((int) TConstruct.ingotLiquidValue * (int) PHConstruct.ingotsPerOre * 2));
@@ -873,8 +871,8 @@ public class TinkerSmeltery
     protected static void addRecipesForSmeltery ()
     {
         // Alloy Smelting
-        Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenBronzeFluid, (int) (TConstruct.nuggetLiquidValue * PHConstruct.ingotsBronzeAlloy)), new FluidStack(TinkerSmeltery.moltenCopperFluid,
-                TConstruct.nuggetLiquidValue * 3), new FluidStack(TinkerSmeltery.moltenTinFluid, TConstruct.nuggetLiquidValue)); // Bronze
+        Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenBronzeFluid, (int) (TConstruct.nuggetLiquidValue * PHConstruct.ingotsBronzeAlloy)), new FluidStack(
+                TinkerSmeltery.moltenCopperFluid, TConstruct.nuggetLiquidValue * 3), new FluidStack(TinkerSmeltery.moltenTinFluid, TConstruct.nuggetLiquidValue)); // Bronze
         Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenAlubrassFluid, (int) (TConstruct.nuggetLiquidValue * PHConstruct.ingotsAluminumBrassAlloy)), new FluidStack(
                 TinkerSmeltery.moltenAluminumFluid, TConstruct.nuggetLiquidValue * 3), new FluidStack(TinkerSmeltery.moltenCopperFluid, TConstruct.nuggetLiquidValue * 1)); // Aluminum Brass
         Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenAlumiteFluid, (int) (TConstruct.nuggetLiquidValue * PHConstruct.ingotsAlumiteAlloy)), new FluidStack(
@@ -894,12 +892,12 @@ public class TinkerSmeltery
                 Smeltery.addMelting(stone, new ItemStack(TinkerTools.patternOutputs[sc], 1, 1), 1,
                         (8 * ((IPattern) TinkerTools.woodPattern).getPatternCost(new ItemStack(TinkerTools.woodPattern, 1, sc + 1))) / 2);
             }
-        }        
+        }
 
         FluidType iron = FluidType.getFluidType("Iron");
         FluidType gold = FluidType.getFluidType("Gold");
         FluidType steel = FluidType.getFluidType("Steel");
-        
+
         // Chunks
         Smeltery.addMelting(FluidType.getFluidType("Stone"), new ItemStack(TinkerTools.toolShard, 1, 1), 0, 4);
         Smeltery.addMelting(iron, new ItemStack(TinkerTools.toolShard, 1, 2), 0, TConstruct.chunkLiquidValue);

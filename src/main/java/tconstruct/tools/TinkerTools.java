@@ -196,14 +196,11 @@ public class TinkerTools
     // recipe stuff
     public static boolean thaumcraftAvailable;
     
-    public TinkerTools()
-    {
-        MinecraftForge.EVENT_BUS.register(new TinkerToolEvents());
-    }
-
     @Handler
     public void preInit (FMLPreInitializationEvent event)
     {
+        MinecraftForge.EVENT_BUS.register(new TinkerToolEvents());
+        
         //Blocks
         TinkerTools.toolStationWood = new ToolStationBlock(Material.wood).setBlockName("ToolStation");
         TinkerTools.toolForge = new ToolForgeBlock(Material.iron).setBlockName("ToolForge");

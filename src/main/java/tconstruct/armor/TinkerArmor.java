@@ -32,6 +32,7 @@ import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.tools.TinkerTools;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.items.GoldenHead;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -40,7 +41,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "Tinkers' Armor", description = "Modifyable armors, such as the traveller's gear.")
+@Pulse(id = "Tinkers' Armory", description = "Modifyable armors, such as the traveller's gear.")
 public class TinkerArmor
 {
     @PulseProxy(clientSide = "tconstruct.armor.ArmorProxyClient", serverSide = "tconstruct.armor.ArmorProxyCommon")
@@ -73,15 +74,14 @@ public class TinkerArmor
     public static TravelGear travelBoots;
     public static AccessoryCore travelGlove;
     public static AccessoryCore travelBelt;
-
-    public TinkerArmor()
-    {
-        MinecraftForge.EVENT_BUS.register(new TinkerArmorEvents());
-    }
-
+    
     @Handler
     public void preInit (FMLPreInitializationEvent event)
     {
+        TinkerArmorEvents events = new TinkerArmorEvents();
+        MinecraftForge.EVENT_BUS.register(events);
+        FMLCommonHandler.instance().bus().register(events);
+        
         TinkerArmor.dryingRack = new DryingRack().setBlockName("Armor.DryingRack");
         GameRegistry.registerBlock(TinkerArmor.dryingRack, "Armor.DryingRack");
         GameRegistry.registerTileEntity(DryingRackLogic.class, "Armor.DryingRack");

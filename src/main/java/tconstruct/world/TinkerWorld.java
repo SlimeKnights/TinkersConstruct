@@ -135,14 +135,11 @@ public class TinkerWorld
     public static Block punji;
     public static Block metalBlock;
     
-    public TinkerWorld()
-    {
-        MinecraftForge.EVENT_BUS.register(new TinkerWorldEvents());
-    }
-
     @Handler
     public void preInit (FMLPreInitializationEvent event)
     {
+        MinecraftForge.EVENT_BUS.register(new TinkerWorldEvents());
+        
         //Blocks
         TinkerWorld.meatBlock = new MeatBlock().setBlockName("tconstruct.meatblock");
         TinkerWorld.woolSlab1 = new SlabBase(Material.cloth, Blocks.wool, 0, 8).setBlockName("cloth");

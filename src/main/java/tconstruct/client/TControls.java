@@ -14,11 +14,12 @@ import tconstruct.client.event.EventCloakRender;
 import tconstruct.client.tabs.TabRegistry;
 import tconstruct.util.network.packet.PacketDoubleJump;
 import tconstruct.util.network.packet.PacketExtendedInventory;
+import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.gameevent.TickEvent.Type;
 
 public class TControls extends TKeyHandler
 {
-    public static final String keybindCategory = "key.tconstruct.category";
+    public static final String keybindCategory = "tconstruct.keybindings";
     public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24, keybindCategory);
     public static KeyBinding refreshCapes = new KeyBinding("key.tcapes.reload", 88, keybindCategory);
     public static KeyBinding toggleGoggles = new KeyBinding("key.tgoggles", 34, keybindCategory);
@@ -42,7 +43,11 @@ public class TControls extends TKeyHandler
     public TControls()
     {
         super(new KeyBinding[] { armorKey, refreshCapes, toggleGoggles, beltSwap, zoomKey }, new boolean[] { false, false, false, false, false }, getVanillaKeyBindings(), new boolean[] { false, false });
-        // TConstruct.logger.info("Controls registered");
+        ClientRegistry.registerKeyBinding(armorKey);
+        ClientRegistry.registerKeyBinding(refreshCapes);
+        ClientRegistry.registerKeyBinding(toggleGoggles);
+        ClientRegistry.registerKeyBinding(beltSwap);
+        ClientRegistry.registerKeyBinding(zoomKey);
     }
 
     private static KeyBinding[] getVanillaKeyBindings ()
