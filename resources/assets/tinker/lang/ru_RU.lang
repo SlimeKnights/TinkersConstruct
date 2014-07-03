@@ -811,4 +811,4 @@ materialtraits.thaumic=Таум-сила
 
 creativeModLock.tooltip=Цель: 
 
-attribute.generic.ammo.attackDamage=Средний урон от выстрела
+attribute.name.ammo.attackDamage=Средний урон от выстрела
