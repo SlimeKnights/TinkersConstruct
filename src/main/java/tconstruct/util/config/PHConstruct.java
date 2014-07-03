@@ -15,30 +15,6 @@ public class PHConstruct
 
     public static void initProps (File location)
     {
-        /* Before we do anything, let's set up which modules can and cannot load. */
-        File modules = new File(location + "/TinkersModules.cfg");
-
-        /* Some basic debugging will go a long way */
-        try
-        {
-            modules.createNewFile();
-        }
-        catch (IOException e)
-        {
-            TConstruct.logger.warn("Could not create module configuration file for TConstruct. Reason:");
-            TConstruct.logger.warn(e.getLocalizedMessage());
-        }
-        Configuration config = new Configuration(modules);
-        config.load();
-        worldModule = config.get("Modules: Disabling these will disable a chunk of the mod", "World", true, "Ores, slime islands, essence berries, and the like.").getBoolean(true);
-        toolModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Tools", true, "The main core of the mod! All of the tools, the tables, and the patterns are here.")
-                .getBoolean(true);
-        smelteryModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Smeltery", true, "Liquid metals, casting, and the multiblock structure.").getBoolean(true);
-        mechworksModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Smeltery", true, "Mechanical machinations and steampunk inspired shenanigans.").getBoolean(true);
-        armorModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Armor", true, "Modifyable armors, such as the traveller's gear.").getBoolean(true);
-        prayerModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Prayers", true, "Area of effect and time delayed status changes. Scrolltastic!").getBoolean(true);
-        cropifyModule = config.get("Modules: Disabling these will disable a chunk of the mod", "Cropify", true, "Tinkering with the world never felt this bushy.").getBoolean(true);
-        config.save();
 
         /* Here we will set up the config file for the mod
          * First: Create a folder inside the config folder
@@ -64,7 +40,7 @@ public class PHConstruct
             TConstruct.logger.warn(e.getLocalizedMessage());
         }
 
-        config = new Configuration(mainFile);
+        Configuration config = new Configuration(mainFile);
         //config.load(); /* Load happens in the constructor */
 
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);

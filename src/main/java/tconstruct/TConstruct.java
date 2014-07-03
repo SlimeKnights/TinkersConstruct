@@ -3,6 +3,7 @@ package tconstruct;
 import java.util.Random;
 
 import mantle.lib.TabTools;
+import mantle.pulsar.config.ForgeCFG;
 import mantle.pulsar.control.PulseManager;
 import mantle.pulsar.pulse.IPulse;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
@@ -80,7 +81,7 @@ public class TConstruct
     public static TProxyCommon proxy;
 
     /* Loads modules in a way that doesn't clutter the @Mod list */
-    private PulseManager pulsar = new PulseManager(modID);
+    private PulseManager pulsar = new PulseManager(modID, new ForgeCFG("TinkersModules", "Modules: Disabling these will disable a chunk of the mod"));
 
     public TConstruct()
     {
@@ -102,19 +103,12 @@ public class TConstruct
     {
         PHConstruct.initProps(event.getModConfigurationDirectory());
 
-        if (PHConstruct.worldModule)
             pulsar.registerPulse(new TinkerWorld());
-        if (PHConstruct.toolModule)
             pulsar.registerPulse(new TinkerTools());
-        if (PHConstruct.smelteryModule)
             pulsar.registerPulse(new TinkerSmeltery());
-        if (PHConstruct.mechworksModule)
             pulsar.registerPulse(new TinkerMechworks());
-        if (PHConstruct.armorModule)
             pulsar.registerPulse(new TinkerArmor());
-        /*if (PHConstruct.prayerModule)
-            pulsar.registerPulse(new TinkerPrayers());
-        if (PHConstruct.cropifyModule)
+            /*pulsar.registerPulse(new TinkerPrayers());
             pulsar.registerPulse(new TinkerCropify());*/
 
         TConstructRegistry.materialTab = new TabTools("TConstructMaterials");
