@@ -1,6 +1,7 @@
 package tconstruct.tools;
 
 import mantle.items.abstracts.CraftingItem;
+import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import mantle.pulsar.pulse.PulseProxy;
 import mantle.utils.RecipeRemover;
@@ -97,7 +98,6 @@ import tconstruct.world.blocks.SoilBlock;
 import tconstruct.world.itemblocks.CraftedSoilItemBlock;
 import tconstruct.world.items.GoldenHead;
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -201,9 +201,10 @@ public class TinkerTools
         MinecraftForge.EVENT_BUS.register(new TinkerToolEvents());
     }
 
-    @EventHandler
+    @Handler
     public void preInit (FMLPreInitializationEvent event)
     {
+        System.out.println("This is the ultimate showdown");
         //Blocks
         TinkerTools.toolStationWood = new ToolStationBlock(Material.wood).setBlockName("ToolStation");
         TinkerTools.toolForge = new ToolForgeBlock(Material.iron).setBlockName("ToolForge");
@@ -391,7 +392,7 @@ public class TinkerTools
         return 0;
     }
 
-    @EventHandler
+    @Handler
     public void init (FMLInitializationEvent event)
     {
         addPartMapping();
@@ -399,9 +400,10 @@ public class TinkerTools
         addRecipesForChisel();
         craftingTableRecipes();
         setupToolTabs();
+        proxy.initialize();
     }
 
-    @EventHandler
+    @Handler
     public void postInit (FMLPostInitializationEvent evt)
     {
         vanillaToolRecipes();

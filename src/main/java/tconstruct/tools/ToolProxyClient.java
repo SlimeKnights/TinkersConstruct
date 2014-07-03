@@ -46,8 +46,9 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ToolProxyClient extends ToolProxyCommon
-{
-    public ToolProxyClient()
+{    
+    @Override
+    public void initialize()
     {
         MinecraftForge.EVENT_BUS.register(this);
         registerGuiHandler();

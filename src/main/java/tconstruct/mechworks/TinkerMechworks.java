@@ -1,5 +1,6 @@
 package tconstruct.mechworks;
 
+import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import mantle.pulsar.pulse.PulseProxy;
 import net.minecraft.block.Block;
@@ -15,7 +16,6 @@ import tconstruct.mechworks.entity.item.ExplosivePrimed;
 import tconstruct.mechworks.itemblocks.ItemBlockLandmine;
 import tconstruct.mechworks.logic.TileEntityLandmine;
 import tconstruct.tools.TinkerTools;
-import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -38,7 +38,7 @@ public class TinkerMechworks
     // Traps
     public static Block landmine;
 
-    @EventHandler
+    @Handler
     public void preInit (FMLPreInitializationEvent event)
     {
         // Traps
@@ -60,12 +60,13 @@ public class TinkerMechworks
         EntityRegistry.registerModEntity(ExplosivePrimed.class, "SlimeExplosive", 6, TConstruct.instance, 32, 5, true);
     }
 
-    @EventHandler
+    @Handler
     public void init (FMLInitializationEvent event)
     {
+        proxy.initialize();
     }
 
-    @EventHandler
+    @Handler
     public void postInit (FMLPostInitializationEvent evt)
     {
 

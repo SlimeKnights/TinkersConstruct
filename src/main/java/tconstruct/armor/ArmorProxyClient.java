@@ -57,7 +57,8 @@ public class ArmorProxyClient extends ArmorProxyCommon
     public static HiddenPlayerModel vest = new HiddenPlayerModel(0.25f, 1);
     public static BeltModel belt = new BeltModel();
     
-    public ArmorProxyClient()
+    @Override
+    public void initialize()
     {
         registerGuiHandler();
         MinecraftForge.EVENT_BUS.register(this);

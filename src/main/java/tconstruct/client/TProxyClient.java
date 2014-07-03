@@ -668,6 +668,7 @@ public class TProxyClient extends TProxyCommon
         }
 
         String[] bowstringTypes = { "string", "magicfabric", "flamestring" };
+        System.out.println("Shortbow: "+TinkerTools.shortbow);
         for (int bowIter = 0; bowIter < bowstringTypes.length; bowIter++)
         {
             TConstructClientRegistry.addAlternateMaterialRenderMapping(TinkerTools.shortbow, bowIter, "tinker", bowstringTypes[bowIter], true);

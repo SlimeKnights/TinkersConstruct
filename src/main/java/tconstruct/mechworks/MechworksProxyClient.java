@@ -38,10 +38,10 @@ import tconstruct.tools.logic.ToolStationLogic;
 import tconstruct.util.config.PHConstruct;
 
 public class MechworksProxyClient extends MechworksProxyCommon
-{
-    public MechworksProxyClient()
+{    
+    public void initialize()
     {
-        registerGuiHandler();
+        registerGuiHandler();        
     }
     
     protected void registerGuiHandler()

@@ -1,5 +1,6 @@
 package tconstruct.world;
 
+import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import mantle.pulsar.pulse.PulseProxy;
 import mantle.utils.RecipeRemover;
@@ -79,7 +80,6 @@ import tconstruct.world.itemblocks.WoolSlab1Item;
 import tconstruct.world.itemblocks.WoolSlab2Item;
 import tconstruct.world.items.OreBerries;
 import tconstruct.world.items.StrangeFood;
-import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -140,7 +140,7 @@ public class TinkerWorld
         MinecraftForge.EVENT_BUS.register(new TinkerWorldEvents());
     }
 
-    @EventHandler
+    @Handler
     public void preInit (FMLPreInitializationEvent event)
     {
         //Blocks
@@ -284,7 +284,7 @@ public class TinkerWorld
         FluidType.registerFluidType("Slime", TinkerWorld.slimeGel, 0, 250, TinkerWorld.blueSlimeFluid, false);
     }
     
-    @EventHandler
+    @Handler
     public void init (FMLInitializationEvent event)
     {
         craftingTableRecipes();
@@ -292,12 +292,13 @@ public class TinkerWorld
         oreRegistry();
         addLoot();
         createEntities();
+        proxy.initialize();
         
         GameRegistry.registerWorldGenerator(new TBaseWorldGenerator(), 0);
         MinecraftForge.TERRAIN_GEN_BUS.register(new TerrainGenEventHandler());
     }
 
-    @EventHandler
+    @Handler
     public void postInit (FMLPostInitializationEvent evt)
     {
         

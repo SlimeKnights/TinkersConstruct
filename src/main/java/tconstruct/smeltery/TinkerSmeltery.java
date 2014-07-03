@@ -8,6 +8,7 @@ import java.util.Map;
 
 import mantle.blocks.BlockUtils;
 import mantle.blocks.abstracts.MultiServantLogic;
+import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import mantle.pulsar.pulse.PulseProxy;
 import net.minecraft.block.Block;
@@ -76,7 +77,6 @@ import tconstruct.smeltery.logic.TankAirLogic;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
-import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -178,7 +178,7 @@ public class TinkerSmeltery
         MinecraftForge.EVENT_BUS.register(new TinkerSmelteryEvents());
     }
 
-    @EventHandler
+    @Handler
     public void preInit (FMLPreInitializationEvent event)
     {
 
@@ -559,13 +559,13 @@ public class TinkerSmeltery
         }
     }
 
-    @EventHandler
+    @Handler
     public void init (FMLInitializationEvent event)
     {
-
+        proxy.initialize();
     }
 
-    @EventHandler
+    @Handler
     public void postInit (FMLPostInitializationEvent evt)
     {
         craftingTableRecipes();

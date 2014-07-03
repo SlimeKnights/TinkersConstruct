@@ -59,14 +59,6 @@ public class TPlayerHandler
 
     public void onPlayerLogin (EntityPlayer entityplayer)
     {
-        TPlayerStats playerData = new TPlayerStats();//playerStats.remove(entityplayer.getPersistentID());
-        playerStats.put(entityplayer.getPersistentID(), playerData); //TODO: wtf was going on with removing a nonexistant player in the login?!
-        if (playerData != null)
-        {
-            playerData.saveNBTData(entityplayer.getEntityData());
-        }
-
-        // TConstruct.logger.info("Player: "+entityplayer);
         // Lookup player
         TPlayerStats stats = TPlayerStats.get(entityplayer);
 

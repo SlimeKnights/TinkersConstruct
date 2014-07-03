@@ -15,18 +15,19 @@ import tconstruct.smeltery.logic.SmelteryLogic;
 import tconstruct.util.config.PHConstruct;
 
 public class SmelteryProxyClient extends SmelteryProxyCommon
-{
-    public SmelteryProxyClient()
+{    
+    @Override
+    public void initialize()
     {
-        MinecraftForge.EVENT_BUS.register(this);
         registerGuiHandler();
+        MinecraftForge.EVENT_BUS.register(this);
     }
     
     @Override
     protected void registerGuiHandler()
     {
-        super.registerGuiHandler();
         TProxyCommon.registerClientGuiHandler(smelteryGuiID, this);
+        TProxyCommon.registerServerGuiHandler(smelteryGuiID, this);
     }
 
     @Override

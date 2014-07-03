@@ -8,4 +8,9 @@ public class TinkerWorldProxyCommon
         
     }
 
+    public void initialize ()
+    {
+        
+    }
+
 }

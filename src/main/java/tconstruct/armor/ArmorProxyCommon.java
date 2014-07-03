@@ -13,7 +13,8 @@ public class ArmorProxyCommon implements IGuiHandler
     public static final int inventoryGui = 100;
     public static final int armorGuiID = 101;
     public static final int knapsackGuiID = 102;
-    public ArmorProxyCommon()
+    
+    public void initialize()
     {
         registerGuiHandler();
     }

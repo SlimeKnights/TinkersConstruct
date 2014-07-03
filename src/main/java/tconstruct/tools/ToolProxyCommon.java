@@ -21,7 +21,11 @@ public class ToolProxyCommon implements IGuiHandler
 
     public ToolProxyCommon()
     {
-        registerGuiHandler();
+    }
+
+    public void initialize ()
+    {
+        registerGuiHandler();        
     }
     
     protected void registerGuiHandler()

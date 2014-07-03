@@ -103,13 +103,13 @@ public class TConstruct
     {
         PHConstruct.initProps(event.getModConfigurationDirectory());
 
-            pulsar.registerPulse(new TinkerWorld());
-            pulsar.registerPulse(new TinkerTools());
-            pulsar.registerPulse(new TinkerSmeltery());
-            pulsar.registerPulse(new TinkerMechworks());
-            pulsar.registerPulse(new TinkerArmor());
-            /*pulsar.registerPulse(new TinkerPrayers());
-            pulsar.registerPulse(new TinkerCropify());*/
+        pulsar.registerPulse(new TinkerWorld());
+        pulsar.registerPulse(new TinkerTools());
+        pulsar.registerPulse(new TinkerSmeltery());
+        pulsar.registerPulse(new TinkerMechworks());
+        pulsar.registerPulse(new TinkerArmor());
+        /*pulsar.registerPulse(new TinkerPrayers());
+        pulsar.registerPulse(new TinkerCropify());*/
 
         TConstructRegistry.materialTab = new TabTools("TConstructMaterials");
         TConstructRegistry.toolTab = new TabTools("TConstructTools");

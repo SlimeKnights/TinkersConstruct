@@ -1,5 +1,6 @@
 package tconstruct.armor;
 
+import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import mantle.pulsar.pulse.PulseProxy;
 import net.minecraft.block.Block;
@@ -32,7 +33,6 @@ import tconstruct.tools.TinkerTools;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.items.GoldenHead;
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -79,7 +79,7 @@ public class TinkerArmor
         MinecraftForge.EVENT_BUS.register(new TinkerArmorEvents());
     }
 
-    @EventHandler
+    @Handler
     public void preInit (FMLPreInitializationEvent event)
     {
         TinkerArmor.dryingRack = new DryingRack().setBlockName("Armor.DryingRack");
@@ -142,15 +142,16 @@ public class TinkerArmor
         GameRegistry.registerItem(travelBelt, "travelBelt");
     }
 
-    @EventHandler
+    @Handler
     public void init (FMLInitializationEvent event)
     {
         craftingTableRecipes();
         addRecipesForDryingRack();
         TConstructRegistry.equipableTab.init(travelGoggles.getDefaultItem());
+        proxy.initialize();
     }
 
-    @EventHandler
+    @Handler
     public void postInit (FMLPostInitializationEvent evt)
     {
 

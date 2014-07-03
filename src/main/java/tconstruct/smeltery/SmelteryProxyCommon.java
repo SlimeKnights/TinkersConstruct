@@ -12,9 +12,9 @@ public class SmelteryProxyCommon implements IGuiHandler
 {
     public static final int smelteryGuiID = 7;
     
-    public SmelteryProxyCommon()
+    public void initialize()
     {
-        registerGuiHandler();
+        registerGuiHandler();        
     }
     
     protected void registerGuiHandler()
