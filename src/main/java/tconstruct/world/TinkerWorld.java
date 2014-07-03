@@ -89,7 +89,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "Tinker's World", description = "Ores, slime islands, essence berries, and the like.")
+@Pulse(id = "Tinkers' World", description = "Ores, slime islands, essence berries, and the like.")
 public class TinkerWorld
 {
     @Instance("TinkerWorld")

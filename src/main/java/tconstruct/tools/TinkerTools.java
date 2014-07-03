@@ -105,7 +105,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "Tinker's Tools", description = "The main core of the mod! All of the tools, the tables, and the patterns are here.")
+@Pulse(id = "Tinkers' Tools", description = "The main core of the mod! All of the tools, the tables, and the patterns are here.")
 public class TinkerTools
 {
     /* Proxies for sides, used for graphics processing */
