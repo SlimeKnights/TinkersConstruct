@@ -525,9 +525,12 @@ entity.TConstruct.KingSlime.name=Король слизней
 entity.TConstruct.Gardeslime.name=Слизень-охранник
 entity.TConstruct.MiniGardy.name=Малый слизень-охранник
 
-key.tconstruct.category=Tinkers Construct
+tconstruct.keybindigs=Tinkers Construct
 key.tarmor=Интерфейс брони
 key.tcapes.reload=Перезагрузить плащи
+key.tbelt=Пояс
+key.tgoggles=Очки
+key.tzoom=Увеличение
 
 death.one.smeltery=%1$s превратился в зелёный сойлент
 death.two.smeltery=%1$s сплавился с плавильней
@@ -795,7 +798,7 @@ modifier.tool.spider=Бич членистоногих
 modifier.tool.quartz=Острота
 modifier.tool.blaze=Огненное касание
 modifier.tool.silk=Шелковистость
-mofifier.tool.flux=Флакс
+modifier.tool.flux=Флакс
 modifier.tool.lapis=Удача
 modifier.tool.piston=Отдача
 modifier.tool.redstone=Ускорение
