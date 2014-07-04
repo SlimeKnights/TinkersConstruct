@@ -20,6 +20,8 @@ public class SlimePadRender implements ISimpleBlockRenderingHandler
         if (modelID == model)
         {
             ItemHelper.renderStandardInvBlock(renderer, TinkerWorld.slimeGel, metadata);
+            renderer.setRenderBounds(0f, 0.0625f, 0f, 1f, 0.5f, 1f);
+            ItemHelper.renderStandardInvBlock(renderer, TinkerWorld.slimeGel, 1);
         }
     }
 
@@ -29,7 +31,7 @@ public class SlimePadRender implements ISimpleBlockRenderingHandler
         if (modelID == model)
         {
             renderer.renderStandardBlock(block, x, y, z);
-            renderer.setRenderBounds(0f, 0f, 0f, 1f, 0.5f, 1f);
+            renderer.setRenderBounds(0f, 0, 0f, 1f, 0.5f, 1f);
             int metadata = world.getBlockMetadata(x, y, z);
             BlockSkinRenderHelper.renderLiquidBlock(((SlimePad) block).getFluidIcon(metadata), ((SlimePad) block).getFluidIcon(metadata), x, y, z, renderer, world);
 

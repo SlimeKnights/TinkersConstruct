@@ -56,55 +56,8 @@ public class TinkerArmorEvents
         }
     }
 
-    //Abilities
-    boolean morphed;
-    boolean morphLoaded = Loader.isModLoaded("Morph");
-
-    @EventHandler
-    public void playerTick (TickEvent.PlayerTickEvent event)
-    {
-        System.out.println("Server Tick!");
-        EntityPlayer player = event.player;
-        TPlayerStats stats = TPlayerStats.get(player);
-        if (stats.climbWalls)
-        {
-            double motionX = player.posX - player.lastTickPosX;
-            double motionZ = player.posZ - player.lastTickPosZ;
-            double motionY = player.posY - player.lastTickPosY - 0.762;
-            if (motionY > 0.0D && (motionX == 0D || motionZ == 0D))
-            {
-                player.fallDistance = 0.0F;
-            }
-        }
-        //TODO: Proper minimap support
-        /*ItemStack stack = player.inventory.getStackInSlot(8);
-        if (stack != null && stack.getItem() instanceof ItemMap)
-        {
-            stack.getItem().onUpdate(stack, player.worldObj, player, 8, true);
-        }*/
-        if (!player.isPlayerSleeping())
-        {
-            ItemStack chest = player.getCurrentArmor(2);
-            if (chest == null || !(chest.getItem() instanceof IModifyable))
-            {
-                if (!morphLoaded || !morphed)
-                    PlayerAbilityHelper.setEntitySize(player, 0.6F, 1.8F);
-            }
-            else
-            {
-                NBTTagCompound tag = chest.getTagCompound().getCompoundTag(((IModifyable) chest.getItem()).getBaseTagName());
-                int dodge = tag.getInteger("Perfect Dodge");
-                if (dodge > 0)
-                {
-                    if (!morphLoaded || !morphed)
-                        PlayerAbilityHelper.setEntitySize(player, Math.max(0.15F, 0.6F - (dodge * 0.09f)), 1.8F - (dodge * 0.04f));
-                }
-            }
-        }
-    }
-
     /* Abilities */
-    @EventHandler
+    @SubscribeEvent
     public void armorMineSpeed (net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed event)
     {
         TPlayerStats stats = TPlayerStats.get(event.entityPlayer);
@@ -113,7 +66,7 @@ public class TinkerArmorEvents
         event.newSpeed = (event.newSpeed + base) * modifier;
     }
 
-    @EventHandler
+    @SubscribeEvent
     public void jumpHeight (LivingJumpEvent event)
     {
         ItemStack stack = event.entityLiving.getEquipmentInSlot(2);
@@ -123,7 +76,7 @@ public class TinkerArmorEvents
         }
     }
 
-    @EventHandler
+    @SubscribeEvent
     public void slimefall (LivingFallEvent event)
     {
         ItemStack boots = event.entityLiving.getEquipmentInSlot(1);

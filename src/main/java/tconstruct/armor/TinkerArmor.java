@@ -1,9 +1,12 @@
 package tconstruct.armor;
 
+import java.util.EnumSet;
+
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import mantle.pulsar.pulse.PulseProxy;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
@@ -29,6 +32,16 @@ import tconstruct.library.accessory.AccessoryCore;
 import tconstruct.library.armor.ArmorPart;
 import tconstruct.library.crafting.DryingRackRecipes;
 import tconstruct.library.crafting.LiquidCasting;
+import tconstruct.library.crafting.ModifyBuilder;
+import tconstruct.modifiers.accessory.GloveClimb;
+import tconstruct.modifiers.accessory.GloveSpeed;
+import tconstruct.modifiers.armor.AModBoolean;
+import tconstruct.modifiers.armor.AModInteger;
+import tconstruct.modifiers.armor.AModLeadBoots;
+import tconstruct.modifiers.armor.ActiveTinkerArmor;
+import tconstruct.modifiers.armor.TravelModDoubleJump;
+import tconstruct.modifiers.armor.TravelModRepair;
+import tconstruct.modifiers.tools.ModAttack;
 import tconstruct.tools.TinkerTools;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.items.GoldenHead;
@@ -75,12 +88,13 @@ public class TinkerArmor
     public static AccessoryCore travelGlove;
     public static AccessoryCore travelBelt;
     
+    public static ModAttack modAttackGlove;
+    
     @Handler
     public void preInit (FMLPreInitializationEvent event)
     {
-        TinkerArmorEvents events = new TinkerArmorEvents();
-        MinecraftForge.EVENT_BUS.register(events);
-        FMLCommonHandler.instance().bus().register(events);
+        MinecraftForge.EVENT_BUS.register(new TinkerArmorEvents());
+        FMLCommonHandler.instance().bus().register(new ArmorAbilities());
         
         TinkerArmor.dryingRack = new DryingRack().setBlockName("Armor.DryingRack");
         GameRegistry.registerBlock(TinkerArmor.dryingRack, "Armor.DryingRack");
@@ -208,5 +222,50 @@ public class TinkerArmor
 
         // DryingRackRecipes.addDryingRecipe(new ItemStack(TRepo.jerky, 1, 5),
         // 20 * 60 * 10, Item.leather);
+    }
+    
+    private void registerModifiers()
+    {
+        ItemStack redstoneItem = new ItemStack(Items.redstone);
+        ItemStack redstoneBlock = new ItemStack(Blocks.redstone_block);
+      //Travel gear modifiers
+        //MultiType
+        ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(ArmorPart.Legs, ArmorPart.Feet), new ItemStack[] { new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 0),
+                new ItemStack(Blocks.piston) }));
+        ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(ArmorPart.Legs, ArmorPart.Feet), new ItemStack[] { new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 1),
+                new ItemStack(Blocks.piston) }));
+        ModifyBuilder.registerModifier(new TravelModRepair());
+        TConstructRegistry.registerActiveArmorMod(new ActiveTinkerArmor());
+
+        //Head
+        ModifyBuilder.registerModifier(new AModBoolean(0, "Night Vision", EnumSet.of(ArmorPart.Head), new ItemStack[] { new ItemStack(Items.flint_and_steel), new ItemStack(Items.potionitem, 1, 8198) },
+                "\u00a78", "Night Vision"));
+
+        //Chest
+        ModifyBuilder.registerModifier(new AModInteger(0, "Perfect Dodge", EnumSet.of(ArmorPart.Chest), new ItemStack[] { new ItemStack(Items.ender_eye), new ItemStack(Items.ender_pearl),
+                new ItemStack(Items.sugar) }, 1, "\u00a7d", "Perfect Dodge"));
+        ModifyBuilder.registerModifier(new AModBoolean(1, "Stealth", EnumSet.of(ArmorPart.Chest), new ItemStack[] { new ItemStack(Blocks.ice), new ItemStack(Items.ender_eye),
+                new ItemStack(Items.potionitem, 1, 8206) }, "\u00a78", "Stealth"));
+
+        //Wings
+        ItemStack feather = new ItemStack(Items.feather);
+        ModifyBuilder.registerModifier(new AModInteger(1, "Feather Fall", EnumSet.of(ArmorPart.Legs), new ItemStack[] { new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Items.ender_pearl), feather,
+                feather, feather, feather, feather, feather }, 1, "\u00a7f", "Feather Fall"));
+        ModifyBuilder.registerModifier(new AModInteger(1, "Feather Fall", EnumSet.of(ArmorPart.Legs), new ItemStack[] { new ItemStack(TinkerWorld.slimeGel, 1, 1), new ItemStack(Items.ender_pearl), feather,
+                feather, feather, feather, feather, feather }, 1, "\u00a7f", "Feather Fall"));
+
+        //Feet
+        ModifyBuilder.registerModifier(new AModBoolean(1, "WaterWalk", EnumSet.of(ArmorPart.Feet), new ItemStack[] { new ItemStack(Blocks.waterlily), new ItemStack(Blocks.waterlily) }, "\u00a79",
+                "Water-Walking"));
+        ModifyBuilder.registerModifier(new AModLeadBoots(new ItemStack[] { new ItemStack(Blocks.iron_block) }));
+        ModifyBuilder.registerModifier(new AModInteger(3, "Slimy Soles", EnumSet.of(ArmorPart.Feet), new ItemStack[] { new ItemStack(TinkerWorld.slimePad, 1, 0), new ItemStack(TinkerWorld.slimePad, 1, 0) }, 1,
+                "\u00a7a", "Slimy Soles"));
+
+        //Glove
+        ModifyBuilder.registerModifier(new GloveSpeed(1, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
+        ModifyBuilder.registerModifier(new GloveClimb(new ItemStack[] { new ItemStack(Items.slime_ball), new ItemStack(Blocks.web), new ItemStack(TinkerTools.materials, 1, 25) }));
+        this.modAttackGlove = new ModAttack("Quartz", 2, new ItemStack[] { new ItemStack(Items.quartz), new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1, 4 }, 50, 50,
+                "Accessory");
+        ModifyBuilder.registerModifier(this.modAttackGlove);
     }
 }

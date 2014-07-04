@@ -3,6 +3,7 @@ package tconstruct.armor;
 import java.util.ArrayList;
 import java.util.Random;
 
+import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiInventory;
@@ -14,9 +15,10 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
@@ -27,7 +29,6 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
-import tconstruct.armor.items.TravelGear;
 import tconstruct.armor.model.BeltModel;
 import tconstruct.armor.model.BootBump;
 import tconstruct.armor.model.HiddenPlayerModel;
@@ -43,16 +44,16 @@ import tconstruct.client.tabs.InventoryTabVanilla;
 import tconstruct.client.tabs.TabRegistry;
 import tconstruct.common.TProxyCommon;
 import tconstruct.library.accessory.IAccessoryModel;
-import tconstruct.library.modifier.IModifyable;
+import tconstruct.library.client.TConstructClientRegistry;
+import tconstruct.tools.TinkerTools;
 import tconstruct.util.player.TPlayerStats;
+import tconstruct.world.TinkerWorld;
 
 import com.google.common.collect.Lists;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
 
 public class ArmorProxyClient extends ArmorProxyCommon
 {
@@ -66,8 +67,45 @@ public class ArmorProxyClient extends ArmorProxyCommon
     public void initialize ()
     {
         registerGuiHandler();
+        registerKeys();
+        registerManualRecipes();
         MinecraftForge.EVENT_BUS.register(this);
-        FMLCommonHandler.instance().bus().register(this);
+        FMLCommonHandler.instance().bus().register(new ArmorAbilitiesClient(mc, controlInstance));
+    }
+
+    private void registerManualRecipes ()
+    {
+        ItemStack feather = new ItemStack(Items.feather);
+        ItemStack redstone = new ItemStack(Items.redstone);
+        ItemStack goggles = new ItemStack(TinkerArmor.travelGoggles);
+        MantleClientRegistry.registerManualIcon("travelgoggles", goggles);
+        TConstructClientRegistry.registerManualModifier("nightvision", goggles.copy(), new ItemStack(Items.flint_and_steel), new ItemStack(Items.potionitem, 1, 8198));
+
+        ItemStack vest = new ItemStack(TinkerArmor.travelVest);
+        MantleClientRegistry.registerManualIcon("travelvest", vest);
+        MantleClientRegistry.registerManualSmallRecipe("dodge", vest.copy(), new ItemStack(Items.ender_eye), new ItemStack(Items.ender_pearl), new ItemStack(Items.sugar), null);
+        MantleClientRegistry.registerManualSmallRecipe("stealth", vest.copy(), new ItemStack(Blocks.ice), new ItemStack(Items.ender_eye), new ItemStack(Items.potionitem, 1, 8206), null);
+
+        ItemStack wings = new ItemStack(TinkerArmor.travelWings);
+        MantleClientRegistry.registerManualIcon("travelwings", wings);
+        MantleClientRegistry.registerManualSmallRecipe("doublejump", wings.copy(), new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Blocks.piston), null);
+        MantleClientRegistry.registerManualLargeRecipe("featherfall", wings.copy(), new ItemStack(TinkerWorld.slimeGel, 1, 0), feather, feather, feather, wings.copy(), feather, feather, new ItemStack(
+                Items.ender_pearl), feather);
+
+        ItemStack boots = new ItemStack(TinkerArmor.travelBoots);
+        MantleClientRegistry.registerManualIcon("travelboots", boots);
+        MantleClientRegistry.registerManualSmallRecipe("doublejumpboots", boots.copy(), new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 1), new ItemStack(Blocks.piston),
+                null);
+        TConstructClientRegistry.registerManualModifier("waterwalk", boots.copy(), new ItemStack(Blocks.waterlily), new ItemStack(Blocks.waterlily));
+        TConstructClientRegistry.registerManualModifier("leadboots", boots.copy(), new ItemStack(Blocks.iron_block));
+        TConstructClientRegistry.registerManualModifier("slimysoles", boots.copy(), new ItemStack(TinkerWorld.slimePad, 1, 0), new ItemStack(TinkerWorld.slimePad, 1, 0));
+
+        ItemStack gloves = new ItemStack(TinkerArmor.travelGlove);
+        MantleClientRegistry.registerManualIcon("travelgloves", gloves);
+        TConstructClientRegistry.registerManualModifier("glovehaste", gloves.copy(), redstone, new ItemStack(Blocks.redstone_block));
+        MantleClientRegistry.registerManualSmallRecipe("gloveclimb", gloves.copy(), new ItemStack(Items.slime_ball), new ItemStack(Blocks.web), new ItemStack(TinkerTools.materials, 1, 25), null);
+        TConstructClientRegistry.registerManualModifier("gloveknuckles", gloves.copy(), new ItemStack(Items.quartz), new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE));
+        
     }
 
     @Override
@@ -105,7 +143,6 @@ public class ArmorProxyClient extends ArmorProxyCommon
     public void registerTickHandler ()
     {
         FMLCommonHandler.instance().bus().register(new ArmorTickHandler());
-        new ArmorTickHandler();
     }
 
     /* Keybindings */
@@ -431,104 +468,4 @@ public class ArmorProxyClient extends ArmorProxyCommon
         return (float) par1EntityLivingBase.ticksExisted + par2;
     }
 
-    /* Abilities */
-
-    ItemStack prevFeet;
-    double prevMotionY;
-    boolean morphed;
-    float prevMouseSensitivity;
-    boolean sprint;
-
-    @EventHandler
-    public void playerTick (TickEvent.PlayerTickEvent event)
-    {
-        System.out.println("Client Tick!");
-        EntityPlayer player = event.player;
-        TPlayerStats stats = TPlayerStats.get(player);
-        if (mc.thePlayer.onGround)
-        {
-            controlInstance.landOnGround();
-        }
-        if (stats.climbWalls && player.isCollidedHorizontally && !player.isSneaking())
-        {
-            player.motionY = 0.1176D;
-            player.fallDistance = 0.0f;
-        }
-
-        //Feet changes
-        ItemStack feet = player.getCurrentArmor(0);
-        if (feet != null)
-        {
-            if (feet.getItem() instanceof TravelGear && player.stepHeight < 1.0f)
-            {
-                player.stepHeight += 0.6f;
-            }
-            if (feet.getItem() instanceof IModifyable && !player.isSneaking())
-            {
-                NBTTagCompound tag = feet.getTagCompound().getCompoundTag(((IModifyable) feet.getItem()).getBaseTagName());
-                int sole = tag.getInteger("Slimy Soles");
-                if (sole > 0)
-                {
-                    if (!player.isSneaking() && player.onGround && prevMotionY < -0.4)
-                        player.motionY = -prevMotionY * (Math.min(0.99, sole * 0.2));
-                }
-            }
-            prevMotionY = player.motionY;
-        }
-        if (feet != prevFeet)
-        {
-            if (prevFeet != null && prevFeet.getItem() instanceof TravelGear)
-                player.stepHeight -= 0.6f;
-            if (feet != null && feet.getItem() instanceof TravelGear)
-                player.stepHeight += 0.6f;
-            prevFeet = feet;
-        }
-
-        //Legs or wing changes
-        /*ItemStack legs = player.getCurrentArmor(1);
-        if (legs != null && legs.getItem() instanceof IModifyable)
-        {
-            NBTTagCompound tag = legs.getTagCompound().getCompoundTag(((IModifyable) legs.getItem()).getBaseTagName());
-            if (player.isSprinting())
-            {
-                if (!sprint)
-                {
-                    sprint = true;
-                    int sprintboost = tag.getInteger("Sprint Assist");
-                    if (player.isSprinting() && sprintboost > 0)
-                    {
-                        prevMouseSensitivity = gs.mouseSensitivity;
-                        gs.mouseSensitivity *= 1 - (0.15 * sprintboost);
-                    }
-                }
-            }
-            else if (sprint)
-            {
-                sprint = false;
-                gs.mouseSensitivity = prevMouseSensitivity;
-            }
-        }*/
-        if (!player.isPlayerSleeping() && !morphed)
-        {
-            ItemStack chest = player.getCurrentArmor(2);
-            if (chest == null || !(chest.getItem() instanceof IModifyable))
-            {
-                PlayerAbilityHelper.setEntitySize(player, 0.6F, 1.8F);
-            }
-            else
-            {
-                NBTTagCompound tag = chest.getTagCompound().getCompoundTag(((IModifyable) chest.getItem()).getBaseTagName());
-                int dodge = tag.getInteger("Perfect Dodge");
-                if (dodge > 0)
-                {
-                    PlayerAbilityHelper.setEntitySize(player, Math.max(0.15F, 0.6F - (dodge * 0.09f)), 1.8F - (dodge * 0.04f));
-                }
-            }
-        }
-    }
-
-    EntityPlayer getPlayer ()
-    {
-        return mc.thePlayer;
-    }
 }
