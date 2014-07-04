@@ -60,7 +60,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     ArrayList<CoordTuple> lavaTanks;
     CoordTuple activeLavaTank;
-    public CoordTuple centerPos;
+    public CoordTuple centerPos = new CoordTuple(0, 0, 0);
 
     public int[] activeTemps;
     public int[] meltingTemps;
