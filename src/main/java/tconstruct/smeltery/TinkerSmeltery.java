@@ -460,7 +460,7 @@ public class TinkerSmeltery
                 TinkerSmeltery.moltenNickel, TinkerSmeltery.moltenLead, TinkerSmeltery.moltenSilver, TinkerSmeltery.moltenShiny, TinkerSmeltery.moltenInvar, TinkerSmeltery.moltenElectrum,
                 TinkerSmeltery.moltenEnder, TinkerSmeltery.glueFluidBlock };
 
-        FluidType.registerFluidType("Water", Blocks.snow, 0, 20, FluidRegistry.getFluid("water"), false); //TODO: Too much reliance on World.
+        FluidType.registerFluidType("Water", Blocks.snow, 0, 20, FluidRegistry.getFluid("water"), false);
         FluidType.registerFluidType("Iron", Blocks.iron_block, 0, 600, TinkerSmeltery.moltenIronFluid, true);
         FluidType.registerFluidType("Gold", Blocks.gold_block, 0, 400, TinkerSmeltery.moltenGoldFluid, false);
         FluidType.registerFluidType("Tin", TinkerWorld.metalBlock, 5, 400, TinkerSmeltery.moltenTinFluid, false);
@@ -559,15 +559,17 @@ public class TinkerSmeltery
     public void init (FMLInitializationEvent event)
     {
         proxy.initialize();
+        craftingTableRecipes();
+        addRecipesForSmeltery();
+        addOreDictionarySmelteryRecipes();
+        addRecipesForTableCasting();
+        addRecipesForBasinCasting();
     }
 
     @Handler
     public void postInit (FMLPostInitializationEvent evt)
     {
-        craftingTableRecipes();
-        addRecipesForSmeltery();
-        addOreDictionarySmelteryRecipes();
-        addRecipesForTableCasting();
+        modIntegration();
     }
 
     private void craftingTableRecipes ()
@@ -657,7 +659,7 @@ public class TinkerSmeltery
             Smeltery.addDictionaryMelting("nugget" + fluidTypeName, ft, -100, TConstruct.nuggetLiquidValue);
 
             // Ingots, Dust
-            registerIngotCasting(ft, fluidTypeName);
+            registerIngotCasting(ft, "ingot" + fluidTypeName);
             Smeltery.addDictionaryMelting("ingot" + fluidTypeName, ft, -50, TConstruct.ingotLiquidValue);
             Smeltery.addDictionaryMelting("dust" + fluidTypeName, ft, -75, TConstruct.ingotLiquidValue);
 
@@ -1027,12 +1029,13 @@ public class TinkerSmeltery
 
     private void registerIngotCasting (FluidType ft, String name)
     {
+        System.out.println("Registering ingot cast for "+name);
         ItemStack pattern = new ItemStack(TinkerSmeltery.metalPattern, 1, 0);
         LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
         for (ItemStack ore : OreDictionary.getOres(name))
         {
             tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
-            tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.oreLiquidValue), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
+            tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
             tableCasting.addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, TConstruct.ingotLiquidValue), pattern, 80);
         }
     }
