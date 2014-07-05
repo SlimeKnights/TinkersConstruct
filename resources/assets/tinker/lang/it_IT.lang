@@ -1,4 +1,3 @@
-itemGroup.TConstructTools=TConstruct Attrezzi
 itemGroup.TConstructTools=TConstruct attrezzi
 itemGroup.TConstructMaterials=TConstruct materiali
 itemGroup.TConstructBlocks=TConstruct blocchi
@@ -264,6 +263,11 @@ item.tconstruct.Materials.CobaltDust.name=Polvere di coblato
 item.tconstruct.Materials.AluminumDust.name=Polvere di alluminio
 item.tconstruct.Materials.ManyullynDust.name=Polvere di manyullyn
 item.tconstruct.Materials.AluBrassDust.name=Polvere di ottone
+
+item.tconstruct.ArmorPattern.helmet.name=Stampo per elmo
+item.tconstruct.ArmorPattern.chestplate.name=Stampo per corazza
+item.tconstruct.ArmorPattern.leggings.name=Stampo per gambiera
+item.tconstruct.ArmorPattern.boots.name=Stampo per stivali
 
 item.tconstruct.helmetWood.name=Elmo di legno
 item.tconstruct.chestplateWood.name=Corazza di legno
@@ -637,8 +641,6 @@ achievement.tconstruct.convenientDuo=Uccidi un mob con una padella, e cuoci la s
 achievement.tconstruct.doingItWrong.desc=Lo stai facendo nel modo sbagliato!
 achievement.tconstruct.betterCrafting.desc=Crea un Tavolo da lavoro mettendo un Banco da lavoro nella griglia di crafting
 
-armortype.ExoArmor=Exo-armatura
-
 knapsack.tooltip=Uno Zaino per tenere le tue cose.
 strangefood1.tooltip=Puzza terribilmente, ma se non
 strangefood2.tooltip=hai nient'altro da mangiare...
@@ -818,9 +820,9 @@ materialtraits.writable=Scrivibile
 materialtraits.tasty=Gustoso
 materialtraits.thaumic=Taumico
 
-attribute.name.ammo.attackDamage=Danno medio per scoccata
-
 creativeModLock.tooltip=Attrezzo selezionato: 
+
+attribute.name.ammo.attackDamage=Danno medio per scoccata
 
 tconstruct.waila.empty=Vuoto
 tconstruct.waila.liquidtag=Liquido: 
