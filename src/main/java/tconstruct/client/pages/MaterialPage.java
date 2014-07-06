@@ -11,10 +11,10 @@ import org.lwjgl.opengl.GL12;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import tconstruct.client.gui.PartCrafterGui;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.tools.ToolMaterial;
+import tconstruct.tools.gui.PartCrafterGui;
 
 public class MaterialPage extends BookPage
 {

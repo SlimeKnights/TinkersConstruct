@@ -1,4 +1,4 @@
-package tconstruct.client.gui;
+package tconstruct.mechworks.gui;
 
 import java.util.List;
 

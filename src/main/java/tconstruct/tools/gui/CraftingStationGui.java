@@ -1,4 +1,4 @@
-package tconstruct.client.gui;
+package tconstruct.tools.gui;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;

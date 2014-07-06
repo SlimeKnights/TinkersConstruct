@@ -1,4 +1,4 @@
-package tconstruct.client.gui;
+package tconstruct.armor.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.InventoryEffectRenderer;

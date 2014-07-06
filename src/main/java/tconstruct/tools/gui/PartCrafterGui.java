@@ -1,4 +1,4 @@
-package tconstruct.client.gui;
+package tconstruct.tools.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
+import tconstruct.client.gui.NewContainerGui;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.tools.ToolMaterial;

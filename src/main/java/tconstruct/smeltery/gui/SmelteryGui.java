@@ -1,4 +1,4 @@
-package tconstruct.client.gui;
+package tconstruct.smeltery.gui;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,44 +14,37 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import tconstruct.TConstruct;
-import tconstruct.library.component.MultiFluidTank;
-import tconstruct.smeltery.component.SmelteryComponent;
+import tconstruct.client.gui.NewContainerGui;
 import tconstruct.smeltery.inventory.ActiveContainer;
-import tconstruct.smeltery.inventory.AdaptiveSmelteryContainer;
-import tconstruct.smeltery.logic.AdaptiveSmelteryLogic;
+import tconstruct.smeltery.inventory.SmelteryContainer;
+import tconstruct.smeltery.logic.SmelteryLogic;
+import tconstruct.util.network.packet.PacketSmeltery;
 
-public class AdaptiveSmelteryGui extends NewContainerGui
+public class SmelteryGui extends NewContainerGui
 {
-    public AdaptiveSmelteryLogic logic;
+    public SmelteryLogic logic;
     String username;
     boolean isScrolling = false;
     boolean wasClicking;
     float currentScroll = 0.0F;
     int slotPos = 0;
     int prevSlotPos = 0;
-    private final SmelteryComponent scomp;
-    private final MultiFluidTank multitank;
 
-    public AdaptiveSmelteryGui(InventoryPlayer inventoryplayer, AdaptiveSmelteryLogic smeltery, World world, int x, int y, int z)
+    public SmelteryGui(InventoryPlayer inventoryplayer, SmelteryLogic smeltery, World world, int x, int y, int z)
     {
         super((ActiveContainer) smeltery.getGuiContainer(inventoryplayer, world, x, y, z));
         logic = smeltery;
         username = inventoryplayer.player.getDisplayName();
         xSize = 248;
-        scomp = logic.getSmeltery();
-        multitank = logic.getMultiTank();
-        scomp.update();
-
+        smeltery.updateFuelDisplay();
     }
 
     @Override
@@ -63,7 +56,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
 
     protected void updateScrollbar (int mouseX, int mouseY, float par3)
     {
-        if (logic.getSizeInventory() > 24)
+        if (logic.layers > 2)
         {
             boolean mouseDown = Mouse.isButtonDown(0);
             int lefto = this.guiLeft;
@@ -104,7 +97,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
                     this.currentScroll = 1.0F;
                 }
 
-                int s = ((AdaptiveSmelteryContainer) this.container).scrollTo(this.currentScroll);
+                int s = ((SmelteryContainer) this.container).scrollTo(this.currentScroll);
                 if (s != -1)
                     slotPos = s;
             }
@@ -120,30 +113,23 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         int base = 0;
         int cornerX = (width - xSize) / 2 + 36;
         int cornerY = (height - ySize) / 2;
-        FluidTankInfo[] info = logic.getTankInfo(ForgeDirection.UNKNOWN);
 
-        int capacity = 0;
-
-        for (int i = 0; i < info.length - 1; i++)
+        for (FluidStack liquid : logic.moltenMetal)
         {
-            FluidStack liquid = info[i].fluid;
-            if (liquid != null)
-                capacity += info[i].capacity;
-        }
-
-        for (int i = 0; i < info.length - 1; i++)
-        {
-            FluidStack liquid = info[i].fluid;
             int basePos = 54;
             int initialLiquidSize = 0;
-            int liquidSize = 0;
-            if (capacity > 0)
+            int liquidSize = 0;// liquid.amount * 52 / liquidLayers;
+            if (logic.getCapacity() > 0)
             {
-                liquidSize = liquid.amount * 52 / capacity;
-                if (liquidSize == 0)
-                    liquidSize = 1;
-                base += liquidSize;
-
+                int total = logic.getTotalLiquid();
+                int liquidLayers = (total / 20000 + 1) * 20000;
+                if (liquidLayers > 0)
+                {
+                    liquidSize = liquid.amount * 52 / liquidLayers;
+                    if (liquidSize == 0)
+                        liquidSize = 1;
+                    base += liquidSize;
+                }
             }
 
             int leftX = cornerX + basePos;
@@ -156,15 +142,15 @@ public class AdaptiveSmelteryGui extends NewContainerGui
 
             }
         }
-        if (scomp.fuelGague > 0)
+        if (logic.fuelGague > 0)
         {
             int leftX = cornerX + 117;
-            int topY = (cornerY + 68) - scomp.getScaledFuelGague(52);
+            int topY = (cornerY + 68) - logic.getScaledFuelGague(52);
             int sizeX = 12;
-            int sizeY = scomp.getScaledFuelGague(52);
+            int sizeY = logic.getScaledFuelGague(52);
             if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
             {
-                drawFluidStackTooltip(new FluidStack(-37, scomp.fuelAmount), mouseX - cornerX + 36, mouseY - cornerY);
+                drawFluidStackTooltip(new FluidStack(-37, logic.fuelAmount), mouseX - cornerX + 36, mouseY - cornerY);
             }
         }
     }
@@ -184,10 +170,10 @@ public class AdaptiveSmelteryGui extends NewContainerGui
 
         // Fuel - Lava
         this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
-        if (scomp.fuelGague > 0)
+        if (logic.fuelGague > 0)
         {
             IIcon lavaIcon = Blocks.lava.getIcon(0, 0);
-            int fuel = scomp.getScaledFuelGague(52);
+            int fuel = logic.getScaledFuelGague(52);
             int count = 0;
             while (fuel > 0)
             {
@@ -198,38 +184,34 @@ public class AdaptiveSmelteryGui extends NewContainerGui
             }
         }
 
-        FluidTankInfo[] info = logic.getTankInfo(ForgeDirection.UNKNOWN);
-        int capacity = 0;
-
-        for (int i = 0; i < info.length - 1; i++)
-        {
-            FluidStack liquid = info[i].fluid;
-            if (liquid != null)
-                capacity += info[i].capacity;
-        }
-
         // Liquids - molten metal
         int base = 0;
-        for (int i = 0; i < info.length - 1; i++)
+        for (FluidStack liquid : logic.moltenMetal)
         {
-            FluidStack liquid = info[i].fluid;
             IIcon renderIndex = liquid.getFluid().getStillIcon();
             int basePos = 54;
-            if (capacity > 0)
+            if (logic.getCapacity() > 0)
             {
-                int liquidSize = liquid.amount * 52 / capacity;
-                if (liquidSize == 0)
-                    liquidSize = 1;
-                while (liquidSize > 0)
+                int total = logic.getTotalLiquid();
+                int liquidLayers = (total / 20000 + 1) * 20000;
+                if (liquidLayers > 0)
                 {
-                    int size = liquidSize >= 16 ? 16 : liquidSize;
-                    drawLiquidRect(cornerX + basePos, (cornerY + 68) - size - base, renderIndex, 16, size);
-                    drawLiquidRect(cornerX + basePos + 16, (cornerY + 68) - size - base, renderIndex, 16, size);
-                    drawLiquidRect(cornerX + basePos + 32, (cornerY + 68) - size - base, renderIndex, 16, size);
-                    drawLiquidRect(cornerX + basePos + 48, (cornerY + 68) - size - base, renderIndex, 4, size);
-                    liquidSize -= size;
-                    base += size;
-
+                    int liquidSize = liquid.amount * 52 / liquidLayers;
+                    if (liquidSize == 0)
+                        liquidSize = 1;
+                    while (liquidSize > 0)
+                    {
+                        int size = liquidSize >= 16 ? 16 : liquidSize;
+                        if (renderIndex != null)
+                        {
+                            drawLiquidRect(cornerX + basePos, (cornerY + 68) - size - base, renderIndex, 16, size);
+                            drawLiquidRect(cornerX + basePos + 16, (cornerY + 68) - size - base, renderIndex, 16, size);
+                            drawLiquidRect(cornerX + basePos + 32, (cornerY + 68) - size - base, renderIndex, 16, size);
+                            drawLiquidRect(cornerX + basePos + 48, (cornerY + 68) - size - base, renderIndex, 4, size);
+                        }
+                        liquidSize -= size;
+                        base += size;
+                    }
                 }
             }
         }
@@ -243,16 +225,19 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         // Side inventory
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(backgroundSide);
-        // if (logic.layers > 0)
+        if (logic.layers > 0)
         {
-            /*
-             * if (logic.layers == 1) { drawTexturedModalRect(cornerX - 46,
-             * cornerY, 0, 0, 98, 43); drawTexturedModalRect(cornerX - 46,
-             * cornerY + 43, 0, 133, 98, 25); } else if (logic.layers == 2) {
-             * drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 98, 61);
-             * drawTexturedModalRect(cornerX - 46, cornerY + 61, 0, 97, 98, 61);
-             * } else
-             */
+            if (logic.layers == 1)
+            {
+                drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 98, 43);
+                drawTexturedModalRect(cornerX - 46, cornerY + 43, 0, 133, 98, 25);
+            }
+            else if (logic.layers == 2)
+            {
+                drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 98, 61);
+                drawTexturedModalRect(cornerX - 46, cornerY + 61, 0, 97, 98, 61);
+            }
+            else
             {
                 drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 98, ySize - 8);
             }
@@ -260,7 +245,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         }
 
         // Temperature
-        int slotSize = logic.getSizeInventory();
+        int slotSize = logic.layers * 9;
         if (slotSize > 24)
             slotSize = 24;
         for (int iter = 0; iter < slotSize; iter++)
@@ -294,29 +279,41 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         ArrayList list = new ArrayList();
         if (liquid.fluidID == -37)
         {
-            list.add("\u00A7f" + StatCollector.translateToLocal("gui.smeltery1"));
+            list.add("\u00A7f" + StatCollector.translateToLocal("gui.smeltery.fuel"));
             list.add("mB: " + liquid.amount);
         }
         else
         {
-            String name = StatCollector.translateToLocal(FluidRegistry.getFluidName(liquid));
+            String name = StatCollector.translateToLocal("fluid." + FluidRegistry.getFluidName(liquid));
             list.add("\u00A7f" + name);
-            if (name.equals("liquified emerald"))
+            if (name.equals("Liquified Emerald"))
             {
-                list.add("Emeralds: " + liquid.amount / 320f);
+                list.add(StatCollector.translateToLocal("gui.smeltery.emerald") + liquid.amount / 640f);
+            }
+            else if (name.equals("Molten Glass"))
+            {
+                int blocks = liquid.amount / 1000;
+                if (blocks > 0)
+                    list.add(StatCollector.translateToLocal("gui.smeltery.glass.block") + blocks);
+                int panels = (liquid.amount % 1000) / 250;
+                if (panels > 0)
+                    list.add(StatCollector.translateToLocal("gui.smeltery.glass.pannel") + panels);
+                int mB = (liquid.amount % 1000) % 250;
+                if (mB > 0)
+                    list.add("mB: " + mB);
             }
             else if (name.contains("Molten"))
             {
                 int ingots = liquid.amount / TConstruct.ingotLiquidValue;
                 if (ingots > 0)
-                    list.add("Ingots: " + ingots);
+                    list.add(StatCollector.translateToLocal("gui.smeltery.metal.ingot") + ingots);
                 int mB = liquid.amount % TConstruct.ingotLiquidValue;
                 if (mB > 0)
                 {
                     int nuggets = mB / TConstruct.nuggetLiquidValue;
                     int junk = (mB % TConstruct.nuggetLiquidValue);
                     if (nuggets > 0)
-                        list.add("Nuggets: " + nuggets);
+                        list.add(StatCollector.translateToLocal("gui.smeltery.metal.nugget") + nuggets);
                     if (junk > 0)
                         list.add("mB: " + junk);
                 }
@@ -325,20 +322,8 @@ public class AdaptiveSmelteryGui extends NewContainerGui
             {
                 int ingots = liquid.amount / TConstruct.ingotLiquidValue;
                 if (ingots > 0)
-                    list.add("Blocks: " + ingots);
+                    list.add(StatCollector.translateToLocal("gui.smeltery.glass.block") + ingots);
                 int mB = liquid.amount % TConstruct.ingotLiquidValue;
-                if (mB > 0)
-                    list.add("mB: " + mB);
-            }
-            else if (name.equals("Molten Glass"))
-            {
-                int blocks = liquid.amount / 1000;
-                if (blocks > 0)
-                    list.add("Blocks: " + blocks);
-                int panels = (liquid.amount % 1000) / 250;
-                if (panels > 0)
-                    list.add("Panels: " + panels);
-                int mB = (liquid.amount % 1000) % 250;
                 if (mB > 0)
                     list.add("mB: " + mB);
             }
@@ -435,52 +420,45 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         tessellator.draw();
     }
 
-    /*
-     * @Override public void mouseClicked(int mouseX, int mouseY, int
-     * mouseButton) { super.mouseClicked(mouseX, mouseY, mouseButton);
-     * 
-     * int base = 0; int cornerX = (width - xSize) / 2 + 36; int cornerY =
-     * (height - ySize) / 2; int fluidToBeBroughtUp = -1;
-     * 
-     * for (FluidStack liquid : multitank.getAllFluids()) { int basePos = 54;
-     * int initialLiquidSize = 0; int liquidSize = 0;//liquid.amount * 52 /
-     * liquidLayers; if (multitank.getCapacity() > 0) { int total =
-     * multitank.getFluidAmount(); int liquidLayers = (total / 20000 + 1) *
-     * 20000; if (liquidLayers > 0) { liquidSize = liquid.amount * 52 /
-     * liquidLayers; if (liquidSize == 0) liquidSize = 1; base += liquidSize; }
-     * }
-     * 
-     * int leftX = cornerX + basePos; int topY = (cornerY + 68) - base; int
-     * sizeX = 52; int sizeY = liquidSize; if (mouseX >= leftX && mouseX <=
-     * leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY) {
-     * fluidToBeBroughtUp = liquid.fluidID;
-     * 
-     * Packet250CustomPayload packet = new Packet250CustomPayload();
-     * 
-     * ByteArrayOutputStream bos = new ByteArrayOutputStream(); DataOutputStream
-     * dos = new DataOutputStream(bos);
-     * 
-     * try { dos.write(11);
-     * 
-     * dos.writeInt(logic.worldObj.provider.dimensionId);
-     * dos.writeInt(logic.xCoord); dos.writeInt(logic.yCoord);
-     * dos.writeInt(logic.zCoord);
-     * 
-     * dos.writeBoolean(this.isShiftKeyDown());
-     * 
-     * dos.writeInt(fluidToBeBroughtUp); } catch (Exception e) {
-     * e.printStackTrace(); }
-     * 
-     * packet.channel = "TConstruct"; packet.data = bos.toByteArray();
-     * packet.length = bos.size();
-     * 
-     * PacketDispatcher.sendPacketToServer(packet); } } }
-     */
-
     @Override
-    public void onGuiClosed ()
+    public void mouseClicked (int mouseX, int mouseY, int mouseButton)
     {
-        super.onGuiClosed();
-        logic.getWorldObj().markBlockForUpdate(logic.xCoord, logic.yCoord, logic.zCoord);
+        super.mouseClicked(mouseX, mouseY, mouseButton);
+
+        int base = 0;
+        int cornerX = (width - xSize) / 2 + 36;
+        int cornerY = (height - ySize) / 2;
+        int fluidToBeBroughtUp = -1;
+
+        for (FluidStack liquid : logic.moltenMetal)
+        {
+            int basePos = 54;
+            int initialLiquidSize = 0;
+            int liquidSize = 0;// liquid.amount * 52 / liquidLayers;
+            if (logic.getCapacity() > 0)
+            {
+                int total = logic.getTotalLiquid();
+                int liquidLayers = (total / 20000 + 1) * 20000;
+                if (liquidLayers > 0)
+                {
+                    liquidSize = liquid.amount * 52 / liquidLayers;
+                    if (liquidSize == 0)
+                        liquidSize = 1;
+                    base += liquidSize;
+                }
+            }
+
+            int leftX = cornerX + basePos;
+            int topY = (cornerY + 68) - base;
+            int sizeX = 52;
+            int sizeY = liquidSize;
+            if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
+            {
+                fluidToBeBroughtUp = liquid.fluidID;
+
+                TConstruct.packetPipeline
+                        .sendToServer(new PacketSmeltery(logic.getWorldObj().provider.dimensionId, logic.xCoord, logic.yCoord, logic.zCoord, this.isShiftKeyDown(), fluidToBeBroughtUp));
+            }
+        }
     }
 }

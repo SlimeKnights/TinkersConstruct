@@ -1,4 +1,4 @@
-package tconstruct.client.gui;
+package tconstruct.tools.gui;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -18,20 +18,6 @@ public class ToolForgeGui extends ToolStationGui
     public ToolForgeGui(InventoryPlayer inventoryplayer, ToolForgeLogic stationlogic, World world, int x, int y, int z)
     {
         super(inventoryplayer, stationlogic, world, x, y, z);
-    }
-
-    @Override
-    protected void mouseClicked (int mouseX, int mouseY, int mouseButton)
-    {
-        super.mouseClicked(mouseX, mouseY, mouseButton);
-        if (mouseButton == 0)
-        {
-            int gLeft = this.guiLeft + 68;
-            int gTop = this.guiTop + 6;
-            int gwidth = 102;
-            int gheight = 12;
-            active = mouseX > gLeft && mouseX < gLeft + gwidth && mouseY > gTop && mouseY < gTop + gheight;
-        }
     }
 
     @Override

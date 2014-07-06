@@ -1,4 +1,4 @@
-package tconstruct.client.gui;
+package tconstruct.tools.gui;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;

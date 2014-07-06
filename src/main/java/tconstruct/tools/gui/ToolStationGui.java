@@ -1,4 +1,4 @@
-package tconstruct.client.gui;
+package tconstruct.tools.gui;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -64,7 +64,7 @@ public class ToolStationGui extends GuiContainer
         super.mouseClicked(mouseX, mouseY, mouseButton);
         if (mouseButton == 0)
         {
-            int gLeft = this.guiLeft + 68;
+            int gLeft = this.guiLeft + 68 + 110;
             int gTop = this.guiTop + 6;
             int gwidth = 102;
             int gheight = 12;
@@ -315,8 +315,7 @@ public class ToolStationGui extends GuiContainer
             offset++;
             fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation13"), 294, base + offset * 10, 0xffffff);
             offset++;
-            fontRendererObj.drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + getHarvestLevelName(tags.getInteger("HarvestLevel2")), 294, base + offset * 10,
-                    0xffffff);
+            fontRendererObj.drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + getHarvestLevelName(tags.getInteger("HarvestLevel2")), 294, base + offset * 10, 0xffffff);
             offset++;
             offset++;
         }
