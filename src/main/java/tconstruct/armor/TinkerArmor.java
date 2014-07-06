@@ -87,15 +87,15 @@ public class TinkerArmor
     public static TravelGear travelBoots;
     public static AccessoryCore travelGlove;
     public static AccessoryCore travelBelt;
-    
+
     public static ModAttack modAttackGlove;
-    
+
     @Handler
     public void preInit (FMLPreInitializationEvent event)
     {
         MinecraftForge.EVENT_BUS.register(new TinkerArmorEvents());
         FMLCommonHandler.instance().bus().register(new ArmorAbilities());
-        
+
         TinkerArmor.dryingRack = new DryingRack().setBlockName("Armor.DryingRack");
         GameRegistry.registerBlock(TinkerArmor.dryingRack, "Armor.DryingRack");
         GameRegistry.registerTileEntity(DryingRackLogic.class, "Armor.DryingRack");
@@ -141,7 +141,7 @@ public class TinkerArmor
         TConstructRegistry.addItemStackToDirectory("canisterEmpty", new ItemStack(TinkerArmor.heartCanister, 1, 0));
         TConstructRegistry.addItemStackToDirectory("miniRedHeart", new ItemStack(TinkerArmor.heartCanister, 1, 1));
         TConstructRegistry.addItemStackToDirectory("canisterRedHeart", new ItemStack(TinkerArmor.heartCanister, 1, 2));
-        
+
         travelGoggles = (TravelGear) new TravelGear(ArmorPart.Head).setUnlocalizedName("tconstruct.travelgoggles");
         travelVest = (TravelGear) new TravelGear(ArmorPart.Chest).setUnlocalizedName("tconstruct.travelvest");
         travelWings = (TravelGear) new TravelWings().setUnlocalizedName("tconstruct.travelwings");
@@ -195,6 +195,7 @@ public class TinkerArmor
         GameRegistry.addRecipe(new ItemStack(TinkerArmor.diamondApple), " d ", "d#d", " d ", 'd', new ItemStack(Items.diamond), '#', new ItemStack(Items.apple));
         GameRegistry.addShapelessRecipe(new ItemStack(TinkerArmor.heartCanister, 1, 2), new ItemStack(TinkerArmor.diamondApple), new ItemStack(TinkerTools.materials, 1, 8), new ItemStack(
                 TinkerArmor.heartCanister, 1, 0), new ItemStack(TinkerArmor.heartCanister, 1, 1));
+        GameRegistry.addShapelessRecipe(new ItemStack(TinkerArmor.heartCanister, 1, 1), new ItemStack(TinkerArmor.heartCanister, 1, 3));
         GameRegistry.addShapelessRecipe(new ItemStack(TinkerArmor.heartCanister, 1, 4), new ItemStack(TinkerArmor.heartCanister, 1, 2), new ItemStack(TinkerArmor.heartCanister, 1, 3), new ItemStack(
                 Items.golden_apple, 1, 1));
         //GameRegistry.addShapelessRecipe(new ItemStack(heartCanister, 1, 6), new ItemStack(heartCanister, 1, 0), new ItemStack(heartCanister, 1, 4), new ItemStack(heartCanister, 1, 5));
@@ -205,6 +206,17 @@ public class TinkerArmor
         GameRegistry.addRecipe(new ItemStack(TinkerArmor.knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Items.leather), 'r', new ItemStack(TinkerTools.toughRod, 1, 2), 'm', aluBrass);
         // Drying Rack Recipes
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerArmor.dryingRack, 1, 0), "bbb", 'b', "slabWood"));
+        
+      //Temporary recipes
+        ItemStack leather = new ItemStack(Items.leather);
+        ItemStack glass = new ItemStack(Blocks.glass);
+        ItemStack string = new ItemStack(Items.string);
+        GameRegistry.addShapedRecipe(travelGoggles.getDefaultItem(), "# #", "q#q", "g g", '#', leather, 'q', glass, 'g', new ItemStack(Items.gold_ingot));
+        GameRegistry.addRecipe(new ShapedOreRecipe(travelWings.getDefaultItem(), "g g", "i#i", "i i", '#', Items.ender_pearl, 'g', Items.gold_ingot, 'i', "ingotBronze"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(travelVest.getDefaultItem(), "#w#", "#i#", "#w#", '#', leather, 'i', "ingotAluminum", 'w', new ItemStack(Blocks.wool, 1, Short.MAX_VALUE)));
+        GameRegistry.addRecipe(new ShapedOreRecipe(travelBoots.getDefaultItem(), "#s#", "#i#", "#s#", '#', leather, 's', string, 'i', "ingotAluminum"));
+        GameRegistry.addShapedRecipe(travelGlove.getDefaultItem(), "  #", "###", " ##", '#', leather);
+        GameRegistry.addRecipe(new ShapedOreRecipe(travelBelt.getDefaultItem(), "###", "ici", "###", '#', leather, 'c', new ItemStack(Blocks.chest), 'i', "ingotAluminum"));
     }
 
     protected static void addRecipesForDryingRack ()
@@ -223,23 +235,23 @@ public class TinkerArmor
         // DryingRackRecipes.addDryingRecipe(new ItemStack(TRepo.jerky, 1, 5),
         // 20 * 60 * 10, Item.leather);
     }
-    
-    private void registerModifiers()
+
+    private void registerModifiers ()
     {
         ItemStack redstoneItem = new ItemStack(Items.redstone);
         ItemStack redstoneBlock = new ItemStack(Blocks.redstone_block);
-      //Travel gear modifiers
+        //Travel gear modifiers
         //MultiType
-        ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(ArmorPart.Legs, ArmorPart.Feet), new ItemStack[] { new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 0),
-                new ItemStack(Blocks.piston) }));
-        ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(ArmorPart.Legs, ArmorPart.Feet), new ItemStack[] { new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 1),
-                new ItemStack(Blocks.piston) }));
+        ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(ArmorPart.Legs, ArmorPart.Feet), new ItemStack[] { new ItemStack(Items.ghast_tear),
+                new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Blocks.piston) }));
+        ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(ArmorPart.Legs, ArmorPart.Feet), new ItemStack[] { new ItemStack(Items.ghast_tear),
+                new ItemStack(TinkerWorld.slimeGel, 1, 1), new ItemStack(Blocks.piston) }));
         ModifyBuilder.registerModifier(new TravelModRepair());
         TConstructRegistry.registerActiveArmorMod(new ActiveTinkerArmor());
 
         //Head
-        ModifyBuilder.registerModifier(new AModBoolean(0, "Night Vision", EnumSet.of(ArmorPart.Head), new ItemStack[] { new ItemStack(Items.flint_and_steel), new ItemStack(Items.potionitem, 1, 8198) },
-                "\u00a78", "Night Vision"));
+        ModifyBuilder.registerModifier(new AModBoolean(0, "Night Vision", EnumSet.of(ArmorPart.Head),
+                new ItemStack[] { new ItemStack(Items.flint_and_steel), new ItemStack(Items.potionitem, 1, 8198) }, "\u00a78", "Night Vision"));
 
         //Chest
         ModifyBuilder.registerModifier(new AModInteger(0, "Perfect Dodge", EnumSet.of(ArmorPart.Chest), new ItemStack[] { new ItemStack(Items.ender_eye), new ItemStack(Items.ender_pearl),
@@ -249,17 +261,17 @@ public class TinkerArmor
 
         //Wings
         ItemStack feather = new ItemStack(Items.feather);
-        ModifyBuilder.registerModifier(new AModInteger(1, "Feather Fall", EnumSet.of(ArmorPart.Legs), new ItemStack[] { new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Items.ender_pearl), feather,
-                feather, feather, feather, feather, feather }, 1, "\u00a7f", "Feather Fall"));
-        ModifyBuilder.registerModifier(new AModInteger(1, "Feather Fall", EnumSet.of(ArmorPart.Legs), new ItemStack[] { new ItemStack(TinkerWorld.slimeGel, 1, 1), new ItemStack(Items.ender_pearl), feather,
-                feather, feather, feather, feather, feather }, 1, "\u00a7f", "Feather Fall"));
+        ModifyBuilder.registerModifier(new AModInteger(1, "Feather Fall", EnumSet.of(ArmorPart.Legs), new ItemStack[] { new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Items.ender_pearl),
+                feather, feather, feather, feather, feather, feather }, 1, "\u00a7f", "Feather Fall"));
+        ModifyBuilder.registerModifier(new AModInteger(1, "Feather Fall", EnumSet.of(ArmorPart.Legs), new ItemStack[] { new ItemStack(TinkerWorld.slimeGel, 1, 1), new ItemStack(Items.ender_pearl),
+                feather, feather, feather, feather, feather, feather }, 1, "\u00a7f", "Feather Fall"));
 
         //Feet
         ModifyBuilder.registerModifier(new AModBoolean(1, "WaterWalk", EnumSet.of(ArmorPart.Feet), new ItemStack[] { new ItemStack(Blocks.waterlily), new ItemStack(Blocks.waterlily) }, "\u00a79",
                 "Water-Walking"));
         ModifyBuilder.registerModifier(new AModLeadBoots(new ItemStack[] { new ItemStack(Blocks.iron_block) }));
-        ModifyBuilder.registerModifier(new AModInteger(3, "Slimy Soles", EnumSet.of(ArmorPart.Feet), new ItemStack[] { new ItemStack(TinkerWorld.slimePad, 1, 0), new ItemStack(TinkerWorld.slimePad, 1, 0) }, 1,
-                "\u00a7a", "Slimy Soles"));
+        ModifyBuilder.registerModifier(new AModInteger(3, "Slimy Soles", EnumSet.of(ArmorPart.Feet), new ItemStack[] { new ItemStack(TinkerWorld.slimePad, 1, 0),
+                new ItemStack(TinkerWorld.slimePad, 1, 0) }, 1, "\u00a7a", "Slimy Soles"));
 
         //Glove
         ModifyBuilder.registerModifier(new GloveSpeed(1, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));

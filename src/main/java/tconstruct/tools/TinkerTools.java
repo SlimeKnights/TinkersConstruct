@@ -699,7 +699,7 @@ public class TinkerTools
         GameRegistry.addRecipe(new ItemStack(TinkerTools.furnaceSlab, 1, 0), "###", "# #", "###", '#', new ItemStack(Blocks.stone_slab, 1, 3));
 
         // Blank Pattern Recipe
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerTools.blankPattern, 1, 0), "ps", "sp", 'p', "plankWood", 's', "stickWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerTools.blankPattern, 4, 0), "ps", "sp", 'p', "plankWood", 's', "stickWood"));
         // Manual Book Recipes
         GameRegistry.addRecipe(new ItemStack(TinkerTools.manualBook), "wp", 'w', new ItemStack(TinkerTools.blankPattern, 1, 0), 'p', Items.paper);
         GameRegistry.addShapelessRecipe(new ItemStack(TinkerTools.manualBook, 2, 0), new ItemStack(TinkerTools.manualBook, 1, 0), Items.book);
