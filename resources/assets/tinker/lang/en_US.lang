@@ -525,9 +525,12 @@ entity.TConstruct.KingSlime.name=King Slime
 entity.TConstruct.Gardeslime.name=Gardeslime 
 entity.TConstruct.MiniGardy.name=Gardeslime 
 
-key.tconstruct.category=Tinkers Construct
+tconstruct.keybindigs=Tinkers Construct
 key.tarmor=Armor Gui
 key.tcapes.reload=Reload Capes
+key.tbelt=Belt
+key.tgoggles=Goggles
+key.tzoom=Zoom
 
 death.one.smeltery=%1$s transformed into Soylent Green
 death.two.smeltery=%1$s has fused with the Smeltery
