@@ -255,6 +255,11 @@ item.tconstruct.Materials.SteelNugget.name=Стальной самородок
 item.tconstruct.Materials.PigIronIngot.name=Слиток свиного железа
 item.tconstruct.Materials.PigIronNugget.name=Тарелка свиного железа
 item.tconstruct.Materials.GlueBall.name=Шарик клея
+item.tconstruct.Materials.ArditeDust.name=Ардитовый порошок
+item.tconstruct.Materials.CobaltDust.name=Кобальтовый порошок
+item.tconstruct.Materials.AluminumDust.name=Алюминиевый порошок
+item.tconstruct.Materials.ManyullynDust.name=Мануллиновый порошок
+item.tconstruct.Materials.AluBrassDust.name=Порошок алюминиевой бронзы
 
 item.tconstruct.ArmorPattern.helmet.name=Слепок шлема
 item.tconstruct.ArmorPattern.chestplate.name=Слепок кирасы
@@ -806,4 +811,4 @@ materialtraits.thaumic=Таум-сила
 
 creativeModLock.tooltip=Цель: 
 
-attribute.generic.ammo.attackDamage=Средний урон от выстрела
+attribute.name.ammo.attackDamage=Средний урон от выстрела
