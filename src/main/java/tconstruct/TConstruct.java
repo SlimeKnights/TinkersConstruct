@@ -2,10 +2,8 @@ package tconstruct;
 
 import java.util.Random;
 
-import mantle.lib.TabTools;
 import mantle.pulsar.config.ForgeCFG;
 import mantle.pulsar.control.PulseManager;
-import mantle.pulsar.pulse.IPulse;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -14,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import tconstruct.armor.TinkerArmor;
 import tconstruct.client.TControls;
+import tconstruct.common.TConstructCreativeTab;
 import tconstruct.common.TProxyCommon;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.Detailing;
@@ -57,7 +56,7 @@ import cpw.mods.fml.relauncher.Side;
  */
 
 @Mod(modid = "TConstruct", name = "TConstruct", version = "${version}",
-        dependencies = "required-after:Forge@[9.11,);required-after:Mantle;after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion")
+        dependencies = "required-after:Forge@[10.13,);required-after:Mantle;after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion")
 public class TConstruct
 {
     /** The value of one ingot in millibuckets */
@@ -111,11 +110,11 @@ public class TConstruct
         /*pulsar.registerPulse(new TinkerPrayers());
         pulsar.registerPulse(new TinkerCropify());*/
 
-        TConstructRegistry.materialTab = new TabTools("TConstructMaterials");
-        TConstructRegistry.toolTab = new TabTools("TConstructTools");
-        TConstructRegistry.partTab = new TabTools("TConstructParts");
-        TConstructRegistry.blockTab = new TabTools("TConstructBlocks");
-        TConstructRegistry.equipableTab = new TabTools("TConstructEquipables");
+        TConstructRegistry.materialTab = new TConstructCreativeTab("TConstructMaterials");
+        TConstructRegistry.toolTab = new TConstructCreativeTab("TConstructTools");
+        TConstructRegistry.partTab = new TConstructCreativeTab("TConstructParts");
+        TConstructRegistry.blockTab = new TConstructCreativeTab("TConstructBlocks");
+        TConstructRegistry.equipableTab = new TConstructCreativeTab("TConstructEquipables");
 
         tableCasting = new LiquidCasting();
         basinCasting = new LiquidCasting();

@@ -44,6 +44,7 @@ import tconstruct.items.tools.Shovel;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.Detailing;
+import tconstruct.library.crafting.ModifyBuilder;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
@@ -474,70 +475,59 @@ public class TinkerTools
         tb.addNormalToolRecipe(TinkerTools.arrow, TinkerTools.arrowhead, TinkerTools.toolRod, TinkerTools.fletching);
 
         ItemStack diamond = new ItemStack(Items.diamond);
-        tb.registerToolMod(new ModRepair());
-        tb.registerToolMod(new ModDurability(new ItemStack[] { diamond }, 0, 500, 0f, 3, StatCollector.translateToLocal("gui.modifier.diamond"), "\u00a7b"
+        ModifyBuilder.registerModifier(new ModRepair());
+        ModifyBuilder.registerModifier(new ModDurability(new ItemStack[] { diamond }, 0, 500, 0f, 3, StatCollector.translateToLocal("gui.modifier.diamond"), "\u00a7b"
                 + StatCollector.translateToLocal("modifier.tool.diamond"), "\u00a7b"));
-        tb.registerToolMod(new ModDurability(new ItemStack[] { new ItemStack(Items.emerald) }, 1, 0, 0.5f, 2, StatCollector.translateToLocal("gui.modifier.emerald"), "\u00a72"
+        ModifyBuilder.registerModifier(new ModDurability(new ItemStack[] { new ItemStack(Items.emerald) }, 1, 0, 0.5f, 2, StatCollector.translateToLocal("gui.modifier.emerald"), "\u00a72"
                 + StatCollector.translateToLocal("modifier.tool.emerald"), "\u00a72"));
 
         TinkerTools.modFlux = new ModFlux();
-        tb.registerToolMod(TinkerTools.modFlux);
+        ModifyBuilder.registerModifier(TinkerTools.modFlux);
 
         ItemStack redstoneItem = new ItemStack(Items.redstone);
         ItemStack redstoneBlock = new ItemStack(Blocks.redstone_block);
-        tb.registerToolMod(new ModRedstone(2, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
+        ModifyBuilder.registerModifier(new ModRedstone(2, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
 
         ItemStack lapisItem = new ItemStack(Items.dye, 1, 4);
         ItemStack lapisBlock = new ItemStack(Blocks.lapis_block);
         TinkerTools.modLapis = new ModLapis(10, new ItemStack[] { lapisItem, lapisBlock }, new int[] { 1, 9 });
-        tb.registerToolMod(TinkerTools.modLapis);
+        ModifyBuilder.registerModifier(TinkerTools.modLapis);
 
-        tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 6) }, 4, StatCollector.translateToLocal("gui.modifier.moss"), 3, "\u00a72", StatCollector
+        ModifyBuilder.registerModifier(new ModInteger(new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 6) }, 4, StatCollector.translateToLocal("gui.modifier.moss"), 3, "\u00a72", StatCollector
                 .translateToLocal("modifier.tool.moss")));
         ItemStack blazePowder = new ItemStack(Items.blaze_powder);
-        tb.registerToolMod(new ModBlaze(7, new ItemStack[] { blazePowder }, new int[] { 1 }));
-        tb.registerToolMod(new ModAutoSmelt(new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 7) }, 6, StatCollector.translateToLocal("gui.modifier.lava"), "\u00a74", StatCollector
+        ModifyBuilder.registerModifier(new ModBlaze(7, new ItemStack[] { blazePowder }, new int[] { 1 }));
+        ModifyBuilder.registerModifier(new ModAutoSmelt(new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 7) }, 6, StatCollector.translateToLocal("gui.modifier.lava"), "\u00a74", StatCollector
                 .translateToLocal("modifier.tool.lava")));
-        tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 8) }, 8, StatCollector.translateToLocal("gui.modifier.necro"), 1, "\u00a78", StatCollector
+        ModifyBuilder.registerModifier(new ModInteger(new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 8) }, 8, StatCollector.translateToLocal("gui.modifier.necro"), 1, "\u00a78", StatCollector
                 .translateToLocal("modifier.tool.necro")));
 
         TinkerTools.modAttack = new ModAttack(StatCollector.translateToLocal("gui.modifier.quartz"), 11, new ItemStack[] { new ItemStack(Items.quartz),
                 new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1, 4 });
-        tb.registerToolMod(TinkerTools.modAttack);
+        ModifyBuilder.registerModifier(TinkerTools.modAttack);
 
-        tb.registerToolMod(new ModExtraModifier(new ItemStack[] { diamond, new ItemStack(Blocks.gold_block) }, "Tier1Free"));
-        tb.registerToolMod(new ModExtraModifier(new ItemStack[] { new ItemStack(Blocks.diamond_block), new ItemStack(Items.golden_apple, 1, 1) }, "Tier1.5Free"));
-        tb.registerToolMod(new ModExtraModifier(new ItemStack[] { new ItemStack(Items.nether_star) }, "Tier2Free"));
-        tb.registerToolMod(new ModCreativeToolModifier(new ItemStack[] { new ItemStack(TinkerTools.creativeModifier) }));
+        ModifyBuilder.registerModifier(new ModExtraModifier(new ItemStack[] { diamond, new ItemStack(Blocks.gold_block) }, "Tier1Free"));
+        ModifyBuilder.registerModifier(new ModExtraModifier(new ItemStack[] { new ItemStack(Blocks.diamond_block), new ItemStack(Items.golden_apple, 1, 1) }, "Tier1.5Free"));
+        ModifyBuilder.registerModifier(new ModExtraModifier(new ItemStack[] { new ItemStack(Items.nether_star) }, "Tier2Free"));
+        ModifyBuilder.registerModifier(new ModCreativeToolModifier(new ItemStack[] { new ItemStack(TinkerTools.creativeModifier) }));
 
         ItemStack silkyJewel = new ItemStack(TinkerTools.materials, 1, 26);
-        tb.registerToolMod(new ModButtertouch(new ItemStack[] { silkyJewel }, 12));
+        ModifyBuilder.registerModifier(new ModButtertouch(new ItemStack[] { silkyJewel }, 12));
 
         ItemStack piston = new ItemStack(Blocks.piston);
-        tb.registerToolMod(new ModPiston(3, new ItemStack[] { piston }, new int[] { 1 }));
+        ModifyBuilder.registerModifier(new ModPiston(3, new ItemStack[] { piston }, new int[] { 1 }));
 
-        tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(Blocks.obsidian), new ItemStack(Items.ender_pearl) }, 13, StatCollector.translateToLocal("modifier.tool.beheading"), 1,
+        ModifyBuilder.registerModifier(new ModInteger(new ItemStack[] { new ItemStack(Blocks.obsidian), new ItemStack(Items.ender_pearl) }, 13, StatCollector.translateToLocal("modifier.tool.beheading"), 1,
                 "\u00a7d", StatCollector.translateToLocal("modifier.tool.beheading")));
 
         ItemStack holySoil = new ItemStack(TinkerTools.craftedSoil, 1, 4);
-        tb.registerToolMod(new ModSmite(StatCollector.translateToLocal("modifier.tool.smite"), 14, new ItemStack[] { holySoil }, new int[] { 1 }));
+        ModifyBuilder.registerModifier(new ModSmite(StatCollector.translateToLocal("modifier.tool.smite"), 14, new ItemStack[] { holySoil }, new int[] { 1 }));
 
         ItemStack spidereyeball = new ItemStack(Items.fermented_spider_eye);
-        tb.registerToolMod(new ModAntiSpider(StatCollector.translateToLocal("gui.modifier.spider"), 15, new ItemStack[] { spidereyeball }, new int[] { 1 }));
+        ModifyBuilder.registerModifier(new ModAntiSpider(StatCollector.translateToLocal("gui.modifier.spider"), 15, new ItemStack[] { spidereyeball }, new int[] { 1 }));
 
         ItemStack obsidianPlate = new ItemStack(TinkerTools.largePlate, 1, 6);
-        tb.registerToolMod(new ModReinforced(new ItemStack[] { obsidianPlate }, 16, 1));
-
-        /*EnumSet<ArmorPart> allArmors = EnumSet.of(ArmorPart.Head, ArmorPart.Chest, ArmorPart.Legs, ArmorPart.Feet);
-        EnumSet<ArmorPart> chest = EnumSet.of(ArmorPart.Chest);
-        tb.registerArmorMod(new AModMoveSpeed(0, allArmors, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }, false));
-        tb.registerArmorMod(new AModKnockbackResistance(1, allArmors, new ItemStack[] { new ItemStack(Items.gold_ingot), new ItemStack(Blocks.gold_block) }, new int[] { 1, 9 }, false));
-        tb.registerArmorMod(new AModHealthBoost(2, allArmors, new ItemStack[] { new ItemStack(TinkerArmor.heartCanister, 1, 2) }, new int[] { 2 }, true));
-        tb.registerArmorMod(new AModDamageBoost(3, allArmors, new ItemStack[] { new ItemStack(Items.diamond), new ItemStack(Blocks.diamond_block) }, new int[] { 1, 9 }, false, 3, 0.05));
-        tb.registerArmorMod(new AModDamageBoost(4, chest, new ItemStack[] { new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1 }, true, 5, 1));
-        tb.registerArmorMod(new AModProtection(5, allArmors, new ItemStack[] { new ItemStack(TinkerTools.largePlate, 1, 2) }, new int[] { 2 }));
-
-        tb.registerArmorMod(new AModDoubleJump(new ItemStack[] { new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(TinkerWorld.slimeGel, 1, 1) }));*/
+        ModifyBuilder.registerModifier(new ModReinforced(new ItemStack[] { obsidianPlate }, 16, 1));
 
         TConstructRegistry.registerActiveToolMod(new TActiveOmniMod());
     }
@@ -901,55 +891,55 @@ public class TinkerTools
 
         PatternBuilder pb = PatternBuilder.instance;
         if (PHConstruct.enableTWood)
-            pb.registerFullMaterial(Blocks.planks, 2, StatCollector.translateToLocal("gui.partbuilder.material.wood"), new ItemStack(Items.stick), new ItemStack(Items.stick), 0);
+            pb.registerFullMaterial(Blocks.planks, 2, "Wood", new ItemStack(Items.stick), new ItemStack(Items.stick), 0);
         else
-            pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.wood"), new ItemStack(Items.stick, 2), new ItemStack(Items.stick), 0);
+            pb.registerMaterialSet("Wood", new ItemStack(Items.stick, 2), new ItemStack(Items.stick), 0);
         if (PHConstruct.enableTStone)
         {
-            pb.registerFullMaterial(Blocks.stone, 2, StatCollector.translateToLocal("gui.partbuilder.material.stone"), new ItemStack(TinkerTools.toolShard, 1, 1), new ItemStack(TinkerTools.toolRod, 1, 1), 1);
-            pb.registerMaterial(Blocks.cobblestone, 2, StatCollector.translateToLocal("gui.partbuilder.material.stone"));
+            pb.registerFullMaterial(Blocks.stone, 2, "Stone", new ItemStack(TinkerTools.toolShard, 1, 1), new ItemStack(TinkerTools.toolRod, 1, 1), 1);
+            pb.registerMaterial(Blocks.cobblestone, 2, "Stone");
         }
         else
-            pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.stone"), new ItemStack(TinkerTools.toolShard, 1, 1), new ItemStack(TinkerTools.toolRod, 1, 1), 0);
-        pb.registerFullMaterial(Items.iron_ingot, 2, StatCollector.translateToLocal("gui.partbuilder.material.iron"), new ItemStack(TinkerTools.toolShard, 1, 2), new ItemStack(TinkerTools.toolRod, 1, 2), 2);
+            pb.registerMaterialSet("Stone", new ItemStack(TinkerTools.toolShard, 1, 1), new ItemStack(TinkerTools.toolRod, 1, 1), 0);
+        pb.registerFullMaterial(Items.iron_ingot, 2, "Iron", new ItemStack(TinkerTools.toolShard, 1, 2), new ItemStack(TinkerTools.toolRod, 1, 2), 2);
         if (PHConstruct.enableTFlint)
-            pb.registerFullMaterial(Items.flint, 2, StatCollector.translateToLocal("gui.partbuilder.material.flint"), new ItemStack(TinkerTools.toolShard, 1, 3), new ItemStack(TinkerTools.toolRod, 1, 3), 3);
+            pb.registerFullMaterial(Items.flint, 2, "Flint", new ItemStack(TinkerTools.toolShard, 1, 3), new ItemStack(TinkerTools.toolRod, 1, 3), 3);
         else
-            pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.flint"), new ItemStack(TinkerTools.toolShard, 1, 3), new ItemStack(TinkerTools.toolRod, 1, 3), 3);
+            pb.registerMaterialSet("Flint", new ItemStack(TinkerTools.toolShard, 1, 3), new ItemStack(TinkerTools.toolRod, 1, 3), 3);
         if (PHConstruct.enableTCactus)
-            pb.registerFullMaterial(Blocks.cactus, 2, StatCollector.translateToLocal("gui.partbuilder.material.cactus"), new ItemStack(TinkerTools.toolShard, 1, 4), new ItemStack(TinkerTools.toolRod, 1, 4), 4);
+            pb.registerFullMaterial(Blocks.cactus, 2, "Cactus", new ItemStack(TinkerTools.toolShard, 1, 4), new ItemStack(TinkerTools.toolRod, 1, 4), 4);
         else
-            pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.cactus"), new ItemStack(TinkerTools.toolShard, 1, 4), new ItemStack(TinkerTools.toolRod, 1, 4), 4);
+            pb.registerMaterialSet("Cactus", new ItemStack(TinkerTools.toolShard, 1, 4), new ItemStack(TinkerTools.toolRod, 1, 4), 4);
         if (PHConstruct.enableTBone)
-            pb.registerFullMaterial(Items.bone, 2, StatCollector.translateToLocal("gui.partbuilder.material.bone"), new ItemStack(Items.dye, 1, 15), new ItemStack(Items.bone), 5);
+            pb.registerFullMaterial(Items.bone, 2, "Bone", new ItemStack(Items.dye, 1, 15), new ItemStack(Items.bone), 5);
         else
-            pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.bone"), new ItemStack(Items.dye, 1, 15), new ItemStack(Items.bone), 5);
-        pb.registerFullMaterial(Blocks.obsidian, 2, StatCollector.translateToLocal("gui.partbuilder.material.obsidian"), new ItemStack(TinkerTools.toolShard, 1, 6), new ItemStack(TinkerTools.toolRod, 1, 6), 6);
-        pb.registerMaterial(new ItemStack(TinkerTools.materials, 1, 18), 2, StatCollector.translateToLocal("gui.partbuilder.material.obsidian"));
+            pb.registerMaterialSet("Bone", new ItemStack(Items.dye, 1, 15), new ItemStack(Items.bone), 5);
+        pb.registerFullMaterial(Blocks.obsidian, 2, "Obsidian", new ItemStack(TinkerTools.toolShard, 1, 6), new ItemStack(TinkerTools.toolRod, 1, 6), 6);
+        pb.registerMaterial(new ItemStack(materials, 1, 18), 2, "Obsidian");
         if (PHConstruct.enableTNetherrack)
-            pb.registerFullMaterial(Blocks.netherrack, 2, StatCollector.translateToLocal("gui.partbuilder.material.netherrack"), new ItemStack(TinkerTools.toolShard, 1, 7), new ItemStack(TinkerTools.toolRod, 1, 7), 7);
+            pb.registerFullMaterial(Blocks.netherrack, 2, "Netherrack", new ItemStack(TinkerTools.toolShard, 1, 7), new ItemStack(TinkerTools.toolRod, 1, 7), 7);
         else
-            pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.netherrack"), new ItemStack(TinkerTools.toolShard, 1, 7), new ItemStack(TinkerTools.toolRod, 1, 7), 7);
+            pb.registerMaterialSet("Netherrack", new ItemStack(TinkerTools.toolShard, 1, 7), new ItemStack(TinkerTools.toolRod, 1, 7), 7);
         if (PHConstruct.enableTSlime)
-            pb.registerFullMaterial(new ItemStack(TinkerTools.materials, 1, 1), 2, StatCollector.translateToLocal("gui.partbuilder.material.slime"), new ItemStack(TinkerTools.toolShard, 1, 8), new ItemStack(TinkerTools.toolRod, 1, 8), 8);
+            pb.registerFullMaterial(new ItemStack(materials, 1, 1), 2, "Slime", new ItemStack(toolShard, 1, 8), new ItemStack(toolRod, 1, 8), 8);
         else
-            pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.slime"), new ItemStack(TinkerTools.toolShard, 1, 8), new ItemStack(TinkerTools.toolRod, 1, 17), 8);
+            pb.registerMaterialSet("Slime", new ItemStack(TinkerTools.toolShard, 1, 8), new ItemStack(TinkerTools.toolRod, 1, 17), 8);
         if (PHConstruct.enableTPaper)
-            pb.registerFullMaterial(new ItemStack(TinkerTools.materials, 1, 0), 2, StatCollector.translateToLocal("gui.partbuilder.material.paper"), new ItemStack(Items.paper, 2), new ItemStack(TinkerTools.toolRod, 1, 9), 9);
+            pb.registerFullMaterial(new ItemStack(materials, 1, 0), 2, "Paper", new ItemStack(Items.paper, 2), new ItemStack(toolRod, 1, 9), 9);
         else
-            pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.blueslime"), new ItemStack(Items.paper, 2), new ItemStack(TinkerTools.toolRod, 1, 9), 9);
-        pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.cobalt"), new ItemStack(TinkerTools.toolShard, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 10), 10);
-        pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.ardite"), new ItemStack(TinkerTools.toolShard, 1, 11), new ItemStack(TinkerTools.toolRod, 1, 11), 11);
-        pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.manyullyn"), new ItemStack(TinkerTools.toolShard, 1, 12), new ItemStack(TinkerTools.toolRod, 1, 12), 12);
-        pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.copper"), new ItemStack(TinkerTools.toolShard, 1, 13), new ItemStack(TinkerTools.toolRod, 1, 13), 13);
-        pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.bronze"), new ItemStack(TinkerTools.toolShard, 1, 14), new ItemStack(TinkerTools.toolRod, 1, 14), 14);
-        pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.alumite"), new ItemStack(TinkerTools.toolShard, 1, 15), new ItemStack(TinkerTools.toolRod, 1, 15), 15);
-        pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.steel"), new ItemStack(TinkerTools.toolShard, 1, 16), new ItemStack(TinkerTools.toolRod, 1, 16), 16);
+            pb.registerMaterialSet("BlueSlime", new ItemStack(Items.paper, 2), new ItemStack(TinkerTools.toolRod, 1, 9), 9);
+        pb.registerMaterialSet("Cobalt", new ItemStack(toolShard, 1, 10), new ItemStack(toolRod, 1, 10), 10);
+        pb.registerMaterialSet("Ardite", new ItemStack(toolShard, 1, 11), new ItemStack(toolRod, 1, 11), 11);
+        pb.registerMaterialSet("Manyullyn", new ItemStack(toolShard, 1, 12), new ItemStack(toolRod, 1, 12), 12);
+        pb.registerMaterialSet("Copper", new ItemStack(toolShard, 1, 13), new ItemStack(toolRod, 1, 13), 13);
+        pb.registerMaterialSet("Bronze", new ItemStack(toolShard, 1, 14), new ItemStack(toolRod, 1, 14), 14);
+        pb.registerMaterialSet("Alumite", new ItemStack(toolShard, 1, 15), new ItemStack(toolRod, 1, 15), 15);
+        pb.registerMaterialSet("Steel", new ItemStack(toolShard, 1, 16), new ItemStack(toolRod, 1, 16), 16);
         if (PHConstruct.enableTBlueSlime)
-            pb.registerFullMaterial(new ItemStack(TinkerTools.materials, 1, 17), 2, StatCollector.translateToLocal("gui.partbuilder.material.blueslime"), new ItemStack(TinkerTools.toolShard, 1, 17), new ItemStack(TinkerTools.toolRod, 1, 17), 17);
+            pb.registerFullMaterial(new ItemStack(materials, 1, 17), 2, "BlueSlime", new ItemStack(toolShard, 1, 17), new ItemStack(toolRod, 1, 17), 17);
         else
-            pb.registerMaterialSet(StatCollector.translateToLocal("gui.partbuilder.material.blueslime"), new ItemStack(TinkerTools.toolShard, 1, 17), new ItemStack(TinkerTools.toolRod, 1, 17), 17);
-        pb.registerFullMaterial(new ItemStack(TinkerTools.materials, 1, 34), 2, StatCollector.translateToLocal("gui.partbuilder.material.pigiron"), new ItemStack(TinkerTools.toolShard, 1, 18), new ItemStack(TinkerTools.toolRod, 1, 18), 18);
+            pb.registerMaterialSet("BlueSlime", new ItemStack(TinkerTools.toolShard, 1, 17), new ItemStack(TinkerTools.toolRod, 1, 17), 17);
+        pb.registerFullMaterial(new ItemStack(materials, 1, 34), 2, "PigIron", new ItemStack(toolShard, 1, 18), new ItemStack(toolRod, 1, 18), 18);
 
         pb.addToolPattern((IPattern) TinkerTools.woodPattern);
     }

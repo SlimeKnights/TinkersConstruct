@@ -7,13 +7,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import mantle.lib.TabTools;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import tconstruct.common.TConstructCreativeTab;
 import tconstruct.library.crafting.Detailing;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.ToolBuilder;
@@ -39,11 +39,11 @@ public class TConstructRegistry
     public static Logger logger = LogManager.getLogger("TCon-API");
 
     /* Creative tabs */
-    public static TabTools toolTab;
-    public static TabTools partTab;
-    public static TabTools materialTab;
-    public static TabTools blockTab;
-    public static TabTools equipableTab;
+    public static TConstructCreativeTab toolTab;
+    public static TConstructCreativeTab partTab;
+    public static TConstructCreativeTab materialTab;
+    public static TConstructCreativeTab blockTab;
+    public static TConstructCreativeTab equipableTab;
 
     /* Items */
 

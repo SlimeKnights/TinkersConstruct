@@ -26,13 +26,16 @@ public class Smeltery
      * Smeltery.addMelting(Block.oreIron, 0, 600, new
      * FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
      * 
-     * @param stack The itemstack to liquify
+     * @param stack The itemstack to liquify. Must hold a block.
      * @param temperature How hot the block should be before liquifying. Max temp in the Smeltery is 800, other structures may vary
      * @param output The result of the process in liquid form
      */
-    public static void addMelting0 (ItemStack stack, int temperature, FluidStack output)
+    public static void addMelting (ItemStack stack, int temperature, FluidStack output)
     {
-        // addMelting(stack, stack, stack.getItemDamage(), temperature, output);
+        if (stack.getItem() instanceof ItemBlock)
+            addMelting(stack, ((ItemBlock) stack.getItem()).field_150939_a, stack.getItemDamage(), temperature, output);
+        else
+            throw new IllegalArgumentException("ItemStack must house a block.");
     }
 
     /**

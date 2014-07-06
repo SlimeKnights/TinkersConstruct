@@ -44,6 +44,8 @@ public class GravelOre extends BlockSand
     @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
+        if (meta >= textureNames.length)
+            return icons[0];
         return icons[meta];
     }
 
