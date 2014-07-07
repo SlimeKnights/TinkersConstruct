@@ -527,7 +527,7 @@ entity.TConstruct.KingSlime.name=Re mucoso
 entity.TConstruct.Gardeslime.name=Mucoso guardiani 
 entity.TConstruct.MiniGardy.name=Mucoso guardiani 
 
-tconstruct.keybindigs=Tinkers construct
+tconstruct.keybindings=Tinkers construct
 key.tarmor=Gui dell'armatura
 key.tcapes.reload=Ricarica mantelli
 key.tbelt=Cintura
