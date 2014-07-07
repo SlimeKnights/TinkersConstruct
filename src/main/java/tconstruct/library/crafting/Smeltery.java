@@ -204,7 +204,7 @@ public class Smeltery
             temp = type.baseTemperature;
 
         if (input.getItem() instanceof ItemBlock)
-            addMelting(input, ((ItemBlock) input.getItem()).field_150939_a, type.renderMeta, type.baseTemperature + temperatureDifference, new FluidStack(type.fluid, fluidAmount));
+            addMelting(input, ((ItemBlock) input.getItem()).field_150939_a, input.getItemDamage(), type.baseTemperature + temperatureDifference, new FluidStack(type.fluid, fluidAmount));
         else
             addMelting(input, type.renderBlock, type.renderMeta, type.baseTemperature + temperatureDifference, new FluidStack(type.fluid, fluidAmount));
     }
