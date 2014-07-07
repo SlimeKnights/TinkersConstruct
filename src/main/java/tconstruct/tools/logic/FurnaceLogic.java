@@ -404,6 +404,6 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     @Override
     public boolean canExtractItem(int par1, ItemStack par2ItemStack, int par3)
     {
-        return par3 != 0 || par1 != 1 || par2ItemStack.itemID == Item.bucketEmpty.itemID;
+        return par3 != 0 || par1 != 1 || par2ItemStack.getItem() == Items.bucket;
     }
 }
