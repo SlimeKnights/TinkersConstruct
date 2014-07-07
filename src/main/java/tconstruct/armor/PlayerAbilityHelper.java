@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.potion.*;
 import tconstruct.TConstruct;
-import tconstruct.util.player.TPlayerStats;
+import tconstruct.armor.player.TPlayerStats;
 
 public class PlayerAbilityHelper
 {

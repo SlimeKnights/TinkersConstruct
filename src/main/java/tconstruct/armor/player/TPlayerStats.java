@@ -1,4 +1,4 @@
-package tconstruct.util.player;
+package tconstruct.armor.player;
 
 import java.lang.ref.WeakReference;
 

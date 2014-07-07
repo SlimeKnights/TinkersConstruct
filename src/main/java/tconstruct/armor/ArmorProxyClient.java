@@ -35,9 +35,10 @@ import tconstruct.armor.model.BeltModel;
 import tconstruct.armor.model.BootBump;
 import tconstruct.armor.model.HiddenPlayerModel;
 import tconstruct.armor.model.WingModel;
+import tconstruct.armor.player.ArmorExtended;
+import tconstruct.armor.player.KnapsackInventory;
 import tconstruct.client.TControls;
 import tconstruct.client.TKeyHandler;
-import tconstruct.client.TProxyClient;
 import tconstruct.client.tabs.InventoryTabArmorExtended;
 import tconstruct.client.tabs.InventoryTabKnapsack;
 import tconstruct.client.tabs.InventoryTabVanilla;
@@ -46,7 +47,6 @@ import tconstruct.common.TProxyCommon;
 import tconstruct.library.accessory.IAccessoryModel;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.tools.TinkerTools;
-import tconstruct.util.player.TPlayerStats;
 import tconstruct.world.TinkerWorld;
 
 import com.google.common.collect.Lists;
@@ -62,6 +62,9 @@ public class ArmorProxyClient extends ArmorProxyCommon
     public static HiddenPlayerModel glove = new HiddenPlayerModel(0.25F, 4);
     public static HiddenPlayerModel vest = new HiddenPlayerModel(0.25f, 1);
     public static BeltModel belt = new BeltModel();
+
+    public static KnapsackInventory knapsack = new KnapsackInventory();
+    public static ArmorExtended armorExtended = new ArmorExtended();
 
     @Override
     public void initialize ()
@@ -128,13 +131,13 @@ public class ArmorProxyClient extends ArmorProxyCommon
         }
         if (ID == ArmorProxyCommon.armorGuiID)
         {
-            TProxyClient.armorExtended.init(Minecraft.getMinecraft().thePlayer);
-            return new ArmorExtendedGui(player.inventory, TProxyClient.armorExtended);
+            ArmorProxyClient.armorExtended.init(Minecraft.getMinecraft().thePlayer);
+            return new ArmorExtendedGui(player.inventory, ArmorProxyClient.armorExtended);
         }
         if (ID == ArmorProxyCommon.knapsackGuiID)
         {
-            TProxyClient.knapsack.init(Minecraft.getMinecraft().thePlayer);
-            return new KnapsackGui(player.inventory, TProxyClient.knapsack);
+            ArmorProxyClient.knapsack.init(Minecraft.getMinecraft().thePlayer);
+            return new KnapsackGui(player.inventory, ArmorProxyClient.knapsack);
         }
         return null;
     }
@@ -418,28 +421,29 @@ public class ArmorProxyClient extends ArmorProxyCommon
         float bodyRotation = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTick;
         float limbSwing = player.prevLimbSwingAmount + (player.limbSwingAmount - player.prevLimbSwingAmount) * partialTick;
         float limbSwingMod = player.limbSwing - player.limbSwingAmount * (1.0F - partialTick);
-        TPlayerStats stats = TPlayerStats.get(player);
-        if (stats.armor.inventory[1] != null)
+        //TPlayerStats stats = TPlayerStats.get(player);
+        ArmorExtended armor = ArmorProxyClient.armorExtended; //TODO: Do this for every player, not just the client
+        if (armor.inventory[1] != null)
         {
-            Item item = stats.armor.inventory[1].getItem();
-            ModelBiped model = item.getArmorModel(player, stats.armor.inventory[1], 4);
+            Item item = armor.inventory[1].getItem();
+            ModelBiped model = item.getArmorModel(player, armor.inventory[1], 4);
 
             if (item instanceof IAccessoryModel)
             {
-                this.mc.getTextureManager().bindTexture(((IAccessoryModel) item).getWearbleTexture(player, stats.armor.inventory[1], 1));
+                this.mc.getTextureManager().bindTexture(((IAccessoryModel) item).getWearbleTexture(player, armor.inventory[1], 1));
                 model.setLivingAnimations(player, limbSwingMod, limbSwing, partialTick);
                 model.render(player, limbSwingMod, limbSwing, pitch, yawRotation - yawOffset, bodyRotation, zeropointsixtwofive);
             }
         }
 
-        if (stats.armor.inventory[3] != null)
+        if (armor.inventory[3] != null)
         {
-            Item item = stats.armor.inventory[3].getItem();
-            ModelBiped model = item.getArmorModel(player, stats.armor.inventory[3], 5);
+            Item item = armor.inventory[3].getItem();
+            ModelBiped model = item.getArmorModel(player, armor.inventory[3], 5);
 
             if (item instanceof IAccessoryModel)
             {
-                this.mc.getTextureManager().bindTexture(((IAccessoryModel) item).getWearbleTexture(player, stats.armor.inventory[1], 1));
+                this.mc.getTextureManager().bindTexture(((IAccessoryModel) item).getWearbleTexture(player, armor.inventory[1], 1));
                 model.setLivingAnimations(player, limbSwingMod, limbSwing, partialTick);
                 model.render(player, limbSwingMod, limbSwing, pitch, yawRotation - yawOffset, bodyRotation, zeropointsixtwofive);
             }

@@ -2,8 +2,8 @@ package tconstruct.armor;
 
 import tconstruct.armor.inventory.ArmorExtendedContainer;
 import tconstruct.armor.inventory.KnapsackContainer;
+import tconstruct.armor.player.TPlayerStats;
 import tconstruct.common.TProxyCommon;
-import tconstruct.util.player.TPlayerStats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;

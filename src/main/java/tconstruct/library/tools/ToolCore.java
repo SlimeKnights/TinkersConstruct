@@ -605,28 +605,14 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
-        World world = player.worldObj;
-        if (stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Lava") && world.isRemote)
-            for (int i = 0; i < 5; i++)
-            {
-                float f = (float) x + random.nextFloat();
-                float f1 = (float) y + random.nextFloat();
-                float f2 = (float) z + random.nextFloat();
-                float f3 = 0.52F;
-                float f4 = random.nextFloat() * 0.6F - 0.3F;
-                world.spawnParticle("smoke", f - f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-                world.spawnParticle("flame", f - f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
+        boolean cancelHarvest = false;
+        for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+        {
+            if (mod.beforeBlockBreak(this, stack, x, y, z, player))
+                cancelHarvest = true;
+        }
 
-                world.spawnParticle("smoke", f + f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-                world.spawnParticle("flame", f + f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-
-                world.spawnParticle("smoke", f + f4, f1, f2 - f3, 0.0D, 0.0D, 0.0D);
-                world.spawnParticle("flame", f + f4, f1, f2 - f3, 0.0D, 0.0D, 0.0D);
-
-                world.spawnParticle("smoke", f + f4, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
-                world.spawnParticle("flame", f + f4, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
-            }
-        return false;
+        return cancelHarvest;
     }
 
     @Override

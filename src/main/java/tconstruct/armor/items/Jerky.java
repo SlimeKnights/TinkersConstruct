@@ -58,7 +58,7 @@ public class Jerky extends SpecialFood
             PotionEffect potion = player.getActivePotionEffect(Potion.field_76434_w);
             if (potion != null)
                 duration = potion.getDuration();
-            player.addPotionEffect(new PotionEffect(Potion.field_76434_w.id, duration + 20 * 60, 1));
+            player.addPotionEffect(new PotionEffect(Potion.field_76434_w.id, duration + 60 * 60, 1));
         }
     }
 

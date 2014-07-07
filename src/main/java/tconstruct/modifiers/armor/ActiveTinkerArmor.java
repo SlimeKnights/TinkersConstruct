@@ -12,12 +12,12 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
+import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.ArmorPart;
 import tconstruct.library.modifier.ActiveArmorMod;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.tools.AbilityHelper;
-import tconstruct.util.player.TPlayerStats;
 
 public class ActiveTinkerArmor extends ActiveArmorMod
 {

@@ -1,4 +1,4 @@
-package tconstruct.util.player;
+package tconstruct.armor.player;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;

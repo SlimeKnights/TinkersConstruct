@@ -24,7 +24,7 @@ public class TControls extends TKeyHandler
     public static KeyBinding refreshCapes = new KeyBinding("key.tcapes.reload", 88, keybindCategory);
     public static KeyBinding toggleGoggles = new KeyBinding("key.tgoggles", 34, keybindCategory);
     public static KeyBinding beltSwap = new KeyBinding("key.tbelt", 48, keybindCategory);
-    public static KeyBinding zoomKey = new KeyBinding("key.tzoom", 29, keybindCategory); //TODO: Make this hold, not toggle
+    public static KeyBinding zoomKey = new KeyBinding("key.tzoom", 44, keybindCategory); //TODO: Make this hold, not toggle
     static KeyBinding jumpKey;
     static KeyBinding invKey;
     static Minecraft mc;
@@ -43,11 +43,11 @@ public class TControls extends TKeyHandler
     public TControls()
     {
         super(new KeyBinding[] { armorKey, refreshCapes, toggleGoggles, beltSwap, zoomKey }, new boolean[] { false, false, false, false, false }, getVanillaKeyBindings(), new boolean[] { false, false });
-        ClientRegistry.registerKeyBinding(armorKey);
+        /*ClientRegistry.registerKeyBinding(armorKey);
         ClientRegistry.registerKeyBinding(refreshCapes);
         ClientRegistry.registerKeyBinding(toggleGoggles);
         ClientRegistry.registerKeyBinding(beltSwap);
-        ClientRegistry.registerKeyBinding(zoomKey);
+        ClientRegistry.registerKeyBinding(zoomKey);*/
     }
 
     private static KeyBinding[] getVanillaKeyBindings ()

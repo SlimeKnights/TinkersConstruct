@@ -16,7 +16,7 @@ import tconstruct.util.ItemHelper;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
-public class SearedRender implements ISimpleBlockRenderingHandler
+public class CastingBlockRender implements ISimpleBlockRenderingHandler
 {
     public static int searedModel = RenderingRegistry.getNextAvailableRenderId();
 
@@ -67,7 +67,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 ItemHelper.renderStandardInvBlock(renderer, block, metadata);
 
                 // Details
-                renderer.setRenderBounds(0.001f, 0.1245f, 0.001f, 0.1245f, 0.999f, 0.4375f);
+                /*renderer.setRenderBounds(0.001f, 0.1245f, 0.001f, 0.1245f, 0.999f, 0.4375f);
                 ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.001f, 0.1245f, 0.5625f, 0.1245f, 0.999f, 0.999f);
                 ItemHelper.renderStandardInvBlock(renderer, block, metadata);
@@ -101,7 +101,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.4375f, 0.8755f, 0.001f, 0.5625f, 0.999f, 0.1245f);
                 ItemHelper.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.4375f, 0.1245f, 0.001f, 0.5625f, 0.25F, 0.1245f);
-                ItemHelper.renderStandardInvBlock(renderer, block, metadata);
+                ItemHelper.renderStandardInvBlock(renderer, block, metadata);*/
 
                 // Legs
                 renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 0.3125F, 0.125, 0.3125F);

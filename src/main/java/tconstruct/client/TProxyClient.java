@@ -55,12 +55,14 @@ import net.minecraftforge.fluids.RenderBlockFluid;
 import org.w3c.dom.Document;
 
 import tconstruct.TConstruct;
+import tconstruct.armor.ArmorProxyClient;
 import tconstruct.armor.TinkerArmor;
 import tconstruct.armor.ArmorProxyCommon;
 import tconstruct.armor.gui.ArmorExtendedGui;
 import tconstruct.armor.gui.KnapsackGui;
 import tconstruct.armor.modelblock.DryingRackRender;
 import tconstruct.armor.modelblock.DryingRackSpecialRender;
+import tconstruct.armor.player.TPlayerStats;
 import tconstruct.blocks.logic.DryingRackLogic;
 import tconstruct.client.entity.item.ExplosiveRender;
 import tconstruct.client.entity.projectile.ArrowRenderCustom;
@@ -100,7 +102,7 @@ import tconstruct.smeltery.model.CastingBasinSpecialRender;
 import tconstruct.smeltery.model.CastingTableSpecialRenderer;
 import tconstruct.smeltery.model.PaneConnectedRender;
 import tconstruct.smeltery.model.PaneRender;
-import tconstruct.smeltery.model.SearedRender;
+import tconstruct.smeltery.model.CastingBlockRender;
 import tconstruct.smeltery.model.SmelteryRender;
 import tconstruct.smeltery.model.TankAirRender;
 import tconstruct.smeltery.model.TankRender;
@@ -132,8 +134,6 @@ import tconstruct.tools.model.FrypanRender;
 import tconstruct.tools.model.TableRender;
 import tconstruct.tools.model.TableRender;
 import tconstruct.util.config.PHConstruct;
-import tconstruct.util.player.ArmorExtended;
-import tconstruct.util.player.KnapsackInventory;
 
 import com.google.common.collect.Lists;
 
@@ -141,7 +141,6 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.VillagerRegistry;
-import tconstruct.util.player.TPlayerStats;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.entity.BlueSlime;
 import tconstruct.world.entity.CartEntity;
@@ -163,9 +162,6 @@ public class TProxyClient extends TProxyCommon
     public static Minecraft mc;
     public static RenderItem itemRenderer = new RenderItem();
 
-    public static ArmorExtended armorExtended = new ArmorExtended();
-    public static KnapsackInventory knapsack = new KnapsackInventory();
-    
     public void initialize()
     {
         registerRenderer();
@@ -260,7 +256,7 @@ public class TProxyClient extends TProxyCommon
 
     public void recalculateHealth ()
     {
-        armorExtended.recalculateHealth(mc.thePlayer, TPlayerStats.get(mc.thePlayer));
+        ArmorProxyClient.armorExtended.recalculateHealth(mc.thePlayer, TPlayerStats.get(mc.thePlayer));
     }
 
 }

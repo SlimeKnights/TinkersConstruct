@@ -12,9 +12,9 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import tconstruct.armor.inventory.ArmorExtendedContainer;
+import tconstruct.armor.player.ArmorExtended;
 import tconstruct.client.tabs.InventoryTabArmorExtended;
 import tconstruct.client.tabs.TabRegistry;
-import tconstruct.util.player.ArmorExtended;
 
 public class ArmorExtendedGui extends InventoryEffectRenderer
 {

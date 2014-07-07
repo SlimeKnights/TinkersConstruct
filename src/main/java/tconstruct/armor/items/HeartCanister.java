@@ -8,10 +8,10 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import tconstruct.armor.player.ArmorExtended;
+import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.accessory.IHealthAccessory;
-import tconstruct.util.player.ArmorExtended;
-import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import tconstruct.armor.TinkerArmor;
+import tconstruct.armor.player.TPlayerHandler;
 import tconstruct.client.TControls;
 import tconstruct.common.TConstructCreativeTab;
 import tconstruct.common.TProxyCommon;
@@ -26,7 +27,6 @@ import tconstruct.util.EnvironmentChecks;
 import tconstruct.util.config.DimensionBlacklist;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.util.network.packet.PacketPipeline;
-import tconstruct.util.player.TPlayerHandler;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.gen.SlimeIslandGen;
 import tconstruct.world.village.ComponentSmeltery;

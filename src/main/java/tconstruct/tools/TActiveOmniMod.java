@@ -58,7 +58,97 @@ public class TActiveOmniMod extends ActiveToolMod
         if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode)
             return false;
         TinkerTools.modLapis.midStreamModify(stack, tool);
+        if (autoSmelt(tool, tags, stack, x, y, z, entity))
+            return true;
+        
+        return false;
+    }
+    
+    private boolean autoSmelt(ToolCore tool, NBTTagCompound tags, ItemStack stack, int x, int y, int z, EntityLivingBase entity)
+    {
+        World world = entity.worldObj;
+        int meta = world.getBlockMetadata(x, y, z);
+        Block block = world.getBlock(x, y, z);
+        if (block == null)
+            return false;
 
+        if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
+        {
+            int amount = block.quantityDropped(random);
+            ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(block.getItemDropped(meta, random, EnchantmentHelper.getFortuneModifier(entity)), amount, meta));
+            if (result != null)
+            {
+                world.setBlockToAir(x, y, z);
+                if (entity instanceof EntityPlayer && !((EntityPlayer) entity).capabilities.isCreativeMode)
+                    tool.onBlockDestroyed(stack, world, block, x, y, z, entity);
+                if (!world.isRemote)
+                {
+                    ItemStack spawnme = new ItemStack(result.getItem(), amount, result.getItemDamage());
+                    if (result.hasTagCompound())
+                        spawnme.setTagCompound(result.getTagCompound());
+                    if (!(result.getItem() instanceof ItemBlock) && PHConstruct.lavaFortuneInteraction)
+                    {
+                        int loot = EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack);
+                        if (loot > 0)
+                        {
+                            spawnme.stackSize *= (random.nextInt(loot + 1) + 1);
+                        }
+                    }
+                    EntityItem entityitem = new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, spawnme);
+
+                    entityitem.delayBeforeCanPickup = 10;
+                    world.spawnEntityInWorld(entityitem);
+                    world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
+
+                    int i = spawnme.stackSize;
+                    float f = FurnaceRecipes.smelting().func_151398_b(spawnme);
+                    int j;
+
+                    if (f == 0.0F)
+                    {
+                        i = 0;
+                    }
+                    else if (f < 1.0F)
+                    {
+                        j = MathHelper.floor_float((float) i * f);
+
+                        if (j < MathHelper.ceiling_float_int((float) i * f) && (float) Math.random() < (float) i * f - (float) j)
+                        {
+                            ++j;
+                        }
+
+                        i = j;
+                    }
+
+                    while (i > 0)
+                    {
+                        j = EntityXPOrb.getXPSplit(i);
+                        i -= j;
+                        entity.worldObj.spawnEntityInWorld(new EntityXPOrb(world, x, y + 0.5, z, j));
+                    }
+                }
+                for (int i = 0; i < 5; i++)
+                {
+                    float f = (float) x + random.nextFloat();
+                    float f1 = (float) y + random.nextFloat();
+                    float f2 = (float) z + random.nextFloat();
+                    float f3 = 0.52F;
+                    float f4 = random.nextFloat() * 0.6F - 0.3F;
+                    world.spawnParticle("smoke", f - f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("flame", f - f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
+
+                    world.spawnParticle("smoke", f + f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("flame", f + f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
+
+                    world.spawnParticle("smoke", f + f4, f1, f2 - f3, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("flame", f + f4, f1, f2 - f3, 0.0D, 0.0D, 0.0D);
+
+                    world.spawnParticle("smoke", f + f4, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("flame", f + f4, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
+                }
+                return true;
+            }
+        }
         return false;
     }
 

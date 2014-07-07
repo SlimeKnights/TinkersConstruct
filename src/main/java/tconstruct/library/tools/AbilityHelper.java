@@ -491,23 +491,16 @@ public class AbilityHelper
 
             if (event.getResult() == Result.ALLOW)
             {
-
-                onBlockChanged(stack, world, Blocks.air, x, y, z, player, random);
+                stack.damageItem(1, player);
                 return true;
             }
 
-            Block b = world.getBlock(x, y, z);
-            Block babove = world.getBlock(x, y + 1, z);
+            Block block = world.getBlock(x, y, z);
 
-            if ((side == 0 || babove != Blocks.air || b != Blocks.grass) && b != Blocks.dirt)
+            if (side != 0 && world.getBlock(x, y + 1, z).isAir(world, x, y + 1, z) && (block == Blocks.grass || block == Blocks.dirt))
             {
-                return false;
-            }
-            else
-            {
-                Block block = Blocks.farmland;
-                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), block.stepSound.soundName, (block.stepSound.getVolume() + 1.0F) / 2.0F,
-                        block.stepSound.getPitch() * 0.8F);
+                Block block1 = Blocks.farmland;
+                world.playSoundEffect((double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), block1.stepSound.getStepResourcePath(), (block1.stepSound.getVolume() + 1.0F) / 2.0F, block1.stepSound.getPitch() * 0.8F);
 
                 if (world.isRemote)
                 {
@@ -515,10 +508,14 @@ public class AbilityHelper
                 }
                 else
                 {
-                    world.setBlock(x, y, z, block);
-                    onBlockChanged(stack, world, Blocks.air, x, y, z, player, random);
+                    world.setBlock(x, y, z, block1);
+                    stack.damageItem(1, player);
                     return true;
                 }
+            }
+            else
+            {
+                return false;
             }
         }
     }

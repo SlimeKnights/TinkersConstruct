@@ -32,7 +32,7 @@ import tconstruct.smeltery.model.CastingBasinSpecialRender;
 import tconstruct.smeltery.model.CastingTableSpecialRenderer;
 import tconstruct.smeltery.model.PaneConnectedRender;
 import tconstruct.smeltery.model.PaneRender;
-import tconstruct.smeltery.model.SearedRender;
+import tconstruct.smeltery.model.CastingBlockRender;
 import tconstruct.smeltery.model.SmelteryRender;
 import tconstruct.smeltery.model.TankAirRender;
 import tconstruct.smeltery.model.TankRender;
@@ -55,7 +55,7 @@ public class SmelteryProxyClient extends SmelteryProxyCommon
     {
         RenderingRegistry.registerBlockHandler(new TankRender());
         RenderingRegistry.registerBlockHandler(new TankAirRender());
-        RenderingRegistry.registerBlockHandler(new SearedRender());
+        RenderingRegistry.registerBlockHandler(new CastingBlockRender());
         RenderingRegistry.registerBlockHandler(new DryingRackRender());
         RenderingRegistry.registerBlockHandler(new PaneRender());
         RenderingRegistry.registerBlockHandler(new PaneConnectedRender());

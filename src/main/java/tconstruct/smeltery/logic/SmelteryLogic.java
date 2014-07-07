@@ -773,7 +773,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             if (tempValidStructure)
             {
-                internalTemp = 800;
+                internalTemp = 1000;
                 activeLavaTank = lavaTanks.get(0);
                 adjustLayers(checkLayers, false);
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);

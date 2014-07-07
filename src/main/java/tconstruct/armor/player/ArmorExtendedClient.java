@@ -1,4 +1,4 @@
-package tconstruct.util.player;
+package tconstruct.armor.player;
 
 public class ArmorExtendedClient extends ArmorExtended
 {

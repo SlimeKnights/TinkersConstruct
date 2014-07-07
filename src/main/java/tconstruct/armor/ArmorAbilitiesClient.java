@@ -5,9 +5,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.armor.items.TravelGear;
+import tconstruct.armor.player.TPlayerStats;
 import tconstruct.client.TControls;
 import tconstruct.library.modifier.IModifyable;
-import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 

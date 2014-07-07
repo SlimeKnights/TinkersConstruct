@@ -7,14 +7,16 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import tconstruct.library.armor.ArmorCore;
+import net.minecraftforge.common.MinecraftForge;
 import tconstruct.library.crafting.ModifyBuilder;
-import tconstruct.library.tools.ToolCore;
+import tconstruct.library.event.ToolCraftedEvent;
+import tconstruct.library.modifier.IModifyable;
+import tconstruct.library.tools.AbilityHelper;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.logic.CraftingStationLogic;
 
@@ -25,6 +27,7 @@ public class CraftingStationContainer extends Container
     public IInventory craftResult;// = new InventoryCraftResult();
     private CraftingStationLogic logic;
     private World worldObj;
+    EntityPlayer player;
     private int posX;
     private int posY;
     private int posZ;
@@ -32,6 +35,7 @@ public class CraftingStationContainer extends Container
     public CraftingStationContainer(InventoryPlayer inventorplayer, CraftingStationLogic logic, int x, int y, int z)
     {
         this.worldObj = logic.getWorldObj();
+        this.player = inventorplayer.player;
         this.posX = x;
         this.posY = y;
         this.posZ = z;
@@ -39,7 +43,7 @@ public class CraftingStationContainer extends Container
         craftMatrix = new InventoryCraftingStation(this, 3, 3, logic);
         craftResult = new InventoryCraftingStationResult(logic);
 
-        this.addSlotToContainer(new SlotCrafting(inventorplayer.player, this.craftMatrix, this.craftResult, 0, 124, 35));
+        this.addSlotToContainer(new SlotCraftingStation(inventorplayer.player, this.craftMatrix, this.craftResult, 0, 124, 35));
 
         int row;
         int column;
@@ -52,7 +56,7 @@ public class CraftingStationContainer extends Container
             }
         }
 
-        // Player Inventory
+        //Player Inventory
         for (row = 0; row < 3; ++row)
         {
             for (column = 0; column < 9; ++column)
@@ -66,20 +70,18 @@ public class CraftingStationContainer extends Container
             this.addSlotToContainer(new Slot(inventorplayer, column, 8 + column * 18, 142));
         }
 
-        // Side inventory
+        //Side inventory
         if (logic.chest != null)
         {
             IInventory chest = logic.chest.get();
             IInventory doubleChest = logic.doubleChest == null ? null : logic.doubleChest.get();
-            IInventory firstChest = (logic.doubleFirst ? doubleChest : chest);
-            IInventory secondChest = (logic.doubleFirst ? chest : doubleChest);
             int count = 0;
             for (column = 0; column < 9; column++)
             {
                 for (row = 0; row < 6; row++)
                 {
                     int value = count < 27 ? count : count - 27;
-                    this.addSlotToContainer(new Slot(count < 27 ? firstChest : secondChest, value, -108 + row * 18, 19 + column * 18));
+                    this.addSlotToContainer(new Slot(count < 27 ? chest : doubleChest, value, -108 + row * 18, 19 + column * 18));
                     count++;
                     if (count >= 27 && doubleChest == null)
                         break;
@@ -92,35 +94,22 @@ public class CraftingStationContainer extends Container
         this.onCraftMatrixChanged(this.craftMatrix);
     }
 
-    @Override
     public void onCraftMatrixChanged (IInventory par1IInventory)
     {
-        ItemStack tool = modifyTool();
+        ItemStack tool = modifyItem();
         if (tool != null)
             this.craftResult.setInventorySlotContents(0, tool);
         else
             this.craftResult.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.worldObj));
     }
 
-    public ItemStack modifyTool ()
+    public ItemStack modifyItem ()
     {
         ItemStack input = craftMatrix.getStackInSlot(4);
         if (input != null)
         {
             Item item = input.getItem();
-            if (item instanceof ToolCore)
-            {
-                ItemStack[] slots = new ItemStack[8];
-                for (int i = 0; i < 4; i++)
-                {
-                    slots[i] = craftMatrix.getStackInSlot(i);
-                    slots[i + 4] = craftMatrix.getStackInSlot(i + 5);
-                }
-                ItemStack output = ModifyBuilder.instance.modifyItem(input, slots);
-                if (output != null)
-                    return output;
-            }
-            else if (item instanceof ArmorCore)
+            if (item instanceof IModifyable)
             {
                 ItemStack[] slots = new ItemStack[8];
                 for (int i = 0; i < 4; i++)
@@ -154,7 +143,7 @@ public class CraftingStationContainer extends Container
             }
         }
     }
-
+    
     @Override
     public boolean canInteractWith (EntityPlayer player)
     {
@@ -164,8 +153,7 @@ public class CraftingStationContainer extends Container
             return false;
         return player.getDistanceSq((double) this.posX + 0.5D, (double) this.posY + 0.5D, (double) this.posZ + 0.5D) <= 64.0D;
     }
-
-    @Override
+    
     public ItemStack transferStackInSlot (EntityPlayer par1EntityPlayer, int par2)
     {
         ItemStack itemstack = null;
@@ -178,9 +166,19 @@ public class CraftingStationContainer extends Container
 
             if (par2 == 0)
             {
-                if (!this.mergeItemStack(itemstack1, 10, 46, true))
+                if (itemstack.getItem() instanceof IModifyable)
                 {
-                    return null;
+                    if (!this.mergeCraftedStack(itemstack1, logic.getSizeInventory(), this.inventorySlots.size(), true, par1EntityPlayer))
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    if (!this.mergeItemStack(itemstack1, 10, 46, true))
+                    {
+                        return null;
+                    }
                 }
 
                 slot.onSlotChange(itemstack1, itemstack);
@@ -224,7 +222,78 @@ public class CraftingStationContainer extends Container
         return itemstack;
     }
 
-    @Override
+    protected void craftTool (ItemStack stack)
+    {
+        if (stack.getItem() instanceof IModifyable)
+        {
+            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
+            Boolean full = (logic.getStackInSlot(2) != null || logic.getStackInSlot(3) != null);
+            /*for (int i = 1; i <= 4; i++)
+                logic.decrStackSize(i, 1);
+            for (int i = 6; i <= 9; i++)
+                logic.decrStackSize(i, 1);*/
+            ItemStack compare = logic.getStackInSlot(5);
+            int amount = compare.getItem() instanceof IModifyable ? compare.stackSize : 1;
+            logic.decrStackSize(5, amount);
+            if (!player.worldObj.isRemote && full)
+                worldObj.playSoundEffect(logic.xCoord, logic.yCoord, logic.zCoord, "tinker:little_saw", 1.0F, (AbilityHelper.random.nextFloat() - AbilityHelper.random.nextFloat()) * 0.2F + 1.0F);
+            MinecraftForge.EVENT_BUS.post(new ToolCraftedEvent(this.logic, player, stack));
+        }
+    }
+
+    protected boolean mergeCraftedStack (ItemStack stack, int slotsStart, int slotsTotal, boolean playerInventory, EntityPlayer player)
+    {
+        boolean failedToMerge = false;
+        int slotIndex = slotsStart;
+
+        if (playerInventory)
+        {
+            slotIndex = slotsTotal - 1;
+        }
+
+        Slot otherInventorySlot;
+        ItemStack copyStack = null;
+
+        if (stack.stackSize > 0)
+        {
+            if (playerInventory)
+            {
+                slotIndex = slotsTotal - 1;
+            }
+            else
+            {
+                slotIndex = slotsStart;
+            }
+
+            while (!playerInventory && slotIndex < slotsTotal || playerInventory && slotIndex >= slotsStart)
+            {
+                otherInventorySlot = (Slot) this.inventorySlots.get(slotIndex);
+                copyStack = otherInventorySlot.getStack();
+
+                if (copyStack == null)
+                {
+                    craftTool(stack);
+                    otherInventorySlot.putStack(stack.copy());
+                    otherInventorySlot.onSlotChanged();
+                    stack.stackSize = 0;
+                    failedToMerge = true;
+                    break;
+                }
+
+                if (playerInventory)
+                {
+                    --slotIndex;
+                }
+                else
+                {
+                    ++slotIndex;
+                }
+            }
+        }
+
+        return failedToMerge;
+    }
+
     public boolean func_94530_a (ItemStack par1ItemStack, Slot par2Slot)
     {
         return par2Slot.inventory != this.craftResult && super.func_94530_a(par1ItemStack, par2Slot);

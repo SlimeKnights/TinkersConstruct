@@ -24,7 +24,7 @@ import tconstruct.library.tools.AbilityHelper;
 import tconstruct.smeltery.logic.CastingBasinLogic;
 import tconstruct.smeltery.logic.CastingTableLogic;
 import tconstruct.smeltery.logic.FaucetLogic;
-import tconstruct.smeltery.model.SearedRender;
+import tconstruct.smeltery.model.CastingBlockRender;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -65,7 +65,7 @@ public class SearedBlock extends InventoryBlock
     @Override
     public int getRenderBlockPass ()
     {
-        return 1;
+        return 0;
     }
 
     @Override
@@ -197,7 +197,7 @@ public class SearedBlock extends InventoryBlock
     @Override
     public int getRenderType ()
     {
-        return SearedRender.searedModel;
+        return CastingBlockRender.searedModel;
     }
 
     String texturePrefix = "";

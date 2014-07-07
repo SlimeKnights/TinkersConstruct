@@ -1029,7 +1029,6 @@ public class TinkerSmeltery
 
     private void registerIngotCasting (FluidType ft, String name)
     {
-        System.out.println("Registering ingot cast for "+name);
         ItemStack pattern = new ItemStack(TinkerSmeltery.metalPattern, 1, 0);
         LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
         for (ItemStack ore : OreDictionary.getOres(name))

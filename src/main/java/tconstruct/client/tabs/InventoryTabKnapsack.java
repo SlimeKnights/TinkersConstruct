@@ -1,9 +1,9 @@
 package tconstruct.client.tabs;
 
 import net.minecraft.item.ItemStack;
+import tconstruct.armor.ArmorProxyClient;
 import tconstruct.armor.TinkerArmor;
 import tconstruct.client.TControls;
-import tconstruct.client.TProxyClient;
 
 public class InventoryTabKnapsack extends AbstractTab
 {
@@ -21,6 +21,6 @@ public class InventoryTabKnapsack extends AbstractTab
     @Override
     public boolean shouldAddToList ()
     {
-        return TProxyClient.armorExtended.inventory[2] != null && TProxyClient.armorExtended.inventory[2].getItem() == TinkerArmor.knapsack;
+        return ArmorProxyClient.armorExtended.inventory[2] != null && ArmorProxyClient.armorExtended.inventory[2].getItem() == TinkerArmor.knapsack;
     }
 }

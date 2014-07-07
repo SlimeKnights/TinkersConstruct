@@ -1,4 +1,4 @@
-package tconstruct.util.player;
+package tconstruct.armor.player;
 
 import io.netty.buffer.ByteBuf;
 
@@ -246,7 +246,7 @@ public class ArmorExtended implements IInventory
     public void dropItems (ArrayList<EntityItem> drops)
     {
         EntityPlayer player = parent.get();
-        for (int i = 0; i < this.inventory.length; ++i)
+        for (int i = 0; i < 4; ++i)
         {
             if (this.inventory[i] != null)
             {

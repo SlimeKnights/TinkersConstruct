@@ -63,8 +63,8 @@ import tconstruct.modifiers.tools.ModLapis;
 import tconstruct.modifiers.tools.ModPiston;
 import tconstruct.modifiers.tools.ModRedstone;
 import tconstruct.modifiers.tools.ModReinforced;
-import tconstruct.modifiers.tools.ModRepair;
 import tconstruct.modifiers.tools.ModSmite;
+import tconstruct.modifiers.tools.ModToolRepair;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.blocks.CraftingSlab;
 import tconstruct.tools.blocks.CraftingStationBlock;
@@ -475,7 +475,7 @@ public class TinkerTools
         tb.addNormalToolRecipe(TinkerTools.arrow, TinkerTools.arrowhead, TinkerTools.toolRod, TinkerTools.fletching);
 
         ItemStack diamond = new ItemStack(Items.diamond);
-        ModifyBuilder.registerModifier(new ModRepair());
+        ModifyBuilder.registerModifier(new ModToolRepair());
         ModifyBuilder.registerModifier(new ModDurability(new ItemStack[] { diamond }, 0, 500, 0f, 3, StatCollector.translateToLocal("gui.modifier.diamond"), "\u00a7b"
                 + StatCollector.translateToLocal("modifier.tool.diamond"), "\u00a7b"));
         ModifyBuilder.registerModifier(new ModDurability(new ItemStack[] { new ItemStack(Items.emerald) }, 1, 0, 0.5f, 2, StatCollector.translateToLocal("gui.modifier.emerald"), "\u00a72"
