@@ -514,6 +514,7 @@ entity.TConstruct.KingSlime.name=Königsschleim
 entity.TConstruct.Gardeslime.name=Guardeschleim
 entity.TConstruct.MiniGardy.name=Guardeschleim 
 
+tconstruct.keybindings=Tinkers Construct
 key.tconstruct.category=Tinkers Construct
 key.tarmor=Rüstungs-GUI
 key.tcapes.reload=Lade Capes neu
