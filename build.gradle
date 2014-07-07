@@ -28,14 +28,6 @@ buildscript {
 
 repositories {
     maven {
-        name 'CB Maven FS'
-        url "http://chickenbones.net/maven/"
-    }
-	maven {
-         name "ProfMobius Maven FS"
-         url "http://mobiusstrip.eu/maven"
-     }
-    maven {
         name 'DVS1 Maven FS'
         url 'http://dvs1.progwml6.com/files/maven'
     }
@@ -65,11 +57,6 @@ configurations {
 
 dependencies {
     compile "mantle:Mantle:${config.minecraft_version}-${config.mantle_version}:deobf"
-	compile "codechicken:CodeChickenLib:${config.minecraft_version_old}-${config.CCLIB_version}:dev"
-    compile "codechicken:ForgeMultipart:${config.minecraft_version_old}-${config.FMP_version}:dev"
-	compile "codechicken:CodeChickenCore:${config.minecraft_version_old}-${config.ccc_version}:dev"
-    compile "codechicken:NotEnoughItems:${config.minecraft_version_old}-${config.NEI_version}:dev"
-	compile "mcp.mobius.waila:Waila:${config.waila_version}:dev"
 	deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 }
 
