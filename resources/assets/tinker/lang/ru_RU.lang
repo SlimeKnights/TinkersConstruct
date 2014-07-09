@@ -525,7 +525,7 @@ entity.TConstruct.KingSlime.name=Король слизней
 entity.TConstruct.Gardeslime.name=Слизень-охранник
 entity.TConstruct.MiniGardy.name=Малый слизень-охранник
 
-tconstruct.keybindigs=Tinkers Construct
+tconstruct.keybindings=Tinkers Construct
 key.tarmor=Интерфейс брони
 key.tcapes.reload=Перезагрузить плащи
 key.tbelt=Пояс
