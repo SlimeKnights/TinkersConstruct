@@ -284,13 +284,13 @@ public class SmelteryGui extends NewContainerGui
         }
         else
         {
-            String name = StatCollector.translateToLocal("fluid." + FluidRegistry.getFluidName(liquid));
+            String name = liquid.getFluid().getLocalizedName();
             list.add("\u00A7f" + name);
-            if (name.equals("Liquified Emerald"))
+            if (name.equals(StatCollector.translateToLocal("fluid.emerald.liquid")))
             {
                 list.add(StatCollector.translateToLocal("gui.smeltery.emerald") + liquid.amount / 640f);
             }
-            else if (name.equals("Molten Glass"))
+            else if (name.equals(StatCollector.translateToLocal("fluid.glass.molten")))
             {
                 int blocks = liquid.amount / 1000;
                 if (blocks > 0)
@@ -302,7 +302,16 @@ public class SmelteryGui extends NewContainerGui
                 if (mB > 0)
                     list.add("mB: " + mB);
             }
-            else if (name.contains("Molten"))
+            else if (name.equals(StatCollector.translateToLocal("fluid.stone.seared")))
+            {
+                int ingots = liquid.amount / TConstruct.ingotLiquidValue;
+                if (ingots > 0)
+                    list.add(StatCollector.translateToLocal("gui.smeltery.glass.block") + ingots);
+                int mB = liquid.amount % TConstruct.ingotLiquidValue;
+                if (mB > 0)
+                    list.add("mB: " + mB);
+            }
+            else if (isMolten(name))
             {
                 int ingots = liquid.amount / TConstruct.ingotLiquidValue;
                 if (ingots > 0)
@@ -318,21 +327,29 @@ public class SmelteryGui extends NewContainerGui
                         list.add("mB: " + junk);
                 }
             }
-            else if (name.equals("Seared Stone"))
-            {
-                int ingots = liquid.amount / TConstruct.ingotLiquidValue;
-                if (ingots > 0)
-                    list.add(StatCollector.translateToLocal("gui.smeltery.glass.block") + ingots);
-                int mB = liquid.amount % TConstruct.ingotLiquidValue;
-                if (mB > 0)
-                    list.add("mB: " + mB);
-            }
             else
             {
                 list.add("mB: " + liquid.amount);
             }
         }
         return list;
+    }
+
+    private boolean isMolten (String fluidName)
+    {
+        boolean molten = false;
+        String[] moltenNames = StatCollector.translateToLocal("gui.smeltery.molten.check").split(",");
+
+        for (int i = 0; i< moltenNames.length; i++)
+        {
+            if (fluidName.contains(moltenNames[i].trim()))
+            {
+                molten = true;
+                break;
+            }
+        }
+
+        return molten;
     }
 
     protected void drawToolTip (List par1List, int par2, int par3)

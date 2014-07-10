@@ -719,6 +719,7 @@ gui.smeltery.glass.block=Blocchi:
 gui.smeltery.glass.pannel=Pannelli: 
 gui.smeltery.metal.ingot=Lingotti: 
 gui.smeltery.metal.nugget=Pepite:
+gui.smeltery.molten.check=fuso,fusa
 gui.landmine=Mina
 gui.partcrafter1=Costruire parti
 gui.partcrafter2=Costruire parti

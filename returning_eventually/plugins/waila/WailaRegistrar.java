@@ -39,7 +39,7 @@ public class WailaRegistrar
 
     public static String fluidNameHelper (FluidStack f)
     {
-        return StatCollector.translateToLocal(FluidRegistry.getFluidName(f));
+        return f.getFluid().getLocalizedName();
     }
 
 }
