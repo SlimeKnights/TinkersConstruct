@@ -11,6 +11,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemHoe;
@@ -35,7 +36,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * 3-16: Chest
  */
 
-public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacingLogic
+public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacingLogic, ISidedInventory
 {
     boolean active;
     public int fuel;
@@ -43,6 +44,9 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     public int progress;
     public int fuelScale = 200;
     byte direction;
+    private static final int[] slots_top = new int[] {0};
+    private static final int[] slots_bottom = new int[] {2, 1};
+    private static final int[] slots_sides = new int[] {1};
 
     public FurnaceLogic()
     {
@@ -372,5 +376,34 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     @Override
     public void closeInventory ()
     {
+    }
+
+    public static boolean isItemFuel(ItemStack par0ItemStack)
+    {
+        return getItemBurnTime(par0ItemStack) > 0;
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int par1, ItemStack par2ItemStack)
+    {
+        return par1 == 2 ? false : (par1 == 1 ? isItemFuel(par2ItemStack) : true);
+    }
+
+    @Override
+    public int[] getAccessibleSlotsFromSide(int par1)
+    {
+        return par1 == 0 ? slots_bottom : (par1 == 1 ? slots_top : slots_sides);
+    }
+    
+    @Override
+    public boolean canInsertItem(int par1, ItemStack par2ItemStack, int par3)
+    {
+        return this.isItemValidForSlot(par1, par2ItemStack);
+    }
+
+    @Override
+    public boolean canExtractItem(int par1, ItemStack par2ItemStack, int par3)
+    {
+        return par3 != 0 || par1 != 1 || par2ItemStack.getItem() == Items.bucket;
     }
 }

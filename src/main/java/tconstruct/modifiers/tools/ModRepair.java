@@ -26,20 +26,23 @@ public class ModRepair extends ItemModifier
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        if ((input[0] == null && input[1] == null))
-            return false;
-
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         if (tags.getInteger("Damage") > 0)
         {
             int headID = tags.getInteger("Head");
-            if (input[0] != null && input[1] != null)
-                return headID == PatternBuilder.instance.getPartID(input[0]) && headID == PatternBuilder.instance.getPartID(input[1]) && calculateIfNecessary(tool, input);
-            else if (input[0] != null && input[1] == null)
-                return headID == PatternBuilder.instance.getPartID(input[0]);
-            else if (input[0] == null && input[1] != null)
-                return headID == PatternBuilder.instance.getPartID(input[1]);
-
+            boolean areInputsValid = true;
+            for (ItemStack curInput : input)
+            {
+                if (curInput != null && headID != PatternBuilder.instance.getPartID(curInput))
+                {
+                    areInputsValid = false;
+                    break;
+                }
+            }
+            if (areInputsValid)
+            {
+                return calculateIfNecessary(tool, input);
+            }
         }
         return false;
     }
@@ -48,22 +51,31 @@ public class ModRepair extends ItemModifier
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         int damage = tags.getInteger("Damage");
-        int valueSlot1 = 0;
-        int valueSlot2 = 0;
-        if (input[0] != null)
-            valueSlot1 = calculateIncrease(tool, PatternBuilder.instance.getPartValue(input[0]));
-        if (input[1] != null)
-            valueSlot2 = calculateIncrease(tool, PatternBuilder.instance.getPartValue(input[1]));
+        int numInputs = 0;
+        int materialValue = 0;
+        for (ItemStack curInput : input)
+        {
+            if (curInput != null)
+            {
+                materialValue += PatternBuilder.instance.getPartValue(curInput);
+                numInputs++;
+            }
+        }
+        if (numInputs == 0)
+            return false;
 
-        return ((damage - valueSlot1) > 0) && ((damage - valueSlot2) > 0);
+        int totalRepairValue = calculateIncrease(tool, materialValue, numInputs);
+        float averageRepairValue = totalRepairValue / numInputs;
+
+        return numInputs == 1 || (damage - totalRepairValue >= -averageRepairValue);
     }
 
-    private int calculateIncrease (ItemStack tool, int materialValue)
+    private int calculateIncrease (ItemStack tool, int materialValue, int itemsUsed)
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         int damage = tags.getInteger("Damage");
         int dur = tags.getInteger("BaseDurability");
-        int increase = (int) (50 + (dur * 0.4f * materialValue));
+        int increase = (int) (50 * itemsUsed + (dur * 0.4f * materialValue));
 
         int modifiers = tags.getInteger("Modifiers");
         float mods = 1.0f;
@@ -95,18 +107,16 @@ public class ModRepair extends ItemModifier
         int itemsUsed = 0;
 
         int materialValue = 0;
-        if (input[0] != null)
+        for (ItemStack curInput : input)
         {
-            materialValue += PatternBuilder.instance.getPartValue(input[0]);
-            itemsUsed++;
-        }
-        if (input[1] != null)
-        {
-            materialValue += PatternBuilder.instance.getPartValue(input[1]);
-            itemsUsed++;
+            if (curInput != null)
+            {
+                materialValue += PatternBuilder.instance.getPartValue(curInput);
+                itemsUsed++;
+            }
         }
 
-        int increase = calculateIncrease(tool, materialValue);
+        int increase = calculateIncrease(tool, materialValue, itemsUsed);
         int repair = tags.getInteger("RepairCount");
         repair += itemsUsed;
         tags.setInteger("RepairCount", repair);
