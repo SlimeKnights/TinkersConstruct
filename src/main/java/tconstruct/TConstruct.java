@@ -122,18 +122,6 @@ public class TConstruct
 
         //GameRegistry.registerFuelHandler(content);
 
-        if (PHConstruct.addToVillages)
-        {
-            // adds to the villager spawner egg
-            VillagerRegistry.instance().registerVillagerId(78943);
-            // moved down, not needed if 'addToVillages' is false
-            VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());
-            VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
-            VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
-            MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
-            MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
-        }
-
         playerTracker = new TPlayerHandler();
         // GameRegistry.registerPlayerTracker(playerTracker);
         FMLCommonHandler.instance().bus().register(playerTracker);
@@ -146,6 +134,18 @@ public class TConstruct
         }
 
         pulsar.preInit(event);
+
+        if (PHConstruct.addToVillages)
+        {
+            // adds to the villager spawner egg
+            VillagerRegistry.instance().registerVillagerId(78943);
+            // moved down, not needed if 'addToVillages' is false
+            VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());
+            VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
+            VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
+            MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
+            MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
+        }
     }
 
     @EventHandler
