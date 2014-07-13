@@ -589,7 +589,8 @@ public abstract class NewContainerGui extends GuiScreen
         this.field_94073_I = mouseButton;
     }
 
-    protected void func_85041_a (int par1, int par2, int par3, long par4)
+    @Override
+    protected void mouseClickMove (int par1, int par2, int par3, long par4)
     {
         Slot slot = this.getSlotAtPosition(par1, par2);
         ItemStack itemstack = this.mc.thePlayer.inventory.getItemStack();
