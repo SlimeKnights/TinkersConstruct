@@ -153,9 +153,16 @@ task libJar(type: Jar) {
     classifier = 'lib'
 }
 
+// Create Maven source jar
+task sourceJar(type: Jar, dependsOn:classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
 artifacts {
     archives deobfJar
     archives libJar
+    archives sourceJar
 }
 // verify the properties exist.. or initialize.
 if (!project.hasProperty("keystore_location")) // keystore location
