@@ -521,6 +521,10 @@ public abstract class BowBase extends ToolCore
         int drawTime = toolTag.getInteger("DrawSpeed");
         float flightSpeed = toolTag.getFloat("FlightSpeed");
         drawTime *= flightSpeed;
+        if (usingItem == null)
+        {
+            return getIcon(stack, renderPass);
+        }
         if (useTime >= drawTime - 2)
         {
             return getIcon3(stack, renderPass);
