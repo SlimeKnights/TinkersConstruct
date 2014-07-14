@@ -43,16 +43,25 @@ public class CraftingStationContainer extends Container
         craftMatrix = new InventoryCraftingStation(this, 3, 3, logic);
         craftResult = new InventoryCraftingStationResult(logic);
 
-        this.addSlotToContainer(new SlotCraftingStation(inventorplayer.player, this.craftMatrix, this.craftResult, 0, 124, 35));
-
         int row;
         int column;
+
+        int craftingOffsetX = 30;
+        int inventoryOffsetX = 8;
+
+        if (logic.chest != null)
+        {
+            craftingOffsetX += 122;
+            inventoryOffsetX += 122;
+        }
+
+        this.addSlotToContainer(new SlotCraftingStation(inventorplayer.player, this.craftMatrix, this.craftResult, 0, craftingOffsetX + 94, 35));
 
         for (row = 0; row < 3; ++row)
         {
             for (column = 0; column < 3; ++column)
             {
-                this.addSlotToContainer(new Slot(this.craftMatrix, column + row * 3, 30 + column * 18, 17 + row * 18));
+                this.addSlotToContainer(new Slot(this.craftMatrix, column + row * 3, craftingOffsetX + column * 18, 17 + row * 18));
             }
         }
 
@@ -61,32 +70,39 @@ public class CraftingStationContainer extends Container
         {
             for (column = 0; column < 9; ++column)
             {
-                this.addSlotToContainer(new Slot(inventorplayer, column + row * 9 + 9, 8 + column * 18, 84 + row * 18));
+                this.addSlotToContainer(new Slot(inventorplayer, column + row * 9 + 9, inventoryOffsetX + column * 18, 84 + row * 18));
             }
         }
 
         for (column = 0; column < 9; ++column)
         {
-            this.addSlotToContainer(new Slot(inventorplayer, column, 8 + column * 18, 142));
+            this.addSlotToContainer(new Slot(inventorplayer, column, inventoryOffsetX + column * 18, 142));
         }
 
         //Side inventory
         if (logic.chest != null)
         {
-            IInventory chest = logic.chest.get();
-            IInventory doubleChest = logic.doubleChest == null ? null : logic.doubleChest.get();
+            IInventory firstChest = logic.chest.get();
+            IInventory secondChest = logic.doubleChest == null ? null : logic.doubleChest.get();
+
+            if (logic.doubleFirst && logic.doubleChest != null)
+            {
+                secondChest = logic.chest.get();
+                firstChest = logic.doubleChest.get();
+            }
+
             int count = 0;
             for (column = 0; column < 9; column++)
             {
                 for (row = 0; row < 6; row++)
                 {
                     int value = count < 27 ? count : count - 27;
-                    this.addSlotToContainer(new Slot(count < 27 ? chest : doubleChest, value, -108 + row * 18, 19 + column * 18));
+                    this.addSlotToContainer(new Slot(count < 27 ? firstChest : secondChest, value, 14 + row * 18, 19 + column * 18));
                     count++;
-                    if (count >= 27 && doubleChest == null)
+                    if (count >= 27 && secondChest == null)
                         break;
                 }
-                if (count >= 27 && doubleChest == null)
+                if (count >= 27 && secondChest == null)
                     break;
             }
         }
@@ -143,17 +159,17 @@ public class CraftingStationContainer extends Container
             }
         }
     }
-    
+
     @Override
     public boolean canInteractWith (EntityPlayer player)
     {
-        
+
         Block block = worldObj.getBlock(this.posX, this.posY, this.posZ);
         if (block != TinkerTools.craftingStationWood && block != TinkerTools.craftingSlabWood)
             return false;
         return player.getDistanceSq((double) this.posX + 0.5D, (double) this.posY + 0.5D, (double) this.posZ + 0.5D) <= 64.0D;
     }
-    
+
     public ItemStack transferStackInSlot (EntityPlayer par1EntityPlayer, int par2)
     {
         ItemStack itemstack = null;

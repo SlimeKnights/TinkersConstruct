@@ -28,6 +28,17 @@ public class CraftingStationGui extends GuiContainer
     public String title, body = "";
     CraftingStationLogic logic;
 
+    // Panel positions
+
+    int craftingLeft = 0;
+    int craftingTop = 0;
+
+    int descLeft = 0;
+    int descTop = 0;
+
+    int chestLeft = 0;
+    int chestTop = 0;
+
     public CraftingStationGui(InventoryPlayer inventory, CraftingStationLogic logic, World world, int x, int y, int z)
     {
         super(logic.getGuiContainer(inventory, world, x, y, z));
@@ -41,12 +52,53 @@ public class CraftingStationGui extends GuiContainer
     }
 
     @Override
+    public void initGui ()
+    {
+        super.initGui();
+
+        this.xSize = 176;
+        this.ySize = 166;
+
+        this.guiLeft = (this.width - this.xSize) / 2;
+        this.guiTop = (this.height - this.ySize) / 2;
+
+        this.craftingLeft = this.guiLeft;
+        this.craftingTop = this.guiTop;
+        this.descTop = this.craftingTop;
+
+        if (logic.tinkerTable)
+        {
+            this.xSize += 126;
+            this.descLeft = this.guiLeft + 176;
+        }
+
+        if (logic.chest != null)
+        {
+            this.xSize += 122;
+            this.guiLeft -= 122;
+            this.chestLeft = this.guiLeft + 6;
+            this.chestTop = this.craftingTop;
+            this.craftingLeft = this.guiLeft + 122;
+            this.descLeft = this.guiLeft + 122 + 176;
+            if (logic.doubleChest != null)
+                this.ySize = 187;
+        }
+    }
+
+    @Override
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
-        this.fontRendererObj.drawString(StatCollector.translateToLocal(logic.tinkerTable ? "crafters.TinkerTable" : logic.getInvName()), 8, 6, 0x202020);
-        this.fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 0x202020);
+        int offsetX = 0;
+
         if (logic.chest != null)
-            this.fontRendererObj.drawString(StatCollector.translateToLocal(logic.chest.get().getInventoryName()), -108, this.ySize - 160, 0x202020);
+        {
+            this.fontRendererObj.drawString(StatCollector.translateToLocal(logic.chest.get().getInventoryName()), 14, 6, 0x202020);
+            offsetX = 122;
+        }
+
+        this.fontRendererObj.drawString(StatCollector.translateToLocal(logic.tinkerTable ? "crafters.TinkerTable" : logic.getInvName()), offsetX + 8, 6, 0x202020);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), offsetX + 8, 72, 0x202020);
+
         // this.fontRendererObj.drawString(toolName + "_", this.xSize / 2 - 18,
         // 8, 0xffffff);
 
@@ -61,12 +113,18 @@ public class CraftingStationGui extends GuiContainer
 
     void drawToolStats ()
     {
+        int offsetX = 239;
+        if (logic.chest != null)
+        {
+            offsetX += 122;
+        }
+
         ItemStack stack = logic.getStackInSlot(0);
         if (stack.getItem() instanceof ToolCore)
         {
             ToolCore tool = (ToolCore) stack.getItem();
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-            this.drawCenteredString(fontRendererObj, "\u00A7n" + tool.getToolName(), xSize + 63, 8, 0xffffff);
+            this.drawCenteredString(fontRendererObj, "\u00A7n" + tool.getToolName(), offsetX, 8, 0xffffff);
 
             drawModularToolStats(stack, tool, tags);
         }
@@ -74,7 +132,7 @@ public class CraftingStationGui extends GuiContainer
         {
             ArmorCore armor = (ArmorCore) stack.getItem();
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag("TinkerArmor");
-            this.drawCenteredString(fontRendererObj, "\u00A7n" + armor.getClass().getSimpleName(), xSize + 63, 8, 0xffffff);
+            this.drawCenteredString(fontRendererObj, "\u00A7n" + armor.getClass().getSimpleName(), offsetX, 8, 0xffffff);
 
             drawModularArmorStats(stack, armor, tags);
         }
@@ -82,12 +140,18 @@ public class CraftingStationGui extends GuiContainer
 
     void drawModularArmorStats (ItemStack stack, ArmorCore tool, NBTTagCompound tags)
     {
+        int offsetX = 178;
+        if (logic.chest != null)
+        {
+            offsetX += 122;
+        }
+
         int modifiers = tags.getInteger("Modifiers");
         int base = 24;
         int offset = 0;
         if (modifiers > 0)
         {
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation18") + tags.getInteger("Modifiers"), xSize + 8, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation18") + tags.getInteger("Modifiers"), offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
         }
         boolean displayToolTips = true;
@@ -99,7 +163,7 @@ public class CraftingStationGui extends GuiContainer
             if (tags.hasKey(tooltip))
             {
                 String tipName = tags.getString(tooltip);
-                fontRendererObj.drawString("- " + tipName, xSize + 8, base + (offset + tipNum) * 10, 0xffffff);
+                fontRendererObj.drawString("- " + tipName, offsetX + 8, base + (offset + tipNum) * 10, 0xffffff);
             }
             else
                 displayToolTips = false;
@@ -113,6 +177,12 @@ public class CraftingStationGui extends GuiContainer
         final int maxDur = tags.getInteger("TotalDurability");
         int availableDurability = maxDur - durability;
 
+        int offsetX = 178;
+        if (logic.chest != null)
+        {
+            offsetX += 122;
+        }
+
         // Durability
         int base = 24;
         int offset = 0;
@@ -120,14 +190,14 @@ public class CraftingStationGui extends GuiContainer
         {
             if (maxDur >= 10000)
             {
-                fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation1"), xSize + 8, base + offset * 11, 0xffffff);
+                fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation1"), offsetX + 8, base + offset * 11, 0xffffff);
                 offset++;
-                fontRendererObj.drawString("- " + availableDurability + "/" + maxDur, xSize + 8, base + offset * 10, 0xffffff);
+                fontRendererObj.drawString("- " + availableDurability + "/" + maxDur, offsetX + 8, base + offset * 10, 0xffffff);
                 offset++;
             }
             else
             {
-                fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation2") + availableDurability + "/" + maxDur, xSize + 8, base + offset * 10, 0xffffff);
+                fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation2") + availableDurability + "/" + maxDur, offsetX + 8, base + offset * 10, 0xffffff);
                 offset++;
             }
         }
@@ -136,7 +206,7 @@ public class CraftingStationGui extends GuiContainer
         // Attack
         if (categories.contains("weapon"))
         {
-            int attack = (int) (tags.getInteger("Attack"))+1;
+            int attack = (int) (tags.getInteger("Attack")) + 1;
             float stoneboundDamage = (float) Math.log(durability / 72f + 1) * -2 * stonebound;
             attack += stoneboundDamage;
             attack *= tool.getDamageModifier();
@@ -145,9 +215,9 @@ public class CraftingStationGui extends GuiContainer
 
             String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
             if (attack % 2 == 0)
-                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation3") + attack / 2 + heart, xSize + 8, base + offset * 10, 0xffffff);
+                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation3") + attack / 2 + heart, offsetX + 8, base + offset * 10, 0xffffff);
             else
-                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation3") + attack / 2f + heart, xSize + 8, base + offset * 10, 0xffffff);
+                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation3") + attack / 2f + heart, offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
 
             if (stoneboundDamage != 0)
@@ -155,7 +225,7 @@ public class CraftingStationGui extends GuiContainer
                 DecimalFormat df = new DecimalFormat("##.##");
                 heart = stoneboundDamage == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
                 String bloss = stoneboundDamage > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
-                this.fontRendererObj.drawString(bloss + df.format(stoneboundDamage / 2f) + heart, xSize + 8, base + offset * 10, 0xffffff);
+                this.fontRendererObj.drawString(bloss + df.format(stoneboundDamage / 2f) + heart, offsetX + 8, base + offset * 10, 0xffffff);
                 offset++;
             }
             offset++;
@@ -168,9 +238,9 @@ public class CraftingStationGui extends GuiContainer
             int drawSpeed = tags.getInteger("DrawSpeed");
             float flightSpeed = tags.getFloat("FlightSpeed");
             float trueDraw = drawSpeed / 20f * flightSpeed;
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation6") + df.format(trueDraw) + "s", xSize + 8, base + offset * 10, 0xffffff);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation6") + df.format(trueDraw) + "s", offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation7") + df.format(flightSpeed) + "x", xSize + 8, base + offset * 10, 0xffffff);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation7") + df.format(flightSpeed) + "x", offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
             offset++;
         }
@@ -184,26 +254,26 @@ public class CraftingStationGui extends GuiContainer
             float shatter = tags.getFloat("BreakChance");
             float accuracy = tags.getFloat("Accuracy");
 
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation10"), xSize + 8, base + offset * 10, 0xffffff);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation10"), offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
             String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
             if (attack % 2 == 0)
-                this.fontRendererObj.drawString("- " + attack / 2 + heart, xSize + 8, base + offset * 10, 0xffffff);
+                this.fontRendererObj.drawString("- " + attack / 2 + heart, offsetX + 8, base + offset * 10, 0xffffff);
             else
-                this.fontRendererObj.drawString("- " + attack / 2f + heart, xSize + 8, base + offset * 10, 0xffffff);
+                this.fontRendererObj.drawString("- " + attack / 2f + heart, offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
             int minAttack = attack;
             int maxAttack = attack * 2;
             heart = StatCollector.translateToLocal("gui.partcrafter9");
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation11"), xSize + 8, base + offset * 10, 0xffffff);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation11"), offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
             this.fontRendererObj.drawString(df.format(minAttack / 2f) + "-" + df.format(maxAttack / 2f) + heart, xSize + 8, base + offset * 10, 0xffffff);
             offset++;
             offset++;
 
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation8") + df.format(mass), xSize + 8, base + offset * 10, 0xffffff);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation8") + df.format(mass), offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation9") + df.format(accuracy - 4) + "%", xSize + 8, base + offset * 10, 0xffffff);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation9") + df.format(accuracy - 4) + "%", offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
             /*
              * this.fontRendererObj.drawString("Chance to break: " +
@@ -224,20 +294,20 @@ public class CraftingStationGui extends GuiContainer
             float trueSpeed = mineSpeed + stoneboundSpeed;
             float trueSpeed2 = mineSpeed2 + stoneboundSpeed;
 
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation12"), xSize + 8, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation12"), offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
-            fontRendererObj.drawString("- " + df.format(trueSpeed) + ", " + df.format(trueSpeed2), xSize + 8, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString("- " + df.format(trueSpeed) + ", " + df.format(trueSpeed2), offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
             if (stoneboundSpeed != 0)
             {
                 String bloss = stoneboundSpeed > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
-                fontRendererObj.drawString(bloss + df.format(stoneboundSpeed), xSize + 8, base + offset * 10, 0xffffff);
+                fontRendererObj.drawString(bloss + df.format(stoneboundSpeed), offsetX + 8, base + offset * 10, 0xffffff);
                 offset++;
             }
             offset++;
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation13"), xSize + 8, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation13"), offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
-            fontRendererObj.drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + getHarvestLevelName(tags.getInteger("HarvestLevel2")), xSize + 8, base + offset * 10,
+            fontRendererObj.drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + getHarvestLevelName(tags.getInteger("HarvestLevel2")), offsetX + 8, base + offset * 10,
                     0xffffff);
             offset++;
             offset++;
@@ -273,7 +343,7 @@ public class CraftingStationGui extends GuiContainer
             trueSpeed += stoneboundSpeed;
             if (trueSpeed < 0)
                 trueSpeed = 0;
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation14") + df.format(trueSpeed), xSize + 8, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation14") + df.format(trueSpeed), offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
             if (stoneboundSpeed != 0)
             {
@@ -281,7 +351,7 @@ public class CraftingStationGui extends GuiContainer
                 fontRendererObj.drawString(bloss + df.format(stoneboundSpeed), xSize + 8, base + offset * 10, 0xffffff);
                 offset++;
             }
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation15") + getHarvestLevelName(tags.getInteger("HarvestLevel")), xSize + 8, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation15") + getHarvestLevelName(tags.getInteger("HarvestLevel")), offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
             offset++;
         }
@@ -289,7 +359,7 @@ public class CraftingStationGui extends GuiContainer
         {
             float mineSpeed = tags.getInteger("MiningSpeed");
             float trueSpeed = mineSpeed / (100f);
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation16") + trueSpeed, xSize + 8, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation16") + trueSpeed, offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
             offset++;
         }
@@ -297,12 +367,12 @@ public class CraftingStationGui extends GuiContainer
         int modifiers = tags.getInteger("Modifiers");
         if (modifiers > 0)
         {
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation18") + tags.getInteger("Modifiers"), xSize + 8, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation18") + tags.getInteger("Modifiers"), offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
         }
         if (tags.hasKey("Tooltip1"))
         {
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation17"), xSize + 8, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation17"), offsetX + 8, base + offset * 10, 0xffffff);
         }
 
         boolean displayToolTips = true;
@@ -314,7 +384,7 @@ public class CraftingStationGui extends GuiContainer
             if (tags.hasKey(tooltip))
             {
                 String tipName = tags.getString(tooltip);
-                fontRendererObj.drawString("- " + tipName, xSize + 8, base + (offset + tipNum) * 10, 0xffffff);
+                fontRendererObj.drawString("- " + tipName, offsetX + 8, base + (offset + tipNum) * 10, 0xffffff);
             }
             else
                 displayToolTips = false;
@@ -344,8 +414,13 @@ public class CraftingStationGui extends GuiContainer
 
     void drawToolInformation ()
     {
-        this.drawCenteredString(fontRendererObj, title, xSize + 63, 8, 0xffffff);
-        fontRendererObj.drawSplitString(body, xSize + 8, 24, 115, 0xffffff);
+        int offsetX = 239;
+        if (logic.chest != null)
+        {
+            offsetX += 122;
+        }
+        this.drawCenteredString(fontRendererObj, title, offsetX, 8, 0xffffff);
+        fontRendererObj.drawSplitString(body, offsetX - 56, 24, 115, 0xffffff);
     }
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/tinkertable.png");
@@ -359,20 +434,18 @@ public class CraftingStationGui extends GuiContainer
         // Draw the background
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(background);
-        int cornerX = (this.width - this.xSize) / 2;
-        int cornerY = (this.height - this.ySize) / 2;
-        this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);
+        this.drawTexturedModalRect(this.craftingLeft, this.craftingTop, 0, 0, 176, 166);
 
         if (active)
         {
-            this.drawTexturedModalRect(cornerX + 62, cornerY, 0, this.ySize, 112, 22);
+            this.drawTexturedModalRect(this.craftingLeft + 62, this.craftingTop, 0, 166, 112, 22);
         }
 
         this.mc.getTextureManager().bindTexture(icons);
         // Draw the slots
 
         if (logic.tinkerTable && !logic.isStackInSlot(5))
-            this.drawTexturedModalRect(cornerX + 47, cornerY + 33, 0, 233, 18, 18);
+            this.drawTexturedModalRect(this.craftingLeft + 47, this.craftingTop + 33, 0, 233, 18, 18);
 
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(icons);
@@ -382,10 +455,11 @@ public class CraftingStationGui extends GuiContainer
         {
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             this.mc.getTextureManager().bindTexture(chest);
+
             if (logic.doubleChest == null)
-                this.drawTexturedModalRect(cornerX - 116, cornerY, 0, 0, 121, this.ySize);
+                this.drawTexturedModalRect(this.chestLeft, this.chestTop, 0, 0, 122, 114);
             else
-                this.drawTexturedModalRect(cornerX - 116, cornerY, 125, 0, 122, this.ySize + 21);
+                this.drawTexturedModalRect(this.chestLeft, this.chestTop, 125, 0, 122, 187);
         }
 
         // Draw description
@@ -393,9 +467,7 @@ public class CraftingStationGui extends GuiContainer
         {
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             this.mc.getTextureManager().bindTexture(description);
-            cornerX = (this.width + this.xSize) / 2;
-            cornerY = (this.height - this.ySize) / 2;
-            this.drawTexturedModalRect(cornerX, cornerY, 0, 0, 126, this.ySize + 30);
+            this.drawTexturedModalRect(this.descLeft, this.descTop, 0, 0, 126, 172);
         }
 
     }
