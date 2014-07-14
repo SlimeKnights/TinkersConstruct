@@ -80,6 +80,7 @@ public class SlimePad extends MantleBlock
             {
                 entity.posY += 1;
             }
+            entity.fallDistance = 0.0F;
             entity.addVelocity(moveX, speed * 2, moveZ);
             world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, this.stepSound.getStepResourcePath(), (this.stepSound.getVolume()) / 2.0F, this.stepSound.getPitch() * 0.65F);
         }
