@@ -156,4 +156,15 @@ public class MultiBrickFancy extends TConstructBlock
             this.icons[i] = iconRegister.registerIcon("tinker:bricks/" + textureNames[i]);
         }
     }
+
+    @Override
+    public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
+    {
+        int meta = world.getBlockMetadata(x, y, z);
+        if (meta != 8)
+        {
+            return true;
+        }
+        return super.isNormalCube(world, x, y, z);
+    }
 }
