@@ -90,12 +90,7 @@ public abstract class HarvestTool extends ToolCore
         {
             return true;
         }
-        for (Material m : getEffectiveMaterials())
-        {
-            if (m == block.getMaterial())
-                return true;
-        }
-        return false;
+        return isEffective(block.getMaterial());
     }
 
     @Override
@@ -113,6 +108,15 @@ public abstract class HarvestTool extends ToolCore
     protected abstract Material[] getEffectiveMaterials ();
 
     protected abstract String getHarvestType ();
+
+    public boolean isEffective(Material material)
+    {
+        for(Material m : getEffectiveMaterials())
+            if(m == material)
+                return true;
+
+        return false;
+    }
 
     //Right-click
     @Override
