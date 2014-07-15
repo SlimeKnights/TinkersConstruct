@@ -9,6 +9,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
@@ -128,7 +129,17 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
     public void readCustomNBT (NBTTagCompound tags)
     {
         if (tags.getBoolean("hasFluid"))
-            tank.setFluid(new FluidStack(tags.getInteger("itemID"), tags.getInteger("amount")));
+        {
+            // TODO: Removed in future Versions, backward compat.
+            if (tags.getInteger("itemID") != 0)
+            {
+                tank.setFluid(new FluidStack(tags.getInteger("itemID"), tags.getInteger("amount")));
+            }
+            else
+            {
+                tank.setFluid(FluidRegistry.getFluidStack(tags.getString("fluidName"), tags.getInteger("amount")));
+            }
+        }
         else
             tank.setFluid(null);
     }
@@ -140,7 +151,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
         tags.setBoolean("hasFluid", liquid != null);
         if (liquid != null)
         {
-            tags.setInteger("itemID", liquid.fluidID);
+            tags.setString("fluidName", liquid.getFluid().getName());
             tags.setInteger("amount", liquid.amount);
         }
     }
