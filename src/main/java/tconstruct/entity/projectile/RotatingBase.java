@@ -419,7 +419,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
     @Override
     public void writeSpawnData (ByteArrayDataOutput data)
     {
-        if (returnStack.getTagCompound().getCompoundTag("InfiTool") != null) {
+        if (returnStack.getTagCompound() != null) {
             NBTTagCompound tags = returnStack.getTagCompound().getCompoundTag("InfiTool");
             data.writeShort(returnStack.itemID);
             data.writeFloat(rotationYaw);
