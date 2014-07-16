@@ -419,42 +419,43 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
     @Override
     public void writeSpawnData (ByteArrayDataOutput data)
     {
-        NBTTagCompound tags = returnStack.getTagCompound().getCompoundTag("InfiTool");
-        data.writeShort(returnStack.itemID);
-        data.writeFloat(rotationYaw);
-        data.writeInt(tags.getInteger("RenderHandle"));
-        data.writeInt(tags.getInteger("RenderHead"));
-        data.writeInt(tags.getInteger("RenderAccessory"));
+        if (returnStack.getTagCompound().getCompoundTag("InfiTool") != null) {
+            NBTTagCompound tags = returnStack.getTagCompound().getCompoundTag("InfiTool");
+            data.writeShort(returnStack.itemID);
+            data.writeFloat(rotationYaw);
+            data.writeInt(tags.getInteger("RenderHandle"));
+            data.writeInt(tags.getInteger("RenderHead"));
+            data.writeInt(tags.getInteger("RenderAccessory"));
 
-        int effects = 0;
-        if (tags.hasKey("Effect1"))
-            effects++;
-        if (tags.hasKey("Effect2"))
-            effects++;
-        if (tags.hasKey("Effect3"))
-            effects++;
-        if (tags.hasKey("Effect4"))
-            effects++;
-        if (tags.hasKey("Effect5"))
-            effects++;
-        if (tags.hasKey("Effect6"))
-            effects++;
-        data.writeInt(effects);
+            int effects = 0;
+            if (tags.hasKey("Effect1"))
+                effects++;
+            if (tags.hasKey("Effect2"))
+                effects++;
+            if (tags.hasKey("Effect3"))
+                effects++;
+            if (tags.hasKey("Effect4"))
+                effects++;
+            if (tags.hasKey("Effect5"))
+                effects++;
+            if (tags.hasKey("Effect6"))
+                effects++;
+            data.writeInt(effects);
 
-        switch (effects)
-        {
-        case 6:
-            data.writeInt(tags.getInteger("Effect6"));
-        case 5:
-            data.writeInt(tags.getInteger("Effect5"));
-        case 4:
-            data.writeInt(tags.getInteger("Effect4"));
-        case 3:
-            data.writeInt(tags.getInteger("Effect3"));
-        case 2:
-            data.writeInt(tags.getInteger("Effect2"));
-        case 1:
-            data.writeInt(tags.getInteger("Effect1"));
+            switch (effects) {
+                case 6:
+                    data.writeInt(tags.getInteger("Effect6"));
+                case 5:
+                    data.writeInt(tags.getInteger("Effect5"));
+                case 4:
+                    data.writeInt(tags.getInteger("Effect4"));
+                case 3:
+                    data.writeInt(tags.getInteger("Effect3"));
+                case 2:
+                    data.writeInt(tags.getInteger("Effect2"));
+                case 1:
+                    data.writeInt(tags.getInteger("Effect1"));
+            }
         }
     }
 
