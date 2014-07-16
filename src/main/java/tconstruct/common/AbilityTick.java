@@ -28,6 +28,8 @@ public class AbilityTick implements ITickHandler
     {
         for (TPlayerStats stats : TConstruct.playerTracker.getServerStatList().values())
         {
+            if (stats == null || stats.player == null)
+                return;
             EntityPlayer player = stats.player.get();
             if (stats.climbWalls)
             {
