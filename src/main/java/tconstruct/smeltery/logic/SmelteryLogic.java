@@ -524,7 +524,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     public void updateFuelDisplay ()
     {
-        if (activeLavaTank == null || useTime > 0)
+        if (activeLavaTank == null)
             return;
 
         if (!worldObj.blockExists(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z))
@@ -541,10 +541,10 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             fuelGague = 0;
             return;
         }
+
         if (tankContainer instanceof IFluidHandler)
         {
-            needsUpdate = true;
-            FluidStack liquid = ((IFluidHandler) tankContainer).drain(ForgeDirection.DOWN, 150, false);
+            FluidStack liquid = ((IFluidHandler) tankContainer).drain(ForgeDirection.DOWN, 4000, false);
             if (liquid != null && liquid.getFluid().getBlock() == Blocks.lava)
             {
                 FluidTankInfo[] info = ((IFluidHandler) tankContainer).getTankInfo(ForgeDirection.DOWN);
@@ -561,6 +561,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 fuelGague = 0;
             }
         }
+
     }
 
     void updateFuelGague () // TODO: Call this method when the GUI is opened
