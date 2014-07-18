@@ -464,8 +464,8 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         {
             ToolCore tool = getValidTool();
 
-            Item accessory = tool.getAccessoryItem();
-            ItemStack accessoryStack = accessory != null ? new ItemStack(tool.getAccessoryItem(), 1, 17) : null;
+            ItemStack accessoryStack =  tool.getAccessoryItem() != null ? new ItemStack(tool.getAccessoryItem(), 1, 17) : null;
+            ItemStack extraStack =  tool.getExtraItem() != null ? new ItemStack(tool.getExtraItem(), 1, 17) : null;
             ItemStack toolStack = ToolBuilder.instance.buildTool(new ItemStack(tool.getHeadItem(), 1, 17), new ItemStack(tool.getHandleItem(), 1, 17), accessoryStack,
                     "King Slime " + tool.getToolName());
 
