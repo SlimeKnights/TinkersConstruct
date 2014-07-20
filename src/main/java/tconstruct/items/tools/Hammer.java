@@ -244,6 +244,9 @@ public class Hammer extends HarvestTool
             if (!tags.hasKey("AOEBreaking") || !tags.getBoolean("AOEBreaking"))
             {
                 tags.setBoolean("AOEBreaking", true);
+                int toolLevel = tags.getInteger("HarvestLevel");
+                Block centerBlock = world.getBlock(x, y, z);
+                float centerBlockHardness = centerBlock.getBlockHardness(world, x, y, z);
 
                 int xRange = 1;
                 int yRange = 1;
@@ -271,6 +274,16 @@ public class Hammer extends HarvestTool
                         for (int zPos = z - zRange; zPos <= z + zRange; zPos++)
                         {
                             Block block = world.getBlock(xPos, yPos, zPos);
+                            int meta = world.getBlockMetadata(xPos, yPos, zPos);
+                            float blockHardness = block.getBlockHardness(world, xPos, yPos, zPos);
+                            boolean isCenter = ((xPos == x) && (yPos == y) && (zPos == z));
+
+                            if (!block.isToolEffective("pickaxe", meta) || (block.getHarvestLevel(meta)) > toolLevel || (tags.getBoolean("Broken") && !isCenter)
+                                    || (blockHardness - 1.5) > centerBlockHardness || (!centerBlock.isToolEffective("pickaxe", meta) && !isCenter))
+                            {
+                                continue;
+                            }
+
                             for (Material mat : this.materials)
                             {
                                 if (block != null && mat == block.getMaterial()
