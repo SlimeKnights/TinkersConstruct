@@ -10,6 +10,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -174,19 +175,8 @@ public class MeatBlock extends BlockWood
             par3List.add(new ItemStack(b, 1, i));
     }
 
-    // @Override
-    // public boolean canSustainLeaves (World world, int x, int y, int z)
-    // {
-    // return true;
-    // }
-    //
-    // @Override
-    // public boolean isWood (World world, int x, int y, int z)
-    // {
-    // return true;
-    // }
-
-    public boolean isBeaconBase (World worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ)
+    @Override
+    public boolean isBeaconBase (IBlockAccess worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ)
     {
         return true;
     }

@@ -1,9 +1,9 @@
 package tconstruct.world.blocks;
 
-import tconstruct.blocks.TConstructBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.world.World;
+import net.minecraft.world.IBlockAccess;
+import tconstruct.blocks.TConstructBlock;
 
 public class TMetalBlock extends TConstructBlock
 {
@@ -17,7 +17,8 @@ public class TMetalBlock extends TConstructBlock
         this.setStepSound(Block.soundTypeMetal);
     }
 
-    public boolean isBeaconBase (World worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ)
+    @Override
+    public boolean isBeaconBase (IBlockAccess worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ)
     {
         return true;
     }
