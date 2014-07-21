@@ -182,7 +182,7 @@ public class TravelGear extends ArmorCore
             list.add("\u00a76Ability: Swift Swim");
             break;
         case Legs:
-            list.add("\u00a76Ability: Featherfall");
+            list.add("\u00a76Ability: High Jump");
             break;
         case Feet:
             list.add("\u00a76Ability: High Step");
