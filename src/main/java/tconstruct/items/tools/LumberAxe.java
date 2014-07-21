@@ -5,7 +5,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -136,81 +135,150 @@ public class LumberAxe extends HarvestTool
         if (!stack.hasTagCompound())
             return false;
 
-        if (player instanceof EntityPlayerMP)
+        World world = player.worldObj;
+        final Block wood = world.getBlock(x, y, z);
+        ;
+        if (wood == null)
         {
-            EntityPlayerMP mplayer = (EntityPlayerMP) player;
-            NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-            if (!tags.hasKey("AOEBreaking") || !tags.getBoolean("AOEBreaking"))
+            return super.onBlockStartBreak(stack, x, y, z, player);
+        }
+        if (wood.isWood(world, x, y, z) || wood.getMaterial() == Material.sponge)
+        {
+            int height = y;
+            boolean foundTop = false;
+            do
             {
-                tags.setBoolean("AOEBreaking", true);
-                World world = player.worldObj;
-                Block block = world.getBlock(x, y, z);
-                if (block.isWood(world, x, y, z))
+                height++;
+                Block block = world.getBlock(x, height, z);
+                if (block != wood)
                 {
-                    int height = y;
-                    while (true)
+                    height--;
+                    foundTop = true;
+                }
+            } while (!foundTop);
+
+            int numLeaves = 0;
+            if (height - y < 50)
+            {
+                for (int xPos = x - 1; xPos <= x + 1; xPos++)
+                {
+                    for (int yPos = height - 1; yPos <= height + 1; yPos++)
                     {
-                        height++;
-                        if (block != world.getBlock(x, height, z))
+                        for (int zPos = z - 1; zPos <= z + 1; zPos++)
                         {
-                            height--;
-                            break;
+                            Block leaves = world.getBlock(xPos, yPos, zPos);
+                            if (leaves != null && leaves.isLeaves(world, xPos, yPos, zPos))
+                                numLeaves++;
                         }
                     }
-
-                    int numLeaves = 0;
-                    if (height - y < 50)
-                    {
-                        for (int xPos = x - 1; xPos <= x + 1; xPos++)
-                        {
-                            for (int zPos = z - 1; zPos <= z + 1; zPos++)
-                            {
-                                for (int yPos = height - 1; yPos <= height + 1; yPos++)
-                                {
-                                    Block leaf = world.getBlock(xPos, yPos, zPos);
-                                    if (leaf != null && leaf.isLeaves(world, xPos, yPos, zPos))
-                                        numLeaves++;
-                                }
-                            }
-                        }
-                    }
-
-                    if (numLeaves > 3)
-                        breakTree(world, x, y, z, stack, tags, block, world.getBlockMetadata(x, y, z), mplayer);
-                    else
-                        destroyWood(world, x, y, z, stack, tags, mplayer);
                 }
-                else if (block.getMaterial() == Material.wood)
-                {
-                    destroyWood(world, x, y, z, stack, tags, mplayer);
-                }
-                tags.setBoolean("AOEBreaking", false);
             }
+
+            NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+            int meta = world.getBlockMetadata(x, y, z);
+            if (numLeaves > 3)
+                breakTree(world, x, y, z, stack, tags, wood, meta, player);
+            else
+                destroyWood(world, x, y, z, stack, tags, player);
+
+            if (!world.isRemote)
+                world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(wood) + (meta << 12));
+        }
+        else if (wood.getMaterial() == Material.wood)
+        {
+            NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+            int meta = world.getBlockMetadata(x, y, z);
+            destroyWood(world, x, y, z, stack, tags, player);
+            if (!world.isRemote)
+                world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(wood) + (meta << 12));
         }
         return super.onBlockStartBreak(stack, x, y, z, player);
     }
 
-    void breakTree (World world, int x, int y, int z, ItemStack stack, NBTTagCompound tags, Block bID, int meta, EntityPlayerMP player)
+    void breakTree (World world, int x, int y, int z, ItemStack stack, NBTTagCompound tags, Block bID, int meta, EntityPlayer player)
     {
+        Block block;
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
             for (int yPos = y; yPos <= y + 1; yPos++)
             {
                 for (int zPos = z - 1; zPos <= z + 1; zPos++)
                 {
-                    Block block = world.getBlock(xPos, yPos, zPos);
-                    if (bID == block && world.getBlockMetadata(xPos, yPos, zPos) == meta)
+                    if (!(tags.getBoolean("Broken")))
                     {
-                        if (block.getPlayerRelativeBlockHardness(player, world, x, yPos, z) > 0)
-                            player.theItemInWorldManager.tryHarvestBlock(x, yPos, z);
-                        breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player);
+                        Block localblock = world.getBlock(xPos, yPos, zPos);
+                        if (bID == localblock)
+                        {
+                            block = localblock;
+                            meta = world.getBlockMetadata(xPos, yPos, zPos);
+                            int hlvl = block.getHarvestLevel(meta);
+
+                            if (hlvl <= tags.getInteger("HarvestLevel"))
+                            {
+                                boolean cancelHarvest = false;
+                                for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+                                {
+                                    if (mod.beforeBlockBreak(this, stack, xPos, yPos, zPos, player))
+                                        cancelHarvest = true;
+                                }
+
+                                if (cancelHarvest)
+                                {
+                                    breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player);
+                                }
+                                else
+                                {
+                                    if (localblock == bID && world.getBlockMetadata(xPos, yPos, zPos) % 4 == meta % 4)
+                                    {
+                                        /*
+                                         * world.setBlock(xPos, yPos, zPos, 0,
+                                         * 0, 3); if
+                                         * (!player.capabilities.isCreativeMode)
+                                         * {
+                                         * Block.blocksList[bID].harvestBlock(world
+                                         * , player, xPos, yPos, zPos, meta);
+                                         * onBlockDestroyed(stack, world, bID,
+                                         * xPos, yPos, zPos, player); }
+                                         */
+                                        if (!player.capabilities.isCreativeMode)
+                                        {
+                                            if (block.removedByPlayer(world, player, xPos, yPos, zPos))
+                                            {
+                                                block.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, meta);
+                                            }
+                                            block.harvestBlock(world, player, xPos, yPos, zPos, meta);
+                                            block.onBlockHarvested(world, xPos, yPos, zPos, meta, player);
+                                            onBlockDestroyed(stack, world, localblock, xPos, yPos, zPos, player);
+                                        }
+                                        else
+                                        {
+                                            WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
+                                        }
+                                        breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player);
+                                    }
+                                    /*
+                                     * else { Block leaves =
+                                     * Block.blocksList[localID]; if (leaves !=
+                                     * null && leaves.isLeaves(world, xPos,
+                                     * yPos, zPos)) {
+                                     * WorldHelper.setBlockToAir(world, xPos,
+                                     * yPos, zPos); if
+                                     * (!player.capabilities.isCreativeMode) {
+                                     * Block.blocksList[bID].harvestBlock(world,
+                                     * player, xPos, yPos, zPos, meta);
+                                     * onBlockDestroyed(stack, world, bID, xPos,
+                                     * yPos, zPos, player); } } }
+                                     */
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
     }
 
-    void destroyWood (World world, int x, int y, int z, ItemStack stack, NBTTagCompound tags, EntityPlayerMP player)
+    void destroyWood (World world, int x, int y, int z, ItemStack stack, NBTTagCompound tags, EntityPlayer player)
     {
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
@@ -218,10 +286,36 @@ public class LumberAxe extends HarvestTool
             {
                 for (int zPos = z - 1; zPos <= z + 1; zPos++)
                 {
-                    Block block = world.getBlock(xPos, yPos, zPos);
-                    if (block != null && block.getMaterial() == Material.wood
-                        && block.getPlayerRelativeBlockHardness(player, world, xPos, yPos, zPos) > 0)
-                        player.theItemInWorldManager.tryHarvestBlock(xPos, yPos, zPos);
+                    if (!(tags.getBoolean("Broken")))
+                    {
+                        Block block = world.getBlock(xPos, yPos, zPos);
+                        int meta = world.getBlockMetadata(xPos, yPos, zPos);
+                        int hlvl = block.getHarvestLevel(meta);
+
+                        if (block != null && block.getMaterial() == Material.wood)
+                        {
+                            if (hlvl <= tags.getInteger("HarvestLevel"))
+                            {
+                                boolean cancelHarvest = false;
+                                for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+                                {
+                                    if (mod.beforeBlockBreak(this, stack, xPos, yPos, zPos, player))
+                                        cancelHarvest = true;
+                                }
+
+                                if (!cancelHarvest)
+                                {
+                                    WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
+                                    if (!player.capabilities.isCreativeMode)
+                                    {
+                                        // TODO harvestBlock
+                                        block.harvestBlock(world, player, xPos, yPos, zPos, meta);
+                                        onBlockDestroyed(stack, world, block, xPos, yPos, zPos, player);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

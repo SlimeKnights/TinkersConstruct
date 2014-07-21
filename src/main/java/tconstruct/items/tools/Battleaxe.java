@@ -7,7 +7,6 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -248,26 +247,56 @@ public class Battleaxe extends HarvestTool
         if (!stack.hasTagCompound())
             return false;
 
-        if (player instanceof EntityPlayerMP)
+        World world = player.worldObj;
+        final Block wood = world.getBlock(x, y, z);
+        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        final int meta = world.getBlockMetadata(x, y, z);
+        for (int yPos = y + 1; yPos < y + 9; yPos++)
         {
-            EntityPlayerMP mplayer = (EntityPlayerMP)player;
-            World world = player.worldObj;
-            NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-            if (!tags.hasKey("AOEBreaking") || !tags.getBoolean("AOEBreaking"))
+            Block block = world.getBlock(x, yPos, z);
+            if (!(tags.getBoolean("Broken")) && block != null && block.getMaterial() == Material.wood)
             {
-                tags.setBoolean("AOEBreaking", true);
-                for (int yPos = y + 1; yPos < y + 9; yPos++)
+                Block localblock = world.getBlock(x, yPos, z);
+                int localMeta = world.getBlockMetadata(x, yPos, z);
+                int hlvl = block.getHarvestLevel(meta);
+
+                if (hlvl <= tags.getInteger("HarvestLevel"))
                 {
-                    Block block = world.getBlock(x, yPos, z);
-                    if (block != null && block.getMaterial() == Material.wood
-                        && block.getPlayerRelativeBlockHardness(mplayer, world, x, yPos, z) > 0)
-                        mplayer.theItemInWorldManager.tryHarvestBlock(x, yPos, z);
-                    else
-                        break;
+                    boolean cancelHarvest = false;
+                    for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+                    {
+                        if (mod.beforeBlockBreak(this, stack, x, yPos, z, player))
+                            cancelHarvest = true;
+                    }
+
+                    if (!cancelHarvest)
+                    {
+                        if (block != null && block.getMaterial() == Material.wood)
+                        {
+                            localMeta = world.getBlockMetadata(x, yPos, z);
+                            if (!player.capabilities.isCreativeMode)
+                            {
+                                if (block.removedByPlayer(world, player, x, yPos, z))
+                                {
+                                    block.onBlockDestroyedByPlayer(world, x, yPos, z, localMeta);
+                                }
+                                block.harvestBlock(world, player, x, yPos, z, localMeta);
+                                block.onBlockHarvested(world, x, yPos, z, localMeta, player);
+                                onBlockDestroyed(stack, world, block, x, yPos, z, player);
+                            }
+                            else
+                            {
+                                WorldHelper.setBlockToAir(world, x, yPos, z);
+                            }
+                        }
+                    }
                 }
-                tags.setBoolean("AOEBreaking", false);
             }
+            else
+                break;
         }
+        if (!world.isRemote)
+            world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(wood) + (meta << 12));
         return super.onBlockStartBreak(stack, x, y, z, player);
     }
 }

@@ -4,7 +4,6 @@ import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -142,54 +141,107 @@ public class Excavator extends HarvestTool
             return false;
 
         World world = player.worldObj;
-        MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(world, player, true, 5.0D);
-        if (mop != null && player instanceof EntityPlayerMP)
+        final int meta = world.getBlockMetadata(x, y, z);
+        Block block = world.getBlock(x, y, z);
+        if (!stack.hasTagCompound())
+            return false;
+
+        if (block == null)
+            return super.onBlockStartBreak(stack, x, y, z, player);
+
+        float blockHardness = block.getBlockHardness(world, x, y, z);
+
+        boolean validStart = false;
+        for (int iter = 0; iter < materials.length; iter++)
         {
-            EntityPlayerMP mplayer = (EntityPlayerMP) player;
-            NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-            if (!tags.hasKey("AOEBreaking") || !tags.getBoolean("AOEBreaking"))
+            if (materials[iter] == block.getMaterial())
             {
-                tags.setBoolean("AOEBreaking", true);
+                validStart = true;
+                break;
+            }
+        }
 
-                int xRange = 1;
-                int yRange = 1;
-                int zRange = 1;
-                switch (mop.sideHit)
-                {
-                case 0:
-                case 1:
-                    yRange = 0;
-                    break;
-                case 2:
-                case 3:
-                    zRange = 0;
-                    break;
-                case 4:
-                case 5:
-                    xRange = 0;
-                    break;
-                }
+        MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(world, player, true, 5.0D);
+        if (mop == null || !validStart)
+            return super.onBlockStartBreak(stack, x, y, z, player);
 
-                for (int xPos = x - xRange; xPos <= x + xRange; xPos++)
+        int xRange = 1;
+        int yRange = 1;
+        int zRange = 1;
+        switch (mop.sideHit)
+        {
+        case 0:
+        case 1:
+            yRange = 0;
+            break;
+        case 2:
+        case 3:
+            zRange = 0;
+            break;
+        case 4:
+        case 5:
+            xRange = 0;
+            break;
+        }
+        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        for (int xPos = x - xRange; xPos <= x + xRange; xPos++)
+        {
+            for (int yPos = y - yRange; yPos <= y + yRange; yPos++)
+            {
+                for (int zPos = z - zRange; zPos <= z + zRange; zPos++)
                 {
-                    for (int yPos = y - yRange; yPos <= y + yRange; yPos++)
+                    if (!(tags.getBoolean("Broken")))
                     {
-                        for (int zPos = z - zRange; zPos <= z + zRange; zPos++)
+                        Block localblock = world.getBlock(xPos, yPos, zPos);
+                        block = localblock;
+                        int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
+                        int hlvl = block.getHarvestLevel(meta);
+                        float localHardness = block == null ? Float.MAX_VALUE : block.getBlockHardness(world, xPos, yPos, zPos);
+
+                        if (hlvl <= tags.getInteger("HarvestLevel") && localHardness - 1.5 <= blockHardness)
                         {
-                            Block block = world.getBlock(xPos, yPos, zPos);
-                            for (Material mat : this.materials)
+                            boolean cancelHarvest = false;
+                            for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
                             {
-                                if (block != null && mat == block.getMaterial()
-                                    && block.getPlayerRelativeBlockHardness(mplayer, world, x, yPos, z) > 0)
-                                    mplayer.theItemInWorldManager.tryHarvestBlock(xPos, yPos, zPos);
+                                if (mod.beforeBlockBreak(this, stack, xPos, yPos, zPos, player))
+                                    cancelHarvest = true;
+                            }
+
+                            if (!cancelHarvest)
+                            {
+                                if (block != null && !(localHardness < 0))
+                                {
+                                    for (int iter = 0; iter < materials.length; iter++)
+                                    {
+                                        if (materials[iter] == block.getMaterial())
+                                        {
+                                            if (!player.capabilities.isCreativeMode)
+                                            {
+                                                if (block.removedByPlayer(world, player, xPos, yPos, zPos))
+                                                {
+                                                    block.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
+                                                }
+                                                block.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
+                                                block.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
+                                                if (blockHardness > 0f)
+                                                    onBlockDestroyed(stack, world, localblock, xPos, yPos, zPos, player);
+                                            }
+                                            else
+                                            {
+                                                WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 }
-                tags.setBoolean("AOEBreaking", false);
             }
         }
-        return super.onBlockStartBreak(stack, x, y, z, player);
+        if (!world.isRemote)
+            world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
+        return true;
     }
 
     @Override
