@@ -15,7 +15,7 @@ public class StrangeFood extends SpecialFood
 {
     public StrangeFood()
     {
-        super(new int[] { 2, 2 }, new float[] { 1f, 1f }, new String[] { "edibleslime", "edibleblood", "bacon" }, new String[] { "food/edibleslime", "food/edibleblood", "food/bacon" });
+        super(new int[] { 2, 2, 4 }, new float[] { 1f, 1f, 0.6f }, new String[] { "edibleslime", "edibleblood", "bacon" }, new String[] { "food/edibleslime", "food/edibleblood", "food/bacon" });
     }
 
     @Override
