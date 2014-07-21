@@ -1,23 +1,33 @@
-package tconstruct.util.network.packet;
+package tconstruct.util.network;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import mantle.common.network.AbstractPacket;
 import net.minecraft.entity.player.EntityPlayer;
+import tconstruct.armor.PlayerAbilityHelper;
+import tconstruct.armor.player.TPlayerStats;
 
-public class PacketDoubleJump extends AbstractPacket
+public class GogglePacket extends AbstractPacket
 {
+    boolean active;
+
+    public GogglePacket() {}
+
+    public GogglePacket(boolean active)
+    {
+        this.active = active;
+    }
 
     @Override
     public void encodeInto (ChannelHandlerContext ctx, ByteBuf buffer)
     {
-
+        buffer.writeBoolean(active);
     }
 
     @Override
     public void decodeInto (ChannelHandlerContext ctx, ByteBuf buffer)
     {
-
+        active = buffer.readBoolean();
     }
 
     @Override
@@ -29,9 +39,9 @@ public class PacketDoubleJump extends AbstractPacket
     @Override
     public void handleServerSide (EntityPlayer player)
     {
-        // String user = inputStream.readUTF();
-        // EntityPlayer player = TConstruct.playerTracker.getEntityPlayer(user);
-        player.fallDistance = 0;
+        PlayerAbilityHelper.toggleGoggles(player, active);
+        /*TPlayerStats stats = TPlayerStats.get(player);
+        stats.activeGoggles = active;*/
     }
 
 }

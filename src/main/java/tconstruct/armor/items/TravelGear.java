@@ -175,7 +175,7 @@ public class TravelGear extends ArmorCore
         switch (armorPart)
         {
         case Head:
-            list.add("\u00a76Ability: Zoom with");
+            list.add("\u00a76Ability: Zoom with " + GameSettings.getKeyDisplayString(tconstruct.client.TControls.zoomKey.getKeyCode()));
             list.add("\u00a76Toggle Abilities: " + GameSettings.getKeyDisplayString(tconstruct.client.TControls.toggleGoggles.getKeyCode()));
             break;
         case Chest:

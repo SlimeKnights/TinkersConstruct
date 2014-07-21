@@ -26,7 +26,7 @@ import tconstruct.client.gui.NewContainerGui;
 import tconstruct.smeltery.inventory.ActiveContainer;
 import tconstruct.smeltery.inventory.SmelteryContainer;
 import tconstruct.smeltery.logic.SmelteryLogic;
-import tconstruct.util.network.packet.PacketSmeltery;
+import tconstruct.util.network.SmelteryPacket;
 
 public class SmelteryGui extends NewContainerGui
 {
@@ -474,7 +474,7 @@ public class SmelteryGui extends NewContainerGui
                 fluidToBeBroughtUp = liquid.fluidID;
 
                 TConstruct.packetPipeline
-                        .sendToServer(new PacketSmeltery(logic.getWorldObj().provider.dimensionId, logic.xCoord, logic.yCoord, logic.zCoord, this.isShiftKeyDown(), fluidToBeBroughtUp));
+                        .sendToServer(new SmelteryPacket(logic.getWorldObj().provider.dimensionId, logic.xCoord, logic.yCoord, logic.zCoord, this.isShiftKeyDown(), fluidToBeBroughtUp));
             }
         }
     }

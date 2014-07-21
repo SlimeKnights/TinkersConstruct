@@ -1,4 +1,4 @@
-package tconstruct.util.network.packet;
+package tconstruct.util.network;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -7,17 +7,17 @@ import net.minecraft.entity.player.EntityPlayer;
 import tconstruct.TConstruct;
 import tconstruct.armor.ArmorProxyCommon;
 
-public class PacketExtendedInventory extends AbstractPacket
+public class AccessoryInventoryPacket extends AbstractPacket
 {
 
     int type;
 
-    public PacketExtendedInventory()
+    public AccessoryInventoryPacket()
     {
 
     }
 
-    public PacketExtendedInventory(int type)
+    public AccessoryInventoryPacket(int type)
     {
         this.type = type;
     }

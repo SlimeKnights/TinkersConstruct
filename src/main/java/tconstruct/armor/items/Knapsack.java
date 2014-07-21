@@ -7,10 +7,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.accessory.IAccessory;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class Knapsack extends CraftingItem
+public class Knapsack extends CraftingItem implements IAccessory
 {
 
     public Knapsack()
@@ -29,6 +30,12 @@ public class Knapsack extends CraftingItem
             list.add(StatCollector.translateToLocal("knapsack.tooltip"));
             break;
         }
+    }
+
+    @Override
+    public boolean canEquipAccessory (ItemStack item, int slot)
+    {
+        return slot == 2;
     }
 
     // TODO feel fix this so that stuff ticks in backpacks

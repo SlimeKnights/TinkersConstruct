@@ -26,7 +26,7 @@ import tconstruct.tools.TinkerTools;
 import tconstruct.util.EnvironmentChecks;
 import tconstruct.util.config.DimensionBlacklist;
 import tconstruct.util.config.PHConstruct;
-import tconstruct.util.network.packet.PacketPipeline;
+import tconstruct.util.network.PacketPipeline;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.gen.SlimeIslandGen;
 import tconstruct.world.village.ComponentSmeltery;

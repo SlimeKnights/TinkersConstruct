@@ -206,8 +206,8 @@ public class TinkerArmor
         GameRegistry.addRecipe(new ItemStack(TinkerArmor.knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Items.leather), 'r', new ItemStack(TinkerTools.toughRod, 1, 2), 'm', aluBrass);
         // Drying Rack Recipes
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerArmor.dryingRack, 1, 0), "bbb", 'b', "slabWood"));
-        
-      //Temporary recipes
+
+        //Temporary recipes
         ItemStack leather = new ItemStack(Items.leather);
         ItemStack glass = new ItemStack(Blocks.glass);
         ItemStack string = new ItemStack(Items.string);
@@ -250,14 +250,14 @@ public class TinkerArmor
         TConstructRegistry.registerActiveArmorMod(new ActiveTinkerArmor());
 
         //Head
-        ModifyBuilder.registerModifier(new AModBoolean(0, "Night Vision", EnumSet.of(ArmorPart.Head),
-                new ItemStack[] { new ItemStack(Items.flint_and_steel), new ItemStack(Items.potionitem, 1, 8198) }, "\u00a78", "Night Vision"));
+        ModifyBuilder.registerModifier(new AModBoolean(0, "Night Vision", EnumSet.of(ArmorPart.Head), new ItemStack[] { new ItemStack(Items.flint_and_steel), new ItemStack(Items.potionitem, 1, 0),
+                new ItemStack(Items.golden_carrot) }, "\u00a78", "Night Vision"));
 
         //Chest
         ModifyBuilder.registerModifier(new AModInteger(0, "Perfect Dodge", EnumSet.of(ArmorPart.Chest), new ItemStack[] { new ItemStack(Items.ender_eye), new ItemStack(Items.ender_pearl),
                 new ItemStack(Items.sugar) }, 1, "\u00a7d", "Perfect Dodge"));
-        ModifyBuilder.registerModifier(new AModBoolean(1, "Stealth", EnumSet.of(ArmorPart.Chest), new ItemStack[] { new ItemStack(Blocks.ice), new ItemStack(Items.ender_eye),
-                new ItemStack(Items.potionitem, 1, 8206) }, "\u00a78", "Stealth"));
+        ModifyBuilder.registerModifier(new AModBoolean(1, "Stealth", EnumSet.of(ArmorPart.Chest), new ItemStack[] { new ItemStack(Items.fermented_spider_eye), new ItemStack(Items.ender_eye),
+                new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.golden_carrot) }, "\u00a78", "Stealth"));
 
         //Wings
         ItemStack feather = new ItemStack(Items.feather);
@@ -275,7 +275,7 @@ public class TinkerArmor
 
         //Glove
         ModifyBuilder.registerModifier(new GloveSpeed(1, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
-        ModifyBuilder.registerModifier(new GloveClimb(new ItemStack[] { new ItemStack(Items.slime_ball), new ItemStack(Blocks.web), new ItemStack(TinkerTools.materials, 1, 25) }));
+        //ModifyBuilder.registerModifier(new GloveClimb(new ItemStack[] { new ItemStack(Items.slime_ball), new ItemStack(Blocks.web), new ItemStack(TinkerTools.materials, 1, 25) }));
         this.modAttackGlove = new ModAttack("Quartz", 2, new ItemStack[] { new ItemStack(Items.quartz), new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1, 4 }, 50, 50,
                 "Accessory");
         ModifyBuilder.registerModifier(this.modAttackGlove);

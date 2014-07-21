@@ -14,7 +14,7 @@ import tconstruct.TConstruct;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.inventory.PatternShaperContainer;
 import tconstruct.tools.logic.StencilTableLogic;
-import tconstruct.util.network.packet.PacketStencilTable;
+import tconstruct.util.network.PatternTablePacket;
 
 public class StencilTableGui extends GuiContainer
 {
@@ -122,6 +122,6 @@ public class StencilTableGui extends GuiContainer
     void updateServer (ItemStack stack)
     {
 
-        TConstruct.packetPipeline.sendToServer(new PacketStencilTable(logic.xCoord, logic.yCoord, logic.zCoord, stack));
+        TConstruct.packetPipeline.sendToServer(new PatternTablePacket(logic.xCoord, logic.yCoord, logic.zCoord, stack));
     }
 }

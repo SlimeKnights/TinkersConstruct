@@ -9,12 +9,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import tconstruct.TConstruct;
+import tconstruct.armor.ArmorProxyClient;
 import tconstruct.armor.ArmorProxyCommon;
+import tconstruct.armor.PlayerAbilityHelper;
+import tconstruct.armor.items.TravelGear;
 import tconstruct.client.event.EventCloakRender;
 import tconstruct.client.tabs.TabRegistry;
-import tconstruct.util.network.packet.PacketDoubleJump;
-import tconstruct.util.network.packet.PacketExtendedInventory;
-import cpw.mods.fml.client.registry.ClientRegistry;
+import tconstruct.util.network.AccessoryInventoryPacket;
+import tconstruct.util.network.BeltPacket;
+import tconstruct.util.network.DoubleJumpPacket;
+import tconstruct.util.network.GogglePacket;
 import cpw.mods.fml.common.gameevent.TickEvent.Type;
 
 public class TControls extends TKeyHandler
@@ -33,8 +37,8 @@ public class TControls extends TKeyHandler
     int midairJumps = 0;
     boolean climbing = false;
     boolean onGround = false;
-    boolean onStilts = false;
     public static boolean zoom = false;
+    boolean activeGoggles = false; //TODO: Set this on server login
 
     int currentTab = 1;
 
@@ -113,37 +117,29 @@ public class TControls extends TKeyHandler
                 }
             }
 
-            /*if (mc.currentScreen == null)
+            if (mc.currentScreen == null)
             {
                 if (kb == toggleGoggles)
                 {
                     ItemStack goggles = mc.thePlayer.getCurrentArmor(3);
                     if (goggles != null && goggles.getItem() instanceof TravelGear) //TODO: Genericize this
                     {
-                        PlayerAbilityHelper.toggleGoggles(mc.thePlayer);
-                        updateServer((byte) 9);
+                        activeGoggles = !activeGoggles;
+                        toggleGoggles();
                     }
                 }
                 if (kb == beltSwap)
                 {
-                    TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(mc.thePlayer.username);
-                    if (stats.armor.inventory[3] != null)
+                    if (ArmorProxyClient.armorExtended.inventory[3] != null)
                     {
-                        //PlayerAbilityHelper.swapBelt(mc.thePlayer, stats);
-                        updateServer((byte) 8);
+                        PlayerAbilityHelper.swapBelt(mc.thePlayer, ArmorProxyClient.armorExtended);
+                        toggleBelt();
                     }
                 }
                 if (kb == zoomKey)
                     zoom = !zoom;
-            }*/
+            }
         }
-        /*
-         * else if (kb == stiltsKey) //Stilts { float size = 1.8F; if
-         * (!onStilts) size = 0.8F;
-         * TConstruct.playerTracker.updateSize(mc.thePlayer.username, size);
-         * onStilts = !onStilts; //updateServer(mc.thePlayer.username, (byte)
-         * 11); if (onStilts) { onStilts = false; } else { onStilts = true; } }
-         */
     }
 
     @Override
@@ -164,46 +160,35 @@ public class TControls extends TKeyHandler
         jumping = false;
         climbing = false;
         onGround = false;
-        onStilts = false;
     }
 
     void resetFallDamage ()
     {
-        AbstractPacket packet = new PacketDoubleJump();
+        AbstractPacket packet = new DoubleJumpPacket();
         updateServer(packet);
-    }
-
-    void updateSize (String name, float size)
-    {
-        /*ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
-        DataOutputStream outputStream = new DataOutputStream(bos);
-        try
-        {
-            outputStream.writeByte(11);
-            outputStream.writeUTF(name);
-            outputStream.writeFloat(size);
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-
-        updateServer(bos);*/
-
-        //TODO: Enable code with right packet
-        //AbstractPacket packet = new ();
-        //updateServer(packet);
     }
 
     public static void openArmorGui ()
     {
-        AbstractPacket packet = new PacketExtendedInventory(ArmorProxyCommon.armorGuiID);
+        AbstractPacket packet = new AccessoryInventoryPacket(ArmorProxyCommon.armorGuiID);
         updateServer(packet);
     }
 
     public static void openKnapsackGui ()
     {
-        AbstractPacket packet = new PacketExtendedInventory(ArmorProxyCommon.knapsackGuiID);
+        AbstractPacket packet = new AccessoryInventoryPacket(ArmorProxyCommon.knapsackGuiID);
+        updateServer(packet);
+    }
+    
+    private void toggleGoggles()
+    {
+        AbstractPacket packet = new GogglePacket(activeGoggles);
+        updateServer(packet);
+    }
+    
+    private void toggleBelt()
+    {
+        AbstractPacket packet = new BeltPacket();
         updateServer(packet);
     }
 

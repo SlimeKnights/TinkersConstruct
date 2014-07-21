@@ -1,4 +1,4 @@
-package tconstruct.util.network.packet;
+package tconstruct.util.network;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -136,11 +136,11 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Abstra
 
     public void registerPackets ()
     {
-        registerPacket(PacketDoubleJump.class);
-        registerPacket(PacketExtendedInventory.class);
-        registerPacket(PacketSmeltery.class);
-        registerPacket(PacketStencilTable.class);
-        registerPacket(PacketToolStation.class);
+        registerPacket(DoubleJumpPacket.class);
+        registerPacket(AccessoryInventoryPacket.class);
+        registerPacket(SmelteryPacket.class);
+        registerPacket(PatternTablePacket.class);
+        registerPacket(ToolStationPacket.class);
         registerPacket(PacketUpdateTE.class);
     }
 

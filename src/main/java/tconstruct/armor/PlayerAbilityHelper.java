@@ -1,20 +1,23 @@
 package tconstruct.armor;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.*;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.*;
-import net.minecraft.potion.*;
-import tconstruct.TConstruct;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import tconstruct.armor.player.ArmorExtended;
 import tconstruct.armor.player.TPlayerStats;
 
 public class PlayerAbilityHelper
 {
 
-    public static void toggleGoggles (EntityPlayer player)
+    public static void toggleGoggles (EntityPlayer player, boolean active)
     {
         TPlayerStats stats = TPlayerStats.get(player);
-        stats.activeGoggles = !stats.activeGoggles;
+        stats.activeGoggles = active;
         if (!stats.activeGoggles)
         {
             player.removePotionEffect(Potion.nightVision.id);
@@ -25,7 +28,7 @@ public class PlayerAbilityHelper
         }
     }
 
-    public static void swapBelt (EntityPlayer player, TPlayerStats stats)
+    public static void swapBelt (EntityPlayer player, ArmorExtended armor)
     {
         NBTTagList slots = new NBTTagList();
         InventoryPlayer hotbar = player.inventory;
@@ -44,7 +47,7 @@ public class PlayerAbilityHelper
             hotbar.mainInventory[i] = null;
         }
         
-        ItemStack belt = stats.armor.inventory[3];
+        ItemStack belt = armor.inventory[3];
         NBTTagList replaceSlots = belt.getTagCompound().getTagList("Inventory", 10);
         for (int i = 0; i < replaceSlots.tagCount(); ++i)
         {

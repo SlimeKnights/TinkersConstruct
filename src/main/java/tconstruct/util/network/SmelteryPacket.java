@@ -1,4 +1,4 @@
-package tconstruct.util.network.packet;
+package tconstruct.util.network;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import io.netty.buffer.ByteBuf;
@@ -13,18 +13,18 @@ import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
 import tconstruct.smeltery.logic.SmelteryLogic;
 
-public class PacketSmeltery extends AbstractPacket
+public class SmelteryPacket extends AbstractPacket
 {
 
     int dimension, x, y, z, fluidID;
     boolean isShiftPressed;
 
-    public PacketSmeltery()
+    public SmelteryPacket()
     {
 
     }
 
-    public PacketSmeltery(int dimension, int x, int y, int z, boolean isShiftPressed, int fluidID)
+    public SmelteryPacket(int dimension, int x, int y, int z, boolean isShiftPressed, int fluidID)
     {
         this.dimension = dimension;
         this.x = x;

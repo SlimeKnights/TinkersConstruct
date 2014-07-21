@@ -25,7 +25,7 @@ import tconstruct.library.tools.ToolCore;
 import tconstruct.smeltery.inventory.ActiveContainer;
 import tconstruct.tools.inventory.ToolStationContainer;
 import tconstruct.tools.logic.ToolStationLogic;
-import tconstruct.util.network.packet.PacketToolStation;
+import tconstruct.util.network.ToolStationPacket;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -506,7 +506,7 @@ public class ToolStationGui extends GuiContainer
          * PacketDispatcher.sendPacketToServer(packet);
          */
 
-        TConstruct.packetPipeline.sendToServer(new PacketToolStation(logic.xCoord, logic.yCoord, logic.zCoord, name));
+        TConstruct.packetPipeline.sendToServer(new ToolStationPacket(logic.xCoord, logic.yCoord, logic.zCoord, name));
     }
 
     /*

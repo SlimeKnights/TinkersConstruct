@@ -234,7 +234,7 @@ Note: The Smeltery is required to process all metals, including iron.</text>
 </page>
 
 <page type="crafting">
-<text>Vision</text>
+<text>Dodge</text>
 <recipe>
  <name>dodge</name>
  <size>two</size>
@@ -296,14 +296,6 @@ Note: The Smeltery is required to process all metals, including iron.</text>
 <page type="modifier">
 <tooltype>travelgloves</tooltype>
 <recipe>glovehaste</recipe>
-</page>
-
-<page type="crafting">
-<text>Flesh</text>
-<recipe>
- <name>gloveclimb</name>
- <size>two</size>
-</recipe>
 </page>
 
 <page type="modifier">

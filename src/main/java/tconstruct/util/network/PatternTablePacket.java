@@ -1,4 +1,4 @@
-package tconstruct.util.network.packet;
+package tconstruct.util.network;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -10,18 +10,18 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.ByteBufUtils;
 
-public class PacketStencilTable extends AbstractPacket
+public class PatternTablePacket extends AbstractPacket
 {
 
     int x, y, z;
     ItemStack contents;
 
-    public PacketStencilTable()
+    public PatternTablePacket()
     {
 
     }
 
-    public PacketStencilTable(int x, int y, int z, ItemStack contents)
+    public PatternTablePacket(int x, int y, int z, ItemStack contents)
     {
         this.x = x;
         this.y = y;

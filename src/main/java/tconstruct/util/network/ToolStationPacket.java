@@ -1,4 +1,4 @@
-package tconstruct.util.network.packet;
+package tconstruct.util.network;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -10,17 +10,17 @@ import tconstruct.tools.logic.ToolForgeLogic;
 import tconstruct.tools.logic.ToolStationLogic;
 import cpw.mods.fml.common.network.ByteBufUtils;
 
-public class PacketToolStation extends AbstractPacket
+public class ToolStationPacket extends AbstractPacket
 {
 
     private int x, y, z;
     private String toolName;
 
-    public PacketToolStation()
+    public ToolStationPacket()
     {
     }
 
-    public PacketToolStation(int x, int y, int z, String toolName)
+    public ToolStationPacket(int x, int y, int z, String toolName)
     {
         this.x = x;
         this.y = y;
