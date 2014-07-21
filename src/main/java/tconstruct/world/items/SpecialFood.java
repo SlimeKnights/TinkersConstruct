@@ -32,14 +32,15 @@ public class SpecialFood extends ItemFood
     }
 
     @Override
-    public ItemStack onEaten (ItemStack stack, World world, EntityPlayer player)
+    public int func_150905_g(ItemStack stack)
     {
-        stack.stackSize--;
-        int damage = stack.getItemDamage();
-        player.getFoodStats().addStats(hunger[damage], saturation[damage]);
-        world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
-        this.onFoodEaten(stack, world, player);
-        return stack;
+        return hunger[stack.getItemDamage()];
+    }
+
+    @Override
+    public float func_150906_h(ItemStack stack)
+    {
+        return saturation[stack.getItemDamage()];
     }
 
     @Override
