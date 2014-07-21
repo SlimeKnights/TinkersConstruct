@@ -410,6 +410,7 @@ public class TinkerTools
     public void postInit (FMLPostInitializationEvent evt)
     {
         vanillaToolRecipes();
+        modIntegration();
     }
 
     private void addPartMapping ()
