@@ -43,8 +43,8 @@ public class ArmorAbilitiesClient
             player.fallDistance = 0.0f;
         }
 
-        //Feet changes
-        ItemStack feet = player.getCurrentArmor(0);
+        //Feet changes - moved to server side
+        /*ItemStack feet = player.getCurrentArmor(0);
         if (feet != null)
         {
             if (feet.getItem() instanceof TravelGear && player.stepHeight < 1.0f)
@@ -70,7 +70,7 @@ public class ArmorAbilitiesClient
             if (feet != null && feet.getItem() instanceof TravelGear)
                 player.stepHeight += 0.6f;
             prevFeet = feet;
-        }
+        }*/
 
         //Legs or wing changes
         /*ItemStack legs = player.getCurrentArmor(1);
