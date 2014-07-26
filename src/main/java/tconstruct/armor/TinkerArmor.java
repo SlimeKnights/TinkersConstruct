@@ -160,6 +160,7 @@ public class TinkerArmor
     public void init (FMLInitializationEvent event)
     {
         craftingTableRecipes();
+        registerModifiers();
         addRecipesForDryingRack();
         TConstructRegistry.equipableTab.init(travelGoggles.getDefaultItem());
         proxy.initialize();
