@@ -3,6 +3,7 @@ package tconstruct.items.tools;
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -184,6 +185,7 @@ public class Excavator extends HarvestTool
             break;
         }
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        int fortune = EnchantmentHelper.getFortuneModifier(player);
         for (int xPos = x - xRange; xPos <= x + xRange; xPos++)
         {
             for (int yPos = y - yRange; yPos <= y + yRange; yPos++)
@@ -221,6 +223,11 @@ public class Excavator extends HarvestTool
                                                 {
                                                     block.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
                                                 }
+
+                                                // Workaround for dropping experience
+                                                int exp = block.getExpDrop(world, localMeta, fortune);
+                                                block.dropXpOnBlockBreak(world, xPos, yPos, zPos, exp);
+
                                                 block.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
                                                 block.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
                                                 if (blockHardness > 0f)

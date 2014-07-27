@@ -3,6 +3,7 @@ package tconstruct.library.tools;
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -84,6 +85,12 @@ public abstract class HarvestTool extends ToolCore
                                 {
                                     localBlock.onBlockDestroyedByPlayer(world, x, y, z, localMeta);
                                 }
+
+                                // Workaround for dropping experience
+                                int fortune = EnchantmentHelper.getFortuneModifier(player);
+                                int exp = localBlock.getExpDrop(world, localMeta, fortune);
+                                localBlock.dropXpOnBlockBreak(world, x, y, z, exp);
+
                                 localBlock.harvestBlock(world, player, x, y, z, localMeta);
                                 localBlock.onBlockHarvested(world, x, y, z, localMeta, player);
                                 if (blockHardness > 0f)
@@ -287,5 +294,18 @@ public abstract class HarvestTool extends ToolCore
          */
 
         return used;
+    }
+
+    @Override
+    public int getHarvestLevel (ItemStack stack, String toolClass)
+    {
+        if (!(stack.getItem() instanceof HarvestTool) || !getHarvestType().equals(toolClass))
+        {
+            return -1;
+        }
+
+        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        int harvestLvl = tags.getInteger("HarvestLevel");
+        return harvestLvl;
     }
 }
