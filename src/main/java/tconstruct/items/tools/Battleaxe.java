@@ -4,6 +4,7 @@ import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -251,6 +252,7 @@ public class Battleaxe extends HarvestTool
         final Block wood = world.getBlock(x, y, z);
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         final int meta = world.getBlockMetadata(x, y, z);
+        final int fortune = EnchantmentHelper.getFortuneModifier(player);
         for (int yPos = y + 1; yPos < y + 9; yPos++)
         {
             Block block = world.getBlock(x, yPos, z);
@@ -280,6 +282,11 @@ public class Battleaxe extends HarvestTool
                                 {
                                     block.onBlockDestroyedByPlayer(world, x, yPos, z, localMeta);
                                 }
+
+                                // Workaround for dropping experience
+                                int exp = block.getExpDrop(world, localMeta, fortune);
+                                block.dropXpOnBlockBreak(world, x, y, z, exp);
+
                                 block.harvestBlock(world, player, x, yPos, z, localMeta);
                                 block.onBlockHarvested(world, x, yPos, z, localMeta, player);
                                 onBlockDestroyed(stack, world, block, x, yPos, z, player);

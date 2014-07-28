@@ -150,7 +150,7 @@ public class Cleaver extends Weapon
             ItemStack equipped = player.getCurrentEquippedItem();
             if (equipped == stack)
             {
-                player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 1, 2));
+                player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 2, 2, true));
             }
         }
     }

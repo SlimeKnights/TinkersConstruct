@@ -6,6 +6,7 @@ import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -283,6 +284,7 @@ public class Hammer extends HarvestTool
 
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         int toolLevel = tags.getInteger("HarvestLevel");
+        int fortune = EnchantmentHelper.getFortuneModifier(player);
         for (int xPos = x - xRange; xPos <= x + xRange; xPos++)
         {
             for (int yPos = y - yRange; yPos <= y + yRange; yPos++)
@@ -321,6 +323,11 @@ public class Hammer extends HarvestTool
                                                 {
                                                     localBlock.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
                                                 }
+
+                                                // Workaround for dropping experience
+                                                int exp = localBlock.getExpDrop(world, localMeta, fortune);
+                                                localBlock.dropXpOnBlockBreak(world, xPos, yPos, zPos, exp);
+
                                                 localBlock.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
                                                 localBlock.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
                                                 if (blockHardness > 0f)
