@@ -169,6 +169,7 @@ public class Scythe extends Weapon
             return false;
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         boolean butter = EnchantmentHelper.getEnchantmentLevel(Enchantment.silkTouch.effectId, stack) > 0;
+        int fortune = EnchantmentHelper.getFortuneModifier(player);
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
             for (int yPos = y - 1; yPos <= y + 1; yPos++)
@@ -222,12 +223,25 @@ public class Scythe extends Weapon
                                             }
                                             else
                                             {
-                                                if (localBlock.removedByPlayer(world, player, xPos, yPos, zPos))
-                                                {
-                                                    localBlock.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
-                                                }
-                                                localBlock.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
-                                                localBlock.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
+                                            	if (!world.isRemote)
+                                            	{
+                                            		// Workaround for dropping experience                                            	
+                                            		int exp = localBlock.getExpDrop(world, localMeta, fortune);
+                                            		
+                                            		localBlock.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
+                                            		if (localBlock.removedByPlayer(world, player, xPos, yPos, zPos, true))
+                                            		{
+                                            			localBlock.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
+                                            			localBlock.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
+                                            			// Workaround for dropping experience
+                                            			localBlock.dropXpOnBlockBreak(world, xPos, yPos, zPos, exp);
+                                            		}
+                                            	}
+                                            	else
+                                            	{
+                                            		localBlock.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
+                                            	}
+                                            	
                                                 if (localHardness > 0f)
                                                     onBlockDestroyed(stack, world, localBlock, xPos, yPos, zPos, player);
                                             }
