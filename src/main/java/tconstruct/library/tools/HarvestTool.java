@@ -47,6 +47,7 @@ public abstract class HarvestTool extends ToolCore
             float blockHardness = block.getBlockHardness(world, x, y, z);
             float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.getBlockHardness(world, x, y, z);
 
+            //Choose blocks that aren't too much harder than the first block. Stone: 2.0, Ores: 3.0
             if (hlvl <= toolLevel && localHardness - 1.5 <= blockHardness)
             {
                 boolean cancelHarvest = false;
