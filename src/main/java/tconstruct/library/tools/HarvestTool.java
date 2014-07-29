@@ -39,16 +39,12 @@ public abstract class HarvestTool extends ToolCore
         int hlvl = -1;
         if (!(tags.getBoolean("Broken")))
         {
-            Block localBlock = world.getBlock(x, y, z);
-            int localMeta = world.getBlockMetadata(x, y, z);
             if (block.getHarvestTool(meta) != null && block.getHarvestTool(meta).equals(this.getHarvestType()))
                 hlvl = block.getHarvestLevel(meta);
             int toolLevel = tags.getInteger("HarvestLevel");
             float blockHardness = block.getBlockHardness(world, x, y, z);
-            float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.getBlockHardness(world, x, y, z);
 
-            //Choose blocks that aren't too much harder than the first block. Stone: 2.0, Ores: 3.0
-            if (hlvl <= toolLevel && localHardness - 1.5 <= blockHardness)
+            if (hlvl <= toolLevel)
             {
                 boolean cancelHarvest = false;
                 for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
@@ -59,21 +55,21 @@ public abstract class HarvestTool extends ToolCore
 
                 if (!cancelHarvest)
                 {
-                    if (localBlock != null && !(localHardness < 0))
+                    if (block != null)
                     {
 
                         boolean isEffective = false;
 
                         for (int iter = 0; iter < getEffectiveMaterials().length; iter++)
                         {
-                            if (getEffectiveMaterials()[iter] == localBlock.getMaterial() || localBlock == Blocks.monster_egg)
+                            if (getEffectiveMaterials()[iter] == block.getMaterial() || block == Blocks.monster_egg)
                             {
                                 isEffective = true;
                                 break;
                             }
                         }
 
-                        if (localBlock.getMaterial().isToolNotRequired())
+                        if (block.getMaterial().isToolNotRequired() || block.getHarvestTool(meta) == null)
                         {
                             isEffective = true;
                         }
@@ -82,20 +78,27 @@ public abstract class HarvestTool extends ToolCore
                         {
                             if (isEffective)
                             {
-                                if (localBlock.removedByPlayer(world, player, x, y, z))
-                                {
-                                    localBlock.onBlockDestroyedByPlayer(world, x, y, z, localMeta);
-                                }
-
-                                // Workaround for dropping experience
-                                int fortune = EnchantmentHelper.getFortuneModifier(player);
-                                int exp = localBlock.getExpDrop(world, localMeta, fortune);
-                                localBlock.dropXpOnBlockBreak(world, x, y, z, exp);
-
-                                localBlock.harvestBlock(world, player, x, y, z, localMeta);
-                                localBlock.onBlockHarvested(world, x, y, z, localMeta, player);
-                                if (blockHardness > 0f)
-                                    onBlockDestroyed(stack, world, localBlock, x, y, z, player);
+                            	if (!world.isRemote)
+                            	{
+                            		// Workaround for dropping experience
+                            		int fortune = EnchantmentHelper.getFortuneModifier(player);
+                            		int exp = block.getExpDrop(world, meta, fortune);
+                            		
+                            		block.onBlockHarvested(world, x, y, z, meta, player);
+                            		if (block.removedByPlayer(world, player, x, y, z, true))
+                            		{
+                            			block.onBlockDestroyedByPlayer(world, x, y, z, meta);
+                            			block.harvestBlock(world, player, x, y, z, meta);
+                            			// Workaround for dropping experience
+                            			block.dropXpOnBlockBreak(world, x, y, z, exp);
+                            		}
+                            	}
+                            	else
+                            	{
+                            		block.onBlockDestroyedByPlayer(world, x, y, z, meta);
+                            	}                                
+                            	if (blockHardness > 0f)
+                                    onBlockDestroyed(stack, world, block, x, y, z, player);
                                 world.func_147479_m(x, y, z);
                             }
                             else
