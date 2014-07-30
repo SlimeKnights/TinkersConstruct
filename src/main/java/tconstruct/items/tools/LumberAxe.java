@@ -3,6 +3,7 @@ package tconstruct.items.tools;
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -198,6 +199,8 @@ public class LumberAxe extends HarvestTool
     void breakTree (World world, int x, int y, int z, ItemStack stack, NBTTagCompound tags, Block bID, int meta, EntityPlayer player)
     {
         Block block;
+        final int fortune = EnchantmentHelper.getFortuneModifier(player);
+
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
             for (int yPos = y; yPos <= y + 1; yPos++)
@@ -246,6 +249,11 @@ public class LumberAxe extends HarvestTool
                                             {
                                                 block.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, meta);
                                             }
+
+                                            // Workaround for dropping experience
+                                            int exp = localblock.getExpDrop(world, meta, fortune);
+                                            localblock.dropXpOnBlockBreak(world, xPos, yPos, zPos, exp);
+
                                             block.harvestBlock(world, player, xPos, yPos, zPos, meta);
                                             block.onBlockHarvested(world, xPos, yPos, zPos, meta, player);
                                             onBlockDestroyed(stack, world, localblock, xPos, yPos, zPos, player);
@@ -280,6 +288,8 @@ public class LumberAxe extends HarvestTool
 
     void destroyWood (World world, int x, int y, int z, ItemStack stack, NBTTagCompound tags, EntityPlayer player)
     {
+        final int fortune = EnchantmentHelper.getFortuneModifier(player);
+
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
             for (int yPos = y - 1; yPos <= y + 1; yPos++)
@@ -305,13 +315,17 @@ public class LumberAxe extends HarvestTool
 
                                 if (!cancelHarvest)
                                 {
-                                    WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
                                     if (!player.capabilities.isCreativeMode)
                                     {
                                         // TODO harvestBlock
+                                        int exp = block.getExpDrop(world, meta, fortune);
+                                        block.dropXpOnBlockBreak(world, xPos, yPos, zPos, exp);
+
                                         block.harvestBlock(world, player, xPos, yPos, zPos, meta);
                                         onBlockDestroyed(stack, world, block, xPos, yPos, zPos, player);
                                     }
+                                    WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
+                                    world.func_147479_m(xPos, yPos, zPos);
                                 }
                             }
                         }
