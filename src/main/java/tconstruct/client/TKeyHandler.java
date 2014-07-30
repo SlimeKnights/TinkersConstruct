@@ -78,10 +78,10 @@ public abstract class TKeyHandler
             boolean state = (keyCode < 0 ? Mouse.isButtonDown(keyCode + 100) : Keyboard.isKeyDown(keyCode));
             if (state != keyDown[i] || (state && repeatings[i]))
             {
-                if (state)
-                {
-                	keyDown(type, keyBinding, tickEnd, state != keyDown[i]);
-                }
+				if (state)
+				{
+					keyDown(type, keyBinding, tickEnd, state != keyDown[i]);
+				}
                 else
                 {
                     keyUp(type, keyBinding, tickEnd);

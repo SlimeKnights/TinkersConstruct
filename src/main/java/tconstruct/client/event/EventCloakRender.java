@@ -17,11 +17,7 @@ import javax.swing.ImageIcon;
 import mantle.lib.environment.EnvironmentChecks;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraftforge.client.event.RenderPlayerEvent;
-
-import org.apache.logging.log4j.Level;
-
 import tconstruct.TConstruct;
-import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
@@ -140,15 +136,9 @@ public class EventCloakRender
         }
     }
 
-    public void refreshCapes ()
-    {
-    	if (cloaks != null) {
-    		cloaks.clear();
-    		capePlayers.clear();
-    		buildCloakURLDatabase();
-    	} else {
-    		FMLLog.log("TConstruct", Level.WARN, "Cloaks was NULL!");
-    		buildCloakURLDatabase();
-    	}
-    }
+	public void refreshCapes() {
+		cloaks.clear();
+		capePlayers.clear();
+		buildCloakURLDatabase();
+	}
 }

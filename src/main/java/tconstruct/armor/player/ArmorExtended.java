@@ -17,7 +17,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import tconstruct.library.accessory.IHealthAccessory;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.ByteBufUtils;
 
 public class ArmorExtended implements IInventory
@@ -132,8 +131,6 @@ public class ArmorExtended implements IInventory
 
     public void recalculateHealth (EntityPlayer player, TPlayerStats stats)
     {
-        FMLCommonHandler.instance().getEffectiveSide();
-
         if (inventory[4] != null || inventory[5] != null || inventory[6] != null)
         {
             int bonusHP = 0;
