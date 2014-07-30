@@ -423,7 +423,7 @@ public class TinkerToolEvents
             TinkerTools.modAttack.addStackToMatchList(evt.Ore, 2);
         }
 
-        else if (evt.Name == "crystalCerusQuartz")
+        else if (evt.Name == "crystalCertusQuartz")
         {
             TinkerTools.modAttack.addStackToMatchList(evt.Ore, 24);
         }
