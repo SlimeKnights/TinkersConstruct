@@ -276,25 +276,25 @@ public class Battleaxe extends HarvestTool
                         {
                             if (!player.capabilities.isCreativeMode)
                             {
-                            	if (!world.isRemote)
-                            	{
-                            		// Workaround for dropping experience
-                            		int exp = block.getExpDrop(world, localMeta, fortune);
-                            		
-                            		block.onBlockHarvested(world, x, yPos, z, localMeta, player);
-                            		if (block.removedByPlayer(world, player, x, yPos, z, true))
-                            		{
-                            			block.onBlockDestroyedByPlayer(world, x, yPos, z, localMeta);
-                            			block.harvestBlock(world, player, x, yPos, z, localMeta);
-                            			// Workaround for dropping experience
-                            			block.dropXpOnBlockBreak(world, x, yPos, z, exp);
-                            		}
-                            	}
-                            	else
-                            	{
-                            		block.onBlockDestroyedByPlayer(world, x, yPos, z, localMeta);
-                            	}
-                              onBlockDestroyed(stack, world, block, x, yPos, z, player);                               
+                                if (!world.isRemote)
+                                {
+                                    // Workaround for dropping experience
+                                    int exp = block.getExpDrop(world, localMeta, fortune);
+
+                                    block.onBlockHarvested(world, x, yPos, z, localMeta, player);
+                                    if (block.removedByPlayer(world, player, x, yPos, z, true))
+                                    {
+                                        block.onBlockDestroyedByPlayer(world, x, yPos, z, localMeta);
+                                        block.harvestBlock(world, player, x, yPos, z, localMeta);
+                                        // Workaround for dropping experience
+                                        block.dropXpOnBlockBreak(world, x, yPos, z, exp);
+                                    }
+                                }
+                                else
+                                {
+                                    block.onBlockDestroyedByPlayer(world, x, yPos, z, localMeta);
+                                }
+                                onBlockDestroyed(stack, world, block, x, yPos, z, player);
                             }
                             else
                             {

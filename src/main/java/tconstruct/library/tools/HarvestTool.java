@@ -78,26 +78,26 @@ public abstract class HarvestTool extends ToolCore
                         {
                             if (isEffective)
                             {
-                            	if (!world.isRemote)
-                            	{
-                            		// Workaround for dropping experience
-                            		int fortune = EnchantmentHelper.getFortuneModifier(player);
-                            		int exp = block.getExpDrop(world, meta, fortune);
-                            		
-                            		block.onBlockHarvested(world, x, y, z, meta, player);
-                            		if (block.removedByPlayer(world, player, x, y, z, true))
-                            		{
-                            			block.onBlockDestroyedByPlayer(world, x, y, z, meta);
-                            			block.harvestBlock(world, player, x, y, z, meta);
-                            			// Workaround for dropping experience
-                            			block.dropXpOnBlockBreak(world, x, y, z, exp);
-                            		}
-                            	}
-                            	else
-                            	{
-                            		block.onBlockDestroyedByPlayer(world, x, y, z, meta);
-                            	}                                
-                            	if (blockHardness > 0f)
+                                if (!world.isRemote)
+                                {
+                                    // Workaround for dropping experience
+                                    int fortune = EnchantmentHelper.getFortuneModifier(player);
+                                    int exp = block.getExpDrop(world, meta, fortune);
+
+                                    block.onBlockHarvested(world, x, y, z, meta, player);
+                                    if (block.removedByPlayer(world, player, x, y, z, true))
+                                    {
+                                        block.onBlockDestroyedByPlayer(world, x, y, z, meta);
+                                        block.harvestBlock(world, player, x, y, z, meta);
+                                        // Workaround for dropping experience
+                                        block.dropXpOnBlockBreak(world, x, y, z, exp);
+                                    }
+                                }
+                                else
+                                {
+                                    block.onBlockDestroyedByPlayer(world, x, y, z, meta);
+                                }
+                                if (blockHardness > 0f)
                                     onBlockDestroyed(stack, world, block, x, y, z, player);
                                 world.func_147479_m(x, y, z);
                             }

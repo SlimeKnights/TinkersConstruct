@@ -52,25 +52,25 @@ public abstract class DualHarvestTool extends HarvestTool
         {
             if (!player.capabilities.isCreativeMode)
             {
-            	if (!world.isRemote)
-            	{
-            		// Workaround for dropping experience
-            		int fortune = EnchantmentHelper.getFortuneModifier(player);
-            		int exp = block.getExpDrop(world, meta, fortune);
-            		
-            		block.onBlockHarvested(world, x, y, z, meta, player);
-            		if (block.removedByPlayer(world, player, x, y, z, true))
-            		{
-            			block.onBlockDestroyedByPlayer(world, x, y, z, meta);
-            			block.harvestBlock(world, player, x, y, z, meta);
-            			// Workaround for dropping experience
-            			block.dropXpOnBlockBreak(world, x, y, z, exp);
-            		}
-            	}
-            	else
-            	{
-            		block.onBlockDestroyedByPlayer(world, x, y, z, meta);
-            	}
+                if (!world.isRemote)
+                {
+                    // Workaround for dropping experience
+                    int fortune = EnchantmentHelper.getFortuneModifier(player);
+                    int exp = block.getExpDrop(world, meta, fortune);
+
+                    block.onBlockHarvested(world, x, y, z, meta, player);
+                    if (block.removedByPlayer(world, player, x, y, z, true))
+                    {
+                        block.onBlockDestroyedByPlayer(world, x, y, z, meta);
+                        block.harvestBlock(world, player, x, y, z, meta);
+                        // Workaround for dropping experience
+                        block.dropXpOnBlockBreak(world, x, y, z, exp);
+                    }
+                }
+                else
+                {
+                    block.onBlockDestroyedByPlayer(world, x, y, z, meta);
+                }
             }
             WorldHelper.setBlockToAir(world, x, y, z);
             if (!world.isRemote)
