@@ -258,7 +258,6 @@ public class Battleaxe extends HarvestTool
             Block block = world.getBlock(x, yPos, z);
             if (!(tags.getBoolean("Broken")) && block != null && block.getMaterial() == Material.wood)
             {
-                Block localblock = world.getBlock(x, yPos, z);
                 int localMeta = world.getBlockMetadata(x, yPos, z);
                 int hlvl = block.getHarvestLevel(meta);
 
@@ -275,20 +274,26 @@ public class Battleaxe extends HarvestTool
                     {
                         if (block != null && block.getMaterial() == Material.wood)
                         {
-                            localMeta = world.getBlockMetadata(x, yPos, z);
                             if (!player.capabilities.isCreativeMode)
                             {
-                                if (block.removedByPlayer(world, player, x, yPos, z))
+                                if (!world.isRemote)
+                                {
+                                    // Workaround for dropping experience
+                                    int exp = block.getExpDrop(world, localMeta, fortune);
+
+                                    block.onBlockHarvested(world, x, yPos, z, localMeta, player);
+                                    if (block.removedByPlayer(world, player, x, yPos, z, true))
+                                    {
+                                        block.onBlockDestroyedByPlayer(world, x, yPos, z, localMeta);
+                                        block.harvestBlock(world, player, x, yPos, z, localMeta);
+                                        // Workaround for dropping experience
+                                        block.dropXpOnBlockBreak(world, x, yPos, z, exp);
+                                    }
+                                }
+                                else
                                 {
                                     block.onBlockDestroyedByPlayer(world, x, yPos, z, localMeta);
                                 }
-
-                                // Workaround for dropping experience
-                                int exp = block.getExpDrop(world, localMeta, fortune);
-                                block.dropXpOnBlockBreak(world, x, y, z, exp);
-
-                                block.harvestBlock(world, player, x, yPos, z, localMeta);
-                                block.onBlockHarvested(world, x, yPos, z, localMeta, player);
                                 onBlockDestroyed(stack, world, block, x, yPos, z, player);
                             }
                             else

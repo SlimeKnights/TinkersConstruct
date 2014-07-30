@@ -245,24 +245,33 @@ public class LumberAxe extends HarvestTool
                                          */
                                         if (!player.capabilities.isCreativeMode)
                                         {
-                                            if (block.removedByPlayer(world, player, xPos, yPos, zPos))
+                                            if (!world.isRemote)
+                                            {
+                                                // Workaround for dropping experience
+                                                int exp = block.getExpDrop(world, meta, fortune);
+
+                                                block.onBlockHarvested(world, xPos, yPos, zPos, meta, player);
+                                                if (block.removedByPlayer(world, player, xPos, yPos, zPos, true))
+                                                {
+                                                    block.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, meta);
+                                                    block.harvestBlock(world, player, xPos, yPos, zPos, meta);
+                                                    // Workaround for dropping experience
+                                                    block.dropXpOnBlockBreak(world, xPos, yPos, zPos, exp);
+                                                }
+                                            }
+                                            else
                                             {
                                                 block.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, meta);
                                             }
-
-                                            // Workaround for dropping experience
-                                            int exp = localblock.getExpDrop(world, meta, fortune);
-                                            localblock.dropXpOnBlockBreak(world, xPos, yPos, zPos, exp);
-
-                                            block.harvestBlock(world, player, xPos, yPos, zPos, meta);
-                                            block.onBlockHarvested(world, xPos, yPos, zPos, meta, player);
                                             onBlockDestroyed(stack, world, localblock, xPos, yPos, zPos, player);
+
                                         }
                                         else
                                         {
                                             WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
                                         }
-                                        breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player);
+                                        if (!world.isRemote)
+                                        	breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player);
                                     }
                                     /*
                                      * else { Block leaves =
@@ -317,11 +326,24 @@ public class LumberAxe extends HarvestTool
                                 {
                                     if (!player.capabilities.isCreativeMode)
                                     {
-                                        // TODO harvestBlock
-                                        int exp = block.getExpDrop(world, meta, fortune);
-                                        block.dropXpOnBlockBreak(world, xPos, yPos, zPos, exp);
+                                        if (!world.isRemote)
+                                        {
+                                            // Workaround for dropping experience
+                                            int exp = block.getExpDrop(world, meta, fortune);
 
-                                        block.harvestBlock(world, player, xPos, yPos, zPos, meta);
+                                            block.onBlockHarvested(world, xPos, yPos, zPos, meta, player);
+                                            if (block.removedByPlayer(world, player, xPos, yPos, zPos, true))
+                                            {
+                                                block.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, meta);
+                                                block.harvestBlock(world, player, xPos, yPos, zPos, meta);
+                                                // Workaround for dropping experience
+                                                block.dropXpOnBlockBreak(world, xPos, yPos, zPos, exp);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            block.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, meta);
+                                        }
                                         onBlockDestroyed(stack, world, block, xPos, yPos, zPos, player);
                                     }
                                     WorldHelper.setBlockToAir(world, xPos, yPos, zPos);

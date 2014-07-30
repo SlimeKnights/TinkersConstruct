@@ -300,6 +300,7 @@ public class Hammer extends HarvestTool
                             hlvl = localBlock.getHarvestLevel(localMeta);
                         float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.getBlockHardness(world, xPos, yPos, zPos);
 
+                        //Choose blocks that aren't too much harder than the first block. Stone: 2.0, Ores: 3.0
                         if (hlvl <= toolLevel && localHardness - 1.5 <= blockHardness)
                         {
                             boolean cancelHarvest = false;
@@ -319,17 +320,25 @@ public class Hammer extends HarvestTool
                                         {
                                             if (!player.capabilities.isCreativeMode)
                                             {
-                                                if (localBlock.removedByPlayer(world, player, xPos, yPos, zPos))
+                                                if (!world.isRemote)
+                                                {
+                                                    // Workaround for dropping experience
+                                                    int exp = localBlock.getExpDrop(world, localMeta, fortune);
+
+                                                    localBlock.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
+                                                    if (localBlock.removedByPlayer(world, player, xPos, yPos, zPos, true))
+                                                    {
+                                                        localBlock.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
+                                                        localBlock.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
+                                                        // Workaround for dropping experience
+                                                        localBlock.dropXpOnBlockBreak(world, xPos, yPos, zPos, exp);
+                                                    }
+                                                }
+                                                else
                                                 {
                                                     localBlock.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
                                                 }
 
-                                                // Workaround for dropping experience
-                                                int exp = localBlock.getExpDrop(world, localMeta, fortune);
-                                                localBlock.dropXpOnBlockBreak(world, xPos, yPos, zPos, exp);
-
-                                                localBlock.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
-                                                localBlock.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
                                                 if (blockHardness > 0f)
                                                     onBlockDestroyed(stack, world, localBlock, xPos, yPos, zPos, player);
                                                 world.func_147479_m(x, y, z);

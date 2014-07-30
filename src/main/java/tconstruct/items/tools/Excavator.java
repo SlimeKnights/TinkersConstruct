@@ -219,17 +219,24 @@ public class Excavator extends HarvestTool
                                         {
                                             if (!player.capabilities.isCreativeMode)
                                             {
-                                                if (block.removedByPlayer(world, player, xPos, yPos, zPos))
+                                                if (!world.isRemote)
+                                                {
+                                                    // Workaround for dropping experience
+                                                    int exp = block.getExpDrop(world, localMeta, fortune);
+
+                                                    block.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
+                                                    if (block.removedByPlayer(world, player, xPos, yPos, zPos, true))
+                                                    {
+                                                        block.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
+                                                        block.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
+                                                        // Workaround for dropping experience
+                                                        block.dropXpOnBlockBreak(world, xPos, yPos, zPos, exp);
+                                                    }
+                                                }
+                                                else
                                                 {
                                                     block.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
                                                 }
-
-                                                // Workaround for dropping experience
-                                                int exp = block.getExpDrop(world, localMeta, fortune);
-                                                block.dropXpOnBlockBreak(world, xPos, yPos, zPos, exp);
-
-                                                block.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
-                                                block.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
                                                 if (blockHardness > 0f)
                                                     onBlockDestroyed(stack, world, localblock, xPos, yPos, zPos, player);
                                             }
