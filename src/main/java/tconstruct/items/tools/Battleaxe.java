@@ -258,7 +258,6 @@ public class Battleaxe extends HarvestTool
             Block block = world.getBlock(x, yPos, z);
             if (!(tags.getBoolean("Broken")) && block != null && block.getMaterial() == Material.wood)
             {
-                Block localblock = world.getBlock(x, yPos, z);
                 int localMeta = world.getBlockMetadata(x, yPos, z);
                 int hlvl = block.getHarvestLevel(meta);
 

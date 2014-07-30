@@ -1,6 +1,5 @@
 package tconstruct.world.model;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -12,9 +11,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class CrystalRender extends RenderLiving
 {
-    /** The creeper model. */
-    private ModelBase creeperModel = new CrystalModelSmall();
-
     public CrystalRender()
     {
         super(new CrystalModelSmall(), 0.5F);

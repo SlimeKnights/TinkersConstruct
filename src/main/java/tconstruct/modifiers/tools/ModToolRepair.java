@@ -70,7 +70,6 @@ public class ModToolRepair extends ItemModifier
     private int calculateIncrease (ItemStack tool, int materialValue, int itemsUsed)
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
-        int damage = tags.getInteger("Damage");
         int dur = tags.getInteger("BaseDurability");
         int increase = (int) (50 * itemsUsed + (dur * 0.4f * materialValue));
 
@@ -100,7 +99,6 @@ public class ModToolRepair extends ItemModifier
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         tags.setBoolean("Broken", false);
         int damage = tags.getInteger("Damage");
-        int dur = tags.getInteger("BaseDurability");
         int itemsUsed = 0;
 
         int materialValue = 0;

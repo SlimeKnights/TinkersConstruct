@@ -4,19 +4,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
-import tconstruct.TConstruct;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.tools.AbilityHelper;
 
 public class SlotCraftingStation extends SlotCrafting
 {
     private final IInventory matrix;
-    private EntityPlayer player;
     public SlotCraftingStation(EntityPlayer par1EntityPlayer, IInventory par2IInventory, IInventory par3iInventory, int par4, int par5, int par6)
     {
         super(par1EntityPlayer, par2IInventory, par3iInventory, par4, par5, par6);
         this.matrix = par2IInventory;
-        this.player = par1EntityPlayer;
     }
 
     @Override

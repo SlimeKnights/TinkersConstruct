@@ -117,7 +117,6 @@ public class SmelteryGui extends NewContainerGui
         for (FluidStack liquid : logic.moltenMetal)
         {
             int basePos = 54;
-            int initialLiquidSize = 0;
             int liquidSize = 0;// liquid.amount * 52 / liquidLayers;
             if (logic.getCapacity() > 0)
             {
@@ -157,8 +156,6 @@ public class SmelteryGui extends NewContainerGui
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/smeltery.png");
     private static final ResourceLocation backgroundSide = new ResourceLocation("tinker", "textures/gui/smelteryside.png");
-    private static final ResourceLocation terrain = new ResourceLocation("terrain.png");
-
     @Override
     protected void drawGuiContainerBackgroundLayer (float f, int mouseX, int mouseY)
     {
@@ -450,7 +447,6 @@ public class SmelteryGui extends NewContainerGui
         for (FluidStack liquid : logic.moltenMetal)
         {
             int basePos = 54;
-            int initialLiquidSize = 0;
             int liquidSize = 0;// liquid.amount * 52 / liquidLayers;
             if (logic.getCapacity() > 0)
             {

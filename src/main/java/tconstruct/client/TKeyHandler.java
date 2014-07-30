@@ -80,7 +80,7 @@ public abstract class TKeyHandler
             {
                 if (state)
                 {
-                    keyDown(type, keyBinding, tickEnd, state != keyDown[i]);
+                	keyDown(type, keyBinding, tickEnd, state != keyDown[i]);
                 }
                 else
                 {

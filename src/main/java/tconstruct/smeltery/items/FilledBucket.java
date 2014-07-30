@@ -37,10 +37,6 @@ public class FilledBucket extends ItemBucket
     @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
-        float var4 = 1.0F;
-        double trueX = player.prevPosX + (player.posX - player.prevPosX) * (double) var4;
-        double trueY = player.prevPosY + (player.posY - player.prevPosY) * (double) var4 + 1.62D - (double) player.yOffset;
-        double trueZ = player.prevPosZ + (player.posZ - player.prevPosZ) * (double) var4;
         boolean wannabeFull = false;
         MovingObjectPosition position = this.getMovingObjectPositionFromPlayer(world, player, wannabeFull);
 

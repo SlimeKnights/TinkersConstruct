@@ -4,7 +4,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import tconstruct.armor.items.TravelGear;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.client.TControls;
 import tconstruct.library.modifier.IModifyable;

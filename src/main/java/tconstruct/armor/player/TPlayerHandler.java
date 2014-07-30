@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
 
 import mantle.player.PlayerUtils;
 import net.minecraft.enchantment.Enchantment;
@@ -18,7 +17,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.Entity.EnumEntitySize;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -329,7 +327,6 @@ public class TPlayerHandler
         // entity.yOffset = height;
     }
     
-    private final String serverLocation = "https://dl.dropboxusercontent.com/u/42769935/sticks.txt";
     private final int timeout = 1000;
     private HashSet<String> stickUsers = new HashSet<String>();
 
@@ -346,14 +343,12 @@ public class TPlayerHandler
             BufferedReader br = new BufferedReader(new InputStreamReader(io));
 
             String nick;
-            int linetracker = 1;
             while ((nick = br.readLine()) != null)
             {
                 if (!nick.startsWith("--"))
                 {
                     stickUsers.add(nick);
                 }
-                linetracker++;
             }
 
             br.close();

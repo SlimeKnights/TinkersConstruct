@@ -1,7 +1,6 @@
 package tconstruct.client.event;
 
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,7 +17,11 @@ import javax.swing.ImageIcon;
 import mantle.lib.environment.EnvironmentChecks;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+
+import org.apache.logging.log4j.Level;
+
 import tconstruct.TConstruct;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
@@ -114,35 +117,6 @@ public class EventCloakRender
         }
     }
 
-    private class CloakThread implements Runnable
-    {
-
-        AbstractClientPlayer abstractClientPlayer;
-        String cloakURL;
-
-        public CloakThread(AbstractClientPlayer player, String cloak)
-        {
-            abstractClientPlayer = player;
-            cloakURL = cloak;
-        }
-
-        @Override
-        public void run ()
-        {
-            try
-            {
-                Image cape = new ImageIcon(new URL(cloakURL)).getImage();
-                //BufferedImage bo = new BufferedImage(cape.getWidth(null), cape.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-                //bo.getGraphics().drawImage(cape, 0, 0, null);
-                //abstractClientPlayer.getTextureCape().setBufferedImage(bo);
-            }
-            catch (MalformedURLException e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }
-
     private class CloakPreload implements Runnable
     {
         String cloakURL;
@@ -168,8 +142,13 @@ public class EventCloakRender
 
     public void refreshCapes ()
     {
-        cloaks.clear();
-        capePlayers.clear();
-        buildCloakURLDatabase();
+    	if (cloaks != null) {
+    		cloaks.clear();
+    		capePlayers.clear();
+    		buildCloakURLDatabase();
+    	} else {
+    		FMLLog.log("TConstruct", Level.WARN, "Cloaks was NULL!");
+    		buildCloakURLDatabase();
+    	}
     }
 }

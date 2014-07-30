@@ -264,7 +264,6 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     @Override
     public boolean canDrain (ForgeDirection from, Fluid fluid)
     {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -441,14 +440,12 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     @Override
     public void closeInventory ()
     {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void openInventory ()
     {
-        // TODO Auto-generated method stub
 
     }
 }
