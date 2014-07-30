@@ -24,6 +24,9 @@ public class ModAntiSpider extends ItemModTypeFilter
         if (!tags.hasKey(key))
             return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
 
+        if(matchingAmount(input) > max)
+            return false;
+
         int keyPair[] = tags.getIntArray(key);
         if (keyPair[0] + matchingAmount(input) <= keyPair[1])
             return true;
