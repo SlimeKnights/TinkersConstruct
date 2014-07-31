@@ -6,6 +6,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -74,6 +75,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     @Override
     public IIcon getIcon (int side, int metadata)
     {
+        this.setGraphicsLevel(Minecraft.getMinecraft().gameSettings.fancyGraphics);
         if (field_150121_P)
         {
             if (metadata < 12)
