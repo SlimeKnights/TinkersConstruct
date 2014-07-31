@@ -127,6 +127,8 @@ tile.cloth.black.slab.name=黑色羊毛台阶
 tile.GlueBlock.name=凝胶方块
 tile.liquid.glue.name=凝胶
 
+tile.Frypan.name=煎锅
+
 item.oreberry.iron.name=铁矿莓
 item.oreberry.gold.name=金矿莓
 item.oreberry.copper.name=锡矿莓
@@ -528,6 +530,9 @@ entity.TConstruct.MiniGardy.name=迷你史莱姆护卫
 key.tconstruct.category=匠魂
 key.tarmor=装备界面
 key.tcapes.reload=重载披风
+key.tbelt=腰带
+key.tgoggles=护目镜
+key.tzoom=放大
 
 death.one.smeltery=%1$s被加工成了"绿色食品"!
 death.two.smeltery=%1$s被冶炼炉融化了!
@@ -714,6 +719,7 @@ gui.smeltery.glass.block=方块:
 gui.smeltery.glass.pannel=板: 
 gui.smeltery.metal.ingot=锭: 
 gui.smeltery.metal.nugget=粒: 
+gui.smeltery.molten.check=熔融
 gui.landmine=地雷
 gui.partcrafter1=合成工具部件
 gui.partcrafter2=锻造工具
