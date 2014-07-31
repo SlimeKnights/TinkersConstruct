@@ -41,7 +41,7 @@ public class TinkerSmelteryEvents
     @SubscribeEvent
     public void bucketFill (FillBucketEvent evt)
     {
-        if (evt.current.getItem() == Items.bucket && evt.target.typeOfHit == MovingObjectType.ENTITY)
+        if (evt.current.getItem() == Items.bucket && evt.target.typeOfHit == MovingObjectType.BLOCK)
         {
             int hitX = evt.target.blockX;
             int hitY = evt.target.blockY;
