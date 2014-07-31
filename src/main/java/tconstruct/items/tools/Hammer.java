@@ -284,7 +284,6 @@ public class Hammer extends HarvestTool
 
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         int toolLevel = tags.getInteger("HarvestLevel");
-        int fortune = EnchantmentHelper.getFortuneModifier(player);
         for (int xPos = x - xRange; xPos <= x + xRange; xPos++)
         {
             for (int yPos = y - yRange; yPos <= y + yRange; yPos++)
@@ -300,6 +299,7 @@ public class Hammer extends HarvestTool
                             hlvl = localBlock.getHarvestLevel(localMeta);
                         float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.getBlockHardness(world, xPos, yPos, zPos);
 
+                        //Choose blocks that aren't too much harder than the first block. Stone: 2.0, Ores: 3.0
                         if (hlvl <= toolLevel && localHardness - 1.5 <= blockHardness)
                         {
                             boolean cancelHarvest = false;
@@ -319,17 +319,8 @@ public class Hammer extends HarvestTool
                                         {
                                             if (!player.capabilities.isCreativeMode)
                                             {
-                                                if (localBlock.removedByPlayer(world, player, xPos, yPos, zPos))
-                                                {
-                                                    localBlock.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
-                                                }
+                                                mineBlock(world, xPos, yPos, zPos, localMeta, player, localBlock);
 
-                                                // Workaround for dropping experience
-                                                int exp = localBlock.getExpDrop(world, localMeta, fortune);
-                                                localBlock.dropXpOnBlockBreak(world, xPos, yPos, zPos, exp);
-
-                                                localBlock.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
-                                                localBlock.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
                                                 if (blockHardness > 0f)
                                                     onBlockDestroyed(stack, world, localBlock, xPos, yPos, zPos, player);
                                                 world.func_147479_m(x, y, z);

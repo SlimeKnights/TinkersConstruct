@@ -198,9 +198,6 @@ public class LumberAxe extends HarvestTool
 
     void breakTree (World world, int x, int y, int z, ItemStack stack, NBTTagCompound tags, Block bID, int meta, EntityPlayer player)
     {
-        Block block;
-        final int fortune = EnchantmentHelper.getFortuneModifier(player);
-
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
             for (int yPos = y; yPos <= y + 1; yPos++)
@@ -209,12 +206,11 @@ public class LumberAxe extends HarvestTool
                 {
                     if (!(tags.getBoolean("Broken")))
                     {
-                        Block localblock = world.getBlock(xPos, yPos, zPos);
-                        if (bID == localblock)
+                        Block localBlock = world.getBlock(xPos, yPos, zPos);
+                        if (bID == localBlock)
                         {
-                            block = localblock;
-                            meta = world.getBlockMetadata(xPos, yPos, zPos);
-                            int hlvl = block.getHarvestLevel(meta);
+                            int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
+                            int hlvl = localBlock.getHarvestLevel(localMeta);
 
                             if (hlvl <= tags.getInteger("HarvestLevel"))
                             {
@@ -231,7 +227,7 @@ public class LumberAxe extends HarvestTool
                                 }
                                 else
                                 {
-                                    if (localblock == bID && world.getBlockMetadata(xPos, yPos, zPos) % 4 == meta % 4)
+                                    if (localBlock == bID && localMeta % 4 == meta % 4)
                                     {
                                         /*
                                          * world.setBlock(xPos, yPos, zPos, 0,
@@ -245,24 +241,15 @@ public class LumberAxe extends HarvestTool
                                          */
                                         if (!player.capabilities.isCreativeMode)
                                         {
-                                            if (block.removedByPlayer(world, player, xPos, yPos, zPos))
-                                            {
-                                                block.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, meta);
-                                            }
-
-                                            // Workaround for dropping experience
-                                            int exp = localblock.getExpDrop(world, meta, fortune);
-                                            localblock.dropXpOnBlockBreak(world, xPos, yPos, zPos, exp);
-
-                                            block.harvestBlock(world, player, xPos, yPos, zPos, meta);
-                                            block.onBlockHarvested(world, xPos, yPos, zPos, meta, player);
-                                            onBlockDestroyed(stack, world, localblock, xPos, yPos, zPos, player);
+                                            mineBlock(world, xPos, yPos, zPos, localMeta, player, localBlock);
+                                            onBlockDestroyed(stack, world, localBlock, xPos, yPos, zPos, player);
                                         }
                                         else
                                         {
                                             WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
                                         }
-                                        breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player);
+                                        if (!world.isRemote)
+                                            breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player);
                                     }
                                     /*
                                      * else { Block leaves =
@@ -288,8 +275,6 @@ public class LumberAxe extends HarvestTool
 
     void destroyWood (World world, int x, int y, int z, ItemStack stack, NBTTagCompound tags, EntityPlayer player)
     {
-        final int fortune = EnchantmentHelper.getFortuneModifier(player);
-
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
             for (int yPos = y - 1; yPos <= y + 1; yPos++)
@@ -298,11 +283,11 @@ public class LumberAxe extends HarvestTool
                 {
                     if (!(tags.getBoolean("Broken")))
                     {
-                        Block block = world.getBlock(xPos, yPos, zPos);
-                        int meta = world.getBlockMetadata(xPos, yPos, zPos);
-                        int hlvl = block.getHarvestLevel(meta);
+                        Block localBlock = world.getBlock(xPos, yPos, zPos);
+                        int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
+                        int hlvl = localBlock.getHarvestLevel(localMeta);
 
-                        if (block != null && block.getMaterial() == Material.wood)
+                        if (localBlock != null && localBlock.getMaterial() == Material.wood)
                         {
                             if (hlvl <= tags.getInteger("HarvestLevel"))
                             {
@@ -317,12 +302,8 @@ public class LumberAxe extends HarvestTool
                                 {
                                     if (!player.capabilities.isCreativeMode)
                                     {
-                                        // TODO harvestBlock
-                                        int exp = block.getExpDrop(world, meta, fortune);
-                                        block.dropXpOnBlockBreak(world, xPos, yPos, zPos, exp);
-
-                                        block.harvestBlock(world, player, xPos, yPos, zPos, meta);
-                                        onBlockDestroyed(stack, world, block, xPos, yPos, zPos, player);
+                                        mineBlock(world, xPos, yPos, zPos, localMeta, player, localBlock);
+                                        onBlockDestroyed(stack, world, localBlock, xPos, yPos, zPos, player);
                                     }
                                     WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
                                     world.func_147479_m(xPos, yPos, zPos);
