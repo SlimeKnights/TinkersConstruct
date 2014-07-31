@@ -417,8 +417,8 @@ item.tconstruct.Fletching.leaf.name=Leaf Fletching
 item.tconstruct.Fletching.slime.name=Slime Fletching
 item.tconstruct.Fletching.blueslime.name=Slime Fletching
 
-item.tconstruct.manual.beginner.name=Materials and You
-item.tconstruct.manual.toolstation.name=Materials and You
+item.tconstruct.manual.beginner.name=Materials and You: Volume 1
+item.tconstruct.manual.toolstation.name=Materials and You: Volume 2
 item.tconstruct.manual.smeltery.name=Mighty Smelting
 item.tconstruct.manual.diary.name=Diary of a Tinker
 
