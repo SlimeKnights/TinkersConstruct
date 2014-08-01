@@ -260,7 +260,6 @@ public class ToolStationGui extends GuiContainer
             df.setRoundingMode(RoundingMode.DOWN);
             int attack = (int) (tags.getInteger("Attack"));
             float mass = tags.getFloat("Mass");
-            float shatter = tags.getFloat("BreakChance");
             float accuracy = tags.getFloat("Accuracy");
 
             this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation10"), 294, base + offset * 10, 0xffffff);

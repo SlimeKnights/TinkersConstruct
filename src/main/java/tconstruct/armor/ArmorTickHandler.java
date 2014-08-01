@@ -1,9 +1,7 @@
 package tconstruct.armor;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.init.Blocks;
 import tconstruct.client.TControls;
-import tconstruct.world.TinkerWorld;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.relauncher.Side;

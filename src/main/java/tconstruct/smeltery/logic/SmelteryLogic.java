@@ -418,7 +418,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         if (itemAdded)
         {
             this.needsUpdate = true;
-            //TODO 1.7.5 send description packet in better way to not cause render update
+            //TODO 1.7.10 send description packet in better way to not cause render update
             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         }
     }

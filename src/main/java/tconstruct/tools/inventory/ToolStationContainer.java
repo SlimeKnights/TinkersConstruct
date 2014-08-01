@@ -7,7 +7,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.library.event.ToolCraftedEvent;
 import tconstruct.library.modifier.IModifyable;
@@ -139,7 +138,6 @@ public class ToolStationContainer extends ActiveContainer
     {
         if (stack.getItem() instanceof IModifyable)
         {
-            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
             Boolean full = (logic.getStackInSlot(2) != null || logic.getStackInSlot(3) != null);
             for (int i = 2; i <= 3; i++)
                 logic.decrStackSize(i, 1);

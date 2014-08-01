@@ -79,8 +79,6 @@ public class TinkerWorldProxyClient extends TinkerWorldProxyCommon
     
     void registerManualRecipes ()
     {
-        ItemStack netherrack = new ItemStack(Blocks.netherrack);
-        ItemStack coal = new ItemStack(Items.coal);
         ItemStack log = new ItemStack(Blocks.log, 1, 0);
 
         ItemStack graveyardsoil = new ItemStack(TinkerTools.craftedSoil, 1, 3);

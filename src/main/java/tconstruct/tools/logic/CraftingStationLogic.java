@@ -136,14 +136,12 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
     @Override
     public void closeInventory ()
     {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void openInventory ()
     {
-        // TODO Auto-generated method stub
 
     }
 

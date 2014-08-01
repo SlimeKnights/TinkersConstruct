@@ -33,7 +33,6 @@ import tconstruct.library.armor.ArmorPart;
 import tconstruct.library.crafting.DryingRackRecipes;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.ModifyBuilder;
-import tconstruct.modifiers.accessory.GloveClimb;
 import tconstruct.modifiers.accessory.GloveSpeed;
 import tconstruct.modifiers.armor.AModBoolean;
 import tconstruct.modifiers.armor.AModInteger;
@@ -126,7 +125,6 @@ public class TinkerArmor
         // GameRegistry.registerItem(TRepo.glove, "glove");
         GameRegistry.registerItem(TinkerArmor.knapsack, "knapsack");
 
-        LiquidCasting basinCasting = TConstruct.getBasinCasting();
         TinkerArmor.materialWood = EnumHelper.addArmorMaterial("WOOD", 2, new int[] { 1, 2, 2, 1 }, 3);
         TinkerArmor.helmetWood = new ArmorBasic(TinkerArmor.materialWood, 0, "wood").setUnlocalizedName("tconstruct.helmetWood");
         TinkerArmor.chestplateWood = new ArmorBasic(TinkerArmor.materialWood, 1, "wood").setUnlocalizedName("tconstruct.chestplateWood");

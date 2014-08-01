@@ -152,8 +152,6 @@ public class BlockLandmine extends BlockContainer
     {
         TileEntityLandmine tileentity = (TileEntityLandmine) par1World.getTileEntity(par2, par3, par4);
 
-        int metadata = par1World.getBlockMetadata(par2, par3, par4);
-
         if (tileentity != null && (!explodeOnBroken || !hasItems(par1World, par2, par3, par4)) && par6 != 193 && !tileentity.isExploding)
         {
             if (this != null)
@@ -239,7 +237,6 @@ public class BlockLandmine extends BlockContainer
     public int onBlockPlaced (World par1World, int par2, int par3, int par4, int par5, float par6, float par7, float par8, int par9)
     {
         int j1 = par9 & 8;
-        int k1 = par9 & 7;
         byte b0 = -1;
 
         if (par5 == 0 && par1World.isSideSolid(par2, par3 + 1, par4, DOWN))
@@ -538,8 +535,6 @@ public class BlockLandmine extends BlockContainer
 
         int l = par1World.getBlockMetadata(par2, par3, par4);
         int i1 = l & 7;
-        boolean flag = (l & 8) > 0;
-
         float minX = par2 + f, minY = par3, minZ = par4 + f, maxX = par2 + 1 - f, maxY = par3 + 0.25F, maxZ = par4 + 1 - f;
 
         ForgeDirection dir = Helper.convertMetaToForgeOrientation(i1);
@@ -640,8 +635,6 @@ public class BlockLandmine extends BlockContainer
     {
         int l = par1IBlockAccess.getBlockMetadata(par2, par3, par4);
         int i1 = l & 7;
-        boolean flag = (l & 8) > 0;
-
         ForgeDirection dir = Helper.convertMetaToForgeOrientation(i1);
         switch (dir)
         {

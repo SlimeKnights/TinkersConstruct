@@ -52,8 +52,6 @@ public class RenderLandmine implements ISimpleBlockRenderingHandler
     {
         int l = world.getBlockMetadata(x, y, z);
         int i1 = l & 7;
-        boolean flag = (l & 8) > 0;
-
         ForgeDirection dir = Helper.convertMetaToForgeOrientation(i1);
 
         // TConstruct.logger.info(i1 + " for " + dir);

@@ -25,7 +25,6 @@ import org.lwjgl.opengl.GL12;
 
 import tconstruct.TConstruct;
 import tconstruct.client.gui.NewContainerGui;
-import tconstruct.library.component.MultiFluidTank;
 import tconstruct.smeltery.component.SmelteryComponent;
 import tconstruct.smeltery.inventory.ActiveContainer;
 import tconstruct.smeltery.inventory.AdaptiveSmelteryContainer;
@@ -41,8 +40,6 @@ public class AdaptiveSmelteryGui extends NewContainerGui
     int slotPos = 0;
     int prevSlotPos = 0;
     private final SmelteryComponent scomp;
-    private final MultiFluidTank multitank;
-
     public AdaptiveSmelteryGui(InventoryPlayer inventoryplayer, AdaptiveSmelteryLogic smeltery, World world, int x, int y, int z)
     {
         super((ActiveContainer) smeltery.getGuiContainer(inventoryplayer, world, x, y, z));
@@ -50,9 +47,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         username = inventoryplayer.player.getDisplayName();
         xSize = 248;
         scomp = logic.getSmeltery();
-        multitank = logic.getMultiTank();
         scomp.update();
-
     }
 
     @Override
@@ -136,7 +131,6 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         {
             FluidStack liquid = info[i].fluid;
             int basePos = 54;
-            int initialLiquidSize = 0;
             int liquidSize = 0;
             if (capacity > 0)
             {
@@ -172,8 +166,6 @@ public class AdaptiveSmelteryGui extends NewContainerGui
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/smeltery.png");
     private static final ResourceLocation backgroundSide = new ResourceLocation("tinker", "textures/gui/smelteryside.png");
-    private static final ResourceLocation terrain = new ResourceLocation("terrain.png");
-
     @Override
     protected void drawGuiContainerBackgroundLayer (float f, int mouseX, int mouseY)
     {

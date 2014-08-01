@@ -423,11 +423,6 @@ public class ToolProxyClient extends ToolProxyCommon
                 "blueslime", "pigiron" };
         String[] effectTypes = { "diamond", "emerald", "redstone", "piston", "moss", "ice", "lava", "blaze", "necrotic", "flux", "lapis", "quartz", "silk", "beheading", "smite", "spider",
                 "reinforced", "flux" };
-        int[] universalEffects = { 0, 1, 4, 9, 16 };
-        int[] weaponEffects = { 3, 5, 7, 13, 14, 15 };
-        int[] harvestEffects = { 2 };
-        int[] nonUtility = { 6, 8, 10, 11, 12 };
-
         for (int partIter = 0; partIter < partTypes.length; partIter++)
         {
             TConstructClientRegistry.addMaterialRenderMapping(partIter, "tinker", partTypes[partIter], true);

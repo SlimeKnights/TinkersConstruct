@@ -38,14 +38,11 @@ public class BehaviorExplosive extends Behavior
     @Override
     public void getInformation (ItemStack par1ItemStack, List par2List)
     {
-        String str = "UNDEFINED";
         if (par1ItemStack.getItem() == Item.getItemFromBlock(Blocks.tnt))
         {
-            str = "medium";
         }
         else if (par1ItemStack.getItem() == Items.gunpowder)
         {
-            str = "small";
         }
 
         // par2List.add("This item explodes with " + str +

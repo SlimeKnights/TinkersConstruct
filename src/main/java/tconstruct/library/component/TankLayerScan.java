@@ -64,25 +64,17 @@ public class TankLayerScan extends LogicComponent
         airBlocks = 0;
         blockCoords.clear();
         airCoords.clear();
-        boolean validAir = false;
         //Check for air space in front of and behind the structure
         byte dir = getDirection();
         switch (getDirection())
         {
         case 2: // +z
         case 3: // -z
-            if (checkAir(master.xCoord, master.yCoord, master.zCoord - 1) && checkAir(master.xCoord, master.yCoord, master.zCoord + 1))
-                validAir = true;
             break;
         case 4: // +x
         case 5: // -x
-            if (checkAir(master.xCoord - 1, master.yCoord, master.zCoord) && checkAir(master.xCoord + 1, master.yCoord, master.zCoord))
-                validAir = true;
             break;
         }
-
-        //Recurse the structure
-        boolean validBlocks = false;
 
         int xPos = 0, zPos = 0;
         if (dir == 2)
