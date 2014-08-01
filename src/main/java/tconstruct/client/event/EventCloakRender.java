@@ -136,10 +136,10 @@ public class EventCloakRender
         }
     }
 
-    public void refreshCapes()
+    public void refreshCapes ()
     {
         cloaks.clear();
         capePlayers.clear();
         buildCloakURLDatabase();
-     }
+    }
 }
