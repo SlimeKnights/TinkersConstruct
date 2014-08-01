@@ -137,8 +137,8 @@ public class EventCloakRender
     }
 
 	public void refreshCapes() {
-		cloaks.clear();
-		capePlayers.clear();
-		buildCloakURLDatabase();
+        cloaks.clear();
+        capePlayers.clear();
+        buildCloakURLDatabase();
 	}
 }

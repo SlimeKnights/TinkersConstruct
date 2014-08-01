@@ -70,13 +70,9 @@ public class TankLayerScan extends LogicComponent
         {
         case 2: // +z
         case 3: // -z
-            if (checkAir(master.xCoord, master.yCoord, master.zCoord - 1) && checkAir(master.xCoord, master.yCoord, master.zCoord + 1)) {
-			}
             break;
         case 4: // +x
         case 5: // -x
-            if (checkAir(master.xCoord - 1, master.yCoord, master.zCoord) && checkAir(master.xCoord + 1, master.yCoord, master.zCoord)) {
-			}
             break;
         }
 
