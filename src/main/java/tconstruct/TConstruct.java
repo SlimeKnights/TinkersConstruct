@@ -1,5 +1,6 @@
 package tconstruct;
 
+import java.util.Map;
 import java.util.Random;
 
 import mantle.pulsar.config.ForgeCFG;
@@ -43,6 +44,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkCheckHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry;
@@ -55,10 +57,11 @@ import cpw.mods.fml.relauncher.Side;
  * @author mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "${version}",
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.0d37",
         dependencies = "required-after:Forge@[10.13,);required-after:Mantle;after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion")
 public class TConstruct
 {
+    public static final String modVersion = "1.6.0d37";
     /** The value of one ingot in millibuckets */
     public static final int ingotLiquidValue = 144;
     public static final int oreLiquidValue = ingotLiquidValue * 2;
@@ -95,6 +98,13 @@ public class TConstruct
         }
 
         EnvironmentChecks.verifyEnvironmentSanity();
+    }
+
+    //Force the client and server to have or not have this mod
+    @NetworkCheckHandler()
+    public boolean matchModVersions (Map<String, String> remoteVersions, Side side)
+    {
+        return remoteVersions.containsKey("TConstruct") && modVersion.equals(remoteVersions.get("TConstruct"));
     }
 
     @EventHandler
