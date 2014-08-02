@@ -178,36 +178,9 @@ if (!project.hasProperty("keystore_user_password")) // keystore user pass
     ext.keystore_user_password = "";
 if (System.getenv().KSK_PW != null)
 	ext.keystore_user_password =System.getenv().KSK_PW;
-task("signJar", dependsOn: "build")
-{
-    inputs.file jar.getArchivePath()
-    inputs.file keystore_location
-    inputs.property "keystore_user_alias", keystore_user_alias
-    inputs.property "keystore_user_password", keystore_user_password
-    outputs.file jar.getArchivePath()
-    
-    // only sign if the keystore exists
-    onlyIf {
-        return keystore_location != "."
-    }
-	println "archive path >> "+jar.getArchivePath()
-	println jar.getArchivePath()
-    // the actual action.. sign the jar.
-    doLast {
-        ant.signjar(
-            destDir: jar.destinationDir,
-            jar: jar.getArchivePath(),
-            keystore: keystore_location,
-            alias: keystore_user_alias,
-            storepass: keystore_user_password,
-			keypass: keystore_user_password
-        )
-    }
-}
 
 
-
-task("uploadJars", dependsOn:"signJar") {
+task("uploadJars", dependsOn:"build") {
     
     description = "uploads JARs"
 
