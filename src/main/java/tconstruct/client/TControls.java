@@ -13,7 +13,6 @@ import tconstruct.armor.ArmorProxyClient;
 import tconstruct.armor.ArmorProxyCommon;
 import tconstruct.armor.PlayerAbilityHelper;
 import tconstruct.armor.items.TravelGear;
-import tconstruct.client.event.EventCloakRender;
 import tconstruct.client.tabs.TabRegistry;
 import tconstruct.util.network.AccessoryInventoryPacket;
 import tconstruct.util.network.BeltPacket;
@@ -25,7 +24,6 @@ public class TControls extends TKeyHandler
 {
     public static final String keybindCategory = "tconstruct.keybindings";
     public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24, keybindCategory);
-    public static KeyBinding refreshCapes = new KeyBinding("key.tcapes.reload", 88, keybindCategory);
     public static KeyBinding toggleGoggles = new KeyBinding("key.tgoggles", 34, keybindCategory);
     public static KeyBinding beltSwap = new KeyBinding("key.tbelt", 48, keybindCategory);
     public static KeyBinding zoomKey = new KeyBinding("key.tzoom", 44, keybindCategory); //TODO: Make this hold, not toggle
@@ -46,7 +44,7 @@ public class TControls extends TKeyHandler
 
     public TControls()
     {
-        super(new KeyBinding[] { armorKey, refreshCapes, toggleGoggles, beltSwap, zoomKey }, new boolean[] { false, false, false, false, false }, getVanillaKeyBindings(), new boolean[] { false, false });
+        super(new KeyBinding[] { armorKey, toggleGoggles, beltSwap, zoomKey }, new boolean[] { false, false, false, false }, getVanillaKeyBindings(), new boolean[] { false, false });
         /*ClientRegistry.registerKeyBinding(armorKey);
         ClientRegistry.registerKeyBinding(refreshCapes);
         ClientRegistry.registerKeyBinding(toggleGoggles);
@@ -75,10 +73,6 @@ public class TControls extends TKeyHandler
                                                                                                               // !mc.playerController.isInCreativeMode())
             {
                 TabRegistry.addTabsToInventory((GuiContainer) mc.currentScreen);
-            }
-            if (kb == refreshCapes && mc.currentScreen == null)
-            {
-                EventCloakRender.instance.refreshCapes();
             }
             if (kb == jumpKey) // Double jump
             {
