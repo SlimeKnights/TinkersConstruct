@@ -12,11 +12,12 @@ import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "Tinkers Thaumcraft addon", description = "The Thaumcraft addon for Tinkers.", modsRequired = "Thaumcraft", forced = true)
-public class TinkerThaumcraft {
+@Pulse(id = "Tinkers Thaumcraft Compatibility", description = "Tinkers Construct compatibility for Thaumcraft", modsRequired = "Thaumcraft")
+public class TinkerThaumcraft
+{
 
     @Handler
-    public void init(FMLInitializationEvent event)
+    public void init (FMLInitializationEvent event)
     {
         TConstruct.logger.info("[Thaumcraft] Registering harvestables.");
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(TinkerWorld.oreBerry, 1, 12));
