@@ -15,6 +15,7 @@ Thumbs.db
 /build/
 /run/
 /ui/
+gradle-app.setting
 #IDEA files from Gradle
 .idea/
 /*.iml
@@ -29,6 +30,7 @@ version.properties
 /.classpath
 /.project
 /.settings/
+/eclipse/.metadata/
 /debug/
 *.lock
 /.metadata/
