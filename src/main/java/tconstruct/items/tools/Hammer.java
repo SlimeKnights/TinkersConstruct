@@ -259,7 +259,7 @@ public class Hammer extends HarvestTool
         if (block == Blocks.monster_egg)
             validStart = true;
 
-        MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(world, player, true, 4.5D);
+        MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(world, player, false, 4.5D);
         if (mop == null || !validStart)
             return super.onBlockStartBreak(stack, x, y, z, player);
 
