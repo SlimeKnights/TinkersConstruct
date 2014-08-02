@@ -418,12 +418,12 @@ public class TinkerToolEvents
     public void registerOre (OreRegisterEvent evt)
     {
 
-        if (evt.Name == "crystalQuartz")
+        if (evt.Name.equals("crystalQuartz"))
         {
             TinkerTools.modAttack.addStackToMatchList(evt.Ore, 2);
         }
 
-        else if (evt.Name == "crystalCerusQuartz")
+        else if (evt.Name.equals("crystalCertusQuartz"))
         {
             TinkerTools.modAttack.addStackToMatchList(evt.Ore, 24);
         }

@@ -45,6 +45,9 @@ public class ModAttack extends ItemModTypeFilter
             if (!validType(toolItem))
                 return false;
 
+            if(matchingAmount(input) > max)
+                return false;
+
             NBTTagCompound tags = tool.getTagCompound().getCompoundTag(toolItem.getBaseTagName());
             if (!tags.hasKey(key))
                 return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;

@@ -340,8 +340,8 @@ public class TConstructRegistry
         ToolMaterial mat = toolMaterials.get(materialID);
         if (mat == null)
         {
-            toolMaterials.put(materialID, mat);
-            toolMaterialStrings.put(material.name(), mat);
+            toolMaterials.put(materialID, material);
+            toolMaterialStrings.put(material.name(), material);
         }
         else
             throw new IllegalArgumentException("[TCon API] Material ID " + materialID + " is already occupied by " + mat.materialName);

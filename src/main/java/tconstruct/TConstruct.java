@@ -22,6 +22,8 @@ import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.mechworks.TinkerMechworks;
 import tconstruct.mechworks.landmine.behavior.Behavior;
 import tconstruct.mechworks.landmine.behavior.stackCombo.SpecialStackHandler;
+import tconstruct.plugins.imc.TinkerThaumcraft;
+import tconstruct.plugins.nei.TinkerNEI;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.EnvironmentChecks;
@@ -117,6 +119,8 @@ public class TConstruct
         pulsar.registerPulse(new TinkerSmeltery());
         pulsar.registerPulse(new TinkerMechworks());
         pulsar.registerPulse(new TinkerArmor());
+        pulsar.registerPulse(new TinkerNEI());
+        pulsar.registerPulse(new TinkerThaumcraft());
         /*pulsar.registerPulse(new TinkerPrayers());
         pulsar.registerPulse(new TinkerCropify());*/
 

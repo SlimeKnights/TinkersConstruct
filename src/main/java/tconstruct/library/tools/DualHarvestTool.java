@@ -3,6 +3,7 @@ package tconstruct.library.tools;
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -50,7 +51,9 @@ public abstract class DualHarvestTool extends HarvestTool
         else
         {
             if (!player.capabilities.isCreativeMode)
-                onBlockDestroyed(stack, world, block, x, y, z, player);
+            {
+                mineBlock(world, x, y, z, meta, player, block);
+            }
             WorldHelper.setBlockToAir(world, x, y, z);
             if (!world.isRemote)
                 world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));

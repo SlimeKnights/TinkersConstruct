@@ -4,6 +4,7 @@ import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -248,17 +249,16 @@ public class Battleaxe extends HarvestTool
             return false;
 
         World world = player.worldObj;
-        final Block wood = world.getBlock(x, y, z);
+        final Block block = world.getBlock(x, y, z);
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         final int meta = world.getBlockMetadata(x, y, z);
         for (int yPos = y + 1; yPos < y + 9; yPos++)
         {
-            Block block = world.getBlock(x, yPos, z);
-            if (!(tags.getBoolean("Broken")) && block != null && block.getMaterial() == Material.wood)
+            Block localBlock = world.getBlock(x, yPos, z);
+            if (!(tags.getBoolean("Broken")) && localBlock != null && localBlock.getMaterial() == Material.wood)
             {
-                Block localblock = world.getBlock(x, yPos, z);
                 int localMeta = world.getBlockMetadata(x, yPos, z);
-                int hlvl = block.getHarvestLevel(meta);
+                int hlvl = localBlock.getHarvestLevel(localMeta);
 
                 if (hlvl <= tags.getInteger("HarvestLevel"))
                 {
@@ -271,18 +271,12 @@ public class Battleaxe extends HarvestTool
 
                     if (!cancelHarvest)
                     {
-                        if (block != null && block.getMaterial() == Material.wood)
+                        if (localBlock != null && localBlock.getMaterial() == Material.wood)
                         {
-                            localMeta = world.getBlockMetadata(x, yPos, z);
                             if (!player.capabilities.isCreativeMode)
                             {
-                                if (block.removedByPlayer(world, player, x, yPos, z))
-                                {
-                                    block.onBlockDestroyedByPlayer(world, x, yPos, z, localMeta);
-                                }
-                                block.harvestBlock(world, player, x, yPos, z, localMeta);
-                                block.onBlockHarvested(world, x, yPos, z, localMeta, player);
-                                onBlockDestroyed(stack, world, block, x, yPos, z, player);
+                                mineBlock(world, x, yPos, z, localMeta, player, localBlock);
+                                onBlockDestroyed(stack, world, localBlock, x, yPos, z, player);
                             }
                             else
                             {
@@ -296,7 +290,7 @@ public class Battleaxe extends HarvestTool
                 break;
         }
         if (!world.isRemote)
-            world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(wood) + (meta << 12));
+            world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
         return super.onBlockStartBreak(stack, x, y, z, player);
     }
 }

@@ -3,6 +3,7 @@ package tconstruct.armor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.armor.items.TravelGear;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.modifier.IModifyable;
 import cpw.mods.fml.common.Loader;
@@ -15,11 +16,16 @@ public class ArmorAbilities
     boolean morphed;
     boolean morphLoaded = Loader.isModLoaded("Morph");
 
+    ItemStack prevFeet;
+    double prevMotionY;
+
     @SubscribeEvent
     public void playerTick (TickEvent.PlayerTickEvent event)
     {
         EntityPlayer player = event.player;
         TPlayerStats stats = TPlayerStats.get(player);
+
+        // Wall climb
         if (stats.climbWalls)
         {
             double motionX = player.posX - player.lastTickPosX;
@@ -29,6 +35,31 @@ public class ArmorAbilities
             {
                 player.fallDistance = 0.0F;
             }
+        }
+
+        //Feet changes
+        ItemStack feet = player.getCurrentArmor(0);
+        if (feet != null)
+        {
+            if (feet.getItem() instanceof IModifyable && !player.isSneaking())
+            {
+                NBTTagCompound tag = feet.getTagCompound().getCompoundTag(((IModifyable) feet.getItem()).getBaseTagName());
+                int sole = tag.getInteger("Slimy Soles");
+                if (sole > 0)
+                {
+                    if (!player.isSneaking() && player.onGround && prevMotionY < -0.4)
+                        player.motionY = -prevMotionY * (Math.min(0.99, sole * 0.2));
+                }
+            }
+            prevMotionY = player.motionY;
+        }
+        if (feet != prevFeet)
+        {
+            if (prevFeet != null && prevFeet.getItem() instanceof TravelGear)
+                player.stepHeight -= 0.6f;
+            if (feet != null && feet.getItem() instanceof TravelGear)
+                player.stepHeight += 0.6f;
+            prevFeet = feet;
         }
         //TODO: Proper minimap support
         /*ItemStack stack = player.inventory.getStackInSlot(8);
