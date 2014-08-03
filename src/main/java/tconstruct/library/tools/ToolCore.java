@@ -58,7 +58,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
 {
     // TE power constants -- TODO grab these from the items added
     protected int capacity = 400000;
-    protected int maxReceive = 80;
+    protected int maxReceive = 400000;
     protected int maxExtract = 80;
 
     protected Random random = new Random();
