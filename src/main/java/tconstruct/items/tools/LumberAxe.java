@@ -211,8 +211,9 @@ public class LumberAxe extends HarvestTool
                         {
                             int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
                             int hlvl = localBlock.getHarvestLevel(localMeta);
+                            float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.getBlockHardness(world, xPos, yPos, zPos);
 
-                            if (hlvl <= tags.getInteger("HarvestLevel"))
+                            if (hlvl <= tags.getInteger("HarvestLevel") && !(localHardness < 0))
                             {
                                 boolean cancelHarvest = false;
                                 for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
@@ -286,8 +287,9 @@ public class LumberAxe extends HarvestTool
                         Block localBlock = world.getBlock(xPos, yPos, zPos);
                         int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
                         int hlvl = localBlock.getHarvestLevel(localMeta);
+                        float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.getBlockHardness(world, xPos, yPos, zPos);
 
-                        if (localBlock != null && localBlock.getMaterial() == Material.wood)
+                        if (localBlock != null && localBlock.getMaterial() == Material.wood && !(localHardness < 0))
                         {
                             if (hlvl <= tags.getInteger("HarvestLevel"))
                             {
