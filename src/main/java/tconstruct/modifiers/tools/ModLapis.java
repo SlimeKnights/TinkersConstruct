@@ -11,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.Weapon;
 
 public class ModLapis extends ItemModTypeFilter
 {

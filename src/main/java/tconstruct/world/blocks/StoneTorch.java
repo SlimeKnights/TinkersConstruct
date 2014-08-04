@@ -8,7 +8,6 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
 import java.util.Random;
 
 import mantle.blocks.MantleBlock;
-import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;

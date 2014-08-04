@@ -4,7 +4,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
-import tconstruct.TConstruct;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.tools.AbilityHelper;
 
