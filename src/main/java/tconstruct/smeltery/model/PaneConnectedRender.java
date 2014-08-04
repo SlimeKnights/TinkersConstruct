@@ -6,7 +6,6 @@ import static net.minecraftforge.common.util.ForgeDirection.SOUTH;
 import static net.minecraftforge.common.util.ForgeDirection.WEST;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import tconstruct.smeltery.blocks.GlassPaneConnected;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -26,7 +25,6 @@ public class PaneConnectedRender implements ISimpleBlockRenderingHandler
     @Override
     public boolean renderWorldBlock (IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
     {
-        boolean temp = renderer.renderAllFaces;
         renderer.renderAllFaces = true;
 
         GlassPaneConnected pane = (GlassPaneConnected) block;
@@ -35,8 +33,6 @@ public class PaneConnectedRender implements ISimpleBlockRenderingHandler
         boolean flag1 = pane.canPaneConnectTo(world, x, y, z, WEST);
         boolean flag2 = pane.canPaneConnectTo(world, x, y, z, SOUTH);
         boolean flag3 = pane.canPaneConnectTo(world, x, y, z, NORTH);
-
-        IIcon sideTexture = pane.getSideTextureIndex();
 
         if (!flag && !flag1 && !flag2 && !flag3)
         {

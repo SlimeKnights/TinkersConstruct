@@ -186,10 +186,6 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
 
     private void renderLiquidPart (IBlockAccess world, int x, int y, int z, Block block, RenderBlocks renderer, FluidStack fluidStack, boolean useFlowingTexture)
     {
-        int color = block.colorMultiplier(world, x, y, z);
-        float red = (color >> 16 & 0xFF) / 255.0F;
-        float green = (color >> 8 & 0xFF) / 255.0F;
-        float blue = (color & 0xFF) / 255.0F;
         Fluid fluid = fluidStack.getFluid();
         if (fluid.canBePlacedInWorld() && !useFlowingTexture)
             BlockSkinRenderHelper.renderMetadataBlock(fluid.getBlock(), 0, x, y, z, renderer, world);

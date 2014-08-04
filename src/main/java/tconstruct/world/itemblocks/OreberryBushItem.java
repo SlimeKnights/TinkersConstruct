@@ -64,20 +64,6 @@ public class OreberryBushItem extends MultiItemBlock
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        switch (stack.getItemDamage() % 4)
-        {
-        case 0:
-            list.add(StatCollector.translateToLocal("oreberrybush1.tooltip"));
-            break;
-        case 1:
-            list.add(StatCollector.translateToLocal("oreberrybush2.tooltip"));
-            break;
-        case 2:
-            list.add(StatCollector.translateToLocal("oreberrybush3.tooltip"));
-            break;
-        case 3:
-            list.add(StatCollector.translateToLocal("oreberrybush4.tooltip"));
-            break;
-        }
+        list.add(StatCollector.translateToLocal("oreberrybush" + ((stack.getItemDamage() % 4) + 1) + ".tooltip"));
     }
 }

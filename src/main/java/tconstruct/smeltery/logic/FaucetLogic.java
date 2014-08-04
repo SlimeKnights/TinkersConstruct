@@ -1,6 +1,5 @@
 package tconstruct.smeltery.logic;
 
-import tconstruct.TConstruct;
 import mantle.blocks.iface.IActiveLogic;
 import mantle.blocks.iface.IFacingLogic;
 import net.minecraft.entity.EntityLivingBase;
@@ -9,12 +8,12 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+import tconstruct.TConstruct;
 
 public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogic, IFluidHandler
 {
@@ -213,42 +212,36 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     @Override
     public int fill (ForgeDirection from, FluidStack resource, boolean doFill)
     {
-        // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
     public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public FluidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public boolean canFill (ForgeDirection from, Fluid fluid)
     {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean canDrain (ForgeDirection from, Fluid fluid)
     {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public FluidTankInfo[] getTankInfo (ForgeDirection from)
     {
-        // TODO Auto-generated method stub
         return null;
     }
 }

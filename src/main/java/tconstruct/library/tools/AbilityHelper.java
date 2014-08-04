@@ -397,8 +397,6 @@ public class AbilityHelper
                 energy = tags.getInteger("Energy");
             }
             int durability = toolTag.getInteger("Damage");
-            float shoddy = toolTag.getFloat("Shoddy");
-
             float mineSpeed = toolTag.getInteger("MiningSpeed");
             int heads = 1;
             if (toolTag.hasKey("MiningSpeed2"))

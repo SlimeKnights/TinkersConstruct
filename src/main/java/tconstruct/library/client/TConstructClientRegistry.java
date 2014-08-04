@@ -9,7 +9,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ModifyBuilder;
-import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
 
 public class TConstructClientRegistry

@@ -28,7 +28,6 @@ import tconstruct.world.TinkerWorld;
 
 public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 {
-    private static final float[] field_100000_e = new float[] { 1.0F, 0.75F, 0.5F, 0.25F, 0.0F, 0.25F, 0.5F, 0.75F };
     public float sizeOffset;
     public float sizeFactor;
     public float sizeHeight;
