@@ -148,7 +148,6 @@ public class RenderArmorCast implements IItemRenderer
         float f4 = 0.0F;
         float f5 = 0.3F;
         GL11.glTranslatef(-f4, -f5, 0.0F);
-        float f6 = 1.5F;
         GL11.glRotatef(90F, 90F, 0F, 0F);
         GL11.glScalef(0.9F, 0.9F, 2F);
         GL11.glTranslatef(0.05F, 0.05F, -0.6F);

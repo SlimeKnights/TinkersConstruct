@@ -128,11 +128,8 @@ public class TitleIcon extends Item
             posX += Facing.offsetsXForSide[par7];
             posY += Facing.offsetsYForSide[par7];
             posZ += Facing.offsetsZForSide[par7];
-            double d0 = 0.0D;
-
             if (par7 == 1 && b != null && b.getRenderType() == 11)
             {
-                d0 = 0.5D;
             }
 
             int damage = stack.getItemDamage();
@@ -155,16 +152,9 @@ public class TitleIcon extends Item
 
     public static EntityLiving activateSpawnEgg (ItemStack stack, World world, double posX, double posY, double posZ, int par7)
     {
-        Block b = world.getBlock((int) posX, (int) posY, (int) posZ);
         posX += Facing.offsetsXForSide[par7];
         posY += Facing.offsetsYForSide[par7];
         posZ += Facing.offsetsZForSide[par7];
-        double d0 = 0.0D;
-
-        if (par7 == 1 && b != null && b.getRenderType() == 11)
-        {
-            d0 = 0.5D;
-        }
 
         int damage = stack.getItemDamage();
         EntityLiving entity = null;

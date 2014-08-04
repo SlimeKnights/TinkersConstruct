@@ -16,7 +16,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S2BPacketChangeGameState;
@@ -476,7 +475,6 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
 
     private int storePartialItemStack (ItemStack par1ItemStack, EntityLivingBase living)
     {
-        Item i = par1ItemStack.getItem();
         int j = par1ItemStack.stackSize;
         int slotID;
 

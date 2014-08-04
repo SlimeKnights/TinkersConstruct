@@ -1,11 +1,10 @@
 package tconstruct.tools;
 
-import tconstruct.common.TProxyCommon;
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
+import tconstruct.common.TProxyCommon;
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class ToolProxyCommon implements IGuiHandler

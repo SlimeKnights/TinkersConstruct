@@ -27,27 +27,7 @@ public class OreBerries extends CraftingItem
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        switch (stack.getItemDamage())
-        {
-        case 0:
-            list.add(StatCollector.translateToLocal("oreberries1.tooltip"));
-            break;
-        case 1:
-            list.add(StatCollector.translateToLocal("oreberries2.tooltip"));
-            break;
-        case 2:
-            list.add(StatCollector.translateToLocal("oreberries3.tooltip"));
-            break;
-        case 3:
-            list.add(StatCollector.translateToLocal("oreberries4.tooltip"));
-            break;
-        case 4:
-            list.add(StatCollector.translateToLocal("oreberries5.tooltip"));
-            break;
-        case 5:
-            list.add(StatCollector.translateToLocal("oreberries6.tooltip"));
-            break;
-        }
+        list.add(StatCollector.translateToLocal("oreberries" + (stack.getItemDamage() + 1) + ".tooltip"));
     }
 
     @Override

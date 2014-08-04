@@ -21,17 +21,6 @@ public class ToolShard extends ToolPart
         this.setMaxDamage(0);
     }
 
-    private static String[] buildTextureNames (String textureType)
-    {
-        String[] names = new String[toolMaterialNames.length];
-        for (int i = 0; i < toolMaterialNames.length; i++)
-        {
-            if (!toolTextureNames[i].equals(""))
-                names[i] = toolTextureNames[i] + textureType;
-        }
-        return names;
-    }
-
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons (IIconRegister iconRegister)

@@ -10,7 +10,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.library.crafting.ModifyBuilder;
@@ -242,7 +241,6 @@ public class CraftingStationContainer extends Container
     {
         if (stack.getItem() instanceof IModifyable)
         {
-            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
             Boolean full = (logic.getStackInSlot(2) != null || logic.getStackInSlot(3) != null);
             /*for (int i = 1; i <= 4; i++)
                 logic.decrStackSize(i, 1);
