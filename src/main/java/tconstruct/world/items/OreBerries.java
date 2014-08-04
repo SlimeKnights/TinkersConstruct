@@ -27,7 +27,7 @@ public class OreBerries extends CraftingItem
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-    	list.add(StatCollector.translateToLocal("oreberries" + (stack.getItemDamage() + 1) + ".tooltip"));
+        list.add(StatCollector.translateToLocal("oreberries" + (stack.getItemDamage() + 1) + ".tooltip"));
     }
 
     @Override

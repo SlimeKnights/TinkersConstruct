@@ -47,9 +47,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         username = inventoryplayer.player.getDisplayName();
         xSize = 248;
         scomp = logic.getSmeltery();
-        logic.getMultiTank();
         scomp.update();
-
     }
 
     @Override

@@ -24,7 +24,7 @@ public class TravelWings extends TravelGear
     @SideOnly(Side.CLIENT)
     protected void registerModifiers (IIconRegister IIconRegister)
     {
-    	String base1 = "tinker:" + textureFolder + "/" + "wings" + "_";
+        String base1 = "tinker:" + textureFolder + "/" + "wings" + "_";
         String base2 = "tinker:armor/travel_wings_";
         modifiers = new IIcon[5];
         modifiers[0] = IIconRegister.registerIcon(base1 + "doublejump");
