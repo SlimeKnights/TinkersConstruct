@@ -344,9 +344,9 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenEmeraldFluid = new Fluid("emerald.liquid");
         if (!FluidRegistry.registerFluid(TinkerSmeltery.moltenEmeraldFluid))
             TinkerSmeltery.moltenEmeraldFluid = FluidRegistry.getFluid("emerald.liquid");
-        TinkerSmeltery.moltenEmerald = new TConstructFluid(TinkerSmeltery.moltenEmeraldFluid, Material.water, "liquid_villager").setBlockName("molten.emerald");
+        TinkerSmeltery.moltenEmerald = new TConstructFluid(TinkerSmeltery.moltenEmeraldFluid, Material.lava, "liquid_villager").setBlockName("molten.emerald");
         GameRegistry.registerBlock(TinkerSmeltery.moltenEmerald, "molten.emerald");
-        TinkerSmeltery.moltenEmeraldFluid.setBlock(TinkerSmeltery.moltenEmerald).setDensity(3000).setViscosity(6000).setTemperature(1300);
+        TinkerSmeltery.moltenEmeraldFluid.setBlock(TinkerSmeltery.moltenEmerald).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenEmeraldFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 15), new ItemStack(
                 Items.bucket)));
 
