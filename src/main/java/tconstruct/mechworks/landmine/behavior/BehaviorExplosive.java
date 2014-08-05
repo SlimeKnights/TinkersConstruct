@@ -38,7 +38,7 @@ public class BehaviorExplosive extends Behavior
     @Override
     public void getInformation (ItemStack par1ItemStack, List par2List)
     {
-        String str = "UNDEFINED";
+        String str = "UNDEFINED"; //TODO Use this?
         if (par1ItemStack.getItem() == Item.getItemFromBlock(Blocks.tnt))
         {
             str = "medium";

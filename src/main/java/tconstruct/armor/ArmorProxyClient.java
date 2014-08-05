@@ -261,7 +261,6 @@ public class ArmorProxyClient extends ArmorProxyCommon
 
                 for (int i = MathHelper.ceiling_float_int((healthMax + absorb) / 2.0F) - 1; i >= 0; --i)
                 {
-                    int b0 = (highlight ? 1 : 0);
                     int row = MathHelper.ceiling_float_int((float) (i + 1) / 10.0F) - 1;
                     int x = left + i % 10 * 8;
                     int y = top - row * rowHeight;
@@ -399,10 +398,6 @@ public class ArmorProxyClient extends ArmorProxyCommon
         float partialTick = event.partialRenderTick;
 
         EntityPlayer player = event.entityPlayer;
-        float posX = (float) (player.lastTickPosX + (player.posX - player.lastTickPosX) * partialTick);
-        float posY = (float) (player.lastTickPosY + (player.posY - player.lastTickPosY) * partialTick);
-        float posZ = (float) (player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialTick);
-
         float yawOffset = this.interpolateRotation(player.prevRenderYawOffset, player.renderYawOffset, partialTick);
         float yawRotation = this.interpolateRotation(player.prevRotationYawHead, player.rotationYawHead, partialTick);
         float pitch;

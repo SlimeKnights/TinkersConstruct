@@ -681,7 +681,6 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
     @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
-        boolean used = false;
         int hotbarSlot = player.inventory.currentItem;
         int itemSlot = hotbarSlot == 0 ? 8 : hotbarSlot + 1;
         ItemStack nearbyStack = null;

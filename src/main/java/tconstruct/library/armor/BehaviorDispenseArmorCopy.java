@@ -8,7 +8,6 @@ import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumFacing;
@@ -32,7 +31,6 @@ final class BehaviorDispenseArmorCopy extends BehaviorDefaultDispenseItem
         if (list.size() > 0)
         {
             EntityLivingBase entitylivingbase = (EntityLivingBase) list.get(0);
-            int l = entitylivingbase instanceof EntityPlayer ? 1 : 0;
             int i1 = EntityLiving.getArmorPosition(par2ItemStack);
             ItemStack itemstack1 = par2ItemStack.copy();
             itemstack1.stackSize = 1;

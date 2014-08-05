@@ -344,14 +344,12 @@ public class TPlayerHandler
             BufferedReader br = new BufferedReader(new InputStreamReader(io));
 
             String nick;
-            int linetracker = 1;
             while ((nick = br.readLine()) != null)
             {
                 if (!nick.startsWith("--"))
                 {
                     stickUsers.add(nick);
                 }
-                linetracker++;
             }
 
             br.close();

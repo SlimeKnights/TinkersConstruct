@@ -82,11 +82,9 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
         {
             if (inventory[slot].stackSize <= quantity)
             {
-                ItemStack stack = inventory[slot];
                 inventory[slot] = null;
                 return;
             }
-            ItemStack split = inventory[slot].splitStack(quantity);
             if (inventory[slot].stackSize == 0)
             {
                 inventory[slot] = null;

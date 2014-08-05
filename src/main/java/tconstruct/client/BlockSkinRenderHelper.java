@@ -809,8 +809,6 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        IIcon icon;
-
         if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2))
         {
             tessellator.setBrightness(render.renderMinZ > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1));
@@ -1644,8 +1642,6 @@ public class BlockSkinRenderHelper
             render.renderFaceYPos(block, (double) xPos, (double) yPos, (double) zPos, stillIcon);
             flag = true;
         }
-
-        IIcon icon;
 
         if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2))
         {

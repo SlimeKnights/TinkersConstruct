@@ -476,7 +476,6 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
 
     private int storePartialItemStack (ItemStack par1ItemStack, EntityLivingBase living)
     {
-        Item i = par1ItemStack.getItem();
         int j = par1ItemStack.stackSize;
         int slotID;
 

@@ -101,7 +101,6 @@ public class SmelteryProxyClient extends SmelteryProxyCommon
 
         ItemStack grout = new ItemStack(TinkerTools.craftedSoil, 2, 1);
         ItemStack searedbrick = new ItemStack(TinkerTools.materials, 1, 2);
-        ItemStack searedbrickBlock = new ItemStack(TinkerSmeltery.smeltery, 1, 2);
         ItemStack plankSlab = new ItemStack(Blocks.wooden_slab, 1, 0);
 
         MantleClientRegistry.registerManualSmallRecipe("grout", grout, sand, gravel, null, clay);

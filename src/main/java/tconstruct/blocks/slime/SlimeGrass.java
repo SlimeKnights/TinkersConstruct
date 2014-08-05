@@ -118,8 +118,6 @@ public class SlimeGrass extends MantleBlock
                     int posX = par2 + par5Random.nextInt(3) - 1;
                     int posY = par3 + par5Random.nextInt(5) - 3;
                     int posZ = par4 + par5Random.nextInt(3) - 1;
-                    Block l1 = par1World.getBlock(posX, posY + 1, posZ);
-
                     if (par1World.getBlockLightValue(posX, posY + 1, posZ) >= 4 && par1World.getBlockLightOpacity(posX, posY + 1, posZ) <= 2)
                     {
                         Block block = par1World.getBlock(posX, posY, posZ);
