@@ -44,9 +44,7 @@ public class Scythe extends Weapon
         return materials;
     }
 
-    static Material[] materials = new Material[] { Material.web, Material.cactus, Material.plants, Material.leaves, Material.vine };// TODO find this//, Material.pumpkin,
-                                                                                                                                    // Material.plants, Material.vine,
-                                                                                                                                    // Material.leaves };
+    static Material[] materials = new Material[] { Material.web, Material.cactus, Material.plants, Material.leaves, Material.vine, Material.gourd };
 
     @Override
     public Item getHeadItem ()
