@@ -125,7 +125,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
             if (recipe == null)
                 return 0;
 
-            SmelteryCastEvent event = new SmelteryCastEvent(recipe, resource);
+            SmelteryCastEvent event = new SmelteryCastEvent.CastingTable(recipe, resource);
             MinecraftForge.EVENT_BUS.post(event);
 
             if(event.getResult() == Event.Result.DENY)
@@ -340,7 +340,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
         CastingRecipe recipe = TConstruct.tableCasting.getCastingRecipe(liquid, inventory[0]);
         if (recipe != null)
         {
-            SmelteryCastedEvent event = new SmelteryCastedEvent(recipe, recipe.getResult());
+            SmelteryCastedEvent event = new SmelteryCastedEvent.CastingTable(recipe, recipe.getResult());
             MinecraftForge.EVENT_BUS.post(event);
 
             inventory[1] = event.output;
