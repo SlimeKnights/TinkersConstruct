@@ -1,5 +1,6 @@
 package tconstruct.smeltery.logic;
 
+import cpw.mods.fml.common.eventhandler.Event;
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -10,6 +11,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidEvent;
@@ -19,6 +21,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
 import tconstruct.TConstruct;
 import tconstruct.library.crafting.CastingRecipe;
+import tconstruct.library.event.SmelteryCastEvent;
 import tconstruct.library.util.IPattern;
 
 public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFluidHandler, ISidedInventory
@@ -120,6 +123,13 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
             CastingRecipe recipe = TConstruct.tableCasting.getCastingRecipe(resource, inventory[0]);
             if (recipe == null)
                 return 0;
+
+            SmelteryCastEvent event = new SmelteryCastEvent(recipe, resource);
+            MinecraftForge.EVENT_BUS.post(event);
+
+            if(event.getResult() == Event.Result.DENY)
+                return 0;
+
             this.capacity = updateCapacity(recipe.castingMetal.amount);
 
             if (inventory[1] == null)
