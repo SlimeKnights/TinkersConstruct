@@ -22,6 +22,7 @@ import net.minecraftforge.fluids.IFluidTank;
 import tconstruct.TConstruct;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.event.SmelteryCastEvent;
+import tconstruct.library.event.SmelteryCastedEvent;
 import tconstruct.library.util.IPattern;
 
 public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFluidHandler, ISidedInventory
@@ -339,8 +340,11 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
         CastingRecipe recipe = TConstruct.tableCasting.getCastingRecipe(liquid, inventory[0]);
         if (recipe != null)
         {
-            inventory[1] = recipe.getResult();
-            if (recipe.consumeCast)
+            SmelteryCastedEvent event = new SmelteryCastedEvent(recipe, recipe.getResult());
+            MinecraftForge.EVENT_BUS.post(event);
+
+            inventory[1] = event.output;
+            if (event.consumeCast)
                 inventory[0] = null;
             liquid = null;
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
