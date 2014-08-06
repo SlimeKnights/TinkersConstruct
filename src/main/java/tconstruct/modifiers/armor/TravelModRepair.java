@@ -51,6 +51,7 @@ public class TravelModRepair extends ItemModifier
 
     private int calculateIncrease (ItemStack tool, NBTTagCompound tags, int materialValue, int itemsUsed)
     {
+        int damage = tags.getInteger("Damage");
         int dur = tags.getInteger("BaseDurability");
         int increase = (int) (50 * itemsUsed + (dur * 0.4f * materialValue));
 
@@ -81,6 +82,7 @@ public class TravelModRepair extends ItemModifier
         NBTTagCompound tags = input.getTagCompound().getCompoundTag(gear.getBaseTagName());
         tags.setBoolean("Broken", false);
         int damage = tags.getInteger("Damage");
+        int dur = tags.getInteger("BaseDurability");
         int itemsUsed = 0;
 
         int materialValue = 0;
