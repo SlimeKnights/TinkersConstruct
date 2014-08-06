@@ -9,17 +9,16 @@
 buildscript {
     repositories {
         mavenCentral()
-		mavenLocal()
+	mavenLocal()
         maven {
             name = 'ForgeFS'
             url = 'http://files.minecraftforge.net/maven'
         }
-		maven {
+	maven {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
-
-	}
+    }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
     }
@@ -31,10 +30,10 @@ repositories {
         name 'CB Maven FS'
         url "http://chickenbones.net/maven/"
     }
-	maven {
+    maven {
          name "ProfMobius Maven FS"
          url "http://mobiusstrip.eu/maven"
-     }
+    }
     maven {
         name 'DVS1 Maven FS'
         url 'http://dvs1.progwml6.com/files/maven'
@@ -42,7 +41,7 @@ repositories {
     maven {
         name 'ForgeFS'
         url 'http://files.minecraftforge.net/maven'
-     }
+    }
 }
 
 // Load ForgeGradle
@@ -65,11 +64,11 @@ configurations {
 
 dependencies {
     compile "mantle:Mantle:${config.minecraft_version}-${config.mantle_version}:deobf"
-	compile "codechicken:CodeChickenLib:${config.minecraft_version}-${config.CCLIB_version}:dev"
-	compile "codechicken:CodeChickenCore:${config.minecraft_version}-${config.ccc_version}:dev"
+    compile "codechicken:CodeChickenLib:${config.minecraft_version}-${config.CCLIB_version}:dev"
+    compile "codechicken:CodeChickenCore:${config.minecraft_version}-${config.ccc_version}:dev"
     compile "codechicken:NotEnoughItems:${config.minecraft_version}-${config.NEI_version}:dev"
-	//compile "mcp.mobius.waila:Waila:${config.waila_version}:dev"
-	deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
+    compile "mcp.mobius.waila:Waila:${config.waila_version}:dev"
+    deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 }
 
 // Finds and sets version data
@@ -101,7 +100,7 @@ version = "${config.minecraft_version}-${artifact_version}"
 
 minecraft {
     version = config.minecraft_version + "-" + config.forge_version
-    assetDir = 'run/assets'
+    runDir = 'run'
     replace '${version}', project.version
 }
 
@@ -156,7 +155,7 @@ task libJar(type: Jar) {
 // Create Maven source jar
 task sourceJar(type: Jar, dependsOn:classes) {
     classifier = 'sources'
-    from sourceSets.main.allSource
+    from sourceSets.main.allJava
 }
 
 artifacts {

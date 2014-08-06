@@ -1,37 +1,27 @@
 package tconstruct.plugins.imc;
 
-import mantle.module.ILoadableModule;
 import net.minecraft.nbt.NBTTagCompound;
-import tconstruct.TConstruct;
+
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
+import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
+import mantle.pulsar.pulse.Handler;
+import mantle.pulsar.pulse.Pulse;
+import tconstruct.TConstruct;
 
-public class Mystcraft implements ILoadableModule
+@ObjectHolder(TConstruct.modID)
+@Pulse(id = "Tinkers Mystcraft Compatibility", forced = true, modsRequired = "Mystcraft")
+public class TinkerMystcraft
 {
-
     private static String[] fluids = new String[] { "invar.molten", "electrum.molten", "bronze.molten", "aluminumbrass.molten", "manyullyn.molten", "alumite.molten", "cobalt.molten", "moltenArdite",
             "ender", "steel.molten", "platinum.molten" };
 
-    @SuppressWarnings("unused")
-    public static String modId = "Mystcraft";
-
-    @Override
-    public void preInit ()
+    @Handler
+    public void init (FMLInitializationEvent event)
     {
-
-    }
-
-    @Override
-    public void init ()
-    {
-        TConstruct.logger.info("[Mystcraft] Blacklisting Mystcraft fluid symbols.");
+        TConstruct.logger.info("Mystcraft detected. Blacklisting Mystcraft fluid symbols.");
         for (String nm : fluids)
             sendFluidBlacklist(nm);
-    }
-
-    @Override
-    public void postInit ()
-    {
-
     }
 
     private void sendFluidBlacklist (String FluidName)

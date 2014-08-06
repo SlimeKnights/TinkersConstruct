@@ -17,7 +17,7 @@ public class TinkerThaumcraft
     @Handler
     public void init (FMLInitializationEvent event)
     {
-        TConstruct.logger.info("[Thaumcraft] Registering harvestables.");
+        TConstruct.logger.info("Thaumcraft detected. Registering harvestables.");
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(TinkerWorld.oreBerry, 1, 12));
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(TinkerWorld.oreBerry, 1, 13));
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(TinkerWorld.oreBerry, 1, 14));

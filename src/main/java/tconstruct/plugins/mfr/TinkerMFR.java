@@ -1,22 +1,17 @@
-package tconstruct.plugins.minefactoryreloaded;
+package tconstruct.plugins.mfr;
 
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
+import mantle.pulsar.pulse.Handler;
+import mantle.pulsar.pulse.Pulse;
 import tconstruct.TConstruct;
-import tconstruct.plugins.ICompatPlugin;
 
-public class MineFactoryReloaded implements ICompatPlugin
+@ObjectHolder(TConstruct.modID)
+@Pulse(id = "Tinkers MFR Compatibility", description = "Tinkers Construct compatibility for MineFactory Reloaded", modsRequired = "MineFactoryReloaded")
+public class TinkerMFR
 {
-    @Override
-    public String getModId() {
-        return "MineFactoryReloaded";
-    }
-
-    @Override
-    public void preInit() {
-        // Nothing
-    }
-
-    @Override
-    public void init()
+    @Handler
+    public void init (FMLInitializationEvent event)
     {
         TConstruct.logger.info("MineFactoryReloaded detected. Registering TConstruct farmables/grindables with MFR's Farming Registry.");
         MFRRegister.registerWithMFR();
@@ -26,10 +21,4 @@ public class MineFactoryReloaded implements ICompatPlugin
          * Currently used weights are from about 50 (emerald) to 175 (coal).
          */
     }
-
-    @Override
-    public void postInit() {
-        // Nothing
-    }
-
 }

@@ -10,7 +10,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
-import tconstruct.blocks.logic.CastingChannelLogic;
+import tconstruct.smeltery.logic.CastingChannelLogic;
 
 public class CastingChannelDataProvider implements IWailaDataProvider
 {

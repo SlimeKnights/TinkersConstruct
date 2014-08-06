@@ -1,33 +1,29 @@
 package tconstruct.plugins.ic2;
 
-import mantle.module.ILoadableModule;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
+import mantle.pulsar.pulse.Handler;
+import mantle.pulsar.pulse.Pulse;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.LiquidCasting;
 
-public class IC2 implements ILoadableModule
+@ObjectHolder(TConstruct.modID)
+@Pulse(id = "Tinkers IC2 Compatibility", description = "Tinkers Construct compatibility for IndustrialCraft 2", modsRequired = "IC2")
+public class TinkerIC2
 {
+    private static final String IC2_UUM_FLUIDNAME = "ic2fluiduumatter";
 
-    private static final String IC2_UUM_FLUIDNAME = "uumatter";
-
-    @SuppressWarnings("unused")
-    public static String modId = "IC2";
-
-    @Override
-    public void preInit ()
+    @Handler
+    public void init (FMLInitializationEvent event)
     {
-
-    }
-
-    @Override
-    public void init ()
-    {
-        TConstruct.logger.info("[IC2] Preparing for shenanigans.");
+        TConstruct.logger.info("IC2 detected. Preparing for shenanigans.");
 
         Fluid fluidUUM = FluidRegistry.getFluid(IC2_UUM_FLUIDNAME);
         if (fluidUUM == null)
@@ -39,11 +35,4 @@ public class IC2 implements ILoadableModule
         // Block casting
         basinCasting.addCastingRecipe(new ItemStack(Blocks.diamond_block), fluidStackBlock, new ItemStack(Blocks.dirt), true, 50);
     }
-
-    @Override
-    public void postInit ()
-    {
-
-    }
-
 }
