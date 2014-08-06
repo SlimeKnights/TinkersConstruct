@@ -4,17 +4,21 @@ import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-import tconstruct.blocks.logic.LavaTankLogic;
+import tconstruct.smeltery.logic.CastingTableLogic;
 
 import java.util.List;
 
-public class SearedTankDataProvider implements IWailaDataProvider
+public class TableDataProvider implements IWailaDataProvider
 {
 
     @Override
     public ItemStack getWailaStack (IWailaDataAccessor accessor, IWailaConfigHandler config)
     {
+        if (accessor.getTileEntity() instanceof CastingTableLogic)
+        {
+            CastingTableLogic te = (CastingTableLogic) accessor.getTileEntity();
+            return te.getStackInSlot(0);
+        }
         return null;
     }
 
@@ -27,18 +31,17 @@ public class SearedTankDataProvider implements IWailaDataProvider
     @Override
     public List<String> getWailaBody (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
     {
-        if (accessor.getTileEntity() instanceof LavaTankLogic && config.getConfig("tcon.searedtank", true))
+        if (accessor.getTileEntity() instanceof CastingTableLogic && config.getConfig("tcon.table", true))
         {
-            LavaTankLogic te = (LavaTankLogic) accessor.getTileEntity();
-            if (te.containsFluid())
+            CastingTableLogic te = (CastingTableLogic) accessor.getTileEntity();
+            if (te.getStackInSlot(1) != null)
             {
-                FluidStack fs = te.tank.getFluid();
-                currenttip.add("Liquid: " + WailaRegistrar.fluidNameHelper(fs));
-                currenttip.add("Amount: " + fs.amount + "/" + te.tank.getCapacity());
+                currenttip.add("Contains: " + te.getStackInSlot(1).getDisplayName());
             }
-            else
+            if (te.getFluid() != null)
             {
-                currenttip.add("§oEmpty"); // "§o" == Italics
+                currenttip.add("Fluid: " + WailaRegistrar.fluidNameHelper(te.getFluid()));
+                currenttip.add("Amount: " + te.getFluidAmount() + "/" + te.getCapacity());
             }
         }
         return currenttip;
