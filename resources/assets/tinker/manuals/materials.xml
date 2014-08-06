@@ -1006,7 +1006,7 @@ Stackable: Yes</text>
 Effects:
 - Allows the tool to be charged with Redstone Flux
 - Uses energy instead of durability while charged
-- Available from Thermal Expansion 3
+- Available from Thermal Expansion
 
 Type: Single-use
 Stackable: No</text>
@@ -1024,7 +1024,7 @@ Stackable: No</text>
 Effects:
 - Allows the tool to be charged with Redstone Flux
 - Uses energy instead of durability while charged
-- Available from Thermal Expansion 3
+- Available from Thermal Expansion
 
 Type: Single-use
 Stackable: No</text>
