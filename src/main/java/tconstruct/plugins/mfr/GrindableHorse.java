@@ -1,4 +1,4 @@
-package tconstruct.plugins.minefactoryreloaded;
+package tconstruct.plugins.mfr;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,14 +8,15 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
 import powercrystals.minefactoryreloaded.api.IFactoryGrindable;
 import powercrystals.minefactoryreloaded.api.MobDrop;
-import tconstruct.common.TRepo;
+import tconstruct.tools.TinkerTools;
 
 public class GrindableHorse implements IFactoryGrindable
 {
     @Override
-    public Class<?> getGrindableEntity ()
+    public Class<? extends EntityLivingBase> getGrindableEntity ()
     {
         return EntityHorse.class;
     }
@@ -25,7 +26,7 @@ public class GrindableHorse implements IFactoryGrindable
     {
         List<MobDrop> drops = new ArrayList<MobDrop>();
 
-        drops.add(new MobDrop(10, new ItemStack(TRepo.materials, random.nextInt(4) + 1, 36)));
+        drops.add(new MobDrop(10, new ItemStack(TinkerTools.materials, random.nextInt(4) + 1, 36)));
 
         return drops;
     }

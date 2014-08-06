@@ -5,7 +5,7 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
-import tconstruct.blocks.logic.SmelteryLogic;
+import tconstruct.smeltery.logic.SmelteryLogic;
 
 import java.util.List;
 

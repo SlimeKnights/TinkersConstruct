@@ -4,20 +4,20 @@ import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import net.minecraft.item.ItemStack;
-import tconstruct.blocks.logic.CastingTableLogic;
+import net.minecraftforge.fluids.FluidStack;
+import tconstruct.smeltery.logic.CastingBasinLogic;
 
 import java.util.List;
 
-public class TableDataProvider implements IWailaDataProvider
+public class BasinDataProvider implements IWailaDataProvider
 {
 
     @Override
     public ItemStack getWailaStack (IWailaDataAccessor accessor, IWailaConfigHandler config)
     {
-        if (accessor.getTileEntity() instanceof CastingTableLogic)
+        if (accessor.getTileEntity() instanceof CastingBasinLogic)
         {
-            CastingTableLogic te = (CastingTableLogic) accessor.getTileEntity();
-            return te.getStackInSlot(0);
+            return ((CastingBasinLogic) accessor.getTileEntity()).getStackInSlot(0);
         }
         return null;
     }
@@ -31,17 +31,25 @@ public class TableDataProvider implements IWailaDataProvider
     @Override
     public List<String> getWailaBody (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
     {
-        if (accessor.getTileEntity() instanceof CastingTableLogic && config.getConfig("tcon.table", true))
+        if (accessor.getTileEntity() instanceof CastingBasinLogic && config.getConfig("tcon.basin", true))
         {
-            CastingTableLogic te = (CastingTableLogic) accessor.getTileEntity();
-            if (te.getStackInSlot(1) != null)
+            CastingBasinLogic te = (CastingBasinLogic) accessor.getTileEntity();
+            if (te.getFluidAmount() != 0)
             {
-                currenttip.add("Contains: " + te.getStackInSlot(1).getDisplayName());
+                FluidStack fs = te.getFluid();
+                currenttip.add("Liquid: " + WailaRegistrar.fluidNameHelper(fs));
+                currenttip.add("Amount: " + fs.amount + "/" + te.getCapacity());
             }
-            if (te.getFluid() != null)
+            else
             {
-                currenttip.add("Fluid: " + WailaRegistrar.fluidNameHelper(te.getFluid()));
-                currenttip.add("Amount: " + te.getFluidAmount() + "/" + te.getCapacity());
+                if (te.getStackInSlot(0) != null)
+                {
+                    currenttip.add("Contains: " + te.getStackInSlot(0).getDisplayName());
+                }
+                else
+                {
+                    currenttip.add("§oEmpty"); // "§o" == Italics
+                }
             }
         }
         return currenttip;

@@ -5,7 +5,7 @@ Melt down any metals you find.
 Power the world with spinning wind!
 
 ##Development
-Install Forge as usual, and setup your IDE as with any other Forge project. Forge Multipart, and CClib must be installed from the  Forge File Server: [ForgeMultipart](http://files.minecraftforge.net/ForgeMultipart/). [CClib](http://files.minecraftforge.net/CodeChickenLib/).  The DEVELOPMENT version of NEI must be installed to the same directory from [Chicken Bones Site](http://www.chickenbones.craftsaddle.org/Files/New_Versions/links.php). Copy `TCore_dummy.jar` to `forge/mcp/jars/mods/` to enable the Preloader (optional -- only needed when working on the preloader itself)
+Install Forge as usual, and setup your IDE as with any other Forge project. Forge Multipart, and CClib must be installed from the  Forge File Server: The DEVELOPMENT version of NEI must be installed to the same directory from [Chicken Bones Site](http://www.chickenbones.craftsaddle.org/Files/New_Versions/links.php). Copy `TCore_dummy.jar` to `forge/mcp/jars/mods/` to enable the Preloader (optional -- only needed when working on the preloader itself)
 
 ##Compile from Source
 Note: Git MUST be installed and in the system path to use our scripts.

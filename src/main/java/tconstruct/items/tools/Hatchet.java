@@ -9,7 +9,6 @@ import net.minecraft.world.World;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.HarvestTool;
 import tconstruct.tools.TinkerTools;
-import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -42,10 +41,7 @@ public class Hatchet extends HarvestTool
         return AbilityHelper.onBlockChanged(itemstack, world, block, x, y, z, player, random);
     }
 
-    static Material[] materials = { Material.wood, Material.leaves, Material.vine, Material.circuits, Material.cactus };// TODO find
-                                                                                                                        // this//,
-                                                                                                                        // Material.pumpkin
-                                                                                                                        // };
+    static Material[] materials = { Material.wood, Material.leaves, Material.vine, Material.circuits, Material.cactus, Material.gourd };
 
     @Override
     public Item getHeadItem ()

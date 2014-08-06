@@ -3,7 +3,6 @@ package tconstruct.items.tools;
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -65,8 +64,7 @@ public class LumberAxe extends HarvestTool
         return AbilityHelper.onBlockChanged(itemstack, world, block, x, y, z, player, random);
     }
 
-    static Material[] materials = { Material.wood, Material.vine, Material.circuits, Material.cactus };// TODO find this//,
-                                                                                                       // Material.pumpkin };
+    static Material[] materials = { Material.wood, Material.vine, Material.circuits, Material.cactus, Material.gourd };
 
     /* Lumber axe specific */
 

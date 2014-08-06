@@ -33,7 +33,6 @@ import tconstruct.library.armor.ArmorPart;
 import tconstruct.library.crafting.DryingRackRecipes;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.ModifyBuilder;
-import tconstruct.modifiers.accessory.GloveClimb;
 import tconstruct.modifiers.accessory.GloveSpeed;
 import tconstruct.modifiers.armor.AModBoolean;
 import tconstruct.modifiers.armor.AModInteger;

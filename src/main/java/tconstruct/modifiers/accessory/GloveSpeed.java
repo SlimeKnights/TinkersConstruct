@@ -1,10 +1,8 @@
 package tconstruct.modifiers.accessory;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.modifier.IModifyable;
-import tconstruct.library.tools.ToolCore;
 import tconstruct.modifiers.tools.ItemModTypeFilter;
 
 public class GloveSpeed extends ItemModTypeFilter

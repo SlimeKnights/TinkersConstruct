@@ -1,7 +1,6 @@
 package tconstruct.library.armor;
 
 import java.util.EnumSet;
-import java.util.UUID;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

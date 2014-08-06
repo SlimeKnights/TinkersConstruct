@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
@@ -45,9 +44,7 @@ public class Scythe extends Weapon
         return materials;
     }
 
-    static Material[] materials = new Material[] { Material.web, Material.cactus, Material.plants, Material.leaves, Material.vine };// TODO find this//, Material.pumpkin,
-                                                                                                                                    // Material.plants, Material.vine,
-                                                                                                                                    // Material.leaves };
+    static Material[] materials = new Material[] { Material.web, Material.cactus, Material.plants, Material.leaves, Material.vine, Material.gourd };
 
     @Override
     public Item getHeadItem ()

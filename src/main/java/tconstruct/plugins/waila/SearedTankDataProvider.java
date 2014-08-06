@@ -5,20 +5,16 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
-import tconstruct.blocks.logic.CastingBasinLogic;
+import tconstruct.smeltery.logic.LavaTankLogic;
 
 import java.util.List;
 
-public class BasinDataProvider implements IWailaDataProvider
+public class SearedTankDataProvider implements IWailaDataProvider
 {
 
     @Override
     public ItemStack getWailaStack (IWailaDataAccessor accessor, IWailaConfigHandler config)
     {
-        if (accessor.getTileEntity() instanceof CastingBasinLogic)
-        {
-            return ((CastingBasinLogic) accessor.getTileEntity()).getStackInSlot(0);
-        }
         return null;
     }
 
@@ -31,25 +27,18 @@ public class BasinDataProvider implements IWailaDataProvider
     @Override
     public List<String> getWailaBody (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
     {
-        if (accessor.getTileEntity() instanceof CastingBasinLogic && config.getConfig("tcon.basin", true))
+        if (accessor.getTileEntity() instanceof LavaTankLogic && config.getConfig("tcon.searedtank", true))
         {
-            CastingBasinLogic te = (CastingBasinLogic) accessor.getTileEntity();
-            if (te.getFluidAmount() != 0)
+            LavaTankLogic te = (LavaTankLogic) accessor.getTileEntity();
+            if (te.containsFluid())
             {
-                FluidStack fs = te.getFluid();
+                FluidStack fs = te.tank.getFluid();
                 currenttip.add("Liquid: " + WailaRegistrar.fluidNameHelper(fs));
-                currenttip.add("Amount: " + fs.amount + "/" + te.getCapacity());
+                currenttip.add("Amount: " + fs.amount + "/" + te.tank.getCapacity());
             }
             else
             {
-                if (te.getStackInSlot(0) != null)
-                {
-                    currenttip.add("Contains: " + te.getStackInSlot(0).getDisplayName());
-                }
-                else
-                {
-                    currenttip.add("§oEmpty"); // "§o" == Italics
-                }
+                currenttip.add("§oEmpty"); // "§o" == Italics
             }
         }
         return currenttip;

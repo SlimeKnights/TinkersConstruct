@@ -1,10 +1,5 @@
 package tconstruct.modifiers.armor;
 
-import java.util.List;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,7 +12,6 @@ import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.ArmorPart;
 import tconstruct.library.modifier.ActiveArmorMod;
 import tconstruct.library.modifier.IModifyable;
-import tconstruct.library.tools.AbilityHelper;
 
 public class ActiveTinkerArmor extends ActiveArmorMod
 {

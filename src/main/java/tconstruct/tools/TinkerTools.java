@@ -756,7 +756,7 @@ public class TinkerTools
         GameRegistry.addRecipe(new ItemStack(TinkerTools.craftingSlabWood, 1, 5), "b", 'b', new ItemStack(TinkerTools.toolForge, 1, Short.MAX_VALUE));
         
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerTools.materials, 1, 41), "dustArdite", "dustCobalt"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerTools.materials, 4, 42), "dustAluminium", "dustCopper", "dustCopper", "dustCopper"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerTools.materials, 4, 42), "dustAluminium", "dustAluminium", "dustAluminium", "dustCopper"));
     }
     
     private void modIntegration()
