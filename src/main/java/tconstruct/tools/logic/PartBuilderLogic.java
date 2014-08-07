@@ -64,15 +64,18 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
         {
             if (!craftedTop && inventory[0] != null)
             {
-                int value = PatternBuilder.instance.getPartValue(inventory[2]);
-                IPattern item = (IPattern) inventory[0].getItem();
-                int cost = item != null ? item.getPatternCost(inventory[0]) : 0;
-                if (value > 0 && cost > 0)
+                if(inventory[0].getItem() instanceof IPattern)
                 {
-                    int decrease = cost / value;
-                    if (cost % value != 0)
-                        decrease++;
-                    super.decrStackSize(2, decrease); //Call super to avoid crafting again
+                    int value = PatternBuilder.instance.getPartValue(inventory[2]);
+                    IPattern item = (IPattern) inventory[0].getItem();
+                    int cost = item != null ? item.getPatternCost(inventory[0].getItemDamage()) : 0;
+                    if (value > 0 && cost > 0)
+                    {
+                        int decrease = cost / value;
+                        if (cost % value != 0)
+                            decrease++;
+                        super.decrStackSize(2, decrease); //Call super to avoid crafting again
+                    }
                 }
             }
 
@@ -89,15 +92,18 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
         {
             if (!craftedBottom && inventory[1] != null)
             {
-                int value = PatternBuilder.instance.getPartValue(inventory[3]);
-                IPattern item = (IPattern) inventory[1].getItem();
-                int cost = item != null ? item.getPatternCost(inventory[1]) : 0;
-                if (value > 0 && cost > 0)
+                if(inventory[0].getItem() instanceof IPattern)
                 {
-                    int decrease = cost / value;
-                    if (cost % value != 0)
-                        decrease++;
-                    super.decrStackSize(3, decrease); //Call super to avoid crafting again
+                    int value = PatternBuilder.instance.getPartValue(inventory[3]);
+                    IPattern item = (IPattern) inventory[1].getItem();
+                    int cost = item != null ? item.getPatternCost(inventory[1].getItemDamage()) : 0;
+                    if (value > 0 && cost > 0)
+                    {
+                        int decrease = cost / value;
+                        if (cost % value != 0)
+                            decrease++;
+                        super.decrStackSize(3, decrease); //Call super to avoid crafting again
+                    }
                 }
             }
 

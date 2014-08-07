@@ -79,9 +79,9 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
         else {
             if (inv != null && inv.getItem() instanceof IPattern)
             {
-                int cost = ((IPattern) inv.getItem()).getPatternCost(inv);
+                int cost = ((IPattern) inv.getItem()).getPatternCost(inv.getItemDamage());
                 if (cost > 0)
-                    ret *= ((IPattern) inv.getItem()).getPatternCost(inv) * 0.5;
+                    ret *= ((IPattern) inv.getItem()).getPatternCost(inv.getItemDamage()) * 0.5;
             }
         }
 
@@ -100,7 +100,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
 
             if (inv != null && inv.getItem() instanceof IPattern)
             {
-                int cost = ((IPattern) inv.getItem()).getPatternCost(inv);
+                int cost = ((IPattern) inv.getItem()).getPatternCost(inv.getItemDamage());
                 if (cost > 0)
                     ret *= cost * 0.5;
             }

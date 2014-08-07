@@ -250,6 +250,7 @@ public class TinkerTools
         GameRegistry.registerItem(TinkerTools.woodPattern, "woodPattern");
         TConstructRegistry.addItemToDirectory("blankPattern", TinkerTools.blankPattern);
         TConstructRegistry.addItemToDirectory("woodPattern", TinkerTools.woodPattern);
+        TConstructRegistry.addPatternItem(woodPattern);
 
         String[] patternTypes = { "ingot", "toolRod", "pickaxeHead", "shovelHead", "hatchetHead", "swordBlade", "wideGuard", "handGuard", "crossbar", "binding", "frypanHead", "signHead",
                 "knifeBlade", "chiselHead", "toughRod", "toughBinding", "largePlate", "broadAxeHead", "scytheHead", "excavatorHead", "largeBlade", "hammerHead", "fullGuard" };
@@ -437,7 +438,7 @@ public class TinkerTools
                 for (int meta = 0; meta < TinkerTools.patternOutputs.length; meta++)
                 {
                     if (TinkerTools.patternOutputs[meta] != null)
-                        TConstructRegistry.addPartMapping(TinkerTools.woodPattern, meta + 1, mat, new ItemStack(TinkerTools.patternOutputs[meta], 1, mat));
+                        TConstructRegistry.addPartMapping(meta + 1, mat, new ItemStack(TinkerTools.patternOutputs[meta], 1, mat));
                 }
             }
         }
@@ -448,7 +449,7 @@ public class TinkerTools
                 for (int meta = 0; meta < TinkerTools.patternOutputs.length; meta++)
                 {
                     if (TinkerTools.patternOutputs[meta] != null)
-                        TConstructRegistry.addPartMapping(TinkerTools.woodPattern, meta + 1, nonMetals[mat], new ItemStack(TinkerTools.patternOutputs[meta], 1, nonMetals[mat]));
+                        TConstructRegistry.addPartMapping(meta + 1, nonMetals[mat], new ItemStack(TinkerTools.patternOutputs[meta], 1, nonMetals[mat]));
                 }
             }
         }
@@ -793,7 +794,7 @@ public class TinkerTools
             for (int meta = 0; meta < TinkerTools.patternOutputs.length; meta++)
             {
                 if (TinkerTools.patternOutputs[meta] != null)
-                    TConstructRegistry.addPartMapping(TinkerTools.woodPattern, meta + 1, 31, new ItemStack(TinkerTools.patternOutputs[meta], 1, 31));
+                    TConstructRegistry.addPartMapping(meta + 1, 31, new ItemStack(TinkerTools.patternOutputs[meta], 1, 31));
             }
 
             TConstructRegistry.addBowstringMaterial(1, 2, new ItemStack((Item) obj, 1, 7), new ItemStack(TinkerTools.bowstring, 1, 1), 1F, 1F, 0.9f);

@@ -779,7 +779,7 @@ public class TinkerSmeltery
                 for (int iterTwo = 0; iterTwo < TinkerSmeltery.liquids.length; iterTwo++)
                 {
                     fs = TinkerSmeltery.liquids[iterTwo].getFluid();
-                    fluidAmount = ((IPattern) TinkerSmeltery.metalPattern).getPatternCost(cast) * TConstruct.ingotLiquidValue / 2;
+                    fluidAmount = ((IPattern) TinkerSmeltery.metalPattern).getPatternCost(cast.getItemDamage()) * TConstruct.ingotLiquidValue / 2;
                     ItemStack metalCast = new ItemStack(TinkerTools.patternOutputs[iter], 1, liquidDamage[iterTwo]);
                     tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
                     Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);
@@ -895,7 +895,7 @@ public class TinkerSmeltery
             if (TinkerTools.patternOutputs[sc] != null)
             {
                 Smeltery.addMelting(stone, new ItemStack(TinkerTools.patternOutputs[sc], 1, 1), 1,
-                        (8 * ((IPattern) TinkerTools.woodPattern).getPatternCost(new ItemStack(TinkerTools.woodPattern, 1, sc + 1))) / 2);
+                        (8 * ((IPattern) TinkerTools.woodPattern).getPatternCost(sc + 1)) / 2);
             }
         }
 
