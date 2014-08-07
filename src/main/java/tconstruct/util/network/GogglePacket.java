@@ -5,7 +5,6 @@ import io.netty.channel.ChannelHandlerContext;
 import mantle.common.network.AbstractPacket;
 import net.minecraft.entity.player.EntityPlayer;
 import tconstruct.armor.PlayerAbilityHelper;
-import tconstruct.armor.player.TPlayerStats;
 
 public class GogglePacket extends AbstractPacket
 {

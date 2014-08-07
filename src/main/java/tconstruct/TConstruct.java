@@ -1,15 +1,30 @@
 package tconstruct;
 
+import java.util.Map;
 import java.util.Random;
-
-import mantle.pulsar.config.ForgeCFG;
-import mantle.pulsar.control.PulseManager;
-import net.minecraft.world.gen.structure.MapGenStructureIO;
-import net.minecraftforge.common.MinecraftForge;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.minecraft.world.gen.structure.MapGenStructureIO;
+import net.minecraftforge.common.MinecraftForge;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkCheckHandler;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.VillagerRegistry;
+import cpw.mods.fml.relauncher.Side;
+import mantle.pulsar.config.ForgeCFG;
+import mantle.pulsar.control.PulseManager;
 import tconstruct.armor.TinkerArmor;
 import tconstruct.armor.player.TPlayerHandler;
 import tconstruct.client.TControls;
@@ -21,6 +36,15 @@ import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.mechworks.TinkerMechworks;
 import tconstruct.mechworks.landmine.behavior.Behavior;
 import tconstruct.mechworks.landmine.behavior.stackCombo.SpecialStackHandler;
+import tconstruct.plugins.ic2.TinkerIC2;
+import tconstruct.plugins.imc.TinkerAE2;
+import tconstruct.plugins.imc.TinkerBuildCraft;
+import tconstruct.plugins.imc.TinkerMystcraft;
+import tconstruct.plugins.imc.TinkerThaumcraft;
+import tconstruct.plugins.mfr.TinkerMFR;
+import tconstruct.plugins.nei.TinkerNEI;
+import tconstruct.plugins.te4.TinkerTE4;
+import tconstruct.plugins.waila.TinkerWaila;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.EnvironmentChecks;
@@ -29,24 +53,7 @@ import tconstruct.util.config.PHConstruct;
 import tconstruct.util.network.PacketPipeline;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.gen.SlimeIslandGen;
-import tconstruct.world.village.ComponentSmeltery;
-import tconstruct.world.village.ComponentToolWorkshop;
-import tconstruct.world.village.TVillageTrades;
-import tconstruct.world.village.VillageSmelteryHandler;
-import tconstruct.world.village.VillageToolStationHandler;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.VillagerRegistry;
-import cpw.mods.fml.relauncher.Side;
+import tconstruct.world.village.*;
 
 /**
  * TConstruct, the tool mod. Craft your tools with style, then modify until the
@@ -55,10 +62,11 @@ import cpw.mods.fml.relauncher.Side;
  * @author mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "${version}",
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.0d37",
         dependencies = "required-after:Forge@[10.13,);required-after:Mantle;after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion")
 public class TConstruct
 {
+    public static final String modVersion = "1.6.0d37";
     /** The value of one ingot in millibuckets */
     public static final int ingotLiquidValue = 144;
     public static final int oreLiquidValue = ingotLiquidValue * 2;
@@ -97,6 +105,13 @@ public class TConstruct
         EnvironmentChecks.verifyEnvironmentSanity();
     }
 
+    //Force the client and server to have or not have this mod
+    @NetworkCheckHandler()
+    public boolean matchModVersions (Map<String, String> remoteVersions, Side side)
+    {
+        return remoteVersions.containsKey("TConstruct") && modVersion.equals(remoteVersions.get("TConstruct"));
+    }
+
     @EventHandler
     public void preInit (FMLPreInitializationEvent event)
     {
@@ -107,6 +122,15 @@ public class TConstruct
         pulsar.registerPulse(new TinkerSmeltery());
         pulsar.registerPulse(new TinkerMechworks());
         pulsar.registerPulse(new TinkerArmor());
+        pulsar.registerPulse(new TinkerNEI());
+        pulsar.registerPulse(new TinkerThaumcraft());
+        pulsar.registerPulse(new TinkerWaila());
+        pulsar.registerPulse(new TinkerBuildCraft());
+        pulsar.registerPulse(new TinkerAE2());
+        pulsar.registerPulse(new TinkerIC2());
+        pulsar.registerPulse(new TinkerMystcraft());
+        pulsar.registerPulse(new TinkerMFR());
+        pulsar.registerPulse(new TinkerTE4());
         /*pulsar.registerPulse(new TinkerPrayers());
         pulsar.registerPulse(new TinkerCropify());*/
 

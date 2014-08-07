@@ -258,7 +258,7 @@ public class Hammer extends HarvestTool
         if (block == Blocks.monster_egg)
             validStart = true;
 
-        MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(world, player, true, 4.5D);
+        MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(world, player, false, 4.5D);
         if (mop == null || !validStart)
             return super.onBlockStartBreak(stack, x, y, z, player);
 
@@ -298,6 +298,7 @@ public class Hammer extends HarvestTool
                             hlvl = localBlock.getHarvestLevel(localMeta);
                         float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.getBlockHardness(world, xPos, yPos, zPos);
 
+                        //Choose blocks that aren't too much harder than the first block. Stone: 2.0, Ores: 3.0
                         if (hlvl <= toolLevel && localHardness - 1.5 <= blockHardness)
                         {
                             boolean cancelHarvest = false;
@@ -317,12 +318,8 @@ public class Hammer extends HarvestTool
                                         {
                                             if (!player.capabilities.isCreativeMode)
                                             {
-                                                if (localBlock.removedByPlayer(world, player, xPos, yPos, zPos))
-                                                {
-                                                    localBlock.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
-                                                }
-                                                localBlock.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
-                                                localBlock.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
+                                                mineBlock(world, xPos, yPos, zPos, localMeta, player, localBlock);
+
                                                 if (blockHardness > 0f)
                                                     onBlockDestroyed(stack, world, localBlock, xPos, yPos, zPos, player);
                                                 world.func_147479_m(x, y, z);

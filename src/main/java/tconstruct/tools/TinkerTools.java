@@ -366,9 +366,20 @@ public class TinkerTools
                 TinkerTools.handGuard, TinkerTools.crossbar, TinkerTools.binding, TinkerTools.frypanHead, TinkerTools.signHead, TinkerTools.knifeBlade, TinkerTools.chiselHead, TinkerTools.toughRod,
                 TinkerTools.toughBinding, TinkerTools.largePlate, TinkerTools.broadAxeHead, TinkerTools.scytheBlade, TinkerTools.excavatorHead, TinkerTools.largeSwordBlade, TinkerTools.hammerHead,
                 TinkerTools.fullGuard, null, null, TinkerTools.arrowhead, null };
-    }
+        
+//Moved temporarily to deal with AE2 Quartz
+        TinkerTools.modFlux = new ModFlux();
+        ModifyBuilder.registerModifier(TinkerTools.modFlux);
 
-    
+        ItemStack lapisItem = new ItemStack(Items.dye, 1, 4);
+        ItemStack lapisBlock = new ItemStack(Blocks.lapis_block);
+        TinkerTools.modLapis = new ModLapis(10, new ItemStack[] { lapisItem, lapisBlock }, new int[] { 1, 9 });
+        ModifyBuilder.registerModifier(TinkerTools.modLapis);
+        
+        TinkerTools.modAttack = new ModAttack("Quartz", 11, new ItemStack[] { new ItemStack(Items.quartz),
+                new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1, 4 });
+        ModifyBuilder.registerModifier(TinkerTools.modAttack);
+    }    
 
     void setupToolTabs ()
     {
@@ -477,35 +488,23 @@ public class TinkerTools
 
         ItemStack diamond = new ItemStack(Items.diamond);
         ModifyBuilder.registerModifier(new ModToolRepair());
-        ModifyBuilder.registerModifier(new ModDurability(new ItemStack[] { diamond }, 0, 500, 0f, 3, StatCollector.translateToLocal("gui.modifier.diamond"), "\u00a7b"
+        ModifyBuilder.registerModifier(new ModDurability(new ItemStack[] { diamond }, 0, 500, 0f, 3, "Diamond", "\u00a7b"
                 + StatCollector.translateToLocal("modifier.tool.diamond"), "\u00a7b"));
-        ModifyBuilder.registerModifier(new ModDurability(new ItemStack[] { new ItemStack(Items.emerald) }, 1, 0, 0.5f, 2, StatCollector.translateToLocal("gui.modifier.emerald"), "\u00a72"
+        ModifyBuilder.registerModifier(new ModDurability(new ItemStack[] { new ItemStack(Items.emerald) }, 1, 0, 0.5f, 2, "Emerald", "\u00a72"
                 + StatCollector.translateToLocal("modifier.tool.emerald"), "\u00a72"));
-
-        TinkerTools.modFlux = new ModFlux();
-        ModifyBuilder.registerModifier(TinkerTools.modFlux);
 
         ItemStack redstoneItem = new ItemStack(Items.redstone);
         ItemStack redstoneBlock = new ItemStack(Blocks.redstone_block);
         ModifyBuilder.registerModifier(new ModRedstone(2, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
 
-        ItemStack lapisItem = new ItemStack(Items.dye, 1, 4);
-        ItemStack lapisBlock = new ItemStack(Blocks.lapis_block);
-        TinkerTools.modLapis = new ModLapis(10, new ItemStack[] { lapisItem, lapisBlock }, new int[] { 1, 9 });
-        ModifyBuilder.registerModifier(TinkerTools.modLapis);
-
-        ModifyBuilder.registerModifier(new ModInteger(new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 6) }, 4, StatCollector.translateToLocal("gui.modifier.moss"), 3, "\u00a72", StatCollector
+        ModifyBuilder.registerModifier(new ModInteger(new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 6) }, 4, "Moss", 3, "\u00a72", StatCollector
                 .translateToLocal("modifier.tool.moss")));
         ItemStack blazePowder = new ItemStack(Items.blaze_powder);
         ModifyBuilder.registerModifier(new ModBlaze(7, new ItemStack[] { blazePowder }, new int[] { 1 }));
-        ModifyBuilder.registerModifier(new ModAutoSmelt(new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 7) }, 6, StatCollector.translateToLocal("gui.modifier.lava"), "\u00a74", StatCollector
+        ModifyBuilder.registerModifier(new ModAutoSmelt(new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 7) }, 6, "Lava", "\u00a74", StatCollector
                 .translateToLocal("modifier.tool.lava")));
-        ModifyBuilder.registerModifier(new ModInteger(new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 8) }, 8, StatCollector.translateToLocal("gui.modifier.necro"), 1, "\u00a78", StatCollector
+        ModifyBuilder.registerModifier(new ModInteger(new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 8) }, 8, "Necrotic", 1, "\u00a78", StatCollector
                 .translateToLocal("modifier.tool.necro")));
-
-        TinkerTools.modAttack = new ModAttack(StatCollector.translateToLocal("gui.modifier.quartz"), 11, new ItemStack[] { new ItemStack(Items.quartz),
-                new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1, 4 });
-        ModifyBuilder.registerModifier(TinkerTools.modAttack);
 
         ModifyBuilder.registerModifier(new ModExtraModifier(new ItemStack[] { diamond, new ItemStack(Blocks.gold_block) }, "Tier1Free"));
         ModifyBuilder.registerModifier(new ModExtraModifier(new ItemStack[] { new ItemStack(Blocks.diamond_block), new ItemStack(Items.golden_apple, 1, 1) }, "Tier1.5Free"));
@@ -518,14 +517,14 @@ public class TinkerTools
         ItemStack piston = new ItemStack(Blocks.piston);
         ModifyBuilder.registerModifier(new ModPiston(3, new ItemStack[] { piston }, new int[] { 1 }));
 
-        ModifyBuilder.registerModifier(new ModInteger(new ItemStack[] { new ItemStack(Blocks.obsidian), new ItemStack(Items.ender_pearl) }, 13, StatCollector.translateToLocal("modifier.tool.beheading"), 1,
-                "\u00a7d", StatCollector.translateToLocal("modifier.tool.beheading")));
+        ModifyBuilder.registerModifier(new ModInteger(new ItemStack[] { new ItemStack(Blocks.obsidian), new ItemStack(Items.ender_pearl) }, 13, "Beheading", 1,
+                "\u00a7d", "Beheading"));
 
         ItemStack holySoil = new ItemStack(TinkerTools.craftedSoil, 1, 4);
-        ModifyBuilder.registerModifier(new ModSmite(StatCollector.translateToLocal("modifier.tool.smite"), 14, new ItemStack[] { holySoil }, new int[] { 1 }));
+        ModifyBuilder.registerModifier(new ModSmite("Smite", 14, new ItemStack[] { holySoil }, new int[] { 1 }));
 
         ItemStack spidereyeball = new ItemStack(Items.fermented_spider_eye);
-        ModifyBuilder.registerModifier(new ModAntiSpider(StatCollector.translateToLocal("gui.modifier.spider"), 15, new ItemStack[] { spidereyeball }, new int[] { 1 }));
+        ModifyBuilder.registerModifier(new ModAntiSpider("ModAntiSpider", 15, new ItemStack[] { spidereyeball }, new int[] { 1 }));
 
         ItemStack obsidianPlate = new ItemStack(TinkerTools.largePlate, 1, 6);
         ModifyBuilder.registerModifier(new ModReinforced(new ItemStack[] { obsidianPlate }, 16, 1));
@@ -757,7 +756,7 @@ public class TinkerTools
         GameRegistry.addRecipe(new ItemStack(TinkerTools.craftingSlabWood, 1, 5), "b", 'b', new ItemStack(TinkerTools.toolForge, 1, Short.MAX_VALUE));
         
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerTools.materials, 1, 41), "dustArdite", "dustCobalt"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerTools.materials, 4, 42), "dustAluminium", "dustCopper", "dustCopper", "dustCopper"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerTools.materials, 4, 42), "dustAluminium", "dustAluminium", "dustAluminium", "dustCopper"));
     }
     
     private void modIntegration()

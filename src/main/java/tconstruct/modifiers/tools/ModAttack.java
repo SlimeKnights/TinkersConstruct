@@ -1,12 +1,8 @@
 package tconstruct.modifiers.tools;
 
-import java.util.Arrays;
-import java.util.List;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.modifier.IModifyable;
-import tconstruct.library.tools.ToolCore;
 
 public class ModAttack extends ItemModTypeFilter
 {
@@ -43,6 +39,9 @@ public class ModAttack extends ItemModTypeFilter
         {
             IModifyable toolItem = (IModifyable) tool.getItem();
             if (!validType(toolItem))
+                return false;
+
+            if(matchingAmount(input) > max)
                 return false;
 
             NBTTagCompound tags = tool.getTagCompound().getCompoundTag(toolItem.getBaseTagName());

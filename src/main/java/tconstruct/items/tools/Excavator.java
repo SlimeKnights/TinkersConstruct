@@ -161,7 +161,7 @@ public class Excavator extends HarvestTool
             }
         }
 
-        MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(world, player, true, 5.0D);
+        MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(world, player, false, 5.0D);
         if (mop == null || !validStart)
             return super.onBlockStartBreak(stack, x, y, z, player);
 
@@ -192,11 +192,10 @@ public class Excavator extends HarvestTool
                 {
                     if (!(tags.getBoolean("Broken")))
                     {
-                        Block localblock = world.getBlock(xPos, yPos, zPos);
-                        block = localblock;
+                        Block localBlock = world.getBlock(xPos, yPos, zPos);
                         int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
-                        int hlvl = block.getHarvestLevel(meta);
-                        float localHardness = block == null ? Float.MAX_VALUE : block.getBlockHardness(world, xPos, yPos, zPos);
+                        int hlvl = localBlock.getHarvestLevel(localMeta);
+                        float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.getBlockHardness(world, xPos, yPos, zPos);
 
                         if (hlvl <= tags.getInteger("HarvestLevel") && localHardness - 1.5 <= blockHardness)
                         {
@@ -209,22 +208,17 @@ public class Excavator extends HarvestTool
 
                             if (!cancelHarvest)
                             {
-                                if (block != null && !(localHardness < 0))
+                                if (localBlock != null && !(localHardness < 0))
                                 {
                                     for (int iter = 0; iter < materials.length; iter++)
                                     {
-                                        if (materials[iter] == block.getMaterial())
+                                        if (materials[iter] == localBlock.getMaterial())
                                         {
                                             if (!player.capabilities.isCreativeMode)
                                             {
-                                                if (block.removedByPlayer(world, player, xPos, yPos, zPos))
-                                                {
-                                                    block.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
-                                                }
-                                                block.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
-                                                block.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
-                                                if (blockHardness > 0f)
-                                                    onBlockDestroyed(stack, world, localblock, xPos, yPos, zPos, player);
+                                                mineBlock(world, xPos, yPos, zPos, localMeta, player, localBlock);
+                                                if (localHardness > 0f)
+                                                    onBlockDestroyed(stack, world, localBlock, xPos, yPos, zPos, player);
                                             }
                                             else
                                             {

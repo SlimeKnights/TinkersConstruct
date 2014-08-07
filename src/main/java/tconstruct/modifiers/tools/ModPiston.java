@@ -3,11 +3,9 @@ package tconstruct.modifiers.tools;
 import java.util.Arrays;
 import java.util.List;
 
-import tconstruct.library.modifier.ItemModifier;
-import tconstruct.library.tools.ToolCore;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.library.tools.ToolCore;
 
 public class ModPiston extends ItemModTypeFilter
 {
@@ -27,6 +25,9 @@ public class ModPiston extends ItemModTypeFilter
         {
             ToolCore toolItem = (ToolCore) tool.getItem();
             if (!validType(toolItem))
+                return false;
+
+            if(matchingAmount(input) > max)
                 return false;
 
             NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");

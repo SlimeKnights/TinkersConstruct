@@ -9,17 +9,16 @@
 buildscript {
     repositories {
         mavenCentral()
-		mavenLocal()
+	mavenLocal()
         maven {
             name = 'ForgeFS'
             url = 'http://files.minecraftforge.net/maven'
         }
-		maven {
+	maven {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
-
-	}
+    }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
     }
@@ -31,10 +30,10 @@ repositories {
         name 'CB Maven FS'
         url "http://chickenbones.net/maven/"
     }
-	maven {
+    maven {
          name "ProfMobius Maven FS"
          url "http://mobiusstrip.eu/maven"
-     }
+    }
     maven {
         name 'DVS1 Maven FS'
         url 'http://dvs1.progwml6.com/files/maven'
@@ -42,7 +41,7 @@ repositories {
     maven {
         name 'ForgeFS'
         url 'http://files.minecraftforge.net/maven'
-     }
+    }
 }
 
 // Load ForgeGradle
@@ -65,11 +64,11 @@ configurations {
 
 dependencies {
     compile "mantle:Mantle:${config.minecraft_version}-${config.mantle_version}:deobf"
-	compile "codechicken:CodeChickenLib:${config.minecraft_version}-${config.CCLIB_version}:dev"
-	compile "codechicken:CodeChickenCore:${config.minecraft_version}-${config.ccc_version}:dev"
+    compile "codechicken:CodeChickenLib:${config.minecraft_version}-${config.CCLIB_version}:dev"
+    compile "codechicken:CodeChickenCore:${config.minecraft_version}-${config.ccc_version}:dev"
     compile "codechicken:NotEnoughItems:${config.minecraft_version}-${config.NEI_version}:dev"
-	//compile "mcp.mobius.waila:Waila:${config.waila_version}:dev"
-	deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
+    compile "mcp.mobius.waila:Waila:${config.waila_version}:dev"
+    deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 }
 
 // Finds and sets version data
@@ -84,7 +83,7 @@ task buildInfo {
     }
 
     if (System.getenv().BUILD_NUMBER != null) {
-        ext.buildNum = "jenkins${System.getenv().BUILD_NUMBER}"
+        ext.buildNum = "build${System.getenv().BUILD_NUMBER}"
     } else {
         ext.buildNum = "DEV.${project.buildInfo.revision}"
     }
@@ -101,7 +100,7 @@ version = "${config.minecraft_version}-${artifact_version}"
 
 minecraft {
     version = config.minecraft_version + "-" + config.forge_version
-    assetDir = 'run/assets'
+    runDir = 'run'
     replace '${version}', project.version
 }
 
@@ -156,7 +155,7 @@ task libJar(type: Jar) {
 // Create Maven source jar
 task sourceJar(type: Jar, dependsOn:classes) {
     classifier = 'sources'
-    from sourceSets.main.allSource
+    from sourceSets.main.allJava
 }
 
 artifacts {
@@ -178,36 +177,9 @@ if (!project.hasProperty("keystore_user_password")) // keystore user pass
     ext.keystore_user_password = "";
 if (System.getenv().KSK_PW != null)
 	ext.keystore_user_password =System.getenv().KSK_PW;
-task("signJar", dependsOn: "build")
-{
-    inputs.file jar.getArchivePath()
-    inputs.file keystore_location
-    inputs.property "keystore_user_alias", keystore_user_alias
-    inputs.property "keystore_user_password", keystore_user_password
-    outputs.file jar.getArchivePath()
-    
-    // only sign if the keystore exists
-    onlyIf {
-        return keystore_location != "."
-    }
-	println "archive path >> "+jar.getArchivePath()
-	println jar.getArchivePath()
-    // the actual action.. sign the jar.
-    doLast {
-        ant.signjar(
-            destDir: jar.destinationDir,
-            jar: jar.getArchivePath(),
-            keystore: keystore_location,
-            alias: keystore_user_alias,
-            storepass: keystore_user_password,
-			keypass: keystore_user_password
-        )
-    }
-}
 
 
-
-task("uploadJars", dependsOn:"signJar") {
+task("uploadJars", dependsOn:"build") {
     
     description = "uploads JARs"
 

@@ -1,6 +1,5 @@
 package tconstruct.modifiers.tools;
 
-import tconstruct.library.modifier.ItemModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -23,6 +22,9 @@ public class ModAntiSpider extends ItemModTypeFilter
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         if (!tags.hasKey(key))
             return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
+
+        if(matchingAmount(input) > max)
+            return false;
 
         int keyPair[] = tags.getIntArray(key);
         if (keyPair[0] + matchingAmount(input) <= keyPair[1])

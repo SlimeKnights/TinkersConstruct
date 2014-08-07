@@ -28,6 +28,9 @@ public class ModBlaze extends ItemModTypeFilter
             if (!validType(toolItem))
                 return false;
 
+            if(matchingAmount(input) > max)
+                return false;
+
             NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
             if (!tags.hasKey(key))
                 return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
@@ -51,7 +54,7 @@ public class ModBlaze extends ItemModTypeFilter
         if (tags.hasKey(key))
         {
             int[] keyPair = tags.getIntArray(key);
-            if (keyPair[0] == max)
+            if (keyPair[0] % max == 0)
             {
                 keyPair[0] += increase;
                 keyPair[1] += max;

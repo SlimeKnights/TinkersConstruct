@@ -193,82 +193,16 @@ public abstract class Ability
 	}
 	
 	/**
-	 * The following are helper functions to create abilities packaged with Morph.
-	 * Use these to ability instances for mapping vanilla abilities to mobs.
-	 * Self explanatory.
+	 * Creates an ability by type.
+     * Check out AbilityHandler to see each Ability type and the parse function in their respective classes for the arguments.
 	 * @return
 	 */
-	public static Ability getNewAbilityClimb()
-	{
-		try {
-			return (Ability)Class.forName("morph.common.ability.AbilityHandler").getDeclaredMethod("getNewAbilityClimb").invoke(null);
-		} catch (Exception e) {
-			return null;
-		}
-	}//TODO add new abilities
-	public static Ability getNewAbilityFireImmunity()
-	{
-		try {
-			return (Ability)Class.forName("morph.common.ability.AbilityHandler").getDeclaredMethod("getNewAbilityFireImmunity").invoke(null);
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	public static Ability getNewAbilityFloat(float terminalVelocity, boolean negateFallDamage)
-	{
-		try {
-			return (Ability)Class.forName("morph.common.ability.AbilityHandler").getDeclaredMethod("getNewAbilityFloat", float.class, boolean.class).invoke(null, terminalVelocity, negateFallDamage);
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	public static Ability getNewAbilityFly(boolean slowdownInWater)
-	{
-		try {
-			return (Ability)Class.forName("morph.common.ability.AbilityHandler").getDeclaredMethod("getNewAbilityFly", boolean.class).invoke(null, slowdownInWater);
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	public static Ability getNewAbilityFly()
-	{
-		try {
-			return (Ability)Class.forName("morph.common.ability.AbilityHandler").getDeclaredMethod("getNewAbilityFly", boolean.class).invoke(null, true);
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	public static Ability getNewAbilityHostile()
-	{
-		try {
-			return (Ability)Class.forName("morph.common.ability.AbilityHandler").getDeclaredMethod("getNewAbilityHostile").invoke(null);
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	public static Ability getNewAbilitySunburn()
-	{
-		try {
-			return (Ability)Class.forName("morph.common.ability.AbilityHandler").getDeclaredMethod("getNewAbilitySunburn").invoke(null);
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	public static Ability getNewAbilitySwim(boolean canBreatheOnLand)
-	{
-		try {
-			return (Ability)Class.forName("morph.common.ability.AbilityHandler").getDeclaredMethod("getNewAbilitySwim", boolean.class).invoke(null, canBreatheOnLand);
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	public static Ability getNewAbilityWaterAllergy()
-	{
-		try {
-			return (Ability)Class.forName("morph.common.ability.AbilityHandler").getDeclaredMethod("getNewAbilityWaterAllergy").invoke(null);
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
+    public static Ability createNewAbilityByType(String type, String[] arguments)
+    {
+        try {
+            return (Ability)Class.forName("morph.common.ability.AbilityHandler").getDeclaredMethod("createNewAbilityByType", String.class, String[].class).invoke(null, type, arguments);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

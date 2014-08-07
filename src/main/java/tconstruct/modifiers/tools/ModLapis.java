@@ -11,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.Weapon;
 
 public class ModLapis extends ItemModTypeFilter
 {
@@ -31,6 +30,9 @@ public class ModLapis extends ItemModTypeFilter
         {
             ToolCore toolItem = (ToolCore) tool.getItem();
             if (!validType(toolItem))
+                return false;
+
+            if(matchingAmount(input) > max)
                 return false;
 
             NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");

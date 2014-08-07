@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.BlockLeaves;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -73,7 +74,7 @@ public class SlimeLeaves extends BlockLeaves
     public IIcon getIcon (int side, int meta)
     {
         int tex = meta % 4;
-
+        this.setGraphicsLevel(Minecraft.getMinecraft().gameSettings.fancyGraphics);
         if (this.field_150121_P)
             return fancyIcons[tex];
         else
