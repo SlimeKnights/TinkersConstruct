@@ -8,6 +8,7 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
+import net.minecraftforge.common.MinecraftForge;
 import tconstruct.TConstruct;
 import tconstruct.armor.ArmorProxyClient;
 import tconstruct.armor.ArmorProxyCommon;
@@ -69,10 +70,9 @@ public class TControls extends TKeyHandler
             {
                 openArmorGui();// mc.thePlayer.username);
             }
-            if (kb == invKey && mc.currentScreen != null && mc.currentScreen.getClass() == GuiInventory.class)// &&
-                                                                                                              // !mc.playerController.isInCreativeMode())
+            if (kb == invKey && mc.currentScreen != null && mc.currentScreen.getClass() == GuiInventory.class)// &&// !mc.playerController.isInCreativeMode())
             {
-                TabRegistry.addTabsToInventory((GuiContainer) mc.currentScreen);
+                MinecraftForge.EVENT_BUS.register(new TabRegistry());
             }
             if (kb == jumpKey) // Double jump
             {
@@ -173,14 +173,14 @@ public class TControls extends TKeyHandler
         AbstractPacket packet = new AccessoryInventoryPacket(ArmorProxyCommon.knapsackGuiID);
         updateServer(packet);
     }
-    
-    private void toggleGoggles()
+
+    private void toggleGoggles ()
     {
         AbstractPacket packet = new GogglePacket(activeGoggles);
         updateServer(packet);
     }
-    
-    private void toggleBelt()
+
+    private void toggleBelt ()
     {
         AbstractPacket packet = new BeltPacket();
         updateServer(packet);

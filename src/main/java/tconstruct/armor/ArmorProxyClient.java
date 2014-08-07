@@ -126,7 +126,6 @@ public class ArmorProxyClient extends ArmorProxyCommon
         if (ID == ArmorProxyCommon.inventoryGui)
         {
             GuiInventory inventory = new GuiInventory(player);
-            TabRegistry.addTabsToInventory(inventory);
             return inventory;
         }
         if (ID == ArmorProxyCommon.armorGuiID)

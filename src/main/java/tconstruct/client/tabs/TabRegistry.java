@@ -6,7 +6,11 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
+import net.minecraftforge.client.event.GuiScreenEvent;
 import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TabRegistry
 {
@@ -21,18 +25,20 @@ public class TabRegistry
     {
         return tabList;
     }
-
-    public static void addTabsToInventory (GuiContainer gui)
+    
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public void guiPostInit (GuiScreenEvent.InitGuiEvent.Post event)
     {
-        if (gui.getClass() == GuiInventory.class)
+        if ((event.gui instanceof GuiInventory))
         {
-            // Values are public at runtime.
-            int cornerX = gui.guiLeft;
-            int cornerY = gui.guiTop;
-            gui.buttonList.clear();
-
-            updateTabValues(cornerX, cornerY, InventoryTabVanilla.class);
-            addTabsToList(gui.buttonList);
+            int xSize = 176;
+            int ySize = 166;
+            int guiLeft = (event.gui.width - xSize) / 2;
+            int guiTop = (event.gui.height - ySize) / 2;
+            
+            updateTabValues(guiLeft, guiTop, InventoryTabVanilla.class);
+            addTabsToList(event.gui.buttonList);
         }
     }
 
@@ -43,7 +49,6 @@ public class TabRegistry
         mc.thePlayer.closeScreen();
         GuiInventory inventory = new GuiInventory(mc.thePlayer);
         mc.displayGuiScreen(inventory);
-        TabRegistry.addTabsToInventory(inventory);
     }
 
     public static void updateTabValues (int cornerX, int cornerY, Class<?> selectedButton)
