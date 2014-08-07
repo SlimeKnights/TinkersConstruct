@@ -12,6 +12,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import tconstruct.client.gui.NewContainerGui;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.client.PatternGuiElement;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.client.ToolGuiElement;
 import tconstruct.library.crafting.PatternBuilder;
@@ -22,6 +23,8 @@ import tconstruct.tools.inventory.PartCrafterChestContainer;
 import tconstruct.tools.logic.CarvingTableLogic;
 import tconstruct.tools.logic.PartBuilderLogic;
 
+import java.util.ArrayList;
+
 public class CarvingTableGui extends NewContainerGui
 {
     CarvingTableLogic logic;
@@ -31,13 +34,44 @@ public class CarvingTableGui extends NewContainerGui
     ItemStack topMaterial, bottomMaterial;
     ToolMaterial topEnum, bottomEnum;
 
+    private static final int buttonColumns = 4;
+    private static final int buttonMargin = 1;
+
+    protected static ArrayList<PatternGuiElement> patternElements = null;
+
     public CarvingTableGui (InventoryPlayer inventoryplayer, CarvingTableLogic carvelogic, World world, int x, int y, int z)
     {
         super((ActiveContainer) carvelogic.getGuiContainer(inventoryplayer, world, x, y, z));
         logic = carvelogic;
         //drawChestPart = container instanceof PartCrafterChestContainer;
 
-        title = "\u00A7n" + (StatCollector.translateToLocal("gui.partcrafter1"));
+        title = "\u00A7n" + (StatCollector.translateToLocal("gui.carvetable1"));
+
+        if(patternElements == null)
+        {
+            AddAllPatternElements();
+        }
+    }
+
+    public static void AddAllPatternElements()
+    {
+        patternElements = new ArrayList<PatternGuiElement>(TConstructRegistry.highestPatternMeta);
+
+        VirtualPattern.InitAll();
+        VirtualPattern[] patterns = VirtualPattern.getAll();
+
+        int idx;
+        for (int row = 0; row <= (patterns.length / buttonColumns); row++)
+        {
+            for (int column = 0; column <= (patterns.length % buttonColumns); column++)
+            {
+                idx = (row * buttonColumns) + column;
+                patternElements.add(idx, //Index
+                        new PatternGuiElement(column * (18+buttonMargin), row * (18 + buttonMargin),
+                                patterns[idx].getName(), patterns[idx].getTooltip(idx), "tinker",
+                                "textures/items/materials" + patterns[idx].textureNames[idx]));
+            }
+        }
     }
 
 
@@ -49,16 +83,11 @@ public class CarvingTableGui extends NewContainerGui
         this.xSize += 110;
 
         this.buttonList.clear();
-        ToolGuiElement repair = TConstructClientRegistry.toolButtons.get(0);
-        GuiButtonTool repairButton = new GuiButtonTool(0, this.guiLeft, this.guiTop, repair.buttonIconX, repair.buttonIconY, repair.domain, repair.texture, repair); // Repair
-        repairButton.enabled = false;
-        this.buttonList.add(repairButton);
 
-        for (int iter = 0; iter <= TConstructRegistry.highestPatternMeta; iter++)
+        for (int iter = 0; iter < patternElements.size(); iter++)
         {
-            ToolGuiElement element = TConstructClientRegistry.toolButtons.get(iter);
-            GuiButtonTool button = new GuiButtonTool(iter, this.guiLeft + 22 * (iter % 5), this.guiTop + 22 * (iter / 5), element.buttonIconX, element.buttonIconY,
-                    VirtualPattern.getNameForID(iter), element.texture, element);
+            PatternGuiElement element = patternElements.get(iter);
+            GuiButtonPattern button = new GuiButtonPattern(iter, this.guiLeft + 22 * (iter % buttonColumns), this.guiTop + 22 * (iter / buttonColumns), element);
             this.buttonList.add(button);
         }
     }
@@ -173,6 +202,7 @@ public class CarvingTableGui extends NewContainerGui
         }
     }
 
+    //HERE is where we're still using the part builder background.
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/toolparts.png");
     private static final ResourceLocation minichest = new ResourceLocation("tinker", "textures/gui/patternchestmini.png");
     private static final ResourceLocation description = new ResourceLocation("tinker", "textures/gui/description.png");

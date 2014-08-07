@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.util.IPattern;
 import tconstruct.tools.VirtualPattern;
+import tconstruct.tools.inventory.CarvingTableContainer;
 import tconstruct.tools.inventory.PartCrafterChestContainer;
 import tconstruct.tools.inventory.PartCrafterContainer;
 
@@ -42,8 +43,7 @@ public class CarvingTableLogic extends InventoryLogic implements ISidedInventory
     @Override
     public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
     {
-        //return new PartCrafterContainer(inventoryplayer, this);
-        return null;
+        return new CarvingTableContainer(inventoryplayer, this);
     }
 
     //Called when emptying a slot, not when another item is placed in it

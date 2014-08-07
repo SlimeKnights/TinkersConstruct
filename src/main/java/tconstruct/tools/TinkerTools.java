@@ -84,14 +84,7 @@ import tconstruct.tools.items.TitleIcon;
 import tconstruct.tools.items.ToolPart;
 import tconstruct.tools.items.ToolPartHidden;
 import tconstruct.tools.items.ToolShard;
-import tconstruct.tools.logic.CraftingStationLogic;
-import tconstruct.tools.logic.FrypanLogic;
-import tconstruct.tools.logic.FurnaceLogic;
-import tconstruct.tools.logic.PartBuilderLogic;
-import tconstruct.tools.logic.PatternChestLogic;
-import tconstruct.tools.logic.StencilTableLogic;
-import tconstruct.tools.logic.ToolForgeLogic;
-import tconstruct.tools.logic.ToolStationLogic;
+import tconstruct.tools.logic.*;
 import tconstruct.util.ItemHelper;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
@@ -232,6 +225,8 @@ public class TinkerTools
         GameRegistry.registerTileEntity(FurnaceLogic.class, "TConstruct.Furnace");
         GameRegistry.registerBlock(TinkerTools.heldItemBlock, "HeldItemBlock");
         GameRegistry.registerTileEntity(FrypanLogic.class, "FrypanLogic");
+
+        GameRegistry.registerTileEntity(CarvingTableLogic.class, "CarvingTable");
 
         GameRegistry.registerBlock(TinkerTools.craftedSoil, CraftedSoilItemBlock.class, "CraftedSoil");
         

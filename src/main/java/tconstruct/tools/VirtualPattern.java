@@ -20,6 +20,7 @@ import java.util.List;
 public class VirtualPattern implements IPattern
 {
     protected final int ourID;
+    protected static VirtualPattern[] allPatterns;
 
     /**
      *
@@ -36,6 +37,20 @@ public class VirtualPattern implements IPattern
 
     public int getPatternID() { return ourID; };
 
+    public static void InitAll()
+    {
+        allPatterns = new VirtualPattern[patternName.length];
+        for(int i = 0; i < allPatterns.length; ++i)
+        {
+            allPatterns[i] = new VirtualPattern(i);
+        }
+    }
+
+    public static VirtualPattern[] getAll()
+    {
+        return allPatterns;
+    }
+
     private static final String[] patternName = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign",
             "knifeblade", "chisel", "largerod", "toughbinding", "largeplate", "broadaxe", "scythe", "excavator", "largeblade", "hammerhead", "fullguard", "bowstring", "fletching", "arrowhead" };
 
@@ -50,16 +65,17 @@ public class VirtualPattern implements IPattern
 
     /* Tags and information about the pattern */
     @SideOnly(Side.CLIENT)
-    public void addToTooltip (int ID, EntityPlayer player, List list)
+    public String getTooltip (int ID)
     {
         float cost = getPatternCost(ID) / 2f;
         if (cost > 0)
         {
             if (cost - (int) cost < 0.1)
-                list.add(StatCollector.translateToLocal("pattern1.tooltip") + (int) cost);
+                return StatCollector.translateToLocal("pattern1.tooltip") + (int) cost;
             else
-                list.add(StatCollector.translateToLocal("pattern2.tooltip") + cost);
+                return StatCollector.translateToLocal("pattern2.tooltip") + cost;
         }
+        return null;
     }
 
     @Override
@@ -133,7 +149,7 @@ public class VirtualPattern implements IPattern
         }
     }
 
-    protected static String[] getPatternNames (String partType)
+    public static String[] getPatternNames (String partType)
     {
         String[] names = new String[patternName.length];
         for (int i = 0; i < patternName.length; i++)
@@ -172,14 +188,5 @@ public class VirtualPattern implements IPattern
         return getIconFromID(ourID);
     }
 
-    @SideOnly(Side.CLIENT)
-    public void registerIcons (IIconRegister iconRegister)
-    {
-        this.icons = new IIcon[textureNames.length];
-        for (int i = 0; i < this.icons.length; ++i)
-        {
-            if (!(textureNames[i].equals("")))
-                this.icons[i] = iconRegister.registerIcon(modTexPrefix + ":" + folder + textureNames[i]);
-        }
-    }
+        //textureName = modTexPrefix + ":" + folder + textureNames[ID]
 }
