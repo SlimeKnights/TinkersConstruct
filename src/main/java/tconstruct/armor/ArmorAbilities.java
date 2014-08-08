@@ -67,16 +67,16 @@ public class ArmorAbilities
             prevFeet = feet;
         }*/
         boolean stepBoosted = stepBoostedPlayers.contains(player.getGameProfile().getName());
-        if(stepBoosted)
-        	player.stepHeight = 1.1f;
-        if(!stepBoosted && feet!=null && feet.getItem() instanceof TravelGear)
+        if (stepBoosted)
+            player.stepHeight = 1.1f;
+        if (!stepBoosted && feet != null && feet.getItem() instanceof TravelGear)
         {
-        	stepBoostedPlayers.add(player.getGameProfile().getName());
+            stepBoostedPlayers.add(player.getGameProfile().getName());
         }
-        else if(stepBoosted && (feet==null || !(feet.getItem() instanceof TravelGear)))
+        else if (stepBoosted && (feet == null || !(feet.getItem() instanceof TravelGear)))
         {
-        	stepBoostedPlayers.remove(player.getGameProfile().getName());
-        	player.stepHeight -= 0.6f;
+            stepBoostedPlayers.remove(player.getGameProfile().getName());
+            player.stepHeight -= 0.6f;
         }
         //TODO: Proper minimap support
         /*ItemStack stack = player.inventory.getStackInSlot(8);
@@ -84,12 +84,21 @@ public class ArmorAbilities
         {
             stack.getItem().onUpdate(stack, player.worldObj, player, 8, true);
         }*/
+
+        if (morphLoaded)
+        {
+            if (morph.api.Api.getMorphEntity(player.getDisplayName(), true) != null)
+            {
+                morphed = true;
+            }
+        }
+
         if (!player.isPlayerSleeping())
         {
             ItemStack chest = player.getCurrentArmor(2);
             if (chest == null || !(chest.getItem() instanceof IModifyable))
             {
-                if (!morphLoaded || !morphed)
+                if (!morphLoaded && !morphed)
                     PlayerAbilityHelper.setEntitySize(player, 0.6F, 1.8F);
             }
             else
@@ -98,7 +107,7 @@ public class ArmorAbilities
                 int dodge = tag.getInteger("Perfect Dodge");
                 if (dodge > 0)
                 {
-                    if (!morphLoaded || !morphed)
+                    if (!morphLoaded && !morphed)
                         PlayerAbilityHelper.setEntitySize(player, Math.max(0.15F, 0.6F - (dodge * 0.09f)), 1.8F - (dodge * 0.04f));
                 }
             }
