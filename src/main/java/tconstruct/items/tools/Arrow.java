@@ -103,15 +103,7 @@ public class Arrow extends ToolCore
         Item extra = getExtraItem();
         ItemStack extraStack = extra != null ? new ItemStack(extra, 1, 0) : null;
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, 3), new ItemStack(getHandleItem(), 1, 0), accessoryStack, extraStack, "");
-        if (tool == null)
-        {
-            if (!TinkerTools.supressMissingToolLogs)
-            {
-                TConstruct.logger.warn("Creative builder failed tool for Vanilla style" + this.getToolName());
-                TConstruct.logger.warn("Make sure you do not have item ID conflicts");
-            }
-        }
-        else
+        if (tool != null)
         {
             tool.stackSize = 1;
             tool.getTagCompound().getCompoundTag("InfiTool").setBoolean("Built", true);
@@ -126,18 +118,7 @@ public class Arrow extends ToolCore
         tool = ToolBuilder.instance
                 .buildTool(new ItemStack(getHeadItem(), 1, random.nextInt(18)), new ItemStack(getHandleItem(), 1, random.nextInt(18)), accessoryStack, extraStack, StatCollector.translateToLocal("item.tool.randomarrow"));
 
-        if (tool == null)
-        {
-            if (!TinkerTools.supressMissingToolLogs)
-            {
-                if (!TinkerTools.supressMissingToolLogs)
-                {
-                    TConstruct.logger.warn("Creative builder failed tool for Vanilla style" + this.getToolName());
-                    TConstruct.logger.warn("Make sure you do not have item ID conflicts");
-                }
-            }
-        }
-        else
+        if (tool != null)
         {
             tool.stackSize = 1;
             tool.getTagCompound().getCompoundTag("InfiTool").setBoolean("Built", true);
@@ -154,12 +135,7 @@ public class Arrow extends ToolCore
         Item extra = getExtraItem();
         ItemStack extraStack = extra != null ? new ItemStack(getExtraItem(), 1, id) : null;
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, name + getToolName());
-        if (tool == null)
-        {
-            TConstruct.logger.warn("Creative builder failed tool for " + name + this.getToolName());
-            TConstruct.logger.warn("Make sure you do not have item ID conflicts");
-        }
-        else
+        if (tool != null)
         {
             tool.stackSize = 1;
             tool.getTagCompound().getCompoundTag("InfiTool").setBoolean("Built", true);

@@ -24,6 +24,8 @@ import tconstruct.TConstruct;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.event.PartBuilderEvent;
+import tconstruct.library.event.SmelteryCastEvent;
+import tconstruct.library.event.SmelteryCastedEvent;
 import tconstruct.library.event.ToolCraftEvent;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ArrowMaterial;

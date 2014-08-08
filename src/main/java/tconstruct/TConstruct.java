@@ -88,7 +88,7 @@ public class TConstruct
     public static TProxyCommon proxy;
 
     /* Loads modules in a way that doesn't clutter the @Mod list */
-    private PulseManager pulsar = new PulseManager(modID, new ForgeCFG("TinkersModules", "Modules: Disabling these will disable a chunk of the mod"));
+    public static PulseManager pulsar = new PulseManager(modID, new ForgeCFG("TinkersModules", "Modules: Disabling these will disable a chunk of the mod"));
 
     public TConstruct()
     {
