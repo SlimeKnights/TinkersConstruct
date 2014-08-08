@@ -87,7 +87,7 @@ public class ArmorAbilities
 
         if (morphLoaded)
         {
-            if (morph.api.Api.getMorphEntity(player.getDisplayName(), true) != null)
+            if (morph.api.Api.hasMorph(player.getCommandSenderName(), event.side.isClient()))
             {
                 morphed = true;
             }
@@ -98,7 +98,7 @@ public class ArmorAbilities
             ItemStack chest = player.getCurrentArmor(2);
             if (chest == null || !(chest.getItem() instanceof IModifyable))
             {
-                if (!morphLoaded && !morphed)
+                if (!(morphLoaded && morphed))
                     PlayerAbilityHelper.setEntitySize(player, 0.6F, 1.8F);
             }
             else
@@ -107,7 +107,7 @@ public class ArmorAbilities
                 int dodge = tag.getInteger("Perfect Dodge");
                 if (dodge > 0)
                 {
-                    if (!morphLoaded && !morphed)
+                    if (!(morphLoaded && morphed))
                         PlayerAbilityHelper.setEntitySize(player, Math.max(0.15F, 0.6F - (dodge * 0.09f)), 1.8F - (dodge * 0.04f));
                 }
             }

@@ -102,7 +102,7 @@ public class ArmorAbilitiesClient
 
         if (morphLoaded)
         {
-            if (morph.api.Api.getMorphEntity(player.getDisplayName(), true) != null)
+            if (morph.api.Api.hasMorph(player.getCommandSenderName(), event.side.isClient()))
             {
                 morphed = true;
             }
