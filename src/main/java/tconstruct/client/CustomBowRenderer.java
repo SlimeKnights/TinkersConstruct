@@ -1,16 +1,11 @@
 package tconstruct.client;
 
-import mantle.blocks.BlockUtils;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
@@ -21,8 +16,6 @@ import org.lwjgl.opengl.GL12;
 public class CustomBowRenderer implements IItemRenderer
 {
     Minecraft mc = Minecraft.getMinecraft();
-    private RenderBlocks renderBlocksInstance = new RenderBlocks();
-
     @Override
     public boolean handleRenderType (ItemStack item, ItemRenderType type)
     {
@@ -39,7 +32,6 @@ public class CustomBowRenderer implements IItemRenderer
     public void renderItem (ItemRenderType type, ItemStack item, Object... data)
     {
         EntityLivingBase living = (EntityLivingBase) data[1];
-        ItemRenderer renderer = RenderManager.instance.itemRenderer;
         for (int i = 0; i < item.getItem().getRenderPasses(item.getItemDamage()) + 1; i++)
             renderItem(living, item, i, type);
     }
@@ -47,12 +39,6 @@ public class CustomBowRenderer implements IItemRenderer
     public void renderItem (EntityLivingBase living, ItemStack stack, int renderPass, ItemRenderType type)
     {
         GL11.glPushMatrix();
-
-        Block block = null;
-        if (stack.getItem() instanceof ItemBlock)
-        {
-            block = BlockUtils.getBlockFromItem(stack.getItem());
-        }
 
         IIcon icon = null; // living.getItemIcon(stack, renderPass);
         if (living instanceof EntityPlayer)

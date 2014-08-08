@@ -43,7 +43,6 @@ public class GloveSpeed extends ItemModTypeFilter
         NBTTagCompound tags = getModifierTag(input);
         int[] keyPair;
         int increase = matchingAmount(modifiers);
-        int current = 0;
         if (tags.hasKey(key))
         {
             keyPair = tags.getIntArray(key);
@@ -62,7 +61,6 @@ public class GloveSpeed extends ItemModTypeFilter
                 keyPair[0] += increase;
                 tags.setIntArray(key, keyPair);
             }
-            current = keyPair[0];
             updateModTag(input, keyPair);
         }
         else
@@ -73,7 +71,6 @@ public class GloveSpeed extends ItemModTypeFilter
             String modName = "\u00a74Redstone (" + increase + "/" + max + ")";
             int tooltipIndex = addToolTip(input, tooltipName, modName);
             keyPair = new int[] { increase, max, tooltipIndex };
-            current = keyPair[0];
             tags.setIntArray(key, keyPair);
         }
 

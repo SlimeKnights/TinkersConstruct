@@ -67,7 +67,6 @@ public abstract class BowBase extends ToolCore
         boolean creative = player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, stack) > 0;
         int slotID = getInventorySlotContainItem(TinkerTools.arrow, player.inventory);
         int arrowID = getInventorySlotContainItem(Items.arrow, player.inventory);
-        int arrowState = 0;
         ItemStack tinkerArrow = null;
         if (slotID != -1)
             tinkerArrow = player.inventory.getStackInSlot(slotID);

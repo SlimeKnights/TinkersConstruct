@@ -29,7 +29,6 @@ public class CustomFont
     private int[] xPos;
     private int[] yPos;
     private int startChar;
-    private int endChar;
     private FontMetrics metrics;
 
     /**
@@ -71,7 +70,6 @@ public class CustomFont
     public CustomFont(Minecraft mc, Object font, int size, int startChar, int endChar)
     {
         this.startChar = startChar;
-        this.endChar = endChar;
         xPos = new int[endChar - startChar];
         yPos = new int[endChar - startChar];
 

@@ -406,10 +406,6 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
                 --var2;
             }
 
-            double var4 = 0.4D;
-            double var6 = 0.0078125D;
-            Block var8 = this.worldObj.getBlock(var45, var2, var47);
-
             moveMinecartOffRail(var45, var2, var47);
             if (entityFollowing != null)
                 moveTowardsEntity(entityFollowing);
@@ -560,8 +556,6 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
         {
             --var10;
         }
-
-        Block var12 = this.worldObj.getBlock(var9, var10, var11);
 
         return null;
     }

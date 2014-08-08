@@ -325,8 +325,6 @@ public class TinkerToolEvents
 
             if (event.entityLiving.getClass() == EntityZombie.class)
             {
-                EntityZombie enemy = (EntityZombie) event.entityLiving;
-
                 if (event.source.damageType.equals("player"))
                 {
                     EntityPlayer player = (EntityPlayer) event.source.getEntity();
@@ -353,8 +351,6 @@ public class TinkerToolEvents
 
             if (event.entityLiving.getClass() == EntityCreeper.class)
             {
-                EntityCreeper enemy = (EntityCreeper) event.entityLiving;
-
                 if (event.source.damageType.equals("player"))
                 {
                     EntityPlayer player = (EntityPlayer) event.source.getEntity();

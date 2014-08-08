@@ -34,7 +34,6 @@ public class SlimeTreeGen extends WorldGenerator
     public boolean generate (World world, Random random, int xPos, int yPos, int zPos)
     {
         int height = random.nextInt(this.treeHeightRange) + this.minTreeHeight;
-        boolean flag = true;
         if (seekHeight)
         {
             yPos = findGround(world, xPos, yPos, zPos);
@@ -49,7 +48,7 @@ public class SlimeTreeGen extends WorldGenerator
 
             if (isSoil)
             {
-                //TODO Fix this for 1.7
+                //TODO Fix this for 1.7.10
                 //if (!checkClear(world, xPos, yPos, zPos, height))
                 //    return false;
 

@@ -33,7 +33,6 @@ public class Manual extends CraftingItem
     @SideOnly(Side.CLIENT)
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
-        Side side = FMLCommonHandler.instance().getEffectiveSide();
         player.openGui(TConstruct.instance, mantle.client.MProxyClient.manualGuiID, world, 0, 0, 0);
         FMLClientHandler.instance().displayGuiScreen(player, new GuiManual(stack, getData(stack)));
         return stack;
