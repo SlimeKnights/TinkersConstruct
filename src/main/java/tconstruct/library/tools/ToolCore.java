@@ -557,7 +557,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, name + getToolName());
         if (tool == null)
         {
-            if (TinkerTools.supressMissingToolLogs)
+            if (!TinkerTools.supressMissingToolLogs)
             {
                 TConstructRegistry.logger.error("Creative builder failed tool for " + name + this.getToolName());
                 TConstructRegistry.logger.error("Make sure you do not have item ID conflicts");
