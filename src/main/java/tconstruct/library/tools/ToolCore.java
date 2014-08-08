@@ -781,21 +781,6 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
     }
 
     // TE support section -- from COFH core API reference section
-    public void setMaxTransfer (int maxTransfer)
-    {
-        setMaxReceive(maxTransfer);
-        setMaxExtract(maxTransfer);
-    }
-
-    public void setMaxReceive (int maxReceive)
-    {
-        this.maxReceive = maxReceive;
-    }
-
-    public void setMaxExtract (int maxExtract)
-    {
-        this.maxExtract = maxExtract;
-    }
 
     /* IEnergyContainerItem */
     @Override
@@ -805,17 +790,16 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         if (tags == null || !tags.hasKey("Energy"))
             return 0;
         int energy = tags.getInteger("Energy");
-        int energyReceived = 0;
-        if(tags.hasKey("EnergyReceiveRate"))
-            energyReceived = tags.getInteger("EnergyReceiveRate");
-        else
-            energyReceived = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
+        int energyReceived = tags.hasKey("EnergyReceiveRate") ? tags.getInteger("EnergyReceiveRate") :  this.maxReceive; // backup value
+        int maxEnergy = tags.hasKey("EnergyMax") ? tags.getInteger("EnergyMax") :  this.capacity; // backup value
+
+        // calculate how much we can receive
+        energyReceived = Math.min(maxEnergy - energy, Math.min(energyReceived, maxReceive));
         if (!simulate)
         {
             energy += energyReceived;
             tags.setInteger("Energy", energy);
             container.setItemDamage(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 2) / getMaxEnergyStored(container));
-
         }
         return energyReceived;
     }
@@ -829,17 +813,15 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
             return 0;
         }
         int energy = tags.getInteger("Energy");
-        int energyExtracted = 0;
-        if(tags.hasKey("EnergyExtractionRate"))
-            energyExtracted = tags.getInteger("EnergyExtractionRate");
-        else
-            energyExtracted = Math.min(energy, Math.min(this.maxExtract, maxExtract)); // backup value
+        int energyExtracted = tags.hasKey("EnergyExtractionRate") ? tags.getInteger("EnergyExtractionRate") : this.maxExtract; // backup value
+
+        // calculate how much we can extract
+        energyExtracted = Math.min(energy, Math.min(energyExtracted, maxExtract));
         if (!simulate)
         {
             energy -= energyExtracted;
             tags.setInteger("Energy", energy);
             container.setItemDamage(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 1) / getMaxEnergyStored(container));
-
         }
         return energyExtracted;
     }
