@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import cofh.api.energy.IEnergyContainerItem;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -344,7 +345,7 @@ public class AbilityHelper
         if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode || tags == null)
             return;
 
-        if (ignoreCharge || !damageElectricTool(stack, tags, entity))
+        if (ignoreCharge || !damageEnergyTool(stack, tags, entity))
         {
             boolean damagedTool = false;
             for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
@@ -385,64 +386,103 @@ public class AbilityHelper
         }
     }
 
-    public static boolean damageElectricTool (ItemStack stack, NBTTagCompound tags, Entity entity)
+    public static boolean damageEnergyTool(ItemStack stack, NBTTagCompound tags, Entity entity)
     {
-        if (tags.hasKey("Energy"))
-        {
-
-            NBTTagCompound toolTag = stack.getTagCompound().getCompoundTag("InfiTool");
-            int energy = -1;
-            if (tags.hasKey("Energy"))
-            {
-                energy = tags.getInteger("Energy");
-            }
-            int durability = toolTag.getInteger("Damage");
-            float shoddy = toolTag.getFloat("Shoddy");
-
-            float mineSpeed = toolTag.getInteger("MiningSpeed");
-            int heads = 1;
-            if (toolTag.hasKey("MiningSpeed2"))
-            {
-                mineSpeed += toolTag.getInteger("MiningSpeed2");
-                heads++;
-            }
-
-            if (toolTag.hasKey("MiningSpeedHandle"))
-            {
-                mineSpeed += toolTag.getInteger("MiningSpeedHandle");
-                heads++;
-            }
-
-            if (toolTag.hasKey("MiningSpeedExtra"))
-            {
-                mineSpeed += toolTag.getInteger("MiningSpeedExtra");
-                heads++;
-            }
-            float trueSpeed = mineSpeed / (heads * 100f);
-            float stonebound = toolTag.getFloat("Shoddy");
-            float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
-            trueSpeed += bonusLog;
-            trueSpeed *= 6;
-            if (energy != -1)
-            {
-                if (energy < trueSpeed * 2)
-                {
-                    if (energy > 0)
-                        tags.setInteger("Energy", 0);
-                    return false;
-                }
-
-                energy -= trueSpeed * 2;
-                ToolCore tool = (ToolCore) stack.getItem();
-                stack.setItemDamage(1 + (tool.getMaxEnergyStored(stack) - energy) * (stack.getMaxDamage() - 1) / tool.getMaxEnergyStored(stack));
-                tags.setInteger("Energy", energy);
-            }
-            return true;
-        }
-        else
-        {
+        if (!tags.hasKey("Energy"))
             return false;
+
+        NBTTagCompound toolTag = stack.getTagCompound().getCompoundTag("InfiTool");
+        int energy = tags.getInteger("Energy");
+        int durability = toolTag.getInteger("Damage");
+        float shoddy = toolTag.getFloat("Shoddy");
+
+        float mineSpeed = toolTag.getInteger("MiningSpeed");
+        int heads = 1;
+        if (toolTag.hasKey("MiningSpeed2"))
+        {
+            mineSpeed += toolTag.getInteger("MiningSpeed2");
+            heads++;
         }
+
+        if (toolTag.hasKey("MiningSpeedHandle"))
+        {
+            mineSpeed += toolTag.getInteger("MiningSpeedHandle");
+            heads++;
+        }
+
+        if (toolTag.hasKey("MiningSpeedExtra"))
+        {
+            mineSpeed += toolTag.getInteger("MiningSpeedExtra");
+            heads++;
+        }
+        float trueSpeed = mineSpeed / (heads * 100f);
+        float stonebound = toolTag.getFloat("Shoddy");
+        float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
+        trueSpeed += bonusLog;
+        trueSpeed *= 6;
+        if (energy != -1)
+        {
+            ToolCore tool = (ToolCore) stack.getItem();
+            // first try charging from the hotbar
+            if(entity instanceof EntityPlayer) {
+                // workaround for charging flux-capacitors making tools unusable
+                chargeEnergyFromHotbar(stack, (EntityPlayer) entity, tags);
+                energy = tool.getEnergyStored(stack);
+            }
+
+            if (energy < trueSpeed * 2)
+            {
+                if (energy > 0)
+                    tags.setInteger("Energy", 0);
+                return false;
+            }
+
+            energy -= trueSpeed * 2;
+            tags.setInteger("Energy", energy);
+
+
+            stack.setItemDamage(1 + (tool.getMaxEnergyStored(stack) - energy) * (stack.getMaxDamage() - 1) / tool.getMaxEnergyStored(stack));
+        }
+        return true;
+    }
+
+    protected static void chargeEnergyFromHotbar (ItemStack stack, EntityPlayer player, NBTTagCompound tags)
+    {
+        // cool kids only
+        if(!(stack.getItem() instanceof ToolCore))
+            return;
+
+        ToolCore tool = (ToolCore)stack.getItem();
+        int buffer = tool.getEnergyStored(stack);
+        int max = tool.getMaxEnergyStored(stack);
+        int missing = max - buffer;
+
+        // you're full. xbox go home.
+        if(missing <= 0)
+            return;
+
+        // iterate through hotbar
+        for (int iter = 0; iter < 9; ++iter)
+        {
+            ItemStack slot = player.inventory.mainInventory[iter];
+
+            // check if item is not another tool
+            if(slot == null || slot.getItem() instanceof ToolCore)
+                continue;
+            // check if item gives energy
+            if(!(slot.getItem() instanceof IEnergyContainerItem))
+                continue;
+
+            IEnergyContainerItem fluxItem = (IEnergyContainerItem) slot.getItem();
+
+            // mDiyo EATS your power
+            while (fluxItem.extractEnergy(slot, missing, true) > 0)
+            {
+                missing -= fluxItem.extractEnergy(slot, missing, false);
+            }
+        }
+        // update energy
+        tags.setInteger("Energy", max-missing);
     }
 
     public static void breakTool (ItemStack stack, NBTTagCompound tags, Entity entity)
