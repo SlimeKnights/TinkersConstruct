@@ -27,28 +27,32 @@ public class TinkerArmorEvents
 
         if (TConstruct.random.nextInt(200) == 0 && event.entityLiving instanceof IMob && event.source.damageType.equals("player"))
         {
+            ItemStack dropStack = new ItemStack(TinkerArmor.heartCanister, 1, 1);
+            EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
+            entityitem.delayBeforeCanPickup = 10;
+            event.drops.add(entityitem);
+        }
+
+        if (event.entityLiving instanceof IBossDisplayData)
+        {
             if (event.entityLiving instanceof BlueSlime)
             {
                 BlueSlime slime = (BlueSlime) event.entityLiving;
                 if (slime.getSlimeSize() < 8)
                     return;
             }
+            String entityName = event.entityLiving.getClass().getSimpleName().toLowerCase();
+            if (entityName.contains("entitynpc"))
+                return;
+
             int count = event.entityLiving instanceof EntityDragon ? 5 : 1;
             for (int i = 0; i < count; i++)
             {
-                ItemStack dropStack = new ItemStack(TinkerArmor.heartCanister, 1, 1);
+                ItemStack dropStack = new ItemStack(TinkerArmor.heartCanister, 1, 3);
                 EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
                 entityitem.delayBeforeCanPickup = 10;
                 event.drops.add(entityitem);
             }
-        }
-
-        if (event.entityLiving instanceof IBossDisplayData)
-        {
-            ItemStack dropStack = new ItemStack(TinkerArmor.heartCanister, 1, 3);
-            EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
-            entityitem.delayBeforeCanPickup = 10;
-            event.drops.add(entityitem);
         }
     }
 
