@@ -1028,6 +1028,11 @@ public class TinkerSmeltery
         Smeltery.addMelting(gold, new ItemStack(Items.golden_shovel, 1, 0), 0, TConstruct.ingotLiquidValue);
         Smeltery.addMelting(gold, new ItemStack(Items.golden_pickaxe, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
         Smeltery.addMelting(gold, new ItemStack(Items.golden_axe, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
+        
+        Smeltery.addMelting(gold, new ItemStack(Items.golden_apple, 1, 0), 250, TConstruct.ingotLiquidValue * 8);
+        Smeltery.addMelting(gold, new ItemStack(Items.golden_apple, 1, 1), 600, TConstruct.ingotLiquidValue * 72);
+        Smeltery.addMelting(gold, new ItemStack(Items.speckled_melon, 1, 0), -20, TConstruct.ingotLiquidValue * 8 / 9);
+        Smeltery.addMelting(gold, new ItemStack(Items.golden_carrot, 1, 0), -20, TConstruct.ingotLiquidValue * 8 / 9);
     }
 
     private void registerIngotCasting (FluidType ft, String name)
