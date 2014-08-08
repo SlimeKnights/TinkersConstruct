@@ -42,7 +42,6 @@ public class PHConstruct
         //config.load(); /* Load happens in the constructor */
 
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
-        TinkerTools.supressMissingToolLogs = config.get("Logging", "Disable tool build messages", false).getBoolean(false);
 
         keepHunger = config.get("Difficulty Changes", "Keep hunger on death", true).getBoolean(true);
         keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);

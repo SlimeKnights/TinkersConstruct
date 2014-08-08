@@ -120,15 +120,7 @@ public class Mattock extends DualHarvestTool
             Item extra = getExtraItem();
             ItemStack extraStack = extra != null ? new ItemStack(extra, 1, id) : null;
             ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, name + getToolName());
-            if (tool == null)
-            {
-                if (!TinkerTools.supressMissingToolLogs)
-                {
-                    TConstruct.logger.warn("Creative builder failed tool for " + name + this.getToolName());
-                    TConstruct.logger.warn("Make sure you do not have item ID conflicts");
-                }
-            }
-            else
+            if (tool != null)
             {
                 tool.getTagCompound().getCompoundTag("InfiTool").setBoolean("Built", true);
                 list.add(tool);

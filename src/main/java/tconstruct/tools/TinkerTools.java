@@ -143,9 +143,6 @@ public class TinkerTools
     public static Item knifeBlade;
     public static Item wideGuard;
 
-    // Supresses console spam when iguana's tweaks remove stuff
-    public static boolean supressMissingToolLogs = false;
-
     // Patterns and other materials
     public static Item blankPattern;
     public static Item materials; //TODO: Untwine this item
