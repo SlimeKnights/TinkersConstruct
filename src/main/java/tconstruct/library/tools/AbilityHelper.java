@@ -453,6 +453,12 @@ public class AbilityHelper
             return;
 
         ToolCore tool = (ToolCore)stack.getItem();
+
+        // check if the tool can actually receive energy
+        if(tool.receiveEnergy(stack, 1, true) != 1)
+            // no you're not going to charge that potato battery on your tool
+            return;
+
         int buffer = tool.getEnergyStored(stack);
         int max = tool.getMaxEnergyStored(stack);
         int missing = max - buffer;
