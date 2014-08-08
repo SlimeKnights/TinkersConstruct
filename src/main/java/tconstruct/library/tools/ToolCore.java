@@ -56,7 +56,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class ToolCore extends Item implements IEnergyContainerItem, IModifyable
 {
-    // TE power constants -- TODO grab these from the items added
+    // TE power constants. These are only for backup if the lookup of the real value somehow fails!
     protected int capacity = 400000;
     protected int maxReceive = 400000;
     protected int maxExtract = 80;
@@ -805,7 +805,11 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         if (tags == null || !tags.hasKey("Energy"))
             return 0;
         int energy = tags.getInteger("Energy");
-        int energyReceived = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
+        int energyReceived = 0;
+        if(tags.hasKey("EnergyReceiveRate"))
+            energyReceived = tags.getInteger("EnergyReceiveRate");
+        else
+            energyReceived = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
         if (!simulate)
         {
             energy += energyReceived;
@@ -825,7 +829,11 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
             return 0;
         }
         int energy = tags.getInteger("Energy");
-        int energyExtracted = Math.min(energy, Math.min(this.maxExtract, maxExtract));
+        int energyExtracted = 0;
+        if(tags.hasKey("EnergyExtractionRate"))
+            energyExtracted = tags.getInteger("EnergyExtractionRate");
+        else
+            energyExtracted = Math.min(energy, Math.min(this.maxExtract, maxExtract)); // backup value
         if (!simulate)
         {
             energy -= energyExtracted;
@@ -853,6 +861,10 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         NBTTagCompound tags = container.getTagCompound();
         if (tags == null || !tags.hasKey("Energy"))
             return 0;
+
+        if(tags.hasKey("EnergyMax"))
+            return tags.getInteger("EnergyMax");
+        // backup
         return capacity;
     }
     // end of TE support section
