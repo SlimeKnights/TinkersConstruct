@@ -137,7 +137,6 @@ public class TinkerSmeltery
     public static Fluid moltenInvarFluid;
     public static Fluid moltenElectrumFluid;
     public static Fluid moltenEnderFluid;
-    public static Fluid pigIronFluid;
     public static Block moltenIron;
     public static Block moltenGold;
     public static Block moltenCopper;
@@ -164,6 +163,9 @@ public class TinkerSmeltery
     // Glue
     public static Fluid glueFluid;
     public static Block glueFluidBlock;
+    // Pigiron
+    public static Fluid pigIronFluid;
+    public static Block pigIronFluidBlock;
     public static Fluid[] fluids = new Fluid[26];
     public static Block[] fluidBlocks = new Block[25];
     public static FluidStack[] liquids;
@@ -441,24 +443,26 @@ public class TinkerSmeltery
         FluidContainerRegistry
                 .registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.glueFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 25), new ItemStack(Items.bucket)));
 
-        TinkerSmeltery.pigIronFluid = new Fluid("pigiron.molten");
+        // PigIron
+        TinkerSmeltery.pigIronFluid = new Fluid("pigiron.molten").setDensity(3000).setViscosity(6000).setTemperature(1300);
         if (!FluidRegistry.registerFluid(TinkerSmeltery.pigIronFluid))
             TinkerSmeltery.pigIronFluid = FluidRegistry.getFluid("pigiron.molten");
-        else
-            TinkerSmeltery.pigIronFluid.setDensity(3000).setViscosity(6000).setTemperature(1300);
+        TinkerSmeltery.pigIronFluidBlock = new TConstructFluid(pigIronFluid, Material.water, "liquid_pigiron").setBlockName("fluid.molten.pigiron");
+        GameRegistry.registerBlock(TinkerSmeltery.pigIronFluidBlock, "fluid.molten.pigiron");
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.pigIronFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 26), new ItemStack(
                 Items.bucket)));
+
         TinkerSmeltery.fluids = new Fluid[] { TinkerSmeltery.moltenIronFluid, TinkerSmeltery.moltenGoldFluid, TinkerSmeltery.moltenCopperFluid, TinkerSmeltery.moltenTinFluid,
                 TinkerSmeltery.moltenAluminumFluid, TinkerSmeltery.moltenCobaltFluid, TinkerSmeltery.moltenArditeFluid, TinkerSmeltery.moltenBronzeFluid, TinkerSmeltery.moltenAlubrassFluid,
                 TinkerSmeltery.moltenManyullynFluid, TinkerSmeltery.moltenAlumiteFluid, TinkerSmeltery.moltenObsidianFluid, TinkerSmeltery.moltenSteelFluid, TinkerSmeltery.moltenGlassFluid,
                 TinkerSmeltery.moltenStoneFluid, TinkerSmeltery.moltenEmeraldFluid, TinkerSmeltery.bloodFluid, TinkerSmeltery.moltenNickelFluid, TinkerSmeltery.moltenLeadFluid,
                 TinkerSmeltery.moltenSilverFluid, TinkerSmeltery.moltenShinyFluid, TinkerSmeltery.moltenInvarFluid, TinkerSmeltery.moltenElectrumFluid, TinkerSmeltery.moltenEnderFluid,
-                TinkerSmeltery.glueFluid, TinkerSmeltery.pigIronFluid };
+                null, TinkerSmeltery.glueFluid, TinkerSmeltery.pigIronFluid };
         TinkerSmeltery.fluidBlocks = new Block[] { TinkerSmeltery.moltenIron, TinkerSmeltery.moltenGold, TinkerSmeltery.moltenCopper, TinkerSmeltery.moltenTin, TinkerSmeltery.moltenAluminum,
                 TinkerSmeltery.moltenCobalt, TinkerSmeltery.moltenArdite, TinkerSmeltery.moltenBronze, TinkerSmeltery.moltenAlubrass, TinkerSmeltery.moltenManyullyn, TinkerSmeltery.moltenAlumite,
                 TinkerSmeltery.moltenObsidian, TinkerSmeltery.moltenSteel, TinkerSmeltery.moltenGlass, TinkerSmeltery.moltenStone, TinkerSmeltery.moltenEmerald, TinkerSmeltery.blood,
                 TinkerSmeltery.moltenNickel, TinkerSmeltery.moltenLead, TinkerSmeltery.moltenSilver, TinkerSmeltery.moltenShiny, TinkerSmeltery.moltenInvar, TinkerSmeltery.moltenElectrum,
-                TinkerSmeltery.moltenEnder, TinkerSmeltery.glueFluidBlock };
+                TinkerSmeltery.moltenEnder, null, TinkerSmeltery.glueFluidBlock, TinkerSmeltery.pigIronFluidBlock };
 
         FluidType.registerFluidType("Water", Blocks.snow, 0, 20, FluidRegistry.getFluid("water"), false);
         FluidType.registerFluidType("Iron", Blocks.iron_block, 0, 600, TinkerSmeltery.moltenIronFluid, true);

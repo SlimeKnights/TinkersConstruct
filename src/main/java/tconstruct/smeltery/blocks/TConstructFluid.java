@@ -40,6 +40,8 @@ public class TConstructFluid extends BlockFluidClassic
     {
         stillIcon = iconRegister.registerIcon("tinker:" + texture);
         flowIcon = iconRegister.registerIcon("tinker:" + texture + "_flow");
+
+        this.getFluid().setIcons(stillIcon, flowIcon);
     }
 
     @Override
