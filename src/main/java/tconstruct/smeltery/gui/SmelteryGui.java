@@ -203,10 +203,9 @@ public class SmelteryGui extends NewContainerGui
                         int size = liquidSize >= 16 ? 16 : liquidSize;
                         if (renderIndex != null)
                         {
-                            drawLiquidRect(cornerX + basePos, (cornerY + 68) - size - base, renderIndex, 16, size);
-                            drawLiquidRect(cornerX + basePos + 16, (cornerY + 68) - size - base, renderIndex, 16, size);
-                            drawLiquidRect(cornerX + basePos + 32, (cornerY + 68) - size - base, renderIndex, 16, size);
-                            drawLiquidRect(cornerX + basePos + 48, (cornerY + 68) - size - base, renderIndex, 4, size);
+                            drawLiquidRect(cornerX + basePos, (cornerY + 68) - size - base, renderIndex, 18, size);
+                            drawLiquidRect(cornerX + basePos + 18, (cornerY + 68) - size - base, renderIndex, 17, size);
+                            drawLiquidRect(cornerX + basePos + 35, (cornerY + 68) - size - base, renderIndex, 17, size);
                         }
                         liquidSize -= size;
                         base += size;

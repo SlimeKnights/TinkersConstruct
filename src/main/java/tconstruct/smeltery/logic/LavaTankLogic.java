@@ -184,7 +184,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
     {
         if (renderOffset > 0)
         {
-            renderOffset -= 6;
+            renderOffset = Math.max(renderOffset - 192, 0);
             worldObj.func_147479_m(xCoord, yCoord, zCoord);
         }
     }
