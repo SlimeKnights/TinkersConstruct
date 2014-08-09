@@ -1,9 +1,8 @@
 package tconstruct.library.crafting;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
@@ -16,15 +15,15 @@ public class Smeltery
 {
     public static Smeltery instance = new Smeltery();
 
-    private final HashMap<List<Integer>, FluidStack> smeltingList = new HashMap<List<Integer>, FluidStack>();
-    private final HashMap<List<Integer>, Integer> temperatureList = new HashMap<List<Integer>, Integer>();
-    private final HashMap<List<Integer>, ItemStack> renderIndex = new HashMap<List<Integer>, ItemStack>();
+    private final HashMap<ItemStack, FluidStack> smeltingList = new HashMap<ItemStack, FluidStack>();
+    private final HashMap<ItemStack, Integer> temperatureList = new HashMap<ItemStack, Integer>();
+    private final HashMap<ItemStack, ItemStack> renderIndex = new HashMap<ItemStack, ItemStack>();
     private final ArrayList<AlloyMix> alloys = new ArrayList<AlloyMix>();
 
     /**
      * Adds mappings between an itemstack and an output liquid Example:
      * Smeltery.addMelting(Block.oreIron, 0, 600, new
-     * FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
+     * FluidStack(liquidMetalStill, TConstruct.ingotLiquidValue * 2, 0));
      * 
      * @param stack The itemstack to liquify. Must hold a block.
      * @param temperature How hot the block should be before liquifying. Max temp in the Smeltery is 800, other structures may vary
@@ -41,9 +40,9 @@ public class Smeltery
     /**
      * Adds mappings between a block and its liquid Example:
      * Smeltery.addMelting(Block.oreIron, 0, 600, new
-     * FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
+     * FluidStack(liquidMetalStill, TConstruct.ingotLiquidValue * 2, 0));
      * 
-     * @param blockID The ID of the block to liquify and render
+     * @param block The block to liquify and render
      * @param metadata The metadata of the block to liquify and render
      * @param temperature How hot the block should be before liquifying. Max temp in the Smeltery is 800, other structures may vary
      * @param output The result of the process in liquid form
@@ -56,20 +55,20 @@ public class Smeltery
     /**
      * Adds mappings between an input and its liquid. Renders with the given
      * input's block ID and metadata Example: Smeltery.addMelting(Block.oreIron,
-     * 0, 600, new FluidStack(liquidMetalStill.blockID,
+     * 0, 600, new FluidStack(liquidMetalStill,
      * TConstruct.ingotLiquidValue * 2, 0));
      * 
      * @param input The item to liquify
-     * @param blockID The ID of the block to render
+     * @param block The block to render
      * @param metadata The metadata of the block to render
      * @param temperature How hot the block should be before liquifying
      * @param liquid The result of the process
      */
-    public static void addMelting (ItemStack input, Block blockID, int metadata, int temperature, FluidStack liquid)
+    public static void addMelting (ItemStack input, Block block, int metadata, int temperature, FluidStack liquid)
     {
-        instance.smeltingList.put(Arrays.asList(input.getItem().hashCode(), input.getItemDamage()), liquid);
-        instance.temperatureList.put(Arrays.asList(input.getItem().hashCode(), input.getItemDamage()), temperature);
-        instance.renderIndex.put(Arrays.asList(input.getItem().hashCode(), input.getItemDamage()), new ItemStack(blockID, input.stackSize, metadata));
+        instance.smeltingList.put(input, liquid);
+        instance.temperatureList.put(input, temperature);
+        instance.renderIndex.put(input, new ItemStack(block, input.stackSize, metadata));
     }
 
     /**
@@ -101,22 +100,11 @@ public class Smeltery
         if (item == null)
             return 20;
 
-        Integer temp = instance.temperatureList.get(Arrays.asList(item.getItem().hashCode(), item.getItemDamage()));
+        Integer temp = (Integer) getValueIfContainsStack(instance.temperatureList, item);
         if (temp == null)
             return 20;
         else
             return temp;
-    }
-
-    /**
-     * Used to get the resulting temperature from a source Block
-     * 
-     * @param item The Source ItemStack
-     * @return The result ItemStack
-     */
-    public static Integer getLiquifyTemperature (int blockID, int metadata)
-    {
-        return instance.temperatureList.get(Arrays.asList(blockID, metadata));
     }
 
     /**
@@ -130,21 +118,7 @@ public class Smeltery
         if (item == null)
             return null;
 
-        FluidStack stack = instance.smeltingList.get(Arrays.asList(item.getItem().hashCode(), item.getItemDamage()));
-        if (stack == null)
-            return null;
-        return stack.copy();
-    }
-
-    /**
-     * Used to get the resulting ItemStack from a source Block
-     * 
-     * @param item The Source ItemStack
-     * @return The result ItemStack
-     */
-    public static FluidStack getSmelteryResult (int blockID, int metadata)
-    {
-        FluidStack stack = instance.smeltingList.get(Arrays.asList(blockID, metadata));
+        FluidStack stack = (FluidStack) getValueIfContainsStack(instance.smeltingList, item);
         if (stack == null)
             return null;
         return stack.copy();
@@ -152,7 +126,7 @@ public class Smeltery
 
     public static ItemStack getRenderIndex (ItemStack input)
     {
-        return instance.renderIndex.get(Arrays.asList(input.getItem().hashCode(), input.getItemDamage()));
+        return (ItemStack) getValueIfContainsStack(instance.renderIndex, input);
     }
 
     public static ArrayList mixMetals (ArrayList<FluidStack> moltenMetal)
@@ -167,17 +141,17 @@ public class Smeltery
         return liquids;
     }
 
-    public static HashMap<List<Integer>, FluidStack> getSmeltingList ()
+    public static HashMap<ItemStack, FluidStack> getSmeltingList ()
     {
         return instance.smeltingList;
     }
 
-    public static HashMap<List<Integer>, Integer> getTemperatureList ()
+    public static HashMap<ItemStack, Integer> getTemperatureList ()
     {
         return instance.temperatureList;
     }
 
-    public static HashMap<List<Integer>, ItemStack> getRenderIndex ()
+    public static HashMap<ItemStack, ItemStack> getRenderIndex ()
     {
         return instance.renderIndex;
     }
@@ -204,7 +178,7 @@ public class Smeltery
             temp = type.baseTemperature;
 
         if (input.getItem() instanceof ItemBlock)
-            addMelting(input, ((ItemBlock) input.getItem()).field_150939_a, input.getItemDamage(), type.baseTemperature + temperatureDifference, new FluidStack(type.fluid, fluidAmount));
+            addMelting(input, Block.getBlockFromItem(input.getItem()), input.getItemDamage(), type.baseTemperature + temperatureDifference, new FluidStack(type.fluid, fluidAmount));
         else
             addMelting(input, type.renderBlock, type.renderMeta, type.baseTemperature + temperatureDifference, new FluidStack(type.fluid, fluidAmount));
     }
@@ -224,4 +198,21 @@ public class Smeltery
         for (ItemStack is : OreDictionary.getOres(oreName))
             addMelting(type, is, temperatureDifference, fluidAmount);
     }
+
+    private static Object getValueIfContainsStack (Map<ItemStack, ?> map, ItemStack stack)
+    {
+        if (stack == null)
+            return null;
+
+        for (ItemStack i : map.keySet())
+        {
+            if (i != null && i.getItem() == stack.getItem() && i.getItemDamage() == stack.getItemDamage())
+            {
+                return map.get(i);
+            }
+        }
+
+        return null;
+    }
+
 }
