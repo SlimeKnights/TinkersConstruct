@@ -51,6 +51,7 @@ import tconstruct.smeltery.blocks.SpeedBlock;
 import tconstruct.smeltery.blocks.SpeedSlab;
 import tconstruct.smeltery.blocks.TConstructFluid;
 import tconstruct.smeltery.blocks.TankAirBlock;
+import tconstruct.smeltery.blocks.PigIronMoltenBlock;
 import tconstruct.smeltery.itemblocks.CastingChannelItem;
 import tconstruct.smeltery.itemblocks.GlassBlockItem;
 import tconstruct.smeltery.itemblocks.GlassPaneItem;
@@ -447,7 +448,7 @@ public class TinkerSmeltery
         TinkerSmeltery.pigIronFluid = new Fluid("pigiron.molten").setDensity(3000).setViscosity(6000).setTemperature(1300);
         if (!FluidRegistry.registerFluid(TinkerSmeltery.pigIronFluid))
             TinkerSmeltery.pigIronFluid = FluidRegistry.getFluid("pigiron.molten");
-        TinkerSmeltery.pigIronFluidBlock = new TConstructFluid(pigIronFluid, Material.water, "liquid_pigiron").setBlockName("fluid.molten.pigiron");
+        TinkerSmeltery.pigIronFluidBlock = new PigIronMoltenBlock(pigIronFluid, Material.water, "liquid_pigiron").setBlockName("fluid.molten.pigiron");
         GameRegistry.registerBlock(TinkerSmeltery.pigIronFluidBlock, "fluid.molten.pigiron");
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.pigIronFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 26), new ItemStack(
                 Items.bucket)));
