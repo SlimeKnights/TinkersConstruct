@@ -688,7 +688,7 @@ public class TinkerSmeltery
             Smeltery.addDictionaryMelting("nugget" + fluidTypeName, ft, -100, TConstruct.nuggetLiquidValue);
 
             // Ingots, Dust
-            registerIngotCasting(ft, fluidTypeName);
+            registerIngotCasting(ft, "ingot" + fluidTypeName);
             Smeltery.addDictionaryMelting("ingot" + fluidTypeName, ft, -50, TConstruct.ingotLiquidValue);
             Smeltery.addDictionaryMelting("dust" + fluidTypeName, ft, -75, TConstruct.ingotLiquidValue / 4);
 
