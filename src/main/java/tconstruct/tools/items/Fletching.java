@@ -34,6 +34,8 @@ public class Fletching extends CraftingItem implements IToolPart
     @Override
     public int getMaterialID (ItemStack stack)
     {
+        if(stack.getItemDamage() >= toolMaterialNames.length)
+            return -1;
         return stack.getItemDamage();
     }
 }
