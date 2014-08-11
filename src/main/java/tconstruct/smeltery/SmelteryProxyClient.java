@@ -147,33 +147,4 @@ public class SmelteryProxyClient extends SmelteryProxyCommon
         }
         return null;
     }
-
-    /* Liquids */
-
-    IIcon[] stillIcons = new IIcon[1];
-    IIcon[] flowIcons = new IIcon[1];
-
-    @SubscribeEvent
-    public void preStitch (TextureStitchEvent.Pre event)
-    {
-        TextureMap register = event.map;
-        if (register.getTextureType() == 0)
-        {
-            stillIcons[0] = register.registerIcon("tinker:liquid_pigiron");
-            flowIcons[0] = register.registerIcon("tinker:liquid_pigiron");
-        }
-    }
-
-    @SubscribeEvent
-    public void postStitch (TextureStitchEvent.Post event)
-    {
-        if (event.map.getTextureType() == 0)
-        {
-            for (int i = 0; i < TinkerSmeltery.fluidBlocks.length; i++)
-            {
-                TinkerSmeltery.fluids[i].setIcons(TinkerSmeltery.fluidBlocks[i].getIcon(0, 0), TinkerSmeltery.fluidBlocks[i].getIcon(2, 0));
-            }
-            TinkerSmeltery.pigIronFluid.setIcons(stillIcons[0], flowIcons[0]);
-        }
-    }
 }
