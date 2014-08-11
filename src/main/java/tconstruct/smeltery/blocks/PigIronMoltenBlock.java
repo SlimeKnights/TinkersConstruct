@@ -20,7 +20,8 @@ public class PigIronMoltenBlock extends TConstructFluid
         this.stillIcon = iconRegister.registerIcon("tinker:" + texture);
         this.flowIcon = iconRegister.registerIcon("tinker:" + texture);
 
-        this.getFluid().setIcons(stillIcon, flowIcon);
+        if (this.overwriteFluidIcons)
+            this.getFluid().setIcons(stillIcon, flowIcon);
     }
 
     @Override

@@ -15,6 +15,7 @@ public class TConstructFluid extends BlockFluidClassic
     boolean alpha;
     public IIcon stillIcon;
     public IIcon flowIcon;
+    boolean overwriteFluidIcons = true;
 
     public TConstructFluid(Fluid fluid, Material material, String texture)
     {
@@ -41,7 +42,8 @@ public class TConstructFluid extends BlockFluidClassic
         stillIcon = iconRegister.registerIcon("tinker:" + texture);
         flowIcon = iconRegister.registerIcon("tinker:" + texture + "_flow");
 
-        this.getFluid().setIcons(stillIcon, flowIcon);
+        if (overwriteFluidIcons)
+            this.getFluid().setIcons(stillIcon, flowIcon);
     }
 
     @Override
@@ -52,4 +54,10 @@ public class TConstructFluid extends BlockFluidClassic
             return stillIcon;
         return flowIcon;
     }
+
+    public void suppressOverwritingFluidIcons ()
+    {
+        overwriteFluidIcons = false;
+    }
+
 }
