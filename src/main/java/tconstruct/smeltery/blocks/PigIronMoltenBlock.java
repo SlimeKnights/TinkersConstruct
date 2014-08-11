@@ -27,8 +27,10 @@ public class PigIronMoltenBlock extends TConstructFluid
     @Override
     public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
     {
-        if (!world.isRemote && entity != null)
+        if (!world.isRemote && entity != null && !entity.isWet())
             entity.setFire(40);
+        if (!entity.isWet() || world.rand.nextInt(100) > 73)
+            world.playSoundAtEntity(entity, "random.fizz", 0.7F, 1.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.4F);
     }
 
 }
