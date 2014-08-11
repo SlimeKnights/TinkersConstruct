@@ -127,6 +127,8 @@ tile.cloth.black.slab.name=Плита из чёрной шерсти
 tile.GlueBlock.name=Блок клея
 tile.liquid.glue.name=Клей
 
+tile.Frypan.name=Сковорода
+
 item.oreberry.iron.name=Кусочки железа
 item.oreberry.gold.name=Кусочки золота
 item.oreberry.copper.name=Кусочки меди
@@ -415,8 +417,8 @@ item.tconstruct.Fletching.leaf.name=Листовое оперение
 item.tconstruct.Fletching.slime.name=Слизистое оперение
 item.tconstruct.Fletching.blueslime.name=Слизистое оперение
 
-item.tconstruct.manual.beginner.name=Материалы и Вы
-item.tconstruct.manual.toolstation.name=Материалы и Вы
+item.tconstruct.manual.beginner.name=Материалы и Вы: Том 1
+item.tconstruct.manual.toolstation.name=Материалы и Вы: Том 2
 item.tconstruct.manual.smeltery.name=Могучая металлургия
 item.tconstruct.manual.diary.name=Дневник инженера
 
@@ -717,6 +719,7 @@ gui.smeltery.glass.block=Блоков:
 gui.smeltery.glass.pannel=Панелей: 
 gui.smeltery.metal.ingot=Слитков: 
 gui.smeltery.metal.nugget=Самородков: 
+gui.smeltery.molten.check=Расплавленн. 
 gui.landmine=Мина
 gui.partcrafter1=Создание частей
 gui.partcrafter2=Сбор частей
