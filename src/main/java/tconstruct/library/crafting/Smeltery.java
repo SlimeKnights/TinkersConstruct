@@ -243,7 +243,7 @@ public class Smeltery
         @Override
         public int hashCode ()
         {
-            return Item.getIdFromItem(this.input) << 16 | this.meta;
+            return this.input.hashCode() << 16 | this.meta;
         }
 
         @Override
