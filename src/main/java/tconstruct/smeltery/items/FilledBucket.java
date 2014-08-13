@@ -132,6 +132,9 @@ public class FilledBucket extends ItemBucket
         {
             try
             {
+                if (TinkerSmeltery.fluidBlocks[type] == null)
+                    return false;
+
                 int metadata = 0;
                 if (TinkerSmeltery.fluidBlocks[type] instanceof BlockFluidFinite)
                     metadata = 7;

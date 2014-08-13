@@ -44,6 +44,7 @@ import tconstruct.smeltery.blocks.GlassPaneStained;
 import tconstruct.smeltery.blocks.GlueBlock;
 import tconstruct.smeltery.blocks.GlueFluid;
 import tconstruct.smeltery.blocks.LavaTankBlock;
+import tconstruct.smeltery.blocks.PigIronMoltenBlock;
 import tconstruct.smeltery.blocks.SearedBlock;
 import tconstruct.smeltery.blocks.SearedSlab;
 import tconstruct.smeltery.blocks.SmelteryBlock;
@@ -51,7 +52,6 @@ import tconstruct.smeltery.blocks.SpeedBlock;
 import tconstruct.smeltery.blocks.SpeedSlab;
 import tconstruct.smeltery.blocks.TConstructFluid;
 import tconstruct.smeltery.blocks.TankAirBlock;
-import tconstruct.smeltery.blocks.PigIronMoltenBlock;
 import tconstruct.smeltery.itemblocks.CastingChannelItem;
 import tconstruct.smeltery.itemblocks.GlassBlockItem;
 import tconstruct.smeltery.itemblocks.GlassPaneItem;
@@ -737,12 +737,12 @@ public class TinkerSmeltery
                 TinkerSmeltery.moltenManyullynFluid, TinkerSmeltery.moltenAlumiteFluid, TinkerSmeltery.moltenObsidianFluid, TinkerSmeltery.moltenSteelFluid, TinkerSmeltery.moltenGlassFluid,
                 TinkerSmeltery.moltenStoneFluid, TinkerSmeltery.moltenEmeraldFluid, TinkerSmeltery.bloodFluid, TinkerSmeltery.moltenNickelFluid, TinkerSmeltery.moltenLeadFluid,
                 TinkerSmeltery.moltenSilverFluid, TinkerSmeltery.moltenShinyFluid, TinkerSmeltery.moltenInvarFluid, TinkerSmeltery.moltenElectrumFluid, TinkerSmeltery.moltenEnderFluid,
-                null, TinkerSmeltery.glueFluid, TinkerSmeltery.pigIronFluid };
+                TinkerWorld.blueSlimeFluid, TinkerSmeltery.glueFluid, TinkerSmeltery.pigIronFluid };
         TinkerSmeltery.fluidBlocks = new Block[] { TinkerSmeltery.moltenIron, TinkerSmeltery.moltenGold, TinkerSmeltery.moltenCopper, TinkerSmeltery.moltenTin, TinkerSmeltery.moltenAluminum,
                 TinkerSmeltery.moltenCobalt, TinkerSmeltery.moltenArdite, TinkerSmeltery.moltenBronze, TinkerSmeltery.moltenAlubrass, TinkerSmeltery.moltenManyullyn, TinkerSmeltery.moltenAlumite,
                 TinkerSmeltery.moltenObsidian, TinkerSmeltery.moltenSteel, TinkerSmeltery.moltenGlass, TinkerSmeltery.moltenStone, TinkerSmeltery.moltenEmerald, TinkerSmeltery.blood,
                 TinkerSmeltery.moltenNickel, TinkerSmeltery.moltenLead, TinkerSmeltery.moltenSilver, TinkerSmeltery.moltenShiny, TinkerSmeltery.moltenInvar, TinkerSmeltery.moltenElectrum,
-                TinkerSmeltery.moltenEnder, null, TinkerSmeltery.glueFluidBlock, TinkerSmeltery.pigIronFluidBlock };
+                TinkerSmeltery.moltenEnder, TinkerWorld.slimePool, TinkerSmeltery.glueFluidBlock, TinkerSmeltery.pigIronFluidBlock };
 
         FluidType.registerFluidType("Water", Blocks.snow, 0, 20, FluidRegistry.getFluid("water"), false);
         FluidType.registerFluidType("Iron", Blocks.iron_block, 0, 600, TinkerSmeltery.moltenIronFluid, true);
@@ -1029,11 +1029,11 @@ public class TinkerSmeltery
         // Buckets
         ItemStack bucket = new ItemStack(Items.bucket);
 
-        for (int sc = 0; sc < 23; sc++)
+        for (int sc = 0; sc < 26; sc++)
         {
-            tableCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.buckets, 1, sc), new FluidStack(TinkerSmeltery.fluids[sc], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
+            if (TinkerSmeltery.fluids[sc] != null)
+                tableCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.buckets, 1, sc), new FluidStack(TinkerSmeltery.fluids[sc], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
         }
-        tableCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.buckets, 1, 25), new FluidStack(TinkerSmeltery.fluids[25], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
 
         // Clear glass pane casting
         tableCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.glassPane), new FluidStack(TinkerSmeltery.moltenGlassFluid, 250), null, 80);
@@ -1070,7 +1070,7 @@ public class TinkerSmeltery
                 }
             }
         }
-        
+
         tableCasting.addCastingRecipe(new ItemStack(Items.ender_pearl), new FluidStack(TinkerSmeltery.moltenEnderFluid, 250), new ItemStack(TinkerSmeltery.metalPattern, 1, 10), 50);
         tableCasting.addCastingRecipe(new ItemStack(Items.ender_pearl), new FluidStack(TinkerSmeltery.moltenEnderFluid, 250), new ItemStack(TinkerSmeltery.metalPattern, 1, 26), 50);
 
@@ -1312,7 +1312,7 @@ public class TinkerSmeltery
         Smeltery.addMelting(gold, new ItemStack(Items.golden_shovel, 1, 0), 0, TConstruct.ingotLiquidValue);
         Smeltery.addMelting(gold, new ItemStack(Items.golden_pickaxe, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
         Smeltery.addMelting(gold, new ItemStack(Items.golden_axe, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
-        
+
         Smeltery.addMelting(gold, new ItemStack(Items.golden_apple, 1, 0), 250, TConstruct.ingotLiquidValue * 8);
         Smeltery.addMelting(gold, new ItemStack(Items.golden_apple, 1, 1), 600, TConstruct.ingotLiquidValue * 72);
         Smeltery.addMelting(gold, new ItemStack(Items.speckled_melon, 1, 0), -20, TConstruct.ingotLiquidValue * 8 / 9);
