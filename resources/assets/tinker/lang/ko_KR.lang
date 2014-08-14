@@ -81,7 +81,7 @@ block.brick.gold.name=금 벽돌
 block.brick.diamond.name=다이아몬드 벽돌
 block.brick.lapis.name=청금석 벽돌
 block.brick.stone.refined.name=다듬은 석재 벽돌
-block.brick.redstone.name=레드스톤  벽돌
+block.brick.redstone.name=레드스톤 벽돌
 block.brick.bone.name=뼈 벽돌
 block.brick.slime.name=슬라임 벽돌
 block.brick.blueslime.name=푸른 슬라임 벽돌
@@ -350,10 +350,10 @@ block.stainedglass.magenta.name=다홍색 스테인드글래스
 block.stainedglass.lightblue.name=하늘색 스테인드글래스
 block.stainedglass.yellow.name=노란색 스테인드글래스
 block.stainedglass.lime.name=연두색 스테인드글래스
-block.stainedglass.pink.name=분홍색 스테인드글라스
+block.stainedglass.pink.name=분홍색 스테인드글래스
 block.stainedglass.gray.name=회색 스테인드글래스
 block.stainedglass.lightgray.name=밝은 회색 스테인드글래스
-block.stainedglass.cyan.name=청록색 스테인드글라스
+block.stainedglass.cyan.name=청록색 스테인드글래스
 block.stainedglass.purple.name=보라색 스테인드글래스
 block.stainedglass.blue.name=파란색 스테인드글래스
 block.stainedglass.brown.name=갈색 스테인드글래스
@@ -405,7 +405,7 @@ block.slime.congealed.blue.name=굳은 파란 슬라임
 block.slime.congealed.green.name=굳은 초록 슬라임
 block.slime.congealed.purple.name=굳은 보라 슬라임
 
-item.tconstruct.storage.knapsack.name=배낭  
+item.tconstruct.storage.knapsack.name=배낭 
 item.tconstruct.blankpattern.pattern.name=빈 문양
 item.tconstruct.blankpattern.cast.name=빈 주형
 
@@ -625,7 +625,7 @@ achievement.tconstruct.tinkerer=대장장이
 achievement.tconstruct.proTinkerer=숙련된 대장장이
 achievement.tconstruct.smelteryMaker=대장간
 achievement.tconstruct.preparedFight=전투 완비
-achievement.tconstruct.enemySlayer=적장, 물리쳤다!
+achievement.tconstruct.enemySlayer=몬스터 살육자
 achievement.tconstruct.dualConvenience=두 가지 기능
 achievement.tconstruct.doingItWrong=실수
 achievement.tconstruct.betterCrafting=고급 조합
@@ -638,7 +638,7 @@ achievement.tconstruct.smelteryMaker.desc=제련소의 구성 블럭을 만드�
 achievement.tconstruct.preparedFight.desc=첫 번째 무기를 만드세요
 achievement.tconstruct.enemySlayer.desc=몬스터를 죽이세요
 achievement.tconstruct.dualConvenience.desc=몹을 프라이팬으로 죽이고 그것으로 그 몹의 고기를 요리하세요
-achievement.tconstruct.doingItWrong.desc=여기서 이러시면 안되죠
+achievement.tconstruct.doingItWrong.desc=여기서 이러시면 안돼죠
 achievement.tconstruct.betterCrafting.desc=조합대를 조합창에 넣어 조합 테이블을 만드세요
 
 knapsack.tooltip=아이템을 저장하기 위한 배낭
@@ -821,6 +821,6 @@ materialtraits.writable=추가 업그레이드
 materialtraits.tasty=맛있는
 materialtraits.thaumic=마법적인
 
-creativeModLock.tooltip=잠금 대상: 
+creativeModLock.tooltip=적용 대상: 
 
-attribute.name.ammo.attackDamage=평균 명중 데미지
+attribute.name.ammo.attackDamage=평균 데미지
