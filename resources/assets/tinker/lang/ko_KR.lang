@@ -638,7 +638,7 @@ achievement.tconstruct.smelteryMaker.desc=제련소의 구성 블럭을 만드�
 achievement.tconstruct.preparedFight.desc=첫 번째 무기를 만드세요
 achievement.tconstruct.enemySlayer.desc=몬스터를 죽이세요
 achievement.tconstruct.dualConvenience.desc=몹을 프라이팬으로 죽이고 그것으로 그 몹의 고기를 요리하세요
-achievement.tconstruct.doingItWrong.desc=여기서 이러시면 안돼죠
+achievement.tconstruct.doingItWrong.desc=여기서 이러시면 안되죠
 achievement.tconstruct.betterCrafting.desc=조합대를 조합창에 넣어 조합 테이블을 만드세요
 
 knapsack.tooltip=아이템을 저장하기 위한 배낭
