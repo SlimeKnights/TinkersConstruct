@@ -116,11 +116,8 @@ public class ToolBuilder
         if (stack == null)
             return -1;
         Item item = stack.getItem();
-        if (item == Items.stick)
-            return 0;
-        else if (item == Items.bone)
-            return 5;
-        else if (item instanceof IToolPart)
+
+        if (item instanceof IToolPart)
             return ((IToolPart) item).getMaterialID(stack);
 
         return -1;

@@ -19,14 +19,12 @@ import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import tconstruct.TConstruct;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.event.PartBuilderEvent;
-import tconstruct.library.event.SmelteryCastEvent;
-import tconstruct.library.event.SmelteryCastedEvent;
-import tconstruct.library.event.ToolCraftEvent;
+import tconstruct.library.event.*;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ArrowMaterial;
 import tconstruct.library.tools.BowMaterial;
@@ -38,6 +36,8 @@ import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
+
+import java.util.List;
 
 public class TinkerToolEvents
 {
@@ -58,7 +58,25 @@ public class TinkerToolEvents
             }
         }
     }
-    
+
+    @SubscribeEvent
+    public void buildTool(ToolBuildEvent event)
+    {
+        // check if the handle is a bone
+        if(event.handleStack.getItem() == Items.bone) {
+            event.handleStack = new ItemStack(TinkerTools.toolRod, 1, 5); // bone tool rod
+            return;
+        }
+
+        // check if the handle is a stick
+        List<ItemStack> sticks = OreDictionary.getOres("stickWood");
+        for(ItemStack stick : sticks)
+            if (OreDictionary.itemMatches(stick, event.handleStack, false)) {
+                event.handleStack = new ItemStack(TinkerTools.toolRod, 1, 0); // wooden tool rod
+                return;
+            }
+    }
+
     @SubscribeEvent
     public void craftTool (ToolCraftEvent.NormalTool event)
     {
