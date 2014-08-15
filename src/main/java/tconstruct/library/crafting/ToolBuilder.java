@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.event.ToolBuildEvent;
 import tconstruct.library.event.ToolCraftEvent;
 import tconstruct.library.modifier.ItemModifier;
 import tconstruct.library.tools.ToolCore;
@@ -132,6 +133,19 @@ public class ToolBuilder
 
         if (headStack == null || handleStack == null) //Nothing to build without these. All tools need at least two parts!
             return null;
+        if(name == null)
+            name = "";
+
+        // fire the ToolBuild event to get the correct items
+        ToolBuildEvent buildEvent = new ToolBuildEvent(headStack, handleStack, accessoryStack, extraStack, name);
+        MinecraftForge.EVENT_BUS.post(buildEvent);
+
+        // copy back the items
+        headStack = buildEvent.headStack;
+        handleStack = buildEvent.handleStack;
+        accessoryStack = buildEvent.accessoryStack;
+        extraStack = buildEvent.extraStack;
+        name = buildEvent.name;
 
         ToolCore item;
         boolean validMaterials = true;
