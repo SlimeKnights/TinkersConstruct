@@ -25,8 +25,27 @@ public class ToolBuilder
     public HashMap<String, ToolRecipe> recipeList = new HashMap<String, ToolRecipe>();
     public List<ToolRecipe> combos = new ArrayList<ToolRecipe>();
     public HashMap<String, String> modifiers = new HashMap<String, String>();
+    public HashMap<String, ItemStack> partAlias = new HashMap<String, ItemStack>(); // using a string is easier than crating a container object again..
 
     /* Build tools */
+
+    /**
+     * Allows to register items that can be used instead of toolparts. Like a Stick can be used instead of a Wooden Tool Rod
+     * @param alias The item that can be used.
+     * @param part The tool part that shall be used to build the tool. Item must implement IToolPart
+     */
+    public static void addPartAlias(ItemStack alias, ItemStack part)
+    {
+        if(alias.getItem() == null || part.getItem() == null)
+            return;
+        if(!(part.getItem() instanceof IToolPart))
+            return;
+
+        String key = String.format("%s:%d", alias.getItem().getUnlocalizedName(), alias.getItemDamage());
+
+        instance.partAlias.put(key, part);
+    }
+
     public static void addNormalToolRecipe (ToolCore output, Item head, Item handle)
     {
         ToolRecipe recipe = instance.recipeList.get(output.getToolName());
@@ -114,12 +133,13 @@ public class ToolBuilder
     {
         if (stack == null)
             return -1;
+
+        String key = String.format("%s:%d", stack.getItem().getUnlocalizedName(), stack.getItemDamage());
+        if(partAlias.containsKey(key))
+            stack = partAlias.get(key);
+
         Item item = stack.getItem();
-        if (item == Items.stick)
-            return 0;
-        else if (item == Items.bone)
-            return 5;
-        else if (item instanceof IToolPart)
+        if (item instanceof IToolPart)
             return ((IToolPart) item).getMaterialID(stack);
 
         return -1;
@@ -127,9 +147,6 @@ public class ToolBuilder
 
     public ItemStack buildTool (ItemStack headStack, ItemStack handleStack, ItemStack accessoryStack, ItemStack extraStack, String name)
     {
-        /*if (headStack != null && headStack.getItem() instanceof ToolCore)
-            return modifyTool(headStack, new ItemStack[] { handleStack, accessoryStack, extraStack }, name);*/
-
         if (headStack == null || handleStack == null) //Nothing to build without these. All tools need at least two parts!
             return null;
 

@@ -483,6 +483,10 @@ public class TinkerTools
         tb.addCustomToolRecipe(recipe);
         tb.addNormalToolRecipe(TinkerTools.arrow, TinkerTools.arrowhead, TinkerTools.toolRod, TinkerTools.fletching);
 
+        // register part aliases
+        tb.addPartAlias(new ItemStack(Items.stick), new ItemStack(TinkerTools.toolRod, 1, 0)); // Stick == wooden tool rod
+        tb.addPartAlias(new ItemStack(Items.bone), new ItemStack(TinkerTools.toolRod, 1, 5)); // bone == bone tool rod
+
         ItemStack diamond = new ItemStack(Items.diamond);
         ModifyBuilder.registerModifier(new ModToolRepair());
         ModifyBuilder.registerModifier(new ModDurability(new ItemStack[] { diamond }, 0, 500, 0f, 3, "Diamond", "\u00a7b"
