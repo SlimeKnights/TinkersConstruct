@@ -103,13 +103,32 @@ public class ModFlux extends ModBoolean
 
         // set the charge values
         int charge = energyContainer.getEnergyStored(inputBattery);
+
         // add already present charge in the tool
         if(tags.hasKey("Energy"))
             charge += tags.getInteger("Energy");
         int maxCharge = energyContainer.getMaxEnergyStored(inputBattery);
-        // simulate transferring maximum amount of POWER to obtain the maximum receive-limit of the battery ;_;
-        int maxExtract = energyContainer.extractEnergy(inputBattery, Integer.MAX_VALUE, true);
-        int maxReceive = energyContainer.receiveEnergy(inputBattery, Integer.MAX_VALUE, true);
+
+        ItemStack subject42 = inputBattery.copy();
+
+        int progress = 0, change = 1; // prevent endless loops with creative battery, blah
+        // fill the battery full
+        while(progress < maxCharge && change > 0) {
+            change = energyContainer.receiveEnergy(subject42, 100000, false);
+            progress += change;
+        }
+        // get the maximum extraction rate
+        int maxExtract = energyContainer.extractEnergy(subject42, Integer.MAX_VALUE, true);
+
+        subject42 = inputBattery.copy();
+
+        // completely empty the battery
+        progress = 0; change = 1;
+        while(progress < maxCharge && change > 0) {
+            change = energyContainer.extractEnergy(subject42, 100000, false);
+            progress += change;
+        }
+        int maxReceive = energyContainer.receiveEnergy(subject42, Integer.MAX_VALUE, true);
 
         // make sure we don't overcharge
         charge = Math.min(charge, maxCharge);
