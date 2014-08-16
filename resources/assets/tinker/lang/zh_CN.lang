@@ -181,7 +181,7 @@ item.tconstruct.Pattern.knifeblade.name=刀刃模具
 item.tconstruct.Pattern.chisel.name=凿刃模具
 item.tconstruct.Pattern.largerod.name=坚韧手柄模具
 item.tconstruct.Pattern.toughbinding.name=坚韧绑定结模具
-item.tconstruct.Pattern.largeplate.name=金属板模具
+item.tconstruct.Pattern.largeplate.name=板模具
 item.tconstruct.Pattern.broadaxe.name=宽斧刃模具
 item.tconstruct.Pattern.scythe.name=镰刀刀刃模具
 item.tconstruct.Pattern.excavator.name=开凿铲铲刃模具
@@ -208,7 +208,7 @@ item.tconstruct.MetalPattern.knifeblade.name=刀刃铸形
 item.tconstruct.MetalPattern.chisel.name=凿刃铸形
 item.tconstruct.MetalPattern.largerod.name=坚韧手柄铸形
 item.tconstruct.MetalPattern.toughbinding.name=坚韧绑定结铸形
-item.tconstruct.MetalPattern.largeplate.name=金属板铸形
+item.tconstruct.MetalPattern.largeplate.name=板铸形
 item.tconstruct.MetalPattern.broadaxe.name=宽斧刃铸形
 item.tconstruct.MetalPattern.scythe.name=镰刀刀刃铸形
 item.tconstruct.MetalPattern.excavator.name=开凿铲铲刃铸形
@@ -276,7 +276,7 @@ item.tconstruct.bootsWood.name=木靴子
 
 item.tconstruct.travelgoggles.name=旅行者护目镜
 item.tconstruct.travelvest.name=旅行者马甲
-item.tconstruct.travelwings.name=旅行者飞行翼
+item.tconstruct.travelwings.name=旅行者之翼
 item.tconstruct.travelboots.name=旅行者靴子
 item.tconstruct.travelgloves.name=旅行者手套
 item.tconstruct.travelbelt.name=旅行者腰带
@@ -525,7 +525,7 @@ SearedBlock.Basin.name=铸造盆
 entity.TConstruct.EdibleSlime.name=蓝色史莱姆
 entity.TConstruct.KingSlime.name=史莱姆王
 entity.TConstruct.Gardeslime.name=史莱姆护卫
-entity.TConstruct.MiniGardy.name=史莱姆护卫
+entity.TConstruct.MiniGardy.name=小史莱姆护卫
 
 tconstruct.keybindings=匠魂
 key.tarmor=装备界面
@@ -817,7 +817,7 @@ modifier.tool.beheading=斩首
 
 materialtraits.stonebound=石缚
 materialtraits.jagged=锯齿
-materialtraits.writable=可写
+materialtraits.writable=铭刻
 materialtraits.tasty=美味
 materialtraits.thaumic=神秘
 
