@@ -346,6 +346,14 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
             inventory[1] = event.output;
             if (event.consumeCast)
                 inventory[0] = null;
+
+            // if we just created a cast, move it to the first slot so we can use it directly afterwards
+            if(event.output != null && event.output.getItem() instanceof IPattern)
+            {
+                inventory[1] = inventory[0];
+                inventory[0] = event.output;
+            }
+
             liquid = null;
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
