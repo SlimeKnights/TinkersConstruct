@@ -62,11 +62,11 @@ import tconstruct.world.village.*;
  * @author mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.0d37",
+@Mod(modid = "TConstruct", name = "TConstruct", version = "${version}",
         dependencies = "required-after:Forge@[10.13,);required-after:Mantle;after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion")
 public class TConstruct
 {
-    public static final String modVersion = "1.6.0d37";
+    public static final String modVersion = "${version}";
     /** The value of one ingot in millibuckets */
     public static final int ingotLiquidValue = 144;
     public static final int oreLiquidValue = ingotLiquidValue * 2;
