@@ -81,7 +81,7 @@ public class TActiveOmniMod extends ActiveToolMod
                     tool.onBlockDestroyed(stack, world, block, x, y, z, entity);
                 if (!world.isRemote)
                 {
-                    ItemStack spawnme = new ItemStack(result.getItem(), amount, result.getItemDamage());
+                    ItemStack spawnme = new ItemStack(result.getItem(), amount*result.stackSize, result.getItemDamage());
                     if (result.hasTagCompound())
                         spawnme.setTagCompound(result.getTagCompound());
                     if (!(result.getItem() instanceof ItemBlock) && PHConstruct.lavaFortuneInteraction)
