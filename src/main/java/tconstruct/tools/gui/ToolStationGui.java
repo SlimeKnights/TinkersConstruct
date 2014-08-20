@@ -454,7 +454,7 @@ public class ToolStationGui extends GuiContainer
 
         for (int i = 0; i < slotX.length; i++)
         {
-            this.drawTexturedModalRect(cornerX + slotX[i] - 4, this.guiTop + slotY[i] - 4, 140, 212, 28, 28);
+            this.drawTexturedModalRect(cornerX + slotX[i], this.guiTop + slotY[i], 144, 216, 18, 18);
             if (!logic.isStackInSlot(i + 1))
             {
                 this.drawTexturedModalRect(cornerX + slotX[i], this.guiTop + slotY[i], 18 * iconX[i], 18 * iconY[i], 18, 18);
