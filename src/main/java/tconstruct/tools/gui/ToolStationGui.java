@@ -22,6 +22,7 @@ import tconstruct.TConstruct;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.client.ToolGuiElement;
 import tconstruct.library.tools.ToolCore;
+import tconstruct.library.util.HarvestLevels;
 import tconstruct.smeltery.inventory.ActiveContainer;
 import tconstruct.tools.inventory.ToolStationContainer;
 import tconstruct.tools.logic.ToolStationLogic;
@@ -316,7 +317,7 @@ public class ToolStationGui extends GuiContainer
             offset++;
             fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation13"), 294, base + offset * 10, 0xffffff);
             offset++;
-            fontRendererObj.drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + getHarvestLevelName(tags.getInteger("HarvestLevel2")), 294, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString("- " + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel2")), 294, base + offset * 10, 0xffffff);
             offset++;
             offset++;
         }
@@ -359,7 +360,7 @@ public class ToolStationGui extends GuiContainer
                 fontRendererObj.drawString(bloss + df.format(stoneboundSpeed), 294, base + offset * 10, 0xffffff);
                 offset++;
             }
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation15") + getHarvestLevelName(tags.getInteger("HarvestLevel")), 294, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation15") + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel")), 294, base + offset * 10, 0xffffff);
             offset++;
             offset++;
         }
@@ -403,27 +404,6 @@ public class ToolStationGui extends GuiContainer
     {
         this.drawCenteredString(fontRendererObj, title, 349, 8, 0xffffff);
         fontRendererObj.drawSplitString(body, 294, 24, 115, 0xffffff);
-    }
-
-    protected String getHarvestLevelName (int num)
-    {
-        switch (num)
-        {
-        case 0:
-            return StatCollector.translateToLocal("gui.partcrafter.mining1");
-        case 1:
-            return StatCollector.translateToLocal("gui.partcrafter.mining2");
-        case 2:
-            return StatCollector.translateToLocal("gui.partcrafter.mining3");
-        case 3:
-            return StatCollector.translateToLocal("gui.partcrafter.mining4"); // Mithril
-        case 4:
-            return StatCollector.translateToLocal("gui.partcrafter.mining5");
-        case 5:
-            return StatCollector.translateToLocal("gui.partcrafter.mining6");
-        default:
-            return String.valueOf(num);
-        }
     }
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/toolstation.png");
