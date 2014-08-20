@@ -433,9 +433,12 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         return TConstructRegistry.getMaterial(type).style();
     }
 
+    /**
+     * Returns the localized name of the materials ability. Only use this for display purposes, not for logic.
+     */
     public String getAbilityNameForType (int type)
     {
-        return TConstructRegistry.getMaterial(type).ability();
+        return TConstructRegistry.getMaterial(type).localizedAbility();
     }
 
     public String getReinforcedName (int head, int handle, int accessory, int extra, int unbreaking)

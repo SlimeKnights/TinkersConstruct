@@ -156,9 +156,9 @@ public class MaterialPage extends BookPage
         String ability = material.ability();
         if (!ability.equals(""))
         {
-            manual.fonts.drawString(materialTrait + ": " + material.ability(), localWidth, localHeight + 120 + 10 * offset, 0);
+            manual.fonts.drawString(materialTrait + ": " + material.localizedAbility(), localWidth, localHeight + 120 + 10 * offset, 0);
             offset++;
-            if (ability.equals("Writable"))
+            if (ability.equals("materialtraits.writable"))
                 manual.fonts.drawString(extraMod, localWidth, localHeight + 120 + 10 * offset, 0);
         }
 
