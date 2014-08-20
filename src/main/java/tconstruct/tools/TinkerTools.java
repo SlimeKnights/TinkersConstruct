@@ -43,10 +43,7 @@ import tconstruct.items.tools.Shortbow;
 import tconstruct.items.tools.Shovel;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
-import tconstruct.library.crafting.Detailing;
-import tconstruct.library.crafting.ModifyBuilder;
-import tconstruct.library.crafting.PatternBuilder;
-import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.crafting.*;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.IPattern;
 import tconstruct.modifiers.tools.ModAntiSpider;
@@ -357,6 +354,15 @@ public class TinkerTools
         }
         
         registerMaterials();
+
+        // register stencils/wooden patterns in the stencil table
+        StencilBuilder.registerBlankStencil(new ItemStack(TinkerTools.blankPattern));
+
+        for(int i = 1; i < 26; i++) {
+            if(i == 22) continue; // hide full guard
+            StencilBuilder.registerStencil(TinkerTools.woodPattern, i);
+        }
+
 
         //TODO: Redesign stencil table to be a sensible block
         TinkerTools.patternOutputs = new Item[] { TinkerTools.toolRod, TinkerTools.pickaxeHead, TinkerTools.shovelHead, TinkerTools.hatchetHead, TinkerTools.swordBlade, TinkerTools.wideGuard,

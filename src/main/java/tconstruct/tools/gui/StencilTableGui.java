@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import tconstruct.TConstruct;
+import tconstruct.library.crafting.StencilBuilder;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.inventory.PatternShaperContainer;
 import tconstruct.tools.logic.StencilTableLogic;
@@ -85,37 +86,24 @@ public class StencilTableGui extends GuiContainer
     protected void actionPerformed (GuiButton button)
     {
         ItemStack pattern = logic.getStackInSlot(0);
-        if (pattern != null && pattern.getItem() == TinkerTools.blankPattern)
+        if (pattern != null && StencilBuilder.isBlank(pattern))
         {
-            int meta = pattern.getItemDamage();
-            if (meta == 0)
+            if (button.id == 0)
             {
-                if (button.id == 0)
-                {
-                    patternIndex++;
-                    if (patternIndex == 21)
-                        patternIndex++;
-                    if (patternIndex >= TinkerTools.patternOutputs.length - 1)
-                        patternIndex = 0;
-                }
-                else if (button.id == 1)
-                {
-                    patternIndex--;
-                    if (patternIndex < 0)
-                        patternIndex = TinkerTools.patternOutputs.length - 2;
-                    if (patternIndex == 21)
-                        patternIndex--;
-                }
-                ItemStack stack = new ItemStack(TinkerTools.woodPattern, 1, patternIndex + 1);
-                logic.setInventorySlotContents(1, stack);
-                updateServer(stack);
+                patternIndex++;
+                if (patternIndex >= StencilBuilder.getStencilCount() - 1)
+                    patternIndex = 0;
             }
-            /*else if (meta == 1 || meta == 2)
+            else if (button.id == 1)
             {
-                ItemStack stack = new ItemStack(TContent.metalPattern, 1, 0);
-                logic.setInventorySlotContents(1, stack);
-                updateServer(stack);
-            }*/
+                patternIndex--;
+                if (patternIndex < 0)
+                    patternIndex = StencilBuilder.getStencilCount() - 2;
+            }
+
+            ItemStack stack = StencilBuilder.getStencil(patternIndex);
+            logic.setInventorySlotContents(1, stack);
+            updateServer(stack);
         }
     }
 
