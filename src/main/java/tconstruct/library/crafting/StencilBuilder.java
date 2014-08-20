@@ -46,7 +46,7 @@ public class StencilBuilder {
      */
     public static int getIndex(ItemStack stencil) {
         for(int i = 0; i < instance.stencils.size(); i++)
-            if(ItemStack.areItemStackTagsEqual(stencil, getStencil(i)))
+            if(OreDictionary.itemMatches(stencil, getStencil(i), false))
                 return i;
 
         return -1;

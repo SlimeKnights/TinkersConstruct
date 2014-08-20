@@ -11,6 +11,9 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import tconstruct.TConstruct;
+import tconstruct.library.client.StencilGuiElement;
+import tconstruct.library.client.TConstructClientRegistry;
+import tconstruct.library.client.ToolGuiElement;
 import tconstruct.library.crafting.StencilBuilder;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.inventory.PatternShaperContainer;
@@ -20,13 +23,13 @@ import tconstruct.util.network.PatternTablePacket;
 public class StencilTableGui extends GuiContainer
 {
     StencilTableLogic logic;
-    int patternIndex;
+    int activeButton;
 
     public StencilTableGui(InventoryPlayer inventoryplayer, StencilTableLogic shaper, World world, int x, int y, int z)
     {
         super(new PatternShaperContainer(inventoryplayer, shaper));
         logic = shaper;
-        patternIndex = 0;
+        activeButton = 0;
     }
 
     @Override
@@ -62,24 +65,42 @@ public class StencilTableGui extends GuiContainer
     public void initGui ()
     {
         super.initGui();
-        int cornerX = (this.width - this.xSize) / 2;
-        int cornerY = (this.height - this.ySize) / 2;
+
+        int bpr = 4; // buttons per row!
+        int cornerX = this.guiLeft - 22*bpr;
+        int cornerY = this.guiTop + 2;
 
         this.buttonList.clear();
-        /*ToolGuiElement repair = TConstruct.toolButtons.get(0);
-        GuiButtonTool repairButton = new GuiButtonTool(0, cornerX - 110, cornerY, repair.buttonIconX, repair.buttonIconY, repair.texture); // Repair
-        repairButton.enabled = false;
-        this.buttonList.add(repairButton);*/
-        this.buttonList.add(new GuiButton(0, cornerX - 120, cornerY, 120, 20, (StatCollector.translateToLocal("gui.stenciltable1"))));
-        this.buttonList.add(new GuiButton(1, cornerX - 120, cornerY + 20, 120, 20, (StatCollector.translateToLocal("gui.stenciltable2"))));
 
-        //for (int iter = 0; iter < TConstructContent.patternOutputs.length; iter++)
-        //{
+        int id = 0;
+        for (int iter = 0; iter < TConstructClientRegistry.stencilButtons.size(); iter++)
+        {
+            StencilGuiElement element = TConstructClientRegistry.stencilButtons.get(iter);
+            if(element.stencilIndex == -1)
+                continue;
+            GuiButtonStencil button = new GuiButtonStencil(id++, cornerX + 22 * (iter % bpr), cornerY + 22 * (iter / bpr), element.buttonIconX, element.buttonIconY, element.domain, element.texture,
+                    element);
+            this.buttonList.add(button);
+        }
 
-        /*ToolGuiElement element = TConstruct.toolButtons.get(iter);
-        GuiButtonTool button = new GuiButtonTool(iter, cornerX - 110 + 22 * (iter % 5), cornerY + 22 * (iter / 5), element.buttonIconX, element.buttonIconY, element.texture); // Repair
-        this.buttonList.add(button);*/
-        //}
+        // secondary buttons, yay!
+        // these are to use for other mods :I
+        cornerX = this.guiLeft + this.xSize + 4;
+        for (int iter = 0; iter < TConstructClientRegistry.stencilButtons2.size(); iter++)
+        {
+            StencilGuiElement element = TConstructClientRegistry.stencilButtons2.get(iter);
+            if(element.stencilIndex == -1)
+                continue;
+            GuiButtonStencil button = new GuiButtonStencil(id++, cornerX + 22 * (iter % bpr), cornerY + 22 * (iter / bpr), element.buttonIconX, element.buttonIconY, element.domain, element.texture,
+                    element);
+            this.buttonList.add(button);
+        }
+
+        // get the correct setting :I
+        if(logic.getStackInSlot(1) != null)
+            activeButton = StencilBuilder.getIndex(logic.getStackInSlot(1));
+
+        setActiveButton(activeButton);
     }
 
     @Override
@@ -88,28 +109,30 @@ public class StencilTableGui extends GuiContainer
         ItemStack pattern = logic.getStackInSlot(0);
         if (pattern != null && StencilBuilder.isBlank(pattern))
         {
-            if (button.id == 0)
+            int id = ((GuiButtonStencil)button).element.stencilIndex;
+            ItemStack stack = StencilBuilder.getStencil(id);
+            if(stack != null)
             {
-                patternIndex++;
-                if (patternIndex >= StencilBuilder.getStencilCount() - 1)
-                    patternIndex = 0;
+                logic.setInventorySlotContents(1, stack);
+                updateServer(stack);
             }
-            else if (button.id == 1)
-            {
-                patternIndex--;
-                if (patternIndex < 0)
-                    patternIndex = StencilBuilder.getStencilCount() - 2;
-            }
-
-            ItemStack stack = StencilBuilder.getStencil(patternIndex);
-            logic.setInventorySlotContents(1, stack);
-            updateServer(stack);
         }
+
+        setActiveButton(button.id);
+    }
+
+    private void setActiveButton(int id)
+    {
+        // deactivate old button
+        ((GuiButton)this.buttonList.get(activeButton)).enabled = true;
+        // update active button
+        activeButton = id;
+        // activate the button
+        ((GuiButton)this.buttonList.get(activeButton)).enabled = false;
     }
 
     void updateServer (ItemStack stack)
     {
-
         TConstruct.packetPipeline.sendToServer(new PatternTablePacket(logic.xCoord, logic.yCoord, logic.zCoord, stack));
     }
 }
