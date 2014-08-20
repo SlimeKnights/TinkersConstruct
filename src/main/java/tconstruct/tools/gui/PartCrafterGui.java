@@ -16,6 +16,7 @@ import tconstruct.client.gui.NewContainerGui;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.tools.ToolMaterial;
+import tconstruct.library.util.HarvestLevels;
 import tconstruct.smeltery.inventory.ActiveContainer;
 import tconstruct.tools.inventory.PartCrafterChestContainer;
 import tconstruct.tools.logic.PartBuilderLogic;
@@ -99,7 +100,7 @@ public class PartCrafterGui extends NewContainerGui
             this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter4") + topEnum.durability(), xSize + 8, offset + 16, 16777215);
             this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter5") + topEnum.handleDurability() + "x", xSize + 8, offset + 27, 16777215);
             this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter6") + topEnum.toolSpeed() / 100f, xSize + 8, offset + 38, 16777215);
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter7") + getHarvestLevelName(topEnum.harvestLevel()), xSize + 8, offset + 49, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter7") + HarvestLevels.getHarvestLevelName(topEnum.harvestLevel()), xSize + 8, offset + 49, 16777215);
 
             int attack = topEnum.attack();
             String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
@@ -116,7 +117,7 @@ public class PartCrafterGui extends NewContainerGui
             this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter4") + bottomEnum.durability(), xSize + 8, offset + 16, 16777215);
             this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter5") + bottomEnum.handleDurability() + "x", xSize + 8, offset + 27, 16777215);
             this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter6") + bottomEnum.toolSpeed() / 100f, xSize + 8, offset + 38, 16777215);
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter7") + getHarvestLevelName(bottomEnum.harvestLevel()), xSize + 8, offset + 49, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter7") + HarvestLevels.getHarvestLevelName(bottomEnum.harvestLevel()), xSize + 8, offset + 49, 16777215);
             int attack = bottomEnum.attack();
             String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
             if (attack % 2 == 0)
@@ -127,27 +128,6 @@ public class PartCrafterGui extends NewContainerGui
 
         if (!hasTop && !hasBottom)
             drawDefaultInformation();
-    }
-
-    public static String getHarvestLevelName (int num)
-    {
-        switch (num)
-        {
-        case 0:
-            return (StatCollector.translateToLocal("gui.partcrafter.mining1"));
-        case 1:
-            return (StatCollector.translateToLocal("gui.partcrafter.mining2"));
-        case 2:
-            return (StatCollector.translateToLocal("gui.partcrafter.mining3"));
-        case 3:
-            return (StatCollector.translateToLocal("gui.partcrafter.mining4"));
-        case 4:
-            return (StatCollector.translateToLocal("gui.partcrafter.mining5"));
-        case 5:
-            return (StatCollector.translateToLocal("gui.partcrafter.mining6"));
-        default:
-            return String.valueOf(num);
-        }
     }
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/toolparts.png");
