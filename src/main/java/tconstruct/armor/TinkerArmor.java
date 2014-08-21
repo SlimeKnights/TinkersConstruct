@@ -2,9 +2,9 @@ package tconstruct.armor;
 
 import java.util.EnumSet;
 
+import cpw.mods.fml.common.SidedProxy;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
-import mantle.pulsar.pulse.PulseProxy;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -56,7 +56,7 @@ import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 @Pulse(id = "Tinkers' Armory", description = "Modifyable armors, such as the traveller's gear.")
 public class TinkerArmor
 {
-    @PulseProxy(clientSide = "tconstruct.armor.ArmorProxyClient", serverSide = "tconstruct.armor.ArmorProxyCommon")
+    @SidedProxy(clientSide = "tconstruct.armor.ArmorProxyClient", serverSide = "tconstruct.armor.ArmorProxyCommon")
     public static ArmorProxyCommon proxy;
 
     public static Item diamondApple;

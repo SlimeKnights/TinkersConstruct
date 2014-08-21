@@ -6,11 +6,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import cpw.mods.fml.common.SidedProxy;
 import mantle.blocks.BlockUtils;
 import mantle.blocks.abstracts.MultiServantLogic;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
-import mantle.pulsar.pulse.PulseProxy;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -88,7 +88,7 @@ import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 @Pulse(id = "Tinkers' Smeltery", description = "Liquid metals, casting, and the multiblock structure.")
 public class TinkerSmeltery
 {
-    @PulseProxy(clientSide = "tconstruct.smeltery.SmelteryProxyClient", serverSide = "tconstruct.smeltery.SmelteryProxyCommon")
+    @SidedProxy(clientSide = "tconstruct.smeltery.SmelteryProxyClient", serverSide = "tconstruct.smeltery.SmelteryProxyCommon")
     public static SmelteryProxyCommon proxy;
 
     public static Item metalPattern;

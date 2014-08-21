@@ -1,9 +1,9 @@
 package tconstruct.tools;
 
+import cpw.mods.fml.common.SidedProxy;
 import mantle.items.abstracts.CraftingItem;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
-import mantle.pulsar.pulse.PulseProxy;
 import mantle.utils.RecipeRemover;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -107,7 +107,7 @@ import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 public class TinkerTools
 {
     /* Proxies for sides, used for graphics processing */
-    @PulseProxy(clientSide = "tconstruct.tools.ToolProxyClient", serverSide = "tconstruct.tools.ToolProxyCommon")
+    @SidedProxy(clientSide = "tconstruct.tools.ToolProxyClient", serverSide = "tconstruct.tools.ToolProxyCommon")
     public static ToolProxyCommon proxy;
 
     // Crafting blocks

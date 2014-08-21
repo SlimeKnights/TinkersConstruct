@@ -1,8 +1,8 @@
 package tconstruct.mechworks;
 
+import cpw.mods.fml.common.SidedProxy;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
-import mantle.pulsar.pulse.PulseProxy;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -28,7 +28,7 @@ import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 @Pulse(id = "Tinkers' Mechworks", description = "Mechanical machinations and steampunk inspired shenanigans.")
 public class TinkerMechworks
 {
-    @PulseProxy(clientSide = "tconstruct.mechworks.MechworksProxyClient", serverSide = "tconstruct.mechworks.MechworksProxyCommon")
+    @SidedProxy(clientSide = "tconstruct.mechworks.MechworksProxyClient", serverSide = "tconstruct.mechworks.MechworksProxyCommon")
     public static MechworksProxyCommon proxy;
     // Traps
     public static Block landmine;

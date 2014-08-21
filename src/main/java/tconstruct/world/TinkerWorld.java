@@ -1,8 +1,8 @@
 package tconstruct.world;
 
+import cpw.mods.fml.common.SidedProxy;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
-import mantle.pulsar.pulse.PulseProxy;
 import mantle.utils.RecipeRemover;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
@@ -96,7 +96,7 @@ public class TinkerWorld
 {
     @Instance("TinkerWorld")
     public static TinkerWorld instance;
-    @PulseProxy(clientSide = "tconstruct.world.TinkerWorldProxyClient", serverSide = "tconstruct.world.TinkerWorldProxyCommon")
+    @SidedProxy(clientSide = "tconstruct.world.TinkerWorldProxyClient", serverSide = "tconstruct.world.TinkerWorldProxyCommon")
     public static TinkerWorldProxyCommon proxy;
     
     public static Item strangeFood;
