@@ -1001,7 +1001,7 @@ public class TinkerSmeltery
         // Compressed materials
         for (int i = 1; i <= 8; i++)
         {
-            Smeltery.addDictionaryMelting("compressedCobblestone" + i + "x", FluidType.getFluidType("Stone"), 0, TConstruct.ingotLiquidValue / 18 * (9 ^ i));
+            Smeltery.addDictionaryMelting("compressedCobblestone" + i + "x", FluidType.getFluidType("Stone"), 0, TConstruct.ingotLiquidValue / 18 * (int)Math.pow(9, i));
         }
         Smeltery.addDictionaryMelting("compressedSand1x", FluidType.getFluidType("Glass"), 175, FluidContainerRegistry.BUCKET_VOLUME * 9);
     }
