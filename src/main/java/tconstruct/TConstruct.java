@@ -25,8 +25,10 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
 import cpw.mods.fml.relauncher.Side;
 import mantle.pulsar.config.ForgeCFG;
 import mantle.pulsar.control.PulseManager;
+import tconstruct.api.TConstructAPI;
 import tconstruct.armor.TinkerArmor;
 import tconstruct.armor.player.TPlayerHandler;
+import tconstruct.armor.player.TPlayerStats;
 import tconstruct.client.TControls;
 import tconstruct.common.TConstructCreativeTab;
 import tconstruct.common.TProxyCommon;
@@ -170,6 +172,8 @@ public class TConstruct
             MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
             MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
         }
+        
+        TConstructAPI.PROP_NAME=TPlayerStats.PROP_NAME;
     }
 
     @EventHandler

@@ -2,13 +2,15 @@ package tconstruct.armor.player;
 
 import java.lang.ref.WeakReference;
 
+import tconstruct.api.IPlayerExtendedInventoryWrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 
-public class TPlayerStats implements IExtendedEntityProperties //TODO: IExtendedEntityProperties is not appropriate!
+public class TPlayerStats implements IExtendedEntityProperties, IPlayerExtendedInventoryWrapper //TODO: IExtendedEntityProperties is not appropriate!
 {
     public static final String PROP_NAME = "TConstruct";
 
@@ -104,4 +106,16 @@ public class TPlayerStats implements IExtendedEntityProperties //TODO: IExtended
         return (TPlayerStats) player.getExtendedProperties(PROP_NAME);
     }
 
+	@Override
+	public IInventory getKnapsackInventory(EntityPlayer player)
+	{
+		return this.knapsack;
+	}
+
+	@Override
+	public IInventory getAccessoryInventory(EntityPlayer player)
+	{
+		return this.armor;
+	}
+	
 }
