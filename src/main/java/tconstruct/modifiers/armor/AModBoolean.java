@@ -30,11 +30,8 @@ public class AModBoolean extends ArmorMod
         if (!(i instanceof ArmorCore))
             return false;
         ArmorCore item = (ArmorCore) armor.getItem();
-        if (armorTypes.contains(item.armorPart))
-        {
-            NBTTagCompound tags = getModifierTag(armor);
-            return tags.getInteger("Modifiers") > 0;
-        }
+        if (!armorTypes.contains(item.armorPart))
+            return false;
         NBTTagCompound tags = getModifierTag(armor);
         return tags.getInteger("Modifiers") > 0 && !tags.getBoolean(key); //Will fail if the modifier is false or the tag doesn't exist
     }
