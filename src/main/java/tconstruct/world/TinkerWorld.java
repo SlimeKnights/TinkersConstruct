@@ -403,7 +403,8 @@ public class TinkerWorld
         // Clock Recipe - Vanilla alternativ
         GameRegistry.addRecipe(new ItemStack(Items.clock), " i ", "iri", " i ", 'i', aluBrass, 'r', new ItemStack(Items.redstone));
         // Gold Pressure Plate - Vanilla alternativ
-        GameRegistry.addRecipe(new ItemStack(Blocks.light_weighted_pressure_plate), "ii", 'i', aluBrass);
+        // todo: temporarily disabled due to light weighted pressure plate being smeltable to gold
+        //GameRegistry.addRecipe(new ItemStack(Blocks.light_weighted_pressure_plate, 0, 1), "ii", 'i', aluBrass);
 
         // Ultra hardcore recipes
         GameRegistry.addRecipe(new ItemStack(TinkerTools.goldHead), patSurround, '#', new ItemStack(Items.gold_ingot), 'm', new ItemStack(Items.skull, 1, 3));
