@@ -11,6 +11,7 @@ import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -73,7 +74,13 @@ public class TActiveOmniMod extends ActiveToolMod
         if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
         {
             int amount = block.quantityDropped(random);
-            ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(block.getItemDropped(meta, random, EnchantmentHelper.getFortuneModifier(entity)), amount, meta));
+            Item item = block.getItemDropped(meta, random, EnchantmentHelper.getFortuneModifier(entity));
+
+            // apparently some things that don't drop blocks (like glass panes without silktouch) return null.
+            if(item == null)
+                return false;
+
+            ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(item, amount, meta));
             if (result != null)
             {
                 world.setBlockToAir(x, y, z);
