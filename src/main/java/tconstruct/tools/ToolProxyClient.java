@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
@@ -23,6 +24,7 @@ import tconstruct.common.TProxyCommon;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.client.ToolGuiElement;
+import tconstruct.library.crafting.StencilBuilder;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.smeltery.TinkerSmeltery;
@@ -63,6 +65,7 @@ public class ToolProxyClient extends ToolProxyCommon
         registerManualIcons();
         registerManualRecipes();
         addToolRenderMappings();
+        addStencilButtons();
         addToolButtons();
     }
 
@@ -323,6 +326,63 @@ public class ToolProxyClient extends ToolProxyCommon
         }
 
         MinecraftForge.EVENT_BUS.unregister(this);
+    }
+
+    void addStencilButtons ()
+    {
+        int[][] icons = {
+                {0,3}, // tool rod
+                {1,3}, // binding
+                {8,3}, // large tool rod
+                {9,3}, // large binding
+
+                {0,2}, // pickaxe head
+                {3,2}, // shovel head
+                {2,2}, // hatchet head
+                {8,2}, // scythe
+
+               {11,2}, // hammer head
+               {10,2}, // excavator head
+                {6,2}, // lumberaxe head
+                {9,2}, // large plate
+
+                   {},
+                {4,2}, // frying pan
+                {5,2}, // battlesign
+                {7,3}, // chisel
+
+                   {},
+                {7,2}, // knifeblade
+                {1,2}, // swordblade
+                {6,3}, // cleaver blade
+
+                   {},
+                {4,3}, // crossbar
+                {3,3}, // small guard
+                {2,3}, // wide guard
+
+                   {},
+               {11,3}, // arrow head
+               {12,3}, // fletchling
+               {10,3}, // bowstring
+        };
+
+        int i = 0;
+        for(ItemStack stack : StencilBuilder.getStencils()) {
+            // spacer
+            while(icons[i].length == 0)
+            {
+                addStencilButton(0,0, -1);
+                i++;
+            }
+            addStencilButton(icons[i][0], icons[i][1], StencilBuilder.getIndex(stack));
+            i++;
+        }
+    }
+
+    void addStencilButton (int xButton, int yButton, int index)
+    {
+        TConstructClientRegistry.addStencilButton(xButton, yButton, index, "tinker", "textures/gui/icons.png");
     }
 
     static int[][] itemIcons = { new int[] { 0, 3, 0 }, // Repair
