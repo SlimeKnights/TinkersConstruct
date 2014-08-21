@@ -679,7 +679,7 @@ public class TinkerSmeltery
             Block regMoltenEnderBlock = TinkerSmeltery.moltenEnderFluid.getBlock();
             if (regMoltenEnderBlock != null)
             {
-                ((TConstructFluid) TinkerSmeltery.moltenElectrum).suppressOverwritingFluidIcons();
+                ((TConstructFluid) TinkerSmeltery.moltenEnder).suppressOverwritingFluidIcons();
                 TinkerSmeltery.moltenEnder = regMoltenEnderBlock;
             }
             else
