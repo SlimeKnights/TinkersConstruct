@@ -124,7 +124,7 @@ public abstract class HarvestTool extends ToolCore
                 return calculateStrength(tags, block, meta);
             }
         }
-        if (block.getHarvestLevel(meta) > 0)
+        if (this.getHarvestType().equals(block.getHarvestTool(meta)) &&  block.getHarvestLevel(meta) > 0)
         {
             return calculateStrength(tags, block, meta); // No issue if the
                                                          // harvest level is
