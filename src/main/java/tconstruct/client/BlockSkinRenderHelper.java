@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.fluids.FluidRegistry;
 
 public class BlockSkinRenderHelper
 {
@@ -867,6 +868,10 @@ public class BlockSkinRenderHelper
             var7 = var10;
             var8 = var11;
         }
+
+        // safety
+        if(stillIcon == null) stillIcon = FluidRegistry.WATER.getStillIcon();
+        if(flowingIcon == null) flowingIcon = FluidRegistry.WATER.getFlowingIcon();
 
         return Minecraft.isAmbientOcclusionEnabled() ? renderFakeBlockWithAmbientOcclusion(stillIcon, flowingIcon, x, y, z, var6, var7, var8, renderer, world) : renderFakeBlockWithColorMultiplier(
                 stillIcon, flowingIcon, x, y, z, var6, var7, var8, renderer, world);
