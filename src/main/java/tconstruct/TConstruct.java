@@ -30,7 +30,7 @@ import tconstruct.armor.TinkerArmor;
 import tconstruct.armor.player.TPlayerHandler;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.client.TControls;
-import tconstruct.common.TConstructCreativeTab;
+import tconstruct.library.TConstructCreativeTab;
 import tconstruct.common.TProxyCommon;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.Detailing;
