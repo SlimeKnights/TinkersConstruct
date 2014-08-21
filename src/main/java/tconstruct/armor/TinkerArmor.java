@@ -118,7 +118,6 @@ public class TinkerArmor
         // glove = new
         // Glove(PHConstruct.glove).setUnlocalizedName("tconstruct.Glove");
         TinkerArmor.knapsack = new Knapsack().setUnlocalizedName("tconstruct.storage");
-        TinkerTools.goldHead = new GoldenHead(4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).setUnlocalizedName("goldenhead");
         // GameRegistry.registerItem(TRepo.heavyHelmet, "heavyHelmet");
         GameRegistry.registerItem(TinkerArmor.heartCanister, "heartCanister");
         // GameRegistry.registerItem(TRepo.heavyBoots, "heavyBoots");

@@ -186,7 +186,6 @@ public class TinkerTools
     public static Item manualBook;
     public static ToolCore excavator;
     public static Item creativeModifier;
-    public static Item goldHead;
 
     // recipe stuff
     public static boolean thaumcraftAvailable;
@@ -337,8 +336,6 @@ public class TinkerTools
                                                                          // compat
             TConstructRegistry.addItemToDirectory(toolPartStrings[i], toolParts[i]);
         }
-        goldHead = new GoldenHead(4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).setUnlocalizedName("goldenhead");
-        GameRegistry.registerItem(TinkerTools.goldHead, "goldHead");
 
         TinkerTools.creativeModifier = new CreativeModifier().setUnlocalizedName("tconstruct.modifier.creative");
         GameRegistry.registerItem(TinkerTools.creativeModifier, "creativeModifier");

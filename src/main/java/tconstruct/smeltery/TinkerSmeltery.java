@@ -1101,7 +1101,8 @@ public class TinkerSmeltery
         tableCasting.addCastingRecipe(new ItemStack(Items.golden_apple, 1), goldAmount, new ItemStack(Items.apple), true, 50);
         tableCasting.addCastingRecipe(new ItemStack(Items.golden_carrot, 1), goldAmount, new ItemStack(Items.carrot), true, 50);
         tableCasting.addCastingRecipe(new ItemStack(Items.speckled_melon, 1), goldAmount, new ItemStack(Items.melon), true, 50);
-        tableCasting.addCastingRecipe(new ItemStack(TinkerTools.goldHead), goldAmount, new ItemStack(Items.skull, 1, 3), true, 50);
+        if(TinkerWorld.goldHead != null)
+            tableCasting.addCastingRecipe(new ItemStack(TinkerWorld.goldHead), goldAmount, new ItemStack(Items.skull, 1, 3), true, 50);
     }
 
     protected static void addRecipesForBasinCasting ()
