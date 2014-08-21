@@ -1416,13 +1416,15 @@ public class TinkerSmeltery
         ores = OreDictionary.getOres("compressedGravel1x");
         if (ores.size() > 0)
         {
-            basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.speedBlock, 9), new FluidStack(TinkerSmeltery.moltenElectrumFluid, TConstruct.blockLiquidValue), ores.get(0), 100);
+            basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.speedBlock, 9), new FluidStack(TinkerSmeltery.moltenTinFluid, TConstruct.ingotLiquidValue), ores.get(0), true, 100);
+            basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.speedBlock, 9), new FluidStack(TinkerSmeltery.moltenElectrumFluid, TConstruct.ingotLiquidValue/3), ores.get(0), true, 100);
         }
         ores = OreDictionary.getOres("compressedGravel2x"); // Higher won't save
                                                             // properly
         if (ores.size() > 0)
         {
-            basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.speedBlock, 81), new FluidStack(TinkerSmeltery.moltenElectrumFluid, TConstruct.blockLiquidValue * 9), ores.get(0), 100);
+            basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.speedBlock, 81), new FluidStack(TinkerSmeltery.moltenTinFluid, TConstruct.blockLiquidValue), ores.get(0), true, 100);
+            basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.speedBlock, 81), new FluidStack(TinkerSmeltery.moltenElectrumFluid, TConstruct.blockLiquidValue/3), ores.get(0), true, 100);
         }
 
         /* Rubber */
