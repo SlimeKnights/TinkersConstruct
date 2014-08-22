@@ -19,6 +19,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.tools.TinkerTools;
+import tconstruct.tools.ToolProxyCommon;
 import tconstruct.tools.logic.*;
 import tconstruct.tools.model.TableRender;
 import tconstruct.util.config.PHConstruct;
@@ -62,9 +63,14 @@ public class ToolStationBlock extends InventoryBlock
         {
             return icons[15 + getTextureIndex(side)];
         }
-        else
+        else if (meta <= 13)
         {
             return icons[meta * 3 + getTextureIndex(side) - 12];
+        }
+        else
+        {
+            //TODO: This
+            return icons[15 + getTextureIndex(side)];
         }
     }
 
@@ -173,7 +179,7 @@ public class ToolStationBlock extends InventoryBlock
         else if (md < 14)
             return 3;
         else
-            return 4;
+            return ToolProxyCommon.carvingTableID;
 
         //return -1;
     }

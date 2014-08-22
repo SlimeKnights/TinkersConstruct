@@ -1,5 +1,7 @@
 package tconstruct.tools.logic;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -8,12 +10,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import tconstruct.TConstruct;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.util.IPattern;
 import tconstruct.tools.VirtualPattern;
 import tconstruct.tools.inventory.CarvingTableContainer;
 import tconstruct.tools.inventory.PartCrafterChestContainer;
 import tconstruct.tools.inventory.PartCrafterContainer;
+import tconstruct.util.network.CarvingTablePacket;
+import tconstruct.util.network.ToolStationPacket;
 
 public class CarvingTableLogic extends InventoryLogic implements ISidedInventory
 {
@@ -23,7 +28,7 @@ public class CarvingTableLogic extends InventoryLogic implements ISidedInventory
     /**
      * The currently selected pattern to use for crafting parts.
      */
-    protected VirtualPattern currentPattern = null;
+    public VirtualPattern currentPattern = null;
 
 
 
@@ -33,6 +38,7 @@ public class CarvingTableLogic extends InventoryLogic implements ISidedInventory
         craftedTop = false;
         craftedBottom = false;
     }
+
 
     @Override
     public String getDefaultName ()
@@ -52,19 +58,27 @@ public class CarvingTableLogic extends InventoryLogic implements ISidedInventory
     {
         ItemStack returnStack = super.decrStackSize(slotID, quantity);
         tryBuildPart(slotID);
+        if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+            System.out.println("Boosh");
         return returnStack;
     }
 
     public void tryBuildPart (int slotID)
     {
+        if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+            System.out.println("Boosh");
         if (slotID == 2 || slotID == 3)
         {
             if (!craftedTop)
             {
+                if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+                    System.out.println("Boosh");
                 int value = PatternBuilder.instance.getPartValue(inventory[0]);
                 int cost = currentPattern != null ? currentPattern.getPatternCost() : 0;
                 if (value > 0 && cost > 0)
                 {
+                    if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+                        System.out.println("Boosh");
                     int decrease = cost / value;
                     if (cost % value != 0)
                         decrease++;
@@ -117,31 +131,51 @@ public class CarvingTableLogic extends InventoryLogic implements ISidedInventory
             buildBottomPart();
     }
 
-    void buildTopPart ()
+    public void buildTopPart ()
     {
-        ItemStack[] parts = PatternBuilder.instance.getToolPartCarve(inventory[0], currentPattern, currentPattern.getPatternID());
-        if (parts != null)
+        System.out.println("cl1");
+        if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+            System.out.println("1");
+        if(currentPattern != null)
         {
-            inventory[2] = parts[0];
-            inventory[3] = parts[1];
-        }
-        else
-        {
-            inventory[2] = inventory[3] = null;
+            System.out.println("cl2");
+            if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+                System.out.println(currentPattern);
+            if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+                System.out.println("2");
+            ItemStack[] parts = PatternBuilder.instance.getToolPartCarve(inventory[0], currentPattern, currentPattern.getPatternID());
+            if (parts != null)
+            {
+                if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+                    System.out.println(parts);
+                if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+                    System.out.println("3");
+                inventory[2] = parts[0];
+                inventory[3] = parts[1];
+            }
+            else
+            {
+                if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+                    System.out.println("4");
+                inventory[2] = inventory[3] = null;
+            }
         }
     }
 
-    void buildBottomPart ()
+    public void buildBottomPart ()
     {
-        ItemStack[] parts = PatternBuilder.instance.getToolPartCarve(inventory[1], currentPattern, currentPattern.getPatternID());
-        if (parts != null)
+        if(currentPattern != null)
         {
-            inventory[4] = parts[0];
-            inventory[5] = parts[1];
-        }
-        else
-        {
-            inventory[4] = inventory[5] = null;
+            ItemStack[] parts = PatternBuilder.instance.getToolPartCarve(inventory[1], currentPattern, currentPattern.getPatternID());
+            if (parts != null)
+            {
+                inventory[4] = parts[0];
+                inventory[5] = parts[1];
+            }
+            else
+            {
+                inventory[4] = inventory[5] = null;
+            }
         }
     }
 
@@ -207,4 +241,7 @@ public class CarvingTableLogic extends InventoryLogic implements ISidedInventory
     {
         return false;
     }
+
+
+
 }

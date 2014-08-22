@@ -14,7 +14,9 @@ public class PatternGuiElement
     //Texture path, from assets/<domain>/
     public final String texture;
 
-    public PatternGuiElement (int bx, int by, String t, String b, String d, String tex)
+    public final int patternID;
+
+    public PatternGuiElement (int bx, int by, String t, String b, String d, String tex, int id)
     {
         buttonIconX = bx;
         buttonIconY = by;
@@ -22,5 +24,6 @@ public class PatternGuiElement
         body = b;
         domain = d;
         texture = tex;
+        patternID = id;
     }
 }
