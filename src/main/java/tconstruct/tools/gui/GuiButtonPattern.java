@@ -44,32 +44,6 @@ public class GuiButtonPattern extends GuiButton
         {
 
             this.field_146123_n = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
-            if(!enabled)
-            {
-                if(this.field_146123_n)
-                {
-                    //Pressed, hovered.
-                    GL11.glColor4f(0.75F, 0.75F, 0.75F, 1.0F);
-                }
-                else
-                {
-                    //Pressed, mouse off.
-                    GL11.glColor4f(0.5F, 0.5F, 0.5F, 1.0F);
-                }
-            }
-            else
-            {
-                if(this.field_146123_n)
-                {
-                    //Up, hovered.
-                    GL11.glColor4f(1.25F, 1.25F, 1.25F, 1.0F);
-                }
-                else
-                {
-                    //Up, mouse off.
-                    GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-                }
-            }
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             //GL11.glEnable(GL11.GL_BLEND);
             //OpenGlHelper.glBlendFunc(770, 771, 1, 0);
@@ -85,10 +59,10 @@ public class GuiButtonPattern extends GuiButton
             //DrawTexturedModalRect is strange.
             Tessellator tessellator = Tessellator.instance;
             tessellator.startDrawingQuads();
-            tessellator.addVertexWithUV(xPosition , yPosition + height, 0, 0.0, 1.0);
-            tessellator.addVertexWithUV(xPosition + width, yPosition + height, 0, 1.0, 1.0);
-            tessellator.addVertexWithUV(xPosition + width, yPosition , 0, 1.0, 0.0);
-            tessellator.addVertexWithUV(xPosition , yPosition , 0, 0.0, 0.0);
+            tessellator.addVertexWithUV(xPosition , yPosition + height, 0, 0.0, 1.0); //Bottom left.
+            tessellator.addVertexWithUV(xPosition + width, yPosition + height, 0, 1.0, 1.0); // Bottom right.
+            tessellator.addVertexWithUV(xPosition + width, yPosition , 0, 1.0, 0.0); // Top right.
+            tessellator.addVertexWithUV(xPosition , yPosition , 0, 0.0, 0.0); // Top left.
             tessellator.draw();
         }
     }

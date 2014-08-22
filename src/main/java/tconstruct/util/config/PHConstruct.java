@@ -15,7 +15,7 @@ public class PHConstruct
     {
 
         /* Here we will set up the config file for the mod
-         * First: Create a folder inside the config folder
+         * First: Create a textureFolder inside the config textureFolder
          * Make sure to read any old configs file if they exist
          * Second: Create the actual config file
          */

@@ -2,10 +2,6 @@ package tconstruct.tools;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
@@ -14,13 +10,15 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.util.IPattern;
 
-import java.util.List;
+import java.util.Arrays;
 
 //A "pattern" in the abstract: For creating tool parts without an explicit pattern item.
 public class VirtualPattern implements IPattern
 {
+    //Somewhat of a hack, needs some cleaning up.
     protected final int ourID;
     protected static VirtualPattern[] allPatterns;
+    protected String textureName;
 
     /**
      *
@@ -30,16 +28,26 @@ public class VirtualPattern implements IPattern
     VirtualPattern(int ID)
     {
         ourID = ID;
-        textureNames = getPatternNames("pattern_");
-        folder = "materials/";
+        //textureFolder = "materials/";
+        textureFolder = "textures/items/materials/";
         modTexPrefix = "tinker";
+    }
+    VirtualPattern(int ID, String fold, String modname)
+    {
+        ourID = ID;
+        textureFolder = fold;
+        modTexPrefix = modname;
     }
 
     public int getPatternID() { return ourID; };
 
     public static void InitAll()
     {
-        allPatterns = new VirtualPattern[patternName.length];
+        allPatterns = new VirtualPattern[patternNames.length];
+        if(textureNames == null)
+        {
+            textureNames = getPatternNames("pattern_");
+        }
         for(int i = 0; i < allPatterns.length; ++i)
         {
             allPatterns[i] = new VirtualPattern(i);
@@ -51,7 +59,7 @@ public class VirtualPattern implements IPattern
         return allPatterns;
     }
 
-    private static final String[] patternName = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign",
+    private static String[] patternNames = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign",
             "knifeblade", "chisel", "largerod", "toughbinding", "largeplate", "broadaxe", "scythe", "excavator", "largeblade", "hammerhead", "fullguard", "bowstring", "fletching", "arrowhead" };
 
     public String getName()
@@ -60,7 +68,7 @@ public class VirtualPattern implements IPattern
     }
     public static String getNameForID(int ID)
     {
-        return patternName[ID];
+        return patternNames[ID];
     }
 
     /* Tags and information about the pattern */
@@ -151,9 +159,9 @@ public class VirtualPattern implements IPattern
 
     public static String[] getPatternNames (String partType)
     {
-        String[] names = new String[patternName.length];
-        for (int i = 0; i < patternName.length; i++)
-            names[i] = partType + patternName[i];
+        String[] names = new String[patternNames.length];
+        for (int i = 0; i < patternNames.length; i++)
+            names[i] = partType + patternNames[i];
         return names;
     }
 
@@ -162,18 +170,11 @@ public class VirtualPattern implements IPattern
     //** Icon stuff here **//
 
     public String modTexPrefix;
-    public String[] textureNames;
-    public String[] unlocalizedNames;
-    public String folder;
+    protected static String[] textureNames;
+    public static String[] unlocalizedNames;
+    public String textureFolder;
     public IIcon[] icons;
 
-    public void updateData (String[] names, String[] tex, String folder, String modTexturePrefix)
-    {
-        this.modTexPrefix = modTexturePrefix;
-        this.textureNames = tex;
-        this.unlocalizedNames = names;
-        this.folder = folder;
-    }
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromID (int meta)
     {
@@ -188,5 +189,54 @@ public class VirtualPattern implements IPattern
         return getIconFromID(ourID);
     }
 
-        //textureName = modTexPrefix + ":" + folder + textureNames[ID]
+        //textureName = modTexPrefix + ":" + textureFolder + textureNames[ID]
+
+    public String getTextureName ()
+    {
+        if(textureName != null)
+        {
+            return textureName;
+        }
+        else
+        {
+            return textureNames[this.getPatternID()];
+        }
+    }
+
+    public void setTextureName (String tN)
+    {
+        this.textureName = tN;
+    }
+
+    public String getTextureFolder ()
+    {
+        return textureFolder;
+    }
+
+    public void setTextureFolder (String tF)
+    {
+        this.textureFolder = tF;
+    }
+
+    public String getModTexPrefix ()
+    {
+        return modTexPrefix;
+    }
+
+    public void setModTexPrefix (String mTP)
+    {
+        this.modTexPrefix = mTP;
+    }
+    public static void add (String name, VirtualPattern toAdd)
+    {
+        patternNames = Arrays.copyOf(patternNames, patternNames.length+1);
+        patternNames[patternNames.length] = name;
+        if(textureNames != null)
+        {
+            textureNames = Arrays.copyOf(textureNames, textureNames.length+1);
+        }
+        InitAll();
+        textureNames[patternNames.length] = toAdd.getTextureName();
+        allPatterns[allPatterns.length] = toAdd;
+    }
 }

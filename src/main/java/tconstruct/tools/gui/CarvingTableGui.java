@@ -3,6 +3,7 @@ package tconstruct.tools.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -17,18 +18,12 @@ import tconstruct.TConstruct;
 import tconstruct.client.gui.NewContainerGui;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.PatternGuiElement;
-import tconstruct.library.client.TConstructClientRegistry;
-import tconstruct.library.client.ToolGuiElement;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.tools.ToolMaterial;
 import tconstruct.smeltery.inventory.ActiveContainer;
 import tconstruct.tools.VirtualPattern;
-import tconstruct.tools.inventory.PartCrafterChestContainer;
 import tconstruct.tools.logic.CarvingTableLogic;
-import tconstruct.tools.logic.PartBuilderLogic;
 import tconstruct.util.network.CarvingTablePacket;
-
-import java.util.ArrayList;
 
 public class CarvingTableGui extends NewContainerGui
 {
@@ -42,7 +37,9 @@ public class CarvingTableGui extends NewContainerGui
     private static final int buttonColumns = 5;
     private static final int buttonMargin = 4;
 
-    GuiButton lastButton = null;
+    private static int buttonBottom = 0;
+
+    GuiButtonPattern currentButton = null;
 
     protected static PatternGuiElement[] patternElements = null;
 
@@ -67,20 +64,25 @@ public class CarvingTableGui extends NewContainerGui
         VirtualPattern[] patterns = VirtualPattern.getAll();
 
         patternElements = new PatternGuiElement[patterns.length];
-
-        for (int idx = 0; idx < patterns.length; ++idx)
+        int idx = 0;
+        while (idx < patterns.length)
         {
+            VirtualPattern current = VirtualPattern.getAll()[idx];
             //Make sure not to add the ingot pattern, it is invalid.
             if(!VirtualPattern.getNameForID(idx).contentEquals("ingot"))
             {
                 patternElements[idx] =
                         new PatternGuiElement((16 + buttonMargin) * (idx % buttonColumns), (16 + buttonMargin) * (idx / buttonColumns),
-                                patterns[idx].getName(), patterns[idx].getTooltip(idx), "tinker",
-                                "textures/items/materials/" + patterns[idx].textureNames[idx], idx);
+                                current.getName(), current.getTooltip(idx), current.getModTexPrefix(),
+                                current.getTextureFolder() + current.getTextureName(), idx);
             }
+            ++idx;
         }
+        buttonBottom = ((16 + buttonMargin) * (idx / buttonColumns));
     }
 
+
+    static final int buttonShift = 100;
 
     @Override
     public void initGui ()
@@ -88,8 +90,6 @@ public class CarvingTableGui extends NewContainerGui
         super.initGui();
         //this.guiLeft -= 110;
         //this.xSize += 110;
-
-        int buttonShift = 100;
 
         this.buttonList.clear();
 
@@ -115,6 +115,18 @@ public class CarvingTableGui extends NewContainerGui
         }
     }
 
+    static final float btnSz = 16.0F;
+    //Overlay button on background image pos = (177, 55)
+    static final float btnOverlayX = 177.0F;
+    static final float btnOverlayY = 55.0F;
+    //256x256 image
+    static final float imgX = 256.0F;
+    static final float imgY = 256.0F;
+    static final float startU = btnOverlayX / imgX;
+    static final float startV = btnOverlayY / imgY;
+    static final float endU = (btnOverlayX+btnSz) / imgX;
+    static final float endV = (btnOverlayY+btnSz) / imgY;
+
     @Override
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
@@ -123,11 +135,25 @@ public class CarvingTableGui extends NewContainerGui
         this.fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
 
         drawMaterialInformation();
-/*
-        for(int i = 0; i < this.buttonList.size(); ++i)
+        drawPartInformation();
+
+        //Draw button overlay.
+        if(this.currentButton != null)
         {
-            ((GuiButton)this.buttonList.get(i)).drawButton(this.mc, par1, par2);
-        }*/
+
+            //Make sure we can do the transparency thing.
+            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+            mc.getTextureManager().bindTexture(background);
+
+            Tessellator tessellator = Tessellator.instance;
+            tessellator.startDrawingQuads();
+            tessellator.addVertexWithUV((currentButton.xPosition - this.guiLeft), (currentButton.yPosition - this.guiTop) + currentButton.height, 0, startU, endV); //Bottom left.
+            tessellator.addVertexWithUV((currentButton.xPosition - this.guiLeft) + currentButton.width, (currentButton.yPosition - this.guiTop) + currentButton.height, 0, endU, endV); //Bottom right.
+            tessellator.addVertexWithUV((currentButton.xPosition - this.guiLeft) + currentButton.width, (currentButton.yPosition - this.guiTop) , 0, endU, startV); //Top left.
+            tessellator.addVertexWithUV((currentButton.xPosition - this.guiLeft) , (currentButton.yPosition - this.guiTop) , 0, startU, startV); // Top right.
+            tessellator.draw();
+        }
     }
 
     void drawDefaultInformation ()
@@ -137,6 +163,44 @@ public class CarvingTableGui extends NewContainerGui
         fontRendererObj.drawSplitString(StatCollector.translateToLocal("gui.carvetable3"), xSize + 8, 24, 115, 16777215);
     }
 
+
+    //126, 166 U / V
+    void drawPartInformation ()
+    {
+        int cornerX =  (-buttonShift); //(this.guiLeft - this.buttonShift) + 1;
+        int cornerY = buttonBottom;
+        int xMargin = 6;
+        int yMargin = 4;
+
+        //title = "\u00A7n" + StatCollector.translateToLocal("gui.carvetable2");
+        //this.drawCenteredString(fontRendererObj, title, xSize + 63, 8, 16777215);
+        //fontRendererObj.drawSplitString(StatCollector.translateToLocal("gui.carvetable3"), xSize + 8, 24, 115, 16777215)
+
+        // \u00A7n is underline
+        if (currentButton != null)
+        {
+            //This is not drawn relative to the same origin as Draw Textured Modal Rect.
+            this.fontRendererObj.drawString("\u00A7n" + StatCollector.translateToLocal(
+                    "gui.part." + VirtualPattern.getNameForID(currentButton.element.patternID) + ".name"
+                    ), cornerX + xMargin, (cornerY + yMargin), 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal(
+                    "gui.part." + VirtualPattern.getNameForID(currentButton.element.patternID) + ".description1"
+                    ), cornerX + xMargin, (cornerY + yMargin) + 12, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal(
+                    "gui.part." + VirtualPattern.getNameForID(currentButton.element.patternID) + ".description2"
+                    ), cornerX + xMargin, (cornerY + yMargin) + 24, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal(
+                    "gui.part." + VirtualPattern.getNameForID(currentButton.element.patternID) + ".description3"
+                    ), cornerX + xMargin, (cornerY + yMargin) + 36, 16777215);
+        }
+        else
+        {
+            this.fontRendererObj.drawString("\u00A7n" + StatCollector.translateToLocal("crafters.CarvingTable"), cornerX + xMargin, cornerY + yMargin, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("crafters.CarvingTable.hint1"), cornerX + xMargin, (cornerY + yMargin) + 12, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("crafters.CarvingTable.hint2"), cornerX + xMargin, (cornerY + yMargin) + 24, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("crafters.CarvingTable.hint3"), cornerX + xMargin, (cornerY + yMargin) + 36, 16777215);
+        }
+    }
     void drawMaterialInformation ()
     {
         ItemStack top = logic.getStackInSlot(0);
@@ -231,9 +295,7 @@ public class CarvingTableGui extends NewContainerGui
         }
     }
 
-    //HERE is where we're still using the part builder background.
-    private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/toolparts.png");
-    private static final ResourceLocation minichest = new ResourceLocation("tinker", "textures/gui/patternchestmini.png");
+    private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/partcarving.png");
     private static final ResourceLocation description = new ResourceLocation("tinker", "textures/gui/description.png");
 
     @Override
@@ -263,6 +325,13 @@ public class CarvingTableGui extends NewContainerGui
         cornerX = (this.width + this.xSize) / 2;
         cornerY = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(cornerX, cornerY, 126, 0, 126, this.ySize);
+
+        //Draw part description
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        cornerX = (this.guiLeft - this.buttonShift) + 1;
+        cornerY = this.guiTop + buttonBottom;
+        //Relative to this.guiTop and this.guiLEft
+        this.drawTexturedModalRect(cornerX, cornerY, 126, this.ySize, 94, 64);
     }
 
     @Override
@@ -391,10 +460,10 @@ public class CarvingTableGui extends NewContainerGui
     @Override
     protected void actionPerformed (GuiButton button)
     {
-        if(lastButton != null)
+        if(currentButton != null)
         {
             //Set the previous button to no longer be pressed down.
-            lastButton.enabled = true;
+            currentButton.enabled = true;
         }
         if(button instanceof GuiButtonPattern)
         {
@@ -402,11 +471,11 @@ public class CarvingTableGui extends NewContainerGui
             button.enabled = false;
             GuiButtonPattern gbp = (GuiButtonPattern) button;
 
-            lastButton = button;
+            currentButton = (GuiButtonPattern) button;
 
             logic.currentPattern = VirtualPattern.getAll()[gbp.element.patternID];
             this.updateServer((byte)gbp.element.patternID);
-            title = "\u00A7n" + gbp.element.title;
+            //title = "\u00A7n" + gbp.element.title;
         }
         logic.buildTopPart();
         logic.buildBottomPart();
