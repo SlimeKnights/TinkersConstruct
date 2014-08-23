@@ -140,7 +140,7 @@ public class PatternBuilder
 
             for (CustomMaterial mat : TConstructRegistry.customMaterials)
             {
-                if (material.isItemEqual(mat.input))
+                if (mat.matches(material))
                     return mat.value;
             }
         }
