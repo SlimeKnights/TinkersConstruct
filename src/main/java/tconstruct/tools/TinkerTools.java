@@ -82,14 +82,7 @@ import tconstruct.tools.items.TitleIcon;
 import tconstruct.tools.items.ToolPart;
 import tconstruct.tools.items.ToolPartHidden;
 import tconstruct.tools.items.ToolShard;
-import tconstruct.tools.logic.CraftingStationLogic;
-import tconstruct.tools.logic.FrypanLogic;
-import tconstruct.tools.logic.FurnaceLogic;
-import tconstruct.tools.logic.PartBuilderLogic;
-import tconstruct.tools.logic.PatternChestLogic;
-import tconstruct.tools.logic.StencilTableLogic;
-import tconstruct.tools.logic.ToolForgeLogic;
-import tconstruct.tools.logic.ToolStationLogic;
+import tconstruct.tools.logic.*;
 import tconstruct.util.ItemHelper;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
@@ -226,6 +219,8 @@ public class TinkerTools
         GameRegistry.registerTileEntity(FurnaceLogic.class, "TConstruct.Furnace");
         GameRegistry.registerBlock(TinkerTools.heldItemBlock, "HeldItemBlock");
         GameRegistry.registerTileEntity(FrypanLogic.class, "FrypanLogic");
+
+        GameRegistry.registerTileEntity(CarvingTableLogic.class, "CarvingTable");
 
         GameRegistry.registerBlock(TinkerTools.craftedSoil, CraftedSoilItemBlock.class, "CraftedSoil");
         
@@ -690,6 +685,7 @@ public class TinkerTools
         GameRegistry.addRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 11), "p", "w", 'p', new ItemStack(TinkerTools.blankPattern, 1, 0), 'w', new ItemStack(Blocks.planks, 1, 1));
         GameRegistry.addRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 12), "p", "w", 'p', new ItemStack(TinkerTools.blankPattern, 1, 0), 'w', new ItemStack(Blocks.planks, 1, 2));
         GameRegistry.addRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 13), "p", "w", 'p', new ItemStack(TinkerTools.blankPattern, 1, 0), 'w', new ItemStack(Blocks.planks, 1, 3));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 15), "ccc", "w w", "w w", 'c', new ItemStack(Blocks.crafting_table, 1, 0), 'w', "plankWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 10), "p", "w", 'p', new ItemStack(TinkerTools.blankPattern, 1, 0), 'w', "plankWood"));
         GameRegistry.addRecipe(new ItemStack(TinkerTools.furnaceSlab, 1, 0), "###", "# #", "###", '#', new ItemStack(Blocks.stone_slab, 1, 3));
 
