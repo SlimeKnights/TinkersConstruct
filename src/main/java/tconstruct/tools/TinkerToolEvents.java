@@ -25,12 +25,7 @@ import tconstruct.TConstruct;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.event.*;
-import tconstruct.library.tools.AbilityHelper;
-import tconstruct.library.tools.ArrowMaterial;
-import tconstruct.library.tools.BowMaterial;
-import tconstruct.library.tools.BowstringMaterial;
-import tconstruct.library.tools.FletchingMaterial;
-import tconstruct.library.tools.ToolCore;
+import tconstruct.library.tools.*;
 import tconstruct.util.ItemHelper;
 import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.common.eventhandler.Event.Result;
@@ -222,32 +217,14 @@ public class TinkerToolEvents
 
     public static ItemStack craftFletching (ItemStack stack)
     {
-        if (matchesLeaves(stack))
-        {
-            FletchingMaterial leaves = (FletchingMaterial) TConstructRegistry.getCustomMaterial(new ItemStack(Blocks.leaves), FletchingMaterial.class);
-            return leaves.craftingItem.copy();
-        }
-
         FletchingMaterial mat = (FletchingMaterial) TConstructRegistry.getCustomMaterial(stack, FletchingMaterial.class);
+        // maybe it's a leaf fletchling
+        if(mat == null)
+            mat = (FletchingMaterial) TConstructRegistry.getCustomMaterial(stack, FletchlingLeafMaterial.class);
         if (mat != null)
             return mat.craftingItem.copy();
         return null;
     }
-
-    public static boolean matchesLeaves (ItemStack stack)
-    {
-        if (stack != null)
-        {
-            Block block = BlockUtils.getBlockFromItemStack(stack);
-            if (block != null)
-            {
-                if (block.isLeaves(null, 0, 0, 0))
-                    return true;
-            }
-        }
-        return false;
-    }
-    
 
 
     @SubscribeEvent

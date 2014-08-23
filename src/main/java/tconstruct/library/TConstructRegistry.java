@@ -217,7 +217,7 @@ public class TConstructRegistry
      * multiple times the parts are added to the recipe's input list Valid part
      * amounts are 2, 3, and 4.
      * 
-     * @see ToolBuidler
+     * @see ToolBuilder
      * @param output
      *            The ToolCore to craft
      * @param parts
@@ -241,8 +241,6 @@ public class TConstructRegistry
      * 
      * @param materialID
      *            Unique ID, stored for each part
-     * @exception materialID
-     *                must be unique
      * @param materialName
      *            Unique name for data lookup purposes
      * @param harvestLevel
@@ -283,8 +281,6 @@ public class TConstructRegistry
      * 
      * @param materialID
      *            Unique ID, stored for each part
-     * @exception materialID
-     *                must be unique
      * @param materialName
      *            Unique name for data lookup purposes
      * @param displayName
@@ -327,8 +323,6 @@ public class TConstructRegistry
      * 
      * @param materialID
      *            Unique ID, stored for each part
-     * @exception materialID
-     *                must be unique
      * @param material
      *            Complete tool material to add. Uses the name in the material
      *            for lookup purposes.
@@ -456,7 +450,7 @@ public class TConstructRegistry
     {
         for (CustomMaterial mat : customMaterials)
         {
-            if (mat.getClass().equals(clazz) && input.isItemEqual(mat.input))
+            if (mat.getClass().equals(clazz) && mat.matches(input))
                 return mat;
         }
         return null;

@@ -44,6 +44,7 @@ import tconstruct.items.tools.Shovel;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.*;
+import tconstruct.library.tools.FletchlingLeafMaterial;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.IPattern;
 import tconstruct.modifiers.tools.ModAntiSpider;
@@ -877,8 +878,7 @@ public class TinkerTools
 
         TConstructRegistry.addBowstringMaterial(0, 2, new ItemStack(Items.string), new ItemStack(TinkerTools.bowstring, 1, 0), 1F, 1F, 1f); // String
         TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Items.feather), new ItemStack(TinkerTools.fletching, 1, 0), 100F, 0F, 0.05F); // Feather
-        for (int i = 0; i < 4; i++)
-            TConstructRegistry.addFletchingMaterial(1, 2, new ItemStack(Blocks.leaves, 1, i), new ItemStack(TinkerTools.fletching, 1, 1), 75F, 0F, 0.2F); // All four vanialla Leaves
+        TConstructRegistry.addCustomMaterial(new FletchlingLeafMaterial(1, 2, "treeLeaves", new ItemStack(TinkerTools.fletching, 1, 1), 75F, 0F, 0.2F)); // all vanilla and oredicted leaves. and all leaves in general.
         TConstructRegistry.addFletchingMaterial(2, 2, new ItemStack(TinkerTools.materials, 1, 1), new ItemStack(TinkerTools.fletching, 1, 2), 100F, 0F, 0.12F); // Slime
         TConstructRegistry.addFletchingMaterial(3, 2, new ItemStack(TinkerTools.materials, 1, 17), new ItemStack(TinkerTools.fletching, 1, 3), 100F, 0F, 0.12F); // BlueSlime
 
