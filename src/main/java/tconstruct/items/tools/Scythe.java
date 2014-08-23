@@ -237,7 +237,14 @@ public class Scythe extends Weapon
                                                     // Workaround for dropping experience
                                                     if (!butter)
                                                         localBlock.dropXpOnBlockBreak(world, xPos, yPos, zPos, exp);
+                                                }
 
+                                                if(world.isRemote) {
+                                                    INetHandler handler = FMLClientHandler.instance().getClientPlayHandler();
+                                                    if(handler != null && handler instanceof NetHandlerPlayClient) {
+                                                        NetHandlerPlayClient handlerClient = (NetHandlerPlayClient) handler;
+                                                        handlerClient.addToSendQueue(new C07PacketPlayerDigging(0, x, y, z, Minecraft.getMinecraft().objectMouseOver.sideHit));
+                                                        handlerClient.addToSendQueue(new C07PacketPlayerDigging(2, x, y, z, Minecraft.getMinecraft().objectMouseOver.sideHit));
                                                     }
                                                 }
 
