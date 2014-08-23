@@ -129,6 +129,7 @@ public class ToolCoreRenderer implements IItemRenderer
         if (type == ItemRenderType.INVENTORY)
         {
             GL11.glDisable(GL11.GL_LIGHTING);
+            GL11.glEnable(GL11.GL_BLEND);
             tess.startDrawingQuads();
             for (int i = 0; i < iconParts; ++i)
             {
@@ -157,6 +158,7 @@ public class ToolCoreRenderer implements IItemRenderer
             default:
             }
 
+            // one side
             tess.startDrawingQuads();
             tess.setNormal(0, 0, 1);
             for (int i = 0; i < iconParts; ++i)
@@ -167,6 +169,8 @@ public class ToolCoreRenderer implements IItemRenderer
                 tess.addVertexWithUV(0, 1, 0, xMax[i], yMin[i]);
             }
             tess.draw();
+
+            // other side
             tess.startDrawingQuads();
             tess.setNormal(0, 0, -1);
             for (int i = 0; i < iconParts; ++i)
@@ -177,6 +181,8 @@ public class ToolCoreRenderer implements IItemRenderer
                 tess.addVertexWithUV(0, 0, -depth, xMax[i], yMax[i]);
             }
             tess.draw();
+
+            // make it have "depth"
             tess.startDrawingQuads();
             tess.setNormal(-1, 0, 0);
             int k;
