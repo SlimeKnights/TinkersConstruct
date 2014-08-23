@@ -1,8 +1,12 @@
 package tconstruct.library.tools;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.PlayerControllerMP;
+import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -10,6 +14,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.INetHandler;
+import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.world.World;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
@@ -299,26 +305,20 @@ public abstract class HarvestTool extends ToolCore
     // The Scythe is not a HarvestTool and can't call this method, if you change something here you might change it there too.
     public void mineBlock(World world, int x, int y, int z, int meta, EntityPlayer player, Block block)
     {
-        if (!world.isRemote)
-        {
-            // Workaround for dropping experience
-            boolean silktouch = EnchantmentHelper.getSilkTouchModifier(player);
-            int fortune = EnchantmentHelper.getFortuneModifier(player);
-            int exp = block.getExpDrop(world, meta, fortune);
+        // Workaround for dropping experience
+        boolean silktouch = EnchantmentHelper.getSilkTouchModifier(player);
+        int fortune = EnchantmentHelper.getFortuneModifier(player);
+        int exp = block.getExpDrop(world, meta, fortune);
 
-            block.onBlockHarvested(world, x, y, z, meta, player);
-            if (block.removedByPlayer(world, player, x, y, z, true))
-            {
-                block.onBlockDestroyedByPlayer(world, x, y, z, meta);
-                block.harvestBlock(world, player, x, y, z, meta);
-                // Workaround for dropping experience
-                if (!silktouch)
-                    block.dropXpOnBlockBreak(world, x, y, z, exp);
-            }
-        }
-        else
+        block.onBlockHarvested(world, x, y, z, meta, player);
+        if (block.removedByPlayer(world, player, x, y, z, true))
         {
             block.onBlockDestroyedByPlayer(world, x, y, z, meta);
+            block.harvestBlock(world, player, x, y, z, meta);
+            // Workaround for dropping experience
+            if (!silktouch)
+                block.dropXpOnBlockBreak(world, x, y, z, exp);
+
         }
     }
 }
