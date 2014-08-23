@@ -62,7 +62,14 @@ public class CarvingTablePacket extends AbstractPacket
         if (te instanceof CarvingTableLogic)
         {
             CarvingTableLogic ctl = (CarvingTableLogic) te;
-            ctl.currentPattern = VirtualPattern.getAll()[patternID];
+            if(patternID >= 0)
+            {
+                ctl.currentPattern = VirtualPattern.getAll()[patternID];
+            }
+            else
+            {
+                ctl.currentPattern = null;
+            }
             ctl.buildTopPart();
             ctl.buildBottomPart();
         }

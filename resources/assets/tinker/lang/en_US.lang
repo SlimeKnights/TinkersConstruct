@@ -24,6 +24,7 @@ ToolStation.Parts.name=Part Builder
 ToolStation.PatternChest.name=Pattern Chest
 ToolStation.PatternShaper.name=Stencil Table
 ToolStation.CastingTable.name=Casting Table
+ToolStation.CarvingTable.name=Carving Table
 tile.FurnaceSlab.name=Slab Furnace
 
 tile.ToolForge.name=Tool Forge

@@ -99,8 +99,6 @@ public class CarvingTableGui extends NewContainerGui
             PatternGuiElement element = patternElements[iter];
             if(element != null)
             {
-                System.out.println(iter);
-                System.out.println(patternElements[iter].texture);
                 GuiButtonPattern button = new GuiButtonPattern(count, (this.guiLeft - buttonShift) + (16 + buttonMargin) * (count % buttonColumns),
                         this.guiTop + (16 + buttonMargin) * (count / buttonColumns), element);
 
@@ -111,6 +109,12 @@ public class CarvingTableGui extends NewContainerGui
                 button.index = iter;
 
                 count++;
+
+                if(logic.currentPattern == VirtualPattern.getAll()[element.patternID])
+                {
+                    this.currentButton = button;
+                    button.pressed = true;
+                }
             }
         }
     }
@@ -463,18 +467,28 @@ public class CarvingTableGui extends NewContainerGui
         if(currentButton != null)
         {
             //Set the previous button to no longer be pressed down.
-            currentButton.enabled = true;
+            //currentButton.enabled = true;
+            currentButton.pressed = false;
         }
         if(button instanceof GuiButtonPattern)
         {
             //It is now pressed.
-            button.enabled = false;
             GuiButtonPattern gbp = (GuiButtonPattern) button;
 
-            currentButton = (GuiButtonPattern) button;
+            if(currentButton == gbp)
+            {
+                currentButton = null;
+                logic.currentPattern = null;
+                this.updateServer((byte)-1);
+            }
+            else
+            {
+                gbp.pressed = true;
+                currentButton = (GuiButtonPattern) button;
 
-            logic.currentPattern = VirtualPattern.getAll()[gbp.element.patternID];
-            this.updateServer((byte)gbp.element.patternID);
+                logic.currentPattern = VirtualPattern.getAll()[gbp.element.patternID];
+                this.updateServer((byte)gbp.element.patternID);
+            }
             //title = "\u00A7n" + gbp.element.title;
         }
         logic.buildTopPart();

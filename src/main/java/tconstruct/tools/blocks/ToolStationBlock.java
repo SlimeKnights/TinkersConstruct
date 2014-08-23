@@ -70,7 +70,7 @@ public class ToolStationBlock extends InventoryBlock
         else
         {
             //TODO: This
-            return icons[15 + getTextureIndex(side)];
+            return icons[3 + getTextureIndex(side)];
         }
     }
 
@@ -159,6 +159,8 @@ public class ToolStationBlock extends InventoryBlock
             return new StencilTableLogic();
         case 14:
             return new CarvingTableLogic();
+        case 15:
+            return new CarvingTableLogic();
             /*case 14:
             	return new CastingTableLogic();*/
         default:
@@ -202,7 +204,7 @@ public class ToolStationBlock extends InventoryBlock
         {
             list.add(new ItemStack(id, 1, iter));
         }
-        list.add(new ItemStack(id, 1, 14));
+        list.add(new ItemStack(id, 1, 15));
     }
 
     @Override

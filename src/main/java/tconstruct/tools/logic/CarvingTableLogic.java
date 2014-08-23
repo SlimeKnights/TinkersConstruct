@@ -58,27 +58,19 @@ public class CarvingTableLogic extends InventoryLogic implements ISidedInventory
     {
         ItemStack returnStack = super.decrStackSize(slotID, quantity);
         tryBuildPart(slotID);
-        if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
-            System.out.println("Boosh");
         return returnStack;
     }
 
     public void tryBuildPart (int slotID)
     {
-        if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
-            System.out.println("Boosh");
         if (slotID == 2 || slotID == 3)
         {
             if (!craftedTop)
             {
-                if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
-                    System.out.println("Boosh");
                 int value = PatternBuilder.instance.getPartValue(inventory[0]);
                 int cost = currentPattern != null ? currentPattern.getPatternCost() : 0;
                 if (value > 0 && cost > 0)
                 {
-                    if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
-                        System.out.println("Boosh");
                     int decrease = cost / value;
                     if (cost % value != 0)
                         decrease++;
@@ -133,48 +125,54 @@ public class CarvingTableLogic extends InventoryLogic implements ISidedInventory
 
     public void buildTopPart ()
     {
-        System.out.println("cl1");
-        if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
-            System.out.println("1");
-        if(currentPattern != null)
+        if(!craftedTop)
         {
-            System.out.println("cl2");
-            if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
-                System.out.println(currentPattern);
-            if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
-                System.out.println("2");
-            ItemStack[] parts = PatternBuilder.instance.getToolPartCarve(inventory[0], currentPattern, currentPattern.getPatternID());
-            if (parts != null)
+            if (currentPattern != null)
             {
-                if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
-                    System.out.println(parts);
-                if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
-                    System.out.println("3");
-                inventory[2] = parts[0];
-                inventory[3] = parts[1];
+                ItemStack[] parts = PatternBuilder.instance.getToolPartCarve(inventory[0], currentPattern, currentPattern.getPatternID());
+                if (parts != null)
+                {
+                    inventory[2] = parts[0];
+                    inventory[3] = parts[1];
+                }
+                else
+                {
+                    inventory[2] = inventory[3] = null;
+                }
             }
             else
             {
-                if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
-                    System.out.println("4");
-                inventory[2] = inventory[3] = null;
+                if (!craftedTop)
+                {
+                    inventory[2] = inventory[3] = null;
+                }
             }
         }
     }
 
     public void buildBottomPart ()
     {
-        if(currentPattern != null)
+        if(!craftedBottom)
         {
-            ItemStack[] parts = PatternBuilder.instance.getToolPartCarve(inventory[1], currentPattern, currentPattern.getPatternID());
-            if (parts != null)
+            if (currentPattern != null)
             {
-                inventory[4] = parts[0];
-                inventory[5] = parts[1];
+                ItemStack[] parts = PatternBuilder.instance.getToolPartCarve(inventory[1], currentPattern, currentPattern.getPatternID());
+                if (parts != null)
+                {
+                    inventory[4] = parts[0];
+                    inventory[5] = parts[1];
+                }
+                else
+                {
+                    inventory[4] = inventory[5] = null;
+                }
             }
             else
             {
-                inventory[4] = inventory[5] = null;
+                if (!craftedBottom)
+                {
+                    inventory[4] = inventory[5] = null;
+                }
             }
         }
     }

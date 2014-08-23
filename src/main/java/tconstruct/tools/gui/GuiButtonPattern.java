@@ -14,6 +14,7 @@ import tconstruct.library.client.ToolGuiElement;
 @SideOnly(Side.CLIENT)
 public class GuiButtonPattern extends GuiButton
 {
+    public boolean pressed = false;
     public String texture;
     protected String domain;
     public PatternGuiElement element;
