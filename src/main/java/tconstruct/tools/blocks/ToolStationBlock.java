@@ -21,10 +21,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.tools.TinkerTools;
-import tconstruct.tools.logic.PartBuilderLogic;
-import tconstruct.tools.logic.PatternChestLogic;
-import tconstruct.tools.logic.StencilTableLogic;
-import tconstruct.tools.logic.ToolStationLogic;
+import tconstruct.tools.ToolProxyCommon;
+import tconstruct.tools.logic.*;
 import tconstruct.tools.model.TableRender;
 import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.relauncher.Side;
@@ -67,9 +65,14 @@ public class ToolStationBlock extends InventoryBlock
         {
             return icons[15 + getTextureIndex(side)];
         }
-        else
+        else if (meta <= 13)
         {
             return icons[meta * 3 + getTextureIndex(side) - 12];
+        }
+        else
+        {
+            //TODO: This
+            return icons[3 + getTextureIndex(side)];
         }
     }
 
@@ -156,6 +159,10 @@ public class ToolStationBlock extends InventoryBlock
             return new StencilTableLogic();
         case 13:
             return new StencilTableLogic();
+        case 14:
+            return new CarvingTableLogic();
+        case 15:
+            return new CarvingTableLogic();
             /*case 14:
             	return new CastingTableLogic();*/
         default:
@@ -173,8 +180,10 @@ public class ToolStationBlock extends InventoryBlock
             return 1;
         else if (md < 10)
             return 2;
-        else
+        else if (md < 14)
             return 3;
+        else
+            return ToolProxyCommon.carvingTableID;
 
         //return -1;
     }
@@ -197,6 +206,7 @@ public class ToolStationBlock extends InventoryBlock
         {
             list.add(new ItemStack(id, 1, iter));
         }
+        list.add(new ItemStack(id, 1, 15));
     }
 
     /*@Override

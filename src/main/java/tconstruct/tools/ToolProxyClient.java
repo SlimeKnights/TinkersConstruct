@@ -32,22 +32,8 @@ import tconstruct.tools.entity.ArrowEntity;
 import tconstruct.tools.entity.DaggerEntity;
 import tconstruct.tools.entity.FancyEntityItem;
 import tconstruct.tools.entity.LaunchedPotion;
-import tconstruct.tools.gui.CraftingStationGui;
-import tconstruct.tools.gui.FrypanGui;
-import tconstruct.tools.gui.FurnaceGui;
-import tconstruct.tools.gui.PartCrafterGui;
-import tconstruct.tools.gui.PatternChestGui;
-import tconstruct.tools.gui.StencilTableGui;
-import tconstruct.tools.gui.ToolForgeGui;
-import tconstruct.tools.gui.ToolStationGui;
-import tconstruct.tools.logic.CraftingStationLogic;
-import tconstruct.tools.logic.FrypanLogic;
-import tconstruct.tools.logic.FurnaceLogic;
-import tconstruct.tools.logic.PartBuilderLogic;
-import tconstruct.tools.logic.PatternChestLogic;
-import tconstruct.tools.logic.StencilTableLogic;
-import tconstruct.tools.logic.ToolForgeLogic;
-import tconstruct.tools.logic.ToolStationLogic;
+import tconstruct.tools.gui.*;
+import tconstruct.tools.logic.*;
 import tconstruct.tools.model.FancyItemRender;
 import tconstruct.tools.model.FrypanRender;
 import tconstruct.tools.model.TableRender;
@@ -280,6 +266,7 @@ public class ToolProxyClient extends ToolProxyCommon
         TProxyCommon.registerClientGuiHandler(toolForgeID, this);
         TProxyCommon.registerClientGuiHandler(furnaceID, this);
         TProxyCommon.registerClientGuiHandler(craftingStationID, this);
+        TProxyCommon.registerClientGuiHandler(carvingTableID, this);
     }
 
     @Override
@@ -303,6 +290,8 @@ public class ToolProxyClient extends ToolProxyCommon
 
         if (ID == ToolProxyCommon.furnaceID)
             return new FurnaceGui(player.inventory, (FurnaceLogic) world.getTileEntity(x, y, z));
+        if (ID == ToolProxyCommon.carvingTableID)
+            return new CarvingTableGui(player.inventory, (CarvingTableLogic) world.getTileEntity(x, y, z), world, x, y, z);
 
         return null;
     }

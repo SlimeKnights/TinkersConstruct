@@ -141,6 +141,7 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Abstra
         registerPacket(SmelteryPacket.class);
         registerPacket(PatternTablePacket.class);
         registerPacket(ToolStationPacket.class);
+        registerPacket(CarvingTablePacket.class);
         registerPacket(PacketUpdateTE.class);
     }
 
