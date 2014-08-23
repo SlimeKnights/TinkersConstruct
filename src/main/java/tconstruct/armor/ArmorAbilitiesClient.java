@@ -7,6 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.client.TControls;
 import tconstruct.library.modifier.IModifyable;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 
@@ -17,10 +18,13 @@ public class ArmorAbilitiesClient
 
     ItemStack prevFeet;
     double prevMotionY;
+
     boolean morphed;
+    boolean morphLoaded = Loader.isModLoaded("Morph");
+
     float prevMouseSensitivity;
     boolean sprint;
-    
+
     public ArmorAbilitiesClient(Minecraft mc, TControls p)
     {
         this.mc = mc;
@@ -95,6 +99,15 @@ public class ArmorAbilitiesClient
                 gs.mouseSensitivity = prevMouseSensitivity;
             }
         }*/
+
+        if (morphLoaded)
+        {
+            if (morph.api.Api.hasMorph(player.getCommandSenderName(), event.side.isClient()))
+            {
+                morphed = true;
+            }
+        }
+
         if (!player.isPlayerSleeping() && !morphed)
         {
             ItemStack chest = player.getCurrentArmor(2);

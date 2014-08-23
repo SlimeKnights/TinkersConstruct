@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.BlockSand;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -22,8 +23,7 @@ public class GravelOre extends BlockSand
 
     public GravelOre()
     {
-        //super(Material.craftedSnow);
-        //this.blockMaterial = Material.craftedSnow;
+        this.blockMaterial = Material.craftedSnow;
         this.setCreativeTab(TConstructRegistry.blockTab);
         this.setStepSound(soundTypeGravel);
     }

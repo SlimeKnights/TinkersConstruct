@@ -13,10 +13,10 @@ import net.minecraft.world.World;
 import tconstruct.TConstruct;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.util.IPattern;
-import tconstruct.tools.VirtualPattern;
 import tconstruct.tools.inventory.CarvingTableContainer;
 import tconstruct.tools.inventory.PartCrafterChestContainer;
 import tconstruct.tools.inventory.PartCrafterContainer;
+import tconstruct.tools.items.Pattern;
 import tconstruct.util.network.CarvingTablePacket;
 import tconstruct.util.network.ToolStationPacket;
 
@@ -28,7 +28,7 @@ public class CarvingTableLogic extends InventoryLogic implements ISidedInventory
     /**
      * The currently selected pattern to use for crafting parts.
      */
-    public VirtualPattern currentPattern = null;
+    public ItemStack currentPattern = null;
 
 
 
@@ -68,7 +68,7 @@ public class CarvingTableLogic extends InventoryLogic implements ISidedInventory
             if (!craftedTop)
             {
                 int value = PatternBuilder.instance.getPartValue(inventory[0]);
-                int cost = currentPattern != null ? currentPattern.getPatternCost() : 0;
+                int cost = currentPattern != null ? ((IPattern)currentPattern.getItem()).getPatternCost(currentPattern) : 0;
                 if (value > 0 && cost > 0)
                 {
                     int decrease = cost / value;
@@ -92,7 +92,7 @@ public class CarvingTableLogic extends InventoryLogic implements ISidedInventory
             if (!craftedBottom)
             {
                 int value = PatternBuilder.instance.getPartValue(inventory[1]);
-                int cost = currentPattern != null ? currentPattern.getPatternCost() : 0;
+                int cost = currentPattern != null ? ((IPattern)currentPattern.getItem()).getPatternCost(currentPattern) : 0;
                 if (value > 0 && cost > 0)
                 {
                     int decrease = cost / value;
@@ -129,7 +129,7 @@ public class CarvingTableLogic extends InventoryLogic implements ISidedInventory
         {
             if (currentPattern != null)
             {
-                ItemStack[] parts = PatternBuilder.instance.getToolPartCarve(inventory[0], currentPattern, currentPattern.getPatternID());
+                ItemStack[] parts = PatternBuilder.instance.getToolPart(inventory[0], currentPattern, null);
                 if (parts != null)
                 {
                     inventory[2] = parts[0];
@@ -156,7 +156,7 @@ public class CarvingTableLogic extends InventoryLogic implements ISidedInventory
         {
             if (currentPattern != null)
             {
-                ItemStack[] parts = PatternBuilder.instance.getToolPartCarve(inventory[1], currentPattern, currentPattern.getPatternID());
+                ItemStack[] parts = PatternBuilder.instance.getToolPart(inventory[1], currentPattern, null);
                 if (parts != null)
                 {
                     inventory[4] = parts[0];

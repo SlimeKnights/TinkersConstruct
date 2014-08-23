@@ -5,9 +5,10 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import mantle.common.network.AbstractPacket;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import tconstruct.tools.VirtualPattern;
 import tconstruct.tools.logic.CarvingTableLogic;
 import tconstruct.tools.logic.ToolForgeLogic;
 import tconstruct.tools.logic.ToolStationLogic;
@@ -16,18 +17,20 @@ public class CarvingTablePacket extends AbstractPacket
 {
 
     private int x, y, z;
-    private byte patternID;
+    private int patternID;
+    private int patternMeta;
 
     public CarvingTablePacket ()
     {
     }
 
-    public CarvingTablePacket (int x, int y, int z, byte pID)
+    public CarvingTablePacket (int x, int y, int z, int pID, int pM)
     {
         this.x = x;
         this.y = y;
         this.z = z;
         this.patternID = pID;
+        this.patternMeta = pM;
     }
 
     @Override
@@ -36,7 +39,8 @@ public class CarvingTablePacket extends AbstractPacket
         buffer.writeInt(x);
         buffer.writeInt(y);
         buffer.writeInt(z);
-        buffer.writeByte(patternID);
+        buffer.writeInt(patternID);
+        buffer.writeInt(patternMeta);
     }
 
     @Override
@@ -45,7 +49,8 @@ public class CarvingTablePacket extends AbstractPacket
         x = buffer.readInt();
         y = buffer.readInt();
         z = buffer.readInt();
-        patternID = buffer.readByte();
+        patternID = buffer.readInt();
+        patternMeta = buffer.readInt();
     }
 
     @Override
@@ -64,7 +69,7 @@ public class CarvingTablePacket extends AbstractPacket
             CarvingTableLogic ctl = (CarvingTableLogic) te;
             if(patternID >= 0)
             {
-                ctl.currentPattern = VirtualPattern.getAll()[patternID];
+                ctl.currentPattern = new ItemStack(Item.getItemById(patternID), 1, patternMeta);
             }
             else
             {
@@ -74,5 +79,4 @@ public class CarvingTablePacket extends AbstractPacket
             ctl.buildBottomPart();
         }
     }
-
 }

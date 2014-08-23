@@ -111,26 +111,27 @@ public abstract class DualHarvestTool extends HarvestTool
     public boolean func_150897_b (Block block)
     {
         if (block.getMaterial().isToolNotRequired())
-        {
             return true;
-        }
-        for (Material m : getEffectiveMaterials())
-        {
-            if (m == block.getMaterial())
-                return true;
-        }
-        for (Material m : getEffectiveSecondaryMaterials())
-        {
-            if (m == block.getMaterial())
-                return true;
-        }
-        return false;
+
+        return isEffective(block.getMaterial());
     }
 
     @Override
     public boolean canHarvestBlock (Block block, ItemStack itemStack)
     {
         return func_150897_b(block);
+    }
+
+    @Override
+    public boolean isEffective(Material material) {
+        if(super.isEffective(material))
+            return true;
+
+        for(Material m : getEffectiveSecondaryMaterials())
+            if(m == material)
+                return true;
+
+        return false;
     }
 
     @Override

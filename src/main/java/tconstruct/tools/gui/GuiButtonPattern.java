@@ -15,8 +15,8 @@ import tconstruct.library.client.ToolGuiElement;
 public class GuiButtonPattern extends GuiButton
 {
     public boolean pressed = false;
-    public String texture;
-    protected String domain;
+    //public String texture;
+    //protected String domain;
     public PatternGuiElement element;
     public int index = 0;
     private ResourceLocation background;// = new
@@ -27,9 +27,14 @@ public class GuiButtonPattern extends GuiButton
     {
         super(id, posX, posY, 16, 16, "");
         element = e;
-        texture = e.texture;
-        domain = e.domain;
-        background = new ResourceLocation(domain, texture + ".png");
+        //texture = e.texture;
+        //domain = e.domain;
+        //background = new ResourceLocation(domain, texture + ".png");
+        //e.ourItem.getItem().getIconFromDamage(e.ourItem.getItemDamage()).getIconName().replace(":", "/textures/items/") + ".png"
+        String[] fullTex = e.ourItem.getItem().getIconFromDamage(e.ourItem.getItemDamage()).getIconName().split(":");
+        String domain = fullTex[0];
+        String path = "textures/items/" + fullTex[1] + ".png";
+        background = new ResourceLocation(domain, path);
 
         width = 16;
         height = 16;

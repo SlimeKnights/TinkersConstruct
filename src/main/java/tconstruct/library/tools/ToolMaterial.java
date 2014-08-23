@@ -1,5 +1,7 @@
 package tconstruct.library.tools;
 
+import net.minecraft.util.StatCollector;
+
 /*
  * Dynamic substitute for an enum. It carries a lot of information
  */
@@ -89,4 +91,6 @@ public class ToolMaterial
     {
         return this.ability;
     }
+
+    public String localizedAbility () { return StatCollector.translateToLocal(this.ability); }
 }

@@ -5,7 +5,7 @@ import tconstruct.library.crafting.PatternBuilder.MaterialSet;
 
 public interface IPattern
 {
-    public int getPatternCost (int patternID);
+    public int getPatternCost (ItemStack pattern);
 
-    public ItemStack getPatternOutput (int patternID, ItemStack input, MaterialSet set);
+    public ItemStack getPatternOutput (ItemStack pattern, ItemStack input, MaterialSet set);
 }

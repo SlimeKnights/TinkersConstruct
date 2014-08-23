@@ -6,6 +6,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -19,11 +20,15 @@ import tconstruct.client.gui.NewContainerGui;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.PatternGuiElement;
 import tconstruct.library.crafting.PatternBuilder;
+import tconstruct.library.crafting.StencilBuilder;
 import tconstruct.library.tools.ToolMaterial;
 import tconstruct.smeltery.inventory.ActiveContainer;
-import tconstruct.tools.VirtualPattern;
 import tconstruct.tools.logic.CarvingTableLogic;
 import tconstruct.util.network.CarvingTablePacket;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class CarvingTableGui extends NewContainerGui
 {
@@ -59,26 +64,25 @@ public class CarvingTableGui extends NewContainerGui
 
     public static void AddAllPatternElements()
     {
+        List<ItemStack> stencils = StencilBuilder.getStencils();
 
-        VirtualPattern.InitAll();
-        VirtualPattern[] patterns = VirtualPattern.getAll();
+        patternElements = new PatternGuiElement[stencils.size()];
 
-        patternElements = new PatternGuiElement[patterns.length];
+        ListIterator<ItemStack> iter = stencils.listIterator();
         int idx = 0;
-        while (idx < patterns.length)
+        while (iter.hasNext())
         {
-            VirtualPattern current = VirtualPattern.getAll()[idx];
-            //Make sure not to add the ingot pattern, it is invalid.
-            if(!VirtualPattern.getNameForID(idx).contentEquals("ingot"))
+            ItemStack current = iter.next();
+            if(current != null)
             {
+                //Make sure not to add the ingot pattern, it is invalid.
                 patternElements[idx] =
                         new PatternGuiElement((16 + buttonMargin) * (idx % buttonColumns), (16 + buttonMargin) * (idx / buttonColumns),
-                                current.getName(), current.getTooltip(idx), current.getModTexPrefix(),
-                                current.getTextureFolder() + current.getTextureName(), idx);
+                                current.getUnlocalizedName(), "", current);
+                ++idx;
             }
-            ++idx;
         }
-        buttonBottom = ((16 + buttonMargin) * (idx / buttonColumns));
+        buttonBottom = ((16 + buttonMargin) * ((idx / buttonColumns) +1 ));
     }
 
 
@@ -110,10 +114,13 @@ public class CarvingTableGui extends NewContainerGui
 
                 count++;
 
-                if(logic.currentPattern == VirtualPattern.getAll()[element.patternID])
+                if(logic.currentPattern != null)
                 {
-                    this.currentButton = button;
-                    button.pressed = true;
+                    if (logic.currentPattern.isItemEqual(element.ourItem) && (logic.currentPattern.getItemDamage() == element.ourItem.getItemDamage()))
+                    {
+                        this.currentButton = button;
+                        button.pressed = true;
+                    }
                 }
             }
         }
@@ -185,17 +192,17 @@ public class CarvingTableGui extends NewContainerGui
         {
             //This is not drawn relative to the same origin as Draw Textured Modal Rect.
             this.fontRendererObj.drawString("\u00A7n" + StatCollector.translateToLocal(
-                    "gui.part." + VirtualPattern.getNameForID(currentButton.element.patternID) + ".name"
-                    ), cornerX + xMargin, (cornerY + yMargin), 16777215);
+                    currentButton.element.ourItem.getUnlocalizedName() + ".name"
+                    ).replace(" Pattern", ""), cornerX + xMargin, (cornerY + yMargin), 16777215); /*
             this.fontRendererObj.drawString(StatCollector.translateToLocal(
-                    "gui.part." + VirtualPattern.getNameForID(currentButton.element.patternID) + ".description1"
+                    currentButton.element.ourItem.getUnlocalizedName()
                     ), cornerX + xMargin, (cornerY + yMargin) + 12, 16777215);
             this.fontRendererObj.drawString(StatCollector.translateToLocal(
-                    "gui.part." + VirtualPattern.getNameForID(currentButton.element.patternID) + ".description2"
+                    currentButton.element.ourItem.getUnlocalizedName()
                     ), cornerX + xMargin, (cornerY + yMargin) + 24, 16777215);
             this.fontRendererObj.drawString(StatCollector.translateToLocal(
-                    "gui.part." + VirtualPattern.getNameForID(currentButton.element.patternID) + ".description3"
-                    ), cornerX + xMargin, (cornerY + yMargin) + 36, 16777215);
+                    currentButton.element.ourItem.getUnlocalizedName()
+                    ), cornerX + xMargin, (cornerY + yMargin) + 36, 16777215);*/
         }
         else
         {
@@ -479,15 +486,15 @@ public class CarvingTableGui extends NewContainerGui
             {
                 currentButton = null;
                 logic.currentPattern = null;
-                this.updateServer((byte)-1);
+                this.updateServer(logic.currentPattern);
             }
             else
             {
                 gbp.pressed = true;
                 currentButton = (GuiButtonPattern) button;
 
-                logic.currentPattern = VirtualPattern.getAll()[gbp.element.patternID];
-                this.updateServer((byte)gbp.element.patternID);
+                logic.currentPattern = gbp.element.ourItem;
+                this.updateServer(logic.currentPattern);
             }
             //title = "\u00A7n" + gbp.element.title;
         }
@@ -495,8 +502,15 @@ public class CarvingTableGui extends NewContainerGui
         logic.buildBottomPart();
     }
 
-    void updateServer (byte pID)
+    void updateServer (ItemStack pattern)
     {
-        TConstruct.packetPipeline.sendToServer(new CarvingTablePacket(logic.xCoord, logic.yCoord, logic.zCoord, pID));
+        if(pattern != null)
+        {
+            TConstruct.packetPipeline.sendToServer(new CarvingTablePacket(logic.xCoord, logic.yCoord, logic.zCoord, Item.getIdFromItem(pattern.getItem()), pattern.getItemDamage()));
+        }
+        else
+        {
+            TConstruct.packetPipeline.sendToServer(new CarvingTablePacket(logic.xCoord, logic.yCoord, logic.zCoord, -1, -1));
+        }
     }
 }

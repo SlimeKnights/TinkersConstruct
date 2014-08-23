@@ -101,6 +101,12 @@ public class LavaTankBlock extends BlockContainer
     }
 
     @Override
+    public boolean canRenderInPass(int pass) {
+        TankRender.renderPass = pass;
+        return true;
+    }
+
+    @Override
     public int getLightValue (IBlockAccess world, int x, int y, int z)
     {
         TileEntity logic = world.getTileEntity(x, y, z);

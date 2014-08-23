@@ -25,10 +25,12 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
 import cpw.mods.fml.relauncher.Side;
 import mantle.pulsar.config.ForgeCFG;
 import mantle.pulsar.control.PulseManager;
+import tconstruct.api.TConstructAPI;
 import tconstruct.armor.TinkerArmor;
 import tconstruct.armor.player.TPlayerHandler;
+import tconstruct.armor.player.TPlayerStats;
 import tconstruct.client.TControls;
-import tconstruct.common.TConstructCreativeTab;
+import tconstruct.library.TConstructCreativeTab;
 import tconstruct.common.TProxyCommon;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.Detailing;
@@ -62,11 +64,11 @@ import tconstruct.world.village.*;
  * @author mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.0d37",
+@Mod(modid = "TConstruct", name = "TConstruct", version = "${version}",
         dependencies = "required-after:Forge@[10.13,);required-after:Mantle;after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion")
 public class TConstruct
 {
-    public static final String modVersion = "1.6.0d37";
+    public static final String modVersion = "${version}";
     /** The value of one ingot in millibuckets */
     public static final int ingotLiquidValue = 144;
     public static final int oreLiquidValue = ingotLiquidValue * 2;
@@ -88,7 +90,7 @@ public class TConstruct
     public static TProxyCommon proxy;
 
     /* Loads modules in a way that doesn't clutter the @Mod list */
-    private PulseManager pulsar = new PulseManager(modID, new ForgeCFG("TinkersModules", "Modules: Disabling these will disable a chunk of the mod"));
+    public static PulseManager pulsar = new PulseManager(modID, new ForgeCFG("TinkersModules", "Modules: Disabling these will disable a chunk of the mod"));
 
     public TConstruct()
     {
@@ -170,6 +172,8 @@ public class TConstruct
             MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
             MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
         }
+        
+        TConstructAPI.PROP_NAME=TPlayerStats.PROP_NAME;
     }
 
     @EventHandler

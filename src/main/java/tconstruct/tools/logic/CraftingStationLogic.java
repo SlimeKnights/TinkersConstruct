@@ -118,7 +118,7 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
     @Override
     public boolean canExtractItem (int i, ItemStack itemstack, int j)
     {
-        return i == 0;
+        return false;
     }
 
     @Override

@@ -1,8 +1,8 @@
 package tconstruct.world;
 
+import cpw.mods.fml.common.SidedProxy;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
-import mantle.pulsar.pulse.PulseProxy;
 import mantle.utils.RecipeRemover;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
@@ -14,6 +14,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.potion.Potion;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
@@ -78,6 +79,7 @@ import tconstruct.world.itemblocks.SlimeSaplingItemBlock;
 import tconstruct.world.itemblocks.SlimeTallGrassItem;
 import tconstruct.world.itemblocks.WoolSlab1Item;
 import tconstruct.world.itemblocks.WoolSlab2Item;
+import tconstruct.world.items.GoldenHead;
 import tconstruct.world.items.OreBerries;
 import tconstruct.world.items.StrangeFood;
 import cpw.mods.fml.common.Mod.Instance;
@@ -94,7 +96,7 @@ public class TinkerWorld
 {
     @Instance("TinkerWorld")
     public static TinkerWorld instance;
-    @PulseProxy(clientSide = "tconstruct.world.TinkerWorldProxyClient", serverSide = "tconstruct.world.TinkerWorldProxyCommon")
+    @SidedProxy(clientSide = "tconstruct.world.TinkerWorldProxyClient", serverSide = "tconstruct.world.TinkerWorldProxyCommon")
     public static TinkerWorldProxyCommon proxy;
     
     public static Item strangeFood;
@@ -134,6 +136,8 @@ public class TinkerWorld
     public static ChestGenHooks tinkerHousePatterns;
     public static Block punji;
     public static Block metalBlock;
+    // Morbid
+    public static Item goldHead;
     
     @Handler
     public void preInit (FMLPreInitializationEvent event)
@@ -251,6 +255,9 @@ public class TinkerWorld
         GameRegistry.registerBlock(TinkerWorld.woodenRail, "rail.wood");
         
         //Items
+        goldHead = new GoldenHead(4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).setUnlocalizedName("goldenhead");
+        GameRegistry.registerItem(goldHead, "goldHead");
+
 
         TinkerWorld.strangeFood = new StrangeFood().setUnlocalizedName("tconstruct.strangefood");
         TinkerWorld.oreBerries = new OreBerries().setUnlocalizedName("oreberry");
@@ -403,10 +410,11 @@ public class TinkerWorld
         // Clock Recipe - Vanilla alternativ
         GameRegistry.addRecipe(new ItemStack(Items.clock), " i ", "iri", " i ", 'i', aluBrass, 'r', new ItemStack(Items.redstone));
         // Gold Pressure Plate - Vanilla alternativ
-        GameRegistry.addRecipe(new ItemStack(Blocks.light_weighted_pressure_plate), "ii", 'i', aluBrass);
+        // todo: temporarily disabled due to light weighted pressure plate being smeltable to gold
+        //GameRegistry.addRecipe(new ItemStack(Blocks.light_weighted_pressure_plate, 0, 1), "ii", 'i', aluBrass);
 
         // Ultra hardcore recipes
-        GameRegistry.addRecipe(new ItemStack(TinkerTools.goldHead), patSurround, '#', new ItemStack(Items.gold_ingot), 'm', new ItemStack(Items.skull, 1, 3));
+        GameRegistry.addRecipe(new ItemStack(goldHead), patSurround, '#', new ItemStack(Items.gold_ingot), 'm', new ItemStack(Items.skull, 1, 3));
 
 
         // Wool Slab Recipes

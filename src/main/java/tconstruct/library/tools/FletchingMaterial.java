@@ -15,4 +15,12 @@ public class FletchingMaterial extends CustomMaterial
         this.breakChance = breakChance;
         this.mass = mass;
     }
+
+    public FletchingMaterial(int materialID, int value, String oredict, ItemStack craftingItem, float accuracy, float breakChance, float mass)
+    {
+        super(materialID, value, oredict, craftingItem);
+        this.accuracy = accuracy;
+        this.breakChance = breakChance;
+        this.mass = mass;
+    }
 }

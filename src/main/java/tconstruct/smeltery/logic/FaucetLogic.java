@@ -201,7 +201,8 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
         if (!active)
         {
             active = true;
-            activateFaucet();
+            if(!activateFaucet())
+                active = false;
         }
         else
         {

@@ -70,7 +70,7 @@ public class Pattern extends CraftingItem implements IPattern
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        float cost = getPatternCost(stack.getItemDamage()) / 2f;
+        float cost = getPatternCost(stack) / 2f;
         if (cost > 0)
         {
             if (cost - (int) cost < 0.1)
@@ -82,9 +82,9 @@ public class Pattern extends CraftingItem implements IPattern
 
     // 2 for full material, 1 for half.
     @Override
-    public int getPatternCost (int patternID)
+    public int getPatternCost (ItemStack pattern)
     {
-        switch (patternID)
+        switch (pattern.getItemDamage())
         {
         case 0:
             return 2;
@@ -144,8 +144,8 @@ public class Pattern extends CraftingItem implements IPattern
     }
 
     @Override
-    public ItemStack getPatternOutput (int stack, ItemStack input, MaterialSet set)
+    public ItemStack getPatternOutput (ItemStack stack, ItemStack input, MaterialSet set)
     {
-        return TConstructRegistry.getPartMapping((Item) this, stack, set.materialID);
+        return TConstructRegistry.getPartMapping((Item) this, stack.getItemDamage(), set.materialID);
     }
 }

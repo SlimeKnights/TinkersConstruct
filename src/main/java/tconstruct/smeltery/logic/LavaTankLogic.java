@@ -101,12 +101,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
     {
         if (containsFluid())
         {
-            int id = tank.getFluid().fluidID;
-            if (id < 4096)
-            {
-                Block block = Block.getBlockById(id);
-                return block.getLightValue();
-            }
+            return (tank.getFluid().getFluid().getLuminosity() * tank.getFluidAmount()) / tank.getCapacity();
         }
         return 0;
     }

@@ -19,6 +19,8 @@ public class GlueFluid extends BlockFluidFinite
     IIcon stillIcon;
     IIcon flowIcon;
 
+    boolean overwriteFluidIcons = true;
+
     public GlueFluid(Fluid fluid, Material material)
     {
         super(fluid, material);
@@ -30,6 +32,9 @@ public class GlueFluid extends BlockFluidFinite
     {
         stillIcon = iconRegister.registerIcon("tinker:liquid_glue");
         flowIcon = iconRegister.registerIcon("tinker:liquid_glue_flow");
+
+        if (this.overwriteFluidIcons)
+            this.getFluid().setIcons(stillIcon, flowIcon);
     }
 
     @Override
@@ -56,5 +61,10 @@ public class GlueFluid extends BlockFluidFinite
             // Glue is sticky stuff
             living.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), 30, 4));
         }
+    }
+
+    public void suppressOverwritingFluidIcons ()
+    {
+        this.overwriteFluidIcons = false;
     }
 }

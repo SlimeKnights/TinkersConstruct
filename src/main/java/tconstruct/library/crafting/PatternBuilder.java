@@ -10,7 +10,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.event.CarvingTableEvent;
 import tconstruct.library.event.PartBuilderEvent;
 import tconstruct.library.tools.CustomMaterial;
 import tconstruct.library.util.IPattern;
@@ -50,72 +49,6 @@ public class PatternBuilder
         toolPatterns.add(item);
     }
 
-    /* Build tool parts from pattern IDs */
-    public ItemStack[] getToolPartCarve(ItemStack material, IPattern pattern, int patternID)
-    {
-        if (material != null && patternID >= 0)
-        {
-            CarvingTableEvent.NormalPart event = new CarvingTableEvent.NormalPart(material, patternID);
-            MinecraftForge.EVENT_BUS.post(event);
-
-            if (event.getResult() == Result.ALLOW)
-            {
-                return event.getResultStacks();
-            }
-            else if (event.getResult() == Result.DENY)
-            {
-                return null;
-            }
-
-            ItemKey key = getItemKey(material);
-            if (key != null)
-            {
-                MaterialSet mat = (MaterialSet) materialSets.get(key.key);
-                ItemStack toolPart = pattern.getPatternOutput(patternID, material, mat);
-
-                if (toolPart != null)
-                {
-                    int patternValue = pattern.getPatternCost(patternID);
-                    int totalMaterial = key.value * material.stackSize;
-
-                    if (totalMaterial < patternValue) // Not enough material
-                        return null;
-
-                    else if (patternValue == key.value) // Material only
-                        return new ItemStack[] { toolPart, null };
-
-                    else
-                    {
-                        if (patternValue % 2 == 1)
-                        {
-                            return new ItemStack[] { toolPart, mat.shard.copy() }; // Material
-                            // +
-                            // shard
-                        }
-                        else
-                            return new ItemStack[] { toolPart, null };
-                    }
-                    /*
-                     * if ( patternValue < totalMaterial ) { if (otherPattern !=
-                     * null) { int otherValue =
-                     * ((IPattern)otherPattern.getItem()
-                     * ).getPatternCost(otherPattern.getItemDamage()); if
-                     * (patternValue + otherValue <= key.value) { ItemStack
-                     * otherPart = getMatchingPattern(otherPattern, mat); return
-                     * new ItemStack[] { toolPart, otherPart }; //Material +
-                     * Material } } }
-                     *
-                     * else if ( patternValue == key.value ) return new
-                     * ItemStack[] { new ItemStack(toolPart, 1, mat.materialID),
-                     * null }; //Material only
-                     *
-                     * else return null; //Not a valid match
-                     */
-                }
-            }
-        }
-        return null;
-    }
     /* Build tool parts from patterns */
     public ItemStack[] getToolPart (ItemStack material, ItemStack pattern, ItemStack otherPattern)
     {
@@ -141,7 +74,7 @@ public class PatternBuilder
 
                 if (toolPart != null)
                 {
-                    int patternValue = ((IPattern) pattern.getItem()).getPatternCost(pattern.getItemDamage());
+                    int patternValue = ((IPattern) pattern.getItem()).getPatternCost(pattern);
                     int totalMaterial = key.value * material.stackSize;
 
                     if (totalMaterial < patternValue) // Not enough material
@@ -207,7 +140,7 @@ public class PatternBuilder
 
             for (CustomMaterial mat : TConstructRegistry.customMaterials)
             {
-                if (material.isItemEqual(mat.input))
+                if (mat.matches(material))
                     return mat.value;
             }
         }
@@ -232,7 +165,7 @@ public class PatternBuilder
         for (IPattern pattern : toolPatterns)
         {
             if (pattern == item)
-                return pattern.getPatternOutput(stack.getItemDamage(), input, set);
+                return pattern.getPatternOutput(stack, input, set);
         }
         return null;
     }

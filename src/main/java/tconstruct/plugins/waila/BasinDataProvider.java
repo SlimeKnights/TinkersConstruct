@@ -3,6 +3,7 @@ package tconstruct.plugins.waila;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
+import mcp.mobius.waila.api.SpecialChars;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.smeltery.logic.CastingBasinLogic;
@@ -48,7 +49,7 @@ public class BasinDataProvider implements IWailaDataProvider
                 }
                 else
                 {
-                    currenttip.add("§oEmpty"); // "§o" == Italics
+                    currenttip.add(SpecialChars.ITALIC + "Empty");
                 }
             }
         }

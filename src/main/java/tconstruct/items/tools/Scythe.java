@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -14,6 +17,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.INetHandler;
+import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
@@ -220,24 +225,27 @@ public class Scythe extends Weapon
                                             }
                                             else
                                             {
-                                                if (!world.isRemote)
-                                                {
-                                                    // Workaround for dropping experience
-                                                    int exp = localBlock.getExpDrop(world, localMeta, fortune);
 
-                                                    localBlock.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
-                                                    if (localBlock.removedByPlayer(world, player, xPos, yPos, zPos, true))
-                                                    {
-                                                        localBlock.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
-                                                        localBlock.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
-                                                        // Workaround for dropping experience
-                                                        if (!butter)
-                                                            localBlock.dropXpOnBlockBreak(world, xPos, yPos, zPos, exp);
-                                                    }
-                                                }
-                                                else
+                                                // Workaround for dropping experience
+                                                int exp = localBlock.getExpDrop(world, localMeta, fortune);
+
+                                                localBlock.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
+                                                if (localBlock.removedByPlayer(world, player, xPos, yPos, zPos, true))
                                                 {
                                                     localBlock.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
+                                                    localBlock.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
+                                                    // Workaround for dropping experience
+                                                    if (!butter)
+                                                        localBlock.dropXpOnBlockBreak(world, xPos, yPos, zPos, exp);
+                                                }
+
+                                                if(world.isRemote) {
+                                                    INetHandler handler = FMLClientHandler.instance().getClientPlayHandler();
+                                                    if(handler != null && handler instanceof NetHandlerPlayClient) {
+                                                        NetHandlerPlayClient handlerClient = (NetHandlerPlayClient) handler;
+                                                        handlerClient.addToSendQueue(new C07PacketPlayerDigging(0, x, y, z, Minecraft.getMinecraft().objectMouseOver.sideHit));
+                                                        handlerClient.addToSendQueue(new C07PacketPlayerDigging(2, x, y, z, Minecraft.getMinecraft().objectMouseOver.sideHit));
+                                                    }
                                                 }
 
                                                 if (localHardness > 0f)

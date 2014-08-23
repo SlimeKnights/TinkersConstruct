@@ -13,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import tconstruct.common.TConstructCreativeTab;
 import tconstruct.library.crafting.Detailing;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.ToolBuilder;
@@ -25,7 +24,6 @@ import tconstruct.library.tools.CustomMaterial;
 import tconstruct.library.tools.FletchingMaterial;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.ToolMaterial;
-import tconstruct.tools.items.Pattern;
 
 /**
  * A registry to store any relevant API work
@@ -64,13 +62,6 @@ public class TConstructRegistry
      * hammerHead bowstring, fletching, arrowhead
      */
     public static HashMap<String, Item> itemDirectory = new HashMap<String, Item>();
-
-    /**
-     * A utility variable, for use in addons which provide additional crafting
-     * patterns, that tracks the highest pattern ID / pattern item damage value
-     * that has been registered so far.
-     */
-    public static int highestPatternMeta = 0;
 
     /**
      * Adds an item to the directory
@@ -173,17 +164,12 @@ public class TConstructRegistry
     public static HashMap<List, ItemStack> patternPartMapping = new HashMap<List, ItemStack>();
 
     /**
-     * List: Valid items which can function as patterns.
-     */
-    public static ArrayList<Item> patternItems = new ArrayList<Item>(1);
-
-    /**
-     * Maps a pattern type ID and a material ID to an output part
-     *
+     * Maps an item and a material ID to an output part
+     * 
      * @param woodPattern
-     *            Legacy support
+     *            ID to check against
      * @param patternMeta
-     *            Pattern type ID to check against
+     *            Metadata to check against
      * @param materialID
      *            Material that goes with the item
      * @param output
@@ -191,55 +177,15 @@ public class TConstructRegistry
      */
     public static void addPartMapping (Item woodPattern, int patternMeta, int materialID, ItemStack output)
     {
-        addPatternItem(woodPattern);
-        addPartMapping(patternMeta, materialID, output);
-    }
-
-    /**
-     * Maps a pattern type ID and a material ID to an output part
-     *
-     * @param patternMeta
-     *            Pattern type ID to check against
-     * @param materialID
-     *            Material that goes with the item
-     * @param output
-     *            The resulting part
-     */
-    public static void addPartMapping (int patternMeta, int materialID, ItemStack output)
-    {
-        patternPartMapping.put(Arrays.asList(patternMeta, materialID), output);
-        if(patternMeta > highestPatternMeta)
-        {
-            highestPatternMeta = patternMeta;
-        }
+        patternPartMapping.put(Arrays.asList(woodPattern, patternMeta, materialID), output);
     }
 
     public static ItemStack getPartMapping (Item item, int metadata, int materialID)
     {
-        if(patternItems.contains(item))
-        {
-            return getPartMapping(metadata, materialID);
-        }
-        else
-        {
-            return null;
-        }
-    }
-    public static ItemStack getPartMapping (int metadata, int materialID)
-    {
-        ItemStack stack = patternPartMapping.get(Arrays.asList(metadata, materialID));
+        ItemStack stack = patternPartMapping.get(Arrays.asList(item, metadata, materialID));
         if (stack != null)
             return stack.copy();
         return null;
-    }
-
-    //Adds an item whose damage value maps to a pattern type.
-    public static void addPatternItem(Item item)
-    {
-        if(!patternItems.contains(item))
-        {
-            patternItems.add(item);
-        }
     }
 
     // Tools
@@ -271,7 +217,7 @@ public class TConstructRegistry
      * multiple times the parts are added to the recipe's input list Valid part
      * amounts are 2, 3, and 4.
      * 
-     * @see ToolBuidler
+     * @see ToolBuilder
      * @param output
      *            The ToolCore to craft
      * @param parts
@@ -295,8 +241,6 @@ public class TConstructRegistry
      * 
      * @param materialID
      *            Unique ID, stored for each part
-     * @exception materialID
-     *                must be unique
      * @param materialName
      *            Unique name for data lookup purposes
      * @param harvestLevel
@@ -337,8 +281,6 @@ public class TConstructRegistry
      * 
      * @param materialID
      *            Unique ID, stored for each part
-     * @exception materialID
-     *                must be unique
      * @param materialName
      *            Unique name for data lookup purposes
      * @param displayName
@@ -381,8 +323,6 @@ public class TConstructRegistry
      * 
      * @param materialID
      *            Unique ID, stored for each part
-     * @exception materialID
-     *                must be unique
      * @param material
      *            Complete tool material to add. Uses the name in the material
      *            for lookup purposes.
@@ -510,7 +450,7 @@ public class TConstructRegistry
     {
         for (CustomMaterial mat : customMaterials)
         {
-            if (mat.getClass().equals(clazz) && input.isItemEqual(mat.input))
+            if (mat.getClass().equals(clazz) && mat.matches(input))
                 return mat;
         }
         return null;

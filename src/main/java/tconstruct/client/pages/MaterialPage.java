@@ -14,6 +14,7 @@ import org.w3c.dom.NodeList;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.tools.ToolMaterial;
+import tconstruct.library.util.HarvestLevels;
 import tconstruct.tools.gui.PartCrafterGui;
 
 public class MaterialPage extends BookPage
@@ -144,7 +145,7 @@ public class MaterialPage extends BookPage
         manual.fonts.drawString(fullToolDurability + ": " + (int) (material.durability() * material.handleDurability()), localWidth, localHeight + 60, 0);
 
         manual.fonts.drawString(miningSpeed + ": " + material.toolSpeed() / 100f, localWidth, localHeight + 80, 0);
-        manual.fonts.drawString(miningLevel + ": " + material.harvestLevel() + " (" + PartCrafterGui.getHarvestLevelName(material.harvestLevel()) + ")", localWidth, localHeight + 90, 0);
+        manual.fonts.drawString(miningLevel + ": " + material.harvestLevel() + " (" + HarvestLevels.getHarvestLevelName(material.harvestLevel()) + ")", localWidth, localHeight + 90, 0);
         int attack = material.attack();
         String heart = attack == 2 ? " " + heart_ : " " + hearts;
         if (attack % 2 == 0)
@@ -156,9 +157,9 @@ public class MaterialPage extends BookPage
         String ability = material.ability();
         if (!ability.equals(""))
         {
-            manual.fonts.drawString(materialTrait + ": " + material.ability(), localWidth, localHeight + 120 + 10 * offset, 0);
+            manual.fonts.drawString(materialTrait + ": " + material.localizedAbility(), localWidth, localHeight + 120 + 10 * offset, 0);
             offset++;
-            if (ability.equals("Writable"))
+            if (ability.equals("materialtraits.writable"))
                 manual.fonts.drawString(extraMod, localWidth, localHeight + 120 + 10 * offset, 0);
         }
 
