@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import cpw.mods.fml.common.Optional;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -24,7 +25,6 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.modifier.ItemModifier;
-import tconstruct.tools.TinkerTools;
 import tconstruct.tools.entity.FancyEntityItem;
 import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
@@ -54,13 +54,9 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @see ItemModifier
  */
 
+@Optional.Interface(modid = "CoFHLib", iface = "cofh.api.energy.IEnergyContainerItem")
 public abstract class ToolCore extends Item implements IEnergyContainerItem, IModifyable
 {
-    // TE power constants. These are only for backup if the lookup of the real value somehow fails!
-    protected int capacity = 400000;
-    protected int maxReceive = 400000;
-    protected int maxExtract = 80;
-
     protected Random random = new Random();
     protected int damageVsEntity;
     public static IIcon blankSprite;
@@ -785,8 +781,14 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
 
     // TE support section -- from COFH core API reference section
 
+    // TE power constants. These are only for backup if the lookup of the real value somehow fails!
+    protected int capacity = 400000;
+    protected int maxReceive = 400000;
+    protected int maxExtract = 80;
+
     /* IEnergyContainerItem */
     @Override
+    @Optional.Method(modid = "CoFHLib")
     public int receiveEnergy (ItemStack container, int maxReceive, boolean simulate)
     {
         NBTTagCompound tags = container.getTagCompound();
@@ -808,6 +810,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
     }
 
     @Override
+    @Optional.Method(modid = "CoFHLib")
     public int extractEnergy (ItemStack container, int maxExtract, boolean simulate)
     {
         NBTTagCompound tags = container.getTagCompound();
@@ -830,6 +833,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
     }
 
     @Override
+    @Optional.Method(modid = "CoFHLib")
     public int getEnergyStored (ItemStack container)
     {
         NBTTagCompound tags = container.getTagCompound();
@@ -841,6 +845,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
     }
 
     @Override
+    @Optional.Method(modid = "CoFHLib")
     public int getMaxEnergyStored (ItemStack container)
     {
         NBTTagCompound tags = container.getTagCompound();
