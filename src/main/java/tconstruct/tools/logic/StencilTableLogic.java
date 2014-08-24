@@ -13,6 +13,8 @@ import tconstruct.tools.inventory.PatternShaperContainer;
 
 public class StencilTableLogic extends InventoryLogic implements ISidedInventory
 {
+    private ItemStack selectedStack;
+
     public StencilTableLogic()
     {
         super(2);
@@ -44,13 +46,19 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
     	super.onInventoryChanged();
     }*/
 
+    public void setSelectedPattern(ItemStack stack)
+    {
+        selectedStack = stack;
+        this.setInventorySlotContents(1, stack);
+    }
+
     @Override
     public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
         super.setInventorySlotContents(slot, itemstack);
         if (slot == 0 && itemstack != null && StencilBuilder.isBlank(itemstack))
         {
-            setInventorySlotContents(1, new ItemStack(TinkerTools.woodPattern, 1, 1));
+            setInventorySlotContents(1, selectedStack);
         }
     }
 
