@@ -47,6 +47,14 @@ public class SmelteryGui extends NewContainerGui
     }
 
     @Override
+    public void initGui() {
+        super.initGui();
+
+        if(logic != null)
+            logic.updateFuelGague();
+    }
+
+    @Override
     public void drawScreen (int mouseX, int mouseY, float par3)
     {
         super.drawScreen(mouseX, mouseY, par3);

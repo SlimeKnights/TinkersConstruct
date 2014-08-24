@@ -564,7 +564,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     }
 
-    void updateFuelGague () // TODO: Call this method when the GUI is opened
+    public void updateFuelGague ()
     {
         if (activeLavaTank == null || useTime > 0)
             return;
