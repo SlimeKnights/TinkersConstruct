@@ -884,8 +884,17 @@ public class BlockSkinRenderHelper
         if(stillIcon == null) stillIcon = FluidRegistry.WATER.getStillIcon();
         if(flowingIcon == null) flowingIcon = FluidRegistry.WATER.getFlowingIcon();
 
-        return Minecraft.isAmbientOcclusionEnabled() ? renderFakeBlockWithAmbientOcclusion(stillIcon, flowingIcon, x, y, z, var6, var7, var8, renderer, world) : renderFakeBlockWithColorMultiplier(
-                stillIcon, flowingIcon, x, y, z, var6, var7, var8, renderer, world);
+        boolean raf = renderer.renderAllFaces;
+        renderer.renderAllFaces = true;
+
+        boolean ret;
+        if(Minecraft.isAmbientOcclusionEnabled())
+            ret = renderFakeBlockWithAmbientOcclusion(stillIcon, flowingIcon, x, y, z, var6, var7, var8, renderer, world);
+        else
+            ret = renderFakeBlockWithColorMultiplier(stillIcon, flowingIcon, x, y, z, var6, var7, var8, renderer, world);
+
+        renderer.renderAllFaces = raf;
+        return ret;
     }
 
     static boolean renderFakeBlockWithAmbientOcclusion (IIcon stillIcon, IIcon flowingIcon, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render,

@@ -93,11 +93,8 @@ public class LavaTankBlock extends BlockContainer
     @Override
     public boolean shouldSideBeRendered (IBlockAccess world, int x, int y, int z, int side)
     {
-        // if (side == 0 && world.getBlockMetadata(x, y, z) == 0)
-        // return super.shouldSideBeRendered(world, x, y, z, side);
         Block bID = world.getBlock(x, y, z);
         return bID == this ? false : super.shouldSideBeRendered(world, x, y, z, side);
-        // return true;
     }
 
     @Override

@@ -224,6 +224,7 @@ public class Smeltery
             addMelting(type, is, temperatureDifference, fluidAmount);
     }
 
+    // todo: mantle -> itemmeta wrapper
     public static class SmelteryInput
     {
         public final Item input;
