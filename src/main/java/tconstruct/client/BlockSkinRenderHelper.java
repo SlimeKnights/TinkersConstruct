@@ -853,6 +853,11 @@ public class BlockSkinRenderHelper
 
     public static boolean renderLiquidBlock (IIcon stillIcon, IIcon flowingIcon, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
     {
+        return renderLiquidBlock(stillIcon, flowingIcon, x, y, z, renderer, world, false);
+    }
+
+    public static boolean renderLiquidBlock (IIcon stillIcon, IIcon flowingIcon, int x, int y, int z, RenderBlocks renderer, IBlockAccess world, boolean extraBright)
+    {
         Block block = Blocks.stone;
         int var5 = block.colorMultiplier(world, x, y, z);
         float var6 = (float) (var5 >> 16 & 255) / 255.0F;
@@ -867,6 +872,12 @@ public class BlockSkinRenderHelper
             var6 = var9;
             var7 = var10;
             var8 = var11;
+        }
+
+        if(extraBright) {
+            var6 = Math.max(1.0f, var6 + 0.5f);
+            var7 = Math.max(1.0f, var7 + 0.5f);
+            var8 = Math.max(1.0f, var8 + 0.5f);
         }
 
         // safety
