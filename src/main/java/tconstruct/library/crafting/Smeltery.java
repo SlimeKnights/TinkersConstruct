@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import mantle.utils.ItemMetaWrapper;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -17,9 +18,9 @@ public class Smeltery
 {
     public static Smeltery instance = new Smeltery();
 
-    private final Map<SmelteryInput, FluidStack> smeltingList = new HashMap<SmelteryInput, FluidStack>();
-    private final Map<SmelteryInput, Integer> temperatureList = new HashMap<SmelteryInput, Integer>();
-    private final Map<SmelteryInput, ItemStack> renderIndex = new HashMap<SmelteryInput, ItemStack>();
+    private final Map<ItemMetaWrapper, FluidStack> smeltingList = new HashMap<ItemMetaWrapper, FluidStack>();
+    private final Map<ItemMetaWrapper, Integer> temperatureList = new HashMap<ItemMetaWrapper, Integer>();
+    private final Map<ItemMetaWrapper, ItemStack> renderIndex = new HashMap<ItemMetaWrapper, ItemStack>();
     private final List<AlloyMix> alloys = new ArrayList<AlloyMix>();
 
     /**
@@ -44,7 +45,7 @@ public class Smeltery
      * Smeltery.addMelting(Block.oreIron, 0, 600, new
      * FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
      * 
-     * @param blockID The ID of the block to liquify and render
+     * @param block The block to liquify and render
      * @param metadata The metadata of the block to liquify and render
      * @param temperature How hot the block should be before liquifying. Max temp in the Smeltery is 800, other structures may vary
      * @param output The result of the process in liquid form
@@ -61,14 +62,14 @@ public class Smeltery
      * TConstruct.ingotLiquidValue * 2, 0));
      * 
      * @param input The item to liquify
-     * @param block The ID of the block to render
+     * @param block The block to render
      * @param metadata The metadata of the block to render
      * @param temperature How hot the block should be before liquifying
      * @param liquid The result of the process
      */
     public static void addMelting (ItemStack input, Block block, int metadata, int temperature, FluidStack liquid)
     {
-        SmelteryInput in = new SmelteryInput(input);
+        ItemMetaWrapper in = new ItemMetaWrapper(input);
         instance.smeltingList.put(in, liquid);
         instance.temperatureList.put(in, temperature);
         instance.renderIndex.put(in, new ItemStack(block, input.stackSize, metadata));
@@ -103,7 +104,7 @@ public class Smeltery
         if (item == null)
             return 20;
 
-        Integer temp = instance.temperatureList.get(new SmelteryInput(item));
+        Integer temp = instance.temperatureList.get(new ItemMetaWrapper(item));
         if (temp == null)
             return 20;
         else
@@ -132,7 +133,7 @@ public class Smeltery
         if (item == null)
             return null;
 
-        FluidStack stack = instance.smeltingList.get(new SmelteryInput(item));
+        FluidStack stack = instance.smeltingList.get(new ItemMetaWrapper(item));
         if (stack == null)
             return null;
         return stack.copy();
@@ -151,7 +152,7 @@ public class Smeltery
 
     public static ItemStack getRenderIndex (ItemStack input)
     {
-        return instance.renderIndex.get(new SmelteryInput(input));
+        return instance.renderIndex.get(new ItemMetaWrapper(input));
     }
 
     public static ArrayList mixMetals (ArrayList<FluidStack> moltenMetal)
@@ -166,17 +167,17 @@ public class Smeltery
         return liquids;
     }
 
-    public static Map<SmelteryInput, FluidStack> getSmeltingList ()
+    public static Map<ItemMetaWrapper, FluidStack> getSmeltingList ()
     {
         return instance.smeltingList;
     }
 
-    public static Map<SmelteryInput, Integer> getTemperatureList ()
+    public static Map<ItemMetaWrapper, Integer> getTemperatureList ()
     {
         return instance.temperatureList;
     }
 
-    public static Map<SmelteryInput, ItemStack> getRenderIndex ()
+    public static Map<ItemMetaWrapper, ItemStack> getRenderIndex ()
     {
         return instance.renderIndex;
     }
@@ -222,40 +223,5 @@ public class Smeltery
     {
         for (ItemStack is : OreDictionary.getOres(oreName))
             addMelting(type, is, temperatureDifference, fluidAmount);
-    }
-
-    // todo: mantle -> itemmeta wrapper
-    public static class SmelteryInput
-    {
-        public final Item input;
-        public final int meta;
-
-        public SmelteryInput(ItemStack inputStack)
-        {
-            this(inputStack.getItem(), inputStack.getItemDamage());
-        }
-
-        public SmelteryInput(Item input, int meta)
-        {
-            this.input = input;
-            this.meta = meta;
-        }
-
-        @Override
-        public int hashCode ()
-        {
-            return this.input.hashCode() << 16 | this.meta;
-        }
-
-        @Override
-        public boolean equals (Object o)
-        {
-            if (o == this)
-                return true;
-            else if (o instanceof SmelteryInput)
-                return this.input == ((SmelteryInput) o).input && this.meta == ((SmelteryInput) o).meta;
-
-            return false;
-        }
     }
 }
