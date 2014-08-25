@@ -384,9 +384,9 @@ block.searedstone.slab.stone.name=Lastra di roccia bruciata
 block.searedstone.slab.cobble.name=Lastra di pietra bruciata
 block.searedstone.slab.paver.name=Lastra di pavimento di pietra bruciata
 block.searedstone.slab.road.name=Lastra di strada di pietra bruciata
-block.searedstone.slab.fancy.name=Pietra bruciata concia decorativa
-block.searedstone.slab.square.name=Pietra bruciata concia intagliata
-block.searedstone.slab.creeper.name=Pietra bruciata concia intagliata
+block.searedstone.slab.fancy.name=Lastra di pietra bruciata concia decorativa
+block.searedstone.slab.square.name=Lastra di pietra bruciata concia intagliata
+block.searedstone.slab.creeper.name=Lastra di pietra bruciata concia intagliata
 
 block.soil.slab.dirt.name=Lastra di terra
 block.soil.slab.mycelium.name=Lastra di micelio
