@@ -160,8 +160,9 @@ item.InfiTool.Battleaxe.name=Battleaxe
 item.InfiTool.Cutlass.name=Cutlass
 item.InfiTool.Shortbow.name=Shortbow
 item.InfiTool.Arrow.name=Arrow
-item.InfiTool.PotionLauncher.name=Potion Launcher
 item.InfiTool.Mattock.name=Mattock
+
+item.tconstruct.PotionLauncher.name=Potion Launcher
 
 item.tool.randomarrow=Random Streamer
 
