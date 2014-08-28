@@ -207,7 +207,7 @@ public class ArmorProxyClient extends ArmorProxyCommon
     @SubscribeEvent
     public void renderHealthbar (RenderGameOverlayEvent.Pre event)
     {
-        if (!Loader.isModLoaded("tukmc_Vz"))// Loader check to avoid conflicting
+        if (!Loader.isModLoaded("tukmc_Vz") || Loader.isModLoaded("borderlands"))// Loader check to avoid conflicting
                                             // with a GUI mod (thanks Vazkii!)
         {
             if (event.type == ElementType.HEALTH)
@@ -242,6 +242,12 @@ public class ArmorProxyClient extends ArmorProxyCommon
 
                 int left = scaledWidth / 2 - 91;
                 int top = scaledHeight - GuiIngameForge.left_height;
+
+                if (!GuiIngameForge.renderExperiance)
+                {
+                    top += 7;
+                    yBasePos += 7;
+                }
 
                 int regen = -1;
                 if (mc.thePlayer.isPotionActive(Potion.regeneration))
@@ -297,12 +303,13 @@ public class ArmorProxyClient extends ArmorProxyCommon
                     }
                 }
 
+                int potionOffset = 0;
                 PotionEffect potion = mc.thePlayer.getActivePotionEffect(Potion.wither);
                 if (potion != null)
-                    return;
+                    potionOffset = 18;
                 potion = mc.thePlayer.getActivePotionEffect(Potion.poison);
                 if (potion != null)
-                    return;
+                    potionOffset = 9;
 
                 // Extra hearts
                 this.mc.getTextureManager().bindTexture(hearts);
@@ -315,11 +322,14 @@ public class ArmorProxyClient extends ArmorProxyCommon
                         renderHearts = 10;
                     for (int i = 0; i < renderHearts; i++)
                     {
-                        this.drawTexturedModalRect(xBasePos + 8 * i, yBasePos, 0 + 18 * iter, 0, 8, 8);
+                        int y = 0;
+                        if (i == regen)
+                            y -= 2;
+                        this.drawTexturedModalRect(xBasePos + 8 * i, yBasePos + y, 0 + 18 * iter, potionOffset, 9, 9);
                     }
                     if (hp % 2 == 1 && renderHearts < 10)
                     {
-                        this.drawTexturedModalRect(xBasePos + 8 * renderHearts, yBasePos, 9 + 18 * iter, 0, 8, 8);
+                        this.drawTexturedModalRect(xBasePos + 8 * renderHearts, yBasePos, 9 + 18 * iter, potionOffset, 9, 9);
                     }
                 }
 

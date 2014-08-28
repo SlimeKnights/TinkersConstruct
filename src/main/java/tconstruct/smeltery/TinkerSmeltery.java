@@ -845,9 +845,9 @@ public class TinkerSmeltery
         proxy.initialize();
         craftingTableRecipes();
         addRecipesForSmeltery();
-        addOreDictionarySmelteryRecipes();
         addRecipesForTableCasting();
         addRecipesForBasinCasting();
+        addOreDictionarySmelteryRecipes();
     }
 
     @Handler
@@ -956,7 +956,11 @@ public class TinkerSmeltery
             // NetherOres support
             Smeltery.addDictionaryMelting("oreNether" + fluidTypeName, ft, 75, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 2));
 
+            // DenseOres support
+            Smeltery.addDictionaryMelting("denseore" + fluidTypeName, ft, 75, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 3));
+
             // Blocks
+            registerBlockCasting(ft, "block" + fluidTypeName);
             Smeltery.addDictionaryMelting("block" + fluidTypeName, ft, 100, TConstruct.blockLiquidValue);
 
             if (ft.isToolpart)
@@ -1089,39 +1093,47 @@ public class TinkerSmeltery
                 50);
 
         // Golden Food Stuff
-        FluidStack goldAmount = null;
-        if (PHConstruct.goldAppleRecipe)
-        {
-            goldAmount = new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 8);
-        }
-        else
-        {
-            goldAmount = new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.nuggetLiquidValue * 8);
-        }
+        FluidStack goldAmount = new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 8);
         tableCasting.addCastingRecipe(new ItemStack(Items.golden_apple, 1), goldAmount, new ItemStack(Items.apple), true, 50);
         tableCasting.addCastingRecipe(new ItemStack(Items.golden_carrot, 1), goldAmount, new ItemStack(Items.carrot), true, 50);
         tableCasting.addCastingRecipe(new ItemStack(Items.speckled_melon, 1), goldAmount, new ItemStack(Items.melon), true, 50);
         if(TinkerWorld.goldHead != null)
             tableCasting.addCastingRecipe(new ItemStack(TinkerWorld.goldHead), goldAmount, new ItemStack(Items.skull, 1, 3), true, 50);
+
+        // Ensure TConstruct ingots are always first. Otherwise you might get ingots from other mods from casting
+        if(PHConstruct.tconComesFirst && TinkerTools.materials != null) {
+            tableCasting.addCastingRecipe(new ItemStack(TinkerTools.materials, 1, 9), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue), ingotcast, false, 50); //Copper
+            tableCasting.addCastingRecipe(new ItemStack(TinkerTools.materials, 1, 10), new FluidStack(moltenTinFluid, TConstruct.ingotLiquidValue), ingotcast, false, 50); //Tin
+            tableCasting.addCastingRecipe(new ItemStack(TinkerTools.materials, 1, 11), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue), ingotcast, false, 50); //Aluminum
+            tableCasting.addCastingRecipe(new ItemStack(TinkerTools.materials, 1, 3), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue), ingotcast, false, 50); //Cobalt
+            tableCasting.addCastingRecipe(new ItemStack(TinkerTools.materials, 1, 4), new FluidStack(moltenArditeFluid, TConstruct.ingotLiquidValue), ingotcast, false, 50); //Ardite
+            tableCasting.addCastingRecipe(new ItemStack(TinkerTools.materials, 1, 5), new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue), ingotcast, false, 50); //Manyullyn
+            tableCasting.addCastingRecipe(new ItemStack(TinkerTools.materials, 1, 13), new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue), ingotcast, false, 50); //Bronze
+            tableCasting.addCastingRecipe(new ItemStack(TinkerTools.materials, 1, 14), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue), ingotcast, false, 50); //Alubrass
+            tableCasting.addCastingRecipe(new ItemStack(TinkerTools.materials, 1, 15), new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue), ingotcast, false, 50); //Alumite
+            tableCasting.addCastingRecipe(new ItemStack(TinkerTools.materials, 1, 16), new FluidStack(moltenSteelFluid, TConstruct.ingotLiquidValue), ingotcast, false, 50); //Steel
+        }
     }
 
-    protected static void addRecipesForBasinCasting ()
+    protected void addRecipesForBasinCasting ()
     {
         LiquidCasting basinCasting = TConstructRegistry.getBasinCasting();
         // Block Casting
         basinCasting.addCastingRecipe(new ItemStack(Blocks.iron_block), new FluidStack(TinkerSmeltery.moltenIronFluid, TConstruct.blockLiquidValue), null, true, 100); // Iron
         basinCasting.addCastingRecipe(new ItemStack(Blocks.gold_block), new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.blockLiquidValue), null, true, 100); // gold
-        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 3), new FluidStack(TinkerSmeltery.moltenCopperFluid, TConstruct.blockLiquidValue), null, true, 100); // copper
-        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 5), new FluidStack(TinkerSmeltery.moltenTinFluid, TConstruct.blockLiquidValue), null, true, 100); // tin
-        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 6), new FluidStack(TinkerSmeltery.moltenAluminumFluid, TConstruct.blockLiquidValue), null, true, 100); // aluminum
-        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 0), new FluidStack(TinkerSmeltery.moltenCobaltFluid, TConstruct.blockLiquidValue), null, true, 100); // cobalt
-        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 1), new FluidStack(TinkerSmeltery.moltenArditeFluid, TConstruct.blockLiquidValue), null, true, 100); // ardite
-        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 4), new FluidStack(TinkerSmeltery.moltenBronzeFluid, TConstruct.blockLiquidValue), null, true, 100); // bronze
-        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 7), new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.blockLiquidValue), null, true, 100); // albrass
-        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 2), new FluidStack(TinkerSmeltery.moltenManyullynFluid, TConstruct.blockLiquidValue), null, true, 100); // manyullyn
-        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 8), new FluidStack(TinkerSmeltery.moltenAlumiteFluid, TConstruct.blockLiquidValue), null, true, 100); // alumite
+        if(PHConstruct.tconComesFirst) {
+            basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 3), new FluidStack(TinkerSmeltery.moltenCopperFluid, TConstruct.blockLiquidValue), null, true, 100); // copper
+            basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 5), new FluidStack(TinkerSmeltery.moltenTinFluid, TConstruct.blockLiquidValue), null, true, 100); // tin
+            basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 6), new FluidStack(TinkerSmeltery.moltenAluminumFluid, TConstruct.blockLiquidValue), null, true, 100); // aluminum
+            basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 0), new FluidStack(TinkerSmeltery.moltenCobaltFluid, TConstruct.blockLiquidValue), null, true, 100); // cobalt
+            basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 1), new FluidStack(TinkerSmeltery.moltenArditeFluid, TConstruct.blockLiquidValue), null, true, 100); // ardite
+            basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 4), new FluidStack(TinkerSmeltery.moltenBronzeFluid, TConstruct.blockLiquidValue), null, true, 100); // bronze
+            basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 7), new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.blockLiquidValue), null, true, 100); // albrass
+            basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 2), new FluidStack(TinkerSmeltery.moltenManyullynFluid, TConstruct.blockLiquidValue), null, true, 100); // manyullyn
+            basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 8), new FluidStack(TinkerSmeltery.moltenAlumiteFluid, TConstruct.blockLiquidValue), null, true, 100); // alumite
+            basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 9), new FluidStack(TinkerSmeltery.moltenSteelFluid, TConstruct.blockLiquidValue), null, true, 100); // steel
+        }
         basinCasting.addCastingRecipe(new ItemStack(Blocks.obsidian), new FluidStack(TinkerSmeltery.moltenObsidianFluid, TConstruct.oreLiquidValue), null, true, 100);// obsidian
-        basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 9), new FluidStack(TinkerSmeltery.moltenSteelFluid, TConstruct.blockLiquidValue), null, true, 100); // steel
         basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.clearGlass, 1, 0), new FluidStack(TinkerSmeltery.moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100); // glass
         basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.smeltery, 1, 4), new FluidStack(TinkerSmeltery.moltenStoneFluid, TConstruct.ingotLiquidValue), null, true, 100); // seared
         // stone
@@ -1330,6 +1342,14 @@ public class TinkerSmeltery
             tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
             tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
             tableCasting.addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, TConstruct.ingotLiquidValue), pattern, 80);
+        }
+    }
+
+    private void registerBlockCasting (FluidType ft, String name)
+    {
+        for (ItemStack ore : OreDictionary.getOres(name))
+        {
+            TConstructRegistry.getBasinCasting().addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, TConstruct.ingotLiquidValue), 100);
         }
     }
 

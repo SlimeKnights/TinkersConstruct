@@ -66,6 +66,8 @@ public class PHConstruct
         denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
         craftEndstone = config.get("Difficulty Changes", "Allow creation of endstone", true).getBoolean(true);
 
+        naturalSlimeSpawn = config.get("Mobs", "Blue Slime spawn chance", 1, "Set to 0 to disable").getInt(1);
+
         ingotsPerOre = config.get("Smeltery Output Modification", "Ingots per ore", 2, "Number of ingots returned from smelting ores in the smeltery").getDouble(2);
         ingotsBronzeAlloy = config.get("Smeltery Output Modification", "Bronze ingot return", 4, "Number of ingots returned from smelting Bronze in the smeltery").getDouble(4);
         ingotsAluminumBrassAlloy = config.get("Smeltery Output Modification", "Aluminum Brass ingot return", 4, "Number of ingots returned from smelting Aluminum Brass in the smeltery").getDouble(4);
@@ -154,6 +156,7 @@ public class PHConstruct
         aluminumBushMaxY = config.get("Worldgen", "Aluminum Bush Max Y", 60).getInt(60);
 
         seaLevel = config.get("general", "Sea level", 64).getInt(64);
+        tconComesFirst = config.get("general", "Always cast TConstruct ingots", true, "You will always get a TConstruct item from casting an ingot or block.").getBoolean();
 
         enableHealthRegen = config.get("Ultra Hardcore Changes", "Passive Health Regen", true).getBoolean(true);
         goldAppleRecipe = config.get("Ultra Hardcore Changes", "Change Crafting Recipes", false, "Makes recipes for gold apples, carrots, and melon potions more expensive").getBoolean(false);
@@ -272,8 +275,10 @@ public class PHConstruct
     public static int aluminumBushMaxY;
 
     public static int seaLevel;
+    public static boolean tconComesFirst;
 
     // Mobs
+    public static int naturalSlimeSpawn;
 
     // Difficulty modifiers
     public static boolean keepHunger;

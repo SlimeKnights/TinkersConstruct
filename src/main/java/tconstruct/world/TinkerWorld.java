@@ -9,6 +9,7 @@ import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -16,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
@@ -51,6 +53,7 @@ import tconstruct.tools.entity.FancyEntityItem;
 import tconstruct.tools.entity.LaunchedPotion;
 import tconstruct.tools.itemblocks.MultiBrickFancyItem;
 import tconstruct.tools.itemblocks.MultiBrickItem;
+import tconstruct.util.config.PHConstruct;
 import tconstruct.world.blocks.ConveyorBase;
 import tconstruct.world.blocks.GravelOre;
 import tconstruct.world.blocks.MeatBlock;
@@ -308,8 +311,7 @@ public class TinkerWorld
         
     }
 
-    public void createEntities ()
-    {
+    public void createEntities () {
         EntityRegistry.registerModEntity(FancyEntityItem.class, "Fancy Item", 0, TConstruct.instance, 32, 5, true);
         EntityRegistry.registerModEntity(DaggerEntity.class, "Dagger", 1, TConstruct.instance, 32, 5, true);
         EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 3, true);
@@ -321,6 +323,16 @@ public class TinkerWorld
         EntityRegistry.registerModEntity(BlueSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);
         // EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13,
         // TConstruct.instance, 64, 5, true);
+
+        if (PHConstruct.naturalSlimeSpawn > 0) {
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(BiomeDictionary.Type.FOREST));
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(BiomeDictionary.Type.PLAINS));
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(BiomeDictionary.Type.MOUNTAIN));
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(BiomeDictionary.Type.HILLS));
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(BiomeDictionary.Type.SWAMP));
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(BiomeDictionary.Type.JUNGLE));
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.naturalSlimeSpawn, 4, 20, EnumCreatureType.monster, BiomeDictionary.getBiomesForType(BiomeDictionary.Type.WASTELAND));
+        }
     }
     
     private void craftingTableRecipes()

@@ -52,6 +52,7 @@ public class DaggerRenderCustom extends Render
         if (shake > 0.0F)
             GL11.glRotatef(-MathHelper.sin(shake * 3) * shake, 0, 0, 1);
         GL11.glTranslatef(-7 / 16f, -8 / 16f, -1 / 32f);
+        GL11.glTranslatef(0.5f, 0f, -1 / 16f); // compensates the translation in the toolcorerenderer
         float scale = 1.35f;
         GL11.glScalef(scale, scale, scale);
         ForgeHooksClient.renderEntityItem(null, item, 0, 0, random, renderManager.renderEngine, field_147909_c, 1);

@@ -141,38 +141,14 @@ public abstract class HarvestTool extends ToolCore
 
     public float calculateStrength (NBTTagCompound tags, Block block, int meta)
     {
-        float mineSpeed = tags.getInteger("MiningSpeed");
-        int heads = 1;
-        if (tags.hasKey("MiningSpeed2"))
-        {
-            mineSpeed += tags.getInteger("MiningSpeed2");
-            heads++;
-        }
 
-        if (tags.hasKey("MiningSpeedHandle"))
-        {
-            mineSpeed += tags.getInteger("MiningSpeedHandle");
-            heads++;
-        }
-
-        if (tags.hasKey("MiningSpeedExtra"))
-        {
-            mineSpeed += tags.getInteger("MiningSpeedExtra");
-            heads++;
-        }
-        float trueSpeed = mineSpeed / (heads * 100f) * breakSpeedModifier();
         int hlvl = block.getHarvestLevel(meta);
-        int durability = tags.getInteger("Damage");
+        if (hlvl > tags.getInteger("HarvestLevel"))
+            return 0.1f;
 
-        float stonebound = tags.getFloat("Shoddy");
-        float bonusLog = (float) Math.log(durability / stoneboundModifier() + 1) * 2 * stonebound;
-        trueSpeed += bonusLog;
-
-        if (hlvl <= tags.getInteger("HarvestLevel"))
-            return trueSpeed;
-        return 0.1f;
+        return AbilityHelper.calcToolSpeed(this, tags);
     }
-    
+
     public float breakSpeedModifier()
     {
         return 1.0f;

@@ -48,13 +48,7 @@ public class CustomBowRenderer implements IItemRenderer
     {
         GL11.glPushMatrix();
 
-        Block block = null;
-        if (stack.getItem() instanceof ItemBlock)
-        {
-            block = BlockUtils.getBlockFromItem(stack.getItem());
-        }
-
-        IIcon icon = null; // living.getItemIcon(stack, renderPass);
+        IIcon icon = null;
         if (living instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer) living;

@@ -36,7 +36,7 @@ public class TinkerTE4
         TE4Helper.addSmelterRecipe(4000, new ItemStack(TinkerTools.materials, 1, 9), new ItemStack(TinkerTools.materials, 3, 11), new ItemStack(TinkerTools.materials, 4, 14), null, 0);
 
         // Dust Recipes
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(materials, 1, 41), "dustArdite", "dustCobalt"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(materials, 4, 42), "dustAluminum", "dustAluminum", "dustAluminum", "dustCopper"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerTools.materials, 1, 41), "dustArdite", "dustCobalt"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerTools.materials, 4, 42), "dustAluminum", "dustAluminum", "dustAluminum", "dustCopper"));
     }
 }

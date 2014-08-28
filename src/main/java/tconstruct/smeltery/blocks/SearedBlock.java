@@ -278,30 +278,34 @@ public class SearedBlock extends InventoryBlock
         }
         else
         {
-            FaucetLogic logic = (FaucetLogic) world.getTileEntity(x, y, z);
+            TileEntity te = world.getTileEntity(x, y, z);
             float xMin = 0.25F;
             float xMax = 0.75F;
             float zMin = 0.25F;
             float zMax = 0.75F;
 
-            switch (logic.getRenderDirection())
+            if(te instanceof FaucetLogic)
             {
-            case 2:
-                zMin = 0.625F;
-                zMax = 1.0F;
-                break;
-            case 3:
-                zMax = 0.375F;
-                zMin = 0F;
-                break;
-            case 4:
-                xMin = 0.625F;
-                xMax = 1.0F;
-                break;
-            case 5:
-                xMax = 0.375F;
-                xMin = 0F;
-                break;
+                FaucetLogic logic = (FaucetLogic) te;
+                switch (logic.getRenderDirection())
+                {
+                case 2:
+                    zMin = 0.625F;
+                    zMax = 1.0F;
+                    break;
+                case 3:
+                    zMax = 0.375F;
+                    zMin = 0F;
+                    break;
+                case 4:
+                    xMin = 0.625F;
+                    xMax = 1.0F;
+                    break;
+                case 5:
+                    xMax = 0.375F;
+                    xMin = 0F;
+                    break;
+                }
             }
 
             this.setBlockBounds(xMin, 0.25F, zMin, xMax, 0.625F, zMax);
