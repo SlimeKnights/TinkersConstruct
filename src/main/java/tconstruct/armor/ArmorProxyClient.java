@@ -243,6 +243,12 @@ public class ArmorProxyClient extends ArmorProxyCommon
                 int left = scaledWidth / 2 - 91;
                 int top = scaledHeight - GuiIngameForge.left_height;
 
+                if (!GuiIngameForge.renderExperiance)
+                {
+                    top += 7;
+                    yBasePos += 7;
+                }
+
                 int regen = -1;
                 if (mc.thePlayer.isPotionActive(Potion.regeneration))
                 {
