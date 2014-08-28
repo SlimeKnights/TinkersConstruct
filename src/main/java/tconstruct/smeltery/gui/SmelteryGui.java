@@ -433,14 +433,18 @@ public class SmelteryGui extends NewContainerGui
         }
     }
 
-    public void drawLiquidRect (int startU, int startV, IIcon par3Icon, int endU, int endV)
+    public void drawLiquidRect (int startU, int startV, IIcon icon, int endU, int endV)
     {
+        float top = icon.getInterpolatedV(16 - endV);
+        float bottom = icon.getMaxV();
+        float left = icon.getMinU();
+        float right = icon.getInterpolatedU(endU);
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV(startU + 0, startV + endV, this.zLevel, par3Icon.getMinU(), par3Icon.getMaxV());// Bottom left
-        tessellator.addVertexWithUV(startU + endU, startV + endV, this.zLevel, par3Icon.getMaxU(), par3Icon.getMaxV());// Bottom right
-        tessellator.addVertexWithUV(startU + endU, startV + 0, this.zLevel, par3Icon.getMaxU(), par3Icon.getMinV());// Top right
-        tessellator.addVertexWithUV(startU + 0, startV + 0, this.zLevel, par3Icon.getMinU(), par3Icon.getMinV()); // Top left
+        tessellator.addVertexWithUV(startU + 0, startV + endV, this.zLevel, left, bottom);//Bottom left
+        tessellator.addVertexWithUV(startU + endU, startV + endV, this.zLevel, right, bottom);//Bottom right
+        tessellator.addVertexWithUV(startU + endU, startV + 0, this.zLevel, right, top);//Top right
+        tessellator.addVertexWithUV(startU + 0, startV + 0, this.zLevel, left, top); //Top left
         tessellator.draw();
     }
 
