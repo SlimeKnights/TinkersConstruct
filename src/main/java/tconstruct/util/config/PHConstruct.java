@@ -154,6 +154,7 @@ public class PHConstruct
         aluminumBushMaxY = config.get("Worldgen", "Aluminum Bush Max Y", 60).getInt(60);
 
         seaLevel = config.get("general", "Sea level", 64).getInt(64);
+        tconComesFirst = config.get("general", "Always cast TConstruct ingots", true, "You will always get a TConstruct item from casting an ingot or block.").getBoolean();
 
         enableHealthRegen = config.get("Ultra Hardcore Changes", "Passive Health Regen", true).getBoolean(true);
         goldAppleRecipe = config.get("Ultra Hardcore Changes", "Change Crafting Recipes", false, "Makes recipes for gold apples, carrots, and melon potions more expensive").getBoolean(false);
@@ -272,6 +273,7 @@ public class PHConstruct
     public static int aluminumBushMaxY;
 
     public static int seaLevel;
+    public static boolean tconComesFirst;
 
     // Mobs
 
