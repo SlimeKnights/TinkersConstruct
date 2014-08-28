@@ -956,6 +956,9 @@ public class TinkerSmeltery
             // NetherOres support
             Smeltery.addDictionaryMelting("oreNether" + fluidTypeName, ft, 75, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 2));
 
+            // DenseOres support
+            Smeltery.addDictionaryMelting("denseore" + fluidTypeName, ft, 75, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 3));
+
             // Blocks
             registerBlockCasting(ft, "block" + fluidTypeName);
             Smeltery.addDictionaryMelting("block" + fluidTypeName, ft, 100, TConstruct.blockLiquidValue);
