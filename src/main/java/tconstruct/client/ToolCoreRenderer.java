@@ -24,6 +24,9 @@ public class ToolCoreRenderer implements IItemRenderer
     @Override
     public boolean handleRenderType (ItemStack item, ItemRenderType type)
     {
+        if(!item.hasTagCompound())
+            return false;
+
         switch (type)
         {
         case ENTITY:
