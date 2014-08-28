@@ -79,8 +79,9 @@ public class ToolProxyClient extends ToolProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(ArrowEntity.class, new ArrowRenderCustom());
         RenderingRegistry.registerEntityRenderingHandler(FancyEntityItem.class, new FancyItemRender());
 
-        MinecraftForgeClient.registerItemRenderer(TinkerTools.shortbow, new CustomBowRenderer());
-        ToolCoreRenderer renderer = new ToolCoreRenderer();
+        //MinecraftForgeClient.registerItemRenderer(TinkerTools.shortbow, new CustomBowRenderer());
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.shortbow, new ToolCoreRenderer(false));
+        ToolCoreRenderer renderer = new ToolCoreRenderer(true);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.arrow, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.dagger, renderer);
     }

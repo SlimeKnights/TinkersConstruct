@@ -15,16 +15,24 @@ import tconstruct.library.tools.ToolCore;
 
 public class ToolCoreRenderer implements IItemRenderer
 {
+    private final boolean isEntity;
+
+    public ToolCoreRenderer(boolean isEntity) {
+        this.isEntity = isEntity;
+    }
+
     @Override
     public boolean handleRenderType (ItemStack item, ItemRenderType type)
     {
         switch (type)
         {
         case ENTITY:
+            GL11.glTranslatef(-0.0625F, -0.0625F, 0F);
             return true;
         case EQUIPPED:
             GL11.glTranslatef(0.03f, 0F, -0.09375F);
         case EQUIPPED_FIRST_PERSON:
+            return !isEntity;
         case INVENTORY:
             return true;
         default:
@@ -78,8 +86,7 @@ public class ToolCoreRenderer implements IItemRenderer
         for (int i = 0; i < iconParts; ++i)
         {
             IIcon part = tempParts[i];
-            if (part == null)// || part == ToolCore.blankSprite | part ==
-                             // ToolCore.emptyIcon)
+            if (part == null || part == ToolCore.blankSprite || part == ToolCore.emptyIcon)
                 ++count;
             else
                 parts[i - count] = part;
