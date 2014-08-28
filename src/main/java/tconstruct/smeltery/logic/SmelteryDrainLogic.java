@@ -2,6 +2,7 @@ package tconstruct.smeltery.logic;
 
 import mantle.blocks.abstracts.MultiServantLogic;
 import mantle.blocks.iface.IFacingLogic;
+import mantle.world.CoordTuple;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -184,5 +185,12 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         readFromNBT(packet.func_148857_g());
         worldObj.func_147479_m(xCoord, yCoord, zCoord);
+    }
+
+    public int comparatorStrength()
+    {
+        CoordTuple master = this.getMasterPosition();
+        SmelteryLogic smeltery = (SmelteryLogic) worldObj.getTileEntity(master.x, master.y, master.z);
+        return 15 * smeltery.currentLiquid / smeltery.maxLiquid;
     }
 }

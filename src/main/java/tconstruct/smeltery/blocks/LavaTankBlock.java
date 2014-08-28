@@ -323,4 +323,22 @@ public class LavaTankBlock extends BlockContainer
             }
         }
     }
+
+    //Comparator
+
+    @Override
+    public boolean hasComparatorInputOverride() {
+        return true;
+    }
+
+    @Override
+    public int getComparatorInputOverride(World world, int x, int y, int z, int comparatorSide)
+    {
+        return getTankLogic(world, x, y, z).comparatorStrength();
+    }
+
+    public static LavaTankLogic getTankLogic(IBlockAccess blockAccess, int par1, int par2, int par3)
+    {
+        return (LavaTankLogic)blockAccess.getTileEntity(par1, par2, par3);
+    }
 }

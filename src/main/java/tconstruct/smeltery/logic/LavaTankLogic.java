@@ -183,4 +183,9 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
             worldObj.func_147479_m(xCoord, yCoord, zCoord);
         }
     }
+
+    public int comparatorStrength()
+    {
+        return 15 * tank.getFluidAmount() / tank.getCapacity();
+    }
 }
