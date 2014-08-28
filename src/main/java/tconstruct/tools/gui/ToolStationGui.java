@@ -345,9 +345,16 @@ public class ToolStationGui extends GuiContainer
                 heads++;
             }
 
-            float trueSpeed = mineSpeed / (heads * 100f) * ((HarvestTool) tool).breakSpeedModifier();
+            float trueSpeed = mineSpeed / (heads * 100f);
+            if(tool instanceof HarvestTool)
+                trueSpeed *= ((HarvestTool) tool).breakSpeedModifier();
 
-            float stoneboundSpeed = (float) Math.log(durability / ((HarvestTool) tool).stoneboundModifier() + 1) * 2 * stonebound;
+
+            float localStonebound = 72f;
+            if (tool instanceof HarvestTool)
+                localStonebound = ((HarvestTool) tool).stoneboundModifier();
+            float stoneboundSpeed = (float) Math.log(durability / localStonebound + 1) * 2 * stonebound;
+
             DecimalFormat df = new DecimalFormat("##.##");
             df.setRoundingMode(RoundingMode.DOWN);
             trueSpeed += stoneboundSpeed;
