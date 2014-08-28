@@ -39,7 +39,11 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     public BlueSlime(World world)
     {
         super(world);
-        // this.texture = "/mods/tinker/textures/mob/slimeedible.png";
+        initializeSlime();
+    }
+
+    protected void initializeSlime ()
+    {
         int offset = this.rand.nextInt(299);
         if (offset < 149)
             offset = 1;
@@ -52,7 +56,6 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         this.slimeJumpDelay = this.rand.nextInt(120) + 40;
         this.setSlimeSize(size);
         this.jumpMovementFactor = 0.004F * size + 0.01F;
-        this.setHealth(getMaxHealthForSize());
     }
 
     protected void damageEntity (DamageSource damageSource, int damage)
@@ -186,6 +189,28 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         int y = MathHelper.floor_double(this.boundingBox.minY);
         int z = MathHelper.floor_double(this.posZ);
 
+        if (this.worldObj.getSavedLightValue(EnumSkyBlock.Sky, x, y, z) > this.rand.nextInt(32))
+        {
+            return false;
+        }
+        else
+        {
+            int light = this.worldObj.getBlockLightValue(x, y, z);
+
+            if (this.worldObj.isThundering())
+            {
+                int i1 = this.worldObj.skylightSubtracted;
+                this.worldObj.skylightSubtracted = 10;
+                light = this.worldObj.getBlockLightValue(x, y, z);
+                this.worldObj.skylightSubtracted = i1;
+            }
+
+            return light <= this.rand.nextInt(8);
+        }
+        /*int x = MathHelper.floor_double(this.posX);
+        int y = MathHelper.floor_double(this.boundingBox.minY);
+        int z = MathHelper.floor_double(this.posZ);
+
         if (y < 60 && rand.nextInt(5) != 0)
         {
             return false;
@@ -208,7 +233,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
             }
 
             return light <= this.rand.nextInt(8);
-        }
+        }*/
     }
 
     @Override
@@ -223,8 +248,8 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         this.dataWatcher.updateObject(16, new Byte((byte) size));
         this.setSize(0.6F * (float) size, 0.6F * (float) size);
         this.setPosition(this.posX, this.posY, this.posZ);
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(this.getMaxHealth());
-        this.setHealth(this.getMaxHealth());
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(this.getMaxHealthForSize());
+        this.setHealth(this.getMaxHealthForSize());
 
         this.experienceValue = size + 2 ^ (size);
         if (size >= 8)
@@ -334,7 +359,8 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     protected void updateEntityActionState ()
     {
         // Minecraft.getMinecraft().getLogAgent().logInfo("Collided with "+entity.getEntityName());
-        this.despawnEntity();
+        if (this.getSlimeSize() < 8)
+            this.despawnEntity();
         EntityPlayer entityplayer = this.worldObj.getClosestVulnerablePlayerToEntity(this, 16.0D);
 
         if (entityplayer != null)
@@ -450,13 +476,13 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         {
             ToolCore tool = getValidTool();
 
-            Item accessory = tool.getAccessoryItem();
-            ItemStack accessoryStack = accessory != null ? new ItemStack(tool.getAccessoryItem(), 1, 17) : null;
-            ItemStack toolStack = ToolBuilder.instance.buildTool(new ItemStack(tool.getHeadItem(), 1, 17), new ItemStack(tool.getHandleItem(), 1, 17), accessoryStack,
+            ItemStack accessoryStack =  tool.getAccessoryItem() != null ? new ItemStack(tool.getAccessoryItem(), 1, 17) : null;
+            ItemStack extraStack =  tool.getExtraItem() != null ? new ItemStack(tool.getExtraItem(), 1, 17) : null;
+            ItemStack toolStack = ToolBuilder.instance.buildTool(new ItemStack(tool.getHeadItem(), 1, 17), new ItemStack(tool.getHandleItem(), 1, 17), accessoryStack, extraStack,
                     "King Slime " + tool.getToolName());
 
             NBTTagCompound tags = toolStack.getTagCompound().getCompoundTag("InfiTool");
-            tags.setInteger("Attack", 3 + tool.getDamageVsEntity(null));
+            tags.setInteger("Attack", 5 + tool.getDamageVsEntity(null));
             tags.setInteger("TotalDurability", 2500);
             tags.setInteger("BaseDurability", 2500);
             tags.setInteger("MiningSpeed", 1400);
@@ -473,8 +499,8 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     ToolCore getValidTool ()
     {
         ToolCore tool = TConstructRegistry.tools.get(rand.nextInt(TConstructRegistry.tools.size()));
-        if (tool.getAccessoryItem() != null)
-            tool = getValidTool();
+        /*if (tool.getExtraItem() != null)
+            tool = getValidTool();*/
         return tool;
     }
 
