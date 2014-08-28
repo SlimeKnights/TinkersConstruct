@@ -680,4 +680,45 @@ public class AbilityHelper
         return world.func_147447_a(vec3, vec31, par3, !par3, par3);
     }
 
+    public static float calcToolSpeed(ToolCore tool, NBTTagCompound tags)
+    {
+        float mineSpeed = tags.getInteger("MiningSpeed");
+        int heads = 1;
+        if (tags.hasKey("MiningSpeed2"))
+        {
+            mineSpeed += tags.getInteger("MiningSpeed2");
+            heads++;
+        }
+
+        if (tags.hasKey("MiningSpeedHandle"))
+        {
+            mineSpeed += tags.getInteger("MiningSpeedHandle");
+            heads++;
+        }
+
+        if (tags.hasKey("MiningSpeedExtra"))
+        {
+            mineSpeed += tags.getInteger("MiningSpeedExtra");
+            heads++;
+        }
+        float speedMod = 1f;
+        if(tool instanceof HarvestTool)
+            speedMod = ((HarvestTool) tool).breakSpeedModifier();
+
+        float trueSpeed = mineSpeed / (heads * 100f) * speedMod;
+        trueSpeed += calcStoneboundBonus(tool, tags);
+
+        return trueSpeed;
+    }
+
+    public static float calcStoneboundBonus(ToolCore tool, NBTTagCompound tags)
+    {
+        int durability = tags.getInteger("Damage");
+        float stonebound = tags.getFloat("Shoddy");
+        float stoneboundMod = 72f;
+        if(tool instanceof HarvestTool)
+            stoneboundMod = ((HarvestTool) tool).stoneboundModifier();
+
+        return (float) Math.log(durability / stoneboundMod + 1) * 2 * stonebound;
+    }
 }

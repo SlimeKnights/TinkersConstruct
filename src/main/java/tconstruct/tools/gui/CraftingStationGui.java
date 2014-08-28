@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import tconstruct.library.armor.ArmorCore;
+import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.HarvestTool;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.tools.logic.CraftingStationLogic;
@@ -315,36 +316,8 @@ public class CraftingStationGui extends GuiContainer
         }
         else if (categories.contains("harvest"))
         {
-            float mineSpeed = tags.getInteger("MiningSpeed");
-            int heads = 1;
-
-            if (tags.hasKey("MiningSpeed2"))
-            {
-                mineSpeed += tags.getInteger("MiningSpeed2");
-                heads++;
-            }
-
-            if (tags.hasKey("MiningSpeedHandle"))
-            {
-                mineSpeed += tags.getInteger("MiningSpeedHandle");
-                heads++;
-            }
-
-            if (tags.hasKey("MiningSpeedExtra"))
-            {
-                mineSpeed += tags.getInteger("MiningSpeedExtra");
-                heads++;
-            }
-
-            float trueSpeed = mineSpeed / (heads * 100f);
-            if(tool instanceof HarvestTool)
-                trueSpeed *= ((HarvestTool) tool).breakSpeedModifier();
-
-
-            float localStonebound = 72f;
-            if (tool instanceof HarvestTool)
-                localStonebound = ((HarvestTool) tool).stoneboundModifier();
-            float stoneboundSpeed = (float) Math.log(durability / localStonebound + 1) * 2 * stonebound;
+            float trueSpeed = AbilityHelper.calcToolSpeed(tool, tags);
+            float stoneboundSpeed = AbilityHelper.calcToolSpeed(tool, tags);
 
             DecimalFormat df = new DecimalFormat("##.##");
             df.setRoundingMode(RoundingMode.DOWN);

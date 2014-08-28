@@ -21,6 +21,7 @@ import org.lwjgl.opengl.GL11;
 import tconstruct.TConstruct;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.client.ToolGuiElement;
+import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.HarvestTool;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.HarvestLevels;
@@ -324,36 +325,8 @@ public class ToolStationGui extends GuiContainer
         }
         else if (categories.contains("harvest"))
         {
-            float mineSpeed = tags.getInteger("MiningSpeed");
-            int heads = 1;
-
-            if (tags.hasKey("MiningSpeed2"))
-            {
-                mineSpeed += tags.getInteger("MiningSpeed2");
-                heads++;
-            }
-
-            if (tags.hasKey("MiningSpeedHandle"))
-            {
-                mineSpeed += tags.getInteger("MiningSpeedHandle");
-                heads++;
-            }
-
-            if (tags.hasKey("MiningSpeedExtra"))
-            {
-                mineSpeed += tags.getInteger("MiningSpeedExtra");
-                heads++;
-            }
-
-            float trueSpeed = mineSpeed / (heads * 100f);
-            if(tool instanceof HarvestTool)
-                trueSpeed *= ((HarvestTool) tool).breakSpeedModifier();
-
-
-            float localStonebound = 72f;
-            if (tool instanceof HarvestTool)
-                localStonebound = ((HarvestTool) tool).stoneboundModifier();
-            float stoneboundSpeed = (float) Math.log(durability / localStonebound + 1) * 2 * stonebound;
+            float trueSpeed = AbilityHelper.calcToolSpeed(tool, tags);
+            float stoneboundSpeed = AbilityHelper.calcToolSpeed(tool, tags);
 
             DecimalFormat df = new DecimalFormat("##.##");
             df.setRoundingMode(RoundingMode.DOWN);
@@ -362,7 +335,7 @@ public class ToolStationGui extends GuiContainer
                 trueSpeed = 0;
             fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation14") + df.format(trueSpeed), 294, base + offset * 10, 0xffffff);
             offset++;
-            if (stoneboundSpeed != 0)
+            if (stoneboundSpeed != 0  && !Float.isNaN(stoneboundSpeed))
             {
                 String bloss = stoneboundSpeed > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
                 fontRendererObj.drawString(bloss + df.format(stoneboundSpeed), 294, base + offset * 10, 0xffffff);
