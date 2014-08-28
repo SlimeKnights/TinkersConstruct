@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import tconstruct.library.armor.ArmorCore;
+import tconstruct.library.tools.HarvestTool;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.tools.logic.CraftingStationLogic;
 
@@ -286,9 +287,9 @@ public class CraftingStationGui extends GuiContainer
         // Mining
         if (categories.contains("dualharvest"))
         {
-            float mineSpeed = tags.getInteger("MiningSpeed") / 100f;
-            float mineSpeed2 = tags.getInteger("MiningSpeed2") / 100f;
-            float stoneboundSpeed = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
+            float mineSpeed = tags.getInteger("MiningSpeed") / 100f * ((HarvestTool) tool).breakSpeedModifier();
+            float mineSpeed2 = tags.getInteger("MiningSpeed2") / 100f * ((HarvestTool) tool).breakSpeedModifier();
+            float stoneboundSpeed = (float) Math.log(durability / ((HarvestTool) tool).stoneboundModifier() + 1) * 2 * stonebound;
             DecimalFormat df = new DecimalFormat("##.##");
             df.setRoundingMode(RoundingMode.DOWN);
             float trueSpeed = mineSpeed + stoneboundSpeed;
@@ -335,9 +336,9 @@ public class CraftingStationGui extends GuiContainer
                 heads++;
             }
 
-            float trueSpeed = mineSpeed / (heads * 100f);
+            float trueSpeed = mineSpeed / (heads * 100f) * ((HarvestTool) tool).breakSpeedModifier();
 
-            float stoneboundSpeed = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
+            float stoneboundSpeed = (float) Math.log(durability / ((HarvestTool) tool).stoneboundModifier() + 1) * 2 * stonebound;
             DecimalFormat df = new DecimalFormat("##.##");
             df.setRoundingMode(RoundingMode.DOWN);
             trueSpeed += stoneboundSpeed;
