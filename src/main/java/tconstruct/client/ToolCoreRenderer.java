@@ -12,6 +12,7 @@ import org.lwjgl.opengl.GL12;
 
 import tconstruct.TConstruct;
 import tconstruct.library.tools.ToolCore;
+import tconstruct.tools.entity.DaggerEntity;
 
 public class ToolCoreRenderer implements IItemRenderer
 {
@@ -30,7 +31,7 @@ public class ToolCoreRenderer implements IItemRenderer
         switch (type)
         {
         case ENTITY:
-            GL11.glTranslatef(-0.0625F, -0.0625F, 0F);
+            //GL11.glTranslatef(-0.0625F, -0.0625F, 0F);
             return true;
         case EQUIPPED:
             GL11.glTranslatef(0.03f, 0F, -0.09375F);
@@ -161,7 +162,7 @@ public class ToolCoreRenderer implements IItemRenderer
                 GL11.glTranslatef(0, -4 / 16f, 0);
                 break;
             case ENTITY:
-                GL11.glTranslatef(0, 4 / 16f, 0);
+                GL11.glTranslatef(-0.5f, 0f, depth);
                 break;
             default:
             }
