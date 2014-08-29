@@ -97,11 +97,15 @@ public class StencilTableGui extends GuiContainer
         }
 
         // get the correct setting :I
-        if(logic.getStackInSlot(1) != null)
+        ItemStack stack;
+        if(logic.getStackInSlot(1) != null) {
             activeButton = StencilBuilder.getIndex(logic.getStackInSlot(1));
+            setActiveButton(activeButton);
+            stack = StencilBuilder.getStencil(((GuiButtonStencil) this.buttonList.get(activeButton)).element.stencilIndex);
+        }
+        else
+            stack = null;
 
-        setActiveButton(activeButton);
-        ItemStack stack = StencilBuilder.getStencil(((GuiButtonStencil)this.buttonList.get(activeButton)).element.stencilIndex);
         logic.setSelectedPattern(stack);
         updateServer(stack);
     }
