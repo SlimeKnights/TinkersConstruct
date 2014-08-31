@@ -403,6 +403,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         data.writeInt(tags.getInteger("RenderHandle"));
         data.writeInt(tags.getInteger("RenderHead"));
         data.writeInt(tags.getInteger("RenderAccessory"));
+        data.writeInt(tags.getInteger("RenderExtra"));
 
         int effects = 0;
         if (tags.hasKey("Effect1"))
@@ -446,6 +447,8 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         toolTag.setInteger("RenderHandle", data.readInt());
         toolTag.setInteger("RenderHead", data.readInt());
         toolTag.setInteger("RenderAccessory", data.readInt());
+        toolTag.setInteger("RenderExtra", data.readInt());
+
         switch (data.readInt())
         {
         case 6:
