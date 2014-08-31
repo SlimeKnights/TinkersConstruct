@@ -49,6 +49,11 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
         return new PartCrafterContainer(inventoryplayer, this);
     }
 
+    @Override
+    public boolean canDropInventorySlot(int slot) {
+        return slot <= 3 ; // 0-3 = only drop input slots
+    }
+
     //Called when emptying a slot, not when another item is placed in it
     @Override
     public ItemStack decrStackSize (int slotID, int quantity)
