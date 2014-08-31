@@ -481,17 +481,18 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
             ItemStack toolStack = ToolBuilder.instance.buildTool(new ItemStack(tool.getHeadItem(), 1, 17), new ItemStack(tool.getHandleItem(), 1, 17), accessoryStack, extraStack,
                     "King Slime " + tool.getToolName());
 
-            NBTTagCompound tags = toolStack.getTagCompound().getCompoundTag("InfiTool");
-            tags.setInteger("Attack", 5 + tool.getDamageVsEntity(null));
-            tags.setInteger("TotalDurability", 2500);
-            tags.setInteger("BaseDurability", 2500);
-            tags.setInteger("MiningSpeed", 1400);
+            if(toolStack != null) {
+                NBTTagCompound tags = toolStack.getTagCompound().getCompoundTag("InfiTool");
+                tags.setInteger("Attack", 5 + tool.getDamageVsEntity(null));
+                tags.setInteger("TotalDurability", 2500);
+                tags.setInteger("BaseDurability", 2500);
+                tags.setInteger("MiningSpeed", 1400);
 
-            this.entityDropItem(toolStack, 0f);
-            if (rand.nextInt(5) == 0)
-            {
-                ItemStack dropStack = new ItemStack(TinkerArmor.heartCanister, 1, 1);
-                this.entityDropItem(dropStack, 0f);
+                this.entityDropItem(toolStack, 0f);
+                if (rand.nextInt(5) == 0) {
+                    ItemStack dropStack = new ItemStack(TinkerArmor.heartCanister, 1, 1);
+                    this.entityDropItem(dropStack, 0f);
+                }
             }
         }
     }
