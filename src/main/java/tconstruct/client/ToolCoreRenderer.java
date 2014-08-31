@@ -17,9 +17,17 @@ import tconstruct.tools.entity.DaggerEntity;
 public class ToolCoreRenderer implements IItemRenderer
 {
     private final boolean isEntity;
+    private final boolean noEntityTranslation;
+
+    public ToolCoreRenderer() { this(false, false); }
 
     public ToolCoreRenderer(boolean isEntity) {
+        this(isEntity, false);
+    }
+
+    public ToolCoreRenderer(boolean isEntity, boolean noEntityTranslation) {
         this.isEntity = isEntity;
+        this.noEntityTranslation = noEntityTranslation;
     }
 
     @Override
@@ -31,7 +39,6 @@ public class ToolCoreRenderer implements IItemRenderer
         switch (type)
         {
         case ENTITY:
-            //GL11.glTranslatef(-0.0625F, -0.0625F, 0F);
             return true;
         case EQUIPPED:
             GL11.glTranslatef(0.03f, 0F, -0.09375F);
@@ -162,7 +169,8 @@ public class ToolCoreRenderer implements IItemRenderer
                 GL11.glTranslatef(0, -4 / 16f, 0);
                 break;
             case ENTITY:
-                GL11.glTranslatef(-0.5f, 0f, depth);
+                if(!noEntityTranslation)
+                    GL11.glTranslatef(-0.5f, 0f, depth); // correction of the rotation point when items lie on the ground
                 break;
             default:
             }

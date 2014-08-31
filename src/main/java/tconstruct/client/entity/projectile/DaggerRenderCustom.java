@@ -6,15 +6,18 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
 
+import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import tconstruct.client.ToolCoreRenderer;
 import tconstruct.tools.entity.DaggerEntity;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -23,6 +26,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class DaggerRenderCustom extends Render
 {
     private static RenderItem renderer = new RenderItem();
+    private static ToolCoreRenderer toolCoreRenderer = new ToolCoreRenderer(true, true);
     private Random random = new Random();
 
     public DaggerRenderCustom()
@@ -41,21 +45,28 @@ public class DaggerRenderCustom extends Render
         GL11.glPushMatrix();
         GL11.glTranslatef((float) par2, (float) par4, (float) par6);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+
         GL11.glRotatef(dagger.prevRotationYaw + (dagger.rotationYaw - dagger.prevRotationYaw) * par9 - 90.0F, 0.0F, 1.0F, 0.0F);
         GL11.glRotatef(dagger.prevRotationPitch + (dagger.rotationPitch - dagger.prevRotationPitch) * par9 - 45.0F, 0.0F, 0.0F, 1.0F);
 
         float rotation = dagger.prevRotationPitch + (dagger.rotationPitch - dagger.prevRotationPitch) * par9;
         GL11.glRotatef(dagger.rotationYaw + 90, 0.0F, 0.0F, 1.0F);
         GL11.glRotatef(rotation * 15, 0.0F, 0.0F, 1.0F);
-
+        GL11.glTranslatef(-0.25f, -0.25f, 0f); // translate to the middle. This makes it so that the dagger rotates around its center
         float shake = dagger.arrowShake - par9;
         if (shake > 0.0F)
             GL11.glRotatef(-MathHelper.sin(shake * 3) * shake, 0, 0, 1);
-        GL11.glTranslatef(-7 / 16f, -8 / 16f, -1 / 32f);
-        GL11.glTranslatef(0.5f, 0f, -1 / 16f); // compensates the translation in the toolcorerenderer
+        //GL11.glTranslatef(-7 / 16f, -8 / 16f, -1 / 32f);
         float scale = 1.35f;
         GL11.glScalef(scale, scale, scale);
-        ForgeHooksClient.renderEntityItem(null, item, 0, 0, random, renderManager.renderEngine, field_147909_c, 1);
+
+        /* begin hardcoded regular item rendering */
+        // see ForgeHooksClient.renderEntityItem
+        renderManager.renderEngine.bindTexture(TextureMap.locationItemsTexture);
+        GL11.glScalef(0.5F, 0.5F, 0.5F);
+        toolCoreRenderer.renderItem(IItemRenderer.ItemRenderType.ENTITY, item);
+        /* end hardcoded regular item rendering */
+
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();
     }
