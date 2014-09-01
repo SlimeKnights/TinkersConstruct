@@ -113,41 +113,40 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
 
     protected ItemStack tryRenameTool(ItemStack output, String name)
     {
-        ItemStack temp = inventory[1].copy();
+        ItemStack temp;
         if (output != null)
             temp = output;
+        else
+            temp = inventory[1].copy();
 
-        if (temp != null)
+        if (temp == null)
+            return null; // output as well as inventory is null :(
+
+        NBTTagCompound tags = temp.getTagCompound();
+        if (tags == null)
         {
-            NBTTagCompound tags = temp.getTagCompound();
-            if (tags == null)
-            {
-                tags = new NBTTagCompound();
-                temp.setTagCompound(tags);
-            }
-
-            if (!(tags.hasKey("display")))
-            {
-                NBTTagCompound display = new NBTTagCompound();
-                String dName = temp.getItem() instanceof IModifyable ? "\u00A7f" + name : name;
-                display.setString("Name", dName);
-                tags.setTag("display", display);
-                temp.setRepairCost(2);
-                output = temp;
-            }
-            else if(tags.getCompoundTag("display").hasKey("Name"))
-            {
-                NBTTagCompound display = tags.getCompoundTag("display");
-                if(display.getString("Name").equals("\u00A7f" + ToolBuilder.defaultToolName(temp)))
-                {
-                    String dName = temp.getItem() instanceof IModifyable ? "\u00A7f" + name : name;
-                    display.setString("Name", dName);
-                    tags.setTag("display", display);
-                    temp.setRepairCost(2);
-                    output = temp;
-                }
-            }
+            tags = new NBTTagCompound();
+            temp.setTagCompound(tags);
         }
+
+        NBTTagCompound display = null;
+        if (!(tags.hasKey("display")))
+            display = new NBTTagCompound();
+        else if(tags.getCompoundTag("display").hasKey("Name"))
+            display = tags.getCompoundTag("display");
+
+        if(display == null)
+            return output;
+        if(display.hasKey("Name") && !display.getString("Name").equals("\u00A7f" + ToolBuilder.defaultToolName(temp)))
+            // no default name anymore
+            return output;
+
+        String dName = temp.getItem() instanceof IModifyable ? "\u00A7f" + name : name;
+        display.setString("Name", dName);
+        tags.setTag("display", display);
+        temp.setRepairCost(2);
+        output = temp;
+
 
         return output;
     }
