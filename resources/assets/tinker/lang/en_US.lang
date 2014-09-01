@@ -764,6 +764,7 @@ gui.mining5=Cobalt
 gui.mining6=Manyullyn
 
 material.wood=Wood
+material.wood.display=Wooden
 material.stone=Stone
 material.iron=Iron
 material.flint=Flint
@@ -774,6 +775,7 @@ material.netherrack=Netherrack
 material.slime=Slime
 material.paper=Paper
 material.blueslime=BlueSlime
+material.blueslime.display=Slime
 material.cobalt=Cobalt
 material.ardite=Ardite
 material.manyullyn=Manyullyn
@@ -782,6 +784,7 @@ material.bronze=Bronze
 material.alumite=Alumite
 material.steel=Steel
 material.pigiron=Pigiron
+material.pigiron.display=Pig Iron
 material.thaumium=Thaumium
 
 gui.modifier.blaze=Blaze

@@ -284,7 +284,7 @@ public class TConstructRegistry
      * @param materialName
      *            Unique name for data lookup purposes
      * @param displayName
-     *            Prefix for creative mode tools
+     *            Unused.
      * @param harvestLevel
      *            The materials which the tool can harvest. Pickaxe levels - 0:
      *            Wood, 1: Stone, 2: Redstone/Diamond, 3: Obsidian, 4:
@@ -304,18 +304,12 @@ public class TConstructRegistry
      *            Spiny.
      */
 
+    @Deprecated
     public static void addToolMaterial (int materialID, String materialName, String displayName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced,
             float stonebound, String style, String ability)
     {
-        ToolMaterial mat = toolMaterials.get(materialID);
-        if (mat == null)
-        {
-            mat = new ToolMaterial(materialName, displayName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, stonebound, style, ability);
-            toolMaterials.put(materialID, mat);
-            toolMaterialStrings.put(materialName, mat);
-        }
-        else
-            throw new IllegalArgumentException("[TCon API] Material ID " + materialID + " is already occupied by " + mat.materialName);
+        logger.warn("[TCon API] Using deprecated addToolMaterial with display name. displayName will be ignored, use languages files for it.");
+        addToolMaterial(materialID, materialName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, stonebound, style, ability);
     }
 
     /**

@@ -72,7 +72,7 @@ public class PartCrafterGui extends NewContainerGui
             {
                 topEnum = TConstructRegistry.getMaterial(topID);
                 hasTop = true;
-                title = "\u00A7n" + topEnum.name();
+                title = "\u00A7n" + topEnum.localizedName();
             }
             else
                 hasTop = false;
@@ -87,7 +87,7 @@ public class PartCrafterGui extends NewContainerGui
             {
                 bottomEnum = TConstructRegistry.getMaterial(bottomID);
                 hasBottom = true;
-                otherTitle = "\u00A7n" + bottomEnum.name();
+                otherTitle = "\u00A7n" + bottomEnum.localizedName();
             }
             else
                 hasBottom = false;

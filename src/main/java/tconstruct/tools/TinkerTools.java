@@ -814,7 +814,7 @@ public class TinkerTools
     
     void registerMaterials ()
     {
-        TConstructRegistry.addToolMaterial(0, "Wood", "Wooden ", 1, 97, 350, 0, 1.0F, 0, 0f, "\u00A7e", "");
+        TConstructRegistry.addToolMaterial(0, "Wood", 1, 97, 350, 0, 1.0F, 0, 0f, "\u00A7e", "");
         TConstructRegistry.addToolMaterial(1, "Stone", 1, 131, 400, 1, 0.5F, 0, 1f, "", "materialtraits.stonebound");
         TConstructRegistry.addToolMaterial(2, "Iron", 2, 250, 600, 2, 1.3F, 1, 0f, "\u00A7f", "");
         TConstructRegistry.addToolMaterial(3, "Flint", 1, 171, 525, 2, 0.7F, 0, 0f, "\u00A78", "");
@@ -831,8 +831,8 @@ public class TinkerTools
         TConstructRegistry.addToolMaterial(14, "Bronze", 2, 550, 800, 2, 1.3F, 1, 0f, "\u00A76", "");
         TConstructRegistry.addToolMaterial(15, "Alumite", 4, 700, 800, 3, 1.3F, 2, 0f, "\u00A7d", "");
         TConstructRegistry.addToolMaterial(16, "Steel", 4, 750, 1000, 4, 1.3F, 2, 0f, "", "");
-        TConstructRegistry.addToolMaterial(17, "BlueSlime", "Slime ", 0, 1200, 150, 0, 2.0F, 0, 0f, "\u00A7b", "");
-        TConstructRegistry.addToolMaterial(18, "PigIron", "Pig Iron ", 3, 250, 600, 2, 1.3F, 1, 0f, "\u00A7c", "materialtraits.tasty");
+        TConstructRegistry.addToolMaterial(17, "BlueSlime", 0, 1200, 150, 0, 2.0F, 0, 0f, "\u00A7b", "");
+        TConstructRegistry.addToolMaterial(18, "PigIron", 3, 250, 600, 2, 1.3F, 1, 0f, "\u00A7c", "materialtraits.tasty");
 
         TConstructRegistry.addBowMaterial(0, 384, 20, 1.0f); // Wood
         TConstructRegistry.addBowMaterial(1, 10, 80, 0.2f); // Stone
