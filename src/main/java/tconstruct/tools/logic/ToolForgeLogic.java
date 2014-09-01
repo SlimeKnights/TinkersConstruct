@@ -69,32 +69,7 @@ public class ToolForgeLogic extends ToolStationLogic implements ISidedInventory
                 }
             }
             if (!name.equals("")) //Name item
-            {
-                ItemStack temp = inventory[1].copy();
-                if (output != null)
-                    temp = output;
-                
-                if (temp != null)
-                {
-                    NBTTagCompound tags = temp.getTagCompound();
-                    if (tags == null)
-                    {
-                        tags = new NBTTagCompound();                        
-                        temp.setTagCompound(tags);
-                    }
-
-                    if (!(tags.hasKey("display")))
-                    {
-                        NBTTagCompound display = new NBTTagCompound();
-                        String dName = temp.getItem() instanceof IModifyable ? "\u00A7f" + name : name;
-                        display.setString("Name", dName);
-                        tags.setTag("display", display);
-                        temp.setRepairCost(2);
-                        output = temp;
-                    }
-                }
-
-            }
+                output = tryRenameTool(output, name);
         }
         inventory[0] = output;
     }

@@ -322,6 +322,12 @@ public class ToolBuilder
             compound.setTag("display", new NBTTagCompound());
             compound.getCompoundTag("display").setString("Name", "\u00A7f" + name);
         }
+        // set a nice default name
+        else
+        {
+            compound.setTag("display", new NBTTagCompound());
+            compound.getCompoundTag("display").setString("Name", "\u00A7f" + defaultToolName(headMat, item));
+        }
 
         ToolCraftEvent.NormalTool event = new ToolCraftEvent.NormalTool(item, compound, new ToolMaterial[] { headMat, handleMat, accessoryMat, extraMat });
         MinecraftForge.EVENT_BUS.post(event);
@@ -424,7 +430,23 @@ public class ToolBuilder
         }
         return (sHead + sHandle) / 2f;
     }
-    
+
+    public static String defaultToolName(ItemStack stack)
+    {
+        if(!stack.hasTagCompound() || !stack.getTagCompound().hasKey("InfiTool"))
+            return null;
+        if(!(stack.getItem() instanceof ToolCore))
+            return null;
+
+        int mat = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Head");
+        return defaultToolName(TConstructRegistry.getMaterial(mat), (ToolCore) stack.getItem());
+    }
+
+    public static String defaultToolName(ToolMaterial headMat, ToolCore tool)
+    {
+        return String.format("%s %s", headMat.prefixName(), tool.getToolName());
+    }
+
     //Passthrough for now
     @Deprecated
     public static void registerToolMod(ItemModifier mod)
