@@ -50,12 +50,6 @@ public class LumberAxe extends HarvestTool
     }
 
     @Override
-    public String getToolName ()
-    {
-        return "Lumber Axe";
-    }
-
-    @Override
     public boolean onBlockDestroyed (ItemStack itemstack, World world, Block block, int x, int y, int z, EntityLivingBase player)
     {
         if (block != null && block.getMaterial() == Material.leaves)

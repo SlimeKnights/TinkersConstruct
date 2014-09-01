@@ -127,7 +127,7 @@ public class CraftingStationGui extends GuiContainer
         {
             ToolCore tool = (ToolCore) stack.getItem();
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-            this.drawCenteredString(fontRendererObj, "\u00A7n" + tool.getToolName(), offsetX, 8, 0xffffff);
+            this.drawCenteredString(fontRendererObj, "\u00A7n" + tool.getLocalizedToolName(), offsetX, 8, 0xffffff);
 
             drawModularToolStats(stack, tool, tags);
         }
@@ -135,7 +135,7 @@ public class CraftingStationGui extends GuiContainer
         {
             ArmorCore armor = (ArmorCore) stack.getItem();
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag("TinkerArmor");
-            this.drawCenteredString(fontRendererObj, "\u00A7n" + armor.getClass().getSimpleName(), offsetX, 8, 0xffffff);
+            this.drawCenteredString(fontRendererObj, "\u00A7n" + armor.getClass().getSimpleName(), offsetX, 8, 0xffffff); // todo: localize this
 
             drawModularArmorStats(stack, armor, tags);
         }

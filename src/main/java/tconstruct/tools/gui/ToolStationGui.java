@@ -182,7 +182,7 @@ public class ToolStationGui extends GuiContainer
         {
             ToolCore tool = (ToolCore) stack.getItem();
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-            this.drawCenteredString(fontRendererObj, "\u00A7n" + tool.getToolName(), 349, 8, 0xffffff);
+            this.drawCenteredString(fontRendererObj, "\u00A7n" + tool.getLocalizedToolName(), 349, 8, 0xffffff);
 
             drawModularToolStats(stack, tool, tags);
         }

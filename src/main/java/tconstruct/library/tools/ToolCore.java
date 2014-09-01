@@ -119,6 +119,11 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         return this.getClass().getSimpleName();
     }
 
+    public String getLocalizedToolName()
+    {
+        return StatCollector.translateToLocal("tool." + getToolName().toLowerCase());
+    }
+
     /* Rendering */
 
     public HashMap<Integer, IIcon> headIcons = new HashMap<Integer, IIcon>();
@@ -553,7 +558,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         ItemStack accessoryStack = accessory != null ? new ItemStack(getAccessoryItem(), 1, id) : null;
         Item extra = getExtraItem();
         ItemStack extraStack = extra != null ? new ItemStack(extra, 1, id) : null;
-        String completeName = String.format("%s %s", name, getToolName());
+        String completeName = String.format("%s %s", name, getLocalizedToolName());
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, completeName);
         if (tool != null)
         {

@@ -54,12 +54,6 @@ public class FryingPan extends Weapon
     }
 
     @Override
-    public String getToolName ()
-    {
-        return "Frying Pan";
-    }
-
-    @Override
     public void getSubItems (Item id, CreativeTabs tab, List list)
     {
         super.getSubItems(id, tab, list);

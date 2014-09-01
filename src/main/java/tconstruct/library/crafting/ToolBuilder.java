@@ -444,7 +444,7 @@ public class ToolBuilder
 
     public static String defaultToolName(ToolMaterial headMat, ToolCore tool)
     {
-        return String.format("%s %s", headMat.prefixName(), tool.getToolName());
+        return String.format("%s %s", headMat.prefixName(), tool.getLocalizedToolName());
     }
 
     //Passthrough for now

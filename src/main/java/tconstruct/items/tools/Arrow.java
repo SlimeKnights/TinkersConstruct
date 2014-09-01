@@ -134,7 +134,8 @@ public class Arrow extends ToolCore
         ItemStack accessoryStack = accessory != null ? new ItemStack(getAccessoryItem(), 1, 0) : null;
         Item extra = getExtraItem();
         ItemStack extraStack = extra != null ? new ItemStack(getExtraItem(), 1, id) : null;
-        ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, name + getToolName());
+        String completeName = String.format("%s %s", name, getLocalizedToolName());
+        ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, completeName);
         if (tool != null)
         {
             tool.stackSize = 1;

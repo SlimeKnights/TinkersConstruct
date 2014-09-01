@@ -476,10 +476,11 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         {
             ToolCore tool = getValidTool();
 
-            ItemStack accessoryStack =  tool.getAccessoryItem() != null ? new ItemStack(tool.getAccessoryItem(), 1, 17) : null;
-            ItemStack extraStack =  tool.getExtraItem() != null ? new ItemStack(tool.getExtraItem(), 1, 17) : null;
-            ItemStack toolStack = ToolBuilder.instance.buildTool(new ItemStack(tool.getHeadItem(), 1, 17), new ItemStack(tool.getHandleItem(), 1, 17), accessoryStack, extraStack,
-                    "King Slime " + tool.getToolName());
+            final ItemStack headStack = new ItemStack(tool.getHeadItem(), 1, 17);
+            final ItemStack handleStack = new ItemStack(tool.getHandleItem(), 1, 17);
+            final ItemStack accessoryStack =  tool.getAccessoryItem() != null ? new ItemStack(tool.getAccessoryItem(), 1, 17) : null;
+            final ItemStack extraStack =  tool.getExtraItem() != null ? new ItemStack(tool.getExtraItem(), 1, 17) : null;
+            ItemStack toolStack = ToolBuilder.instance.buildTool(headStack, handleStack, accessoryStack, extraStack, "King Slime " + tool.getLocalizedToolName());
 
             if(toolStack != null) {
                 NBTTagCompound tags = toolStack.getTagCompound().getCompoundTag("InfiTool");

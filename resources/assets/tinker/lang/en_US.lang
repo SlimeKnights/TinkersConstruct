@@ -830,3 +830,24 @@ materialtraits.thaumic=Thaumic
 creativeModLock.tooltip=Target Lock: 
 
 attribute.name.ammo.attackDamage=Average Shot Damage
+
+tool.pickaxe=Pickaxe
+tool.shovel=Shovel
+tool.hatchet=Hatchet
+tool.broadsword=Broadsword
+tool.longsword=Longsword
+tool.rapier=Rapier
+tool.dagger=Dagger
+tool.cutlass=Cutlass
+tool.fryingpan=Frying Pan
+tool.battlesign=Battle Sign
+tool.mattock=Mattock
+tool.chisel=Chisel
+tool.lumberaxe=Lumber Axe
+tool.cleaver=Cleaver
+tool.scythe=Scythe
+tool.excavator=Excavator
+tool.hammer=Hammer
+tool.battleaxe=Battleaxe
+tool.shortbow=Shortbow
+tool.arrow=Arrow
