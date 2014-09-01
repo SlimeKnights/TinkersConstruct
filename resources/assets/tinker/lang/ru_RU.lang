@@ -160,8 +160,9 @@ item.InfiTool.Battleaxe.name=Боевой топор
 item.InfiTool.Cutlass.name=Сабля
 item.InfiTool.Shortbow.name=Короткий лук
 item.InfiTool.Arrow.name=Стрела
-item.InfiTool.PotionLauncher.name=Метатель зелий
 item.InfiTool.Mattock.name=Мотыготопор
+
+item.tconstruct.PotionLauncher.name=Potion Launcher
 
 item.tool.randomarrow=Случайный серпантин
 
@@ -466,6 +467,7 @@ tile.fluid.molten.manyullyn.name=Расплавленный мануллин
 tile.fluid.molten.alumite.name=Расплавленный алюмит
 tile.fluid.molten.obsidian.name=Расплавленный обсидиан
 tile.fluid.molten.steel.name=Расплавленная сталь
+tile.fluid.molten.pigiron.name=Расплавленное свиное железо
 tile.fluid.molten.glass.name=Расплавленное стекло
 tile.molten.stone.name=Обожжённый камень
 tile.molten.emerald.name=Сжиженный изумруд
