@@ -783,8 +783,7 @@ public class TinkerTools
             TinkerTools.thaumcraftAvailable = true;
             TConstructClientRegistry.addMaterialRenderMapping(31, "tinker", "thaumium", true);
             TConstructRegistry.addToolMaterial(31, "Thaumium", 3, 400, 700, 2, 1.3F, 0, 0f, "\u00A75", "materialtraits.thaumic");
-            PatternBuilder.instance.registerFullMaterial(new ItemStack((Item) obj, 1, 2), 2, StatCollector.translateToLocal("gui.partbuilder.material.thaumium"), new ItemStack(TinkerTools.toolShard,
-                    1, 31), new ItemStack(TinkerTools.toolRod, 1, 31), 31);
+            PatternBuilder.instance.registerFullMaterial(new ItemStack((Item) obj, 1, 2), 2, "Thaumium", new ItemStack(TinkerTools.toolShard, 1, 31), new ItemStack(TinkerTools.toolRod, 1, 31), 31);
             for (int meta = 0; meta < TinkerTools.patternOutputs.length; meta++)
             {
                 if (TinkerTools.patternOutputs[meta] != null)

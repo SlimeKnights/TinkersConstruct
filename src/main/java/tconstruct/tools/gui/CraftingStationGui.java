@@ -20,6 +20,7 @@ import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.HarvestTool;
 import tconstruct.library.tools.ToolCore;
+import tconstruct.library.util.HarvestLevels;
 import tconstruct.tools.logic.CraftingStationLogic;
 
 public class CraftingStationGui extends GuiContainer
@@ -309,7 +310,7 @@ public class CraftingStationGui extends GuiContainer
             offset++;
             fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation13"), offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
-            fontRendererObj.drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + getHarvestLevelName(tags.getInteger("HarvestLevel2")), offsetX + 8, base + offset * 10,
+            fontRendererObj.drawString("- " + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel2")), offsetX + 8, base + offset * 10,
                     0xffffff);
             offset++;
             offset++;
@@ -332,7 +333,7 @@ public class CraftingStationGui extends GuiContainer
                 fontRendererObj.drawString(bloss + df.format(stoneboundSpeed), xSize + 8, base + offset * 10, 0xffffff);
                 offset++;
             }
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation15") + getHarvestLevelName(tags.getInteger("HarvestLevel")), offsetX + 8, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation15") + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel")), offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
             offset++;
         }
@@ -369,27 +370,6 @@ public class CraftingStationGui extends GuiContainer
             }
             else
                 displayToolTips = false;
-        }
-    }
-
-    protected String getHarvestLevelName (int num)
-    {
-        switch (num)
-        {
-        case 0:
-            return StatCollector.translateToLocal("gui.partcrafter.mining1");
-        case 1:
-            return StatCollector.translateToLocal("gui.partcrafter.mining2");
-        case 2:
-            return StatCollector.translateToLocal("gui.partcrafter.mining3");
-        case 3:
-            return StatCollector.translateToLocal("gui.partcrafter.mining4");
-        case 4:
-            return StatCollector.translateToLocal("gui.partcrafter.mining5");
-        case 5:
-            return StatCollector.translateToLocal("gui.partcrafter.mining6");
-        default:
-            return String.valueOf(num);
         }
     }
 

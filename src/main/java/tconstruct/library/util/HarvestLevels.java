@@ -19,7 +19,7 @@ public final class HarvestLevels {
 
     // initialization
     static{
-        String base = "gui.partcrafter.mining";
+        String base = "gui.mining";
         int i = 0;
         while(StatCollector.canTranslate(String.format("%s%d", base, i+1))) {
             harvestLevelNames.put(i, StatCollector.translateToLocal(String.format("%s%d", base, i + 1)));
