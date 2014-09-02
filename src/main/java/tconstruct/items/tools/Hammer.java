@@ -14,6 +14,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.world.BlockEvent;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
@@ -296,7 +298,7 @@ public class Hammer extends HarvestTool
                         int hlvl = -1;
                         if (localBlock.getHarvestTool(localMeta) != null && localBlock.getHarvestTool(localMeta).equals(this.getHarvestType()))
                             hlvl = localBlock.getHarvestLevel(localMeta);
-                        float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.getBlockHardness(world, xPos, yPos, zPos);
+                        float localHardness = localBlock.getBlockHardness(world, xPos, yPos, zPos);
 
                         //Choose blocks that aren't too much harder than the first block. Stone: 2.0, Ores: 3.0
                         if (hlvl <= toolLevel && localHardness - 1.5 <= blockHardness)
@@ -307,6 +309,12 @@ public class Hammer extends HarvestTool
                                 if (mod.beforeBlockBreak(this, stack, xPos, yPos, zPos, player))
                                     cancelHarvest = true;
                             }
+
+                            // send blockbreak event
+                            BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(x, y, z, world, localBlock, localMeta, player);
+                            event.setCanceled(cancelHarvest);
+                            MinecraftForge.EVENT_BUS.post(event);
+                            cancelHarvest = event.isCanceled();
 
                             if (!cancelHarvest)
                             {

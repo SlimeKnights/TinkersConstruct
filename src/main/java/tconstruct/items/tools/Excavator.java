@@ -9,6 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.world.BlockEvent;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.AbilityHelper;
@@ -205,6 +207,12 @@ public class Excavator extends HarvestTool
                                 if (mod.beforeBlockBreak(this, stack, xPos, yPos, zPos, player))
                                     cancelHarvest = true;
                             }
+
+                            // send blockbreak event
+                            BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(x, y, z, world, localBlock, localMeta, player);
+                            event.setCanceled(cancelHarvest);
+                            MinecraftForge.EVENT_BUS.post(event);
+                            cancelHarvest = event.isCanceled();
 
                             if (!cancelHarvest)
                             {

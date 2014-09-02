@@ -17,6 +17,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetHandler;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.world.BlockEvent;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 
@@ -58,6 +60,12 @@ public abstract class HarvestTool extends ToolCore
                     if (mod.beforeBlockBreak(this, stack, x, y, z, player))
                         cancelHarvest = true;
                 }
+
+                // send blockbreak event
+                BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(x, y, z, world, block, meta, player);
+                event.setCanceled(cancelHarvest);
+                MinecraftForge.EVENT_BUS.post(event);
+                cancelHarvest = event.isCanceled();
 
                 if (!cancelHarvest)
                 {
