@@ -275,39 +275,18 @@ public class TConstructRegistry
             throw new IllegalArgumentException("[TCon API] Material ID " + materialID + " is already occupied by " + mat.materialName);
     }
 
-    /**
-     * Adds a tool material to the registry
-     * 
-     * @param materialID
-     *            Unique ID, stored for each part
-     * @param materialName
-     *            Unique name for data lookup purposes
-     * @param displayName
-     *            Unused.
-     * @param harvestLevel
-     *            The materials which the tool can harvest. Pickaxe levels - 0:
-     *            Wood, 1: Stone, 2: Redstone/Diamond, 3: Obsidian, 4:
-     *            Cobalt/Ardite, 5: Manyullyn
-     * @param durability
-     *            Base durability of the tool, affects tool heads.
-     * @param miningspeed
-     *            Base mining speed, divided by 100 in use
-     * @param attack
-     *            Base attack
-     * @param handleModifier
-     *            Durability multiplier on the tool
-     * @param reinforced
-     *            Reinforced level
-     * @param stonebound
-     *            Amount of Stonebound to put on the tool. Negative numbers are
-     *            Spiny.
-     */
+    @Deprecated
+    public static void addToolMaterial (int materialID, String materialName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced, float stonebound, String style, String ability)
+    {
+        logger.warn("[TCon API] Using deprecated addToolMaterial with ability name. ability will be ignored, use languages files for that.");
+        addToolMaterial(materialID, materialName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, stonebound, style);
+    }
 
     @Deprecated
     public static void addToolMaterial (int materialID, String materialName, String displayName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced,
             float stonebound, String style, String ability)
     {
-        logger.warn("[TCon API] Using deprecated addToolMaterial with display name. displayName and ability will be ignored, use languages files for that.");
+        logger.warn("[TCon API] Using deprecated addToolMaterial with display and ability name. displayName and ability will be ignored, use languages files for that.");
         addToolMaterial(materialID, materialName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, stonebound, style);
     }
 
