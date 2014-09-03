@@ -7,9 +7,6 @@ import net.minecraft.util.StatCollector;
  */
 public class ToolMaterial
 {
-    // mining level, durability, mining speed, baseDamage, handle modifier,
-    // Reinforced level, shoddy/spiny level, color/style on name
-
     public final String materialName;
     public final int harvestLevel;
     public final int durability;
@@ -19,6 +16,16 @@ public class ToolMaterial
     public final int reinforced;
     public final float stonebound;
     public final String tipStyle;
+
+
+    @Deprecated
+    public String displayName;
+    @Deprecated
+    public ToolMaterial(String name, String displayName, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, String ability)
+    {
+        this(name, level, durability, speed, damage, handle, reinforced, stonebound, style);
+        this.displayName = prefixName();
+    }
 
     public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style)
     {
