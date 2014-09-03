@@ -89,28 +89,9 @@ public class TinkerToolEvents
             }
         }
 
-        int thaum = 0;
-        if (toolTag.getInteger("Head") == 31)
-            thaum++;
-        if (toolTag.getInteger("Handle") == 31)
-            thaum++;
-        if (toolTag.getInteger("Accessory") == 31)
-            thaum++;
-        if (toolTag.getInteger("Extra") == 31)
-            thaum++;
-
-        if ((thaum >= 3) || (!toolTag.hasKey("Accessory") && thaum >= 2))
-        {
-            int modifiers = toolTag.getInteger("Modifiers");
-            modifiers += 2;
-            toolTag.setInteger("Modifiers", modifiers);
-        }
-        else if (thaum >= 1)
-        {
-            int modifiers = toolTag.getInteger("Modifiers");
-            modifiers += 1;
-            toolTag.setInteger("Modifiers", modifiers);
-        }
+        // bonus modifiers
+        handlePaper(toolTag, event.tool);
+        handleThaumium(toolTag, event.tool);
 
         if (event.tool == TinkerTools.shortbow)
         {
@@ -169,6 +150,50 @@ public class TinkerToolEvents
             modifiers += 1;
             toolTag.setInteger("Modifiers", modifiers);
         }
+    }
+
+    private void handlePaper(NBTTagCompound toolTag, ToolCore tool)
+    {
+        int modifiers = toolTag.getInteger("Modifiers");
+        if (toolTag.getInteger("Head") == TinkerTools.MaterialID.Paper)
+            modifiers++;
+        if (toolTag.getInteger("Handle") == TinkerTools.MaterialID.Paper)
+            modifiers++;
+        if (toolTag.getInteger("Accessory") == TinkerTools.MaterialID.Paper)
+            modifiers++;
+        if (toolTag.getInteger("Extra") == TinkerTools.MaterialID.Paper)
+            modifiers++;
+
+        // 2 part tools gain 2 modifiers for the head
+        if(tool.getPartAmount() == 2 && toolTag.getInteger("Head") == TinkerTools.MaterialID.Paper)
+            modifiers++;
+
+        toolTag.setInteger("Modifiers", modifiers);
+    }
+
+    private void handleThaumium(NBTTagCompound toolTag, ToolCore tool)
+    {
+        // count thaumic parts
+        int thaum = 0;
+        if (toolTag.getInteger("Head") == TinkerTools.MaterialID.Thaumium)
+            thaum++;
+        if (toolTag.getInteger("Handle") == TinkerTools.MaterialID.Thaumium)
+            thaum++;
+        if (toolTag.getInteger("Accessory") == TinkerTools.MaterialID.Thaumium)
+            thaum++;
+        if (toolTag.getInteger("Extra") == TinkerTools.MaterialID.Thaumium)
+            thaum++;
+
+        // each part gives 0.5 modifiers, rounded up
+        int bonusModifiers = (int) Math.ceil((double)thaum/2d);
+
+        // 2-part tools get 1 modifier per part
+        if(tool.getPartAmount() == 2)
+            bonusModifiers = thaum;
+
+        int modifiers = toolTag.getInteger("Modifiers");
+        modifiers += bonusModifiers;
+        toolTag.setInteger("Modifiers", modifiers);
     }
 
     private boolean allowCrafting (int head, int handle, int accessory)

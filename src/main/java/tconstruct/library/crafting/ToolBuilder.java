@@ -307,15 +307,7 @@ public class ToolBuilder
         compound.getCompoundTag("InfiTool").setInteger("Unbreaking", buildReinforced(headMat, handleMat, accessoryMat, extraMat));
         compound.getCompoundTag("InfiTool").setFloat("Shoddy", buildShoddy(headMat, handleMat, accessoryMat, extraMat));
 
-        int modifiers = item.getModifierAmount();
-        if (accessory == -1)
-            modifiers += (head == 9 ? 2 : 0);
-        else
-            modifiers += (head == 9 ? 1 : 0) + (accessory == 9 ? 1 : 0);
-        modifiers += +(handle == 9 ? 1 : 0);
-        modifiers += +(extra == 9 ? 1 : 0);
-
-        compound.getCompoundTag("InfiTool").setInteger("Modifiers", modifiers);
+        compound.getCompoundTag("InfiTool").setInteger("Modifiers", item.getModifierAmount());
 
         if (name != null && !name.equals(""))
         {
