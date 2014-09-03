@@ -12,7 +12,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
+
+import static net.minecraft.util.EnumChatFormatting.*;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
@@ -95,7 +96,6 @@ import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.blocks.SoilBlock;
 import tconstruct.world.itemblocks.CraftedSoilItemBlock;
-import tconstruct.world.items.GoldenHead;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -814,66 +814,68 @@ public class TinkerTools
     
     void registerMaterials ()
     {
-        TConstructRegistry.addToolMaterial(MaterialID.Wood,      "Wood", 1, 97, 350, 0, 1.0F, 0, 0f, "\u00A7e");
-        TConstructRegistry.addToolMaterial(MaterialID.Stone,     "Stone", 1, 131, 400, 1, 0.5F, 0, 1f, "");
-        TConstructRegistry.addToolMaterial(MaterialID.Iron,      "Iron", 2, 250, 600, 2, 1.3F, 1, 0f, "\u00A7f");
-        TConstructRegistry.addToolMaterial(MaterialID.Flint,     "Flint", 1, 171, 525, 2, 0.7F, 0, 0f, "\u00A78");
-        TConstructRegistry.addToolMaterial(MaterialID.Cactus,    "Cactus", 1, 150, 500, 2, 1.0F, 0, -1f, "\u00A72");
-        TConstructRegistry.addToolMaterial(MaterialID.Bone,      "Bone", 1, 200, 400, 1, 1.0F, 0, 0f, "\u00A7e");
-        TConstructRegistry.addToolMaterial(MaterialID.Obsidian,  "Obsidian", 3, 89, 700, 2, 0.8F, 3, 0f, "\u00A7d");
-        TConstructRegistry.addToolMaterial(MaterialID.Netherrack,"Netherrack", 2, 131, 400, 1, 1.2F, 0, 1f, "\u00A74");
-        TConstructRegistry.addToolMaterial(MaterialID.Slime,     "Slime", 0, 500, 150, 0, 1.5F, 0, 0f, "\u00A7a");
-        TConstructRegistry.addToolMaterial(MaterialID.Paper,     "Paper", 0, 30, 200, 0, 0.3F, 0, 0f, "\u00A7f");
-        TConstructRegistry.addToolMaterial(MaterialID.Cobalt,    "Cobalt", 4, 800, 1400, 3, 1.75F, 2, 0f, "\u00A73");
-        TConstructRegistry.addToolMaterial(MaterialID.Ardite,    "Ardite", 4, 500, 800, 3, 2.0F, 0, 2f, "\u00A74");
-        TConstructRegistry.addToolMaterial(MaterialID.Manyullyn, "Manyullyn", 5, 1200, 900, 4, 2.5F, 0, 0f, "\u00A75");
-        TConstructRegistry.addToolMaterial(MaterialID.Copper,    "Copper", 1, 180, 500, 2, 1.15F, 0, 0f, "\u00A7c");
-        TConstructRegistry.addToolMaterial(MaterialID.Bronze,    "Bronze", 2, 550, 800, 2, 1.3F, 1, 0f, "\u00A76");
-        TConstructRegistry.addToolMaterial(MaterialID.Alumite,   "Alumite", 4, 700, 800, 3, 1.3F, 2, 0f, "\u00A7d");
-        TConstructRegistry.addToolMaterial(MaterialID.Steel,     "Steel", 4, 750, 1000, 4, 1.3F, 2, 0f, "");
-        TConstructRegistry.addToolMaterial(MaterialID.BlueSlime, "BlueSlime", 0, 1200, 150, 0, 2.0F, 0, 0f, "\u00A7b");
-        TConstructRegistry.addToolMaterial(MaterialID.PigIron,   "PigIron", 3, 250, 600, 2, 1.3F, 1, 0f, "\u00A7c");
+        // Tool Materials: id, name, harvestlevel, durability, speed, damage, handlemodifier, reinforced, shoddy, color
+        TConstructRegistry.addToolMaterial(MaterialID.Wood,      "Wood",       1,   97,  350, 0,  1.0F, 0, 0f, YELLOW.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Stone,     "Stone",      1,  131,  400, 1,  0.5F, 0, 1f, GRAY.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Iron,      "Iron",       2,  250,  600, 2,  1.3F, 1, 0f, WHITE.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Flint,     "Flint",      1,  171,  525, 2,  0.7F, 0, 0f, DARK_GRAY.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Cactus,    "Cactus",     1,  150,  500, 2,  1.0F, 0,-1f, DARK_GREEN.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Bone,      "Bone",       1,  200,  400, 1,  1.0F, 0, 0f, YELLOW.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Obsidian,  "Obsidian",   3,   89,  700, 2,  0.8F, 3, 0f, LIGHT_PURPLE.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Netherrack,"Netherrack", 2,  131,  400, 1,  1.2F, 0, 1f, DARK_RED.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Slime,     "Slime",      0,  500,  150, 0,  1.5F, 0, 0f, GREEN.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Paper,     "Paper",      0,   30,  200, 0,  0.3F, 0, 0f, WHITE.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Cobalt,    "Cobalt",     4,  800, 1400, 3, 1.75F, 2, 0f, DARK_AQUA.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Ardite,    "Ardite",     4,  500,  800, 3,  2.0F, 0, 2f, DARK_RED.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Manyullyn, "Manyullyn",  5, 1200,  900, 4,  2.5F, 0, 0f, DARK_PURPLE.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Copper,    "Copper",     1,  180,  500, 2, 1.15F, 0, 0f, RED.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Bronze,    "Bronze",     2,  550,  800, 2,  1.3F, 1, 0f, GOLD.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Alumite,   "Alumite",    4,  700,  800, 3,  1.3F, 2, 0f, LIGHT_PURPLE.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Steel,     "Steel",      4,  750, 1000, 4,  1.3F, 2, 0f, GRAY.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.BlueSlime, "BlueSlime",  0, 1200,  150, 0,  2.0F, 0, 0f, AQUA.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.PigIron,   "PigIron",    3,  250,  600, 2,  1.3F, 1, 0f, RED.toString());
 
-        TConstructRegistry.addBowMaterial(0, 384, 20, 1.0f); // Wood
-        TConstructRegistry.addBowMaterial(1, 10, 80, 0.2f); // Stone
-        TConstructRegistry.addBowMaterial(2, 576, 30, 1.2f); // Iron
-        TConstructRegistry.addBowMaterial(3, 10, 80, 0.2f); // Flint
-        TConstructRegistry.addBowMaterial(4, 384, 20, 1.0f); // Cactus
-        TConstructRegistry.addBowMaterial(5, 192, 30, 1.0f); // Bone
-        TConstructRegistry.addBowMaterial(6, 10, 80, 0.2f); // Obsidian
-        TConstructRegistry.addBowMaterial(7, 10, 80, 0.2f); // Netherrack
-        TConstructRegistry.addBowMaterial(8, 1536, 30, 1.2f); // Slime
-        TConstructRegistry.addBowMaterial(9, 48, 25, 0.5f); // Paper
-        TConstructRegistry.addBowMaterial(10, 1152, 30, 1.2f); // Cobalt
-        TConstructRegistry.addBowMaterial(11, 960, 30, 1.2f); // Ardite
-        TConstructRegistry.addBowMaterial(12, 1536, 30, 1.2f); // Manyullyn
-        TConstructRegistry.addBowMaterial(13, 384, 30, 1.2f); // Copper
-        TConstructRegistry.addBowMaterial(14, 576, 30, 1.2f); // Bronze
-        TConstructRegistry.addBowMaterial(15, 768, 30, 1.2f); // Alumite
-        TConstructRegistry.addBowMaterial(16, 768, 30, 1.2f); // Steel
-        TConstructRegistry.addBowMaterial(17, 576, 20, 1.2f); // Blue Slime
-        TConstructRegistry.addBowMaterial(18, 384, 20, 1.2f); // Slime
+        // Bow Materials: Material ID, durability, drawspeed, arrow speed
+        TConstructRegistry.addBowMaterial(MaterialID.Wood,       384, 20, 1.0f); // Wood
+        TConstructRegistry.addBowMaterial(MaterialID.Stone,       10, 80, 0.2f); // Stone
+        TConstructRegistry.addBowMaterial(MaterialID.Iron,       576, 30, 1.2f); // Iron
+        TConstructRegistry.addBowMaterial(MaterialID.Flint,       10, 80, 0.2f); // Flint
+        TConstructRegistry.addBowMaterial(MaterialID.Cactus,     384, 20, 1.0f); // Cactus
+        TConstructRegistry.addBowMaterial(MaterialID.Bone,       192, 30, 1.0f); // Bone
+        TConstructRegistry.addBowMaterial(MaterialID.Obsidian,    10, 80, 0.2f); // Obsidian
+        TConstructRegistry.addBowMaterial(MaterialID.Netherrack,  10, 80, 0.2f); // Netherrack
+        TConstructRegistry.addBowMaterial(MaterialID.Slime,     1536, 30, 1.2f); // Slime
+        TConstructRegistry.addBowMaterial(MaterialID.Paper,       48, 25, 0.5f); // Paper
+        TConstructRegistry.addBowMaterial(MaterialID.Cobalt,    1152, 30, 1.2f); // Cobalt
+        TConstructRegistry.addBowMaterial(MaterialID.Ardite,     960, 30, 1.2f); // Ardite
+        TConstructRegistry.addBowMaterial(MaterialID.Manyullyn, 1536, 30, 1.2f); // Manyullyn
+        TConstructRegistry.addBowMaterial(MaterialID.Copper,     384, 30, 1.2f); // Copper
+        TConstructRegistry.addBowMaterial(MaterialID.Bronze,     576, 30, 1.2f); // Bronze
+        TConstructRegistry.addBowMaterial(MaterialID.Alumite,    768, 30, 1.2f); // Alumite
+        TConstructRegistry.addBowMaterial(MaterialID.Steel,      768, 30, 1.2f); // Steel
+        TConstructRegistry.addBowMaterial(MaterialID.BlueSlime,  576, 20, 1.2f); // Blue Slime
+        TConstructRegistry.addBowMaterial(MaterialID.PigIron,    384, 20, 1.2f); // Pig Iron
 
-        // Material ID, mass, fragility
-        TConstructRegistry.addArrowMaterial(0, 0.69F, 1.0F, 100F); //Wood
-        TConstructRegistry.addArrowMaterial(1, 2.05F, 5.0F, 100F); //Stone
-        TConstructRegistry.addArrowMaterial(2, 3.6F, 0.5F, 100F); //Iron
-        TConstructRegistry.addArrowMaterial(3, 1.325F, 1.0F, 100F); //Flint
-        TConstructRegistry.addArrowMaterial(4, 0.76F, 1.0F, 100F); //Cactus
-        TConstructRegistry.addArrowMaterial(5, 0.69F, 1.0F, 100); //Bone
-        TConstructRegistry.addArrowMaterial(6, 2.4F, 1.0F, 100F); //Obsidian
-        TConstructRegistry.addArrowMaterial(7, 1.5F, 1.0F, 100F); //Netherrack
-        TConstructRegistry.addArrowMaterial(8, 0.22F, 0.0F, 100F); //Slime
-        TConstructRegistry.addArrowMaterial(9, 0.69F, 3.0F, 90F); //Paper
-        TConstructRegistry.addArrowMaterial(10, 3.0F, 0.25F, 100F); //Cobalt
-        TConstructRegistry.addArrowMaterial(11, 1.25F, 0.25F, 100F); //Ardite
-        TConstructRegistry.addArrowMaterial(12, 2.25F, 0.1F, 100F); //Manyullyn
-        TConstructRegistry.addArrowMaterial(13, 2.7F, 0.5F, 100F); //Copper
-        TConstructRegistry.addArrowMaterial(14, 3.6F, 0.25F, 100F); //Bronze
-        TConstructRegistry.addArrowMaterial(15, 1.1F, 0.25F, 100F); //Alumite
-        TConstructRegistry.addArrowMaterial(16, 3.6F, 0.25F, 100F); //Steel
-        TConstructRegistry.addArrowMaterial(17, 0.22F, 0.0F, 100F); //Blue Slime
-        TConstructRegistry.addArrowMaterial(18, 3.6F, 0.5F, 100F); //Pigiron
+        // Fletchling Materials: Material ID, mass, fragility
+        TConstructRegistry.addArrowMaterial(MaterialID.Wood,       0.69F,  1.0F, 100F); //Wood
+        TConstructRegistry.addArrowMaterial(MaterialID.Stone,      2.05F,  5.0F, 100F); //Stone
+        TConstructRegistry.addArrowMaterial(MaterialID.Iron,        3.6F,  0.5F, 100F); //Iron
+        TConstructRegistry.addArrowMaterial(MaterialID.Flint,     1.325F,  1.0F, 100F); //Flint
+        TConstructRegistry.addArrowMaterial(MaterialID.Cactus,     0.76F,  1.0F, 100F); //Cactus
+        TConstructRegistry.addArrowMaterial(MaterialID.Bone,       0.69F,  1.0F, 100);  //Bone
+        TConstructRegistry.addArrowMaterial(MaterialID.Obsidian,    2.4F,  1.0F, 100F); //Obsidian
+        TConstructRegistry.addArrowMaterial(MaterialID.Netherrack,  1.5F,  1.0F, 100F); //Netherrack
+        TConstructRegistry.addArrowMaterial(MaterialID.Slime,      0.22F,  0.0F, 100F); //Slime
+        TConstructRegistry.addArrowMaterial(MaterialID.Paper,      0.69F,  3.0F,  90F); //Paper
+        TConstructRegistry.addArrowMaterial(MaterialID.Cobalt,      3.0F, 0.25F, 100F); //Cobalt
+        TConstructRegistry.addArrowMaterial(MaterialID.Ardite,     1.25F, 0.25F, 100F); //Ardite
+        TConstructRegistry.addArrowMaterial(MaterialID.Manyullyn,  2.25F,  0.1F, 100F); //Manyullyn
+        TConstructRegistry.addArrowMaterial(MaterialID.Copper,      2.7F,  0.5F, 100F); //Copper
+        TConstructRegistry.addArrowMaterial(MaterialID.Bronze,      3.6F, 0.25F, 100F); //Bronze
+        TConstructRegistry.addArrowMaterial(MaterialID.Alumite,     1.1F, 0.25F, 100F); //Alumite
+        TConstructRegistry.addArrowMaterial(MaterialID.Steel,       3.6F, 0.25F, 100F); //Steel
+        TConstructRegistry.addArrowMaterial(MaterialID.BlueSlime,  0.22F,  0.0F, 100F); //Blue Slime
+        TConstructRegistry.addArrowMaterial(MaterialID.PigIron,     3.6F,  0.5F, 100F); //Pigiron
 
         TConstructRegistry.addBowstringMaterial(0, 2, new ItemStack(Items.string), new ItemStack(TinkerTools.bowstring, 1, 0), 1F, 1F, 1f); // String
         TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Items.feather), new ItemStack(TinkerTools.fletching, 1, 0), 100F, 0F, 0.05F); // Feather
