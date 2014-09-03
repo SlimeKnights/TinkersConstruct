@@ -782,7 +782,7 @@ public class TinkerTools
             TConstruct.logger.info("Thaumcraft detected. Adding thaumium tools.");
             TinkerTools.thaumcraftAvailable = true;
             TConstructClientRegistry.addMaterialRenderMapping(31, "tinker", "thaumium", true);
-            TConstructRegistry.addToolMaterial(MaterialID.Thaumium, "Thaumium", 3, 400, 700, 2, 1.3F, 0, 0f, "\u00A75", "materialtraits.thaumic");
+            TConstructRegistry.addToolMaterial(MaterialID.Thaumium, "Thaumium", 3, 400, 700, 2, 1.3F, 0, 0f, "\u00A75");
             PatternBuilder.instance.registerFullMaterial(new ItemStack((Item) obj, 1, 2), 2, "Thaumium", new ItemStack(TinkerTools.toolShard, 1, 31), new ItemStack(TinkerTools.toolRod, 1, 31), 31);
             for (int meta = 0; meta < TinkerTools.patternOutputs.length; meta++)
             {
@@ -814,25 +814,25 @@ public class TinkerTools
     
     void registerMaterials ()
     {
-        TConstructRegistry.addToolMaterial(MaterialID.Wood,      "Wood", 1, 97, 350, 0, 1.0F, 0, 0f, "\u00A7e", "");
-        TConstructRegistry.addToolMaterial(MaterialID.Stone,     "Stone", 1, 131, 400, 1, 0.5F, 0, 1f, "", "materialtraits.stonebound");
-        TConstructRegistry.addToolMaterial(MaterialID.Iron,      "Iron", 2, 250, 600, 2, 1.3F, 1, 0f, "\u00A7f", "");
-        TConstructRegistry.addToolMaterial(MaterialID.Flint,     "Flint", 1, 171, 525, 2, 0.7F, 0, 0f, "\u00A78", "");
-        TConstructRegistry.addToolMaterial(MaterialID.Cactus,    "Cactus", 1, 150, 500, 2, 1.0F, 0, -1f, "\u00A72", "materialtraits.jagged");
-        TConstructRegistry.addToolMaterial(MaterialID.Bone,      "Bone", 1, 200, 400, 1, 1.0F, 0, 0f, "\u00A7e", "");
-        TConstructRegistry.addToolMaterial(MaterialID.Obsidian,  "Obsidian", 3, 89, 700, 2, 0.8F, 3, 0f, "\u00A7d", "");
-        TConstructRegistry.addToolMaterial(MaterialID.Netherrack,"Netherrack", 2, 131, 400, 1, 1.2F, 0, 1f, "\u00A74", "materialtraits.stonebound");
-        TConstructRegistry.addToolMaterial(MaterialID.Slime,     "Slime", 0, 500, 150, 0, 1.5F, 0, 0f, "\u00A7a", "");
-        TConstructRegistry.addToolMaterial(MaterialID.Paper,     "Paper", 0, 30, 200, 0, 0.3F, 0, 0f, "\u00A7f", "materialtraits.writable");
-        TConstructRegistry.addToolMaterial(MaterialID.Cobalt,    "Cobalt", 4, 800, 1400, 3, 1.75F, 2, 0f, "\u00A73", "");
-        TConstructRegistry.addToolMaterial(MaterialID.Ardite,    "Ardite", 4, 500, 800, 3, 2.0F, 0, 2f, "\u00A74", "materialtraits.stonebound");
-        TConstructRegistry.addToolMaterial(MaterialID.Manyullyn, "Manyullyn", 5, 1200, 900, 4, 2.5F, 0, 0f, "\u00A75", "");
-        TConstructRegistry.addToolMaterial(MaterialID.Copper,    "Copper", 1, 180, 500, 2, 1.15F, 0, 0f, "\u00A7c", "");
-        TConstructRegistry.addToolMaterial(MaterialID.Bronze,    "Bronze", 2, 550, 800, 2, 1.3F, 1, 0f, "\u00A76", "");
-        TConstructRegistry.addToolMaterial(MaterialID.Alumite,   "Alumite", 4, 700, 800, 3, 1.3F, 2, 0f, "\u00A7d", "");
-        TConstructRegistry.addToolMaterial(MaterialID.Steel,     "Steel", 4, 750, 1000, 4, 1.3F, 2, 0f, "", "");
-        TConstructRegistry.addToolMaterial(MaterialID.BlueSlime, "BlueSlime", 0, 1200, 150, 0, 2.0F, 0, 0f, "\u00A7b", "");
-        TConstructRegistry.addToolMaterial(MaterialID.PigIron,   "PigIron", 3, 250, 600, 2, 1.3F, 1, 0f, "\u00A7c", "materialtraits.tasty");
+        TConstructRegistry.addToolMaterial(MaterialID.Wood,      "Wood", 1, 97, 350, 0, 1.0F, 0, 0f, "\u00A7e");
+        TConstructRegistry.addToolMaterial(MaterialID.Stone,     "Stone", 1, 131, 400, 1, 0.5F, 0, 1f, "");
+        TConstructRegistry.addToolMaterial(MaterialID.Iron,      "Iron", 2, 250, 600, 2, 1.3F, 1, 0f, "\u00A7f");
+        TConstructRegistry.addToolMaterial(MaterialID.Flint,     "Flint", 1, 171, 525, 2, 0.7F, 0, 0f, "\u00A78");
+        TConstructRegistry.addToolMaterial(MaterialID.Cactus,    "Cactus", 1, 150, 500, 2, 1.0F, 0, -1f, "\u00A72");
+        TConstructRegistry.addToolMaterial(MaterialID.Bone,      "Bone", 1, 200, 400, 1, 1.0F, 0, 0f, "\u00A7e");
+        TConstructRegistry.addToolMaterial(MaterialID.Obsidian,  "Obsidian", 3, 89, 700, 2, 0.8F, 3, 0f, "\u00A7d");
+        TConstructRegistry.addToolMaterial(MaterialID.Netherrack,"Netherrack", 2, 131, 400, 1, 1.2F, 0, 1f, "\u00A74");
+        TConstructRegistry.addToolMaterial(MaterialID.Slime,     "Slime", 0, 500, 150, 0, 1.5F, 0, 0f, "\u00A7a");
+        TConstructRegistry.addToolMaterial(MaterialID.Paper,     "Paper", 0, 30, 200, 0, 0.3F, 0, 0f, "\u00A7f");
+        TConstructRegistry.addToolMaterial(MaterialID.Cobalt,    "Cobalt", 4, 800, 1400, 3, 1.75F, 2, 0f, "\u00A73");
+        TConstructRegistry.addToolMaterial(MaterialID.Ardite,    "Ardite", 4, 500, 800, 3, 2.0F, 0, 2f, "\u00A74");
+        TConstructRegistry.addToolMaterial(MaterialID.Manyullyn, "Manyullyn", 5, 1200, 900, 4, 2.5F, 0, 0f, "\u00A75");
+        TConstructRegistry.addToolMaterial(MaterialID.Copper,    "Copper", 1, 180, 500, 2, 1.15F, 0, 0f, "\u00A7c");
+        TConstructRegistry.addToolMaterial(MaterialID.Bronze,    "Bronze", 2, 550, 800, 2, 1.3F, 1, 0f, "\u00A76");
+        TConstructRegistry.addToolMaterial(MaterialID.Alumite,   "Alumite", 4, 700, 800, 3, 1.3F, 2, 0f, "\u00A7d");
+        TConstructRegistry.addToolMaterial(MaterialID.Steel,     "Steel", 4, 750, 1000, 4, 1.3F, 2, 0f, "");
+        TConstructRegistry.addToolMaterial(MaterialID.BlueSlime, "BlueSlime", 0, 1200, 150, 0, 2.0F, 0, 0f, "\u00A7b");
+        TConstructRegistry.addToolMaterial(MaterialID.PigIron,   "PigIron", 3, 250, 600, 2, 1.3F, 1, 0f, "\u00A7c");
 
         TConstructRegistry.addBowMaterial(0, 384, 20, 1.0f); // Wood
         TConstructRegistry.addBowMaterial(1, 10, 80, 0.2f); // Stone

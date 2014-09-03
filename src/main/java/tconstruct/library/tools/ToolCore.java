@@ -439,7 +439,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
      */
     public String getAbilityNameForType (int type)
     {
-        return TConstructRegistry.getMaterial(type).localizedAbility();
+        return TConstructRegistry.getMaterial(type).ability();
     }
 
     public String getReinforcedName (int head, int handle, int accessory, int extra, int unbreaking)

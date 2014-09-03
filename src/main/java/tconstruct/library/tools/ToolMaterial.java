@@ -19,9 +19,8 @@ public class ToolMaterial
     public final int reinforced;
     public final float stonebound;
     public final String tipStyle;
-    public final String ability;
 
-    public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, String ability)
+    public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style)
     {
         this.materialName = name;
         this.harvestLevel = level;
@@ -32,7 +31,6 @@ public class ToolMaterial
         this.reinforced = reinforced;
         this.stonebound = stonebound;
         this.tipStyle = style;
-        this.ability = ability;
     }
 
     public String name ()
@@ -90,10 +88,14 @@ public class ToolMaterial
         return this.tipStyle;
     }
 
+    /**
+     * Returns the ability of the tool to display.
+     * ONLY USE THIS FOR DISPLAY PURPOSES. It is not data you can rely on. Use the material-ids for that.
+     */
     public String ability ()
     {
-        return this.ability;
+        if(StatCollector.canTranslate(String.format("material.%s.ability", materialName.toLowerCase())))
+            return StatCollector.translateToLocal(String.format("material.%s.ability", materialName.toLowerCase()));
+        return "";
     }
-
-    public String localizedAbility () { return StatCollector.translateToLocal(this.ability); }
 }

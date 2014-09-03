@@ -766,18 +766,23 @@ gui.mining6=Manyullyn
 material.wood=Wood
 material.wood.display=Wooden
 material.stone=Stone
+material.stone.ability=Stonebound
 material.iron=Iron
 material.flint=Flint
 material.cactus=Cactus
+material.cactus.ability=Jagged
 material.bone=Bone
 material.obsidian=Obsidian
 material.netherrack=Netherrack
+material.netherrack.ability=Stonebound
 material.slime=Slime
 material.paper=Paper
+material.paper.ability=Writable
 material.blueslime=BlueSlime
 material.blueslime.display=Slime
 material.cobalt=Cobalt
 material.ardite=Ardite
+material.ardite.ability=Stonebound
 material.manyullyn=Manyullyn
 material.copper=Copper
 material.bronze=Bronze
@@ -785,7 +790,9 @@ material.alumite=Alumite
 material.steel=Steel
 material.pigiron=Pigiron
 material.pigiron.display=Pig Iron
+material.pigiron.ability=Tasty
 material.thaumium=Thaumium
+material.thaumium.ability=Thaumic
 
 gui.modifier.blaze=Blaze
 gui.modifier.silk=Silk Touch
@@ -820,12 +827,6 @@ modifier.tool.moss=Auto-Repair
 modifier.tool.lava=Auto-Smelt
 modifier.tool.necro=Life Steal
 modifier.tool.beheading=Beheading
-
-materialtraits.stonebound=Stonebound
-materialtraits.jagged=Jagged
-materialtraits.writable=Writable
-materialtraits.tasty=Tasty
-materialtraits.thaumic=Thaumic
 
 creativeModLock.tooltip=Target Lock: 
 

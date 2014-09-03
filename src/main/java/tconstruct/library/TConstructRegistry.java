@@ -262,13 +262,12 @@ public class TConstructRegistry
      *            Spiny.
      */
 
-    public static void addToolMaterial (int materialID, String materialName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced, float stonebound,
-            String style, String ability)
+    public static void addToolMaterial (int materialID, String materialName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced, float stonebound, String style)
     {
         ToolMaterial mat = toolMaterials.get(materialID);
         if (mat == null)
         {
-            mat = new ToolMaterial(materialName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, stonebound, style, ability);
+            mat = new ToolMaterial(materialName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, stonebound, style);
             toolMaterials.put(materialID, mat);
             toolMaterialStrings.put(materialName, mat);
         }
@@ -308,8 +307,8 @@ public class TConstructRegistry
     public static void addToolMaterial (int materialID, String materialName, String displayName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced,
             float stonebound, String style, String ability)
     {
-        logger.warn("[TCon API] Using deprecated addToolMaterial with display name. displayName will be ignored, use languages files for it.");
-        addToolMaterial(materialID, materialName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, stonebound, style, ability);
+        logger.warn("[TCon API] Using deprecated addToolMaterial with display name. displayName and ability will be ignored, use languages files for that.");
+        addToolMaterial(materialID, materialName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, stonebound, style);
     }
 
     /**
