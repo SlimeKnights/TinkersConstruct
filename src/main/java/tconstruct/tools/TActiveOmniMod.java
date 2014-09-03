@@ -66,10 +66,12 @@ public class TActiveOmniMod extends ActiveToolMod
     private boolean autoSmelt(ToolCore tool, NBTTagCompound tags, ItemStack stack, int x, int y, int z, EntityLivingBase entity)
     {
         World world = entity.worldObj;
-        int meta = world.getBlockMetadata(x, y, z);
         Block block = world.getBlock(x, y, z);
         if (block == null)
             return false;
+
+        int meta = world.getBlockMetadata(x, y, z);
+        meta = block.damageDropped(meta);
 
         if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
         {
