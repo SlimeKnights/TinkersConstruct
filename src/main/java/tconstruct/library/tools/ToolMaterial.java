@@ -21,10 +21,13 @@ public class ToolMaterial
     @Deprecated
     public String displayName;
     @Deprecated
+    public String ability;
+    @Deprecated
     public ToolMaterial(String name, String displayName, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, String ability)
     {
         this(name, level, durability, speed, damage, handle, reinforced, stonebound, style);
         this.displayName = prefixName();
+        this.ability = ability();
     }
 
     @Deprecated
@@ -32,6 +35,7 @@ public class ToolMaterial
     {
         this(name, level, durability, speed, damage, handle, reinforced, stonebound, style);
         this.displayName = prefixName();
+        this.ability = ability();
     }
 
     public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style)
