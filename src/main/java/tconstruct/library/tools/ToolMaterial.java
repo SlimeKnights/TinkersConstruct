@@ -27,6 +27,13 @@ public class ToolMaterial
         this.displayName = prefixName();
     }
 
+    @Deprecated
+    public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, String ability)
+    {
+        this(name, level, durability, speed, damage, handle, reinforced, stonebound, style);
+        this.displayName = prefixName();
+    }
+
     public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style)
     {
         this.materialName = name;
