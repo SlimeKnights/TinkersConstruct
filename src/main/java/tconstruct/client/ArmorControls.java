@@ -21,7 +21,7 @@ import tconstruct.util.network.DoubleJumpPacket;
 import tconstruct.util.network.GogglePacket;
 import cpw.mods.fml.common.gameevent.TickEvent.Type;
 
-public class TControls extends TKeyHandler
+public class ArmorControls extends TKeyHandler
 {
     public static final String keybindCategory = "tconstruct.keybindings";
     public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24, keybindCategory);
@@ -43,7 +43,7 @@ public class TControls extends TKeyHandler
 
     // boolean onStilts = false;
 
-    public TControls()
+    public ArmorControls()
     {
         super(new KeyBinding[] { armorKey, toggleGoggles, beltSwap, zoomKey }, new boolean[] { false, false, false, false }, getVanillaKeyBindings(), new boolean[] { false, false });
         /*ClientRegistry.registerKeyBinding(armorKey);

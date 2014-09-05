@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.armor.player.TPlayerStats;
-import tconstruct.client.TControls;
+import tconstruct.client.ArmorControls;
 import tconstruct.library.modifier.IModifyable;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -14,7 +14,7 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 public class ArmorAbilitiesClient
 {
     Minecraft mc;
-    TControls controlInstance;
+    ArmorControls controlInstance;
 
     ItemStack prevFeet;
     double prevMotionY;
@@ -25,7 +25,7 @@ public class ArmorAbilitiesClient
     float prevMouseSensitivity;
     boolean sprint;
 
-    public ArmorAbilitiesClient(Minecraft mc, TControls p)
+    public ArmorAbilitiesClient(Minecraft mc, ArmorControls p)
     {
         this.mc = mc;
         this.controlInstance = p;

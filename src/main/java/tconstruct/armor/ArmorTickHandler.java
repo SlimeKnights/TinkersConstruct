@@ -1,7 +1,7 @@
 package tconstruct.armor;
 
 import net.minecraft.client.Minecraft;
-import tconstruct.client.TControls;
+import tconstruct.client.ArmorControls;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.relauncher.Side;
@@ -11,7 +11,7 @@ public class ArmorTickHandler
 {
     Minecraft mc = Minecraft.getMinecraft();
 
-    TControls controlInstance = ((ArmorProxyClient)TinkerArmor.proxy).controlInstance;
+    ArmorControls controlInstance = ((ArmorProxyClient)TinkerArmor.proxy).controlInstance;
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent

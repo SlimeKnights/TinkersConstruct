@@ -29,7 +29,6 @@ import tconstruct.api.TConstructAPI;
 import tconstruct.armor.TinkerArmor;
 import tconstruct.armor.player.TPlayerHandler;
 import tconstruct.armor.player.TPlayerStats;
-import tconstruct.client.TControls;
 import tconstruct.library.TConstructCreativeTab;
 import tconstruct.common.TProxyCommon;
 import tconstruct.library.TConstructRegistry;
@@ -153,11 +152,6 @@ public class TConstruct
         FMLCommonHandler.instance().bus().register(playerTracker);
         MinecraftForge.EVENT_BUS.register(playerTracker);
         NetworkRegistry.INSTANCE.registerGuiHandler(TConstruct.instance, proxy);
-
-        if (event.getSide() == Side.CLIENT)
-        {
-            FMLCommonHandler.instance().bus().register(new TControls());
-        }
 
         pulsar.preInit(event);
 

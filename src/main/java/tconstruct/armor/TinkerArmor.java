@@ -27,6 +27,7 @@ import tconstruct.armor.items.TravelGear;
 import tconstruct.armor.items.TravelGlove;
 import tconstruct.armor.items.TravelWings;
 import tconstruct.blocks.logic.DryingRackLogic;
+import tconstruct.client.ArmorControls;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.accessory.AccessoryCore;
 import tconstruct.library.armor.ArmorPart;
@@ -51,6 +52,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
+import cpw.mods.fml.relauncher.Side;
 
 @ObjectHolder(TConstruct.modID)
 @Pulse(id = "Tinkers' Armory", description = "Modifyable armors, such as the traveller's gear.")
@@ -94,6 +96,11 @@ public class TinkerArmor
     {
         MinecraftForge.EVENT_BUS.register(new TinkerArmorEvents());
         FMLCommonHandler.instance().bus().register(new ArmorAbilities());
+        
+        if (event.getSide() == Side.CLIENT)
+        {
+            FMLCommonHandler.instance().bus().register(new ArmorControls());
+        }
 
         TinkerArmor.dryingRack = new DryingRack().setBlockName("Armor.DryingRack");
         GameRegistry.registerBlock(TinkerArmor.dryingRack, "Armor.DryingRack");
