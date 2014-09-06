@@ -159,23 +159,23 @@ public class FurnaceSlab extends InventorySlab
                 
                 if (direction == 4)
                 {
-                    world.spawnParticle("smoke", x, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
-                    world.spawnParticle("flame", x, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("smoke", x - 0.02F, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("flame", x - 0.02F, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
                 }
                 else if (direction == 5)
                 {
-                    world.spawnParticle("smoke", x + 1.0F, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
-                    world.spawnParticle("flame", x + 1.0F, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("smoke", x + 1.02F, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("flame", x + 1.02F, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
                 }
                 else if (direction == 2)
                 {
-                    world.spawnParticle("smoke", x + offset + 0.5F, y + offsetY, z, 0.0D, 0.0D, 0.0D);
-                    world.spawnParticle("flame", x + offset + 0.5F, y + offsetY, z, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("smoke", x + offset + 0.5F, y + offsetY, z - 0.02F, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("flame", x + offset + 0.5F, y + offsetY, z - 0.02F, 0.0D, 0.0D, 0.0D);
                 }
                 else if (direction == 3)
                 {
-                    world.spawnParticle("smoke", x + offset + 0.5F, y + offsetY, z + 1.0F, 0.0D, 0.0D, 0.0D);
-                    world.spawnParticle("flame", x + offset + 0.5F, y + offsetY, z + 1.0F, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("smoke", x + offset + 0.5F, y + offsetY, z + 1.02F, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("flame", x + offset + 0.5F, y + offsetY, z + 1.02F, 0.0D, 0.0D, 0.0D);
                 }                
             }
         }
