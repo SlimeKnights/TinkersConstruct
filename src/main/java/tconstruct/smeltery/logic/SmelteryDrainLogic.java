@@ -54,16 +54,19 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
             SmelteryLogic smeltery = (SmelteryLogic) worldObj.getTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             return smeltery.drain(maxDrain, doDrain);
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 
     @Override
     public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
     {
-        // TODO Auto-generated method stub
+        if (hasValidMaster() && canDrain(from, null))
+        {
+            SmelteryLogic smeltery = (SmelteryLogic) worldObj.getTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
+            if(resource.getFluid() == smeltery.getFluid()){
+                return smeltery.drain(resource.amount, doDrain);
+            }
+        }
         return null;
     }
 
