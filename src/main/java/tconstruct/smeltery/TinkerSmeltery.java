@@ -1173,6 +1173,13 @@ public class TinkerSmeltery
 
     protected static void addRecipesForSmeltery ()
     {
+        // Smeltery fuels
+        Smeltery.addSmelteryFuel(FluidRegistry.LAVA, 1000, 10);
+        // register pyrotheum if it's present
+        Fluid pyrotheum = FluidRegistry.getFluid("pyrotheum");
+        if(pyrotheum != null)
+            Smeltery.addSmelteryFuel(pyrotheum, 1500, 9);
+
         // Alloy Smelting
         Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenBronzeFluid, (int) (TConstruct.nuggetLiquidValue * PHConstruct.ingotsBronzeAlloy)), new FluidStack(
                 TinkerSmeltery.moltenCopperFluid, TConstruct.nuggetLiquidValue * 3), new FluidStack(TinkerSmeltery.moltenTinFluid, TConstruct.nuggetLiquidValue)); // Bronze
