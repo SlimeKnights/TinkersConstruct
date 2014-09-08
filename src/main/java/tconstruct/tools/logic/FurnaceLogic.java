@@ -38,7 +38,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacingLogic, ISidedInventory
 {
-    boolean active;
+    boolean active = false;
     public int fuel;
     public int fuelGague;
     public int progress;
@@ -51,7 +51,6 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     public FurnaceLogic()
     {
         super(3);
-        active = false;
     }
 
     @Override
@@ -274,7 +273,6 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     public void writeToNBT (NBTTagCompound tags)
     {
         super.writeToNBT(tags);
-        tags.setBoolean("Active", active);
         tags.setInteger("Fuel", fuel);
         tags.setInteger("FuelGague", fuelGague);
         writeNetworkNBT(tags);
@@ -282,11 +280,13 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
 
     public void readNetworkNBT (NBTTagCompound tags)
     {
+    	active = tags.getBoolean("Active");
         direction = tags.getByte("Direction");
     }
 
     public void writeNetworkNBT (NBTTagCompound tags)
     {
+    	tags.setBoolean("Active", active);
         tags.setByte("Direction", direction);
     }
 

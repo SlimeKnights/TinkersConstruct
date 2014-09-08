@@ -1,5 +1,7 @@
 package tconstruct.tools.blocks;
 
+import java.util.Random;
+
 import mantle.blocks.abstracts.InventorySlab;
 import mantle.blocks.iface.IActiveLogic;
 import mantle.blocks.iface.IFacingLogic;
@@ -131,5 +133,51 @@ public class FurnaceSlab extends InventorySlab
             return new FurnaceLogic();
         }
         return null;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void randomDisplayTick (World world, int x, int y, int z, Random random)
+    {
+        TileEntity logic = world.getTileEntity(x, y, z);
+        short direction = (logic instanceof IFacingLogic) ? ((IFacingLogic) logic).getRenderDirection() : 0;
+        int meta = world.getBlockMetadata(x, y, z);
+        int metaType = meta % 8;
+        int metaPos = meta / 8;
+
+        if (metaType == 0)
+        {
+            if (((IActiveLogic) logic).getActive())
+            {
+                float offset = random.nextFloat() * 0.6F - 0.3F;
+                float offsetY = random.nextFloat() * 6.0F / 16.0F;
+                
+                if (metaPos == 1)
+                {
+                    offsetY += 0.5F;
+                }
+                
+                if (direction == 4)
+                {
+                    world.spawnParticle("smoke", x - 0.02F, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("flame", x - 0.02F, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
+                }
+                else if (direction == 5)
+                {
+                    world.spawnParticle("smoke", x + 1.02F, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("flame", x + 1.02F, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
+                }
+                else if (direction == 2)
+                {
+                    world.spawnParticle("smoke", x + offset + 0.5F, y + offsetY, z - 0.02F, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("flame", x + offset + 0.5F, y + offsetY, z - 0.02F, 0.0D, 0.0D, 0.0D);
+                }
+                else if (direction == 3)
+                {
+                    world.spawnParticle("smoke", x + offset + 0.5F, y + offsetY, z + 1.02F, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("flame", x + offset + 0.5F, y + offsetY, z + 1.02F, 0.0D, 0.0D, 0.0D);
+                }                
+            }
+        }
     }
 }
