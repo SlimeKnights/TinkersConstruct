@@ -179,7 +179,7 @@ public class SmelteryGui extends NewContainerGui
         this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
         if (logic.fuelGague > 0)
         {
-            IIcon lavaIcon = Blocks.lava.getIcon(0, 0);
+            IIcon lavaIcon = logic.getFuelIcon();
             int fuel = logic.getScaledFuelGague(52);
             int count = 0;
             while (fuel > 0)
