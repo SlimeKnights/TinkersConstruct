@@ -2,7 +2,7 @@ package tconstruct.client.tabs;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import tconstruct.client.TControls;
+import tconstruct.client.ArmorControls;
 
 public class InventoryTabArmorExtended extends AbstractTab
 {
@@ -14,7 +14,7 @@ public class InventoryTabArmorExtended extends AbstractTab
     @Override
     public void onTabClicked ()
     {
-        TControls.openArmorGui();
+        ArmorControls.openArmorGui();
     }
 
     @Override

@@ -39,7 +39,7 @@ import tconstruct.armor.model.HiddenPlayerModel;
 import tconstruct.armor.model.WingModel;
 import tconstruct.armor.player.ArmorExtended;
 import tconstruct.armor.player.KnapsackInventory;
-import tconstruct.client.TControls;
+import tconstruct.client.ArmorControls;
 import tconstruct.client.TKeyHandler;
 import tconstruct.client.tabs.InventoryTabArmorExtended;
 import tconstruct.client.tabs.InventoryTabKnapsack;
@@ -148,12 +148,12 @@ public class ArmorProxyClient extends ArmorProxyCommon
     }
 
     /* Keybindings */
-    public static TControls controlInstance;
+    public static ArmorControls controlInstance;
 
     @Override
     public void registerKeys ()
     {
-        controlInstance = new TControls();
+        controlInstance = new ArmorControls();
         uploadKeyBindingsToGame(Minecraft.getMinecraft().gameSettings, controlInstance);
 
         TabRegistry.registerTab(new InventoryTabVanilla());
@@ -191,7 +191,7 @@ public class ArmorProxyClient extends ArmorProxyCommon
     @SubscribeEvent
     public void goggleZoom (FOVUpdateEvent event)
     {
-        if (TControls.zoom)
+        if (ArmorControls.zoom)
         {
             ItemStack helmet = event.entity.getCurrentArmor(3);
             if (helmet != null && helmet.getItem() instanceof TravelGear)

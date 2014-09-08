@@ -11,7 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import tconstruct.armor.ArmorProxyClient;
-import tconstruct.client.TControls;
+import tconstruct.client.ArmorControls;
 import tconstruct.library.accessory.AccessoryCore;
 import tconstruct.library.accessory.IAccessoryModel;
 import cpw.mods.fml.relauncher.Side;
@@ -60,6 +60,6 @@ public class TravelBelt extends AccessoryCore implements IAccessoryModel
             return;
         
         list.add("\u00a76Ability: Swap Hotbar");
-        list.add("\u00a76Control: "+GameSettings.getKeyDisplayString(TControls.beltSwap.getKeyCode()));
+        list.add("\u00a76Control: "+GameSettings.getKeyDisplayString(ArmorControls.beltSwap.getKeyCode()));
     }
 }
