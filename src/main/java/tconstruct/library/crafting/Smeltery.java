@@ -1,15 +1,13 @@
 package tconstruct.library.crafting;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import mantle.utils.ItemMetaWrapper;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -22,6 +20,44 @@ public class Smeltery
     private final Map<ItemMetaWrapper, Integer> temperatureList = new HashMap<ItemMetaWrapper, Integer>();
     private final Map<ItemMetaWrapper, ItemStack> renderIndex = new HashMap<ItemMetaWrapper, ItemStack>();
     private final List<AlloyMix> alloys = new ArrayList<AlloyMix>();
+    private final Map<Fluid, Integer[]> smelteryFuels = new HashMap<Fluid, Integer[]>(); // fluid -> [power, duration]
+
+    /**
+     * Add a new fluid as a valid Smeltery fuel.
+     * @param fluid The fluid.
+     * @param power The temperature of the fluid. This also influences the melting speed. Lava is 1000.
+     * @param duration How long one "portion" of liquid fuels the smeltery. Lava is 10.
+     */
+    public static void addSmelteryFuel(Fluid fluid, int power, int duration)
+    {
+        instance.smelteryFuels.put(fluid, new Integer[] {power, duration});
+    }
+
+    /**
+     * Returns true if the liquid is a valid smeltery fuel.
+     */
+    public static boolean isSmelteryFuel(Fluid fluid)
+    {
+        return instance.smelteryFuels.containsKey(fluid);
+    }
+
+    /**
+     * Returns the power of a smeltery fuel or 0 if it's not a fuel.
+     */
+    public static int getFuelPower(Fluid fluid)
+    {
+        Integer[] power = instance.smelteryFuels.get(fluid);
+        return power == null ? 0 : power[0];
+    }
+
+    /**
+     * Returns the duration of a smeltery fuel or 0 if it's not a fuel.
+     */
+    public static int getFuelDuration(Fluid fluid)
+    {
+        Integer[] power = instance.smelteryFuels.get(fluid);
+        return power == null ? 0 : power[1];
+    }
 
     /**
      * Adds mappings between an itemstack and an output liquid Example:
