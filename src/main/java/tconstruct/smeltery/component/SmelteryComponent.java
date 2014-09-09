@@ -1,18 +1,14 @@
 package tconstruct.smeltery.component;
 
 import java.util.ArrayList;
-
 import mantle.world.CoordTuple;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
-import tconstruct.library.component.LogicComponent;
-import tconstruct.library.component.MultiFluidTank;
+import net.minecraftforge.fluids.*;
+import tconstruct.library.component.*;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.logic.AdaptiveSmelteryLogic;
 

@@ -1,13 +1,11 @@
 package tconstruct.mechworks.landmine.behavior;
 
 import java.util.Random;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import tconstruct.mechworks.itemblocks.ItemBlockLandmine;
 
@@ -41,8 +39,7 @@ public class BehaviorFirecharge extends Behavior
             {
                 for (int j = par4 - 2; j <= (par4 + 2); j++)
                 {
-                    if ((par1World.getBlock(i, par3, j) == null || (par1World.getBlock(i, par3, j) != null && par1World.getBlock(i, par3, j).isReplaceable(par1World, i, par3, j)))
-                            && ItemBlockLandmine.getRandom().nextInt(5) == 0 && Blocks.fire.canPlaceBlockAt(par1World, i, par3, j))
+                    if ((par1World.getBlock(i, par3, j) == null || (par1World.getBlock(i, par3, j) != null && par1World.getBlock(i, par3, j).isReplaceable(par1World, i, par3, j))) && ItemBlockLandmine.getRandom().nextInt(5) == 0 && Blocks.fire.canPlaceBlockAt(par1World, i, par3, j))
                     {
                         par1World.setBlock(i, par3, j, Blocks.fire);
                     }

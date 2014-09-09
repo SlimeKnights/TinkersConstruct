@@ -1,16 +1,11 @@
 package tconstruct.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import mantle.crash.CallableSuppConfig;
-import mantle.crash.CallableUnsuppConfig;
+import cpw.mods.fml.common.*;
+import cpw.mods.fml.relauncher.Side;
+import java.util.*;
+import mantle.crash.*;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.TConstruct;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.ICrashCallable;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.relauncher.Side;
 
 public class EnvironmentChecks
 {
@@ -64,9 +59,7 @@ public class EnvironmentChecks
         String n = consoleFormat ? System.getProperty("line.separator") : "\n";
         if (type.equals("GregTech"))
         {
-            return "- GregTech is a meta-mod that changes how a lot of mods interact with the base game and with each other." + n
-                    + "- The mod restructures the registration of various ores within the Ore Dictionary. This may alter or break the original design intention of various other mods." + n
-                    + "- This mod alters various fundamental recipes from vanilla Minecraft.";
+            return "- GregTech is a meta-mod that changes how a lot of mods interact with the base game and with each other." + n + "- The mod restructures the registration of various ores within the Ore Dictionary. This may alter or break the original design intention of various other mods." + n + "- This mod alters various fundamental recipes from vanilla Minecraft.";
         }
         return "";
     }

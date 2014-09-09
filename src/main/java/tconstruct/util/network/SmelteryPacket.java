@@ -2,8 +2,7 @@ package tconstruct.util.network;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import mantle.common.network.AbstractPacket;
-import mantle.common.network.PacketUpdateTE;
+import mantle.common.network.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;

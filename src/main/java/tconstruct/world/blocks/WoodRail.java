@@ -1,14 +1,12 @@
 package tconstruct.world.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRailBase;
+import cpw.mods.fml.relauncher.*;
+import net.minecraft.block.*;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class WoodRail extends BlockRailBase
 {

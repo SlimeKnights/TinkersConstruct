@@ -1,16 +1,14 @@
 package tconstruct.tools.inventory;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.*;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import tconstruct.armor.inventory.SlotOnlyTake;
 import tconstruct.library.util.IPattern;
 import tconstruct.smeltery.inventory.ActiveContainer;
 import tconstruct.tools.TinkerTools;
-import tconstruct.tools.logic.PartBuilderLogic;
-import tconstruct.tools.logic.PatternChestLogic;
+import tconstruct.tools.logic.*;
 
 public class PartCrafterChestContainer extends ActiveContainer
 {
@@ -27,8 +25,7 @@ public class PartCrafterChestContainer extends ActiveContainer
         patternLogic = pLogic;
         largeInventory = true;
 
-        inventory = new Slot[] { new SlotPattern(partLogic, 0, 40, 27), new SlotPattern(partLogic, 1, 40, 45), new Slot(partLogic, 2, 58, 27), new Slot(partLogic, 3, 58, 45),
-                new SlotOnlyTake(partLogic, 4, 102, 27), new SlotOnlyTake(partLogic, 5, 120, 27), new SlotOnlyTake(partLogic, 6, 102, 45), new SlotOnlyTake(partLogic, 7, 120, 45) };
+        inventory = new Slot[] { new SlotPattern(partLogic, 0, 40, 27), new SlotPattern(partLogic, 1, 40, 45), new Slot(partLogic, 2, 58, 27), new Slot(partLogic, 3, 58, 45), new SlotOnlyTake(partLogic, 4, 102, 27), new SlotOnlyTake(partLogic, 5, 120, 27), new SlotOnlyTake(partLogic, 6, 102, 45), new SlotOnlyTake(partLogic, 7, 120, 45) };
         for (int iter = 0; iter < inventory.length; iter++)
             this.addSlotToContainer(inventory[iter]);
 

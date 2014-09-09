@@ -1,11 +1,9 @@
 package tconstruct.tools.items;
 
 import java.util.List;
-
 import mantle.items.abstracts.CraftingItem;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.StatCollector;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.util.IToolPart;
@@ -62,11 +60,9 @@ public class ToolPart extends CraftingItem implements IToolPart
         return names;
     }
 
-    public static final String[] toolMaterialNames = new String[] { "Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn",
-            "Copper", "Bronze", "Alumite", "Steel", "Blue Slime", "Pig Iron", "", "", "", "", "", "", "", "", "", "", "", "", "Thaumium" };
+    public static final String[] toolMaterialNames = new String[] { "Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn", "Copper", "Bronze", "Alumite", "Steel", "Blue Slime", "Pig Iron", "", "", "", "", "", "", "", "", "", "", "", "", "Thaumium" };
 
-    public static final String[] toolTextureNames = new String[] { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn",
-            "copper", "bronze", "alumite", "steel", "blueslime", "pigiron", "", "", "", "", "", "", "", "", "", "", "", "", "thaumium" };
+    public static final String[] toolTextureNames = new String[] { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel", "blueslime", "pigiron", "", "", "", "", "", "", "", "", "", "", "", "", "thaumium" };
 
     @Override
     public void getSubItems (Item b, CreativeTabs tab, List list)
@@ -81,7 +77,7 @@ public class ToolPart extends CraftingItem implements IToolPart
     @Override
     public int getMaterialID (ItemStack stack)
     {
-        if(TConstructRegistry.toolMaterials.keySet().contains(stack.getItemDamage()))
+        if (TConstructRegistry.toolMaterials.keySet().contains(stack.getItemDamage()))
             return stack.getItemDamage();
 
         return -1;

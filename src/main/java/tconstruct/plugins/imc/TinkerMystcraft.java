@@ -1,20 +1,16 @@
 package tconstruct.plugins.imc;
 
-import net.minecraft.nbt.NBTTagCompound;
-
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLInterModComms;
+import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
-import mantle.pulsar.pulse.Handler;
-import mantle.pulsar.pulse.Pulse;
+import mantle.pulsar.pulse.*;
+import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.TConstruct;
 
 @ObjectHolder(TConstruct.modID)
 @Pulse(id = "Tinkers Mystcraft Compatibility", forced = true, modsRequired = "Mystcraft")
 public class TinkerMystcraft
 {
-    private static String[] fluids = new String[] { "invar.molten", "electrum.molten", "bronze.molten", "aluminumbrass.molten", "manyullyn.molten", "alumite.molten", "cobalt.molten", "moltenArdite",
-            "ender", "steel.molten", "platinum.molten" };
+    private static String[] fluids = new String[] { "invar.molten", "electrum.molten", "bronze.molten", "aluminumbrass.molten", "manyullyn.molten", "alumite.molten", "cobalt.molten", "moltenArdite", "ender", "steel.molten", "platinum.molten" };
 
     @Handler
     public void init (FMLInitializationEvent event)

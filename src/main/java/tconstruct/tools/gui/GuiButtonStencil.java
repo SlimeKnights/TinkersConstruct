@@ -5,9 +5,9 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import tconstruct.library.client.StencilGuiElement;
-import tconstruct.library.client.ToolGuiElement;
 
-public class GuiButtonStencil extends GuiButton{
+public class GuiButtonStencil extends GuiButton
+{
     /**
      * True for pointing right (next page), false for pointing left (previous
      * page).

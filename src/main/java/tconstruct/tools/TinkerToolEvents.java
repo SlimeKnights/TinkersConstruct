@@ -1,25 +1,19 @@
 package tconstruct.tools;
 
-import mantle.blocks.BlockUtils;
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntityZombie;
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.common.eventhandler.*;
+import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
+import java.util.List;
+import net.minecraft.entity.*;
+import net.minecraft.entity.monster.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSourceIndirect;
-import net.minecraft.util.Vec3;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.oredict.OreDictionary;
+import net.minecraft.util.*;
+import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.oredict.*;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import tconstruct.TConstruct;
 import tconstruct.armor.player.TPlayerStats;
@@ -28,11 +22,6 @@ import tconstruct.library.event.*;
 import tconstruct.library.tools.*;
 import tconstruct.util.ItemHelper;
 import tconstruct.util.config.PHConstruct;
-import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
-
-import java.util.List;
 
 public class TinkerToolEvents
 {
@@ -55,18 +44,20 @@ public class TinkerToolEvents
     }
 
     @SubscribeEvent
-    public void buildTool(ToolBuildEvent event)
+    public void buildTool (ToolBuildEvent event)
     {
         // check if the handle is a bone
-        if(event.handleStack.getItem() == Items.bone) {
+        if (event.handleStack.getItem() == Items.bone)
+        {
             event.handleStack = new ItemStack(TinkerTools.toolRod, 1, 5); // bone tool rod
             return;
         }
 
         // check if the handle is a stick
         List<ItemStack> sticks = OreDictionary.getOres("stickWood");
-        for(ItemStack stick : sticks)
-            if (OreDictionary.itemMatches(stick, event.handleStack, false)) {
+        for (ItemStack stick : sticks)
+            if (OreDictionary.itemMatches(stick, event.handleStack, false))
+            {
                 event.handleStack = new ItemStack(TinkerTools.toolRod, 1, 0); // wooden tool rod
                 return;
             }
@@ -152,7 +143,7 @@ public class TinkerToolEvents
         }
     }
 
-    private void handlePaper(NBTTagCompound toolTag, ToolCore tool)
+    private void handlePaper (NBTTagCompound toolTag, ToolCore tool)
     {
         int modifiers = toolTag.getInteger("Modifiers");
         if (toolTag.getInteger("Head") == TinkerTools.MaterialID.Paper)
@@ -165,13 +156,13 @@ public class TinkerToolEvents
             modifiers++;
 
         // 2 part tools gain 2 modifiers for the head
-        if(tool.getPartAmount() == 2 && toolTag.getInteger("Head") == TinkerTools.MaterialID.Paper)
+        if (tool.getPartAmount() == 2 && toolTag.getInteger("Head") == TinkerTools.MaterialID.Paper)
             modifiers++;
 
         toolTag.setInteger("Modifiers", modifiers);
     }
 
-    private void handleThaumium(NBTTagCompound toolTag, ToolCore tool)
+    private void handleThaumium (NBTTagCompound toolTag, ToolCore tool)
     {
         // count thaumic parts
         int thaum = 0;
@@ -185,10 +176,10 @@ public class TinkerToolEvents
             thaum++;
 
         // each part gives 0.5 modifiers, rounded up
-        int bonusModifiers = (int) Math.ceil((double)thaum/2d);
+        int bonusModifiers = (int) Math.ceil((double) thaum / 2d);
 
         // 2-part tools get 1 modifier per part
-        if(tool.getPartAmount() == 2)
+        if (tool.getPartAmount() == 2)
             bonusModifiers = thaum;
 
         int modifiers = toolTag.getInteger("Modifiers");
@@ -244,13 +235,12 @@ public class TinkerToolEvents
     {
         FletchingMaterial mat = (FletchingMaterial) TConstructRegistry.getCustomMaterial(stack, FletchingMaterial.class);
         // maybe it's a leaf fletchling
-        if(mat == null)
+        if (mat == null)
             mat = (FletchingMaterial) TConstructRegistry.getCustomMaterial(stack, FletchlingLeafMaterial.class);
         if (mat != null)
             return mat.craftingItem.copy();
         return null;
     }
-
 
     @SubscribeEvent
     public void onAttack (LivingAttackEvent event)
@@ -300,7 +290,7 @@ public class TinkerToolEvents
                     else
                     {
                         Entity attacker = source.getEntity();
-                        if(attacker != null)
+                        if (attacker != null)
                         {
                             attacker.attackEntityFrom(DamageSource.causeThornsDamage(player), event.ammount);
                         }
@@ -309,7 +299,7 @@ public class TinkerToolEvents
             }
         }
     }
-    
+
     @SubscribeEvent
     public void onLivingDrop (LivingDropsEvent event)
     {
@@ -427,7 +417,7 @@ public class TinkerToolEvents
             }
         }
     }
-    
+
     @SubscribeEvent
     public void registerOre (OreRegisterEvent evt)
     {

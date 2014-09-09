@@ -1,24 +1,18 @@
 package tconstruct.items.tools;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.*;
 import net.minecraft.world.World;
 import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.tools.AbilityHelper;
-import tconstruct.library.tools.Weapon;
+import tconstruct.library.tools.*;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.logic.EquipLogic;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class FryingPan extends Weapon
 {

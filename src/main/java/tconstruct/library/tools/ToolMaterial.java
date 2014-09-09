@@ -17,11 +17,11 @@ public class ToolMaterial
     public final float stonebound;
     public final String tipStyle;
 
-
     @Deprecated
     public String displayName;
     @Deprecated
     public String ability;
+
     @Deprecated
     public ToolMaterial(String name, String displayName, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, String ability)
     {
@@ -56,12 +56,15 @@ public class ToolMaterial
         return materialName;
     }
 
-    public String localizedName() { return StatCollector.translateToLocal("material." + materialName.toLowerCase()); }
+    public String localizedName ()
+    {
+        return StatCollector.translateToLocal("material." + materialName.toLowerCase());
+    }
 
-    public String prefixName()
+    public String prefixName ()
     {
         // check if there's a special name, otherwise use the regular one
-        if(StatCollector.canTranslate(String.format("material.%s.display", materialName.toLowerCase())))
+        if (StatCollector.canTranslate(String.format("material.%s.display", materialName.toLowerCase())))
             return StatCollector.translateToLocal(String.format("material.%s.display", materialName.toLowerCase()));
         return localizedName();
     }
@@ -112,7 +115,7 @@ public class ToolMaterial
      */
     public String ability ()
     {
-        if(StatCollector.canTranslate(String.format("material.%s.ability", materialName.toLowerCase())))
+        if (StatCollector.canTranslate(String.format("material.%s.ability", materialName.toLowerCase())))
             return StatCollector.translateToLocal(String.format("material.%s.ability", materialName.toLowerCase()));
         return "";
     }

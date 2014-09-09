@@ -1,15 +1,13 @@
 package tconstruct.tools.items;
 
+import cpw.mods.fml.common.Loader;
 import java.util.List;
-
 import mantle.items.abstracts.CraftingItem;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.util.IToolPart;
 import tconstruct.tools.TinkerTools;
-import cpw.mods.fml.common.Loader;
 
 public class Bowstring extends CraftingItem implements IToolPart
 {
@@ -40,7 +38,7 @@ public class Bowstring extends CraftingItem implements IToolPart
     @Override
     public int getMaterialID (ItemStack stack)
     {
-        if(stack.getItemDamage() >= toolMaterialNames.length)
+        if (stack.getItemDamage() >= toolMaterialNames.length)
             return -1;
         return stack.getItemDamage();
     }

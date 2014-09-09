@@ -1,30 +1,23 @@
 package tconstruct.smeltery.blocks;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
 import mantle.blocks.abstracts.InventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.event.SmelteryEvent;
 import tconstruct.library.tools.AbilityHelper;
-import tconstruct.smeltery.logic.CastingBasinLogic;
-import tconstruct.smeltery.logic.CastingTableLogic;
-import tconstruct.smeltery.logic.FaucetLogic;
+import tconstruct.smeltery.logic.*;
 import tconstruct.smeltery.model.CastingBlockRender;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class SearedBlock extends InventoryBlock
 {
@@ -284,7 +277,7 @@ public class SearedBlock extends InventoryBlock
             float zMin = 0.25F;
             float zMax = 0.75F;
 
-            if(te instanceof FaucetLogic)
+            if (te instanceof FaucetLogic)
             {
                 FaucetLogic logic = (FaucetLogic) te;
                 switch (logic.getRenderDirection())
@@ -351,8 +344,7 @@ public class SearedBlock extends InventoryBlock
                     break;
                 }
 
-                return AxisAlignedBB.getBoundingBox((double) ((float) x + xMin), (double) y + 0.25, (double) ((float) z + zMin), (double) ((float) x + xMax), (double) y + 0.625,
-                        (double) ((float) z + zMax));
+                return AxisAlignedBB.getBoundingBox((double) ((float) x + xMin), (double) y + 0.25, (double) ((float) z + zMin), (double) ((float) x + xMax), (double) y + 0.625, (double) ((float) z + zMax));
             }
         }
 

@@ -1,10 +1,8 @@
 package tconstruct.library.tools;
 
-import net.minecraft.init.Items;
+import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.List;
 
 public abstract class CustomMaterial
 {
@@ -35,13 +33,13 @@ public abstract class CustomMaterial
     /**
      * Wether an itemstack is a stack of this custom material or not.
      */
-    public boolean matches(ItemStack stack)
+    public boolean matches (ItemStack stack)
     {
-        if(this.oredict != null)
+        if (this.oredict != null)
         {
             List<ItemStack> items = OreDictionary.getOres(oredict);
-            for(ItemStack item : items)
-                if(OreDictionary.itemMatches(item, stack, false))
+            for (ItemStack item : items)
+                if (OreDictionary.itemMatches(item, stack, false))
                     return true;
             return false;
         }

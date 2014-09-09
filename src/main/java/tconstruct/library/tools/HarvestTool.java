@@ -5,22 +5,18 @@ import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetHandler;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent;
-import tconstruct.library.ActiveToolMod;
-import tconstruct.library.TConstructRegistry;
+import tconstruct.library.*;
 
 /* Base class for tools that should be harvesting blocks */
 
@@ -30,7 +26,7 @@ public abstract class HarvestTool extends ToolCore
     {
         super(baseDamage);
     }
-    
+
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
@@ -138,7 +134,7 @@ public abstract class HarvestTool extends ToolCore
                 return calculateStrength(tags, block, meta);
             }
         }
-        if (this.getHarvestType().equals(block.getHarvestTool(meta)) &&  block.getHarvestLevel(meta) > 0)
+        if (this.getHarvestType().equals(block.getHarvestTool(meta)) && block.getHarvestLevel(meta) > 0)
         {
             return calculateStrength(tags, block, meta); // No issue if the
                                                          // harvest level is
@@ -157,12 +153,12 @@ public abstract class HarvestTool extends ToolCore
         return AbilityHelper.calcToolSpeed(this, tags);
     }
 
-    public float breakSpeedModifier()
+    public float breakSpeedModifier ()
     {
         return 1.0f;
     }
-    
-    public float stoneboundModifier()
+
+    public float stoneboundModifier ()
     {
         return 72f;
     }
@@ -193,10 +189,10 @@ public abstract class HarvestTool extends ToolCore
 
     protected abstract String getHarvestType ();
 
-    public boolean isEffective(Material material)
+    public boolean isEffective (Material material)
     {
-        for(Material m : getEffectiveMaterials())
-            if(m == material)
+        for (Material m : getEffectiveMaterials())
+            if (m == material)
                 return true;
 
         return false;
@@ -297,7 +293,7 @@ public abstract class HarvestTool extends ToolCore
     }
 
     // The Scythe is not a HarvestTool and can't call this method, if you change something here you might change it there too.
-    public void mineBlock(World world, int x, int y, int z, int meta, EntityPlayer player, Block block)
+    public void mineBlock (World world, int x, int y, int z, int meta, EntityPlayer player, Block block)
     {
         // Workaround for dropping experience
         boolean silktouch = EnchantmentHelper.getSilkTouchModifier(player);
@@ -313,9 +309,11 @@ public abstract class HarvestTool extends ToolCore
             if (!silktouch)
                 block.dropXpOnBlockBreak(world, x, y, z, exp);
 
-            if(world.isRemote) {
+            if (world.isRemote)
+            {
                 INetHandler handler = FMLClientHandler.instance().getClientPlayHandler();
-                if(handler != null && handler instanceof NetHandlerPlayClient) {
+                if (handler != null && handler instanceof NetHandlerPlayClient)
+                {
                     NetHandlerPlayClient handlerClient = (NetHandlerPlayClient) handler;
                     handlerClient.addToSendQueue(new C07PacketPlayerDigging(0, x, y, z, Minecraft.getMinecraft().objectMouseOver.sideHit));
                     handlerClient.addToSendQueue(new C07PacketPlayerDigging(2, x, y, z, Minecraft.getMinecraft().objectMouseOver.sideHit));

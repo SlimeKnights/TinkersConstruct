@@ -2,13 +2,11 @@ package tconstruct.tools.logic;
 
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import tconstruct.library.crafting.ModifyBuilder;
-import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.crafting.*;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.tools.inventory.ToolStationContainer;
 
@@ -111,7 +109,7 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
         buildTool(name);
     }
 
-    protected ItemStack tryRenameTool(ItemStack output, String name)
+    protected ItemStack tryRenameTool (ItemStack output, String name)
     {
         ItemStack temp;
         if (output != null)
@@ -132,12 +130,12 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
         NBTTagCompound display = null;
         if (!(tags.hasKey("display")))
             display = new NBTTagCompound();
-        else if(tags.getCompoundTag("display").hasKey("Name"))
+        else if (tags.getCompoundTag("display").hasKey("Name"))
             display = tags.getCompoundTag("display");
 
-        if(display == null)
+        if (display == null)
             return output;
-        if(display.hasKey("Name") && !display.getString("Name").equals("\u00A7f" + ToolBuilder.defaultToolName(temp)))
+        if (display.hasKey("Name") && !display.getString("Name").equals("\u00A7f" + ToolBuilder.defaultToolName(temp)))
             // no default name anymore
             return output;
 
@@ -146,7 +144,6 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
         tags.setTag("display", display);
         temp.setRepairCost(2);
         output = temp;
-
 
         return output;
     }

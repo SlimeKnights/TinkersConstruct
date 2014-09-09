@@ -1,15 +1,11 @@
 package tconstruct.armor;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import tconstruct.armor.player.ArmorExtended;
-import tconstruct.armor.player.TPlayerStats;
+import net.minecraft.nbt.*;
+import net.minecraft.potion.*;
+import tconstruct.armor.player.*;
 
 public class PlayerAbilityHelper
 {
@@ -46,7 +42,7 @@ public class PlayerAbilityHelper
             }
             hotbar.mainInventory[i] = null;
         }
-        
+
         ItemStack belt = armor.inventory[3];
         NBTTagList replaceSlots = belt.getTagCompound().getTagList("Inventory", 10);
         for (int i = 0; i < replaceSlots.tagCount(); ++i)
@@ -61,14 +57,12 @@ public class PlayerAbilityHelper
                 {
                     hotbar.mainInventory[j] = itemstack;
                 }
-            }        
+            }
         }
         belt.getTagCompound().setTag("Inventory", slots);
     }
-    
 
-    
-    public static void setEntitySize(Entity entity, float width, float height)
+    public static void setEntitySize (Entity entity, float width, float height)
     {
         float f2;
 
@@ -77,35 +71,35 @@ public class PlayerAbilityHelper
             f2 = entity.width;
             entity.width = width;
             entity.height = height;
-            entity.boundingBox.maxX = entity.boundingBox.minX + (double)entity.width;
-            entity.boundingBox.maxZ = entity.boundingBox.minZ + (double)entity.width;
-            entity.boundingBox.maxY = entity.boundingBox.minY + (double)entity.height;
+            entity.boundingBox.maxX = entity.boundingBox.minX + (double) entity.width;
+            entity.boundingBox.maxZ = entity.boundingBox.minZ + (double) entity.width;
+            entity.boundingBox.maxY = entity.boundingBox.minY + (double) entity.height;
 
-            if (entity.width > f2  && !entity.worldObj.isRemote)
+            if (entity.width > f2 && !entity.worldObj.isRemote)
             {
-                entity.moveEntity((double)(f2 - entity.width), 0.0D, (double)(f2 - entity.width));
+                entity.moveEntity((double) (f2 - entity.width), 0.0D, (double) (f2 - entity.width));
             }
         }
 
         f2 = width % 2.0F;
 
-        if ((double)f2 < 0.375D)
+        if ((double) f2 < 0.375D)
         {
             entity.myEntitySize = Entity.EnumEntitySize.SIZE_1;
         }
-        else if ((double)f2 < 0.75D)
+        else if ((double) f2 < 0.75D)
         {
             entity.myEntitySize = Entity.EnumEntitySize.SIZE_2;
         }
-        else if ((double)f2 < 1.0D)
+        else if ((double) f2 < 1.0D)
         {
             entity.myEntitySize = Entity.EnumEntitySize.SIZE_3;
         }
-        else if ((double)f2 < 1.375D)
+        else if ((double) f2 < 1.375D)
         {
             entity.myEntitySize = Entity.EnumEntitySize.SIZE_4;
         }
-        else if ((double)f2 < 1.75D)
+        else if ((double) f2 < 1.75D)
         {
             entity.myEntitySize = Entity.EnumEntitySize.SIZE_5;
         }

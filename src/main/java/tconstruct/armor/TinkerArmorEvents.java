@@ -1,20 +1,18 @@
 package tconstruct.armor;
 
-import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.entity.boss.IBossDisplayData;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.entity.boss.*;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
 import tconstruct.TConstruct;
 import tconstruct.armor.items.TravelWings;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.world.entity.BlueSlime;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class TinkerArmorEvents
 {

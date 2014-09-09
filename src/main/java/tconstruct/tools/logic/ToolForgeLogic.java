@@ -1,13 +1,10 @@
 package tconstruct.tools.logic;
 
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import tconstruct.library.crafting.ModifyBuilder;
-import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.crafting.*;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.tools.inventory.ToolForgeContainer;
 
@@ -64,7 +61,7 @@ public class ToolForgeLogic extends ToolStationLogic implements ISidedInventory
                     //NBTTagCompound tags = tool.getTagCompound(); 
                     //if (!tags.getCompoundTag(((IModifyable) tool.getItem()).getBaseTagName()).hasKey("Built"))
                     //{
-                        output = tool;
+                    output = tool;
                     //}
                 }
             }

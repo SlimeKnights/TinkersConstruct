@@ -1,33 +1,19 @@
 package tconstruct.client.gui;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
+import cpw.mods.fml.relauncher.*;
+import java.util.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-
+import net.minecraft.util.*;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import tconstruct.smeltery.inventory.ActiveContainer;
-import tconstruct.smeltery.inventory.ActiveSlot;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.*;
+import tconstruct.smeltery.inventory.*;
 
 @SideOnly(Side.CLIENT)
 public abstract class NewContainerGui extends GuiScreen
@@ -629,8 +615,7 @@ public abstract class NewContainerGui extends GuiScreen
                 }
             }
         }
-        else if (this.field_94076_q && slot != null && itemstack != null && itemstack.stackSize > this.field_94077_p.size() && Container.func_94527_a(slot, itemstack, true)
-                && slot.isItemValid(itemstack) && this.container.canDragIntoSlot(slot))
+        else if (this.field_94076_q && slot != null && itemstack != null && itemstack.stackSize > this.field_94077_p.size() && Container.func_94527_a(slot, itemstack, true) && slot.isItemValid(itemstack) && this.container.canDragIntoSlot(slot))
         {
             this.field_94077_p.add(slot);
             this.func_94066_g();
@@ -676,8 +661,7 @@ public abstract class NewContainerGui extends GuiScreen
                     {
                         slot1 = (Slot) iterator.next();
 
-                        if (slot1 != null && slot1.canTakeStack(this.mc.thePlayer) && slot1.getHasStack() && slot1.inventory == slot.inventory
-                                && Container.func_94527_a(slot1, this.field_94075_K, true))
+                        if (slot1 != null && slot1.canTakeStack(this.mc.thePlayer) && slot1.getHasStack() && slot1.inventory == slot.inventory && Container.func_94527_a(slot1, this.field_94075_K, true))
                         {
                             this.handleMouseClick(slot1, slot1.slotNumber, par3, 1);
                         }

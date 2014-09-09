@@ -1,11 +1,10 @@
 package tconstruct.items.tools;
 
+import cpw.mods.fml.relauncher.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import tconstruct.library.tools.HarvestTool;
 import tconstruct.tools.TinkerTools;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class Shovel extends HarvestTool
 {

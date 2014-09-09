@@ -1,36 +1,26 @@
 package tconstruct.tools.gui;
 
+import cpw.mods.fml.relauncher.*;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.List;
-
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiTextField;
+import java.util.*;
+import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
-
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-
 import tconstruct.TConstruct;
-import tconstruct.library.client.TConstructClientRegistry;
-import tconstruct.library.client.ToolGuiElement;
-import tconstruct.library.tools.AbilityHelper;
-import tconstruct.library.tools.HarvestTool;
-import tconstruct.library.tools.ToolCore;
+import tconstruct.library.client.*;
+import tconstruct.library.tools.*;
 import tconstruct.library.util.HarvestLevels;
 import tconstruct.smeltery.inventory.ActiveContainer;
 import tconstruct.tools.inventory.ToolStationContainer;
 import tconstruct.tools.logic.ToolStationLogic;
 import tconstruct.util.network.ToolStationPacket;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ToolStationGui extends GuiContainer
@@ -102,8 +92,7 @@ public class ToolStationGui extends GuiContainer
         for (int iter = 1; iter < TConstructClientRegistry.toolButtons.size(); iter++)
         {
             ToolGuiElement element = TConstructClientRegistry.toolButtons.get(iter);
-            GuiButtonTool button = new GuiButtonTool(iter, this.guiLeft + 22 * (iter % 5), this.guiTop + 22 * (iter / 5), element.buttonIconX, element.buttonIconY, repair.domain, element.texture,
-                    element);
+            GuiButtonTool button = new GuiButtonTool(iter, this.guiLeft + 22 * (iter % 5), this.guiTop + 22 * (iter / 5), element.buttonIconX, element.buttonIconY, repair.domain, element.texture, element);
             this.buttonList.add(button);
         }
     }
@@ -335,7 +324,7 @@ public class ToolStationGui extends GuiContainer
                 trueSpeed = 0;
             fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation14") + df.format(trueSpeed), 294, base + offset * 10, 0xffffff);
             offset++;
-            if (stoneboundSpeed != 0  && !Float.isNaN(stoneboundSpeed))
+            if (stoneboundSpeed != 0 && !Float.isNaN(stoneboundSpeed))
             {
                 String bloss = stoneboundSpeed > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
                 fontRendererObj.drawString(bloss + df.format(stoneboundSpeed), 294, base + offset * 10, 0xffffff);

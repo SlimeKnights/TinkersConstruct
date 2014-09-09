@@ -1,24 +1,14 @@
 package tconstruct.world.entity;
 
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.*;
 import net.minecraft.entity.boss.IBossDisplayData;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.monster.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.StatCollector;
-import net.minecraft.world.EnumDifficulty;
-import net.minecraft.world.EnumSkyBlock;
-import net.minecraft.world.World;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 import net.minecraftforge.common.ForgeHooks;
 import tconstruct.armor.TinkerArmor;
 import tconstruct.library.TConstructRegistry;
@@ -149,8 +139,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
             this.motionZ += (double) (MathHelper.cos(f) * 0.2F);
         }
 
-        if (this.getBrightness(1.0F) > 0.9F && rand.nextInt(5) == 0
-                && this.worldObj.canBlockSeeTheSky(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)))
+        if (this.getBrightness(1.0F) > 0.9F && rand.nextInt(5) == 0 && this.worldObj.canBlockSeeTheSky(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)))
         {
             int size = this.getSlimeSize() - 1;
             if (size < 7)
@@ -179,8 +168,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     @Override
     public boolean getCanSpawnHere ()
     {
-        return isValidLightLevel() && this.worldObj.checkNoEntityCollision(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty()
-                && !this.worldObj.isAnyLiquid(this.boundingBox);
+        return isValidLightLevel() && this.worldObj.checkNoEntityCollision(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty() && !this.worldObj.isAnyLiquid(this.boundingBox);
     }
 
     protected boolean isValidLightLevel ()
@@ -478,11 +466,12 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 
             final ItemStack headStack = new ItemStack(tool.getHeadItem(), 1, 17);
             final ItemStack handleStack = new ItemStack(tool.getHandleItem(), 1, 17);
-            final ItemStack accessoryStack =  tool.getAccessoryItem() != null ? new ItemStack(tool.getAccessoryItem(), 1, 17) : null;
-            final ItemStack extraStack =  tool.getExtraItem() != null ? new ItemStack(tool.getExtraItem(), 1, 17) : null;
+            final ItemStack accessoryStack = tool.getAccessoryItem() != null ? new ItemStack(tool.getAccessoryItem(), 1, 17) : null;
+            final ItemStack extraStack = tool.getExtraItem() != null ? new ItemStack(tool.getExtraItem(), 1, 17) : null;
             ItemStack toolStack = ToolBuilder.instance.buildTool(headStack, handleStack, accessoryStack, extraStack, "King Slime " + tool.getLocalizedToolName());
 
-            if(toolStack != null) {
+            if (toolStack != null)
+            {
                 NBTTagCompound tags = toolStack.getTagCompound().getCompoundTag("InfiTool");
                 tags.setInteger("Attack", 5 + tool.getDamageVsEntity(null));
                 tags.setInteger("TotalDurability", 2500);
@@ -490,7 +479,8 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
                 tags.setInteger("MiningSpeed", 1400);
 
                 this.entityDropItem(toolStack, 0f);
-                if (rand.nextInt(5) == 0) {
+                if (rand.nextInt(5) == 0)
+                {
                     ItemStack dropStack = new ItemStack(TinkerArmor.heartCanister, 1, 1);
                     this.entityDropItem(dropStack, 0f);
                 }
@@ -516,8 +506,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         {
             int i = this.getSlimeSize();
 
-            if (this.canEntityBeSeen(par1EntityPlayer) && this.getDistanceSqToEntity(par1EntityPlayer) < 0.6D * (double) i * 0.6D * (double) i
-                    && par1EntityPlayer.attackEntityFrom(DamageSource.causeMobDamage(this), this.getAttackStrength()))
+            if (this.canEntityBeSeen(par1EntityPlayer) && this.getDistanceSqToEntity(par1EntityPlayer) < 0.6D * (double) i * 0.6D * (double) i && par1EntityPlayer.attackEntityFrom(DamageSource.causeMobDamage(this), this.getAttackStrength()))
             {
                 this.playSound("mob.attack", 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
             }

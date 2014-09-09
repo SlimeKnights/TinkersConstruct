@@ -1,17 +1,15 @@
 package tconstruct.world.gen;
 
+import cpw.mods.fml.common.IWorldGenerator;
 import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldType;
+import net.minecraft.world.*;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
-import cpw.mods.fml.common.IWorldGenerator;
 
 public class TBaseWorldGenerator implements IWorldGenerator
 {

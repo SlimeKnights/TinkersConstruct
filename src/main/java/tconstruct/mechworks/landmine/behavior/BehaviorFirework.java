@@ -23,8 +23,7 @@ public class BehaviorFirework extends Behavior
         for (int i = 0; i < par5ItemStack.stackSize; i++)
         {
             // TODO entity registration and stuffs
-            EntityLandmineFirework entityfireworkrocket = new EntityLandmineFirework(par1World, (double) par2, (double) par3, (double) par4, par5ItemStack, facing.ordinal())
-                    .setRider(i == 0 ? triggerer : null);
+            EntityLandmineFirework entityfireworkrocket = new EntityLandmineFirework(par1World, (double) par2, (double) par3, (double) par4, par5ItemStack, facing.ordinal()).setRider(i == 0 ? triggerer : null);
             par1World.spawnEntityInWorld(entityfireworkrocket);
 
             boolean shouldRun = true;

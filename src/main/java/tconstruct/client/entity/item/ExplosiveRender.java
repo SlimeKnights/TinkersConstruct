@@ -1,18 +1,15 @@
 package tconstruct.client.entity.item;
 
+import cpw.mods.fml.relauncher.*;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-
 import tconstruct.mechworks.entity.item.ExplosivePrimed;
 import tconstruct.world.TinkerWorld;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ExplosiveRender extends Render

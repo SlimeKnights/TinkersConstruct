@@ -1,9 +1,9 @@
 package tconstruct.library.event;
 
+import cpw.mods.fml.common.eventhandler.Event;
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.common.eventhandler.Event;
 
 public class SmelteryEvent extends Event
 {

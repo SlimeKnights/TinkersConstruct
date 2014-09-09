@@ -6,8 +6,8 @@ public class TConstructAPI
 {
     public static String PROP_NAME;
 
-    public static IPlayerExtendedInventoryWrapper getInventoryWrapper(EntityPlayer player)
+    public static IPlayerExtendedInventoryWrapper getInventoryWrapper (EntityPlayer player)
     {
-    	return (IPlayerExtendedInventoryWrapper) player.getExtendedProperties(PROP_NAME);
+        return (IPlayerExtendedInventoryWrapper) player.getExtendedProperties(PROP_NAME);
     }
 }

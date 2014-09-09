@@ -1,7 +1,6 @@
 package tconstruct.mechworks.landmine.behavior.stackCombo;
 
 import java.util.ArrayList;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;

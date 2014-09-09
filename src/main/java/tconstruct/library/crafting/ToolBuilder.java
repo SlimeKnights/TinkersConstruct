@@ -1,23 +1,16 @@
 package tconstruct.library.crafting;
 
 /** Once upon a time, too many tools to count. Let's put them together automatically */
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import java.util.*;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.event.ToolBuildEvent;
-import tconstruct.library.event.ToolCraftEvent;
+import tconstruct.library.event.*;
 import tconstruct.library.modifier.ItemModifier;
-import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.ToolMaterial;
+import tconstruct.library.tools.*;
 import tconstruct.library.util.IToolPart;
-import cpw.mods.fml.common.eventhandler.Event.Result;
 
 public class ToolBuilder
 {
@@ -130,7 +123,7 @@ public class ToolBuilder
 
         if (headStack == null || handleStack == null) //Nothing to build without these. All tools need at least two parts!
             return null;
-        if(name == null)
+        if (name == null)
             name = "";
 
         // fire the ToolBuild event to get the correct items
@@ -378,7 +371,6 @@ public class ToolBuilder
             return null;
     }*/
 
-
     int buildReinforced (ToolMaterial headMat, ToolMaterial handleMat, ToolMaterial accessoryMat, ToolMaterial extraMat)
     {
         int reinforced = 0;
@@ -423,25 +415,25 @@ public class ToolBuilder
         return (sHead + sHandle) / 2f;
     }
 
-    public static String defaultToolName(ItemStack stack)
+    public static String defaultToolName (ItemStack stack)
     {
-        if(!stack.hasTagCompound() || !stack.getTagCompound().hasKey("InfiTool"))
+        if (!stack.hasTagCompound() || !stack.getTagCompound().hasKey("InfiTool"))
             return null;
-        if(!(stack.getItem() instanceof ToolCore))
+        if (!(stack.getItem() instanceof ToolCore))
             return null;
 
         int mat = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Head");
         return defaultToolName(TConstructRegistry.getMaterial(mat), (ToolCore) stack.getItem());
     }
 
-    public static String defaultToolName(ToolMaterial headMat, ToolCore tool)
+    public static String defaultToolName (ToolMaterial headMat, ToolCore tool)
     {
         return String.format("%s %s", headMat.prefixName(), tool.getLocalizedToolName());
     }
 
     //Passthrough for now
     @Deprecated
-    public static void registerToolMod(ItemModifier mod)
+    public static void registerToolMod (ItemModifier mod)
     {
         ModifyBuilder.registerModifier(mod);
     }

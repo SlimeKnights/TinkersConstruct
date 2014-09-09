@@ -1,107 +1,41 @@
 package tconstruct.tools;
 
-import cpw.mods.fml.common.SidedProxy;
-import mantle.items.abstracts.CraftingItem;
-import mantle.pulsar.pulse.Handler;
-import mantle.pulsar.pulse.Pulse;
+import cpw.mods.fml.common.*;
+import cpw.mods.fml.common.event.*;
+import cpw.mods.fml.common.registry.*;
+import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
+import mantle.pulsar.pulse.*;
 import mantle.utils.RecipeRemover;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.init.*;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
-
-import static net.minecraft.util.EnumChatFormatting.*;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
+import net.minecraftforge.oredict.*;
 import tconstruct.TConstruct;
+import tconstruct.achievements.items.CraftAchievementItem;
 import tconstruct.common.itemblocks.MetadataItemBlock;
-import tconstruct.items.tools.Arrow;
-import tconstruct.items.tools.BattleSign;
-import tconstruct.items.tools.Battleaxe;
-import tconstruct.items.tools.Broadsword;
-import tconstruct.items.tools.Chisel;
-import tconstruct.items.tools.Cleaver;
-import tconstruct.items.tools.Cutlass;
-import tconstruct.items.tools.Dagger;
-import tconstruct.items.tools.Excavator;
-import tconstruct.items.tools.FryingPan;
-import tconstruct.items.tools.Hammer;
-import tconstruct.items.tools.Hatchet;
-import tconstruct.items.tools.Longsword;
-import tconstruct.items.tools.LumberAxe;
-import tconstruct.items.tools.Mattock;
-import tconstruct.items.tools.Pickaxe;
-import tconstruct.items.tools.PotionLauncher;
-import tconstruct.items.tools.Rapier;
-import tconstruct.items.tools.Scythe;
-import tconstruct.items.tools.Shortbow;
-import tconstruct.items.tools.Shovel;
+import tconstruct.items.tools.*;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.*;
-import tconstruct.library.tools.FletchlingLeafMaterial;
-import tconstruct.library.tools.ToolCore;
+import tconstruct.library.tools.*;
 import tconstruct.library.util.IPattern;
-import tconstruct.modifiers.tools.ModAntiSpider;
-import tconstruct.modifiers.tools.ModAttack;
-import tconstruct.modifiers.tools.ModAutoSmelt;
-import tconstruct.modifiers.tools.ModBlaze;
-import tconstruct.modifiers.tools.ModButtertouch;
-import tconstruct.modifiers.tools.ModCreativeToolModifier;
-import tconstruct.modifiers.tools.ModDurability;
-import tconstruct.modifiers.tools.ModExtraModifier;
-import tconstruct.modifiers.tools.ModFlux;
-import tconstruct.modifiers.tools.ModInteger;
-import tconstruct.modifiers.tools.ModLapis;
-import tconstruct.modifiers.tools.ModPiston;
-import tconstruct.modifiers.tools.ModRedstone;
-import tconstruct.modifiers.tools.ModReinforced;
-import tconstruct.modifiers.tools.ModSmite;
-import tconstruct.modifiers.tools.ModToolRepair;
+import tconstruct.modifiers.tools.*;
 import tconstruct.smeltery.TinkerSmeltery;
-import tconstruct.tools.blocks.CraftingSlab;
-import tconstruct.tools.blocks.CraftingStationBlock;
-import tconstruct.tools.blocks.EquipBlock;
-import tconstruct.tools.blocks.FurnaceSlab;
-import tconstruct.tools.blocks.ToolForgeBlock;
-import tconstruct.tools.blocks.ToolStationBlock;
-import tconstruct.tools.itemblocks.CraftingSlabItemBlock;
-import tconstruct.tools.itemblocks.ToolStationItemBlock;
-import tconstruct.tools.items.Bowstring;
-import tconstruct.tools.items.CreativeModifier;
-import tconstruct.tools.items.Fletching;
-import tconstruct.tools.items.Manual;
-import tconstruct.tools.items.MaterialItem;
-import tconstruct.tools.items.Pattern;
-import tconstruct.tools.items.TitleIcon;
-import tconstruct.tools.items.ToolPart;
-import tconstruct.tools.items.ToolPartHidden;
-import tconstruct.tools.items.ToolShard;
-import tconstruct.tools.logic.CraftingStationLogic;
-import tconstruct.tools.logic.FrypanLogic;
-import tconstruct.tools.logic.FurnaceLogic;
-import tconstruct.tools.logic.PartBuilderLogic;
-import tconstruct.tools.logic.PatternChestLogic;
-import tconstruct.tools.logic.StencilTableLogic;
-import tconstruct.tools.logic.ToolForgeLogic;
-import tconstruct.tools.logic.ToolStationLogic;
+import tconstruct.tools.blocks.*;
+import tconstruct.tools.itemblocks.*;
+import tconstruct.tools.items.*;
+import tconstruct.tools.logic.*;
 import tconstruct.util.ItemHelper;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.blocks.SoilBlock;
 import tconstruct.world.itemblocks.CraftedSoilItemBlock;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
+
+import static net.minecraft.util.EnumChatFormatting.*;
 
 @ObjectHolder(TConstruct.modID)
 @Pulse(id = "Tinkers' Tools", description = "The main core of the mod! All of the tools, the tables, and the patterns are here.")
@@ -190,12 +124,12 @@ public class TinkerTools
 
     // recipe stuff
     public static boolean thaumcraftAvailable;
-    
+
     @Handler
     public void preInit (FMLPreInitializationEvent event)
     {
         MinecraftForge.EVENT_BUS.register(new TinkerToolEvents());
-        
+
         //Blocks
         TinkerTools.toolStationWood = new ToolStationBlock(Material.wood).setBlockName("ToolStation");
         TinkerTools.toolForge = new ToolForgeBlock(Material.iron).setBlockName("ToolForge");
@@ -211,7 +145,7 @@ public class TinkerTools
 
         TinkerTools.craftedSoil = new SoilBlock().setLightOpacity(0).setBlockName("TConstruct.Soil");
         TinkerTools.craftedSoil.stepSound = Block.soundTypeGravel;
-        
+
         GameRegistry.registerBlock(TinkerTools.toolStationWood, ToolStationItemBlock.class, "ToolStationBlock");
         GameRegistry.registerTileEntity(ToolStationLogic.class, "ToolStation");
         GameRegistry.registerTileEntity(PartBuilderLogic.class, "PartCrafter");
@@ -228,12 +162,12 @@ public class TinkerTools
         GameRegistry.registerTileEntity(FrypanLogic.class, "FrypanLogic");
 
         GameRegistry.registerBlock(TinkerTools.craftedSoil, CraftedSoilItemBlock.class, "CraftedSoil");
-        
+
         //Items
         TinkerTools.titleIcon = new TitleIcon().setUnlocalizedName("tconstruct.titleicon");
         GameRegistry.registerItem(TinkerTools.titleIcon, "titleIcon");
         String[] blanks = new String[] { "blank_pattern", "blank_cast", "blank_cast" };
-        TinkerTools.blankPattern = new CraftingItem(blanks, blanks, "materials/", "tinker", TConstructRegistry.materialTab).setUnlocalizedName("tconstruct.Pattern");
+        TinkerTools.blankPattern = new CraftAchievementItem(blanks, blanks, "materials/", "tinker", TConstructRegistry.materialTab, "tconstruct.pattern").setUnlocalizedName("tconstruct.Pattern");
         GameRegistry.registerItem(TinkerTools.blankPattern, "blankPattern");
 
         TinkerTools.materials = new MaterialItem().setUnlocalizedName("tconstruct.Materials");
@@ -245,8 +179,7 @@ public class TinkerTools
         TConstructRegistry.addItemToDirectory("blankPattern", TinkerTools.blankPattern);
         TConstructRegistry.addItemToDirectory("woodPattern", TinkerTools.woodPattern);
 
-        String[] patternTypes = { "ingot", "toolRod", "pickaxeHead", "shovelHead", "hatchetHead", "swordBlade", "wideGuard", "handGuard", "crossbar", "binding", "frypanHead", "signHead",
-                "knifeBlade", "chiselHead", "toughRod", "toughBinding", "largePlate", "broadAxeHead", "scytheHead", "excavatorHead", "largeBlade", "hammerHead", "fullGuard" };
+        String[] patternTypes = { "ingot", "toolRod", "pickaxeHead", "shovelHead", "hatchetHead", "swordBlade", "wideGuard", "handGuard", "crossbar", "binding", "frypanHead", "signHead", "knifeBlade", "chiselHead", "toughRod", "toughBinding", "largePlate", "broadAxeHead", "scytheHead", "excavatorHead", "largeBlade", "hammerHead", "fullGuard" };
 
         for (int i = 1; i < patternTypes.length; i++)
         {
@@ -255,7 +188,6 @@ public class TinkerTools
 
         TinkerTools.manualBook = new Manual();
         GameRegistry.registerItem(TinkerTools.manualBook, "manualBook");
-        
 
         TinkerTools.pickaxe = new Pickaxe();
         TinkerTools.shovel = new Shovel();
@@ -281,10 +213,8 @@ public class TinkerTools
         TinkerTools.shortbow = new Shortbow();
         TinkerTools.arrow = new Arrow();
 
-        Item[] tools = { TinkerTools.pickaxe, TinkerTools.shovel, TinkerTools.hatchet, TinkerTools.broadsword, TinkerTools.longsword, TinkerTools.rapier, TinkerTools.dagger, TinkerTools.cutlass, TinkerTools.frypan, TinkerTools.battlesign, TinkerTools.mattock,
-                TinkerTools.chisel, TinkerTools.lumberaxe, TinkerTools.cleaver, TinkerTools.scythe, TinkerTools.excavator, TinkerTools.hammer, TinkerTools.battleaxe, TinkerTools.shortbow, TinkerTools.arrow };
-        String[] toolStrings = { "pickaxe", "shovel", "hatchet", "broadsword", "longsword", "rapier", "dagger", "cutlass", "frypan", "battlesign", "mattock", "chisel", "lumberaxe", "cleaver",
-                "scythe", "excavator", "hammer", "battleaxe", "shortbow", "arrow" };
+        Item[] tools = { TinkerTools.pickaxe, TinkerTools.shovel, TinkerTools.hatchet, TinkerTools.broadsword, TinkerTools.longsword, TinkerTools.rapier, TinkerTools.dagger, TinkerTools.cutlass, TinkerTools.frypan, TinkerTools.battlesign, TinkerTools.mattock, TinkerTools.chisel, TinkerTools.lumberaxe, TinkerTools.cleaver, TinkerTools.scythe, TinkerTools.excavator, TinkerTools.hammer, TinkerTools.battleaxe, TinkerTools.shortbow, TinkerTools.arrow };
+        String[] toolStrings = { "pickaxe", "shovel", "hatchet", "broadsword", "longsword", "rapier", "dagger", "cutlass", "frypan", "battlesign", "mattock", "chisel", "lumberaxe", "cleaver", "scythe", "excavator", "hammer", "battleaxe", "shortbow", "arrow" };
 
         for (int i = 0; i < tools.length; i++)
         {
@@ -324,12 +254,8 @@ public class TinkerTools
         TinkerTools.arrowhead = new ToolPart("_arrowhead", "ArrowHead").setUnlocalizedName("tconstruct.Arrowhead");
         TinkerTools.fletching = new Fletching().setUnlocalizedName("tconstruct.Fletching");
 
-        Item[] toolParts = { TinkerTools.toolRod, TinkerTools.toolShard, TinkerTools.pickaxeHead, TinkerTools.shovelHead, TinkerTools.hatchetHead, TinkerTools.binding, TinkerTools.toughBinding, TinkerTools.toughRod, TinkerTools.largePlate,
-                TinkerTools.swordBlade, TinkerTools.wideGuard, TinkerTools.handGuard, TinkerTools.crossbar, TinkerTools.knifeBlade, TinkerTools.fullGuard, TinkerTools.frypanHead, TinkerTools.signHead, TinkerTools.chiselHead, TinkerTools.scytheBlade,
-                TinkerTools.broadAxeHead, TinkerTools.excavatorHead, TinkerTools.largeSwordBlade, TinkerTools.hammerHead, TinkerTools.bowstring, TinkerTools.fletching, TinkerTools.arrowhead };
-        String[] toolPartStrings = { "toolRod", "toolShard", "pickaxeHead", "shovelHead", "hatchetHead", "binding", "toughBinding", "toughRod", "heavyPlate", "swordBlade", "wideGuard", "handGuard",
-                "crossbar", "knifeBlade", "fullGuard", "frypanHead", "signHead", "chiselHead", "scytheBlade", "broadAxeHead", "excavatorHead", "largeSwordBlade", "hammerHead", "bowstring",
-                "fletching", "arrowhead" };
+        Item[] toolParts = { TinkerTools.toolRod, TinkerTools.toolShard, TinkerTools.pickaxeHead, TinkerTools.shovelHead, TinkerTools.hatchetHead, TinkerTools.binding, TinkerTools.toughBinding, TinkerTools.toughRod, TinkerTools.largePlate, TinkerTools.swordBlade, TinkerTools.wideGuard, TinkerTools.handGuard, TinkerTools.crossbar, TinkerTools.knifeBlade, TinkerTools.fullGuard, TinkerTools.frypanHead, TinkerTools.signHead, TinkerTools.chiselHead, TinkerTools.scytheBlade, TinkerTools.broadAxeHead, TinkerTools.excavatorHead, TinkerTools.largeSwordBlade, TinkerTools.hammerHead, TinkerTools.bowstring, TinkerTools.fletching, TinkerTools.arrowhead };
+        String[] toolPartStrings = { "toolRod", "toolShard", "pickaxeHead", "shovelHead", "hatchetHead", "binding", "toughBinding", "toughRod", "heavyPlate", "swordBlade", "wideGuard", "handGuard", "crossbar", "knifeBlade", "fullGuard", "frypanHead", "signHead", "chiselHead", "scytheBlade", "broadAxeHead", "excavatorHead", "largeSwordBlade", "hammerHead", "bowstring", "fletching", "arrowhead" };
 
         for (int i = 0; i < toolParts.length; i++)
         {
@@ -341,28 +267,21 @@ public class TinkerTools
         TinkerTools.creativeModifier = new CreativeModifier().setUnlocalizedName("tconstruct.modifier.creative");
         GameRegistry.registerItem(TinkerTools.creativeModifier, "creativeModifier");
 
-        String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper",
-                "ingotTin", "ingotAluminum", "rawAluminum", "ingotBronze", "ingotAluminumBrass", "ingotAlumite", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper",
-                "nuggetTin", "nuggetAluminum", "nuggetSilver", "nuggetAluminumBrass", "silkyCloth", "silkyJewel", "nuggetObsidian", "nuggetCobalt", "nuggetArdite", "nuggetManyullyn", "nuggetBronze",
-                "nuggetAlumite", "nuggetSteel", "ingotPigIron", "nuggetPigIron", "glueball" };
+        String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper", "ingotTin", "ingotAluminum", "rawAluminum", "ingotBronze", "ingotAluminumBrass", "ingotAlumite", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper", "nuggetTin", "nuggetAluminum", "nuggetSilver", "nuggetAluminumBrass", "silkyCloth", "silkyJewel", "nuggetObsidian", "nuggetCobalt", "nuggetArdite", "nuggetManyullyn", "nuggetBronze", "nuggetAlumite", "nuggetSteel", "ingotPigIron", "nuggetPigIron", "glueball" };
 
         for (int i = 0; i < materialStrings.length; i++)
         {
             TConstructRegistry.addItemStackToDirectory(materialStrings[i], new ItemStack(TinkerTools.materials, 1, i));
         }
-        
+
         registerMaterials();
 
         registerStencils();
 
-
         // this array is only used to register the remaining pattern-part-interactions
-        TinkerTools.patternOutputs = new Item[] { TinkerTools.toolRod, TinkerTools.pickaxeHead, TinkerTools.shovelHead, TinkerTools.hatchetHead, TinkerTools.swordBlade, TinkerTools.wideGuard,
-                TinkerTools.handGuard, TinkerTools.crossbar, TinkerTools.binding, TinkerTools.frypanHead, TinkerTools.signHead, TinkerTools.knifeBlade, TinkerTools.chiselHead, TinkerTools.toughRod,
-                TinkerTools.toughBinding, TinkerTools.largePlate, TinkerTools.broadAxeHead, TinkerTools.scytheBlade, TinkerTools.excavatorHead, TinkerTools.largeSwordBlade, TinkerTools.hammerHead,
-                TinkerTools.fullGuard, null, null, TinkerTools.arrowhead, null };
-        
-//Moved temporarily to deal with AE2 Quartz
+        TinkerTools.patternOutputs = new Item[] { TinkerTools.toolRod, TinkerTools.pickaxeHead, TinkerTools.shovelHead, TinkerTools.hatchetHead, TinkerTools.swordBlade, TinkerTools.wideGuard, TinkerTools.handGuard, TinkerTools.crossbar, TinkerTools.binding, TinkerTools.frypanHead, TinkerTools.signHead, TinkerTools.knifeBlade, TinkerTools.chiselHead, TinkerTools.toughRod, TinkerTools.toughBinding, TinkerTools.largePlate, TinkerTools.broadAxeHead, TinkerTools.scytheBlade, TinkerTools.excavatorHead, TinkerTools.largeSwordBlade, TinkerTools.hammerHead, TinkerTools.fullGuard, null, null, TinkerTools.arrowhead, null };
+
+        //Moved temporarily to deal with AE2 Quartz
         TinkerTools.modFlux = new ModFlux();
         ModifyBuilder.registerModifier(TinkerTools.modFlux);
 
@@ -370,11 +289,10 @@ public class TinkerTools
         ItemStack lapisBlock = new ItemStack(Blocks.lapis_block);
         TinkerTools.modLapis = new ModLapis(10, new ItemStack[] { lapisItem, lapisBlock }, new int[] { 1, 9 });
         ModifyBuilder.registerModifier(TinkerTools.modLapis);
-        
-        TinkerTools.modAttack = new ModAttack("Quartz", 11, new ItemStack[] { new ItemStack(Items.quartz),
-                new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1, 4 });
+
+        TinkerTools.modAttack = new ModAttack("Quartz", 11, new ItemStack[] { new ItemStack(Items.quartz), new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1, 4 });
         ModifyBuilder.registerModifier(TinkerTools.modAttack);
-    }    
+    }
 
     void setupToolTabs ()
     {
@@ -447,7 +365,7 @@ public class TinkerTools
                 }
             }
         }
-        
+
         registerPatternMaterial("plankWood", 2, "Wood");
         registerPatternMaterial("stickWood", 1, "Wood");
         registerPatternMaterial("slabWood", 1, "Wood");
@@ -483,23 +401,18 @@ public class TinkerTools
 
         ItemStack diamond = new ItemStack(Items.diamond);
         ModifyBuilder.registerModifier(new ModToolRepair());
-        ModifyBuilder.registerModifier(new ModDurability(new ItemStack[] { diamond }, 0, 500, 0f, 3, "Diamond", "\u00a7b"
-                + StatCollector.translateToLocal("modifier.tool.diamond"), "\u00a7b"));
-        ModifyBuilder.registerModifier(new ModDurability(new ItemStack[] { new ItemStack(Items.emerald) }, 1, 0, 0.5f, 2, "Emerald", "\u00a72"
-                + StatCollector.translateToLocal("modifier.tool.emerald"), "\u00a72"));
+        ModifyBuilder.registerModifier(new ModDurability(new ItemStack[] { diamond }, 0, 500, 0f, 3, "Diamond", "\u00a7b" + StatCollector.translateToLocal("modifier.tool.diamond"), "\u00a7b"));
+        ModifyBuilder.registerModifier(new ModDurability(new ItemStack[] { new ItemStack(Items.emerald) }, 1, 0, 0.5f, 2, "Emerald", "\u00a72" + StatCollector.translateToLocal("modifier.tool.emerald"), "\u00a72"));
 
         ItemStack redstoneItem = new ItemStack(Items.redstone);
         ItemStack redstoneBlock = new ItemStack(Blocks.redstone_block);
         ModifyBuilder.registerModifier(new ModRedstone(2, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
 
-        ModifyBuilder.registerModifier(new ModInteger(new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 6) }, 4, "Moss", 3, "\u00a72", StatCollector
-                .translateToLocal("modifier.tool.moss")));
+        ModifyBuilder.registerModifier(new ModInteger(new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 6) }, 4, "Moss", 3, "\u00a72", StatCollector.translateToLocal("modifier.tool.moss")));
         ItemStack blazePowder = new ItemStack(Items.blaze_powder);
         ModifyBuilder.registerModifier(new ModBlaze(7, new ItemStack[] { blazePowder }, new int[] { 1 }));
-        ModifyBuilder.registerModifier(new ModAutoSmelt(new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 7) }, 6, "Lava", "\u00a74", StatCollector
-                .translateToLocal("modifier.tool.lava")));
-        ModifyBuilder.registerModifier(new ModInteger(new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 8) }, 8, "Necrotic", 1, "\u00a78", StatCollector
-                .translateToLocal("modifier.tool.necro")));
+        ModifyBuilder.registerModifier(new ModAutoSmelt(new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 7) }, 6, "Lava", "\u00a74", StatCollector.translateToLocal("modifier.tool.lava")));
+        ModifyBuilder.registerModifier(new ModInteger(new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 8) }, 8, "Necrotic", 1, "\u00a78", StatCollector.translateToLocal("modifier.tool.necro")));
 
         ModifyBuilder.registerModifier(new ModExtraModifier(new ItemStack[] { diamond, new ItemStack(Blocks.gold_block) }, "Tier1Free"));
         ModifyBuilder.registerModifier(new ModExtraModifier(new ItemStack[] { new ItemStack(Blocks.diamond_block), new ItemStack(Items.golden_apple, 1, 1) }, "Tier1.5Free"));
@@ -512,8 +425,7 @@ public class TinkerTools
         ItemStack piston = new ItemStack(Blocks.piston);
         ModifyBuilder.registerModifier(new ModPiston(3, new ItemStack[] { piston }, new int[] { 1 }));
 
-        ModifyBuilder.registerModifier(new ModInteger(new ItemStack[] { new ItemStack(Blocks.obsidian), new ItemStack(Items.ender_pearl) }, 13, "Beheading", 1,
-                "\u00a7d", "Beheading"));
+        ModifyBuilder.registerModifier(new ModInteger(new ItemStack[] { new ItemStack(Blocks.obsidian), new ItemStack(Items.ender_pearl) }, 13, "Beheading", 1, "\u00a7d", "Beheading"));
 
         ItemStack holySoil = new ItemStack(TinkerTools.craftedSoil, 1, 4);
         ModifyBuilder.registerModifier(new ModSmite("Smite", 14, new ItemStack[] { holySoil }, new int[] { 1 }));
@@ -648,7 +560,7 @@ public class TinkerTools
             Items.golden_sword.setMaxDamage(1);
         }
     }
-    
+
     public static void registerPatternMaterial (String oreName, int value, String materialName)
     {
         for (ItemStack ore : OreDictionary.getOres(oreName))
@@ -656,30 +568,26 @@ public class TinkerTools
             PatternBuilder.instance.registerMaterial(ore, value, materialName);
         }
     }
-    
-    private void craftingTableRecipes()
+
+    private void craftingTableRecipes ()
     {
         String[] patBlock = { "###", "###", "###" };
         String[] patSurround = { "###", "#m#", "###" };
 
-        Object[] toolForgeBlocks = { "blockIron", "blockGold", Blocks.diamond_block, Blocks.emerald_block, "blockCobalt", "blockArdite", "blockManyullyn", "blockCopper", "blockBronze", "blockTin",
-                "blockAluminum", "blockAluminumBrass", "blockAlumite", "blockSteel" };
+        Object[] toolForgeBlocks = { "blockIron", "blockGold", Blocks.diamond_block, Blocks.emerald_block, "blockCobalt", "blockArdite", "blockManyullyn", "blockCopper", "blockBronze", "blockTin", "blockAluminum", "blockAluminumBrass", "blockAlumite", "blockSteel" };
 
         // ToolForge Recipes (Metal Version)
         for (int sc = 0; sc < toolForgeBlocks.length; sc++)
         {
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerTools.toolForge, 1, sc), "bbb", "msm", "m m", 'b', new ItemStack(TinkerSmeltery.smeltery, 1, 2), 's', new ItemStack(
-                    TinkerTools.toolStationWood, 1, 0), 'm', toolForgeBlocks[sc]));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerTools.toolForge, 1, sc), "bbb", "msm", "m m", 'b', new ItemStack(TinkerSmeltery.smeltery, 1, 2), 's', new ItemStack(TinkerTools.toolStationWood, 1, 0), 'm', toolForgeBlocks[sc]));
             // adding slab version recipe
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerTools.craftingSlabWood, 1, 5), "bbb", "msm", "m m", 'b', new ItemStack(TinkerSmeltery.smeltery, 1, 2), 's', new ItemStack(
-                    TinkerTools.craftingSlabWood, 1, 1), 'm', toolForgeBlocks[sc]));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerTools.craftingSlabWood, 1, 5), "bbb", "msm", "m m", 'b', new ItemStack(TinkerSmeltery.smeltery, 1, 2), 's', new ItemStack(TinkerTools.craftingSlabWood, 1, 1), 'm', toolForgeBlocks[sc]));
         }
 
         // ToolStation Recipes (Wooden Version)
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(TinkerTools.blankPattern, 1, 0), 'w', "crafterWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(TinkerTools.blankPattern, 1, 0), 'w', "craftingTableWood"));
-        GameRegistry.addRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(TinkerTools.blankPattern, 1, 0), 'w',
-                new ItemStack(TinkerTools.craftingStationWood, 1, 0));
+        GameRegistry.addRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(TinkerTools.blankPattern, 1, 0), 'w', new ItemStack(TinkerTools.craftingStationWood, 1, 0));
         GameRegistry.addRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(TinkerTools.blankPattern, 1, 0), 'w', new ItemStack(TinkerTools.craftingSlabWood, 1, 0));
         GameRegistry.addRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 2), "p", "w", 'p', new ItemStack(TinkerTools.blankPattern, 1, 0), 'w', new ItemStack(Blocks.log, 1, 1));
         GameRegistry.addRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 3), "p", "w", 'p', new ItemStack(TinkerTools.blankPattern, 1, 0), 'w', new ItemStack(Blocks.log, 1, 2));
@@ -716,12 +624,10 @@ public class TinkerTools
         GameRegistry.addRecipe(new ItemStack(TinkerTools.materials, 1, 7), "xcx", "cbc", "xcx", 'b', Items.lava_bucket, 'x', Items.fire_charge, 'c', Items.blaze_rod);
         // Slimy sand Recipes
         GameRegistry.addShapelessRecipe(new ItemStack(TinkerTools.craftedSoil, 1, 0), Items.slime_ball, Items.slime_ball, Items.slime_ball, Items.slime_ball, Blocks.sand, Blocks.dirt);
-        GameRegistry.addShapelessRecipe(new ItemStack(TinkerTools.craftedSoil, 1, 2), TinkerWorld.strangeFood, TinkerWorld.strangeFood, TinkerWorld.strangeFood, TinkerWorld.strangeFood, Blocks.sand,
-                Blocks.dirt);
+        GameRegistry.addShapelessRecipe(new ItemStack(TinkerTools.craftedSoil, 1, 2), TinkerWorld.strangeFood, TinkerWorld.strangeFood, TinkerWorld.strangeFood, TinkerWorld.strangeFood, Blocks.sand, Blocks.dirt);
         // Grout Recipes
         GameRegistry.addShapelessRecipe(new ItemStack(TinkerTools.craftedSoil, 2, 1), Items.clay_ball, Blocks.sand, Blocks.gravel);
-        GameRegistry.addShapelessRecipe(new ItemStack(TinkerTools.craftedSoil, 8, 1), new ItemStack(Blocks.clay, 1, Short.MAX_VALUE), Blocks.sand, Blocks.sand, Blocks.sand, Blocks.sand,
-                Blocks.gravel, Blocks.gravel, Blocks.gravel, Blocks.gravel);
+        GameRegistry.addShapelessRecipe(new ItemStack(TinkerTools.craftedSoil, 8, 1), new ItemStack(Blocks.clay, 1, Short.MAX_VALUE), Blocks.sand, Blocks.sand, Blocks.sand, Blocks.sand, Blocks.gravel, Blocks.gravel, Blocks.gravel, Blocks.gravel);
         GameRegistry.addShapelessRecipe(new ItemStack(TinkerTools.craftedSoil, 2, 6), Items.nether_wart, Blocks.soul_sand, Blocks.gravel);
         // Graveyard Soil Recipes
         GameRegistry.addShapelessRecipe(new ItemStack(TinkerTools.craftedSoil, 1, 3), Blocks.dirt, Items.rotten_flesh, new ItemStack(Items.dye, 1, 15));
@@ -749,12 +655,12 @@ public class TinkerTools
         GameRegistry.addRecipe(new ItemStack(TinkerTools.craftingSlabWood, 1, 3), "b", 'b', new ItemStack(TinkerTools.toolStationWood, 1, 12));
         GameRegistry.addRecipe(new ItemStack(TinkerTools.craftingSlabWood, 1, 3), "b", 'b', new ItemStack(TinkerTools.toolStationWood, 1, 13));
         GameRegistry.addRecipe(new ItemStack(TinkerTools.craftingSlabWood, 1, 5), "b", 'b', new ItemStack(TinkerTools.toolForge, 1, Short.MAX_VALUE));
-        
+
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerTools.materials, 1, 41), "dustArdite", "dustCobalt"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerTools.materials, 4, 42), "dustAluminium", "dustAluminium", "dustAluminium", "dustCopper"));
     }
-    
-    private void modIntegration()
+
+    private void modIntegration ()
     {
         /* TE3 Flux */
         ItemStack batHardened = GameRegistry.findItemStack("ThermalExpansion", "capacitorHardened", 1);
@@ -810,71 +716,71 @@ public class TinkerTools
             } // No need to handle
         }
     }
-    
+
     void registerMaterials ()
     {
         // Tool Materials: id, name, harvestlevel, durability, speed, damage, handlemodifier, reinforced, shoddy, color
-        TConstructRegistry.addToolMaterial(MaterialID.Wood,      "Wood",       1,   97,  350, 0,  1.0F, 0, 0f, YELLOW.toString());
-        TConstructRegistry.addToolMaterial(MaterialID.Stone,     "Stone",      1,  131,  400, 1,  0.5F, 0, 1f, GRAY.toString());
-        TConstructRegistry.addToolMaterial(MaterialID.Iron,      "Iron",       2,  250,  600, 2,  1.3F, 1, 0f, WHITE.toString());
-        TConstructRegistry.addToolMaterial(MaterialID.Flint,     "Flint",      1,  171,  525, 2,  0.7F, 0, 0f, DARK_GRAY.toString());
-        TConstructRegistry.addToolMaterial(MaterialID.Cactus,    "Cactus",     1,  150,  500, 2,  1.0F, 0,-1f, DARK_GREEN.toString());
-        TConstructRegistry.addToolMaterial(MaterialID.Bone,      "Bone",       1,  200,  400, 1,  1.0F, 0, 0f, YELLOW.toString());
-        TConstructRegistry.addToolMaterial(MaterialID.Obsidian,  "Obsidian",   3,   89,  700, 2,  0.8F, 3, 0f, LIGHT_PURPLE.toString());
-        TConstructRegistry.addToolMaterial(MaterialID.Netherrack,"Netherrack", 2,  131,  400, 1,  1.2F, 0, 1f, DARK_RED.toString());
-        TConstructRegistry.addToolMaterial(MaterialID.Slime,     "Slime",      0,  500,  150, 0,  1.5F, 0, 0f, GREEN.toString());
-        TConstructRegistry.addToolMaterial(MaterialID.Paper,     "Paper",      0,   30,  200, 0,  0.3F, 0, 0f, WHITE.toString());
-        TConstructRegistry.addToolMaterial(MaterialID.Cobalt,    "Cobalt",     4,  800, 1400, 3, 1.75F, 2, 0f, DARK_AQUA.toString());
-        TConstructRegistry.addToolMaterial(MaterialID.Ardite,    "Ardite",     4,  500,  800, 3,  2.0F, 0, 2f, DARK_RED.toString());
-        TConstructRegistry.addToolMaterial(MaterialID.Manyullyn, "Manyullyn",  5, 1200,  900, 4,  2.5F, 0, 0f, DARK_PURPLE.toString());
-        TConstructRegistry.addToolMaterial(MaterialID.Copper,    "Copper",     1,  180,  500, 2, 1.15F, 0, 0f, RED.toString());
-        TConstructRegistry.addToolMaterial(MaterialID.Bronze,    "Bronze",     2,  550,  800, 2,  1.3F, 1, 0f, GOLD.toString());
-        TConstructRegistry.addToolMaterial(MaterialID.Alumite,   "Alumite",    4,  700,  800, 3,  1.3F, 2, 0f, LIGHT_PURPLE.toString());
-        TConstructRegistry.addToolMaterial(MaterialID.Steel,     "Steel",      4,  750, 1000, 4,  1.3F, 2, 0f, GRAY.toString());
-        TConstructRegistry.addToolMaterial(MaterialID.BlueSlime, "BlueSlime",  0, 1200,  150, 0,  2.0F, 0, 0f, AQUA.toString());
-        TConstructRegistry.addToolMaterial(MaterialID.PigIron,   "PigIron",    3,  250,  600, 2,  1.3F, 1, 0f, RED.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Wood, "Wood", 1, 97, 350, 0, 1.0F, 0, 0f, YELLOW.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Stone, "Stone", 1, 131, 400, 1, 0.5F, 0, 1f, GRAY.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Iron, "Iron", 2, 250, 600, 2, 1.3F, 1, 0f, WHITE.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Flint, "Flint", 1, 171, 525, 2, 0.7F, 0, 0f, DARK_GRAY.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Cactus, "Cactus", 1, 150, 500, 2, 1.0F, 0, -1f, DARK_GREEN.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Bone, "Bone", 1, 200, 400, 1, 1.0F, 0, 0f, YELLOW.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Obsidian, "Obsidian", 3, 89, 700, 2, 0.8F, 3, 0f, LIGHT_PURPLE.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Netherrack, "Netherrack", 2, 131, 400, 1, 1.2F, 0, 1f, DARK_RED.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Slime, "Slime", 0, 500, 150, 0, 1.5F, 0, 0f, GREEN.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Paper, "Paper", 0, 30, 200, 0, 0.3F, 0, 0f, WHITE.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Cobalt, "Cobalt", 4, 800, 1400, 3, 1.75F, 2, 0f, DARK_AQUA.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Ardite, "Ardite", 4, 500, 800, 3, 2.0F, 0, 2f, DARK_RED.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Manyullyn, "Manyullyn", 5, 1200, 900, 4, 2.5F, 0, 0f, DARK_PURPLE.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Copper, "Copper", 1, 180, 500, 2, 1.15F, 0, 0f, RED.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Bronze, "Bronze", 2, 550, 800, 2, 1.3F, 1, 0f, GOLD.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Alumite, "Alumite", 4, 700, 800, 3, 1.3F, 2, 0f, LIGHT_PURPLE.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.Steel, "Steel", 4, 750, 1000, 4, 1.3F, 2, 0f, GRAY.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.BlueSlime, "BlueSlime", 0, 1200, 150, 0, 2.0F, 0, 0f, AQUA.toString());
+        TConstructRegistry.addToolMaterial(MaterialID.PigIron, "PigIron", 3, 250, 600, 2, 1.3F, 1, 0f, RED.toString());
 
         // Bow Materials: Material ID, durability, drawspeed, arrow speed
-        TConstructRegistry.addBowMaterial(MaterialID.Wood,       384, 20, 1.0f); // Wood
-        TConstructRegistry.addBowMaterial(MaterialID.Stone,       10, 80, 0.2f); // Stone
-        TConstructRegistry.addBowMaterial(MaterialID.Iron,       576, 30, 1.2f); // Iron
-        TConstructRegistry.addBowMaterial(MaterialID.Flint,       10, 80, 0.2f); // Flint
-        TConstructRegistry.addBowMaterial(MaterialID.Cactus,     384, 20, 1.0f); // Cactus
-        TConstructRegistry.addBowMaterial(MaterialID.Bone,       192, 30, 1.0f); // Bone
-        TConstructRegistry.addBowMaterial(MaterialID.Obsidian,    10, 80, 0.2f); // Obsidian
-        TConstructRegistry.addBowMaterial(MaterialID.Netherrack,  10, 80, 0.2f); // Netherrack
-        TConstructRegistry.addBowMaterial(MaterialID.Slime,     1536, 30, 1.2f); // Slime
-        TConstructRegistry.addBowMaterial(MaterialID.Paper,       48, 25, 0.5f); // Paper
-        TConstructRegistry.addBowMaterial(MaterialID.Cobalt,    1152, 30, 1.2f); // Cobalt
-        TConstructRegistry.addBowMaterial(MaterialID.Ardite,     960, 30, 1.2f); // Ardite
+        TConstructRegistry.addBowMaterial(MaterialID.Wood, 384, 20, 1.0f); // Wood
+        TConstructRegistry.addBowMaterial(MaterialID.Stone, 10, 80, 0.2f); // Stone
+        TConstructRegistry.addBowMaterial(MaterialID.Iron, 576, 30, 1.2f); // Iron
+        TConstructRegistry.addBowMaterial(MaterialID.Flint, 10, 80, 0.2f); // Flint
+        TConstructRegistry.addBowMaterial(MaterialID.Cactus, 384, 20, 1.0f); // Cactus
+        TConstructRegistry.addBowMaterial(MaterialID.Bone, 192, 30, 1.0f); // Bone
+        TConstructRegistry.addBowMaterial(MaterialID.Obsidian, 10, 80, 0.2f); // Obsidian
+        TConstructRegistry.addBowMaterial(MaterialID.Netherrack, 10, 80, 0.2f); // Netherrack
+        TConstructRegistry.addBowMaterial(MaterialID.Slime, 1536, 30, 1.2f); // Slime
+        TConstructRegistry.addBowMaterial(MaterialID.Paper, 48, 25, 0.5f); // Paper
+        TConstructRegistry.addBowMaterial(MaterialID.Cobalt, 1152, 30, 1.2f); // Cobalt
+        TConstructRegistry.addBowMaterial(MaterialID.Ardite, 960, 30, 1.2f); // Ardite
         TConstructRegistry.addBowMaterial(MaterialID.Manyullyn, 1536, 30, 1.2f); // Manyullyn
-        TConstructRegistry.addBowMaterial(MaterialID.Copper,     384, 30, 1.2f); // Copper
-        TConstructRegistry.addBowMaterial(MaterialID.Bronze,     576, 30, 1.2f); // Bronze
-        TConstructRegistry.addBowMaterial(MaterialID.Alumite,    768, 30, 1.2f); // Alumite
-        TConstructRegistry.addBowMaterial(MaterialID.Steel,      768, 30, 1.2f); // Steel
-        TConstructRegistry.addBowMaterial(MaterialID.BlueSlime,  576, 20, 1.2f); // Blue Slime
-        TConstructRegistry.addBowMaterial(MaterialID.PigIron,    384, 20, 1.2f); // Pig Iron
+        TConstructRegistry.addBowMaterial(MaterialID.Copper, 384, 30, 1.2f); // Copper
+        TConstructRegistry.addBowMaterial(MaterialID.Bronze, 576, 30, 1.2f); // Bronze
+        TConstructRegistry.addBowMaterial(MaterialID.Alumite, 768, 30, 1.2f); // Alumite
+        TConstructRegistry.addBowMaterial(MaterialID.Steel, 768, 30, 1.2f); // Steel
+        TConstructRegistry.addBowMaterial(MaterialID.BlueSlime, 576, 20, 1.2f); // Blue Slime
+        TConstructRegistry.addBowMaterial(MaterialID.PigIron, 384, 20, 1.2f); // Pig Iron
 
         // Fletchling Materials: Material ID, mass, fragility
-        TConstructRegistry.addArrowMaterial(MaterialID.Wood,       0.69F,  1.0F, 100F); //Wood
-        TConstructRegistry.addArrowMaterial(MaterialID.Stone,      2.05F,  5.0F, 100F); //Stone
-        TConstructRegistry.addArrowMaterial(MaterialID.Iron,        3.6F,  0.5F, 100F); //Iron
-        TConstructRegistry.addArrowMaterial(MaterialID.Flint,     1.325F,  1.0F, 100F); //Flint
-        TConstructRegistry.addArrowMaterial(MaterialID.Cactus,     0.76F,  1.0F, 100F); //Cactus
-        TConstructRegistry.addArrowMaterial(MaterialID.Bone,       0.69F,  1.0F, 100);  //Bone
-        TConstructRegistry.addArrowMaterial(MaterialID.Obsidian,    2.4F,  1.0F, 100F); //Obsidian
-        TConstructRegistry.addArrowMaterial(MaterialID.Netherrack,  1.5F,  1.0F, 100F); //Netherrack
-        TConstructRegistry.addArrowMaterial(MaterialID.Slime,      0.22F,  0.0F, 100F); //Slime
-        TConstructRegistry.addArrowMaterial(MaterialID.Paper,      0.69F,  3.0F,  90F); //Paper
-        TConstructRegistry.addArrowMaterial(MaterialID.Cobalt,      3.0F, 0.25F, 100F); //Cobalt
-        TConstructRegistry.addArrowMaterial(MaterialID.Ardite,     1.25F, 0.25F, 100F); //Ardite
-        TConstructRegistry.addArrowMaterial(MaterialID.Manyullyn,  2.25F,  0.1F, 100F); //Manyullyn
-        TConstructRegistry.addArrowMaterial(MaterialID.Copper,      2.7F,  0.5F, 100F); //Copper
-        TConstructRegistry.addArrowMaterial(MaterialID.Bronze,      3.6F, 0.25F, 100F); //Bronze
-        TConstructRegistry.addArrowMaterial(MaterialID.Alumite,     1.1F, 0.25F, 100F); //Alumite
-        TConstructRegistry.addArrowMaterial(MaterialID.Steel,       3.6F, 0.25F, 100F); //Steel
-        TConstructRegistry.addArrowMaterial(MaterialID.BlueSlime,  0.22F,  0.0F, 100F); //Blue Slime
-        TConstructRegistry.addArrowMaterial(MaterialID.PigIron,     3.6F,  0.5F, 100F); //Pigiron
+        TConstructRegistry.addArrowMaterial(MaterialID.Wood, 0.69F, 1.0F, 100F); //Wood
+        TConstructRegistry.addArrowMaterial(MaterialID.Stone, 2.05F, 5.0F, 100F); //Stone
+        TConstructRegistry.addArrowMaterial(MaterialID.Iron, 3.6F, 0.5F, 100F); //Iron
+        TConstructRegistry.addArrowMaterial(MaterialID.Flint, 1.325F, 1.0F, 100F); //Flint
+        TConstructRegistry.addArrowMaterial(MaterialID.Cactus, 0.76F, 1.0F, 100F); //Cactus
+        TConstructRegistry.addArrowMaterial(MaterialID.Bone, 0.69F, 1.0F, 100); //Bone
+        TConstructRegistry.addArrowMaterial(MaterialID.Obsidian, 2.4F, 1.0F, 100F); //Obsidian
+        TConstructRegistry.addArrowMaterial(MaterialID.Netherrack, 1.5F, 1.0F, 100F); //Netherrack
+        TConstructRegistry.addArrowMaterial(MaterialID.Slime, 0.22F, 0.0F, 100F); //Slime
+        TConstructRegistry.addArrowMaterial(MaterialID.Paper, 0.69F, 3.0F, 90F); //Paper
+        TConstructRegistry.addArrowMaterial(MaterialID.Cobalt, 3.0F, 0.25F, 100F); //Cobalt
+        TConstructRegistry.addArrowMaterial(MaterialID.Ardite, 1.25F, 0.25F, 100F); //Ardite
+        TConstructRegistry.addArrowMaterial(MaterialID.Manyullyn, 2.25F, 0.1F, 100F); //Manyullyn
+        TConstructRegistry.addArrowMaterial(MaterialID.Copper, 2.7F, 0.5F, 100F); //Copper
+        TConstructRegistry.addArrowMaterial(MaterialID.Bronze, 3.6F, 0.25F, 100F); //Bronze
+        TConstructRegistry.addArrowMaterial(MaterialID.Alumite, 1.1F, 0.25F, 100F); //Alumite
+        TConstructRegistry.addArrowMaterial(MaterialID.Steel, 3.6F, 0.25F, 100F); //Steel
+        TConstructRegistry.addArrowMaterial(MaterialID.BlueSlime, 0.22F, 0.0F, 100F); //Blue Slime
+        TConstructRegistry.addArrowMaterial(MaterialID.PigIron, 3.6F, 0.5F, 100F); //Pigiron
 
         TConstructRegistry.addBowstringMaterial(0, 2, new ItemStack(Items.string), new ItemStack(TinkerTools.bowstring, 1, 0), 1F, 1F, 1f); // String
         TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Items.feather), new ItemStack(TinkerTools.fletching, 1, 0), 100F, 0F, 0.05F); // Feather
@@ -937,19 +843,19 @@ public class TinkerTools
         pb.addToolPattern((IPattern) TinkerTools.woodPattern);
     }
 
-    private void registerStencils()
+    private void registerStencils ()
     {
         StencilBuilder.registerBlankStencil(new ItemStack(TinkerTools.blankPattern));
 
         // we register this manually because we want that specific order
-        StencilBuilder.registerStencil(TinkerTools.woodPattern,  1); // tool rod
-        StencilBuilder.registerStencil(TinkerTools.woodPattern,  9); // binding
+        StencilBuilder.registerStencil(TinkerTools.woodPattern, 1); // tool rod
+        StencilBuilder.registerStencil(TinkerTools.woodPattern, 9); // binding
         StencilBuilder.registerStencil(TinkerTools.woodPattern, 14); // large tool rod
         StencilBuilder.registerStencil(TinkerTools.woodPattern, 15); // large binding
 
-        StencilBuilder.registerStencil(TinkerTools.woodPattern,  2); // pickaxe head
-        StencilBuilder.registerStencil(TinkerTools.woodPattern,  3); // shovel head
-        StencilBuilder.registerStencil(TinkerTools.woodPattern,  4); // hatchet head
+        StencilBuilder.registerStencil(TinkerTools.woodPattern, 2); // pickaxe head
+        StencilBuilder.registerStencil(TinkerTools.woodPattern, 3); // shovel head
+        StencilBuilder.registerStencil(TinkerTools.woodPattern, 4); // hatchet head
         StencilBuilder.registerStencil(TinkerTools.woodPattern, 18); // scythe
 
         StencilBuilder.registerStencil(TinkerTools.woodPattern, 21); // hammer head
@@ -962,39 +868,40 @@ public class TinkerTools
         StencilBuilder.registerStencil(TinkerTools.woodPattern, 13); // chisel
 
         StencilBuilder.registerStencil(TinkerTools.woodPattern, 12); // knifeblade
-        StencilBuilder.registerStencil(TinkerTools.woodPattern,  5); // swordblade
+        StencilBuilder.registerStencil(TinkerTools.woodPattern, 5); // swordblade
         StencilBuilder.registerStencil(TinkerTools.woodPattern, 20); // cleaver blade
 
-        StencilBuilder.registerStencil(TinkerTools.woodPattern,  8); // crossbar
-        StencilBuilder.registerStencil(TinkerTools.woodPattern,  7); // small guard
-        StencilBuilder.registerStencil(TinkerTools.woodPattern,  6); // wide guard
+        StencilBuilder.registerStencil(TinkerTools.woodPattern, 8); // crossbar
+        StencilBuilder.registerStencil(TinkerTools.woodPattern, 7); // small guard
+        StencilBuilder.registerStencil(TinkerTools.woodPattern, 6); // wide guard
 
         StencilBuilder.registerStencil(TinkerTools.woodPattern, 25); // arrow head
         StencilBuilder.registerStencil(TinkerTools.woodPattern, 24); // fletchling
         StencilBuilder.registerStencil(TinkerTools.woodPattern, 23); // bowstring
     }
 
-    public static final class MaterialID {
-        public static final int Wood       =  0;
-        public static final int Stone      =  1;
-        public static final int Iron       =  2;
-        public static final int Flint      =  3;
-        public static final int Cactus     =  4;
-        public static final int Bone       =  5;
-        public static final int Obsidian   =  6;
-        public static final int Netherrack =  7;
-        public static final int Slime      =  8;
-        public static final int Paper      =  9;
-        public static final int Cobalt     = 10;
-        public static final int Ardite     = 11;
-        public static final int Manyullyn  = 12; // I'd still call it Manymetal --boni
-        public static final int Copper     = 13;
-        public static final int Bronze     = 14;
-        public static final int Alumite    = 15;
-        public static final int Steel      = 16;
-        public static final int BlueSlime  = 17;
-        public static final int PigIron    = 18;
+    public static final class MaterialID
+    {
+        public static final int Wood = 0;
+        public static final int Stone = 1;
+        public static final int Iron = 2;
+        public static final int Flint = 3;
+        public static final int Cactus = 4;
+        public static final int Bone = 5;
+        public static final int Obsidian = 6;
+        public static final int Netherrack = 7;
+        public static final int Slime = 8;
+        public static final int Paper = 9;
+        public static final int Cobalt = 10;
+        public static final int Ardite = 11;
+        public static final int Manyullyn = 12; // I'd still call it Manymetal --boni
+        public static final int Copper = 13;
+        public static final int Bronze = 14;
+        public static final int Alumite = 15;
+        public static final int Steel = 16;
+        public static final int BlueSlime = 17;
+        public static final int PigIron = 18;
 
-        public static final int Thaumium   = 31;
+        public static final int Thaumium = 31;
     }
 }

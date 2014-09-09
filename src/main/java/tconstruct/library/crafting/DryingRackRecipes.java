@@ -1,10 +1,8 @@
 package tconstruct.library.crafting;
 
 import java.util.ArrayList;
-
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 
 public class DryingRackRecipes
 {

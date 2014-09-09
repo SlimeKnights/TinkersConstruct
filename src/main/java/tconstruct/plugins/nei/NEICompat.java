@@ -1,10 +1,10 @@
 package tconstruct.plugins.nei;
 
-import tconstruct.tools.gui.CraftingStationGui;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.common.FMLCommonHandler;
-import codechicken.nei.recipe.DefaultOverlayHandler;
 import codechicken.nei.api.API;
+import codechicken.nei.recipe.DefaultOverlayHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import tconstruct.tools.gui.CraftingStationGui;
 
 public class NEICompat
 {

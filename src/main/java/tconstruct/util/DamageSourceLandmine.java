@@ -1,9 +1,7 @@
 package tconstruct.util;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.*;
 
 public class DamageSourceLandmine extends DamageSource
 {

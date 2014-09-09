@@ -8,8 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import tconstruct.library.ActiveToolMod;
-import tconstruct.library.TConstructRegistry;
+import tconstruct.library.*;
 
 /* Base class for harvest tools with each head having a different purpose */
 
@@ -19,7 +18,7 @@ public abstract class DualHarvestTool extends HarvestTool
     {
         super(baseDamage);
     }
-    
+
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
@@ -123,12 +122,13 @@ public abstract class DualHarvestTool extends HarvestTool
     }
 
     @Override
-    public boolean isEffective(Material material) {
-        if(super.isEffective(material))
+    public boolean isEffective (Material material)
+    {
+        if (super.isEffective(material))
             return true;
 
-        for(Material m : getEffectiveSecondaryMaterials())
-            if(m == material)
+        for (Material m : getEffectiveSecondaryMaterials())
+            if (m == material)
                 return true;
 
         return false;

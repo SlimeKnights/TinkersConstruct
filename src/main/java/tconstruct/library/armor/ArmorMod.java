@@ -1,12 +1,9 @@
 package tconstruct.library.armor;
 
 import java.util.EnumSet;
-
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
-import tconstruct.library.modifier.IModifyable;
-import tconstruct.library.modifier.ItemModifier;
+import tconstruct.library.modifier.*;
 
 public abstract class ArmorMod extends ItemModifier
 {
@@ -32,7 +29,7 @@ public abstract class ArmorMod extends ItemModifier
         }
         return false;
     }
-    
+
     @Override
     public boolean validType (IModifyable type)
     {

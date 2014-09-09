@@ -1,20 +1,16 @@
 package tconstruct.smeltery.blocks;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.smeltery.model.PaneConnectedRender;
 import tconstruct.util.config.PHConstruct;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class GlassPaneConnected extends GlassBlockConnected
 {
@@ -39,8 +35,7 @@ public class GlassPaneConnected extends GlassBlockConnected
     {
         if (par5 == 0 || par5 == 1)
         {
-            return par1IBlockAccess.getBlock(par2, par3 - 1, par4) == this && par5 == 0 ? icons[15] : par1IBlockAccess.getBlock(par2, par3 + 1, par4) == this && par5 == 1 ? icons[15]
-                    : getSideTextureIndex();
+            return par1IBlockAccess.getBlock(par2, par3 - 1, par4) == this && par5 == 0 ? icons[15] : par1IBlockAccess.getBlock(par2, par3 + 1, par4) == this && par5 == 1 ? icons[15] : getSideTextureIndex();
         }
         else
         {
@@ -683,8 +678,7 @@ public class GlassPaneConnected extends GlassBlockConnected
 
     public boolean canPaneConnectTo (IBlockAccess access, int x, int y, int z, ForgeDirection dir)
     {
-        return canThisPaneConnectToThisBlock(access.getBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ))
-                || access.isSideSolid(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, dir.getOpposite(), false);
+        return canThisPaneConnectToThisBlock(access.getBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ)) || access.isSideSolid(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, dir.getOpposite(), false);
     }
 
     @Override

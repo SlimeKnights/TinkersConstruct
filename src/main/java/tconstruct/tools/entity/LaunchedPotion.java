@@ -1,20 +1,15 @@
 package tconstruct.tools.entity;
 
-import java.util.Iterator;
-import java.util.List;
-
+import cpw.mods.fml.relauncher.*;
+import java.util.*;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.potion.*;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class LaunchedPotion extends EntityThrowable
 {

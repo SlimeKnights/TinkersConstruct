@@ -1,25 +1,14 @@
 package tconstruct.world;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
+import java.util.*;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.ChunkPosition;
-import net.minecraft.world.Explosion;
-import net.minecraft.world.World;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 
 public class MiningExplosion extends Explosion
 {
@@ -76,8 +65,7 @@ public class MiningExplosion extends Explosion
                             if (k1 != Blocks.air)
                             {
                                 Block block = k1;
-                                float f3 = this.exploder != null ? this.exploder.func_145772_a(this, this.world, l, i1, j1, block) : block.getExplosionResistance(this.exploder, world, l, i1, j1,
-                                        explosionX, explosionY, explosionZ);
+                                float f3 = this.exploder != null ? this.exploder.func_145772_a(this, this.world, l, i1, j1, block) : block.getExplosionResistance(this.exploder, world, l, i1, j1, explosionX, explosionY, explosionZ);
                                 f1 -= (f3 + 0.8F) * f2 * 0.25f;
                             }
 

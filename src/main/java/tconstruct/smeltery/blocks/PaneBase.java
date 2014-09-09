@@ -1,25 +1,14 @@
 package tconstruct.smeltery.blocks;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockPane;
 import net.minecraft.block.BlockStainedGlassPane;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.item.*;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.smeltery.model.PaneRender;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class PaneBase extends BlockStainedGlassPane
 {
@@ -51,20 +40,21 @@ public class PaneBase extends BlockStainedGlassPane
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149735_b(int p_149735_1_, int p_149735_2_)
+    public IIcon func_149735_b (int p_149735_1_, int p_149735_2_)
     {
         return icons[p_149735_2_];
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_150104_b(int p_150104_1_)
+    public IIcon func_150104_b (int p_150104_1_)
     {
         return sideIcons[p_150104_1_];
     }
 
     @Override
-    public IIcon getIcon(int p_149691_1_, int p_149691_2_) {
+    public IIcon getIcon (int p_149691_1_, int p_149691_2_)
+    {
         return icons[p_149691_2_];
     }
 
@@ -91,7 +81,8 @@ public class PaneBase extends BlockStainedGlassPane
     }
 
     @Override
-    public int getRenderType() {
+    public int getRenderType ()
+    {
         return PaneRender.model;
     }
 }

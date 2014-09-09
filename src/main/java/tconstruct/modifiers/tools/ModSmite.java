@@ -19,7 +19,7 @@ public class ModSmite extends ItemModTypeFilter
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        if(matchingAmount(input) > max)
+        if (matchingAmount(input) > max)
             return false;
 
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");

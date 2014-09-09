@@ -1,26 +1,18 @@
 package tconstruct.tools;
 
 import java.util.Random;
-
 import net.minecraft.block.Block;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.item.EntityXPOrb;
+import net.minecraft.enchantment.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.item.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import tconstruct.library.ActiveToolMod;
-import tconstruct.library.tools.AbilityHelper;
-import tconstruct.library.tools.ToolCore;
+import tconstruct.library.tools.*;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
 
@@ -59,11 +51,11 @@ public class TActiveOmniMod extends ActiveToolMod
         TinkerTools.modLapis.midStreamModify(stack, tool);
         if (autoSmelt(tool, tags, stack, x, y, z, entity))
             return true;
-        
+
         return false;
     }
-    
-    private boolean autoSmelt(ToolCore tool, NBTTagCompound tags, ItemStack stack, int x, int y, int z, EntityLivingBase entity)
+
+    private boolean autoSmelt (ToolCore tool, NBTTagCompound tags, ItemStack stack, int x, int y, int z, EntityLivingBase entity)
     {
         World world = entity.worldObj;
         Block block = world.getBlock(x, y, z);
@@ -79,7 +71,7 @@ public class TActiveOmniMod extends ActiveToolMod
             Item item = block.getItemDropped(meta, random, EnchantmentHelper.getFortuneModifier(entity));
 
             // apparently some things that don't drop blocks (like glass panes without silktouch) return null.
-            if(item == null)
+            if (item == null)
                 return false;
 
             ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(item, amount, meta));
@@ -90,7 +82,7 @@ public class TActiveOmniMod extends ActiveToolMod
                     tool.onBlockDestroyed(stack, world, block, x, y, z, entity);
                 if (!world.isRemote)
                 {
-                    ItemStack spawnme = new ItemStack(result.getItem(), amount*result.stackSize, result.getItemDamage());
+                    ItemStack spawnme = new ItemStack(result.getItem(), amount * result.stackSize, result.getItemDamage());
                     if (result.hasTagCompound())
                         spawnme.setTagCompound(result.getTagCompound());
                     if (!(result.getItem() instanceof ItemBlock) && PHConstruct.lavaFortuneInteraction)

@@ -1,33 +1,24 @@
 package tconstruct.tools.logic;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import mantle.blocks.BlockUtils;
 import mantle.blocks.abstracts.InventoryLogic;
-import mantle.blocks.iface.IActiveLogic;
-import mantle.blocks.iface.IFacingLogic;
+import mantle.blocks.iface.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemHoe;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
-import net.minecraft.item.ItemTool;
+import net.minecraft.init.*;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
+import net.minecraft.network.*;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.tools.inventory.FurnaceContainer;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 /* Slots
  * 0: Input
@@ -44,9 +35,9 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     public int progress;
     public int fuelScale = 200;
     byte direction;
-    private static final int[] slots_top = new int[] {0};
-    private static final int[] slots_bottom = new int[] {2, 1};
-    private static final int[] slots_sides = new int[] {1};
+    private static final int[] slots_top = new int[] { 0 };
+    private static final int[] slots_bottom = new int[] { 2, 1 };
+    private static final int[] slots_sides = new int[] { 1 };
 
     public FurnaceLogic()
     {
@@ -280,13 +271,13 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
 
     public void readNetworkNBT (NBTTagCompound tags)
     {
-    	active = tags.getBoolean("Active");
+        active = tags.getBoolean("Active");
         direction = tags.getByte("Direction");
     }
 
     public void writeNetworkNBT (NBTTagCompound tags)
     {
-    	tags.setBoolean("Active", active);
+        tags.setBoolean("Active", active);
         tags.setByte("Direction", direction);
     }
 
@@ -378,31 +369,31 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     {
     }
 
-    public static boolean isItemFuel(ItemStack par0ItemStack)
+    public static boolean isItemFuel (ItemStack par0ItemStack)
     {
         return getItemBurnTime(par0ItemStack) > 0;
     }
 
     @Override
-    public boolean isItemValidForSlot(int par1, ItemStack par2ItemStack)
+    public boolean isItemValidForSlot (int par1, ItemStack par2ItemStack)
     {
         return par1 == 2 ? false : (par1 == 1 ? isItemFuel(par2ItemStack) : true);
     }
 
     @Override
-    public int[] getAccessibleSlotsFromSide(int par1)
+    public int[] getAccessibleSlotsFromSide (int par1)
     {
         return par1 == 0 ? slots_bottom : (par1 == 1 ? slots_top : slots_sides);
     }
-    
+
     @Override
-    public boolean canInsertItem(int par1, ItemStack par2ItemStack, int par3)
+    public boolean canInsertItem (int par1, ItemStack par2ItemStack, int par3)
     {
         return this.isItemValidForSlot(par1, par2ItemStack);
     }
 
     @Override
-    public boolean canExtractItem(int par1, ItemStack par2ItemStack, int par3)
+    public boolean canExtractItem (int par1, ItemStack par2ItemStack, int par3)
     {
         return par3 != 0 || par1 != 1 || par2ItemStack.getItem() == Items.bucket;
     }

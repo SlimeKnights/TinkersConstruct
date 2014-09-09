@@ -3,13 +3,10 @@ package tconstruct.tools.entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import tconstruct.items.tools.Dagger;
-import tconstruct.library.tools.AbilityHelper;
-import tconstruct.library.tools.ToolCore;
+import tconstruct.library.tools.*;
 
 public class DaggerEntity extends RotatingBase
 {

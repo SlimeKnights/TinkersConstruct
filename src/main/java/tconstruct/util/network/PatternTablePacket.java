@@ -1,5 +1,6 @@
 package tconstruct.util.network;
 
+import cpw.mods.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import mantle.blocks.abstracts.InventoryLogic;
@@ -8,7 +9,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.network.ByteBufUtils;
 
 public class PatternTablePacket extends AbstractPacket
 {

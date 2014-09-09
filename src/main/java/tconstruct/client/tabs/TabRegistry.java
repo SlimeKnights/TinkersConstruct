@@ -1,16 +1,12 @@
 package tconstruct.client.tabs;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.gui.inventory.GuiInventory;
-import net.minecraftforge.client.event.GuiScreenEvent;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import cpw.mods.fml.relauncher.*;
+import java.util.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiInventory;
+import net.minecraftforge.client.event.GuiScreenEvent;
 
 public class TabRegistry
 {
@@ -25,7 +21,7 @@ public class TabRegistry
     {
         return tabList;
     }
-    
+
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void guiPostInit (GuiScreenEvent.InitGuiEvent.Post event)
@@ -36,7 +32,7 @@ public class TabRegistry
             int ySize = 166;
             int guiLeft = (event.gui.width - xSize) / 2;
             int guiTop = (event.gui.height - ySize) / 2;
-            
+
             updateTabValues(guiLeft, guiTop, InventoryTabVanilla.class);
             addTabsToList(event.gui.buttonList);
         }

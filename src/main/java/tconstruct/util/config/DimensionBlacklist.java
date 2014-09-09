@@ -1,11 +1,10 @@
 package tconstruct.util.config;
 
+import cpw.mods.fml.common.Loader;
 import java.io.File;
 import java.util.ArrayList;
-
 import net.minecraftforge.common.config.Configuration;
 import tconstruct.TConstruct;
-import cpw.mods.fml.common.Loader;
 
 public class DimensionBlacklist
 {

@@ -1,25 +1,20 @@
 package tconstruct.world.blocks;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.Explosion;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 import tconstruct.blocks.TConstructBlock;
 import tconstruct.mechworks.entity.item.ExplosivePrimed;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class SlimeExplosive extends TConstructBlock
 {
@@ -85,8 +80,7 @@ public class SlimeExplosive extends TConstructBlock
     {
         if (!par1World.isRemote)
         {
-            ExplosivePrimed entitytntprimed = new ExplosivePrimed(par1World, (double) ((float) par2 + 0.5F), (double) ((float) par3 + 0.5F), (double) ((float) par4 + 0.5F),
-                    par5Explosion.getExplosivePlacedBy());
+            ExplosivePrimed entitytntprimed = new ExplosivePrimed(par1World, (double) ((float) par2 + 0.5F), (double) ((float) par3 + 0.5F), (double) ((float) par4 + 0.5F), par5Explosion.getExplosivePlacedBy());
             entitytntprimed.fuse = par1World.rand.nextInt(entitytntprimed.fuse / 4) + entitytntprimed.fuse / 8;
             par1World.spawnEntityInWorld(entitytntprimed);
         }

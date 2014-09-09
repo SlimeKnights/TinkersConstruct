@@ -1,10 +1,8 @@
 package tconstruct.tools.inventory;
 
 import java.util.Random;
-
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
@@ -67,7 +65,8 @@ public class SlotTool extends Slot
                 player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "tinker:little_saw", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
             MinecraftForge.EVENT_BUS.post(new ToolCraftedEvent(this.inventory, player, stack));
         }
-        else //Simply naming items
+        else
+        //Simply naming items
         {
             int amount = inventory.getStackInSlot(1).stackSize;
             inventory.decrStackSize(1, amount);

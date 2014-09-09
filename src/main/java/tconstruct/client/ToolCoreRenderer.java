@@ -6,26 +6,27 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
-
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
+import org.lwjgl.opengl.*;
 import tconstruct.TConstruct;
 import tconstruct.library.tools.ToolCore;
-import tconstruct.tools.entity.DaggerEntity;
 
 public class ToolCoreRenderer implements IItemRenderer
 {
     private final boolean isEntity;
     private final boolean noEntityTranslation;
 
-    public ToolCoreRenderer() { this(false, false); }
+    public ToolCoreRenderer()
+    {
+        this(false, false);
+    }
 
-    public ToolCoreRenderer(boolean isEntity) {
+    public ToolCoreRenderer(boolean isEntity)
+    {
         this(isEntity, false);
     }
 
-    public ToolCoreRenderer(boolean isEntity, boolean noEntityTranslation) {
+    public ToolCoreRenderer(boolean isEntity, boolean noEntityTranslation)
+    {
         this.isEntity = isEntity;
         this.noEntityTranslation = noEntityTranslation;
     }
@@ -33,7 +34,7 @@ public class ToolCoreRenderer implements IItemRenderer
     @Override
     public boolean handleRenderType (ItemStack item, ItemRenderType type)
     {
-        if(!item.hasTagCompound())
+        if (!item.hasTagCompound())
             return false;
 
         switch (type)
@@ -169,7 +170,7 @@ public class ToolCoreRenderer implements IItemRenderer
                 GL11.glTranslatef(0, -4 / 16f, 0);
                 break;
             case ENTITY:
-                if(!noEntityTranslation)
+                if (!noEntityTranslation)
                     GL11.glTranslatef(-0.5f, 0f, depth); // correction of the rotation point when items lie on the ground
                 break;
             default:
@@ -207,14 +208,14 @@ public class ToolCoreRenderer implements IItemRenderer
 
             for (int i = 0; i < iconParts; ++i)
             {
-            	float w = width[i], m = xMax[i], d = xDiff[i], s = xSub[i];
-                for (int k = 0, e = (int)w; k < e; ++k)
+                float w = width[i], m = xMax[i], d = xDiff[i], s = xSub[i];
+                for (int k = 0, e = (int) w; k < e; ++k)
                 {
                     pos = k / w;
                     iconPos = m + d * pos - s;
                     tess.addVertexWithUV(pos, 0, -depth, iconPos, yMax[i]);
-                    tess.addVertexWithUV(pos, 0,      0, iconPos, yMax[i]);
-                    tess.addVertexWithUV(pos, 1,      0, iconPos, yMin[i]);
+                    tess.addVertexWithUV(pos, 0, 0, iconPos, yMax[i]);
+                    tess.addVertexWithUV(pos, 1, 0, iconPos, yMin[i]);
                     tess.addVertexWithUV(pos, 1, -depth, iconPos, yMin[i]);
                 }
             }
@@ -226,16 +227,16 @@ public class ToolCoreRenderer implements IItemRenderer
 
             for (int i = 0; i < iconParts; ++i)
             {
-            	float w = width[i], m = xMax[i], d = xDiff[i], s = xSub[i];
-            	float d2 = 1f / w;
-            	for (int k = 0, e = (int)w; k < e; ++k)
+                float w = width[i], m = xMax[i], d = xDiff[i], s = xSub[i];
+                float d2 = 1f / w;
+                for (int k = 0, e = (int) w; k < e; ++k)
                 {
                     pos = k / w;
                     iconPos = m + d * pos - s;
                     posEnd = pos + d2;
                     tess.addVertexWithUV(posEnd, 1, -depth, iconPos, yMin[i]);
-                    tess.addVertexWithUV(posEnd, 1,      0, iconPos, yMin[i]);
-                    tess.addVertexWithUV(posEnd, 0,      0, iconPos, yMax[i]);
+                    tess.addVertexWithUV(posEnd, 1, 0, iconPos, yMin[i]);
+                    tess.addVertexWithUV(posEnd, 0, 0, iconPos, yMax[i]);
                     tess.addVertexWithUV(posEnd, 0, -depth, iconPos, yMax[i]);
                 }
             }
@@ -246,15 +247,15 @@ public class ToolCoreRenderer implements IItemRenderer
 
             for (int i = 0; i < iconParts; ++i)
             {
-            	float h = height[i], m = yMax[i], d = yDiff[i], s = ySub[i];
-            	float d2 = 1f / h;
-            	for (int k = 0, e = (int)h; k < e; ++k)
+                float h = height[i], m = yMax[i], d = yDiff[i], s = ySub[i];
+                float d2 = 1f / h;
+                for (int k = 0, e = (int) h; k < e; ++k)
                 {
                     pos = k / h;
                     iconPos = m + d * pos - s;
                     posEnd = pos + d2;
-                    tess.addVertexWithUV(0, posEnd,      0, xMax[i], iconPos);
-                    tess.addVertexWithUV(1, posEnd,      0, xMin[i], iconPos);
+                    tess.addVertexWithUV(0, posEnd, 0, xMax[i], iconPos);
+                    tess.addVertexWithUV(1, posEnd, 0, xMin[i], iconPos);
                     tess.addVertexWithUV(1, posEnd, -depth, xMin[i], iconPos);
                     tess.addVertexWithUV(0, posEnd, -depth, xMax[i], iconPos);
                 }
@@ -266,13 +267,13 @@ public class ToolCoreRenderer implements IItemRenderer
 
             for (int i = 0; i < iconParts; ++i)
             {
-            	float h = height[i], m = yMax[i], d = yDiff[i], s = ySub[i];
-            	for (int k = 0, e = (int)h; k < e; ++k)
+                float h = height[i], m = yMax[i], d = yDiff[i], s = ySub[i];
+                for (int k = 0, e = (int) h; k < e; ++k)
                 {
                     pos = k / h;
                     iconPos = m + d * pos - s;
-                    tess.addVertexWithUV(1, pos,      0, xMin[i], iconPos);
-                    tess.addVertexWithUV(0, pos,      0, xMax[i], iconPos);
+                    tess.addVertexWithUV(1, pos, 0, xMin[i], iconPos);
+                    tess.addVertexWithUV(0, pos, 0, xMax[i], iconPos);
                     tess.addVertexWithUV(0, pos, -depth, xMax[i], iconPos);
                     tess.addVertexWithUV(1, pos, -depth, xMin[i], iconPos);
                 }

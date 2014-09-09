@@ -2,24 +2,17 @@ package tconstruct.tools.gui;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.List;
-
+import java.util.*;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
-
 import org.lwjgl.opengl.GL11;
-
 import tconstruct.library.armor.ArmorCore;
-import tconstruct.library.tools.AbilityHelper;
-import tconstruct.library.tools.HarvestTool;
-import tconstruct.library.tools.ToolCore;
+import tconstruct.library.tools.*;
 import tconstruct.library.util.HarvestLevels;
 import tconstruct.tools.logic.CraftingStationLogic;
 
@@ -310,8 +303,7 @@ public class CraftingStationGui extends GuiContainer
             offset++;
             fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation13"), offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
-            fontRendererObj.drawString("- " + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel2")), offsetX + 8, base + offset * 10,
-                    0xffffff);
+            fontRendererObj.drawString("- " + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel2")), offsetX + 8, base + offset * 10, 0xffffff);
             offset++;
             offset++;
         }

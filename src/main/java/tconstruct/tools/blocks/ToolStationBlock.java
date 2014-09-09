@@ -1,7 +1,7 @@
 package tconstruct.tools.blocks;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
 import mantle.blocks.abstracts.InventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -9,26 +9,18 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.tools.TinkerTools;
-import tconstruct.tools.logic.PartBuilderLogic;
-import tconstruct.tools.logic.PatternChestLogic;
-import tconstruct.tools.logic.StencilTableLogic;
-import tconstruct.tools.logic.ToolStationLogic;
+import tconstruct.tools.logic.*;
 import tconstruct.tools.model.TableRender;
 import tconstruct.util.config.PHConstruct;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ToolStationBlock extends InventoryBlock
 {
@@ -46,11 +38,7 @@ public class ToolStationBlock extends InventoryBlock
     @Override
     public String[] getTextureNames ()
     {
-        String[] textureNames = { "toolstation_top", "toolstation_side", "toolstation_bottom", "partbuilder_oak_top", "partbuilder_oak_side", "partbuilder_oak_bottom", "partbuilder_spruce_top",
-                "partbuilder_spruce_side", "partbuilder_spruce_bottom", "partbuilder_birch_top", "partbuilder_birch_side", "partbuilder_birch_bottom", "partbuilder_jungle_top",
-                "partbuilder_jungle_side", "partbuilder_jungle_bottom", "patternchest_top", "patternchest_side", "patternchest_bottom", "stenciltable_oak_top", "stenciltable_oak_side",
-                "stenciltable_oak_bottom", "stenciltable_spruce_top", "stenciltable_spruce_side", "stenciltable_spruce_bottom", "stenciltable_birch_top", "stenciltable_birch_side",
-                "stenciltable_birch_bottom", "stenciltable_jungle_top", "stenciltable_jungle_side", "stenciltable_jungle_bottom" };
+        String[] textureNames = { "toolstation_top", "toolstation_side", "toolstation_bottom", "partbuilder_oak_top", "partbuilder_oak_side", "partbuilder_oak_bottom", "partbuilder_spruce_top", "partbuilder_spruce_side", "partbuilder_spruce_bottom", "partbuilder_birch_top", "partbuilder_birch_side", "partbuilder_birch_bottom", "partbuilder_jungle_top", "partbuilder_jungle_side", "partbuilder_jungle_bottom", "patternchest_top", "patternchest_side", "patternchest_bottom", "stenciltable_oak_top", "stenciltable_oak_side", "stenciltable_oak_bottom", "stenciltable_spruce_top", "stenciltable_spruce_side", "stenciltable_spruce_bottom", "stenciltable_birch_top", "stenciltable_birch_side", "stenciltable_birch_bottom", "stenciltable_jungle_top", "stenciltable_jungle_side", "stenciltable_jungle_bottom" };
 
         return textureNames;
     }
@@ -118,8 +106,7 @@ public class ToolStationBlock extends InventoryBlock
     {
         int metadata = world.getBlockMetadata(x, y, z);
         if (metadata == 5)
-            return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY - 0.125,
-                    (double) z + this.maxZ);
+            return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY - 0.125, (double) z + this.maxZ);
         return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
     }
 
@@ -223,7 +210,7 @@ public class ToolStationBlock extends InventoryBlock
     {
         return "tinker";
     }
-    
+
     /* Keep pattern chest inventory */
     @Override
     public void breakBlock (World par1World, int x, int y, int z, Block blockID, int meta)
@@ -235,7 +222,7 @@ public class ToolStationBlock extends InventoryBlock
             par1World.removeTileEntity(x, y, z);
         }
     }
-    
+
     @Override
     public boolean removedByPlayer (World world, EntityPlayer player, int x, int y, int z, boolean willHarvest)
     {
@@ -274,7 +261,7 @@ public class ToolStationBlock extends InventoryBlock
     public void harvestBlock (World world, EntityPlayer player, int x, int y, int z, int meta)
     {
         if (meta < 5 || meta > 9)
-        super.harvestBlock(world, player, x, y, z, meta);
+            super.harvestBlock(world, player, x, y, z, meta);
         //Do nothing
     }
 

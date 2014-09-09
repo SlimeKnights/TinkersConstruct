@@ -1,34 +1,22 @@
 package tconstruct.library.tools;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
+import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.relauncher.*;
+import java.util.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemPotion;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
-import tconstruct.library.ActiveToolMod;
-import tconstruct.library.TConstructRegistry;
+import tconstruct.library.*;
 import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.modifier.IModifyable;
-import tconstruct.library.modifier.ItemModifier;
+import tconstruct.library.modifier.*;
 import tconstruct.tools.entity.FancyEntityItem;
-import cofh.api.energy.IEnergyContainerItem;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * NBTTags Main tag - InfiTool
@@ -74,15 +62,15 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         setNoRepair();
         canRepair = false;
     }
-    
+
     @Override
-    public String getBaseTagName()
+    public String getBaseTagName ()
     {
         return "InfiTool";
     }
-    
+
     @Override
-    public String getModifyType()
+    public String getModifyType ()
     {
         return "Tool";
     }
@@ -119,7 +107,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         return this.getClass().getSimpleName();
     }
 
-    public String getLocalizedToolName()
+    public String getLocalizedToolName ()
     {
         return StatCollector.translateToLocal("tool." + getToolName().toLowerCase());
     }
@@ -801,8 +789,8 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         if (tags == null || !tags.hasKey("Energy"))
             return 0;
         int energy = tags.getInteger("Energy");
-        int energyReceived = tags.hasKey("EnergyReceiveRate") ? tags.getInteger("EnergyReceiveRate") :  this.maxReceive; // backup value
-        int maxEnergy = tags.hasKey("EnergyMax") ? tags.getInteger("EnergyMax") :  this.capacity; // backup value
+        int energyReceived = tags.hasKey("EnergyReceiveRate") ? tags.getInteger("EnergyReceiveRate") : this.maxReceive; // backup value
+        int maxEnergy = tags.hasKey("EnergyMax") ? tags.getInteger("EnergyMax") : this.capacity; // backup value
 
         // calculate how much we can receive
         energyReceived = Math.min(maxEnergy - energy, Math.min(energyReceived, maxReceive));
@@ -858,7 +846,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         if (tags == null || !tags.hasKey("Energy"))
             return 0;
 
-        if(tags.hasKey("EnergyMax"))
+        if (tags.hasKey("EnergyMax"))
             return tags.getInteger("EnergyMax");
         // backup
         return capacity;

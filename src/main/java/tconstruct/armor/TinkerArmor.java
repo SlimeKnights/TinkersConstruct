@@ -1,58 +1,33 @@
 package tconstruct.armor;
 
+import cpw.mods.fml.common.*;
+import cpw.mods.fml.common.event.*;
+import cpw.mods.fml.common.registry.*;
+import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
+import cpw.mods.fml.relauncher.Side;
 import java.util.EnumSet;
-
-import cpw.mods.fml.common.SidedProxy;
-import mantle.pulsar.pulse.Handler;
-import mantle.pulsar.pulse.Pulse;
+import mantle.pulsar.pulse.*;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
+import net.minecraft.init.*;
+import net.minecraft.item.*;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import tconstruct.TConstruct;
 import tconstruct.armor.blocks.DryingRack;
-import tconstruct.armor.items.ArmorBasic;
-import tconstruct.armor.items.DiamondApple;
-import tconstruct.armor.items.HeartCanister;
-import tconstruct.armor.items.Jerky;
-import tconstruct.armor.items.Knapsack;
-import tconstruct.armor.items.TravelBelt;
-import tconstruct.armor.items.TravelGear;
-import tconstruct.armor.items.TravelGlove;
-import tconstruct.armor.items.TravelWings;
+import tconstruct.armor.items.*;
 import tconstruct.blocks.logic.DryingRackLogic;
 import tconstruct.client.ArmorControls;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.accessory.AccessoryCore;
 import tconstruct.library.armor.ArmorPart;
-import tconstruct.library.crafting.DryingRackRecipes;
-import tconstruct.library.crafting.LiquidCasting;
-import tconstruct.library.crafting.ModifyBuilder;
+import tconstruct.library.crafting.*;
 import tconstruct.modifiers.accessory.GloveSpeed;
-import tconstruct.modifiers.armor.AModBoolean;
-import tconstruct.modifiers.armor.AModInteger;
-import tconstruct.modifiers.armor.AModLeadBoots;
-import tconstruct.modifiers.armor.ActiveTinkerArmor;
-import tconstruct.modifiers.armor.TravelModDoubleJump;
-import tconstruct.modifiers.armor.TravelModRepair;
+import tconstruct.modifiers.armor.*;
 import tconstruct.modifiers.tools.ModAttack;
 import tconstruct.tools.TinkerTools;
 import tconstruct.world.TinkerWorld;
-import tconstruct.world.items.GoldenHead;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
-import cpw.mods.fml.relauncher.Side;
 
 @ObjectHolder(TConstruct.modID)
 @Pulse(id = "Tinkers' Armory", description = "Modifyable armors, such as the traveller's gear.")
@@ -96,7 +71,7 @@ public class TinkerArmor
     {
         MinecraftForge.EVENT_BUS.register(new TinkerArmorEvents());
         FMLCommonHandler.instance().bus().register(new ArmorAbilities());
-        
+
         if (event.getSide() == Side.CLIENT)
         {
             FMLCommonHandler.instance().bus().register(new ArmorControls());
@@ -199,15 +174,12 @@ public class TinkerArmor
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerArmor.heartCanister, 1, 0), " # ", "#B#", " # ", '#', "ingotTin", 'B', Items.bone));
 
         GameRegistry.addRecipe(new ItemStack(TinkerArmor.diamondApple), " d ", "d#d", " d ", 'd', new ItemStack(Items.diamond), '#', new ItemStack(Items.apple));
-        GameRegistry.addShapelessRecipe(new ItemStack(TinkerArmor.heartCanister, 1, 2), new ItemStack(TinkerArmor.diamondApple), new ItemStack(TinkerTools.materials, 1, 8), new ItemStack(
-                TinkerArmor.heartCanister, 1, 0), new ItemStack(TinkerArmor.heartCanister, 1, 1));
+        GameRegistry.addShapelessRecipe(new ItemStack(TinkerArmor.heartCanister, 1, 2), new ItemStack(TinkerArmor.diamondApple), new ItemStack(TinkerTools.materials, 1, 8), new ItemStack(TinkerArmor.heartCanister, 1, 0), new ItemStack(TinkerArmor.heartCanister, 1, 1));
         GameRegistry.addShapelessRecipe(new ItemStack(TinkerArmor.heartCanister, 1, 1), new ItemStack(TinkerArmor.heartCanister, 1, 3));
-        GameRegistry.addShapelessRecipe(new ItemStack(TinkerArmor.heartCanister, 1, 4), new ItemStack(TinkerArmor.heartCanister, 1, 2), new ItemStack(TinkerArmor.heartCanister, 1, 3), new ItemStack(
-                Items.golden_apple, 1, 1));
+        GameRegistry.addShapelessRecipe(new ItemStack(TinkerArmor.heartCanister, 1, 4), new ItemStack(TinkerArmor.heartCanister, 1, 2), new ItemStack(TinkerArmor.heartCanister, 1, 3), new ItemStack(Items.golden_apple, 1, 1));
         //GameRegistry.addShapelessRecipe(new ItemStack(heartCanister, 1, 6), new ItemStack(heartCanister, 1, 0), new ItemStack(heartCanister, 1, 4), new ItemStack(heartCanister, 1, 5));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerArmor.knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Items.leather), 'r', new ItemStack(TinkerTools.toughRod, 1, 2),
-                'm', "ingotGold"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerArmor.knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Items.leather), 'r', new ItemStack(TinkerTools.toughRod, 1, 2), 'm', "ingotGold"));
         ItemStack aluBrass = new ItemStack(TinkerTools.materials, 1, 14);
         GameRegistry.addRecipe(new ItemStack(TinkerArmor.knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Items.leather), 'r', new ItemStack(TinkerTools.toughRod, 1, 2), 'm', aluBrass);
         // Drying Rack Recipes
@@ -248,42 +220,32 @@ public class TinkerArmor
         ItemStack redstoneBlock = new ItemStack(Blocks.redstone_block);
         //Travel gear modifiers
         //MultiType
-        ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(ArmorPart.Legs, ArmorPart.Feet), new ItemStack[] { new ItemStack(Items.ghast_tear),
-                new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Blocks.piston) }));
-        ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(ArmorPart.Legs, ArmorPart.Feet), new ItemStack[] { new ItemStack(Items.ghast_tear),
-                new ItemStack(TinkerWorld.slimeGel, 1, 1), new ItemStack(Blocks.piston) }));
+        ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(ArmorPart.Legs, ArmorPart.Feet), new ItemStack[] { new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Blocks.piston) }));
+        ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(ArmorPart.Legs, ArmorPart.Feet), new ItemStack[] { new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 1), new ItemStack(Blocks.piston) }));
         ModifyBuilder.registerModifier(new TravelModRepair());
         TConstructRegistry.registerActiveArmorMod(new ActiveTinkerArmor());
 
         //Head
-        ModifyBuilder.registerModifier(new AModBoolean(0, "Night Vision", EnumSet.of(ArmorPart.Head), new ItemStack[] { new ItemStack(Items.flint_and_steel), new ItemStack(Items.potionitem, 1, 0),
-                new ItemStack(Items.golden_carrot) }, "\u00a78", "Night Vision"));
+        ModifyBuilder.registerModifier(new AModBoolean(0, "Night Vision", EnumSet.of(ArmorPart.Head), new ItemStack[] { new ItemStack(Items.flint_and_steel), new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.golden_carrot) }, "\u00a78", "Night Vision"));
 
         //Chest
-        ModifyBuilder.registerModifier(new AModInteger(0, "Perfect Dodge", EnumSet.of(ArmorPart.Chest), new ItemStack[] { new ItemStack(Items.ender_eye), new ItemStack(Items.ender_pearl),
-                new ItemStack(Items.sugar) }, 1, "\u00a7d", "Perfect Dodge"));
-        ModifyBuilder.registerModifier(new AModBoolean(1, "Stealth", EnumSet.of(ArmorPart.Chest), new ItemStack[] { new ItemStack(Items.fermented_spider_eye), new ItemStack(Items.ender_eye),
-                new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.golden_carrot) }, "\u00a78", "Stealth"));
+        ModifyBuilder.registerModifier(new AModInteger(0, "Perfect Dodge", EnumSet.of(ArmorPart.Chest), new ItemStack[] { new ItemStack(Items.ender_eye), new ItemStack(Items.ender_pearl), new ItemStack(Items.sugar) }, 1, "\u00a7d", "Perfect Dodge"));
+        ModifyBuilder.registerModifier(new AModBoolean(1, "Stealth", EnumSet.of(ArmorPart.Chest), new ItemStack[] { new ItemStack(Items.fermented_spider_eye), new ItemStack(Items.ender_eye), new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.golden_carrot) }, "\u00a78", "Stealth"));
 
         //Wings
         ItemStack feather = new ItemStack(Items.feather);
-        ModifyBuilder.registerModifier(new AModInteger(1, "Feather Fall", EnumSet.of(ArmorPart.Legs), new ItemStack[] { new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Items.ender_pearl),
-                feather, feather, feather, feather, feather, feather }, 1, "\u00a7f", "Feather Fall"));
-        ModifyBuilder.registerModifier(new AModInteger(1, "Feather Fall", EnumSet.of(ArmorPart.Legs), new ItemStack[] { new ItemStack(TinkerWorld.slimeGel, 1, 1), new ItemStack(Items.ender_pearl),
-                feather, feather, feather, feather, feather, feather }, 1, "\u00a7f", "Feather Fall"));
+        ModifyBuilder.registerModifier(new AModInteger(1, "Feather Fall", EnumSet.of(ArmorPart.Legs), new ItemStack[] { new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Items.ender_pearl), feather, feather, feather, feather, feather, feather }, 1, "\u00a7f", "Feather Fall"));
+        ModifyBuilder.registerModifier(new AModInteger(1, "Feather Fall", EnumSet.of(ArmorPart.Legs), new ItemStack[] { new ItemStack(TinkerWorld.slimeGel, 1, 1), new ItemStack(Items.ender_pearl), feather, feather, feather, feather, feather, feather }, 1, "\u00a7f", "Feather Fall"));
 
         //Feet
-        ModifyBuilder.registerModifier(new AModBoolean(1, "WaterWalk", EnumSet.of(ArmorPart.Feet), new ItemStack[] { new ItemStack(Blocks.waterlily), new ItemStack(Blocks.waterlily) }, "\u00a79",
-                "Water-Walking"));
+        ModifyBuilder.registerModifier(new AModBoolean(1, "WaterWalk", EnumSet.of(ArmorPart.Feet), new ItemStack[] { new ItemStack(Blocks.waterlily), new ItemStack(Blocks.waterlily) }, "\u00a79", "Water-Walking"));
         ModifyBuilder.registerModifier(new AModLeadBoots(new ItemStack[] { new ItemStack(Blocks.iron_block) }));
-        ModifyBuilder.registerModifier(new AModInteger(3, "Slimy Soles", EnumSet.of(ArmorPart.Feet), new ItemStack[] { new ItemStack(TinkerWorld.slimePad, 1, 0),
-                new ItemStack(TinkerWorld.slimePad, 1, 0) }, 1, "\u00a7a", "Slimy Soles"));
+        ModifyBuilder.registerModifier(new AModInteger(3, "Slimy Soles", EnumSet.of(ArmorPart.Feet), new ItemStack[] { new ItemStack(TinkerWorld.slimePad, 1, 0), new ItemStack(TinkerWorld.slimePad, 1, 0) }, 1, "\u00a7a", "Slimy Soles"));
 
         //Glove
         ModifyBuilder.registerModifier(new GloveSpeed(1, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
         //ModifyBuilder.registerModifier(new GloveClimb(new ItemStack[] { new ItemStack(Items.slime_ball), new ItemStack(Blocks.web), new ItemStack(TinkerTools.materials, 1, 25) }));
-        this.modAttackGlove = new ModAttack("Quartz", 2, new ItemStack[] { new ItemStack(Items.quartz), new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1, 4 }, 50, 50,
-                "Accessory");
+        this.modAttackGlove = new ModAttack("Quartz", 2, new ItemStack[] { new ItemStack(Items.quartz), new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1, 4 }, 50, 50, "Accessory");
         ModifyBuilder.registerModifier(this.modAttackGlove);
     }
 }

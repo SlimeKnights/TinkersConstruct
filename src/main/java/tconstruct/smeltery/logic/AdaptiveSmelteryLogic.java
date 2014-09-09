@@ -1,39 +1,25 @@
 package tconstruct.smeltery.logic;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
 import mantle.blocks.abstracts.AdaptiveInventoryLogic;
-import mantle.blocks.iface.IActiveLogic;
-import mantle.blocks.iface.IMasterLogic;
-import mantle.blocks.iface.IServantLogic;
+import mantle.blocks.iface.*;
 import mantle.world.CoordTuple;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
+import net.minecraft.network.*;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.*;
 import tconstruct.TConstruct;
-import tconstruct.library.component.IComponentHolder;
-import tconstruct.library.component.LogicComponent;
-import tconstruct.library.component.MultiFluidTank;
+import tconstruct.library.component.*;
 import tconstruct.smeltery.TinkerSmeltery;
-import tconstruct.smeltery.component.SmelteryComponent;
-import tconstruct.smeltery.component.SmelteryScan;
+import tconstruct.smeltery.component.*;
 import tconstruct.smeltery.inventory.AdaptiveSmelteryContainer;
 
 public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IActiveLogic, IMasterLogic, IComponentHolder, IFluidHandler

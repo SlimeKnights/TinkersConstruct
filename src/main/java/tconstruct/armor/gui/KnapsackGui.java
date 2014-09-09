@@ -2,15 +2,11 @@ package tconstruct.armor.gui;
 
 import net.minecraft.client.renderer.InventoryEffectRenderer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-
+import net.minecraft.util.*;
 import org.lwjgl.opengl.GL11;
-
 import tconstruct.armor.inventory.KnapsackContainer;
 import tconstruct.armor.player.KnapsackInventory;
-import tconstruct.client.tabs.InventoryTabKnapsack;
-import tconstruct.client.tabs.TabRegistry;
+import tconstruct.client.tabs.*;
 
 public class KnapsackGui extends InventoryEffectRenderer
 {

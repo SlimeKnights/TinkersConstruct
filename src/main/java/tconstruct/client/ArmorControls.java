@@ -1,8 +1,8 @@
 package tconstruct.client;
 
+import cpw.mods.fml.common.gameevent.TickEvent.Type;
 import mantle.common.network.AbstractPacket;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemStack;
@@ -10,16 +10,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.TConstruct;
-import tconstruct.armor.ArmorProxyClient;
-import tconstruct.armor.ArmorProxyCommon;
-import tconstruct.armor.PlayerAbilityHelper;
+import tconstruct.armor.*;
 import tconstruct.armor.items.TravelGear;
 import tconstruct.client.tabs.TabRegistry;
-import tconstruct.util.network.AccessoryInventoryPacket;
-import tconstruct.util.network.BeltPacket;
-import tconstruct.util.network.DoubleJumpPacket;
-import tconstruct.util.network.GogglePacket;
-import cpw.mods.fml.common.gameevent.TickEvent.Type;
+import tconstruct.util.network.*;
 
 public class ArmorControls extends TKeyHandler
 {

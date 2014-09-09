@@ -1,13 +1,11 @@
 package tconstruct.plugins.imc;
 
-import mantle.pulsar.pulse.Handler;
-import mantle.pulsar.pulse.Pulse;
+import cpw.mods.fml.common.event.*;
+import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
+import mantle.pulsar.pulse.*;
 import net.minecraft.item.ItemStack;
 import tconstruct.TConstruct;
 import tconstruct.world.TinkerWorld;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLInterModComms;
-import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
 @ObjectHolder(TConstruct.modID)
 @Pulse(id = "Tinkers Thaumcraft Compatibility", description = "Tinkers Construct compatibility for Thaumcraft", modsRequired = "Thaumcraft", pulsesRequired = "Tinkers' World")

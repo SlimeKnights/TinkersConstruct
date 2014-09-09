@@ -1,49 +1,29 @@
 package tconstruct.smeltery.logic;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import mantle.blocks.abstracts.InventoryLogic;
-import mantle.blocks.abstracts.MultiServantLogic;
-import mantle.blocks.iface.IActiveLogic;
-import mantle.blocks.iface.IFacingLogic;
-import mantle.blocks.iface.IMasterLogic;
-import mantle.blocks.iface.IServantLogic;
+import cpw.mods.fml.relauncher.*;
+import java.util.*;
+import mantle.blocks.abstracts.*;
+import mantle.blocks.iface.*;
 import mantle.world.CoordTuple;
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.*;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.monster.EntityIronGolem;
-import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.monster.*;
+import net.minecraft.entity.passive.*;
+import net.minecraft.entity.player.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
+import net.minecraft.nbt.*;
+import net.minecraft.network.*;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
-import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.*;
 import tconstruct.library.crafting.Smeltery;
-import tconstruct.smeltery.SmelteryDamageSource;
-import tconstruct.smeltery.TinkerSmeltery;
+import tconstruct.smeltery.*;
 import tconstruct.smeltery.inventory.SmelteryContainer;
 import tconstruct.util.config.PHConstruct;
 
@@ -158,8 +138,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                             }
 
                             stack.stackSize -= itemSize;
-                            EntityItem entityitem = new EntityItem(worldObj, (double) ((float) xCoord + jumpX + offsetX), (double) ((float) yCoord + jumpY),
-                                    (double) ((float) zCoord + jumpZ + offsetZ), new ItemStack(stack.getItem(), itemSize, stack.getItemDamage()));
+                            EntityItem entityitem = new EntityItem(worldObj, (double) ((float) xCoord + jumpX + offsetX), (double) ((float) yCoord + jumpY), (double) ((float) zCoord + jumpZ + offsetZ), new ItemStack(stack.getItem(), itemSize, stack.getItemDamage()));
 
                             if (stack.hasTagCompound())
                             {
@@ -256,7 +235,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     public int getInternalTemperature ()
     {
-        if(!validStructure)
+        if (!validStructure)
             return 20;
 
         return internalTemp;
@@ -264,12 +243,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     public int getTempForSlot (int slot)
     {
-        return activeTemps[slot]/10;
+        return activeTemps[slot] / 10;
     }
 
     public int getMeltingPointForSlot (int slot)
     {
-        return meltingTemps[slot]/10;
+        return meltingTemps[slot] / 10;
     }
 
     /* Updating */
@@ -312,7 +291,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     void detectEntities ()
     {
-        if(centerPos == null)
+        if (centerPos == null)
             return;
 
         AxisAlignedBB box = AxisAlignedBB.getBoundingBox(centerPos.x, centerPos.y, centerPos.z, centerPos.x + 1.0D, centerPos.y + 1.0D, centerPos.z + 1.0D).expand(1.0D, 0.0D, 1.0D);
@@ -437,8 +416,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             boolean hasUse = false;
             int temperature = this.getInternalTemperature();
-            int speed = temperature/100;
-            int refTemp = temperature*10;
+            int speed = temperature / 100;
+            int refTemp = temperature * 10;
             for (int i = 0; i < 9 * layers; i++)
             {
                 if (meltingTemps[i] > 200 && this.isStackInSlot(i))
@@ -529,7 +508,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         inUse = true;
         for (int i = 0; i < 9 * layers; i++)
         {
-            meltingTemps[i] = Smeltery.getLiquifyTemperature(inventory[i])*10; // temperatures are *10 for more progress control
+            meltingTemps[i] = Smeltery.getLiquifyTemperature(inventory[i]) * 10; // temperatures are *10 for more progress control
         }
     }
 
@@ -668,10 +647,10 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     }
 
     @SideOnly(Side.CLIENT)
-    public IIcon getFuelIcon()
+    public IIcon getFuelIcon ()
     {
-        IIcon defaultLava = Blocks.lava.getIcon(0,0);
-        if(activeLavaTank == null)
+        IIcon defaultLava = Blocks.lava.getIcon(0, 0);
+        if (activeLavaTank == null)
             return defaultLava;
 
         TileEntity tankContainer = worldObj.getTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
@@ -750,32 +729,27 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         Block eastBlock = worldObj.getBlock(x + 1, y, z);
         Block westBlock = worldObj.getBlock(x - 1, y, z);
 
-        if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z))
-                && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
+        if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z)) && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
         {
             checkValidStructure(x, y, z);
         }
 
-        else if ((northBlock != null && !worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z))
-                && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
+        else if ((northBlock != null && !worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z)) && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
         {
             checkValidStructure(x, y, z - 1);
         }
 
-        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock != null && !worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z))
-                && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
+        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock != null && !worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z)) && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
         {
             checkValidStructure(x, y, z + 1);
         }
 
-        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock != null && !worldObj.isAirBlock(x + 1, y, z))
-                && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
+        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock != null && !worldObj.isAirBlock(x + 1, y, z)) && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
         {
             checkValidStructure(x - 1, y, z);
         }
 
-        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z))
-                && (westBlock != null && !worldObj.isAirBlock(x - 1, y, z)))
+        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z)) && (westBlock != null && !worldObj.isAirBlock(x - 1, y, z)))
         {
             checkValidStructure(x + 1, y, z);
         }
@@ -802,16 +776,16 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             {
                 // try to derive temperature from fueltank
                 activeLavaTank = null;
-                for(CoordTuple tank : lavaTanks)
+                for (CoordTuple tank : lavaTanks)
                 {
                     TileEntity tankContainer = worldObj.getTileEntity(tank.x, tank.y, tank.z);
-                    if(!(tankContainer instanceof IFluidHandler))
+                    if (!(tankContainer instanceof IFluidHandler))
                         continue;
 
                     FluidStack liquid = ((IFluidHandler) tankContainer).getTankInfo(ForgeDirection.DOWN)[0].fluid;
-                    if(liquid == null)
+                    if (liquid == null)
                         return;
-                    if(!Smeltery.isSmelteryFuel(liquid.getFluid()))
+                    if (!Smeltery.isSmelteryFuel(liquid.getFluid()))
                         continue;
 
                     internalTemp = Smeltery.getFuelPower(liquid.getFluid());
@@ -820,7 +794,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 }
 
                 // no tank with fuel. we reserve the first found one
-                if(activeLavaTank == null)
+                if (activeLavaTank == null)
                     activeLavaTank = lavaTanks.get(0);
 
                 // update other stuff

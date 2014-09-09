@@ -1,5 +1,8 @@
 package tconstruct.armor;
 
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -7,9 +10,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.client.ArmorControls;
 import tconstruct.library.modifier.IModifyable;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
 
 public class ArmorAbilitiesClient
 {

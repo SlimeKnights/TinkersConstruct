@@ -1,14 +1,13 @@
 package tconstruct.util.network;
 
+import cpw.mods.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import mantle.common.network.AbstractPacket;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import tconstruct.tools.logic.ToolForgeLogic;
-import tconstruct.tools.logic.ToolStationLogic;
-import cpw.mods.fml.common.network.ByteBufUtils;
+import tconstruct.tools.logic.*;
 
 public class ToolStationPacket extends AbstractPacket
 {

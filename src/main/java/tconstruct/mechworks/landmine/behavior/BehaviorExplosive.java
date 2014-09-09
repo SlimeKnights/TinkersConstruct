@@ -1,14 +1,10 @@
 package tconstruct.mechworks.landmine.behavior;
 
 import java.util.List;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.*;
 import net.minecraft.entity.item.EntityTNTPrimed;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Item;
+import net.minecraft.init.*;
+import net.minecraft.item.*;
 import net.minecraft.world.World;
 
 /**

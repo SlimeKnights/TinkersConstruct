@@ -1,10 +1,9 @@
 package tconstruct.items.tools;
 
+import cpw.mods.fml.relauncher.*;
 import net.minecraft.item.Item;
 import tconstruct.library.tools.Weapon;
 import tconstruct.tools.TinkerTools;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class BattleSign extends Weapon
 {

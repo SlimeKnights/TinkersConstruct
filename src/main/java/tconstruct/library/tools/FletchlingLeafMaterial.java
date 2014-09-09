@@ -3,16 +3,18 @@ package tconstruct.library.tools;
 import mantle.blocks.BlockUtils;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
-import tconstruct.tools.TinkerToolEvents;
 
-public class FletchlingLeafMaterial extends FletchingMaterial {
-    public FletchlingLeafMaterial(int materialID, int value, String oredict, ItemStack craftingItem, float accuracy, float breakChance, float mass) {
+public class FletchlingLeafMaterial extends FletchingMaterial
+{
+    public FletchlingLeafMaterial(int materialID, int value, String oredict, ItemStack craftingItem, float accuracy, float breakChance, float mass)
+    {
         super(materialID, value, oredict, craftingItem, accuracy, breakChance, mass);
     }
 
     @Override
-    public boolean matches(ItemStack stack) {
-        if(matchesLeaves(stack))
+    public boolean matches (ItemStack stack)
+    {
+        if (matchesLeaves(stack))
             return true;
 
         return super.matches(stack);

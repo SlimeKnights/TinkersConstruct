@@ -1,11 +1,11 @@
 package tconstruct.tools;
 
+import cpw.mods.fml.common.network.IGuiHandler;
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tconstruct.common.TProxyCommon;
-import cpw.mods.fml.common.network.IGuiHandler;
 
 public class ToolProxyCommon implements IGuiHandler
 {
@@ -24,10 +24,10 @@ public class ToolProxyCommon implements IGuiHandler
 
     public void initialize ()
     {
-        registerGuiHandler();        
+        registerGuiHandler();
     }
-    
-    protected void registerGuiHandler()
+
+    protected void registerGuiHandler ()
     {
         TProxyCommon.registerServerGuiHandler(toolStationID, this);
         TProxyCommon.registerServerGuiHandler(partBuilderID, this);
@@ -38,7 +38,7 @@ public class ToolProxyCommon implements IGuiHandler
         TProxyCommon.registerServerGuiHandler(furnaceID, this);
         TProxyCommon.registerServerGuiHandler(craftingStationID, this);
     }
-    
+
     @Override
     public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {
@@ -49,6 +49,7 @@ public class ToolProxyCommon implements IGuiHandler
         }
         return null;
     }
+
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {

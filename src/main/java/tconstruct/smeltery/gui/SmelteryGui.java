@@ -1,29 +1,17 @@
 package tconstruct.smeltery.gui;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
+import java.util.*;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
-
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
+import org.lwjgl.opengl.*;
 import tconstruct.TConstruct;
 import tconstruct.client.gui.NewContainerGui;
-import tconstruct.smeltery.inventory.ActiveContainer;
-import tconstruct.smeltery.inventory.SmelteryContainer;
+import tconstruct.smeltery.inventory.*;
 import tconstruct.smeltery.logic.SmelteryLogic;
 import tconstruct.util.network.SmelteryPacket;
 
@@ -47,10 +35,11 @@ public class SmelteryGui extends NewContainerGui
     }
 
     @Override
-    public void initGui() {
+    public void initGui ()
+    {
         super.initGui();
 
-        if(logic != null)
+        if (logic != null)
             logic.updateFuelGague();
     }
 
@@ -347,7 +336,7 @@ public class SmelteryGui extends NewContainerGui
         boolean molten = false;
         String[] moltenNames = StatCollector.translateToLocal("gui.smeltery.molten.check").split(",");
 
-        for (int i = 0; i< moltenNames.length; i++)
+        for (int i = 0; i < moltenNames.length; i++)
         {
             if (fluidName.contains(moltenNames[i].trim()))
             {
@@ -484,8 +473,7 @@ public class SmelteryGui extends NewContainerGui
             {
                 fluidToBeBroughtUp = liquid.fluidID;
 
-                TConstruct.packetPipeline
-                        .sendToServer(new SmelteryPacket(logic.getWorldObj().provider.dimensionId, logic.xCoord, logic.yCoord, logic.zCoord, this.isShiftKeyDown(), fluidToBeBroughtUp));
+                TConstruct.packetPipeline.sendToServer(new SmelteryPacket(logic.getWorldObj().provider.dimensionId, logic.xCoord, logic.yCoord, logic.zCoord, this.isShiftKeyDown(), fluidToBeBroughtUp));
             }
         }
     }

@@ -1,22 +1,15 @@
 package tconstruct.smeltery.model;
 
+import cpw.mods.fml.client.registry.*;
 import java.util.Set;
-
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-
+import net.minecraftforge.fluids.*;
 import org.lwjgl.opengl.GL11;
-
 import tconstruct.client.BlockSkinRenderHelper;
 import tconstruct.smeltery.logic.CastingChannelLogic;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 
 /**
  * @author BluSunrize

@@ -1,5 +1,6 @@
 package tconstruct.smeltery.model;
 
+import cpw.mods.fml.client.registry.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.item.ItemStack;
@@ -9,12 +10,8 @@ import tconstruct.TConstruct;
 import tconstruct.client.BlockSkinRenderHelper;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.smeltery.TinkerSmeltery;
-import tconstruct.smeltery.logic.CastingBasinLogic;
-import tconstruct.smeltery.logic.CastingTableLogic;
-import tconstruct.smeltery.logic.FaucetLogic;
+import tconstruct.smeltery.logic.*;
 import tconstruct.util.ItemHelper;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class CastingBlockRender implements ISimpleBlockRenderingHandler
 {

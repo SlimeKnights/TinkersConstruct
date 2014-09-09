@@ -3,26 +3,18 @@ package tconstruct.smeltery.logic;
 import cpw.mods.fml.common.eventhandler.Event;
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
+import net.minecraft.network.*;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidEvent;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
-import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.*;
 import tconstruct.TConstruct;
 import tconstruct.library.crafting.CastingRecipe;
-import tconstruct.library.event.SmelteryCastEvent;
-import tconstruct.library.event.SmelteryCastedEvent;
+import tconstruct.library.event.*;
 import tconstruct.library.util.IPattern;
 
 public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFluidHandler, ISidedInventory
@@ -80,7 +72,8 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
 
         if (rec > 0)
             ret = rec;
-        else {
+        else
+        {
             if (inv != null && inv.getItem() instanceof IPattern)
             {
                 int cost = ((IPattern) inv.getItem()).getPatternCost(inv);
@@ -99,7 +92,8 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
 
         if (capacity > 0)
             ret = capacity;
-        else {
+        else
+        {
             ItemStack inv = inventory[0];
 
             if (inv != null && inv.getItem() instanceof IPattern)
@@ -128,7 +122,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
             SmelteryCastEvent event = new SmelteryCastEvent.CastingTable(recipe, resource);
             MinecraftForge.EVENT_BUS.post(event);
 
-            if(event.getResult() == Event.Result.DENY)
+            if (event.getResult() == Event.Result.DENY)
                 return 0;
 
             this.capacity = updateCapacity(recipe.castingMetal.amount);
@@ -263,7 +257,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     @Override
     public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
     {
-        if(liquid.getFluid() == resource.getFluid())
+        if (liquid.getFluid() == resource.getFluid())
             this.drain(resource.amount, doDrain);
         return null;
     }
@@ -350,7 +344,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
                 inventory[0] = null;
 
             // if we just created a cast, move it to the first slot so we can use it directly afterwards
-            if(event.output != null && event.output.getItem() instanceof IPattern)
+            if (event.output != null && event.output.getItem() instanceof IPattern)
             {
                 inventory[1] = inventory[0];
                 inventory[0] = event.output;

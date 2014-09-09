@@ -1,12 +1,9 @@
 package tconstruct.util.config;
 
 import java.io.File;
-
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
+import net.minecraftforge.common.config.*;
 import tconstruct.TConstruct;
 import tconstruct.library.tools.AbilityHelper;
-import tconstruct.tools.TinkerTools;
 
 public class PHConstruct
 {
@@ -76,6 +73,8 @@ public class PHConstruct
         ingotsPigironAlloy = config.get("Smeltery Output Modification", "Pig Iron ingot return", 1, "Number of ingots returned from smelting Pig Iron in the smeltery").getDouble(1);
 
         capesEnabled = config.get("Superfun", "Enable-TCon-Capes", true).getBoolean(true);
+
+        achievementsEnabled = config.get("Achievements", "Enable Achievements", true).getBoolean(true);
 
         boolean ic2 = true;
         boolean xycraft = true;
@@ -177,8 +176,7 @@ public class PHConstruct
 
         // dimension blacklist
         cfgDimBlackList = config.get("DimBlackList", "SlimeIslandDimBlacklist", new int[] {}, "Add dimension ID's to prevent slime islands from generating in them").getIntList();
-        slimeIslGenDim0Only = config.get("DimBlackList", "GenerateSlimeIslandInDim0Only", false,
-                "True: slime islands wont generate in any ages other than overworld(if enabled); False: will generate in all non-blackisted ages").getBoolean(false);
+        slimeIslGenDim0Only = config.get("DimBlackList", "GenerateSlimeIslandInDim0Only", false, "True: slime islands wont generate in any ages other than overworld(if enabled); False: will generate in all non-blackisted ages").getBoolean(false);
         slimeIslGenDim0 = config.get("DimBlackList", "slimeIslGenDim0", true, "True: slime islands generate in overworld; False they do not generate").getBoolean(true);
         genIslandsFlat = config.get("DimBlacklist", "genIslandsFlat", false, "Generate slime islands in flat worlds").getBoolean(false);
 
@@ -211,6 +209,9 @@ public class PHConstruct
     public static boolean cropifyModule;
 
     public static boolean capesEnabled;
+
+    // Achievements
+    public static boolean achievementsEnabled;
 
     // Ore values
     public static boolean generateCopper;

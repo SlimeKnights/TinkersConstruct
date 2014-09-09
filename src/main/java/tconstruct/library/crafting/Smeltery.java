@@ -1,14 +1,10 @@
 package tconstruct.library.crafting;
 
 import java.util.*;
-
 import mantle.utils.ItemMetaWrapper;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraft.item.*;
+import net.minecraftforge.fluids.*;
 import net.minecraftforge.oredict.OreDictionary;
 
 /** Melting and hacking, churn and burn */
@@ -28,15 +24,15 @@ public class Smeltery
      * @param power The temperature of the fluid. This also influences the melting speed. Lava is 1000.
      * @param duration How long one "portion" of liquid fuels the smeltery. Lava is 10.
      */
-    public static void addSmelteryFuel(Fluid fluid, int power, int duration)
+    public static void addSmelteryFuel (Fluid fluid, int power, int duration)
     {
-        instance.smelteryFuels.put(fluid, new Integer[] {power, duration});
+        instance.smelteryFuels.put(fluid, new Integer[] { power, duration });
     }
 
     /**
      * Returns true if the liquid is a valid smeltery fuel.
      */
-    public static boolean isSmelteryFuel(Fluid fluid)
+    public static boolean isSmelteryFuel (Fluid fluid)
     {
         return instance.smelteryFuels.containsKey(fluid);
     }
@@ -44,7 +40,7 @@ public class Smeltery
     /**
      * Returns the power of a smeltery fuel or 0 if it's not a fuel.
      */
-    public static int getFuelPower(Fluid fluid)
+    public static int getFuelPower (Fluid fluid)
     {
         Integer[] power = instance.smelteryFuels.get(fluid);
         return power == null ? 0 : power[0];
@@ -53,7 +49,7 @@ public class Smeltery
     /**
      * Returns the duration of a smeltery fuel or 0 if it's not a fuel.
      */
-    public static int getFuelDuration(Fluid fluid)
+    public static int getFuelDuration (Fluid fluid)
     {
         Integer[] power = instance.smelteryFuels.get(fluid);
         return power == null ? 0 : power[1];

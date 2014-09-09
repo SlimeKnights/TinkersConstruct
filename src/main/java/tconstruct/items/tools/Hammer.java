@@ -1,29 +1,23 @@
 package tconstruct.items.tools;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent;
-import tconstruct.library.ActiveToolMod;
-import tconstruct.library.TConstructRegistry;
+import tconstruct.library.*;
 import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.tools.AbilityHelper;
-import tconstruct.library.tools.HarvestTool;
+import tconstruct.library.tools.*;
 import tconstruct.tools.TinkerTools;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class Hammer extends HarvestTool
 {
@@ -215,8 +209,7 @@ public class Hammer extends HarvestTool
     {
         super.getSubItems(id, tab, list);
 
-        ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, 10), new ItemStack(getHandleItem(), 1, 8), new ItemStack(getAccessoryItem(), 1, 11), new ItemStack(
-                getExtraItem(), 1, 11), "InfiMiner");
+        ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, 10), new ItemStack(getHandleItem(), 1, 8), new ItemStack(getAccessoryItem(), 1, 11), new ItemStack(getExtraItem(), 1, 11), "InfiMiner");
 
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         tags.setInteger("Modifiers", 0);

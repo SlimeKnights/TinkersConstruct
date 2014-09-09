@@ -1,9 +1,7 @@
 package tconstruct.armor.inventory;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
 import tconstruct.library.accessory.IAccessory;
 
 public class SlotAccessory extends Slot

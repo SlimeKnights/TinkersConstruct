@@ -1,60 +1,38 @@
 package tconstruct.armor;
 
-import java.util.ArrayList;
-import java.util.Random;
-
+import com.google.common.collect.Lists;
+import cpw.mods.fml.common.*;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import java.util.*;
 import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.settings.GameSettings;
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.client.settings.*;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.init.*;
+import net.minecraft.item.*;
+import net.minecraft.potion.*;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.client.GuiIngameForge;
-import net.minecraftforge.client.event.FOVUpdateEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
-import tconstruct.armor.gui.ArmorExtendedGui;
-import tconstruct.armor.gui.KnapsackGui;
+import tconstruct.armor.gui.*;
 import tconstruct.armor.items.TravelGear;
-import tconstruct.armor.model.BeltModel;
-import tconstruct.armor.model.BootBump;
-import tconstruct.armor.model.HiddenPlayerModel;
-import tconstruct.armor.model.WingModel;
-import tconstruct.armor.player.ArmorExtended;
-import tconstruct.armor.player.KnapsackInventory;
-import tconstruct.client.ArmorControls;
-import tconstruct.client.TKeyHandler;
-import tconstruct.client.tabs.InventoryTabArmorExtended;
-import tconstruct.client.tabs.InventoryTabKnapsack;
-import tconstruct.client.tabs.InventoryTabVanilla;
-import tconstruct.client.tabs.TabRegistry;
+import tconstruct.armor.model.*;
+import tconstruct.armor.player.*;
+import tconstruct.client.*;
+import tconstruct.client.tabs.*;
 import tconstruct.common.TProxyCommon;
 import tconstruct.library.accessory.IAccessoryModel;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.world.TinkerWorld;
-
-import com.google.common.collect.Lists;
-
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ArmorProxyClient extends ArmorProxyCommon
 {
@@ -76,7 +54,7 @@ public class ArmorProxyClient extends ArmorProxyCommon
         MinecraftForge.EVENT_BUS.register(this);
         FMLCommonHandler.instance().bus().register(new ArmorAbilitiesClient(mc, controlInstance));
     }
-    
+
     private void registerManualRecipes ()
     {
         ItemStack feather = new ItemStack(Items.feather);
@@ -85,17 +63,15 @@ public class ArmorProxyClient extends ArmorProxyCommon
         MantleClientRegistry.registerManualSmallRecipe("nightvision", goggles.copy(), new ItemStack(Items.flint_and_steel), new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.golden_carrot), null);
 
         ItemStack vest = TinkerArmor.travelVest.getDefaultItem();
-        System.out.println("Travel Vest Item: "+vest);
+        System.out.println("Travel Vest Item: " + vest);
         MantleClientRegistry.registerManualIcon("travelvest", vest);
         MantleClientRegistry.registerManualSmallRecipe("dodge", vest.copy(), new ItemStack(Items.ender_eye), new ItemStack(Items.ender_pearl), new ItemStack(Items.sugar), null);
-        MantleClientRegistry.registerManualSmallRecipe("stealth", vest.copy(), new ItemStack(Items.fermented_spider_eye), new ItemStack(Items.ender_eye), new ItemStack(Items.potionitem, 1, 0),
-                new ItemStack(Items.golden_carrot));
+        MantleClientRegistry.registerManualSmallRecipe("stealth", vest.copy(), new ItemStack(Items.fermented_spider_eye), new ItemStack(Items.ender_eye), new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.golden_carrot));
 
         ItemStack wings = new ItemStack(TinkerArmor.travelWings);
         MantleClientRegistry.registerManualIcon("travelwings", wings);
         MantleClientRegistry.registerManualSmallRecipe("doublejump", wings.copy(), new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Blocks.piston), null);
-        MantleClientRegistry.registerManualLargeRecipe("featherfall", wings.copy(), new ItemStack(TinkerWorld.slimeGel, 1, 0), feather, feather, feather, wings.copy(), feather, feather,
-                new ItemStack(Items.ender_pearl), feather);
+        MantleClientRegistry.registerManualLargeRecipe("featherfall", wings.copy(), new ItemStack(TinkerWorld.slimeGel, 1, 0), feather, feather, feather, wings.copy(), feather, feather, new ItemStack(Items.ender_pearl), feather);
 
         ItemStack boots = TinkerArmor.travelBoots.getDefaultItem();
         MantleClientRegistry.registerManualIcon("travelboots", boots);
@@ -187,7 +163,7 @@ public class ArmorProxyClient extends ArmorProxyCommon
     int updateCounter = 0;
 
     GameSettings gs = Minecraft.getMinecraft().gameSettings;
-    
+
     @SubscribeEvent
     public void goggleZoom (FOVUpdateEvent event)
     {
@@ -208,7 +184,7 @@ public class ArmorProxyClient extends ArmorProxyCommon
     public void renderHealthbar (RenderGameOverlayEvent.Pre event)
     {
         if (!Loader.isModLoaded("tukmc_Vz") || Loader.isModLoaded("borderlands"))// Loader check to avoid conflicting
-                                            // with a GUI mod (thanks Vazkii!)
+        // with a GUI mod (thanks Vazkii!)
         {
             if (event.type == ElementType.HEALTH)
             {

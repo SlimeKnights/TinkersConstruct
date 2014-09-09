@@ -1,31 +1,30 @@
 package tconstruct.armor;
 
-import tconstruct.armor.inventory.ArmorExtendedContainer;
-import tconstruct.armor.inventory.KnapsackContainer;
-import tconstruct.armor.player.TPlayerStats;
-import tconstruct.common.TProxyCommon;
+import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.network.IGuiHandler;
+import tconstruct.armor.inventory.*;
+import tconstruct.armor.player.TPlayerStats;
+import tconstruct.common.TProxyCommon;
 
 public class ArmorProxyCommon implements IGuiHandler
 {
     public static final int inventoryGui = 100;
     public static final int armorGuiID = 101;
     public static final int knapsackGuiID = 102;
-    
-    public void initialize()
+
+    public void initialize ()
     {
         registerGuiHandler();
     }
-    
-    protected void registerGuiHandler()
+
+    protected void registerGuiHandler ()
     {
         TProxyCommon.registerServerGuiHandler(inventoryGui, this);
         TProxyCommon.registerServerGuiHandler(armorGuiID, this);
         TProxyCommon.registerServerGuiHandler(knapsackGuiID, this);
     }
-    
+
     @Override
     public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {
@@ -44,23 +43,24 @@ public class ArmorProxyCommon implements IGuiHandler
             TPlayerStats stats = TPlayerStats.get(player);
             return new KnapsackContainer(player.inventory, stats.knapsack);
         }
-        
+
         return null;
     }
+
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {
         // TODO Auto-generated method stub
         return null;
     }
-    
+
     public void registerTickHandler ()
     {
-        
+
     }
 
     public void registerKeys ()
     {
-        
+
     }
 }

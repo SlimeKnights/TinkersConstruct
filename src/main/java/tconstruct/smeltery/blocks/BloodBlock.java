@@ -1,10 +1,8 @@
 package tconstruct.smeltery.blocks;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.entity.*;
+import net.minecraft.potion.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 

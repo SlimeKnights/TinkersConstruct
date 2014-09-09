@@ -1,11 +1,8 @@
 package tconstruct.tools.inventory;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.Slot;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.logic.FrypanLogic;
@@ -90,7 +87,7 @@ public class FrypanContainer extends Container
         Block block = logic.getWorldObj().getBlock(logic.xCoord, logic.yCoord, logic.zCoord);
         if (block != TinkerTools.heldItemBlock)
             return false;
-        
+
         return logic.isUseableByPlayer(entityplayer);
     }
 

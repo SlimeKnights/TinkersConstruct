@@ -1,7 +1,6 @@
 package tconstruct.tools.inventory;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 
 public class SlotPartBuilder extends Slot

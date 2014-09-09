@@ -1,8 +1,7 @@
 package tconstruct.client.tabs;
 
 import net.minecraft.item.ItemStack;
-import tconstruct.armor.ArmorProxyClient;
-import tconstruct.armor.TinkerArmor;
+import tconstruct.armor.*;
 import tconstruct.client.ArmorControls;
 
 public class InventoryTabKnapsack extends AbstractTab

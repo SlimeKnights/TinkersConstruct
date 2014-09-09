@@ -1,21 +1,17 @@
 package tconstruct.armor.items;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import tconstruct.armor.ArmorProxyClient;
 import tconstruct.client.ArmorControls;
-import tconstruct.library.accessory.AccessoryCore;
-import tconstruct.library.accessory.IAccessoryModel;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import tconstruct.library.accessory.*;
 
 public class TravelBelt extends AccessoryCore implements IAccessoryModel
 {
@@ -51,15 +47,15 @@ public class TravelBelt extends AccessoryCore implements IAccessoryModel
     {
         return texture;
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
         if (!stack.hasTagCompound())
             return;
-        
+
         list.add("\u00a76Ability: Swap Hotbar");
-        list.add("\u00a76Control: "+GameSettings.getKeyDisplayString(ArmorControls.beltSwap.getKeyCode()));
+        list.add("\u00a76Control: " + GameSettings.getKeyDisplayString(ArmorControls.beltSwap.getKeyCode()));
     }
 }

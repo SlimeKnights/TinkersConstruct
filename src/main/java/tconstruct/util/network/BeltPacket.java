@@ -9,7 +9,9 @@ import tconstruct.armor.player.TPlayerStats;
 
 public class BeltPacket extends AbstractPacket
 {
-    public BeltPacket() {}
+    public BeltPacket()
+    {
+    }
 
     @Override
     public void encodeInto (ChannelHandlerContext ctx, ByteBuf buffer)

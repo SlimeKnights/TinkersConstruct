@@ -1,26 +1,17 @@
 package tconstruct.client.entity.projectile;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.Random;
-
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.texture.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.ForgeHooksClient;
-
+import net.minecraft.util.*;
 import net.minecraftforge.client.IItemRenderer;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
+import org.lwjgl.opengl.*;
 import tconstruct.client.ToolCoreRenderer;
 import tconstruct.tools.entity.DaggerEntity;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class DaggerRenderCustom extends Render

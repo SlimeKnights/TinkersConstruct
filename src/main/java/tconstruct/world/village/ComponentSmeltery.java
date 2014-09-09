@@ -1,14 +1,10 @@
 package tconstruct.world.village;
 
-import java.util.List;
-import java.util.Random;
-
+import java.util.*;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.structure.StructureBoundingBox;
-import net.minecraft.world.gen.structure.StructureComponent;
-import net.minecraft.world.gen.structure.StructureVillagePieces;
+import net.minecraft.world.gen.structure.*;
 import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
 import tconstruct.smeltery.TinkerSmeltery;
 
@@ -30,8 +26,7 @@ public class ComponentSmeltery extends StructureVillagePieces.House1
     public static ComponentSmeltery buildComponent (Start villagePiece, List pieces, Random random, int p1, int p2, int p3, int p4, int p5)
     {
         StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p1, p2, p3, 0, 0, 0, 9, 3, 7, p4);
-        return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(pieces, structureboundingbox) == null ? new ComponentSmeltery(villagePiece, p5, random,
-                structureboundingbox, p4) : null;
+        return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(pieces, structureboundingbox) == null ? new ComponentSmeltery(villagePiece, p5, random, structureboundingbox, p4) : null;
     }
 
     /**
@@ -91,8 +86,7 @@ public class ComponentSmeltery extends StructureVillagePieces.House1
         return true;
     }
 
-    protected void fillWithMetaBlocks (World par1World, StructureBoundingBox par2StructureBoundingBox, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, Block placeBlockID,
-            int placeBlockMeta, Block replaceBlockID, int replaceBlockMeta, boolean alwaysReplace)
+    protected void fillWithMetaBlocks (World par1World, StructureBoundingBox par2StructureBoundingBox, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, Block placeBlockID, int placeBlockMeta, Block replaceBlockID, int replaceBlockMeta, boolean alwaysReplace)
     {
         Block i2 = this.func_151558_b(placeBlockID, placeBlockMeta);
         int j2 = this.func_151557_c(placeBlockID, placeBlockMeta);

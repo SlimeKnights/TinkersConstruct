@@ -1,22 +1,18 @@
 package tconstruct.world.gen;
 
+import cpw.mods.fml.common.IWorldGenerator;
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.EnumSkyBlock;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldType;
+import net.minecraft.world.*;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderFlat;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import tconstruct.tools.TinkerTools;
-import tconstruct.util.config.DimensionBlacklist;
-import tconstruct.util.config.PHConstruct;
+import tconstruct.util.config.*;
 import tconstruct.world.TinkerWorld;
-import cpw.mods.fml.common.IWorldGenerator;
 
 public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
 {
@@ -85,8 +81,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                     int xPos = x + xChunk;
                     int yPos = y + yCenter + height;
                     int zPos = z + zChunk;
-                    if (world.getBlock(xPos - 1, yPos + 1, zPos) == base && world.getBlock(xPos + 1, yPos + 1, zPos) == base && world.getBlock(xPos, yPos + 1, zPos - 1) == base
-                            && world.getBlock(xPos - 1, yPos + 1, zPos + 1) == base && random.nextInt(100) > randomness)
+                    if (world.getBlock(xPos - 1, yPos + 1, zPos) == base && world.getBlock(xPos + 1, yPos + 1, zPos) == base && world.getBlock(xPos, yPos + 1, zPos - 1) == base && world.getBlock(xPos - 1, yPos + 1, zPos + 1) == base && random.nextInt(100) > randomness)
                     {
                         ;
                     }
@@ -110,8 +105,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                     int xPos = x + xChunk;
                     int yPos = y + yCenter + initialHeight - height + 1;
                     int zPos = z + zChunk;
-                    if (world.getBlock(xPos - 1, yPos - 1, zPos) == base && world.getBlock(xPos + 1, yPos - 1, zPos) == base && world.getBlock(xPos, yPos - 1, zPos - 1) == base
-                            && world.getBlock(xPos - 1, yPos - 1, zPos + 1) == base)
+                    if (world.getBlock(xPos - 1, yPos - 1, zPos) == base && world.getBlock(xPos + 1, yPos - 1, zPos) == base && world.getBlock(xPos, yPos - 1, zPos - 1) == base && world.getBlock(xPos - 1, yPos - 1, zPos + 1) == base)
                     {
                         ;
                     }
@@ -217,10 +211,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
             {
                 for (yPos = 0; yPos < 8; ++yPos)
                 {
-                    var33 = !validLocations[(xPos * 16 + zPos) * 8 + yPos]
-                            && (xPos < 15 && validLocations[((xPos + 1) * 16 + zPos) * 8 + yPos] || xPos > 0 && validLocations[((xPos - 1) * 16 + zPos) * 8 + yPos] || zPos < 15
-                                    && validLocations[(xPos * 16 + zPos + 1) * 8 + yPos] || zPos > 0 && validLocations[(xPos * 16 + (zPos - 1)) * 8 + yPos] || yPos < 7
-                                    && validLocations[(xPos * 16 + zPos) * 8 + yPos + 1] || yPos > 0 && validLocations[(xPos * 16 + zPos) * 8 + (yPos - 1)]);
+                    var33 = !validLocations[(xPos * 16 + zPos) * 8 + yPos] && (xPos < 15 && validLocations[((xPos + 1) * 16 + zPos) * 8 + yPos] || xPos > 0 && validLocations[((xPos - 1) * 16 + zPos) * 8 + yPos] || zPos < 15 && validLocations[(xPos * 16 + zPos + 1) * 8 + yPos] || zPos > 0 && validLocations[(xPos * 16 + (zPos - 1)) * 8 + yPos] || yPos < 7 && validLocations[(xPos * 16 + zPos) * 8 + yPos + 1] || yPos > 0 && validLocations[(xPos * 16 + zPos) * 8 + (yPos - 1)]);
 
                     if (var33)
                     {
@@ -260,8 +251,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
             {
                 for (yPos = 4; yPos < 8; ++yPos)
                 {
-                    if (validLocations[(xPos * 16 + zPos) * 8 + yPos] && world.getBlock(x + xPos, y + yPos - 1, z + zPos) == base
-                            && world.getSavedLightValue(EnumSkyBlock.Sky, x + xPos, y + yPos, z + zPos) > 0)
+                    if (validLocations[(xPos * 16 + zPos) * 8 + yPos] && world.getBlock(x + xPos, y + yPos - 1, z + zPos) == base && world.getSavedLightValue(EnumSkyBlock.Sky, x + xPos, y + yPos, z + zPos) > 0)
                     {
                         world.setBlock(x + xPos, y + yPos - 1, z + zPos, top, 0, 0);
                     }
@@ -278,13 +268,9 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                 {
                     for (yPos = 0; yPos < 8; ++yPos)
                     {
-                        var33 = !validLocations[(xPos * 16 + zPos) * 8 + yPos]
-                                && (xPos < 15 && validLocations[((xPos + 1) * 16 + zPos) * 8 + yPos] || xPos > 0 && validLocations[((xPos - 1) * 16 + zPos) * 8 + yPos] || zPos < 15
-                                        && validLocations[(xPos * 16 + zPos + 1) * 8 + yPos] || zPos > 0 && validLocations[(xPos * 16 + (zPos - 1)) * 8 + yPos] || yPos < 7
-                                        && validLocations[(xPos * 16 + zPos) * 8 + yPos + 1] || yPos > 0 && validLocations[(xPos * 16 + zPos) * 8 + (yPos - 1)]);
+                        var33 = !validLocations[(xPos * 16 + zPos) * 8 + yPos] && (xPos < 15 && validLocations[((xPos + 1) * 16 + zPos) * 8 + yPos] || xPos > 0 && validLocations[((xPos - 1) * 16 + zPos) * 8 + yPos] || zPos < 15 && validLocations[(xPos * 16 + zPos + 1) * 8 + yPos] || zPos > 0 && validLocations[(xPos * 16 + (zPos - 1)) * 8 + yPos] || yPos < 7 && validLocations[(xPos * 16 + zPos) * 8 + yPos + 1] || yPos > 0 && validLocations[(xPos * 16 + zPos) * 8 + (yPos - 1)]);
 
-                        if (var33 && (yPos < 4 || rand.nextInt(2) != 0) && world.getBlock(x + xPos, y + yPos, z + zPos).getMaterial().isSolid()
-                                && world.getBlock(x + xPos, y + yPos + 1, z + zPos).getMaterial() != Material.water)
+                        if (var33 && (yPos < 4 || rand.nextInt(2) != 0) && world.getBlock(x + xPos, y + yPos, z + zPos).getMaterial().isSolid() && world.getBlock(x + xPos, y + yPos + 1, z + zPos).getMaterial() != Material.water)
                         {
                             world.setBlock(x + xPos, y + yPos, z + zPos, TinkerWorld.slimeGel, gelMeta, 2);
                         }

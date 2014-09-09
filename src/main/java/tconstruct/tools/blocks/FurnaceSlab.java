@@ -1,23 +1,19 @@
 package tconstruct.tools.blocks;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.Random;
-
 import mantle.blocks.abstracts.InventorySlab;
-import mantle.blocks.iface.IActiveLogic;
-import mantle.blocks.iface.IFacingLogic;
+import mantle.blocks.iface.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.tools.ToolProxyCommon;
 import tconstruct.tools.logic.FurnaceLogic;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class FurnaceSlab extends InventorySlab
 {
@@ -151,12 +147,12 @@ public class FurnaceSlab extends InventorySlab
             {
                 float offset = random.nextFloat() * 0.6F - 0.3F;
                 float offsetY = random.nextFloat() * 6.0F / 16.0F;
-                
+
                 if (metaPos == 1)
                 {
                     offsetY += 0.5F;
                 }
-                
+
                 if (direction == 4)
                 {
                     world.spawnParticle("smoke", x - 0.02F, y + offsetY, z + offset + 0.5F, 0.0D, 0.0D, 0.0D);
@@ -176,7 +172,7 @@ public class FurnaceSlab extends InventorySlab
                 {
                     world.spawnParticle("smoke", x + offset + 0.5F, y + offsetY, z + 1.02F, 0.0D, 0.0D, 0.0D);
                     world.spawnParticle("flame", x + offset + 0.5F, y + offsetY, z + 1.02F, 0.0D, 0.0D, 0.0D);
-                }                
+                }
             }
         }
     }

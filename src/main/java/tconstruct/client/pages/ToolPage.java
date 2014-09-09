@@ -5,11 +5,8 @@ import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
-
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import org.lwjgl.opengl.*;
+import org.w3c.dom.*;
 
 public class ToolPage extends BookPage
 {

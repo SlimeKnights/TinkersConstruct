@@ -1,21 +1,17 @@
 package tconstruct.blocks.slime;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.*;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import tconstruct.blocks.TConstructBlock;
 import tconstruct.library.TConstructRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class SlimeGel extends TConstructBlock
 {

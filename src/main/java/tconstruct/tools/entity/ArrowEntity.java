@@ -1,34 +1,21 @@
 package tconstruct.tools.entity;
 
-import io.netty.buffer.ByteBuf;
-
-import java.util.List;
-import java.util.Random;
-
-import net.minecraft.block.Block;
-import net.minecraft.crash.CrashReport;
-import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.play.server.S2BPacketChangeGameState;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ReportedException;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.World;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+import io.netty.buffer.ByteBuf;
+import java.util.*;
+import net.minecraft.block.Block;
+import net.minecraft.crash.*;
+import net.minecraft.entity.*;
+import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.player.*;
+import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.*;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.play.server.S2BPacketChangeGameState;
+import net.minecraft.util.*;
+import net.minecraft.world.World;
 
 public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnData
 {
@@ -273,8 +260,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                                 if (f3 > 0.0F)
                                 {
                                     float knockback = knockbackStrength + knockbackStrengthMod;
-                                    movingobjectposition.entityHit.addVelocity(this.motionX * (double) this.knockbackStrength * 0.6000000238418579D / (double) f3, 0.1D, this.motionZ
-                                            * (double) knockback * 0.6000000238418579D / (double) f3);
+                                    movingobjectposition.entityHit.addVelocity(this.motionX * (double) this.knockbackStrength * 0.6000000238418579D / (double) f3, 0.1D, this.motionZ * (double) knockback * 0.6000000238418579D / (double) f3);
                                 }
                             }
 
@@ -287,8 +273,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                                 damagesource = DamageSource.causeArrowDamage(this, this.shootingEntity);
                             }
 
-                            if (this.shootingEntity != null && movingobjectposition.entityHit != this.shootingEntity && movingobjectposition.entityHit instanceof EntityPlayer
-                                    && this.shootingEntity instanceof EntityPlayerMP)
+                            if (this.shootingEntity != null && movingobjectposition.entityHit != this.shootingEntity && movingobjectposition.entityHit instanceof EntityPlayer && this.shootingEntity instanceof EntityPlayerMP)
                             {
                                 ((EntityPlayerMP) this.shootingEntity).playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(6, 0));
                                 // TConstruct.packetPipeline.sendTo(new
@@ -357,8 +342,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             {
                 for (l = 0; l < 4; ++l)
                 {
-                    this.worldObj.spawnParticle("crit", this.posX + this.motionX * (double) l / 4.0D, this.posY + this.motionY * (double) l / 4.0D, this.posZ + this.motionZ * (double) l / 4.0D,
-                            -this.motionX, -this.motionY + 0.2D, -this.motionZ);
+                    this.worldObj.spawnParticle("crit", this.posX + this.motionX * (double) l / 4.0D, this.posY + this.motionY * (double) l / 4.0D, this.posZ + this.motionZ * (double) l / 4.0D, -this.motionX, -this.motionY + 0.2D, -this.motionZ);
                 }
             }
 
@@ -399,8 +383,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                 for (int j1 = 0; j1 < 4; ++j1)
                 {
                     f3 = 0.25F;
-                    this.worldObj.spawnParticle("bubble", this.posX - this.motionX * (double) f3, this.posY - this.motionY * (double) f3, this.posZ - this.motionZ * (double) f3, this.motionX,
-                            this.motionY, this.motionZ);
+                    this.worldObj.spawnParticle("bubble", this.posX - this.motionX * (double) f3, this.posY - this.motionY * (double) f3, this.posZ - this.motionZ * (double) f3, this.motionX, this.motionY, this.motionZ);
                 }
 
                 dropSpeed = 0.8F;

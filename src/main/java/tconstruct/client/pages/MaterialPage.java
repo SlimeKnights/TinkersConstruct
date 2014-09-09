@@ -5,17 +5,12 @@ import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
-
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
+import org.lwjgl.opengl.*;
+import org.w3c.dom.*;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.tools.ToolMaterial;
 import tconstruct.library.util.HarvestLevels;
-import tconstruct.tools.gui.PartCrafterGui;
 
 public class MaterialPage extends BookPage
 {
@@ -159,7 +154,7 @@ public class MaterialPage extends BookPage
         {
             manual.fonts.drawString(materialTrait + ": " + ability, localWidth, localHeight + 120 + 10 * offset, 0);
             offset++;
-            if(material.name().equals("Paper") || material.name().equals("Thaumium"))
+            if (material.name().equals("Paper") || material.name().equals("Thaumium"))
                 manual.fonts.drawString(extraMod, localWidth, localHeight + 120 + 10 * offset, 0);
         }
 

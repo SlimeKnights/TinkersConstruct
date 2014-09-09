@@ -2,8 +2,7 @@ package tconstruct.armor.items;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 
 public class ArmorBasic extends ItemArmor
 {
@@ -19,8 +18,7 @@ public class ArmorBasic extends ItemArmor
     @Override
     public void registerIcons (IIconRegister par1IconRegister)
     {
-        this.itemIcon = par1IconRegister.registerIcon("tinker:armor/" + textureName + "_"
-                + (this.armorType == 0 ? "helmet" : this.armorType == 1 ? "chestplate" : this.armorType == 2 ? "leggings" : this.armorType == 3 ? "boots" : "helmet"));
+        this.itemIcon = par1IconRegister.registerIcon("tinker:armor/" + textureName + "_" + (this.armorType == 0 ? "helmet" : this.armorType == 1 ? "chestplate" : this.armorType == 2 ? "leggings" : this.armorType == 3 ? "boots" : "helmet"));
     }
 
     @Override

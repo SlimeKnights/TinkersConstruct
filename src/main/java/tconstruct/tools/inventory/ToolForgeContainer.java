@@ -1,8 +1,7 @@
 package tconstruct.tools.inventory;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.*;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -10,8 +9,7 @@ import net.minecraftforge.common.MinecraftForge;
 import tconstruct.library.event.ToolCraftedEvent;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.tools.TinkerTools;
-import tconstruct.tools.logic.ToolForgeLogic;
-import tconstruct.tools.logic.ToolStationLogic;
+import tconstruct.tools.logic.*;
 
 public class ToolForgeContainer extends ToolStationContainer
 {
@@ -94,13 +92,14 @@ public class ToolForgeContainer extends ToolStationContainer
                 player.worldObj.playAuxSFX(1021, (int) player.posX, (int) player.posY, (int) player.posZ, 0);
             MinecraftForge.EVENT_BUS.post(new ToolCraftedEvent(this.logic, player, stack));
         }
-        else //Simply naming items
+        else
+        //Simply naming items
         {
             int amount = logic.getStackInSlot(1).stackSize;
             logic.decrStackSize(1, amount);
         }
     }
-    
+
     @Override
     public boolean canInteractWith (EntityPlayer entityplayer)
     {

@@ -1,7 +1,6 @@
 package tconstruct.world.blocks;
 
 import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;

@@ -10,7 +10,9 @@ public class GogglePacket extends AbstractPacket
 {
     boolean active;
 
-    public GogglePacket() {}
+    public GogglePacket()
+    {
+    }
 
     public GogglePacket(boolean active)
     {

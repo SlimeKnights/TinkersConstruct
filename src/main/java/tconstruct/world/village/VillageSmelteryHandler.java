@@ -1,11 +1,9 @@
 package tconstruct.world.village;
 
-import java.util.List;
-import java.util.Random;
-
+import cpw.mods.fml.common.registry.VillagerRegistry.IVillageCreationHandler;
+import java.util.*;
 import net.minecraft.world.gen.structure.StructureVillagePieces.PieceWeight;
 import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
-import cpw.mods.fml.common.registry.VillagerRegistry.IVillageCreationHandler;
 
 public class VillageSmelteryHandler implements IVillageCreationHandler
 {

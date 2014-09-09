@@ -24,7 +24,7 @@ public class StepSoundSlime extends SoundType
      * Used when a entity walks over, or otherwise interacts with the block.
      */
     @Override
-    public String getStepResourcePath()
+    public String getStepResourcePath ()
     {
         return this.soundName + ".small";
     }

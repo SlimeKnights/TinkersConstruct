@@ -1,29 +1,12 @@
 package tconstruct.library;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import tconstruct.library.crafting.Detailing;
-import tconstruct.library.crafting.LiquidCasting;
-import tconstruct.library.crafting.ToolBuilder;
+import java.util.*;
+import net.minecraft.item.*;
+import org.apache.logging.log4j.*;
+import tconstruct.library.crafting.*;
 import tconstruct.library.modifier.ActiveArmorMod;
-import tconstruct.library.tools.ArrowMaterial;
-import tconstruct.library.tools.BowMaterial;
-import tconstruct.library.tools.BowstringMaterial;
-import tconstruct.library.tools.CustomMaterial;
-import tconstruct.library.tools.FletchingMaterial;
-import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.ToolMaterial;
+import tconstruct.library.tools.*;
 
 /**
  * A registry to store any relevant API work
@@ -283,8 +266,7 @@ public class TConstructRegistry
     }
 
     @Deprecated
-    public static void addToolMaterial (int materialID, String materialName, String displayName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced,
-            float stonebound, String style, String ability)
+    public static void addToolMaterial (int materialID, String materialName, String displayName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced, float stonebound, String style, String ability)
     {
         logger.warn("[TCon API] Using deprecated addToolMaterial with display and ability name. displayName and ability will be ignored, use languages files for that.");
         addToolMaterial(materialID, materialName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, stonebound, style);

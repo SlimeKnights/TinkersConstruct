@@ -3,15 +3,12 @@ package tconstruct.modifiers.armor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.*;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
 import tconstruct.armor.player.TPlayerStats;
-import tconstruct.library.armor.ArmorCore;
-import tconstruct.library.armor.ArmorPart;
-import tconstruct.library.modifier.ActiveArmorMod;
-import tconstruct.library.modifier.IModifyable;
+import tconstruct.library.armor.*;
+import tconstruct.library.modifier.*;
 
 public class ActiveTinkerArmor extends ActiveArmorMod
 {
@@ -27,7 +24,7 @@ public class ActiveTinkerArmor extends ActiveArmorMod
             {
                 int current = tag.getInteger("Damage");
                 if (current > 0)
-                    tag.setInteger("Damage", current-1);
+                    tag.setInteger("Damage", current - 1);
             }
         }
         if (type == ArmorPart.Head)
@@ -38,7 +35,7 @@ public class ActiveTinkerArmor extends ActiveArmorMod
                 if (tag.getBoolean("Night Vision"))
                     player.addPotionEffect(new PotionEffect(Potion.nightVision.id, 15 * 20, 0, true));
             }
-            
+
             /*List list = world.getEntitiesWithinAABB(EntityItem.class, player.boundingBox.addCoord(0.0D, 0.0D, 0.0D).expand(5.0D, 5.0D, 5.0D)); //TODO: Add modifier code
             for (int k = 0; k < list.size(); k++)
             {

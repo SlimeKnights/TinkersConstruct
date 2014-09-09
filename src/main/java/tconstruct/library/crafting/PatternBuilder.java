@@ -1,19 +1,15 @@
 package tconstruct.library.crafting;
 
 /** How to build tool parts? With patterns! */
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import java.util.*;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.event.PartBuilderEvent;
 import tconstruct.library.tools.CustomMaterial;
 import tconstruct.library.util.IPattern;
-import cpw.mods.fml.common.eventhandler.Event.Result;
 
 public class PatternBuilder
 {

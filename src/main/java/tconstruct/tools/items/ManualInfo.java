@@ -1,15 +1,11 @@
 package tconstruct.tools.items;
 
-import mantle.books.BookData;
-import mantle.books.BookDataStore;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-
-import org.w3c.dom.Document;
-
-import tconstruct.client.TProxyClient;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
+import mantle.books.*;
+import net.minecraft.util.*;
+import org.w3c.dom.Document;
+import tconstruct.client.TProxyClient;
 
 public class ManualInfo
 {
@@ -29,12 +25,9 @@ public class ManualInfo
     public ManualInfo()
     {
         Side side = FMLCommonHandler.instance().getEffectiveSide();
-        beginner = initManual(beginner, "tconstruct.manual.beginner", "\u00a7o" + StatCollector.translateToLocal("manual1.tooltip"), side == Side.CLIENT ? TProxyClient.volume1 : null,
-                "tinker:tinkerbook_diary");
-        toolStation = initManual(toolStation, "tconstruct.manual.toolstation", "\u00a7o" + StatCollector.translateToLocal("manual2.tooltip"), side == Side.CLIENT ? TProxyClient.volume2 : null,
-                "tinker:tinkerbook_toolstation");
-        smeltery = initManual(smeltery, "tconstruct.manual.smeltery", "\u00a7o" + StatCollector.translateToLocal("manual3.tooltip"), side == Side.CLIENT ? TProxyClient.smelter : null,
-                "tinker:tinkerbook_smeltery");
+        beginner = initManual(beginner, "tconstruct.manual.beginner", "\u00a7o" + StatCollector.translateToLocal("manual1.tooltip"), side == Side.CLIENT ? TProxyClient.volume1 : null, "tinker:tinkerbook_diary");
+        toolStation = initManual(toolStation, "tconstruct.manual.toolstation", "\u00a7o" + StatCollector.translateToLocal("manual2.tooltip"), side == Side.CLIENT ? TProxyClient.volume2 : null, "tinker:tinkerbook_toolstation");
+        smeltery = initManual(smeltery, "tconstruct.manual.smeltery", "\u00a7o" + StatCollector.translateToLocal("manual3.tooltip"), side == Side.CLIENT ? TProxyClient.smelter : null, "tinker:tinkerbook_smeltery");
         diary = initManual(diary, "tconstruct.manual.diary", "\u00a7o" + StatCollector.translateToLocal("manual4.tooltip"), side == Side.CLIENT ? TProxyClient.diary : null, "tinker:tinkerbook_blue");
 
     }

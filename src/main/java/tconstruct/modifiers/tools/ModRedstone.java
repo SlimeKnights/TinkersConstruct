@@ -1,10 +1,7 @@
 package tconstruct.modifiers.tools;
 
-import java.util.Arrays;
-import java.util.List;
-
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import java.util.*;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.tools.ToolCore;
 
@@ -28,7 +25,7 @@ public class ModRedstone extends ItemModTypeFilter
             if (!validType(toolItem))
                 return false;
 
-            if(matchingAmount(input) > max)
+            if (matchingAmount(input) > max)
                 return false;
 
             NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");

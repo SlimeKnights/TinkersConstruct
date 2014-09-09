@@ -1,18 +1,15 @@
 package tconstruct.smeltery.blocks;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
-import tconstruct.blocks.SlabBase;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.smeltery.TinkerSmeltery;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.IIcon;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import tconstruct.blocks.SlabBase;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.smeltery.TinkerSmeltery;
 
 public class SearedSlab extends SlabBase
 {

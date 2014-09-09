@@ -1,16 +1,11 @@
 package tconstruct.tools.logic;
 
 import java.lang.ref.WeakReference;
-
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.tileentity.*;
 import net.minecraft.world.World;
 import tconstruct.tools.inventory.CraftingStationContainer;
 
@@ -38,7 +33,7 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
         patternChest = null;
         furnace = null;
         tinkerTable = false;
-        int[] ys = {y, y - 1, y + 1};
+        int[] ys = { y, y - 1, y + 1 };
         for (byte iy = 0; iy < 3; iy++)
         {
             int yPos = ys[iy];
@@ -103,7 +98,7 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
     {
         return i != 0;
     }
-    
+
     @Override
     public ItemStack decrStackSize (int slot, int quantity)
     {

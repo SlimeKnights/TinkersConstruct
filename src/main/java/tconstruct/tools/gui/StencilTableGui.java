@@ -4,18 +4,12 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
-
 import org.lwjgl.opengl.GL11;
-
 import tconstruct.TConstruct;
-import tconstruct.library.client.StencilGuiElement;
-import tconstruct.library.client.TConstructClientRegistry;
-import tconstruct.library.client.ToolGuiElement;
+import tconstruct.library.client.*;
 import tconstruct.library.crafting.StencilBuilder;
-import tconstruct.tools.TinkerTools;
 import tconstruct.tools.inventory.PatternShaperContainer;
 import tconstruct.tools.logic.StencilTableLogic;
 import tconstruct.util.network.PatternTablePacket;
@@ -67,7 +61,7 @@ public class StencilTableGui extends GuiContainer
         super.initGui();
 
         int bpr = 4; // buttons per row!
-        int cornerX = this.guiLeft - 22*bpr;
+        int cornerX = this.guiLeft - 22 * bpr;
         int cornerY = this.guiTop + 2;
 
         this.buttonList.clear();
@@ -76,10 +70,9 @@ public class StencilTableGui extends GuiContainer
         for (int iter = 0; iter < TConstructClientRegistry.stencilButtons.size(); iter++)
         {
             StencilGuiElement element = TConstructClientRegistry.stencilButtons.get(iter);
-            if(element.stencilIndex == -1)
+            if (element.stencilIndex == -1)
                 continue;
-            GuiButtonStencil button = new GuiButtonStencil(id++, cornerX + 22 * (iter % bpr), cornerY + 22 * (iter / bpr), element.buttonIconX, element.buttonIconY, element.domain, element.texture,
-                    element);
+            GuiButtonStencil button = new GuiButtonStencil(id++, cornerX + 22 * (iter % bpr), cornerY + 22 * (iter / bpr), element.buttonIconX, element.buttonIconY, element.domain, element.texture, element);
             this.buttonList.add(button);
         }
 
@@ -89,16 +82,16 @@ public class StencilTableGui extends GuiContainer
         for (int iter = 0; iter < TConstructClientRegistry.stencilButtons2.size(); iter++)
         {
             StencilGuiElement element = TConstructClientRegistry.stencilButtons2.get(iter);
-            if(element.stencilIndex == -1)
+            if (element.stencilIndex == -1)
                 continue;
-            GuiButtonStencil button = new GuiButtonStencil(id++, cornerX + 22 * (iter % bpr), cornerY + 22 * (iter / bpr), element.buttonIconX, element.buttonIconY, element.domain, element.texture,
-                    element);
+            GuiButtonStencil button = new GuiButtonStencil(id++, cornerX + 22 * (iter % bpr), cornerY + 22 * (iter / bpr), element.buttonIconX, element.buttonIconY, element.domain, element.texture, element);
             this.buttonList.add(button);
         }
 
         // get the correct setting :I
         ItemStack stack;
-        if(logic.getStackInSlot(1) != null) {
+        if (logic.getStackInSlot(1) != null)
+        {
             activeButton = StencilBuilder.getIndex(logic.getStackInSlot(1));
             setActiveButton(activeButton);
             stack = StencilBuilder.getStencil(((GuiButtonStencil) this.buttonList.get(activeButton)).element.stencilIndex);
@@ -116,9 +109,9 @@ public class StencilTableGui extends GuiContainer
         ItemStack pattern = logic.getStackInSlot(0);
         if (pattern != null && StencilBuilder.isBlank(pattern))
         {
-            int id = ((GuiButtonStencil)button).element.stencilIndex;
+            int id = ((GuiButtonStencil) button).element.stencilIndex;
             ItemStack stack = StencilBuilder.getStencil(id);
-            if(stack != null)
+            if (stack != null)
             {
                 logic.setSelectedPattern(stack);
                 updateServer(stack);
@@ -128,14 +121,14 @@ public class StencilTableGui extends GuiContainer
         setActiveButton(button.id);
     }
 
-    private void setActiveButton(int id)
+    private void setActiveButton (int id)
     {
         // deactivate old button
-        ((GuiButton)this.buttonList.get(activeButton)).enabled = true;
+        ((GuiButton) this.buttonList.get(activeButton)).enabled = true;
         // update active button
         activeButton = id;
         // activate the button
-        ((GuiButton)this.buttonList.get(activeButton)).enabled = false;
+        ((GuiButton) this.buttonList.get(activeButton)).enabled = false;
     }
 
     void updateServer (ItemStack stack)

@@ -1,8 +1,6 @@
 package tconstruct.modifiers.tools;
 
-import java.util.Arrays;
-import java.util.List;
-
+import java.util.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.tools.ToolCore;
@@ -28,7 +26,7 @@ public class ModBlaze extends ItemModTypeFilter
             if (!validType(toolItem))
                 return false;
 
-            if(matchingAmount(input) > max)
+            if (matchingAmount(input) > max)
                 return false;
 
             NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
