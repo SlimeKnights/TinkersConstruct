@@ -32,6 +32,7 @@ import tconstruct.client.tabs.*;
 import tconstruct.common.TProxyCommon;
 import tconstruct.library.accessory.IAccessoryModel;
 import tconstruct.library.client.TConstructClientRegistry;
+import tconstruct.library.crafting.ModifyBuilder;
 import tconstruct.world.TinkerWorld;
 
 public class ArmorProxyClient extends ArmorProxyCommon
@@ -50,9 +51,20 @@ public class ArmorProxyClient extends ArmorProxyCommon
     {
         registerGuiHandler();
         registerKeys();
+        registerManualIcons();
         registerManualRecipes();
         MinecraftForge.EVENT_BUS.register(this);
         FMLCommonHandler.instance().bus().register(new ArmorAbilitiesClient(mc, controlInstance));
+    }
+
+    private void registerManualIcons ()
+    {
+        MantleClientRegistry.registerManualIcon("travelgoggles", TinkerArmor.travelGoggles.getDefaultItem());
+        MantleClientRegistry.registerManualIcon("travelvest", TinkerArmor.travelVest.getDefaultItem());
+        MantleClientRegistry.registerManualIcon("travelwings", TinkerArmor.travelWings.getDefaultItem());
+        MantleClientRegistry.registerManualIcon("travelboots", TinkerArmor.travelBoots.getDefaultItem());
+        MantleClientRegistry.registerManualIcon("travelbelt", TinkerArmor.travelBelt.getDefaultItem());
+        MantleClientRegistry.registerManualIcon("travelglove", TinkerArmor.travelGlove.getDefaultItem());
     }
 
     private void registerManualRecipes ()
@@ -60,28 +72,27 @@ public class ArmorProxyClient extends ArmorProxyCommon
         ItemStack feather = new ItemStack(Items.feather);
         ItemStack redstone = new ItemStack(Items.redstone);
         ItemStack goggles = TinkerArmor.travelGoggles.getDefaultItem();
-        MantleClientRegistry.registerManualSmallRecipe("nightvision", goggles.copy(), new ItemStack(Items.flint_and_steel), new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.golden_carrot), null);
+        //MantleClientRegistry.registerManualSmallRecipe("nightvision", goggles.copy(), new ItemStack(Items.flint_and_steel), new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.golden_carrot), null);
+        ItemStack g2 = goggles.copy();
+
+        g2 = ModifyBuilder.instance.modifyItem(g2, new ItemStack[] { new ItemStack(Items.flint_and_steel), new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.golden_carrot)});
+        MantleClientRegistry.registerManualSmallRecipe("nightvision", g2, new ItemStack(Items.flint_and_steel), new ItemStack(Items.potionitem, 1, 8198), new ItemStack(Items.golden_carrot), null);
 
         ItemStack vest = TinkerArmor.travelVest.getDefaultItem();
-        System.out.println("Travel Vest Item: " + vest);
-        MantleClientRegistry.registerManualIcon("travelvest", vest);
         MantleClientRegistry.registerManualSmallRecipe("dodge", vest.copy(), new ItemStack(Items.ender_eye), new ItemStack(Items.ender_pearl), new ItemStack(Items.sugar), null);
         MantleClientRegistry.registerManualSmallRecipe("stealth", vest.copy(), new ItemStack(Items.fermented_spider_eye), new ItemStack(Items.ender_eye), new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.golden_carrot));
 
         ItemStack wings = new ItemStack(TinkerArmor.travelWings);
-        MantleClientRegistry.registerManualIcon("travelwings", wings);
         MantleClientRegistry.registerManualSmallRecipe("doublejump", wings.copy(), new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Blocks.piston), null);
         MantleClientRegistry.registerManualLargeRecipe("featherfall", wings.copy(), new ItemStack(TinkerWorld.slimeGel, 1, 0), feather, feather, feather, wings.copy(), feather, feather, new ItemStack(Items.ender_pearl), feather);
 
         ItemStack boots = TinkerArmor.travelBoots.getDefaultItem();
-        MantleClientRegistry.registerManualIcon("travelboots", boots);
         MantleClientRegistry.registerManualSmallRecipe("doublejumpboots", boots.copy(), new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 1), new ItemStack(Blocks.piston), null);
         TConstructClientRegistry.registerManualModifier("waterwalk", boots.copy(), new ItemStack(Blocks.waterlily), new ItemStack(Blocks.waterlily));
         TConstructClientRegistry.registerManualModifier("leadboots", boots.copy(), new ItemStack(Blocks.iron_block));
         TConstructClientRegistry.registerManualModifier("slimysoles", boots.copy(), new ItemStack(TinkerWorld.slimePad, 1, 0), new ItemStack(TinkerWorld.slimePad, 1, 0));
 
         ItemStack gloves = TinkerArmor.travelGlove.getDefaultItem();
-        MantleClientRegistry.registerManualIcon("travelgloves", gloves);
         TConstructClientRegistry.registerManualModifier("glovehaste", gloves.copy(), redstone, new ItemStack(Blocks.redstone_block));
         //MantleClientRegistry.registerManualSmallRecipe("gloveclimb", gloves.copy(), new ItemStack(Items.slime_ball), new ItemStack(Blocks.web), new ItemStack(TinkerTools.materials, 1, 25), null);
         TConstructClientRegistry.registerManualModifier("gloveknuckles", gloves.copy(), new ItemStack(Items.quartz), new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE));
