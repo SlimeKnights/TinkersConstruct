@@ -82,9 +82,9 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
             fuel = fuelGague = (int) (getItemBurnTime(inventory[1]) * 2.5);
             if (fuel > 0)
             {
-                if (inventory[1].getItem().hasContainerItem()) //Fuel slot
+                if (inventory[1].getItem().hasContainerItem(inventory[1])) //Fuel slot
                 {
-                    inventory[1] = new ItemStack(inventory[1].getItem().getContainerItem());
+                    inventory[1] = inventory[1].getItem().getContainerItem(inventory[1]);
                 }
                 else
                 {

@@ -16,6 +16,7 @@ public class ToolMaterial
     public final int reinforced;
     public final float stonebound;
     public final String tipStyle;
+    public final int primaryColor;
 
     @Deprecated
     public String displayName;
@@ -25,7 +26,7 @@ public class ToolMaterial
     @Deprecated
     public ToolMaterial(String name, String displayName, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, String ability)
     {
-        this(name, level, durability, speed, damage, handle, reinforced, stonebound, style);
+        this(name, level, durability, speed, damage, handle, reinforced, stonebound, style, 0xFFFFFF);
         this.displayName = prefixName();
         this.ability = ability();
     }
@@ -33,12 +34,12 @@ public class ToolMaterial
     @Deprecated
     public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, String ability)
     {
-        this(name, level, durability, speed, damage, handle, reinforced, stonebound, style);
+        this(name, level, durability, speed, damage, handle, reinforced, stonebound, style, 0xFFFFFF);
         this.displayName = prefixName();
         this.ability = ability();
     }
 
-    public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style)
+    public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, int primaryColor)
     {
         this.materialName = name;
         this.harvestLevel = level;
@@ -49,6 +50,7 @@ public class ToolMaterial
         this.reinforced = reinforced;
         this.stonebound = stonebound;
         this.tipStyle = style;
+        this.primaryColor = primaryColor;
     }
 
     public String name ()
@@ -107,6 +109,11 @@ public class ToolMaterial
     public String style ()
     {
         return this.tipStyle;
+    }
+
+    public int primaryColor ()
+    {
+        return this.primaryColor;
     }
 
     /**

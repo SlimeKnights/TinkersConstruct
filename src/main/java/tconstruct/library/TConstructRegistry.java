@@ -245,17 +245,24 @@ public class TConstructRegistry
      *            Spiny.
      */
 
-    public static void addToolMaterial (int materialID, String materialName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced, float stonebound, String style)
+    public static void addToolMaterial (int materialID, String materialName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced, float stonebound, String style, int primaryColor)
     {
         ToolMaterial mat = toolMaterials.get(materialID);
         if (mat == null)
         {
-            mat = new ToolMaterial(materialName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, stonebound, style);
+            mat = new ToolMaterial(materialName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, stonebound, style, primaryColor);
             toolMaterials.put(materialID, mat);
             toolMaterialStrings.put(materialName, mat);
         }
         else
             throw new IllegalArgumentException("[TCon API] Material ID " + materialID + " is already occupied by " + mat.materialName);
+    }
+
+    @Deprecated
+    public static void addToolMaterial (int materialID, String materialName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced, float stonebound, String style)
+    {
+        logger.warn("[TCon API] Using deprecated addToolMaterial with no primary color. A fallback of white will be used.");
+        addToolMaterial(materialID, materialName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, stonebound, style, 0xFFFFFF);
     }
 
     @Deprecated

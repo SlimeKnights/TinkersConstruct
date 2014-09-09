@@ -16,6 +16,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import tconstruct.TConstruct;
+import tconstruct.items.tools.FryingPan;
+import tconstruct.library.TConstructRegistry;
 import tconstruct.tools.ToolProxyCommon;
 import tconstruct.tools.logic.*;
 import tconstruct.tools.model.FrypanRender;
@@ -192,6 +194,34 @@ public class EquipBlock extends InventoryBlock
     public Object getModInstance ()
     {
         return TConstruct.instance;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int colorMultiplier (IBlockAccess blockAccess, int x, int y, int z)
+    {
+        TileEntity te = blockAccess.getTileEntity(x, y, z);
+
+        if (te instanceof FrypanLogic)
+        {
+            FrypanLogic logic = (FrypanLogic) te;
+            ItemStack stack = logic.getEquipmentItem();
+            if (stack != null && stack.getItem() instanceof FryingPan)
+            {
+                FryingPan pan = (FryingPan) stack.getItem();
+
+                NBTTagCompound tag = stack.getTagCompound().getCompoundTag("InfiTool");
+
+                if (tag != null)
+                {
+                    int head = tag.getInteger("Head");
+
+                    return TConstructRegistry.getMaterial(head).primaryColor();
+                }
+            }
+        }
+
+        return 16777215;
     }
 
     @Override
