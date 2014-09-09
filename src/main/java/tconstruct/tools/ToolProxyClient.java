@@ -4,6 +4,7 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import mantle.client.MProxyClient;
 import mantle.lib.client.MantleClientRegistry;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.*;
 import net.minecraft.item.ItemStack;
@@ -45,6 +46,7 @@ public class ToolProxyClient extends ToolProxyCommon
     {
         RenderingRegistry.registerBlockHandler(new TableRender());
         RenderingRegistry.registerBlockHandler(new FrypanRender());
+        RenderingRegistry.registerBlockHandler(new BattlesignRender());
 
         RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Items.potionitem, 16384));
         RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRenderCustom());
@@ -56,6 +58,8 @@ public class ToolProxyClient extends ToolProxyCommon
         ToolCoreRenderer renderer = new ToolCoreRenderer(true);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.arrow, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.dagger, renderer);
+
+        TileEntityRendererDispatcher.instance.mapSpecialRenderers.put(BattlesignLogic.class, new BattlesignTesr());
     }
 
     public void registerManualIcons ()

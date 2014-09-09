@@ -16,7 +16,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import tconstruct.TConstruct;
-import tconstruct.items.tools.FryingPan;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.tools.ToolProxyCommon;
 import tconstruct.tools.logic.*;
@@ -202,14 +201,12 @@ public class EquipBlock extends InventoryBlock
     {
         TileEntity te = blockAccess.getTileEntity(x, y, z);
 
-        if (te instanceof FrypanLogic)
+        if (te instanceof EquipLogic)
         {
-            FrypanLogic logic = (FrypanLogic) te;
+            EquipLogic logic = (EquipLogic) te;
             ItemStack stack = logic.getEquipmentItem();
-            if (stack != null && stack.getItem() instanceof FryingPan)
+            if (stack != null)
             {
-                FryingPan pan = (FryingPan) stack.getItem();
-
                 NBTTagCompound tag = stack.getTagCompound().getCompoundTag("InfiTool");
 
                 if (tag != null)
