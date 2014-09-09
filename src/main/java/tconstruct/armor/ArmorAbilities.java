@@ -16,6 +16,7 @@ public class ArmorAbilities
     //Abilities
     boolean morphed;
     boolean morphLoaded = Loader.isModLoaded("Morph");
+    boolean smartmoveLoaded = Loader.isModLoaded("SmartMoving");
 
     public static List<String> stepBoostedPlayers = new ArrayList();
     //ItemStack prevFeet;
@@ -91,7 +92,7 @@ public class ArmorAbilities
             }
         }
 
-        if (!player.isPlayerSleeping())
+        if (!player.isPlayerSleeping() && !smartmoveLoaded)
         {
             ItemStack chest = player.getCurrentArmor(2);
             if (chest == null || !(chest.getItem() instanceof IModifyable))

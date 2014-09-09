@@ -21,6 +21,7 @@ public class ArmorAbilitiesClient
 
     boolean morphed;
     boolean morphLoaded = Loader.isModLoaded("Morph");
+    boolean smartmoveLoaded = Loader.isModLoaded("SmartMoving");
 
     float prevMouseSensitivity;
     boolean sprint;
@@ -108,7 +109,7 @@ public class ArmorAbilitiesClient
             }
         }
 
-        if (!player.isPlayerSleeping() && !morphed)
+        if (!player.isPlayerSleeping() && !morphed && !smartmoveLoaded)
         {
             ItemStack chest = player.getCurrentArmor(2);
             if (chest == null || !(chest.getItem() instanceof IModifyable))
