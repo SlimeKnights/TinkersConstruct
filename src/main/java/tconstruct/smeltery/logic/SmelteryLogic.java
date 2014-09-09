@@ -784,7 +784,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
                     FluidStack liquid = ((IFluidHandler) tankContainer).getTankInfo(ForgeDirection.DOWN)[0].fluid;
                     if (liquid == null)
-                        return;
+                        continue;
                     if (!Smeltery.isSmelteryFuel(liquid.getFluid()))
                         continue;
 
