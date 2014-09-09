@@ -82,7 +82,10 @@ public class ArmorProxyClient extends ArmorProxyCommon
 
         ItemStack wings = TinkerArmor.travelWings.getDefaultItem();
         TConstructClientRegistry.registerManualModifier("doublejumpwings", wings.copy(), new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Blocks.piston), null);
-        MantleClientRegistry.registerManualLargeRecipe("featherfall", wings.copy(), feather, new ItemStack(TinkerWorld.slimeGel, 1, 0), feather, feather, wings.copy(), feather, feather, new ItemStack(Items.ender_pearl), feather);
+
+        ItemStack[] recipe = new ItemStack[] { new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Items.ender_pearl), feather, feather, feather, feather, feather, feather };
+        ItemStack modWings = ModifyBuilder.instance.modifyItem(wings, recipe);
+        MantleClientRegistry.registerManualLargeRecipe("featherfall", modWings.copy(), feather, new ItemStack(TinkerWorld.slimeGel, 1, 0), feather, feather, wings.copy(), feather, feather, new ItemStack(Items.ender_pearl), feather);
 
         ItemStack boots = TinkerArmor.travelBoots.getDefaultItem();
         TConstructClientRegistry.registerManualModifier("doublejumpboots", boots.copy(), new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 1), new ItemStack(Blocks.piston), null);
