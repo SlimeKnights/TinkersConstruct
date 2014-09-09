@@ -138,10 +138,7 @@ public class TinkerTools
         TinkerTools.furnaceSlab = new FurnaceSlab(Material.rock).setBlockName("FurnaceSlab");
 
         TinkerTools.heldItemBlock = new EquipBlock(Material.wood).setBlockName("Frypan");
-
-        /* battlesignBlock = new BattlesignBlock(PHConstruct.battlesignBlock).setUnlocalizedName("Battlesign");
-        GameRegistry.registerBlock(battlesignBlock, "BattlesignBlock");
-        ameRegistry.registerTileEntity(BattlesignLogic.class, "BattlesignLogic");*/
+        TinkerTools.battlesignBlock = new BattlesignBlock(Material.wood).setBlockName("Battlesign");
 
         TinkerTools.craftedSoil = new SoilBlock().setLightOpacity(0).setBlockName("TConstruct.Soil");
         TinkerTools.craftedSoil.stepSound = Block.soundTypeGravel;
@@ -160,6 +157,8 @@ public class TinkerTools
         GameRegistry.registerTileEntity(FurnaceLogic.class, "TConstruct.Furnace");
         GameRegistry.registerBlock(TinkerTools.heldItemBlock, "HeldItemBlock");
         GameRegistry.registerTileEntity(FrypanLogic.class, "FrypanLogic");
+        GameRegistry.registerBlock(TinkerTools.battlesignBlock, "BattleSignBlock");
+        GameRegistry.registerTileEntity(BattlesignLogic.class, "BattlesignLogic");
 
         GameRegistry.registerBlock(TinkerTools.craftedSoil, CraftedSoilItemBlock.class, "CraftedSoil");
 

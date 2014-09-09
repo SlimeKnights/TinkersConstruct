@@ -1,9 +1,12 @@
 package tconstruct.items.tools;
 
 import cpw.mods.fml.relauncher.*;
-import net.minecraft.item.Item;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.*;
+import net.minecraft.world.World;
 import tconstruct.library.tools.Weapon;
 import tconstruct.tools.TinkerTools;
+import tconstruct.tools.logic.EquipLogic;
 
 public class BattleSign extends Weapon
 {
@@ -116,5 +119,65 @@ public class BattleSign extends Weapon
     public String getDefaultFolder ()
     {
         return "battlesign";
+    }
+
+    @Override
+    public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
+    {
+        if (side == 0 || !player.isSneaking())
+        {
+            return false;
+        }
+        else if (!world.getBlock(x, y, z).getMaterial().isSolid())
+        {
+            return false;
+        }
+        else
+        {
+            if (side == 1)
+            {
+                ++y;
+            }
+
+            if (side == 2)
+            {
+                --z;
+            }
+
+            if (side == 3)
+            {
+                ++z;
+            }
+
+            if (side == 4)
+            {
+                --x;
+            }
+
+            if (side == 5)
+            {
+                ++x;
+            }
+
+            if (!player.canPlayerEdit(x, y, z, side, stack))
+            {
+                return false;
+            }
+            else if (!TinkerTools.battlesignBlock.canPlaceBlockAt(world, x, y, z))
+            {
+                return false;
+            }
+            else
+            {
+                world.setBlock(x, y, z, TinkerTools.battlesignBlock, 0, 3);
+                TinkerTools.battlesignBlock.onBlockPlacedBy(world, x, y, z, player, stack);
+
+                EquipLogic logic = (EquipLogic) world.getTileEntity(x, y, z);
+                logic.setEquipmentItem(stack);
+                --stack.stackSize;
+
+                return true;
+            }
+        }
     }
 }

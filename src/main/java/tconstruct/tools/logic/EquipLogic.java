@@ -2,6 +2,9 @@ package tconstruct.tools.logic;
 
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
 /* Slots
  * 0: Frying pan item
@@ -55,5 +58,21 @@ public abstract class EquipLogic extends InventoryLogic
     public boolean isStackInSlot (int slot)
     {
         return slot != 0 ? inventory[slot] != null : false;
+    }
+
+    @Override
+    public S35PacketUpdateTileEntity getDescriptionPacket ()
+    {
+        NBTTagCompound compound = new NBTTagCompound();
+        this.writeToNBT(compound);
+
+        S35PacketUpdateTileEntity packet = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, compound);
+        return packet;
+    }
+
+    @Override
+    public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity pkt)
+    {
+        this.readFromNBT(pkt.func_148857_g());
     }
 }
