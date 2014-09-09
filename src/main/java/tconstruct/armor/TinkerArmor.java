@@ -230,7 +230,7 @@ public class TinkerArmor
 
         //Chest
         ModifyBuilder.registerModifier(new AModInteger(0, "Perfect Dodge", EnumSet.of(ArmorPart.Chest), new ItemStack[] { new ItemStack(Items.ender_eye), new ItemStack(Items.ender_pearl), new ItemStack(Items.sugar) }, 1, "\u00a7d", "Perfect Dodge"));
-        ModifyBuilder.registerModifier(new AModBoolean(1, "Stealth", EnumSet.of(ArmorPart.Chest), new ItemStack[] { new ItemStack(Items.fermented_spider_eye), new ItemStack(Items.ender_eye), new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.golden_carrot) }, "\u00a78", "Stealth"));
+        ModifyBuilder.registerModifier(new AModBoolean(1, "Stealth", EnumSet.of(ArmorPart.Chest), new ItemStack[] { new ItemStack(Items.fermented_spider_eye), new ItemStack(Items.ender_eye), new ItemStack(Items.potionitem, 1, 8206), new ItemStack(Items.golden_carrot) }, "\u00a78", "Stealth"));
 
         //Wings
         ItemStack feather = new ItemStack(Items.feather);

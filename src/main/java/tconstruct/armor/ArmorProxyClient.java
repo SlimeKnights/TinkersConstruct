@@ -78,11 +78,11 @@ public class ArmorProxyClient extends ArmorProxyCommon
 
         ItemStack vest = TinkerArmor.travelVest.getDefaultItem();
         TConstructClientRegistry.registerManualModifier("dodge", vest.copy(), new ItemStack(Items.ender_eye), new ItemStack(Items.ender_pearl), new ItemStack(Items.sugar), null);
-        TConstructClientRegistry.registerManualModifier("stealth", vest.copy(), new ItemStack(Items.fermented_spider_eye), new ItemStack(Items.ender_eye), new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.golden_carrot));
+        TConstructClientRegistry.registerManualModifier("stealth", vest.copy(), new ItemStack(Items.fermented_spider_eye), new ItemStack(Items.ender_eye), new ItemStack(Items.potionitem, 1, 8206), new ItemStack(Items.golden_carrot));
 
         ItemStack wings = TinkerArmor.travelWings.getDefaultItem();
         TConstructClientRegistry.registerManualModifier("doublejumpwings", wings.copy(), new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Blocks.piston), null);
-        MantleClientRegistry.registerManualLargeRecipe("featherfall", wings.copy(), new ItemStack(TinkerWorld.slimeGel, 1, 0), feather, feather, feather, wings.copy(), feather, feather, new ItemStack(Items.ender_pearl), feather);
+        MantleClientRegistry.registerManualLargeRecipe("featherfall", wings.copy(), feather, new ItemStack(TinkerWorld.slimeGel, 1, 0), feather, feather, wings.copy(), feather, feather, new ItemStack(Items.ender_pearl), feather);
 
         ItemStack boots = TinkerArmor.travelBoots.getDefaultItem();
         TConstructClientRegistry.registerManualModifier("doublejumpboots", boots.copy(), new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 1), new ItemStack(Blocks.piston), null);

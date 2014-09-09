@@ -265,10 +265,10 @@ Stackable: yes</text>
 
 <page type="sectionpage">
 <title>Stealth</title>
-<text>?
+<text>Travelling gear is not very protective. Therefore I mixed some magical items and an Invisibility Potion together, to make myself stealthier!
 
 Effects:
-- Unknown
+- Turn invisible while sneaking
 
 Type: Single-use
 Stackable: No</text>
@@ -292,7 +292,7 @@ Stackable: yes</text>
 </page>
 
 <page type="crafting">
-<text>Tool Station + Forge</text>
+<text>Tinker Table</text>
 <recipe>
  <name>featherfall</name>
  <size>three</size>
