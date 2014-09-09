@@ -291,9 +291,12 @@ Type: Single-use
 Stackable: yes</text>
 </page>
 
-<page type="modifier">
-<tooltype>travelwings</tooltype>
-<recipe>featherfall</recipe>
+<page type="crafting">
+<text>Tool Station + Forge</text>
+<recipe>
+ <name>featherfall</name>
+ <size>three</size>
+</recipe>
 </page>
 
 <page type="sectionpage">
@@ -363,7 +366,7 @@ Stackable: yes</text>
 
 <page type="modifier">
 <tooltype>travelglove</tooltype>
-<recipe>redstonemod</recipe>
+<recipe>glovehaste</recipe>
 </page>
 
 <page type="sectionpage">
@@ -373,6 +376,7 @@ Stackable: yes</text>
 Effects:
 - The tool slowly repairs itself
 - Sunlight speeds up the process
+- Can be applied to all travellers gear
 
 Type: Single-use
 Stackable: yes</text>
@@ -380,7 +384,7 @@ Stackable: yes</text>
 
 <page type="modifier">
 <tooltype>travelmulti</tooltype>
-<recipe>mossmod</recipe>
+<recipe>moss</recipe>
 </page>
 
 <page type="sectionpage">
@@ -389,6 +393,7 @@ Stackable: yes</text>
 
 Effects:
 - Jump during jumping to jump
+- Can be applied to wings as well
 
 Type: Single-use
 Stackable: yes</text>
@@ -396,7 +401,7 @@ Stackable: yes</text>
 
 <page type="modifier">
 <tooltype>travelmulti</tooltype>
-<recipe>mossmod</recipe>
+<recipe>doublejump</recipe>
 </page>
 
 </book>

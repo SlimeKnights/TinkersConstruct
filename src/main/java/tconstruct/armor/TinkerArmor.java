@@ -226,7 +226,7 @@ public class TinkerArmor
         TConstructRegistry.registerActiveArmorMod(new ActiveTinkerArmor());
 
         //Head
-        ModifyBuilder.registerModifier(new AModBoolean(0, "Night Vision", EnumSet.of(ArmorPart.Head), new ItemStack[] { new ItemStack(Items.flint_and_steel), new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.golden_carrot) }, "\u00a78", "Night Vision"));
+        ModifyBuilder.registerModifier(new AModBoolean(0, "Night Vision", EnumSet.of(ArmorPart.Head), new ItemStack[] { new ItemStack(Items.flint_and_steel), new ItemStack(Items.potionitem, 1, 8198), new ItemStack(Items.golden_carrot) }, "\u00a78", "Night Vision"));
 
         //Chest
         ModifyBuilder.registerModifier(new AModInteger(0, "Perfect Dodge", EnumSet.of(ArmorPart.Chest), new ItemStack[] { new ItemStack(Items.ender_eye), new ItemStack(Items.ender_pearl), new ItemStack(Items.sugar) }, 1, "\u00a7d", "Perfect Dodge"));

@@ -92,6 +92,22 @@ public class TConstructClientRegistry
         MantleClientRegistry.recipeIcons.put(name, recipe);
     }
 
+    public static void registerManualModifier (String name, ItemStack output, ItemStack input1, ItemStack input2, ItemStack input3)
+    {
+        registerManualModifier(name, output, input1, input2, input3, null);
+    }
+
+    public static void registerManualModifier (String name, ItemStack output, ItemStack input1, ItemStack input2, ItemStack input3, ItemStack input4)
+    {
+        ItemStack[] recipe = new ItemStack[5];
+        recipe[0] = ModifyBuilder.instance.modifyItem(output, new ItemStack[] { input1, input2, input3, input4 });
+        recipe[1] = input1;
+        recipe[2] = input2;
+        recipe[3] = input3;
+        recipe[4] = input4;
+        MantleClientRegistry.recipeIcons.put(name, recipe);
+    }
+
     public static void registerManualSmeltery (String name, ItemStack output, ItemStack liquid, ItemStack cast)
     {
         ItemStack[] recipe = new ItemStack[3];
