@@ -27,7 +27,7 @@ public abstract class AbstractTab extends GuiButton
         {
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-            int yTexPos = this.enabled ? 0 : 32;
+            int yTexPos = this.enabled ? 3 : 32;
             int ySize = this.enabled ? 28 : 32;
             int xOffset = this.id == 2 ? 0 : 1;
 
