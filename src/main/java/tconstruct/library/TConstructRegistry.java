@@ -258,6 +258,46 @@ public class TConstructRegistry
             throw new IllegalArgumentException("[TCon API] Material ID " + materialID + " is already occupied by " + mat.materialName);
     }
 
+    /**
+     * Adds a tool material to the registry
+     *
+     * @param materialID
+     *            Unique ID, stored for each part
+     * @param materialName
+     *            Unique name for data lookup purposes
+     * @param localizationName
+     *            The string used to localize the material name
+     * @param harvestLevel
+     *            The materials which the tool can harvest. Pickaxe levels - 0:
+     *            Wood, 1: Stone, 2: Redstone/Diamond, 3: Obsidian, 4:
+     *            Cobalt/Ardite, 5: Manyullyn
+     * @param durability
+     *            Base durability of the tool, affects tool heads.
+     * @param miningspeed
+     *            Base mining speed, divided by 100 in use
+     * @param attack
+     *            Base attack
+     * @param handleModifier
+     *            Durability multiplier on the tool
+     * @param reinforced
+     *            Reinforced level
+     * @param stonebound
+     *            Amount of Stonebound to put on the tool. Negative numbers are
+     *            Spiny.
+     */
+    public static void addToolMaterial (int materialID, String materialName, String localizationName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced, float stonebound, String style, int primaryColor)
+    {
+        ToolMaterial mat = toolMaterials.get(materialID);
+        if (mat == null)
+        {
+            mat = new ToolMaterial(materialName, localizationName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, stonebound, style, primaryColor);
+            toolMaterials.put(materialID, mat);
+            toolMaterialStrings.put(materialName, mat);
+        }
+        else
+            throw new IllegalArgumentException("[TCon API] Material ID " + materialID + " is already occupied by " + mat.materialName);
+    }
+
     @Deprecated
     public static void addToolMaterial (int materialID, String materialName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced, float stonebound, String style)
     {

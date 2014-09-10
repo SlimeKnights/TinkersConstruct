@@ -18,6 +18,8 @@ public class ToolMaterial
     public final String tipStyle;
     public final int primaryColor;
 
+    private final String localizationString;
+
     @Deprecated
     public String displayName;
     @Deprecated
@@ -41,6 +43,11 @@ public class ToolMaterial
 
     public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, int primaryColor)
     {
+        this(name, "material." + name.toLowerCase().replaceAll(" ", ""), level, durability, speed, damage, handle, reinforced, stonebound, style, primaryColor);
+    }
+
+    public ToolMaterial(String name, String localizationString, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, int primaryColor)
+    {
         this.materialName = name;
         this.harvestLevel = level;
         this.durability = durability;
@@ -51,6 +58,8 @@ public class ToolMaterial
         this.stonebound = stonebound;
         this.tipStyle = style;
         this.primaryColor = primaryColor;
+
+        this.localizationString = localizationString;
     }
 
     public String name ()
@@ -60,14 +69,14 @@ public class ToolMaterial
 
     public String localizedName ()
     {
-        return StatCollector.translateToLocal("material." + materialName.toLowerCase());
+        return StatCollector.translateToLocal(localizationString);
     }
 
     public String prefixName ()
     {
         // check if there's a special name, otherwise use the regular one
-        if (StatCollector.canTranslate(String.format("material.%s.display", materialName.toLowerCase())))
-            return StatCollector.translateToLocal(String.format("material.%s.display", materialName.toLowerCase()));
+        if (StatCollector.canTranslate(String.format("%s.display", localizationString)))
+            return StatCollector.translateToLocal(String.format("%s.display", localizationString));
         return localizedName();
     }
 
@@ -122,8 +131,8 @@ public class ToolMaterial
      */
     public String ability ()
     {
-        if (StatCollector.canTranslate(String.format("material.%s.ability", materialName.toLowerCase())))
-            return StatCollector.translateToLocal(String.format("material.%s.ability", materialName.toLowerCase()));
+        if (StatCollector.canTranslate(String.format("%s.ability", localizationString)))
+            return StatCollector.translateToLocal(String.format("%s.ability", localizationString));
         return "";
     }
 }
