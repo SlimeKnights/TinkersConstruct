@@ -109,39 +109,24 @@ public class SmelteryGui extends NewContainerGui
         fontRendererObj.drawString(StatCollector.translateToLocal("crafters.Smeltery"), 86, 5, 0x404040);
         fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 90, (ySize - 96) + 2, 0x404040);
 
-        int base = 0;
+
         int cornerX = (width - xSize) / 2 + 36;
         int cornerY = (height - ySize) / 2;
 
-        // molten metals
-        for (FluidStack liquid : logic.moltenMetal)
+        int[] fluidHeights = calcLiquidHeights();
+        int base = 0;
+        for(int i = 0; i < fluidHeights.length; i++)
         {
-            int basePos = 54;
-            int initialLiquidSize = 0;
-            int liquidSize = 0;// liquid.amount * 52 / liquidLayers;
-            if (logic.getCapacity() > 0)
-            {
-                int total = logic.getTotalLiquid();
-                int liquidLayers = (total / 20000 + 1) * 20000;
-                if (liquidLayers > 0)
-                {
-                    liquidSize = liquid.amount * 52 / liquidLayers;
-                    if (liquidSize == 0)
-                        liquidSize = 1;
-                    base += liquidSize;
-                }
-            }
+            int leftX = cornerX + 54;
+            int topY = (cornerY + 68) - fluidHeights[i] - base;
 
-            int leftX = cornerX + basePos;
-            int topY = (cornerY + 68) - base;
-            int sizeX = 52;
-            int sizeY = liquidSize;
-            if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
+            if (mouseX >= leftX && mouseX <= leftX + 52 && mouseY >= topY && mouseY < topY + fluidHeights[i])
             {
-                drawFluidStackTooltip(liquid, mouseX - cornerX + 36, mouseY - cornerY);
-
+                drawFluidStackTooltip(logic.moltenMetal.get(i), mouseX - cornerX + 36, mouseY - cornerY);
             }
+            base += fluidHeights[i];
         }
+
         // lava/fuel
         if (logic.fuelGague > 0)
         {
@@ -184,35 +169,32 @@ public class SmelteryGui extends NewContainerGui
             }
         }
 
-        // Liquids - molten metal
-        int base = 0;
-        for (FluidStack liquid : logic.moltenMetal)
-        {
-            IIcon renderIndex = liquid.getFluid().getStillIcon();
+        if(logic.getCapacity() > 0) {
+            // Liquids - molten metal
+            int base = 0;
+            int[] fluidHeights = calcLiquidHeights();
+
+            // render the fluids
             int basePos = 54;
-            if (logic.getCapacity() > 0)
-            {
-                int total = logic.getTotalLiquid();
-                int liquidLayers = (total / 20000 + 1) * 20000;
-                if (liquidLayers > 0)
-                {
-                    int liquidSize = liquid.amount * 52 / liquidLayers;
-                    if (liquidSize == 0)
-                        liquidSize = 1;
-                    while (liquidSize > 0)
-                    {
-                        int size = liquidSize >= 16 ? 16 : liquidSize;
-                        if (renderIndex != null)
-                        {
-                            drawLiquidRect(cornerX + basePos, (cornerY + 68) - size - base, renderIndex, 16, size);
-                            drawLiquidRect(cornerX + basePos + 16, (cornerY + 68) - size - base, renderIndex, 16, size);
-                            drawLiquidRect(cornerX + basePos + 32, (cornerY + 68) - size - base, renderIndex, 16, size);
-                            drawLiquidRect(cornerX + basePos + 48, (cornerY + 68) - size - base, renderIndex, 4, size);
-                        }
-                        liquidSize -= size;
-                        base += size;
-                    }
+            for (int i = 0; i < logic.moltenMetal.size(); i++) {
+                FluidStack liquid = logic.moltenMetal.get(i);
+                IIcon icon = liquid.getFluid().getStillIcon();
+
+                if(icon == null)
+                    continue;
+
+                int height = fluidHeights[i];
+                int h = height;
+                while(h > 0) {
+                    int v = Math.min(16, h);
+                    // we render in 16x16 squares so the texture doesn't get distorted
+                    drawLiquidRect(cornerX + basePos + 00, (cornerY + 68) - h - base, icon, 16, v);
+                    drawLiquidRect(cornerX + basePos + 16, (cornerY + 68) - h - base, icon, 16, v);
+                    drawLiquidRect(cornerX + basePos + 32, (cornerY + 68) - h - base, icon, 16, v);
+                    drawLiquidRect(cornerX + basePos + 48, (cornerY + 68) - h - base, icon,  4, v);
+                    h -= 16;
                 }
+                base += height;
             }
         }
 
@@ -300,6 +282,41 @@ public class SmelteryGui extends NewContainerGui
         {
             drawTexturedModalRect(cornerX - xleft + (iter % columns * 22)-1, cornerY + 8 + (iter / columns * 18)-1, 98, 47, 22, 18);
         }
+    }
+
+    protected int[] calcLiquidHeights()
+    {
+        int fluidHeights[] = new int[logic.moltenMetal.size()];
+        int cap = logic.getCapacity();
+        if (logic.getTotalLiquid() > cap)
+            cap = logic.getTotalLiquid();
+        for (int i = 0; i < logic.moltenMetal.size(); i++) {
+            FluidStack liquid = logic.moltenMetal.get(i);
+
+            float h = (float) liquid.amount / (float) cap;
+            fluidHeights[i] = Math.max(3, (int) Math.ceil(h*52f));
+        }
+
+        // check if we have enough height to render everything
+        int sum = 0;
+        do {
+            sum = 0;
+            int biggest = -1;
+            int m = 0;
+            for (int i = 0; i < fluidHeights.length; i++) {
+                sum += fluidHeights[i];
+                if (logic.moltenMetal.get(i).amount > biggest) {
+                    biggest = logic.moltenMetal.get(i).amount;
+                    m = i;
+                }
+            }
+
+            // remove a pixel from the biggest one
+            if (sum > 52)
+                fluidHeights[m]--;
+        } while (sum > 52);
+
+        return fluidHeights;
     }
 
     protected void drawFluidStackTooltip (FluidStack par1ItemStack, int par2, int par3)

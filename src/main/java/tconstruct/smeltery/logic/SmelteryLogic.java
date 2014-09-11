@@ -33,6 +33,7 @@ import tconstruct.util.config.PHConstruct;
 public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFacingLogic, IFluidTank, IMasterLogic
 {
     private static final int MAX_SMELTERY_SIZE = 7;
+    public static final int MB_PER_BLOCK_CAPACITY = 2592;
 
     public boolean validStructure;
     public boolean tempValidStructure;
@@ -78,6 +79,11 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         return xd * zd;
     }
 
+    public int getCapacityPerLayer()
+    {
+        return getBlocksPerLayer()*MB_PER_BLOCK_CAPACITY;
+    }
+
     public int getBlockCapacity()
     {
         return maxBlockCapacity;
@@ -90,8 +96,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             needsUpdate = true;
             layers = lay;
             maxBlockCapacity = getBlocksPerLayer() * layers;
+            maxLiquid = maxBlockCapacity * MB_PER_BLOCK_CAPACITY;
 
-            maxLiquid = 20000 * lay;
             int[] tempActive = activeTemps;
             activeTemps = new int[maxBlockCapacity];
             int activeLength = tempActive.length > activeTemps.length ? activeTemps.length : tempActive.length;

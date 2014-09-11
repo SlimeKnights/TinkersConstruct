@@ -66,12 +66,12 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                 int liquidSize = liquid.amount;
                 while (liquidSize > 0)
                 {
-                    int room = 20000 - liquidBase;
+                    int cap = logic.getCapacityPerLayer();
+                    int room = cap - liquidBase;
                     int countSize = liquidSize > room ? room : liquidSize;
                     liquidSize -= countSize;
 
-                    float height = countSize > 20000 ? 1.0F : countSize / 20000F;
-                    //renderer.setRenderBounds(0, base, 0, 1, height + base, 1);
+                    float height = countSize > cap ? 1.0F : (float)countSize / (float)cap;
                     float renderBase = base;
                     float renderHeight = height + base;
                     base += height;
