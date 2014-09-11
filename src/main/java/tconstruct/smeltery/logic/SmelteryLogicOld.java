@@ -1,86 +1,91 @@
 package tconstruct.smeltery.logic;
 
-import cpw.mods.fml.relauncher.*;
-import java.util.*;
-import mantle.blocks.abstracts.*;
-import mantle.blocks.iface.*;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import mantle.blocks.abstracts.InventoryLogic;
+import mantle.blocks.abstracts.MultiServantLogic;
+import mantle.blocks.iface.IActiveLogic;
+import mantle.blocks.iface.IFacingLogic;
+import mantle.blocks.iface.IMasterLogic;
+import mantle.blocks.iface.IServantLogic;
 import mantle.world.CoordTuple;
 import net.minecraft.block.Block;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.*;
-import net.minecraft.entity.passive.*;
-import net.minecraft.entity.player.*;
+import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityIronGolem;
+import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.*;
-import net.minecraft.network.*;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.IFluidTank;
 import tconstruct.library.crafting.Smeltery;
-import tconstruct.smeltery.*;
-import tconstruct.smeltery.inventory.SmelteryContainer;
+import tconstruct.smeltery.SmelteryDamageSource;
+import tconstruct.smeltery.TinkerSmeltery;
+import tconstruct.smeltery.inventory.SmelteryContainerOld;
 import tconstruct.util.config.PHConstruct;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /* Simple class for storing items in the block
  */
 
-public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFacingLogic, IFluidTank, IMasterLogic
+public class SmelteryLogicOld extends InventoryLogic implements IActiveLogic, IFacingLogic, IFluidTank, IMasterLogic
 {
-    private static final int MAX_SMELTERY_SIZE = 5;
-
     public boolean validStructure;
     public boolean tempValidStructure;
-    protected byte direction;
-
-    public CoordTuple minPos = new CoordTuple(0, 0, 0);
-    public CoordTuple maxPos = new CoordTuple(0, 0, 0);
-    public int layers;
-    public int maxBlockCapacity;
-
-    protected int internalTemp;
+    byte direction;
+    int internalTemp;
     public int useTime;
     public int fuelGague;
     public int fuelAmount;
-    protected boolean inUse;
+    boolean inUse;
 
-    protected ArrayList<CoordTuple> lavaTanks;
-    protected CoordTuple activeLavaTank;
+    ArrayList<CoordTuple> lavaTanks;
+    CoordTuple activeLavaTank;
+    public CoordTuple centerPos = new CoordTuple(0, 0, 0);
 
     public int[] activeTemps; // values are multiplied by 10
     public int[] meltingTemps; // values are multiplied by 10
-    private int tick;
+    int tick;
 
     public ArrayList<FluidStack> moltenMetal = new ArrayList<FluidStack>();
-    public int maxLiquid;
-    public int currentLiquid;
+    int maxLiquid;
+    int currentLiquid;
+    public int layers;
+    int slag;
+
+    int numBricks;
 
     Random rand = new Random();
     boolean needsUpdate;
 
-    public SmelteryLogic()
+    public SmelteryLogicOld()
     {
         super(0);
         lavaTanks = new ArrayList<CoordTuple>();
         activeTemps = new int[0];
         meltingTemps = new int[0];
-    }
-
-    public int getBlocksPerLayer()
-    {
-        int xd = maxPos.x - minPos.x + 1;
-        int zd = maxPos.z - minPos.z + 1;
-        return xd * zd;
-    }
-
-    public int getBlockCapacity()
-    {
-        return maxBlockCapacity;
     }
 
     void adjustLayers (int lay, boolean forceAdjust)
@@ -89,21 +94,19 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             needsUpdate = true;
             layers = lay;
-            maxBlockCapacity = getBlocksPerLayer() * layers;
-
             maxLiquid = 20000 * lay;
             int[] tempActive = activeTemps;
-            activeTemps = new int[maxBlockCapacity];
+            activeTemps = new int[9 * lay];
             int activeLength = tempActive.length > activeTemps.length ? activeTemps.length : tempActive.length;
             System.arraycopy(tempActive, 0, activeTemps, 0, activeLength);
 
             int[] tempMelting = meltingTemps;
-            meltingTemps = new int[maxBlockCapacity];
+            meltingTemps = new int[9 * lay];
             int meltingLength = tempMelting.length > meltingTemps.length ? meltingTemps.length : tempMelting.length;
             System.arraycopy(tempMelting, 0, meltingTemps, 0, meltingLength);
 
             ItemStack[] tempInv = inventory;
-            inventory = new ItemStack[maxBlockCapacity];
+            inventory = new ItemStack[9 * lay];
             int invLength = tempInv.length > inventory.length ? inventory.length : tempInv.length;
             System.arraycopy(tempInv, 0, inventory, 0, invLength);
 
@@ -184,7 +187,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     @Override
     public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
     {
-        return new SmelteryContainer(inventoryplayer, this);
+        return new SmelteryContainerOld(inventoryplayer, this);
     }
 
     @Override
@@ -308,8 +311,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     void detectEntities ()
     {
-        // todo: fix this with min-max pos instead of center pos
-        /*
         if (centerPos == null)
             return;
 
@@ -383,7 +384,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 handleItemEntity((EntityItem) o);
             }
         }
-        */
     }
 
     private void handleItemEntity (EntityItem item)
@@ -438,7 +438,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             int temperature = this.getInternalTemperature();
             int speed = temperature / 100;
             int refTemp = temperature * 10;
-            for (int i = 0; i < maxBlockCapacity; i++)
+            for (int i = 0; i < 9 * layers; i++)
             {
                 if (meltingTemps[i] > 200 && this.isStackInSlot(i))
                 {
@@ -526,7 +526,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     private void updateTemperatures ()
     {
         inUse = true;
-        for (int i = 0; i < maxBlockCapacity; i++)
+        for (int i = 0; i < 9 * layers; i++)
         {
             meltingTemps[i] = Smeltery.getLiquifyTemperature(inventory[i]) * 10; // temperatures are *10 for more progress control
         }
@@ -727,103 +727,65 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         switch (getRenderDirection())
         {
-            case 2: // +z
-                alignInitialPlacement(xCoord, yCoord, zCoord + 1);
-                break;
-            case 3: // -z
-                alignInitialPlacement(xCoord, yCoord, zCoord - 1);
-                break;
-            case 4: // +x
-                alignInitialPlacement(xCoord + 1, yCoord, zCoord);
-                break;
-            case 5: // -x
-                alignInitialPlacement(xCoord - 1, yCoord, zCoord);
-                break;
+        case 2: // +z
+            alignInitialPlacement(xCoord, yCoord, zCoord + 2);
+            break;
+        case 3: // -z
+            alignInitialPlacement(xCoord, yCoord, zCoord - 2);
+            break;
+        case 4: // +x
+            alignInitialPlacement(xCoord + 2, yCoord, zCoord);
+            break;
+        case 5: // -x
+            alignInitialPlacement(xCoord - 2, yCoord, zCoord);
+            break;
         }
     }
 
-    // aligns the position given (inside the smeltery) to be the center of the smeltery
     public void alignInitialPlacement (int x, int y, int z)
     {
-        // x/y/z = the block behind the controller "inside the smeltery"
+        Block northBlock = worldObj.getBlock(x, y, z + 1);
+        Block southBlock = worldObj.getBlock(x, y, z - 1);
+        Block eastBlock = worldObj.getBlock(x + 1, y, z);
+        Block westBlock = worldObj.getBlock(x - 1, y, z);
 
-        // adjust the x-position of the block until the difference between the outer walls is at most 1
-        // basically this means we center the block inside the smeltery on the x axis.
-        int xd1 = 1, xd2 = 1; // x-difference
-        for(int i = 1; i < MAX_SMELTERY_SIZE; i++) // don't check farther than needed
+        if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z)) && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
         {
-            if(worldObj.getBlock(x - xd1, y, z) == null || worldObj.isAirBlock(x - xd1,y,z))
-                xd1++;
-            if(worldObj.getBlock(x + xd2, y, z) == null || worldObj.isAirBlock(x + xd2,y,z))
-                xd2++;
-
-            // if one side hit a wall and the other didn't we might have to center our x-position again
-            if(xd1-xd2 > 1)
-            {
-                // move x and offsets to the -x
-                xd1--;
-                x--;
-                xd2++;
-            }
-            // or the right
-            if(xd2-xd1 > 1)
-            {
-                xd2--;
-                x++;
-                xd1++;
-            }
-        }
-        // same for z-axis
-        int zd1 = 1, zd2 = 1;
-        for(int i = 1; i < MAX_SMELTERY_SIZE; i++) // don't check farther than needed
-        {
-            if(worldObj.getBlock(x, y, z - zd1) == null || worldObj.isAirBlock(x, y, z - zd1))
-                zd1++;
-            if(worldObj.getBlock(x, y, z + zd2) == null || worldObj.isAirBlock(x, y, z + zd2))
-                zd2++;
-
-            // if one side hit a wall and the other didn't we might have to center our x-position again
-            if(zd1-zd2 > 1)
-            {
-                // move x and offsets to the -x
-                zd1--;
-                z--;
-                zd2++;
-            }
-            // or the right
-            if(zd2-zd1 > 1)
-            {
-                zd2--;
-                z++;
-                zd1++;
-            }
+            checkValidStructure(x, y, z);
         }
 
-        // do the check
-        int[] sides = new int[] {xd1, xd2, zd1, zd2};
-        checkValidStructure(x, y, z, sides);
+        else if ((northBlock != null && !worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z)) && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
+        {
+            checkValidStructure(x, y, z - 1);
+        }
+
+        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock != null && !worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z)) && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
+        {
+            checkValidStructure(x, y, z + 1);
+        }
+
+        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock != null && !worldObj.isAirBlock(x + 1, y, z)) && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
+        {
+            checkValidStructure(x - 1, y, z);
+        }
+
+        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z)) && (westBlock != null && !worldObj.isAirBlock(x - 1, y, z)))
+        {
+            checkValidStructure(x + 1, y, z);
+        }
+
+        // Not valid, sorry
     }
 
-    /**
-     *
-     * @param x x-center of the smeltery +-1
-     * @param y y-position of the controller block
-     * @param z z-center of the smeltery +-1
-     * @param sides distance between the center point and the wall. [-x,+x,-z,+z]
-     */
-    public void checkValidStructure (int x, int y, int z, int[] sides)
+    public void checkValidStructure (int x, int y, int z)
     {
         int checkLayers = 0;
-        //worldObj.setBlock(x,y,z, Blocks.redstone_block);
-        //worldObj.setBlock(x+sides[1]-sides[0],y+1,z+sides[3]-sides[2], Blocks.lapis_block);
-
         tempValidStructure = false;
-        // this piece of code here does the complete validity check.
-        if (checkSameLevel(x, y, z, sides))
+        if (checkSameLevel(x, y, z))
         {
             checkLayers++;
-            checkLayers += recurseStructureUp(x, y + 1, z, sides, 0);
-            checkLayers += recurseStructureDown(x, y - 1, z, sides, 0);
+            checkLayers += recurseStructureUp(x, y + 1, z, 0);
+            checkLayers += recurseStructureDown(x, y - 1, z, 0);
         }
 
         // maxLiquid = capacity * 20000;
@@ -868,19 +830,16 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
     }
 
-    public boolean checkBricksOnLevel(int x, int y, int z, int[] sides)
+    public boolean checkSameLevel (int x, int y, int z)
     {
-        int numBricks = 0;
+        numBricks = 0;
+        lavaTanks.clear();
         Block block;
-        int xMin = x - sides[0];
-        int xMax = x + sides[1];
-        int zMin = z - sides[2];
-        int zMax = z + sides[3];
 
         // Check inside
-        for (int xPos = xMin + 1; xPos <= xMax - 1; xPos++)
+        for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
-            for (int zPos = zMin + 1; zPos <= zMax - 1; zPos++)
+            for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
                 block = worldObj.getBlock(xPos, y, zPos);
                 if (block != null && !worldObj.isAirBlock(xPos, y, zPos))
@@ -889,89 +848,113 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
 
         // Check outer layer
-        for (int xPos = xMin + 1; xPos <= xMax - 1; xPos++)
+        for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
-            numBricks += checkBricks(xPos, y, zMin);
-            numBricks += checkBricks(xPos, y, zMax);
+            numBricks += checkBricks(xPos, y, z - 2);
+            numBricks += checkBricks(xPos, y, z + 2);
         }
 
-        for (int zPos = zMin + 1; zPos <= zMax - 1; zPos++)
+        for (int zPos = z - 1; zPos <= z + 1; zPos++)
         {
-            numBricks += checkBricks(xMin, y, zPos);
-            numBricks += checkBricks(xMax, y, zPos);
+            numBricks += checkBricks(x - 2, y, zPos);
+            numBricks += checkBricks(x + 2, y, zPos);
         }
 
-        int neededBricks = (xMax-xMin)*2 + (zMax-zMin)*2 - 4; // -4 because corners are not needed
-
-        return numBricks == neededBricks;
-    }
-
-    public boolean checkSameLevel(int x, int y, int z, int[] sides)
-    {
-        lavaTanks.clear();
-
-        boolean check = checkBricksOnLevel(x,y,z,sides);
-
-        if (check && lavaTanks.size() > 0)
+        if (numBricks == 12 && lavaTanks.size() > 0)
             return true;
         else
             return false;
     }
 
-    public int recurseStructureUp (int x, int y, int z, int[] sides, int count)
+    public int recurseStructureUp (int x, int y, int z, int count)
     {
-        boolean check = checkBricksOnLevel(x,y,z,sides);
-
-        if(!check)
-            return count;
-
-        count++;
-        return recurseStructureUp(x, y + 1, z, sides, count);
-    }
-
-    public int recurseStructureDown (int x, int y, int z, int[] sides, int count)
-    {
-        boolean check = checkBricksOnLevel(x,y,z,sides);
-
-        if(!check) {
-            // regular check failed, maybe it's the bottom?
-            Block block = worldObj.getBlock(x,y,z);
-            if (block != null && !worldObj.isAirBlock(x, y, z))
-                if (validBlockID(block))
-                    return validateBottom(x, y, z, sides, count);
-
-            return count;
+        numBricks = 0;
+        // Check inside
+        for (int xPos = x - 1; xPos <= x + 1; xPos++)
+        {
+            for (int zPos = z - 1; zPos <= z + 1; zPos++)
+            {
+                Block block = worldObj.getBlock(xPos, y, zPos);
+                if (block != null && !worldObj.isAirBlock(xPos, y, zPos))
+                    return count;
+            }
         }
 
+        // Check outer layer
+        for (int xPos = x - 1; xPos <= x + 1; xPos++)
+        {
+            numBricks += checkBricks(xPos, y, z - 2);
+            numBricks += checkBricks(xPos, y, z + 2);
+        }
+
+        for (int zPos = z - 1; zPos <= z + 1; zPos++)
+        {
+            numBricks += checkBricks(x - 2, y, zPos);
+            numBricks += checkBricks(x + 2, y, zPos);
+        }
+
+        if (numBricks != 12)
+            return count;
+
         count++;
-        return recurseStructureDown(x, y - 1, z, sides, count);
+        return recurseStructureUp(x, y + 1, z, count);
     }
 
-    public int validateBottom (int x, int y, int z, int[] sides, int count)
+    public int recurseStructureDown (int x, int y, int z, int count)
+    {
+        numBricks = 0;
+        // Check inside
+        for (int xPos = x - 1; xPos <= x + 1; xPos++)
+        {
+            for (int zPos = z - 1; zPos <= z + 1; zPos++)
+            {
+                Block blockID = worldObj.getBlock(xPos, y, zPos);
+                if (blockID != null && !worldObj.isAirBlock(xPos, y, zPos))
+                {
+                    if (validBlockID(blockID))
+                        return validateBottom(x, y, z, count);
+                    else
+                        return count;
+                }
+            }
+        }
+
+        // Check outer layer
+        for (int xPos = x - 1; xPos <= x + 1; xPos++)
+        {
+            numBricks += checkBricks(xPos, y, z - 2);
+            numBricks += checkBricks(xPos, y, z + 2);
+        }
+
+        for (int zPos = z - 1; zPos <= z + 1; zPos++)
+        {
+            numBricks += checkBricks(x - 2, y, zPos);
+            numBricks += checkBricks(x + 2, y, zPos);
+        }
+
+        if (numBricks != 12)
+            return count;
+
+        count++;
+        return recurseStructureDown(x, y - 1, z, count);
+    }
+
+    public int validateBottom (int x, int y, int z, int count)
     {
         int bottomBricks = 0;
-        int xMin = x - sides[0] + 1;
-        int xMax = x + sides[1] - 1;
-        int zMin = z - sides[2] + 1;
-        int zMax = z + sides[3] - 1;
-
-        // Check inside
-        for (int xPos = xMin; xPos <= xMax; xPos++)
+        for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
-            for (int zPos = zMin; zPos <= zMax; zPos++)
+            for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
                 if (validBlockID(worldObj.getBlock(xPos, y, zPos)) && (worldObj.getBlockMetadata(xPos, y, zPos) >= 2))
                     bottomBricks++;
             }
         }
 
-        int neededBricks = (xMax+1-xMin) * (zMax+1-zMin); // +1 because we want inclusive the upper border
-
-        if (bottomBricks == neededBricks)
+        if (bottomBricks == 9)
         {
             tempValidStructure = true;
-            minPos = new CoordTuple(xMin, y+1, zMin);
-            maxPos = new CoordTuple(xMax, y+1, zMax);
+            centerPos = new CoordTuple(x, y + 1, z);
         }
         return count;
     }
@@ -996,12 +979,11 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 MultiServantLogic servant = (MultiServantLogic) te;
                 if (servant.hasValidMaster())
                 {
-                    if (servant.verifyMaster(this, worldObj, this.xCoord, this.yCoord, this.zCoord))
+                    if (servant.verifyMaster(this, this.xCoord, this.yCoord, this.zCoord))
                         tempBricks++;
                 }
-                else
+                else if (servant.setMaster(this.xCoord, this.yCoord, this.zCoord))
                 {
-                    servant.overrideMaster(this.xCoord, this.yCoord, this.zCoord);
                     tempBricks++;
                 }
 
@@ -1023,8 +1005,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         return blockID == TinkerSmeltery.lavaTank || blockID == TinkerSmeltery.lavaTankNether;
     }
-
-
 
     @Override
     public int getCapacity ()
@@ -1146,25 +1126,18 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     public void readFromNBT (NBTTagCompound tags)
     {
         layers = tags.getInteger("Layers");
-        int[] pos = tags.getIntArray("MinPos");
-        if (pos.length > 2)
-            minPos = new CoordTuple(pos[0], pos[1], pos[2]);
-        else
-            minPos = new CoordTuple(xCoord, yCoord, zCoord);
-
-        pos = tags.getIntArray("MaxPos");
-        if (pos.length > 2)
-            maxPos = new CoordTuple(pos[0], pos[1], pos[2]);
-        else
-            maxPos = new CoordTuple(xCoord, yCoord, zCoord);
-
-        maxBlockCapacity = getBlocksPerLayer() * layers;
-        inventory = new ItemStack[maxBlockCapacity];
+        inventory = new ItemStack[layers * 9];
         super.readFromNBT(tags);
 
         // validStructure = tags.getBoolean("ValidStructure");
         internalTemp = tags.getInteger("InternalTemp");
         inUse = tags.getBoolean("InUse");
+
+        int[] center = tags.getIntArray("CenterPos");
+        if (center.length > 2)
+            centerPos = new CoordTuple(center[0], center[1], center[2]);
+        else
+            centerPos = new CoordTuple(xCoord, yCoord, zCoord);
 
         direction = tags.getByte("Direction");
         useTime = tags.getInteger("UseTime");
@@ -1196,18 +1169,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         tags.setInteger("InternalTemp", internalTemp);
         tags.setBoolean("InUse", inUse);
 
-        int[] pos;
-        if (minPos == null)
-            pos = new int[] { xCoord, yCoord, zCoord };
+        int[] center = new int[3];// { centerPos.x, centerPos.y, centerPos.z };
+        if (centerPos == null)
+            center = new int[] { xCoord, yCoord, zCoord };
         else
-            pos = new int[] { minPos.x, minPos.y, minPos.z };
-        tags.setIntArray("MinPos", pos);
-
-        if (maxPos == null)
-            pos = new int[] { xCoord, yCoord, zCoord };
-        else
-            pos = new int[] { maxPos.x, maxPos.y, maxPos.z };
-        tags.setIntArray("MaxPos", pos);
+            center = new int[] { centerPos.x, centerPos.y, centerPos.z };
+        tags.setIntArray("CenterPos", center);
 
         tags.setByte("Direction", direction);
         tags.setInteger("UseTime", useTime);

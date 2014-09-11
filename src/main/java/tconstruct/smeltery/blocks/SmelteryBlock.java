@@ -238,9 +238,9 @@ public class SmelteryBlock extends InventoryBlock
         {
         case 0:
             if (PHConstruct.newSmeltery)
-                return new FlexibleSmelteryLogic();
-            else if(PHConstruct.newerSmeltery)
-                return new FlexibleSmelteryLogic();
+                return new AdaptiveSmelteryLogic();
+            else if(PHConstruct.oldSmeltery)
+                return new SmelteryLogicOld();
             else
                 return new SmelteryLogic();
 

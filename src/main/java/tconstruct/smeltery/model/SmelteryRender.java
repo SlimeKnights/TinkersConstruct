@@ -44,7 +44,8 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
         SmelteryLogic logic = (SmelteryLogic) world.getTileEntity(x, y, z);
         if (logic.validStructure)
         {
-            int posX = logic.centerPos.x - 1, posY = logic.centerPos.y, posZ = logic.centerPos.z - 1;
+            //int posX = logic.centerPos.x - 1, posY = logic.centerPos.y, posZ = logic.centerPos.z - 1;
+            int posX = logic.minPos.x, posY = logic.minPos.y, posZ = logic.minPos.z; // todo: proper rendering
             //Melting
             if (logic.getSizeInventory() > 0)
             {

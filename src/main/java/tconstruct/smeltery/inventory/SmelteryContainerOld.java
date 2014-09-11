@@ -1,37 +1,31 @@
 package tconstruct.smeltery.inventory;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.*;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import tconstruct.smeltery.TinkerSmeltery;
-import tconstruct.smeltery.logic.SmelteryLogic;
+import tconstruct.smeltery.logic.SmelteryLogicOld;
 
-public class SmelteryContainer extends ActiveContainer
+public class SmelteryContainerOld extends ActiveContainer
 {
-    public SmelteryLogic logic;
+    public SmelteryLogicOld logic;
     public InventoryPlayer playerInv;
     public int fuel = 0;
     int slotRow;
 
-    public SmelteryContainer(InventoryPlayer inventoryplayer, SmelteryLogic smeltery)
+    public SmelteryContainerOld(InventoryPlayer inventoryplayer, SmelteryLogicOld smeltery)
     {
         logic = smeltery;
         playerInv = inventoryplayer;
         slotRow = 0;
 
         /* Smeltery inventory */
-
-        // new rectangular smeltery
-        int totalSlots = smeltery.getBlockCapacity();
-        int y = 0;
-
-        for(int i = 0; i < totalSlots; i++)
-        {
-            int x = i%3;
-            this.addDualSlotToContainer(new ActiveSlot(smeltery, x + y * 3, 2 + x * 22, 8 + y * 18, y < 8));
-            if(x == 2)
-                y++;
+        for (int y = 0; y < smeltery.layers * 3; y++) {
+            for (int x = 0; x < 3; x++) {
+                this.addDualSlotToContainer(new ActiveSlot(smeltery, x + y * 3, 2 + x * 22, 8 + y * 18, y < 8));
+            }
         }
 
         /* Player inventory */

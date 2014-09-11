@@ -117,6 +117,8 @@ public class SmelteryProxyClient extends SmelteryProxyCommon
         {
             if (PHConstruct.newSmeltery)
                 return new AdaptiveSmelteryGui(player.inventory, (AdaptiveSmelteryLogic) world.getTileEntity(x, y, z), world, x, y, z);
+            else if(PHConstruct.oldSmeltery)
+                return new SmelteryGuiOld(player.inventory, (SmelteryLogicOld) world.getTileEntity(x, y, z), world, x, y, z);
             else
                 return new SmelteryGui(player.inventory, (SmelteryLogic) world.getTileEntity(x, y, z), world, x, y, z);
         }
