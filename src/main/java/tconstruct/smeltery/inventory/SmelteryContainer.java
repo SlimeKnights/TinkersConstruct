@@ -80,7 +80,7 @@ public class SmelteryContainer extends ActiveContainer
     public int scrollTo (float scrollPos)
     {
         float total = (logic.getSizeInventory() - 24) / 3;
-        int rowPos = (int) (total * scrollPos);
+        int rowPos = Math.round(total * scrollPos);
         return updateRows(rowPos);
     }
 
