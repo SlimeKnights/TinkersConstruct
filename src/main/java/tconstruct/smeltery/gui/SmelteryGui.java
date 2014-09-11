@@ -52,7 +52,7 @@ public class SmelteryGui extends NewContainerGui
 
     protected void updateScrollbar (int mouseX, int mouseY, float par3)
     {
-        if (logic.layers > 2)
+        if (logic.getBlockCapacity() > 18)
         {
             boolean mouseDown = Mouse.isButtonDown(0);
             int lefto = this.guiLeft;
@@ -110,6 +110,7 @@ public class SmelteryGui extends NewContainerGui
         int cornerX = (width - xSize) / 2 + 36;
         int cornerY = (height - ySize) / 2;
 
+        // molten metals
         for (FluidStack liquid : logic.moltenMetal)
         {
             int basePos = 54;
@@ -138,6 +139,7 @@ public class SmelteryGui extends NewContainerGui
 
             }
         }
+        // lava/fuel
         if (logic.fuelGague > 0)
         {
             int leftX = cornerX + 117;
@@ -153,7 +155,6 @@ public class SmelteryGui extends NewContainerGui
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/smeltery.png");
     private static final ResourceLocation backgroundSide = new ResourceLocation("tinker", "textures/gui/smelteryside.png");
-    private static final ResourceLocation terrain = new ResourceLocation("terrain.png");
 
     @Override
     protected void drawGuiContainerBackgroundLayer (float f, int mouseX, int mouseY)
@@ -221,30 +222,33 @@ public class SmelteryGui extends NewContainerGui
         // Side inventory
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(backgroundSide);
-        if (logic.layers > 0)
+        if (logic.getBlockCapacity() > 0)
         {
-            if (logic.layers == 1)
+            int h = logic.getBlockCapacity()/3;
+            if(logic.getBlockCapacity()%3 != 0)
+                h++;
+
+            if(h >= 8)
             {
-                drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 98, 43);
-                drawTexturedModalRect(cornerX - 46, cornerY + 43, 0, 133, 98, 25);
-            }
-            else if (logic.layers == 2)
-            {
-                drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 98, 61);
-                drawTexturedModalRect(cornerX - 46, cornerY + 61, 0, 97, 98, 61);
+                drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 97, ySize - 8);
+                drawTexturedModalRect(cornerX + 32, (int) (cornerY + 8 + 127 * currentScroll), 98, 0, 12, 15);
             }
             else
             {
-                drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 98, ySize - 8);
+                int yd = 43 + 18*(h-3);
+                drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 97, yd);
+                drawTexturedModalRect(cornerX - 46, cornerY + yd, 0, 133, 97, 25);
+
+                drawTexturedModalRect(cornerX + 32, (int) (cornerY + 8 + 127 * currentScroll), 110, 0, 12, 15);
             }
-            drawTexturedModalRect(cornerX + 32, (int) (cornerY + 8 + 127 * currentScroll), 98, 0, 12, 15);
         }
 
         // Temperature
-        int slotSize = logic.layers * 9;
+        int slotSize = logic.getBlockCapacity();
         if (slotSize > 24)
             slotSize = 24;
-        for (int iter = 0; iter < slotSize; iter++)
+        int iter;
+        for (iter = 0; iter < slotSize && iter + slotPos*3 < logic.getBlockCapacity(); iter++)
         {
             int slotTemp = logic.getTempForSlot(iter + slotPos * 3) - 20;
             int maxTemp = logic.getMeltingPointForSlot(iter + slotPos * 3) - 20;
@@ -253,6 +257,12 @@ public class SmelteryGui extends NewContainerGui
                 int size = 16 * slotTemp / maxTemp + 1;
                 drawTexturedModalRect(cornerX - 38 + (iter % 3 * 22), cornerY + 8 + (iter / 3 * 18) + 16 - size, 98, 15 + 16 - size, 5, size);
             }
+        }
+
+        // hide nonexistant slots
+        for (; iter < slotSize; iter++)
+        {
+            drawTexturedModalRect(cornerX - 38 + (iter % 3 * 22)-1, cornerY + 8 + (iter / 3 * 18)-1, 98, 47, 22, 18);
         }
     }
 

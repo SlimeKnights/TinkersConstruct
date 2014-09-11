@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL12;
 import tconstruct.TConstruct;
 import tconstruct.client.gui.NewContainerGui;
 import tconstruct.smeltery.inventory.ActiveContainer;
-import tconstruct.smeltery.inventory.SmelteryContainer;
+import tconstruct.smeltery.inventory.SmelteryContainerOld;
 import tconstruct.smeltery.logic.SmelteryLogicOld;
 import tconstruct.util.network.SmelteryPacket;
 
@@ -102,7 +102,7 @@ public class SmelteryGuiOld extends NewContainerGui
                     this.currentScroll = 1.0F;
                 }
 
-                int s = ((SmelteryContainer) this.container).scrollTo(this.currentScroll);
+                int s = ((SmelteryContainerOld) this.container).scrollTo(this.currentScroll);
                 if (s != -1)
                     slotPos = s;
             }
