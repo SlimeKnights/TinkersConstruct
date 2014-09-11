@@ -350,6 +350,7 @@ public class PHConstruct
     // Experimental functionality
     public static boolean throwableSmeltery;
     public static boolean newSmeltery;
+    public static boolean newerSmeltery = true;
     public static boolean meltableHorses;
 
 }

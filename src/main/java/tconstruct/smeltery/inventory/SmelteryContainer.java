@@ -5,6 +5,7 @@ import net.minecraft.entity.player.*;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import tconstruct.smeltery.TinkerSmeltery;
+import tconstruct.smeltery.logic.FlexibleSmelteryLogic;
 import tconstruct.smeltery.logic.SmelteryLogic;
 
 public class SmelteryContainer extends ActiveContainer
@@ -22,11 +23,30 @@ public class SmelteryContainer extends ActiveContainer
 
         /* Smeltery inventory */
 
-        for (int y = 0; y < smeltery.layers * 3; y++)
+        // new rectangular smeltery
+        if(smeltery instanceof FlexibleSmelteryLogic)
         {
-            for (int x = 0; x < 3; x++)
+            FlexibleSmelteryLogic fs = (FlexibleSmelteryLogic) smeltery;
+            int xd = fs.maxPos.x - fs.minPos.x;
+            int zd = fs.maxPos.z - fs.minPos.z;
+
+            int totalSlots = xd*zd*fs.layers;
+            int y = 0;
+
+            for(int i = 0; i < totalSlots; i++)
             {
+                int x = i%3;
                 this.addDualSlotToContainer(new ActiveSlot(smeltery, x + y * 3, 2 + x * 22, 8 + y * 18, y < 8));
+                if(x == 2)
+                    y++;
+            }
+        }
+        // old 3x3 smeltery
+        else {
+            for (int y = 0; y < smeltery.layers * 3; y++) {
+                for (int x = 0; x < 3; x++) {
+                    this.addDualSlotToContainer(new ActiveSlot(smeltery, x + y * 3, 2 + x * 22, 8 + y * 18, y < 8));
+                }
             }
         }
 
