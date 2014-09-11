@@ -258,7 +258,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
     public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
     {
         if (liquid.getFluid() == resource.getFluid())
-            this.drain(resource.amount, doDrain);
+            return this.drain(resource.amount, doDrain);
         return null;
     }
 
