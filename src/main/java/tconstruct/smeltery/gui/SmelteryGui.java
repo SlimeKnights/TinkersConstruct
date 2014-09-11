@@ -18,20 +18,23 @@ import tconstruct.util.network.SmelteryPacket;
 public class SmelteryGui extends NewContainerGui
 {
     public SmelteryLogic logic;
-    String username;
-    boolean isScrolling = false;
-    boolean wasClicking;
-    float currentScroll = 0.0F;
-    int slotPos = 0;
-    int prevSlotPos = 0;
+    private boolean isScrolling = false;
+    private boolean wasClicking;
+    private float currentScroll = 0.0F;
+    private int slotPos = 0;
+    private int prevSlotPos = 0;
+
+    private final int columns;
+    public static final int maxRows = 8;
 
     public SmelteryGui(InventoryPlayer inventoryplayer, SmelteryLogic smeltery, World world, int x, int y, int z)
     {
         super((ActiveContainer) smeltery.getGuiContainer(inventoryplayer, world, x, y, z));
         logic = smeltery;
-        username = inventoryplayer.player.getDisplayName();
         xSize = 248;
         smeltery.updateFuelDisplay();
+
+        columns = ((SmelteryContainer)this.container).columns;
     }
 
     @Override
@@ -52,7 +55,7 @@ public class SmelteryGui extends NewContainerGui
 
     protected void updateScrollbar (int mouseX, int mouseY, float par3)
     {
-        if (logic.getBlockCapacity() > 18)
+        if (logic.getBlockCapacity() > columns*maxRows)
         {
             boolean mouseDown = Mouse.isButtonDown(0);
             int lefto = this.guiLeft;
@@ -220,49 +223,76 @@ public class SmelteryGui extends NewContainerGui
         drawTexturedModalRect(cornerX + 54, cornerY + 16, 176, 76, 52, 52);
 
         // Side inventory
+        int xleft = 46;
+        xleft += 22 * (columns-3); // we have to shift the whole thing to the left if we have more than 3 columns
+        int h = logic.getBlockCapacity()/columns;
+        if(logic.getBlockCapacity()%columns != 0)
+            h++;
+
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(backgroundSide);
         if (logic.getBlockCapacity() > 0)
         {
-            int h = logic.getBlockCapacity()/3;
-            if(logic.getBlockCapacity()%3 != 0)
-                h++;
-
             if(h >= 8)
             {
-                drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 97, ySize - 8);
+                // standard 3 slots
+                drawTexturedModalRect(cornerX - xleft, cornerY, 0, 0, 72, ySize - 8);
+                // additional slots
+                for(int i = 0; i < columns-3; i++)
+                    drawTexturedModalRect(cornerX - xleft + 72 + i*22, cornerY, 50, 0, 22, ySize - 8);
+                // right end
+                drawTexturedModalRect(cornerX - 46 + 72, cornerY, 72, 0, 25, ySize - 8);
+
+                // scroll bar
                 drawTexturedModalRect(cornerX + 32, (int) (cornerY + 8 + 127 * currentScroll), 98, 0, 12, 15);
             }
             else
             {
                 int yd = 43 + 18*(h-3);
-                drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 97, yd);
-                drawTexturedModalRect(cornerX - 46, cornerY + yd, 0, 133, 97, 25);
+                // slots
+                // standard 3 slots
+                drawTexturedModalRect(cornerX - xleft, cornerY, 0, 0, 72, yd);
+                // additional slots
+                for(int i = 0; i < columns-3; i++)
+                    drawTexturedModalRect(cornerX - xleft + 72 + i*22, cornerY, 50, 0, 22, yd);
+                // right end
+                drawTexturedModalRect(cornerX - 46 + 72, cornerY, 72, 0, 25, yd);
 
+
+
+                // bottom end
+                drawTexturedModalRect(cornerX - xleft, cornerY + yd, 0, 133, 72, 25);
+                for(int i = 0; i < columns-3; i++)
+                    drawTexturedModalRect(cornerX - xleft + 72 + i*22, cornerY + yd, 50, 133, 22, 25);
+                drawTexturedModalRect(cornerX - 46 + 72, cornerY + yd, 72, 133, 25, 25);
+
+                // grayed out scroll bar
                 drawTexturedModalRect(cornerX + 32, (int) (cornerY + 8 + 127 * currentScroll), 110, 0, 12, 15);
             }
         }
 
+        xleft -= 8;
         // Temperature
         int slotSize = logic.getBlockCapacity();
-        if (slotSize > 24)
-            slotSize = 24;
+        if (slotSize > columns*maxRows)
+            slotSize = columns*maxRows;
         int iter;
-        for (iter = 0; iter < slotSize && iter + slotPos*3 < logic.getBlockCapacity(); iter++)
+        for (iter = 0; iter < slotSize && iter + slotPos*columns < logic.getBlockCapacity(); iter++)
         {
-            int slotTemp = logic.getTempForSlot(iter + slotPos * 3) - 20;
-            int maxTemp = logic.getMeltingPointForSlot(iter + slotPos * 3) - 20;
+            int slotTemp = logic.getTempForSlot(iter + slotPos * columns) - 20;
+            int maxTemp = logic.getMeltingPointForSlot(iter + slotPos * columns) - 20;
             if (slotTemp > 0 && maxTemp > 0)
             {
                 int size = 16 * slotTemp / maxTemp + 1;
-                drawTexturedModalRect(cornerX - 38 + (iter % 3 * 22), cornerY + 8 + (iter / 3 * 18) + 16 - size, 98, 15 + 16 - size, 5, size);
+                drawTexturedModalRect(cornerX - xleft + (iter % columns * 22), cornerY + 8 + (iter / columns * 18) + 16 - size, 98, 15 + 16 - size, 5, size);
             }
         }
 
         // hide nonexistant slots
-        for (; iter < slotSize; iter++)
+        int maxSlots = Math.min(maxRows, h) * columns;
+        for (; iter < maxSlots; iter++)
         {
-            drawTexturedModalRect(cornerX - 38 + (iter % 3 * 22)-1, cornerY + 8 + (iter / 3 * 18)-1, 98, 47, 22, 18);
+            drawTexturedModalRect(cornerX - xleft + (iter % columns * 22)-1, cornerY + 8 + (iter / columns * 18)-1, 98, 47, 22, 18);
         }
     }
 

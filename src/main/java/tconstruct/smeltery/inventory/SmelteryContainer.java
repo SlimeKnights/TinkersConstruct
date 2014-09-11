@@ -5,6 +5,7 @@ import net.minecraft.entity.player.*;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import tconstruct.smeltery.TinkerSmeltery;
+import tconstruct.smeltery.gui.SmelteryGui;
 import tconstruct.smeltery.logic.SmelteryLogic;
 
 public class SmelteryContainer extends ActiveContainer
@@ -12,13 +13,15 @@ public class SmelteryContainer extends ActiveContainer
     public SmelteryLogic logic;
     public InventoryPlayer playerInv;
     public int fuel = 0;
-    int slotRow;
+    private int slotRow;
+    public int columns;
 
     public SmelteryContainer(InventoryPlayer inventoryplayer, SmelteryLogic smeltery)
     {
         logic = smeltery;
         playerInv = inventoryplayer;
         slotRow = 0;
+        columns = smeltery.getBlocksPerLayer() >= 16 ? 4 : 3;
 
         /* Smeltery inventory */
 
@@ -26,11 +29,14 @@ public class SmelteryContainer extends ActiveContainer
         int totalSlots = smeltery.getBlockCapacity();
         int y = 0;
 
+        int xleft = 2;
+        xleft -= 22 * (columns-3); // we have to shift the whole thing to the left if we have more than 3 columns
+
         for(int i = 0; i < totalSlots; i++)
         {
-            int x = i%3;
-            this.addDualSlotToContainer(new ActiveSlot(smeltery, x + y * 3, 2 + x * 22, 8 + y * 18, y < 8));
-            if(x == 2)
+            int x = i%columns;
+            this.addDualSlotToContainer(new ActiveSlot(smeltery, x + y * columns, xleft + x * 22, 8 + y * 18, y < 8));
+            if(x == columns-1)
                 y++;
         }
 
@@ -55,11 +61,11 @@ public class SmelteryContainer extends ActiveContainer
         {
             slotRow = invRow;
             // TConstruct.logger.info(invRow);
-            int basePos = invRow * 3;
+            int basePos = invRow * columns;
             for (int iter = 0; iter < activeInventorySlots.size(); iter++)
             {
                 ActiveSlot slot = (ActiveSlot) activeInventorySlots.get(iter);
-                if (slot.activeSlotNumber >= basePos && slot.activeSlotNumber < basePos + 24)
+                if (slot.activeSlotNumber >= basePos && slot.activeSlotNumber < basePos + columns*SmelteryGui.maxRows)
                 {
                     slot.setActive(true);
                 }
@@ -67,9 +73,12 @@ public class SmelteryContainer extends ActiveContainer
                 {
                     slot.setActive(false);
                 }
-                int xPos = (iter - basePos) % 3;
-                int yPos = (iter - basePos) / 3;
-                slot.xDisplayPosition = 2 + 22 * xPos;
+                int xleft = 2;
+                xleft -= 22 * (columns-3); // we have to shift the whole thing to the left if we have more than 3 columns
+
+                int xPos = (iter - basePos) % columns;
+                int yPos = (iter - basePos) / columns;
+                slot.xDisplayPosition = xleft + 22 * xPos;
                 slot.yDisplayPosition = 8 + 18 * yPos;
             }
             return slotRow;
@@ -79,8 +88,9 @@ public class SmelteryContainer extends ActiveContainer
 
     public int scrollTo (float scrollPos)
     {
-        float total = (logic.getSizeInventory() - 24) / 3;
-        if((logic.getSizeInventory() - 24)%3 != 0)
+        int slots = SmelteryGui.maxRows*columns;
+        float total = (logic.getSizeInventory() - slots) / columns;
+        if((logic.getSizeInventory() - slots)%columns != 0)
             total++;
         int rowPos = Math.round(total * scrollPos);
         return updateRows(rowPos);
