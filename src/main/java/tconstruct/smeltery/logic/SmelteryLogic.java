@@ -32,7 +32,7 @@ import tconstruct.util.config.PHConstruct;
 
 public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFacingLogic, IFluidTank, IMasterLogic
 {
-    private static final int MAX_SMELTERY_SIZE = 5;
+    private static final int MAX_SMELTERY_SIZE = 7;
 
     public boolean validStructure;
     public boolean tempValidStructure;
@@ -754,7 +754,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             if(worldObj.getBlock(x - xd1, y, z) == null || worldObj.isAirBlock(x - xd1,y,z))
                 xd1++;
-            if(worldObj.getBlock(x + xd2, y, z) == null || worldObj.isAirBlock(x + xd2,y,z))
+            else if(worldObj.getBlock(x + xd2, y, z) == null || worldObj.isAirBlock(x + xd2,y,z))
                 xd2++;
 
             // if one side hit a wall and the other didn't we might have to center our x-position again
@@ -779,7 +779,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             if(worldObj.getBlock(x, y, z - zd1) == null || worldObj.isAirBlock(x, y, z - zd1))
                 zd1++;
-            if(worldObj.getBlock(x, y, z + zd2) == null || worldObj.isAirBlock(x, y, z + zd2))
+            else if(worldObj.getBlock(x, y, z + zd2) == null || worldObj.isAirBlock(x, y, z + zd2))
                 zd2++;
 
             // if one side hit a wall and the other didn't we might have to center our x-position again
