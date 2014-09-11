@@ -309,11 +309,10 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     void detectEntities ()
     {
         // todo: fix this with min-max pos instead of center pos
-        /*
-        if (centerPos == null)
+        if (minPos == null || maxPos == null)
             return;
 
-        AxisAlignedBB box = AxisAlignedBB.getBoundingBox(centerPos.x, centerPos.y, centerPos.z, centerPos.x + 1.0D, centerPos.y + 1.0D, centerPos.z + 1.0D).expand(1.0D, 0.0D, 1.0D);
+        AxisAlignedBB box = AxisAlignedBB.getBoundingBox(minPos.x, minPos.y, minPos.z, maxPos.x+1, minPos.y + layers, maxPos.z+1);
 
         List list = worldObj.getEntitiesWithinAABB(Entity.class, box);
         for (Object o : list)
@@ -383,7 +382,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 handleItemEntity((EntityItem) o);
             }
         }
-        */
     }
 
     private void handleItemEntity (EntityItem item)
