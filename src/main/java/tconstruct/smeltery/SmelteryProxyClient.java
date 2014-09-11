@@ -43,8 +43,12 @@ public class SmelteryProxyClient extends SmelteryProxyCommon
         RenderingRegistry.registerBlockHandler(new RenderBlockFluid());
         RenderingRegistry.registerBlockHandler(new BlockRenderCastingChannel());
 
-        if (!PHConstruct.newSmeltery)
-            RenderingRegistry.registerBlockHandler(new SmelteryRender());
+        if (!PHConstruct.newSmeltery) {
+            if(PHConstruct.oldSmeltery)
+                RenderingRegistry.registerBlockHandler(new SmelteryRenderOld());
+            else
+                RenderingRegistry.registerBlockHandler(new SmelteryRender());
+        }
 
         ClientRegistry.bindTileEntitySpecialRenderer(CastingTableLogic.class, new CastingTableSpecialRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(CastingBasinLogic.class, new CastingBasinSpecialRender());

@@ -16,9 +16,11 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.*;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.SmelteryProxyCommon;
 import tconstruct.smeltery.logic.*;
 import tconstruct.smeltery.model.SmelteryRender;
+import tconstruct.smeltery.model.SmelteryRenderOld;
 import tconstruct.util.config.PHConstruct;
 
 public class SmelteryBlock extends InventoryBlock
@@ -48,6 +50,8 @@ public class SmelteryBlock extends InventoryBlock
     @Override
     public int getRenderType ()
     {
+        if(PHConstruct.oldSmeltery)
+            return SmelteryRenderOld.smelteryModel;
         return PHConstruct.newSmeltery ? 0 : SmelteryRender.smelteryModel;
     }
 
