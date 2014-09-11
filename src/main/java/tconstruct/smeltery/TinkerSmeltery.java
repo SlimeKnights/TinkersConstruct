@@ -707,10 +707,7 @@ public class TinkerSmeltery
         }
         else
         {
-            if(PHConstruct.oldSmeltery)
-                GameRegistry.registerTileEntity(SmelteryLogicOld.class, "TConstruct.Smeltery");
-            else
-                GameRegistry.registerTileEntity(SmelteryLogic.class, "TConstruct.Smeltery");
+            GameRegistry.registerTileEntity(SmelteryLogic.class, "TConstruct.Smeltery");
             GameRegistry.registerTileEntity(SmelteryDrainLogic.class, "TConstruct.SmelteryDrain");
         }
         GameRegistry.registerTileEntity(MultiServantLogic.class, "TConstruct.Servants");

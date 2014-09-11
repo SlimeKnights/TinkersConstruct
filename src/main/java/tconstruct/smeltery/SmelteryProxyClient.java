@@ -44,10 +44,7 @@ public class SmelteryProxyClient extends SmelteryProxyCommon
         RenderingRegistry.registerBlockHandler(new BlockRenderCastingChannel());
 
         if (!PHConstruct.newSmeltery) {
-            if(PHConstruct.oldSmeltery)
-                RenderingRegistry.registerBlockHandler(new SmelteryRenderOld());
-            else
-                RenderingRegistry.registerBlockHandler(new SmelteryRender());
+            RenderingRegistry.registerBlockHandler(new SmelteryRender());
         }
 
         ClientRegistry.bindTileEntitySpecialRenderer(CastingTableLogic.class, new CastingTableSpecialRenderer());
@@ -121,8 +118,6 @@ public class SmelteryProxyClient extends SmelteryProxyCommon
         {
             if (PHConstruct.newSmeltery)
                 return new AdaptiveSmelteryGui(player.inventory, (AdaptiveSmelteryLogic) world.getTileEntity(x, y, z), world, x, y, z);
-            else if(PHConstruct.oldSmeltery)
-                return new SmelteryGuiOld(player.inventory, (SmelteryLogicOld) world.getTileEntity(x, y, z), world, x, y, z);
             else
                 return new SmelteryGui(player.inventory, (SmelteryLogic) world.getTileEntity(x, y, z), world, x, y, z);
         }
