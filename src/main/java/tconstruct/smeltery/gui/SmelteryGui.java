@@ -243,8 +243,14 @@ public class SmelteryGui extends NewContainerGui
                 // right end
                 drawTexturedModalRect(cornerX - 46 + 72, cornerY, 72, 0, 25, ySize - 8);
 
+                int sx = cornerX + 32;
+                int sy = (int) (cornerY + 8 + 127 * currentScroll);
+                // highlighted scroll bar
+                if(isScrolling || ( mouseX >= sx && mouseX <= sx + 12 && mouseY >= sy && mouseY <= sy + 15))
+                    drawTexturedModalRect(sx, sy, 122, 0, 12, 15);
                 // scroll bar
-                drawTexturedModalRect(cornerX + 32, (int) (cornerY + 8 + 127 * currentScroll), 98, 0, 12, 15);
+                else
+                    drawTexturedModalRect(sx, sy, 98, 0, 12, 15);
             }
             else
             {
