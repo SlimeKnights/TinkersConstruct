@@ -179,6 +179,11 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 }
             }
         }
+
+        // update current liquid. This is done in case some config or something changed the capacity or other things.
+        currentLiquid = 0;
+        for(FluidStack liquid : moltenMetal)
+            currentLiquid += liquid.amount;
     }
 
     /* Misc */
