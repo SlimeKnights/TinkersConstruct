@@ -505,39 +505,24 @@ public class SmelteryGui extends NewContainerGui
     {
         super.mouseClicked(mouseX, mouseY, mouseButton);
 
-        int base = 0;
         int cornerX = (width - xSize) / 2 + 36;
         int cornerY = (height - ySize) / 2;
         int fluidToBeBroughtUp = -1;
 
-        for (FluidStack liquid : logic.moltenMetal)
+        int[] fluidHeights = calcLiquidHeights();
+        int base = 0;
+        for(int i = 0; i < fluidHeights.length; i++)
         {
-            int basePos = 54;
-            int initialLiquidSize = 0;
-            int liquidSize = 0;// liquid.amount * 52 / liquidLayers;
-            if (logic.getCapacity() > 0)
-            {
-                int total = logic.getTotalLiquid();
-                int liquidLayers = (total / 20000 + 1) * 20000;
-                if (liquidLayers > 0)
-                {
-                    liquidSize = liquid.amount * 52 / liquidLayers;
-                    if (liquidSize == 0)
-                        liquidSize = 1;
-                    base += liquidSize;
-                }
-            }
+            int leftX = cornerX + 54;
+            int topY = (cornerY + 68) - fluidHeights[i] - base;
 
-            int leftX = cornerX + basePos;
-            int topY = (cornerY + 68) - base;
-            int sizeX = 52;
-            int sizeY = liquidSize;
-            if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
+            if (mouseX >= leftX && mouseX <= leftX + 52 && mouseY >= topY && mouseY < topY + fluidHeights[i])
             {
-                fluidToBeBroughtUp = liquid.fluidID;
+                fluidToBeBroughtUp = logic.moltenMetal.get(i).fluidID;
 
                 TConstruct.packetPipeline.sendToServer(new SmelteryPacket(logic.getWorldObj().provider.dimensionId, logic.xCoord, logic.yCoord, logic.zCoord, this.isShiftKeyDown(), fluidToBeBroughtUp));
             }
+            base += fluidHeights[i];
         }
     }
 }
