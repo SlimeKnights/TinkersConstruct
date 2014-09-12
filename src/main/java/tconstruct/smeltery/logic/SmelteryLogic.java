@@ -284,6 +284,15 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     @Override
     public void updateEntity ()
     {
+        if (tick == 60)
+        {
+            tick = 0;
+            detectEntities();
+        }
+
+        if(!validStructure)
+            return;
+
         /*
          * if (worldObj.isRemote) return;
          */
@@ -310,17 +319,10 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             }
         }
-
-        if (tick == 60)
-        {
-            tick = 0;
-            detectEntities();
-        }
     }
 
     void detectEntities ()
     {
-        // todo: fix this with min-max pos instead of center pos
         if (minPos == null || maxPos == null)
             return;
 
@@ -874,6 +876,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             {
                 internalTemp = 20;
                 validStructure = false;
+                setActive(false);
             }
         }
     }
@@ -1050,6 +1053,10 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     @Override
     public FluidStack drain (int maxDrain, boolean doDrain)
     {
+        // don't drain if we're not complete
+        if(!validStructure)
+            return null;
+
         if (moltenMetal.size() == 0)
             return null;
 
@@ -1090,6 +1097,10 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     @Override
     public int fill (FluidStack resource, boolean doFill)
     {
+        // don't fill if we're not complete
+        if(!validStructure)
+            return 0;
+
         if (resource != null && currentLiquid < maxLiquid)// resource.amount +
                                                           // currentLiquid <
                                                           // maxLiquid)
