@@ -34,7 +34,7 @@ public class SmelteryGui extends NewContainerGui
         xSize = 248;
         smeltery.updateFuelDisplay();
 
-        columns = ((SmelteryContainer)this.container).columns;
+        columns = ((SmelteryContainer) this.container).columns;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class SmelteryGui extends NewContainerGui
 
     protected void updateScrollbar (int mouseX, int mouseY, float par3)
     {
-        if (logic.getBlockCapacity() > columns*maxRows)
+        if (logic.getBlockCapacity() > columns * maxRows)
         {
             boolean mouseDown = Mouse.isButtonDown(0);
             int lefto = this.guiLeft;
@@ -109,13 +109,12 @@ public class SmelteryGui extends NewContainerGui
         fontRendererObj.drawString(StatCollector.translateToLocal("crafters.Smeltery"), 86, 5, 0x404040);
         fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 90, (ySize - 96) + 2, 0x404040);
 
-
         int cornerX = (width - xSize) / 2 + 36;
         int cornerY = (height - ySize) / 2;
 
         int[] fluidHeights = calcLiquidHeights();
         int base = 0;
-        for(int i = 0; i < fluidHeights.length; i++)
+        for (int i = 0; i < fluidHeights.length; i++)
         {
             int leftX = cornerX + 54;
             int topY = (cornerY + 68) - fluidHeights[i] - base;
@@ -169,29 +168,32 @@ public class SmelteryGui extends NewContainerGui
             }
         }
 
-        if(logic.getCapacity() > 0) {
+        if (logic.getCapacity() > 0)
+        {
             // Liquids - molten metal
             int base = 0;
             int[] fluidHeights = calcLiquidHeights();
 
             // render the fluids
             int basePos = 54;
-            for (int i = 0; i < logic.moltenMetal.size(); i++) {
+            for (int i = 0; i < logic.moltenMetal.size(); i++)
+            {
                 FluidStack liquid = logic.moltenMetal.get(i);
                 IIcon icon = liquid.getFluid().getStillIcon();
 
-                if(icon == null)
+                if (icon == null)
                     continue;
 
                 int height = fluidHeights[i];
                 int h = height;
-                while(h > 0) {
+                while (h > 0)
+                {
                     int v = Math.min(16, h);
                     // we render in 16x16 squares so the texture doesn't get distorted
                     drawLiquidRect(cornerX + basePos + 00, (cornerY + 68) - h - base, icon, 16, v);
                     drawLiquidRect(cornerX + basePos + 16, (cornerY + 68) - h - base, icon, 16, v);
                     drawLiquidRect(cornerX + basePos + 32, (cornerY + 68) - h - base, icon, 16, v);
-                    drawLiquidRect(cornerX + basePos + 48, (cornerY + 68) - h - base, icon,  4, v);
+                    drawLiquidRect(cornerX + basePos + 48, (cornerY + 68) - h - base, icon, 4, v);
                     h -= 16;
                 }
                 base += height;
@@ -206,29 +208,29 @@ public class SmelteryGui extends NewContainerGui
 
         // Side inventory
         int xleft = 46;
-        xleft += 22 * (columns-3); // we have to shift the whole thing to the left if we have more than 3 columns
-        int h = logic.getBlockCapacity()/columns;
-        if(logic.getBlockCapacity()%columns != 0)
+        xleft += 22 * (columns - 3); // we have to shift the whole thing to the left if we have more than 3 columns
+        int h = logic.getBlockCapacity() / columns;
+        if (logic.getBlockCapacity() % columns != 0)
             h++;
 
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(backgroundSide);
         if (logic.getBlockCapacity() > 0)
         {
-            if(h >= 8)
+            if (h >= 8)
             {
                 // standard 3 slots
                 drawTexturedModalRect(cornerX - xleft, cornerY, 0, 0, 72, ySize - 8);
                 // additional slots
-                for(int i = 0; i < columns-3; i++)
-                    drawTexturedModalRect(cornerX - xleft + 72 + i*22, cornerY, 50, 0, 22, ySize - 8);
+                for (int i = 0; i < columns - 3; i++)
+                    drawTexturedModalRect(cornerX - xleft + 72 + i * 22, cornerY, 50, 0, 22, ySize - 8);
                 // right end
                 drawTexturedModalRect(cornerX - 46 + 72, cornerY, 72, 0, 25, ySize - 8);
 
                 int sx = cornerX + 32;
                 int sy = (int) (cornerY + 8 + 127 * currentScroll);
                 // highlighted scroll bar
-                if(isScrolling || ( mouseX >= sx && mouseX <= sx + 12 && mouseY >= sy && mouseY <= sy + 15))
+                if (isScrolling || (mouseX >= sx && mouseX <= sx + 12 && mouseY >= sy && mouseY <= sy + 15))
                     drawTexturedModalRect(sx, sy, 122, 0, 12, 15);
                 // scroll bar
                 else
@@ -236,22 +238,20 @@ public class SmelteryGui extends NewContainerGui
             }
             else
             {
-                int yd = 43 + 18*(h-3);
+                int yd = 43 + 18 * (h - 3);
                 // slots
                 // standard 3 slots
                 drawTexturedModalRect(cornerX - xleft, cornerY, 0, 0, 72, yd);
                 // additional slots
-                for(int i = 0; i < columns-3; i++)
-                    drawTexturedModalRect(cornerX - xleft + 72 + i*22, cornerY, 50, 0, 22, yd);
+                for (int i = 0; i < columns - 3; i++)
+                    drawTexturedModalRect(cornerX - xleft + 72 + i * 22, cornerY, 50, 0, 22, yd);
                 // right end
                 drawTexturedModalRect(cornerX - 46 + 72, cornerY, 72, 0, 25, yd);
 
-
-
                 // bottom end
                 drawTexturedModalRect(cornerX - xleft, cornerY + yd, 0, 133, 72, 25);
-                for(int i = 0; i < columns-3; i++)
-                    drawTexturedModalRect(cornerX - xleft + 72 + i*22, cornerY + yd, 50, 133, 22, 25);
+                for (int i = 0; i < columns - 3; i++)
+                    drawTexturedModalRect(cornerX - xleft + 72 + i * 22, cornerY + yd, 50, 133, 22, 25);
                 drawTexturedModalRect(cornerX - 46 + 72, cornerY + yd, 72, 133, 25, 25);
 
                 // grayed out scroll bar
@@ -262,10 +262,10 @@ public class SmelteryGui extends NewContainerGui
         xleft -= 8;
         // Temperature
         int slotSize = logic.getBlockCapacity();
-        if (slotSize > columns*maxRows)
-            slotSize = columns*maxRows;
+        if (slotSize > columns * maxRows)
+            slotSize = columns * maxRows;
         int iter;
-        for (iter = 0; iter < slotSize && iter + slotPos*columns < logic.getBlockCapacity(); iter++)
+        for (iter = 0; iter < slotSize && iter + slotPos * columns < logic.getBlockCapacity(); iter++)
         {
             int slotTemp = logic.getTempForSlot(iter + slotPos * columns) - 20;
             int maxTemp = logic.getMeltingPointForSlot(iter + slotPos * columns) - 20;
@@ -280,32 +280,36 @@ public class SmelteryGui extends NewContainerGui
         int maxSlots = Math.min(maxRows, h) * columns;
         for (; iter < maxSlots; iter++)
         {
-            drawTexturedModalRect(cornerX - xleft + (iter % columns * 22)-1, cornerY + 8 + (iter / columns * 18)-1, 98, 47, 22, 18);
+            drawTexturedModalRect(cornerX - xleft + (iter % columns * 22) - 1, cornerY + 8 + (iter / columns * 18) - 1, 98, 47, 22, 18);
         }
     }
 
-    protected int[] calcLiquidHeights()
+    protected int[] calcLiquidHeights ()
     {
         int fluidHeights[] = new int[logic.moltenMetal.size()];
         int cap = logic.getCapacity();
         if (logic.getTotalLiquid() > cap)
             cap = logic.getTotalLiquid();
-        for (int i = 0; i < logic.moltenMetal.size(); i++) {
+        for (int i = 0; i < logic.moltenMetal.size(); i++)
+        {
             FluidStack liquid = logic.moltenMetal.get(i);
 
             float h = (float) liquid.amount / (float) cap;
-            fluidHeights[i] = Math.max(3, (int) Math.ceil(h*52f));
+            fluidHeights[i] = Math.max(3, (int) Math.ceil(h * 52f));
         }
 
         // check if we have enough height to render everything
         int sum = 0;
-        do {
+        do
+        {
             sum = 0;
             int biggest = -1;
             int m = 0;
-            for (int i = 0; i < fluidHeights.length; i++) {
+            for (int i = 0; i < fluidHeights.length; i++)
+            {
                 sum += fluidHeights[i];
-                if (logic.moltenMetal.get(i).amount > biggest) {
+                if (logic.moltenMetal.get(i).amount > biggest)
+                {
                     biggest = logic.moltenMetal.get(i).amount;
                     m = i;
                 }

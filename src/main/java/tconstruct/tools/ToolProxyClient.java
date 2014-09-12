@@ -239,6 +239,7 @@ public class ToolProxyClient extends ToolProxyCommon
         TProxyCommon.registerClientGuiHandler(toolForgeID, this);
         TProxyCommon.registerClientGuiHandler(furnaceID, this);
         TProxyCommon.registerClientGuiHandler(craftingStationID, this);
+        TProxyCommon.registerClientGuiHandler(battlesignTextID, this);
     }
 
     @Override
@@ -252,6 +253,8 @@ public class ToolProxyClient extends ToolProxyCommon
             return new PatternChestGui(player.inventory, (PatternChestLogic) world.getTileEntity(x, y, z), world, x, y, z);
         if (ID == ToolProxyCommon.frypanGuiID)
             return new FrypanGui(player.inventory, (FrypanLogic) world.getTileEntity(x, y, z), world, x, y, z);
+        if (ID == ToolProxyCommon.battlesignTextID)
+            return new BattlesignGui((BattlesignLogic) world.getTileEntity(x, y, z));
 
         if (ID == ToolProxyCommon.stencilTableID)
             return new StencilTableGui(player.inventory, (StencilTableLogic) world.getTileEntity(x, y, z), world, x, y, z);

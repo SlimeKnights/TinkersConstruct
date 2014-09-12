@@ -1,5 +1,6 @@
 package tconstruct.client.pages;
 
+import java.util.*;
 import mantle.client.pages.BookPage;
 import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.client.renderer.RenderHelper;
@@ -7,9 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import org.lwjgl.opengl.*;
 import org.w3c.dom.*;
-
-import java.util.LinkedList;
-import java.util.List;
 
 public class ModifierPage extends BookPage
 {
@@ -29,19 +27,21 @@ public class ModifierPage extends BookPage
             type = nodes.item(0).getTextContent();
 
         nodes = element.getElementsByTagName("recipe");
-        if (nodes != null) {
+        if (nodes != null)
+        {
             String recipe = nodes.item(0).getTextContent();
             icons = MantleClientRegistry.getRecipeIcons(recipe);
 
-            if(type.equals("travelmulti"))
+            if (type.equals("travelmulti"))
             {
                 List<ItemStack[]> stacks = new LinkedList<ItemStack[]>();
                 List<String> tools = new LinkedList<String>();
                 String[] suffixes = new String[] { "goggles", "vest", "wings", "boots", "glove", "belt" };
-                for(String suffix : suffixes)
+                for (String suffix : suffixes)
                 {
                     ItemStack[] icons2 = MantleClientRegistry.getRecipeIcons(nodes.item(0).getTextContent() + suffix);
-                    if(icons2 != null) {
+                    if (icons2 != null)
+                    {
                         stacks.add(icons2);
                         tools.add(suffix);
                     }
@@ -49,7 +49,8 @@ public class ModifierPage extends BookPage
 
                 iconsMulti = new ItemStack[stacks.size()][];
                 toolMulti = new ItemStack[stacks.size()];
-                for(int i = 0; i < stacks.size(); i++) {
+                for (int i = 0; i < stacks.size(); i++)
+                {
                     iconsMulti[i] = stacks.get(i);
                     toolMulti[i] = MantleClientRegistry.getManualIcon("travel" + tools.get(i));
                 }
@@ -66,9 +67,9 @@ public class ModifierPage extends BookPage
     public void renderContentLayer (int localWidth, int localHeight, boolean isTranslatable)
     {
         String tStation = new String("Tool Station");
-        if(icons.length > 4)
+        if (icons.length > 4)
             tStation = "Tinker Table";
-        if(icons.length > 3)
+        if (icons.length > 3)
             tStation = "Tool Forge";
         if (isTranslatable)
             tStation = StatCollector.translateToLocal(tStation);
@@ -80,34 +81,35 @@ public class ModifierPage extends BookPage
         ItemStack toolstack = MantleClientRegistry.getManualIcon("ironpick");
         if (type.equals("weapon"))
             toolstack = MantleClientRegistry.getManualIcon("ironlongsword");
-        if(type.equals("travelgoggles"))
+        if (type.equals("travelgoggles"))
             toolstack = MantleClientRegistry.getManualIcon("travelgoggles");
-        if(type.equals("travelvest"))
+        if (type.equals("travelvest"))
             toolstack = MantleClientRegistry.getManualIcon("travelvest");
-        if(type.equals("travelwings"))
+        if (type.equals("travelwings"))
             toolstack = MantleClientRegistry.getManualIcon("travelwings");
-        if(type.equals("travelboots"))
+        if (type.equals("travelboots"))
             toolstack = MantleClientRegistry.getManualIcon("travelboots");
-        if(type.equals("travelbelt"))
+        if (type.equals("travelbelt"))
             toolstack = MantleClientRegistry.getManualIcon("travelbelt");
-        if(type.equals("travelglove"))
+        if (type.equals("travelglove"))
             toolstack = MantleClientRegistry.getManualIcon("travelglove");
-        if(type.equals("travelmulti"))
+        if (type.equals("travelmulti"))
             toolstack = toolMulti[counter];
 
         // update displayed item
-        if(iconsMulti != null && iconsMulti.length > 0 && type.equals("travelmulti") && System.currentTimeMillis() - lastUpdate > 1000)
+        if (iconsMulti != null && iconsMulti.length > 0 && type.equals("travelmulti") && System.currentTimeMillis() - lastUpdate > 1000)
         {
             lastUpdate = System.currentTimeMillis();
             counter++;
-            if(counter >= iconsMulti.length)
+            if (counter >= iconsMulti.length)
                 counter = 0;
             icons = iconsMulti[counter];
             toolstack = toolMulti[counter];
         }
 
         manual.renderitem.zLevel = 100;
-        if(icons.length < 4) {
+        if (icons.length < 4)
+        {
             manual.renderitem.renderItemAndEffectIntoGUI(manual.fonts, manual.getMC().renderEngine, toolstack, (localWidth + 54) / 2, (localHeight + 54) / 2);
             manual.renderitem.renderItemAndEffectIntoGUI(manual.fonts, manual.getMC().renderEngine, icons[0], (localWidth + 130) / 2, (localHeight + 54) / 2);
             manual.renderitem.renderItemAndEffectIntoGUI(manual.fonts, manual.getMC().renderEngine, icons[1], (localWidth + 18) / 2, (localHeight + 36) / 2);
@@ -121,7 +123,7 @@ public class ModifierPage extends BookPage
             manual.renderitem.renderItemAndEffectIntoGUI(manual.fonts, manual.getMC().renderEngine, icons[1], (localWidth - 2) / 2, (localHeight + 36) / 2);
             manual.renderitem.renderItemAndEffectIntoGUI(manual.fonts, manual.getMC().renderEngine, icons[2], (localWidth - 2) / 2, (localHeight + 74) / 2);
             manual.renderitem.renderItemAndEffectIntoGUI(manual.fonts, manual.getMC().renderEngine, icons[3], (localWidth + 36) / 2, (localHeight + 36) / 2);
-            if(icons[4] != null)
+            if (icons[4] != null)
                 manual.renderitem.renderItemAndEffectIntoGUI(manual.fonts, manual.getMC().renderEngine, icons[4], (localWidth + 36) / 2, (localHeight + 74) / 2);
         }
         manual.renderitem.zLevel = 0;
@@ -137,7 +139,7 @@ public class ModifierPage extends BookPage
     public void renderBackgroundLayer (int localWidth, int localHeight)
     {
         manual.getMC().getTextureManager().bindTexture(background);
-        if(icons.length > 3)
+        if (icons.length > 3)
             manual.drawTexturedModalRect(localWidth - 7, localHeight + 32, 0, 80, 182, 78);
         else
             manual.drawTexturedModalRect(localWidth + 12, localHeight + 32, 0, 0, 154, 78);

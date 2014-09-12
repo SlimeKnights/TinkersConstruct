@@ -30,13 +30,13 @@ public class SmelteryContainer extends ActiveContainer
         int y = 0;
 
         int xleft = 2;
-        xleft -= 22 * (columns-3); // we have to shift the whole thing to the left if we have more than 3 columns
+        xleft -= 22 * (columns - 3); // we have to shift the whole thing to the left if we have more than 3 columns
 
-        for(int i = 0; i < totalSlots; i++)
+        for (int i = 0; i < totalSlots; i++)
         {
-            int x = i%columns;
+            int x = i % columns;
             this.addDualSlotToContainer(new ActiveSlot(smeltery, x + y * columns, xleft + x * 22, 8 + y * 18, y < 8));
-            if(x == columns-1)
+            if (x == columns - 1)
                 y++;
         }
 
@@ -65,7 +65,7 @@ public class SmelteryContainer extends ActiveContainer
             for (int iter = 0; iter < activeInventorySlots.size(); iter++)
             {
                 ActiveSlot slot = (ActiveSlot) activeInventorySlots.get(iter);
-                if (slot.activeSlotNumber >= basePos && slot.activeSlotNumber < basePos + columns*SmelteryGui.maxRows)
+                if (slot.activeSlotNumber >= basePos && slot.activeSlotNumber < basePos + columns * SmelteryGui.maxRows)
                 {
                     slot.setActive(true);
                 }
@@ -74,7 +74,7 @@ public class SmelteryContainer extends ActiveContainer
                     slot.setActive(false);
                 }
                 int xleft = 2;
-                xleft -= 22 * (columns-3); // we have to shift the whole thing to the left if we have more than 3 columns
+                xleft -= 22 * (columns - 3); // we have to shift the whole thing to the left if we have more than 3 columns
 
                 int xPos = (iter - basePos) % columns;
                 int yPos = (iter - basePos) / columns;
@@ -88,9 +88,9 @@ public class SmelteryContainer extends ActiveContainer
 
     public int scrollTo (float scrollPos)
     {
-        int slots = SmelteryGui.maxRows*columns;
+        int slots = SmelteryGui.maxRows * columns;
         float total = (logic.getSizeInventory() - slots) / columns;
-        if((logic.getSizeInventory() - slots)%columns != 0)
+        if ((logic.getSizeInventory() - slots) % columns != 0)
             total++;
         int rowPos = Math.round(total * scrollPos);
         return updateRows(rowPos);

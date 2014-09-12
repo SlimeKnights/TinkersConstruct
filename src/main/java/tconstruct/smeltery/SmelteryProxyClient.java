@@ -43,7 +43,8 @@ public class SmelteryProxyClient extends SmelteryProxyCommon
         RenderingRegistry.registerBlockHandler(new RenderBlockFluid());
         RenderingRegistry.registerBlockHandler(new BlockRenderCastingChannel());
 
-        if (!PHConstruct.newSmeltery) {
+        if (!PHConstruct.newSmeltery)
+        {
             RenderingRegistry.registerBlockHandler(new SmelteryRender());
         }
 
