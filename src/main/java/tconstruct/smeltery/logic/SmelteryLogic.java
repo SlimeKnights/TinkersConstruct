@@ -22,6 +22,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
+import tconstruct.TConstruct;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.*;
 import tconstruct.smeltery.inventory.SmelteryContainer;
@@ -33,7 +34,7 @@ import tconstruct.util.config.PHConstruct;
 public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFacingLogic, IFluidTank, IMasterLogic
 {
     private static final int MAX_SMELTERY_SIZE = 7;
-    public static final int MB_PER_BLOCK_CAPACITY = 2592;
+    public static final int MB_PER_BLOCK_CAPACITY = TConstruct.ingotLiquidValue*10;
 
     public boolean validStructure;
     public boolean tempValidStructure;
