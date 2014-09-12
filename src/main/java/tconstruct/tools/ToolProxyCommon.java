@@ -17,6 +17,7 @@ public class ToolProxyCommon implements IGuiHandler
     public static final int toolForgeID = 5;
     public static final int furnaceID = 8;
     public static final int craftingStationID = 11;
+    public static final int battlesignTextID = 12;
 
     public ToolProxyCommon()
     {

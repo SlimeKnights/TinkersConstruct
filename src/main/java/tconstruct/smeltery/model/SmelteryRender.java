@@ -71,7 +71,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                     int countSize = liquidSize > room ? room : liquidSize;
                     liquidSize -= countSize;
 
-                    float height = countSize > cap ? 1.0F : (float)countSize / (float)cap;
+                    float height = countSize > cap ? 1.0F : (float) countSize / (float) cap;
                     float renderBase = base;
                     float renderHeight = height + base;
                     base += height;
@@ -79,8 +79,8 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 
                     renderer.setRenderBounds(0, renderBase, 0, 1, renderHeight, 1);
                     Fluid fluid = liquid.getFluid();
-                    for(int xi = from.x; xi <= to.x; xi++)
-                        for(int zi = from.z; zi <= to.z; zi++)
+                    for (int xi = from.x; xi <= to.x; xi++)
+                        for (int zi = from.z; zi <= to.z; zi++)
                         {
                             float minX = xi == from.x ? -0.001F : 0F;
                             float minZ = zi == from.z ? -0.001F : 0F;
@@ -109,8 +109,8 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
     {
         renderer.setRenderBounds(-0.001F, -0.001F, -0.001F, 1.001F, 1.001F, 1.001F);
         int i = start;
-        for(int x = from.x; x <= to.x; x++)
-            for(int z = from.z; z <= to.z; z++)
+        for (int x = from.x; x <= to.x; x++)
+            for (int z = from.z; z <= to.z; z++)
             {
                 ItemStack input = logic.getStackInSlot(i);
                 if (input != null && logic.getTempForSlot(i) > 20)

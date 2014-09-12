@@ -4,8 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.CastingRecipe;
-import tconstruct.library.event.SmelteryCastEvent;
-import tconstruct.library.event.SmelteryCastedEvent;
+import tconstruct.library.event.*;
 
 public class CastingBasinLogic extends CastingBlockLogic
 {
@@ -15,12 +14,14 @@ public class CastingBasinLogic extends CastingBlockLogic
     }
 
     @Override
-    public SmelteryCastEvent getCastingEvent(CastingRecipe recipe, FluidStack metal) {
+    public SmelteryCastEvent getCastingEvent (CastingRecipe recipe, FluidStack metal)
+    {
         return new SmelteryCastEvent.CastingBasin(recipe, metal);
     }
 
     @Override
-    public SmelteryCastedEvent getCastedEvent(CastingRecipe recipe, ItemStack result) {
+    public SmelteryCastedEvent getCastedEvent (CastingRecipe recipe, ItemStack result)
+    {
         return new SmelteryCastedEvent.CastingBasin(recipe, result);
     }
 }

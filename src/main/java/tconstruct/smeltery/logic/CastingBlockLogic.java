@@ -3,25 +3,22 @@ package tconstruct.smeltery.logic;
 import cpw.mods.fml.common.eventhandler.Event;
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
+import net.minecraft.network.*;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
 import tconstruct.TConstruct;
-import tconstruct.library.crafting.CastingRecipe;
-import tconstruct.library.crafting.LiquidCasting;
-import tconstruct.library.event.SmelteryCastEvent;
-import tconstruct.library.event.SmelteryCastedEvent;
+import tconstruct.library.crafting.*;
+import tconstruct.library.event.*;
 import tconstruct.library.util.IPattern;
 
-public abstract class CastingBlockLogic extends InventoryLogic implements IFluidTank, IFluidHandler, ISidedInventory {
+public abstract class CastingBlockLogic extends InventoryLogic implements IFluidTank, IFluidHandler, ISidedInventory
+{
     public FluidStack liquid;
     protected int castingDelay = 0;
     protected int renderOffset = 0;
@@ -31,7 +28,8 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     protected int tick;
     protected final LiquidCasting liquidCasting;
 
-    public CastingBlockLogic(LiquidCasting casting) {
+    public CastingBlockLogic(LiquidCasting casting)
+    {
         // input slot and output slot, 1 item in it max
         super(2, 1);
         this.liquidCasting = casting;
@@ -81,12 +79,14 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
 
     /* FluidHandler stuff. Mostly delegated to Tank stuff */
     @Override
-    public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
+    public int fill (ForgeDirection from, FluidStack resource, boolean doFill)
+    {
         return fill(resource, doFill);
     }
 
     @Override
-    public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
+    public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
+    {
         // only same liquid
         if (liquid.getFluid() != resource.getFluid())
             return null;
@@ -95,34 +95,40 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     }
 
     @Override
-    public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+    public FluidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
+    {
         return drain(maxDrain, doDrain);
     }
 
     @Override
-    public boolean canFill(ForgeDirection from, Fluid fluid) {
+    public boolean canFill (ForgeDirection from, Fluid fluid)
+    {
         return fill(from, new FluidStack(fluid, 1), false) > 0;
     }
 
     @Override
-    public boolean canDrain(ForgeDirection from, Fluid fluid) {
+    public boolean canDrain (ForgeDirection from, Fluid fluid)
+    {
         FluidStack drained = drain(from, new FluidStack(fluid, 1), false);
         return drained != null && drained.amount > 0;
     }
 
     /* Tank stuff */
     @Override
-    public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+    public FluidTankInfo[] getTankInfo (ForgeDirection from)
+    {
         return new FluidTankInfo[] { getInfo() };
     }
 
     @Override
-    public FluidStack getFluid() {
+    public FluidStack getFluid ()
+    {
         return liquid == null ? null : liquid.copy();
     }
 
     @Override
-    public int getFluidAmount() {
+    public int getFluidAmount ()
+    {
         return liquid != null ? liquid.amount : 0;
     }
 
@@ -132,22 +138,25 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     }
 
     @Override
-    public int getCapacity() {
+    public int getCapacity ()
+    {
         return this.capacity;
     }
 
     @Override
-    public FluidTankInfo getInfo() {
+    public FluidTankInfo getInfo ()
+    {
         return new FluidTankInfo(this);
     }
 
     /**
      * Create and return the casting event here. It'll be fired automatically.
      */
-    public abstract SmelteryCastEvent getCastingEvent(CastingRecipe recipe, FluidStack metal);
+    public abstract SmelteryCastEvent getCastingEvent (CastingRecipe recipe, FluidStack metal);
 
     @Override
-    public int fill(FluidStack resource, boolean doFill) {
+    public int fill (FluidStack resource, boolean doFill)
+    {
         if (resource == null)
             return 0;
 
@@ -227,7 +236,8 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     }
 
     @Override
-    public FluidStack drain(int maxDrain, boolean doDrain) {
+    public FluidStack drain (int maxDrain, boolean doDrain)
+    {
         if (liquid == null || liquid.fluidID <= 0 || castingDelay > 0)
             return null;
         if (liquid.amount <= 0)
@@ -272,7 +282,8 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     }
 
     @Override
-    public boolean canInsertItem (int slot, ItemStack itemstack, int side) {
+    public boolean canInsertItem (int slot, ItemStack itemstack, int side)
+    {
         // can't insert if there's liquid in it
         if (liquid != null)
             return false;
@@ -282,44 +293,52 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     }
 
     @Override
-    public boolean canExtractItem (int slot, ItemStack itemstack, int side) {
+    public boolean canExtractItem (int slot, ItemStack itemstack, int side)
+    {
         // only output slot
         return slot == 1;
     }
 
     /* We don't have a gui or anything */
     @Override
-    public Container getGuiContainer(InventoryPlayer inventoryplayer, World world, int x, int y, int z) {
+    public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
+    {
         return null;
     }
 
     @Override
-    protected String getDefaultName() {
+    protected String getDefaultName ()
+    {
         return null;
     }
 
     @Override
-    public String getInventoryName() {
+    public String getInventoryName ()
+    {
         return null;
     }
 
     @Override
-    public String getInvName() {
+    public String getInvName ()
+    {
         return null;
     }
 
     @Override
-    public boolean hasCustomInventoryName() {
+    public boolean hasCustomInventoryName ()
+    {
         return false;
     }
 
     @Override
-    public void openInventory() {
+    public void openInventory ()
+    {
 
     }
 
     @Override
-    public void closeInventory() {
+    public void closeInventory ()
+    {
 
     }
 
@@ -359,7 +378,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     /**
      * Create and return the casting event here. It'll be fired automatically.
      */
-    public abstract SmelteryCastedEvent getCastedEvent(CastingRecipe recipe, ItemStack result);
+    public abstract SmelteryCastedEvent getCastedEvent (CastingRecipe recipe, ItemStack result);
 
     public void castLiquid ()
     {
@@ -384,7 +403,6 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
     }
-
 
     @Override
     public void readFromNBT (NBTTagCompound tags)

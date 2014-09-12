@@ -1,8 +1,10 @@
 package tconstruct.tools.blocks;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.*;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
@@ -17,13 +19,20 @@ public class BattlesignBlock extends EquipBlock
     {
         super(material);
 
-        this.setBlockBounds(0.45F, 0F, 0.45F, 0.55F, 1F, 0.55F);
+        this.setBlockBounds(0.45F, 0F, 0.45F, 0.55F, 1.125F, 0.55F);
     }
 
     @Override
     public int getRenderType ()
     {
         return BattlesignRender.battlesignModelID;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public boolean shouldSideBeRendered (IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_)
+    {
+        return p_149646_5_ == 0 && this.minY > 0.0D ? true : (p_149646_5_ == 1 && this.maxY < 1.0D ? true : (p_149646_5_ == 2 && this.minZ > 0.0D ? true : (p_149646_5_ == 3 && this.maxZ < 1.0D ? true : (p_149646_5_ == 4 && this.minX > 0.0D ? true : (p_149646_5_ == 5 && this.maxX < 1.0D ? true : !(p_149646_1_.getBlock(p_149646_2_, p_149646_3_, p_149646_4_).isOpaqueCube() && p_149646_1_.getBlock(p_149646_2_, p_149646_3_ + 1, p_149646_4_).isOpaqueCube()))))));
     }
 
     @Override
@@ -84,7 +93,7 @@ public class BattlesignBlock extends EquipBlock
         setBlockBoundsBasedOnState(world, x, y, z);
 
         super.addCollisionBoxesToList(world, x, y, z, aabb, list, entity);
-        setBlockBounds(0.45F, 0F, 0.45F, 0.55F, 1F, 0.55F);
+        setBlockBounds(0.45F, 0F, 0.45F, 0.55F, 1.125F, 0.55F);
         super.addCollisionBoxesToList(world, x, y, z, aabb, list, entity);
 
         this.setBlockBoundsForItemRender();
@@ -94,6 +103,12 @@ public class BattlesignBlock extends EquipBlock
     public TileEntity createTileEntity (World world, int metadata)
     {
         return new BattlesignLogic();
+    }
+
+    @Override
+    public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
+    {
+        return null;
     }
 
 }

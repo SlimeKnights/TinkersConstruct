@@ -1077,7 +1077,8 @@ public class TinkerSmeltery
             Smeltery.addSmelteryFuel(pyrotheum, 1500, 9);
 
         // BLOOD FOR THE BLOOD GOD
-        if(TinkerWorld.meatBlock != null) {
+        if (TinkerWorld.meatBlock != null)
+        {
             Smeltery.addMelting(new ItemStack(Items.rotten_flesh), TinkerWorld.meatBlock, 0, 200, new FluidStack(bloodFluid, 5));
             Smeltery.addMelting(new ItemStack(TinkerWorld.strangeFood, 1, 1), TinkerWorld.meatBlock, 0, 80, new FluidStack(bloodFluid, 160));
         }
