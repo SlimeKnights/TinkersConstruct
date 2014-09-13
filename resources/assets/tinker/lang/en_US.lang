@@ -592,6 +592,9 @@ toolpart.Bowstring=%%material Bowstring
 toolpart.ArrowHead=%%material Arrowhead
 toolpart.Fletching=%%material Fletching
 
+# Now with translations of specific material and part combinations:
+#toolpart.ToolRod.wood=Wooden Tool Rod
+
 fluid.iron.molten=Molten Iron
 fluid.gold.molten=Molten Gold
 fluid.copper.molten=Molten Copper
@@ -854,3 +857,6 @@ tool.hammer=Hammer
 tool.battleaxe=Battleaxe
 tool.shortbow=Shortbow
 tool.arrow=Arrow
+
+# Customization of default tool names based on tool and material
+#tool.shovel.wood=Wooden Shovel

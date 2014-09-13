@@ -2,9 +2,12 @@ package tconstruct.library.crafting;
 
 /** Once upon a time, too many tools to count. Let's put them together automatically */
 import cpw.mods.fml.common.eventhandler.Event.Result;
+
 import java.util.*;
+
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.event.*;
@@ -428,6 +431,14 @@ public class ToolBuilder
 
     public static String defaultToolName (ToolMaterial headMat, ToolCore tool)
     {
+        String toolName = tool.getToolName().toLowerCase();
+        String matName = headMat.materialName.toLowerCase().replaceAll(" ", "");
+        
+        if (StatCollector.canTranslate("tool." + toolName + "." + matName))
+        {
+            return StatCollector.translateToLocal("tool." + toolName + "." + matName);
+        }
+        
         return String.format("%s %s", headMat.prefixName(), tool.getLocalizedToolName());
     }
 

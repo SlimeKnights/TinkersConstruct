@@ -25,26 +25,21 @@ public class ToolPart extends CraftingItem implements IToolPart
     @Override
     public String getItemStackDisplayName (ItemStack par1ItemStack)
     {
-        String material = StatCollector.translateToLocal("parttype." + toolTextureNames[par1ItemStack.getItemDamage()]);
-        String name = StatCollector.translateToLocal("toolpart." + partName);
-        name = name.replaceAll("%%material", material);
+        String material = toolTextureNames[par1ItemStack.getItemDamage()];
+        String name = "";
+        
+        if (StatCollector.canTranslate("toolpart." + partName + "." + material))
+        {
+            name = StatCollector.translateToLocal("toolpart." + partName + "." + material);
+        }
+        else
+        {
+            material = StatCollector.translateToLocal("parttype." + material);
+            name = StatCollector.translateToLocal("toolpart." + partName);
+            name = name.replaceAll("%%material", material);
+        }
 
         return name;
-
-        /*
-         * StringBuilder builder = new StringBuilder();
-         * builder.append(StatCollector.translateToLocal("parttype." +
-         * toolTextureNames
-         * [par1ItemStack.getItemDamage()])).append(" ").append(StatCollector
-         * .translateToLocal("toolpart." + partName)); return
-         * builder.toString(); -- String s = ("" +
-         * StatCollector.translateToLocal("toolpart."+partName)).trim(); String
-         * s1 = toolMaterialNames[par1ItemStack.getItemDamage()];
-         * 
-         * if (s1 != null) { s = s + " " + StatCollector.translateToLocal(s1); }
-         * 
-         * return s;
-         */
     }
 
     private static String[] buildTextureNames (String textureType)
