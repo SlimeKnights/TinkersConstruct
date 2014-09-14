@@ -5,8 +5,11 @@ import mantle.client.MProxyClient;
 import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.*;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.RenderBlockFluid;
 import tconstruct.armor.TinkerArmor;
@@ -42,6 +45,10 @@ public class SmelteryProxyClient extends SmelteryProxyCommon
         RenderingRegistry.registerBlockHandler(new PaneConnectedRender());
         RenderingRegistry.registerBlockHandler(new RenderBlockFluid());
         RenderingRegistry.registerBlockHandler(new BlockRenderCastingChannel());
+
+        IItemRenderer tankItemRenderer = new TankItemRenderer();
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(TinkerSmeltery.lavaTank), tankItemRenderer);
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(TinkerSmeltery.lavaTankNether), tankItemRenderer);
 
         if (!PHConstruct.newSmeltery)
         {
