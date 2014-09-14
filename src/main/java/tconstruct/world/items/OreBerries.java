@@ -13,8 +13,8 @@ import tconstruct.library.TConstructRegistry;
 
 public class OreBerries extends CraftingItem
 {
-    static String[] names = new String[] { "iron", "gold", "copper", "tin", "aluminum", "essence" };
-    static String[] tex = new String[] { "oreberry_iron", "oreberry_gold", "oreberry_copper", "oreberry_tin", "oreberry_aluminum", "oreberry_essence" };
+    static String[] names = new String[] { "iron", "gold", "copper", "tin", "zinc", "essence" };
+    static String[] tex = new String[] { "oreberry_iron", "oreberry_gold", "oreberry_copper", "oreberry_tin", "oreberry_zinc", "oreberry_essence" };
 
     public OreBerries()
     {

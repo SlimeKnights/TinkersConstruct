@@ -14,7 +14,7 @@ import tconstruct.world.TinkerWorld;
 
 public class GravelOre extends BlockSand
 {
-    public String[] textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt" };
+    public String[] textureNames = new String[] { "iron", "gold", "copper", "tin", "zinc", "cobalt" };
     public IIcon[] icons;
 
     public GravelOre()

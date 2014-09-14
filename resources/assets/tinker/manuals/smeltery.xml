@@ -122,16 +122,16 @@ Other liquid removal objects will work, but are frowned upon. An example picture
  <icon>bronzeingot</icon>
 </item>
 <item>
- <text>Aluminum Brass, made from Aluminum(3) and Copper(1)</text>
- <icon>alubrassingot</icon>
+ <text>Brass, made from Zinc(3) and Copper(1)</text>
+ <icon>brassingot</icon>
 </item>
 <item>
  <text>Manyullyn, made from Cobalt(2) and Ardite(2)</text>
  <icon>manyullyningot</icon>
 </item>
 <item>
- <text>Alumite, made from Aluminum(5), Iron(2), and Obsidian(2)</text>
- <icon>alumiteingot</icon>
+ <text>Zarcon, made from Zinc(5), Iron(2), and Obsidian(2)</text>
+ <icon>zarconingot</icon>
 </item>
 <item>
  <text>Pig Iron, made from Iron(1), Blood(1), and Emeralds(1)</text>
@@ -164,7 +164,7 @@ Other liquid removal objects will work, but are frowned upon. An example picture
 </page>
 
 <page type="text">
-<text>Blank casts are made by pouring aluminum brass or gold into an empty casting table. These are used in crafting recipes and can be re-melted.
+<text>Blank casts are made by pouring brass or gold into an empty casting table. These are used in crafting recipes and can be re-melted.
 
 Part casts must be created by pouring metal around existing parts, like a pickaxe head.</text>
 </page>

@@ -34,6 +34,6 @@ public class TinkerTE4
 
         // Dust Recipes
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerTools.materials, 1, 41), "dustArdite", "dustCobalt"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerTools.materials, 4, 42), "dustAluminum", "dustAluminum", "dustAluminum", "dustCopper"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerTools.materials, 4, 42), "dustZinc", "dustZinc", "dustZinc", "dustCopper"));
     }
 }

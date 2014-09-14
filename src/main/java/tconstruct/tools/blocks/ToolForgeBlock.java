@@ -32,7 +32,7 @@ public class ToolForgeBlock extends InventoryBlock
         this.setStepSound(Block.soundTypeMetal);
     }
 
-    String[] textureNames = { "toolforge_iron", "toolforge_gold", "toolforge_diamond", "toolforge_emerald", "toolforge_cobalt", "toolforge_ardite", "toolforge_manyullyn", "toolforge_copper", "toolforge_bronze", "toolforge_tin", "toolforge_aluminum", "toolforge_alubrass", "toolforge_alumite", "toolforge_steel" };
+    String[] textureNames = { "toolforge_iron", "toolforge_gold", "toolforge_diamond", "toolforge_emerald", "toolforge_cobalt", "toolforge_ardite", "toolforge_manyullyn", "toolforge_copper", "toolforge_bronze", "toolforge_tin", "toolforge_zinc", "toolforge_brass", "toolforge_zarcon", "toolforge_steel" };
 
     /* Rendering */
     @Override

@@ -17,7 +17,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
     {
         copper = new WorldGenMinable(TinkerWorld.oreSlag, 3, 8, Blocks.stone);
         tin = new WorldGenMinable(TinkerWorld.oreSlag, 4, 8, Blocks.stone);
-        aluminum = new WorldGenMinable(TinkerWorld.oreSlag, 5, 6, Blocks.stone);
+        zinc = new WorldGenMinable(TinkerWorld.oreSlag, 5, 6, Blocks.stone);
 
         cobalt = new WorldGenMinable(TinkerWorld.oreSlag, 1, 3, Blocks.netherrack);
         ardite = new WorldGenMinable(TinkerWorld.oreSlag, 2, 3, Blocks.netherrack);
@@ -26,7 +26,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
         goldBush = new OreberryBushGen(TinkerWorld.oreBerry, 13, 6);
         copperBush = new OreberryBushGen(TinkerWorld.oreBerry, 14, 12);
         tinBush = new OreberryBushGen(TinkerWorld.oreBerry, 15, 12);
-        aluminumBush = new OreberryBushGen(TinkerWorld.oreBerrySecond, 12, 14);
+        zincBush = new OreberryBushGen(TinkerWorld.oreBerrySecond, 12, 14);
         silverBush = new OreberryBushGen(TinkerWorld.oreBerrySecond, 13, 8);
     }
 
@@ -90,14 +90,14 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 tin.generate(world, random, xPos, yPos, zPos);
             }
         }
-        if (PHConstruct.generateAluminum)
+        if (PHConstruct.generateZinc)
         {
-            for (int q = 0; q <= PHConstruct.aluminumuDensity; q++)
+            for (int q = 0; q <= PHConstruct.zincuDensity; q++)
             {
                 xPos = xChunk + random.nextInt(16);
-                yPos = PHConstruct.aluminumuMinY + random.nextInt(PHConstruct.aluminumuMaxY - PHConstruct.aluminumuMinY);
+                yPos = PHConstruct.zincuMinY + random.nextInt(PHConstruct.zincuMaxY - PHConstruct.zincuMinY);
                 zPos = zChunk + random.nextInt(16);
-                aluminum.generate(world, random, xPos, yPos, zPos);
+                zinc.generate(world, random, xPos, yPos, zPos);
             }
         }
     }
@@ -182,24 +182,24 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 }
             }
         }
-        if (PHConstruct.generateAluminumBush && random.nextInt(PHConstruct.aluminumBushRarity + 1) == 0)// &&
-                                                                                                        // random.nextInt(PHConstruct.aluminumbRarity)
+        if (PHConstruct.generateZincBush && random.nextInt(PHConstruct.zincBushRarity + 1) == 0)// &&
+                                                                                                        // random.nextInt(PHConstruct.zincbRarity)
                                                                                                         // ==
                                                                                                         // 0)
         {
-            for (int i = 0; i < PHConstruct.aluminumBushDensity; i++)
+            for (int i = 0; i < PHConstruct.zincBushDensity; i++)
             {
                 xPos = xChunk + random.nextInt(16);
-                yPos = (PHConstruct.aluminumBushMaxY + PHConstruct.aluminumBushMinY) / 2;
+                yPos = (PHConstruct.zincBushMaxY + PHConstruct.zincBushMinY) / 2;
                 zPos = zChunk + random.nextInt(16);
-                yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.aluminumBushMaxY, PHConstruct.aluminumBushMinY);
+                yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.zincBushMaxY, PHConstruct.zincBushMinY);
                 if (yPos != -1)
                 {
                     /*
                      * CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
-                     * TConstruct.logger.info("Aluminum: "+coord.toString());
+                     * TConstruct.logger.info("Zinc: "+coord.toString());
                      */
-                    aluminumBush.generate(world, random, xPos, yPos, zPos);
+                    zincBush.generate(world, random, xPos, yPos, zPos);
                 }
             }
         }
@@ -328,7 +328,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
 
     WorldGenMinable copper;
     WorldGenMinable tin;
-    WorldGenMinable aluminum;
+    WorldGenMinable zinc;
     WorldGenMinable cobalt;
     WorldGenMinable ardite;
 
@@ -336,6 +336,6 @@ public class TBaseWorldGenerator implements IWorldGenerator
     OreberryBushGen goldBush;
     OreberryBushGen copperBush;
     OreberryBushGen tinBush;
-    OreberryBushGen aluminumBush;
+    OreberryBushGen zincBush;
     OreberryBushGen silverBush;
 }
