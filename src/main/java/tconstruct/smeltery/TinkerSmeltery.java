@@ -754,12 +754,12 @@ public class TinkerSmeltery
         addRecipesForSmeltery();
         addRecipesForTableCasting();
         addRecipesForBasinCasting();
-        addOreDictionarySmelteryRecipes();
     }
 
     @Handler
     public void postInit (FMLPostInitializationEvent evt)
     {
+        addOreDictionarySmelteryRecipes();
         modIntegration();
     }
 
