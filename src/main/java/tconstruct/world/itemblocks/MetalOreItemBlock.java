@@ -9,7 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class MetalOreItemBlock extends MultiItemBlock
 {
-    public static final String blockTypes[] = { "NetherSlag", "Cobalt", "Ardite", "Copper", "Tin", "Aluminum", "Slag" };
+    public static final String blockTypes[] = { "NetherSlag", "Cobalt", "Ardite", "Copper", "Tin", "Zinc", "Slag" };
 
     public MetalOreItemBlock(Block b)
     {

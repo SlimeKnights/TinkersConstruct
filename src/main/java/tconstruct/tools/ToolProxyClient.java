@@ -137,9 +137,9 @@ public class ToolProxyClient extends ToolProxyCommon
         MantleClientRegistry.registerManualIcon("obsidianingot", new ItemStack(TinkerTools.materials, 1, 18));
         MantleClientRegistry.registerManualIcon("lavacrystal", new ItemStack(TinkerTools.materials, 1, 7));
         MantleClientRegistry.registerManualIcon("bronzeingot", new ItemStack(TinkerTools.materials, 1, 13));
-        MantleClientRegistry.registerManualIcon("alubrassingot", new ItemStack(TinkerTools.materials, 1, 14));
+        MantleClientRegistry.registerManualIcon("brassingot", new ItemStack(TinkerTools.materials, 1, 14));
         MantleClientRegistry.registerManualIcon("manyullyningot", new ItemStack(TinkerTools.materials, 1, 5));
-        MantleClientRegistry.registerManualIcon("alumiteingot", new ItemStack(TinkerTools.materials, 1, 15));
+        MantleClientRegistry.registerManualIcon("zarconingot", new ItemStack(TinkerTools.materials, 1, 15));
 
         MProxyClient.registerManualPage("materialstats", MaterialPage.class);
         MProxyClient.registerManualPage("toolpage", ToolPage.class);
@@ -418,7 +418,7 @@ public class ToolProxyClient extends ToolProxyCommon
 
     void addToolRenderMappings ()
     {
-        String[] partTypes = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel", "blueslime", "pigiron" };
+        String[] partTypes = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "zarcon", "steel", "blueslime", "pigiron" };
         String[] effectTypes = { "diamond", "emerald", "redstone", "piston", "moss", "ice", "lava", "blaze", "necrotic", "flux", "lapis", "quartz", "silk", "beheading", "smite", "spider", "reinforced", "flux" };
         int[] universalEffects = { 0, 1, 4, 9, 16 };
         int[] weaponEffects = { 3, 5, 7, 13, 14, 15 };

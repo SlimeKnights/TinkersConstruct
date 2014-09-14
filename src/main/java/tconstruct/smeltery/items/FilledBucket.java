@@ -180,7 +180,7 @@ public class FilledBucket extends ItemBucket
         return getUnlocalizedName() + "." + materialNames[arr];
     }
 
-    public static final String[] materialNames = new String[] { "Iron", "Gold", "Copper", "Tin", "Aluminum", "Cobalt", "Ardite", "Bronze", "AluBrass", "Manyullyn", "Alumite", "Obsidian", "Steel", "Glass", "Stone", "Villager", "Cow", "Nickel", "Lead", "Silver", "Shiny", "Invar", "Electrum", "Ender", "Slime", "Glue", "PigIron" };
+    public static final String[] materialNames = new String[] { "Iron", "Gold", "Copper", "Tin", "Zinc", "Cobalt", "Ardite", "Bronze", "Brass", "Manyullyn", "Zarcon", "Obsidian", "Steel", "Glass", "Stone", "Villager", "Cow", "Nickel", "Lead", "Silver", "Shiny", "Invar", "Electrum", "Ender", "Slime", "Glue", "PigIron" };
 
-    public static final String[] textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt", "ardite", "bronze", "alubrass", "manyullyn", "alumite", "obsidian", "steel", "glass", "stone", "emerald", "blood", "nickel", "lead", "silver", "shiny", "invar", "electrum", "ender", "slime", "glue", "pigiron" };
+    public static final String[] textureNames = new String[] { "iron", "gold", "copper", "tin", "zinc", "cobalt", "ardite", "bronze", "brass", "manyullyn", "zarcon", "obsidian", "steel", "glass", "stone", "emerald", "blood", "nickel", "lead", "silver", "shiny", "invar", "electrum", "ender", "slime", "glue", "pigiron" };
 }

@@ -266,7 +266,7 @@ public class TinkerTools
         TinkerTools.creativeModifier = new CreativeModifier().setUnlocalizedName("tconstruct.modifier.creative");
         GameRegistry.registerItem(TinkerTools.creativeModifier, "creativeModifier");
 
-        String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper", "ingotTin", "ingotAluminum", "rawAluminum", "ingotBronze", "ingotAluminumBrass", "ingotAlumite", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper", "nuggetTin", "nuggetAluminum", "nuggetSilver", "nuggetAluminumBrass", "silkyCloth", "silkyJewel", "nuggetObsidian", "nuggetCobalt", "nuggetArdite", "nuggetManyullyn", "nuggetBronze", "nuggetAlumite", "nuggetSteel", "ingotPigIron", "nuggetPigIron", "glueball" };
+        String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper", "ingotTin", "ingotZinc", "rawZinc", "ingotBronze", "ingotBrass", "ingotZarcon", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper", "nuggetTin", "nuggetZinc", "nuggetSilver", "nuggetBrass", "silkyCloth", "silkyJewel", "nuggetObsidian", "nuggetCobalt", "nuggetArdite", "nuggetManyullyn", "nuggetBronze", "nuggetZarcon", "nuggetSteel", "ingotPigIron", "nuggetPigIron", "glueball" };
 
         for (int i = 0; i < materialStrings.length; i++)
         {
@@ -573,7 +573,7 @@ public class TinkerTools
         String[] patBlock = { "###", "###", "###" };
         String[] patSurround = { "###", "#m#", "###" };
 
-        Object[] toolForgeBlocks = { "blockIron", "blockGold", Blocks.diamond_block, Blocks.emerald_block, "blockCobalt", "blockArdite", "blockManyullyn", "blockCopper", "blockBronze", "blockTin", "blockAluminum", "blockAluminumBrass", "blockAlumite", "blockSteel" };
+        Object[] toolForgeBlocks = { "blockIron", "blockGold", Blocks.diamond_block, Blocks.emerald_block, "blockCobalt", "blockArdite", "blockManyullyn", "blockCopper", "blockBronze", "blockTin", "blockZinc", "blockBrass", "blockZarcon", "blockSteel" };
 
         // ToolForge Recipes (Metal Version)
         for (int sc = 0; sc < toolForgeBlocks.length; sc++)
@@ -656,7 +656,7 @@ public class TinkerTools
         GameRegistry.addRecipe(new ItemStack(TinkerTools.craftingSlabWood, 1, 5), "b", 'b', new ItemStack(TinkerTools.toolForge, 1, Short.MAX_VALUE));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerTools.materials, 1, 41), "dustArdite", "dustCobalt"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerTools.materials, 4, 42), "dustAluminium", "dustAluminium", "dustAluminium", "dustCopper"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerTools.materials, 4, 42), "dustZinc", "dustZinc", "dustZinc", "dustCopper"));
     }
 
     private void modIntegration ()
@@ -734,7 +734,7 @@ public class TinkerTools
         TConstructRegistry.addToolMaterial(MaterialID.Manyullyn, "Manyullyn", 5, 1200, 900, 4, 2.5F, 0, 0f, DARK_PURPLE.toString(), 0x7338A5);
         TConstructRegistry.addToolMaterial(MaterialID.Copper, "Copper", 1, 180, 500, 2, 1.15F, 0, 0f, RED.toString(), 0xCC6410);
         TConstructRegistry.addToolMaterial(MaterialID.Bronze, "Bronze", 2, 550, 800, 2, 1.3F, 1, 0f, GOLD.toString(), 0xCA9956);
-        TConstructRegistry.addToolMaterial(MaterialID.Alumite, "Alumite", 4, 700, 800, 3, 1.3F, 2, 0f, LIGHT_PURPLE.toString(), 0xE9ADDA);
+        TConstructRegistry.addToolMaterial(MaterialID.Zarcon, "Zarcon", 4, 700, 800, 3, 1.3F, 2, 0f, LIGHT_PURPLE.toString(), 0xE9ADDA);
         TConstructRegistry.addToolMaterial(MaterialID.Steel, "Steel", 4, 750, 1000, 4, 1.3F, 2, 0f, GRAY.toString(), 0x8A8A8A);
         TConstructRegistry.addToolMaterial(MaterialID.BlueSlime, "BlueSlime", 0, 1200, 150, 0, 2.0F, 0, 0f, AQUA.toString(), 0x66AEB0);
         TConstructRegistry.addToolMaterial(MaterialID.PigIron, "PigIron", 3, 250, 600, 2, 1.3F, 1, 0f, RED.toString(), 0xF0A8A4);
@@ -755,7 +755,7 @@ public class TinkerTools
         TConstructRegistry.addBowMaterial(MaterialID.Manyullyn, 1536, 30, 1.2f); // Manyullyn
         TConstructRegistry.addBowMaterial(MaterialID.Copper, 384, 30, 1.2f); // Copper
         TConstructRegistry.addBowMaterial(MaterialID.Bronze, 576, 30, 1.2f); // Bronze
-        TConstructRegistry.addBowMaterial(MaterialID.Alumite, 768, 30, 1.2f); // Alumite
+        TConstructRegistry.addBowMaterial(MaterialID.Zarcon, 768, 30, 1.2f); // Zarcon
         TConstructRegistry.addBowMaterial(MaterialID.Steel, 768, 30, 1.2f); // Steel
         TConstructRegistry.addBowMaterial(MaterialID.BlueSlime, 576, 20, 1.2f); // Blue Slime
         TConstructRegistry.addBowMaterial(MaterialID.PigIron, 384, 20, 1.2f); // Pig Iron
@@ -776,7 +776,7 @@ public class TinkerTools
         TConstructRegistry.addArrowMaterial(MaterialID.Manyullyn, 2.25F, 0.1F, 100F); //Manyullyn
         TConstructRegistry.addArrowMaterial(MaterialID.Copper, 2.7F, 0.5F, 100F); //Copper
         TConstructRegistry.addArrowMaterial(MaterialID.Bronze, 3.6F, 0.25F, 100F); //Bronze
-        TConstructRegistry.addArrowMaterial(MaterialID.Alumite, 1.1F, 0.25F, 100F); //Alumite
+        TConstructRegistry.addArrowMaterial(MaterialID.Zarcon, 1.1F, 0.25F, 100F); //Zarcon
         TConstructRegistry.addArrowMaterial(MaterialID.Steel, 3.6F, 0.25F, 100F); //Steel
         TConstructRegistry.addArrowMaterial(MaterialID.BlueSlime, 0.22F, 0.0F, 100F); //Blue Slime
         TConstructRegistry.addArrowMaterial(MaterialID.PigIron, 3.6F, 0.5F, 100F); //Pigiron
@@ -831,7 +831,7 @@ public class TinkerTools
         pb.registerMaterialSet("Manyullyn", new ItemStack(toolShard, 1, 12), new ItemStack(toolRod, 1, 12), 12);
         pb.registerMaterialSet("Copper", new ItemStack(toolShard, 1, 13), new ItemStack(toolRod, 1, 13), 13);
         pb.registerMaterialSet("Bronze", new ItemStack(toolShard, 1, 14), new ItemStack(toolRod, 1, 14), 14);
-        pb.registerMaterialSet("Alumite", new ItemStack(toolShard, 1, 15), new ItemStack(toolRod, 1, 15), 15);
+        pb.registerMaterialSet("Zarcon", new ItemStack(toolShard, 1, 15), new ItemStack(toolRod, 1, 15), 15);
         pb.registerMaterialSet("Steel", new ItemStack(toolShard, 1, 16), new ItemStack(toolRod, 1, 16), 16);
         if (PHConstruct.enableTBlueSlime)
             pb.registerFullMaterial(new ItemStack(materials, 1, 17), 2, "BlueSlime", new ItemStack(toolShard, 1, 17), new ItemStack(toolRod, 1, 17), 17);
@@ -896,7 +896,7 @@ public class TinkerTools
         public static final int Manyullyn = 12; // I'd still call it Manymetal --boni
         public static final int Copper = 13;
         public static final int Bronze = 14;
-        public static final int Alumite = 15;
+        public static final int Zarcon = 15;
         public static final int Steel = 16;
         public static final int BlueSlime = 17;
         public static final int PigIron = 18;

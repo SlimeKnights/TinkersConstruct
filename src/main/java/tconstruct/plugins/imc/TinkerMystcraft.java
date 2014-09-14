@@ -10,7 +10,7 @@ import tconstruct.TConstruct;
 @Pulse(id = "Tinkers Mystcraft Compatibility", forced = true, modsRequired = "Mystcraft")
 public class TinkerMystcraft
 {
-    private static String[] fluids = new String[] { "invar.molten", "electrum.molten", "bronze.molten", "aluminumbrass.molten", "manyullyn.molten", "alumite.molten", "cobalt.molten", "moltenArdite", "ender", "steel.molten", "platinum.molten" };
+    private static String[] fluids = new String[] { "invar.molten", "electrum.molten", "bronze.molten", "brass.molten", "manyullyn.molten", "zarcon.molten", "cobalt.molten", "moltenArdite", "ender", "steel.molten", "platinum.molten" };
 
     @Handler
     public void init (FMLInitializationEvent event)
