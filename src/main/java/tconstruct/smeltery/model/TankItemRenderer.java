@@ -28,6 +28,8 @@ public class TankItemRenderer implements IItemRenderer {
         Block block = Block.getBlockFromItem(item.getItem());
         int meta = item.getItemDamage();
 
+        GL11.glEnable(GL11.GL_BLEND);
+
         if(item.hasTagCompound() && item.getTagCompound().hasKey("Fluid"))
         {
             FluidStack liquid = FluidStack.loadFluidStackFromNBT(item.getTagCompound().getCompoundTag("Fluid"));
@@ -35,7 +37,6 @@ public class TankItemRenderer implements IItemRenderer {
             {
                 float height = (float)liquid.amount / 4000f - 0.01f;
                 renderblocks.setRenderBounds(0.01, 0.01, 0.01, 0.99, height, 0.99);
-                GL11.glEnable(GL11.GL_BLEND);
                 ItemHelper.renderStandardInvBlock(renderblocks, liquid.getFluid().getBlock(), 0);
             }
         }
