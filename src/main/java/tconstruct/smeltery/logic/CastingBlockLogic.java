@@ -276,8 +276,8 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     public void interact(EntityPlayer player)
     {
         // only server side
-        if(worldObj.isRemote)
-            return;
+        //if(worldObj.isRemote)
+            //return;
 
         // can't interact with liquid inside
         // todo: maybe let it interact with a bucket or tank!
@@ -310,8 +310,6 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
             SmelteryEvent.ItemRemovedFromCasting event = new SmelteryEvent.ItemRemovedFromCasting(this, xCoord, yCoord, zCoord, getStackInSlot(slot), player);
             MinecraftForge.EVENT_BUS.post(event);
 
-
-            /*
             // try to transfer thes tack to the player inventory
             ItemStack output = event.item;
             if(!player.inventory.addItemStackToInventory(output))
@@ -322,8 +320,6 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
             // added to inventory, update inventory
             else
                 player.inventory.markDirty();
-                */
-            AbilityHelper.spawnItemAtPlayer(player, event.item);
 
             // remove inventory contents, since we spilled the full contents of the slot
             inventory[slot] = null;

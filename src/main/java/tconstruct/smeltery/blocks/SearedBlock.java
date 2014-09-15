@@ -97,12 +97,10 @@ public class SearedBlock extends InventoryBlock
 
     boolean activateCastingBlock (World world, int x, int y, int z, EntityPlayer player)
     {
-        if (!world.isRemote)
-        {
-            CastingBlockLogic logic = (CastingBlockLogic) world.getTileEntity(x, y, z);
-            logic.interact(player);
-            world.markBlockForUpdate(x, y, z);
-        }
+
+        CastingBlockLogic logic = (CastingBlockLogic) world.getTileEntity(x, y, z);
+        logic.interact(player);
+        world.markBlockForUpdate(x, y, z);
         return true;
     }
 
