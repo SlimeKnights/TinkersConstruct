@@ -254,15 +254,15 @@ public class CastingBlockRender implements ISimpleBlockRenderingHandler
                     float yMin = 0F;
                     Block uBlock = world.getBlock(x, y - 1, z);
                     int uMeta = world.getBlockMetadata(x, y - 1, z);
-                    if (uBlock == TinkerSmeltery.searedBlock && uMeta == 0)
+                    if ((uBlock == TinkerSmeltery.searedBlock || uBlock == TinkerSmeltery.searedBlockNether) && uMeta == 0)
                     {
                         yMin = -0.125F;
                     }
-                    else if (uBlock == TinkerSmeltery.searedBlock && uMeta == 2)
+                    else if ((uBlock == TinkerSmeltery.searedBlock || uBlock == TinkerSmeltery.searedBlockNether) && uMeta == 2)
                     {
                         yMin = -0.75F;
                     }
-                    else if (uBlock == TinkerSmeltery.lavaTank)
+                    else if (uBlock == TinkerSmeltery.lavaTank || uBlock == TinkerSmeltery.lavaTankNether)
                     {
                         yMin = -1F;
                     }
