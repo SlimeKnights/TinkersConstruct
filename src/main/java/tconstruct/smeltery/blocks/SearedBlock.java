@@ -99,7 +99,7 @@ public class SearedBlock extends InventoryBlock
     {
         if (!world.isRemote)
         {
-            CastingBlockLogic logic = (CastingBasinLogic) world.getTileEntity(x, y, z);
+            CastingBlockLogic logic = (CastingBlockLogic) world.getTileEntity(x, y, z);
             logic.interact(player);
             world.markBlockForUpdate(x, y, z);
         }
