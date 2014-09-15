@@ -224,6 +224,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
             {
                 if (doFill)
                 {
+                    renderOffset += resource.amount;
                     this.liquid.amount += resource.amount;
                     worldObj.func_147479_m(xCoord, yCoord, zCoord);
                     needsUpdate = true;
@@ -257,6 +258,8 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
 
         FluidStack drained = liquid.copy();
         drained.amount = used;
+
+        renderOffset = 0;
 
         // Reset liquid if emptied
         if (liquid.amount <= 0)
@@ -422,7 +425,10 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
         }
         if (renderOffset > 0)
         {
+            //renderOffset -= Math.max(renderOffset/3, 6);
             renderOffset -= 6;
+            if(renderOffset < 0)
+                renderOffset = 0;
             worldObj.func_147479_m(xCoord, yCoord, zCoord);
         }
 
@@ -485,6 +491,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
         else
             this.capacity = updateCapacity();
         this.castingDelay = tags.getInteger("castingDelay");
+        this.renderOffset = tags.getInteger("RenderOffset");
     }
 
     @Override
@@ -506,6 +513,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
         tags.setBoolean("Initialized", init);
         tags.setInteger("Capacity", capacity);
         tags.setInteger("castingDelay", castingDelay);
+        tags.setInteger("RenderOffset", renderOffset);
     }
 
     /* Packets */
