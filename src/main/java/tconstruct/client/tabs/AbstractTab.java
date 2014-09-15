@@ -42,6 +42,7 @@ public abstract class AbstractTab extends GuiButton
             this.itemRenderer.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, renderStack, xPosition + 6, yPosition + 8);
             this.itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, renderStack, xPosition + 6, yPosition + 8);
             GL11.glDisable(GL11.GL_LIGHTING);
+            GL11.glEnable(GL11.GL_BLEND);
             this.itemRenderer.zLevel = 0.0F;
             this.zLevel = 0.0F;
             RenderHelper.disableStandardItemLighting();
