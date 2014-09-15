@@ -2,6 +2,7 @@ package tconstruct.smeltery.logic;
 
 import cpw.mods.fml.common.eventhandler.Event;
 import mantle.blocks.abstracts.InventoryLogic;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
@@ -15,6 +16,7 @@ import net.minecraftforge.fluids.*;
 import tconstruct.TConstruct;
 import tconstruct.library.crafting.*;
 import tconstruct.library.event.*;
+import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.util.IPattern;
 
 public abstract class CastingBlockLogic extends InventoryLogic implements IFluidTank, IFluidHandler, ISidedInventory
@@ -132,6 +134,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
         return liquid != null ? liquid.amount : 0;
     }
 
+    /** Returns the current amount of the liquid FOR RENDERING */
     public int getLiquidAmount ()
     {
         return liquid.amount - renderOffset;
@@ -266,6 +269,63 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     }
 
     /* Inventory, inserting/extracting */
+
+    public void interact(EntityPlayer player)
+    {
+        // only server side
+        if(worldObj.isRemote)
+            return;
+
+        // can't interact with liquid inside
+        // todo: maybe let it interact with a bucket or tank!
+        if(liquid != null)
+            return;
+
+        // put stuff in?
+        if(!isStackInSlot(0) && !isStackInSlot(1))
+        {
+            ItemStack stack = player.inventory.decrStackSize(player.inventory.currentItem, stackSizeLimit);
+            SmelteryEvent.ItemInsertedIntoCasting event = new SmelteryEvent.ItemInsertedIntoCasting(this, xCoord, yCoord, zCoord, stack, player);
+            MinecraftForge.EVENT_BUS.post(event);
+            if(!event.isCanceled())
+                setInventorySlotContents(0, event.item);
+            else
+                player.inventory.addItemStackToInventory(stack); // should never return false, since the itemstack was taken from the inventory
+        }
+        // take stuff out.
+        else
+        {
+            int slot = 0;
+            // output-slot has higher priority
+            if(isStackInSlot(1))
+                slot = 1;
+
+            // Additional Info: Only 1 item can only be put into the casting block usually, however recipies
+            // can have multiple blocks as output (compressed gravel -> brownstone for example)
+            // we therefore spill the whole contents on extraction
+
+            SmelteryEvent.ItemRemovedFromCasting event = new SmelteryEvent.ItemRemovedFromCasting(this, xCoord, yCoord, zCoord, getStackInSlot(slot), player);
+            MinecraftForge.EVENT_BUS.post(event);
+
+
+            /*
+            // try to transfer thes tack to the player inventory
+            ItemStack output = event.item;
+            if(!player.inventory.addItemStackToInventory(output))
+            {
+                // drop the rest as an item
+                AbilityHelper.spawnItemAtPlayer(player, output);
+            }
+            // added to inventory, update inventory
+            else
+                player.inventory.markDirty();
+                */
+            AbilityHelper.spawnItemAtPlayer(player, event.item);
+
+            // remove inventory contents, since we spilled the full contents of the slot
+            inventory[slot] = null;
+        }
+    }
 
     @Override
     public ItemStack decrStackSize (int slot, int quantity)
