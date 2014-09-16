@@ -16,6 +16,7 @@ import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent;
+import tconstruct.TConstruct;
 import tconstruct.library.*;
 
 /* Base class for tools that should be harvesting blocks */
@@ -30,6 +31,9 @@ public abstract class HarvestTool extends ToolCore
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
+        // this is called both clientside directly when the block is destroyed, as well as serverside when the C07PacketPlayerDigging with data 2 is received
+        TConstruct.logger.info("PANIC: " + player.worldObj.isRemote);
+
         if (!stack.hasTagCompound())
             return false;
 
@@ -37,83 +41,51 @@ public abstract class HarvestTool extends ToolCore
         World world = player.worldObj;
         Block block = player.worldObj.getBlock(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
-        // Block block = Block.blocksList[bID];
+
+        // broken tools don't harvest anything
+        if(tags.getBoolean("Broken"))
+            return true;
+        // only harvest actual blocks
         if (block == null || block == Blocks.air)
             return false;
+
+        // check harvestlevel
         int hlvl = -1;
-        if (!(tags.getBoolean("Broken")))
+        if (block.getHarvestTool(meta) != null && block.getHarvestTool(meta).equals(this.getHarvestType()))
+            hlvl = block.getHarvestLevel(meta);
+        int toolLevel = tags.getInteger("HarvestLevel");
+
+        // harvestlevel too low. abort
+        if(hlvl > toolLevel)
+            return true;
+
+        // the regular stuff, ActiveToolMods etc
+        if(super.onBlockStartBreak(stack, x,y,z, player))
+            return true;
+
+        // not effective?
+        boolean isEffective = false;
+
+        for (int iter = 0; iter < getEffectiveMaterials().length; iter++)
         {
-            if (block.getHarvestTool(meta) != null && block.getHarvestTool(meta).equals(this.getHarvestType()))
-                hlvl = block.getHarvestLevel(meta);
-            int toolLevel = tags.getInteger("HarvestLevel");
-            float blockHardness = block.getBlockHardness(world, x, y, z);
-
-            if (hlvl <= toolLevel)
+            if (getEffectiveMaterials()[iter] == block.getMaterial() || block == Blocks.monster_egg)
             {
-                boolean cancelHarvest = false;
-                for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
-                {
-                    if (mod.beforeBlockBreak(this, stack, x, y, z, player))
-                        cancelHarvest = true;
-                }
-
-                // send blockbreak event
-                BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(x, y, z, world, block, meta, player);
-                event.setCanceled(cancelHarvest);
-                MinecraftForge.EVENT_BUS.post(event);
-                cancelHarvest = event.isCanceled();
-
-                if (!cancelHarvest)
-                {
-                    if (block != null)
-                    {
-
-                        boolean isEffective = false;
-
-                        for (int iter = 0; iter < getEffectiveMaterials().length; iter++)
-                        {
-                            if (getEffectiveMaterials()[iter] == block.getMaterial() || block == Blocks.monster_egg)
-                            {
-                                isEffective = true;
-                                break;
-                            }
-                        }
-
-                        // Microblocks are registered as rock but no HarvestTool is set
-                        if (block.getMaterial().isToolNotRequired() || block.getHarvestTool(meta) == null)
-                        {
-                            isEffective = true;
-                        }
-
-                        if (!player.capabilities.isCreativeMode)
-                        {
-                            if (isEffective)
-                            {
-                                mineBlock(world, x, y, z, meta, player, block);
-                                if (blockHardness > 0f)
-                                    onBlockDestroyed(stack, world, block, x, y, z, player);
-                                world.func_147479_m(x, y, z);
-                            }
-                            else
-                            {
-                                WorldHelper.setBlockToAir(world, x, y, z);
-                                world.func_147479_m(x, y, z);
-                            }
-
-                        }
-                        else
-                        {
-                            WorldHelper.setBlockToAir(world, x, y, z);
-                            world.func_147479_m(x, y, z);
-                        }
-                    }
-                }
+                isEffective = true;
+                break;
             }
         }
-        if (!world.isRemote)
-            world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
-        return true;
 
+        // Microblocks are registered as rock but no HarvestTool is set
+        if (block.getMaterial().isToolNotRequired() || block.getHarvestTool(meta) == null)
+        {
+            isEffective = true;
+        }
+
+        // non-effective?
+        if(!isEffective)
+            return true;
+
+        return false;
     }
 
     @Override
@@ -295,6 +267,7 @@ public abstract class HarvestTool extends ToolCore
     // The Scythe is not a HarvestTool and can't call this method, if you change something here you might change it there too.
     public void mineBlock (World world, int x, int y, int z, int meta, EntityPlayer player, Block block)
     {
+        TConstruct.logger.info("CCCCC: " + world.isRemote);
         // Workaround for dropping experience
         boolean silktouch = EnchantmentHelper.getSilkTouchModifier(player);
         int fortune = EnchantmentHelper.getFortuneModifier(player);
@@ -309,6 +282,7 @@ public abstract class HarvestTool extends ToolCore
             if (!silktouch)
                 block.dropXpOnBlockBreak(world, x, y, z, exp);
 
+            /*
             if (world.isRemote)
             {
                 INetHandler handler = FMLClientHandler.instance().getClientPlayHandler();
@@ -319,6 +293,7 @@ public abstract class HarvestTool extends ToolCore
                     handlerClient.addToSendQueue(new C07PacketPlayerDigging(2, x, y, z, Minecraft.getMinecraft().objectMouseOver.sideHit));
                 }
             }
+            */
         }
     }
 }
