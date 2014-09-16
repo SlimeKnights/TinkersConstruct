@@ -594,7 +594,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     public void updateFuelGague ()
     {
-        if(activeLavaTank == null)
+        if(activeLavaTank == null && lavaTanks.size() > 0)
             activeLavaTank = lavaTanks.get(0);
         if (activeLavaTank == null || useTime > 0)
             return;
