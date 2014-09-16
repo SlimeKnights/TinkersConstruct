@@ -31,62 +31,30 @@ public abstract class HarvestTool extends ToolCore
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
-        // this is called both clientside directly when the block is destroyed, as well as serverside when the C07PacketPlayerDigging with data 2 is received
-        TConstruct.logger.info("PANIC: " + player.worldObj.isRemote);
+        return super.onBlockStartBreak(stack, x,y,z, player);
+    }
 
-        if (!stack.hasTagCompound())
-            return false;
+    @Override
+    public int getHarvestLevel(ItemStack stack, String toolClass) {
+        // well, we can only get the harvestlevel if we have an item to get it from!
+        if(stack == null || !(stack.getItem() instanceof HarvestTool))
+            return -1;
+        // invalid query or wrong toolclass
+        if(toolClass == null || !this.getHarvestType().equals(toolClass))
+            return -1;
+
+        if(!stack.hasTagCompound())
+            return -1;
 
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-        World world = player.worldObj;
-        Block block = player.worldObj.getBlock(x, y, z);
-        int meta = world.getBlockMetadata(x, y, z);
+        // broken tools suck.
+        if (tags.getBoolean("Broken"))
+            return -1;
 
-        // broken tools don't harvest anything
-        if(tags.getBoolean("Broken"))
-            return true;
-        // only harvest actual blocks
-        if (block == null || block == Blocks.air)
-            return false;
-
-        // check harvestlevel
-        int hlvl = -1;
-        if (block.getHarvestTool(meta) != null && block.getHarvestTool(meta).equals(this.getHarvestType()))
-            hlvl = block.getHarvestLevel(meta);
-        int toolLevel = tags.getInteger("HarvestLevel");
-
-        // harvestlevel too low. abort
-        if(hlvl > toolLevel)
-            return true;
-
-        // the regular stuff, ActiveToolMods etc
-        if(super.onBlockStartBreak(stack, x,y,z, player))
-            return true;
-
-        // not effective?
-        boolean isEffective = false;
-
-        for (int iter = 0; iter < getEffectiveMaterials().length; iter++)
-        {
-            if (getEffectiveMaterials()[iter] == block.getMaterial() || block == Blocks.monster_egg)
-            {
-                isEffective = true;
-                break;
-            }
-        }
-
-        // Microblocks are registered as rock but no HarvestTool is set
-        if (block.getMaterial().isToolNotRequired() || block.getHarvestTool(meta) == null)
-        {
-            isEffective = true;
-        }
-
-        // non-effective?
-        if(!isEffective)
-            return true;
-
-        return false;
+        // tadaaaa
+        return tags.getInteger("HarvestLevel");
     }
+
 
     @Override
     public float getDigSpeed (ItemStack stack, Block block, int meta)
@@ -249,19 +217,6 @@ public abstract class HarvestTool extends ToolCore
          */
 
         return used;
-    }
-
-    @Override
-    public int getHarvestLevel (ItemStack stack, String toolClass)
-    {
-        if (!(stack.getItem() instanceof HarvestTool) || !getHarvestType().equals(toolClass))
-        {
-            return -1;
-        }
-
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-        int harvestLvl = tags.getInteger("HarvestLevel");
-        return harvestLvl;
     }
 
     // The Scythe is not a HarvestTool and can't call this method, if you change something here you might change it there too.
