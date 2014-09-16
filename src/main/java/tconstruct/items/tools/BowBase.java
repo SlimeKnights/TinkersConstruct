@@ -762,8 +762,7 @@ public abstract class BowBase extends ToolCore
         ItemStack accessoryStack = accessory != null ? new ItemStack(getAccessoryItem(), 1, id) : null;
         Item extra = getExtraItem();
         ItemStack extraStack = extra != null ? new ItemStack(getExtraItem(), 1, id) : null;
-        String completeName = String.format("%s %s", name, getLocalizedToolName());
-        ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, completeName);
+        ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, name);
         if (tool == null)
             return;
 

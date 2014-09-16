@@ -284,21 +284,16 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     @Override
     public void updateEntity ()
     {
+        tick++;
         if (tick == 60)
         {
             tick = 0;
             detectEntities();
         }
 
-        if(!validStructure)
-            return;
-
         /*
          * if (worldObj.isRemote) return;
          */
-        tick++;
-        if (tick % 4 == 0)
-            heatItems();
 
         if (tick % 20 == 0)
         {
@@ -319,6 +314,10 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             }
         }
+
+        if(validStructure)
+            if (tick % 4 == 0)
+                heatItems();
     }
 
     void detectEntities ()

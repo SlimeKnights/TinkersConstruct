@@ -22,6 +22,7 @@ public class TankRender implements ISimpleBlockRenderingHandler
         if (modelID == tankModelID)
         {
             ItemHelper.renderStandardInvBlock(renderer, block, metadata);
+            // the thingie on top of lava tanks
             if (metadata == 0)
             {
                 renderer.setRenderBounds(0.1875, 0, 0.1875, 0.8125, 0.125, 0.8125);
@@ -46,7 +47,7 @@ public class TankRender implements ISimpleBlockRenderingHandler
                     Fluid fluid = liquid.getFluid();
                     BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getStillIcon(), x, y, z, renderer, world, true);
 
-                    renderer.setRenderBounds(00, 0.001, 0.001, 0.999, logic.getFluidAmountScaled(), 0.999);
+                    renderer.setRenderBounds(0, 0.001, 0.001, 0.999, logic.getFluidAmountScaled(), 0.999);
                 }
             }
             //Block

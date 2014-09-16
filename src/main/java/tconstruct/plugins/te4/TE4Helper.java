@@ -7,8 +7,6 @@ import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Taken from CoFHLib
- *
- * @author KingLemming
  */
 public class TE4Helper
 {
