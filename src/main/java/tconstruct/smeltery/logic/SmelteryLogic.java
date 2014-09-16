@@ -181,9 +181,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
 
         // update current liquid. This is done in case some config or something changed the capacity or other things.
-        currentLiquid = 0;
-        for(FluidStack liquid : moltenMetal)
-            currentLiquid += liquid.amount;
+        updateCurrentLiquid();
     }
 
     /* Misc */
@@ -501,6 +499,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
         else
         {
+            // update liquid amount..
+            updateCurrentLiquid();
+
             if (liquid.amount + currentLiquid > maxLiquid)
                 return false;
 
@@ -532,6 +533,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             }
             return true;
         }
+    }
+
+    private void updateCurrentLiquid() {
+        currentLiquid = 0;
+        for(FluidStack liquid : moltenMetal)
+            currentLiquid += liquid.amount;
     }
 
     private void updateTemperatures ()
@@ -587,6 +594,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     public void updateFuelGague ()
     {
+        if(activeLavaTank == null)
+            activeLavaTank = lavaTanks.get(0);
         if (activeLavaTank == null || useTime > 0)
             return;
 
@@ -714,6 +723,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         updateTemperatures();
         updateEntity();
+
         super.markDirty();
         needsUpdate = true;
         // worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
@@ -1069,8 +1079,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     // liquid = null;
                     moltenMetal.remove(liquid);
                     worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                    currentLiquid = 0;
                     needsUpdate = true;
+                    updateCurrentLiquid();
                 }
                 return liq;
             }
