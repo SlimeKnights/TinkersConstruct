@@ -1181,7 +1181,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         inventory = new ItemStack[maxBlockCapacity];
         super.readFromNBT(tags);
 
-        // validStructure = tags.getBoolean("ValidStructure");
+        validStructure = tags.getBoolean("ValidStructure");
         internalTemp = tags.getInteger("InternalTemp");
         inUse = tags.getBoolean("InUse");
 
@@ -1211,7 +1211,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         super.writeToNBT(tags);
 
-        // tags.setBoolean("ValidStructure", validStructure);
+        tags.setBoolean("ValidStructure", validStructure);
         tags.setInteger("InternalTemp", internalTemp);
         tags.setBoolean("InUse", inUse);
 
