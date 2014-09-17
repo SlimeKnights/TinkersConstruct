@@ -1,5 +1,6 @@
 package tconstruct.library.tools;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,6 +27,11 @@ public abstract class AOEHarvestTool extends HarvestTool {
 
     @Override
     public boolean onBlockStartBreak(ItemStack stack, int x, int y, int z, EntityPlayer player) {
+        // only effective materials matter. We don't want to aoe when beraking dirt with a hammer.
+        Block block = player.worldObj.getBlock(x,y,z);
+        if(block == null || !isEffective(block.getMaterial()))
+            return super.onBlockStartBreak(stack, x,y,z, player);
+
         boolean originalBlock = true;
         // check if we're breaking the block we hit, or if this call belongs to one of the surrounding blocks broken by the AOE
         if(player.worldObj.isRemote)

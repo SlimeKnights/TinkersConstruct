@@ -1,28 +1,19 @@
 package tconstruct.library.tools;
 
-import cpw.mods.fml.client.FMLClientHandler;
-import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
-import net.minecraft.client.network.NetHandlerPlayClient;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetHandler;
-import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.network.play.server.S23PacketBlockChange;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.common.ForgeHooks;
 import tconstruct.TConstruct;
-import tconstruct.library.*;
-import tconstruct.util.network.AOEBlockBreakProgressPacket;
-import tconstruct.util.network.PacketPipeline;
 
 /* Base class for tools that should be harvesting blocks */
 
@@ -232,6 +223,16 @@ public abstract class HarvestTool extends ToolCore
 
         // check if the block can be broken, since extra block breaks shouldn't instantly break stuff like obsidian
         // or precious ores you can't harvest while mining stone
+        Block block = world.getBlock(x,y,z);
+        int meta = world.getBlockMetadata(x,y,z);
+
+        // only effective materials
+        if(!isEffective(block.getMaterial()))
+            return;
+
+        // only harvestable blocks that aren't impossibly slow to harvest
+        if(!ForgeHooks.canHarvestBlock(block, player, meta) || ForgeHooks.blockStrength(block, player, world, x,y,z) <= 0.0001f)
+            return;
 
         // this should only be called on the client
         if(!world.isRemote) {
