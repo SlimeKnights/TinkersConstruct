@@ -461,7 +461,7 @@ public class TinkerWorld
         OreDictionary.registerOre("oreArdite", new ItemStack(TinkerWorld.oreSlag, 1, 2));
         OreDictionary.registerOre("oreCopper", new ItemStack(TinkerWorld.oreSlag, 1, 3));
         OreDictionary.registerOre("oreTin", new ItemStack(TinkerWorld.oreSlag, 1, 4));
-        OreDictionary.registerOre("oreBrass", new ItemStack(TinkerWorld.oreSlag, 1, 5));
+        OreDictionary.registerOre("oreZinc", new ItemStack(TinkerWorld.oreSlag, 1, 5));
 
         OreDictionary.registerOre("oreIron", new ItemStack(TinkerWorld.oreGravel, 1, 0));
         OreDictionary.registerOre("oreGold", new ItemStack(TinkerWorld.oreGravel, 1, 1));
