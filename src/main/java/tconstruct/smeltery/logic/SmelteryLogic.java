@@ -641,7 +641,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             {
                 boolean foundTank = false;
                 int iter = 0;
-                while (!foundTank)
+                while (!foundTank && iter < lavaTanks.size())
                 {
                     CoordTuple possibleTank = lavaTanks.get(iter);
                     TileEntity newTankContainer = worldObj.getTileEntity(possibleTank.x, possibleTank.y, possibleTank.z);
@@ -1191,7 +1191,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         inventory = new ItemStack[maxBlockCapacity];
         super.readFromNBT(tags);
 
-        validStructure = tags.getBoolean("ValidStructure");
+        if(!tags.getBoolean("ValidStructure"))
+            validStructure = false; // only negative update because we want to do a clientside structure check too
         internalTemp = tags.getInteger("InternalTemp");
         inUse = tags.getBoolean("InUse");
 
