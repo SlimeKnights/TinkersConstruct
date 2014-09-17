@@ -41,6 +41,14 @@ public class ToolMaterial
         this.ability = ability();
     }
 
+    @Deprecated
+    public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style)
+    {
+        this(name, level, durability, speed, damage, handle, reinforced, stonebound, style, 0xFFFFFF);
+        this.displayName = prefixName();
+        this.ability = ability();
+    }
+
     public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, int primaryColor)
     {
         this(name, "material." + name.toLowerCase().replaceAll(" ", ""), level, durability, speed, damage, handle, reinforced, stonebound, style, primaryColor);
