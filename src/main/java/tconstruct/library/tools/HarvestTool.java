@@ -215,39 +215,50 @@ public abstract class HarvestTool extends ToolCore
         return used;
     }
 
-    protected void breakExtraBlock(World world, int x, int y, int z, int sidehit, EntityPlayer player)
-    {
+    protected void breakExtraBlock(World world, int x, int y, int z, int sidehit, EntityPlayer player) {
         // prevent calling that stuff for air blocks, could lead to unexpected behaviour since it fires events
-        if(world.isAirBlock(x,y,z))
+        if (world.isAirBlock(x, y, z))
             return;
 
         // check if the block can be broken, since extra block breaks shouldn't instantly break stuff like obsidian
         // or precious ores you can't harvest while mining stone
-        Block block = world.getBlock(x,y,z);
-        int meta = world.getBlockMetadata(x,y,z);
+        Block block = world.getBlock(x, y, z);
+        int meta = world.getBlockMetadata(x, y, z);
 
         // only effective materials
-        if(!isEffective(block.getMaterial()))
+        if (!isEffective(block.getMaterial()))
             return;
 
         // only harvestable blocks that aren't impossibly slow to harvest
-        if(!ForgeHooks.canHarvestBlock(block, player, meta) || ForgeHooks.blockStrength(block, player, world, x,y,z) <= 0.0001f)
+        if (!ForgeHooks.canHarvestBlock(block, player, meta) || ForgeHooks.blockStrength(block, player, world, x, y, z) <= 0.0001f)
             return;
 
-        // this should only be called on the client
-        if(!world.isRemote) {
-            // serverside we
-            EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
-            mpPlayer.theItemInWorldManager.tryHarvestBlock(x,y,z);
-            // send block update to client
-            mpPlayer.playerNetServerHandler.sendPacket(new S23PacketBlockChange(x, y, z, world));
+        if (player.capabilities.isCreativeMode) {
+            block.onBlockHarvested(world, x, y, z, meta, player);
+            if (block.removedByPlayer(world, player, x, y, z, false))
+                block.onBlockDestroyedByPlayer(world, x, y, z, meta);
+
+            // send update to client
+            if (!world.isRemote) {
+                ((EntityPlayerMP)player).playerNetServerHandler.sendPacket(new S23PacketBlockChange(x, y, z, world));
+            }
             return;
         }
+        // server sided handling
+        if (!world.isRemote) {
+            // serverside we
+            EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
 
-        // and this is the reason why ;o
-        PlayerControllerMP pcmp = Minecraft.getMinecraft().playerController;
-        // clientside we do a "this clock has been clicked on long enough to be broken" call. This should not send any new packets
-        // the code above, executed on the server, sends a block-updates that give us the correct state of the block we destroy.
-        pcmp.onPlayerDestroyBlock(x, y, z, sidehit);
+            mpPlayer.theItemInWorldManager.tryHarvestBlock(x, y, z);
+            // send block update to client
+            mpPlayer.playerNetServerHandler.sendPacket(new S23PacketBlockChange(x, y, z, world));
+        }
+        // client sided handling
+        else {
+            PlayerControllerMP pcmp = Minecraft.getMinecraft().playerController;
+            // clientside we do a "this clock has been clicked on long enough to be broken" call. This should not send any new packets
+            // the code above, executed on the server, sends a block-updates that give us the correct state of the block we destroy.
+            pcmp.onPlayerDestroyBlock(x, y, z, sidehit);
+        }
     }
 }

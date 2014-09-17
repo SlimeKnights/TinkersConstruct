@@ -48,7 +48,7 @@ public abstract class AOEHarvestTool extends HarvestTool {
         }
 
         // the code below initiates block breaks, which again call this function. But we don't want to do the aoe-break-stuff again. This is to prevent recursive, infinite-range aoe blockbreaking.
-        if(originalBlock) {
+        if(originalBlock || player.capabilities.isCreativeMode) {
             antiRecurse = true;
             MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(player.worldObj, player, false, 4.5d);
             if(mop == null)
@@ -89,6 +89,9 @@ public abstract class AOEHarvestTool extends HarvestTool {
 
             antiRecurse = false;
         }
+
+
+
         return super.onBlockStartBreak(stack, x, y, z, player);
     }
 
