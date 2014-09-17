@@ -5,7 +5,9 @@ import java.util.List;
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
@@ -223,112 +225,192 @@ public class Hammer extends HarvestTool
         list.add(tool);
     }
 
-    @Override
-    public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
-    {
-        if (!stack.hasTagCompound())
-            return false;
+    //@Override
+    public boolean onBlockDestroyed2(ItemStack itemstack, World world, Block block, int x, int y, int z, EntityLivingBase player) {
+        int sideHit = Minecraft.getMinecraft().objectMouseOver.sideHit;
 
-        World world = player.worldObj;
-        final Block block = world.getBlock(x, y, z);
-        final int meta = world.getBlockMetadata(x, y, z);
-        if (!stack.hasTagCompound())
-            return false;
-
-        if (block == null)
-            return super.onBlockStartBreak(stack, x, y, z, player);
-
-        float blockHardness = block.getBlockHardness(world, x, y, z);
-
-        boolean validStart = false;
-        for (int iter = 0; iter < materials.length; iter++)
-        {
-            if (materials[iter] == block.getMaterial())
-            {
-                validStart = true;
-                break;
-            }
-        }
-
-        if (block == Blocks.monster_egg)
-            validStart = true;
-
-        MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(world, player, false, 4.5D);
-        if (mop == null || !validStart)
-            return super.onBlockStartBreak(stack, x, y, z, player);
-
+        // we successfully destroyed a block. time to do AOE!
         int xRange = 1;
         int yRange = 1;
         int zRange = 1;
-        switch (mop.sideHit)
+        switch (sideHit)
         {
-        case 0:
-        case 1:
-            yRange = 0;
-            break;
-        case 2:
-        case 3:
-            zRange = 0;
-            break;
-        case 4:
-        case 5:
-            xRange = 0;
-            break;
+            case 0:
+            case 1:
+                yRange = 0;
+                break;
+            case 2:
+            case 3:
+                zRange = 0;
+                break;
+            case 4:
+            case 5:
+                xRange = 0;
+                break;
         }
 
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-        int toolLevel = tags.getInteger("HarvestLevel");
         for (int xPos = x - xRange; xPos <= x + xRange; xPos++)
-        {
             for (int yPos = y - yRange; yPos <= y + yRange; yPos++)
+                for (int zPos = z - zRange; zPos <= z + zRange; zPos++) {
+                    // don't break the originally already broken block, duh
+                    if(xPos == x && yPos == y && zPos == z)
+                        continue;
+                    breakExtraBlock(world, xPos, yPos, zPos, sideHit, (EntityPlayer)player); // no player needed because it's local
+                }
+
+        return super.onBlockDestroyed(itemstack, world, block, x,y,z, player);
+    }
+
+
+    boolean antiRecurse;
+
+    @Override
+    public boolean onBlockStartBreak(ItemStack stack, int x, int y, int z, EntityPlayer player) {
+        // the code below initiates block breaks, which again call this function. But we don't want to do the aoe-break-stuff again. This is to prevent recursive, infinite-range aoe blockbreaking.
+        if(!antiRecurse) {
+            antiRecurse = true;
+            int sideHit = Minecraft.getMinecraft().objectMouseOver.sideHit;
+
+            // we successfully destroyed a block. time to do AOE!
+            int xRange = 1;
+            int yRange = 1;
+            int zRange = 1;
+            switch (sideHit) {
+                case 0:
+                case 1:
+                    yRange = 0;
+                    break;
+                case 2:
+                case 3:
+                    zRange = 0;
+                    break;
+                case 4:
+                case 5:
+                    xRange = 0;
+                    break;
+            }
+
+            for (int xPos = x - xRange; xPos <= x + xRange; xPos++)
+                for (int yPos = y - yRange; yPos <= y + yRange; yPos++)
+                    for (int zPos = z - zRange; zPos <= z + zRange; zPos++) {
+                        // don't break the originally already broken block, duh
+                        if (xPos == x && yPos == y && zPos == z)
+                            continue;
+                        breakExtraBlock(player.worldObj, xPos, yPos, zPos, sideHit, player);
+                    }
+            antiRecurse = false;
+        }
+        return super.onBlockStartBreak(stack, x, y, z, player);
+    }
+
+    /*
+        @Override
+        public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
+        {
+            if (!stack.hasTagCompound())
+                return false;
+
+            World world = player.worldObj;
+            final Block block = world.getBlock(x, y, z);
+            final int meta = world.getBlockMetadata(x, y, z);
+            if (!stack.hasTagCompound())
+                return false;
+
+            if (block == null)
+                return super.onBlockStartBreak(stack, x, y, z, player);
+
+            float blockHardness = block.getBlockHardness(world, x, y, z);
+
+            boolean validStart = false;
+            for (int iter = 0; iter < materials.length; iter++)
             {
-                for (int zPos = z - zRange; zPos <= z + zRange; zPos++)
+                if (materials[iter] == block.getMaterial())
                 {
-                    if (!(tags.getBoolean("Broken")))
+                    validStart = true;
+                    break;
+                }
+            }
+
+            if (block == Blocks.monster_egg)
+                validStart = true;
+
+            MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(world, player, false, 4.5D);
+            if (mop == null || !validStart)
+                return super.onBlockStartBreak(stack, x, y, z, player);
+
+            int xRange = 1;
+            int yRange = 1;
+            int zRange = 1;
+            switch (mop.sideHit)
+            {
+            case 0:
+            case 1:
+                yRange = 0;
+                break;
+            case 2:
+            case 3:
+                zRange = 0;
+                break;
+            case 4:
+            case 5:
+                xRange = 0;
+                break;
+            }
+
+            NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+            int toolLevel = tags.getInteger("HarvestLevel");
+            for (int xPos = x - xRange; xPos <= x + xRange; xPos++)
+            {
+                for (int yPos = y - yRange; yPos <= y + yRange; yPos++)
+                {
+                    for (int zPos = z - zRange; zPos <= z + zRange; zPos++)
                     {
-                        Block localBlock = world.getBlock(xPos, yPos, zPos);
-                        int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
-                        int hlvl = -1;
-                        if (localBlock.getHarvestTool(localMeta) != null && localBlock.getHarvestTool(localMeta).equals(this.getHarvestType()))
-                            hlvl = localBlock.getHarvestLevel(localMeta);
-                        float localHardness = localBlock.getBlockHardness(world, xPos, yPos, zPos);
-
-                        //Choose blocks that aren't too much harder than the first block. Stone: 2.0, Ores: 3.0
-                        if (hlvl <= toolLevel && localHardness - 1.5 <= blockHardness)
+                        if (!(tags.getBoolean("Broken")))
                         {
-                            boolean cancelHarvest = false;
-                            for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
-                            {
-                                if (mod.beforeBlockBreak(this, stack, xPos, yPos, zPos, player))
-                                    cancelHarvest = true;
-                            }
+                            Block localBlock = world.getBlock(xPos, yPos, zPos);
+                            int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
+                            int hlvl = -1;
+                            if (localBlock.getHarvestTool(localMeta) != null && localBlock.getHarvestTool(localMeta).equals(this.getHarvestType()))
+                                hlvl = localBlock.getHarvestLevel(localMeta);
+                            float localHardness = localBlock.getBlockHardness(world, xPos, yPos, zPos);
 
-                            // send blockbreak event
-                            BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(x, y, z, world, localBlock, localMeta, player);
-                            event.setCanceled(cancelHarvest);
-                            MinecraftForge.EVENT_BUS.post(event);
-                            cancelHarvest = event.isCanceled();
-
-                            if (!cancelHarvest)
+                            //Choose blocks that aren't too much harder than the first block. Stone: 2.0, Ores: 3.0
+                            if (hlvl <= toolLevel && localHardness - 1.5 <= blockHardness)
                             {
-                                if (localBlock != null && !(localHardness < 0))
+                                boolean cancelHarvest = false;
+                                for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
                                 {
-                                    for (int iter = 0; iter < materials.length; iter++)
-                                    {
-                                        if (materials[iter] == localBlock.getMaterial() || localBlock == Blocks.monster_egg)
-                                        {
-                                            if (!player.capabilities.isCreativeMode)
-                                            {
-                                                mineBlock(world, xPos, yPos, zPos, localMeta, player, localBlock);
+                                    if (mod.beforeBlockBreak(this, stack, xPos, yPos, zPos, player))
+                                        cancelHarvest = true;
+                                }
 
-                                                if (blockHardness > 0f)
-                                                    onBlockDestroyed(stack, world, localBlock, xPos, yPos, zPos, player);
-                                                world.func_147479_m(x, y, z);
-                                            }
-                                            else
+                                // send blockbreak event
+                                BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(x, y, z, world, localBlock, localMeta, player);
+                                event.setCanceled(cancelHarvest);
+                                MinecraftForge.EVENT_BUS.post(event);
+                                cancelHarvest = event.isCanceled();
+
+                                if (!cancelHarvest)
+                                {
+                                    if (localBlock != null && !(localHardness < 0))
+                                    {
+                                        for (int iter = 0; iter < materials.length; iter++)
+                                        {
+                                            if (materials[iter] == localBlock.getMaterial() || localBlock == Blocks.monster_egg)
                                             {
-                                                WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
-                                                world.func_147479_m(x, y, z);
+                                                if (!player.capabilities.isCreativeMode)
+                                                {
+                                                    mineBlock(world, xPos, yPos, zPos, localMeta, player, localBlock);
+
+                                                    if (blockHardness > 0f)
+                                                        onBlockDestroyed(stack, world, localBlock, xPos, yPos, zPos, player);
+                                                    world.func_147479_m(x, y, z);
+                                                }
+                                                else
+                                                {
+                                                    WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
+                                                    world.func_147479_m(x, y, z);
+                                                }
                                             }
                                         }
                                     }
@@ -338,12 +420,11 @@ public class Hammer extends HarvestTool
                     }
                 }
             }
+            if (!world.isRemote)
+                world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
+            return true;
         }
-        if (!world.isRemote)
-            world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
-        return true;
-    }
-
+    */
     @Override
     public float breakSpeedModifier ()
     {

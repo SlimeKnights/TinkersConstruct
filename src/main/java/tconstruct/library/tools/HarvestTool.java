@@ -5,19 +5,24 @@ import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetHandler;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
+import net.minecraft.network.play.server.S23PacketBlockChange;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent;
 import tconstruct.TConstruct;
 import tconstruct.library.*;
+import tconstruct.util.network.AOEBlockBreakProgressPacket;
+import tconstruct.util.network.PacketPipeline;
 
 /* Base class for tools that should be harvesting blocks */
 
@@ -219,6 +224,32 @@ public abstract class HarvestTool extends ToolCore
         return used;
     }
 
+    protected void breakExtraBlock(World world, int x, int y, int z, int sidehit, EntityPlayer player)
+    {
+        // prevent calling that stuff for air blocks, could lead to unexpected behaviour since it fires events
+        if(world.isAirBlock(x,y,z))
+            return;
+
+        // check if the block can be broken, since extra block breaks shouldn't instantly break stuff like obsidian
+        // or precious ores you can't harvest while mining stone
+
+        // this should only be called on the client
+        if(!world.isRemote) {
+            // serverside we
+            EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
+            mpPlayer.theItemInWorldManager.tryHarvestBlock(x,y,z);
+            // send block update to client
+            mpPlayer.playerNetServerHandler.sendPacket(new S23PacketBlockChange(x, y, z, world));
+            return;
+        }
+
+        // and this is the reason why ;o
+        PlayerControllerMP pcmp = Minecraft.getMinecraft().playerController;
+        // clientside we do a "this clock has been clicked on long enough to be broken" call. This should not send any new packets
+        // the code above, executed on the server, sends a block-updates that give us the correct state of the block we destroy.
+        pcmp.onPlayerDestroyBlock(x, y, z, sidehit);
+    }
+
     // The Scythe is not a HarvestTool and can't call this method, if you change something here you might change it there too.
     public void mineBlock (World world, int x, int y, int z, int meta, EntityPlayer player, Block block)
     {
@@ -237,7 +268,7 @@ public abstract class HarvestTool extends ToolCore
             if (!silktouch)
                 block.dropXpOnBlockBreak(world, x, y, z, exp);
 
-            /*
+
             if (world.isRemote)
             {
                 INetHandler handler = FMLClientHandler.instance().getClientPlayHandler();
@@ -248,7 +279,7 @@ public abstract class HarvestTool extends ToolCore
                     handlerClient.addToSendQueue(new C07PacketPlayerDigging(2, x, y, z, Minecraft.getMinecraft().objectMouseOver.sideHit));
                 }
             }
-            */
+
         }
     }
 }
