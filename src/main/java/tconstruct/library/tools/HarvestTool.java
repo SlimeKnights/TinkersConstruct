@@ -250,37 +250,4 @@ public abstract class HarvestTool extends ToolCore
         // the code above, executed on the server, sends a block-updates that give us the correct state of the block we destroy.
         pcmp.onPlayerDestroyBlock(x, y, z, sidehit);
     }
-
-    // The Scythe is not a HarvestTool and can't call this method, if you change something here you might change it there too.
-    public void mineBlock (World world, int x, int y, int z, int meta, EntityPlayer player, Block block)
-    {
-        TConstruct.logger.info("CCCCC: " + world.isRemote);
-        // Workaround for dropping experience
-        boolean silktouch = EnchantmentHelper.getSilkTouchModifier(player);
-        int fortune = EnchantmentHelper.getFortuneModifier(player);
-        int exp = block.getExpDrop(world, meta, fortune);
-
-        block.onBlockHarvested(world, x, y, z, meta, player);
-        if (block.removedByPlayer(world, player, x, y, z, true))
-        {
-            block.onBlockDestroyedByPlayer(world, x, y, z, meta);
-            block.harvestBlock(world, player, x, y, z, meta);
-            // Workaround for dropping experience
-            if (!silktouch)
-                block.dropXpOnBlockBreak(world, x, y, z, exp);
-
-
-            if (world.isRemote)
-            {
-                INetHandler handler = FMLClientHandler.instance().getClientPlayHandler();
-                if (handler != null && handler instanceof NetHandlerPlayClient)
-                {
-                    NetHandlerPlayClient handlerClient = (NetHandlerPlayClient) handler;
-                    handlerClient.addToSendQueue(new C07PacketPlayerDigging(0, x, y, z, Minecraft.getMinecraft().objectMouseOver.sideHit));
-                    handlerClient.addToSendQueue(new C07PacketPlayerDigging(2, x, y, z, Minecraft.getMinecraft().objectMouseOver.sideHit));
-                }
-            }
-
-        }
-    }
 }

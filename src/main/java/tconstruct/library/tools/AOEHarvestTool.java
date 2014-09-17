@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.management.ItemInWorldManager;
+import net.minecraft.util.MovingObjectPosition;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -49,7 +50,11 @@ public abstract class AOEHarvestTool extends HarvestTool {
         // the code below initiates block breaks, which again call this function. But we don't want to do the aoe-break-stuff again. This is to prevent recursive, infinite-range aoe blockbreaking.
         if(originalBlock) {
             antiRecurse = true;
-            int sideHit = Minecraft.getMinecraft().objectMouseOver.sideHit;
+            MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(player.worldObj, player, false, 4.5d);
+            if(mop == null)
+                return super.onBlockStartBreak(stack, x,y,z, player);
+            int sideHit = mop.sideHit;
+            //int sideHit = Minecraft.getMinecraft().objectMouseOver.sideHit;
 
             // we successfully destroyed a block. time to do AOE!
             int xRange = breakRadius;

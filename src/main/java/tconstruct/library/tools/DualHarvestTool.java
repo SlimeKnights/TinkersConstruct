@@ -20,49 +20,33 @@ public abstract class DualHarvestTool extends HarvestTool
     }
 
     @Override
-    public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
-    {
+    public int getHarvestLevel(ItemStack stack, String toolClass) {
+        // well, we can only get the harvestlevel if we have an item to get it from!
+        if(stack == null || !(stack.getItem() instanceof HarvestTool))
+            return -1;
+        // invalid query or wrong toolclass
+        if(toolClass == null)
+            return -1;
+
+        if(!stack.hasTagCompound())
+            return -1;
+
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-        World world = player.worldObj;
-        int meta = world.getBlockMetadata(x, y, z);
-        Block block = player.worldObj.getBlock(x, y, z);
-        if (block == null || block == Blocks.air)
-            return false;
-        int hlvl = -1;
-        int shlvl = -1;
-        if (block.getHarvestTool(meta) == null || block.getHarvestTool(meta).equals(getHarvestType()))
-            hlvl = block.getHarvestLevel(meta);
-        if (block.getHarvestTool(meta) == null || block.getHarvestTool(meta).equals(getSecondHarvestType()))
-            shlvl = block.getHarvestLevel(meta);
+        // broken tools suck.
+        if (tags.getBoolean("Broken"))
+            return -1;
 
-        if (hlvl <= tags.getInteger("HarvestLevel") && shlvl <= tags.getInteger("HarvestLevel2"))
-        {
-            boolean cancelHarvest = false;
-            for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
-            {
-                if (mod.beforeBlockBreak(this, stack, x, y, z, player))
-                    cancelHarvest = true;
-            }
+        if(this.getHarvestType().equals(toolClass))
+            return tags.getInteger("HarvestLevel");
+        else if(this.getSecondHarvestType().equals(toolClass))
+            return tags.getInteger("HarvestLevel2");
 
-            return cancelHarvest;
-        }
-        else
-        {
-            if (!player.capabilities.isCreativeMode)
-            {
-                mineBlock(world, x, y, z, meta, player, block);
-            }
-            WorldHelper.setBlockToAir(world, x, y, z);
-            if (!world.isRemote)
-                world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
-            return true;
-        }
+        return -1;
     }
 
     @Override
     public float getDigSpeed (ItemStack stack, Block block, int meta)
     {
-
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         if (tags.getBoolean("Broken"))
             return 0.1f;
