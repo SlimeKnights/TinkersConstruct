@@ -248,7 +248,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     @Override
     public void setActive (boolean flag)
     {
-        needsUpdate = true;
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
@@ -721,8 +720,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     @Override
     public void markDirty ()
     {
-        updateTemperatures();
         updateEntity();
+        updateTemperatures();
 
         super.markDirty();
         needsUpdate = true;
@@ -877,13 +876,15 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     activeLavaTank = lavaTanks.get(0);
 
                 // update other stuff
-                adjustLayers(checkLayers, false);
+                adjustLayers(checkLayers, true);
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 validStructure = true;
             }
             else
             {
                 internalTemp = 20;
+                if(validStructure)
+                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 validStructure = false;
             }
         }
@@ -1190,8 +1191,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         inventory = new ItemStack[maxBlockCapacity];
         super.readFromNBT(tags);
 
-        if(!tags.getBoolean("ValidStructure"))
-            validStructure = false; // only negative update because we want to do a clientside structure check too
         internalTemp = tags.getInteger("InternalTemp");
         inUse = tags.getBoolean("InUse");
 
@@ -1212,6 +1211,15 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             if (fluid != null)
                 moltenMetal.add(fluid);
         }
+
+        if(maxBlockCapacity != meltingTemps.length)
+            adjustLayers(layers, true);
+
+        if(!tags.getBoolean("ValidStructure"))
+            validStructure = false; // only negative update because we want to do a clientside structure check too
+        else if(!validStructure)
+            checkValidPlacement();
+
         // adjustLayers(layers, true);
         // checkValidPlacement();
     }
