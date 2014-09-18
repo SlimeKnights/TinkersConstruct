@@ -885,7 +885,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             {
                 internalTemp = 20;
                 validStructure = false;
-                setActive(false);
             }
         }
     }
