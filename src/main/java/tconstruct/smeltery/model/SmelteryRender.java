@@ -112,6 +112,9 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
         for (int x = from.x; x <= to.x; x++)
             for (int z = from.z; z <= to.z; z++)
             {
+                // safety because of changes.
+                if(i > logic.getSizeInventory())
+                    return;
                 ItemStack input = logic.getStackInSlot(i);
                 if (input != null && logic.getTempForSlot(i) > 20)
                 {
