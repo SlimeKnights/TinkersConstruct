@@ -29,24 +29,18 @@ public class ToolMaterial
     public ToolMaterial(String name, String displayName, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, String ability)
     {
         this(name, level, durability, speed, damage, handle, reinforced, stonebound, style, 0xFFFFFF);
-        this.displayName = prefixName();
-        this.ability = ability();
     }
 
     @Deprecated
     public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, String ability)
     {
         this(name, level, durability, speed, damage, handle, reinforced, stonebound, style, 0xFFFFFF);
-        this.displayName = prefixName();
-        this.ability = ability();
     }
 
     @Deprecated
     public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style)
     {
         this(name, level, durability, speed, damage, handle, reinforced, stonebound, style, 0xFFFFFF);
-        this.displayName = prefixName();
-        this.ability = ability();
     }
 
     public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, int primaryColor)
@@ -68,6 +62,9 @@ public class ToolMaterial
         this.primaryColor = primaryColor;
 
         this.localizationString = localizationString;
+
+        this.displayName = prefixName();
+        this.ability = ability();
     }
 
     public String name ()
