@@ -1252,7 +1252,7 @@ public class TinkerSmeltery
     {
         for (ItemStack ore : OreDictionary.getOres(name))
         {
-            TConstructRegistry.getBasinCasting().addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, TConstruct.ingotLiquidValue), 100);
+            TConstructRegistry.getBasinCasting().addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, TConstruct.blockLiquidValue), 100);
         }
     }
 
@@ -1265,10 +1265,13 @@ public class TinkerSmeltery
             GameRegistry.addShapelessRecipe(new ItemStack(TinkerTools.craftedSoil, 2, 6), Items.nether_wart, taintedSoil, heatSand);
 
         ItemStack ingotcast = new ItemStack(TinkerSmeltery.metalPattern, 1, 0);
-        LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
-        LiquidCasting basinCasting = TConstructRegistry.instance.getBasinCasting();
+        LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
+        LiquidCasting basinCasting = TConstructRegistry.getBasinCasting();
+        ArrayList<ItemStack> ores;
 
+        // TE is handled by the oredicted variant already
         /* Thermal Expansion 3 Metals */
+        /*
         ArrayList<ItemStack> ores = OreDictionary.getOres("ingotNickel");
         if (ores.size() > 0)
         {
@@ -1332,7 +1335,7 @@ public class TinkerSmeltery
         {
             basinCasting.addCastingRecipe(ores.get(0), new FluidStack(TinkerSmeltery.moltenElectrumFluid, TConstruct.blockLiquidValue), null, 100);
         }
-
+*/
         /* Extra Utilities */
         ores = OreDictionary.getOres("compressedGravel1x");
         if (ores.size() > 0)
