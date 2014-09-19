@@ -720,8 +720,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     @Override
     public void markDirty ()
     {
-        updateEntity();
         updateTemperatures();
+        updateEntity();
 
         super.markDirty();
         needsUpdate = true;
@@ -1212,12 +1212,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 moltenMetal.add(fluid);
         }
 
-        if(maxBlockCapacity != meltingTemps.length)
-            adjustLayers(layers, true);
+        //if(maxBlockCapacity != meltingTemps.length)
+          //  adjustLayers(layers, true);
 
         if(!tags.getBoolean("ValidStructure"))
             validStructure = false; // only negative update because we want to do a clientside structure check too
-        else if(!validStructure)
+        else if(!validStructure && worldObj != null) // if the worldobj is null it happens on loading of a world. check shouldn't be done there
             checkValidPlacement();
 
         // adjustLayers(layers, true);
