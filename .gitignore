@@ -26,11 +26,10 @@ gradle-app.setting
 #manual version override
 version.properties
 #eclipse stuffs
-#eclipse stuffs
 /.classpath
 /.project
 /.settings/
-/eclipse/.metadata/
+/eclipse/
 /debug/
 *.lock
 /.metadata/
