@@ -97,7 +97,8 @@ public class TConstructRegistry
      * ingot, toolRod, pickaxeHead, shovelHead, hatchetHead, swordBlade,
      * wideGuard, handGuard, crossbar, binding, frypanHead, signHead,
      * knifeBlade, chiselHead, toughRod, toughBinding, largePlate, broadAxeHead,
-     * scytheHead, excavatorHead, largeBlade, hammerHead, fullGuard, bowstring
+     * scytheHead, excavatorHead, largeBlade, hammerHead, fullGuard, bowString,
+     * fletching, arrowHead
      */
     static HashMap<String, ItemStack> itemstackDirectory = new HashMap<String, ItemStack>();
 
