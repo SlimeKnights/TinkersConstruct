@@ -1,4 +1,4 @@
-package tconstruct.smeltery.nei;
+package tconstruct.plugins.nei;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -13,7 +13,6 @@ import tconstruct.library.crafting.AlloyMix;
 import tconstruct.library.crafting.Smeltery;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
 
 public class RecipeHandlerAlloying extends RecipeHandlerBase
 {
@@ -105,7 +104,7 @@ public class RecipeHandlerAlloying extends RecipeHandlerBase
     @Override
     public void loadTransferRects ()
     {
-        this.transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(new Rectangle(76, 21, 22, 15), this.getRecipeID(), new Object[0]));
+        this.transferRects.add(new RecipeTransferRect(new Rectangle(76, 21, 22, 15), this.getRecipeID(), new Object[0]));
     }
 
     @Override

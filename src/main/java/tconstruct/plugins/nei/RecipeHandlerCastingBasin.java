@@ -1,4 +1,4 @@
-package tconstruct.smeltery.nei;
+package tconstruct.plugins.nei;
 
 import java.util.ArrayList;
 import java.util.List;

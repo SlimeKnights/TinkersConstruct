@@ -1,4 +1,4 @@
-package tconstruct.smeltery.nei;
+package tconstruct.plugins.nei;
 
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -32,7 +32,10 @@ public abstract class RecipeHandlerBase extends TemplateRecipeHandler
 
     public abstract class CachedBaseRecipe extends CachedRecipe
     {
-        public abstract List<FluidTankElement> getFluidTanks ();
+        public List<FluidTankElement> getFluidTanks ()
+        {
+            return null;
+        }
     }
 
     public abstract String getRecipeID ();
@@ -122,11 +125,15 @@ public abstract class RecipeHandlerBase extends TemplateRecipeHandler
             Point mouse = GuiDraw.getMousePosition();
             Point offset = guiRecipe.getRecipePosition(recipe);
             Point relMouse = new Point(mouse.x - ((guiRecipe.width - 176) / 2) - offset.x, mouse.y - ((guiRecipe.height - 166) / 2) - offset.y);
-            for (FluidTankElement tank : crecipe.getFluidTanks())
+
+            if (crecipe.getFluidTanks() != null)
             {
-                if (tank.position.contains(relMouse))
+                for (FluidTankElement tank : crecipe.getFluidTanks())
                 {
-                    tank.handleTooltip(currenttip);
+                    if (tank.position.contains(relMouse))
+                    {
+                        tank.handleTooltip(currenttip);
+                    }
                 }
             }
         }
@@ -179,27 +186,31 @@ public abstract class RecipeHandlerBase extends TemplateRecipeHandler
         Point mousepos = GuiDraw.getMousePosition();
         Point offset = guiRecipe.getRecipePosition(recipe);
         Point relMouse = new Point(mousepos.x - ((guiRecipe.width - 176) / 2) - offset.x, mousepos.y - ((guiRecipe.height - 166) / 2) - offset.y);
-        for (FluidTankElement tank : crecipe.getFluidTanks())
+
+        if (crecipe.getFluidTanks() != null)
         {
-            if (tank.position.contains(relMouse))
+            for (FluidTankElement tank : crecipe.getFluidTanks())
             {
-                if ((tank.fluid != null) && tank.fluid.amount > 0)
+                if (tank.position.contains(relMouse))
                 {
-                    if (usage)
+                    if ((tank.fluid != null) && tank.fluid.amount > 0)
                     {
-                        if (!GuiUsageRecipe.openRecipeGui("liquid", new Object[] { tank.fluid }))
+                        if (usage)
                         {
-                            return false;
+                            if (!GuiUsageRecipe.openRecipeGui("liquid", new Object[] { tank.fluid }))
+                            {
+                                return false;
+                            }
                         }
-                    }
-                    else
-                    {
-                        if (!GuiCraftingRecipe.openRecipeGui("liquid", new Object[] { tank.fluid }))
+                        else
                         {
-                            return false;
+                            if (!GuiCraftingRecipe.openRecipeGui("liquid", new Object[] { tank.fluid }))
+                            {
+                                return false;
+                            }
                         }
+                        return true;
                     }
-                    return true;
                 }
             }
         }
@@ -210,9 +221,12 @@ public abstract class RecipeHandlerBase extends TemplateRecipeHandler
     public void drawFluidTanks (int recipe)
     {
         CachedBaseRecipe crecipe = (CachedBaseRecipe) this.arecipes.get(recipe);
-        for (FluidTankElement fluidTank : crecipe.getFluidTanks())
+        if (crecipe.getFluidTanks() != null)
         {
-            fluidTank.draw();
+            for (FluidTankElement fluidTank : crecipe.getFluidTanks())
+            {
+                fluidTank.draw();
+            }
         }
     }
 
