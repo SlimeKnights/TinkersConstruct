@@ -1,4 +1,4 @@
-package tconstruct.smeltery.nei;
+package tconstruct.plugins.nei;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;

@@ -1,42 +1,65 @@
 package tconstruct;
 
-import cpw.mods.fml.common.*;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.event.*;
-import cpw.mods.fml.common.network.*;
-import cpw.mods.fml.common.registry.*;
-import cpw.mods.fml.relauncher.Side;
-import java.util.*;
+import java.util.Map;
+import java.util.Random;
+
 import mantle.pulsar.config.ForgeCFG;
 import mantle.pulsar.control.PulseManager;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
-import org.apache.logging.log4j.*;
-import tconstruct.achievements.*;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import tconstruct.achievements.AchievementEvents;
+import tconstruct.achievements.TAchievements;
 import tconstruct.api.TConstructAPI;
 import tconstruct.armor.TinkerArmor;
-import tconstruct.armor.player.*;
+import tconstruct.armor.player.TPlayerHandler;
+import tconstruct.armor.player.TPlayerStats;
 import tconstruct.common.TProxyCommon;
-import tconstruct.library.*;
-import tconstruct.library.crafting.*;
+import tconstruct.library.TConstructCreativeTab;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.crafting.Detailing;
+import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.mechworks.TinkerMechworks;
 import tconstruct.mechworks.landmine.behavior.Behavior;
 import tconstruct.mechworks.landmine.behavior.stackCombo.SpecialStackHandler;
 import tconstruct.plugins.ic2.TinkerIC2;
-import tconstruct.plugins.imc.*;
+import tconstruct.plugins.imc.TinkerAE2;
+import tconstruct.plugins.imc.TinkerBuildCraft;
+import tconstruct.plugins.imc.TinkerMystcraft;
+import tconstruct.plugins.imc.TinkerThaumcraft;
 import tconstruct.plugins.mfr.TinkerMFR;
-import tconstruct.plugins.nei.TinkerNEI;
 import tconstruct.plugins.te4.TinkerTE4;
 import tconstruct.plugins.waila.TinkerWaila;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.EnvironmentChecks;
-import tconstruct.util.config.*;
+import tconstruct.util.config.DimensionBlacklist;
+import tconstruct.util.config.PHConstruct;
 import tconstruct.util.network.PacketPipeline;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.gen.SlimeIslandGen;
-import tconstruct.world.village.*;
+import tconstruct.world.village.ComponentSmeltery;
+import tconstruct.world.village.ComponentToolWorkshop;
+import tconstruct.world.village.TVillageTrades;
+import tconstruct.world.village.VillageSmelteryHandler;
+import tconstruct.world.village.VillageToolStationHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkCheckHandler;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.VillagerRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 /**
  * TConstruct, the tool mod. Craft your tools with style, then modify until the
@@ -45,7 +68,8 @@ import tconstruct.world.village.*;
  * @author mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "${version}", dependencies = "required-after:Forge@[10.13,);required-after:Mantle;after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "${version}",
+        dependencies = "required-after:Forge@[10.13,);required-after:Mantle;after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion")
 public class TConstruct
 {
     public static final String modVersion = "${version}";
@@ -104,7 +128,6 @@ public class TConstruct
         pulsar.registerPulse(new TinkerSmeltery());
         pulsar.registerPulse(new TinkerMechworks());
         pulsar.registerPulse(new TinkerArmor());
-        pulsar.registerPulse(new TinkerNEI());
         pulsar.registerPulse(new TinkerThaumcraft());
         pulsar.registerPulse(new TinkerWaila());
         pulsar.registerPulse(new TinkerBuildCraft());
