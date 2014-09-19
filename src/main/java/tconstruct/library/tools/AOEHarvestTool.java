@@ -30,7 +30,8 @@ public abstract class AOEHarvestTool extends HarvestTool {
     public boolean onBlockStartBreak(ItemStack stack, int x, int y, int z, EntityPlayer player) {
         // only effective materials matter. We don't want to aoe when beraking dirt with a hammer.
         Block block = player.worldObj.getBlock(x,y,z);
-        if(block == null || !isEffective(block.getMaterial()))
+        int meta = player.worldObj.getBlockMetadata(x,y,z);
+        if(block == null || !isEffective(block, meta))
             return super.onBlockStartBreak(stack, x,y,z, player);
 
         boolean originalBlock = true;

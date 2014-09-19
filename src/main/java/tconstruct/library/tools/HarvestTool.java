@@ -62,20 +62,9 @@ public abstract class HarvestTool extends ToolCore
         if (tags.getBoolean("Broken"))
             return 0.1f;
 
-        Material[] materials = getEffectiveMaterials();
-        for (int i = 0; i < materials.length; i++)
-        {
-            if (materials[i] == block.getMaterial())
-            {
-                return calculateStrength(tags, block, meta);
-            }
-        }
-        if (this.getHarvestType().equals(block.getHarvestTool(meta)) && block.getHarvestLevel(meta) > 0)
-        {
-            return calculateStrength(tags, block, meta); // No issue if the
-                                                         // harvest level is
-                                                         // too low
-        }
+        if(isEffective(block, meta))
+            return calculateStrength(tags, block, meta);
+
         return super.getDigSpeed(stack, block, meta);
     }
 
@@ -124,6 +113,14 @@ public abstract class HarvestTool extends ToolCore
     protected abstract Material[] getEffectiveMaterials ();
 
     protected abstract String getHarvestType ();
+
+    public boolean isEffective (Block block, int meta)
+    {
+        if(this.getHarvestType().equals(block.getHarvestTool(meta)))
+            return true;
+
+        else return isEffective(block.getMaterial());
+    }
 
     public boolean isEffective (Material material)
     {
@@ -226,7 +223,7 @@ public abstract class HarvestTool extends ToolCore
         int meta = world.getBlockMetadata(x, y, z);
 
         // only effective materials
-        if (!isEffective(block.getMaterial()))
+        if (!isEffective(block, meta))
             return;
 
         // only harvestable blocks that aren't impossibly slow to harvest
