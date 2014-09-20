@@ -729,7 +729,14 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
     }
 
     /* Proper stack damage */
-    public int getItemMaxDamageFromStack (ItemStack stack)
+    @Override
+    public boolean showDurabilityBar(ItemStack stack) {
+        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        return !tags.getBoolean("Broken") && getDamage(stack) > 0;
+    }
+
+    @Override
+    public int getMaxDamage (ItemStack stack)
     {
         NBTTagCompound tags = stack.getTagCompound();
         if (tags == null)
@@ -745,8 +752,8 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         return tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
     }
 
-    public int getItemDamageFromStackForDisplay (ItemStack stack)
-    {
+    @Override
+    public int getDamage(ItemStack stack) {
         NBTTagCompound tags = stack.getTagCompound();
         if (tags == null)
         {
@@ -755,10 +762,21 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         if (tags.hasKey("Energy"))
         {
             int energy = tags.getInteger("Energy");
-            if (energy > 0)
+            if(energy > 0)
                 return getMaxEnergyStored(stack) - energy;
         }
         return tags.getCompoundTag("InfiTool").getInteger("Damage");
+    }
+
+    @Override
+    public int getDisplayDamage(ItemStack stack) {
+        return getDamage(stack);
+    }
+
+
+    @Override
+    public void setDamage(ItemStack stack, int damage) {
+        AbilityHelper.damageTool(stack, damage - stack.getItemDamage(), null, false);
     }
 
     /* Prevent tools from dying */
@@ -797,7 +815,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         {
             energy += energyReceived;
             tags.setInteger("Energy", energy);
-            container.setItemDamage(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 2) / getMaxEnergyStored(container));
+            //container.setItemDamage(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 2) / getMaxEnergyStored(container));
         }
         return energyReceived;
     }
@@ -820,7 +838,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         {
             energy -= energyExtracted;
             tags.setInteger("Energy", energy);
-            container.setItemDamage(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 1) / getMaxEnergyStored(container));
+            //container.setItemDamage(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 1) / getMaxEnergyStored(container));
         }
         return energyExtracted;
     }

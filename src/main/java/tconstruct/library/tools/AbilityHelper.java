@@ -347,14 +347,14 @@ public class AbilityHelper
             if (damageTrue <= 0)
             {
                 tags.getCompoundTag("InfiTool").setInteger("Damage", 0);
-                stack.setItemDamage(0);
+                //stack.setItemDamage(0);
                 tags.getCompoundTag("InfiTool").setBoolean("Broken", false);
             }
 
             else if (damageTrue > maxDamage)
             {
                 breakTool(stack, tags, entity);
-                stack.setItemDamage(0);
+                //stack.setItemDamage(0);
             }
 
             else
@@ -364,7 +364,7 @@ public class AbilityHelper
                 int stackDamage = stack.getItemDamage();
                 if (toolDamage != stackDamage)
                 {
-                    stack.setItemDamage((damage * 100 / maxDamage) + 1);
+                    //stack.setItemDamage((damage * 100 / maxDamage) + 1);
                 }
             }
         }
@@ -425,7 +425,7 @@ public class AbilityHelper
             energy -= trueSpeed * 2;
             tags.setInteger("Energy", energy);
 
-            stack.setItemDamage(1 + (tool.getMaxEnergyStored(stack) - energy) * (stack.getMaxDamage() - 1) / tool.getMaxEnergyStored(stack));
+            //stack.setItemDamage(1 + (tool.getMaxEnergyStored(stack) - energy) * (stack.getMaxDamage() - 1) / tool.getMaxEnergyStored(stack));
         }
         return true;
     }
@@ -521,7 +521,8 @@ public class AbilityHelper
 
             if (event.getResult() == Result.ALLOW)
             {
-                damageTool(stack, 1, player, false);
+                stack.damageItem(1, player);
+                //damageTool(stack, 1, player, false);
                 return true;
             }
 
@@ -539,7 +540,8 @@ public class AbilityHelper
                 else
                 {
                     world.setBlock(x, y, z, block1);
-                    damageTool(stack, 1, player, false);
+                    stack.damageItem(1, player);
+                    //damageTool(stack, 1, player, false);
                     return true;
                 }
             }

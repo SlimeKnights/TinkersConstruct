@@ -140,6 +140,6 @@ public class ModFlux extends ModBoolean
 
         tags.setInteger(key, 1);
         ToolCore toolcore = (ToolCore) tool.getItem();
-        tool.setItemDamage(1 + (toolcore.getMaxEnergyStored(tool) - charge) * (tool.getMaxDamage() - 1) / toolcore.getMaxEnergyStored(tool));
+        //tool.setItemDamage(1 + (toolcore.getMaxEnergyStored(tool) - charge) * (tool.getMaxDamage() - 1) / toolcore.getMaxEnergyStored(tool));
     }
 }
