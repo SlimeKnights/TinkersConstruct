@@ -1,5 +1,7 @@
 package tconstruct.armor.inventory;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
@@ -42,13 +44,15 @@ public class SlotKnapsack extends Slot
     {
         super.onSlotChanged();
         
-        Minecraft mc = Minecraft.getMinecraft();
-        
-        if (mc.currentScreen instanceof GuiScreen) {
-            ScaledResolution scaledresolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
-            int i1 = scaledresolution.getScaledWidth();
-            int j1 = scaledresolution.getScaledHeight();
-            mc.currentScreen.setWorldAndResolution(mc, i1, j1);
+        if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+            Minecraft mc = Minecraft.getMinecraft();
+            
+            if (mc.currentScreen instanceof GuiScreen) {
+                ScaledResolution scaledresolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+                int i1 = scaledresolution.getScaledWidth();
+                int j1 = scaledresolution.getScaledHeight();
+                mc.currentScreen.setWorldAndResolution(mc, i1, j1);
+            }
         }
     }
 }
