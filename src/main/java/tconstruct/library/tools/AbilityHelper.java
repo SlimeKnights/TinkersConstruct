@@ -521,8 +521,7 @@ public class AbilityHelper
 
             if (event.getResult() == Result.ALLOW)
             {
-                stack.damageItem(1, player);
-                //damageTool(stack, 1, player, false);
+                damageTool(stack, 1, player, false);
                 return true;
             }
 
@@ -540,8 +539,7 @@ public class AbilityHelper
                 else
                 {
                     world.setBlock(x, y, z, block1);
-                    stack.damageItem(1, player);
-                    //damageTool(stack, 1, player, false);
+                    damageTool(stack, 1, player, false);
                     return true;
                 }
             }

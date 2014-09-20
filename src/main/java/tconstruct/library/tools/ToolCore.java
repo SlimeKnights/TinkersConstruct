@@ -757,14 +757,15 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         }
         int dur = tags.getCompoundTag("InfiTool").getInteger("Damage");
         int max = tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
-        int damage = (dur*100)/max;
+        int damage = 0;
+        if(max > 0)
+            damage = (dur*100)/max;
 
+        // rounding.
         if(damage == 0 && dur > 0)
             return 1;
-        if(max > 0)
-            return damage;
-        else
-            return 0;
+
+        return damage;
     }
 
     @Override
