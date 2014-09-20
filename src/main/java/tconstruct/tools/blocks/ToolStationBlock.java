@@ -213,17 +213,6 @@ public class ToolStationBlock extends InventoryBlock
 
     /* Keep pattern chest inventory */
     @Override
-    public void breakBlock (World par1World, int x, int y, int z, Block blockID, int meta)
-    {
-        if (meta < 5 || meta > 9)
-            super.breakBlock(par1World, x, y, z, blockID, meta);
-        else
-        {
-            par1World.removeTileEntity(x, y, z);
-        }
-    }
-
-    @Override
     public boolean removedByPlayer (World world, EntityPlayer player, int x, int y, int z, boolean willHarvest)
     {
         player.addExhaustion(0.025F);
@@ -240,6 +229,11 @@ public class ToolStationBlock extends InventoryBlock
                 NBTTagCompound baseTag = new NBTTagCompound();
                 baseTag.setTag("Inventory", inventory);
                 chest.setTagCompound(baseTag);
+
+                // remove content. This is necessary because otherwise the patterns would also spill into the world
+                // we don't want to prevent that since that's the intended behaviour for explosions.
+                for(int i = 0; i < logic.getSizeInventory(); i++)
+                    logic.setInventorySlotContents(i, null);
 
                 //Spawn item
                 if (!player.capabilities.isCreativeMode || player.isSneaking())
