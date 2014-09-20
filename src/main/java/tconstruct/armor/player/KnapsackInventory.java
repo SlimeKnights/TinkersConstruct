@@ -158,18 +158,19 @@ public class KnapsackInventory implements IInventory
         }
     }
 
-    public void dropItems (ArrayList<EntityItem> drops)
+    public void dropItems ()
     {
         EntityPlayer player = parent.get();
+        player.captureDrops = true;
         for (int i = 0; i < inventory.length; ++i)
         {
             if (this.inventory[i] != null)
             {
-                EntityItem entityItem = player.func_146097_a(this.inventory[i], true, false);
-                drops.add(entityItem);
+                player.func_146097_a(this.inventory[i], true, false);
                 this.inventory[i] = null;
             }
         }
+        player.captureDrops = false;
     }
 
     public void unequipItems ()
