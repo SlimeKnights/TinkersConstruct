@@ -738,18 +738,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
     @Override
     public int getMaxDamage (ItemStack stack)
     {
-        NBTTagCompound tags = stack.getTagCompound();
-        if (tags == null)
-        {
-            return 0;
-        }
-        if (tags.hasKey("Energy"))
-        {
-            int energy = tags.getInteger("Energy");
-            if (energy > 0)
-                return this.getMaxEnergyStored(stack);
-        }
-        return tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
+        return 100;
     }
 
     @Override
@@ -762,10 +751,20 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         if (tags.hasKey("Energy"))
         {
             int energy = tags.getInteger("Energy");
+            int max = getMaxEnergyStored(stack);
             if(energy > 0)
-                return getMaxEnergyStored(stack) - energy;
+                return ((max - energy)*100)/max;
         }
-        return tags.getCompoundTag("InfiTool").getInteger("Damage");
+        int dur = tags.getCompoundTag("InfiTool").getInteger("Damage");
+        int max = tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
+        int damage = (dur*100)/max;
+
+        if(damage == 0 && dur > 0)
+            return 1;
+        if(max > 0)
+            return damage;
+        else
+            return 0;
     }
 
     @Override
