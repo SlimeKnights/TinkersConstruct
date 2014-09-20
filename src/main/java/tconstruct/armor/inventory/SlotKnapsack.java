@@ -1,7 +1,12 @@
 package tconstruct.armor.inventory;
 
-import net.minecraft.inventory.*;
-import net.minecraft.item.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import tconstruct.armor.items.Knapsack;
 
 public class SlotKnapsack extends Slot
@@ -30,5 +35,20 @@ public class SlotKnapsack extends Slot
     {
         Item item = (par1ItemStack == null ? null : par1ItemStack.getItem());
         return item != null && (item instanceof Knapsack);
+    }
+    
+    @Override
+    public void onSlotChanged ()
+    {
+        super.onSlotChanged();
+        
+        Minecraft mc = Minecraft.getMinecraft();
+        
+        if (mc.currentScreen instanceof GuiScreen) {
+            ScaledResolution scaledresolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+            int i1 = scaledresolution.getScaledWidth();
+            int j1 = scaledresolution.getScaledHeight();
+            mc.currentScreen.setWorldAndResolution(mc, i1, j1);
+        }
     }
 }
