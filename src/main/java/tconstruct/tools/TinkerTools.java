@@ -178,7 +178,7 @@ public class TinkerTools
         TConstructRegistry.addItemToDirectory("blankPattern", TinkerTools.blankPattern);
         TConstructRegistry.addItemToDirectory("woodPattern", TinkerTools.woodPattern);
 
-        String[] patternTypes = { "ingot", "toolRod", "pickaxeHead", "shovelHead", "hatchetHead", "swordBlade", "wideGuard", "handGuard", "crossbar", "binding", "frypanHead", "signHead", "knifeBlade", "chiselHead", "toughRod", "toughBinding", "largePlate", "broadAxeHead", "scytheHead", "excavatorHead", "largeBlade", "hammerHead", "fullGuard" };
+        String[] patternTypes = { "ingot", "toolRod", "pickaxeHead", "shovelHead", "hatchetHead", "swordBlade", "wideGuard", "handGuard", "crossbar", "binding", "frypanHead", "signHead", "knifeBlade", "chiselHead", "toughRod", "toughBinding", "largePlate", "broadAxeHead", "scytheHead", "excavatorHead", "largeBlade", "hammerHead", "fullGuard", "bowString", "fletching", "arrowHead" };
 
         for (int i = 1; i < patternTypes.length; i++)
         {
