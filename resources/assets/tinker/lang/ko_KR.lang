@@ -36,7 +36,7 @@ tile.slime.pad.name=점프대
 tile.blood.channel.name=피 채널
 
 MetalOre.NetherSlag.name=네더랙 찌꺼기
-MetalOre.Cobalt.name=코발트 광석
+MetalOre.Coblat.name=코발트 광석
 MetalOre.Ardite.name=아르다이트 광석
 MetalOre.Copper.name=구리 광석
 MetalOre.Tin.name=주석 광석
@@ -55,7 +55,7 @@ block.ore.gravel.gold.name=금 자갈 광석
 block.ore.gravel.copper.name=구리 자갈 광석
 block.ore.gravel.tin.name=주석 자갈 광석
 block.ore.gravel.aluminum.name=알루미늄 자갈 광석
-block.ore.gravel.cobalt.name=코발트 자갈 광석
+block.ore.gravel.coblat.name=코발트 자갈 광석
 
 block.brownstone.rough.name=거친 갈색 사암
 block.brownstone.rough.road.name=갈색 사암 도로
@@ -160,8 +160,11 @@ item.InfiTool.Battleaxe.name=전투용 도끼
 item.InfiTool.Cutlass.name=커틀러스
 item.InfiTool.Shortbow.name=단궁
 item.InfiTool.Arrow.name=화살
-item.InfiTool.PotionLauncher.name=포션 발사기
+
 item.InfiTool.Mattock.name=야전삽
+
+item.InfiTool.PotionLauncher.name=포션 발사기
+
 
 item.tool.randomarrow=랜덤 스트리머
 
@@ -224,7 +227,7 @@ item.tconstruct.MetalPattern.gem.name=보석 주형
 item.tconstruct.Materials.PaperStack.name=종이 뭉치
 item.tconstruct.Materials.SlimeCrystal.name=슬라임 크리스탈
 item.tconstruct.Materials.SearedBrick.name=그을린 벽돌
-item.tconstruct.Materials.CobaltIngot.name=코발트 주괴
+item.tconstruct.Materials.CoblatIngot.name=코발트 주괴
 item.tconstruct.Materials.ArditeIngot.name=아르다이트 주괴
 item.tconstruct.Materials.ManyullynIngot.name=마뉼린 주괴
 item.tconstruct.Materials.Mossball.name=이끼 공
@@ -249,7 +252,7 @@ item.tconstruct.Materials.AluBrassNugget.name=알루미늄황동 조각
 item.tconstruct.Materials.SilkyCloth.name=비단
 item.tconstruct.Materials.SilkyJewel.name=비단 보석
 item.tconstruct.Materials.ObsidianNugget.name=흑요석 조각
-item.tconstruct.Materials.CobaltNugget.name=코발트 조각
+item.tconstruct.Materials.CoblatNugget.name=코발트 조각
 item.tconstruct.Materials.ArditeNugget.name=아르다이트 조각
 item.tconstruct.Materials.ManyullynNugget.name=마뉼린 조각
 item.tconstruct.Materials.BronzeNugget.name=청동 조각
@@ -259,7 +262,7 @@ item.tconstruct.Materials.PigIronIngot.name=돼지 선철 주괴
 item.tconstruct.Materials.PigIronNugget.name=돼지 선철 판
 item.tconstruct.Materials.GlueBall.name=풀 덩어리
 item.tconstruct.Materials.ArditeDust.name=아르다이트 가루
-item.tconstruct.Materials.CobaltDust.name=코발트 가루
+item.tconstruct.Materials.CoblatDust.name=코발트 가루
 item.tconstruct.Materials.AluminumDust.name=알루미늄 가루
 item.tconstruct.Materials.ManyullynDust.name=마뉼린 가루
 item.tconstruct.Materials.AluBrassDust.name=알루미늄 청동 가루
@@ -320,7 +323,7 @@ tile.trap.barricade.birch.name=자작나무 바리케이드
 tile.trap.barricade.jungle.name=정글 나무 바리케이드
 tile.explosive.slime.name=SDX
 
-StorageMetals.Cobalt.name=코발트 블럭
+StorageMetals.Coblat.name=코발트 블럭
 StorageMetals.Ardite.name=아르다이트 블럭
 StorageMetals.Manyullyn.name=마뉼린 블럭
 StorageMetals.Copper.name=구리 블럭
@@ -427,7 +430,7 @@ item.tconstruct.bucket.Gold.name=녹은 금 양동이
 item.tconstruct.bucket.Copper.name=녹은 구리 양동이
 item.tconstruct.bucket.Tin.name=녹은 주석 양동이
 item.tconstruct.bucket.Aluminum.name=녹은 알루미늄 양동이
-item.tconstruct.bucket.Cobalt.name=녹은 코발트 양동이
+item.tconstruct.bucket.Coblat.name=녹은 코발트 양동이
 item.tconstruct.bucket.Ardite.name=녹은 아르다이트 양동이
 item.tconstruct.bucket.Bronze.name=녹은 청동 양동이
 item.tconstruct.bucket.AluBrass.name=녹은 알루미늄 청동 양동이
@@ -458,7 +461,7 @@ tile.fluid.molten.gold.name=녹은 금
 tile.fluid.molten.copper.name=녹은 구리
 tile.fluid.molten.tin.name=녹은 주석
 tile.fluid.molten.aluminum.name=녹은 알루미늄
-tile.fluid.molten.cobalt.name=녹은 코발트
+tile.fluid.molten.coblat.name=녹은 코발트
 tile.fluid.molten.ardite.name=녹은 아르다이트
 tile.fluid.molten.bronze.name=녹은 청동
 tile.fluid.molten.alubrass.name=녹은 알루미늄 청동
@@ -484,7 +487,7 @@ LiquidMetal.Gold.name=녹은 금
 LiquidMetal.Copper.name=녹은 구리
 LiquidMetal.Tin.name=녹은 주석
 LiquidMetal.Aluminum.name=녹은 알루미늄
-LiquidMetal.Cobalt.name=녹은 코발트
+LiquidMetal.Coblat.name=녹은 코발트
 LiquidMetal.Ardite.name=녹은 아르다이트
 LiquidMetal.Bronze.name=녹은 청동
 LiquidMetal.AluBrass.name=녹은 알루미늄 청동
@@ -552,7 +555,7 @@ parttype.obsidian=흑요석
 parttype.slime=슬라임
 parttype.paper=종이
 parttype.netherrack=네더랙
-parttype.cobalt=코발트
+parttype.coblat=코발트
 parttype.ardite=아르다이트
 parttype.manyullyn=마뉼린
 parttype.copper=구리
@@ -590,12 +593,15 @@ toolpart.Bowstring=%%material 활 시위
 toolpart.ArrowHead=%%material 화살촉
 toolpart.Fletching=%%material 화살 깃
 
+# Now with translations of specific material and part combinations:
+#toolpart.ToolRod.wood=Wooden Tool Rod
+
 fluid.iron.molten=녹은 철
 fluid.gold.molten=녹은 금
 fluid.copper.molten=녹은 구리
 fluid.tin.molten=녹은 주석
 fluid.aluminum.molten=녹은 알루미늄
-fluid.cobalt.molten=녹은 코발트
+fluid.coblat.molten=녹은 코발트
 fluid.ardite.molten=녹은 아르다이트
 fluid.bronze.molten=녹은 청동
 fluid.aluminumbrass.molten=녹은 알루미늄 청동
@@ -761,25 +767,37 @@ gui.toolstation17=업그레이드
 gui.toolstation18=남은 업그레이드 횟수: 
 
 material.wood=나무
+material.wood.display=나무
 material.stone=돌
+material.stone.ability=돌같음
 material.iron=철
 material.flint=부싯돌
 material.cactus=선인장
+material.cactus.ability=뾰족뾰족
 material.bone=뼈
 material.obsidian=흑요석
 material.netherrack=네더랙
+material.netherrack.ability=돌같음
 material.slime=슬라임
-material.paper=종이:
+material.slime.ability=점액질
+material.paper=종이
+material.paper.ability=순백색
 material.blueslime=푸른 슬라임
-material.cobalt=코발트
+material.blueslime.display=슬라임
+material.blueslime.ability=점액질
+material.Coblat=코발트
 material.ardite=아르다이트
+material.ardite.ability=돌같음
 material.manyullyn=마뉼린
 material.copper=구리
 material.bronze=청동
 material.alumite=알루마이트
 material.steel=강철
 material.pigiron=돼지 선철
+material.pigiron.display=선철
+material.pigiron.ability=뫄이쩡!
 material.thaumium=사우뮴
+material.thaumium.ability=사우믹
 
 gui.modifier.blaze=화염
 gui.modifier.silk=섬세한 손길
@@ -815,12 +833,30 @@ modifier.tool.lava=자동 제련
 modifier.tool.necro=위더
 modifier.tool.beheading=참수
 
-materialtraits.stonebound=스톤바운드
-materialtraits.jagged=뾰족뾰족한
-materialtraits.writable=추가 업그레이드
-materialtraits.tasty=맛있는
-materialtraits.thaumic=마법적인
-
 creativeModLock.tooltip=적용 대상: 
 
 attribute.name.ammo.attackDamage=평균 데미지
+
+tool.pickaxe=곡괭이
+tool.shovel=삽
+tool.hatchet=도끼
+tool.broadsword=브로드소드
+tool.longsword=장검
+tool.rapier=레이피어
+tool.dagger=단검
+tool.cutlass=커틀러스
+tool.fryingpan=프라이팬
+tool.battlesign=전투용 표지판
+tool.mattock=아전삽
+tool.chisel=정
+tool.lumberaxe=벌목용 도끼
+tool.cleaver=클리버
+tool.scythe=낫
+tool.excavator=굴착기
+tool.hammer=망치
+tool.battleaxe=전투 도끼
+tool.shortbow=숏보우
+tool.arrow=화살
+
+# Customization of default tool names based on tool and material
++#tool.shovel.wood=Wooden Shovel
