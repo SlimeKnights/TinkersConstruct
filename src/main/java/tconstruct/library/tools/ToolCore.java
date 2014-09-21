@@ -662,9 +662,6 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         return 1.0f;
     }
 
-
-    public static HashMap<Integer, Integer> materialColorMap = new HashMap<Integer, Integer>();
-
     @Override
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
 
@@ -675,24 +672,24 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
             tags = stack.getTagCompound().getCompoundTag("InfiTool");
             if (renderPass < getPartAmount())
             {
-                if (renderPass == 0 && materialColorMap.containsKey(tags.getInteger("Handle"))) // Handle
+                if (renderPass == 0 && tags.hasKey("HandleColor")) // Handle
                 {
-                    return materialColorMap.get(tags.getInteger("Handle"));
+                    return tags.getInteger("HandleColor");
                 }
 
-                else if (renderPass == 1 && materialColorMap.containsKey(tags.getInteger("Head"))) // Head
+                else if (renderPass == 1 && tags.hasKey("HeadColor")) // Head
                 {
-                    return materialColorMap.get(tags.getInteger("Head"));
+                    return tags.getInteger("HeadColor");
                 }
 
-                else if (renderPass == 2 && materialColorMap.containsKey(tags.getInteger("Accessory"))) // Accessory
+                else if (renderPass == 2 && tags.hasKey("AccessoryColor")) // Accessory
                 {
-                    return materialColorMap.get(tags.getInteger("Accessory"));
+                    return tags.getInteger("AccessoryColor");
                 }
 
-                else if (renderPass == 3 && materialColorMap.containsKey(tags.getInteger("Extra"))) // Extra
+                else if (renderPass == 3 && tags.hasKey("ExtraColor")) // Extra
                 {
-                    return materialColorMap.get(tags.getInteger("Extra"));
+                    return tags.getInteger("ExtraColor");
                 }
             }
         }

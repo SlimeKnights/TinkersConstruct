@@ -3,7 +3,6 @@ package tconstruct.library.crafting;
 import java.util.LinkedList;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.ToolCore;
 
@@ -46,49 +45,49 @@ public class ToolRecipe
         result = tool;
     }
 
-    public void addHeadItem (ItemStack head)
+    public void addHeadItem (Item head)
     {
-        this.headList.add(head.getItem());
+        this.headList.add(head);
     }
 
-    public void addHandleItem (ItemStack handle)
+    public void addHandleItem (Item head)
     {
-        this.handleList.add(handle.getItem());
+        this.handleList.add(head);
     }
 
-    public void addAccessoryItem (ItemStack accessory)
+    public void addAccessoryItem (Item head)
     {
-        this.accessoryList.add(accessory.getItem());
+        this.accessoryList.add(head);
     }
 
-    public void addExtraItem (ItemStack extra)
+    public void addExtraItem (Item head)
     {
-        this.extraList.add(extra.getItem());
+        this.extraList.add(head);
     }
 
-    public boolean validHead (ItemStack input)
+    public boolean validHead (Item input)
     {
         for (Item part : headList)
         {
-            if (part == input.getItem())
+            if (part == input)
                 return true;
         }
         return false;
     }
 
-    public boolean validHandle (ItemStack input)
+    public boolean validHandle (Item input)
     {
         for (Item part : handleList)
         {
-            if (part == input.getItem())
+            if (part == input)
                 return true;
-            if (toolRod != null && part == toolRod && (input.getItem() == Items.stick || input.getItem() == Items.bone))
+            if (toolRod != null && part == toolRod && (input == Items.stick || input == Items.bone))
                 return true;
         }
         return false;
     }
 
-    public boolean validAccessory (ItemStack input)
+    public boolean validAccessory (Item input)
     {
         if (input == null)
         {
@@ -98,15 +97,15 @@ public class ToolRecipe
         }
         for (Item part : accessoryList)
         {
-            if (part == input.getItem())
+            if (part == input)
                 return true;
-            if (toolRod != null && part == toolRod && (input.getItem() == Items.stick || input.getItem() == Items.bone))
+            if (toolRod != null && part == toolRod && (input == Items.stick || input == Items.bone))
                 return true;
         }
         return false;
     }
 
-    public boolean validExtra (ItemStack input)
+    public boolean validExtra (Item input)
     {
         if (input == null)
         {
@@ -116,9 +115,9 @@ public class ToolRecipe
         }
         for (Item part : extraList)
         {
-            if (part == input.getItem())
+            if (part == input)
                 return true;
-            if (toolRod != null && part == toolRod && (input.getItem() == Items.stick || input.getItem() == Items.bone))
+            if (toolRod != null && part == toolRod && (input == Items.stick || input == Items.bone))
                 return true;
         }
         return false;

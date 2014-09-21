@@ -2,7 +2,6 @@ package tconstruct.tools;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import tconstruct.library.crafting.ToolRecipe;
 import tconstruct.library.tools.ToolCore;
 
@@ -25,13 +24,13 @@ public class BowRecipe extends ToolRecipe
     }
 
     @Override
-    public boolean validHead (ItemStack input)
+    public boolean validHead (Item input)
     {
         for (Item part : headList)
         {
-            if (part == input.getItem())
+            if (part == input)
                 return true;
-            if (toolRod != null && part == toolRod && (input.getItem() == Items.stick || input.getItem() == Items.bone))
+            if (toolRod != null && part == toolRod && (input == Items.stick || input == Items.bone))
                 return true;
         }
         return false;
