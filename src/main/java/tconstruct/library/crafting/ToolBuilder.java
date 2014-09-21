@@ -29,7 +29,7 @@ public class ToolBuilder
         ToolRecipe recipe = instance.recipeList.get(output.getToolName());
         if (recipe != null)
         {
-            recipe.addHeadItem(new ItemStack(head,1));
+            recipe.addHeadItem(new ItemStack(head));
             recipe.addHandleItem(new ItemStack(handle));
         }
         else
