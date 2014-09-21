@@ -29,8 +29,8 @@ public class ToolBuilder
         ToolRecipe recipe = instance.recipeList.get(output.getToolName());
         if (recipe != null)
         {
-            recipe.addHeadItem(head);
-            recipe.addHandleItem(handle);
+            recipe.addHeadItem(new ItemStack(head,1));
+            recipe.addHandleItem(new ItemStack(handle));
         }
         else
         {
@@ -46,9 +46,9 @@ public class ToolBuilder
         ToolRecipe recipe = instance.recipeList.get(output.getToolName());
         if (recipe != null)
         {
-            recipe.addHeadItem(head);
-            recipe.addHandleItem(handle);
-            recipe.addAccessoryItem(accessory);
+            recipe.addHeadItem(new ItemStack(head));
+            recipe.addHandleItem(new ItemStack(handle));
+            recipe.addAccessoryItem(new ItemStack(accessory));
         }
         else
         {
@@ -63,10 +63,10 @@ public class ToolBuilder
         ToolRecipe recipe = instance.recipeList.get(output.getToolName());
         if (recipe != null)
         {
-            recipe.addHeadItem(head);
-            recipe.addHandleItem(handle);
-            recipe.addAccessoryItem(accessory);
-            recipe.addExtraItem(extra);
+            recipe.addHeadItem(new ItemStack(head));
+            recipe.addHandleItem(new ItemStack(handle));
+            recipe.addAccessoryItem(new ItemStack(accessory));
+            recipe.addExtraItem(new ItemStack(extra));
         }
         else
         {
@@ -91,7 +91,7 @@ public class ToolBuilder
             addNormalToolRecipe(output, items[0], items[1], items[2], items[3]);
     }
 
-    public ToolCore getMatchingRecipe (Item head, Item handle, Item accessory, Item extra)
+    public ToolCore getMatchingRecipe (ItemStack head, ItemStack handle, ItemStack accessory, ItemStack extra)
     {
         for (ToolRecipe recipe : combos)
         {
@@ -156,7 +156,7 @@ public class ToolBuilder
 
         if (accessoryStack == null)
         {
-            item = getMatchingRecipe(headStack.getItem(), handleStack.getItem(), null, null);
+            item = getMatchingRecipe(headStack, handleStack, null, null);
         }
         else
         {
@@ -172,11 +172,11 @@ public class ToolBuilder
                 if (extra == -1)
                     return null;
 
-                item = getMatchingRecipe(headStack.getItem(), handleStack.getItem(), accessoryStack.getItem(), extraStack.getItem());
+                item = getMatchingRecipe(headStack, handleStack, accessoryStack, extraStack);
             }
             else
             {
-                item = getMatchingRecipe(headStack.getItem(), handleStack.getItem(), accessoryStack.getItem(), null);
+                item = getMatchingRecipe(headStack, handleStack, accessoryStack, null);
             }
         }
 

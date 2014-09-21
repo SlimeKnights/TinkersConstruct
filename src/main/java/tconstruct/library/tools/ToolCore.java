@@ -662,6 +662,43 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         return 1.0f;
     }
 
+
+    public static HashMap<Integer, Integer> materialColorMap = new HashMap<Integer, Integer>();
+
+    @Override
+    public int getColorFromItemStack(ItemStack stack, int renderPass) {
+
+        NBTTagCompound tags = stack.getTagCompound();
+
+        if (tags != null)
+        {
+            tags = stack.getTagCompound().getCompoundTag("InfiTool");
+            if (renderPass < getPartAmount())
+            {
+                if (renderPass == 0 && materialColorMap.containsKey(tags.getInteger("Handle"))) // Handle
+                {
+                    return materialColorMap.get(tags.getInteger("Handle"));
+                }
+
+                else if (renderPass == 1 && materialColorMap.containsKey(tags.getInteger("Head"))) // Head
+                {
+                    return materialColorMap.get(tags.getInteger("Head"));
+                }
+
+                else if (renderPass == 2 && materialColorMap.containsKey(tags.getInteger("Accessory"))) // Accessory
+                {
+                    return materialColorMap.get(tags.getInteger("Accessory"));
+                }
+
+                else if (renderPass == 3 && materialColorMap.containsKey(tags.getInteger("Extra"))) // Extra
+                {
+                    return materialColorMap.get(tags.getInteger("Extra"));
+                }
+            }
+        }
+        return super.getColorFromItemStack(stack, renderPass);
+    }
+
     @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
