@@ -54,8 +54,26 @@ public class ToolProxyClient extends ToolProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(FancyEntityItem.class, new FancyItemRender());
 
         //MinecraftForgeClient.registerItemRenderer(TinkerTools.shortbow, new CustomBowRenderer());
-        MinecraftForgeClient.registerItemRenderer(TinkerTools.shortbow, new ToolCoreRenderer(false));
-        ToolCoreRenderer renderer = new ToolCoreRenderer(true);
+        ToolCoreRenderer renderer = new ToolCoreRenderer(false);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.pickaxe, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.shovel, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.hatchet, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.broadsword, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.battleaxe, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.battlesign, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.chisel, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.cleaver, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.cutlass, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.excavator, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.hammer, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.lumberaxe, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.frypan, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.longsword, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.mattock, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.rapier, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.scythe, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.shortbow, renderer);
+        renderer = new ToolCoreRenderer(true);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.arrow, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.dagger, renderer);
 
