@@ -166,6 +166,17 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
 
     public abstract String getDefaultFolder ();
 
+    /**
+     * Returns the COMPLETE resource path.
+     * Example: tinker:broadsword
+     *
+     * @return
+     */
+    public String getDefaultTexturePath()
+    {
+        return "tinker:" + getDefaultFolder();
+    }
+
     public void registerPartPaths (int index, String[] location)
     {
         headStrings.put(index, location[0]);
@@ -208,8 +219,11 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
                 icons.put(entry.getKey(), iconRegister.registerIcon(entry.getValue()));
         }
 
+        // get the mod id stuff.
+
+
         if(standard != null && !standard.isEmpty()) {
-            standard = "tinker:" + getDefaultFolder() + "/" + standard;
+            standard =  getDefaultTexturePath() + "/" + standard;
             icons.put(-1, iconRegister.registerIcon(standard));
         }
     }
