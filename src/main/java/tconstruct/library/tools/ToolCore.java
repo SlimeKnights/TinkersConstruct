@@ -5,6 +5,7 @@ import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.*;
 import java.util.*;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.*;
@@ -13,9 +14,12 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
+import tconstruct.TConstruct;
 import tconstruct.library.*;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.modifier.*;
+import tconstruct.library.util.TextureHelper;
+import tconstruct.tools.TinkerTools;
 import tconstruct.tools.entity.FancyEntityItem;
 
 /**
@@ -186,62 +190,30 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
     @Override
     public void registerIcons (IIconRegister iconRegister)
     {
-        headIcons.clear();
-        brokenIcons.clear();
-        handleIcons.clear();
-        accessoryIcons.clear();
-        extraIcons.clear();
-        effectIcons.clear();
-        Iterator iter = headStrings.entrySet().iterator();
-        while (iter.hasNext())
-        {
-            Map.Entry pairs = (Map.Entry) iter.next();
-            headIcons.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()));
-        }
-
-        iter = brokenPartStrings.entrySet().iterator();
-        while (iter.hasNext())
-        {
-            Map.Entry pairs = (Map.Entry) iter.next();
-            brokenIcons.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()));
-        }
-
-        iter = handleStrings.entrySet().iterator();
-        while (iter.hasNext())
-        {
-            Map.Entry pairs = (Map.Entry) iter.next();
-            handleIcons.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()));
-        }
-
-        if (getPartAmount() > 2)
-        {
-            iter = accessoryStrings.entrySet().iterator();
-            while (iter.hasNext())
-            {
-                Map.Entry pairs = (Map.Entry) iter.next();
-                accessoryIcons.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()));
-            }
-        }
-
-        if (getPartAmount() > 3)
-        {
-            iter = extraStrings.entrySet().iterator();
-            while (iter.hasNext())
-            {
-                Map.Entry pairs = (Map.Entry) iter.next();
-                extraIcons.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()));
-            }
-        }
-
-        iter = effectStrings.entrySet().iterator();
-        while (iter.hasNext())
-        {
-            Map.Entry pairs = (Map.Entry) iter.next();
-            effectIcons.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()));
-        }
+        addIcons(headStrings, headIcons, iconRegister, getIconSuffix(0));
+        addIcons(brokenPartStrings, brokenIcons, iconRegister, getIconSuffix(1));
+        addIcons(handleStrings, handleIcons, iconRegister, getIconSuffix(2));
+        addIcons(accessoryStrings, accessoryIcons, iconRegister, getIconSuffix(3));
+        addIcons(extraStrings, extraIcons, iconRegister, getIconSuffix(4));
 
         emptyIcon = iconRegister.registerIcon("tinker:blankface");
     }
+
+    private void addIcons(HashMap<Integer, String> textures, HashMap<Integer, IIcon> icons, IIconRegister iconRegister, String standard)
+    {
+        icons.clear();
+        for(Map.Entry<Integer, String> entry : textures.entrySet())
+        {
+            if(TextureHelper.itemTextureExists(entry.getValue()))
+                icons.put(entry.getKey(), iconRegister.registerIcon(entry.getValue()));
+        }
+
+        if(standard != null && !standard.isEmpty()) {
+            standard = "tinker:" + getDefaultFolder() + "/" + standard;
+            icons.put(-1, iconRegister.registerIcon(standard));
+        }
+    }
+
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -261,30 +233,25 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
             tags = stack.getTagCompound().getCompoundTag("InfiTool");
             if (renderPass < getPartAmount())
             {
-                if (renderPass == 0) // Handle
-                {
-                    return handleIcons.get(tags.getInteger("RenderHandle"));
-                }
-
-                else if (renderPass == 1) // Head
+                // Handle
+                if (renderPass == 0)
+                    return getCorrectIcon(handleIcons, tags.getInteger("RenderHandle"));
+                // Head
+                else if (renderPass == 1)
                 {
                     if (tags.getBoolean("Broken"))
-                        return (brokenIcons.get(tags.getInteger("RenderHead")));
+                        return getCorrectIcon(brokenIcons, tags.getInteger("RenderHead"));
                     else
-                        return (headIcons.get(tags.getInteger("RenderHead")));
+                        return getCorrectIcon(headIcons, tags.getInteger("RenderHead"));
                 }
-
-                else if (renderPass == 2) // Accessory
-                {
-                    return (accessoryIcons.get(tags.getInteger("RenderAccessory")));
-                }
-
-                else if (renderPass == 3) // Extra
-                {
-                    return (extraIcons.get(tags.getInteger("RenderExtra")));
-                }
+                // Accessory
+                else if (renderPass == 2)
+                    return getCorrectIcon(accessoryIcons, tags.getInteger("RenderAccessory"));
+                // Extra
+                else if (renderPass == 3)
+                    return getCorrectIcon(extraIcons, tags.getInteger("RenderExtra"));
             }
-
+            // Effects
             else
             {
                 if (renderPass == getPartAmount())
@@ -326,6 +293,15 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
             return blankSprite;
         }
         return emptyIcon;
+    }
+
+    protected IIcon getCorrectIcon(Map<Integer, IIcon> icons, int id)
+    {
+        if(icons.containsKey(id))
+            return icons.get(id);
+
+        // default icon
+        return icons.get(-1);
     }
 
     /* Tags and information about the tool */
@@ -565,7 +541,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
 
     public Item getHandleItem ()
     {
-        return TConstructRegistry.getItem("toolRod");// TContent.toolRod;
+        return TinkerTools.toolRod;
     }
 
     /* Updating */
@@ -664,7 +640,6 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
 
     @Override
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
-
         NBTTagCompound tags = stack.getTagCompound();
 
         if (tags != null)
@@ -672,28 +647,31 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
             tags = stack.getTagCompound().getCompoundTag("InfiTool");
             if (renderPass < getPartAmount())
             {
-                if (renderPass == 0 && tags.hasKey("HandleColor")) // Handle
+                switch(renderPass)
                 {
-                    return tags.getInteger("HandleColor");
-                }
-
-                else if (renderPass == 1 && tags.hasKey("HeadColor")) // Head
-                {
-                    return tags.getInteger("HeadColor");
-                }
-
-                else if (renderPass == 2 && tags.hasKey("AccessoryColor")) // Accessory
-                {
-                    return tags.getInteger("AccessoryColor");
-                }
-
-                else if (renderPass == 3 && tags.hasKey("ExtraColor")) // Extra
-                {
-                    return tags.getInteger("ExtraColor");
+                    case 0: return getCorrectColor(stack, renderPass, tags, "Handle", handleIcons);
+                    case 1: return getCorrectColor(stack, renderPass, tags, "Head", headIcons);
+                    case 2: return getCorrectColor(stack, renderPass, tags, "Accessory", accessoryIcons);
+                    case 3: return getCorrectColor(stack, renderPass, tags, "Extra", extraIcons);
                 }
             }
         }
         return super.getColorFromItemStack(stack, renderPass);
+    }
+
+    private int getCorrectColor(ItemStack stack, int renderPass, NBTTagCompound tags, String key, Map<Integer, IIcon> map)
+    {
+        // custom coloring
+        if(tags.hasKey(key + "Color"))
+            return tags.getInteger(key + "Color");
+
+        // custom texture?
+        Integer matId = tags.getInteger("Render" + key);
+        if(map.containsKey(matId))
+            return super.getColorFromItemStack(stack, renderPass);
+
+        // color default texture with material color
+        return TConstructRegistry.getMaterial(matId).primaryColor();
     }
 
     @Override
