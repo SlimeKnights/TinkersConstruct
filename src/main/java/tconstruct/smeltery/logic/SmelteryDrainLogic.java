@@ -26,15 +26,8 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster() && resource != null && canFill(from, resource.getFluid()))
         {
-            if (doFill)
-            {
-                SmelteryLogic smeltery = (SmelteryLogic) worldObj.getTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
-                return smeltery.fill(resource, doFill);
-            }
-            else
-            {
-                return resource.amount;
-            }
+            SmelteryLogic smeltery = (SmelteryLogic) worldObj.getTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
+            return smeltery.fill(resource, doFill);
         }
         else
         {
