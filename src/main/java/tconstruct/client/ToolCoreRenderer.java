@@ -143,6 +143,17 @@ public class ToolCoreRenderer implements IItemRenderer
         }
         GL11.glPushMatrix();
 
+        // color
+        int color = item.getItem().getColorFromItemStack(item, 0);
+        float a = (float)(color >> 24 & 0xff) / 255F;
+        float r = (float)(color >> 16 & 0xff) / 255F;
+        float g = (float)(color >> 8 & 0xff) / 255F;
+        float b = (float)(color & 0xff) / 255F;
+        // no invisible
+        if(a < 0.01f)
+            a = 1.0f;
+        GL11.glColor4f(r, g, b, a);
+
         if (type == ItemRenderType.INVENTORY)
         {
             GL11.glDisable(GL11.GL_LIGHTING);
