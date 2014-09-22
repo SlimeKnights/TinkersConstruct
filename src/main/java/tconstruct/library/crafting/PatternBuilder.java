@@ -81,7 +81,7 @@ public class PatternBuilder
 
                     else
                     {
-                        if (patternValue % 2 == 1)
+                        if (patternValue % 2 == 1 && mat.shard != null)
                         {
                             return new ItemStack[] { toolPart, mat.shard.copy() }; // Material
                                                                                    // +
@@ -169,7 +169,7 @@ public class PatternBuilder
     public ItemStack getShardFromSet (String materialset)
     {
         MaterialSet set = (MaterialSet) materialSets.get(materialset);
-        if (set != null)
+        if (set != null && set.shard != null)
             return set.shard.copy();
         return null;
     }

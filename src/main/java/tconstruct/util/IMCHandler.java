@@ -1,6 +1,8 @@
 package tconstruct.util;
 
 import cpw.mods.fml.common.event.FMLInterModComms;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidStack;
@@ -8,14 +10,18 @@ import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.PatternBuilder;
+import tconstruct.library.crafting.StencilBuilder;
 import tconstruct.library.tools.DynamicToolPart;
 import tconstruct.library.tools.ToolMaterial;
 import tconstruct.library.util.IPattern;
 import tconstruct.library.util.IToolPart;
 import tconstruct.smeltery.TinkerSmeltery;
+import tconstruct.tools.TinkerTools;
+import tconstruct.tools.items.Pattern;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public final class IMCHandler {
     private IMCHandler() {}
@@ -51,7 +57,61 @@ public final class IMCHandler {
                     logInvalidMessage(message);
                     continue;
                 }
-             //   PatternBuilder.instance.registerMaterial();
+                NBTTagCompound tag = message.getNBTValue();
+
+                if(!checkRequiredTags("PartBuilder", tag, "MaterialId", "Item", "Value"))
+                    continue;
+
+                int matID = tag.getInteger("MaterialId");
+                int value = tag.getInteger("Value");
+
+                if(TConstructRegistry.getMaterial(matID) == null)
+                {
+                    TConstruct.logger.error("PartBuilder IMC: Unknown Material ID " + matID);
+                    continue;
+                }
+
+                ItemStack item = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Item"));
+                ItemStack shard = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Shard")); // optional
+                ItemStack rod = new ItemStack(TinkerTools.toolRod, 1, matID);
+
+                // register the material
+                PatternBuilder.instance.registerFullMaterial(item, value, TConstructRegistry.getMaterial(matID).materialName, shard, rod, matID);
+
+                List<Item> addItems = new LinkedList<Item>();
+                List<Integer> addMetas = new LinkedList<Integer>();
+                List<ItemStack> addOUtputs = new LinkedList<ItemStack>();
+
+                // add mappings for everything that has stone tool mappings
+               for(Map.Entry<List, ItemStack> mappingEntry : TConstructRegistry.patternPartMapping.entrySet())
+                {
+                    List mapping = mappingEntry.getKey();
+                    // only stone mappings
+                    if((Integer)mapping.get(2) != TinkerTools.MaterialID.Stone)
+                        continue;
+
+                    // only if the output is a dynamic part
+                    if(!(mappingEntry.getValue().getItem() instanceof DynamicToolPart))
+                        continue;
+
+                    Item woodPattern = (Item) mapping.get(0);
+                    Integer meta = (Integer) mapping.get(1);
+
+                    ItemStack output = mappingEntry.getValue().copy();
+                    output.setItemDamage(matID);
+
+                    // save data, concurrent modification exception and i'm lazy
+                    addItems.add(woodPattern);
+                    addMetas.add(meta);
+                    addOUtputs.add(output);
+                }
+
+                // add a part mapping for it
+                for(int i = 0; i < addItems.size(); i++)
+                    TConstructRegistry.addPartMapping(addItems.get(i), addMetas.get(i), matID, addOUtputs.get(i));
+
+
+                TConstruct.logger.info("PartBuilder IMC: Added Part builder ampping for " + TConstructRegistry.getMaterial(matID).materialName);
             }
             else if(type.equals("addPartCastingMaterial"))
             {
@@ -62,6 +122,9 @@ public final class IMCHandler {
                 }
 
                 NBTTagCompound tag = message.getNBTValue();
+
+                if(!checkRequiredTags("Castingt", tag, "MaterialId", "FluidName"))
+                    continue;
 
                 if(!tag.hasKey("MaterialId"))
                 {
@@ -101,8 +164,23 @@ public final class IMCHandler {
                     // ok, this recipe creates a toolpart and uses iron for it. add a new one for the IMC stuff!
                     TConstructRegistry.getTableCasting().addCastingRecipe(output, liquid2, recipe.cast, recipe.consumeCast, recipe.coolTime);
                 }
+
+                TConstruct.logger.info("Casting IMC: Added fluid " + tag.getString("FluidName") + " to part casting");
             }
         }
+    }
+
+    private static boolean checkRequiredTags(String prefix, NBTTagCompound tag, String... tags)
+    {
+        boolean ok = true;
+        for(String t : tags)
+            if(!tag.hasKey(t))
+            {
+                TConstruct.logger.error(String.format("%s IMC: Missing required NBT Tag %s", prefix, t));
+                ok = false; // don't abort, report all missing tags
+            }
+
+        return ok;
     }
 
     private static void logInvalidMessage(FMLInterModComms.IMCMessage message)
