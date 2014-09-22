@@ -3,6 +3,7 @@ package tconstruct;
 import java.util.Map;
 import java.util.Random;
 
+import cpw.mods.fml.common.event.*;
 import mantle.pulsar.config.ForgeCFG;
 import mantle.pulsar.control.PulseManager;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
@@ -36,6 +37,7 @@ import tconstruct.plugins.waila.TinkerWaila;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.EnvironmentChecks;
+import tconstruct.util.IMCHandler;
 import tconstruct.util.config.DimensionBlacklist;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.util.network.PacketPipeline;
@@ -52,9 +54,6 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkCheckHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -209,6 +208,19 @@ public class TConstruct
             TAchievements.registerAchievementPane();
             MinecraftForge.EVENT_BUS.register(new AchievementEvents());
         }
+    }
+
+    /* IMC Mod Support */
+    @EventHandler
+    public void handleIMC(FMLInterModComms.IMCEvent e)
+    {
+        IMCHandler.processIMC(e.getMessages());
+    }
+
+    @EventHandler
+    public void loadComplete(FMLLoadCompleteEvent evt)
+    {
+        IMCHandler.processIMC(FMLInterModComms.fetchRuntimeMessages(this));
     }
 
     public static LiquidCasting getTableCasting ()
