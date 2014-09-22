@@ -16,7 +16,7 @@ public class PatternBuilder
     public static PatternBuilder instance = new PatternBuilder();
     // Map items to their parts with a hashmap
     public List<ItemKey> materials = new ArrayList<ItemKey>();
-    public HashMap materialSets = new HashMap<String, MaterialSet>();
+    public HashMap<String, MaterialSet> materialSets = new HashMap<String, MaterialSet>();
 
     // We could use IRecipe if it wasn't tied to InventoryCrafting
     public List<IPattern> toolPatterns = new ArrayList<IPattern>();
