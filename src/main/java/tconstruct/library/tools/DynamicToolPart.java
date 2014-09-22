@@ -25,6 +25,8 @@ public class DynamicToolPart extends CraftingItem implements IToolPart
     public String texture;
     public IIcon defaultIcon;
 
+    private boolean hidden = false;
+
     public DynamicToolPart(String texture, String name)
     {
         this(texture, name, "tinker");
@@ -36,6 +38,16 @@ public class DynamicToolPart extends CraftingItem implements IToolPart
         this.setUnlocalizedName("tconstruct." + name);
         this.partName = name;
         this.texture = texture;
+    }
+
+    /**
+     * Doesn't add the item to creative tabs
+     */
+    public DynamicToolPart hide()
+    {
+        hidden = true;
+
+        return this;
     }
 
     // item meta = material id
@@ -82,6 +94,9 @@ public class DynamicToolPart extends CraftingItem implements IToolPart
     @Override
     public void getSubItems (Item item, CreativeTabs tab, List list)
     {
+        if(hidden)
+            return;
+
         // material id == metadata
         for(Integer matID : TConstructRegistry.toolMaterials.keySet())
             list.add(new ItemStack(item, 1, matID));

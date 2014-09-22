@@ -9,6 +9,7 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.util.IToolPart;
 import tconstruct.tools.TinkerTools;
 
+@Deprecated
 public class ToolPart extends CraftingItem implements IToolPart
 {
     public String partName;

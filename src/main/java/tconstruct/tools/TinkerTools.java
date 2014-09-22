@@ -238,7 +238,7 @@ public class TinkerTools
         TinkerTools.handGuard = new DynamicToolPart("_medium_guard", "MediumGuard");
         TinkerTools.crossbar = new DynamicToolPart("_crossbar", "Crossbar");
         TinkerTools.knifeBlade = new DynamicToolPart("_knife_blade", "KnifeBlade");
-        TinkerTools.fullGuard = new ToolPartHidden("_full_guard", "FullGuard").setUnlocalizedName("tconstruct.FullGuard"); // todo
+        TinkerTools.fullGuard = new DynamicToolPart("_full_guard", "FullGuard").hide();
 
         TinkerTools.frypanHead = new DynamicToolPart("_frypan_head", "FrypanHead");
         TinkerTools.signHead = new DynamicToolPart("_battlesign_head", "SignHead");
