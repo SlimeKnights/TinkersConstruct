@@ -135,75 +135,19 @@ public class Hammer extends AOEHarvestTool
     {
         NBTTagCompound tags = stack.getTagCompound();
 
-        if (tags != null)
-        {
+        if (tags != null) {
             tags = stack.getTagCompound().getCompoundTag("InfiTool");
-            if (renderPass < getPartAmount())
+            if (renderPass == 0) // Handle
             {
-                if (renderPass == 0) // Handle
-                {
-                    if (tags.getBoolean("Broken"))
-                        return (brokenIcons.get(tags.getInteger("RenderHandle")));
-                    return handleIcons.get(tags.getInteger("RenderHandle"));
-                }
-
-                else if (renderPass == 1) // Head
-                {
-                    return (headIcons.get(tags.getInteger("RenderHead")));
-                }
-
-                else if (renderPass == 2) // Accessory
-                {
-                    return (accessoryIcons.get(tags.getInteger("RenderAccessory")));
-                }
-
-                else if (renderPass == 3) // Extra
-                {
-                    return (extraIcons.get(tags.getInteger("RenderExtra")));
-                }
+                if (tags.getBoolean("Broken"))
+                    return getCorrectIcon(brokenIcons, tags.getInteger("RenderHandle"));
+                return getCorrectIcon(handleIcons, tags.getInteger("RenderHandle"));
             }
-
-            else
-            {
-                if (renderPass == getPartAmount())
-                {
-                    if (tags.hasKey("Effect1"))
-                        return (effectIcons.get(tags.getInteger("Effect1")));
-                }
-
-                else if (renderPass == getPartAmount() + 1)
-                {
-                    if (tags.hasKey("Effect2"))
-                        return (effectIcons.get(tags.getInteger("Effect2")));
-                }
-
-                else if (renderPass == getPartAmount() + 2)
-                {
-                    if (tags.hasKey("Effect3"))
-                        return (effectIcons.get(tags.getInteger("Effect3")));
-                }
-
-                else if (renderPass == getPartAmount() + 3)
-                {
-                    if (tags.hasKey("Effect4"))
-                        return (effectIcons.get(tags.getInteger("Effect4")));
-                }
-
-                else if (renderPass == getPartAmount() + 4)
-                {
-                    if (tags.hasKey("Effect5"))
-                        return (effectIcons.get(tags.getInteger("Effect5")));
-                }
-
-                else if (renderPass == getPartAmount() + 5)
-                {
-                    if (tags.hasKey("Effect6"))
-                        return (effectIcons.get(tags.getInteger("Effect6")));
-                }
-            }
-            return blankSprite;
+            else if(renderPass == 1)
+                return getCorrectIcon(headIcons, tags.getInteger("RenderHead"));
         }
-        return emptyIcon;
+
+        return super.getIcon(stack, renderPass);
     }
 
     @Override
