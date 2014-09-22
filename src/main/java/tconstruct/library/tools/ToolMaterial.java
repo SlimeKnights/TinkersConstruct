@@ -18,7 +18,7 @@ public class ToolMaterial
     public final String tipStyle;
     public final int primaryColor;
 
-    private final String localizationString;
+    public final String localizationString;
 
     @Deprecated
     public String displayName;

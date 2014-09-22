@@ -15,8 +15,7 @@ public class ToolPart extends CraftingItem implements IToolPart
 
     public ToolPart(String textureType, String name)
     {
-        super(toolMaterialNames, buildTextureNames(textureType), "parts/", "tinker", TConstructRegistry.materialTab);
-        this.setCreativeTab(TConstructRegistry.partTab);
+        super(toolMaterialNames, buildTextureNames(textureType), "parts/", "tinker", TConstructRegistry.partTab);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.partName = name;
@@ -34,7 +33,7 @@ public class ToolPart extends CraftingItem implements IToolPart
         }
         else
         {
-            material = StatCollector.translateToLocal("parttype." + material);
+            material = StatCollector.translateToLocal("material." + material);
             name = StatCollector.translateToLocal("toolpart." + partName);
             name = name.replaceAll("%%material", material);
         }

@@ -224,30 +224,31 @@ public class TinkerTools
         TinkerTools.potionLauncher = new PotionLauncher().setUnlocalizedName("tconstruct.PotionLauncher");
         GameRegistry.registerItem(TinkerTools.potionLauncher, "potionLauncher");
 
-        TinkerTools.pickaxeHead = new ToolPart("_pickaxe_head", "PickHead").setUnlocalizedName("tconstruct.PickaxeHead");
-        TinkerTools.shovelHead = new ToolPart("_shovel_head", "ShovelHead").setUnlocalizedName("tconstruct.ShovelHead");
-        TinkerTools.hatchetHead = new ToolPart("_axe_head", "AxeHead").setUnlocalizedName("tconstruct.AxeHead");
-        TinkerTools.binding = new ToolPart("_binding", "Binding").setUnlocalizedName("tconstruct.Binding");
-        TinkerTools.toughBinding = new ToolPart("_toughbind", "ToughBind").setUnlocalizedName("tconstruct.ThickBinding");
-        TinkerTools.toughRod = new ToolPart("_toughrod", "ToughRod").setUnlocalizedName("tconstruct.ThickRod");
-        TinkerTools.largePlate = new ToolPart("_largeplate", "LargePlate").setUnlocalizedName("tconstruct.LargePlate");
+        //TinkerTools.pickaxeHead = new ToolPart("_pickaxe_head", "PickHead").setUnlocalizedName("tconstruct.PickaxeHead");
+        TinkerTools.pickaxeHead = new DynamicToolPart("_pickaxe_head", "PickaxeHead");
+        TinkerTools.shovelHead = new DynamicToolPart("_shovel_head", "ShovelHead");
+        TinkerTools.hatchetHead = new DynamicToolPart("_axe_head", "AxeHead");
+        TinkerTools.binding = new DynamicToolPart("_binding", "Binding");
+        TinkerTools.toughBinding = new DynamicToolPart("_toughbind", "ToughBinding");
+        TinkerTools.toughRod = new DynamicToolPart("_toughrod", "ToughRod");
+        TinkerTools.largePlate = new DynamicToolPart("_largeplate", "LargePlate");
 
-        TinkerTools.swordBlade = new ToolPart("_sword_blade", "SwordBlade").setUnlocalizedName("tconstruct.SwordBlade");
-        TinkerTools.wideGuard = new ToolPart("_large_guard", "LargeGuard").setUnlocalizedName("tconstruct.LargeGuard");
-        TinkerTools.handGuard = new ToolPart("_medium_guard", "MediumGuard").setUnlocalizedName("tconstruct.MediumGuard");
-        TinkerTools.crossbar = new ToolPart("_crossbar", "Crossbar").setUnlocalizedName("tconstruct.Crossbar");
-        TinkerTools.knifeBlade = new ToolPart("_knife_blade", "KnifeBlade").setUnlocalizedName("tconstruct.KnifeBlade");
-        TinkerTools.fullGuard = new ToolPartHidden("_full_guard", "FullGuard").setUnlocalizedName("tconstruct.FullGuard");
+        TinkerTools.swordBlade = new DynamicToolPart("_sword_blade", "SwordBlade");
+        TinkerTools.wideGuard = new DynamicToolPart("_large_guard", "LargeGuard");
+        TinkerTools.handGuard = new DynamicToolPart("_medium_guard", "MediumGuard");
+        TinkerTools.crossbar = new DynamicToolPart("_crossbar", "Crossbar");
+        TinkerTools.knifeBlade = new DynamicToolPart("_knife_blade", "KnifeBlade");
+        TinkerTools.fullGuard = new ToolPartHidden("_full_guard", "FullGuard").setUnlocalizedName("tconstruct.FullGuard"); // todo
 
-        TinkerTools.frypanHead = new ToolPart("_frypan_head", "FrypanHead").setUnlocalizedName("tconstruct.FrypanHead");
-        TinkerTools.signHead = new ToolPart("_battlesign_head", "SignHead").setUnlocalizedName("tconstruct.SignHead");
-        TinkerTools.chiselHead = new ToolPart("_chisel_head", "ChiselHead").setUnlocalizedName("tconstruct.ChiselHead");
+        TinkerTools.frypanHead = new DynamicToolPart("_frypan_head", "FrypanHead");
+        TinkerTools.signHead = new DynamicToolPart("_battlesign_head", "SignHead");
+        TinkerTools.chiselHead = new DynamicToolPart("_chisel_head", "ChiselHead");
 
-        TinkerTools.scytheBlade = new ToolPart("_scythe_head", "ScytheHead").setUnlocalizedName("tconstruct.ScytheBlade");
-        TinkerTools.broadAxeHead = new ToolPart("_lumberaxe_head", "LumberHead").setUnlocalizedName("tconstruct.LumberHead");
-        TinkerTools.excavatorHead = new ToolPart("_excavator_head", "ExcavatorHead").setUnlocalizedName("tconstruct.ExcavatorHead");
-        TinkerTools.largeSwordBlade = new ToolPart("_large_sword_blade", "LargeSwordBlade").setUnlocalizedName("tconstruct.LargeSwordBlade");
-        TinkerTools.hammerHead = new ToolPart("_hammer_head", "HammerHead").setUnlocalizedName("tconstruct.HammerHead");
+        TinkerTools.scytheBlade = new DynamicToolPart("_scythe_head", "ScytheHead");
+        TinkerTools.broadAxeHead = new DynamicToolPart("_lumberaxe_head", "LumberAxeHead");
+        TinkerTools.excavatorHead = new DynamicToolPart("_excavator_head", "ExcavatorHead");
+        TinkerTools.largeSwordBlade = new DynamicToolPart("_large_sword_blade", "LargeSwordBlade");
+        TinkerTools.hammerHead = new DynamicToolPart("_hammer_head", "HammerHead");
 
         TinkerTools.bowstring = new Bowstring().setUnlocalizedName("tconstruct.Bowstring");
         TinkerTools.arrowhead = new ToolPart("_arrowhead", "ArrowHead").setUnlocalizedName("tconstruct.Arrowhead");

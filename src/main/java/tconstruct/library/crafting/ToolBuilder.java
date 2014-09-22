@@ -432,7 +432,7 @@ public class ToolBuilder
     public static String defaultToolName (ToolMaterial headMat, ToolCore tool)
     {
         String toolName = tool.getToolName().toLowerCase();
-        String matName = headMat.materialName.toLowerCase().replaceAll(" ", "");
+        String matName = headMat.materialName.toLowerCase().replaceAll(" ", "").replaceAll("_","");
         
         if (StatCollector.canTranslate("tool." + toolName + "." + matName))
         {
