@@ -18,7 +18,7 @@ public class ArmorExtendedContainer extends ActiveContainer
 
         this.addSlotToContainer(new SlotAccessory(armor, 0, 80, 17));
         this.addSlotToContainer(new SlotAccessory(armor, 1, 80, 35));
-        this.addSlotToContainer(new SlotAccessory(armor, 2, 116, 17));
+        this.addSlotToContainer(new SlotKnapsack(armor, 2, 116, 17));
         this.addSlotToContainer(new SlotAccessory(armor, 3, 116, 35));
         this.addSlotToContainer(new SlotAccessory(armor, 4, 152, 53));
         this.addSlotToContainer(new SlotAccessory(armor, 5, 152, 35));
