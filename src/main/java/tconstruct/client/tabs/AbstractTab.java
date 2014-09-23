@@ -28,11 +28,12 @@ public abstract class AbstractTab extends GuiButton
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
             int yTexPos = this.enabled ? 3 : 32;
-            int ySize = this.enabled ? 28 : 32;
+            int ySize = this.enabled ? 25 : 32;
             int xOffset = this.id == 2 ? 0 : 1;
+            int yPos = this.yPosition + (this.enabled ? 3 : 0);
 
             mc.renderEngine.bindTexture(this.texture);
-            this.drawTexturedModalRect(this.xPosition, this.yPosition, xOffset * 28, yTexPos, 28, ySize);
+            this.drawTexturedModalRect(this.xPosition, yPos, xOffset * 28, yTexPos, 28, ySize);
 
             RenderHelper.enableGUIStandardItemLighting();
             this.zLevel = 100.0F;
