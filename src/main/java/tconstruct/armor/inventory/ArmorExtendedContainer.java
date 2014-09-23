@@ -16,13 +16,15 @@ public class ArmorExtendedContainer extends ActiveContainer
         invPlayer = inventoryplayer;
         this.armor = armor;
 
-        this.addSlotToContainer(new SlotAccessory(armor, 0, 80, 17));
-        this.addSlotToContainer(new SlotAccessory(armor, 1, 80, 35));
-        this.addSlotToContainer(new SlotAccessory(armor, 2, 116, 17));
-        this.addSlotToContainer(new SlotAccessory(armor, 3, 116, 35));
-        this.addSlotToContainer(new SlotAccessory(armor, 4, 152, 53));
-        this.addSlotToContainer(new SlotAccessory(armor, 5, 152, 35));
-        this.addSlotToContainer(new SlotAccessory(armor, 6, 152, 17));
+        this.addSlotToContainer(new SlotAccessory(armor, 0, 80, 17, 1));
+        this.addSlotToContainer(new SlotAccessory(armor, 1, 80, 35, 1));
+        this.addSlotToContainer(new SlotAccessory(armor, 2, 116, 17, 1));
+        this.addSlotToContainer(new SlotAccessory(armor, 3, 116, 35, 1));
+        
+        // HeartCanister
+        this.addSlotToContainer(new SlotAccessory(armor, 4, 152, 53, 10));
+        this.addSlotToContainer(new SlotAccessory(armor, 5, 152, 35, 10));
+        this.addSlotToContainer(new SlotAccessory(armor, 6, 152, 17, 10));
         for (int playerArmor = 0; playerArmor < 4; ++playerArmor)
         {
             this.addSlotToContainer(new SlotArmorCopy(this, inventoryplayer, inventoryplayer.getSizeInventory() - 1 - playerArmor, 98, 8 + playerArmor * 18, playerArmor));
