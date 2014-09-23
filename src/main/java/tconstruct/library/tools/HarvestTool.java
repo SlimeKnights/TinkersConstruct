@@ -191,7 +191,16 @@ public abstract class HarvestTool extends ToolCore
                         return false;
                     }
 
+                    int dmg = nearbyStack.getItemDamage();
+                    int count = nearbyStack.stackSize;
+
                     used = item.onItemUse(nearbyStack, player, world, x, y, z, side, clickX, clickY, clickZ);
+                    // handle creative mode
+                    if(player.capabilities.isCreativeMode) {
+                        // fun fact: vanilla minecraft does it exactly the same way
+                        nearbyStack.setItemDamage(dmg);
+                        nearbyStack.stackSize = count;
+                    }
                     if (nearbyStack.stackSize < 1)
                     {
                         nearbyStack = null;
