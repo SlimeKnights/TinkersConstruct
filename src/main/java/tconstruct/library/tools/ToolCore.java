@@ -207,6 +207,8 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         addIcons(accessoryStrings, accessoryIcons, iconRegister, getIconSuffix(3));
         addIcons(extraStrings, extraIcons, iconRegister, getIconSuffix(4));
 
+        addIcons(effectStrings, effectIcons, iconRegister, null);
+
         emptyIcon = iconRegister.registerIcon("tinker:blankface");
     }
 
