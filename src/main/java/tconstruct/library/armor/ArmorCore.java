@@ -17,6 +17,7 @@ import net.minecraftforge.common.ISpecialArmor;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.modifier.*;
 import tconstruct.library.tools.ToolCore;
+import tconstruct.tools.entity.FancyEntityItem;
 
 public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IModifyable
 {
@@ -426,5 +427,16 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
             else
                 displayToolTips = false;
         }
+    }
+
+    /* Prevent armor from dying */
+    public boolean hasCustomEntity (ItemStack stack)
+    {
+        return true;
+    }
+
+    public Entity createEntity (World world, Entity location, ItemStack itemstack)
+    {
+        return new FancyEntityItem(world, location, itemstack);
     }
 }
