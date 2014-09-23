@@ -202,6 +202,9 @@ public class ArmorProxyClient extends ArmorProxyCommon
     @SubscribeEvent
     public void renderHealthbar (RenderGameOverlayEvent.Pre event)
     {
+        if(Loader.isModLoaded("rpghud")) // uses different display, displays health correctly by itself.
+            return;
+
         if (!Loader.isModLoaded("tukmc_Vz") || Loader.isModLoaded("borderlands"))// Loader check to avoid conflicting
         // with a GUI mod (thanks Vazkii!)
         {
