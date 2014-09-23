@@ -145,7 +145,7 @@ task deobfJar(type: Jar) {
 // Create API library jar
 task libJar(type: Jar) {
     from(sourceSets.main.java) {
-        include "tconstruct/library/*"
+        include "tconstruct/library/**/*"
     }
     classifier = 'lib'
 }
