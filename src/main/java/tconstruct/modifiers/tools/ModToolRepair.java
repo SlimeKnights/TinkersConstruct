@@ -3,6 +3,7 @@ package tconstruct.modifiers.tools;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.crafting.PatternBuilder;
+import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.modifier.ItemModifier;
 import tconstruct.library.tools.*;
 
@@ -129,5 +130,10 @@ public class ModToolRepair extends ItemModifier
     @Override
     public void addMatchingEffect (ItemStack tool)
     {
+    }
+
+    public boolean validType (IModifyable input)
+    {
+        return input.getModifyType().equals("Tool") || input.getModifyType().equals("Armor");
     }
 }

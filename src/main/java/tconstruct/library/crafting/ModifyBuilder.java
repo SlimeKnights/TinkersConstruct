@@ -21,7 +21,7 @@ public class ModifyBuilder
             boolean built = false;
             for (ItemModifier mod : itemModifiers)
             {
-                if (mod.matches(modifiers, copy))
+                if (mod.matches(modifiers, copy) && mod.validType(item))
                 {
                     built = true;
                     mod.addMatchingEffect(copy); //Order matters here

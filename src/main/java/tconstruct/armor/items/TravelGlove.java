@@ -47,4 +47,9 @@ public class TravelGlove extends AccessoryCore implements IAccessoryModel
     {
         return texture;
     }
+
+    @Override
+    public String[] getTraits() {
+        return new String[] { "accessory", "glove" };
+    }
 }

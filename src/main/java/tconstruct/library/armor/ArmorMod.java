@@ -33,6 +33,6 @@ public abstract class ArmorMod extends ItemModifier
     @Override
     public boolean validType (IModifyable type)
     {
-        return type.getModifyType().equals("Armor");
+        return type.getModifyType().equals("Armor") || type.getModifyType().equals("Clothing");
     }
 }
