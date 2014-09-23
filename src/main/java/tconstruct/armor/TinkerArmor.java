@@ -5,7 +5,9 @@ import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 import cpw.mods.fml.relauncher.Side;
+
 import java.util.EnumSet;
+
 import mantle.pulsar.pulse.*;
 import net.minecraft.block.Block;
 import net.minecraft.init.*;
@@ -19,6 +21,7 @@ import tconstruct.armor.blocks.DryingRack;
 import tconstruct.armor.items.*;
 import tconstruct.blocks.logic.DryingRackLogic;
 import tconstruct.client.ArmorControls;
+import tconstruct.client.tabs.TabRegistry;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.accessory.AccessoryCore;
 import tconstruct.library.armor.ArmorPart;
@@ -75,6 +78,7 @@ public class TinkerArmor
         if (event.getSide() == Side.CLIENT)
         {
             FMLCommonHandler.instance().bus().register(new ArmorControls());
+            MinecraftForge.EVENT_BUS.register(new TabRegistry());
         }
 
         TinkerArmor.dryingRack = new DryingRack().setBlockName("Armor.DryingRack");
