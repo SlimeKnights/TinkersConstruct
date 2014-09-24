@@ -1,6 +1,8 @@
 package tconstruct.smeltery.gui;
 
 import java.util.*;
+
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -9,16 +11,17 @@ import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
+
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.*;
+
 import tconstruct.TConstruct;
-import tconstruct.client.gui.NewContainerGui;
 import tconstruct.library.component.MultiFluidTank;
 import tconstruct.smeltery.component.SmelteryComponent;
 import tconstruct.smeltery.inventory.*;
 import tconstruct.smeltery.logic.AdaptiveSmelteryLogic;
 
-public class AdaptiveSmelteryGui extends NewContainerGui
+public class AdaptiveSmelteryGui extends GuiContainer
 {
     public AdaptiveSmelteryLogic logic;
     String username;
@@ -92,7 +95,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
                     this.currentScroll = 1.0F;
                 }
 
-                int s = ((AdaptiveSmelteryContainer) this.container).scrollTo(this.currentScroll);
+                int s = ((AdaptiveSmelteryContainer) this.inventorySlots).scrollTo(this.currentScroll);
                 if (s != -1)
                     slotPos = s;
             }
@@ -380,7 +383,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
             }
 
             this.zLevel = 300.0F;
-            itemRenderer.zLevel = 300.0F;
+            itemRender.zLevel = 300.0F;
             int l1 = -267386864;
             this.drawGradientRect(i1 - 3, j1 - 4, i1 + k + 3, j1 - 3, l1, l1);
             this.drawGradientRect(i1 - 3, j1 + k1 + 3, i1 + k + 3, j1 + k1 + 4, l1, l1);
@@ -408,7 +411,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
             }
 
             this.zLevel = 0.0F;
-            itemRenderer.zLevel = 0.0F;
+            itemRender.zLevel = 0.0F;
         }
     }
 
