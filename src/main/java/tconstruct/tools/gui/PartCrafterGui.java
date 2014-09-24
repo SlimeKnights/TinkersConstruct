@@ -68,7 +68,7 @@ public class PartCrafterGui extends GuiContainer implements INEIGuiHandler
     {
         super.initGui();
 
-        this.xSize = CRAFT_WIDTH + DESC_WIDTH;
+        this.xSize = CRAFT_WIDTH;
         this.ySize = CRAFT_HEIGHT;
 
         this.craftingLeft = (this.width - CRAFT_WIDTH) / 2;
@@ -235,6 +235,20 @@ public class PartCrafterGui extends GuiContainer implements INEIGuiHandler
     @Override
     public VisiblityData modifyVisiblity (GuiContainer gui, VisiblityData currentVisibility)
     {
+        if (width - xSize < 107)
+        {
+            currentVisibility.showWidgets = false;
+        }
+        else
+        {
+            currentVisibility.showWidgets = true;
+        }
+
+        if (guiLeft < 58)
+        {
+            currentVisibility.showStateButtons = false;
+        }
+
         return currentVisibility;
     }
 
@@ -262,7 +276,7 @@ public class PartCrafterGui extends GuiContainer implements INEIGuiHandler
         if (y + h - 4 < guiTop || y + 4 > guiTop + ySize)
             return false;
 
-        if (x + 4 > guiLeft + xSize)
+        if (x + 4 > guiLeft + xSize + DESC_WIDTH)
             return false;
 
         return true;

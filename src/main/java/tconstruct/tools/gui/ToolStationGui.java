@@ -1,9 +1,12 @@
 package tconstruct.tools.gui;
 
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.*;
+
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.*;
+
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -11,8 +14,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
+
+import codechicken.nei.VisiblityData;
+import codechicken.nei.api.INEIGuiHandler;
+import codechicken.nei.api.TaggedInventoryArea;
 import tconstruct.TConstruct;
 import tconstruct.library.accessory.AccessoryCore;
 import tconstruct.library.armor.ArmorCore;
@@ -25,7 +33,8 @@ import tconstruct.tools.logic.ToolStationLogic;
 import tconstruct.util.network.ToolStationPacket;
 
 @SideOnly(Side.CLIENT)
-public class ToolStationGui extends GuiContainer
+@Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
+public class ToolStationGui extends GuiContainer implements INEIGuiHandler
 {
     public ToolStationLogic logic;
     public ToolStationContainer toolSlots;
@@ -82,8 +91,8 @@ public class ToolStationGui extends GuiContainer
     public void initGui ()
     {
         super.initGui();
-        this.guiLeft -= 110;
-        this.xSize += 110;
+        this.xSize = 176 + 110;
+        this.guiLeft = (this.width - 176) / 2 - 110;
 
         this.buttonList.clear();
         ToolGuiElement repair = TConstructClientRegistry.toolButtons.get(0);
@@ -600,4 +609,54 @@ public class ToolStationGui extends GuiContainer
      * super.mouseClicked(par1, par2, par3); text.mouseClicked(par1, par2,
      * par3); }
      */
+
+    @Override
+    public VisiblityData modifyVisiblity (GuiContainer gui, VisiblityData currentVisibility)
+    {
+        if (width - xSize < 107)
+        {
+            currentVisibility.showWidgets = false;
+        }
+        else
+        {
+            currentVisibility.showWidgets = true;
+        }
+
+        if (guiLeft < 58)
+        {
+            currentVisibility.showStateButtons = false;
+        }
+
+        return currentVisibility;
+    }
+
+    @Override
+    public Iterable<Integer> getItemSpawnSlots (GuiContainer gui, ItemStack item)
+    {
+        return null;
+    }
+
+    @Override
+    public List<TaggedInventoryArea> getInventoryAreas (GuiContainer gui)
+    {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public boolean handleDragNDrop (GuiContainer gui, int mousex, int mousey, ItemStack draggedStack, int button)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean hideItemPanelSlot (GuiContainer gui, int x, int y, int w, int h)
+    {
+        if (y + h - 4 < guiTop || y + 4 > guiTop + ySize)
+            return false;
+
+        if (x + 4 > guiLeft + xSize + 126)
+            return false;
+
+        return true;
+    }
 }

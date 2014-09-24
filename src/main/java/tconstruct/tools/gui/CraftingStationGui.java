@@ -73,7 +73,6 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
 
         if (logic.tinkerTable)
         {
-            this.xSize += 126;
             this.descLeft = this.guiLeft + 176;
         }
 
@@ -533,6 +532,20 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
     @Override
     public VisiblityData modifyVisiblity (GuiContainer gui, VisiblityData currentVisibility)
     {
+        if (width - xSize < 107)
+        {
+            currentVisibility.showWidgets = false;
+        }
+        else
+        {
+            currentVisibility.showWidgets = true;
+        }
+
+        if (guiLeft < 58)
+        {
+            currentVisibility.showStateButtons = false;
+        }
+
         return currentVisibility;
     }
 
@@ -560,7 +573,7 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
         if (y + h - 4 < guiTop || y + 4 > guiTop + ySize)
             return false;
 
-        if (x + 4 > guiLeft + xSize)
+        if (x + 4 > guiLeft + xSize + (logic.tinkerTable ? 126 : 0))
             return false;
 
         return true;
