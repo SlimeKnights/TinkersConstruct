@@ -181,7 +181,7 @@ public class ToolStationGui extends GuiContainer
         {
             ArmorCore armor = (ArmorCore) stack.getItem();
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag(armor.getBaseTagName());
-            this.drawCenteredString(fontRendererObj, "\u00A7n" + armor.getArmorName(), 349, 8, 0xffffff); // todo: localize
+            this.drawCenteredString(fontRendererObj, "\u00A7n" + stack.getDisplayName(), 349, 8, 0xffffff); // todo: localize
 
             drawModularArmorStats(stack, armor, tags, 294, 24);
         }
