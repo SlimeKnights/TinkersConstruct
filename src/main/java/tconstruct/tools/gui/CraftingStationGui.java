@@ -109,14 +109,21 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
 
         if (logic.tinkerTable)
         {
-            if (logic.isStackInSlot(0))
-                drawToolStats();
+            if (logic.isStackInSlot(0)) // output slot = modified item
+                drawToolStats(logic.getStackInSlot(0));
+            else if (logic.isStackInSlot(5)) // center slot if no output item
+            {
+                // other slots empty?
+                if(!logic.isStackInSlot(1) && !logic.isStackInSlot(2) && !logic.isStackInSlot(3) && !logic.isStackInSlot(4)
+                && !logic.isStackInSlot(6) && !logic.isStackInSlot(7) && !logic.isStackInSlot(8) && !logic.isStackInSlot(9))
+                    drawToolStats(logic.getStackInSlot(5));
+            }
             else
                 drawToolInformation();
         }
     }
 
-    void drawToolStats ()
+    void drawToolStats (ItemStack stack)
     {
         int offsetX = 239;
         int descX = 186;
@@ -126,7 +133,6 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
             descX += 122;
         }
 
-        ItemStack stack = logic.getStackInSlot(0);
         if (stack.getItem() instanceof ToolCore)
         {
             ToolCore tool = (ToolCore) stack.getItem();
