@@ -18,8 +18,10 @@ import codechicken.nei.VisiblityData;
 import codechicken.nei.api.INEIGuiHandler;
 import codechicken.nei.api.TaggedInventoryArea;
 import cpw.mods.fml.common.Optional;
+import tconstruct.library.TConstructRegistry;
 import tconstruct.library.accessory.AccessoryCore;
 import tconstruct.library.armor.ArmorCore;
+import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.tools.*;
 import tconstruct.library.util.HarvestLevels;
 import tconstruct.tools.logic.CraftingStationLogic;
@@ -33,16 +35,27 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
     public String title, body = "";
     CraftingStationLogic logic;
 
+    boolean hasMaterial;
+    boolean hasTool;
+    boolean hasArmor;
+    boolean hasAccessory;
+    ItemStack centerStack;
+    ToolMaterial materialEnum;
+    String centerTitle;
+    NBTTagCompound tags;
+
     // Panel positions
 
-    int craftingLeft = 0;
-    int craftingTop = 0;
+    private int craftingLeft = 0;
+    private int craftingTop = 0;
+    private int craftingTextLeft = 0;
 
-    int descLeft = 0;
-    int descTop = 0;
+    private int descLeft = 0;
+    private int descTop = 0;
+    private int descTextLeft = 0;
 
-    int chestLeft = 0;
-    int chestTop = 0;
+    private int chestLeft = 0;
+    private int chestTop = 0;
 
     public CraftingStationGui(InventoryPlayer inventory, CraftingStationLogic logic, World world, int x, int y, int z)
     {
@@ -69,39 +82,39 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
 
         this.craftingLeft = this.guiLeft;
         this.craftingTop = this.guiTop;
-        this.descTop = this.craftingTop;
 
         if (logic.tinkerTable)
         {
             this.descLeft = this.guiLeft + 176;
+            this.descTop = this.craftingTop;
         }
 
         if (logic.chest != null)
         {
-            this.xSize += 122;
-            this.guiLeft -= 122;
-            this.chestLeft = this.guiLeft + 6;
+            this.xSize += 116;
+            this.guiLeft -= 116;
+            this.chestLeft = this.guiLeft;
             this.chestTop = this.craftingTop;
-            this.craftingLeft = this.guiLeft + 122;
-            this.descLeft = this.guiLeft + 122 + 176;
+            this.craftingLeft += 116;
+            this.descLeft += 116;
             if (logic.doubleChest != null)
                 this.ySize = 187;
         }
+
+        this.craftingTextLeft = this.craftingLeft - this.guiLeft;
+        this.descTextLeft = this.descLeft - this.guiLeft;
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
-        int offsetX = 0;
-
         if (logic.chest != null)
         {
-            this.fontRendererObj.drawString(StatCollector.translateToLocal(logic.chest.get().getInventoryName()), 14, 6, 0x202020);
-            offsetX = 122;
+            this.fontRendererObj.drawString(StatCollector.translateToLocal(logic.chest.get().getInventoryName()), 8, 6, 0x202020);
         }
 
-        this.fontRendererObj.drawString(StatCollector.translateToLocal(logic.tinkerTable ? "crafters.TinkerTable" : logic.getInvName()), offsetX + 8, 6, 0x202020);
-        this.fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), offsetX + 8, 72, 0x202020);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal(logic.tinkerTable ? "crafters.TinkerTable" : logic.getInvName()), craftingTextLeft + 8, 6, 0x202020);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), craftingTextLeft + 8, 72, 0x202020);
 
         // this.fontRendererObj.drawString(toolName + "_", this.xSize / 2 - 18,
         // 8, 0xffffff);
@@ -116,6 +129,8 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
                 if(!logic.isStackInSlot(1) && !logic.isStackInSlot(2) && !logic.isStackInSlot(3) && !logic.isStackInSlot(4)
                 && !logic.isStackInSlot(6) && !logic.isStackInSlot(7) && !logic.isStackInSlot(8) && !logic.isStackInSlot(9))
                     drawToolStats(logic.getStackInSlot(5));
+                else
+                    drawToolInformation();
             }
             else
                 drawToolInformation();
@@ -124,62 +139,97 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
 
     void drawToolStats (ItemStack stack)
     {
-        int offsetX = 239;
-        int descX = 186;
-        if (logic.chest != null)
+        int offsetX = descTextLeft + 63;
+        int descX = descTextLeft + 10;
+
+        if (centerStack != stack)
         {
-            offsetX += 122;
-            descX += 122;
+            centerStack = stack;
+            hasAccessory = hasArmor = hasMaterial = hasTool = false;
+
+            int matID = PatternBuilder.instance.getPartID(stack);
+
+            if (matID != Short.MAX_VALUE)
+            {
+                materialEnum = TConstructRegistry.getMaterial(matID);
+                hasMaterial = true;
+                centerTitle = "\u00A7n" + materialEnum.localizedName();
+            }
+            else if (stack.getItem() instanceof ToolCore)
+            {
+                ToolCore tool = (ToolCore) stack.getItem();
+                tags = stack.getTagCompound().getCompoundTag(tool.getBaseTagName());
+                hasTool = true;
+                centerTitle = "\u00A7n" + tool.getLocalizedToolName();
+            }
+            else if (stack.getItem() instanceof ArmorCore)
+            {
+                ArmorCore armor = (ArmorCore) stack.getItem();
+                tags = stack.getTagCompound().getCompoundTag(armor.getBaseTagName());
+                hasArmor = true;
+                centerTitle = "\u00A7n" + stack.getDisplayName(); // todo: localize
+            }
+            else if (stack.getItem() instanceof AccessoryCore)
+            {
+                AccessoryCore accessory = (AccessoryCore) stack.getItem();
+                tags = stack.getTagCompound().getCompoundTag(accessory.getBaseTagName());
+                hasAccessory = true;
+                centerTitle = "\u00A7n" + stack.getDisplayName(); // todo: localize
+            }
         }
 
-        if (stack.getItem() instanceof ToolCore)
+        if (hasAccessory || hasArmor || hasMaterial || hasTool)
         {
-            ToolCore tool = (ToolCore) stack.getItem();
-            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(tool.getBaseTagName());
-            this.drawCenteredString(fontRendererObj, "\u00A7n" + tool.getLocalizedToolName(), offsetX, 8, 0xffffff);
+            this.drawCenteredString(fontRendererObj, centerTitle, offsetX, 8, 0xffffff);
 
-            drawModularToolStats(stack, tool, tags, descX, 24);
+            if (hasTool)
+            {
+                drawModularToolStats();
+            }
+            else if (hasArmor)
+            {
+                drawModularArmorStats();
+            }
+            else if (hasAccessory)
+            {
+                drawModularAccessoryStats();
+            }
+            else if (hasMaterial)
+            {
+                drawMaterialStats();
+            }
         }
-        if(stack.getItem() instanceof ArmorCore)
+        else
         {
-            ArmorCore armor = (ArmorCore) stack.getItem();
-            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(armor.getBaseTagName());
-            this.drawCenteredString(fontRendererObj, "\u00A7n" + stack.getDisplayName(), offsetX, 8, 0xffffff); // todo: localize
-
-            drawModularArmorStats(stack, armor, tags, descX, 24);
-        }
-        if(stack.getItem() instanceof AccessoryCore)
-        {
-            AccessoryCore accessory = (AccessoryCore) stack.getItem();
-            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(accessory.getBaseTagName());
-            this.drawCenteredString(fontRendererObj, "\u00A7n" + stack.getDisplayName(), offsetX, 8, 0xffffff); // todo: localize
-
-            drawModularAccessoryStats(stack, accessory, tags, descX, 24);
+            drawToolInformation();
         }
     }
 
-    protected void drawModularToolStats (ItemStack stack, ToolCore tool, NBTTagCompound tags, int x, int y)
+    protected void drawModularToolStats ()
     {
+        ToolCore tool = (ToolCore)centerStack.getItem();
+
         List categories = Arrays.asList(tool.getTraits());
         final int durability = tags.getInteger("Damage");
         final int maxDur = tags.getInteger("TotalDurability");
         int availableDurability = maxDur - durability;
 
         // Durability
-        int base = y;
+        final int baseX = descTextLeft + 10;
+        final int baseY = 24;
         int offset = 0;
         if (maxDur > 0)
         {
             if (maxDur >= 10000)
             {
-                fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation1"), x, base + offset * 11, 0xffffff);
+                fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation1"), baseX, baseY + offset * 11, 0xffffff);
                 offset++;
-                fontRendererObj.drawString("- " + availableDurability + "/" + maxDur, x, base + offset * 10, 0xffffff);
+                fontRendererObj.drawString("- " + availableDurability + "/" + maxDur, baseX, baseY + offset * 10, 0xffffff);
                 offset++;
             }
             else
             {
-                fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation2") + availableDurability + "/" + maxDur, x, base + offset * 10, 0xffffff);
+                fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation2") + availableDurability + "/" + maxDur, baseX, baseY + offset * 10, 0xffffff);
                 offset++;
             }
         }
@@ -197,9 +247,9 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
 
             String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
             if (attack % 2 == 0)
-                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation3") + attack / 2 + heart, x, base + offset * 10, 0xffffff);
+                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation3") + attack / 2 + heart, baseX, baseY + offset * 10, 0xffffff);
             else
-                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation3") + attack / 2f + heart, x, base + offset * 10, 0xffffff);
+                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation3") + attack / 2f + heart, baseX, baseY + offset * 10, 0xffffff);
             offset++;
 
             if (stoneboundDamage != 0)
@@ -207,7 +257,7 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
                 DecimalFormat df = new DecimalFormat("##.##");
                 heart = stoneboundDamage == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
                 String bloss = stoneboundDamage > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
-                this.fontRendererObj.drawString(bloss + df.format(stoneboundDamage / 2f) + heart, x, base + offset * 10, 0xffffff);
+                this.fontRendererObj.drawString(bloss + df.format(stoneboundDamage / 2f) + heart, baseX, baseY + offset * 10, 0xffffff);
                 offset++;
             }
             offset++;
@@ -220,9 +270,9 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
             int drawSpeed = tags.getInteger("DrawSpeed");
             float flightSpeed = tags.getFloat("FlightSpeed");
             float trueDraw = drawSpeed / 20f * flightSpeed;
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation6") + df.format(trueDraw) + "s", x, base + offset * 10, 0xffffff);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation6") + df.format(trueDraw) + "s", baseX, baseY + offset * 10, 0xffffff);
             offset++;
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation7") + df.format(flightSpeed) + "x", x, base + offset * 10, 0xffffff);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation7") + df.format(flightSpeed) + "x", baseX, baseY + offset * 10, 0xffffff);
             offset++;
             offset++;
         }
@@ -236,26 +286,26 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
             float shatter = tags.getFloat("BreakChance");
             float accuracy = tags.getFloat("Accuracy");
 
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation10"), x, base + offset * 10, 0xffffff);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation10"), baseX, baseY + offset * 10, 0xffffff);
             offset++;
             String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
             if (attack % 2 == 0)
-                this.fontRendererObj.drawString("- " + attack / 2 + heart, x, base + offset * 10, 0xffffff);
+                this.fontRendererObj.drawString("- " + attack / 2 + heart, baseX, baseY + offset * 10, 0xffffff);
             else
-                this.fontRendererObj.drawString("- " + attack / 2f + heart, x, base + offset * 10, 0xffffff);
+                this.fontRendererObj.drawString("- " + attack / 2f + heart, baseX, baseY + offset * 10, 0xffffff);
             offset++;
             int minAttack = attack;
             int maxAttack = attack * 2;
             heart = StatCollector.translateToLocal("gui.partcrafter9");
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation11"), x, base + offset * 10, 0xffffff);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation11"), baseX, baseY + offset * 10, 0xffffff);
             offset++;
-            this.fontRendererObj.drawString(df.format(minAttack / 2f) + "-" + df.format(maxAttack / 2f) + heart, x, base + offset * 10, 0xffffff);
+            this.fontRendererObj.drawString(df.format(minAttack / 2f) + "-" + df.format(maxAttack / 2f) + heart, baseX, baseY + offset * 10, 0xffffff);
             offset++;
             offset++;
 
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation8") + df.format(mass), x, base + offset * 10, 0xffffff);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation8") + df.format(mass), baseX, baseY + offset * 10, 0xffffff);
             offset++;
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation9") + df.format(accuracy - 4) + "%", x, base + offset * 10, 0xffffff);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation9") + df.format(accuracy - 4) + "%", baseX, baseY + offset * 10, 0xffffff);
             offset++;
             /*
              * this.fontRendererObj.drawString("Chance to break: " +
@@ -276,20 +326,20 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
             float trueSpeed = mineSpeed + stoneboundSpeed;
             float trueSpeed2 = mineSpeed2 + stoneboundSpeed;
 
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation12"), x, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation12"), baseX, baseY + offset * 10, 0xffffff);
             offset++;
-            fontRendererObj.drawString("- " + df.format(trueSpeed) + ", " + df.format(trueSpeed2), x, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString("- " + df.format(trueSpeed) + ", " + df.format(trueSpeed2), baseX, baseY + offset * 10, 0xffffff);
             offset++;
             if (stoneboundSpeed != 0)
             {
                 String bloss = stoneboundSpeed > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
-                fontRendererObj.drawString(bloss + df.format(stoneboundSpeed), x, base + offset * 10, 0xffffff);
+                fontRendererObj.drawString(bloss + df.format(stoneboundSpeed), baseX, baseY + offset * 10, 0xffffff);
                 offset++;
             }
             offset++;
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation13"), x, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation13"), baseX, baseY + offset * 10, 0xffffff);
             offset++;
-            fontRendererObj.drawString("- " + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel2")), x, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString("- " + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel2")), baseX, baseY + offset * 10, 0xffffff);
             offset++;
             offset++;
         }
@@ -303,15 +353,15 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
             trueSpeed += stoneboundSpeed;
             if (trueSpeed < 0)
                 trueSpeed = 0;
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation14") + df.format(trueSpeed), x, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation14") + df.format(trueSpeed), baseX, baseY + offset * 10, 0xffffff);
             offset++;
             if (stoneboundSpeed != 0 && !Float.isNaN(stoneboundSpeed))
             {
                 String bloss = stoneboundSpeed > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
-                fontRendererObj.drawString(bloss + df.format(stoneboundSpeed), x, base + offset * 10, 0xffffff);
+                fontRendererObj.drawString(bloss + df.format(stoneboundSpeed), baseX, baseY + offset * 10, 0xffffff);
                 offset++;
             }
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation15") + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel")), x, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation15") + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel")), baseX, baseY + offset * 10, 0xffffff);
             offset++;
             offset++;
         }
@@ -319,7 +369,7 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
         {
             float mineSpeed = tags.getInteger("MiningSpeed");
             float trueSpeed = mineSpeed / (100f);
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation16") + trueSpeed, x, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation16") + trueSpeed, baseX, baseY + offset * 10, 0xffffff);
             offset++;
             offset++;
         }
@@ -327,12 +377,12 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
         int modifiers = tags.getInteger("Modifiers");
         if (modifiers > 0)
         {
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation18") + tags.getInteger("Modifiers"), x, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation18") + tags.getInteger("Modifiers"), baseX, baseY + offset * 10, 0xffffff);
             offset++;
         }
         if (tags.hasKey("Tooltip1"))
         {
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation17"), x, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation17"), baseX, baseY + offset * 10, 0xffffff);
         }
 
         boolean displayToolTips = true;
@@ -344,7 +394,7 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
             if (tags.hasKey(tooltip))
             {
                 String tipName = tags.getString(tooltip);
-                fontRendererObj.drawString("- " + tipName, x, base + (offset + tipNum) * 10, 0xffffff);
+                fontRendererObj.drawString("- " + tipName, baseX, baseY + (offset + tipNum) * 10, 0xffffff);
             }
             else
                 displayToolTips = false;
@@ -354,10 +404,12 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
     private static DecimalFormat df =  new DecimalFormat("##.#");
 
     // todo: do this properly, quick and dirty fix
-    protected void drawModularArmorStats (ItemStack stack, ArmorCore armor, NBTTagCompound tags, int x, int y)
+    protected void drawModularArmorStats ()
     {
+        ArmorCore armor = (ArmorCore)centerStack.getItem();
         List categories = Arrays.asList(armor.getTraits());
-        int base = y;
+        final int baseX = descTextLeft + 10;
+        final int baseY = 24;
         int offset = 0;
 
         // durability
@@ -370,14 +422,14 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
         {
             if (maxDur >= 10000)
             {
-                fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation1"), x, base + offset * 11, 0xffffff);
+                fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation1"), baseX, baseY + offset * 11, 0xffffff);
                 offset++;
-                fontRendererObj.drawString("- " + availableDurability + "/" + maxDur, x, base + offset * 10, 0xffffff);
+                fontRendererObj.drawString("- " + availableDurability + "/" + maxDur, baseX, baseY + offset * 10, 0xffffff);
                 offset++;
             }
             else
             {
-                fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation2") + availableDurability + "/" + maxDur, x, base + offset * 10, 0xffffff);
+                fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation2") + availableDurability + "/" + maxDur, baseX, baseY + offset * 10, 0xffffff);
                 offset++;
             }
         }
@@ -385,15 +437,15 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
         double damageReduction = tags.getDouble("DamageReduction");
         if(damageReduction > 0.000001d)
         {
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation19") + df.format(damageReduction), x, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation19") + df.format(damageReduction), baseX, baseY + offset * 10, 0xffffff);
             offset++;
         }
 
         // Protection
-        double protection = armor.getProtection(stack);
+        double protection = armor.getProtection(centerStack);
         double maxProtection = tags.getDouble("MaxDefense");
         //if(maxProtection > protection)
-        fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation20") + df.format(protection) + "/" + df.format(maxProtection), 294, base + offset * 10, 0xffffff);
+        fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation20") + df.format(protection) + "/" + df.format(maxProtection), baseX, baseY + offset * 10, 0xffffff);
         //else
         //  fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation20") + df.format(protection), x, base + offset * 10, 0xffffff);
         offset++;
@@ -402,12 +454,12 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
         int modifiers = tags.getInteger("Modifiers");
         if (modifiers > 0)
         {
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation18") + tags.getInteger("Modifiers"), x, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation18") + tags.getInteger("Modifiers"), baseX, baseY + offset * 10, 0xffffff);
             offset++;
         }
         if (tags.hasKey("Tooltip1"))
         {
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation17"), x, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation17"), baseX, baseY + offset * 10, 0xffffff);
         }
 
         boolean displayToolTips = true;
@@ -419,7 +471,7 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
             if (tags.hasKey(tooltip))
             {
                 String tipName = tags.getString(tooltip);
-                fontRendererObj.drawString("- " + tipName, x, base + (offset + tipNum) * 10, 0xffffff);
+                fontRendererObj.drawString("- " + tipName, baseX, baseY + (offset + tipNum) * 10, 0xffffff);
             }
             else
                 displayToolTips = false;
@@ -427,17 +479,19 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
     }
 
     // todo: also quick and dirty fix
-    protected void drawModularAccessoryStats (ItemStack stack, AccessoryCore accessory, NBTTagCompound tags, int x, int y)
+    protected void drawModularAccessoryStats ()
     {
+        AccessoryCore accessory = (AccessoryCore)centerStack.getItem();
         List categories = Arrays.asList(accessory.getTraits());
-        int base = y;
+        final int baseX = descTextLeft + 10;
+        final int baseY = 24;
         int offset = 0;
 
         if (categories.contains("utility"))
         {
             float mineSpeed = tags.getInteger("MiningSpeed");
             float trueSpeed = mineSpeed / (100f);
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation16") + trueSpeed, x, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation16") + trueSpeed, baseX, baseY + offset * 10, 0xffffff);
             offset++;
         }
 
@@ -445,12 +499,12 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
         int modifiers = tags.getInteger("Modifiers");
         if (modifiers > 0)
         {
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation18") + tags.getInteger("Modifiers"), x, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation18") + tags.getInteger("Modifiers"), baseX, baseY + offset * 10, 0xffffff);
             offset++;
         }
         if (tags.hasKey("Tooltip1"))
         {
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation17"), x, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation17"), baseX, baseY + offset * 10, 0xffffff);
         }
 
         boolean displayToolTips = true;
@@ -462,20 +516,35 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
             if (tags.hasKey(tooltip))
             {
                 String tipName = tags.getString(tooltip);
-                fontRendererObj.drawString("- " + tipName, x, base + (offset + tipNum) * 10, 0xffffff);
+                fontRendererObj.drawString("- " + tipName, baseX, baseY + (offset + tipNum) * 10, 0xffffff);
             }
             else
                 displayToolTips = false;
         }
     }
+    
+    protected void drawMaterialStats()
+    {
+        final int baseX = descTextLeft + 8;
+        final int baseY = 24;
+
+        this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter4") + materialEnum.durability(), baseX, baseY + 16, 16777215);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter5") + materialEnum.handleDurability() + "x", baseX, baseY + 27, 16777215);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter6") + materialEnum.toolSpeed() / 100f, baseX, baseY + 38, 16777215);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter7") + HarvestLevels.getHarvestLevelName(materialEnum.harvestLevel()), baseX, baseY + 49, 16777215);
+
+        int attack = materialEnum.attack();
+        String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
+        if (attack % 2 == 0)
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2 + heart, baseX, baseY + 60, 0xffffff);
+        else
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2f + heart, baseX, baseY + 60, 0xffffff);
+    }
 
     void drawToolInformation ()
     {
-        int offsetX = 239;
-        if (logic.chest != null)
-        {
-            offsetX += 122;
-        }
+        int offsetX = descTextLeft + 63;
+        
         this.drawCenteredString(fontRendererObj, title, offsetX, 8, 0xffffff);
         fontRendererObj.drawSplitString(body, offsetX - 56, 24, 115, 0xffffff);
     }
