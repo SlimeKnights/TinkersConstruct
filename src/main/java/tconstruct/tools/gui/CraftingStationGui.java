@@ -3,6 +3,7 @@ package tconstruct.tools.gui;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.*;
+
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -10,13 +11,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
+
 import org.lwjgl.opengl.GL11;
+
+import codechicken.nei.VisiblityData;
+import codechicken.nei.api.INEIGuiHandler;
+import codechicken.nei.api.TaggedInventoryArea;
+import cpw.mods.fml.common.Optional;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.tools.*;
 import tconstruct.library.util.HarvestLevels;
 import tconstruct.tools.logic.CraftingStationLogic;
 
-public class CraftingStationGui extends GuiContainer
+@Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
+public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
 {
     public boolean active;
     public String toolName;
@@ -423,6 +431,42 @@ public class CraftingStationGui extends GuiContainer
             this.drawTexturedModalRect(this.descLeft, this.descTop, 0, 0, 126, 172);
         }
 
+    }
+
+    @Override
+    public VisiblityData modifyVisiblity (GuiContainer gui, VisiblityData currentVisibility)
+    {
+        return currentVisibility;
+    }
+
+    @Override
+    public Iterable<Integer> getItemSpawnSlots (GuiContainer gui, ItemStack item)
+    {
+        return null;
+    }
+
+    @Override
+    public List<TaggedInventoryArea> getInventoryAreas (GuiContainer gui)
+    {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public boolean handleDragNDrop (GuiContainer gui, int mousex, int mousey, ItemStack draggedStack, int button)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean hideItemPanelSlot (GuiContainer gui, int x, int y, int w, int h)
+    {
+        if (y + h - 4 < guiTop || y + 4 > guiTop + ySize)
+            return false;
+
+        if (x + 4 > guiLeft + xSize)
+            return false;
+
+        return true;
     }
 
 }

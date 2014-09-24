@@ -1,5 +1,8 @@
 package tconstruct.tools.gui;
 
+import java.util.Collections;
+import java.util.List;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
@@ -9,6 +12,10 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
+import codechicken.nei.VisiblityData;
+import codechicken.nei.api.INEIGuiHandler;
+import codechicken.nei.api.TaggedInventoryArea;
+import cpw.mods.fml.common.Optional;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.tools.ToolMaterial;
@@ -17,7 +24,8 @@ import tconstruct.smeltery.inventory.ActiveContainer;
 import tconstruct.tools.inventory.PartCrafterChestContainer;
 import tconstruct.tools.logic.PartBuilderLogic;
 
-public class PartCrafterGui extends GuiContainer
+@Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
+public class PartCrafterGui extends GuiContainer implements INEIGuiHandler
 {
     PartBuilderLogic logic;
     String title, otherTitle = "";
@@ -26,16 +34,25 @@ public class PartCrafterGui extends GuiContainer
     ItemStack topMaterial, bottomMaterial;
     ToolMaterial topEnum, bottomEnum;
 
+    private static final int CRAFT_WIDTH = 176;
+    private static final int CRAFT_HEIGHT = 166;
+    private static final int DESC_WIDTH = 126;
+    private static final int DESC_HEIGHT = 166;
+    private static final int CHEST_WIDTH = 122;
+    private static final int CHEST_HEIGHT = 114;
+
     // Panel positions
 
-    int craftingLeft = 0;
-    int craftingTop = 0;
+    private int craftingLeft = 0;
+    private int craftingTop = 0;
+    private int craftingTextLeft = 0;
 
-    int descLeft = 0;
-    int descTop = 0;
+    private int descLeft = 0;
+    private int descTop = 0;
+    private int descTextLeft = 0;
 
-    int chestLeft = 0;
-    int chestTop = 0;
+    private int chestLeft = 0;
+    private int chestTop = 0;
 
     public PartCrafterGui(InventoryPlayer inventoryplayer, PartBuilderLogic partlogic, World world, int x, int y, int z)
     {
@@ -51,39 +68,41 @@ public class PartCrafterGui extends GuiContainer
     {
         super.initGui();
 
-        this.xSize = 176;
-        this.ySize = 166;
+        this.xSize = CRAFT_WIDTH + DESC_WIDTH;
+        this.ySize = CRAFT_HEIGHT;
 
-        this.guiLeft = (this.width - this.xSize) / 2;
-        this.guiTop = (this.height - this.ySize) / 2;
+        this.craftingLeft = (this.width - CRAFT_WIDTH) / 2;
+        this.craftingTop = (this.height - CRAFT_HEIGHT) / 2;
 
-        this.craftingLeft = this.guiLeft;
-        this.craftingTop = this.guiTop;
+        this.guiLeft = this.craftingLeft;
+        this.guiTop = this.craftingTop;
+
+        this.descLeft = this.craftingLeft + CRAFT_WIDTH;
         this.descTop = this.craftingTop;
-        this.descLeft = (this.width + this.xSize) / 2;
 
         if (drawChestPart)
         {
-            this.xSize += 122;
-            this.guiLeft -= 122;
-            this.chestLeft = this.guiLeft + 6;
+            this.xSize += CHEST_WIDTH - 6;
+            this.guiLeft -= CHEST_WIDTH - 6;
+            
+            this.chestLeft = this.guiLeft;
             this.chestTop = this.guiTop + 11;
         }
+        
+        this.craftingTextLeft = this.craftingLeft - this.guiLeft;
+        this.descTextLeft = this.descLeft - this.guiLeft;
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
-        int offsetX = 0;
-
         if (drawChestPart)
         {
             this.fontRendererObj.drawString(StatCollector.translateToLocal("inventory.PatternChest"), 14, 17, 4210752);
-            offsetX = 122;
         }
 
-        this.fontRendererObj.drawString(StatCollector.translateToLocal("crafters.PartBuilder"), offsetX + 6, 6, 4210752);
-        this.fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), offsetX + 8, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal("crafters.PartBuilder"), craftingTextLeft + 6, 6, 4210752);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), craftingTextLeft + 8, this.ySize - 96 + 2, 4210752);
 
         drawMaterialInformation();
     }
@@ -91,8 +110,8 @@ public class PartCrafterGui extends GuiContainer
     void drawDefaultInformation ()
     {
         title = "\u00A7n" + StatCollector.translateToLocal("gui.partcrafter2");
-        this.drawCenteredString(fontRendererObj, title, xSize + 63, 8, 16777215);
-        fontRendererObj.drawSplitString(StatCollector.translateToLocal("gui.partcrafter3"), xSize + 8, 24, 115, 16777215);
+        this.drawCenteredString(fontRendererObj, title, descTextLeft + DESC_WIDTH / 2, 8, 16777215);
+        fontRendererObj.drawSplitString(StatCollector.translateToLocal("gui.partcrafter3"), descTextLeft + 8, 24, 115, 16777215);
     }
 
     void drawMaterialInformation ()
@@ -134,34 +153,34 @@ public class PartCrafterGui extends GuiContainer
         int offset = 8;
         if (hasTop)
         {
-            this.drawCenteredString(fontRendererObj, title, xSize + 63, offset, 16777215);
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter4") + topEnum.durability(), xSize + 8, offset + 16, 16777215);
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter5") + topEnum.handleDurability() + "x", xSize + 8, offset + 27, 16777215);
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter6") + topEnum.toolSpeed() / 100f, xSize + 8, offset + 38, 16777215);
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter7") + HarvestLevels.getHarvestLevelName(topEnum.harvestLevel()), xSize + 8, offset + 49, 16777215);
+            this.drawCenteredString(fontRendererObj, title, descTextLeft + DESC_WIDTH / 2, offset, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter4") + topEnum.durability(), descTextLeft + 8, offset + 16, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter5") + topEnum.handleDurability() + "x", descTextLeft + 8, offset + 27, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter6") + topEnum.toolSpeed() / 100f, descTextLeft + 8, offset + 38, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter7") + HarvestLevels.getHarvestLevelName(topEnum.harvestLevel()), descTextLeft + 8, offset + 49, 16777215);
 
             int attack = topEnum.attack();
             String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
             if (attack % 2 == 0)
-                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2 + heart, xSize + 8, offset + 60, 0xffffff);
+                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2 + heart, descTextLeft + 8, offset + 60, 0xffffff);
             else
-                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2f + heart, xSize + 8, offset + 60, 0xffffff);
+                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2f + heart, descTextLeft + 8, offset + 60, 0xffffff);
         }
 
         offset = 90;
         if (hasBottom)
         {
-            this.drawCenteredString(fontRendererObj, otherTitle, xSize + 63, offset, 16777215);
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter4") + bottomEnum.durability(), xSize + 8, offset + 16, 16777215);
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter5") + bottomEnum.handleDurability() + "x", xSize + 8, offset + 27, 16777215);
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter6") + bottomEnum.toolSpeed() / 100f, xSize + 8, offset + 38, 16777215);
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter7") + HarvestLevels.getHarvestLevelName(bottomEnum.harvestLevel()), xSize + 8, offset + 49, 16777215);
+            this.drawCenteredString(fontRendererObj, otherTitle, descTextLeft + DESC_WIDTH / 2, offset, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter4") + bottomEnum.durability(), descTextLeft + 8, offset + 16, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter5") + bottomEnum.handleDurability() + "x", descTextLeft + 8, offset + 27, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter6") + bottomEnum.toolSpeed() / 100f, descTextLeft + 8, offset + 38, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter7") + HarvestLevels.getHarvestLevelName(bottomEnum.harvestLevel()), descTextLeft + 8, offset + 49, 16777215);
             int attack = bottomEnum.attack();
             String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
             if (attack % 2 == 0)
-                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2 + heart, xSize + 8, offset + 60, 0xffffff);
+                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2 + heart, descTextLeft + 8, offset + 60, 0xffffff);
             else
-                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2f + heart, xSize + 8, offset + 60, 0xffffff);
+                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2f + heart, descTextLeft + 8, offset + 60, 0xffffff);
         }
 
         if (!hasTop && !hasBottom)
@@ -178,7 +197,7 @@ public class PartCrafterGui extends GuiContainer
         // Draw the background
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(background);
-        this.drawTexturedModalRect(craftingLeft, craftingTop, 0, 0, 176, 166);
+        this.drawTexturedModalRect(craftingLeft, craftingTop, 0, 0, CRAFT_WIDTH, CRAFT_HEIGHT);
 
         // Draw Slots
         this.drawTexturedModalRect(craftingLeft + 39, craftingTop + 26, 0, 166, 98, 36);
@@ -204,13 +223,49 @@ public class PartCrafterGui extends GuiContainer
         {
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             this.mc.getTextureManager().bindTexture(minichest);
-            this.drawTexturedModalRect(chestLeft, chestTop, 0, 0, 122, 114);
+            this.drawTexturedModalRect(chestLeft, chestTop, 0, 0, CHEST_WIDTH, CHEST_HEIGHT);
         }
 
         // Draw description
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(description);
-        this.drawTexturedModalRect(descLeft, descTop, 126, 0, 126, this.ySize);
+        this.drawTexturedModalRect(descLeft, descTop, DESC_WIDTH, 0, DESC_WIDTH, DESC_HEIGHT);
+    }
+
+    @Override
+    public VisiblityData modifyVisiblity (GuiContainer gui, VisiblityData currentVisibility)
+    {
+        return currentVisibility;
+    }
+
+    @Override
+    public Iterable<Integer> getItemSpawnSlots (GuiContainer gui, ItemStack item)
+    {
+        return null;
+    }
+
+    @Override
+    public List<TaggedInventoryArea> getInventoryAreas (GuiContainer gui)
+    {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public boolean handleDragNDrop (GuiContainer gui, int mousex, int mousey, ItemStack draggedStack, int button)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean hideItemPanelSlot (GuiContainer gui, int x, int y, int w, int h)
+    {
+        if (y + h - 4 < guiTop || y + 4 > guiTop + ySize)
+            return false;
+
+        if (x + 4 > guiLeft + xSize)
+            return false;
+
+        return true;
     }
 
 }
