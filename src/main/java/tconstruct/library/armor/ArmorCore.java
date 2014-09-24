@@ -183,6 +183,18 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
         if (tags.getBoolean("Broken"))
             return new ArmorProperties(0, 0, 0);
 
+        double current = getProtection(tags);
+
+        return new ArmorProperties(0, current / 100, 100);
+    }
+
+    public double getProtection(ItemStack stack)
+    {
+        return getProtection(stack.getTagCompound().getCompoundTag(getBaseTagName()));
+    }
+
+    public double getProtection(NBTTagCompound tags)
+    {
         float maxDurability = tags.getInteger("TotalDurability");
         float currentDurability = maxDurability - tags.getInteger("Damage");
         float ratio = currentDurability / maxDurability;
@@ -190,7 +202,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
         double max = tags.getDouble("MaxDefense");
         double current = (max - base) * ratio + base;
 
-        return new ArmorProperties(0, current / 100, 100);
+        return current;
     }
 
     @Override
@@ -388,7 +400,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
         return tags.getCompoundTag(getBaseTagName()).getInteger("Damage");
     }
 
-    DecimalFormat df = new DecimalFormat("##.#");
+    private DecimalFormat df = new DecimalFormat("##.#");
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -400,12 +412,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
         double protection = 0;
         if (!tags.getBoolean("Broken"))
         {
-            float maxDurability = tags.getInteger("TotalDurability");
-            float currentDurability = maxDurability - tags.getInteger("Damage");
-            float ratio = currentDurability / maxDurability;
-            double base = tags.getDouble("BaseDefense");
-            double max = tags.getDouble("MaxDefense");
-            protection = (max - base) * ratio + base;
+            protection = getProtection(tags);
         }
         if (protection > 0)
             list.add("\u00a77Protection: " + df.format(protection) + "%");

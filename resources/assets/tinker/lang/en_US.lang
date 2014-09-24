@@ -758,6 +758,8 @@ gui.toolstation15=Mining Level:
 gui.toolstation16=Usage Speed: 
 gui.toolstation17=Modifiers
 gui.toolstation18=Modifiers remaining: 
+gui.toolstation19=Damage Reduction: 
+gui.toolstation20=Protection: 
 
 gui.mining1=Stone
 gui.mining2=Iron
