@@ -2,6 +2,7 @@ package tconstruct.plugins.nei;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -106,9 +107,9 @@ public abstract class RecipeHandlerBase extends TemplateRecipeHandler
     }
 
     @Override
-    public void loadUsageRecipes (ItemStack result)
+    public void loadUsageRecipes (ItemStack ingred)
     {
-        FluidStack fluid = getFluidStack(result);
+        FluidStack fluid = getFluidStack(ingred);
         if (fluid != null)
         {
             this.loadUsageRecipes(fluid);
@@ -230,6 +231,13 @@ public abstract class RecipeHandlerBase extends TemplateRecipeHandler
         }
     }
 
+    public static List getSingleList (Object o)
+    {
+        List list = new ArrayList();
+        list.add(o);
+        return list;
+    }
+
     public static FluidStack getFluidStack (ItemStack stack)
     {
         if (stack == null)
@@ -264,15 +272,6 @@ public abstract class RecipeHandlerBase extends TemplateRecipeHandler
             return false;
         }
         return fluidStack1.isFluidEqual(fluidStack2);
-    }
-
-    public static String getMoltenTooltip (FluidStack fluid)
-    {
-        if (fluid == null)
-        {
-            return null;
-        }
-        return null;
     }
 
     public static class FluidTankElement
