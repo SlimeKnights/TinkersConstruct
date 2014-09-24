@@ -14,17 +14,12 @@ public class NEITConstructConfig implements IConfigureNEI
         API.registerGuiOverlay(CraftingStationGui.class, "crafting");
         API.registerGuiOverlayHandler(CraftingStationGui.class, new DefaultOverlayHandler(), "crafting");
 
-        API.registerRecipeHandler(new RecipeHandlerDryingRack());
-        API.registerUsageHandler(new RecipeHandlerDryingRack());
-
-        API.registerRecipeHandler(new RecipeHandlerMelting());
-        API.registerUsageHandler(new RecipeHandlerMelting());
-        API.registerRecipeHandler(new RecipeHandlerAlloying());
-        API.registerUsageHandler(new RecipeHandlerAlloying());
-        API.registerRecipeHandler(new RecipeHandlerCastingTable());
-        API.registerUsageHandler(new RecipeHandlerCastingTable());
-        API.registerRecipeHandler(new RecipeHandlerCastingBasin());
-        API.registerUsageHandler(new RecipeHandlerCastingBasin());
+        registerHandler(new RecipeHandlerDryingRack());
+        registerHandler(new RecipeHandlerToolMaterials());
+        registerHandler(new RecipeHandlerMelting());
+        registerHandler(new RecipeHandlerAlloying());
+        registerHandler(new RecipeHandlerCastingTable());
+        registerHandler(new RecipeHandlerCastingBasin());
     }
 
     @Override
@@ -37,6 +32,12 @@ public class NEITConstructConfig implements IConfigureNEI
     public String getVersion ()
     {
         return "${version}";
+    }
+
+    private static void registerHandler (RecipeHandlerBase handler)
+    {
+        API.registerRecipeHandler(handler);
+        API.registerUsageHandler(handler);
     }
 
 }
