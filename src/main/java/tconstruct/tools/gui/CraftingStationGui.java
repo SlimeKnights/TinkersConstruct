@@ -95,8 +95,6 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
             this.guiLeft -= 116;
             this.chestLeft = this.guiLeft;
             this.chestTop = this.craftingTop;
-            this.craftingLeft += 116;
-            this.descLeft += 116;
             if (logic.doubleChest != null)
                 this.ySize = 187;
         }
