@@ -46,8 +46,8 @@ public class CraftingStationContainer extends Container
 
         if (logic.chest != null)
         {
-            craftingOffsetX += 122;
-            inventoryOffsetX += 122;
+            craftingOffsetX += 116;
+            inventoryOffsetX += 116;
         }
 
         this.addSlotToContainer(new SlotCraftingStation(inventorplayer.player, this.craftMatrix, this.craftResult, 0, craftingOffsetX + 94, 35));
@@ -92,7 +92,7 @@ public class CraftingStationContainer extends Container
                 for (row = 0; row < 6; row++)
                 {
                     int value = count < 27 ? count : count - 27;
-                    this.addSlotToContainer(new Slot(count < 27 ? firstChest : secondChest, value, 14 + row * 18, 19 + column * 18));
+                    this.addSlotToContainer(new Slot(count < 27 ? firstChest : secondChest, value, 8 + row * 18, 19 + column * 18));
                     count++;
                     if (count >= 27 && secondChest == null)
                         break;
