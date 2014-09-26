@@ -759,6 +759,9 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
     /* Proper stack damage */
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
+        if(!stack.hasTagCompound())
+            return false;
+        
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         return !tags.getBoolean("Broken") && getDamage(stack) > 0;
     }
