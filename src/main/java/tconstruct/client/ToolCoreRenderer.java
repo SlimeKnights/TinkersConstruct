@@ -1,6 +1,9 @@
 package tconstruct.client;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -154,10 +157,21 @@ public class ToolCoreRenderer implements IItemRenderer
             a = 1.0f;
         GL11.glColor4f(r, g, b, a);
 
+
+        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+
         if (type == ItemRenderType.INVENTORY)
         {
+            TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
+            texturemanager.getResourceLocation(item.getItemSpriteNumber());
+            TextureUtil.func_152777_a(false, false, 1.0F);
+
             GL11.glDisable(GL11.GL_LIGHTING);
             GL11.glEnable(GL11.GL_BLEND);
+            GL11.glEnable(GL11.GL_ALPHA_TEST);
+            GL11.glAlphaFunc(GL11.GL_GREATER, 0.5F);
+            GL11.glDisable(GL11.GL_BLEND);
+            
             tess.startDrawingQuads();
             for (int i = 0; i < iconParts; ++i)
             {
@@ -168,11 +182,13 @@ public class ToolCoreRenderer implements IItemRenderer
             }
             tess.draw();
             GL11.glEnable(GL11.GL_LIGHTING);
+
+            GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+            texturemanager.bindTexture(texturemanager.getResourceLocation(item.getItemSpriteNumber()));
+            TextureUtil.func_147945_b();
         }
         else
         {
-            GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-
             switch (type)
             {
             case EQUIPPED_FIRST_PERSON:
