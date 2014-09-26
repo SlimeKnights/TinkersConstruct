@@ -1,6 +1,7 @@
 package tconstruct.client;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureUtil;
@@ -147,34 +148,29 @@ public class ToolCoreRenderer implements IItemRenderer
         GL11.glPushMatrix();
 
         // color
-        int color = item.getItem().getColorFromItemStack(item, 0);
-        float a = (float)(color >> 24 & 0xff) / 255F;
-        float r = (float)(color >> 16 & 0xff) / 255F;
-        float g = (float)(color >> 8 & 0xff) / 255F;
-        float b = (float)(color & 0xff) / 255F;
-        // no invisible
-        if(a < 0.01f)
-            a = 1.0f;
-        GL11.glColor4f(r, g, b, a);
+        int[] color = new int[iconParts];
+        for(int i = 0; i < iconParts; i++)
+            color[i] = item.getItem().getColorFromItemStack(item, i);
 
 
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 
         if (type == ItemRenderType.INVENTORY)
         {
+
             TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
             texturemanager.getResourceLocation(item.getItemSpriteNumber());
             TextureUtil.func_152777_a(false, false, 1.0F);
 
             GL11.glDisable(GL11.GL_LIGHTING);
-            GL11.glEnable(GL11.GL_BLEND);
             GL11.glEnable(GL11.GL_ALPHA_TEST);
             GL11.glAlphaFunc(GL11.GL_GREATER, 0.5F);
             GL11.glDisable(GL11.GL_BLEND);
-            
+
             tess.startDrawingQuads();
             for (int i = 0; i < iconParts; ++i)
             {
+                tess.setColorOpaque_I(color[i]);
                 tess.addVertexWithUV(0, 16, 0, xMin[i], yMax[i]);
                 tess.addVertexWithUV(16, 16, 0, xMax[i], yMax[i]);
                 tess.addVertexWithUV(16, 0, 0, xMax[i], yMin[i]);
@@ -182,8 +178,9 @@ public class ToolCoreRenderer implements IItemRenderer
             }
             tess.draw();
             GL11.glEnable(GL11.GL_LIGHTING);
+            GL11.glDisable(GL11.GL_ALPHA_TEST);
 
-            GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+            //GL11.glDisable(GL12.GL_RESCALE_NORMAL);
             texturemanager.bindTexture(texturemanager.getResourceLocation(item.getItemSpriteNumber()));
             TextureUtil.func_147945_b();
         }
@@ -208,6 +205,7 @@ public class ToolCoreRenderer implements IItemRenderer
             tess.setNormal(0, 0, 1);
             for (int i = 0; i < iconParts; ++i)
             {
+                tess.setColorOpaque_I(color[i]);
                 tess.addVertexWithUV(0, 0, 0, xMax[i], yMax[i]);
                 tess.addVertexWithUV(1, 0, 0, xMin[i], yMax[i]);
                 tess.addVertexWithUV(1, 1, 0, xMin[i], yMin[i]);
@@ -220,6 +218,7 @@ public class ToolCoreRenderer implements IItemRenderer
             tess.setNormal(0, 0, -1);
             for (int i = 0; i < iconParts; ++i)
             {
+                tess.setColorOpaque_I(color[i]);
                 tess.addVertexWithUV(0, 1, -depth, xMax[i], yMin[i]);
                 tess.addVertexWithUV(1, 1, -depth, xMin[i], yMin[i]);
                 tess.addVertexWithUV(1, 0, -depth, xMin[i], yMax[i]);
@@ -235,6 +234,7 @@ public class ToolCoreRenderer implements IItemRenderer
 
             for (int i = 0; i < iconParts; ++i)
             {
+                tess.setColorOpaque_I(color[i]);
                 float w = width[i], m = xMax[i], d = xDiff[i], s = xSub[i];
                 for (int k = 0, e = (int) w; k < e; ++k)
                 {
@@ -254,6 +254,7 @@ public class ToolCoreRenderer implements IItemRenderer
 
             for (int i = 0; i < iconParts; ++i)
             {
+                tess.setColorOpaque_I(color[i]);
                 float w = width[i], m = xMax[i], d = xDiff[i], s = xSub[i];
                 float d2 = 1f / w;
                 for (int k = 0, e = (int) w; k < e; ++k)
@@ -274,6 +275,7 @@ public class ToolCoreRenderer implements IItemRenderer
 
             for (int i = 0; i < iconParts; ++i)
             {
+                tess.setColorOpaque_I(color[i]);
                 float h = height[i], m = yMax[i], d = yDiff[i], s = ySub[i];
                 float d2 = 1f / h;
                 for (int k = 0, e = (int) h; k < e; ++k)
@@ -294,6 +296,7 @@ public class ToolCoreRenderer implements IItemRenderer
 
             for (int i = 0; i < iconParts; ++i)
             {
+                tess.setColorOpaque_I(color[i]);
                 float h = height[i], m = yMax[i], d = yDiff[i], s = ySub[i];
                 for (int k = 0, e = (int) h; k < e; ++k)
                 {
