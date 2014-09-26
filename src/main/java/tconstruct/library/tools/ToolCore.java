@@ -21,6 +21,7 @@ import tconstruct.library.modifier.*;
 import tconstruct.library.util.TextureHelper;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.entity.FancyEntityItem;
+import tconstruct.util.config.PHConstruct;
 
 /**
  * NBTTags Main tag - InfiTool
@@ -214,15 +215,16 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
 
     private void addIcons(HashMap<Integer, String> textures, HashMap<Integer, IIcon> icons, IIconRegister iconRegister, String standard)
     {
+        // compatibility mode: no specific textures
+        if(PHConstruct.minimalTextures)
+            textures.clear();
+
         icons.clear();
         for(Map.Entry<Integer, String> entry : textures.entrySet())
         {
             if(TextureHelper.itemTextureExists(entry.getValue()))
                 icons.put(entry.getKey(), iconRegister.registerIcon(entry.getValue()));
         }
-
-        // get the mod id stuff.
-
 
         if(standard != null && !standard.isEmpty()) {
             standard =  getDefaultTexturePath() + "/" + standard;
