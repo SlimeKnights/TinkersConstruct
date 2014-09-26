@@ -262,6 +262,7 @@ public abstract class BowBase extends ToolCore
             effectIcons2.clear();
             effectIcons3.clear();
             for(Map.Entry<Integer, String> entry : effectStrings.entrySet()) {
+                effectIcons.put(entry.getKey(), iconRegister.registerIcon(entry.getValue()));
                 effectIcons1.put(entry.getKey(), iconRegister.registerIcon(entry.getValue() + "_1"));
                 effectIcons2.put(entry.getKey(), iconRegister.registerIcon(entry.getValue() + "_2"));
                 effectIcons3.put(entry.getKey(), iconRegister.registerIcon(entry.getValue() + "_3"));
@@ -433,42 +434,50 @@ public abstract class BowBase extends ToolCore
                 if (renderPass == getPartAmount())
                 {
                     if (tags.hasKey("Effect1"))
-                        return getCorrectIcon(effectIcons, tags.getInteger("Effect1"));
+                        return getCorrectIcon2(effectIcons, tags.getInteger("Effect1"));
                 }
 
                 else if (renderPass == getPartAmount() + 1)
                 {
                     if (tags.hasKey("Effect2"))
-                        return getCorrectIcon(effectIcons, tags.getInteger("Effect2"));
+                        return getCorrectIcon2(effectIcons, tags.getInteger("Effect2"));
                 }
 
                 else if (renderPass == getPartAmount() + 2)
                 {
                     if (tags.hasKey("Effect3"))
-                        return getCorrectIcon(effectIcons, tags.getInteger("Effect3"));
+                        return getCorrectIcon2(effectIcons, tags.getInteger("Effect3"));
                 }
 
                 else if (renderPass == getPartAmount() + 3)
                 {
                     if (tags.hasKey("Effect4"))
-                        return getCorrectIcon(effectIcons, tags.getInteger("Effect4"));
+                        return getCorrectIcon2(effectIcons, tags.getInteger("Effect4"));
                 }
 
                 else if (renderPass == getPartAmount() + 4)
                 {
                     if (tags.hasKey("Effect5"))
-                        return getCorrectIcon(effectIcons, tags.getInteger("Effect5"));
+                        return getCorrectIcon2(effectIcons, tags.getInteger("Effect5"));
                 }
 
                 else if (renderPass == getPartAmount() + 5)
                 {
                     if (tags.hasKey("Effect6"))
-                        return getCorrectIcon(effectIcons, tags.getInteger("Effect6"));
+                        return getCorrectIcon2(effectIcons, tags.getInteger("Effect6"));
                 }
             }
             return blankSprite;
         }
         return emptyIcon;
+    }
+
+    protected IIcon getCorrectIcon2(Map<Integer, IIcon> icons, int id)
+    {
+        if(!icons.containsKey(id))
+            return blankSprite;
+        
+        return icons.get(id);
     }
 
     /* Animations */
@@ -574,37 +583,37 @@ public abstract class BowBase extends ToolCore
                 if (renderPass == getPartAmount())
                 {
                     if (tags.hasKey("Effect1"))
-                        return getCorrectIcon(effectIcons1, tags.getInteger("Effect1"));
+                        return getCorrectIcon2(effectIcons1, tags.getInteger("Effect1"));
                 }
 
                 else if (renderPass == getPartAmount() + 1)
                 {
                     if (tags.hasKey("Effect2"))
-                        return getCorrectIcon(effectIcons1, tags.getInteger("Effect2"));
+                        return getCorrectIcon2(effectIcons1, tags.getInteger("Effect2"));
                 }
 
                 else if (renderPass == getPartAmount() + 2)
                 {
                     if (tags.hasKey("Effect3"))
-                        return getCorrectIcon(effectIcons1, tags.getInteger("Effect3"));
+                        return getCorrectIcon2(effectIcons1, tags.getInteger("Effect3"));
                 }
 
                 else if (renderPass == getPartAmount() + 3)
                 {
                     if (tags.hasKey("Effect4"))
-                        return getCorrectIcon(effectIcons1, tags.getInteger("Effect4"));
+                        return getCorrectIcon2(effectIcons1, tags.getInteger("Effect4"));
                 }
 
                 else if (renderPass == getPartAmount() + 4)
                 {
                     if (tags.hasKey("Effect5"))
-                        return getCorrectIcon(effectIcons1, tags.getInteger("Effect5"));
+                        return getCorrectIcon2(effectIcons1, tags.getInteger("Effect5"));
                 }
 
                 else if (renderPass == getPartAmount() + 5)
                 {
                     if (tags.hasKey("Effect6"))
-                        return getCorrectIcon(effectIcons1, tags.getInteger("Effect6"));
+                        return getCorrectIcon2(effectIcons1, tags.getInteger("Effect6"));
                 }
                 else
                 {
@@ -651,37 +660,37 @@ public abstract class BowBase extends ToolCore
                 if (renderPass == getPartAmount())
                 {
                     if (tags.hasKey("Effect1"))
-                        return getCorrectIcon(effectIcons2, tags.getInteger("Effect1"));
+                        return getCorrectIcon2(effectIcons2, tags.getInteger("Effect1"));
                 }
 
                 else if (renderPass == getPartAmount() + 1)
                 {
                     if (tags.hasKey("Effect2"))
-                        return getCorrectIcon(effectIcons2, tags.getInteger("Effect2"));
+                        return getCorrectIcon2(effectIcons2, tags.getInteger("Effect2"));
                 }
 
                 else if (renderPass == getPartAmount() + 2)
                 {
                     if (tags.hasKey("Effect3"))
-                        return getCorrectIcon(effectIcons2, tags.getInteger("Effect3"));
+                        return getCorrectIcon2(effectIcons2, tags.getInteger("Effect3"));
                 }
 
                 else if (renderPass == getPartAmount() + 3)
                 {
                     if (tags.hasKey("Effect4"))
-                        return getCorrectIcon(effectIcons2, tags.getInteger("Effect4"));
+                        return getCorrectIcon2(effectIcons2, tags.getInteger("Effect4"));
                 }
 
                 else if (renderPass == getPartAmount() + 4)
                 {
                     if (tags.hasKey("Effect5"))
-                        return getCorrectIcon(effectIcons2, tags.getInteger("Effect5"));
+                        return getCorrectIcon2(effectIcons2, tags.getInteger("Effect5"));
                 }
 
                 else if (renderPass == getPartAmount() + 5)
                 {
                     if (tags.hasKey("Effect6"))
-                        return getCorrectIcon(effectIcons2, tags.getInteger("Effect6"));
+                        return getCorrectIcon2(effectIcons2, tags.getInteger("Effect6"));
                 }
                 else
                 {
@@ -728,37 +737,37 @@ public abstract class BowBase extends ToolCore
                 if (renderPass == getPartAmount())
                 {
                     if (tags.hasKey("Effect1"))
-                        return getCorrectIcon(effectIcons3, tags.getInteger("Effect1"));
+                        return getCorrectIcon2(effectIcons3, tags.getInteger("Effect1"));
                 }
 
                 else if (renderPass == getPartAmount() + 1)
                 {
                     if (tags.hasKey("Effect2"))
-                        return getCorrectIcon(effectIcons3, tags.getInteger("Effect2"));
+                        return getCorrectIcon2(effectIcons3, tags.getInteger("Effect2"));
                 }
 
                 else if (renderPass == getPartAmount() + 2)
                 {
                     if (tags.hasKey("Effect3"))
-                        return getCorrectIcon(effectIcons3, tags.getInteger("Effect3"));
+                        return getCorrectIcon2(effectIcons3, tags.getInteger("Effect3"));
                 }
 
                 else if (renderPass == getPartAmount() + 3)
                 {
                     if (tags.hasKey("Effect4"))
-                        return getCorrectIcon(effectIcons3, tags.getInteger("Effect4"));
+                        return getCorrectIcon2(effectIcons3, tags.getInteger("Effect4"));
                 }
 
                 else if (renderPass == getPartAmount() + 4)
                 {
                     if (tags.hasKey("Effect5"))
-                        return getCorrectIcon(effectIcons3, tags.getInteger("Effect5"));
+                        return getCorrectIcon2(effectIcons3, tags.getInteger("Effect5"));
                 }
 
                 else if (renderPass == getPartAmount() + 5)
                 {
                     if (tags.hasKey("Effect6"))
-                        return getCorrectIcon(effectIcons3, tags.getInteger("Effect6"));
+                        return getCorrectIcon2(effectIcons3, tags.getInteger("Effect6"));
                 }
                 else
                 {

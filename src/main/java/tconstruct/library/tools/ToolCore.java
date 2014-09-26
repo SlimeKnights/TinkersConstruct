@@ -215,16 +215,14 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
 
     private void addIcons(HashMap<Integer, String> textures, HashMap<Integer, IIcon> icons, IIconRegister iconRegister, String standard)
     {
-        // compatibility mode: no specific textures
-        if(PHConstruct.minimalTextures)
-            textures.clear();
-
         icons.clear();
-        for(Map.Entry<Integer, String> entry : textures.entrySet())
-        {
-            if(TextureHelper.itemTextureExists(entry.getValue()))
-                icons.put(entry.getKey(), iconRegister.registerIcon(entry.getValue()));
-        }
+
+        if(!PHConstruct.minimalTextures) // compatibility mode: no specific textures
+            for(Map.Entry<Integer, String> entry : textures.entrySet())
+            {
+                if(TextureHelper.itemTextureExists(entry.getValue()))
+                    icons.put(entry.getKey(), iconRegister.registerIcon(entry.getValue()));
+            }
 
         if(standard != null && !standard.isEmpty()) {
             standard =  getDefaultTexturePath() + "/" + standard;
