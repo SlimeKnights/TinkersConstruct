@@ -1070,11 +1070,11 @@ public class TinkerSmeltery
     protected static void addRecipesForSmeltery ()
     {
         // Smeltery fuels
-        Smeltery.addSmelteryFuel(FluidRegistry.LAVA, 1000, 10);
+        Smeltery.addSmelteryFuel(FluidRegistry.LAVA, 1300, 10);
         // register pyrotheum if it's present
         Fluid pyrotheum = FluidRegistry.getFluid("pyrotheum");
         if (pyrotheum != null)
-            Smeltery.addSmelteryFuel(pyrotheum, 1500, 9);
+            Smeltery.addSmelteryFuel(pyrotheum, 5000, 9);
 
         // BLOOD FOR THE BLOOD GOD
         if (TinkerWorld.meatBlock != null)
