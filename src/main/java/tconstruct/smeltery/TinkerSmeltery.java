@@ -1272,6 +1272,10 @@ public class TinkerSmeltery
         LiquidCasting basinCasting = TConstructRegistry.getBasinCasting();
         ArrayList<ItemStack> ores;
 
+        // TE alloys
+        Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenInvarFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(TinkerSmeltery.moltenIronFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(TinkerSmeltery.moltenNickelFluid, TConstruct.ingotLiquidValue * 1)); // Invar
+        Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenElectrumFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkerSmeltery.moltenSilverFluid, TConstruct.ingotLiquidValue)); // Electrum
+
         // TE is handled by the oredicted variant already
         /* Thermal Expansion 3 Metals */
         /*
