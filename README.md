@@ -1,4 +1,4 @@
-#[Tinkers' Construct](http://www.minecraftforum.net/topic/1659892-tinkers-construct/)
+#[Tinkers' Construct](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2218638-tinkers-construct)
 
 Modify all the things, then do it again!   
 Melt down any metals you find. 	 

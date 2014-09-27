@@ -17,6 +17,7 @@ import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.*;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.entity.ArrowEntity;
+import tconstruct.util.config.PHConstruct;
 
 public abstract class BowBase extends ToolCore
 {
@@ -232,144 +233,159 @@ public abstract class BowBase extends ToolCore
     public void registerIcons (IIconRegister iconRegister)
     {
         super.registerIcons(iconRegister);
-        headIcons1.clear();
-        handleIcons1.clear();
-        accessoryIcons1.clear();
-        extraIcons1.clear();
-        effectIcons1.clear();
-        Iterator iterOne = headStrings.entrySet().iterator();
-        while (iterOne.hasNext())
+        if(PHConstruct.minimalTextures)
         {
-            Map.Entry pairs = (Map.Entry) iterOne.next();
-            headIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
-        }
+            headIcons1.clear();
+            headIcons1.put(-1, iconRegister.registerIcon("tinker:" + getDefaultFolder() + "/" + getIconSuffix(0)  + "_1"));
+            handleIcons1.clear();
+            handleIcons1.put(-1, iconRegister.registerIcon("tinker:" + getDefaultFolder() + "/" + getIconSuffix(2) + "_1"));
+            accessoryIcons1.clear();
+            accessoryIcons1.put(-1, iconRegister.registerIcon("tinker:" + getDefaultFolder() + "/" + getIconSuffix(3) + "_1"));
 
-        iterOne = handleStrings.entrySet().iterator();
-        while (iterOne.hasNext())
-        {
-            Map.Entry pairs = (Map.Entry) iterOne.next();
-            handleIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
-        }
+            headIcons2.clear();
+            headIcons2.put(-1, iconRegister.registerIcon("tinker:" + getDefaultFolder() + "/" + getIconSuffix(0) + "_2"));
+            handleIcons2.clear();
+            handleIcons2.put(-1, iconRegister.registerIcon("tinker:" + getDefaultFolder() + "/" + getIconSuffix(2) + "_2"));
+            accessoryIcons2.clear();
+            accessoryIcons2.put(-1, iconRegister.registerIcon("tinker:" + getDefaultFolder() + "/" + getIconSuffix(3) + "_2"));
 
-        if (getPartAmount() > 2)
-        {
-            iterOne = accessoryStrings.entrySet().iterator();
-            while (iterOne.hasNext())
-            {
+            headIcons3.clear();
+            headIcons3.put(-1, iconRegister.registerIcon("tinker:" + getDefaultFolder() + "/" + getIconSuffix(0) + "_3"));
+            handleIcons3.clear();
+            handleIcons3.put(-1, iconRegister.registerIcon("tinker:" + getDefaultFolder() + "/" + getIconSuffix(2) + "_3"));
+            accessoryIcons3.clear();
+            accessoryIcons3.put(-1, iconRegister.registerIcon("tinker:" + getDefaultFolder() + "/" + getIconSuffix(3) + "_3"));
+
+
+            // effect icons
+            effectIcons1.clear();
+            effectIcons2.clear();
+            effectIcons3.clear();
+            for(Map.Entry<Integer, String> entry : effectStrings.entrySet()) {
+                effectIcons.put(entry.getKey(), iconRegister.registerIcon(entry.getValue()));
+                effectIcons1.put(entry.getKey(), iconRegister.registerIcon(entry.getValue() + "_1"));
+                effectIcons2.put(entry.getKey(), iconRegister.registerIcon(entry.getValue() + "_2"));
+                effectIcons3.put(entry.getKey(), iconRegister.registerIcon(entry.getValue() + "_3"));
+            }
+        }
+        else {
+            headIcons1.clear();
+            handleIcons1.clear();
+            accessoryIcons1.clear();
+            extraIcons1.clear();
+            effectIcons1.clear();
+            Iterator iterOne = headStrings.entrySet().iterator();
+            while (iterOne.hasNext()) {
                 Map.Entry pairs = (Map.Entry) iterOne.next();
-                accessoryIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
+                headIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
             }
-        }
 
-        if (getPartAmount() > 3)
-        {
-            iterOne = extraStrings.entrySet().iterator();
-            while (iterOne.hasNext())
-            {
+            iterOne = handleStrings.entrySet().iterator();
+            while (iterOne.hasNext()) {
                 Map.Entry pairs = (Map.Entry) iterOne.next();
-                extraIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
+                handleIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
             }
-        }
 
-        iterOne = effectStrings.entrySet().iterator();
-        while (iterOne.hasNext())
-        {
-            Map.Entry pairs = (Map.Entry) iterOne.next();
-            effectIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
-        }
+            if (getPartAmount() > 2) {
+                iterOne = accessoryStrings.entrySet().iterator();
+                while (iterOne.hasNext()) {
+                    Map.Entry pairs = (Map.Entry) iterOne.next();
+                    accessoryIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
+                }
+            }
 
-        headIcons2.clear();
-        handleIcons2.clear();
-        accessoryIcons2.clear();
-        extraIcons2.clear();
-        effectIcons2.clear();
-        Iterator iterTwo = headStrings.entrySet().iterator();
-        while (iterTwo.hasNext())
-        {
-            Map.Entry pairs = (Map.Entry) iterTwo.next();
-            headIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
-        }
+            if (getPartAmount() > 3) {
+                iterOne = extraStrings.entrySet().iterator();
+                while (iterOne.hasNext()) {
+                    Map.Entry pairs = (Map.Entry) iterOne.next();
+                    extraIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
+                }
+            }
 
-        iterTwo = handleStrings.entrySet().iterator();
-        while (iterTwo.hasNext())
-        {
-            Map.Entry pairs = (Map.Entry) iterTwo.next();
-            handleIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
-        }
+            iterOne = effectStrings.entrySet().iterator();
+            while (iterOne.hasNext()) {
+                Map.Entry pairs = (Map.Entry) iterOne.next();
+                effectIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
+            }
 
-        if (getPartAmount() > 2)
-        {
-            iterTwo = accessoryStrings.entrySet().iterator();
-            while (iterTwo.hasNext())
-            {
+            headIcons2.clear();
+            handleIcons2.clear();
+            accessoryIcons2.clear();
+            extraIcons2.clear();
+            effectIcons2.clear();
+            Iterator iterTwo = headStrings.entrySet().iterator();
+            while (iterTwo.hasNext()) {
                 Map.Entry pairs = (Map.Entry) iterTwo.next();
-                accessoryIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
+                headIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
             }
-        }
 
-        if (getPartAmount() > 3)
-        {
-            iterTwo = extraStrings.entrySet().iterator();
-            while (iterTwo.hasNext())
-            {
+            iterTwo = handleStrings.entrySet().iterator();
+            while (iterTwo.hasNext()) {
                 Map.Entry pairs = (Map.Entry) iterTwo.next();
-                extraIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
+                handleIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
             }
-        }
 
-        iterTwo = effectStrings.entrySet().iterator();
-        while (iterTwo.hasNext())
-        {
-            Map.Entry pairs = (Map.Entry) iterTwo.next();
-            effectIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
-        }
+            if (getPartAmount() > 2) {
+                iterTwo = accessoryStrings.entrySet().iterator();
+                while (iterTwo.hasNext()) {
+                    Map.Entry pairs = (Map.Entry) iterTwo.next();
+                    accessoryIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
+                }
+            }
 
-        headIcons3.clear();
-        handleIcons3.clear();
-        accessoryIcons3.clear();
-        extraIcons3.clear();
-        effectIcons3.clear();
-        Iterator iterThree = headStrings.entrySet().iterator();
-        while (iterThree.hasNext())
-        {
-            Map.Entry pairs = (Map.Entry) iterThree.next();
-            headIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
-        }
+            if (getPartAmount() > 3) {
+                iterTwo = extraStrings.entrySet().iterator();
+                while (iterTwo.hasNext()) {
+                    Map.Entry pairs = (Map.Entry) iterTwo.next();
+                    extraIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
+                }
+            }
 
-        iterThree = handleStrings.entrySet().iterator();
-        while (iterThree.hasNext())
-        {
-            Map.Entry pairs = (Map.Entry) iterThree.next();
-            handleIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
-        }
+            iterTwo = effectStrings.entrySet().iterator();
+            while (iterTwo.hasNext()) {
+                Map.Entry pairs = (Map.Entry) iterTwo.next();
+                effectIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
+            }
 
-        if (getPartAmount() > 2)
-        {
-            iterThree = accessoryStrings.entrySet().iterator();
-            while (iterThree.hasNext())
-            {
+            headIcons3.clear();
+            handleIcons3.clear();
+            accessoryIcons3.clear();
+            extraIcons3.clear();
+            effectIcons3.clear();
+            Iterator iterThree = headStrings.entrySet().iterator();
+            while (iterThree.hasNext()) {
                 Map.Entry pairs = (Map.Entry) iterThree.next();
-                accessoryIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
+                headIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
             }
-        }
 
-        if (getPartAmount() > 3)
-        {
-            iterThree = extraStrings.entrySet().iterator();
-            while (iterThree.hasNext())
-            {
+            iterThree = handleStrings.entrySet().iterator();
+            while (iterThree.hasNext()) {
                 Map.Entry pairs = (Map.Entry) iterThree.next();
-                extraIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
+                handleIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
+            }
+
+            if (getPartAmount() > 2) {
+                iterThree = accessoryStrings.entrySet().iterator();
+                while (iterThree.hasNext()) {
+                    Map.Entry pairs = (Map.Entry) iterThree.next();
+                    accessoryIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
+                }
+            }
+
+            if (getPartAmount() > 3) {
+                iterThree = extraStrings.entrySet().iterator();
+                while (iterThree.hasNext()) {
+                    Map.Entry pairs = (Map.Entry) iterThree.next();
+                    extraIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
+                }
+            }
+
+            iterThree = effectStrings.entrySet().iterator();
+            while (iterThree.hasNext()) {
+                Map.Entry pairs = (Map.Entry) iterThree.next();
+                effectIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
             }
         }
-
-        iterThree = effectStrings.entrySet().iterator();
-        while (iterThree.hasNext())
-        {
-            Map.Entry pairs = (Map.Entry) iterThree.next();
-            effectIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
-        }
-
         registerArrows(iconRegister);
     }
 
@@ -393,23 +409,23 @@ public abstract class BowBase extends ToolCore
                 if (renderPass == 0) // Handle
                 {
                     if (tags.getBoolean("Broken"))
-                        return (brokenIcons.get(tags.getInteger("RenderHandle")));
-                    return handleIcons.get(tags.getInteger("RenderHandle"));
+                        return getCorrectIcon(brokenIcons, tags.getInteger("RenderHandle"));
+                    return getCorrectIcon(handleIcons, tags.getInteger("RenderHandle"));
                 }
 
                 else if (renderPass == 1) // Head
                 {
-                    return (headIcons.get(tags.getInteger("RenderHead")));
+                    return getCorrectIcon(headIcons, tags.getInteger("RenderHead"));
                 }
 
                 else if (renderPass == 2) // Accessory
                 {
-                    return (accessoryIcons.get(tags.getInteger("RenderAccessory")));
+                    return getCorrectIcon(accessoryIcons, tags.getInteger("RenderAccessory"));
                 }
 
                 else if (renderPass == 3) // Extra
                 {
-                    return (extraIcons.get(tags.getInteger("RenderExtra")));
+                    return getCorrectIcon(extraIcons, tags.getInteger("RenderExtra"));
                 }
             }
 
@@ -418,42 +434,50 @@ public abstract class BowBase extends ToolCore
                 if (renderPass == getPartAmount())
                 {
                     if (tags.hasKey("Effect1"))
-                        return (effectIcons.get(tags.getInteger("Effect1")));
+                        return getCorrectIcon2(effectIcons, tags.getInteger("Effect1"));
                 }
 
                 else if (renderPass == getPartAmount() + 1)
                 {
                     if (tags.hasKey("Effect2"))
-                        return (effectIcons.get(tags.getInteger("Effect2")));
+                        return getCorrectIcon2(effectIcons, tags.getInteger("Effect2"));
                 }
 
                 else if (renderPass == getPartAmount() + 2)
                 {
                     if (tags.hasKey("Effect3"))
-                        return (effectIcons.get(tags.getInteger("Effect3")));
+                        return getCorrectIcon2(effectIcons, tags.getInteger("Effect3"));
                 }
 
                 else if (renderPass == getPartAmount() + 3)
                 {
                     if (tags.hasKey("Effect4"))
-                        return (effectIcons.get(tags.getInteger("Effect4")));
+                        return getCorrectIcon2(effectIcons, tags.getInteger("Effect4"));
                 }
 
                 else if (renderPass == getPartAmount() + 4)
                 {
                     if (tags.hasKey("Effect5"))
-                        return (effectIcons.get(tags.getInteger("Effect5")));
+                        return getCorrectIcon2(effectIcons, tags.getInteger("Effect5"));
                 }
 
                 else if (renderPass == getPartAmount() + 5)
                 {
                     if (tags.hasKey("Effect6"))
-                        return (effectIcons.get(tags.getInteger("Effect6")));
+                        return getCorrectIcon2(effectIcons, tags.getInteger("Effect6"));
                 }
             }
             return blankSprite;
         }
         return emptyIcon;
+    }
+
+    protected IIcon getCorrectIcon2(Map<Integer, IIcon> icons, int id)
+    {
+        if(!icons.containsKey(id))
+            return blankSprite;
+        
+        return icons.get(id);
     }
 
     /* Animations */
@@ -535,22 +559,22 @@ public abstract class BowBase extends ToolCore
             {
                 if (renderPass == 0) // Handle
                 {
-                    return handleIcons1.get(tags.getInteger("RenderHandle"));
+                    return getCorrectIcon(handleIcons1, tags.getInteger("RenderHandle"));
                 }
 
                 else if (renderPass == 1) // Head
                 {
-                    return (headIcons1.get(tags.getInteger("RenderHead")));
+                    return getCorrectIcon(headIcons1, tags.getInteger("RenderHead"));
                 }
 
                 else if (renderPass == 2) // Accessory
                 {
-                    return (accessoryIcons1.get(tags.getInteger("RenderAccessory")));
+                    return getCorrectIcon(accessoryIcons1, tags.getInteger("RenderAccessory"));
                 }
 
                 else if (renderPass == 3) // Extra
                 {
-                    return (extraIcons1.get(tags.getInteger("RenderExtra")));
+                    return getCorrectIcon(extraIcons1, tags.getInteger("RenderExtra"));
                 }
             }
 
@@ -559,37 +583,37 @@ public abstract class BowBase extends ToolCore
                 if (renderPass == getPartAmount())
                 {
                     if (tags.hasKey("Effect1"))
-                        return (effectIcons1.get(tags.getInteger("Effect1")));
+                        return getCorrectIcon2(effectIcons1, tags.getInteger("Effect1"));
                 }
 
                 else if (renderPass == getPartAmount() + 1)
                 {
                     if (tags.hasKey("Effect2"))
-                        return (effectIcons1.get(tags.getInteger("Effect2")));
+                        return getCorrectIcon2(effectIcons1, tags.getInteger("Effect2"));
                 }
 
                 else if (renderPass == getPartAmount() + 2)
                 {
                     if (tags.hasKey("Effect3"))
-                        return (effectIcons1.get(tags.getInteger("Effect3")));
+                        return getCorrectIcon2(effectIcons1, tags.getInteger("Effect3"));
                 }
 
                 else if (renderPass == getPartAmount() + 3)
                 {
                     if (tags.hasKey("Effect4"))
-                        return (effectIcons1.get(tags.getInteger("Effect4")));
+                        return getCorrectIcon2(effectIcons1, tags.getInteger("Effect4"));
                 }
 
                 else if (renderPass == getPartAmount() + 4)
                 {
                     if (tags.hasKey("Effect5"))
-                        return (effectIcons1.get(tags.getInteger("Effect5")));
+                        return getCorrectIcon2(effectIcons1, tags.getInteger("Effect5"));
                 }
 
                 else if (renderPass == getPartAmount() + 5)
                 {
                     if (tags.hasKey("Effect6"))
-                        return (effectIcons1.get(tags.getInteger("Effect6")));
+                        return getCorrectIcon2(effectIcons1, tags.getInteger("Effect6"));
                 }
                 else
                 {
@@ -612,22 +636,22 @@ public abstract class BowBase extends ToolCore
             {
                 if (renderPass == 0) // Handle
                 {
-                    return handleIcons2.get(tags.getInteger("RenderHandle"));
+                    return getCorrectIcon(handleIcons2, tags.getInteger("RenderHandle"));
                 }
 
                 else if (renderPass == 1) // Head
                 {
-                    return (headIcons2.get(tags.getInteger("RenderHead")));
+                    return getCorrectIcon(headIcons2, tags.getInteger("RenderHead"));
                 }
 
                 else if (renderPass == 2) // Accessory
                 {
-                    return (accessoryIcons2.get(tags.getInteger("RenderAccessory")));
+                    return getCorrectIcon(accessoryIcons2, tags.getInteger("RenderAccessory"));
                 }
 
                 else if (renderPass == 3) // Extra
                 {
-                    return (extraIcons2.get(tags.getInteger("RenderExtra")));
+                    return getCorrectIcon(extraIcons2, tags.getInteger("RenderExtra"));
                 }
             }
 
@@ -636,37 +660,37 @@ public abstract class BowBase extends ToolCore
                 if (renderPass == getPartAmount())
                 {
                     if (tags.hasKey("Effect1"))
-                        return (effectIcons2.get(tags.getInteger("Effect1")));
+                        return getCorrectIcon2(effectIcons2, tags.getInteger("Effect1"));
                 }
 
                 else if (renderPass == getPartAmount() + 1)
                 {
                     if (tags.hasKey("Effect2"))
-                        return (effectIcons2.get(tags.getInteger("Effect2")));
+                        return getCorrectIcon2(effectIcons2, tags.getInteger("Effect2"));
                 }
 
                 else if (renderPass == getPartAmount() + 2)
                 {
                     if (tags.hasKey("Effect3"))
-                        return (effectIcons2.get(tags.getInteger("Effect3")));
+                        return getCorrectIcon2(effectIcons2, tags.getInteger("Effect3"));
                 }
 
                 else if (renderPass == getPartAmount() + 3)
                 {
                     if (tags.hasKey("Effect4"))
-                        return (effectIcons2.get(tags.getInteger("Effect4")));
+                        return getCorrectIcon2(effectIcons2, tags.getInteger("Effect4"));
                 }
 
                 else if (renderPass == getPartAmount() + 4)
                 {
                     if (tags.hasKey("Effect5"))
-                        return (effectIcons2.get(tags.getInteger("Effect5")));
+                        return getCorrectIcon2(effectIcons2, tags.getInteger("Effect5"));
                 }
 
                 else if (renderPass == getPartAmount() + 5)
                 {
                     if (tags.hasKey("Effect6"))
-                        return (effectIcons2.get(tags.getInteger("Effect6")));
+                        return getCorrectIcon2(effectIcons2, tags.getInteger("Effect6"));
                 }
                 else
                 {
@@ -689,22 +713,22 @@ public abstract class BowBase extends ToolCore
             {
                 if (renderPass == 0) // Handle
                 {
-                    return handleIcons3.get(tags.getInteger("RenderHandle"));
+                    return getCorrectIcon(handleIcons3, tags.getInteger("RenderHandle"));
                 }
 
                 else if (renderPass == 1) // Head
                 {
-                    return (headIcons3.get(tags.getInteger("RenderHead")));
+                    return getCorrectIcon(headIcons3, tags.getInteger("RenderHead"));
                 }
 
                 else if (renderPass == 2) // Accessory
                 {
-                    return (accessoryIcons3.get(tags.getInteger("RenderAccessory")));
+                    return getCorrectIcon(accessoryIcons3, tags.getInteger("RenderAccessory"));
                 }
 
                 else if (renderPass == 3) // Extra
                 {
-                    return (extraIcons3.get(tags.getInteger("RenderExtra")));
+                    return getCorrectIcon(extraIcons3, tags.getInteger("RenderExtra"));
                 }
             }
 
@@ -713,37 +737,37 @@ public abstract class BowBase extends ToolCore
                 if (renderPass == getPartAmount())
                 {
                     if (tags.hasKey("Effect1"))
-                        return (effectIcons3.get(tags.getInteger("Effect1")));
+                        return getCorrectIcon2(effectIcons3, tags.getInteger("Effect1"));
                 }
 
                 else if (renderPass == getPartAmount() + 1)
                 {
                     if (tags.hasKey("Effect2"))
-                        return (effectIcons3.get(tags.getInteger("Effect2")));
+                        return getCorrectIcon2(effectIcons3, tags.getInteger("Effect2"));
                 }
 
                 else if (renderPass == getPartAmount() + 2)
                 {
                     if (tags.hasKey("Effect3"))
-                        return (effectIcons3.get(tags.getInteger("Effect3")));
+                        return getCorrectIcon2(effectIcons3, tags.getInteger("Effect3"));
                 }
 
                 else if (renderPass == getPartAmount() + 3)
                 {
                     if (tags.hasKey("Effect4"))
-                        return (effectIcons3.get(tags.getInteger("Effect4")));
+                        return getCorrectIcon2(effectIcons3, tags.getInteger("Effect4"));
                 }
 
                 else if (renderPass == getPartAmount() + 4)
                 {
                     if (tags.hasKey("Effect5"))
-                        return (effectIcons3.get(tags.getInteger("Effect5")));
+                        return getCorrectIcon2(effectIcons3, tags.getInteger("Effect5"));
                 }
 
                 else if (renderPass == getPartAmount() + 5)
                 {
                     if (tags.hasKey("Effect6"))
-                        return (effectIcons3.get(tags.getInteger("Effect6")));
+                        return getCorrectIcon2(effectIcons3, tags.getInteger("Effect6"));
                 }
                 else
                 {

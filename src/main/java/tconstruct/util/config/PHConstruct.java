@@ -184,6 +184,7 @@ public class PHConstruct
         throwableSmeltery = config.get("Experimental", "Items can be thrown into smelteries", true).getBoolean(true);
         newSmeltery = config.get("Experimental", "Use new adaptive Smeltery code", false, "Warning: Very buggy").getBoolean(false);
         meltableHorses = config.get("Experimental", "Allow horses to be melted down for glue", true).getBoolean(true);
+        minimalTextures = config.get("Experimental", "Minimal Textures", false).getBoolean(false);
 
         /* Save the configuration file only if it has changed */
         if (config.hasChanged())
@@ -351,5 +352,6 @@ public class PHConstruct
     public static boolean throwableSmeltery;
     public static boolean newSmeltery;
     public static boolean meltableHorses;
+    public static boolean minimalTextures;
 
 }

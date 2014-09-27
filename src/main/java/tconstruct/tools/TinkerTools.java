@@ -170,7 +170,7 @@ public class TinkerTools
         GameRegistry.registerItem(TinkerTools.blankPattern, "blankPattern");
 
         TinkerTools.materials = new MaterialItem().setUnlocalizedName("tconstruct.Materials");
-        TinkerTools.toolRod = new ToolPart("_rod", "ToolRod").setUnlocalizedName("tconstruct.ToolRod");
+        TinkerTools.toolRod = new DynamicToolPart("_rod", "ToolRod");
         TinkerTools.toolShard = new ToolShard("_chunk").setUnlocalizedName("tconstruct.ToolShard");
         TinkerTools.woodPattern = new Pattern("pattern_", "materials/").setUnlocalizedName("tconstruct.Pattern");
         GameRegistry.registerItem(TinkerTools.materials, "materials");

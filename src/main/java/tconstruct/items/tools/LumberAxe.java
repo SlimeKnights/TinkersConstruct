@@ -85,7 +85,7 @@ public class LumberAxe extends AOEHarvestTool
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
-        if (!stack.hasTagCompound())
+        if (!stack.hasTagCompound() || player.isSneaking())
             return super.onBlockStartBreak(stack, x, y, z, player);
 
         World world = player.worldObj;

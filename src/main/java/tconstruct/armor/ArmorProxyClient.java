@@ -202,6 +202,9 @@ public class ArmorProxyClient extends ArmorProxyCommon
     @SubscribeEvent
     public void renderHealthbar (RenderGameOverlayEvent.Pre event)
     {
+        if(Loader.isModLoaded("rpghud")) // uses different display, displays health correctly by itself.
+            return;
+
         if (!Loader.isModLoaded("tukmc_Vz") || Loader.isModLoaded("borderlands"))// Loader check to avoid conflicting
         // with a GUI mod (thanks Vazkii!)
         {
@@ -403,6 +406,12 @@ public class ArmorProxyClient extends ArmorProxyCommon
         float partialTick = event.partialRenderTick;
 
         EntityPlayer player = event.entityPlayer;
+
+        // todo: synchronize extra armor with other clients. Until then, only draw locally
+        if(player != Minecraft.getMinecraft().thePlayer)
+            return;
+
+
         float posX = (float) (player.lastTickPosX + (player.posX - player.lastTickPosX) * partialTick);
         float posY = (float) (player.lastTickPosY + (player.posY - player.lastTickPosY) * partialTick);
         float posZ = (float) (player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialTick);

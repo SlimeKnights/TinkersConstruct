@@ -24,10 +24,12 @@ public abstract class AOEHarvestTool extends HarvestTool {
         this.breakDepth = breakDepth;
     }
 
-    boolean antiRecurse;
-
     @Override
     public boolean onBlockStartBreak(ItemStack stack, int x, int y, int z, EntityPlayer player) {
+        // sneaking == regular blockbreak
+        if(player.isSneaking())
+            return super.onBlockStartBreak(stack, x,y,z, player);
+
         // only effective materials matter. We don't want to aoe when beraking dirt with a hammer.
         Block block = player.worldObj.getBlock(x,y,z);
         int meta = player.worldObj.getBlockMetadata(x,y,z);
@@ -50,7 +52,6 @@ public abstract class AOEHarvestTool extends HarvestTool {
 
         // the code below initiates block breaks, which again call this function. But we don't want to do the aoe-break-stuff again. This is to prevent recursive, infinite-range aoe blockbreaking.
         if(originalBlock || player.capabilities.isCreativeMode) {
-            antiRecurse = true;
             MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(player.worldObj, player, false, 4.5d);
             if(mop == null)
                 return super.onBlockStartBreak(stack, x,y,z, player);
@@ -87,8 +88,6 @@ public abstract class AOEHarvestTool extends HarvestTool {
                             continue;
                         breakExtraBlock(player.worldObj, xPos, yPos, zPos, sideHit, player);
                     }
-
-            antiRecurse = false;
         }
 
 

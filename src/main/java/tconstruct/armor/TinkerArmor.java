@@ -5,12 +5,15 @@ import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 import cpw.mods.fml.relauncher.Side;
+
 import java.util.EnumSet;
+
 import mantle.pulsar.pulse.*;
 import net.minecraft.block.Block;
 import net.minecraft.init.*;
 import net.minecraft.item.*;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -19,6 +22,7 @@ import tconstruct.armor.blocks.DryingRack;
 import tconstruct.armor.items.*;
 import tconstruct.blocks.logic.DryingRackLogic;
 import tconstruct.client.ArmorControls;
+import tconstruct.client.tabs.TabRegistry;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.accessory.AccessoryCore;
 import tconstruct.library.armor.ArmorPart;
@@ -26,6 +30,7 @@ import tconstruct.library.crafting.*;
 import tconstruct.modifiers.accessory.GloveSpeed;
 import tconstruct.modifiers.armor.*;
 import tconstruct.modifiers.tools.ModAttack;
+import tconstruct.modifiers.tools.ModInteger;
 import tconstruct.tools.TinkerTools;
 import tconstruct.world.TinkerWorld;
 
@@ -75,6 +80,7 @@ public class TinkerArmor
         if (event.getSide() == Side.CLIENT)
         {
             FMLCommonHandler.instance().bus().register(new ArmorControls());
+            MinecraftForge.EVENT_BUS.register(new TabRegistry());
         }
 
         TinkerArmor.dryingRack = new DryingRack().setBlockName("Armor.DryingRack");
@@ -221,6 +227,7 @@ public class TinkerArmor
         //MultiType
         ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(ArmorPart.Legs, ArmorPart.Feet), new ItemStack[] { new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Blocks.piston) }));
         ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(ArmorPart.Legs, ArmorPart.Feet), new ItemStack[] { new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 1), new ItemStack(Blocks.piston) }));
+        ModifyBuilder.registerModifier(new AModInteger(4, "Moss", EnumSet.of(ArmorPart.Legs, ArmorPart.Feet, ArmorPart.Chest, ArmorPart.Head), new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 6) }, 3, "\u00a72", StatCollector.translateToLocal("modifier.tool.moss")));
         ModifyBuilder.registerModifier(new TravelModRepair());
         TConstructRegistry.registerActiveArmorMod(new ActiveTinkerArmor());
 
