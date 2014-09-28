@@ -1,14 +1,14 @@
 package tconstruct.smeltery.itemblocks;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
 import mantle.blocks.abstracts.MultiItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.world.World;
+import tconstruct.achievements.TAchievements;
 
 public class SmelteryItemBlock extends MultiItemBlock
 {
@@ -42,5 +42,11 @@ public class SmelteryItemBlock extends MultiItemBlock
             list.add(StatCollector.translateToLocal("smeltery.brick.tooltip2"));
             break;
         }
+    }
+
+    @Override
+    public void onCreated (ItemStack item, World world, EntityPlayer player)
+    {
+        TAchievements.triggerAchievement(player, "tconstruct.smelteryMaker");
     }
 }

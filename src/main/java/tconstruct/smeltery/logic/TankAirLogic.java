@@ -1,19 +1,14 @@
 package tconstruct.smeltery.logic;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.*;
 import mantle.blocks.abstracts.InventoryLogic;
-import mantle.blocks.iface.IMasterLogic;
-import mantle.blocks.iface.IServantLogic;
+import mantle.blocks.iface.*;
 import mantle.world.CoordTuple;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
+import net.minecraft.network.*;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;

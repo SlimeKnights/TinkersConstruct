@@ -1,17 +1,14 @@
 package tconstruct.smeltery.model;
 
+import cpw.mods.fml.client.registry.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.*;
 import tconstruct.TConstruct;
 import tconstruct.client.BlockSkinRenderHelper;
 import tconstruct.smeltery.logic.TankAirLogic;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class TankAirRender implements ISimpleBlockRenderingHandler
 {

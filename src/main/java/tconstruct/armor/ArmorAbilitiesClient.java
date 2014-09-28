@@ -1,31 +1,32 @@
 package tconstruct.armor;
 
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.armor.player.TPlayerStats;
-import tconstruct.client.TControls;
+import tconstruct.client.ArmorControls;
 import tconstruct.library.modifier.IModifyable;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
 
 public class ArmorAbilitiesClient
 {
     Minecraft mc;
-    TControls controlInstance;
+    ArmorControls controlInstance;
 
     ItemStack prevFeet;
     double prevMotionY;
 
     boolean morphed;
     boolean morphLoaded = Loader.isModLoaded("Morph");
+    boolean smartmoveLoaded = Loader.isModLoaded("SmartMoving");
 
     float prevMouseSensitivity;
     boolean sprint;
 
-    public ArmorAbilitiesClient(Minecraft mc, TControls p)
+    public ArmorAbilitiesClient(Minecraft mc, ArmorControls p)
     {
         this.mc = mc;
         this.controlInstance = p;
@@ -108,7 +109,7 @@ public class ArmorAbilitiesClient
             }
         }
 
-        if (!player.isPlayerSleeping() && !morphed)
+        if (!player.isPlayerSleeping() && !morphed && !smartmoveLoaded)
         {
             ItemStack chest = player.getCurrentArmor(2);
             if (chest == null || !(chest.getItem() instanceof IModifyable))

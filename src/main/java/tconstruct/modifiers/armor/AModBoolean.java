@@ -1,13 +1,9 @@
 package tconstruct.modifiers.armor;
 
 import java.util.EnumSet;
-
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
-import tconstruct.library.armor.ArmorCore;
-import tconstruct.library.armor.ArmorMod;
-import tconstruct.library.armor.ArmorPart;
+import tconstruct.library.armor.*;
 
 /* Adds a boolean NBTTag */
 
@@ -39,7 +35,7 @@ public class AModBoolean extends ArmorMod
     @Override
     public void modify (ItemStack[] recipe, ItemStack input)
     {
-        NBTTagCompound tags =getModifierTag(input);
+        NBTTagCompound tags = getModifierTag(input);
 
         tags.setBoolean(key, true);
 

@@ -2,8 +2,11 @@ package tconstruct.modifiers.accessory;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.library.accessory.AccessoryCore;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.modifiers.tools.ItemModTypeFilter;
+
+import java.util.Arrays;
 
 public class GloveSpeed extends ItemModTypeFilter
 {
@@ -19,9 +22,12 @@ public class GloveSpeed extends ItemModTypeFilter
     @Override
     protected boolean canModify (ItemStack input, ItemStack[] modifiers)
     {
-        IModifyable imod = (IModifyable) input.getItem();
-        if (imod.getModifyType().equals("Accessory"))
+        if (input.getItem() instanceof AccessoryCore)
         {
+            // is glove?
+            if(!Arrays.asList(((AccessoryCore) input.getItem()).getTraits()).contains("glove"))
+                return false;
+
             NBTTagCompound tags = getModifierTag(input);
             if (!tags.hasKey(key))
                 return tags.getInteger("Modifiers") > 0 && matchingAmount(modifiers) <= max;//This line fails?
@@ -90,5 +96,11 @@ public class GloveSpeed extends ItemModTypeFilter
         String tip = "ModifierTip" + keys[2];
         String modName = "\u00a74Redstone (" + keys[0] + "/" + keys[1] + ")";
         tags.setString(tip, modName);
+    }
+
+    @Override
+    public boolean validType (IModifyable type)
+    {
+        return type.getModifyType().equals("Accessory");
     }
 }

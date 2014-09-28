@@ -2,13 +2,11 @@ package tconstruct.tools.logic;
 
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tconstruct.library.crafting.StencilBuilder;
-import tconstruct.tools.TinkerTools;
 import tconstruct.tools.inventory.PatternShaperContainer;
 
 public class StencilTableLogic extends InventoryLogic implements ISidedInventory
@@ -46,7 +44,7 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
     	super.onInventoryChanged();
     }*/
 
-    public void setSelectedPattern(ItemStack stack)
+    public void setSelectedPattern (ItemStack stack)
     {
         selectedStack = stack;
         this.setInventorySlotContents(1, stack);

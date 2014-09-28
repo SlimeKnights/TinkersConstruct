@@ -1,16 +1,12 @@
 package tconstruct.world.blocks;
 
-import tconstruct.blocks.TConstructBlock;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.*;
 import net.minecraft.init.Blocks;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
+import net.minecraft.potion.*;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+import tconstruct.blocks.TConstructBlock;
 
 public class SoilBlock extends TConstructBlock
 {

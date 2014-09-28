@@ -1,9 +1,8 @@
 package tconstruct.client.tabs;
 
 import net.minecraft.item.ItemStack;
-import tconstruct.armor.ArmorProxyClient;
-import tconstruct.armor.TinkerArmor;
-import tconstruct.client.TControls;
+import tconstruct.armor.*;
+import tconstruct.client.ArmorControls;
 
 public class InventoryTabKnapsack extends AbstractTab
 {
@@ -15,7 +14,7 @@ public class InventoryTabKnapsack extends AbstractTab
     @Override
     public void onTabClicked ()
     {
-        TControls.openKnapsackGui();
+        ArmorControls.openKnapsackGui();
     }
 
     @Override

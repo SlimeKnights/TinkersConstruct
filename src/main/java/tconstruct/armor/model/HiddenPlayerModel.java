@@ -7,7 +7,7 @@ public class HiddenPlayerModel extends ModelBiped
     public HiddenPlayerModel(float size, int slot)
     {
         super(size, 0, 64, 32);
-        
+
         if (slot != 0) //Head
         {
             this.bipedHead.isHidden = true;

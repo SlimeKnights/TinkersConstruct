@@ -1,9 +1,7 @@
 package tconstruct.mechworks.landmine;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 
 public class LandmineStack
 {

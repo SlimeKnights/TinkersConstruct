@@ -1,16 +1,11 @@
 package tconstruct.world.items;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
 
 public class SpecialFood extends ItemFood
 {
@@ -30,13 +25,13 @@ public class SpecialFood extends ItemFood
     }
 
     @Override
-    public int func_150905_g(ItemStack stack)
+    public int func_150905_g (ItemStack stack)
     {
         return hunger[stack.getItemDamage()];
     }
 
     @Override
-    public float func_150906_h(ItemStack stack)
+    public float func_150906_h (ItemStack stack)
     {
         return saturation[stack.getItemDamage()];
     }
@@ -46,7 +41,7 @@ public class SpecialFood extends ItemFood
     public IIcon getIconFromDamage (int meta)
     {
         if (meta >= icons.length)
-        return icons[0];
+            return icons[0];
         return icons[meta];
     }
 

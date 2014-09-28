@@ -1,14 +1,10 @@
 package tconstruct.plugins.waila;
 
-import mcp.mobius.waila.api.IWailaConfigHandler;
-import mcp.mobius.waila.api.IWailaDataAccessor;
-import mcp.mobius.waila.api.IWailaDataProvider;
-import mcp.mobius.waila.api.SpecialChars;
+import java.util.List;
+import mcp.mobius.waila.api.*;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.smeltery.logic.SmelteryLogic;
-
-import java.util.List;
 
 public class SmelteryDataProvider implements IWailaDataProvider
 {

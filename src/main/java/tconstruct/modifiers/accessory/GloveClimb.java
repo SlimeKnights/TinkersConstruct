@@ -1,8 +1,8 @@
 package tconstruct.modifiers.accessory;
 
-import tconstruct.library.modifier.ItemModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.library.modifier.ItemModifier;
 
 /* Adds a boolean NBTTag */
 
@@ -18,7 +18,7 @@ public class GloveClimb extends ItemModifier
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("TinkerAccessory");
-        return tags.getInteger("Modifiers") >= 3 && !tags.getBoolean(key); 
+        return tags.getInteger("Modifiers") >= 3 && !tags.getBoolean(key);
     }
 
     @Override

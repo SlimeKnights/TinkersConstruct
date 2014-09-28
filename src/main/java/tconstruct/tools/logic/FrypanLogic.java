@@ -1,25 +1,18 @@
 package tconstruct.tools.logic;
 
-import tconstruct.tools.inventory.FrypanContainer;
+import cpw.mods.fml.common.registry.GameRegistry;
 import mantle.blocks.BlockUtils;
 import mantle.blocks.iface.IActiveLogic;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.init.*;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemHoe;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
-import net.minecraft.item.ItemTool;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.registry.GameRegistry;
+import tconstruct.tools.inventory.FrypanContainer;
 
 /* Slots
  * 0: Frying pan item
@@ -89,9 +82,9 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
             fuel = fuelGague = (int) (getItemBurnTime(inventory[1]) * 2.5);
             if (fuel > 0)
             {
-                if (inventory[1].getItem().hasContainerItem()) //Fuel slot
+                if (inventory[1].getItem().hasContainerItem(inventory[1])) //Fuel slot
                 {
-                    inventory[1] = new ItemStack(inventory[1].getItem().getContainerItem());
+                    inventory[1] = inventory[1].getItem().getContainerItem(inventory[1]);
                 }
                 else
                 {

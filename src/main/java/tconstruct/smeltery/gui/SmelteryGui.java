@@ -1,56 +1,51 @@
 package tconstruct.smeltery.gui;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
+import org.lwjgl.opengl.*;
 
 import tconstruct.TConstruct;
-import tconstruct.client.gui.NewContainerGui;
-import tconstruct.smeltery.inventory.ActiveContainer;
-import tconstruct.smeltery.inventory.SmelteryContainer;
+import tconstruct.smeltery.inventory.*;
 import tconstruct.smeltery.logic.SmelteryLogic;
 import tconstruct.util.network.SmelteryPacket;
 
-public class SmelteryGui extends NewContainerGui
+public class SmelteryGui extends ActiveContainerGui
 {
     public SmelteryLogic logic;
-    String username;
-    boolean isScrolling = false;
-    boolean wasClicking;
-    float currentScroll = 0.0F;
-    int slotPos = 0;
-    int prevSlotPos = 0;
+    private boolean isScrolling = false;
+    private boolean wasClicking;
+    private float currentScroll = 0.0F;
+    private int slotPos = 0;
+    private int prevSlotPos = 0;
+
+    private final int columns;
+    public static final int maxRows = 8;
 
     public SmelteryGui(InventoryPlayer inventoryplayer, SmelteryLogic smeltery, World world, int x, int y, int z)
     {
         super((ActiveContainer) smeltery.getGuiContainer(inventoryplayer, world, x, y, z));
         logic = smeltery;
-        username = inventoryplayer.player.getDisplayName();
         xSize = 248;
         smeltery.updateFuelDisplay();
+
+        columns = ((SmelteryContainer) this.inventorySlots).columns;
     }
 
     @Override
-    public void initGui() {
+    public void initGui ()
+    {
         super.initGui();
 
-        if(logic != null)
+        if (logic != null)
             logic.updateFuelGague();
     }
 
@@ -63,7 +58,7 @@ public class SmelteryGui extends NewContainerGui
 
     protected void updateScrollbar (int mouseX, int mouseY, float par3)
     {
-        if (logic.layers > 2)
+        if (logic.getBlockCapacity() > columns * maxRows)
         {
             boolean mouseDown = Mouse.isButtonDown(0);
             int lefto = this.guiLeft;
@@ -104,7 +99,7 @@ public class SmelteryGui extends NewContainerGui
                     this.currentScroll = 1.0F;
                 }
 
-                int s = ((SmelteryContainer) this.container).scrollTo(this.currentScroll);
+                int s = ((SmelteryContainer) this.inventorySlots).scrollTo(this.currentScroll);
                 if (s != -1)
                     slotPos = s;
             }
@@ -117,38 +112,24 @@ public class SmelteryGui extends NewContainerGui
         fontRendererObj.drawString(StatCollector.translateToLocal("crafters.Smeltery"), 86, 5, 0x404040);
         fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 90, (ySize - 96) + 2, 0x404040);
 
-        int base = 0;
         int cornerX = (width - xSize) / 2 + 36;
         int cornerY = (height - ySize) / 2;
 
-        for (FluidStack liquid : logic.moltenMetal)
+        int[] fluidHeights = calcLiquidHeights();
+        int base = 0;
+        for (int i = 0; i < fluidHeights.length; i++)
         {
-            int basePos = 54;
-            int initialLiquidSize = 0;
-            int liquidSize = 0;// liquid.amount * 52 / liquidLayers;
-            if (logic.getCapacity() > 0)
-            {
-                int total = logic.getTotalLiquid();
-                int liquidLayers = (total / 20000 + 1) * 20000;
-                if (liquidLayers > 0)
-                {
-                    liquidSize = liquid.amount * 52 / liquidLayers;
-                    if (liquidSize == 0)
-                        liquidSize = 1;
-                    base += liquidSize;
-                }
-            }
+            int leftX = cornerX + 54;
+            int topY = (cornerY + 68) - fluidHeights[i] - base;
 
-            int leftX = cornerX + basePos;
-            int topY = (cornerY + 68) - base;
-            int sizeX = 52;
-            int sizeY = liquidSize;
-            if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
+            if (mouseX >= leftX && mouseX <= leftX + 52 && mouseY >= topY && mouseY < topY + fluidHeights[i])
             {
-                drawFluidStackTooltip(liquid, mouseX - cornerX + 36, mouseY - cornerY);
-
+                drawFluidStackTooltip(logic.moltenMetal.get(i), mouseX - cornerX + 36, mouseY - cornerY);
             }
+            base += fluidHeights[i];
         }
+
+        // lava/fuel
         if (logic.fuelGague > 0)
         {
             int leftX = cornerX + 117;
@@ -164,7 +145,6 @@ public class SmelteryGui extends NewContainerGui
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/smeltery.png");
     private static final ResourceLocation backgroundSide = new ResourceLocation("tinker", "textures/gui/smelteryside.png");
-    private static final ResourceLocation terrain = new ResourceLocation("terrain.png");
 
     @Override
     protected void drawGuiContainerBackgroundLayer (float f, int mouseX, int mouseY)
@@ -179,7 +159,7 @@ public class SmelteryGui extends NewContainerGui
         this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
         if (logic.fuelGague > 0)
         {
-            IIcon lavaIcon = Blocks.lava.getIcon(0, 0);
+            IIcon lavaIcon = logic.getFuelIcon();
             int fuel = logic.getScaledFuelGague(52);
             int count = 0;
             while (fuel > 0)
@@ -191,35 +171,35 @@ public class SmelteryGui extends NewContainerGui
             }
         }
 
-        // Liquids - molten metal
-        int base = 0;
-        for (FluidStack liquid : logic.moltenMetal)
+        if (logic.getCapacity() > 0)
         {
-            IIcon renderIndex = liquid.getFluid().getStillIcon();
+            // Liquids - molten metal
+            int base = 0;
+            int[] fluidHeights = calcLiquidHeights();
+
+            // render the fluids
             int basePos = 54;
-            if (logic.getCapacity() > 0)
+            for (int i = 0; i < logic.moltenMetal.size(); i++)
             {
-                int total = logic.getTotalLiquid();
-                int liquidLayers = (total / 20000 + 1) * 20000;
-                if (liquidLayers > 0)
+                FluidStack liquid = logic.moltenMetal.get(i);
+                IIcon icon = liquid.getFluid().getStillIcon();
+
+                if (icon == null)
+                    continue;
+
+                int height = fluidHeights[i];
+                int h = height;
+                while (h > 0)
                 {
-                    int liquidSize = liquid.amount * 52 / liquidLayers;
-                    if (liquidSize == 0)
-                        liquidSize = 1;
-                    while (liquidSize > 0)
-                    {
-                        int size = liquidSize >= 16 ? 16 : liquidSize;
-                        if (renderIndex != null)
-                        {
-                            drawLiquidRect(cornerX + basePos, (cornerY + 68) - size - base, renderIndex, 16, size);
-                            drawLiquidRect(cornerX + basePos + 16, (cornerY + 68) - size - base, renderIndex, 16, size);
-                            drawLiquidRect(cornerX + basePos + 32, (cornerY + 68) - size - base, renderIndex, 16, size);
-                            drawLiquidRect(cornerX + basePos + 48, (cornerY + 68) - size - base, renderIndex, 4, size);
-                        }
-                        liquidSize -= size;
-                        base += size;
-                    }
+                    int v = Math.min(16, h);
+                    // we render in 16x16 squares so the texture doesn't get distorted
+                    drawLiquidRect(cornerX + basePos + 00, (cornerY + 68) - h - base, icon, 16, v);
+                    drawLiquidRect(cornerX + basePos + 16, (cornerY + 68) - h - base, icon, 16, v);
+                    drawLiquidRect(cornerX + basePos + 32, (cornerY + 68) - h - base, icon, 16, v);
+                    drawLiquidRect(cornerX + basePos + 48, (cornerY + 68) - h - base, icon, 4, v);
+                    h -= 16;
                 }
+                base += height;
             }
         }
 
@@ -230,41 +210,120 @@ public class SmelteryGui extends NewContainerGui
         drawTexturedModalRect(cornerX + 54, cornerY + 16, 176, 76, 52, 52);
 
         // Side inventory
+        int xleft = 46;
+        xleft += 22 * (columns - 3); // we have to shift the whole thing to the left if we have more than 3 columns
+        int h = logic.getBlockCapacity() / columns;
+        if (logic.getBlockCapacity() % columns != 0)
+            h++;
+
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(backgroundSide);
-        if (logic.layers > 0)
+        if (logic.getBlockCapacity() > 0)
         {
-            if (logic.layers == 1)
+            if (h >= 8)
             {
-                drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 98, 43);
-                drawTexturedModalRect(cornerX - 46, cornerY + 43, 0, 133, 98, 25);
-            }
-            else if (logic.layers == 2)
-            {
-                drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 98, 61);
-                drawTexturedModalRect(cornerX - 46, cornerY + 61, 0, 97, 98, 61);
+                // standard 3 slots
+                drawTexturedModalRect(cornerX - xleft, cornerY, 0, 0, 72, ySize - 8);
+                // additional slots
+                for (int i = 0; i < columns - 3; i++)
+                    drawTexturedModalRect(cornerX - xleft + 72 + i * 22, cornerY, 50, 0, 22, ySize - 8);
+                // right end
+                drawTexturedModalRect(cornerX - 46 + 72, cornerY, 72, 0, 25, ySize - 8);
+
+                int sx = cornerX + 32;
+                int sy = (int) (cornerY + 8 + 127 * currentScroll);
+                // highlighted scroll bar
+                if (isScrolling || (mouseX >= sx && mouseX <= sx + 12 && mouseY >= sy && mouseY <= sy + 15))
+                    drawTexturedModalRect(sx, sy, 122, 0, 12, 15);
+                // scroll bar
+                else
+                    drawTexturedModalRect(sx, sy, 98, 0, 12, 15);
             }
             else
             {
-                drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 98, ySize - 8);
+                int yd = 43 + 18 * (h - 3);
+                // slots
+                // standard 3 slots
+                drawTexturedModalRect(cornerX - xleft, cornerY, 0, 0, 72, yd);
+                // additional slots
+                for (int i = 0; i < columns - 3; i++)
+                    drawTexturedModalRect(cornerX - xleft + 72 + i * 22, cornerY, 50, 0, 22, yd);
+                // right end
+                drawTexturedModalRect(cornerX - 46 + 72, cornerY, 72, 0, 25, yd);
+
+                // bottom end
+                drawTexturedModalRect(cornerX - xleft, cornerY + yd, 0, 133, 72, 25);
+                for (int i = 0; i < columns - 3; i++)
+                    drawTexturedModalRect(cornerX - xleft + 72 + i * 22, cornerY + yd, 50, 133, 22, 25);
+                drawTexturedModalRect(cornerX - 46 + 72, cornerY + yd, 72, 133, 25, 25);
+
+                // grayed out scroll bar
+                drawTexturedModalRect(cornerX + 32, (int) (cornerY + 8 + 127 * currentScroll), 110, 0, 12, 15);
             }
-            drawTexturedModalRect(cornerX + 32, (int) (cornerY + 8 + 127 * currentScroll), 98, 0, 12, 15);
         }
 
+        xleft -= 8;
         // Temperature
-        int slotSize = logic.layers * 9;
-        if (slotSize > 24)
-            slotSize = 24;
-        for (int iter = 0; iter < slotSize; iter++)
+        int slotSize = logic.getBlockCapacity();
+        if (slotSize > columns * maxRows)
+            slotSize = columns * maxRows;
+        int iter;
+        for (iter = 0; iter < slotSize && iter + slotPos * columns < logic.getBlockCapacity(); iter++)
         {
-            int slotTemp = logic.getTempForSlot(iter + slotPos * 3) - 20;
-            int maxTemp = logic.getMeltingPointForSlot(iter + slotPos * 3) - 20;
+            int slotTemp = logic.getTempForSlot(iter + slotPos * columns) - 20;
+            int maxTemp = logic.getMeltingPointForSlot(iter + slotPos * columns) - 20;
             if (slotTemp > 0 && maxTemp > 0)
             {
                 int size = 16 * slotTemp / maxTemp + 1;
-                drawTexturedModalRect(cornerX - 38 + (iter % 3 * 22), cornerY + 8 + (iter / 3 * 18) + 16 - size, 98, 15 + 16 - size, 5, size);
+                drawTexturedModalRect(cornerX - xleft + (iter % columns * 22), cornerY + 8 + (iter / columns * 18) + 16 - size, 98, 15 + 16 - size, 5, size);
             }
         }
+
+        // hide nonexistant slots
+        int maxSlots = Math.min(maxRows, h) * columns;
+        for (; iter < maxSlots; iter++)
+        {
+            drawTexturedModalRect(cornerX - xleft + (iter % columns * 22) - 1, cornerY + 8 + (iter / columns * 18) - 1, 98, 47, 22, 18);
+        }
+    }
+
+    protected int[] calcLiquidHeights ()
+    {
+        int fluidHeights[] = new int[logic.moltenMetal.size()];
+        int cap = logic.getCapacity();
+        if (logic.getTotalLiquid() > cap)
+            cap = logic.getTotalLiquid();
+        for (int i = 0; i < logic.moltenMetal.size(); i++)
+        {
+            FluidStack liquid = logic.moltenMetal.get(i);
+
+            float h = (float) liquid.amount / (float) cap;
+            fluidHeights[i] = Math.max(3, (int) Math.ceil(h * 52f));
+        }
+
+        // check if we have enough height to render everything
+        int sum = 0;
+        do
+        {
+            sum = 0;
+            int biggest = -1;
+            int m = 0;
+            for (int i = 0; i < fluidHeights.length; i++)
+            {
+                sum += fluidHeights[i];
+                if (logic.moltenMetal.get(i).amount > biggest)
+                {
+                    biggest = logic.moltenMetal.get(i).amount;
+                    m = i;
+                }
+            }
+
+            // remove a pixel from the biggest one
+            if (sum > 52)
+                fluidHeights[m]--;
+        } while (sum > 52);
+
+        return fluidHeights;
     }
 
     protected void drawFluidStackTooltip (FluidStack par1ItemStack, int par2, int par3)
@@ -347,7 +406,7 @@ public class SmelteryGui extends NewContainerGui
         boolean molten = false;
         String[] moltenNames = StatCollector.translateToLocal("gui.smeltery.molten.check").split(",");
 
-        for (int i = 0; i< moltenNames.length; i++)
+        for (int i = 0; i < moltenNames.length; i++)
         {
             if (fluidName.contains(moltenNames[i].trim()))
             {
@@ -401,7 +460,7 @@ public class SmelteryGui extends NewContainerGui
             }
 
             this.zLevel = 300.0F;
-            itemRenderer.zLevel = 300.0F;
+            itemRender.zLevel = 300.0F;
             int l1 = -267386864;
             this.drawGradientRect(i1 - 3, j1 - 4, i1 + k + 3, j1 - 3, l1, l1);
             this.drawGradientRect(i1 - 3, j1 + k1 + 3, i1 + k + 3, j1 + k1 + 4, l1, l1);
@@ -429,7 +488,7 @@ public class SmelteryGui extends NewContainerGui
             }
 
             this.zLevel = 0.0F;
-            itemRenderer.zLevel = 0.0F;
+            itemRender.zLevel = 0.0F;
         }
     }
 
@@ -453,40 +512,24 @@ public class SmelteryGui extends NewContainerGui
     {
         super.mouseClicked(mouseX, mouseY, mouseButton);
 
-        int base = 0;
         int cornerX = (width - xSize) / 2 + 36;
         int cornerY = (height - ySize) / 2;
         int fluidToBeBroughtUp = -1;
 
-        for (FluidStack liquid : logic.moltenMetal)
+        int[] fluidHeights = calcLiquidHeights();
+        int base = 0;
+        for(int i = 0; i < fluidHeights.length; i++)
         {
-            int basePos = 54;
-            int initialLiquidSize = 0;
-            int liquidSize = 0;// liquid.amount * 52 / liquidLayers;
-            if (logic.getCapacity() > 0)
-            {
-                int total = logic.getTotalLiquid();
-                int liquidLayers = (total / 20000 + 1) * 20000;
-                if (liquidLayers > 0)
-                {
-                    liquidSize = liquid.amount * 52 / liquidLayers;
-                    if (liquidSize == 0)
-                        liquidSize = 1;
-                    base += liquidSize;
-                }
-            }
+            int leftX = cornerX + 54;
+            int topY = (cornerY + 68) - fluidHeights[i] - base;
 
-            int leftX = cornerX + basePos;
-            int topY = (cornerY + 68) - base;
-            int sizeX = 52;
-            int sizeY = liquidSize;
-            if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
+            if (mouseX >= leftX && mouseX <= leftX + 52 && mouseY >= topY && mouseY < topY + fluidHeights[i])
             {
-                fluidToBeBroughtUp = liquid.fluidID;
+                fluidToBeBroughtUp = logic.moltenMetal.get(i).fluidID;
 
-                TConstruct.packetPipeline
-                        .sendToServer(new SmelteryPacket(logic.getWorldObj().provider.dimensionId, logic.xCoord, logic.yCoord, logic.zCoord, this.isShiftKeyDown(), fluidToBeBroughtUp));
+                TConstruct.packetPipeline.sendToServer(new SmelteryPacket(logic.getWorldObj().provider.dimensionId, logic.xCoord, logic.yCoord, logic.zCoord, this.isShiftKeyDown(), fluidToBeBroughtUp));
             }
+            base += fluidHeights[i];
         }
     }
 }

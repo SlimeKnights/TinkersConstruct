@@ -1,17 +1,10 @@
 package tconstruct.modifiers.tools;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import tconstruct.library.tools.ToolCore;
-
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
+import java.util.*;
+import net.minecraft.enchantment.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.*;
+import tconstruct.library.tools.ToolCore;
 
 public class ModButtertouch extends ModBoolean
 {

@@ -5,8 +5,7 @@ import net.minecraft.block.Block;
 
 public class ToolStationItemBlock extends MultiItemBlock
 {
-    public static final String blockTypes[] = { "Crafter", "Parts", "Parts", "Parts", "Parts", "PatternChest", "PatternChest", "PatternChest", "PatternChest", "PatternChest", "PatternShaper",
-            "PatternShaper", "PatternShaper", "PatternShaper", "CastingTable" };
+    public static final String blockTypes[] = { "Crafter", "Parts", "Parts", "Parts", "Parts", "PatternChest", "PatternChest", "PatternChest", "PatternChest", "PatternChest", "PatternShaper", "PatternShaper", "PatternShaper", "PatternShaper", "CastingTable" };
 
     public ToolStationItemBlock(Block b)
     {

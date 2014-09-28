@@ -1,10 +1,10 @@
 package tconstruct.tools.items;
 
 import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
+@Deprecated
 public class ToolPartHidden extends ToolPart
 {
 

@@ -1,32 +1,22 @@
 package tconstruct.tools.blocks;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
 import mantle.blocks.abstracts.InventorySlab;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.tools.TinkerTools;
-import tconstruct.tools.ToolProxyCommon;
-import tconstruct.tools.logic.CraftingStationLogic;
-import tconstruct.tools.logic.PartBuilderLogic;
-import tconstruct.tools.logic.PatternChestLogic;
-import tconstruct.tools.logic.StencilTableLogic;
-import tconstruct.tools.logic.ToolForgeLogic;
-import tconstruct.tools.logic.ToolStationLogic;
+import tconstruct.tools.*;
+import tconstruct.tools.logic.*;
 import tconstruct.util.config.PHConstruct;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class CraftingSlab extends InventorySlab
 {
@@ -42,9 +32,7 @@ public class CraftingSlab extends InventorySlab
     @Override
     public String[] getTextureNames ()
     {
-        String[] textureNames = { "craftingstation_top", "craftingstation_slab_side", "craftingstation_bottom", "toolstation_top", "toolstation_slab_side", "toolstation_bottom",
-                "partbuilder_oak_top", "partbuilder_slab_side", "partbuilder_oak_bottom", "stenciltable_oak_top", "stenciltable_slab_side", "stenciltable_oak_bottom", "patternchest_top",
-                "patternchest_slab_side", "patternchest_bottom", "toolforge_top", "toolforge_slab_side", "toolforge_top" };
+        String[] textureNames = { "craftingstation_top", "craftingstation_slab_side", "craftingstation_bottom", "toolstation_top", "toolstation_slab_side", "toolstation_bottom", "partbuilder_oak_top", "partbuilder_slab_side", "partbuilder_oak_bottom", "stenciltable_oak_top", "stenciltable_slab_side", "stenciltable_oak_bottom", "patternchest_top", "patternchest_slab_side", "patternchest_bottom", "toolforge_top", "toolforge_slab_side", "toolforge_top" };
 
         return textureNames;
     }
@@ -77,8 +65,7 @@ public class CraftingSlab extends InventorySlab
     {
         int metadata = world.getBlockMetadata(x, y, z);
         if (metadata == 5)
-            return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY - 0.125,
-                    (double) z + this.maxZ);
+            return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY - 0.125, (double) z + this.maxZ);
         return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
     }
 

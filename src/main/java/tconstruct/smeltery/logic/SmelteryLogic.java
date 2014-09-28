@@ -1,46 +1,30 @@
 package tconstruct.smeltery.logic;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import mantle.blocks.abstracts.InventoryLogic;
-import mantle.blocks.abstracts.MultiServantLogic;
-import mantle.blocks.iface.IActiveLogic;
-import mantle.blocks.iface.IFacingLogic;
-import mantle.blocks.iface.IMasterLogic;
-import mantle.blocks.iface.IServantLogic;
+import cpw.mods.fml.relauncher.*;
+import java.util.*;
+import mantle.blocks.abstracts.*;
+import mantle.blocks.iface.*;
 import mantle.world.CoordTuple;
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.*;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.monster.EntityIronGolem;
-import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.monster.*;
+import net.minecraft.entity.passive.*;
+import net.minecraft.entity.player.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
+import net.minecraft.nbt.*;
+import net.minecraft.network.*;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
-import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.*;
+import tconstruct.TConstruct;
 import tconstruct.library.crafting.Smeltery;
-import tconstruct.smeltery.SmelteryDamageSource;
-import tconstruct.smeltery.TinkerSmeltery;
+import tconstruct.smeltery.*;
 import tconstruct.smeltery.inventory.SmelteryContainer;
 import tconstruct.util.config.PHConstruct;
 
@@ -49,30 +33,34 @@ import tconstruct.util.config.PHConstruct;
 
 public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFacingLogic, IFluidTank, IMasterLogic
 {
+    private static final int MAX_SMELTERY_SIZE = 7;
+    public static final int MB_PER_BLOCK_CAPACITY = TConstruct.ingotLiquidValue*10;
+
     public boolean validStructure;
     public boolean tempValidStructure;
-    byte direction;
-    int internalTemp;
+    protected byte direction;
+
+    public CoordTuple minPos = new CoordTuple(0, 0, 0);
+    public CoordTuple maxPos = new CoordTuple(0, 0, 0);
+    public int layers;
+    public int maxBlockCapacity;
+
+    protected int internalTemp;
     public int useTime;
     public int fuelGague;
     public int fuelAmount;
-    boolean inUse;
+    protected boolean inUse;
 
-    ArrayList<CoordTuple> lavaTanks;
-    CoordTuple activeLavaTank;
-    public CoordTuple centerPos = new CoordTuple(0, 0, 0);
+    protected ArrayList<CoordTuple> lavaTanks;
+    protected CoordTuple activeLavaTank;
 
-    public int[] activeTemps;
-    public int[] meltingTemps;
-    int tick;
+    public int[] activeTemps; // values are multiplied by 10
+    public int[] meltingTemps; // values are multiplied by 10
+    private int tick;
 
     public ArrayList<FluidStack> moltenMetal = new ArrayList<FluidStack>();
-    int maxLiquid;
-    int currentLiquid;
-    public int layers;
-    int slag;
-
-    int numBricks;
+    public int maxLiquid;
+    public int currentLiquid;
 
     Random rand = new Random();
     boolean needsUpdate;
@@ -85,25 +73,44 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         meltingTemps = new int[0];
     }
 
+    public int getBlocksPerLayer ()
+    {
+        int xd = maxPos.x - minPos.x + 1;
+        int zd = maxPos.z - minPos.z + 1;
+        return xd * zd;
+    }
+
+    public int getCapacityPerLayer ()
+    {
+        return getBlocksPerLayer() * MB_PER_BLOCK_CAPACITY;
+    }
+
+    public int getBlockCapacity ()
+    {
+        return maxBlockCapacity;
+    }
+
     void adjustLayers (int lay, boolean forceAdjust)
     {
         if (lay != layers || forceAdjust)
         {
             needsUpdate = true;
             layers = lay;
-            maxLiquid = 20000 * lay;
+            maxBlockCapacity = getBlocksPerLayer() * layers;
+            maxLiquid = maxBlockCapacity * MB_PER_BLOCK_CAPACITY;
+
             int[] tempActive = activeTemps;
-            activeTemps = new int[9 * lay];
+            activeTemps = new int[maxBlockCapacity];
             int activeLength = tempActive.length > activeTemps.length ? activeTemps.length : tempActive.length;
             System.arraycopy(tempActive, 0, activeTemps, 0, activeLength);
 
             int[] tempMelting = meltingTemps;
-            meltingTemps = new int[9 * lay];
+            meltingTemps = new int[maxBlockCapacity];
             int meltingLength = tempMelting.length > meltingTemps.length ? meltingTemps.length : tempMelting.length;
             System.arraycopy(tempMelting, 0, meltingTemps, 0, meltingLength);
 
             ItemStack[] tempInv = inventory;
-            inventory = new ItemStack[9 * lay];
+            inventory = new ItemStack[maxBlockCapacity];
             int invLength = tempInv.length > inventory.length ? inventory.length : tempInv.length;
             System.arraycopy(tempInv, 0, inventory, 0, invLength);
 
@@ -111,8 +118,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             {
                 for (int i = tempActive.length; i < activeTemps.length; i++)
                 {
-                    activeTemps[i] = 20;
-                    meltingTemps[i] = 20;
+                    activeTemps[i] = 200;
+                    meltingTemps[i] = 200;
                 }
             }
 
@@ -155,8 +162,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                             }
 
                             stack.stackSize -= itemSize;
-                            EntityItem entityitem = new EntityItem(worldObj, (double) ((float) xCoord + jumpX + offsetX), (double) ((float) yCoord + jumpY),
-                                    (double) ((float) zCoord + jumpZ + offsetZ), new ItemStack(stack.getItem(), itemSize, stack.getItemDamage()));
+                            EntityItem entityitem = new EntityItem(worldObj, (double) ((float) xCoord + jumpX + offsetX), (double) ((float) yCoord + jumpY), (double) ((float) zCoord + jumpZ + offsetZ), new ItemStack(stack.getItem(), itemSize, stack.getItemDamage()));
 
                             if (stack.hasTagCompound())
                             {
@@ -173,6 +179,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 }
             }
         }
+
+        // update current liquid. This is done in case some config or something changed the capacity or other things.
+        updateCurrentLiquid();
     }
 
     /* Misc */
@@ -239,7 +248,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     @Override
     public void setActive (boolean flag)
     {
-        needsUpdate = true;
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
@@ -253,30 +261,36 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     public int getInternalTemperature ()
     {
+        if (!validStructure)
+            return 20;
+
         return internalTemp;
     }
 
     public int getTempForSlot (int slot)
     {
-        return activeTemps[slot];
+        return activeTemps[slot] / 10;
     }
 
     public int getMeltingPointForSlot (int slot)
     {
-        return meltingTemps[slot];
+        return meltingTemps[slot] / 10;
     }
 
     /* Updating */
     @Override
     public void updateEntity ()
     {
+        tick++;
+        if (tick == 60)
+        {
+            tick = 0;
+            detectEntities();
+        }
+
         /*
          * if (worldObj.isRemote) return;
          */
-
-        tick++;
-        if (tick % 4 == 0)
-            heatItems();
 
         if (tick % 20 == 0)
         {
@@ -298,19 +312,17 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             }
         }
 
-        if (tick == 60)
-        {
-            tick = 0;
-            detectEntities();
-        }
+        if(validStructure)
+            if (tick % 4 == 0)
+                heatItems();
     }
 
     void detectEntities ()
     {
-        if(centerPos == null)
+        if (minPos == null || maxPos == null)
             return;
 
-        AxisAlignedBB box = AxisAlignedBB.getBoundingBox(centerPos.x, centerPos.y, centerPos.z, centerPos.x + 1.0D, centerPos.y + 1.0D, centerPos.z + 1.0D).expand(1.0D, 0.0D, 1.0D);
+        AxisAlignedBB box = AxisAlignedBB.getBoundingBox(minPos.x, minPos.y, minPos.z, maxPos.x + 1, minPos.y + layers, maxPos.z + 1);
 
         List list = worldObj.getEntitiesWithinAABB(Entity.class, box);
         for (Object o : list)
@@ -426,19 +438,22 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
     }
 
-    void heatItems ()
+    private void heatItems ()
     {
         if (useTime > 0)
         {
             boolean hasUse = false;
-            for (int i = 0; i < 9 * layers; i++)
+            int temperature = this.getInternalTemperature();
+            int speed = temperature / 100;
+            int refTemp = temperature * 10;
+            for (int i = 0; i < maxBlockCapacity; i++)
             {
-                if (meltingTemps[i] > 20 && this.isStackInSlot(i))
+                if (meltingTemps[i] > 200 && this.isStackInSlot(i))
                 {
                     hasUse = true;
-                    if (activeTemps[i] < internalTemp && activeTemps[i] < meltingTemps[i])
+                    if (activeTemps[i] < refTemp && activeTemps[i] < meltingTemps[i])
                     {
-                        activeTemps[i] += 1;
+                        activeTemps[i] += speed; // lava has temp of 1000. we increase by 10 per application.
                     }
                     else if (activeTemps[i] >= meltingTemps[i])
                     {
@@ -450,7 +465,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                                 if (addMoltenMetal(result, false))
                                 {
                                     inventory[i] = null;
-                                    activeTemps[i] = 20;
+                                    activeTemps[i] = 200;
                                     ArrayList alloys = Smeltery.mixMetals(moltenMetal);
                                     for (int al = 0; al < alloys.size(); al++)
                                     {
@@ -466,7 +481,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 }
 
                 else
-                    activeTemps[i] = 20;
+                    activeTemps[i] = 200;
             }
             inUse = hasUse;
         }
@@ -483,6 +498,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
         else
         {
+            // update liquid amount..
+            updateCurrentLiquid();
+
             if (liquid.amount + currentLiquid > maxLiquid)
                 return false;
 
@@ -516,12 +534,18 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
     }
 
-    void updateTemperatures ()
+    private void updateCurrentLiquid() {
+        currentLiquid = 0;
+        for(FluidStack liquid : moltenMetal)
+            currentLiquid += liquid.amount;
+    }
+
+    private void updateTemperatures ()
     {
         inUse = true;
-        for (int i = 0; i < 9 * layers; i++)
+        for (int i = 0; i < maxBlockCapacity; i++)
         {
-            meltingTemps[i] = Smeltery.instance.getLiquifyTemperature(inventory[i]);
+            meltingTemps[i] = Smeltery.getLiquifyTemperature(inventory[i]) * 10; // temperatures are *10 for more progress control
         }
     }
 
@@ -548,7 +572,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         if (tankContainer instanceof IFluidHandler)
         {
             FluidStack liquid = ((IFluidHandler) tankContainer).drain(ForgeDirection.DOWN, 4000, false);
-            if (liquid != null && liquid.getFluid().getBlock() == Blocks.lava)
+            if (liquid != null && Smeltery.isSmelteryFuel(liquid.getFluid()))
             {
                 FluidTankInfo[] info = ((IFluidHandler) tankContainer).getTankInfo(ForgeDirection.DOWN);
                 if (info.length > 0)
@@ -569,6 +593,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     public void updateFuelGague ()
     {
+        if(activeLavaTank == null && lavaTanks.size() > 0)
+            activeLavaTank = lavaTanks.get(0);
         if (activeLavaTank == null || useTime > 0)
             return;
 
@@ -589,11 +615,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         if (tankContainer instanceof IFluidHandler)
         {
             needsUpdate = true;
-            FluidStack liquid = ((IFluidHandler) tankContainer).drain(ForgeDirection.DOWN, 150, false);
-            if (liquid != null && liquid.getFluid().getBlock() == Blocks.lava)
+            FluidStack liquid = ((IFluidHandler) tankContainer).drain(ForgeDirection.DOWN, 15, false);
+            if (liquid != null && Smeltery.isSmelteryFuel(liquid.getFluid()))
             {
-                liquid = ((IFluidHandler) tankContainer).drain(ForgeDirection.DOWN, 150, true);
-                useTime += liquid.amount;
+                liquid = ((IFluidHandler) tankContainer).drain(ForgeDirection.DOWN, 15, true);
+                useTime += Smeltery.getFuelDuration(liquid.getFluid());
+                internalTemp = Smeltery.getFuelPower(liquid.getFluid());
 
                 FluidTankInfo[] info = ((IFluidHandler) tankContainer).getTankInfo(ForgeDirection.DOWN);
                 liquid = info[0].fluid;
@@ -613,7 +640,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             {
                 boolean foundTank = false;
                 int iter = 0;
-                while (!foundTank)
+                while (!foundTank && iter < lavaTanks.size())
                 {
                     CoordTuple possibleTank = lavaTanks.get(iter);
                     TileEntity newTankContainer = worldObj.getTileEntity(possibleTank.x, possibleTank.y, possibleTank.z);
@@ -621,7 +648,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     {
                         // TConstruct.logger.info("Tank: "+possibleTank.toString());
                         FluidStack newliquid = ((IFluidHandler) newTankContainer).drain(ForgeDirection.UNKNOWN, 150, false);
-                        if (newliquid != null && newliquid.getFluid().getBlock() == Blocks.lava && newliquid.amount > 0)
+                        if (newliquid != null && Smeltery.isSmelteryFuel(newliquid.getFluid()) && newliquid.amount > 0)
                         {
                             // TConstruct.logger.info("Tank: "+possibleTank.toString());
                             foundTank = true;
@@ -658,9 +685,23 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
     }
 
+    @SideOnly(Side.CLIENT)
+    public IIcon getFuelIcon ()
+    {
+        IIcon defaultLava = Blocks.lava.getIcon(0, 0);
+        if (activeLavaTank == null)
+            return defaultLava;
+
+        TileEntity tankContainer = worldObj.getTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
+        if (tankContainer instanceof IFluidHandler)
+            return ((IFluidHandler) tankContainer).getTankInfo(ForgeDirection.DOWN)[0].fluid.getFluid().getStillIcon();
+
+        return defaultLava;
+    }
+
     public FluidStack getResultFor (ItemStack stack)
     {
-        return Smeltery.instance.getSmelteryResult(stack);
+        return Smeltery.getSmelteryResult(stack);
     }
 
     /* Inventory */
@@ -681,6 +722,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         updateTemperatures();
         updateEntity();
+
         super.markDirty();
         needsUpdate = true;
         // worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
@@ -706,69 +748,102 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         switch (getRenderDirection())
         {
         case 2: // +z
-            alignInitialPlacement(xCoord, yCoord, zCoord + 2);
+            alignInitialPlacement(xCoord, yCoord, zCoord + 1);
             break;
         case 3: // -z
-            alignInitialPlacement(xCoord, yCoord, zCoord - 2);
+            alignInitialPlacement(xCoord, yCoord, zCoord - 1);
             break;
         case 4: // +x
-            alignInitialPlacement(xCoord + 2, yCoord, zCoord);
+            alignInitialPlacement(xCoord + 1, yCoord, zCoord);
             break;
         case 5: // -x
-            alignInitialPlacement(xCoord - 2, yCoord, zCoord);
+            alignInitialPlacement(xCoord - 1, yCoord, zCoord);
             break;
         }
     }
 
+    // aligns the position given (inside the smeltery) to be the center of the smeltery
     public void alignInitialPlacement (int x, int y, int z)
     {
-        Block northBlock = worldObj.getBlock(x, y, z + 1);
-        Block southBlock = worldObj.getBlock(x, y, z - 1);
-        Block eastBlock = worldObj.getBlock(x + 1, y, z);
-        Block westBlock = worldObj.getBlock(x - 1, y, z);
+        // x/y/z = the block behind the controller "inside the smeltery"
 
-        if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z))
-                && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
+        // adjust the x-position of the block until the difference between the outer walls is at most 1
+        // basically this means we center the block inside the smeltery on the x axis.
+        int xd1 = 1, xd2 = 1; // x-difference
+        for (int i = 1; i < MAX_SMELTERY_SIZE; i++) // don't check farther than needed
         {
-            checkValidStructure(x, y, z);
+            if (worldObj.getBlock(x - xd1, y, z) == null || worldObj.isAirBlock(x - xd1, y, z))
+                xd1++;
+            else if (worldObj.getBlock(x + xd2, y, z) == null || worldObj.isAirBlock(x + xd2, y, z))
+                xd2++;
+
+            // if one side hit a wall and the other didn't we might have to center our x-position again
+            if (xd1 - xd2 > 1)
+            {
+                // move x and offsets to the -x
+                xd1--;
+                x--;
+                xd2++;
+            }
+            // or the right
+            if (xd2 - xd1 > 1)
+            {
+                xd2--;
+                x++;
+                xd1++;
+            }
+        }
+        // same for z-axis
+        int zd1 = 1, zd2 = 1;
+        for (int i = 1; i < MAX_SMELTERY_SIZE; i++) // don't check farther than needed
+        {
+            if (worldObj.getBlock(x, y, z - zd1) == null || worldObj.isAirBlock(x, y, z - zd1))
+                zd1++;
+            else if (worldObj.getBlock(x, y, z + zd2) == null || worldObj.isAirBlock(x, y, z + zd2))
+                zd2++;
+
+            // if one side hit a wall and the other didn't we might have to center our x-position again
+            if (zd1 - zd2 > 1)
+            {
+                // move x and offsets to the -x
+                zd1--;
+                z--;
+                zd2++;
+            }
+            // or the right
+            if (zd2 - zd1 > 1)
+            {
+                zd2--;
+                z++;
+                zd1++;
+            }
         }
 
-        else if ((northBlock != null && !worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z))
-                && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
-        {
-            checkValidStructure(x, y, z - 1);
-        }
-
-        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock != null && !worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z))
-                && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
-        {
-            checkValidStructure(x, y, z + 1);
-        }
-
-        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock != null && !worldObj.isAirBlock(x + 1, y, z))
-                && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
-        {
-            checkValidStructure(x - 1, y, z);
-        }
-
-        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z))
-                && (westBlock != null && !worldObj.isAirBlock(x - 1, y, z)))
-        {
-            checkValidStructure(x + 1, y, z);
-        }
-
-        // Not valid, sorry
+        // do the check
+        int[] sides = new int[] { xd1, xd2, zd1, zd2 };
+        checkValidStructure(x, y, z, sides);
     }
 
-    public void checkValidStructure (int x, int y, int z)
+    /**
+     *
+     * @param x x-center of the smeltery +-1
+     * @param y y-position of the controller block
+     * @param z z-center of the smeltery +-1
+     * @param sides distance between the center point and the wall. [-x,+x,-z,+z]
+     */
+    public void checkValidStructure (int x, int y, int z, int[] sides)
     {
         int checkLayers = 0;
+        //worldObj.setBlock(x,y,z, Blocks.redstone_block);
+        //worldObj.setBlock(x+sides[1]-sides[0],y+1,z+sides[3]-sides[2], Blocks.lapis_block);
+
         tempValidStructure = false;
-        if (checkSameLevel(x, y, z))
+        // this piece of code here does the complete validity check.
+        if (checkSameLevel(x, y, z, sides))
         {
             checkLayers++;
-            checkLayers += recurseStructureUp(x, y + 1, z, 0);
-            checkLayers += recurseStructureDown(x, y - 1, z, 0);
+            checkLayers += recurseStructureUp(x, y + 1, z, sides, 0);
+            checkLayers += recurseStructureDown(x, y - 1, z, sides, 0);
         }
 
         // maxLiquid = capacity * 20000;
@@ -777,30 +852,57 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             if (tempValidStructure)
             {
-                internalTemp = 1000;
-                activeLavaTank = lavaTanks.get(0);
-                adjustLayers(checkLayers, false);
+                // try to derive temperature from fueltank
+                activeLavaTank = null;
+                for (CoordTuple tank : lavaTanks)
+                {
+                    TileEntity tankContainer = worldObj.getTileEntity(tank.x, tank.y, tank.z);
+                    if (!(tankContainer instanceof IFluidHandler))
+                        continue;
+
+                    FluidStack liquid = ((IFluidHandler) tankContainer).getTankInfo(ForgeDirection.DOWN)[0].fluid;
+                    if (liquid == null)
+                        continue;
+                    if (!Smeltery.isSmelteryFuel(liquid.getFluid()))
+                        continue;
+
+                    internalTemp = Smeltery.getFuelPower(liquid.getFluid());
+                    activeLavaTank = tank;
+                    break;
+                }
+
+                // no tank with fuel. we reserve the first found one
+                if (activeLavaTank == null)
+                    activeLavaTank = lavaTanks.get(0);
+
+                // update other stuff
+                adjustLayers(checkLayers, true);
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 validStructure = true;
             }
             else
             {
                 internalTemp = 20;
+                if(validStructure)
+                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 validStructure = false;
             }
         }
     }
 
-    public boolean checkSameLevel (int x, int y, int z)
+    public boolean checkBricksOnLevel (int x, int y, int z, int[] sides)
     {
-        numBricks = 0;
-        lavaTanks.clear();
+        int numBricks = 0;
         Block block;
+        int xMin = x - sides[0];
+        int xMax = x + sides[1];
+        int zMin = z - sides[2];
+        int zMax = z + sides[3];
 
         // Check inside
-        for (int xPos = x - 1; xPos <= x + 1; xPos++)
+        for (int xPos = xMin + 1; xPos <= xMax - 1; xPos++)
         {
-            for (int zPos = z - 1; zPos <= z + 1; zPos++)
+            for (int zPos = zMin + 1; zPos <= zMax - 1; zPos++)
             {
                 block = worldObj.getBlock(xPos, y, zPos);
                 if (block != null && !worldObj.isAirBlock(xPos, y, zPos))
@@ -809,113 +911,90 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
 
         // Check outer layer
-        for (int xPos = x - 1; xPos <= x + 1; xPos++)
+        for (int xPos = xMin + 1; xPos <= xMax - 1; xPos++)
         {
-            numBricks += checkBricks(xPos, y, z - 2);
-            numBricks += checkBricks(xPos, y, z + 2);
+            numBricks += checkBricks(xPos, y, zMin);
+            numBricks += checkBricks(xPos, y, zMax);
         }
 
-        for (int zPos = z - 1; zPos <= z + 1; zPos++)
+        for (int zPos = zMin + 1; zPos <= zMax - 1; zPos++)
         {
-            numBricks += checkBricks(x - 2, y, zPos);
-            numBricks += checkBricks(x + 2, y, zPos);
+            numBricks += checkBricks(xMin, y, zPos);
+            numBricks += checkBricks(xMax, y, zPos);
         }
 
-        if (numBricks == 12 && lavaTanks.size() > 0)
+        int neededBricks = (xMax - xMin) * 2 + (zMax - zMin) * 2 - 4; // -4 because corners are not needed
+
+        return numBricks == neededBricks;
+    }
+
+    public boolean checkSameLevel (int x, int y, int z, int[] sides)
+    {
+        lavaTanks.clear();
+
+        boolean check = checkBricksOnLevel(x, y, z, sides);
+
+        if (check && lavaTanks.size() > 0)
             return true;
         else
             return false;
     }
 
-    public int recurseStructureUp (int x, int y, int z, int count)
+    public int recurseStructureUp (int x, int y, int z, int[] sides, int count)
     {
-        numBricks = 0;
-        // Check inside
-        for (int xPos = x - 1; xPos <= x + 1; xPos++)
-        {
-            for (int zPos = z - 1; zPos <= z + 1; zPos++)
-            {
-                Block block = worldObj.getBlock(xPos, y, zPos);
-                if (block != null && !worldObj.isAirBlock(xPos, y, zPos))
-                    return count;
-            }
-        }
+        boolean check = checkBricksOnLevel(x, y, z, sides);
 
-        // Check outer layer
-        for (int xPos = x - 1; xPos <= x + 1; xPos++)
-        {
-            numBricks += checkBricks(xPos, y, z - 2);
-            numBricks += checkBricks(xPos, y, z + 2);
-        }
-
-        for (int zPos = z - 1; zPos <= z + 1; zPos++)
-        {
-            numBricks += checkBricks(x - 2, y, zPos);
-            numBricks += checkBricks(x + 2, y, zPos);
-        }
-
-        if (numBricks != 12)
+        if (!check)
             return count;
 
         count++;
-        return recurseStructureUp(x, y + 1, z, count);
+        return recurseStructureUp(x, y + 1, z, sides, count);
     }
 
-    public int recurseStructureDown (int x, int y, int z, int count)
+    public int recurseStructureDown (int x, int y, int z, int[] sides, int count)
     {
-        numBricks = 0;
-        // Check inside
-        for (int xPos = x - 1; xPos <= x + 1; xPos++)
-        {
-            for (int zPos = z - 1; zPos <= z + 1; zPos++)
-            {
-                Block blockID = worldObj.getBlock(xPos, y, zPos);
-                if (blockID != null && !worldObj.isAirBlock(xPos, y, zPos))
-                {
-                    if (validBlockID(blockID))
-                        return validateBottom(x, y, z, count);
-                    else
-                        return count;
-                }
-            }
-        }
+        boolean check = checkBricksOnLevel(x, y, z, sides);
 
-        // Check outer layer
-        for (int xPos = x - 1; xPos <= x + 1; xPos++)
+        if (!check)
         {
-            numBricks += checkBricks(xPos, y, z - 2);
-            numBricks += checkBricks(xPos, y, z + 2);
-        }
+            // regular check failed, maybe it's the bottom?
+            Block block = worldObj.getBlock(x, y, z);
+            if (block != null && !worldObj.isAirBlock(x, y, z))
+                if (validBlockID(block))
+                    return validateBottom(x, y, z, sides, count);
 
-        for (int zPos = z - 1; zPos <= z + 1; zPos++)
-        {
-            numBricks += checkBricks(x - 2, y, zPos);
-            numBricks += checkBricks(x + 2, y, zPos);
-        }
-
-        if (numBricks != 12)
             return count;
+        }
 
         count++;
-        return recurseStructureDown(x, y - 1, z, count);
+        return recurseStructureDown(x, y - 1, z, sides, count);
     }
 
-    public int validateBottom (int x, int y, int z, int count)
+    public int validateBottom (int x, int y, int z, int[] sides, int count)
     {
         int bottomBricks = 0;
-        for (int xPos = x - 1; xPos <= x + 1; xPos++)
+        int xMin = x - sides[0] + 1;
+        int xMax = x + sides[1] - 1;
+        int zMin = z - sides[2] + 1;
+        int zMax = z + sides[3] - 1;
+
+        // Check inside
+        for (int xPos = xMin; xPos <= xMax; xPos++)
         {
-            for (int zPos = z - 1; zPos <= z + 1; zPos++)
+            for (int zPos = zMin; zPos <= zMax; zPos++)
             {
                 if (validBlockID(worldObj.getBlock(xPos, y, zPos)) && (worldObj.getBlockMetadata(xPos, y, zPos) >= 2))
                     bottomBricks++;
             }
         }
 
-        if (bottomBricks == 9)
+        int neededBricks = (xMax + 1 - xMin) * (zMax + 1 - zMin); // +1 because we want inclusive the upper border
+
+        if (bottomBricks == neededBricks)
         {
             tempValidStructure = true;
-            centerPos = new CoordTuple(x, y + 1, z);
+            minPos = new CoordTuple(xMin, y + 1, zMin);
+            maxPos = new CoordTuple(xMax, y + 1, zMax);
         }
         return count;
     }
@@ -940,11 +1019,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 MultiServantLogic servant = (MultiServantLogic) te;
                 if (servant.hasValidMaster())
                 {
-                    if (servant.verifyMaster(this, this.xCoord, this.yCoord, this.zCoord))
+                    if (servant.verifyMaster(this, worldObj, this.xCoord, this.yCoord, this.zCoord))
                         tempBricks++;
                 }
-                else if (servant.setMaster(this.xCoord, this.yCoord, this.zCoord))
+                else
                 {
+                    servant.overrideMaster(this.xCoord, this.yCoord, this.zCoord);
                     tempBricks++;
                 }
 
@@ -981,6 +1061,10 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     @Override
     public FluidStack drain (int maxDrain, boolean doDrain)
     {
+        // don't drain if we're not complete
+        if(!validStructure)
+            return null;
+
         if (moltenMetal.size() == 0)
             return null;
 
@@ -995,8 +1079,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     // liquid = null;
                     moltenMetal.remove(liquid);
                     worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                    currentLiquid = 0;
                     needsUpdate = true;
+                    updateCurrentLiquid();
                 }
                 return liq;
             }
@@ -1021,6 +1105,10 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     @Override
     public int fill (FluidStack resource, boolean doFill)
     {
+        // don't fill if we're not complete
+        if(!validStructure)
+            return 0;
+
         if (resource != null && currentLiquid < maxLiquid)// resource.amount +
                                                           // currentLiquid <
                                                           // maxLiquid)
@@ -1087,18 +1175,24 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     public void readFromNBT (NBTTagCompound tags)
     {
         layers = tags.getInteger("Layers");
-        inventory = new ItemStack[layers * 9];
+        int[] pos = tags.getIntArray("MinPos");
+        if (pos.length > 2)
+            minPos = new CoordTuple(pos[0], pos[1], pos[2]);
+        else
+            minPos = new CoordTuple(xCoord, yCoord, zCoord);
+
+        pos = tags.getIntArray("MaxPos");
+        if (pos.length > 2)
+            maxPos = new CoordTuple(pos[0], pos[1], pos[2]);
+        else
+            maxPos = new CoordTuple(xCoord, yCoord, zCoord);
+
+        maxBlockCapacity = getBlocksPerLayer() * layers;
+        inventory = new ItemStack[maxBlockCapacity];
         super.readFromNBT(tags);
 
-        // validStructure = tags.getBoolean("ValidStructure");
         internalTemp = tags.getInteger("InternalTemp");
         inUse = tags.getBoolean("InUse");
-
-        int[] center = tags.getIntArray("CenterPos");
-        if (center.length > 2)
-            centerPos = new CoordTuple(center[0], center[1], center[2]);
-        else
-            centerPos = new CoordTuple(xCoord, yCoord, zCoord);
 
         direction = tags.getByte("Direction");
         useTime = tags.getInteger("UseTime");
@@ -1117,6 +1211,15 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             if (fluid != null)
                 moltenMetal.add(fluid);
         }
+
+        //if(maxBlockCapacity != meltingTemps.length)
+          //  adjustLayers(layers, true);
+
+        if(!tags.getBoolean("ValidStructure"))
+            validStructure = false; // only negative update because we want to do a clientside structure check too
+        else if(!validStructure && worldObj != null) // if the worldobj is null it happens on loading of a world. check shouldn't be done there
+            checkValidPlacement();
+
         // adjustLayers(layers, true);
         // checkValidPlacement();
     }
@@ -1126,16 +1229,22 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         super.writeToNBT(tags);
 
-        // tags.setBoolean("ValidStructure", validStructure);
+        tags.setBoolean("ValidStructure", validStructure);
         tags.setInteger("InternalTemp", internalTemp);
         tags.setBoolean("InUse", inUse);
 
-        int[] center = new int[3];// { centerPos.x, centerPos.y, centerPos.z };
-        if (centerPos == null)
-            center = new int[] { xCoord, yCoord, zCoord };
+        int[] pos;
+        if (minPos == null)
+            pos = new int[] { xCoord, yCoord, zCoord };
         else
-            center = new int[] { centerPos.x, centerPos.y, centerPos.z };
-        tags.setIntArray("CenterPos", center);
+            pos = new int[] { minPos.x, minPos.y, minPos.z };
+        tags.setIntArray("MinPos", pos);
+
+        if (maxPos == null)
+            pos = new int[] { xCoord, yCoord, zCoord };
+        else
+            pos = new int[] { maxPos.x, maxPos.y, maxPos.z };
+        tags.setIntArray("MaxPos", pos);
 
         tags.setByte("Direction", direction);
         tags.setInteger("UseTime", useTime);

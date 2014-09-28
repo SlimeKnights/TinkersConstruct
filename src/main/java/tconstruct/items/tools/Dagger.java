@@ -1,9 +1,7 @@
 package tconstruct.items.tools;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.world.World;
 import tconstruct.library.tools.Weapon;
 import tconstruct.tools.TinkerTools;

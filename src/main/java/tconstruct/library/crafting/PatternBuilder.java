@@ -1,26 +1,22 @@
 package tconstruct.library.crafting;
 
 /** How to build tool parts? With patterns! */
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import java.util.*;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.event.PartBuilderEvent;
 import tconstruct.library.tools.CustomMaterial;
 import tconstruct.library.util.IPattern;
-import cpw.mods.fml.common.eventhandler.Event.Result;
 
 public class PatternBuilder
 {
     public static PatternBuilder instance = new PatternBuilder();
     // Map items to their parts with a hashmap
     public List<ItemKey> materials = new ArrayList<ItemKey>();
-    public HashMap materialSets = new HashMap<String, MaterialSet>();
+    public HashMap<String, MaterialSet> materialSets = new HashMap<String, MaterialSet>();
 
     // We could use IRecipe if it wasn't tied to InventoryCrafting
     public List<IPattern> toolPatterns = new ArrayList<IPattern>();
@@ -85,7 +81,7 @@ public class PatternBuilder
 
                     else
                     {
-                        if (patternValue % 2 == 1)
+                        if (patternValue % 2 == 1 && mat.shard != null)
                         {
                             return new ItemStack[] { toolPart, mat.shard.copy() }; // Material
                                                                                    // +
@@ -173,7 +169,7 @@ public class PatternBuilder
     public ItemStack getShardFromSet (String materialset)
     {
         MaterialSet set = (MaterialSet) materialSets.get(materialset);
-        if (set != null)
+        if (set != null && set.shard != null)
             return set.shard.copy();
         return null;
     }

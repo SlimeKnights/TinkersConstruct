@@ -1,27 +1,18 @@
 package tconstruct.client;
 
+import cpw.mods.fml.common.gameevent.TickEvent.Type;
 import mantle.common.network.AbstractPacket;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
-import net.minecraftforge.common.MinecraftForge;
 import tconstruct.TConstruct;
-import tconstruct.armor.ArmorProxyClient;
-import tconstruct.armor.ArmorProxyCommon;
-import tconstruct.armor.PlayerAbilityHelper;
+import tconstruct.armor.*;
 import tconstruct.armor.items.TravelGear;
-import tconstruct.client.tabs.TabRegistry;
-import tconstruct.util.network.AccessoryInventoryPacket;
-import tconstruct.util.network.BeltPacket;
-import tconstruct.util.network.DoubleJumpPacket;
-import tconstruct.util.network.GogglePacket;
-import cpw.mods.fml.common.gameevent.TickEvent.Type;
+import tconstruct.util.network.*;
 
-public class TControls extends TKeyHandler
+public class ArmorControls extends TKeyHandler
 {
     public static final String keybindCategory = "tconstruct.keybindings";
     public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24, keybindCategory);
@@ -43,7 +34,7 @@ public class TControls extends TKeyHandler
 
     // boolean onStilts = false;
 
-    public TControls()
+    public ArmorControls()
     {
         super(new KeyBinding[] { armorKey, toggleGoggles, beltSwap, zoomKey }, new boolean[] { false, false, false, false }, getVanillaKeyBindings(), new boolean[] { false, false });
         /*ClientRegistry.registerKeyBinding(armorKey);
@@ -70,10 +61,7 @@ public class TControls extends TKeyHandler
             {
                 openArmorGui();// mc.thePlayer.username);
             }
-            if (kb == invKey && mc.currentScreen != null && mc.currentScreen.getClass() == GuiInventory.class)// &&// !mc.playerController.isInCreativeMode())
-            {
-                MinecraftForge.EVENT_BUS.register(new TabRegistry());
-            }
+
             if (kb == jumpKey) // Double jump
             {
                 if (mc.thePlayer.capabilities.isCreativeMode)

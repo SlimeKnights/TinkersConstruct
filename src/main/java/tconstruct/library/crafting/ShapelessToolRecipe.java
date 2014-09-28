@@ -1,9 +1,6 @@
 package tconstruct.library.crafting;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
+import java.util.*;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
@@ -37,7 +34,7 @@ public class ShapelessToolRecipe extends ShapelessRecipes
 
                     while (iterator.hasNext())
                     {
-                        ItemStack itemstack1 = (ItemStack)iterator.next();
+                        ItemStack itemstack1 = (ItemStack) iterator.next();
 
                         // TConstruct.logger.info("Rawr! "+itemstack1.getItemDamage());
                         if (itemstack.getItem() == itemstack1.getItem() && (itemstack1.getItemDamage() == Short.MAX_VALUE || itemstack.getItemDamage() == itemstack1.getItemDamage()))

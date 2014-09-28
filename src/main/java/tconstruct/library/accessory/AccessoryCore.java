@@ -1,19 +1,16 @@
 package tconstruct.library.accessory;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.tools.ToolCore;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class AccessoryCore extends Item implements IAccessory, IModifyable
 {
@@ -21,7 +18,8 @@ public abstract class AccessoryCore extends Item implements IAccessory, IModifya
      * Override getArmorModel() to have render on the player.
      */
     protected String texture;
-    public AccessoryCore( String texture)
+
+    public AccessoryCore(String texture)
     {
         super();
         this.setCreativeTab(TConstructRegistry.equipableTab);
@@ -60,21 +58,21 @@ public abstract class AccessoryCore extends Item implements IAccessory, IModifya
         glove.setTagCompound(baseTag);
         list.add(glove);
     }*/
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems (Item par1, CreativeTabs par2CreativeTabs, List par3List)
     {
         par3List.add(getDefaultItem());
     }
-    
-    public ItemStack getDefaultItem()
+
+    public ItemStack getDefaultItem ()
     {
         ItemStack gear = new ItemStack(this, 1, 0);
         NBTTagCompound itemTag = new NBTTagCompound();
-        
+
         int baseDurability = 500;
-        
+
         itemTag.setInteger("Damage", 0); //Damage is damage to the tool
         itemTag.setInteger("TotalDurability", baseDurability);
         itemTag.setInteger("BaseDurability", baseDurability);
@@ -83,7 +81,7 @@ public abstract class AccessoryCore extends Item implements IAccessory, IModifya
         itemTag.setInteger("Modifiers", 5);
         itemTag.setBoolean("Broken", false);
         itemTag.setBoolean("Built", true);
-        
+
         NBTTagCompound baseTag = new NBTTagCompound();
         baseTag.setTag(getBaseTagName(), itemTag);
         gear.setTagCompound(baseTag);
@@ -99,12 +97,12 @@ public abstract class AccessoryCore extends Item implements IAccessory, IModifya
     @SideOnly(Side.CLIENT)
     public void registerIcons (IIconRegister iconRegister)
     {
-        itemIcon = iconRegister.registerIcon("tinker:"+texture);
+        itemIcon = iconRegister.registerIcon("tinker:" + texture);
         registerModifiers(iconRegister);
     }
 
     @SideOnly(Side.CLIENT)
-    protected void registerModifiers(IIconRegister iconRegister)
+    protected void registerModifiers (IIconRegister iconRegister)
     {
     }
 

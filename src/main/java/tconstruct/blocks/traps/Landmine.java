@@ -1,26 +1,17 @@
 package tconstruct.blocks.traps;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-
+import cpw.mods.fml.relauncher.*;
+import java.util.*;
 import mantle.blocks.MantleBlock;
 import mantle.world.WorldHelper;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockFence;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.*;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 import tconstruct.library.TConstructRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class Landmine extends MantleBlock
 {
@@ -182,18 +173,12 @@ public class Landmine extends MantleBlock
 
         if (this.triggerMobType == EnumCreatureType.creature)
         {
-            var8 = world.getEntitiesWithinAABBExcludingEntity(
-                    (Entity) null,
-                    AxisAlignedBB.getBoundingBox((double) ((float) posX + var7), (double) posY, (double) ((float) posZ + var7), (double) ((float) (posX + 1) - var7), (double) posY + 0.25D,
-                            (double) ((float) (posZ + 1) - var7)));
+            var8 = world.getEntitiesWithinAABBExcludingEntity((Entity) null, AxisAlignedBB.getBoundingBox((double) ((float) posX + var7), (double) posY, (double) ((float) posZ + var7), (double) ((float) (posX + 1) - var7), (double) posY + 0.25D, (double) ((float) (posZ + 1) - var7)));
         }
 
         if (this.triggerMobType == EnumCreatureType.monster)
         {
-            var8 = world.getEntitiesWithinAABB(
-                    EntityLiving.class,
-                    AxisAlignedBB.getBoundingBox((double) ((float) posX + var7), (double) posY, (double) ((float) posZ + var7), (double) ((float) (posX + 1) - var7), (double) posY + 0.25D,
-                            (double) ((float) (posZ + 1) - var7)));
+            var8 = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox((double) ((float) posX + var7), (double) posY, (double) ((float) posZ + var7), (double) ((float) (posX + 1) - var7), (double) posY + 0.25D, (double) ((float) (posZ + 1) - var7)));
         }
 
         /*

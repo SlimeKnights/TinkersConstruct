@@ -1,22 +1,14 @@
 package tconstruct.mechworks.landmine.behavior;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.ITileEntityProvider;
+import java.util.*;
+import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
+import net.minecraft.init.*;
+import net.minecraft.item.*;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import tconstruct.mechworks.landmine.Helper;
-import tconstruct.mechworks.landmine.LandmineStack;
+import tconstruct.mechworks.landmine.*;
 
 /**
  * 

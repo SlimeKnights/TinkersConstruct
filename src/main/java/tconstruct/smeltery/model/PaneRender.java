@@ -1,17 +1,10 @@
 package tconstruct.smeltery.model;
 
-import mantle.world.WorldHelper;
+import cpw.mods.fml.client.registry.*;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.common.util.ForgeDirection;
-import tconstruct.smeltery.blocks.PaneBase;
 import tconstruct.util.ItemHelper;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class PaneRender implements ISimpleBlockRenderingHandler
 {
@@ -33,7 +26,7 @@ public class PaneRender implements ISimpleBlockRenderingHandler
         if (modelID == model)
         {
             //renderer.setOverrideBlockTexture(((PaneBase)block).getIcon(0, world.getBlockMetadata(x,y,z)));
-            return renderer.renderBlockStainedGlassPane(block, x,y,z);
+            return renderer.renderBlockStainedGlassPane(block, x, y, z);
             //return renderPaneInWorld(renderer, world, x, y, z, (PaneBase) block);
         }
 

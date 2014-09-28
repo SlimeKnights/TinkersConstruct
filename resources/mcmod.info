@@ -8,26 +8,9 @@
     "url": "http://www.minecraftforum.net/topic/1659892-tinkers-construct",
     "updateUrl": "",
     "authors": [
-      "mDiyo", "fuj1n", "ProgWML6", "Sunstrike", "Pillbox"
+      "mDiyo", "fuj1n", "ProgWML6", "Sunstrike", "Pillbox", "boni"
     ],
     "credits": "Slime Knights, Samtrion, Abculatter_2, Alexbegt",
-    "logoFile": "",
-    "screenshots": [],
-    "parent":"",
-    "dependencies": []
-  },
-  {
-    "modid": "TConstruct-Preloader",
-    "name": "Tinkers Corestruct",
-    "description": "Preloader for Tinkers Construct",
-    "version": "0.0.1",
-    "mcversion": "${MCversion}",
-    "url": "https://github.com/SlimeKnights/TinkersConstruct/tree/master/src/tconstruct/preloader",
-    "updateUrl": "",
-    "authors": [
-      "Sunstrike", "Slime Knights"
-    ],
-    "credits": "AlgorithmX2 (ASMInterfaceRepair)",
     "logoFile": "",
     "screenshots": [],
     "parent":"",

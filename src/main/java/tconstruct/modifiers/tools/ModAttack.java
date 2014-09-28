@@ -21,7 +21,7 @@ public class ModAttack extends ItemModTypeFilter
         threshold = 24;
         modifierType = "Tool";
     }
-    
+
     public ModAttack(String type, int effect, ItemStack[] items, int[] value, int max, int threshold, String modifierType)
     {
         super(effect, "ModAttack", items, value);
@@ -41,7 +41,7 @@ public class ModAttack extends ItemModTypeFilter
             if (!validType(toolItem))
                 return false;
 
-            if(matchingAmount(input) > max)
+            if (matchingAmount(input) > max)
                 return false;
 
             NBTTagCompound tags = tool.getTagCompound().getCompoundTag(toolItem.getBaseTagName());
@@ -57,7 +57,7 @@ public class ModAttack extends ItemModTypeFilter
         }
         return false;
     }
-    
+
     @Override
     public boolean validType (IModifyable input)
     {

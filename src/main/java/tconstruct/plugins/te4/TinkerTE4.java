@@ -1,14 +1,11 @@
 package tconstruct.plugins.te4;
 
+import cpw.mods.fml.common.registry.*;
+import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
+import mantle.pulsar.pulse.*;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
-
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
-import mantle.pulsar.pulse.Handler;
-import mantle.pulsar.pulse.Pulse;
+import net.minecraftforge.oredict.*;
 import tconstruct.TConstruct;
 import tconstruct.tools.TinkerTools;
 import tconstruct.world.TinkerWorld;

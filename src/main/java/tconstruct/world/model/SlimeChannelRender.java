@@ -1,14 +1,11 @@
 package tconstruct.world.model;
 
+import cpw.mods.fml.client.registry.*;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
+import net.minecraft.client.renderer.*;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import tconstruct.util.ItemHelper;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class SlimeChannelRender implements ISimpleBlockRenderingHandler
 {

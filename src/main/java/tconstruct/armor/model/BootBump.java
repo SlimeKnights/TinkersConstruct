@@ -1,7 +1,6 @@
 package tconstruct.armor.model;
 
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.model.*;
 
 public class BootBump extends ModelBiped
 {
@@ -20,7 +19,7 @@ public class BootBump extends ModelBiped
         leftBump.addBox(-0.5F, -1F, 0F, 4, 3, 1, 0.5f);
         leftBump.setRotationPoint(-1.5F, 10F, -3.75F);
         bipedLeftLeg.addChild(leftBump);
-        
+
         this.bipedCloak.isHidden = true;
         this.bipedEars.isHidden = true;
         this.bipedHead.isHidden = true;

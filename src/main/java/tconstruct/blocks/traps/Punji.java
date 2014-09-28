@@ -1,26 +1,20 @@
 package tconstruct.blocks.traps;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.Random;
-
 import mantle.blocks.MantleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Item;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.item.*;
+import net.minecraft.potion.*;
 import net.minecraft.util.DamageSource;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.model.PunjiRender;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class Punji extends MantleBlock
 {
@@ -62,8 +56,7 @@ public class Punji extends MantleBlock
             if (stack != null && stack.getItem() == Item.getItemFromBlock(TinkerWorld.punji))
             {
                 world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
-                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), this.stepSound.soundName, (this.stepSound.getVolume() + 1.0F) / 2.0F,
-                        this.stepSound.getPitch() * 0.8F);
+                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), this.stepSound.soundName, (this.stepSound.getVolume() + 1.0F) / 2.0F, this.stepSound.getPitch() * 0.8F);
                 player.swingItem();
                 if (!player.capabilities.isCreativeMode)
                 {

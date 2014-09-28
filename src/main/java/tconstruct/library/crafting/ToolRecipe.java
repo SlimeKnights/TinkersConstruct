@@ -1,7 +1,6 @@
 package tconstruct.library.crafting;
 
 import java.util.LinkedList;
-
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import tconstruct.library.TConstructRegistry;

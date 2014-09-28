@@ -1,11 +1,6 @@
 package tconstruct.library.modifier;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
-
+import java.util.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -15,7 +10,7 @@ public abstract class ItemModifier
     public final List stacks;
     public final int effectIndex;
     public static Random random = new Random();
-    
+
     /** Default constructor
      * 
      * @param recipe Items to compare against when checking the modifier
@@ -78,12 +73,12 @@ public abstract class ItemModifier
         return list.isEmpty();
     }
 
-    protected String getTagName(ItemStack stack)
+    protected String getTagName (ItemStack stack)
     {
-         return ((IModifyable)stack.getItem()).getBaseTagName();
+        return ((IModifyable) stack.getItem()).getBaseTagName();
     }
-    
-    protected NBTTagCompound getModifierTag(ItemStack stack)
+
+    protected NBTTagCompound getModifierTag (ItemStack stack)
     {
         return stack.getTagCompound().getCompoundTag(getTagName(stack));
     }
@@ -245,7 +240,7 @@ public abstract class ItemModifier
             return false;
         return ItemStack.areItemStackTagsEqual(stack1, stack2);
     }
-    
+
     public static NBTTagCompound getAttributeTag (String attributeType, String modifierName, double amount, boolean flat, UUID uuid)
     {
         NBTTagCompound tag = new NBTTagCompound();

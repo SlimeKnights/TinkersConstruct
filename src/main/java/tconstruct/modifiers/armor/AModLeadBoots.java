@@ -1,11 +1,8 @@
 package tconstruct.modifiers.armor;
 
-import java.util.EnumSet;
-import java.util.UUID;
-
+import java.util.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.*;
 import tconstruct.library.armor.ArmorPart;
 
 public class AModLeadBoots extends AModBoolean
@@ -29,7 +26,7 @@ public class AModLeadBoots extends AModBoolean
         armorTag.setInteger("Modifiers", modifiers);
 
         addToolTip(armor, color + tooltipName, color + key);
-        
+
         NBTTagList attributes;
         if (baseTag.hasKey("AttributeModifiers"))
         {
@@ -48,5 +45,6 @@ public class AModLeadBoots extends AModBoolean
         }
         attributes.appendTag(getAttributeTag("generic.knockbackResistance", key, 0.4, true, shoes));
     }
+
     private static final UUID shoes = UUID.fromString("4188779d-69d4-487c-b307-c4c182522c47");
 }

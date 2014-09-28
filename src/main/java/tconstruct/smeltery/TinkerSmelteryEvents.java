@@ -1,22 +1,19 @@
 package tconstruct.smeltery;
 
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.common.eventhandler.*;
+import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
-import net.minecraftforge.event.entity.player.FillBucketEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.tools.AbilityHelper;
-import tconstruct.smeltery.blocks.LiquidMetalFinite;
-import tconstruct.smeltery.blocks.TankAirBlock;
+import tconstruct.smeltery.blocks.*;
 import tconstruct.tools.TinkerTools;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 
 public class TinkerSmelteryEvents
 {
@@ -37,7 +34,7 @@ public class TinkerSmelteryEvents
             }
         }
     }
-    
+
     @SubscribeEvent
     public void bucketFill (FillBucketEvent evt)
     {

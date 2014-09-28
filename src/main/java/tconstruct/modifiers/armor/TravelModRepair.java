@@ -46,8 +46,6 @@ public class TravelModRepair extends ItemModifier
         }
         return false;
     }
-    
-
 
     private int calculateIncrease (ItemStack tool, NBTTagCompound tags, int materialValue, int itemsUsed)
     {

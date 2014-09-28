@@ -1,33 +1,26 @@
 package tconstruct.items.tools;
 
+import cpw.mods.fml.relauncher.*;
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.*;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import tconstruct.library.ActiveToolMod;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.tools.AbilityHelper;
-import tconstruct.library.tools.HarvestTool;
+import tconstruct.library.*;
+import tconstruct.library.tools.*;
 import tconstruct.tools.TinkerTools;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
-public class Battleaxe extends HarvestTool
+public class Battleaxe extends AOEHarvestTool
 {
     public Battleaxe()
     {
-        super(4);
+        super(4, 1,1);
         this.setUnlocalizedName("InfiTool.Battleaxe");
     }
 
@@ -239,57 +232,5 @@ public class Battleaxe extends HarvestTool
                 player.movementInput.moveStrafe *= 5.0F;
             }
         }
-    }
-
-    @Override
-    public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
-    {
-        if (!stack.hasTagCompound())
-            return false;
-
-        World world = player.worldObj;
-        final Block block = world.getBlock(x, y, z);
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-        final int meta = world.getBlockMetadata(x, y, z);
-        for (int yPos = y + 1; yPos < y + 9; yPos++)
-        {
-            Block localBlock = world.getBlock(x, yPos, z);
-            if (!(tags.getBoolean("Broken")) && localBlock != null && localBlock.getMaterial() == Material.wood)
-            {
-                int localMeta = world.getBlockMetadata(x, yPos, z);
-                int hlvl = localBlock.getHarvestLevel(localMeta);
-
-                if (hlvl <= tags.getInteger("HarvestLevel"))
-                {
-                    boolean cancelHarvest = false;
-                    for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
-                    {
-                        if (mod.beforeBlockBreak(this, stack, x, yPos, z, player))
-                            cancelHarvest = true;
-                    }
-
-                    if (!cancelHarvest)
-                    {
-                        if (localBlock != null && localBlock.getMaterial() == Material.wood)
-                        {
-                            if (!player.capabilities.isCreativeMode)
-                            {
-                                mineBlock(world, x, yPos, z, localMeta, player, localBlock);
-                                onBlockDestroyed(stack, world, localBlock, x, yPos, z, player);
-                            }
-                            else
-                            {
-                                WorldHelper.setBlockToAir(world, x, yPos, z);
-                            }
-                        }
-                    }
-                }
-            }
-            else
-                break;
-        }
-        if (!world.isRemote)
-            world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
-        return super.onBlockStartBreak(stack, x, y, z, player);
     }
 }

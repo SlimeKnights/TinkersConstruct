@@ -1,23 +1,22 @@
 package tconstruct.armor;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import java.util.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.armor.items.TravelGear;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.modifier.IModifyable;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
 
 public class ArmorAbilities
 {
     //Abilities
     boolean morphed;
     boolean morphLoaded = Loader.isModLoaded("Morph");
+    boolean smartmoveLoaded = Loader.isModLoaded("SmartMoving");
 
     public static List<String> stepBoostedPlayers = new ArrayList();
     //ItemStack prevFeet;
@@ -93,7 +92,7 @@ public class ArmorAbilities
             }
         }
 
-        if (!player.isPlayerSleeping())
+        if (!player.isPlayerSleeping() && !smartmoveLoaded)
         {
             ItemStack chest = player.getCurrentArmor(2);
             if (chest == null || !(chest.getItem() instanceof IModifyable))

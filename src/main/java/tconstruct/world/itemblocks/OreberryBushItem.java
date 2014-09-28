@@ -1,7 +1,7 @@
 package tconstruct.world.itemblocks;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
 import mantle.blocks.abstracts.MultiItemBlock;
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
@@ -12,8 +12,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.world.TinkerWorld;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class OreberryBushItem extends MultiItemBlock
 {

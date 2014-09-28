@@ -1,15 +1,11 @@
 package tconstruct.armor.modelblock;
 
+import cpw.mods.fml.client.registry.*;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.*;
 import net.minecraft.world.IBlockAccess;
-
 import org.lwjgl.opengl.GL11;
-
 import tconstruct.util.ItemHelper;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class DryingRackRender implements ISimpleBlockRenderingHandler
 {

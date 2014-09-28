@@ -1,19 +1,14 @@
 package tconstruct.smeltery.model;
 
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.entity.RenderManager;
+import cpw.mods.fml.relauncher.*;
+import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
-
 import org.lwjgl.opengl.GL11;
-
 import tconstruct.library.ItemBlocklike;
 import tconstruct.smeltery.logic.CastingTableLogic;
 import tconstruct.tools.entity.FancyEntityItem;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 /* Special renderer, only used for drawing tools */
 

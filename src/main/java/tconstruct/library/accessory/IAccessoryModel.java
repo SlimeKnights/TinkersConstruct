@@ -1,10 +1,9 @@
 package tconstruct.library.accessory;
 
+import cpw.mods.fml.relauncher.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public interface IAccessoryModel
 {
@@ -15,7 +14,7 @@ public interface IAccessoryModel
      * @param slot
      * @return Resource location of the texture. Return null for none
      */
-    
+
     @SideOnly(Side.CLIENT)
-    public ResourceLocation getWearbleTexture(Entity entity, ItemStack stack, int slot);
+    public ResourceLocation getWearbleTexture (Entity entity, ItemStack stack, int slot);
 }

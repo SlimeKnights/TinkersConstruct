@@ -1,9 +1,7 @@
 package tconstruct.plugins.mfr;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-
+import net.minecraft.potion.*;
 import powercrystals.minefactoryreloaded.api.ILiquidDrinkHandler;
 
 public class Drinkables implements ILiquidDrinkHandler

@@ -1,14 +1,10 @@
 package tconstruct.smeltery.component;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
+import java.util.*;
 import mantle.blocks.iface.IServantLogic;
 import mantle.world.CoordTuple;
 import net.minecraft.block.Block;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagIntArray;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.*;
 import net.minecraft.tileentity.TileEntity;
 import tconstruct.library.component.TankLayerScan;
 import tconstruct.smeltery.TinkerSmeltery;

@@ -1,0 +1,29 @@
+New Smeltery stuff
+Smelteries can have any rectangular size from 3x3 to 4x7 to 9x9 (from 5x5)
+Smeltery capacity depends directly on size
+Smelteries learned how to use Pyrotheum
+Smeltery GUI shinyness
+Some fixes
+Ported many changes from the latest 1.6.4 version, that didn't make the jump to 1.7.10
+Redstone modifier changes
+Fix heart rendering
+Fix Arrow/Dagger/Bow rendering
+Comparator output for fullness of smeltery and seared tank/glass
+
+Tool Blockbreaking has been reworked. Tinker tools should not cause any problems with other mod blocks anymore.
+Armor Modifiers now have proper book pages.
+Frying pans in the world are now colorable
+Battlesigns can be placed
+Dense Ore Support
+More Localization stuff
+Zombie Flesh can be molten into a small amount of blood
+New slimecrystal graphics by baddaspig
+Many small (liquid) rendering fixes
+Tanks also display the liquids they contain in item form
+Fix stuff derping when putting incorrect modifiers onto armor
+Fix ExtraUtilities Compressed Block support
+No more free toolrod pattern for you
+Many fixes with autosmelting
+Fix Achievements
+Fix black armor slots
+So many small fixes that I don't even know where to start

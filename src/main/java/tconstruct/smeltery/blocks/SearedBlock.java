@@ -1,30 +1,23 @@
 package tconstruct.smeltery.blocks;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
 import mantle.blocks.abstracts.InventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.event.SmelteryEvent;
 import tconstruct.library.tools.AbilityHelper;
-import tconstruct.smeltery.logic.CastingBasinLogic;
-import tconstruct.smeltery.logic.CastingTableLogic;
-import tconstruct.smeltery.logic.FaucetLogic;
+import tconstruct.smeltery.logic.*;
 import tconstruct.smeltery.model.CastingBlockRender;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class SearedBlock extends InventoryBlock
 {
@@ -83,14 +76,12 @@ public class SearedBlock extends InventoryBlock
     public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
     {
         int md = world.getBlockMetadata(x, y, z);
-        if (md == 0)
+        // casting table or basin
+        if (md == 0 || md == 2)
         {
-            return activateCastingTable(world, x, y, z, player);
+            return activateCastingBlock(world, x, y, z, player);
         }
-        if (md == 2)
-        {
-            return activateCastingBasin(world, x, y, z, player);
-        }
+        // faucet
         else if (md == 1)
         {
             if (player.isSneaking())
@@ -104,91 +95,13 @@ public class SearedBlock extends InventoryBlock
             return super.onBlockActivated(world, x, y, z, player, side, clickX, clickY, clickZ);
     }
 
-    boolean activateCastingTable (World world, int x, int y, int z, EntityPlayer player)
+    boolean activateCastingBlock (World world, int x, int y, int z, EntityPlayer player)
     {
-        if (!world.isRemote)
-        {
-            CastingTableLogic logic = (CastingTableLogic) world.getTileEntity(x, y, z);
-            if (logic.liquid != null)
-                return true;
 
-            if (!logic.isStackInSlot(0) && !logic.isStackInSlot(1))
-            {
-                ItemStack stack = player.getCurrentEquippedItem();
-                stack = player.inventory.decrStackSize(player.inventory.currentItem, 1);
-                logic.setInventorySlotContents(0, stack);
-                MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemInsertedIntoCasting(logic, x, y, z, stack, player));
-            }
-            else
-            {
-                if (logic.isStackInSlot(1))
-                {
-                    MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemRemovedFromCasting(logic, x, y, z, logic.getStackInSlot(1), player));
-                    ItemStack stack = logic.decrStackSize(1, 1);
-                    if (stack != null)
-                        addItemToInventory(player, world, x, y, z, stack);
-                }
-                else if (logic.isStackInSlot(0))
-                {
-                    MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemRemovedFromCasting(logic, x, y, z, logic.getStackInSlot(0), player));
-                    ItemStack stack = logic.decrStackSize(0, 1);
-                    if (stack != null)
-                        addItemToInventory(player, world, x, y, z, stack);
-                }
-            }
-
-            world.markBlockForUpdate(x, y, z);
-        }
+        CastingBlockLogic logic = (CastingBlockLogic) world.getTileEntity(x, y, z);
+        logic.interact(player);
+        world.markBlockForUpdate(x, y, z);
         return true;
-    }
-
-    boolean activateCastingBasin (World world, int x, int y, int z, EntityPlayer player)
-    {
-        if (!world.isRemote)
-        {
-            CastingBasinLogic logic = (CastingBasinLogic) world.getTileEntity(x, y, z);
-            if (logic.liquid != null)
-                return true;
-
-            if (!logic.isStackInSlot(0) && !logic.isStackInSlot(1))
-            {
-                ItemStack stack = player.getCurrentEquippedItem();
-                stack = player.inventory.decrStackSize(player.inventory.currentItem, 1);
-                logic.setInventorySlotContents(0, stack);
-                MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemInsertedIntoCasting(logic, x, y, z, stack, player));
-            }
-            else
-            {
-                if (logic.isStackInSlot(1))
-                {
-                    MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemRemovedFromCasting(logic, x, y, z, logic.getStackInSlot(1), player));
-                    ItemStack stack = logic.decrStackSize(1, 1);
-                    if (stack != null)
-                        addItemToInventory(player, world, x, y, z, stack);
-                }
-                else if (logic.isStackInSlot(0))
-                {
-                    MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemRemovedFromCasting(logic, x, y, z, logic.getStackInSlot(0), player));
-                    ItemStack stack = logic.decrStackSize(0, 1);
-                    if (stack != null)
-                        addItemToInventory(player, world, x, y, z, stack);
-                }
-            }
-
-            world.markBlockForUpdate(x, y, z);
-        }
-        return true;
-    }
-
-    public void addItemToInventory (EntityPlayer player, World world, int x, int y, int z, ItemStack stack)
-    {
-        AbilityHelper.spawnItemAtPlayer(player, stack);
-        /*if (!world.isRemote)
-        {
-        	EntityItem entityitem = new EntityItem(world, (double) x + 0.5D, (double) y + 0.9325D, (double) z + 0.5D, stack);
-        	world.spawnEntityInWorld(entityitem);
-        	entityitem.onCollideWithPlayer(player);
-        }*/
     }
 
     /* Rendering */
@@ -284,7 +197,7 @@ public class SearedBlock extends InventoryBlock
             float zMin = 0.25F;
             float zMax = 0.75F;
 
-            if(te instanceof FaucetLogic)
+            if (te instanceof FaucetLogic)
             {
                 FaucetLogic logic = (FaucetLogic) te;
                 switch (logic.getRenderDirection())
@@ -351,8 +264,7 @@ public class SearedBlock extends InventoryBlock
                     break;
                 }
 
-                return AxisAlignedBB.getBoundingBox((double) ((float) x + xMin), (double) y + 0.25, (double) ((float) z + zMin), (double) ((float) x + xMax), (double) y + 0.625,
-                        (double) ((float) z + zMax));
+                return AxisAlignedBB.getBoundingBox((double) ((float) x + xMin), (double) y + 0.25, (double) ((float) z + zMin), (double) ((float) x + xMax), (double) y + 0.625, (double) ((float) z + zMax));
             }
         }
 

@@ -1,17 +1,12 @@
 package tconstruct.items.tools;
 
 import java.util.List;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import tconstruct.TConstruct;
-import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.tools.AbilityHelper;
-import tconstruct.library.tools.DualHarvestTool;
+import tconstruct.library.tools.*;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 
@@ -115,16 +110,7 @@ public class Mattock extends DualHarvestTool
     {
         if (!PHConstruct.denyMattock || allowCrafting(id))
         {
-            Item accessory = getAccessoryItem();
-            ItemStack accessoryStack = accessory != null ? new ItemStack(getAccessoryItem(), 1, id) : null;
-            Item extra = getExtraItem();
-            ItemStack extraStack = extra != null ? new ItemStack(extra, 1, id) : null;
-            ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, name + getToolName());
-            if (tool != null)
-            {
-                tool.getTagCompound().getCompoundTag("InfiTool").setBoolean("Built", true);
-                list.add(tool);
-            }
+            super.buildTool(id, name, list);
         }
     }
 

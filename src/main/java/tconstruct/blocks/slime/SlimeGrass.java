@@ -1,29 +1,20 @@
 package tconstruct.blocks.slime;
 
-import java.util.List;
-import java.util.Random;
-
+import cpw.mods.fml.relauncher.*;
+import java.util.*;
 import mantle.blocks.MantleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.common.IPlantable;
+import net.minecraft.world.*;
+import net.minecraftforge.common.*;
 import net.minecraftforge.common.util.ForgeDirection;
-import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import tconstruct.world.TinkerWorld;
 
 public class SlimeGrass extends MantleBlock
 {
@@ -123,8 +114,7 @@ public class SlimeGrass extends MantleBlock
                     int posZ = z + random.nextInt(3) - 1;
                     Block blockAbove = world.getBlock(posX, posY + 1, posZ);
 
-                    if (world.getBlockLightValue(posX, posY + 1, posZ) >= 4 && world.getBlockLightOpacity(posX, posY + 1, posZ) <= 2
-                            && blockAbove != TinkerTools.craftedSoil && blockAbove != this)
+                    if (world.getBlockLightValue(posX, posY + 1, posZ) >= 4 && world.getBlockLightOpacity(posX, posY + 1, posZ) <= 2 && blockAbove != TinkerTools.craftedSoil && blockAbove != this)
                     {
                         Block block = world.getBlock(posX, posY, posZ);
                         if (block == Blocks.dirt)

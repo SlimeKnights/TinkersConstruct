@@ -1,10 +1,9 @@
 package tconstruct.library.event;
 
+import cpw.mods.fml.common.eventhandler.Event;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import tconstruct.library.tools.ToolMaterial;
-import tconstruct.library.tools.ToolCore;
-import cpw.mods.fml.common.eventhandler.Event;
+import tconstruct.library.tools.*;
 
 /* This event fires after all of the other construction. The resulting nbttag is added to the tool 
  * Note: The tag is the base tag. toolTag.getCompoundTag("InfiTool") will have all of the tool's data.

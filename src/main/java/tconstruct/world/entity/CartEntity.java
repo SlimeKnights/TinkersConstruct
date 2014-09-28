@@ -1,32 +1,21 @@
 package tconstruct.world.entity;
 
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+import cpw.mods.fml.relauncher.*;
 import io.netty.buffer.ByteBuf;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRail;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import java.util.*;
+import net.minecraft.block.*;
+import net.minecraft.entity.*;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.*;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 
 public class CartEntity extends Entity implements IInventory, IEntityAdditionalSpawnData
 {
@@ -42,8 +31,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     protected boolean field_82345_h;
 
     /** Minecart rotational logic matrix */
-    protected static final int[][][] matrix = new int[][][] { { { 0, 0, -1 }, { 0, 0, 1 } }, { { -1, 0, 0 }, { 1, 0, 0 } }, { { -1, -1, 0 }, { 1, 0, 0 } }, { { -1, 0, 0 }, { 1, -1, 0 } },
-            { { 0, 0, -1 }, { 0, -1, 1 } }, { { 0, -1, -1 }, { 0, 0, 1 } }, { { 0, 0, 1 }, { 1, 0, 0 } }, { { 0, 0, 1 }, { -1, 0, 0 } }, { { 0, 0, -1 }, { -1, 0, 0 } }, { { 0, 0, -1 }, { 1, 0, 0 } } };
+    protected static final int[][][] matrix = new int[][][] { { { 0, 0, -1 }, { 0, 0, 1 } }, { { -1, 0, 0 }, { 1, 0, 0 } }, { { -1, -1, 0 }, { 1, 0, 0 } }, { { -1, 0, 0 }, { 1, -1, 0 } }, { { 0, 0, -1 }, { 0, -1, 1 } }, { { 0, -1, -1 }, { 0, 0, 1 } }, { { 0, 0, 1 }, { 1, 0, 0 } }, { { 0, 0, 1 }, { -1, 0, 0 } }, { { 0, 0, -1 }, { -1, 0, 0 } }, { { 0, 0, -1 }, { 1, 0, 0 } } };
 
     /** appears to be the progress of the turn */
     protected int turnProgress;
@@ -270,8 +258,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
                         }
 
                         var2.stackSize -= var6;
-                        EntityItem entityitem = new EntityItem(this.worldObj, this.posX + (double) var3, this.posY + (double) var4, this.posZ + (double) var5, new ItemStack(var2.getItem(), var6,
-                                var2.getItemDamage()));
+                        EntityItem entityitem = new EntityItem(this.worldObj, this.posX + (double) var3, this.posY + (double) var4, this.posZ + (double) var5, new ItemStack(var2.getItem(), var6, var2.getItemDamage()));
 
                         if (var2.hasTagCompound())
                         {
@@ -732,8 +719,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
         {
             if (par1Entity != this.riddenByEntity)
             {
-                if (par1Entity instanceof EntityLiving && !(par1Entity instanceof EntityPlayer) && !(par1Entity instanceof EntityIronGolem) && canBeRidden()
-                        && this.motionX * this.motionX + this.motionZ * this.motionZ > 0.01D && this.riddenByEntity == null && par1Entity.ridingEntity == null)
+                if (par1Entity instanceof EntityLiving && !(par1Entity instanceof EntityPlayer) && !(par1Entity instanceof EntityIronGolem) && canBeRidden() && this.motionX * this.motionX + this.motionZ * this.motionZ > 0.01D && this.riddenByEntity == null && par1Entity.ridingEntity == null)
                 {
                     par1Entity.mountEntity(this);
                 }
@@ -768,9 +754,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
                         double var10 = par1Entity.posX - this.posX;
                         double var12 = par1Entity.posZ - this.posZ;
                         Vec3 var14 = Vec3.createVectorHelper(var10, 0.0D, var12).normalize();
-                        Vec3 var15 = Vec3.createVectorHelper
-                                ((double) MathHelper.cos(this.rotationYaw * (float) Math.PI / 180.0F), 0.0D, (double) MathHelper.sin(this.rotationYaw * (float) Math.PI / 180.0F))
-                                .normalize();
+                        Vec3 var15 = Vec3.createVectorHelper((double) MathHelper.cos(this.rotationYaw * (float) Math.PI / 180.0F), 0.0D, (double) MathHelper.sin(this.rotationYaw * (float) Math.PI / 180.0F)).normalize();
                         double var16 = Math.abs(var14.dotProduct(var15));
 
                         if (var16 < 0.8D)

@@ -1,23 +1,18 @@
 package tconstruct.tools.entity;
 
+import cpw.mods.fml.common.network.ByteBufUtils;
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import io.netty.buffer.ByteBuf;
-
 import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import tconstruct.library.tools.AbilityHelper;
-import cpw.mods.fml.common.network.ByteBufUtils;
-import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 
 public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
 {
@@ -403,6 +398,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         data.writeInt(tags.getInteger("RenderHandle"));
         data.writeInt(tags.getInteger("RenderHead"));
         data.writeInt(tags.getInteger("RenderAccessory"));
+        data.writeInt(tags.getInteger("RenderExtra"));
 
         int effects = 0;
         if (tags.hasKey("Effect1"))
@@ -446,6 +442,8 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         toolTag.setInteger("RenderHandle", data.readInt());
         toolTag.setInteger("RenderHead", data.readInt());
         toolTag.setInteger("RenderAccessory", data.readInt());
+        toolTag.setInteger("RenderExtra", data.readInt());
+
         switch (data.readInt())
         {
         case 6:

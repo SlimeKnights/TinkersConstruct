@@ -1,19 +1,11 @@
 package tconstruct.smeltery.logic;
 
 import mantle.blocks.abstracts.MultiServantLogic;
-import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
+import net.minecraft.network.*;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.*;
 
 public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
 {
@@ -53,7 +45,13 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
     @Override
     public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
     {
-        return null;
+        if (tank.getFluidAmount() == 0)
+            return null;
+        if (tank.getFluid().getFluid() != resource.getFluid())
+            return null;
+
+        // same fluid, k
+        return this.drain(from, resource.amount, doDrain);
     }
 
     @Override
@@ -184,7 +182,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
         }
     }
 
-    public int comparatorStrength()
+    public int comparatorStrength ()
     {
         return 15 * tank.getFluidAmount() / tank.getCapacity();
     }

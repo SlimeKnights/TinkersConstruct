@@ -1,17 +1,16 @@
 package tconstruct.modifiers.armor;
 
 import java.util.EnumSet;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import tconstruct.library.armor.ArmorMod;
-import tconstruct.library.armor.ArmorPart;
+import tconstruct.library.armor.*;
 import tconstruct.library.modifier.IModifyable;
 
 public class TravelModDoubleJump extends ArmorMod
 {
     String color = "\u00a77";
     String tooltipName = "Double-Jump";
+
     public TravelModDoubleJump(EnumSet<ArmorPart> armorTypes, ItemStack[] items)
     {
         super(0, "Double-Jump", armorTypes, items);
@@ -45,7 +44,7 @@ public class TravelModDoubleJump extends ArmorMod
 
         addToolTip(input, color + tooltipName, color + key);
     }
-    
+
     @Override
     protected int addToolTip (ItemStack tool, String tooltip, String modifierTip)
     {
@@ -88,10 +87,10 @@ public class TravelModDoubleJump extends ArmorMod
 
         if (tag.contains("Quadruple-Jump"))
             return color + "Quintuple-Jump";
-        
+
         if (tag.contains("Quintuple-Jump"))
             return color + "Sextuple-Jump";
-        
+
         if (tag.contains("Sextuple-Jump"))
             return color + "Septuple-Jump";
 

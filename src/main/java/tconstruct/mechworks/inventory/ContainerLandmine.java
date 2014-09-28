@@ -1,17 +1,11 @@
 package tconstruct.mechworks.inventory;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
+import java.util.*;
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.Slot;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
-import tconstruct.armor.inventory.SlotBehavedOnly;
-import tconstruct.armor.inventory.SlotOpaqueBlocksOnly;
+import tconstruct.armor.inventory.*;
 import tconstruct.mechworks.TinkerMechworks;
 import tconstruct.mechworks.logic.TileEntityLandmine;
 
@@ -145,8 +139,7 @@ public class ContainerLandmine extends Container
             {
                 Slot slot = (Slot) this.inventorySlots.get(par1);
 
-                if (slot != null && func_94527_a(slot, inventoryplayer.getItemStack(), true) && slot.isItemValid(inventoryplayer.getItemStack())
-                        && inventoryplayer.getItemStack().stackSize > this.field_94537_h.size() && this.canDragIntoSlot(slot))
+                if (slot != null && func_94527_a(slot, inventoryplayer.getItemStack(), true) && slot.isItemValid(inventoryplayer.getItemStack()) && inventoryplayer.getItemStack().stackSize > this.field_94537_h.size() && this.canDragIntoSlot(slot))
                 {
                     this.field_94537_h.add(slot);
                 }
@@ -163,8 +156,7 @@ public class ContainerLandmine extends Container
                     {
                         Slot slot1 = (Slot) iterator.next();
 
-                        if (slot1 != null && func_94527_a(slot1, inventoryplayer.getItemStack(), true) && slot1.isItemValid(inventoryplayer.getItemStack())
-                                && inventoryplayer.getItemStack().stackSize >= this.field_94537_h.size() && this.canDragIntoSlot(slot1))
+                        if (slot1 != null && func_94527_a(slot1, inventoryplayer.getItemStack(), true) && slot1.isItemValid(inventoryplayer.getItemStack()) && inventoryplayer.getItemStack().stackSize >= this.field_94537_h.size() && this.canDragIntoSlot(slot1))
                         {
                             ItemStack itemstack2 = itemstack1.copy();
                             int j1 = slot1.getHasStack() ? slot1.getStack().stackSize : 0;
@@ -481,8 +473,7 @@ public class ContainerLandmine extends Container
                         {
                             Slot slot3 = (Slot) this.inventorySlots.get(i2);
 
-                            if (slot3.getHasStack() && func_94527_a(slot3, itemstack1, true) && slot3.canTakeStack(par4EntityPlayer) && this.func_94530_a(itemstack1, slot3)
-                                    && (l1 != 0 || slot3.getStack().stackSize != slot3.getStack().getMaxStackSize()))
+                            if (slot3.getHasStack() && func_94527_a(slot3, itemstack1, true) && slot3.canTakeStack(par4EntityPlayer) && this.func_94530_a(itemstack1, slot3) && (l1 != 0 || slot3.getStack().stackSize != slot3.getStack().getMaxStackSize()))
                             {
                                 int j2 = Math.min(itemstack1.getMaxStackSize() - itemstack1.stackSize, slot3.getStack().stackSize);
                                 ItemStack itemstack5 = slot3.decrStackSize(j2);

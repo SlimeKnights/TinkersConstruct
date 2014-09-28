@@ -1,7 +1,6 @@
 package tconstruct.tools.inventory;
 
 import java.util.Random;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -35,7 +34,8 @@ public class SlotToolForge extends SlotTool
                 player.worldObj.playAuxSFX(1021, (int) player.posX, (int) player.posY, (int) player.posZ, 0);
             MinecraftForge.EVENT_BUS.post(new ToolCraftedEvent(this.inventory, player, stack));
         }
-        else //Simply naming items
+        else
+        //Simply naming items
         {
             int amount = inventory.getStackInSlot(1).stackSize;
             inventory.decrStackSize(1, amount);

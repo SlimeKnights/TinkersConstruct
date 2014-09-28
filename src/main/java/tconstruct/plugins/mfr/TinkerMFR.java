@@ -2,8 +2,7 @@ package tconstruct.plugins.mfr;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
-import mantle.pulsar.pulse.Handler;
-import mantle.pulsar.pulse.Pulse;
+import mantle.pulsar.pulse.*;
 import tconstruct.TConstruct;
 
 @ObjectHolder(TConstruct.modID)

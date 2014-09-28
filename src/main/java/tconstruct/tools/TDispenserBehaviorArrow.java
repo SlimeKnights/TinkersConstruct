@@ -1,9 +1,7 @@
 package tconstruct.tools;
 
 import net.minecraft.block.BlockDispenser;
-import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
-import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.dispenser.IPosition;
+import net.minecraft.dispenser.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -25,8 +23,7 @@ public class TDispenserBehaviorArrow extends BehaviorDefaultDispenseItem
 
         ArrowEntity projectile = new ArrowEntity(world, iposition.getX(), iposition.getY(), iposition.getZ(), arrowItem);
         projectile.canBePickedUp = 1;
-        projectile.setThrowableHeading((double) enumfacing.getFrontOffsetX(), (double) ((float) enumfacing.getFrontOffsetY() + 0.1F), (double) enumfacing.getFrontOffsetZ(), this.func_82500_b(),
-                this.func_82498_a());
+        projectile.setThrowableHeading((double) enumfacing.getFrontOffsetX(), (double) ((float) enumfacing.getFrontOffsetY() + 0.1F), (double) enumfacing.getFrontOffsetZ(), this.func_82500_b(), this.func_82498_a());
         world.spawnEntityInWorld(projectile);
 
         return stack;

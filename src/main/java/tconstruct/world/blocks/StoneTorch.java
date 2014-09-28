@@ -1,23 +1,16 @@
 package tconstruct.world.blocks;
 
-import static net.minecraftforge.common.util.ForgeDirection.EAST;
-import static net.minecraftforge.common.util.ForgeDirection.NORTH;
-import static net.minecraftforge.common.util.ForgeDirection.SOUTH;
-import static net.minecraftforge.common.util.ForgeDirection.WEST;
-
+import cpw.mods.fml.relauncher.*;
 import java.util.Random;
-
 import mantle.blocks.MantleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import static net.minecraftforge.common.util.ForgeDirection.*;
 
 public class StoneTorch extends MantleBlock
 {
@@ -91,8 +84,7 @@ public class StoneTorch extends MantleBlock
     @Override
     public boolean canPlaceBlockAt (World par1World, int par2, int par3, int par4)
     {
-        return par1World.isSideSolid(par2 - 1, par3, par4, EAST, true) || par1World.isSideSolid(par2 + 1, par3, par4, WEST, true) || par1World.isSideSolid(par2, par3, par4 - 1, SOUTH, true)
-                || par1World.isSideSolid(par2, par3, par4 + 1, NORTH, true) || canPlaceTorchOn(par1World, par2, par3 - 1, par4);
+        return par1World.isSideSolid(par2 - 1, par3, par4, EAST, true) || par1World.isSideSolid(par2 + 1, par3, par4, WEST, true) || par1World.isSideSolid(par2, par3, par4 - 1, SOUTH, true) || par1World.isSideSolid(par2, par3, par4 + 1, NORTH, true) || canPlaceTorchOn(par1World, par2, par3 - 1, par4);
     }
 
     /**

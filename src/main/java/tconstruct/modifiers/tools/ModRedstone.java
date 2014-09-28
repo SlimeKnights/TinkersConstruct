@@ -1,11 +1,9 @@
 package tconstruct.modifiers.tools;
 
-import java.util.Arrays;
-import java.util.List;
-
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import java.util.*;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.tools.ToolCore;
 
 public class ModRedstone extends ItemModTypeFilter
@@ -28,7 +26,7 @@ public class ModRedstone extends ItemModTypeFilter
             if (!validType(toolItem))
                 return false;
 
-            if(matchingAmount(input) > max)
+            if (matchingAmount(input) > max)
                 return false;
 
             NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
@@ -128,6 +126,11 @@ public class ModRedstone extends ItemModTypeFilter
         String tip = "ModifierTip" + keys[2];
         String modName = "\u00a74Redstone (" + keys[0] + "/" + keys[1] + ")";
         tags.setString(tip, modName);
+    }
+
+    public boolean validType (IModifyable input)
+    {
+        return input.getModifyType().equals("Tool");
     }
 
     public boolean validType (ToolCore tool)

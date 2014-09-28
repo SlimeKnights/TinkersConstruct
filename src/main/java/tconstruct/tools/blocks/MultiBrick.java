@@ -1,21 +1,17 @@
 package tconstruct.tools.blocks;
 
-import tconstruct.blocks.TConstructBlock;
+import cpw.mods.fml.relauncher.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import tconstruct.blocks.TConstructBlock;
 
 public class MultiBrick extends TConstructBlock
 {
-    static String blockTextures[] = { "brick_obsidian", "brick_sandstone", "brick_netherrack", "brick_stone_refined", "brick_iron", "brick_gold", "brick_lapis", "brick_diamond", "brick_redstone",
-            "brick_bone", "brick_slime", "brick_blueslime", "brick_endstone", "brick_obsidian_ingot" };
+    static String blockTextures[] = { "brick_obsidian", "brick_sandstone", "brick_netherrack", "brick_stone_refined", "brick_iron", "brick_gold", "brick_lapis", "brick_diamond", "brick_redstone", "brick_bone", "brick_slime", "brick_blueslime", "brick_endstone", "brick_obsidian_ingot" };
 
     public MultiBrick()
     {
@@ -153,7 +149,7 @@ public class MultiBrick extends TConstructBlock
     }
 
     @Override
-    public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
+    public boolean isNormalCube (IBlockAccess world, int x, int y, int z)
     {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta != 8)

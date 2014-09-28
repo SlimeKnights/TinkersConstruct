@@ -1,11 +1,9 @@
 package tconstruct.modifiers.armor;
 
 import java.util.EnumSet;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import tconstruct.library.armor.ArmorMod;
-import tconstruct.library.armor.ArmorPart;
+import tconstruct.library.armor.*;
 
 /* Adds an integer NBTTag */
 

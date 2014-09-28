@@ -1,13 +1,10 @@
 package tconstruct.modifiers.tools;
 
 import cofh.api.energy.IEnergyContainerItem;
-
 import java.util.ArrayList;
-
-import tconstruct.library.tools.ToolCore;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.library.tools.ToolCore;
 
 /* TE3 support */
 
@@ -28,17 +25,17 @@ public class ModFlux extends ModBoolean
 
         ItemStack foundBattery = null;
         // try to find the battery in the input
-        for(ItemStack stack : input)
-            for(ItemStack battery : batteries)
+        for (ItemStack stack : input)
+            for (ItemStack battery : batteries)
             {
-                if(stack == null)
+                if (stack == null)
                     continue;
-                if(stack.getItem() != battery.getItem())
+                if (stack.getItem() != battery.getItem())
                     continue;
-                if(!(stack.getItem() instanceof  IEnergyContainerItem))
+                if (!(stack.getItem() instanceof IEnergyContainerItem))
                     continue;
                 // we don't allow multiple batteries to be added
-                if(foundBattery != null)
+                if (foundBattery != null)
                     return false;
 
                 // battery found, gogogo
@@ -46,20 +43,20 @@ public class ModFlux extends ModBoolean
             }
 
         // no battery present
-        if(foundBattery == null)
+        if (foundBattery == null)
             return false;
 
         // check if we already have a flux modifier
-        if(tags.getBoolean(key))
+        if (tags.getBoolean(key))
         {
             // only allow if it's an upgrade
             // remark: we use the ToolCores function here instead of accessing the tag directly, to achieve backwards compatibility with tools without tags.
-            int a = ((IEnergyContainerItem)foundBattery.getItem()).getMaxEnergyStored(foundBattery);
-            int b = ((ToolCore)tool.getItem()).getMaxEnergyStored(tool);
-            return ((IEnergyContainerItem)foundBattery.getItem()).getMaxEnergyStored(foundBattery) > ((ToolCore)tool.getItem()).getMaxEnergyStored(tool);
+            int a = ((IEnergyContainerItem) foundBattery.getItem()).getMaxEnergyStored(foundBattery);
+            int b = ((ToolCore) tool.getItem()).getMaxEnergyStored(tool);
+            return ((IEnergyContainerItem) foundBattery.getItem()).getMaxEnergyStored(foundBattery) > ((ToolCore) tool.getItem()).getMaxEnergyStored(tool);
         }
         // otherwise check if we have enough modfiers
-        else if(tags.getInteger("Modifiers") < modifiersRequired)
+        else if (tags.getInteger("Modifiers") < modifiersRequired)
             return false;
 
         // all requirements satisfied!
@@ -72,7 +69,8 @@ public class ModFlux extends ModBoolean
         NBTTagCompound tags = tool.getTagCompound();
 
         // update modifiers (only applies if it's not an upgrade)
-        if(!tags.hasKey(key)) {
+        if (!tags.hasKey(key))
+        {
             int modifiers = tags.getCompoundTag("InfiTool").getInteger("Modifiers");
             modifiers -= modifiersRequired;
             tags.getCompoundTag("InfiTool").setInteger("Modifiers", modifiers);
@@ -81,17 +79,16 @@ public class ModFlux extends ModBoolean
 
         tags.getCompoundTag("InfiTool").setBoolean(key, true);
 
-
         // find the battery in the input
         ItemStack inputBattery = null;
-        for(ItemStack stack : input)
-            for(ItemStack battery : batteries)
+        for (ItemStack stack : input)
+            for (ItemStack battery : batteries)
             {
-                if(stack == null)
+                if (stack == null)
                     continue;
-                if(stack.getItem() != battery.getItem())
+                if (stack.getItem() != battery.getItem())
                     continue;
-                if(!(stack.getItem() instanceof  IEnergyContainerItem))
+                if (!(stack.getItem() instanceof IEnergyContainerItem))
                     continue;
 
                 // we're guaranteed to only find one battery because more are prevented above
@@ -99,13 +96,13 @@ public class ModFlux extends ModBoolean
             }
 
         // get the energy interface
-        IEnergyContainerItem energyContainer = (IEnergyContainerItem)inputBattery.getItem();
+        IEnergyContainerItem energyContainer = (IEnergyContainerItem) inputBattery.getItem();
 
         // set the charge values
         int charge = energyContainer.getEnergyStored(inputBattery);
 
         // add already present charge in the tool
-        if(tags.hasKey("Energy"))
+        if (tags.hasKey("Energy"))
             charge += tags.getInteger("Energy");
         int maxCharge = energyContainer.getMaxEnergyStored(inputBattery);
 
@@ -113,7 +110,8 @@ public class ModFlux extends ModBoolean
 
         int progress = 0, change = 1; // prevent endless loops with creative battery, blah
         // fill the battery full
-        while(progress < maxCharge && change > 0) {
+        while (progress < maxCharge && change > 0)
+        {
             change = energyContainer.receiveEnergy(subject42, 100000, false);
             progress += change;
         }
@@ -123,8 +121,10 @@ public class ModFlux extends ModBoolean
         subject42 = inputBattery.copy();
 
         // completely empty the battery
-        progress = 0; change = 1;
-        while(progress < maxCharge && change > 0) {
+        progress = 0;
+        change = 1;
+        while (progress < maxCharge && change > 0)
+        {
             change = energyContainer.extractEnergy(subject42, 100000, false);
             progress += change;
         }
@@ -140,6 +140,6 @@ public class ModFlux extends ModBoolean
 
         tags.setInteger(key, 1);
         ToolCore toolcore = (ToolCore) tool.getItem();
-        tool.setItemDamage(1 + (toolcore.getMaxEnergyStored(tool) - charge) * (tool.getMaxDamage() - 1) / toolcore.getMaxEnergyStored(tool));
+        //tool.setItemDamage(1 + (toolcore.getMaxEnergyStored(tool) - charge) * (tool.getMaxDamage() - 1) / toolcore.getMaxEnergyStored(tool));
     }
 }

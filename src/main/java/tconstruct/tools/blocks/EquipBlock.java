@@ -1,7 +1,7 @@
 package tconstruct.tools.blocks;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.Random;
-
 import mantle.blocks.abstracts.InventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -10,21 +10,16 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 import tconstruct.TConstruct;
+import tconstruct.library.TConstructRegistry;
 import tconstruct.tools.ToolProxyCommon;
-import tconstruct.tools.logic.EquipLogic;
-import tconstruct.tools.logic.FrypanLogic;
+import tconstruct.tools.logic.*;
 import tconstruct.tools.model.FrypanRender;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class EquipBlock extends InventoryBlock
 {
@@ -162,8 +157,7 @@ public class EquipBlock extends InventoryBlock
                         }
 
                         stack.stackSize -= itemSize;
-                        EntityItem entityitem = new EntityItem(par1World, (double) ((float) x + jumpX), (double) ((float) y + jumpY), (double) ((float) z + jumpZ), new ItemStack(stack.getItem(),
-                                itemSize, stack.getItemDamage()));
+                        EntityItem entityitem = new EntityItem(par1World, (double) ((float) x + jumpX), (double) ((float) y + jumpY), (double) ((float) z + jumpZ), new ItemStack(stack.getItem(), itemSize, stack.getItemDamage()));
 
                         if (stack.hasTagCompound())
                         {
@@ -199,6 +193,32 @@ public class EquipBlock extends InventoryBlock
     public Object getModInstance ()
     {
         return TConstruct.instance;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int colorMultiplier (IBlockAccess blockAccess, int x, int y, int z)
+    {
+        TileEntity te = blockAccess.getTileEntity(x, y, z);
+
+        if (te instanceof EquipLogic)
+        {
+            EquipLogic logic = (EquipLogic) te;
+            ItemStack stack = logic.getEquipmentItem();
+            if (stack != null)
+            {
+                NBTTagCompound tag = stack.getTagCompound().getCompoundTag("InfiTool");
+
+                if (tag != null)
+                {
+                    int head = tag.getInteger("Head");
+
+                    return TConstructRegistry.getMaterial(head).primaryColor();
+                }
+            }
+        }
+
+        return 16777215;
     }
 
     @Override

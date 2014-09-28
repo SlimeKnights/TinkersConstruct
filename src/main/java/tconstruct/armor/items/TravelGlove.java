@@ -1,17 +1,13 @@
 package tconstruct.armor.items;
 
+import cpw.mods.fml.relauncher.*;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import tconstruct.armor.ArmorProxyClient;
-import tconstruct.library.accessory.AccessoryCore;
-import tconstruct.library.accessory.IAccessoryModel;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import tconstruct.library.accessory.*;
 
 public class TravelGlove extends AccessoryCore implements IAccessoryModel
 {
@@ -50,5 +46,10 @@ public class TravelGlove extends AccessoryCore implements IAccessoryModel
     public ResourceLocation getWearbleTexture (Entity entity, ItemStack stack, int slot)
     {
         return texture;
+    }
+
+    @Override
+    public String[] getTraits() {
+        return new String[] { "accessory", "glove" };
     }
 }

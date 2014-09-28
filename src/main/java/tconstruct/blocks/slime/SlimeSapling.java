@@ -1,16 +1,13 @@
 package tconstruct.blocks.slime;
 
-import java.util.List;
-import java.util.Random;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockSapling;
+import cpw.mods.fml.relauncher.*;
+import java.util.*;
+import net.minecraft.block.*;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -18,8 +15,6 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.tools.TinkerTools;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.gen.SlimeTreeGen;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class SlimeSapling extends BlockSapling
 {
@@ -77,7 +72,7 @@ public class SlimeSapling extends BlockSapling
     @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
-        return icons[meta % 8];
+        return icons[meta % icons.length];
     }
 
     @Override

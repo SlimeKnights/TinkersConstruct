@@ -1,15 +1,11 @@
 package tconstruct.mechworks.landmine.behavior;
 
-import java.util.Iterator;
-import java.util.List;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import java.util.*;
+import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemPotion;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import tconstruct.mechworks.itemblocks.ItemBlockLandmine;

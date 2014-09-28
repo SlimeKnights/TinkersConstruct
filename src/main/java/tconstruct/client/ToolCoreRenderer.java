@@ -1,37 +1,49 @@
 package tconstruct.client;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
-
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
+import org.lwjgl.opengl.*;
 import tconstruct.TConstruct;
 import tconstruct.library.tools.ToolCore;
-import tconstruct.tools.entity.DaggerEntity;
 
 public class ToolCoreRenderer implements IItemRenderer
 {
     private final boolean isEntity;
+    private final boolean noEntityTranslation;
 
-    public ToolCoreRenderer(boolean isEntity) {
+    public ToolCoreRenderer()
+    {
+        this(false, false);
+    }
+
+    public ToolCoreRenderer(boolean isEntity)
+    {
+        this(isEntity, false);
+    }
+
+    public ToolCoreRenderer(boolean isEntity, boolean noEntityTranslation)
+    {
         this.isEntity = isEntity;
+        this.noEntityTranslation = noEntityTranslation;
     }
 
     @Override
     public boolean handleRenderType (ItemStack item, ItemRenderType type)
     {
-        if(!item.hasTagCompound())
+        if (!item.hasTagCompound())
             return false;
 
         switch (type)
         {
         case ENTITY:
-            //GL11.glTranslatef(-0.0625F, -0.0625F, 0F);
             return true;
         case EQUIPPED:
             GL11.glTranslatef(0.03f, 0F, -0.09375F);
@@ -135,13 +147,30 @@ public class ToolCoreRenderer implements IItemRenderer
         }
         GL11.glPushMatrix();
 
+        // color
+        int[] color = new int[iconParts];
+        for(int i = 0; i < iconParts; i++)
+            color[i] = item.getItem().getColorFromItemStack(item, i);
+
+
+        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+
         if (type == ItemRenderType.INVENTORY)
         {
+
+            TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
+            texturemanager.getResourceLocation(item.getItemSpriteNumber());
+            TextureUtil.func_152777_a(false, false, 1.0F);
+
             GL11.glDisable(GL11.GL_LIGHTING);
-            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glEnable(GL11.GL_ALPHA_TEST);
+            GL11.glAlphaFunc(GL11.GL_GREATER, 0.5F);
+            GL11.glDisable(GL11.GL_BLEND);
+
             tess.startDrawingQuads();
             for (int i = 0; i < iconParts; ++i)
             {
+                tess.setColorOpaque_I(color[i]);
                 tess.addVertexWithUV(0, 16, 0, xMin[i], yMax[i]);
                 tess.addVertexWithUV(16, 16, 0, xMax[i], yMax[i]);
                 tess.addVertexWithUV(16, 0, 0, xMax[i], yMin[i]);
@@ -149,11 +178,14 @@ public class ToolCoreRenderer implements IItemRenderer
             }
             tess.draw();
             GL11.glEnable(GL11.GL_LIGHTING);
+            GL11.glDisable(GL11.GL_ALPHA_TEST);
+
+            //GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+            texturemanager.bindTexture(texturemanager.getResourceLocation(item.getItemSpriteNumber()));
+            TextureUtil.func_147945_b();
         }
         else
         {
-            GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-
             switch (type)
             {
             case EQUIPPED_FIRST_PERSON:
@@ -162,7 +194,8 @@ public class ToolCoreRenderer implements IItemRenderer
                 GL11.glTranslatef(0, -4 / 16f, 0);
                 break;
             case ENTITY:
-                GL11.glTranslatef(-0.5f, 0f, depth);
+                if (!noEntityTranslation)
+                    GL11.glTranslatef(-0.5f, 0f, depth); // correction of the rotation point when items lie on the ground
                 break;
             default:
             }
@@ -172,6 +205,7 @@ public class ToolCoreRenderer implements IItemRenderer
             tess.setNormal(0, 0, 1);
             for (int i = 0; i < iconParts; ++i)
             {
+                tess.setColorOpaque_I(color[i]);
                 tess.addVertexWithUV(0, 0, 0, xMax[i], yMax[i]);
                 tess.addVertexWithUV(1, 0, 0, xMin[i], yMax[i]);
                 tess.addVertexWithUV(1, 1, 0, xMin[i], yMin[i]);
@@ -184,6 +218,7 @@ public class ToolCoreRenderer implements IItemRenderer
             tess.setNormal(0, 0, -1);
             for (int i = 0; i < iconParts; ++i)
             {
+                tess.setColorOpaque_I(color[i]);
                 tess.addVertexWithUV(0, 1, -depth, xMax[i], yMin[i]);
                 tess.addVertexWithUV(1, 1, -depth, xMin[i], yMin[i]);
                 tess.addVertexWithUV(1, 0, -depth, xMin[i], yMax[i]);
@@ -199,14 +234,15 @@ public class ToolCoreRenderer implements IItemRenderer
 
             for (int i = 0; i < iconParts; ++i)
             {
-            	float w = width[i], m = xMax[i], d = xDiff[i], s = xSub[i];
-                for (int k = 0, e = (int)w; k < e; ++k)
+                tess.setColorOpaque_I(color[i]);
+                float w = width[i], m = xMax[i], d = xDiff[i], s = xSub[i];
+                for (int k = 0, e = (int) w; k < e; ++k)
                 {
                     pos = k / w;
                     iconPos = m + d * pos - s;
                     tess.addVertexWithUV(pos, 0, -depth, iconPos, yMax[i]);
-                    tess.addVertexWithUV(pos, 0,      0, iconPos, yMax[i]);
-                    tess.addVertexWithUV(pos, 1,      0, iconPos, yMin[i]);
+                    tess.addVertexWithUV(pos, 0, 0, iconPos, yMax[i]);
+                    tess.addVertexWithUV(pos, 1, 0, iconPos, yMin[i]);
                     tess.addVertexWithUV(pos, 1, -depth, iconPos, yMin[i]);
                 }
             }
@@ -218,16 +254,17 @@ public class ToolCoreRenderer implements IItemRenderer
 
             for (int i = 0; i < iconParts; ++i)
             {
-            	float w = width[i], m = xMax[i], d = xDiff[i], s = xSub[i];
-            	float d2 = 1f / w;
-            	for (int k = 0, e = (int)w; k < e; ++k)
+                tess.setColorOpaque_I(color[i]);
+                float w = width[i], m = xMax[i], d = xDiff[i], s = xSub[i];
+                float d2 = 1f / w;
+                for (int k = 0, e = (int) w; k < e; ++k)
                 {
                     pos = k / w;
                     iconPos = m + d * pos - s;
                     posEnd = pos + d2;
                     tess.addVertexWithUV(posEnd, 1, -depth, iconPos, yMin[i]);
-                    tess.addVertexWithUV(posEnd, 1,      0, iconPos, yMin[i]);
-                    tess.addVertexWithUV(posEnd, 0,      0, iconPos, yMax[i]);
+                    tess.addVertexWithUV(posEnd, 1, 0, iconPos, yMin[i]);
+                    tess.addVertexWithUV(posEnd, 0, 0, iconPos, yMax[i]);
                     tess.addVertexWithUV(posEnd, 0, -depth, iconPos, yMax[i]);
                 }
             }
@@ -238,15 +275,16 @@ public class ToolCoreRenderer implements IItemRenderer
 
             for (int i = 0; i < iconParts; ++i)
             {
-            	float h = height[i], m = yMax[i], d = yDiff[i], s = ySub[i];
-            	float d2 = 1f / h;
-            	for (int k = 0, e = (int)h; k < e; ++k)
+                tess.setColorOpaque_I(color[i]);
+                float h = height[i], m = yMax[i], d = yDiff[i], s = ySub[i];
+                float d2 = 1f / h;
+                for (int k = 0, e = (int) h; k < e; ++k)
                 {
                     pos = k / h;
                     iconPos = m + d * pos - s;
                     posEnd = pos + d2;
-                    tess.addVertexWithUV(0, posEnd,      0, xMax[i], iconPos);
-                    tess.addVertexWithUV(1, posEnd,      0, xMin[i], iconPos);
+                    tess.addVertexWithUV(0, posEnd, 0, xMax[i], iconPos);
+                    tess.addVertexWithUV(1, posEnd, 0, xMin[i], iconPos);
                     tess.addVertexWithUV(1, posEnd, -depth, xMin[i], iconPos);
                     tess.addVertexWithUV(0, posEnd, -depth, xMax[i], iconPos);
                 }
@@ -258,13 +296,14 @@ public class ToolCoreRenderer implements IItemRenderer
 
             for (int i = 0; i < iconParts; ++i)
             {
-            	float h = height[i], m = yMax[i], d = yDiff[i], s = ySub[i];
-            	for (int k = 0, e = (int)h; k < e; ++k)
+                tess.setColorOpaque_I(color[i]);
+                float h = height[i], m = yMax[i], d = yDiff[i], s = ySub[i];
+                for (int k = 0, e = (int) h; k < e; ++k)
                 {
                     pos = k / h;
                     iconPos = m + d * pos - s;
-                    tess.addVertexWithUV(1, pos,      0, xMin[i], iconPos);
-                    tess.addVertexWithUV(0, pos,      0, xMax[i], iconPos);
+                    tess.addVertexWithUV(1, pos, 0, xMin[i], iconPos);
+                    tess.addVertexWithUV(0, pos, 0, xMax[i], iconPos);
                     tess.addVertexWithUV(0, pos, -depth, xMax[i], iconPos);
                     tess.addVertexWithUV(1, pos, -depth, xMin[i], iconPos);
                 }

@@ -1,11 +1,10 @@
 package tconstruct.world.model;
 
+import cpw.mods.fml.client.registry.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
 import tconstruct.util.ItemHelper;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class OreberryRender implements ISimpleBlockRenderingHandler
 {

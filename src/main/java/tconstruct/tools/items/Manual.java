@@ -1,7 +1,9 @@
 package tconstruct.tools.items;
 
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
 import mantle.books.BookData;
 import mantle.client.gui.GuiManual;
 import mantle.items.abstracts.CraftingItem;
@@ -10,12 +12,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
+import tconstruct.achievements.TAchievements;
 import tconstruct.client.TProxyClient;
 import tconstruct.library.TConstructRegistry;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class Manual extends CraftingItem
 {
@@ -33,6 +32,8 @@ public class Manual extends CraftingItem
     @SideOnly(Side.CLIENT)
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
+        TAchievements.triggerAchievement(player, "tconstruct.beginner");
+
         Side side = FMLCommonHandler.instance().getEffectiveSide();
         player.openGui(TConstruct.instance, mantle.client.MProxyClient.manualGuiID, world, 0, 0, 0);
         FMLClientHandler.instance().displayGuiScreen(player, new GuiManual(stack, getData(stack)));

@@ -2,13 +2,11 @@ package tconstruct.tools.logic;
 
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import tconstruct.library.crafting.ModifyBuilder;
-import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.crafting.*;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.tools.inventory.ToolStationContainer;
 
@@ -100,32 +98,7 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
                 }
             }
             if (!name.equals("")) //Name item
-            {
-                ItemStack temp = inventory[1].copy();
-                if (output != null)
-                    temp = output;
-
-                if (temp != null)
-                {
-                    NBTTagCompound tags = temp.getTagCompound();
-                    if (tags == null)
-                    {
-                        tags = new NBTTagCompound();
-                        temp.setTagCompound(tags);
-                    }
-
-                    if (!(tags.hasKey("display")))
-                    {
-                        NBTTagCompound display = new NBTTagCompound();
-                        String dName = temp.getItem() instanceof IModifyable ? "\u00A7f" + name : name;
-                        display.setString("Name", dName);
-                        tags.setTag("display", display);
-                        temp.setRepairCost(2);
-                        output = temp;
-                    }
-                }
-
-            }
+                output = tryRenameTool(output, name);
         }
         inventory[0] = output;
     }
@@ -134,6 +107,45 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
     {
         toolName = name;
         buildTool(name);
+    }
+
+    protected ItemStack tryRenameTool (ItemStack output, String name)
+    {
+        ItemStack temp;
+        if (output != null)
+            temp = output;
+        else
+            temp = inventory[1].copy();
+
+        if (temp == null)
+            return null; // output as well as inventory is null :(
+
+        NBTTagCompound tags = temp.getTagCompound();
+        if (tags == null)
+        {
+            tags = new NBTTagCompound();
+            temp.setTagCompound(tags);
+        }
+
+        NBTTagCompound display = null;
+        if (!(tags.hasKey("display")))
+            display = new NBTTagCompound();
+        else if (tags.getCompoundTag("display").hasKey("Name"))
+            display = tags.getCompoundTag("display");
+
+        if (display == null)
+            return output;
+        if (display.hasKey("Name") && !display.getString("Name").equals("\u00A7f" + ToolBuilder.defaultToolName(temp)))
+            // no default name anymore
+            return output;
+
+        String dName = temp.getItem() instanceof IModifyable ? "\u00A7f" + name : name;
+        display.setString("Name", dName);
+        tags.setTag("display", display);
+        temp.setRepairCost(2);
+        output = temp;
+
+        return output;
     }
 
     @Override

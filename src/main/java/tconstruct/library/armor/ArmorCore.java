@@ -1,30 +1,23 @@
 package tconstruct.library.armor;
 
+import cpw.mods.fml.relauncher.*;
 import java.text.DecimalFormat;
 import java.util.List;
-
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.modifier.ActiveArmorMod;
-import tconstruct.library.modifier.IModifyable;
+import tconstruct.library.modifier.*;
 import tconstruct.library.tools.ToolCore;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import tconstruct.tools.entity.FancyEntityItem;
 
 public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IModifyable
 {
@@ -120,8 +113,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
     @SideOnly(Side.CLIENT)
     public void registerIcons (IIconRegister iconRegister)
     {
-        this.itemIcon = iconRegister.registerIcon("tinker:" + textureFolder + "/" + textureName
-                + (this.armorType == 0 ? "helmet" : this.armorType == 1 ? "chestplate" : this.armorType == 2 ? "pants" : this.armorType == 3 ? "boots" : "helmet"));
+        this.itemIcon = iconRegister.registerIcon("tinker:" + textureFolder + "/" + textureName + (this.armorType == 0 ? "helmet" : this.armorType == 1 ? "chestplate" : this.armorType == 2 ? "pants" : this.armorType == 3 ? "boots" : "helmet"));
         registerModifiers(iconRegister);
     }
 
@@ -191,6 +183,18 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
         if (tags.getBoolean("Broken"))
             return new ArmorProperties(0, 0, 0);
 
+        double current = getProtection(tags);
+
+        return new ArmorProperties(0, current / 100, 100);
+    }
+
+    public double getProtection(ItemStack stack)
+    {
+        return getProtection(stack.getTagCompound().getCompoundTag(getBaseTagName()));
+    }
+
+    public double getProtection(NBTTagCompound tags)
+    {
         float maxDurability = tags.getInteger("TotalDurability");
         float currentDurability = maxDurability - tags.getInteger("Damage");
         float ratio = currentDurability / maxDurability;
@@ -198,7 +202,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
         double max = tags.getDouble("MaxDefense");
         double current = (max - base) * ratio + base;
 
-        return new ArmorProperties(0, current / 100, 100);
+        return current;
     }
 
     @Override
@@ -396,7 +400,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
         return tags.getCompoundTag(getBaseTagName()).getInteger("Damage");
     }
 
-    DecimalFormat df = new DecimalFormat("##.#");
+    private DecimalFormat df = new DecimalFormat("##.#");
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -408,12 +412,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
         double protection = 0;
         if (!tags.getBoolean("Broken"))
         {
-            float maxDurability = tags.getInteger("TotalDurability");
-            float currentDurability = maxDurability - tags.getInteger("Damage");
-            float ratio = currentDurability / maxDurability;
-            double base = tags.getDouble("BaseDefense");
-            double max = tags.getDouble("MaxDefense");
-            protection = (max - base) * ratio + base;
+            protection = getProtection(tags);
         }
         if (protection > 0)
             list.add("\u00a77Protection: " + df.format(protection) + "%");
@@ -435,5 +434,16 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
             else
                 displayToolTips = false;
         }
+    }
+
+    /* Prevent armor from dying */
+    public boolean hasCustomEntity (ItemStack stack)
+    {
+        return true;
+    }
+
+    public Entity createEntity (World world, Entity location, ItemStack itemstack)
+    {
+        return new FancyEntityItem(world, location, itemstack);
     }
 }

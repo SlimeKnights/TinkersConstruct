@@ -160,8 +160,11 @@ item.InfiTool.Battleaxe.name=전투용 도끼
 item.InfiTool.Cutlass.name=커틀러스
 item.InfiTool.Shortbow.name=단궁
 item.InfiTool.Arrow.name=화살
-item.InfiTool.PotionLauncher.name=포션 발사기
+
 item.InfiTool.Mattock.name=야전삽
+
+item.InfiTool.PotionLauncher.name=포션 발사기
+
 
 item.tool.randomarrow=랜덤 스트리머
 
@@ -564,11 +567,11 @@ parttype.thaumium=사우뮴
 parttype.pigiron=돼지 선철
 
 toolpart.ToolRod=%%material 도구 막대기
-toolpart.PickHead=%%material 곡괭이 머리
+toolpart.PickaxeHead=%%material 곡괭이 머리
 toolpart.ShovelHead=%%material 삽 머리
 toolpart.AxeHead=%%material 도끼 날
 toolpart.Binding=%%material 도구 조임쇠
-toolpart.ToughBind=%%material 두꺼운 조임쇠
+toolpart.ToughBinding=%%material 두꺼운 조임쇠
 toolpart.ToughRod=%%material 두꺼운 막대기
 toolpart.LargePlate=%%material 대형 강화판
 toolpart.SwordBlade=%%material 검 날
@@ -581,7 +584,7 @@ toolpart.FrypanHead=%%material 팬
 toolpart.SignHead=%%material 표지판 머리
 toolpart.ChiselHead=%%material 정 머리
 toolpart.ScytheHead=%%material 낫 날
-toolpart.LumberHead=%%material 넓은 도끼 날
+toolpart.LumberAxeHead=%%material 넓은 도끼 날
 toolpart.ExcavatorHead=%%material 굴착기 머리
 toolpart.ToolShard=%%material 조각
 toolpart.LargeSwordBlade=%%material 넓은 검 날
@@ -589,6 +592,9 @@ toolpart.HammerHead=%%material 망치 머리
 toolpart.Bowstring=%%material 활 시위
 toolpart.ArrowHead=%%material 화살촉
 toolpart.Fletching=%%material 화살 깃
+
+# Now with translations of specific material and part combinations:
+#toolpart.ToolRod.wood=Wooden Tool Rod
 
 fluid.iron.molten=녹은 철
 fluid.gold.molten=녹은 금
@@ -731,12 +737,12 @@ gui.partcrafter7=채광 수준:
 gui.partcrafter8= 하트
 gui.partcrafter9= 하트
 gui.partcrafter10=공격력: 
-gui.partcrafter.mining1=돌, 석탄
-gui.partcrafter.mining2=철, 청금석
-gui.partcrafter.mining3=레드스톤, 금, 다이아몬드
-gui.partcrafter.mining4=흑요석
-gui.partcrafter.mining5=코발트, 아르다이트
-gui.partcrafter.mining6=마뉼린
+gui.mining1=돌, 석탄
+gui.mining2=철, 청금석
+gui.mining3=레드스톤, 금, 다이아몬드
+gui.mining4=흑요석
+gui.mining5=코발트, 아르다이트
+gui.mining6=마뉼린
 gui.stenciltable1=다음 문양
 gui.stenciltable2=이전 문양
 gui.toolforge1=수리와 업그레이드
@@ -760,26 +766,38 @@ gui.toolstation16=사용 속도:
 gui.toolstation17=업그레이드
 gui.toolstation18=남은 업그레이드 횟수: 
 
-gui.partbuilder.material.wood=나무
-gui.partbuilder.material.stone=돌
-gui.partbuilder.material.iron=철
-gui.partbuilder.material.flint=부싯돌
-gui.partbuilder.material.cactus=선인장
-gui.partbuilder.material.bone=뼈
-gui.partbuilder.material.obsidian=흑요석
-gui.partbuilder.material.netherrack=네더랙
-gui.partbuilder.material.slime=슬라임
-gui.partbuilder.material.paper=종이:
-gui.partbuilder.material.blueslime=푸른 슬라임
-gui.partbuilder.material.cobalt=코발트
-gui.partbuilder.material.ardite=아르다이트
-gui.partbuilder.material.manyullyn=마뉼린
-gui.partbuilder.material.copper=구리
-gui.partbuilder.material.bronze=청동
-gui.partbuilder.material.alumite=알루마이트
-gui.partbuilder.material.steel=강철
-gui.partbuilder.material.pigiron=돼지 선철
-gui.partbuilder.material.thaumium=사우뮴
+material.wood=나무
+material.wood.display=나무
+material.stone=돌
+material.stone.ability=돌같음
+material.iron=철
+material.flint=부싯돌
+material.cactus=선인장
+material.cactus.ability=뾰족뾰족
+material.bone=뼈
+material.obsidian=흑요석
+material.netherrack=네더랙
+material.netherrack.ability=돌같음
+material.slime=슬라임
+material.slime.ability=점액질
+material.paper=종이
+material.paper.ability=순백색
+material.blueslime=푸른 슬라임
+material.blueslime.display=슬라임
+material.blueslime.ability=점액질
+material.cobalt=코발트
+material.ardite=아르다이트
+material.ardite.ability=돌같음
+material.manyullyn=마뉼린
+material.copper=구리
+material.bronze=청동
+material.alumite=알루마이트
+material.steel=강철
+material.pigiron=돼지 선철
+material.pigiron.display=선철
+material.pigiron.ability=뫄이쩡!
+material.thaumium=사우뮴
+material.thaumium.ability=사우믹
 
 gui.modifier.blaze=화염
 gui.modifier.silk=섬세한 손길
@@ -815,12 +833,30 @@ modifier.tool.lava=자동 제련
 modifier.tool.necro=위더
 modifier.tool.beheading=참수
 
-materialtraits.stonebound=스톤바운드
-materialtraits.jagged=뾰족뾰족한
-materialtraits.writable=추가 업그레이드
-materialtraits.tasty=맛있는
-materialtraits.thaumic=마법적인
-
 creativeModLock.tooltip=적용 대상: 
 
 attribute.name.ammo.attackDamage=평균 데미지
+
+tool.pickaxe=곡괭이
+tool.shovel=삽
+tool.hatchet=도끼
+tool.broadsword=브로드소드
+tool.longsword=장검
+tool.rapier=레이피어
+tool.dagger=단검
+tool.cutlass=커틀러스
+tool.fryingpan=프라이팬
+tool.battlesign=전투용 표지판
+tool.mattock=아전삽
+tool.chisel=정
+tool.lumberaxe=벌목용 도끼
+tool.cleaver=클리버
+tool.scythe=낫
+tool.excavator=굴착기
+tool.hammer=망치
+tool.battleaxe=전투 도끼
+tool.shortbow=숏보우
+tool.arrow=화살
+
+# Customization of default tool names based on tool and material
++#tool.shovel.wood=Wooden Shovel

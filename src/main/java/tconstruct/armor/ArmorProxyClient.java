@@ -1,60 +1,40 @@
 package tconstruct.armor;
 
-import java.util.ArrayList;
-import java.util.Random;
-
+import com.google.common.collect.Lists;
+import cpw.mods.fml.common.*;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import java.util.*;
 import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.settings.GameSettings;
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.client.settings.*;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.init.*;
+import net.minecraft.item.*;
+import net.minecraft.potion.*;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.client.GuiIngameForge;
-import net.minecraftforge.client.event.FOVUpdateEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
-import tconstruct.armor.gui.ArmorExtendedGui;
-import tconstruct.armor.gui.KnapsackGui;
+import tconstruct.armor.gui.*;
 import tconstruct.armor.items.TravelGear;
-import tconstruct.armor.model.BeltModel;
-import tconstruct.armor.model.BootBump;
-import tconstruct.armor.model.HiddenPlayerModel;
-import tconstruct.armor.model.WingModel;
-import tconstruct.armor.player.ArmorExtended;
-import tconstruct.armor.player.KnapsackInventory;
-import tconstruct.client.TControls;
-import tconstruct.client.TKeyHandler;
-import tconstruct.client.tabs.InventoryTabArmorExtended;
-import tconstruct.client.tabs.InventoryTabKnapsack;
-import tconstruct.client.tabs.InventoryTabVanilla;
-import tconstruct.client.tabs.TabRegistry;
+import tconstruct.armor.model.*;
+import tconstruct.armor.player.*;
+import tconstruct.client.*;
+import tconstruct.client.tabs.*;
 import tconstruct.common.TProxyCommon;
 import tconstruct.library.accessory.IAccessoryModel;
 import tconstruct.library.client.TConstructClientRegistry;
+import tconstruct.library.crafting.ModifyBuilder;
+import tconstruct.tools.TinkerTools;
 import tconstruct.world.TinkerWorld;
-
-import com.google.common.collect.Lists;
-
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class ArmorProxyClient extends ArmorProxyCommon
 {
@@ -72,43 +52,58 @@ public class ArmorProxyClient extends ArmorProxyCommon
     {
         registerGuiHandler();
         registerKeys();
+        registerManualIcons();
         registerManualRecipes();
         MinecraftForge.EVENT_BUS.register(this);
         FMLCommonHandler.instance().bus().register(new ArmorAbilitiesClient(mc, controlInstance));
     }
-    
+
+    private void registerManualIcons ()
+    {
+        MantleClientRegistry.registerManualIcon("travelgoggles", TinkerArmor.travelGoggles.getDefaultItem());
+        MantleClientRegistry.registerManualIcon("travelvest", TinkerArmor.travelVest.getDefaultItem());
+        MantleClientRegistry.registerManualIcon("travelwings", TinkerArmor.travelWings.getDefaultItem());
+        MantleClientRegistry.registerManualIcon("travelboots", TinkerArmor.travelBoots.getDefaultItem());
+        MantleClientRegistry.registerManualIcon("travelbelt", TinkerArmor.travelBelt.getDefaultItem());
+        MantleClientRegistry.registerManualIcon("travelglove", TinkerArmor.travelGlove.getDefaultItem());
+    }
+
     private void registerManualRecipes ()
     {
         ItemStack feather = new ItemStack(Items.feather);
         ItemStack redstone = new ItemStack(Items.redstone);
         ItemStack goggles = TinkerArmor.travelGoggles.getDefaultItem();
-        MantleClientRegistry.registerManualSmallRecipe("nightvision", goggles.copy(), new ItemStack(Items.flint_and_steel), new ItemStack(Items.potionitem, 1, 0), new ItemStack(Items.golden_carrot), null);
+
+        TConstructClientRegistry.registerManualModifier("nightvision", goggles.copy(), new ItemStack(Items.flint_and_steel), new ItemStack(Items.potionitem, 1, 8198), new ItemStack(Items.golden_carrot), null);
 
         ItemStack vest = TinkerArmor.travelVest.getDefaultItem();
-        System.out.println("Travel Vest Item: "+vest);
-        MantleClientRegistry.registerManualIcon("travelvest", vest);
-        MantleClientRegistry.registerManualSmallRecipe("dodge", vest.copy(), new ItemStack(Items.ender_eye), new ItemStack(Items.ender_pearl), new ItemStack(Items.sugar), null);
-        MantleClientRegistry.registerManualSmallRecipe("stealth", vest.copy(), new ItemStack(Items.fermented_spider_eye), new ItemStack(Items.ender_eye), new ItemStack(Items.potionitem, 1, 0),
-                new ItemStack(Items.golden_carrot));
+        TConstructClientRegistry.registerManualModifier("dodge", vest.copy(), new ItemStack(Items.ender_eye), new ItemStack(Items.ender_pearl), new ItemStack(Items.sugar), null);
+        TConstructClientRegistry.registerManualModifier("stealth", vest.copy(), new ItemStack(Items.fermented_spider_eye), new ItemStack(Items.ender_eye), new ItemStack(Items.potionitem, 1, 8206), new ItemStack(Items.golden_carrot));
 
-        ItemStack wings = new ItemStack(TinkerArmor.travelWings);
-        MantleClientRegistry.registerManualIcon("travelwings", wings);
-        MantleClientRegistry.registerManualSmallRecipe("doublejump", wings.copy(), new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Blocks.piston), null);
-        MantleClientRegistry.registerManualLargeRecipe("featherfall", wings.copy(), new ItemStack(TinkerWorld.slimeGel, 1, 0), feather, feather, feather, wings.copy(), feather, feather,
-                new ItemStack(Items.ender_pearl), feather);
+        ItemStack wings = TinkerArmor.travelWings.getDefaultItem();
+        TConstructClientRegistry.registerManualModifier("doublejumpwings", wings.copy(), new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Blocks.piston), null);
+
+        ItemStack[] recipe = new ItemStack[] { new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Items.ender_pearl), feather, feather, feather, feather, feather, feather };
+        ItemStack modWings = ModifyBuilder.instance.modifyItem(wings, recipe);
+        MantleClientRegistry.registerManualLargeRecipe("featherfall", modWings.copy(), feather, new ItemStack(TinkerWorld.slimeGel, 1, 0), feather, feather, wings.copy(), feather, feather, new ItemStack(Items.ender_pearl), feather);
 
         ItemStack boots = TinkerArmor.travelBoots.getDefaultItem();
-        MantleClientRegistry.registerManualIcon("travelboots", boots);
-        MantleClientRegistry.registerManualSmallRecipe("doublejumpboots", boots.copy(), new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 1), new ItemStack(Blocks.piston), null);
+        TConstructClientRegistry.registerManualModifier("doublejumpboots", boots.copy(), new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 1), new ItemStack(Blocks.piston), null);
         TConstructClientRegistry.registerManualModifier("waterwalk", boots.copy(), new ItemStack(Blocks.waterlily), new ItemStack(Blocks.waterlily));
         TConstructClientRegistry.registerManualModifier("leadboots", boots.copy(), new ItemStack(Blocks.iron_block));
         TConstructClientRegistry.registerManualModifier("slimysoles", boots.copy(), new ItemStack(TinkerWorld.slimePad, 1, 0), new ItemStack(TinkerWorld.slimePad, 1, 0));
 
         ItemStack gloves = TinkerArmor.travelGlove.getDefaultItem();
-        MantleClientRegistry.registerManualIcon("travelgloves", gloves);
         TConstructClientRegistry.registerManualModifier("glovehaste", gloves.copy(), redstone, new ItemStack(Blocks.redstone_block));
         //MantleClientRegistry.registerManualSmallRecipe("gloveclimb", gloves.copy(), new ItemStack(Items.slime_ball), new ItemStack(Blocks.web), new ItemStack(TinkerTools.materials, 1, 25), null);
         TConstructClientRegistry.registerManualModifier("gloveknuckles", gloves.copy(), new ItemStack(Items.quartz), new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE));
+
+        // moss
+        ItemStack moss = new ItemStack(TinkerTools.materials, 1, 6);
+        TConstructClientRegistry.registerManualModifier("mossgoggles", goggles.copy(), moss.copy());
+        TConstructClientRegistry.registerManualModifier("mossvest", vest.copy(), moss.copy());
+        TConstructClientRegistry.registerManualModifier("mosswings", wings.copy(), moss.copy());
+        TConstructClientRegistry.registerManualModifier("mossboots", boots.copy(), moss.copy());
     }
 
     @Override
@@ -148,12 +143,12 @@ public class ArmorProxyClient extends ArmorProxyCommon
     }
 
     /* Keybindings */
-    public static TControls controlInstance;
+    public static ArmorControls controlInstance;
 
     @Override
     public void registerKeys ()
     {
-        controlInstance = new TControls();
+        controlInstance = new ArmorControls();
         uploadKeyBindingsToGame(Minecraft.getMinecraft().gameSettings, controlInstance);
 
         TabRegistry.registerTab(new InventoryTabVanilla());
@@ -187,11 +182,11 @@ public class ArmorProxyClient extends ArmorProxyCommon
     int updateCounter = 0;
 
     GameSettings gs = Minecraft.getMinecraft().gameSettings;
-    
+
     @SubscribeEvent
     public void goggleZoom (FOVUpdateEvent event)
     {
-        if (TControls.zoom)
+        if (ArmorControls.zoom)
         {
             ItemStack helmet = event.entity.getCurrentArmor(3);
             if (helmet != null && helmet.getItem() instanceof TravelGear)
@@ -207,8 +202,11 @@ public class ArmorProxyClient extends ArmorProxyCommon
     @SubscribeEvent
     public void renderHealthbar (RenderGameOverlayEvent.Pre event)
     {
+        if(Loader.isModLoaded("rpghud")) // uses different display, displays health correctly by itself.
+            return;
+
         if (!Loader.isModLoaded("tukmc_Vz") || Loader.isModLoaded("borderlands"))// Loader check to avoid conflicting
-                                            // with a GUI mod (thanks Vazkii!)
+        // with a GUI mod (thanks Vazkii!)
         {
             if (event.type == ElementType.HEALTH)
             {
@@ -408,6 +406,12 @@ public class ArmorProxyClient extends ArmorProxyCommon
         float partialTick = event.partialRenderTick;
 
         EntityPlayer player = event.entityPlayer;
+
+        // todo: synchronize extra armor with other clients. Until then, only draw locally
+        if(player != Minecraft.getMinecraft().thePlayer)
+            return;
+
+
         float posX = (float) (player.lastTickPosX + (player.posX - player.lastTickPosX) * partialTick);
         float posY = (float) (player.lastTickPosY + (player.posY - player.lastTickPosY) * partialTick);
         float posZ = (float) (player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialTick);

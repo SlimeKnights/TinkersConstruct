@@ -1,22 +1,15 @@
 package tconstruct.client;
 
 import java.io.InputStream;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import javax.xml.parsers.*;
 import mantle.client.SmallFontRenderer;
 import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.init.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.ResourceLocation;
-
+import net.minecraft.util.*;
 import org.w3c.dom.Document;
-
 import tconstruct.TConstruct;
 import tconstruct.armor.ArmorProxyClient;
 import tconstruct.armor.player.TPlayerStats;
@@ -31,12 +24,12 @@ public class TProxyClient extends TProxyCommon
     public static Minecraft mc;
     public static RenderItem itemRenderer = new RenderItem();
 
-    public void initialize()
+    public void initialize ()
     {
         registerRenderer();
         readManuals();
     }
-    
+
     /* Registers any rendering code. */
     public void registerRenderer ()
     {

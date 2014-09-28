@@ -1,14 +1,9 @@
 package tconstruct.tools.inventory;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -51,8 +46,8 @@ public class CraftingStationContainer extends Container
 
         if (logic.chest != null)
         {
-            craftingOffsetX += 122;
-            inventoryOffsetX += 122;
+            craftingOffsetX += 116;
+            inventoryOffsetX += 116;
         }
 
         this.addSlotToContainer(new SlotCraftingStation(inventorplayer.player, this.craftMatrix, this.craftResult, 0, craftingOffsetX + 94, 35));
@@ -97,7 +92,7 @@ public class CraftingStationContainer extends Container
                 for (row = 0; row < 6; row++)
                 {
                     int value = count < 27 ? count : count - 27;
-                    this.addSlotToContainer(new Slot(count < 27 ? firstChest : secondChest, value, 14 + row * 18, 19 + column * 18));
+                    this.addSlotToContainer(new Slot(count < 27 ? firstChest : secondChest, value, 8 + row * 18, 19 + column * 18));
                     count++;
                     if (count >= 27 && secondChest == null)
                         break;

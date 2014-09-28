@@ -1,27 +1,22 @@
 package tconstruct.armor.items;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
 import mantle.items.abstracts.CraftingItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import tconstruct.armor.player.ArmorExtended;
-import tconstruct.armor.player.TPlayerStats;
+import tconstruct.armor.player.*;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.accessory.IHealthAccessory;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class HeartCanister extends CraftingItem implements IHealthAccessory
 {
 
     public HeartCanister()
     {
-        super(new String[] { "empty", "miniheart.red", "red", "miniheart.yellow", "yellow", "miniheart.green", "green" }, new String[] { "canister_empty", "miniheart_red", "canister_red",
-                "miniheart_yellow", "canister_yellow", "miniheart_green", "canister_green" }, "", "tinker", TConstructRegistry.materialTab);
+        super(new String[] { "empty", "miniheart.red", "red", "miniheart.yellow", "yellow", "miniheart.green", "green" }, new String[] { "canister_empty", "miniheart_red", "canister_red", "miniheart_yellow", "canister_yellow", "miniheart_green", "canister_green" }, "", "tinker", TConstructRegistry.materialTab);
         this.setMaxStackSize(10);
     }
 

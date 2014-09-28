@@ -1,22 +1,17 @@
 package tconstruct.tools.blocks;
 
-import tconstruct.blocks.TConstructBlock;
+import cpw.mods.fml.relauncher.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import tconstruct.blocks.TConstructBlock;
 
 public class MultiBrickFancy extends TConstructBlock
 {
-    static String blockTextures[] = { "fancybrick_obsidian", "fancybrick_sandstone", "fancybrick_netherrack", "fancybrick_stone_refined", "fancybrick_iron", "fancybrick_gold", "fancybrick_lapis",
-            "fancybrick_diamond", "fancybrick_redstone", "fancybrick_bone", "fancybrick_slime", "fancybrick_blueslime", "fancybrick_endstone", "fancybrick_obsidian_ingot", "fancybrick_stone",
-            "road_stone" };
+    static String blockTextures[] = { "fancybrick_obsidian", "fancybrick_sandstone", "fancybrick_netherrack", "fancybrick_stone_refined", "fancybrick_iron", "fancybrick_gold", "fancybrick_lapis", "fancybrick_diamond", "fancybrick_redstone", "fancybrick_bone", "fancybrick_slime", "fancybrick_blueslime", "fancybrick_endstone", "fancybrick_obsidian_ingot", "fancybrick_stone", "road_stone" };
 
     public MultiBrickFancy()
     {
@@ -137,6 +132,7 @@ public class MultiBrickFancy extends TConstructBlock
     {
         return true;
     }
+
     @Override
     public int isProvidingWeakPower (IBlockAccess world, int x, int y, int z, int side)
     {
@@ -158,7 +154,7 @@ public class MultiBrickFancy extends TConstructBlock
     }
 
     @Override
-    public boolean isNormalCube(IBlockAccess world, int x, int y, int z)
+    public boolean isNormalCube (IBlockAccess world, int x, int y, int z)
     {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta != 8)

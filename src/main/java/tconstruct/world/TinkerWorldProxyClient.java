@@ -1,55 +1,24 @@
 package tconstruct.world;
 
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.registry.VillagerRegistry;
 import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelSlime;
-import net.minecraft.client.particle.EntityAuraFX;
-import net.minecraft.client.particle.EntityBreakingFX;
-import net.minecraft.client.particle.EntityBubbleFX;
-import net.minecraft.client.particle.EntityCloudFX;
-import net.minecraft.client.particle.EntityCritFX;
-import net.minecraft.client.particle.EntityDropParticleFX;
-import net.minecraft.client.particle.EntityEnchantmentTableParticleFX;
-import net.minecraft.client.particle.EntityExplodeFX;
-import net.minecraft.client.particle.EntityFX;
-import net.minecraft.client.particle.EntityFireworkSparkFX;
-import net.minecraft.client.particle.EntityFlameFX;
-import net.minecraft.client.particle.EntityFootStepFX;
-import net.minecraft.client.particle.EntityHeartFX;
-import net.minecraft.client.particle.EntityHugeExplodeFX;
-import net.minecraft.client.particle.EntityLargeExplodeFX;
-import net.minecraft.client.particle.EntityLavaFX;
-import net.minecraft.client.particle.EntityNoteFX;
-import net.minecraft.client.particle.EntityPortalFX;
-import net.minecraft.client.particle.EntityReddustFX;
-import net.minecraft.client.particle.EntitySmokeFX;
-import net.minecraft.client.particle.EntitySnowShovelFX;
-import net.minecraft.client.particle.EntitySpellParticleFX;
-import net.minecraft.client.particle.EntitySplashFX;
-import net.minecraft.client.particle.EntitySuspendFX;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.client.particle.*;
+import net.minecraft.init.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import tconstruct.mechworks.model.CartRender;
 import tconstruct.tools.TinkerTools;
-import tconstruct.world.entity.BlueSlime;
-import tconstruct.world.entity.CartEntity;
-import tconstruct.world.model.BarricadeRender;
-import tconstruct.world.model.OreberryRender;
-import tconstruct.world.model.PunjiRender;
-import tconstruct.world.model.RenderLandmine;
-import tconstruct.world.model.SlimeChannelRender;
-import tconstruct.world.model.SlimePadRender;
-import tconstruct.world.model.SlimeRender;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.registry.VillagerRegistry;
+import tconstruct.world.entity.*;
+import tconstruct.world.model.*;
 
 public class TinkerWorldProxyClient extends TinkerWorldProxyCommon
 {
     @Override
-    public void initialize()
+    public void initialize ()
     {
         registerRenderer();
         registerManualIcons();
@@ -57,7 +26,7 @@ public class TinkerWorldProxyClient extends TinkerWorldProxyCommon
     }
 
     void registerRenderer ()
-    {       
+    {
         RenderingRegistry.registerBlockHandler(new OreberryRender());
         RenderingRegistry.registerBlockHandler(new BarricadeRender());
         RenderingRegistry.registerBlockHandler(new RenderLandmine());
@@ -74,9 +43,9 @@ public class TinkerWorldProxyClient extends TinkerWorldProxyCommon
 
     void registerManualIcons ()
     {
-        
+
     }
-    
+
     void registerManualRecipes ()
     {
         ItemStack netherrack = new ItemStack(Blocks.netherrack);
@@ -87,16 +56,16 @@ public class TinkerWorldProxyClient extends TinkerWorldProxyCommon
         ItemStack consecratedsoil = new ItemStack(TinkerTools.craftedSoil, 1, 4);
 
         MantleClientRegistry.registerManualSmallRecipe("slimechannel", new ItemStack(TinkerWorld.slimeChannel, 1, 0), new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Items.redstone), null, null);
-        MantleClientRegistry.registerManualSmallRecipe("bouncepad", new ItemStack(TinkerWorld.slimePad, 1, 0), new ItemStack(TinkerWorld.slimeChannel), new ItemStack(Items.slime_ball), null, null);        
+        MantleClientRegistry.registerManualSmallRecipe("bouncepad", new ItemStack(TinkerWorld.slimePad, 1, 0), new ItemStack(TinkerWorld.slimeChannel), new ItemStack(Items.slime_ball), null, null);
 
         MantleClientRegistry.registerManualSmallRecipe("graveyardsoil", graveyardsoil, new ItemStack(Blocks.dirt), new ItemStack(Items.rotten_flesh), new ItemStack(Items.dye, 1, 15), null);
         MantleClientRegistry.registerManualFurnaceRecipe("consecratedsoil", consecratedsoil, graveyardsoil);
 
         // Traps
-        ItemStack reed = new ItemStack(Items.sugar);
-        MantleClientRegistry.registerManualLargeRecipe("punji", new ItemStack(TinkerWorld.punji), reed, null, reed, null, reed, null, reed, null, reed);
+        ItemStack reed = new ItemStack(Items.reeds);
+        MantleClientRegistry.registerManualLargeRecipe("punji", new ItemStack(TinkerWorld.punji, 5), reed, null, reed, null, reed, null, reed, null, reed);
         MantleClientRegistry.registerManualSmallRecipe("barricade", new ItemStack(TinkerWorld.barricadeOak), null, log, null, log);
-        
+
     }
 
     Minecraft mc = Minecraft.getMinecraft();
