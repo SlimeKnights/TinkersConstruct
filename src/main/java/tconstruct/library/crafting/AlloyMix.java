@@ -31,19 +31,19 @@ public class AlloyMix
             while (iter.hasNext())
             {
                 FluidStack mixer = (FluidStack) iter.next();
-                // if (mixer.itemID == liquid.itemID && mixer.itemMeta ==
-                // liquid.itemMeta)
                 if (mixer.isFluidEqual(liquid))
                 {
+                    // do we actually have enough of that liquid?
+                    if(liquid.amount < mixer.amount)
+                        break;
+
                     int eAmt = liquid.amount / mixer.amount;
                     effectiveAmount.add(eAmt);
                     copyMix.remove(mixer);
-                    // inputs.add(liquid);
                     break;
                 }
             }
         }
-        // }
 
         if (copyMix.size() > 0)
             return null;

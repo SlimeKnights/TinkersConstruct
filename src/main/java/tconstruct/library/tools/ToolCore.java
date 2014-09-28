@@ -21,6 +21,7 @@ import tconstruct.library.modifier.*;
 import tconstruct.library.util.TextureHelper;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.entity.FancyEntityItem;
+import tconstruct.util.config.PHConstruct;
 
 /**
  * NBTTags Main tag - InfiTool
@@ -215,14 +216,13 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
     private void addIcons(HashMap<Integer, String> textures, HashMap<Integer, IIcon> icons, IIconRegister iconRegister, String standard)
     {
         icons.clear();
-        for(Map.Entry<Integer, String> entry : textures.entrySet())
-        {
-            if(TextureHelper.itemTextureExists(entry.getValue()))
-                icons.put(entry.getKey(), iconRegister.registerIcon(entry.getValue()));
-        }
 
-        // get the mod id stuff.
-
+        if(!PHConstruct.minimalTextures) // compatibility mode: no specific textures
+            for(Map.Entry<Integer, String> entry : textures.entrySet())
+            {
+                if(TextureHelper.itemTextureExists(entry.getValue()))
+                    icons.put(entry.getKey(), iconRegister.registerIcon(entry.getValue()));
+            }
 
         if(standard != null && !standard.isEmpty()) {
             standard =  getDefaultTexturePath() + "/" + standard;
@@ -759,6 +759,9 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
     /* Proper stack damage */
     @Override
     public boolean showDurabilityBar(ItemStack stack) {
+        if(!stack.hasTagCompound())
+            return false;
+        
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         return !tags.getBoolean("Broken") && getDamage(stack) > 0;
     }

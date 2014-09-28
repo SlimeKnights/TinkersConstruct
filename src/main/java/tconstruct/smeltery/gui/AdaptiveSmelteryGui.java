@@ -21,7 +21,7 @@ import tconstruct.smeltery.component.SmelteryComponent;
 import tconstruct.smeltery.inventory.*;
 import tconstruct.smeltery.logic.AdaptiveSmelteryLogic;
 
-public class AdaptiveSmelteryGui extends GuiContainer
+public class AdaptiveSmelteryGui extends ActiveContainerGui
 {
     public AdaptiveSmelteryLogic logic;
     String username;

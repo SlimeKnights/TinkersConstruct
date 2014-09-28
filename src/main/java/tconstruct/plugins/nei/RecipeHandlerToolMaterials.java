@@ -45,7 +45,7 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase
         @Override
         public PositionedStack getIngredient ()
         {
-            return this.toolParts.get(cycleticks / 20 % this.toolParts.size());
+            return this.toolParts.get((cycleticks / 20) % this.toolParts.size());
         }
 
         @Override

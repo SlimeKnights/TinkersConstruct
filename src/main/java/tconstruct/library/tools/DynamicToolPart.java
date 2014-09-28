@@ -15,6 +15,7 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.util.IToolPart;
 import tconstruct.library.util.TextureHelper;
 import tconstruct.tools.TinkerTools;
+import tconstruct.util.config.PHConstruct;
 
 import java.util.List;
 import java.util.Map;
@@ -115,12 +116,13 @@ public class DynamicToolPart extends CraftingItem implements IToolPart
         this.icons = new IIcon[max+1];
 
         // register icon for each material that has one
-        for(Map.Entry<Integer, tconstruct.library.tools.ToolMaterial> entry : TConstructRegistry.toolMaterials.entrySet())
-        {
-            String tex = modTexPrefix + ":" + folder + entry.getValue().materialName.toLowerCase() + texture;
-            if(TextureHelper.itemTextureExists(tex))
-                this.icons[entry.getKey()] = iconRegister.registerIcon(tex);
-        }
+        if(!PHConstruct.minimalTextures)
+            for(Map.Entry<Integer, tconstruct.library.tools.ToolMaterial> entry : TConstructRegistry.toolMaterials.entrySet())
+            {
+                String tex = modTexPrefix + ":" + folder + entry.getValue().materialName.toLowerCase() + texture;
+                if(TextureHelper.itemTextureExists(tex))
+                    this.icons[entry.getKey()] = iconRegister.registerIcon(tex);
+            }
 
         // default texture
         this.defaultIcon = iconRegister.registerIcon(modTexPrefix + ":" + folder + texture);

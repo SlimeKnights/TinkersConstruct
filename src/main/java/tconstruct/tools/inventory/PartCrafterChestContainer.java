@@ -25,7 +25,7 @@ public class PartCrafterChestContainer extends ActiveContainer
         patternLogic = pLogic;
         largeInventory = true;
 
-        inventory = new Slot[] { new SlotPattern(partLogic, 0, 162, 27), new SlotPattern(partLogic, 1, 162, 45), new Slot(partLogic, 2, 180, 27), new Slot(partLogic, 3, 180, 45), new SlotOnlyTake(partLogic, 4, 224, 27), new SlotOnlyTake(partLogic, 5, 242, 27), new SlotOnlyTake(partLogic, 6, 224, 45), new SlotOnlyTake(partLogic, 7, 242, 45) };
+        inventory = new Slot[] { new SlotPattern(partLogic, 0, 156, 27), new SlotPattern(partLogic, 1, 156, 45), new Slot(partLogic, 2, 174, 27), new Slot(partLogic, 3, 174, 45), new SlotOnlyTake(partLogic, 4, 218, 27), new SlotOnlyTake(partLogic, 5, 236, 27), new SlotOnlyTake(partLogic, 6, 218, 45), new SlotOnlyTake(partLogic, 7, 236, 45) };
         for (int iter = 0; iter < inventory.length; iter++)
             this.addSlotToContainer(inventory[iter]);
 
@@ -34,7 +34,7 @@ public class PartCrafterChestContainer extends ActiveContainer
         {
             for (int row = 0; row < 6; row++)
             {
-                this.addSlotToContainer(new SlotPattern(pLogic, row + column * 6, 14 + row * 18, 30 + column * 18));
+                this.addSlotToContainer(new SlotPattern(pLogic, row + column * 6, 8 + row * 18, 30 + column * 18));
             }
         }
 
@@ -43,13 +43,13 @@ public class PartCrafterChestContainer extends ActiveContainer
         {
             for (int row = 0; row < 9; row++)
             {
-                this.addSlotToContainer(new Slot(inventoryplayer, row + column * 9 + 9, 130 + row * 18, 84 + column * 18));
+                this.addSlotToContainer(new Slot(inventoryplayer, row + column * 9 + 9, 124 + row * 18, 84 + column * 18));
             }
         }
 
         for (int column = 0; column < 9; column++)
         {
-            this.addSlotToContainer(new Slot(inventoryplayer, column, 130 + column * 18, 142));
+            this.addSlotToContainer(new Slot(inventoryplayer, column, 124 + column * 18, 142));
         }
 
     }

@@ -18,7 +18,7 @@ import tconstruct.smeltery.inventory.*;
 import tconstruct.smeltery.logic.SmelteryLogic;
 import tconstruct.util.network.SmelteryPacket;
 
-public class SmelteryGui extends GuiContainer
+public class SmelteryGui extends ActiveContainerGui
 {
     public SmelteryLogic logic;
     private boolean isScrolling = false;
