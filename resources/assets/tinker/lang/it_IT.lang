@@ -758,6 +758,8 @@ gui.toolstation15=Livello di estrazione:
 gui.toolstation16=Velocità dell'uso: 
 gui.toolstation17=Modificatori
 gui.toolstation18=Modificatori rimanenti: 
+gui.toolstation19=Riduzione danno: 
+gui.toolstation20=Protezione: 
 
 gui.mining1=Pietra
 gui.mining2=Ferro
