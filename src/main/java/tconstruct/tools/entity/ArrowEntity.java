@@ -411,24 +411,13 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             {
                 int stackSize;
 
-                /*
-                 * if (par1ItemStack.isItemDamaged()) { slotID =
-                 * this.getFirstEmptyStack(living);
-                 * 
-                 * if (slotID >= 0) { living.setCurrentItemOrArmor(slotID,
-                 * par1ItemStack); living.setEquipmentDropChance(slotID, 2.0f);
-                 * par1ItemStack.stackSize = 0; return true; } else { return
-                 * false; } } else
-                 */
+                do
                 {
-                    do
-                    {
-                        stackSize = par1ItemStack.stackSize;
-                        par1ItemStack.stackSize = this.storePartialItemStack(par1ItemStack, living);
-                    } while (par1ItemStack.stackSize > 0 && par1ItemStack.stackSize < stackSize);
+                    stackSize = par1ItemStack.stackSize;
+                    par1ItemStack.stackSize = this.storePartialItemStack(par1ItemStack, living);
+                } while (par1ItemStack.stackSize > 0 && par1ItemStack.stackSize < stackSize);
 
-                    return par1ItemStack.stackSize < stackSize;
-                }
+                return par1ItemStack.stackSize < stackSize;
             }
             catch (Throwable throwable)
             {
@@ -460,30 +449,22 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
 
     private int storePartialItemStack (ItemStack par1ItemStack, EntityLivingBase living)
     {
-        Item i = par1ItemStack.getItem();
-        int j = par1ItemStack.stackSize;
+        int stackSize = par1ItemStack.stackSize;
         int slotID;
 
-        if (par1ItemStack.getMaxStackSize() == 1)
+        if (!par1ItemStack.isStackable())
         {
             slotID = this.getFirstEmptyStack(living);
 
             if (slotID < 0)
             {
-                return j;
+                return stackSize;
             }
             else
             {
-                /*
-                 * if (this.mainInventory[k] == null) { this.mainInventory[k] =
-                 * par1ItemStack; }
-                 */
-                if (living.getEquipmentInSlot(slotID) == null)
-                {
-                    living.setCurrentItemOrArmor(slotID, par1ItemStack);
-                    if (living instanceof EntityLiving)
-                        ((EntityLiving) living).setEquipmentDropChance(slotID, 2.0f);
-                }
+                living.setCurrentItemOrArmor(slotID, par1ItemStack.copy());
+                if (living instanceof EntityLiving)
+                    ((EntityLiving) living).setEquipmentDropChance(slotID, 2.0f);
 
                 return 0;
             }
@@ -499,24 +480,24 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
 
             if (slotID < 0)
             {
-                return j;
+                return stackSize;
             }
             else
             {
                 ItemStack stack = living.getEquipmentInSlot(slotID);
                 if (stack == null)
                 {
-                    living.setCurrentItemOrArmor(slotID, par1ItemStack);
+                    living.setCurrentItemOrArmor(slotID, par1ItemStack.copy());
                     if (living instanceof EntityLiving)
                         ((EntityLiving) living).setEquipmentDropChance(slotID, 2.0f);
-                    return par1ItemStack.stackSize;
+                    return 0;
                 }
                 else
                 {
 
-                    int l = j;
+                    int l = stackSize;
 
-                    if (j > stack.getMaxStackSize() - stack.stackSize)
+                    if (stackSize > stack.getMaxStackSize() - stack.stackSize)
                     {
                         l = stack.getMaxStackSize() - stack.stackSize;
                     }
@@ -528,16 +509,17 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
 
                     if (l == 0)
                     {
-                        return j;
+                        return stackSize;
                     }
                     else
                     {
-                        j -= l;
-                        stack.stackSize++;
+                        stackSize -= l;
+                        stack.stackSize += l;
                         living.setCurrentItemOrArmor(slotID, stack);
                         if (living instanceof EntityLiving)
                             ((EntityLiving) living).setEquipmentDropChance(slotID, 2.0f);
-                        return j;
+
+                        return stackSize;
                     }
                 }
             }
@@ -549,7 +531,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         for (int slotID = 0; slotID < 5; ++slotID)
         {
             ItemStack stack = living.getEquipmentInSlot(slotID);
-            if (stack != null && ItemStack.areItemStacksEqual(stack, par1ItemStack) && stack.isStackable() && stack.stackSize < stack.getMaxStackSize())
+            if (stack != null && stack.isItemEqual(par1ItemStack) && ItemStack.areItemStackTagsEqual(stack, par1ItemStack) && stack.isStackable() && stack.stackSize < stack.getMaxStackSize())
             {
                 return slotID;
             }
