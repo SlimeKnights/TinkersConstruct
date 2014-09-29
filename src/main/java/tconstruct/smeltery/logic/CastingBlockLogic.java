@@ -105,12 +105,17 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     @Override
     public boolean canFill (ForgeDirection from, Fluid fluid)
     {
+        if(fluid == null)
+            return false;
         return fill(from, new FluidStack(fluid, 1), false) > 0;
     }
 
     @Override
     public boolean canDrain (ForgeDirection from, Fluid fluid)
     {
+        if(fluid == null)
+            return false;
+        
         FluidStack drained = drain(from, new FluidStack(fluid, 1), false);
         return drained != null && drained.amount > 0;
     }
