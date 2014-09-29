@@ -64,7 +64,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             {
                 this.playSound("random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                 par1EntityPlayer.onItemPickup(this, 1);
-                if(returnStack.stackSize <= 0)
+                if(returnStack.stackSize <= 0 || this.canBePickedUp == 2)
                     this.setDead();
             }
         }
