@@ -37,6 +37,7 @@ public class TinkerWorldProxyClient extends TinkerWorldProxyCommon
         // Entities
         RenderingRegistry.registerEntityRenderingHandler(BlueSlime.class, new SlimeRender(new ModelSlime(16), new ModelSlime(0), 0.25F));
         RenderingRegistry.registerEntityRenderingHandler(CartEntity.class, new CartRender());
+        RenderingRegistry.registerEntityRenderingHandler(Guardian.class, new GuardianRenderer());
 
         VillagerRegistry.instance().registerVillagerSkin(78943, new ResourceLocation("tinker", "textures/mob/villagertools.png"));
     }

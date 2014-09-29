@@ -69,5 +69,5 @@ public class CrystalRender extends RenderLiving
         return texture;
     }
 
-    static final ResourceLocation texture = new ResourceLocation("assets/tinker/textures/mob/crystalwater.png");
+    static final ResourceLocation texture = new ResourceLocation("tinkers", "textures/mob/crystalwater.png");
 }

@@ -11,6 +11,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.*;
 import net.minecraft.item.*;
@@ -273,6 +274,9 @@ public class TinkerWorld
         EntityRegistry.registerModEntity(BlueSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);
         // EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13,
         // TConstruct.instance, 64, 5, true);
+
+        EntityRegistry.registerModEntity(Guardian.class, "Guardian", 15, TConstruct.instance, 32, 5, true);
+        EntityList.addMapping(Guardian.class, "Guardian",300, 0xff0000, 0x00ff00);
 
         if (PHConstruct.naturalSlimeSpawn > 0)
         {
