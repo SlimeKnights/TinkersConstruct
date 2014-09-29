@@ -2,7 +2,6 @@ package tconstruct.smeltery.gui;
 
 import java.util.*;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -34,10 +33,10 @@ public class SmelteryGui extends ActiveContainerGui
     {
         super((ActiveContainer) smeltery.getGuiContainer(inventoryplayer, world, x, y, z));
         logic = smeltery;
-        xSize = 248;
         smeltery.updateFuelDisplay();
 
         columns = ((SmelteryContainer) this.inventorySlots).columns;
+        xSize = 254 + (columns - 3) * 22; // Adjust for column count
     }
 
     @Override
@@ -63,7 +62,7 @@ public class SmelteryGui extends ActiveContainerGui
             boolean mouseDown = Mouse.isButtonDown(0);
             int lefto = this.guiLeft;
             int topo = this.guiTop;
-            int xScroll = lefto + 67;
+            int xScroll = lefto + 67 + (columns - 3) * 22; // Adjust for column count
             int yScroll = topo + 8;
             int scrollWidth = xScroll + 14;
             int scrollHeight = yScroll + 144;
@@ -109,10 +108,11 @@ public class SmelteryGui extends ActiveContainerGui
     @Override
     protected void drawGuiContainerForegroundLayer (int mouseX, int mouseY)
     {
-        fontRendererObj.drawString(StatCollector.translateToLocal("crafters.Smeltery"), 86, 5, 0x404040);
-        fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 90, (ySize - 96) + 2, 0x404040);
+        int baseX = 86 + (columns - 3) * 22;
+        fontRendererObj.drawString(StatCollector.translateToLocal("crafters.Smeltery"), baseX, 5, 0x404040);
+        fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), baseX + 4, (ySize - 96) + 2, 0x404040);
 
-        int cornerX = (width - xSize) / 2 + 36;
+        int cornerX = (width - xSize) / 2 + 36 + (columns - 3) * 22;
         int cornerY = (height - ySize) / 2;
 
         int[] fluidHeights = calcLiquidHeights();
@@ -151,7 +151,7 @@ public class SmelteryGui extends ActiveContainerGui
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(background);
-        int cornerX = (width - xSize) / 2 + 36;
+        int cornerX = (width - xSize) / 2 + 36 + (columns - 3) * 22;
         int cornerY = (height - ySize) / 2;
         drawTexturedModalRect(cornerX + 46, cornerY, 0, 0, 176, ySize);
 
