@@ -11,23 +11,39 @@ public abstract class CustomMaterial
     public final ItemStack input;
     public final ItemStack craftingItem;
     public final String oredict;
+    public final int color;
 
+    @Deprecated
     public CustomMaterial(int materialID, int value, ItemStack input, ItemStack craftingItem)
+    {
+        this(materialID, value, input, craftingItem, 0xffffffff);
+    }
+
+
+    public CustomMaterial(int materialID, int value, ItemStack input, ItemStack craftingItem, int color)
     {
         this.materialID = materialID;
         this.value = value;
         this.input = input;
         this.craftingItem = craftingItem;
         this.oredict = null;
+        this.color = color;
     }
 
+    @Deprecated
     public CustomMaterial(int materialID, int value, String oredict, ItemStack craftingItem)
+    {
+        this(materialID, value, oredict, craftingItem, 0xffffffff);
+    }
+
+    public CustomMaterial(int materialID, int value, String oredict, ItemStack craftingItem, int color)
     {
         this.materialID = materialID;
         this.value = value;
         this.input = null;
         this.craftingItem = craftingItem;
         this.oredict = oredict;
+        this.color = color;
     }
 
     /**

@@ -8,7 +8,7 @@ public class FletchlingLeafMaterial extends FletchingMaterial
 {
     public FletchlingLeafMaterial(int materialID, int value, String oredict, ItemStack craftingItem, float accuracy, float breakChance, float mass)
     {
-        super(materialID, value, oredict, craftingItem, accuracy, breakChance, mass);
+        super(materialID, value, oredict, craftingItem, accuracy, breakChance, mass, 0x5ece46);
     }
 
     @Override

@@ -695,7 +695,7 @@ public class TinkerTools
                     TConstructRegistry.addPartMapping(TinkerTools.woodPattern, meta + 1, 31, new ItemStack(TinkerTools.patternOutputs[meta], 1, 31));
             }
 
-            TConstructRegistry.addBowstringMaterial(1, 2, new ItemStack((Item) obj, 1, 7), new ItemStack(TinkerTools.bowstring, 1, 1), 1F, 1F, 0.9f);
+            TConstructRegistry.addBowstringMaterial(1, 2, new ItemStack((Item) obj, 1, 7), new ItemStack(TinkerTools.bowstring, 1, 1), 1F, 1F, 0.9f, 0x63bcd9);
             TConstructRegistry.addBowMaterial(31, 576, 40, 1.2f);
             TConstructRegistry.addArrowMaterial(31, 1.8F, 0.5F, 100F);
         }
@@ -709,7 +709,7 @@ public class TinkerTools
             try
             {
                 Object plantItem = ItemHelper.getStaticItem("plantItem", "mods.natura.common.NContent");
-                TConstructRegistry.addBowstringMaterial(2, 2, new ItemStack((Item) plantItem, 1, 7), new ItemStack(TinkerTools.bowstring, 1, 2), 1.2F, 0.8F, 1.3f);
+                TConstructRegistry.addBowstringMaterial(2, 2, new ItemStack((Item) plantItem, 1, 7), new ItemStack(TinkerTools.bowstring, 1, 2), 1.2F, 0.8F, 1.3f, 0xd3414f);
             }
             catch (Exception e)
             {
@@ -782,11 +782,11 @@ public class TinkerTools
         TConstructRegistry.addArrowMaterial(MaterialID.BlueSlime, 0.22F, 0.0F, 100F); //Blue Slime
         TConstructRegistry.addArrowMaterial(MaterialID.PigIron, 3.6F, 0.5F, 100F); //Pigiron
 
-        TConstructRegistry.addBowstringMaterial(0, 2, new ItemStack(Items.string), new ItemStack(TinkerTools.bowstring, 1, 0), 1F, 1F, 1f); // String
-        TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Items.feather), new ItemStack(TinkerTools.fletching, 1, 0), 100F, 0F, 0.05F); // Feather
+        TConstructRegistry.addBowstringMaterial(0, 2, new ItemStack(Items.string), new ItemStack(TinkerTools.bowstring, 1, 0), 1F, 1F, 1f, 0xeeeeee); // String
+        TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Items.feather), new ItemStack(TinkerTools.fletching, 1, 0), 100F, 0F, 0.05F, 0xffffff); // Feather
         TConstructRegistry.addCustomMaterial(new FletchlingLeafMaterial(1, 2, "treeLeaves", new ItemStack(TinkerTools.fletching, 1, 1), 75F, 0F, 0.2F)); // all vanilla and oredicted leaves. and all leaves in general.
-        TConstructRegistry.addFletchingMaterial(2, 2, new ItemStack(TinkerTools.materials, 1, 1), new ItemStack(TinkerTools.fletching, 1, 2), 100F, 0F, 0.12F); // Slime
-        TConstructRegistry.addFletchingMaterial(3, 2, new ItemStack(TinkerTools.materials, 1, 17), new ItemStack(TinkerTools.fletching, 1, 3), 100F, 0F, 0.12F); // BlueSlime
+        TConstructRegistry.addFletchingMaterial(2, 2, new ItemStack(TinkerTools.materials, 1, 1), new ItemStack(TinkerTools.fletching, 1, 2), 100F, 0F, 0.12F, 0x82c873); // Slime
+        TConstructRegistry.addFletchingMaterial(3, 2, new ItemStack(TinkerTools.materials, 1, 17), new ItemStack(TinkerTools.fletching, 1, 3), 100F, 0F, 0.12F, 0x74c8c7); // BlueSlime
 
         PatternBuilder pb = PatternBuilder.instance;
         if (PHConstruct.enableTWood)
