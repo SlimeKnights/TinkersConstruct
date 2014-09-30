@@ -675,7 +675,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         return super.getColorFromItemStack(stack, renderPass);
     }
 
-    private int getCorrectColor(ItemStack stack, int renderPass, NBTTagCompound tags, String key, Map<Integer, IIcon> map)
+    protected int getCorrectColor(ItemStack stack, int renderPass, NBTTagCompound tags, String key, Map<Integer, IIcon> map)
     {
         // custom coloring
         if(tags.hasKey(key + "Color"))
@@ -687,7 +687,12 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
             return super.getColorFromItemStack(stack, renderPass);
 
         // color default texture with material color
-        return TConstructRegistry.getMaterial(matId).primaryColor();
+        return getDefaultColor(renderPass, matId);
+    }
+
+    protected int getDefaultColor(int renderPass, int materialID)
+    {
+        return TConstructRegistry.getMaterial(materialID).primaryColor();
     }
 
     @Override
