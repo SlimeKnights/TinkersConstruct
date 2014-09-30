@@ -154,7 +154,7 @@ public class Chisel extends ToolCore
     @Override
     public EnumAction getItemUseAction (ItemStack itemstack)
     {
-        return EnumAction.eat;
+        return EnumAction.bow;
     }
 
     @SideOnly(Side.CLIENT)
