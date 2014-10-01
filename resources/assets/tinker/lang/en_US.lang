@@ -717,6 +717,8 @@ smeltery.drain.tooltip1=Works both as input and output for
 smeltery.drain.tooltip2=fluids in the Smeltery
 smeltery.brick.tooltip1=Smeltery structure block
 smeltery.brick.tooltip2=(Safe for decoration)
+#Dear translators, only translate this line if the joke is applicable in your language.
+grout.tooltip=I am Grout!
 
 gui.smeltery.fuel=Fuel
 gui.smeltery.emerald=Emeralds: 
