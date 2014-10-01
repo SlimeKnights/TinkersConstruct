@@ -263,30 +263,34 @@ public class ToolStationBlock extends InventoryBlock
     public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase living, ItemStack stack)
     {
         boolean keptInventory = false;
-        if (stack.hasTagCompound())
+        TileEntity te = world.getTileEntity(x, y, z);
+        if (te instanceof PatternChestLogic)
         {
-            NBTTagCompound inventory = stack.getTagCompound().getCompoundTag("Inventory");
-            if (inventory != null)
+            if (stack.hasTagCompound())
             {
-                PatternChestLogic logic = (PatternChestLogic) world.getTileEntity(x, y, z);
-                logic.readInventoryFromNBT(inventory);
-                logic.xCoord = x;
-                logic.yCoord = y;
-                logic.zCoord = z;
-                keptInventory = true;
-            }
-        }
-        if (!keptInventory && PHConstruct.freePatterns)
-        {
-            int meta = world.getBlockMetadata(x, y, z);
-            if (meta == 5)
-            {
-                PatternChestLogic logic = (PatternChestLogic) world.getTileEntity(x, y, z);
-                for (int i = 1; i <= 13; i++)
+                NBTTagCompound inventory = stack.getTagCompound().getCompoundTag("Inventory");
+                if (inventory != null)
                 {
-                    logic.setInventorySlotContents(i - 1, new ItemStack(TinkerTools.woodPattern, 1, i));
+                    PatternChestLogic logic = (PatternChestLogic) world.getTileEntity(x, y, z);
+                    logic.readInventoryFromNBT(inventory);
+                    logic.xCoord = x;
+                    logic.yCoord = y;
+                    logic.zCoord = z;
+                    keptInventory = true;
                 }
-                logic.setInventorySlotContents(13, new ItemStack(TinkerTools.woodPattern, 1, 22));
+            }
+            if (!keptInventory && PHConstruct.freePatterns)
+            {
+                int meta = world.getBlockMetadata(x, y, z);
+                if (meta == 5)
+                {
+                    PatternChestLogic logic = (PatternChestLogic) world.getTileEntity(x, y, z);
+                    for (int i = 1; i <= 13; i++)
+                    {
+                        logic.setInventorySlotContents(i - 1, new ItemStack(TinkerTools.woodPattern, 1, i));
+                    }
+                    logic.setInventorySlotContents(13, new ItemStack(TinkerTools.woodPattern, 1, 22));
+                }
             }
         }
         super.onBlockPlacedBy(world, x, y, z, living, stack);
