@@ -34,6 +34,10 @@ public class CraftedSoilItemBlock extends MultiItemBlock
     {
         switch (stack.getItemDamage())
         {
+        case 1:
+            if(StatCollector.canTranslate("grout.tooltip"))
+                list.add(StatCollector.translateToLocal("grout.tooltip"));
+            break;
         case 3:
             list.add(StatCollector.translateToLocal("craftedsoil1.tooltip"));
             break;

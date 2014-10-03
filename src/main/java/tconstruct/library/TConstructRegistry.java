@@ -426,12 +426,27 @@ public class TConstructRegistry
             customMaterials.add(mat);
     }
 
+
+    public static void addBowstringMaterial (int materialID, int value, ItemStack input, ItemStack craftingMaterial, float durability, float drawSpeed, float flightSpeed, int color)
+    {
+        BowstringMaterial mat = new BowstringMaterial(materialID, value, input, craftingMaterial, durability, drawSpeed, flightSpeed, color);
+        customMaterials.add(mat);
+    }
+
+    public static void addFletchingMaterial (int materialID, int value, ItemStack input, ItemStack craftingMaterial, float accuracy, float breakChance, float mass, int color)
+    {
+        FletchingMaterial mat = new FletchingMaterial(materialID, value, input, craftingMaterial, accuracy, breakChance, mass, color);
+        customMaterials.add(mat);
+    }
+
+    @Deprecated
     public static void addBowstringMaterial (int materialID, int value, ItemStack input, ItemStack craftingMaterial, float durability, float drawSpeed, float flightSpeed)
     {
         BowstringMaterial mat = new BowstringMaterial(materialID, value, input, craftingMaterial, durability, drawSpeed, flightSpeed);
         customMaterials.add(mat);
     }
 
+    @Deprecated
     public static void addFletchingMaterial (int materialID, int value, ItemStack input, ItemStack craftingMaterial, float accuracy, float breakChance, float mass)
     {
         FletchingMaterial mat = new FletchingMaterial(materialID, value, input, craftingMaterial, accuracy, breakChance, mass);

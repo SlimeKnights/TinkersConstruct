@@ -158,9 +158,9 @@ public class ToolCoreRenderer implements IItemRenderer
         if (type == ItemRenderType.INVENTORY)
         {
 
-            TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
-            texturemanager.getResourceLocation(item.getItemSpriteNumber());
-            TextureUtil.func_152777_a(false, false, 1.0F);
+            //TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
+            //texturemanager.getResourceLocation(item.getItemSpriteNumber());
+            //TextureUtil.func_152777_a(false, false, 1.0F);
 
             GL11.glDisable(GL11.GL_LIGHTING);
             GL11.glEnable(GL11.GL_ALPHA_TEST);
@@ -179,10 +179,11 @@ public class ToolCoreRenderer implements IItemRenderer
             tess.draw();
             GL11.glEnable(GL11.GL_LIGHTING);
             GL11.glDisable(GL11.GL_ALPHA_TEST);
+            GL11.glEnable(GL11.GL_BLEND);
 
             //GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-            texturemanager.bindTexture(texturemanager.getResourceLocation(item.getItemSpriteNumber()));
-            TextureUtil.func_147945_b();
+            //texturemanager.bindTexture(texturemanager.getResourceLocation(item.getItemSpriteNumber()));
+            //TextureUtil.func_147945_b();
         }
         else
         {

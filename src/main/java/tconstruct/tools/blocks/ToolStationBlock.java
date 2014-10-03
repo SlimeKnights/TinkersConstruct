@@ -266,9 +266,10 @@ public class ToolStationBlock extends InventoryBlock
         if (stack.hasTagCompound())
         {
             NBTTagCompound inventory = stack.getTagCompound().getCompoundTag("Inventory");
-            if (inventory != null)
+            TileEntity te = world.getTileEntity(x, y, z);
+            if (inventory != null && te instanceof PatternChestLogic)
             {
-                PatternChestLogic logic = (PatternChestLogic) world.getTileEntity(x, y, z);
+                PatternChestLogic logic = (PatternChestLogic) te;
                 logic.readInventoryFromNBT(inventory);
                 logic.xCoord = x;
                 logic.yCoord = y;

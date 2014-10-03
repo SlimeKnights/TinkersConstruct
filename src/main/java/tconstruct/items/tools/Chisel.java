@@ -46,7 +46,7 @@ public class Chisel extends ToolCore
     @Override
     public boolean doesContainerItemLeaveCraftingGrid (ItemStack par1ItemStack)
     {
-        return false;
+        return par1ItemStack.hasTagCompound() && par1ItemStack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Broken");
     }
 
     boolean performDetailing (World world, int x, int y, int z, int blockID, int blockMeta)

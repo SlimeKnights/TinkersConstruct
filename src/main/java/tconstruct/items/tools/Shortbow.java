@@ -9,6 +9,8 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.tools.BowstringMaterial;
 import tconstruct.tools.TinkerTools;
 
 public class Shortbow extends BowBase
@@ -36,6 +38,17 @@ public class Shortbow extends BowBase
             return "";
         }
     }
+
+
+    @Override
+    protected int getDefaultColor(int renderPass, int materialID) {
+        // bowstring uses custom material
+        if(renderPass == 0)
+            return TConstructRegistry.getCustomMaterial(materialID, BowstringMaterial.class).color;
+
+        return super.getDefaultColor(renderPass, materialID);
+    }
+
 
     @Override
     public String getEffectSuffix ()
