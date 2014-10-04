@@ -18,7 +18,7 @@ public class TerrainGenEventHandler
     private final SurfaceOreGen goldSurface = new SurfaceOreGen(TinkerWorld.oreGravel, 1, 20, true);
     private final SurfaceOreGen copperSurface = new SurfaceOreGen(TinkerWorld.oreGravel, 2, 12, true);
     private final SurfaceOreGen tinSurface = new SurfaceOreGen(TinkerWorld.oreGravel, 3, 12, true);
-    private final SurfaceOreGen aluminumSurface = new SurfaceOreGen(TinkerWorld.oreGravel, 4, 12, true);
+    private final SurfaceOreGen zincSurface = new SurfaceOreGen(TinkerWorld.oreGravel, 4, 12, true);
     private final SurfaceOreGen cobaltSurface = new SurfaceOreGen(TinkerWorld.oreGravel, 5, 30, true);
 
     private static ImmutableCollection<BiomeGenBase> EXTRA_ORE_BIOMES = ImmutableList.of(extremeHills, extremeHillsEdge);
@@ -70,12 +70,12 @@ public class TerrainGenEventHandler
             zPos = zChunk + random.nextInt(16);
             tinSurface.generate(world, random, xPos, yPos, zPos);
         }
-        if (PHConstruct.generateAluminumSurface && random.nextInt(PHConstruct.aluminumsRarity) == 0)
+        if (PHConstruct.generateZincSurface && random.nextInt(PHConstruct.zincsRarity) == 0)
         {
             xPos = xChunk + random.nextInt(16);
             yPos = 64 + PHConstruct.seaLevel;
             zPos = zChunk + random.nextInt(16);
-            aluminumSurface.generate(world, random, xPos, yPos, zPos);
+            zincSurface.generate(world, random, xPos, yPos, zPos);
         }
         if (PHConstruct.generateCobaltSurface && random.nextInt(PHConstruct.cobaltsRarity) == 0)
         {

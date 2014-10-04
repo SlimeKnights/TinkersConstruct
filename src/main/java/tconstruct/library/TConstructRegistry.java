@@ -86,10 +86,10 @@ public class TConstructRegistry
      * 
      * Materials: paperStack, greenSlimeCrystal, blueSlimeCrystal, searedBrick,
      * mossBall, lavaCrystal, necroticBone, silkyCloth, silkyJewel ingotCobalt,
-     * ingotArdite, ingotManyullyn, ingotCopper, ingotTin, ingotAluminum,
-     * rawAluminum, ingotBronze, ingotAluminumBrass, ingotAlumite, ingotSteel,
-     * ingotObsidian nuggetIron, nuggetCopper, nuggetTin, nuggetAluminum,
-     * nuggetSilver, nuggetAluminumBrass oreberryIron, oreberryGold,
+     * ingotArdite, ingotManyullyn, ingotCopper, ingotTin, ingotZinc,
+     * rawZinc, ingotBronze, ingotBrass, ingotZarcon, ingotSteel,
+     * ingotObsidian nuggetIron, nuggetCopper, nuggetTin, nuggetZinc,
+     * nuggetSilver, nuggetBrass oreberryIron, oreberryGold,
      * oreberryCopper, oreberryTin, oreberryTin, oreberrySilver, diamondApple,
      * blueSlimeFood, canisterEmpty, miniRedHeart, canisterRedHeart
      * 
@@ -573,7 +573,7 @@ public class TConstructRegistry
     /**
      * Default Material Index 0: Wood 1: Stone 2: Iron 3: Flint 4: Cactus 5:
      * Bone 6: Obsidian 7: Netherrack 8: Green Slime 9: Paper 10: Cobalt 11:
-     * Ardite 12: Manyullyn 13: Copper 14: Bronze 15: Alumite 16: Steel 17: Blue
+     * Ardite 12: Manyullyn 13: Copper 14: Bronze 15: Zarcon 16: Steel 17: Blue
      * Slime
      */
 }

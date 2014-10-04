@@ -553,12 +553,12 @@ Class: Ranged Projectile Launcher</text>
 </page>
 
 <page type="materialstats">
-<title>Alumite</title>
-<icon>alumitepick</icon>
+<title>Zarcon</title>
+<icon>zarconpick</icon>
 <text>An uncommon alloy. It seems to be quite durable.
 - Requires the Smeltery</text>
 <material>
- <main>alumiteingot</main>
+ <main>zarconingot</main>
 </material>
 </page>
 
@@ -871,7 +871,7 @@ Stackable: Yes</text>
 
 <page type="sectionpage">
 <title>Silky</title>
-<text>Adding a large glob of alunimum brass or gold and a bunch of string seems to give the tool silky-smooth properties.
+<text>Adding a large glob of brass or gold and a bunch of string seems to give the tool silky-smooth properties.
 
 Effects:
 - Allows blocks to be harvested directly
