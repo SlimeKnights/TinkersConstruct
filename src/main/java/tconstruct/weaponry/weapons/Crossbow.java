@@ -392,7 +392,7 @@ public class Crossbow extends ProjectileWeapon {
     @Override
     public Item getAccessoryItem ()
     {
-        return TinkerTools.bowstring;
+        return TinkerWeaponry.bowstring;
     }
 
     @Override

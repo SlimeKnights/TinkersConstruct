@@ -9,7 +9,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import tconstruct.tools.TinkerTools;
 
 public class ShortBow extends BowBaseAmmo {
     public ShortBow() {
@@ -98,7 +97,7 @@ public class ShortBow extends BowBaseAmmo {
     @Override
     public Item getHandleItem ()
     {
-        return TinkerTools.bowstring;
+        return TinkerWeaponry.bowstring;
     }
 
     @Override

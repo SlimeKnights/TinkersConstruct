@@ -10,10 +10,9 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.tools.BowstringMaterial;
 import tconstruct.library.tools.FletchingMaterial;
 import tconstruct.library.tools.ToolCore;
-import tconstruct.tools.TinkerTools;
+import tconstruct.weaponry.TinkerWeaponry;
 
 public class Arrow extends ToolCore
 {
@@ -81,13 +80,13 @@ public class Arrow extends ToolCore
     @Override
     public Item getHeadItem ()
     {
-        return TinkerTools.arrowhead;
+        return TinkerWeaponry.arrowhead;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TinkerTools.fletching;
+        return TinkerWeaponry.fletching;
     }
 
     @Override

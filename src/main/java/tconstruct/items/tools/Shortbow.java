@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.BowstringMaterial;
 import tconstruct.tools.TinkerTools;
+import tconstruct.weaponry.TinkerWeaponry;
 
 public class Shortbow extends BowBase
 {
@@ -71,7 +72,7 @@ public class Shortbow extends BowBase
     @Override
     public Item getHandleItem ()
     {
-        return TinkerTools.bowstring;
+        return TinkerWeaponry.bowstring;
     }
 
     @Override

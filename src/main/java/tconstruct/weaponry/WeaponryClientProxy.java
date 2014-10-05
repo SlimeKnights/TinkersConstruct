@@ -87,20 +87,13 @@ public class WeaponryClientProxy extends WeaponryCommonProxy {
             TinkerWeaponry.boltAmmo.registerAlternatePartPaths(i, new String[]{null, null, null, acctex});
         }
 
-        // todo: do properly when moving stuff into tinkers code
-        arrow.headStrings.clear();
-        arrow.headStrings.put(TinkerTools.MaterialID.PigIron, Reference.resource(arrow.getDefaultFolder() + "/pigiron" +  arrow.getIconSuffix(0)));
 
-        /*
-        TConstructClientRegistry.addAlternateMaterialRenderMapping(TinkerWeaponry.shuriken, 2, Reference.RESOURCE, "iron", true);
-        TConstructClientRegistry.addAlternateMaterialRenderMapping(TinkerWeaponry.throwingknife, 2, Reference.RESOURCE, "iron", true);
-
-        String[] fletching = { "feather", "leaf", "slime", "blueslime" };
-        for (int arrowIter = 0; arrowIter < fletching.length; arrowIter++)
+        // bowstring
+        String[] bowstringTypes = { "string", "magicfabric", "flamestring" };
+        for (int bowIter = 0; bowIter < bowstringTypes.length; bowIter++)
         {
-            TConstructClientRegistry.addAlternateMaterialRenderMapping(TinkerWeaponry.throwArrow, arrowIter, "tinker", fletching[arrowIter], true);
+            TConstructClientRegistry.addAlternateMaterialRenderMapping(TinkerWeaponry.shortbow, bowIter, Reference.RESOURCE, bowstringTypes[bowIter], true);
         }
-        */
     }
 
     private void buttons()

@@ -6,7 +6,6 @@ import tconstruct.library.weaponry.AmmoItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.tools.TinkerTools;
 
 import java.util.List;
 
@@ -67,7 +66,7 @@ public class BoltAmmo extends AmmoItem {
 
     @Override
     public Item getAccessoryItem() {
-        return TinkerTools.fletching;
+        return TinkerWeaponry.fletching;
     }
 
     @Override

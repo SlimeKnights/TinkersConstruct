@@ -84,57 +84,6 @@ public class TinkerToolEvents
         handlePaper(toolTag, event.tool);
         handleThaumium(toolTag, event.tool);
 
-        if (event.tool == TinkerTools.shortbow)
-        {
-            BowMaterial top = TConstructRegistry.getBowMaterial(toolTag.getInteger("Head"));
-            BowMaterial bottom = TConstructRegistry.getBowMaterial(toolTag.getInteger("Accessory"));
-            BowstringMaterial string = (BowstringMaterial) TConstructRegistry.getCustomMaterial(toolTag.getInteger("Handle"), BowstringMaterial.class);
-
-            if (top != null && bottom != null && string != null)
-            {
-                if (toolTag.getInteger("Handle") == 1)
-                {
-                    int modifiers = toolTag.getInteger("Modifiers");
-                    modifiers += 1;
-                    toolTag.setInteger("Modifiers", modifiers);
-                }
-
-                int durability = (int) ((top.durability + bottom.durability) / 2 * string.durabilityModifier);
-                toolTag.setInteger("TotalDurability", durability);
-                toolTag.setInteger("BaseDurability", durability);
-
-                int drawSpeed = (int) ((top.drawspeed + bottom.drawspeed) / 2 * string.drawspeedModifier);
-                toolTag.setInteger("DrawSpeed", drawSpeed);
-                toolTag.setInteger("BaseDrawSpeed", drawSpeed);
-
-                float flightSpeed = (top.flightSpeedMax + bottom.flightSpeedMax) / 2f * string.flightSpeedModifier;
-                toolTag.setFloat("FlightSpeed", flightSpeed);
-            }
-        }
-
-        if (event.tool == TinkerTools.arrow)
-        {
-            ArrowMaterial head = TConstructRegistry.getArrowMaterial(toolTag.getInteger("Head"));
-            ArrowMaterial shaft = TConstructRegistry.getArrowMaterial(toolTag.getInteger("Handle"));
-            FletchingMaterial fletching = (FletchingMaterial) TConstructRegistry.getCustomMaterial(toolTag.getInteger("Accessory"), FletchingMaterial.class);
-
-            if (head != null && shaft != null && fletching != null)
-            {
-                float mass = head.mass / 5f + shaft.mass + fletching.mass;
-                float shatter = (head.breakChance + shaft.breakChance + fletching.breakChance) / 4f;
-                float accuracy = (head.accuracy + shaft.accuracy + fletching.accuracy) / 3;
-
-                ItemStack arrow = new ItemStack(event.tool, 4);
-                toolTag.setInteger("TotalDurability", 0);
-                toolTag.setFloat("Mass", mass);
-                toolTag.setFloat("BreakChance", shatter);
-                toolTag.setFloat("Accuracy", accuracy);
-                toolTag.setInteger("Unbreaking", 10);
-                arrow.setTagCompound(event.toolTag);
-                event.overrideResult(arrow);
-            }
-        }
-
         if (event.tool == TinkerTools.battlesign)
         {
             int modifiers = toolTag.getInteger("Modifiers");

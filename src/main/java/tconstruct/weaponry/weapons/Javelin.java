@@ -1,5 +1,6 @@
 package tconstruct.weaponry.weapons;
 
+import tconstruct.weaponry.TinkerWeaponry;
 import tconstruct.weaponry.entity.JavelinEntity;
 import tconstruct.library.weaponry.AmmoWeapon;
 import net.minecraft.entity.Entity;
@@ -146,7 +147,7 @@ public class Javelin extends AmmoWeapon {
 
     @Override
     public Item getHeadItem() {
-        return TinkerTools.arrowhead;
+        return TinkerWeaponry.arrowhead;
     }
 
     @Override

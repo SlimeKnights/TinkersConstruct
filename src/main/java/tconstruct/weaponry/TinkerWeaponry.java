@@ -20,11 +20,13 @@ import tconstruct.library.TConstructCreativeTab;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.*;
 import tconstruct.library.tools.DynamicToolPart;
-import tconstruct.library.tools.ToolCore;
+import tconstruct.library.tools.FletchlingLeafMaterial;
 import tconstruct.library.util.IPattern;
 import tconstruct.library.util.IToolPart;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
+import tconstruct.tools.items.Bowstring;
+import tconstruct.tools.items.Fletching;
 import tconstruct.tools.items.Pattern;
 import tconstruct.weaponry.ammo.ArrowAmmo;
 import tconstruct.weaponry.ammo.BoltAmmo;
@@ -61,6 +63,9 @@ public class TinkerWeaponry {
     public static AmmoItem boltAmmo;
 
     // Tool Parts
+    public static Item bowstring;
+    public static DynamicToolPart arrowhead;
+    public static Item fletching;
     public static DynamicToolPart partShuriken;
     public static DynamicToolPart partArrowShaft; // not craftable, used internally
     public static DynamicToolPart partBowLimb;
@@ -69,12 +74,10 @@ public class TinkerWeaponry {
     public static DualMaterialToolPart partBolt;
 
     // patterns/casts
-
     public static Pattern woodPattern;
     public static Pattern metalPattern;
 
     // other stuff
-    public static TConstructCreativeTab creativeTab = new TConstructCreativeTab("TConstructWeaponry");
     public static Random random = new Random();
 
 
@@ -91,6 +94,7 @@ public class TinkerWeaponry {
         addPartRecipies();
         addWeaponRecipies();
         registerBoltCasting();
+        setupCreativeTab();
     }
 
     @Handler
@@ -105,6 +109,9 @@ public class TinkerWeaponry {
     private void registerItems()
     {
         // create tool part
+        TinkerTools.bowstring = bowstring = new Bowstring().setUnlocalizedName("tconstruct.Bowstring");
+        TinkerTools.arrowhead = arrowhead = new DynamicToolPart("_arrowhead", "ArrowHead");
+        TinkerTools.fletching = fletching = new Fletching().setUnlocalizedName("tconstruct.Fletching");
         partShuriken = new DynamicToolPart("_shuriken", "Shuriken");
         partArrowShaft = new DynamicToolPart("_arrow_shaft", "Shaft");
         partBowLimb = new DynamicToolPart("_bow_limb", "BowLimb");
@@ -128,6 +135,9 @@ public class TinkerWeaponry {
         metalPattern = new WeaponryPattern("cast_", "Cast");
 
         // register tool parts
+        GameRegistry.registerItem(bowstring, "bowstring"); // 1.8 todo: rename properly
+        GameRegistry.registerItem(arrowhead, "arrowhead");
+        GameRegistry.registerItem(fletching, "fletching");
         GameRegistry.registerItem(partShuriken, "ShurikenPart");
         GameRegistry.registerItem(partBowLimb, "BowLimbPart");
         GameRegistry.registerItem(partCrossbowLimb, "CrossbowLimbPart");
@@ -151,6 +161,11 @@ public class TinkerWeaponry {
 
     private void addPartRecipies()
     {
+
+        StencilBuilder.registerStencil(TinkerTools.woodPattern, 25); // arrow head
+        StencilBuilder.registerStencil(TinkerTools.woodPattern, 24); // fletchling
+        StencilBuilder.registerStencil(TinkerTools.woodPattern, 23); // bowstring
+
         StencilBuilder.registerStencil(woodPattern, 0);
         StencilBuilder.registerStencil(woodPattern, 1);
         StencilBuilder.registerStencil(woodPattern, 2);
@@ -191,57 +206,52 @@ public class TinkerWeaponry {
 
     private void registerMaterials()
     {
-        // todo: un-hax
-        TConstructRegistry.arrowMaterials.clear();
-        TConstructRegistry.bowMaterials.clear();
-
-        // todo: remove durability from this
         // Bow Materials: Material ID, durability, drawspeed, arrow speed
         // speed 3.0 == exactly the vanilla bow if 2 parts of speed 3 are used
-        // Wooden stuff is flexible, therefore good
-        TConstructRegistry.addBowMaterial(TinkerTools.MaterialID.Wood,      0, 18, 3.0f); // Wood
+        // Wooden stuff is flexible, therefore good. Reference.
+        TConstructRegistry.addBowMaterial(TinkerTools.MaterialID.Wood, 18, 3.0f); // Wood
         // other organic materials also are good
-        TConstructRegistry.addBowMaterial(MaterialID.Cactus,    0, 20, 2.4f); // Cactus
-        TConstructRegistry.addBowMaterial(MaterialID.Bone,      0, 38, 2.0f); // Bone
-        TConstructRegistry.addBowMaterial(MaterialID.Slime,     0, 28, 4.0f); // Slime
-        TConstructRegistry.addBowMaterial(MaterialID.BlueSlime, 0, 21, 4.0f); // Blue Slime
-        TConstructRegistry.addBowMaterial(MaterialID.Paper,     0, 25, 2.3f); // Paper
+        TConstructRegistry.addBowMaterial(MaterialID.Cactus,     20, 2.4f); // Cactus
+        TConstructRegistry.addBowMaterial(MaterialID.Bone,       38, 2.0f); // Bone
+        TConstructRegistry.addBowMaterial(MaterialID.Slime,      28, 4.0f); // Slime
+        TConstructRegistry.addBowMaterial(MaterialID.BlueSlime,  21, 4.0f); // Blue Slime
+        TConstructRegistry.addBowMaterial(MaterialID.Paper,      25, 2.3f); // Paper
         // Metal stuff has a lot of POW, but takes LONG to wind up since it's so hard
-        TConstructRegistry.addBowMaterial(MaterialID.Iron,      0, 40, 5.2f); // Iron
-        TConstructRegistry.addBowMaterial(MaterialID.Steel,     0, 50, 5.5f); // Steel
-        TConstructRegistry.addBowMaterial(MaterialID.PigIron,   0, 30, 5.2f); // Pig Iron - it's meat!
-        TConstructRegistry.addBowMaterial(MaterialID.Ardite,    0, 50, 4.5f); // Ardite
-        TConstructRegistry.addBowMaterial(MaterialID.Cobalt,    0, 35, 5.2f); // Cobalt
-        TConstructRegistry.addBowMaterial(MaterialID.Manyullyn, 0, 45, 4.5f); // Manyullyn
-        TConstructRegistry.addBowMaterial(MaterialID.Copper,    0, 30, 5.1f); // Copper
-        TConstructRegistry.addBowMaterial(MaterialID.Bronze,    0, 35, 5.2f); // Bronze
-        TConstructRegistry.addBowMaterial(MaterialID.Alumite,   0, 35, 4.8f); // Alumite - a bit stone-ish since it has obsidian
+        TConstructRegistry.addBowMaterial(MaterialID.Iron,       40, 5.2f); // Iron
+        TConstructRegistry.addBowMaterial(MaterialID.Steel,      50, 5.5f); // Steel
+        TConstructRegistry.addBowMaterial(MaterialID.PigIron,    30, 5.2f); // Pig Iron - it's meat!
+        TConstructRegistry.addBowMaterial(MaterialID.Ardite,     50, 4.5f); // Ardite
+        TConstructRegistry.addBowMaterial(MaterialID.Cobalt,     35, 5.2f); // Cobalt
+        TConstructRegistry.addBowMaterial(MaterialID.Manyullyn,  45, 4.5f); // Manyullyn
+        TConstructRegistry.addBowMaterial(MaterialID.Copper,     30, 5.1f); // Copper
+        TConstructRegistry.addBowMaterial(MaterialID.Bronze,     35, 5.2f); // Bronze
+        TConstructRegistry.addBowMaterial(MaterialID.Alumite,    35, 4.8f); // Alumite - a bit stone-ish since it has obsidian
         // Stone doesn't bend. takes forever, has no pow. WHY WOULD YOU DO THAT
-        TConstructRegistry.addBowMaterial(MaterialID.Stone,     0, 80, 1.0f); // Stone
-        TConstructRegistry.addBowMaterial(MaterialID.Flint,     0, 80, 1.0f); // Flint
-        TConstructRegistry.addBowMaterial(MaterialID.Obsidian,  0, 99, 1.0f); // Obsidian
-        TConstructRegistry.addBowMaterial(MaterialID.Netherrack,0, 70, 1.0f); // Netherrack
+        TConstructRegistry.addBowMaterial(MaterialID.Stone,      80, 1.0f); // Stone
+        TConstructRegistry.addBowMaterial(MaterialID.Flint,      80, 1.0f); // Flint
+        TConstructRegistry.addBowMaterial(MaterialID.Obsidian,   99, 1.0f); // Obsidian
+        TConstructRegistry.addBowMaterial(MaterialID.Netherrack, 70, 1.0f); // Netherrack
 
         // Arrow Head Materials: Material ID, mass, fragility
-        TConstructRegistry.addArrowMaterial(MaterialID.Wood,        0.69F,  1.0F,  100F); //Wood
-        TConstructRegistry.addArrowMaterial(MaterialID.Stone,       2.05F,  5.0F,  100F); //Stone
-        TConstructRegistry.addArrowMaterial(MaterialID.Iron,        3.6F,   0.5F,  100F); //Iron
-        TConstructRegistry.addArrowMaterial(MaterialID.Flint,       1.325F, 1.0F,  100F); //Flint
-        TConstructRegistry.addArrowMaterial(MaterialID.Cactus,      0.76F,  1.0F,  100F); //Cactus
-        TConstructRegistry.addArrowMaterial(MaterialID.Bone,        0.69F,  1.0F,  100F); //Bone
-        TConstructRegistry.addArrowMaterial(MaterialID.Obsidian,    2.4F,   1.0F,  100F); //Obsidian
-        TConstructRegistry.addArrowMaterial(MaterialID.Netherrack,  1.5F,   1.0F,  100F); //Netherrack
-        TConstructRegistry.addArrowMaterial(MaterialID.Slime,       0.22F,  0.0F,  100F); //Slime
-        TConstructRegistry.addArrowMaterial(MaterialID.Paper,       0.69F,  3.0F,   90F); //Paper
-        TConstructRegistry.addArrowMaterial(MaterialID.Cobalt,      3.0F,   0.25F, 100F); //Cobalt
-        TConstructRegistry.addArrowMaterial(MaterialID.Ardite,      1.25F,  0.25F, 100F); //Ardite
-        TConstructRegistry.addArrowMaterial(MaterialID.Manyullyn,   2.25F,  0.1F,  100F); //Manyullyn
-        TConstructRegistry.addArrowMaterial(MaterialID.Copper,      2.7F,   0.5F,  100F); //Copper
-        TConstructRegistry.addArrowMaterial(MaterialID.Bronze,      3.6F,   0.25F, 100F); //Bronze
-        TConstructRegistry.addArrowMaterial(MaterialID.Alumite,     1.1F,   0.25F, 100F); //Alumite
-        TConstructRegistry.addArrowMaterial(MaterialID.Steel,       3.6F,   0.25F, 100F); //Steel
-        TConstructRegistry.addArrowMaterial(MaterialID.BlueSlime,   0.22F,  0.0F,  100F); //Blue Slime
-        TConstructRegistry.addArrowMaterial(MaterialID.PigIron,     3.6F,   0.5F,  100F); //Pigiron
+        TConstructRegistry.addArrowMaterial(MaterialID.Wood,        0.69F,  1.0F); //Wood
+        TConstructRegistry.addArrowMaterial(MaterialID.Stone,       2.05F,  5.0F); //Stone
+        TConstructRegistry.addArrowMaterial(MaterialID.Iron,        3.6F,   0.5F); //Iron
+        TConstructRegistry.addArrowMaterial(MaterialID.Flint,       1.325F, 1.0F); //Flint
+        TConstructRegistry.addArrowMaterial(MaterialID.Cactus,      0.76F,  1.0F); //Cactus
+        TConstructRegistry.addArrowMaterial(MaterialID.Bone,        0.69F,  1.0F); //Bone
+        TConstructRegistry.addArrowMaterial(MaterialID.Obsidian,    2.4F,   1.0F); //Obsidian
+        TConstructRegistry.addArrowMaterial(MaterialID.Netherrack,  1.5F,   1.0F); //Netherrack
+        TConstructRegistry.addArrowMaterial(MaterialID.Slime,       0.22F,  0.0F); //Slime
+        TConstructRegistry.addArrowMaterial(MaterialID.Paper,       0.69F,  3.0F); //Paper
+        TConstructRegistry.addArrowMaterial(MaterialID.Cobalt,      3.0F,   0.25f); //Cobalt
+        TConstructRegistry.addArrowMaterial(MaterialID.Ardite,      1.25F,  0.25f); //Ardite
+        TConstructRegistry.addArrowMaterial(MaterialID.Manyullyn,   2.25F,  0.1F); //Manyullyn
+        TConstructRegistry.addArrowMaterial(MaterialID.Copper,      2.7F,   0.5F); //Copper
+        TConstructRegistry.addArrowMaterial(MaterialID.Bronze,      3.6F,   0.25f); //Bronze
+        TConstructRegistry.addArrowMaterial(MaterialID.Alumite,     1.1F,   0.25f); //Alumite
+        TConstructRegistry.addArrowMaterial(MaterialID.Steel,       3.6F,   0.25f); //Steel
+        TConstructRegistry.addArrowMaterial(MaterialID.BlueSlime,   0.22F,  0.0F); //Blue Slime
+        TConstructRegistry.addArrowMaterial(MaterialID.PigIron,     3.6F,   0.5F); //Pigiron
 
         // Arrow Shaft Materials: Material ID, crafting item, durability-medifier, mass, fragility
         TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(0, Items.stick, 1.0f, 1.0f, 0.15f, 0x866526)); // wood: reference material, 10% break chance
@@ -252,27 +262,28 @@ public class TinkerWeaponry {
         TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(0, TinkerTools.toolRod, MaterialID.Wood, 1.0f, 1.0f, 0.15f, 0x866526)); // wood: reference material, 10% break chance
         TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(1, TinkerTools.toolRod, MaterialID.Bone, 0.95f, 1.2f, 0.01f, 0xede6bf)); // bone: heavier, but durable
 
-        // Arrow Fletching Materials: Material ID
+        // Arrow Fletching Materials
+        TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Items.feather), new ItemStack(TinkerWeaponry.fletching, 1, 0), 100F, 0F, 0.05F, 0xffffff); // Feather
+        TConstructRegistry.addCustomMaterial(new FletchlingLeafMaterial(1, 2, "treeLeaves", new ItemStack(TinkerWeaponry.fletching, 1, 1), 75F, 0F, 0.2F)); // all vanilla and oredicted leaves. and all leaves in general.
+        TConstructRegistry.addFletchingMaterial(2, 2, new ItemStack(TinkerTools.materials, 1, 1), new ItemStack(TinkerWeaponry.fletching, 1, 2), 100F, 0F, 0.12F, 0x82c873); // Slime
+        TConstructRegistry.addFletchingMaterial(3, 2, new ItemStack(TinkerTools.materials, 1, 17), new ItemStack(TinkerWeaponry.fletching, 1, 3), 100F, 0F, 0.12F, 0x74c8c7); // BlueSlime
+
+        // Bowstring Materials
+        TConstructRegistry.addBowstringMaterial(0, 2, new ItemStack(Items.string), new ItemStack(TinkerWeaponry.bowstring, 1, 0), 1F, 1F, 1f, 0xeeeeee); // String
     }
 
     private void addWeaponRecipies()
     {
         TConstructRegistry.addToolRecipe(shuriken, partShuriken, partShuriken, partShuriken, partShuriken);
         TConstructRegistry.addToolRecipe(throwingknife, TinkerTools.knifeBlade, TinkerTools.toolRod);
-        TConstructRegistry.addToolRecipe(javelin, TinkerTools.arrowhead, TinkerTools.toughRod, TinkerTools.toughRod);
+        TConstructRegistry.addToolRecipe(javelin, arrowhead, TinkerTools.toughRod, TinkerTools.toughRod);
 
-        // hax
-        //ToolRecipe recipe = ToolBuilder.instance.recipeList.get(TinkerTools.shortbow);
-        //ToolBuilder.instance.recipeList.remove(TinkerTools.shortbow);
-        //ToolBuilder.instance.combos.remove(recipe);
+        TConstructRegistry.addToolRecipe(shortbow, partBowLimb, bowstring, partBowLimb);
+        TConstructRegistry.addToolRecipe(longbow, partBowLimb, bowstring, partBowLimb, TinkerTools.largePlate);
+        TConstructRegistry.addToolRecipe(crossbow, partCrossbowLimb, partCrossbowBody, bowstring, TinkerTools.toughBinding);
 
-        // todo
-        TConstructRegistry.addToolRecipe(shortbow, partBowLimb, TinkerTools.bowstring, partBowLimb);
-        TConstructRegistry.addToolRecipe(longbow, partBowLimb, TinkerTools.bowstring, partBowLimb, TinkerTools.largePlate);
-        TConstructRegistry.addToolRecipe(crossbow, partCrossbowLimb, partCrossbowBody, TinkerTools.bowstring, TinkerTools.toughBinding);
-
-        TConstructRegistry.addToolRecipe(arrowAmmo, TinkerTools.arrowhead, partArrowShaft, TinkerTools.fletching);
-        TConstructRegistry.addToolRecipe(boltAmmo, partBolt, partBolt, TinkerTools.fletching);
+        TConstructRegistry.addToolRecipe(arrowAmmo, arrowhead, partArrowShaft, fletching);
+        TConstructRegistry.addToolRecipe(boltAmmo, partBolt, partBolt, fletching);
     }
 
     private void registerBoltCasting()
@@ -315,6 +326,7 @@ public class TinkerWeaponry {
         compound.getCompoundTag("InfiTool").setInteger("RenderHead", 0);
         compound.getCompoundTag("InfiTool").setInteger("RenderHandle", 0);
         compound.getCompoundTag("InfiTool").setInteger("RenderAccessory", 0);
+        compound.getCompoundTag("InfiTool").setInteger("RenderExtra", 1);
         tool.setTagCompound(compound);
 
         TConstructRegistry.weaponryTab.init(tool);

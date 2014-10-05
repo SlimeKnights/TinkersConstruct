@@ -110,7 +110,7 @@ public class LongBow extends BowBaseAmmo {
     @Override
     public Item getHandleItem ()
     {
-        return TinkerTools.bowstring;
+        return TinkerWeaponry.bowstring;
     }
 
     @Override

@@ -145,6 +145,7 @@ public class TConstruct
         TConstructRegistry.partTab = new TConstructCreativeTab("TConstructParts");
         TConstructRegistry.blockTab = new TConstructCreativeTab("TConstructBlocks");
         TConstructRegistry.equipableTab = new TConstructCreativeTab("TConstructEquipables");
+        TConstructRegistry.weaponryTab = new TConstructCreativeTab("TConstructWeaponry");
 
         tableCasting = new LiquidCasting();
         basinCasting = new LiquidCasting();

@@ -3,7 +3,6 @@ package tconstruct.weaponry.ammo;
 import tconstruct.TConstruct;
 import tconstruct.weaponry.TinkerWeaponry;
 import tconstruct.library.weaponry.AmmoItem;
-import tconstruct.util.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -65,7 +64,7 @@ public class ArrowAmmo extends AmmoItem {
     @Override
     public Item getHeadItem ()
     {
-        return TinkerTools.arrowhead;
+        return TinkerWeaponry.arrowhead;
     }
 
     @Override
@@ -76,7 +75,7 @@ public class ArrowAmmo extends AmmoItem {
     @Override
     public Item getAccessoryItem ()
     {
-        return TinkerTools.fletching;
+        return TinkerWeaponry.fletching;
     }
 
     @Override
