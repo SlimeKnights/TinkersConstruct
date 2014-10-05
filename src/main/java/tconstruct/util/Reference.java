@@ -8,7 +8,7 @@ public final class Reference {
     public static final String MOD_ID = TConstruct.modID;
     public static final String MOD_NAME = "Tinkers' Construct";
 
-    public static final String RESOURCE = MOD_ID.toLowerCase();
+    public static final String RESOURCE = "tinker";
 
     public static String resource(String res)
     {

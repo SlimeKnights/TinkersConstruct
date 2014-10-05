@@ -14,6 +14,7 @@ import org.lwjgl.opengl.GL12;
 public class ProjectileBaseRenderer<T extends ProjectileBase> extends Render {
     protected static FlexibleToolRenderer toolCoreRenderer = new FlexibleToolRenderer();
 
+    @SuppressWarnings("unchecked")
     @Override
     public void doRender(Entity p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
         doRender((T)p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
