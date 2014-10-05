@@ -69,11 +69,11 @@ public class WeaponryClientProxy extends WeaponryCommonProxy {
         ToolCore arrow = TinkerWeaponry.arrowAmmo;
         String pre = Reference.resource(arrow.getDefaultFolder()) + "/";
 
-        String[] shaft = {"wood", "bone", "blaze", "reed"};
-        String[] fletching = { "feather", "leaf", "slime", "blueslime" };
+        String[] shaft = {"wood", "bone", "blaze", "reed", null};
+        String[] fletching = { "feather", "leaf", "slime", "blueslime", "slimeleaf" };
 
         // we register different textures for the different parts per index
-        for(int i = 0; i < 4; i++) {
+        for(int i = 0; i < 5; i++) {
             String handletex = pre + shaft[i] + arrow.getIconSuffix(2);
             String acctex = pre + fletching[i] + arrow.getIconSuffix(3);
             arrow.registerAlternatePartPaths(i, new String[]{null, null, handletex, acctex});
@@ -82,7 +82,7 @@ public class WeaponryClientProxy extends WeaponryCommonProxy {
 
         // for bolts too
         pre = Reference.resource(TinkerWeaponry.boltAmmo.getDefaultFolder()) + "/";
-        for(int i = 0; i < 4; i++) {
+        for(int i = 0; i < 5; i++) {
             String acctex = pre + fletching[i] + TinkerWeaponry.boltAmmo.getIconSuffix(3);
             TinkerWeaponry.boltAmmo.registerAlternatePartPaths(i, new String[]{null, null, null, acctex});
         }

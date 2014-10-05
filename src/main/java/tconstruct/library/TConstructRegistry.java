@@ -446,9 +446,9 @@ public class TConstructRegistry
         customMaterials.add(mat);
     }
 
-    public static void addFletchingMaterial (int materialID, int value, ItemStack input, ItemStack craftingMaterial, float accuracy, float breakChance, float mass, int color)
+    public static void addFletchingMaterial (int materialID, int value, ItemStack input, ItemStack craftingMaterial, float accuracy, float breakChance, float mass, float durabilityModifier, int color)
     {
-        FletchingMaterial mat = new FletchingMaterial(materialID, value, input, craftingMaterial, accuracy, breakChance, mass, color);
+        FletchingMaterial mat = new FletchingMaterial(materialID, value, input, craftingMaterial, accuracy, breakChance, mass, durabilityModifier, color);
         customMaterials.add(mat);
     }
 

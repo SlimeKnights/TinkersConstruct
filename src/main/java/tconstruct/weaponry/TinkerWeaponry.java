@@ -37,6 +37,7 @@ import tconstruct.library.weaponry.AmmoWeapon;
 import tconstruct.library.weaponry.ArrowShaftMaterial;
 import tconstruct.library.weaponry.ProjectileWeapon;
 import tconstruct.weaponry.weapons.*;
+import tconstruct.world.TinkerWorld;
 
 import java.util.Map;
 import java.util.Random;
@@ -263,10 +264,11 @@ public class TinkerWeaponry {
         TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(1, TinkerTools.toolRod, MaterialID.Bone, 0.95f, 1.2f, 0.01f, 0xede6bf)); // bone: heavier, but durable
 
         // Arrow Fletching Materials
-        TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Items.feather), new ItemStack(TinkerWeaponry.fletching, 1, 0), 100F, 0F, 0.05F, 0xffffff); // Feather
+        TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Items.feather), new ItemStack(TinkerWeaponry.fletching, 1, 0), 95F, 0F, 0.05F, 1f, 0xffffff); // Feather
         TConstructRegistry.addCustomMaterial(new FletchlingLeafMaterial(1, 2, "treeLeaves", new ItemStack(TinkerWeaponry.fletching, 1, 1), 75F, 0F, 0.2F)); // all vanilla and oredicted leaves. and all leaves in general.
-        TConstructRegistry.addFletchingMaterial(2, 2, new ItemStack(TinkerTools.materials, 1, 1), new ItemStack(TinkerWeaponry.fletching, 1, 2), 100F, 0F, 0.12F, 0x82c873); // Slime
-        TConstructRegistry.addFletchingMaterial(3, 2, new ItemStack(TinkerTools.materials, 1, 17), new ItemStack(TinkerWeaponry.fletching, 1, 3), 100F, 0F, 0.12F, 0x74c8c7); // BlueSlime
+        TConstructRegistry.addFletchingMaterial(2, 2, new ItemStack(TinkerTools.materials, 1, 1), new ItemStack(TinkerWeaponry.fletching, 1, 2), 100F, 0F, 0.12F, 0.95f, 0x82c873); // Slime
+        TConstructRegistry.addFletchingMaterial(3, 2, new ItemStack(TinkerTools.materials, 1, 17), new ItemStack(TinkerWeaponry.fletching, 1, 3), 100F, 0F, 0.12F, 0.95f, 0x74c8c7); // BlueSlime
+        TConstructRegistry.addFletchingMaterial(4, 2, new ItemStack(TinkerWorld.slimeLeaves, 1, 0), new ItemStack(TinkerWeaponry.fletching, 1, 4), 98F, 0.03F, 0.08F, 1.2f, 0x74e8c7); // Slime leaves
 
         // Bowstring Materials
         TConstructRegistry.addBowstringMaterial(0, 2, new ItemStack(Items.string), new ItemStack(TinkerWeaponry.bowstring, 1, 0), 1F, 1F, 1f, 0xeeeeee); // String
