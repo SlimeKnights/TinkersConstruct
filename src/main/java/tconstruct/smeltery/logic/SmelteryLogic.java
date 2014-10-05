@@ -983,12 +983,24 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             for (int zPos = zMin; zPos <= zMax; zPos++)
             {
-                if (validBlockID(worldObj.getBlock(xPos, y, zPos)) && (worldObj.getBlockMetadata(xPos, y, zPos) >= 2))
-                    bottomBricks++;
+                if (validBlockID(worldObj.getBlock(xPos, y, zPos)) && (worldObj.getBlockMetadata(xPos, y, zPos) >= 2)) {
+                    TileEntity te = worldObj.getTileEntity(xPos, y, zPos);
+
+                    if (te instanceof MultiServantLogic) {
+                        MultiServantLogic servant = (MultiServantLogic) te;
+                        if (servant.hasValidMaster()) {
+                            if (servant.verifyMaster(this, worldObj, this.xCoord, this.yCoord, this.zCoord))
+                                bottomBricks++;
+                        } else {
+                            servant.overrideMaster(this.xCoord, this.yCoord, this.zCoord);
+                            bottomBricks++;
+                        }
+                    }
+                }
             }
         }
 
-        int neededBricks = (xMax + 1 - xMin) * (zMax + 1 - zMin); // +1 because we want inclusive the upper border
+        int neededBricks = (xMax + 1 - xMin) * (zMax + 1 - zMin); // +1 because we want inclusive the upper bound
 
         if (bottomBricks == neededBricks)
         {
@@ -1017,6 +1029,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             else if (te instanceof MultiServantLogic)
             {
                 MultiServantLogic servant = (MultiServantLogic) te;
+
                 if (servant.hasValidMaster())
                 {
                     if (servant.verifyMaster(this, worldObj, this.xCoord, this.yCoord, this.zCoord))

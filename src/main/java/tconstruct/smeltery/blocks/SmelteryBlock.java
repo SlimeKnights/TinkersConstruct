@@ -302,6 +302,8 @@ public class SmelteryBlock extends InventoryBlock
     @Override
     public void breakBlock (World world, int x, int y, int z, Block blockID, int meta)
     {
+        // TE is not valid anymore at this point. :/
+
         TileEntity logic = world.getTileEntity(x, y, z);
         if (logic instanceof IServantLogic)
         {
