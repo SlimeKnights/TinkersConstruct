@@ -1,13 +1,13 @@
-package boni.tinkersweaponry;
+package tconstruct.weaponry;
 
-import boni.tinkersweaponry.ammo.ArrowAmmo;
-import boni.tinkersweaponry.ammo.BoltAmmo;
-import boni.tinkersweaponry.items.DualMaterialToolPart;
-import boni.tinkersweaponry.library.weaponry.ArrowShaftMaterial;
-import boni.tinkersweaponry.library.weaponry.BowBaseAmmo;
-import boni.tinkersweaponry.library.weaponry.ProjectileWeapon;
-import boni.tinkersweaponry.library.weaponry.IAmmo;
-import boni.tinkersweaponry.weapons.Crossbow;
+import tconstruct.weaponry.ammo.ArrowAmmo;
+import tconstruct.weaponry.ammo.BoltAmmo;
+import tconstruct.weaponry.items.DualMaterialToolPart;
+import tconstruct.weaponry.library.weaponry.ArrowShaftMaterial;
+import tconstruct.weaponry.library.weaponry.BowBaseAmmo;
+import tconstruct.weaponry.library.weaponry.ProjectileWeapon;
+import tconstruct.weaponry.library.weaponry.IAmmo;
+import tconstruct.weaponry.weapons.Crossbow;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

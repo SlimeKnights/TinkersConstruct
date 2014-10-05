@@ -1,4 +1,4 @@
-package boni.tinkersweaponry.util;
+package tconstruct.weaponry.util;
 
 public class Config {
 }

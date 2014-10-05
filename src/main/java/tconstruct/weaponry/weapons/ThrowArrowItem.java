@@ -1,7 +1,7 @@
-package boni.tinkersweaponry.weapons;
+package tconstruct.weaponry.weapons;
 
-import boni.tinkersweaponry.entity.ArrowEntity;
-import boni.tinkersweaponry.util.Reference;
+import tconstruct.weaponry.entity.ArrowEntity;
+import tconstruct.weaponry.util.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;

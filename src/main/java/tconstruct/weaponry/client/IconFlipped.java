@@ -1,4 +1,4 @@
-package boni.tinkersweaponry.client;
+package tconstruct.weaponry.client;
 
 import net.minecraft.util.IIcon;
 

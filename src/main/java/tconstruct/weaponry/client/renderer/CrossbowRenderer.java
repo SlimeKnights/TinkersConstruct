@@ -1,8 +1,8 @@
-package boni.tinkersweaponry.client.renderer;
+package tconstruct.weaponry.client.renderer;
 
-import boni.tinkersweaponry.entity.ArrowEntity;
-import boni.tinkersweaponry.entity.BoltEntity;
-import boni.tinkersweaponry.weapons.Crossbow;
+import tconstruct.weaponry.entity.ArrowEntity;
+import tconstruct.weaponry.entity.BoltEntity;
+import tconstruct.weaponry.weapons.Crossbow;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;

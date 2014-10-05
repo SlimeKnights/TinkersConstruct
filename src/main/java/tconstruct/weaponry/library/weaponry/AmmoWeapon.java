@@ -1,6 +1,6 @@
-package boni.tinkersweaponry.library.weaponry;
+package tconstruct.weaponry.library.weaponry;
 
-import boni.tinkersweaponry.client.CrosshairType;
+import tconstruct.weaponry.client.CrosshairType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;

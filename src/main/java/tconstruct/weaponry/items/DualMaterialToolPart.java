@@ -1,7 +1,7 @@
-package boni.tinkersweaponry.items;
+package tconstruct.weaponry.items;
 
-import boni.tinkersweaponry.TinkerWeaponry;
-import boni.tinkersweaponry.util.Reference;
+import tconstruct.weaponry.TinkerWeaponry;
+import tconstruct.weaponry.util.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;

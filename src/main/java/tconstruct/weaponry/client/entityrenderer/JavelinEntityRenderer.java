@@ -1,6 +1,6 @@
-package boni.tinkersweaponry.client.entityrenderer;
+package tconstruct.weaponry.client.entityrenderer;
 
-import boni.tinkersweaponry.entity.JavelinEntity;
+import tconstruct.weaponry.entity.JavelinEntity;
 import org.lwjgl.opengl.GL11;
 
 public class JavelinEntityRenderer extends ProjectileBaseRenderer<JavelinEntity> {

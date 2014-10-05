@@ -1,6 +1,6 @@
-package boni.tinkersweaponry.library.weaponry;
+package tconstruct.weaponry.library.weaponry;
 
-import boni.tinkersweaponry.TinkerWeaponry;
+import tconstruct.weaponry.TinkerWeaponry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import tconstruct.library.tools.CustomMaterial;

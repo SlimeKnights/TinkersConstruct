@@ -1,15 +1,15 @@
-package boni.tinkersweaponry;
+package tconstruct.weaponry;
 
-import boni.tinkersweaponry.client.AmmoSlotHandler;
-import boni.tinkersweaponry.client.CrosshairHandler;
-import boni.tinkersweaponry.client.RenderEventHandler;
-import boni.tinkersweaponry.client.entityrenderer.ArrowEntityRenderer;
-import boni.tinkersweaponry.client.entityrenderer.JavelinEntityRenderer;
-import boni.tinkersweaponry.client.entityrenderer.ProjectileBaseRenderer;
-import boni.tinkersweaponry.client.entityrenderer.ShurikenEntityRenderer;
-import boni.tinkersweaponry.client.renderer.*;
-import boni.tinkersweaponry.entity.*;
-import boni.tinkersweaponry.util.Reference;
+import tconstruct.weaponry.client.AmmoSlotHandler;
+import tconstruct.weaponry.client.CrosshairHandler;
+import tconstruct.weaponry.client.RenderEventHandler;
+import tconstruct.weaponry.client.entityrenderer.ArrowEntityRenderer;
+import tconstruct.weaponry.client.entityrenderer.JavelinEntityRenderer;
+import tconstruct.weaponry.client.entityrenderer.ProjectileBaseRenderer;
+import tconstruct.weaponry.client.entityrenderer.ShurikenEntityRenderer;
+import tconstruct.weaponry.client.renderer.*;
+import tconstruct.weaponry.entity.*;
+import tconstruct.weaponry.util.Reference;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.MinecraftForgeClient;

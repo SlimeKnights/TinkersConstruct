@@ -1,6 +1,6 @@
-package boni.tinkersweaponry.items;
+package tconstruct.weaponry.items;
 
-import boni.tinkersweaponry.util.Reference;
+import tconstruct.weaponry.util.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -1,10 +1,10 @@
-package boni.tinkersweaponry.weapons;
+package tconstruct.weaponry.weapons;
 
-import boni.tinkersweaponry.TinkerWeaponry;
-import boni.tinkersweaponry.client.CrosshairType;
-import boni.tinkersweaponry.client.IconFlipped;
-import boni.tinkersweaponry.entity.ShurikenEntity;
-import boni.tinkersweaponry.library.weaponry.AmmoWeapon;
+import tconstruct.weaponry.TinkerWeaponry;
+import tconstruct.weaponry.client.CrosshairType;
+import tconstruct.weaponry.client.IconFlipped;
+import tconstruct.weaponry.entity.ShurikenEntity;
+import tconstruct.weaponry.library.weaponry.AmmoWeapon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;

@@ -1,6 +1,6 @@
-package boni.tinkersweaponry.client.renderer;
+package tconstruct.weaponry.client.renderer;
 
-import boni.tinkersweaponry.library.weaponry.IAmmo;
+import tconstruct.weaponry.library.weaponry.IAmmo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;

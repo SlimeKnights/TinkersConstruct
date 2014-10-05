@@ -1,4 +1,4 @@
-package boni.tinkersweaponry.client.renderer;
+package tconstruct.weaponry.client.renderer;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;

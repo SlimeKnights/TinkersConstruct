@@ -1,4 +1,4 @@
-package boni.tinkersweaponry.library.util;
+package tconstruct.weaponry.library.util;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EntityDamageSourceIndirect;

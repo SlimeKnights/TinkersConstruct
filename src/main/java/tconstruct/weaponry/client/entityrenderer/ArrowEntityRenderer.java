@@ -1,6 +1,6 @@
-package boni.tinkersweaponry.client.entityrenderer;
+package tconstruct.weaponry.client.entityrenderer;
 
-import boni.tinkersweaponry.entity.ArrowEntity;
+import tconstruct.weaponry.entity.ArrowEntity;
 import org.lwjgl.opengl.GL11;
 
 public class ArrowEntityRenderer extends ProjectileBaseRenderer<ArrowEntity> {

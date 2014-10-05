@@ -1,8 +1,8 @@
-package boni.tinkersweaponry.weapons;
+package tconstruct.weaponry.weapons;
 
-import boni.tinkersweaponry.client.CrosshairType;
-import boni.tinkersweaponry.entity.ThrowingKnifeEntity;
-import boni.tinkersweaponry.library.weaponry.AmmoWeapon;
+import tconstruct.weaponry.client.CrosshairType;
+import tconstruct.weaponry.entity.ThrowingKnifeEntity;
+import tconstruct.weaponry.library.weaponry.AmmoWeapon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;

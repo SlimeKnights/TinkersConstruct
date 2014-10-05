@@ -1,4 +1,4 @@
-package boni.tinkersweaponry.library.weaponry;
+package tconstruct.weaponry.library.weaponry;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

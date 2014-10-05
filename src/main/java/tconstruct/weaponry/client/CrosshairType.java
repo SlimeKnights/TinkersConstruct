@@ -1,4 +1,4 @@
-package boni.tinkersweaponry.client;
+package tconstruct.weaponry.client;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

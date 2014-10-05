@@ -1,6 +1,6 @@
-package boni.tinkersweaponry.client.entityrenderer;
+package tconstruct.weaponry.client.entityrenderer;
 
-import boni.tinkersweaponry.entity.ShurikenEntity;
+import tconstruct.weaponry.entity.ShurikenEntity;
 import org.lwjgl.opengl.GL11;
 
 public class ShurikenEntityRenderer extends ProjectileBaseRenderer<ShurikenEntity> {

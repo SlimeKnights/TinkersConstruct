@@ -1,8 +1,9 @@
-package boni.tinkersweaponry.ammo;
+package tconstruct.weaponry.ammo;
 
-import boni.tinkersweaponry.TinkerWeaponry;
-import boni.tinkersweaponry.library.weaponry.AmmoItem;
-import boni.tinkersweaponry.util.Reference;
+import tconstruct.TConstruct;
+import tconstruct.weaponry.TinkerWeaponry;
+import tconstruct.weaponry.library.weaponry.AmmoItem;
+import tconstruct.weaponry.util.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -119,6 +120,6 @@ public class ArrowAmmo extends AmmoItem {
             vanillaArrow = tool;
         }
         else
-            TinkerWeaponry.Log.error("Couldn't build vanilla equivalent of Tinker Arrow");
+            TConstruct.logger.error("Couldn't build vanilla equivalent of Tinker Arrow");
     }
 }

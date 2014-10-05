@@ -1,7 +1,7 @@
-package boni.tinkersweaponry.library.weaponry;
+package tconstruct.weaponry.library.weaponry;
 
-import boni.tinkersweaponry.ammo.ArrowAmmo;
-import boni.tinkersweaponry.entity.ArrowEntity;
+import tconstruct.weaponry.ammo.ArrowAmmo;
+import tconstruct.weaponry.entity.ArrowEntity;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;

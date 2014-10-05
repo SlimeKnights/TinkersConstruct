@@ -1,12 +1,12 @@
-package boni.tinkersweaponry.weapons;
+package tconstruct.weaponry.weapons;
 
-import boni.tinkersweaponry.TinkerWeaponry;
-import boni.tinkersweaponry.ammo.BoltAmmo;
-import boni.tinkersweaponry.entity.BoltEntity;
-import boni.tinkersweaponry.library.weaponry.AmmoItem;
-import boni.tinkersweaponry.library.weaponry.ProjectileWeapon;
-import boni.tinkersweaponry.util.Reference;
-import boni.tinkersweaponry.library.weaponry.IAmmo;
+import tconstruct.weaponry.TinkerWeaponry;
+import tconstruct.weaponry.ammo.BoltAmmo;
+import tconstruct.weaponry.entity.BoltEntity;
+import tconstruct.weaponry.library.weaponry.AmmoItem;
+import tconstruct.weaponry.library.weaponry.ProjectileWeapon;
+import tconstruct.weaponry.util.Reference;
+import tconstruct.weaponry.library.weaponry.IAmmo;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;

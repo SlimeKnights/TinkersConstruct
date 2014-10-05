@@ -1,7 +1,7 @@
-package boni.tinkersweaponry.items;
+package tconstruct.weaponry.items;
 
-import boni.tinkersweaponry.TinkerWeaponry;
-import boni.tinkersweaponry.util.Reference;
+import tconstruct.weaponry.TinkerWeaponry;
+import tconstruct.weaponry.util.Reference;
 import tconstruct.library.tools.DynamicToolPart;
 
 public class WeaponryToolPart extends DynamicToolPart {

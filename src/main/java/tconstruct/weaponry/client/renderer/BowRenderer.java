@@ -1,10 +1,10 @@
-package boni.tinkersweaponry.client.renderer;
+package tconstruct.weaponry.client.renderer;
 
-import boni.tinkersweaponry.TinkerWeaponry;
-import boni.tinkersweaponry.ammo.ArrowAmmo;
-import boni.tinkersweaponry.entity.ArrowEntity;
-import boni.tinkersweaponry.library.weaponry.ProjectileWeapon;
-import boni.tinkersweaponry.library.weaponry.IWindup;
+import tconstruct.weaponry.TinkerWeaponry;
+import tconstruct.weaponry.ammo.ArrowAmmo;
+import tconstruct.weaponry.entity.ArrowEntity;
+import tconstruct.weaponry.library.weaponry.ProjectileWeapon;
+import tconstruct.weaponry.library.weaponry.IWindup;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;

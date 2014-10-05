@@ -1,7 +1,7 @@
-package boni.tinkersweaponry.client.entityrenderer;
+package tconstruct.weaponry.client.entityrenderer;
 
-import boni.tinkersweaponry.client.renderer.FlexibleToolRenderer;
-import boni.tinkersweaponry.entity.ProjectileBase;
+import tconstruct.weaponry.client.renderer.FlexibleToolRenderer;
+import tconstruct.weaponry.entity.ProjectileBase;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;

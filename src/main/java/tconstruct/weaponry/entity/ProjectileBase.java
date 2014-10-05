@@ -1,7 +1,7 @@
-package boni.tinkersweaponry.entity;
+package tconstruct.weaponry.entity;
 
-import boni.tinkersweaponry.library.weaponry.AmmoItem;
-import boni.tinkersweaponry.util.Reference;
+import tconstruct.weaponry.library.weaponry.AmmoItem;
+import tconstruct.weaponry.util.Reference;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import io.netty.buffer.ByteBuf;

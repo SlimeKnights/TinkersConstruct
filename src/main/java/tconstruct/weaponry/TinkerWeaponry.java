@@ -1,29 +1,20 @@
-package boni.tinkersweaponry;
+package tconstruct.weaponry;
 
-import boni.tinkersweaponry.ammo.ArrowAmmo;
-import boni.tinkersweaponry.ammo.BoltAmmo;
-import boni.tinkersweaponry.items.DualMaterialToolPart;
-import boni.tinkersweaponry.items.WeaponryPattern;
-import boni.tinkersweaponry.items.WeaponryToolPart;
-import boni.tinkersweaponry.library.weaponry.AmmoItem;
-import boni.tinkersweaponry.library.weaponry.AmmoWeapon;
-import boni.tinkersweaponry.library.weaponry.ArrowShaftMaterial;
-import boni.tinkersweaponry.library.weaponry.ProjectileWeapon;
-import boni.tinkersweaponry.util.Reference;
-import boni.tinkersweaponry.weapons.*;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import mantle.pulsar.pulse.Handler;
+import mantle.pulsar.pulse.Pulse;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-import org.apache.logging.log4j.Logger;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructCreativeTab;
 import tconstruct.library.TConstructRegistry;
@@ -34,21 +25,26 @@ import tconstruct.library.util.IToolPart;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.items.Pattern;
+import tconstruct.weaponry.ammo.ArrowAmmo;
+import tconstruct.weaponry.ammo.BoltAmmo;
+import tconstruct.weaponry.items.DualMaterialToolPart;
+import tconstruct.weaponry.items.WeaponryPattern;
+import tconstruct.weaponry.items.WeaponryToolPart;
+import tconstruct.weaponry.library.weaponry.AmmoItem;
+import tconstruct.weaponry.library.weaponry.AmmoWeapon;
+import tconstruct.weaponry.library.weaponry.ArrowShaftMaterial;
+import tconstruct.weaponry.library.weaponry.ProjectileWeapon;
+import tconstruct.weaponry.weapons.*;
 
 import java.util.Map;
 import java.util.Random;
 
 import static tconstruct.tools.TinkerTools.MaterialID;
 
-@GameRegistry.ObjectHolder(Reference.MOD_ID)
-@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, dependencies = "required-after:" + Reference.TCON_MOD_ID, version = "${version}")
+@GameRegistry.ObjectHolder(TConstruct.modID)
+@Pulse(id = "Tinkers' Weaponry", description = "The main core of the mod! All of the tools, the tables, and the patterns are here.", pulsesRequired="Tinkers' Tools")
 public class TinkerWeaponry {
-    public static Logger Log;
-
-    @Mod.Instance(Reference.MOD_ID)
-    public static TinkerWeaponry instance;
-
-    @SidedProxy(clientSide = "boni.tinkersweaponry.ClientProxy", serverSide = "boni.tinkersweaponry.CommonProxy")
+    @SidedProxy(clientSide = "tconstruct.weaponry.WeaponryClientProxy", serverSide = "tconstruct.weaponry.WeaponryCommonProxy")
     public static WeaponryCommonProxy proxy;
 
     // Throwing Weapons
@@ -83,16 +79,14 @@ public class TinkerWeaponry {
     public static Random random = new Random();
 
 
-    @Mod.EventHandler
+    @Handler
     public void preInit(FMLPreInitializationEvent event)
     {
-        Log = event.getModLog();
-
         registerItems();
         registerMaterials();
     }
 
-    @Mod.EventHandler
+    @Handler
     public void init(FMLInitializationEvent event)
     {
         addPartRecipies();
@@ -100,7 +94,7 @@ public class TinkerWeaponry {
         registerBoltCasting();
     }
 
-    @Mod.EventHandler
+    @Handler
     public void postInit(FMLPostInitializationEvent event)
     {
         // this handler takes care that ammo weapons get ammo.
@@ -208,7 +202,7 @@ public class TinkerWeaponry {
         // Bow Materials: Material ID, durability, drawspeed, arrow speed
         // speed 3.0 == exactly the vanilla bow if 2 parts of speed 3 are used
         // Wooden stuff is flexible, therefore good
-        TConstructRegistry.addBowMaterial(MaterialID.Wood,      0, 18, 3.0f); // Wood
+        TConstructRegistry.addBowMaterial(TinkerTools.MaterialID.Wood,      0, 18, 3.0f); // Wood
         // other organic materials also are good
         TConstructRegistry.addBowMaterial(MaterialID.Cactus,    0, 20, 2.4f); // Cactus
         TConstructRegistry.addBowMaterial(MaterialID.Bone,      0, 38, 2.0f); // Bone
@@ -253,7 +247,7 @@ public class TinkerWeaponry {
         TConstructRegistry.addArrowMaterial(MaterialID.PigIron,     3.6F,   0.5F,  100F); //Pigiron
 
         // Arrow Shaft Materials: Material ID, crafting item, durability-medifier, mass, fragility
-        TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(0, Items.stick,     1.0f,  1.0f, 0.15f, 0x866526)); // wood: reference material, 10% break chance
+        TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(0, Items.stick, 1.0f, 1.0f, 0.15f, 0x866526)); // wood: reference material, 10% break chance
         TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(1, Items.bone,      0.95f, 1.2f, 0.05f, 0xede6bf)); // bone: heavier, but durable
         TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(2, Items.reeds,     1.5f,  0.8f, 0.66f, 0xc7ff87)); // reed: light, but less durable
         TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(3, Items.blaze_rod, 1.2f,  0.9f, 0.08f, 0xfff32d)); // blaze: tad lighter, tad more durable, fieryyyy

@@ -1,6 +1,6 @@
-package boni.tinkersweaponry.entity;
+package tconstruct.weaponry.entity;
 
-import boni.tinkersweaponry.library.util.PiercingArrowDamage;
+import tconstruct.weaponry.library.util.PiercingArrowDamage;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;

@@ -1,7 +1,7 @@
-package boni.tinkersweaponry.weapons;
+package tconstruct.weaponry.weapons;
 
-import boni.tinkersweaponry.entity.JavelinEntity;
-import boni.tinkersweaponry.library.weaponry.AmmoWeapon;
+import tconstruct.weaponry.entity.JavelinEntity;
+import tconstruct.weaponry.library.weaponry.AmmoWeapon;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

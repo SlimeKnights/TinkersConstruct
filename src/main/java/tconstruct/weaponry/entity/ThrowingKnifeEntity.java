@@ -1,6 +1,6 @@
-package boni.tinkersweaponry.entity;
+package tconstruct.weaponry.entity;
 
-import boni.tinkersweaponry.TinkerWeaponry;
+import tconstruct.weaponry.TinkerWeaponry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;

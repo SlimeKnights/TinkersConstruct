@@ -1,6 +1,6 @@
-package boni.tinkersweaponry.library.weaponry;
+package tconstruct.weaponry.library.weaponry;
 
-import boni.tinkersweaponry.client.CrosshairType;
+import tconstruct.weaponry.client.CrosshairType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 

@@ -1,6 +1,6 @@
-package boni.tinkersweaponry.client.renderer;
+package tconstruct.weaponry.client.renderer;
 
-import boni.tinkersweaponry.library.weaponry.IWindup;
+import tconstruct.weaponry.library.weaponry.IWindup;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;

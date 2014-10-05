@@ -1,4 +1,4 @@
-package boni.tinkersweaponry.items;
+package tconstruct.weaponry.items;
 
 import net.minecraft.item.ItemStack;
 import tconstruct.TConstruct;

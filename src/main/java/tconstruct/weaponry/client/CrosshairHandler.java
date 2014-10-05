@@ -1,7 +1,7 @@
-package boni.tinkersweaponry.client;
+package tconstruct.weaponry.client;
 
-import boni.tinkersweaponry.util.Reference;
-import boni.tinkersweaponry.library.weaponry.IWindup;
+import tconstruct.weaponry.util.Reference;
+import tconstruct.weaponry.library.weaponry.IWindup;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
