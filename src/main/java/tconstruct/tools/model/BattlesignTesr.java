@@ -20,7 +20,6 @@ public class BattlesignTesr extends TileEntitySpecialRenderer
 
         GL11.glTranslated(x, y, z);
         GL11.glScalef(f, -f, f);
-        //        GL11.glRotatef(180F, 0F, 0F, 1F);
 
         FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
 
@@ -55,6 +54,7 @@ public class BattlesignTesr extends TileEntitySpecialRenderer
             }
         }
 
+        GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glPopMatrix();
     }
 

@@ -755,6 +755,8 @@ gui.toolstation15=采掘等级:
 gui.toolstation16=使用速度:
 gui.toolstation17=强化次数
 gui.toolstation18=剩余强化次数:
+gui.toolstation19=损伤减少: 
+gui.toolstation20=保护: 
 
 gui.mining1=石头
 gui.mining2=铁
@@ -792,7 +794,6 @@ material.alumite=耐酸铝
 material.steel=钢
 material.pigiron=生铁
 material.pigiron.ability=美味
-material.pigiron.display=生铁
 material.thaumium=神秘
 material.thaumium.ability=神秘
 
