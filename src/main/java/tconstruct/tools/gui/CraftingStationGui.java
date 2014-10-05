@@ -43,6 +43,8 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
     ToolMaterial materialEnum;
     String centerTitle;
     NBTTagCompound tags;
+    
+    public static final int CHEST_WIDTH = 116;
 
     // Panel positions
 
@@ -91,8 +93,8 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
 
         if (logic.chest != null)
         {
-            this.xSize += 116;
-            this.guiLeft -= 116;
+            this.xSize += CHEST_WIDTH;
+            this.guiLeft -= CHEST_WIDTH;
             this.chestLeft = this.guiLeft;
             this.chestTop = this.craftingTop;
             if (logic.doubleChest != null)
@@ -644,6 +646,11 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
             return false;
 
         return true;
+    }
+    
+    public boolean hasChest()
+    {
+        return logic.chest != null;
     }
 
 }

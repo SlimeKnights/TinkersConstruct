@@ -241,7 +241,7 @@ public class ArmorExtended implements IInventory
     public void dropItems ()
     {
         EntityPlayer player = parent.get();
-        player.captureDrops = true;
+
         for (int i = 0; i < 4; ++i)
         {
             if (this.inventory[i] != null)
@@ -250,7 +250,6 @@ public class ArmorExtended implements IInventory
                 this.inventory[i] = null;
             }
         }
-        player.captureDrops = false;
     }
 
     @Override
