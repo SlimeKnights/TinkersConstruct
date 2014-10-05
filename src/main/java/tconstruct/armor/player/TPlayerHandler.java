@@ -6,7 +6,6 @@ import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
 import cpw.mods.fml.relauncher.Side;
 import java.io.*;
-import java.lang.ref.WeakReference;
 import java.net.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -205,7 +204,7 @@ public class TPlayerHandler
             stats.hunger = playerData.hunger;
         }
 
-        stats.player = new WeakReference<EntityPlayer>(entityplayer);
+        stats.init(entityplayer, entityplayer.worldObj);
         stats.armor.recalculateHealth(entityplayer, stats);
 
         /*
