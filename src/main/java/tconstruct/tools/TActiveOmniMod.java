@@ -11,6 +11,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.tools.*;
 import tconstruct.util.config.PHConstruct;
@@ -63,6 +64,10 @@ public class TActiveOmniMod extends ActiveToolMod
             return false;
 
         int meta = world.getBlockMetadata(x, y, z);
+
+        if(!block.getMaterial().isToolNotRequired() && !ForgeHooks.canToolHarvestBlock(block, meta, stack))
+            return false;
+
         meta = block.damageDropped(meta);
 
         if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
