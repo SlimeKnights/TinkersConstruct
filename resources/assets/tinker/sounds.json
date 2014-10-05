@@ -16,5 +16,23 @@
      "sounds": [
        "launcher_clank"
      ]
+   },
+   "woodHit": {
+     "category": "block",
+     "sounds": [
+       "woodHit1",
+	   "woodHit2",
+	   "woodHit3",
+	   "woodHit4",
+	   "woodHit5"
+     ]
+   },
+   "stoneHit": {
+     "category": "block",
+     "sounds": [
+       "stoneHit1",
+	   "stoneHit2",
+	   "stoneHit3"
+     ]
    }
 }
