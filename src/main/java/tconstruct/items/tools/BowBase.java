@@ -19,6 +19,7 @@ import tconstruct.tools.TinkerTools;
 import tconstruct.tools.entity.ArrowEntity;
 import tconstruct.util.config.PHConstruct;
 
+@Deprecated
 public abstract class BowBase extends ToolCore
 {
     public BowBase()

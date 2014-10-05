@@ -245,9 +245,9 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
         switch (renderPass)
         {
             case 0: return getCorrectAnimationIcon(animationHandleIcons, tags.getInteger("RenderHandle"), progress);
-            case 1: return getCorrectAnimationIcon(animationHeadIcons, tags.getInteger("renderHead"), progress);
-            case 2: return getCorrectAnimationIcon(animationAccessoryIcons, tags.getInteger("renderAccessory"), progress);
-            case 3: return getCorrectAnimationIcon(animationExtraIcons, tags.getInteger("renderExtra"), progress);
+            case 1: return getCorrectAnimationIcon(animationHeadIcons, tags.getInteger("RenderHead"), progress);
+            case 2: return getCorrectAnimationIcon(animationAccessoryIcons, tags.getInteger("RenderAccessory"), progress);
+            case 3: return getCorrectAnimationIcon(animationExtraIcons, tags.getInteger("RenderExtra"), progress);
         }
 
         return emptyIcon;

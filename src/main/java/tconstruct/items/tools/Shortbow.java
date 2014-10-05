@@ -14,6 +14,7 @@ import tconstruct.library.tools.BowstringMaterial;
 import tconstruct.tools.TinkerTools;
 import tconstruct.weaponry.TinkerWeaponry;
 
+@Deprecated
 public class Shortbow extends BowBase
 {
     public Shortbow()

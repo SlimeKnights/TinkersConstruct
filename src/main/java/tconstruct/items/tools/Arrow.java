@@ -14,6 +14,7 @@ import tconstruct.library.tools.FletchingMaterial;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.weaponry.TinkerWeaponry;
 
+@Deprecated
 public class Arrow extends ToolCore
 {
 
