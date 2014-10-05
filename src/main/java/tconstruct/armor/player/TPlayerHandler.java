@@ -261,8 +261,20 @@ public class TPlayerHandler
         else
             stats.hunger = evt.entityPlayer.getFoodStats().getFoodLevel();
 
+        if (evt.entityPlayer.capturedDrops != evt.drops)
+        {
+            evt.entityPlayer.capturedDrops.clear();
+        }
+
+        evt.entityPlayer.captureDrops = true;
         stats.armor.dropItems();
         stats.knapsack.dropItems();
+        evt.entityPlayer.captureDrops = false;
+
+        if (evt.entityPlayer.capturedDrops != evt.drops)
+        {
+            evt.drops.addAll(evt.entityPlayer.capturedDrops);
+        }
 
         playerStats.put(evt.entityPlayer.getPersistentID(), stats);
     }
