@@ -1,8 +1,8 @@
 package tconstruct.weaponry.ammo;
 
 import tconstruct.weaponry.TinkerWeaponry;
-import tconstruct.weaponry.items.DualMaterialToolPart;
-import tconstruct.weaponry.library.weaponry.AmmoItem;
+import tconstruct.library.tools.DualMaterialToolPart;
+import tconstruct.library.weaponry.AmmoItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import tconstruct.library.crafting.ToolBuilder;

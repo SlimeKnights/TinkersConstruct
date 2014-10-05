@@ -1,4 +1,4 @@
-package tconstruct.weaponry.library.weaponry;
+package tconstruct.library.weaponry;
 
 import tconstruct.weaponry.client.CrosshairType;
 import cpw.mods.fml.relauncher.Side;

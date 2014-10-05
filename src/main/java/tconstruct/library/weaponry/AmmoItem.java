@@ -1,7 +1,8 @@
-package tconstruct.weaponry.library.weaponry;
+package tconstruct.library.weaponry;
 
+import tconstruct.library.TConstructRegistry;
 import tconstruct.weaponry.TinkerWeaponry;
-import tconstruct.weaponry.util.Reference;
+import tconstruct.util.Reference;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -11,8 +12,7 @@ import tconstruct.library.tools.ToolCore;
 public abstract class AmmoItem extends ToolCore implements IAmmo {
     public AmmoItem(int baseDamage, String name) {
         super(baseDamage);
-        this.setUnlocalizedName(Reference.prefix(name));
-        this.setCreativeTab(TinkerWeaponry.creativeTab);
+        this.setCreativeTab(TConstructRegistry.weaponryTab);
     }
 
     @Override
@@ -109,10 +109,5 @@ public abstract class AmmoItem extends ToolCore implements IAmmo {
     {
         // ammo doesn't hurt on smacking stuff with it
         return false;
-    }
-
-    @Override
-    public String getDefaultTexturePath() {
-        return Reference.RESOURCE + ":" + getDefaultFolder();
     }
 }

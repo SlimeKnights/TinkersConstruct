@@ -2,8 +2,8 @@ package tconstruct.weaponry.ammo;
 
 import tconstruct.TConstruct;
 import tconstruct.weaponry.TinkerWeaponry;
-import tconstruct.weaponry.library.weaponry.AmmoItem;
-import tconstruct.weaponry.util.Reference;
+import tconstruct.library.weaponry.AmmoItem;
+import tconstruct.util.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -47,11 +47,6 @@ public class ArrowAmmo extends AmmoItem {
     public String getDefaultFolder ()
     {
         return "arrow";
-    }
-
-    @Override
-    public String getDefaultTexturePath() {
-        return Reference.RESOURCE +  ":" + getDefaultFolder();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package tconstruct.weaponry.client.entityrenderer;
+package tconstruct.weaponry.client.entity;
 
 import tconstruct.weaponry.entity.ArrowEntity;
 import org.lwjgl.opengl.GL11;

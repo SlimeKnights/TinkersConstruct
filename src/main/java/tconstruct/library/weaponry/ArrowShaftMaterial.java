@@ -1,4 +1,4 @@
-package tconstruct.weaponry.library.weaponry;
+package tconstruct.library.weaponry;
 
 import tconstruct.weaponry.TinkerWeaponry;
 import net.minecraft.item.Item;

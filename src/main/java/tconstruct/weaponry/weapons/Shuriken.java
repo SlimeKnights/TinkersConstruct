@@ -2,9 +2,9 @@ package tconstruct.weaponry.weapons;
 
 import tconstruct.weaponry.TinkerWeaponry;
 import tconstruct.weaponry.client.CrosshairType;
-import tconstruct.weaponry.client.IconFlipped;
+import tconstruct.client.IconFlipped;
 import tconstruct.weaponry.entity.ShurikenEntity;
-import tconstruct.weaponry.library.weaponry.AmmoWeapon;
+import tconstruct.library.weaponry.AmmoWeapon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;

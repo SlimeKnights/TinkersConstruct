@@ -1,11 +1,9 @@
 package tconstruct.weaponry.items;
 
-import tconstruct.weaponry.util.Reference;
+import tconstruct.util.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.tools.items.Pattern;
 
 import java.util.List;
@@ -15,7 +13,6 @@ public class WeaponryPattern extends Pattern {
 
     public WeaponryPattern(String patternType, String name) {
         super(patternName, getPatternNames(patternName, patternType), "patterns/");
-        this.modTexPrefix = Reference.RESOURCE;
 
         this.setUnlocalizedName(Reference.prefix(name));
     }

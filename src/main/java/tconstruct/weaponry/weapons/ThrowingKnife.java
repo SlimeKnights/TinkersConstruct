@@ -2,7 +2,7 @@ package tconstruct.weaponry.weapons;
 
 import tconstruct.weaponry.client.CrosshairType;
 import tconstruct.weaponry.entity.ThrowingKnifeEntity;
-import tconstruct.weaponry.library.weaponry.AmmoWeapon;
+import tconstruct.library.weaponry.AmmoWeapon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;

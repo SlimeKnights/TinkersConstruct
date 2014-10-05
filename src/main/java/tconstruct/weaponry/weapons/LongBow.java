@@ -2,7 +2,7 @@ package tconstruct.weaponry.weapons;
 
 import tconstruct.weaponry.TinkerWeaponry;
 import tconstruct.weaponry.ammo.ArrowAmmo;
-import tconstruct.weaponry.library.weaponry.BowBaseAmmo;
+import tconstruct.library.weaponry.BowBaseAmmo;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

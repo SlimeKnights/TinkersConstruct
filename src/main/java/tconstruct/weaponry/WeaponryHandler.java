@@ -2,11 +2,11 @@ package tconstruct.weaponry;
 
 import tconstruct.weaponry.ammo.ArrowAmmo;
 import tconstruct.weaponry.ammo.BoltAmmo;
-import tconstruct.weaponry.items.DualMaterialToolPart;
-import tconstruct.weaponry.library.weaponry.ArrowShaftMaterial;
-import tconstruct.weaponry.library.weaponry.BowBaseAmmo;
-import tconstruct.weaponry.library.weaponry.ProjectileWeapon;
-import tconstruct.weaponry.library.weaponry.IAmmo;
+import tconstruct.library.tools.DualMaterialToolPart;
+import tconstruct.library.weaponry.ArrowShaftMaterial;
+import tconstruct.library.weaponry.BowBaseAmmo;
+import tconstruct.library.weaponry.ProjectileWeapon;
+import tconstruct.library.weaponry.IAmmo;
 import tconstruct.weaponry.weapons.Crossbow;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.item.Item;

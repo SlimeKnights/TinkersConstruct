@@ -1,6 +1,6 @@
 package tconstruct.weaponry.client;
 
-import tconstruct.weaponry.library.weaponry.ProjectileWeapon;
+import tconstruct.library.weaponry.ProjectileWeapon;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;

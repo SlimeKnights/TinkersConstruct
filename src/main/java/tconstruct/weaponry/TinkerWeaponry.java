@@ -1,7 +1,6 @@
 package tconstruct.weaponry;
 
 
-import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -12,6 +11,7 @@ import mantle.pulsar.pulse.Pulse;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -19,6 +19,7 @@ import tconstruct.TConstruct;
 import tconstruct.library.TConstructCreativeTab;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.*;
+import tconstruct.library.tools.DynamicToolPart;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.IPattern;
 import tconstruct.library.util.IToolPart;
@@ -27,13 +28,12 @@ import tconstruct.tools.TinkerTools;
 import tconstruct.tools.items.Pattern;
 import tconstruct.weaponry.ammo.ArrowAmmo;
 import tconstruct.weaponry.ammo.BoltAmmo;
-import tconstruct.weaponry.items.DualMaterialToolPart;
+import tconstruct.library.tools.DualMaterialToolPart;
 import tconstruct.weaponry.items.WeaponryPattern;
-import tconstruct.weaponry.items.WeaponryToolPart;
-import tconstruct.weaponry.library.weaponry.AmmoItem;
-import tconstruct.weaponry.library.weaponry.AmmoWeapon;
-import tconstruct.weaponry.library.weaponry.ArrowShaftMaterial;
-import tconstruct.weaponry.library.weaponry.ProjectileWeapon;
+import tconstruct.library.weaponry.AmmoItem;
+import tconstruct.library.weaponry.AmmoWeapon;
+import tconstruct.library.weaponry.ArrowShaftMaterial;
+import tconstruct.library.weaponry.ProjectileWeapon;
 import tconstruct.weaponry.weapons.*;
 
 import java.util.Map;
@@ -48,7 +48,6 @@ public class TinkerWeaponry {
     public static WeaponryCommonProxy proxy;
 
     // Throwing Weapons
-    public static ToolCore throwArrow;
     public static AmmoWeapon shuriken;
     public static AmmoWeapon throwingknife;
     public static AmmoWeapon javelin;
@@ -62,11 +61,11 @@ public class TinkerWeaponry {
     public static AmmoItem boltAmmo;
 
     // Tool Parts
-    public static WeaponryToolPart partShuriken;
-    public static WeaponryToolPart partArrowShaft; // not craftable, used internally
-    public static WeaponryToolPart partBowLimb;
-    public static WeaponryToolPart partCrossbowLimb;
-    public static WeaponryToolPart partCrossbowBody;
+    public static DynamicToolPart partShuriken;
+    public static DynamicToolPart partArrowShaft; // not craftable, used internally
+    public static DynamicToolPart partBowLimb;
+    public static DynamicToolPart partCrossbowLimb;
+    public static DynamicToolPart partCrossbowBody;
     public static DualMaterialToolPart partBolt;
 
     // patterns/casts
@@ -106,15 +105,14 @@ public class TinkerWeaponry {
     private void registerItems()
     {
         // create tool part
-        partShuriken = new WeaponryToolPart("_shuriken", "Shuriken");
-        partArrowShaft = new WeaponryToolPart("_arrow_shaft", "Shaft");
-        partBowLimb = new WeaponryToolPart("_bow_limb", "BowLimb");
-        partCrossbowLimb = new WeaponryToolPart("_crossbow_limb", "CrossbowLimb");
-        partCrossbowBody = new WeaponryToolPart("_crossbow_body", "CrossbowBody");
+        partShuriken = new DynamicToolPart("_shuriken", "Shuriken");
+        partArrowShaft = new DynamicToolPart("_arrow_shaft", "Shaft");
+        partBowLimb = new DynamicToolPart("_bow_limb", "BowLimb");
+        partCrossbowLimb = new DynamicToolPart("_crossbow_limb", "CrossbowLimb");
+        partCrossbowBody = new DynamicToolPart("_crossbow_body", "CrossbowBody");
         partBolt = new DualMaterialToolPart("_bolt", "Bolt");
 
         // create throwing weapons
-        throwArrow = new ThrowArrowItem();
         shuriken = new Shuriken();
         throwingknife = new ThrowingKnife();
         javelin = new Javelin();
@@ -136,7 +134,6 @@ public class TinkerWeaponry {
         GameRegistry.registerItem(partCrossbowBody, "CrossbowBodyPart");
         GameRegistry.registerItem(partBolt, "BoltPart");
         // register throwing weapons
-        GameRegistry.registerItem(throwArrow, "ThrowArrow");
         GameRegistry.registerItem(shuriken, "Shuriken");
         GameRegistry.registerItem(throwingknife, "ThrowingKnife");
         GameRegistry.registerItem(javelin, "Javelin");
@@ -307,5 +304,19 @@ public class TinkerWeaponry {
                 tb.addCastingRecipe(DualMaterialToolPart.createDualMaterial(partBolt, id, matID), liquid, rod, true, 150);
             }
         }
+    }
+
+    private void setupCreativeTab()
+    {
+        ItemStack tool = new ItemStack(TinkerWeaponry.longbow, 1, 0);
+
+        NBTTagCompound compound = new NBTTagCompound();
+        compound.setTag("InfiTool", new NBTTagCompound());
+        compound.getCompoundTag("InfiTool").setInteger("RenderHead", 0);
+        compound.getCompoundTag("InfiTool").setInteger("RenderHandle", 0);
+        compound.getCompoundTag("InfiTool").setInteger("RenderAccessory", 0);
+        tool.setTagCompound(compound);
+
+        TConstructRegistry.weaponryTab.init(tool);
     }
 }

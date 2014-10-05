@@ -1,6 +1,7 @@
-package tconstruct.weaponry.client.renderer;
+package tconstruct.weaponry.client.item;
 
-import tconstruct.weaponry.library.weaponry.IWindup;
+import tconstruct.client.AmmoItemRenderer;
+import tconstruct.library.weaponry.IWindup;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;

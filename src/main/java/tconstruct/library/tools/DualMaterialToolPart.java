@@ -1,7 +1,5 @@
-package tconstruct.weaponry.items;
+package tconstruct.library.tools;
 
-import tconstruct.weaponry.TinkerWeaponry;
-import tconstruct.weaponry.util.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -19,7 +17,7 @@ import tconstruct.util.config.PHConstruct;
 import java.util.List;
 import java.util.Map;
 
-public class DualMaterialToolPart extends WeaponryToolPart {
+public class DualMaterialToolPart extends DynamicToolPart {
     public IIcon defaultIcon2;
     public IIcon[] icons2;
 

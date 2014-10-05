@@ -1,5 +1,6 @@
-package tconstruct.weaponry.client.renderer;
+package tconstruct.weaponry.client.item;
 
+import tconstruct.client.FlexibleToolRenderer;
 import tconstruct.weaponry.entity.ArrowEntity;
 import tconstruct.weaponry.entity.BoltEntity;
 import tconstruct.weaponry.weapons.Crossbow;

@@ -1,7 +1,7 @@
-package tconstruct.weaponry.client.entityrenderer;
+package tconstruct.weaponry.client.entity;
 
-import tconstruct.weaponry.client.renderer.FlexibleToolRenderer;
-import tconstruct.weaponry.entity.ProjectileBase;
+import tconstruct.client.FlexibleToolRenderer;
+import tconstruct.library.entity.ProjectileBase;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;

@@ -1,15 +1,17 @@
 package tconstruct.weaponry;
 
+import tconstruct.client.AmmoItemRenderer;
+import tconstruct.library.entity.ProjectileBase;
 import tconstruct.weaponry.client.AmmoSlotHandler;
 import tconstruct.weaponry.client.CrosshairHandler;
 import tconstruct.weaponry.client.RenderEventHandler;
-import tconstruct.weaponry.client.entityrenderer.ArrowEntityRenderer;
-import tconstruct.weaponry.client.entityrenderer.JavelinEntityRenderer;
-import tconstruct.weaponry.client.entityrenderer.ProjectileBaseRenderer;
-import tconstruct.weaponry.client.entityrenderer.ShurikenEntityRenderer;
-import tconstruct.weaponry.client.renderer.*;
+import tconstruct.weaponry.client.entity.ArrowEntityRenderer;
+import tconstruct.weaponry.client.entity.JavelinEntityRenderer;
+import tconstruct.weaponry.client.entity.ProjectileBaseRenderer;
+import tconstruct.weaponry.client.entity.ShurikenEntityRenderer;
+import tconstruct.weaponry.client.item.*;
 import tconstruct.weaponry.entity.*;
-import tconstruct.weaponry.util.Reference;
+import tconstruct.util.Reference;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -40,7 +42,6 @@ public class WeaponryClientProxy extends WeaponryCommonProxy {
     private void registerRenderers()
     {
         renderer = new AmmoItemRenderer();
-        MinecraftForgeClient.registerItemRenderer(TinkerWeaponry.throwArrow, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerWeaponry.shuriken, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerWeaponry.throwingknife, new ThrowingKnifeRenderer());
         MinecraftForgeClient.registerItemRenderer(TinkerWeaponry.javelin, new JavelinRenderer());

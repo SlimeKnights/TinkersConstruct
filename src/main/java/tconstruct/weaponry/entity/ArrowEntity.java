@@ -1,9 +1,7 @@
 package tconstruct.weaponry.entity;
 
-import tconstruct.weaponry.library.util.PiercingArrowDamage;
-import cpw.mods.fml.common.network.ByteBufUtils;
-import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
+import tconstruct.library.entity.ProjectileBase;
+import tconstruct.library.util.PiercingArrowDamage;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -12,7 +10,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
-import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ToolCore;
 
 public class ArrowEntity extends ProjectileBase {

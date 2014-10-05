@@ -1,6 +1,6 @@
-package tconstruct.weaponry.client.renderer;
+package tconstruct.client;
 
-import tconstruct.weaponry.library.weaponry.IAmmo;
+import tconstruct.library.weaponry.IAmmo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;

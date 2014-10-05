@@ -1,4 +1,4 @@
-package tconstruct.weaponry.client.renderer;
+package tconstruct.client;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;

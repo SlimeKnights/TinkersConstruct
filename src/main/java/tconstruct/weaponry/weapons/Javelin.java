@@ -1,7 +1,7 @@
 package tconstruct.weaponry.weapons;
 
 import tconstruct.weaponry.entity.JavelinEntity;
-import tconstruct.weaponry.library.weaponry.AmmoWeapon;
+import tconstruct.library.weaponry.AmmoWeapon;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

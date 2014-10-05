@@ -1,8 +1,9 @@
-package tconstruct.weaponry.library.weaponry;
+package tconstruct.library.weaponry;
 
+import tconstruct.library.TConstructRegistry;
 import tconstruct.weaponry.TinkerWeaponry;
 import tconstruct.weaponry.client.CrosshairType;
-import tconstruct.weaponry.util.Reference;
+import tconstruct.util.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -29,8 +30,8 @@ import java.util.Map;
 public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IWindup {
     public ProjectileWeapon(int baseDamage, String name) {
         super(baseDamage);
-        this.setUnlocalizedName(Reference.prefix(name));
-        this.setCreativeTab(TinkerWeaponry.creativeTab);
+
+        this.setCreativeTab(TConstructRegistry.weaponryTab);
     }
 
     @SideOnly(Side.CLIENT)
@@ -210,11 +211,6 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
     public HashMap<Integer, IIcon[]> animationExtraIcons = new HashMap<Integer, IIcon[]>();
 
     // todo: animated effects
-
-    @Override
-    public String getDefaultTexturePath() {
-        return Reference.RESOURCE + ":" + getDefaultFolder();
-    }
 
     /**
      * return true if the current renderpass should use animations.

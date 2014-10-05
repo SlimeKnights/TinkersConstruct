@@ -1,4 +1,4 @@
-package tconstruct.weaponry.library.weaponry;
+package tconstruct.library.weaponry;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

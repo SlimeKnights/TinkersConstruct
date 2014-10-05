@@ -1,7 +1,7 @@
 package tconstruct.weaponry.client;
 
-import tconstruct.weaponry.util.Reference;
-import tconstruct.weaponry.library.weaponry.IWindup;
+import tconstruct.util.Reference;
+import tconstruct.library.weaponry.IWindup;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;

@@ -1,7 +1,7 @@
-package tconstruct.weaponry.entity;
+package tconstruct.library.entity;
 
-import tconstruct.weaponry.library.weaponry.AmmoItem;
-import tconstruct.weaponry.util.Reference;
+import tconstruct.library.weaponry.AmmoItem;
+import tconstruct.util.Reference;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import io.netty.buffer.ByteBuf;

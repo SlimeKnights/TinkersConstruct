@@ -1,4 +1,4 @@
-package tconstruct.weaponry.client;
+package tconstruct.client;
 
 import net.minecraft.util.IIcon;
 

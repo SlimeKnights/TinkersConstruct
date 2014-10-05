@@ -1,4 +1,4 @@
-package tconstruct.weaponry.library.util;
+package tconstruct.library.util;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EntityDamageSourceIndirect;
