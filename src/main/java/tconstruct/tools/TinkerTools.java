@@ -722,21 +722,21 @@ public class TinkerTools
         // Tool Materials: id, name, harvestlevel, durability, speed, damage, handlemodifier, reinforced, shoddy, style color, primary color for block use
         TConstructRegistry.addToolMaterial(MaterialID.Wood, "Wood", 1, 97, 350, 0, 1.0F, 0, 0f, YELLOW.toString(), 0x755821);
         TConstructRegistry.addToolMaterial(MaterialID.Stone, "Stone", 1, 131, 400, 1, 0.5F, 0, 1f, GRAY.toString(), 0x7F7F7F);
-        TConstructRegistry.addToolMaterial(MaterialID.Iron, "Iron", 2, 250, 600, 2, 1.3F, 1, 0f, WHITE.toString(), 0xFFFFFF);
-        TConstructRegistry.addToolMaterial(MaterialID.Flint, "Flint", 1, 171, 525, 2, 0.7F, 0, 0f, DARK_GRAY.toString(), 0xA7A7A7);
-        TConstructRegistry.addToolMaterial(MaterialID.Cactus, "Cactus", 1, 150, 500, 2, 1.0F, 0, -1f, DARK_GREEN.toString(), 0x10741D);
+        TConstructRegistry.addToolMaterial(MaterialID.Iron, "Iron", 2, 250, 600, 2, 1.3F, 1, 0f, WHITE.toString(), 0xDADADA);
+        TConstructRegistry.addToolMaterial(MaterialID.Flint, "Flint", 1, 171, 525, 2, 0.7F, 0, 0f, DARK_GRAY.toString(), 0x484848);
+        TConstructRegistry.addToolMaterial(MaterialID.Cactus, "Cactus", 1, 150, 500, 2, 1.0F, 0, -1f, DARK_GREEN.toString(), 0x12690b);
         TConstructRegistry.addToolMaterial(MaterialID.Bone, "Bone", 1, 200, 400, 1, 1.0F, 0, 0f, YELLOW.toString(), 0xEDEBCA);
-        TConstructRegistry.addToolMaterial(MaterialID.Obsidian, "Obsidian", 3, 89, 700, 2, 0.8F, 3, 0f, LIGHT_PURPLE.toString(), 0x6C509A);
-        TConstructRegistry.addToolMaterial(MaterialID.Netherrack, "Netherrack", 2, 131, 400, 1, 1.2F, 0, 1f, DARK_RED.toString(), 0x713A3A);
+        TConstructRegistry.addToolMaterial(MaterialID.Obsidian, "Obsidian", 3, 89, 700, 2, 0.8F, 3, 0f, LIGHT_PURPLE.toString(), 0xaa7ff5);
+        TConstructRegistry.addToolMaterial(MaterialID.Netherrack, "Netherrack", 2, 131, 400, 1, 1.2F, 0, 1f, DARK_RED.toString(), 0x833238);
         TConstructRegistry.addToolMaterial(MaterialID.Slime, "Slime", 0, 500, 150, 0, 1.5F, 0, 0f, GREEN.toString(), 0x6EB065);
-        TConstructRegistry.addToolMaterial(MaterialID.Paper, "Paper", 0, 30, 200, 0, 0.3F, 0, 0f, WHITE.toString(), 0xB9B9CB);
+        TConstructRegistry.addToolMaterial(MaterialID.Paper, "Paper", 0, 30, 200, 0, 0.3F, 0, 0f, WHITE.toString(), 0xFFFFFF);
         TConstructRegistry.addToolMaterial(MaterialID.Cobalt, "Cobalt", 4, 800, 1400, 3, 1.75F, 2, 0f, DARK_AQUA.toString(), 0x2376DD);
         TConstructRegistry.addToolMaterial(MaterialID.Ardite, "Ardite", 4, 500, 800, 3, 2.0F, 0, 2f, DARK_RED.toString(), 0xA53000);
         TConstructRegistry.addToolMaterial(MaterialID.Manyullyn, "Manyullyn", 5, 1200, 900, 4, 2.5F, 0, 0f, DARK_PURPLE.toString(), 0x7338A5);
         TConstructRegistry.addToolMaterial(MaterialID.Copper, "Copper", 1, 180, 500, 2, 1.15F, 0, 0f, RED.toString(), 0xCC6410);
         TConstructRegistry.addToolMaterial(MaterialID.Bronze, "Bronze", 2, 550, 800, 2, 1.3F, 1, 0f, GOLD.toString(), 0xCA9956);
-        TConstructRegistry.addToolMaterial(MaterialID.Alumite, "Alumite", 4, 700, 800, 3, 1.3F, 2, 0f, LIGHT_PURPLE.toString(), 0xE9ADDA);
-        TConstructRegistry.addToolMaterial(MaterialID.Steel, "Steel", 4, 750, 1000, 4, 1.3F, 2, 0f, GRAY.toString(), 0x8A8A8A);
+        TConstructRegistry.addToolMaterial(MaterialID.Alumite, "Alumite", 4, 700, 800, 3, 1.3F, 2, 0f, LIGHT_PURPLE.toString(), 0xffddff);
+        TConstructRegistry.addToolMaterial(MaterialID.Steel, "Steel", 4, 750, 1000, 4, 1.3F, 2, 0f, GRAY.toString(), 0xA0A0A0);
         TConstructRegistry.addToolMaterial(MaterialID.BlueSlime, "BlueSlime", 0, 1200, 150, 0, 2.0F, 0, 0f, AQUA.toString(), 0x66AEB0);
         TConstructRegistry.addToolMaterial(MaterialID.PigIron, "PigIron", 3, 250, 600, 2, 1.3F, 1, 0f, RED.toString(), 0xF0A8A4);
 
