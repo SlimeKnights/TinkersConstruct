@@ -49,8 +49,10 @@ public class ArrowEntity extends ProjectileBase {
 
         // we might break! oh noez!
         float chance = returnStack.getTagCompound().getCompoundTag("InfiTool").getFloat("BreakChance");
-        if(chance > TConstruct.random.nextFloat())
+        if(chance > TConstruct.random.nextFloat()) {
             this.setDead();
+            this.playSound("random.break", 1.0F, 1.5F / (this.rand.nextFloat() * 0.2F + 0.9F));
+        }
     }
 
     @Override

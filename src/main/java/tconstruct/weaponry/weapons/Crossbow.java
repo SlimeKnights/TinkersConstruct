@@ -296,7 +296,7 @@ public class Crossbow extends ProjectileWeapon {
 
     @Override
     public void playFiringSound(World world, EntityPlayer player, ItemStack weapon, ItemStack ammo, float speed, float accuracy) {
-        // todo: THWOCK
+        world.playSoundAtEntity(player, "random.bow", 1.0F, 0.5F);
     }
 
     @Override
