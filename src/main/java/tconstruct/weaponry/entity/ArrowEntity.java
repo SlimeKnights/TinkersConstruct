@@ -33,6 +33,7 @@ public class ArrowEntity extends ProjectileBase {
     @Override
     protected double getSlowdown() {
         // todo: fletchling material of arrows impact
+        // note: not done because fletchlings also balance amount you get now. Rather use slowdown for different projectile types
         return super.getSlowdown();
     }
 

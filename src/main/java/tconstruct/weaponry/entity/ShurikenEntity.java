@@ -53,6 +53,11 @@ public class ShurikenEntity extends ProjectileBase {
     }
 
     @Override
+    protected double getSlowdown() {
+        return 0.15f;
+    }
+
+    @Override
     protected double getStuckDepth() {
         return 0.8d;
     }
