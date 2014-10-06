@@ -11,6 +11,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.BowstringMaterial;
+import tconstruct.library.tools.CustomMaterial;
 import tconstruct.tools.TinkerTools;
 import tconstruct.weaponry.TinkerWeaponry;
 
@@ -45,8 +46,11 @@ public class Shortbow extends BowBase
     @Override
     protected int getDefaultColor(int renderPass, int materialID) {
         // bowstring uses custom material
-        if(renderPass == 0)
-            return TConstructRegistry.getCustomMaterial(materialID, BowstringMaterial.class).color;
+        if(renderPass == 0) {
+            CustomMaterial mat = TConstructRegistry.getCustomMaterial(materialID, BowstringMaterial.class);
+            if(mat != null)
+                return mat.color;
+        }
 
         return super.getDefaultColor(renderPass, materialID);
     }

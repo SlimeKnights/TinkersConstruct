@@ -68,7 +68,7 @@ public class SlimeLeaves extends BlockLeaves
     @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
-        int tex = meta % 4;
+        int tex = meta % 1;
         this.setGraphicsLevel(Minecraft.getMinecraft().gameSettings.fancyGraphics);
         if (this.field_150121_P)
             return fancyIcons[tex];
