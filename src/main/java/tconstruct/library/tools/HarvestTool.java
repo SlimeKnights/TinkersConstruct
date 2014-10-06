@@ -238,7 +238,6 @@ public abstract class HarvestTool extends ToolCore
         Block refBlock = world.getBlock(refX, refY, refZ);
         float refStrength = ForgeHooks.blockStrength(refBlock, player, world, refX, refY, refZ);
         float strength = ForgeHooks.blockStrength(block, player, world, x,y,z);
-        float foo = refStrength/strength;
 
         // only harvestable blocks that aren't impossibly slow to harvest
         if (!ForgeHooks.canHarvestBlock(block, player, meta) || refStrength/strength > 10f)
