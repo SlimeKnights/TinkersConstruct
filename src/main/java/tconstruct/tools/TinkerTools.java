@@ -826,7 +826,7 @@ public class TinkerTools
         if (PHConstruct.enableTPaper)
             pb.registerFullMaterial(new ItemStack(materials, 1, 0), 2, "Paper", new ItemStack(Items.paper, 2), new ItemStack(toolRod, 1, 9), 9);
         else
-            pb.registerMaterialSet("BlueSlime", new ItemStack(Items.paper, 2), new ItemStack(TinkerTools.toolRod, 1, 9), 9);
+            pb.registerMaterialSet("Paper", new ItemStack(Items.paper, 2), new ItemStack(TinkerTools.toolRod, 1, 9), 9);
         pb.registerMaterialSet("Cobalt", new ItemStack(toolShard, 1, 10), new ItemStack(toolRod, 1, 10), 10);
         pb.registerMaterialSet("Ardite", new ItemStack(toolShard, 1, 11), new ItemStack(toolRod, 1, 11), 11);
         pb.registerMaterialSet("Manyullyn", new ItemStack(toolShard, 1, 12), new ItemStack(toolRod, 1, 12), 12);
