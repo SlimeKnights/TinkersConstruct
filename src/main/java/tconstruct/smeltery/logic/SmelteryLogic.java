@@ -304,10 +304,10 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             if (!validStructure)
                 checkValidPlacement();
 
-            if (useTime > 0 && inUse)
+            if (useTime > 0)
                 useTime -= 3;
 
-            if (validStructure && useTime <= 0)
+            if (validStructure && useTime <= 0 && inUse)
             {
                 updateFuelGague();
             }
@@ -600,7 +600,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             // drain actual liquid, non simulated
             liquid = tankContainer.drain(ForgeDirection.DOWN, 15, true);
-            useTime += Smeltery.getFuelDuration(liquid.getFluid());
+            useTime += (int)((float)Smeltery.getFuelDuration(liquid.getFluid())*15f/(float)liquid.amount);
             internalTemp = Smeltery.getFuelPower(liquid.getFluid());
 
             // update fuel display
