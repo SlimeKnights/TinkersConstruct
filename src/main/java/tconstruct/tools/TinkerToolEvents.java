@@ -439,6 +439,9 @@ public class TinkerToolEvents
     @SubscribeEvent
     public void damageToolsOnDeath (PlayerDropsEvent event)
     {
+        if(!PHConstruct.deathPenality)
+            return;
+        
         for(EntityItem drop : event.drops)
         {
             // we're only interested in tools
