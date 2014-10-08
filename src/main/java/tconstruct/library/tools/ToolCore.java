@@ -788,8 +788,11 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         {
             int energy = tags.getInteger("Energy");
             int max = getMaxEnergyStored(stack);
-            if(energy > 0)
-                return ((max - energy)*100)/max;
+            if(energy > 0) {
+                int damage = ((max - energy) * 100) / max;
+                super.setDamage(stack, damage);
+                return damage;
+            }
         }
         int dur = tags.getCompoundTag("InfiTool").getInteger("Damage");
         int max = tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
@@ -799,8 +802,11 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
 
         // rounding.
         if(damage == 0 && dur > 0)
-            return 1;
+            damage = 1;
 
+
+        // synchronize values with stack..
+        super.setDamage(stack, damage);
         return damage;
     }
 
@@ -813,6 +819,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
     @Override
     public void setDamage(ItemStack stack, int damage) {
         AbilityHelper.damageTool(stack, damage - stack.getItemDamage(), null, false);
+        getDamage(stack); // called to synchronize with itemstack value
     }
 
     /* Prevent tools from dying */

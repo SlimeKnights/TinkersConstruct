@@ -5,6 +5,7 @@ import cpw.mods.fml.common.eventhandler.*;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import java.util.List;
 import net.minecraft.entity.*;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
@@ -13,6 +14,7 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.oredict.*;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import tconstruct.TConstruct;
@@ -379,6 +381,28 @@ public class TinkerToolEvents
         else if (evt.Name.equals("crystalCertusQuartz"))
         {
             TinkerTools.modAttack.addStackToMatchList(evt.Ore, 24);
+        }
+    }
+
+
+    @SubscribeEvent
+    public void damageToolsOnDeath (PlayerDropsEvent event)
+    {
+        if(!PHConstruct.deathPenality)
+            return;
+        
+        for(EntityItem drop : event.drops)
+        {
+            // we're only interested in tools
+            if(!(drop.getEntityItem().getItem() instanceof ToolCore) || !drop.getEntityItem().hasTagCompound())
+                continue;
+
+            // damage tools by 10% of their total durability!
+            NBTTagCompound tags = drop.getEntityItem().getTagCompound().getCompoundTag("InfiTool");
+            int dur = tags.getInteger("TotalDurability");
+            dur /= 10;
+
+            AbilityHelper.damageTool(drop.getEntityItem(), dur, event.entityPlayer, true);
         }
     }
 }

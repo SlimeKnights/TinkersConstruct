@@ -45,7 +45,7 @@ public class SmelteryGui extends ActiveContainerGui
         super.initGui();
 
         if (logic != null)
-            logic.updateFuelGague();
+            logic.updateFuelDisplay();
     }
 
     @Override
