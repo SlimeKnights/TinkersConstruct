@@ -13,6 +13,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.oredict.*;
@@ -436,12 +437,22 @@ public class TinkerToolEvents
     }
 
 
+
     @SubscribeEvent
     public void damageToolsOnDeath (PlayerDropsEvent event)
     {
         if(!PHConstruct.deathPenality)
             return;
-        
+
+        EnumDifficulty difficulty = event.entityPlayer.worldObj.difficultySetting;
+        // easy and peaceful don't punish
+        if(difficulty == EnumDifficulty.PEACEFUL || difficulty == EnumDifficulty.EASY)
+            return;
+
+        int punishment = 20; // normal has 5%
+        if(difficulty == EnumDifficulty.HARD)
+            punishment = 10; // hard has 10%
+
         for(EntityItem drop : event.drops)
         {
             // we're only interested in tools
@@ -451,7 +462,7 @@ public class TinkerToolEvents
             // damage tools by 10% of their total durability!
             NBTTagCompound tags = drop.getEntityItem().getTagCompound().getCompoundTag("InfiTool");
             int dur = tags.getInteger("TotalDurability");
-            dur /= 10;
+            dur /= punishment;
 
             AbilityHelper.damageTool(drop.getEntityItem(), dur, event.entityPlayer, true);
         }
