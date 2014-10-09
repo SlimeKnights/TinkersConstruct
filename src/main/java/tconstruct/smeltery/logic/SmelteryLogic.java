@@ -590,6 +590,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
         // ensure active lava tank
         verifyFuelTank();
+        if (activeLavaTank == null)
+            return;
 
         // checks are all done before in verifyFuelTank. Don't do this without checks!
         IFluidHandler tankContainer = (IFluidHandler) worldObj.getTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
@@ -650,6 +652,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             activeLavaTank = tank;
             return;
         }
+
+        // possibly assign default empty tank here (tanks.get(0)) so we don't have a null activeLavaTank if all are empty
     }
 
     @SideOnly(Side.CLIENT)
