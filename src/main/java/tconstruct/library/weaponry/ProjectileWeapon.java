@@ -209,6 +209,7 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
     public HashMap<Integer, IIcon[]> animationHandleIcons = new HashMap<Integer, IIcon[]>();
     public HashMap<Integer, IIcon[]> animationAccessoryIcons = new HashMap<Integer, IIcon[]>();
     public HashMap<Integer, IIcon[]> animationExtraIcons = new HashMap<Integer, IIcon[]>();
+    public HashMap<Integer, IIcon[]> animationEffectIcons = new HashMap<Integer, IIcon[]>();
 
     // todo: animated effects
 
@@ -226,18 +227,31 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
 
     @Override
     public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining) {
+        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+
+        if(tags == null || renderPass > 10)
+            return super.getIcon(stack, renderPass, player, usingItem, useRemaining);
+
+        // are we drawing an effect?
+        if(renderPass >= getPartAmount()) {
+            // is the effect animated?
+            String effect = "Effect" + (1 + renderPass - getPartAmount());
+            if(tags.hasKey(effect)) {
+                int index = tags.getInteger(effect);
+                if(animationEffectIcons.get(index) != null)
+                    return getCorrectAnimationIcon(animationEffectIcons, index, getWindupProgress(usingItem, getMaxItemUseDuration(usingItem) - useRemaining));
+                else
+                    // non-animated
+                    return effectIcons.get(index);
+            }
+            return super.getIcon(stack, renderPass, player, usingItem, useRemaining);
+        }
+
         // animate?
         if(!animateLayer(renderPass))
             return super.getIcon(stack, renderPass, player, usingItem, useRemaining);
 
         if(usingItem == null || stack != usingItem || !stack.hasTagCompound())
-            return super.getIcon(stack, renderPass, player, usingItem, useRemaining);
-
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-
-        // effects aren't animated
-        // todo: make effects animated
-        if(renderPass >= getPartAmount() || tags == null)
             return super.getIcon(stack, renderPass, player, usingItem, useRemaining);
 
         float progress = getWindupProgress(usingItem, getMaxItemUseDuration(usingItem) - useRemaining);
@@ -274,6 +288,40 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
         addAnimationIcons(handleStrings, animationHandleIcons, iconRegister, getIconSuffix(2));
         addAnimationIcons(accessoryStrings, animationAccessoryIcons, iconRegister, getIconSuffix(3));
         addAnimationIcons(extraStrings, animationExtraIcons, iconRegister, getIconSuffix(4));
+
+        // animated effects...
+        // find out the longest animation
+        int count = 0;
+        if(animationHeadIcons.get(-1) != null)
+            count = Math.max(count, animationHeadIcons.get(-1).length);
+        if(animationHandleIcons.get(-1) != null)
+            count = Math.max(count, animationHandleIcons.get(-1).length);
+        if(animationAccessoryIcons.get(-1) != null)
+            count = Math.max(count, animationAccessoryIcons.get(-1).length);
+        if(animationExtraIcons.get(-1) != null)
+            count = Math.max(count, animationExtraIcons.get(-1).length);
+
+
+        for(Map.Entry<Integer, String> entry : effectStrings.entrySet())
+        {
+            IIcon[] anims = new IIcon[count];
+            boolean empty = true;
+            for(int i = 0; i < count; i++) {
+                String tex = entry.getValue() + "_" + (i+1);
+                if (TextureHelper.itemTextureExists(tex)) {
+                    anims[i] = iconRegister.registerIcon(tex);
+                    empty = false;
+                }
+            }
+            if(!empty)
+                animationEffectIcons.put(entry.getKey(), anims);
+        }
+
+        // default for effects is blank
+        IIcon[] anims = new IIcon[count];
+        for(int i = 0; i < count; i++)
+            anims[i] = blankSprite;
+        animationEffectIcons.put(-1, anims);
     }
 
     private void addAnimationIcons(HashMap<Integer, String> textures, HashMap<Integer, IIcon[]> icons, IIconRegister iconRegister, String standard)

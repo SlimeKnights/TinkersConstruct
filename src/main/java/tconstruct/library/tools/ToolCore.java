@@ -269,43 +269,11 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
                     return getCorrectIcon(extraIcons, tags.getInteger("RenderExtra"));
             }
             // Effects
-            else
+            else if (renderPass <= 10)
             {
-                if (renderPass == getPartAmount())
-                {
-                    if (tags.hasKey("Effect1"))
-                        return (effectIcons.get(tags.getInteger("Effect1")));
-                }
-
-                else if (renderPass == getPartAmount() + 1)
-                {
-                    if (tags.hasKey("Effect2"))
-                        return (effectIcons.get(tags.getInteger("Effect2")));
-                }
-
-                else if (renderPass == getPartAmount() + 2)
-                {
-                    if (tags.hasKey("Effect3"))
-                        return (effectIcons.get(tags.getInteger("Effect3")));
-                }
-
-                else if (renderPass == getPartAmount() + 3)
-                {
-                    if (tags.hasKey("Effect4"))
-                        return (effectIcons.get(tags.getInteger("Effect4")));
-                }
-
-                else if (renderPass == getPartAmount() + 4)
-                {
-                    if (tags.hasKey("Effect5"))
-                        return (effectIcons.get(tags.getInteger("Effect5")));
-                }
-
-                else if (renderPass == getPartAmount() + 5)
-                {
-                    if (tags.hasKey("Effect6"))
-                        return (effectIcons.get(tags.getInteger("Effect6")));
-                }
+                String effect = "Effect" + (1 + renderPass - getPartAmount());
+                if(tags.hasKey(effect))
+                    return effectIcons.get(tags.getInteger(effect));
             }
             return blankSprite;
         }
