@@ -8,8 +8,8 @@ import tconstruct.library.tools.ToolCore;
 
 public class ModRedstone extends ItemModTypeFilter
 {
-    String tooltipName;
-    int max = 50;
+    public String tooltipName;
+    public int max = 50;
 
     public ModRedstone(int effect, ItemStack[] items, int[] values)
     {
@@ -111,13 +111,6 @@ public class ModRedstone extends ItemModTypeFilter
                 tags.setInteger(type[i], speed);
             }
         }
-
-        if (tags.hasKey("DrawSpeed"))
-        {
-            int baseDrawSpeed = tags.getInteger("BaseDrawSpeed");
-            int drawSpeed = (int) (baseDrawSpeed - (0.1f * baseDrawSpeed * (keyPair[0] / 50f)));
-            tags.setInteger("DrawSpeed", drawSpeed);
-        }
     }
 
     void updateModTag (ItemStack tool, int[] keys)
@@ -136,6 +129,10 @@ public class ModRedstone extends ItemModTypeFilter
     public boolean validType (ToolCore tool)
     {
         List list = Arrays.asList(tool.getTraits());
-        return list.contains("harvest") || list.contains("utility") || list.contains("bow");
+
+        // handled by the windup modifier
+        if(list.contains("windup"))
+            return false;
+        return list.contains("harvest") || list.contains("utility");
     }
 }

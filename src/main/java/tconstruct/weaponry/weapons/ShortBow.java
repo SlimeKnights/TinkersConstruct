@@ -105,9 +105,4 @@ public class ShortBow extends BowBaseAmmo {
     {
         return TinkerWeaponry.partBowLimb;
     }
-
-    @Override
-    public String[] getTraits() {
-        return new String[] {"weapon", "ranged", "bow"};
-    }
 }

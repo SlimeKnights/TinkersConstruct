@@ -137,6 +137,7 @@ public class WeaponryHandler {
         }*/
 
         tags.setInteger("DrawSpeed", drawSpeed);
+        tags.setInteger("BaseDrawSpeed", drawSpeed); // used to calculate correct speed increase with redstone modifier
         tags.setFloat("FlightSpeed", flightSpeed);
     }
 

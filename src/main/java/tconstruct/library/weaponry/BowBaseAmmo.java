@@ -157,4 +157,9 @@ public abstract class BowBaseAmmo extends ProjectileWeapon {
 
         return super.getDefaultColor(renderPass, materialID);
     }
+
+    @Override
+    public String[] getTraits() {
+        return new String[] {"weapon", "ranged", "bow", "windup"};
+    }
 }

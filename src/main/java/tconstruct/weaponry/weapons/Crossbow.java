@@ -402,7 +402,7 @@ public class Crossbow extends ProjectileWeapon {
 
     @Override
     public String[] getTraits() {
-        return new String[] {"weapon", "ranged", "crossbow"};
+        return new String[] {"weapon", "ranged", "crossbow", "windup"};
     }
 
 

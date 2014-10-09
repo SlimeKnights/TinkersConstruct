@@ -265,7 +265,7 @@ public class ToolStationGui extends GuiContainer implements INEIGuiHandler
             df.setRoundingMode(RoundingMode.DOWN);
             int drawSpeed = tags.getInteger("DrawSpeed");
             float flightSpeed = tags.getFloat("FlightSpeed");
-            float trueDraw = drawSpeed / 20f * flightSpeed;
+            float trueDraw = drawSpeed / 20f;
             this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation6") + df.format(trueDraw) + "s", x, base + offset * 10, 0xffffff);
             offset++;
             this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation7") + df.format(flightSpeed) + "x", x, base + offset * 10, 0xffffff);

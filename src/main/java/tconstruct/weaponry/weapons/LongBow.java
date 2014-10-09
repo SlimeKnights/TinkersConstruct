@@ -123,9 +123,4 @@ public class LongBow extends BowBaseAmmo {
     public Item getExtraItem() {
         return TinkerTools.largePlate;
     }
-
-    @Override
-    public String[] getTraits() {
-        return new String[] {"weapon", "ranged", "bow"};
-    }
 }

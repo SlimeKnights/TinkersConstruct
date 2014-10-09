@@ -8,6 +8,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -23,6 +24,7 @@ import tconstruct.library.tools.DynamicToolPart;
 import tconstruct.library.tools.FletchlingLeafMaterial;
 import tconstruct.library.util.IPattern;
 import tconstruct.library.util.IToolPart;
+import tconstruct.modifiers.tools.ModWindup;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.items.Bowstring;
@@ -96,6 +98,10 @@ public class TinkerWeaponry {
         addWeaponRecipies();
         registerBoltCasting();
         setupCreativeTab();
+
+        ItemStack redstoneItem = new ItemStack(Items.redstone);
+        ItemStack redstoneBlock = new ItemStack(Blocks.redstone_block);
+        ModifyBuilder.registerModifier(new ModWindup(2, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
     }
 
     @Handler
