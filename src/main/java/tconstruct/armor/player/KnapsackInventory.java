@@ -161,7 +161,7 @@ public class KnapsackInventory implements IInventory
     public void dropItems ()
     {
         EntityPlayer player = parent.get();
-        player.captureDrops = true;
+
         for (int i = 0; i < inventory.length; ++i)
         {
             if (this.inventory[i] != null)
@@ -170,7 +170,6 @@ public class KnapsackInventory implements IInventory
                 this.inventory[i] = null;
             }
         }
-        player.captureDrops = false;
     }
 
     public void unequipItems ()

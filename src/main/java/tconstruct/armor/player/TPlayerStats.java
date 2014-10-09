@@ -77,6 +77,9 @@ public class TPlayerStats implements IExtendedEntityProperties, IPlayerExtendedI
     @Override
     public void init (Entity entity, World world)
     {
+        this.player = new WeakReference<EntityPlayer>((EntityPlayer) entity);
+        this.armor.init((EntityPlayer) entity);
+        this.knapsack.init((EntityPlayer) entity);
     }
 
     public void copyFrom (TPlayerStats stats, boolean copyCalc)

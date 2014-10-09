@@ -41,6 +41,9 @@ public class TerrainGenEventHandler
 
     private void generateSurfaceOres (Random random, int xChunk, int zChunk, World world)
     {
+        if(random == null)
+            return;
+
         int xPos, yPos, zPos;
         if (PHConstruct.generateIronSurface && random.nextInt(PHConstruct.ironsRarity) == 0)
         {

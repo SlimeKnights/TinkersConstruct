@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.*;
 import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
+import tconstruct.tools.TinkerTools;
 
 public class TableRender implements ISimpleBlockRenderingHandler
 {
@@ -15,6 +16,14 @@ public class TableRender implements ISimpleBlockRenderingHandler
     {
         if (modelID == model)
         {
+            // until we get the new model.. finally...
+            if(block == TinkerTools.toolStationWood && metadata >= 5 && metadata <= 9) {
+                // pattern chest
+                renderer.setRenderBounds(0,0,0,1,0.875,1);
+                renderStandardInvBlock(renderer, block, metadata);
+                return;
+            }
+
             renderer.setRenderBounds(0.0F, 0.75F, 0.0F, 1.0F, 1.0F, 1.0F);
             renderStandardInvBlock(renderer, block, metadata);
             renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 0.25F, 0.75F, 0.25F);
@@ -33,6 +42,15 @@ public class TableRender implements ISimpleBlockRenderingHandler
     {
         if (modelID == model)
         {
+            int metadata = world.getBlockMetadata(x,y,z);
+            // until we get the new model.. finally...
+            if(block == TinkerTools.toolStationWood && metadata >= 5 && metadata <= 9) {
+                // pattern chest
+                renderer.setRenderBounds(0,0,0,1,0.875,1);
+                renderer.renderStandardBlock(block, x,y,z);
+                return true;
+            }
+
             renderer.setRenderBounds(0.0F, 0.75F, 0.0F, 1.0F, 1.0F, 1.0F);
             renderer.renderStandardBlock(block, x, y, z);
             renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 0.25F, 0.75F, 0.25F);

@@ -202,22 +202,23 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
     @Override
     public void registerIcons (IIconRegister iconRegister)
     {
-        addIcons(headStrings, headIcons, iconRegister, getIconSuffix(0));
-        addIcons(brokenPartStrings, brokenIcons, iconRegister, getIconSuffix(1));
-        addIcons(handleStrings, handleIcons, iconRegister, getIconSuffix(2));
-        addIcons(accessoryStrings, accessoryIcons, iconRegister, getIconSuffix(3));
-        addIcons(extraStrings, extraIcons, iconRegister, getIconSuffix(4));
+        boolean minimalTextures = PHConstruct.minimalTextures;
+        addIcons(headStrings, headIcons, iconRegister, getIconSuffix(0), minimalTextures);
+        addIcons(brokenPartStrings, brokenIcons, iconRegister, getIconSuffix(1), minimalTextures);
+        addIcons(handleStrings, handleIcons, iconRegister, getIconSuffix(2), minimalTextures);
+        addIcons(accessoryStrings, accessoryIcons, iconRegister, getIconSuffix(3), minimalTextures);
+        addIcons(extraStrings, extraIcons, iconRegister, getIconSuffix(4), minimalTextures);
 
-        addIcons(effectStrings, effectIcons, iconRegister, null);
+        addIcons(effectStrings, effectIcons, iconRegister, null, false);
 
         emptyIcon = iconRegister.registerIcon("tinker:blankface");
     }
 
-    private void addIcons(HashMap<Integer, String> textures, HashMap<Integer, IIcon> icons, IIconRegister iconRegister, String standard)
+    protected void addIcons(HashMap<Integer, String> textures, HashMap<Integer, IIcon> icons, IIconRegister iconRegister, String standard, boolean defaultOnly)
     {
         icons.clear();
 
-        if(!PHConstruct.minimalTextures) // compatibility mode: no specific textures
+        if(!defaultOnly) // compatibility mode: no specific textures
             for(Map.Entry<Integer, String> entry : textures.entrySet())
             {
                 if(TextureHelper.itemTextureExists(entry.getValue()))
@@ -787,8 +788,11 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
         {
             int energy = tags.getInteger("Energy");
             int max = getMaxEnergyStored(stack);
-            if(energy > 0)
-                return ((max - energy)*100)/max;
+            if(energy > 0) {
+                int damage = ((max - energy) * 100) / max;
+                super.setDamage(stack, damage);
+                return damage;
+            }
         }
         int dur = tags.getCompoundTag("InfiTool").getInteger("Damage");
         int max = tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
@@ -798,8 +802,11 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
 
         // rounding.
         if(damage == 0 && dur > 0)
-            return 1;
+            damage = 1;
 
+
+        // synchronize values with stack..
+        super.setDamage(stack, damage);
         return damage;
     }
 
@@ -812,6 +819,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
     @Override
     public void setDamage(ItemStack stack, int damage) {
         AbilityHelper.damageTool(stack, damage - stack.getItemDamage(), null, false);
+        getDamage(stack); // called to synchronize with itemstack value
     }
 
     /* Prevent tools from dying */

@@ -176,7 +176,9 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase
                         }
                     }
                 }
-                this.arecipes.add(new CachedToolMaterialsRecipe(toolParts, matID));
+
+                if(toolParts.size() > 0)
+                    this.arecipes.add(new CachedToolMaterialsRecipe(toolParts, matID));
             }
         }
         else
@@ -193,13 +195,17 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase
             int materialID = ((IToolPart) ingred.getItem()).getMaterialID(ingred);
             if (materialID >= 0)
             {
-                this.arecipes.add(new CachedToolMaterialsRecipe(getSingleList(ingred), materialID));
+                List toolParts = getSingleList(ingred);
+                if(toolParts.size() > 0)
+                    this.arecipes.add(new CachedToolMaterialsRecipe(toolParts, materialID));
             }
         }
         else if (PatternBuilder.instance.getPartID(ingred) < Short.MAX_VALUE)
         {
             int materialID = PatternBuilder.instance.getPartID(ingred);
-            this.arecipes.add(new CachedToolMaterialsRecipe(getSingleList(ingred), materialID));
+            List toolParts = getSingleList(ingred);
+            if(toolParts.size() > 0)
+                this.arecipes.add(new CachedToolMaterialsRecipe(toolParts, materialID));
         }
         else
         {

@@ -23,8 +23,11 @@ public class ActiveTinkerArmor extends ActiveArmorMod
             if (TConstruct.random.nextInt(check) < chance)
             {
                 int current = tag.getInteger("Damage");
-                if (current > 0)
-                    tag.setInteger("Damage", current - 1);
+                if (current > 0) {
+                    current--;
+                    tag.setInteger("Damage", current);
+                    itemStack.setItemDamage(current);
+                }
             }
         }
         if (type == ArmorPart.Head)

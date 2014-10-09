@@ -308,6 +308,8 @@ public class ArmorProxyClient extends ArmorProxyCommon
                 potion = mc.thePlayer.getActivePotionEffect(Potion.poison);
                 if (potion != null)
                     potionOffset = 9;
+				if (mc.theWorld.getWorldInfo().isHardcoreModeEnabled())
+					potionOffset += 27;
 
                 // Extra hearts
                 this.mc.getTextureManager().bindTexture(hearts);

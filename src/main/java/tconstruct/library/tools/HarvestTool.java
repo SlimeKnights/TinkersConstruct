@@ -221,7 +221,7 @@ public abstract class HarvestTool extends ToolCore
         return used;
     }
 
-    protected void breakExtraBlock(World world, int x, int y, int z, int sidehit, EntityPlayer player) {
+    protected void breakExtraBlock(World world, int x, int y, int z, int sidehit, EntityPlayer player, int refX, int refY, int refZ) {
         // prevent calling that stuff for air blocks, could lead to unexpected behaviour since it fires events
         if (world.isAirBlock(x, y, z))
             return;
@@ -235,8 +235,12 @@ public abstract class HarvestTool extends ToolCore
         if (!isEffective(block, meta))
             return;
 
+        Block refBlock = world.getBlock(refX, refY, refZ);
+        float refStrength = ForgeHooks.blockStrength(refBlock, player, world, refX, refY, refZ);
+        float strength = ForgeHooks.blockStrength(block, player, world, x,y,z);
+
         // only harvestable blocks that aren't impossibly slow to harvest
-        if (!ForgeHooks.canHarvestBlock(block, player, meta) || ForgeHooks.blockStrength(block, player, world, x, y, z) <= 0.0001f)
+        if (!ForgeHooks.canHarvestBlock(block, player, meta) || refStrength/strength > 10f)
             return;
 
         if (player.capabilities.isCreativeMode) {

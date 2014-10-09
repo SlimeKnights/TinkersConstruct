@@ -29,29 +29,28 @@ public class SmelteryContainer extends ActiveContainer
         int totalSlots = smeltery.getBlockCapacity();
         int y = 0;
 
-        int xleft = 2;
-        xleft -= 22 * (columns - 3); // we have to shift the whole thing to the left if we have more than 3 columns
-
         for (int i = 0; i < totalSlots; i++)
         {
             int x = i % columns;
-            this.addDualSlotToContainer(new ActiveSlot(smeltery, x + y * columns, xleft + x * 22, 8 + y * 18, y < 8));
+            this.addDualSlotToContainer(new ActiveSlot(smeltery, x + y * columns, 2 + x * 22, 8 + y * 18, y < 8));
             if (x == columns - 1)
                 y++;
         }
+        
+        int baseX = 90 + (columns - 3) * 22;
 
         /* Player inventory */
-        for (int column = 0; column < 3; column++)
+        for (int row = 0; row < 3; row++)
         {
-            for (int row = 0; row < 9; row++)
+            for (int column = 0; column < 9; column++)
             {
-                this.addSlotToContainer(new Slot(inventoryplayer, row + column * 9 + 9, 90 + row * 18, 84 + column * 18));
+                this.addSlotToContainer(new Slot(inventoryplayer, column + row * 9 + 9, baseX + column * 18, 84 + row * 18));
             }
         }
 
         for (int column = 0; column < 9; column++)
         {
-            this.addSlotToContainer(new Slot(inventoryplayer, column, 90 + column * 18, 142));
+            this.addSlotToContainer(new Slot(inventoryplayer, column, baseX + column * 18, 142));
         }
     }
 
@@ -73,12 +72,10 @@ public class SmelteryContainer extends ActiveContainer
                 {
                     slot.setActive(false);
                 }
-                int xleft = 2;
-                xleft -= 22 * (columns - 3); // we have to shift the whole thing to the left if we have more than 3 columns
 
                 int xPos = (iter - basePos) % columns;
                 int yPos = (iter - basePos) / columns;
-                slot.xDisplayPosition = xleft + 22 * xPos;
+                slot.xDisplayPosition = 2 + 22 * xPos;
                 slot.yDisplayPosition = 8 + 18 * yPos;
             }
             return slotRow;
@@ -217,7 +214,7 @@ public class SmelteryContainer extends ActiveContainer
                 slot = (Slot) this.inventorySlots.get(slotPos);
                 slotStack = slot.getStack();
 
-                if (slotStack != null && ItemStack.areItemStacksEqual(slotStack, inputStack))
+                if (slotStack != null && slotStack.isItemEqual(inputStack) && ItemStack.areItemStackTagsEqual(slotStack, inputStack))
                 {
                     int l = slotStack.stackSize + inputStack.stackSize;
 
