@@ -56,6 +56,7 @@ public class ToolProxyClient extends ToolProxyCommon
 
         //MinecraftForgeClient.registerItemRenderer(TinkerTools.shortbow, new CustomBowRenderer());
         ToolCoreRenderer renderer = new ToolCoreRenderer(false);
+        /*
         MinecraftForgeClient.registerItemRenderer(TinkerTools.pickaxe, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.shovel, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.hatchet, renderer);
@@ -73,6 +74,7 @@ public class ToolProxyClient extends ToolProxyCommon
         MinecraftForgeClient.registerItemRenderer(TinkerTools.mattock, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.rapier, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.scythe, renderer);
+        */
         renderer = new ToolCoreRenderer(true);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.dagger, renderer); // todo proper renderer
 
