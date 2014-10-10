@@ -47,11 +47,13 @@ public class TinkerArmor
     // public static Item netherPattern;
     public static Block dryingRack;
     // Wearables
+    /*
     public static Item heavyHelmet;
     public static Item heavyChestplate;
     public static Item heavyPants;
     public static Item heavyBoots;
     public static Item glove;
+    */
     public static Item knapsack;
     public static Item heartCanister;
     // Armor - basic

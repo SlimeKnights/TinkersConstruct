@@ -20,7 +20,6 @@ public class TPlayerStats implements IExtendedEntityProperties, IPlayerExtendedI
     public int damage;
     public int hunger;
     public int previousDimension;
-    public int mineSpeed;
 
     public boolean climbWalls;
     public boolean activeGoggles = true;
@@ -29,6 +28,9 @@ public class TPlayerStats implements IExtendedEntityProperties, IPlayerExtendedI
     public boolean materialManual;
     public boolean smelteryManual;
     public boolean battlesignBonus;
+
+    // death-penality
+    public int derpLevel;
 
     public ArmorExtended armor;
     public KnapsackInventory knapsack;
@@ -46,6 +48,8 @@ public class TPlayerStats implements IExtendedEntityProperties, IPlayerExtendedI
 
         this.knapsack = new KnapsackInventory();
         this.knapsack.init(entityplayer);
+
+        this.derpLevel = 1;
     }
 
     @Override
@@ -58,6 +62,7 @@ public class TPlayerStats implements IExtendedEntityProperties, IPlayerExtendedI
         tTag.setBoolean("materialManual", this.materialManual);
         tTag.setBoolean("smelteryManual", this.smelteryManual);
         tTag.setBoolean("battlesignBonus", this.battlesignBonus);
+        tTag.setInteger("derpLevel", this.derpLevel);
         compound.setTag(PROP_NAME, tTag);
     }
 
@@ -72,6 +77,7 @@ public class TPlayerStats implements IExtendedEntityProperties, IPlayerExtendedI
         this.materialManual = properties.getBoolean("materialManual");
         this.smelteryManual = properties.getBoolean("smelteryManual");
         this.battlesignBonus = properties.getBoolean("battlesignBonus");
+        this.derpLevel = properties.getInteger("derpLevel");
     }
 
     @Override
@@ -90,6 +96,8 @@ public class TPlayerStats implements IExtendedEntityProperties, IPlayerExtendedI
         this.materialManual = stats.materialManual;
         this.smelteryManual = stats.smelteryManual;
         this.battlesignBonus = stats.battlesignBonus;
+
+        this.derpLevel = stats.derpLevel;
 
         if (copyCalc)
         {
