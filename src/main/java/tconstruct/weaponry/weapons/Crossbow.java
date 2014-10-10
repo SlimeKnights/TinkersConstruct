@@ -291,7 +291,7 @@ public class Crossbow extends ProjectileWeapon {
     }
 
     public void playReloadSound(World world, EntityPlayer player, ItemStack weapon, ItemStack ammo) {
-        world.playSoundAtEntity(player, Reference.resource("woodHit"), 1.0f, 1.0f);
+        world.playSoundAtEntity(player, Reference.resource("crossbowReload"), 1.0f, 1.0f);
     }
 
     @Override
