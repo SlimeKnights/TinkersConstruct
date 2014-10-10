@@ -58,10 +58,22 @@ public class TinkerArmorEvents
     @SubscribeEvent
     public void armorMineSpeed (net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed event)
     {
-        TPlayerStats stats = TPlayerStats.get(event.entityPlayer);
-        float modifier = 1f + stats.mineSpeed / 1000f;
-        float base = stats.mineSpeed / 250f;
-        event.newSpeed = (event.newSpeed + base) * modifier;
+        if(event.entityPlayer == null)
+            return;
+
+        ItemStack glove = TPlayerStats.get(event.entityPlayer).armor.getStackInSlot(1);
+        if(event.entityPlayer.worldObj.isRemote) // todo: sync extended inventory with clients so this stuff and rendering is done properly...
+            glove = ArmorProxyClient.armorExtended.getStackInSlot(1);
+        if(glove == null || !glove.hasTagCompound())
+            return;
+
+        // ok, we got a glove. bonus mining speeeeed
+        NBTTagCompound tags = glove.getTagCompound().getCompoundTag(TinkerArmor.travelGlove.getBaseTagName());
+        float mineSpeed = tags.getInteger("MiningSpeed");
+
+        float modifier = 1f + mineSpeed / 1000f;
+        float base = mineSpeed / 250f;
+        event.newSpeed = (event.originalSpeed + base) * modifier;
     }
 
     @SubscribeEvent
