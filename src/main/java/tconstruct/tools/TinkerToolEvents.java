@@ -2,6 +2,7 @@ package tconstruct.tools;
 
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.*;
+import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import java.util.List;
 import net.minecraft.entity.*;
@@ -453,6 +454,17 @@ public class TinkerToolEvents
         if(difficulty == EnumDifficulty.HARD)
             punishment = 10; // hard has 10%
 
+        // check if we have to reduce it
+        // did the player live long enough to receive derp-protection?
+        // (yes, you receive protection every time you log in. we're that nice.)
+        int derp = 1;
+        if(event.entityPlayer.ticksExisted < 60*5*20 ) {
+            derp = TPlayerStats.get(event.entityPlayer).derpLevel;
+            if(derp <= 0) derp = 1;
+            punishment *= derp;
+        }
+
+        boolean damaged = false;
         for(EntityItem drop : event.drops)
         {
             // we're only interested in tools
@@ -465,6 +477,14 @@ public class TinkerToolEvents
             dur /= punishment;
 
             AbilityHelper.damageTool(drop.getEntityItem(), dur, event.entityPlayer, true);
+            damaged = true;
         }
+
+        if(damaged) {
+            derp++;
+        }
+
+        // increase derplevel by 1. Minimal derp level is 1.
+        TPlayerStats.get(event.entityPlayer).derpLevel = derp+1;
     }
 }
