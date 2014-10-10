@@ -33,7 +33,7 @@ public class ProjectileBaseRenderer<T extends ProjectileBase> extends Render {
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 
         // last step: translate from 0/0/0 to correct position in world
-        GL11.glTranslatef((float) x, (float) y, (float) z);
+        GL11.glTranslated(x, y, z);
         // mkae it smaller
         GL11.glScalef(0.5F, 0.5F, 0.5F);
 
@@ -50,7 +50,9 @@ public class ProjectileBaseRenderer<T extends ProjectileBase> extends Render {
         // draw correct texture. not some weird block fragments.
         renderManager.renderEngine.bindTexture(TextureMap.locationItemsTexture);
         // rendering code has been optimized to be exactly at the center and without translation
+        GL11.glTranslatef(0.0f, -0.25f, 0);
         toolCoreRenderer.renderItem(IItemRenderer.ItemRenderType.ENTITY, entity.getEntityItem());
+        GL11.glTranslatef(0.0f, 0.25f, 0);
 
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();

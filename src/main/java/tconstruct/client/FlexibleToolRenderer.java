@@ -101,6 +101,8 @@ public class FlexibleToolRenderer implements IItemRenderer {
 
             specialAnimation(type, item);
         }
+        else
+            GL11.glTranslatef(-0.5f, -0.25f, 0); // why? because.. minecraft.
 
         // prepare colors
         int[] color = new int[iconParts];
@@ -113,10 +115,10 @@ public class FlexibleToolRenderer implements IItemRenderer {
         for (int i = 0; i < iconParts; ++i)
         {
             tess.setColorOpaque_I(color[i]);
-            tess.addVertexWithUV(-0.5, -0.5, +depth, xMax[i], yMax[i]);
-            tess.addVertexWithUV(+0.5, -0.5, +depth, xMin[i], yMax[i]);
-            tess.addVertexWithUV(+0.5, +0.5, +depth, xMin[i], yMin[i]);
-            tess.addVertexWithUV(-0.5, +0.5, +depth, xMax[i], yMin[i]);
+            tess.addVertexWithUV(0, 0, +depth, xMax[i], yMax[i]);
+            tess.addVertexWithUV(1, 0, +depth, xMin[i], yMax[i]);
+            tess.addVertexWithUV(1, 1, +depth, xMin[i], yMin[i]);
+            tess.addVertexWithUV(0, 1, +depth, xMax[i], yMin[i]);
         }
         tess.draw();
 
@@ -126,10 +128,10 @@ public class FlexibleToolRenderer implements IItemRenderer {
         for (int i = 0; i < iconParts; ++i)
         {
             tess.setColorOpaque_I(color[i]);
-            tess.addVertexWithUV(-0.5, +0.5, -depth, xMax[i], yMin[i]);
-            tess.addVertexWithUV(+0.5, +0.5, -depth, xMin[i], yMin[i]);
-            tess.addVertexWithUV(+0.5, -0.5, -depth, xMin[i], yMax[i]);
-            tess.addVertexWithUV(-0.5, -0.5, -depth, xMax[i], yMax[i]);
+            tess.addVertexWithUV(0, 1, -depth, xMax[i], yMin[i]);
+            tess.addVertexWithUV(1, 1, -depth, xMin[i], yMin[i]);
+            tess.addVertexWithUV(1, 0, -depth, xMin[i], yMax[i]);
+            tess.addVertexWithUV(0, 0, -depth, xMax[i], yMax[i]);
         }
         tess.draw();
 
@@ -147,11 +149,10 @@ public class FlexibleToolRenderer implements IItemRenderer {
             {
                 pos = k / w;
                 iconPos = m + d * pos - s;
-                pos -= 0.5f;
-                tess.addVertexWithUV(pos, -0.5, -depth, iconPos, yMax[i]);
-                tess.addVertexWithUV(pos, -0.5, +depth, iconPos, yMax[i]);
-                tess.addVertexWithUV(pos, +0.5, +depth, iconPos, yMin[i]);
-                tess.addVertexWithUV(pos, +0.5, -depth, iconPos, yMin[i]);
+                tess.addVertexWithUV(pos, 0, -depth, iconPos, yMax[i]);
+                tess.addVertexWithUV(pos, 0, +depth, iconPos, yMax[i]);
+                tess.addVertexWithUV(pos, 1, +depth, iconPos, yMin[i]);
+                tess.addVertexWithUV(pos, 1, -depth, iconPos, yMin[i]);
             }
         }
 
@@ -169,12 +170,11 @@ public class FlexibleToolRenderer implements IItemRenderer {
             {
                 pos = k / w;
                 iconPos = m + d * pos - s;
-                pos -= 0.5f;
                 posEnd = pos + d2;
-                tess.addVertexWithUV(posEnd, +0.5, -depth, iconPos, yMin[i]);
-                tess.addVertexWithUV(posEnd, +0.5, +depth, iconPos, yMin[i]);
-                tess.addVertexWithUV(posEnd, -0.5, +depth, iconPos, yMax[i]);
-                tess.addVertexWithUV(posEnd, -0.5, -depth, iconPos, yMax[i]);
+                tess.addVertexWithUV(posEnd, 1, -depth, iconPos, yMin[i]);
+                tess.addVertexWithUV(posEnd, 1, +depth, iconPos, yMin[i]);
+                tess.addVertexWithUV(posEnd, 0, +depth, iconPos, yMax[i]);
+                tess.addVertexWithUV(posEnd, 0, -depth, iconPos, yMax[i]);
             }
         }
 
@@ -191,12 +191,11 @@ public class FlexibleToolRenderer implements IItemRenderer {
             {
                 pos = k / h;
                 iconPos = m + d * pos - s;
-                pos -= 0.5f;
                 posEnd = pos + d2;
-                tess.addVertexWithUV(-0.5, posEnd, +depth, xMax[i], iconPos);
-                tess.addVertexWithUV(+0.5, posEnd, +depth, xMin[i], iconPos);
-                tess.addVertexWithUV(+0.5, posEnd, -depth, xMin[i], iconPos);
-                tess.addVertexWithUV(-0.5, posEnd, -depth, xMax[i], iconPos);
+                tess.addVertexWithUV(0, posEnd, +depth, xMax[i], iconPos);
+                tess.addVertexWithUV(1, posEnd, +depth, xMin[i], iconPos);
+                tess.addVertexWithUV(1, posEnd, -depth, xMin[i], iconPos);
+                tess.addVertexWithUV(0, posEnd, -depth, xMax[i], iconPos);
             }
         }
 
@@ -212,11 +211,10 @@ public class FlexibleToolRenderer implements IItemRenderer {
             {
                 pos = k / h;
                 iconPos = m + d * pos - s;
-                pos -= 0.5f;
-                tess.addVertexWithUV(+0.5, pos, +depth, xMin[i], iconPos);
-                tess.addVertexWithUV(-0.5, pos, +depth, xMax[i], iconPos);
-                tess.addVertexWithUV(-0.5, pos, -depth, xMax[i], iconPos);
-                tess.addVertexWithUV(+0.5, pos, -depth, xMin[i], iconPos);
+                tess.addVertexWithUV(1, pos, +depth, xMin[i], iconPos);
+                tess.addVertexWithUV(0, pos, +depth, xMax[i], iconPos);
+                tess.addVertexWithUV(0, pos, -depth, xMax[i], iconPos);
+                tess.addVertexWithUV(1, pos, -depth, xMin[i], iconPos);
             }
         }
 

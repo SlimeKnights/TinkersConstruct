@@ -43,13 +43,14 @@ public class ShurikenEntity extends ProjectileBase {
         super.readSpawnData(data);
 
         // this is only relevant clientside only, so we don't actually have it on the server
-        rollAngle = (TinkerWeaponry.random.nextInt(3)-1)*45 + TinkerWeaponry.random.nextInt(30)-15;
+        //rollAngle = (TinkerWeaponry.random.nextInt(3)-1)*45 + TinkerWeaponry.random.nextInt(30)-15;
         spin = TinkerWeaponry.random.nextInt(360);
     }
 
     @Override
     protected double getGravity() {
-        return (this.ticksExisted/8) * 0.018d; // integer division. so the first 20 ticks it will have no gravity at all.
+        return 0;
+        //return (this.ticksExisted/8) * 0.018d; // integer division. so the first 20 ticks it will have no gravity at all.
     }
 
     @Override
