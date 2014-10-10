@@ -109,7 +109,8 @@ public abstract class AmmoWeapon extends AmmoItem implements IAccuracy, IWindup 
         }
 
         // reduce ammo
-        this.consumeAmmo(1, stack);
+        if(!player.capabilities.isCreativeMode)
+            this.consumeAmmo(1, stack);
     }
 
     protected abstract Entity createProjectile(ItemStack reference, World world, EntityPlayer player, float accuracy);

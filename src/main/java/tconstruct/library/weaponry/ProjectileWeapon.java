@@ -193,10 +193,12 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
 
 
         // use up ammo
-        if(ammo.getItem() instanceof IAmmo)
-            ((IAmmo) ammo.getItem()).consumeAmmo(1, ammo);
-        else
-            player.inventory.consumeInventoryItem(ammo.getItem());
+        if(!player.capabilities.isCreativeMode) {
+            if (ammo.getItem() instanceof IAmmo)
+                ((IAmmo) ammo.getItem()).consumeAmmo(1, ammo);
+            else
+                player.inventory.consumeInventoryItem(ammo.getItem());
+        }
 
         // FIREEEEEEE
         if (!world.isRemote)
