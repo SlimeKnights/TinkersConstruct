@@ -19,6 +19,9 @@ public class CrossbowRenderer extends FlexibleToolRenderer {
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         Crossbow crossbow = (Crossbow)item.getItem();
 
+        GL11.glTranslatef(0.5f, 0.5f, 0);
+        GL11.glScalef(0.5f, 0.5f, 0.5f);
+
         GL11.glScalef(1.5f, 1.5f, 1.5f);
 
         if(type == ItemRenderType.EQUIPPED_FIRST_PERSON) {
@@ -69,5 +72,7 @@ public class CrossbowRenderer extends FlexibleToolRenderer {
             GL11.glTranslatef(0.25f, 0, 0);
             GL11.glRotatef(45.0F, 0.0F, 0.0F, 1.0F);
         }
+
+        GL11.glTranslatef(-0.5f, -0.5f, 0f);
     }
 }

@@ -96,9 +96,6 @@ public class FlexibleToolRenderer implements IItemRenderer {
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 
         if(type != ItemRenderType.ENTITY) {
-            GL11.glTranslatef(0.5f, 0.5f, 0);
-            GL11.glScalef(0.5f, 0.5f, 0.5f);
-
             specialAnimation(type, item);
         }
         else

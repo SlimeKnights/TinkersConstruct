@@ -15,6 +15,9 @@ public class ThrowingKnifeRenderer extends AmmoItemRenderer {
 
     @Override
     protected void specialAnimation(ItemRenderType type, ItemStack item) {
+        GL11.glTranslatef(0.5f, 0.5f, 0);
+        GL11.glScalef(0.5f, 0.5f, 0.5f);
+
         float progress = ((IWindup)item.getItem()).getWindupProgress(item, mc.thePlayer);
 
         if(type == ItemRenderType.EQUIPPED_FIRST_PERSON) {
@@ -65,5 +68,7 @@ public class ThrowingKnifeRenderer extends AmmoItemRenderer {
         if(type == ItemRenderType.EQUIPPED)
             GL11.glRotatef(-180, 0, 0, 1);
 
+
+        GL11.glTranslatef(-0.5f, -0.5f, 0f);
     }
 }

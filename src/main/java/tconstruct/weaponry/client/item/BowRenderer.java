@@ -21,6 +21,9 @@ public class BowRenderer extends FlexibleToolRenderer {
     protected void specialAnimation(ItemRenderType type, ItemStack item) {
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 
+        GL11.glTranslatef(0.5f, 0.5f, 0);
+        GL11.glScalef(0.5f, 0.5f, 0.5f);
+
         if(type == ItemRenderType.EQUIPPED)
         {
             //GL11.glTranslatef(0.0F, 0.125F, 0.3125F);
@@ -111,5 +114,7 @@ public class BowRenderer extends FlexibleToolRenderer {
             GL11.glScalef(2.3f, 2.3f, 1.0f);
         else if(item.getItem() == TinkerWeaponry.shortbow)
             GL11.glScalef(1.7f, 1.7f, 1.0f);
+
+        GL11.glTranslatef(-0.5f, -0.5f, 0f);
     }
 }
