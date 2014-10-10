@@ -61,7 +61,7 @@ public class WeaponryClientProxy extends WeaponryCommonProxy {
         RenderingRegistry.registerEntityRenderingHandler(ThrowingKnifeEntity.class, defaultRenderer);
         RenderingRegistry.registerEntityRenderingHandler(JavelinEntity.class, new JavelinEntityRenderer());
         RenderingRegistry.registerEntityRenderingHandler(ArrowEntity.class, new ArrowEntityRenderer());
-        RenderingRegistry.registerEntityRenderingHandler(BoltEntity.class, new ArrowEntityRenderer(0.6f));
+        RenderingRegistry.registerEntityRenderingHandler(BoltEntity.class, new ArrowEntityRenderer(0.8f));
     }
 
     private void registerMaterialRendering()
