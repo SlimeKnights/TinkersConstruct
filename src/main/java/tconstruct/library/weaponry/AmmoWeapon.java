@@ -115,23 +115,6 @@ public abstract class AmmoWeapon extends AmmoItem implements IAccuracy, IWindup 
 
     protected abstract Entity createProjectile(ItemStack reference, World world, EntityPlayer player, float accuracy);
 
-    @Override
-    public void registerPartPaths(int index, String[] location) {
-
-    }
-
-    @Override
-    public void registerAlternatePartPaths(int index, String[] location) {
-        headStrings.put(index, location[0]);
-        brokenPartStrings.put(index, location[1]);
-        handleStrings.put(index, location[2]);
-        if (location.length > 3)
-            accessoryStrings.put(index, location[3]);
-        if (location.length > 4)
-            extraStrings.put(index, location[4]);
-    }
-
-
     @SideOnly(Side.CLIENT)
     public CrosshairType getCrosshairType() { return CrosshairType.SQUARE; }
 
