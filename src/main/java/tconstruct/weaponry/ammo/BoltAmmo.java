@@ -1,5 +1,9 @@
 package tconstruct.weaponry.ammo;
 
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.tools.CustomMaterial;
+import tconstruct.library.tools.FletchingMaterial;
+import tconstruct.library.tools.FletchlingLeafMaterial;
 import tconstruct.weaponry.TinkerWeaponry;
 import tconstruct.library.tools.DualMaterialToolPart;
 import tconstruct.library.weaponry.AmmoItem;
@@ -88,5 +92,19 @@ public class BoltAmmo extends AmmoItem {
             tool.getTagCompound().getCompoundTag("InfiTool").setBoolean("Built", true);
             list.add(tool);
         }
+    }
+
+    @Override
+    protected int getDefaultColor(int renderPass, int materialID) {
+        if(renderPass != 2)
+            return super.getDefaultColor(renderPass, materialID);
+
+        CustomMaterial mat = TConstructRegistry.getCustomMaterial(materialID, FletchingMaterial.class);
+        if(mat == null)
+            TConstructRegistry.getCustomMaterial(materialID, FletchlingLeafMaterial.class);
+        if(mat == null)
+            return 0xffffff;
+
+        return mat.color;
     }
 }
