@@ -251,7 +251,7 @@ public class TinkerTools
         TinkerTools.hammerHead = new DynamicToolPart("_hammer_head", "HammerHead");
 
         TinkerTools.bowstring = new Bowstring().setUnlocalizedName("tconstruct.Bowstring");
-        TinkerTools.arrowhead = new ToolPart("_arrowhead", "ArrowHead").setUnlocalizedName("tconstruct.Arrowhead");
+        TinkerTools.arrowhead = new DynamicToolPart("_arrowhead", "ArrowHead");
         TinkerTools.fletching = new Fletching().setUnlocalizedName("tconstruct.Fletching");
 
         Item[] toolParts = { TinkerTools.toolRod, TinkerTools.toolShard, TinkerTools.pickaxeHead, TinkerTools.shovelHead, TinkerTools.hatchetHead, TinkerTools.binding, TinkerTools.toughBinding, TinkerTools.toughRod, TinkerTools.largePlate, TinkerTools.swordBlade, TinkerTools.wideGuard, TinkerTools.handGuard, TinkerTools.crossbar, TinkerTools.knifeBlade, TinkerTools.fullGuard, TinkerTools.frypanHead, TinkerTools.signHead, TinkerTools.chiselHead, TinkerTools.scytheBlade, TinkerTools.broadAxeHead, TinkerTools.excavatorHead, TinkerTools.largeSwordBlade, TinkerTools.hammerHead, TinkerTools.bowstring, TinkerTools.fletching, TinkerTools.arrowhead };

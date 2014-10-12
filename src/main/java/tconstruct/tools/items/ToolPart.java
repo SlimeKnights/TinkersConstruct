@@ -25,7 +25,9 @@ public class ToolPart extends CraftingItem implements IToolPart
     @Override
     public String getItemStackDisplayName (ItemStack par1ItemStack)
     {
-        String material = toolTextureNames[par1ItemStack.getItemDamage()];
+        String material = "";
+        if(par1ItemStack.getItemDamage() < toolTextureNames.length)
+            material = toolTextureNames[par1ItemStack.getItemDamage()];
         String name = "";
         
         if (StatCollector.canTranslate("toolpart." + partName + "." + material))
