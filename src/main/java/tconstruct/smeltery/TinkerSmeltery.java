@@ -940,10 +940,18 @@ public class TinkerSmeltery
         // Buckets
         ItemStack bucket = new ItemStack(Items.bucket);
 
+        Item thermalBucket = GameRegistry.findItem("ThermalFoundation", "bucket");
+
         for (int sc = 0; sc < 26; sc++)
         {
-            if (TinkerSmeltery.fluids[sc] != null)
-                tableCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.buckets, 1, sc), new FluidStack(TinkerSmeltery.fluids[sc], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
+            if (TinkerSmeltery.fluids[sc] != null) {
+                // TE support
+                if(fluids[sc] == TinkerSmeltery.moltenEnderFluid && thermalBucket != null)
+                    // bucket of resonant ender instead of liquified ender
+                    tableCasting.addCastingRecipe(new ItemStack(thermalBucket, 1, 2), new FluidStack(TinkerSmeltery.fluids[sc], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
+                else
+                    tableCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.buckets, 1, sc), new FluidStack(TinkerSmeltery.fluids[sc], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
+            }
         }
 
         // Clear glass pane casting
