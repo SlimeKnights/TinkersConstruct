@@ -196,6 +196,29 @@ public final class IMCHandler {
                 Smeltery.addMelting(item, Block.getBlockFromItem(block.getItem()), block.getItemDamage(), temperature, liquid);
                 TConstruct.logger.info("Smeltery IMC: Added melting: " + item.getDisplayName() + " to " + liquid.amount + "mb " + liquid.getLocalizedName());
             }
+            else if(type.equals("addSmelteryFuel")) {
+                if (!message.isNBTMessage()) {
+                    logInvalidMessage(message);
+                    continue;
+                }
+                NBTTagCompound tag = message.getNBTValue();
+
+                if (!checkRequiredTags("Smeltery", tag, "FluidName", "Temperature", "Duration"))
+                    continue;
+
+                FluidStack liquid = FluidStack.loadFluidStackFromNBT(tag);
+                if(liquid == null) {
+                    TConstruct.logger.error("Smeltery IMC: No fluid found");
+                    continue;
+                }
+
+                int temperature = tag.getInteger("Temperature");
+                int duration = tag.getInteger("Duration");
+
+                Smeltery.addSmelteryFuel(liquid.getFluid(), temperature, duration);
+
+                TConstruct.logger.info("Smeltery IMC: Added fuel: " + liquid.getLocalizedName() + " (" + temperature + ", " + duration + ")");
+            }
         }
     }
 
