@@ -21,7 +21,7 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
 
     public CraftingStationLogic()
     {
-        super(17); // 9 for crafting, 1 for output, 6 for extensions, 1 for
+        super(10); // 9 for crafting, 1 for output, 6 for extensions, 1 for
                    // plans
     }
 

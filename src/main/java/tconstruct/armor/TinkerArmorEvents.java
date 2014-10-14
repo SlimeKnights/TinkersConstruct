@@ -40,7 +40,7 @@ public class TinkerArmorEvents
                     return;
             }
             String entityName = event.entityLiving.getClass().getSimpleName().toLowerCase();
-            if (entityName.contains("entitynpc"))
+            if (entityName.contains("entitynpc") || entityName.contains("entitycustomnpc"))
                 return;
 
             int count = event.entityLiving instanceof EntityDragon ? 5 : 1;

@@ -186,6 +186,7 @@ public class PHConstruct
         newSmeltery = config.get("Experimental", "Use new adaptive Smeltery code", false, "Warning: Very buggy").getBoolean(false);
         meltableHorses = config.get("Experimental", "Allow horses to be melted down for glue", true).getBoolean(true);
         minimalTextures = config.get("Experimental", "Minimal Textures", false).getBoolean(false);
+        extraBlockUpdates = config.get("Experimental", "Send additional block updates when using AOE tools", true,"This fixes very fast tools sometimes resulting in ghost blocks, but causes a bit more network traffic. Should be fine in theory.").getBoolean(true);
 
         /* Save the configuration file only if it has changed */
         if (config.hasChanged())
@@ -355,5 +356,6 @@ public class PHConstruct
     public static boolean newSmeltery;
     public static boolean meltableHorses;
     public static boolean minimalTextures;
+    public static boolean extraBlockUpdates;
 
 }

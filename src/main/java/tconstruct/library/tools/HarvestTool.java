@@ -1,5 +1,7 @@
 package tconstruct.library.tools;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -10,10 +12,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.network.play.server.S23PacketBlockChange;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import tconstruct.TConstruct;
+import tconstruct.util.config.PHConstruct;
 
 /* Base class for tools that should be harvesting blocks */
 
@@ -256,11 +260,19 @@ public abstract class HarvestTool extends ToolCore
         }
         // server sided handling
         if (!world.isRemote) {
-            // serverside we
-            EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
+            // serverside we reproduce ItemInWorldManager.tryHarvestBlock
 
-            mpPlayer.theItemInWorldManager.tryHarvestBlock(x, y, z);
-            // send block update to client
+            // ItemInWorldManager.removeBlock
+            block.onBlockHarvested(world, x,y,z, meta, player);
+
+            if(block.removedByPlayer(world, player, x,y,z, true)) // boolean is if block can be harvested, checked above
+            {
+                block.onBlockDestroyedByPlayer( world, x,y,z, meta);
+                block.harvestBlock(world, player, x,y,z, meta);
+            }
+
+            // always send block update to client
+            EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
             mpPlayer.playerNetServerHandler.sendPacket(new S23PacketBlockChange(x, y, z, world));
         }
         // client sided handling
@@ -268,7 +280,18 @@ public abstract class HarvestTool extends ToolCore
             PlayerControllerMP pcmp = Minecraft.getMinecraft().playerController;
             // clientside we do a "this clock has been clicked on long enough to be broken" call. This should not send any new packets
             // the code above, executed on the server, sends a block-updates that give us the correct state of the block we destroy.
+
+            // following code can be found in PlayerControllerMP.onPlayerDestroyBlock
+            world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
+            if(block.removedByPlayer(world, player, x,y,z))
+            {
+                block.onBlockDestroyedByPlayer(world, x,y,z, meta);
+            }
             pcmp.onPlayerDestroyBlock(x, y, z, sidehit);
+
+            // send an update to the server, so we get an update back
+            if(PHConstruct.extraBlockUpdates)
+                Minecraft.getMinecraft().getNetHandler().addToSendQueue(new C07PacketPlayerDigging(2, x,y,z, Minecraft.getMinecraft().objectMouseOver.sideHit));
         }
     }
 }

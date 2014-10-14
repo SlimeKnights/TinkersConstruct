@@ -1,6 +1,7 @@
 package tconstruct.util;
 
 import cpw.mods.fml.common.event.FMLInterModComms;
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -10,6 +11,7 @@ import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.PatternBuilder;
+import tconstruct.library.crafting.Smeltery;
 import tconstruct.library.crafting.StencilBuilder;
 import tconstruct.library.tools.DynamicToolPart;
 import tconstruct.library.tools.ToolMaterial;
@@ -166,6 +168,56 @@ public final class IMCHandler {
                 }
 
                 TConstruct.logger.info("Casting IMC: Added fluid " + tag.getString("FluidName") + " to part casting");
+            }
+            else if(type.equals("addSmelteryMelting")) {
+                if (!message.isNBTMessage()) {
+                    logInvalidMessage(message);
+                    continue;
+                }
+                NBTTagCompound tag = message.getNBTValue();
+
+                if (!checkRequiredTags("Smeltery", tag, "FluidName", "Temperature", "Item", "Block"))
+                    continue;
+
+                FluidStack liquid = FluidStack.loadFluidStackFromNBT(tag);
+                if(liquid == null) {
+                    TConstruct.logger.error("Smeltery IMC: No fluid found");
+                    continue;
+                }
+                if(liquid.amount <= 0) {
+                    TConstruct.logger.error("Smeltery IMC: Liquid has to have an amount greater than zero");
+                    continue;
+                }
+
+                ItemStack item = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Item"));
+                ItemStack block = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Block"));
+                int temperature = tag.getInteger("Temperature");
+
+                Smeltery.addMelting(item, Block.getBlockFromItem(block.getItem()), block.getItemDamage(), temperature, liquid);
+                TConstruct.logger.info("Smeltery IMC: Added melting: " + item.getDisplayName() + " to " + liquid.amount + "mb " + liquid.getLocalizedName());
+            }
+            else if(type.equals("addSmelteryFuel")) {
+                if (!message.isNBTMessage()) {
+                    logInvalidMessage(message);
+                    continue;
+                }
+                NBTTagCompound tag = message.getNBTValue();
+
+                if (!checkRequiredTags("Smeltery", tag, "FluidName", "Temperature", "Duration"))
+                    continue;
+
+                FluidStack liquid = FluidStack.loadFluidStackFromNBT(tag);
+                if(liquid == null) {
+                    TConstruct.logger.error("Smeltery IMC: No fluid found");
+                    continue;
+                }
+
+                int temperature = tag.getInteger("Temperature");
+                int duration = tag.getInteger("Duration");
+
+                Smeltery.addSmelteryFuel(liquid.getFluid(), temperature, duration);
+
+                TConstruct.logger.info("Smeltery IMC: Added fuel: " + liquid.getLocalizedName() + " (" + temperature + ", " + duration + ")");
             }
         }
     }

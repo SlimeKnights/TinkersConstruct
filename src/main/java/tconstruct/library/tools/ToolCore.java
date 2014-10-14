@@ -758,6 +758,8 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
             int max = getMaxEnergyStored(stack);
             if(energy > 0) {
                 int damage = ((max - energy) * 100) / max;
+                if(damage == 0 && max-energy > 0)
+                    damage = 1;
                 super.setDamage(stack, damage);
                 return damage;
             }

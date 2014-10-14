@@ -1,6 +1,7 @@
 package tconstruct.world.entity;
 
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.EntitySenses;
 import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.player.EntityPlayer;
@@ -55,19 +56,12 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         super.damageEntity(damageSource, damage);
     }
 
-    public String getEntityName ()
-    {
-        String s = EntityList.getEntityString(this);
-
-        if (s == null)
-        {
-            s = "generic";
-        }
-
+    @Override
+    public String getCommandSenderName() {
         if (getSlimeSize() >= 8)
-            s = "TConstruct.KingSlime";
+            return StatCollector.translateToLocal("entity.TConstruct.KingSlime.name");
 
-        return StatCollector.translateToLocal("entity." + s + ".name");
+        return super.getCommandSenderName();
     }
 
     @Override
