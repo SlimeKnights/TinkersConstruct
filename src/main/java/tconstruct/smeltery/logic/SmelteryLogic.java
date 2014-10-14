@@ -293,24 +293,25 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
          */
 
 
-        if(validStructure)
-            if (tick % 4 == 0) {
+        if (tick % 4 == 0) {
+            if (useTime > 0)
+                useTime -= 4;
+
+            if(validStructure) {
                 checkHasItems();
+
+                // consume fuel if needed
+                if(useTime <= 0 && inUse)
+                    updateFuelGague();
+
                 heatItems();
             }
+        }
 
         if (tick % 20 == 0)
         {
             if (!validStructure)
                 checkValidPlacement();
-
-            if (useTime > 0)
-                useTime -= 3;
-
-            if (validStructure && useTime <= 0 && inUse)
-            {
-                updateFuelGague();
-            }
 
             if (needsUpdate)
             {
@@ -600,10 +601,15 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         FluidStack liquid = tankContainer.drain(ForgeDirection.DOWN, 15, false);
         if (liquid != null && Smeltery.isSmelteryFuel(liquid.getFluid())) // doublecheck that everything is ok
         {
-            // drain actual liquid, non simulated
-            liquid = tankContainer.drain(ForgeDirection.DOWN, 15, true);
-            useTime += (int)((float)Smeltery.getFuelDuration(liquid.getFluid())*15f/(float)liquid.amount);
-            internalTemp = Smeltery.getFuelPower(liquid.getFluid());
+            do {
+                // drain actual liquid, non simulated
+                liquid = tankContainer.drain(ForgeDirection.DOWN, 15, true);
+                // we try to do it as long as we don't have enough. Only needed for rapid-use fuels.
+                if(liquid == null || liquid.amount == 0)
+                    break;
+                useTime += (int) ((float) Smeltery.getFuelDuration(liquid.getFluid()) * Math.round(15f / (float) liquid.amount));
+                internalTemp = Smeltery.getFuelPower(liquid.getFluid());
+            } while(useTime < 0);
 
             // update fuel display
             updateFuelDisplay(); // this also ensures that the next fuel tank is displayed if this drain made the current one empty

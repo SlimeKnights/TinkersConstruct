@@ -1,33 +1,49 @@
 package tconstruct.smeltery;
 
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.*;
-import cpw.mods.fml.common.registry.*;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
-import java.util.*;
 import mantle.blocks.BlockUtils;
 import mantle.blocks.abstracts.MultiServantLogic;
-import mantle.pulsar.pulse.*;
+import mantle.pulsar.pulse.Handler;
+import mantle.pulsar.pulse.Pulse;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.*;
-import net.minecraft.init.*;
-import net.minecraft.item.*;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialLiquid;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
-import net.minecraftforge.oredict.*;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.crafting.*;
+import tconstruct.library.crafting.FluidType;
+import tconstruct.library.crafting.LiquidCasting;
+import tconstruct.library.crafting.Smeltery;
 import tconstruct.library.util.IPattern;
 import tconstruct.smeltery.blocks.*;
 import tconstruct.smeltery.itemblocks.*;
-import tconstruct.smeltery.items.*;
+import tconstruct.smeltery.items.FilledBucket;
+import tconstruct.smeltery.items.MetalPattern;
 import tconstruct.smeltery.logic.*;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
+
+import java.util.*;
 
 @ObjectHolder(TConstruct.modID)
 @Pulse(id = "Tinkers' Smeltery", description = "Liquid metals, casting, and the multiblock structure.")
@@ -1085,11 +1101,11 @@ public class TinkerSmeltery
     protected static void addRecipesForSmeltery ()
     {
         // Smeltery fuels
-        Smeltery.addSmelteryFuel(FluidRegistry.LAVA, 1300, 12); // lava lasts 4 seconds per 15 mb
+        Smeltery.addSmelteryFuel(FluidRegistry.LAVA, 1300, 80); // lava lasts 4 seconds per 15 mb
         // register pyrotheum if it's present
         Fluid pyrotheum = FluidRegistry.getFluid("pyrotheum");
         if (pyrotheum != null)
-            Smeltery.addSmelteryFuel(pyrotheum, 5000, 9); // pyrotheum lasts 3 seconds per 15 mb
+            Smeltery.addSmelteryFuel(pyrotheum, 5000, 70); // pyrotheum lasts 3.5 seconds per 15 mb
 
         // BLOOD FOR THE BLOOD GOD
         if (TinkerWorld.meatBlock != null)
