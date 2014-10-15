@@ -1,34 +1,43 @@
 package tconstruct.plugins.imc;
 
 import cpw.mods.fml.common.event.*;
-import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 import mantle.pulsar.pulse.*;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fluids.Fluid;
 import tconstruct.TConstruct;
 
-@ObjectHolder(TConstruct.modID)
-@Pulse(id = "Tinkers Mystcraft Compatibility", forced = true, modsRequired = "Mystcraft")
+import static tconstruct.smeltery.TinkerSmeltery.*;
+
+@Pulse(id = "Tinkers Mystcraft Compatibility", forced = true, modsRequired = "Mystcraft", pulsesRequired = "Tinkers' Smeltery")
 public class TinkerMystcraft
 {
-    private static String[] fluids = new String[] { "invar.molten", "electrum.molten", "bronze.molten", "aluminumbrass.molten", "manyullyn.molten", "alumite.molten", "cobalt.molten", "moltenArdite", "ender", "steel.molten", "platinum.molten" };
-
     @Handler
     public void init (FMLInitializationEvent event)
     {
+        final Fluid[] fluids = new Fluid[] {
+                // precious tinker fluids
+                moltenGoldFluid,
+                moltenSteelFluid,
+                moltenEmeraldFluid,
+                moltenArditeFluid,
+                moltenCobaltFluid,
+                // all alloys
+                pigIronFluid,
+                moltenBronzeFluid,
+                moltenAlumiteFluid,
+                moltenAlubrassFluid,
+                moltenManyullynFluid,
+                // precious TE fluids
+                moltenEnderFluid,
+                moltenSilverFluid,
+                moltenInvarFluid,
+                moltenElectrumFluid,
+                moltenShinyFluid
+        };
+
         TConstruct.logger.info("Mystcraft detected. Blacklisting Mystcraft fluid symbols.");
-        for (String nm : fluids)
-            sendFluidBlacklist(nm);
+        for(Fluid fluid : fluids)
+        {
+            FMLInterModComms.sendMessage("Mystcraft", "blacklistfluid", fluid.getName());
+        }
     }
-
-    private void sendFluidBlacklist (String FluidName)
-    {
-        NBTTagCompound NBTMsg = new NBTTagCompound();
-        NBTMsg.setTag("fluidsymbol", new NBTTagCompound());
-        NBTMsg.getCompoundTag("fluidsymbol").setFloat("rarity", 0.0F);
-        NBTMsg.getCompoundTag("fluidsymbol").setFloat("grammarweight", 0.0F);
-        NBTMsg.getCompoundTag("fluidsymbol").setFloat("instabilityPerBlock", 10000F); // renders creative symbol useless
-        NBTMsg.getCompoundTag("fluidsymbol").setString("fluidname", FluidName);
-        FMLInterModComms.sendMessage("Mystcraft", "fluidsymbol", NBTMsg);
-    }
-
 }
