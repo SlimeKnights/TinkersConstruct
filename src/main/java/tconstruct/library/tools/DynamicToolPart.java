@@ -98,8 +98,11 @@ public class DynamicToolPart extends CraftingItem implements IToolPart
             return;
 
         // material id == metadata
-        for(Integer matID : TConstructRegistry.toolMaterials.keySet())
-            list.add(new ItemStack(item, 1, matID));
+        for(Integer matID : TConstructRegistry.defaultToolPartMaterials) {
+            ItemStack stack = new ItemStack(item, 1, matID);
+            if (this.getMaterialID(stack) != -1)
+                list.add(stack);
+        }
     }
 
     @Override

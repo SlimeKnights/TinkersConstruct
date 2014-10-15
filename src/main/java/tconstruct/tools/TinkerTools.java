@@ -788,6 +788,27 @@ public class TinkerTools
         TConstructRegistry.addFletchingMaterial(2, 2, new ItemStack(TinkerTools.materials, 1, 1), new ItemStack(TinkerTools.fletching, 1, 2), 100F, 0F, 0.12F, 0x82c873); // Slime
         TConstructRegistry.addFletchingMaterial(3, 2, new ItemStack(TinkerTools.materials, 1, 17), new ItemStack(TinkerTools.fletching, 1, 3), 100F, 0F, 0.12F, 0x74c8c7); // BlueSlime
 
+        // Register all the materials for default toolparts
+        TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Wood);
+        TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Stone);
+        TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Iron);
+        TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Flint);
+        TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Cactus);
+        TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Bone);
+        TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Obsidian);
+        TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Netherrack);
+        TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Slime);
+        TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Paper);
+        TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Cobalt);
+        TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Ardite);
+        TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Manyullyn);
+        TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Copper);
+        TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Bronze);
+        TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Alumite);
+        TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Steel);
+        TConstructRegistry.addDefaultToolPartMaterial(MaterialID.BlueSlime );
+        TConstructRegistry.addDefaultToolPartMaterial(MaterialID.PigIron);
+
         PatternBuilder pb = PatternBuilder.instance;
         if (PHConstruct.enableTWood)
             pb.registerFullMaterial(Blocks.planks, 2, "Wood", new ItemStack(Items.stick), new ItemStack(Items.stick), 0);
