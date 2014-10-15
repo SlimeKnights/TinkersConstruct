@@ -37,6 +37,8 @@ public class TinkerMystcraft
         TConstruct.logger.info("Mystcraft detected. Blacklisting Mystcraft fluid symbols.");
         for(Fluid fluid : fluids)
         {
+            if(fluid == null)
+                continue;
             FMLInterModComms.sendMessage("Mystcraft", "blacklistfluid", fluid.getName());
         }
     }
