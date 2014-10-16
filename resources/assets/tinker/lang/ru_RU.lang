@@ -544,27 +544,6 @@ death.four.smeltery=%1$s думал, что купание в горячих ж�
 death.attack.Landmine=%1$s наблюдал, как его ноги взорвались на мине
 death.attack.FireworkExplode=%1$s был разорван диким взрывом фейерверка
 
-parttype.wood=Деревянный
-parttype.stone=Каменный
-parttype.iron=Железный
-parttype.flint=Кремниевый
-parttype.cactus=Кактусовый
-parttype.bone=Костный
-parttype.obsidian=Обсидиановый
-parttype.slime=Слизневый
-parttype.paper=Бумажный
-parttype.netherrack=Адскокаменный
-parttype.cobalt=Кобальтовый
-parttype.ardite=Ардитовый
-parttype.manyullyn=Мануллиновый
-parttype.copper=Медный
-parttype.bronze=Бронзовый
-parttype.alumite=Алюмитовый
-parttype.steel=Стальной
-parttype.blueslime=Синеслизневый
-parttype.thaumium=Таумический
-parttype.pigiron=Свиножелезный
-
 toolpart.ToolRod=%%material стержень
 toolpart.PickaxeHead=%%material обух кирки
 toolpart.ShovelHead=%%material штык лопаты
@@ -594,6 +573,8 @@ toolpart.Fletching=%%material оперение
 
 # Now with translations of specific material and part combinations:
 #toolpart.ToolRod.wood=Wooden Tool Rod
+# If only the material part has to be specific, you can use this
+#toolpart.material.wood=Wooden
 
 fluid.iron.molten=Расплавленное железо
 fluid.gold.molten=Расплавленное золото
@@ -717,6 +698,8 @@ smeltery.drain.tooltip1=Работает в качестве ввода и вы�
 smeltery.drain.tooltip2=жидкостей в плавильне
 smeltery.brick.tooltip1=Структурный блок плавильни
 smeltery.brick.tooltip2=(Безопасен для декораций)
+#Dear translators, only translate this line if the joke is applicable in your language.
+grout.tooltip=I am Grout!
 
 gui.smeltery.fuel=Топливо
 gui.smeltery.emerald=Изумрудов: 
@@ -1462,3 +1445,24 @@ toolpart.ExcavatorHead.bronze=Бронзовая пластина копалки
 toolpart.ExcavatorHead.alumite=Алюмитовая пластина копалки
 toolpart.ExcavatorHead.steel=Стальная пластина копалки
 toolpart.ExcavatorHead.thaumium=Таумическая пластина копалки
+
+toolpart.material.wood=Деревянный
+toolpart.material.stone=Каменный
+toolpart.material.iron=Железный
+toolpart.material.flint=Кремниевый
+toolpart.material.cactus=Кактусовый
+toolpart.material.bone=Костный
+toolpart.material.obsidian=Обсидиановый
+toolpart.material.slime=Слизневый
+toolpart.material.paper=Бумажный
+toolpart.material.netherrack=Адскокаменный
+toolpart.material.cobalt=Кобальтовый
+toolpart.material.ardite=Ардитовый
+toolpart.material.manyullyn=Мануллиновый
+toolpart.material.copper=Медный
+toolpart.material.bronze=Бронзовый
+toolpart.material.alumite=Алюмитовый
+toolpart.material.steel=Стальной
+toolpart.material.blueslime=Синеслизневый
+toolpart.material.thaumium=Таумический
+toolpart.material.pigiron=Свиножелезный
