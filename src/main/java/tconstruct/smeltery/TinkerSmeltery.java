@@ -970,6 +970,10 @@ public class TinkerSmeltery
             }
         }
 
+        // water and lava bucket
+        tableCasting.addCastingRecipe(new ItemStack(Items.water_bucket), new FluidStack(FluidRegistry.WATER, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
+        tableCasting.addCastingRecipe(new ItemStack(Items.lava_bucket), new FluidStack(FluidRegistry.LAVA, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
+
         // Clear glass pane casting
         tableCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.glassPane), new FluidStack(TinkerSmeltery.moltenGlassFluid, 250), null, 80);
 

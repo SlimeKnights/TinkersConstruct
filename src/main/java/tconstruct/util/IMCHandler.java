@@ -49,6 +49,7 @@ public final class IMCHandler {
                 ToolMaterial mat = scanMaterial(tag);
                 if(mat != null) {
                     TConstructRegistry.addtoolMaterial(tag.getInteger("Id"), mat);
+                    TConstructRegistry.addDefaultToolPartMaterial(tag.getInteger("Id"));
                     TConstruct.logger.info("IMC: Added material " + mat.materialName);
                 }
             }

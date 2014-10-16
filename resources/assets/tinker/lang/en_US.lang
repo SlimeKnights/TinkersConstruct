@@ -544,27 +544,6 @@ death.four.smeltery=%1$s thought swimming in hot liquids was a good idea
 death.attack.Landmine=%1$s watched their legs get blown off by a landmine
 death.attack.FireworkExplode=%1$s was torn apart by a wild firework explosion
 
-parttype.wood=Wooden
-parttype.stone=Stone
-parttype.iron=Iron
-parttype.flint=Flint
-parttype.cactus=Cactus
-parttype.bone=Bone
-parttype.obsidian=Obsidian
-parttype.slime=Slime
-parttype.paper=Paper
-parttype.netherrack=Netherrack
-parttype.cobalt=Cobalt
-parttype.ardite=Ardite
-parttype.manyullyn=Manyullyn
-parttype.copper=Copper
-parttype.bronze=Bronze
-parttype.alumite=Alumite
-parttype.steel=Steel
-parttype.blueslime=Slime
-parttype.thaumium=Thaumium
-parttype.pigiron=Pig Iron
-
 toolpart.ToolRod=%%material Tool Rod
 toolpart.PickaxeHead=%%material Pickaxe Head
 toolpart.ShovelHead=%%material Shovel Head
@@ -594,6 +573,8 @@ toolpart.Fletching=%%material Fletching
 
 # Now with translations of specific material and part combinations:
 #toolpart.ToolRod.wood=Wooden Tool Rod
+# If only the material part has to be specific, you can use this
+#toolpart.material.wood=Wooden
 
 fluid.iron.molten=Molten Iron
 fluid.gold.molten=Molten Gold

@@ -69,7 +69,7 @@ import cpw.mods.fml.relauncher.Side;
  */
 
 @Mod(modid = "TConstruct", name = "TConstruct", version = "${version}",
-        dependencies = "required-after:Forge@[10.13.0.1200,);required-after:Mantle@[0.3.1,);after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion")
+        dependencies = "required-after:Forge@[10.13.0.1200,);required-after:Mantle@[0.3.1,);after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion;after:ThermalFoundation")
 public class TConstruct
 {
     public static final String modVersion = "${version}";

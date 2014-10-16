@@ -258,6 +258,10 @@ public abstract class HarvestTool extends ToolCore
             }
             return;
         }
+
+        // callback to the tool the player uses. Called on both sides. This damages the tool n stuff.
+        player.getCurrentEquippedItem().func_150999_a(world, block, x, y, z, player);
+
         // server sided handling
         if (!world.isRemote) {
             // serverside we reproduce ItemInWorldManager.tryHarvestBlock

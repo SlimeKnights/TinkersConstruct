@@ -78,7 +78,14 @@ public class DynamicToolPart extends CraftingItem implements IToolPart
         // general name
         else
         {
-            return StatCollector.translateToLocal("toolpart." + partName).replaceAll("%%material", toolmat.prefixName());
+            // specific material name for materials?
+            String matName;
+            if(StatCollector.canTranslate("toolpart.material." + material))
+                matName = StatCollector.translateToLocal("toolpart.material." + material);
+            else
+                matName = toolmat.prefixName();
+
+            return StatCollector.translateToLocal("toolpart." + partName).replaceAll("%%material", matName);
         }
     }
 
@@ -98,8 +105,11 @@ public class DynamicToolPart extends CraftingItem implements IToolPart
             return;
 
         // material id == metadata
-        for(Integer matID : TConstructRegistry.toolMaterials.keySet())
-            list.add(new ItemStack(item, 1, matID));
+        for(Integer matID : TConstructRegistry.defaultToolPartMaterials) {
+            ItemStack stack = new ItemStack(item, 1, matID);
+            if (this.getMaterialID(stack) != -1)
+                list.add(stack);
+        }
     }
 
     @Override
