@@ -78,7 +78,14 @@ public class DynamicToolPart extends CraftingItem implements IToolPart
         // general name
         else
         {
-            return StatCollector.translateToLocal("toolpart." + partName).replaceAll("%%material", toolmat.prefixName());
+            // specific material name for materials?
+            String matName;
+            if(StatCollector.canTranslate("toolpart.material." + material))
+                matName = StatCollector.translateToLocal("toolpart.material." + material);
+            else
+                matName = toolmat.prefixName();
+
+            return StatCollector.translateToLocal("toolpart." + partName).replaceAll("%%material", matName);
         }
     }
 
