@@ -2,6 +2,9 @@ package tconstruct.modifiers.tools;
 
 import cofh.api.energy.IEnergyContainerItem;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.tools.ToolCore;
@@ -22,6 +25,12 @@ public class ModFlux extends ModBoolean
     public boolean matches (ItemStack[] input, ItemStack tool)
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+
+        // not on ammo weapons, since they don't have durability technically
+        String[] traits = ((ToolCore)tool.getItem()).getTraits();
+        for(String trait : traits)
+            if("ammo".equals(trait))
+                return false;
 
         ItemStack foundBattery = null;
         // try to find the battery in the input

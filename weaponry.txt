@@ -7,6 +7,8 @@ TODO:
 * Partbuilder stuff for weaponry stuff?
 * Bring bowmaterial stats etc in line?
 * Can't have flux or redstone or moss on ammo tools
+* Knockback on projectiles knocks towards their moving direction
+* Glassmakers Arrows :D
 
 maybe give javelins slight armor piercing? or do they have that already?
 

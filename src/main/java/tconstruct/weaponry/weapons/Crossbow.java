@@ -301,13 +301,15 @@ public class Crossbow extends ProjectileWeapon {
 
     @Override
     public IIcon getIcon(ItemStack stack, int renderPass) {
-        if(!animateLayer(renderPass))
+        if(!animateLayer(renderPass) && renderPass < getPartAmount())
             return super.getIcon(stack, renderPass);
 
         if(!stack.hasTagCompound())
             return super.getIcon(stack, renderPass);
 
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        if(tags == null || renderPass > 10)
+            return super.getIcon(stack, renderPass);
 
         float progress;
 
@@ -318,10 +320,20 @@ public class Crossbow extends ProjectileWeapon {
         else
             progress = getWindupProgress(stack, getWindupTime(stack) - tags.getInteger("Reloading"));
 
-        // effects aren't animated
-        // todo: make effects animated
-        if(renderPass >= getPartAmount())
+        // are we drawing an effect?
+        if(renderPass >= getPartAmount()) {
+            // is the effect animated?
+            String effect = "Effect" + (1 + renderPass - getPartAmount());
+            if(tags.hasKey(effect)) {
+                int index = tags.getInteger(effect);
+                if(animationEffectIcons.get(index) != null)
+                    return getCorrectAnimationIcon(animationEffectIcons, index, progress);
+                else
+                    // non-animated
+                    return effectIcons.get(index);
+            }
             return super.getIcon(stack, renderPass);
+        }
 
         // get the correct icon
         switch (renderPass)
