@@ -414,7 +414,7 @@ public class TConstructRegistry
     @Deprecated
     public static void addArrowMaterial (int materialID, float mass, float breakChance, float accuracy)
     {
-        addArrowMaterial(materialID, mass, breakChance, 0);
+        addArrowMaterial(materialID, mass, breakChance);
     }
 
     public static void addArrowMaterial (int materialID, float mass, float breakChance)
