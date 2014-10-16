@@ -39,7 +39,7 @@ public class ThrowingKnife extends AmmoWeapon {
 
     @Override
     public String getEffectSuffix() {
-        return "_throwingknife_effect";
+        return "_knife_effect";
     }
 
     @Override

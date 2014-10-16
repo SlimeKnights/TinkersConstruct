@@ -1,0 +1,12 @@
+TODO:
+* Effect graphics for arrows, throwing knifes, javelins,...
+* Separate book explaining the system, text only, sorry folks
+* Turn dagger into a proper projectile
+* Reinforced gives a chance that projectiles aren't broken on entity-hit!
+* Toolstation GUI for weaponry stuff
+* Partbuilder stuff for weaponry stuff?
+* Bring bowmaterial stats etc in line?
+* Can't have flux or redstone or moss on ammo tools
+
+maybe give javelins slight armor piercing? or do they have that already?
+
