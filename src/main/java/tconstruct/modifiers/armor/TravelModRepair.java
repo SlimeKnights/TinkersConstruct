@@ -3,6 +3,7 @@ package tconstruct.modifiers.armor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.armor.items.TravelGear;
+import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.modifier.ItemModifier;
 
 public class TravelModRepair extends ItemModifier
@@ -109,5 +110,10 @@ public class TravelModRepair extends ItemModifier
     public void addMatchingEffect (ItemStack tool)
     {
         //Nope
+    }
+
+    @Override
+    public boolean validType(IModifyable input) {
+        return input.getModifyType().equals("Clothing");
     }
 }
