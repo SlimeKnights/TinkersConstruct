@@ -171,7 +171,7 @@ public class TinkerTools
 
         TinkerTools.materials = new MaterialItem().setUnlocalizedName("tconstruct.Materials");
         TinkerTools.toolRod = new DynamicToolPart("_rod", "ToolRod");
-        TinkerTools.toolShard = new ToolShard("_chunk").setUnlocalizedName("tconstruct.ToolShard");
+        TinkerTools.toolShard = new ToolShard("_chunk", "ToolShard");
         TinkerTools.woodPattern = new Pattern("pattern_", "materials/").setUnlocalizedName("tconstruct.Pattern");
         GameRegistry.registerItem(TinkerTools.materials, "materials");
         GameRegistry.registerItem(TinkerTools.woodPattern, "woodPattern");
@@ -698,6 +698,9 @@ public class TinkerTools
             TConstructRegistry.addBowstringMaterial(1, 2, new ItemStack((Item) obj, 1, 7), new ItemStack(TinkerTools.bowstring, 1, 1), 1F, 1F, 0.9f, 0x63bcd9);
             TConstructRegistry.addBowMaterial(31, 576, 40, 1.2f);
             TConstructRegistry.addArrowMaterial(31, 1.8F, 0.5F, 100F);
+
+            TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Thaumium);
+            TConstructRegistry.addDefaultShardMaterial(MaterialID.Thaumium);
         }
         else
         {
@@ -808,6 +811,31 @@ public class TinkerTools
         TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Steel);
         TConstructRegistry.addDefaultToolPartMaterial(MaterialID.BlueSlime );
         TConstructRegistry.addDefaultToolPartMaterial(MaterialID.PigIron);
+
+        // Register all the materials for default toolparts
+        //TConstructRegistry.addDefaultShardMaterial(MaterialID.Wood);
+        TConstructRegistry.addDefaultShardMaterial(MaterialID.Stone);
+        TConstructRegistry.addDefaultShardMaterial(MaterialID.Flint);
+        TConstructRegistry.addDefaultShardMaterial(MaterialID.Cactus);
+        //TConstructRegistry.addDefaultShardMaterial(MaterialID.Bone);
+        TConstructRegistry.addDefaultShardMaterial(MaterialID.Obsidian);
+        TConstructRegistry.addDefaultShardMaterial(MaterialID.Netherrack);
+        TConstructRegistry.addDefaultShardMaterial(MaterialID.Slime);
+        //TConstructRegistry.addDefaultShardMaterial(MaterialID.Paper);
+        TConstructRegistry.addDefaultShardMaterial(MaterialID.BlueSlime );
+
+        if(PHConstruct.craftMetalTools)
+        {
+            TConstructRegistry.addDefaultShardMaterial(MaterialID.Iron);
+            TConstructRegistry.addDefaultShardMaterial(MaterialID.Cobalt);
+            TConstructRegistry.addDefaultShardMaterial(MaterialID.Ardite);
+            TConstructRegistry.addDefaultShardMaterial(MaterialID.Manyullyn);
+            TConstructRegistry.addDefaultShardMaterial(MaterialID.Copper);
+            TConstructRegistry.addDefaultShardMaterial(MaterialID.Bronze);
+            TConstructRegistry.addDefaultShardMaterial(MaterialID.Alumite);
+            TConstructRegistry.addDefaultShardMaterial(MaterialID.Steel);
+            TConstructRegistry.addDefaultShardMaterial(MaterialID.PigIron);
+        }
 
         PatternBuilder pb = PatternBuilder.instance;
         if (PHConstruct.enableTWood)
