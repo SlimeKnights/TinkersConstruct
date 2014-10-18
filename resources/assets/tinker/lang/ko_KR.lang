@@ -545,26 +545,6 @@ death.four.smeltery=%1$s는 뜨거운 액체 속에서 수영하는 것을 그�
 death.attack.Landmine=%1$s의 다리가 지뢰에 의해 파괴되었습니다
 death.attack.FireworkExplode=%1$s가 불꽃놀이 폭발에 의해 거열당했습니다
 
-parttype.wood=나무
-parttype.stone=돌
-parttype.iron=철
-parttype.flint=부싯돌
-parttype.cactus=선인장
-parttype.bone=뼈
-parttype.obsidian=흑요석
-parttype.slime=슬라임
-parttype.paper=종이
-parttype.netherrack=네더랙
-parttype.cobalt=코발트
-parttype.ardite=아르다이트
-parttype.manyullyn=마뉼린
-parttype.copper=구리
-parttype.bronze=청동
-parttype.alumite=알루마이트
-parttype.steel=강철
-parttype.blueslime=푸른 슬라임
-parttype.thaumium=사우뮴
-parttype.pigiron=돼지 선철
 
 toolpart.ToolRod=%%material 도구 막대기
 toolpart.PickaxeHead=%%material 곡괭이 머리
@@ -595,6 +575,8 @@ toolpart.Fletching=%%material 화살 깃
 
 # Now with translations of specific material and part combinations:
 #toolpart.ToolRod.wood=Wooden Tool Rod
+# If only the material part has to be specific, you can use this
+#toolpart.material.wood=Wooden
 
 fluid.iron.molten=녹은 철
 fluid.gold.molten=녹은 금
@@ -718,6 +700,8 @@ smeltery.drain.tooltip1=제련소 안의 액체를
 smeltery.drain.tooltip2=빼내거나 다시 집어넣을 수 있음
 smeltery.brick.tooltip1=제련소 구성 블럭
 smeltery.brick.tooltip2=(장식용으로 사용 가능)
+#Dear translators, only translate this line if the joke is applicable in your language.
+grout.tooltip=I am Grout!
 
 gui.smeltery.fuel=연료
 gui.smeltery.emerald=에메랄드 수: 
@@ -765,6 +749,8 @@ gui.toolstation15=채광 수준:
 gui.toolstation16=사용 속도: 
 gui.toolstation17=업그레이드
 gui.toolstation18=남은 업그레이드 횟수: 
+gui.toolstation19=데미지 감소: 
+gui.toolstation20=보호: 
 
 material.wood=나무
 material.wood.display=나무
@@ -794,7 +780,6 @@ material.bronze=청동
 material.alumite=알루마이트
 material.steel=강철
 material.pigiron=돼지 선철
-material.pigiron.display=선철
 material.pigiron.ability=뫄이쩡!
 material.thaumium=사우뮴
 material.thaumium.ability=사우믹
