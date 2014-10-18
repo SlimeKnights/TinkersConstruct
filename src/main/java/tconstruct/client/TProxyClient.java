@@ -47,22 +47,22 @@ public class TProxyClient extends TProxyCommon
     {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		
-		String CurrentLanguage = Minecraft.getMinecraft().getLanguageManager().getCurrentLanguage().getLanguageCode();
+	String CurrentLanguage = Minecraft.getMinecraft().getLanguageManager().getCurrentLanguage().getLanguageCode();
 		
-		diary = readManual("/assets/tinker/manuals/" + CurrentLanguage +"/diary.xml", dbFactory);
-		volume1 = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/firstday.xml", dbFactory);
-		volume2 = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/materials.xml", dbFactory);
-		smelter = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/smeltery.xml", dbFactory);
+	diary = readManual("/assets/tinker/manuals/" + CurrentLanguage +"/diary.xml", dbFactory);
+	volume1 = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/firstday.xml", dbFactory);
+	volume2 = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/materials.xml", dbFactory);
+	smelter = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/smeltery.xml", dbFactory);
 		
-		if(diary == null || volume1 == null || volume2 == null || smelter == null)
-		{
-			diary = readManual("/assets/tinker/manuals/en_US/diary.xml", dbFactory);
-			volume1 = readManual("/assets/tinker/manuals/en_US/firstday.xml", dbFactory);
-			volume2 = readManual("/assets/tinker/manuals/en_US/materials.xml", dbFactory);
-			smelter = readManual("/assets/tinker/manuals/en_US/smeltery.xml", dbFactory);
-		}
+	if(diary == null || volume1 == null || volume2 == null || smelter == null)
+	{
+		diary = readManual("/assets/tinker/manuals/en_US/diary.xml", dbFactory);
+		volume1 = readManual("/assets/tinker/manuals/en_US/firstday.xml", dbFactory);
+		volume2 = readManual("/assets/tinker/manuals/en_US/materials.xml", dbFactory);
+		smelter = readManual("/assets/tinker/manuals/en_US/smeltery.xml", dbFactory);
+	}
 			
-		initManualIcons();
+	initManualIcons();
         initManualRecipes();
         initManualPages();
         manualData = new ManualInfo();
