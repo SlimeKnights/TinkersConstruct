@@ -12,3 +12,10 @@ TODO:
 
 maybe give javelins slight armor piercing? or do they have that already?
 
+
+Ideas:
+* Liquid Purple Slime + Obsidian + Metal = Obslimite... Jademite, Obsidimite, Purplemite, Ironslime
+    - Lower durability than slime
+    - Bouncy.. harvested stuff gets knocked around? Maybe Knockback1?
+    - Jagged + Reinforced
+* Magma Cube -> Magma Slime Balls -> Tool Material. Slime + Fiery by default, high quality slime!
