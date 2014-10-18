@@ -78,6 +78,13 @@ public final class IMCHandler {
                 ItemStack shard = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Shard")); // optional
                 ItemStack rod = new ItemStack(TinkerTools.toolRod, 1, matID);
 
+                // default shard if none present. Has to exist because old code.
+                if(shard == null)
+                {
+                    TConstructRegistry.addDefaultShardMaterial(matID);
+                    shard = new ItemStack(TinkerTools.toolShard, 1, matID);
+                }
+
                 // register the material
                 PatternBuilder.instance.registerFullMaterial(item, value, TConstructRegistry.getMaterial(matID).materialName, shard, rod, matID);
 
