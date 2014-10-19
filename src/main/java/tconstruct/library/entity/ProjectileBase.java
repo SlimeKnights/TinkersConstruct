@@ -178,7 +178,7 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
     public void onHitEntity(MovingObjectPosition movingobjectposition) {
         NBTTagCompound tags = returnStack.getTagCompound().getCompoundTag("InfiTool");
         float speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-        float damage = speed * tags.getInteger("Attack");
+        float damage = speed * tags.getInteger("Attack"); // todo: potentially change this back to MathHelper.ceiling_float_int to get 1/2 heart steps back
 
         // Damage calculations and stuff. For reference see AbilityHelper.onLeftClickEntity
         ToolCore ammo = (ToolCore)returnStack.getItem();

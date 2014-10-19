@@ -1,5 +1,8 @@
 package tconstruct.library.weaponry;
 
+import net.minecraft.init.Items;
+import net.minecraft.util.StatCollector;
+import tconstruct.client.TProxyClient;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.weaponry.TinkerWeaponry;
 import tconstruct.weaponry.client.CrosshairType;
@@ -21,6 +24,7 @@ import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.TextureHelper;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -360,5 +364,34 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
             if(!empty)
                 icons.put(entry.getKey(), anims);
         }
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+        super.addInformation(stack, player, list, par4);
+
+        if(!stack.hasTagCompound())
+            return;
+
+        // also display max damage with current ammo
+        ItemStack currentAmmo = searchForAmmo(player, stack);
+        if(currentAmmo == null)
+            return;
+
+        float damage;
+        if(currentAmmo.getItem() == Items.arrow)
+            damage = 2;
+        else if(currentAmmo.getItem() instanceof AmmoItem && currentAmmo.hasTagCompound())
+            damage = currentAmmo.getTagCompound().getCompoundTag("InfiTool").getInteger("Attack");
+        else
+            return;
+
+        damage *= getProjectileSpeed(stack);
+        damage /= 2;
+
+        list.remove(list.size()-1); // remove last item (the damage of the bow itself)
+        list.add(currentAmmo.getDisplayName());
+        list.add(StatCollector.translateToLocal("attribute.name.ammo.maxAttackDamage") + ": " + TProxyClient.df.format(damage));
     }
 }
