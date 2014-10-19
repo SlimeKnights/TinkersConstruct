@@ -7,6 +7,7 @@ import java.util.List;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.tools.ToolCore;
 
 /* TE3 support */
@@ -27,7 +28,7 @@ public class ModFlux extends ModBoolean
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
 
         // not on ammo weapons, since they don't have durability technically
-        String[] traits = ((ToolCore)tool.getItem()).getTraits();
+        String[] traits = ((IModifyable)tool.getItem()).getTraits();
         for(String trait : traits)
             if("ammo".equals(trait))
                 return false;
