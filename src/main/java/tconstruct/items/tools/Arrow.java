@@ -10,6 +10,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.tools.CustomMaterial;
 import tconstruct.library.tools.FletchingMaterial;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.weaponry.TinkerWeaponry;
@@ -47,8 +48,11 @@ public class Arrow extends ToolCore
     @Override
     protected int getDefaultColor(int renderPass, int materialID) {
         // fletchling uses custom material
-        if(renderPass == 2)
-            return TConstructRegistry.getCustomMaterial(materialID, FletchingMaterial.class).color;
+        if(renderPass == 2) {
+            CustomMaterial mat = TConstructRegistry.getCustomMaterial(materialID, FletchingMaterial.class);
+            if(mat != null)
+                return mat.color;
+        }
 
         return super.getDefaultColor(renderPass, materialID);
     }

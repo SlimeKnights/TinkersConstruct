@@ -72,6 +72,9 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         // Check that the drain is coming from the from the front of the block
         // and that the fluid to be drained is in the smeltery.
+        if(!hasValidMaster())
+            return false;
+            
         boolean containsFluid = fluid == null;
         if (fluid != null)
         {

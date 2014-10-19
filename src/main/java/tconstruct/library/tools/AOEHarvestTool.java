@@ -66,7 +66,9 @@ public abstract class AOEHarvestTool extends HarvestTool {
                     // don't break the originally already broken block, duh
                     if (xPos == x && yPos == y && zPos == z)
                         continue;
-                    breakExtraBlock(player.worldObj, xPos, yPos, zPos, sideHit, player, x,y,z);
+
+                    if(!super.onBlockStartBreak(stack, xPos, yPos, zPos, player))
+                        breakExtraBlock(player.worldObj, xPos, yPos, zPos, sideHit, player, x,y,z);
                 }
 
 

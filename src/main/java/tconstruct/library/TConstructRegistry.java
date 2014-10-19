@@ -221,6 +221,7 @@ public class TConstructRegistry
     public static HashMap<Integer, ToolMaterial> toolMaterials = new HashMap<Integer, ToolMaterial>(40);
     public static HashMap<String, ToolMaterial> toolMaterialStrings = new HashMap<String, ToolMaterial>(40);
     public static List<Integer> defaultToolPartMaterials = new LinkedList<Integer>();
+    public static List<Integer> defaultShardMaterials = new LinkedList<Integer>();
 
     public static void addDefaultToolPartMaterial(int materialID)
     {
@@ -228,6 +229,14 @@ public class TConstructRegistry
             logger.error("[TCon API] Can't add default toolpart: Material ID " + materialID + " is unknown.");
         else
             defaultToolPartMaterials.add(materialID);
+    }
+
+    public static void addDefaultShardMaterial(int materialID)
+    {
+        if(!toolMaterials.containsKey(materialID))
+            logger.error("[TCon API] Can't add default shard: Material ID " + materialID + " is unknown.");
+        else
+            defaultShardMaterials.add(materialID);
     }
 
     /**

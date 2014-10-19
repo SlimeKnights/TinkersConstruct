@@ -37,6 +37,7 @@ public class TravelWings extends TravelGear
     @Override
     public void onArmorTick (World world, EntityPlayer player, ItemStack itemStack)
     {
+        super.onArmorTick(world, player, itemStack);
         NBTTagCompound tag = itemStack.getTagCompound().getCompoundTag(getBaseTagName());
         int feather = tag.getInteger("Feather Fall");
         if (feather > 0)
