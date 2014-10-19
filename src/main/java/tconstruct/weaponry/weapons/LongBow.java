@@ -51,7 +51,7 @@ public class LongBow extends BowBaseAmmo {
             float weight = tags.getFloat("Mass");
 
             // we need heavier arrows because we have POW. therefore we increase the weight penality on accuracy
-            accuracy += ((100f-matAccuracy)/10f)/(weight-1f);
+            accuracy += ((100f-matAccuracy)/10f)/Math.max(1f, weight-1f);
             if(accuracy < 0)
                 accuracy = 0;
         }
