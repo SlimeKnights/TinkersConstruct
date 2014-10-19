@@ -56,10 +56,7 @@ public class WeaponryHandler {
             float accuracy = fletching.accuracy;
             float breakChance = shaft.fragility + fletching.breakChance;
 
-            tags.setInteger("TotalDurability", durability);
-            tags.setFloat("Mass", weight);
-            tags.setFloat("BreakChance", breakChance);
-            tags.setFloat("Accuracy", accuracy);
+            setAmmoData(tags, durability, weight, accuracy, breakChance, head.shoddy(), head.reinforced());
         }
         else if(event.tool instanceof BoltAmmo)
         {
@@ -81,11 +78,10 @@ public class WeaponryHandler {
             float weight = head.mass + core.mass;
             float accuracy = fletching.accuracy;
             float breakChance = fletching.breakChance*3;
+            float shoddy = (headMat.shoddy() + coreMat.shoddy())/2f;
+            int reinforced = Math.max(headMat.reinforced(), coreMat.reinforced());
 
-            tags.setInteger("TotalDurability", durability);
-            tags.setFloat("Mass", weight);
-            tags.setFloat("BreakChance", breakChance);
-            tags.setFloat("Accuracy", accuracy);
+            setAmmoData(tags, durability, weight, accuracy, breakChance, shoddy, reinforced);
         }
 
         // now that durability has been handled...
@@ -186,5 +182,15 @@ public class WeaponryHandler {
         event.headStack = bolt1;
         event.handleStack = bolt2;
         event.accessoryStack = fletching;
+    }
+
+    private void setAmmoData(NBTTagCompound tags, int durability, float weight, float breakChance, float accuracy, float shoddy, int reinforced)
+    {
+        tags.setInteger("TotalDurability", durability);
+        tags.setFloat("Mass", weight);
+        tags.setFloat("BreakChance", breakChance);
+        tags.setFloat("Accuracy", accuracy);
+        tags.setFloat("Shoddy", shoddy); // we could actually always set this to 0 since it has zero impact on ammo
+        tags.setInteger("Unbreaking", reinforced);
     }
 }

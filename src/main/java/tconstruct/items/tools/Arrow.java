@@ -197,11 +197,11 @@ public class Arrow extends ToolCore
                 int head = tags.getCompoundTag("InfiTool").getInteger("Head");
                 int handle = tags.getCompoundTag("InfiTool").getInteger("Handle");
 
-                String headName = getAbilityNameForType(head);
+                String headName = getAbilityNameForType(head, 0);
                 if (!headName.equals(""))
                     list.add(getStyleForType(head) + headName);
 
-                String handleName = getAbilityNameForType(handle);
+                String handleName = getAbilityNameForType(handle, 0);
                 if (!handleName.equals("") && handle != head)
                     list.add(getStyleForType(handle) + handleName);
 

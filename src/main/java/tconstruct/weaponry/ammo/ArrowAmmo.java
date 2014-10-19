@@ -82,6 +82,12 @@ public class ArrowAmmo extends AmmoItem {
         return TinkerWeaponry.fletching;
     }
 
+    // handle is custom material
+    @Override
+    public int durabilityTypeHandle() {
+        return 0;
+    }
+
     @Override
     public String[] getTraits ()
     {
@@ -133,5 +139,13 @@ public class ArrowAmmo extends AmmoItem {
             return 0xffffff;
 
         return mat.color;
+    }
+
+    // fix tooltip custom materials
+    @Override
+    public String getAbilityNameForType(int type, int part) {
+        if(part >= 1) // only head has ability
+            return "";
+        return super.getAbilityNameForType(type, part);
     }
 }

@@ -819,7 +819,7 @@ modifier.tool.beheading=Beheading
 
 creativeModLock.tooltip=Target Lock: 
 
-attribute.name.ammo.attackDamage=Average Shot Damage
+attribute.name.ammo.attackDamage=Base Damage
 
 tool.pickaxe=Pickaxe
 tool.shovel=Shovel

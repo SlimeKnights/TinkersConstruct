@@ -107,4 +107,12 @@ public class BoltAmmo extends AmmoItem {
 
         return mat.color;
     }
+
+    // fix tooltip custom materials
+    @Override
+    public String getAbilityNameForType(int type, int part) {
+        if(part >= 2) // only head and handle have ability
+            return "";
+        return super.getAbilityNameForType(type, part);
+    }
 }

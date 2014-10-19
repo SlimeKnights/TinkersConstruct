@@ -148,7 +148,7 @@ public class Shortbow extends BowBase
                 int binding = tags.getCompoundTag("InfiTool").getInteger("Accessory");
                 int extra = tags.getCompoundTag("InfiTool").getInteger("Extra");
 
-                String headName = getAbilityNameForType(head);
+                String headName = getAbilityNameForType(head, 0);
                 if (!headName.equals(""))
                     list.add(getStyleForType(head) + headName);
 
@@ -158,14 +158,14 @@ public class Shortbow extends BowBase
 
                 if (getPartAmount() >= 3)
                 {
-                    String bindingName = getAbilityNameForType(binding);
+                    String bindingName = getAbilityNameForType(binding, 0);
                     if (!bindingName.equals("") && binding != head && binding != handle)
                         list.add(getStyleForType(binding) + bindingName);
                 }
 
                 if (getPartAmount() >= 4)
                 {
-                    String extraName = getAbilityNameForType(extra);
+                    String extraName = getAbilityNameForType(extra, 0);
                     if (!extraName.equals("") && extra != head && extra != handle && extra != binding)
                         list.add(getStyleForType(extra) + extraName);
                 }

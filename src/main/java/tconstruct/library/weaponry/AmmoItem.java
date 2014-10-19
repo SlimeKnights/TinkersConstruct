@@ -1,5 +1,8 @@
 package tconstruct.library.weaponry;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.util.StatCollector;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.weaponry.TinkerWeaponry;
 import tconstruct.util.Reference;
@@ -8,6 +11,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.tools.ToolCore;
+
+import java.util.List;
 
 public abstract class AmmoItem extends ToolCore implements IAmmo {
     public AmmoItem(int baseDamage, String name) {
