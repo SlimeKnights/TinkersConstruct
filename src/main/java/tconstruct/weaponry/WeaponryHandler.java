@@ -33,8 +33,8 @@ public class WeaponryHandler {
         {
             // arrows work like this:
             // the head is responsible for the damage, but also adds weight
-            // the shaft defines how fragile the arrow is, and also adds to the weight a bit. But mostly it functions at the durability modifier
-            // the fletching defines the accuracy of the bow, adds a bit of durability and also breakchance
+            // the shaft defines how fragile the arrow is, and also adds to the weight a bit. But mostly the fragility.
+            // the fletching defines the accuracy of the arrow and adds a bit breakchance. Mostly there for the durability modifier because availability
 
             // Shortbows work better with lighter arrows
             // while Longbows require a bit heavier arrows, the lighter the arrow the more impact the accuracy has otherwise
@@ -51,7 +51,7 @@ public class WeaponryHandler {
             if(fletching == null)
                 fletching = (FletchingMaterial) TConstructRegistry.getCustomMaterial(tags.getInteger("Accessory"), FletchlingLeafMaterial.class);
 
-            int durability = (int)((float)head.durability() * shaft.durabilityModifier); // todo: fletching durability
+            int durability = (int)((float)head.durability() * shaft.durabilityModifier * fletching.durabilityModifier);
             float weight = arrow.mass + shaft.weight/2f;
             float accuracy = fletching.accuracy;
             float breakChance = shaft.fragility + fletching.breakChance;
@@ -77,10 +77,10 @@ public class WeaponryHandler {
             if(fletching == null)
                 fletching = (FletchingMaterial) TConstructRegistry.getCustomMaterial(tags.getInteger("Accessory"), FletchlingLeafMaterial.class);
 
-            int durability = (int)((float)headMat.durability() * coreMat.handleDurability()); // todo: fletching durability
+            int durability = (int)((float)headMat.durability() * coreMat.handleDurability() * fletching.durabilityModifier);
             float weight = head.mass + core.mass;
             float accuracy = fletching.accuracy;
-            float breakChance = fletching.breakChance;
+            float breakChance = fletching.breakChance*3;
 
             tags.setInteger("TotalDurability", durability);
             tags.setFloat("Mass", weight);

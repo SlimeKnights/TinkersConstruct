@@ -261,20 +261,20 @@ public class TinkerWeaponry {
         TConstructRegistry.addArrowMaterial(MaterialID.PigIron,     3.6F,   0.5F); //Pigiron
 
         // Arrow Shaft Materials: Material ID, crafting item, durability-medifier, mass, fragility
-        TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(0, Items.stick, 1.0f, 1.0f, 0.15f, 0x866526)); // wood: reference material, 10% break chance
-        TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(1, Items.bone,      0.95f, 1.2f, 0.05f, 0xede6bf)); // bone: heavier, but durable
-        TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(2, Items.reeds,     1.5f,  0.8f, 0.66f, 0xc7ff87)); // reed: light, but less durable
+        TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(0, Items.stick,     1.0f,  1.0f, 0.15f, 0x866526)); // wood: reference material, 10% break chance
+        TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(1, Items.bone,      0.95f, 1.4f, 0.02f, 0xede6bf)); // bone: heavier, but durable
+        TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(2, Items.reeds,     1.5f,  0.5f, 0.66f, 0xc7ff87)); // reed: light, but less durable
         TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(3, Items.blaze_rod, 1.2f,  0.9f, 0.08f, 0xfff32d)); // blaze: tad lighter, tad more durable, fieryyyy
         // also add the tool rod variants, same stats
         TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(0, TinkerTools.toolRod, MaterialID.Wood, 1.0f, 1.0f, 0.15f, 0x866526)); // wood: reference material, 10% break chance
         TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(1, TinkerTools.toolRod, MaterialID.Bone, 0.95f, 1.2f, 0.01f, 0xede6bf)); // bone: heavier, but durable
 
         // Arrow Fletching Materials
-        TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Items.feather), new ItemStack(TinkerWeaponry.fletching, 1, 0), 95F, 0F, 0.05F, 1f, 0xffffff); // Feather
-        TConstructRegistry.addCustomMaterial(new FletchlingLeafMaterial(1, 2, "treeLeaves", new ItemStack(TinkerWeaponry.fletching, 1, 1), 75F, 0F, 0.2F)); // all vanilla and oredicted leaves. and all leaves in general.
-        TConstructRegistry.addFletchingMaterial(2, 2, new ItemStack(TinkerTools.materials, 1, 1), new ItemStack(TinkerWeaponry.fletching, 1, 2), 100F, 0F, 0.12F, 0.95f, 0x82c873); // Slime
-        TConstructRegistry.addFletchingMaterial(3, 2, new ItemStack(TinkerTools.materials, 1, 17), new ItemStack(TinkerWeaponry.fletching, 1, 3), 100F, 0F, 0.12F, 0.95f, 0x74c8c7); // BlueSlime
-        TConstructRegistry.addFletchingMaterial(4, 2, new ItemStack(TinkerWorld.slimeLeaves, 1, 0), new ItemStack(TinkerWeaponry.fletching, 1, 4), 98F, 0.03F, 0.08F, 1.2f, 0x74e8c7); // Slime leaves
+        TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Items.feather), new ItemStack(TinkerWeaponry.fletching, 1, 0), 95F, 0.05F, 1.0f, 0xffffff); // Feather
+        TConstructRegistry.addCustomMaterial(new FletchlingLeafMaterial(1, 2, "treeLeaves", new ItemStack(TinkerWeaponry.fletching, 1, 1), 75F, 0F, 2.5f)); // all vanilla and oredicted leaves. and all leaves in general.
+        TConstructRegistry.addFletchingMaterial(2, 2, new ItemStack(TinkerTools.materials, 1, 1), new ItemStack(TinkerWeaponry.fletching, 1, 2), 100F, 0.005F, 0.8f, 0x82c873); // Slime
+        TConstructRegistry.addFletchingMaterial(3, 2, new ItemStack(TinkerTools.materials, 1, 17), new ItemStack(TinkerWeaponry.fletching, 1, 3), 100F, 0.005F, 0.8f, 0x74c8c7); // BlueSlime
+        TConstructRegistry.addFletchingMaterial(4, 2, new ItemStack(TinkerWorld.slimeLeaves, 1, 0), new ItemStack(TinkerWeaponry.fletching, 1, 4), 98F, 0.02F, 1.4F, 0x74e8c7); // Slime leaves
 
         // Bowstring Materials
         TConstructRegistry.addBowstringMaterial(0, 2, new ItemStack(Items.string), new ItemStack(TinkerWeaponry.bowstring, 1, 0), 1F, 1F, 1f, 0xeeeeee); // String
