@@ -69,7 +69,7 @@ public class WeaponryClientProxy extends WeaponryCommonProxy {
         ToolCore arrow = TinkerWeaponry.arrowAmmo;
         String pre = Reference.resource(arrow.getDefaultFolder()) + "/";
 
-        String[] shaft = {"wood", "bone", "blaze", "reed", null};
+        String[] shaft = {"wood", "bone", "reed", "blaze", null};
         String[] fletching = { "feather", "leaf", "slime", "blueslime", "slimeleaf" };
 
         // we register different textures for the different parts per index

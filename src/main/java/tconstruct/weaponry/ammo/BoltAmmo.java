@@ -101,7 +101,7 @@ public class BoltAmmo extends AmmoItem {
 
         CustomMaterial mat = TConstructRegistry.getCustomMaterial(materialID, FletchingMaterial.class);
         if(mat == null)
-            TConstructRegistry.getCustomMaterial(materialID, FletchlingLeafMaterial.class);
+            mat = TConstructRegistry.getCustomMaterial(materialID, FletchlingLeafMaterial.class);
         if(mat == null)
             return 0xffffff;
 

@@ -213,8 +213,6 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
     public HashMap<Integer, IIcon[]> animationExtraIcons = new HashMap<Integer, IIcon[]>();
     public HashMap<Integer, IIcon[]> animationEffectIcons = new HashMap<Integer, IIcon[]>();
 
-    // todo: animated effects
-
     /**
      * return true if the current renderpass should use animations.
      * 0 == handle
