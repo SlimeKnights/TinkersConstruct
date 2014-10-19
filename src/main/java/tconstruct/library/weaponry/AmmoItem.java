@@ -22,12 +22,14 @@ public abstract class AmmoItem extends ToolCore implements IAmmo {
 
     @Override
     public int getAmmoCount(ItemStack stack) {
+        if(!stack.hasTagCompound()) return 0;
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         return tags.getInteger("Ammo");
     }
 
     @Override
     public int getMaxAmmo(ItemStack stack) {
+        if(!stack.hasTagCompound()) return 0;
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         return getMaxAmmo(tags);
     }
@@ -40,6 +42,7 @@ public abstract class AmmoItem extends ToolCore implements IAmmo {
 
     @Override
     public int addAmmo(int toAdd, ItemStack stack) {
+        if(!stack.hasTagCompound()) return toAdd;
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         int oldCount = tags.getInteger("Ammo");
         int newCount = Math.min(oldCount + toAdd, getMaxAmmo(stack));
@@ -49,6 +52,7 @@ public abstract class AmmoItem extends ToolCore implements IAmmo {
 
     @Override
     public int consumeAmmo(int toUse, ItemStack stack) {
+        if(!stack.hasTagCompound()) return toUse;
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         int oldCount = tags.getInteger("Ammo");
         int newCount = Math.max(oldCount - toUse, 0);
@@ -60,7 +64,7 @@ public abstract class AmmoItem extends ToolCore implements IAmmo {
 
     public boolean pickupAmmo(ItemStack stack, ItemStack candidate, EntityPlayer player)
     {
-        if(stack.getItem() == null || !(stack.getItem() instanceof IAmmo))
+        if(stack.getItem() == null || !stack.hasTagCompound() || !(stack.getItem() instanceof IAmmo))
             return false;
 
         // check if our candidate fits
