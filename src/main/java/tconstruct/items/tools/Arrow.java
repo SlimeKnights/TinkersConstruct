@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.BowstringMaterial;
+import tconstruct.library.tools.CustomMaterial;
 import tconstruct.library.tools.FletchingMaterial;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.tools.TinkerTools;
@@ -47,8 +48,11 @@ public class Arrow extends ToolCore
     @Override
     protected int getDefaultColor(int renderPass, int materialID) {
         // fletchling uses custom material
-        if(renderPass == 2)
-            return TConstructRegistry.getCustomMaterial(materialID, FletchingMaterial.class).color;
+        if(renderPass == 2) {
+            CustomMaterial mat = TConstructRegistry.getCustomMaterial(materialID, FletchingMaterial.class);
+            if(mat != null)
+                return mat.color;
+        }
 
         return super.getDefaultColor(renderPass, materialID);
     }
