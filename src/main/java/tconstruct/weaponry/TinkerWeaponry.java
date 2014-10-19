@@ -33,6 +33,7 @@ import tconstruct.tools.items.Pattern;
 import tconstruct.weaponry.ammo.ArrowAmmo;
 import tconstruct.weaponry.ammo.BoltAmmo;
 import tconstruct.library.tools.DualMaterialToolPart;
+import tconstruct.weaponry.items.GlassArrows;
 import tconstruct.weaponry.items.WeaponryPattern;
 import tconstruct.library.weaponry.AmmoItem;
 import tconstruct.library.weaponry.AmmoWeapon;
@@ -88,6 +89,7 @@ public class TinkerWeaponry {
     public void preInit(FMLPreInitializationEvent event)
     {
         registerItems();
+        registerLegendaries();
         registerMaterials();
     }
 
@@ -209,6 +211,11 @@ public class TinkerWeaponry {
             }
         }
 
+    }
+
+    private void registerLegendaries()
+    {
+        GameRegistry.registerItem(new GlassArrows(), "GlassArrows");
     }
 
     private void registerMaterials()
