@@ -544,27 +544,6 @@ death.four.smeltery=%1$s pensò che nuotare in fluidi bollenti fosse una buona i
 death.attack.Landmine=Le gambe di %1$s sono state spazzate via da una mina
 death.attack.FireworkExplode=%1$s è stato fatto a pezzi da un fuoco d'artificio
 
-parttype.wood=di legno
-parttype.stone=di pietra
-parttype.iron=di ferro
-parttype.flint=di selce
-parttype.cactus=di cactus
-parttype.bone=d'osso
-parttype.obsidian=di ossidiana
-parttype.slime=di gelatina
-parttype.paper=di carta
-parttype.netherrack=di inferrena
-parttype.cobalt=di cobalto
-parttype.ardite=di ardite
-parttype.manyullyn=di manyullyn
-parttype.copper=di rame
-parttype.bronze=di bronzo
-parttype.alumite=di alumite
-parttype.steel=d'acciaio
-parttype.blueslime=di gelatina
-parttype.thaumium=di taumio
-parttype.pigiron=di ferro suino
-
 toolpart.ToolRod=Manico %%material
 toolpart.PickaxeHead=Testa di piccone %%material
 toolpart.ShovelHead=Testa di pala %%material
@@ -592,8 +571,29 @@ toolpart.Bowstring=Corda d'arco %%material
 toolpart.ArrowHead=Testa di freccia %%material
 toolpart.Fletching=Impennaggio %%material
 
-# Now with translations of specific material and part combinations:
+#Now with translations of specific material and part combinations:
 #toolpart.ToolRod.wood=Wooden Tool Rod
+# If only the material part has to be specific, you can use this
+toolpart.material.wood=di legno
+toolpart.material.stone=di pietra
+toolpart.material.iron=di ferro
+toolpart.material.flint=di selce
+toolpart.material.cactus=di cactus
+toolpart.material.bone=d'osso
+toolpart.material.obsidian=di ossidiana
+toolpart.material.slime=di gelatina
+toolpart.material.paper=di carta
+toolpart.material.netherrack=di inferrena
+toolpart.material.cobalt=di cobalto
+toolpart.material.ardite=di ardite
+toolpart.material.manyullyn=di manyullyn
+toolpart.material.copper=di rame
+toolpart.material.bronze=di bronzo
+toolpart.material.alumite=di alumite
+toolpart.material.steel=d'acciaio
+toolpart.material.blueslime=di gelatina
+toolpart.material.thaumium=di taumio
+toolpart.material.pigiron=di ferro suino
 
 fluid.iron.molten=Ferro fuso
 fluid.gold.molten=Oro fuso
@@ -717,6 +717,8 @@ smeltery.drain.tooltip1=Funziona sia come entrata che come
 smeltery.drain.tooltip2=uscita per fluidi nella fonderia
 smeltery.brick.tooltip1=Blocco per la fonderia
 smeltery.brick.tooltip2=(Usabile anche come decorazione)
+#Dear translators, only translate this line if the joke is applicable in your language.
+grout.tooltip=I am Grout!
 
 gui.smeltery.fuel=Carburante
 gui.smeltery.emerald=Smeraldi: 
