@@ -507,8 +507,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         needsUpdate = true;
         if (moltenMetal.size() == 0)
         {
+            // does it fit in?
+            if(liquid.amount > this.getCapacity())
+                return false;
+
             moltenMetal.add(liquid.copy());
-            currentLiquid += liquid.amount;
+            updateCurrentLiquid();
             return true;
         }
         else
