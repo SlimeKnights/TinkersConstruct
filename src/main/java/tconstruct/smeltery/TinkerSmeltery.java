@@ -848,7 +848,7 @@ public class TinkerSmeltery
 
     public void addOreDictionarySmelteryRecipes ()
     {
-        List<FluidType> exceptions = Arrays.asList(new FluidType[] { FluidType.getFluidType("Water"), FluidType.getFluidType("Stone"), FluidType.getFluidType("Ender"), FluidType.getFluidType("Glass"), FluidType.getFluidType("Slime"), FluidType.getFluidType("Obsidian") });
+        List<FluidType> exceptions = Arrays.asList(new FluidType[] { FluidType.getFluidType("Water"), FluidType.getFluidType("Stone"), FluidType.getFluidType("Emerald"), FluidType.getFluidType("Ender"), FluidType.getFluidType("Glass"), FluidType.getFluidType("Slime"), FluidType.getFluidType("Obsidian") });
         Iterator iter = FluidType.fluidTypes.entrySet().iterator();
         while (iter.hasNext())
         {
@@ -1197,6 +1197,7 @@ public class TinkerSmeltery
         Smeltery.addMelting(Blocks.stone, 0, 800, new FluidStack(TinkerSmeltery.moltenStoneFluid, TConstruct.ingotLiquidValue / 18));
         Smeltery.addMelting(Blocks.cobblestone, 0, 800, new FluidStack(TinkerSmeltery.moltenStoneFluid, TConstruct.ingotLiquidValue / 8));
         Smeltery.addMelting(Blocks.emerald_block, 0, 800, new FluidStack(TinkerSmeltery.moltenEmeraldFluid, 640 * 9));
+        Smeltery.addMelting(Blocks.emerald_ore, 0, 800, new FluidStack(TinkerSmeltery.moltenEmeraldFluid, 640 * 2)); // the ore also is done here
         Smeltery.addMelting(TinkerSmeltery.glueBlock, 0, 250, new FluidStack(TinkerSmeltery.glueFluid, TConstruct.blockLiquidValue));
         Smeltery.addMelting(TinkerTools.craftedSoil, 1, 600, new FluidStack(TinkerSmeltery.moltenStoneFluid, TConstruct.ingotLiquidValue / 4));
 
