@@ -581,6 +581,9 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
+        if(!stack.hasTagCompound())
+            return false;
+
         boolean cancelHarvest = false;
         for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
         {
@@ -594,6 +597,13 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
     @Override
     public boolean onBlockDestroyed (ItemStack itemstack, World world, Block block, int x, int y, int z, EntityLivingBase player)
     {
+        if(!itemstack.hasTagCompound())
+            return false;
+
+        // callbacks!
+        for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+            mod.afterBlockBreak(this, itemstack, block, x, y, z, player);
+
         if (block != null && (double) block.getBlockHardness(world, x, y, z) != 0.0D)
         {
             return AbilityHelper.onBlockChanged(itemstack, world, block, x, y, z, player, random);
