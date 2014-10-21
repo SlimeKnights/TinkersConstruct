@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.enchantment.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.item.*;
+import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -16,6 +17,7 @@ import tconstruct.library.ActiveToolMod;
 import tconstruct.library.tools.*;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
+import tconstruct.world.entity.BlueSlime;
 
 public class TActiveOmniMod extends ActiveToolMod
 {
@@ -54,6 +56,12 @@ public class TActiveOmniMod extends ActiveToolMod
             return true;
 
         return false;
+    }
+
+    @Override
+    public void afterBlockBreak(ToolCore tool, ItemStack stack, Block block, int x, int y, int z, EntityLivingBase entity) {
+        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        slimify(tool, tags, block, x,y,z, entity.worldObj);
     }
 
     private boolean autoSmelt (ToolCore tool, NBTTagCompound tags, ItemStack stack, int x, int y, int z, EntityLivingBase entity)
@@ -168,11 +176,12 @@ public class TActiveOmniMod extends ActiveToolMod
 
     private void baconator (ToolCore tool, ItemStack stack, EntityLivingBase entity, NBTTagCompound tags)
     {
+        final int pigiron = TinkerTools.MaterialID.PigIron;
         int bacon = 0;
-        bacon += tags.getInteger("Head") == 18 ? 1 : 0;
-        bacon += tags.getInteger("Handle") == 18 ? 1 : 0;
-        bacon += tags.getInteger("Accessory") == 18 ? 1 : 0;
-        bacon += tags.getInteger("Extra") == 18 ? 1 : 0;
+        bacon += tags.getInteger("Head") == pigiron ? 1 : 0;
+        bacon += tags.getInteger("Handle") == pigiron ? 1 : 0;
+        bacon += tags.getInteger("Accessory") == pigiron ? 1 : 0;
+        bacon += tags.getInteger("Extra") == pigiron ? 1 : 0;
         int chance = tool.getPartAmount() * 100;
         if (random.nextInt(chance) < bacon)
         {
@@ -180,6 +189,54 @@ public class TActiveOmniMod extends ActiveToolMod
                 AbilityHelper.spawnItemAtPlayer((EntityPlayer) entity, new ItemStack(TinkerWorld.strangeFood, 1, 2));
             else
                 AbilityHelper.spawnItemAtEntity(entity, new ItemStack(TinkerWorld.strangeFood, 1, 2), 0);
+        }
+    }
+
+    private void slimify(ToolCore tool, NBTTagCompound tags, Block block, int x, int y, int z, World world)
+    {
+        if (world.isRemote)
+            return;
+
+        int chance = tool.getPartAmount() * 100;
+        int count = 0;
+        int slimeMat = TinkerTools.MaterialID.Slime;
+
+        // regular slime
+        if(tags.getInteger("Head") == slimeMat)
+            count++;
+        if(tags.getInteger("Handle") == slimeMat)
+            count++;
+        if(tags.getInteger("Accessory") == slimeMat)
+            count++;
+        if(tags.getInteger("Extra") == slimeMat)
+            count++;
+
+        if(random.nextInt(chance) < count) {
+            EntitySlime entity = new EntitySlime(world);
+            entity.setPosition(x+0.5,y,z+0.5);
+            entity.setSlimeSize(1); // minislime!
+            world.spawnEntityInWorld(entity);
+            entity.playLivingSound();
+        }
+
+        // blueslime
+        slimeMat = TinkerTools.MaterialID.BlueSlime;
+        count = 0;
+        if(tags.getInteger("Head") == slimeMat)
+            count++;
+        if(tags.getInteger("Handle") == slimeMat)
+            count++;
+        if(tags.getInteger("Accessory") == slimeMat)
+            count++;
+        if(tags.getInteger("Extra") == slimeMat)
+            count++;
+
+        if(random.nextInt(chance) < count) {
+            BlueSlime entity = new BlueSlime(world);
+            entity.setPosition(x+0.5,y,z+0.5);
+            entity.setSlimeSize(1); // minislime!
+            world.spawnEntityInWorld(entity);
+            entity.playLivingSound();
         }
     }
 

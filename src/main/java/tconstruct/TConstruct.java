@@ -79,6 +79,7 @@ public class TConstruct
     public static final int blockLiquidValue = ingotLiquidValue * 9;
     public static final int chunkLiquidValue = ingotLiquidValue / 2;
     public static final int nuggetLiquidValue = ingotLiquidValue / 9;
+    public static final int stoneLiquidValue = ingotLiquidValue/8;
 
     public static final int liquidUpdateAmount = 6;
     public static final String modID = "TConstruct";
