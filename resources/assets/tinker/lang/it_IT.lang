@@ -720,6 +720,13 @@ smeltery.brick.tooltip2=(Usabile anche come decorazione)
 #Dear translators, only translate this line if the joke is applicable in your language.
 grout.tooltip=I am Grout!
 
+tconstruct.waila.empty=Vuoto
+tconstruct.waila.liquidtag=Liquido: 
+tconstruct.waila.amounttag=Quantità: 
+tconstruct.waila.contains=Contiene: 
+tconstruct.waila.subtanks=Sottocisterne:
+tconstruct.waila.invalidstructure=Struttura invalida
+
 gui.smeltery.fuel=Carburante
 gui.smeltery.emerald=Smeraldi: 
 gui.smeltery.glass.block=Blocchi: 
@@ -814,11 +821,6 @@ gui.modifier.lava=Lava
 gui.modifier.necro=Necrotico
 gui.modifier.spider=Anti ragno
 gui.modifier.quartz=Quarzo
-
-tconstruct.waila.empty=Vuoto
-tconstruct.waila.liquidtag=Liquido: 
-tconstruct.waila.amounttag=Quantità: 
-tconstruct.waila.invalidstructure=Struttura invalida
 
 modifier.armour.jump.double=Salto doppio
 modifier.armour.jump.triple=Salto triplo

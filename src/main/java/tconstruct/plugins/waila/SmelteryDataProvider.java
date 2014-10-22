@@ -3,6 +3,7 @@ package tconstruct.plugins.waila;
 import java.util.List;
 import mcp.mobius.waila.api.*;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.smeltery.logic.SmelteryLogic;
 
@@ -32,7 +33,7 @@ public class SmelteryDataProvider implements IWailaDataProvider
                 List<FluidStack> fls = te.moltenMetal;
                 if (fls.size() <= 0)
                 {
-                    currenttip.add(SpecialChars.ITALIC + "Empty");
+                    currenttip.add(SpecialChars.ITALIC + StatCollector.translateToLocal("tconstruct.waila.empty"));
                 }
                 else
                 {
@@ -45,7 +46,7 @@ public class SmelteryDataProvider implements IWailaDataProvider
             }
             else
             {
-                currenttip.add(SpecialChars.ITALIC + "Invalid structure");
+                currenttip.add(SpecialChars.ITALIC + StatCollector.translateToLocal("tconstruct.waila.invalidstructure"));
             }
         }
 
