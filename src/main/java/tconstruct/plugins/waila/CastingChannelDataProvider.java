@@ -48,7 +48,7 @@ public class CastingChannelDataProvider implements IWailaDataProvider
 
             currenttip.add(StatCollector.translateToLocal("tconstruct.waila.subtanks"));
             String s1, s2, s3, s4;
-            s1 = s2 = s3 = s4 = SpecialChars.ITALIC + StatCollector.translateToLocal("tconstruct.waila.empty");
+            s1 = s2 = s3 = s4 = StatCollector.translateToLocal("tconstruct.waila.empty");
 
             if (northTank.fluid != null)
                 s1 = northTank.fluid.amount + " / " + northTank.capacity;
