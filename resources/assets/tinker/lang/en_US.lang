@@ -726,6 +726,7 @@ gui.partcrafter7=Mining Level:
 gui.partcrafter8= Heart
 gui.partcrafter9= Hearts
 gui.partcrafter10=Attack: 
+gui.partcrafter11=Full Durability: 
 gui.stenciltable1=Next Pattern
 gui.stenciltable2=Previous Pattern
 gui.toolforge1=Repair and Modification
