@@ -1,5 +1,9 @@
 package tconstruct.tools.gui;
 
+import codechicken.nei.VisiblityData;
+import codechicken.nei.api.INEIGuiHandler;
+import codechicken.nei.api.TaggedInventoryArea;
+import cpw.mods.fml.common.Optional;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -14,7 +18,11 @@ import tconstruct.tools.inventory.PatternShaperContainer;
 import tconstruct.tools.logic.StencilTableLogic;
 import tconstruct.util.network.PatternTablePacket;
 
-public class StencilTableGui extends GuiContainer
+import java.util.Collections;
+import java.util.List;
+
+@Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
+public class StencilTableGui extends GuiContainer implements INEIGuiHandler
 {
     StencilTableLogic logic;
     int activeButton;
@@ -134,5 +142,35 @@ public class StencilTableGui extends GuiContainer
     void updateServer (ItemStack stack)
     {
         TConstruct.packetPipeline.sendToServer(new PatternTablePacket(logic.xCoord, logic.yCoord, logic.zCoord, stack));
+    }
+
+    @Override
+    public VisiblityData modifyVisiblity(GuiContainer guiContainer, VisiblityData visiblityData) {
+        return visiblityData;
+    }
+
+    @Override
+    public Iterable<Integer> getItemSpawnSlots(GuiContainer guiContainer, ItemStack itemStack) {
+        return null;
+    }
+
+    @Override
+    public List<TaggedInventoryArea> getInventoryAreas(GuiContainer guiContainer) {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public boolean handleDragNDrop(GuiContainer guiContainer, int i, int i2, ItemStack itemStack, int i3) {
+        return false;
+    }
+
+    @Override
+    public boolean hideItemPanelSlot(GuiContainer guiContainer, int x, int y, int w, int h) {
+        // is it in the horizontal column of the right buttons?
+        if(x > this.guiLeft + this.xSize + 4 && x < this.guiLeft + this.xSize + 4 + 22*3 + 16)
+            if(y > this.guiTop + 2 && y < this.guiTop + 2 + 22*(TConstructClientRegistry.stencilButtons2.size()-1)/4)
+                return true;
+
+        return false;
     }
 }
