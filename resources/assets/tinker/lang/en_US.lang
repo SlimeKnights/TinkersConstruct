@@ -844,3 +844,7 @@ tool.arrow=Arrow
 
 # Customization of default tool names based on tool and material
 #tool.shovel.wood=Wooden Shovel
+
+tool.kingslimeprefix=King Slime
+# Specific localization like materials
+#tool.shovel.kingslime=Regret

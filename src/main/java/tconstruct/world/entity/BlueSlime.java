@@ -462,7 +462,15 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
             final ItemStack handleStack = new ItemStack(tool.getHandleItem(), 1, 17);
             final ItemStack accessoryStack = tool.getAccessoryItem() != null ? new ItemStack(tool.getAccessoryItem(), 1, 17) : null;
             final ItemStack extraStack = tool.getExtraItem() != null ? new ItemStack(tool.getExtraItem(), 1, 17) : null;
-            ItemStack toolStack = ToolBuilder.instance.buildTool(headStack, handleStack, accessoryStack, extraStack, "King Slime " + tool.getLocalizedToolName());
+
+            String loc = "tool." + tool.getToolName().toLowerCase() + ".kingslime"; // special localization the same way as materials
+            String name;
+            if(StatCollector.canTranslate(loc))
+                name = StatCollector.translateToLocal(loc);
+            else
+                name = StatCollector.translateToLocal("tool.kingslimeprefix") + " " + tool.getLocalizedToolName();
+
+            ItemStack toolStack = ToolBuilder.instance.buildTool(headStack, handleStack, accessoryStack, extraStack, name);
 
             if (toolStack != null)
             {
