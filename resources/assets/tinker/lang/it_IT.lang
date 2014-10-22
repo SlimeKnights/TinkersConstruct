@@ -822,11 +822,6 @@ gui.modifier.necro=Necrotico
 gui.modifier.spider=Anti ragno
 gui.modifier.quartz=Quarzo
 
-tconstruct.waila.empty=Vuoto
-tconstruct.waila.liquidtag=Liquido: 
-tconstruct.waila.amounttag=Quantità: 
-tconstruct.waila.invalidstructure=Struttura invalida
-
 modifier.armour.jump.double=Salto doppio
 modifier.armour.jump.triple=Salto triplo
 modifier.armour.jump.quad=Salto quadruplo
