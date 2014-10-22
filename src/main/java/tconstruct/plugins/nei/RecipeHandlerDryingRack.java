@@ -6,6 +6,8 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
 
+import net.minecraft.util.StatCollector;
+
 import tconstruct.library.crafting.DryingRackRecipes;
 import tconstruct.library.crafting.DryingRackRecipes.DryingRecipe;
 import codechicken.lib.gui.GuiDraw;
@@ -46,7 +48,7 @@ public class RecipeHandlerDryingRack extends RecipeHandlerBase
     @Override
     public String getRecipeName ()
     {
-        return "Drying Rack";
+        return StatCollector.translateToLocal("tconstruct.nei.dryingrack");
     }
 
     @Override
