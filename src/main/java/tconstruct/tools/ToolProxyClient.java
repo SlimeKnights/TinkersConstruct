@@ -345,16 +345,15 @@ public class ToolProxyClient extends ToolProxyCommon
         };
 
         int i = 0;
-        for (ItemStack stack : StencilBuilder.getStencils())
+        for (int[] icon : icons)
         {
             // spacer
-            while (icons[i].length == 0)
+            if(icon.length == 0)
             {
                 addStencilButton(0, 0, -1);
-                i++;
             }
-            addStencilButton(icons[i][0], icons[i][1], StencilBuilder.getIndex(stack));
-            i++;
+            else
+                addStencilButton(icon[0], icon[1], i++);
         }
     }
 
