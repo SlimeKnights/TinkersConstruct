@@ -60,7 +60,7 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase
     @Override
     public String getRecipeName ()
     {
-        return "Tool Materials";
+        return StatCollector.translateToLocal("tconstruct.nei.toolmaterials");
     }
 
     @Override
