@@ -855,3 +855,8 @@ tool.arrow=Arrow
 tool.kingslimeprefix=King Slime
 # Specific localization like materials
 #tool.shovel.kingslime=Regret
+
+
+gui.toolstation.repair.title=Repair and Modification
+gui.toolstation.repair.desc=The main way to repair or change your tools. Place a tool and a material on the left to get started.
+gui.toolstation.pickaxe.desc=The Pickaxe is a precise mining tool. It is effective on stone and ores.\n\nRequired parts:\n- Pickaxe Head\n- Tool Binding\n- Handle
