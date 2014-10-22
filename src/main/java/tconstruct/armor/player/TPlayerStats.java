@@ -22,7 +22,7 @@ public class TPlayerStats implements IExtendedEntityProperties, IPlayerExtendedI
     public int previousDimension;
 
     public boolean climbWalls;
-    public boolean activeGoggles = true;
+    public boolean activeGoggles = false;
 
     public boolean beginnerManual;
     public boolean materialManual;
