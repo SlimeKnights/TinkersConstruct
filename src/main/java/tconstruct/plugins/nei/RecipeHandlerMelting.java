@@ -11,6 +11,8 @@ import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
 
+import net.minecraft.util.StatCollector;
+
 import tconstruct.library.crafting.Smeltery;
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.NEIServerUtils;
@@ -59,7 +61,7 @@ public class RecipeHandlerMelting extends RecipeHandlerBase
     @Override
     public String getRecipeName ()
     {
-        return "Smeltery Melting";
+        return StatCollector.translateToLocal("tconstruct.nei.melting");
     }
 
     @Override
