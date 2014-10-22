@@ -701,6 +701,13 @@ smeltery.brick.tooltip2=(Safe for decoration)
 #Dear translators, only translate this line if the joke is applicable in your language.
 grout.tooltip=I am Grout!
 
+tconstruct.waila.empty=Empty
+tconstruct.waila.liquidtag=Liquid: 
+tconstruct.waila.amounttag=Amount: 
+tconstruct.waila.contains=Contains: 
+tconstruct.waila.subtanks=Subtanks:
+tconstruct.waila.invalidstructure=Invalid structure
+
 gui.smeltery.fuel=Fuel
 gui.smeltery.emerald=Emeralds: 
 gui.smeltery.glass.block=Blocks: 
