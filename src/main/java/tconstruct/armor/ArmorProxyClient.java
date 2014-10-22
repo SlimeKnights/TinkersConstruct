@@ -48,6 +48,13 @@ public class ArmorProxyClient extends ArmorProxyCommon
     public static ArmorExtended armorExtended = new ArmorExtended();
 
     @Override
+    public void preInit() {
+        controlInstance = new ArmorControls();
+        FMLCommonHandler.instance().bus().register(controlInstance);
+        MinecraftForge.EVENT_BUS.register(new TabRegistry());
+    }
+
+    @Override
     public void initialize ()
     {
         registerGuiHandler();
@@ -148,7 +155,6 @@ public class ArmorProxyClient extends ArmorProxyCommon
     @Override
     public void registerKeys ()
     {
-        controlInstance = new ArmorControls();
         uploadKeyBindingsToGame(Minecraft.getMinecraft().gameSettings, controlInstance);
 
         TabRegistry.registerTab(new InventoryTabVanilla());
