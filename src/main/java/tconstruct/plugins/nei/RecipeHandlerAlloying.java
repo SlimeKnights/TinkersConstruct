@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import net.minecraft.util.StatCollector;
+
 import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
@@ -86,7 +88,7 @@ public class RecipeHandlerAlloying extends RecipeHandlerBase
     @Override
     public String getRecipeName ()
     {
-        return "Smeltery Alloying";
+        return StatCollector.translateToLocal("tconstruct.nei.alloying");
     }
 
     @Override
