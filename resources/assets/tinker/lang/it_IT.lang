@@ -727,6 +727,13 @@ tconstruct.waila.contains=Contiene:
 tconstruct.waila.subtanks=Sottocisterne:
 tconstruct.waila.invalidstructure=Struttura invalida
 
+tconstruct.nei.toolmaterials=Materiali attrezzi
+tconstruct.nei.alloying=Leghe della fonderia
+tconstruct.nei.castingbasin=Vasca della fonderia
+tconstruct.nei.castingtable=Tavolo della fonderia
+tconstruct.nei.dryingrack=Stendino
+tconstruct.nei.melting=Fusione della fonderia
+
 gui.smeltery.fuel=Carburante
 gui.smeltery.emerald=Smeraldi: 
 gui.smeltery.glass.block=Blocchi: 
@@ -745,6 +752,7 @@ gui.partcrafter7=Livello dell'attrezzo:
 gui.partcrafter8= Cuore
 gui.partcrafter9= Cuori
 gui.partcrafter10=Attacco: 
+gui.partcrafter11=Resistenza totale: 
 gui.stenciltable1=Modello seguente
 gui.stenciltable2=Modello precedente
 gui.toolforge1=Riparare e modificare
