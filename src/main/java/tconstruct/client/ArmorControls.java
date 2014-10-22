@@ -107,6 +107,7 @@ public class ArmorControls extends TKeyHandler
                     if (goggles != null && goggles.getItem() instanceof TravelGear) //TODO: Genericize this
                     {
                         activeGoggles = !activeGoggles;
+                        PlayerAbilityHelper.toggleGoggles(mc.thePlayer, activeGoggles);
                         toggleGoggles();
                     }
                 }

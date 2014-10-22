@@ -720,6 +720,20 @@ smeltery.brick.tooltip2=(Usabile anche come decorazione)
 #Dear translators, only translate this line if the joke is applicable in your language.
 grout.tooltip=I am Grout!
 
+tconstruct.waila.empty=Vuoto
+tconstruct.waila.liquidtag=Liquido: 
+tconstruct.waila.amounttag=Quantità: 
+tconstruct.waila.contains=Contiene: 
+tconstruct.waila.subtanks=Sottocisterne:
+tconstruct.waila.invalidstructure=Struttura invalida
+
+tconstruct.nei.toolmaterials=Materiali attrezzi
+tconstruct.nei.alloying=Leghe della fonderia
+tconstruct.nei.castingbasin=Vasca della fonderia
+tconstruct.nei.castingtable=Tavolo della fonderia
+tconstruct.nei.dryingrack=Stendino
+tconstruct.nei.melting=Fusione della fonderia
+
 gui.smeltery.fuel=Carburante
 gui.smeltery.emerald=Smeraldi: 
 gui.smeltery.glass.block=Blocchi: 
@@ -738,6 +752,7 @@ gui.partcrafter7=Livello dell'attrezzo:
 gui.partcrafter8= Cuore
 gui.partcrafter9= Cuori
 gui.partcrafter10=Attacco: 
+gui.partcrafter11=Resistenza totale: 
 gui.stenciltable1=Modello seguente
 gui.stenciltable2=Modello precedente
 gui.toolforge1=Riparare e modificare
@@ -814,11 +829,6 @@ gui.modifier.lava=Lava
 gui.modifier.necro=Necrotico
 gui.modifier.spider=Anti ragno
 gui.modifier.quartz=Quarzo
-
-tconstruct.waila.empty=Vuoto
-tconstruct.waila.liquidtag=Liquido: 
-tconstruct.waila.amounttag=Quantità: 
-tconstruct.waila.invalidstructure=Struttura invalida
 
 modifier.armour.jump.double=Salto doppio
 modifier.armour.jump.triple=Salto triplo

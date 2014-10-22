@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 
+import net.minecraft.util.StatCollector;
+
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.LiquidCasting;
@@ -16,7 +18,7 @@ public class RecipeHandlerCastingBasin extends RecipeHandlerCastingBase
     @Override
     public String getRecipeName ()
     {
-        return "Casting Basin";
+        return StatCollector.translateToLocal("tconstruct.nei.castingbasin");
     }
 
     @Override

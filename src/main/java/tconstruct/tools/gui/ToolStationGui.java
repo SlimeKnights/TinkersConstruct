@@ -120,7 +120,15 @@ public class ToolStationGui extends GuiContainer implements INEIGuiHandler
         iconX = element.iconsX;
         iconY = element.iconsY;
         title = "\u00A7n" + element.title;
-        body = element.body;
+        body = StatCollector.translateToLocal(element.body);
+        if(body != null) {
+            int i;
+            // for some really weird reason replaceAll doesn't find "\\n", but indexOf does. We have to replace manually.
+            while((i = body.indexOf("\\n")) >= 0)
+            {
+                body = body.substring(0, i) + '\n' + body.substring(i+2);
+            }
+        }
     }
 
     void setSlotType (int type)

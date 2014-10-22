@@ -13,8 +13,8 @@ import tconstruct.library.modifier.IModifyable;
 
 public class ArmorAbilitiesClient
 {
-    Minecraft mc;
-    ArmorControls controlInstance;
+    private final Minecraft mc;
+    private final ArmorControls controlInstance;
 
     ItemStack prevFeet;
     double prevMotionY;

@@ -701,6 +701,20 @@ smeltery.brick.tooltip2=(Safe for decoration)
 #Dear translators, only translate this line if the joke is applicable in your language.
 grout.tooltip=I am Grout!
 
+tconstruct.waila.empty=Empty
+tconstruct.waila.liquidtag=Liquid: 
+tconstruct.waila.amounttag=Amount: 
+tconstruct.waila.contains=Contains: 
+tconstruct.waila.subtanks=Subtanks:
+tconstruct.waila.invalidstructure=Invalid structure
+
+tconstruct.nei.toolmaterials=Tool Materials
+tconstruct.nei.alloying=Smeltery Alloying
+tconstruct.nei.castingbasin=Casting Basin
+tconstruct.nei.castingtable=Casting Table
+tconstruct.nei.dryingrack=Drying Rack
+tconstruct.nei.melting=Smeltery Melting
+
 gui.smeltery.fuel=Fuel
 gui.smeltery.emerald=Emeralds: 
 gui.smeltery.glass.block=Blocks: 
@@ -719,6 +733,7 @@ gui.partcrafter7=Mining Level:
 gui.partcrafter8= Heart
 gui.partcrafter9= Hearts
 gui.partcrafter10=Attack: 
+gui.partcrafter11=Full Durability: 
 gui.stenciltable1=Next Pattern
 gui.stenciltable2=Previous Pattern
 gui.toolforge1=Repair and Modification
@@ -845,3 +860,12 @@ tool.arrow=Arrow
 
 # Customization of default tool names based on tool and material
 #tool.shovel.wood=Wooden Shovel
+
+tool.kingslimeprefix=King Slime
+# Specific localization like materials
+#tool.shovel.kingslime=Regret
+
+
+gui.toolstation.repair.title=Repair and Modification
+gui.toolstation.repair.desc=The main way to repair or change your tools. Place a tool and a material on the left to get started.
+gui.toolstation.pickaxe.desc=The Pickaxe is a precise mining tool. It is effective on stone and ores.\n\nRequired parts:\n- Pickaxe Head\n- Tool Binding\n- Handle
