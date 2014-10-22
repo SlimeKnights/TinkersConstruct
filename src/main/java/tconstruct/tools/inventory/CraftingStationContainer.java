@@ -233,25 +233,6 @@ public class CraftingStationContainer extends Container
         return itemstack;
     }
 
-    protected void craftTool (ItemStack stack)
-    {
-        if (stack.getItem() instanceof IModifyable)
-        {
-            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
-            Boolean full = (logic.getStackInSlot(2) != null || logic.getStackInSlot(3) != null);
-            /*for (int i = 1; i <= 4; i++)
-                logic.decrStackSize(i, 1);
-            for (int i = 6; i <= 9; i++)
-                logic.decrStackSize(i, 1);*/
-            ItemStack compare = logic.getStackInSlot(5);
-            int amount = compare.getItem() instanceof IModifyable ? compare.stackSize : 1;
-            logic.decrStackSize(5, amount);
-            if (!player.worldObj.isRemote && full)
-                worldObj.playSoundEffect(logic.xCoord, logic.yCoord, logic.zCoord, "tinker:little_saw", 1.0F, (AbilityHelper.random.nextFloat() - AbilityHelper.random.nextFloat()) * 0.2F + 1.0F);
-            MinecraftForge.EVENT_BUS.post(new ToolCraftedEvent(this.logic, player, stack));
-        }
-    }
-
     protected boolean mergeCraftedStack (ItemStack stack, int slotsStart, int slotsTotal, boolean playerInventory, EntityPlayer player)
     {
         boolean failedToMerge = false;
@@ -283,7 +264,6 @@ public class CraftingStationContainer extends Container
 
                 if (copyStack == null)
                 {
-                    craftTool(stack);
                     otherInventorySlot.putStack(stack.copy());
                     otherInventorySlot.onSlotChanged();
                     stack.stackSize = 0;
