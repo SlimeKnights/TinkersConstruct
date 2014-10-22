@@ -23,6 +23,7 @@ import tconstruct.library.client.*;
 import tconstruct.library.crafting.*;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.smeltery.TinkerSmeltery;
+import tconstruct.tools.client.DaggerEntityRenderer;
 import tconstruct.tools.entity.*;
 import tconstruct.tools.gui.*;
 import tconstruct.tools.logic.*;
@@ -51,8 +52,9 @@ public class ToolProxyClient extends ToolProxyCommon
         RenderingRegistry.registerBlockHandler(new BattlesignRender());
 
         RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Items.potionitem, 16384));
-        RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRenderCustom());
-        RenderingRegistry.registerEntityRenderingHandler(ArrowEntity.class, new ArrowRenderCustom());
+        RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerEntityRenderer());
+        //RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRenderCustom());
+        //RenderingRegistry.registerEntityRenderingHandler(ArrowEntity.class, new ArrowRenderCustom());
         RenderingRegistry.registerEntityRenderingHandler(FancyEntityItem.class, new FancyItemRender());
 
         //MinecraftForgeClient.registerItemRenderer(TinkerTools.shortbow, new CustomBowRenderer());

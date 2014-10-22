@@ -13,6 +13,7 @@ import org.lwjgl.opengl.*;
 import tconstruct.tools.entity.ArrowEntity;
 
 @SideOnly(Side.CLIENT)
+@Deprecated
 public class ArrowRenderCustom extends Render
 {
     private static RenderItem renderer = new RenderItem();

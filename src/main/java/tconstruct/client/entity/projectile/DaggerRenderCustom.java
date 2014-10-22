@@ -14,6 +14,7 @@ import tconstruct.client.ToolCoreRenderer;
 import tconstruct.tools.entity.DaggerEntity;
 
 @SideOnly(Side.CLIENT)
+@Deprecated
 public class DaggerRenderCustom extends Render
 {
     private static RenderItem renderer = new RenderItem();

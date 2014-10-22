@@ -14,6 +14,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.World;
 import tconstruct.library.tools.AbilityHelper;
 
+@Deprecated
 public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
 {
 
