@@ -701,6 +701,20 @@ smeltery.brick.tooltip2=(Безопасен для декораций)
 #Dear translators, only translate this line if the joke is applicable in your language.
 grout.tooltip=I am Grout!
 
+tconstruct.waila.empty=Пусто
+tconstruct.waila.liquidtag=Жидкость: 
+tconstruct.waila.amounttag=Количество: 
+tconstruct.waila.contains=Содержит: 
+tconstruct.waila.subtanks=Subtanks:
+tconstruct.waila.invalidstructure=Неверная структура
+
+tconstruct.nei.toolmaterials=Материалы инструмента
+tconstruct.nei.alloying=Отливка в плавильне
+tconstruct.nei.castingbasin=Литейный резервуар
+tconstruct.nei.castingtable=Литейный стол
+tconstruct.nei.dryingrack=Доска для вяления
+tconstruct.nei.melting=Плавка в плавильне
+
 gui.smeltery.fuel=Топливо
 gui.smeltery.emerald=Изумрудов: 
 gui.smeltery.glass.block=Блоков: 
@@ -712,13 +726,14 @@ gui.landmine=Мина
 gui.partcrafter1=Создание частей
 gui.partcrafter2=Сбор частей
 gui.partcrafter3=Поместите схему и материал слева, чтобы начать.
-gui.partcrafter4=Базовая прочность: 
+gui.partcrafter4=Обычная прочность: 
 gui.partcrafter5=Модификатор ручки: 
 gui.partcrafter6=Скорость добычи: 
 gui.partcrafter7=Уровень добычи: 
 gui.partcrafter8= сердце
 gui.partcrafter9= сердца(-дец)
 gui.partcrafter10=Урон: 
+gui.partcrafter11=Полная прочность: 
 gui.stenciltable1=След. схема
 gui.stenciltable2=Пред. схема
 gui.toolforge1=Ремонт и модификация
@@ -741,6 +756,8 @@ gui.toolstation15=Уровень добычи:
 gui.toolstation16=Скорость использования: 
 gui.toolstation17=Модификаторы
 gui.toolstation18=Модификаторов осталось: 
+gui.toolstation19=Снижение урона: 
+gui.toolstation20=Защита: 
 
 gui.mining1=Камень
 gui.mining2=Железо
@@ -752,48 +769,33 @@ gui.mining6=Мануллин
 material.wood=Дерево
 material.wood.display=Деревянная
 material.stone=Камень
-material.stone.display=Каменная
 material.stone.ability=Сила камня
 material.iron=Железо
-material.iron.display=Железная
 material.flint=Кремень
-material.flint.display=Кремниевая
 material.cactus=Кактус
-material.cactus.display=Кактусовая
 material.cactus.ability=Зазубренность
 material.bone=Кость
-material.bone.display=Костная
 material.obsidian=Обсидиан
-material.obsidian.display=Обсидиановая
 material.netherrack=Камень Нижнего мира
 material.netherrack.ability=Сила камня
 material.slime=Слизь
-material.slime.display=Слизневая
 material.slime.ability=Слизь
 material.paper=Бумага
-material.paper.display=Бумажная
 material.paper.ability=Переписываемость
 material.blueslime=Синяя слизь
+material.blueslime.display=Слизь
 material.blueslime.ability=Слизь
 material.cobalt=Кобальт
-material.cobalt.display=Кобальтовая
 material.ardite=Ардит
-material.ardite.display=Ардитовая
 material.ardite.ability=Сила камня
 material.manyullyn=Мануллин
-material.manyullyn.display=Мануллиновая
 material.copper=Медь
-material.copper.display=Медная
 material.bronze=Бронза
-material.bronze.display=Бронзовая
 material.alumite=Алюмит
-material.alumite.display=Алюмитовая
 material.steel=Сталь
-material.steel.display=Стальная
 material.pigiron=Свиное железо
 material.pigiron.ability=Вкусность
 material.thaumium=Таум-металл
-material.thaumium.display=Таумическая
 material.thaumium.ability=Таум-сила
 
 gui.modifier.blaze=Огонь
@@ -858,6 +860,15 @@ tool.arrow=стрела
 # Customization of default tool names based on tool and material
 #tool.shovel.wood=Wooden Shovel
 
+tool.kingslimeprefix=King Slime
+# Specific localization like materials
+#tool.shovel.kingslime=Regret
+
+
+gui.toolstation.repair.title=Ремонт и модификация
+gui.toolstation.repair.desc=Основной способ починить или изменить Ваши инструменты. Поместите инструмент и материал слева, чтобы начать.
+gui.toolstation.pickaxe.desc=Кирка - это инструмент для точной добычи. Она эффективна для добычи камня и руд.\n\nТребуются части:\n- Обух кирки\n- Крепление\n- Ручка
+
 tool.pickaxe.netherrack=Кирка из камня Нижнего мира
 tool.shovel.netherrack=Лопата из камня Нижнего мира
 tool.hatchet.netherrack=Топорик из камня Нижнего мира
@@ -899,6 +910,27 @@ tool.hammer.blueslime=Молот из синей слизи
 tool.battleaxe.blueslime=Боевой топор из синей слизи
 tool.shortbow.blueslime=Короткий лук из синей слизи
 tool.arrow.blueslime=Стрела из синей слизи
+
+tool.pickaxe.kingslime=Кирка из королевской слизи
+tool.shovel.kingslime=Лопата из королевской слизи
+tool.hatchet.kingslime=Топорик из королевской слизи
+tool.broadsword.kingslime=Палаш из королевской слизи
+tool.longsword.kingslime=Полуторный меч из королевской слизи
+tool.rapier.kingslime=Рапира из королевской слизи
+tool.dagger.kingslime=Кинжал из королевской слизи
+tool.cutlass.kingslime=Сабля из королевской слизи
+tool.fryingpan.kingslime=Сковорода из королевской слизи
+tool.battlesign.kingslime=Боевая табличка из королевской слизи
+tool.mattock.kingslime=Мотыготопор из королевской слизи
+tool.chisel.kingslime=Стамеска из королевской слизи
+tool.lumberaxe.kingslime=Большой топор из королевской слизи
+tool.cleaver.kingslime=Тесак из королевской слизи
+tool.scythe.kingslime=Коса из королевской слизи
+tool.excavator.kingslime=Копалка из королевской слизи
+tool.hammer.kingslime=Молот из королевской слизи
+tool.battleaxe.kingslime=Боевой топор из королевской слизи
+tool.shortbow.kingslime=Короткий лук из королевской слизи
+tool.arrow.kingslime=Стрела из королевской слизи
 
 tool.pickaxe.pigiron=Кирка из свиного железа
 tool.shovel.pigiron=Лопата из свиного железа
@@ -1445,6 +1477,23 @@ toolpart.ExcavatorHead.bronze=Бронзовая пластина копалки
 toolpart.ExcavatorHead.alumite=Алюмитовая пластина копалки
 toolpart.ExcavatorHead.steel=Стальная пластина копалки
 toolpart.ExcavatorHead.thaumium=Таумическая пластина копалки
+
+material.stone.display=Каменная
+material.iron.display=Железная
+material.flint.display=Кремниевая
+material.cactus.display=Кактусовая
+material.bone.display=Костная
+material.obsidian.display=Обсидиановая
+material.slime.display=Слизневая
+material.paper.display=Бумажная
+material.cobalt.display=Кобальтовая
+material.ardite.display=Ардитовая
+material.manyullyn.display=Мануллиновая
+material.copper.display=Медная
+material.bronze.display=Бронзовая
+material.alumite.display=Алюмитовая
+material.steel.display=Стальная
+material.thaumium.display=Таумическая
 
 toolpart.material.wood=Деревянный
 toolpart.material.stone=Каменный
