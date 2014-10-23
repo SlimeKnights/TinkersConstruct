@@ -703,6 +703,20 @@ smeltery.brick.tooltip2=(장식용으로 사용 가능)
 #Dear translators, only translate this line if the joke is applicable in your language.
 grout.tooltip=I am Grout!
 
+tconstruct.waila.empty=비어있음
+tconstruct.waila.liquidtag=액체: 
+tconstruct.waila.amounttag=수량: 
+tconstruct.waila.contains=들어있는 액체: 
+tconstruct.waila.subtanks=서브탱크:
+tconstruct.waila.invalidstructure=잘못된 구조
+
+tconstruct.nei.toolmaterials=도구 재료
+tconstruct.nei.alloying=합금제작
+tconstruct.nei.castingbasin=블럭 주조
+tconstruct.nei.castingtable=테이블 주조
+tconstruct.nei.dryingrack=건조대
+tconstruct.nei.melting=융화
+
 gui.smeltery.fuel=연료
 gui.smeltery.emerald=에메랄드 수: 
 gui.smeltery.glass.block=블럭 수: 
@@ -721,6 +735,7 @@ gui.partcrafter7=채광 수준:
 gui.partcrafter8= 하트
 gui.partcrafter9= 하트
 gui.partcrafter10=공격력: 
+gui.partcrafter11=최대 내구도: 
 gui.mining1=돌, 석탄
 gui.mining2=철, 청금석
 gui.mining3=레드스톤, 금, 다이아몬드
@@ -845,3 +860,11 @@ tool.arrow=화살
 
 # Customization of default tool names based on tool and material
 +#tool.shovel.wood=Wooden Shovel
+
+tool.kingslimeprefix=King Slime
+# Specific localization like materials
+#tool.shovel.kingslime=Regret
+
+gui.toolstation.repair.title=수리및 업그레이드
+gui.toolstation.repair.desc=주요기능은 도구를 수리하거나 업그레이드 합니다. 도구와 아이템을 왼쪽에 두세요
++gui.toolstation.pickaxe.desc=곡괭이는 채광에 가장 확실한 도구입니다.\n\n필요한 부품:\n- 곡괭이 머리\n- 도구 막대\n- 손잡이
