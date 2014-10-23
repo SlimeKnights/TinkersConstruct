@@ -124,6 +124,9 @@ public class TinkerTools
 
     // recipe stuff
     public static boolean thaumcraftAvailable;
+    
+    //Dev/Null Stuff
+    public static Item openBlocksDevNull;
 
     @Handler
     public void preInit (FMLPreInitializationEvent event)
@@ -718,6 +721,9 @@ public class TinkerTools
             {
             } // No need to handle
         }
+        
+        //OpenBlocks
+        openBlocksDevNull = GameRegistry.findItem("OpenBlocks", "devnull");
     }
 
     void registerMaterials ()
