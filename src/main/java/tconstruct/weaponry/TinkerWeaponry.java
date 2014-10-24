@@ -133,7 +133,7 @@ public class TinkerWeaponry {
         throwingknife = new ThrowingKnife();
         javelin = new Javelin();
         // create projectile weapons
-        shortbow = new ShortBow();
+        TinkerTools.shortbow = shortbow = new ShortBow();
         longbow = new LongBow();
         crossbow = new Crossbow();
         // create ammo
@@ -144,7 +144,7 @@ public class TinkerWeaponry {
         metalPattern = new WeaponryPattern("cast_", "Cast");
 
         // register tool parts
-        GameRegistry.registerItem(bowstring, "bowstring"); // 1.8 todo: rename properly
+        GameRegistry.registerItem(bowstring, "bowstring"); // 1.8 todo: rename properly?
         GameRegistry.registerItem(arrowhead, "arrowhead");
         GameRegistry.registerItem(fletching, "fletching");
         GameRegistry.registerItem(partShuriken, "ShurikenPart");

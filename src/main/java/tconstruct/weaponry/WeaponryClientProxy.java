@@ -21,6 +21,8 @@ import tconstruct.library.crafting.StencilBuilder;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.tools.TinkerTools;
 
+import static tconstruct.weaponry.TinkerWeaponry.*;
+
 public class WeaponryClientProxy extends WeaponryCommonProxy {
     public static AmmoItemRenderer renderer;
 
@@ -98,17 +100,63 @@ public class WeaponryClientProxy extends WeaponryCommonProxy {
 
     private void buttons()
     {
-        TConstructClientRegistry.addStencilButton2(11, 3, 21, Reference.RESOURCE, "textures/gui/icons.png"); // arrow head
-        TConstructClientRegistry.addStencilButton2(12, 3, 22, Reference.RESOURCE, "textures/gui/icons.png"); // fletchling
+        final String tex = "textures/gui/icons.png";
+
+        // Stencil Table
+        TConstructClientRegistry.addStencilButton2(11, 3, 21, Reference.RESOURCE, tex); // arrow head
+        TConstructClientRegistry.addStencilButton2(12, 3, 22, Reference.RESOURCE, tex); // fletchling
         TConstructClientRegistry.addStencilButton2(0,0, -1, null, null);
         TConstructClientRegistry.addStencilButton2(0,0, -1, null, null);
 
-        TConstructClientRegistry.addStencilButton2(3, 4, 27, Reference.RESOURCE, "textures/gui/icons.png"); // bow limb
-        TConstructClientRegistry.addStencilButton2(10, 3, 23, Reference.RESOURCE, "textures/gui/icons.png"); // bowstring
-        TConstructClientRegistry.addStencilButton2(1, 4, 25, Reference.RESOURCE, "textures/gui/icons.png"); // crossbow limb
-        TConstructClientRegistry.addStencilButton2(2, 4, 26, Reference.RESOURCE, "textures/gui/icons.png"); // crossbow body
+        TConstructClientRegistry.addStencilButton2(3, 4, 27, Reference.RESOURCE, tex); // bow limb
+        TConstructClientRegistry.addStencilButton2(10, 3, 23, Reference.RESOURCE, tex); // bowstring
+        TConstructClientRegistry.addStencilButton2(1, 4, 25, Reference.RESOURCE, tex); // crossbow limb
+        TConstructClientRegistry.addStencilButton2(2, 4, 26, Reference.RESOURCE, tex); // crossbow body
 
-        TConstructClientRegistry.addStencilButton2(0, 4, 24, Reference.RESOURCE, "textures/gui/icons.png"); // shuriken
+        TConstructClientRegistry.addStencilButton2(0, 4, 24, Reference.RESOURCE, tex); // shuriken
         //TConstructClientRegistry.addStencilButton2(4, 4, index, Reference.RESOURCE, "textures/gui/icons.png"); // bolt
+
+
+        // Tool Station
+        ToolCore[] tools = {shortbow, arrowAmmo, throwingknife, javelin};
+        int[][] icons = {
+                new int[] {3,  9, 1}, // shortbow
+                new int[] {7, 10, 1}, // arrow
+                new int[] {2,  1, 5}, // throwingknife
+                new int[] {1,  2, 5}  // javelin
+        };
+        int[][] coords = {
+                new int[] {  3, 10,  3, 13 }, new int[] { 4, 3,  4, 13 }, // shortbow
+                new int[] { 11,  0, 12, 13 }, new int[] { 3, 3,  3, 13 }, // arrow
+                new int[] {  7,  0, 13, 13 }, new int[] { 2, 3, 13, 13 }, // throwingknife
+                new int[] { 11,  8,  8, 13 }, new int[] { 3, 3,  3, 13 }  // javelin
+        };
+
+        for (int i = 0; i < tools.length; i++)
+        {
+            String locString = String.format("gui.toolstation.%s.desc", tools[i].getToolName().toLowerCase());
+            TConstructClientRegistry.addToolButton(icons[i][0], icons[i][1], icons[i][2], coords[i*2], coords[i*2+1], tools[i].getLocalizedToolName(), locString, Reference.RESOURCE, tex);
+        }
+
+        // Tool Forge
+        tools = new ToolCore[] {longbow, crossbow, boltAmmo, shuriken};
+        icons = new int[][] {
+                new int[] {8, 11, 1}, // longbow
+                new int[] {9, 12, 1}, // crossbow
+                new int[] {2, 13, 1}, // bolt
+                new int[] {4,  0, 5}  // shuriken
+        };
+        coords = new int[][] {
+                new int[] { 3, 10,  3,  9 }, new int[] { 4, 3,  4,  2 }, // longbow
+                new int[] { 1,  2, 10,  9 }, new int[] { 4, 4,  3,  3 }, // crossbow
+                new int[] { 4, 12, 13, 13 }, new int[] { 4, 3, 13, 13 }, // bolt
+                new int[] { 0,  0,  0,  0 }, new int[] { 4, 4,  4,  4 }  // shuriken
+        };
+
+        for (int i = 0; i < tools.length; i++)
+        {
+            String locString = String.format("gui.toolstation.%s.desc", tools[i].getToolName().toLowerCase());
+            TConstructClientRegistry.addTierTwoButton(icons[i][0], icons[i][1], icons[i][2], coords[i*2], coords[i*2+1], tools[i].getLocalizedToolName(), locString, Reference.RESOURCE, tex);
+        }
     }
 }

@@ -212,6 +212,8 @@ public class TinkerTools
         TinkerTools.hammer = new Hammer();
         TinkerTools.battleaxe = new Battleaxe();
 
+        TinkerTools.arrow = new Arrow(); // to prevent nullpointers
+
         Item[] tools = { TinkerTools.pickaxe, TinkerTools.shovel, TinkerTools.hatchet, TinkerTools.broadsword, TinkerTools.longsword, TinkerTools.rapier, TinkerTools.dagger, TinkerTools.cutlass, TinkerTools.frypan, TinkerTools.battlesign, TinkerTools.mattock, TinkerTools.chisel, TinkerTools.lumberaxe, TinkerTools.cleaver, TinkerTools.scythe, TinkerTools.excavator, TinkerTools.hammer, TinkerTools.battleaxe};
         String[] toolStrings = { "pickaxe", "shovel", "hatchet", "broadsword", "longsword", "rapier", "dagger", "cutlass", "frypan", "battlesign", "mattock", "chisel", "lumberaxe", "cleaver", "scythe", "excavator", "hammer", "battleaxe"};
 
