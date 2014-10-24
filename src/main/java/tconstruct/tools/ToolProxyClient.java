@@ -28,6 +28,8 @@ import tconstruct.tools.gui.*;
 import tconstruct.tools.logic.*;
 import tconstruct.tools.model.*;
 
+import static tconstruct.tools.TinkerTools.*;
+
 public class ToolProxyClient extends ToolProxyCommon
 {
     @Override
@@ -362,12 +364,10 @@ public class ToolProxyClient extends ToolProxyCommon
         TConstructClientRegistry.addStencilButton(xButton, yButton, index, "tinker", "textures/gui/icons.png");
     }
 
-    static int[][] itemIcons = { new int[] { 0, 3, 0 }, // Repair
+    static int[][] itemIconsT1 = {
             new int[] { 1, 4, 0 }, // Pickaxe
             new int[] { 2, 5, 0 }, // Shovel
-            new int[] { 2, 6, 0 }, // Axe
-            // new int[] {2, 9, 0}, //Lumber Axe
-            // new int[] {1, 7, 0}, //Ice Axe
+            new int[] { 2, 6, 0 }, // Hatchet
             new int[] { 3, 8, 0 }, // Mattock
             new int[] { 1, 0, 1 }, // Broadsword
             new int[] { 1, 1, 1 }, // Longsword
@@ -375,55 +375,65 @@ public class ToolProxyClient extends ToolProxyCommon
             new int[] { 1, 5, 1 }, // Dagger
             new int[] { 2, 3, 1 }, // Frying pan
             new int[] { 2, 4, 1 }, // Battlesign
-            new int[] { 2, 6, 1 } // Chisel
+            new int[] { 2, 6, 1 }  // Chisel
     };
 
-    static int[][] iconCoords = { new int[] { 0, 1, 2, 13 }, new int[] { 13, 13, 13, 13 }, // Repair
+    static int[][] iconCoordsT1 = {
             new int[] { 0, 0, 1, 13 }, new int[] { 2, 3, 3, 13 }, // Pickaxe
             new int[] { 3, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, // Shovel
-            new int[] { 2, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, // Axe
-            // new int[] { 6, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, //Lumber
-            // Axe
-            // new int[] { 0, 0, 5, 13 }, new int[] { 2, 3, 3, 13 }, //Ice Axe
+            new int[] { 2, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, // Hatchet
             new int[] { 2, 0, 3, 13 }, new int[] { 2, 3, 2, 13 }, // Mattock
             new int[] { 1, 0, 2, 13 }, new int[] { 2, 3, 3, 13 }, // Broadsword
             new int[] { 1, 0, 3, 13 }, new int[] { 2, 3, 3, 13 }, // Longsword
             new int[] { 1, 0, 4, 13 }, new int[] { 2, 3, 3, 13 }, // Rapier
             new int[] { 7, 0, 4, 13 }, new int[] { 2, 3, 3, 13 }, // Dagger
-            new int[] { 4, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, // Frying
-                                                                    // Pan
+            new int[] { 4, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, // Frying Pan
             new int[] { 5, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, // Battlesign
             new int[] { 7, 0, 13, 13 }, new int[] { 3, 3, 13, 13 } // Chisel
     };
 
-    static String[] toolDescriptions = { "gui.toolforge2", "gui.toolstation.pickaxe.desc", "gui.toolstation.showel.desc", "gui.toolstation.hatchet.desc",
-            // "The Lumber Axe is a broad chopping tool. It harvests wood in a wide range and can fell entire trees.\n\nRequired parts:\n- Broad Axe Head\n- Handle",
-            // "The Ice Axe is a tool for harvesting ice, mining, and attacking foes.\n\nSpecial Ability:\n- Wall Climb\nNatural Ability:\n- Ice Harvest\nDamage: Moderate\n\nRequired parts:\n- Pickaxe Head\n- Spike\n- Handle",
-            "gui.toolstation.mattock.desc", "gui.toolstation.broadsword.desc", "gui.toolstation.longsword.desc", "gui.toolstation.rapier.desc", "gui.toolstation.dagger.desc", "gui.toolstation.fryingpan.desc",
-            // "The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nShift-rClick: Place sign\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Board\n- Handle"
-            "gui.toolstation.battlesign.desc", "gui.toolstation.chisel.desc" };
+    static int[][] itemIconsT2 = {
+            new int[] { 6, 13, 0, }, // Hammer
+            new int[] { 5, 11, 0, }, // Lumberaxe
+            new int[] { 5, 12, 0, }, // Excavator
+            new int[] { 4, 10, 0, }, // Scythe
+            new int[] { 5,  7, 1, }, // Cleaver
+            new int[] { 5,  8, 1, }, // Battleaxe
+    };
+
+    static int[][] iconCoordsT2 = {
+            new int[] { 11, 8, 9, 9 }, new int[] { 2, 3, 2, 2 }, // Hammer
+            new int[] {  6, 8, 9, 9 }, new int[] { 2, 3, 2, 3 }, // Lumberaxe
+            new int[] { 10, 8, 9, 9 }, new int[] { 2, 3, 2, 3 }, // Excavator
+            new int[] {  8, 8, 9, 8 }, new int[] { 2, 3, 3, 3 }, // Scythe
+            new int[] {  6, 8, 9, 8 }, new int[] { 3, 3, 2, 3 }, // Cleaver
+            new int[] {  6, 8, 6, 9 }, new int[] { 2, 3, 2, 3 }, // Battleaxe
+    };
 
     void addToolButtons ()
     {
-        // has to be in here so TinkerTools.tool is already initialized
-        final String[] toolNames = {StatCollector.translateToLocal("gui.toolforge1"), TinkerTools.pickaxe.getLocalizedToolName(), TinkerTools.shovel.getLocalizedToolName(), TinkerTools.hatchet.getLocalizedToolName(),
-                // "Lumber Axe",
-                // "Ice Axe",
-                TinkerTools.mattock.getLocalizedToolName(), TinkerTools.broadsword.getLocalizedToolName(), TinkerTools.longsword.getLocalizedToolName(), TinkerTools.rapier.getLocalizedToolName(), TinkerTools.dagger.getLocalizedToolName(), TinkerTools.frypan.getLocalizedToolName(), TinkerTools.battlesign.getLocalizedToolName(), TinkerTools.chisel.getLocalizedToolName() };
+        final ToolCore[] tier1Tools = {pickaxe, shovel, hatchet, mattock, broadsword, longsword, rapier, dagger, frypan, battlesign, chisel};
+        final ToolCore[] tier2Tools = {hammer, lumberaxe, excavator, scythe, cleaver, battleaxe};
 
-        for (int i = 0; i < toolNames.length; i++)
+        // repair
+        addToolButton(0, 3, 0, new int[] { 0, 1, 2, 13 }, new int[] { 13, 13, 13, 13 }, "gui.toolforge1", "gui.toolforge2");
+
+        // tier 1 tools
+        for (int i = 0; i < tier1Tools.length; i++)
         {
-            addToolButton(itemIcons[i][0], itemIcons[i][1], itemIcons[i][2], iconCoords[i * 2], iconCoords[i * 2 + 1], toolNames[i], toolDescriptions[i]);
+            String locString = String.format("gui.toolstation.%s.desc", tier1Tools[i].getToolName().toLowerCase());
+            addToolButton(itemIconsT1[i][0], itemIconsT1[i][1], itemIconsT1[i][2], iconCoordsT1[i * 2], iconCoordsT1[i * 2 + 1], tier1Tools[i].getLocalizedToolName(), locString);
         }
 
         addToolButton(3, 9, 1, new int[] { 0, 10, 0, 13 }, new int[] { 3, 3, 3, 13 }, TinkerTools.shortbow.getLocalizedToolName(), "gui.toolstation.chisel.desc");
         addToolButton(7, 10, 1, new int[] { 11, 0, 12, 13 }, new int[] { 3, 3, 3, 13 }, TinkerTools.arrow.getLocalizedToolName(), "gui.toolstation.arrow.desc");
-        addTierTwoButton(6, 13, 0, new int[] { 11, 8, 9, 9 }, new int[] { 2, 3, 2, 2 }, TinkerTools.hammer.getLocalizedToolName(), "gui.toolstation.hammer.desc");
-        addTierTwoButton(5, 11, 0, new int[] { 6, 8, 9, 9 }, new int[] { 2, 3, 2, 3 }, TinkerTools.lumberaxe.getLocalizedToolName(), "gui.toolstation.lumberaxe.desc");
-        addTierTwoButton(5, 12, 0, new int[] { 10, 8, 9, 9 }, new int[] { 2, 3, 2, 3 }, TinkerTools.excavator.getLocalizedToolName(), "gui.toolstation.excavator.desc");
-        addTierTwoButton(4, 10, 0, new int[] { 8, 8, 9, 8 }, new int[] { 2, 3, 3, 3 }, TinkerTools.scythe.getLocalizedToolName(), "gui.toolstation.scyte.desc");
-        addTierTwoButton(5, 7, 1, new int[] { 6, 8, 9, 8 }, new int[] { 3, 3, 2, 3 }, TinkerTools.cleaver.getLocalizedToolName(), "gui.toolstation.cleaver.desc");
-        addTierTwoButton(5, 8, 1, new int[] { 6, 8, 6, 9 }, new int[] { 2, 3, 2, 3 }, TinkerTools.battleaxe.getLocalizedToolName(), "gui.toolstation.battleaxe.desc");
+
+        // tier 2 tools
+        for (int i = 0; i < tier2Tools.length; i++)
+        {
+            String locString = String.format("gui.toolstation.%s.desc", tier2Tools[i].getToolName().toLowerCase());
+            addTierTwoButton(itemIconsT2[i][0], itemIconsT2[i][1], itemIconsT2[i][2], iconCoordsT2[i * 2], iconCoordsT2[i * 2 + 1], tier2Tools[i].getLocalizedToolName(), locString);
+        }
     }
 
     void addToolButton (int slotType, int xButton, int yButton, int[] xIcons, int[] yIcons, String title, String body)
