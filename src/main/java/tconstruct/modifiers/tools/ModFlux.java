@@ -46,6 +46,12 @@ public class ModFlux extends ModBoolean
         if (foundBattery == null)
             return false;
 
+        int maxEnergy = ((IEnergyContainerItem) foundBattery.getItem()).getMaxEnergyStored(foundBattery);
+
+        // battery too big for our tool?
+        if(tags.getInteger("TotalDurability") < maxEnergy/1000) // durability needs to be at least 1/1000th of the charge
+            return false;
+
         // check if we already have a flux modifier
         if (tags.getBoolean(key))
         {
