@@ -168,7 +168,7 @@ public class StencilTableGui extends GuiContainer implements INEIGuiHandler
     public boolean hideItemPanelSlot(GuiContainer guiContainer, int x, int y, int w, int h) {
         // is it in the horizontal column of the right buttons?
         if(x > this.guiLeft + this.xSize + 4 && x < this.guiLeft + this.xSize + 4 + 22*3 + 16)
-            if(y > this.guiTop + 2 && y < this.guiTop + 2 + 22*(TConstructClientRegistry.stencilButtons2.size()-1)/4)
+            if(y > this.guiTop - 10 && y < this.guiTop + 2 + 22*(TConstructClientRegistry.stencilButtons2.size()-1)/4 + 22*(TConstructClientRegistry.stencilButtons2.size()%4 > 0 ? 1 : 0))
                 return true;
 
         return false;

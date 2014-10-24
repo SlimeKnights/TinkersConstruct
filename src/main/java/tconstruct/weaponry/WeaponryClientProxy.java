@@ -98,11 +98,17 @@ public class WeaponryClientProxy extends WeaponryCommonProxy {
 
     private void buttons()
     {
-        int base = StencilBuilder.getIndex(new ItemStack(TinkerWeaponry.woodPattern, 0, 0));
-        TConstructClientRegistry.addStencilButton2(0, 4, base + 0, Reference.RESOURCE, "textures/gui/icons.png"); // shuriken
-        TConstructClientRegistry.addStencilButton2(1, 4, base + 1, Reference.RESOURCE, "textures/gui/icons.png"); // crossbow limb
-        TConstructClientRegistry.addStencilButton2(2, 4, base + 2, Reference.RESOURCE, "textures/gui/icons.png"); // crossbow body
-        TConstructClientRegistry.addStencilButton2(3, 4, base + 3, Reference.RESOURCE, "textures/gui/icons.png"); // bow limb
+        TConstructClientRegistry.addStencilButton2(11, 3, 21, Reference.RESOURCE, "textures/gui/icons.png"); // arrow head
+        TConstructClientRegistry.addStencilButton2(12, 3, 22, Reference.RESOURCE, "textures/gui/icons.png"); // fletchling
+        TConstructClientRegistry.addStencilButton2(0,0, -1, null, null);
+        TConstructClientRegistry.addStencilButton2(0,0, -1, null, null);
+
+        TConstructClientRegistry.addStencilButton2(3, 4, 27, Reference.RESOURCE, "textures/gui/icons.png"); // bow limb
+        TConstructClientRegistry.addStencilButton2(10, 3, 23, Reference.RESOURCE, "textures/gui/icons.png"); // bowstring
+        TConstructClientRegistry.addStencilButton2(1, 4, 25, Reference.RESOURCE, "textures/gui/icons.png"); // crossbow limb
+        TConstructClientRegistry.addStencilButton2(2, 4, 26, Reference.RESOURCE, "textures/gui/icons.png"); // crossbow body
+
+        TConstructClientRegistry.addStencilButton2(0, 4, 24, Reference.RESOURCE, "textures/gui/icons.png"); // shuriken
         //TConstructClientRegistry.addStencilButton2(4, 4, index, Reference.RESOURCE, "textures/gui/icons.png"); // bolt
     }
 }
