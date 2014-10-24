@@ -409,7 +409,7 @@ public class ToolProxyClient extends ToolProxyCommon
         final String[] toolNames = {StatCollector.translateToLocal("gui.toolforge1"), TinkerTools.pickaxe.getLocalizedToolName(), TinkerTools.shovel.getLocalizedToolName(), TinkerTools.hatchet.getLocalizedToolName(),
                 // "Lumber Axe",
                 // "Ice Axe",
-                TinkerTools.mattock.getLocalizedToolName(), TinkerTools.broadsword.getLocalizedToolName(), TinkerTools.longsword.getLocalizedToolName(), TinkerTools.rapier.getLocalizedToolName(), TinkerTools.dagger.getLocalizedToolName(), TinkerTools.fryingpan.getLocalizedToolName(), TinkerTools.battlesign.getLocalizedToolName(), TinkerTools.chisel.getLocalizedToolName() };
+                TinkerTools.mattock.getLocalizedToolName(), TinkerTools.broadsword.getLocalizedToolName(), TinkerTools.longsword.getLocalizedToolName(), TinkerTools.rapier.getLocalizedToolName(), TinkerTools.dagger.getLocalizedToolName(), TinkerTools.frypan.getLocalizedToolName(), TinkerTools.battlesign.getLocalizedToolName(), TinkerTools.chisel.getLocalizedToolName() };
 
         for (int i = 0; i < toolNames.length; i++)
         {
