@@ -1,6 +1,7 @@
 package tconstruct.library.tools;
 
 import cofh.api.energy.IEnergyContainerItem;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import java.util.*;
 import net.minecraft.block.Block;
@@ -406,23 +407,24 @@ public class AbilityHelper
         trueSpeed *= 6;
         if (energy != -1)
         {
-            ToolCore tool = (ToolCore) stack.getItem();
-            // first try charging from the hotbar
-            if (entity instanceof EntityPlayer)
+            int usage = (int)(trueSpeed * 3.3f);
+            // first try charging from the hotbar if we don't have CoFHs override
+            if (equalityOverrideLoaded && entity instanceof EntityPlayer)
             {
+                ToolCore tool = (ToolCore) stack.getItem();
                 // workaround for charging flux-capacitors making tools unusable
                 chargeEnergyFromHotbar(stack, (EntityPlayer) entity, tags);
                 energy = tool.getEnergyStored(stack);
             }
 
-            if (energy < trueSpeed * 2)
+            if (energy < usage)
             {
                 if (energy > 0)
                     tags.setInteger("Energy", 0);
                 return false;
             }
 
-            energy -= trueSpeed * 2;
+            energy -= usage*50;
             tags.setInteger("Energy", energy);
 
             //stack.setItemDamage(1 + (tool.getMaxEnergyStored(stack) - energy) * (stack.getMaxDamage() - 1) / tool.getMaxEnergyStored(stack));
@@ -474,6 +476,8 @@ public class AbilityHelper
         // update energy
         tags.setInteger("Energy", max - missing);
     }
+
+    private static boolean equalityOverrideLoaded = Loader.isModLoaded("CoFHCore"); // Mods should be loaded far enough before this is ever initialized
 
     public static void breakTool (ItemStack stack, NBTTagCompound tags, Entity entity)
     {
