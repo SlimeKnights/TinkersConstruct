@@ -424,7 +424,7 @@ public class AbilityHelper
                 return false;
             }
 
-            energy -= usage*50;
+            energy -= usage;
             tags.setInteger("Energy", energy);
 
             //stack.setItemDamage(1 + (tool.getMaxEnergyStored(stack) - energy) * (stack.getMaxDamage() - 1) / tool.getMaxEnergyStored(stack));
