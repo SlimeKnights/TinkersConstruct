@@ -425,7 +425,7 @@ public class ToolProxyClient extends ToolProxyCommon
             addToolButton(itemIconsT1[i][0], itemIconsT1[i][1], itemIconsT1[i][2], iconCoordsT1[i * 2], iconCoordsT1[i * 2 + 1], tier1Tools[i].getLocalizedToolName(), locString);
         }
 
-        addToolButton(3, 9, 1, new int[] { 0, 10, 0, 13 }, new int[] { 3, 3, 3, 13 }, TinkerTools.shortbow.getLocalizedToolName(), "gui.toolstation.chisel.desc");
+        addToolButton(3, 9, 1, new int[] { 0, 10, 0, 13 }, new int[] { 3, 3, 3, 13 }, TinkerTools.shortbow.getLocalizedToolName(), "gui.toolstation.shortbow.desc");
         addToolButton(7, 10, 1, new int[] { 11, 0, 12, 13 }, new int[] { 3, 3, 3, 13 }, TinkerTools.arrow.getLocalizedToolName(), "gui.toolstation.arrow.desc");
 
         // tier 2 tools
