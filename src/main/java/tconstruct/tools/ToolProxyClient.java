@@ -396,12 +396,12 @@ public class ToolProxyClient extends ToolProxyCommon
             new int[] { 7, 0, 13, 13 }, new int[] { 3, 3, 13, 13 } // Chisel
     };
 
-    static String[] toolDescriptions = { "gui.toolforge2", "gui.toolstation.pickaxe.desc", "gui.toolstation.showel.desc", "toolstation.hatchet.desc",
+    static String[] toolDescriptions = { "gui.toolforge2", "gui.toolstation.pickaxe.desc", "gui.toolstation.showel.desc", "gui.toolstation.hatchet.desc",
             // "The Lumber Axe is a broad chopping tool. It harvests wood in a wide range and can fell entire trees.\n\nRequired parts:\n- Broad Axe Head\n- Handle",
             // "The Ice Axe is a tool for harvesting ice, mining, and attacking foes.\n\nSpecial Ability:\n- Wall Climb\nNatural Ability:\n- Ice Harvest\nDamage: Moderate\n\nRequired parts:\n- Pickaxe Head\n- Spike\n- Handle",
-            "gui.toolstation.mattok.desc", "gui.toolstation.broadsword.desc", "gui.toolstation.longsword.desc", "gui.toolstation.rapier.desc", "gui.toolstation.dagger.desc", "gui.toolstation.fryingpan.desc",
+            "gui.toolstation.mattock.desc", "gui.toolstation.broadsword.desc", "gui.toolstation.longsword.desc", "gui.toolstation.rapier.desc", "gui.toolstation.dagger.desc", "gui.toolstation.fryingpan.desc",
             // "The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nShift-rClick: Place sign\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Board\n- Handle"
-            "gui.toolstation.battlesign.desc", "" };
+            "gui.toolstation.battlesign.desc", "gui.toolstation.chisel.desc" };
 
     void addToolButtons ()
     {
