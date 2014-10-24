@@ -57,7 +57,15 @@ public class ToolForgeGui extends ToolStationGui
         iconX = b.element.iconsX;
         iconY = b.element.iconsY;
         title = "\u00A7n" + b.element.title;
-        body = b.element.body;
+        body = StatCollector.translateToLocal(b.element.body);
+        if(body != null) {
+            int i;
+            // for some really weird reason replaceAll doesn't find "\\n", but indexOf does. We have to replace manually.
+            while((i = body.indexOf("\\n")) >= 0)
+            {
+                body = body.substring(0, i) + '\n' + body.substring(i+2);
+            }
+        }
     }
 
     @Override
