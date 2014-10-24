@@ -170,15 +170,14 @@ public class TinkerWeaponry {
 
     private void addPartRecipies()
     {
+        StencilBuilder.registerStencil(21, TinkerTools.woodPattern, 25); // arrow head
+        StencilBuilder.registerStencil(22, TinkerTools.woodPattern, 24); // fletchling
+        StencilBuilder.registerStencil(23, TinkerTools.woodPattern, 23); // bowstring
 
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 25); // arrow head
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 24); // fletchling
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 23); // bowstring
-
-        StencilBuilder.registerStencil(woodPattern, 0);
-        StencilBuilder.registerStencil(woodPattern, 1);
-        StencilBuilder.registerStencil(woodPattern, 2);
-        StencilBuilder.registerStencil(woodPattern, 3);
+        StencilBuilder.registerStencil(24, woodPattern, 0);
+        StencilBuilder.registerStencil(25, woodPattern, 1);
+        StencilBuilder.registerStencil(26, woodPattern, 2);
+        StencilBuilder.registerStencil(27, woodPattern, 3);
 
         PatternBuilder.instance.addToolPattern(woodPattern);
 

@@ -766,6 +766,27 @@ gui.mining4=Obsidian
 gui.mining5=Cobalt
 gui.mining6=Manyullyn
 
+gui.toolstation.pickaxe.desc=The Pickaxe is a precise mining tool. It is effective on stone and ores.\n\nRequired parts:\n- Pickaxe Head\n- Tool Binding\n- Handle
+gui.toolstation.shovel.desc=The Shovel is a precise digging tool. It is effective on dirt, sand, and snow.\n\nRequired parts:\n- Shovel Head\n- Handle
+gui.toolstation.hatchet.desc=The Hatchet is a basic chopping tool. It is effective on wood and leaves.\n\nRequired parts:\n- Axe Head\n- Handle
+gui.toolstation.mattock.desc=The Cutter Mattock is a versatile farming tool. It is effective on wood, dirt, and plants.\n\nSpecial Ability: Hoe\n\nRequired parts:\n- Axe Head\n- Shovel Head\n- Handle
+gui.toolstation.broadsword.desc=The Broadsword is a defensive weapon. Blocking cuts damage in half.\n\nSpecial Ability: Block\nDamage: Moderate\nDurability: High\n\nRequired parts:\n- Sword Blade\n- Wide Guard\n- Handle
+gui.toolstation.longsword.desc=The Longsword is an offensive weapon. It is often used for charging into battle at full speed.\n\nNatural Ability:\n- Charge Boost\nSpecial Ability: Lunge\n\nDamage: Moderate\nDurability: Moderate
+gui.toolstation.rapier.desc=The Rapier is a special weapon that relies on quick strikes to defeat foes.\n\nNatural Abilities:\n- Armor Pierce\n- Quick Strike\n- Charge Boost\nSpecial Ability:\n- Backpedal\n\nDamage: Low\nDurability: Low
+gui.toolstation.dagger.desc=The Dagger is a short blade that can be thrown.\n\nSpecial Ability:\n- Throw Item\n\nDamage: Low\nDurability: Moderate\n\nRequired parts:\n- Knife Blade\n- Crossbar\n- Handle
+gui.toolstation.fryingpan.desc=The Frying Pan is a heavy weapon that uses sheer weight to stun foes.\n\nSpecial Ability: Block\nNatural Ability: Heavy\nShift+rClick: Place Frying Pan\nDamage: Low\nDurability: High\n\nRequired parts:\n- Pan\n- Handle
+gui.toolstation.battlesign.desc=The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability:\nDamage Reflector\n\nNatural Ability: Writable\n\nDamage: Low\nDurability: Average
+gui.toolstation.chisel.desc=The Chisel is a utility tool that carves shapes into blocks.\n\nCrafting Grid:\n- Shape Items\nSpecial Ability: Chisel\nDurability: Average\n\nRequired parts:\n- Chisel Head\n- Handle
+gui.toolstation.shortbow.desc=The Shortbow is a ranged weapon. It fires arrows quickly and precisely at its foes.\n\nDraw Speed: Quick\n\nRequired parts:\n- Tool Rod\n- Bowstring\n- Tool Rod
+gui.toolstation.arrow.desc=Arrows are projectiles usually fired from bows.\n\nRequired parts:\n- Arrowhead\n- Tool Rod\n- Fletching
+gui.toolstation.hammer.desc=The Hammer is a broad mining tool. It harvests blocks in a wide range and is effective against undead.\n\nNatural Abilities:\nArea of Effect\n- (3x3)\n- Smite\n\nDurability: High
+gui.toolstation.lumberaxe.desc=The Lumber Axe is a broad chopping tool. It can fell entire trees or gather wood in a wide range.\n\nNatural Abilities:\nArea of Effect\n- Fell Trees\n- (3x3x3)\n\nDurability: Average
+gui.toolstation.excavator.desc=The Excavator is a broad digging tool. It harvests soil and snow in a wide range.\n\nNatural Ability:\n- Area of Effect\n- (3x3)\n\nDurability: Average
+gui.toolstation.scythe.desc=The Scythe is a broad reaping tool. It is effective on plants and attacks enemies in a wide range.\n\nNatural Ability:\nArea of Effect\n- (3x3x3)\n\nDurability: Average\nDamage: Low, AoE
+gui.toolstation.cleaver.desc=The Cleaver is a heavy defensive weapon. It has powerful strikes, but is difficult to wield.\n\nSpecial Ability: Block\nNatural Ability:\n- Beheading\n\nDamage: High\nDurability: Average
+gui.toolstation.battleaxe.desc=The Battleaxe is a heavy offensive weapon. It is capable of bringing down small trees and can send foes flying.\n\nSpecial Ability: Block\nNatural Abilities:" + "\n- Knockback\n- Area of Effect\n- (1x9)\n\nDamage: Average\nDurability: Average
+
+
 material.wood=Wood
 material.wood.display=Wooden
 material.stone=Stone
@@ -864,8 +885,3 @@ tool.arrow=Arrow
 tool.kingslimeprefix=King Slime
 # Specific localization like materials
 #tool.shovel.kingslime=Regret
-
-
-gui.toolstation.repair.title=Repair and Modification
-gui.toolstation.repair.desc=The main way to repair or change your tools. Place a tool and a material on the left to get started.
-gui.toolstation.pickaxe.desc=The Pickaxe is a precise mining tool. It is effective on stone and ores.\n\nRequired parts:\n- Pickaxe Head\n- Tool Binding\n- Handle

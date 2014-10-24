@@ -843,32 +843,32 @@ public class TinkerTools
         StencilBuilder.registerBlankStencil(new ItemStack(TinkerTools.blankPattern));
 
         // we register this manually because we want that specific order
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 1); // tool rod
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 9); // binding
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 14); // large tool rod
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 15); // large binding
+        StencilBuilder.registerStencil(0, TinkerTools.woodPattern, 1); // tool rod
+        StencilBuilder.registerStencil(1, TinkerTools.woodPattern, 9); // binding
+        StencilBuilder.registerStencil(2, TinkerTools.woodPattern, 14); // large tool rod
+        StencilBuilder.registerStencil(3, TinkerTools.woodPattern, 15); // large binding
 
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 2); // pickaxe head
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 3); // shovel head
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 4); // hatchet head
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 18); // scythe
+        StencilBuilder.registerStencil(4, TinkerTools.woodPattern, 2); // pickaxe head
+        StencilBuilder.registerStencil(5, TinkerTools.woodPattern, 3); // shovel head
+        StencilBuilder.registerStencil(6, TinkerTools.woodPattern, 4); // hatchet head
+        StencilBuilder.registerStencil(7, TinkerTools.woodPattern, 18); // scythe
 
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 21); // hammer head
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 19); // excavator head
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 17); // lumberaxe head
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 16); // large plate
+        StencilBuilder.registerStencil(8, TinkerTools.woodPattern, 21); // hammer head
+        StencilBuilder.registerStencil(9, TinkerTools.woodPattern, 19); // excavator head
+        StencilBuilder.registerStencil(10, TinkerTools.woodPattern, 17); // lumberaxe head
+        StencilBuilder.registerStencil(11, TinkerTools.woodPattern, 16); // large plate
 
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 10); // frying pan
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 11); // battlesign
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 13); // chisel
+        StencilBuilder.registerStencil(12, TinkerTools.woodPattern, 10); // frying pan
+        StencilBuilder.registerStencil(13, TinkerTools.woodPattern, 11); // battlesign
+        StencilBuilder.registerStencil(14, TinkerTools.woodPattern, 13); // chisel
 
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 12); // knifeblade
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 5); // swordblade
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 20); // cleaver blade
+        StencilBuilder.registerStencil(15, TinkerTools.woodPattern, 12); // knifeblade
+        StencilBuilder.registerStencil(16, TinkerTools.woodPattern, 5); // swordblade
+        StencilBuilder.registerStencil(17, TinkerTools.woodPattern, 20); // cleaver blade
 
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 8); // crossbar
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 7); // small guard
-        StencilBuilder.registerStencil(TinkerTools.woodPattern, 6); // wide guard
+        StencilBuilder.registerStencil(18, TinkerTools.woodPattern, 8); // crossbar
+        StencilBuilder.registerStencil(19, TinkerTools.woodPattern, 7); // small guard
+        StencilBuilder.registerStencil(20, TinkerTools.woodPattern, 6); // wide guard
     }
 
     public static final class MaterialID

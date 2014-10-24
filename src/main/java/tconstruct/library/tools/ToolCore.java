@@ -1,6 +1,7 @@
 package tconstruct.library.tools;
 
 import cofh.api.energy.IEnergyContainerItem;
+import cofh.core.item.IEqualityOverrideItem;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.*;
 import java.util.*;
@@ -47,8 +48,11 @@ import tconstruct.util.config.PHConstruct;
  * @see ItemModifier
  */
 
-@Optional.Interface(modid = "CoFHLib", iface = "cofh.api.energy.IEnergyContainerItem")
-public abstract class ToolCore extends Item implements IEnergyContainerItem, IModifyable
+@Optional.InterfaceList({
+        @Optional.Interface(modid = "CoFHLib", iface = "cofh.api.energy.IEnergyContainerItem"),
+        @Optional.Interface(modid = "CoFHCore", iface = "cofh.core.item.IEqualityOverrideItem")
+})
+public abstract class ToolCore extends Item implements IEnergyContainerItem, IEqualityOverrideItem, IModifyable
 {
     protected Random random = new Random();
     protected int damageVsEntity;
@@ -890,6 +894,31 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IMo
             return tags.getInteger("EnergyMax");
         // backup
         return capacity;
+    }
+
+    @Override
+    @Optional.Method(modid = "CoFHCore")
+    public boolean isLastHeldItemEqual(ItemStack current, ItemStack previous) {
+        if(!current.hasTagCompound() || !previous.hasTagCompound())
+            return false;
+
+        NBTTagCompound curTags = current.getTagCompound();
+        NBTTagCompound prevTags = previous.getTagCompound();
+        if(curTags == prevTags)
+            return true;
+        if(!curTags.hasKey("InfiTool") || !prevTags.hasKey("InfiTool"))
+            return false;
+
+        // create copies so we don't modify the original
+        curTags = (NBTTagCompound) curTags.copy();
+        prevTags = (NBTTagCompound) prevTags.copy();
+
+        curTags.removeTag("Energy");
+        prevTags.removeTag("Energy");
+        curTags.getCompoundTag("InfiTool").removeTag("Damage");
+        prevTags.getCompoundTag("InfiTool").removeTag("Damage");
+
+        return curTags.equals(prevTags);
     }
     // end of TE support section
 }
