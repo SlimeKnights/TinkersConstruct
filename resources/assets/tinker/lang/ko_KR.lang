@@ -546,7 +546,7 @@ death.attack.Landmine=%1$s의 다리가 지뢰에 의해 파괴되었습니다
 death.attack.FireworkExplode=%1$s가 불꽃놀이 폭발에 의해 거열당했습니다
 
 
-toolpart.ToolRod=%%material 도구 막대기
+toolpart.ToolRod=%%material 막대기
 toolpart.PickaxeHead=%%material 곡괭이 머리
 toolpart.ShovelHead=%%material 삽 머리
 toolpart.AxeHead=%%material 도끼 날
@@ -703,6 +703,20 @@ smeltery.brick.tooltip2=(장식용으로 사용 가능)
 #Dear translators, only translate this line if the joke is applicable in your language.
 grout.tooltip=I am Grout!
 
+tconstruct.waila.empty=비어있음
+tconstruct.waila.liquidtag=액체: 
+tconstruct.waila.amounttag=수량: 
+tconstruct.waila.contains=들어있는 액체: 
+tconstruct.waila.subtanks=서브탱크:
+tconstruct.waila.invalidstructure=잘못된 구조
+
+tconstruct.nei.toolmaterials=도구 재료
+tconstruct.nei.alloying=합금제작
+tconstruct.nei.castingbasin=블럭 주조
+tconstruct.nei.castingtable=테이블 주조
+tconstruct.nei.dryingrack=건조대
+tconstruct.nei.melting=융화
+
 gui.smeltery.fuel=연료
 gui.smeltery.emerald=에메랄드 수: 
 gui.smeltery.glass.block=블럭 수: 
@@ -721,6 +735,7 @@ gui.partcrafter7=채광 수준:
 gui.partcrafter8= 하트
 gui.partcrafter9= 하트
 gui.partcrafter10=공격력: 
+gui.partcrafter11=최대 내구도: 
 gui.mining1=돌, 석탄
 gui.mining2=철, 청금석
 gui.mining3=레드스톤, 금, 다이아몬드
@@ -751,6 +766,27 @@ gui.toolstation17=업그레이드
 gui.toolstation18=남은 업그레이드 횟수: 
 gui.toolstation19=데미지 감소: 
 gui.toolstation20=보호: 
+
+gui.toolstation.pickaxe.desc=곡괭이는 채광에 필요한 도구입니다. 돌과 광석블럭을 빠르게 부숩니다.\n\n필요 부품:\n- 곡괭이머리\n- 조임쇠\n- 손잡이
+gui.toolstation.shovel.desc=삽은 땅을팔때 필요한 도구입니다. 흙과모래 그리고 눈을 빠르게 부숩니다.\n\nRequired parts:\n- Shovel Head\n- Handle
+gui.toolstation.hatchet.desc=손도끼는 벌목에 필요한 도구입니다. 나무와 잎을 빠르게 부숩니다.\n\nRequired parts:\n- Axe Head\n- Handle
+gui.toolstation.mattock.desc=매톡은 다양한 농업용도구입니다. 나무,흙,식물들을 빠르게 부숩니다.\n\nSpecial Ability: Hoe\n\nRequired parts:\n- Axe Head\n- Shovel Head\n- Handle
+gui.toolstation.broadsword.desc=브로드소드는 방어용검입니다.블로킹으로 데미지를 반으로 반감시켜줍니다.\n\nSpecial Ability: Block\nDamage: Moderate\nDurability: High\n\nRequired parts:\n- Sword Blade\n- Wide Guard\n- Handle
+gui.toolstation.longsword.desc=The Longsword is an offensive weapon. It is often used for charging into battle at full speed.\n\nNatural Ability:\n- Charge Boost\nSpecial Ability: Lunge\n\nDamage: Moderate\nDurability: Moderate
+gui.toolstation.rapier.desc=The Rapier is a special weapon that relies on quick strikes to defeat foes.\n\nNatural Abilities:\n- Armor Pierce\n- Quick Strike\n- Charge Boost\nSpecial Ability:\n- Backpedal\n\nDamage: Low\nDurability: Low
+gui.toolstation.dagger.desc=The Dagger is a short blade that can be thrown.\n\nSpecial Ability:\n- Throw Item\n\nDamage: Low\nDurability: Moderate\n\nRequired parts:\n- Knife Blade\n- Crossbar\n- Handle
+gui.toolstation.fryingpan.desc=The Frying Pan is a heavy weapon that uses sheer weight to stun foes.\n\nSpecial Ability: Block\nNatural Ability: Heavy\nShiftrClick: Place Frying Pan\nDamage: Low\nDurability: High\n\nRequired parts:\n- Pan\n- Handle
+gui.toolstation.battlesign.desc=The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability:\nDamage Reflector\n\nNatural Ability: Writable\n\nDamage: Low\nDurability: Average
+gui.toolstation.chisel.desc=The Chisel is a utility tool that carves shapes into blocks.\n\nCrafting Grid:\n- Shape Items\nSpecial Ability: Chisel\nDurability: Average\n\nRequired parts:\n- Chisel Head\n- Handle
+gui.toolstation.shortbow.desc=The Shortbow is a ranged weapon. It fires arrows quickly and precisely at its foes.\n\nDraw Speed: Quick\n\nRequired parts:\n- Tool Rod\n- Bowstring\n- Tool Rod
+gui.toolstation.arrow.desc=Arrows are projectiles usually fired from bows.\n\nRequired parts:\n- Arrowhead\n- Tool Rod\n- Fletching
+gui.toolstation.hammer.desc=The Hammer is a broad mining tool. It harvests blocks in a wide range and is effective against undead.\n\nNatural Abilities:\nArea of Effect\n- (3x3)\n- Smite\n\nDurability: High
+gui.toolstation.lumberaxe.desc=The Lumber Axe is a broad chopping tool. It can fell entire trees or gather wood in a wide range.\n\nNatural Abilities:\nArea of Effect\n- Fell Trees\n- (3x3x3)\n\nDurability: Average
+gui.toolstation.excavator.desc=The Excavator is a broad digging tool. It harvests soil and snow in a wide range.\n\nNatural Ability:\n- Area of Effect\n- (3x3)\n\nDurability: Average
+gui.toolstation.scythe.desc=The Scythe is a broad reaping tool. It is effective on plants and attacks enemies in a wide range.\n\nNatural Ability:\nArea of Effect\n- (3x3x3)\n\nDurability: Average\nDamage: Low, AoE
+gui.toolstation.cleaver.desc=The Cleaver is a heavy defensive weapon. It has powerful strikes, but is difficult to wield.\n\nSpecial Ability: Block\nNatural Ability:\n- Beheading\n\nDamage: High\nDurability: Average
+gui.toolstation.battleaxe.desc=The Battleaxe is a heavy offensive weapon. It is capable of bringing down small trees and can send foes flying.\n\nSpecial Ability: Block\nNatural Abilities:"  "\n- Knockback\n- Area of Effect\n- (1x9)\n\nDamage: Average\nDurability: Average
+
 
 material.wood=나무
 material.wood.display=나무
@@ -845,3 +881,7 @@ tool.arrow=화살
 
 # Customization of default tool names based on tool and material
 +#tool.shovel.wood=Wooden Shovel
+
+tool.kingslimeprefix=King Slime
+# Specific localization like materials
+#tool.shovel.kingslime=Regret
