@@ -16,7 +16,7 @@ import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.network.play.server.S23PacketBlockChange;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
-import tconstruct.TConstruct;
+import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 
 /* Base class for tools that should be harvesting blocks */
@@ -153,7 +153,8 @@ public abstract class HarvestTool extends ToolCore
             if (nearbyStack != null)
             {
                 Item item = nearbyStack.getItem();
-                if (item instanceof ItemBlock)
+  
+                if (item instanceof ItemBlock || (item != null && item == TinkerTools.openBlocksDevNull))
                 {
                     int posX = x;
                     int posY = y;
@@ -197,8 +198,17 @@ public abstract class HarvestTool extends ToolCore
 
                     int dmg = nearbyStack.getItemDamage();
                     int count = nearbyStack.stackSize;
+                    if (item == TinkerTools.openBlocksDevNull)
+                    {
+                    	//Openblocks uses current inventory slot, so we have to do this...
+                    	player.inventory.currentItem=itemSlot;
+                    	item.onItemUse(nearbyStack, player, world, x, y, z, side, clickX, clickY, clickZ);
+                    	player.inventory.currentItem=hotbarSlot;
+                    	player.swingItem();
+                    }
+                    else
+                    	used = item.onItemUse(nearbyStack, player, world, x, y, z, side, clickX, clickY, clickZ);
 
-                    used = item.onItemUse(nearbyStack, player, world, x, y, z, side, clickX, clickY, clickZ);
                     // handle creative mode
                     if(player.capabilities.isCreativeMode) {
                         // fun fact: vanilla minecraft does it exactly the same way
