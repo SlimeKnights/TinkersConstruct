@@ -1,0 +1,1116 @@
+<?xml version="1.0"?>
+
+<book>
+<page type="intro">
+<text>匠魂宝典
+工具和能力的指南
+
+第2卷
+By Skyla</text>
+</page>
+
+<page type="contents">
+<text>目录</text>
+<link>
+ <text>工具</text>
+ <icon>ironpick</icon>
+ <jump>2</jump>
+</link>
+<link>
+ <text>材料</text>
+ <icon>woodplanks</icon>
+ <jump>4</jump>
+</link>
+<link>
+ <text>强化</text>
+ <icon>lavacrystal</icon>
+ <jump>4</jump>
+</link>
+</page>
+
+<page type="text">
+<text>欢迎来到匠魂宝典II：一个工具和能力的指南。在这几页中你将深入了解所有已知的工具，强化，和材料。详细列出了所有已知的，以及少数未知的。
+
+这本书是一个神奇的复本；它更新时原版就已经改变了。 偶尔打开看看一些新东西的信息.</text>
+</page>
+
+<page type="toolpage">
+<title>镐</title>
+<text>镐是一个基础采掘工具，用于挖掘岩石和矿物。</text>
+<text>类别：精密工具
+对象：岩石，矿物和金属。</text>
+<icon>pickicon</icon>
+<item>
+ <text>镐头</text>
+ <icon>pickhead</icon>
+</item>
+<item>
+ <text>手柄</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>绑定结</text>
+ <icon>binding</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>铲</title>
+<text>铲子是一个基础挖掘工具。用于搬运泥土。</text>
+<text>类别：精密工具
+对象：泥土，沙子，砂砾和雪。</text>
+<icon>shovelicon</icon>
+<item>
+ <text>铲头</text>
+ <icon>shovelhead</icon>
+</item>
+<item>
+ <text>手柄</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>手斧</title>
+<text>手斧是一个基础砍伐工具，常用于处理木材。</text>
+<text>类别：精密工具
+对象：木头，树叶和树。</text>
+<icon>axeicon</icon>
+<item>
+ <text>斧刃</text>
+ <icon>axehead</icon>
+</item>
+<item>
+ <text>手柄</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>鹤嘴锄</title>
+<text>鹤嘴锄是一个多用途的农业工具。它原来的目的是耕地，有时也能像斧子和铲子那样工作，但并不是两者的替代品。</text>
+<text>
+类别：复合工具
+对象：木头，泥土和植物。</text>
+<icon>mattockicon</icon>
+<item>
+ <text>斧刃</text>
+ <icon>axehead</icon>
+</item>
+<item>
+ <text>手柄</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>铲头</text>
+ <icon>shovelhead</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>大剑</title>
+<text>大剑是一个防卫武器。它是许多匠人的最爱并且在诸多情况下十分有用。</text>
+<text>
+右击：格挡
+-格挡抵消大部分伤害的一半
+
+类别：近战武器
+对蛛网有效。</text>
+<icon>swordicon</icon>
+<item>
+ <text>剑刃</text>
+ <icon>swordblade</icon>
+</item>
+<item>
+ <text>手柄</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>大型护手</text>
+ <icon>wideguard</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>长剑</title>
+<text>长剑是一个攻击性武器。 它用于全速冲刺以及突破敌人的防线。</text>
+<text>
+右击：冲刺
+-松开时它会让你快速冲向前方。
+
+自然能力：
+-冲锋，冲刺时1.5倍伤害和击退
+
+类别：近战武器
+对蛛网有效</text>
+<icon>longswordicon</icon>
+<item>
+ <text>剑刃</text>
+ <icon>swordblade</icon>
+</item>
+<item>
+ <text>手柄</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>中型护手</text>
+ <icon>handguard</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>西洋剑</title>
+<text>西洋剑是一个特殊的武器。舞动的剑术能让你快速地切入或切出战斗。尽管西洋剑的伤害低， 它其他的能力弥补了这一点。</text>
+<text>
+右击：后跳
+- 向后小幅跳跃
+
+自然能力：
+-冲锋，冲刺时1.5倍伤害和击退
+-穿透，无视护甲与格挡
+-闪击，敌方难以反应快速的攻击
+
+类别：近战武器</text>
+<icon>rapiericon</icon>
+<item>
+ <text>剑刃</text>
+ <icon>swordblade</icon>
+</item>
+<item>
+ <text>手柄</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>十字柄</text>
+ <icon>crossbar</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>匕首</title>
+<text>匕首是一个短武器。无论突刺还是投掷它都足够轻便合用。</text>
+<text>
+右击：投掷匕首
+-投掷它以远程攻击
+
+类别：远程/近战武器</text>
+<icon>daggerIcon</icon>
+<item>
+ <text>刀刃</text>
+ <icon>knifeblade</icon>
+</item>
+<item>
+ <text>手柄</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>十字柄</text>
+ <icon>crossbar</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>煎锅</title>
+<text>煎锅是一个以重量击晕敌人的武器或一个烹饪你的食物的地方。用同一个煎锅打猪然后烹饪是很普通的事。</text>
+<text>
+
+右击：格挡
+-格挡抵消大部分伤害的一半
+
+Shift+右击：放置物品
+-煎锅能同时烹饪大量食物
+
+自然能力：
+-重击，额外的击退以及击晕。</text>
+<icon>frypanicon</icon>
+<item>
+ <text>盘</text>
+ <icon>pan</icon>
+</item>
+<item>
+ <text>手柄</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>战斗牌子</title>
+<text>在僵尸猪人无处不在时战斗牌子是武器技术上一个的进步.</text>
+<text>
+右击：格挡
+-格挡抵消大部分伤害的一半
+
+类别：致命玩笑武器</text>
+<icon>battlesignicon</icon>
+<item>
+ <text>牌板</text>
+ <icon>board</icon>
+</item>
+<item>
+ <text>手柄</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>凿子</title>
+<text>凿子是一个用于雕刻方块的高级精细工具</text>
+<text>右击：凿
+-将不同的方块变为砖块。
+制造网格：凿
+-有的物品只能凿成网格。
+
+类别：功能工具</text>
+<icon>chiselicon</icon>
+<item>
+ <text>凿刃</text>
+ <icon>chiselhead</icon>
+</item>
+<item>
+ <text>手柄</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>锤</title>
+<text>锤子是一个用于大区域挖掘的工具。对亡灵生物也有效。</text>
+<text>
+自然能力：
+-区域效果，采掘3x3的区域。方向取决于所挖的那一面。
+-亡灵杀手II，对亡灵生物造成2~4颗心额外伤害.
+-高耐久，这个工具有高耐久以应对将会受到的持续磨损。
+
+类别：区域采集工具</text>
+<icon>hammericon</icon>
+<item>
+ <text>锤子头</text>
+ <icon>hammerhead</icon>
+</item>
+<item>
+ <text>大板</text>
+ <icon>largeplate</icon>
+</item>
+<item>
+ <text>坚韧手柄</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>大板</text>
+ <icon>largeplate</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>伐木斧</title>
+<text>伐木斧能砍倒整棵树或轻挥清理大片的木材.</text>
+<text>自然能力：
+砍树
+-砍倒整棵树，最大高度30，树定义为顶部有树叶的原木。
+区域效果
+-采集一个3x3x3的区域。直到找不到一棵树
+类别：区域采集工具</text>
+<icon>lumbericon</icon>
+<item>
+ <text>宽斧刃</text>
+ <icon>broadaxehead</icon>
+</item>
+<item>
+ <text>大板</text>
+ <icon>largeplate</icon>
+</item>
+<item>
+ <text>坚韧手柄</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>坚韧绑定结</text>
+ <icon>toughbinding</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>挖掘工具</title>
+<text>挖掘工具是一个用于清理大片土地，砂砾或雪的大型挖掘工具。</text>
+<text>
+自然能力：
+区域效果
+-挖掘一个3x3的区域。方向取决于所挖的那一面。
+
+类别：区域采集工具</text>
+<icon>excavatoricon</icon>
+<item>
+ <text>挖掘工具刃</text>
+ <icon>excavatorhead</icon>
+</item>
+<item>
+ <text>大板</text>
+ <icon>largeplate</icon>
+</item>
+<item>
+ <text>坚韧手柄</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>坚韧绑定结</text>
+ <icon>toughbinding</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>镰刀</title>
+<text>镰刀以其大面积作用区域而闻名。它能用于收割作物，树叶，也是把像样的武器。</text>
+<text>
+自然能力：
+区域效果
+-攻击3x3x3区域内的怪物。
+-收割3x3x3的区域。
+
+类别：区域近战武器</text>
+<icon>scytheicon</icon>
+<item>
+ <text>镰刀刀刃</text>
+ <icon>scythehead</icon>
+</item>
+<item>
+ <text>坚韧手柄</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>坚韧绑定结</text>
+ <icon>toughbinding</icon>
+</item>
+<item>
+ <text>坚韧手柄</text>
+ <icon>toughrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>劈刀</title>
+<text>劈刀是一个重型防卫武器。这把剑有点笨拙，但它的重量能碾压敌人。</text>
+<text>
+右击：格挡
+-格挡抵消大部分伤害的一半
+
+自然能力： 
+-斩首II，将怪物斩首。它们的头颅掉落率像使用掠夺一样。
+-重，基础攻击会随着挥砍所用时间而增加。
+
+类别：重型近战武器</text>
+<icon>cleavericon</icon>
+<item>
+ <text>大剑刃</text>
+ <icon>largeswordblade</icon>
+</item>
+<item>
+ <text>大板</text>
+ <icon>largeplate</icon>
+</item>
+<item>
+ <text>坚韧手柄</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>坚韧手柄</text>
+ <icon>toughrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>战斧</title>
+<text>战斧是攻击性近战武器，也能砍倒小型树木。</text>
+<text>右击：暂定
+-这项能力还不完全
+
+自然能力：
+-范围效果,，破坏1x9的木质方块。
+-冲刺，比正常将敌人击退更远。
+
+类别：重型近战武器</text>
+<icon>battleaxeicon</icon>
+<item>
+ <text>宽斧刃</text>
+ <icon>broadaxehead</icon>
+</item>
+<item>
+ <text>宽斧刃</text>
+ <icon>broadaxehead</icon>
+</item>
+<item>
+ <text>坚韧手柄</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>坚韧绑定结</text>
+ <icon>toughbinding</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>短弓</title>
+<text>短弓是一个用于射箭的武器。它有快且短的射程。</text>
+<text>
+右击：拉弓
+-弓拉得越紧，箭就会飞得越远造成越多伤害。
+
+类别：远程发射器</text>
+<icon>shortbowIcon</icon>
+<item>
+ <text>手柄</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>弓弦</text>
+ <icon>bowstring</icon>
+</item>
+<item>
+ <text>手柄</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>箭</title>
+<text>箭从弓射出就像从发射器一样。它们也能用于突刺的武器。</text>
+<text>
+分类：弹药</text>
+<icon>arrowIcon</icon>
+<item>
+ <text>箭头</text>
+ <icon>arrowhead</icon>
+</item>
+<item>
+ <text>手柄</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>箭羽</text>
+ <icon>fletching</icon>
+</item>
+</page>
+
+<page type="sectionpage">
+<title>Material Traits</title>
+<text>一些材料拥有能增加自然用途的特性。
+
+- 增强：每级10%几率不消耗耐久
+- 打磨：工具磨损越多挖掘越快，但产生更少伤害
+- 锯齿：工具磨损越多造成伤害越大，但挖掘越慢
+- 扩展：可拥有一个额外强化
+- 美味：有时会掉落食物</text>
+</page>
+
+<page type="materialstats">
+<title>Wood</title>
+<icon>woodaxe</icon>
+<text>它看似到处都有。</text>
+<material>
+ <main>woodplanks</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Stone</title>
+<icon>stonepick</icon>
+<text>世界上最常见的材料之一。</text>
+<material>
+ <main>stoneblock</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Iron</title>
+<icon>ironpick</icon>
+<text>工具的主要用料，能被精炼和加工。
+- 需要冶炼厂</text>
+<material>
+ <main>ironingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Flint</title>
+<icon>flintshovel</icon>
+<text>比石头更耐磨。穴居人的选材。</text>
+<material>
+ <main>flint</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Cactus</title>
+<icon>cactussword</icon>
+<text>只能在沙漠找到的一种材料。</text>
+<material>
+ <main>cactus</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Bone</title>
+<icon>bonerapier</icon>
+<text>一个多种用途的材料，生或死。</text>
+<material>
+ <main>bone</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Obsidian</title>
+<icon>bonefrypan</icon>
+<text>钉子般硬，但塑形时脆弱。</text>
+<material>
+ <main>obsidian</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Alumite</title>
+<icon>alumitepick</icon>
+<text>一种不寻常的合金。看起来十分耐用。
+- 需要冶炼厂</text>
+<material>
+ <main>alumiteingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Netherrack</title>
+<icon>netherrackmattock</icon>
+<text>这什么做的?!</text>
+<material>
+ <main>netherrack</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Blue Slime</title>
+<icon>blueslimebattlesign</icon>
+<text>由食物转化而来的它更加强力。</text>
+<toolmaterial>BlueSlime</toolmaterial>
+<material>
+ <main>blueslimecrystal</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Green Slime</title>
+<icon>slimebattlesign</icon>
+<text>柔软有弹性，看起来能永远保持。</text>
+<toolmaterial>Slime</toolmaterial>
+<material>
+ <main>slimecrystal</main>
+</material>
+</page>
+
+<page type="crafting">
+<text>黏滑泥泞</text>
+<recipe>
+ <name>slimymud</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="furnace">
+<text>粘液球水晶</text>
+<recipe>slimecrystal</recipe>
+</page>
+
+<page type="materialstats">
+<title>Paper</title>
+<icon>paperpick</icon>
+<text>他十分脆弱，但可以随意加工。</text>
+<material>
+ <main>paperstack</main>
+</material>
+</page>
+
+<page type="crafting">
+<text>Paper Stack</text>
+<recipe>
+ <name>paperstack</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="materialstats">
+<title>Cobalt</title>
+<icon>cobaltlongsword</icon>
+<text>下界材料之一，它是亮蓝色的。
+- 需要冶炼厂</text>
+<material>
+ <main>cobaltingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Ardite</title>
+<icon>arditelongsword</icon>
+<text>下界材料之一，看起来磨损越多挖掘越快。
+- 需要冶炼厂</text>
+<material>
+ <main>arditeingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Manyullyn</title>
+<icon>manyullynlongsword</icon>
+<text>下界合金。比钻石还强。
+- 需要冶炼厂</text>
+<material>
+ <main>manyullyningot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Copper</title>
+<icon>copperaxe</icon>
+<text>地面发现的一种常见金属。
+- 需要冶炼厂</text>
+<material>
+ <main>copperingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Bronze</title>
+<icon>bronzeaxe</icon>
+<text>一种常见合金。比铁略好。
+- 需要冶炼厂</text>
+<material>
+ <main>bronzeingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Steel</title>
+<icon>steelsword</icon>
+<text>一种铁合金。得到它的方法未知。
+- 需要冶炼厂</text>
+<material>
+ <main>steelingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>生铁</title>
+<icon>pigironsword</icon>
+<toolmaterial>PigIron</toolmaterial>
+<text>一种铁合金。 看似由血，铁和绿宝石制作而成。
+- 需要冶炼厂</text>
+<material>
+ <main>pigironingot</main>
+</material>
+</page>
+
+<page type="blank">
+</page>
+
+<page type="sectionpage">
+<title>钻石</title>
+<text>在工具边缘加上一块钻石看似让它更耐磨。
+
+效果:
+- 500额外耐久
+- 采掘等级提升到3
+
+类型: 一次性
+可叠加: 否</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>diamondmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>绿宝石</title>
+<text>在工具的弱点处嵌上绿宝石使它更耐磨。
+
+效果:
+- 50% 更多耐久
+- 采掘等级提升到2
+
+类型: 一次性
+可叠加: 否</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>emeraldmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>速度</title>
+<text>给工具加上红石似乎能加快它的采掘速度。
+
+效果:
+- 每个红石粉增加采掘速度0.08.
+- 50/50提升至4.0, 使得工具拥有同等铁制的速度.
+- 对武器无效
+
+类型: 多次性
+可叠加: 是</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>redstonemod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>自动修复</title>
+<text>将苔藓附在工具给它注入生命。使工具能再生磨损的耐久。
+
+效果:
+- 工具缓慢自我修复
+- 阳光加速其过程
+
+类型: 一次性
+可叠加: 是</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>mossmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>自动冶炼</title>
+<text>在工具末端加上熔岩水晶给它以熔炉的力量。
+
+效果:
+- 采集方块时冶炼它们
+- 使击中的怪物燃烧3秒
+- 配合幸运
+- 与丝绸不兼容
+
+类型: 多次性
+可叠加: 否</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>lavacrystalmod</recipe>
+</page>
+
+<page type="crafting">
+<text>苔藓</text>
+<recipe>
+ <name>mossball</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>熔岩水晶</text>
+<recipe>
+ <name>lavacrystal</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="sectionpage">
+<title>幸运</title>
+<text>在工具加上青金石是给幸运之神的礼物。他们会以时运和掠夺的效果祝福你。
+
+效果:
+- 增加时运或掠夺，取决于工具类型
+- 在到达最大值时增加等级，但有几率提前增加
+- 有时给工具增加额外的幸运
+- 与丝绸不兼容
+
+类型: 多次性
+可叠加: 否</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>lapismod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>锐利</title>
+<text>在工具边缘加上石英看似能让它更锐利。
+
+效果:
+- 增加攻击伤害
+- 锐化工具不再困难
+
+类型: 多次性
+可叠加: 是</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>quartzmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>炽热</title>
+<text>给工具加上烈焰粉使它拥有更炽热。
+
+效果:
+- 点燃目标
+- 每5个粉末增加1秒燃烧时间
+
+类型: 多次性
+可叠加: 是</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>blazemod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>坏死</title>
+<text>将凋零骷髅的骨头放在工具上给予它邪恶的窃取生命的力量。
+
+效果:
+- 怪物受到攻击时治疗玩家
+- 每根骨头治疗一颗心
+
+类型: 一次性
+可叠加: 是</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>necroticmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>丝绸</title>
+<text>增加大量耐酸铝和金子以及丝线给工具丝绸般柔滑的特性。
+
+效果:
+- 使得方块能直接被采集
+- 附有丝绸的镰刀像剪刀一样工作
+- 与幸运和自动冶炼不兼容
+
+类型: 一次性
+可叠加: 否</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>silkymod</recipe>
+</page>
+
+<page type="crafting">
+<text>丝绸</text>
+<recipe>
+ <name>silkycloth</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>丝绸宝石</text>
+<recipe>
+ <name>silkyjewel</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="sectionpage">
+<title>增强</title>
+<text>将黑曜石大板加入工具似乎能增强它的耐磨
+
+效果:
+- 增强工具材料的耐磨
+- 叠加增强等级
+
+类型: 一次性
+可叠加: 是</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>reinforcedmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>击退</title>
+<text>在工具附上活塞并在合适时机激活它看似能把怪物击退些
+
+效果:
+- 给工具增加额外击退效果
+
+类型: 多次性
+可叠加: 是</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>pistonmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>砍首</title>
+<text>在工具上用上末影珍珠和一些黑曜石能产生让目标的头脱离身体的奇特效果
+
+效果:
+- 给怪物砍首。如预期掉落头颅
+
+类型: 一次性
+可叠加: 是</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>beheadingmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>节肢之灾</title>
+<text>用一只蜘蛛自己的眼睛去攻击它使它恐惧不前
+
+效果:
+- 对蜘蛛造成额外伤害.
+- 每级1-2心.
+
+类型: 多次性
+可叠加: 是</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>spidermod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>亡灵之灾</title>
+<text>神圣土原始的力量强化了你的武器，对亡灵生物造成高伤害。
+
+效果:
+- 对亡灵生物造成额外伤害
+- 每级1-2心
+
+类型: 多次性
+可叠加: 是</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>smitemod</recipe>
+</page>
+
+<page type="crafting">
+<text>黄泉土</text>
+<recipe>
+ <name>graveyardsoil</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="furnace">
+<text>神圣土</text>
+<recipe>consecratedsoil</recipe>
+</page>
+
+<page type="sectionpage">
+<title>通量</title>
+<text>用强化能量管道或铅石能量管道给工具能量。工具在无电情况下也能保持正常功能
+
+效果:
+- 使工具能被红石通量充能
+- 充能时使用能量而不是耐久
+- 热力膨胀3可用
+
+类型: 一次性
+可叠加: 否</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>fluxmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>通量</title>
+<text>用强化能量管道或铅石能量管道给工具能量。工具在无电情况下也能保持正常功能
+
+效果:
+- 使工具能被红石通量充能
+- 充能时使用能量而不是耐久
+- 热力膨胀3可用
+
+类型: 一次性
+可叠加: 否</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>fluxmod2</recipe>
+</page>
+
+<page type="sectionpage">
+<title>扩展</title>
+<text>用金块和钻石增加工具的可塑性使它能拥有更多强化
+
+效果:
+- 给工具增加一个额外的强化槽
+
+类型: 一次性
+可叠加: 否</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>tier1free</recipe>
+</page>
+
+<page type="sectionpage">
+<title>扩展</title>
+<text>在工具上附上金苹果和钻石块来改造它
+
+效果:
+- 给工具增加一个额外的强化槽
+
+类型: 一次性
+可叠加: 否</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>tier1.5free</recipe>
+</page>
+
+<page type="sectionpage">
+<title>扩展</title>
+<text>用下界之星给与工具接受其他强化的能力
+
+效果:
+- 给工具增加一个额外的强化槽
+
+类型: 一次性
+可叠加: 否</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>tier2free</recipe>
+</page>
+
+<page type="sectionpage">
+<title>扩展</title>
+<text>对创造模式和地图制作者而言，这个物品是给你们的。
+
+效果:
+- 给工具增加一个额外的强化槽
+- 如果它有一个目标锁,，它只能在那种工具上起效
+
+类型: 一次性
+可叠加: 是</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>creativefree</recipe>
+</page>
+
+</book>

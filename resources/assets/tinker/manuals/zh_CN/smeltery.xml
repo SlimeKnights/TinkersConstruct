@@ -1,0 +1,295 @@
+<?xml version="1.0"?>
+
+<book>
+<page type="intro">
+<text>冶炼秘术
+充分利用你的金属
+
+By Thruul M'gon</text>
+</page>
+
+<page type="contents">
+<text>目录</text>
+<link>
+ <text>介绍</text>
+ <icon>smelterybook</icon>
+ <jump>3</jump>
+</link>
+<link>
+ <text>铸件</text>
+ <icon>castingtable</icon>
+ <jump>8</jump>
+</link>
+<link>
+ <text>加工</text>
+ <icon>smeltery</icon>
+ <jump>5</jump>
+</link>
+<link>
+ <text>合金</text>
+ <icon>liquidiron</icon>
+ <jump>9</jump>
+</link>
+<link>
+ <text>合成</text>
+ <icon>blankcast</icon>
+ <jump>9</jump>
+</link>
+</page>
+
+<page type="text">
+<text>欢迎来到冶金的世界。在这几页中你将学到将珍贵金属合成为有用金属的秘密。
+
+你将学习如何将柔软的铁熔为坚硬的马玉灵，浇铸为你想要的形状，以及利用平凡的材料混合制造合金。与往常一样，实践才是关键！
+
+熔化金属的主体被称作冶炼厂。它可能比你所知的结构要大但是建造起来很简单。工作起来就像一个拥有排液口的熔炉。</text>
+</page>
+
+<page type="text">
+<text>当你使用冶炼厂时，有几个注意点：
+
+* 它类似于一个大型的液体容器，能熔化金属和混合不同的物质。
+
+* 排液口作为它的输入和输出。如果你想要将液体倒回去只需将它们倒入排液口。
+
+* 自然的矿石比起处理后的比如锭拥有更多的材料。冶炼厂将会保留矿物的全部- 两倍于普通熔炉的产量。</text>
+</page>
+
+<page type="text">
+<text>* 将两种及以上的金属混入冶炼厂可能会产生一种合金，这个过程会自动进行。
+
+* 若需要更多处理金属的空间，增加冶炼厂的层数即可。
+
+* 模具不同铸件也不同，详情见后。</text>
+</page>
+
+<page type="sidebar">
+<text>冶炼厂是一个多方块结构，你需要下面的材料来起步。</text>
+<item>
+ <text>1 冶炼厂填料仓</text>
+ <icon>smeltery</icon>
+</item>
+<item>
+ <text>1 冶炼槽</text>
+ <icon>lavatank</icon>
+</item>
+<item>
+ <text>9 冶炼炉砖</text>
+ <icon>searedbrick</icon>
+</item>
+<item>
+ <text>任意10个冶炼炉砖，冶炼槽和排液口的组合
+ </text>
+ <icon>drain</icon>
+</item>
+<item>
+ <text>1 浇筑道</text>
+ <icon>faucet</icon>
+</item>
+<item>
+ <text>1 浇铸台</text>
+ <icon>castingtable</icon>
+</item>
+</page>
+
+<page type="text">
+<text>建造前要先铺一层3x3的冶炼炉砖，保持这些砖块上方空着；构建一个3x3横截面的中空结构。
+将填料仓和冶炼槽放在高一层的任意位置，根据个人喜好用冶炼炉砖，冶炼槽或排液口填充剩下的部分。
+
+排液口的小洞应朝外部，如果你安装正确了，填料仓会亮起并开始工作。给冶炼槽添加岩浆，冶炼厂添加金属，然后看它工作。
+
+结构应为一个5x5的整体，冶炼厂在垂直方向上没有限制。</text>
+</page>
+
+<page type="text">
+<text>大的冶炼厂可以处理更多金属，当然填料仓需要有一个匹配的冶炼槽。
+
+当你准备好从冶炼厂取出液态金属，在排液口装一个浇筑道，下面摆一个浇筑台。
+
+其他液体转移物件也可以进行这一工作，但是并不推荐。下面附上例图以便参考.</text>
+</page>
+
+<page type="picture">
+<text>图1a</text>
+<location>tinker:manuals/smelterysmall.png</location>
+</page>
+
+<page type="sidebar">
+<text>两种及以上的金属以精确比例混合时就有了合金，目前已知的合金：</text>
+<item>
+ <text>青铜，铜(3) 锡(1)</text>
+ <icon>bronzeingot</icon>
+</item>
+<item>
+ <text>铝黄铜， 铝(3) 铜(1)</text>
+ <icon>alubrassingot</icon>
+</item>
+<item>
+ <text>马玉林，钴(2) 阿迪特(2)</text>
+ <icon>manyullyningot</icon>
+</item>
+<item>
+ <text>耐酸铝，铝(5)，铁(2)，黑曜石(2)</text>
+ <icon>alumiteingot</icon>
+</item>
+<item>
+ <text>生铁，铁(1)，血(1)，绿宝石(1)</text>
+ <icon>pigironingot</icon>
+</item>
+</page>
+
+<page type="sidebar">
+<text>也有少部分液体是通过奇怪的方法获得的，已知的液体：</text>
+<item>
+ <text>血，在冶炼厂内给实体造成伤害</text>
+ <icon>bloodbucket</icon>
+</item>
+<item>
+ <text>液态绿宝石，熔化绿宝石或村民</text>
+ <icon>emeraldbucket</icon>
+</item>
+<item>
+ <text>凝胶，在冶炼厂熔化马</text>
+ <icon>gluebucket</icon>
+</item>
+<item>
+ <text>史莱姆粘液，在史莱姆岛找到。类似刷怪笼的功能</text>
+ <icon>slimebucket</icon>
+</item>
+<item>
+ <text>末影，熔化末影珍珠或末影人</text>
+ <icon>enderbucket</icon>
+</item>
+</page>
+
+<page type="text">
+<text>空白铸形是将含铝黄铜或金倒入空浇筑台得到的，用于合成且能重熔。
+
+部件铸形是将液态金属倒在已有的部件上得到的，如镐头</text>
+</page>
+
+<page type="picture">
+<text>制作铸形</text>
+<location>tinker:manuals/casting.png</location>
+</page>
+
+<page type="crafting">
+<text>水泥</text>
+<recipe>
+ <name>grout</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="furnace">
+<text>焦黑砖</text>
+<recipe>searedbrick</recipe>
+</page>
+
+<page type="crafting">
+<text>冶炼炉砖</text>
+<recipe>
+ <name>searedbricks</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>冶炼厂填料仓</text>
+<recipe>
+ <name>smelterycontroller</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>排液口</text>
+<recipe>
+ <name>smelterydrain</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>冶炼槽</text>
+<recipe>
+ <name>smelterytank1</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>冶炼炉玻璃</text>
+<recipe>
+ <name>smelterytank2</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>冶炼炉视窗</text>
+<recipe>
+ <name>smelterytank3</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>浇注口</text>
+<recipe>
+ <name>smelteryfaucet</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>浇注道</text>
+<recipe>
+ <name>castingchannel</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>浇铸台</text>
+<recipe>
+ <name>smelterytable</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>铸造盆</text>
+<recipe>
+ <name>smelterybasin</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="blockcast">
+<text>褐岩</text>
+<recipe>brownstone</recipe>
+</page>
+
+<page type="blockcast">
+<text>澄澈玻璃</text>
+<recipe>clearglass</recipe>
+</page>
+
+<page type="blockcast">
+<text>焦黑石头</text>
+<recipe>searedstone</recipe>
+</page>
+
+<page type="blockcast">
+<text>末地石</text>
+<recipe>endstone</recipe>
+</page>
+
+<page type="blockcast">
+<text>凝胶球</text>
+<recipe>glueball</recipe>
+</page>
+
+
+</book>
