@@ -44,6 +44,7 @@ public class PHConstruct
         keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
         beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", true).getBoolean(true);
         deathPenality = config.get("Difficulty Changes", "Tools lose 10% durability on death", true).getBoolean(true);
+        balancedFluxModifier = config.get("Difficulty Changes", "Balanced Flux Modifier", true).getBoolean(true);
 
         enableTWood = config.get("Difficulty Changes", "Enable mod wooden tools", true).getBoolean(true);
         enableTStone = config.get("Difficulty Changes", "Enable mod stone tools", true).getBoolean(true);
@@ -290,6 +291,7 @@ public class PHConstruct
     public static boolean deathPenality;
     public static boolean alphaRegen;
     public static boolean alphaHunger;
+    public static boolean balancedFluxModifier;
 
     public static boolean disableWoodTools;
     public static boolean disableStoneTools;
