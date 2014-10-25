@@ -46,11 +46,39 @@ public class TProxyClient extends TProxyCommon
     public void readManuals ()
     {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        diary = readManual("/assets/tinker/manuals/diary.xml", dbFactory);
-        volume1 = readManual("/assets/tinker/manuals/firstday.xml", dbFactory);
-        volume2 = readManual("/assets/tinker/manuals/materials.xml", dbFactory);
-        smelter = readManual("/assets/tinker/manuals/smeltery.xml", dbFactory);
-        initManualIcons();
+	String CurrentLanguage = Minecraft.getMinecraft().getLanguageManager().getCurrentLanguage().getLanguageCode();
+		
+	Document diary_cl = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/diary.xml", dbFactory);
+	Document volume1_cl = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/firstday.xml", dbFactory);
+	Document volume2_cl = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/materials.xml", dbFactory);
+	Document smelter_cl = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/smeltery.xml", dbFactory);
+		
+	diary = readManual("/assets/tinker/manuals/en_US/diary.xml", dbFactory);
+	volume1 = readManual("/assets/tinker/manuals/en_US/firstday.xml", dbFactory);
+	volume2 = readManual("/assets/tinker/manuals/en_US/materials.xml", dbFactory);
+	smelter = readManual("/assets/tinker/manuals/en_US/smeltery.xml", dbFactory);
+		
+	if(diary_cl != null)
+	{
+		diary = diary_cl;
+	}
+		
+	if(volume1_cl != null)
+	{
+		volume1 = volume1_cl;
+	}
+		
+	if(volume2_cl != null)
+	{
+		volume2 = volume2_c1;
+	}
+		
+	if(smelter_cl != null)
+	{
+		smelter = smelter_cl;
+	}
+			
+	initManualIcons();
         initManualRecipes();
         initManualPages();
         manualData = new ManualInfo();
