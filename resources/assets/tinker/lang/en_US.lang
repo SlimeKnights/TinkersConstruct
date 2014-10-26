@@ -784,8 +784,7 @@ gui.toolstation.lumberaxe.desc=The Lumber Axe is a broad chopping tool. It can f
 gui.toolstation.excavator.desc=The Excavator is a broad digging tool. It harvests soil and snow in a wide range.\n\nNatural Ability:\n- Area of Effect\n- (3x3)\n\nDurability: Average
 gui.toolstation.scythe.desc=The Scythe is a broad reaping tool. It is effective on plants and attacks enemies in a wide range.\n\nNatural Ability:\nArea of Effect\n- (3x3x3)\n\nDurability: Average\nDamage: Low, AoE
 gui.toolstation.cleaver.desc=The Cleaver is a heavy defensive weapon. It has powerful strikes, but is difficult to wield.\n\nSpecial Ability: Block\nNatural Ability:\n- Beheading\n\nDamage: High\nDurability: Average
-gui.toolstation.battleaxe.desc=The Battleaxe is a heavy offensive weapon. It is capable of bringing down small trees and can send foes flying.\n\nSpecial Ability: Block\nNatural Abilities:" + "\n- Knockback\n- Area of Effect\n- (1x9)\n\nDamage: Average\nDurability: Average
-
+gui.toolstation.battleaxe.desc=The Battleaxe is a heavy offensive weapon. It is capable of bringing down small trees and can send foes flying.\n\nSpecial Ability: Block\nNatural Abilities:\n- Knockback\n- Area of Effect\n- (1x9)\n\nDamage: Average\nDurability: Average
 
 material.wood=Wood
 material.wood.display=Wooden

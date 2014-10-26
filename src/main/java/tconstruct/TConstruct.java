@@ -86,6 +86,8 @@ public class TConstruct
     public static final Logger logger = LogManager.getLogger(modID);
     public static final PacketPipeline packetPipeline = new PacketPipeline();
     public static Random random = new Random();
+    
+
 
     /* Instance of this mod, used for grabbing prototype fields */
     @Instance(modID)

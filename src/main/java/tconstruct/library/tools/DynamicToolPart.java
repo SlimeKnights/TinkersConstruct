@@ -155,7 +155,7 @@ public class DynamicToolPart extends CraftingItem implements IToolPart
         if(matId > icons.length)
             return super.getColorFromItemStack(stack, renderpass);
 
-        if(icons[matId] == null)
+        if(matId >= 0 && icons[matId] == null)
             return TConstructRegistry.getMaterial(matId).primaryColor();
 
         return super.getColorFromItemStack(stack, renderpass);

@@ -44,7 +44,7 @@ import tconstruct.world.itemblocks.*;
 import tconstruct.world.items.*;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "Tinkers' World", description = "Ores, slime islands, essence berries, and the like.")
+@Pulse(id = "Tinkers' World", description = "Ores, slime islands, essence berries, and the like.", forced = true)
 public class TinkerWorld
 {
     @Instance("TinkerWorld")

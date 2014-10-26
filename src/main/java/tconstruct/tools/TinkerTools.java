@@ -39,7 +39,7 @@ import tconstruct.world.itemblocks.CraftedSoilItemBlock;
 import static net.minecraft.util.EnumChatFormatting.*;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "Tinkers' Tools", description = "The main core of the mod! All of the tools, the tables, and the patterns are here.")
+@Pulse(id = "Tinkers' Tools", description = "The main core of the mod! All of the tools, the tables, and the patterns are here.", forced = true)
 public class TinkerTools
 {
     /* Proxies for sides, used for graphics processing */
@@ -127,11 +127,17 @@ public class TinkerTools
 
     // recipe stuff
     public static boolean thaumcraftAvailable;
+    
+    //Dev/Null Stuff
+    public static Item openBlocksDevNull;
 
     @Handler
     public void preInit (FMLPreInitializationEvent event)
     {
-        MinecraftForge.EVENT_BUS.register(new TinkerToolEvents());
+        TinkerToolEvents toolEvents = new TinkerToolEvents();
+        MinecraftForge.EVENT_BUS.register(toolEvents);
+        FMLCommonHandler.instance().bus().register(toolEvents);
+
 
         //Blocks
         TinkerTools.toolStationWood = new ToolStationBlock(Material.wood).setBlockName("ToolStation");
@@ -714,6 +720,9 @@ public class TinkerTools
             {
             } // No need to handle
         }
+        
+        //OpenBlocks
+        openBlocksDevNull = GameRegistry.findItem("OpenBlocks", "devnull");
     }
 
     void registerMaterials ()

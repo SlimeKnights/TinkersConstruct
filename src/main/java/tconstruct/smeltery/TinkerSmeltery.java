@@ -1,5 +1,6 @@
 package tconstruct.smeltery;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -46,7 +47,7 @@ import tconstruct.world.TinkerWorld;
 import java.util.*;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "Tinkers' Smeltery", description = "Liquid metals, casting, and the multiblock structure.")
+@Pulse(id = "Tinkers' Smeltery", description = "Liquid metals, casting, and the multiblock structure.", forced = true)
 public class TinkerSmeltery
 {
     @SidedProxy(clientSide = "tconstruct.smeltery.SmelteryProxyClient", serverSide = "tconstruct.smeltery.SmelteryProxyCommon")
@@ -140,7 +141,9 @@ public class TinkerSmeltery
     @Handler
     public void preInit (FMLPreInitializationEvent event)
     {
-        MinecraftForge.EVENT_BUS.register(new TinkerSmelteryEvents());
+        TinkerSmelteryEvents smelteryEvents = new TinkerSmelteryEvents();
+        MinecraftForge.EVENT_BUS.register(smelteryEvents);
+        FMLCommonHandler.instance().bus().register(smelteryEvents);
 
         TinkerSmeltery.buckets = new FilledBucket(BlockUtils.getBlockFromItem(TinkerSmeltery.buckets));
         GameRegistry.registerItem(TinkerSmeltery.buckets, "buckets");
