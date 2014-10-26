@@ -48,6 +48,9 @@ public class ArrowEntity extends ProjectileBase {
     public void onHitBlock(MovingObjectPosition movingobjectposition) {
         super.onHitBlock(movingobjectposition);
 
+        if(defused)
+            return;
+
         // we might break! oh noez!
         float chance = returnStack.getTagCompound().getCompoundTag("InfiTool").getFloat("BreakChance");
         if(chance > TConstruct.random.nextFloat()) {

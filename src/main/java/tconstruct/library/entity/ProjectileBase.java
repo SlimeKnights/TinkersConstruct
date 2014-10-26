@@ -36,6 +36,7 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
     public int returnStackSlot;
 
     public boolean bounceOnNoDamage = true;
+    public boolean defused = false; // if this is true it wont hit any entities anymore
 
     public ProjectileBase(World world) {
         super(world);
@@ -238,6 +239,7 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
             this.rotationYaw += 180.0F;
             this.prevRotationYaw += 180.0F;
             this.ticksInAir = 0;
+            defused = true;
             return;
         }
 
@@ -249,7 +251,17 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
 
         if (!(movingobjectposition.entityHit instanceof EntityEnderman))
         {
-            this.setDead();
+            // reinforced helps for them to not break!
+            if(rand.nextInt(10)+1 > tags.getInteger("Reinforced"))
+                this.setDead();
+            else
+            {
+                this.motionX = 0;
+                this.motionY = 0;
+                this.motionZ = 0;
+                this.ticksInAir = 0;
+                defused = true;
+            }
         }
     }
 
@@ -354,58 +366,55 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
             newPos = Vec3.createVectorHelper(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
 
 
-        // Check all the entities we on our way
-        Entity entity = null;
-        List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
-        double distance = 0.0D;
-        float f1;
+        if(!defused) {
+            // Check all the entities we on our way
+            Entity entity = null;
+            List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
+            double distance = 0.0D;
+            float f1;
 
-        for(Entity ent : list)
-        {
-            if(!ent.canBeCollidedWith())
-                continue;
-            // we don't shoot ourselves into the foot.
-            if(ent == this.shootingEntity && this.ticksInAir < 5)
-                continue;
+            for (Entity ent : list) {
+                if (!ent.canBeCollidedWith())
+                    continue;
+                // we don't shoot ourselves into the foot.
+                if (ent == this.shootingEntity && this.ticksInAir < 5)
+                    continue;
 
-            f1 = 0.3F;
-            AxisAlignedBB axisalignedbb1 = ent.boundingBox.expand((double)f1, (double)f1, (double)f1);
-            MovingObjectPosition movingobjectposition1 = axisalignedbb1.calculateIntercept(curPos, newPos);
+                f1 = 0.3F;
+                AxisAlignedBB axisalignedbb1 = ent.boundingBox.expand((double) f1, (double) f1, (double) f1);
+                MovingObjectPosition movingobjectposition1 = axisalignedbb1.calculateIntercept(curPos, newPos);
 
-            // did we actually collide with the entity, or was it just really close nearby?
-            if (movingobjectposition1 != null)
-            {
-                // check if this entity is closer than the other one we already hit
-                double otherDistance = curPos.distanceTo(movingobjectposition1.hitVec);
+                // did we actually collide with the entity, or was it just really close nearby?
+                if (movingobjectposition1 != null) {
+                    // check if this entity is closer than the other one we already hit
+                    double otherDistance = curPos.distanceTo(movingobjectposition1.hitVec);
 
-                if (otherDistance < distance || distance == 0.0D)
-                {
-                    entity = ent;
-                    distance = otherDistance;
+                    if (otherDistance < distance || distance == 0.0D) {
+                        entity = ent;
+                        distance = otherDistance;
+                    }
                 }
             }
-        }
 
-        // if we hit something, new collision point!
-        if (entity != null)
-            movingobjectposition = new MovingObjectPosition(entity);
+            // if we hit something, new collision point!
+            if (entity != null)
+                movingobjectposition = new MovingObjectPosition(entity);
 
-        // did we hit a player?
-        if (movingobjectposition != null && movingobjectposition.entityHit != null && movingobjectposition.entityHit instanceof EntityPlayer)
-        {
-            EntityPlayer entityplayer = (EntityPlayer)movingobjectposition.entityHit;
+            // did we hit a player?
+            if (movingobjectposition != null && movingobjectposition.entityHit != null && movingobjectposition.entityHit instanceof EntityPlayer) {
+                EntityPlayer entityplayer = (EntityPlayer) movingobjectposition.entityHit;
 
-            // can we attack said player?
-            if (entityplayer.capabilities.disableDamage || this.shootingEntity instanceof EntityPlayer && !((EntityPlayer)this.shootingEntity).canAttackPlayer(entityplayer))
-                movingobjectposition = null;
+                // can we attack said player?
+                if (entityplayer.capabilities.disableDamage || this.shootingEntity instanceof EntityPlayer && !((EntityPlayer) this.shootingEntity).canAttackPlayer(entityplayer))
+                    movingobjectposition = null;
 
-            // this check should probably done inside of the loop for accuracy..
+                // this check should probably done inside of the loop for accuracy..
+            }
         }
 
 
         // time to hit the object
-        if (movingobjectposition != null)
-        {
+        if (movingobjectposition != null) {
             if (movingobjectposition.entityHit != null)
                 onHitEntity(movingobjectposition);
             else
