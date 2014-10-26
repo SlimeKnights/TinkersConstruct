@@ -70,7 +70,7 @@ public class TProxyClient extends TProxyCommon
 		
 	if(volume2_cl != null)
 	{
-		volume2 = volume2_c1;
+		volume2 = volume2_cl;
 	}
 		
 	if(smelter_cl != null)
