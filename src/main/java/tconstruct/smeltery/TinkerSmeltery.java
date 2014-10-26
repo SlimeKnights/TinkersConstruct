@@ -47,7 +47,7 @@ import tconstruct.world.TinkerWorld;
 import java.util.*;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "Tinkers' Smeltery", description = "Liquid metals, casting, and the multiblock structure.")
+@Pulse(id = "Tinkers' Smeltery", description = "Liquid metals, casting, and the multiblock structure.", forced = true)
 public class TinkerSmeltery
 {
     @SidedProxy(clientSide = "tconstruct.smeltery.SmelteryProxyClient", serverSide = "tconstruct.smeltery.SmelteryProxyCommon")

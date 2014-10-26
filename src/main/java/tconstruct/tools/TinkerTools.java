@@ -38,7 +38,7 @@ import tconstruct.world.itemblocks.CraftedSoilItemBlock;
 import static net.minecraft.util.EnumChatFormatting.*;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "Tinkers' Tools", description = "The main core of the mod! All of the tools, the tables, and the patterns are here.")
+@Pulse(id = "Tinkers' Tools", description = "The main core of the mod! All of the tools, the tables, and the patterns are here.", forced = true)
 public class TinkerTools
 {
     /* Proxies for sides, used for graphics processing */
