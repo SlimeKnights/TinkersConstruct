@@ -1,6 +1,9 @@
 package tconstruct.weaponry.weapons;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import tconstruct.weaponry.TinkerWeaponry;
+import tconstruct.weaponry.client.CrosshairType;
 import tconstruct.weaponry.entity.JavelinEntity;
 import tconstruct.library.weaponry.AmmoWeapon;
 import net.minecraft.entity.Entity;
@@ -167,4 +170,8 @@ public class Javelin extends AmmoWeapon {
 
         return entity;
     }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public CrosshairType getCrosshairType() { return CrosshairType.WEIRD; }
 }
