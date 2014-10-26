@@ -49,8 +49,7 @@ public class ShurikenEntity extends ProjectileBase {
 
     @Override
     protected double getGravity() {
-        return 0; // todo: remove debug code ;)
-        //return (this.ticksExisted/8) * 0.018d; // integer division. so the first 20 ticks it will have no gravity at all.
+        return (this.ticksExisted/8) * 0.018d; // integer division. so the first 20 ticks it will have no gravity at all.
     }
 
     @Override
