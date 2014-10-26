@@ -11,6 +11,7 @@ TODO:
 * Glassmakers Arrows :D DONE
 * Check why arrow repairing doesn't work
 * REGROWING PROJECTILES HAR
+* Javelins need lower durability. When leftclick attacking and it has no durability, it should use up 1 ammo and get durability.
 
 maybe give javelins slight armor piercing? or do they have that already?
 

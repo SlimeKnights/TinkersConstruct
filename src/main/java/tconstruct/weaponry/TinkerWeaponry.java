@@ -17,7 +17,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
-import tconstruct.library.TConstructCreativeTab;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.*;
 import tconstruct.library.tools.DynamicToolPart;
@@ -25,6 +24,7 @@ import tconstruct.library.tools.FletchlingLeafMaterial;
 import tconstruct.library.util.IPattern;
 import tconstruct.library.util.IToolPart;
 import tconstruct.modifiers.tools.ModWindup;
+import tconstruct.modifiers.tools.ModAmmoRestock;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.items.Bowstring;
@@ -104,6 +104,7 @@ public class TinkerWeaponry {
         ItemStack redstoneItem = new ItemStack(Items.redstone);
         ItemStack redstoneBlock = new ItemStack(Blocks.redstone_block);
         ModifyBuilder.registerModifier(new ModWindup(2, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
+        ModifyBuilder.registerModifier(new ModAmmoRestock());
     }
 
     @Handler
