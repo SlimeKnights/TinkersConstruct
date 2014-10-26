@@ -1,14 +1,16 @@
 TODO:
-* Effect graphics for arrows, throwing knifes, javelins,...
+* Effect graphics for arrows, throwing knifes, javelins,... MOSTLY DONE
 * Separate book explaining the system, text only, sorry folks
-* Turn dagger into a proper projectile
-* Reinforced gives a chance that projectiles aren't broken on entity-hit!
+* Turn dagger into a proper projectile DONE
+* Reinforced gives a chance that projectiles aren't broken on entity-hit! DONE
 * Toolstation GUI for weaponry stuff
 * Partbuilder stuff for weaponry stuff?
 * Bring bowmaterial stats etc in line?
 * Can't have flux or redstone or moss on ammo tools
-* Knockback on projectiles knocks towards their moving direction
-* Glassmakers Arrows :D
+* Knockback on projectiles knocks towards their moving direction DONEish
+* Glassmakers Arrows :D DONE
+* Check why arrow repairing doesn't work
+* REGROWING PROJECTILES HAR
 
 maybe give javelins slight armor piercing? or do they have that already?
 
