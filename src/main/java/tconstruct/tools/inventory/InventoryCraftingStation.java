@@ -38,7 +38,7 @@ public class InventoryCraftingStation extends InventoryCrafting
     public ItemStack getStackInSlot (int slot)
     {
         // the 9 slots + 1 output slot that's not accessible, we therefore have to add 1 to the slot accessed
-        return slot > this.getSizeInventory() ? null : logic.getStackInSlot(slot+1);
+        return slot >= this.getSizeInventory() ? null : logic.getStackInSlot(slot+1);
     }
 
     @Override
