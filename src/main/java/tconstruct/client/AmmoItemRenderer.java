@@ -48,7 +48,7 @@ public class AmmoItemRenderer extends FlexibleToolRenderer {
 
         GL11.glScalef(0.7f, 0.7f, 0.7f);
         FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
-        //fontRenderer.drawStringWithShadow(str, 7 + 19 - 2 - fontRenderer.getStringWidth(str), 7 + 6 + 3, 16777215);
+        fontRenderer.drawStringWithShadow(str, 7 + 19 - 2 - fontRenderer.getStringWidth(str), 7 + 6 + 3, 16777215);
 
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_DEPTH_TEST);

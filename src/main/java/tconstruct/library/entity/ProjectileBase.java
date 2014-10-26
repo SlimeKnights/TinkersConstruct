@@ -120,20 +120,24 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
      */
     protected double getStuckDepth() { return 0.5f; }
 
-    protected  void doLivingHit(EntityLivingBase entityHit)
+    protected void doLivingHit(EntityLivingBase entityHit)
     {
+        float knockback = returnStack.getTagCompound().getCompoundTag("InfiTool").getFloat("Knockback");
+        if(shootingEntity instanceof EntityLivingBase)
+            knockback += EnchantmentHelper.getKnockbackModifier((EntityLivingBase) shootingEntity, entityHit);
+
         if (!this.worldObj.isRemote)
         {
             entityHit.setArrowCountInEntity(entityHit.getArrowCountInEntity() + 1);
         }
 
-        if (this.knockbackStrength > 0)
+        if (knockback > 0)
         {
             double horizontalSpeed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
 
             if (horizontalSpeed > 0.0F)
             {
-                entityHit.addVelocity(this.motionX * (double) this.knockbackStrength * 0.6000000238418579D / (double) horizontalSpeed, 0.1D, this.motionZ * (double) this.knockbackStrength * 0.6000000238418579D / (double) horizontalSpeed);
+                entityHit.addVelocity(this.motionX * (double) knockback * 0.6000000238418579D / horizontalSpeed, 0.1D, this.motionZ * (double) knockback * 0.6000000238418579D / (double) horizontalSpeed);
             }
         }
 
@@ -550,43 +554,7 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
         NBTTagCompound tags = returnStack.getTagCompound().getCompoundTag("InfiTool");
         ByteBufUtils.writeItemStack(data, returnStack);
         data.writeFloat(rotationYaw);
-        /*
-        data.writeInt(tags.getInteger("RenderHandle"));
-        data.writeInt(tags.getInteger("RenderHead"));
-        data.writeInt(tags.getInteger("RenderAccessory"));
-        data.writeInt(tags.getInteger("RenderExtra"));
 
-        int effects = 0;
-        if (tags.hasKey("Effect1"))
-            effects++;
-        if (tags.hasKey("Effect2"))
-            effects++;
-        if (tags.hasKey("Effect3"))
-            effects++;
-        if (tags.hasKey("Effect4"))
-            effects++;
-        if (tags.hasKey("Effect5"))
-            effects++;
-        if (tags.hasKey("Effect6"))
-            effects++;
-        data.writeInt(effects);
-
-        switch (effects)
-        {
-            case 6:
-                data.writeInt(tags.getInteger("Effect6"));
-            case 5:
-                data.writeInt(tags.getInteger("Effect5"));
-            case 4:
-                data.writeInt(tags.getInteger("Effect4"));
-            case 3:
-                data.writeInt(tags.getInteger("Effect3"));
-            case 2:
-                data.writeInt(tags.getInteger("Effect2"));
-            case 1:
-                data.writeInt(tags.getInteger("Effect1"));
-        }
-*/
         // shooting entity
         int id = shootingEntity == null ? this.getEntityId() : shootingEntity.getEntityId();
         data.writeInt(id);
@@ -596,32 +564,6 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
     public void readSpawnData(ByteBuf data) {
         returnStack = ByteBufUtils.readItemStack(data);
         rotationYaw = data.readFloat();
-        /*
-        NBTTagCompound compound = new NBTTagCompound();
-        NBTTagCompound toolTag = new NBTTagCompound();
-        toolTag.setInteger("RenderHandle", data.readInt());
-        toolTag.setInteger("RenderHead", data.readInt());
-        toolTag.setInteger("RenderAccessory", data.readInt());
-        toolTag.setInteger("RenderExtra", data.readInt());
-
-        switch (data.readInt())
-        {
-            case 6:
-                toolTag.setInteger("Effect6", data.readInt());
-            case 5:
-                toolTag.setInteger("Effect5", data.readInt());
-            case 4:
-                toolTag.setInteger("Effect4", data.readInt());
-            case 3:
-                toolTag.setInteger("Effect3", data.readInt());
-            case 2:
-                toolTag.setInteger("Effect2", data.readInt());
-            case 1:
-                toolTag.setInteger("Effect1", data.readInt());
-        }
-        compound.setTag("InfiTool", toolTag);
-        returnStack.setTagCompound(compound);
-*/
         shootingEntity = worldObj.getEntityByID(data.readInt());
     }
 }
