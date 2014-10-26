@@ -56,7 +56,7 @@ public class WeaponryHandler {
             float accuracy = fletching.accuracy;
             float breakChance = shaft.fragility + fletching.breakChance;
 
-            setAmmoData(tags, durability, weight, accuracy, breakChance, head.shoddy(), head.reinforced());
+            setAmmoData(tags, durability, weight, breakChance, accuracy, head.shoddy(), head.reinforced());
         }
         else if(event.tool instanceof BoltAmmo)
         {
@@ -81,7 +81,7 @@ public class WeaponryHandler {
             float shoddy = (headMat.shoddy() + coreMat.shoddy())/2f;
             int reinforced = Math.max(headMat.reinforced(), coreMat.reinforced());
 
-            setAmmoData(tags, durability, weight, accuracy, breakChance, shoddy, reinforced);
+            setAmmoData(tags, durability, weight, breakChance, accuracy, shoddy, reinforced);
         }
 
         // now that durability has been handled...
