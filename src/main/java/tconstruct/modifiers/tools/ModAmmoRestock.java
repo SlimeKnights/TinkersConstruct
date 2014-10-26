@@ -9,6 +9,10 @@ import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.weaponry.AmmoItem;
 import tconstruct.library.weaponry.IAmmo;
+import tconstruct.weaponry.weapons.Shuriken;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class ModAmmoRestock extends ItemModifier {
     public ModAmmoRestock()
@@ -37,11 +41,19 @@ public class ModAmmoRestock extends ItemModifier {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         // correct material?
 
-        int headID = tags.getInteger("Head");
+        Set<Integer> materials = new HashSet<Integer>();
+        materials.add(tags.getInteger("Head"));
+        // shuriken allow all their components
+        if(tool.getItem() instanceof Shuriken) {
+            materials.add(tags.getInteger("Handle"));
+            materials.add(tags.getInteger("Accessory"));
+            materials.add(tags.getInteger("Extra"));
+        }
+
         boolean areInputsValid = true;
         for (ItemStack curInput : input)
         {
-            if (curInput != null && headID != PatternBuilder.instance.getPartID(curInput))
+            if (curInput != null && !materials.contains(PatternBuilder.instance.getPartID(curInput)))
             {
                 areInputsValid = false;
                 break;
