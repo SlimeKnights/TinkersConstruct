@@ -131,7 +131,10 @@ public class TinkerTools
     @Handler
     public void preInit (FMLPreInitializationEvent event)
     {
-        MinecraftForge.EVENT_BUS.register(new TinkerToolEvents());
+        TinkerToolEvents toolEvents = new TinkerToolEvents();
+        MinecraftForge.EVENT_BUS.register(toolEvents);
+        FMLCommonHandler.instance().bus().register(toolEvents);
+
 
         //Blocks
         TinkerTools.toolStationWood = new ToolStationBlock(Material.wood).setBlockName("ToolStation");
