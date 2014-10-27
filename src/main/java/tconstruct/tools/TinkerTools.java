@@ -1,41 +1,123 @@
 package tconstruct.tools;
 
-import cpw.mods.fml.common.*;
-import cpw.mods.fml.common.event.*;
-import cpw.mods.fml.common.registry.*;
-import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
-import mantle.pulsar.pulse.*;
+import static net.minecraft.util.EnumChatFormatting.AQUA;
+import static net.minecraft.util.EnumChatFormatting.DARK_AQUA;
+import static net.minecraft.util.EnumChatFormatting.DARK_GRAY;
+import static net.minecraft.util.EnumChatFormatting.DARK_GREEN;
+import static net.minecraft.util.EnumChatFormatting.DARK_PURPLE;
+import static net.minecraft.util.EnumChatFormatting.DARK_RED;
+import static net.minecraft.util.EnumChatFormatting.GOLD;
+import static net.minecraft.util.EnumChatFormatting.GRAY;
+import static net.minecraft.util.EnumChatFormatting.GREEN;
+import static net.minecraft.util.EnumChatFormatting.LIGHT_PURPLE;
+import static net.minecraft.util.EnumChatFormatting.RED;
+import static net.minecraft.util.EnumChatFormatting.WHITE;
+import static net.minecraft.util.EnumChatFormatting.YELLOW;
+import mantle.pulsar.pulse.Handler;
+import mantle.pulsar.pulse.Pulse;
 import mantle.utils.RecipeRemover;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.*;
-import net.minecraft.item.*;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.oredict.*;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import tconstruct.TConstruct;
 import tconstruct.achievements.items.CraftAchievementItem;
 import tconstruct.common.itemblocks.MetadataItemBlock;
-import tconstruct.items.tools.*;
+import tconstruct.items.tools.Arrow;
+import tconstruct.items.tools.BattleSign;
+import tconstruct.items.tools.Battleaxe;
+import tconstruct.items.tools.Broadsword;
+import tconstruct.items.tools.Chisel;
+import tconstruct.items.tools.Cleaver;
+import tconstruct.items.tools.Cutlass;
+import tconstruct.items.tools.Dagger;
+import tconstruct.items.tools.Excavator;
+import tconstruct.items.tools.FryingPan;
+import tconstruct.items.tools.Hammer;
+import tconstruct.items.tools.Hatchet;
+import tconstruct.items.tools.Longsword;
+import tconstruct.items.tools.LumberAxe;
+import tconstruct.items.tools.Mattock;
+import tconstruct.items.tools.Pickaxe;
+import tconstruct.items.tools.PotionLauncher;
+import tconstruct.items.tools.Rapier;
+import tconstruct.items.tools.Scythe;
+import tconstruct.items.tools.Shortbow;
+import tconstruct.items.tools.Shovel;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
-import tconstruct.library.crafting.*;
-import tconstruct.library.tools.*;
+import tconstruct.library.crafting.Detailing;
+import tconstruct.library.crafting.ModifyBuilder;
+import tconstruct.library.crafting.PatternBuilder;
+import tconstruct.library.crafting.StencilBuilder;
+import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.tools.DynamicToolPart;
+import tconstruct.library.tools.FletchlingLeafMaterial;
+import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.IPattern;
-import tconstruct.modifiers.tools.*;
+import tconstruct.modifiers.tools.ModAntiSpider;
+import tconstruct.modifiers.tools.ModAttack;
+import tconstruct.modifiers.tools.ModAutoSmelt;
+import tconstruct.modifiers.tools.ModBlaze;
+import tconstruct.modifiers.tools.ModButtertouch;
+import tconstruct.modifiers.tools.ModCreativeToolModifier;
+import tconstruct.modifiers.tools.ModDurability;
+import tconstruct.modifiers.tools.ModExtraModifier;
+import tconstruct.modifiers.tools.ModFlux;
+import tconstruct.modifiers.tools.ModInteger;
+import tconstruct.modifiers.tools.ModLapis;
+import tconstruct.modifiers.tools.ModPiston;
+import tconstruct.modifiers.tools.ModRedstone;
+import tconstruct.modifiers.tools.ModReinforced;
+import tconstruct.modifiers.tools.ModSmite;
+import tconstruct.modifiers.tools.ModToolRepair;
 import tconstruct.smeltery.TinkerSmeltery;
-import tconstruct.tools.blocks.*;
-import tconstruct.tools.itemblocks.*;
-import tconstruct.tools.items.*;
-import tconstruct.tools.logic.*;
+import tconstruct.tools.blocks.BattlesignBlock;
+import tconstruct.tools.blocks.CraftingSlab;
+import tconstruct.tools.blocks.CraftingStationBlock;
+import tconstruct.tools.blocks.EquipBlock;
+import tconstruct.tools.blocks.FurnaceSlab;
+import tconstruct.tools.blocks.ToolForgeBlock;
+import tconstruct.tools.blocks.ToolStationBlock;
+import tconstruct.tools.itemblocks.CraftingSlabItemBlock;
+import tconstruct.tools.itemblocks.ToolStationItemBlock;
+import tconstruct.tools.items.Bowstring;
+import tconstruct.tools.items.CreativeModifier;
+import tconstruct.tools.items.Fletching;
+import tconstruct.tools.items.Manual;
+import tconstruct.tools.items.MaterialItem;
+import tconstruct.tools.items.Pattern;
+import tconstruct.tools.items.TitleIcon;
+import tconstruct.tools.items.ToolShard;
+import tconstruct.tools.logic.BattlesignLogic;
+import tconstruct.tools.logic.CraftingStationLogic;
+import tconstruct.tools.logic.FrypanLogic;
+import tconstruct.tools.logic.FurnaceLogic;
+import tconstruct.tools.logic.PartBuilderLogic;
+import tconstruct.tools.logic.PatternChestLogic;
+import tconstruct.tools.logic.StencilTableLogic;
+import tconstruct.tools.logic.ToolForgeLogic;
+import tconstruct.tools.logic.ToolStationLogic;
 import tconstruct.util.ItemHelper;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.blocks.SoilBlock;
 import tconstruct.world.itemblocks.CraftedSoilItemBlock;
-
-import static net.minecraft.util.EnumChatFormatting.*;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 
 @ObjectHolder(TConstruct.modID)
 @Pulse(id = "Tinkers' Tools", description = "The main core of the mod! All of the tools, the tables, and the patterns are here.")
@@ -124,7 +206,7 @@ public class TinkerTools
 
     // recipe stuff
     public static boolean thaumcraftAvailable;
-    
+
     //Dev/Null Stuff
     public static Item openBlocksDevNull;
 
@@ -297,7 +379,7 @@ public class TinkerTools
         ModifyBuilder.registerModifier(TinkerTools.modAttack);
     }
 
-    void setupToolTabs ()
+    void setupToolTabs()
     {
         TConstructRegistry.materialTab.init(new ItemStack(TinkerTools.manualBook, 1, 0));
         TConstructRegistry.partTab.init(new ItemStack(TinkerTools.titleIcon, 1, 255));
@@ -315,7 +397,7 @@ public class TinkerTools
     }
 
     //@Override
-    public int getBurnTime (ItemStack fuel)
+    public int getBurnTime(ItemStack fuel)
     {
         if (fuel.getItem() == TinkerTools.materials && fuel.getItemDamage() == 7)
             return 26400;
@@ -323,7 +405,7 @@ public class TinkerTools
     }
 
     @Handler
-    public void init (FMLInitializationEvent event)
+    public void init(FMLInitializationEvent event)
     {
         addPartMapping();
         addRecipesForToolBuilder();
@@ -334,13 +416,13 @@ public class TinkerTools
     }
 
     @Handler
-    public void postInit (FMLPostInitializationEvent evt)
+    public void postInit(FMLPostInitializationEvent evt)
     {
         vanillaToolRecipes();
         modIntegration();
     }
 
-    private void addPartMapping ()
+    private void addPartMapping()
     {
         /* Tools */
 
@@ -378,29 +460,29 @@ public class TinkerTools
     private void addRecipesForToolBuilder ()
     {
         ToolBuilder tb = ToolBuilder.instance;
-        tb.addNormalToolRecipe(TinkerTools.pickaxe, TinkerTools.pickaxeHead, TinkerTools.toolRod, TinkerTools.binding);
-        tb.addNormalToolRecipe(TinkerTools.broadsword, TinkerTools.swordBlade, TinkerTools.toolRod, TinkerTools.wideGuard);
-        tb.addNormalToolRecipe(TinkerTools.hatchet, TinkerTools.hatchetHead, TinkerTools.toolRod);
-        tb.addNormalToolRecipe(TinkerTools.shovel, TinkerTools.shovelHead, TinkerTools.toolRod);
-        tb.addNormalToolRecipe(TinkerTools.longsword, TinkerTools.swordBlade, TinkerTools.toolRod, TinkerTools.handGuard);
-        tb.addNormalToolRecipe(TinkerTools.rapier, TinkerTools.swordBlade, TinkerTools.toolRod, TinkerTools.crossbar);
-        tb.addNormalToolRecipe(TinkerTools.frypan, TinkerTools.frypanHead, TinkerTools.toolRod);
-        tb.addNormalToolRecipe(TinkerTools.battlesign, TinkerTools.signHead, TinkerTools.toolRod);
-        tb.addNormalToolRecipe(TinkerTools.mattock, TinkerTools.hatchetHead, TinkerTools.toolRod, TinkerTools.shovelHead);
-        tb.addNormalToolRecipe(TinkerTools.dagger, TinkerTools.knifeBlade, TinkerTools.toolRod, TinkerTools.crossbar);
-        tb.addNormalToolRecipe(TinkerTools.cutlass, TinkerTools.swordBlade, TinkerTools.toolRod, TinkerTools.fullGuard);
-        tb.addNormalToolRecipe(TinkerTools.chisel, TinkerTools.chiselHead, TinkerTools.toolRod);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.pickaxe, TinkerTools.pickaxeHead, TinkerTools.toolRod, TinkerTools.binding);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.broadsword, TinkerTools.swordBlade, TinkerTools.toolRod, TinkerTools.wideGuard);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.hatchet, TinkerTools.hatchetHead, TinkerTools.toolRod);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.shovel, TinkerTools.shovelHead, TinkerTools.toolRod);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.longsword, TinkerTools.swordBlade, TinkerTools.toolRod, TinkerTools.handGuard);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.rapier, TinkerTools.swordBlade, TinkerTools.toolRod, TinkerTools.crossbar);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.frypan, TinkerTools.frypanHead, TinkerTools.toolRod);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.battlesign, TinkerTools.signHead, TinkerTools.toolRod);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.mattock, TinkerTools.hatchetHead, TinkerTools.toolRod, TinkerTools.shovelHead);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.dagger, TinkerTools.knifeBlade, TinkerTools.toolRod, TinkerTools.crossbar);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.cutlass, TinkerTools.swordBlade, TinkerTools.toolRod, TinkerTools.fullGuard);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.chisel, TinkerTools.chiselHead, TinkerTools.toolRod);
 
-        tb.addNormalToolRecipe(TinkerTools.scythe, TinkerTools.scytheBlade, TinkerTools.toughRod, TinkerTools.toughBinding, TinkerTools.toughRod);
-        tb.addNormalToolRecipe(TinkerTools.lumberaxe, TinkerTools.broadAxeHead, TinkerTools.toughRod, TinkerTools.largePlate, TinkerTools.toughBinding);
-        tb.addNormalToolRecipe(TinkerTools.cleaver, TinkerTools.largeSwordBlade, TinkerTools.toughRod, TinkerTools.largePlate, TinkerTools.toughRod);
-        tb.addNormalToolRecipe(TinkerTools.excavator, TinkerTools.excavatorHead, TinkerTools.toughRod, TinkerTools.largePlate, TinkerTools.toughBinding);
-        tb.addNormalToolRecipe(TinkerTools.hammer, TinkerTools.hammerHead, TinkerTools.toughRod, TinkerTools.largePlate, TinkerTools.largePlate);
-        tb.addNormalToolRecipe(TinkerTools.battleaxe, TinkerTools.broadAxeHead, TinkerTools.toughRod, TinkerTools.broadAxeHead, TinkerTools.toughBinding);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.scythe, TinkerTools.scytheBlade, TinkerTools.toughRod, TinkerTools.toughBinding, TinkerTools.toughRod);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.lumberaxe, TinkerTools.broadAxeHead, TinkerTools.toughRod, TinkerTools.largePlate, TinkerTools.toughBinding);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.cleaver, TinkerTools.largeSwordBlade, TinkerTools.toughRod, TinkerTools.largePlate, TinkerTools.toughRod);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.excavator, TinkerTools.excavatorHead, TinkerTools.toughRod, TinkerTools.largePlate, TinkerTools.toughBinding);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.hammer, TinkerTools.hammerHead, TinkerTools.toughRod, TinkerTools.largePlate, TinkerTools.largePlate);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.battleaxe, TinkerTools.broadAxeHead, TinkerTools.toughRod, TinkerTools.broadAxeHead, TinkerTools.toughBinding);
 
         BowRecipe recipe = new BowRecipe(TinkerTools.toolRod, TinkerTools.bowstring, TinkerTools.toolRod, TinkerTools.shortbow);
-        tb.addCustomToolRecipe(recipe);
-        tb.addNormalToolRecipe(TinkerTools.arrow, TinkerTools.arrowhead, TinkerTools.toolRod, TinkerTools.fletching);
+        ToolBuilder.addCustomToolRecipe(recipe);
+        ToolBuilder.addNormalToolRecipe(TinkerTools.arrow, TinkerTools.arrowhead, TinkerTools.toolRod, TinkerTools.fletching);
 
         ItemStack diamond = new ItemStack(Items.diamond);
         ModifyBuilder.registerModifier(new ModToolRepair());
@@ -442,7 +524,7 @@ public class TinkerTools
         TConstructRegistry.registerActiveToolMod(new TActiveOmniMod());
     }
 
-    private void addRecipesForChisel ()
+    private void addRecipesForChisel()
     {
         /* Detailing */
         Detailing chiseling = TConstructRegistry.getChiselDetailing();
@@ -679,9 +761,9 @@ public class TinkerTools
 
         ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.pickaxeHead, 1, 6), new ItemStack(TinkerTools.toolRod, 1, 2), new ItemStack(TinkerTools.binding, 1, 6), "");
         if (batHardened != null)
-            TConstructClientRegistry.registerManualModifier("fluxmod", ironpick.copy(), (ItemStack) batHardened);
+            TConstructClientRegistry.registerManualModifier("fluxmod", ironpick.copy(), batHardened);
         if (basicCell != null)
-            TConstructClientRegistry.registerManualModifier("fluxmod2", ironpick.copy(), (ItemStack) basicCell);
+            TConstructClientRegistry.registerManualModifier("fluxmod2", ironpick.copy(), basicCell);
 
         /* Thaumcraft */
         Object obj = ItemHelper.getStaticItem("itemResource", "thaumcraft.common.config.ConfigItems");
@@ -721,7 +803,7 @@ public class TinkerTools
             {
             } // No need to handle
         }
-        
+
         //OpenBlocks
         openBlocksDevNull = GameRegistry.findItem("OpenBlocks", "devnull");
     }

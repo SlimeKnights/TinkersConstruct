@@ -1,7 +1,11 @@
 package tconstruct.tools.itemblocks;
 
 import cpw.mods.fml.relauncher.*;
+
 import java.util.List;
+
+import org.apache.commons.lang3.ArrayUtils;
+
 import mantle.blocks.abstracts.MultiItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +15,8 @@ import net.minecraft.util.StatCollector;
 public class MultiBrickItem extends MultiItemBlock
 {
     static String blockTypes[] = { "obsidian", "sandstone", "netherrack", "stone.refined", "iron", "gold", "lapis", "diamond", "redstone", "bone", "slime", "blueslime", "endstone", "obsidian.ingot", "stone.road", "stone.refined.road" };
+    public static final int IRON = ArrayUtils.indexOf(blockTypes, "iron");
+    public static final int GOLD = ArrayUtils.indexOf(blockTypes, "gold");
 
     public MultiBrickItem(Block b)
     {
