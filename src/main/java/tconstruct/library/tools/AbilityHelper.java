@@ -699,6 +699,22 @@ public class AbilityHelper
         return trueSpeed;
     }
 
+    public static float calcDualToolSpeed (ToolCore tool, NBTTagCompound tags, boolean secondary)
+    {
+        String tag = "MiningSpeed";
+        if(secondary) tag += "2";
+
+        float mineSpeed = tags.getInteger(tag);
+        float speedMod = 1f;
+        if (tool instanceof HarvestTool)
+            speedMod = ((HarvestTool) tool).breakSpeedModifier();
+
+        float trueSpeed = mineSpeed / 100f * speedMod;
+        trueSpeed += calcStoneboundBonus(tool, tags);
+
+        return trueSpeed;
+    }
+
     public static float calcStoneboundBonus (ToolCore tool, NBTTagCompound tags)
     {
         int durability = tags.getInteger("Damage");
