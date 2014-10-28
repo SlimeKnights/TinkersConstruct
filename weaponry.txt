@@ -1,7 +1,6 @@
 TODO:
 * Effect graphics for arrows, throwing knifes, javelins,... MOSTLY DONE
 * Separate book explaining the system, text only, sorry folks
-* Toolstation GUI for weaponry stuff
 * Partbuilder stuff for weaponry stuff?
 * Bring bowmaterial stats etc in line?
 * Knockback on projectiles knocks towards their moving direction DONEish

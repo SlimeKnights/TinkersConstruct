@@ -142,7 +142,7 @@ public class TinkerWeaponry {
         boltAmmo = new BoltAmmo();
 
         woodPattern = new WeaponryPattern("pattern_", "Pattern");
-        metalPattern = new WeaponryPattern("cast_", "Cast");
+        metalPattern = new WeaponryPattern("cast_", "MetalPattern");
 
         // register tool parts
         GameRegistry.registerItem(bowstring, "bowstring"); // 1.8 todo: rename properly?
@@ -223,7 +223,7 @@ public class TinkerWeaponry {
         // Bow Materials: Material ID, durability, drawspeed, arrow speed
         // speed 3.0 == exactly the vanilla bow if 2 parts of speed 3 are used
         // Wooden stuff is flexible, therefore good. Reference.
-        TConstructRegistry.addBowMaterial(TinkerTools.MaterialID.Wood, 18, 3.0f); // Wood
+        TConstructRegistry.addBowMaterial(MaterialID.Wood, 18, 3.0f); // Wood
         // other organic materials also are good
         TConstructRegistry.addBowMaterial(MaterialID.Cactus,     20, 2.4f); // Cactus
         TConstructRegistry.addBowMaterial(MaterialID.Bone,       38, 2.0f); // Bone

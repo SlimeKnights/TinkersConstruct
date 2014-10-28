@@ -192,6 +192,10 @@ item.tconstruct.Pattern.fullguard.name=Full Guard Pattern
 item.tconstruct.Pattern.bowstring.name=Bowstring Pattern
 item.tconstruct.Pattern.fletching.name=Fletching Pattern
 item.tconstruct.Pattern.arrowhead.name=Arrowhead Pattern
+item.tconstruct.Pattern.shuriken.name=Shuriken Pattern
+item.tconstruct.Pattern.crossbowlimb.name=Crossbow Limb Pattern
+item.tconstruct.Pattern.crossbowbody.name=Crossbow Body Pattern
+item.tconstruct.Pattern.bowlimb.name=Bow Limb Pattern
 
 item.tconstruct.Pattern.blank_cast.name=Blank Cast
 item.tconstruct.MetalPattern.rod.name=Tool Rod Cast
@@ -221,6 +225,10 @@ item.tconstruct.MetalPattern.fletching.name=Fletching Cast
 item.tconstruct.MetalPattern.arrowhead.name=Arrowhead Cast
 item.tconstruct.MetalPattern.ingot.name=Ingot Cast
 item.tconstruct.MetalPattern.gem.name=Gem Cast
+item.tconstruct.MetalPattern.shuriken.name=Shuriken Cast
+item.tconstruct.MetalPattern.crossbowlimb.name=Crossbow Limb Cast
+item.tconstruct.MetalPattern.crossbowbody.name=Crossbow Body Cast
+item.tconstruct.MetalPattern.bowlimb.name=Bow Limb Cast
 
 item.tconstruct.Materials.PaperStack.name=Paper Stack
 item.tconstruct.Materials.SlimeCrystal.name=Slime Crystal
@@ -417,6 +425,7 @@ item.tconstruct.Fletching.feather.name=Feather Fletching
 item.tconstruct.Fletching.leaf.name=Leaf Fletching
 item.tconstruct.Fletching.slime.name=Slime Fletching
 item.tconstruct.Fletching.blueslime.name=Slime Fletching
+item.tconstruct.Fletching.slimeleaf.name=Slimeleaf Fletching
 
 item.tconstruct.manual.beginner.name=Materials and You: Volume 1
 item.tconstruct.manual.toolstation.name=Materials and You: Volume 2
@@ -570,6 +579,11 @@ toolpart.HammerHead=%%material Hammer Head
 toolpart.Bowstring=%%material Bowstring
 toolpart.ArrowHead=%%material Arrowhead
 toolpart.Fletching=%%material Fletching
+toolpart.Shuriken=%%material Shuriken
+toolpart.CrossbowLimb=%%material Crossbow Limb
+toolpart.CrossbowBody=%%material Crossbow Body
+toolpart.BowLimb=%%material Bow Limb
+toolpart.Bolt=%%material Bolt
 
 # Now with translations of specific material and part combinations:
 #toolpart.ToolRod.wood=Wooden Tool Rod
@@ -879,7 +893,13 @@ tool.excavator=Excavator
 tool.hammer=Hammer
 tool.battleaxe=Battleaxe
 tool.shortbow=Shortbow
-tool.arrow=Arrow
+tool.longbow=Longbow
+tool.crossbow=Crossbow
+tool.arrowammo=Arrows
+tool.boltammo=Bolts
+tool.shuriken=Shuriken
+tool.throwingknife=Throwing Knife
+tool.javelin=Javelin
 
 # Customization of default tool names based on tool and material
 #tool.shovel.wood=Wooden Shovel
