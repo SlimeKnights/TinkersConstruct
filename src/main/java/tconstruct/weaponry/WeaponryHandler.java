@@ -125,12 +125,11 @@ public class WeaponryHandler {
             return;
 
         // enchanted fabric
-        /*
         if (tags.getInteger("Handle") == 1) {
             int modifiers = tags.getInteger("Modifiers");
             modifiers += 1;
             tags.setInteger("Modifiers", modifiers);
-        }*/
+        }
 
         tags.setInteger("DrawSpeed", drawSpeed);
         tags.setInteger("BaseDrawSpeed", drawSpeed); // used to calculate correct speed increase with redstone modifier
