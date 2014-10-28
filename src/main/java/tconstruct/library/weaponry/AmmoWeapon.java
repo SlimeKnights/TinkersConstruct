@@ -88,7 +88,7 @@ public abstract class AmmoWeapon extends AmmoItem implements IAccuracy, IWindup 
 
     @Override
     public String[] getTraits() {
-        return new String[] {"weapon", "throwing", "ammo", "windup"};
+        return new String[] {"weapon", "projectile", "ammo", "windup"};
     }
 
     @Override

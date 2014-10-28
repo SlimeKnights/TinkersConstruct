@@ -91,7 +91,7 @@ public class ArrowAmmo extends AmmoItem {
     @Override
     public String[] getTraits ()
     {
-        return new String[] { "ammo" };
+        return new String[] { "ammo", "projectile" };
     }
 
     @Override

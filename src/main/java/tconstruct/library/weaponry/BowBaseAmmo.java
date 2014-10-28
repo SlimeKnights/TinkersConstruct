@@ -160,6 +160,6 @@ public abstract class BowBaseAmmo extends ProjectileWeapon {
 
     @Override
     public String[] getTraits() {
-        return new String[] {"weapon", "ranged", "bow", "windup"};
+        return new String[] {"weapon", "bow", "windup"};
     }
 }

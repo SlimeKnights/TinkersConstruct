@@ -30,7 +30,7 @@ public final class ToolStationGuiHelper {
     private static final FontRenderer fontRendererObj = Minecraft.getMinecraft().fontRenderer;
     private static int xPos, yPos;
 
-    private static final DecimalFormat df =  new DecimalFormat("##.#");
+    private static final DecimalFormat df =  new DecimalFormat("#.##");
 
     private static void newline()
     {
@@ -86,7 +86,7 @@ public final class ToolStationGuiHelper {
             if (categories.contains("weapon"))
                 drawWeaponStats(tool, tags);
             // projectile weapon?
-            if (categories.contains("projectileweapon"))
+            if (categories.contains("bow"))
                 drawProjectileWeaponStats(tags);
             // projectile?
             if (categories.contains("projectile"))
@@ -133,7 +133,7 @@ public final class ToolStationGuiHelper {
         final int max = ammoItem.getAmmoCount(stack);
         final int current = ammoItem.getAmmoCount(stack);
 
-        write(String.format("%s: %d/%d", StatCollector.translateToLocal("gui.toolstation21"), current, max));
+        write(StatCollector.translateToLocal("gui.toolstation21") + current + "/" +  max);
     }
 
     private static void drawModifiers(NBTTagCompound tags)
@@ -217,55 +217,29 @@ public final class ToolStationGuiHelper {
 
     private static void drawProjectileWeaponStats(NBTTagCompound tags)
     {
-        /*
-        DecimalFormat df = new DecimalFormat("##.##");
-        df.setRoundingMode(RoundingMode.DOWN);
-        int drawSpeed = tags.getInteger("DrawSpeed");
-        float flightSpeed = tags.getFloat("FlightSpeed");
-        float trueDraw = drawSpeed / 20f;
-        fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation6") + df.format(trueDraw) + "s", x, base + offset * 10, 0xffffff);
-        offset++;
-        fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation7") + df.format(flightSpeed) + "x", x, base + offset * 10, 0xffffff);
-        offset++;
-        offset++;*/
+        // drawspeed
+        final int drawSpeed = tags.getInteger("DrawSpeed");
+        final float trueDraw = drawSpeed / 20f;
+        write(StatCollector.translateToLocal("gui.toolstation6") + df.format(trueDraw) + "s");
+
+        // flightspeed
+        final int flightSpeed = tags.getInteger("FlightSpeed");
+        write(StatCollector.translateToLocal("gui.toolstation7") + df.format(flightSpeed) + "x");
     }
 
     private static void drawProjectileStats(NBTTagCompound tags)
-    {/*
-        DecimalFormat df = new DecimalFormat("##.##");
-        df.setRoundingMode(RoundingMode.DOWN);
-        int attack = (int) (tags.getInteger("Attack"));
-        float mass = tags.getFloat("Mass");
-        float shatter = tags.getFloat("BreakChance");
-        float accuracy = tags.getFloat("Accuracy");
+    {
+        // weight
+        final float weight = tags.getFloat("Mass");
+        write(StatCollector.translateToLocal("gui.toolstation8") + df.format(weight));
 
-        fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation10"), x, base + offset * 10, 0xffffff);
-        offset++;
-        String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
-        if (attack % 2 == 0)
-            fontRendererObj.drawString("- " + attack / 2 + heart, x, base + offset * 10, 0xffffff);
-        else
-            fontRendererObj.drawString("- " + attack / 2f + heart, x, base + offset * 10, 0xffffff);
-        offset++;
-        int minAttack = attack;
-        int maxAttack = attack * 2;
-        heart = StatCollector.translateToLocal("gui.partcrafter9");
-        fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation11"), x, base + offset * 10, 0xffffff);
-        offset++;
-        fontRendererObj.drawString(df.format(minAttack / 2f) + "-" + df.format(maxAttack / 2f) + heart, x, base + offset * 10, 0xffffff);
-        offset++;
-        offset++;
+        // accuracy
+        final float accuracy = tags.getFloat("Accuracy");
+        write(StatCollector.translateToLocal("gui.toolstation9") + df.format(accuracy) + "%");
 
-        fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation8") + df.format(mass), x, base + offset * 10, 0xffffff);
-        offset++;
-        fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation9") + df.format(accuracy - 4) + "%", x, base + offset * 10, 0xffffff);
-        offset++;
-            /*
-             * this.fontRendererObj.drawString("Chance to break: " +
-             * df.format(shatter)+"%", xSize + 8, base + offset * 10, 0xffffff);
-             * offset++;
-
-        offset++;*/
+        // breakchance
+        final float breakChance = tags.getFloat("BreakChance");
+        write(StatCollector.translateToLocal("gui.toolstation22") + df.format(breakChance) + "%");
     }
 
     private static void drawArmorStats(ArmorCore armor, NBTTagCompound tags, ItemStack stack)
