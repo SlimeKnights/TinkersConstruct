@@ -185,7 +185,7 @@ item.tconstruct.Pattern.toughbinding.name=坚韧绑定结模具
 item.tconstruct.Pattern.largeplate.name=大板模具
 item.tconstruct.Pattern.broadaxe.name=宽斧刃模具
 item.tconstruct.Pattern.scythe.name=镰刀刀刃模具
-item.tconstruct.Pattern.excavator.name=开掘铲铲刃模具
+item.tconstruct.Pattern.excavator.name=开掘铲头模具
 item.tconstruct.Pattern.largeblade.name=宽剑刃模具
 item.tconstruct.Pattern.hammerhead.name=锤头模具
 item.tconstruct.Pattern.fullguard.name=大型护手模具
@@ -196,7 +196,7 @@ item.tconstruct.Pattern.arrowhead.name=箭头模具
 item.tconstruct.Pattern.blank_cast.name=空白铸形
 item.tconstruct.MetalPattern.rod.name=手柄铸形
 item.tconstruct.MetalPattern.pickaxe.name=镐头铸形
-item.tconstruct.MetalPattern.shovel.name=铲刃铸形
+item.tconstruct.MetalPattern.shovel.name=铲头铸形
 item.tconstruct.MetalPattern.axe.name=斧刃铸形
 item.tconstruct.MetalPattern.swordblade.name=剑刃铸形
 item.tconstruct.MetalPattern.largeguard.name=宽护手铸形
@@ -212,7 +212,7 @@ item.tconstruct.MetalPattern.toughbinding.name=坚韧绑定结铸形
 item.tconstruct.MetalPattern.largeplate.name=大板铸形
 item.tconstruct.MetalPattern.broadaxe.name=宽斧刃铸形
 item.tconstruct.MetalPattern.scythe.name=镰刀刀刃铸形
-item.tconstruct.MetalPattern.excavator.name=开掘铲铲刃铸形
+item.tconstruct.MetalPattern.excavator.name=开掘铲头铸形
 item.tconstruct.MetalPattern.largeblade.name=宽剑刃铸形
 item.tconstruct.MetalPattern.hammerhead.name=锤头铸形
 item.tconstruct.MetalPattern.fullguard.name=大型护手铸形
@@ -544,30 +544,9 @@ death.four.smeltery=%1$s 认为在炽热的液体中游泳是个不错的注意
 death.attack.Landmine=%1$s 眼睁睁看着他的腿被地雷炸飞
 death.attack.FireworkExplode=%1$s 在意外的烟火爆炸中炸得四分五裂
 
-parttype.wood=木
-parttype.stone=石
-parttype.iron=铁
-parttype.flint=燧石
-parttype.cactus=仙人掌
-parttype.bone=骨头
-parttype.obsidian=黑曜石
-parttype.slime=史莱姆
-parttype.paper=纸
-parttype.netherrack=地狱岩
-parttype.cobalt=钴
-parttype.ardite=阿迪特
-parttype.manyullyn=玛玉灵
-parttype.copper=铜
-parttype.bronze=青铜
-parttype.alumite=耐酸铝
-parttype.steel=钢
-parttype.blueslime=蓝史莱姆
-parttype.thaumium=神秘
-parttype.pigiron=生铁
-
 toolpart.ToolRod=%%material手柄
 toolpart.PickaxeHead=%%material镐头
-toolpart.ShovelHead=%%material铲刃
+toolpart.ShovelHead=%%material铲头
 toolpart.AxeHead=%%material斧刃
 toolpart.Binding=%%material绑定结
 toolpart.ToughBinding=%%material坚韧绑定结
@@ -584,13 +563,18 @@ toolpart.SignHead=%%material牌板
 toolpart.ChiselHead=%%material凿刃
 toolpart.ScytheHead=%%material镰刀刀刃
 toolpart.LumberAxeHead=%%material宽斧刃
-toolpart.ExcavatorHead=%%material开掘铲铲刃
+toolpart.ExcavatorHead=%%material开掘铲头
 toolpart.ToolShard=%%material碎片
 toolpart.LargeSwordBlade=%%material大剑刃
 toolpart.HammerHead=%%material锤头
 toolpart.Bowstring=%%material弓弦
 toolpart.ArrowHead=%%material箭头
 toolpart.Fletching=%%material箭羽
+
+# Now with translations of specific material and part combinations:
+#toolpart.ToolRod.wood=木手柄
+# If only the material part has to be specific, you can use this
+#toolpart.material.wood=木
 
 fluid.iron.molten=熔融铁
 fluid.gold.molten=熔融金
@@ -714,6 +698,22 @@ smeltery.drain.tooltip1=可以向冶炼炉
 smeltery.drain.tooltip2=输入或输出液体
 smeltery.brick.tooltip1=冶炼炉构筑方块
 smeltery.brick.tooltip2=(也可以用作装饰方块)
+#Dear translators, only translate this line if the joke is applicable in your language.
+grout.tooltip=我就是渣渣!
+
+tconstruct.waila.empty=空
+tconstruct.waila.liquidtag=流体: 
+tconstruct.waila.amounttag=存量: 
+tconstruct.waila.contains=包含: 
+tconstruct.waila.subtanks=子储罐:
+tconstruct.waila.invalidstructure=无效结构
+
+tconstruct.nei.toolmaterials=工具材料
+tconstruct.nei.alloying=冶炼炉合金
+tconstruct.nei.castingbasin=浇铸盆
+tconstruct.nei.castingtable=浇铸台
+tconstruct.nei.dryingrack=晾干架
+tconstruct.nei.melting=冶炼炉熔化
 
 gui.smeltery.fuel=燃料
 gui.smeltery.emerald=绿宝石:
@@ -733,6 +733,7 @@ gui.partcrafter7=采掘等级:
 gui.partcrafter8= 心
 gui.partcrafter9= 心
 gui.partcrafter10=攻击力:
+gui.partcrafter11=全耐久: 
 gui.stenciltable1=下一种模具
 gui.stenciltable2=上一种模具
 gui.toolforge1=修复和强化
@@ -764,6 +765,26 @@ gui.mining3=红石
 gui.mining4=黑曜石
 gui.mining5=钴
 gui.mining6=玛玉灵
+
+gui.toolstation.pickaxe.desc=镐子是标准的挖矿工具.它对石头以及矿物有效.\n\n需求部件:\n- 镐头\n- 绑定结\n- 手柄
+gui.toolstation.shovel.desc=铲子是标准的挖掘工具.它对泥土,沙子和雪有效.\n\n需求部件:\n- 铲头\n- 手柄
+gui.toolstation.hatchet.desc=手斧是基础的伐木工具.它对木头和树叶有效.\n\n需求部件:\n- 斧刃\n- 手柄
+gui.toolstation.mattock.desc=鹤嘴锄是种多功能的农用工具.它对木头,泥土和植物有效.\n\n特殊能力: 锄地\n\n需求部件:\n- 斧刃\n- 铲头\n- 手柄
+gui.toolstation.broadsword.desc=大剑是一种防卫武器.将收到的伤害格挡减半.\n\n特殊能力: 格挡\n伤害: 适量\n耐久: 高\n\n需求部件:\n- 剑刃\n- 宽护手\n- 手柄
+gui.toolstation.longsword.desc=长剑是种攻击型武器.通常用作全速切入战斗.\n\n天生能力:\n- 伤害加成\n特殊能力: 冲刺\n\n伤害: 适量\n耐久: 适量
+gui.toolstation.rapier.desc=西洋剑是种特制武器,依靠快速的刺击来打败对手.\n\n天生能力:\n- 护甲穿刺\n- 闪速打击\n- 伤害加成\n特殊能力:\n- 后退\n\n伤害: 低\n耐久: 低
+gui.toolstation.dagger.desc=匕首是种可投掷的短刀.\n\n特殊能力:\n- 投掷\n\n伤害: 低\n耐久: 适量\n\n需求部件:\n- 刀刃\n- 十字柄\n- 手柄
+gui.toolstation.fryingpan.desc=煎锅是种重型武器,它能给敌人沉重打击.\n\n特殊能力: 格挡\n天生能力: 重击\nShift右击: 放置煎锅\n伤害: 低\n耐久: 高\n\n需求部件:\n- 盘\n- 手柄
+gui.toolstation.battlesign.desc=战斗牌子是种高级的武器.\n\n特殊能力:\n伤害反弹\n\n天生能力: 铭刻\n\n伤害: 低\n耐久: 平均
+gui.toolstation.chisel.desc=凿子是种用于雕刻方块的辅助工具.\n\n合成栏:\n- 雕刻物品\n特殊能力: 凿\n耐久: 平均\n\n需求部件:\n- 凿刃\n- 手柄
+gui.toolstation.shortbow.desc=短弓是种远程武器.向敌人快速精准地射出箭矢.\n\n拉弓速度: 快\n\n需求部件:\n- 手柄\n- 弓弦\n- 手柄
+gui.toolstation.arrow.desc=箭矢是弓所用的抛射物.\n\n需求部件:\n- 箭头\n- 手柄\n- 箭羽
+gui.toolstation.hammer.desc=锤子是种范围挖矿工具.能采集大范围内的方块或是对付亡灵生物.\n\n天生能力:\n范围效果\n- (3x3)\n- 亡灵杀手\n\n耐久: 高
+gui.toolstation.lumberaxe.desc=伐木斧是种范围砍伐工具.能砍倒巨大的树木以收集的范围内的木头.\n\n天生能力:\n范围效果\n- 砍树\n- (3x3x3)\n\n耐久: 平均
+gui.toolstation.excavator.desc=开掘铲是种的大范围挖掘的工具.能挖掘大范围内的泥土和雪.\n\n天生能力:\n- 范围效果\n- (3x3)\n\n耐久: 平均
+gui.toolstation.scythe.desc=镰刀是用于大面积收割的工具.它对大范围内收割作物和攻击敌人都很有效.\n\n天生能力:\n范围效果\n- (3x3x3)\n\n耐久: 平均\n伤害: 低, AoE
+gui.toolstation.cleaver.desc=劈刀是种重型防卫武器.能施以重击,但很难挥动.\n\n特殊能力: 格挡\n天生能力:\n- 砍头\n\n伤害: 高\n耐久: 平均
+gui.toolstation.battleaxe.desc=战斧是种重型攻击武器.它能砍伐小型树木或将敌人击飞.\n\n特殊能力: 格挡\n天生能力:\n- 击退\n- 范围效果\n- (1x9)\n\n伤害: 平均\n耐久: 平均
 
 material.wood=木
 material.wood.display=木
@@ -855,3 +876,10 @@ tool.hammer=锤
 tool.battleaxe=战斧
 tool.shortbow=短弓
 tool.arrow=箭矢
+
+# Customization of default tool names based on tool and material
+#tool.shovel.wood=木铲
+
+tool.kingslimeprefix=史莱姆王
+# Specific localization like materials
+#tool.shovel.kingslime=悲叹之铲
