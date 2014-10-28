@@ -2,365 +2,292 @@ package tconstruct.tools.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import tconstruct.library.accessory.AccessoryCore;
 import tconstruct.library.armor.ArmorCore;
+import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.tools.AbilityHelper;
+import tconstruct.library.tools.DualHarvestTool;
 import tconstruct.library.tools.HarvestTool;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.HarvestLevels;
+import tconstruct.library.weaponry.IAmmo;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 public final class ToolStationGuiHelper {
     // non-instantiable
     private ToolStationGuiHelper() {}
 
-    private static FontRenderer fontRendererObj = Minecraft.getMinecraft().fontRenderer;
+    private static final FontRenderer fontRendererObj = Minecraft.getMinecraft().fontRenderer;
+    private static int xPos, yPos;
+
+    private static final DecimalFormat df =  new DecimalFormat("##.#");
+
+    private static void newline()
+    {
+        yPos += 10;
+    }
+
+
+    private static void write(String s)
+    {
+        fontRendererObj.drawString(s, xPos, yPos, 0xffffffff);
+        newline();
+    }
 
     public static void drawToolStats (ItemStack stack, int x, int y)
     {
+        String name = stack.getItem() instanceof ToolCore ? ((ToolCore) stack.getItem()).getLocalizedToolName() : stack.getDisplayName();
+        Item item = stack.getItem();
+        NBTTagCompound tags = stack.getTagCompound();
+        Collection<String> categories = new LinkedList<String>();
 
-        if (stack.getItem() instanceof ToolCore)
-        {
-            ToolCore tool = (ToolCore) stack.getItem();
-            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(tool.getBaseTagName());
-            drawCenteredString(fontRendererObj, "\u00A7n" + tool.getLocalizedToolName(), x + 55, y+8, 0xffffff);
+        // initialize drawing variables
+        xPos = x;
+        yPos = y + 8;
 
-            drawModularToolStats(stack, tool, tags, x, y + 24);
+        // get the correct tags
+        if(item instanceof IModifyable) {
+            IModifyable modifyable = (IModifyable) item;
+            tags = tags.getCompoundTag(modifyable.getBaseTagName());
+            categories = Arrays.asList(modifyable.getTraits());
         }
-        if(stack.getItem() instanceof ArmorCore)
-        {
-            ArmorCore armor = (ArmorCore) stack.getItem();
-            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(armor.getBaseTagName());
-            drawCenteredString(fontRendererObj, "\u00A7n" + stack.getDisplayName(), x+55, y+8, 0xffffff); // todo: localize
 
-            drawModularArmorStats(stack, armor, tags, x, y+24);
+        drawCenteredString(fontRendererObj, "\u00A7n" + name, xPos + 55, yPos, 0xffffffff);
+        newline();
+        newline();
+
+        // does it have ammo instead of durability?
+        if(item instanceof IAmmo)
+            drawAmmo((IAmmo) item, stack);
+        // regular durability?
+        else if(item instanceof ToolCore || item instanceof ArmorCore)
+            drawDurability(tags);
+
+        // tools
+        if(item instanceof ToolCore) {
+            ToolCore tool = (ToolCore) item;
+            // DualHarvest tool?
+            if (categories.contains("dualharvest"))
+                drawDualHarvestStats(tool, tags);
+            // or regular Harvest tool?
+            else if (categories.contains("harvest"))
+                drawHarvestStats(tool, tags);
+            // weapon?
+            if (categories.contains("weapon"))
+                drawWeaponStats(tool, tags);
+            // projectile weapon?
+            if (categories.contains("projectileweapon"))
+                drawProjectileWeaponStats(tags);
+            // projectile?
+            if (categories.contains("projectile"))
+                drawProjectileStats(tags);
         }
-        if(stack.getItem() instanceof AccessoryCore)
+        // armor
+        if(item instanceof ArmorCore)
         {
-            AccessoryCore accessory = (AccessoryCore) stack.getItem();
-            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(accessory.getBaseTagName());
-            drawCenteredString(fontRendererObj, "\u00A7n" + stack.getDisplayName(), x+55, y+8, 0xffffff); // todo: localize
+            ArmorCore armor = (ArmorCore) item;
+            drawArmorStats(armor, tags, stack);
+        }
+        // Accessory
+        if(item instanceof AccessoryCore)
+        {
+            AccessoryCore accessory = (AccessoryCore) item;
+            drawAccessoryStats(accessory, tags);
+        }
 
-            drawModularAccessoryStats(stack, accessory, tags, x, y+24);
+        newline();
+
+        // Modifiers
+        drawModifiers(tags);
+    }
+
+    private static void drawDurability(NBTTagCompound tags) {
+        final int durability = tags.getInteger("Damage");
+        final int maxDur = tags.getInteger("TotalDurability");
+        final int availableDurability = maxDur - durability;
+
+        // big durabilities have to split to 2 lines
+        if (maxDur >= 10000)
+        {
+            write(StatCollector.translateToLocal("gui.toolstation1"));
+            write("- " + availableDurability + "/" + maxDur);
+        }
+        else
+        {
+            write(StatCollector.translateToLocal("gui.toolstation2") + availableDurability + "/" + maxDur);
         }
     }
 
-    public static void drawModularToolStats (ItemStack stack, ToolCore tool, NBTTagCompound tags, int x, int y)
+    private static void drawAmmo(IAmmo ammoItem, ItemStack stack)
     {
-        FontRenderer fontRendererObj = Minecraft.getMinecraft().fontRenderer;
-        List categories = Arrays.asList(tool.getTraits());
-        final int durability = tags.getInteger("Damage");
-        final int maxDur = tags.getInteger("TotalDurability");
-        int availableDurability = maxDur - durability;
+        final int max = ammoItem.getAmmoCount(stack);
+        final int current = ammoItem.getAmmoCount(stack);
 
-        // Durability
-        int base = y;
-        int offset = 0;
-        if (maxDur > 0)
-        {
-            if (maxDur >= 10000)
-            {
-                fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation1"), x, base + offset * 11, 0xffffff);
-                offset++;
-                fontRendererObj.drawString("- " + availableDurability + "/" + maxDur, x, base + offset * 10, 0xffffff);
-                offset++;
-            }
-            else
-            {
-                fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation2") + availableDurability + "/" + maxDur, x, base + offset * 10, 0xffffff);
-                offset++;
+        write(String.format("%s: %d/%d", StatCollector.translateToLocal("gui.toolstation21"), current, max));
+    }
+
+    private static void drawModifiers(NBTTagCompound tags)
+    {
+        int modifiers = tags.getInteger("Modifiers");
+        // remaining modifiers
+        if (modifiers != 0)
+            write(StatCollector.translateToLocal("gui.toolstation18") + modifiers);
+
+        // Modifier-header (if we have modifiers)
+        if (tags.hasKey("ModifierTip1")) {
+            write(StatCollector.translateToLocal("gui.toolstation17"));
+
+            String tooltip = "ModifierTip";
+            int tipNum = 1;
+            while (tags.hasKey(tooltip + tipNum)) {
+                write("- " + tags.getString(tooltip + tipNum));
+                tipNum++;
             }
         }
+    }
 
-        final float stonebound = tags.getFloat("Shoddy");
-        // Attack
-        if (categories.contains("weapon"))
+    private static void drawHarvestStats(ToolCore tool, NBTTagCompound tags)
+    {
+        float mineSpeed = AbilityHelper.calcToolSpeed(tool, tags);
+        float stoneboundSpeed = AbilityHelper.calcStoneboundBonus(tool, tags);
+
+        write(StatCollector.translateToLocal("gui.toolstation14") + df.format(mineSpeed));
+        if(stoneboundSpeed != 0)
         {
-            int attack = (int) (tags.getInteger("Attack")) + 1;
-            float stoneboundDamage = (float) Math.log(durability / 72f + 1) * -2 * stonebound;
-            attack += stoneboundDamage;
-            attack *= tool.getDamageModifier();
-            if (attack < 1)
-                attack = 1;
+            String bloss = stoneboundSpeed > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
+            write(bloss + df.format(stoneboundSpeed));
+        }
+        write(StatCollector.translateToLocal("gui.toolstation15") + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel")));
+    }
 
-            String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
-            if (attack % 2 == 0)
-                fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation3") + attack / 2 + heart, x, base + offset * 10, 0xffffff);
-            else
-                fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation3") + attack / 2f + heart, x, base + offset * 10, 0xffffff);
-            offset++;
+    private static void drawDualHarvestStats(ToolCore tool, NBTTagCompound tags)
+    {
+        float mineSpeed = AbilityHelper.calcDualToolSpeed(tool, tags, false);
+        float mineSpeed2 = AbilityHelper.calcDualToolSpeed(tool, tags, true);
+        float stoneboundSpeed = AbilityHelper.calcStoneboundBonus(tool, tags);
 
-            if (stoneboundDamage != 0)
-            {
-                DecimalFormat df = new DecimalFormat("##.##");
-                heart = stoneboundDamage == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
-                String bloss = stoneboundDamage > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
-                fontRendererObj.drawString(bloss + df.format(stoneboundDamage / 2f) + heart, x, base + offset * 10, 0xffffff);
-                offset++;
-            }
-            offset++;
+        write(StatCollector.translateToLocal("gui.toolstation12"));
+        write("- " + df.format(mineSpeed) + ", " + df.format(mineSpeed2));
+        if (stoneboundSpeed != 0)
+        {
+            String bloss = stoneboundSpeed > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
+            write(bloss + df.format(stoneboundSpeed));
         }
 
-        if (categories.contains("bow"))
+        write(StatCollector.translateToLocal("gui.toolstation13"));
+        write("- " + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel2")));
+    }
+
+    private static void drawWeaponStats(ToolCore tool, NBTTagCompound tags)
+    {
+        // DAMAGE
+        int attack = (tags.getInteger("Attack")) + 1;
+
+        // factor in Stonebound
+        float stoneboundDamage = -AbilityHelper.calcStoneboundBonus(tool, tags);
+        attack += stoneboundDamage;
+        attack *= tool.getDamageModifier();
+
+        if (attack < 1)
+            attack = 1;
+
+        String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
+        if (attack % 2 == 0)
+            write(StatCollector.translateToLocal("gui.toolstation3") + attack / 2 + heart);
+        else
+            write(StatCollector.translateToLocal("gui.toolstation3") + df.format(attack / 2f) + heart);
+
+        if (stoneboundDamage != 0)
         {
-            DecimalFormat df = new DecimalFormat("##.##");
-            df.setRoundingMode(RoundingMode.DOWN);
-            int drawSpeed = tags.getInteger("DrawSpeed");
-            float flightSpeed = tags.getFloat("FlightSpeed");
-            float trueDraw = drawSpeed / 20f;
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation6") + df.format(trueDraw) + "s", x, base + offset * 10, 0xffffff);
-            offset++;
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation7") + df.format(flightSpeed) + "x", x, base + offset * 10, 0xffffff);
-            offset++;
-            offset++;
+            heart = stoneboundDamage == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
+            String bloss = stoneboundDamage > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
+            write(bloss + df.format(stoneboundDamage / 2f) + heart);
         }
+    }
 
-        if (categories.contains("ammo"))
-        {
-            DecimalFormat df = new DecimalFormat("##.##");
-            df.setRoundingMode(RoundingMode.DOWN);
-            int attack = (int) (tags.getInteger("Attack"));
-            float mass = tags.getFloat("Mass");
-            float shatter = tags.getFloat("BreakChance");
-            float accuracy = tags.getFloat("Accuracy");
+    private static void drawProjectileWeaponStats(NBTTagCompound tags)
+    {
+        /*
+        DecimalFormat df = new DecimalFormat("##.##");
+        df.setRoundingMode(RoundingMode.DOWN);
+        int drawSpeed = tags.getInteger("DrawSpeed");
+        float flightSpeed = tags.getFloat("FlightSpeed");
+        float trueDraw = drawSpeed / 20f;
+        fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation6") + df.format(trueDraw) + "s", x, base + offset * 10, 0xffffff);
+        offset++;
+        fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation7") + df.format(flightSpeed) + "x", x, base + offset * 10, 0xffffff);
+        offset++;
+        offset++;*/
+    }
 
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation10"), x, base + offset * 10, 0xffffff);
-            offset++;
-            String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
-            if (attack % 2 == 0)
-                fontRendererObj.drawString("- " + attack / 2 + heart, x, base + offset * 10, 0xffffff);
-            else
-                fontRendererObj.drawString("- " + attack / 2f + heart, x, base + offset * 10, 0xffffff);
-            offset++;
-            int minAttack = attack;
-            int maxAttack = attack * 2;
-            heart = StatCollector.translateToLocal("gui.partcrafter9");
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation11"), x, base + offset * 10, 0xffffff);
-            offset++;
-            fontRendererObj.drawString(df.format(minAttack / 2f) + "-" + df.format(maxAttack / 2f) + heart, x, base + offset * 10, 0xffffff);
-            offset++;
-            offset++;
+    private static void drawProjectileStats(NBTTagCompound tags)
+    {/*
+        DecimalFormat df = new DecimalFormat("##.##");
+        df.setRoundingMode(RoundingMode.DOWN);
+        int attack = (int) (tags.getInteger("Attack"));
+        float mass = tags.getFloat("Mass");
+        float shatter = tags.getFloat("BreakChance");
+        float accuracy = tags.getFloat("Accuracy");
 
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation8") + df.format(mass), x, base + offset * 10, 0xffffff);
-            offset++;
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation9") + df.format(accuracy - 4) + "%", x, base + offset * 10, 0xffffff);
-            offset++;
+        fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation10"), x, base + offset * 10, 0xffffff);
+        offset++;
+        String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
+        if (attack % 2 == 0)
+            fontRendererObj.drawString("- " + attack / 2 + heart, x, base + offset * 10, 0xffffff);
+        else
+            fontRendererObj.drawString("- " + attack / 2f + heart, x, base + offset * 10, 0xffffff);
+        offset++;
+        int minAttack = attack;
+        int maxAttack = attack * 2;
+        heart = StatCollector.translateToLocal("gui.partcrafter9");
+        fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation11"), x, base + offset * 10, 0xffffff);
+        offset++;
+        fontRendererObj.drawString(df.format(minAttack / 2f) + "-" + df.format(maxAttack / 2f) + heart, x, base + offset * 10, 0xffffff);
+        offset++;
+        offset++;
+
+        fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation8") + df.format(mass), x, base + offset * 10, 0xffffff);
+        offset++;
+        fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation9") + df.format(accuracy - 4) + "%", x, base + offset * 10, 0xffffff);
+        offset++;
             /*
              * this.fontRendererObj.drawString("Chance to break: " +
              * df.format(shatter)+"%", xSize + 8, base + offset * 10, 0xffffff);
              * offset++;
-             */
-            offset++;
-        }
 
-        // Mining
-        if (categories.contains("dualharvest"))
-        {
-            float mineSpeed = tags.getInteger("MiningSpeed") / 100f * ((HarvestTool) tool).breakSpeedModifier();
-            float mineSpeed2 = tags.getInteger("MiningSpeed2") / 100f * ((HarvestTool) tool).breakSpeedModifier();
-            float stoneboundSpeed = (float) Math.log(durability / ((HarvestTool) tool).stoneboundModifier() + 1) * 2 * stonebound;
-            DecimalFormat df = new DecimalFormat("##.##");
-            df.setRoundingMode(RoundingMode.DOWN);
-            float trueSpeed = mineSpeed + stoneboundSpeed;
-            float trueSpeed2 = mineSpeed2 + stoneboundSpeed;
-
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation12"), x, base + offset * 10, 0xffffff);
-            offset++;
-            fontRendererObj.drawString("- " + df.format(trueSpeed) + ", " + df.format(trueSpeed2), x, base + offset * 10, 0xffffff);
-            offset++;
-            if (stoneboundSpeed != 0)
-            {
-                String bloss = stoneboundSpeed > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
-                fontRendererObj.drawString(bloss + df.format(stoneboundSpeed), x, base + offset * 10, 0xffffff);
-                offset++;
-            }
-            offset++;
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation13"), x, base + offset * 10, 0xffffff);
-            offset++;
-            fontRendererObj.drawString("- " + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel2")), x, base + offset * 10, 0xffffff);
-            offset++;
-            offset++;
-        }
-        else if (categories.contains("harvest"))
-        {
-            float trueSpeed = AbilityHelper.calcToolSpeed(tool, tags);
-            float stoneboundSpeed = AbilityHelper.calcToolSpeed(tool, tags);
-
-            DecimalFormat df = new DecimalFormat("##.##");
-            df.setRoundingMode(RoundingMode.DOWN);
-            trueSpeed += stoneboundSpeed;
-            if (trueSpeed < 0)
-                trueSpeed = 0;
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation14") + df.format(trueSpeed), x, base + offset * 10, 0xffffff);
-            offset++;
-            if (stoneboundSpeed != 0 && !Float.isNaN(stoneboundSpeed))
-            {
-                String bloss = stoneboundSpeed > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
-                fontRendererObj.drawString(bloss + df.format(stoneboundSpeed), x, base + offset * 10, 0xffffff);
-                offset++;
-            }
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation15") + HarvestLevels.getHarvestLevelName(tags.getInteger("HarvestLevel")), x, base + offset * 10, 0xffffff);
-            offset++;
-            offset++;
-        }
-        else if (categories.contains("utility"))
-        {
-            float mineSpeed = tags.getInteger("MiningSpeed");
-            float trueSpeed = mineSpeed / (100f);
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation16") + trueSpeed, x, base + offset * 10, 0xffffff);
-            offset++;
-            offset++;
-        }
-
-        int modifiers = tags.getInteger("Modifiers");
-        if (modifiers > 0)
-        {
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation18") + tags.getInteger("Modifiers"), x, base + offset * 10, 0xffffff);
-            offset++;
-        }
-        if (tags.hasKey("Tooltip1"))
-        {
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation17"), x, base + offset * 10, 0xffffff);
-        }
-
-        boolean displayToolTips = true;
-        int tipNum = 0;
-        while (displayToolTips)
-        {
-            tipNum++;
-            String tooltip = "ModifierTip" + tipNum;
-            if (tags.hasKey(tooltip))
-            {
-                String tipName = tags.getString(tooltip);
-                fontRendererObj.drawString("- " + tipName, x, base + (offset + tipNum) * 10, 0xffffff);
-            }
-            else
-                displayToolTips = false;
-        }
+        offset++;*/
     }
 
-    private static DecimalFormat df =  new DecimalFormat("##.#");
-
-    // todo: do this properly, quick and dirty fix
-    public static void drawModularArmorStats (ItemStack stack, ArmorCore armor, NBTTagCompound tags, int x, int y)
+    private static void drawArmorStats(ArmorCore armor, NBTTagCompound tags, ItemStack stack)
     {
-        List categories = Arrays.asList(armor.getTraits());
-        int base = y;
-        int offset = 0;
-
-        // durability
-        final int durability = tags.getInteger("Damage");
-        final int maxDur = tags.getInteger("TotalDurability");
-        int availableDurability = maxDur - durability;
-
-        // Durability
-        if (maxDur > 0)
-        {
-            if (maxDur >= 10000)
-            {
-                fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation1"), x, base + offset * 11, 0xffffff);
-                offset++;
-                fontRendererObj.drawString("- " + availableDurability + "/" + maxDur, x, base + offset * 10, 0xffffff);
-                offset++;
-            }
-            else
-            {
-                fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation2") + availableDurability + "/" + maxDur, x, base + offset * 10, 0xffffff);
-                offset++;
-            }
-        }
-        // Damage reduction
+// Damage reduction
         double damageReduction = tags.getDouble("DamageReduction");
-        if(damageReduction > 0.000001d)
-        {
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation19") + df.format(damageReduction), x, base + offset * 10, 0xffffff);
-            offset++;
-        }
+        if(damageReduction > 0)
+            write(StatCollector.translateToLocal("gui.toolstation19") + df.format(damageReduction));
 
         // Protection
         double protection = armor.getProtection(stack);
         double maxProtection = tags.getDouble("MaxDefense");
-        //if(maxProtection > protection)
-        fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation20") + df.format(protection) + "/" + df.format(maxProtection), 294, base + offset * 10, 0xffffff);
-        //else
-        //  fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation20") + df.format(protection), x, base + offset * 10, 0xffffff);
-        offset++;
 
-        offset++;
-        int modifiers = tags.getInteger("Modifiers");
-        if (modifiers > 0)
-        {
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation18") + tags.getInteger("Modifiers"), x, base + offset * 10, 0xffffff);
-            offset++;
-        }
-        if (tags.hasKey("Tooltip1"))
-        {
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation17"), x, base + offset * 10, 0xffffff);
-        }
-
-        boolean displayToolTips = true;
-        int tipNum = 0;
-        while (displayToolTips)
-        {
-            tipNum++;
-            String tooltip = "ModifierTip" + tipNum;
-            if (tags.hasKey(tooltip))
-            {
-                String tipName = tags.getString(tooltip);
-                fontRendererObj.drawString("- " + tipName, x, base + (offset + tipNum) * 10, 0xffffff);
-            }
-            else
-                displayToolTips = false;
-        }
+        write(StatCollector.translateToLocal("gui.toolstation20") + df.format(protection) + "/" + df.format(maxProtection));
     }
 
-    // todo: also quick and dirty fix
-    public static void drawModularAccessoryStats (ItemStack stack, AccessoryCore accessory, NBTTagCompound tags, int x, int y)
+    private static void drawAccessoryStats(AccessoryCore core, NBTTagCompound tags)
     {
-        List categories = Arrays.asList(accessory.getTraits());
-        int base = y;
-        int offset = 0;
-
-        if (categories.contains("utility"))
-        {
+        if(tags.hasKey("MiningSpeed")) {
             float mineSpeed = tags.getInteger("MiningSpeed");
             float trueSpeed = mineSpeed / (100f);
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation16") + trueSpeed, x, base + offset * 10, 0xffffff);
-            offset++;
-        }
-
-        offset++;
-        int modifiers = tags.getInteger("Modifiers");
-        if (modifiers > 0)
-        {
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation18") + tags.getInteger("Modifiers"), x, base + offset * 10, 0xffffff);
-            offset++;
-        }
-        if (tags.hasKey("Tooltip1"))
-        {
-            fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation17"), x, base + offset * 10, 0xffffff);
-        }
-
-        boolean displayToolTips = true;
-        int tipNum = 0;
-        while (displayToolTips)
-        {
-            tipNum++;
-            String tooltip = "ModifierTip" + tipNum;
-            if (tags.hasKey(tooltip))
-            {
-                String tipName = tags.getString(tooltip);
-                fontRendererObj.drawString("- " + tipName, x, base + (offset + tipNum) * 10, 0xffffff);
-            }
-            else
-                displayToolTips = false;
+            write(StatCollector.translateToLocal("gui.toolstation16") + trueSpeed);
         }
     }
 

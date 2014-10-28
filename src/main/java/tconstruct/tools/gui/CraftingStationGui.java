@@ -22,6 +22,7 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.accessory.AccessoryCore;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.crafting.PatternBuilder;
+import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.tools.*;
 import tconstruct.library.util.HarvestLevels;
 import tconstruct.tools.logic.CraftingStationLogic;
@@ -34,15 +35,6 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
     public GuiTextField text;
     public String title, body = "";
     CraftingStationLogic logic;
-
-    boolean hasMaterial;
-    boolean hasTool;
-    boolean hasArmor;
-    boolean hasAccessory;
-    ItemStack centerStack;
-    ToolMaterial materialEnum;
-    String centerTitle;
-    NBTTagCompound tags;
     
     public static final int CHEST_WIDTH = 116;
 
@@ -139,30 +131,29 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
 
     void drawToolStats (ItemStack stack)
     {
-        ToolStationGuiHelper.drawToolStats(stack, descTextLeft + 10, 0);
+        if(stack.getItem() instanceof IModifyable)
+            ToolStationGuiHelper.drawToolStats(stack, descTextLeft + 10, 0);
 
-        if (centerStack != stack)
+
+        int matID = PatternBuilder.instance.getPartID(stack);
+
+        if (matID != Short.MAX_VALUE && matID > 0)
         {
-            centerStack = stack;
-            hasAccessory = hasArmor = hasMaterial = hasTool = false;
+            ToolMaterial material = TConstructRegistry.getMaterial(matID);
 
-            int matID = PatternBuilder.instance.getPartID(stack);
-
-            if (matID != Short.MAX_VALUE)
-            {
-                materialEnum = TConstructRegistry.getMaterial(matID);
-                hasMaterial = true;
-                centerTitle = "\u00A7n" + materialEnum.localizedName();
-
-                drawMaterialStats();
-            }
+            if(material != null)
+                drawMaterialStats(material);
         }
     }
     
-    protected void drawMaterialStats()
+    protected void drawMaterialStats(ToolMaterial materialEnum)
     {
         final int baseX = descTextLeft + 8;
-        final int baseY = 24;
+        final int baseY = 8;
+
+        String centerTitle = "\u00A7n" + materialEnum.localizedName();
+
+        drawCenteredString(this.fontRendererObj, centerTitle, baseX + 55, baseY, 16777215);
 
         this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter4") + materialEnum.durability(), baseX, baseY + 16, 16777215);
         this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter5") + materialEnum.handleDurability() + "x", baseX, baseY + 27, 16777215);
