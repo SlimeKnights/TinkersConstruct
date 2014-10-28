@@ -77,9 +77,12 @@ public class ThrowingKnife extends AmmoWeapon {
 
     @Override
     protected Entity createProjectile(ItemStack reference, World world, EntityPlayer player, float accuracy) {
-        float speed = 1.5f;
+        return new ThrowingKnifeEntity(world, player, getProjectileSpeed(), accuracy, reference);
+    }
 
-        return new ThrowingKnifeEntity(world, player, speed, accuracy, reference);
+    @Override
+    public float getProjectileSpeed() {
+        return 1.5f;
     }
 
     @SideOnly(Side.CLIENT)

@@ -88,7 +88,7 @@ public abstract class AmmoWeapon extends AmmoItem implements IAccuracy, IWindup 
 
     @Override
     public String[] getTraits() {
-        return new String[] {"weapon", "projectile", "ammo", "windup"};
+        return new String[] {"weapon", "thrown", "ammo", "windup"};
     }
 
     @Override
@@ -114,6 +114,10 @@ public abstract class AmmoWeapon extends AmmoItem implements IAccuracy, IWindup 
     }
 
     protected abstract Entity createProjectile(ItemStack reference, World world, EntityPlayer player, float accuracy);
+
+    /** used for displaying the damage, return the value used for pseed in createProjectile/ProjectileBase constructor
+     */
+    public abstract float getProjectileSpeed();
 
     @SideOnly(Side.CLIENT)
     public CrosshairType getCrosshairType() { return CrosshairType.SQUARE; }

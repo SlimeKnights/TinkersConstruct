@@ -14,6 +14,7 @@ import tconstruct.library.tools.DualHarvestTool;
 import tconstruct.library.tools.HarvestTool;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.HarvestLevels;
+import tconstruct.library.weaponry.AmmoWeapon;
 import tconstruct.library.weaponry.IAmmo;
 import tconstruct.library.weaponry.ProjectileWeapon;
 
@@ -86,6 +87,9 @@ public final class ToolStationGuiHelper {
             // weapon?
             if (categories.contains("weapon"))
                 drawWeaponStats(tool, tags);
+            // throwing weapon?
+            if (categories.contains("thrown") && tool instanceof AmmoWeapon)
+                drawThrowingWeaponStats((AmmoWeapon) tool, tags);
             // projectile weapon?
             if (categories.contains("bow") && tool instanceof ProjectileWeapon)
                 drawProjectileWeaponStats((ProjectileWeapon) tool, tags, stack);
@@ -192,7 +196,7 @@ public final class ToolStationGuiHelper {
     private static void drawWeaponStats(ToolCore tool, NBTTagCompound tags)
     {
         // DAMAGE
-        int attack = (tags.getInteger("Attack")) + 1;
+        int attack = (tags.getInteger("Attack"));
 
         // factor in Stonebound
         float stoneboundDamage = -AbilityHelper.calcStoneboundBonus(tool, tags);
@@ -214,6 +218,23 @@ public final class ToolStationGuiHelper {
             String bloss = stoneboundDamage > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
             write(bloss + df.format(stoneboundDamage / 2f) + heart);
         }
+    }
+
+    private static void drawThrowingWeaponStats(AmmoWeapon weapon, NBTTagCompound tags) {
+        float attackf = (tags.getInteger("Attack"));
+        attackf *= weapon.getDamageModifier();
+        attackf *= weapon.getProjectileSpeed();
+
+        if (attackf < 1)
+            attackf = 1;
+
+        int attack = (int)attackf;
+
+        String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
+        if (attack % 2 == 0)
+            write(StatCollector.translateToLocal("gui.toolstation23") + attack / 2 + heart);
+        else
+            write(StatCollector.translateToLocal("gui.toolstation23") + df.format(attack / 2f) + heart);
     }
 
     private static void drawProjectileWeaponStats(ProjectileWeapon weapon, NBTTagCompound tags, ItemStack stack)
@@ -245,7 +266,7 @@ public final class ToolStationGuiHelper {
 
     private static void drawArmorStats(ArmorCore armor, NBTTagCompound tags, ItemStack stack)
     {
-// Damage reduction
+        // Damage reduction
         double damageReduction = tags.getDouble("DamageReduction");
         if(damageReduction > 0)
             write(StatCollector.translateToLocal("gui.toolstation19") + df.format(damageReduction));

@@ -111,7 +111,12 @@ public class Shuriken extends AmmoWeapon {
 
     @Override
     protected Entity createProjectile(ItemStack reference, World world, EntityPlayer player, float accuracy) {
-        return new ShurikenEntity(world, player, 1.9f, 0f, reference);
+        return new ShurikenEntity(world, player, getProjectileSpeed(), 0f, reference);
+    }
+
+    @Override
+    public float getProjectileSpeed() {
+        return 1.9f;
     }
 
     @Override

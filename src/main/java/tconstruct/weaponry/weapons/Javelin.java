@@ -164,11 +164,21 @@ public class Javelin extends AmmoWeapon {
     }
 
     @Override
+    public String[] getTraits() {
+        return new String[] {"weapon", "thrown", "ammo", "windup"};
+    }
+
+    @Override
     protected Entity createProjectile(ItemStack reference, World world, EntityPlayer player, float accuracy) {
         reference.getTagCompound().getCompoundTag("InfiTool").removeTag("Throwing"); // needed so the NBTs are equal
-        JavelinEntity entity = new JavelinEntity(world, player, 2.0f, accuracy, reference);
+        JavelinEntity entity = new JavelinEntity(world, player, getProjectileSpeed(), accuracy, reference);
 
         return entity;
+    }
+
+    @Override
+    public float getProjectileSpeed() {
+        return 2.0f;
     }
 
     @SideOnly(Side.CLIENT)
