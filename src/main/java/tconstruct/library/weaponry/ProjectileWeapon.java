@@ -4,9 +4,7 @@ import net.minecraft.init.Items;
 import net.minecraft.util.StatCollector;
 import tconstruct.client.TProxyClient;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.weaponry.TinkerWeaponry;
 import tconstruct.weaponry.client.CrosshairType;
-import tconstruct.util.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -91,10 +89,8 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
     /* Windup */
     public int getWindupTime(ItemStack itemStack) {
         NBTTagCompound toolTag = itemStack.getTagCompound().getCompoundTag("InfiTool");
-        return (int)((float)toolTag.getInteger("DrawSpeed")*windupModifier(itemStack));
+        return toolTag.getInteger("DrawSpeed");
     }
-
-    protected float windupModifier(ItemStack itemStack) { return 1.0f; }
 
     public float getWindupProgress(ItemStack itemStack, EntityPlayer player)
     {

@@ -16,11 +16,6 @@ public class ShortBow extends BowBaseAmmo {
     }
 
     @Override
-    protected float windupModifier(ItemStack itemStack) {
-        return 0.9f; // SHORT bows have a SHORTER windup because they're SHORT. hahahaha.... get it?
-    }
-
-    @Override
     public float minAccuracy(ItemStack itemStack) {
         return 1;
     }

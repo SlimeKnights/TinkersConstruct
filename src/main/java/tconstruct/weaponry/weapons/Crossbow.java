@@ -50,12 +50,6 @@ public class Crossbow extends ProjectileWeapon {
     }
 
     @Override
-    public int getWindupTime(ItemStack itemStack) {
-        NBTTagCompound toolTag = itemStack.getTagCompound().getCompoundTag("InfiTool");
-        return (int)((float)toolTag.getInteger("DrawSpeed") * 2.5f);
-    }
-
-    @Override
     public float getMinWindupProgress(ItemStack itemStack) {
         return 1.0f;
     }

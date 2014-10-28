@@ -32,11 +32,6 @@ public class LongBow extends BowBaseAmmo {
     }
 
     @Override
-    protected float windupModifier(ItemStack itemStack) {
-        return 1.5f;
-    }
-
-    @Override
     protected float projectileSpeedModifier(ItemStack itemStack) {
         return 1.5f;
     }

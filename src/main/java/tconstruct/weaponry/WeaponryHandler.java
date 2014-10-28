@@ -17,6 +17,8 @@ import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.event.ToolBuildEvent;
 import tconstruct.library.event.ToolCraftEvent;
 import tconstruct.library.tools.*;
+import tconstruct.weaponry.weapons.LongBow;
+import tconstruct.weaponry.weapons.ShortBow;
 
 public class WeaponryHandler {
     // Provides ammo-items with the necessary NBT
@@ -97,6 +99,7 @@ public class WeaponryHandler {
             return;
 
         NBTTagCompound tags = event.toolTag.getCompoundTag("InfiTool");
+        ProjectileWeapon weapon = (ProjectileWeapon)event.tool;
 
         int drawSpeed = 0;
         float flightSpeed = 0;
@@ -112,6 +115,13 @@ public class WeaponryHandler {
 
             drawSpeed = (int) ((top.drawspeed + bottom.drawspeed) / 2f * string.drawspeedModifier);
             flightSpeed = (top.flightSpeedMax + bottom.flightSpeedMax)/2 * string.flightSpeedModifier;
+
+            // SHORT bows have a SHORTER windup because they're SHORT. hahahaha.... get it?
+            if(event.tool instanceof ShortBow)
+                drawSpeed *= 0.9;
+            // longbows have LONGER drawspeed. LOGIC!
+            if(event.tool instanceof LongBow)
+                drawSpeed *= 1.5f;
         }
         else if(event.tool instanceof Crossbow)
         {
@@ -120,6 +130,10 @@ public class WeaponryHandler {
 
             drawSpeed = (int) ((float)top.drawspeed * string.drawspeedModifier);
             flightSpeed = (top.flightSpeedMax * string.flightSpeedModifier);
+
+            // crossbows are more efficient the higher the base drawspeed is. So the higher the drawspeed, the more bonus you get
+            drawSpeed *= 2.5f;
+            drawSpeed -= drawSpeed*0.25f;
         }
         else
             return;
