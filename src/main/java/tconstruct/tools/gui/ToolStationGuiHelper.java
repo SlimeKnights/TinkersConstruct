@@ -15,6 +15,7 @@ import tconstruct.library.tools.HarvestTool;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.HarvestLevels;
 import tconstruct.library.weaponry.IAmmo;
+import tconstruct.library.weaponry.ProjectileWeapon;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -86,8 +87,8 @@ public final class ToolStationGuiHelper {
             if (categories.contains("weapon"))
                 drawWeaponStats(tool, tags);
             // projectile weapon?
-            if (categories.contains("bow"))
-                drawProjectileWeaponStats(tags);
+            if (categories.contains("bow") && tool instanceof ProjectileWeapon)
+                drawProjectileWeaponStats((ProjectileWeapon) tool, tags, stack);
             // projectile?
             if (categories.contains("projectile"))
                 drawProjectileStats(tags);
@@ -215,15 +216,15 @@ public final class ToolStationGuiHelper {
         }
     }
 
-    private static void drawProjectileWeaponStats(NBTTagCompound tags)
+    private static void drawProjectileWeaponStats(ProjectileWeapon weapon, NBTTagCompound tags, ItemStack stack)
     {
         // drawspeed
-        final int drawSpeed = tags.getInteger("DrawSpeed");
+        final int drawSpeed = weapon.getWindupTime(stack);
         final float trueDraw = drawSpeed / 20f;
         write(StatCollector.translateToLocal("gui.toolstation6") + df.format(trueDraw) + "s");
 
         // flightspeed
-        final int flightSpeed = tags.getInteger("FlightSpeed");
+        final float flightSpeed = weapon.getProjectileSpeed(stack);
         write(StatCollector.translateToLocal("gui.toolstation7") + df.format(flightSpeed) + "x");
     }
 
