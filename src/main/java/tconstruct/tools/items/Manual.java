@@ -18,8 +18,8 @@ import tconstruct.library.TConstructRegistry;
 
 public class Manual extends CraftingItem
 {
-    static String[] name = new String[] { "beginner", "toolstation", "smeltery", "diary" };
-    static String[] textureName = new String[] { "tinkerbook_diary", "tinkerbook_toolstation", "tinkerbook_smeltery", "tinkerbook_blue" };
+    static String[] name = new String[] { "beginner", "toolstation", "smeltery", "diary", "weaponry" };
+    static String[] textureName = new String[] { "tinkerbook_diary", "tinkerbook_toolstation", "tinkerbook_smeltery", "tinkerbook_blue", "tinkerbook_green" };
 
     public Manual()
     {
@@ -50,6 +50,8 @@ public class Manual extends CraftingItem
             return TProxyClient.manualData.toolStation;
         case 2:
             return TProxyClient.manualData.smeltery;
+        case 4:
+            return TProxyClient.manualData.weaponry;
         default:
             return TProxyClient.manualData.diary;
         }

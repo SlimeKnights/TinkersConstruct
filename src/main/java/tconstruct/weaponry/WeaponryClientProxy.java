@@ -1,6 +1,9 @@
 package tconstruct.weaponry;
 
+import mantle.lib.client.MantleClientRegistry;
+import net.minecraft.init.Items;
 import tconstruct.client.AmmoItemRenderer;
+import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.entity.ProjectileBase;
 import tconstruct.weaponry.client.AmmoSlotHandler;
 import tconstruct.weaponry.client.CrosshairHandler;
@@ -39,6 +42,7 @@ public class WeaponryClientProxy extends WeaponryCommonProxy {
         registerMaterialRendering();
 
         buttons();
+        registerManualIcons();
     }
 
     private void registerRenderers()
@@ -158,5 +162,16 @@ public class WeaponryClientProxy extends WeaponryCommonProxy {
             String locString = String.format("gui.toolstation.%s.desc", tools[i].getToolName().toLowerCase());
             TConstructClientRegistry.addTierTwoButton(icons[i][0], icons[i][1], icons[i][2], coords[i*2], coords[i*2+1], tools[i].getLocalizedToolName(), locString, Reference.RESOURCE, tex);
         }
+    }
+
+
+    /* Manual Stuff */
+    public void registerManualIcons ()
+    {
+        MantleClientRegistry.registerManualIcon("throwingknifeIcon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.knifeBlade, 1, TinkerTools.MaterialID.Iron), new ItemStack(TinkerTools.toolRod, 1, 11), null, ""));
+        MantleClientRegistry.registerManualIcon("shortbowIcon", ToolBuilder.instance.buildTool(new ItemStack(TinkerWeaponry.partBowLimb, 1, TinkerTools.MaterialID.Wood), new ItemStack(TinkerWeaponry.bowstring, 1, 0), new ItemStack(TinkerWeaponry.partBowLimb, 1, TinkerTools.MaterialID.Wood), ""));
+        MantleClientRegistry.registerManualIcon("arrowIcon", ToolBuilder.instance.buildTool(new ItemStack(TinkerWeaponry.arrowhead, 1, TinkerTools.MaterialID.Flint), new ItemStack(Items.stick), new ItemStack(TinkerWeaponry.fletching, 1, 0), ""));
+
+        MantleClientRegistry.registerManualIcon("weaponrybook", new ItemStack(TinkerTools.manualBook, 1, 4));
     }
 }

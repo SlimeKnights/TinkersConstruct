@@ -16,6 +16,7 @@ public class ManualInfo
     BookData toolStation = new BookData();
     BookData smeltery = new BookData();
     BookData diary = new BookData();
+    BookData weaponry = new BookData();
 
     /*        diary = readManual("/assets/tinker/manuals/diary.xml", dbFactory);
     volume1 = readManual("/assets/tinker/manuals/firstday.xml", dbFactory);
@@ -29,7 +30,7 @@ public class ManualInfo
         toolStation = initManual(toolStation, "tconstruct.manual.toolstation", "\u00a7o" + StatCollector.translateToLocal("manual2.tooltip"), side == Side.CLIENT ? TProxyClient.volume2 : null, "tinker:tinkerbook_toolstation");
         smeltery = initManual(smeltery, "tconstruct.manual.smeltery", "\u00a7o" + StatCollector.translateToLocal("manual3.tooltip"), side == Side.CLIENT ? TProxyClient.smelter : null, "tinker:tinkerbook_smeltery");
         diary = initManual(diary, "tconstruct.manual.diary", "\u00a7o" + StatCollector.translateToLocal("manual4.tooltip"), side == Side.CLIENT ? TProxyClient.diary : null, "tinker:tinkerbook_blue");
-
+        weaponry = initManual(weaponry, "tconstruct.manual.weaponry", "\u00a7o" + StatCollector.translateToLocal("manual5.tooltip"), side == Side.CLIENT ? TProxyClient.weaponry : null, "tinker:tinkerbook_green");
     }
 
     public BookData initManual (BookData data, String unlocName, String toolTip, Document xmlDoc, String itemImage)

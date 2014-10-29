@@ -3,6 +3,7 @@ package tconstruct.client;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import javax.xml.parsers.*;
+
 import mantle.client.SmallFontRenderer;
 import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.client.Minecraft;
@@ -17,8 +18,7 @@ import tconstruct.armor.player.TPlayerStats;
 import tconstruct.common.TProxyCommon;
 import tconstruct.tools.items.ManualInfo;
 
-public class TProxyClient extends TProxyCommon
-{
+public class TProxyClient extends TProxyCommon {
     public static DecimalFormat df = new DecimalFormat("##.#");
 
     /* TODO: Split this class up into its respective parts */
@@ -27,15 +27,13 @@ public class TProxyClient extends TProxyCommon
     public static Minecraft mc;
     public static RenderItem itemRenderer = new RenderItem();
 
-    public void initialize ()
-    {
+    public void initialize() {
         registerRenderer();
         readManuals();
     }
 
     /* Registers any rendering code. */
-    public void registerRenderer ()
-    {
+    public void registerRenderer() {
         Minecraft mc = Minecraft.getMinecraft();
         smallFontRenderer = new SmallFontRenderer(mc.gameSettings, new ResourceLocation("textures/font/ascii.png"), mc.renderEngine, false);
     }
@@ -44,68 +42,45 @@ public class TProxyClient extends TProxyCommon
     public static Document volume1;
     public static Document volume2;
     public static Document smelter;
+    public static Document weaponry;
     public static ManualInfo manualData;
 
-    public void readManuals ()
-    {
+    public void readManuals() {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-	String CurrentLanguage = Minecraft.getMinecraft().getLanguageManager().getCurrentLanguage().getLanguageCode();
-		
-	Document diary_cl = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/diary.xml", dbFactory);
-	Document volume1_cl = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/firstday.xml", dbFactory);
-	Document volume2_cl = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/materials.xml", dbFactory);
-	Document smelter_cl = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/smeltery.xml", dbFactory);
-		
-	diary = readManual("/assets/tinker/manuals/en_US/diary.xml", dbFactory);
-	volume1 = readManual("/assets/tinker/manuals/en_US/firstday.xml", dbFactory);
-	volume2 = readManual("/assets/tinker/manuals/en_US/materials.xml", dbFactory);
-	smelter = readManual("/assets/tinker/manuals/en_US/smeltery.xml", dbFactory);
-		
-	if(diary_cl != null)
-	{
-		diary = diary_cl;
-	}
-		
-	if(volume1_cl != null)
-	{
-		volume1 = volume1_cl;
-	}
-		
-	if(volume2_cl != null)
-	{
-		volume2 = volume2_cl;
-	}
-		
-	if(smelter_cl != null)
-	{
-		smelter = smelter_cl;
-	}
-			
-	initManualIcons();
+        String CurrentLanguage = Minecraft.getMinecraft().getLanguageManager().getCurrentLanguage().getLanguageCode();
+
+        Document diary_cl = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/diary.xml", dbFactory);
+        Document volume1_cl = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/firstday.xml", dbFactory);
+        Document volume2_cl = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/materials.xml", dbFactory);
+        Document smelter_cl = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/smeltery.xml", dbFactory);
+        Document weaponry_cl = readManual("/assets/tinker/manuals/" + CurrentLanguage + "/weaponry.xml", dbFactory);
+
+        diary = diary_cl != null ? diary_cl : readManual("/assets/tinker/manuals/en_US/diary.xml", dbFactory);
+        volume1 = volume1_cl != null ? volume1_cl : readManual("/assets/tinker/manuals/en_US/firstday.xml", dbFactory);
+        volume2 = volume2_cl != null ? volume2_cl : readManual("/assets/tinker/manuals/en_US/materials.xml", dbFactory);
+        smelter = smelter_cl != null ? smelter_cl : readManual("/assets/tinker/manuals/en_US/smeltery.xml", dbFactory);
+        weaponry = weaponry_cl != null ? weaponry_cl : readManual("/assets/tinker/manuals/en_US/weaponry.xml", dbFactory);
+
+        initManualIcons();
         initManualRecipes();
         initManualPages();
         manualData = new ManualInfo();
     }
 
-    Document readManual (String location, DocumentBuilderFactory dbFactory)
-    {
-        try
-        {
+    Document readManual(String location, DocumentBuilderFactory dbFactory) {
+        try {
             InputStream stream = TConstruct.class.getResourceAsStream(location);
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(stream);
             doc.getDocumentElement().normalize();
             return doc;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public void initManualIcons ()
-    {
+    public void initManualIcons() {
         MantleClientRegistry.registerManualIcon("torch", new ItemStack(Blocks.torch));
         MantleClientRegistry.registerManualIcon("sapling", new ItemStack(Blocks.sapling));
         MantleClientRegistry.registerManualIcon("workbench", new ItemStack(Blocks.crafting_table));
@@ -121,34 +96,29 @@ public class TProxyClient extends TProxyCommon
         MantleClientRegistry.registerManualIcon("netherrack", new ItemStack(Blocks.netherrack));
     }
 
-    public void initManualRecipes ()
-    {
+    public void initManualRecipes() {
     }
 
-    void initManualPages ()
-    {
+    void initManualPages() {
 
     }
 
-    public static Document getManualFromStack (ItemStack stack)
-    {
-        switch (stack.getItemDamage())
-        {
-        case 0:
-            return volume1;
-        case 1:
-            return volume2;
-        case 2:
-            return smelter;
-        case 3:
-            return diary;
+    public static Document getManualFromStack(ItemStack stack) {
+        switch (stack.getItemDamage()) {
+            case 0:
+                return volume1;
+            case 1:
+                return volume2;
+            case 2:
+                return smelter;
+            case 3:
+                return diary;
         }
 
         return null;
     }
 
-    public void recalculateHealth ()
-    {
+    public void recalculateHealth() {
         ArmorProxyClient.armorExtended.recalculateHealth(mc.thePlayer, TPlayerStats.get(mc.thePlayer));
     }
 
