@@ -1,5 +1,6 @@
 package tconstruct.weaponry.weapons;
 
+import tconstruct.library.TConstructRegistry;
 import tconstruct.weaponry.TinkerWeaponry;
 import tconstruct.weaponry.ammo.BoltAmmo;
 import tconstruct.weaponry.entity.BoltEntity;
@@ -415,6 +416,10 @@ public class Crossbow extends ProjectileWeapon {
     @Override
     public void buildTool (int id, String name, List list)
     {
+        // does the material have a bow material?
+        if(TConstructRegistry.getBowMaterial(id) == null)
+            return;
+
         // all creative bows use regular bowstring
         ItemStack headStack = new ItemStack(getHeadItem(), 1, id);
         ItemStack handleStack = new ItemStack(getHandleItem(), 1, id);

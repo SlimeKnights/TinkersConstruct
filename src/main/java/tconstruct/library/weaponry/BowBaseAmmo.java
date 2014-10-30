@@ -1,6 +1,7 @@
 package tconstruct.library.weaponry;
 
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.tools.BowMaterial;
 import tconstruct.library.tools.BowstringMaterial;
 import tconstruct.weaponry.ammo.ArrowAmmo;
 import tconstruct.weaponry.entity.ArrowEntity;
@@ -136,6 +137,10 @@ public abstract class BowBaseAmmo extends ProjectileWeapon {
     @Override
     public void buildTool (int id, String name, List list)
     {
+        // does the material have a bow material?
+        if(TConstructRegistry.getBowMaterial(id) == null)
+            return;
+
         // all creative bows use regular bowstring
         ItemStack handleStack = new ItemStack(getHandleItem(), 1, 0); // regular bowstring
         ItemStack accessoryStack = getPartAmount() > 2 ? new ItemStack(getAccessoryItem(), 1, id) : null;

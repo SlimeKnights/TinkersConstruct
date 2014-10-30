@@ -82,6 +82,9 @@ public class BoltAmmo extends AmmoItem {
     @Override
     public void buildTool (int id, String name, List list)
     {
+        if(TConstructRegistry.getArrowMaterial(id) == null)
+            return;
+
         // dual material head: we use wooden shafts
         ItemStack headStack = DualMaterialToolPart.createDualMaterial(getHeadItem(), 0, id); // wooden shaft, material head
         ItemStack handleStack = new ItemStack(getAccessoryItem(), 1, 0); // feather Fletchling

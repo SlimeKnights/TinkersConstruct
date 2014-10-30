@@ -2,6 +2,7 @@ package tconstruct.weaponry.ammo;
 
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.tools.ArrowMaterial;
 import tconstruct.library.tools.CustomMaterial;
 import tconstruct.library.tools.FletchingMaterial;
 import tconstruct.library.tools.FletchlingLeafMaterial;
@@ -97,6 +98,9 @@ public class ArrowAmmo extends AmmoItem {
     @Override
     public void buildTool (int id, String name, List list)
     {
+        if(TConstructRegistry.getArrowMaterial(id) == null)
+            return;
+
         ItemStack handleStack = new ItemStack(getHandleItem(), 1, 0); // wooden shaft
         ItemStack accessoryStack = new ItemStack(getAccessoryItem(), 1, 0); // feather fletchling
 
