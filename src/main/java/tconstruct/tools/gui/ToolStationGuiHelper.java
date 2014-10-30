@@ -135,7 +135,7 @@ public final class ToolStationGuiHelper {
 
     private static void drawAmmo(IAmmo ammoItem, ItemStack stack)
     {
-        final int max = ammoItem.getAmmoCount(stack);
+        final int max = ammoItem.getMaxAmmo(stack);
         final int current = ammoItem.getAmmoCount(stack);
 
         write(StatCollector.translateToLocal("gui.toolstation21") + current + "/" +  max);
