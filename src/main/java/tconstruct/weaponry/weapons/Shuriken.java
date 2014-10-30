@@ -101,6 +101,9 @@ public class Shuriken extends AmmoWeapon {
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+        if(getAmmoCount(stack) <= 0)
+            return stack;
+
         launchProjectile(stack, world, player);
 
         // this is only used for the animation

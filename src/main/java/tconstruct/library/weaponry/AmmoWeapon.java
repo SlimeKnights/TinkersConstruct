@@ -31,7 +31,8 @@ public abstract class AmmoWeapon extends AmmoItem implements IAccuracy, IWindup 
     @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
-        player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+        if(getAmmoCount(stack) > 0)
+            player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
         return stack;
     }
 
