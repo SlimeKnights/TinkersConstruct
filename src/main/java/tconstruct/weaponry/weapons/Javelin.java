@@ -123,7 +123,7 @@ public class Javelin extends AmmoWeapon {
             case 0:
                 return "_javelin_head";
             case 1:
-                return ""; // no broken, since it runs out of ammo
+                return "_javelin_head_broken"; // no broken, since it runs out of ammo
             case 2:
                 return "_javelin_handle";
             case 3:
@@ -145,7 +145,12 @@ public class Javelin extends AmmoWeapon {
 
     @Override
     public float getAmmoModifier() {
-        return 0.02f;
+        return 0.2f;
+    }
+
+    @Override
+    public float getDurabilityModifier() {
+        return 0.1f;
     }
 
     @Override

@@ -106,6 +106,8 @@ public class TinkerWeaponry {
         ItemStack redstoneBlock = new ItemStack(Blocks.redstone_block);
         ModifyBuilder.registerModifier(new ModWindup(2, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
         ModifyBuilder.registerModifier(new ModAmmoRestock());
+
+        TConstructRegistry.registerActiveToolMod(new WeaponryActiveToolMod());
     }
 
     @Handler
