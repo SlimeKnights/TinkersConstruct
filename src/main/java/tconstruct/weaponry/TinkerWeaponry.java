@@ -1,6 +1,7 @@
 package tconstruct.weaponry;
 
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -111,7 +112,9 @@ public class TinkerWeaponry {
     public void postInit(FMLPostInitializationEvent event)
     {
         // this handler takes care that ammo weapons get ammo.
-        MinecraftForge.EVENT_BUS.register(new WeaponryHandler());
+        WeaponryHandler weaponryHandler = new WeaponryHandler();
+        MinecraftForge.EVENT_BUS.register(weaponryHandler);
+        FMLCommonHandler.instance().bus().register(weaponryHandler);
 
         proxy.init();
     }

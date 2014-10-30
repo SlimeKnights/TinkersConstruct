@@ -612,7 +612,9 @@ public class TinkerTools
         GameRegistry.addShapelessRecipe(new ItemStack(TinkerTools.manualBook, 2, 1), new ItemStack(TinkerTools.manualBook, 1, 1), Items.book);
         GameRegistry.addShapelessRecipe(new ItemStack(TinkerTools.manualBook, 1, 2), new ItemStack(TinkerTools.manualBook, 1, 1));
         GameRegistry.addShapelessRecipe(new ItemStack(TinkerTools.manualBook, 2, 2), new ItemStack(TinkerTools.manualBook, 1, 2), Items.book);
-        GameRegistry.addShapelessRecipe(new ItemStack(TinkerTools.manualBook, 1, 3), new ItemStack(TinkerTools.manualBook, 1, 2));
+        GameRegistry.addShapelessRecipe(new ItemStack(TinkerTools.manualBook, 2, 4), new ItemStack(TinkerTools.manualBook, 1, 4), Items.book);
+        GameRegistry.addShapelessRecipe(new ItemStack(TinkerTools.manualBook, 1, 4), new ItemStack(TinkerTools.manualBook, 1, 2));
+        GameRegistry.addShapelessRecipe(new ItemStack(TinkerTools.manualBook, 1, 3), new ItemStack(TinkerTools.manualBook, 1, 4));
         // alternative Vanilla Book Recipe
         GameRegistry.addShapelessRecipe(new ItemStack(Items.book), Items.paper, Items.paper, Items.paper, Items.string, TinkerTools.blankPattern, TinkerTools.blankPattern);
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.name_tag), "P~ ", "~O ", "  ~", '~', Items.string, 'P', Items.paper, 'O', "slimeball"));

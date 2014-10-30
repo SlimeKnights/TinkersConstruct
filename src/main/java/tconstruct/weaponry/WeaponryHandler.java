@@ -1,5 +1,8 @@
 package tconstruct.weaponry;
 
+import cpw.mods.fml.common.gameevent.PlayerEvent;
+import tconstruct.armor.player.TPlayerStats;
+import tconstruct.tools.TinkerTools;
 import tconstruct.weaponry.ammo.ArrowAmmo;
 import tconstruct.weaponry.ammo.BoltAmmo;
 import tconstruct.library.tools.DualMaterialToolPart;
@@ -21,6 +24,24 @@ import tconstruct.weaponry.weapons.LongBow;
 import tconstruct.weaponry.weapons.ShortBow;
 
 public class WeaponryHandler {
+    @SubscribeEvent
+    public void onCrafting (PlayerEvent.ItemCraftedEvent event)
+    {
+        Item item = event.crafting.getItem();
+        if (!event.player.worldObj.isRemote)
+        {
+            if (item == Item.getItemFromBlock(TinkerTools.toolStationWood))
+            {
+                TPlayerStats stats = TPlayerStats.get(event.player);
+                if (!stats.weaponryManual)
+                {
+                    stats.weaponryManual = true;
+                    AbilityHelper.spawnItemAtPlayer(event.player, new ItemStack(TinkerTools.manualBook, 1, 4));
+                }
+            }
+        }
+    }
+
     // Provides ammo-items with the necessary NBT
     @SubscribeEvent
     public void onAmmoCrafted(ToolCraftEvent.NormalTool event)
