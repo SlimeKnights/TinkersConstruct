@@ -795,14 +795,22 @@ gui.toolstation.dagger.desc=The Dagger is a short blade that can be thrown.\n\nS
 gui.toolstation.fryingpan.desc=The Frying Pan is a heavy weapon that uses sheer weight to stun foes.\n\nSpecial Ability: Block\nNatural Ability: Heavy\nShift+rClick: Place Frying Pan\nDamage: Low\nDurability: High\n\nRequired parts:\n- Pan\n- Handle
 gui.toolstation.battlesign.desc=The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability:\nDamage Reflector\n\nNatural Ability: Writable\n\nDamage: Low\nDurability: Average
 gui.toolstation.chisel.desc=The Chisel is a utility tool that carves shapes into blocks.\n\nCrafting Grid:\n- Shape Items\nSpecial Ability: Chisel\nDurability: Average\n\nRequired parts:\n- Chisel Head\n- Handle
-gui.toolstation.shortbow.desc=The Shortbow is a ranged weapon. It fires arrows quickly and precisely at its foes.\n\nDraw Speed: Quick\n\nRequired parts:\n- Tool Rod\n- Bowstring\n- Tool Rod
-gui.toolstation.arrow.desc=Arrows are projectiles usually fired from bows.\n\nRequired parts:\n- Arrowhead\n- Tool Rod\n- Fletching
 gui.toolstation.hammer.desc=The Hammer is a broad mining tool. It harvests blocks in a wide range and is effective against undead.\n\nNatural Abilities:\nArea of Effect\n- (3x3)\n- Smite\n\nDurability: High
 gui.toolstation.lumberaxe.desc=The Lumber Axe is a broad chopping tool. It can fell entire trees or gather wood in a wide range.\n\nNatural Abilities:\nArea of Effect\n- Fell Trees\n- (3x3x3)\n\nDurability: Average
 gui.toolstation.excavator.desc=The Excavator is a broad digging tool. It harvests soil and snow in a wide range.\n\nNatural Ability:\n- Area of Effect\n- (3x3)\n\nDurability: Average
 gui.toolstation.scythe.desc=The Scythe is a broad reaping tool. It is effective on plants and attacks enemies in a wide range.\n\nNatural Ability:\nArea of Effect\n- (3x3x3)\n\nDurability: Average\nDamage: Low, AoE
 gui.toolstation.cleaver.desc=The Cleaver is a heavy defensive weapon. It has powerful strikes, but is difficult to wield.\n\nSpecial Ability: Block\nNatural Ability:\n- Beheading\n\nDamage: High\nDurability: Average
 gui.toolstation.battleaxe.desc=The Battleaxe is a heavy offensive weapon. It is capable of bringing down small trees and can send foes flying.\n\nSpecial Ability: Block\nNatural Abilities:\n- Knockback\n- Area of Effect\n- (1x9)\n\nDamage: Average\nDurability: Average
+
+gui.toolstation.shortbow.desc=The Shortbow is a ranged weapon. It fires arrows quickly and precisely at its foes.\n\nDraw Speed: Quick\n\nRequired parts:\n- Bow Limb\n- Bowstring\n- Bow Limb
+gui.toolstation.longbow.desc=The Longbow is a ranged weapon. It has greater range than a shortbow and is able to shoot heavier arrows, but performs worse with light arrows.\n\n Required parts:\n- Bow Limb\n- Bowstring\n- Bow Limb\n- Large Plate
+gui.toolstation.arrowammo.desc=Arrows are projectiles usually fired from bows.\n\nRequired parts:\n- Arrowhead\n- Tool Rod\n- Fletching
+gui.toolstation.crossbow.desc=The crossbow is a precise ranged weapon. It loads bolts, that are fired on trigger.\n\nSpecial Ability:\n- Reduced reload time with harder materials
+gui.toolstation.boltammo.desc=Bolts are projectiles fired from Crossbows.\n\nRequired Parts:\n- Bolt Core\n- Fletching\n\nBolt cores are obtained by pouring metal over a tool rod in a Casting Table.
+gui.toolstation.throwingknife.desc=Mid ranged throwing weapon. Hold to take aim, release to throw.\n\nDamage: Medium\nCapacity: Medium
+gui.toolstation.shuriken.desc=Short ranged throwing weapon. Thrown instantly.\n\nDamage: Low\nCapacity: High
+gui.toolstation.javelin.desc=Ranged Melee weapon hybrid. Potent as a melee weapon, devasting at range.\n\nDamage: High\nCapacity: Low
+
 
 material.wood=Wood
 material.wood.display=Wooden
