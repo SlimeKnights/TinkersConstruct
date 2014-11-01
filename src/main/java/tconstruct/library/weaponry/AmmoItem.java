@@ -37,7 +37,7 @@ public abstract class AmmoItem extends ToolCore implements IAmmo {
     @Override
     public int getMaxAmmo(NBTTagCompound tags) {
         float dur = tags.getInteger("TotalDurability");
-        return (int)Math.ceil(dur*getAmmoModifier());
+        return Math.max(1, (int)Math.ceil(dur*getAmmoModifier()));
     }
 
     @Override
