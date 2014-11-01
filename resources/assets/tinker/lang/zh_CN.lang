@@ -308,9 +308,9 @@ Smeltery.Brick.Creeper.name=雕琢焦黑石砖块
 Smeltery.Channel.name=浇注道
 block.slime.soil.dirt.name=史莱姆土
 
-LavaTank.Tank.name=冶炼槽
-LavaTank.Gague.name=冶炼炉玻璃
-LavaTank.Window.name=冶炼炉视窗
+LavaTank.Tank.name=焦黑储罐
+LavaTank.Gague.name=焦黑玻璃
+LavaTank.Window.name=焦黑视窗
 
 tile.landmine.name=地雷
 
