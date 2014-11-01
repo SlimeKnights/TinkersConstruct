@@ -24,4 +24,9 @@ public class BoltEntity extends ArrowEntity {
     protected void playHitBlockSound(int x, int y, int z) {
         this.playSound("random.bowhit", 1.0F, 1.0F);
     }
+
+    @Override
+    protected float armorPenetrationModifier() {
+        return 1.5f;
+    }
 }

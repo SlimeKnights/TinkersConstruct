@@ -98,7 +98,7 @@ public class WeaponryHandler {
                 fletching = (FletchingMaterial) TConstructRegistry.getCustomMaterial(tags.getInteger("Accessory"), FletchlingLeafMaterial.class);
 
             int durability = (int)((float)headMat.durability() * coreMat.handleDurability() * fletching.durabilityModifier);
-            float weight = head.mass + core.mass;
+            float weight = head.mass + core.mass*1.5f;
             float accuracy = fletching.accuracy;
             float breakChance = fletching.breakChance*3;
             float shoddy = (headMat.shoddy() + coreMat.shoddy())/2f;

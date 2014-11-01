@@ -73,20 +73,23 @@ public class ArrowEntity extends ProjectileBase {
     @Override
     public boolean dealDamage(float damage, ToolCore ammo, NBTTagCompound tags, Entity entityHit)
     {
-        boolean dealtDamage;
+        boolean dealtDamage = false;
 
         //Minecraft.getMinecraft().thePlayer.sendChatMessage("Damage/Weight: " + damage + "  -  " + tags.getFloat("Mass"));
 
         // we take the weight, and shift the damage done towards armor piercing, the more weight the arrow/bolt has!
-        float shift = (tags.getFloat("Mass") - 0.7f);
+        float shift = (tags.getFloat("Mass") - 0.7f)*armorPenetrationModifier();
 
         if(shift < 0)
             shift = 0;
         if(shift > damage)
             shift = damage;
 
+        damage -= shift;
+
         // deal regular damage
-        dealtDamage = super.dealDamage(damage-shift, ammo, tags, entityHit);
+        if(damage > 0)
+            dealtDamage = super.dealDamage(damage, ammo, tags, entityHit);
 
         // deal armor piercing damage
         if(shift > 0) {
@@ -103,4 +106,6 @@ public class ArrowEntity extends ProjectileBase {
 
         return dealtDamage;
     }
+
+    protected float armorPenetrationModifier() { return 1.0f; }
 }
