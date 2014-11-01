@@ -19,6 +19,9 @@ import net.minecraftforge.common.ForgeHooks;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /* Base class for tools that should be harvesting blocks */
 
 public abstract class HarvestTool extends ToolCore
@@ -117,6 +120,17 @@ public abstract class HarvestTool extends ToolCore
     protected abstract Material[] getEffectiveMaterials ();
 
     protected abstract String getHarvestType ();
+
+    @Override
+    public Set<String> getToolClasses(ItemStack stack) {
+        Set<String> set = new HashSet<String>();
+
+        if(stack != null && stack.getItem() instanceof  HarvestTool) {
+            set.add(((HarvestTool) stack.getItem()).getHarvestType());
+        }
+
+        return set;
+    }
 
     public boolean isEffective (Block block, int meta)
     {
