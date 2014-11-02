@@ -27,12 +27,27 @@ public class Shuriken extends AmmoWeapon {
 
     @Override
     public float getDamageModifier() {
-        return 0.4f;
+        return 0.8f;
     }
 
     @Override
     public int getPartAmount() {
         return 4;
+    }
+
+    @Override
+    public int durabilityTypeHandle() {
+        return 2;
+    }
+
+    @Override
+    public int durabilityTypeAccessory() {
+        return 2;
+    }
+
+    @Override
+    public int durabilityTypeExtra() {
+        return 2;
     }
 
     @Override
@@ -174,4 +189,6 @@ public class Shuriken extends AmmoWeapon {
     public CrosshairType getCrosshairType() {
         return CrosshairType.TIP;
     }
+
+
 }
