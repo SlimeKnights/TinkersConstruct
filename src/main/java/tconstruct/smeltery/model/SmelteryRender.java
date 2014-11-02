@@ -77,6 +77,9 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                     base += height;
                     liquidBase += countSize;
 
+                    if(renderHeight < 0.01)
+                        renderHeight = 0.01f;
+
                     renderer.setRenderBounds(0, renderBase, 0, 1, renderHeight, 1);
                     Fluid fluid = liquid.getFluid();
                     for (int xi = from.x; xi <= to.x; xi++)

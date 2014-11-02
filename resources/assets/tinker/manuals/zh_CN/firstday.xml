@@ -154,7 +154,7 @@ By Skyla</text>
 </page>
 
 <page type="text">
-<text>你安定下后，能开始以更有效的方法处理金属。冶炼厂超出了本书的范围，但一点合成将会帮助你起步。
+<text>安定下来后，能开始更高效地处理金属。冶炼厂不在本书范围内，但一点合成将会帮助你起步。
 
 注：处理所有的金属包括铁都需要冶炼厂。</text>
 </page>
@@ -225,88 +225,183 @@ By Skyla</text>
 </page>
 
 <page type="text">
-<text>之后的护甲强化部分还有诸多丢失和不定的名词.这些页面上的不能保证准确性.</text>
+<text>护甲强化
+
+后面的护甲强化部分似乎不太稳定.信息的准确性无法保证.</text>
+</page>
+
+<page type="sectionpage">
+<title>夜视</title>
+<text>胡萝卜和果汁对你的双眼有益,但对你的护目镜而言也是如此.
+夜视药水也能有所帮助.
+
+效果:
+- 夜视
+
+类型: 一次性
+可叠加: 否</text>
 </page>
 
 <page type="modifier">
-<text>夜视</text>
 <tooltype>travelgoggles</tooltype>
 <recipe>nightvision</recipe>
 </page>
 
-<page type="crafting">
-<text>闪避</text>
-<recipe>
- <name>dodge</name>
- <size>two</size>
-</recipe>
-</page>
+<page type="sectionpage">
+<title>躲避</title>
+<text>忍者 忍者.
 
-<page type="crafting">
-<text>隐匿</text>
-<recipe>
- <name>stealth</name>
- <size>two</size>
-</recipe>
+效果:
+- 你变得难以被击中
+
+类型: 一次性
+可叠加: 是</text>
 </page>
 
 <page type="modifier">
-<tooltype>travelwings</tooltype>
-<recipe>doublejump</recipe>
+<tooltype>travelvest</tooltype>
+<recipe>dodge</recipe>
+</page>
+
+<page type="sectionpage">
+<title>隐匿</title>
+<text>旅行套装保护性能不太出色.因此我用了一些魔法物品和隐形药水,让我自己更加隐蔽!
+
+效果:
+- 潜行时隐形
+
+效果: 一次性
+可叠加: 否</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelvest</tooltype>
+<recipe>stealth</recipe>
+</page>
+
+<page type="sectionpage">
+<title>羽落</title>
+<text>你已经获得了翅膀.如果小鸡能做到,那么你也可以.
+史莱姆块种类不限.
+
+效果:
+- 使你能在空中缓慢滑翔
+
+类型: 一次性
+可叠加: 是</text>
 </page>
 
 <page type="crafting">
-<text>弹跳</text>
-<recipe>
- <name>doublejump</name>
- <size>two</size>
-</recipe>
-</page>
-
-<page type="crafting">
-<text>羽落</text>
+<text>工匠工作台</text>
 <recipe>
  <name>featherfall</name>
  <size>three</size>
 </recipe>
 </page>
 
-<page type="crafting">
-<text>弹跳</text>
-<recipe>
- <name>doublejumpboots</name>
- <size>two</size>
-</recipe>
+<page type="sectionpage">
+<title>水行</title>
+<text>如果给我的靴子加上这些东西,我确信我就能在水上行走了.没错吧?
+
+效果:
+- 使你能在水上行走
+- 潜行下沉
+- 没有光环
+
+类型: 一次性
+可叠加: 否</text>
 </page>
 
 <page type="modifier">
-<text>水行</text>
 <tooltype>travelboots</tooltype>
 <recipe>waterwalk</recipe>
 </page>
 
+<page type="sectionpage">
+<title>铅靴</title>
+<text>这个铁家伙陪伴我很久了.我要带上它们,直到大洋底.
+观赏鱼类的绝佳选择.
+
+效果:
+- 使你能在水下行走
+- 让你无法游泳
+- 减慢移动速度.
+
+类型: 一次性
+可叠加: 否</text>
+</page>
+
 <page type="modifier">
-<text>铅靴</text>
 <tooltype>travelboots</tooltype>
 <recipe>leadboots</recipe>
 </page>
 
+<page type="sectionpage">
+<title>弹性</title>
+<text>当我跳到史莱姆垫上时,我会被弹起而且不会受到伤害.倘若我把这个装在我的鞋底,那也能起到缓冲作用了.
+
+效果:
+- 减小摔落冲击
+- 降低摔落伤害
+
+类型: 一次性
+可叠加: 是</text>
+</page>
+
 <page type="modifier">
-<text>蹦跶</text>
 <tooltype>travelboots</tooltype>
 <recipe>slimysoles</recipe>
 </page>
 
-<page type="modifier">
-<text>急迫</text>
-<tooltype>travelgloves</tooltype>
-<recipe>glovehaste</recipe>
+<page type="sectionpage">
+<title>极速</title>
+<text>给我的武器抹上红石能让它更快.为什么我在我的手上试试呢!
+
+效果:
+- 加快挖掘速度
+
+类型: 多次性
+可叠加: 是</text>
 </page>
 
 <page type="modifier">
-<text>指虎</text>
-<tooltype>travelgloves</tooltype>
-<recipe>gloveknuckles</recipe>
+<tooltype>travelglove</tooltype>
+<recipe>glovehaste</recipe>
+</page>
+
+<page type="sectionpage">
+<title>修复</title>
+<text>给护甲附上苔藓就能赋予它生命.这样一来它们就能自我修复.
+
+效果:
+- 工具缓慢自我修复
+- 阳光加快该过程
+- 能附在任何旅行套装上
+
+类型: 一次性
+可叠加: 是</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelmulti</tooltype>
+<recipe>moss</recipe>
+</page>
+
+<page type="sectionpage">
+<title>二段跳</title>
+<text>注入恶魂之泪,史莱姆和活塞机械的力量,应该就能让我自己跳得更高.
+
+效果:
+- 在跳跃时继续跳跃
+- 也能附给翅膀
+
+类型: 一次性
+可叠加: 是</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelmulti</tooltype>
+<recipe>doublejump</recipe>
 </page>
 
 </book>

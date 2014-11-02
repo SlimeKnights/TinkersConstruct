@@ -1007,6 +1007,7 @@ Effects:
 - Allows the tool to be charged with Redstone Flux
 - Uses energy instead of durability while charged
 - Available from Thermal Expansion
+- Tools must have at least 1/1000th of the batteries capacity in durability
 
 Type: Single-use
 Stackable: No</text>

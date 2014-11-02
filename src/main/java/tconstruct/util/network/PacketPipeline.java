@@ -122,6 +122,7 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Abstra
 
     public void registerPackets ()
     {
+        registerPacket(HealthUpdatePacket.class);
         registerPacket(DoubleJumpPacket.class);
         registerPacket(AccessoryInventoryPacket.class);
         registerPacket(SmelteryPacket.class);
