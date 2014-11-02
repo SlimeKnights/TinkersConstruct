@@ -2,14 +2,22 @@ package tconstruct.armor;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import java.util.*;
+
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.TConstruct;
 import tconstruct.armor.items.TravelGear;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.modifier.IModifyable;
+import tconstruct.util.network.HealthUpdatePacket;
 
 public class ArmorAbilities
 {
@@ -111,5 +119,18 @@ public class ArmorAbilities
                 }
             }
         }
+    }
+
+
+    @SubscribeEvent
+    public void dimensionChanged(PlayerEvent.PlayerChangedDimensionEvent event)
+    {
+        if(event.player == null || !(event.player instanceof EntityPlayerMP))
+            return;
+
+        // this callback is only called serverside
+        float oldHealth = event.player.getHealth();
+        // tell the client to update its hp
+        TConstruct.packetPipeline.sendTo(new HealthUpdatePacket(oldHealth), (net.minecraft.entity.player.EntityPlayerMP) event.player);
     }
 }

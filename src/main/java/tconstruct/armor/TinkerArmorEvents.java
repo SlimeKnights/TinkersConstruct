@@ -1,6 +1,7 @@
 package tconstruct.armor;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent;
 import net.minecraft.entity.boss.*;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.IMob;
@@ -10,6 +11,7 @@ import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import tconstruct.TConstruct;
 import tconstruct.armor.items.TravelWings;
+import tconstruct.armor.player.ArmorExtended;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.world.entity.BlueSlime;
