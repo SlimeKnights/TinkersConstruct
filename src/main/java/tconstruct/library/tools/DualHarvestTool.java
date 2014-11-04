@@ -57,7 +57,7 @@ public abstract class DualHarvestTool extends HarvestTool
             if (materials[i] == block.getMaterial())
             {
                 if (block.getHarvestLevel(meta) <= tags.getInteger("HarvestLevel"))
-                    AbilityHelper.calcDualToolSpeed(this, tags, false);
+                    return AbilityHelper.calcDualToolSpeed(this, tags, false);
                 return 0.1f;
             }
         }
@@ -67,7 +67,7 @@ public abstract class DualHarvestTool extends HarvestTool
             if (materials[i] == block.getMaterial())
             {
                 if (block.getHarvestLevel(meta) <= tags.getInteger("HarvestLevel2"))
-                    AbilityHelper.calcDualToolSpeed(this, tags, true);
+                    return AbilityHelper.calcDualToolSpeed(this, tags, true);
                 return 0.1f;
             }
         }
