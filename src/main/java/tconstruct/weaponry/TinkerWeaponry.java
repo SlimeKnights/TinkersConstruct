@@ -252,20 +252,20 @@ public class TinkerWeaponry {
         TConstructRegistry.addBowMaterial(MaterialID.BlueSlime,  21, 4.0f); // Blue Slime
         TConstructRegistry.addBowMaterial(MaterialID.Paper,      25, 2.3f); // Paper
         // Metal stuff has a lot of POW, but takes LONG to wind up since it's so hard
-        TConstructRegistry.addBowMaterial(MaterialID.Iron,       40, 5.2f); // Iron
-        TConstructRegistry.addBowMaterial(MaterialID.Steel,      50, 5.5f); // Steel
-        TConstructRegistry.addBowMaterial(MaterialID.PigIron,    30, 5.2f); // Pig Iron - it's meat!
-        TConstructRegistry.addBowMaterial(MaterialID.Ardite,     50, 4.5f); // Ardite
-        TConstructRegistry.addBowMaterial(MaterialID.Cobalt,     35, 5.2f); // Cobalt
-        TConstructRegistry.addBowMaterial(MaterialID.Manyullyn,  45, 4.5f); // Manyullyn
-        TConstructRegistry.addBowMaterial(MaterialID.Copper,     30, 5.1f); // Copper
-        TConstructRegistry.addBowMaterial(MaterialID.Bronze,     35, 5.2f); // Bronze
-        TConstructRegistry.addBowMaterial(MaterialID.Alumite,    35, 4.8f); // Alumite - a bit stone-ish since it has obsidian
+        TConstructRegistry.addBowMaterial(MaterialID.Iron,       50, 5.2f); // Iron
+        TConstructRegistry.addBowMaterial(MaterialID.Steel,      60, 5.5f); // Steel
+        TConstructRegistry.addBowMaterial(MaterialID.PigIron,    40, 5.2f); // Pig Iron - it's meat!
+        TConstructRegistry.addBowMaterial(MaterialID.Ardite,     60, 4.5f); // Ardite
+        TConstructRegistry.addBowMaterial(MaterialID.Cobalt,     45, 5.2f); // Cobalt
+        TConstructRegistry.addBowMaterial(MaterialID.Manyullyn,  55, 4.5f); // Manyullyn
+        TConstructRegistry.addBowMaterial(MaterialID.Copper,     40, 5.1f); // Copper
+        TConstructRegistry.addBowMaterial(MaterialID.Bronze,     45, 5.2f); // Bronze
+        TConstructRegistry.addBowMaterial(MaterialID.Alumite,    45, 4.8f); // Alumite - a bit stone-ish since it has obsidian
         // Stone doesn't bend. takes forever, has no pow. WHY WOULD YOU DO THAT
-        TConstructRegistry.addBowMaterial(MaterialID.Stone,      80, 1.0f); // Stone
-        TConstructRegistry.addBowMaterial(MaterialID.Flint,      80, 1.0f); // Flint
-        TConstructRegistry.addBowMaterial(MaterialID.Obsidian,   99, 1.0f); // Obsidian
-        TConstructRegistry.addBowMaterial(MaterialID.Netherrack, 70, 1.0f); // Netherrack
+        TConstructRegistry.addBowMaterial(MaterialID.Stone,      90, 1.0f); // Stone
+        TConstructRegistry.addBowMaterial(MaterialID.Flint,      90, 1.0f); // Flint
+        TConstructRegistry.addBowMaterial(MaterialID.Obsidian,   109, 1.0f); // Obsidian
+        TConstructRegistry.addBowMaterial(MaterialID.Netherrack, 80, 1.0f); // Netherrack
 
         // Arrow Head Materials: Material ID, mass, fragility
         TConstructRegistry.addArrowMaterial(MaterialID.Wood,        0.69F,  1.0F); //Wood
