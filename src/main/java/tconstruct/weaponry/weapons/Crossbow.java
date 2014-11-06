@@ -56,11 +56,6 @@ public class Crossbow extends ProjectileWeapon {
     }
 
     @Override
-    public float getProjectileSpeed(ItemStack itemStack) {
-        return super.getProjectileSpeed(itemStack);
-    }
-
-    @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
 

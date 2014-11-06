@@ -32,11 +32,6 @@ public class LongBow extends BowBaseAmmo {
     }
 
     @Override
-    protected float projectileSpeedModifier(ItemStack itemStack) {
-        return 1.5f;
-    }
-
-    @Override
     protected Entity createProjectile(ItemStack arrows, World world, EntityPlayer player, float speed, float accuracy) {
         if(arrows.getItem() instanceof ArrowAmmo)
         {

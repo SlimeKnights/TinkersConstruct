@@ -118,10 +118,8 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
     public float getProjectileSpeed(ItemStack itemStack)
     {
         NBTTagCompound toolTag = itemStack.getTagCompound().getCompoundTag("InfiTool");
-        return toolTag.getFloat("FlightSpeed") * projectileSpeedModifier(itemStack);
+        return toolTag.getFloat("FlightSpeed");
     }
-
-    protected float projectileSpeedModifier(ItemStack itemStack) { return 1.0f; }
 
     /* Bow usage */
     @Override

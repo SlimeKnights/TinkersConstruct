@@ -138,11 +138,14 @@ public class WeaponryHandler {
             flightSpeed = (top.flightSpeedMax + bottom.flightSpeedMax)/2 * string.flightSpeedModifier;
 
             // SHORT bows have a SHORTER windup because they're SHORT. hahahaha.... get it?
-            if(event.tool instanceof ShortBow)
+            if(event.tool instanceof ShortBow) {
                 drawSpeed *= 0.9;
+            }
             // longbows have LONGER drawspeed. LOGIC!
-            if(event.tool instanceof LongBow)
+            if(event.tool instanceof LongBow) {
                 drawSpeed *= 1.5f;
+                flightSpeed *= 1.3f;
+            }
         }
         else if(event.tool instanceof Crossbow)
         {
@@ -155,6 +158,9 @@ public class WeaponryHandler {
             // crossbows are more efficient the higher the base drawspeed is. So the higher the drawspeed, the more bonus you get
             drawSpeed *= 2.5f;
             drawSpeed -= drawSpeed*0.25f;
+
+            // crossbows are stronk
+            flightSpeed *= 1.5;
         }
         else
             return;
