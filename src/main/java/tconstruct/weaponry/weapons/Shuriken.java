@@ -119,7 +119,7 @@ public class Shuriken extends AmmoWeapon {
         if(getAmmoCount(stack) <= 0)
             return stack;
 
-        launchProjectile(stack, world, player);
+        launchProjectile(stack, world, player, 1);
 
         // this is only used for the animation
         player.setItemInUse(stack, this.getMaxItemUseDuration(stack));

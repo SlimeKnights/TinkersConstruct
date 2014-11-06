@@ -67,6 +67,7 @@ public abstract class AmmoWeapon extends AmmoItem implements IAccuracy, IWindup 
     public float minAccuracy(ItemStack itemStack) { return 0.5f; }
     public float maxAccuracy(ItemStack itemStack) { return 0.5f; }
 
+    @SideOnly(Side.CLIENT)
     public float getWindupProgress(ItemStack itemStack, EntityPlayer player)
     {
         // what are you doing!
@@ -80,11 +81,11 @@ public abstract class AmmoWeapon extends AmmoItem implements IAccuracy, IWindup 
         return getWindupProgress(itemStack, getMaxItemUseDuration(itemStack) -  player.getItemInUseCount());
     }
 
-    public float getAccuracy(ItemStack itemStack, EntityPlayer player)
+    public float getAccuracy(ItemStack itemStack, int time)
     {
         float dif = minAccuracy(itemStack) - maxAccuracy(itemStack);
 
-        return minAccuracy(itemStack) - dif * getWindupProgress(itemStack, player);
+        return minAccuracy(itemStack) - dif * getWindupProgress(itemStack, time);
     }
 
     @Override
@@ -96,16 +97,16 @@ public abstract class AmmoWeapon extends AmmoItem implements IAccuracy, IWindup 
     public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int durationLeft) {
         int time = this.getMaxItemUseDuration(stack) - durationLeft;
         if(getWindupProgress(stack, time) >= getMinWindupProgress(stack))
-            launchProjectile(stack, world, player);
+            launchProjectile(stack, world, player, time);
     }
 
-    protected void launchProjectile(ItemStack stack, World world, EntityPlayer player) {
+    protected void launchProjectile(ItemStack stack, World world, EntityPlayer player, int time) {
         // spawn projectile on server
         if(!world.isRemote) {
             ItemStack reference = stack.copy();
             reference.stackSize = 1;
             reference.getTagCompound().getCompoundTag("InfiTool").setInteger("Ammo", 1);
-            Entity projectile = createProjectile(reference, world, player, getAccuracy(stack, player));
+            Entity projectile = createProjectile(reference, world, player, getAccuracy(stack, time));
             world.spawnEntityInWorld(projectile);
         }
 
