@@ -146,14 +146,6 @@ public class AbilityHelper
                     {
                         damage *= tool.getDamageModifier();
                     }
-                    boolean var6 = false;
-                    int fireAspect = EnchantmentHelper.getFireAspectModifier(player);
-
-                    if (entity instanceof EntityLivingBase && fireAspect > 0 && !entity.isBurning())
-                    {
-                        var6 = true;
-                        entity.setFire(1);
-                    }
 
                     if (broken)
                     {
@@ -250,23 +242,8 @@ public class AbilityHelper
                             stack.getItem().hitEntity(stack, (EntityLivingBase) entity, player);
                         }
 
-                        if ((fireAspect > 0 || toolTags.hasKey("Fiery") || toolTags.hasKey("Lava")) && causedDamage)
-                        {
-                            fireAspect *= 4;
-                            if (toolTags.hasKey("Fiery"))
-                            {
-                                fireAspect += toolTags.getInteger("Fiery") / 5 + 1;
-                            }
-                            if (toolTags.getBoolean("Lava"))
-                            {
-                                fireAspect += 3;
-                            }
-                            entity.setFire(fireAspect);
-                        }
-                        else if (var6)
-                        {
-                            entity.extinguish();
-                        }
+                        if(causedDamage)
+                            processFiery(player, entity, toolTags);
                     }
 
                     if (entity instanceof EntityPlayer)
@@ -277,6 +254,31 @@ public class AbilityHelper
             }
         }
         return false;
+    }
+
+    public static void processFiery(Entity player, Entity target, NBTTagCompound toolTags)
+    {
+        // only living things burnnnn
+        if(!(target instanceof EntityLivingBase))
+            return;
+
+        int fireAspect = 0;
+        if(player instanceof EntityLivingBase)
+            fireAspect = EnchantmentHelper.getFireAspectModifier((EntityLivingBase)player);
+
+        if ((fireAspect > 0 || toolTags.hasKey("Fiery") || toolTags.hasKey("Lava")))
+        {
+            fireAspect *= 4;
+            if (toolTags.hasKey("Fiery"))
+            {
+                fireAspect += toolTags.getInteger("Fiery") / 5 + 1;
+            }
+            if (toolTags.getBoolean("Lava"))
+            {
+                fireAspect += 3;
+            }
+            target.setFire(fireAspect);
+        }
     }
 
     static void alertPlayerWolves (EntityPlayer player, EntityLivingBase living, boolean par2)
