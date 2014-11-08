@@ -62,7 +62,6 @@ public class AbilityHelper
             {
                 NBTTagCompound tags = stack.getTagCompound();
                 NBTTagCompound toolTags = stack.getTagCompound().getCompoundTag("InfiTool");
-                int damage = toolTags.getInteger("Attack") + baseDamage;
                 boolean broken = toolTags.getBoolean("Broken");
 
                 int durability = tags.getCompoundTag("InfiTool").getInteger("Damage");
@@ -70,60 +69,16 @@ public class AbilityHelper
 
                 float stoneboundDamage = (float) Math.log(durability / 72f + 1) * -2 * stonebound;
 
-                int earlyModDamage = 0;
-                for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
-                {
-                    earlyModDamage = mod.baseAttackDamage(earlyModDamage, damage, tool, tags, toolTags, stack, player, entity);
-                }
-                damage += earlyModDamage;
+                int damage = calcDamage(player, entity, stack, tool, toolTags, baseDamage);
+                float knockback = calcKnockback(player, entity, stack, tool, toolTags, baseDamage);
 
-                if (player.isPotionActive(Potion.damageBoost))
-                {
-                    damage += 3 << player.getActivePotionEffect(Potion.damageBoost).getAmplifier();
-                }
-
-                if (player.isPotionActive(Potion.weakness))
-                {
-                    damage -= 2 << player.getActivePotionEffect(Potion.weakness).getAmplifier();
-                }
-
-                float knockback = 0;
                 float enchantDamage = 0;
 
+                // magic extra damage
                 if (entity instanceof EntityLivingBase)
                 {
                     enchantDamage = EnchantmentHelper.getEnchantmentModifierLiving(player, (EntityLivingBase) entity);
-                    knockback += EnchantmentHelper.getKnockbackModifier(player, (EntityLivingBase) entity);
                 }
-
-                damage += stoneboundDamage;
-                if (damage < 1)
-                    damage = 1;
-
-                if (player.isSprinting())
-                {
-                    knockback++;
-                    float lunge = tool.chargeAttack();
-                    if (lunge > 1f)
-                    {
-                        knockback += lunge - 1.0f;
-                        damage *= lunge;
-                    }
-                }
-
-                float modKnockback = 0f;
-                for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
-                {
-                    modKnockback = mod.knockback(modKnockback, knockback, tool, tags, toolTags, stack, player, entity);
-                }
-                knockback += modKnockback;
-
-                int modDamage = 0;
-                for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
-                {
-                    modDamage = mod.attackDamage(modDamage, damage, tool, tags, toolTags, stack, player, entity);
-                }
-                damage += modDamage;
 
                 if (damage > 0 || enchantDamage > 0)
                 {
@@ -254,6 +209,80 @@ public class AbilityHelper
             }
         }
         return false;
+    }
+
+    public static int calcDamage(Entity user, Entity entity, ItemStack stack, ToolCore tool, NBTTagCompound toolTags, int baseDamage)
+    {
+        EntityLivingBase living = user instanceof EntityLivingBase ? (EntityLivingBase)user : null;
+
+        int damage = toolTags.getInteger("Attack") + baseDamage;
+        int earlyModDamage = 0;
+        for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+        {
+            earlyModDamage = mod.baseAttackDamage(earlyModDamage, damage, tool, stack.getTagCompound(), toolTags, stack, living, entity);
+        }
+        damage += earlyModDamage;
+
+        if(living != null) {
+            if (living.isPotionActive(Potion.damageBoost)) {
+                damage += 3 << living.getActivePotionEffect(Potion.damageBoost).getAmplifier();
+            }
+
+            if (living.isPotionActive(Potion.weakness)) {
+                damage -= 2 << living.getActivePotionEffect(Potion.weakness).getAmplifier();
+            }
+        }
+
+        damage -= calcStoneboundBonus(tool, toolTags);
+        if (damage < 1)
+            damage = 1;
+
+        if (user.isSprinting())
+        {
+            float lunge = tool.chargeAttack();
+            if (lunge > 1f)
+            {
+                damage *= lunge;
+            }
+        }
+
+        int modDamage = 0;
+        for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+        {
+            modDamage = mod.attackDamage(modDamage, damage, tool, stack.getTagCompound(), toolTags, stack, living, entity);
+        }
+        damage += modDamage;
+
+        return damage;
+    }
+
+    public static float calcKnockback(Entity user, Entity entity, ItemStack stack, ToolCore tool, NBTTagCompound toolTags, int baseDamage)
+    {
+        float knockback = 0;
+
+        if (entity instanceof EntityLivingBase && user instanceof EntityLivingBase)
+        {
+            knockback += EnchantmentHelper.getKnockbackModifier((EntityLivingBase)user, (EntityLivingBase) entity);
+        }
+
+        if (user.isSprinting())
+        {
+            knockback++;
+            float lunge = tool.chargeAttack();
+            if (lunge > 1f)
+            {
+                knockback += lunge - 1.0f;
+            }
+        }
+
+        float modKnockback = 0f;
+        for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+        {
+            modKnockback = mod.knockback(modKnockback, knockback, tool, stack.getTagCompound(), toolTags, stack, user instanceof EntityLivingBase ? (EntityLivingBase)user : null, entity);
+        }
+        knockback += modKnockback;
+
+        return knockback;
     }
 
     public static void processFiery(Entity player, Entity target, NBTTagCompound toolTags)
