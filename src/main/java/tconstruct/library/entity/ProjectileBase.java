@@ -242,6 +242,9 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
             defused = true;
             return;
         }
+        // we hit it, BURNNNNNN
+        else
+            AbilityHelper.processFiery(shootingEntity, movingobjectposition.entityHit, tags);
 
 
         if (movingobjectposition.entityHit instanceof EntityLivingBase)

@@ -80,6 +80,12 @@ public class WeaponryHandler {
             float breakChance = shaft.fragility + fletching.breakChance;
 
             setAmmoData(tags, durability, weight, breakChance, accuracy, head.shoddy(), head.reinforced());
+
+            // Blaze shafts give fiery
+            if(tags.getInteger("Handle") == 3)
+            {
+                tags.setInteger("Fiery", 5);
+            }
         }
         else if(event.tool instanceof BoltAmmo)
         {
