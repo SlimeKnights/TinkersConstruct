@@ -29,6 +29,9 @@ public class WeaponryActiveToolMod extends ActiveToolMod {
                 }
             }
         }
+        // all other ammo items can't be damaged
+        else if(stack.getItem() instanceof IAmmo)
+            return true;
 
         return false;
     }
