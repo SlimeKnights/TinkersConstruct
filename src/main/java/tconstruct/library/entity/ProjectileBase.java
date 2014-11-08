@@ -567,6 +567,11 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
         // shooting entity
         int id = shootingEntity == null ? this.getEntityId() : shootingEntity.getEntityId();
         data.writeInt(id);
+
+        // motion stuff. This has to be sent separately since MC seems to do hardcoded stuff to arrows with this
+        data.writeDouble(this.motionX);
+        data.writeDouble(this.motionY);
+        data.writeDouble(this.motionZ);
     }
 
     @Override
@@ -574,5 +579,9 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
         returnStack = ByteBufUtils.readItemStack(data);
         rotationYaw = data.readFloat();
         shootingEntity = worldObj.getEntityByID(data.readInt());
+
+        this.motionX = data.readDouble();
+        this.motionY = data.readDouble();
+        this.motionZ = data.readDouble();
     }
 }
