@@ -170,6 +170,11 @@ public class ArmorControls {
 		}
 	}
 
+	public void landOnGround() {
+		midairJumps = 0;
+		jumping = false;
+	}
+
 	public void resetControls() {
 		midairJumps = 0;
 		jumping = false;
