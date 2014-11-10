@@ -45,7 +45,7 @@ public class TankRender implements ISimpleBlockRenderingHandler
                     FluidStack liquid = logic.tank.getFluid();
                     renderer.setRenderBounds(0.001, 0.001, 0.001, 0.999, logic.getFluidAmountScaled(), 0.999);
                     Fluid fluid = liquid.getFluid();
-                    BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getStillIcon(), x, y, z, renderer, world, true);
+                    BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getStillIcon(), x, y, z, renderer, world, true, fluid.getColor(liquid));
 
                     renderer.setRenderBounds(0, 0.001, 0.001, 0.999, logic.getFluidAmountScaled(), 0.999);
                 }

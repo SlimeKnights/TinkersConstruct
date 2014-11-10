@@ -853,27 +853,31 @@ public class BlockSkinRenderHelper
 
     public static boolean renderLiquidBlock (IIcon stillIcon, IIcon flowingIcon, int x, int y, int z, RenderBlocks renderer, IBlockAccess world, boolean extraBright)
     {
+        return renderLiquidBlock(stillIcon, flowingIcon, x, y, z, renderer, world, extraBright, 0xffffffff);
+    }
+
+    public static boolean renderLiquidBlock (IIcon stillIcon, IIcon flowingIcon, int x, int y, int z, RenderBlocks renderer, IBlockAccess world, boolean extraBright, int color)
+    {
         Block block = Blocks.stone;
-        int var5 = block.colorMultiplier(world, x, y, z);
-        float var6 = (float) (var5 >> 16 & 255) / 255.0F;
-        float var7 = (float) (var5 >> 8 & 255) / 255.0F;
-        float var8 = (float) (var5 & 255) / 255.0F;
+        float red = (float) (color >> 16 & 255) / 255.0F;
+        float green = (float) (color >> 8 & 255) / 255.0F;
+        float blue = (float) (color & 255) / 255.0F;
 
         if (EntityRenderer.anaglyphEnable)
         {
-            float var9 = (var6 * 30.0F + var7 * 59.0F + var8 * 11.0F) / 100.0F;
-            float var10 = (var6 * 30.0F + var7 * 70.0F) / 100.0F;
-            float var11 = (var6 * 30.0F + var8 * 70.0F) / 100.0F;
-            var6 = var9;
-            var7 = var10;
-            var8 = var11;
+            float var9 = (red * 30.0F + green * 59.0F + blue * 11.0F) / 100.0F;
+            float var10 = (red * 30.0F + green * 70.0F) / 100.0F;
+            float var11 = (red * 30.0F + blue * 70.0F) / 100.0F;
+            red = var9;
+            green = var10;
+            blue = var11;
         }
 
         if (extraBright)
         {
-            var6 = Math.max(1.0f, var6 + 0.5f);
-            var7 = Math.max(1.0f, var7 + 0.5f);
-            var8 = Math.max(1.0f, var8 + 0.5f);
+            red = Math.max(1.0f, red + 0.5f);
+            green = Math.max(1.0f, green + 0.5f);
+            blue = Math.max(1.0f, blue + 0.5f);
         }
 
         // safety
@@ -887,9 +891,9 @@ public class BlockSkinRenderHelper
 
         boolean ret;
         if (Minecraft.isAmbientOcclusionEnabled())
-            ret = renderFakeBlockWithAmbientOcclusion(stillIcon, flowingIcon, x, y, z, var6, var7, var8, renderer, world);
+            ret = renderFakeBlockWithAmbientOcclusion(stillIcon, flowingIcon, x, y, z, red, green, blue, renderer, world);
         else
-            ret = renderFakeBlockWithColorMultiplier(stillIcon, flowingIcon, x, y, z, var6, var7, var8, renderer, world);
+            ret = renderFakeBlockWithColorMultiplier(stillIcon, flowingIcon, x, y, z, red, green, blue, renderer, world);
 
         renderer.renderAllFaces = raf;
         return ret;
