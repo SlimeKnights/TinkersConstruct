@@ -24,30 +24,30 @@ import tconstruct.util.network.DoubleJumpPacket;
 import tconstruct.util.network.GogglePacket;
 
 public class ArmorControls {
-    public static final String keybindCategory = "tconstruct.keybindings";
-    public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24, keybindCategory);
-    public static KeyBinding toggleGoggles = new KeyBinding("key.tgoggles", 34, keybindCategory);
-    public static KeyBinding beltSwap = new KeyBinding("key.tbelt", 48, keybindCategory);
-    public static KeyBinding zoomKey = new KeyBinding("key.tzoom", 44, keybindCategory); //TODO: Make this hold, not toggle
-    static KeyBinding jumpKey;
-    static KeyBinding invKey;
-    static Minecraft mc;
+	public static final String keybindCategory = "tconstruct.keybindings";
+	public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24, keybindCategory);
+	public static KeyBinding toggleGoggles = new KeyBinding("key.tgoggles", 34, keybindCategory);
+	public static KeyBinding beltSwap = new KeyBinding("key.tbelt", 48, keybindCategory);
+	public static KeyBinding zoomKey = new KeyBinding("key.tzoom", 44,
+			keybindCategory); //TODO: Make this hold, not toggle
+	static KeyBinding jumpKey;
+	static KeyBinding invKey;
+	static Minecraft mc;
 
-    boolean jumping;
-    int midairJumps = 0;
-    boolean climbing = false;
-    boolean onGround = false;
-    public static boolean zoom = false;
-    boolean activeGoggles = false; //TODO: Set this on server login
+	boolean jumping;
+	int midairJumps = 0;
+	boolean climbing = false;
+	boolean onGround = false;
+	public static boolean zoom = false;
+	boolean activeGoggles = false; //TODO: Set this on server login
 
-    int currentTab = 1;
+	int currentTab = 1;
 
-    // boolean onStilts = false;
+	// boolean onStilts = false;
 
 	private final KeyBinding[] keys;
 
-    public ArmorControls()
-    {
+	public ArmorControls() {
 		getVanillaKeyBindings();
 		this.keys = new KeyBinding[] {
 				ArmorControls.armorKey,
@@ -57,7 +57,7 @@ public class ArmorControls {
 				null, null
 		};
 
-    }
+	}
 
 	public void registerKeys() {
 		// Register bindings
@@ -70,13 +70,12 @@ public class ArmorControls {
 		this.keys[5] = ArmorControls.invKey;
 	}
 
-    private static KeyBinding[] getVanillaKeyBindings ()
-    {
-        mc = Minecraft.getMinecraft();
-        jumpKey = mc.gameSettings.keyBindJump;
-        invKey = mc.gameSettings.keyBindInventory;
-        return new KeyBinding[] { jumpKey, invKey };
-    }
+	private static KeyBinding[] getVanillaKeyBindings() {
+		mc = Minecraft.getMinecraft();
+		jumpKey = mc.gameSettings.keyBindJump;
+		invKey = mc.gameSettings.keyBindInventory;
+		return new KeyBinding[] { jumpKey, invKey };
+	}
 
 	@SubscribeEvent
 	public void mouseEvent(InputEvent.MouseInputEvent event) {
@@ -171,52 +170,40 @@ public class ArmorControls {
 		}
 	}
 
-	public void landOnGround() {
+	public void resetControls() {
 		midairJumps = 0;
 		jumping = false;
+		climbing = false;
+		onGround = false;
 	}
 
-    public void resetControls ()
-    {
-        midairJumps = 0;
-        jumping = false;
-        climbing = false;
-        onGround = false;
-    }
+	void resetFallDamage() {
+		AbstractPacket packet = new DoubleJumpPacket();
+		updateServer(packet);
+	}
 
-    void resetFallDamage ()
-    {
-        AbstractPacket packet = new DoubleJumpPacket();
-        updateServer(packet);
-    }
+	public static void openArmorGui() {
+		AbstractPacket packet = new AccessoryInventoryPacket(ArmorProxyCommon.armorGuiID);
+		updateServer(packet);
+	}
 
-    public static void openArmorGui ()
-    {
-        AbstractPacket packet = new AccessoryInventoryPacket(ArmorProxyCommon.armorGuiID);
-        updateServer(packet);
-    }
+	public static void openKnapsackGui() {
+		AbstractPacket packet = new AccessoryInventoryPacket(ArmorProxyCommon.knapsackGuiID);
+		updateServer(packet);
+	}
 
-    public static void openKnapsackGui ()
-    {
-        AbstractPacket packet = new AccessoryInventoryPacket(ArmorProxyCommon.knapsackGuiID);
-        updateServer(packet);
-    }
+	private void toggleGoggles() {
+		AbstractPacket packet = new GogglePacket(activeGoggles);
+		updateServer(packet);
+	}
 
-    private void toggleGoggles ()
-    {
-        AbstractPacket packet = new GogglePacket(activeGoggles);
-        updateServer(packet);
-    }
+	private void toggleBelt() {
+		AbstractPacket packet = new BeltPacket();
+		updateServer(packet);
+	}
 
-    private void toggleBelt ()
-    {
-        AbstractPacket packet = new BeltPacket();
-        updateServer(packet);
-    }
-
-    static void updateServer (AbstractPacket abstractPacket)
-    {
-        TConstruct.packetPipeline.sendToServer(abstractPacket);
-    }
+	static void updateServer(AbstractPacket abstractPacket) {
+		TConstruct.packetPipeline.sendToServer(abstractPacket);
+	}
 
 }
