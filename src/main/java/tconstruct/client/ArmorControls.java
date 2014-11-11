@@ -25,10 +25,13 @@ import tconstruct.util.network.GogglePacket;
 
 public class ArmorControls {
 	public static final String keybindCategory = "tconstruct.keybindings";
-	public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24, keybindCategory);
-	public static KeyBinding toggleGoggles = new KeyBinding("key.tgoggles", 34, keybindCategory);
-	public static KeyBinding beltSwap = new KeyBinding("key.tbelt", 48, keybindCategory);
-	public static KeyBinding zoomKey = new KeyBinding("key.tzoom", 44,
+	public static final String[] keyDescs = new String[] { "key.tarmor", "key.tgoggles",
+			"key.tbelt", "key.tzoom"
+	};
+	public static KeyBinding armorKey = new KeyBinding(keyDescs[0], 24, keybindCategory);
+	public static KeyBinding toggleGoggles = new KeyBinding(keyDescs[1], 34, keybindCategory);
+	public static KeyBinding beltSwap = new KeyBinding(keyDescs[2], 48, keybindCategory);
+	public static KeyBinding zoomKey = new KeyBinding(keyDescs[3], 44,
 			keybindCategory); //TODO: Make this hold, not toggle
 	static KeyBinding jumpKey;
 	static KeyBinding invKey;
@@ -65,6 +68,8 @@ public class ArmorControls {
 			if (key != null)
 				ClientRegistry.registerKeyBinding(key);
 		}
+		if (Api.isLoaded())
+			Api.registerMod(TConstruct.modID, ArmorControls.keyDescs);
 		// Add mc keys
 		this.keys[4] = ArmorControls.jumpKey;
 		this.keys[5] = ArmorControls.invKey;
