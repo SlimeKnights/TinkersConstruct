@@ -85,13 +85,13 @@ public class ArmorControls {
 
 	@SubscribeEvent
 	public void mouseEvent(InputEvent.MouseInputEvent event) {
-		if (!Api.isLoaded())
+		if (!Loader.isModLoaded("notenoughkeys"))
 			this.checkKeys();
 	}
 
 	@SubscribeEvent
 	public void keyEvent(InputEvent.KeyInputEvent event) {
-		if (!Api.isLoaded())
+		if (!Loader.isModLoaded("notenoughkeys"))
 			this.checkKeys();
 	}
 
