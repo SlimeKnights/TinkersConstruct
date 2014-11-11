@@ -1,6 +1,7 @@
 package tconstruct.client;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 import mantle.common.network.AbstractPacket;
@@ -68,7 +69,7 @@ public class ArmorControls {
 			if (key != null)
 				ClientRegistry.registerKeyBinding(key);
 		}
-		if (Api.isLoaded())
+		if (Loader.isModLoaded("notenoughkeys"))
 			Api.registerMod(TConstruct.modID, ArmorControls.keyDescs);
 		// Add mc keys
 		this.keys[4] = ArmorControls.jumpKey;
@@ -84,13 +85,13 @@ public class ArmorControls {
 
 	@SubscribeEvent
 	public void mouseEvent(InputEvent.MouseInputEvent event) {
-		if (!Api.isLoaded())
+		if (!Loader.isModLoaded("notenoughkeys"))
 			this.checkKeys();
 	}
 
 	@SubscribeEvent
 	public void keyEvent(InputEvent.KeyInputEvent event) {
-		if (!Api.isLoaded())
+		if (!Loader.isModLoaded("notenoughkeys"))
 			this.checkKeys();
 	}
 
