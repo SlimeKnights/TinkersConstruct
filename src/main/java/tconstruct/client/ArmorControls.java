@@ -97,7 +97,6 @@ public class ArmorControls {
 
 	@SubscribeEvent
 	public void keyEventSpecial(KeyBindingPressedEvent event) {
-		TConstruct.logger.info("binding event received");
 		this.keyPressed(event.keyBinding);
 	}
 
@@ -117,7 +116,6 @@ public class ArmorControls {
 	}
 
 	private void keyPressed(KeyBinding key) {
-		TConstruct.logger.info("keyPressed " + key.getKeyDescription());
 		if (key == ArmorControls.armorKey) {
 			openArmorGui();
 		}
