@@ -1,183 +1,220 @@
 package tconstruct.client;
 
-import cpw.mods.fml.common.gameevent.TickEvent.Type;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.InputEvent;
 import mantle.common.network.AbstractPacket;
+import modwarriors.notenoughkeys.api.Api;
+import modwarriors.notenoughkeys.api.KeyBindingPressedEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import tconstruct.TConstruct;
-import tconstruct.armor.*;
+import tconstruct.armor.ArmorProxyClient;
+import tconstruct.armor.ArmorProxyCommon;
+import tconstruct.armor.PlayerAbilityHelper;
 import tconstruct.armor.items.TravelGear;
-import tconstruct.util.network.*;
+import tconstruct.util.network.AccessoryInventoryPacket;
+import tconstruct.util.network.BeltPacket;
+import tconstruct.util.network.DoubleJumpPacket;
+import tconstruct.util.network.GogglePacket;
 
-public class ArmorControls extends TKeyHandler
-{
-    public static final String keybindCategory = "tconstruct.keybindings";
-    public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24, keybindCategory);
-    public static KeyBinding toggleGoggles = new KeyBinding("key.tgoggles", 34, keybindCategory);
-    public static KeyBinding beltSwap = new KeyBinding("key.tbelt", 48, keybindCategory);
-    public static KeyBinding zoomKey = new KeyBinding("key.tzoom", 44, keybindCategory); //TODO: Make this hold, not toggle
-    static KeyBinding jumpKey;
-    static KeyBinding invKey;
-    static Minecraft mc;
+public class ArmorControls {
+	public static final String keybindCategory = "tconstruct.keybindings";
+	public static final String[] keyDescs = new String[] { "key.tarmor", "key.tgoggles",
+			"key.tbelt", "key.tzoom"
+	};
+	public static KeyBinding armorKey = new KeyBinding(keyDescs[0], 24, keybindCategory);
+	public static KeyBinding toggleGoggles = new KeyBinding(keyDescs[1], 34, keybindCategory);
+	public static KeyBinding beltSwap = new KeyBinding(keyDescs[2], 48, keybindCategory);
+	public static KeyBinding zoomKey = new KeyBinding(keyDescs[3], 44,
+			keybindCategory); //TODO: Make this hold, not toggle
+	static KeyBinding jumpKey;
+	static KeyBinding invKey;
+	static Minecraft mc;
 
-    boolean jumping;
-    int midairJumps = 0;
-    boolean climbing = false;
-    boolean onGround = false;
-    public static boolean zoom = false;
-    boolean activeGoggles = false; //TODO: Set this on server login
+	boolean jumping;
+	int midairJumps = 0;
+	boolean climbing = false;
+	boolean onGround = false;
+	public static boolean zoom = false;
+	boolean activeGoggles = false; //TODO: Set this on server login
 
-    int currentTab = 1;
+	int currentTab = 1;
 
-    // boolean onStilts = false;
+	// boolean onStilts = false;
 
-    public ArmorControls()
-    {
-        super(new KeyBinding[] { armorKey, toggleGoggles, beltSwap, zoomKey }, new boolean[] { false, false, false, false }, getVanillaKeyBindings(), new boolean[] { false, false });
-        /*ClientRegistry.registerKeyBinding(armorKey);
-        ClientRegistry.registerKeyBinding(refreshCapes);
-        ClientRegistry.registerKeyBinding(toggleGoggles);
-        ClientRegistry.registerKeyBinding(beltSwap);
-        ClientRegistry.registerKeyBinding(zoomKey);*/
-    }
+	private final KeyBinding[] keys;
 
-    private static KeyBinding[] getVanillaKeyBindings ()
-    {
-        mc = Minecraft.getMinecraft();
-        jumpKey = mc.gameSettings.keyBindJump;
-        invKey = mc.gameSettings.keyBindInventory;
-        return new KeyBinding[] { jumpKey, invKey };
-    }
+	public ArmorControls() {
+		getVanillaKeyBindings();
+		this.keys = new KeyBinding[] {
+				ArmorControls.armorKey,
+				ArmorControls.toggleGoggles,
+				ArmorControls.beltSwap,
+				ArmorControls.zoomKey,
+				null, null
+		};
 
-    @Override
-    public void keyDown (Type types, KeyBinding kb, boolean tickEnd, boolean isRepeat)
-    {
-        if (tickEnd && mc.theWorld != null)
-        {
-            if (kb == armorKey && mc.currentScreen == null) // Extended Armor
-            {
-                openArmorGui();// mc.thePlayer.username);
-            }
+	}
 
-            if (kb == jumpKey) // Double jump
-            {
-                if (mc.thePlayer.capabilities.isCreativeMode)
-                    return;
+	public void registerKeys() {
+		// Register bindings
+		for (KeyBinding key : this.keys) {
+			if (key != null)
+				ClientRegistry.registerKeyBinding(key);
+		}
+		if (Loader.isModLoaded("notenoughkeys"))
+			Api.registerMod(TConstruct.modID, ArmorControls.keyDescs);
+		// Add mc keys
+		this.keys[4] = ArmorControls.jumpKey;
+		this.keys[5] = ArmorControls.invKey;
+	}
 
-                if (jumping && midairJumps > 0)
-                {
-                    mc.thePlayer.motionY = 0.42D;
-                    mc.thePlayer.fallDistance = 0;
+	private static KeyBinding[] getVanillaKeyBindings() {
+		mc = Minecraft.getMinecraft();
+		jumpKey = mc.gameSettings.keyBindJump;
+		invKey = mc.gameSettings.keyBindInventory;
+		return new KeyBinding[] { jumpKey, invKey };
+	}
 
-                    if (mc.thePlayer.isPotionActive(Potion.jump))
-                    {
-                        mc.thePlayer.motionY += (double) ((float) (mc.thePlayer.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
-                    }
+	@SubscribeEvent
+	public void mouseEvent(InputEvent.MouseInputEvent event) {
+		if (!Loader.isModLoaded("notenoughkeys"))
+			this.checkKeys();
+	}
 
-                    midairJumps--;
-                    resetFallDamage();
-                }
+	@SubscribeEvent
+	public void keyEvent(InputEvent.KeyInputEvent event) {
+		if (!Loader.isModLoaded("notenoughkeys"))
+			this.checkKeys();
+	}
 
-                if (!jumping)
-                {
-                    jumping = mc.thePlayer.isAirBorne;
-                    ItemStack shoes = mc.thePlayer.getCurrentArmor(0);
-                    if (shoes != null && shoes.hasTagCompound() && shoes.getTagCompound().hasKey("TinkerArmor"))
-                    {
-                        NBTTagCompound shoeTag = shoes.getTagCompound().getCompoundTag("TinkerArmor");
-                        midairJumps += shoeTag.getInteger("Double-Jump");
-                    }
-                    ItemStack wings = mc.thePlayer.getCurrentArmor(1);
-                    if (wings != null && wings.hasTagCompound() && wings.getTagCompound().hasKey("TinkerArmor"))
-                    {
-                        NBTTagCompound shoeTag = wings.getTagCompound().getCompoundTag("TinkerArmor");
-                        midairJumps += shoeTag.getInteger("Double-Jump");
-                    }
-                }
-            }
+	@SubscribeEvent
+	public void keyEventSpecial(KeyBindingPressedEvent event) {
+		this.keyPressed(event.keyBinding);
+	}
 
-            if (mc.currentScreen == null)
-            {
-                if (kb == toggleGoggles)
-                {
-                    ItemStack goggles = mc.thePlayer.getCurrentArmor(3);
-                    if (goggles != null && goggles.getItem() instanceof TravelGear) //TODO: Genericize this
-                    {
-                        activeGoggles = !activeGoggles;
-                        PlayerAbilityHelper.toggleGoggles(mc.thePlayer, activeGoggles);
-                        toggleGoggles();
-                    }
-                }
-                if (kb == beltSwap)
-                {
-                    if (ArmorProxyClient.armorExtended.inventory[3] != null)
-                    {
-                        PlayerAbilityHelper.swapBelt(mc.thePlayer, ArmorProxyClient.armorExtended);
-                        toggleBelt();
-                    }
-                }
-                if (kb == zoomKey)
-                    zoom = !zoom;
-            }
-        }
-    }
+	private void checkKeys() {
+		for (KeyBinding key : this.keys) {
+			if (this.isKeyActive(key.getKeyCode())) {
+				this.keyPressed(key);
+			}
+		}
+	}
 
-    @Override
-    public void keyUp (Type types, KeyBinding kb, boolean tickEnd)
-    {
-        // landOnGround();
-    }
+	private boolean isKeyActive(int keyCode) {
+		if (keyCode < 0)
+			return Mouse.isButtonDown(keyCode + 100);
+		else
+			return Keyboard.isKeyDown(keyCode);
+	}
 
-    public void landOnGround ()
-    {
-        midairJumps = 0;
-        jumping = false;
-    }
+	private void keyPressed(KeyBinding key) {
+		if (key == ArmorControls.armorKey) {
+			openArmorGui();
+		}
+		if (key == ArmorControls.jumpKey) {
+			if (mc.thePlayer.capabilities.isCreativeMode)
+				return;
 
-    public void resetControls ()
-    {
-        midairJumps = 0;
-        jumping = false;
-        climbing = false;
-        onGround = false;
-    }
+			if (jumping && midairJumps > 0) {
+				mc.thePlayer.motionY = 0.42D;
+				mc.thePlayer.fallDistance = 0;
 
-    void resetFallDamage ()
-    {
-        AbstractPacket packet = new DoubleJumpPacket();
-        updateServer(packet);
-    }
+				if (mc.thePlayer.isPotionActive(Potion.jump)) {
+					mc.thePlayer.motionY += (double) (
+							(float) (mc.thePlayer.getActivePotionEffect(Potion.jump).getAmplifier()
+									+ 1) * 0.1F);
+				}
 
-    public static void openArmorGui ()
-    {
-        AbstractPacket packet = new AccessoryInventoryPacket(ArmorProxyCommon.armorGuiID);
-        updateServer(packet);
-    }
+				midairJumps--;
+				resetFallDamage();
+			}
 
-    public static void openKnapsackGui ()
-    {
-        AbstractPacket packet = new AccessoryInventoryPacket(ArmorProxyCommon.knapsackGuiID);
-        updateServer(packet);
-    }
+			if (!jumping) {
+				jumping = mc.thePlayer.isAirBorne;
+				ItemStack shoes = mc.thePlayer.getCurrentArmor(0);
+				if (shoes != null && shoes.hasTagCompound() && shoes.getTagCompound()
+						.hasKey("TinkerArmor")) {
+					NBTTagCompound shoeTag = shoes.getTagCompound().getCompoundTag("TinkerArmor");
+					midairJumps += shoeTag.getInteger("Double-Jump");
+				}
+				ItemStack wings = mc.thePlayer.getCurrentArmor(1);
+				if (wings != null && wings.hasTagCompound() && wings.getTagCompound()
+						.hasKey("TinkerArmor")) {
+					NBTTagCompound shoeTag = wings.getTagCompound().getCompoundTag("TinkerArmor");
+					midairJumps += shoeTag.getInteger("Double-Jump");
+				}
+			}
+		}
+		if (mc.currentScreen == null) {
+			if (key == ArmorControls.toggleGoggles) {
+				ItemStack goggles = mc.thePlayer.getCurrentArmor(3);
+				if (goggles != null && goggles
+						.getItem() instanceof TravelGear) //TODO: Genericize this
+				{
+					activeGoggles = !activeGoggles;
+					PlayerAbilityHelper.toggleGoggles(mc.thePlayer, activeGoggles);
+					toggleGoggles();
+				}
+			}
+			if (key == ArmorControls.beltSwap) {
+				if (ArmorProxyClient.armorExtended.inventory[3] != null) {
+					PlayerAbilityHelper.swapBelt(mc.thePlayer, ArmorProxyClient.armorExtended);
+					toggleBelt();
+				}
+			}
+			if (key == ArmorControls.zoomKey) {
+				zoom = !zoom;
+			}
+		}
+	}
 
-    private void toggleGoggles ()
-    {
-        AbstractPacket packet = new GogglePacket(activeGoggles);
-        updateServer(packet);
-    }
+	public void landOnGround() {
+		midairJumps = 0;
+		jumping = false;
+	}
 
-    private void toggleBelt ()
-    {
-        AbstractPacket packet = new BeltPacket();
-        updateServer(packet);
-    }
+	public void resetControls() {
+		midairJumps = 0;
+		jumping = false;
+		climbing = false;
+		onGround = false;
+	}
 
-    static void updateServer (AbstractPacket abstractPacket)
-    {
-        TConstruct.packetPipeline.sendToServer(abstractPacket);
-    }
+	void resetFallDamage() {
+		AbstractPacket packet = new DoubleJumpPacket();
+		updateServer(packet);
+	}
+
+	public static void openArmorGui() {
+		AbstractPacket packet = new AccessoryInventoryPacket(ArmorProxyCommon.armorGuiID);
+		updateServer(packet);
+	}
+
+	public static void openKnapsackGui() {
+		AbstractPacket packet = new AccessoryInventoryPacket(ArmorProxyCommon.knapsackGuiID);
+		updateServer(packet);
+	}
+
+	private void toggleGoggles() {
+		AbstractPacket packet = new GogglePacket(activeGoggles);
+		updateServer(packet);
+	}
+
+	private void toggleBelt() {
+		AbstractPacket packet = new BeltPacket();
+		updateServer(packet);
+	}
+
+	static void updateServer(AbstractPacket abstractPacket) {
+		TConstruct.packetPipeline.sendToServer(abstractPacket);
+	}
 
 }
