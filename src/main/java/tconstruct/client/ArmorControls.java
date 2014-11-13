@@ -2,6 +2,7 @@ package tconstruct.client;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 import mantle.common.network.AbstractPacket;
@@ -95,6 +96,7 @@ public class ArmorControls {
 			this.checkKeys();
 	}
 
+	@Optional.Method(modid = "notenoughkeys")
 	@SubscribeEvent
 	public void keyEventSpecial(KeyBindingPressedEvent event) {
 		this.keyPressed(event.keyBinding);
