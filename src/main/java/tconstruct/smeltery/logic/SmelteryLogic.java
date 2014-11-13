@@ -667,17 +667,17 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     }
 
     @SideOnly(Side.CLIENT)
-    public IIcon getFuelIcon ()
+    public FluidStack getFuel()
     {
-        IIcon defaultLava = Blocks.lava.getIcon(0, 0);
         if (activeLavaTank == null)
-            return defaultLava;
+            // sane default
+            return new FluidStack(FluidRegistry.LAVA, 0);
 
         TileEntity tankContainer = worldObj.getTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
         if (tankContainer instanceof IFluidHandler)
-            return ((IFluidHandler) tankContainer).getTankInfo(ForgeDirection.DOWN)[0].fluid.getFluid().getStillIcon();
+            return ((IFluidHandler) tankContainer).getTankInfo(ForgeDirection.DOWN)[0].fluid;
 
-        return defaultLava;
+        return new FluidStack(FluidRegistry.LAVA, 0);
     }
 
     public FluidStack getResultFor (ItemStack stack)

@@ -5,6 +5,7 @@ import java.util.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
@@ -159,14 +160,17 @@ public class SmelteryGui extends ActiveContainerGui
         this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
         if (logic.fuelGague > 0)
         {
-            IIcon lavaIcon = logic.getFuelIcon();
+            FluidStack fuelStack = logic.getFuel();
+            IIcon lavaIcon = fuelStack.getFluid().getStillIcon();
+            if(lavaIcon == null)
+                lavaIcon = Blocks.lava.getIcon(0, 0);
             int fuel = logic.getScaledFuelGague(52);
             int count = 0;
             while (fuel > 0)
             {
                 int size = fuel >= 16 ? 16 : fuel;
                 fuel -= size;
-                drawLiquidRect(cornerX + 117, (cornerY + 68) - size - 16 * count, lavaIcon, 12, size);
+                drawLiquidRect(cornerX + 117, (cornerY + 68) - size - 16 * count, lavaIcon, 12, size, fuelStack.getFluid().getColor(fuelStack));
                 count++;
             }
         }
@@ -183,6 +187,7 @@ public class SmelteryGui extends ActiveContainerGui
             {
                 FluidStack liquid = logic.moltenMetal.get(i);
                 IIcon icon = liquid.getFluid().getStillIcon();
+                int color = liquid.getFluid().getColor(liquid);
 
                 if (icon == null)
                     continue;
@@ -193,10 +198,10 @@ public class SmelteryGui extends ActiveContainerGui
                 {
                     int v = Math.min(16, h);
                     // we render in 16x16 squares so the texture doesn't get distorted
-                    drawLiquidRect(cornerX + basePos + 00, (cornerY + 68) - h - base, icon, 16, v);
-                    drawLiquidRect(cornerX + basePos + 16, (cornerY + 68) - h - base, icon, 16, v);
-                    drawLiquidRect(cornerX + basePos + 32, (cornerY + 68) - h - base, icon, 16, v);
-                    drawLiquidRect(cornerX + basePos + 48, (cornerY + 68) - h - base, icon, 4, v);
+                    drawLiquidRect(cornerX + basePos + 00, (cornerY + 68) - h - base, icon, 16, v, color);
+                    drawLiquidRect(cornerX + basePos + 16, (cornerY + 68) - h - base, icon, 16, v, color);
+                    drawLiquidRect(cornerX + basePos + 32, (cornerY + 68) - h - base, icon, 16, v, color);
+                    drawLiquidRect(cornerX + basePos + 48, (cornerY + 68) - h - base, icon, 4, v, color);
                     h -= 16;
                 }
                 base += height;
@@ -492,7 +497,7 @@ public class SmelteryGui extends ActiveContainerGui
         }
     }
 
-    public void drawLiquidRect (int startU, int startV, IIcon icon, int endU, int endV)
+    public void drawLiquidRect (int startU, int startV, IIcon icon, int endU, int endV, int color)
     {
         float top = icon.getInterpolatedV(16 - endV);
         float bottom = icon.getMaxV();
@@ -500,6 +505,7 @@ public class SmelteryGui extends ActiveContainerGui
         float right = icon.getInterpolatedU(endU);
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
+        tessellator.setColorOpaque_I(color);
         tessellator.addVertexWithUV(startU + 0, startV + endV, this.zLevel, left, bottom);//Bottom left
         tessellator.addVertexWithUV(startU + endU, startV + endV, this.zLevel, right, bottom);//Bottom right
         tessellator.addVertexWithUV(startU + endU, startV + 0, this.zLevel, right, top);//Top right
