@@ -7,6 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fluids.FluidRegistry;
+import org.lwjgl.opengl.GL11;
 
 public class BlockSkinRenderHelper
 {
@@ -859,9 +860,10 @@ public class BlockSkinRenderHelper
     public static boolean renderLiquidBlock (IIcon stillIcon, IIcon flowingIcon, int x, int y, int z, RenderBlocks renderer, IBlockAccess world, boolean extraBright, int color)
     {
         Block block = Blocks.stone;
-        float red = (float) (color >> 16 & 255) / 255.0F;
+        float alpha = (float) (color >> 24 & 255) / 255.0F;
+        float red   = (float) (color >> 16 & 255) / 255.0F;
         float green = (float) (color >> 8 & 255) / 255.0F;
-        float blue = (float) (color & 255) / 255.0F;
+        float blue  = (float) (color & 255) / 255.0F;
 
         if (EntityRenderer.anaglyphEnable)
         {
@@ -889,11 +891,18 @@ public class BlockSkinRenderHelper
         boolean raf = renderer.renderAllFaces;
         renderer.renderAllFaces = true;
 
+        //Tessellator.instance.setColorRGBA_F(alpha, red, green, blue);
+
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glAlphaFunc(GL11.GL_GREATER, 0.1f);
+
         boolean ret;
         if (Minecraft.isAmbientOcclusionEnabled())
             ret = renderFakeBlockWithAmbientOcclusion(stillIcon, flowingIcon, x, y, z, red, green, blue, renderer, world);
         else
             ret = renderFakeBlockWithColorMultiplier(stillIcon, flowingIcon, x, y, z, red, green, blue, renderer, world);
+
+        GL11.glDisable(GL11.GL_BLEND);
 
         renderer.renderAllFaces = raf;
         return ret;
