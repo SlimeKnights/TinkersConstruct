@@ -209,7 +209,7 @@ public class TinkerWeaponry {
             for (int iterTwo = 0; iterTwo < TinkerSmeltery.liquids.length; iterTwo++)
             {
                 Fluid fs = TinkerSmeltery.liquids[iterTwo].getFluid();
-                int fluidAmount = ((IPattern) TinkerSmeltery.metalPattern).getPatternCost(cast) * TConstruct.ingotLiquidValue / 2;
+                int fluidAmount = metalPattern.getPatternCost(cast) * TConstruct.ingotLiquidValue / 2;
                 ItemStack metalCast = new ItemStack(patternOutputs[i], 1, liquidDamage[iterTwo]);
                 tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
                 Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);
