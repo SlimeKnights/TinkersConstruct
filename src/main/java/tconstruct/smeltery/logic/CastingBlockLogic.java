@@ -90,7 +90,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
     {
         // only same liquid
-        if (liquid.getFluid() != resource.getFluid())
+        if (liquid != null && liquid.getFluid() != resource.getFluid())
             return null;
 
         return drain(resource.amount, doDrain);

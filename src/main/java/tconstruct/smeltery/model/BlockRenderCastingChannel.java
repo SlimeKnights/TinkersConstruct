@@ -187,9 +187,9 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
         if (fluid.canBePlacedInWorld() && !useFlowingTexture)
             BlockSkinRenderHelper.renderMetadataBlock(fluid.getBlock(), 0, x, y, z, renderer, world);
         else if (useFlowingTexture)
-            BlockSkinRenderHelper.renderLiquidBlock(fluid.getFlowingIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world);
+            BlockSkinRenderHelper.renderLiquidBlock(fluid.getFlowingIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world, false, fluid.getColor(fluidStack));
         else
-            BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world);
+            BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world, false, fluid.getColor(fluidStack));
     }
 
     private void renderStandardBlock (Block block, int meta, RenderBlocks renderer)

@@ -13,7 +13,6 @@ Thumbs.db
 #gradle stuff
 /.gradle
 /build/
-/run/
 /run*/
 /ui/
 gradle-app.setting

@@ -120,8 +120,6 @@ public class TinkerWorld
         TinkerWorld.slimePool = new SlimeFluid(TinkerWorld.blueSlimeFluid, Material.water).setCreativeTab(TConstructRegistry.blockTab).setStepSound(TinkerWorld.slimeStep).setBlockName("liquid.slime");
         GameRegistry.registerBlock(TinkerWorld.slimePool, "liquid.slime");
         TinkerWorld.blueSlimeFluid.setBlock(TinkerWorld.slimePool);
-        //TODO: Add a new bucket for blue slime
-        //FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerWorld.blueSlimeFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 24), new ItemStack(Items.bucket)));
 
         // Slime Islands
         TinkerWorld.slimeGel = new SlimeGel().setStepSound(TinkerWorld.slimeStep).setLightOpacity(0).setBlockName("slime.gel");
