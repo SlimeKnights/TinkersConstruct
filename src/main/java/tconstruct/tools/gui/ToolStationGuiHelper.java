@@ -260,7 +260,7 @@ public final class ToolStationGuiHelper {
         write(StatCollector.translateToLocal("gui.toolstation9") + df.format(accuracy) + "%");
 
         // breakchance
-        final float breakChance = tags.getFloat("BreakChance");
+        final float breakChance = tags.getFloat("BreakChance") * 100;
         write(StatCollector.translateToLocal("gui.toolstation22") + df.format(breakChance) + "%");
     }
 
