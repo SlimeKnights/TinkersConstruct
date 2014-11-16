@@ -563,7 +563,6 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
 
     @Override
     public void writeSpawnData(ByteBuf data) {
-        NBTTagCompound tags = returnStack.getTagCompound().getCompoundTag("InfiTool");
         ByteBufUtils.writeItemStack(data, returnStack);
         data.writeFloat(rotationYaw);
 
