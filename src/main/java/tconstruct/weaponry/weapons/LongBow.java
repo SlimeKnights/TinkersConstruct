@@ -23,7 +23,7 @@ public class LongBow extends BowBaseAmmo {
 
     @Override
     public float maxAccuracy(ItemStack itemStack) {
-        return 0.5f;
+        return 3.33f;
     }
 
     @Override
