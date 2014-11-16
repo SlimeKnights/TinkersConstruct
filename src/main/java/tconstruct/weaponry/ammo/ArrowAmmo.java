@@ -1,5 +1,6 @@
 package tconstruct.weaponry.ammo;
 
+import net.minecraft.util.StatCollector;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.ArrowMaterial;
@@ -148,7 +149,10 @@ public class ArrowAmmo extends AmmoItem {
     // fix tooltip custom materials
     @Override
     public String getAbilityNameForType(int type, int part) {
-        if(part >= 1) // only head has ability
+        // blaze shaft?
+        if(part == 1 && type == 3)
+            return "\u00a76" + StatCollector.translateToLocal("modifier.tool.blaze");
+        if(part >= 1) // only head has ability otherwise
             return "";
         return super.getAbilityNameForType(type, part);
     }
