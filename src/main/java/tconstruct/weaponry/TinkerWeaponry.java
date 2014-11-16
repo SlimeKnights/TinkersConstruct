@@ -246,9 +246,9 @@ public class TinkerWeaponry {
         // Wooden stuff is flexible, therefore good. Reference.
         TConstructRegistry.addBowMaterial(MaterialID.Wood, 18, 3.0f); // Wood
         // other organic materials also are good
-        TConstructRegistry.addBowMaterial(MaterialID.Cactus,     20, 2.4f); // Cactus
+        TConstructRegistry.addBowMaterial(MaterialID.Cactus,     20, 3.4f); // Cactus
         TConstructRegistry.addBowMaterial(MaterialID.Bone,       38, 2.0f); // Bone
-        TConstructRegistry.addBowMaterial(MaterialID.Slime,      28, 4.0f); // Slime
+        TConstructRegistry.addBowMaterial(MaterialID.Slime,      28, 4.1f); // Slime
         TConstructRegistry.addBowMaterial(MaterialID.BlueSlime,  21, 4.0f); // Blue Slime
         TConstructRegistry.addBowMaterial(MaterialID.Paper,      25, 2.3f); // Paper
         // Metal stuff has a lot of POW, but takes LONG to wind up since it's so hard
@@ -260,7 +260,7 @@ public class TinkerWeaponry {
         TConstructRegistry.addBowMaterial(MaterialID.Manyullyn,  55, 4.5f); // Manyullyn
         TConstructRegistry.addBowMaterial(MaterialID.Copper,     40, 5.1f); // Copper
         TConstructRegistry.addBowMaterial(MaterialID.Bronze,     45, 5.2f); // Bronze
-        TConstructRegistry.addBowMaterial(MaterialID.Alumite,    45, 4.8f); // Alumite - a bit stone-ish since it has obsidian
+        TConstructRegistry.addBowMaterial(MaterialID.Alumite,    45, 4.9f); // Alumite - a bit stone-ish since it has obsidian
         // Stone doesn't bend. takes forever, has no pow. WHY WOULD YOU DO THAT
         TConstructRegistry.addBowMaterial(MaterialID.Stone,      90, 1.0f); // Stone
         TConstructRegistry.addBowMaterial(MaterialID.Flint,      90, 1.0f); // Flint
