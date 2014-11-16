@@ -724,6 +724,7 @@ tconstruct.waila.subtanks=Subtanks:
 tconstruct.waila.invalidstructure=Invalid structure
 
 tconstruct.nei.toolmaterials=Tool Materials
+tconstruct.nei.projectilematerials=Bow & Arrow
 tconstruct.nei.alloying=Smeltery Alloying
 tconstruct.nei.castingbasin=Casting Basin
 tconstruct.nei.castingtable=Casting Table
