@@ -77,6 +77,7 @@ public class ModWindup extends ModRedstone {
 
         int baseDrawSpeed = tags.getInteger("BaseDrawSpeed");
         int drawSpeed = baseDrawSpeed - (int)boost;
+        drawSpeed = Math.max(5, drawSpeed); // 0.25f is the minimum
         tags.setInteger("DrawSpeed", drawSpeed);
     }
 }
