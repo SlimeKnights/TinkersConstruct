@@ -285,6 +285,13 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
     }
 
     @Override
+    public void setVelocity(double p_70016_1_, double p_70016_3_, double p_70016_5_) {
+        // don't do anything, we set it ourselves at spawn
+        // Mojangs code has a hard cap of 3.9 speed, but our projectiles can go faster, which desyncs client and server speeds
+        // Packet that's causing it: S12PacketEntityVelocity
+    }
+
+    @Override
     // this function is the same as the vanilla EntityArrow
     public void onUpdate() {
         // call the entity update routine
