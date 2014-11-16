@@ -141,4 +141,12 @@ public class SlimeGrass extends MantleBlock
         else
             return TinkerTools.craftedSoil;
     }
+
+    @Override
+    public Item getItemDropped(int metadata, Random random, int p_149650_3_) {
+        if (metadata == 1)
+            return Blocks.dirt.getItemDropped(metadata, random, p_149650_3_);
+        else
+            return ItemSaddle.getItemFromBlock(TinkerTools.craftedSoil);
+    }
 }
