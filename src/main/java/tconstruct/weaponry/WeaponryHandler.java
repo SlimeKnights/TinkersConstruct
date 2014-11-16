@@ -86,6 +86,8 @@ public class WeaponryHandler {
             {
                 tags.setInteger("Fiery", 5);
             }
+            // arrows get only 2 modifiers
+            tags.setInteger("Modifiers", 2);
         }
         else if(event.tool instanceof BoltAmmo)
         {
@@ -111,6 +113,7 @@ public class WeaponryHandler {
             int reinforced = Math.max(headMat.reinforced(), coreMat.reinforced());
 
             setAmmoData(tags, durability, weight, breakChance, accuracy, shoddy, reinforced);
+            tags.setInteger("Modifiers", 2);
         }
 
         // now that durability has been handled...
