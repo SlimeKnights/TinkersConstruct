@@ -216,7 +216,7 @@ public class Crossbow extends ProjectileWeapon {
         float windup = getWindupTime(weapon); // max windup time
         float accuracy = getAccuracy(weapon, (int)windup);
 
-        Entity projectile = createProjectile(ammo, world, player, projectileSpeed, accuracy);
+        Entity projectile = createProjectile(ammo, world, player, projectileSpeed, accuracy, 1.0f);
 
         int reinforced = 0;
 
@@ -256,7 +256,7 @@ public class Crossbow extends ProjectileWeapon {
     }
 
     @Override
-    protected Entity createProjectile(ItemStack ammo, World world, EntityPlayer player, float speed, float accuracy) {
+    protected Entity createProjectile(ItemStack ammo, World world, EntityPlayer player, float speed, float accuracy, float windup) {
         EntityArrow arrow;
 
         ItemStack reference = ammo.copy();

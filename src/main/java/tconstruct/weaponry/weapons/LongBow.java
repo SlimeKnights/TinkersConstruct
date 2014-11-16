@@ -32,7 +32,7 @@ public class LongBow extends BowBaseAmmo {
     }
 
     @Override
-    protected Entity createProjectile(ItemStack arrows, World world, EntityPlayer player, float speed, float accuracy) {
+    protected Entity createProjectile(ItemStack arrows, World world, EntityPlayer player, float speed, float accuracy, float windup) {
         if(arrows.getItem() instanceof ArrowAmmo)
         {
             // modify accuraccy of the arrow depending on its accuraccy and weight
@@ -46,7 +46,7 @@ public class LongBow extends BowBaseAmmo {
                 accuracy = 0;
         }
 
-        return super.createProjectile(arrows, world, player, speed, accuracy);
+        return super.createProjectile(arrows, world, player, speed, accuracy, windup);
     }
 
     @Override

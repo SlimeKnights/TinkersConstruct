@@ -110,7 +110,7 @@ public abstract class BowBaseAmmo extends ProjectileWeapon {
     }
 
     @Override
-    protected Entity createProjectile(ItemStack arrows, World world, EntityPlayer player, float speed, float accuracy) {
+    protected Entity createProjectile(ItemStack arrows, World world, EntityPlayer player, float speed, float accuracy, float windup) {
         EntityArrow arrow;
 
         if(arrows.getItem() == Items.arrow) {
@@ -125,6 +125,9 @@ public abstract class BowBaseAmmo extends ProjectileWeapon {
 
         if(player.capabilities.isCreativeMode)
             arrow.canBePickedUp = 2;
+
+        if(windup >= 1f)
+            arrow.setIsCritical(true);
 
         return arrow;
     }

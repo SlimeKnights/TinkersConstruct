@@ -67,7 +67,7 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
      * @param accuracy the accuracy calculated for the projectile
      * @return A banana.
      */
-    protected abstract Entity createProjectile(ItemStack ammo, World world, EntityPlayer player, float speed, float accuracy);
+    protected abstract Entity createProjectile(ItemStack ammo, World world, EntityPlayer player, float speed, float accuracy, float windup);
 
 
     /* Accuracy */
@@ -177,7 +177,7 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
         // take windup time into account
         projectileSpeed *= windup;
 
-        Entity projectile = createProjectile(ammo, world, player, projectileSpeed, accuracy);
+        Entity projectile = createProjectile(ammo, world, player, projectileSpeed, accuracy, windup);
 
 
         int reinforced = 0;
