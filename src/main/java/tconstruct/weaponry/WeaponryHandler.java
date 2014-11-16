@@ -149,8 +149,8 @@ public class WeaponryHandler {
             }
             // longbows have LONGER drawspeed. LOGIC!
             if(event.tool instanceof LongBow) {
-                drawSpeed *= 1.5f;
-                flightSpeed *= 1.3f;
+                drawSpeed *= 1.8f;
+                flightSpeed *= 1.5f;
             }
         }
         else if(event.tool instanceof Crossbow)
