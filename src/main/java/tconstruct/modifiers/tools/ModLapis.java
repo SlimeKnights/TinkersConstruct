@@ -218,6 +218,6 @@ public class ModLapis extends ItemModTypeFilter
     public boolean validType (ToolCore tool)
     {
         List list = Arrays.asList(tool.getTraits());
-        return list.contains("weapon") || list.contains("harvest");
+        return !list.contains("ammo") && (list.contains("weapon") || list.contains("harvest"));
     }
 }

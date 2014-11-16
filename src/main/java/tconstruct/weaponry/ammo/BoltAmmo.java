@@ -76,7 +76,7 @@ public class BoltAmmo extends AmmoItem {
     @Override
     public String[] getTraits ()
     {
-        return new String[] { "ammo", "projectile" };
+        return new String[] { "ammo", "projectile", "weapon" };
     }
 
     @Override
