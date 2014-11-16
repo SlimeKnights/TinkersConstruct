@@ -5,6 +5,7 @@ import cpw.mods.fml.common.gameevent.PlayerEvent;
 import net.minecraft.entity.boss.*;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.entity.living.*;
@@ -102,5 +103,26 @@ public class TinkerArmorEvents
                 event.entityLiving.fallDistance /= (1 + sole);
             }
         }
+    }
+
+    @SubscribeEvent
+    public void perfectDodge(LivingAttackEvent event)
+    {
+        if(!event.source.isProjectile())
+            return;
+
+        // perfect dodge?
+        if(!(event.entityLiving instanceof EntityPlayer))
+            return;
+
+        EntityPlayer player = (EntityPlayer) event.entityLiving;
+        ItemStack chest = player.getCurrentArmor(2);
+        if(chest == null || !(chest.getItem() instanceof IModifyable) || !chest.hasTagCompound())
+            return;
+
+        NBTTagCompound tags = chest.getTagCompound().getCompoundTag(((IModifyable) chest.getItem()).getBaseTagName());
+        int dodge = tags.getInteger("Perfect Dodge");
+        if(dodge > TConstruct.random.nextInt(10))
+            event.setCanceled(true);
     }
 }
