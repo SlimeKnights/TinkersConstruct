@@ -44,6 +44,22 @@ public class TinkerToolEvents
                     AbilityHelper.spawnItemAtPlayer(event.player, new ItemStack(TinkerTools.manualBook, 1, 1));
                 }
             }
+
+            // slab pattern chest
+            if(item == Item.getItemFromBlock(TinkerTools.craftingSlabWood) && event.crafting.getItemDamage() == 4) {
+                // copy over NBT
+                for(int i = 0; i < event.craftMatrix.getSizeInventory(); i++) {
+                    ItemStack stack = event.craftMatrix.getStackInSlot(i);
+                    if(stack == null)
+                        continue;
+                    // regular pattern chest
+                    if(stack.getItem() == Item.getItemFromBlock(TinkerTools.toolStationWood) && stack.getItemDamage() == 5)
+                    {
+                        event.crafting.setTagCompound(stack.getTagCompound());
+                        break;
+                    }
+                }
+            }
         }
     }
 

@@ -341,6 +341,10 @@ public class TinkerTools
     {
         vanillaToolRecipes();
         modIntegration();
+
+        // Fix for chisels harvetslevel derp
+        if("chisel".equals(Blocks.stone.getHarvestTool(0)))
+            Blocks.stone.setHarvestLevel("pickaxe", 0, 0);
     }
 
     private void addPartMapping ()
