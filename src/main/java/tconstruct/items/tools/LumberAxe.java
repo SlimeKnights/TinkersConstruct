@@ -104,11 +104,11 @@ public class LumberAxe extends AOEHarvestTool
                 // custom block breaking code, don't call vanilla code
                 return true;
             }
-            else if(detectTree(world, x,y,z, wood, true))
+            else if(detectTree(world, x,y,z, wood, false)) // now check for upside down tree
             {
                 NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
                 int meta = world.getBlockMetadata(x, y, z);
-                breakTree(world, x, y, z, stack, tags, wood, meta, player, true);
+                breakTree(world, x, y, z, stack, tags, wood, meta, player, false);
                 // custom block breaking code, don't call vanilla code
                 return true;
             }
