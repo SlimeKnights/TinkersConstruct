@@ -203,7 +203,7 @@ public class LumberAxe extends AOEHarvestTool
 
                                         world.setBlockToAir(xPos, yPos, zPos);
                                         if (!world.isRemote)
-                                            breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player);
+                                            breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player, upward);
                                     }
                                 }
                             }
