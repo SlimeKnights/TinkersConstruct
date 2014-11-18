@@ -159,7 +159,7 @@ public class LumberAxe extends AOEHarvestTool
         
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
-            for (int yPos = y; yPos <= y + (1*direction); yPos+=(1*direction))
+            for (int yPos = y; (direction > 0) ? yPos <= y + 1 : yPos >= y - 1; yPos+=(1*direction))
             {
                 for (int zPos = z - 1; zPos <= z + 1; zPos++)
                 {
