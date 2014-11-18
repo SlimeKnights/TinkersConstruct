@@ -247,20 +247,20 @@ public class TinkerWeaponry {
         TConstructRegistry.addBowMaterial(MaterialID.Wood, 18, 3.0f); // Wood
         // other organic materials also are good
         TConstructRegistry.addBowMaterial(MaterialID.Cactus,     20, 3.4f); // Cactus
-        TConstructRegistry.addBowMaterial(MaterialID.Bone,       38, 2.0f); // Bone
-        TConstructRegistry.addBowMaterial(MaterialID.Slime,      28, 4.1f); // Slime
+        TConstructRegistry.addBowMaterial(MaterialID.Bone,       38, 3.0f); // Bone
+        TConstructRegistry.addBowMaterial(MaterialID.Slime,      28, 4.2f); // Slime
         TConstructRegistry.addBowMaterial(MaterialID.BlueSlime,  21, 4.0f); // Blue Slime
-        TConstructRegistry.addBowMaterial(MaterialID.Paper,      25, 2.3f); // Paper
+        TConstructRegistry.addBowMaterial(MaterialID.Paper,      10, 1.1f); // Paper
         // Metal stuff has a lot of POW, but takes LONG to wind up since it's so hard
-        TConstructRegistry.addBowMaterial(MaterialID.Iron,       50, 5.2f); // Iron
+        TConstructRegistry.addBowMaterial(MaterialID.Iron,       54, 5.2f); // Iron
         TConstructRegistry.addBowMaterial(MaterialID.Steel,      60, 5.5f); // Steel
-        TConstructRegistry.addBowMaterial(MaterialID.PigIron,    40, 5.2f); // Pig Iron - it's meat!
-        TConstructRegistry.addBowMaterial(MaterialID.Ardite,     60, 4.5f); // Ardite
-        TConstructRegistry.addBowMaterial(MaterialID.Cobalt,     45, 5.2f); // Cobalt
-        TConstructRegistry.addBowMaterial(MaterialID.Manyullyn,  55, 4.5f); // Manyullyn
-        TConstructRegistry.addBowMaterial(MaterialID.Copper,     40, 5.1f); // Copper
-        TConstructRegistry.addBowMaterial(MaterialID.Bronze,     45, 5.2f); // Bronze
-        TConstructRegistry.addBowMaterial(MaterialID.Alumite,    45, 4.9f); // Alumite - a bit stone-ish since it has obsidian
+        TConstructRegistry.addBowMaterial(MaterialID.PigIron,    42, 5.2f); // Pig Iron - it's meat!
+        TConstructRegistry.addBowMaterial(MaterialID.Ardite,     55, 4.9f); // Ardite
+        TConstructRegistry.addBowMaterial(MaterialID.Cobalt,     45, 5.3f); // Cobalt
+        TConstructRegistry.addBowMaterial(MaterialID.Manyullyn,  50, 5.0f); // Manyullyn
+        TConstructRegistry.addBowMaterial(MaterialID.Copper,     40, 4.9f); // Copper
+        TConstructRegistry.addBowMaterial(MaterialID.Bronze,     45, 5.1f); // Bronze
+        TConstructRegistry.addBowMaterial(MaterialID.Alumite,    45, 5.0f); // Alumite - a bit stone-ish since it has obsidian
         // Stone doesn't bend. takes forever, has no pow. WHY WOULD YOU DO THAT
         TConstructRegistry.addBowMaterial(MaterialID.Stone,      90, 1.0f); // Stone
         TConstructRegistry.addBowMaterial(MaterialID.Flint,      90, 1.0f); // Flint
