@@ -416,7 +416,7 @@ public class ToolProxyClient extends ToolProxyCommon
         final ToolCore[] tier2Tools = {hammer, lumberaxe, excavator, scythe, cleaver, battleaxe};
 
         // repair
-        addToolButton(0, 3, 0, new int[] { 0, 1, 2, 13 }, new int[] { 13, 13, 13, 13 }, "gui.toolforge1", "gui.toolforge2");
+        addToolButton(0, 3, 0, new int[] { 0, 1, 2, 13 }, new int[] { 13, 13, 13, 13 }, StatCollector.translateToLocal("gui.toolforge1"), "gui.toolforge2");
 
         // tier 1 tools
         for (int i = 0; i < tier1Tools.length; i++)
