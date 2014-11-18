@@ -77,7 +77,7 @@ public class WeaponryHandler {
             int durability = (int)((float)head.durability() * shaft.durabilityModifier * fletching.durabilityModifier);
             float weight = arrow.mass + shaft.weight;
             float accuracy = fletching.accuracy;
-            float breakChance = shaft.fragility + fletching.breakChance;
+            float breakChance = shaft.fragility * arrow.breakChance + fletching.breakChance;
 
             setAmmoData(tags, durability, weight, breakChance, accuracy, head.shoddy(), head.reinforced());
 
@@ -108,7 +108,7 @@ public class WeaponryHandler {
             int durability = (int)((float)headMat.durability() * coreMat.handleDurability() * fletching.durabilityModifier);
             float weight = head.mass + core.mass*1.5f;
             float accuracy = (100f + fletching.accuracy)/2f;
-            float breakChance = fletching.breakChance*3;
+            float breakChance = (fletching.breakChance*2 + 0.15f * core.breakChance) * head.breakChance/2f;
             float shoddy = (headMat.shoddy() + coreMat.shoddy())/2f;
             int reinforced = Math.max(headMat.reinforced(), coreMat.reinforced());
 

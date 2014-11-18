@@ -268,25 +268,25 @@ public class TinkerWeaponry {
         TConstructRegistry.addBowMaterial(MaterialID.Netherrack, 80, 1.0f); // Netherrack
 
         // Arrow Head Materials: Material ID, mass, fragility
-        TConstructRegistry.addArrowMaterial(MaterialID.Wood,        0.69F,  1.0F); //Wood
-        TConstructRegistry.addArrowMaterial(MaterialID.Stone,       2.05F,  5.0F); //Stone
-        TConstructRegistry.addArrowMaterial(MaterialID.Iron,        3.3F,   0.5F); //Iron
+        TConstructRegistry.addArrowMaterial(MaterialID.Wood,        0.69F,  0.5F); //Wood
+        TConstructRegistry.addArrowMaterial(MaterialID.Stone,       2.05F,  1.0F); //Stone
+        TConstructRegistry.addArrowMaterial(MaterialID.Iron,        3.3F,   0.8F); //Iron
         TConstructRegistry.addArrowMaterial(MaterialID.Flint,       1.325F, 1.0F); //Flint
         TConstructRegistry.addArrowMaterial(MaterialID.Cactus,      0.76F,  1.0F); //Cactus
         TConstructRegistry.addArrowMaterial(MaterialID.Bone,        1.69F,  1.0F); //Bone
         TConstructRegistry.addArrowMaterial(MaterialID.Obsidian,    2.4F,   1.0F); //Obsidian
-        TConstructRegistry.addArrowMaterial(MaterialID.Netherrack,  1.5F,   1.0F); //Netherrack
+        TConstructRegistry.addArrowMaterial(MaterialID.Netherrack,  1.5F,   1.3F); //Netherrack
         TConstructRegistry.addArrowMaterial(MaterialID.Slime,       0.22F,  0.0F); //Slime
-        TConstructRegistry.addArrowMaterial(MaterialID.Paper,       0.69F,  3.0F); //Paper
-        TConstructRegistry.addArrowMaterial(MaterialID.Cobalt,      3.0F,   0.25f); //Cobalt
-        TConstructRegistry.addArrowMaterial(MaterialID.Ardite,      1.25F,  0.25f); //Ardite
-        TConstructRegistry.addArrowMaterial(MaterialID.Manyullyn,   2.25F,  0.1F); //Manyullyn
-        TConstructRegistry.addArrowMaterial(MaterialID.Copper,      2.7F,   0.5F); //Copper
-        TConstructRegistry.addArrowMaterial(MaterialID.Bronze,      3.2F,   0.25f); //Bronze
-        TConstructRegistry.addArrowMaterial(MaterialID.Alumite,     1.1F,   0.25f); //Alumite
-        TConstructRegistry.addArrowMaterial(MaterialID.Steel,       3.6F,   0.25f); //Steel
+        TConstructRegistry.addArrowMaterial(MaterialID.Paper,       0.69F,  10.0F); //Paper
+        TConstructRegistry.addArrowMaterial(MaterialID.Cobalt,      3.0F,   2.0f); //Cobalt
+        TConstructRegistry.addArrowMaterial(MaterialID.Ardite,      1.25F,  2.0f); //Ardite
+        TConstructRegistry.addArrowMaterial(MaterialID.Manyullyn,   2.25F,  1.0F); //Manyullyn
+        TConstructRegistry.addArrowMaterial(MaterialID.Copper,      2.7F,   1.1F); //Copper
+        TConstructRegistry.addArrowMaterial(MaterialID.Bronze,      3.2F,   1.2f); //Bronze
+        TConstructRegistry.addArrowMaterial(MaterialID.Alumite,     1.1F,   0.7f); //Alumite
+        TConstructRegistry.addArrowMaterial(MaterialID.Steel,       3.6F,   0.9f); //Steel
         TConstructRegistry.addArrowMaterial(MaterialID.BlueSlime,   0.22F,  0.0F); //Blue Slime
-        TConstructRegistry.addArrowMaterial(MaterialID.PigIron,     3.6F,   0.5F); //Pigiron
+        TConstructRegistry.addArrowMaterial(MaterialID.PigIron,     3.0F,   0.5F); //Pigiron
 
         // Arrow Shaft Materials: Material ID, crafting item, durability-medifier, mass, fragility
         TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(0, Items.stick,     1.0f,  1.0f, 0.15f, 0x866526)); // wood: reference material, 10% break chance
