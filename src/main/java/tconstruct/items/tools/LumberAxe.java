@@ -95,34 +95,46 @@ public class LumberAxe extends AOEHarvestTool
             return super.onBlockStartBreak(stack, x, y, z, player);
 
         if (wood.isWood(world, x, y, z) || wood.getMaterial() == Material.sponge)
-            if(detectTree(world, x,y,z, wood)) {
+        {
+            if (detectTree(world, x,y,z, wood, true))
+            {
                 NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
                 int meta = world.getBlockMetadata(x, y, z);
-                breakTree(world, x, y, z, stack, tags, wood, meta, player);
+                breakTree(world, x, y, z, stack, tags, wood, meta, player, true);
                 // custom block breaking code, don't call vanilla code
                 return true;
             }
+            else if(detectTree(world, x,y,z, wood, false)) // now check for upside down tree
+            {
+                NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+                int meta = world.getBlockMetadata(x, y, z);
+                breakTree(world, x, y, z, stack, tags, wood, meta, player, false);
+                // custom block breaking code, don't call vanilla code
+                return true;
+            }
+        }
 
         return super.onBlockStartBreak(stack, x, y, z, player);
     }
 
-    private boolean detectTree(World world, int x, int y, int z, Block wood)
+    private boolean detectTree (World world, int x, int y, int z, Block wood, boolean upward)
     {
         int height = y;
+        int direction = upward ? 1 : -1;
         boolean foundTop = false;
         do
         {
-            height++;
+            height+=(1*direction);
             Block block = world.getBlock(x, height, z);
             if (block != wood)
             {
-                height--;
+                height-=(1*direction);
                 foundTop = true;
             }
         } while (!foundTop);
 
         int numLeaves = 0;
-        if (height - y < 50)
+        if (Math.abs(height - y) < 50)
         {
             for (int xPos = x - 1; xPos <= x + 1; xPos++)
             {
@@ -141,11 +153,13 @@ public class LumberAxe extends AOEHarvestTool
         return numLeaves > 3;
     }
 
-    private void breakTree (World world, int x, int y, int z, ItemStack stack, NBTTagCompound tags, Block bID, int meta, EntityPlayer player)
+    private void breakTree (World world, int x, int y, int z, ItemStack stack, NBTTagCompound tags, Block bID, int meta, EntityPlayer player, boolean upward)
     {
+        int direction = upward ? 1 : -1;
+        
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
-            for (int yPos = y; yPos <= y + 1; yPos++)
+            for (int yPos = y; (direction > 0) ? yPos <= y + 1 : yPos >= y - 1; yPos+=(1*direction))
             {
                 for (int zPos = z - 1; zPos <= z + 1; zPos++)
                 {
@@ -175,7 +189,7 @@ public class LumberAxe extends AOEHarvestTool
 
                                 if (cancelHarvest)
                                 {
-                                    breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player);
+                                    breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player, upward);
                                 }
                                 else
                                 {
@@ -189,7 +203,7 @@ public class LumberAxe extends AOEHarvestTool
 
                                         world.setBlockToAir(xPos, yPos, zPos);
                                         if (!world.isRemote)
-                                            breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player);
+                                            breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player, upward);
                                     }
                                 }
                             }
@@ -199,6 +213,7 @@ public class LumberAxe extends AOEHarvestTool
             }
         }
     }
+    
     @Override
     public Item getHeadItem ()
     {
