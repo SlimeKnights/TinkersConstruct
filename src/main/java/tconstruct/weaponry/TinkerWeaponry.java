@@ -24,6 +24,7 @@ import tconstruct.library.tools.DynamicToolPart;
 import tconstruct.library.tools.FletchlingLeafMaterial;
 import tconstruct.library.util.IPattern;
 import tconstruct.library.util.IToolPart;
+import tconstruct.modifiers.tools.ModAttack;
 import tconstruct.modifiers.tools.ModWindup;
 import tconstruct.modifiers.tools.ModAmmoRestock;
 import tconstruct.smeltery.TinkerSmeltery;
@@ -102,10 +103,14 @@ public class TinkerWeaponry {
         registerBoltCasting();
         setupCreativeTab();
 
+        // Modifiers
         ItemStack redstoneItem = new ItemStack(Items.redstone);
         ItemStack redstoneBlock = new ItemStack(Blocks.redstone_block);
         ModifyBuilder.registerModifier(new ModWindup(2, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
         ModifyBuilder.registerModifier(new ModAmmoRestock());
+
+        TinkerTools.modAttack = new ModAttack("Quartz", 11, new ItemStack[] { new ItemStack(Items.quartz), new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1, 4 }, true);
+        ModifyBuilder.registerModifier(TinkerTools.modAttack);
 
         TConstructRegistry.registerActiveToolMod(new WeaponryActiveToolMod());
     }
