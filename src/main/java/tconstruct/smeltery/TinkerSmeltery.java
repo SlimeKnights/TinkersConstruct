@@ -922,7 +922,7 @@ public class TinkerSmeltery
             Smeltery.addDictionaryMelting("oreNether" + fluidTypeName, ft, 75, ((int) TConstruct.ingotLiquidValue * (int) PHConstruct.ingotsPerOre * 2));
 
             // Blocks
-            Smeltery.addDictionaryMelting("block" + fluidTypeName, ft, 100, TConstruct.blockLiquidValue);
+            Smeltery.addDictionaryMelting("block" + fluidTypeName, ft, 100, TConstruct.ingotLiquidValue*2);
 
             if (ft.isToolpart)
             {
@@ -1073,7 +1073,7 @@ public class TinkerSmeltery
             basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 8), new FluidStack(TinkerSmeltery.moltenAlumiteFluid, TConstruct.blockLiquidValue), null, true, 100); // alumite
             basinCasting.addCastingRecipe(new ItemStack(TinkerWorld.metalBlock, 1, 9), new FluidStack(TinkerSmeltery.moltenSteelFluid, TConstruct.blockLiquidValue), null, true, 100); // steel
         }
-        basinCasting.addCastingRecipe(new ItemStack(Blocks.obsidian), new FluidStack(TinkerSmeltery.moltenObsidianFluid, TConstruct.oreLiquidValue), null, true, 100);// obsidian
+        basinCasting.addCastingRecipe(new ItemStack(Blocks.obsidian), new FluidStack(TinkerSmeltery.moltenObsidianFluid, TConstruct.ingotLiquidValue*2), null, true, 100);// obsidian
         basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.clearGlass, 1, 0), new FluidStack(TinkerSmeltery.moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100); // glass
         basinCasting.addCastingRecipe(new ItemStack(TinkerSmeltery.smeltery, 1, 4), new FluidStack(TinkerSmeltery.moltenStoneFluid, TConstruct.ingotLiquidValue), null, true, 100); // seared
         // stone
