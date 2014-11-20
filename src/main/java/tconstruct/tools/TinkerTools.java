@@ -704,7 +704,7 @@ public class TinkerTools
             }
 
             TConstructRegistry.addBowstringMaterial(1, 2, new ItemStack((Item) obj, 1, 7), new ItemStack(TinkerWeaponry.bowstring, 1, 1), 1F, 0.8F, 0.9f, 0x63bcd9);
-            TConstructRegistry.addBowMaterial(31, 40, 1.2f);
+            TConstructRegistry.addBowMaterial(31, 35, 4.75f);
             TConstructRegistry.addArrowMaterial(31, 1.8F, 0.5F);
 
             TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Thaumium);
