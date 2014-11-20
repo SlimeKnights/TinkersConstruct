@@ -206,7 +206,7 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
         // stonebound decreases, jagged increases damage too
         float bonusDamage = -AbilityHelper.calcStoneboundBonus(ammo, tags);
         // enchantments might add too
-        if(shootingEntity != null)
+        if(shootingEntity != null && movingobjectposition.entityHit instanceof EntityLivingBase)
             bonusDamage += EnchantmentHelper.getEnchantmentModifierLiving((EntityLivingBase)this.shootingEntity, (EntityLivingBase)movingobjectposition.entityHit);
         damage += bonusDamage;
 
