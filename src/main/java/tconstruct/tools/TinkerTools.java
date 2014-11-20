@@ -703,7 +703,7 @@ public class TinkerTools
                     TConstructRegistry.addPartMapping(TinkerTools.woodPattern, meta + 1, 31, new ItemStack(TinkerTools.patternOutputs[meta], 1, 31));
             }
 
-            TConstructRegistry.addBowstringMaterial(1, 2, new ItemStack((Item) obj, 1, 7), new ItemStack(TinkerWeaponry.bowstring, 1, 1), 1F, 1F, 0.9f, 0x63bcd9);
+            TConstructRegistry.addBowstringMaterial(1, 2, new ItemStack((Item) obj, 1, 7), new ItemStack(TinkerWeaponry.bowstring, 1, 1), 1F, 0.8F, 0.9f, 0x63bcd9);
             TConstructRegistry.addBowMaterial(31, 40, 1.2f);
             TConstructRegistry.addArrowMaterial(31, 1.8F, 0.5F);
 
@@ -720,7 +720,7 @@ public class TinkerTools
             try
             {
                 Object plantItem = ItemHelper.getStaticItem("plantItem", "mods.natura.common.NContent");
-                TConstructRegistry.addBowstringMaterial(2, 2, new ItemStack((Item) plantItem, 1, 7), new ItemStack(TinkerWeaponry.bowstring, 1, 2), 1.2F, 0.8F, 1.3f, 0xd3414f);
+                TConstructRegistry.addBowstringMaterial(2, 2, new ItemStack((Item) plantItem, 1, 7), new ItemStack(TinkerWeaponry.bowstring, 1, 2), 1.2F, 1.1F, 1.2f, 0xd3414f);
             }
             catch (Exception e)
             {
