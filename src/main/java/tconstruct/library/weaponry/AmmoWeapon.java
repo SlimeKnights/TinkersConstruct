@@ -106,7 +106,7 @@ public abstract class AmmoWeapon extends AmmoItem implements IAccuracy, IWindup 
             ItemStack reference = stack.copy();
             reference.stackSize = 1;
             reference.getTagCompound().getCompoundTag("InfiTool").setInteger("Ammo", 1);
-            Entity projectile = createProjectile(reference, world, player, getAccuracy(stack, time));
+            Entity projectile = createProjectile(reference, world, player, getAccuracy(stack, time), time);
             world.spawnEntityInWorld(projectile);
         }
 
@@ -115,7 +115,7 @@ public abstract class AmmoWeapon extends AmmoItem implements IAccuracy, IWindup 
             this.consumeAmmo(1, stack);
     }
 
-    protected abstract Entity createProjectile(ItemStack reference, World world, EntityPlayer player, float accuracy);
+    protected abstract Entity createProjectile(ItemStack reference, World world, EntityPlayer player, float accuracy, int time);
 
     /** used for displaying the damage, return the value used for pseed in createProjectile/ProjectileBase constructor
      */

@@ -174,7 +174,7 @@ public class Javelin extends AmmoWeapon {
     }
 
     @Override
-    protected Entity createProjectile(ItemStack reference, World world, EntityPlayer player, float accuracy) {
+    protected Entity createProjectile(ItemStack reference, World world, EntityPlayer player, float accuracy, int time) {
         reference.getTagCompound().getCompoundTag("InfiTool").removeTag("Throwing"); // needed so the NBTs are equal
         JavelinEntity entity = new JavelinEntity(world, player, getProjectileSpeed(), accuracy, reference);
 

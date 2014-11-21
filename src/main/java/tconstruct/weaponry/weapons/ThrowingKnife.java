@@ -1,6 +1,7 @@
 package tconstruct.weaponry.weapons;
 
 import net.minecraft.client.entity.EntityPlayerSP;
+import tconstruct.library.entity.ProjectileBase;
 import tconstruct.weaponry.client.CrosshairType;
 import tconstruct.weaponry.entity.ThrowingKnifeEntity;
 import tconstruct.library.weaponry.AmmoWeapon;
@@ -77,8 +78,13 @@ public class ThrowingKnife extends AmmoWeapon {
     }
 
     @Override
-    protected Entity createProjectile(ItemStack reference, World world, EntityPlayer player, float accuracy) {
-        return new ThrowingKnifeEntity(world, player, getProjectileSpeed(), accuracy, reference);
+    protected Entity createProjectile(ItemStack reference, World world, EntityPlayer player, float accuracy, int time) {
+        ProjectileBase knife = new ThrowingKnifeEntity(world, player, getProjectileSpeed(), accuracy, reference);
+        // if you aim long enough, it's a crit!
+        if(time >= this.getWindupTime(reference)*1.5f)
+            knife.setIsCritical(true);
+
+        return knife;
     }
 
     @Override
