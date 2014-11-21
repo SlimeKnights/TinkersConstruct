@@ -32,6 +32,7 @@ import tconstruct.tools.TinkerTools;
 import tconstruct.tools.items.Bowstring;
 import tconstruct.tools.items.Fletching;
 import tconstruct.tools.items.Pattern;
+import tconstruct.util.config.PHConstruct;
 import tconstruct.weaponry.ammo.ArrowAmmo;
 import tconstruct.weaponry.ammo.BoltAmmo;
 import tconstruct.library.tools.DualMaterialToolPart;
@@ -197,10 +198,19 @@ public class TinkerWeaponry {
         int[] liquidDamage = new int[] { 2, 13, 10, 11, 12, 14, 15, 6, 16, 18 };
         Item[] patternOutputs = new Item[] { partShuriken, partCrossbowLimb, partCrossbowBody, partBowLimb };
 
+
         // register part crafting
-        for (int m = 0; m < patternOutputs.length; m++)
-            for (int nonMetal : nonMetals)
-                TConstructRegistry.addPartMapping(woodPattern, m, nonMetal, new ItemStack(patternOutputs[m], 1, nonMetal));
+        if (PHConstruct.craftMetalTools)
+        {
+            for (int m = 0; m < patternOutputs.length; m++)
+                for (int i = 0; i < 18; i++)
+                    TConstructRegistry.addPartMapping(woodPattern, m, i, new ItemStack(patternOutputs[m], 1, i));
+        }
+        else {
+            for (int m = 0; m < patternOutputs.length; m++)
+                for (int nonMetal : nonMetals)
+                    TConstructRegistry.addPartMapping(woodPattern, m, nonMetal, new ItemStack(patternOutputs[m], 1, nonMetal));
+        }
 
         // register part casting
         LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
