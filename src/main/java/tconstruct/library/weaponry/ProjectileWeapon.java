@@ -283,6 +283,49 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
+    // exactly the same as the ToolCore one but with broken check for Handle instead of Head
+    public IIcon getIcon (ItemStack stack, int renderPass)
+    {
+        NBTTagCompound tags = stack.getTagCompound();
+
+        if (tags != null)
+        {
+            tags = stack.getTagCompound().getCompoundTag("InfiTool");
+            if (renderPass < getPartAmount())
+            {
+                // Handle
+                if (renderPass == 0) {
+                    if (tags.getBoolean("Broken"))
+                        return getCorrectIcon(brokenIcons, tags.getInteger("RenderHandle"));
+                    else
+                        return getCorrectIcon(handleIcons, tags.getInteger("RenderHandle"));
+                }
+                    // Head
+                else if (renderPass == 1)
+                {
+                    return getCorrectIcon(headIcons, tags.getInteger("RenderHead"));
+                }
+                // Accessory
+                else if (renderPass == 2)
+                    return getCorrectIcon(accessoryIcons, tags.getInteger("RenderAccessory"));
+                    // Extra
+                else if (renderPass == 3)
+                    return getCorrectIcon(extraIcons, tags.getInteger("RenderExtra"));
+            }
+            // Effects
+            else if (renderPass <= 10)
+            {
+                String effect = "Effect" + (1 + renderPass - getPartAmount());
+                if(tags.hasKey(effect))
+                    return effectIcons.get(tags.getInteger(effect));
+            }
+            return blankSprite;
+        }
+        return emptyIcon;
+    }
+
+    @Override
     public void registerIcons(IIconRegister iconRegister) {
         super.registerIcons(iconRegister);
 
