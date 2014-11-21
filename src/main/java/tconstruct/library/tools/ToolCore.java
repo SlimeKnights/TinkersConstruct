@@ -648,7 +648,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
                 switch(renderPass)
                 {
                     case 0: return getCorrectColor(stack, renderPass, tags, "Handle", handleIcons);
-                    case 1: return getCorrectColor(stack, renderPass, tags, "Head", headIcons);
+                    case 1: return tags.getBoolean("Broken") ? getCorrectColor(stack, renderPass, tags, "Head", brokenIcons) : getCorrectColor(stack, renderPass, tags, "Head", headIcons);
                     case 2: return getCorrectColor(stack, renderPass, tags, "Accessory", accessoryIcons);
                     case 3: return getCorrectColor(stack, renderPass, tags, "Extra", extraIcons);
                 }
