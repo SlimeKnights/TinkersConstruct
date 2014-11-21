@@ -14,7 +14,7 @@ public class WeaponryActiveToolMod extends ActiveToolMod {
             IAmmo ammo =(IAmmo)stack.getItem();
             if(tags.getInteger("Damage") == 0)
             {
-                int rem = ammo.addAmmo(1, stack);
+                int rem = ammo.consumeAmmo(1, stack);
                 if(rem > 0)
                     return true;
             }
