@@ -138,6 +138,10 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
         if(getWindupTime(stack) == 0.0f)
             return stack;
 
+        // broken tool?
+        if(stack.hasTagCompound() && stack.getTagCompound().hasKey(getBaseTagName()) && stack.getTagCompound().getCompoundTag(getBaseTagName()).getBoolean("Broken"))
+            return stack;
+
         // only if ammo is present
         if(searchForAmmo(player, stack) != null)
             player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
