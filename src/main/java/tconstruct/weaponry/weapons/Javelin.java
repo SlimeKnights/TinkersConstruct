@@ -108,7 +108,7 @@ public class Javelin extends AmmoWeapon {
 
     @Override
     public int getWindupTime(ItemStack itemStack) {
-        return 20;
+        return 17;
     }
 
     @Override

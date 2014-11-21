@@ -1,5 +1,6 @@
 package tconstruct.weaponry.weapons;
 
+import net.minecraft.client.entity.EntityPlayerSP;
 import tconstruct.weaponry.client.CrosshairType;
 import tconstruct.weaponry.entity.ThrowingKnifeEntity;
 import tconstruct.library.weaponry.AmmoWeapon;
@@ -58,7 +59,7 @@ public class ThrowingKnife extends AmmoWeapon {
     }
 
     @Override
-    public int getWindupTime(ItemStack itemStack) { return 30; } // 1 1/2 seconds
+    public int getWindupTime(ItemStack itemStack) { return 15; } // 1 1/2 seconds
 
     @Override
     public float getMinWindupProgress(ItemStack itemStack) {
@@ -89,5 +90,23 @@ public class ThrowingKnife extends AmmoWeapon {
     @Override
     public CrosshairType getCrosshairType() {
         return CrosshairType.SPIKE;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
+    {
+        // aiming with throwing knives slows down much less than with a bow
+        super.onUpdate(stack, world, entity, par4, par5);
+        if (entity instanceof EntityPlayerSP)
+        {
+            EntityPlayerSP player = (EntityPlayerSP) entity;
+            ItemStack usingItem = player.getItemInUse();
+            if (usingItem != null && usingItem.getItem() == this)
+            {
+                player.movementInput.moveForward *= 3.0F;
+                player.movementInput.moveStrafe *= 3.0F;
+            }
+        }
     }
 }
