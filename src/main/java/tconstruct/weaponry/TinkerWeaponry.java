@@ -247,6 +247,13 @@ public class TinkerWeaponry {
             tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
             Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);
         }
+
+        // Thaumium weaponry toolparts
+        if(TinkerTools.thaumcraftAvailable)
+        {
+            for (int m = 0; m < patternOutputs.length; m++)
+                    TConstructRegistry.addPartMapping(woodPattern, m, MaterialID.Thaumium, new ItemStack(patternOutputs[m], 1, MaterialID.Thaumium));
+        }
     }
 
     private void registerLegendaries()
