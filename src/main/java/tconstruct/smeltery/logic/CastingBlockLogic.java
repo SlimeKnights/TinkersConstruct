@@ -308,7 +308,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
             if(isStackInSlot(1))
                 slot = 1;
 
-            // Additional Info: Only 1 item can only be put into the casting block usually, however recipies
+            // Additional Info: Only 1 item can only be put into the casting block usually, however recipes
             // can have multiple blocks as output (compressed gravel -> brownstone for example)
             // we therefore spill the whole contents on extraction
 
