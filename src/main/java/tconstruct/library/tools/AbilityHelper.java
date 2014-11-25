@@ -579,8 +579,10 @@ public class AbilityHelper
                     entityitem.onCollideWithPlayer(player);
             }
             // if it got picked up, we're playing the sound
-            else
+            else {
                 player.worldObj.playSoundAtEntity(player, "random.pop", 0.2F, ((TConstruct.random.nextFloat() - TConstruct.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                player.inventory.markDirty();
+            }
         }
 
     }
