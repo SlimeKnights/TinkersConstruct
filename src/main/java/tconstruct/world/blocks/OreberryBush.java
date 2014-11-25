@@ -15,6 +15,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.common.util.ForgeDirection;
+import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.world.TinkerWorld;
@@ -175,24 +176,18 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     @Override
     public void onBlockClicked (World world, int x, int y, int z, EntityPlayer player)
     {
-        if (!world.isRemote)
-        {
-            int meta = world.getBlockMetadata(x, y, z);
-            if (meta >= 12)
-            {
-                world.setBlock(x, y, z, this, meta - 4, 3);
-                AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TinkerWorld.oreBerries, 1, meta % 4 + itemMeat));
-            }
-        }
+        harvest(world, x,y,z, player);
     }
 
     /* Right-click harvests berries */
     @Override
     public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
     {
-        /*if (world.isRemote)
-            return false;*/
+        return harvest(world, x,y,z, player);
+    }
 
+    public boolean harvest(World world, int x, int y, int z, EntityPlayer player)
+    {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta >= 12)
         {
@@ -201,7 +196,6 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
 
             world.setBlock(x, y, z, this, meta - 4, 3);
             AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TinkerWorld.oreBerries, random.nextInt(3) + 1, meta % 4 + itemMeat));
-            return true;
         }
 
         return false;

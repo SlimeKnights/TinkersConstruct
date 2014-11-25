@@ -21,6 +21,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
+import tconstruct.TConstruct;
 import tconstruct.library.*;
 import tconstruct.library.util.PiercingEntityDamage;
 
@@ -599,10 +600,20 @@ public class AbilityHelper
     {
         if (!player.worldObj.isRemote)
         {
-            EntityItem entityitem = new EntityItem(player.worldObj, player.posX + 0.5D, player.posY + 0.5D, player.posZ + 0.5D, stack);
-            player.worldObj.spawnEntityInWorld(entityitem);
-            if (!(player instanceof FakePlayer))
-                entityitem.onCollideWithPlayer(player);
+            // try to put it into the players inventory
+            if(player instanceof FakePlayer || !player.inventory.addItemStackToInventory(stack)) // note that the addItemStackToInventory is not called for fake players
+            {
+                // drop the rest as an entity
+                EntityItem entityitem = new EntityItem(player.worldObj, player.posX + 0.5D, player.posY + 0.5D, player.posZ + 0.5D, stack);
+                player.worldObj.spawnEntityInWorld(entityitem);
+                if (!(player instanceof FakePlayer))
+                    entityitem.onCollideWithPlayer(player);
+            }
+            // if it got picked up, we're playing the sound
+            else {
+                player.worldObj.playSoundAtEntity(player, "random.pop", 0.2F, ((TConstruct.random.nextFloat() - TConstruct.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                player.inventory.markDirty();
+            }
         }
 
     }

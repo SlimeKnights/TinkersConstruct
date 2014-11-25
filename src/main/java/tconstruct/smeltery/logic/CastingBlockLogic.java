@@ -317,14 +317,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
 
             // try to transfer thes tack to the player inventory
             ItemStack output = event.item;
-            if(!player.inventory.addItemStackToInventory(output))
-            {
-                // drop the rest as an item
-                AbilityHelper.spawnItemAtPlayer(player, output);
-            }
-            // added to inventory, update inventory
-            else
-                player.inventory.markDirty();
+            AbilityHelper.spawnItemAtPlayer(player, output);
 
             // remove inventory contents, since we spilled the full contents of the slot
             inventory[slot] = null;
