@@ -98,21 +98,12 @@ public class DryingRack extends InventoryBlock
             {
                 ItemStack decrStack = logic.decrStackSize(0, 1);
                 if (decrStack != null)
-                    addItemToInventory(player, world, x, y, z, decrStack);
+                    AbilityHelper.spawnItemAtPlayer(player, decrStack);
             }
 
             world.markBlockForUpdate(x, y, z);
         }
         return true;
-    }
-
-    public void addItemToInventory (EntityPlayer player, World world, int x, int y, int z, ItemStack stack)
-    {
-        if(!player.inventory.addItemStackToInventory(stack))
-        {
-            // drop the rest as an item
-            AbilityHelper.spawnItemAtPlayer(player, stack);
-        }
     }
 
     @Override
