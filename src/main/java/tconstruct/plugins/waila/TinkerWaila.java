@@ -6,7 +6,7 @@ import mantle.pulsar.pulse.*;
 import tconstruct.TConstruct;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "Tinkers Waila Compatibility", description = "Tinkers Construct compatibility for Waila", modsRequired = "Waila")
+@Pulse(id = "Tinkers Waila Compatibility", description = "Tinkers Construct compatibility for Waila", modsRequired = "Waila", forced = true)
 public class TinkerWaila
 {
     @Handler

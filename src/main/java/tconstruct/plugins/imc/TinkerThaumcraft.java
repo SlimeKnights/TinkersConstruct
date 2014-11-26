@@ -8,7 +8,7 @@ import tconstruct.TConstruct;
 import tconstruct.world.TinkerWorld;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "Tinkers Thaumcraft Compatibility", description = "Tinkers Construct compatibility for Thaumcraft", modsRequired = "Thaumcraft", pulsesRequired = "Tinkers' World")
+@Pulse(id = "Tinkers Thaumcraft Compatibility", description = "Tinkers Construct compatibility for Thaumcraft", modsRequired = "Thaumcraft", pulsesRequired = "Tinkers' World", forced = true)
 public class TinkerThaumcraft
 {
 

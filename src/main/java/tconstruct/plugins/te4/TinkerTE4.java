@@ -11,7 +11,7 @@ import tconstruct.tools.TinkerTools;
 import tconstruct.world.TinkerWorld;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "Tinkers TE4 Compatibility", description = "Tinkers Construct compatibility for Thermal Expansion", modsRequired = "ThermalExpansion")
+@Pulse(id = "Tinkers TE4 Compatibility", description = "Tinkers Construct compatibility for Thermal Expansion", modsRequired = "ThermalExpansion", forced = true)
 public class TinkerTE4
 {
     @Handler
