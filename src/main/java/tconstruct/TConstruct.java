@@ -36,7 +36,7 @@ import tconstruct.plugins.ic2.TinkerIC2;
 import tconstruct.plugins.imc.TinkerAE2;
 import tconstruct.plugins.imc.TinkerBuildCraft;
 import tconstruct.plugins.imc.TinkerMystcraft;
-import tconstruct.plugins.imc.TinkerThaumcraft;
+import tconstruct.plugins.TinkerThaumcraft;
 import tconstruct.plugins.mfr.TinkerMFR;
 import tconstruct.plugins.te4.TinkerTE4;
 import tconstruct.plugins.waila.TinkerWaila;
