@@ -13,6 +13,7 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.play.server.S14PacketEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraftforge.event.entity.living.*;
@@ -26,6 +27,7 @@ import tconstruct.library.event.*;
 import tconstruct.library.tools.*;
 import tconstruct.util.ItemHelper;
 import tconstruct.util.config.PHConstruct;
+import tconstruct.util.network.MovementUpdatePacket;
 
 public class TinkerToolEvents
 {
@@ -225,35 +227,41 @@ public class TinkerToolEvents
                 DamageSource source = event.source;
                 if (!source.isUnblockable() && !source.isMagicDamage() && !source.isExplosion())
                 {
-                    if (source instanceof EntityDamageSourceIndirect)
+                    if (source.isProjectile())
                     {
-                        if (TConstruct.random.nextInt(3) == 0)
-                        {
-                            Entity attacker = source.getEntity();
-                            Entity projectile = ((EntityDamageSourceIndirect) source).getSourceOfDamage();
-                            projectile.motionX *= -1;
-                            projectile.motionZ *= -1;
-                            projectile.setDead();
-                            event.setCanceled(true);
+                        // no damage, hooraaay
+                        event.setCanceled(true);
 
-                            if (projectile.getClass() == EntityArrow.class && !player.worldObj.isRemote)
-                            {
-                                EntityArrow reflection = null;
-                                if (attacker instanceof EntityLivingBase)
-                                    reflection = new EntityArrow(player.worldObj, (EntityLivingBase) attacker, 0);
-                                else
-                                    reflection = new EntityArrow(player.worldObj, player, 0);
+                        Entity projectile = source.getSourceOfDamage();
 
-                                Vec3 look = player.getLookVec();
-                                reflection.posX = projectile.posX;
-                                reflection.posY = projectile.posY;
-                                reflection.posZ = projectile.posZ;
-                                reflection.motionX = (projectile.motionX + (look.xCoord * 8)) / 6;
-                                reflection.motionY = (projectile.motionY + (look.yCoord * 8)) / 6;
-                                reflection.motionZ = (projectile.motionZ + (look.zCoord * 8)) / 6;
-                                reflection.damage = ((EntityArrow) projectile).damage;
-                                player.worldObj.spawnEntityInWorld(reflection);
-                            }
+                        double speed = projectile.motionX*projectile.motionX + projectile.motionY*projectile.motionY + projectile.motionZ*projectile.motionZ;
+                        speed = Math.sqrt(speed);
+
+                        Vec3 look = player.getLookVec();
+
+                        // now we simply set the look vector with the speed and get our new vector!
+                        projectile.motionX = look.xCoord * speed;
+                        projectile.motionY = look.yCoord * speed;
+                        projectile.motionZ = look.zCoord * speed;
+
+                        projectile.rotationYaw = (float)(Math.atan2(projectile.motionX, projectile.motionZ) * 180.0D / Math.PI);
+                        projectile.rotationPitch = (float)(Math.atan2(projectile.motionY, speed) * 180.0D / Math.PI);
+
+                        // send the current status to the client
+                        TConstruct.packetPipeline.sendToAll(new MovementUpdatePacket(projectile));
+
+                        if(projectile instanceof EntityArrow) {
+                            ((EntityArrow) projectile).shootingEntity = player;
+
+                            // the inverse is done when the event is cancelled in arrows etc.
+                            // we reverse it so it has no effect. yay
+                            projectile.motionX /= -0.10000000149011612D;
+                            projectile.motionY /= -0.10000000149011612D;
+                            projectile.motionZ /= -0.10000000149011612D;
+//                            projectile.rotationYaw -= 180.0F;
+//                            projectile.prevRotationYaw -= 180.0F;
+
+                            // not needed at the client since it gets the absolute values sent
                         }
                     }
                     else
