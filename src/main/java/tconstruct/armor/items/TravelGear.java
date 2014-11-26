@@ -1,5 +1,6 @@
 package tconstruct.armor.items;
 
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.*;
 import java.util.List;
 import net.minecraft.client.model.ModelBiped;
@@ -12,9 +13,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import tconstruct.armor.ArmorProxyClient;
+import tconstruct.armor.TinkerArmor;
 import tconstruct.library.armor.*;
+import thaumcraft.api.IGoggles;
+import thaumcraft.api.nodes.IRevealer;
 
-public class TravelGear extends ArmorCore
+@Optional.InterfaceList({
+    @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.nodes.IRevealer"),
+    @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IGoggles")
+})
+public class TravelGear extends ArmorCore implements IRevealer, IGoggles
 {
 
     public TravelGear(ArmorPart part)
@@ -138,6 +146,8 @@ public class TravelGear extends ArmorCore
         case 0:
             modifiers = new IIcon[5];
             modifiers[0] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "goggles" + "_" + "nightvision");
+            modifiers[1] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "goggles" + "_" + "thaumic1");
+            modifiers[2] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "goggles" + "_" + "thaumic2");
             modifiers[4] = iconRegister.registerIcon("tinker:" + textureFolder + "/" + "goggles" + "_" + "moss");
             break;
         case 1:
@@ -187,5 +197,23 @@ public class TravelGear extends ArmorCore
         }
 
         super.addInformation(stack, player, list, par4);
+    }
+
+    @Optional.Method(modid = "Thaumcraft")
+    @Override
+    public boolean showNodes(ItemStack itemstack, EntityLivingBase player) {
+        if(itemstack == null || !itemstack.hasTagCompound() || itemstack.getItem() != TinkerArmor.travelGoggles)
+            return false;
+
+        return itemstack.getTagCompound().getCompoundTag(this.getBaseTagName()).getBoolean("Thaumic Senses");
+    }
+
+    @Optional.Method(modid = "Thaumcraft")
+    @Override
+    public boolean showIngamePopups(ItemStack itemstack, EntityLivingBase player) {
+        if(itemstack == null || !itemstack.hasTagCompound() || itemstack.getItem() != TinkerArmor.travelGoggles)
+            return false;
+
+        return itemstack.getTagCompound().getCompoundTag(this.getBaseTagName()).getBoolean("Thaumic Vision");
     }
 }

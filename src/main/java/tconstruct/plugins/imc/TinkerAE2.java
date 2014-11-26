@@ -7,7 +7,7 @@ import mantle.pulsar.pulse.*;
 import tconstruct.TConstruct;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "Tinkers AE2 Compatibility", description = "Tinkers Construct compatibility for Applied Energistics 2", modsRequired = "appliedenergistics2")
+@Pulse(id = "Tinkers AE2 Compatibility", description = "Tinkers Construct compatibility for Applied Energistics 2", modsRequired = "appliedenergistics2", forced = true)
 public class TinkerAE2
 {
     private static List<String> spatialIOLogics = Arrays.asList("EssenceExtractorLogic", "GolemPedestalLogic", //TODO What happened to these?

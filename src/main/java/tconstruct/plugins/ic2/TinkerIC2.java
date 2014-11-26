@@ -11,7 +11,7 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.LiquidCasting;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "Tinkers IC2 Compatibility", description = "Tinkers Construct compatibility for IndustrialCraft 2", modsRequired = "IC2")
+@Pulse(id = "Tinkers IC2 Compatibility", description = "Tinkers Construct compatibility for IndustrialCraft 2", modsRequired = "IC2", forced = true)
 public class TinkerIC2
 {
     private static final String IC2_UUM_FLUIDNAME = "ic2fluiduumatter";

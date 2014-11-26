@@ -6,7 +6,7 @@ import mantle.pulsar.pulse.*;
 import tconstruct.TConstruct;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "Tinkers MFR Compatibility", description = "Tinkers Construct compatibility for MineFactory Reloaded", modsRequired = "MineFactoryReloaded")
+@Pulse(id = "Tinkers MFR Compatibility", description = "Tinkers Construct compatibility for MineFactory Reloaded", modsRequired = "MineFactoryReloaded", forced = true)
 public class TinkerMFR
 {
     @Handler
