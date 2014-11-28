@@ -16,4 +16,7 @@ public class ArrowMaterial
     {
         this(weight, breakChance);
     }
+
+    @Deprecated
+    public float accuracy = 0f; // tic-tooltips compatibility
 }

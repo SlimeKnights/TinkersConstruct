@@ -16,4 +16,7 @@ public class BowMaterial
     {
         this(drawspeed, attack);
     }
+
+    @Deprecated
+    public int durability = 0; // tic-tooltips compatibility
 }

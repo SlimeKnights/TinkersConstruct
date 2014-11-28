@@ -47,10 +47,15 @@ public class TinkerTools
     public static ToolProxyCommon proxy;
 
     // backwards compatibility
+    @Deprecated
     public static Item bowstring;
-    public static DynamicToolPart arrowhead;
+    @Deprecated
+    public static Item arrowhead;
+    @Deprecated
     public static Item fletching;
+    @Deprecated
     public static ToolCore shortbow;
+    @Deprecated
     public static ToolCore arrow;
 
     // Crafting blocks

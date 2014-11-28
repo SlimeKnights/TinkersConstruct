@@ -35,4 +35,7 @@ public class FletchingMaterial extends CustomMaterial
     {
         this(materialID, value, oredict, craftingItem, accuracy, 0.01f, 1f, 0xffffffff);
     }
+
+    @Deprecated
+    public float mass = 0; // tic-tooltips compatibility
 }
