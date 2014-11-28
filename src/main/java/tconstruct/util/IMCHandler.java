@@ -284,7 +284,7 @@ public final class IMCHandler {
         int color = tag.getInteger("Color");
 
         if(tag.hasKey("Jagged"))
-            shoddy = tag.getFloat("Jagged");
+            shoddy = -tag.getFloat("Jagged");
 
         if(tag.hasKey("localizationString"))
             return new ToolMaterial(name, tag.getString("localizationString"), hlvl, durability, speed, attack, handle, reinforced, shoddy, style, color);
