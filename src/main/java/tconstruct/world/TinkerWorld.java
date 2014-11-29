@@ -269,6 +269,7 @@ public class TinkerWorld
         // TConstruct.instance, 32, 5, true);
 
         EntityRegistry.registerModEntity(BlueSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);
+        EntityRegistry.registerModEntity(KingBlueSlime.class, "KingSlime", 14, TConstruct.instance, 64, 5, true);
         // EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13,
         // TConstruct.instance, 64, 5, true);
 

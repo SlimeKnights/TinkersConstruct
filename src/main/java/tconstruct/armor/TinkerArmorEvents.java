@@ -35,12 +35,6 @@ public class TinkerArmorEvents
 
         if (event.entityLiving instanceof IBossDisplayData)
         {
-            if (event.entityLiving instanceof BlueSlime)
-            {
-                BlueSlime slime = (BlueSlime) event.entityLiving;
-                if (slime.getSlimeSize() < 8)
-                    return;
-            }
             String entityName = event.entityLiving.getClass().getSimpleName().toLowerCase();
             if (entityName.contains("entitynpc") || entityName.contains("entitycustomnpc"))
                 return;
