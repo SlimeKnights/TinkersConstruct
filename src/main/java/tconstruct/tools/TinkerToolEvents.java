@@ -222,8 +222,12 @@ public class TinkerToolEvents
             EntityPlayer player = (EntityPlayer) event.entityLiving;
             //Cutlass
             ItemStack stack = player.getCurrentEquippedItem();
-            if (stack != null && stack.getItem() == TinkerTools.battlesign && player.isUsingItem())
+            if (stack != null && stack.getItem() == TinkerTools.battlesign)
             {
+                // broken battlesign?
+                if(!stack.hasTagCompound() || stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Broken"))
+                    return;
+
                 DamageSource source = event.source;
                 if (!source.isUnblockable() && !source.isMagicDamage() && !source.isExplosion())
                 {
@@ -282,6 +286,9 @@ public class TinkerToolEvents
                             attacker.attackEntityFrom(DamageSource.causeThornsDamage(player), event.ammount);
                         }
                     }
+
+                    // durability--
+                    AbilityHelper.damageTool(stack, (int)Math.ceil(event.ammount/2f), player, false);
                 }
             }
         }
