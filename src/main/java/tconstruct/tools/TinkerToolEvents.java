@@ -229,15 +229,25 @@ public class TinkerToolEvents
                 {
                     if (source.isProjectile())
                     {
+                        Entity projectile = source.getSourceOfDamage();
+                        Vec3 motion = Vec3.createVectorHelper(projectile.motionX, projectile.motionY, projectile.motionZ);
+                        Vec3 look = player.getLookVec();
+
+                        // this gives a factor of how much we're looking at the incoming arrow
+                        double strength = -look.dotProduct(motion.normalize());
+                        // we're looking away. oh no.
+                        if(strength < 0.1)
+                            return;
+
                         // no damage, hooraaay
                         event.setCanceled(true);
-
-                        Entity projectile = source.getSourceOfDamage();
 
                         double speed = projectile.motionX*projectile.motionX + projectile.motionY*projectile.motionY + projectile.motionZ*projectile.motionZ;
                         speed = Math.sqrt(speed);
 
-                        Vec3 look = player.getLookVec();
+                        speed = (speed+2)*strength;
+
+
 
                         // now we simply set the look vector with the speed and get our new vector!
                         projectile.motionX = look.xCoord * speed;
