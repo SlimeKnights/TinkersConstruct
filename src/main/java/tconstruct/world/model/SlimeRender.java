@@ -7,7 +7,8 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.boss.BossStatus;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
-import tconstruct.world.entity.BlueSlime;
+import tconstruct.world.entity.KingBlueSlime;
+import tconstruct.world.entity.SlimeBase;
 
 @SideOnly(Side.CLIENT)
 public class SlimeRender extends RenderLiving
@@ -25,21 +26,16 @@ public class SlimeRender extends RenderLiving
     public void doRender (EntityLiving par1EntityLiving, double par2, double par4, double par6, float par8, float par9)
     {
         super.doRender(par1EntityLiving, par2, par4, par6, par8, par9);
-        renderBossHealth((BlueSlime) par1EntityLiving);
-    }
-
-    public void renderBossHealth (BlueSlime slime)
-    {
-        if (slime.getSlimeSize() >= 8)
-            BossStatus.setBossStatus(slime, true);
+        if(par1EntityLiving instanceof KingBlueSlime)
+            BossStatus.setBossStatus((KingBlueSlime) par1EntityLiving, true);
     }
 
     /**
      * Determines whether Slime Render should pass or not.
      */
-    protected int shouldSlimeRenderPass (BlueSlime blueSlime, int par2, float par3)
+    protected int shouldSlimeRenderPass (SlimeBase slime, int par2, float par3)
     {
-        if (blueSlime.isInvisible())
+        if (slime.isInvisible())
         {
             return 0;
         }
@@ -66,7 +62,7 @@ public class SlimeRender extends RenderLiving
     /**
      * sets the scale for the slime based on getSlimeSize in EdibleSlime
      */
-    protected void scaleSlime (BlueSlime par1EdibleSlime, float par2)
+    protected void scaleSlime (SlimeBase par1EdibleSlime, float par2)
     {
         float f1 = (float) par1EdibleSlime.getSlimeSize();
         float f2 = (par1EdibleSlime.sizeHeight + (par1EdibleSlime.sizeFactor - par1EdibleSlime.sizeHeight) * par2) / (f1 * 0.5F + 1.0F);
@@ -81,7 +77,7 @@ public class SlimeRender extends RenderLiving
     @Override
     protected void preRenderCallback (EntityLivingBase par1EntityLiving, float par2)
     {
-        this.scaleSlime((BlueSlime) par1EntityLiving, par2);
+        this.scaleSlime((SlimeBase) par1EntityLiving, par2);
     }
 
     /**
@@ -90,7 +86,7 @@ public class SlimeRender extends RenderLiving
     @Override
     protected int shouldRenderPass (EntityLivingBase par1EntityLiving, int par2, float par3)
     {
-        return this.shouldSlimeRenderPass((BlueSlime) par1EntityLiving, par2, par3);
+        return this.shouldSlimeRenderPass((SlimeBase) par1EntityLiving, par2, par3);
     }
 
     @Override

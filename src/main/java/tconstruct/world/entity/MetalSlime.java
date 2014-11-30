@@ -22,7 +22,7 @@ public class MetalSlime extends BlueSlime
     }
 
     // Invoked by constructor to set max health dependant on current size
-    private float getMaxHealthForSize ()
+    protected float getMaxHealthForSize ()
     {
         int i = this.getSlimeSize();
         if (i == 1)
