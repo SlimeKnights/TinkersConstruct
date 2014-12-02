@@ -60,7 +60,9 @@ public class KingBlueSlime extends SlimeBase implements IBossDisplayData {
                 double x = Math.cos(r);
                 double z = Math.sin(r);
                 entityslime.setLocationAndAngles(this.posX - 1d + x, this.posY + 0.5D, this.posZ - 1d + z, this.rand.nextFloat() * 360.0F, 0.0F);
-                entityslime.setVelocity(x, -0.5d - rand.nextDouble(), z);
+                entityslime.motionX = x;
+                entityslime.motionY = -0.5d - rand.nextDouble();
+                entityslime.motionZ = z;
                 this.worldObj.spawnEntityInWorld(entityslime);
             }
         }
