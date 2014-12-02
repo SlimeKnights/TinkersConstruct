@@ -32,6 +32,7 @@ import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.mechworks.TinkerMechworks;
 import tconstruct.mechworks.landmine.behavior.Behavior;
 import tconstruct.mechworks.landmine.behavior.stackCombo.SpecialStackHandler;
+import tconstruct.plugins.fmp.TinkerFMP;
 import tconstruct.plugins.ic2.TinkerIC2;
 import tconstruct.plugins.imc.TinkerAE2;
 import tconstruct.plugins.imc.TinkerBuildCraft;
@@ -134,6 +135,7 @@ public class TConstruct
         pulsar.registerPulse(new TinkerMystcraft());
         pulsar.registerPulse(new TinkerMFR());
         pulsar.registerPulse(new TinkerTE4());
+        pulsar.registerPulse(new TinkerFMP());
         /*pulsar.registerPulse(new TinkerPrayers());
         pulsar.registerPulse(new TinkerCropify());*/
 
