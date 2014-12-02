@@ -225,6 +225,7 @@ item.tconstruct.MetalPattern.fletching.name=Fletching Cast
 item.tconstruct.MetalPattern.arrowhead.name=Arrowhead Cast
 item.tconstruct.MetalPattern.ingot.name=Ingot Cast
 item.tconstruct.MetalPattern.gem.name=Gem Cast
+item.tconstruct.MetalPattern.nugget.name=Nugget Cast
 item.tconstruct.MetalPattern.shuriken.name=Shuriken Cast
 item.tconstruct.MetalPattern.crossbowlimb.name=Crossbow Limb Cast
 item.tconstruct.MetalPattern.crossbowbody.name=Crossbow Body Cast

@@ -867,6 +867,7 @@ public class TinkerSmeltery
 
             // Nuggets
             Smeltery.addDictionaryMelting("nugget" + fluidTypeName, ft, -100, TConstruct.nuggetLiquidValue);
+            registerNuggetCasting(ft, "nugget" + fluidTypeName);
 
             // Ingots, Dust
             registerIngotCasting(ft, "ingot" + fluidTypeName);
@@ -903,6 +904,7 @@ public class TinkerSmeltery
             FluidType ft = FluidType.getFluidType("Obsidian");
             String fluidTypeName = "Obsidian";
             Smeltery.addDictionaryMelting("nugget" + fluidTypeName, ft, -100, TConstruct.nuggetLiquidValue);
+            registerNuggetCasting(ft, "nugget" + fluidTypeName);
 
             // Ingots, Dust
             registerIngotCasting(ft, "ingot" + fluidTypeName);
@@ -1288,6 +1290,18 @@ public class TinkerSmeltery
             tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
             tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
             tableCasting.addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, TConstruct.ingotLiquidValue), pattern, 80);
+        }
+    }
+
+    private void registerNuggetCasting (FluidType ft, String name)
+    {
+        ItemStack pattern = new ItemStack(TinkerSmeltery.metalPattern, 1, 27);
+        LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
+        for (ItemStack ore : OreDictionary.getOres(name))
+        {
+            tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
+            tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
+            tableCasting.addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, TConstruct.nuggetLiquidValue), pattern, 40);
         }
     }
 
