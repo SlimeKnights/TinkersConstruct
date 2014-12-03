@@ -60,6 +60,14 @@ public abstract class AmmoItem extends ToolCore implements IAmmo {
         return toUse - (oldCount - newCount);
     }
 
+    @Override
+    public void setAmmo(int count, ItemStack stack) {
+        if(!stack.hasTagCompound()) return;
+
+        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        tags.setInteger("Ammo", count);
+    }
+
     public float getAmmoModifier() { return 0.1f; }
 
     public boolean pickupAmmo(ItemStack stack, ItemStack candidate, EntityPlayer player)

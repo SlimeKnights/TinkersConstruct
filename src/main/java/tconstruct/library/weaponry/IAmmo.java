@@ -35,4 +35,11 @@ public interface IAmmo {
      * @return The amount of ammo that couldn't be removed. If you try to remove 5, but only 3 are left, it'll return 2.
      */
     int consumeAmmo(int count, ItemStack stack);
+
+    /**
+     * Sets the Ammo amount to that absolute value. Behaviour for values below 0 or above the max ammo is undefined.
+     * @param count How much
+     * @param stack The itemstack to set the ammo for. Has to have proper NBT.
+     */
+    void setAmmo(int count, ItemStack stack);
 }

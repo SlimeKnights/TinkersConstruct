@@ -9,19 +9,24 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
+import net.minecraft.block.BlockDispenser;
+import net.minecraft.dispenser.IPosition;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.*;
+import tconstruct.library.entity.ProjectileBase;
 import tconstruct.library.tools.DynamicToolPart;
 import tconstruct.library.tools.FletchlingLeafMaterial;
+import tconstruct.library.util.BehaviorProjectileBaseDispense;
 import tconstruct.library.util.IPattern;
 import tconstruct.library.util.IToolPart;
 import tconstruct.modifiers.tools.ModAttack;
@@ -36,6 +41,7 @@ import tconstruct.util.config.PHConstruct;
 import tconstruct.weaponry.ammo.ArrowAmmo;
 import tconstruct.weaponry.ammo.BoltAmmo;
 import tconstruct.library.tools.DualMaterialToolPart;
+import tconstruct.weaponry.entity.*;
 import tconstruct.weaponry.items.GlassArrows;
 import tconstruct.weaponry.items.WeaponryPattern;
 import tconstruct.library.weaponry.AmmoItem;
@@ -114,6 +120,8 @@ public class TinkerWeaponry {
         ModifyBuilder.registerModifier(TinkerTools.modAttack);
 
         TConstructRegistry.registerActiveToolMod(new WeaponryActiveToolMod());
+
+        registerDispenserProjectiles();
     }
 
     @Handler
@@ -388,5 +396,54 @@ public class TinkerWeaponry {
         tool.setTagCompound(compound);
 
         TConstructRegistry.weaponryTab.init(tool);
+    }
+
+    private void registerDispenserProjectiles() {
+        // shuriken
+        BlockDispenser.dispenseBehaviorRegistry.putObject(shuriken, new BehaviorProjectileBaseDispense() {
+
+            @Override
+            protected ProjectileBase getProjectileEntity(World world, IPosition position, ItemStack stack) {
+                return new ShurikenEntity(world, position.getX(), position.getY(), position.getZ());
+            }
+
+            @Override
+            protected float ballistic() {
+                // shurikens are shot out straight
+                return 0f;
+            }
+        });
+        // throwing knifes
+        BlockDispenser.dispenseBehaviorRegistry.putObject(throwingknife, new BehaviorProjectileBaseDispense() {
+
+            @Override
+            protected ProjectileBase getProjectileEntity(World world, IPosition position, ItemStack stack) {
+                return new ThrowingKnifeEntity(world, position.getX(), position.getY(), position.getZ());
+            }
+        });
+        // Javelin
+        BlockDispenser.dispenseBehaviorRegistry.putObject(javelin, new BehaviorProjectileBaseDispense() {
+
+            @Override
+            protected ProjectileBase getProjectileEntity(World world, IPosition position, ItemStack stack) {
+                return new JavelinEntity(world, position.getX(), position.getY(), position.getZ());
+            }
+        });
+
+        // arrows
+        BlockDispenser.dispenseBehaviorRegistry.putObject(arrowAmmo, new BehaviorProjectileBaseDispense() {
+            @Override
+            protected ProjectileBase getProjectileEntity(World world, IPosition position, ItemStack stack) {
+                return new ArrowEntity(world, position.getX(), position.getY(), position.getZ());
+            }
+        });
+
+        // bolts
+        BlockDispenser.dispenseBehaviorRegistry.putObject(boltAmmo, new BehaviorProjectileBaseDispense() {
+            @Override
+            protected ProjectileBase getProjectileEntity(World world, IPosition position, ItemStack stack) {
+                return new BoltEntity(world, position.getX(), position.getY(), position.getZ());
+            }
+        });
     }
 }

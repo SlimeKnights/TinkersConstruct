@@ -105,7 +105,8 @@ public abstract class AmmoWeapon extends AmmoItem implements IAccuracy, IWindup 
         if(!world.isRemote) {
             ItemStack reference = stack.copy();
             reference.stackSize = 1;
-            reference.getTagCompound().getCompoundTag("InfiTool").setInteger("Ammo", 1);
+            ((IAmmo)reference.getItem()).setAmmo(1, reference);
+
             Entity projectile = createProjectile(reference, world, player, getAccuracy(stack, time), time);
             world.spawnEntityInWorld(projectile);
         }
