@@ -564,8 +564,6 @@ public class TinkerWorld
 
         BlockDispenser.dispenseBehaviorRegistry.putObject(TinkerTools.titleIcon, new TDispenserBehaviorSpawnEgg());
 
-        BlockDispenser.dispenseBehaviorRegistry.putObject(TinkerTools.arrow, new TDispenserBehaviorArrow());
-
         // Vanilla stuff
         OreDictionary.registerOre("slimeball", new ItemStack(Items.slime_ball));
         OreDictionary.registerOre("slimeball", new ItemStack(TinkerWorld.strangeFood, 1, 0));
