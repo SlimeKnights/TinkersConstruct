@@ -101,7 +101,8 @@ public class ArrowEntity extends ProjectileBase {
 
             //Minecraft.getMinecraft().thePlayer.sendChatMessage("Piercing Damage: " + shift);
 
-            dealtDamage |= entityHit.attackEntityFrom(damagesource, shift);
+            // piercing damage does not affect wether the entity was hit (return value), since it should go through always
+            entityHit.attackEntityFrom(damagesource, shift);
         }
 
         return dealtDamage;

@@ -33,7 +33,6 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
     public final static String stoneSound = Reference.resource("stoneHit");
 
     public ItemStack returnStack;
-    public int returnStackSlot;
 
     public boolean bounceOnNoDamage = true;
     public boolean defused = false; // if this is true it wont hit any entities anymore
@@ -67,7 +66,6 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
         this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, speed, accuracy);
 
         // our stuff
-        returnStackSlot = player.inventory.currentItem;
         returnStack = stack;
 
 /*
