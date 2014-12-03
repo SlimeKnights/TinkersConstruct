@@ -57,7 +57,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
     @Override
     public boolean canFill (ForgeDirection from, Fluid fluid)
     {
-        return tank.getFluidAmount() == 0 || tank.getFluidAmount() < tank.getCapacity();
+        return tank.getFluidAmount() == 0 || (tank.getFluid().getFluid() == fluid && tank.getFluidAmount() < tank.getCapacity());
     }
 
     @Override
