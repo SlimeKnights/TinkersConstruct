@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import tconstruct.library.crafting.*;
 import tconstruct.library.modifier.IModifyable;
+import tconstruct.library.tools.ToolCore;
 import tconstruct.tools.inventory.ToolStationContainer;
 
 /* Simple class for storing items in the block
@@ -117,8 +118,8 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
         else
             temp = inventory[1].copy();
 
-        if (temp == null)
-            return null; // output as well as inventory is null :(
+        if (temp == null || !(temp.getItem() instanceof ToolCore))
+            return null; // output as well as inventory is null or not a tool :(
 
         NBTTagCompound tags = temp.getTagCompound();
         if (tags == null)
