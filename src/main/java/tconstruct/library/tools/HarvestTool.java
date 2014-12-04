@@ -311,11 +311,21 @@ public abstract class HarvestTool extends ToolCore
 
             // following code can be found in PlayerControllerMP.onPlayerDestroyBlock
             world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
-            if(block.removedByPlayer(world, player, x,y,z))
+            if(block.removedByPlayer(world, player, x,y,z, true))
             {
                 block.onBlockDestroyedByPlayer(world, x,y,z, meta);
             }
-            pcmp.onPlayerDestroyBlock(x, y, z, sidehit);
+            // callback to the tool
+            ItemStack itemstack = player.getCurrentEquippedItem();
+            if (itemstack != null)
+            {
+                itemstack.func_150999_a(world, block, x, y, z, player);
+
+                if (itemstack.stackSize == 0)
+                {
+                    player.destroyCurrentEquippedItem();
+                }
+            }
 
             // send an update to the server, so we get an update back
             if(PHConstruct.extraBlockUpdates)
