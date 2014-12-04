@@ -104,7 +104,7 @@ public class ArmorControls {
 
 	private void checkKeys() {
 		for (KeyBinding key : this.keys) {
-			if (this.isKeyActive(key.getKeyCode())) {
+			if (key != null && this.isKeyActive(key.getKeyCode())) {
 				this.keyPressed(key);
 			}
 		}
