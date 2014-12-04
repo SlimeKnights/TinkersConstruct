@@ -221,6 +221,7 @@ item.tconstruct.MetalPattern.fletching.name=Stampo per testa di freccia
 item.tconstruct.MetalPattern.arrowhead.name=Stampo per impennaggio
 item.tconstruct.MetalPattern.ingot.name=Stampo per lingotti
 item.tconstruct.MetalPattern.gem.name=Stampo per gemma
+item.tconstruct.MetalPattern.nugget.name=Stampo per pepita
 
 item.tconstruct.Materials.PaperStack.name=Pila di carta
 item.tconstruct.Materials.SlimeCrystal.name=Cristallo di gelatina
