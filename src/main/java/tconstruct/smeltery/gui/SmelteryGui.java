@@ -518,7 +518,7 @@ public class SmelteryGui extends ActiveContainerGui
     {
         super.mouseClicked(mouseX, mouseY, mouseButton);
 
-        int cornerX = (width - xSize) / 2 + 36;
+        int cornerX = (width - xSize) / 2 + 36 + (columns - 3) * 22;
         int cornerY = (height - ySize) / 2;
         int fluidToBeBroughtUp = -1;
 
