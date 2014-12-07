@@ -15,6 +15,7 @@ public class SmelteryContainer extends ActiveContainer
     public int fuel = 0;
     private int slotRow;
     public int columns;
+    public final int smelterySize;
 
     public SmelteryContainer(InventoryPlayer inventoryplayer, SmelteryLogic smeltery)
     {
@@ -22,6 +23,7 @@ public class SmelteryContainer extends ActiveContainer
         playerInv = inventoryplayer;
         slotRow = 0;
         columns = smeltery.getBlocksPerLayer() >= 16 ? 4 : 3;
+        smelterySize = smeltery.getBlockCapacity();
 
         /* Smeltery inventory */
 
@@ -96,7 +98,9 @@ public class SmelteryContainer extends ActiveContainer
     @Override
     public void detectAndSendChanges () // TODO: Sync with this
     {
-        super.detectAndSendChanges();
+        // we only update if the size is the same, since the screen is getting closed on sizechange and would cause a crash otherwise
+        if(smelterySize == this.inventorySlots.size())
+            super.detectAndSendChanges();
         /*
          * for (int i = 0; i < crafters.size(); i++) { ICrafting icrafting =
          * (ICrafting)crafters.get(i); if (progress != logic.progress) {
@@ -145,14 +149,14 @@ public class SmelteryContainer extends ActiveContainer
             ItemStack slotStack = slot.getStack();
             stack = slotStack.copy();
 
-            if (slotID < logic.getSizeInventory())
+            if (slotID < smelterySize)
             {
                 if (!this.mergeItemStack(slotStack, logic.getSizeInventory(), this.inventorySlots.size(), true))
                 {
                     return null;
                 }
             }
-            else if (!this.mergeItemStack(slotStack, 0, logic.getSizeInventory(), false))
+            else if (!this.mergeItemStack(slotStack, 0, smelterySize, false))
             {
                 return null;
             }
