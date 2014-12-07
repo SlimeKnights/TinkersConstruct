@@ -28,12 +28,14 @@ public class SmelteryGui extends ActiveContainerGui
     private int prevSlotPos = 0;
 
     private final int columns;
+    private final int smelterySize;
     public static final int maxRows = 8;
 
     public SmelteryGui(InventoryPlayer inventoryplayer, SmelteryLogic smeltery, World world, int x, int y, int z)
     {
         super((ActiveContainer) smeltery.getGuiContainer(inventoryplayer, world, x, y, z));
         logic = smeltery;
+        smelterySize = smeltery.getBlockCapacity();
         smeltery.updateFuelDisplay();
 
         columns = ((SmelteryContainer) this.inventorySlots).columns;
@@ -52,13 +54,20 @@ public class SmelteryGui extends ActiveContainerGui
     @Override
     public void drawScreen (int mouseX, int mouseY, float par3)
     {
+        // the smeltery changed. we close the screen because updating the changes in all containers would be way too complicated.
+        if(logic.getBlockCapacity() != smelterySize)
+        {
+            mc.thePlayer.closeScreen();
+            return;
+        }
+
         super.drawScreen(mouseX, mouseY, par3);
         updateScrollbar(mouseX, mouseY, par3);
     }
 
     protected void updateScrollbar (int mouseX, int mouseY, float par3)
     {
-        if (logic.getBlockCapacity() > columns * maxRows)
+        if (smelterySize > columns * maxRows)
         {
             boolean mouseDown = Mouse.isButtonDown(0);
             int lefto = this.guiLeft;
@@ -217,13 +226,13 @@ public class SmelteryGui extends ActiveContainerGui
         // Side inventory
         int xleft = 46;
         xleft += 22 * (columns - 3); // we have to shift the whole thing to the left if we have more than 3 columns
-        int h = logic.getBlockCapacity() / columns;
-        if (logic.getBlockCapacity() % columns != 0)
+        int h = smelterySize / columns;
+        if (smelterySize % columns != 0)
             h++;
 
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(backgroundSide);
-        if (logic.getBlockCapacity() > 0)
+        if (smelterySize > 0)
         {
             if (h >= 8)
             {
@@ -269,11 +278,11 @@ public class SmelteryGui extends ActiveContainerGui
 
         xleft -= 8;
         // Temperature
-        int slotSize = logic.getBlockCapacity();
+        int slotSize = smelterySize;
         if (slotSize > columns * maxRows)
             slotSize = columns * maxRows;
         int iter;
-        for (iter = 0; iter < slotSize && iter + slotPos * columns < logic.getBlockCapacity(); iter++)
+        for (iter = 0; iter < slotSize && iter + slotPos * columns < smelterySize; iter++)
         {
             int slotTemp = logic.getTempForSlot(iter + slotPos * columns) - 20;
             int maxTemp = logic.getMeltingPointForSlot(iter + slotPos * columns) - 20;
