@@ -33,6 +33,7 @@ public class LavaTankItemBlock extends MultiItemBlock
         }
         else
         {
+            list.add(StatCollector.translateToLocal("searedtank3.tooltip"));
             list.add(StatCollector.translateToLocal("searedtank2.tooltip"));
         }
     }
