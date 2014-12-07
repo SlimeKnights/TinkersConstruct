@@ -23,6 +23,7 @@ import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import tconstruct.TConstruct;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.entity.ProjectileBase;
 import tconstruct.library.event.*;
 import tconstruct.library.tools.*;
 import tconstruct.util.ItemHelper;
@@ -276,6 +277,12 @@ public class TinkerToolEvents
 //                            projectile.prevRotationYaw -= 180.0F;
 
                             // not needed at the client since it gets the absolute values sent
+
+
+                            // tinker projectiles don't check for stuff hit to prevent weird behaviour.
+                            // we have to de-defuse them so the reflected projectiles can hit stuff again
+                            if(projectile instanceof ProjectileBase)
+                                ((ProjectileBase) projectile).defused = false;
                         }
                     }
                     else
