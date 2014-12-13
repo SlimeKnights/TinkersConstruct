@@ -342,10 +342,6 @@ public class ToolProxyClient extends ToolProxyCommon
                 {}, { 4, 3 }, // crossbar
                 { 3, 3 }, // small guard
                 { 2, 3 }, // wide guard
-
-                {}, { 11, 3 }, // arrow head
-                { 12, 3 }, // fletchling
-                { 10, 3 }, // bowstring
         };
 
         int i = 0;
