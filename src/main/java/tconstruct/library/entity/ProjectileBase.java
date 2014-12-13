@@ -171,6 +171,7 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
         this.inGround = true;
         this.arrowShake = 7;
         this.setIsCritical(false);
+        this.defused = true; // defuse it so it doesn't hit stuff anymore, being weird
 
         if (this.field_145790_g.getMaterial() != Material.air)
         {
@@ -237,7 +238,6 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
             this.rotationYaw += 180.0F;
             this.prevRotationYaw += 180.0F;
             this.ticksInAir = 0;
-            defused = true;
             return;
         }
         // we hit it, BURNNNNNN
@@ -261,7 +261,6 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
                 this.motionY = 0;
                 this.motionZ = 0;
                 this.ticksInAir = 0;
-                defused = true;
             }
         }
     }
