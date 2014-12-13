@@ -708,9 +708,18 @@ public class TinkerTools
                     TConstructRegistry.addPartMapping(TinkerTools.woodPattern, meta + 1, 31, new ItemStack(TinkerTools.patternOutputs[meta], 1, 31));
             }
 
-            TConstructRegistry.addBowstringMaterial(1, 2, new ItemStack((Item) obj, 1, 7), new ItemStack(TinkerWeaponry.bowstring, 1, 1), 1F, 0.8F, 0.9f, 0x63bcd9);
-            TConstructRegistry.addBowMaterial(31, 35, 4.75f);
-            TConstructRegistry.addArrowMaterial(31, 1.8F, 0.5F);
+            // Thaumium weaponry toolparts
+            if(TConstruct.pulsar.isPulseLoaded("Tinkers' Weaponry"))
+            {
+                for (int m = 0; m < TinkerWeaponry.patternOutputs.length; m++)
+                    TConstructRegistry.addPartMapping(TinkerWeaponry.woodPattern, m, MaterialID.Thaumium, new ItemStack(TinkerWeaponry.patternOutputs[m], 1, MaterialID.Thaumium));
+
+                TConstructRegistry.addPartMapping(TinkerTools.woodPattern, 25, MaterialID.Thaumium, new ItemStack(TinkerWeaponry.arrowhead, 1, MaterialID.Thaumium));
+
+                TConstructRegistry.addBowstringMaterial(1, 2, new ItemStack((Item) obj, 1, 7), new ItemStack(TinkerWeaponry.bowstring, 1, 1), 1F, 0.8F, 0.9f, 0x63bcd9);
+                TConstructRegistry.addBowMaterial(31, 35, 4.75f);
+                TConstructRegistry.addArrowMaterial(31, 1.8F, 0.5F);
+            }
 
             TConstructRegistry.addDefaultToolPartMaterial(MaterialID.Thaumium);
             TConstructRegistry.addDefaultShardMaterial(MaterialID.Thaumium);

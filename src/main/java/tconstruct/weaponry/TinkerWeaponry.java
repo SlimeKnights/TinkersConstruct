@@ -94,6 +94,8 @@ public class TinkerWeaponry {
     public static Random random = new Random();
 
 
+    public static Item[] patternOutputs;
+
     @Handler
     public void preInit(FMLPreInitializationEvent event)
     {
@@ -204,7 +206,7 @@ public class TinkerWeaponry {
         // todo: integrate into tcon
         int[] nonMetals = { 0, 1, 3, 4, 5, 6, 7, 8, 9, 17 };
         int[] liquidDamage = new int[] { 2, 13, 10, 11, 12, 14, 15, 6, 16, 18 };
-        Item[] patternOutputs = new Item[] { partShuriken, partCrossbowLimb, partCrossbowBody, partBowLimb };
+        patternOutputs = new Item[] { partShuriken, partCrossbowLimb, partCrossbowBody, partBowLimb };
 
 
         // register part crafting
@@ -254,13 +256,6 @@ public class TinkerWeaponry {
             ItemStack metalCast = new ItemStack(arrowhead, 1, liquidDamage[iterTwo]);
             tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
             Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);
-        }
-
-        // Thaumium weaponry toolparts
-        if(TinkerTools.thaumcraftAvailable)
-        {
-            for (int m = 0; m < patternOutputs.length; m++)
-                    TConstructRegistry.addPartMapping(woodPattern, m, MaterialID.Thaumium, new ItemStack(patternOutputs[m], 1, MaterialID.Thaumium));
         }
     }
 
