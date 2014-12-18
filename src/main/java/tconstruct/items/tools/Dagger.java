@@ -21,9 +21,10 @@ public class Dagger extends Weapon
         ItemStack stack = itemstack.copy();
         if (!world.isRemote)
         {
-            DaggerEntity dagger = new DaggerEntity(stack, world, player);
+            DaggerEntity dagger = new DaggerEntity(world, player, 1.5f, 0, stack);
+            //dagger.motionY++;
             if (player.capabilities.isCreativeMode)
-                dagger.doNotRetrieve = true;
+                dagger.canBePickedUp = 2;
             world.spawnEntityInWorld(dagger);
         }
         itemstack.stackSize--;
@@ -36,7 +37,8 @@ public class Dagger extends Weapon
         ItemStack stack = itemstack.copy();
         if (!world.isRemote)
         {
-            DaggerEntity dagger = new DaggerEntity(stack, world, player);
+            DaggerEntity dagger = new DaggerEntity(world, player, 1.5f, 0, stack);
+            //dagger.motionY++;
             world.spawnEntityInWorld(dagger);
         }
         itemstack.stackSize--;

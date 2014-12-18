@@ -15,6 +15,7 @@ import org.lwjgl.opengl.*;
 import tconstruct.tools.entity.ArrowEntity;
 
 @SideOnly(Side.CLIENT)
+@Deprecated
 public class ArrowRender extends Render
 {
     private static final ResourceLocation RES_ITEM_GLINT = new ResourceLocation("textures/misc/enchanted_item_glint.png");

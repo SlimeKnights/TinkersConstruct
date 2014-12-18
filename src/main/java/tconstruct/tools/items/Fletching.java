@@ -27,9 +27,9 @@ public class Fletching extends CraftingItem implements IToolPart
         return names;
     }
 
-    public static final String[] toolMaterialNames = new String[] { "feather", "leaf", "slime", "blueslime" };
+    public static final String[] toolMaterialNames = new String[] { "feather", "leaf", "slime", "blueslime", "slimeleaf" };
 
-    public static final String[] toolTextureNames = new String[] { "feather", "leaf", "slime", "blueslime" };
+    public static final String[] toolTextureNames = new String[] { "feather", "leaf", "slime", "blueslime", "slimeleaf" };
 
     @Override
     public int getMaterialID (ItemStack stack)

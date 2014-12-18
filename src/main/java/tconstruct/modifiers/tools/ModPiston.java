@@ -96,6 +96,6 @@ public class ModPiston extends ItemModTypeFilter
     public boolean validType (ToolCore tool)
     {
         List list = Arrays.asList(tool.getTraits());
-        return list.contains("weapon");
+        return list.contains("weapon") || list.contains("ammo");
     }
 }

@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+
+<book>
+<page type="intro">
+<text>Tinkers' Weaponry
+Brings the hurt whole new places
+
+By Sheriff Bownana</text>
+</page>
+
+<page type="contents">
+<text>Table of Contents</text>
+<link>
+ <text>Introduction</text>
+ <icon>weaponrybook</icon>
+ <jump>3</jump>
+</link>
+<link>
+ <text>Throwing Weapons</text>
+ <icon>throwingknifeIcon</icon>
+ <jump>5</jump>
+</link>
+<link>
+ <text>Projectile Weapons</text>
+ <icon>shortbowIcon</icon>
+ <jump>7</jump>
+</link>
+<link>
+ <text>Projectiles</text>
+ <icon>arrowIcon</icon>
+ <jump>10</jump>
+</link>
+</page>
+
+<page type="text">
+<text>Why walk up to hit stuff, when you can do that while standing here!
+
+A tinkerer knows how to create varied ranged weapons. There are two big categories: Thrown weapons and weapons that shoot projectiles.
+
+Both types utilize an ammo system. Instead of having several items, these ranged weapons consist of one item that contains many of it. Why carry around 2 stacks of arrows, when you can have 200 in one stack!
+These Ammo-Items don't have a durability, but use up their ammo for each projectile thrown/shot.</text>
+</page>
+
+<page type="text">
+<text>Throwing Weapons:
+* Throwing Knife
+* Shuriken
+* Javelin
+
+Projectile Weapons:
+* Shortbow
+* Longbow
+* Crossbow
+
+Projectiles:
+* Arrows
+* Bolts</text>
+</page>
+
+<page type="text">
+<text>Throwing Weapons
+
+Throwing Knifes:
+These knifes are crafted from a knife blade and a handle.
+Hold rightclick to take aim, and release it to throw a knife.
+Throwing knifes stack up to a moderate amount, and deal moderate damage.
+
+Shuriken:
+Small delicate projectiles put together from 4 parts, that are thrown from the wrist. Because of this you don't need to take aim and can throw them directly.
+Since they're so small you can carry many of them, however they don't deal much damage.</text>
+</page>
+
+<page type="text">
+<text>
+
+Javelin:
+This is a hybrid between a melee and a ranged weapon, consisting of an arrow head on two tough tool rods. It deals moderate damage as a melee weapon, but to unleash its true potential you have to throw it at your enemy.
+The throwing has a small windup. Because of their size you can only carry a few, but they pack a punch.</text>
+</page>
+
+<page type="text">
+<text>Projectile Weapons
+
+Shortbow:
+Put together from two bow limbs and a bowstring, this weapon is a fast and handy bow. Keep in mind that inflexible materials like stone can hardly be drawn back and can't accelerate projectiles well. Organic materials are favoured for quick bows, while metals require lots of strengt to draw back, but provide more power.
+The bow requires arrows as ammo.
+Offensive modifiers on bows do not count for arrows. The only modifiers affecting its ranged performance are Redstone and lapis.</text>
+</page>
+
+<page type="text">
+<text>
+
+Longbow:
+The big brother. This bow is much bigger, requiring more time to pull it back, but boy oh boy are those arrows fast.
+Because of this the longbow performs slightly better against armored targets. Furthermore this makes the longbow less accurate with very light arrows.
+The longbow is constructed from two bow limbs, a bowstring and a large plate.</text>
+</page>
+
+<page type="text">
+<text>
+
+Crossbow:
+Those pesky metals are such a pain to pull back. Luckily a tinkerer knows how to help himself! The crossbow allows you to pre-load it with a bolt, and have it ready instantly to fire. Since this allows for much more power, it can shoot heavier projectiles, resulting in more damage and armor penetration.
+To load a crossbow simply rightclick and wait until the animation is done. The loading process can be stopped by pressing rightclick while sneaking. The crossbow can be unloaded in the same way.</text>
+</page>
+
+<page type="text">
+<text>Projectiles
+For these projectiles goes: The heavier the projectile, the more damage carries through armor.
+
+Arrows:
+The bread and butter of every ranger. Arrows can be built from many different materials. It needs an arrow head, a shaft and a fletching.
+The choice of materials allows a balance between damage, arrow-count, accuracy and fragility. The head material is crucial for its weight.
+A fragile arrow has a chance to break on impact with terrain. Arrows always break when they hit a target, however the reinforced trait gives a chance for the arrow to survive the impact.</text>
+</page>
+
+<page type="text">
+<text>
+
+Valid Shaft Materials:
+* Stick
+* Sugarcane
+* Bone
+* Blaze Rod
+
+Valid Fletching Materials:
+* Leaves
+* Slimeleaves
+* Feathers
+* Slime</text>
+</page>
+
+<page type="text">
+<text>
+
+Bolts:
+Crafting bolts is a delicate process. First you need a core in the form of a tool rod.
+Take this tool rod to a smeltery and put it into a Casting Table. Pour some metal onto it to coat the tip with a more damaging material.
+After this process, add a fletching and your bolts are ready to be used.
+
+Since the bolts consist of a harder core and tip they carry more weight than regular arrows, making them perfect to fight armored targets.</text>
+</page>
+
+</book>

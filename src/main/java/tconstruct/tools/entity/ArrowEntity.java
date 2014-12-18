@@ -17,6 +17,7 @@ import net.minecraft.network.play.server.S2BPacketChangeGameState;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
+@Deprecated
 public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnData
 {
     public ItemStack returnStack;

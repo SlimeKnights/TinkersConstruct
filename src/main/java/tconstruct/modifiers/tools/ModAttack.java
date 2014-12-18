@@ -3,6 +3,9 @@ package tconstruct.modifiers.tools;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.modifier.IModifyable;
+import tconstruct.library.tools.ToolCore;
+
+import java.util.Arrays;
 
 public class ModAttack extends ItemModTypeFilter
 {
@@ -11,7 +14,9 @@ public class ModAttack extends ItemModTypeFilter
     int threshold;
     String guiType;
     String modifierType;
+    boolean ammoOnly;
 
+    // Regular weapons
     public ModAttack(String type, int effect, ItemStack[] items, int[] value)
     {
         super(effect, "ModAttack", items, value);
@@ -20,8 +25,22 @@ public class ModAttack extends ItemModTypeFilter
         max = 72;
         threshold = 24;
         modifierType = "Tool";
+        ammoOnly = false;
     }
 
+    // projectiles
+    public ModAttack(String type, int effect, ItemStack[] items, int[] value, boolean ammoOnly)
+    {
+        super(effect, "ModAttack", items, value);
+        tooltipName = "\u00a7fSharpness";
+        guiType = type;
+        max = 48;
+        threshold = 24;
+        modifierType = "Tool";
+        this.ammoOnly = ammoOnly;
+    }
+
+    // gloves
     public ModAttack(String type, int effect, ItemStack[] items, int[] value, int max, int threshold, String modifierType)
     {
         super(effect, "ModAttack", items, value);
@@ -30,11 +49,18 @@ public class ModAttack extends ItemModTypeFilter
         this.max = max;
         this.threshold = threshold;
         this.modifierType = modifierType;
+        ammoOnly = false;
     }
 
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
+        if(tool.getItem() instanceof ToolCore)
+        {
+            if(Arrays.asList(((ToolCore) tool.getItem()).getTraits()).contains("ammo") != ammoOnly)
+                return false;
+        }
+
         if (tool.getItem() instanceof IModifyable)
         {
             IModifyable toolItem = (IModifyable) tool.getItem();

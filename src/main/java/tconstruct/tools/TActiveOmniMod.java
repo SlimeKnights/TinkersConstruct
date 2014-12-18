@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.tools.*;
+import tconstruct.library.weaponry.IAmmo;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.entity.BlueSlime;
@@ -34,7 +35,15 @@ public class TActiveOmniMod extends ActiveToolMod
             {
                 int chance = tags.getInteger("Moss");
                 int check = world.canBlockSeeTheSky((int) entity.posX, (int) entity.posY, (int) entity.posZ) ? 350 : 1150;
-                if (random.nextInt(check) < chance)
+                // REGROWING AMMO :OOoo
+                if(tool instanceof IAmmo && random.nextInt(check*10) < chance) // ammo regenerates at a much slower rate
+                {
+                    IAmmo ammothing = (IAmmo)tool;
+                    if(ammothing.getAmmoCount(stack) > 0) // must have ammo
+                        ammothing.addAmmo(1, stack);
+                }
+                // selfrepairing tool. LAAAAAME
+                else if (random.nextInt(check) < chance)
                 {
                     AbilityHelper.healTool(stack, 1, (EntityLivingBase) entity, true);
                 }

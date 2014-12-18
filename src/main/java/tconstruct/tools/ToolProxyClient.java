@@ -23,10 +23,12 @@ import tconstruct.library.client.*;
 import tconstruct.library.crafting.*;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.smeltery.TinkerSmeltery;
+import tconstruct.tools.client.DaggerEntityRenderer;
 import tconstruct.tools.entity.*;
 import tconstruct.tools.gui.*;
 import tconstruct.tools.logic.*;
 import tconstruct.tools.model.*;
+import tconstruct.weaponry.TinkerWeaponry;
 
 import static tconstruct.tools.TinkerTools.*;
 
@@ -52,8 +54,9 @@ public class ToolProxyClient extends ToolProxyCommon
         RenderingRegistry.registerBlockHandler(new BattlesignRender());
 
         RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Items.potionitem, 16384));
-        RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRenderCustom());
-        RenderingRegistry.registerEntityRenderingHandler(ArrowEntity.class, new ArrowRenderCustom());
+        RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerEntityRenderer());
+        //RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRenderCustom());
+        //RenderingRegistry.registerEntityRenderingHandler(ArrowEntity.class, new ArrowRenderCustom());
         RenderingRegistry.registerEntityRenderingHandler(FancyEntityItem.class, new FancyItemRender());
 
         //MinecraftForgeClient.registerItemRenderer(TinkerTools.shortbow, new CustomBowRenderer());
@@ -76,10 +79,9 @@ public class ToolProxyClient extends ToolProxyCommon
         MinecraftForgeClient.registerItemRenderer(TinkerTools.mattock, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.rapier, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.scythe, renderer);
-        MinecraftForgeClient.registerItemRenderer(TinkerTools.shortbow, renderer);*/
+        */
         renderer = new ToolCoreRenderer(true);
-        MinecraftForgeClient.registerItemRenderer(TinkerTools.arrow, renderer);
-        MinecraftForgeClient.registerItemRenderer(TinkerTools.dagger, renderer);
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.dagger, renderer); // todo proper renderer
 
         TileEntityRendererDispatcher.instance.mapSpecialRenderers.put(BattlesignLogic.class, new BattlesignTesr());
     }
@@ -99,8 +101,8 @@ public class ToolProxyClient extends ToolProxyCommon
         MantleClientRegistry.registerManualIcon("frypanicon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.frypanHead, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 11), null, ""));
         MantleClientRegistry.registerManualIcon("battlesignicon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.signHead, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 11), null, ""));
         MantleClientRegistry.registerManualIcon("chiselicon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.chiselHead, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 11), null, ""));
-        MantleClientRegistry.registerManualIcon("shortbowIcon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.toolRod, 1, 10), new ItemStack(TinkerTools.bowstring, 1, 0), new ItemStack(TinkerTools.toolRod, 1, 12), ""));
-        MantleClientRegistry.registerManualIcon("arrowIcon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.arrowhead, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 11), new ItemStack(TinkerTools.fletching, 1, 0), ""));
+        //MantleClientRegistry.registerManualIcon("shortbowIcon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.toolRod, 1, 10), new ItemStack(TinkerWeaponry.bowstring, 1, 0), new ItemStack(TinkerTools.toolRod, 1, 12), ""));
+        //MantleClientRegistry.registerManualIcon("arrowIcon", ToolBuilder.instance.buildTool(new ItemStack(TinkerWeaponry.arrowhead, 1, 10), new ItemStack(TinkerTools.toolRod, 1, 11), new ItemStack(TinkerWeaponry.fletching, 1, 0), ""));
 
         MantleClientRegistry.registerManualIcon("hammericon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.hammerHead, 1, 10), new ItemStack(TinkerTools.toughRod, 1, 11), new ItemStack(TinkerTools.largePlate, 1, 12), new ItemStack(TinkerTools.largePlate, 8), ""));
         MantleClientRegistry.registerManualIcon("lumbericon", ToolBuilder.instance.buildTool(new ItemStack(TinkerTools.broadAxeHead, 1, 10), new ItemStack(TinkerTools.toughRod, 1, 11), new ItemStack(TinkerTools.largePlate, 1, 12), new ItemStack(TinkerTools.toughBinding, 8), ""));
@@ -136,9 +138,9 @@ public class ToolProxyClient extends ToolProxyCommon
         MantleClientRegistry.registerManualIcon("toughbinding", new ItemStack(TinkerTools.toughBinding, 1, 17));
         MantleClientRegistry.registerManualIcon("largeplate", new ItemStack(TinkerTools.largePlate, 1, 17));
 
-        MantleClientRegistry.registerManualIcon("bowstring", new ItemStack(TinkerTools.bowstring, 1, 0));
-        MantleClientRegistry.registerManualIcon("arrowhead", new ItemStack(TinkerTools.arrowhead, 1, 2));
-        MantleClientRegistry.registerManualIcon("fletching", new ItemStack(TinkerTools.fletching, 1, 0));
+        MantleClientRegistry.registerManualIcon("bowstring", new ItemStack(TinkerWeaponry.bowstring, 1, 0));
+        MantleClientRegistry.registerManualIcon("arrowhead", new ItemStack(TinkerWeaponry.arrowhead, 1, 2));
+        MantleClientRegistry.registerManualIcon("fletching", new ItemStack(TinkerWeaponry.fletching, 1, 0));
 
         //Tables
         MantleClientRegistry.registerManualIcon("blankpattern", new ItemStack(TinkerTools.blankPattern, 1, 0));
@@ -340,10 +342,6 @@ public class ToolProxyClient extends ToolProxyCommon
                 {}, { 4, 3 }, // crossbar
                 { 3, 3 }, // small guard
                 { 2, 3 }, // wide guard
-
-                {}, { 11, 3 }, // arrow head
-                { 12, 3 }, // fletchling
-                { 10, 3 }, // bowstring
         };
 
         int i = 0;
@@ -425,9 +423,6 @@ public class ToolProxyClient extends ToolProxyCommon
             addToolButton(itemIconsT1[i][0], itemIconsT1[i][1], itemIconsT1[i][2], iconCoordsT1[i * 2], iconCoordsT1[i * 2 + 1], tier1Tools[i].getLocalizedToolName(), locString);
         }
 
-        addToolButton(3, 9, 1, new int[] { 0, 10, 0, 13 }, new int[] { 3, 3, 3, 13 }, TinkerTools.shortbow.getLocalizedToolName(), "gui.toolstation.shortbow.desc");
-        addToolButton(7, 10, 1, new int[] { 11, 0, 12, 13 }, new int[] { 3, 3, 3, 13 }, TinkerTools.arrow.getLocalizedToolName(), "gui.toolstation.arrow.desc");
-
         // tier 2 tools
         for (int i = 0; i < tier2Tools.length; i++)
         {
@@ -468,16 +463,5 @@ public class ToolProxyClient extends ToolProxyCommon
             }
         }
 
-        String[] bowstringTypes = { "string", "magicfabric", "flamestring" };
-        for (int bowIter = 0; bowIter < bowstringTypes.length; bowIter++)
-        {
-            TConstructClientRegistry.addAlternateMaterialRenderMapping(TinkerTools.shortbow, bowIter, "tinker", bowstringTypes[bowIter], true);
-        }
-
-        String[] fletching = { "feather", "leaf", "slime", "blueslime" };
-        for (int arrowIter = 0; arrowIter < fletching.length; arrowIter++)
-        {
-            TConstructClientRegistry.addAlternateMaterialRenderMapping(TinkerTools.arrow, arrowIter, "tinker", fletching[arrowIter], true);
-        }
     }
 }

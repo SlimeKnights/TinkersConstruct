@@ -13,6 +13,7 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.play.server.S14PacketEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraftforge.event.entity.living.*;
@@ -22,10 +23,12 @@ import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import tconstruct.TConstruct;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.entity.ProjectileBase;
 import tconstruct.library.event.*;
 import tconstruct.library.tools.*;
 import tconstruct.util.ItemHelper;
 import tconstruct.util.config.PHConstruct;
+import tconstruct.util.network.MovementUpdatePacket;
 
 public class TinkerToolEvents
 {
@@ -103,57 +106,6 @@ public class TinkerToolEvents
         // bonus modifiers
         handlePaper(toolTag, event.tool);
         handleThaumium(toolTag, event.tool);
-
-        if (event.tool == TinkerTools.shortbow)
-        {
-            BowMaterial top = TConstructRegistry.getBowMaterial(toolTag.getInteger("Head"));
-            BowMaterial bottom = TConstructRegistry.getBowMaterial(toolTag.getInteger("Accessory"));
-            BowstringMaterial string = (BowstringMaterial) TConstructRegistry.getCustomMaterial(toolTag.getInteger("Handle"), BowstringMaterial.class);
-
-            if (top != null && bottom != null && string != null)
-            {
-                if (toolTag.getInteger("Handle") == 1)
-                {
-                    int modifiers = toolTag.getInteger("Modifiers");
-                    modifiers += 1;
-                    toolTag.setInteger("Modifiers", modifiers);
-                }
-
-                int durability = (int) ((top.durability + bottom.durability) / 2 * string.durabilityModifier);
-                toolTag.setInteger("TotalDurability", durability);
-                toolTag.setInteger("BaseDurability", durability);
-
-                int drawSpeed = (int) ((top.drawspeed + bottom.drawspeed) / 2 * string.drawspeedModifier);
-                toolTag.setInteger("DrawSpeed", drawSpeed);
-                toolTag.setInteger("BaseDrawSpeed", drawSpeed);
-
-                float flightSpeed = (top.flightSpeedMax + bottom.flightSpeedMax) / 2f * string.flightSpeedModifier;
-                toolTag.setFloat("FlightSpeed", flightSpeed);
-            }
-        }
-
-        if (event.tool == TinkerTools.arrow)
-        {
-            ArrowMaterial head = TConstructRegistry.getArrowMaterial(toolTag.getInteger("Head"));
-            ArrowMaterial shaft = TConstructRegistry.getArrowMaterial(toolTag.getInteger("Handle"));
-            FletchingMaterial fletching = (FletchingMaterial) TConstructRegistry.getCustomMaterial(toolTag.getInteger("Accessory"), FletchingMaterial.class);
-
-            if (head != null && shaft != null && fletching != null)
-            {
-                float mass = head.mass / 5f + shaft.mass + fletching.mass;
-                float shatter = (head.breakChance + shaft.breakChance + fletching.breakChance) / 4f;
-                float accuracy = (head.accuracy + shaft.accuracy + fletching.accuracy) / 3;
-
-                ItemStack arrow = new ItemStack(event.tool, 4);
-                toolTag.setInteger("TotalDurability", 0);
-                toolTag.setFloat("Mass", mass);
-                toolTag.setFloat("BreakChance", shatter);
-                toolTag.setFloat("Accuracy", accuracy);
-                toolTag.setInteger("Unbreaking", 10);
-                arrow.setTagCompound(event.toolTag);
-                event.overrideResult(arrow);
-            }
-        }
 
         if (event.tool == TinkerTools.battlesign)
         {
@@ -271,40 +223,66 @@ public class TinkerToolEvents
             EntityPlayer player = (EntityPlayer) event.entityLiving;
             //Cutlass
             ItemStack stack = player.getCurrentEquippedItem();
-            if (stack != null && stack.getItem() == TinkerTools.battlesign && player.isUsingItem())
+            if (stack != null && stack.getItem() == TinkerTools.battlesign)
             {
+                // broken battlesign?
+                if(!stack.hasTagCompound() || stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Broken"))
+                    return;
+
                 DamageSource source = event.source;
                 if (!source.isUnblockable() && !source.isMagicDamage() && !source.isExplosion())
                 {
-                    if (source instanceof EntityDamageSourceIndirect)
+                    if (source.isProjectile())
                     {
-                        if (TConstruct.random.nextInt(3) == 0)
-                        {
-                            Entity attacker = source.getEntity();
-                            Entity projectile = ((EntityDamageSourceIndirect) source).getSourceOfDamage();
-                            projectile.motionX *= -1;
-                            projectile.motionZ *= -1;
-                            projectile.setDead();
-                            event.setCanceled(true);
+                        Entity projectile = source.getSourceOfDamage();
+                        Vec3 motion = Vec3.createVectorHelper(projectile.motionX, projectile.motionY, projectile.motionZ);
+                        Vec3 look = player.getLookVec();
 
-                            if (projectile.getClass() == EntityArrow.class && !player.worldObj.isRemote)
-                            {
-                                EntityArrow reflection = null;
-                                if (attacker instanceof EntityLivingBase)
-                                    reflection = new EntityArrow(player.worldObj, (EntityLivingBase) attacker, 0);
-                                else
-                                    reflection = new EntityArrow(player.worldObj, player, 0);
+                        // this gives a factor of how much we're looking at the incoming arrow
+                        double strength = -look.dotProduct(motion.normalize());
+                        // we're looking away. oh no.
+                        if(strength < 0.1)
+                            return;
 
-                                Vec3 look = player.getLookVec();
-                                reflection.posX = projectile.posX;
-                                reflection.posY = projectile.posY;
-                                reflection.posZ = projectile.posZ;
-                                reflection.motionX = (projectile.motionX + (look.xCoord * 8)) / 6;
-                                reflection.motionY = (projectile.motionY + (look.yCoord * 8)) / 6;
-                                reflection.motionZ = (projectile.motionZ + (look.zCoord * 8)) / 6;
-                                reflection.damage = ((EntityArrow) projectile).damage;
-                                player.worldObj.spawnEntityInWorld(reflection);
-                            }
+                        // no damage, hooraaay
+                        event.setCanceled(true);
+
+                        double speed = projectile.motionX*projectile.motionX + projectile.motionY*projectile.motionY + projectile.motionZ*projectile.motionZ;
+                        speed = Math.sqrt(speed);
+
+                        speed = (speed+2)*strength;
+
+
+
+                        // now we simply set the look vector with the speed and get our new vector!
+                        projectile.motionX = look.xCoord * speed;
+                        projectile.motionY = look.yCoord * speed;
+                        projectile.motionZ = look.zCoord * speed;
+
+                        projectile.rotationYaw = (float)(Math.atan2(projectile.motionX, projectile.motionZ) * 180.0D / Math.PI);
+                        projectile.rotationPitch = (float)(Math.atan2(projectile.motionY, speed) * 180.0D / Math.PI);
+
+                        // send the current status to the client
+                        TConstruct.packetPipeline.sendToAll(new MovementUpdatePacket(projectile));
+
+                        if(projectile instanceof EntityArrow) {
+                            ((EntityArrow) projectile).shootingEntity = player;
+
+                            // the inverse is done when the event is cancelled in arrows etc.
+                            // we reverse it so it has no effect. yay
+                            projectile.motionX /= -0.10000000149011612D;
+                            projectile.motionY /= -0.10000000149011612D;
+                            projectile.motionZ /= -0.10000000149011612D;
+//                            projectile.rotationYaw -= 180.0F;
+//                            projectile.prevRotationYaw -= 180.0F;
+
+                            // not needed at the client since it gets the absolute values sent
+
+
+                            // tinker projectiles don't check for stuff hit to prevent weird behaviour.
+                            // we have to de-defuse them so the reflected projectiles can hit stuff again
+                            if(projectile instanceof ProjectileBase)
+                                ((ProjectileBase) projectile).defused = false;
                         }
                     }
                     else
@@ -315,6 +293,9 @@ public class TinkerToolEvents
                             attacker.attackEntityFrom(DamageSource.causeThornsDamage(player), event.ammount);
                         }
                     }
+
+                    // durability--
+                    AbilityHelper.damageTool(stack, (int)Math.ceil(event.ammount/2f), player, false);
                 }
             }
         }

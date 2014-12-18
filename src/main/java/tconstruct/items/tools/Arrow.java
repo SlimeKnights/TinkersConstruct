@@ -10,12 +10,12 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.tools.BowstringMaterial;
 import tconstruct.library.tools.CustomMaterial;
 import tconstruct.library.tools.FletchingMaterial;
 import tconstruct.library.tools.ToolCore;
-import tconstruct.tools.TinkerTools;
+import tconstruct.weaponry.TinkerWeaponry;
 
+@Deprecated
 public class Arrow extends ToolCore
 {
 
@@ -85,13 +85,13 @@ public class Arrow extends ToolCore
     @Override
     public Item getHeadItem ()
     {
-        return TinkerTools.arrowhead;
+        return TinkerWeaponry.arrowhead;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TinkerTools.fletching;
+        return TinkerWeaponry.fletching;
     }
 
     @Override
@@ -197,11 +197,11 @@ public class Arrow extends ToolCore
                 int head = tags.getCompoundTag("InfiTool").getInteger("Head");
                 int handle = tags.getCompoundTag("InfiTool").getInteger("Handle");
 
-                String headName = getAbilityNameForType(head);
+                String headName = getAbilityNameForType(head, 0);
                 if (!headName.equals(""))
                     list.add(getStyleForType(head) + headName);
 
-                String handleName = getAbilityNameForType(handle);
+                String handleName = getAbilityNameForType(handle, 0);
                 if (!handleName.equals("") && handle != head)
                     list.add(getStyleForType(handle) + handleName);
 

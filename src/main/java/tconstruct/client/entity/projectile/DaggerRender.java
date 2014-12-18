@@ -17,6 +17,7 @@ import org.lwjgl.opengl.*;
 import tconstruct.tools.entity.DaggerEntity;
 
 @SideOnly(Side.CLIENT)
+@Deprecated
 public class DaggerRender extends Render
 {
     private static final ResourceLocation RES_ITEM_GLINT = new ResourceLocation("textures/misc/enchanted_item_glint.png");

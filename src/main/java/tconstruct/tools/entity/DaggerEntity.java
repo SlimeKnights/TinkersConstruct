@@ -6,86 +6,60 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import tconstruct.items.tools.Dagger;
+import tconstruct.library.entity.ProjectileBase;
 import tconstruct.library.tools.*;
 
-public class DaggerEntity extends RotatingBase
+public class DaggerEntity extends ProjectileBase
 {
+    public int roll;
 
-    public DaggerEntity(World world)
-    {
+    public DaggerEntity(World world) {
         super(world);
     }
 
-    public DaggerEntity(ItemStack itemstack, World world, EntityPlayer entityplayer)
-    {
-        super(world, entityplayer, 0.75F, 0.8F);
-        // TConstruct.logger.info("Stack: "+itemstack);
-        returnStackSlot = entityplayer.inventory.currentItem;
-        returnStack = itemstack;
+    public DaggerEntity(World world, double d, double d1, double d2) {
+        super(world, d, d1, d2);
     }
 
-    public DaggerEntity(World world, EntityPlayer entityplayer, float f, float g)
-    {
-        super(world, entityplayer, f, g);
-    }
+    public DaggerEntity(World world, EntityPlayer player, float speed, float accuracy, ItemStack stack) {
+        super(world, player, speed, accuracy, stack);
 
-    /*
-     * public void entityInit () { super.entityInit(); }
-     */
-
-    @Override
-    public void onHit (MovingObjectPosition movingobjectposition)
-    {
-        if (movingobjectposition.entityHit != null)
-        {
-            if (movingobjectposition.entityHit.attackEntityFrom(DamageSource.causeMobDamage(owner), damageDealt))
-            {
-                worldObj.playSoundAtEntity(this, "random.drr", 1.0F, 1.2F / (rand.nextFloat() * 0.2F + 0.9F));
-                motionX *= -0.1D;
-                motionY *= -0.1D;
-                motionZ *= -0.1D;
-                rotationYaw += 180F;
-                prevRotationYaw += 180F;
-                ticksInAir = 0;
-                if (movingobjectposition.entityHit instanceof EntityLiving)
-                {
-                    Dagger dagger = (Dagger) returnStack.getItem();
-                    this.hitEntity(returnStack, (EntityLiving) movingobjectposition.entityHit, owner, dagger);
-                }
-            }
-        }
-        else
-        {
-            onGround = true;
-            xTile = movingobjectposition.blockX;
-            yTile = movingobjectposition.blockY;
-            zTile = movingobjectposition.blockZ;
-            inTile = worldObj.getBlock(xTile, yTile, zTile);
-            motionX = (float) (movingobjectposition.hitVec.xCoord - posX);
-            motionY = (float) (movingobjectposition.hitVec.yCoord - posY);
-            motionZ = (float) (movingobjectposition.hitVec.zCoord - posZ);
-            float f = MathHelper.sqrt_double(motionX * motionX + motionY * motionY + motionZ * motionZ);
-            posX -= (motionX / (double) f) * 0.05D;
-            posY -= (motionY / (double) f) * 0.05D;
-            posZ -= (motionZ / (double) f) * 0.05D;
-            worldObj.playSoundAtEntity(this, "random.drr", 1.0F, 1.2F / (rand.nextFloat() * 0.2F + 0.9F));
-            arrowShake = 7;
-            if (!worldObj.isRemote)
-                AbilityHelper.damageTool(returnStack, 1, owner, false);
-        }
-    }
-
-    public boolean hitEntity (ItemStack stack, EntityLiving mob, EntityPlayer player, ToolCore weapon)
-    {
-        if (!worldObj.isRemote && player.canAttackWithItem())
-        {
-            AbilityHelper.onLeftClickEntity(stack, player, mob, weapon);
-        }
-        return true;
+        float pitch = Math.max(-90f, player.rotationPitch - 20f);
+        // same as in the others, but with pitch upped
+        this.setLocationAndAngles(player.posX, player.posY + (double)player.getEyeHeight(), player.posZ, player.rotationYaw, pitch);
+        this.posX -= MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F;
+        this.posY -= 0.10000000149011612D;
+        this.posZ -= MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F;
+        this.setPosition(this.posX, this.posY, this.posZ);
+        this.yOffset = 0.0F;
+        this.motionX = -MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI);
+        this.motionZ = +MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI);
+        this.motionY = -MathHelper.sin(this.rotationPitch / 180.0F * (float)Math.PI);
+        this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, speed, accuracy);
     }
 
     @Override
-    protected void dealFireDamage (int i)
-    {
+    public void onUpdate() {
+        // you turn me right round baby
+        if(this.ticksInGround == 0)
+            roll = (roll + 20) % 360;
+
+        super.onUpdate();
+    }
+
+    @Override
+    public void onHitEntity(MovingObjectPosition movingobjectposition) {
+        AbilityHelper.onLeftClickEntity(returnStack, (EntityPlayer)shootingEntity, movingobjectposition.entityHit, (ToolCore)returnStack.getItem());
+        //super.onHitEntity(movingobjectposition);
+    }
+
+    @Override
+    protected double getGravity() {
+        return 0.1;
+    }
+
+    @Override
+    protected double getSlowdown() {
+        return 0.02;
     }
 }

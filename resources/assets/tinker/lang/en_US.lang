@@ -192,6 +192,10 @@ item.tconstruct.Pattern.fullguard.name=Full Guard Pattern
 item.tconstruct.Pattern.bowstring.name=Bowstring Pattern
 item.tconstruct.Pattern.fletching.name=Fletching Pattern
 item.tconstruct.Pattern.arrowhead.name=Arrowhead Pattern
+item.tconstruct.Pattern.shuriken.name=Shuriken Pattern
+item.tconstruct.Pattern.crossbowlimb.name=Crossbow Limb Pattern
+item.tconstruct.Pattern.crossbowbody.name=Crossbow Body Pattern
+item.tconstruct.Pattern.bowlimb.name=Bow Limb Pattern
 
 item.tconstruct.Pattern.blank_cast.name=Blank Cast
 item.tconstruct.MetalPattern.rod.name=Tool Rod Cast
@@ -222,6 +226,10 @@ item.tconstruct.MetalPattern.arrowhead.name=Arrowhead Cast
 item.tconstruct.MetalPattern.ingot.name=Ingot Cast
 item.tconstruct.MetalPattern.gem.name=Gem Cast
 item.tconstruct.MetalPattern.nugget.name=Nugget Cast
+item.tconstruct.MetalPattern.shuriken.name=Shuriken Cast
+item.tconstruct.MetalPattern.crossbowlimb.name=Crossbow Limb Cast
+item.tconstruct.MetalPattern.crossbowbody.name=Crossbow Body Cast
+item.tconstruct.MetalPattern.bowlimb.name=Bow Limb Cast
 
 item.tconstruct.Materials.PaperStack.name=Paper Stack
 item.tconstruct.Materials.SlimeCrystal.name=Slime Crystal
@@ -418,11 +426,13 @@ item.tconstruct.Fletching.feather.name=Feather Fletching
 item.tconstruct.Fletching.leaf.name=Leaf Fletching
 item.tconstruct.Fletching.slime.name=Slime Fletching
 item.tconstruct.Fletching.blueslime.name=Slime Fletching
+item.tconstruct.Fletching.slimeleaf.name=Slimeleaf Fletching
 
 item.tconstruct.manual.beginner.name=Materials and You: Volume 1
 item.tconstruct.manual.toolstation.name=Materials and You: Volume 2
 item.tconstruct.manual.smeltery.name=Mighty Smelting
 item.tconstruct.manual.diary.name=Diary of a Tinker
+item.tconstruct.manual.weaponry.name=Tinkers' Weaponry
 
 item.tconstruct.bucket.Iron.name=Molten Iron Bucket
 item.tconstruct.bucket.Gold.name=Molten Gold Bucket
@@ -571,6 +581,11 @@ toolpart.HammerHead=%%material Hammer Head
 toolpart.Bowstring=%%material Bowstring
 toolpart.ArrowHead=%%material Arrowhead
 toolpart.Fletching=%%material Fletching
+toolpart.Shuriken=%%material Shuriken
+toolpart.CrossbowLimb=%%material Crossbow Limb
+toolpart.CrossbowBody=%%material Crossbow Body
+toolpart.BowLimb=%%material Bow Limb
+toolpart.Bolt=%%material Bolt
 
 # Now with translations of specific material and part combinations:
 #toolpart.ToolRod.wood=Wooden Tool Rod
@@ -711,6 +726,7 @@ tconstruct.waila.subtanks=Subtanks:
 tconstruct.waila.invalidstructure=Invalid structure
 
 tconstruct.nei.toolmaterials=Tool Materials
+tconstruct.nei.projectilematerials=Bow & Arrow
 tconstruct.nei.alloying=Smeltery Alloying
 tconstruct.nei.castingbasin=Casting Basin
 tconstruct.nei.castingtable=Casting Table
@@ -749,7 +765,7 @@ gui.toolstation6=Draw Speed:
 gui.toolstation7=Arrow Speed: 
 gui.toolstation8=Weight: 
 gui.toolstation9=Accuracy: 
-gui.toolstation10=Base Attack:
+gui.toolstation10=Base Damage:
 gui.toolstation11=Shortbow Attack:
 gui.toolstation12=Mining Speeds: 
 gui.toolstation13=Harvest Levels:
@@ -758,8 +774,11 @@ gui.toolstation15=Mining Level:
 gui.toolstation16=Usage Speed: 
 gui.toolstation17=Modifiers
 gui.toolstation18=Modifiers remaining: 
-gui.toolstation19=Damage Reduction: 
-gui.toolstation20=Protection: 
+gui.toolstation19=Damage Reduction:
+gui.toolstation20=Protection:
+gui.toolstation21=Ammo:
+gui.toolstation22=Break Chance:
+gui.toolstation23=Max. Attack:
 
 gui.mining1=Stone
 gui.mining2=Iron
@@ -779,14 +798,22 @@ gui.toolstation.dagger.desc=The Dagger is a short blade that can be thrown.\n\nS
 gui.toolstation.fryingpan.desc=The Frying Pan is a heavy weapon that uses sheer weight to stun foes.\n\nSpecial Ability: Block\nNatural Ability: Heavy\nShift+rClick: Place Frying Pan\nDamage: Low\nDurability: High\n\nRequired parts:\n- Pan\n- Handle
 gui.toolstation.battlesign.desc=The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability:\nDamage Reflector\n\nNatural Ability: Writable\n\nDamage: Low\nDurability: Average
 gui.toolstation.chisel.desc=The Chisel is a utility tool that carves shapes into blocks.\n\nCrafting Grid:\n- Shape Items\nSpecial Ability: Chisel\nDurability: Average\n\nRequired parts:\n- Chisel Head\n- Handle
-gui.toolstation.shortbow.desc=The Shortbow is a ranged weapon. It fires arrows quickly and precisely at its foes.\n\nDraw Speed: Quick\n\nRequired parts:\n- Tool Rod\n- Bowstring\n- Tool Rod
-gui.toolstation.arrow.desc=Arrows are projectiles usually fired from bows.\n\nRequired parts:\n- Arrowhead\n- Tool Rod\n- Fletching
 gui.toolstation.hammer.desc=The Hammer is a broad mining tool. It harvests blocks in a wide range and is effective against undead.\n\nNatural Abilities:\nArea of Effect\n- (3x3)\n- Smite\n\nDurability: High
 gui.toolstation.lumberaxe.desc=The Lumber Axe is a broad chopping tool. It can fell entire trees or gather wood in a wide range.\n\nNatural Abilities:\nArea of Effect\n- Fell Trees\n- (3x3x3)\n\nDurability: Average
 gui.toolstation.excavator.desc=The Excavator is a broad digging tool. It harvests soil and snow in a wide range.\n\nNatural Ability:\n- Area of Effect\n- (3x3)\n\nDurability: Average
 gui.toolstation.scythe.desc=The Scythe is a broad reaping tool. It is effective on plants and attacks enemies in a wide range.\n\nNatural Ability:\nArea of Effect\n- (3x3x3)\n\nDurability: Average\nDamage: Low, AoE
 gui.toolstation.cleaver.desc=The Cleaver is a heavy defensive weapon. It has powerful strikes, but is difficult to wield.\n\nSpecial Ability: Block\nNatural Ability:\n- Beheading\n\nDamage: High\nDurability: Average
 gui.toolstation.battleaxe.desc=The Battleaxe is a heavy offensive weapon. It is capable of bringing down small trees and can send foes flying.\n\nSpecial Ability: Block\nNatural Abilities:\n- Knockback\n- Area of Effect\n- (1x9)\n\nDamage: Average\nDurability: Average
+
+gui.toolstation.shortbow.desc=The Shortbow is a ranged weapon. It fires arrows quickly and precisely at its foes.\n\nDraw Speed: Quick\n\nRequired parts:\n- Bow Limb\n- Bowstring\n- Bow Limb
+gui.toolstation.longbow.desc=The Longbow is a ranged weapon. It has greater range than a shortbow and is able to shoot heavier arrows, but performs worse with light arrows.\n\n Required parts:\n- Bow Limb\n- Bowstring\n- Bow Limb\n- Large Plate
+gui.toolstation.arrowammo.desc=Arrows are projectiles usually fired from bows.\n\nRequired parts:\n- Arrowhead\n- Tool Rod\n- Fletching
+gui.toolstation.crossbow.desc=The crossbow is a precise ranged weapon. It loads bolts, that are fired on trigger.\n\nSpecial Ability:\n- Reduced reload time with harder materials
+gui.toolstation.boltammo.desc=Bolts are projectiles fired from Crossbows.\n\nRequired Parts:\n- Bolt Core\n- Fletching\n\nBolt cores are obtained by pouring metal over a tool rod in a Casting Table.
+gui.toolstation.throwingknife.desc=Mid ranged throwing weapon. Hold to take aim, release to throw.\n\nDamage: Medium\nCapacity: Medium
+gui.toolstation.shuriken.desc=Short ranged throwing weapon. Thrown instantly.\n\nDamage: Low\nCapacity: High
+gui.toolstation.javelin.desc=Ranged Melee weapon hybrid. Potent as a melee weapon, devasting at range.\n\nDamage: High\nCapacity: Low
+
 
 material.wood=Wood
 material.wood.display=Wooden
@@ -856,7 +883,8 @@ modifier.tool.beheading=Beheading
 
 creativeModLock.tooltip=Target Lock: 
 
-attribute.name.ammo.attackDamage=Average Shot Damage
+attribute.name.ammo.attackDamage=Base Damage
+attribute.name.ammo.maxAttackDamage=Max. Damage
 
 tool.pickaxe=Pickaxe
 tool.shovel=Shovel
@@ -877,7 +905,13 @@ tool.excavator=Excavator
 tool.hammer=Hammer
 tool.battleaxe=Battleaxe
 tool.shortbow=Shortbow
-tool.arrow=Arrow
+tool.longbow=Longbow
+tool.crossbow=Crossbow
+tool.arrowammo=Arrows
+tool.boltammo=Bolts
+tool.shuriken=Shuriken
+tool.throwingknife=Throwing Knife
+tool.javelin=Javelin
 
 # Customization of default tool names based on tool and material
 #tool.shovel.wood=Wooden Shovel

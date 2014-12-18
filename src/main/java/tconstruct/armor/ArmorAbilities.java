@@ -21,11 +21,6 @@ import tconstruct.util.network.HealthUpdatePacket;
 
 public class ArmorAbilities
 {
-    //Abilities
-    boolean morphed;
-    boolean morphLoaded = Loader.isModLoaded("Morph");
-    boolean smartmoveLoaded = Loader.isModLoaded("SmartMoving");
-
     public static List<String> stepBoostedPlayers = new ArrayList();
     //ItemStack prevFeet;
     double prevMotionY;
@@ -91,34 +86,6 @@ public class ArmorAbilities
         {
             stack.getItem().onUpdate(stack, player.worldObj, player, 8, true);
         }*/
-
-        if (morphLoaded)
-        {
-            if (morph.api.Api.hasMorph(player.getCommandSenderName(), event.side.isClient()))
-            {
-                morphed = true;
-            }
-        }
-
-        if (!player.isPlayerSleeping() && !smartmoveLoaded)
-        {
-            ItemStack chest = player.getCurrentArmor(2);
-            if (chest == null || !(chest.getItem() instanceof IModifyable))
-            {
-                if (!(morphLoaded && morphed))
-                    PlayerAbilityHelper.setEntitySize(player, 0.6F, 1.8F);
-            }
-            else
-            {
-                NBTTagCompound tag = chest.getTagCompound().getCompoundTag(((IModifyable) chest.getItem()).getBaseTagName());
-                int dodge = tag.getInteger("Perfect Dodge");
-                if (dodge > 0)
-                {
-                    if (!(morphLoaded && morphed))
-                        PlayerAbilityHelper.setEntitySize(player, Math.max(0.15F, 0.6F - (dodge * 0.09f)), 1.8F - (dodge * 0.04f));
-                }
-            }
-        }
     }
 
 

@@ -1,0 +1,16 @@
+TODO:
+* Effect graphics for arrows, throwing knifes, javelins,... MOSTLY DONE
+* Partbuilder stuff for weaponry stuff?
+* Bring bowmaterial stats etc in line?
+* Knockback on projectiles knocks towards their moving direction DONEish
+* Javelins need lower durability. When leftclick attacking and it has no durability, it should use up 1 ammo and get durability.
+
+maybe give javelins slight armor piercing? or do they have that already?
+
+
+Ideas:
+* Liquid Purple Slime + Obsidian + Metal = Obslimite... Jademite, Obsidimite, Purplemite, Ironslime
+    - Lower durability than slime
+    - Bouncy.. harvested stuff gets knocked around? Maybe Knockback1?
+    - Jagged + Reinforced
+* Magma Cube -> Magma Slime Balls -> Tool Material. Slime + Fiery by default, high quality slime!

@@ -56,16 +56,8 @@ public abstract class DualHarvestTool extends HarvestTool
         {
             if (materials[i] == block.getMaterial())
             {
-                float speed = tags.getInteger("MiningSpeed");
-                speed /= 100f;
-                int hlvl = block.getHarvestLevel(meta);
-                int durability = tags.getInteger("Damage");
-
-                float shoddy = tags.getFloat("Shoddy");
-                speed += shoddy * durability / 100f;
-
-                if (hlvl <= tags.getInteger("HarvestLevel"))
-                    return speed;
+                if (block.getHarvestLevel(meta) <= tags.getInteger("HarvestLevel"))
+                    return AbilityHelper.calcDualToolSpeed(this, tags, false);
                 return 0.1f;
             }
         }
@@ -74,16 +66,8 @@ public abstract class DualHarvestTool extends HarvestTool
         {
             if (materials[i] == block.getMaterial())
             {
-                float speed = tags.getInteger("MiningSpeed2");
-                speed /= 100f;
-                int hlvl = block.getHarvestLevel(meta);
-                int durability = tags.getInteger("Damage");
-
-                float shoddy = tags.getFloat("Shoddy");
-                speed += shoddy * durability / 100f;
-
-                if (hlvl <= tags.getInteger("HarvestLevel2"))
-                    return speed;
+                if (block.getHarvestLevel(meta) <= tags.getInteger("HarvestLevel2"))
+                    return AbilityHelper.calcDualToolSpeed(this, tags, true);
                 return 0.1f;
             }
         }

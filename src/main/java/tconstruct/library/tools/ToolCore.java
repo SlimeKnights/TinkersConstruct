@@ -273,43 +273,11 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
                     return getCorrectIcon(extraIcons, tags.getInteger("RenderExtra"));
             }
             // Effects
-            else
+            else if (renderPass <= 10)
             {
-                if (renderPass == getPartAmount())
-                {
-                    if (tags.hasKey("Effect1"))
-                        return (effectIcons.get(tags.getInteger("Effect1")));
-                }
-
-                else if (renderPass == getPartAmount() + 1)
-                {
-                    if (tags.hasKey("Effect2"))
-                        return (effectIcons.get(tags.getInteger("Effect2")));
-                }
-
-                else if (renderPass == getPartAmount() + 2)
-                {
-                    if (tags.hasKey("Effect3"))
-                        return (effectIcons.get(tags.getInteger("Effect3")));
-                }
-
-                else if (renderPass == getPartAmount() + 3)
-                {
-                    if (tags.hasKey("Effect4"))
-                        return (effectIcons.get(tags.getInteger("Effect4")));
-                }
-
-                else if (renderPass == getPartAmount() + 4)
-                {
-                    if (tags.hasKey("Effect5"))
-                        return (effectIcons.get(tags.getInteger("Effect5")));
-                }
-
-                else if (renderPass == getPartAmount() + 5)
-                {
-                    if (tags.hasKey("Effect6"))
-                        return (effectIcons.get(tags.getInteger("Effect6")));
-                }
+                String effect = "Effect" + (1 + renderPass - getPartAmount());
+                if(tags.hasKey(effect))
+                    return effectIcons.get(tags.getInteger(effect));
             }
             return blankSprite;
         }
@@ -364,24 +332,24 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
                 int binding = tags.getCompoundTag("InfiTool").getInteger("Accessory");
                 int extra = tags.getCompoundTag("InfiTool").getInteger("Extra");
 
-                String headName = getAbilityNameForType(head);
+                String headName = getAbilityNameForType(head, 0);
                 if (!headName.equals(""))
                     list.add(getStyleForType(head) + headName);
 
-                String handleName = getAbilityNameForType(handle);
+                String handleName = getAbilityNameForType(handle, 1);
                 if (!handleName.equals("") && handle != head)
                     list.add(getStyleForType(handle) + handleName);
 
                 if (getPartAmount() >= 3)
                 {
-                    String bindingName = getAbilityNameForType(binding);
+                    String bindingName = getAbilityNameForType(binding, 2);
                     if (!bindingName.equals("") && binding != head && binding != handle)
                         list.add(getStyleForType(binding) + bindingName);
                 }
 
                 if (getPartAmount() >= 4)
                 {
-                    String extraName = getAbilityNameForType(extra);
+                    String extraName = getAbilityNameForType(extra, 3);
                     if (!extraName.equals("") && extra != head && extra != handle && extra != binding)
                         list.add(getStyleForType(extra) + extraName);
                 }
@@ -422,7 +390,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
     /**
      * Returns the localized name of the materials ability. Only use this for display purposes, not for logic.
      */
-    public String getAbilityNameForType (int type)
+    public String getAbilityNameForType (int type, int part)
     {
         return TConstructRegistry.getMaterial(type).ability();
     }
@@ -680,7 +648,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
                 switch(renderPass)
                 {
                     case 0: return getCorrectColor(stack, renderPass, tags, "Handle", handleIcons);
-                    case 1: return getCorrectColor(stack, renderPass, tags, "Head", headIcons);
+                    case 1: return tags.getBoolean("Broken") ? getCorrectColor(stack, renderPass, tags, "Head", brokenIcons) : getCorrectColor(stack, renderPass, tags, "Head", headIcons);
                     case 2: return getCorrectColor(stack, renderPass, tags, "Accessory", accessoryIcons);
                     case 3: return getCorrectColor(stack, renderPass, tags, "Extra", extraIcons);
                 }

@@ -26,6 +26,7 @@ public class TConstructRegistry
     public static TConstructCreativeTab materialTab;
     public static TConstructCreativeTab blockTab;
     public static TConstructCreativeTab equipableTab;
+    public static TConstructCreativeTab weaponryTab;
 
     /* Items */
 
@@ -389,12 +390,18 @@ public class TConstructRegistry
     // Bow materials
     public static HashMap<Integer, BowMaterial> bowMaterials = new HashMap<Integer, BowMaterial>(40);
 
+    @Deprecated
     public static void addBowMaterial (int materialID, int durability, int drawSpeed, float speedMax)
+    {
+        addBowMaterial(materialID, drawSpeed, speedMax);
+    }
+
+    public static void addBowMaterial (int materialID, int drawSpeed, float speedMax)
     {
         BowMaterial mat = bowMaterials.get(materialID);
         if (mat == null)
         {
-            mat = new BowMaterial(durability, drawSpeed, speedMax);
+            mat = new BowMaterial(drawSpeed, speedMax);
             bowMaterials.put(materialID, mat);
         }
         else
@@ -413,12 +420,18 @@ public class TConstructRegistry
 
     public static HashMap<Integer, ArrowMaterial> arrowMaterials = new HashMap<Integer, ArrowMaterial>(40);
 
+    @Deprecated
     public static void addArrowMaterial (int materialID, float mass, float breakChance, float accuracy)
+    {
+        addArrowMaterial(materialID, mass, breakChance);
+    }
+
+    public static void addArrowMaterial (int materialID, float mass, float breakChance)
     {
         ArrowMaterial mat = arrowMaterials.get(materialID);
         if (mat == null)
         {
-            mat = new ArrowMaterial(mass, breakChance, accuracy);
+            mat = new ArrowMaterial(mass, breakChance);
             arrowMaterials.put(materialID, mat);
         }
         else
@@ -451,9 +464,9 @@ public class TConstructRegistry
         customMaterials.add(mat);
     }
 
-    public static void addFletchingMaterial (int materialID, int value, ItemStack input, ItemStack craftingMaterial, float accuracy, float breakChance, float mass, int color)
+    public static void addFletchingMaterial (int materialID, int value, ItemStack input, ItemStack craftingMaterial, float accuracy, float breakChance, float durabilityModifier, int color)
     {
-        FletchingMaterial mat = new FletchingMaterial(materialID, value, input, craftingMaterial, accuracy, breakChance, mass, color);
+        FletchingMaterial mat = new FletchingMaterial(materialID, value, input, craftingMaterial, accuracy, breakChance, durabilityModifier, color);
         customMaterials.add(mat);
     }
 

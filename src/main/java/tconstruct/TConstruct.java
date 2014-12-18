@@ -32,6 +32,7 @@ import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.mechworks.TinkerMechworks;
 import tconstruct.mechworks.landmine.behavior.Behavior;
 import tconstruct.mechworks.landmine.behavior.stackCombo.SpecialStackHandler;
+import tconstruct.plugins.fmp.TinkerFMP;
 import tconstruct.plugins.ic2.TinkerIC2;
 import tconstruct.plugins.imc.TinkerAE2;
 import tconstruct.plugins.imc.TinkerBuildCraft;
@@ -47,6 +48,7 @@ import tconstruct.util.IMCHandler;
 import tconstruct.util.config.DimensionBlacklist;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.util.network.PacketPipeline;
+import tconstruct.weaponry.TinkerWeaponry;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.gen.SlimeIslandGen;
 import tconstruct.world.village.*;
@@ -124,6 +126,7 @@ public class TConstruct
         pulsar.registerPulse(new TinkerSmeltery());
         pulsar.registerPulse(new TinkerMechworks());
         pulsar.registerPulse(new TinkerArmor());
+        pulsar.registerPulse(new TinkerWeaponry());
         pulsar.registerPulse(new TinkerThaumcraft());
         pulsar.registerPulse(new TinkerWaila());
         pulsar.registerPulse(new TinkerBuildCraft());
@@ -132,6 +135,7 @@ public class TConstruct
         pulsar.registerPulse(new TinkerMystcraft());
         pulsar.registerPulse(new TinkerMFR());
         pulsar.registerPulse(new TinkerTE4());
+        pulsar.registerPulse(new TinkerFMP());
         /*pulsar.registerPulse(new TinkerPrayers());
         pulsar.registerPulse(new TinkerCropify());*/
 
@@ -140,6 +144,7 @@ public class TConstruct
         TConstructRegistry.partTab = new TConstructCreativeTab("TConstructParts");
         TConstructRegistry.blockTab = new TConstructCreativeTab("TConstructBlocks");
         TConstructRegistry.equipableTab = new TConstructCreativeTab("TConstructEquipables");
+        TConstructRegistry.weaponryTab = new TConstructCreativeTab("TConstructWeaponry");
 
         tableCasting = new LiquidCasting();
         basinCasting = new LiquidCasting();

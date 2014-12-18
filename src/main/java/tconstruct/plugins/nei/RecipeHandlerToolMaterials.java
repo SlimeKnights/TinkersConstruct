@@ -15,6 +15,8 @@ import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.crafting.PatternBuilder.ItemKey;
 import tconstruct.library.crafting.PatternBuilder.MaterialSet;
+import tconstruct.library.tools.ArrowMaterial;
+import tconstruct.library.tools.BowMaterial;
 import tconstruct.library.tools.DynamicToolPart;
 import tconstruct.library.tools.ToolMaterial;
 import tconstruct.library.util.HarvestLevels;
@@ -32,6 +34,8 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase
 
         public List<PositionedStack> toolParts;
         public ToolMaterial material;
+        public BowMaterial bowMaterial;
+        public ArrowMaterial arrowMaterial;
 
         public CachedToolMaterialsRecipe(List<ItemStack> toolParts, int materialID)
         {
@@ -41,6 +45,17 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase
                 this.toolParts.add(new PositionedStack(stack, 10, 10));
             }
             this.material = TConstructRegistry.getMaterial(materialID);
+        }
+
+        public CachedToolMaterialsRecipe(List<ItemStack> toolParts, int materialID, boolean arrowBow)
+        {
+            this.toolParts = new ArrayList<PositionedStack>();
+            for (ItemStack stack : toolParts)
+            {
+                this.toolParts.add(new PositionedStack(stack, 10, 10));
+            }
+            this.arrowMaterial = TConstructRegistry.getArrowMaterial(materialID);
+            this.bowMaterial = TConstructRegistry.getBowMaterial(materialID);
         }
 
         @Override
@@ -135,6 +150,23 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase
                 }
             }
         }
+        if (crecipe.bowMaterial != null)
+        {
+            int y = 20;
+            int x = 35;
+            GuiDraw.drawString(EnumChatFormatting.BOLD + StatCollector.translateToLocal("tconstruct.nei.projectilematerials"), 35, 10, 0x404040, false);
+            GuiDraw.drawString(StatCollector.translateToLocal("gui.toolstation6") + crecipe.bowMaterial.drawspeed, x, y, 0x404040, false);
+            y += 10;
+            GuiDraw.drawString(StatCollector.translateToLocal("gui.toolstation7") + crecipe.bowMaterial.flightSpeedMax, x, y, 0x404040, false);
+        }
+        if (crecipe.arrowMaterial != null)
+        {
+            int y = 50;
+            int x = 35;
+            GuiDraw.drawString(StatCollector.translateToLocal("gui.toolstation8") + crecipe.arrowMaterial.mass, x, y, 0x404040, false);
+            y += 10;
+            GuiDraw.drawString(StatCollector.translateToLocal("gui.toolstation22") + crecipe.arrowMaterial.breakChance, x, y, 0x404040, false);
+        }
     }
 
     @Override
@@ -146,6 +178,7 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase
             for (int matID : TConstructRegistry.toolMaterials.keySet())
             {
                 List<ItemStack> toolParts = new ArrayList<ItemStack>();
+
                 mat = TConstructRegistry.toolMaterials.get(matID);
                 for (ItemKey key : PatternBuilder.instance.materials)
                 {
@@ -178,8 +211,10 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase
                     }
                 }
 
-                if(toolParts.size() > 0)
+                if(toolParts.size() > 0) {
                     this.arecipes.add(new CachedToolMaterialsRecipe(toolParts, matID));
+                    this.arecipes.add(new CachedToolMaterialsRecipe(toolParts, matID, true));
+                }
             }
         }
         else
@@ -197,16 +232,20 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase
             if (materialID >= 0)
             {
                 List toolParts = getSingleList(ingred);
-                if(toolParts.size() > 0)
+                if(toolParts.size() > 0) {
                     this.arecipes.add(new CachedToolMaterialsRecipe(toolParts, materialID));
+                    this.arecipes.add(new CachedToolMaterialsRecipe(toolParts, materialID, true));
+                }
             }
         }
         else if (PatternBuilder.instance.getPartID(ingred) < Short.MAX_VALUE)
         {
             int materialID = PatternBuilder.instance.getPartID(ingred);
             List toolParts = getSingleList(ingred);
-            if(toolParts.size() > 0)
+            if(toolParts.size() > 0) {
                 this.arecipes.add(new CachedToolMaterialsRecipe(toolParts, materialID));
+                this.arecipes.add(new CachedToolMaterialsRecipe(toolParts, materialID, true));
+            }
         }
         else
         {
