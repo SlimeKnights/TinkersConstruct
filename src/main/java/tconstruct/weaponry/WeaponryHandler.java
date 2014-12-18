@@ -86,8 +86,9 @@ public class WeaponryHandler {
             {
                 tags.setInteger("Fiery", 5);
             }
-            // arrows get only 2 modifiers
-            tags.setInteger("Modifiers", 2);
+            // arrows get only 2 modifiers (so one less) by default
+            int mods = Math.max(0, tags.getInteger("Modifiers")-1);
+            tags.setInteger("Modifiers", mods);
         }
         else if(event.tool instanceof BoltAmmo)
         {
@@ -113,7 +114,9 @@ public class WeaponryHandler {
             int reinforced = Math.max(headMat.reinforced(), coreMat.reinforced());
 
             setAmmoData(tags, durability, weight, breakChance, accuracy, shoddy, reinforced);
-            tags.setInteger("Modifiers", 2);
+
+            int mods = Math.max(0, tags.getInteger("Modifiers")-1);
+            tags.setInteger("Modifiers", mods);
         }
 
         // now that durability has been handled...
