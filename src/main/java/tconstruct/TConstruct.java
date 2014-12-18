@@ -62,7 +62,7 @@ import java.util.Random;
  */
 
 @Mod(modid = "TConstruct", name = "TConstruct", version = "${version}",
-        dependencies = "required-after:Forge@[10.13.0.1200,);required-after:Mantle@[0.3.1,);after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion;after:ThermalFoundation")
+        dependencies = "required-after:Forge@[10.13.1.1217,);required-after:Mantle@[1.7.10-0.3.2,);after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion;after:ThermalFoundation")
 public class TConstruct
 {
     public static final String modVersion = "${version}";
