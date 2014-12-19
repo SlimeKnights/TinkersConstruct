@@ -36,7 +36,7 @@ public class TActiveOmniMod extends ActiveToolMod
                 int chance = tags.getInteger("Moss");
                 int check = world.canBlockSeeTheSky((int) entity.posX, (int) entity.posY, (int) entity.posZ) ? 350 : 1150;
                 // REGROWING AMMO :OOoo
-                if(tool instanceof IAmmo && random.nextInt(check*10) < chance) // ammo regenerates at a much slower rate
+                if(tool instanceof IAmmo && random.nextInt(check*3) < chance) // ammo regenerates at a much slower rate
                 {
                     IAmmo ammothing = (IAmmo)tool;
                     if(ammothing.getAmmoCount(stack) > 0) // must have ammo
