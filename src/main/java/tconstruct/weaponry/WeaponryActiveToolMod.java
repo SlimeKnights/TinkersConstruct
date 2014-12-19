@@ -9,7 +9,8 @@ import tconstruct.library.weaponry.IAmmo;
 public class WeaponryActiveToolMod extends ActiveToolMod {
     @Override
     public boolean damageTool(ItemStack stack, int damage, EntityLivingBase entity) {
-        if(stack.getItem() == TinkerWeaponry.javelin && stack.hasTagCompound()) {
+        // does not proc on tool 'healing'
+        if(stack.getItem() == TinkerWeaponry.javelin && stack.hasTagCompound() && damage > 0) {
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
             IAmmo ammo =(IAmmo)stack.getItem();
             if(tags.getInteger("Damage") == 0)
