@@ -802,7 +802,11 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
 
     @Override
     public void setDamage(ItemStack stack, int damage) {
-        AbilityHelper.damageTool(stack, damage - stack.getItemDamage(), null, false);
+        int change = damage - stack.getItemDamage();
+        if(change == 0)
+            return;
+
+        AbilityHelper.damageTool(stack, change, null, false);
         getDamage(stack); // called to synchronize with itemstack value
     }
 
