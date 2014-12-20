@@ -232,6 +232,9 @@ Natural Abilities:
 <text>Right-click: Block
 - Blocking cuts a wide variety of damage types in half.
 
+Shift+Right-click: Place Item
+- The battlesign can show up to five lines of text.
+
 Class: Lethal Joke Weapon</text>
 <icon>battlesignicon</icon>
 <item>
