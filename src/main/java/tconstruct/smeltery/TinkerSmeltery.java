@@ -47,7 +47,7 @@ import tconstruct.world.TinkerWorld;
 import java.util.*;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "Tinkers' Smeltery", description = "Liquid metals, casting, and the multiblock structure.", forced = true)
+@Pulse(id = "Tinkers' Smeltery", description = "Liquid metals, casting, and the multiblock structure.")
 public class TinkerSmeltery
 {
     @SidedProxy(clientSide = "tconstruct.smeltery.SmelteryProxyClient", serverSide = "tconstruct.smeltery.SmelteryProxyCommon")
@@ -777,6 +777,8 @@ public class TinkerSmeltery
         addRecipesForSmeltery();
         addRecipesForTableCasting();
         addRecipesForBasinCasting();
+        addRecipesForFurnace();
+        oreRegistry();
     }
 
     @Handler
@@ -1311,6 +1313,22 @@ public class TinkerSmeltery
         {
             TConstructRegistry.getBasinCasting().addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, TConstruct.blockLiquidValue), 100);
         }
+    }
+
+    public void addRecipesForFurnace ()
+    {
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerSmeltery.speedBlock, 1, 0), new ItemStack(TinkerSmeltery.speedBlock, 1, 2), 0.2f);
+    }
+
+    public void oreRegistry ()
+    {
+        String[] glassTypes = { "glassBlack", "glassRed", "glassGreen", "glassBrown", "glassBlue", "glassPurple", "glassCyan", "glassLightGray", "glassGray", "glassPink", "glassLime", "glassYellow", "glassLightBlue", "glassMagenta", "glassOrange", "glassWhite" };
+        for (int i = 0; i < 16; i++)
+        {
+            OreDictionary.registerOre(glassTypes[15 - i], new ItemStack(TinkerSmeltery.stainedGlassClear, 1, i));
+        }
+
+        OreDictionary.registerOre("blockGlass", new ItemStack(TinkerSmeltery.clearGlass));
     }
 
     public void modIntegration ()

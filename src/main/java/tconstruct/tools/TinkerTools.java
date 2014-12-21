@@ -454,11 +454,13 @@ public class TinkerTools
         /* Detailing */
         Detailing chiseling = TConstructRegistry.getChiselDetailing();
         chiseling.addDetailing(Blocks.stone, 0, Blocks.stonebrick, 0, TinkerTools.chisel);
-        chiseling.addDetailing(TinkerSmeltery.speedBlock, 0, TinkerSmeltery.speedBlock, 1, TinkerTools.chisel);
-        chiseling.addDetailing(TinkerSmeltery.speedBlock, 2, TinkerSmeltery.speedBlock, 3, TinkerTools.chisel);
-        chiseling.addDetailing(TinkerSmeltery.speedBlock, 3, TinkerSmeltery.speedBlock, 4, TinkerTools.chisel);
-        chiseling.addDetailing(TinkerSmeltery.speedBlock, 4, TinkerSmeltery.speedBlock, 5, TinkerTools.chisel);
-        chiseling.addDetailing(TinkerSmeltery.speedBlock, 5, TinkerSmeltery.speedBlock, 6, TinkerTools.chisel);
+        if (TinkerSmeltery.speedBlock != null) {
+            chiseling.addDetailing(TinkerSmeltery.speedBlock, 0, TinkerSmeltery.speedBlock, 1, TinkerTools.chisel);
+            chiseling.addDetailing(TinkerSmeltery.speedBlock, 2, TinkerSmeltery.speedBlock, 3, TinkerTools.chisel);
+            chiseling.addDetailing(TinkerSmeltery.speedBlock, 3, TinkerSmeltery.speedBlock, 4, TinkerTools.chisel);
+            chiseling.addDetailing(TinkerSmeltery.speedBlock, 4, TinkerSmeltery.speedBlock, 5, TinkerTools.chisel);
+            chiseling.addDetailing(TinkerSmeltery.speedBlock, 5, TinkerSmeltery.speedBlock, 6, TinkerTools.chisel);
+        }
 
         chiseling.addDetailing(Blocks.obsidian, 0, TinkerTools.multiBrick, 0, TinkerTools.chisel);
         chiseling.addDetailing(Blocks.sandstone, 0, Blocks.sandstone, 2, TinkerTools.chisel);
@@ -494,12 +496,15 @@ public class TinkerTools
          * TRepo.multiBrickFancy, 15, TRepo.chisel);
          */
 
-        chiseling.addDetailing(TinkerSmeltery.smeltery, 4, TinkerSmeltery.smeltery, 6, TinkerTools.chisel);
-        chiseling.addDetailing(TinkerSmeltery.smeltery, 6, TinkerSmeltery.smeltery, 11, TinkerTools.chisel);
-        chiseling.addDetailing(TinkerSmeltery.smeltery, 11, TinkerSmeltery.smeltery, 2, TinkerTools.chisel);
-        chiseling.addDetailing(TinkerSmeltery.smeltery, 2, TinkerSmeltery.smeltery, 8, TinkerTools.chisel);
-        chiseling.addDetailing(TinkerSmeltery.smeltery, 8, TinkerSmeltery.smeltery, 9, TinkerTools.chisel);
-        chiseling.addDetailing(TinkerSmeltery.smeltery, 9, TinkerSmeltery.smeltery, 10, TinkerTools.chisel);
+        if (TinkerSmeltery.smeltery != null)
+        {
+            chiseling.addDetailing(TinkerSmeltery.smeltery, 4, TinkerSmeltery.smeltery, 6, TinkerTools.chisel);
+            chiseling.addDetailing(TinkerSmeltery.smeltery, 6, TinkerSmeltery.smeltery, 11, TinkerTools.chisel);
+            chiseling.addDetailing(TinkerSmeltery.smeltery, 11, TinkerSmeltery.smeltery, 2, TinkerTools.chisel);
+            chiseling.addDetailing(TinkerSmeltery.smeltery, 2, TinkerSmeltery.smeltery, 8, TinkerTools.chisel);
+            chiseling.addDetailing(TinkerSmeltery.smeltery, 8, TinkerSmeltery.smeltery, 9, TinkerTools.chisel);
+            chiseling.addDetailing(TinkerSmeltery.smeltery, 9, TinkerSmeltery.smeltery, 10, TinkerTools.chisel);
+        }
     }
 
     public void vanillaToolRecipes ()
@@ -586,12 +591,14 @@ public class TinkerTools
 
         Object[] toolForgeBlocks = { "blockIron", "blockGold", Blocks.diamond_block, Blocks.emerald_block, "blockCobalt", "blockArdite", "blockManyullyn", "blockCopper", "blockBronze", "blockTin", "blockAluminum", "blockAluminumBrass", "blockAlumite", "blockSteel" };
 
+        ItemStack smelteryStack = TinkerSmeltery.smeltery != null ? new ItemStack(TinkerSmeltery.smeltery, 1, 2) : new ItemStack(Blocks.obsidian, 1, 0);
+
         // ToolForge Recipes (Metal Version)
         for (int sc = 0; sc < toolForgeBlocks.length; sc++)
         {
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerTools.toolForge, 1, sc), "bbb", "msm", "m m", 'b', new ItemStack(TinkerSmeltery.smeltery, 1, 2), 's', new ItemStack(TinkerTools.toolStationWood, 1, 0), 'm', toolForgeBlocks[sc]));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerTools.toolForge, 1, sc), "bbb", "msm", "m m", 'b', smelteryStack, 's', new ItemStack(TinkerTools.toolStationWood, 1, 0), 'm', toolForgeBlocks[sc]));
             // adding slab version recipe
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerTools.craftingSlabWood, 1, 5), "bbb", "msm", "m m", 'b', new ItemStack(TinkerSmeltery.smeltery, 1, 2), 's', new ItemStack(TinkerTools.craftingSlabWood, 1, 1), 'm', toolForgeBlocks[sc]));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerTools.craftingSlabWood, 1, 5), "bbb", "msm", "m m", 'b', smelteryStack, 's', new ItemStack(TinkerTools.craftingSlabWood, 1, 1), 'm', toolForgeBlocks[sc]));
         }
 
         // ToolStation Recipes (Wooden Version)
