@@ -10,6 +10,7 @@ import java.net.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import mantle.player.PlayerUtils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.Entity.EnumEntitySize;
@@ -20,6 +21,7 @@ import net.minecraft.nbt.*;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import tconstruct.TConstruct;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.tools.TinkerTools;
@@ -237,13 +239,15 @@ public class TPlayerHandler
     @SubscribeEvent
     public void playerDeath (LivingDeathEvent event)
     {
-        if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer)
+        if(!(event.entity instanceof EntityPlayer))
+            return;
+
+        if (!event.entity.worldObj.isRemote)
         {
             TPlayerStats properties = (TPlayerStats) event.entity.getExtendedProperties(TPlayerStats.PROP_NAME);
             properties.hunger = ((EntityPlayer) event.entity).getFoodStats().getFoodLevel();
             playerStats.put(((EntityPlayer) event.entity).getPersistentID(), properties);
         }
-
     }
 
     @SubscribeEvent
@@ -362,7 +366,4 @@ public class TPlayerHandler
             TConstruct.logger.error(e.getMessage() != null ? e.getMessage() : "UNKOWN DL ERROR", e);
         }
     }
-
-    Random rand = new Random();
-
 }

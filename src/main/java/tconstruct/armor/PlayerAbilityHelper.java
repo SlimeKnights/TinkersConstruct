@@ -28,6 +28,9 @@ public class PlayerAbilityHelper
     {
         NBTTagList slots = new NBTTagList();
         InventoryPlayer hotbar = player.inventory;
+        ItemStack belt = armor.inventory[3];
+        if(belt == null)
+            return;
 
         NBTTagCompound itemTag;
 
@@ -43,7 +46,6 @@ public class PlayerAbilityHelper
             hotbar.mainInventory[i] = null;
         }
 
-        ItemStack belt = armor.inventory[3];
         NBTTagList replaceSlots = belt.getTagCompound().getTagList("Inventory", 10);
         for (int i = 0; i < replaceSlots.tagCount(); ++i)
         {
