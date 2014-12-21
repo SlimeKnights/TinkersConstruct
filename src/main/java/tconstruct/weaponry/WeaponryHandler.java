@@ -1,5 +1,6 @@
 package tconstruct.weaponry;
 
+import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.tools.TinkerTools;
@@ -74,6 +75,13 @@ public class WeaponryHandler {
             if(fletching == null)
                 fletching = (FletchingMaterial) TConstructRegistry.getCustomMaterial(tags.getInteger("Accessory"), FletchlingLeafMaterial.class);
 
+            // invalid materials
+            if(arrow == null || shaft == null || fletching == null)
+            {
+                event.setResult(Event.Result.DENY);
+                return;
+            }
+
             int durability = (int)((float)head.durability() * shaft.durabilityModifier * fletching.durabilityModifier);
             float weight = arrow.mass + shaft.weight;
             float accuracy = fletching.accuracy;
@@ -105,6 +113,13 @@ public class WeaponryHandler {
             // todo: fix leaf fletching
             if(fletching == null)
                 fletching = (FletchingMaterial) TConstructRegistry.getCustomMaterial(tags.getInteger("Accessory"), FletchlingLeafMaterial.class);
+
+            // invalid materials
+            if(head == null || core == null || fletching == null)
+            {
+                event.setResult(Event.Result.DENY);
+                return;
+            }
 
             int durability = (int)((float)headMat.durability() * coreMat.handleDurability() * fletching.durabilityModifier);
             float weight = head.mass + core.mass*1.5f;
