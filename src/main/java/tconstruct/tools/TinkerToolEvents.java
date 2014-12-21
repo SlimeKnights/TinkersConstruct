@@ -40,6 +40,11 @@ public class TinkerToolEvents
         {
             if (item == Item.getItemFromBlock(TinkerTools.toolStationWood))
             {
+                if (!PHConstruct.beginnerBook)
+                {
+                    return;
+                }
+
                 TPlayerStats stats = TPlayerStats.get(event.player);
                 if (!stats.materialManual)
                 {

@@ -14,12 +14,18 @@ import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.smeltery.blocks.*;
 import tconstruct.tools.TinkerTools;
+import tconstruct.util.config.PHConstruct;
 
 public class TinkerSmelteryEvents
 {
     @SubscribeEvent
     public void onCrafting (ItemCraftedEvent event)
     {
+        if (!PHConstruct.beginnerBook)
+        {
+            return;
+        }
+
         Item item = event.crafting.getItem();
         if (!event.player.worldObj.isRemote)
         {

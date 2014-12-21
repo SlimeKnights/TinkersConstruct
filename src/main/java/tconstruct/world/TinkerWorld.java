@@ -29,7 +29,6 @@ import tconstruct.client.StepSoundSlime;
 import tconstruct.common.itemblocks.MetadataItemBlock;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.FluidType;
-import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.smeltery.blocks.MetalOre;
 import tconstruct.smeltery.itemblocks.MetalItemBlock;
 import tconstruct.tools.*;
@@ -445,7 +444,6 @@ public class TinkerWorld
         FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerWorld.oreGravel, 1, 3), new ItemStack(TinkerTools.materials, 1, 10), 0.2f);
         FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerWorld.oreGravel, 1, 4), new ItemStack(TinkerTools.materials, 1, 11), 0.2f);
 
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerSmeltery.speedBlock, 1, 0), new ItemStack(TinkerSmeltery.speedBlock, 1, 2), 0.2f);
         FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerTools.materials, 1, 38), new ItemStack(TinkerTools.materials, 1, 4), 0.2f);
         FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerTools.materials, 1, 39), new ItemStack(TinkerTools.materials, 1, 3), 0.2f);
         FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerTools.materials, 1, 40), new ItemStack(TinkerTools.materials, 1, 11), 0.2f);
@@ -556,12 +554,6 @@ public class TinkerWorld
         }
         OreDictionary.registerOre("thaumiumRod", new ItemStack(TinkerTools.toolRod, 1, 31));
 
-        String[] glassTypes = { "glassBlack", "glassRed", "glassGreen", "glassBrown", "glassBlue", "glassPurple", "glassCyan", "glassLightGray", "glassGray", "glassPink", "glassLime", "glassYellow", "glassLightBlue", "glassMagenta", "glassOrange", "glassWhite" };
-        for (int i = 0; i < 16; i++)
-        {
-            OreDictionary.registerOre(glassTypes[15 - i], new ItemStack(TinkerSmeltery.stainedGlassClear, 1, i));
-        }
-
         BlockDispenser.dispenseBehaviorRegistry.putObject(TinkerTools.titleIcon, new TDispenserBehaviorSpawnEgg());
 
         // Vanilla stuff
@@ -569,7 +561,6 @@ public class TinkerWorld
         OreDictionary.registerOre("slimeball", new ItemStack(TinkerWorld.strangeFood, 1, 0));
         OreDictionary.registerOre("slimeball", new ItemStack(TinkerWorld.strangeFood, 1, 1));
         OreDictionary.registerOre("slimeball", new ItemStack(TinkerTools.materials, 1, 36));
-        OreDictionary.registerOre("blockGlass", new ItemStack(TinkerSmeltery.clearGlass));
         OreDictionary.registerOre("blockGlass", new ItemStack(Blocks.glass));
         RecipeRemover.removeShapedRecipe(new ItemStack(Blocks.sticky_piston));
         RecipeRemover.removeShapedRecipe(new ItemStack(Items.magma_cream));
