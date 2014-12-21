@@ -528,7 +528,7 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
                 }
                 // regular pickup.
                 // Note that you can't pick up ammo items without the proper itemstack in your inventory to prevent dupes
-                else if(!player.inventory.addItemStackToInventory(new ItemStack(Items.arrow, 1)))
+                else if(returnStack != null && !player.inventory.addItemStackToInventory(returnStack))
                 {
                     flag = false;
                 }
