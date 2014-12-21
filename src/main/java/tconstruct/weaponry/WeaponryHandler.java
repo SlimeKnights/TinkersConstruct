@@ -141,6 +141,8 @@ public class WeaponryHandler {
         BowMaterial bottom;
         BowstringMaterial string;
 
+        boolean enchanted = false;
+
         if(event.tool instanceof BowBaseAmmo) {
             top = TConstructRegistry.getBowMaterial(tags.getInteger("Head"));
             bottom = TConstructRegistry.getBowMaterial(tags.getInteger("Accessory"));
@@ -158,6 +160,9 @@ public class WeaponryHandler {
                 drawSpeed *= 1.8f;
                 flightSpeed *= 1.5f;
             }
+
+            // enchanted bowstring
+            enchanted = tags.getInteger("Handle") == 1;
         }
         else if(event.tool instanceof Crossbow)
         {
@@ -173,12 +178,15 @@ public class WeaponryHandler {
 
             // crossbows are stronk
             flightSpeed *= 1.5;
+
+            // enchanted bowstring
+            enchanted = tags.getInteger("Accessory") == 1;
         }
         else
             return;
 
         // enchanted fabric
-        if (tags.getInteger("Handle") == 1) {
+        if (enchanted) {
             int modifiers = tags.getInteger("Modifiers");
             modifiers += 1;
             tags.setInteger("Modifiers", modifiers);
