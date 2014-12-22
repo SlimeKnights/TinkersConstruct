@@ -77,7 +77,6 @@ public class ArmorProxyClient extends ArmorProxyCommon {
 		registerManualIcons();
 		registerManualRecipes();
 		MinecraftForge.EVENT_BUS.register(this);
-		FMLCommonHandler.instance().bus().register(new ArmorAbilitiesClient(mc, controlInstance));
 	}
 
 	private void registerManualIcons() {
