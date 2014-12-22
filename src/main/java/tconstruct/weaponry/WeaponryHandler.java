@@ -262,6 +262,7 @@ public class WeaponryHandler {
     private void setAmmoData(NBTTagCompound tags, int durability, float weight, float breakChance, float accuracy, float shoddy, int reinforced)
     {
         tags.setInteger("TotalDurability", durability);
+        tags.setInteger("BaseDurability", durability);
         tags.setFloat("Mass", weight);
         tags.setFloat("BreakChance", breakChance);
         tags.setFloat("Accuracy", accuracy);
