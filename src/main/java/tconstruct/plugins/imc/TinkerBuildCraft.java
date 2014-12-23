@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import tconstruct.TConstruct;
 import tconstruct.smeltery.TinkerSmeltery;
 
-@ObjectHolder(TConstruct.modID)
 @Pulse(id = "Tinkers BuildCraft Compatibility", description = "Tinkers Construct compatibility for BC Transport", modsRequired = "BuildCraft|Transport", forced = true)
 public class TinkerBuildCraft
 {
