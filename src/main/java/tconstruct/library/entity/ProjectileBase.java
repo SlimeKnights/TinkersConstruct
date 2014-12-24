@@ -184,17 +184,20 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
         float speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
         float damage = speed * tags.getInteger("Attack"); // todo: potentially change this back to MathHelper.ceiling_float_int to get 1/2 heart steps back
 
+        boolean shotByPlayer = this.shootingEntity != null && this.shootingEntity instanceof EntityPlayer;
+
         // Damage calculations and stuff. For reference see AbilityHelper.onLeftClickEntity
         ToolCore ammo = (ToolCore)returnStack.getItem();
 
         // factor in modified stuff for base damage
         // basically we pass the base damage to all modifiers and take the highest one
         int baseDamage = 0;
-        for(ActiveToolMod toolmod : TConstructRegistry.activeModifiers) {
-            int dmg = toolmod.baseAttackDamage(baseDamage, (int)damage, ammo, returnStack.getTagCompound(), tags, returnStack, (EntityPlayer)this.shootingEntity, movingobjectposition.entityHit);
-            if(dmg > baseDamage)
-                baseDamage = dmg;
-        }
+        if(shotByPlayer) // prevent crashes with other things reflecting/shooting them
+            for(ActiveToolMod toolmod : TConstructRegistry.activeModifiers) {
+                int dmg = toolmod.baseAttackDamage(baseDamage, (int)damage, ammo, returnStack.getTagCompound(), tags, returnStack, (EntityPlayer)this.shootingEntity, movingobjectposition.entityHit);
+                if(dmg > baseDamage)
+                    baseDamage = dmg;
+            }
         damage += baseDamage;
 
         // damage modification from the weapon itself
@@ -215,10 +218,11 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
 
         // the regular tool modifier damage stuff
         int modDamage = 0;
-        for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
-        {
-            modDamage += mod.attackDamage(modDamage, (int)damage, ammo, returnStack.getTagCompound(), tags, returnStack, (EntityPlayer)this.shootingEntity, movingobjectposition.entityHit);
-        }
+        if(shotByPlayer)
+            for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+            {
+                modDamage += mod.attackDamage(modDamage, (int)damage, ammo, returnStack.getTagCompound(), tags, returnStack, (EntityPlayer)this.shootingEntity, movingobjectposition.entityHit);
+            }
         damage += modDamage;
 
         // calculate critical damaaage
