@@ -346,6 +346,7 @@ public class TinkerTools
     {
         vanillaToolRecipes();
         modIntegration();
+        metalPartCraftingIntegration();
 
         // Fix for chisels harvetslevel derp
         if("chisel".equals(Blocks.stone.getHarvestTool(0)))
@@ -385,6 +386,19 @@ public class TinkerTools
         registerPatternMaterial("stickWood", 1, "Wood");
         registerPatternMaterial("slabWood", 1, "Wood");
         registerPatternMaterial("compressedCobblestone1x", 18, "Stone");
+    }
+
+    private void metalPartCraftingIntegration()
+    {
+        if(TConstruct.pulsar.isPulseLoaded("Tinkers' Smeltery") || !PHConstruct.craftMetalTools)
+            return;
+
+        String[] metals = {"Iron", "Cobalt", "Ardite", "Manyullyn", "Copper", "Bronze", "Alumite", "Steel", "PigIron"};
+
+        for(String metal : metals) {
+            TinkerTools.registerPatternMaterial("ingot" + metal, 2, metal);
+            TinkerTools.registerPatternMaterial("block" + metal, 18, metal);
+        }
     }
 
     private void addRecipesForToolBuilder ()
