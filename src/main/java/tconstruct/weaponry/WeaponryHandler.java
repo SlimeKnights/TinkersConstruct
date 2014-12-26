@@ -163,6 +163,13 @@ public class WeaponryHandler {
             bottom = TConstructRegistry.getBowMaterial(tags.getInteger("Accessory"));
             string = (BowstringMaterial) TConstructRegistry.getCustomMaterial(tags.getInteger("Handle"), BowstringMaterial.class);
 
+            // some materials seem to be incompatible
+            if(top == null || bottom == null || string == null)
+            {
+                event.setResult(Event.Result.DENY);
+                return;
+            }
+
             drawSpeed = (int) ((top.drawspeed + bottom.drawspeed) / 2f * string.drawspeedModifier);
             flightSpeed = (top.flightSpeedMax + bottom.flightSpeedMax)/2 * string.flightSpeedModifier;
 
@@ -183,6 +190,13 @@ public class WeaponryHandler {
         {
             top = TConstructRegistry.getBowMaterial(tags.getInteger("Head"));
             string = (BowstringMaterial) TConstructRegistry.getCustomMaterial(tags.getInteger("Accessory"), BowstringMaterial.class);
+
+            // some materials seem to be incompatible
+            if(top == null || string == null)
+            {
+                event.setResult(Event.Result.DENY);
+                return;
+            }
 
             drawSpeed = (int) ((float)top.drawspeed * string.drawspeedModifier);
             flightSpeed = (top.flightSpeedMax * string.flightSpeedModifier);
