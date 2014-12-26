@@ -39,6 +39,9 @@ public class ArrowEntity extends ProjectileBase {
 
     @Override
     protected double getGravity() {
+        if(returnStack == null || !returnStack.hasTagCompound())
+            return super.getGravity();
+
         float mass = returnStack.getTagCompound().getCompoundTag("InfiTool").getFloat("Mass");
         mass /= 36f; // why 36? simple because it's roughly 0.05 with flint head and wooden arrow shaft! Yes, that's the only reason.
         return mass;
@@ -49,6 +52,9 @@ public class ArrowEntity extends ProjectileBase {
         super.onHitBlock(movingobjectposition);
 
         if(defused)
+            return;
+
+        if(returnStack == null || !returnStack.hasTagCompound())
             return;
 
         // we might break! oh noez!
