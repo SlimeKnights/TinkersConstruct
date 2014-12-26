@@ -3,6 +3,10 @@ package tconstruct.weaponry;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import tconstruct.armor.player.TPlayerStats;
+import tconstruct.library.crafting.PatternBuilder;
+import tconstruct.library.event.PartBuilderEvent;
+import tconstruct.library.event.SmelteryCastEvent;
+import tconstruct.library.util.IToolPart;
 import tconstruct.tools.TinkerTools;
 import tconstruct.weaponry.ammo.ArrowAmmo;
 import tconstruct.weaponry.ammo.BoltAmmo;
@@ -282,5 +286,65 @@ public class WeaponryHandler {
         tags.setFloat("Accuracy", accuracy);
         tags.setFloat("Shoddy", shoddy); // we could actually always set this to 0 since it has zero impact on ammo
         tags.setInteger("Unbreaking", reinforced);
+    }
+
+    @SubscribeEvent
+    public void weaponryPartCrafted(PartBuilderEvent.NormalPart event)
+    {
+        if(event.pattern == null)
+            return;
+
+        // weaponry part
+        if(event.pattern.getItem() == TinkerWeaponry.woodPattern) {
+            // crossbow or bow limb
+            if (event.pattern.getItemDamage() == 1 || event.pattern.getItemDamage() == 3) {
+                // only allow crafting if the material has bow stats
+                PatternBuilder.ItemKey key =  PatternBuilder.instance.getItemKey(event.material);
+                if(key == null)
+                    return;
+
+                PatternBuilder.MaterialSet ms = PatternBuilder.instance.materialSets.get(key.key);
+                if(ms == null)
+                    return;
+
+                if(TConstructRegistry.getBowMaterial(ms.materialID) == null)
+                    event.setResult(Event.Result.DENY);
+            }
+        }
+        // arrow stats, still in tool
+        if(event.pattern.getItem() == TinkerTools.woodPattern && event.pattern.getItemDamage() == 25) {
+            // only allow crafting if the material has bow stats
+            PatternBuilder.ItemKey key =  PatternBuilder.instance.getItemKey(event.material);
+            if(key == null)
+                return;
+
+            PatternBuilder.MaterialSet ms = PatternBuilder.instance.materialSets.get(key.key);
+            if(ms == null)
+                return;
+
+            if(TConstructRegistry.getArrowMaterial(ms.materialID) == null)
+                event.setResult(Event.Result.DENY);
+        }
+    }
+
+    @SubscribeEvent
+    public void weaponryPartCast(SmelteryCastEvent.CastingTable event) {
+        if (event.recipe == null || event.recipe.output == null)
+            return;
+
+        if (!(event.recipe.output.getItem() instanceof IToolPart))
+            return;
+
+        // get material for the output
+        int mat = ((IToolPart) event.recipe.output.getItem()).getMaterialID(event.recipe.output);
+
+        // arrowhead
+        if (event.recipe.output.getItem() == TinkerWeaponry.arrowhead)
+            if (TConstructRegistry.getArrowMaterial(mat) == null)
+                event.setResult(Event.Result.DENY);
+        // crossbow/bowlimb
+        if (event.recipe.output.getItem() == TinkerWeaponry.partBowLimb || event.recipe.output.getItem() == TinkerWeaponry.partCrossbowLimb)
+            if (TConstructRegistry.getBowMaterial(mat) == null)
+                event.setResult(Event.Result.DENY);
     }
 }

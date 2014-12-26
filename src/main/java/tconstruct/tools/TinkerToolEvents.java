@@ -178,6 +178,7 @@ public class TinkerToolEvents
     @SubscribeEvent
     public void craftPart (PartBuilderEvent.NormalPart event)
     {
+        // bowstring
         if (event.pattern.getItem() == TinkerTools.woodPattern && event.pattern.getItemDamage() == 23)
         {
             ItemStack result = craftBowString(event.material);
@@ -187,6 +188,7 @@ public class TinkerToolEvents
             }
         }
 
+        // fletching
         if (event.pattern.getItem() == TinkerTools.woodPattern && event.pattern.getItemDamage() == 24)
         {
             ItemStack result = craftFletching(event.material);
