@@ -41,7 +41,7 @@ public class CrossbowRenderer extends FlexibleToolRenderer {
                 GL11.glRotatef(50f, 1f, 0f, 0f);
             }
 
-            if(ammo != null) {
+            if(ammo != null && ammo.hasTagCompound()) {
                 //float progress = crossbow.getWindupProgress(item, player);
                 float progress = 1f;
                 dummy.returnStack = ammo;
