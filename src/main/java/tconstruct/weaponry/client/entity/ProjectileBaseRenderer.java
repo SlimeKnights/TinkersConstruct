@@ -47,6 +47,9 @@ public class ProjectileBaseRenderer<T extends ProjectileBase> extends Render {
             GL11.glRotatef(f12, 0.0F, 0.0F, 1.0F);
         }
 
+        if(renderManager == null || renderManager.renderEngine == null)
+            return;
+
         // draw correct texture. not some weird block fragments.
         renderManager.renderEngine.bindTexture(TextureMap.locationItemsTexture);
         // rendering code has been optimized to be exactly at the center and without translation
