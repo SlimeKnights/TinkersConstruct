@@ -8,6 +8,7 @@ import tconstruct.library.event.PartBuilderEvent;
 import tconstruct.library.event.SmelteryCastEvent;
 import tconstruct.library.util.IToolPart;
 import tconstruct.tools.TinkerTools;
+import tconstruct.util.config.PHConstruct;
 import tconstruct.weaponry.ammo.ArrowAmmo;
 import tconstruct.weaponry.ammo.BoltAmmo;
 import tconstruct.library.tools.DualMaterialToolPart;
@@ -37,6 +38,11 @@ public class WeaponryHandler {
         {
             if (item == Item.getItemFromBlock(TinkerTools.toolStationWood))
             {
+                if (!PHConstruct.beginnerBook)
+                {
+                    return;
+                }
+
                 TPlayerStats stats = TPlayerStats.get(event.player);
                 if (!stats.weaponryManual)
                 {
