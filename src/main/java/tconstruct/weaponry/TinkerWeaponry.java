@@ -222,40 +222,39 @@ public class TinkerWeaponry {
                     TConstructRegistry.addPartMapping(woodPattern, m, nonMetal, new ItemStack(patternOutputs[m], 1, nonMetal));
         }
 
-        // register part casting
-        LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
-        for(int i = 0; i < patternOutputs.length; i++)
-        {
-            ItemStack cast = new ItemStack(metalPattern, 1, i);
-
-            tableCasting.addCastingRecipe(cast, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(patternOutputs[i], 1, Short.MAX_VALUE), false, 50);
-            tableCasting.addCastingRecipe(cast, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(patternOutputs[i], 1, Short.MAX_VALUE), false, 50);
-
-            for (int iterTwo = 0; iterTwo < TinkerSmeltery.liquids.length; iterTwo++)
-            {
-                Fluid fs = TinkerSmeltery.liquids[iterTwo].getFluid();
-                int fluidAmount = metalPattern.getPatternCost(cast) * TConstruct.ingotLiquidValue / 2;
-                ItemStack metalCast = new ItemStack(patternOutputs[i], 1, liquidDamage[iterTwo]);
-                tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
-                Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);
-            }
-        }
-
         // arrowhead is still integrated in tinkertools.. bla n stuff
         for (int nonMetal : nonMetals)
             TConstructRegistry.addPartMapping(TinkerTools.woodPattern, 25, nonMetal, new ItemStack(arrowhead, 1, nonMetal));
 
-        ItemStack cast = new ItemStack(TinkerSmeltery.metalPattern, 1, 25);
-        tableCasting.addCastingRecipe(cast, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(arrowhead, 1, Short.MAX_VALUE), false, 50);
-        tableCasting.addCastingRecipe(cast, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(arrowhead, 1, Short.MAX_VALUE), false, 50);
+        // register part casting
+        if(TConstruct.pulsar.isPulseLoaded("Tinkers' Smeltery")) {
+            LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
+            for (int i = 0; i < patternOutputs.length; i++) {
+                ItemStack cast = new ItemStack(metalPattern, 1, i);
 
-        for (int iterTwo = 0; iterTwo < TinkerSmeltery.liquids.length; iterTwo++)
-        {
-            Fluid fs = TinkerSmeltery.liquids[iterTwo].getFluid();
-            int fluidAmount = ((IPattern) TinkerSmeltery.metalPattern).getPatternCost(cast) * TConstruct.ingotLiquidValue / 2;
-            ItemStack metalCast = new ItemStack(arrowhead, 1, liquidDamage[iterTwo]);
-            tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
-            Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);
+                tableCasting.addCastingRecipe(cast, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(patternOutputs[i], 1, Short.MAX_VALUE), false, 50);
+                tableCasting.addCastingRecipe(cast, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(patternOutputs[i], 1, Short.MAX_VALUE), false, 50);
+
+                for (int iterTwo = 0; iterTwo < TinkerSmeltery.liquids.length; iterTwo++) {
+                    Fluid fs = TinkerSmeltery.liquids[iterTwo].getFluid();
+                    int fluidAmount = metalPattern.getPatternCost(cast) * TConstruct.ingotLiquidValue / 2;
+                    ItemStack metalCast = new ItemStack(patternOutputs[i], 1, liquidDamage[iterTwo]);
+                    tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
+                    Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);
+                }
+            }
+
+            ItemStack cast = new ItemStack(TinkerSmeltery.metalPattern, 1, 25);
+            tableCasting.addCastingRecipe(cast, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(arrowhead, 1, Short.MAX_VALUE), false, 50);
+            tableCasting.addCastingRecipe(cast, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(arrowhead, 1, Short.MAX_VALUE), false, 50);
+
+            for (int iterTwo = 0; iterTwo < TinkerSmeltery.liquids.length; iterTwo++) {
+                Fluid fs = TinkerSmeltery.liquids[iterTwo].getFluid();
+                int fluidAmount = ((IPattern) TinkerSmeltery.metalPattern).getPatternCost(cast) * TConstruct.ingotLiquidValue / 2;
+                ItemStack metalCast = new ItemStack(arrowhead, 1, liquidDamage[iterTwo]);
+                tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
+                Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);
+            }
         }
     }
 
