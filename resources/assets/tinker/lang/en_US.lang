@@ -737,7 +737,7 @@ tconstruct.nei.melting=Smeltery Melting
 gui.smeltery.fuel=Fuel
 gui.smeltery.emerald=Emeralds: 
 gui.smeltery.glass.block=Blocks: 
-gui.smeltery.glass.pannel=Pannels: 
+gui.smeltery.glass.pannel=Panels: 
 gui.smeltery.metal.ingot=Ingots: 
 gui.smeltery.metal.nugget=Nuggets: 
 gui.smeltery.molten.check=Molten
@@ -813,7 +813,7 @@ gui.toolstation.crossbow.desc=The crossbow is a precise ranged weapon. It loads 
 gui.toolstation.boltammo.desc=Bolts are projectiles fired from Crossbows.\n\nRequired Parts:\n- Bolt Core\n- Fletching\n\nBolt cores are obtained by pouring metal over a tool rod in a Casting Table.
 gui.toolstation.throwingknife.desc=Mid ranged throwing weapon. Hold to take aim, release to throw.\n\nDamage: Medium\nCapacity: Medium
 gui.toolstation.shuriken.desc=Short ranged throwing weapon. Thrown instantly.\n\nDamage: Low\nCapacity: High
-gui.toolstation.javelin.desc=Ranged Melee weapon hybrid. Potent as a melee weapon, devasting at range.\n\nDamage: High\nCapacity: Low
+gui.toolstation.javelin.desc=Ranged Melee weapon hybrid. Potent as a melee weapon, devastating at range.\n\nDamage: High\nCapacity: Low
 
 
 material.wood=Wood
