@@ -273,7 +273,7 @@ Class: Utility Tool</text>
 <text>Natural Abilities: 
 - Area of Effect, Mines a 3x3 area. The direction depends on which face is pounded.
 - Smite II, Does 2-4 extra hearts of damage against undead.
-- Huge Durability, this tool has very high durability to make up for the constant beating it will recieve.
+- Huge Durability, this tool has very high durability to make up for the constant beating it will receive.
 
 Class: Broad Mining Tool</text>
 <icon>hammericon</icon>
@@ -381,7 +381,7 @@ Class: Broad Melee Weapon</text>
 
 <page type="toolpage">
 <title>Cleaver</title>
-<text>The Cleaver is a heavy defensive weapon. The sword is unwieldly, but the sheer weight of the tool crushes foes.</text>
+<text>The Cleaver is a heavy defensive weapon. The sword is unwieldy, but the sheer weight of the tool crushes foes.</text>
 <text>Right-click: Block
 - Blocking cuts a wide variety of damage types in half.
 
@@ -857,7 +857,7 @@ Stackable: Yes</text>
 
 <page type="sectionpage">
 <title>Necrotic</title>
-<text>Placing the bone of a Wither Skelton on a tool gives it nefarious life-stealing powers.
+<text>Placing the bone of a Wither Skeleton on a tool gives it nefarious life-stealing powers.
 
 Effects:
 - Heals the player every time a monster is attacked
@@ -874,7 +874,7 @@ Stackable: Yes</text>
 
 <page type="sectionpage">
 <title>Silky</title>
-<text>Adding a large glob of alunimum brass or gold and a bunch of string seems to give the tool silky-smooth properties.
+<text>Adding a large glob of aluminum brass or gold and a bunch of string seems to give the tool silky-smooth properties.
 
 Effects:
 - Allows blocks to be harvested directly

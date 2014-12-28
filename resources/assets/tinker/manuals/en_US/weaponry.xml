@@ -62,7 +62,7 @@ Projectiles:
 
 Throwing Knifes:
 These knifes are crafted from a knife blade and a handle.
-Hold rightclick to take aim, and release it to throw a knife.
+Hold right-click to take aim, and release it to throw a knife.
 Throwing knifes stack up to a moderate amount, and deal moderate damage.
 
 Shuriken:
@@ -82,7 +82,7 @@ The throwing has a small windup. Because of their size you can only carry a few,
 <text>Projectile Weapons
 
 Shortbow:
-Put together from two bow limbs and a bowstring, this weapon is a fast and handy bow. Keep in mind that inflexible materials like stone can hardly be drawn back and can't accelerate projectiles well. Organic materials are favoured for quick bows, while metals require lots of strengt to draw back, but provide more power.
+Put together from two bow limbs and a bowstring, this weapon is a fast and handy bow. Keep in mind that inflexible materials like stone can hardly be drawn back and can't accelerate projectiles well. Organic materials are favoured for quick bows, while metals require lots of strength to draw back, but provide more power.
 The bow requires arrows as ammo.
 Offensive modifiers on bows do not count for arrows. The only modifiers affecting its ranged performance are Redstone and lapis.</text>
 </page>
@@ -101,7 +101,7 @@ The longbow is constructed from two bow limbs, a bowstring and a large plate.</t
 
 Crossbow:
 Those pesky metals are such a pain to pull back. Luckily a tinkerer knows how to help himself! The crossbow allows you to pre-load it with a bolt, and have it ready instantly to fire. Since this allows for much more power, it can shoot heavier projectiles, resulting in more damage and armor penetration.
-To load a crossbow simply rightclick and wait until the animation is done. The loading process can be stopped by pressing rightclick while sneaking. The crossbow can be unloaded in the same way.</text>
+To load a crossbow simply right-click and wait until the animation is done. The loading process can be stopped by pressing right-click while sneaking. The crossbow can be unloaded in the same way.</text>
 </page>
 
 <page type="text">
