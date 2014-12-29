@@ -36,18 +36,18 @@ public class ActiveToolMod
 
     public int baseAttackDamage (int earlyModDamage, int damage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLivingBase player, Entity entity)
     {
-        return 0;
+        return earlyModDamage;
     }
 
     // Calculated after sprinting and enchant bonuses
     public float knockback (float modKnockback, float currentKnockback, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLivingBase player, Entity entity)
     {
-        return 0f;
+        return modKnockback;
     }
 
     public int attackDamage (int modDamage, int currentDamage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLivingBase player, Entity entity)
     {
-        return 0;
+        return modDamage;
     }
 
     public void lateAttackEntity () // Unfinished, not called
