@@ -86,7 +86,7 @@ public class PotionLauncher extends Item
     @Override
     public EnumAction getItemUseAction (ItemStack stack)
     {
-        if (!stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Loaded"))
+        if (stack != null && stack.hasTagCompound() && !stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Loaded"))
             return EnumAction.bow;
         else
             return EnumAction.none;
