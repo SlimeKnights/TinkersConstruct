@@ -46,11 +46,31 @@ public final class IMCHandler {
                 }
 
                 NBTTagCompound tag = message.getNBTValue();
+                int id = tag.getInteger("Id");
                 ToolMaterial mat = scanMaterial(tag);
                 if(mat != null) {
-                    TConstructRegistry.addtoolMaterial(tag.getInteger("Id"), mat);
+                    TConstructRegistry.addtoolMaterial(id, mat);
                     TConstructRegistry.addDefaultToolPartMaterial(tag.getInteger("Id"));
                     TConstruct.logger.info("IMC: Added material " + mat.materialName);
+
+                    // bow stats
+                    if(tag.hasKey("Bow_DrawSpeed") && tag.hasKey("Bow_ProjectileSpeed"))
+                    {
+                        int drawspeed = tag.getInteger("Bow_DrawSpeed");
+                        float flightspeed = tag.getFloat("Bow_ProjectileSpeed");
+
+                        TConstructRegistry.addBowMaterial(id, drawspeed, flightspeed);
+                        TConstruct.logger.info("IMC: Added Bow stats for material " + mat.materialName);
+                    }
+                    // arrow stats
+                    if(tag.hasKey("Projectile_Mass") && tag.hasKey("Projectile_Fragility"))
+                    {
+                        float mass = tag.getFloat("Projectile_Mass");
+                        float breakchance = tag.getFloat("Projectile_Fragility");
+
+                        TConstructRegistry.addArrowMaterial(id, mass, breakchance);
+                        TConstruct.logger.info("IMC: Added Projectile stats for material " + mat.materialName);
+                    }
                 }
             }
             else if(type.equals("addPartBuilderMaterial"))
