@@ -1,6 +1,7 @@
 package tconstruct.library.tools;
 
 import cofh.api.energy.IEnergyContainerItem;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import java.util.*;
@@ -612,7 +613,8 @@ public class AbilityHelper
             // if it got picked up, we're playing the sound
             else {
                 player.worldObj.playSoundAtEntity(player, "random.pop", 0.2F, ((TConstruct.random.nextFloat() - TConstruct.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-                player.inventory.markDirty();
+                if(player instanceof EntityPlayerMP)
+                    player.inventoryContainer.detectAndSendChanges();
             }
         }
 
