@@ -775,11 +775,11 @@ gui.toolstation15=Mining Level:
 gui.toolstation16=Usage Speed: 
 gui.toolstation17=Modifiers
 gui.toolstation18=Modifiers remaining: 
-gui.toolstation19=Damage Reduction:
-gui.toolstation20=Protection:
-gui.toolstation21=Ammo:
-gui.toolstation22=Break Chance:
-gui.toolstation23=Max. Attack:
+gui.toolstation19=Damage Reduction: 
+gui.toolstation20=Protection: 
+gui.toolstation21=Ammo: 
+gui.toolstation22=Break Chance: 
+gui.toolstation23=Max. Attack: 
 
 gui.mining1=Stone
 gui.mining2=Iron
