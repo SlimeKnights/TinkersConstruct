@@ -144,7 +144,7 @@ public class TinkerWeaponry {
         TinkerTools.arrowhead = arrowhead = new DynamicToolPart("_arrowhead", "ArrowHead");
         TinkerTools.fletching = fletching = new Fletching().setUnlocalizedName("tconstruct.Fletching");
         partShuriken = new DynamicToolPart("_shuriken", "Shuriken");
-        partArrowShaft = new DynamicToolPart("_arrow_shaft", "Shaft");
+        partArrowShaft = new DynamicToolPart("_arrow_shaft", "Shaft", ArrowShaftMaterial.class);
         partBowLimb = new DynamicToolPart("_bow_limb", "BowLimb");
         partCrossbowLimb = new DynamicToolPart("_crossbow_limb", "CrossbowLimb");
         partCrossbowBody = new DynamicToolPart("_crossbow_body", "CrossbowBody");
