@@ -48,7 +48,15 @@ public class Crossbow extends ProjectileWeapon {
         if(!isLoaded(tags))
             return null;
 
-        return ItemStack.loadItemStackFromNBT(tags.getCompoundTag("LoadedItem"));
+        ItemStack ammo = ItemStack.loadItemStackFromNBT(tags.getCompoundTag("LoadedItem"));
+
+        // prevent crashes from remapping corruptions..
+        if(ammo != null && ammo.getItem() != null && ammo.getItem() != TinkerWeaponry.boltAmmo) {
+            tags.removeTag("LoadedItem");
+            ammo = null;
+        }
+
+        return ammo;
     }
 
     @Override
