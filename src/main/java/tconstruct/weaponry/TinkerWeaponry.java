@@ -313,7 +313,7 @@ public class TinkerWeaponry {
         TConstructRegistry.addArrowMaterial(MaterialID.PigIron,     3.0F,   0.5F); //Pigiron
 
         // Arrow Shaft Materials: Material ID, crafting item, durability-medifier, mass, fragility
-        TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(0, Items.stick,     1.0f,  1.0f, 0.15f, 0x866526)); // wood: reference material, 10% break chance
+        TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(0, "stickWood",     1.0f,  1.0f, 0.15f, 0x866526)); // wood: reference material, 10% break chance
         TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(1, Items.bone,      0.95f, 1.8f, 0.02f, 0xede6bf)); // bone: heavier, but durable
         TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(2, Items.reeds,     1.5f,  0.5f, 0.66f, 0xc7ff87)); // reed: light, but less durable
         TConstructRegistry.addCustomMaterial(ArrowShaftMaterial.createMaterial(3, Items.blaze_rod, 1.2f,  0.9f, 0.08f, 0xfff32d)); // blaze: tad lighter, tad more durable, fieryyyy
