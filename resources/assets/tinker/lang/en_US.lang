@@ -926,3 +926,29 @@ tool.javelin=Javelin
 tool.kingslimeprefix=King Slime
 # Specific localization like materials
 #tool.shovel.kingslime=Regret
+
+
+manual.page.tool1=Crafting Parts
+manual.page.modifier1=Tool Station
+manual.page.modifier2=Tool Forge
+manual.page.modifier3=Tinker Table
+manual.page.casting1=Ingredients
+
+manual.page.material.material=Material
+manual.page.material.shard=Shard
+manual.page.material.rod=Rod
+manual.page.material.durability=Durability
+manual.page.material.handle=Handle Modifier
+manual.page.material.speed=Mining Speed
+manual.page.material.level=Mining Level
+manual.page.material.attack=Base Attack
+
+manual.page.material1=Full Tool Durability
+manual.page.material2=Heart
+manual.page.material3=Hearts
+manual.page.material4=Material Trait
+manual.page.material5=+1 Modifiers
+manual.page.material6=Material Trait: Reinforced
+manual.page.material7=Reinforced level
+manual.page.material8=Stonebound level
+manual.page.material9=Splintering level

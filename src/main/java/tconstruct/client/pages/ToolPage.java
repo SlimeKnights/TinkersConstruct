@@ -47,7 +47,7 @@ public class ToolPage extends BookPage
     @Override
     public void renderContentLayer (int localWidth, int localHeight, boolean isTranslatable)
     {
-        String cParts = new String("Crafting Parts");
+        String cParts = StatCollector.translateToLocal("manual.page.tool1");
         if (isTranslatable)
         {
             title = StatCollector.translateToLocal(title);

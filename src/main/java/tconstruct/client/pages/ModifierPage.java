@@ -66,11 +66,11 @@ public class ModifierPage extends BookPage
     @Override
     public void renderContentLayer (int localWidth, int localHeight, boolean isTranslatable)
     {
-        String tStation = new String("Tool Station");
-        if (icons.length > 4)
-            tStation = "Tinker Table";
+        String tStation = StatCollector.translateToLocal("manual.page.modifier1");
         if (icons.length > 3)
-            tStation = "Tool Forge";
+            tStation = StatCollector.translateToLocal("manual.page.modifier2");
+        if (icons.length > 4)
+            tStation = StatCollector.translateToLocal("manual.page.modifier3");
         if (isTranslatable)
             tStation = StatCollector.translateToLocal(tStation);
         manual.fonts.drawString("\u00a7n" + tStation, localWidth + 60, localHeight + 4, 0);

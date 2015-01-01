@@ -52,23 +52,23 @@ public class MaterialPage extends BookPage
     @Override
     public void renderContentLayer (int localWidth, int localHeight, boolean isTranslatable)
     {
-        String mat = new String("Material");
-        String shard = new String("Shard");
-        String rod = new String("Rod");
-        String durability = new String("Durability");
-        String handleModifier = new String("Handle Modifier");
-        String fullToolDurability = new String("Full Tool Durability");
-        String miningSpeed = new String("Mining Speed");
-        String miningLevel = new String("Mining Level");
-        String baseAttack = new String("Base Attack");
-        String heart_ = new String("Heart");
-        String hearts = new String("Hearts");
-        String materialTrait = new String("Material Trait");
-        String extraMod = new String("+1 Modifiers");
-        String traitReinforced = new String("Material Trait: Reinforced");
-        String reinforcedLevel = new String("Reinforced level");
-        String stoneboundLevel = new String("Stonebound level");
-        String splinteringLevel = new String("Splintering level");
+        String mat = StatCollector.translateToLocal("manual.page.material.material");
+        String shard = StatCollector.translateToLocal("manual.page.material.shard");
+        String rod = StatCollector.translateToLocal("manual.page.material.rod");
+        String durability = StatCollector.translateToLocal("manual.page.material.durability");
+        String handleModifier = StatCollector.translateToLocal("manual.page.material.handle");
+        String fullToolDurability = StatCollector.translateToLocal("manual.page.material1");
+        String miningSpeed = StatCollector.translateToLocal("manual.page.material.speed");
+        String miningLevel = StatCollector.translateToLocal("manual.page.material.level");
+        String baseAttack = StatCollector.translateToLocal("manual.page.material.attack");
+        String heart_ = StatCollector.translateToLocal("manual.page.material2");
+        String hearts = StatCollector.translateToLocal("manual.page.material3");
+        String materialTrait = StatCollector.translateToLocal("manual.page.material4");
+        String extraMod = StatCollector.translateToLocal("manual.page.material5");
+        String traitReinforced = StatCollector.translateToLocal("manual.page.material6");
+        String reinforcedLevel = StatCollector.translateToLocal("manual.page.material7");
+        String stoneboundLevel = StatCollector.translateToLocal("manual.page.material8");
+        String splinteringLevel = StatCollector.translateToLocal("manual.page.material9");
 
         if (isTranslatable)
         {

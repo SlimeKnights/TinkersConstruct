@@ -50,7 +50,7 @@ public class BlockCastPage extends BookPage
         GL11.glScalef(0.5F, 0.5F, 0.5F);
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-        String ingr = new String("Ingredients");
+        String ingr = StatCollector.translateToLocal("manual.page.casting1");
         if (isTranslatable)
             ingr = StatCollector.translateToLocal(ingr);
         manual.fonts.drawString(ingr + ":", localWidth + 120, localHeight + 32, 0);
