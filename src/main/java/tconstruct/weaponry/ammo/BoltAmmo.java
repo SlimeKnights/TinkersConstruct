@@ -4,6 +4,7 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.CustomMaterial;
 import tconstruct.library.tools.FletchingMaterial;
 import tconstruct.library.tools.FletchlingLeafMaterial;
+import tconstruct.tools.TinkerTools;
 import tconstruct.weaponry.TinkerWeaponry;
 import tconstruct.library.tools.DualMaterialToolPart;
 import tconstruct.library.weaponry.AmmoItem;
@@ -86,7 +87,7 @@ public class BoltAmmo extends AmmoItem {
             return;
 
         // dual material head: we use wooden shafts
-        ItemStack headStack = DualMaterialToolPart.createDualMaterial(getHeadItem(), 0, id); // wooden shaft, material head
+        ItemStack headStack = DualMaterialToolPart.createDualMaterial(getHeadItem(), id, TinkerTools.MaterialID.Iron); // material shaft
         ItemStack handleStack = new ItemStack(getAccessoryItem(), 1, 0); // feather Fletchling
         //ItemStack accessoryStack = new ItemStack(getAccessoryItem(), 1, 0); // feather fletchling
 
