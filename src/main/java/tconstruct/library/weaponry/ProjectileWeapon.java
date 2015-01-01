@@ -418,7 +418,11 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
         if(!stack.hasTagCompound())
             return;
 
-        // also display max damage with current ammo
+        // remove last item (the damage of the bow itself), as
+        // the bow's damage has no effect on the actual damage dealt
+        list.remove(list.size()-1);
+
+        // display max damage with current ammo
         ItemStack currentAmmo = searchForAmmo(player, stack);
         if(currentAmmo == null)
             return;
@@ -434,7 +438,6 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
         damage *= getProjectileSpeed(stack);
         damage /= 2;
 
-        list.remove(list.size()-1); // remove last item (the damage of the bow itself)
         list.add(currentAmmo.getDisplayName());
         list.add(StatCollector.translateToLocal("attribute.name.ammo.maxAttackDamage") + ": " + TProxyClient.df.format(damage));
     }
