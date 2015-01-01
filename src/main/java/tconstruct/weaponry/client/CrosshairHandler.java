@@ -1,5 +1,6 @@
 package tconstruct.weaponry.client;
 
+import net.minecraft.client.gui.Gui;
 import tconstruct.util.Reference;
 import tconstruct.library.weaponry.IWindup;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -72,6 +73,9 @@ public class CrosshairHandler {
         GL11.glDisable(GL11.GL_BLEND);
 
         event.setCanceled(true);
+
+        // restore gui texture for following draw calls
+        mc.getTextureManager().bindTexture(Gui.icons);
     }
 
     private void drawCrosshairPart(float width, float height, int part)
