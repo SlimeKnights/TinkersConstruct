@@ -587,6 +587,7 @@ toolpart.CrossbowLimb=%%material Crossbow Limb
 toolpart.CrossbowBody=%%material Crossbow Body
 toolpart.BowLimb=%%material Bow Limb
 toolpart.Bolt=%%material Bolt
+toolpart.Shaft=%%material Arrow Shaft
 
 # Now with translations of specific material and part combinations:
 #toolpart.ToolRod.wood=Wooden Tool Rod

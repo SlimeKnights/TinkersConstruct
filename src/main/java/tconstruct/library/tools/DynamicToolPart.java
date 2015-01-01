@@ -14,6 +14,7 @@ import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.util.IToolPart;
 import tconstruct.library.util.TextureHelper;
+import tconstruct.library.tools.CustomMaterial;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 
@@ -25,20 +26,32 @@ public class DynamicToolPart extends CraftingItem implements IToolPart
     public String partName;
     public String texture;
     public IIcon defaultIcon;
+    public Class<? extends CustomMaterial> customMaterialClass;
 
     private boolean hidden = false;
 
     public DynamicToolPart(String texture, String name)
     {
-        this(texture, name, "tinker");
+        this(texture, name, (Class<? extends CustomMaterial>) null);
+    }
+
+    public DynamicToolPart(String texture, String name, Class<? extends CustomMaterial> customMaterialClass)
+    {
+        this(texture, name, "tinker", customMaterialClass);
     }
 
     public DynamicToolPart(String texture, String name, String domain)
+    {
+        this(texture, name, domain, (Class<? extends CustomMaterial>) null);
+    }
+
+    public DynamicToolPart(String texture, String name, String domain, Class<? extends CustomMaterial> customMaterialClass)
     {
         super(null, null, "parts/", domain, TConstructRegistry.partTab);
         this.setUnlocalizedName("tconstruct." + name);
         this.partName = name;
         this.texture = texture;
+        this.customMaterialClass = customMaterialClass;
     }
 
     /**
@@ -64,11 +77,38 @@ public class DynamicToolPart extends CraftingItem implements IToolPart
     @Override
     public String getItemStackDisplayName (ItemStack stack)
     {
-        tconstruct.library.tools.ToolMaterial toolmat = TConstructRegistry.getMaterial(getMaterialID(stack));
-        if(toolmat == null)
-            return super.getItemStackDisplayName(stack);
+        String material = "";
+        String matName = "";
+        if (customMaterialClass == null)
+        {
+            tconstruct.library.tools.ToolMaterial toolmat = TConstructRegistry.getMaterial(getMaterialID(stack));
+            if(toolmat == null)
+                return super.getItemStackDisplayName(stack);
 
-        String material = toolmat.localizationString.substring(9); // :(
+            material = toolmat.localizationString.substring(9); // :(
+            matName = toolmat.prefixName();
+        }
+        else
+        {
+            CustomMaterial customMaterial = TConstructRegistry.getCustomMaterial(getMaterialID(stack), customMaterialClass);
+            if (customMaterial == null)
+                return super.getItemStackDisplayName(stack);
+
+            material = "";
+            if (customMaterial.input != null)
+            {
+                material = customMaterial.input.getUnlocalizedName();
+                int firstPeriodIndex = material.indexOf('.');
+                if (firstPeriodIndex >= 0)
+                    material = material.substring(firstPeriodIndex+1);
+                matName = customMaterial.input.getDisplayName();
+            }
+            else
+            {
+                material = customMaterial.oredict;
+                matName = customMaterial.oredict;
+            }
+        }
 
         // custom name
         if (StatCollector.canTranslate("toolpart." + partName + "." + material))
@@ -79,11 +119,8 @@ public class DynamicToolPart extends CraftingItem implements IToolPart
         else
         {
             // specific material name for materials?
-            String matName;
             if(StatCollector.canTranslate("toolpart.material." + material))
                 matName = StatCollector.translateToLocal("toolpart.material." + material);
-            else
-                matName = toolmat.prefixName();
 
             return StatCollector.translateToLocal("toolpart." + partName).replaceAll("%%material", matName);
         }
@@ -95,7 +132,19 @@ public class DynamicToolPart extends CraftingItem implements IToolPart
         if(id == -1)
             return getUnlocalizedName();
 
-        return "toolpart." + partName + "." + TConstructRegistry.getMaterial(id).materialName;
+        String material = "unknown";
+        if (customMaterialClass == null)
+        {
+            tconstruct.library.tools.ToolMaterial toolmat = TConstructRegistry.getMaterial(getMaterialID(stack));
+            material = toolmat.materialName;
+        }
+        else
+        {
+            CustomMaterial customMaterial = TConstructRegistry.getCustomMaterial(getMaterialID(stack), customMaterialClass);
+            material = customMaterial.input != null ? customMaterial.input.getUnlocalizedName() : customMaterial.oredict;
+        }
+
+        return "toolpart." + partName + "." + material;
     }
 
     @Override
@@ -156,7 +205,12 @@ public class DynamicToolPart extends CraftingItem implements IToolPart
             return super.getColorFromItemStack(stack, renderpass);
 
         if(matId >= 0 && icons[matId] == null)
-            return TConstructRegistry.getMaterial(matId).primaryColor();
+        {
+            if (customMaterialClass == null)
+                return TConstructRegistry.getMaterial(getMaterialID(stack)).primaryColor();
+            else
+                return TConstructRegistry.getCustomMaterial(getMaterialID(stack), customMaterialClass).color;
+        }
 
         return super.getColorFromItemStack(stack, renderpass);
     }
