@@ -267,6 +267,10 @@ public class WeaponryHandler {
         if(event.headStack.getItem() != TinkerWeaponry.partBolt)
             return;
 
+        // is the bolt already split into 2 items?
+        if(event.accessoryStack != null && event.headStack.getItem() == TinkerWeaponry.partBolt && event.handleStack.getItem() == TinkerWeaponry.partBolt && event.accessoryStack.getItem() == TinkerWeaponry.fletching)
+            return;
+
         // split the bolt into its two parts
         ItemStack bolt1 = event.headStack.copy();
         ItemStack bolt2 = event.headStack;
