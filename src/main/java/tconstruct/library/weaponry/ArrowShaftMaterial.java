@@ -17,6 +17,13 @@ public class ArrowShaftMaterial extends CustomMaterial {
         this.weight = weight;
     }
 
+    public ArrowShaftMaterial(int materialID, int value, String oredictInput, ItemStack craftingItem, float durabilityModifier, float weight, float fragility, int color) {
+        super(materialID, value, oredictInput, craftingItem, color);
+        this.durabilityModifier = durabilityModifier;
+        this.fragility = fragility;
+        this.weight = weight;
+    }
+
     public static ArrowShaftMaterial createMaterial(int id, Item input, float durabilityModifier, float weight, float fragility, int color)
     {
         return createMaterial(id, input, 0, durabilityModifier, weight, fragility, color);
@@ -25,5 +32,10 @@ public class ArrowShaftMaterial extends CustomMaterial {
     public static ArrowShaftMaterial createMaterial(int id, Item input, int inputMeta, float durabilityModifier, float weight, float fragility, int color)
     {
         return new ArrowShaftMaterial(id, 2, new ItemStack(input, 1, inputMeta), new ItemStack(TinkerWeaponry.partArrowShaft, 0, id), durabilityModifier, weight, fragility, color);
+    }
+
+    public static ArrowShaftMaterial createMaterial(int id, String oredictInput, float durabilityModifier, float weight, float fragility, int color)
+    {
+        return new ArrowShaftMaterial(id, 2, oredictInput, new ItemStack(TinkerWeaponry.partArrowShaft, 0, id), durabilityModifier, weight, fragility, color);
     }
 }

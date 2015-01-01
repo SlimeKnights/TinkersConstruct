@@ -593,6 +593,9 @@ toolpart.Bolt=%%material Bolt
 # If only the material part has to be specific, you can use this
 #toolpart.material.wood=Wooden
 
+# OreDictionary wooden arrow shaft material
+toolpart.material.stickWood=Wooden
+
 fluid.iron.molten=Molten Iron
 fluid.gold.molten=Molten Gold
 fluid.copper.molten=Molten Copper
