@@ -1,6 +1,17 @@
 package tconstruct.library.tools.traits;
 
+import net.minecraft.util.StatCollector;
+
+import tconstruct.Util;
+
 public abstract class AbstractTrait implements IMaterialTrait {
+
+  @Override
+  public String getLocalizedName() {
+    String locString = "material.trait." + getIdentifier();
+    locString = Util.sanitizeLocalizationString(locString);
+    return StatCollector.translateToLocal(locString);
+  }
 
   /* Updating */
   @Override
@@ -8,15 +19,20 @@ public abstract class AbstractTrait implements IMaterialTrait {
 
   }
 
+
   /* Harvesting */
+  @Override
+  public float miningSpeed(float speed, float currentSpeed, boolean isEffective) {
+    return currentSpeed;
+  }
+
   @Override
   public boolean beforeBlockBreak() {
     return false;
   }
 
   @Override
-  public void afterBlockBreak() // Unfinished, not called
-  {
+  public void afterBlockBreak() {
 
   }
 

@@ -9,6 +9,14 @@ public interface IMaterialTrait {
   public void onUpdate();
 
   /* Harvesting */
+  /**
+   * Called when a block is mined.
+   * @param speed The original, unmodified speed from the tool
+   * @param currentSpeed How fast the block will be harvested currently, possibly modified by other traits
+   * @param isEffective If the tool is effective for the block to harvest
+   * @return How fast the block should be harvested. Standard return value is currentSpeed
+   */
+  public float miningSpeed(float speed, float currentSpeed, boolean isEffective);
 
   /**
    * Called just before a block breaks, analog to Item.onBlockStartBreak
@@ -20,7 +28,6 @@ public interface IMaterialTrait {
    * Called after a block has been broken.
    */
   public void afterBlockBreak();
-
   /* Attacking */
 
   /**
