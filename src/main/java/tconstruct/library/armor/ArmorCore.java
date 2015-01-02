@@ -12,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import tconstruct.library.TConstructRegistry;
@@ -415,9 +416,9 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
             protection = getProtection(tags);
         }
         if (protection > 0)
-            list.add("\u00a77Protection: " + df.format(protection) + "%");
+            list.add("\u00a77" + StatCollector.translateToLocal("armor.core.protection") + df.format(protection) + "%");
         else
-            list.add("\u00A7oBroken");
+            list.add("\u00A7o" + StatCollector.translateToLocal("armor.core.broken"));
 
         boolean displayToolTips = true;
         int tipNum = 0;
