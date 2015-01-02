@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.*;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.*;
@@ -53,7 +54,7 @@ public class FryingPan extends Weapon
         super.getSubItems(id, tab, list);
 
         Item accessory = getAccessoryItem();
-        ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, 2), new ItemStack(getHandleItem(), 1, 16), null, "Bane of Pigs");
+        ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, 2), new ItemStack(getHandleItem(), 1, 16), null, StatCollector.translateToLocal("tool.baneofpigs"));
 
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         tags.setBoolean("Special", true);
