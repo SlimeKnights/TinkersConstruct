@@ -129,7 +129,7 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase
             }
             else
             {
-                GuiDraw.drawString(StatCollector.translateToLocal("gui.partcrafter11") + crecipe.material.attack / 2F + heart, 35, 70, 0x404040, false);
+                GuiDraw.drawString(StatCollector.translateToLocal("gui.partcrafter10") + crecipe.material.attack / 2F + heart, 35, 70, 0x404040, false);
             }
             int abilityY = 85;
             if (crecipe.material.reinforced > 0)
