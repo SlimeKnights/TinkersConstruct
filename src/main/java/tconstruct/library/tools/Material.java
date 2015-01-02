@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 import tconstruct.library.tools.materials.IMaterialStats;
 import tconstruct.library.tools.traits.IMaterialTrait;
 
-public class ToolMaterial {
+public class Material {
 
   @Nonnull
   public final String identifier;
@@ -31,7 +31,7 @@ public class ToolMaterial {
   protected final Map<Class<? extends IMaterialTrait>, IMaterialTrait> traits = new TreeMap<>();
 
   // simple white material
-  public ToolMaterial(String identifier) {
+  public Material(String identifier) {
     this.identifier = identifier;
     // white
     this.colorHigh = 0xffffff;
@@ -43,7 +43,7 @@ public class ToolMaterial {
   }
 
   // one-colored material
-  public ToolMaterial(String identifier, int color, EnumChatFormatting textColor) {
+  public Material(String identifier, int color, EnumChatFormatting textColor) {
     this.identifier = identifier;
     this.colorLow = color;
     this.colorMid = color;
@@ -53,8 +53,8 @@ public class ToolMaterial {
   }
 
   // complex material with 3 colors and a real surface texture!
-  public ToolMaterial(String identifier, int colorLow, int colorMedium, int colorHigh,
-                      SurfaceType surfaceType, EnumChatFormatting textColor) {
+  public Material(String identifier, int colorLow, int colorMedium, int colorHigh,
+                  SurfaceType surfaceType, EnumChatFormatting textColor) {
     this.identifier = identifier;
     this.colorLow = colorLow;
     this.colorMid = colorMedium;

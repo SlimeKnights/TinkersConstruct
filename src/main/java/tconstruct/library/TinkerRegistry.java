@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import tconstruct.library.tools.ToolMaterial;
+import tconstruct.library.tools.Material;
 import tconstruct.library.tools.materials.IMaterialStats;
 import tconstruct.library.tools.traits.IMaterialTrait;
 
@@ -18,7 +18,7 @@ public final class TinkerRegistry {
   /* MATERIALS */
 
   // Identifier to Material mapping. Hashmap so we can look it up directly without iterating
-  private static final Map<String, ToolMaterial> toolMaterials = new HashMap<>();
+  private static final Map<String, Material> materials = new HashMap<>();
   // traceability information who registered what. Used to find errors.
   private static final Map<String, String> materialRegisteredByMod = new HashMap<>();
   private static final Map<String, Map<Class<? extends IMaterialStats>, String>>
@@ -26,19 +26,19 @@ public final class TinkerRegistry {
   private static final Map<String, Map<Class<? extends IMaterialTrait>, String>>
       traitRegisteredByMod = new HashMap<>();
 
-  public static void addToolMaterial(ToolMaterial material, IMaterialStats stats, IMaterialTrait trait) {
-    addToolMaterial(material, stats);
+  public static void addMaterial(Material material, IMaterialStats stats, IMaterialTrait trait) {
+    addMaterial(material, stats);
     addMaterialTrait(material.identifier, trait);
   }
 
-  public static void addToolMaterial(ToolMaterial material, IMaterialStats stats) {
-    addToolMaterial(material);
+  public static void addMaterial(Material material, IMaterialStats stats) {
+    addMaterial(material);
     addMaterialStats(material.identifier, stats);
   }
 
-  public static void addToolMaterial(ToolMaterial material) {
+  public static void addMaterial(Material material) {
     // duplicate material
-    if (toolMaterials.containsKey(material.identifier)) {
+    if (materials.containsKey(material.identifier)) {
       String registeredBy = materialRegisteredByMod.get(material.identifier);
       error(String.format(
           "Could not register Material: \"%s\" was already registered by %s", material.identifier,
@@ -47,27 +47,27 @@ public final class TinkerRegistry {
     }
 
     // register material
-    toolMaterials.put(material.identifier, material);
+    materials.put(material.identifier, material);
     String activeMod = Loader.instance().activeModContainer().getModId();
     putMaterialTrace(material.identifier, activeMod);
   }
 
-  public static ToolMaterial getToolMaterial(String identifier) {
-    return toolMaterials.get(identifier);
+  public static Material getMaterial(String identifier) {
+    return materials.get(identifier);
   }
 
-  public static Collection<ToolMaterial> getAllToolMaterials() {
-    return toolMaterials.values();
+  public static Collection<Material> getAllMaterials() {
+    return materials.values();
   }
 
   /* MATERIAL TRAITS AND STATS */
   public static void addMaterialStats(String identifier, IMaterialStats stats) {
-    if (!toolMaterials.containsKey(identifier)) {
+    if (!materials.containsKey(identifier)) {
       error(String.format("Could not add Stats to \"%s\": Unknown Material", identifier));
       return;
     }
 
-    ToolMaterial material = toolMaterials.get(identifier);
+    Material material = materials.get(identifier);
     // duplicate stats
     if (material.getStats(stats.getClass()) != null) {
       String registeredBy = "Unknown";
@@ -91,12 +91,12 @@ public final class TinkerRegistry {
   }
 
   public static void addMaterialTrait(String identifier, IMaterialTrait trait) {
-    if (!toolMaterials.containsKey(identifier)) {
+    if (!materials.containsKey(identifier)) {
       error(String.format("Could not add Trait \"%s\" to \"%s\": Unknown Material", trait.getIdentifier(), identifier));
       return;
     }
 
-    ToolMaterial material = toolMaterials.get(identifier);
+    Material material = materials.get(identifier);
     // duplicate traits
     if (material.hasTrait(trait.getClass()) || material.hasTrait(trait.getIdentifier())) {
       String registeredBy = "Unknown";
