@@ -26,6 +26,16 @@ public final class TinkerRegistry {
   private static final Map<String, Map<Class<? extends IMaterialTrait>, String>>
       traitRegisteredByMod = new HashMap<>();
 
+  public static void addToolMaterial(ToolMaterial material, IMaterialStats stats, IMaterialTrait trait) {
+    addToolMaterial(material, stats);
+    addMaterialTrait(material.identifier, trait);
+  }
+
+  public static void addToolMaterial(ToolMaterial material, IMaterialStats stats) {
+    addToolMaterial(material);
+    addMaterialStats(material.identifier, stats);
+  }
+
   public static void addToolMaterial(ToolMaterial material) {
     // duplicate material
     if (toolMaterials.containsKey(material.identifier)) {
