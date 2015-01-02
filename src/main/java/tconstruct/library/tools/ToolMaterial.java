@@ -1,143 +1,140 @@
 package tconstruct.library.tools;
 
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.EnumChatFormatting;
 
-/*
- * Dynamic substitute for an enum. It carries a lot of information
- */
-public class ToolMaterial
-{
-    public final String materialName;
-    public final int harvestLevel;
-    public final int durability;
-    public final int miningspeed; // <-- divided by 100
-    public final int attack;
-    public final float handleModifier;
-    public final int reinforced;
-    public final float stonebound;
-    public final String tipStyle;
-    public final int primaryColor;
+import java.util.Collection;
+import java.util.Map;
+import java.util.TreeMap;
 
-    public final String localizationString;
+import javax.annotation.Nonnull;
 
-    @Deprecated
-    public String displayName;
-    @Deprecated
-    public String ability;
+import tconstruct.library.tools.materials.IMaterialStats;
+import tconstruct.library.tools.traits.IMaterialTrait;
 
-    @Deprecated
-    public ToolMaterial(String name, String displayName, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, String ability)
-    {
-        this(name, level, durability, speed, damage, handle, reinforced, stonebound, style, 0xFFFFFF);
-    }
+public class ToolMaterial {
 
-    @Deprecated
-    public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, String ability)
-    {
-        this(name, level, durability, speed, damage, handle, reinforced, stonebound, style, 0xFFFFFF);
-    }
+  @Nonnull
+  public final String identifier;
 
-    @Deprecated
-    public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style)
-    {
-        this(name, level, durability, speed, damage, handle, reinforced, stonebound, style, 0xFFFFFF);
-    }
+  public final int colorLow;
+  public final int colorMid;
+  public final int colorHigh;
+  public final EnumChatFormatting textColor; // used in tooltips and other text
+  // todo: maybe make this dynamic people can supply their own colorable textures?
+  public final SurfaceType surfaceType;
 
-    public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, int primaryColor)
-    {
-        this(name, "material." + name.toLowerCase().replaceAll(" ", ""), level, durability, speed, damage, handle, reinforced, stonebound, style, primaryColor);
-    }
 
-    public ToolMaterial(String name, String localizationString, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, int primaryColor)
-    {
-        this.materialName = name;
-        this.harvestLevel = level;
-        this.durability = durability;
-        this.miningspeed = speed;
-        this.attack = damage;
-        this.handleModifier = handle;
-        this.reinforced = reinforced;
-        this.stonebound = stonebound;
-        this.tipStyle = style;
-        this.primaryColor = primaryColor;
+  // we use a Treemap for 2 reasons:
+  // * A Map so we can obtain the stats we want quickly
+  // * A treemap because we can sort it, so that all materials have the same order when iterating
+  protected final Map<Class<? extends IMaterialStats>, IMaterialStats> stats = new TreeMap<>();
+  protected final Map<Class<? extends IMaterialTrait>, IMaterialTrait> traits = new TreeMap<>();
 
-        this.localizationString = localizationString;
+  // simple white material
+  public ToolMaterial(String identifier) {
+    this.identifier = identifier;
+    // white
+    this.colorHigh = 0xffffff;
+    this.colorMid = 0xffffff;
+    this.colorLow = 0xffffff;
+    this.surfaceType = SurfaceType.METAL;
 
-        this.displayName = prefixName();
-        this.ability = ability();
-    }
+    this.textColor = EnumChatFormatting.GRAY;
+  }
 
-    public String name ()
-    {
-        return materialName;
-    }
+  // one-colored material
+  public ToolMaterial(String identifier, int color, EnumChatFormatting textColor) {
+    this.identifier = identifier;
+    this.colorLow = color;
+    this.colorMid = color;
+    this.colorHigh = color;
+    this.surfaceType = SurfaceType.METAL;
+    this.textColor = textColor;
+  }
 
-    public String localizedName ()
-    {
-        return StatCollector.translateToLocal(localizationString);
-    }
+  // complex material with 3 colors and a real surface texture!
+  public ToolMaterial(String identifier, int colorLow, int colorMedium, int colorHigh,
+                      SurfaceType surfaceType, EnumChatFormatting textColor) {
+    this.identifier = identifier;
+    this.colorLow = colorLow;
+    this.colorMid = colorMedium;
+    this.colorHigh = colorHigh;
+    this.surfaceType = surfaceType;
+    this.textColor = textColor;
+  }
 
-    public String prefixName ()
-    {
-        // check if there's a special name, otherwise use the regular one
-        if (StatCollector.canTranslate(String.format("%s.display", localizationString)))
-            return StatCollector.translateToLocal(String.format("%s.display", localizationString));
-        return localizedName();
-    }
+  /* Stats */
+  public void addStats(IMaterialStats materialStats) {
+    this.stats.put(materialStats.getClass(), materialStats);
+  }
 
-    public int durability ()
-    {
-        return this.durability;
-    }
+  /**
+   * Returns the given type of stats if the material has them.
+   * Returns null Otherwise.
+   */
+  public <T extends IMaterialStats> T getStats(Class<T> clazz) {
+    if(this.stats.containsKey(clazz))
+      return null;
 
-    public int toolSpeed ()
-    {
-        return this.miningspeed;
-    }
+    return clazz.cast(this.stats.get(clazz));
+  }
 
-    public int attack ()
-    {
-        return this.attack;
-    }
+  /**
+   * Returns the given type of stats if the material has them.
+   * Returns null Otherwise.
+   * Remark: Slower than obtaining it by class.
+   */
+  public IMaterialStats getStats(String identifier) {
+    if(identifier == null || identifier.isEmpty())
+      return null;
 
-    public int harvestLevel ()
-    {
-        return this.harvestLevel;
-    }
+    for(IMaterialStats stat : stats.values())
+      if(identifier.equals(stat.getMaterialType()))
+        return stat;
 
-    public float handleDurability ()
-    {
-        return this.handleModifier;
-    }
+    return null;
+  }
 
-    public int reinforced ()
-    {
-        return this.reinforced;
-    }
+  public Collection<IMaterialStats> getAllStats() {
+    return stats.values();
+  }
 
-    public float shoddy ()
-    {
-        return this.stonebound;
-    }
+  /* Traits */
+  public void addTrait(IMaterialTrait materialTrait) {
+    this.traits.put(materialTrait.getClass(), materialTrait);
+  }
 
-    public String style ()
-    {
-        return this.tipStyle;
-    }
+  /**
+   * Returns wether the material has a trait of the given type.
+   */
+  public boolean hasTrait(Class<? extends IMaterialTrait> clazz) {
+    return this.traits.containsKey(clazz);
+  }
 
-    public int primaryColor ()
-    {
-        return this.primaryColor;
-    }
+  /**
+   * Returns wether the material has a trait with that identifier.
+   * Remark: Slower than searching by class
+   */
+  public boolean hasTrait(String identifier) {
+    if(identifier == null || identifier.isEmpty())
+      return false;
 
-    /**
-     * Returns the ability of the tool to display.
-     * ONLY USE THIS FOR DISPLAY PURPOSES. It is not data you can rely on. Use the material-ids for that.
-     */
-    public String ability ()
-    {
-        if (StatCollector.canTranslate(String.format("%s.ability", localizationString)))
-            return StatCollector.translateToLocal(String.format("%s.ability", localizationString));
-        return "";
-    }
+    for(IMaterialTrait trait : traits.values())
+      if(identifier.equals(trait.getIdentifier()))
+        return true;
+
+    return false;
+  }
+
+  public Collection<IMaterialTrait> getAllTraits() {
+    return this.traits.values();
+  }
+
+
+  // used to determine the texture for coloring
+  enum SurfaceType {
+    METAL,
+    ROCKY,
+    GLOSSY
+  }
 }
