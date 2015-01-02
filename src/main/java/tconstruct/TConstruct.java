@@ -170,7 +170,9 @@ public class TConstruct
             // adds to the villager spawner egg
             VillagerRegistry.instance().registerVillagerId(78943);
             // moved down, not needed if 'addToVillages' is false
-            VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());
+            if(PHConstruct.allowVillagerTrading)
+                VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());
+
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
             MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");

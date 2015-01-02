@@ -8,6 +8,7 @@ import tconstruct.library.tools.AbilityHelper;
 public class PHConstruct
 {
 
+
     public static void initProps (File location)
     {
 
@@ -116,6 +117,7 @@ public class PHConstruct
         generateAluminumBush = config.get("Worldgen Disabler", "Generate Aluminum Bushes", true).getBoolean(true);
         generateEssenceBush = config.get("Worldgen Disabler", "Generate Essence Bushes", true).getBoolean(true);
         addToVillages = config.get("Worldgen Disabler", "Add Village Generation", true).getBoolean(true);
+        allowVillagerTrading = config.get("Worldgen Disabler", "Enable the Tinkers Villager to trade for oreberries", true).getBoolean(true);
 
         copperuDensity = config.get("Worldgen", "Copper Underground Density", 2, "Density: Chances per chunk").getInt(2);
         tinuDensity = config.get("Worldgen", "Tin Underground Density", 2).getInt(2);
@@ -239,6 +241,7 @@ public class PHConstruct
     public static boolean generateEssenceBush;
 
     public static boolean addToVillages;
+    public static boolean allowVillagerTrading;
 
     public static int copperuDensity;
     public static int tinuDensity;
