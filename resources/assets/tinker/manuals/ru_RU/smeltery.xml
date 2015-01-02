@@ -1,0 +1,297 @@
+<?xml version="1.0"?>
+
+<book>
+<page type="intro">
+<text>Могучая металлургия
+Создаёт большинство Ваших металлов
+
+Автор: Thruul M'gon</text>
+</page>
+
+<page type="contents">
+<text>Содержание</text>
+<link>
+ <text>Введение</text>
+ <icon>smelterybook</icon>
+ <jump>3</jump>
+</link>
+<link>
+ <text>Отливка</text>
+ <icon>castingtable</icon>
+ <jump>8</jump>
+</link>
+<link>
+ <text>Строительство</text>
+ <icon>smeltery</icon>
+ <jump>5</jump>
+</link>
+<link>
+ <text>Сплавы</text>
+ <icon>liquidiron</icon>
+ <jump>9</jump>
+</link>
+<link>
+ <text>Рецепты</text>
+ <icon>blankcast</icon>
+ <jump>9</jump>
+</link>
+</page>
+
+<page type="text">
+<text>Добро пожаловать в мир металлургии. На этих страницах Вы узнаете секреты переработки редких и драгоценных металлов в необходимые для использования материалы.
+
+Вы научитесь отливать, что угодно из мягкого железа и из плотного мануллина, любые формы, которые Вы пожелаете, и создавать сплавы из неизвестных металлов. Как всегда, экспериментирование - ключ к успеху!
+
+Главная конструкция для плавки металлов называется плавильня. Она больше других конструкций, с которыми Вы можете быть знакомы, но способ её строительства относительно прост. Она работает, как печь со сливом.</text>
+</page>
+
+<page type="text">
+<text>При работе с плавильней Вы должны знать следующие вещи:
+
+* Плавильня работает как большой жидкостный резервуар. Он подходит для плавки металлов и смешивания разных вещей.
+
+* Сливы работают как вход/выход для этого резервуара. Если Вам нужно вернуть жидкости обратно в плавильню, просто залейте их в слив.
+
+* У руд больше материала(металла), чем у переработанных версий, типа слитков. Плавильня полностью сохраняет ценность руды - удваивая любую руду(2 слитка за руду вместо 1).</text>
+</page>
+
+<page type="text">
+<text>* Смешивание двух или более металлов в плавильне может привести к созданию сплава. Процесс происходит автоматически.
+
+* Если Вам нужно больше места для обработки металлов, добавьте больше слоёв из блоков.
+
+* Слепки изготавливаются из схем. Подробности позже.</text>
+</page>
+
+<page type="sidebar">
+<text>Плавильня - это мультиблоковая структура. Для начала Вам нужны следующие материалы.</text>
+<item>
+ <text>1 Контроллер плавильни</text>
+ <icon>smeltery</icon>
+</item>
+<item>
+ <text>1 Обожжённый резервуар</text>
+ <icon>lavatank</icon>
+</item>
+<item>
+ <text>9 Обожжённых кирпичей</text>
+ <icon>searedbrick</icon>
+</item>
+<item>
+ <text>Любая комбинация из 10 обожжённых кирпичей, резервуаров или сливов
+ </text>
+ <icon>drain</icon>
+</item>
+<item>
+ <text>
+ 1 Литейный кран</text>
+ <icon>faucet</icon>
+</item>
+<item>
+ <text>1 Литейный стол</text>
+ <icon>castingtable</icon>
+</item>
+</page>
+
+<page type="text">
+<text>Начните строительство, заложив слой 3x3 из обожжённых кирпичей. Пространство над кирпичами должно быть открыто, так как Вы будете строить корпус вокруг этого слоя, которая должна быть полая внутри.
+
+Поставьте контроллер на один уровень вверх и резервуар для лавы где-нибудь на этом же уровне. Заставьте остальное пространство обожжёнными кирпичами, резервуарами или сливами. 
+
+Маленький конец сливов должны смотреть наружу. Если всё сделано правильно, контроллер загорится и начнёт работать. Заполните резервуар лавой, плавильню металлом и наслаждайтесь процессом. </text>
+</page>
+
+<page type="text">
+<text>Структура корпуса должна быть 5x5 из-за количества выделяемого тепла лавы. Ограничения размера по вертикали у плавильни нет.
+
+Большие плавильни, конечно же, могут содержать больше металлов и контроллер может быть на любом уровне до тех пор, пока есть соответствующий резервуар для лавы.
+
+Когда Вы готовы вылить металл из плавильни, поставьте кран на слив, а под слив поставьте литейный стол.
+
+Другие способы слития жидкости также будут работать, но они не одобряются. Примерное изображение плавильни приведено для Вашего удобства.</text>
+</page>
+
+<page type="picture">
+<text>Рисунок 1a</text>
+<location>tinker:manuals/smelterysmall.png</location>
+</page>
+
+<page type="sidebar">
+<text>Сплавы изготавливаются смешиванием двух или более металлов в точных пропорциях. В настоящее время известны сплавы:</text>
+<item>
+ <text>Бронза, изготавливается из 3-ёх меди и 1-го олова</text>
+ <icon>bronzeingot</icon>
+</item>
+<item>
+ <text>Алюминиевая латунь, изготавливается из 3-ёх алюминия и 1-го меди</text>
+ <icon>alubrassingot</icon>
+</item>
+<item>
+ <text>Мануллин, изготавливается из 2-ух кобальта и 2-ух ардита</text>
+ <icon>manyullyningot</icon>
+</item>
+<item>
+ <text>Алюмит, изготавливается из 5-ти алюминия, 2-ух железа и 2-ух обсидиана</text>
+ <icon>alumiteingot</icon>
+</item>
+<item>
+ <text>Свиное железо, изготавливается из 1-го железа, 1-ой крови и 1-го изумруда</text>
+ <icon>pigironingot</icon>
+</item>
+</page>
+
+<page type="sidebar">
+<text>Существует несколько жидкостей, которые получены в результате странных экспериментов. В настоящее время известны жидкости:</text>
+<item>
+ <text>Кровь, наносит урон существам в плавильне</text>
+ <icon>bloodbucket</icon>
+</item>
+<item>
+ <text>Сжиженные изумруды, расплавьте изумруды или жителей в плавильне</text>
+ <icon>emeraldbucket</icon>
+</item>
+<item>
+ <text>Клей, расплавьте лошадей в плавильне</text>
+ <icon>gluebucket</icon>
+</item>
+<item>
+ <text>Слизь, можно найти на слизневых островах. Работает как спаунер</text>
+ <icon>slimebucket</icon>
+</item>
+<item>
+ <text>Жидкость Края, расплавьте жемчуг Края или странника Края в плавильне</text>
+ <icon>enderbucket</icon>
+</item>
+</page>
+
+<page type="text">
+<text>Пустые слепки изготавливаются путём выливания алюминиевой латуни или золота на пустой литейный стол. Они используются в рецептах создания и могут быть расплавлены обратно в металл.
+
+Слепки деталей изготавливаются путём выливания металла вокруг имеющейся детали, например на обух кирки.</text>
+</page>
+
+<page type="picture">
+<text>Создание слепка</text>
+<location>tinker:manuals/casting.png</location>
+</page>
+
+<page type="crafting">
+<text>Цемент</text>
+<recipe>
+ <name>grout</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="furnace">
+<text>Обожжённый кирпич</text>
+<recipe>searedbrick</recipe>
+</page>
+
+<page type="crafting">
+<text>Обожжённый кирпич</text>
+<recipe>
+ <name>searedbricks</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Контроллер плавильни</text>
+<recipe>
+ <name>smelterycontroller</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Слив плавильни</text>
+<recipe>
+ <name>smelterydrain</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Обожжённый резервуар</text>
+<recipe>
+ <name>smelterytank1</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Обожжённое стекло</text>
+<recipe>
+ <name>smelterytank2</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Обожжённое окно</text>
+<recipe>
+ <name>smelterytank3</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Литейный кран</text>
+<recipe>
+ <name>smelteryfaucet</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Разливочный канал</text>
+<recipe>
+ <name>castingchannel</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Литейный стол</text>
+<recipe>
+ <name>smelterytable</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Литейный резервуар</text>
+<recipe>
+ <name>smelterybasin</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="blockcast">
+<text>Бурый песчаник</text>
+<recipe>brownstone</recipe>
+</page>
+
+<page type="blockcast">
+<text>Чистое стекло</text>
+<recipe>clearglass</recipe>
+</page>
+
+<page type="blockcast">
+<text>Обожжённый камень</text>
+<recipe>searedstone</recipe>
+</page>
+
+<page type="blockcast">
+<text>Камень Края</text>
+<recipe>endstone</recipe>
+</page>
+
+<page type="blockcast">
+<text>Шарик клея</text>
+<recipe>glueball</recipe>
+</page>
+
+
+</book>

@@ -1,0 +1,407 @@
+<?xml version="1.0"?>
+
+<book>
+<page type="intro">
+<text>Материалы и Вы
+Выживание в первые дни и дальше
+
+Часть 1
+Автор: Skyla</text>
+</page>
+
+<page type="contents">
+<text>Содержание</text>
+<link>
+ <text>Начало</text>
+ <icon>sapling</icon>
+ <jump>3</jump>
+</link>
+<link>
+ <text>Рецепты</text>
+ <icon>workbench</icon>
+ <jump>5</jump>
+</link>
+<link>
+ <text>Модификаторы брони</text>
+ <icon>travelvest</icon>
+ <jump>4</jump>
+</link>
+</page>
+
+<page type="text">
+<text>Добро пожаловать в первое издание книги "Материалы и Вы: Выживание в первые дни и дальше". С помощью этой книги Вы узнаете как сделать инструменты и материалы, необходимые для выживания.
+
+Эта книга - магическая копия; она обновляется, когда её оригинал изменяется. Иногда в ней появляется новая информация о новых предметах, следите за обновлениями.</text>
+</page>
+
+<page type="text">
+<text>Чтобы смастерить свой первый инструмент, первым делом нужно сделать Пустую схему. Эта схема - пустая и её нужно изменить для предания формы Вашим будущим творениям. Дать форму схеме можно на Столе для вырезки схем.
+
+Вы можете задать форму материалу в Конструкторе деталей с помощью схем, а затем объединить их в Инженерной станции. Схемы можно хранить в Сундуке для схем.
+
+Все вместе эти блоки образуют Инструментальную мастерскую. Рекомендуется ставить их рядом друг с другом.</text>
+</page>
+
+<page type="crafting">
+<text>Пустая схема</text>
+<recipe>
+ <name>blankpattern</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Стол для вырезки схем</text>
+<recipe>
+ <name>stenciltable</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Конструктор деталей</text>
+<recipe>
+ <name>partcrafter</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Сундук для схем</text>
+<recipe>
+ <name>patternchest</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Инженерная станция</text>
+<recipe>
+ <name>toolstation</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Инженерная кузня</text>
+<recipe>
+ <name>toolforge</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Доска для вяления</text>
+<recipe>
+ <name>dryingrack</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="text">
+<text>Рудные кусты
+
+Во время путешествия, Вы можете наткнуться на кусты, также известны как Рудные кусты. Они растут под землёй, в тёмных местах, и они требуют полную темноту, чтобы давать плоды.
+
+Ягоды этих кустов можно переплавить в самородки и слитки, что делает их ценным источником металла.</text>
+</page>
+
+<page type="picture">
+<text>Рудные кусты в своей естественной среде</text>
+<location>tinker:manuals/oreberries.png</location>
+</page>
+
+<page type="text">
+<text>Сточная слизь
+
+Сточная слизь - хороший способ для перемещения предметов или сущностей. Она используются в качестве своего рода легко перемещаемой воды, и может быть использована в паре с Прыжковой панелью для лучшего эффекта.</text>
+</page>
+
+<page type="crafting">
+<text>Сточная слизь</text>
+<recipe>
+ <name>slimechannel</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Прыжковая панель</text>
+<recipe>
+ <name>bouncepad</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="text">
+<text>Несколько ловушек или баррикад могут помочь Вам в начале выживания</text>
+</page>
+
+<page type="crafting">
+<text>Колышек</text>
+<recipe>
+ <name>punji</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Баррикада</text>
+<recipe>
+ <name>barricade</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="text">
+<text>После того как Вы хорошо устроитесь, Вы можете начать процесс обработки металлов более эффективным способом. Несколько рецептов помогут Вам начать.
+
+Примечание: Плавильня, необходима для обработки всех металлов, включая железо.</text>
+</page>
+
+<page type="crafting">
+<text>Цемент</text>
+<recipe>
+ <name>grout</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="furnace">
+<text>Обожжённый кирпич</text>
+<recipe>searedbrick</recipe>
+</page>
+
+<page type="crafting">
+<text>Обожжённые кирпичи</text>
+<recipe>
+ <name>searedbricks</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Контроллер плавильни</text>
+<recipe>
+ <name>smelterycontroller</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="text">
+<text>Если у Вас вдруг пропадёт эта книга, сделать новую книгу довольно легко. Также из этой книги можно делать другие.</text>
+</page>
+
+<page type="crafting">
+<text>Книга</text>
+<recipe>
+ <name>alternatebook</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Материалы и Вы: v1</text>
+<recipe>
+ <name>patternbook1</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Материалы и Вы: v2</text>
+<recipe>
+ <name>patternbook2</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Могучая металлургия</text>
+<recipe>
+ <name>patternbook3</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="text">
+<text>Модификаторы брони
+
+У следующих модификаторов брони кажется нет названий или они постоянно меняются. На этих страницах нет ни одного точного слова.</text>
+</page>
+
+<page type="sectionpage">
+<title>Ночное зрение</title>
+<text>Видимо, морковь и сок не только хороши для Ваших глаз, но также и для Ваших очков.
+Зелье ночного зрения тоже помогает.
+
+Эффекты:
+- Ночное зрение
+
+Тип: Одноразовый
+Складывается: Нет</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelgoggles</tooltype>
+<recipe>nightvision</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Идеальная ловкость</title>
+<text>Ниндзя ниндзя.
+
+Эффекты:
+- В вас труднее попасть
+
+Тип: Одноразовый
+Складывается: Да</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelvest</tooltype>
+<recipe>dodge</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Скрытность</title>
+<text>У жилета плохая защита, следовательно, Я соединил магические предметы и Зелье невидимости вместе, чтобы быть невидимым, когда Я крадусь!
+
+Эффекты:
+- Становитесь невидимым, когда Вы крадётесь.
+
+Тип: Одноразовое
+Складывается: Нет</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelvest</tooltype>
+<recipe>stealth</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Мягкое падение</title>
+<text>У Вас уже есть крылья. Если курица может это делать, то и Вы сможете.
+Может быть использован любой вариант слизи.
+
+Эффекты:
+- Позволяет медленно парить в воздухе
+
+Тип: Одноразовый
+Складывается: Да</text>
+</page>
+
+<page type="crafting">
+<text>Крылья путешественника</text>
+<recipe>
+ <name>featherfall</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Прогулка по воде</title>
+<text>Если Я соединю это с моими ботинками, Я уверен, что смогу ходить по воде. Но что может пойти не так?
+
+Эффекты:
+- Позволяет ходить по воде
+- Крадитесь, чтобы погружаться
+- Нимб не включён в комплект
+
+Тип: Одноразовый
+Складывается: Нет</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelboots</tooltype>
+<recipe>waterwalk</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Свинцовые ботинки</title>
+<text>Этот железный блок хорошо помогал мне. Я хочу взять его с собой на дно океана.
+Отлично подойдёт, если Вы хотите посмотреть на рыбок.
+
+Эффекты:
+- Позволяет ходить под водой
+- Препятствует плаванию
+- Бульк.
+
+Тип: Одноразовый
+Складывается: Нет</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelboots</tooltype>
+<recipe>leadboots</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Слизистые подошвы</title>
+<text>Когда Я прыгаю на слизи, я не получаю повреждения. Я должен воспроизвести этот эффект, соединив слизь с моими подошвами.
+
+Эффекты:
+- Ослабляет воздействие падения
+- Уменьшенный урон от падения
+
+Тип: Одноразовый
+Складывается: Да</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelboots</tooltype>
+<recipe>slimysoles</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Скорость</title>
+<text>Красный камень увеличивает скорость моих вещей и делает их на много быстрее. Так почему бы мне не обмазать им руки?!
+
+Эффекты:
+- Увеличивает скорость добычи
+
+Тип: Многоразовый
+Складывается: Да</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelglove</tooltype>
+<recipe>glovehaste</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Авто-починка</title>
+<text>Использование лозы на броне, наполняет её жизнью. У инструментов появляется способность регенерироваться.
+
+Эффекты:
+- Инструмент медленно сам себя восстанавливает
+- Дневной свет ускоряет процесс восстановления
+- Может быть применим на одеянии путешественника
+
+Тип: Одноразовый
+Складывается: Да</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelmulti</tooltype>
+<recipe>moss</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Двойной прыжок</title>
+<text>С помощью силы взрыва гаста, механики поршней и слизи, у меня появляется возможность отпрыгивать ещё выше.
+
+Эффекты:
+- Прыгните во время прыжка для второго прыжка
+- Также может использоваться с Крыльями
+
+Тип: Одноразовый
+Складывается: Да</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelmulti</tooltype>
+<recipe>doublejump</recipe>
+</page>
+
+</book>

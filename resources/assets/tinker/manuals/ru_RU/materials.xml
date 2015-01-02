@@ -1,0 +1,1128 @@
+<?xml version="1.0"?>
+
+<book>
+<page type="intro">
+<text>Материалы и Вы
+Руководство о инструментах и их функциях
+
+Часть 2
+Автор: Skyla</text>
+</page>
+
+<page type="contents">
+<text>Содержание</text>
+<link>
+ <text>Инструменты</text>
+ <icon>ironpick</icon>
+ <jump>2</jump>
+</link>
+<link>
+ <text>Материалы</text>
+ <icon>woodplanks</icon>
+ <jump>4</jump>
+</link>
+<link>
+ <text>Модификаторы</text>
+ <icon>lavacrystal</icon>
+ <jump>4</jump>
+</link>
+</page>
+
+<page type="text">
+<text>Добро пожаловать во второе издание книги Материалы и Вы: Руководство о инструментах и их функциях. С помощью этой книги Вы более подробно узнаете обо всех инструментах, материалах и модификаторах. Тут всё разобрано по полочкам, но кое о чём тут всё же не написано.
+
+Эта книга - магическая копия; она обновляется, когда её оригинал изменяется. Иногда в ней появляется новая информация о новых предметах, следите за обновлениями.</text>
+</page>
+
+<page type="toolpage">
+<title>Кирка</title>
+<text>Кирка - это основной инструмент любого шахтёра. Это самый простой способ добывания камня и руд.</text>
+<text>
+Класс: Точный инструмент
+Эффективна для: Камня или булыжника, руд и металлов.</text>
+<icon>pickicon</icon>
+<item>
+ <text>Обух кирки</text>
+ <icon>pickhead</icon>
+</item>
+<item>
+ <text>Стержень</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Крепление</text>
+ <icon>binding</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Лопата</title>
+<text>Лопата - это основной инструмент для копания. Это наиболее распространённый способ изменения ландшафта.</text>
+<text>Класс: Точный инструмент
+Эффективна для: Земли, песка, песчаника и снега.</text>
+<icon>shovelicon</icon>
+<item>
+ <text>Штык лопаты</text>
+ <icon>shovelhead</icon>
+</item>
+<item>
+ <text>Стержень</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Топорик</title>
+<text>Топорик - это основной инструмент для рубки. Это самый простой способ добыть древесину.</text>
+<text>Класс: Точный инструмент
+Эффективна для: Древесины, листьев и деревьев.</text>
+<icon>axeicon</icon>
+<item>
+ <text>Обух топора</text>
+ <icon>axehead</icon>
+</item>
+<item>
+ <text>Стержень</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Мотыготопор</title>
+<text>Мотыготопор - это универсальный инструмент для фермерства. Его основная цель - разрыхлять почву. Также, его можно использовать как топор и лопату, но он не является их заменой.</text>
+<text>
+Класс: Мультиинструмент
+Эффективен для: Древесины, земли и растений.</text>
+<icon>mattockicon</icon>
+<item>
+ <text>Обух топора</text>
+ <icon>axehead</icon>
+</item>
+<item>
+ <text>Стержень</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Штык лопаты</text>
+ <icon>shovelhead</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Палаш</title>
+<text>Палаш - это оборонительное оружие. Любимое оружие многих инженеров, ведь он полезен самых разных ситуациях.</text>
+<text>ПКМ: Блок
+- Блокирование уменьшает повреждения в два раза.
+
+Класс: Оружие ближнего боя
+Эффективен против паутины.</text>
+<icon>swordicon</icon>
+<item>
+ <text>Лезвие меча</text>
+ <icon>swordblade</icon>
+</item>
+<item>
+ <text>Стержень</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Широкая гарда</text>
+ <icon>wideguard</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Полуторный меч</title>
+<text>Полуторный меч - это наступательное оружие. Он используется для врывания в битву на полной скорости.</text>
+<text>ПКМ: Прыжок
+- При отпускании, он отбрасывает вас вперёд с головокружительной скоростью.
+
+Обычные функции:
+- Ускоренный заряд, во время бега он дальше отбрасывает, наносит в 1.5x больше урона.
+
+Класс: Оружие ближнего боя
+Эффективен против паутины.</text>
+<icon>longswordicon</icon>
+<item>
+ <text>Лезвие меча</text>
+ <icon>swordblade</icon>
+</item>
+<item>
+ <text>Стержень</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Малая гарда</text>
+ <icon>handguard</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Рапира</title>
+<text>Рапира - это особое оружие. Фехтование позволяет войти и выйти из боя быстро. Хоть урон рапиры и низок, но не стоит забывать про другие её функции.</text>
+<text>ПКМ: Шаг назад
+- Небольшие шаги назад
+
+Обычные функции:
+- Усиление удара, наносит в 1.5x раза больше урона и отбрасывает врага во время бега.
+- Пробивает броню, игнорирует броню и блокирование.
+- Быстрая атака, оглушает врага ненадолго.
+Класс: Оружие ближнего боя</text>
+<icon>rapiericon</icon>
+<item>
+ <text>Лезвие меча</text>
+ <icon>swordblade</icon>
+</item>
+<item>
+ <text>Стержень</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Поперечная гарда</text>
+ <icon>crossbar</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Кинжал</title>
+<text>Кинжал - это короткий клинок. Он лёгок, поэтому его можно использовать в качестве оружия ближнего и дальнего оружия.</text>
+<text>ПКМ: Метнуть кинжал
+- Кидает предмет для атаки на расстоянии
+
+Класс: Оружие дальнего/ближнего боя</text>
+<icon>daggerIcon</icon>
+<item>
+ <text>Лезвие ножа</text>
+ <icon>knifeblade</icon>
+</item>
+<item>
+ <text>Стержень</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Поперечная гарда</text>
+ <icon>crossbar</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Сковорода</title>
+<text>Сковорода - это тяжёлое оружие, которое использует свой вес для оглушения врагов, если его поставить, то на нём можно будет готовить еду. Обычно её используют для охоты на свиней, а затем для приготовления их мяса в ней же.</text>
+<text>
+ПКМ: Блок
+- Блокирование уменьшает повреждения в два раза.
+
+Shift+ПКМ: Поставить предмет
+- Сковорода готовит огромное количество еды за раз.
+
+Обычные функции:
+- Сильный удар, отбрасывает и оглушает врага.</text>
+<icon>frypanicon</icon>
+<item>
+ <text>Сковорода</text>
+ <icon>pan</icon>
+</item>
+<item>
+ <text>Стержень</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Боевая табличка</title>
+<text>Боевая табличка - это продвинутое оружие.</text>
+<text>ПКМ: Блок
+- Блокирование уменьшает повреждения в два раза.
+
+Shift+ПКМ: Поставить предмет
+- Боевая табличка может отображать до пяти строчек текста.
+
+Класс: Оружие смертельной шутки</text>
+<icon>battlesignicon</icon>
+<item>
+ <text>Board</text>
+ <icon>board</icon>
+</item>
+<item>
+ <text>Стержень</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Стамеска</title>
+<text>Стамеска - это продвинутый обрабатывающий инструмент, предназначенный для вырезки фигур на блоках.</text>
+<text>ПКМ: Стамеска
+- Преобразует некоторые блоки в кирпичи.
+Сетка создания: Стамеска
+- Некоторые предметы могут быть отточены только в сетке создания.
+
+Класс: Полезный инструмент</text>
+<icon>chiselicon</icon>
+<item>
+ <text>Лезвие стамески</text>
+ <icon>chiselhead</icon>
+</item>
+<item>
+ <text>Стержень</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Молот</title>
+<text>Молот - это тяжёлый инструмент для добычи, предназначенный для добывания больших областей. Он также эффективен против нежити.</text>
+<text>Обычные функции: 
+- Область действия, добывает область 3x3. Направление зависит от того, куда смотрит игрок.
+- Небесная кара II, наносит 2-4 сердца урона против нежити.
+- Высокая прочность, у этого инструмента очень высокая прочность
+
+Класс: Широкий добывающий инструмент</text>
+<icon>hammericon</icon>
+<item>
+ <text>Боёк молота</text>
+ <icon>hammerhead</icon>
+</item>
+<item>
+ <text>Большая пластина</text>
+ <icon>largeplate</icon>
+</item>
+<item>
+ <text>Прочный стержень</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>Большая пластина</text>
+ <icon>largeplate</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Большой топор</title>
+<text>Большой топор подходит для полной срубки деревьев или для очистки большой области от животных.</text>
+<text>
+Обычные функции:
+Валит деревья
+- Полностью валит деревья. Максимальная высота дерева равна 30. Деревьями считаются листья на древесине.
+Область действия
+- Добывает область 3x3x3. Это резервная функция, если дерево не найдено.
+
+Класс: Широкий добывающий инструмент</text>
+<icon>lumbericon</icon>
+<item>
+ <text>Большой обух топора</text>
+ <icon>broadaxehead</icon>
+</item>
+<item>
+ <text>Большая пластина</text>
+ <icon>largeplate</icon>
+</item>
+<item>
+ <text>Прочный стержень</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>Прочное крепление</text>
+ <icon>toughbinding</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Копалка</title>
+<text>Копалка - это большой инструмент для копания, используемый для очистки большой области от земли, гравия или снега.</text>
+<text>Обычные функции: 
+Область действия
+- Добывает область 3x3. Направление зависит от того, куда смотрит игрок.
+
+Класс: Широкий добывающий инструмент</text>
+<icon>excavatoricon</icon>
+<item>
+ <text>Пластина копалки</text>
+ <icon>excavatorhead</icon>
+</item>
+<item>
+ <text>Большая пластина</text>
+ <icon>largeplate</icon>
+</item>
+<item>
+ <text>Прочный стержень</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>Прочное крепление</text>
+ <icon>toughbinding</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Коса</title>
+<text>Коса известна за её большую область размаха. Она используется для добычи культур, листвы и как скромное оружие.</text>
+<text>Обычные функции: 
+Область действия
+- Атакует мобов в области 3x3x3.
+- Собирает область 3x3x3.
+
+Класс: Широкий добывающий инструмент</text>
+<icon>scytheicon</icon>
+<item>
+ <text>Лезвие косы</text>
+ <icon>scythehead</icon>
+</item>
+<item>
+ <text>Прочный стержень</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>Прочное крепление</text>
+ <icon>toughbinding</icon>
+</item>
+<item>
+ <text>Прочный стержень</text>
+ <icon>toughrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Тесак</title>
+<text>Тесак - это тяжёлое оборонительное оружие. Меч громоздкий, но сам вес инструмента размалывает врагов.</text>
+<text>ПКМ: Блок
+- Блокирование уменьшает повреждения в два раза.
+
+Обычные функции: 
+- Усекновение II, обезглавливает мобов.
+- Тяжёлый, основной урон увеличен за счёт долгого размаха
+
+Класс: Тяжёлое оружие ближнего боя</text>
+<icon>cleavericon</icon>
+<item>
+ <text>Большое лезвие меча</text>
+ <icon>largeswordblade</icon>
+</item>
+<item>
+ <text>Большая пластина</text>
+ <icon>largeplate</icon>
+</item>
+<item>
+ <text>Прочный стержень</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>Прочный стержень</text>
+ <icon>toughrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Боевой топор</title>
+<text>Боевой топор - это наступательное оружие ближнего боя, которое может рубить маленькие деревья.</text>
+<text>
+ПКМ: Неизвестно
+- Эта особенность незавершена
+
+Обычные функции: 
+- Область действия, добывает блоки древесины в области 1x9.
+- Сильный удар, отбрасывает врагов дальше чем обычно.
+
+Класс: Тяжёлое оружие ближнего боя</text>
+<icon>battleaxeicon</icon>
+<item>
+ <text>Большой обух топора</text>
+ <icon>broadaxehead</icon>
+</item>
+<item>
+ <text>Большой обух топора</text>
+ <icon>broadaxehead</icon>
+</item>
+<item>
+ <text>Прочный стержень</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>Прочное крепление</text>
+ <icon>toughbinding</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Короткий лук</title>
+<text>Короткий лук - это оружие, используемое для запуска стрел. Он стреляет быстро и на короткую дистанцию.</text>
+<text>ПКМ: Натянуть тетиву
+- Чем дольше натянута тетива, тем дальше полетит стрела и тем больше нанесёт урона.
+
+Класс: Стрелковое оружие</text>
+<icon>shortbowIcon</icon>
+<item>
+ <text>Стержень</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Оперение</text>
+ <icon>bowstring</icon>
+</item>
+<item>
+ <text>Стержень</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Стрела</title>
+<text>Стрелы - это снаряды, используемые для луков. Они также могут быть использованы в качестве колющего оружия в крайнем случае.</text>
+<text>Класс: Боеприпасы</text>
+<icon>arrowIcon</icon>
+<item>
+ <text>Наконечник стрелы</text>
+ <icon>arrowhead</icon>
+</item>
+<item>
+ <text>Стержень</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Оперение</text>
+ <icon>fletching</icon>
+</item>
+</page>
+
+<page type="sectionpage">
+<title>Особенности материалов</title>
+<text>У некоторых материалов есть особенности, которые расширяют их естественное применение.
+
+- Усиление: 10% шанс за уровень, что прочность не будет использована
+- Сила камня: Инструмент добывает быстрее, когда изнашивается, но наносит меньше урона
+- Зазубренность: Инструмент наносит больше урона, когда изнашивается, но добывает медленее
+- Переписываемость: Один дополнительный модификатор за деталь
+- Вкусность: Иногда можно получить еду</text>
+</page>
+
+<page type="materialstats">
+<title>Дерево</title>
+<icon>woodaxe</icon>
+<text>Кажется оно растёт везде.</text>
+<material>
+<toolmaterial>Wood</toolmaterial>
+ <main>woodplanks</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Камень</title>
+<icon>stonepick</icon>
+<text>Один из наиболее распространённых материалов в мире.</text>
+<material>
+<toolmaterial>Stone</toolmaterial>
+ <main>stoneblock</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Железо</title>
+<icon>ironpick</icon>
+<text>Основа для инструментов, оно может быть улучшено и обработано.
+- Требуется плавильня</text>
+<material>
+<toolmaterial>Iron</toolmaterial>
+ <main>ironingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Кремень</title>
+<icon>flintshovel</icon>
+<text>Прочнее камня. Материал для пещерных людей.</text>
+<material>
+<toolmaterial>Flint</toolmaterial>
+ <main>flint</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Кактус</title>
+<icon>cactussword</icon>
+<text>Вид дерева, который можно найти в пустыни.</text>
+<material>
+<toolmaterial>Cactus</toolmaterial>
+ <main>cactus</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Кость</title>
+<icon>bonerapier</icon>
+<text>Материал с большим количеством применений, мёртвый или живой.</text>
+<material>
+<toolmaterial>Bone</toolmaterial>
+ <main>bone</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Обсидиан</title>
+<icon>bonefrypan</icon>
+<text>Прочный как гвозди, но хрупкий, если придать ему форму.</text>
+<material>
+<toolmaterial>Obsidian</toolmaterial>
+ <main>obsidian</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Алюмит</title>
+<icon>alumitepick</icon>
+<text>Редкий сплав. Достаточно прочный.
+- Требуется плавильня</text>
+<material>
+<toolmaterial>Alumite</toolmaterial>
+ <main>alumiteingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Камень Нижнего мира</title>
+<icon>netherrackmattock</icon>
+<text>Из чего он сделан?!</text>
+<material>
+<toolmaterial>Netherrack</toolmaterial>
+ <main>netherrack</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Синяя слизь</title>
+<icon>blueslimebattlesign</icon>
+<text>Добывание её из еды, сделало её прочнее.</text>
+<toolmaterial>BlueSlime</toolmaterial>
+<material>
+ <main>blueslimecrystal</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Зелёная слизь</title>
+<icon>slimebattlesign</icon>
+<text>Мягкая и пружинистая, она кажется бесконечной.</text>
+<toolmaterial>Slime</toolmaterial>
+<material>
+ <main>slimecrystal</main>
+</material>
+</page>
+
+<page type="crafting">
+<text>Слизистая грязь</text>
+<recipe>
+ <name>slimymud</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="furnace">
+<text>Слизистый кристалл</text>
+<recipe>slimecrystal</recipe>
+</page>
+
+<page type="materialstats">
+<title>Бумага</title>
+<icon>paperpick</icon>
+<text>Она очень слабая, но она может быть сильно модифицирована.</text>
+<material>
+<toolmaterial>Paper</toolmaterial>
+ <main>paperstack</main>
+</material>
+</page>
+
+<page type="crafting">
+<text>Кучка бумаги</text>
+<recipe>
+ <name>paperstack</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="materialstats">
+<title>Кобальт</title>
+<icon>cobaltlongsword</icon>
+<text>Один из материалов Нижнего мира. Светло-синий.
+- Требуется плавильня</text>
+<material>
+<toolmaterial>Cobalt</toolmaterial>
+ <main>cobaltingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Ардит</title>
+<icon>arditelongsword</icon>
+<text>Один из материалов Нижнего мира. Добывает быстрее, когда изнашивается.
+- Требуется плавильня</text>
+<material>
+<toolmaterial>Ardite</toolmaterial>
+ <main>arditeingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Мануллин</title>
+<icon>manyullynlongsword</icon>
+<text>Сплав Нижнего мира. Крепче алмаза.
+- Требуется плавильня</text>
+<material>
+<toolmaterial>Manyullyn</toolmaterial>
+ <main>manyullyningot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Медь</title>
+<icon>copperaxe</icon>
+<text>Распространённый металл, который можно найти под землёй.
+- Требуется плавильня</text>
+<material>
+<toolmaterial>Copper</toolmaterial>
+ <main>copperingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Бронза</title>
+<icon>bronzeaxe</icon>
+<text>Распространённый сплав. Немного лучше чем железо.
+- Требуется плавильня</text>
+<material>
+<toolmaterial>Bronze</toolmaterial>
+ <main>bronzeingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Сталь</title>
+<icon>steelsword</icon>
+<text>Сплав железа. Метод получения неизвестен.
+- Требуется плавильня</text>
+<material>
+<toolmaterial>Steel</toolmaterial>
+ <main>steelingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Свиное железо</title>
+<icon>pigironsword</icon>
+<toolmaterial>PigIron</toolmaterial>
+<text>Сплав железа. Кажется сделано из крови, железа и изумрудов.
+- Требуется плавильня</text>
+<material>
+<toolmaterial>Pigiron</toolmaterial>
+ <main>pigironingot</main>
+</material>
+</page>
+
+<page type="blank">
+</page>
+
+<page type="sectionpage">
+<title>Алмаз</title>
+<text>Добавление алмаза к краю инструмента, кажется, делает его более прочным.
+
+Эффекты:
+- 500 дополнительной прочности
+- Уровень добычи увеличен до 3
+
+Тип: Одноразовый
+Складывается: Нет</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>diamondmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Изумруд</title>
+<text>Прикрепление изумруда к слабой точки инструмента, похоже, делает его более прочным.
+
+Эффекты:
+- На 50% больше прочности
+- Уровень добычи увеличен до  2
+
+Тип: Одноразовый
+Складывается: Нет</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>emeraldmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Скорость</title>
+<text>Добавление красного камня к инструменту, кажется, увеличивает его скорость добычи.
+
+Эффекты:
+- Каждая красная пыль увеличивает скорость добычи на 0.08.
+- На 50/50 увеличение равно 4.0, делая деревянную кирку эквивалентной в скорости к железной.
+- Не полезен на оружие
+
+Тип: Многоразовый
+Складывается: Да</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>redstonemod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Авто-починка</title>
+<text>Прикрепление мха к инструменту наполняет его жизнью. У инструмента, похоже, появляется способность к регенерации износа.
+
+Эффекты:
+- Инструмент медленно чинит себя
+- Солнечный свет ускоряет процесс
+
+Тип: Одноразовый
+Складывается: Да</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>mossmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Авто-плавка</title>
+<text>Расплавление лавового кристалла на конец инструмента даёт ему силу печи.
+
+Эффекты:
+- Плавит блоки при добывании
+- Поджигает мобов на 3 секунды
+- Сочетается с модификатором удача
+- Несовместим с модификатором шелковистость
+
+Тип: Многоразовый
+Складывается: Нет</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>lavacrystalmod</recipe>
+</page>
+
+<page type="crafting">
+<text>Шарик мха</text>
+<recipe>
+ <name>mossball</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Лавовый кристалл</text>
+<recipe>
+ <name>lavacrystal</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Удача</title>
+<text>Инкрустация лазуритом инструментов - это подарок для богов удачи. Они благословят Ваш инструмент великой удачей и богатством.
+
+Эффекты:
+- Добавляет удачу или мародёрство, зависит от типа инструмента
+- Уровень увеличивается при достижении порога, но есть шанс увеличения и до этого
+- Иногда добавляет дополнительную удачу
+- Несовместим с модификатором шелковистость
+
+Тип: Одноразовый
+Складывается: Нет</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>lapismod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Острота</title>
+<text>Добавление кварца к краю инструмента, кажется, делает его острее.
+
+Эффекты:
+- Увеличивает урон
+- Меньший эффект на инструментах с пробивающими свойствами
+
+Тип: Многоразовый
+Складывается: Да</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>quartzmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Огненное касание</title>
+<text>Добавление огненного порошка на инструмент даёт ему огненные свойства.
+
+Эффекты:
+- Поджигает врагов
+- Каждый 5 порошок добавляет ещё одну секунду к горению.
+
+Тип: Многоразовый
+Складывается: Да</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>blazemod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Некроз</title>
+<text>Размещение кости иссушающего скелета на инструмент даёт ему скверную вампирическую силу.
+
+Эффекты:
+- Лечит игрока, когда монстр атакует его
+- Каждая кость добавляет сердце к лечению
+
+Тип: Одноразовый
+Складывается: Да</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>necroticmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Шелковистость</title>
+<text>Добавление большой шара алюминиевой латуни или золота и немного ниток, кажется, даёт инструменту свойства шелковистости, гладкости.
+
+Эффекты:
+- Позволяет получать полные блоки, а не их предметы
+- Косы, модифицированные шелковистостью работают как ножницы
+- Несовместим с модификаторами удача и авто-плавка
+
+Тип: Одноразовый
+Складывается: Нет</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>silkymod</recipe>
+</page>
+
+<page type="crafting">
+<text>Шелковистая ткань</text>
+<recipe>
+ <name>silkycloth</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Шелковистая драгоценность</text>
+<recipe>
+ <name>silkyjewel</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Усиление</title>
+<text>Добавление обсидиановой пластины к инструменту, кажется, увеличивает его прочность.
+
+Эффекты:
+- Добавляет инструменту особенность "Усиление"
+- Складывается с предыдущими уровнями усиления
+
+Тип: Одноразовый
+Складывается: Да</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>reinforcedmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Отдача</title>
+<text>Добавление поршня к инструменту и его своевременная активация, кажется, откидывает мобов дальше.
+
+Эффекты:
+- Добавляет дополнительной отброс инструменту.
+
+Тип: Многоразовый
+Складывается: Да</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>pistonmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Усекновение</title>
+<text>Обработка оружия жемчугом Края и обсидианом имеет любопытный эффект отделения головы цели от тела.
+
+Эффекты:
+- Обезглавливает мобов. В результате чего головы мобов падают.
+
+Тип: Одноразовый
+Складывается: Да</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>beheadingmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Бич членистоногих</title>
+<text>Поражение паука его собственным глазом заставляет его бежать в страхе.
+
+Эффекты:
+- Наносит дополнительной урон паукам.
+- 1-2 сердца за уровень.
+
+Тип: Многоразовый
+Складывается: Да</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>spidermod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Небесная кара</title>
+<text>Необузданная сила священной почвы усиливает Ваше оружие, ударяя врагов с высоты.
+
+Эффекты:
+- Наносит дополнительной урон нежити.
+- 1-2 сердца за уровень.
+
+Тип: Многоразовый
+Складывается: Да</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>smitemod</recipe>
+</page>
+
+<page type="crafting">
+<text>Кладбищенская почва</text>
+<recipe>
+ <name>graveyardsoil</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="furnace">
+<text>Священная почва</text>
+<recipe>consecratedsoil</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Флакс</title>
+<text>Добавление усиленного флаксового конденсатора или свинцовой энергетической ячейки даёт инструменту энергию. Инструмент продолжает функционировать, если ячейка/конденсатор не имеет заряда.
+
+Эффекты:
+- Позволяет зарядить инструмент энергией Redstone Flux
+- Использует энергию вместо прочности, когда инструмент заряжен
+- Доступен, если установлен Thermal Expansion
+- Инструменты должны иметь как минимум 1/1000 ёмкости батареи в прочности
+
+Тип: Одноразовый
+Складывается: Нет</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>fluxmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Флакс</title>
+<text>Добавление усиленного флаксового конденсатора или свинцовой энергетической ячейки даёт инструменту энергию. Инструмент продолжает функционировать, если ячейка/конденсатор не имеет заряда.
+
+Эффекты:
+- Позволяет зарядить инструмент энергией Redstone Flux
+- Использует энергию вместо прочности, когда инструмент заряжен
+- Доступен, если установлен Thermal Expansion
+
+Тип: Одноразовый
+Складывается: Нет</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>fluxmod2</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Дополнительные модификаторы</title>
+<text>Обработка инструмента золотым блоком и алмазом делает его более ковким, что позволяет добавить больше модификаций.
+
+Эффекты:
+- Добавляет дополнительный слот для модификатора
+
+Тип: Одноразовый
+Складывается: Нет</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>tier1free</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Дополнительные модификаторы</title>
+<text>Прикрепление твёрдого золотого яблока и инкрустация инструмента алмазным блоком искажает инструмент в местах, которые раньше Вы не замечали.
+
+Эффекты:
+- Добавляет дополнительный слот для модификатора
+
+Тип: Одноразовый
+Складывается: Нет</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>tier1.5free</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Дополнительные модификаторы</title>
+<text>Обработка инструмента звездой Нижнего мира даёт ему способность прикрепления деталей, которые никогда бы не прикрепились к нему.
+
+Эффекты:
+- Добавляет дополнительный слот для модификатора
+
+Тип: Одноразовый
+Складывается: Нет</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>tier2free</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Дополнительные модификаторы</title>
+<text>Люди, играющие в творческом режиме, или создатели карт, этот предмет для Вас.
+
+Эффекты:
+- Добавляет дополнительный слот для модификатора
+- Если модификатор прикреплён только к одному типу инструмента, он будет работать только на нём.
+
+Тип: Одноразовый
+Складывается: Да</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>creativefree</recipe>
+</page>
+
+</book>
