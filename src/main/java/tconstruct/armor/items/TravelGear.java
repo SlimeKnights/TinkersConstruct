@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tconstruct.armor.ArmorProxyClient;
 import tconstruct.armor.TinkerArmor;
@@ -181,17 +182,17 @@ public class TravelGear extends ArmorCore implements IRevealer, IGoggles
         switch (armorPart)
         {
         case Head:
-            list.add("\u00a76Ability: Zoom with " + GameSettings.getKeyDisplayString(tconstruct.client.ArmorControls.zoomKey.getKeyCode()));
-            list.add("\u00a76Toggle Abilities: " + GameSettings.getKeyDisplayString(tconstruct.client.ArmorControls.toggleGoggles.getKeyCode()));
+            list.add("\u00a76" + StatCollector.translateToLocal("armor.travelgoggles.ability") + GameSettings.getKeyDisplayString(tconstruct.client.ArmorControls.zoomKey.getKeyCode()));
+            list.add("\u00a76" + StatCollector.translateToLocal("armor.travelgoggles.toggleabilities") + GameSettings.getKeyDisplayString(tconstruct.client.ArmorControls.toggleGoggles.getKeyCode()));
             break;
         case Chest:
-            list.add("\u00a76Ability: Swift Swim");
+            list.add("\u00a76" + StatCollector.translateToLocal("armor.travelvest.ability"));
             break;
         case Legs:
-            list.add("\u00a76Ability: High Jump");
+            list.add("\u00a76" + StatCollector.translateToLocal("armor.travelwings.ability"));
             break;
         case Feet:
-            list.add("\u00a76Ability: High Step");
+            list.add("\u00a76" + StatCollector.translateToLocal("armor.travelboots.ability"));
             break;
         default:
         }

@@ -955,3 +955,13 @@ manual.page.material9=Splintering level
 
 tool.glassarrows=Glass Arrows
 tool.glassarrows.lore=Crafted by a legendary Glassmaker
+
+armor.core.broken=Broken
+armor.core.protection=Protection: 
+armor.travelbelt.ability=Ability: Swap Hotbar
+armor.travelbelt.control=Control: 
+armor.travelgoggles.ability=Ability: Zoom with 
+armor.travelgoggles.toggleabilities=Ability: Swap Hotbar
+armor.travelvest.ability=Ability: Swift Swim
+armor.travelwings.ability=Ability: High Jump
+armor.travelboots.ability=Ability: High Step

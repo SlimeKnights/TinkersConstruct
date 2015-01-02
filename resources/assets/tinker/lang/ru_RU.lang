@@ -926,6 +926,45 @@ tool.kingslimeprefix=King Slime
 # Specific localization like materials
 #tool.shovel.kingslime=Regret
 
+
+manual.page.tool1=Детали для создания
+manual.page.modifier1=Инженерная станция
+manual.page.modifier2=Инженерная кузня
+manual.page.modifier3=Стол инженера
+manual.page.casting1=Ингридиенты
+
+manual.page.material.material=Материал
+manual.page.material.shard=Осколок
+manual.page.material.rod=Стержень
+manual.page.material.durability=Прочность
+manual.page.material.handle=Модификатор ручки
+manual.page.material.speed=Скорость добычи
+manual.page.material.level=Уровень добычи
+manual.page.material.attack=Основной урон
+
+manual.page.material1=Полная прочность
+manual.page.material2=Сердце
+manual.page.material3=Сердца(-дец)
+manual.page.material4=Особенность материала
+manual.page.material5=+1 модификатор
+manual.page.material6=Особенность материала: Усиление
+manual.page.material7=Уровень усиления
+manual.page.material8=Уровень силы камня
+manual.page.material9=Splintering level
+
+tool.glassarrows=Стеклянные стрелы
+tool.glassarrows.lore=Созданы легендой по имени Glassmaker
+
+armor.core.broken=Сломан.
+armor.core.protection=Защита: 
+armor.travelbelt.ability=Функция: Swap Hotbar
+armor.travelbelt.control=Управление: 
+armor.travelgoggles.ability=Функция: Приближение 
+armor.travelgoggles.toggleabilities=Переключение функций 
+armor.travelvest.ability=Функция: Быстрое плавание
+armor.travelwings.ability=Функция: Высокий прыжок
+armor.travelboots.ability=Функция: Высокий шаг
+
 tool.pickaxe.netherrack=Кирка из камня Нижнего мира
 tool.shovel.netherrack=Лопата из камня Нижнего мира
 tool.hatchet.netherrack=Топорик из камня Нижнего мира
