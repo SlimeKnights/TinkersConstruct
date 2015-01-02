@@ -64,6 +64,7 @@ public class PHConstruct
         miningLevelIncrease = config.get("Difficulty Changes", "Modifiers increase Mining Level", true).getBoolean(true);
         denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
         craftEndstone = config.get("Difficulty Changes", "Allow creation of endstone", true).getBoolean(true);
+        alternativeBoltRecipe = config.get("Difficulty Changes", "Add alternitave recipe for bolt parts: arrowhead + toolrod in a crafting grid", false).getBoolean(false);
 
         naturalSlimeSpawn = config.get("Mobs", "Blue Slime spawn chance", 1, "Set to 0 to disable").getInt(1);
 
@@ -315,6 +316,7 @@ public class PHConstruct
     public static boolean labotimizeVanillaTools;
     public static boolean miningLevelIncrease;
     public static boolean denyMattock;
+    public static boolean alternativeBoltRecipe;
 
     // Smeltery Output Modification
     public static double ingotsPerOre;

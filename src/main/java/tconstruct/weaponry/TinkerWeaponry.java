@@ -15,11 +15,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.*;
@@ -348,6 +350,9 @@ public class TinkerWeaponry {
 
     private void registerBoltCasting()
     {
+        if(PHConstruct.alternativeBoltRecipe)
+            GameRegistry.addRecipe(new AlternateBoltRecipe());
+
         LiquidCasting tb = TConstructRegistry.getTableCasting();
 
         // any fluid that is a toolpart material can be used

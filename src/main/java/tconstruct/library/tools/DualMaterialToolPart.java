@@ -109,7 +109,7 @@ public class DualMaterialToolPart extends DynamicToolPart {
         if(renderpass > 0)
         {
             int matId = getMaterialID2(stack);
-            if(matId > icons2.length)
+            if(matId > icons2.length || matId < 0)
                 return super.getColorFromItemStack(stack, renderpass);
 
             if(icons[matId] == null)
