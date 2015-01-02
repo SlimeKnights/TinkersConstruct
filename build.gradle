@@ -2,19 +2,19 @@
  * Tinkers Construct
  * Master build file
  * 
- * Authors: Sunstrike, ProgWML6
+ * Authors: boni, Sunstrike, ProgWML6
  * Help from AbrarSyed
  */
 
 buildscript {
     repositories {
         mavenCentral()
-	mavenLocal()
+		mavenLocal()
         maven {
-            name = 'ForgeFS'
-            url = 'http://files.minecraftforge.net/maven'
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
         }
-	maven {
+        maven {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
@@ -24,33 +24,29 @@ buildscript {
     }
 }
 
-
 repositories {
     maven {
         name 'CB Maven FS'
         url "http://chickenbones.net/maven/"
     }
-    /*maven {
-         name "ProfMobius Maven FS"
-         url "http://mobiusstrip.eu/maven"
-    }*/
     maven {
         name 'DVS1 Maven FS'
         url 'http://dvs1.progwml6.com/files/maven'
     }
     maven {
-        name 'ForgeFS'
+        name 'forge'
         url 'http://files.minecraftforge.net/maven'
     }
 }
 
-// Load ForgeGradle
 apply plugin: 'forge'
-group = 'tconstruct'
 
-// Define properties file
+version = "1.0"
+group= "tconstruct"
+archivesBaseName = "TConstruct"
+
+// External properties
 ext.configFile = file "build.properties"
-
 configFile.withReader {
     // Load config.  It shall from now be referenced as simply config or project.config
     def prop = new Properties()
@@ -61,48 +57,29 @@ configurations {
     deployerJars
 }
 
+minecraft {
+    version = config.minecraft_version + "-" + config.forge_version
+    runDir = "run"
+    replace '${version}', project.version
+	
+    // the mappings can be changed at any time, and must be in the following format.
+    // snapshot_YYYYMMDD   snapshot are built nightly.
+    // stable_#            stables are built at the discretion of the MCP team.
+    // Use non-default mappings at your own risk. they may not allways work.
+    // simply re-run your setup task after changing the mappings to update your workspace.
+    mappings = "snapshot_nodoc_20141130"
+}
 
 dependencies {
-    compile "mantle:Mantle:${config.minecraft_version}-${config.mantle_version}:deobf"
+    // you may put jars on which you depend on in ./libs
+    // or you may define them like so..
+	compile "mantle:Mantle:${config.minecraft_version}-${config.mantle_version}:deobf"
     compile "codechicken:CodeChickenLib:${config.minecraft_version}-${config.CCLIB_version}:dev"
     compile "codechicken:CodeChickenCore:${config.minecraft_version}-${config.ccc_version}:dev"
     compile "codechicken:NotEnoughItems:${config.minecraft_version}-${config.NEI_version}:dev"
-    compile "codechicken:ForgeMultipart:${config.minecraft_version}-${config.fmp_version}:dev"
+    //compile "codechicken:ForgeMultipart:${config.minecraft_version}-${config.fmp_version}:dev"
     //compile "mcp.mobius.waila:Waila:${config.waila_version}:dev"
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
-}
-
-// Finds and sets version data
-task buildInfo {
-    def cmd = "git rev-parse --short HEAD"
-    def proc = cmd.execute()
-    proc.waitFor()
-    if (proc.exitValue() == 0) {
-        ext.revision = proc.text.trim()
-    } else {
-        ext.revision = "GITBORK"
-    }
-
-    if (System.getenv().BUILD_NUMBER != null) {
-        ext.buildNum = "build${System.getenv().BUILD_NUMBER}"
-    } else {
-        ext.buildNum = "DEV.${project.buildInfo.revision}"
-    }
-}
-ext.artifact_version = 'NFG'
-if (System.getenv().ARTIFACT_VERSION == null) {
-    artifact_version = "${config.mod_version}.${project.buildInfo.buildNum}"
-}
-if (System.getenv().ARTIFACT_VERSION != null) {
-    artifact_version = "${system.getenv().ARTIFACT_VERSION}"
-}
-
-version = "${config.minecraft_version}-${artifact_version}"
-
-minecraft {
-    version = config.minecraft_version + "-" + config.forge_version
-    runDir = 'run'
-    replace '${version}', project.version
 }
 
 sourceSets {
@@ -112,22 +89,28 @@ sourceSets {
         }
     }
 }
+
 processResources
 {
-    // Replace stuff in text files, not binaries.
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
-        include '**/*.info'
-        // Replace version and MCversion
-        expand 'version':artifact_version,'MCversion':config.minecraft_version
+        include 'mcmod.info'
+                
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version
     }
         
-    // Copy everything else that's not text
+    // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
-        exclude '**/*.info'
+        exclude 'mcmod.info'
     }
 }
 
-// Add Coremod Manifest
+// Add Access Transformers Manifest
 jar {
     manifest {
         attributes 'FMLAT': 'TConstruct_at.cfg'
@@ -203,5 +186,3 @@ task("uploadJars", dependsOn:"build") {
         }    
     }
 }
-
-
