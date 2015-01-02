@@ -56,6 +56,7 @@ public class FryingPan extends Weapon
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, 2), new ItemStack(getHandleItem(), 1, 16), null, "Bane of Pigs");
 
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        tags.setBoolean("Special", true);
         tags.setInteger("Modifiers", 0);
         tags.setInteger("Attack", Integer.MAX_VALUE / 100);
         tags.setInteger("TotalDurability", Integer.MAX_VALUE / 100);

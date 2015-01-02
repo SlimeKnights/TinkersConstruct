@@ -158,6 +158,7 @@ public class Hammer extends AOEHarvestTool
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, 10), new ItemStack(getHandleItem(), 1, 8), new ItemStack(getAccessoryItem(), 1, 11), new ItemStack(getExtraItem(), 1, 11), "InfiMiner");
 
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        tags.setBoolean("Special", true);
         tags.setInteger("Modifiers", 0);
         tags.setInteger("Attack", Integer.MAX_VALUE / 100);
         tags.setInteger("TotalDurability", Integer.MAX_VALUE / 100);
