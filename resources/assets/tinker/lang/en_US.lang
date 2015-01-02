@@ -163,6 +163,34 @@ item.InfiTool.Shortbow.name=Shortbow
 item.InfiTool.Arrow.name=Arrow
 item.InfiTool.Mattock.name=Mattock
 
+infitool.pickaxe=Pickaxe
+infitool.shovel=Shovel
+infitool.axe=Hatchet
+infitool.broadsword=Broadsword
+infitool.longsword=Longsword
+infitool.rapier=Rapier
+infitool.frypan=Frying Pan
+infitool.battlesign=Battlesign
+infitool.dagger=Dagger
+infitool.chisel=Chisel
+infitool.scythe=Scythe
+infitool.lumberaxe=Lumber Axe
+infitool.cleaver=Cleaver
+infitool.excavator=Excavator
+infitool.hammer=Hammer
+infitool.battleaxe=Battleaxe
+infitool.cutlass=Cutlass
+infitool.arrow=Arrow
+infitool.mattock=Mattock
+infitool.shortbow=Shortbow
+infitool.longbow=Longbow
+infitool.crossbow=Crossbow
+infitool.arrowammo=Arrows
+infitool.boltammo=Bolts
+infitool.shuriken=Shuriken
+infitool.throwingknife=Throwing Knife
+infitool.javelin=Javelin
+
 item.tconstruct.PotionLauncher.name=Potion Launcher
 
 item.tool.randomarrow=Random Streamer

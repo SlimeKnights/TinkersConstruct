@@ -163,6 +163,34 @@ item.InfiTool.Shortbow.name=Короткий лук
 item.InfiTool.Arrow.name=Стрела
 item.InfiTool.Mattock.name=Мотыготопор
 
+infitool.pickaxe=Кирку
+infitool.shovel=Лопату
+infitool.axe=Топорик
+infitool.broadsword=Палаш
+infitool.longsword=Полуторный меч
+infitool.rapier=Рапиру
+infitool.frypan=Сковороду
+infitool.battlesign=Боевую табличку
+infitool.dagger=Кинжал
+infitool.chisel=Стамеску
+infitool.scythe=Косу
+infitool.lumberaxe=Большой топор
+infitool.cleaver=Тесак
+infitool.excavator=Копалку
+infitool.hammer=Молот
+infitool.battleaxe=Боевой топор
+infitool.cutlass=Саблю
+infitool.arrow=Стрелу
+infitool.mattock=Мотыготопор
+infitool.shortbow=Короткий лук
+infitool.longbow=Длинный лук
+infitool.crossbow=Арбалет
+infitool.arrowammo=Стрелы
+infitool.boltammo=Болты
+infitool.shuriken=Сюрикэн
+infitool.throwingknife=Метательный нож
+infitool.javelin=Копьё
+
 item.tconstruct.PotionLauncher.name=Метатель зелий
 
 item.tool.randomarrow=Случайный серпантин
@@ -587,6 +615,7 @@ toolpart.CrossbowLimb=%%material плечо арбалета
 toolpart.CrossbowBody=%%material основа арбалета
 toolpart.BowLimb=%%material плечо лука
 toolpart.Bolt=%%material болт
+toolpart.Shaft=%%material стержень стрелы
 
 # Now with translations of specific material and part combinations:
 #toolpart.ToolRod.wood=Wooden Tool Rod
@@ -950,10 +979,12 @@ manual.page.material5=+1 модификатор
 manual.page.material6=Особенность материала: Усиление
 manual.page.material7=Уровень усиления
 manual.page.material8=Уровень силы камня
-manual.page.material9=Splintering level
+manual.page.material9=Уровень зазубренности
 
 tool.glassarrows=Стеклянные стрелы
 tool.glassarrows.lore=Созданы легендой по имени Glassmaker
+tool.baneofpigs=Бич свиней
+tool.infiminer=Бесконечный добыватель
 
 armor.core.broken=Сломан.
 armor.core.protection=Защита: 
