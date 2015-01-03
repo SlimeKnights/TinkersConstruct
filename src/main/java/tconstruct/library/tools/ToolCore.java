@@ -447,7 +447,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
     String getReinforcedString (int reinforced)
     {
         if (reinforced > 9)
-            return "Unbreakable";
+            return StatCollector.translateToLocal("modifier.tool.unbreakable");
         String ret = "Reinforced ";
         switch (reinforced)
         {

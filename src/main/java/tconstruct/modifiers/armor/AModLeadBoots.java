@@ -1,8 +1,10 @@
 package tconstruct.modifiers.armor;
 
 import java.util.*;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
+import net.minecraft.util.StatCollector;
 import tconstruct.library.armor.ArmorPart;
 
 public class AModLeadBoots extends AModBoolean
@@ -10,7 +12,7 @@ public class AModLeadBoots extends AModBoolean
 
     public AModLeadBoots(ItemStack[] items)
     {
-        super(2, "LeadBoots", EnumSet.of(ArmorPart.Feet), items, "\u00a78", "Lead Boots");
+    	super(2, "LeadBoots", EnumSet.of(ArmorPart.Feet), items, "\u00a78", "Lead Boots");
     }
 
     @Override

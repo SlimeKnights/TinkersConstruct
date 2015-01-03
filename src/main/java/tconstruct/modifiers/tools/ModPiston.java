@@ -2,6 +2,7 @@ package tconstruct.modifiers.tools;
 
 import java.util.*;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.tools.ToolCore;
 
@@ -13,7 +14,7 @@ public class ModPiston extends ItemModTypeFilter
     public ModPiston(int effect, ItemStack[] items, int[] values)
     {
         super(effect, "Piston", items, values);
-        tooltipName = "\u00a77Knockback";
+        tooltipName = ("\u00a77" + StatCollector.translateToLocal("modifier.tool.piston"));
     }
 
     @Override
@@ -73,7 +74,7 @@ public class ModPiston extends ItemModTypeFilter
             int modifiers = tags.getInteger("Modifiers");
             modifiers -= 1;
             tags.setInteger("Modifiers", modifiers);
-            String modName = "\u00a74Knockback (" + increase + "/" + max + ")";
+            String modName = ("\u00a74" + StatCollector.translateToLocal("modifier.tool.piston") + " " + increase + "/" + max);
             int tooltipIndex = addToolTip(tool, tooltipName, modName);
             int[] keyPair = new int[] { increase, max, tooltipIndex };
             tags.setIntArray(key, keyPair);
@@ -89,7 +90,7 @@ public class ModPiston extends ItemModTypeFilter
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         String tip = "ModifierTip" + keys[2];
-        String modName = "\u00a77Knockback (" + keys[0] + "/" + keys[1] + ")";
+        String modName = ("\u00a77" + StatCollector.translateToLocal("modifier.tool.piston") + " " + keys[0] + "/" + keys[1]);
         tags.setString(tip, modName);
     }
 

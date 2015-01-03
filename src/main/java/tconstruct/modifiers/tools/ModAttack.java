@@ -2,6 +2,7 @@ package tconstruct.modifiers.tools;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.tools.ToolCore;
 
@@ -12,16 +13,14 @@ public class ModAttack extends ItemModTypeFilter
     String tooltipName;
     int max;
     int threshold;
-    String guiType;
     String modifierType;
     boolean ammoOnly;
 
     // Regular weapons
-    public ModAttack(String type, int effect, ItemStack[] items, int[] value)
+    public ModAttack(int effect, ItemStack[] items, int[] value)
     {
         super(effect, "ModAttack", items, value);
-        tooltipName = "\u00a7fSharpness";
-        guiType = type;
+        tooltipName = ("\u00a7f" + StatCollector.translateToLocal("modifier.tool.quartz"));
         max = 72;
         threshold = 24;
         modifierType = "Tool";
@@ -29,11 +28,10 @@ public class ModAttack extends ItemModTypeFilter
     }
 
     // projectiles
-    public ModAttack(String type, int effect, ItemStack[] items, int[] value, boolean ammoOnly)
+    public ModAttack(int effect, ItemStack[] items, int[] value, boolean ammoOnly)
     {
         super(effect, "ModAttack", items, value);
-        tooltipName = "\u00a7fSharpness";
-        guiType = type;
+        tooltipName = ("\u00a7f" + StatCollector.translateToLocal("modifier.tool.quartz"));
         max = 48;
         threshold = 24;
         modifierType = "Tool";
@@ -41,11 +39,10 @@ public class ModAttack extends ItemModTypeFilter
     }
 
     // gloves
-    public ModAttack(String type, int effect, ItemStack[] items, int[] value, int max, int threshold, String modifierType)
+    public ModAttack(int effect, ItemStack[] items, int[] value, int max, int threshold, String modifierType)
     {
         super(effect, "ModAttack", items, value);
-        tooltipName = "\u00a7fKnuckles";
-        guiType = type;
+        tooltipName = ("\u00a7f" + StatCollector.translateToLocal("modifier.tool.knuckles"));
         this.max = max;
         this.threshold = threshold;
         this.modifierType = modifierType;
@@ -133,7 +130,7 @@ public class ModAttack extends ItemModTypeFilter
             modifiers -= 1;
             tags.setInteger("Modifiers", modifiers);
             int increase = matchingAmount(input);
-            String modName = "\u00a7f" + guiType + " (" + increase + "/" + max + ")";
+            String modName = ("\u00a7f" + StatCollector.translateToLocal("gui.modifier.quartz") + " " + increase + "/" + max);
             int tooltipIndex = addToolTip(tool, tooltipName, modName);
             int[] keyPair = new int[] { increase, max, tooltipIndex };
             tags.setIntArray(key, keyPair);
@@ -148,7 +145,7 @@ public class ModAttack extends ItemModTypeFilter
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName(tool));
         String tip = "ModifierTip" + keys[2];
-        String modName = "\u00a7f" + guiType + " (" + keys[0] + "/" + keys[1] + ")";
+        String modName = ("\u00a7f" + StatCollector.translateToLocal("gui.modifier.quartz") + " " + keys[0] + "/" + keys[1]);
         tags.setString(tip, modName);
     }
 }

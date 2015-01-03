@@ -1,19 +1,19 @@
 package tconstruct.modifiers.tools;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 
 public class ModAntiSpider extends ItemModTypeFilter
 {
     String tooltipName;
     int max = 4;
-    String guiType;
 
-    public ModAntiSpider(String type, int effect, ItemStack[] items, int[] values)
+    public ModAntiSpider(int effect, ItemStack[] items, int[] values)
     {
         super(effect, "ModAntiSpider", items, values);
-        tooltipName = "\u00a72Bane of Arthropods";
-        guiType = type;
+        tooltipName = ("\u00a72" + StatCollector.translateToLocal("modifier.tool.spider"));
     }
 
     @Override
@@ -69,7 +69,7 @@ public class ModAntiSpider extends ItemModTypeFilter
             int modifiers = tags.getInteger("Modifiers");
             modifiers -= 1;
             tags.setInteger("Modifiers", modifiers);
-            String modName = "\u00a72" + guiType + " (" + increase + "/" + max + ")";
+            String modName = ("\u00a72" + StatCollector.translateToLocal("gui.modifier.spider") + " " + increase + "/" + max);
             int tooltipIndex = addToolTip(tool, tooltipName, modName);
             int[] keyPair = new int[] { increase, max, tooltipIndex };
             tags.setIntArray(key, keyPair);
@@ -80,7 +80,7 @@ public class ModAntiSpider extends ItemModTypeFilter
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         String tip = "ModifierTip" + keys[2];
-        String modName = "\u00a72" + guiType + " (" + keys[0] + "/" + keys[1] + ")";
+        String modName = ("\u00a72" + StatCollector.translateToLocal("gui.modifier.spider") + " " + keys[0] + "/" + keys[1]);
         tags.setString(tip, modName);
     }
 }
