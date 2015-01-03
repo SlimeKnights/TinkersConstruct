@@ -5,6 +5,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import tconstruct.library.accessory.AccessoryCore;
 import tconstruct.library.armor.ArmorCore;
@@ -155,7 +156,12 @@ public final class ToolStationGuiHelper {
             String tooltip = "ModifierTip";
             int tipNum = 1;
             while (tags.hasKey(tooltip + tipNum)) {
-                write("- " + tags.getString(tooltip + tipNum));
+                String tipName = tags.getString(tooltip + tipNum);
+                String locString = "modifier.toolstation." + EnumChatFormatting.getTextWithoutFormattingCodes(tipName);
+                locString = locString.replace(" ", "");
+                //if(StatCollector.canTranslate(locString))
+                tipName = tipName.replace(EnumChatFormatting.getTextWithoutFormattingCodes(tipName), StatCollector.translateToLocal(locString));
+                write("- " + tipName);
                 tipNum++;
             }
         }

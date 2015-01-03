@@ -429,6 +429,12 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
             if (tags.hasKey(tooltip))
             {
                 String tipName = tags.getString(tooltip);
+                // let's see if we can translate it somehow
+                // strip color information
+                String locString = "modifier.tooltip." + EnumChatFormatting.getTextWithoutFormattingCodes(tipName);
+                locString = locString.replace(" ", "");
+                //if(StatCollector.canTranslate(locString))
+                tipName = tipName.replace(EnumChatFormatting.getTextWithoutFormattingCodes(tipName), StatCollector.translateToLocal(locString));
                 if (!tipName.equals(""))
                     list.add(tipName);
             }

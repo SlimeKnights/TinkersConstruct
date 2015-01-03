@@ -894,28 +894,6 @@ gui.modifier.necro=Necrotic
 gui.modifier.spider=Anti-Spider
 gui.modifier.quartz=Quartz
 
-modifier.armour.jump.double=Double-Jump
-modifier.armour.jump.triple=Triple-Jump
-modifier.armour.jump.quad=Quadruple-Jump
-modifier.armour.protection=
-modifier.tool.spider=Bane of Arthropods
-modifier.tool.quartz=Sharpness
-modifier.tool.blaze=Fiery
-modifier.tool.silk=Silky
-modifier.tool.flux=Flux
-modifier.tool.lapis=Luck
-modifier.tool.piston=Knockback
-modifier.tool.redstone=Haste
-modifier.tool.reinforced=Reinforced
-modifier.tool.unbreaking=
-modifier.tool.smite=Smite
-modifier.tool.diamond=Durability +500
-modifier.tool.emerald=Durability +50%
-modifier.tool.moss=Auto-Repair
-modifier.tool.lava=Auto-Smelt
-modifier.tool.necro=Life Steal
-modifier.tool.beheading=Beheading
-
 creativeModLock.tooltip=Target Lock: 
 
 attribute.name.ammo.attackDamage=Base Damage
@@ -986,6 +964,8 @@ tool.glassarrows.lore=Crafted by a legendary Glassmaker
 tool.baneofpigs=Bane of Pigs
 tool.infiminer=InfiMiner
 
+tool.core.broken=Broken
+
 armor.core.broken=Broken
 armor.core.protection=Protection: 
 armor.travelbelt.ability=Ability: Swap Hotbar
@@ -995,3 +975,28 @@ armor.travelgoggles.toggleabilities=Ability: Swap Hotbar
 armor.travelvest.ability=Ability: Swift Swim
 armor.travelwings.ability=Ability: High Jump
 armor.travelboots.ability=Ability: High Step
+
+modifier.armour.jump.double=Double-Jump
+modifier.armour.jump.triple=Triple-Jump
+modifier.armour.jump.quad=Quadruple-Jump
+modifier.armour.protection=
+
+tool.reinforced=Reinforced
+tool.unbreakable=Unbreakable
+
+modifier.tooltip.Auto-Smelt=Auto-Smelt
+modifier.tool.spider=Bane of Arthropods
+modifier.tool.quartz=Sharpness
+modifier.tool.blaze=Fiery
+modifier.tool.silk=Silky
+modifier.tool.flux=Flux
+modifier.tool.lapis=Luck
+modifier.tool.piston=Knockback
+modifier.tool.redstone=Haste
+modifier.tool.smite=Smite
+modifier.tool.diamond=Durability +500
+modifier.tool.emerald=Durability +50%
+modifier.tool.moss=Auto-Repair
+modifier.tool.lava=Auto-Smelt
+modifier.tool.necro=Life Steal
+modifier.tool.beheading=Beheading

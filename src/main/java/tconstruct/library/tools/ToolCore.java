@@ -324,7 +324,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
         {
             boolean broken = tags.getCompoundTag("InfiTool").getBoolean("Broken");
             if (broken)
-                list.add("\u00A7oBroken");
+                list.add("\u00A7o" + StatCollector.translateToLocal("tool.core.broken"));
             else
             {
                 int head = tags.getCompoundTag("InfiTool").getInteger("Head");
@@ -368,8 +368,16 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
                     if (tags.getCompoundTag("InfiTool").hasKey(tooltip))
                     {
                         String tipName = tags.getCompoundTag("InfiTool").getString(tooltip);
-                        if (!tipName.equals(""))
+                        if (!tipName.equals("")) {
+                            // let's see if we can translate it somehow
+                            // strip color information
+                            String locString = "modifier.tooltip." + EnumChatFormatting.getTextWithoutFormattingCodes(tipName);
+                            locString = locString.replace(" ", "");
+                            //if(StatCollector.canTranslate(locString))
+                            tipName = tipName.replace(EnumChatFormatting.getTextWithoutFormattingCodes(tipName), StatCollector.translateToLocal(locString));
+
                             list.add(tipName);
+                        }
                     }
                     else
                         displayToolTips = false;
@@ -447,8 +455,8 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
     String getReinforcedString (int reinforced)
     {
         if (reinforced > 9)
-            return "Unbreakable";
-        String ret = "Reinforced ";
+            return StatCollector.translateToLocal("tool.unbreakable");
+        String ret = StatCollector.translateToLocal("tool.reinforced") + " ";
         switch (reinforced)
         {
         case 1:
