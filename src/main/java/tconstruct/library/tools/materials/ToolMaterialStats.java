@@ -2,6 +2,7 @@ package tconstruct.library.tools.materials;
 
 
 public class ToolMaterialStats extends AbstractMaterialStats {
+  public final static String TYPE = "tool";
 
   public final int durability;
   public final float handleModifier;
@@ -11,7 +12,7 @@ public class ToolMaterialStats extends AbstractMaterialStats {
 
   public ToolMaterialStats(int harvestLevel, int durability, float handleModifier,
                            float miningspeed, float attack) {
-    super("tool");
+    super(TYPE);
     this.durability = durability;
     this.handleModifier = handleModifier;
     this.attack = attack;

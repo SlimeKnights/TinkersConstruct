@@ -11,8 +11,8 @@ public final class TinkerMaterials {
   private TinkerMaterials() {}
 
   static {
-    wood = new Material("Wood", 0xabcdef, EnumChatFormatting.YELLOW);
-    stone = new Material("Stone");
+    wood = new Material("Wood", 0, 0xabcdef, EnumChatFormatting.YELLOW);
+    stone = new Material("Stone", 1);
   }
 
   public static void registerToolMaterials()
@@ -22,13 +22,13 @@ public final class TinkerMaterials {
 
     // Wood
     material = wood;
-    toolStats = new ToolMaterialStats(1, 97, 1.0f, 3.5f, 1.0f);
+    toolStats = new ToolMaterialStats(1, 97, 1.0f, 3.5f, 0.9f);
 
     TinkerRegistry.addMaterial(material, toolStats);
 
     // Stone
     material = stone;
-    toolStats = new ToolMaterialStats(1, 97, 1.0f, 3.5f, 1.0f);
+    toolStats = new ToolMaterialStats(1, 120, 0.2f, 4.0f, 1.0f);
 
     TinkerRegistry.addMaterial(material, toolStats);
   }

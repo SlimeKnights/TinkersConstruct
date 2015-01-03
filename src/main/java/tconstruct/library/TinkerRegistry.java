@@ -21,9 +21,9 @@ public final class TinkerRegistry {
   private static final Map<String, Material> materials = new HashMap<>();
   // traceability information who registered what. Used to find errors.
   private static final Map<String, String> materialRegisteredByMod = new HashMap<>();
-  private static final Map<String, Map<Class<? extends IMaterialStats>, String>>
+  private static final Map<String, Map<String, String>>
       statRegisteredByMod = new HashMap<>();
-  private static final Map<String, Map<Class<? extends IMaterialTrait>, String>>
+  private static final Map<String, Map<String, String>>
       traitRegisteredByMod = new HashMap<>();
 
   public static void addMaterial(Material material, IMaterialStats stats, IMaterialTrait trait) {
@@ -83,11 +83,9 @@ public final class TinkerRegistry {
     // duplicate stats
     if (material.getStats(stats.getMaterialType()) != null) {
       String registeredBy = "Unknown";
-      Map<Class<? extends IMaterialStats>, String>
-          matReg =
-          statRegisteredByMod.get(identifier);
+      Map<String, String> matReg = statRegisteredByMod.get(identifier);
       if (matReg != null) {
-        registeredBy = matReg.get(stats.getClass());
+        registeredBy = matReg.get(stats.getMaterialType());
       }
 
       error(String.format(
@@ -113,10 +111,9 @@ public final class TinkerRegistry {
     // duplicate traits
     if (material.hasTrait(trait.getIdentifier())) {
       String registeredBy = "Unknown";
-      Map<Class<? extends IMaterialTrait>, String>
-          matReg = traitRegisteredByMod.get(identifier);
+      Map<String, String> matReg = traitRegisteredByMod.get(identifier);
       if (matReg != null) {
-        registeredBy = matReg.get(trait.getClass());
+        registeredBy = matReg.get(trait.getIdentifier());
       }
 
       error(String.format(
@@ -139,16 +136,16 @@ public final class TinkerRegistry {
 
   static void putStatTrace(String materialIdentifier, IMaterialStats stats, String trace) {
     if (!statRegisteredByMod.containsKey(materialIdentifier)) {
-      statRegisteredByMod.put(materialIdentifier, new HashMap<>());
+      statRegisteredByMod.put(materialIdentifier, new HashMap<String, String>());
     }
-    statRegisteredByMod.get(materialIdentifier).put(stats.getClass(), trace);
+    statRegisteredByMod.get(materialIdentifier).put(stats.getMaterialType(), trace);
   }
 
   static void putTraitTrace(String materialIdentifier, IMaterialTrait trait, String trace) {
     if (!traitRegisteredByMod.containsKey(materialIdentifier)) {
-      traitRegisteredByMod.put(materialIdentifier, new HashMap<>());
+      traitRegisteredByMod.put(materialIdentifier, new HashMap<String, String>());
     }
-    traitRegisteredByMod.get(materialIdentifier).put(trait.getClass(), trace);
+    traitRegisteredByMod.get(materialIdentifier).put(trait.getIdentifier(), trace);
   }
 
   private static void error(String message) {
