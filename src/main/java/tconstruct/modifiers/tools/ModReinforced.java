@@ -47,7 +47,7 @@ public class ModReinforced extends ModInteger
             String tip = "Tooltip" + tipNum;
             if (!tags.hasKey(tip))
             {
-                //tags.setString(tip, tooltip);
+                tags.setString(tip, "");
                 String modTip = "ModifierTip" + tipNum;
                 String tag = tags.getString(modTip);
                 tags.setString(modTip, getProperName(modifierTip, tag));
@@ -59,7 +59,7 @@ public class ModReinforced extends ModInteger
                 String tag = tags.getString(modTip);
                 if (tag.contains(modifierTip))
                 {
-                    //tags.setString(tip, getProperName(tooltip, tag));
+                    tags.setString(tip, "");
                     tag = tags.getString(modTip);
                     tags.setString(modTip, getProperName(modifierTip, tag));
                     return tipNum;
