@@ -27,8 +27,8 @@ public class Material {
   // we use a Treemap for 2 reasons:
   // * A Map so we can obtain the stats we want quickly
   // * A treemap because we can sort it, so that all materials have the same order when iterating
-  protected final Map<Class<? extends IMaterialStats>, IMaterialStats> stats = new TreeMap<>();
-  protected final Map<Class<? extends IMaterialTrait>, IMaterialTrait> traits = new TreeMap<>();
+  protected final Map<String, IMaterialStats> stats = new TreeMap<>();
+  protected final Map<String, IMaterialTrait> traits = new TreeMap<>();
 
   // simple white material
   public Material(String identifier) {
@@ -65,24 +65,12 @@ public class Material {
 
   /* Stats */
   public void addStats(IMaterialStats materialStats) {
-    this.stats.put(materialStats.getClass(), materialStats);
+    this.stats.put(materialStats.getMaterialType(), materialStats);
   }
 
   /**
    * Returns the given type of stats if the material has them.
    * Returns null Otherwise.
-   */
-  public <T extends IMaterialStats> T getStats(Class<T> clazz) {
-    if(this.stats.containsKey(clazz))
-      return null;
-
-    return clazz.cast(this.stats.get(clazz));
-  }
-
-  /**
-   * Returns the given type of stats if the material has them.
-   * Returns null Otherwise.
-   * Remark: Slower than obtaining it by class.
    */
   public IMaterialStats getStats(String identifier) {
     if(identifier == null || identifier.isEmpty())
@@ -101,19 +89,11 @@ public class Material {
 
   /* Traits */
   public void addTrait(IMaterialTrait materialTrait) {
-    this.traits.put(materialTrait.getClass(), materialTrait);
+    this.traits.put(materialTrait.getIdentifier(), materialTrait);
   }
 
   /**
-   * Returns wether the material has a trait of the given type.
-   */
-  public boolean hasTrait(Class<? extends IMaterialTrait> clazz) {
-    return this.traits.containsKey(clazz);
-  }
-
-  /**
-   * Returns wether the material has a trait with that identifier.
-   * Remark: Slower than searching by class
+   * Returns whether the material has a trait with that identifier.
    */
   public boolean hasTrait(String identifier) {
     if(identifier == null || identifier.isEmpty())

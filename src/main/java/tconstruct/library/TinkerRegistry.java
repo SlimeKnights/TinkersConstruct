@@ -69,7 +69,7 @@ public final class TinkerRegistry {
 
     Material material = materials.get(identifier);
     // duplicate stats
-    if (material.getStats(stats.getClass()) != null) {
+    if (material.getStats(stats.getMaterialType()) != null) {
       String registeredBy = "Unknown";
       Map<Class<? extends IMaterialStats>, String>
           matReg =
@@ -92,13 +92,14 @@ public final class TinkerRegistry {
 
   public static void addMaterialTrait(String identifier, IMaterialTrait trait) {
     if (!materials.containsKey(identifier)) {
-      error(String.format("Could not add Trait \"%s\" to \"%s\": Unknown Material", trait.getIdentifier(), identifier));
+      error(String.format("Could not add Trait \"%s\" to \"%s\": Unknown Material",
+                          trait.getIdentifier(), identifier));
       return;
     }
 
     Material material = materials.get(identifier);
     // duplicate traits
-    if (material.hasTrait(trait.getClass()) || material.hasTrait(trait.getIdentifier())) {
+    if (material.hasTrait(trait.getIdentifier())) {
       String registeredBy = "Unknown";
       Map<Class<? extends IMaterialTrait>, String>
           matReg = traitRegisteredByMod.get(identifier);
