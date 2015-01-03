@@ -120,7 +120,7 @@ public class TinkerWeaponry {
         ModifyBuilder.registerModifier(new ModWindup(2, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
         ModifyBuilder.registerModifier(new ModAmmoRestock());
 
-        TinkerTools.modAttack = new ModAttack("Quartz", 11, new ItemStack[] { new ItemStack(Items.quartz), new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1, 4 }, true);
+        TinkerTools.modAttack = new ModAttack(11, new ItemStack[] { new ItemStack(Items.quartz), new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1, 4 }, true);
         ModifyBuilder.registerModifier(TinkerTools.modAttack);
 
         TConstructRegistry.registerActiveToolMod(new WeaponryActiveToolMod());

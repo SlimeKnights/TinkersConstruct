@@ -2,6 +2,7 @@ package tconstruct.modifiers.accessory;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 import tconstruct.library.accessory.AccessoryCore;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.modifiers.tools.ItemModTypeFilter;
@@ -16,7 +17,7 @@ public class GloveSpeed extends ItemModTypeFilter
     public GloveSpeed(int effect, ItemStack[] items, int[] values)
     {
         super(effect, "Redstone", items, values);
-        tooltipName = "\u00a74Haste";
+        tooltipName = ("\u00a74" + StatCollector.translateToLocal("modifier.tool.redstone"));
     }
 
     @Override
@@ -76,7 +77,7 @@ public class GloveSpeed extends ItemModTypeFilter
             int mods = tags.getInteger("Modifiers");
             mods -= 1;
             tags.setInteger("Modifiers", mods);
-            String modName = "\u00a74Redstone (" + increase + "/" + max + ")";
+            String modName = ("\u00a74" + StatCollector.translateToLocal("gui.modifier.redstone") + increase + "/" + max);
             int tooltipIndex = addToolTip(input, tooltipName, modName);
             keyPair = new int[] { increase, max, tooltipIndex };
             current = keyPair[0];
@@ -94,7 +95,7 @@ public class GloveSpeed extends ItemModTypeFilter
     {
         NBTTagCompound tags = getModifierTag(input);
         String tip = "ModifierTip" + keys[2];
-        String modName = "\u00a74Redstone (" + keys[0] + "/" + keys[1] + ")";
+        String modName = ("\u00a74" + StatCollector.translateToLocal("gui.modifier.redstone") + keys[0] + "/" + keys[1]);
         tags.setString(tip, modName);
     }
 

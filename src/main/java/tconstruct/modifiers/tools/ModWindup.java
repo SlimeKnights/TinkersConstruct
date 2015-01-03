@@ -2,6 +2,7 @@ package tconstruct.modifiers.tools;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.tools.ToolCore;
 
@@ -61,7 +62,7 @@ public class ModWindup extends ModRedstone {
             int modifiers = tags.getInteger("Modifiers");
             modifiers -= 1;
             tags.setInteger("Modifiers", modifiers);
-            String modName = "\u00a74Redstone (" + increase + "/" + max + ")";
+            String modName = ("\u00a74" + StatCollector.translateToLocal("gui.modifier.redstone") + increase + "/" + max);
             int tooltipIndex = addToolTip(tool, tooltipName, modName);
             keyPair = new int[] { increase, max, tooltipIndex };
             current = keyPair[0];

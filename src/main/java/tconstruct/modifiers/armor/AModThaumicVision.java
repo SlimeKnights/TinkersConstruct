@@ -4,6 +4,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import tconstruct.armor.TinkerArmor;
 import tconstruct.library.armor.ArmorMod;
 import tconstruct.library.armor.ArmorPart;
@@ -23,8 +24,8 @@ public class AModThaumicVision extends ArmorMod {
         //super(effect, "Thaumic Vision", EnumSet.of(ArmorPart.Head), new ItemStack[]{}, EnumChatFormatting.DARK_PURPLE.toString(), "Thaumic Vision");
 
         this.thaumometer = thaumometer.getItem();
-        thaumicSensesMod = new AModBoolean(1, "Thaumic Senses", EnumSet.of(ArmorPart.Head), new ItemStack[0], EnumChatFormatting.DARK_PURPLE.toString(), "Thaumic Senses");
-        thaumicVisionMod = new AModBoolean(2, "Thaumic Vision", EnumSet.of(ArmorPart.Head), new ItemStack[0], EnumChatFormatting.DARK_PURPLE.toString(), "Thaumic Vision");
+        thaumicSensesMod = new AModBoolean(1, StatCollector.translateToLocal("armor.thaumicsenses"), EnumSet.of(ArmorPart.Head), new ItemStack[0], EnumChatFormatting.DARK_PURPLE.toString(), StatCollector.translateToLocal("armor.thaumicsenses"));
+        thaumicVisionMod = new AModBoolean(2, StatCollector.translateToLocal("armor.thaumicvision"), EnumSet.of(ArmorPart.Head), new ItemStack[0], EnumChatFormatting.DARK_PURPLE.toString(), StatCollector.translateToLocal("armor.thaumicvision"));
     }
 
     @Override

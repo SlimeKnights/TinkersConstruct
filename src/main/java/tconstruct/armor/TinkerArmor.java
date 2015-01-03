@@ -226,31 +226,31 @@ public class TinkerArmor
         //MultiType
         ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(ArmorPart.Legs, ArmorPart.Feet), new ItemStack[] { new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Blocks.piston) }));
         ModifyBuilder.registerModifier(new TravelModDoubleJump(EnumSet.of(ArmorPart.Legs, ArmorPart.Feet), new ItemStack[] { new ItemStack(Items.ghast_tear), new ItemStack(TinkerWorld.slimeGel, 1, 1), new ItemStack(Blocks.piston) }));
-        ModifyBuilder.registerModifier(new AModInteger(4, "Moss", EnumSet.of(ArmorPart.Legs, ArmorPart.Feet, ArmorPart.Chest, ArmorPart.Head), new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 6) }, 3, "\u00a72", StatCollector.translateToLocal("modifier.tool.moss")));
+        ModifyBuilder.registerModifier(new AModInteger(4, StatCollector.translateToLocal("gui.modifier.moss"), EnumSet.of(ArmorPart.Legs, ArmorPart.Feet, ArmorPart.Chest, ArmorPart.Head), new ItemStack[] { new ItemStack(TinkerTools.materials, 1, 6) }, 3, "\u00a72", StatCollector.translateToLocal("modifier.tool.moss")));
         ModifyBuilder.registerModifier(new TravelModRepair());
         TConstructRegistry.registerActiveArmorMod(new ActiveTinkerArmor());
 
         //Head
-        ModifyBuilder.registerModifier(new AModBoolean(0, "Night Vision", EnumSet.of(ArmorPart.Head), new ItemStack[] { new ItemStack(Items.flint_and_steel), new ItemStack(Items.potionitem, 1, 8198), new ItemStack(Items.golden_carrot) }, "\u00a78", "Night Vision"));
+        ModifyBuilder.registerModifier(new AModBoolean(0, StatCollector.translateToLocal("armor.nightvision"), EnumSet.of(ArmorPart.Head), new ItemStack[] { new ItemStack(Items.flint_and_steel), new ItemStack(Items.potionitem, 1, 8198), new ItemStack(Items.golden_carrot) }, "\u00a78", StatCollector.translateToLocal("armor.nightvision")));
 
         //Chest
-        ModifyBuilder.registerModifier(new AModInteger(0, "Perfect Dodge", EnumSet.of(ArmorPart.Chest), new ItemStack[] { new ItemStack(Items.ender_eye), new ItemStack(Items.ender_pearl), new ItemStack(Items.sugar) }, 1, "\u00a7d", "Perfect Dodge"));
-        ModifyBuilder.registerModifier(new AModBoolean(1, "Stealth", EnumSet.of(ArmorPart.Chest), new ItemStack[] { new ItemStack(Items.fermented_spider_eye), new ItemStack(Items.ender_eye), new ItemStack(Items.potionitem, 1, 8206), new ItemStack(Items.golden_carrot) }, "\u00a78", "Stealth"));
+        ModifyBuilder.registerModifier(new AModInteger(0, StatCollector.translateToLocal("armor.perfectdodge"), EnumSet.of(ArmorPart.Chest), new ItemStack[] { new ItemStack(Items.ender_eye), new ItemStack(Items.ender_pearl), new ItemStack(Items.sugar) }, 1, "\u00a7d", StatCollector.translateToLocal("armor.perfectdodge")));
+        ModifyBuilder.registerModifier(new AModBoolean(1, StatCollector.translateToLocal("armor.stealth"), EnumSet.of(ArmorPart.Chest), new ItemStack[] { new ItemStack(Items.fermented_spider_eye), new ItemStack(Items.ender_eye), new ItemStack(Items.potionitem, 1, 8206), new ItemStack(Items.golden_carrot) }, "\u00a78", StatCollector.translateToLocal("armor.stealth")));
 
         //Wings
         ItemStack feather = new ItemStack(Items.feather);
-        ModifyBuilder.registerModifier(new AModInteger(1, "Feather Fall", EnumSet.of(ArmorPart.Legs), new ItemStack[] { new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Items.ender_pearl), feather, feather, feather, feather, feather, feather }, 1, "\u00a7f", "Feather Fall"));
-        ModifyBuilder.registerModifier(new AModInteger(1, "Feather Fall", EnumSet.of(ArmorPart.Legs), new ItemStack[] { new ItemStack(TinkerWorld.slimeGel, 1, 1), new ItemStack(Items.ender_pearl), feather, feather, feather, feather, feather, feather }, 1, "\u00a7f", "Feather Fall"));
+        ModifyBuilder.registerModifier(new AModInteger(1, StatCollector.translateToLocal("armor.featherfall"), EnumSet.of(ArmorPart.Legs), new ItemStack[] { new ItemStack(TinkerWorld.slimeGel, 1, 0), new ItemStack(Items.ender_pearl), feather, feather, feather, feather, feather, feather }, 1, "\u00a7f", StatCollector.translateToLocal("armor.featherfall")));
+        ModifyBuilder.registerModifier(new AModInteger(1, StatCollector.translateToLocal("armor.featherfall"), EnumSet.of(ArmorPart.Legs), new ItemStack[] { new ItemStack(TinkerWorld.slimeGel, 1, 1), new ItemStack(Items.ender_pearl), feather, feather, feather, feather, feather, feather }, 1, "\u00a7f", StatCollector.translateToLocal("armor.featherfall")));
 
         //Feet
-        ModifyBuilder.registerModifier(new AModBoolean(1, "WaterWalk", EnumSet.of(ArmorPart.Feet), new ItemStack[] { new ItemStack(Blocks.waterlily), new ItemStack(Blocks.waterlily) }, "\u00a79", "Water-Walking"));
+        ModifyBuilder.registerModifier(new AModBoolean(1, StatCollector.translateToLocal("armor.waterwalk"), EnumSet.of(ArmorPart.Feet), new ItemStack[] { new ItemStack(Blocks.waterlily), new ItemStack(Blocks.waterlily) }, "\u00a79", StatCollector.translateToLocal("armor.waterwalk")));
         ModifyBuilder.registerModifier(new AModLeadBoots(new ItemStack[] { new ItemStack(Blocks.iron_block) }));
-        ModifyBuilder.registerModifier(new AModInteger(3, "Slimy Soles", EnumSet.of(ArmorPart.Feet), new ItemStack[] { new ItemStack(TinkerWorld.slimePad, 1, 0), new ItemStack(TinkerWorld.slimePad, 1, 0) }, 1, "\u00a7a", "Slimy Soles"));
+        ModifyBuilder.registerModifier(new AModInteger(3, StatCollector.translateToLocal("armor.slimysoles"), EnumSet.of(ArmorPart.Feet), new ItemStack[] { new ItemStack(TinkerWorld.slimePad, 1, 0), new ItemStack(TinkerWorld.slimePad, 1, 0) }, 1, "\u00a7a", StatCollector.translateToLocal("armor.slimysoles")));
 
         //Glove
         ModifyBuilder.registerModifier(new GloveSpeed(1, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
         //ModifyBuilder.registerModifier(new GloveClimb(new ItemStack[] { new ItemStack(Items.slime_ball), new ItemStack(Blocks.web), new ItemStack(TinkerTools.materials, 1, 25) }));
-        modAttackGlove = new ModAttack("Quartz", 2, new ItemStack[] { new ItemStack(Items.quartz), new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1, 4 }, 50, 50, "Accessory");
+        modAttackGlove = new ModAttack(2, new ItemStack[] { new ItemStack(Items.quartz), new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1, 4 }, 50, 50, "Accessory");
         //ModifyBuilder.registerModifier(modAttackGlove);
     }
 }

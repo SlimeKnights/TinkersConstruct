@@ -2,6 +2,7 @@ package tconstruct.modifiers.tools;
 
 import java.util.*;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.tools.ToolCore;
 
@@ -13,7 +14,7 @@ public class ModBlaze extends ItemModTypeFilter
     public ModBlaze(int effect, ItemStack[] items, int[] values)
     {
         super(effect, "Blaze", items, values);
-        tooltipName = "\u00a76Fiery";
+        tooltipName = ("\u00a76" + StatCollector.translateToLocal("modifier.tool.blaze"));
         max = 25;
     }
 
@@ -74,7 +75,7 @@ public class ModBlaze extends ItemModTypeFilter
             int modifiers = tags.getInteger("Modifiers");
             modifiers -= 1;
             tags.setInteger("Modifiers", modifiers);
-            String modName = "\u00a76Blaze (" + increase + "/" + max + ")";
+            String modName = ("\u00a76" + StatCollector.translateToLocal("gui.modifier.blaze") + " " + increase + "/" + max);
             int tooltipIndex = addToolTip(tool, tooltipName, modName);
             int[] keyPair = new int[] { increase, max, tooltipIndex };
             tags.setIntArray(key, keyPair);
@@ -90,7 +91,7 @@ public class ModBlaze extends ItemModTypeFilter
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         String tip = "ModifierTip" + keys[2];
-        String modName = "\u00a76Blaze (" + keys[0] + "/" + keys[1] + ")";
+        String modName = ("\u00a76" + StatCollector.translateToLocal("gui.modifier.blaze") + " " + keys[0] + "/" + keys[1]);
         tags.setString(tip, modName);
     }
 

@@ -119,7 +119,7 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase
             GuiDraw.drawString(EnumChatFormatting.BOLD + crecipe.material.localizedName(), 35, 10, 0x404040, false);
             GuiDraw.drawString(StatCollector.translateToLocal("gui.partcrafter4") + crecipe.material.durability, 35, 20, 0x404040, false);
             GuiDraw.drawString(StatCollector.translateToLocal("gui.partcrafter5") + crecipe.material.handleModifier + "x", 35, 30, 0x404040, false);
-            GuiDraw.drawString(StatCollector.translateToLocal("gui.partcrafter11") + Math.round(crecipe.material.durability * crecipe.material.handleModifier), 35, 40, 0x404040, false);
+            GuiDraw.drawString(StatCollector.translateToLocal("gui.partcrafter10") + Math.round(crecipe.material.durability * crecipe.material.handleModifier), 35, 40, 0x404040, false);
             GuiDraw.drawString(StatCollector.translateToLocal("gui.partcrafter6") + crecipe.material.miningspeed / 100F, 35, 50, 0x404040, false);
             GuiDraw.drawString(StatCollector.translateToLocal("gui.partcrafter7") + HarvestLevels.getHarvestLevelName(crecipe.material.harvestLevel), 35, 60, 0x404040, false);
             String heart = crecipe.material.attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
@@ -256,7 +256,7 @@ public class RecipeHandlerToolMaterials extends RecipeHandlerBase
     public static String getReinforcedString (int reinforced)
     {
         if (reinforced > 9)
-            return "Unbreakable";
+            return StatCollector.translateToLocal("modifier.tool.unbreakable");
         String ret = "Reinforced ";
         switch (reinforced)
         {

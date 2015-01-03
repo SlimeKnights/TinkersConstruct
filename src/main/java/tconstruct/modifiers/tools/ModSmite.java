@@ -1,19 +1,18 @@
 package tconstruct.modifiers.tools;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class ModSmite extends ItemModTypeFilter
 {
     String tooltipName;
     int max = 36;
-    String tagName;
 
-    public ModSmite(String type, int effect, ItemStack[] items, int[] values)
+    public ModSmite(int effect, ItemStack[] items, int[] values)
     {
         super(effect, "ModSmite", items, values);
-        tooltipName = "\u00a7eSmite";
-        tagName = type;
+        tooltipName = ("\u00a7e" + StatCollector.translateToLocal("modifier.tool.smite"));
     }
 
     @Override
@@ -69,7 +68,7 @@ public class ModSmite extends ItemModTypeFilter
             int modifiers = tags.getInteger("Modifiers");
             modifiers -= 1;
             tags.setInteger("Modifiers", modifiers);
-            String modName = "\u00a7e" + tagName + " (" + increase + "/" + max + ")";
+            String modName = ("\u00a7e" + StatCollector.translateToLocal("modifier.tool.smite") + " " + increase + "/" + max);
             int tooltipIndex = addToolTip(tool, tooltipName, modName);
             int[] keyPair = new int[] { increase, max, tooltipIndex };
             tags.setIntArray(key, keyPair);
@@ -80,7 +79,7 @@ public class ModSmite extends ItemModTypeFilter
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         String tip = "ModifierTip" + keys[2];
-        String modName = "\u00a7e" + tagName + " (" + keys[0] + "/" + keys[1] + ")";
+        String modName = ("\u00a7e" + StatCollector.translateToLocal("modifier.tool.smite") + " " + keys[0] + "/" + keys[1]);
         tags.setString(tip, modName);
     }
 }
