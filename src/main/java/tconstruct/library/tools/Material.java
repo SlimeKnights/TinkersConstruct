@@ -13,6 +13,7 @@ import tconstruct.library.tools.materials.IMaterialStats;
 import tconstruct.library.tools.traits.IMaterialTrait;
 
 public class Material {
+  public static final Material UNKNOWN = new Material();
 
   /**
    * This String uniquely identifies a material.
@@ -37,6 +38,16 @@ public class Material {
   // * A treemap because we can sort it, so that all materials have the same order when iterating
   protected final Map<String, IMaterialStats> stats = new TreeMap<>();
   protected final Map<String, IMaterialTrait> traits = new TreeMap<>();
+
+  private Material() {
+    this.identifier = "Unknown";
+    this.colorHigh = 0xffffff;
+    this.colorMid = 0xffffff;
+    this.colorLow = 0xffffff;
+    this.metadata = -1;
+    this.textColor = EnumChatFormatting.WHITE;
+    this.surfaceType = SurfaceType.METAL;
+  }
 
   // simple white material
   public Material(String identifier, int metadata) {
@@ -83,6 +94,10 @@ public class Material {
         return stat;
 
     return null;
+  }
+
+  public <T extends IMaterialStats> T getStats(String identifier, Class<T> clazz) {
+    return clazz.cast(getStats(identifier));
   }
 
   public Collection<IMaterialStats> getAllStats() {
