@@ -9,6 +9,8 @@ import org.apache.logging.log4j.LogManager;
 
 import java.util.Map;
 
+import tconstruct.tools.TinkerMaterials;
+
 /**
  * TConstruct, the tool mod. Craft your tools with style, then modify until the
  * original is gone!
@@ -70,6 +72,8 @@ public class TConstruct
     public void preInit (FMLPreInitializationEvent event)
     {
         Util.logger = event.getModLog();
+
+        TinkerMaterials.registerToolMaterials();
     }
 
 }

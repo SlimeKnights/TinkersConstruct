@@ -41,9 +41,21 @@ public final class TinkerRegistry {
     if (materials.containsKey(material.identifier)) {
       String registeredBy = materialRegisteredByMod.get(material.identifier);
       error(String.format(
-          "Could not register Material: \"%s\" was already registered by %s", material.identifier,
+          "Could not register Material \"%s\": It was already registered by %s",
+          material.identifier,
           registeredBy));
       return;
+    }
+
+    // duplicate metadata mapping
+    for (Material mat : materials.values()) {
+      if (material.metadata == mat.metadata) {
+        String registeredBy = materialRegisteredByMod.get(mat.identifier);
+        error(String.format(
+            "Could not register Material \"%s\": Metadata Mapping \"%d\" is already in use for Material \"%s\" from Mod %s",
+            material.identifier, mat.metadata, mat.identifier, registeredBy));
+        return;
+      }
     }
 
     // register material

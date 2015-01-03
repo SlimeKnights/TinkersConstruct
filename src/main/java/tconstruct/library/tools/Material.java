@@ -8,13 +8,21 @@ import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 
+import tconstruct.library.TinkerAPIException;
 import tconstruct.library.tools.materials.IMaterialStats;
 import tconstruct.library.tools.traits.IMaterialTrait;
 
 public class Material {
 
+  /**
+   * This String uniquely identifies a material.
+   */
   @Nonnull
   public final String identifier;
+  /**
+   * This ID is used to map the material to metadata for items. Has to be between 0 and 65535
+   */
+  public final int metadata;
 
   public final int colorLow;
   public final int colorMid;
@@ -31,31 +39,25 @@ public class Material {
   protected final Map<String, IMaterialTrait> traits = new TreeMap<>();
 
   // simple white material
-  public Material(String identifier) {
-    this.identifier = identifier;
-    // white
-    this.colorHigh = 0xffffff;
-    this.colorMid = 0xffffff;
-    this.colorLow = 0xffffff;
-    this.surfaceType = SurfaceType.METAL;
-
-    this.textColor = EnumChatFormatting.GRAY;
+  public Material(String identifier, int metadata) {
+    this(identifier, metadata, 0xffffff, EnumChatFormatting.GRAY);
   }
 
   // one-colored material
-  public Material(String identifier, int color, EnumChatFormatting textColor) {
-    this.identifier = identifier;
-    this.colorLow = color;
-    this.colorMid = color;
-    this.colorHigh = color;
-    this.surfaceType = SurfaceType.METAL;
-    this.textColor = textColor;
+  public Material(String identifier, int metadata, int color, EnumChatFormatting textColor) {
+    this(identifier, metadata, color, color, color, SurfaceType.METAL, textColor);
   }
 
   // complex material with 3 colors and a real surface texture!
-  public Material(String identifier, int colorLow, int colorMedium, int colorHigh,
+  public Material(String identifier, int metadata, int colorLow, int colorMedium, int colorHigh,
                   SurfaceType surfaceType, EnumChatFormatting textColor) {
+
+    // check metadata bounds: 0 to (2^16)-1
+    if(metadata < 0 || metadata > 65535)
+      throw new TinkerAPIException(String.format("Metadata for Material \"%s\" is out of bounds: %d", identifier, metadata));
+
     this.identifier = identifier;
+    this.metadata = metadata;
     this.colorLow = colorLow;
     this.colorMid = colorMedium;
     this.colorHigh = colorHigh;
