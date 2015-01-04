@@ -159,8 +159,8 @@ public final class ToolStationGuiHelper {
                 String tipName = tags.getString(tooltip + tipNum);
                 String locString = "modifier.toolstation." + EnumChatFormatting.getTextWithoutFormattingCodes(tipName);
                 locString = locString.replace(" ", "");
-                //if(StatCollector.canTranslate(locString))
-                tipName = tipName.replace(EnumChatFormatting.getTextWithoutFormattingCodes(tipName), StatCollector.translateToLocal(locString));
+                if(StatCollector.canTranslate(locString))
+                  tipName = tipName.replace(EnumChatFormatting.getTextWithoutFormattingCodes(tipName), StatCollector.translateToLocal(locString));
                 write("- " + tipName);
                 tipNum++;
             }

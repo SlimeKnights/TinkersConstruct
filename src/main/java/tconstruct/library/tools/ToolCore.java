@@ -373,8 +373,8 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
                             // strip color information
                             String locString = "modifier.tooltip." + EnumChatFormatting.getTextWithoutFormattingCodes(tipName);
                             locString = locString.replace(" ", "");
-                            //if(StatCollector.canTranslate(locString))
-                            tipName = tipName.replace(EnumChatFormatting.getTextWithoutFormattingCodes(tipName), StatCollector.translateToLocal(locString));
+                            if(StatCollector.canTranslate(locString))
+                              tipName = tipName.replace(EnumChatFormatting.getTextWithoutFormattingCodes(tipName), StatCollector.translateToLocal(locString));
 
                             list.add(tipName);
                         }
