@@ -7,7 +7,9 @@ public final class Tags {
   public static final String TOOL_BASE = "Tinkers";
 
   public final static String DURABILITY = "Durability";
-
+  public final static String ATTACK = "Attack";
+  public final static String MININGSPEED = "MIningSpeed";
+  public final static String HARVESTLEVEL = "HarvestLevel";
 
   private Tags() {}
 }

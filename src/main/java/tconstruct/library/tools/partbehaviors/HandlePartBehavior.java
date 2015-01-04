@@ -7,9 +7,9 @@ import tconstruct.library.tools.materials.ToolMaterialStats;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
 
-public class HeadPartBehavior extends PartBehavior {
+public class HandlePartBehavior extends PartBehavior {
 
-  public HeadPartBehavior() {
+  public HandlePartBehavior() {
     super(ToolMaterialStats.TYPE);
   }
 
@@ -17,8 +17,6 @@ public class HeadPartBehavior extends PartBehavior {
   public void applyPartBehavior(NBTTagCompound tag, Material material) {
     ToolMaterialStats stats = material.getStats(ToolMaterialStats.TYPE, ToolMaterialStats.class);
 
-    TagUtil.addInteger(tag, Tags.DURABILITY, stats.durability);
-    TagUtil.addFloat(tag, Tags.ATTACK, stats.attack);
-    TagUtil.addFloat(tag, Tags.MININGSPEED, stats.miningspeed);
+    tag.setInteger(Tags.DURABILITY, Math.round(tag.getInteger(Tags.DURABILITY) * stats.handleModifier));
   }
 }
