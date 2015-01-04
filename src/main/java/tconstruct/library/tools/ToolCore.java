@@ -12,6 +12,6 @@ public abstract class ToolCore implements ITinkerable {
 
   @Override
   public String getTagName() {
-    return TagUtil.TAG_BASE;
+    return Tags.TOOL_BASE;
   }
 }

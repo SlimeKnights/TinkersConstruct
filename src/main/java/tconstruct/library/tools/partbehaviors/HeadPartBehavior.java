@@ -17,7 +17,6 @@ public class HeadPartBehavior extends PartBehavior {
   public void applyPartBehavior(NBTTagCompound tag, Material material) {
     ToolMaterialStats stats = material.getStats(ToolMaterialStats.TYPE, ToolMaterialStats.class);
 
-    TagUtil.addInteger(tag, TagUtil.TAG_DURABILITY, stats.durability);
-
+    TagUtil.addInteger(tag, Tags.DURABILITY, stats.durability);
   }
 }
