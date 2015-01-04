@@ -1,14 +1,14 @@
-package tconstruct.library.tools.partbehaviours;
+package tconstruct.library.tools.partbehaviors;
 
 import net.minecraft.nbt.NBTTagCompound;
 
 import tconstruct.library.tools.Material;
 
-public abstract class PartBehaviour {
+public abstract class PartBehavior {
 
   private final String[] requiredMaterialTypes;
 
-  public PartBehaviour(String... requiredMaterialType) {
+  public PartBehavior(String... requiredMaterialType) {
     this.requiredMaterialTypes = requiredMaterialType;
   }
 
@@ -32,5 +32,5 @@ public abstract class PartBehaviour {
    * @param tag The Tinker-Base-Tag of the tool
    * @param material The material to use
    */
-  public abstract void applyPartBehaviour(NBTTagCompound tag, Material material);
+  public abstract void applyPartBehavior(NBTTagCompound tag, Material material);
 }
