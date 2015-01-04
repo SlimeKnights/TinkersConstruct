@@ -141,9 +141,11 @@ public class AbilityHelper
                         tool.onEntityDamaged(player.worldObj, player, entity);
                         if (!necroticUHS || (entity instanceof IMob && entity instanceof EntityLivingBase && ((EntityLivingBase) entity).getHealth() <= 0))
                         {
-                            int drain = toolTags.getInteger("Necrotic") * 2;
-                            if (drain > 0)
-                                player.heal(random.nextInt(drain + 1));
+                            if(entity.isEntityAlive()) {
+                                int drain = toolTags.getInteger("Necrotic") * 2;
+                                if (drain > 0)
+                                    player.heal(random.nextInt(drain + 1));
+                            }
                         }
 
                         if (knockback > 0)
