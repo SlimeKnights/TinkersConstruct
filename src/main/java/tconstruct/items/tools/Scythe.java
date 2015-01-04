@@ -192,9 +192,9 @@ public class Scythe extends Weapon
                                     {
                                         if (!player.capabilities.isCreativeMode)
                                         {
-                                            if (butter && localBlock instanceof IShearable && ((IShearable) localBlock).isShearable(stack, player.worldObj, x, y, z))
+                                            if (butter && localBlock instanceof IShearable && ((IShearable) localBlock).isShearable(stack, player.worldObj, xPos, yPos, zPos))
                                             {
-                                                ArrayList<ItemStack> drops = ((IShearable) localBlock).onSheared(stack, player.worldObj, x, y, z, EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack));
+                                                ArrayList<ItemStack> drops = ((IShearable) localBlock).onSheared(stack, player.worldObj, xPos, yPos, zPos, EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack));
                                                 Random rand = new Random();
 
                                                 if (!world.isRemote)
