@@ -61,8 +61,9 @@ public class TableRender implements ISimpleBlockRenderingHandler
             renderer.renderStandardBlock(block, x, y, z);
             renderer.setRenderBounds(0.75F, 0.0F, 0.75F, 1.0F, 0.75F, 1.0F);
             renderer.renderStandardBlock(block, x, y, z);
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override

@@ -62,8 +62,9 @@ public class TankRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0, 0, 0, 1, 1, 1);
                 renderer.renderStandardBlock(block, x, y, z);
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override

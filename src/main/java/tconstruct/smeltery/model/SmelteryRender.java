@@ -41,7 +41,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 
     public boolean renderSmeltery (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
     {
-        renderer.renderStandardBlock(block, x, y, z);
+        boolean ret = renderer.renderStandardBlock(block, x, y, z);
         SmelteryLogic logic = (SmelteryLogic) world.getTileEntity(x, y, z);
         if (logic.validStructure)
         {
@@ -102,10 +102,11 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                         yBase++;
                         liquidBase = 0;
                     }
+                    ret = true;
                 }
             }
         }
-        return true;
+        return ret;
     }
 
     void renderLayer (SmelteryLogic logic, int start, CoordTuple from, CoordTuple to, int posY, RenderBlocks renderer, IBlockAccess world)

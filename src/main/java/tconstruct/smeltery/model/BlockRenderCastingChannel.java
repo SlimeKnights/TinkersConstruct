@@ -156,8 +156,9 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(bounds[0], 0.51, bounds[1], bounds[2], 0.5 + liquidAmount, bounds[3]);
                 renderLiquidPart(world, x, y, z, block, renderer, tankSub.fluid, false);
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
     private double[] getRenderboundsForLiquid (ForgeDirection dir)

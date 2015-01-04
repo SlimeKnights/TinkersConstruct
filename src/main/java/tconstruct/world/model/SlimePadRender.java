@@ -37,8 +37,9 @@ public class SlimePadRender implements ISimpleBlockRenderingHandler
             float[] size = size(metadata % 8);
             renderer.setRenderBounds(size[0], 0.5f, size[1], size[2], 0.6875f, size[3]);
             BlockSkinRenderHelper.renderLiquidBlock(((SlimePad) block).getNubIcon(metadata), ((SlimePad) block).getNubIcon(metadata), x, y, z, renderer, world);
+            return true;
         }
-        return true;
+        return false;
     }
 
     float[] size (int meta)

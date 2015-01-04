@@ -53,8 +53,9 @@ public class DryingRackRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0F, 0.75F, 0.0f, 0.25F, 1.0F, 1F);
             }
             renderer.renderStandardBlock(block, x, y, z);
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override

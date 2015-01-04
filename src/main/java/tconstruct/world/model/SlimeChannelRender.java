@@ -25,10 +25,10 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
     {
         if (modelID == model)
         {
-
             renderRotatedBlock(block, x, y, z, world, renderer);
+            return true;
         }
-        return true;
+        return false;
     }
 
     static final float LIGHT_Y_NEG = 0.5F;

@@ -53,8 +53,9 @@ public class TankAirRender implements ISimpleBlockRenderingHandler
                     base += fluidstack.amount;
                 }
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
     private double getBaseAmount (int base)
