@@ -40,7 +40,7 @@ public class PartMaterialWrapper {
 
     // not all needed materials present
     for (String type : neededMaterials) {
-      if (!material.hasTrait(type)) {
+      if (!material.hasStats(type)) {
         return false;
       }
     }

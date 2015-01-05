@@ -109,6 +109,10 @@ public class Material {
     return stats.values();
   }
 
+  public boolean hasStats(String identifier) {
+    return getStats(identifier) != null;
+  }
+
   /* Traits */
   public void addTrait(IMaterialTrait materialTrait) {
     this.traits.put(materialTrait.getIdentifier(), materialTrait);
