@@ -165,11 +165,11 @@ item.InfiTool.Mattock.name=Мотыготопор
 
 infitool.pickaxe=Кирку
 infitool.shovel=Лопату
-infitool.axe=Топорик
+infitool.hatchet=Топорик
 infitool.broadsword=Палаш
 infitool.longsword=Полуторный меч
 infitool.rapier=Рапиру
-infitool.frypan=Сковороду
+infitool.fryingpan=Сковороду
 infitool.battlesign=Боевую табличку
 infitool.dagger=Кинжал
 infitool.chisel=Стамеску
@@ -285,8 +285,8 @@ item.tconstruct.Materials.TinNugget.name=Оловянный самородок
 item.tconstruct.Materials.AluminumNugget.name=Алюминиевый самородок
 item.tconstruct.Materials.EssenceCrystal.name=Поддельный кристалл эссенции
 item.tconstruct.Materials.AluBrassNugget.name=Самородок алюминиевой латуни
-item.tconstruct.Materials.SilkyCloth.name=Шёлковистая ткань
-item.tconstruct.Materials.SilkyJewel.name=Шёлковистая драгоценность
+item.tconstruct.Materials.SilkyCloth.name=Шелковистая ткань
+item.tconstruct.Materials.SilkyJewel.name=Шелковистая драгоценность
 item.tconstruct.Materials.ObsidianNugget.name=Обсидиановый самородок
 item.tconstruct.Materials.CobaltNugget.name=Кобальтовый самородок
 item.tconstruct.Materials.ArditeNugget.name=Ардитовый самородок
@@ -882,40 +882,6 @@ material.thaumium.ability=Таум-сила
 material.wood=Дерево
 material.wood.display=Деревянная
 
-gui.modifier.blaze=Огонь
-gui.modifier.silk=Шёлковое касание
-gui.modifier.lapis=Лазурит
-gui.modifier.redstone=Красный камень
-gui.modifier.diamond=Алмаз
-gui.modifier.emerald=Изумруд
-gui.modifier.moss=Мох
-gui.modifier.lava=Лава
-gui.modifier.necro=Некроз
-gui.modifier.spider=Анти-паук
-gui.modifier.quartz=Кварц
-
-modifier.armour.jump.double=Двойной прыжок
-modifier.armour.jump.triple=Тройной прыжок
-modifier.armour.jump.quad=Четверной прыжок
-modifier.armour.protection=
-modifier.tool.spider=Бич членистоногих
-modifier.tool.quartz=Острота
-modifier.tool.blaze=Огненное касание
-modifier.tool.silk=Шелковистость
-modifier.tool.flux=Флакс
-modifier.tool.lapis=Удача
-modifier.tool.piston=Отдача
-modifier.tool.redstone=Ускорение
-modifier.tool.reinforced=Усиление
-modifier.tool.unbreaking=
-modifier.tool.smite=Небесная кара
-modifier.tool.diamond=Прочность +500
-modifier.tool.emerald=Прочность +50%
-modifier.tool.moss=Авто-восстановление
-modifier.tool.lava=Авто-плавка
-modifier.tool.necro=Вампиризм
-modifier.tool.beheading=Усекновение
-
 creativeModLock.tooltip=Применяется на: 
 
 attribute.name.ammo.attackDamage=Основной урон
@@ -955,36 +921,38 @@ tool.kingslimeprefix=King Slime
 # Specific localization like materials
 #tool.shovel.kingslime=Regret
 
-
-manual.page.tool1=Детали
-manual.page.modifier1=Инженерная станция
-manual.page.modifier2=Инженерная кузня
-manual.page.modifier3=Стол инженера
-manual.page.casting1=Ингридиенты
-
-manual.page.material.material=Материал
-manual.page.material.shard=Осколок
-manual.page.material.rod=Стержень
-manual.page.material.durability=Прочность
-manual.page.material.handle=Модификатор ручки
-manual.page.material.speed=Скорость добычи
-manual.page.material.level=Уровень добычи
-manual.page.material.attack=Основной урон
-
 manual.page.material1=Полная прочность
 manual.page.material2=Сердце
 manual.page.material3=Сердца(-дец)
 manual.page.material4=Особенность материала
 manual.page.material5=+1 модификатор
-manual.page.material6=Особенность материала: Усиление
-manual.page.material7=Уровень усиления
+manual.page.material6=Особенность материала: Укрепление
+manual.page.material7=Уровень укрепления
 manual.page.material8=Уровень силы камня
 manual.page.material9=Уровень зазубренности
 
+manual.page.material.attack=Основной урон
+manual.page.material.durability=Прочность
+manual.page.material.handle=Модификатор ручки
+manual.page.material.level=Уровень добычи
+manual.page.material.material=Материал
+manual.page.material.rod=Стержень
+manual.page.material.shard=Осколок
+manual.page.material.speed=Скорость добычи
+
+manual.page.modifier1=Инженерная станция
+manual.page.modifier2=Инженерная кузня
+manual.page.modifier3=Стол инженера
+
+manual.page.casting1=Ингридиенты
+manual.page.tool1=Детали
+
+tool.baneofpigs=Бич свиней
 tool.glassarrows=Стеклянные стрелы
 tool.glassarrows.lore=Созданы легендой по имени Glassmaker
-tool.baneofpigs=Бич свиней
 tool.infiminer=Бесконечный добыватель
+
+tool.core.broken=Сломан.
 
 armor.core.broken=Сломан.
 armor.core.protection=Защита: 
@@ -995,6 +963,77 @@ armor.travelgoggles.toggleabilities=Переключение функций
 armor.travelvest.ability=Функция: Быстрое плавание
 armor.travelwings.ability=Функция: Высокий прыжок
 armor.travelboots.ability=Функция: Высокий шаг
+
+tool.reinforced=Укрепление
+tool.unbreakable=Неразрушимость
+
+modifier.tool.diamond=Прочность +500
+modifier.tool.emerald=Прочность +50%
+modifier.tool.haste=Спешка
+modifier.tool.lava=Авто-плавка
+modifier.tool.moss=Авто-восстановление
+modifier.tool.necro=Вампиризм
+
+modifier.toolstation.Beheading=Усекновение
+modifier.toolstation.Blaze=Пламя
+modifier.toolstation.Diamond=Алмаз
+modifier.toolstation.Double-Jump=Двойной прыжок
+modifier.toolstation.Emerald=Изумруд
+modifier.toolstation.Flux=Флакс
+modifier.toolstation.Knockback=Отдача
+modifier.toolstation.Lapis=Лазурит
+modifier.toolstation.Lava=Лава
+modifier.toolstation.LeadBoots=Свинцовые ботинки
+modifier.toolstation.ModAntiSpider=Бич членистоногих
+modifier.toolstation.Moss=Мох
+modifier.toolstation.Necrotic=Некроз
+modifier.toolstation.NightVision=Ночное зрение
+modifier.toolstation.PerfectDodge=Идеальная ловкость
+modifier.toolstation.Quadruple-Jump=Четверной прыжок
+modifier.toolstation.Quartz=Кварц
+modifier.toolstation.Redstone=Красный камень
+modifier.toolstation.ReinforcedI=Укрепление I
+modifier.toolstation.ReinforcedII=Укрепление II
+modifier.toolstation.ReinforcedIII=Укрепление III
+modifier.toolstation.ReinforcedIV=Укрепление IV
+modifier.toolstation.ReinforcedV=Укрепление V
+modifier.toolstation.ReinforcedVI=Укрепление VI
+modifier.toolstation.ReinforcedVII=Укрепление VII
+modifier.toolstation.ReinforcedVIII=Укрепление VIII
+modifier.toolstation.ReinforcedIX=Укрепление IX
+modifier.toolstation.ReinforcedX=Укрепление X
+modifier.toolstation.ReinforcedX+=Укрепление X+
+modifier.toolstation.SilkTouch=Шёлковое касание
+modifier.toolstation.SlimySoles=Слизистые подошвы
+modifier.toolstation.Smite=Небесная кара
+modifier.toolstation.Stealth=Скрытность
+modifier.toolstation.ThaumicSenses=Таумическое чувство
+modifier.toolstation.Triple-Jump=Тройной прыжок
+modifier.toolstation.ThaumicVision=Таумическое зрение
+modifier.toolstation.WaterWalk=Прогулка по воде
+
+modifier.tooltip.Auto-Smelt=Авто-плавка
+modifier.tooltip.BaneofArthropods=Бич членистоногих
+modifier.tooltip.Beheading=Усекновение
+modifier.tooltip.Double-Jump=Двойной прыжок
+modifier.tooltip.FeatherFall=Мягкое падение
+modifier.tooltip.Fiery=Огненное касание
+modifier.tooltip.Haste=Спешка
+modifier.tooltip.Knockback=Отдача
+modifier.tooltip.LeadBoots=Свинцовые ботинки
+modifier.tooltip.Luck=Удача
+modifier.tooltip.NightVision=Ночное зрение
+modifier.tooltip.PerfectDodge=Идеальная ловкость
+modifier.tooltip.Quadruple-Jump=Четверной прыжок
+modifier.tooltip.Sharpness=Острота
+modifier.tooltip.Silky=Шелковистость
+modifier.tooltip.SlimySoles=Слизистые подошвы
+modifier.tooltip.Smite=Небесная кара
+modifier.tooltip.Stealth=Скрытность
+modifier.tooltip.ThaumicSenses=Таумическое чувство
+modifier.tooltip.Triple-Jump=Тройной прыжок
+modifier.tooltip.ThaumicVision=Таумическое зрение
+modifier.tooltip.Water-Walking=Прогулка по воде
 
 tool.pickaxe.netherrack=Кирка из камня Нижнего мира
 tool.shovel.netherrack=Лопата из камня Нижнего мира

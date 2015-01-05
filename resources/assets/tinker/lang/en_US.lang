@@ -165,11 +165,11 @@ item.InfiTool.Mattock.name=Mattock
 
 infitool.pickaxe=Pickaxe
 infitool.shovel=Shovel
-infitool.axe=Hatchet
+infitool.hatchet=Hatchet
 infitool.broadsword=Broadsword
 infitool.longsword=Longsword
 infitool.rapier=Rapier
-infitool.frypan=Frying Pan
+infitool.fryingpan=Frying Pan
 infitool.battlesign=Battlesign
 infitool.dagger=Dagger
 infitool.chisel=Chisel
@@ -882,18 +882,6 @@ material.thaumium.ability=Thaumic
 material.wood=Wood
 material.wood.display=Wooden
 
-gui.modifier.blaze=Blaze
-gui.modifier.silk=Silk Touch
-gui.modifier.lapis=Lapis
-gui.modifier.redstone=Redstone
-gui.modifier.diamond=Diamond
-gui.modifier.emerald=Emerald
-gui.modifier.moss=Moss
-gui.modifier.lava=Lava
-gui.modifier.necro=Necrotic
-gui.modifier.spider=Anti-Spider
-gui.modifier.quartz=Quartz
-
 creativeModLock.tooltip=Target Lock: 
 
 attribute.name.ammo.attackDamage=Base Damage
@@ -933,22 +921,6 @@ tool.kingslimeprefix=King Slime
 # Specific localization like materials
 #tool.shovel.kingslime=Regret
 
-
-manual.page.tool1=Crafting Parts
-manual.page.modifier1=Tool Station
-manual.page.modifier2=Tool Forge
-manual.page.modifier3=Tinker Table
-manual.page.casting1=Ingredients
-
-manual.page.material.material=Material
-manual.page.material.shard=Shard
-manual.page.material.rod=Rod
-manual.page.material.durability=Durability
-manual.page.material.handle=Handle Modifier
-manual.page.material.speed=Mining Speed
-manual.page.material.level=Mining Level
-manual.page.material.attack=Base Attack
-
 manual.page.material1=Full Tool Durability
 manual.page.material2=Heart
 manual.page.material3=Hearts
@@ -958,6 +930,22 @@ manual.page.material6=Material Trait: Reinforced
 manual.page.material7=Reinforced level
 manual.page.material8=Stonebound level
 manual.page.material9=Splintering level
+
+manual.page.material.attack=Base Attack
+manual.page.material.durability=Durability
+manual.page.material.handle=Handle Modifier
+manual.page.material.level=Mining Level
+manual.page.material.material=Material
+manual.page.material.rod=Rod
+manual.page.material.shard=Shard
+manual.page.material.speed=Mining Speed
+
+manual.page.modifier1=Tool Station
+manual.page.modifier2=Tool Forge
+manual.page.modifier3=Tinker Table
+
+manual.page.casting1=Ingredients
+manual.page.tool1=Crafting Parts
 
 tool.glassarrows=Glass Arrows
 tool.glassarrows.lore=Crafted by a legendary Glassmaker
@@ -976,27 +964,73 @@ armor.travelvest.ability=Ability: Swift Swim
 armor.travelwings.ability=Ability: High Jump
 armor.travelboots.ability=Ability: High Step
 
-modifier.armour.jump.double=Double-Jump
-modifier.armour.jump.triple=Triple-Jump
-modifier.armour.jump.quad=Quadruple-Jump
-modifier.armour.protection=
-
 tool.reinforced=Reinforced
 tool.unbreakable=Unbreakable
 
-modifier.tooltip.Auto-Smelt=Auto-Smelt
-modifier.tool.spider=Bane of Arthropods
-modifier.tool.quartz=Sharpness
-modifier.tool.blaze=Fiery
-modifier.tool.silk=Silky
-modifier.tool.flux=Flux
-modifier.tool.lapis=Luck
-modifier.tool.piston=Knockback
-modifier.tool.redstone=Haste
-modifier.tool.smite=Smite
 modifier.tool.diamond=Durability +500
 modifier.tool.emerald=Durability +50%
-modifier.tool.moss=Auto-Repair
+modifier.tool.haste=Haste
 modifier.tool.lava=Auto-Smelt
+modifier.tool.moss=Auto-Repair
 modifier.tool.necro=Life Steal
-modifier.tool.beheading=Beheading
+
+modifier.toolstation.Beheading=Beheading
+modifier.toolstation.Blaze=Blaze
+modifier.toolstation.Diamond=Diamond
+modifier.toolstation.Double-Jump=Double-Jump
+modifier.toolstation.Emerald=Emerald
+modifier.toolstation.Flux=Flux
+modifier.toolstation.Knockback=Knockback
+modifier.toolstation.Lapis=Lapis
+modifier.toolstation.Lava=Lava
+modifier.toolstation.LeadBoots=Lead Boots
+modifier.toolstation.ModAntiSpider=Bane of Arthropods
+modifier.toolstation.Moss=Moss
+modifier.toolstation.Necrotic=Necrotic
+modifier.toolstation.NightVision=Night Vision
+modifier.toolstation.PerfectDodge=Perfect Dodge
+modifier.toolstation.Quadruple-Jump=Quadruple-Jump
+modifier.toolstation.Quartz=Quartz
+modifier.toolstation.Redstone=Redstone
+modifier.toolstation.ReinforcedI=Reinforced I
+modifier.toolstation.ReinforcedII=Reinforced II
+modifier.toolstation.ReinforcedIII=Reinforced III
+modifier.toolstation.ReinforcedIV=Reinforced IV
+modifier.toolstation.ReinforcedV=Reinforced V
+modifier.toolstation.ReinforcedVI=Reinforced VI
+modifier.toolstation.ReinforcedVII=Reinforced VII
+modifier.toolstation.ReinforcedVIII=Reinforced VIII
+modifier.toolstation.ReinforcedIX=Reinforced IX
+modifier.toolstation.ReinforcedX=Reinforced X
+modifier.toolstation.ReinforcedX+=Reinforced X+
+modifier.toolstation.SilkTouch=Silk Touch
+modifier.toolstation.SlimySoles=Slimy Soles
+modifier.toolstation.Smite=Smite
+modifier.toolstation.Stealth=Stealth
+modifier.toolstation.ThaumicSenses=Thaumic Senses
+modifier.toolstation.Triple-Jump=Triple-Jump
+modifier.toolstation.ThaumicVision=Thaumic Vision
+modifier.toolstation.WaterWalk=Water Walk
+
+modifier.tooltip.Auto-Smelt=Auto-Smelt
+modifier.tooltip.BaneofArthropods=Bane of Arthropods
+modifier.tooltip.Beheading=Beheading
+modifier.tooltip.Double-Jump=Double-Jump
+modifier.tooltip.FeatherFall=Feather Fall
+modifier.tooltip.Fiery=Fiery
+modifier.tooltip.Haste=Haste
+modifier.tooltip.Knockback=Knockback
+modifier.tooltip.LeadBoots=Lead Boots
+modifier.tooltip.Luck=Luck
+modifier.tooltip.NightVision=Night Vision
+modifier.tooltip.PerfectDodge=Perfect Dodge
+modifier.tooltip.Quadruple-Jump=Quadruple-Jump
+modifier.tooltip.Sharpness=Sharpness
+modifier.tooltip.Silky=Silky
+modifier.tooltip.SlimySoles=Slimy Soles
+modifier.tooltip.Smite=Smite
+modifier.tooltip.Stealth=Stealth
+modifier.tooltip.ThaumicSenses=Thaumic Senses
+modifier.tooltip.Triple-Jump=Triple-Jump
+modifier.tooltip.ThaumicVision=Thaumic Vision
+modifier.tooltip.Water-Walking=Water-Walking
