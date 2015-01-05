@@ -38,6 +38,7 @@ public class TConstruct {
 
   public static final int liquidUpdateAmount = 6;
 
+  public static final Logger log = LogManager.getLogger(modID);
 
   /* Instance of this mod, used for grabbing prototype fields */
   @Mod.Instance(modID)
@@ -51,10 +52,10 @@ public class TConstruct {
 
   public TConstruct() {
     if (Loader.isModLoaded("Natura")) {
-      LogManager.getLogger(modID).info("Natura, what are we going to do tomorrow night?");
+      log.info("Natura, what are we going to do tomorrow night?");
       LogManager.getLogger("Natura").info("TConstruct, we're going to take over the world!");
     } else {
-      LogManager.getLogger(modID).info("Preparing to take over the world");
+      log.info("Preparing to take over the world");
     }
   }
 
@@ -66,8 +67,6 @@ public class TConstruct {
 
   @Mod.EventHandler
   public void preInit(FMLPreInitializationEvent event) {
-    Util.logger = event.getModLog();
-
     TinkerMaterials.registerToolMaterials();
   }
 

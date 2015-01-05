@@ -12,6 +12,7 @@ import tconstruct.Util;
 import tconstruct.library.TinkerAPIException;
 import tconstruct.library.tools.materials.IMaterialStats;
 import tconstruct.library.tools.traits.IMaterialTrait;
+import tconstruct.library.utils.Log;
 
 public class Material {
 
@@ -104,16 +105,19 @@ public class Material {
 
   /**
    * Returns the material stats of the given type of this material.
+   *
    * @param identifier Identifier of the material.
-   * @param <T> Type of the Stats are determined by return value. Use the correct
+   * @param <T>        Type of the Stats are determined by return value. Use the correct
    * @return The stats found or null if none present.
    */
   @SuppressWarnings("unchecked")
   public <T extends IMaterialStats> T getStats(String identifier) {
     try {
-      return (T)getStatsSafe(identifier);
+      return (T) getStatsSafe(identifier);
     } catch (ClassCastException e) {
-      Util.logger.error(String.format("You're trying to get stats of the type \"%s\" but got something else instead. What are you DOING?", identifier));
+      Log.error(
+          "You're trying to get stats of the type \"%s\" but got something else instead. What are you DOING?",
+          identifier);
       throw e;
     }
   }

@@ -8,6 +8,7 @@ import tconstruct.library.tools.Material;
 import tconstruct.library.tools.PartMaterialWrapper;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.materials.ToolMaterialStats;
+import tconstruct.library.utils.Log;
 import tconstruct.library.utils.ToolBuilder;
 
 public class TestTool extends ToolCore {
@@ -18,7 +19,7 @@ public class TestTool extends ToolCore {
 
   @Override
   protected NBTTagCompound buildToolTag(Material[] materials) {
-    Util.logger.info("Parts are valid");
+    Log.info("Parts are valid");
     return ToolBuilder.buildSimpleTool(materials[0], materials[1]);
   }
 
