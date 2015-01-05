@@ -165,8 +165,9 @@ public final class ToolStationGuiHelper {
                 locString = locString.replace(" ", "");
                 if(StatCollector.canTranslate(locString)) {
                     tipName = tipName.replace(EnumChatFormatting.getTextWithoutFormattingCodes(tipName), StatCollector.translateToLocal(locString));
+                    // re-add the X/Y
                     if(bracket > 0)
-                        tipName += " " + tipName.substring(bracket);
+                        tipName += " " + tags.getString(tooltip + tipNum).substring(bracket);
                 }
                 write("- " + tipName);
                 tipNum++;
