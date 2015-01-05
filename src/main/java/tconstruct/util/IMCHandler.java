@@ -153,7 +153,7 @@ public final class IMCHandler {
 
                 NBTTagCompound tag = message.getNBTValue();
 
-                if(!checkRequiredTags("Castingt", tag, "MaterialId", "FluidName"))
+                if(!checkRequiredTags("Casting", tag, "MaterialId", "FluidName"))
                     continue;
 
                 if(!tag.hasKey("MaterialId"))
