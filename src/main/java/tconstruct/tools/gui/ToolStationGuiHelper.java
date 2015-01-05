@@ -161,7 +161,7 @@ public final class ToolStationGuiHelper {
                 // strip out the '(X of Y)' in some for the localization strings.. sigh
                 int bracket = tipName.indexOf("(");
                 if(bracket > 0)
-                    locString = locString.substring(0, bracket);
+                    locString = "modifier.toolstation." + tipName.substring(0, bracket);
                 locString = EnumChatFormatting.getTextWithoutFormattingCodes(locString.replace(" ", ""));
 
                 if(StatCollector.canTranslate(locString)) {
