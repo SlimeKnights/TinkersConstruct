@@ -2,6 +2,7 @@ package tconstruct.library.utils;
 
 import net.minecraft.nbt.NBTTagCompound;
 
+import tconstruct.library.tools.Material;
 import tconstruct.library.tools.materials.ToolMaterialStats;
 import tconstruct.library.tools.partbehaviors.PartBehavior;
 
@@ -14,8 +15,20 @@ public final class ToolBuilder {
    * A simple Tool consists of a head and an handle. Head determines primary stats, handle
    * multiplies primary stats.
    */
-  public static NBTTagCompound buildSimpleTool(PartBehavior head, PartBehavior handle) {
-    return null;
+  public static NBTTagCompound buildSimpleTool(Material headMaterial, Material handleMaterial) {
+    NBTTagCompound result;
+
+    ToolMaterialStats
+        headStats =
+        headMaterial.getStats(ToolMaterialStats.TYPE, ToolMaterialStats.class);
+    ToolMaterialStats
+        handleStats =
+        handleMaterial.getStats(ToolMaterialStats.TYPE, ToolMaterialStats.class);
+
+    result = calculateHeadParts(headStats);
+    calculateHandleParts(result, handleStats);
+
+    return result;
   }
 
   /**
@@ -65,7 +78,7 @@ public final class ToolBuilder {
       count++;
     }
 
-    if(count > 0) {
+    if (count > 0) {
       // calculate the multiplier from the summed up stats
       multiplier *= (0.5 + count * 0.5);
       multiplier /= count;
