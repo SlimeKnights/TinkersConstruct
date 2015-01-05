@@ -2,6 +2,9 @@ package tconstruct.tools;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import org.apache.logging.log4j.Logger;
 
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
@@ -10,12 +13,12 @@ import tconstruct.library.tools.PartMaterialWrapper;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.ToolPart;
 import tconstruct.library.tools.materials.ToolMaterialStats;
-import tconstruct.library.utils.ToolBuilder;
 
 @Pulse(id = TinkerTools.PulseId, description = "This module contains all the tools and everything related to it.")
 public class TinkerTools {
 
   public static final String PulseId = "TinkerTools";
+  static final Logger log = Util.getLogger(PulseId);
 
   @Handler
   public void init(FMLPreInitializationEvent event) {
@@ -23,18 +26,22 @@ public class TinkerTools {
     a = new ToolPart();
     b = new ToolPart();
 
+    GameRegistry.registerItem(a, "ItemA");
+    GameRegistry.registerItem(b, "ItemB");
+
     PartMaterialWrapper c, d;
     c = new PartMaterialWrapper(a, ToolMaterialStats.TYPE);
     d = new PartMaterialWrapper(b, ToolMaterialStats.TYPE);
 
     ToolCore testTool = new TestTool(c, d);
 
+    GameRegistry.registerItem(testTool, "TestTool");
+
     ItemStack e, f;
     e = new ItemStack(a, 1, TinkerMaterials.stone.metadata);
     f = new ItemStack(b, 1, TinkerMaterials.wood.metadata);
 
-    if (testTool.validComponent(0, e) && testTool.validComponent(1, f)) {
-
-    }
+    ItemStack result = testTool.buildTool(new ItemStack[]{e, f});
+    log.info(result.hasTagCompound());
   }
 }
