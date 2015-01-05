@@ -4,7 +4,6 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import tconstruct.library.tools.Material;
 import tconstruct.library.tools.materials.ToolMaterialStats;
-import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
 
 public class HandlePartBehavior extends PartBehavior {
@@ -17,6 +16,6 @@ public class HandlePartBehavior extends PartBehavior {
   public void applyPartBehavior(NBTTagCompound tag, Material material) {
     ToolMaterialStats stats = material.getStats(ToolMaterialStats.TYPE, ToolMaterialStats.class);
 
-    tag.setInteger(Tags.DURABILITY, Math.round(tag.getInteger(Tags.DURABILITY) * stats.handleModifier));
+    tag.setInteger(Tags.DURABILITY, Math.round(tag.getInteger(Tags.DURABILITY) * stats.durabilityModifier));
   }
 }
