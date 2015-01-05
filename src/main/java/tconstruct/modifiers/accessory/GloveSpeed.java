@@ -1,6 +1,7 @@
 package tconstruct.modifiers.accessory;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.accessory.AccessoryCore;
 import tconstruct.library.modifier.IModifyable;
@@ -16,7 +17,7 @@ public class GloveSpeed extends ItemModTypeFilter
     public GloveSpeed(int effect, ItemStack[] items, int[] values)
     {
         super(effect, "Redstone", items, values);
-        tooltipName = "\u00a74Haste";
+        tooltipName = ("\u00a74" + StatCollector.translateToLocal("modifier.tooltip.Haste"));
     }
 
     @Override
