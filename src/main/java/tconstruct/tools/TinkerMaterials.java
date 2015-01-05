@@ -8,15 +8,16 @@ import tconstruct.library.tools.materials.IMaterialStats;
 import tconstruct.library.tools.materials.ToolMaterialStats;
 
 public final class TinkerMaterials {
-  private TinkerMaterials() {}
+
+  private TinkerMaterials() {
+  }
 
   static {
     wood = new Material("Wood", 0, 0xabcdef, EnumChatFormatting.YELLOW);
     stone = new Material("Stone", 1);
   }
 
-  public static void registerToolMaterials()
-  {
+  public static void registerToolMaterials() {
     Material material;
     IMaterialStats toolStats;
 
@@ -33,13 +34,11 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterial(material, toolStats);
   }
 
-  public static void registerBowMaterials()
-  {
+  public static void registerBowMaterials() {
 
   }
 
-  public static void registerProjectileMaterials()
-  {
+  public static void registerProjectileMaterials() {
 
   }
 

@@ -1,5 +1,7 @@
 package tconstruct.tools.parts;
 
-public class Head {
+import tconstruct.library.tools.ToolPart;
+
+public class Head extends ToolPart {
 
 }

@@ -29,7 +29,8 @@ public abstract class PartBehavior {
 
   /**
    * Apply the behaviour of the part to the stats of the tool.
-   * @param tag The Tinker-Base-Tag of the tool
+   *
+   * @param tag      The Tinker-Base-Tag of the tool
    * @param material The material to use
    */
   public abstract void applyPartBehavior(NBTTagCompound tag, Material material);

@@ -16,6 +16,7 @@ public class HandlePartBehavior extends PartBehavior {
   public void applyPartBehavior(NBTTagCompound tag, Material material) {
     ToolMaterialStats stats = material.getStats(ToolMaterialStats.TYPE, ToolMaterialStats.class);
 
-    tag.setInteger(Tags.DURABILITY, Math.round(tag.getInteger(Tags.DURABILITY) * stats.durabilityModifier));
+    tag.setInteger(Tags.DURABILITY,
+                   Math.round(tag.getInteger(Tags.DURABILITY) * stats.durabilityModifier));
   }
 }

@@ -13,6 +13,7 @@ import tconstruct.library.tools.materials.IMaterialStats;
 import tconstruct.library.tools.traits.IMaterialTrait;
 
 public class Material {
+
   public static final Material UNKNOWN = new Material();
 
   /**
@@ -64,8 +65,10 @@ public class Material {
                   SurfaceType surfaceType, EnumChatFormatting textColor) {
 
     // check metadata bounds: 0 to (2^16)-1
-    if(metadata < 0 || metadata > 65535)
-      throw new TinkerAPIException(String.format("Metadata for Material \"%s\" is out of bounds: %d", identifier, metadata));
+    if (metadata < 0 || metadata > 65535) {
+      throw new TinkerAPIException(
+          String.format("Metadata for Material \"%s\" is out of bounds: %d", identifier, metadata));
+    }
 
     this.identifier = identifier;
     this.metadata = metadata;
@@ -82,16 +85,18 @@ public class Material {
   }
 
   /**
-   * Returns the given type of stats if the material has them.
-   * Returns null Otherwise.
+   * Returns the given type of stats if the material has them. Returns null Otherwise.
    */
   public IMaterialStats getStats(String identifier) {
-    if(identifier == null || identifier.isEmpty())
+    if (identifier == null || identifier.isEmpty()) {
       return null;
+    }
 
-    for(IMaterialStats stat : stats.values())
-      if(identifier.equals(stat.getMaterialType()))
+    for (IMaterialStats stat : stats.values()) {
+      if (identifier.equals(stat.getMaterialType())) {
         return stat;
+      }
+    }
 
     return null;
   }
@@ -113,12 +118,15 @@ public class Material {
    * Returns whether the material has a trait with that identifier.
    */
   public boolean hasTrait(String identifier) {
-    if(identifier == null || identifier.isEmpty())
+    if (identifier == null || identifier.isEmpty()) {
       return false;
+    }
 
-    for(IMaterialTrait trait : traits.values())
-      if(identifier.equals(trait.getIdentifier()))
+    for (IMaterialTrait trait : traits.values()) {
+      if (identifier.equals(trait.getIdentifier())) {
         return true;
+      }
+    }
 
     return false;
   }

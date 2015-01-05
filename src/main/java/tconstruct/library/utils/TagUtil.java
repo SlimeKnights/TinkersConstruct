@@ -112,7 +112,7 @@ public final class TagUtil {
       }
     }
 
-    return total/count;
+    return total / count;
   }
 
   private static float averageFloatTags(String key, NBTTagCompound... tags) {
@@ -126,6 +126,6 @@ public final class TagUtil {
       }
     }
 
-    return total/(float)count;
+    return total / (float) count;
   }
 }

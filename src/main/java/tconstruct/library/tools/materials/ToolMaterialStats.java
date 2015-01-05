@@ -2,6 +2,7 @@ package tconstruct.library.tools.materials;
 
 
 public class ToolMaterialStats extends AbstractMaterialStats {
+
   public final static String TYPE = "tool";
 
   public final int durability;
