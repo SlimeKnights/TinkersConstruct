@@ -2,9 +2,10 @@ package tconstruct.library.utils;
 
 import net.minecraft.nbt.NBTTagCompound;
 
+import tconstruct.library.TinkerRegistry;
 import tconstruct.library.tools.Material;
+import tconstruct.library.tools.materials.Test;
 import tconstruct.library.tools.materials.ToolMaterialStats;
-import tconstruct.library.tools.partbehaviors.PartBehavior;
 
 public final class ToolBuilder {
 
@@ -17,13 +18,8 @@ public final class ToolBuilder {
    */
   public static NBTTagCompound buildSimpleTool(Material headMaterial, Material handleMaterial) {
     NBTTagCompound result;
-
-    ToolMaterialStats
-        headStats =
-        headMaterial.getStats(ToolMaterialStats.TYPE, ToolMaterialStats.class);
-    ToolMaterialStats
-        handleStats =
-        handleMaterial.getStats(ToolMaterialStats.TYPE, ToolMaterialStats.class);
+    ToolMaterialStats headStats = headMaterial.getStats(ToolMaterialStats.TYPE);
+    ToolMaterialStats handleStats = handleMaterial.getStats(ToolMaterialStats.TYPE);
 
     result = calculateHeadParts(headStats);
     calculateHandleParts(result, handleStats);

@@ -8,6 +8,7 @@ import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 
+import tconstruct.Util;
 import tconstruct.library.TinkerAPIException;
 import tconstruct.library.tools.materials.IMaterialStats;
 import tconstruct.library.tools.traits.IMaterialTrait;
@@ -87,7 +88,7 @@ public class Material {
   /**
    * Returns the given type of stats if the material has them. Returns null Otherwise.
    */
-  public IMaterialStats getStats(String identifier) {
+  private IMaterialStats getStatsSafe(String identifier) {
     if (identifier == null || identifier.isEmpty()) {
       return null;
     }
@@ -101,8 +102,20 @@ public class Material {
     return null;
   }
 
-  public <T extends IMaterialStats> T getStats(String identifier, Class<T> clazz) {
-    return clazz.cast(getStats(identifier));
+  /**
+   * Returns the material stats of the given type of this material.
+   * @param identifier Identifier of the material.
+   * @param <T> Type of the Stats are determined by return value. Use the correct
+   * @return The stats found or null if none present.
+   */
+  @SuppressWarnings("unchecked")
+  public <T extends IMaterialStats> T getStats(String identifier) {
+    try {
+      return (T)getStatsSafe(identifier);
+    } catch (ClassCastException e) {
+      Util.logger.error(String.format("You're trying to get stats of the type \"%s\" but got something else instead. What are you DOING?", identifier));
+      throw e;
+    }
   }
 
   public Collection<IMaterialStats> getAllStats() {
