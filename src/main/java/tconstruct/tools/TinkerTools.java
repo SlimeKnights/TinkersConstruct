@@ -846,7 +846,7 @@ public class TinkerTools
             pb.registerMaterial(Blocks.cobblestone, 2, "Stone");
         }
         else
-            pb.registerMaterialSet("Stone", new ItemStack(TinkerTools.toolShard, 1, 1), new ItemStack(TinkerTools.toolRod, 1, 1), 0);
+            pb.registerMaterialSet("Stone", new ItemStack(TinkerTools.toolShard, 1, 1), new ItemStack(TinkerTools.toolRod, 1, 1), 1);
         pb.registerFullMaterial(Items.iron_ingot, 2, "Iron", new ItemStack(TinkerTools.toolShard, 1, 2), new ItemStack(TinkerTools.toolRod, 1, 2), 2);
         if (PHConstruct.enableTFlint)
             pb.registerFullMaterial(Items.flint, 2, "Flint", new ItemStack(TinkerTools.toolShard, 1, 3), new ItemStack(TinkerTools.toolRod, 1, 3), 3);
