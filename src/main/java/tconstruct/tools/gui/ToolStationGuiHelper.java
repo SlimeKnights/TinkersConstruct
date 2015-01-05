@@ -159,12 +159,15 @@ public final class ToolStationGuiHelper {
                 String tipName = tags.getString(tooltip + tipNum);
                 String locString = "modifier.toolstation." + EnumChatFormatting.getTextWithoutFormattingCodes(tipName);
                 // strip out the '(X of Y)' in some for the localization strings.. sigh
-                int bracket = locString.indexOf(" (");
+                int bracket = locString.indexOf("(");
                 if(bracket > 0)
                     locString = locString.substring(0, bracket);
                 locString = locString.replace(" ", "");
-                if(StatCollector.canTranslate(locString))
-                  tipName = tipName.replace(EnumChatFormatting.getTextWithoutFormattingCodes(tipName), StatCollector.translateToLocal(locString));
+                if(StatCollector.canTranslate(locString)) {
+                    tipName = tipName.replace(EnumChatFormatting.getTextWithoutFormattingCodes(tipName), StatCollector.translateToLocal(locString));
+                    if(bracket > 0)
+                        tipName += " " + tipName.substring(bracket);
+                }
                 write("- " + tipName);
                 tipNum++;
             }
