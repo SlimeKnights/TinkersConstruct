@@ -1,7 +1,13 @@
 package tconstruct.weaponry;
 
 import cpw.mods.fml.common.eventhandler.Event;
+import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
+import net.minecraft.init.Items;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.event.PartBuilderEvent;
@@ -356,5 +362,57 @@ public class WeaponryHandler {
         if (event.recipe.output.getItem() == TinkerWeaponry.partBowLimb || event.recipe.output.getItem() == TinkerWeaponry.partCrossbowLimb)
             if (TConstructRegistry.getBowMaterial(mat) == null)
                 event.setResult(Event.Result.DENY);
+    }
+
+    // high priority because we want to do these checks on unmodified stacks
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public void boneanaParts(ToolBuildEvent event) {
+        if(event.headStack == null || event.handleStack == null || event.accessoryStack != null || event.extraStack != null)
+            return;
+
+        // golden carrot + bone
+        if(event.headStack.getItem() == Items.golden_carrot && event.handleStack.getItem() == Items.bone)
+        {
+            // golden carrot must be named banana
+            if(!event.headStack.hasTagCompound() || !event.headStack.getTagCompound().hasKey("display") ||
+                    !event.headStack.getTagCompound().getCompoundTag("display").hasKey("Name") ||
+                    !event.headStack.getTagCompound().getCompoundTag("display").getString("Name").toLowerCase().equals("banana"))
+                return;
+            event.name = '\u2400' + "Bonæna"; // the \u2400 is a non-printable unicode character so you can't just type it
+            event.headStack = new ItemStack(TinkerTools.swordBlade, 1, TinkerTools.MaterialID.Bone);
+            event.handleStack = new ItemStack(TinkerTools.toolRod, 1, TinkerTools.MaterialID.Bone);
+            event.accessoryStack = new ItemStack(TinkerTools.wideGuard, 1, TinkerTools.MaterialID.Bone);
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public void boneanaBuilding(ToolCraftEvent.NormalTool event) {
+        // is it a boneana?
+        if("\u00A7f\u2400Bonæna".equals(event.toolTag.getCompoundTag("display").getString("Name")))
+        {
+            // set correct name
+            event.toolTag.getCompoundTag("display").setString("Name", EnumChatFormatting.YELLOW + "Bonæna");
+            // lore!
+            NBTTagList lore = new NBTTagList();
+            lore.appendTag(new NBTTagString(StatCollector.translateToLocal("tool.boneana.lore")));
+            event.toolTag.getCompoundTag("display").setTag("Lore", lore);
+
+            // let's polish it up a bit!
+            NBTTagCompound tag = event.toolTag.getCompoundTag("InfiTool");
+            tag.setBoolean("Special", true);
+            tag.setInteger("Attack", 4);
+            tag.setInteger("TotalDurability", 600);
+            tag.setInteger("BaseDurability", 600);
+            tag.setFloat("Shoddy", -2.0f);
+            tag.setInteger("MiningSpeed", 1);
+            tag.setInteger("HarvestLevel", 0);
+
+            tag.setInteger("Modifiers", 0);
+
+            ItemStack weapon = new ItemStack(TinkerWeaponry.boneana);
+            weapon.setTagCompound(event.toolTag);
+            event.overrideResult(weapon);
+            event.setResult(Event.Result.ALLOW);
+        }
     }
 }

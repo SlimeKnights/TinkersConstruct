@@ -44,6 +44,7 @@ import tconstruct.weaponry.ammo.ArrowAmmo;
 import tconstruct.weaponry.ammo.BoltAmmo;
 import tconstruct.library.tools.DualMaterialToolPart;
 import tconstruct.weaponry.entity.*;
+import tconstruct.weaponry.items.Boneana;
 import tconstruct.weaponry.items.GlassArrows;
 import tconstruct.weaponry.items.WeaponryPattern;
 import tconstruct.library.weaponry.AmmoItem;
@@ -91,6 +92,10 @@ public class TinkerWeaponry {
     // patterns/casts
     public static Pattern woodPattern;
     public static Pattern metalPattern;
+
+    // legendary weapons?
+    public static GlassArrows glassArrows;
+    public static Boneana boneana;
 
     // other stuff
     public static Random random = new Random();
@@ -262,7 +267,11 @@ public class TinkerWeaponry {
 
     private void registerLegendaries()
     {
-        GameRegistry.registerItem(new GlassArrows(), "GlassArrows");
+        glassArrows = new GlassArrows();
+        boneana = new Boneana();
+
+        GameRegistry.registerItem(glassArrows, "GlassArrows");
+        GameRegistry.registerItem(boneana, "Boneana");
     }
 
     private void registerMaterials()
