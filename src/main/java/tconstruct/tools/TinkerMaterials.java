@@ -17,21 +17,14 @@ public final class TinkerMaterials {
     stone = new Material("Stone", 1);
   }
 
+  public static void registerMaterials() {
+    TinkerRegistry.addMaterial(wood);
+    TinkerRegistry.addMaterial(stone);
+  }
+
   public static void registerToolMaterials() {
-    Material material;
-    IMaterialStats toolStats;
-
-    // Wood
-    material = wood;
-    toolStats = new ToolMaterialStats(1, 97, 1.0f, 3.5f, 0.9f);
-
-    TinkerRegistry.addMaterial(material, toolStats);
-
-    // Stone
-    material = stone;
-    toolStats = new ToolMaterialStats(1, 120, 0.2f, 4.0f, 1.0f);
-
-    TinkerRegistry.addMaterial(material, toolStats);
+    TinkerRegistry.addMaterialStats(wood, new ToolMaterialStats(1, 97, 1.0f, 3.5f, 0.9f));
+    TinkerRegistry.addMaterialStats(stone, new ToolMaterialStats(1, 120, 0.2f, 4.0f, 1.0f));
   }
 
   public static void registerBowMaterials() {

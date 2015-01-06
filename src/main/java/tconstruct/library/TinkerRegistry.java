@@ -80,6 +80,16 @@ public final class TinkerRegistry {
     }
 
     Material material = materials.get(identifier);
+    addMaterialStats(material, stats);
+  }
+
+  public static void addMaterialStats(Material material, IMaterialStats stats) {
+    if(material == null) {
+      error(String.format("Could not add Stats: Material is null"));
+      return;
+    }
+
+    String identifier = material.identifier;
     // duplicate stats
     if (material.getStats(stats.getMaterialType()) != null) {
       String registeredBy = "Unknown";
@@ -108,6 +118,16 @@ public final class TinkerRegistry {
     }
 
     Material material = materials.get(identifier);
+    addMaterialTrait(material, trait);
+  }
+
+  public static void addMaterialTrait(Material material, IMaterialTrait trait) {
+    if(material == null) {
+      error(String.format("Could not add Stats: Material is null"));
+      return;
+    }
+
+    String identifier = material.identifier;
     // duplicate traits
     if (material.hasTrait(trait.getIdentifier())) {
       String registeredBy = "Unknown";

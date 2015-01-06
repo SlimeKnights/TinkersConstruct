@@ -74,10 +74,10 @@ public class TConstruct {
 
   @Mod.EventHandler
   public void preInit(FMLPreInitializationEvent event) {
-    TinkerMaterials.registerToolMaterials();
+    // the basic tinker materials are always present
+    TinkerMaterials.registerMaterials();
 
     pulseManager.registerPulse(new TinkerTools());
-
     pulseManager.preInit(event);
   }
 

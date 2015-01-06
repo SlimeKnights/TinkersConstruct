@@ -1,6 +1,7 @@
 package tconstruct.tools;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -21,7 +22,12 @@ public class TinkerTools {
   static final Logger log = Util.getLogger(PulseId);
 
   @Handler
-  public void init(FMLPreInitializationEvent event) {
+  public void preInit(FMLPreInitializationEvent event) {
+    TinkerMaterials.registerToolMaterials();
+  }
+
+  @Handler
+  public void init(FMLInitializationEvent event) {
     ToolPart a, b;
     a = new ToolPart();
     b = new ToolPart();
