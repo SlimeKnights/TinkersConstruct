@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.world.World;
 
 /**
+ * Striped down version, get the full API from here: https://github.com/Zeno410/UndergroundBiomes1.7API
  * This is an interface for the class that can create Underground Biomes versions of arbitary ores
  * It creates three new blocks for each texturized ore.
  * @author Zeno410
