@@ -36,6 +36,9 @@ public abstract class Weapon extends ToolCore implements IBattlegearWeapon
     @Override
     public float getDigSpeed (ItemStack stack, Block block, int meta)
     {
+        if(!stack.hasTagCompound())
+            return 0f;
+        
         if (stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Broken"))
             return 0.1f;
 

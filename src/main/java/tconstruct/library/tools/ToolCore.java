@@ -594,6 +594,9 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
     @Override
     public float getDigSpeed (ItemStack stack, Block block, int meta)
     {
+        if(!stack.hasTagCompound())
+            return 0f;
+        
         NBTTagCompound tags = stack.getTagCompound();
         if (tags.getCompoundTag("InfiTool").getBoolean("Broken"))
             return 0.1f;
