@@ -2,10 +2,8 @@ package tconstruct.library.utils;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-import tconstruct.library.TinkerRegistry;
-import tconstruct.library.tools.Material;
-import tconstruct.library.tools.materials.Test;
-import tconstruct.library.tools.materials.ToolMaterialStats;
+import tconstruct.library.tinkering.Material;
+import tconstruct.library.tinkering.materials.ToolMaterialStats;
 
 public final class ToolBuilder {
 

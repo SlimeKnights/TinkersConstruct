@@ -6,9 +6,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import tconstruct.library.tools.Material;
-import tconstruct.library.tools.materials.IMaterialStats;
-import tconstruct.library.tools.traits.IMaterialTrait;
+import tconstruct.library.tinkering.Material;
+import tconstruct.library.tinkering.materials.IMaterialStats;
+import tconstruct.library.tinkering.traits.IMaterialTrait;
 
 public final class TinkerRegistry {
 

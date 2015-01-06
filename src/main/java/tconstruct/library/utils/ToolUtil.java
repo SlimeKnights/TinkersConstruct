@@ -2,8 +2,8 @@ package tconstruct.library.utils;
 
 import net.minecraft.item.ItemStack;
 
-import tconstruct.library.tools.IToolPart;
-import tconstruct.library.tools.Material;
+import tconstruct.library.tinkering.IToolPart;
+import tconstruct.library.tinkering.Material;
 
 public final class ToolUtil {
 

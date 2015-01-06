@@ -1,4 +1,4 @@
-package tconstruct.library.tools.traits;
+package tconstruct.library.tinkering.traits;
 
 public interface IMaterialTrait {
 

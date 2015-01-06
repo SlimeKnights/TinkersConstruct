@@ -1,4 +1,4 @@
-package tconstruct.library.tools;
+package tconstruct.library.tinkering;
 
 
 import net.minecraft.item.Item;
@@ -12,11 +12,11 @@ import tconstruct.library.utils.ToolUtil;
 /**
  * The base for each Tinker tool.
  */
-public abstract class ToolCore extends Item implements ITinkerable {
+public abstract class TinkerableItem extends Item implements ITinkerable, IModifyable {
 
   public final PartMaterialWrapper[] requiredComponents;
 
-  public ToolCore(PartMaterialWrapper... requiredComponents) {
+  public TinkerableItem(PartMaterialWrapper... requiredComponents) {
     this.requiredComponents = requiredComponents;
   }
 

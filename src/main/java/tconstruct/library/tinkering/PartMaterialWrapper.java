@@ -1,11 +1,9 @@
-package tconstruct.library.tools;
+package tconstruct.library.tinkering;
 
 import net.minecraft.item.ItemStack;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import tconstruct.library.tools.materials.IMaterialStats;
 
 public class PartMaterialWrapper {
 

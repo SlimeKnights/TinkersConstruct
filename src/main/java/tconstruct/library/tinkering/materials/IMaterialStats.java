@@ -1,4 +1,4 @@
-package tconstruct.library.tools.materials;
+package tconstruct.library.tinkering.materials;
 
 public interface IMaterialStats {
 

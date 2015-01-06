@@ -1,4 +1,4 @@
-package tconstruct.library.tools;
+package tconstruct.library.tinkering;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

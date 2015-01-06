@@ -3,9 +3,8 @@ package tconstruct.tools;
 import net.minecraft.util.EnumChatFormatting;
 
 import tconstruct.library.TinkerRegistry;
-import tconstruct.library.tools.Material;
-import tconstruct.library.tools.materials.IMaterialStats;
-import tconstruct.library.tools.materials.ToolMaterialStats;
+import tconstruct.library.tinkering.Material;
+import tconstruct.library.tinkering.materials.ToolMaterialStats;
 
 public final class TinkerMaterials {
 

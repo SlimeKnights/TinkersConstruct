@@ -10,10 +10,10 @@ import org.apache.logging.log4j.Logger;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import tconstruct.Util;
-import tconstruct.library.tools.PartMaterialWrapper;
-import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.ToolPart;
-import tconstruct.library.tools.materials.ToolMaterialStats;
+import tconstruct.library.tinkering.PartMaterialWrapper;
+import tconstruct.library.tinkering.TinkerableItem;
+import tconstruct.library.tinkering.ToolPart;
+import tconstruct.library.tinkering.materials.ToolMaterialStats;
 
 @Pulse(id = TinkerTools.PulseId, description = "This module contains all the tools and everything related to it.")
 public class TinkerTools {
@@ -39,7 +39,7 @@ public class TinkerTools {
     c = new PartMaterialWrapper(a, ToolMaterialStats.TYPE);
     d = new PartMaterialWrapper(b, ToolMaterialStats.TYPE);
 
-    ToolCore testTool = new TestTool(c, d);
+    TinkerableItem testTool = new TestTool(c, d);
 
     GameRegistry.registerItem(testTool, "TestTool");
 
