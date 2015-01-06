@@ -72,6 +72,12 @@ public class Manual extends CraftingItem
         case 2:
             list.add("\u00a7o" + StatCollector.translateToLocal("manual3.tooltip"));
             break;
+        case 4:
+        	list.add("\u00a7o" + StatCollector.translateToLocal("manual4.tooltip"));
+        	break;
+        default:
+        	list.add("\u00a7o" + StatCollector.translateToLocal("manual5.tooltip"));
+        	break;
         }
     }
 }
