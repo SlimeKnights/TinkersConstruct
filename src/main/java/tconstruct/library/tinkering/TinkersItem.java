@@ -12,11 +12,11 @@ import tconstruct.library.utils.ToolUtil;
 /**
  * The base for each Tinker tool.
  */
-public abstract class TinkerableItem extends Item implements ITinkerable, IModifyable {
+public abstract class TinkersItem extends Item implements ITinkerable, IModifyable {
 
   public final PartMaterialWrapper[] requiredComponents;
 
-  public TinkerableItem(PartMaterialWrapper... requiredComponents) {
+  public TinkersItem(PartMaterialWrapper... requiredComponents) {
     this.requiredComponents = requiredComponents;
   }
 
@@ -28,7 +28,7 @@ public abstract class TinkerableItem extends Item implements ITinkerable, IModif
     return requiredComponents[slot].isValid(stack);
   }
 
-  public ItemStack buildTool(ItemStack[] stacks) {
+  public ItemStack buildItem(ItemStack[] stacks) {
     Material[] materials = new Material[stacks.length];
     // not a valid part arrangement for tis tool
     for (int i = 0; i < stacks.length; i++) {
@@ -41,7 +41,7 @@ public abstract class TinkerableItem extends Item implements ITinkerable, IModif
 
     ItemStack tool = new ItemStack(this);
     NBTTagCompound basetag = new NBTTagCompound();
-    NBTTagCompound toolTag = buildToolTag(materials);
+    NBTTagCompound toolTag = buildTag(materials);
 
     basetag.setTag(getTagName(), toolTag);
     tool.setTagCompound(basetag);
@@ -49,7 +49,7 @@ public abstract class TinkerableItem extends Item implements ITinkerable, IModif
     return tool;
   }
 
-  protected abstract NBTTagCompound buildToolTag(Material[] materials);
+  protected abstract NBTTagCompound buildTag(Material[] materials);
 
   @Override
   public String getTagName() {

@@ -11,7 +11,7 @@ import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import tconstruct.Util;
 import tconstruct.library.tinkering.PartMaterialWrapper;
-import tconstruct.library.tinkering.TinkerableItem;
+import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.tinkering.ToolPart;
 import tconstruct.library.tinkering.materials.ToolMaterialStats;
 
@@ -39,7 +39,7 @@ public class TinkerTools {
     c = new PartMaterialWrapper(a, ToolMaterialStats.TYPE);
     d = new PartMaterialWrapper(b, ToolMaterialStats.TYPE);
 
-    TinkerableItem testTool = new TestTool(c, d);
+    TinkersItem testTool = new TestTool(c, d);
 
     GameRegistry.registerItem(testTool, "TestTool");
 
@@ -47,7 +47,7 @@ public class TinkerTools {
     e = new ItemStack(a, 1, TinkerMaterials.stone.metadata);
     f = new ItemStack(b, 1, TinkerMaterials.wood.metadata);
 
-    ItemStack result = testTool.buildTool(new ItemStack[]{e, f});
+    ItemStack result = testTool.buildItem(new ItemStack[]{e, f});
     log.info(result.hasTagCompound());
   }
 }
