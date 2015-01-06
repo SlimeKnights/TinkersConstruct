@@ -9,7 +9,6 @@ import mantle.pulsar.pulse.Pulse;
 import tconstruct.TConstruct;
 import tconstruct.world.TinkerWorld;
 
-@ObjectHolder(TConstruct.modID)
 @Pulse(id = "Tinkers' Underground Biomes Compatiblity", description = "Tinkers' Construct compatibilty for Underground Biomes Construct", modsRequired = "UndergroundBiomes", pulsesRequired = "Tinkers' World", forced = true)
 public class TinkerUBC
 {
@@ -28,9 +27,15 @@ public class TinkerUBC
         {
             UBAPIHook.ubAPIHook.ubOreTexturizer.requestUBOreSetup(TinkerWorld.oreSlag, meta, "tinker:ore_" + overlayTexture + "_overlay", "MetalOre." + blockName);
         }
-        catch (BlocksAreAlreadySet exception)
+        catch (RuntimeException exception)
         {
-            TConstruct.logger.error(blockName + " is already registered in UBC");
+            // we have to work around this because otherwise FML would access this for some reason
+            // and crash because BlocksAreAlreadySet Exception is not present without UBC
+            if(exception instanceof BlocksAreAlreadySet)
+                TConstruct.logger.error(blockName + " is already registered in UBC");
+            else
+                // rethrow if it's another exception
+                throw exception;
         }
 
     }
