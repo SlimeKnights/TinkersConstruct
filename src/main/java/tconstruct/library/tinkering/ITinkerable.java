@@ -1,4 +1,4 @@
-package tconstruct.library;
+package tconstruct.library.tinkering;
 
 /**
  * All classes implementing this interface

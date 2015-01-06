@@ -1,14 +1,12 @@
 package tconstruct.library.utils;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
-import tconstruct.library.ITinkerable;
+import tconstruct.library.tinkering.ITinkerable;
 
 public final class TagUtil {
 

@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import tconstruct.Util;
+import tconstruct.debug.TestTool;
 import tconstruct.library.tinkering.PartMaterialWrapper;
 import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.tinkering.ToolPart;

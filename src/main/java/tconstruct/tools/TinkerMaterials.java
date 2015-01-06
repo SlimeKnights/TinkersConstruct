@@ -8,9 +8,11 @@ import tconstruct.library.tinkering.materials.ToolMaterialStats;
 
 public final class TinkerMaterials {
 
+  public static final Material wood;
+  public static final Material stone;
+
   private TinkerMaterials() {
   }
-
   static {
     wood = new Material("Wood", 0, 0xabcdef, EnumChatFormatting.YELLOW);
     stone = new Material("Stone", 1);
@@ -33,7 +35,4 @@ public final class TinkerMaterials {
   public static void registerProjectileMaterials() {
 
   }
-
-  public static final Material wood;
-  public static final Material stone;
 }

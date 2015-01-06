@@ -1,4 +1,4 @@
-package tconstruct.tools.parts;
+package tconstruct.debug;
 
 import tconstruct.library.tinkering.ToolPart;
 

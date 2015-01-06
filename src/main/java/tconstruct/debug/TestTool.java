@@ -1,4 +1,4 @@
-package tconstruct.tools;
+package tconstruct.debug;
 
 import net.minecraft.nbt.NBTTagCompound;
 

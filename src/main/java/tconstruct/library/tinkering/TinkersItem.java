@@ -5,7 +5,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import tconstruct.library.ITinkerable;
 import tconstruct.library.utils.Tags;
 import tconstruct.library.utils.ToolUtil;
 
