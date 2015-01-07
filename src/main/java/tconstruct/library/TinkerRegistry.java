@@ -65,7 +65,7 @@ public final class TinkerRegistry {
   }
 
   public static Material getMaterial(String identifier) {
-    return materials.get(identifier);
+    return materials.containsKey(identifier) ? materials.get(identifier) : Material.UNKNOWN;
   }
 
   public static Collection<Material> getAllMaterials() {
@@ -84,7 +84,7 @@ public final class TinkerRegistry {
   }
 
   public static void addMaterialStats(Material material, IMaterialStats stats) {
-    if(material == null) {
+    if (material == null) {
       error(String.format("Could not add Stats: Material is null"));
       return;
     }
@@ -122,7 +122,7 @@ public final class TinkerRegistry {
   }
 
   public static void addMaterialTrait(Material material, IMaterialTrait trait) {
-    if(material == null) {
+    if (material == null) {
       error(String.format("Could not add Stats: Material is null"));
       return;
     }
