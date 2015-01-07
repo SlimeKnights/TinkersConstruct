@@ -24,7 +24,7 @@ public class TooltipBuilder {
   }
 
   public String[] getTooltip() {
-    return (String[])tips.toArray();
+    return tips.toArray(new String[tips.size()]);
   }
 
   public TooltipBuilder addDurability() {

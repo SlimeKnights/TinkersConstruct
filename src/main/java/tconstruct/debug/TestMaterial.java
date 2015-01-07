@@ -2,9 +2,9 @@ package tconstruct.debug;
 
 import tconstruct.library.tinkering.materials.AbstractMaterialStats;
 
-public class Test extends AbstractMaterialStats {
+public class TestMaterial extends AbstractMaterialStats {
 
-  public Test(String materialType) {
+  public TestMaterial(String materialType) {
     super(materialType);
   }
 }

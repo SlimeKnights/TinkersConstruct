@@ -1,6 +1,7 @@
 package tconstruct.library.tinkering;
 
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -23,6 +24,8 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   public TinkersItem(PartMaterialWrapper... requiredComponents) {
     this.requiredComponents = requiredComponents;
+
+    this.setMaxStackSize(1);
   }
 
   /* Building the Item */
