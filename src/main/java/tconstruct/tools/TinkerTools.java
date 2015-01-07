@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
+import tconstruct.TinkerPulse;
 import tconstruct.Util;
 import tconstruct.debug.TestTool;
 import tconstruct.library.tinkering.PartMaterialWrapper;
@@ -17,7 +18,7 @@ import tconstruct.library.tinkering.ToolPart;
 import tconstruct.library.tinkering.materials.ToolMaterialStats;
 
 @Pulse(id = TinkerTools.PulseId, description = "This module contains all the tools and everything related to it.")
-public class TinkerTools {
+public class TinkerTools extends TinkerPulse {
 
   public static final String PulseId = "TinkerTools";
   static final Logger log = Util.getLogger(PulseId);

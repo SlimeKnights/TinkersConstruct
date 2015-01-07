@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkCheckHandler;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 import org.apache.logging.log4j.LogManager;
@@ -14,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 
 import mantle.pulsar.control.PulseManager;
+import tconstruct.debug.StickOfDebugging;
 import tconstruct.tools.TinkerMaterials;
 import tconstruct.tools.TinkerTools;
 
@@ -79,6 +81,8 @@ public class TConstruct {
 
     pulseManager.registerPulse(new TinkerTools());
     pulseManager.preInit(event);
+
+    GameRegistry.registerItem(new StickOfDebugging(), "debugstick");
   }
 
   @Mod.EventHandler

@@ -1,5 +1,8 @@
 package tconstruct;
 
+import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,6 +15,7 @@ public class Util {
 
     return LogManager.getLogger(log + type);
   }
+
 
   /**
    * Removes all whitespaces from the given string and makes it lowerspace.
