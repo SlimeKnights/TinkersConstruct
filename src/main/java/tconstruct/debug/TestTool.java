@@ -12,6 +12,7 @@ import tconstruct.library.tinkering.PartMaterialWrapper;
 import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.tools.TinkersTool;
 import tconstruct.library.utils.Log;
+import tconstruct.library.utils.Tags;
 import tconstruct.library.utils.ToolBuilder;
 import tconstruct.tools.TinkerMaterials;
 
@@ -36,11 +37,6 @@ public class TestTool extends TinkersTool {
 
   @Override
   public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
-    ItemStack stack = new ItemStack(itemIn);
-    NBTTagCompound baseTag = new NBTTagCompound();
-    baseTag.setTag(getTagName(), this.buildTag(new Material[]{TinkerMaterials.stone, TinkerMaterials.wood}));
-    stack.setTagCompound(baseTag);
-
-    subItems.add(stack);
+    subItems.add(this.buildItem(new Material[]{TinkerMaterials.stone, TinkerMaterials.wood}));
   }
 }

@@ -49,7 +49,7 @@ public class TinkerTools extends TinkerPulse {
     e = new ItemStack(a, 1, TinkerMaterials.stone.metadata);
     f = new ItemStack(b, 1, TinkerMaterials.wood.metadata);
 
-    ItemStack result = testTool.buildItem(new ItemStack[]{e, f});
+    ItemStack result = testTool.buildItemFromStacks(new ItemStack[]{e, f});
     log.info(result.hasTagCompound());
   }
 }
