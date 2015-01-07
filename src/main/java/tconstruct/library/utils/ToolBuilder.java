@@ -21,6 +21,7 @@ public final class ToolBuilder {
 
     result = calculateHeadParts(headStats);
     calculateHandleParts(result, handleStats);
+    calculateHarvestLevel(result, headStats);
 
     return result;
   }
@@ -81,5 +82,22 @@ public final class ToolBuilder {
       durability *= multiplier;
       baseTag.setInteger(Tags.DURABILITY, durability);
     }
+  }
+
+  /**
+   * Takes an arbitrary amount of ToolMaterialStats and adds the maximum harvestlevel of those to the tag.
+   *
+   * @return The resulting TagCompound
+   */
+  public static void calculateHarvestLevel(NBTTagCompound baseTag, ToolMaterialStats... stats) {
+    int harvestLevel = 0;
+
+    // get max
+    for (ToolMaterialStats stat : stats) {
+      if(stat.harvestLevel > harvestLevel)
+        harvestLevel = stat.harvestLevel;
+    }
+
+    baseTag.setInteger(Tags.HARVESTLEVEL, harvestLevel);
   }
 }
