@@ -98,4 +98,32 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
                              boolean advanced) {
     Collections.addAll(tooltip, this.getInformation(stack));
   }
+
+  /* NBT loading */
+
+  @Override
+  public boolean updateItemStackNBT(NBTTagCompound nbt) {
+    // when the itemstack is loaded from NBT we recalculate all the data
+    if(nbt.hasKey(Tags.TINKER_DATA)) {
+      NBTTagCompound data = nbt.getCompoundTag(Tags.TINKER_DATA);
+      List<Material> materials = new LinkedList<>();
+      int index = 0;
+      while(data.hasKey(String.valueOf(index)))
+      {
+        // load the material from the data
+        String identifier = data.getString(String.valueOf(index));
+        // this will return Material.UNKNOWN if it doesn't exist (anymore)
+        Material mat = TinkerRegistry.getMaterial(identifier);
+        materials.add(mat);
+        index++;
+      }
+
+      NBTTagCompound toolTag = buildTag(materials.toArray(new Material[materials.size()]));
+      // update the tag
+      nbt.setTag(Tags.TOOL_BASE, toolTag);
+    }
+
+    // return value shoudln't matter since it's never checked
+    return true;
+  }
 }
