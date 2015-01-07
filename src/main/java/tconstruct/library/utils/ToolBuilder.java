@@ -14,14 +14,26 @@ public final class ToolBuilder {
    * A simple Tool consists of a head and an handle. Head determines primary stats, handle
    * multiplies primary stats.
    */
-  public static NBTTagCompound buildSimpleTool(Material headMaterial, Material handleMaterial) {
+  public static NBTTagCompound buildSimpleTool(Material headMaterial, Material handleMaterial, Material... accessoriesMaterials) {
     NBTTagCompound result;
     ToolMaterialStats headStats = headMaterial.getStats(ToolMaterialStats.TYPE);
     ToolMaterialStats handleStats = handleMaterial.getStats(ToolMaterialStats.TYPE);
 
+    // get the start values from the head
     result = calculateHeadParts(headStats);
+    // add the accessories
+    for(Material material : accessoriesMaterials)
+    {
+      ToolMaterialStats accessoryStats = material.getStats(ToolMaterialStats.TYPE);
+      calculateAccessoryParts(result, accessoryStats);
+    }
+
+    // multiply with the handles
     calculateHandleParts(result, handleStats);
+
+    // and don't forget the harvest level
     calculateHarvestLevel(result, headStats);
+
 
     return result;
   }
@@ -58,10 +70,23 @@ public final class ToolBuilder {
   }
 
   /**
+   * Adds the durability of the given materials to the tag.
+   */
+  public static void calculateAccessoryParts(NBTTagCompound baseTag, ToolMaterialStats... stats) {
+    int durability = baseTag.getInteger(Tags.DURABILITY);
+
+    // sum up stats
+    for (ToolMaterialStats stat : stats) {
+      durability += stat.durability;
+    }
+
+    // set value
+    baseTag.setInteger(Tags.DURABILITY, durability);
+  }
+
+  /**
    * Takes an arbitrary amount of ToolMaterialStats and multiplies the durability in the basetag
    * with the average
-   *
-   * @return The resulting TagCompound
    */
   public static void calculateHandleParts(NBTTagCompound baseTag, ToolMaterialStats... stats) {
     int count = 0;
@@ -85,9 +110,7 @@ public final class ToolBuilder {
   }
 
   /**
-   * Takes an arbitrary amount of ToolMaterialStats and adds the maximum harvestlevel of those to the tag.
-   *
-   * @return The resulting TagCompound
+   * Choses the highest harvestlevel of the given materials and sets it in the tag.
    */
   public static void calculateHarvestLevel(NBTTagCompound baseTag, ToolMaterialStats... stats) {
     int harvestLevel = 0;
