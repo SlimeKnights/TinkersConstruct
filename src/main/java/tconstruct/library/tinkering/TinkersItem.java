@@ -1,10 +1,16 @@
 package tconstruct.library.tinkering;
 
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import java.util.Collections;
+import java.util.List;
+
+import tconstruct.Util;
 import tconstruct.library.utils.Tags;
 import tconstruct.library.utils.ToolUtil;
 
@@ -19,6 +25,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     this.requiredComponents = requiredComponents;
   }
 
+  /* Building the Item */
   public boolean validComponent(int slot, ItemStack stack) {
     if (slot > requiredComponents.length || slot < 0) {
       return false;
@@ -53,5 +60,13 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   @Override
   public String getTagName() {
     return Tags.TOOL_BASE;
+  }
+
+  /* Information */
+
+  @Override
+  public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip,
+                             boolean advanced) {
+    Collections.addAll(tooltip, this.getInformation(stack));
   }
 }

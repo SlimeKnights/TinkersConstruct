@@ -1,31 +1,23 @@
 package tconstruct.library.tools;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
-import tconstruct.library.tinkering.Material;
-import tconstruct.library.tinkering.TinkersItem;
+import tconstruct.library.utils.TooltipBuilder;
 
-public class TinkerHarvestTool extends TinkersTool {
-  @Override
-  public float getDigSpeed(ItemStack itemstack, IBlockState state) {
-    return ToolHelper.calcDigSpeed(itemstack, state);
-  }
-
-  @Override
-  protected NBTTagCompound buildTag(Material[] materials) {
-    return null;
-  }
-
+public abstract class TinkerHarvestTool extends TinkersTool {
   @Override
   public String getItemType() {
     return "harvest";
   }
 
   @Override
-  public String[] getInformation() {
-    // todo
-    return new String[0];
+  public String[] getInformation(ItemStack stack) {
+    TooltipBuilder info = new TooltipBuilder(stack);
+
+    info.addDurability();
+    info.addHarvestLevel();
+    info.addMiningSpeed();
+
+    return info.getTooltip();
   }
 }

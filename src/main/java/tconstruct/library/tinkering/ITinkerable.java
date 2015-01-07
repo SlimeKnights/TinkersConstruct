@@ -1,5 +1,7 @@
 package tconstruct.library.tinkering;
 
+import net.minecraft.item.ItemStack;
+
 /**
  * All classes implementing this interface
  */
@@ -20,5 +22,5 @@ public interface ITinkerable {
    * Returns an String of arrays, where each String represents an information about the tool. Used
    * to display Information about the item in a tooltip or the GUI
    */
-  public String[] getInformation();
+  public String[] getInformation(ItemStack stack);
 }

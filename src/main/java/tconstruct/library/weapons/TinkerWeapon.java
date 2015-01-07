@@ -1,16 +1,11 @@
 package tconstruct.library.weapons;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.item.ItemStack;
 
-import tconstruct.library.tinkering.Material;
 import tconstruct.library.tools.TinkersTool;
+import tconstruct.library.utils.TooltipBuilder;
 
-public class TinkerWeapon extends TinkersTool {
-
-  @Override
-  protected NBTTagCompound buildTag(Material[] materials) {
-    return null;
-  }
+public abstract class TinkerWeapon extends TinkersTool {
 
   @Override
   public String getItemType() {
@@ -18,8 +13,12 @@ public class TinkerWeapon extends TinkersTool {
   }
 
   @Override
-  public String[] getInformation() {
-    // todo
-    return new String[0];
+  public String[] getInformation(ItemStack stack) {
+    TooltipBuilder info = new TooltipBuilder(stack);
+
+    info.addDurability();
+    info.addAttack();
+
+    return info.getTooltip();
   }
 }

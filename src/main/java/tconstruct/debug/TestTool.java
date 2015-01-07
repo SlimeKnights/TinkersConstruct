@@ -1,5 +1,6 @@
 package tconstruct.debug;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import tconstruct.library.tinkering.Material;
@@ -26,7 +27,7 @@ public class TestTool extends TinkersItem {
   }
 
   @Override
-  public String[] getInformation() {
+  public String[] getInformation(ItemStack stack) {
     return new String[0];
   }
 }
