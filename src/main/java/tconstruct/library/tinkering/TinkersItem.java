@@ -1,19 +1,16 @@
 package tconstruct.library.tinkering;
 
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.Collections;
 import java.util.List;
 
-import tconstruct.Util;
 import tconstruct.library.utils.Tags;
-import tconstruct.library.utils.ToolUtil;
+import tconstruct.library.utils.TinkerUtil;
 
 /**
  * The base for each Tinker tool.
@@ -45,7 +42,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
         return null;
       }
 
-      materials[i] = ToolUtil.getMaterialFromStack(stacks[i]);
+      materials[i] = TinkerUtil.getMaterialFromStack(stacks[i]);
     }
 
     ItemStack tool = new ItemStack(this);

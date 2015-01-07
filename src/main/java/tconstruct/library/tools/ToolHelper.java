@@ -3,11 +3,10 @@ package tconstruct.library.tools;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 
 import tconstruct.library.utils.Tags;
-import tconstruct.library.utils.ToolUtil;
+import tconstruct.library.utils.TinkerUtil;
 
 public final class ToolHelper {
 
@@ -91,7 +90,7 @@ public final class ToolHelper {
   // a small helper function so we don't have to write all the checks in every function
   // also doubles as safety check
   private static NBTTagCompound getToolTag(ItemStack stack) {
-    NBTTagCompound tag = ToolUtil.getTinkerTag(stack);
+    NBTTagCompound tag = TinkerUtil.getTinkerTag(stack);
     // safe check because getTinkerTag does all the null checks
     if(tag != null && stack.getItem() instanceof TinkersTool)
       return tag;

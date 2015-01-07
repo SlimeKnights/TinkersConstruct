@@ -7,9 +7,9 @@ import tconstruct.library.tinkering.ITinkerable;
 import tconstruct.library.tinkering.IToolPart;
 import tconstruct.library.tinkering.Material;
 
-public final class ToolUtil {
+public final class TinkerUtil {
 
-  private ToolUtil() {
+  private TinkerUtil() {
   }
 
   public static Material getMaterialFromStack(ItemStack stack) {
