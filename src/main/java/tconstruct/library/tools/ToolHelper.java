@@ -3,6 +3,7 @@ package tconstruct.library.tools;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 
 import tconstruct.library.utils.Tags;
@@ -13,13 +14,31 @@ public final class ToolHelper {
   private ToolHelper() {
   }
 
+  /* Basic Tool data */
+  public static int getDurability(ItemStack stack) {
+    return getIntTag(stack, Tags.DURABILITY);
+  }
+
+  public static int getHarvestLevel(ItemStack stack) {
+    return getIntTag(stack, Tags.HARVESTLEVEL);
+  }
+
+  public static float getMiningSpeed(ItemStack stack) {
+    return getfloatTag(stack, Tags.MININGSPEED);
+  }
+
+  public static float getAttack(ItemStack stack) {
+    return getIntTag(stack, Tags.ATTACK);
+  }
+
   public static float calcDigSpeed(ItemStack stack, IBlockState blockState) {
-    if (stack == null || blockState == null) {
+    if(blockState == null) {
       return 0f;
     }
 
-    if (!(stack.getItem() instanceof TinkersTool)) {
-      return 0f;
+    NBTTagCompound tag = getToolTag(stack);
+    if (tag == null) {
+      return 1f;
     }
 
     // check if the tool has the correct class and harvest level
@@ -28,10 +47,7 @@ public final class ToolHelper {
     }
 
     // calculate speed depending on stats
-    NBTTagCompound tag = ToolUtil.getTinkerTag(stack);
-    if (tag == null) {
-      return 1f;
-    }
+
 
     // strength = default 1
     float strength = stack.getItem().getStrVsBlock(stack, blockState.getBlock());
@@ -68,5 +84,38 @@ public final class ToolHelper {
     int level = block.getHarvestLevel(state);
 
     return stack.getItem().getHarvestLevel(stack, type) >= level;
+  }
+
+  /* Helper Functions */
+
+  // a small helper function so we don't have to write all the checks in every function
+  // also doubles as safety check
+  private static NBTTagCompound getToolTag(ItemStack stack) {
+    NBTTagCompound tag = ToolUtil.getTinkerTag(stack);
+    // safe check because getTinkerTag does all the null checks
+    if(tag != null && stack.getItem() instanceof TinkersTool)
+      return tag;
+
+    return null;
+  }
+
+  public static int getIntTag(ItemStack stack, String key) {
+    // getTinkerTag doubles as safety check
+    NBTTagCompound tag = getToolTag(stack);
+    if(tag == null) {
+      return 0;
+    }
+
+    return tag.getInteger(key);
+  }
+
+  public static float getfloatTag(ItemStack stack, String key) {
+    // getTinkerTag doubles as safety check
+    NBTTagCompound tag = getToolTag(stack);
+    if(tag == null) {
+      return 0;
+    }
+
+    return tag.getFloat(key);
   }
 }
