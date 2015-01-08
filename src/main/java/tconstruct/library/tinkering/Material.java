@@ -111,14 +111,7 @@ public class Material {
    */
   @SuppressWarnings("unchecked")
   public <T extends IMaterialStats> T getStats(String identifier) {
-    try {
       return (T) getStatsSafe(identifier);
-    } catch (ClassCastException e) {
-      Log.error(
-          "You're trying to get stats of the type \"%s\" but got something else instead. What are you DOING?",
-          identifier);
-      throw e;
-    }
   }
 
   public Collection<IMaterialStats> getAllStats() {
