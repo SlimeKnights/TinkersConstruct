@@ -33,9 +33,8 @@ public class TConstruct {
 
   public static final String modID = "TConstruct";
   public static final String modVersion = "${version}";
-  /**
+  /*
    * The value of one ingot in millibuckets
-   */
   public static final int ingotLiquidValue = 144;
   public static final int oreLiquidValue = ingotLiquidValue * 2;
   public static final int blockLiquidValue = ingotLiquidValue * 9;
@@ -44,7 +43,7 @@ public class TConstruct {
   public static final int stoneLiquidValue = ingotLiquidValue / 8;
 
   public static final int liquidUpdateAmount = 6;
-
+*/
   public static final Logger log = LogManager.getLogger(modID);
 
   /* Instance of this mod, used for grabbing prototype fields */

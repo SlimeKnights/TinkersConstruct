@@ -31,7 +31,7 @@ public final class ToolHelper {
   }
 
   public static float calcDigSpeed(ItemStack stack, IBlockState blockState) {
-    if(blockState == null) {
+    if (blockState == null) {
       return 0f;
     }
 
@@ -46,7 +46,6 @@ public final class ToolHelper {
     }
 
     // calculate speed depending on stats
-
 
     // strength = default 1
     float strength = stack.getItem().getStrVsBlock(stack, blockState.getBlock());
@@ -92,8 +91,9 @@ public final class ToolHelper {
   private static NBTTagCompound getToolTag(ItemStack stack) {
     NBTTagCompound tag = TinkerUtil.getTinkerTag(stack);
     // safe check because getTinkerTag does all the null checks
-    if(tag != null && stack.getItem() instanceof TinkersTool)
+    if (tag != null && stack.getItem() instanceof TinkersTool) {
       return tag;
+    }
 
     return null;
   }
@@ -101,7 +101,7 @@ public final class ToolHelper {
   public static int getIntTag(ItemStack stack, String key) {
     // getTinkerTag doubles as safety check
     NBTTagCompound tag = getToolTag(stack);
-    if(tag == null) {
+    if (tag == null) {
       return 0;
     }
 
@@ -111,7 +111,7 @@ public final class ToolHelper {
   public static float getfloatTag(ItemStack stack, String key) {
     // getTinkerTag doubles as safety check
     NBTTagCompound tag = getToolTag(stack);
-    if(tag == null) {
+    if (tag == null) {
       return 0;
     }
 

@@ -13,6 +13,7 @@ public final class TinkerMaterials {
 
   private TinkerMaterials() {
   }
+
   static {
     wood = new Material("Wood", 0, 0xabcdef, EnumChatFormatting.YELLOW);
     stone = new Material("Stone", 1);

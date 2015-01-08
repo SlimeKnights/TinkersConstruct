@@ -14,7 +14,8 @@ public final class ToolBuilder {
    * A simple Tool consists of a head and an handle. Head determines primary stats, handle
    * multiplies primary stats.
    */
-  public static NBTTagCompound buildSimpleTool(Material headMaterial, Material handleMaterial, Material... accessoriesMaterials) {
+  public static NBTTagCompound buildSimpleTool(Material headMaterial, Material handleMaterial,
+                                               Material... accessoriesMaterials) {
     NBTTagCompound result;
     ToolMaterialStats headStats = headMaterial.getStats(ToolMaterialStats.TYPE);
     ToolMaterialStats handleStats = handleMaterial.getStats(ToolMaterialStats.TYPE);
@@ -22,8 +23,7 @@ public final class ToolBuilder {
     // get the start values from the head
     result = calculateHeadParts(headStats);
     // add the accessories
-    for(Material material : accessoriesMaterials)
-    {
+    for (Material material : accessoriesMaterials) {
       ToolMaterialStats accessoryStats = material.getStats(ToolMaterialStats.TYPE);
       calculateAccessoryParts(result, accessoryStats);
     }
@@ -33,7 +33,6 @@ public final class ToolBuilder {
 
     // and don't forget the harvest level
     calculateHarvestLevel(result, headStats);
-
 
     return result;
   }
@@ -117,8 +116,9 @@ public final class ToolBuilder {
 
     // get max
     for (ToolMaterialStats stat : stats) {
-      if(stat.harvestLevel > harvestLevel)
+      if (stat.harvestLevel > harvestLevel) {
         harvestLevel = stat.harvestLevel;
+      }
     }
 
     baseTag.setInteger(Tags.HARVESTLEVEL, harvestLevel);

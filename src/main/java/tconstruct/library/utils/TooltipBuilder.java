@@ -28,33 +28,37 @@ public class TooltipBuilder {
   }
 
   public TooltipBuilder addDurability() {
-    if(stack != null)
-    tips.add(String.format("%s: %d", StatCollector.translateToLocal("tooltip.tool.durability"),
-                           ToolHelper.getDurability(stack)));
+    if (stack != null) {
+      tips.add(String.format("%s: %d", StatCollector.translateToLocal("tooltip.tool.durability"),
+                             ToolHelper.getDurability(stack)));
+    }
 
     return this;
   }
 
   public TooltipBuilder addMiningSpeed() {
-    if(stack != null)
-    tips.add(String.format("%s: %s", StatCollector.translateToLocal("tooltip.tool.miningspeed"),
-                           df.format(ToolHelper.getMiningSpeed(stack))));
+    if (stack != null) {
+      tips.add(String.format("%s: %s", StatCollector.translateToLocal("tooltip.tool.miningspeed"),
+                             df.format(ToolHelper.getMiningSpeed(stack))));
+    }
 
     return this;
   }
 
   public TooltipBuilder addHarvestLevel() {
-    if(stack != null)
-    tips.add(String.format("%s: %d", StatCollector.translateToLocal("tooltip.tool.harvestlevel"),
-                           ToolHelper.getHarvestLevel(stack)));
+    if (stack != null) {
+      tips.add(String.format("%s: %d", StatCollector.translateToLocal("tooltip.tool.harvestlevel"),
+                             ToolHelper.getHarvestLevel(stack)));
+    }
 
     return this;
   }
 
   public TooltipBuilder addAttack() {
-    if(stack != null)
-    tips.add(String.format("%s: %s", StatCollector.translateToLocal("tooltip.tool.attack"),
-                           df.format(ToolHelper.getAttack(stack))));
+    if (stack != null) {
+      tips.add(String.format("%s: %s", StatCollector.translateToLocal("tooltip.tool.attack"),
+                             df.format(ToolHelper.getAttack(stack))));
+    }
 
     return this;
   }

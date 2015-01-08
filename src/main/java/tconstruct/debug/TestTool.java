@@ -2,17 +2,14 @@ package tconstruct.debug;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.List;
 
 import tconstruct.library.tinkering.Material;
 import tconstruct.library.tinkering.PartMaterialWrapper;
-import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.tools.TinkersTool;
 import tconstruct.library.utils.Log;
-import tconstruct.library.utils.Tags;
 import tconstruct.library.utils.ToolBuilder;
 import tconstruct.tools.TinkerMaterials;
 

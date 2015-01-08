@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import tconstruct.library.utils.TooltipBuilder;
 
 public abstract class TinkerHarvestTool extends TinkersTool {
+
   @Override
   public String getItemType() {
     return "harvest";

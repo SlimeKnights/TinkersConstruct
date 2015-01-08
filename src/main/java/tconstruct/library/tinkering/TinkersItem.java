@@ -38,6 +38,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   /**
    * Builds an Itemstack of this tool with the given materials, if applicable.
+   *
    * @param stacks Items to build with. Have to be in the correct order. No nulls!
    * @return The built item or null if invalid input.
    */
@@ -57,6 +58,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   /**
    * Builds an Itemstack of this tool with the given materials.
+   *
    * @param materials Materials to build with. Have to be in the correct order. No nulls!
    * @return The built item or null if invalid input.
    */
@@ -78,8 +80,9 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
    */
   private NBTTagCompound buildData(Material[] materials) {
     NBTTagCompound tag = new NBTTagCompound();
-    for(int i = 0; i < materials.length; i++)
+    for (int i = 0; i < materials.length; i++) {
       tag.setString(String.valueOf(i), materials[i].identifier);
+    }
 
     return tag;
   }
@@ -104,12 +107,11 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   @Override
   public boolean updateItemStackNBT(NBTTagCompound nbt) {
     // when the itemstack is loaded from NBT we recalculate all the data
-    if(nbt.hasKey(Tags.TINKER_DATA)) {
+    if (nbt.hasKey(Tags.TINKER_DATA)) {
       NBTTagCompound data = nbt.getCompoundTag(Tags.TINKER_DATA);
       List<Material> materials = new LinkedList<>();
       int index = 0;
-      while(data.hasKey(String.valueOf(index)))
-      {
+      while (data.hasKey(String.valueOf(index))) {
         // load the material from the data
         String identifier = data.getString(String.valueOf(index));
         // this will return Material.UNKNOWN if it doesn't exist (anymore)

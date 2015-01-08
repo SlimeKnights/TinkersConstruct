@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  * Just a small helper class that provides some function for cleaner Pulses.
  */
 public abstract class TinkerPulse {
+
   /**
    * Sets the correct unlocalized name and registers the item.
    */
@@ -24,7 +25,9 @@ public abstract class TinkerPulse {
     return block;
   }
 
-  protected static <T extends Block> T registerBlock(T block, Class<? extends ItemBlock> itemBlockClazz, String unlocName) {
+  protected static <T extends Block> T registerBlock(T block,
+                                                     Class<? extends ItemBlock> itemBlockClazz,
+                                                     String unlocName) {
     block.setUnlocalizedName(Util.prefix(unlocName));
     GameRegistry.registerBlock(block, itemBlockClazz, unlocName);
     return block;

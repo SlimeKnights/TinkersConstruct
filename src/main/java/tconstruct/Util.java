@@ -1,8 +1,5 @@
 package tconstruct;
 
-import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +10,7 @@ public class Util {
   public static Logger getLogger(String type) {
     String log = TConstruct.modID;
 
-    return LogManager.getLogger(log + type);
+    return LogManager.getLogger(log + "-" + type);
   }
 
 

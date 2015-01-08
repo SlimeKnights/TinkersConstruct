@@ -11,7 +11,6 @@ import javax.annotation.Nonnull;
 import tconstruct.library.TinkerAPIException;
 import tconstruct.library.tinkering.materials.IMaterialStats;
 import tconstruct.library.tinkering.traits.IMaterialTrait;
-import tconstruct.library.utils.Log;
 
 public class Material {
 
@@ -111,7 +110,7 @@ public class Material {
    */
   @SuppressWarnings("unchecked")
   public <T extends IMaterialStats> T getStats(String identifier) {
-      return (T) getStatsSafe(identifier);
+    return (T) getStatsSafe(identifier);
   }
 
   public Collection<IMaterialStats> getAllStats() {
