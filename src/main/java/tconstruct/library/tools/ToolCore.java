@@ -841,7 +841,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
 
     /* IEnergyContainerItem */
     @Override
-    @Optional.Method(modid = "CoFHLib")
+    @Optional.Method(modid = "CoFHAPI|energy")
     public int receiveEnergy (ItemStack container, int maxReceive, boolean simulate)
     {
         NBTTagCompound tags = container.getTagCompound();
@@ -863,7 +863,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
     }
 
     @Override
-    @Optional.Method(modid = "CoFHLib")
+    @Optional.Method(modid = "CoFHAPI|energy")
     public int extractEnergy (ItemStack container, int maxExtract, boolean simulate)
     {
         NBTTagCompound tags = container.getTagCompound();
@@ -886,7 +886,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
     }
 
     @Override
-    @Optional.Method(modid = "CoFHLib")
+    @Optional.Method(modid = "CoFHAPI|energy")
     public int getEnergyStored (ItemStack container)
     {
         NBTTagCompound tags = container.getTagCompound();
@@ -898,7 +898,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
     }
 
     @Override
-    @Optional.Method(modid = "CoFHLib")
+    @Optional.Method(modid = "CoFHAPI|energy")
     public int getMaxEnergyStored (ItemStack container)
     {
         NBTTagCompound tags = container.getTagCompound();
