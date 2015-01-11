@@ -49,7 +49,7 @@ import tconstruct.util.config.PHConstruct;
  */
 
 @Optional.InterfaceList({
-        @Optional.Interface(modid = "CoFHLib", iface = "cofh.api.energy.IEnergyContainerItem"),
+        @Optional.Interface(modid = "CoFHAPI|energy", iface = "cofh.api.energy.IEnergyContainerItem"),
         @Optional.Interface(modid = "CoFHCore", iface = "cofh.core.item.IEqualityOverrideItem")
 })
 public abstract class ToolCore extends Item implements IEnergyContainerItem, IEqualityOverrideItem, IModifyable
