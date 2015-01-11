@@ -80,23 +80,22 @@ public class TActiveOmniMod extends ActiveToolMod
         if (block == null)
             return false;
 
-        int meta = world.getBlockMetadata(x, y, z);
+        int blockMeta = world.getBlockMetadata(x, y, z);
 
-        if(!block.getMaterial().isToolNotRequired() && !ForgeHooks.canToolHarvestBlock(block, meta, stack))
+        if(!block.getMaterial().isToolNotRequired() && !ForgeHooks.canToolHarvestBlock(block, blockMeta, stack))
             return false;
 
-        meta = block.damageDropped(meta);
-
-        if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
+        if (tags.getBoolean("Lava") && block.quantityDropped(blockMeta, 0, random) > 0)
         {
+            int itemMeta = block.damageDropped(blockMeta);
             int amount = block.quantityDropped(random);
-            Item item = block.getItemDropped(meta, random, EnchantmentHelper.getFortuneModifier(entity));
+            Item item = block.getItemDropped(blockMeta, random, EnchantmentHelper.getFortuneModifier(entity));
 
             // apparently some things that don't drop blocks (like glass panes without silktouch) return null.
             if (item == null)
                 return false;
 
-            ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(item, amount, meta));
+            ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(item, amount, itemMeta));
             if (result != null)
             {
                 world.setBlockToAir(x, y, z);
@@ -119,7 +118,7 @@ public class TActiveOmniMod extends ActiveToolMod
 
                     entityitem.delayBeforeCanPickup = 10;
                     world.spawnEntityInWorld(entityitem);
-                    world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
+                    world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (blockMeta << 12));
 
                     int i = spawnme.stackSize;
                     float f = FurnaceRecipes.smelting().func_151398_b(spawnme);
