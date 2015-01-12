@@ -949,9 +949,10 @@ manual.page.modifier3=Стол инженера
 manual.page.casting1=Ингридиенты
 manual.page.tool1=Детали
 
-tool.baneofpigs=Бич свиней
 tool.glassarrows=Стеклянные стрелы
 tool.glassarrows.lore=Созданы легендой по имени Glassmaker
+tool.boneana.lore=Это звучало как неплохая идея раньше
+tool.baneofpigs=Бич свиней
 tool.infiminer=Бесконечный добыватель
 
 tool.core.broken=Сломан.
@@ -1036,6 +1037,12 @@ modifier.tooltip.ThaumicSenses=Таумическое чувство
 modifier.tooltip.Triple-Jump=Тройной прыжок
 modifier.tooltip.ThaumicVision=Таумическое зрение
 modifier.tooltip.Water-Walking=Прогулка по воде
+
+option.tcon.searedtank=Обожжённый резервуар
+option.tcon.castingchannel=Разливочный канал
+option.tcon.basin=Литейный резервуар
+option.tcon.table=Литейный стол
+option.tcon.smeltery=Статус плавильни
 
 tool.pickaxe.netherrack=Кирка из камня Нижнего мира
 tool.shovel.netherrack=Лопата из камня Нижнего мира

@@ -1037,3 +1037,9 @@ modifier.tooltip.ThaumicSenses=Thaumic Senses
 modifier.tooltip.Triple-Jump=Triple-Jump
 modifier.tooltip.ThaumicVision=Thaumic Vision
 modifier.tooltip.Water-Walking=Water-Walking
+
+option.tcon.searedtank=Seared Tank
+option.tcon.castingchannel=Casting Channel
+option.tcon.basin=Casting Basin
+option.tcon.table=Casting Table
+option.tcon.smeltery=Smeltery Status
