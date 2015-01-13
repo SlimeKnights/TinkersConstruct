@@ -514,7 +514,10 @@ public class SmelteryGui extends ActiveContainerGui
         float right = icon.getInterpolatedU(endU);
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
-        tessellator.setColorOpaque_I(color);
+        float r = (color >> 16 & 255) / 255F;
+        float g = (color >> 8 & 255) / 255F;
+        float b = (color & 255) / 255F;
+        GL11.glColor3f(r, g, b);
         tessellator.addVertexWithUV(startU + 0, startV + endV, this.zLevel, left, bottom);//Bottom left
         tessellator.addVertexWithUV(startU + endU, startV + endV, this.zLevel, right, bottom);//Bottom right
         tessellator.addVertexWithUV(startU + endU, startV + 0, this.zLevel, right, top);//Top right
