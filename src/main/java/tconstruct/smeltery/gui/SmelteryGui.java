@@ -364,7 +364,7 @@ public class SmelteryGui extends ActiveContainerGui
         }
         else
         {
-            String name = liquid.getFluid().getLocalizedName();
+            String name = liquid.getFluid().getLocalizedName(liquid);
             list.add("\u00A7f" + name);
             if (name.equals(StatCollector.translateToLocal("fluid.emerald.liquid")))
             {
