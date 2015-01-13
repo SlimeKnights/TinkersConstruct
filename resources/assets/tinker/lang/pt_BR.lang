@@ -334,21 +334,21 @@ beginnertool.hatchet=Machadinha do Iniciante
 
 Smeltery.Controller.name=Controlador da Oficina de Fundição
 Smeltery.Drain.name=Dreno da Oficina de Fundição
-Smeltery.Brick.name=Tijolo Queimado
-Smeltery.Stone.name=Pedra Queimado
-Smeltery.Cobblestone.name=Pedregulho Queimado
-Smeltery.Paver.name=Pavimento Queimado
-Smeltery.Brick.Cracked.name=Tijolo Queimado Quebrado
+Smeltery.Brick.name=Tijolo de Queima
+Smeltery.Stone.name=Pedra de Queima
+Smeltery.Cobblestone.name=Pedregulho de Queima
+Smeltery.Paver.name=Pavimento de Queima
+Smeltery.Brick.Cracked.name=Tijolo de Queima Quebrado
 Smeltery.Road.name=Calçada Queimada
-Smeltery.Brick.Fancy.name=Tijolo Queimado Bonito
-Smeltery.Brick.Square.name=Tijolo Queimado Cinzelado
-Smeltery.Brick.Creeper.name=Tijolo Queimado Cinzelado
+Smeltery.Brick.Fancy.name=Tijolo de Queima Bonito
+Smeltery.Brick.Square.name=Tijolo de Queima Cinzelado
+Smeltery.Brick.Creeper.name=Tijolo de Queima Cinzelado
 Smeltery.Channel.name=Canal de Fundição 
 block.slime.soil.dirt.name=Terra de Slime
 
-LavaTank.Tank.name=Tanque Queimado
-LavaTank.Gague.name=Vidro Queimado
-LavaTank.Window.name=Janela Queimado
+LavaTank.Tank.name=Tanque de Queima
+LavaTank.Gague.name=Vidro de Queima
+LavaTank.Window.name=Janela de Queima
 
 tile.landmine.name=Mina Terrestre
 
@@ -417,14 +417,14 @@ block.stainedglass.green.pane.name=Painel Tingido Verde
 block.stainedglass.red.pane.name=Painel Tingido Vermelho
 block.stainedglass.black.pane.name=Painel Tingido Preto
 
-block.searedstone.slab.brick.name=Laje de Tijolo Queimado
-block.searedstone.slab.stone.name=Laje de Pedra Queimada
-block.searedstone.slab.cobble.name=Laje de Pedregulho Queimado
-block.searedstone.slab.paver.name=Laje de Pavimento Queimado
-block.searedstone.slab.road.name=Laje de Calçada Queimada
-block.searedstone.slab.fancy.name=Laje Bonita Queimada
-block.searedstone.slab.square.name=Laje Cinzelada Queimada
-block.searedstone.slab.creeper.name=Laje Cinzelada Queimada
+block.searedstone.slab.brick.name=Laje de Tijolo de Queima
+block.searedstone.slab.stone.name=Laje de Pedra de Queima
+block.searedstone.slab.cobble.name=Laje de Pedregulho de Queima
+block.searedstone.slab.paver.name=Laje de Pavimento de Queima
+block.searedstone.slab.road.name=Laje de Calçada de Queima
+block.searedstone.slab.fancy.name=Laje Bonita de Queima
+block.searedstone.slab.square.name=Laje Cinzelada de Queima
+block.searedstone.slab.creeper.name=Laje Cinzelada de Queima
 
 block.soil.slab.dirt.name=Laje de Terra
 block.soil.slab.mycelium.name=Laje de Cheia de Mycelium
@@ -1037,3 +1037,9 @@ modifier.tooltip.ThaumicSenses=Sentido Thaumico
 modifier.tooltip.Triple-Jump=Tri-Pulo
 modifier.tooltip.ThaumicVision=Visão Thaumica
 modifier.tooltip.Water-Walking=Água-a-Pé
+
+option.tcon.searedtank=Tanque de Queima
+option.tcon.castingchannel=Canal de Fundição
+option.tcon.basin=Tacho de Fundição
+option.tcon.table=Mesa de Fundição
+option.tcon.smeltery=Estado da Oficina de Fundição
