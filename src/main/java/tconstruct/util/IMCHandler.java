@@ -1,8 +1,8 @@
 package tconstruct.util;
 
+import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -12,14 +12,11 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.crafting.Smeltery;
-import tconstruct.library.crafting.StencilBuilder;
 import tconstruct.library.tools.DynamicToolPart;
 import tconstruct.library.tools.ToolMaterial;
 import tconstruct.library.util.IPattern;
-import tconstruct.library.util.IToolPart;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
-import tconstruct.tools.items.Pattern;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -246,6 +243,21 @@ public final class IMCHandler {
                 Smeltery.addSmelteryFuel(liquid.getFluid(), temperature, duration);
 
                 TConstruct.logger.info("Smeltery IMC: Added fuel: " + liquid.getLocalizedName() + " (" + temperature + ", " + duration + ")");
+            } else if (type.equals("addFluxBattery")) {
+                if (!message.isItemStackMessage()) {
+                    logInvalidMessage(message);
+                    continue;
+                }
+                ItemStack battery = message.getItemStackValue();
+                battery.stackSize = 1; // avoid getting a stack size of 0 or larger than 1
+
+                if(!(battery.getItem() instanceof IEnergyContainerItem)) {
+                    TConstruct.logger.error("Flux Battery IMC: ItemStack is no instance of IEnergyContainerItem");
+                }
+
+                if (TinkerTools.modFlux != null) {
+                    TinkerTools.modFlux.batteries.add(battery);
+                }
             }
         }
     }
