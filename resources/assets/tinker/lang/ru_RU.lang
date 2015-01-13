@@ -959,10 +959,10 @@ tool.core.broken=Сломан.
 
 armor.core.broken=Сломан.
 armor.core.protection=Защита: 
-armor.travelbelt.ability=Функция: Swap Hotbar
-armor.travelbelt.control=Управление: 
+armor.travelbelt.ability=Функция: Смена панели быстр. доступа
+armor.travelbelt.control=Применить: 
 armor.travelgoggles.ability=Функция: Приближение 
-armor.travelgoggles.toggleabilities=Переключение функций 
+armor.travelgoggles.toggleabilities=Переключить функции: 
 armor.travelvest.ability=Функция: Быстрое плавание
 armor.travelwings.ability=Функция: Высокий прыжок
 armor.travelboots.ability=Функция: Высокий шаг
