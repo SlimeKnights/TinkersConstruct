@@ -15,7 +15,11 @@ public class ActiveTinkerArmor extends ActiveArmorMod
     @Override
     public void onArmorTick (World world, EntityPlayer player, ItemStack itemStack, ArmorCore armor, ArmorPart type)
     {
+        if(!itemStack.hasTagCompound())
+            return;
         NBTTagCompound tag = itemStack.getTagCompound().getCompoundTag(((IModifyable) itemStack.getItem()).getBaseTagName());
+        if(tag == null)
+            return;
         if (tag.hasKey("Moss"))
         {
             int chance = tag.getInteger("Moss");
