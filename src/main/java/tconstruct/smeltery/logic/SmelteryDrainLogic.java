@@ -186,6 +186,9 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     public int comparatorStrength ()
     {
         CoordTuple master = this.getMasterPosition();
+        // invalid smeltery
+        if(master == null)
+            return 0;
         SmelteryLogic smeltery = (SmelteryLogic) worldObj.getTileEntity(master.x, master.y, master.z);
         return 15 * smeltery.currentLiquid / smeltery.maxLiquid;
     }
