@@ -47,7 +47,7 @@ public final class IMCHandler {
                 ToolMaterial mat = scanMaterial(tag);
                 if(mat != null) {
                     TConstructRegistry.addtoolMaterial(id, mat);
-                    TConstructRegistry.addDefaultToolPartMaterial(tag.getInteger("Id"));
+                    TConstructRegistry.addDefaultToolPartMaterial(id);
                     TConstruct.logger.info("IMC: Added material " + mat.materialName);
 
                     // bow stats
@@ -194,6 +194,43 @@ public final class IMCHandler {
 
                 TConstruct.logger.info("Casting IMC: Added fluid " + tag.getString("FluidName") + " to part casting");
             }
+            else if(type.equals("addMaterialItem")) {
+                if(!message.isNBTMessage()) {
+                    logInvalidMessage(message);
+                    continue;
+                }
+
+                NBTTagCompound tag = message.getNBTValue();
+
+                if (!checkRequiredTags("Material Item", tag, "MaterialId", "Value", "id", "Count", "Damage"))
+                    continue;
+
+                int id = tag.getInteger("MaterialId");
+                int value = tag.getInteger("Value");
+                ItemStack stack = ItemStack.loadItemStackFromNBT(tag);
+
+                if(TConstructRegistry.getMaterial(id) == null) {
+                    TConstruct.logger.error("Material Item IMC: Material with ID %d does not exist", id);
+                    continue;
+                }
+
+
+                ToolMaterial mat = TConstructRegistry.getMaterial(id);
+
+                // we already have the material registered in there
+                if(PatternBuilder.instance.materialSets.containsKey(mat.materialName))
+                {
+                    PatternBuilder.instance.registerMaterial(stack, value, mat.materialName);
+                }
+                else {
+                    TConstructRegistry.addDefaultShardMaterial(id);
+                    ItemStack shard = new ItemStack(TinkerTools.toolShard, 1, id);
+                    ItemStack rod = new ItemStack(TinkerTools.toolRod, 1, id);
+
+                    // register the material
+                    PatternBuilder.instance.registerFullMaterial(stack, value, TConstructRegistry.getMaterial(id).materialName, shard, rod, id);
+                }
+            }
             else if(type.equals("addSmelteryMelting")) {
                 if (!message.isNBTMessage()) {
                     logInvalidMessage(message);
@@ -245,7 +282,7 @@ public final class IMCHandler {
                 TConstruct.logger.info("Smeltery IMC: Added fuel: " + liquid.getLocalizedName() + " (" + temperature + ", " + duration + ")");
             } else if (type.equals("addFluxBattery")) {
                 if (!message.isItemStackMessage()) {
-                    logInvalidMessage(message);
+                    logInvalidMessage(message, "ItemStack");
                     continue;
                 }
                 ItemStack battery = message.getItemStackValue();
@@ -277,7 +314,12 @@ public final class IMCHandler {
 
     private static void logInvalidMessage(FMLInterModComms.IMCMessage message)
     {
-        TConstruct.logger.error(String.format("Received invalid IMC '%s' from %s. Not a NBT Message.", message.key, message.getSender()));
+        logInvalidMessage(message, "NBT");
+    }
+
+    private static void logInvalidMessage(FMLInterModComms.IMCMessage message, String type)
+    {
+        TConstruct.logger.error(String.format("Received invalid IMC '%s' from %s. Not a %s Message.", message.key, message.getSender(), type));
     }
 
     private static ToolMaterial scanMaterial(NBTTagCompound tag)
