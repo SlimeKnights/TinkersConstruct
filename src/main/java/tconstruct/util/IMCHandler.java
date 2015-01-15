@@ -1,12 +1,14 @@
 package tconstruct.util;
 
 import cofh.api.energy.IEnergyContainerItem;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidStack;
+import org.apache.logging.log4j.Level;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.CastingRecipe;
@@ -48,7 +50,7 @@ public final class IMCHandler {
                 if(mat != null) {
                     TConstructRegistry.addtoolMaterial(id, mat);
                     TConstructRegistry.addDefaultToolPartMaterial(id);
-                    TConstruct.logger.info("IMC: Added material " + mat.materialName);
+                    TConstruct.logger.debug("IMC: Added material " + mat.materialName);
 
                     // bow stats
                     if(tag.hasKey("Bow_DrawSpeed") && tag.hasKey("Bow_ProjectileSpeed"))
@@ -57,7 +59,7 @@ public final class IMCHandler {
                         float flightspeed = tag.getFloat("Bow_ProjectileSpeed");
 
                         TConstructRegistry.addBowMaterial(id, drawspeed, flightspeed);
-                        TConstruct.logger.info("IMC: Added Bow stats for material " + mat.materialName);
+                        TConstruct.logger.debug("IMC: Added Bow stats for material " + mat.materialName);
                     }
                     // arrow stats
                     if(tag.hasKey("Projectile_Mass") && tag.hasKey("Projectile_Fragility"))
@@ -66,7 +68,7 @@ public final class IMCHandler {
                         float breakchance = tag.getFloat("Projectile_Fragility");
 
                         TConstructRegistry.addArrowMaterial(id, mass, breakchance);
-                        TConstruct.logger.info("IMC: Added Projectile stats for material " + mat.materialName);
+                        TConstruct.logger.debug("IMC: Added Projectile stats for material " + mat.materialName);
                     }
                 }
             }
@@ -87,7 +89,7 @@ public final class IMCHandler {
 
                 if(TConstructRegistry.getMaterial(matID) == null)
                 {
-                    TConstruct.logger.error("PartBuilder IMC: Unknown Material ID " + matID);
+                    FMLLog.bigWarning("PartBuilder IMC: Unknown Material ID " + matID);
                     continue;
                 }
 
@@ -138,7 +140,7 @@ public final class IMCHandler {
                     TConstructRegistry.addPartMapping(addItems.get(i), addMetas.get(i), matID, addOUtputs.get(i));
 
 
-                TConstruct.logger.info("PartBuilder IMC: Added Part builder ampping for " + TConstructRegistry.getMaterial(matID).materialName);
+                TConstruct.logger.debug("PartBuilder IMC: Added Part builder mapping for " + TConstructRegistry.getMaterial(matID).materialName);
             }
             else if(type.equals("addPartCastingMaterial"))
             {
@@ -155,14 +157,14 @@ public final class IMCHandler {
 
                 if(!tag.hasKey("MaterialId"))
                 {
-                    TConstruct.logger.error("Casting IMC: Not material ID for the result present");
+                    FMLLog.bigWarning("Casting IMC: Not material ID for the result present");
                     continue;
                 }
 
                 int matID = tag.getInteger("MaterialId");
                 FluidStack liquid = FluidStack.loadFluidStackFromNBT(tag);
                 if(liquid == null) {
-                    TConstruct.logger.error("Casting IMC: No fluid found");
+                    FMLLog.bigWarning("Casting IMC: No fluid found");
                     continue;
                 }
 
@@ -192,7 +194,7 @@ public final class IMCHandler {
                     TConstructRegistry.getTableCasting().addCastingRecipe(output, liquid2, recipe.cast, recipe.consumeCast, recipe.coolTime);
                 }
 
-                TConstruct.logger.info("Casting IMC: Added fluid " + tag.getString("FluidName") + " to part casting");
+                TConstruct.logger.debug("Casting IMC: Added fluid " + tag.getString("FluidName") + " to part casting");
             }
             else if(type.equals("addMaterialItem")) {
                 if(!message.isNBTMessage()) {
@@ -210,12 +212,12 @@ public final class IMCHandler {
                 ItemStack stack = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Item"));
 
                 if(stack == null) {
-                    TConstruct.logger.error("Material Item IMC: Item for Material %d is null", id);
+                    FMLLog.bigWarning("Material Item IMC: Item for Material %d is null", id);
                     continue;
                 }
 
                 if(TConstructRegistry.getMaterial(id) == null) {
-                    TConstruct.logger.error("Material Item IMC: Material with ID %d does not exist", id);
+                    FMLLog.bigWarning("Material Item IMC: Material with ID %d does not exist", id);
                     continue;
                 }
 
@@ -248,11 +250,11 @@ public final class IMCHandler {
 
                 FluidStack liquid = FluidStack.loadFluidStackFromNBT(tag);
                 if(liquid == null) {
-                    TConstruct.logger.error("Smeltery IMC: No fluid found");
+                    FMLLog.bigWarning("Smeltery IMC: No fluid found");
                     continue;
                 }
                 if(liquid.amount <= 0) {
-                    TConstruct.logger.error("Smeltery IMC: Liquid has to have an amount greater than zero");
+                    FMLLog.bigWarning("Smeltery IMC: Liquid has to have an amount greater than zero");
                     continue;
                 }
 
@@ -261,7 +263,7 @@ public final class IMCHandler {
                 int temperature = tag.getInteger("Temperature");
 
                 Smeltery.addMelting(item, Block.getBlockFromItem(block.getItem()), block.getItemDamage(), temperature, liquid);
-                TConstruct.logger.info("Smeltery IMC: Added melting: " + item.getDisplayName() + " to " + liquid.amount + "mb " + liquid.getLocalizedName());
+                TConstruct.logger.debug("Smeltery IMC: Added melting: " + item.getDisplayName() + " to " + liquid.amount + "mb " + liquid.getLocalizedName());
             }
             else if(type.equals("addSmelteryFuel")) {
                 if (!message.isNBTMessage()) {
@@ -275,7 +277,7 @@ public final class IMCHandler {
 
                 FluidStack liquid = FluidStack.loadFluidStackFromNBT(tag);
                 if(liquid == null) {
-                    TConstruct.logger.error("Smeltery IMC: No fluid found");
+                    FMLLog.bigWarning("Smeltery IMC: No fluid found");
                     continue;
                 }
 
@@ -284,7 +286,7 @@ public final class IMCHandler {
 
                 Smeltery.addSmelteryFuel(liquid.getFluid(), temperature, duration);
 
-                TConstruct.logger.info("Smeltery IMC: Added fuel: " + liquid.getLocalizedName() + " (" + temperature + ", " + duration + ")");
+                TConstruct.logger.debug("Smeltery IMC: Added fuel: " + liquid.getLocalizedName() + " (" + temperature + ", " + duration + ")");
             } else if (type.equals("addFluxBattery")) {
                 if (!message.isItemStackMessage()) {
                     logInvalidMessage(message, "ItemStack");
@@ -294,7 +296,7 @@ public final class IMCHandler {
                 battery.stackSize = 1; // avoid getting a stack size of 0 or larger than 1
 
                 if(!(battery.getItem() instanceof IEnergyContainerItem)) {
-                    TConstruct.logger.error("Flux Battery IMC: ItemStack is no instance of IEnergyContainerItem");
+                    FMLLog.bigWarning("Flux Battery IMC: ItemStack is no instance of IEnergyContainerItem");
                 }
 
                 if (TinkerTools.modFlux != null) {
@@ -310,7 +312,7 @@ public final class IMCHandler {
         for(String t : tags)
             if(!tag.hasKey(t))
             {
-                TConstruct.logger.error(String.format("%s IMC: Missing required NBT Tag %s", prefix, t));
+                FMLLog.bigWarning(String.format("%s IMC: Missing required NBT Tag %s", prefix, t));
                 ok = false; // don't abort, report all missing tags
             }
 
@@ -324,31 +326,31 @@ public final class IMCHandler {
 
     private static void logInvalidMessage(FMLInterModComms.IMCMessage message, String type)
     {
-        TConstruct.logger.error(String.format("Received invalid IMC '%s' from %s. Not a %s Message.", message.key, message.getSender(), type));
+        FMLLog.bigWarning(String.format("Received invalid IMC '%s' from %s. Not a %s Message.", message.key, message.getSender(), type));
     }
 
     private static ToolMaterial scanMaterial(NBTTagCompound tag)
     {
         if(!tag.hasKey("Name")) {
-            TConstruct.logger.error("Material IMC: Material has no name");
+            FMLLog.bigWarning("Material IMC: Material has no name");
             return null;
         }
         String name = tag.getString("Name");
 
         if(!tag.hasKey("Id")) {
-            TConstruct.logger.error("Material IMC: Materials need a unique id. " + name);
+            FMLLog.bigWarning("Material IMC: Materials need a unique id. " + name);
             return null;
         }
         else if(!tag.hasKey("Durability")) {
-            TConstruct.logger.error("Material IMC: Materials need a durability. " + name);
+            FMLLog.bigWarning("Material IMC: Materials need a durability. " + name);
             return null;
         }
         else if(!tag.hasKey("MiningSpeed")) {
-            TConstruct.logger.error("Material IMC: Materials need a mining speed. " + name);
+            FMLLog.bigWarning("Material IMC: Materials need a mining speed. " + name);
             return null;
         }
         else if(tag.hasKey("Stonebound") && tag.hasKey("Jagged")) {
-            TConstruct.logger.error("Material IMC: Materials can only be Stonebound or Jagged. " + name);
+            FMLLog.bigWarning("Material IMC: Materials can only be Stonebound or Jagged. " + name);
             return null;
         }
 
@@ -369,5 +371,18 @@ public final class IMCHandler {
             return new ToolMaterial(name, tag.getString("localizationString"), hlvl, durability, speed, attack, handle, reinforced, shoddy, style, color);
         else
             return new ToolMaterial(name, hlvl, durability, speed, attack, handle, reinforced, shoddy, style, color);
+    }
+
+    // basically FMLLog.bigWarning
+    public static void bigWarning(String format, Object... data)
+    {
+        StackTraceElement[] trace = Thread.currentThread().getStackTrace();
+        TConstruct.logger.error("**********************************************************************");
+        TConstruct.logger.error(String.format("* " + format, data));
+        for (int i = 2; i < 8 && i < trace.length; i++)
+        {
+            TConstruct.logger.error(String.format("*  at %s%s", trace[i].toString(), i == 7 ? "..." : ""));
+        }
+        TConstruct.logger.error("**********************************************************************");
     }
 }
