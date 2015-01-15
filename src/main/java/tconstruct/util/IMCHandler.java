@@ -202,12 +202,17 @@ public final class IMCHandler {
 
                 NBTTagCompound tag = message.getNBTValue();
 
-                if (!checkRequiredTags("Material Item", tag, "MaterialId", "Value", "id", "Count", "Damage"))
+                if (!checkRequiredTags("Material Item", tag, "MaterialId", "Value", "Item"))
                     continue;
 
                 int id = tag.getInteger("MaterialId");
                 int value = tag.getInteger("Value");
-                ItemStack stack = ItemStack.loadItemStackFromNBT(tag);
+                ItemStack stack = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("Item"));
+
+                if(stack == null) {
+                    TConstruct.logger.error("Material Item IMC: Item for Material %d is null", id);
+                    continue;
+                }
 
                 if(TConstructRegistry.getMaterial(id) == null) {
                     TConstruct.logger.error("Material Item IMC: Material with ID %d does not exist", id);
