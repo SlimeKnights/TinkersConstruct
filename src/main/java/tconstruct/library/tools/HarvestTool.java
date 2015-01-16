@@ -277,7 +277,7 @@ public abstract class HarvestTool extends ToolCore
                 block.onBlockDestroyedByPlayer(world, x, y, z, meta);
 
             // send update to client
-            if (!world.isRemote) {
+            if (!world.isRemote && player instanceof EntityPlayerMP) {
                 ((EntityPlayerMP)player).playerNetServerHandler.sendPacket(new S23PacketBlockChange(x, y, z, world));
             }
             return;
@@ -300,8 +300,10 @@ public abstract class HarvestTool extends ToolCore
             }
 
             // always send block update to client
-            EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
-            mpPlayer.playerNetServerHandler.sendPacket(new S23PacketBlockChange(x, y, z, world));
+            if (player instanceof EntityPlayerMP) {
+                EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
+                mpPlayer.playerNetServerHandler.sendPacket(new S23PacketBlockChange(x,y,z, world));
+            }
         }
         // client sided handling
         else {
