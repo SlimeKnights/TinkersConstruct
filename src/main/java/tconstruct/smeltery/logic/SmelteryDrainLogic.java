@@ -190,6 +190,8 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
         if(master == null)
             return 0;
         SmelteryLogic smeltery = (SmelteryLogic) worldObj.getTileEntity(master.x, master.y, master.z);
+        if(smeltery.maxLiquid == 0)
+            return 0;
         return 15 * smeltery.currentLiquid / smeltery.maxLiquid;
     }
 }
