@@ -902,7 +902,7 @@ public class BlockSkinRenderHelper
         else
             ret = renderFakeBlockWithColorMultiplier(stillIcon, flowingIcon, x, y, z, red, green, blue, renderer, world);
 
-        GL11.glDisable(GL11.GL_BLEND);
+        //GL11.glDisable(GL11.GL_BLEND);
 
         renderer.renderAllFaces = raf;
         return ret;

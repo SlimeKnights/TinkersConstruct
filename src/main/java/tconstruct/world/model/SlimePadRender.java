@@ -29,10 +29,12 @@ public class SlimePadRender implements ISimpleBlockRenderingHandler
     {
         if (modelID == model)
         {
-            renderer.renderStandardBlock(block, x, y, z);
             renderer.setRenderBounds(0f, 0, 0f, 1f, 0.5f, 1f);
             int metadata = world.getBlockMetadata(x, y, z);
             BlockSkinRenderHelper.renderLiquidBlock(((SlimePad) block).getFluidIcon(metadata), ((SlimePad) block).getFluidIcon(metadata), x, y, z, renderer, world);
+
+            renderer.setRenderBounds(0.125f,0.0625f,0.125f, 0.875f,0.625f,0.875f);
+            renderer.renderStandardBlock(block, x, y, z);
 
             float[] size = size(metadata % 8);
             renderer.setRenderBounds(size[0], 0.5f, size[1], size[2], 0.6875f, size[3]);
