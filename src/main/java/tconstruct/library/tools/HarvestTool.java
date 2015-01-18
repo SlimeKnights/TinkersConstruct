@@ -1,5 +1,6 @@
 package tconstruct.library.tools;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -12,10 +13,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.network.play.server.S23PacketBlockChange;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldSettings;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.event.world.BlockEvent;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 
@@ -249,10 +253,15 @@ public abstract class HarvestTool extends ToolCore
         return used;
     }
 
-    protected void breakExtraBlock(World world, int x, int y, int z, int sidehit, EntityPlayer player, int refX, int refY, int refZ) {
+    protected void breakExtraBlock(World world, int x, int y, int z, int sidehit, EntityPlayer playerEntity, int refX, int refY, int refZ) {
         // prevent calling that stuff for air blocks, could lead to unexpected behaviour since it fires events
         if (world.isAirBlock(x, y, z))
             return;
+
+        // what?
+        if(!(playerEntity instanceof EntityPlayerMP))
+            return;
+        EntityPlayerMP player = (EntityPlayerMP) playerEntity;
 
         // check if the block can be broken, since extra block breaks shouldn't instantly break stuff like obsidian
         // or precious ores you can't harvest while mining stone
@@ -271,6 +280,11 @@ public abstract class HarvestTool extends ToolCore
         if (!ForgeHooks.canHarvestBlock(block, player, meta) || refStrength/strength > 10f)
             return;
 
+        // send the blockbreak event
+        BlockEvent.BreakEvent event = ForgeHooks.onBlockBreakEvent(world, player.theItemInWorldManager.getGameType(), player, x,y,z);
+        if(event.isCanceled())
+            return;
+
         if (player.capabilities.isCreativeMode) {
             block.onBlockHarvested(world, x, y, z, meta, player);
             if (block.removedByPlayer(world, player, x, y, z, false))
@@ -278,7 +292,7 @@ public abstract class HarvestTool extends ToolCore
 
             // send update to client
             if (!world.isRemote) {
-                ((EntityPlayerMP)player).playerNetServerHandler.sendPacket(new S23PacketBlockChange(x, y, z, world));
+                player.playerNetServerHandler.sendPacket(new S23PacketBlockChange(x, y, z, world));
             }
             return;
         }
@@ -300,12 +314,11 @@ public abstract class HarvestTool extends ToolCore
             }
 
             // always send block update to client
-            EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
-            mpPlayer.playerNetServerHandler.sendPacket(new S23PacketBlockChange(x, y, z, world));
+            player.playerNetServerHandler.sendPacket(new S23PacketBlockChange(x, y, z, world));
         }
         // client sided handling
         else {
-            PlayerControllerMP pcmp = Minecraft.getMinecraft().playerController;
+            //PlayerControllerMP pcmp = Minecraft.getMinecraft().playerController;
             // clientside we do a "this clock has been clicked on long enough to be broken" call. This should not send any new packets
             // the code above, executed on the server, sends a block-updates that give us the correct state of the block we destroy.
 
