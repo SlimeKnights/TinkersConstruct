@@ -246,7 +246,7 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
 
         // calculate critical damaaage
         if (this.getIsCritical())
-            damage += this.rand.nextFloat() * (damage / 2f + 2f);
+            damage += (this.rand.nextFloat()/4f + Math.min(0.75f, distance/25f)) * (damage / 2f + 2f);
 
         // and now we come to the part where we actually deal the damage!
         if(!dealDamage(damage, ammo, tags, movingobjectposition.entityHit))
