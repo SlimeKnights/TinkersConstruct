@@ -182,6 +182,25 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
     public void onHitEntity(MovingObjectPosition movingobjectposition) {
         NBTTagCompound tags = returnStack.getTagCompound().getCompoundTag("InfiTool");
         float speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
+
+        float distance = speed * this.ticksInAir;
+
+        // dimishing returns for speed
+        if(speed > 5f) {
+            float oldSpeed = speed-5f;
+            speed = 5f;
+            float factor = 0.75f;
+            while (oldSpeed > 0) {
+                if(oldSpeed > 1)
+                    speed += factor;
+                else
+                    speed += oldSpeed*factor;
+
+                oldSpeed -= 1f;
+                factor = Math.max(0.25f, factor-0.25f);
+            }
+        }
+
         float damage = speed * tags.getInteger("Attack"); // todo: potentially change this back to MathHelper.ceiling_float_int to get 1/2 heart steps back
 
         boolean shotByPlayer = this.shootingEntity != null && this.shootingEntity instanceof EntityPlayer;
