@@ -241,7 +241,7 @@ public class AbilityHelper
         if (damage < 1)
             damage = 1;
 
-        if (user.isSprinting())
+        if (living != null && living.isSprinting())
         {
             float lunge = tool.chargeAttack();
             if (lunge > 1f)
