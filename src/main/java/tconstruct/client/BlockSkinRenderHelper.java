@@ -891,10 +891,8 @@ public class BlockSkinRenderHelper
         boolean raf = renderer.renderAllFaces;
         renderer.renderAllFaces = true;
 
-        //Tessellator.instance.setColorRGBA_F(alpha, red, green, blue);
-
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glAlphaFunc(GL11.GL_GREATER, 0.1f);
+        // alpha blending etc.
+        GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT);
 
         boolean ret;
         if (Minecraft.isAmbientOcclusionEnabled())
@@ -902,7 +900,7 @@ public class BlockSkinRenderHelper
         else
             ret = renderFakeBlockWithColorMultiplier(stillIcon, flowingIcon, x, y, z, red, green, blue, renderer, world);
 
-        //GL11.glDisable(GL11.GL_BLEND);
+        GL11.glPopAttrib();
 
         renderer.renderAllFaces = raf;
         return ret;
