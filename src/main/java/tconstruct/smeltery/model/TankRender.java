@@ -47,8 +47,9 @@ public class TankRender implements ISimpleBlockRenderingHandler
                     Fluid fluid = liquid.getFluid();
                     BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getStillIcon(), x, y, z, renderer, world, false, fluid.getColor(liquid));
 
-                    renderer.setRenderBounds(0, 0.001, 0.001, 0.999, logic.getFluidAmountScaled(), 0.999);
+                    return true;
                 }
+                return false;
             }
             //Block
             else
@@ -60,9 +61,8 @@ public class TankRender implements ISimpleBlockRenderingHandler
                     renderer.renderStandardBlock(block, x, y + 1, z);
                 }
                 renderer.setRenderBounds(0, 0, 0, 1, 1, 1);
-                renderer.renderStandardBlock(block, x, y, z);
+                return renderer.renderStandardBlock(block, x, y, z);
             }
-            return true;
         }
         return false;
     }
