@@ -13,9 +13,13 @@ import net.minecraft.item.*;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import tconstruct.tools.TinkerTools;
+import zeldaswordskills.api.item.ISword;
 
-@Optional.Interface(modid="battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon")
-public abstract class Weapon extends ToolCore implements IBattlegearWeapon
+@Optional.InterfaceList({
+    @Optional.Interface(modid = "battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon"),
+    @Optional.Interface(modid = "ZeldaItemAPI", iface = "zeldaswordskills.api.item.ISword")
+})
+public abstract class Weapon extends ToolCore implements IBattlegearWeapon, ISword
 {
 
     public Weapon(int baseDamage)
