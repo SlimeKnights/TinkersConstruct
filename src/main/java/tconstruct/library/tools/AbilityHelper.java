@@ -129,14 +129,8 @@ public class AbilityHelper
 
                     if (causedDamage)
                     {
-                        int reinforced = 0;
-                        if (toolTags.hasKey("Unbreaking"))
-                            reinforced = tags.getCompoundTag("InfiTool").getInteger("Unbreaking");
+                        damageTool(stack, 1, tags, player, false);
 
-                        if (random.nextInt(10) < 10 - reinforced)
-                        {
-                            damageTool(stack, 1, tags, player, false);
-                        }
                         // damageTool(stack, 1, player, false);
                         tool.onEntityDamaged(player.worldObj, player, entity);
                         if (!necroticUHS || (entity instanceof IMob && entity instanceof EntityLivingBase && ((EntityLivingBase) entity).getHealth() <= 0))
@@ -364,6 +358,25 @@ public class AbilityHelper
     {
         if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode || tags == null)
             return;
+
+        // calculate in reinforced/unbreaking
+        int reinforced = 0;
+        if(tags.hasKey("InfiTool"))
+        {
+            NBTTagCompound toolTags = tags.getCompoundTag("InfiTool");
+            if(toolTags.hasKey("Unbreaking"))
+            {
+                reinforced = tags.getCompoundTag("InfiTool").getInteger("Unbreaking");
+                // for each point of damage we deal, we separately decide if reinforced takes effect
+                for(int i = dam; i > 0; i--)
+                    if(random.nextInt(10) < reinforced)
+                        dam--;
+
+                // we prevented all damage with reinforced
+                if(dam <= 0)
+                    return;
+            }
+        }
 
         if (ignoreCharge || !damageEnergyTool(stack, tags, entity))
         {
