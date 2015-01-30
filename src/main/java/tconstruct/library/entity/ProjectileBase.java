@@ -185,21 +185,6 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
 
         float distance = speed * this.ticksInAir;
 
-        // dimishing returns for speed
-        if(speed > 5f) {
-            float oldSpeed = speed-5f;
-            speed = 5f;
-            float factor = 0.75f;
-            while (oldSpeed > 0) {
-                if(oldSpeed > 1)
-                    speed += factor;
-                else
-                    speed += oldSpeed*factor;
-
-                oldSpeed -= 1f;
-                factor = Math.max(0.25f, factor-0.25f);
-            }
-        }
 
         if(!tags.hasKey("BaseAttack"))
         {
