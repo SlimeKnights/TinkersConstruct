@@ -27,7 +27,7 @@ public class Shuriken extends AmmoWeapon {
 
     @Override
     public float getDamageModifier() {
-        return 0.8f;
+        return 1.2f;
     }
 
     @Override
