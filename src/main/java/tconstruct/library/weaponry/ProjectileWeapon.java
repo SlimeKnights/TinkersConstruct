@@ -278,6 +278,8 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
         float count = icons.get(-1).length - 1;
         int step = Math.round(progress * count);
 
+        step = Math.min(0, step);
+
         if(icons.containsKey(id))
             return icons.get(id)[step];
 
