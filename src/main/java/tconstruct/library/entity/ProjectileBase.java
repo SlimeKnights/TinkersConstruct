@@ -201,7 +201,26 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
             }
         }
 
-        float damage = speed * tags.getInteger("Attack"); // todo: potentially change this back to MathHelper.ceiling_float_int to get 1/2 heart steps back
+        if(!tags.hasKey("BaseAttack"))
+        {
+            // quickly calculate the base attack damage from the actual attack damage and quartz modifiers
+            // yes, this relies on quartz being the only modifier that modifiers damage, but at the point of writing this
+            // that is the case, and later tools should have the tag
+            int atk = tags.getInteger("Attack");
+            if(tags.hasKey("ModAttack"))
+            {
+                int bonusDmg = tags.getIntArray("ModAttack")[0]/24 + 1;
+                atk -= bonusDmg;
+            }
+            tags.setInteger("BaseAttack", atk);
+        }
+
+        float baseAttack = tags.getInteger("BaseAttack");
+        float totalAttack = tags.getInteger("Attack");
+        float damage = speed * baseAttack; // todo: potentially change this back to MathHelper.ceiling_float_int to get 1/2 heart steps back
+
+        // add quartz damage
+        damage += (totalAttack - baseAttack);
 
         boolean shotByPlayer = this.shootingEntity != null && this.shootingEntity instanceof EntityPlayer;
 

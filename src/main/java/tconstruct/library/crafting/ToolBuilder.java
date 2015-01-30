@@ -280,6 +280,7 @@ public class ToolBuilder
         compound.getCompoundTag("InfiTool").setFloat("ModDurability", 0f); //Modifier
         compound.getCompoundTag("InfiTool").setBoolean("Broken", false);
         compound.getCompoundTag("InfiTool").setInteger("Attack", attack);
+        compound.getCompoundTag("InfiTool").setInteger("BaseAttack", attack);
 
         compound.getCompoundTag("InfiTool").setInteger("MiningSpeed", headMat.toolSpeed());
         compound.getCompoundTag("InfiTool").setInteger("HarvestLevel", headMat.harvestLevel());
