@@ -89,7 +89,7 @@ public class ThrowingKnife extends AmmoWeapon {
 
     @Override
     public float getProjectileSpeed() {
-        return 1.5f;
+        return 2.2f;
     }
 
     @SideOnly(Side.CLIENT)
