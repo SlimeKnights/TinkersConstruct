@@ -183,8 +183,18 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
         NBTTagCompound tags = returnStack.getTagCompound().getCompoundTag("InfiTool");
         float speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
 
-        float distance = speed * this.ticksInAir;
+        speed = Math.max(0, speed-2);
 
+        // absolute distance travelled minus the current tick
+        float distance = speed * (this.ticksInAir-1);
+        // distance travelled in the current tick
+        float dist2 = 0;
+        dist2 += MathHelper.abs((float)movingobjectposition.entityHit.lastTickPosX - (float)this.lastTickPosX);
+        dist2 += MathHelper.abs((float)movingobjectposition.entityHit.lastTickPosY - (float)this.lastTickPosY);
+        dist2 += MathHelper.abs((float)movingobjectposition.entityHit.lastTickPosZ - (float)this.lastTickPosZ);
+        dist2 = MathHelper.sqrt_double(dist2);
+
+        distance += dist2;
 
         if(!tags.hasKey("BaseAttack"))
         {
