@@ -24,6 +24,7 @@ import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ToolCore;
+import tconstruct.weaponry.entity.ArrowEntity;
 
 import java.util.List;
 
@@ -183,7 +184,9 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
         NBTTagCompound tags = returnStack.getTagCompound().getCompoundTag("InfiTool");
         float speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
 
-        speed = Math.max(0, speed-2);
+        // yay for balance on existing stuff.. sigh
+        if(this instanceof ArrowEntity)
+            speed = Math.max(0, speed-2);
 
         // absolute distance travelled minus the current tick
         float distance = speed * (this.ticksInAir-1);
@@ -216,6 +219,10 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
 
         // add quartz damage
         damage += (totalAttack - baseAttack);
+
+        // we substract flat damage for balance ;-;
+        if(this instanceof ArrowEntity)
+            damage = Math.max(0, damage - 5f);
 
         boolean shotByPlayer = this.shootingEntity != null && this.shootingEntity instanceof EntityPlayer;
 
