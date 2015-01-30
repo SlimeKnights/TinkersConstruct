@@ -755,7 +755,7 @@ public class TinkerTools
             try
             {
                 Object plantItem = ItemHelper.getStaticItem("plantItem", "mods.natura.common.NContent");
-                TConstructRegistry.addBowstringMaterial(2, 2, new ItemStack((Item) plantItem, 1, 7), new ItemStack(TinkerWeaponry.bowstring, 1, 2), 1.2F, 1.1F, 1.2f, 0xd3414f);
+                TConstructRegistry.addBowstringMaterial(2, 2, new ItemStack((Item) plantItem, 1, 7), new ItemStack(TinkerWeaponry.bowstring, 1, 2), 1.2F, 1.1F, 1.2f, 0xf3414f);
             }
             catch (Exception e)
             {
