@@ -276,10 +276,6 @@ public class Crossbow extends ProjectileWeapon {
         if(player.capabilities.isCreativeMode)
             arrow.canBePickedUp = 2;
 
-        // 10% crit hit chance!
-        if(!world.isRemote && TConstruct.random.nextFloat() < 0.1f)
-            arrow.setIsCritical(true);
-
         return arrow;
     }
 

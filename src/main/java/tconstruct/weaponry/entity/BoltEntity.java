@@ -21,6 +21,14 @@ public class BoltEntity extends ArrowEntity {
     }
 
     @Override
+    protected void updateInAir() {
+        if(this.ticksInAir > 1)
+            this.setIsCritical(true);
+
+        super.updateInAir();
+    }
+
+    @Override
     protected void playHitBlockSound(int x, int y, int z) {
         this.playSound("random.bowhit", 1.0F, 1.0F);
     }
