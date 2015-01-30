@@ -205,7 +205,7 @@ public class EquipBlock extends InventoryBlock
         {
             EquipLogic logic = (EquipLogic) te;
             ItemStack stack = logic.getEquipmentItem();
-            if (stack != null)
+            if (stack != null && stack.hasTagCompound() && stack.getTagCompound().hasKey("InfiTool"))
             {
                 NBTTagCompound tag = stack.getTagCompound().getCompoundTag("InfiTool");
 
