@@ -361,7 +361,7 @@ public class AbilityHelper
 
         // calculate in reinforced/unbreaking
         int reinforced = 0;
-        if(tags.hasKey("InfiTool"))
+        if(tags.hasKey("InfiTool") && dam > 0) // unbreaking only affects damage, not healing
         {
             NBTTagCompound toolTags = tags.getCompoundTag("InfiTool");
             if(toolTags.hasKey("Unbreaking"))
