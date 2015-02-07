@@ -685,7 +685,10 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
 
     protected int getDefaultColor(int renderPass, int materialID)
     {
-        return TConstructRegistry.getMaterial(materialID).primaryColor();
+        if(TConstructRegistry.getMaterial(materialID) != null)
+            return TConstructRegistry.getMaterial(materialID).primaryColor();
+
+        return 0xffffffff;
     }
 
     @Override
