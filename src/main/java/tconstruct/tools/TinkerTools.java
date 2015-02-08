@@ -385,6 +385,8 @@ public class TinkerTools
         registerPatternMaterial("plankWood", 2, "Wood");
         registerPatternMaterial("stickWood", 1, "Wood");
         registerPatternMaterial("slabWood", 1, "Wood");
+        registerPatternMaterial("cobblestone", 2, "Stone");
+        registerPatternMaterial("stone", 2, "Stone");
         registerPatternMaterial("compressedCobblestone1x", 18, "Stone");
     }
 
