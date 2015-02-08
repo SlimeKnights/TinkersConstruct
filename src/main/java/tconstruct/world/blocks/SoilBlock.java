@@ -15,6 +15,7 @@ public class SoilBlock extends TConstructBlock
     public SoilBlock()
     {
         super(Material.ground, 3.0F, soilTypes);
+        this.setHarvestLevel("shovel", -1);
     }
 
     @Override
