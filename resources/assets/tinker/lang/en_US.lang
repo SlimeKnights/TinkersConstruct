@@ -976,6 +976,7 @@ modifier.tool.haste=Haste
 modifier.tool.lava=Auto-Smelt
 modifier.tool.moss=Auto-Repair
 modifier.tool.necro=Life Steal
+modifier.tool.blaze=Fiery
 
 modifier.toolstation.Beheading=Beheading
 modifier.toolstation.Blaze=Blaze
