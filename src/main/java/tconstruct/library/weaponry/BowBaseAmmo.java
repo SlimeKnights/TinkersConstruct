@@ -49,6 +49,11 @@ public abstract class BowBaseAmmo extends ProjectileWeapon {
     }
 
     @Override
+    public float getProjectileSpeed(ItemStack itemStack) {
+        return super.getProjectileSpeed(itemStack) * 0.9f;
+    }
+
+    @Override
     public ItemStack searchForAmmo(EntityPlayer player, ItemStack weapon)
     {
         // arrow priority: hotbar > inventory, tinker arrows > regular arrows

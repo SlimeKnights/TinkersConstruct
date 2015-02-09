@@ -184,10 +184,6 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
         NBTTagCompound tags = returnStack.getTagCompound().getCompoundTag("InfiTool");
         float speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
 
-        // yay for balance on existing stuff.. sigh
-        if(this instanceof ArrowEntity)
-            speed = Math.max(0, speed-2);
-
         // absolute distance travelled minus the current tick
         float distance = speed * (this.ticksInAir-1);
         // distance travelled in the current tick
@@ -220,9 +216,9 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
         // add quartz damage
         damage += (totalAttack - baseAttack);
 
-        // we substract flat damage for balance ;-;
+        // this is needed so really high scaling bow&arrow combinations don't get out of hand
         if(this instanceof ArrowEntity)
-            damage = Math.max(0, damage - 5f);
+            damage = Math.max(0, damage - totalAttack/2f);
 
         boolean shotByPlayer = this.shootingEntity != null && this.shootingEntity instanceof EntityPlayer;
 
