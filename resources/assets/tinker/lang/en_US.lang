@@ -259,6 +259,7 @@ item.tconstruct.MetalPattern.shuriken.name=Shuriken Cast
 item.tconstruct.MetalPattern.crossbowlimb.name=Crossbow Limb Cast
 item.tconstruct.MetalPattern.crossbowbody.name=Crossbow Body Cast
 item.tconstruct.MetalPattern.bowlimb.name=Bow Limb Cast
+item.tconstruct.GearPattern.name=Gear Cast
 
 item.tconstruct.Materials.PaperStack.name=Paper Stack
 item.tconstruct.Materials.SlimeCrystal.name=Slime Crystal
