@@ -173,309 +173,77 @@ public class TinkerSmeltery
         // Liquids
         TinkerSmeltery.liquidMetal = new MaterialLiquid(MapColor.tntColor);
 
-        TinkerSmeltery.moltenIronFluid = new Fluid("iron.molten").setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isIronPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenIronFluid);
-        TinkerSmeltery.moltenIron = new TConstructFluid(TinkerSmeltery.moltenIronFluid, Material.lava, "liquid_iron").setBlockName("fluid.molten.iron");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenIron, "fluid.molten.iron");
-        if (isIronPreReg)
-        {
-            TinkerSmeltery.moltenIronFluid = FluidRegistry.getFluid("iron.molten");
-            Block regMoltenIronBlock = TinkerSmeltery.moltenIronFluid.getBlock();
-            if (regMoltenIronBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenIron).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenIron = regMoltenIronBlock;
-            }
-            else
-                TinkerSmeltery.moltenIronFluid.setBlock(TinkerSmeltery.moltenIron);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenIronFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenIronFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 0), new ItemStack(Items.bucket)));
+        TinkerSmeltery.moltenIronFluid = registerFluid("iron");
+        TinkerSmeltery.moltenIron = TinkerSmeltery.moltenIronFluid.getBlock();
 
-        TinkerSmeltery.moltenGoldFluid = new Fluid("gold.molten").setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isGoldPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenGoldFluid);
-        TinkerSmeltery.moltenGold = new TConstructFluid(TinkerSmeltery.moltenGoldFluid, Material.lava, "liquid_gold").setBlockName("fluid.molten.gold");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenGold, "fluid.molten.gold");
-        if (isGoldPreReg)
-        {
-            TinkerSmeltery.moltenGoldFluid = FluidRegistry.getFluid("gold.molten");
-            Block regMoltenGoldBlock = TinkerSmeltery.moltenGoldFluid.getBlock();
-            if (regMoltenGoldBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenGold).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenGold = regMoltenGoldBlock;
-            }
-            else
-                TinkerSmeltery.moltenGoldFluid.setBlock(TinkerSmeltery.moltenGold);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenGoldFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenGoldFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 1), new ItemStack(Items.bucket)));
+        TinkerSmeltery.moltenGoldFluid = registerFluid("gold");
+        TinkerSmeltery.moltenGold = TinkerSmeltery.moltenGoldFluid.getBlock();
 
-        TinkerSmeltery.moltenCopperFluid = new Fluid("copper.molten").setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isCopperPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenCopperFluid);
-        TinkerSmeltery.moltenCopper = new TConstructFluid(TinkerSmeltery.moltenCopperFluid, Material.lava, "liquid_copper").setBlockName("fluid.molten.copper");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenCopper, "fluid.molten.copper");
-        if (isCopperPreReg)
-        {
-            TinkerSmeltery.moltenCopperFluid = FluidRegistry.getFluid("copper.molten");
-            Block regMoltenCopperBlock = TinkerSmeltery.moltenCopperFluid.getBlock();
-            if (regMoltenCopperBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenCopper).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenCopper = regMoltenCopperBlock;
-            }
-            else
-                TinkerSmeltery.moltenCopperFluid.setBlock(TinkerSmeltery.moltenCopper);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenCopperFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenCopperFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 2), new ItemStack(Items.bucket)));
 
-        TinkerSmeltery.moltenTinFluid = new Fluid("tin.molten").setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isTinPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenTinFluid);
-        TinkerSmeltery.moltenTin = new TConstructFluid(TinkerSmeltery.moltenTinFluid, Material.lava, "liquid_tin").setBlockName("fluid.molten.tin");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenTin, "fluid.molten.tin");
-        if (isTinPreReg)
-        {
-            TinkerSmeltery.moltenTinFluid = FluidRegistry.getFluid("tin.molten");
-            Block regMoltenTinBlock = TinkerSmeltery.moltenTinFluid.getBlock();
-            if (regMoltenTinBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenTin).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenTin = regMoltenTinBlock;
-            }
-            else
-                TinkerSmeltery.moltenTinFluid.setBlock(TinkerSmeltery.moltenTin);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenTinFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenTinFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 3), new ItemStack(Items.bucket)));
+        TinkerSmeltery.moltenCopperFluid = registerFluid("copper");
+        TinkerSmeltery.moltenCopper = TinkerSmeltery.moltenCopperFluid.getBlock();
 
-        TinkerSmeltery.moltenAluminumFluid = new Fluid("aluminum.molten").setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isAluminumPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenAluminumFluid);
-        TinkerSmeltery.moltenAluminum = new TConstructFluid(TinkerSmeltery.moltenAluminumFluid, Material.lava, "liquid_aluminum").setBlockName("fluid.molten.aluminum");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenAluminum, "fluid.molten.aluminum");
-        if (isAluminumPreReg)
-        {
-            TinkerSmeltery.moltenAluminumFluid = FluidRegistry.getFluid("aluminum.molten");
-            Block regMoltenAluminumBlock = TinkerSmeltery.moltenAluminumFluid.getBlock();
-            if (regMoltenAluminumBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenAluminum).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenAluminum = regMoltenAluminumBlock;
-            }
-            else
-                TinkerSmeltery.moltenAluminumFluid.setBlock(TinkerSmeltery.moltenAluminum);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenAluminumFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenAluminumFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 4), new ItemStack(Items.bucket)));
+        TinkerSmeltery.moltenTinFluid = registerFluid("tin");
+        TinkerSmeltery.moltenTin = TinkerSmeltery.moltenTinFluid.getBlock();
 
-        TinkerSmeltery.moltenCobaltFluid = new Fluid("cobalt.molten").setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isCobaltPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenCobaltFluid);
-        TinkerSmeltery.moltenCobalt = new TConstructFluid(TinkerSmeltery.moltenCobaltFluid, Material.lava, "liquid_cobalt").setBlockName("fluid.molten.cobalt");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenCobalt, "fluid.molten.cobalt");
-        if (isCobaltPreReg)
-        {
-            TinkerSmeltery.moltenCobaltFluid = FluidRegistry.getFluid("cobalt.molten");
-            Block regMoltenCobaltBlock = TinkerSmeltery.moltenCobaltFluid.getBlock();
-            if (regMoltenCobaltBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenCobalt).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenCobalt = regMoltenCobaltBlock;
-            }
-            else
-                TinkerSmeltery.moltenCobaltFluid.setBlock(TinkerSmeltery.moltenCobalt);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenCobaltFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenCobaltFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 5), new ItemStack(Items.bucket)));
+        TinkerSmeltery.moltenAluminumFluid = registerFluid("aluminum");
+        TinkerSmeltery.moltenAluminum = TinkerSmeltery.moltenAluminumFluid.getBlock();
 
-        TinkerSmeltery.moltenArditeFluid = new Fluid("ardite.molten").setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isArditePreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenArditeFluid);
-        TinkerSmeltery.moltenArdite = new TConstructFluid(TinkerSmeltery.moltenArditeFluid, Material.lava, "liquid_ardite").setBlockName("fluid.molten.ardite");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenArdite, "fluid.molten.ardite");
-        if (isArditePreReg)
-        {
-            TinkerSmeltery.moltenArditeFluid.setBlock(TinkerSmeltery.moltenArdite);
-            Block regMoltenArditeBlock = TinkerSmeltery.moltenArditeFluid.getBlock();
-            if (regMoltenArditeBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenArdite).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenArdite = regMoltenArditeBlock;
-            }
-            else
-                TinkerSmeltery.moltenArditeFluid = FluidRegistry.getFluid("ardite.molten");
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenArditeFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenArditeFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 6), new ItemStack(Items.bucket)));
+        TinkerSmeltery.moltenCobaltFluid = registerFluid("cobalt");
+        TinkerSmeltery.moltenCobalt = TinkerSmeltery.moltenCobaltFluid.getBlock();
 
-        TinkerSmeltery.moltenBronzeFluid = new Fluid("bronze.molten").setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isBronzeFluid = !FluidRegistry.registerFluid(TinkerSmeltery.moltenBronzeFluid);
-        TinkerSmeltery.moltenBronze = new TConstructFluid(TinkerSmeltery.moltenBronzeFluid, Material.lava, "liquid_bronze").setBlockName("fluid.molten.bronze");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenBronze, "fluid.molten.bronze");
-        if (isBronzeFluid)
-        {
-            TinkerSmeltery.moltenBronzeFluid = FluidRegistry.getFluid("bronze.molten");
-            Block regMoltenBronzeBlock = TinkerSmeltery.moltenBronzeFluid.getBlock();
-            if (regMoltenBronzeBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenBronze).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenBronze = regMoltenBronzeBlock;
-            }
-            else
-                TinkerSmeltery.moltenBronzeFluid.setBlock(TinkerSmeltery.moltenBronze);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenBronzeFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenBronzeFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 7), new ItemStack(Items.bucket)));
+        TinkerSmeltery.moltenArditeFluid = registerFluid("ardite");
+        TinkerSmeltery.moltenArdite = TinkerSmeltery.moltenArditeFluid.getBlock();
 
-        TinkerSmeltery.moltenAlubrassFluid = new Fluid("aluminumbrass.molten").setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isAlubrassPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenAlubrassFluid);
-        TinkerSmeltery.moltenAlubrass = new TConstructFluid(TinkerSmeltery.moltenAlubrassFluid, Material.lava, "liquid_alubrass").setBlockName("fluid.molten.alubrass");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenAlubrass, "fluid.molten.alubrass");
-        if (isAlubrassPreReg)
-        {
-            TinkerSmeltery.moltenAlubrassFluid = FluidRegistry.getFluid("aluminumbrass.molten");
-            Block regMoltenAlubrassBlock = TinkerSmeltery.moltenAlubrassFluid.getBlock();
-            if (regMoltenAlubrassBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenAlubrass).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenAlubrass = regMoltenAlubrassBlock;
-            }
-            else
-                TinkerSmeltery.moltenAlubrassFluid.setBlock(TinkerSmeltery.moltenAlubrass);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenAlubrassFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenAlubrassFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 8), new ItemStack(Items.bucket)));
+        TinkerSmeltery.moltenBronzeFluid = registerFluid("bronze");
+        TinkerSmeltery.moltenBronze = TinkerSmeltery.moltenBronzeFluid.getBlock();
 
-        TinkerSmeltery.moltenManyullynFluid = new Fluid("manyullyn.molten").setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isManyullynPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenManyullynFluid);
-        TinkerSmeltery.moltenManyullyn = new TConstructFluid(TinkerSmeltery.moltenManyullynFluid, Material.lava, "liquid_manyullyn").setBlockName("fluid.molten.manyullyn");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenManyullyn, "fluid.molten.manyullyn");
-        if (isManyullynPreReg)
-        {
-            TinkerSmeltery.moltenManyullynFluid = FluidRegistry.getFluid("manyullyn.molten");
-            Block regMoltenManyullyn = TinkerSmeltery.moltenManyullynFluid.getBlock();
-            if (regMoltenManyullyn != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenManyullyn).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenManyullyn = regMoltenManyullyn;
-            }
-            else
-                TinkerSmeltery.moltenManyullynFluid.setBlock(TinkerSmeltery.moltenManyullyn);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenManyullynFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenManyullynFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 9), new ItemStack(Items.bucket)));
+        TinkerSmeltery.moltenAlubrassFluid = registerFluid("aluminiumbrass", "aluminiumbrass.molten", "fluid.molten.alubrass", "liquid_alubrass", 3000, 6000, 1300, Material.lava);
+        TinkerSmeltery.moltenAlubrass = TinkerSmeltery.moltenAlubrassFluid.getBlock();
 
-        TinkerSmeltery.moltenAlumiteFluid = new Fluid("alumite.molten").setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isAlumitePreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenAlumiteFluid);
-        TinkerSmeltery.moltenAlumite = new TConstructFluid(TinkerSmeltery.moltenAlumiteFluid, Material.lava, "liquid_alumite").setBlockName("fluid.molten.alumite");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenAlumite, "fluid.molten.alumite");
-        if (isAlumitePreReg)
-        {
-            TinkerSmeltery.moltenAlumiteFluid = FluidRegistry.getFluid("alumite.molten");
-            Block regMoltenAlumiteBlock = TinkerSmeltery.moltenAlumiteFluid.getBlock();
-            if (regMoltenAlumiteBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenAlumite).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenAlumite = regMoltenAlumiteBlock;
-            }
-            else
-                TinkerSmeltery.moltenAlumiteFluid.setBlock(TinkerSmeltery.moltenAlumite);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenAlumiteFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenAlumiteFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 10), new ItemStack(Items.bucket)));
+        TinkerSmeltery.moltenManyullynFluid = registerFluid("manyullyn");
+        TinkerSmeltery.moltenManyullyn = TinkerSmeltery.moltenManyullynFluid.getBlock();
 
-        TinkerSmeltery.moltenObsidianFluid = new Fluid("obsidian.molten").setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isObsidianPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenObsidianFluid);
-        TinkerSmeltery.moltenObsidian = new TConstructFluid(TinkerSmeltery.moltenObsidianFluid, Material.lava, "liquid_obsidian").setBlockName("fluid.molten.obsidian");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenObsidian, "fluid.molten.obsidian");
-        if (isObsidianPreReg)
-        {
-            TinkerSmeltery.moltenObsidianFluid = FluidRegistry.getFluid("obsidian.molten");
-            Block regMoltenObsidianBlock = TinkerSmeltery.moltenObsidianFluid.getBlock();
-            if (regMoltenObsidianBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenObsidian).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenObsidian = regMoltenObsidianBlock;
-            }
-            else
-                TinkerSmeltery.moltenObsidianFluid.setBlock(TinkerSmeltery.moltenObsidian);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenObsidianFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenObsidianFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 11), new ItemStack(Items.bucket)));
+        TinkerSmeltery.moltenAlumiteFluid = registerFluid("alumite");
+        TinkerSmeltery.moltenAlumite = TinkerSmeltery.moltenAlumiteFluid.getBlock();
 
-        TinkerSmeltery.moltenSteelFluid = new Fluid("steel.molten").setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isSteelPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenSteelFluid);
-        TinkerSmeltery.moltenSteel = new TConstructFluid(TinkerSmeltery.moltenSteelFluid, Material.lava, "liquid_steel").setBlockName("fluid.molten.steel");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenSteel, "fluid.molten.steel");
-        if (isSteelPreReg)
-        {
-            TinkerSmeltery.moltenSteelFluid = FluidRegistry.getFluid("steel.molten");
-            Block regMoltenSteelBlock = TinkerSmeltery.moltenSteelFluid.getBlock();
-            if (regMoltenSteelBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenSteel).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenSteel = regMoltenSteelBlock;
-            }
-            else
-                TinkerSmeltery.moltenSteelFluid.setBlock(TinkerSmeltery.moltenSteel);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenSteelFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenSteelFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 12), new ItemStack(Items.bucket)));
+        TinkerSmeltery.moltenObsidianFluid = registerFluid("obsidian");
+        TinkerSmeltery.moltenObsidian = TinkerSmeltery.moltenObsidianFluid.getBlock();
 
-        TinkerSmeltery.moltenGlassFluid = new Fluid("glass.molten").setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isGlassPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenGlassFluid);
-        TinkerSmeltery.moltenGlass = new TConstructFluid(TinkerSmeltery.moltenGlassFluid, Material.lava, "liquid_glass", true).setBlockName("fluid.molten.glass");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenGlass, "fluid.molten.glass");
-        if (isGlassPreReg)
-        {
-            TinkerSmeltery.moltenGlassFluid = FluidRegistry.getFluid("glass.molten");
-            Block regMoltenGlassBlock = TinkerSmeltery.moltenGlassFluid.getBlock();
-            if (regMoltenGlassBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenGlass).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenGlass = regMoltenGlassBlock;
-            }
-            else
-                TinkerSmeltery.moltenGlassFluid.setBlock(TinkerSmeltery.moltenGlass);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenGlassFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenGlassFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 13), new ItemStack(Items.bucket)));
+        TinkerSmeltery.moltenSteelFluid = registerFluid("steel");
+        TinkerSmeltery.moltenSteel = TinkerSmeltery.moltenSteelFluid.getBlock();
 
-        TinkerSmeltery.moltenStoneFluid = new Fluid("stone.seared").setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isStonePreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenStoneFluid);
-        TinkerSmeltery.moltenStone = new TConstructFluid(TinkerSmeltery.moltenStoneFluid, Material.lava, "liquid_stone").setBlockName("molten.stone");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenStone, "molten.stone");
-        if (isStonePreReg)
-        {
-            TinkerSmeltery.moltenStoneFluid = FluidRegistry.getFluid("stone.seared");
-            Block regMoltenStoneBlock = TinkerSmeltery.moltenStoneFluid.getBlock();
-            if (regMoltenStoneBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenStone).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenStone = regMoltenStoneBlock;
-            }
-            else
-                TinkerSmeltery.moltenStoneFluid.setBlock(TinkerSmeltery.moltenStone);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenStoneFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenStoneFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 14), new ItemStack(Items.bucket)));
+        TinkerSmeltery.moltenGlassFluid = registerFluid("glass");
+        TinkerSmeltery.moltenGlass = TinkerSmeltery.moltenGlassFluid.getBlock();
 
-        TinkerSmeltery.moltenEmeraldFluid = new Fluid("emerald.liquid").setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isEmeraldPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenEmeraldFluid);
-        TinkerSmeltery.moltenEmerald = new TConstructFluid(TinkerSmeltery.moltenEmeraldFluid, Material.lava, "liquid_villager").setBlockName("molten.emerald");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenEmerald, "molten.emerald");
-        if (isEmeraldPreReg)
-        {
-            TinkerSmeltery.moltenEmeraldFluid = FluidRegistry.getFluid("emerald.liquid");
-            Block regMoltenEmeraldBlock = TinkerSmeltery.moltenEmeraldFluid.getBlock();
-            if (regMoltenEmeraldBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenEmerald).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenEmerald = regMoltenEmeraldBlock;
-            }
-            else
-                TinkerSmeltery.moltenEmeraldFluid.setBlock(TinkerSmeltery.moltenEmerald);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenEmeraldFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenEmeraldFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 15), new ItemStack(Items.bucket)));
+        TinkerSmeltery.moltenStoneFluid = registerFluid("stone", "stone.seared", "molten.stone", "liquid_stone", 3000, 6000, 1300, Material.lava);
+        TinkerSmeltery.moltenStone = TinkerSmeltery.moltenStoneFluid.getBlock();
+
+        TinkerSmeltery.moltenEmeraldFluid = registerFluid("emerald", "emerald.liquid", "molten.emerald", "liquid_villager", 3000, 6000, 1300, Material.lava);
+        TinkerSmeltery.moltenEmerald = TinkerSmeltery.moltenEmeraldFluid.getBlock();
+
+        TinkerSmeltery.moltenNickelFluid = registerFluid("nickel", "liquid_ferrous");
+        TinkerSmeltery.moltenNickel = TinkerSmeltery.moltenNickelFluid.getBlock();
+
+        TinkerSmeltery.moltenLeadFluid = registerFluid("lead");
+        TinkerSmeltery.moltenLead = TinkerSmeltery.moltenLeadFluid.getBlock();
+
+        TinkerSmeltery.moltenSilverFluid = registerFluid("silver");
+        TinkerSmeltery.moltenSilver = TinkerSmeltery.moltenSilverFluid.getBlock();
+
+        TinkerSmeltery.moltenShinyFluid = registerFluid("platinum", "platinum.molten", "fluid.molten.shiny", "liquid_shiny", 3000, 6000, 1300, Material.lava);
+        TinkerSmeltery.moltenShiny = TinkerSmeltery.moltenShinyFluid.getBlock();
+
+        TinkerSmeltery.moltenInvarFluid = registerFluid("invar");
+        TinkerSmeltery.moltenInvar = TinkerSmeltery.moltenInvarFluid.getBlock();
+
+        TinkerSmeltery.moltenElectrumFluid = registerFluid("electrum");
+        TinkerSmeltery.moltenElectrum = TinkerSmeltery.moltenElectrumFluid.getBlock();
+
+        TinkerSmeltery.moltenEnderFluid = registerFluid("ender", "ender", "fluid.ender", "liquid_ender", 3000, 6000, 295, Material.water);
+        TinkerSmeltery.moltenEnder = TinkerSmeltery.moltenEnderFluid.getBlock();
+
+        // Special liquids with different properties/blocks than the rest
 
         TinkerSmeltery.bloodFluid = new Fluid("blood").setDensity(3000).setViscosity(6000).setTemperature(1300);
         boolean isBloodPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.bloodFluid);
@@ -496,138 +264,6 @@ public class TinkerSmeltery
         if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.bloodFluid, 1000), new ItemStack(Items.bucket)) == null)
             FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.bloodFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 16), new ItemStack(Items.bucket)));
 
-        TinkerSmeltery.moltenNickelFluid = new Fluid("nickel.molten").setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isNickelPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenNickelFluid);
-        TinkerSmeltery.moltenNickel = new TConstructFluid(TinkerSmeltery.moltenNickelFluid, Material.lava, "liquid_ferrous").setBlockName("fluid.molten.nickel");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenNickel, "fluid.molten.nickel");
-        if (isNickelPreReg)
-        {
-            TinkerSmeltery.moltenNickelFluid = FluidRegistry.getFluid("nickel.molten");
-            Block regMoltenNickleBlock = TinkerSmeltery.moltenNickelFluid.getBlock();
-            if (regMoltenNickleBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenNickel).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenNickel = regMoltenNickleBlock;
-            }
-            else
-                TinkerSmeltery.moltenNickelFluid.setBlock(TinkerSmeltery.moltenNickel);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenNickelFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenNickelFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 17), new ItemStack(Items.bucket)));
-
-        TinkerSmeltery.moltenLeadFluid = new Fluid("lead.molten").setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isLeadPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenLeadFluid);
-        TinkerSmeltery.moltenLead = new TConstructFluid(TinkerSmeltery.moltenLeadFluid, Material.lava, "liquid_lead").setBlockName("fluid.molten.lead");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenLead, "fluid.molten.lead");
-        if (isLeadPreReg)
-        {
-            TinkerSmeltery.moltenLeadFluid = FluidRegistry.getFluid("lead.molten");
-            Block regMoltenLeadBlock = TinkerSmeltery.moltenLeadFluid.getBlock();
-            if (regMoltenLeadBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenLead).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenLead = regMoltenLeadBlock;
-            }
-            else
-                TinkerSmeltery.moltenLeadFluid.setBlock(TinkerSmeltery.moltenLead);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenLeadFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenLeadFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 18), new ItemStack(Items.bucket)));
-
-        TinkerSmeltery.moltenSilverFluid = new Fluid("silver.molten").setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isSilverPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenSilverFluid);
-        TinkerSmeltery.moltenSilver = new TConstructFluid(TinkerSmeltery.moltenSilverFluid, Material.lava, "liquid_silver").setBlockName("fluid.molten.silver");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenSilver, "fluid.molten.silver");
-        if (isSilverPreReg)
-        {
-            TinkerSmeltery.moltenSilverFluid = FluidRegistry.getFluid("silver.molten");
-            Block regMoltenSilverBlock = TinkerSmeltery.moltenSilverFluid.getBlock();
-            if (regMoltenSilverBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenSilver).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenSilver = regMoltenSilverBlock;
-            }
-            else
-                TinkerSmeltery.moltenSilverFluid.setBlock(TinkerSmeltery.moltenSilver);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenSilverFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenSilverFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 19), new ItemStack(Items.bucket)));
-
-        TinkerSmeltery.moltenShinyFluid = new Fluid("platinum.molten").setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isShinyPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenShinyFluid);
-        TinkerSmeltery.moltenShiny = new TConstructFluid(TinkerSmeltery.moltenShinyFluid, Material.lava, "liquid_shiny").setBlockName("fluid.molten.shiny");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenShiny, "fluid.molten.shiny");
-        if (isShinyPreReg)
-        {
-            TinkerSmeltery.moltenShinyFluid = FluidRegistry.getFluid("platinum.molten");
-            Block regMoltenShinyBlock = TinkerSmeltery.moltenShinyFluid.getBlock();
-            if (regMoltenShinyBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenShiny).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenShiny = regMoltenShinyBlock;
-            }
-            else
-                TinkerSmeltery.moltenShinyFluid.setBlock(TinkerSmeltery.moltenShiny);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenShinyFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenShinyFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 20), new ItemStack(Items.bucket)));
-
-        TinkerSmeltery.moltenInvarFluid = new Fluid("invar.molten").setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isInvarPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenInvarFluid);
-        TinkerSmeltery.moltenInvar = new TConstructFluid(TinkerSmeltery.moltenInvarFluid, Material.lava, "liquid_invar").setBlockName("fluid.molten.invar");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenInvar, "fluid.molten.invar");
-        if (isInvarPreReg)
-        {
-            TinkerSmeltery.moltenInvarFluid = FluidRegistry.getFluid("invar.molten");
-            Block regMoltenInvarBlock = TinkerSmeltery.moltenInvarFluid.getBlock();
-            if (regMoltenInvarBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenInvar).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenInvar = regMoltenInvarBlock;
-            }
-            else
-                TinkerSmeltery.moltenInvarFluid.setBlock(TinkerSmeltery.moltenInvar);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenInvarFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenInvarFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 21), new ItemStack(Items.bucket)));
-
-        TinkerSmeltery.moltenElectrumFluid = new Fluid("electrum.molten").setDensity(3000).setViscosity(6000).setTemperature(1300);
-        boolean isElectrumPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenElectrumFluid);
-        TinkerSmeltery.moltenElectrum = new TConstructFluid(TinkerSmeltery.moltenElectrumFluid, Material.lava, "liquid_electrum").setBlockName("fluid.molten.electrum");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenElectrum, "fluid.molten.electrum");
-        if (isElectrumPreReg)
-        {
-            TinkerSmeltery.moltenElectrumFluid = FluidRegistry.getFluid("electrum.molten");
-            Block regMoltenElectrumBlock = TinkerSmeltery.moltenElectrumFluid.getBlock();
-            if (regMoltenElectrumBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenElectrum).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenElectrum = regMoltenElectrumBlock;
-            }
-            else
-                TinkerSmeltery.moltenElectrumFluid.setBlock(TinkerSmeltery.moltenElectrum);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenElectrumFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenElectrumFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 22), new ItemStack(Items.bucket)));
-
-        TinkerSmeltery.moltenEnderFluid = new Fluid("ender").setDensity(3000).setViscosity(6000);
-        boolean isEnderPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.moltenEnderFluid);
-        TinkerSmeltery.moltenEnder = new TConstructFluid(TinkerSmeltery.moltenEnderFluid, Material.water, "liquid_ender").setBlockName("fluid.ender");
-        GameRegistry.registerBlock(TinkerSmeltery.moltenEnder, "fluid.ender");
-        if (isEnderPreReg)
-        {
-            TinkerSmeltery.moltenEnderFluid = FluidRegistry.getFluid("ender");
-            Block regMoltenEnderBlock = TinkerSmeltery.moltenEnderFluid.getBlock();
-            if (regMoltenEnderBlock != null)
-            {
-                ((TConstructFluid) TinkerSmeltery.moltenEnder).suppressOverwritingFluidIcons();
-                TinkerSmeltery.moltenEnder = regMoltenEnderBlock;
-            }
-            else
-                TinkerSmeltery.moltenEnderFluid.setBlock(TinkerSmeltery.moltenEnder);
-        }
-        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(TinkerSmeltery.moltenEnderFluid, 1000), new ItemStack(Items.bucket)) == null)
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TinkerSmeltery.moltenEnderFluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, 23), new ItemStack(Items.bucket)));
 
         // Glue
         TinkerSmeltery.glueFluid = new Fluid("glue").setDensity(6000).setViscosity(6000).setTemperature(200);
@@ -1349,72 +985,7 @@ public class TinkerSmeltery
         Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenElectrumFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkerSmeltery.moltenSilverFluid, TConstruct.ingotLiquidValue)); // Electrum
 
         // TE is handled by the oredicted variant already
-        /* Thermal Expansion 3 Metals */
-        /*
-        ArrayList<ItemStack> ores = OreDictionary.getOres("ingotNickel");
-        if (ores.size() > 0)
-        {
-            tableCasting.addCastingRecipe(ores.get(0), new FluidStack(TinkerSmeltery.moltenNickelFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
-        }
-        ores = OreDictionary.getOres("ingotLead");
-        if (ores.size() > 0)
-        {
-            tableCasting.addCastingRecipe(ores.get(0), new FluidStack(TinkerSmeltery.moltenLeadFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
-        }
-        ores = OreDictionary.getOres("ingotSilver");
-        if (ores.size() > 0)
-        {
-            tableCasting.addCastingRecipe(ores.get(0), new FluidStack(TinkerSmeltery.moltenSilverFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
-        }
-        ores = OreDictionary.getOres("ingotPlatinum");
-        if (ores.size() > 0)
-        {
-            tableCasting.addCastingRecipe(ores.get(0), new FluidStack(TinkerSmeltery.moltenShinyFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
-        }
-        ores = OreDictionary.getOres("ingotInvar");
-        if (ores.size() > 0)
-        {
-            tableCasting.addCastingRecipe(ores.get(0), new FluidStack(TinkerSmeltery.moltenInvarFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
-            Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenInvarFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(TinkerSmeltery.moltenIronFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(TinkerSmeltery.moltenNickelFluid, TConstruct.ingotLiquidValue * 1)); // Invar
-        }
-        ores = OreDictionary.getOres("ingotElectrum");
-        if (ores.size() > 0)
-        {
-            tableCasting.addCastingRecipe(ores.get(0), new FluidStack(TinkerSmeltery.moltenElectrumFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
-            Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenElectrumFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkerSmeltery.moltenSilverFluid, TConstruct.ingotLiquidValue)); // Electrum
-        }
 
-        ores = OreDictionary.getOres("blockNickel");
-        if (ores.size() > 0)
-        {
-            basinCasting.addCastingRecipe(ores.get(0), new FluidStack(TinkerSmeltery.moltenNickelFluid, TConstruct.blockLiquidValue), null, 100);
-        }
-        ores = OreDictionary.getOres("blockLead");
-        if (ores.size() > 0)
-        {
-            basinCasting.addCastingRecipe(ores.get(0), new FluidStack(TinkerSmeltery.moltenLeadFluid, TConstruct.blockLiquidValue), null, 100);
-        }
-        ores = OreDictionary.getOres("blockSilver");
-        if (ores.size() > 0)
-        {
-            basinCasting.addCastingRecipe(ores.get(0), new FluidStack(TinkerSmeltery.moltenSilverFluid, TConstruct.blockLiquidValue), null, 100);
-        }
-        ores = OreDictionary.getOres("blockPlatinum");
-        if (ores.size() > 0)
-        {
-            basinCasting.addCastingRecipe(ores.get(0), new FluidStack(TinkerSmeltery.moltenShinyFluid, TConstruct.blockLiquidValue), null, 100);
-        }
-        ores = OreDictionary.getOres("blockInvar");
-        if (ores.size() > 0)
-        {
-            basinCasting.addCastingRecipe(ores.get(0), new FluidStack(TinkerSmeltery.moltenInvarFluid, TConstruct.blockLiquidValue), null, 100);
-        }
-        ores = OreDictionary.getOres("blockElectrum");
-        if (ores.size() > 0)
-        {
-            basinCasting.addCastingRecipe(ores.get(0), new FluidStack(TinkerSmeltery.moltenElectrumFluid, TConstruct.blockLiquidValue), null, 100);
-        }
-*/
         /* Extra Utilities */
         ores = OreDictionary.getOres("compressedGravel1x");
         if (ores.size() > 0)
@@ -1436,5 +1007,63 @@ public class TinkerSmeltery
         {
             FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerTools.materials, 1, 36), ores.get(0), 0.2f);
         }
+    }
+
+    public Fluid registerFluid(String name) {
+        return registerFluid(name, "liquid_" + name);
+    }
+
+    public Fluid registerFluid(String name, String texture) {
+        return registerFluid(name, name + ".molten", "fluid.molten." + name, texture, 3000, 6000, 1300, Material.lava);
+    }
+
+    public Fluid registerFluid(String name, String fluidName, String blockName, String texture, int density, int viscosity, int temperature, Material material) {
+        // create the new fluid
+        Fluid fluid = new Fluid(fluidName).setDensity(density).setViscosity(viscosity).setTemperature(temperature);
+
+        if(material == Material.lava)
+            fluid.setLuminosity(12);
+
+        // register it if it's not already existing
+        boolean isElectrumPreReg = !FluidRegistry.registerFluid(fluid);
+
+        // register our fluid block for the fluid
+        // this constructor implicitly does fluid.setBlock to it, that's why it's not called separately
+        TConstructFluid block = new TConstructFluid(fluid, material, texture);
+        block.setBlockName(blockName);
+        GameRegistry.registerBlock(block, blockName);
+
+        // if the fluid was already registered we use that one instead
+        if (isElectrumPreReg)
+        {
+            fluid = FluidRegistry.getFluid(fluidName);
+
+            // don't change the fluid icons of already existing fluids
+            if(fluid.getBlock() != null)
+                block.suppressOverwritingFluidIcons();
+            // if no block is registered with an existing liquid, we set our own
+            else
+                fluid.setBlock(block);
+        }
+
+
+        if (FluidContainerRegistry.fillFluidContainer(new FluidStack(fluid, 1000), new ItemStack(Items.bucket)) == null) {
+            // custom hacks for teh lookup. hoooray for inconsintency.
+            if(name.equals("aluminiumbrass"))
+                name = "alubrass";
+            if(name.equals("platinum"))
+                name = "shiny";
+            boolean reg = false;
+            for(int i = 0; i < FilledBucket.textureNames.length; i++)
+                if(FilledBucket.textureNames[i].equals(name)) {
+                    FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(fluid, 1000), new ItemStack(TinkerSmeltery.buckets, 1, i), new ItemStack(Items.bucket)));
+                    reg = true;
+                }
+
+            if(!reg)
+                TConstruct.logger.error("Couldn't register fluid container for " + name);
+        }
+
+        return fluid;
     }
 }
