@@ -43,6 +43,7 @@ import tconstruct.plugins.imc.TinkerMystcraft;
 import tconstruct.plugins.TinkerThaumcraft;
 import tconstruct.plugins.mfr.TinkerMFR;
 import tconstruct.plugins.te4.TinkerTE4;
+import tconstruct.plugins.te4.TinkersThermalFoundation;
 import tconstruct.plugins.ubc.TinkerUBC;
 import tconstruct.plugins.waila.TinkerWaila;
 import tconstruct.smeltery.TinkerSmeltery;
@@ -139,6 +140,7 @@ public class TConstruct
         pulsar.registerPulse(new TinkerMystcraft());
         pulsar.registerPulse(new TinkerMFR());
         pulsar.registerPulse(new TinkerTE4());
+        pulsar.registerPulse(new TinkersThermalFoundation());
         pulsar.registerPulse(new TinkerFMP());
         pulsar.registerPulse(new TinkerUBC());
         pulsar.registerPulse(new TinkerGears());

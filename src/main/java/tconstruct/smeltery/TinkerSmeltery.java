@@ -99,6 +99,10 @@ public class TinkerSmeltery
     public static Fluid moltenShinyFluid;
     public static Fluid moltenInvarFluid;
     public static Fluid moltenElectrumFluid;
+    public static Fluid moltenLumiumFluid;
+    public static Fluid moltenSignalumFluid;
+    public static Fluid moltenMithrilFluid;
+    public static Fluid moltenEnderiumFluid;
     public static Fluid moltenEnderFluid;
     public static Block moltenIron;
     public static Block moltenGold;
@@ -122,6 +126,10 @@ public class TinkerSmeltery
     public static Block moltenShiny;
     public static Block moltenInvar;
     public static Block moltenElectrum;
+    public static Block moltenLumium;
+    public static Block moltenSignalum;
+    public static Block moltenMithril;
+    public static Block moltenEnderium;
     public static Block moltenEnder;
     // Glue
     public static Fluid glueFluid;
@@ -243,6 +251,18 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenEnderFluid = registerFluid("ender", "ender", "fluid.ender", "liquid_ender", 3000, 6000, 295, Material.water);
         TinkerSmeltery.moltenEnder = TinkerSmeltery.moltenEnderFluid.getBlock();
 
+        TinkerSmeltery.moltenLumiumFluid = registerFluid("lumium");
+        TinkerSmeltery.moltenLumium = TinkerSmeltery.moltenLumiumFluid.getBlock();
+
+        TinkerSmeltery.moltenSignalumFluid = registerFluid("signalum");
+        TinkerSmeltery.moltenSignalum = TinkerSmeltery.moltenSignalumFluid.getBlock();
+
+        TinkerSmeltery.moltenMithrilFluid = registerFluid("mithril");
+        TinkerSmeltery.moltenMithril = TinkerSmeltery.moltenMithrilFluid.getBlock();
+
+        TinkerSmeltery.moltenEnderiumFluid = registerFluid("enderium");
+        TinkerSmeltery.moltenEnderium = TinkerSmeltery.moltenEnderiumFluid.getBlock();
+
         // Special liquids with different properties/blocks than the rest
 
         TinkerSmeltery.bloodFluid = new Fluid("blood").setDensity(3000).setViscosity(6000).setTemperature(1300);
@@ -332,6 +352,10 @@ public class TinkerSmeltery
         FluidType.registerFluidType("Platinum", TinkerWorld.metalBlock, 0, 400, TinkerSmeltery.moltenShinyFluid, false);
         FluidType.registerFluidType("Invar", TinkerWorld.metalBlock, 0, 400, TinkerSmeltery.moltenInvarFluid, false);
         FluidType.registerFluidType("Electrum", TinkerWorld.metalBlock, 0, 400, TinkerSmeltery.moltenElectrumFluid, false);
+        FluidType.registerFluidType("Lumium", TinkerWorld.metalBlock, 0, 370, TinkerSmeltery.moltenLumiumFluid, false);
+        FluidType.registerFluidType("Signalum", TinkerWorld.metalBlock, 0, 450, TinkerSmeltery.moltenSignalumFluid, false);
+        FluidType.registerFluidType("Mithril", TinkerWorld.metalBlock, 0, 800, TinkerSmeltery.moltenMithrilFluid, false);
+        FluidType.registerFluidType("Enderium", TinkerWorld.metalBlock, 0, 1000, TinkerSmeltery.moltenEnderiumFluid, false);
         FluidType.registerFluidType("Obsidian", Blocks.obsidian, 0, 750, TinkerSmeltery.moltenObsidianFluid, true);
         FluidType.registerFluidType("Ender", TinkerWorld.metalBlock, 10, 500, TinkerSmeltery.moltenEnderFluid, false);
         FluidType.registerFluidType("Glass", Blocks.sand, 0, 625, TinkerSmeltery.moltenGlassFluid, false);
@@ -753,10 +777,6 @@ public class TinkerSmeltery
     {
         // Smeltery fuels
         Smeltery.addSmelteryFuel(FluidRegistry.LAVA, 1300, 80); // lava lasts 4 seconds per 15 mb
-        // register pyrotheum if it's present
-        Fluid pyrotheum = FluidRegistry.getFluid("pyrotheum");
-        if (pyrotheum != null)
-            Smeltery.addSmelteryFuel(pyrotheum, 5000, 70); // pyrotheum lasts 3.5 seconds per 15 mb
 
         // BLOOD FOR THE BLOOD GOD
         if (TinkerWorld.meatBlock != null)
@@ -975,16 +995,8 @@ public class TinkerSmeltery
         if (taintedSoil != null && heatSand != null)
             GameRegistry.addShapelessRecipe(new ItemStack(TinkerTools.craftedSoil, 2, 6), Items.nether_wart, taintedSoil, heatSand);
 
-        ItemStack ingotcast = new ItemStack(TinkerSmeltery.metalPattern, 1, 0);
-        LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
         LiquidCasting basinCasting = TConstructRegistry.getBasinCasting();
         ArrayList<ItemStack> ores;
-
-        // TE alloys
-        Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenInvarFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(TinkerSmeltery.moltenIronFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(TinkerSmeltery.moltenNickelFluid, TConstruct.ingotLiquidValue * 1)); // Invar
-        Smeltery.addAlloyMixing(new FluidStack(TinkerSmeltery.moltenElectrumFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkerSmeltery.moltenSilverFluid, TConstruct.ingotLiquidValue)); // Electrum
-
-        // TE is handled by the oredicted variant already
 
         /* Extra Utilities */
         ores = OreDictionary.getOres("compressedGravel1x");
@@ -1009,15 +1021,17 @@ public class TinkerSmeltery
         }
     }
 
-    public Fluid registerFluid(String name) {
+
+
+    public static Fluid registerFluid(String name) {
         return registerFluid(name, "liquid_" + name);
     }
 
-    public Fluid registerFluid(String name, String texture) {
+    public static Fluid registerFluid(String name, String texture) {
         return registerFluid(name, name + ".molten", "fluid.molten." + name, texture, 3000, 6000, 1300, Material.lava);
     }
 
-    public Fluid registerFluid(String name, String fluidName, String blockName, String texture, int density, int viscosity, int temperature, Material material) {
+    public static Fluid registerFluid(String name, String fluidName, String blockName, String texture, int density, int viscosity, int temperature, Material material) {
         // create the new fluid
         Fluid fluid = new Fluid(fluidName).setDensity(density).setViscosity(viscosity).setTemperature(temperature);
 
@@ -1025,7 +1039,7 @@ public class TinkerSmeltery
             fluid.setLuminosity(12);
 
         // register it if it's not already existing
-        boolean isElectrumPreReg = !FluidRegistry.registerFluid(fluid);
+        boolean isFluidPreRegistered = !FluidRegistry.registerFluid(fluid);
 
         // register our fluid block for the fluid
         // this constructor implicitly does fluid.setBlock to it, that's why it's not called separately
@@ -1034,7 +1048,7 @@ public class TinkerSmeltery
         GameRegistry.registerBlock(block, blockName);
 
         // if the fluid was already registered we use that one instead
-        if (isElectrumPreReg)
+        if (isFluidPreRegistered)
         {
             fluid = FluidRegistry.getFluid(fluidName);
 
