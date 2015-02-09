@@ -1,6 +1,7 @@
 package tconstruct.plugins.te4;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import mantle.pulsar.pulse.Handler;
@@ -15,9 +16,11 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.crafting.FluidType;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.TinkerSmeltery;
+import tconstruct.world.TinkerWorld;
 
 import java.util.ArrayList;
 
@@ -25,6 +28,20 @@ import java.util.ArrayList;
 @Pulse(id = "Tinkers Thermal Foundation Compatibility", description = "Tinkers Construct compatibility for Thermal Foundation", modsRequired = TinkersThermalFoundation.TF_MOD_ID, forced = true)
 public class TinkersThermalFoundation {
     static final String TF_MOD_ID = "ThermalFoundation";
+
+    @Handler
+    public void preInit(FMLPreInitializationEvent event) {
+        registerFluidType("Nickel", 400, TinkerSmeltery.moltenNickelFluid);
+        registerFluidType("Lead", 400, TinkerSmeltery.moltenLeadFluid);
+        registerFluidType("Silver", 400, TinkerSmeltery.moltenSilverFluid);
+        registerFluidType("Platinum", 400, TinkerSmeltery.moltenShinyFluid);
+        registerFluidType("Invar", 400, TinkerSmeltery.moltenInvarFluid);
+        registerFluidType("Electrum", 400, TinkerSmeltery.moltenElectrumFluid);
+        registerFluidType("Lumium", 370, TinkerSmeltery.moltenLumiumFluid);
+        registerFluidType("Signalum", 450, TinkerSmeltery.moltenSignalumFluid);
+        registerFluidType("Mithril", 800, TinkerSmeltery.moltenMithrilFluid);
+        registerFluidType("Enderium", 1000, TinkerSmeltery.moltenEnderiumFluid);
+    }
 
     @Handler
     public void init(FMLInitializationEvent event) {
@@ -99,5 +116,14 @@ public class TinkersThermalFoundation {
         part2 = new FluidStack(TinkerSmeltery.moltenTinFluid, amount * 2);
         part3 = new FluidStack(TinkerSmeltery.moltenShinyFluid, amount);
         Smeltery.addAlloyMixing(result, part1, part2, part3, new FluidStack(TinkerSmeltery.moltenEnderFluid, amount));
+    }
+
+
+    private void registerFluidType(String name, int temp, Fluid fluid) {
+        ItemStack stack = GameRegistry.findItemStack(TF_MOD_ID, "block" + name, 1);
+        if(stack == null || stack.getItem() == null)
+            stack = new ItemStack(TinkerWorld.metalBlock);
+
+        FluidType.registerFluidType(name, Block.getBlockFromItem(stack.getItem()), stack.getItemDamage(), temp, fluid, false);
     }
 }

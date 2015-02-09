@@ -346,16 +346,6 @@ public class TinkerSmeltery
         FluidType.registerFluidType("Manyullyn", TinkerWorld.metalBlock, 2, 750, TinkerSmeltery.moltenManyullynFluid, true);
         FluidType.registerFluidType("Bronze", TinkerWorld.metalBlock, 4, 500, TinkerSmeltery.moltenBronzeFluid, true);
         FluidType.registerFluidType("Steel", TinkerWorld.metalBlock, 9, 700, TinkerSmeltery.moltenSteelFluid, true);
-        FluidType.registerFluidType("Nickel", TinkerWorld.metalBlock, 0, 400, TinkerSmeltery.moltenNickelFluid, false);
-        FluidType.registerFluidType("Lead", TinkerWorld.metalBlock, 0, 400, TinkerSmeltery.moltenLeadFluid, false);
-        FluidType.registerFluidType("Silver", TinkerWorld.metalBlock, 0, 400, TinkerSmeltery.moltenSilverFluid, false);
-        FluidType.registerFluidType("Platinum", TinkerWorld.metalBlock, 0, 400, TinkerSmeltery.moltenShinyFluid, false);
-        FluidType.registerFluidType("Invar", TinkerWorld.metalBlock, 0, 400, TinkerSmeltery.moltenInvarFluid, false);
-        FluidType.registerFluidType("Electrum", TinkerWorld.metalBlock, 0, 400, TinkerSmeltery.moltenElectrumFluid, false);
-        FluidType.registerFluidType("Lumium", TinkerWorld.metalBlock, 0, 370, TinkerSmeltery.moltenLumiumFluid, false);
-        FluidType.registerFluidType("Signalum", TinkerWorld.metalBlock, 0, 450, TinkerSmeltery.moltenSignalumFluid, false);
-        FluidType.registerFluidType("Mithril", TinkerWorld.metalBlock, 0, 800, TinkerSmeltery.moltenMithrilFluid, false);
-        FluidType.registerFluidType("Enderium", TinkerWorld.metalBlock, 0, 1000, TinkerSmeltery.moltenEnderiumFluid, false);
         FluidType.registerFluidType("Obsidian", Blocks.obsidian, 0, 750, TinkerSmeltery.moltenObsidianFluid, true);
         FluidType.registerFluidType("Ender", TinkerWorld.metalBlock, 10, 500, TinkerSmeltery.moltenEnderFluid, false);
         FluidType.registerFluidType("Glass", Blocks.sand, 0, 625, TinkerSmeltery.moltenGlassFluid, false);
