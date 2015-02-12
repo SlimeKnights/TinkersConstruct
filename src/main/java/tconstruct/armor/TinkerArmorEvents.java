@@ -26,6 +26,9 @@ public class TinkerArmorEvents
         if (event.entityLiving == null)
             return;
 
+        if(!event.entityLiving.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot"))
+            return;
+
         if (TConstruct.random.nextInt(200) == 0 && event.entityLiving instanceof IMob && event.source.damageType.equals("player"))
         {
             ItemStack dropStack = new ItemStack(TinkerArmor.heartCanister, 1, 1);
