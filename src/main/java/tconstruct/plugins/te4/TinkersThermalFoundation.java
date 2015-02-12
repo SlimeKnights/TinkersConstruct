@@ -70,7 +70,7 @@ public class TinkersThermalFoundation {
 
         // liquid pyrotheum
         for(ItemStack stack : OreDictionary.getOres("dustPyrotheum"))
-            Smeltery.addMelting(stack, Blocks.glowstone, stack.getItemDamage(), 4000, new FluidStack(pyrotheumFluid, 100));
+            Smeltery.addMelting(stack, Blocks.glowstone, stack.getItemDamage(), 1299, new FluidStack(pyrotheumFluid, 100));
 
         // liquid cryotheum
         for(ItemStack stack : OreDictionary.getOres("dustCryotheum"))
@@ -100,14 +100,14 @@ public class TinkersThermalFoundation {
         result = new FluidStack(TinkerSmeltery.moltenLumiumFluid, amount * 4);
         part1 = new FluidStack(TinkerSmeltery.moltenSilverFluid, amount);
         part2 = new FluidStack(TinkerSmeltery.moltenTinFluid, amount * 3);
-        part3 = new FluidStack(glowstoneFluid, amount);
+        part3 = new FluidStack(glowstoneFluid, 1000);
         Smeltery.addAlloyMixing(result, part1, part2, part3);
 
         // Signalum
         result = new FluidStack(TinkerSmeltery.moltenSignalumFluid, amount * 4);
         part1 = new FluidStack(TinkerSmeltery.moltenSilverFluid, amount);
         part2 = new FluidStack(TinkerSmeltery.moltenCopperFluid, amount * 3);
-        part3 = new FluidStack(redstoneFluid, amount);
+        part3 = new FluidStack(redstoneFluid, 1000);
         Smeltery.addAlloyMixing(result, part1, part2, part3);
 
         // Enderium
@@ -115,7 +115,7 @@ public class TinkersThermalFoundation {
         part1 = new FluidStack(TinkerSmeltery.moltenSilverFluid, amount);
         part2 = new FluidStack(TinkerSmeltery.moltenTinFluid, amount * 2);
         part3 = new FluidStack(TinkerSmeltery.moltenShinyFluid, amount);
-        Smeltery.addAlloyMixing(result, part1, part2, part3, new FluidStack(TinkerSmeltery.moltenEnderFluid, amount));
+        Smeltery.addAlloyMixing(result, part1, part2, part3, new FluidStack(TinkerSmeltery.moltenEnderFluid, 1000));
     }
 
 
