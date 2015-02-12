@@ -31,9 +31,6 @@ public class ModLapis extends ItemModTypeFilter
 
             NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
 
-            if (tags.getBoolean("Silk Touch"))
-                return false;
-
             if (!tags.hasKey(key))
                 return tags.getInteger("Modifiers") > 0 && matchingAmount(input) <= max;
 

@@ -24,10 +24,7 @@ public class ModButtertouch extends ModBoolean
                 return false;
 
             NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
-            if (!tags.getBoolean("Lava") && !tags.hasKey("Lapis"))
-            {
-                return tags.getInteger("Modifiers") > 0 && !tags.getBoolean(key);
-            }
+            return tags.getInteger("Modifiers") > 0 && !tags.getBoolean(key);
         }
         return false;
     }
