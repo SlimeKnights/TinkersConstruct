@@ -335,6 +335,7 @@ public class TinkerTools
     {
         addPartMapping();
         addRecipesForToolBuilder();
+        addModifierIncompatibilities();
         addRecipesForChisel();
         craftingTableRecipes();
         setupToolTabs();
@@ -464,6 +465,12 @@ public class TinkerTools
         ModifyBuilder.registerModifier(new ModReinforced(new ItemStack[] { obsidianPlate }, 16, 1));
 
         TConstructRegistry.registerActiveToolMod(new TActiveOmniMod());
+    }
+
+    private void addModifierIncompatibilities()
+    {
+        ModifyBuilder.instance.getModifierByKey("Silk Touch").addModifierIncompatibility(ModifyBuilder.instance.getModifierByKey("Lava"));
+        ModifyBuilder.instance.getModifierByKey("Silk Touch").addModifierIncompatibility(ModifyBuilder.instance.getModifierByKey("Lapis"));
     }
 
     private void addRecipesForChisel ()

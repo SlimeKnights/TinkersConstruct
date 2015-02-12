@@ -8,6 +8,7 @@ public abstract class ItemModifier
 {
     public final String key;
     public final List stacks;
+    protected final List modifierBlacklist;
     public final int effectIndex;
     public static Random random = new Random();
 
@@ -26,6 +27,7 @@ public abstract class ItemModifier
         stacks = itemstacks;
         effectIndex = effect;
         key = dataKey;
+        modifierBlacklist = new ArrayList<ItemModifier>();
     }
 
     /** Checks to see if the inputs match the stored items
@@ -93,6 +95,36 @@ public abstract class ItemModifier
     {
         NBTTagCompound tags = input.getTagCompound().getCompoundTag(getTagName(input));
         return tags.getInteger("Modifiers") > 0;
+    }
+
+    /**
+     * @param modifier Modifier to check for incompatibility.
+     * @return Whether this modifier considers itself compatibility with the argument.
+     */
+
+    public boolean canModifyWith (ItemModifier modifier)
+    {
+        if(modifierBlacklist.contains(modifier))
+            return false;
+        return true;
+    }
+
+    /**
+     * @param modifier Modifier to set as incompatible with this one.
+     */
+
+    public void addModifierIncompatibility (ItemModifier modifier)
+    {
+        this.modifierBlacklist.add(modifier);
+    }
+
+    /**
+     * @return A List of ItemModifiers that are incompatible with this one.
+     */
+
+    public List getBlacklist()
+    {
+        return this.modifierBlacklist;
     }
 
     /** Modifies the tool. Adds nbttags, changes existing ones, ticks down modification counter, etc
