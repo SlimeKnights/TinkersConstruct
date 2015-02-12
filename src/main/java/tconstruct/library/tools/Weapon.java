@@ -13,13 +13,13 @@ import net.minecraft.item.*;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import tconstruct.tools.TinkerTools;
-import zeldaswordskills.api.item.ISword;
 
 @Optional.InterfaceList({
     @Optional.Interface(modid = "battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon"),
-    @Optional.Interface(modid = "ZeldaItemAPI", iface = "zeldaswordskills.api.item.ISword")
+    @Optional.Interface(modid = "ZeldaItemAPI", iface = "zeldaswordskills.api.item.ISword"),
+    @Optional.Interface(modid = "DynamicSkillsAPI", iface = "dynamicswordskills.api.ISword")
 })
-public abstract class Weapon extends ToolCore implements IBattlegearWeapon, ISword
+public abstract class Weapon extends ToolCore implements IBattlegearWeapon, zeldaswordskills.api.item.ISword, dynamicswordskills.api.ISword
 {
 
     public Weapon(int baseDamage)
