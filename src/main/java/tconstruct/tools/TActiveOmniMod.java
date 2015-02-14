@@ -251,7 +251,7 @@ public class TActiveOmniMod extends ActiveToolMod
     @Override
     public int attackDamage (int modDamage, int currentDamage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLivingBase player, Entity entity)
     {
-        int bonus = 0;
+        int bonus = modDamage;
         if (entity instanceof EntityLivingBase)
         {
             EnumCreatureAttribute attribute = ((EntityLivingBase) entity).getCreatureAttribute();
@@ -285,7 +285,7 @@ public class TActiveOmniMod extends ActiveToolMod
     @Override
     public float knockback (float modKnockback, float currentKnockback, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLivingBase player, Entity entity)
     {
-        float bonus = 0f;
+        float bonus = modKnockback;
         if (toolTags.hasKey("Knockback"))
         {
             float level = toolTags.getFloat("Knockback");
