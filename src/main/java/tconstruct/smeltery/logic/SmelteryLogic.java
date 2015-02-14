@@ -333,7 +333,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             if (moltenMetal.size() >= 1)
             {
-                if (o instanceof EntityVillager)
+                if (o instanceof EntityVillager && PHConstruct.meltableVillagers)
                 {
                     EntityVillager villager = (EntityVillager) o;
                     if (villager.attackEntityFrom(new SmelteryDamageSource(), 5))
@@ -367,10 +367,10 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                         }
                     }
                 }
-                else if (o instanceof EntityHorse)
+                else if (o instanceof EntityHorse && PHConstruct.meltableHorses)
                 {
                     EntityHorse horse = (EntityHorse) o;
-                    if (PHConstruct.meltableHorses && horse.attackEntityFrom(new SmelteryDamageSource(), 5))
+                    if (horse.attackEntityFrom(new SmelteryDamageSource(), 5))
                     {
                         if (currentLiquid + 108 < maxLiquid)
                         {
