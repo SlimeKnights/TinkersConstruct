@@ -345,6 +345,7 @@ public class TinkerTools
     public void postInit (FMLPostInitializationEvent evt)
     {
         vanillaToolRecipes();
+        addOreDictPartMapping();
         modIntegration();
         metalPartCraftingIntegration();
 
@@ -381,7 +382,9 @@ public class TinkerTools
                 }
             }
         }
+    }
 
+    private void addOreDictPartMapping() {
         registerPatternMaterial("plankWood", 2, "Wood");
         registerPatternMaterial("stickWood", 1, "Wood");
         registerPatternMaterial("slabWood", 1, "Wood");
