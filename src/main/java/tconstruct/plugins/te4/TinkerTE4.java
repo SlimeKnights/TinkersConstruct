@@ -4,6 +4,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 import mantle.pulsar.pulse.*;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
@@ -12,6 +13,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.*;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
 import tconstruct.world.TinkerWorld;
 
@@ -73,5 +75,11 @@ public class TinkerTE4
         TConstructRegistry.getTableCasting().addCastingRecipe(plateRedstone, new FluidStack(redstoneFluid, 1000), plate, true, 100);
         TConstructRegistry.getTableCasting().addCastingRecipe(plateGlowstone, new FluidStack(glowstoneFluid, 1000), plate, true, 100);
         TConstructRegistry.getTableCasting().addCastingRecipe(plateEnder, new FluidStack(enderFluid, 1000), plate, true, 100);
+
+        // last but not least.. a really weird hardened glass recipe
+        ItemStack hardenedGlass = GameRegistry.findItemStack("ThermalExpansion", "blockGlassHardened" ,1);
+        ItemStack obsidian = new ItemStack(Blocks.obsidian);
+        FluidStack lead = new FluidStack(TinkerSmeltery.moltenLeadFluid, TConstruct.ingotLiquidValue/2);
+        TConstructRegistry.getBasinCasting().addCastingRecipe(hardenedGlass, lead, obsidian, true, 150);
     }
 }
