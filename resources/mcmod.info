@@ -2,7 +2,7 @@
   {
     "modid": "TConstruct",
     "name": "Tinkers' Construct",
-    "description": "A little of this, a little of that, a lot of tinkering, and a lot of tools",
+    "description": "Tinkers' Construct is a mod which adds a lot of new items & tools to Minecraft!",
     "version": "${version}",
     "mcversion": "${MCversion}",
     "url": "http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2218638-tinkers-construct",
