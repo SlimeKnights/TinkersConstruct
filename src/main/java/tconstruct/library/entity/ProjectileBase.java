@@ -56,9 +56,6 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
 
         // stuff from the arrow
         this.setLocationAndAngles(player.posX, player.posY + (double)player.getEyeHeight(), player.posZ, player.rotationYaw, player.rotationPitch);
-        this.posX -= MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F;
-        this.posY -= 0.10000000149011612D;
-        this.posZ -= MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F;
         this.setPosition(this.posX, this.posY, this.posZ);
         this.yOffset = 0.0F;
         this.motionX = -MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI);
@@ -629,5 +626,10 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
         this.motionX = data.readDouble();
         this.motionY = data.readDouble();
         this.motionZ = data.readDouble();
+        
+        // position offset so it doesn't shoot from the player's eyes
+        this.posX -= MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F;
+        this.posY -= 0.10000000149011612D;
+        this.posZ -= MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F;
     }
 }
