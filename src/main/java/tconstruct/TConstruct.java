@@ -16,6 +16,7 @@ import java.util.Map;
 
 import mantle.pulsar.control.PulseManager;
 import tconstruct.debug.StickOfDebugging;
+import tconstruct.test.TinkerTest;
 import tconstruct.tools.TinkerMaterials;
 import tconstruct.tools.TinkerTools;
 
@@ -79,6 +80,7 @@ public class TConstruct {
     TinkerMaterials.registerMaterials();
 
     pulseManager.registerPulse(new TinkerTools());
+    pulseManager.registerPulse(new TinkerTest());
     pulseManager.preInit(event);
 
     GameRegistry.registerItem(new StickOfDebugging(), "debugstick");

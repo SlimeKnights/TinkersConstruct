@@ -16,6 +16,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -33,7 +34,9 @@ import tconstruct.TinkerPulse;
 import tconstruct.Util;
 import tconstruct.debug.TestBlock;
 import tconstruct.debug.TestBlockModel;
+import tconstruct.debug.TestModel;
 import tconstruct.debug.TestTool;
+import tconstruct.debug.TestToolRenderer;
 import tconstruct.library.tinkering.PartMaterialWrapper;
 import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.tinkering.ToolPart;
@@ -53,6 +56,7 @@ public class TinkerTools extends TinkerPulse {
 
   @Handler
   public void init(FMLInitializationEvent event) {
+    /*
     ToolPart a, b;
     a = new ToolPart();
     b = new ToolPart();
@@ -66,7 +70,7 @@ public class TinkerTools extends TinkerPulse {
 
     TinkersItem testTool = new TestTool(c, d);
 
-    GameRegistry.registerItem(testTool, "TestTool");
+    GameRegistry.registerItem(testTool, "TestTool2");
 
     ItemStack e, f;
     e = new ItemStack(a, 1, TinkerMaterials.stone.metadata);
@@ -78,7 +82,17 @@ public class TinkerTools extends TinkerPulse {
     TestBlock testBlock = new TestBlock();
     GameRegistry.registerBlock(testBlock, "TestBlock");
 
-    if(FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+    if(FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT && false) {
+      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(testTool,
+                                                                             new ItemMeshDefinition() {
+                                                                               @Override
+                                                                               public ModelResourceLocation getModelLocation(
+                                                                                   ItemStack stack) {
+                                                                                 return new ModelResourceLocation(
+                                                                                     "TConstruct:TestTool2",
+                                                                                     "inventory");
+                                                                               }
+                                                                             });
       Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().registerBlockWithStateMapper(
           testBlock, new StateMapperBase() {
             @Override
@@ -86,16 +100,21 @@ public class TinkerTools extends TinkerPulse {
               return new ModelResourceLocation("TConstruct:TestBlock");
             }
           });
+
     }
+    */
   }
 
   @SubscribeEvent
   public void modelTestStuff(ModelBakeEvent event)
   {
     //event.modelRegistry.putObject(new ModelResourceLocation("TConstruct:TestTool"), new TestModel());
-    event.modelRegistry.putObject(new ModelResourceLocation("TConstruct:TestTool", "inventory"), new TestModel(event.modelManager.getTextureMap().getMissingSprite()));
+    //event.modelRegistry.putObject(new ModelResourceLocation("TConstruct:TestTool", "inventory"), new TestModel(event.modelManager.getTextureMap().getMissingSprite()));
     //event.modelManager.getModel(new ModelResourceLocation("TConstruct:TestTool", "inventory"));
 
-    event.modelRegistry.putObject(new ModelResourceLocation("TConstruct:TestBlock"), new TestBlockModel(event.modelManager.getTextureMap().getMissingSprite()));
+
+    event.modelRegistry.getObject(new ModelResourceLocation("TConstruct:TestTool", "inventory"));
+
+    //event.modelRegistry.putObject(new ModelResourceLocation("TConstruct:TestBlock"), new TestBlockModel(event.modelManager.getTextureMap().getMissingSprite()));
   }
 }

@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 public class Util {
 
-  public static final String RESOURCE = "tinker";
+  public static final String RESOURCE = "tconstruct";
 
   public static Logger getLogger(String type) {
     String log = TConstruct.modID;
