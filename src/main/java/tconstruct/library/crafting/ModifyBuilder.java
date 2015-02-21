@@ -3,6 +3,8 @@ package tconstruct.library.crafting;
 import java.util.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.MinecraftForge;
+import tconstruct.library.event.ModifyEvent;
 import tconstruct.library.modifier.*;
 
 public class ModifyBuilder
@@ -22,6 +24,11 @@ public class ModifyBuilder
             {
                 if (mod.matches(modifiers, copy) && mod.validType(item))
                 {
+                    ModifyEvent event = new ModifyEvent(mod, item, copy);
+                    MinecraftForge.EVENT_BUS.post(event);
+                    if(event.isCanceled())
+                        continue;
+
                     built = true;
                     mod.addMatchingEffect(copy); //Order matters here
                     mod.modify(modifiers, copy);
