@@ -228,7 +228,7 @@ public class FlexibleToolRenderer implements IItemRenderer {
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glAlphaFunc(GL11.GL_GREATER, 0.5F);
-        GL11.glDisable(GL11.GL_BLEND);
+        //GL11.glDisable(GL11.GL_BLEND);
 
         tess.startDrawingQuads();
 
@@ -249,7 +249,7 @@ public class FlexibleToolRenderer implements IItemRenderer {
         }
         tess.draw();
 
-        GL11.glEnable(GL11.GL_BLEND);
+        //GL11.glEnable(GL11.GL_BLEND);
         GL11.glDisable(GL11.GL_ALPHA_TEST);
         GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
         GL11.glEnable(GL11.GL_LIGHTING);
