@@ -7,6 +7,7 @@ import cpw.mods.fml.common.registry.GameRegistry.ObjectHolder;
 import mantle.pulsar.pulse.*;
 import mantle.utils.RecipeRemover;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.*;
 import net.minecraft.item.*;
@@ -32,6 +33,7 @@ import tconstruct.tools.logic.*;
 import tconstruct.util.ItemHelper;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.weaponry.TinkerWeaponry;
+import tconstruct.world.TDispenserBehaviorSpawnEgg;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.blocks.SoilBlock;
 import tconstruct.world.itemblocks.CraftedSoilItemBlock;
@@ -303,7 +305,70 @@ public class TinkerTools
 
         TinkerTools.modAttack = new ModAttack("Quartz", 11, new ItemStack[] { new ItemStack(Items.quartz), new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1, 4 });
         ModifyBuilder.registerModifier(TinkerTools.modAttack);
+
+        oreRegistry();
     }
+
+    private void oreRegistry() {
+        OreDictionary.registerOre("ingotCobalt", new ItemStack(TinkerTools.materials, 1, 3));
+        OreDictionary.registerOre("ingotArdite", new ItemStack(TinkerTools.materials, 1, 4));
+        OreDictionary.registerOre("ingotManyullyn", new ItemStack(TinkerTools.materials, 1, 5));
+        OreDictionary.registerOre("ingotCopper", new ItemStack(TinkerTools.materials, 1, 9));
+        OreDictionary.registerOre("ingotTin", new ItemStack(TinkerTools.materials, 1, 10));
+        OreDictionary.registerOre("ingotAluminum", new ItemStack(TinkerTools.materials, 1, 11));
+        OreDictionary.registerOre("ingotAluminium", new ItemStack(TinkerTools.materials, 1, 11));
+        OreDictionary.registerOre("ingotBronze", new ItemStack(TinkerTools.materials, 1, 13));
+        OreDictionary.registerOre("ingotAluminumBrass", new ItemStack(TinkerTools.materials, 1, 14));
+        OreDictionary.registerOre("ingotAluminiumBrass", new ItemStack(TinkerTools.materials, 1, 14));
+        OreDictionary.registerOre("ingotAlumite", new ItemStack(TinkerTools.materials, 1, 15));
+        OreDictionary.registerOre("ingotSteel", new ItemStack(TinkerTools.materials, 1, 16));
+        TinkerWorld.ensureOreIsRegistered("ingotIron", new ItemStack(Items.iron_ingot));
+        TinkerWorld.ensureOreIsRegistered("ingotGold", new ItemStack(Items.gold_ingot));
+        OreDictionary.registerOre("ingotObsidian", new ItemStack(TinkerTools.materials, 1, 18));
+        OreDictionary.registerOre("ingotPigIron", new ItemStack(TinkerTools.materials, 1, 34));
+        OreDictionary.registerOre("itemRawRubber", new ItemStack(TinkerTools.materials, 1, 36));
+        TinkerWorld.ensureOreIsRegistered("blockIron", new ItemStack(Blocks.iron_block));
+        TinkerWorld.ensureOreIsRegistered("blockGold", new ItemStack(Blocks.gold_block));
+
+        OreDictionary.registerOre("nuggetIron", new ItemStack(TinkerTools.materials, 1, 19));
+        OreDictionary.registerOre("nuggetCopper", new ItemStack(TinkerTools.materials, 1, 20));
+        OreDictionary.registerOre("nuggetTin", new ItemStack(TinkerTools.materials, 1, 21));
+        OreDictionary.registerOre("nuggetAluminum", new ItemStack(TinkerTools.materials, 1, 22));
+        OreDictionary.registerOre("nuggetAluminium", new ItemStack(TinkerTools.materials, 1, 22));
+        OreDictionary.registerOre("nuggetAluminumBrass", new ItemStack(TinkerTools.materials, 1, 24));
+        OreDictionary.registerOre("nuggetAluminiumBrass", new ItemStack(TinkerTools.materials, 1, 24));
+        OreDictionary.registerOre("nuggetObsidian", new ItemStack(TinkerTools.materials, 1, 27));
+        OreDictionary.registerOre("nuggetCobalt", new ItemStack(TinkerTools.materials, 1, 28));
+        OreDictionary.registerOre("nuggetArdite", new ItemStack(TinkerTools.materials, 1, 29));
+        OreDictionary.registerOre("nuggetManyullyn", new ItemStack(TinkerTools.materials, 1, 30));
+        OreDictionary.registerOre("nuggetBronze", new ItemStack(TinkerTools.materials, 1, 31));
+        OreDictionary.registerOre("nuggetAlumite", new ItemStack(TinkerTools.materials, 1, 32));
+        OreDictionary.registerOre("nuggetSteel", new ItemStack(TinkerTools.materials, 1, 33));
+        TinkerWorld.ensureOreIsRegistered("nuggetGold", new ItemStack(Items.gold_nugget));
+        OreDictionary.registerOre("nuggetPigIron", new ItemStack(TinkerTools.materials, 1, 35));
+
+        OreDictionary.registerOre("dustArdite", new ItemStack(TinkerTools.materials, 1, 38));
+        OreDictionary.registerOre("dustCobalt", new ItemStack(TinkerTools.materials, 1, 39));
+        OreDictionary.registerOre("dustAluminium", new ItemStack(TinkerTools.materials, 1, 40));
+        OreDictionary.registerOre("dustAluminum", new ItemStack(TinkerTools.materials, 1, 40));
+        OreDictionary.registerOre("dustManyullyn", new ItemStack(TinkerTools.materials, 1, 41));
+        OreDictionary.registerOre("dustAluminiumBrass", new ItemStack(TinkerTools.materials, 1, 42));
+        OreDictionary.registerOre("dustAluminumBrass", new ItemStack(TinkerTools.materials, 1, 42));
+
+        String[] matNames = { "Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn", "Copper", "Bronze", "Alumite", "Steel", "Blueslime" };
+        for (int i = 0; i < matNames.length; i++)
+        {
+            //TODO 1.8 remove this ore dict entry as it's outdated(use materialRod instead)
+            OreDictionary.registerOre(matNames[i].toLowerCase() + "Rod", new ItemStack(TinkerTools.toolRod, 1, i));
+            OreDictionary.registerOre("rod" + matNames[i], new ItemStack(TinkerTools.toolRod, 1, i));
+        }
+        OreDictionary.registerOre("thaumiumRod", new ItemStack(TinkerTools.toolRod, 1, 31));
+
+        OreDictionary.registerOre("slimeball", new ItemStack(TinkerTools.materials, 1, 36));
+
+        BlockDispenser.dispenseBehaviorRegistry.putObject(TinkerTools.titleIcon, new TDispenserBehaviorSpawnEgg());
+    }
+
 
     void setupToolTabs ()
     {
