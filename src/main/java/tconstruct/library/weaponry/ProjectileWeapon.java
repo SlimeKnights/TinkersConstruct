@@ -92,7 +92,7 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
 
     /* Windup */
     public int getWindupTime(ItemStack itemStack) {
-        if(!itemStack.hasTagCompound())
+        if(itemStack == null || !itemStack.hasTagCompound())
             return 1;
         
         NBTTagCompound toolTag = itemStack.getTagCompound().getCompoundTag("InfiTool");
