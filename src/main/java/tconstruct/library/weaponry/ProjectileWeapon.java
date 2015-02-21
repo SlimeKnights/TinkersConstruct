@@ -4,6 +4,9 @@ import net.minecraft.init.Items;
 import net.minecraft.util.StatCollector;
 import tconstruct.client.TProxyClient;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.weaponry.TinkerWeaponry;
+import tconstruct.weaponry.ammo.ArrowAmmo;
+import tconstruct.weaponry.ammo.BoltAmmo;
 import tconstruct.weaponry.client.CrosshairType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -20,6 +23,7 @@ import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.TextureHelper;
+import tconstruct.weaponry.entity.ArrowEntity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -426,14 +430,44 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
             return;
 
         float damage;
-        if(currentAmmo.getItem() == Items.arrow)
-            damage = 2;
-        else if(currentAmmo.getItem() instanceof AmmoItem && currentAmmo.hasTagCompound())
-            damage = currentAmmo.getTagCompound().getCompoundTag("InfiTool").getInteger("Attack");
+        if(currentAmmo.getItem() == Items.arrow) {
+            damage = 2 * getProjectileSpeed(stack);
+        }
+        else if(currentAmmo.getItem() instanceof AmmoItem && currentAmmo.hasTagCompound()) {
+            NBTTagCompound tags = currentAmmo.getTagCompound().getCompoundTag("InfiTool");
+            if(!tags.hasKey("BaseAttack"))
+            {
+                // quickly calculate the base attack damage from the actual attack damage and quartz modifiers
+                // yes, this relies on quartz being the only modifier that modifiers damage, but at the point of writing this
+                // that is the case, and later tools should have the tag
+                int atk = tags.getInteger("Attack");
+                if(tags.hasKey("ModAttack"))
+                {
+                    int bonusDmg = tags.getIntArray("ModAttack")[0]/24 + 1;
+                    atk -= bonusDmg;
+                }
+                tags.setInteger("BaseAttack", atk);
+            }
+
+            float baseAttack = tags.getInteger("BaseAttack");
+            float totalAttack = tags.getInteger("Attack");
+
+            damage = baseAttack * getProjectileSpeed(stack);
+            damage += (totalAttack - baseAttack);
+
+            if(currentAmmo.getItem() == TinkerWeaponry.arrowAmmo || currentAmmo.getItem() == TinkerWeaponry.boltAmmo)
+                damage = Math.max(0, damage - currentAmmo.getTagCompound().getCompoundTag("InfiTool").getInteger("Attack")/2f);
+
+            damage *= ((AmmoItem) currentAmmo.getItem()).getDamageModifier();
+
+            // since most arrows will be criticals, we factor in an average crit
+            if(currentAmmo.getItem() == TinkerWeaponry.arrowAmmo || currentAmmo.getItem() == TinkerWeaponry.boltAmmo)
+                damage += (0.5f/4f + Math.min(0.75f, getProjectileSpeed(stack)/25f)) * (damage / 2f + 2f);
+        }
         else
             return;
 
-        damage *= getProjectileSpeed(stack);
+        // convert to hearts
         damage /= 2;
 
         list.remove(list.size()-1); // remove last item (the damage of the bow itself)
