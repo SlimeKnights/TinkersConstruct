@@ -149,7 +149,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
     @Override
     public int getRenderPasses (int metadata)
     {
-        return 9;
+        return 0;
     }
 
     @Override

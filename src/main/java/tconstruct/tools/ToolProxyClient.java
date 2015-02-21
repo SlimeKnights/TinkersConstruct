@@ -14,6 +14,7 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.TConstruct;
+import tconstruct.client.FlexibleToolRenderer;
 import tconstruct.client.ToolCoreRenderer;
 import tconstruct.client.entity.projectile.*;
 import tconstruct.client.pages.*;
@@ -60,8 +61,7 @@ public class ToolProxyClient extends ToolProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(FancyEntityItem.class, new FancyItemRender());
 
         //MinecraftForgeClient.registerItemRenderer(TinkerTools.shortbow, new CustomBowRenderer());
-        ToolCoreRenderer renderer = new ToolCoreRenderer(false);
-        /*
+        FlexibleToolRenderer renderer = new FlexibleToolRenderer();
         MinecraftForgeClient.registerItemRenderer(TinkerTools.pickaxe, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.shovel, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.hatchet, renderer);
@@ -79,9 +79,9 @@ public class ToolProxyClient extends ToolProxyCommon
         MinecraftForgeClient.registerItemRenderer(TinkerTools.mattock, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.rapier, renderer);
         MinecraftForgeClient.registerItemRenderer(TinkerTools.scythe, renderer);
-        */
-        renderer = new ToolCoreRenderer(true);
-        MinecraftForgeClient.registerItemRenderer(TinkerTools.dagger, renderer); // todo proper renderer
+        MinecraftForgeClient.registerItemRenderer(TinkerTools.dagger, renderer);
+        //ToolCoreRenderer daggerRenderer = new ToolCoreRenderer(true);
+        //MinecraftForgeClient.registerItemRenderer(TinkerTools.dagger, daggerRenderer); // todo proper renderer
 
         TileEntityRendererDispatcher.instance.mapSpecialRenderers.put(BattlesignLogic.class, new BattlesignTesr());
     }
