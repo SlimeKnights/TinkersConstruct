@@ -82,7 +82,16 @@ public class TActiveOmniMod extends ActiveToolMod
 
         int blockMeta = world.getBlockMetadata(x, y, z);
 
-        if(!block.getMaterial().isToolNotRequired() && !ForgeHooks.canToolHarvestBlock(block, blockMeta, stack))
+        if(block.getMaterial().isToolNotRequired()) {
+            // only if effective tool
+            if(tool instanceof HarvestTool) {
+                if (!((HarvestTool) tool).isEffective(block, blockMeta))
+                    return false;
+            }
+            else
+                return false;
+        }
+        else if(!ForgeHooks.canToolHarvestBlock(block, blockMeta, stack))
             return false;
 
         if (tags.getBoolean("Lava") && block.quantityDropped(blockMeta, 0, random) > 0)
