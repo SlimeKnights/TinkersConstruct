@@ -158,12 +158,13 @@ public class ArmorControls {
 		if (mc.currentScreen == null) {
 			if (key == ArmorControls.toggleGoggles) {
 				ItemStack goggles = mc.thePlayer.getCurrentArmor(3);
-				if (goggles != null && goggles
-						.getItem() instanceof TravelGear) //TODO: Genericize this
+				if (goggles != null && goggles.getItem() instanceof TravelGear) //TODO: Genericize this
 				{
-					activeGoggles = !activeGoggles;
-					PlayerAbilityHelper.toggleGoggles(mc.thePlayer, activeGoggles);
-					toggleGoggles();
+					if(goggles.hasTagCompound() && goggles.getTagCompound().getCompoundTag(((TravelGear) goggles.getItem()).getBaseTagName()).getBoolean("Night Vision")) {
+						activeGoggles = !activeGoggles;
+						PlayerAbilityHelper.toggleGoggles(mc.thePlayer, activeGoggles);
+						toggleGoggles();
+					}
 				}
 			}
 			if (key == ArmorControls.beltSwap) {
