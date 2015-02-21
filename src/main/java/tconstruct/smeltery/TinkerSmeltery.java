@@ -417,6 +417,8 @@ public class TinkerSmeltery
         {
             TConstructRegistry.addItemStackToDirectory(patternTypes[i] + "Cast", new ItemStack(TinkerSmeltery.metalPattern, 1, i));
         }
+
+        oreRegistry();
     }
 
     @Handler
@@ -428,7 +430,6 @@ public class TinkerSmeltery
         addRecipesForTableCasting();
         addRecipesForBasinCasting();
         addRecipesForFurnace();
-        oreRegistry();
     }
 
     @Handler

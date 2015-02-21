@@ -161,6 +161,7 @@ public class TinkerWorld
         TinkerWorld.woodenRail = new WoodRail().setStepSound(Block.soundTypeWood).setCreativeTab(TConstructRegistry.blockTab).setBlockName("rail.wood");
 
         GameRegistry.registerBlock(TinkerWorld.meatBlock, HamboneItemBlock.class, "MeatBlock");
+        OreDictionary.registerOre("hambone", new ItemStack(TinkerWorld.meatBlock));
         GameRegistry.registerBlock(TinkerWorld.woolSlab1, WoolSlab1Item.class, "WoolSlab1");
         GameRegistry.registerBlock(TinkerWorld.woolSlab2, WoolSlab2Item.class, "WoolSlab2");
 
@@ -235,6 +236,8 @@ public class TinkerWorld
         TinkerWorld.metalBlock.stepSound = Block.soundTypeMetal;
         GameRegistry.registerBlock(TinkerWorld.metalBlock, MetalItemBlock.class, "MetalBlock");
         FluidType.registerFluidType("Slime", TinkerWorld.slimeGel, 0, 250, TinkerWorld.blueSlimeFluid, false);
+
+        oreRegistry();
     }
 
     @Handler
@@ -242,7 +245,6 @@ public class TinkerWorld
     {
         craftingTableRecipes();
         addRecipesForFurnace();
-        oreRegistry();
         addLoot();
         createEntities();
         proxy.initialize();
@@ -406,7 +408,6 @@ public class TinkerWorld
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerWorld.slimeChannel, 1, 0), "slimeball", "slimeball", "slimeball", "slimeball", new ItemStack(Items.redstone)));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerWorld.slimePad, 1, 0), TinkerWorld.slimeChannel, "slimeball"));
 
-        OreDictionary.registerOre("hambone", new ItemStack(TinkerWorld.meatBlock));
         GameRegistry.addRecipe(new ItemStack(TinkerWorld.meatBlock), "mmm", "mbm", "mmm", 'b', new ItemStack(Items.bone), 'm', new ItemStack(Items.porkchop));
     }
 
