@@ -934,7 +934,7 @@ tool.javelin=Azagaia
 
 tool.kingslimeprefix=Slime Rei
 # Specific localization like materials
-#tool.shovel.kingslimeRegret
+#tool.shovel.kingslime=Regret 
 
 manual.page.material1=Durabilidade Total da Ferramenta
 manual.page.material2=Coração
