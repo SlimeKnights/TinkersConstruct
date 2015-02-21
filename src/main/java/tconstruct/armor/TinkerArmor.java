@@ -153,7 +153,7 @@ public class TinkerArmor
     @Handler
     public void postInit (FMLPostInitializationEvent evt)
     {
-
+        proxy.registerTickHandler();
     }
 
     private void craftingTableRecipes ()
