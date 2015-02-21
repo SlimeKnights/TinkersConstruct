@@ -27,9 +27,7 @@ public class TinkerGears {
     @Handler
     public void preInit(FMLPreInitializationEvent event) {
         TConstruct.logger.info("Gear module active. Adding gear cast.");
-        gearCast = new Item();
-        gearCast.setTextureName("tinker:materials/gear_cast");
-        gearCast.setUnlocalizedName("tconstruct.GearPattern");
+        gearCast = new GearCast();
 
         GameRegistry.registerItem(gearCast, "gearCast");
     }
