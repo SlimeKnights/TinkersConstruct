@@ -142,12 +142,12 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
     @Override
     public boolean requiresMultipleRenderPasses ()
     {
-        return true;
+        return false;
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public int getRenderPasses (int metadata)
+    public final int getRenderPasses (int metadata)
     {
         return 0;
     }

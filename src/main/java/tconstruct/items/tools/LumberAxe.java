@@ -223,13 +223,6 @@ public class LumberAxe extends AOEHarvestTool
         return TinkerTools.toughBinding;
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public int getRenderPasses (int metadata)
-    {
-        return 10;
-    }
-
     @Override
     public int getPartAmount ()
     {

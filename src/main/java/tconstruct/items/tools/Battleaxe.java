@@ -103,13 +103,6 @@ public class Battleaxe extends AOEHarvestTool implements IBattlegearWeapon
         return 2.5f;
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public int getRenderPasses (int metadata)
-    {
-        return 10;
-    }
-
     @Override
     public int getPartAmount ()
     {

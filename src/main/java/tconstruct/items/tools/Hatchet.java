@@ -52,13 +52,6 @@ public class Hatchet extends HarvestTool
         return null;
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public int getRenderPasses (int metadata)
-    {
-        return 8;
-    }
-
     @Override
     public int getPartAmount ()
     {

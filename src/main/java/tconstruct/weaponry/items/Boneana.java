@@ -34,6 +34,11 @@ public class Boneana extends Broadsword {
     }
 
     @Override
+    public IIcon getIconIndex(ItemStack stack) {
+        return getIcon(stack, 0);
+    }
+
+    @Override
     public String getLocalizedToolName() {
         return "Bonæna";
     }

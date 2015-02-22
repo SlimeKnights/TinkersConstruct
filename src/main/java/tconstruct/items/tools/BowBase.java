@@ -33,13 +33,6 @@ public abstract class BowBase extends ToolCore
         return 2;
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public int getRenderPasses (int metadata)
-    {
-        return 10;
-    }
-
     /* Bow usage */
     @Override
     public void onPlayerStoppedUsing (ItemStack stack, World world, EntityPlayer player, int useRemaining)
@@ -220,13 +213,6 @@ public abstract class BowBase extends ToolCore
         }
 
         return stack;
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public boolean requiresMultipleRenderPasses ()
-    {
-        return true;
     }
 
     /* Rendering */

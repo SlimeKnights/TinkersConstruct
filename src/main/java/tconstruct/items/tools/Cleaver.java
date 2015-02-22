@@ -71,13 +71,6 @@ public class Cleaver extends Weapon
         return 1.4f;
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public int getRenderPasses (int metadata)
-    {
-        return 10;
-    }
-
     @Override
     public int getPartAmount ()
     {

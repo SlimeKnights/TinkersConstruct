@@ -67,13 +67,6 @@ public class Scythe extends Weapon
         return TinkerTools.toughRod;
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public int getRenderPasses (int metadata)
-    {
-        return 10;
-    }
-
     @Override
     public int getPartAmount ()
     {

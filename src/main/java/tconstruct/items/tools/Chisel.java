@@ -157,13 +157,6 @@ public class Chisel extends ToolCore
         return EnumAction.eat;
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public int getRenderPasses (int metadata)
-    {
-        return 8;
-    }
-
     @Override
     public int getPartAmount ()
     {
