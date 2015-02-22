@@ -3,7 +3,7 @@ itemGroup.TConstructMaterials=TConstruct: Materiais
 itemGroup.TConstructBlocks=TConstruct: Blocos
 itemGroup.TConstructParts=TConstruct: Partes de Ferramentas
 itemGroup.TConstructEquipables=TConstruct: Equipáveis
-itemGroup.TConstructWeaponry=TConstruct: Armas
+itemGroup.TConstructWeaponry=TConstruct: Combate
 
 crafters.ToolStation=Estação de Ferramenta
 crafters.ToolForge=Forja de Ferramentas
@@ -155,7 +155,7 @@ item.InfiTool.Chisel.name=Cinzel
 item.InfiTool.Scythe.name=Foice
 item.InfiTool.LumberAxe.name=Machado de Cortar Madeira
 item.InfiTool.Cleaver.name=Cortador
-item.InfiTool.Escavador.name=Escavador
+item.InfiTool.Excavator.name=Escavador
 item.InfiTool.Hammer.name=Martelo
 item.InfiTool.Battleaxe.name=Machado de Batalha
 item.InfiTool.Cutlass.name=Cutelo
@@ -259,6 +259,7 @@ item.tconstruct.MetalPattern.shuriken.name=Molde de Shuriken
 item.tconstruct.MetalPattern.crossbowlimb.name=Molde do Limbo da Besta
 item.tconstruct.MetalPattern.crossbowbody.name=Molde do Corpo da Besta
 item.tconstruct.MetalPattern.bowlimb.name=Molde do Limbo do Arco
+item.tconstruct.GearPattern.name=Molde de Engrenagem
 
 item.tconstruct.Materials.PaperStack.name=Resma de Papel
 item.tconstruct.Materials.SlimeCrystal.name=Cristal de Slime
@@ -460,8 +461,8 @@ item.tconstruct.Fletching.slimeleaf.name=Folha de Slime para Arco e Flecha
 item.tconstruct.manual.beginner.name=Os Materiais e Você: Volume 1
 item.tconstruct.manual.toolstation.name=Os Materiais e Você: Volume 2
 item.tconstruct.manual.smeltery.name=Fundições Poderosas
-item.tconstruct.manual.diary.name=Diário de um 'Estanhador'
-item.tconstruct.manual.weaponry.name=Armamentos do 'Estanhador'
+item.tconstruct.manual.diary.name=Diário de um Tinkereiro
+item.tconstruct.manual.weaponry.name=Armamentos do Tinkereiro
 
 item.tconstruct.bucket.Iron.name=Balde de Ferro Derretido
 item.tconstruct.bucket.Gold.name=Balde de Ouro Derretido
@@ -483,9 +484,13 @@ item.tconstruct.bucket.Cow.name=Balde de Sangue
 item.tconstruct.bucket.Nickel.name=Balde de Níquel Derretido
 item.tconstruct.bucket.Lead.name=Balde de Chumbo Derretido
 item.tconstruct.bucket.Silver.name=Balde de Prata Derretido
-item.tconstruct.bucket.Shiny.name=Balde de Brilhante Derretido
+item.tconstruct.bucket.Shiny.name=Balde de Shiny Derretido
 item.tconstruct.bucket.Invar.name=Balde de Invar Derretido
 item.tconstruct.bucket.Electrum.name=Balde de Electrum Derretido
+item.tconstruct.bucket.Lumium.name=Balde de Lumium Derretido
+item.tconstruct.bucket.Signalum.name=Balde de Signalum Derretido
+item.tconstruct.bucket.Mithril.name=Balde de Metal Infundito de Mana Derretido
+item.tconstruct.bucket.Enderium.name=Balde de Enderium Derretido
 item.tconstruct.bucket.Ender.name=Balde de Ender Liquefeito
 item.tconstruct.bucket.Slime.name=Balde de Slime Líquido
 item.tconstruct.bucket.PigIron.name=Balde de Ferro-Porto Derretido
@@ -515,16 +520,20 @@ tile.liquid.blood.name=Sangue
 tile.fluid.molten.nickel.name=Níquel Derretido
 tile.fluid.molten.silver.name=Prata Derretida
 tile.fluid.molten.lead.name=Chumbo Derretido
-tile.fluid.molten.shiny.name=Brilhante Derretido
+tile.fluid.molten.shiny.name=Shiny Derretido
 tile.fluid.molten.invar.name=Invar Derretido
 tile.fluid.molten.electrum.name=Electrum Derretido
+tile.fluid.molten.lumium.name=Lumium Derretido
+tile.fluid.molten.signalum.name=Signalum Derretido
+tile.fluid.molten.mithril.name=Metal Infundito de Mana Derretido
+tile.fluid.molten.enderium.name=Enderium Derretido
 tile.fluid.ender.name=Ender Liquefeito
 tile.liquid.slime.name=Slime Liquefeito
 
 LiquidMetal.Iron.name=Ferro Derretido
 LiquidMetal.Gold.name=Ouro Derretido
 LiquidMetal.Copper.name=Cobre Derretido
-LiquidMetal.Tin.name=Liquid Estanho
+LiquidMetal.Tin.name=Estanho Derretido
 LiquidMetal.Aluminum.name=Alumínio Derretido
 LiquidMetal.Cobalt.name=Cobalto Derretido
 LiquidMetal.Ardite.name=Ardite Derretido
@@ -541,7 +550,7 @@ LiquidMetal.Cow.name=Sangue
 LiquidMetal.Nickel.name=Níquel Derretido
 LiquidMetal.Silver.name=Prata Derretido
 LiquidMetal.Lead.name=Chumbo Derretido
-LiquidMetal.Shiny.name=Brilhante Derretido
+LiquidMetal.Shiny.name=Shiny Derretido
 LiquidMetal.Invar.name=Invar Derretido
 LiquidMetal.Electrum.name=Electrum Derretido
 LiquidMetal.Ender.name=Ender Liquefeito
@@ -569,7 +578,7 @@ entity.TConstruct.KingSlime.name=Slime Rei
 entity.TConstruct.Gardeslime.name=Slime-de-Jardim
 entity.TConstruct.MiniGardy.name=Slime-de-Jardim
 
-tconstruct.keybindings=Fabricações do 'Estanhador'
+tconstruct.keybindings=Fabricações do Tinkers
 key.tarmor=Tela de Armadura
 key.tcapes.reload=Recarregar Capas
 key.tbelt=Cinto
@@ -603,7 +612,7 @@ toolpart.SignHead=Cabeça de Sinal de %%material
 toolpart.ChiselHead=Cabeça de Cinzel de %%material
 toolpart.ScytheHead=Cabeça da Foice de %%material
 toolpart.LumberAxeHead=Cabeça de Machado de Batalha de %%material
-toolpart.EscavadorHead=Cabeça do Escavador de %%material
+toolpart.ExcavatorHead=Cabeça do Escavador de %%material
 toolpart.ToolShard=Caco de %%material
 toolpart.LargeSwordBlade=Lâmina de Espada Larga de %%material
 toolpart.HammerHead=Cabeça de Martelo de %%material
@@ -617,10 +626,10 @@ toolpart.BowLimb=Limbo do Arco de %%material
 toolpart.Bolt=Dardo de %%material
 toolpart.Shaft=Flecha de %%material
 
-# Agora com traduções de materiais específicos e combinações das partes:
-#toolpart.ToolRod.wood=Cabo de Ferramenta de Madeira
-# Se apenas a parte material for específica, você pode usar assim
-#toolpart.material.wood=Madeira
+# Now with translations of specific material and part combinations:
+#toolpart.ToolRod.wood=Wooden Tool Rod
+# If only the material part has to be specific, you can use this
+#toolpart.material.wood=Wooden
 
 fluid.iron.molten=Ferro Derretido
 fluid.gold.molten=Ouro Derretido
@@ -642,19 +651,23 @@ fluid.blood=Sangue
 fluid.nickel.molten=Níquel Derretido
 fluid.lead.molten=Chumbo Derretido
 fluid.silver.molten=Prata Derretido
-fluid.shiny.molten=Brilhante Derretido
+fluid.platinum.molten=Shiny Derretido
 fluid.invar.molten=Invar Derretido
 fluid.electrum.molten=Electrum Derretido
+fluid.lumium.molten=Lumium Derretido
+fluid.signalum.molten=Signalum Derretido
+fluid.mithril.molten=Metal Infundito de Mana Derretido
+fluid.enderium.molten=Enderium Derretido
 fluid.ender=Ender Líquido
 fluid.slime.blue=Slime-Azul Líquido
 fluid.pigiron.molten=Ferro-Porco
 fluid.glue=Cola
 
 tconstruct.achievementPage.name=TConstruct
-achievement.tconstruct.beginner=Aprendendo a 'Estanhar'
+achievement.tconstruct.beginner=Aprendendo a Tinkar
 achievement.tconstruct.pattern=Trabalhador de Estêncil
-achievement.tconstruct.tinkerer='Estanhador'
-achievement.tconstruct.proTinkerer='Estanhador' Pro
+achievement.tconstruct.tinkerer=Tinkereiro
+achievement.tconstruct.proTinkerer=Tinkereiro Pro
 achievement.tconstruct.smelteryMaker=Criador da Oficina de Fundição
 achievement.tconstruct.preparedFight=Preparado para Lutar
 achievement.tconstruct.enemySlayer=Inimigo Assassino
@@ -706,14 +719,14 @@ manual1.tooltip=Por: Skyla
 manual2.tooltip=Por: Skyla
 manual3.tooltip=Por: Thruul M'gon
 manual4.tooltip=Por: Al-A'Myr
-manual5.tooltip=Por: 'Estanhador' Anônimo
+manual5.tooltip=Por: Tinkereiro Anônimo
 searedtank1.tooltip=Contém
 searedtank2.tooltip=Mantém quaisquer fluidos quando recolhido
 searedtank3.tooltip=Coração da Fundição
 oreberries1.tooltip=Doce Ferroy
 oreberries2.tooltip=Puro Brilho
 oreberries3.tooltip=Tem gosto de metal
-oreberries4.tooltip='Estanhomem'
+oreberries4.tooltip=Estanhomem
 oreberries5.tooltip=Chocolate Branco
 oreberries6.tooltip=Tem gosto de Creeper azedo
 item.crafting.tooltip=Criação de Itens
@@ -735,7 +748,7 @@ goldenhead2.tooltip=inimigo caído fortalece o sangue
 oreberrybush1.tooltip=Doce Ferroy
 oreberrybush2.tooltip=Puro Brilho
 oreberrybush3.tooltip=Tem gosto de metal
-oreberrybush4.tooltip='Estanhomen'
+oreberrybush4.tooltip=Estanhomen
 oreberrybush5.tooltip=Chocolate Branco
 oreberrybush6.tooltip=Tem gosto de Creeper azedo
 barricade.tooltip=Acumula até 4 vezes
@@ -921,7 +934,7 @@ tool.javelin=Azagaia
 
 tool.kingslimeprefix=Slime Rei
 # Specific localization like materials
-#tool.shovel.kingslime=Regret
+#tool.shovel.kingslime=Regret 
 
 manual.page.material1=Durabilidade Total da Ferramenta
 manual.page.material2=Coração
@@ -976,6 +989,7 @@ modifier.tool.haste=Pressa
 modifier.tool.lava=Auto-Fundição
 modifier.tool.moss=Auto-Reparo
 modifier.tool.necro=Rouba Vida
+modifier.tool.blaze=Fervente
 
 modifier.toolstation.Beheading=Decapitação
 modifier.toolstation.Blaze=Labareda
@@ -1043,3 +1057,6 @@ option.tcon.castingchannel=Canal de Fundição
 option.tcon.basin=Tacho de Fundição
 option.tcon.table=Mesa de Fundição
 option.tcon.smeltery=Estado da Oficina de Fundição
+
+
+# Localization File: Português Brasileiro (pt_BR) – por: Al-Myr /  Last Update: 20/2/2015 – por: Al-Myr
