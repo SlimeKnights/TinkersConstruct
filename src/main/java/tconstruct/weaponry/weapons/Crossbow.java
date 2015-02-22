@@ -1,5 +1,8 @@
 package tconstruct.weaponry.weapons;
 
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.init.Items;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.weaponry.TinkerWeaponry;
@@ -260,6 +263,9 @@ public class Crossbow extends ProjectileWeapon {
 
             return stack;
         }
+
+        if(player.capabilities.isCreativeMode && TinkerWeaponry.creativeBolt != null)
+            return TinkerWeaponry.creativeBolt.copy();
 
         return null;
     }

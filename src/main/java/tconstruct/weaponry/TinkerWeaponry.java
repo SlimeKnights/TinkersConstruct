@@ -77,6 +77,7 @@ public class TinkerWeaponry {
     // Ammo
     public static AmmoItem arrowAmmo;
     public static AmmoItem boltAmmo;
+    public static ItemStack creativeBolt;
 
     // Tool Parts
     public static Item bowstring;
@@ -141,6 +142,21 @@ public class TinkerWeaponry {
         WeaponryHandler weaponryHandler = new WeaponryHandler();
         MinecraftForge.EVENT_BUS.register(weaponryHandler);
         FMLCommonHandler.instance().bus().register(weaponryHandler);
+
+
+        // "vanilla" bolt:
+        // iron-tipped wood-shaft with feather fletching
+        ItemStack headStack = DualMaterialToolPart.createDualMaterial(boltAmmo.getHeadItem(), TinkerTools.MaterialID.Wood, TinkerTools.MaterialID.Iron);
+        ItemStack handleStack = new ItemStack(boltAmmo.getAccessoryItem(), 1, 0); // feather fletchling
+
+        ItemStack tool = ToolBuilder.instance.buildTool(headStack, handleStack, null, null, "");
+        if (tool != null)
+        {
+            tool.getTagCompound().getCompoundTag("InfiTool").setBoolean("Built", true);
+            creativeBolt = tool;
+        }
+        else
+            TConstruct.logger.error("Couldn't build basic Tinker Bolt for creative crossbow shootnig");
 
         proxy.init();
     }
