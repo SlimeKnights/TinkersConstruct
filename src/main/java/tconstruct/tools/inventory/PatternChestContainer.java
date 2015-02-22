@@ -1,5 +1,6 @@
 package tconstruct.tools.inventory;
 
+import invtweaks.api.container.ChestContainer;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
@@ -8,6 +9,7 @@ import tconstruct.library.util.IPattern;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.logic.PatternChestLogic;
 
+@ChestContainer
 public class PatternChestContainer extends Container
 {
     public PatternChestLogic logic;
