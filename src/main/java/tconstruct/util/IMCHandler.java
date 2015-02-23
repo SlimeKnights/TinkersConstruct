@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Level;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.CastingRecipe;
+import tconstruct.library.crafting.FluidType;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.library.tools.DynamicToolPart;
@@ -181,7 +182,7 @@ public final class IMCHandler {
 
                     newRecipies.add(recipe);
                 }
-
+                
                 // has to be done separately so we have all checks and no concurrent modification exception
                 for(CastingRecipe recipe : newRecipies)
                 {
@@ -192,6 +193,8 @@ public final class IMCHandler {
 
                     // ok, this recipe creates a toolpart and uses iron for it. add a new one for the IMC stuff!
                     TConstructRegistry.getTableCasting().addCastingRecipe(output, liquid2, recipe.cast, recipe.consumeCast, recipe.coolTime);
+                    // and make it melt!
+                    Smeltery.addMelting(FluidType.getFluidType(liquid2.getFluid()), output, 0, liquid2.amount);
                 }
 
                 TConstruct.logger.debug("Casting IMC: Added fluid " + tag.getString("FluidName") + " to part casting");
