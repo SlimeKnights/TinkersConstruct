@@ -185,6 +185,12 @@ public final class IMCHandler {
                     newRecipies.add(recipe);
                 }
 
+                FluidType ft = FluidType.getFluidType(liquid.getFluid().getName());
+                if(ft == null) {
+                    ft = new FluidType(TinkerSmeltery.glueBlock, 0, 500, liquid.getFluid(), true);
+                    FluidType.registerFluidType(liquid.getFluid().getName(), ft);
+                }
+
                 // has to be done separately so we have all checks and no concurrent modification exception
                 for(CastingRecipe recipe : newRecipies)
                 {
@@ -195,10 +201,8 @@ public final class IMCHandler {
 
                     // ok, this recipe creates a toolpart and uses iron for it. add a new one for the IMC stuff!
                     TConstructRegistry.getTableCasting().addCastingRecipe(output, liquid2, recipe.cast, recipe.consumeCast, recipe.coolTime);
-                }
-
-                if(FluidType.getFluidType(liquid.getFluid().getName()) == null) {
-                    FluidType.registerFluidType(liquid.getFluid().getName(), TinkerSmeltery.glueBlock, 0, 500, liquid.getFluid(), true);
+                    // and make it melt!
+                    Smeltery.addMelting(ft, output, 0, liquid2.amount);
                 }
 
                 TConstruct.logger.debug("Casting IMC: Added fluid " + tag.getString("FluidName") + " to part casting");
