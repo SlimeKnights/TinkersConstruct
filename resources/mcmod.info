@@ -7,14 +7,7 @@
     "mcversion": "${MCversion}",
     "url": "http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2218638-tinkers-construct",
     "updateUrl": "",
-    "authorList": [
-    "mDiyo",
-    "fuj1n",
-    "ProgWML6",
-    "Sunstrike",
-    "Pillbox",
-    "boni"
-    ],
+    "authorList": [ "mDiyo", "fuj1n", "ProgWML6", "Sunstrike", "Pillbox", "boni" ],
     "credits": "Slime Knights, Samtrion, Abculatter_2, Alexbegt",
     "logoFile": "TinkersConstruct.png",
     "screenshots": [],
