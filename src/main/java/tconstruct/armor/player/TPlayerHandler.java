@@ -82,7 +82,7 @@ public class TPlayerHandler
                 }
             }
 
-            if (player.getDisplayName().toLowerCase().equals("fudgy_fetus"))
+            if (player.getDisplayName().toLowerCase().equals("fractuality"))
             {
                 ItemStack pattern = new ItemStack(TinkerTools.woodPattern, 1, 22);
 
