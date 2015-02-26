@@ -118,7 +118,6 @@ public class TinkerWeaponry {
     {
         addPartRecipies();
         addWeaponRecipies();
-        registerBoltCasting();
         setupCreativeTab();
 
         // Modifiers
@@ -159,6 +158,8 @@ public class TinkerWeaponry {
             TConstruct.logger.error("Couldn't build basic Tinker Bolt for creative crossbow shootnig");
 
         proxy.init();
+
+        registerBoltCasting();
     }
 
     private void registerItems()
