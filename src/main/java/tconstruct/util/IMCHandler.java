@@ -7,11 +7,14 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import org.apache.logging.log4j.Level;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.CastingRecipe;
+import tconstruct.library.crafting.FluidType;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.library.tools.DynamicToolPart;
@@ -192,6 +195,10 @@ public final class IMCHandler {
 
                     // ok, this recipe creates a toolpart and uses iron for it. add a new one for the IMC stuff!
                     TConstructRegistry.getTableCasting().addCastingRecipe(output, liquid2, recipe.cast, recipe.consumeCast, recipe.coolTime);
+                }
+
+                if(FluidType.getFluidType(liquid.getFluid().getName()) == null) {
+                    FluidType.registerFluidType(liquid.getFluid().getName(), TinkerSmeltery.glueBlock, 0, 500, liquid.getFluid(), true);
                 }
 
                 TConstruct.logger.debug("Casting IMC: Added fluid " + tag.getString("FluidName") + " to part casting");
