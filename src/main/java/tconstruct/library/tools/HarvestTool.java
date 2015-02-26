@@ -301,6 +301,7 @@ public abstract class HarvestTool extends ToolCore
             {
                 block.onBlockDestroyedByPlayer( world, x,y,z, meta);
                 block.harvestBlock(world, player, x,y,z, meta);
+                block.dropXpOnBlockBreak(world, x,y,z, event.getExpToDrop());
             }
 
             // always send block update to client
