@@ -2,12 +2,14 @@ package tconstruct.tools.inventory;
 
 import java.util.Random;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.library.event.ToolCraftedEvent;
 import tconstruct.library.modifier.IModifyable;
+import tconstruct.tools.logic.ToolStationLogic;
 
 public class SlotTool extends Slot
 {
@@ -52,7 +54,7 @@ public class SlotTool extends Slot
      */
     protected void onCrafting (ItemStack stack)
     {
-        if (stack.getItem() instanceof IModifyable)
+        if (stack.getItem() instanceof IModifyable && inventory.getStackInSlot(1) != null && !(inventory.getStackInSlot(1).getItem() instanceof IModifyable))
         {
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
             Boolean full = (inventory.getStackInSlot(2) != null || inventory.getStackInSlot(3) != null);
@@ -70,6 +72,13 @@ public class SlotTool extends Slot
         {
             int amount = inventory.getStackInSlot(1).stackSize;
             inventory.decrStackSize(1, amount);
+
+            for(int i = 0; i < inventory.getSizeInventory(); i++) {
+                if(inventory.getStackInSlot(i) != null && inventory.getStackInSlot(i).getItem() == Items.name_tag) {
+                    inventory.decrStackSize(i, 1);
+                    break;
+                }
+            }
         }
     }
 }

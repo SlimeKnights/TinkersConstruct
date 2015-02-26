@@ -3,6 +3,7 @@ package tconstruct.tools.inventory;
 import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.*;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -152,8 +153,18 @@ public class ToolStationContainer extends ActiveContainer
         else
         //Simply naming items        
         {
+            ItemStack stack2 = logic.getStackInSlot(1);
             int amount = logic.getStackInSlot(1).stackSize;
             logic.decrStackSize(1, amount);
+
+            if(!ToolStationLogic.canRename(stack2.getTagCompound(), stack2)) {
+                for(int i = 0; i < logic.getSizeInventory(); i++) {
+                    if(logic.getStackInSlot(i) != null && logic.getStackInSlot(i).getItem() == Items.name_tag) {
+                        logic.decrStackSize(i, 1);
+                        break;
+                    }
+                }
+            }
         }
     }
 

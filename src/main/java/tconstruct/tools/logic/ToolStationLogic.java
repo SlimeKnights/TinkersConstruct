@@ -2,7 +2,9 @@ package tconstruct.tools.logic;
 
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.*;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -118,8 +120,9 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
         else
             temp = inventory[1].copy();
 
-        if (temp == null || !(temp.getItem() instanceof ToolCore))
-            return null; // output as well as inventory is null or not a tool :(
+        if (temp == null) {
+            return null; // output is null or not a tool :(
+        }
 
         NBTTagCompound tags = temp.getTagCompound();
         if (tags == null)
@@ -136,8 +139,19 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
 
         if (display == null)
             return output;
-        if (display.hasKey("Name") && !display.getString("Name").equals("\u00A7f" + ToolBuilder.defaultToolName(temp)))
-            // no default name anymore
+
+        boolean doRename = false;
+        if (canRename(display, temp)) {
+            doRename = true;
+        }
+        // we only allow renaming with a nametag otherwise
+        else if (!("\u00A7f" + name).equals(display.getString("Name")) && !name.equals(display.getString("Name"))) {
+            for(int i = 0; i < inventory.length; i++)
+                if(inventory[i] != null && inventory[i].getItem() == Items.name_tag)
+                    doRename = true;
+        }
+
+        if(!doRename)
             return output;
 
         String dName = temp.getItem() instanceof IModifyable ? "\u00A7f" + name : name;
@@ -193,5 +207,9 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
     @Override
     public void closeInventory ()
     {
+    }
+
+    public static boolean canRename(NBTTagCompound tags, ItemStack tool) {
+        return !tags.hasKey("Name") || tags.getString("Name").equals("\u00A7f" + ToolBuilder.defaultToolName(tool));
     }
 }
