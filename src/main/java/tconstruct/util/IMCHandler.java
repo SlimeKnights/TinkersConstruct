@@ -184,7 +184,7 @@ public final class IMCHandler {
 
                     newRecipies.add(recipe);
                 }
-
+                
                 // has to be done separately so we have all checks and no concurrent modification exception
                 for(CastingRecipe recipe : newRecipies)
                 {
@@ -195,6 +195,8 @@ public final class IMCHandler {
 
                     // ok, this recipe creates a toolpart and uses iron for it. add a new one for the IMC stuff!
                     TConstructRegistry.getTableCasting().addCastingRecipe(output, liquid2, recipe.cast, recipe.consumeCast, recipe.coolTime);
+                    // and make it melt!
+                    Smeltery.addMelting(FluidType.getFluidType(liquid2.getFluid()), output, 0, liquid2.amount);
                 }
 
                 if(FluidType.getFluidType(liquid.getFluid().getName()) == null) {
