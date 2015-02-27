@@ -52,7 +52,7 @@ public class FlexibleToolRenderer implements IItemRenderer {
 
     @Override
     public void renderItem (ItemRenderType type, ItemStack item, Object... data) {
-        if(item == null)
+        if(item == null || item.getItem() == null || !(item.getItem() instanceof ToolCore))
             return;
 
         Entity ent = null;
