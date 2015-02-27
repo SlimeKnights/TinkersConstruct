@@ -1,6 +1,8 @@
 package tconstruct.weaponry.client.item;
 
 import tconstruct.client.FlexibleToolRenderer;
+import tconstruct.weaponry.TinkerWeaponry;
+import tconstruct.weaponry.ammo.BoltAmmo;
 import tconstruct.weaponry.entity.ArrowEntity;
 import tconstruct.weaponry.entity.BoltEntity;
 import tconstruct.weaponry.weapons.Crossbow;
@@ -45,7 +47,10 @@ public class CrossbowRenderer extends FlexibleToolRenderer {
                 //float progress = crossbow.getWindupProgress(item, player);
                 float progress = 1f;
                 dummy.returnStack = ammo;
-                Render renderer = RenderManager.instance.getEntityClassRenderObject(ArrowEntity.class);
+                if(!(ammo.getItem() instanceof BoltAmmo))
+                    dummy.returnStack = TinkerWeaponry.creativeBolt;
+
+                Render renderer = RenderManager.instance.getEntityClassRenderObject(BoltEntity.class);
 
                 GL11.glPushMatrix();
                 // adjust position

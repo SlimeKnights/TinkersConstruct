@@ -13,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
+import tconstruct.weaponry.entity.BoltEntity;
 
 public class BowRenderer extends FlexibleToolRenderer {
     private static final ArrowEntity dummy = new ArrowEntity(null);
@@ -84,7 +85,7 @@ public class BowRenderer extends FlexibleToolRenderer {
             // we're crazy, so.. render the arrow =D
             ItemStack ammo = ((ProjectileWeapon) item.getItem()).searchForAmmo(player, item); // we know it's a projectile weapon, it's a bow!
             if(ammo != null) {
-                if(ammo.getItem() == Items.arrow)
+                if(ammo.getItem() == Items.arrow || !(ammo.getItem() instanceof ArrowAmmo))
                     dummy.returnStack = ArrowAmmo.vanillaArrow;
                 else
                     dummy.returnStack = ammo;
