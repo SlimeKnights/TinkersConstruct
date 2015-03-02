@@ -112,6 +112,7 @@ public class AbilityHelper
                             damage = 1;
                     }
                     boolean causedDamage = false;
+                    boolean isAlive = entity.isEntityAlive();
                     if (tool.pierceArmor() && !broken)
                     {
                         if (player instanceof EntityPlayer)
@@ -135,7 +136,7 @@ public class AbilityHelper
                         tool.onEntityDamaged(player.worldObj, player, entity);
                         if (!necroticUHS || (entity instanceof IMob && entity instanceof EntityLivingBase && ((EntityLivingBase) entity).getHealth() <= 0))
                         {
-                            if(entity.isEntityAlive()) {
+                            if(isAlive) {
                                 int drain = toolTags.getInteger("Necrotic") * 2;
                                 if (drain > 0)
                                     player.heal(random.nextInt(drain + 1));
