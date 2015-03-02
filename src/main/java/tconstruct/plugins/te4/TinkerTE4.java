@@ -61,6 +61,12 @@ public class TinkerTE4
         ItemStack cellFrameFull = GameRegistry.findItemStack("ThermalExpansion", "frameCellReinforcedFull", 1);
         TConstructRegistry.getBasinCasting().addCastingRecipe(cellFrameFull, new FluidStack(redstoneFluid, 4000), cellFrameEmpty, true, 100);
 
+        cellFrameEmpty = GameRegistry.findItemStack("ThermalExpansion", "frameCellResonantEmpty", 1);
+        if(cellFrameEmpty != null) {
+            cellFrameFull = GameRegistry.findItemStack("ThermalExpansion", "frameCellResonantFull", 1);
+            TConstructRegistry.getBasinCasting().addCastingRecipe(cellFrameFull, new FluidStack(redstoneFluid, 4000), cellFrameEmpty, true, 100);
+        }
+
         // glowstone illuminator
         ItemStack illuminatorEmpty = GameRegistry.findItemStack("ThermalExpansion", "frameIlluminator" ,1);
         ItemStack illuminator = GameRegistry.findItemStack("ThermalExpansion", "illuminator" ,1);
