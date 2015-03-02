@@ -54,7 +54,7 @@ public class SlotTool extends Slot
      */
     protected void onCrafting (ItemStack stack)
     {
-        if (stack.getItem() instanceof IModifyable && inventory.getStackInSlot(1) != null && !(inventory.getStackInSlot(1).getItem() instanceof IModifyable))
+        if (stack.getItem() instanceof IModifyable)
         {
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
             Boolean full = (inventory.getStackInSlot(2) != null || inventory.getStackInSlot(3) != null);

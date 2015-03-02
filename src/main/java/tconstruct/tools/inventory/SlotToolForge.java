@@ -2,6 +2,7 @@ package tconstruct.tools.inventory;
 
 import java.util.Random;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -39,6 +40,13 @@ public class SlotToolForge extends SlotTool
         {
             int amount = inventory.getStackInSlot(1).stackSize;
             inventory.decrStackSize(1, amount);
+
+            for(int i = 0; i < inventory.getSizeInventory(); i++) {
+                if(inventory.getStackInSlot(i) != null && inventory.getStackInSlot(i).getItem() == Items.name_tag) {
+                    inventory.decrStackSize(i, 1);
+                    break;
+                }
+            }
         }
     }
 }
