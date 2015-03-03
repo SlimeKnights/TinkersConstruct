@@ -31,7 +31,10 @@ public class TinkerMystcraft
                 moltenSilverFluid,
                 moltenInvarFluid,
                 moltenElectrumFluid,
-                moltenShinyFluid
+                moltenShinyFluid,
+                moltenSignalumFluid,
+                moltenLumiumFluid,
+                moltenMithrilFluid
         };
 
         TConstruct.logger.info("Mystcraft detected. Blacklisting Mystcraft fluid symbols.");
