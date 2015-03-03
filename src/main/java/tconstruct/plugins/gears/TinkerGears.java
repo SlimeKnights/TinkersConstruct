@@ -13,6 +13,8 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.crafting.FluidType;
+import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.items.Pattern;
 
@@ -68,7 +70,14 @@ public class TinkerGears {
             if(fluid != null) {
                 ItemStack gear = gears.get(0);
                 FluidStack liquid = new FluidStack(fluid.getID(), TConstruct.ingotLiquidValue*4);
+                // gear casting
                 TConstructRegistry.getTableCasting().addCastingRecipe(gear, liquid, cast, 55);
+                // and melting it back
+                FluidType ft = FluidType.getFluidType(fluid);
+                if(ft != null)
+                    Smeltery.addMelting(ft, gear, 100, TConstruct.ingotLiquidValue*4);
+                else
+                    Smeltery.addMelting(gear, TinkerSmeltery.glueBlock, 0, 100, liquid);
             }
         }
     }
