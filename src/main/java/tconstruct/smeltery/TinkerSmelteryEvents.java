@@ -82,18 +82,4 @@ public class TinkerSmelteryEvents
             }
         }
     }
-
-    // Player interact event - prevent breaking of tank air blocks in creative
-    @SubscribeEvent
-    public void playerInteract (PlayerInteractEvent event)
-    {
-        if (event.action == Action.LEFT_CLICK_BLOCK)
-        {
-            Block block = event.entity.worldObj.getBlock(event.x, event.y, event.z);
-            if (block instanceof TankAirBlock)
-            {
-                event.setCanceled(true);
-            }
-        }
-    }
 }

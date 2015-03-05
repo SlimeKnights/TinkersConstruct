@@ -48,7 +48,7 @@ public class SmelteryBlock extends InventoryBlock
     @Override
     public int getRenderType ()
     {
-        return PHConstruct.newSmeltery ? 0 : SmelteryRender.smelteryModel;
+        return SmelteryRender.smelteryModel;
     }
 
     @Override
@@ -237,16 +237,9 @@ public class SmelteryBlock extends InventoryBlock
         switch (metadata)
         {
         case 0:
-            if (PHConstruct.newSmeltery)
-                return new AdaptiveSmelteryLogic();
-            else
-                return new SmelteryLogic();
-
+            return new SmelteryLogic();
         case 1:
-            if (PHConstruct.newSmeltery)
-                return new AdaptiveDrainLogic();
-            else
-                return new SmelteryDrainLogic();
+            return new SmelteryDrainLogic();
         case 3:
             return null; // Furnace
         }
@@ -257,7 +250,7 @@ public class SmelteryBlock extends InventoryBlock
     public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack stack)
     {
         super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
-        if (world.getBlockMetadata(x, y, z) == 0 && !PHConstruct.newSmeltery)
+        if (world.getBlockMetadata(x, y, z) == 0)
             onBlockPlacedElsewhere(world, x, y, z, entityliving);
     }
 
@@ -324,17 +317,11 @@ public class SmelteryBlock extends InventoryBlock
         int meta = world.getBlockMetadata(x, y, z);
         if (meta == 0)
         {
-            if (PHConstruct.newSmeltery)
-                return 0;
-            else
-                return Container.calcRedstoneFromInventory(((SmelteryLogic) world.getTileEntity(x, y, z)));
+            return Container.calcRedstoneFromInventory(((SmelteryLogic) world.getTileEntity(x, y, z)));
         }
         if (meta == 1)
         {
-            if (PHConstruct.newSmeltery)
-                return 0;
-            else
-                return ((SmelteryDrainLogic) world.getTileEntity(x, y, z)).comparatorStrength();
+            return ((SmelteryDrainLogic) world.getTileEntity(x, y, z)).comparatorStrength();
         }
         return 0;
     }

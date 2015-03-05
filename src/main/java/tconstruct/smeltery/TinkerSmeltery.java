@@ -60,7 +60,6 @@ public class TinkerSmeltery
     public static Block lavaTank;
     public static Block searedBlock;
     public static Block castingChannel;
-    public static Block tankAir;
     public static Block smelteryNether;
     public static Block lavaTankNether;
     public static Block searedBlockNether;
@@ -175,8 +174,6 @@ public class TinkerSmeltery
         TinkerSmeltery.searedBlockNether = new SearedBlock("nether").setBlockName("SearedBlock");
 
         TinkerSmeltery.castingChannel = (new CastingChannelBlock()).setBlockName("CastingChannel");
-
-        TinkerSmeltery.tankAir = new TankAirBlock(Material.leaves).setBlockUnbreakable().setBlockName("tconstruct.tank.air");
 
         // Liquids
         TinkerSmeltery.liquidMetal = new MaterialLiquid(MapColor.tntColor);
@@ -373,16 +370,10 @@ public class TinkerSmeltery
         // Smeltery stuff
         GameRegistry.registerBlock(TinkerSmeltery.smeltery, SmelteryItemBlock.class, "Smeltery");
         GameRegistry.registerBlock(TinkerSmeltery.smelteryNether, SmelteryItemBlock.class, "SmelteryNether");
-        if (PHConstruct.newSmeltery)
-        {
-            GameRegistry.registerTileEntity(AdaptiveSmelteryLogic.class, "TConstruct.Smeltery");
-            GameRegistry.registerTileEntity(AdaptiveDrainLogic.class, "TConstruct.SmelteryDrain");
-        }
-        else
-        {
-            GameRegistry.registerTileEntity(SmelteryLogic.class, "TConstruct.Smeltery");
-            GameRegistry.registerTileEntity(SmelteryDrainLogic.class, "TConstruct.SmelteryDrain");
-        }
+
+        GameRegistry.registerTileEntity(SmelteryLogic.class, "TConstruct.Smeltery");
+        GameRegistry.registerTileEntity(SmelteryDrainLogic.class, "TConstruct.SmelteryDrain");
+
         GameRegistry.registerTileEntity(MultiServantLogic.class, "TConstruct.Servants");
         GameRegistry.registerBlock(TinkerSmeltery.lavaTank, LavaTankItemBlock.class, "LavaTank");
         GameRegistry.registerBlock(TinkerSmeltery.lavaTankNether, LavaTankItemBlock.class, "LavaTankNether");
@@ -396,9 +387,6 @@ public class TinkerSmeltery
 
         GameRegistry.registerBlock(TinkerSmeltery.castingChannel, CastingChannelItem.class, "CastingChannel");
         GameRegistry.registerTileEntity(CastingChannelLogic.class, "CastingChannel");
-
-        GameRegistry.registerBlock(TinkerSmeltery.tankAir, "TankAir");
-        GameRegistry.registerTileEntity(TankAirLogic.class, "tconstruct.tank.air");
 
         GameRegistry.registerBlock(TinkerSmeltery.speedBlock, SpeedBlockItem.class, "SpeedBlock");
 

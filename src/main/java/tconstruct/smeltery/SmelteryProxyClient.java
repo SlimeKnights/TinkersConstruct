@@ -38,7 +38,6 @@ public class SmelteryProxyClient extends SmelteryProxyCommon
     void registerRenderer ()
     {
         RenderingRegistry.registerBlockHandler(new TankRender());
-        RenderingRegistry.registerBlockHandler(new TankAirRender());
         RenderingRegistry.registerBlockHandler(new CastingBlockRender());
         RenderingRegistry.registerBlockHandler(new DryingRackRender());
         RenderingRegistry.registerBlockHandler(new PaneRender());
@@ -50,10 +49,7 @@ public class SmelteryProxyClient extends SmelteryProxyCommon
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(TinkerSmeltery.lavaTank), tankItemRenderer);
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(TinkerSmeltery.lavaTankNether), tankItemRenderer);
 
-        if (!PHConstruct.newSmeltery)
-        {
-            RenderingRegistry.registerBlockHandler(new SmelteryRender());
-        }
+        RenderingRegistry.registerBlockHandler(new SmelteryRender());
 
         ClientRegistry.bindTileEntitySpecialRenderer(CastingTableLogic.class, new CastingTableSpecialRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(CastingBasinLogic.class, new CastingBasinSpecialRender());
@@ -124,10 +120,7 @@ public class SmelteryProxyClient extends SmelteryProxyCommon
     {
         if (ID == SmelteryProxyCommon.smelteryGuiID)
         {
-            if (PHConstruct.newSmeltery)
-                return new AdaptiveSmelteryGui(player.inventory, (AdaptiveSmelteryLogic) world.getTileEntity(x, y, z), world, x, y, z);
-            else
-                return new SmelteryGui(player.inventory, (SmelteryLogic) world.getTileEntity(x, y, z), world, x, y, z);
+            return new SmelteryGui(player.inventory, (SmelteryLogic) world.getTileEntity(x, y, z), world, x, y, z);
         }
         return null;
     }
