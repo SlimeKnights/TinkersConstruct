@@ -855,7 +855,7 @@ gui.toolstation.battleaxe.desc=The Battleaxe is a heavy offensive weapon. It is 
 
 gui.toolstation.shortbow.desc=The Shortbow is a ranged weapon. It fires arrows quickly and precisely at its foes.\n\nDraw Speed: Quick\n\nRequired parts:\n- Bow Limb\n- Bowstring\n- Bow Limb
 gui.toolstation.longbow.desc=The Longbow is a ranged weapon. It has greater range than a shortbow and is able to shoot heavier arrows, but performs worse with light arrows.\n\n Required parts:\n- Bow Limb\n- Bowstring\n- Bow Limb\n- Large Plate
-gui.toolstation.arrowammo.desc=Arrows are projectiles usually fired from bows.\n\nRequired parts:\n- Arrowhead\n- Tool Rod\n- Fletching
+gui.toolstation.arrowammo.desc=Arrows are projectiles usually fired from bows.\n\nRequired parts:\n- Arrowhead\n- Arrow Shaft\n- Fletching
 gui.toolstation.crossbow.desc=The crossbow is a precise ranged weapon. It loads bolts, that are fired on trigger.\n\nSpecial Ability:\n- Reduced reload time with harder materials
 gui.toolstation.boltammo.desc=Bolts are projectiles fired from Crossbows.\n\nRequired Parts:\n- Bolt Core\n- Fletching\n\nBolt cores are obtained by pouring metal over a tool rod in a Casting Table.
 gui.toolstation.throwingknife.desc=Mid ranged throwing weapon. Hold to take aim, release to throw.\n\nDamage: Medium\nCapacity: Medium
