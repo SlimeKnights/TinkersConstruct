@@ -23,6 +23,7 @@ import tconstruct.library.util.TextureHelper;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.entity.FancyEntityItem;
 import tconstruct.util.config.PHConstruct;
+import tconstruct.weaponry.TinkerWeaponry;
 
 /**
  * NBTTags Main tag - InfiTool
@@ -713,6 +714,11 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
                         nearbyStack = null;
                         player.inventory.setInventorySlotContents(itemSlot, null);
                     }
+                }
+
+                // throw shurikens!
+                if(item != null && item == TinkerWeaponry.shuriken) {
+                    item.onItemRightClick(nearbyStack, world, player);
                 }
             }
         }
