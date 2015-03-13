@@ -30,7 +30,7 @@ public class TActiveOmniMod extends ActiveToolMod
     {
         if (!world.isRemote && entity instanceof EntityLivingBase && !((EntityLivingBase) entity).isSwingInProgress && stack.getTagCompound() != null)
         {
-            if(entity instanceof EntityPlayer && (((EntityPlayer) entity).isUsingItem()) && ((EntityPlayer) entity).getItemInUse() == stack)
+            if(entity instanceof EntityPlayer && (((EntityPlayer) entity).isUsingItem()))
                 return;
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
             if (tags.hasKey("Moss"))
