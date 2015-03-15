@@ -912,18 +912,6 @@ material.pigiron=Ferro suino
 material.pigiron.ability=Gustoso
 material.pigiron.display=Ferro suino
 material.thaumium=Taumio
-material.thaumium.ability=Taumico
-
-material.invar=Invar
-material.nickel=Nichel
-material.silver=Piombo
-material.silver.ability=Pesante
-material.silver=Argento
-material.silver.ability=Scintillante
-material.platinum=Platino
-material.platinum.ability=Denso
-material.electrum=Elettro
-material.electrum.ability=Eccentrico
 
 creativeModLock.tooltip=Attrezzo selezionato: 
 
