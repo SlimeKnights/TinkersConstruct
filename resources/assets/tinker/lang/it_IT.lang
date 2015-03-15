@@ -912,6 +912,7 @@ material.pigiron=Ferro suino
 material.pigiron.ability=Gustoso
 material.pigiron.display=Ferro suino
 material.thaumium=Taumio
+material.thaumium.ability=Taumico
 
 creativeModLock.tooltip=Attrezzo selezionato: 
 
