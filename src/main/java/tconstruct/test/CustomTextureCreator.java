@@ -19,30 +19,32 @@ public class CustomTextureCreator {
   public void createCustomTextures(TextureStitchEvent.Pre event) {
     TextureMap map = event.map;
 
-    TextureAtlasSprite head = map.getTextureExtry("tconstruct:items/pickaxe/_pickaxe_head");
+    TextureAtlasSprite sprite = map.getTextureExtry("tconstruct:items/pickaxe/_pickaxe_head");
 
     for(Material material : TinkerRegistry.getAllMaterials())
     {
-      SimpleColoredTexture
-          coloredTexture = new SimpleColoredTexture(material, head, String.format("tconstruct:items/pickaxe/%s_pickaxe_head", material.identifier));
+      SimpleColoredTexture coloredTexture;
+      if(material.baseTexture.isEmpty())
+        coloredTexture = new SimpleColoredTexture(material, sprite, String.format("tconstruct:items/pickaxe/%s_pickaxe_head", material.identifier));
+      else
+        coloredTexture = new SimpleColoredTexture(material, sprite.getIconName(), material.baseTexture, String.format("tconstruct:items/pickaxe/%s_pickaxe_head", material.identifier));
       map.setTextureEntry(String.format("tconstruct:items/pickaxe/%s_pickaxe_head", material.identifier), coloredTexture);
 
       sprites.put("pick_head_" + material.identifier, coloredTexture);
     }
 
-    TextureAtlasSprite handle = map.getTextureExtry("tconstruct:items/pickaxe/_pickaxe_handle");
+    sprite = map.getTextureExtry("tconstruct:items/pickaxe/_pickaxe_handle");
 
     for(Material material : TinkerRegistry.getAllMaterials())
     {
-      SimpleColoredTexture
-          coloredTexture = new SimpleColoredTexture(material, handle, String.format("tconstruct:items/pickaxe/%s_pickaxe_handle", material.identifier));
+      SimpleColoredTexture coloredTexture;
+      if(material.baseTexture.isEmpty())
+        coloredTexture = new SimpleColoredTexture(material, sprite, String.format("tconstruct:items/pickaxe/%s_pickaxe_handle", material.identifier));
+      else
+        coloredTexture = new SimpleColoredTexture(material, sprite.getIconName(), material.baseTexture, String.format("tconstruct:items/pickaxe/%s_pickaxe_handle", material.identifier));
       map.setTextureEntry(String.format("tconstruct:items/pickaxe/%s_pickaxe_handle", material.identifier), coloredTexture);
 
       sprites.put("pick_handle_" + material.identifier, coloredTexture);
     }
-
-    TextureColoredTexture tex = new TextureColoredTexture(map.getTextureExtry("minecraft:blocks/netherrack"), head, String.format("tconstruct:items/pickaxe/%s_pickaxe_head", "woodlog"));
-    map.setTextureEntry(String.format("tconstruct:items/pickaxe/%s_pickaxe_head", "woodlog"), tex);
-    sprites.put("pick_head_woodlog", tex);
   }
 }

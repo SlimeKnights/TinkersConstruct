@@ -7,10 +7,13 @@ import tconstruct.library.tinkering.Material;
 public class SimpleColoredTexture extends AbstractColoredTexture {
   private final Material material;
 
-  protected SimpleColoredTexture(Material material, TextureAtlasSprite baseTexture,
-                                 String spriteName) {
+  public SimpleColoredTexture(Material material, TextureAtlasSprite baseTexture, String spriteName) {
     super(baseTexture, spriteName);
+    this.material = material;
+  }
 
+  public SimpleColoredTexture(Material material, String baseTextureLocation, String extra, String spriteName) {
+    super(baseTextureLocation, extra, spriteName);
     this.material = material;
   }
 

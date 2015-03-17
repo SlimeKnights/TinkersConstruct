@@ -6,10 +6,32 @@ import net.minecraft.util.ResourceLocation;
 
 public class TextureColoredTexture extends AbstractColoredTexture {
   private final TextureAtlasSprite addTexture;
+  private final String addTextureLocation;
   private int[][] textureData;
 
-  public TextureColoredTexture(TextureAtlasSprite addTexture, TextureAtlasSprite baseTexture, String spriteName) {
+  public TextureColoredTexture(String addTextureLocation, TextureAtlasSprite baseTexture,
+                               String spriteName) {
     super(baseTexture, spriteName);
+    this.addTextureLocation = addTextureLocation;
+    this.addTexture = null;
+  }
+
+  public TextureColoredTexture(String addTextureLocation, String baseTextureLocation, String extra, String spriteName) {
+    super(baseTextureLocation, extra, spriteName);
+    this.addTextureLocation = addTextureLocation;
+    this.addTexture = null;
+  }
+
+  public TextureColoredTexture(TextureAtlasSprite addTexture, TextureAtlasSprite baseTexture,
+                               String spriteName) {
+    super(baseTexture, spriteName);
+    this.addTextureLocation = addTexture.getIconName();
+    this.addTexture = addTexture;
+  }
+
+  public TextureColoredTexture(TextureAtlasSprite addTexture, String baseTextureLocation, String extra, String spriteName) {
+    super(baseTextureLocation, extra, spriteName);
+    this.addTextureLocation = addTexture.getIconName();
     this.addTexture = addTexture;
   }
 
@@ -19,12 +41,8 @@ public class TextureColoredTexture extends AbstractColoredTexture {
     if(a == 0)
       return pixel;
 
-    if(textureData == null) {
-      if(addTexture.getFrameCount() > 0)
-        textureData = addTexture.getFrameTextureData(0);
-      else
-        textureData = backupLoadTexture(new ResourceLocation(addTexture.getIconName()), Minecraft.getMinecraft().getResourceManager());
-    }
+    if(textureData == null)
+      loadData();
 
     int c = textureData[mipmap][pxCoord];
 
@@ -38,5 +56,15 @@ public class TextureColoredTexture extends AbstractColoredTexture {
     b = mult(b, blue(pixel)) & 0xff;
 
     return compose(r,g,b,a);
+  }
+
+  private void loadData() {
+    if(addTexture != null && addTexture.getFrameCount() > 0) {
+      textureData = addTexture.getFrameTextureData(0);
+    }
+    else {
+      textureData = backupLoadTexture(new ResourceLocation(addTextureLocation),
+                                      Minecraft.getMinecraft().getResourceManager());
+    }
   }
 }

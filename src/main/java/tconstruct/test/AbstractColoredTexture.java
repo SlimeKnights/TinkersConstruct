@@ -3,6 +3,7 @@ package tconstruct.test;
 import com.google.common.collect.Lists;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
@@ -16,11 +17,22 @@ import tconstruct.library.utils.Log;
 
 public abstract class AbstractColoredTexture extends TextureAtlasSprite {
   private final TextureAtlasSprite baseTexture;
+  private final String backupTextureLocation;
+  private final String extra;
 
   protected AbstractColoredTexture(TextureAtlasSprite baseTexture, String spriteName) {
     super(spriteName);
-
     this.baseTexture = baseTexture;
+    this.backupTextureLocation = baseTexture.getIconName();
+    this.extra = "";
+  }
+
+  protected AbstractColoredTexture(String baseTextureLocation, String extra, String spriteName) {
+    super(spriteName);
+
+    this.baseTexture = null;
+    this.backupTextureLocation = baseTextureLocation;
+    this.extra = extra;
   }
 
   @Override
@@ -36,18 +48,17 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
 
     // get the base texture to work on
     int[][] data;
-    if(baseTexture.getFrameCount() > 0) {
+    if(baseTexture != null && baseTexture.getFrameCount() > 0) {
       this.copyFrom(baseTexture);
       int[][] original = baseTexture.getFrameTextureData(0);
       data = new int[original.length][];
       for(int i = 0; i < original.length; i++)
         data[i] = Arrays.copyOf(original[i], original[i].length);
-
-      //data = baseTexture.getFrameTextureData(0);
     }
     else {
-      ResourceLocation resourcelocation = new ResourceLocation(baseTexture.getIconName());
-      data = backupLoadTexture(resourcelocation, manager);
+      data = backupLoadTexture(new ResourceLocation(backupTextureLocation + "_" + extra), manager);
+      if(data == null)
+        data = backupLoadTexture(new ResourceLocation(backupTextureLocation), manager);
     }
 
     // go over the base texture and color it
@@ -101,10 +112,10 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
     }
     catch (IOException ioexception1)
     {
-      Log.error("Using missing texture, unable to load " + resourcelocation1, ioexception1);
+      Log.error("Unable to load " + resourcelocation1, ioexception1);
     }
 
-    return new int[0][];
+    return null;
   }
 
   private ResourceLocation completeResourceLocation(ResourceLocation location, int p_147634_2_)

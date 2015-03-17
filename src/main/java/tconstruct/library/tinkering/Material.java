@@ -30,8 +30,7 @@ public class Material {
   public final int colorMid;
   public final int colorHigh;
   public final EnumChatFormatting textColor; // used in tooltips and other text
-  // todo: maybe make this dynamic people can supply their own colorable textures?
-  public final SurfaceType surfaceType;
+  public String baseTexture = ""; // used to generate the textures for this material
 
 
   // we use a Treemap for 2 reasons:
@@ -47,7 +46,6 @@ public class Material {
     this.colorLow = 0xffffff;
     this.metadata = -1;
     this.textColor = EnumChatFormatting.WHITE;
-    this.surfaceType = SurfaceType.METAL;
   }
 
   // simple white material
@@ -57,12 +55,11 @@ public class Material {
 
   // one-colored material
   public Material(String identifier, int metadata, int color, EnumChatFormatting textColor) {
-    this(identifier, metadata, color, color, color, SurfaceType.METAL, textColor);
+    this(identifier, metadata, color, color, color, textColor);
   }
 
   // complex material with 3 colors and a real surface texture!
-  public Material(String identifier, int metadata, int colorLow, int colorMedium, int colorHigh,
-                  SurfaceType surfaceType, EnumChatFormatting textColor) {
+  public Material(String identifier, int metadata, int colorLow, int colorMedium, int colorHigh, EnumChatFormatting textColor) {
 
     // check metadata bounds: 0 to (2^16)-1
     if (metadata < 0 || metadata > 65535) {
@@ -75,9 +72,14 @@ public class Material {
     this.colorLow = colorLow;
     this.colorMid = colorMedium;
     this.colorHigh = colorHigh;
-    this.surfaceType = surfaceType;
     this.textColor = textColor;
   }
+
+  /**
+   * Changes the base texture set used to generate the textures for this material.
+   * If no texture can be found, the default base texture will be used. Default value is an empty string.
+   */
+  public void setBaseTexture(String baseTexture) { this.baseTexture = baseTexture; }
 
   /* Stats */
   public void addStats(IMaterialStats materialStats) {
@@ -145,13 +147,5 @@ public class Material {
 
   public Collection<IMaterialTrait> getAllTraits() {
     return this.traits.values();
-  }
-
-
-  // used to determine the texture for coloring
-  public enum SurfaceType {
-    METAL,
-    ROCKY,
-    GLOSSY
   }
 }
