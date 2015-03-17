@@ -40,5 +40,9 @@ public class CustomTextureCreator {
 
       sprites.put("pick_handle_" + material.identifier, coloredTexture);
     }
+
+    TextureColoredTexture tex = new TextureColoredTexture(map.getTextureExtry("minecraft:blocks/netherrack"), head, String.format("tconstruct:items/pickaxe/%s_pickaxe_head", "woodlog"));
+    map.setTextureEntry(String.format("tconstruct:items/pickaxe/%s_pickaxe_head", "woodlog"), tex);
+    sprites.put("pick_head_woodlog", tex);
   }
 }

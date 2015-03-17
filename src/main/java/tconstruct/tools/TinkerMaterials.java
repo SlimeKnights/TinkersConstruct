@@ -15,7 +15,7 @@ public final class TinkerMaterials {
   }
 
   static {
-    wood = new Material("Wood", 0, 0xffaa00, EnumChatFormatting.YELLOW);
+    wood = new Material("Wood", 0, 0xffaa00, 0xffaa00, 0xffcc22, Material.SurfaceType.GLOSSY, EnumChatFormatting.YELLOW);
     stone = new Material("Stone", 1, 0x555555, EnumChatFormatting.DARK_GRAY);
   }
 

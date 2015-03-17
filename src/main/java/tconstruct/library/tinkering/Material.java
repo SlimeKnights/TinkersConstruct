@@ -149,7 +149,7 @@ public class Material {
 
 
   // used to determine the texture for coloring
-  enum SurfaceType {
+  public enum SurfaceType {
     METAL,
     ROCKY,
     GLOSSY

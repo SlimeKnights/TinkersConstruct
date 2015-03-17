@@ -17,8 +17,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ISmartItemModel;
 
-import sun.org.mozilla.javascript.internal.ast.Block;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;

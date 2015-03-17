@@ -27,6 +27,8 @@ public class TinkerModelManager {
       pickModel.addTexture(material.identifier + "_handle", CustomTextureCreator.sprites.get("pick_handle_" + material.identifier));
     }
 
+    pickModel.addTexture("Wood" + "_head", CustomTextureCreator.sprites.get("pick_head_" + "woodlog"));
+
     event.modelRegistry.putObject(res, pickModel);
   }
 }
