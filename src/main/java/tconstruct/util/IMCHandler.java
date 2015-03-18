@@ -171,6 +171,12 @@ public final class IMCHandler {
                     continue;
                 }
 
+                if(TConstructRegistry.getMaterial(matID) == null)
+                {
+                    FMLLog.bigWarning("Casting IMC: Unknown Material ID " + matID);
+                    continue;
+                }
+
                 // we add the toolpart to all smeltery recipies that use iron and create a toolpart
                 List<CastingRecipe> newRecipies = new LinkedList<CastingRecipe>();
                 for(CastingRecipe recipe : TConstructRegistry.getTableCasting().getCastingRecipes())
