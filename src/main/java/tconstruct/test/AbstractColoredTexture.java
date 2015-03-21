@@ -56,7 +56,9 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
         data[i] = Arrays.copyOf(original[i], original[i].length);
     }
     else {
-      data = backupLoadTexture(new ResourceLocation(backupTextureLocation + "_" + extra), manager);
+      data = null;
+      if(extra != null && !extra.isEmpty())
+        data = backupLoadTexture(new ResourceLocation(backupTextureLocation + "_" + extra), manager);
       if(data == null)
         data = backupLoadTexture(new ResourceLocation(backupTextureLocation), manager);
     }

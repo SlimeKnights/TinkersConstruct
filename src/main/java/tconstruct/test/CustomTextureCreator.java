@@ -19,6 +19,10 @@ public class CustomTextureCreator {
   public void createCustomTextures(TextureStitchEvent.Pre event) {
     TextureMap map = event.map;
 
+    TextureColoredTexture tex = new TextureColoredTexture(map.getTextureExtry("minecraft:items/fish_pufferfish_raw"), "tconstruct:items/pickaxe/_pickaxe_head", "full", String.format("tconstruct:items/pickaxe/%s_pickaxe_head", "Wood"));
+    map.setTextureEntry(String.format("tconstruct:items/pickaxe/%s_pickaxe_head", "Wood"), tex);
+    sprites.put("pick_head_" + "Wood", tex);
+
     TextureAtlasSprite sprite = map.getTextureExtry("tconstruct:items/pickaxe/_pickaxe_head");
 
     for(Material material : TinkerRegistry.getAllMaterials())
@@ -46,5 +50,8 @@ public class CustomTextureCreator {
 
       sprites.put("pick_handle_" + material.identifier, coloredTexture);
     }
+
+    map.setTextureEntry(String.format("tconstruct:items/pickaxe/%s_pickaxe_head", "Wood"), tex);
+    sprites.put("pick_head_" + "Wood", tex);
   }
 }

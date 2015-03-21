@@ -17,6 +17,8 @@ public final class TinkerMaterials {
   static {
     wood = new Material("Wood", 0, 0xffaa00, 0xffaa00, 0xffcc22, EnumChatFormatting.YELLOW);
     stone = new Material("Stone", 1, 0x555555, EnumChatFormatting.DARK_GRAY);
+
+    wood.setBaseTexture("full");
   }
 
   public static void registerMaterials() {
