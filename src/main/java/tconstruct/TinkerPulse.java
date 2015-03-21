@@ -7,6 +7,10 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Just a small helper class that provides some function for cleaner Pulses.
+ *
+ * Items should be registered during PreInit
+ *
+ * Models should be registered during Init
  */
 public abstract class TinkerPulse {
 

@@ -153,14 +153,6 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
     return rgb;
   }
 
-  public static int compose(int[] col) {
-    int r = col[0];
-    int g = col[1];
-    int b = col[2];
-    int a = col.length > 3 ? col[3] : 255;
-    return compose(r,g,b,a);
-  }
-
   public static int alpha(int c) {
     return (c >> 24) & 0xFF;
   }

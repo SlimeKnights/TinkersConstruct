@@ -3,6 +3,7 @@ package tconstruct.test;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import tconstruct.library.TinkerRegistry;
@@ -13,7 +14,8 @@ public class TinkerModelManager {
 
   @SubscribeEvent
   public void createModels(ModelBakeEvent event) {
-    ModelResourceLocation res = new ModelResourceLocation("TConstruct:TestTool", "inventory");
+    ModelResourceLocation res = new ModelResourceLocation("tconstruct:TestTool", "inventory");
+    //IModel original = event.modelLoader.getModel(res);
     IBakedModel originalModel = event.modelManager.getModel(res);
     IBakedModel model1 = event.modelManager.getModel(new ModelResourceLocation("tconstruct:pick_head", "inventory"));
     IBakedModel model2 = event.modelManager.getModel(new ModelResourceLocation("tconstruct:pick_handle", "inventory"));
