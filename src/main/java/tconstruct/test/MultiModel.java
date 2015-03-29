@@ -4,8 +4,10 @@ import com.google.common.base.Function;
 import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockPart;
 import net.minecraft.client.renderer.block.model.BlockPartFace;
+import net.minecraft.client.renderer.block.model.FaceBakery;
 import net.minecraft.client.renderer.block.model.ItemModelGenerator;
 import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -27,7 +29,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import tconstruct.library.TinkerRegistry;
+import tconstruct.library.tinkering.Material;
+
 public class MultiModel implements IModel {
+  private static final FaceBakery faceBakery = new FaceBakery();
+
   // the modelblock is needed for the layer information
   private final ModelBlock modelBlock;
   // the original model is required for the vertex data
@@ -74,7 +81,7 @@ public class MultiModel implements IModel {
 
     IFlexibleBakedModel[] partModels = new IFlexibleBakedModel[partBlocks.size()];
     int i = 0;
-/*
+
     ItemModelGenerator generator = new ItemModelGenerator();
 
     // we build simple models for the parts, so we can exctract the UV information
@@ -86,19 +93,28 @@ public class MultiModel implements IModel {
 
       for (Object o : mb.getElements()) {
         BlockPart blockpart = (BlockPart) o;
+        for(Object o2 : blockpart.mapFaces.keySet()) {
+          EnumFacing enumfacing = (EnumFacing)o2;
+          BlockPartFace blockpartface = (BlockPartFace)blockpart.mapFaces.get(enumfacing);
+          builder.addGeneralQuad(this.makeBakedQuad(blockpart, blockpartface, sprite, enumfacing, ModelRotation.X0_Y0, false));
+        }
       }
 
       partModels[i++] = new IFlexibleBakedModel.Wrapper(builder.makeBakedModel(), Attributes.DEFAULT_BAKED_FORMAT);
     }
-*/
 
+    BakedMultiModel bakedModel = new BakedMultiModel(original, partModels);
 
-
-    return new BakedMultiModel(original, partModels);
+    return bakedModel;
   }
 
   @Override
   public IModelState getDefaultState() {
     return ModelRotation.X0_Y0;
+  }
+
+  private BakedQuad makeBakedQuad(BlockPart p_177589_1_, BlockPartFace p_177589_2_, TextureAtlasSprite p_177589_3_, EnumFacing p_177589_4_, net.minecraftforge.client.model.ITransformation p_177589_5_, boolean p_177589_6_)
+  {
+    return faceBakery.makeBakedQuad(p_177589_1_.positionFrom, p_177589_1_.positionTo, p_177589_2_, p_177589_3_, p_177589_4_, p_177589_5_, p_177589_1_.partRotation, p_177589_6_, p_177589_1_.shade);
   }
 }

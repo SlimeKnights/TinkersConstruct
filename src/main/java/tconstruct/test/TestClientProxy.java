@@ -33,7 +33,7 @@ public class TestClientProxy extends CommonProxy {
     //ModelBakery.addVariantName(TinkerTest.testItem, Item.itemRegistry.getNameForObject(TinkerTest.testItem).toString(), "tconstruct:pick_head", "tconstruct:pick_handle",
       //                     "tconstruct:pick_binding");
 
-    //ModelLoaderRegistry.registerLoader(loader);
+    ModelLoaderRegistry.registerLoader(loader);
   }
 
   /**

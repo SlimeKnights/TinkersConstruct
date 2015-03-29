@@ -13,7 +13,9 @@ public class TinkerModelManager {
 
   @SubscribeEvent
   public void createModels(ModelBakeEvent event) {
+    /*
     ModelResourceLocation res = new ModelResourceLocation("tconstruct:TestTool", "inventory");
+
     //IModel original = event.modelLoader.getModel(res);
     IBakedModel originalModel = event.modelManager.getModel(res);
     IBakedModel model1 = event.modelManager.getModel(new ModelResourceLocation("tconstruct:pick_head", "inventory"));
@@ -29,5 +31,6 @@ public class TinkerModelManager {
     }
 
     event.modelRegistry.putObject(res, pickModel);
+*/
   }
 }
