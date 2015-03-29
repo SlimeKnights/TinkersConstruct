@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 public class Util {
 
   public static final String RESOURCE = "tconstruct";
+  public static final String MODEL_PREFIX = "_generated_";
 
   public static Logger getLogger(String type) {
     String log = TConstruct.modID;

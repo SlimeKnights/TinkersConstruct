@@ -1,102 +1,104 @@
 package tconstruct.test;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import com.google.common.base.Function;
+import com.google.common.collect.ImmutableSet;
 
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.BlockPart;
+import net.minecraft.client.renderer.block.model.BlockPartFace;
+import net.minecraft.client.renderer.block.model.ItemModelGenerator;
+import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.client.resources.model.ModelRotation;
 import net.minecraft.client.resources.model.SimpleBakedModel;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.client.model.ISmartItemModel;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.Attributes;
+import net.minecraftforge.client.model.IFlexibleBakedModel;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.IModelState;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 
-import java.util.LinkedList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-@SideOnly(Side.CLIENT)
-public class MultiModel extends SimpleBakedModel implements ISmartItemModel {
-  private final List<List<BakedQuadUV>> subModels;
-  private final Map<String, TextureAtlasSprite> textures;
+public class MultiModel implements IModel {
+  // the modelblock is needed for the layer information
+  private final ModelBlock modelBlock;
+  // the original model is required for the vertex data
+  private final IModel model;
 
-  private static final List<List<BakedQuad>> empty_face_quads;
-  static {
-    empty_face_quads = Lists.newArrayList();
-    for(int i = 0; i < 6; i++)
-      empty_face_quads.add(new LinkedList<BakedQuad>());
-  }
+  private final List<ModelBlock> partBlocks;
 
-  public MultiModel(IBakedModel original, IBakedModel... models) {
-    super(null, null, original.isAmbientOcclusion(), original.isGui3d(), original.getTexture(), original.getItemCameraTransforms());
-
-    subModels = Lists.newArrayList();
-    textures = Maps.newHashMap();
-
-    textures.put("default", original.getTexture());
-
-    int i = 0;
-    // add the quads from the models and extract the UVs
-    for(IBakedModel model : models) {
-      // Items usually don't have face-quads, so we only use the general quads
-      List<BakedQuad> quads = model.getGeneralQuads();
-      TextureAtlasSprite sprite = model.getTexture();
-      List<BakedQuadUV> uvQuads = Lists.newArrayList();
-
-      textures.put("default_" + i, sprite);
-      i++;
-
-      // generate the normalized UV data
-      for(BakedQuad quad : quads) {
-        uvQuads.add(new BakedQuadUV(quad, sprite));
-      }
-
-      subModels.add(uvQuads);
-    }
-  }
-
-  public void addTexture(String name, TextureAtlasSprite texture) {
-    textures.put(name, texture);
+  public MultiModel(ModelBlock modelBlock, IModel model, List<ModelBlock> parts) {
+    this.modelBlock = modelBlock;
+    this.model = model;
+    this.partBlocks = parts;
   }
 
   @Override
-  public IBakedModel handleItemState(ItemStack stack) {
-    // todo: actually consider itemstack and/or add a hook for it
+  public Collection<ResourceLocation> getDependencies() {
+    if(modelBlock.getParentLocation() == null || modelBlock.getParentLocation().getResourcePath().startsWith("builtin/")) return Collections
+        .emptyList();
 
-    List<BakedQuad> quads = Lists.newArrayList();
 
-    String[] texs = new String[] {"Wood_head", "Stone_handle", "default_2"};
 
-    int i = 0;
-    for(List<BakedQuadUV> modelQuads : subModels) {
-      // determine if submodel should be used and its texture
-      TextureAtlasSprite modelTexture = textures.get(texs[i]);
-      for(BakedQuadUV quadUV : modelQuads) {
-        quads.add(quadUV.applyTexture(modelTexture));
+    return Collections.singletonList(modelBlock.getParentLocation());
+  }
+
+  @Override
+  public Collection<ResourceLocation> getTextures() {
+    ImmutableSet.Builder<ResourceLocation> builder = ImmutableSet.builder();
+
+    for(String s : (List<String>) ItemModelGenerator.LAYERS) {
+      String r = modelBlock.resolveTextureName(s);
+      ResourceLocation loc = new ResourceLocation(r);
+      if (!r.equals(s)) {
+        builder.add(loc);
       }
-      i++;
     }
 
-    SimpleBakedModel model = new SimpleBakedModel(quads, empty_face_quads, this.isAmbientOcclusion(), this.isGui3d(), this.getTexture(), this.getItemCameraTransforms());
-    // todo: cache
-    return model;
+    return builder.build();
   }
 
   @Override
-  public List getFaceQuads(EnumFacing p_177551_1_) {
-    return new LinkedList();
+  public IFlexibleBakedModel bake(IModelState state, VertexFormat format,
+                                  Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+    // we need the original model for the processed vertex information
+    IFlexibleBakedModel original = model.bake(state, Attributes.DEFAULT_BAKED_FORMAT, bakedTextureGetter);
+
+    IFlexibleBakedModel[] partModels = new IFlexibleBakedModel[partBlocks.size()];
+    int i = 0;
+/*
+    ItemModelGenerator generator = new ItemModelGenerator();
+
+    // we build simple models for the parts, so we can exctract the UV information
+    for(ModelBlock mb : partBlocks) {
+      mb = generator.makeItemModel(Minecraft.getMinecraft().getTextureMapBlocks(), mb);
+      SimpleBakedModel.Builder builder = (new SimpleBakedModel.Builder(mb));
+      TextureAtlasSprite sprite = bakedTextureGetter.apply(new ResourceLocation(mb.resolveTextureName("layer0")));
+      builder.setTexture(sprite);
+
+      for (Object o : mb.getElements()) {
+        BlockPart blockpart = (BlockPart) o;
+      }
+
+      partModels[i++] = new IFlexibleBakedModel.Wrapper(builder.makeBakedModel(), Attributes.DEFAULT_BAKED_FORMAT);
+    }
+*/
+
+
+
+    return new BakedMultiModel(original, partModels);
   }
 
   @Override
-  public List getGeneralQuads() {
-    return new LinkedList();
-  }
-
-  @Override
-  public boolean isBuiltInRenderer() {
-    return false;
+  public IModelState getDefaultState() {
+    return ModelRotation.X0_Y0;
   }
 }

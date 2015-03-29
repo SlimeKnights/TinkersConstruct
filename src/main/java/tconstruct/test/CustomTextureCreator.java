@@ -17,8 +17,8 @@ public class CustomTextureCreator {
 
   @SubscribeEvent
   public void createCustomTextures(TextureStitchEvent.Pre event) {
-    TextureMap map = event.map;
 
+    TextureMap map = event.map;
     TextureColoredTexture tex = new TextureColoredTexture(map.getTextureExtry("minecraft:items/fish_pufferfish_raw"), "tconstruct:items/pickaxe/_pickaxe_head", "full", String.format("tconstruct:items/pickaxe/%s_pickaxe_head", "Wood"));
     map.setTextureEntry(String.format("tconstruct:items/pickaxe/%s_pickaxe_head", "Wood"), tex);
     sprites.put("pick_head_" + "Wood", tex);
