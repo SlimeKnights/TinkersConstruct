@@ -20,7 +20,8 @@ public class TestClientProxy extends CommonProxy {
   public void registerModels() {
     //Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
       //  .register(testItem, 0, new ModelResourceLocation("TConstruct:TestTool", "inventory"));
-    registerModel(TinkerTest.testItem, 0, "pick_head", "pick_handle", "pick_binding");
+    registerModel(TinkerTest.testItem, 0);
+    //registerModel(TinkerTest.testItem, 0, "pick_head", "pick_handle", "pick_binding");
 
     //ModelBakery.addVariantName(TinkerTest.testItem, "tconstruct:TestTool", "tconstruct:pick_head", "tconstruct:pick_handle",
       //                         "tconstruct:pick_binding");
@@ -61,14 +62,14 @@ public class TestClientProxy extends CommonProxy {
 
     // and plop it in.
     // This here is needed for the model to be found ingame when the game looks for a model to render an Itemstack (Item:Meta)
-    Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, meta, new ModelResourceLocation(location, "inventory"));
+    Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, meta,
+                                                                           new ModelResourceLocation(location,
+                                                                                                     "inventory"));
 
     // needed so that the textures of the layers are available
     ModelBakery.addVariantName(item, original.toString());
-
     // We have to readd the default variant if we have custom variants, since it wont be added otherwise
-    if(customVariants.length > 0)
-      ModelBakery.addVariantName(item, location.toString());
+    ModelBakery.addVariantName(item, location.toString());
 
     for(String customVariant : customVariants) {
       String custom = location.getResourceDomain() + ":" + GENERATED_PREFIX + customVariant;

@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockPart;
 import net.minecraft.client.renderer.block.model.BlockPartFace;
 import net.minecraft.client.renderer.block.model.FaceBakery;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemModelGenerator;
 import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -24,6 +25,7 @@ import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IModelState;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 
+import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -76,13 +78,12 @@ public class MultiModel implements IModel {
   @Override
   public IFlexibleBakedModel bake(IModelState state, VertexFormat format,
                                   Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+    ItemModelGenerator generator = new ItemModelGenerator();
     // we need the original model for the processed vertex information
     IFlexibleBakedModel original = model.bake(state, Attributes.DEFAULT_BAKED_FORMAT, bakedTextureGetter);
 
     IFlexibleBakedModel[] partModels = new IFlexibleBakedModel[partBlocks.size()];
     int i = 0;
-
-    ItemModelGenerator generator = new ItemModelGenerator();
 
     // we build simple models for the parts, so we can exctract the UV information
     for(ModelBlock mb : partBlocks) {
@@ -104,6 +105,13 @@ public class MultiModel implements IModel {
     }
 
     BakedMultiModel bakedModel = new BakedMultiModel(original, partModels);
+
+	// TODO: Remove
+    for(Material material : TinkerRegistry.getAllMaterials()) {
+      bakedModel.addTexture(material.identifier + "_head", CustomTextureCreator.sprites.get(
+          "pick_head_" + material.identifier));
+      bakedModel.addTexture(material.identifier + "_handle", CustomTextureCreator.sprites.get("pick_handle_" + material.identifier));
+    }
 
     return bakedModel;
   }

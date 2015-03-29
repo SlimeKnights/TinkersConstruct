@@ -2,9 +2,14 @@ package tconstruct.test;
 
 import com.google.common.collect.Maps;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Map;
@@ -17,13 +22,17 @@ public class CustomTextureCreator {
 
   @SubscribeEvent
   public void createCustomTextures(TextureStitchEvent.Pre event) {
-
     TextureMap map = event.map;
+
+    for(Item tool : TinkerRegistry.tools) {
+
+    }
+
     TextureColoredTexture tex = new TextureColoredTexture(map.getTextureExtry("minecraft:items/fish_pufferfish_raw"), "tconstruct:items/pickaxe/_pickaxe_head", "full", String.format("tconstruct:items/pickaxe/%s_pickaxe_head", "Wood"));
     map.setTextureEntry(String.format("tconstruct:items/pickaxe/%s_pickaxe_head", "Wood"), tex);
     sprites.put("pick_head_" + "Wood", tex);
 
-    TextureAtlasSprite sprite = map.getTextureExtry("tconstruct:items/pickaxe/_pickaxe_head");
+    TextureAtlasSprite sprite = map.getTextureExtry("tconstruct:items/pickaxe/pick_head_");
 
     for(Material material : TinkerRegistry.getAllMaterials())
     {
@@ -37,7 +46,7 @@ public class CustomTextureCreator {
       sprites.put("pick_head_" + material.identifier, coloredTexture);
     }
 
-    sprite = map.getTextureExtry("tconstruct:items/pickaxe/_pickaxe_handle");
+    sprite = map.getTextureExtry("tconstruct:items/pickaxe/pick_handle_");
 
     for(Material material : TinkerRegistry.getAllMaterials())
     {

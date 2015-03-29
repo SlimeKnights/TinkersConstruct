@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.ICustomModelLoader;

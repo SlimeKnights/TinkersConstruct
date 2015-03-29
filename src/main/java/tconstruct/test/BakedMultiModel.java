@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.resources.model.IBakedModel;
@@ -35,7 +36,7 @@ public class BakedMultiModel extends SimpleBakedModel implements ISmartItemModel
       empty_face_quads.add(empty_list);
   }
 
-  public BakedMultiModel(IBakedModel original, IBakedModel... models) {
+  public BakedMultiModel(IFlexibleBakedModel original, IFlexibleBakedModel... models) {
     super(null, null, original.isAmbientOcclusion(), original.isGui3d(), original.getTexture(), original.getItemCameraTransforms());
 
     subModels = Lists.newArrayList();

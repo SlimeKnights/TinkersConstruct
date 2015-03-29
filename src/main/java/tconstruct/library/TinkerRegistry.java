@@ -1,10 +1,14 @@
 package tconstruct.library;
 
+import gnu.trove.set.hash.TLinkedHashSet;
+
+import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Loader;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import tconstruct.library.tinkering.Material;
 import tconstruct.library.tinkering.materials.IMaterialStats;
@@ -146,6 +150,13 @@ public final class TinkerRegistry {
 
     String activeMod = Loader.instance().activeModContainer().getModId();
     putTraitTrace(identifier, trait, activeMod);
+  }
+
+  /* TOOLS AND WEAPONS */
+  public static final Set<Item> tools = new TLinkedHashSet<>();
+
+  public static void addTool(Item tool) {
+    tools.add(tool);
   }
 
   /* Traceability info */
