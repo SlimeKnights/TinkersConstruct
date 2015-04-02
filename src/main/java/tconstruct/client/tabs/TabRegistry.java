@@ -1,15 +1,18 @@
 package tconstruct.client.tabs;
 
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.*;
-
+import java.lang.reflect.*;
 import java.util.*;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.network.play.client.C0DPacketCloseWindow;
 import net.minecraftforge.client.event.GuiScreenEvent;
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TabRegistry
 {
@@ -35,6 +38,7 @@ public class TabRegistry
             int ySize = 166;
             int guiLeft = (event.gui.width - xSize) / 2;
             int guiTop = (event.gui.height - ySize) / 2;
+			guiLeft += getPotionOffset();
 
             updateTabValues(guiLeft, guiTop, InventoryTabVanilla.class);
             addTabsToList(event.gui.buttonList);
@@ -78,4 +82,41 @@ public class TabRegistry
             }
         }
     }
+	
+	public static int getPotionOffset()
+	{
+		// If at least one potion is active...
+		if (!mc.thePlayer.getActivePotionEffects().isEmpty())
+		{
+			if (Loader.isModLoaded("NotEnoughItems"))
+			{
+				try 
+				{
+					// Check whether NEI is hidden and enabled
+					Class<?> c = Class.forName("codechicken.nei.NEIClientConfig");
+					Object hidden = c.getMethod("isHidden").invoke(null);
+					Object enabled = c.getMethod("isEnabled").invoke(null);
+					if (hidden != null && hidden instanceof Boolean && enabled != null && enabled instanceof Boolean)
+					{
+						if ((Boolean)hidden || !((Boolean)enabled))
+						{
+							// If NEI is disabled or hidden, offset the tabs by 60 
+							return 60;
+						}
+					}
+				} 
+				catch (Exception e) 
+				{
+				}
+			}
+			else
+			{
+				// If NEI is not installed, offset the tabs 
+				return 60;
+			}
+		}
+		
+		// No potions, no offset needed
+		return 0;
+	}
 }
