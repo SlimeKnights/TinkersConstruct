@@ -9,6 +9,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
@@ -25,6 +26,7 @@ import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.tools.*;
 import tconstruct.library.util.HarvestLevels;
+import tconstruct.mechworks.logic.TileEntityLandmine;
 import tconstruct.tools.logic.CraftingStationLogic;
 
 @Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
@@ -102,6 +104,14 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
     {
         if (logic.chest != null)
         {
+            if(logic.chest.get() instanceof TileEntity) {
+                TileEntity te = (TileEntity)logic.chest.get();
+                if(te.getWorldObj().getTileEntity(te.xCoord, te.yCoord, te.zCoord) == null && te.getWorldObj().isRemote)
+                {
+                    mc.thePlayer.closeScreen();
+                    return;
+                }
+            }
             this.fontRendererObj.drawString(StatCollector.translateToLocal(logic.chest.get().getInventoryName()), 8, 6, 0x202020);
         }
 
