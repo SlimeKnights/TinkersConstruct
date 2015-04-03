@@ -114,9 +114,23 @@ public abstract class AmmoItem extends ToolCore implements IAmmo {
 
         // create a stack to test against
         ItemStack testsubject = candidate.copy();
-        // all NBT has to match, but the ammo-count obviously differs. So we set our testsubject to the same
-        // this ensures that it's the one to collect and the one we have matches.
-        testsubject.getTagCompound().getCompoundTag("InfiTool").setInteger("Ammo", getAmmoCount(reference));
+        reference = reference.copy();
+        // all NBT has to match, but the ammo-count obviously differs.
+        // we strip known tags that have no impact
+
+        NBTTagCompound tags = testsubject.getTagCompound().getCompoundTag("InfiTool");
+        tags.removeTag("Ammo");
+        tags.removeTag("ToolEXP");
+        tags.removeTag("ToolLevel");
+        tags.removeTag("HeadEXP");
+        tags.removeTag("Damage");
+
+        tags = reference.getTagCompound().getCompoundTag("InfiTool");
+        tags.removeTag("Ammo");
+        tags.removeTag("ToolEXP");
+        tags.removeTag("ToolLevel");
+        tags.removeTag("HeadEXP");
+        tags.removeTag("Damage");
 
         return ItemStack.areItemStacksEqual(reference, testsubject);
     }
