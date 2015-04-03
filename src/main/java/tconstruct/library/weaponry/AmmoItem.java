@@ -37,7 +37,7 @@ public abstract class AmmoItem extends ToolCore implements IAmmo {
     @Override
     public int getMaxAmmo(NBTTagCompound tags) {
         float dur = tags.getInteger("TotalDurability");
-        return Math.max(1, (int)Math.ceil(dur*getAmmoModifier()));
+        return Math.max(1, (int) Math.ceil(dur * getAmmoModifier()));
     }
 
     @Override
@@ -83,9 +83,9 @@ public abstract class AmmoItem extends ToolCore implements IAmmo {
                 IAmmo pickedup = ((IAmmo) stack.getItem());
                 IAmmo ininventory = ((IAmmo) candidate.getItem());
                 // we can be sure that it's ammo, since stack is ammo and they're equal
-                ininventory.addAmmo(pickedup.getAmmoCount(stack), candidate);
-
-                return true;
+                int count = pickedup.getAmmoCount(stack);
+                if(count != ininventory.addAmmo(count, candidate))
+                    return true;
             }
         }
 
@@ -95,9 +95,9 @@ public abstract class AmmoItem extends ToolCore implements IAmmo {
                 IAmmo pickedup = ((IAmmo) stack.getItem());
                 IAmmo ininventory = ((IAmmo) invItem.getItem());
                 // we can be sure that it's ammo, since stack is ammo and they're equal
-                ininventory.addAmmo(pickedup.getAmmoCount(stack), invItem);
-
-                return true;
+                int count = pickedup.getAmmoCount(stack);
+                if(count != ininventory.addAmmo(count, invItem))
+                    return true;
             }
         }
 
@@ -112,28 +112,41 @@ public abstract class AmmoItem extends ToolCore implements IAmmo {
         if(!candidate.hasTagCompound() || !candidate.getTagCompound().hasKey("InfiTool"))
             return false;
 
-        // create a stack to test against
-        ItemStack testsubject = candidate.copy();
-        reference = reference.copy();
-        // all NBT has to match, but the ammo-count obviously differs.
-        // we strip known tags that have no impact
+        if(reference.getItem() != candidate.getItem())
+            return false;
 
-        NBTTagCompound tags = testsubject.getTagCompound().getCompoundTag("InfiTool");
-        tags.removeTag("Ammo");
-        tags.removeTag("ToolEXP");
-        tags.removeTag("ToolLevel");
-        tags.removeTag("HeadEXP");
-        tags.removeTag("Damage");
+        NBTTagCompound referenceTags = getComparisonTags(reference);
+        NBTTagCompound testTags = getComparisonTags(candidate);
 
-        tags = reference.getTagCompound().getCompoundTag("InfiTool");
-        tags.removeTag("Ammo");
-        tags.removeTag("ToolEXP");
-        tags.removeTag("ToolLevel");
-        tags.removeTag("HeadEXP");
-        tags.removeTag("Damage");
-
-        return ItemStack.areItemStacksEqual(reference, testsubject);
+        return referenceTags.equals(testTags);
     }
+
+    private NBTTagCompound getComparisonTags(ItemStack stack) {
+        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        NBTTagCompound out = new NBTTagCompound();
+
+        copyTag(out, tags, "Head");
+        copyTag(out, tags, "Handle");
+        copyTag(out, tags, "Accessory");
+        copyTag(out, tags, "Extra");
+        copyTag(out, tags, "RenderHead");
+        copyTag(out, tags, "RenderHandle");
+        copyTag(out, tags, "RenderAccessory");
+        copyTag(out, tags, "RenderExtra");
+        copyTag(out, tags, "TotalDurability");
+        copyTag(out, tags, "Attack");
+        copyTag(out, tags, "MiningSpeed");
+        copyTag(out, tags, "HarvestLevel");
+        copyTag(out, tags, "Modifiers");
+
+        return out;
+    }
+
+    private void copyTag(NBTTagCompound out, NBTTagCompound in, String tag) {
+        if(in.hasKey(tag))
+            out.setInteger(tag, in.getInteger(tag));
+    }
+
 
     @Override
     public boolean onLeftClickEntity (ItemStack stack, EntityPlayer player, Entity entity)
