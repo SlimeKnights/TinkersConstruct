@@ -266,4 +266,13 @@ public class TConstruct
     public static LiquidCasting tableCasting;
     public static LiquidCasting basinCasting;
     public static Detailing chiselDetailing;
+
+    @Mod.EventHandler
+    public void missingMapping(FMLMissingMappingsEvent event) {
+        // this will be called because the air-block got removed
+        for(FMLMissingMappingsEvent.MissingMapping mapping : event.get()) {
+            if(mapping.name.equals("TConstruct:TankAir"))
+                mapping.ignore();
+        }
+    }
 }
