@@ -71,6 +71,13 @@ public class DryingRackRecipes
 
         public boolean matches (ItemStack input)
         {
+            // makes all drying rack recipies compatible with stuff killed by a frying pan
+            if(input.hasTagCompound()) {
+                input = input.copy();
+                input.getTagCompound().removeTag("frypanKill");
+                if(input.getTagCompound().hasNoTags())
+                    input.setTagCompound(null);
+            }
             return ItemStack.areItemStacksEqual(this.input, input);
         }
 
