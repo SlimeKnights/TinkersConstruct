@@ -765,6 +765,7 @@ smeltery.castingfaucet.tooltip=This Smeltery is leaking
 smeltery.castingbasin.tooltip=For the ambitious Smeltery
 #Dear translators, only translate this line if the joke is applicable in your language.
 grout.tooltip=I am Grout!
+frypankill.tooltip=This poor animal met its demise with a loud *bang*
 
 tconstruct.waila.empty=Empty
 tconstruct.waila.liquidtag=Liquid: 
