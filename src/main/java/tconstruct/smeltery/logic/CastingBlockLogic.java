@@ -247,7 +247,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     @Override
     public FluidStack drain (int maxDrain, boolean doDrain)
     {
-        if (liquid == null || liquid.fluidID <= 0 || castingDelay > 0)
+        if (liquid == null || liquid.getFluid() == null || liquid.getFluidID() <= 0 || castingDelay > 0)
             return null;
         if (liquid.amount <= 0)
             return null;

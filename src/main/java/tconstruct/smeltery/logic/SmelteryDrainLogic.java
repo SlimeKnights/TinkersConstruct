@@ -81,7 +81,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
             SmelteryLogic smeltery = (SmelteryLogic) worldObj.getTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             for (FluidStack fstack : smeltery.moltenMetal)
             {
-                if (fstack.fluidID == fluid.getID())
+                if (fstack.getFluidID() == fluid.getID())
                 {
                     containsFluid = true;
                     break;
