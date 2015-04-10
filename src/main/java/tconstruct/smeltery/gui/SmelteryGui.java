@@ -134,7 +134,7 @@ public class SmelteryGui extends ActiveContainerGui
 
             if (mouseX >= leftX && mouseX <= leftX + 52 && mouseY >= topY && mouseY < topY + fluidHeights[i])
             {
-                drawFluidStackTooltip(logic.moltenMetal.get(i), mouseX - cornerX + 36, mouseY - cornerY);
+                drawFluidStackTooltip(logic.moltenMetal.get(i), mouseX - cornerX + 36, mouseY - cornerY, false);
             }
             base += fluidHeights[i];
         }
@@ -148,7 +148,7 @@ public class SmelteryGui extends ActiveContainerGui
             int sizeY = logic.getScaledFuelGague(52);
             if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
             {
-                drawFluidStackTooltip(new FluidStack(-37, logic.fuelAmount), mouseX - cornerX + 36, mouseY - cornerY);
+                drawFluidStackTooltip(logic.getFuel(), mouseX - cornerX + 36, mouseY - cornerY, true);
             }
         }
     }
@@ -340,10 +340,10 @@ public class SmelteryGui extends ActiveContainerGui
         return fluidHeights;
     }
 
-    protected void drawFluidStackTooltip (FluidStack par1ItemStack, int par2, int par3)
+    protected void drawFluidStackTooltip (FluidStack par1ItemStack, int par2, int par3, boolean fuel)
     {
         this.zLevel = 100;
-        List list = getLiquidTooltip(par1ItemStack, this.mc.gameSettings.advancedItemTooltips);
+        List list = getLiquidTooltip(par1ItemStack, this.mc.gameSettings.advancedItemTooltips, fuel);
 
         for (int k = 0; k < list.size(); ++k)
         {
@@ -354,10 +354,10 @@ public class SmelteryGui extends ActiveContainerGui
         this.zLevel = 0;
     }
 
-    public List getLiquidTooltip (FluidStack liquid, boolean par2)
+    public List getLiquidTooltip (FluidStack liquid, boolean advanced, boolean fuel)
     {
         ArrayList list = new ArrayList();
-        if (liquid.fluidID == -37)
+        if (fuel)
         {
             list.add("\u00A7f" + StatCollector.translateToLocal("gui.smeltery.fuel"));
             list.add("mB: " + liquid.amount);
@@ -384,10 +384,13 @@ public class SmelteryGui extends ActiveContainerGui
             }
             else if (name.equals(StatCollector.translateToLocal("fluid.stone.seared")))
             {
-                int ingots = liquid.amount / TConstruct.ingotLiquidValue;
+                int blocks = liquid.amount / TConstruct.ingotLiquidValue;
+                if (blocks > 0)
+                    list.add(StatCollector.translateToLocal("gui.smeltery.glass.block") + blocks);
+                int ingots = (liquid.amount % TConstruct.ingotLiquidValue) / (TConstruct.ingotLiquidValue/4);
                 if (ingots > 0)
-                    list.add(StatCollector.translateToLocal("gui.smeltery.glass.block") + ingots);
-                int mB = liquid.amount % TConstruct.ingotLiquidValue;
+                    list.add(StatCollector.translateToLocal("gui.smeltery.metal.ingot") + ingots);
+                int mB = (liquid.amount % TConstruct.ingotLiquidValue) % (TConstruct.ingotLiquidValue/4);
                 if (mB > 0)
                     list.add("mB: " + mB);
             }
@@ -540,7 +543,7 @@ public class SmelteryGui extends ActiveContainerGui
 
             if (mouseX >= leftX && mouseX <= leftX + 52 && mouseY >= topY && mouseY < topY + fluidHeights[i])
             {
-                fluidToBeBroughtUp = logic.moltenMetal.get(i).fluidID;
+                fluidToBeBroughtUp = logic.moltenMetal.get(i).getFluidID();
 
                 TConstruct.packetPipeline.sendToServer(new SmelteryPacket(logic.getWorldObj().provider.dimensionId, logic.xCoord, logic.yCoord, logic.zCoord, this.isShiftKeyDown(), fluidToBeBroughtUp));
             }

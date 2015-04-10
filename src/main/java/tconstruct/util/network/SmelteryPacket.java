@@ -73,7 +73,7 @@ public class SmelteryPacket extends AbstractPacket
 
             for (FluidStack liquid : ((SmelteryLogic) te).moltenMetal)
             {
-                if (liquid.fluidID == fluidID)
+                if (liquid.getFluidID() == fluidID)
                 {
                     temp = liquid;
                 }

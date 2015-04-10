@@ -1087,7 +1087,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     currentLiquid -= maxDrain;
                     needsUpdate = true;
                 }
-                return new FluidStack(liquid.fluidID, maxDrain, liquid.tag);
+                return new FluidStack(liquid.getFluid(), maxDrain, liquid.tag);
             }
         }
         else

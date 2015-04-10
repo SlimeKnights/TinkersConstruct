@@ -63,7 +63,7 @@ public class MultiFluidTank extends LogicComponent implements IFluidTank
                     liquid.amount -= maxDrain;
                     currentLiquid -= maxDrain;
                 }
-                return new FluidStack(liquid.fluidID, maxDrain, liquid.tag);
+                return new FluidStack(liquid.getFluid(), maxDrain, liquid.tag);
             }
         }
         else
