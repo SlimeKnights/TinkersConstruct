@@ -384,10 +384,13 @@ public class SmelteryGui extends ActiveContainerGui
             }
             else if (name.equals(StatCollector.translateToLocal("fluid.stone.seared")))
             {
-                int ingots = liquid.amount / TConstruct.ingotLiquidValue;
+                int blocks = liquid.amount / TConstruct.ingotLiquidValue;
+                if (blocks > 0)
+                    list.add(StatCollector.translateToLocal("gui.smeltery.glass.block") + blocks);
+                int ingots = (liquid.amount % TConstruct.ingotLiquidValue) / (TConstruct.ingotLiquidValue/4);
                 if (ingots > 0)
-                    list.add(StatCollector.translateToLocal("gui.smeltery.glass.block") + ingots);
-                int mB = liquid.amount % TConstruct.ingotLiquidValue;
+                    list.add(StatCollector.translateToLocal("gui.smeltery.metal.ingot") + ingots);
+                int mB = (liquid.amount % TConstruct.ingotLiquidValue) % (TConstruct.ingotLiquidValue/4);
                 if (mB > 0)
                     list.add("mB: " + mB);
             }
