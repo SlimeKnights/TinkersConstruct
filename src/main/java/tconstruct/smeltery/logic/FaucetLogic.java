@@ -203,7 +203,6 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     	if(active == flag) {
     		return; // if there would be no change
     	}
-    	Logger.getAnonymousLogger().info(flag+" "+active);
         active = flag;
         active = activateFaucet(); // same as if(!activateFaucet()) active = false;
     }
