@@ -25,6 +25,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
         {
             renderOffset = resource.amount;
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, this.getBlockType());
         }
 
         return amount;
@@ -38,6 +39,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
         {
             renderOffset = -maxDrain;
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, this.getBlockType());
         }
         return amount;
     }
