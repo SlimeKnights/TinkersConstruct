@@ -87,8 +87,10 @@ public class SearedBlock extends InventoryBlock
             if (player.isSneaking())
                 return false;
 
-            FaucetLogic logic = (FaucetLogic) world.getTileEntity(x, y, z);
-            logic.setActive(true);
+            if(!world.isRemote) {
+                FaucetLogic logic = (FaucetLogic) world.getTileEntity(x, y, z);
+                logic.setActive(true);
+            }
             return true;
         }
         else
@@ -97,10 +99,11 @@ public class SearedBlock extends InventoryBlock
 
     boolean activateCastingBlock (World world, int x, int y, int z, EntityPlayer player)
     {
-
-        CastingBlockLogic logic = (CastingBlockLogic) world.getTileEntity(x, y, z);
-        logic.interact(player);
-        world.markBlockForUpdate(x, y, z);
+        if(!world.isRemote) {
+            CastingBlockLogic logic = (CastingBlockLogic) world.getTileEntity(x, y, z);
+            logic.interact(player);
+            world.markBlockForUpdate(x, y, z);
+        }
         return true;
     }
 

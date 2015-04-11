@@ -138,6 +138,7 @@ public class SmelteryBlock extends InventoryBlock
 
     }
 
+
     /*
      * @Override public int getRenderBlockPass() { return 1; }
      */
@@ -215,20 +216,10 @@ public class SmelteryBlock extends InventoryBlock
     @Override
     public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
     {
-        if (player.isSneaking() || world.getBlockMetadata(x, y, z) != 0)
+        if (world.getBlockMetadata(x, y, z) != 0)
             return false;
 
-        Integer integer = getGui(world, x, y, z, player);
-        if (integer == null || integer == -1)
-        {
-            return false;
-        }
-        else
-        {
-            // world.markBlockForUpdate(x, y, z);
-            player.openGui(getModInstance(), integer, world, x, y, z);
-            return true;
-        }
+        return super.onBlockActivated(world, x,y,z, player, side, clickX, clickY, clickZ);
     }
 
     @Override
