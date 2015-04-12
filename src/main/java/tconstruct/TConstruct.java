@@ -69,7 +69,7 @@ import java.util.Random;
  */
 
 @Mod(modid = "TConstruct", name = "TConstruct", version = "${version}",
-        dependencies = "required-after:Forge@[10.13.2.1291,11.14);" +
+        dependencies = "required-after:Forge@[10.13.3.1355,11.14);" +
                 "required-after:Mantle@[1.7.10-0.3.2,);" +
                 "after:MineFactoryReloaded@[1.7.10R2.8.0RC7,);" +
                 "after:ThermalExpansion@[1.7.10R4.0.0RC2,);" +
