@@ -23,7 +23,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
         int amount = tank.fill(resource, doFill);
         if (amount > 0 && doFill)
         {
-            renderOffset = resource.amount;
+            renderOffset += resource.amount;
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, this.getBlockType());
         }
@@ -135,6 +135,9 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
         }
         else
             tank.setFluid(null);
+
+        if(tags.hasKey("renderOffset"))
+            renderOffset = tags.getInteger("renderOffset");
     }
 
     @Override
@@ -147,6 +150,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
             tags.setString("fluidName", liquid.getFluid().getName());
             tags.setInteger("amount", liquid.amount);
         }
+        tags.setInteger("renderOffset", renderOffset);
     }
 
     /* Packets */
@@ -175,9 +179,12 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
     @Override
     public void updateEntity ()
     {
-        if (renderOffset > 0)
+        if (renderOffset != 0)
         {
-            renderOffset -= 6;
+            renderOffset -= renderOffset/12 + 1; // has to be at least 1
+
+            if(renderOffset < 0)
+                renderOffset = 0;
             worldObj.func_147479_m(xCoord, yCoord, zCoord);
         }
     }

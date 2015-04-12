@@ -163,7 +163,8 @@ public class LavaTankBlock extends BlockContainer
         {
             FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(current);
             LavaTankLogic logic = (LavaTankLogic) world.getTileEntity(i, j, k);
-            if (liquid != null)
+            // putting liquid into the tank
+            if (liquid != null && !world.isRemote)
             {
                 int amount = logic.fill(ForgeDirection.UNKNOWN, liquid, false);
                 if (amount == liquid.amount)
@@ -171,41 +172,43 @@ public class LavaTankBlock extends BlockContainer
                     logic.fill(ForgeDirection.UNKNOWN, liquid, true);
                     if (!entityplayer.capabilities.isCreativeMode)
                         entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, consumeItem(current));
-                    return true;
+
+                    // update
+                    entityplayer.inventoryContainer.detectAndSendChanges();
+                    world.markBlockForUpdate(i,j,k);
                 }
-                else
-                    return true;
+
+                return true;
             }
+            // taking liquit out of the tank
             else if (FluidContainerRegistry.isBucket(current))
             {
                 FluidTankInfo[] tanks = logic.getTankInfo(ForgeDirection.UNKNOWN);
                 FluidStack fillFluid = tanks[0].fluid;// getFluid();
-                ItemStack fillStack = FluidContainerRegistry.fillFluidContainer(fillFluid, current);
-                if (fillStack != null)
-                {
-                    logic.drain(ForgeDirection.UNKNOWN, FluidContainerRegistry.getFluidForFilledItem(fillStack).amount, true);
-                    if (!entityplayer.capabilities.isCreativeMode)
-                    {
-                        if (current.stackSize == 1)
-                        {
-                            entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, fillStack);
-                        }
-                        else
-                        {
-                            entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, consumeItem(current));
+                if(!world.isRemote) {
+                    ItemStack fillStack = FluidContainerRegistry.fillFluidContainer(fillFluid, current);
+                    if (fillStack != null) {
+                        logic.drain(ForgeDirection.UNKNOWN, FluidContainerRegistry.getFluidForFilledItem(fillStack).amount, true);
+                        if (!entityplayer.capabilities.isCreativeMode && !world.isRemote) {
+                            if (current.stackSize == 1) {
+                                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, fillStack);
+                            } else {
+                                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, consumeItem(current));
 
-                            if (!entityplayer.inventory.addItemStackToInventory(fillStack))
-                            {
-                                entityplayer.dropPlayerItemWithRandomChoice(fillStack, false);
+                                if (!entityplayer.inventory.addItemStackToInventory(fillStack)) {
+                                    entityplayer.dropPlayerItemWithRandomChoice(fillStack, false);
+                                }
                             }
+
+                            // update inventory
+                            entityplayer.inventoryContainer.detectAndSendChanges();
+                            // and block
                         }
+                        world.markBlockForUpdate(i, j, k);
                     }
-                    return true;
                 }
-                else
-                {
-                    return true;
-                }
+
+                return true;
             }
         }
 
