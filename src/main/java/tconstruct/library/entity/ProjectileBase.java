@@ -294,10 +294,15 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
                 this.setDead();
             else
             {
-                this.motionX = 0;
-                this.motionY = 0;
-                this.motionZ = 0;
+                this.motionX = Math.max(-0.1,Math.min(0.1, -motionX));
+                this.motionY = 0.2;
+                this.motionZ = Math.max(-0.1,Math.min(0.1, -motionZ));
                 this.ticksInAir = 0;
+                this.posX = movingobjectposition.entityHit.posX;
+                this.posY = movingobjectposition.entityHit.posY + movingobjectposition.entityHit.height/2d;
+                this.posZ = movingobjectposition.entityHit.posZ;
+                this.defused = true;
+                //this.shootingEntity = movingobjectposition.entityHit;
             }
         }
     }
