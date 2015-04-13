@@ -24,15 +24,15 @@ public class SlotToolForge extends SlotTool
     {
         if (stack.getItem() instanceof IModifyable)
         {
-            NBTTagCompound tags = stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
+            //NBTTagCompound tags = stack.getTagCompound().getCompoundTag(((IModifyable) stack.getItem()).getBaseTagName());
             Boolean full = (inventory.getStackInSlot(2) != null || inventory.getStackInSlot(3) != null || inventory.getStackInSlot(4) != null);
             for (int i = 2; i <= 4; i++)
                 inventory.decrStackSize(i, 1);
-            ItemStack compare = inventory.getStackInSlot(1);
-            int amount = compare.getItem() instanceof IModifyable ? compare.stackSize : 1;
-            inventory.decrStackSize(1, amount);
+            //ItemStack compare = inventory.getStackInSlot(1);
+            //int amount = compare.getItem() instanceof IModifyable ? compare.stackSize : 1;
+            //inventory.decrStackSize(1, amount);
             if (!player.worldObj.isRemote && full)
-                player.worldObj.playAuxSFX(1021, (int) player.posX, (int) player.posY, (int) player.posZ, 0);
+            	player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "random.anvil_use", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
             MinecraftForge.EVENT_BUS.post(new ToolCraftedEvent(this.inventory, player, stack));
         }
         else

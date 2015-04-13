@@ -2,6 +2,9 @@ package tconstruct.smeltery.blocks;
 
 import cpw.mods.fml.relauncher.*;
 import java.util.List;
+
+import com.sun.istack.internal.logging.Logger;
+
 import mantle.blocks.abstracts.InventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -281,20 +284,17 @@ public class SearedBlock extends InventoryBlock
         return world.getBlockMetadata(x, y, z) == 1;
     }
 
-    private boolean wasPowered = false;
-
     @Override
-    public void onNeighborBlockChange (World world, int x, int y, int z, Block neighborBlockID)
+    public void onNeighborBlockChange (World world, int x, int y, int z, Block neighborBlock)
     {
         if (world.getBlockMetadata(x, y, z) == 1)
         {
             boolean isPowered = world.isBlockIndirectlyGettingPowered(x, y, z);
-            if (!wasPowered && isPowered)
+            if (isPowered)
             {
                 FaucetLogic logic = (FaucetLogic) world.getTileEntity(x, y, z);
                 logic.setActive(true);
             }
-            wasPowered = isPowered;
         }
     }
 

@@ -3,14 +3,14 @@ package tconstruct.tools.logic;
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.*;
-import net.minecraft.item.Item;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import tconstruct.library.crafting.*;
+import tconstruct.library.crafting.ModifyBuilder;
+import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.modifier.IModifyable;
-import tconstruct.library.tools.ToolCore;
 import tconstruct.tools.inventory.ToolStationContainer;
 
 /* Simple class for storing items in the block
@@ -93,11 +93,11 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
                     output = tool;
                 else if (tool != null)
                 {
-                    NBTTagCompound tags = tool.getTagCompound();
-                    if (!tags.getCompoundTag(((IModifyable) tool.getItem()).getBaseTagName()).hasKey("Built"))
-                    {
+                    //NBTTagCompound tags = tool.getTagCompound();
+                    //if (!tags.getCompoundTag(((IModifyable) tool.getItem()).getBaseTagName()).hasKey("Built"))
+                    //{
                         output = tool;
-                    }
+                    //}
                 }
             }
             if (!name.equals("")) //Name item

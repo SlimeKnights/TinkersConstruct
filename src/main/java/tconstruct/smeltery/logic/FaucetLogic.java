@@ -1,13 +1,20 @@
 package tconstruct.smeltery.logic;
 
-import mantle.blocks.iface.*;
+import java.util.logging.Logger;
+
+import mantle.blocks.iface.IActiveLogic;
+import mantle.blocks.iface.IFacingLogic;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.*;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
 import tconstruct.TConstruct;
 
 public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogic, IFluidHandler
@@ -193,16 +200,11 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     @Override
     public void setActive (boolean flag)
     {
-        if (!active)
-        {
-            active = true;
-            if (!activateFaucet())
-                active = false;
-        }
-        else
-        {
-            active = false;
-        }
+    	if(active == flag) {
+    		return; // if there would be no change
+    	}
+        active = flag;
+        active = activateFaucet(); // same as if(!activateFaucet()) active = false;
     }
 
     @Override
