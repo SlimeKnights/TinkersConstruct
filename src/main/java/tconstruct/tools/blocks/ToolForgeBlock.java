@@ -123,7 +123,6 @@ public class ToolForgeBlock extends InventoryBlock
     @Override
     public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
     {
-        int md = world.getBlockMetadata(x, y, z);
         return ToolProxyCommon.toolForgeID;
     }
 
