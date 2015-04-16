@@ -48,13 +48,17 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
 
     // get the base texture to work on
     int[][] data;
+    // basetexture is present and loaded
     if(baseTexture != null && baseTexture.getFrameCount() > 0) {
       this.copyFrom(baseTexture);
       int[][] original = baseTexture.getFrameTextureData(0);
       data = new int[original.length][];
-      for(int i = 0; i < original.length; i++)
-        data[i] = Arrays.copyOf(original[i], original[i].length);
+      for(int i = 0; i < original.length; i++) {
+        if(original[i] != null)
+          data[i] = Arrays.copyOf(original[i], original[i].length);
+      }
     }
+    // load texture manually
     else {
       data = null;
       if(extra != null && !extra.isEmpty())
