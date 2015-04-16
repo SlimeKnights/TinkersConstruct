@@ -38,7 +38,7 @@ public class MultiModel implements IModel {
   private static final FaceBakery faceBakery = new FaceBakery();
 
   // the modelblock is needed for the layer information
-  private final ModelBlock modelBlock;
+  private ModelBlock modelBlock;
   // the original model is required for the vertex data
   private final IModel model;
 
@@ -79,13 +79,16 @@ public class MultiModel implements IModel {
   public IFlexibleBakedModel bake(IModelState state, VertexFormat format,
                                   Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
     ItemModelGenerator generator = new ItemModelGenerator();
+
+    modelBlock = generator.makeItemModel(Minecraft.getMinecraft().getTextureMapBlocks(), modelBlock);
+
     // we need the original model for the processed vertex information
     IFlexibleBakedModel original = model.bake(state, Attributes.DEFAULT_BAKED_FORMAT, bakedTextureGetter);
 
     IFlexibleBakedModel[] partModels = new IFlexibleBakedModel[partBlocks.size()];
     int i = 0;
 
-    // we build simple models for the parts, so we can exctract the UV information
+    // we build simple models for the parts, so we can extract the UV information
     for(ModelBlock mb : partBlocks) {
       mb = generator.makeItemModel(Minecraft.getMinecraft().getTextureMapBlocks(), mb);
       SimpleBakedModel.Builder builder = (new SimpleBakedModel.Builder(mb));
@@ -104,7 +107,8 @@ public class MultiModel implements IModel {
       partModels[i++] = new IFlexibleBakedModel.Wrapper(builder.makeBakedModel(), Attributes.DEFAULT_BAKED_FORMAT);
     }
 
-    BakedMultiModel bakedModel = new BakedMultiModel(original, partModels);
+    ItemCameraTransforms transforms = new ItemCameraTransforms(modelBlock.getThirdPersonTransform(), modelBlock.getFirstPersonTransform(), modelBlock.getHeadTransform(), modelBlock.getInGuiTransform());
+    BakedMultiModel bakedModel = new BakedMultiModel(transforms, original, partModels);
 
 	// TODO: Remove
     for(Material material : TinkerRegistry.getAllMaterials()) {

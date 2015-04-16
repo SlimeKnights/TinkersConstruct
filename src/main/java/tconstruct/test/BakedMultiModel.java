@@ -36,8 +36,8 @@ public class BakedMultiModel extends SimpleBakedModel implements ISmartItemModel
       empty_face_quads.add(empty_list);
   }
 
-  public BakedMultiModel(IFlexibleBakedModel original, IFlexibleBakedModel... models) {
-    super(null, null, original.isAmbientOcclusion(), original.isGui3d(), original.getTexture(), original.getItemCameraTransforms());
+  public BakedMultiModel(ItemCameraTransforms transforms, IFlexibleBakedModel original, IFlexibleBakedModel... models) {
+    super(null, null, original.isAmbientOcclusion(), false, original.getTexture(), transforms);
 
     subModels = Lists.newArrayList();
     textures = Maps.newHashMap();

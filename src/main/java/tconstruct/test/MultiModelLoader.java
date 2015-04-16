@@ -27,9 +27,12 @@ import java.util.Map;
 import java.util.Set;
 
 import tconstruct.TConstruct;
+import tconstruct.library.utils.Log;
 
 public class MultiModelLoader implements ICustomModelLoader {
   private final Map<ResourceLocation, ResourceLocation> modelsToLoad = new THashMap<>();
+  // copy of the one in the ModelBakery
+  private final ModelBlock MODEL_GENERATED = ModelBlock.deserialize("{\"elements\":[{  \"from\": [0, 0, 0],   \"to\": [16, 16, 16],   \"faces\": {       \"down\": {\"uv\": [0, 0, 16, 16], \"texture\":\"\"}   }}]}");
 
   public void addModel(ResourceLocation original, ResourceLocation generated) {
     modelsToLoad.put(generated, original);
@@ -54,6 +57,7 @@ public class MultiModelLoader implements ICustomModelLoader {
       ModelBlock modelBlock = ModelBlock.deserialize(reader);
       IModel model = ModelLoaderRegistry.getModel(original);
 
+      modelBlock.parent = MODEL_GENERATED;
 
       List<ModelBlock> parts = new LinkedList<>();
       // also load the parts of the tool, defined as the layers of the tool model
