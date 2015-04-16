@@ -14,6 +14,7 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -57,7 +58,10 @@ public class CustomTextureCreator {
         String location = baseTexture.toString() + "_" + material.identifier;
 
         TextureAtlasSprite sprite;
-        sprite = new SimpleColoredTexture(material, base, location);
+        if(exists(baseTexture.toString() + "_" + material.baseTexture))
+          sprite = new SimpleColoredTexture(material, base.getIconName(), material.baseTexture, location);
+        else
+          sprite = new SimpleColoredTexture(material, base, location);
 
         map.setTextureEntry(location, sprite);
 
@@ -66,45 +70,16 @@ public class CustomTextureCreator {
 
       sprites.put(baseTexture, builtSprites);
     }
-/*
-    for(Item tool : TinkerRegistry.tools) {
+  }
 
+  private static boolean exists(String res) {
+    try {
+      ResourceLocation loc = new ResourceLocation(res);
+      loc = new ResourceLocation(loc.getResourceDomain(), "textures/" + loc.getResourcePath() + ".png");
+      Minecraft.getMinecraft().getResourceManager().getAllResources(loc);
+      return true;
+    } catch (IOException e) {
+      return false;
     }
-
-    TextureColoredTexture tex = new TextureColoredTexture(map.getTextureExtry("minecraft:items/fish_pufferfish_raw"), "tconstruct:items/pickaxe/_pickaxe_head", "full", String.format("tconstruct:items/pickaxe/%s_pickaxe_head", "Wood"));
-    map.setTextureEntry(String.format("tconstruct:items/pickaxe/%s_pickaxe_head", "Wood"), tex);
-    sprites.put("pick_head_" + "Wood", tex);
-
-    TextureAtlasSprite sprite = map.getTextureExtry("tconstruct:items/pickaxe/pick_head_");
-
-    for(Material material : TinkerRegistry.getAllMaterials())
-    {
-      SimpleColoredTexture coloredTexture;
-      if(material.baseTexture.isEmpty())
-        coloredTexture = new SimpleColoredTexture(material, sprite, String.format("tconstruct:items/pickaxe/%s_pickaxe_head", material.identifier));
-      else
-        coloredTexture = new SimpleColoredTexture(material, sprite.getIconName(), material.baseTexture, String.format("tconstruct:items/pickaxe/%s_pickaxe_head", material.identifier));
-      map.setTextureEntry(String.format("tconstruct:items/pickaxe/%s_pickaxe_head", material.identifier), coloredTexture);
-
-      sprites.put("pick_head_" + material.identifier, coloredTexture);
-    }
-
-    sprite = map.getTextureExtry("tconstruct:items/pickaxe/pick_handle_");
-
-    for(Material material : TinkerRegistry.getAllMaterials())
-    {
-      SimpleColoredTexture coloredTexture;
-      if(material.baseTexture.isEmpty())
-        coloredTexture = new SimpleColoredTexture(material, sprite, String.format("tconstruct:items/pickaxe/%s_pickaxe_handle", material.identifier));
-      else
-        coloredTexture = new SimpleColoredTexture(material, sprite.getIconName(), material.baseTexture, String.format("tconstruct:items/pickaxe/%s_pickaxe_handle", material.identifier));
-      map.setTextureEntry(String.format("tconstruct:items/pickaxe/%s_pickaxe_handle", material.identifier), coloredTexture);
-
-      sprites.put("pick_handle_" + material.identifier, coloredTexture);
-    }
-
-    map.setTextureEntry(String.format("tconstruct:items/pickaxe/%s_pickaxe_head", "Wood"), tex);
-    sprites.put("pick_head_" + "Wood", tex);
-    */
   }
 }
