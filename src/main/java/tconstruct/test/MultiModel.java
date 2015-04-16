@@ -12,9 +12,7 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemModelGenerator;
 import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.VertexFormat;
-import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.ModelRotation;
 import net.minecraft.client.resources.model.SimpleBakedModel;
 import net.minecraft.util.EnumFacing;
@@ -23,16 +21,11 @@ import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IModelState;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
 
-import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-
-import tconstruct.library.TinkerRegistry;
-import tconstruct.library.tinkering.Material;
+import java.util.Map;
 
 public class MultiModel implements IModel {
   private static final FaceBakery faceBakery = new FaceBakery();
@@ -64,7 +57,17 @@ public class MultiModel implements IModel {
   public Collection<ResourceLocation> getTextures() {
     ImmutableSet.Builder<ResourceLocation> builder = ImmutableSet.builder();
 
-    for(String s : (List<String>) ItemModelGenerator.LAYERS) {
+    // regular layers
+    for(String s : getLayers()) {
+      String r = modelBlock.resolveTextureName(s);
+      ResourceLocation loc = new ResourceLocation(r);
+      if (!r.equals(s)) {
+        builder.add(loc);
+      }
+    }
+
+    // broken state textures
+    for(String s : getBrokenLayers()) {
       String r = modelBlock.resolveTextureName(s);
       ResourceLocation loc = new ResourceLocation(r);
       if (!r.equals(s)) {
@@ -108,13 +111,33 @@ public class MultiModel implements IModel {
     }
 
     ItemCameraTransforms transforms = new ItemCameraTransforms(modelBlock.getThirdPersonTransform(), modelBlock.getFirstPersonTransform(), modelBlock.getHeadTransform(), modelBlock.getInGuiTransform());
-    BakedMultiModel bakedModel = new BakedMultiModel(transforms, original, partModels);
+    BakedTinkerModel bakedModel = new BakedTinkerModel(transforms, original, partModels);
 
-	// TODO: Remove
-    for(Material material : TinkerRegistry.getAllMaterials()) {
-      bakedModel.addTexture(material.identifier + "_head", CustomTextureCreator.sprites.get(
-          "pick_head_" + material.identifier));
-      bakedModel.addTexture(material.identifier + "_handle", CustomTextureCreator.sprites.get("pick_handle_" + material.identifier));
+    // add all its textures
+    String[] layers = getLayers();
+    for(int j = 0; j < layers.length; j++) {
+      String r = modelBlock.resolveTextureName(layers[j]);
+      ResourceLocation loc = new ResourceLocation(r);
+      if(!CustomTextureCreator.sprites.containsKey(loc))
+        continue;
+
+      // get all the material + part -> texture mappings
+      for(Map.Entry<String, TextureAtlasSprite> entry : CustomTextureCreator.sprites.get(loc).entrySet()) {
+        bakedModel.addTexture(entry.getKey(), j, entry.getValue());
+      }
+    }
+
+    layers = getBrokenLayers();
+    for(int j = 0; j < layers.length; j++) {
+      String r = modelBlock.resolveTextureName(layers[j]);
+      ResourceLocation loc = new ResourceLocation(r);
+      if(!CustomTextureCreator.sprites.containsKey(loc))
+        continue;
+
+      // get all the material + part -> texture mappings
+      for(Map.Entry<String, TextureAtlasSprite> entry : CustomTextureCreator.sprites.get(loc).entrySet()) {
+        bakedModel.addBrokenTexture(entry.getKey(), j, entry.getValue());
+      }
     }
 
     return bakedModel;
@@ -128,5 +151,23 @@ public class MultiModel implements IModel {
   private BakedQuad makeBakedQuad(BlockPart p_177589_1_, BlockPartFace p_177589_2_, TextureAtlasSprite p_177589_3_, EnumFacing p_177589_4_, net.minecraftforge.client.model.ITransformation p_177589_5_, boolean p_177589_6_)
   {
     return faceBakery.makeBakedQuad(p_177589_1_.positionFrom, p_177589_1_.positionTo, p_177589_2_, p_177589_3_, p_177589_4_, p_177589_5_, p_177589_1_.partRotation, p_177589_6_, p_177589_1_.shade);
+  }
+
+  public static String[] getLayers() {
+    String[] out = new String[10];
+    for(int i = 0; i < out.length; i++) {
+      // regular layers
+      out[i] = "layer" + i;
+    }
+    return out;
+  }
+
+  public static String[] getBrokenLayers() {
+    String[] out = new String[10];
+    for(int i = 0; i < out.length; i++) {
+      // regular layers
+      out[i] = "broken" + i;
+    }
+    return out;
   }
 }

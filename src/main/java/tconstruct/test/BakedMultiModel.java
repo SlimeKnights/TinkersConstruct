@@ -23,9 +23,8 @@ import java.util.List;
 import java.util.Map;
 
 @SideOnly(Side.CLIENT)
-public class BakedMultiModel extends SimpleBakedModel implements ISmartItemModel, IFlexibleBakedModel {
-  private final List<List<BakedQuadUV>> subModels;
-  private final Map<String, TextureAtlasSprite> textures;
+public abstract class BakedMultiModel extends SimpleBakedModel implements ISmartItemModel, IFlexibleBakedModel {
+  protected final List<List<BakedQuadUV>> subModels;
 
   private static final List<List<BakedQuad>> empty_face_quads;
   private static final List<BakedQuad> empty_list;
@@ -40,19 +39,15 @@ public class BakedMultiModel extends SimpleBakedModel implements ISmartItemModel
     super(null, null, original.isAmbientOcclusion(), false, original.getTexture(), transforms);
 
     subModels = Lists.newArrayList();
-    textures = Maps.newHashMap();
-
-    textures.put("default", original.getTexture());
 
     int i = 0;
     // add the quads from the models and extract the UVs
-    for(IBakedModel model : models) {
+    for(IFlexibleBakedModel model : models) {
       // Items usually don't have face-quads, so we only use the general quads
       List<BakedQuad> quads = model.getGeneralQuads();
       TextureAtlasSprite sprite = model.getTexture();
       List<BakedQuadUV> uvQuads = Lists.newArrayList();
 
-      textures.put("default_" + i, sprite);
       i++;
 
       // generate the normalized UV data
@@ -64,29 +59,29 @@ public class BakedMultiModel extends SimpleBakedModel implements ISmartItemModel
     }
   }
 
-  public void addTexture(String name, TextureAtlasSprite texture) {
-    textures.put(name, texture);
-  }
-
-  @Override
-  public IBakedModel handleItemState(ItemStack stack) {
-    // todo: actually consider itemstack and/or add a hook for it
-
+  /**
+   * Generates the finished model with the given textures. Amount of textures should be the same as amount of submodels.
+   * @param textures The textures to use for the baked model. One for each submodel.
+   * @return The baked model.
+   */
+  protected IBakedModel bakeModel(TextureAtlasSprite... textures) {
     List<BakedQuad> quads = Lists.newArrayList();
 
     String[] texs = new String[] {"Wood_head", "Stone_handle", "default_2"};
 
-    int i = 0;
-    for(List<BakedQuadUV> modelQuads : subModels) {
-      // determine if submodel should be used and its texture
-      TextureAtlasSprite modelTexture = textures.get(texs[i]);
+    for(int i = 0; i < subModels.size(); i++) {
+      if(textures.length < i || textures[i] == null)
+        break;
+
+      List<BakedQuadUV> modelQuads = subModels.get(i);
+      TextureAtlasSprite modelTexture = textures[i];
       for(BakedQuadUV quadUV : modelQuads) {
         quads.add(quadUV.applyTexture(modelTexture));
       }
-      i++;
     }
 
-    SimpleBakedModel model = new SimpleBakedModel(quads, empty_face_quads, this.isAmbientOcclusion(), this.isGui3d(), this.getTexture(), this.getItemCameraTransforms());
+    SimpleBakedModel
+        model = new SimpleBakedModel(quads, empty_face_quads, this.isAmbientOcclusion(), this.isGui3d(), this.getTexture(), this.getItemCameraTransforms());
     // todo: cache
     return model;
   }

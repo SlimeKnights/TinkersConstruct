@@ -45,7 +45,6 @@ public class TinkerTest extends TinkerPulse {
 
   @Handler
   public void postInit(FMLPostInitializationEvent event) {
-    MinecraftForge.EVENT_BUS.register(new TinkerModelManager());
     MinecraftForge.EVENT_BUS.register(new CustomTextureCreator());
   }
 

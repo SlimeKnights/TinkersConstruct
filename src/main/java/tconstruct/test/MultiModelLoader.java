@@ -16,6 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 
 import java.io.IOException;
@@ -58,16 +59,22 @@ public class MultiModelLoader implements ICustomModelLoader {
       IModel model = ModelLoaderRegistry.getModel(original);
 
       modelBlock.parent = MODEL_GENERATED;
+      modelBlock.name = modelLocation.toString();
 
       List<ModelBlock> parts = new LinkedList<>();
       // also load the parts of the tool, defined as the layers of the tool model
-      for(String s : (List<String>) ItemModelGenerator.LAYERS) {
+      for(String s : MultiModel.getLayers()) {
         String r = modelBlock.resolveTextureName(s);
         if(!"missingno".equals(r))
           parts.add(ModelBlock.deserialize(getPartModelJSON(r)));
       }
 
-      return new MultiModel(modelBlock, model, parts);
+      IModel output = new MultiModel(modelBlock, model, parts);
+
+      // inform the texture manager about the textures it has to process
+      CustomTextureCreator.registerTextures(output.getTextures());
+
+      return output;
     } catch (IOException e) {
       TConstruct.log.error("Could not load multimodel %s", modelLocation.toString());
     }
