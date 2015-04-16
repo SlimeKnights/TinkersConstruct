@@ -83,7 +83,7 @@ public class MultiModel implements IModel {
                                   Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
     ItemModelGenerator generator = new ItemModelGenerator();
 
-    modelBlock = generator.makeItemModel(Minecraft.getMinecraft().getTextureMapBlocks(), modelBlock);
+    ModelBlock itemModelBlock = generator.makeItemModel(Minecraft.getMinecraft().getTextureMapBlocks(), modelBlock);
 
     // we need the original model for the processed vertex information
     IFlexibleBakedModel original = model.bake(state, Attributes.DEFAULT_BAKED_FORMAT, bakedTextureGetter);
@@ -110,7 +110,7 @@ public class MultiModel implements IModel {
       partModels[i++] = new IFlexibleBakedModel.Wrapper(builder.makeBakedModel(), Attributes.DEFAULT_BAKED_FORMAT);
     }
 
-    ItemCameraTransforms transforms = new ItemCameraTransforms(modelBlock.getThirdPersonTransform(), modelBlock.getFirstPersonTransform(), modelBlock.getHeadTransform(), modelBlock.getInGuiTransform());
+    ItemCameraTransforms transforms = new ItemCameraTransforms(itemModelBlock.getThirdPersonTransform(), itemModelBlock.getFirstPersonTransform(), itemModelBlock.getHeadTransform(), itemModelBlock.getInGuiTransform());
     BakedTinkerModel bakedModel = new BakedTinkerModel(transforms, original, partModels);
 
     // add all its textures

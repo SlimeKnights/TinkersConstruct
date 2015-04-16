@@ -44,9 +44,10 @@ public class BakedTinkerModel extends BakedMultiModel {
     */
 
     tag = new NBTTagCompound();
-    tag.setString("0", TinkerMaterials.wood.identifier);
+    tag.setString("0", TinkerMaterials.netherrack.identifier);
     tag.setString("1", TinkerMaterials.wood.identifier);
     tag.setString("2", TinkerMaterials.stone.identifier);
+    tag.setBoolean("Broken", true);
 
     TextureAtlasSprite[] tex = new TextureAtlasSprite[subModels.size()];
 
@@ -54,8 +55,10 @@ public class BakedTinkerModel extends BakedMultiModel {
     for(int i = 0; i < tex.length; i++) {
       String part = tag.getString(String.valueOf(i)) + i;
       TextureAtlasSprite partTexture;
-      // todo: if broken use broken texture
-      partTexture = textures.get(part);
+      if(tag.getBoolean("Broken") && brokenTextures.containsKey(part))
+        partTexture = brokenTextures.get(part);
+      else
+        partTexture = textures.get(part);
 
       tex[i] = partTexture;
     }
