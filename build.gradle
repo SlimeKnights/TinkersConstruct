@@ -69,7 +69,7 @@ minecraft {
     // stable_#            stables are built at the discretion of the MCP team.
     // Use non-default mappings at your own risk. they may not allways work.
     // simply re-run your setup task after changing the mappings to update your workspace.
-    mappings = "snapshot_nodoc_20141230"
+    mappings = "stable_nodoc_16"
 }
 
 dependencies {
