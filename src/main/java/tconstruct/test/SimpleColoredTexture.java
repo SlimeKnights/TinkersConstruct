@@ -5,16 +5,20 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import tconstruct.library.tinkering.Material;
 
 public class SimpleColoredTexture extends AbstractColoredTexture {
-  private final Material material;
+  private final int colorLow, colorMid, colorHigh;
 
-  public SimpleColoredTexture(Material material, TextureAtlasSprite baseTexture, String spriteName) {
+  public SimpleColoredTexture(int colorLow, int colorMid, int colorHigh, TextureAtlasSprite baseTexture, String spriteName) {
     super(baseTexture, spriteName);
-    this.material = material;
+    this.colorLow = colorLow;
+    this.colorMid = colorMid;
+    this.colorHigh = colorHigh;
   }
 
-  public SimpleColoredTexture(Material material, String baseTextureLocation, String extra, String spriteName) {
+  public SimpleColoredTexture(int colorLow, int colorMid, int colorHigh, String baseTextureLocation, String extra, String spriteName) {
     super(baseTextureLocation, extra, spriteName);
-    this.material = material;
+    this.colorLow = colorLow;
+    this.colorMid = colorMid;
+    this.colorHigh = colorHigh;
   }
 
   protected int colorPixel(int pixel, int mipmap, int pxCoord) {
@@ -23,11 +27,11 @@ public class SimpleColoredTexture extends AbstractColoredTexture {
       return pixel;
 
     int brightness = getPerceptualBrightness(pixel);
-    int c = material.colorMid;
+    int c = colorMid;
     if(brightness < 128)
-      c = material.colorLow;
+      c = colorLow;
     else if(brightness > 192)
-      c = material.colorHigh;
+      c = colorHigh;
 
 
     // multiply in the color

@@ -54,17 +54,15 @@ public class CustomTextureCreator {
         }
 
         // todo: determine if the texture is present and does not have to be generated
-
         String location = baseTexture.toString() + "_" + material.identifier;
-
         TextureAtlasSprite sprite;
-        if(exists(baseTexture.toString() + "_" + material.baseTexture))
-          sprite = new SimpleColoredTexture(material, base.getIconName(), material.baseTexture, location);
+
+        if(exists(location))
+          sprite = map.registerSprite(new ResourceLocation(location));
         else
-          sprite = new SimpleColoredTexture(material, base, location);
+          sprite = material.renderInfo.getTexture(base, location);
 
         map.setTextureEntry(location, sprite);
-
         builtSprites.put(material.identifier, sprite);
       }
 
@@ -72,7 +70,7 @@ public class CustomTextureCreator {
     }
   }
 
-  private static boolean exists(String res) {
+  public static boolean exists(String res) {
     try {
       ResourceLocation loc = new ResourceLocation(res);
       loc = new ResourceLocation(loc.getResourceDomain(), "textures/" + loc.getResourcePath() + ".png");

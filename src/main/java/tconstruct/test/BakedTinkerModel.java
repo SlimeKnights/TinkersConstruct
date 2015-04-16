@@ -44,9 +44,9 @@ public class BakedTinkerModel extends BakedMultiModel {
     */
 
     tag = new NBTTagCompound();
-    tag.setString("0", TinkerMaterials.stone.identifier);
+    tag.setString("0", TinkerMaterials.wood.identifier);
     tag.setString("1", TinkerMaterials.wood.identifier);
-    tag.setString("2", TinkerMaterials.wood.identifier);
+    tag.setString("2", TinkerMaterials.stone.identifier);
 
     TextureAtlasSprite[] tex = new TextureAtlasSprite[subModels.size()];
 

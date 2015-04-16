@@ -1,5 +1,6 @@
 package tconstruct.library.tinkering;
 
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumChatFormatting;
 
 import java.util.Collection;
@@ -9,6 +10,7 @@ import java.util.TreeMap;
 import javax.annotation.Nonnull;
 
 import tconstruct.library.TinkerAPIException;
+import tconstruct.library.client.MaterialRenderInfo;
 import tconstruct.library.tinkering.materials.IMaterialStats;
 import tconstruct.library.tinkering.traits.IMaterialTrait;
 
@@ -26,11 +28,12 @@ public class Material {
    */
   public final int metadata;
 
-  public final int colorLow;
-  public final int colorMid;
-  public final int colorHigh;
+  /**
+   * How the material will be rendered on tinker tools etc.
+   */
+  public final MaterialRenderInfo renderInfo;
+
   public final EnumChatFormatting textColor; // used in tooltips and other text
-  public String baseTexture = ""; // used to generate the textures for this material
 
 
   // we use a Treemap for 2 reasons:
@@ -41,9 +44,7 @@ public class Material {
 
   private Material() {
     this.identifier = "Unknown";
-    this.colorHigh = 0xffffff;
-    this.colorMid = 0xffffff;
-    this.colorLow = 0xffffff;
+    this.renderInfo = new MaterialRenderInfo.Default(0xffffff);
     this.metadata = -1;
     this.textColor = EnumChatFormatting.WHITE;
   }
@@ -55,11 +56,16 @@ public class Material {
 
   // one-colored material
   public Material(String identifier, int metadata, int color, EnumChatFormatting textColor) {
-    this(identifier, metadata, color, color, color, textColor);
+    this(identifier, metadata, new MaterialRenderInfo.Default(color), textColor);
+  }
+
+  // multi-colored material
+  public Material(String identifier, int metadata, int colorLow, int colorMid, int colorHigh, EnumChatFormatting textColor) {
+    this(identifier, metadata, new MaterialRenderInfo.Default(colorLow, colorMid, colorHigh), textColor);
   }
 
   // complex material with 3 colors and a real surface texture!
-  public Material(String identifier, int metadata, int colorLow, int colorMedium, int colorHigh, EnumChatFormatting textColor) {
+  public Material(String identifier, int metadata, MaterialRenderInfo renderInfo, EnumChatFormatting textColor) {
 
     // check metadata bounds: 0 to (2^16)-1
     if (metadata < 0 || metadata > 65535) {
@@ -69,17 +75,9 @@ public class Material {
 
     this.identifier = identifier;
     this.metadata = metadata;
-    this.colorLow = colorLow;
-    this.colorMid = colorMedium;
-    this.colorHigh = colorHigh;
+    this.renderInfo = renderInfo;
     this.textColor = textColor;
   }
-
-  /**
-   * Changes the base texture set used to generate the textures for this material.
-   * If no texture can be found, the default base texture will be used. Default value is an empty string.
-   */
-  public void setBaseTexture(String baseTexture) { this.baseTexture = baseTexture; }
 
   /* Stats */
   public void addStats(IMaterialStats materialStats) {

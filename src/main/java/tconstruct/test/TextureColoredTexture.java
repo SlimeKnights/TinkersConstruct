@@ -9,6 +9,8 @@ public class TextureColoredTexture extends AbstractColoredTexture {
   private final String addTextureLocation;
   private int[][] textureData;
 
+  public boolean stencil = false;
+
   public TextureColoredTexture(String addTextureLocation, TextureAtlasSprite baseTexture,
                                String spriteName) {
     super(baseTexture, spriteName);
@@ -51,10 +53,11 @@ public class TextureColoredTexture extends AbstractColoredTexture {
     int b = blue(c);
     int g = green(c);
 
-    r = mult(r, red(pixel)) & 0xff;
-    g = mult(g, green(pixel)) & 0xff;
-    b = mult(b, blue(pixel)) & 0xff;
-
+    if(!stencil) {
+      r = mult(r, red(pixel)) & 0xff;
+      g = mult(g, green(pixel)) & 0xff;
+      b = mult(b, blue(pixel)) & 0xff;
+    }
     return compose(r,g,b,a);
   }
 
