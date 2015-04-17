@@ -1,4 +1,4 @@
-package tconstruct.test;
+package tconstruct.library.client;
 
 import com.google.common.collect.Maps;
 
@@ -11,8 +11,8 @@ import net.minecraftforge.client.model.IFlexibleBakedModel;
 
 import java.util.Map;
 
+import tconstruct.library.client.model.BakedMultiModel;
 import tconstruct.library.utils.TagUtil;
-import tconstruct.library.utils.Tags;
 import tconstruct.tools.TinkerMaterials;
 
 public class BakedTinkerModel extends BakedMultiModel {
@@ -47,7 +47,7 @@ public class BakedTinkerModel extends BakedMultiModel {
     tag.setString("0", TinkerMaterials.netherrack.identifier);
     tag.setString("1", TinkerMaterials.wood.identifier);
     tag.setString("2", TinkerMaterials.stone.identifier);
-    tag.setBoolean("Broken", true);
+    tag.setBoolean("Broken", false);
 
     TextureAtlasSprite[] tex = new TextureAtlasSprite[subModels.size()];
 

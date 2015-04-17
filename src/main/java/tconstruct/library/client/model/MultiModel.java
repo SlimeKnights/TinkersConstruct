@@ -1,4 +1,4 @@
-package tconstruct.test;
+package tconstruct.library.client.model;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableSet;
@@ -26,6 +26,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+import tconstruct.library.client.BakedTinkerModel;
+import tconstruct.library.client.CustomTextureCreator;
 
 public class MultiModel implements IModel {
   private static final FaceBakery faceBakery = new FaceBakery();
@@ -91,7 +94,7 @@ public class MultiModel implements IModel {
     IFlexibleBakedModel[] partModels = new IFlexibleBakedModel[partBlocks.size()];
     int i = 0;
 
-    // we build simple models for the parts, so we can extract the UV information
+    // we build simple models for the parts, so we can extract the UV information AND have depth
     for(ModelBlock mb : partBlocks) {
       mb = generator.makeItemModel(Minecraft.getMinecraft().getTextureMapBlocks(), mb);
       SimpleBakedModel.Builder builder = (new SimpleBakedModel.Builder(mb));

@@ -1,4 +1,4 @@
-package tconstruct.test;
+package tconstruct.library.client.texture;
 
 import com.google.common.collect.Lists;
 

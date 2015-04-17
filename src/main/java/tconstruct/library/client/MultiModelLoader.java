@@ -1,4 +1,4 @@
-package tconstruct.test;
+package tconstruct.library.client;
 
 import com.google.common.base.Charsets;
 
@@ -11,7 +11,6 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 
 import java.io.IOException;
@@ -22,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import tconstruct.TConstruct;
+import tconstruct.library.client.model.MultiModel;
 
 public class MultiModelLoader implements ICustomModelLoader {
   private final Map<ResourceLocation, ResourceLocation> modelsToLoad = new THashMap<>();

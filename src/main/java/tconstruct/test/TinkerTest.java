@@ -1,16 +1,11 @@
 package tconstruct.test;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.relauncher.Side;
 
 import org.apache.logging.log4j.Logger;
 
@@ -20,6 +15,7 @@ import tconstruct.CommonProxy;
 import tconstruct.TinkerPulse;
 import tconstruct.Util;
 import tconstruct.tools.TinkerTools;
+import tconstruct.library.client.CustomTextureCreator;
 
 @Pulse(id = TinkerTools.PulseId)
 public class TinkerTest extends TinkerPulse {

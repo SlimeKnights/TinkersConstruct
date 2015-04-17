@@ -1,8 +1,6 @@
-package tconstruct.test;
+package tconstruct.library.client.texture;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-
-import tconstruct.library.tinkering.Material;
 
 public class SimpleColoredTexture extends AbstractColoredTexture {
   private final int colorLow, colorMid, colorHigh;

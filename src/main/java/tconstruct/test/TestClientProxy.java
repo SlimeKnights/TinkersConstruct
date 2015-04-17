@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.registry.GameData;
 
 import tconstruct.CommonProxy;
 import tconstruct.TConstruct;
-import tconstruct.Util;
+import tconstruct.library.client.MultiModelLoader;
 
 public class TestClientProxy extends CommonProxy {
   private static final MultiModelLoader loader = new MultiModelLoader();

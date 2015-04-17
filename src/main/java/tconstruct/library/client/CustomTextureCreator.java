@@ -1,4 +1,4 @@
-package tconstruct.test;
+package tconstruct.library.client;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -23,8 +23,10 @@ import tconstruct.library.TinkerRegistry;
 import tconstruct.library.tinkering.Material;
 import tconstruct.library.utils.Log;
 
+/**
+ * Textures registered with this creator will get a texture created/loaded for each material.
+ */
 public class CustomTextureCreator {
-  //public static Map<String, TextureAtlasSprite> sprites = Maps.newHashMap();
   private static Set<ResourceLocation> baseTextures = Sets.newHashSet();
 
   /**
@@ -53,7 +55,6 @@ public class CustomTextureCreator {
           continue;
         }
 
-        // todo: determine if the texture is present and does not have to be generated
         String location = baseTexture.toString() + "_" + material.identifier;
         TextureAtlasSprite sprite;
 

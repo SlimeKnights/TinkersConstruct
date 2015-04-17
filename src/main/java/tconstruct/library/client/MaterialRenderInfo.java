@@ -4,16 +4,11 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.io.IOException;
-
-import tconstruct.library.tinkering.Material;
-import tconstruct.test.CustomTextureCreator;
-import tconstruct.test.SimpleColoredTexture;
-import tconstruct.test.TextureColoredTexture;
+import tconstruct.library.client.texture.SimpleColoredTexture;
+import tconstruct.library.client.texture.TextureColoredTexture;
 
 /**
  * Determines the type of texture used for rendering a specific material

@@ -1,4 +1,4 @@
-package tconstruct.test;
+package tconstruct.library.client.texture;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;

@@ -1,4 +1,4 @@
-package tconstruct.test;
+package tconstruct.library.client.model;
 
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
