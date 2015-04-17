@@ -1,46 +1,20 @@
 package tconstruct.tools;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.client.ItemModelMesherForge;
-import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
 
 import org.apache.logging.log4j.Logger;
 
-import codechicken.lib.render.ModelRegistryHelper;
-import mantle.client.ModelHelper;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
+import tconstruct.CommonProxy;
 import tconstruct.TinkerPulse;
 import tconstruct.Util;
-import tconstruct.debug.TestBlock;
-import tconstruct.debug.TestBlockModel;
-import tconstruct.debug.TestModel;
-import tconstruct.debug.TestTool;
-import tconstruct.debug.TestToolRenderer;
-import tconstruct.library.tinkering.PartMaterialWrapper;
-import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.tinkering.ToolPart;
-import tconstruct.library.tinkering.materials.ToolMaterialStats;
 
 @Pulse(id = TinkerTools.PulseId, description = "This module contains all the tools and everything related to it.")
 public class TinkerTools extends TinkerPulse {
@@ -48,14 +22,34 @@ public class TinkerTools extends TinkerPulse {
   public static final String PulseId = "TinkerTools";
   static final Logger log = Util.getLogger(PulseId);
 
+  @SidedProxy(clientSide = "tconstruct.tools.ToolClientProxy", serverSide = "tconstruct.CommonProxy")
+  public static CommonProxy proxy;
+
+  // Tools
+  public static Item pickaxe;
+
+  // Tool Parts
+  public static ToolPart pickHead;
+
+  public static ToolPart toolrod;
+  public static ToolPart binding;
+
   @Handler
   public void preInit(FMLPreInitializationEvent event) {
     TinkerMaterials.registerToolMaterials();
     MinecraftForge.EVENT_BUS.register(this);
+
+    pickHead = registerItem(new ToolPart(), "PickHead");
+
+    toolrod = registerItem(new ToolPart(), "ToolRod");
+    binding = registerItem(new ToolPart(), "Binding");
+
+    pickaxe = registerItem(new Item(), "Pickaxe");
   }
 
   @Handler
   public void init(FMLInitializationEvent event) {
+
     /*
     ToolPart a, b;
     a = new ToolPart();
@@ -105,16 +99,13 @@ public class TinkerTools extends TinkerPulse {
     */
   }
 
-  @SubscribeEvent
-  public void modelTestStuff(ModelBakeEvent event)
-  {
-    //event.modelRegistry.putObject(new ModelResourceLocation("TConstruct:TestTool"), new TestModel());
-    //event.modelRegistry.putObject(new ModelResourceLocation("TConstruct:TestTool", "inventory"), new TestModel(event.modelManager.getTextureMap().getMissingSprite()));
-    //event.modelManager.getModel(new ModelResourceLocation("TConstruct:TestTool", "inventory"));
+  @Handler
+  public void postInit(FMLPostInitializationEvent event) {
+    //register models
+    proxy.registerModels();
+  }
 
+  private void registerTools() {
 
-    event.modelRegistry.getObject(new ModelResourceLocation("TConstruct:TestTool", "inventory"));
-
-    //event.modelRegistry.putObject(new ModelResourceLocation("TConstruct:TestBlock"), new TestBlockModel(event.modelManager.getTextureMap().getMissingSprite()));
   }
 }

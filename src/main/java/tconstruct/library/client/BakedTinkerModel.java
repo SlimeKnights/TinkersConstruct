@@ -12,6 +12,7 @@ import net.minecraftforge.client.model.IFlexibleBakedModel;
 import java.util.Map;
 
 import tconstruct.library.client.model.BakedMultiModel;
+import tconstruct.library.tinkering.ToolPart;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.tools.TinkerMaterials;
 
@@ -35,6 +36,11 @@ public class BakedTinkerModel extends BakedMultiModel {
 
   @Override
   public IBakedModel handleItemState(ItemStack stack) {
+    if(stack.getItem() instanceof ToolPart) {
+      String mat = ((ToolPart) stack.getItem()).getMaterial(stack).identifier;
+      return bakeModel(textures.get(mat + "0"));
+    }
+
     NBTTagCompound tag = TagUtil.getToolTag(stack);
 /*
     if(tag == null || !tag.hasKey(Tags.TINKER_DATA))

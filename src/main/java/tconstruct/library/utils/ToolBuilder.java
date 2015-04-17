@@ -11,7 +11,7 @@ public final class ToolBuilder {
   }
 
   /**
-   * A simple Tool consists of a head and an handle. Head determines primary stats, handle
+   * A simple Tool consists of a head and an toolrod. Head determines primary stats, toolrod
    * multiplies primary stats.
    */
   public static NBTTagCompound buildSimpleTool(Material headMaterial, Material handleMaterial,
