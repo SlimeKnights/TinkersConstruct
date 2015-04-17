@@ -54,9 +54,9 @@ public class TextureColoredTexture extends AbstractColoredTexture {
     int g = green(c);
 
     if(!stencil) {
-      r = mult(r, red(pixel)) & 0xff;
-      g = mult(g, green(pixel)) & 0xff;
-      b = mult(b, blue(pixel)) & 0xff;
+      r = mult(mult(r, red(pixel)), red(pixel));
+      g = mult(mult(g, green(pixel)), green(pixel));
+      b = mult(mult(b, blue(pixel)), blue(pixel));
     }
     return compose(r,g,b,a);
   }

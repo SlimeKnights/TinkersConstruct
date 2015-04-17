@@ -174,6 +174,6 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
   }
 
   protected static int mult(int c1, int c2) {
-    return (int)(c1 * (c2/255.0));
+    return (int)((float)c1 * (c2/255f));
   }
 }

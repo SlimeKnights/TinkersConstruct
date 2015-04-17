@@ -81,7 +81,7 @@ public interface MaterialRenderInfo {
       TextureAtlasSprite blockTexture = Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(blockloc.toString());
 
       TextureColoredTexture sprite = new TextureColoredTexture(blockTexture, baseTexture, location);
-      sprite.stencil = true;
+      sprite.stencil = false;
       return sprite;
     }
   }
