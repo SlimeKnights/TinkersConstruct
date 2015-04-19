@@ -383,6 +383,17 @@ public class CastingChannelLogic extends TileEntity implements IFluidHandler
     @Override
     public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
     {
+        FluidStack fluidStack = null;
+        if (from == ForgeDirection.DOWN)
+            if(this.internalTank.getFluid() != null)
+                fluidStack = this.internalTank.getFluid();
+        else if(validOutputs.contains(from))
+                fluidStack = this.subTanks.get(from).getFluid();
+
+        // wrong fluid
+        if(fluidStack != null && fluidStack.getFluid() != resource.getFluid())
+            return null;
+
         return drain(from, resource.amount, doDrain);
     }
 
