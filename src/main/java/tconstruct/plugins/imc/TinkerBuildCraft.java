@@ -17,9 +17,11 @@ public class TinkerBuildCraft
         TConstruct.logger.info("BuildCraft detected. Registering facades.");
         // Smeltery Blocks
         addFacade(TinkerSmeltery.smeltery, 2);
+        addFacade(TinkerSmeltery.smelteryNether, 2);
         for (int sc = 4; sc < 11; sc++)
         {
             addFacade(TinkerSmeltery.smeltery, sc);
+            addFacade(TinkerSmeltery.smelteryNether, sc);
         }
 
         addFacade(TinkerSmeltery.searedBlock, 0);
