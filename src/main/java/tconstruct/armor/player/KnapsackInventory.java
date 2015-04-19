@@ -145,7 +145,7 @@ public class KnapsackInventory implements IInventory
     public void readFromNBT (NBTTagCompound tagCompound)
     {
         // player doesn't have a knapsack saved, tcon probably wasn't present before. don't error out.
-        if(!tagCompound.hasKey("Knapsack"))
+        if(tagCompound == null || !tagCompound.hasKey("Knapsack"))
             return;
 
         NBTTagList tagList = tagCompound.getTagList("Knapsack", 10);
