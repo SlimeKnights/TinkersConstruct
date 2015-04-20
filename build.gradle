@@ -114,6 +114,9 @@ sourceSets {
 }
 processResources
 {
+    inputs.property "version", artifact_version
+    inputs.property "MCversion", config.minecraft_version
+	
     // Replace stuff in text files, not binaries.
     from(sourceSets.main.resources.srcDirs) {
         include '**/*.info'
