@@ -14,6 +14,7 @@ public class TConstructFluid extends BlockFluidClassic
     public IIcon stillIcon;
     public IIcon flowIcon;
     boolean overwriteFluidIcons = true;
+    private Fluid fluid = null;
 
     public TConstructFluid(Fluid fluid, Material material, String texture)
     {
@@ -42,6 +43,9 @@ public class TConstructFluid extends BlockFluidClassic
 
         if (overwriteFluidIcons)
             this.getFluid().setIcons(stillIcon, flowIcon);
+
+        if(this.getFluid().getBlock() != this && fluid != null)
+            fluid.setIcons(stillIcon, flowIcon);
     }
 
     @Override
@@ -58,4 +62,7 @@ public class TConstructFluid extends BlockFluidClassic
         overwriteFluidIcons = false;
     }
 
+    public void setFluid(Fluid fluid) {
+        this.fluid = fluid;
+    }
 }

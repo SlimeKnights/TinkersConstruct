@@ -1026,6 +1026,9 @@ public class TinkerSmeltery
         block.setBlockName(blockName);
         GameRegistry.registerBlock(block, blockName);
 
+        fluid.setBlock(block);
+        block.setFluid(fluid);
+
         // if the fluid was already registered we use that one instead
         if (isFluidPreRegistered)
         {
