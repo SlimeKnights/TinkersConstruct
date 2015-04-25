@@ -1,0 +1,296 @@
+<?xml version="1.0"?>
+
+<book>
+<page type="intro">
+<text>Fonderia e leghe
+Ottieni il massimo dai tuoi metalli
+
+di Thruul M'gon</text>
+</page>
+
+<page type="contents">
+<text>Indice</text>
+<link>
+ <text>Introduzione</text>
+ <icon>smelterybook</icon>
+ <jump>3</jump>
+</link>
+<link>
+ <text>Fusione</text>
+ <icon>castingtable</icon>
+ <jump>8</jump>
+</link>
+<link>
+ <text>Costruzione</text>
+ <icon>smeltery</icon>
+ <jump>5</jump>
+</link>
+<link>
+ <text>Leghe</text>
+ <icon>liquidiron</icon>
+ <jump>9</jump>
+</link>
+<link>
+ <text>Ricette</text>
+ <icon>blankcast</icon>
+ <jump>9</jump>
+</link>
+</page>
+
+<page type="text">
+<text>Benvenuto nel mondo di metallocraft. Tra queste pagine troverai i segreti di trasformare metalli rari e preziosi in materiali usabili.
+
+Imparerai a fondere di tutto dal più dolce ferro al più duro manyullyn in qualsiasi forma desideri e creare leghe con materiali misteriosi. Come sempre, si deve esperimentare!
+
+La struttura usata per fondere i minerali si chiama Fonderia. E' più grande di altre strutture che conosci, ma costruirlo non è difficile. Funziona un po' come una fornace con uno scarico.</text>
+</page>
+
+<page type="text">
+<text>Quando lavori con una Fonderia ti devi ricordare un paio di cose:
+
+* La Fonderia funziona come un enorme serbatoio di fluidi. Può fondere metalli e combinare vari materiali.
+
+* I scarichi funzionano come entrata e uscita per il serbatoio. Se ti servono dei fluidi nella fonderia li puoi far colare in uno scarico.
+
+* I minerali grezzi hanno molto materiale delle loro versioni lavorate, come i lingotti. La fonderia produrrà l'intero valore del minerale, circa il doppio di quello che produrrebbe una normale fornace.</text>
+</page>
+
+<page type="text">
+<text>* Combinando due o più metalli è possibile creare delle leghe. Il processo accade automaticamente.
+
+* Se ti serve più spazio per fondere i metalli, aggiungi altri livelli o allarga la fonderia.
+
+* I Stampi sono diversi dai Modelli. Altri dettagli dopo.</text>
+</page>
+
+<page type="sidebar">
+<text>La Fonderia è una struttura multi-blocco. Ti serviranno i seguenti materiali per costruire un Fonderia piccola (3x3).</text>
+<item>
+ <text>1 Regolatore della fonderia</text>
+ <icon>smeltery</icon>
+</item>
+<item>
+ <text>1 Serbatoio di pietra bruciata</text>
+ <icon>lavatank</icon>
+</item>
+<item>
+ <text>9 Pietra bruciata concia</text>
+ <icon>searedbrick</icon>
+</item>
+<item>
+ <text>Qualunque combinazione di 10 Pietra bruciata concia, Serbatoi, o Scarichi
+ </text>
+ <icon>drain</icon>
+</item>
+<item>
+ <text>1 Rubinetto</text>
+ <icon>faucet</icon>
+</item>
+<item>
+ <text>1 Tavolo di fusione</text>
+ <icon>castingtable</icon>
+</item>
+</page>
+
+<page type="text">
+<text>Inizia la costruzione mettendo giù un pavimento 3x3 di pietra concia bruciata. Lascia vuoto sopra; costruisci intorno delle pareti. 
+
+Metti il Regolatore un livello sopra e un serbatoio per la lava sullo stesso livello. Riempi il resto del muro con pietra concia bruciata, serbatoi o scarichi a tuo piacere. 
+
+Il lato col buco stretto dello scarico deve essere rivolto in fuori. Se funziona, il Regolatore si accenderà e inizierà a funzionare. Riempi il serbatoio con la lava e la fonderia con i metalli.
+
+La struttura deve essere quadrata o rettangolare, col buco largo tra 1x1 e 9x9 blocchi, di qualsiasi combinazione. Invece l'altezza non ha alcuna restrizione.</text>
+</page>
+
+<page type="text">
+<text>Fonderie più grandi conterranno, ovviamente, più metallo e il Regolatore può essere su qualsiasi livello finché ci sia anche un serbatoio sullo stesso livello.
+
+Quando sei pronto a far colare il metallo liquido dalla fonderia, attacca un rubinetto allo scarico e fai colare il metallo sotto in un tavolo.
+
+Puoi anche usare altri oggetti che rimuovono liquidi, ma non sono visti di buon occhio. Un immagine ti è fornito come esempio.</text>
+</page>
+
+<page type="picture">
+<text>Figura 1a</text>
+<location>tinker:manuals/smelterysmall.png</location>
+</page>
+
+<page type="sidebar">
+<text>Le leghe sono create con due o più metalli mischiati con proporzioni precise. Leghe che sono attualmente conosciute sono:</text>
+<item>
+ <text>Bronzo, fatto con Rame(3) e Stagno(1)</text>
+ <icon>bronzeingot</icon>
+</item>
+<item>
+ <text>Ottone, fatto con Aluminio(3) e Rame(1)</text>
+ <icon>alubrassingot</icon>
+</item>
+<item>
+ <text>Manyullyn, fatto con Cobalto(2) e Ardite(2)</text>
+ <icon>manyullyningot</icon>
+</item>
+<item>
+ <text>Alumite, fatto con Aluminio(5), Rame(2), e Ossidiana(2)</text>
+ <icon>alumiteingot</icon>
+</item>
+<item>
+ <text>Ferro suino, fatto con Rame(1), Sangue(1), e Smeraldi(1)</text>
+ <icon>pigironingot</icon>
+</item>
+</page>
+
+<page type="sidebar">
+<text>Esistono alcuni liquidi ottenuti con metodi strani. Attualmente si conoscono:</text>
+<item>
+ <text>Sangue, danneggiando entità nella Fonderia</text>
+ <icon>bloodbucket</icon>
+</item>
+<item>
+ <text>Smeraldo liquefatto, fondendo smeraldi o villici</text>
+ <icon>emeraldbucket</icon>
+</item>
+<item>
+ <text>Collo, fondendo cavalli nella Fonderia</text>
+ <icon>gluebucket</icon>
+</item>
+<item>
+ <text>Gelatina, trovate sulle isole di gelatina. Funziona come un generatore di mob</text>
+ <icon>slimebucket</icon>
+</item>
+<item>
+ <text>Omega, fondendo perle omega o endermen</text>
+ <icon>enderbucket</icon>
+</item>
+</page>
+
+<page type="text">
+<text>Stampi vuoti sono creati facendo colare ottone o oro in un tavolo di fusione vuoto. Questi sono usati come componenti e possono essere rifuse.
+
+Stampi di parti sono creati facendo colare l'ottone in un tavolo con dentro una parte di attrezzo esistente, come una testa di piccone.</text>
+</page>
+
+<page type="picture">
+<text>Formare uno Stampo</text>
+<location>tinker:manuals/casting.png</location>
+</page>
+
+<page type="crafting">
+<text>Malta</text>
+<recipe>
+ <name>grout</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="furnace">
+<text>Mattone bruciato</text>
+<recipe>searedbrick</recipe>
+</page>
+
+<page type="crafting">
+<text>Pietra bruciata concia</text>
+<recipe>
+ <name>searedbricks</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Regolatore della fonderia</text>
+<recipe>
+ <name>smelterycontroller</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Scarico della fonderia</text>
+<recipe>
+ <name>smelterydrain</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Serbatoio di pietra bruciata</text>
+<recipe>
+ <name>smelterytank1</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Vetro di pietra bruciata</text>
+<recipe>
+ <name>smelterytank2</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Finestra di pietra bruciata</text>
+<recipe>
+ <name>smelterytank3</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Rubinetto di pietra bruciata</text>
+<recipe>
+ <name>smelteryfaucet</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Canale di fusione</text>
+<recipe>
+ <name>castingchannel</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Tavolo di fusione</text>
+<recipe>
+ <name>smelterytable</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Vasca di fusione</text>
+<recipe>
+ <name>smelterybasin</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="blockcast">
+<text>Roccia arenaria</text>
+<recipe>brownstone</recipe>
+</page>
+
+<page type="blockcast">
+<text>Vetro chiaro</text>
+<recipe>clearglass</recipe>
+</page>
+
+<page type="blockcast">
+<text>Roccia bruciata</text>
+<recipe>searedstone</recipe>
+</page>
+
+<page type="blockcast">
+<text>Roccia dell'Omega</text>
+<recipe>endstone</recipe>
+</page>
+
+<page type="blockcast">
+<text>Palla di colla</text>
+<recipe>glueball</recipe>
+</page>
+
+
+</book>
