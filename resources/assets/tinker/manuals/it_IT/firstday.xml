@@ -1,0 +1,407 @@
+<?xml version="1.0"?>
+
+<book>
+<page type="intro">
+<text>Materiali e tu
+Sopravvivere la prima notte e oltre
+
+Volume 1
+di Skyla</text>
+</page>
+
+<page type="contents">
+<text>Indice</text>
+<link>
+ <text>Come iniziare</text>
+ <icon>sapling</icon>
+ <jump>3</jump>
+</link>
+<link>
+ <text>Ricette</text>
+ <icon>workbench</icon>
+ <jump>5</jump>
+</link>
+<link>
+ <text>Modificatori per armatura</text>
+ <icon>travelvest</icon>
+ <jump>4</jump>
+</link>
+</page>
+
+<page type="text">
+<text>Benvenuto alla prima edizione di Materiali e tu: Sopravvivere la prima notte e oltre. In queste pagine troverai i primi passi per creare attrezzi e i materiali che ti serviranno per sopravvivere.
+
+Questa è una copia magica; si aggiornerà ogni volta che l'originale verrà modificato. Ricontrollala a volte per scoprire informazioni nuovi sugli oggetti.</text>
+</page>
+
+<page type="text">
+<text>Il primo passo per creare attrezzi è fabricare un modello. E' un pezzo di legno su cui stampare una forma da utilizzare come modello per creazioni future. Le forme sono create nel Tavolo dei modelli e sono usate su un tavolo.
+
+Puoi modellare un materiale in un Costruttore di parti con un modello, e poi combinare le parti nel tavolo degli attrezzi. I modelli possono essere depositati nel Baule per modelli.
+
+Questi insieme fanno l'Officina degli attrezzi. E' raccomandato che li tieni tutti vicini quando usati.</text>
+</page>
+
+<page type="crafting">
+<text>Modello vuoto</text>
+<recipe>
+ <name>blankpattern</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Tavolo dei modelli</text>
+<recipe>
+ <name>stenciltable</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Costruttrice di parti</text>
+<recipe>
+ <name>partcrafter</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Baule per modelli</text>
+<recipe>
+ <name>patternchest</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Tavolo degli attrezzi</text>
+<recipe>
+ <name>toolstation</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Forgia degli attrezzi</text>
+<recipe>
+ <name>toolforge</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Stendino</text>
+<recipe>
+ <name>dryingrack</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="text">
+<text>Cespugli di baccagrezza
+
+A volte nei tuoi viaggi potrai trovare dei cespugli conosciuti. Crescono sottoterra in aree scure, e richiedono buio quasi totale per produre qualcosa. 
+
+Le bacche possono essere fuse in pepite e lingotti, facendoli delle buone fonti di metallo.</text>
+</page>
+
+<page type="picture">
+<text>Baccagrezze nel loro habitat naturale</text>
+<location>tinker:manuals/oreberries.png</location>
+</page>
+
+<page type="text">
+<text>Corrente di gelatina
+
+Correnti di gelatina sono utili per muovere oggetti o entità in giro. Sono usati come dell'acqua facilmente gestibile e possono essere usati con un Blocco rimbalzante per un effetto migliore.</text>
+</page>
+
+<page type="crafting">
+<text>Corrente di gelatina</text>
+<recipe>
+ <name>slimechannel</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Blocco rimbalzante</text>
+<recipe>
+ <name>bouncepad</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="text">
+<text>Un paio di trappole o barricate possono essere utili per sopravvivere le preime notti</text>
+</page>
+
+<page type="crafting">
+<text>Bastoni punji</text>
+<recipe>
+ <name>punji</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Barricate</text>
+<recipe>
+ <name>barricade</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="text">
+<text>Una volta che ti sei sabilito, puoi iniziare a lavorare i metalli in un modo più efficiente. I scopi della fonderia non si trovano questo volume, ma un paio di ricette ti aiuteranno a iniziare.
+
+Nota: La Fonderia è richiesta per lavorare i metalli, incluso il ferro.</text>
+</page>
+
+<page type="crafting">
+<text>Malta</text>
+<recipe>
+ <name>grout</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="furnace">
+<text>Mattone bruciato</text>
+<recipe>searedbrick</recipe>
+</page>
+
+<page type="crafting">
+<text>Pietra bruciata concia</text>
+<recipe>
+ <name>searedbricks</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Pannello di controllo della fonderia</text>
+<recipe>
+ <name>smelterycontroller</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="text">
+<text>Se ti trovi senza questo libro, puoi crearne facilmente uno nuovo. Altri libri possono essere fatti con questo.</text>
+</page>
+
+<page type="crafting">
+<text>Libro</text>
+<recipe>
+ <name>alternatebook</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Materiali e tu: v1</text>
+<recipe>
+ <name>patternbook1</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Materiali e tu: v2</text>
+<recipe>
+ <name>patternbook2</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Fonderia e leghe</text>
+<recipe>
+ <name>patternbook3</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="text">
+<text>Modificatori per armatura
+
+I seguenti modificatori per armatura sembrano mancare di nome o cambiare. Non c'è precisione in queste pagina.</text>
+</page>
+
+<page type="sectionpage">
+<title>Visione notturna</title>
+<text>A quanto pare carote e succo non fanno soltanto bene agli occhi, ma anche ai tuoi occhiali.
+Anche una pozione di Visione notturna aiuta.
+
+Effetti:
+- Visione notturna
+
+Tipo: Singolo
+Potenziabile: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelgoggles</tooltype>
+<recipe>nightvision</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Schivata perfetta</title>
+<text>Ninja ninja.
+
+Effetti:
+- Sei più difficile da colpire
+
+Tipo: Singolo
+Potenziabile: Si</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelvest</tooltype>
+<recipe>dodge</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Futività</title>
+<text>L'armatura del viaggiatore non è molto protettivo. Per questo l'ho mischiato con dei oggetti magici e una pozioni d'invisibilità, per farmi più furtivo!
+
+Effetti:
+- Diventa invisibile mentre cammini furtivamente
+
+Tipo: Singolo
+Potenziabile: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelvest</tooltype>
+<recipe>stealth</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Atterraggio morbido</title>
+<text>Hai già le ali. Se ci riescono i polli, ci riuscirai anche tu.
+Qualunque variante di gelatina va bene.
+
+Effetti:
+- Permette di cadere lentamente
+
+Tipo: Singolo
+Potenziabile: Si</text>
+</page>
+
+<page type="crafting">
+<text>Tavolo dell'armeggiatore</text>
+<recipe>
+ <name>featherfall</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Camminare sull'acqua</title>
+<text>Se metto queste cose sui miei stivali, sono sicuro che potrò camminare sull'acqua. Cosa può andare storto?
+
+Effetti:
+- Ti permette di camminare sull'acqua
+- Shift per affondare
+- Aureola non inclusa
+
+Tipo: Singolo
+Potenziabile: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelboots</tooltype>
+<recipe>waterwalk</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Scarpe di piombo</title>
+<text>Questo blocco di ferro mi ha servito bene. Lo voglio portare con me, sul fondo dell'oceano.
+perfetto per vedere dove dorme il tuo pesciolino domestico.
+
+Effetti:
+- Ti permette di camminare sotto l'acqua
+- Non ti permette di nuotare
+- Blub.
+
+Tipo: Singolo
+Potenziabile: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelboots</tooltype>
+<recipe>leadboots</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Suole gelatinose</title>
+<text>Quando salto sulla gelatina, rimbalzo e non mi faccio male. Dovrei riuscire a replicarlo mettendo della gelatina sulle mie suole.
+
+Effetti:
+- Diminuisce l'impatto quando cadi
+- Riduce il danno da caduta
+
+Tipo: Singolo
+Potenziabile: Si</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelboots</tooltype>
+<recipe>slimysoles</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Fretta</title>
+<text>Mettendo pietrarossa sui miei attrezzi li rende più veloci. Quindi perchè non metterlo direttamente sulle mie mani?
+
+Effetti:
+- Aumenta la velocità nel scavare
+
+Tipo: Multiplo
+Potenziabile: Si</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelglove</tooltype>
+<recipe>glovehaste</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Riparazione</title>
+<text>Attaccando muschio a un'armatura la infonde di vita.
+
+Effetti:
+- L'armatura si ripara lentamente da solo
+- La luce solare velocizza il processo
+- Applicabile a tutte le parti
+
+Tipo: Singolo
+Potenziabile: Si</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelmulti</tooltype>
+<recipe>moss</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Salto doppio</title>
+<text>Infuso con il potere di una lacrima di Spettro, della gelatina e un meccanismo a pistoni, dovrei riuscire a lanciarmi ancora più lontano nell'aria.
+
+Effetti:
+- Salta quando salti per saltare
+- Anche applicabili alle ali
+
+Tipo: Singolo
+Potenziabile: Si</text>
+</page>
+
+<page type="modifier">
+<tooltype>travelmulti</tooltype>
+<recipe>doublejump</recipe>
+</page>
+
+</book>
