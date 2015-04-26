@@ -492,6 +492,7 @@ Classe: Arma da mischia pesante</text>
 <icon>woodaxe</icon>
 <text>Sembra crescere dappertutto.</text>
 <material>
+<toolmaterial>Wood</toolmaterial>
  <main>woodplanks</main>
 </material>
 </page>
@@ -501,7 +502,8 @@ Classe: Arma da mischia pesante</text>
 <icon>stonepick</icon>
 <text>Uno dei materiali più comuni nel mondo.</text>
 <material>
- <main>stoneBlocco</main>
+<toolmaterial>Stone</toolmaterial>
+ <main>stoneblock</main>
 </material>
 </page>
 
@@ -511,6 +513,7 @@ Classe: Arma da mischia pesante</text>
 <text>Fondamentale per gli attrezzi, può essere raffinato e processato.
 - Richiede una fonderia</text>
 <material>
+<toolmaterial>Iron</toolmaterial>
  <main>ironingot</main>
 </material>
 </page>
@@ -520,6 +523,7 @@ Classe: Arma da mischia pesante</text>
 <icon>flintshovel</icon>
 <text>Più duraturo della pietra. La prima scelta dei cavernicoli.</text>
 <material>
+<toolmaterial>Flint</toolmaterial>
  <main>flint</main>
 </material>
 </page>
@@ -529,6 +533,7 @@ Classe: Arma da mischia pesante</text>
 <icon>cactussword</icon>
 <text>Una specie di legno trovata soltanto nel deserto .</text>
 <material>
+<toolmaterial>Cactus</toolmaterial>
  <main>cactus</main>
 </material>
 </page>
@@ -538,6 +543,7 @@ Classe: Arma da mischia pesante</text>
 <icon>bonerapier</icon>
 <text>Un materiale con molti usi, vivo o morto.</text>
 <material>
+<toolmaterial>Bone</toolmaterial>
  <main>bone</main>
 </material>
 </page>
@@ -547,6 +553,7 @@ Classe: Arma da mischia pesante</text>
 <icon>bonefrypan</icon>
 <text>Molto duro, ma fragile quando lavorato.</text>
 <material>
+<toolmaterial>Obsidian</toolmaterial>
  <main>obsidian</main>
 </material>
 </page>
@@ -557,6 +564,7 @@ Classe: Arma da mischia pesante</text>
 <text>Una lega poco conosciuta. Sembra essere molto durevole.
 - Richiede una fonderia</text>
 <material>
+<toolmaterial>Alumite</toolmaterial>
  <main>alumiteingot</main>
 </material>
 </page>
@@ -566,6 +574,7 @@ Classe: Arma da mischia pesante</text>
 <icon>netherrackmattock</icon>
 <text>Di che è fatto questo??</text>
 <material>
+<toolmaterial>Netherrack</toolmaterial>
  <main>netherrack</main>
 </material>
 </page>
@@ -608,6 +617,7 @@ Classe: Arma da mischia pesante</text>
 <icon>paperpick</icon>
 <text>È molto debole, ma può essere molto modificato.</text>
 <material>
+<toolmaterial>Paper</toolmaterial>
  <main>paperstack</main>
 </material>
 </page>
@@ -626,6 +636,7 @@ Classe: Arma da mischia pesante</text>
 <text>Uno dei materiali degli inferi. È blu brillante.
 - Richiede una fonderia</text>
 <material>
+<toolmaterial>Cobalt</toolmaterial>
  <main>cobaltingot</main>
 </material>
 </page>
@@ -636,6 +647,7 @@ Classe: Arma da mischia pesante</text>
 <text>Uno dei materiali degli inferi. Sembra che scavi più in fretta quando consumato.
 - Richiede una fonderia</text>
 <material>
+<toolmaterial>Ardite</toolmaterial>
  <main>arditeingot</main>
 </material>
 </page>
@@ -646,6 +658,7 @@ Classe: Arma da mischia pesante</text>
 <text>La lega degli inferi. È più forte del diamante.
 - Richiede una fonderia</text>
 <material>
+<toolmaterial>Manyullyn</toolmaterial>
  <main>manyullyningot</main>
 </material>
 </page>
@@ -656,6 +669,7 @@ Classe: Arma da mischia pesante</text>
 <text>Un materiale comune trovato sotto terra.
 - Richiede una fonderia</text>
 <material>
+<toolmaterial>Copper</toolmaterial>
  <main>copperingot</main>
 </material>
 </page>
@@ -666,6 +680,7 @@ Classe: Arma da mischia pesante</text>
 <text>Una lega comune. Migliore del ferro.
 - Richiede una fonderia</text>
 <material>
+<toolmaterial>Bronze</toolmaterial>
  <main>bronzeingot</main>
 </material>
 </page>
@@ -676,6 +691,7 @@ Classe: Arma da mischia pesante</text>
 <text>Una lega costituita da ferro. Non si sa come ottenerlo.
 - Richiede una fonderia</text>
 <material>
+<toolmaterial>Steel</toolmaterial>
  <main>steelingot</main>
 </material>
 </page>
@@ -687,6 +703,7 @@ Classe: Arma da mischia pesante</text>
 <text>Una lega costituita da ferro. Sembra essere fatto da ferro, smeraldo e sangue.
 - Richiede una fonderia</text>
 <material>
+
  <main>pigironingot</main>
 </material>
 </page>
