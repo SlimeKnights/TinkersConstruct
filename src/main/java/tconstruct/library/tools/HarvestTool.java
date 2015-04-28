@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialLogic;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,6 +17,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.network.play.server.S23PacketBlockChange;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
 import net.minecraftforge.common.ForgeHooks;
@@ -38,7 +40,7 @@ public abstract class HarvestTool extends ToolCore
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
-        return super.onBlockStartBreak(stack, x,y,z, player);
+        return super.onBlockStartBreak(stack, x, y, z, player);
     }
 
     @Override
@@ -167,41 +169,40 @@ public abstract class HarvestTool extends ToolCore
                     int posX = x;
                     int posY = y;
                     int posZ = z;
-                    int playerPosX = (int) Math.floor(player.posX);
-                    int playerPosY = (int) Math.floor(player.posY);
-                    int playerPosZ = (int) Math.floor(player.posZ);
-                    if (side == 0)
+
+                    switch (side)
                     {
-                        --posY;
+                        case 0:
+                            --posY;
+                            break;
+                        case 1:
+                            ++posY;
+                            break;
+                        case 2:
+                            --posZ;
+                            break;
+                        case 3:
+                            ++posZ;
+                            break;
+                        case 4:
+                            --posX;
+                            break;
+                        case 5:
+                            ++posX;
+                            break;
                     }
 
-                    if (side == 1)
-                    {
-                        ++posY;
-                    }
+                    AxisAlignedBB blockBounds = AxisAlignedBB.getBoundingBox(posX, posY, posZ, posX + 1, posY + 1, posZ + 1);
+                    AxisAlignedBB playerBounds = player.boundingBox;
 
-                    if (side == 2)
+                    if(item instanceof ItemBlock)
                     {
-                        --posZ;
-                    }
-
-                    if (side == 3)
-                    {
-                        ++posZ;
-                    }
-
-                    if (side == 4)
-                    {
-                        --posX;
-                    }
-
-                    if (side == 5)
-                    {
-                        ++posX;
-                    }
-                    if (posX == playerPosX && (posY == playerPosY || posY == playerPosY + 1 || posY == playerPosY - 1) && posZ == playerPosZ)
-                    {
-                        return false;
+                        Block blockToPlace = ((ItemBlock) item).field_150939_a;
+                        if(blockToPlace.getMaterial().blocksMovement())
+                        {
+                            if (playerBounds.intersectsWith(blockBounds))
+                                return false;
+                        }
                     }
 
                     int dmg = nearbyStack.getItemDamage();
