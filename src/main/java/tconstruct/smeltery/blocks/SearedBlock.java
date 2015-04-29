@@ -281,20 +281,24 @@ public class SearedBlock extends InventoryBlock
         return world.getBlockMetadata(x, y, z) == 1;
     }
 
-    private boolean wasPowered = false;
-
     @Override
     public void onNeighborBlockChange (World world, int x, int y, int z, Block neighborBlockID)
     {
         if (world.getBlockMetadata(x, y, z) == 1)
         {
             boolean isPowered = world.isBlockIndirectlyGettingPowered(x, y, z);
-            if (!wasPowered && isPowered)
-            {
-                FaucetLogic logic = (FaucetLogic) world.getTileEntity(x, y, z);
+            TileEntity te = world.getTileEntity(x, y, z);
+            if(!(te instanceof FaucetLogic))
+                return;
+            FaucetLogic logic = (FaucetLogic) te;
+            // was it a low->high pulse
+            if(!logic.hasRedstonePower && isPowered) {
+                logic.hasRedstonePower = true;
                 logic.setActive(true);
             }
-            wasPowered = isPowered;
+
+            // update its state
+            logic.hasRedstonePower = isPowered;
         }
     }
 

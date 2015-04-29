@@ -15,6 +15,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     byte direction;
     boolean active;
     public FluidStack liquid;
+    public boolean hasRedstonePower = false;
 
     public boolean activateFaucet ()
     {
