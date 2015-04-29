@@ -43,6 +43,7 @@ import tconstruct.smeltery.logic.*;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.world.TinkerWorld;
+import tconstruct.world.items.OreBerries;
 
 import java.util.*;
 
@@ -936,6 +937,16 @@ public class TinkerSmeltery
         LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
         for (ItemStack ore : OreDictionary.getOres(name))
         {
+            // don't do oreberries. That'd be silly.
+            if(ore.getItem() != null && ore.getItem() instanceof OreBerries) {
+                boolean isOreberry = false;
+                for(int id : OreDictionary.getOreIDs(ore))
+                    if(OreDictionary.getOreName(id).startsWith("oreberry"))
+                        isOreberry = true;
+
+                if(isOreberry)
+                    continue;
+            }
             tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
             tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
             tableCasting.addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, TConstruct.nuggetLiquidValue), pattern, 40);
