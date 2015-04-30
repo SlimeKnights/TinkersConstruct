@@ -55,11 +55,23 @@ public class DryingRackSpecialRender extends TileEntitySpecialRenderer
             if (meta == 2)
                 GL11.glTranslatef(0F, 0F, 0.375F);
             if (meta == 3)
-                GL11.glTranslatef(0F, 0F, -0.375F);
+            {
+            	// Rotate, Flip.
+            	GL11.glRotatef(180F, 0F, 1F, 0F);
+            	GL11.glTranslatef(0F, 0F, 0.2F);
+            	//GL11.glTranslatef(0F, 0F, -0.375F);
+            }
             if (meta == 4)
+            {
                 GL11.glTranslatef(0F, 0F, 0.2875F);
+            }
             if (meta == 5)
-                GL11.glTranslatef(0F, 0F, -0.5F);
+            {
+            	//Rotate, Flip.
+            	GL11.glRotatef(180F, 0F, 1F, 0F);
+            	GL11.glTranslatef(0F, 0F, 0.3F);
+                //GL11.glTranslatef(0F, 0F, -0.5F);
+            }
         }
         GL11.glScalef(2F, 2F, 2F);
         if (stack.getItem() instanceof ItemBlock)
