@@ -38,6 +38,7 @@ import tconstruct.armor.model.HiddenPlayerModel;
 import tconstruct.armor.model.WingModel;
 import tconstruct.armor.player.ArmorExtended;
 import tconstruct.armor.player.KnapsackInventory;
+import tconstruct.armor.player.TPlayerStats;
 import tconstruct.client.ArmorControls;
 import tconstruct.client.tabs.InventoryTabArmorExtended;
 import tconstruct.client.tabs.InventoryTabKnapsack;
@@ -58,9 +59,11 @@ public class ArmorProxyClient extends ArmorProxyCommon {
 	public static HiddenPlayerModel glove = new HiddenPlayerModel(0.25F, 4);
 	public static HiddenPlayerModel vest = new HiddenPlayerModel(0.25f, 1);
 	public static BeltModel belt = new BeltModel();
-
-	public static KnapsackInventory knapsack = new KnapsackInventory();
-	public static ArmorExtended armorExtended = new ArmorExtended();
+	
+	public static TPlayerStats playerStats = new TPlayerStats();
+	
+	public static KnapsackInventory knapsack = playerStats.knapsack;
+	public static ArmorExtended armorExtended = playerStats.armor;
 
 	@Override
 	public void preInit() {
@@ -521,6 +524,16 @@ public class ArmorProxyClient extends ArmorProxyCommon {
 
 	protected float handleRotationFloat(EntityLivingBase par1EntityLivingBase, float par2) {
 		return (float) par1EntityLivingBase.ticksExisted + par2;
+	}
+	
+	@Override
+	public void updatePlayerStats (TPlayerStats stats)
+	{
+	    
+	    playerStats.copyFrom(stats, false);
+	    armorExtended = stats.armor;
+	    knapsack = stats.knapsack;
+	    //dumpTPlayerStats(stats);
 	}
 
 }
