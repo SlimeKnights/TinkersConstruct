@@ -56,9 +56,7 @@ public class DryingRackSpecialRender extends TileEntitySpecialRenderer
                 GL11.glTranslatef(0F, 0F, 0.375F);
             if (meta == 3)
             {
-            	/**
-            	 * Rotate the image as it is flipped, translate to the correct spot.
-            	 */
+            	// Rotate, Flip.
             	GL11.glRotatef(180F, 0F, 1F, 0F);
             	GL11.glTranslatef(0F, 0F, 0.2F);
             	//GL11.glTranslatef(0F, 0F, -0.375F);
@@ -69,9 +67,7 @@ public class DryingRackSpecialRender extends TileEntitySpecialRenderer
             }
             if (meta == 5)
             {
-            	/**
-            	 * Rotate the image as it is flipped, translate to the correct spot.
-            	 */
+            	//Rotate, Flip.
             	GL11.glRotatef(180F, 0F, 1F, 0F);
             	GL11.glTranslatef(0F, 0F, 0.3F);
                 //GL11.glTranslatef(0F, 0F, -0.5F);
