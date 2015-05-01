@@ -5,8 +5,11 @@ import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
+
 import org.lwjgl.opengl.GL11;
+
 import tconstruct.library.ItemBlocklike;
+import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.smeltery.logic.CastingTableLogic;
 import tconstruct.tools.entity.FancyEntityItem;
 
@@ -59,6 +62,13 @@ public class CastingTableSpecialRenderer extends TileEntitySpecialRenderer
         {
             GL11.glRotatef(90F, -1, 0F, 0F);
             GL11.glTranslatef(0F, -0.1F, 0.2275F);
+        }
+
+        if (stack.isItemEqual(new ItemStack(TinkerSmeltery.glassPane)))
+        {
+           GL11.glRotatef(90F, 1F, 0F, 0F);
+           GL11.glTranslatef(0F, -0.194F, -0.1F);
+           GL11.glScalef(0.85F, 0.85F, 0.85F);
         }
 
         RenderItem.renderInFrame = true;
