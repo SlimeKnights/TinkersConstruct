@@ -46,7 +46,6 @@ public class ArmourGuiSyncPacket extends AbstractPacket
     @Override
     public void handleClientSide (EntityPlayer player)
     {
-        TConstruct.logger.info("Packet Arrived!");
         TPlayerStats stats = new TPlayerStats(player);
         stats.loadNBTData(playerStats);
         TinkerArmor.proxy.updatePlayerStats(stats);
