@@ -6,8 +6,10 @@ import net.minecraft.entity.boss.*;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import tconstruct.TConstruct;
@@ -15,6 +17,7 @@ import tconstruct.armor.items.TravelWings;
 import tconstruct.armor.player.ArmorExtended;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.modifier.IModifyable;
+import tconstruct.util.network.ArmourGuiSyncPacket;
 import tconstruct.world.entity.BlueSlime;
 
 public class TinkerArmorEvents
@@ -121,5 +124,20 @@ public class TinkerArmorEvents
         int dodge = tags.getInteger("Perfect Dodge");
         if(dodge > TConstruct.random.nextInt(10))
             event.setCanceled(true);
+    }
+    
+    @SubscribeEvent
+    public void joinWorld(EntityJoinWorldEvent event)
+    {
+        if (event.entity instanceof EntityPlayerMP)
+        {
+            EntityPlayerMP player = (EntityPlayerMP)event.entity;
+            TPlayerStats stats = TPlayerStats.get(player);
+            NBTTagCompound tag = new NBTTagCompound();
+            stats.saveNBTData(tag);
+            ArmourGuiSyncPacket syncPacket = new ArmourGuiSyncPacket(tag);
+            TConstruct.packetPipeline.sendTo(syncPacket, player);
+        }
+        
     }
 }
