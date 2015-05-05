@@ -37,7 +37,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
         {
             generateNether(random, chunkX * 16, chunkZ * 16, world);
         }
-        else if (world.provider.terrainType != WorldType.FLAT)
+        else if (world.provider.terrainType != WorldType.FLAT || PHConstruct.genOresFlat)
         {
             generateSurface(random, chunkX * 16, chunkZ * 16, world);
             if (world.provider.dimensionId == 0)

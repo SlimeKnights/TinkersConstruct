@@ -190,6 +190,11 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
         if(master == null)
             return 0;
         SmelteryLogic smeltery = (SmelteryLogic) worldObj.getTileEntity(master.x, master.y, master.z);
+
+        // this can happen when the comparator checks its strength before the drain is getting updated on a broken master (smeltery controller)
+        if(smeltery == null)
+            return 0;
+
         if(smeltery.maxLiquid == 0)
             return 0;
         return 15 * smeltery.currentLiquid / smeltery.maxLiquid;

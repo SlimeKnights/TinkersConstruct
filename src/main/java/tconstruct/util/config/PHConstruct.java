@@ -184,6 +184,7 @@ public class PHConstruct
         slimeIslGenDim0Only = config.get("DimBlackList", "GenerateSlimeIslandInDim0Only", false, "True: slime islands wont generate in any ages other than overworld(if enabled); False: will generate in all non-blackisted ages").getBoolean(false);
         slimeIslGenDim0 = config.get("DimBlackList", "slimeIslGenDim0", true, "True: slime islands generate in overworld; False they do not generate").getBoolean(true);
         genIslandsFlat = config.get("DimBlacklist", "genIslandsFlat", false, "Generate slime islands in flat worlds").getBoolean(false);
+        genOresFlat = config.get("DimBlacklist", "genOresFlat", false, "Generate ores in flat worlds").getBoolean(false);
 
         // Experimental functionality
         throwableSmeltery = config.get("Experimental", "Items can be thrown into smelteries", true).getBoolean(true);
@@ -357,6 +358,7 @@ public class PHConstruct
     public static int[] cfgDimBlackList;
     public static boolean slimeIslGenDim0;
     public static boolean genIslandsFlat;
+    public static boolean genOresFlat;
 
     // Experimental functionality
     public static boolean throwableSmeltery;
