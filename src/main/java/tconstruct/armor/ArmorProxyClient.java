@@ -481,7 +481,7 @@ public class ArmorProxyClient extends ArmorProxyCommon {
 		float limbSwingMod = player.limbSwing - player.limbSwingAmount * (1.0F - partialTick);
 		//TPlayerStats stats = TPlayerStats.get(player);
 		ArmorExtended armor = ArmorProxyClient.armorExtended; //TODO: Do this for every player, not just the client
-		if (armor.inventory[1] != null) {
+		if (armor != null && armor.inventory[1] != null) {
 			Item item = armor.inventory[1].getItem();
 			ModelBiped model = item.getArmorModel(player, armor.inventory[1], 4);
 
@@ -494,7 +494,7 @@ public class ArmorProxyClient extends ArmorProxyCommon {
 			}
 		}
 
-		if (armor.inventory[3] != null) {
+		if (armor != null && armor.inventory[3] != null) {
 			Item item = armor.inventory[3].getItem();
 			ModelBiped model = item.getArmorModel(player, armor.inventory[3], 5);
 
