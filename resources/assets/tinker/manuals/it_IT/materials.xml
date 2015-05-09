@@ -1,0 +1,1120 @@
+<?xml version="1.0"?>
+
+<book>
+<page type="intro">
+<text>Materiali e tu
+Una guida per Attrezzi e Abilità
+
+Volume 2
+di Skyla</text>
+</page>
+
+<page type="contents">
+<text>Indice</text>
+<link>
+ <text>Attrezzi</text>
+ <icon>ironpick</icon>
+ <jump>2</jump>
+</link>
+<link>
+ <text>Materiali</text>
+ <icon>woodplanks</icon>
+ <jump>4</jump>
+</link>
+<link>
+ <text>Modificatori</text>
+ <icon>lavacrystal</icon>
+ <jump>4</jump>
+</link>
+</page>
+
+<page type="text">
+<text>Benvenuto alla prima edizione di Materiali e tu: Una guida per Attrezzi e Abilità. In queste pagine troverai tutti i dettagli degli attrezzi, modificatori e materiali conosciuti.
+
+Questa è una copia magica; si aggiornerà ogni volta che l'originale verrà modificato. Ricontrollala poi per scoprire informazioni nuovi sugli oggetti.</text>
+</page>
+
+<page type="toolpage">
+<title>Piccone</title>
+<text>Il Piccone è un attrezzo per estrarre base. È il modo più semplice per scavare roccia ed estrarre minerali.</text>
+<text>Classe: Attrezzo di precisione
+Efficace su: Pietra, roccia minerali e metalli.</text>
+<icon>pickicon</icon>
+<item>
+ <text>Testa di piccone</text>
+ <icon>pickhead</icon>
+</item>
+<item>
+ <text>Manico</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Legatura</text>
+ <icon>binding</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Pala</title>
+<text>La Pala è un attrezzo per scavare base. È il modo più semplice per smuovere la terra.</text>
+<text>Classe: Attrezzo di precisione
+Efficace su: Terra, sabbia, ghiaia e neve.</text>
+<icon>shovelicon</icon>
+<item>
+ <text>Testa di pala</text>
+ <icon>shovelhead</icon>
+</item>
+<item>
+ <text>Manico</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Accetta</title>
+<text>L'Accetta è un attrezzo per tagliare. È il modo più semplice per spaccare il legno.</text>
+<text>Classe: Attrezzo di precisione
+Efficace su: Legno, foglie e alberi.</text>
+<icon>axeicon</icon>
+<item>
+ <text>Testa d'ascia</text>
+ <icon>axehead</icon>
+</item>
+<item>
+ <text>Manico</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Zappa</title>
+<text>La zappa è un attrezzo agricolo versatile. È usato soprattutto per arare il terreno. Può anche essere usato come ascia o pala, ma non li rimpiazza.</text>
+<text>Classe: Multi-attrezzo
+Efficace su: Legno, terra e piante.</text>
+<icon>mattockicon</icon>
+<item>
+ <text>Testa d'ascia</text>
+ <icon>axehead</icon>
+</item>
+<item>
+ <text>Manico</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Testa di pala</text>
+ <icon>shovelhead</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Spadone</title>
+<text>Lo spadone è un'arma difensiva. È un favorito di molti armeggiatori ed è utile in molte situazioni.</text>
+<text>Clic destro: Blocco
+- Bloccando diminuisci a metà molti tipi di danno.
+
+Classe: Arma da mischia
+Efficace su ragnatele.</text>
+<icon>swordicon</icon>
+<item>
+ <text>Lama di spada</text>
+ <icon>swordblade</icon>
+</item>
+<item>
+ <text>Manico</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Guardia larga</text>
+ <icon>wideguard</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Spada lunga</title>
+<text>La spada lunga è un'arma offensiva. È usato caricando velocemente contro i nemici spezzando le loro linee.</text>
+<text>Clic destro: Affondo
+- Quando lasciato, ti lancia in avanti con enorme velocità.
+
+Abilità naturali:
+- Colpo caricato, fa il 50% in più danno e di contraccolpo quando corri.
+
+Classe: Arma da mischia
+Efficace su ragnatele.</text>
+<icon>longswordicon</icon>
+<item>
+ <text>Lama di spada</text>
+ <icon>swordblade</icon>
+</item>
+<item>
+ <text>Manico</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Guardia media</text>
+ <icon>handguard</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Stocco</title>
+<text>Lo stocco è un'arma speciale. Il gioco di spade danzante ti permette di entrare e uscire dagli scontri velocemente. Benché il danno sia basso, ha molte altre abilità interessanti.</text>
+<text>Clic destro: Marcia indietro
+- Fai un piccolo salto indietro
+
+Abilità naturali:
+- Colpo caricato, fa il 50% in più danno e di contraccolpo quando corri.
+- Penetrazione, ignora armatura e blocco.
+- Colpi rapidi, il nemico è colpito per meno tempo.
+
+Classe: Arma da mischia</text>
+<icon>rapiericon</icon>
+<item>
+ <text>Lama di spada</text>
+ <icon>swordblade</icon>
+</item>
+<item>
+ <text>Manico</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Guardia traversa</text>
+ <icon>crossbar</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Daga</title>
+<text>La daga è un'arma corta. È leggera e si può usare sia colpendo che lanciandolo.</text>
+<text>Clic destro: Lancia daga
+- Lancia l'arma per un attacco dalla distanza
+
+Classe: Arma da mischia/da lancio</text>
+<icon>daggerIcon</icon>
+<item>
+ <text>Lama di coltello</text>
+ <icon>knifeblade</icon>
+</item>
+<item>
+ <text>Manico</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Guardia traversa</text>
+ <icon>crossbar</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Padella</title>
+<text>La padella è un'arma pesante che usa il propio peso per confondere i nemici o puoi piazzarlo a terra per cuocere. È normale cacciare e cuocere maiali con la stessa padella.</text>
+<text>Clic destro: Blocco
+- Bloccando diminuisci a metà molti tipi di danno.
+
+Shift+clic destro: Piazza oggetti
+- La padella cuoce una grande quantità di cibo alla volta.
+
+Abilità naturali:
+- Pesante, provoca più contraccolpo e confonde i nemici.</text>
+<icon>frypanicon</icon>
+<item>
+ <text>Padella</text>
+ <icon>pan</icon>
+</item>
+<item>
+ <text>Manico</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Insegna da guerra</title>
+<text>L'insegna da guerra è un'arma tecnologicamente talmente avanzata da essere usata dai Zombi suini.</text>
+<text>Clic destro: Blocco
+- Bloccando diminuisci a metà molti tipi di danno.
+
+Shift+clic destro: Piazza oggetto
+- L'insegna può mostrare cinque linee di testo.
+
+Classe: Arma letale ridicola</text>
+<icon>battlesignicon</icon>
+<item>
+ <text>Testa di cartello</text>
+ <icon>board</icon>
+</item>
+<item>
+ <text>Manico</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Scalpello</title>
+<text>Lo scalpello è un attrezzo avanzato usato per scolpire forme in blocchi.</text>
+<text>Clic destro: Scalpella
+- Concia vari blocchi.
+Griglia di fabbricazione: Scalpello
+- Alcuni oggetti possono essere scalpellati soltanto nella griglia di fabbricazione.
+
+Classe: Attrezzo pratico</text>
+<icon>chiselicon</icon>
+<item>
+ <text>Testa di scalpello</text>
+ <icon>chiselhead</icon>
+</item>
+<item>
+ <text>Manico</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Martello</title>
+<text>Il martello è un attrezzo per scavare pesante che serve a scavare grandi aree. È anche efficace contro i non-morti.</text>
+<text>Abilità naturali: 
+- Area d'effetto, scava un'area di 3x3. La direzione dipende da quale lato è colpito.
+- Anatema II, fa 2-4 cuori danno in più ai non-morti.
+- Altissima Durabilità, questo attrezzo ha una durabilità molto alta poiché viene usurato molto.
+
+Classe: Attrezzo di scavo largo</text>
+<icon>hammericon</icon>
+<item>
+ <text>Testa di martello</text>
+ <icon>hammerhead</icon>
+</item>
+<item>
+ <text>Piastra larga</text>
+ <icon>largeplate</icon>
+</item>
+<item>
+ <text>Manico resistente</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>Piastra larga</text>
+ <icon>largeplate</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Ascia</title>
+<text>L'ascia è capace di abbattere interi alberi o tagliare grandi quantità di legno in poco tempo.</text>
+<text>Abilità naturali:
+Abbattere alberi
+- Abbatte alberi interi. Ha un'altezza massima di 30. Alberi sono definiti come Foglie sopra a Tronchi.
+Area d'effetto
+- Scava un'area di 3x3. Si comporta così se non trova un albero.
+
+Classe: Attrezzo di scavo largo</text>
+<icon>lumbericon</icon>
+<item>
+ <text>Testa d'ascia larga</text>
+ <icon>broadaxehead</icon>
+</item>
+<item>
+ <text>Piastra larga</text>
+ <icon>largeplate</icon>
+</item>
+<item>
+ <text>Manico resistente</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>Legatura resistente</text>
+ <icon>toughbinding</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Vanga</title>
+<text>La vanga è un attrezzo di scavo largo usato per ripulire grandi aree di terra, ghiaia o neve.</text>
+<text>Abilità naturali: 
+Area d'effetto
+- Scava un'area di 3x3. La direzione dipende da quale lato è colpito.
+
+Classe: Attrezzo di scavo largo</text>
+<icon>excavatoricon</icon>
+<item>
+ <text>Testa di vanga</text>
+ <icon>excavatorhead</icon>
+</item>
+<item>
+ <text>Piastra larga</text>
+ <icon>largeplate</icon>
+</item>
+<item>
+ <text>Manico resistente</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>Legatura resistente</text>
+ <icon>toughbinding</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Falce</title>
+<text>La falce è conosciuta per il suo ampio raggio d'azione. Può essere usata per mietare piante foglie ed è un'arma decente.</text>
+<text>Abilità naturali: 
+Area d'effett
+- Colpisce in un'area di 3x3x3.
+- Mieta in un'area di 3x3x3.
+
+Classe: Arma da mischia larga</text>
+<icon>scytheicon</icon>
+<item>
+ <text>Testa di falce</text>
+ <icon>scythehead</icon>
+</item>
+<item>
+ <text>Manico resistente</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>Legatura resistente</text>
+ <icon>toughbinding</icon>
+</item>
+<item>
+ <text>Manico resistente</text>
+ <icon>toughrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Mannaia</title>
+<text>La mannaia è un'arma difensiva pesante. La spada non è maneggevole, ma il peso dell'attrezzo distrugge i nemici.</text>
+<text>Clic destro: Blocco
+- Bloccando diminuisci a metà molti tipi di danno.
+
+Abilità naturali: 
+- Ghigliottina II, taglia la testa dei nemici. Puoi raccogliere la loro testa.
+- Pesante, l'attacco di base è maggiore a discapito della velocità con cui colpisci.
+
+Classe: Arma da mischia pesante</text>
+<icon>cleavericon</icon>
+<item>
+ <text>Lama di spada grande</text>
+ <icon>largeswordblade</icon>
+</item>
+<item>
+ <text>Piastra larga</text>
+ <icon>largeplate</icon>
+</item>
+<item>
+ <text>Manico resistente</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>Manico resistente</text>
+ <icon>toughrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Ascia da battaglia</title>
+<text>L'ascia da battaglia è un arma fa mischia offensiva che può anche abbattere dei alberi piccoli.</text>
+<text>Clic destro: TBD
+- Questa abilità è incompleta
+
+Abilità naturali: 
+- Area d'effetto, raccoglie i blocchi di legno in una torre di 1x9.
+- Botta, spinge i nemici più indietro del normale.
+
+Classe: Arma da mischia pesante</text>
+<icon>battleaxeicon</icon>
+<item>
+ <text>Testa d'ascia pesante</text>
+ <icon>broadaxehead</icon>
+</item>
+<item>
+ <text>Testa d'ascia pesante</text>
+ <icon>broadaxehead</icon>
+</item>
+<item>
+ <text>Manico resistente</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>Legatura resistente</text>
+ <icon>toughbinding</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Arco corto</title>
+<text>Vedi il libro Armi dell'armeggiatore.</text>
+<icon>shortbowIcon</icon>
+<item>
+ <text>Manico</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Corda d'arco</text>
+ <icon>bowstring</icon>
+</item>
+<item>
+ <text>Manico</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Frecce</title>
+<text>Vedi il libro Armi dell'armeggiatore.</text>
+<text>Classe: Munizioni</text>
+<icon>arrowIcon</icon>
+<item>
+ <text>Testa di freccia</text>
+ <icon>arrowhead</icon>
+</item>
+<item>
+ <text>Manico</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Impennaggio</text>
+ <icon>fletching</icon>
+</item>
+</page>
+
+<page type="sectionpage">
+<title>Abilità del materiale</title>
+<text>Alcuni materiali hanno delle abilità che migliorano gli attrezzi che compongono.
+
+- Rinforzato: ha un 10% a ogni livello di possibilità di non usare durabilità
+- Roccioso: L'attrezzo scava più velocemente con l'usura, ma provoca meno danni
+- Seghettato: L'attrezzo provoca più danni con l'usura, ma scava meno velocemente
+- Scrivibile: Un modificatore in più per pezzo
+- Gustoso: A volte compare del cibo</text>
+</page>
+
+<page type="materialstats">
+<title>Legno</title>
+<icon>woodaxe</icon>
+<text>Sembra crescere dappertutto.</text>
+<material>
+<toolmaterial>Wood</toolmaterial>
+ <main>woodplanks</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Pietra</title>
+<icon>stonepick</icon>
+<text>Uno dei materiali più comuni nel mondo.</text>
+<material>
+<toolmaterial>Stone</toolmaterial>
+ <main>stoneblock</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Ferro</title>
+<icon>ironpick</icon>
+<text>Fondamentale per gli attrezzi, può essere raffinato e processato.
+- Richiede una fonderia</text>
+<material>
+<toolmaterial>Iron</toolmaterial>
+ <main>ironingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Selce</title>
+<icon>flintshovel</icon>
+<text>Più duraturo della pietra. La prima scelta dei cavernicoli.</text>
+<material>
+<toolmaterial>Flint</toolmaterial>
+ <main>flint</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Cactus</title>
+<icon>cactussword</icon>
+<text>Una specie di legno trovata soltanto nel deserto .</text>
+<material>
+<toolmaterial>Cactus</toolmaterial>
+ <main>cactus</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Osso</title>
+<icon>bonerapier</icon>
+<text>Un materiale con molti usi, vivo o morto.</text>
+<material>
+<toolmaterial>Bone</toolmaterial>
+ <main>bone</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Ossidiana</title>
+<icon>bonefrypan</icon>
+<text>Molto duro, ma fragile quando lavorato.</text>
+<material>
+<toolmaterial>Obsidian</toolmaterial>
+ <main>obsidian</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Alumite</title>
+<icon>alumitepick</icon>
+<text>Una lega poco conosciuta. Sembra essere molto durevole.
+- Richiede una fonderia</text>
+<material>
+<toolmaterial>Alumite</toolmaterial>
+ <main>alumiteingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Inferrena</title>
+<icon>netherrackmattock</icon>
+<text>Di che è fatto questo??</text>
+<material>
+<toolmaterial>Netherrack</toolmaterial>
+ <main>netherrack</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Gelatina blu</title>
+<icon>blueslimebattlesign</icon>
+<text>Da del cibo è diventato molto forte.</text>
+<toolmaterial>BlueSlime</toolmaterial>
+<material>
+ <main>blueslimecrystal</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Gelatina verde</title>
+<icon>slimebattlesign</icon>
+<text>Morbido ed elastico, sembra resistere per sempre.</text>
+<toolmaterial>Slime</toolmaterial>
+<material>
+ <main>slimecrystal</main>
+</material>
+</page>
+
+<page type="crafting">
+<text>Fango viscido</text>
+<recipe>
+ <name>slimymud</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="furnace">
+<text>Cristallo di gelatina</text>
+<recipe>slimecrystal</recipe>
+</page>
+
+<page type="materialstats">
+<title>Carta</title>
+<icon>paperpick</icon>
+<text>È molto debole, ma può essere molto modificato.</text>
+<material>
+<toolmaterial>Paper</toolmaterial>
+ <main>paperstack</main>
+</material>
+</page>
+
+<page type="crafting">
+<text>Pila di carta</text>
+<recipe>
+ <name>paperstack</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="materialstats">
+<title>Cobalto</title>
+<icon>cobaltlongsword</icon>
+<text>Uno dei materiali degli inferi. È blu brillante.
+- Richiede una fonderia</text>
+<material>
+<toolmaterial>Cobalt</toolmaterial>
+ <main>cobaltingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Ardite</title>
+<icon>arditelongsword</icon>
+<text>Uno dei materiali degli inferi. Sembra che scavi più in fretta quando consumato.
+- Richiede una fonderia</text>
+<material>
+<toolmaterial>Ardite</toolmaterial>
+ <main>arditeingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Manyullyn</title>
+<icon>manyullynlongsword</icon>
+<text>La lega degli inferi. È più forte del diamante.
+- Richiede una fonderia</text>
+<material>
+<toolmaterial>Manyullyn</toolmaterial>
+ <main>manyullyningot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Rame</title>
+<icon>copperaxe</icon>
+<text>Un materiale comune trovato sotto terra.
+- Richiede una fonderia</text>
+<material>
+<toolmaterial>Copper</toolmaterial>
+ <main>copperingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Bronzo</title>
+<icon>bronzeaxe</icon>
+<text>Una lega comune. Migliore del ferro.
+- Richiede una fonderia</text>
+<material>
+<toolmaterial>Bronze</toolmaterial>
+ <main>bronzeingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Acciaio</title>
+<icon>steelsword</icon>
+<text>Una lega costituita da ferro. Non si sa come ottenerlo.
+- Richiede una fonderia</text>
+<material>
+<toolmaterial>Steel</toolmaterial>
+ <main>steelingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Ferro suino</title>
+<icon>pigironsword</icon>
+<toolmaterial>PigIron</toolmaterial>
+<text>Una lega costituita da ferro. Sembra essere fatto da ferro, smeraldo e sangue.
+- Richiede una fonderia</text>
+<material>
+<toolmaterial>Pigiron</toolmaterial>
+ <main>pigironingot</main>
+</material>
+</page>
+
+<page type="blank">
+</page>
+
+<page type="sectionpage">
+<title>Diamante</title>
+<text>Aggiungendo un diamante alla punta dell'attrezzo sembra renderlo più resistente.
+
+Effetti:
+- 500 durabilità extra
+- Livello di scavo aumentato al livello 3
+
+Tipo: Singolo
+Potenziabile: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>diamondmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Smeraldo</title>
+<text>Fissando uno smeraldo nel punto debole dell'attrezzo sembra renderlo più resistente.
+
+Effetti:
+- 50% durabilità in più
+- Livello di scavo aumentato al livello 2
+
+Tipo: Singolo
+Potenziabile: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>emeraldmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Velocità</title>
+<text>Aggiungendo pietrarossa a un'attrezzo sembra aumentare la velocità con cui scava.
+
+Effetti:
+- Ogni pila di pietrarossa aumenta la Velocità di scavo di 0.08.
+- A 50/50 l'aumento è di 4.0, rendendo un piccone di legno veloce come uno di ferro.
+- Inutile sulle armi
+
+Tipo: Uso multiplo
+Potenziabile: Si</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>redstonemod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Riparazione</title>
+<text>Attaccando del muschio a un attrezzo Alo infonde di vita. L'attrezzo sembra essere capace di rigenerarsi.
+
+Effetti:
+- L'attrezzo si ripara lentamente da solo
+- La luce del sole velocizza il processo
+
+Tipo: Singolo
+Potenziabile: Si</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>mossmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Auto fusione</title>
+<text>Sciogliendo un cristallo di lava sulla punta di un attrezzo gli da il potere di una fornace.
+
+Effetti:
+- Cuoce i blocchi quando li scava
+- Applica fuoco ai mob per on 3 secondi
+- Funziona con Fortuna
+- Non funziona con Vellutato
+
+Tipo: Uso multiplo
+Potenziabile: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>lavacrystalmod</recipe>
+</page>
+
+<page type="crafting">
+<text>Palla di muschio</text>
+<recipe>
+ <name>mossball</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Cristallo di lava</text>
+<recipe>
+ <name>lavacrystal</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Fortuna</title>
+<text>Incrostare un attrezzo di lapislazzuli è un regalo per gli dei della fortuna. Ti benediranno con grandi fortune e ricompense.
+
+Effetti:
+- aggiunge fortuna o saccheggio, dipendendo dal tipo di strumento
+- Aumenta il livello completando una modifica, ma può anche aumentare prima
+- A volte aggiunge fortuna extra all'attrezzo
+- Non funziona con Vellutato
+
+Tipo: Singolo
+Potenziabile: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>lapismod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Affilatezza</title>
+<text>Aggiungendo quarzo sul bordo di un attrezzo sembra affilarlo di più.
+
+Effetti:
+- Aumenta il danno inflitto
+- Ha meno effetto su strumenti con proprietà perforanti
+
+Tipo: Uso multiplo
+Potenziabile: Si</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>quartzmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Fiammeggiante</title>
+<text>L'aggiunta di polvere di Vampo da all'attrezzo un luce fiammeggiante.
+
+Effetti:
+- Da fuoco ai nemici
+- Ogni 5 polveri di vampo aggiunge un altro secondo di fiamme.
+
+Tipo: Uso multiplo
+Potenziabile: Si</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>blazemod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Necrotico</title>
+<text>Mettendo un osso di scheletro wither sull'attrezzo gli da poteri che assorbono vita.
+
+Effetti:
+- Cura il giocatore ogni volta che colpisce un mostro
+- Cura un cuore per osso
+
+Tipo: Singolo
+Potenziabile: Si</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>necroticmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Vellutato</title>
+<text>L'aggiunta di un'enorme sfera di ottone o oro e molta cordicella sembra dare all'attrezzo delle proprietà soffici come il velluto.
+
+Effetti:
+- Permette di raccogliere direttamente i blocchi
+- Falci modificati con Vellutato funzionano come delle cesoie su blocchi
+- Non funziona con Fortuna o Auto fusione
+
+Tipo: Singolo
+Potenziabile: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>silkymod</recipe>
+</page>
+
+<page type="crafting">
+<text> Stoffa vellutata </text>
+<recipe>
+ <name>silkycloth</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Gioiello vellutato</text>
+<recipe>
+ <name>silkyjewel</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Rinforzato</title>
+<text>Aggiungendo piastre di ossidiana sembra aiutare la resistenza di un attrezzo.
+
+Effetti:
+- Da l'abilità Rinforzato all'attrezzo
+- Aggiunge a livelli precedenti di Rinforzato
+
+Tipo: Singolo
+Potenziabile: Si</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>reinforcedmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Contraccolpo</title>
+<text>Attaccando un pistone all'attrezzo e attivandolo al momento giusto spinge indietr ancora di più i nemici.
+
+Effetti:
+- Aggiunge più contraccolpo all'attrezzo
+
+Tipo: Uso multiplo
+Potenziabile: Si</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>pistonmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Gigliottina</title>
+<text>Lavorando un attrezzo con una perla dell'Omega e dell'ossidiana da il curioso effetto di separare la testa dal corpo quando colpisce un nemico.
+
+Effetti:
+- Taglia la testa. Quindi i nemici perdono più facilmente la testa
+
+Tipo: Singolo
+Potenziabile: Si</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>beheadingmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Flagello degli artropodi</title>
+<text>Colpendo un ragno col suo occhio lo fa scappare dalla paura.
+
+Effetti:
+- Danneggia di più i ragni
+- 1-2 cuori per livello
+
+Tipo: Uso multiplo
+Potenziabile: Si</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>spidermod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Anatema</title>
+<text>Il potere della terra consacrata potenzia la tua arma, colpendo i nemici dall'alto.
+
+Effetti:
+- Danneggia di più i non morti
+- 1-2 cuori per livello
+
+Tipo: Uso multiplo
+Potenziabile: Si</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>smitemod</recipe>
+</page>
+
+<page type="crafting">
+<text>Terra del cimitero</text>
+<recipe>
+ <name>graveyardsoil</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="furnace">
+<text>Terra consacrata</text>
+<recipe>consecratedsoil</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Flux</title>
+<text>Aggiungendo un Capacitatore di flux o una Cella di energia da all'attrezzo energia. L'attrezzo funziona anche quando scarico. --------------------------------------
+
+Effetti:
+- Permette all'attrezzo di essere caricato con RF
+- Usa energia invece di durabilità
+- Ottenibile con Thermal Expansion
+- L'attrezzo deve avere in durabilità almeno un millesimo della carica delle batterie.
+
+Tipo: Singolo
+Potenziabile: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>fluxmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Flux</title>
+<text>Aggiungendo un Condensatore di flux o una Cella di energia da all'attrezzo energia. L'attrezzo funziona anche quando scarico. --------------------------------------
+
+Effetti:
+- Permette all'attrezzo di essere caricato con RF
+- Usa energia invece di durabilità
+- Ottenibile solo con Thermal Expansion
+
+Tipo: Singolo
+Potenziabile: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>fluxmod2</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Modificatori aggiuntivi</title>
+<text>Lavorando un attrezzo con un blocco d'oro e un diamante lo rende più malleabile, dando spazio a più modifiche.
+
+Effetti:
+- Da la possibilità di aggiungere un altro modificatore all'attrezzo
+
+Tipo: Singolo
+Potenziabile: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>tier1free</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Modificatori aggiuntivi</title>
+<text>Attacando una mela d'oro e un blocco di diamante a un attrezzo svela dei spazzi aggiuntivi per modifiche.
+
+Effetti:
+Da la possibilità di aggiungere un altro modificatore all'attrezzo
+
+Tipo: Singolo
+Potenziabile: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>tier1.5free</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Modificatori aggiuntivi</title>
+<text>Aggiungendo una Stella degli Inferi a un attrezzo ti permette di fare modifiche in parti dove prima era impossibile.
+
+Effetti:
+- Da la possibilità di aggiungere un altro modificatore all'attrezzo
+
+Tipo: Singolo
+Potenziabile: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>tier2free</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Modificatori aggiuntivi</title>
+<text>Per la gente più creativa o creatori di mappe, questo è fatto apposta per voi.
+
+Effetti:
+- Da la possibilità di aggiungere un altro modificatore all'attrezzo
+- Funzionerà soltanto sull'attrezzo selezionato.
+
+Tipo: Singolo
+Potenziabile: Si</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>creativefree</recipe>
+</page>
+
+</book>
