@@ -763,7 +763,7 @@ smeltery.brick.tooltip2=(Safe for decoration)
 smeltery.castingtable.tooltip=Basic Smeltery equipment
 smeltery.castingfaucet.tooltip=This Smeltery is leaking
 smeltery.castingbasin.tooltip=For the ambitious Smeltery
-#Dear translators, only translate this line if the joke is applicable in your language.
+#Dear translators, only translate these lines if the jokes are applicable in your language.
 grout.tooltip=I am Grout!
 frypankill.tooltip=This poor animal met its demise with a loud *bang*
 
@@ -875,22 +875,16 @@ material.cactus=Cactus
 material.cactus.ability=Jagged
 material.cobalt=Cobalt
 material.copper=Copper
-material.electrum=Electrum
 material.flint=Flint
-material.invar=Invar
 material.iron=Iron
-material.lead=Lead
 material.manyullyn=Manyullyn
 material.netherrack=Netherrack
 material.netherrack.ability=Stonebound
-material.nickel=Nickel
 material.obsidian=Obsidian
 material.paper=Paper
 material.paper.ability=Writable
 material.pigiron=Pig Iron
 material.pigiron.ability=Tasty
-material.platinum=Platinum
-material.silver=Silver
 material.slime=Slime
 material.slime.ability=Slimy
 material.steel=Steel
