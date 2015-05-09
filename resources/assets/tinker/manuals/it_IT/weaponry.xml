@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+
+<book>
+<page type="intro">
+<text>Armi dell'armeggiatore
+Porta il dolore ad un nuovo livello
+
+di Sheriff Bownana</text>
+</page>
+
+<page type="contents">
+<text>Indice</text>
+<link>
+ <text>Introduzione</text>
+ <icon>weaponrybook</icon>
+ <jump>3</jump>
+</link>
+<link>
+ <text>Armi da getto</text>
+ <icon>throwingknifeIcon</icon>
+ <jump>5</jump>
+</link>
+<link>
+ <text>Armi a proiettile</text>
+ <icon>shortbowIcon</icon>
+ <jump>7</jump>
+</link>
+<link>
+ <text>Proiettile</text>
+ <icon>arrowIcon</icon>
+ <jump>10</jump>
+</link>
+</page>
+
+<page type="text">
+<text>Perché camminare fino al tuo nemico per colpirlo, quando puoi farlo stando fermo?
+
+Un armeggiatore sa come costruire varie armi da lancio. Ci sono due grandi categorie: Armi da getto e armi che lanciano proiettili.
+
+Entrambi i tipi usano un sistema di munizioni. Invece di avere molti armi, questi armi da lancio  consistono in un oggetto che contiene molti dello stesso tipo. Perché portarti dietro  2 stack di frecce, quando ne puoi avere 200 in uno!
+Questi oggetti-proiettili non hanno durabilità ma usano una loro munizione per ogni proiettile lanciato/gettato.</text>
+</page>
+
+<page type="text">
+<text>Armi da getto:
+* Coltello da lancio
+* Shuriken
+* Giavellotto
+
+Armi a proiettile:
+* Arco corto
+* Arco lungo
+* Balestra
+
+Proiettile:
+* Frecce
+* Dardi</text>
+</page>
+
+<page type="text">
+<text>Armi da getto
+
+Coltello da lancio:
+Questi coltelli sono creati da una lama di coltello e un manico.
+Tieni premuto il tasto destro per mirare, e lascia andare per lanciare il coltello.
+I coltelli da lancio si impilano fino a un numero moderato, e provocano un danno moderato.
+
+Shuriken:
+Piccoli proiettili delicati costituiti da quattro parti, che sono lanciati dal polso delicate. Per questo non c'è bisogno di mirare e puoi lanciarli direttamente.
+Poiché sono così piccoli ne puoi portare parecchi alla volta, però non provocano parecchi danni.</text>
+</page>
+
+<page type="text">
+<text>
+
+Giavelloto:
+Questo è un ibrido tra un'arma da mischia e da lancio, consiste in una testa di freccia e due manici resistenti. Provoca danno moderato come arma da mischia, ma per usarlo al suo massimo potenziale va lanciato contro i tuoi nemici.
+Il lancio ha una piccola carica. Per le loro dimensioni ne puoi portare pochi alla volta, ma fanno molto male.</text>
+</page>
+
+<page type="text">
+<text>Armi a proiettile
+
+Arco corto:
+Metti insiemme due flettenti e una corda d'arco e ottieni un piccolo e utile arco. Ricordati che materiali inflessibili come la pietra riesce a malapena essere tirato indietro e non accelera i proiettili. Materiali organici sono ottimi per frecce veloci, mentre il metallo richiede molta forza per essere tirato indietro, ma da più forza.
+L'arco richiede delle frecce come munizioni.
+Modifiche offensive sui archi non ha effetto sulle frecce. Le solo modifiche che hanno effetto sul tiro sono la pietrarossa e il lapis.</text>
+</page>
+
+<page type="text">
+<text>
+
+Arco lungo:
+Il fratello maggiore. Questo arco è molto più grande, richiede più tempo per tirare indietro, però quanto vanno veloci quelle frecce. Per questo l'arco lungo è ottimo contro obiettivi armati. Inoltre per questo l'arco lungo è meno preciso con le frecce più leggere.
+L'arco lungo è fatto con due flettenti di arco, una corda di arco e una piastra
+grande.</text>
+</page>
+
+<page type="text">
+<text>
+
+Balestra:
+Quei fastidiosi metalli sono così duri nel tirarli indietro. Per fortuna un armeggiatore sa come aiutarsi da solo! La balestra ti permette di ricaricarla prima con un dardo e averlo pronto per un colpo istantaneo. Poiché è più potente, può sparare proiettili più pesanti, risultando in un danno maggiore e in una penetrazione. Per ricaricare la balestra clicca il tasto destro e aspetta la fine dell'animazione. Il processo di ricarica può essere interrotta con un clic destro + shift. La balestra puó essere scaricata allo stesso modo.</text>
+</page>
+
+<page type="text">
+<text>Proiettili
+I proiettili funzionano così: più sono pesanti, più danno viene inflitto attraverso l'armatura.
+
+Frecce:
+Il pane quotidiano di ogni arciere. Le frecce possono essere costruite con molti materiali diversi. Ha bisogno di una testa di freccia, un'asta di freccia e un impennaggio.
+La scelta dei materiali permette un equilibrio tra danno, numero di frecce, accuratezza e fragilità. Il materiale della testa è cruciale per il peso.
+Una freccia fragile può rompersi al contatto col terreno. Le frecce si romperanno sempre quando colpiscono un bersaglio, però l'abilità rinforzato da una possibilità che ciò non succeda..</text>
+</page>
+
+<page type="text">
+<text>
+
+Materiali validi per l'asta:
+* Stecca
+* Canna da zucchero
+* Osso
+* Verga di Vampo
+
+Materiali validi per l'impennaggio:
+* Foglie
+* Foglie gelatinose
+* Piume
+* Gelatina</text>
+</page>
+
+<page type="text">
+<text>
+
+Dardi:
+Fabbricare i darti è un processo delicato. Prima di tutto ti serve un nucleo sotto forma di manico.
+Porta il manico a una fonderia e mettila in un tavolo della fonderia. Versaci sopra del metallo per coprire la punta con un materiale più duro.
+Dopo questo processo aggiungi un impennaggio ed sono pronti per essere usati.
+
+I dardi, poiché consistono in un nucleo e una punta più dura, sono più pesanti delle normali frecce, rendendoli perfetti nel combattere nemici armati.</text>
+</page>
+
+</book>
