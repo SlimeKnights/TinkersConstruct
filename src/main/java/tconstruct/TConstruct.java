@@ -74,6 +74,7 @@ import java.util.Random;
                 "after:MineFactoryReloaded@[1.7.10R2.8.0RC7,);" +
                 "after:ThermalExpansion@[1.7.10R4.0.0RC2,);" +
                 "after:ThermalFoundation@[1.7.10R1.0.0RC3,);" +
+                "after:armourersWorkshop@[1.7.10-0.28.0,);" +
                 "after:CoFHAPI|energy;" +
                 "after:CoFHCore;" +
                 "after:battlegear2;" +
