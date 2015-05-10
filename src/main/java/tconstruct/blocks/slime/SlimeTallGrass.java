@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.*;
 import net.minecraftforge.common.*;
 import tconstruct.library.TConstructRegistry;
@@ -33,10 +34,7 @@ public class SlimeTallGrass extends BlockBush implements IShearable
      */
     public IIcon getIcon (int side, int meta)
     {
-        /*
-         * if (meta >= this.iconArray.length) { meta = 0; }
-         */
-
+        meta = MathHelper.clamp_int(meta, 0, iconArray.length-1);
         return this.iconArray[meta];
     }
 
