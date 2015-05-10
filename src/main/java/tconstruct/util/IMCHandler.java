@@ -1,6 +1,7 @@
 package tconstruct.util;
 
 import cofh.api.energy.IEnergyContainerItem;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import net.minecraft.block.Block;
@@ -13,6 +14,7 @@ import net.minecraftforge.fluids.FluidStack;
 import org.apache.logging.log4j.Level;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.crafting.FluidType;
 import tconstruct.library.crafting.PatternBuilder;
@@ -73,6 +75,10 @@ public final class IMCHandler {
                         TConstructRegistry.addArrowMaterial(id, mass, breakchance);
                         TConstruct.logger.debug("IMC: Added Projectile stats for material " + mat.materialName);
                     }
+
+                    // add additional render mapping so resource packs or the mods themselves can have custom textures for the tools
+                    if(FMLCommonHandler.instance().getSide().isClient())
+                        TConstructClientRegistry.addMaterialRenderMapping(id, "tinker", mat.name().toLowerCase(), true);
                 }
             }
             else if(type.equals("addPartBuilderMaterial"))
