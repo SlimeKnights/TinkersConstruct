@@ -6,10 +6,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.RecipeSorter;
+import tconstruct.TConstruct;
 import tconstruct.library.tools.ToolCore;
 
 public class ShapelessToolRecipe extends ShapelessRecipes
 {
+    static {
+        RecipeSorter.register(TConstruct.modID + ":" + "toolrecipe", ShapelessToolRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+    }
 
     public ShapelessToolRecipe(ItemStack par1ItemStack, List par2List)
     {
