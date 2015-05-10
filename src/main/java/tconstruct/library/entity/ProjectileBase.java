@@ -605,6 +605,11 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
         this.returnStack = ItemStack.loadItemStackFromNBT(tags.getCompoundTag("Throwable"));
         onGround = tags.getByte("onGround") == 1;
         //doNotRetrieve = tags.getBoolean("Retrieval");
+
+        // ensure that nothing can crash because something went wrong in the world...
+        if(this.returnStack == null || !(this.returnStack.getItem() instanceof ToolCore)) {
+            this.setDead();
+        }
     }
 
     @Override
