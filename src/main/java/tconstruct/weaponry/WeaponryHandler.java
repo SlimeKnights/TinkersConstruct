@@ -8,8 +8,10 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.crafting.PatternBuilder;
+import tconstruct.library.entity.ProjectileBase;
 import tconstruct.library.event.PartBuilderEvent;
 import tconstruct.library.event.SmelteryCastEvent;
 import tconstruct.library.util.IToolPart;
@@ -413,6 +415,17 @@ public class WeaponryHandler {
             weapon.setTagCompound(event.toolTag);
             event.overrideResult(weapon);
             event.setResult(Event.Result.ALLOW);
+        }
+    }
+
+    @SubscribeEvent
+    public void entityJoin(EntityJoinWorldEvent event) {
+        // This prevents invalid projectiles to be created
+        // This can happen because of ID remaps.
+        if(event.entity instanceof ProjectileBase) {
+            ProjectileBase projectile = (ProjectileBase) event.entity;
+            if(projectile.returnStack == null || !(projectile.returnStack.getItem() instanceof ToolCore))
+                event.setCanceled(true);
         }
     }
 }
