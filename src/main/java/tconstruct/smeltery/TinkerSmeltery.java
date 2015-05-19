@@ -204,7 +204,7 @@ public class TinkerSmeltery
         TinkerSmeltery.moltenBronzeFluid = registerFluid("bronze");
         TinkerSmeltery.moltenBronze = TinkerSmeltery.moltenBronzeFluid.getBlock();
 
-        TinkerSmeltery.moltenAlubrassFluid = registerFluid("aluminiumbrass", "aluminumbrass.molten", "fluid.molten.alubrass", "liquid_alubrass", 3000, 6000, 1300, Material.lava);
+        TinkerSmeltery.moltenAlubrassFluid = registerFluid("aluminumbrass", "aluminumbrass.molten", "fluid.molten.alubrass", "liquid_alubrass", 3000, 6000, 1300, Material.lava);
         TinkerSmeltery.moltenAlubrass = TinkerSmeltery.moltenAlubrassFluid.getBlock();
 
         TinkerSmeltery.moltenManyullynFluid = registerFluid("manyullyn");
