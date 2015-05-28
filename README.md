@@ -1,3 +1,7 @@
+#TINKERS' CONSTRUCT IS UNDERGOING A REWRITE
+The current 1.7.10 version of Tinkers' Construct is the final one for this iteration. Only major bugs will be fixed.
+The rework is aimed at 1.8 and has no time-plan. It'll be ready when it's done.
+
 #[Tinkers' Construct](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2218638-tinkers-construct)
 
 Modify all the things, then do it again!   
