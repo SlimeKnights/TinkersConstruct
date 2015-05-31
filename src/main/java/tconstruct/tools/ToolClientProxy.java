@@ -11,8 +11,8 @@ public class ToolClientProxy extends ClientProxy {
     registerMultiModel(pickaxe);
 
     // parts
-    registerMultiModel(pickHead);
-    registerMultiModel(binding);
-    registerMultiModel(toolrod);
+    registerMaterialItemModel(pickHead);
+    registerMaterialItemModel(binding);
+    registerMaterialItemModel(toolrod);
   }
 }

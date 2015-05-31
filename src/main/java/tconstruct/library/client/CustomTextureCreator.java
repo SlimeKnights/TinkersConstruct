@@ -32,10 +32,14 @@ public class CustomTextureCreator {
   /**
    * Holds all sprites built from the base-texture used as the key.
    */
-  public static Map<ResourceLocation, Map<String, TextureAtlasSprite>> sprites = Maps.newHashMap();
+  public static Map<String, Map<String, TextureAtlasSprite>> sprites = Maps.newHashMap();
 
   public static void registerTextures(Collection<ResourceLocation> textures) {
     baseTextures.addAll(textures);
+  }
+
+  public static void registerTexture(ResourceLocation texture) {
+    baseTextures.add(texture);
   }
 
   @SubscribeEvent
@@ -67,7 +71,7 @@ public class CustomTextureCreator {
         builtSprites.put(material.identifier, sprite);
       }
 
-      sprites.put(baseTexture, builtSprites);
+      sprites.put(baseTexture.toString(), builtSprites);
     }
   }
 
