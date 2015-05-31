@@ -1,4 +1,4 @@
-package tconstruct.library.client;
+package tconstruct.library.client.model;
 
 import com.google.common.collect.Lists;
 
@@ -20,18 +20,21 @@ import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
 import tconstruct.tools.TinkerMaterials;
 
-public class BakedTinkerToolModel extends IFlexibleBakedModel.Wrapper implements ISmartItemModel {
+public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmartItemModel {
+
   protected BakedMaterialModel[] parts;
   protected BakedMaterialModel[] brokenParts;
 
   /**
-   * The length of brokenParts has to match the length of parts. If a part does not have a broken texture, the entry in the array simply is null.
+   * The length of brokenParts has to match the length of parts. If a part does not have a broken texture, the entry in
+   * the array simply is null.
    */
-  public BakedTinkerToolModel(IBakedModel parent,  BakedMaterialModel[] parts, BakedMaterialModel[] brokenParts) {
+  public BakedToolModel(IBakedModel parent, BakedMaterialModel[] parts, BakedMaterialModel[] brokenParts) {
     super(parent, Attributes.DEFAULT_BAKED_FORMAT);
 
-    if(parts.length != brokenParts.length)
+    if (parts.length != brokenParts.length) {
       throw new RuntimeException("TinkerModel: Length of Parts and BrokenParts Array has to match");
+    }
 
     this.parts = parts;
     this.brokenParts = brokenParts;
@@ -58,30 +61,34 @@ public class BakedTinkerToolModel extends IFlexibleBakedModel.Wrapper implements
 
     boolean broken = tag.getBoolean(Tags.BROKEN);
 
-    for(int i = 0; i < parts.length; i++) {
+    for (int i = 0; i < parts.length; i++) {
       String id = tag.getString(String.valueOf(i));
       int meta = TinkerRegistry.getMaterial(id).metadata;
       IBakedModel partModel;
-      if(broken && brokenParts[i] != null) {
+      if (broken && brokenParts[i] != null) {
         partModel = brokenParts[i].getModelByMetadata(meta);
-      }
-      else {
+      } else {
         partModel = parts[i].getModelByMetadata(meta);
       }
 
       quads.addAll(partModel.getGeneralQuads()); // todo: use an efficient collection for this. Preferably a List-List
     }
 
-    SimpleBakedModel model = new SimpleBakedModel(quads, empty_face_quads, this.isAmbientOcclusion(), this.isGui3d(), this.getTexture(), this.getItemCameraTransforms());
+    SimpleBakedModel
+        model =
+        new SimpleBakedModel(quads, empty_face_quads, this.isAmbientOcclusion(), this.isGui3d(), this.getTexture(),
+                             this.getItemCameraTransforms());
     return model;
   }
 
   private static final List<List<BakedQuad>> empty_face_quads;
   private static final List<BakedQuad> empty_list;
+
   static {
     empty_list = Collections.emptyList();
     empty_face_quads = Lists.newArrayList();
-    for(int i = 0; i < 6; i++)
+    for (int i = 0; i < 6; i++) {
       empty_face_quads.add(empty_list);
+    }
   }
 }

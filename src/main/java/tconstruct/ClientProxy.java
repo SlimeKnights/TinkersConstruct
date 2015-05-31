@@ -12,11 +12,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameData;
 
 import tconstruct.library.client.CustomTextureCreator;
-import tconstruct.library.client.MaterialModelLoader;
-import tconstruct.library.client.MultiModelLoader;
+import tconstruct.library.client.model.MaterialModelLoader;
+import tconstruct.library.client.model.ToolModelLoader;
 
 public abstract class ClientProxy extends CommonProxy {
-  protected static final MultiModelLoader loader = new MultiModelLoader();
+  protected static final ToolModelLoader loader = new ToolModelLoader();
   protected static final MaterialModelLoader materialLoader = new MaterialModelLoader();
 
   static void initClient() {
@@ -76,13 +76,13 @@ public abstract class ClientProxy extends CommonProxy {
     if(itemLocation == null)
       return null;
     return registerToolModel(item, new ResourceLocation(itemLocation.getResourceDomain(),
-                                                        itemLocation.getResourcePath() + MultiModelLoader.TOOLMODEL_EXTENSION));
+                                                        itemLocation.getResourcePath() + ToolModelLoader.EXTENSION));
   }
 
   protected ResourceLocation registerToolModel(Item item, final ResourceLocation location) {
-    if(!location.getResourcePath().endsWith(MultiModelLoader.TOOLMODEL_EXTENSION)) {
+    if(!location.getResourcePath().endsWith(ToolModelLoader.EXTENSION)) {
       TConstruct.log.error("The material-model " + location.toString() + " does not end with '"
-                           + MultiModelLoader.TOOLMODEL_EXTENSION
+                           + ToolModelLoader.EXTENSION
                            + "' and will therefore not be loaded by the custom model loader!");
     }
 

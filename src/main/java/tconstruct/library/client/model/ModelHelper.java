@@ -1,4 +1,4 @@
-package tconstruct.library.client;
+package tconstruct.library.client.model;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Function;
@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.block.model.ItemModelGenerator;
 import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.IResource;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.client.resources.model.ModelRotation;
 import net.minecraft.client.resources.model.SimpleBakedModel;
 import net.minecraft.util.EnumFacing;
@@ -25,21 +24,25 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 public class ModelHelper {
+
   // copy of the one in the ModelBakery
   public static final ModelBlock DEFAULT_PARENT;
 
   private static final ItemModelGenerator generator = new ItemModelGenerator();
   private static final FaceBakery faceBakery = new FaceBakery();
 
-  /** Loads a model from the given location
-   * @param location  Usually something like "modid:models/mySuperAwesomeModel". Note that it contains the path but not the file extension.
+  /**
+   * Loads a model from the given location
+   *
+   * @param location Usually something like "modid:models/mySuperAwesomeModel". Note that it contains the path but not
+   *                 the file extension.
    * @return The modelblock deserialized from the data.
-   * @throws IOException
    */
   public static ModelBlock loadModelBlock(ResourceLocation location) throws IOException {
     IResource
         iresource =
-        Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json"));
+        Minecraft.getMinecraft().getResourceManager()
+            .getResource(new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json"));
     Reader reader = new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8);
 
     return ModelBlock.deserialize(reader);
@@ -49,7 +52,8 @@ public class ModelHelper {
     return new ResourceLocation(location.getResourceDomain(), "models/" + location.getResourcePath() + ".json");
   }
 
-  public static IFlexibleBakedModel bakeModelFromModelBlock(ModelBlock model, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+  public static IFlexibleBakedModel bakeModelFromModelBlock(ModelBlock model,
+                                                            Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
     ModelBlock mb = generator.makeItemModel(Minecraft.getMinecraft().getTextureMapBlocks(), model);
     SimpleBakedModel.Builder builder = (new SimpleBakedModel.Builder(mb));
     TextureAtlasSprite sprite = bakedTextureGetter.apply(new ResourceLocation(mb.resolveTextureName("layer0")));
@@ -57,9 +61,9 @@ public class ModelHelper {
 
     for (Object o : mb.getElements()) {
       BlockPart blockpart = (BlockPart) o;
-      for(Object o2 : blockpart.mapFaces.keySet()) {
-        EnumFacing enumfacing = (EnumFacing)o2;
-        BlockPartFace blockpartface = (BlockPartFace)blockpart.mapFaces.get(enumfacing);
+      for (Object o2 : blockpart.mapFaces.keySet()) {
+        EnumFacing enumfacing = (EnumFacing) o2;
+        BlockPartFace blockpartface = (BlockPartFace) blockpart.mapFaces.get(enumfacing);
         builder.addGeneralQuad(makeBakedQuad(blockpart, blockpartface, sprite, enumfacing, ModelRotation.X0_Y0, false));
       }
     }
@@ -73,12 +77,14 @@ public class ModelHelper {
     return new IFlexibleBakedModel.Wrapper(builder.makeBakedModel(), Attributes.DEFAULT_BAKED_FORMAT);
   }
 
-  public static BakedQuad makeBakedQuad(BlockPart p_177589_1_, BlockPartFace p_177589_2_, TextureAtlasSprite p_177589_3_, EnumFacing p_177589_4_, net.minecraftforge.client.model.ITransformation p_177589_5_, boolean p_177589_6_)
-  {
-    return faceBakery.makeBakedQuad(p_177589_1_.positionFrom, p_177589_1_.positionTo, p_177589_2_, p_177589_3_, p_177589_4_, p_177589_5_, p_177589_1_.partRotation, p_177589_6_, p_177589_1_.shade);
+  public static BakedQuad makeBakedQuad(BlockPart p_177589_1_, BlockPartFace p_177589_2_,
+                                        TextureAtlasSprite p_177589_3_, EnumFacing p_177589_4_,
+                                        net.minecraftforge.client.model.ITransformation p_177589_5_,
+                                        boolean p_177589_6_) {
+    return faceBakery
+        .makeBakedQuad(p_177589_1_.positionFrom, p_177589_1_.positionTo, p_177589_2_, p_177589_3_, p_177589_4_,
+                       p_177589_5_, p_177589_1_.partRotation, p_177589_6_, p_177589_1_.shade);
   }
-
-
 
 
   static String getPartModelJSON(String texture) {
@@ -88,7 +94,7 @@ public class ModelHelper {
                          + "        \"layer0\": \"%s\""
                          + "    }"
                          + "}"
-    ,texture);
+        , texture);
   }
 
   static {
