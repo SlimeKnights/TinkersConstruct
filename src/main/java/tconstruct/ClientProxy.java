@@ -1,12 +1,12 @@
 package tconstruct;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameData;
@@ -18,11 +18,10 @@ import tconstruct.library.client.MultiModelLoader;
 public abstract class ClientProxy extends CommonProxy {
   protected static final MultiModelLoader loader = new MultiModelLoader();
   protected static final MaterialModelLoader materialLoader = new MaterialModelLoader();
-  protected static final String GENERATED_PREFIX = "_generated.";
 
   static void initClient() {
     // i wonder if this is OK :D
-    //ModelLoaderRegistry.registerLoader(loader);
+    ModelLoaderRegistry.registerLoader(loader);
     ModelLoaderRegistry.registerLoader(materialLoader);
     MinecraftForge.EVENT_BUS.register(new CustomTextureCreator());
   }
@@ -52,9 +51,9 @@ public abstract class ClientProxy extends CommonProxy {
 
     // and plop it in.
     // This here is needed for the model to be found ingame when the game looks for a model to render an Itemstack (Item:Meta)
-    Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, meta,
-                                                                           new ModelResourceLocation(location,
-                                                                                                     "inventory"));
+    ModelLoader.setCustomModelResourceLocation(item, meta,
+                                               new ModelResourceLocation(location,
+                                                                         "inventory"));
 
     // We have to readd the default variant if we have custom variants, since it wont be added otherwise
     if(customVariants.length > 0)
@@ -72,42 +71,22 @@ public abstract class ClientProxy extends CommonProxy {
    * Registers a multimodel that should be loaded via our multimodel loader
    * The model-string is obtained through the game registry.
    */
-  protected ResourceLocation registerMultiModel(Item item, String... customVariants) {
-    ResourceLocation original = getItemLocation(item);
-
-    if(original == null)
+  protected ResourceLocation registerToolModel(Item item) {
+    ResourceLocation itemLocation = getItemLocation(item);
+    if(itemLocation == null)
       return null;
+    return registerToolModel(item, new ResourceLocation(itemLocation.getResourceDomain(),
+                                                        itemLocation.getResourcePath() + MultiModelLoader.TOOLMODEL_EXTENSION));
+  }
 
-    final ResourceLocation location = new ResourceLocation(original.getResourceDomain(), GENERATED_PREFIX + original.getResourcePath());
-    ResourceLocation res = new ResourceLocation(location.getResourceDomain(), "models/item/" + location.getResourcePath());
-
-
-    loader.addModel(original, res);
-
-    // and plop it in.
-    // This here is needed for the model to be found ingame when the game looks for a model to render an Itemstack
-    // we use an ItemMeshDefinition because it allows us to do it no matter what metadata we use
-    Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, new ItemMeshDefinition() {
-      @Override
-      public ModelResourceLocation getModelLocation(ItemStack stack) {
-        return new ModelResourceLocation(location, "inventory");
-      }
-    });
-
-    // needed so that the textures of the layers are available
-    ModelBakery.addVariantName(item, original.toString());
-    // We have to readd the default variant if we have custom variants, since it wont be added otherwise
-    ModelBakery.addVariantName(item, location.toString());
-
-    for(String customVariant : customVariants) {
-      String custom = location.getResourceDomain() + ":" + GENERATED_PREFIX + customVariant;
-      ModelBakery.addVariantName(item, custom);
-
-      custom = location.getResourceDomain() + ":" + customVariant;
-      ModelBakery.addVariantName(item, custom);
+  protected ResourceLocation registerToolModel(Item item, final ResourceLocation location) {
+    if(!location.getResourcePath().endsWith(MultiModelLoader.TOOLMODEL_EXTENSION)) {
+      TConstruct.log.error("The material-model " + location.toString() + " does not end with '"
+                           + MultiModelLoader.TOOLMODEL_EXTENSION
+                           + "' and will therefore not be loaded by the custom model loader!");
     }
 
-    return location;
+    return registerIt(item, location);
   }
 
   public ResourceLocation registerMaterialItemModel(Item item) {
@@ -124,10 +103,14 @@ public abstract class ClientProxy extends CommonProxy {
                            + "' and will therefore not be loaded by the custom model loader!");
     }
 
+    return registerIt(item, location);
+  }
+
+  private static ResourceLocation registerIt(Item item, final ResourceLocation location) {
     // plop it in.
     // This here is needed for the model to be found ingame when the game looks for a model to render an Itemstack
     // we use an ItemMeshDefinition because it allows us to do it no matter what metadata we use
-    Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, new ItemMeshDefinition() {
+    ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {
       @Override
       public ModelResourceLocation getModelLocation(ItemStack stack) {
         return new ModelResourceLocation(location, "inventory");

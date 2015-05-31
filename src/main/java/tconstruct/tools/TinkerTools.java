@@ -45,6 +45,7 @@ public class TinkerTools extends TinkerPulse {
     binding = registerItem(new ToolPart(), "Binding");
 
     pickaxe = registerItem(new Item(), "Pickaxe");
+    proxy.registerModels();
   }
 
   @Handler
@@ -102,7 +103,7 @@ public class TinkerTools extends TinkerPulse {
   @Handler
   public void postInit(FMLPostInitializationEvent event) {
     //register models
-    proxy.registerModels();
+
   }
 
   private void registerTools() {

@@ -123,6 +123,9 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       NBTTagCompound toolTag = buildTag(materials.toArray(new Material[materials.size()]));
       // update the tag
       nbt.setTag(Tags.TOOL_BASE, toolTag);
+
+      // todo: ensure that traits loaded from NBT are mapped to the same string instance as the trait identifier so == lookup matches
+
     }
 
     // return value shoudln't matter since it's never checked

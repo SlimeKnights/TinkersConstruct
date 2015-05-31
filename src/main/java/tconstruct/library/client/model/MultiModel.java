@@ -27,31 +27,30 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import tconstruct.library.client.BakedTinkerModel;
+import tconstruct.library.client.BakedMaterialModel;
+import tconstruct.library.client.BakedTinkerToolModel;
 import tconstruct.library.client.CustomTextureCreator;
+import tconstruct.library.client.ModelHelper;
 
 public class MultiModel implements IModel {
   private static final FaceBakery faceBakery = new FaceBakery();
 
   // the modelblock is needed for the layer information
   private ModelBlock modelBlock;
-  // the original model is required for the vertex data
-  private final IModel model;
 
-  private final List<ModelBlock> partBlocks;
+  private final List<MaterialModel> partBlocks;
+  private final List<MaterialModel> brokenPartBlocks;
 
-  public MultiModel(ModelBlock modelBlock, IModel model, List<ModelBlock> parts) {
+  public MultiModel(ModelBlock modelBlock, List<MaterialModel> parts, List<MaterialModel> brokenPartBlocks) {
     this.modelBlock = modelBlock;
-    this.model = model;
     this.partBlocks = parts;
+    this.brokenPartBlocks = brokenPartBlocks;
   }
 
   @Override
   public Collection<ResourceLocation> getDependencies() {
     if(modelBlock.getParentLocation() == null || modelBlock.getParentLocation().getResourcePath().startsWith("builtin/")) return Collections
         .emptyList();
-
-
 
     return Collections.singletonList(modelBlock.getParentLocation());
   }
@@ -84,76 +83,27 @@ public class MultiModel implements IModel {
   @Override
   public IFlexibleBakedModel bake(IModelState state, VertexFormat format,
                                   Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-    ItemModelGenerator generator = new ItemModelGenerator();
 
-    ModelBlock itemModelBlock = generator.makeItemModel(Minecraft.getMinecraft().getTextureMapBlocks(), modelBlock);
+    IFlexibleBakedModel base = ModelHelper.bakeModelFromModelBlock(modelBlock, bakedTextureGetter);
 
-    // we need the original model for the processed vertex information
-    IFlexibleBakedModel original = model.bake(state, Attributes.DEFAULT_BAKED_FORMAT, bakedTextureGetter);
-
-    IFlexibleBakedModel[] partModels = new IFlexibleBakedModel[partBlocks.size()];
-    int i = 0;
+    BakedMaterialModel[] partModels = new BakedMaterialModel[partBlocks.size()];
+    BakedMaterialModel[] brokenPartModels = new BakedMaterialModel[partBlocks.size()]; // has to be same size
 
     // we build simple models for the parts, so we can extract the UV information AND have depth
-    for(ModelBlock mb : partBlocks) {
-      mb = generator.makeItemModel(Minecraft.getMinecraft().getTextureMapBlocks(), mb);
-      SimpleBakedModel.Builder builder = (new SimpleBakedModel.Builder(mb));
-      TextureAtlasSprite sprite = bakedTextureGetter.apply(new ResourceLocation(mb.resolveTextureName("layer0")));
-      builder.setTexture(sprite);
-
-      for (Object o : mb.getElements()) {
-        BlockPart blockpart = (BlockPart) o;
-        for(Object o2 : blockpart.mapFaces.keySet()) {
-          EnumFacing enumfacing = (EnumFacing)o2;
-          BlockPartFace blockpartface = (BlockPartFace)blockpart.mapFaces.get(enumfacing);
-          builder.addGeneralQuad(this.makeBakedQuad(blockpart, blockpartface, sprite, enumfacing, ModelRotation.X0_Y0, false));
-        }
-      }
-
-      partModels[i++] = new IFlexibleBakedModel.Wrapper(builder.makeBakedModel(), Attributes.DEFAULT_BAKED_FORMAT);
+    for(int i = 0; i < partBlocks.size(); i++) {
+      partModels[i] = partBlocks.get(i).bakeIt(state, format, bakedTextureGetter);
+    }
+    for(int i = 0; i < brokenPartBlocks.size(); i++) {
+      if(brokenPartBlocks.get(i) != null)
+        brokenPartModels[i] = brokenPartBlocks.get(i).bakeIt(state, format, bakedTextureGetter);
     }
 
-    ItemCameraTransforms transforms = new ItemCameraTransforms(itemModelBlock.getThirdPersonTransform(), itemModelBlock.getFirstPersonTransform(), itemModelBlock.getHeadTransform(), itemModelBlock.getInGuiTransform());
-    BakedTinkerModel bakedModel = new BakedTinkerModel(transforms, original, partModels);
-
-    // add all its textures
-    String[] layers = getLayers();
-    for(int j = 0; j < layers.length; j++) {
-      String r = modelBlock.resolveTextureName(layers[j]);
-      ResourceLocation loc = new ResourceLocation(r);
-      if(!CustomTextureCreator.sprites.containsKey(loc))
-        continue;
-
-      // get all the material + part -> texture mappings
-      for(Map.Entry<String, TextureAtlasSprite> entry : CustomTextureCreator.sprites.get(loc).entrySet()) {
-        bakedModel.addTexture(entry.getKey(), j, entry.getValue());
-      }
-    }
-
-    layers = getBrokenLayers();
-    for(int j = 0; j < layers.length; j++) {
-      String r = modelBlock.resolveTextureName(layers[j]);
-      ResourceLocation loc = new ResourceLocation(r);
-      if(!CustomTextureCreator.sprites.containsKey(loc))
-        continue;
-
-      // get all the material + part -> texture mappings
-      for(Map.Entry<String, TextureAtlasSprite> entry : CustomTextureCreator.sprites.get(loc).entrySet()) {
-        bakedModel.addBrokenTexture(entry.getKey(), j, entry.getValue());
-      }
-    }
-
-    return bakedModel;
+    return new BakedTinkerToolModel(base, partModels, brokenPartModels);
   }
 
   @Override
   public IModelState getDefaultState() {
     return ModelRotation.X0_Y0;
-  }
-
-  private BakedQuad makeBakedQuad(BlockPart p_177589_1_, BlockPartFace p_177589_2_, TextureAtlasSprite p_177589_3_, EnumFacing p_177589_4_, net.minecraftforge.client.model.ITransformation p_177589_5_, boolean p_177589_6_)
-  {
-    return faceBakery.makeBakedQuad(p_177589_1_.positionFrom, p_177589_1_.positionTo, p_177589_2_, p_177589_3_, p_177589_4_, p_177589_5_, p_177589_1_.partRotation, p_177589_6_, p_177589_1_.shade);
   }
 
   public static String[] getLayers() {

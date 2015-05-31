@@ -74,6 +74,11 @@ public class MaterialModel implements IModel {
   @Override
   public IFlexibleBakedModel bake(IModelState state, VertexFormat format,
                                   Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+    return bakeIt(state, format, bakedTextureGetter);
+  }
+
+  public BakedMaterialModel bakeIt(IModelState state, VertexFormat format,
+                                  Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
     // obtain the base model with the base texture
     IFlexibleBakedModel base = ModelHelper.bakeModelFromModelBlock(model, bakedTextureGetter);
 
