@@ -54,9 +54,15 @@ public class ModelHelper {
 
   public static IFlexibleBakedModel bakeModelFromModelBlock(ModelBlock model,
                                                             Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+    TextureAtlasSprite sprite = bakedTextureGetter.apply(new ResourceLocation(model.resolveTextureName("layer0")));
+    return bakeModelFromModelBlock(model, sprite);
+  }
+
+  public static IFlexibleBakedModel bakeModelFromModelBlock(ModelBlock model,
+                                                            TextureAtlasSprite sprite) {
     ModelBlock mb = generator.makeItemModel(Minecraft.getMinecraft().getTextureMapBlocks(), model);
     SimpleBakedModel.Builder builder = (new SimpleBakedModel.Builder(mb));
-    TextureAtlasSprite sprite = bakedTextureGetter.apply(new ResourceLocation(mb.resolveTextureName("layer0")));
+    mb.textures.put("layer0", sprite.getIconName());
     builder.setTexture(sprite);
 
     for (Object o : mb.getElements()) {
