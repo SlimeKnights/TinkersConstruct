@@ -14,6 +14,7 @@ import net.minecraftforge.client.model.ISmartItemModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.utils.TagUtil;
@@ -24,12 +25,14 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
 
   protected BakedMaterialModel[] parts;
   protected BakedMaterialModel[] brokenParts;
+  protected Map<String, IFlexibleBakedModel> modifiers;
 
   /**
    * The length of brokenParts has to match the length of parts. If a part does not have a broken texture, the entry in
    * the array simply is null.
    */
-  public BakedToolModel(IBakedModel parent, BakedMaterialModel[] parts, BakedMaterialModel[] brokenParts) {
+  public BakedToolModel(IBakedModel parent, BakedMaterialModel[] parts, BakedMaterialModel[] brokenParts,
+                        Map<String, IFlexibleBakedModel> modifiers) {
     super(parent, Attributes.DEFAULT_BAKED_FORMAT);
 
     if (parts.length != brokenParts.length) {
@@ -38,6 +41,7 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
 
     this.parts = parts;
     this.brokenParts = brokenParts;
+    this.modifiers = modifiers;
   }
 
   @Override
@@ -72,6 +76,11 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
       }
 
       quads.addAll(partModel.getGeneralQuads()); // todo: use an efficient collection for this. Preferably a List-List
+    }
+
+    IFlexibleBakedModel modifier = modifiers.get("diamond");
+    if (modifier != null) {
+      quads.addAll(modifier.getGeneralQuads());
     }
 
     SimpleBakedModel

@@ -4,7 +4,9 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 
 import tconstruct.ClientProxy;
+import tconstruct.library.Util;
 import tconstruct.library.client.model.MaterialModelLoader;
+import tconstruct.library.tinkering.modifiers.IModifier;
 
 import static tconstruct.tools.TinkerTools.*;
 
@@ -18,6 +20,14 @@ public class ToolClientProxy extends ClientProxy {
     registerPartModel(pickHead);
     registerPartModel(binding);
     registerPartModel(toolrod);
+
+    // todo: implement actual modifiers
+    registerModifierModel(new IModifier() {
+      @Override
+      public String getIdentifier() {
+        return "diamond";
+      }
+    }, new ResourceLocation(Util.RESOURCE, "models/item/modifiers/Diamond"));
   }
 
   public ResourceLocation registerPartModel(Item item) {

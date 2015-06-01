@@ -3,6 +3,8 @@ package tconstruct.library.client.model;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableSet;
 
+import gnu.trove.map.hash.THashMap;
+
 import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
@@ -15,6 +17,7 @@ import net.minecraftforge.client.model.IModelState;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class ToolModel implements IModel {
 
@@ -23,11 +26,14 @@ public class ToolModel implements IModel {
 
   private final List<MaterialModel> partBlocks;
   private final List<MaterialModel> brokenPartBlocks;
+  private final ModifierModel modifiers;
 
-  public ToolModel(ModelBlock modelBlock, List<MaterialModel> parts, List<MaterialModel> brokenPartBlocks) {
+  public ToolModel(ModelBlock modelBlock, List<MaterialModel> parts, List<MaterialModel> brokenPartBlocks,
+                   ModifierModel modifiers) {
     this.modelBlock = modelBlock;
     this.partBlocks = parts;
     this.brokenPartBlocks = brokenPartBlocks;
+    this.modifiers = modifiers;
   }
 
   @Override
@@ -63,6 +69,9 @@ public class ToolModel implements IModel {
       }
     }
 
+    // modifier textures
+    builder.addAll(modifiers.getTextures());
+
     return builder.build();
   }
 
@@ -85,7 +94,14 @@ public class ToolModel implements IModel {
       }
     }
 
-    return new BakedToolModel(base, partModels, brokenPartModels);
+    Map<String, IFlexibleBakedModel> modifierModels;
+    if (modifiers != null) {
+      modifierModels = modifiers.bakeModels(state, format, bakedTextureGetter);
+    } else {
+      modifierModels = new THashMap<>();
+    }
+
+    return new BakedToolModel(base, partModels, brokenPartModels, modifierModels);
   }
 
   @Override

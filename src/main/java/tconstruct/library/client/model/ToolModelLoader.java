@@ -7,6 +7,8 @@ import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 
+import org.apache.commons.io.FilenameUtils;
+
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,8 +39,7 @@ public class ToolModelLoader implements ICustomModelLoader {
       for (String s : ToolModel.getLayers()) {
         String r = modelBlock.resolveTextureName(s);
         if (!"missingno".equals(r)) {
-          ModelBlock mb = ModelBlock.deserialize(ModelHelper.getPartModelJSON(r));
-          mb.name = r;
+          ModelBlock mb = ModelHelper.loadModelBlockFromTexture(r);
           parts.add(new MaterialModel(mb));
         }
       }
@@ -47,13 +48,27 @@ public class ToolModelLoader implements ICustomModelLoader {
       for (String s : ToolModel.getBrokenLayers()) {
         String r = modelBlock.resolveTextureName(s);
         if (!"missingno".equals(r)) {
-          ModelBlock mb = ModelBlock.deserialize(ModelHelper.getPartModelJSON(r));
-          mb.name = r;
+          ModelBlock mb = ModelHelper.loadModelBlockFromTexture(r);
           brokenParts.add(new MaterialModel(mb));
         }
       }
 
-      IModel output = new ToolModel(modelBlock, parts, brokenParts);
+      String toolName = FilenameUtils.getBaseName(modelLocation.getResourcePath());
+      IModel
+          mods =
+          ModelLoaderRegistry
+              .getModel(new ResourceLocation(Util.RESOURCE, "modifiers/" + toolName + ModifierModelLoader.EXTENSION));
+      ModifierModel modifiers = null;
+
+      if (mods == null || !(mods instanceof ModifierModel)) {
+        TinkerRegistry.log.trace(
+            "Toolmodel {} does not have any modifiers associated with it. Be sure that the Tools internal name, the Toolmodels filename and the name used inside the Modifier Model Definition match!",
+            modelLocation);
+      } else {
+        modifiers = (ModifierModel) mods;
+      }
+
+      IModel output = new ToolModel(modelBlock, parts, brokenParts, modifiers);
 
       // inform the texture manager about the textures it has to process
       CustomTextureCreator.registerTextures(output.getTextures());
