@@ -1,6 +1,6 @@
 inventory.knapsack=Rucksack
 
-MetalOre.Aluminum.name=Aluminuum Ore
+MetalOre.Aluminum.name=Aluminium Ore
 
 block.oreberry.aluminum.name=Aluminium Oreberry Bush
 
@@ -14,7 +14,7 @@ item.oreberry.aluminum.name=Aluminium Oreberry
 item.tconstruct.Materials.AluminumIngot.name=Aluminium Ingot
 item.tconstruct.Materials.RawAluminum.name=Raw Aluminium
 item.tconstruct.Materials.AluBrassIngot.name=Aluminium Brass Ingot
-item.tconstruct.Materials.AluminumNugget.name=Aluminuim Nugget
+item.tconstruct.Materials.AluminumNugget.name=Aluminium Nugget
 item.tconstruct.Materials.AluBrassNugget.name=Aluminium Brass Nugget
 item.tconstruct.Materials.AluminumDust.name=Aluminium Dust
 item.tconstruct.Materials.AluBrassDust.name=Aluminium Brass Dust
