@@ -19,8 +19,7 @@ public interface IMaterialTrait {
    * Called when a block is mined.
    *
    * @param speed        The original, unmodified speed from the tool
-   * @param currentSpeed How fast the block will be harvested currently, possibly modified by other
-   *                     traits
+   * @param currentSpeed How fast the block will be harvested currently, possibly modified by other traits
    * @param isEffective  If the tool is effective for the block to harvest
    * @return How fast the block should be harvested. Standard return value is currentSpeed
    */
@@ -43,8 +42,7 @@ public interface IMaterialTrait {
    * Called when an entity is hit, before the damage is dealt.
    *
    * @param damage        The original, unmodified damage from the tool
-   * @param currentDamage The damage that will be dealt currently, possibly modified by other
-   *                      traits
+   * @param currentDamage The damage that will be dealt currently, possibly modified by other traits
    * @return The damage to deal. Standard return value is currentDamage
    */
   public float onHit(float damage, float currentDamage);

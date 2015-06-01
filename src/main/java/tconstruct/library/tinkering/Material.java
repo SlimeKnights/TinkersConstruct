@@ -60,7 +60,8 @@ public class Material {
   }
 
   // multi-colored material
-  public Material(String identifier, int metadata, int colorLow, int colorMid, int colorHigh, EnumChatFormatting textColor) {
+  public Material(String identifier, int metadata, int colorLow, int colorMid, int colorHigh,
+                  EnumChatFormatting textColor) {
     this(identifier, metadata, new MaterialRenderInfo.Default(colorLow, colorMid, colorHigh), textColor);
   }
 

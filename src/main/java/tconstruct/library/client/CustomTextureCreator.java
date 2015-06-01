@@ -22,6 +22,7 @@ import tconstruct.library.tinkering.Material;
  * Textures registered with this creator will get a texture created/loaded for each material.
  */
 public class CustomTextureCreator {
+
   private static Set<ResourceLocation> baseTextures = Sets.newHashSet();
 
   /**
@@ -41,15 +42,16 @@ public class CustomTextureCreator {
   public void createCustomTextures(TextureStitchEvent.Pre event) {
     TextureMap map = event.map;
 
-    for(ResourceLocation baseTexture : baseTextures) {
+    for (ResourceLocation baseTexture : baseTextures) {
       // exclude missingno :I
-      if(baseTexture.toString().equals("minecraft:missingno"))
+      if (baseTexture.toString().equals("minecraft:missingno")) {
         continue;
+      }
 
       Map<String, TextureAtlasSprite> builtSprites = Maps.newHashMap();
-      for(Material material : TinkerRegistry.getAllMaterials()) {
+      for (Material material : TinkerRegistry.getAllMaterials()) {
         TextureAtlasSprite base = map.getTextureExtry(baseTexture.toString());
-        if(base == null) {
+        if (base == null) {
           TinkerRegistry.log.error("Missing base texture: " + baseTexture.toString());
           continue;
         }
@@ -57,10 +59,11 @@ public class CustomTextureCreator {
         String location = baseTexture.toString() + "_" + material.identifier;
         TextureAtlasSprite sprite;
 
-        if(exists(location))
+        if (exists(location)) {
           sprite = map.registerSprite(new ResourceLocation(location));
-        else
+        } else {
           sprite = material.renderInfo.getTexture(base, location);
+        }
 
         map.setTextureEntry(location, sprite);
         builtSprites.put(material.identifier, sprite);

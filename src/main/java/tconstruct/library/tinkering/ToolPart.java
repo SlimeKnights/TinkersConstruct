@@ -21,8 +21,9 @@ public class ToolPart extends Item implements IToolPart {
   @Override
   public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
     // todo: check if the part supports the material
-    for(Material mat : TinkerRegistry.getAllMaterials())
+    for (Material mat : TinkerRegistry.getAllMaterials()) {
       subItems.add(new ItemStack(this, 1, mat.metadata));
+    }
   }
 
   @Override

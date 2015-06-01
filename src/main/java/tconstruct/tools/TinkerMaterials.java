@@ -20,7 +20,9 @@ public final class TinkerMaterials {
   static {
     wood = new Material("Wood", 0, 0xffaa00, 0xffaa00, 0xffcc22, EnumChatFormatting.YELLOW);
     stone = new Material("Stone", 1, 0x555555, EnumChatFormatting.DARK_GRAY);
-    netherrack = new Material("Netherrack", 2, new MaterialRenderInfo.BlockTexture(Blocks.netherrack), EnumChatFormatting.DARK_RED);
+    netherrack =
+        new Material("Netherrack", 2, new MaterialRenderInfo.BlockTexture(Blocks.netherrack),
+                     EnumChatFormatting.DARK_RED);
   }
 
   public static void registerMaterials() {

@@ -15,10 +15,14 @@ import tconstruct.library.client.texture.TextureColoredTexture;
  */
 @SideOnly(Side.CLIENT)
 public interface MaterialRenderInfo {
+
   TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location);
 
-  /** Colors the texture of the tool with the material color */
+  /**
+   * Colors the texture of the tool with the material color
+   */
   class Default implements MaterialRenderInfo {
+
     // colors to be used
     protected final int low, mid, high;
 
@@ -39,6 +43,7 @@ public interface MaterialRenderInfo {
   }
 
   class CustomDefault extends Default {
+
     protected final String customSuffix;
 
     public CustomDefault(int low, int mid, int high, String customSuffix) {
@@ -54,15 +59,19 @@ public interface MaterialRenderInfo {
     @Override
     public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
       // use the base texture with the suffix if it exists
-      if(CustomTextureCreator.exists(baseTexture.toString() + "_" + customSuffix))
+      if (CustomTextureCreator.exists(baseTexture.toString() + "_" + customSuffix)) {
         return new SimpleColoredTexture(low, mid, high, baseTexture.getIconName(), customSuffix, location);
+      }
       // otherwise default texture
       return super.getTexture(baseTexture, location);
     }
   }
 
-  /** Uses a block texture instead of a color to create the texture */
+  /**
+   * Uses a block texture instead of a color to create the texture
+   */
   class BlockTexture implements MaterialRenderInfo {
+
     protected final Block block;
 
     public BlockTexture(Block block) {
@@ -73,7 +82,9 @@ public interface MaterialRenderInfo {
     public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
       ResourceLocation blockloc = new ResourceLocation(block.getDefaultState().toString());
       blockloc = new ResourceLocation(blockloc.getResourceDomain(), "blocks/" + blockloc.getResourcePath());
-      TextureAtlasSprite blockTexture = Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(blockloc.toString());
+      TextureAtlasSprite
+          blockTexture =
+          Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(blockloc.toString());
 
       TextureColoredTexture sprite = new TextureColoredTexture(blockTexture, baseTexture, location);
       sprite.stencil = false;

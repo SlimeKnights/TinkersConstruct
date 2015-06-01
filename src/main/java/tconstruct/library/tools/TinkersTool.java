@@ -10,8 +10,8 @@ import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.utils.TooltipBuilder;
 
 /**
- * Intermediate abstraction layer for all tools/melee weapons. This class has all the callbacks for
- * blocks and enemies so tools and weapons can share behaviour.
+ * Intermediate abstraction layer for all tools/melee weapons. This class has all the callbacks for blocks and enemies
+ * so tools and weapons can share behaviour.
  */
 public abstract class TinkersTool extends TinkersItem {
 

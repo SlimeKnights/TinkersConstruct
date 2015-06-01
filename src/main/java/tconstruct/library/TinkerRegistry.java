@@ -18,6 +18,7 @@ import tconstruct.library.tinkering.materials.IMaterialStats;
 import tconstruct.library.tinkering.traits.IMaterialTrait;
 
 public final class TinkerRegistry {
+
   // the logger for the library
   public static final Logger log = LogManager.getLogger("TCon");
 

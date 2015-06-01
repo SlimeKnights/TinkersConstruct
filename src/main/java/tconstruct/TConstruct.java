@@ -82,8 +82,9 @@ public class TConstruct {
     //pulseManager.registerPulse(new TinkerTest());
     pulseManager.preInit(event);
 
-    if(event.getSide().isClient())
+    if (event.getSide().isClient()) {
       ClientProxy.initClient();
+    }
   }
 
   @Mod.EventHandler

@@ -11,8 +11,7 @@ public final class ToolBuilder {
   }
 
   /**
-   * A simple Tool consists of a head and an toolrod. Head determines primary stats, toolrod
-   * multiplies primary stats.
+   * A simple Tool consists of a head and an toolrod. Head determines primary stats, toolrod multiplies primary stats.
    */
   public static NBTTagCompound buildSimpleTool(Material headMaterial, Material handleMaterial,
                                                Material... accessoriesMaterials) {
@@ -84,8 +83,7 @@ public final class ToolBuilder {
   }
 
   /**
-   * Takes an arbitrary amount of ToolMaterialStats and multiplies the durability in the basetag
-   * with the average
+   * Takes an arbitrary amount of ToolMaterialStats and multiplies the durability in the basetag with the average
    */
   public static void calculateHandleParts(NBTTagCompound baseTag, ToolMaterialStats... stats) {
     int count = 0;

@@ -13,6 +13,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class TestBlock extends Block {
+
   public static final PropertyBool up = PropertyBool.create("up");
   public static final PropertyBool down = PropertyBool.create("down");
   public static final PropertyBool north = PropertyBool.create("north");
@@ -36,18 +37,24 @@ public class TestBlock extends Block {
 
   @Override
   public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-    if(worldIn.getBlockState(pos.up()).getBlock() == this)
+    if (worldIn.getBlockState(pos.up()).getBlock() == this) {
       state = state.withProperty(up, true);
-    if(worldIn.getBlockState(pos.down()).getBlock() == this)
+    }
+    if (worldIn.getBlockState(pos.down()).getBlock() == this) {
       state = state.withProperty(down, true);
-    if(worldIn.getBlockState(pos.east()).getBlock() == this)
+    }
+    if (worldIn.getBlockState(pos.east()).getBlock() == this) {
       state = state.withProperty(east, true);
-    if(worldIn.getBlockState(pos.west()).getBlock() == this)
+    }
+    if (worldIn.getBlockState(pos.west()).getBlock() == this) {
       state = state.withProperty(west, true);
-    if(worldIn.getBlockState(pos.south()).getBlock() == this)
+    }
+    if (worldIn.getBlockState(pos.south()).getBlock() == this) {
       state = state.withProperty(south, true);
-    if(worldIn.getBlockState(pos.north()).getBlock() == this)
+    }
+    if (worldIn.getBlockState(pos.north()).getBlock() == this) {
       state = state.withProperty(north, true);
+    }
 
     return state;
   }
@@ -56,7 +63,7 @@ public class TestBlock extends Block {
   public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state,
                                   EntityPlayer playerIn, EnumFacing side, float hitX, float hitY,
                                   float hitZ) {
-    if(!worldIn.isRemote) {
+    if (!worldIn.isRemote) {
       switch (side) {
         case UP:
           worldIn.setBlockState(pos, state.cycleProperty(up));

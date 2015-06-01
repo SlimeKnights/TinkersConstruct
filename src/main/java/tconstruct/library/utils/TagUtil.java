@@ -53,9 +53,9 @@ public final class TagUtil {
   }
 
   /**
-   * Takes an arbitrary amount of NBT tags and combines them together. The resulting tags are the
-   * average of the values in each TagCompound. If one of the tags is missing in a TagCompound, the
-   * average will be taken from the other ones instead of counting as 0.
+   * Takes an arbitrary amount of NBT tags and combines them together. The resulting tags are the average of the values
+   * in each TagCompound. If one of the tags is missing in a TagCompound, the average will be taken from the other ones
+   * instead of counting as 0.
    *
    * Remark: Only uses Float and Integer tags.
    *

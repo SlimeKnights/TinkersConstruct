@@ -30,6 +30,7 @@ import codechicken.lib.render.Vertex5;
 import tconstruct.Util;
 
 public class TestModel implements ISmartItemModel {
+
   List<BakedQuad> generalQuads;
   List<List<BakedQuad>> faceQuads;
   ItemCameraTransforms transforms;
@@ -54,22 +55,20 @@ public class TestModel implements ISmartItemModel {
     float ud = (texture.getMaxU() - texture.getMinU());
     float vd = (texture.getMaxV() - texture.getMinV());
 
-    for(int i = 0; i < m.getVertices().length; i += 4)
-    {
+    for (int i = 0; i < m.getVertices().length; i += 4) {
       int[] data = new int[28];
-      for(int j = 0; j < 4; j++)
-      {
+      for (int j = 0; j < 4; j++) {
         Vertex5 vertex = m.getVertices()[j];
-        data[j*7 + 0] = Float.floatToRawIntBits((float)vertex.vec.x);
-        data[j*7 + 1] = Float.floatToRawIntBits((float)vertex.vec.y);
-        data[j*7 + 2] = Float.floatToRawIntBits((float)vertex.vec.z);
-        data[j*7 + 3] = -1; //color
+        data[j * 7 + 0] = Float.floatToRawIntBits((float) vertex.vec.x);
+        data[j * 7 + 1] = Float.floatToRawIntBits((float) vertex.vec.y);
+        data[j * 7 + 2] = Float.floatToRawIntBits((float) vertex.vec.z);
+        data[j * 7 + 3] = -1; //color
         // uv
         //data[j*7 + 4] = Float.floatToRawIntBits((float)(u + ud*vertex.uv.u));
         //data[j*7 + 5] = Float.floatToRawIntBits((float)(v + vd*vertex.uv.v));
-        data[j*7 + 4] = Float.floatToRawIntBits((float)(u + ud*(j&1)));
-        data[j*7 + 5] = Float.floatToRawIntBits((float)(v + vd*(j&2)));
-        data[j*7 + 6] = 0; // seems to be unused
+        data[j * 7 + 4] = Float.floatToRawIntBits((float) (u + ud * (j & 1)));
+        data[j * 7 + 5] = Float.floatToRawIntBits((float) (v + vd * (j & 2)));
+        data[j * 7 + 6] = 0; // seems to be unused
       }
       // -1 is the tintIndex, i suppose this should be used in conjunction with the color-value of the vertex
       // EnumFacing is the way the quads normal faces. i'm using this for generalQuads so it shouldn't matter
@@ -239,10 +238,10 @@ public class TestModel implements ISmartItemModel {
   @Override
   public ItemCameraTransforms getItemCameraTransforms() {
     return new ItemCameraTransforms(
-        new ItemTransformVec3f(new Vector3f(0,0,0), new Vector3f(0,0.5f, -0.5f), new Vector3f(0.85f,0.85f,0.85f)),
-        new ItemTransformVec3f(new Vector3f(0,0,0), new Vector3f(1,0.4f,-0.2f), new Vector3f(0.7f,0.7f,0.7f)),
-        new ItemTransformVec3f(new Vector3f(0,0,0), new Vector3f(0,0,0), new Vector3f(0,0,0)),
-        new ItemTransformVec3f(new Vector3f(0,0,0), new Vector3f(0,0,0), new Vector3f(0,0,0))
+        new ItemTransformVec3f(new Vector3f(0, 0, 0), new Vector3f(0, 0.5f, -0.5f), new Vector3f(0.85f, 0.85f, 0.85f)),
+        new ItemTransformVec3f(new Vector3f(0, 0, 0), new Vector3f(1, 0.4f, -0.2f), new Vector3f(0.7f, 0.7f, 0.7f)),
+        new ItemTransformVec3f(new Vector3f(0, 0, 0), new Vector3f(0, 0, 0), new Vector3f(0, 0, 0)),
+        new ItemTransformVec3f(new Vector3f(0, 0, 0), new Vector3f(0, 0, 0), new Vector3f(0, 0, 0))
     );
     //return ItemCameraTransforms.DEFAULT;
   }
