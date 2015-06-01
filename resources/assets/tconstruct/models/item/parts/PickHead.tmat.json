@@ -1,5 +1,5 @@
 {
-    "parent": "tconstruct:item/TinkerTool",
+    "parent": "builtin/generated",
     "textures": {
         "layer0": "tconstruct:items/pickaxe/pick_head"
     }

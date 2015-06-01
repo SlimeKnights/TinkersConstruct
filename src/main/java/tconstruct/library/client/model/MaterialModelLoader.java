@@ -10,6 +10,7 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 import java.io.IOException;
 
 import tconstruct.TConstruct;
+import tconstruct.library.TinkerRegistry;
 import tconstruct.library.client.CustomTextureCreator;
 
 public class MaterialModelLoader implements ICustomModelLoader {
@@ -34,7 +35,7 @@ public class MaterialModelLoader implements ICustomModelLoader {
 
       return model;
     } catch (IOException e) {
-      TConstruct.log.error("Could not load material model %s", modelLocation.toString());
+      TinkerRegistry.log.error("Could not load material model {}", modelLocation.toString());
     }
     return ModelLoaderRegistry.getMissingModel();
   }

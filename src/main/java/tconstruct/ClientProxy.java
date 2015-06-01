@@ -77,8 +77,10 @@ public abstract class ClientProxy extends CommonProxy {
     if (itemLocation == null) {
       return null;
     }
-    return registerToolModel(item, new ResourceLocation(itemLocation.getResourceDomain(),
-                                                        itemLocation.getResourcePath() + ToolModelLoader.EXTENSION));
+
+    String path = "tools/" + itemLocation.getResourcePath() + ToolModelLoader.EXTENSION;
+
+    return registerToolModel(item, new ResourceLocation(itemLocation.getResourceDomain(), path));
   }
 
   protected ResourceLocation registerToolModel(Item item, final ResourceLocation location) {
@@ -128,7 +130,7 @@ public abstract class ClientProxy extends CommonProxy {
     return location;
   }
 
-  private static ResourceLocation getItemLocation(Item item) {
+  protected static ResourceLocation getItemLocation(Item item) {
     // get the registered name for the object
     Object o = GameData.getItemRegistry().getNameForObject(item);
 

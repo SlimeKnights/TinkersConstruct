@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import tconstruct.TConstruct;
+import tconstruct.library.TinkerRegistry;
 import tconstruct.library.client.CustomTextureCreator;
 
 public class ToolModelLoader implements ICustomModelLoader {
@@ -59,7 +60,7 @@ public class ToolModelLoader implements ICustomModelLoader {
 
       return output;
     } catch (IOException e) {
-      TConstruct.log.error("Could not load multimodel %s", modelLocation.toString());
+      TinkerRegistry.log.error("Could not load multimodel {}", modelLocation.toString());
     }
     return ModelLoaderRegistry.getMissingModel();
   }
