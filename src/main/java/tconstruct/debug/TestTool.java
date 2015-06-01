@@ -6,10 +6,10 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.List;
 
+import tconstruct.library.TinkerRegistry;
 import tconstruct.library.tinkering.Material;
 import tconstruct.library.tinkering.PartMaterialWrapper;
 import tconstruct.library.tools.TinkersTool;
-import tconstruct.library.utils.Log;
 import tconstruct.library.utils.ToolBuilder;
 import tconstruct.tools.TinkerMaterials;
 
@@ -23,7 +23,7 @@ public class TestTool extends TinkersTool {
 
   @Override
   protected NBTTagCompound buildTag(Material[] materials) {
-    Log.info("Parts are valid");
+    TinkerRegistry.log.info("Parts are valid");
     return ToolBuilder.buildSimpleTool(materials[0], materials[1]);
   }
 

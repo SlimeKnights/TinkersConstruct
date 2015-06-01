@@ -4,9 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Util {
-
-  public static final String RESOURCE = "tconstruct";
-  public static final String MODEL_PREFIX = "_generated_";
+  public static final String RESOURCE = TConstruct.modID.toLowerCase();
 
   public static Logger getLogger(String type) {
     String log = TConstruct.modID;
@@ -35,6 +33,6 @@ public class Util {
    * names for a uniform namespace.
    */
   public static String prefix(String name) {
-    return String.format("tconstruct.%s", name);
+    return String.format("%s.%s", TConstruct.modID, name);
   }
 }

@@ -3,7 +3,6 @@ package tconstruct.library.client.texture;
 import com.google.common.collect.Lists;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
@@ -13,7 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Arrays;
 
-import tconstruct.library.utils.Log;
+import tconstruct.library.TinkerRegistry;
 
 public abstract class AbstractColoredTexture extends TextureAtlasSprite {
   private final TextureAtlasSprite baseTexture;
@@ -114,11 +113,11 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
     }
     catch (RuntimeException runtimeexception)
     {
-      Log.error("Unable to parse metadata from " + resourcelocation1, runtimeexception);
+      TinkerRegistry.log.error("Unable to parse metadata from " + resourcelocation1, runtimeexception);
     }
     catch (IOException ioexception1)
     {
-      Log.error("Unable to load " + resourcelocation1, ioexception1);
+      TinkerRegistry.log.error("Unable to load " + resourcelocation1, ioexception1);
     }
 
     return null;

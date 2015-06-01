@@ -6,12 +6,8 @@ import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.resources.model.IBakedModel;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.io.IOException;
@@ -21,7 +17,6 @@ import java.util.Set;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.tinkering.Material;
-import tconstruct.library.utils.Log;
 
 /**
  * Textures registered with this creator will get a texture created/loaded for each material.
@@ -55,7 +50,7 @@ public class CustomTextureCreator {
       for(Material material : TinkerRegistry.getAllMaterials()) {
         TextureAtlasSprite base = map.getTextureExtry(baseTexture.toString());
         if(base == null) {
-          Log.error("Missing base texture: " + baseTexture.toString());
+          TinkerRegistry.log.error("Missing base texture: " + baseTexture.toString());
           continue;
         }
 

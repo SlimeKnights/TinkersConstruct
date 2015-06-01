@@ -5,6 +5,9 @@ import gnu.trove.set.hash.TLinkedHashSet;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Loader;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +18,8 @@ import tconstruct.library.tinkering.materials.IMaterialStats;
 import tconstruct.library.tinkering.traits.IMaterialTrait;
 
 public final class TinkerRegistry {
+  // the logger for the library
+  public static final Logger log = LogManager.getLogger("TCon");
 
   private TinkerRegistry() {
   }
