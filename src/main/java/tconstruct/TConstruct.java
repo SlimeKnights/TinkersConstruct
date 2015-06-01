@@ -16,6 +16,7 @@ import java.util.Map;
 
 import mantle.pulsar.control.PulseManager;
 import tconstruct.debug.StickOfDebugging;
+import tconstruct.library.Util;
 import tconstruct.tools.TinkerMaterials;
 import tconstruct.tools.TinkerTools;
 
@@ -31,7 +32,7 @@ import tconstruct.tools.TinkerTools;
 //dependencies = "required-after:Forge@[10.13.1.1217,);required-after:Mantle@[1.7.10-0.3.2,);after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion;after:ThermalFoundation")
 public class TConstruct {
 
-  public static final String modID = "TConstruct";
+  public static final String modID = Util.MODID;
   public static final String modVersion = "${version}";
   /*
    * The value of one ingot in millibuckets

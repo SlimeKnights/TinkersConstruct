@@ -2,7 +2,7 @@ package tconstruct.library.tinkering.traits;
 
 import net.minecraft.util.StatCollector;
 
-import tconstruct.Util;
+import tconstruct.library.Util;
 
 public abstract class AbstractTrait implements IMaterialTrait {
 

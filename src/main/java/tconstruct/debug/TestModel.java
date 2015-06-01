@@ -1,17 +1,11 @@
 package tconstruct.debug;
 
 import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.BlockFaceUV;
-import net.minecraft.client.renderer.block.model.BlockPartFace;
-import net.minecraft.client.renderer.block.model.BlockPartRotation;
 import net.minecraft.client.renderer.block.model.FaceBakery;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemTransformVec3f;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.model.IBakedModel;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelRotation;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -25,9 +19,8 @@ import java.util.Map;
 import javax.vecmath.Vector3f;
 
 import codechicken.lib.render.CCModel;
-import codechicken.lib.render.ModelRegistryHelper;
 import codechicken.lib.render.Vertex5;
-import tconstruct.Util;
+import tconstruct.library.Util;
 
 public class TestModel implements ISmartItemModel {
 

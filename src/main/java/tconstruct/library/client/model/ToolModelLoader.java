@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import tconstruct.TConstruct;
 import tconstruct.library.TinkerRegistry;
+import tconstruct.library.Util;
 import tconstruct.library.client.CustomTextureCreator;
 
 public class ToolModelLoader implements ICustomModelLoader {

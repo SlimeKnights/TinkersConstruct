@@ -13,7 +13,7 @@ import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import tconstruct.CommonProxy;
 import tconstruct.TinkerPulse;
-import tconstruct.Util;
+import tconstruct.library.Util;
 import tconstruct.library.tools.ToolPart;
 
 @Pulse(id = TinkerTools.PulseId, description = "This module contains all the tools and everything related to it.")

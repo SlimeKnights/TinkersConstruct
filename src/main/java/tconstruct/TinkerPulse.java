@@ -5,6 +5,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import tconstruct.library.Util;
+
 /**
  * Just a small helper class that provides some function for cleaner Pulses.
  *

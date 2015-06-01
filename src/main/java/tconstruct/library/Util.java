@@ -1,14 +1,15 @@
-package tconstruct;
+package tconstruct.library;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Util {
 
-  public static final String RESOURCE = TConstruct.modID.toLowerCase();
+  public static final String MODID = "TConstruct";
+  public static final String RESOURCE = MODID.toLowerCase();
 
   public static Logger getLogger(String type) {
-    String log = TConstruct.modID;
+    String log = MODID;
 
     return LogManager.getLogger(log + "-" + type);
   }
@@ -34,6 +35,6 @@ public class Util {
    * namespace.
    */
   public static String prefix(String name) {
-    return String.format("%s.%s", TConstruct.modID, name);
+    return String.format("%s.%s", MODID, name);
   }
 }

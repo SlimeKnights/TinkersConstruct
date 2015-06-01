@@ -3,9 +3,8 @@ package tconstruct.debug;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.IItemRenderer;
 
-import tconstruct.Util;
+import tconstruct.library.Util;
 
 public class TestToolRenderer implements ItemMeshDefinition {
 
