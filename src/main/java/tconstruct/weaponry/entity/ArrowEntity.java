@@ -63,6 +63,8 @@ public class ArrowEntity extends ProjectileBase {
             this.setDead();
             this.playSound("random.break", 1.0F, 1.5F / (this.rand.nextFloat() * 0.2F + 0.9F));
         }
+
+        this.defused = true;
     }
 
     @Override
