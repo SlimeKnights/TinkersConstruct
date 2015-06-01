@@ -9,18 +9,17 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 
 import java.io.IOException;
 
-import tconstruct.TConstruct;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.client.CustomTextureCreator;
 
 public class MaterialModelLoader implements ICustomModelLoader {
 
-  public static String MATERIALMODEL_EXTENSION = ".tmat";
+  public static String EXTENSION = ".tmat";
 
   @Override
   public boolean accepts(ResourceLocation modelLocation) {
     return modelLocation.getResourcePath()
-        .endsWith(MATERIALMODEL_EXTENSION); // tinkermaterialmodel extension. Foo.tmat.json
+        .endsWith(EXTENSION); // tinkermaterialmodel extension. Foo.tmat.json
   }
 
   @Override

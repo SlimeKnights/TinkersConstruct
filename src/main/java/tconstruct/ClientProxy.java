@@ -100,13 +100,13 @@ public abstract class ClientProxy extends CommonProxy {
     }
     return registerMaterialModel(item, new ResourceLocation(itemLocation.getResourceDomain(),
                                                             itemLocation.getResourcePath()
-                                                            + MaterialModelLoader.MATERIALMODEL_EXTENSION));
+                                                            + MaterialModelLoader.EXTENSION));
   }
 
   public ResourceLocation registerMaterialModel(Item item, final ResourceLocation location) {
-    if (!location.getResourcePath().endsWith(MaterialModelLoader.MATERIALMODEL_EXTENSION)) {
+    if (!location.getResourcePath().endsWith(MaterialModelLoader.EXTENSION)) {
       TConstruct.log.error("The material-model " + location.toString() + " does not end with '"
-                           + MaterialModelLoader.MATERIALMODEL_EXTENSION
+                           + MaterialModelLoader.EXTENSION
                            + "' and will therefore not be loaded by the custom model loader!");
     }
 

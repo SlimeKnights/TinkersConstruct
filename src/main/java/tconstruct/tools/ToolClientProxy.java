@@ -3,10 +3,7 @@ package tconstruct.tools;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 
-import java.io.File;
-
 import tconstruct.ClientProxy;
-import tconstruct.library.client.model.MaterialModel;
 import tconstruct.library.client.model.MaterialModelLoader;
 
 import static tconstruct.tools.TinkerTools.*;
@@ -29,7 +26,7 @@ public class ToolClientProxy extends ClientProxy {
       return null;
     }
 
-    String path = "parts/" + itemLocation.getResourcePath() + MaterialModelLoader.MATERIALMODEL_EXTENSION;
+    String path = "parts/" + itemLocation.getResourcePath() + MaterialModelLoader.EXTENSION;
 
     return registerMaterialModel(item, new ResourceLocation(itemLocation.getResourceDomain(), path));
   }
