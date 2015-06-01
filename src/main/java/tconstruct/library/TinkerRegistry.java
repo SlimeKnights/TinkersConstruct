@@ -2,7 +2,10 @@ package tconstruct.library;
 
 import gnu.trove.set.hash.TLinkedHashSet;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 
 import org.apache.logging.log4j.LogManager;
@@ -15,6 +18,7 @@ import java.util.Set;
 
 import tconstruct.library.tinkering.Material;
 import tconstruct.library.tinkering.materials.IMaterialStats;
+import tconstruct.library.tinkering.modifiers.IModifier;
 import tconstruct.library.tinkering.traits.IMaterialTrait;
 
 public final class TinkerRegistry {
@@ -25,7 +29,10 @@ public final class TinkerRegistry {
   private TinkerRegistry() {
   }
 
-  /* MATERIALS */
+
+  /**
+   * ******************************************************** MATERIALS *********************************************************
+   */
 
   // Identifier to Material mapping. Hashmap so we can look it up directly without iterating
   private static final Map<String, Material> materials = new HashMap<>();
@@ -82,7 +89,11 @@ public final class TinkerRegistry {
     return materials.values();
   }
 
-  /* MATERIAL TRAITS AND STATS */
+
+  /**
+   * ******************************************************** TRAITS AND STATS *********************************************************
+   */
+
   public static void addMaterialStats(String identifier, IMaterialStats stats) {
     if (!materials.containsKey(identifier)) {
       error(String.format("Could not add Stats to \"%s\": Unknown Material", identifier));
@@ -158,14 +169,34 @@ public final class TinkerRegistry {
     putTraitTrace(identifier, trait, activeMod);
   }
 
-  /* TOOLS AND WEAPONS */
+  /***********************************************************
+   * TOOLS & WEAPONS
+   ***********************************************************/
+
+  /**
+   * This set contains all known tools
+   */
   public static final Set<Item> tools = new TLinkedHashSet<>();
 
   public static void addTool(Item tool) {
     tools.add(tool);
   }
 
-  /* Traceability info */
+
+  /**
+   * ******************************************************** MODIFIERS * *********************************************************
+   */
+
+  public static final Set<IModifier> modifiers = new TLinkedHashSet<>();
+
+  public static void registerModifier(IModifier modifier) {
+    modifiers.add(modifier);
+  }
+
+  /***********************************************************
+   * Traceability & Internal stuff
+   ***********************************************************/
+
   static void putMaterialTrace(String materialIdentifier, String trace) {
     String activeMod = Loader.instance().activeModContainer().getModId();
     materialRegisteredByMod.put(materialIdentifier, activeMod);
