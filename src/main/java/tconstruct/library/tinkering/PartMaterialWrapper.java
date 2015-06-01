@@ -5,6 +5,8 @@ import net.minecraft.item.ItemStack;
 import java.util.HashSet;
 import java.util.Set;
 
+import tconstruct.library.tools.IToolPart;
+
 public class PartMaterialWrapper {
 
   // ANY of these has to match

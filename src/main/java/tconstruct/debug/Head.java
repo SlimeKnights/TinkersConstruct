@@ -1,6 +1,6 @@
 package tconstruct.debug;
 
-import tconstruct.library.tinkering.ToolPart;
+import tconstruct.library.tools.ToolPart;
 
 public class Head extends ToolPart {
 

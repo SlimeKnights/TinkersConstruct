@@ -3,10 +3,9 @@ package tconstruct.library.tinkering;
 import net.minecraft.item.ItemStack;
 
 /**
- * Any Class that's used as a tool part needs to implement this.
+ * Items implementing this interface contain a material
  */
-public interface IToolPart {
-
+public interface IMaterialItem {
   /**
    * Returns the material identifier of the material of the part this itemstack holds.
    *

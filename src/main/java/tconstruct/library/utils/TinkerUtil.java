@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import tconstruct.library.tinkering.ITinkerable;
-import tconstruct.library.tinkering.IToolPart;
+import tconstruct.library.tools.IToolPart;
 import tconstruct.library.tinkering.Material;
 
 public final class TinkerUtil {

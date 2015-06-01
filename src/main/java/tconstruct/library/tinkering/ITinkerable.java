@@ -3,7 +3,8 @@ package tconstruct.library.tinkering;
 import net.minecraft.item.ItemStack;
 
 /**
- * All classes implementing this interface
+ * All classes implementing this interface represent a item that has tinkers data.
+ * Usually also used for modifiers to access the data.
  */
 public interface ITinkerable {
 
