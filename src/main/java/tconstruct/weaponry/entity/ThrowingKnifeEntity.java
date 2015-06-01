@@ -1,5 +1,6 @@
 package tconstruct.weaponry.entity;
 
+import net.minecraft.util.MovingObjectPosition;
 import tconstruct.library.entity.ProjectileBase;
 import tconstruct.weaponry.TinkerWeaponry;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,6 +18,13 @@ public class ThrowingKnifeEntity extends ProjectileBase {
 
     public ThrowingKnifeEntity(World world, EntityPlayer player, float speed, float accuracy, ItemStack stack) {
         super(world, player, speed, accuracy, stack);
+    }
+
+    @Override
+    public void onHitBlock(MovingObjectPosition movingobjectposition)
+    {
+        super.onHitBlock(movingobjectposition);
+        this.defused = true;
     }
 
     @Override

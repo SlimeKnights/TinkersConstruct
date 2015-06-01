@@ -2,6 +2,7 @@ package tconstruct.weaponry.entity;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 public class BoltEntity extends ArrowEntity {
@@ -18,6 +19,13 @@ public class BoltEntity extends ArrowEntity {
     public BoltEntity(World world, EntityPlayer player, float speed, float accuracy, ItemStack stack) {
         super(world, player, speed, accuracy, stack);
         this.setSize(0.3f, 0.3f);
+    }
+
+    @Override
+    public void onHitBlock(MovingObjectPosition movingobjectposition)
+    {
+        super.onHitBlock(movingobjectposition);
+        this.defused = true;
     }
 
     @Override
