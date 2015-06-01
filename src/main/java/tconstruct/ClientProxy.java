@@ -13,17 +13,21 @@ import net.minecraftforge.fml.common.registry.GameData;
 
 import tconstruct.library.client.CustomTextureCreator;
 import tconstruct.library.client.model.MaterialModelLoader;
+import tconstruct.library.client.model.ModifierModelLoader;
 import tconstruct.library.client.model.ToolModelLoader;
+import tconstruct.library.tinkering.modifiers.IModifier;
 
 public abstract class ClientProxy extends CommonProxy {
 
   protected static final ToolModelLoader loader = new ToolModelLoader();
   protected static final MaterialModelLoader materialLoader = new MaterialModelLoader();
+  protected static final ModifierModelLoader modifierLoader = new ModifierModelLoader();
 
   static void initClient() {
     // i wonder if this is OK :D
     ModelLoaderRegistry.registerLoader(loader);
     ModelLoaderRegistry.registerLoader(materialLoader);
+    ModelLoaderRegistry.registerLoader(modifierLoader);
     MinecraftForge.EVENT_BUS.register(new CustomTextureCreator());
   }
 
@@ -111,6 +115,10 @@ public abstract class ClientProxy extends CommonProxy {
     }
 
     return registerIt(item, location);
+  }
+
+  public void registerModifierModel(IModifier modifier, ResourceLocation location) {
+    modifierLoader.registerModifierFile(modifier.getIdentifier(), location);
   }
 
   private static ResourceLocation registerIt(Item item, final ResourceLocation location) {

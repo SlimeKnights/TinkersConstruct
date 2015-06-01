@@ -18,6 +18,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
+import net.minecraftforge.client.model.ITransformation;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -48,6 +49,12 @@ public class ModelHelper {
     return ModelBlock.deserialize(reader);
   }
 
+  public static ModelBlock loadModelBlockFromTexture(String textureName) throws IOException {
+    ModelBlock modelBlock = ModelBlock.deserialize(ModelHelper.getPartModelJSON(textureName));
+    modelBlock.name = textureName;
+    return modelBlock;
+  }
+
   public static ResourceLocation getModelLocation(ResourceLocation location) {
     return new ResourceLocation(location.getResourceDomain(), "models/" + location.getResourcePath() + ".json");
   }
@@ -59,7 +66,18 @@ public class ModelHelper {
   }
 
   public static IFlexibleBakedModel bakeModelFromModelBlock(ModelBlock model,
-                                                            TextureAtlasSprite sprite) {
+                                                            Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter,
+                                                            ITransformation transformation) {
+    TextureAtlasSprite sprite = bakedTextureGetter.apply(new ResourceLocation(model.resolveTextureName("layer0")));
+    return bakeModelFromModelBlock(model, sprite, transformation);
+  }
+
+  public static IFlexibleBakedModel bakeModelFromModelBlock(ModelBlock model, TextureAtlasSprite sprite) {
+    return bakeModelFromModelBlock(model, sprite, ModelRotation.X0_Y0);
+  }
+
+  public static IFlexibleBakedModel bakeModelFromModelBlock(ModelBlock model, TextureAtlasSprite sprite,
+                                                            ITransformation transformation) {
     ModelBlock mb = generator.makeItemModel(Minecraft.getMinecraft().getTextureMapBlocks(), model);
     SimpleBakedModel.Builder builder = (new SimpleBakedModel.Builder(mb));
     mb.textures.put("layer0", sprite.getIconName());
@@ -70,7 +88,7 @@ public class ModelHelper {
       for (Object o2 : blockpart.mapFaces.keySet()) {
         EnumFacing enumfacing = (EnumFacing) o2;
         BlockPartFace blockpartface = (BlockPartFace) blockpart.mapFaces.get(enumfacing);
-        builder.addGeneralQuad(makeBakedQuad(blockpart, blockpartface, sprite, enumfacing, ModelRotation.X0_Y0, false));
+        builder.addGeneralQuad(makeBakedQuad(blockpart, blockpartface, sprite, enumfacing, transformation, false));
       }
     }
 
