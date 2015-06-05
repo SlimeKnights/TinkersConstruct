@@ -561,7 +561,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     private void updateTemperatures ()
     {
-        for (int i = 0; i < maxBlockCapacity; i++)
+        for (int i = 0; i < maxBlockCapacity && i < meltingTemps.length; i++)
         {
             meltingTemps[i] = Smeltery.getLiquifyTemperature(inventory[i]) * 10; // temperatures are *10 for more progress control
         }
