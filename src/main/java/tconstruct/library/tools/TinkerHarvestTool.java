@@ -2,13 +2,16 @@ package tconstruct.library.tools;
 
 import net.minecraft.item.ItemStack;
 
+import tconstruct.library.tinkering.Category;
+import tconstruct.library.tinkering.PartMaterialWrapper;
 import tconstruct.library.utils.TooltipBuilder;
 
 public abstract class TinkerHarvestTool extends TinkersTool {
 
-  @Override
-  public String getItemType() {
-    return "harvest";
+  public TinkerHarvestTool(PartMaterialWrapper... requiredComponents) {
+    super(requiredComponents);
+
+    addCategory(Category.HARVEST);
   }
 
   @Override

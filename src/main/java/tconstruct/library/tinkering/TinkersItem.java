@@ -1,6 +1,8 @@
 package tconstruct.library.tinkering;
 
 
+import gnu.trove.set.hash.THashSet;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -9,6 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.utils.Tags;
@@ -20,11 +23,23 @@ import tconstruct.library.utils.TinkerUtil;
 public abstract class TinkersItem extends Item implements ITinkerable, IModifyable {
 
   public final PartMaterialWrapper[] requiredComponents;
+  // used to classify what the thing can do
+  protected final Set<Category> categories = new THashSet<>();
 
   public TinkersItem(PartMaterialWrapper... requiredComponents) {
     this.requiredComponents = requiredComponents;
 
     this.setMaxStackSize(1);
+  }
+
+  protected void addCategory(Category... categories) {
+    for(Category category : categories) {
+      this.categories.add(category);
+    }
+  }
+
+  public boolean hasCategory(Category category) {
+    return categories.contains(category);
   }
 
   /* Building the Item */

@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 import tconstruct.library.TinkerRegistry;
+import tconstruct.library.tinkering.Category;
 import tconstruct.library.tinkering.PartMaterialWrapper;
 import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.utils.TooltipBuilder;
@@ -20,6 +21,7 @@ public abstract class TinkersTool extends TinkersItem {
     super(requiredComponents);
 
     TinkerRegistry.addTool(this);
+    addCategory(Category.TOOL);
   }
 
   @Override
