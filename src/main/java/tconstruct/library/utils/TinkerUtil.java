@@ -23,25 +23,4 @@ public final class TinkerUtil {
     return ((IToolPart) stack.getItem()).getMaterial(stack);
   }
 
-  /**
-   * Returns the child NBTTag with all the tinker data for the item or Null if it has none.
-   */
-  public static NBTTagCompound getTinkerTag(ItemStack stack) {
-    if (stack == null || stack.getItem() == null) {
-      return null;
-    }
-    if (!stack.hasTagCompound()) {
-      return null;
-    }
-    if (!(stack.getItem() instanceof ITinkerable)) {
-      return null;
-    }
-
-    ITinkerable tinkerable = (ITinkerable) stack.getItem();
-    if (!stack.getTagCompound().hasKey(tinkerable.getTagName())) {
-      return null;
-    }
-
-    return stack.getTagCompound().getCompoundTag(tinkerable.getTagName());
-  }
 }

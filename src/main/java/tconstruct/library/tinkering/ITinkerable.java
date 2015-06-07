@@ -9,11 +9,6 @@ import net.minecraft.item.ItemStack;
 public interface ITinkerable {
 
   /**
-   * Returns the tag key of the tag with the tinker data.
-   */
-  String getTagName();
-
-  /**
    * Returns an String of arrays, where each String represents an information about the tool. Used to display
    * Information about the item in a tooltip or the GUI
    */

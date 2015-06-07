@@ -35,7 +35,7 @@ public final class TagUtil {
       return null;
     }
 
-    return stack.getTagCompound().getCompoundTag(((ITinkerable) stack.getItem()).getTagName());
+    return stack.getTagCompound().getCompoundTag(Tags.TOOL_DATA);
   }
 
   /**

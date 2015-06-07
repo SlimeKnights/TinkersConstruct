@@ -3,7 +3,6 @@ package tconstruct.library.tinkering;
 
 import gnu.trove.set.hash.THashSet;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -88,8 +87,8 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     NBTTagCompound toolTag = buildTag(materials);
     NBTTagCompound dataTag = buildData(materials);
 
-    basetag.setTag(getTagName(), toolTag);
-    basetag.setTag(Tags.TINKER_DATA, dataTag);
+    basetag.setTag(Tags.BASE_DATA, dataTag);
+    basetag.setTag(Tags.TOOL_DATA, toolTag);
     tool.setTagCompound(basetag);
 
     return tool;
@@ -109,11 +108,6 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   protected abstract NBTTagCompound buildTag(Material[] materials);
 
-  @Override
-  public String getTagName() {
-    return Tags.TOOL_BASE;
-  }
-
   /* Information */
 
   @Override
@@ -127,8 +121,8 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   @Override
   public boolean updateItemStackNBT(NBTTagCompound nbt) {
     // when the itemstack is loaded from NBT we recalculate all the data
-    if (nbt.hasKey(Tags.TINKER_DATA)) {
-      NBTTagCompound data = nbt.getCompoundTag(Tags.TINKER_DATA);
+    if (nbt.hasKey(Tags.BASE_DATA)) {
+      NBTTagCompound data = nbt.getCompoundTag(Tags.BASE_DATA);
       List<Material> materials = new LinkedList<>();
       int index = 0;
       while (data.hasKey(String.valueOf(index))) {
@@ -142,7 +136,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
       NBTTagCompound toolTag = buildTag(materials.toArray(new Material[materials.size()]));
       // update the tag
-      nbt.setTag(Tags.TOOL_BASE, toolTag);
+      nbt.setTag(Tags.TOOL_DATA, toolTag);
 
       // todo: ensure that traits loaded from NBT are mapped to the same string instance as the trait identifier so == lookup matches
 

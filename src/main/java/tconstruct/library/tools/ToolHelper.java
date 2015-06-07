@@ -5,6 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
 import tconstruct.library.utils.TinkerUtil;
 
@@ -35,7 +36,7 @@ public final class ToolHelper {
       return 0f;
     }
 
-    NBTTagCompound tag = getToolTag(stack);
+    NBTTagCompound tag = TagUtil.getToolTag(stack);
     if (tag == null) {
       return 1f;
     }
@@ -86,34 +87,14 @@ public final class ToolHelper {
 
   /* Helper Functions */
 
-  // a small helper function so we don't have to write all the checks in every function
-  // also doubles as safety check
-  private static NBTTagCompound getToolTag(ItemStack stack) {
-    NBTTagCompound tag = TinkerUtil.getTinkerTag(stack);
-    // safe check because getTinkerTag does all the null checks
-    if (tag != null && stack.getItem() instanceof TinkersTool) {
-      return tag;
-    }
-
-    return null;
-  }
-
   public static int getIntTag(ItemStack stack, String key) {
-    // getTinkerTag doubles as safety check
-    NBTTagCompound tag = getToolTag(stack);
-    if (tag == null) {
-      return 0;
-    }
+    NBTTagCompound tag = TagUtil.getToolTagSafe(stack);
 
     return tag.getInteger(key);
   }
 
   public static float getfloatTag(ItemStack stack, String key) {
-    // getTinkerTag doubles as safety check
-    NBTTagCompound tag = getToolTag(stack);
-    if (tag == null) {
-      return 0;
-    }
+    NBTTagCompound tag = TagUtil.getToolTagSafe(stack);
 
     return tag.getFloat(key);
   }
