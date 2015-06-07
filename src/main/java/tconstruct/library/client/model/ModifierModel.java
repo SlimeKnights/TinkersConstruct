@@ -23,8 +23,12 @@ import java.util.Map;
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
 
+import tconstruct.library.TinkerRegistry;
+
 /**
  * This model contains all modifiers for a tool
+ * Note that handling may seem confusing, because modifier textures are loaded on a per-modifier basis, but are
+ * translated to a per-tool basis during loading.
  */
 public class ModifierModel implements IModel {
 
@@ -35,6 +39,14 @@ public class ModifierModel implements IModel {
 
   public void addModelForModifier(String modifier, ModelBlock model) {
     models.put(modifier, model);
+  }
+
+  public String getTextureForModifier(String modifier) {
+    if (!models.containsKey(modifier)) {
+      return null;
+    }
+
+    return models.get(modifier).resolveTextureName("layer0");
   }
 
   @Override
@@ -63,12 +75,24 @@ public class ModifierModel implements IModel {
                                             Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
     Map<String, IFlexibleBakedModel> bakedModels = new THashMap<>();
 
+    // we scale the modifier up slightly so it's always above the tool
     float s = 0.025f;
     ITransformation transformation = new TRSRTransformation(new Vector3f(0, 0, 0.0001f-s/2f), null, new Vector3f(1,1,1f + s), null);
 
     for(Map.Entry<String, ModelBlock> entry : models.entrySet()) {
       ModelBlock modelBlock = entry.getValue();
-      IFlexibleBakedModel bakedModel = ModelHelper.bakeModelFromModelBlock(modelBlock, bakedTextureGetter, transformation);
+
+      // todo: turn this into an event?
+      IFlexibleBakedModel bakedModel;
+      // check if the corresponding modifier needs this to be a material model
+      // if this check ever causes an NPE then a modifier has been removed between model loading and model baking
+      if (TinkerRegistry.getModifier(entry.getKey()).hasTexturePerMaterial()) {
+        IModel materialModel = new MaterialModel(modelBlock);
+        bakedModel = materialModel.bake(state, format, bakedTextureGetter);
+      } else {
+        bakedModel = ModelHelper.bakeModelFromModelBlock(modelBlock, bakedTextureGetter, transformation);
+      }
+
       bakedModels.put(entry.getKey(), bakedModel);
     }
 

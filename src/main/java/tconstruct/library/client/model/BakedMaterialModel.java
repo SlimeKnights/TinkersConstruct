@@ -37,7 +37,7 @@ public class BakedMaterialModel extends IFlexibleBakedModel.Wrapper implements I
     return getModelByMetadata(stack.getItemDamage());
   }
 
-  public IBakedModel getModelByMetadata(int meta) {
+  public IFlexibleBakedModel getModelByMetadata(int meta) {
     IFlexibleBakedModel materialModel = parts.get(meta);
     if (materialModel == null) {
       return this;

@@ -20,6 +20,7 @@ import tconstruct.library.TinkerRegistry;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
 import tconstruct.tools.TinkerMaterials;
+import tconstruct.tools.TinkerTools;
 
 public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmartItemModel {
 
@@ -78,8 +79,11 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
       quads.addAll(partModel.getGeneralQuads()); // todo: use an efficient collection for this. Preferably a List-List
     }
 
-    IFlexibleBakedModel modifier = modifiers.get("diamond");
+    IFlexibleBakedModel modifier = modifiers.get(TinkerTools.fortifyMod.getIdentifier());
     if (modifier != null) {
+      if (modifier instanceof BakedMaterialModel) {
+        modifier = ((BakedMaterialModel) modifier).getModelByMetadata(1);
+      }
       quads.addAll(modifier.getGeneralQuads());
     }
 

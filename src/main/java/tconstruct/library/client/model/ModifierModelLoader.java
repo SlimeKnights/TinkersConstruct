@@ -27,6 +27,9 @@ import java.util.Map;
 
 import tconstruct.library.TinkerAPIException;
 import tconstruct.library.TinkerRegistry;
+import tconstruct.library.Util;
+import tconstruct.library.client.CustomTextureCreator;
+import tconstruct.library.tinkering.modifiers.IModifier;
 
 public class ModifierModelLoader implements ICustomModelLoader {
 
@@ -40,6 +43,9 @@ public class ModifierModelLoader implements ICustomModelLoader {
   protected Map<String, List<ResourceLocation>> locations = Maps.newHashMap();
   protected Map<String, Map<String, String>> cache;
 
+  public static ResourceLocation getLocationForToolModifiers(String toolName) {
+    return new ResourceLocation(Util.RESOURCE, "modifiers/" + toolName + ModifierModelLoader.EXTENSION);
+  }
 
   public void registerModifierFile(String modifier, ResourceLocation location) {
     List<ResourceLocation> files = locations.get(modifier);
@@ -78,10 +84,25 @@ public class ModifierModelLoader implements ICustomModelLoader {
 
     // generate the modelblocks for each entry
     for(Map.Entry<String, String> entry : cache.get(toolname).entrySet()) {
+      // check if the modifier actually exists in the game so we don't load unnecessary textures
+      IModifier mod = TinkerRegistry.getModifier(entry.getKey());
+
+      if (mod == null) {
+        TinkerRegistry.log.debug("Removing texture {} for modifier {}: No modifier present for texture",
+                                 entry.getValue(), entry.getKey());
+        continue;
+      }
+
       try {
         ModelBlock modelBlock = ModelHelper.loadModelBlockFromTexture(entry.getValue());
         modelBlock.parent = ModelHelper.DEFAULT_PARENT;
-        model.addModelForModifier(entry.getKey(), modelBlock);
+        // using the String from the modifier means an == check succeeds and fixes lowercasing from the loading from files
+        model.addModelForModifier(mod.getIdentifier(), modelBlock);
+
+        // register per-material modifiers for texture creation
+        if (mod.hasTexturePerMaterial()) {
+          CustomTextureCreator.registerTexture(new ResourceLocation(entry.getValue()));
+        }
       } catch (IOException e) {
         TinkerRegistry.log.error("Could not load model for modifier {} on tool {}: {}", entry.getKey(), toolname, modelLocation.toString());
       }

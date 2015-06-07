@@ -54,10 +54,7 @@ public class ToolModelLoader implements ICustomModelLoader {
       }
 
       String toolName = FilenameUtils.getBaseName(modelLocation.getResourcePath());
-      IModel
-          mods =
-          ModelLoaderRegistry
-              .getModel(new ResourceLocation(Util.RESOURCE, "modifiers/" + toolName + ModifierModelLoader.EXTENSION));
+      IModel mods = ModelLoaderRegistry.getModel(ModifierModelLoader.getLocationForToolModifiers(toolName));
       ModifierModel modifiers = null;
 
       if (mods == null || !(mods instanceof ModifierModel)) {
