@@ -3,13 +3,9 @@ package tconstruct.library;
 import gnu.trove.map.hash.THashMap;
 import gnu.trove.set.hash.TLinkedHashSet;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Collection;
@@ -20,7 +16,7 @@ import java.util.Set;
 import tconstruct.library.tinkering.Material;
 import tconstruct.library.tinkering.materials.IMaterialStats;
 import tconstruct.library.tinkering.modifiers.IModifier;
-import tconstruct.library.tinkering.traits.IMaterialTrait;
+import tconstruct.library.tinkering.traits.ITrait;
 
 public final class TinkerRegistry {
 
@@ -31,20 +27,19 @@ public final class TinkerRegistry {
   }
 
 
-  /**
-   * ******************************************************** MATERIALS *********************************************************
-   */
+  /***********************************************************
+   * MATERIALS                                               *
+   ***********************************************************/
 
   // Identifier to Material mapping. Hashmap so we can look it up directly without iterating
-  private static final Map<String, Material> materials = new HashMap<>();
+  private static final Map<String, Material> materials = new THashMap<>();
+  private static final Map<String, ITrait> traits = new THashMap<>();
   // traceability information who registered what. Used to find errors.
-  private static final Map<String, String> materialRegisteredByMod = new HashMap<>();
-  private static final Map<String, Map<String, String>>
-      statRegisteredByMod = new HashMap<>();
-  private static final Map<String, Map<String, String>>
-      traitRegisteredByMod = new HashMap<>();
+  private static final Map<String, String> materialRegisteredByMod = new THashMap<>();
+  private static final Map<String, Map<String, String>> statRegisteredByMod = new THashMap<>();
+  private static final Map<String, Map<String, String>> traitRegisteredByMod = new THashMap<>();
 
-  public static void addMaterial(Material material, IMaterialStats stats, IMaterialTrait trait) {
+  public static void addMaterial(Material material, IMaterialStats stats, ITrait trait) {
     addMaterial(material, stats);
     addMaterialTrait(material.identifier, trait);
   }
@@ -91,23 +86,32 @@ public final class TinkerRegistry {
   }
 
 
-  /**
-   * ******************************************************** TRAITS AND STATS *********************************************************
-   */
+  /***********************************************************
+   * TRAITS & STATS                                          *
+   ***********************************************************/
 
-  public static void addMaterialStats(String identifier, IMaterialStats stats) {
-    if (!materials.containsKey(identifier)) {
-      error(String.format("Could not add Stats to \"%s\": Unknown Material", identifier));
+  public static void addTrait(ITrait trait) {
+    // Trait might already have been registered since modifiers and materials share traits
+    if(traits.containsKey(trait.getIdentifier()))
+      return;
+
+    String activeMod = Loader.instance().activeModContainer().getModId();
+    putTraitTrace(trait.getIdentifier(), trait, activeMod);
+  }
+
+  public static void addMaterialStats(String materialIdentifier, IMaterialStats stats) {
+    if (!materials.containsKey(materialIdentifier)) {
+      error(String.format("Could not add Stats \"%s\" to \"%s\": Unknown Material", stats.getMaterialType(), materialIdentifier));
       return;
     }
 
-    Material material = materials.get(identifier);
+    Material material = materials.get(materialIdentifier);
     addMaterialStats(material, stats);
   }
 
   public static void addMaterialStats(Material material, IMaterialStats stats) {
     if (material == null) {
-      error(String.format("Could not add Stats: Material is null"));
+      error(String.format("Could not add Stats \"%s\": Material is null", stats.getMaterialType()));
       return;
     }
 
@@ -132,20 +136,20 @@ public final class TinkerRegistry {
     putStatTrace(identifier, stats, activeMod);
   }
 
-  public static void addMaterialTrait(String identifier, IMaterialTrait trait) {
-    if (!materials.containsKey(identifier)) {
+  public static void addMaterialTrait(String materialIdentifier, ITrait trait) {
+    if (!materials.containsKey(materialIdentifier)) {
       error(String.format("Could not add Trait \"%s\" to \"%s\": Unknown Material",
-                          trait.getIdentifier(), identifier));
+                          trait.getIdentifier(), materialIdentifier));
       return;
     }
 
-    Material material = materials.get(identifier);
+    Material material = materials.get(materialIdentifier);
     addMaterialTrait(material, trait);
   }
 
-  public static void addMaterialTrait(Material material, IMaterialTrait trait) {
+  public static void addMaterialTrait(Material material, ITrait trait) {
     if (material == null) {
-      error(String.format("Could not add Stats: Material is null"));
+      error(String.format("Could not add Trait \"%s\": Material is null", trait.getIdentifier()));
       return;
     }
 
@@ -164,19 +168,15 @@ public final class TinkerRegistry {
       return;
     }
 
+    addTrait(trait);
     material.addTrait(trait);
-
-    String activeMod = Loader.instance().activeModContainer().getModId();
-    putTraitTrace(identifier, trait, activeMod);
   }
 
   /***********************************************************
-   * TOOLS & WEAPONS
+   * TOOLS & WEAPONS                                         *
    ***********************************************************/
 
-  /**
-   * This set contains all known tools
-   */
+  /**This set contains all known tools */
   public static final Set<Item> tools = new TLinkedHashSet<>();
 
   public static void addTool(Item tool) {
@@ -184,9 +184,9 @@ public final class TinkerRegistry {
   }
 
 
-  /**
-   * ******************************************************* MODIFIERS ********************************************************
-   */
+  /***********************************************************
+   *  MODIFIERS                                              *
+   ***********************************************************/
 
   public static final Map<String, IModifier> modifiers = new THashMap<>();
 
@@ -203,7 +203,7 @@ public final class TinkerRegistry {
   }
 
   /***********************************************************
-   * Traceability & Internal stuff
+   * Traceability & Internal stuff                           *
    ***********************************************************/
 
   static void putMaterialTrace(String materialIdentifier, String trace) {
@@ -218,7 +218,7 @@ public final class TinkerRegistry {
     statRegisteredByMod.get(materialIdentifier).put(stats.getMaterialType(), trace);
   }
 
-  static void putTraitTrace(String materialIdentifier, IMaterialTrait trait, String trace) {
+  static void putTraitTrace(String materialIdentifier, ITrait trait, String trace) {
     if (!traitRegisteredByMod.containsKey(materialIdentifier)) {
       traitRegisteredByMod.put(materialIdentifier, new HashMap<String, String>());
     }
