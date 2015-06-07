@@ -26,9 +26,9 @@ import tconstruct.tools.TinkerMaterials;
  * Intermediate abstraction layer for all tools/melee weapons. This class has all the callbacks for blocks and enemies
  * so tools and weapons can share behaviour.
  */
-public abstract class TinkersTool extends TinkersItem {
+public abstract class ToolCore extends TinkersItem {
 
-  public TinkersTool(PartMaterialType... requiredComponents) {
+  public ToolCore(PartMaterialType... requiredComponents) {
     super(requiredComponents);
 
     TinkerRegistry.addTool(this);

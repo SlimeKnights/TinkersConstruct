@@ -5,10 +5,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.tinkering.Category;
 import tconstruct.library.tinkering.Material;
 import tconstruct.library.tinkering.PartMaterialType;
-import tconstruct.library.tools.TinkersTool;
+import tconstruct.library.tools.ToolCore;
 import tconstruct.library.utils.ToolBuilder;
 
-public class Pickaxe extends TinkersTool {
+public class Pickaxe extends ToolCore {
 
   // Pick-head, binding, tool-rod
   public Pickaxe() {
