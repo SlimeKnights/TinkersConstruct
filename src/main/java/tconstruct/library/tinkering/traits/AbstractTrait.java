@@ -4,7 +4,7 @@ import net.minecraft.util.StatCollector;
 
 import tconstruct.library.Util;
 
-public abstract class AbstractTrait implements IMaterialTrait {
+public abstract class AbstractTrait implements ITrait {
 
   @Override
   public String getLocalizedName() {

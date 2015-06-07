@@ -1,17 +1,17 @@
 package tconstruct.library.tinkering.traits;
 
-public interface IMaterialTrait {
+public interface ITrait {
 
-  public String getIdentifier();
+  String getIdentifier();
 
-  public String getLocalizedName();
+  String getLocalizedName();
 
   /* Updating */
 
   /**
    * Called each tick
    */
-  public void onUpdate();
+  void onUpdate();
 
   /* Harvesting */
 
@@ -23,19 +23,19 @@ public interface IMaterialTrait {
    * @param isEffective  If the tool is effective for the block to harvest
    * @return How fast the block should be harvested. Standard return value is currentSpeed
    */
-  public float miningSpeed(float speed, float currentSpeed, boolean isEffective);
+  float miningSpeed(float speed, float currentSpeed, boolean isEffective);
 
   /**
    * Called just before a block breaks, analog to Item.onBlockStartBreak
    *
    * @return Return true to prevent harvesting of the block.
    */
-  public boolean beforeBlockBreak();
+  boolean beforeBlockBreak();
 
   /**
    * Called after a block has been broken.
    */
-  public void afterBlockBreak();
+  void afterBlockBreak();
   /* Attacking */
 
   /**
@@ -45,16 +45,15 @@ public interface IMaterialTrait {
    * @param currentDamage The damage that will be dealt currently, possibly modified by other traits
    * @return The damage to deal. Standard return value is currentDamage
    */
-  public float onHit(float damage, float currentDamage);
+  float onHit(float damage, float currentDamage);
 
-  // returns true if the attack should be a critical hit
 
   /**
    * Called AFTER damage calculations, allows to let the weapon crit.
    *
    * @return true if it should be a crit. false will NOT prevent a crit from other sources.
    */
-  public boolean doesCriticalHit();
+  boolean doesCriticalHit();
 
   /* Damage tool */
 
@@ -65,5 +64,5 @@ public interface IMaterialTrait {
    * @param currentDamage The current damage that will be dealt, possibly modified by other traits
    * @return The damage to deal, Standard return value is currentDamage
    */
-  public int onDamage(int damage, int currentDamage);
+  int onDamage(int damage, int currentDamage);
 }

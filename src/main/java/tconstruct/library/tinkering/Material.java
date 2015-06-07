@@ -1,6 +1,5 @@
 package tconstruct.library.tinkering;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumChatFormatting;
 
 import java.util.Collection;
@@ -12,7 +11,7 @@ import javax.annotation.Nonnull;
 import tconstruct.library.TinkerAPIException;
 import tconstruct.library.client.MaterialRenderInfo;
 import tconstruct.library.tinkering.materials.IMaterialStats;
-import tconstruct.library.tinkering.traits.IMaterialTrait;
+import tconstruct.library.tinkering.traits.ITrait;
 
 public class Material {
 
@@ -40,7 +39,7 @@ public class Material {
   // * A Map so we can obtain the stats we want quickly
   // * A treemap because we can sort it, so that all materials have the same order when iterating
   protected final Map<String, IMaterialStats> stats = new TreeMap<>();
-  protected final Map<String, IMaterialTrait> traits = new TreeMap<>();
+  protected final Map<String, ITrait> traits = new TreeMap<>();
 
   private Material() {
     this.identifier = "Unknown";
@@ -123,7 +122,7 @@ public class Material {
   }
 
   /* Traits */
-  public void addTrait(IMaterialTrait materialTrait) {
+  public void addTrait(ITrait materialTrait) {
     this.traits.put(materialTrait.getIdentifier(), materialTrait);
   }
 
@@ -135,7 +134,7 @@ public class Material {
       return false;
     }
 
-    for (IMaterialTrait trait : traits.values()) {
+    for (ITrait trait : traits.values()) {
       if (identifier.equals(trait.getIdentifier())) {
         return true;
       }
@@ -144,7 +143,7 @@ public class Material {
     return false;
   }
 
-  public Collection<IMaterialTrait> getAllTraits() {
+  public Collection<ITrait> getAllTraits() {
     return this.traits.values();
   }
 }
