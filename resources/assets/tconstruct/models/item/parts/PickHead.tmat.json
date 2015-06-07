@@ -1,6 +1,6 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "tconstruct:items/pickaxe/pick_head"
+        "layer0": "tconstruct:items/parts/pick_head"
     }
 }
