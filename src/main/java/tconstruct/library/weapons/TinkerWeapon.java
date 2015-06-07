@@ -8,11 +8,6 @@ import tconstruct.library.utils.TooltipBuilder;
 public abstract class TinkerWeapon extends TinkersTool {
 
   @Override
-  public String getItemType() {
-    return "weapon";
-  }
-
-  @Override
   public String[] getInformation(ItemStack stack) {
     TooltipBuilder info = new TooltipBuilder(stack);
 

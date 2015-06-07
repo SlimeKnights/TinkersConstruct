@@ -13,6 +13,14 @@ public final class TagUtil {
   private TagUtil() {
   }
 
+  public static NBTTagCompound getBaseTag(ItemStack stack) {
+    if (stack == null || stack.getItem() == null || !stack.hasTagCompound()) {
+      return null;
+    }
+
+    return stack.getTagCompound().getCompoundTag(Tags.BASE_DATA);
+  }
+
   /**
    * Returns the Tinkers NBT Tag of an itemstack if present.
    *
@@ -28,6 +36,15 @@ public final class TagUtil {
     }
 
     return stack.getTagCompound().getCompoundTag(((ITinkerable) stack.getItem()).getTagName());
+  }
+
+  /**
+   * Like getToolTag but returns an empty tag instead of null on failure.
+   */
+  public static NBTTagCompound getToolTagSafe(ItemStack stack) {
+    NBTTagCompound tag = getToolTag(stack);
+
+    return tag == null ? new NBTTagCompound() : tag;
   }
 
   /**

@@ -3,6 +3,7 @@ package tconstruct.library.tinkering;
 
 import gnu.trove.set.hash.THashSet;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,16 +23,19 @@ import tconstruct.library.utils.TinkerUtil;
  */
 public abstract class TinkersItem extends Item implements ITinkerable, IModifyable {
 
-  public final PartMaterialWrapper[] requiredComponents;
+  public final PartMaterialType[] requiredComponents;
   // used to classify what the thing can do
   protected final Set<Category> categories = new THashSet<>();
 
-  public TinkersItem(PartMaterialWrapper... requiredComponents) {
+  public TinkersItem(PartMaterialType... requiredComponents) {
     this.requiredComponents = requiredComponents;
 
     this.setMaxStackSize(1);
+    this.setHasSubtypes(true);
   }
 
+
+  /* Tool Information */
   protected void addCategory(Category... categories) {
     for(Category category : categories) {
       this.categories.add(category);
@@ -41,6 +45,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   public boolean hasCategory(Category category) {
     return categories.contains(category);
   }
+
 
   /* Building the Item */
   public boolean validComponent(int slot, ItemStack stack) {
