@@ -52,7 +52,7 @@ public class TinkerTools extends TinkerPulse {
     toolrod = registerItem(new ToolPart(), "ToolRod");
     binding = registerItem(new ToolPart(), "Binding");
 
-    pickaxe = registerItem(new Item(), "Pickaxe");
+    pickaxe = registerItem(new Pickaxe(), "Pickaxe");
 
     diamondMod = new Modifier("Diamond") {
       @SideOnly(Side.CLIENT)
