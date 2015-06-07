@@ -1,5 +1,6 @@
 package tconstruct.library;
 
+import gnu.trove.map.hash.THashMap;
 import gnu.trove.set.hash.TLinkedHashSet;
 
 import net.minecraft.client.Minecraft;

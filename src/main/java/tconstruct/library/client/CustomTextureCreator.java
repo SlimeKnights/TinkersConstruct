@@ -8,7 +8,10 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -16,12 +19,15 @@ import java.util.Map;
 import java.util.Set;
 
 import tconstruct.library.TinkerRegistry;
+import tconstruct.library.Util;
 import tconstruct.library.tinkering.Material;
 
 /**
  * Textures registered with this creator will get a texture created/loaded for each material.
  */
 public class CustomTextureCreator {
+
+  private static Logger log = Util.getLogger("TextureGen");
 
   private static Set<ResourceLocation> baseTextures = Sets.newHashSet();
 
@@ -38,7 +44,8 @@ public class CustomTextureCreator {
     baseTextures.add(texture);
   }
 
-  @SubscribeEvent
+  // low since other event-handlers might want to register textures beforehand
+  @SubscribeEvent(priority = EventPriority.LOW)
   public void createCustomTextures(TextureStitchEvent.Pre event) {
     TextureMap map = event.map;
 
@@ -48,14 +55,14 @@ public class CustomTextureCreator {
         continue;
       }
 
+      TextureAtlasSprite base = map.getTextureExtry(baseTexture.toString());
+      if (base == null) {
+        log.error("Missing base texture: " + baseTexture.toString());
+        continue;
+      }
+
       Map<String, TextureAtlasSprite> builtSprites = Maps.newHashMap();
       for (Material material : TinkerRegistry.getAllMaterials()) {
-        TextureAtlasSprite base = map.getTextureExtry(baseTexture.toString());
-        if (base == null) {
-          TinkerRegistry.log.error("Missing base texture: " + baseTexture.toString());
-          continue;
-        }
-
         String location = baseTexture.toString() + "_" + material.identifier;
         TextureAtlasSprite sprite;
 

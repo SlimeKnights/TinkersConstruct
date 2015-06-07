@@ -1,5 +1,7 @@
 package tconstruct.library;
 
+import net.minecraft.util.ResourceLocation;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,6 +30,10 @@ public class Util {
    */
   public static String resource(String res) {
     return String.format("%s:%s", RESOURCE, res);
+  }
+
+  public static ResourceLocation getResource(String res) {
+    return new ResourceLocation(RESOURCE, res);
   }
 
   /**
