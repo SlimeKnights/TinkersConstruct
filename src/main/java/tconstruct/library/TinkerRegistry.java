@@ -25,7 +25,7 @@ import tconstruct.library.tinkering.traits.IMaterialTrait;
 public final class TinkerRegistry {
 
   // the logger for the library
-  public static final Logger log = LogManager.getLogger("TCon");
+  public static final Logger log = Util.getLogger("API");
 
   private TinkerRegistry() {
   }
@@ -185,13 +185,21 @@ public final class TinkerRegistry {
 
 
   /**
-   * ******************************************************** MODIFIERS * *********************************************************
+   * ******************************************************* MODIFIERS ********************************************************
    */
 
-  public static final Set<IModifier> modifiers = new TLinkedHashSet<>();
+  public static final Map<String, IModifier> modifiers = new THashMap<>();
 
   public static void registerModifier(IModifier modifier) {
-    modifiers.add(modifier);
+    modifiers.put(modifier.getIdentifier(), modifier);
+  }
+
+  public static IModifier getModifier(String identifier) {
+    return modifiers.get(identifier);
+  }
+
+  public static Collection<IModifier> getAllModifiers() {
+    return modifiers.values();
   }
 
   /***********************************************************

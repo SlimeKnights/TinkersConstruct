@@ -6,6 +6,8 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +15,10 @@ import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import tconstruct.CommonProxy;
 import tconstruct.TinkerPulse;
+import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
+import tconstruct.library.tinkering.modifiers.IModifier;
+import tconstruct.library.tinkering.modifiers.Modifier;
 import tconstruct.library.tools.ToolPart;
 
 @Pulse(id = TinkerTools.PulseId, description = "This module contains all the tools and everything related to it.")
@@ -34,6 +39,9 @@ public class TinkerTools extends TinkerPulse {
   public static ToolPart toolrod;
   public static ToolPart binding;
 
+  public static IModifier diamondMod;
+  public static IModifier fortifyMod;
+
   @Handler
   public void preInit(FMLPreInitializationEvent event) {
     TinkerMaterials.registerToolMaterials();
@@ -45,6 +53,23 @@ public class TinkerTools extends TinkerPulse {
     binding = registerItem(new ToolPart(), "Binding");
 
     pickaxe = registerItem(new Item(), "Pickaxe");
+
+    diamondMod = new Modifier("Diamond") {
+      @SideOnly(Side.CLIENT)
+      @Override
+      public boolean hasTexturePerMaterial() {
+        return false;
+      }
+    };
+
+    fortifyMod = new Modifier("Fortify") {
+      @SideOnly(Side.CLIENT)
+      @Override
+      public boolean hasTexturePerMaterial() {
+        return true;
+      }
+    };
+
     proxy.registerModels();
   }
 
