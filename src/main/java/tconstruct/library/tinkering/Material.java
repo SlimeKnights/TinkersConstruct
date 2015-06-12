@@ -16,6 +16,7 @@ import tconstruct.library.tinkering.traits.ITrait;
 public class Material {
 
   public static final Material UNKNOWN = new Material();
+  public static final String LOCALIZATION_STRING = "material.%s.name";
 
   /**
    * This String uniquely identifies a material.
@@ -135,6 +136,6 @@ public class Material {
   }
 
   public String getLocalizedName() {
-    return StatCollector.translateToLocal(String.format("material.%s.name", identifier));
+    return StatCollector.translateToLocal(String.format(LOCALIZATION_STRING, identifier));
   }
 }

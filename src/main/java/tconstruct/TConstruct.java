@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkCheckHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -15,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 
 import mantle.pulsar.control.PulseManager;
-import tconstruct.debug.StickOfDebugging;
+import tconstruct.debug.LocalizationCheckCommand;
 import tconstruct.library.Util;
 import tconstruct.tools.TinkerMaterials;
 import tconstruct.tools.TinkerTools;
@@ -98,4 +99,8 @@ public class TConstruct {
     pulseManager.postInit(event);
   }
 
+  @Mod.EventHandler
+  public void starting(FMLServerStartingEvent event) {
+    event.registerServerCommand(new LocalizationCheckCommand());
+  }
 }
