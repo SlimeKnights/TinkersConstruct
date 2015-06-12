@@ -13,6 +13,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import tconstruct.library.tinkering.traits.ITrait;
+import tconstruct.library.tinkering.traits.TraitNBTData;
 import tconstruct.library.utils.Tags;
 import tconstruct.library.utils.TinkerUtil;
 import tconstruct.library.utils.ToolBuilder;
@@ -86,15 +88,28 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
    */
   public ItemStack buildItem(List<Material> materials) {
     ItemStack tool = new ItemStack(this);
+    tool.setTagCompound(buildItemNBT(materials));
+
+    return tool;
+  }
+
+  /**
+   * Builds the NBT for a new tinker item with the given data.
+   *
+   * @param materials Materials to build with. Have to be in the correct order. No nulls!
+   * @return The built nbt
+   */
+  public NBTTagCompound buildItemNBT(List<Material> materials) {
     NBTTagCompound basetag = new NBTTagCompound();
     NBTTagCompound toolTag = buildTag(materials);
     NBTTagCompound dataTag = buildData(materials);
+    NBTTagCompound traitTag = buildTraits(materials);
 
     basetag.setTag(Tags.BASE_DATA, dataTag);
     basetag.setTag(Tags.TOOL_DATA, toolTag);
-    tool.setTagCompound(basetag);
+    basetag.setTag(Tags.TOOL_TRAITS, traitTag);
 
-    return tool;
+    return basetag;
   }
 
   /**
@@ -103,6 +118,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   private NBTTagCompound buildData(List<Material> materials) {
     NBTTagCompound base = new NBTTagCompound();
     NBTTagCompound tag = new NBTTagCompound();
+
     for (int i = 0; i < materials.size(); i++) {
       tag.setString(String.valueOf(i), materials.get(i).identifier);
     }
@@ -114,6 +130,41 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   }
 
   public abstract NBTTagCompound buildTag(List<Material> materials);
+
+  public NBTTagCompound buildTraits(List<Material> materials) {
+    NBTTagCompound tag = new NBTTagCompound();
+
+    int count = 0;
+    for (int i = 0; i < materials.size(); i++) {
+      for (ITrait trait : materials.get(i).getAllTraits()) {
+
+        TraitNBTData data = new TraitNBTData(String.valueOf(count));
+        data.color = materials.get(i).textColor;
+        data.level = 0;
+        data.identifier = trait.getIdentifier();
+
+        // check if the trait already exists on the tool
+        for (int j = 0; j < i; j++) {
+          TraitNBTData oldData = TraitNBTData.read(tag, String.valueOf(j));
+          if (trait.getIdentifier().equals(oldData.identifier)) {
+            data = oldData;
+            break;
+          }
+        }
+
+        // can we increase it?
+        if(data.level < trait.getMaxCount()) {
+          data.level++;
+        }
+
+        data.write(tag);
+
+        count++;
+      }
+    }
+
+    return tag;
+  }
 
   /* Information */
 

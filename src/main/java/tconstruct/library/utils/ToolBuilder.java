@@ -73,6 +73,9 @@ public final class ToolBuilder {
     NBTTagCompound toolTag = tinkersItem.buildTag(materials);
     rootNBT.setTag(Tags.TOOL_DATA, toolTag);
 
+    NBTTagCompound traitTag = tinkersItem.buildTraits(materials);
+    rootNBT.setTag(Tags.TOOL_TRAITS, traitTag);
+
     // reapply modifiers
     NBTTagCompound modifiers = TagUtil.getTagSafe(baseTag, Tags.BASE_MODIFIERS);
     NBTTagCompound modifiersTag = TagUtil.getTagSafe(rootNBT, Tags.TOOL_MODIFIERS);

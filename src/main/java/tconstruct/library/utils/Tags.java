@@ -22,6 +22,7 @@ public final class Tags {
   public static final String TOOL_DATA = "Tool";
 
   public static final String TOOL_MODIFIERS = "Modifiers";
+  public static final String TOOL_TRAITS = "Traits";
 
   /** The tag that saves the material information on toolparts */
   public static final String PART_MATERIAL = "Material";
