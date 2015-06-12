@@ -45,6 +45,11 @@ public final class TinkerRegistry {
     addMaterialTrait(material.identifier, trait);
   }
 
+  public static void addMaterial(Material material, ITrait trait) {
+    addMaterial(material);
+    addMaterialTrait(material.identifier, trait);
+  }
+
   public static void addMaterial(Material material, IMaterialStats stats) {
     addMaterial(material);
     addMaterialStats(material.identifier, stats);
@@ -85,6 +90,8 @@ public final class TinkerRegistry {
     if (traits.containsKey(trait.getIdentifier())) {
       return;
     }
+
+    traits.put(trait.getIdentifier(), trait);
 
     String activeMod = Loader.instance().activeModContainer().getModId();
     putTraitTrace(trait.getIdentifier(), trait, activeMod);
@@ -162,6 +169,10 @@ public final class TinkerRegistry {
 
     addTrait(trait);
     material.addTrait(trait);
+  }
+
+  public static ITrait getTrait(String identifier) {
+    return traits.get(identifier);
   }
 
   /****************************************************************************
