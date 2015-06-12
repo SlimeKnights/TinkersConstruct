@@ -26,14 +26,14 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
 
   protected BakedMaterialModel[] parts;
   protected BakedMaterialModel[] brokenParts;
-  protected Map<String, IFlexibleBakedModel> modifiers;
+  protected Map<String, IFlexibleBakedModel> modifierParts;
 
   /**
    * The length of brokenParts has to match the length of parts. If a part does not have a broken texture, the entry in
    * the array simply is null.
    */
   public BakedToolModel(IBakedModel parent, BakedMaterialModel[] parts, BakedMaterialModel[] brokenParts,
-                        Map<String, IFlexibleBakedModel> modifiers) {
+                        Map<String, IFlexibleBakedModel> modifierParts) {
     super(parent, Attributes.DEFAULT_BAKED_FORMAT);
 
     if (parts.length != brokenParts.length) {
@@ -42,24 +42,28 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
 
     this.parts = parts;
     this.brokenParts = brokenParts;
-    this.modifiers = modifiers;
+    this.modifierParts = modifierParts;
   }
 
   @Override
   public IBakedModel handleItemState(ItemStack stack) {
-    NBTTagCompound tag = TagUtil.getBaseTag(stack);
+    NBTTagCompound baseTag = TagUtil.getBaseTag(stack);
+    NBTTagCompound toolTag = TagUtil.getToolTagSafe(stack);
 
-    if (tag == null) {
+    if (baseTag == null) {
       return this;
     }
+
+    NBTTagCompound materials = TagUtil.getTagSafe(baseTag, Tags.BASE_MATERIALS);
+    NBTTagCompound modifiers = TagUtil.getTagSafe(baseTag, Tags.BASE_MODIFIERS);
 
     // get the texture for each part
     List<BakedQuad> quads = new ArrayList<>();
 
-    boolean broken = tag.getBoolean(Tags.BROKEN);
+    boolean broken = toolTag.getBoolean(Tags.BROKEN);
 
     for (int i = 0; i < parts.length; i++) {
-      String id = tag.getString(String.valueOf(i));
+      String id = materials.getString(String.valueOf(i));
 
       IBakedModel partModel;
       if (broken && brokenParts[i] != null) {
@@ -71,12 +75,15 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
       quads.addAll(partModel.getGeneralQuads()); // todo: use an efficient collection for this. Preferably a List-List
     }
 
-    IFlexibleBakedModel modifier = modifiers.get(TinkerTools.fortifyMod.getIdentifier());
-    if (modifier != null) {
-      if (modifier instanceof BakedMaterialModel) {
-        modifier = ((BakedMaterialModel) modifier).getModelByIdentifier(TinkerMaterials.netherrack.identifier);
+    for(int i = 0; modifiers.hasKey(String.valueOf(i)); i++) {
+      String modId = modifiers.getString(String.valueOf(i));
+      IFlexibleBakedModel modModel = modifierParts.get(modId);
+      if (modModel != null) {
+        if (modModel instanceof BakedMaterialModel) {
+          modModel = ((BakedMaterialModel) modModel).getModelByIdentifier(TinkerMaterials.netherrack.identifier);
+        }
+        quads.addAll(modModel.getGeneralQuads());
       }
-      quads.addAll(modifier.getGeneralQuads());
     }
 
     SimpleBakedModel

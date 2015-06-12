@@ -7,6 +7,10 @@ public final class Tags {
 
   /** The base data of the tinker item. What it is built from. */
   public static final String BASE_DATA = "TinkerData";
+  /** Contains the materials of the parts the tool was built from */
+  public static final String BASE_MATERIALS = "Materials";
+  /** Contains all the applied modifiers */
+  public static final String BASE_MODIFIERS = "Modifiers";
   /** Extra-data that is specific to this Itemstack and is used to build the item.
    * An example would be if a special pickaxe had 100 more durability, it'd be stored in here.
    */
@@ -14,8 +18,8 @@ public final class Tags {
 
   //public static final String TOOL_RENDER = "Render";
   /** The tag that contains all the actual calculated runtime-information of the tools */
-  public static final String TOOL_DATA = "Tinker";
-  /** Contains all the applied modifiers */
+  public static final String TOOL_DATA = "Tool";
+
   public static final String TOOL_MODIFIERS = "Modifiers";
 
   /** The tag that saves the material information on toolparts */
@@ -26,7 +30,7 @@ public final class Tags {
   public static final String MININGSPEED = "MiningSpeed";
   public static final String HARVESTLEVEL = "HarvestLevel";
 
-  public static final String MODIFIERS = "Modifiers";
+  public static final String MODIFIERS = "FreeModifiers";
 
   public static final String BROKEN = "Broken";
 
