@@ -9,14 +9,11 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.tinkering.Material;
 import tconstruct.library.tinkering.MaterialItem;
-import tconstruct.library.tools.IToolPart;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
 
@@ -35,7 +32,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
     Material material = getMaterial(stack);
 
     if (material == Material.UNKNOWN) {
-      NBTTagCompound tag = TagUtil.getTagCompoundSafe(stack);
+      NBTTagCompound tag = TagUtil.getTagSafe(stack);
       String materialID = tag.getString(Tags.PART_MATERIAL);
 
       String error;

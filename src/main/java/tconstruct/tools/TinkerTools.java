@@ -1,6 +1,8 @@
 package tconstruct.tools;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -19,6 +21,8 @@ import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
 import tconstruct.library.tinkering.modifiers.IModifier;
 import tconstruct.library.tinkering.modifiers.Modifier;
+import tconstruct.library.tinkering.modifiers.ModifierNBT;
+import tconstruct.library.tinkering.modifiers.ToolModifier;
 import tconstruct.library.tools.ToolPart;
 
 @Pulse(id = TinkerTools.PulseId, description = "This module contains all the tools and everything related to it.")
@@ -54,15 +58,19 @@ public class TinkerTools extends TinkerPulse {
 
     pickaxe = registerItem(new Pickaxe(), "Pickaxe");
 
-    diamondMod = new Modifier("Diamond") {
-      @SideOnly(Side.CLIENT)
-      @Override
-      public boolean hasTexturePerMaterial() {
-        return false;
-      }
-    };
+    diamondMod = new DiamondModifier();
 
     fortifyMod = new Modifier("Fortify") {
+      @Override
+      public boolean canApply(ItemStack stack) {
+        return false;
+      }
+
+      @Override
+      public void apply(NBTTagCompound modifierTag) {
+
+      }
+
       @SideOnly(Side.CLIENT)
       @Override
       public boolean hasTexturePerMaterial() {

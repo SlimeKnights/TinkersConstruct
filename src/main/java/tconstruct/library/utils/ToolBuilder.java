@@ -33,6 +33,8 @@ public final class ToolBuilder {
     // and don't forget the harvest level
     calculateHarvestLevel(result, headStats);
 
+    result.setInteger(Tags.MODIFIERS, 3);
+
     return result;
   }
 

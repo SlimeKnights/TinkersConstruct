@@ -62,4 +62,13 @@ public class TooltipBuilder {
 
     return this;
   }
+
+  public TooltipBuilder addFreeModifiers() {
+    if (stack != null) {
+      tips.add(String.format("%s: %s", StatCollector.translateToLocal("tooltip.tool.modifiers"),
+                             df.format(ToolHelper.getFreeModifiers(stack))));
+    }
+
+    return this;
+  }
 }

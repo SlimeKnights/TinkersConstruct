@@ -13,7 +13,7 @@ public final class TagUtil {
   private TagUtil() {
   }
 
-  public static NBTTagCompound getTagCompoundSafe(ItemStack stack) {
+  public static NBTTagCompound getTagSafe(ItemStack stack) {
     if (stack == null || stack.getItem() == null || !stack.hasTagCompound()) {
       return new NBTTagCompound();
     }
@@ -35,6 +35,19 @@ public final class TagUtil {
     }
 
     return stack.getTagCompound().getCompoundTag(Tags.BASE_DATA);
+  }
+
+  public static NBTTagCompound getBaseTagSafe(ItemStack stack) {
+    NBTTagCompound tag = getBaseTag(stack);
+
+    return tag == null ? new NBTTagCompound() : tag;
+  }
+
+  public static void setBaseTag(ItemStack stack, NBTTagCompound tag) {
+    NBTTagCompound tagCompound = TagUtil.getTagSafe(stack);
+    tagCompound.setTag(Tags.BASE_DATA, tag);
+
+    stack.setTagCompound(tagCompound);
   }
 
   /**
@@ -63,16 +76,20 @@ public final class TagUtil {
     return tag == null ? new NBTTagCompound() : tag;
   }
 
+  public static void setToolTag(ItemStack stack, NBTTagCompound tag) {
+    NBTTagCompound tagCompound = TagUtil.getTagSafe(stack);
+    tagCompound.setTag(Tags.TOOL_DATA, tag);
+
+    stack.setTagCompound(tagCompound);
+  }
+
+
+  public static NBTTagCompound getModifiersBaseTag(ItemStack stack) {
+    return getTagSafe(getBaseTag(stack), Tags.BASE_MODIFIERS);
+  }
+
   public static NBTTagCompound getModifiersTag(ItemStack stack) {
-    if (stack == null || stack.getItem() == null || !stack.hasTagCompound()) {
-      return null;
-    }
-
-    if (!(stack.getItem() instanceof ITinkerable)) {
-      return null;
-    }
-
-    return stack.getTagCompound().getCompoundTag(Tags.TOOL_MODIFIERS);
+    return getTagSafe(getTagSafe(stack), Tags.BASE_MODIFIERS);
   }
 
   /**

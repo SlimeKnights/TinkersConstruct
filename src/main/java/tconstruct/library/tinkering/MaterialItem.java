@@ -5,9 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.utils.TagUtil;
@@ -37,7 +35,7 @@ public class MaterialItem extends Item implements IMaterialItem {
 
   @Override
   public Material getMaterial(ItemStack stack) {
-    NBTTagCompound tag = TagUtil.getTagCompoundSafe(stack);
+    NBTTagCompound tag = TagUtil.getTagSafe(stack);
 
     return TinkerRegistry.getMaterial(tag.getString(Tags.PART_MATERIAL));
   }

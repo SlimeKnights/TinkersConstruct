@@ -5,13 +5,23 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+import tconstruct.library.tinkering.Category;
+import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
 import tconstruct.library.utils.TinkerUtil;
+import tconstruct.library.utils.ToolTagUtil;
 
 public final class ToolHelper {
 
   private ToolHelper() {
+  }
+
+  public static boolean hasCategory(ItemStack stack, Category category) {
+    if(stack == null || stack.getItem() == null || !(stack.getItem() instanceof TinkersItem))
+      return false;
+
+    return ((TinkersItem) stack.getItem()).hasCategory(category);
   }
 
   /* Basic Tool data */
@@ -29,6 +39,10 @@ public final class ToolHelper {
 
   public static float getAttack(ItemStack stack) {
     return getIntTag(stack, Tags.ATTACK);
+  }
+
+  public static int getFreeModifiers(ItemStack stack) {
+    return getIntTag(stack, Tags.MODIFIERS);
   }
 
   public static float calcDigSpeed(ItemStack stack, IBlockState blockState) {

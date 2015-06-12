@@ -45,7 +45,6 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     return categories.contains(category);
   }
 
-
   /* Building the Item */
   public boolean validComponent(int slot, ItemStack stack) {
     if (slot > requiredComponents.length || slot < 0) {

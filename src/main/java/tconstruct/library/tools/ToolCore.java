@@ -15,6 +15,7 @@ import tconstruct.library.tinkering.Category;
 import tconstruct.library.tinkering.Material;
 import tconstruct.library.tinkering.PartMaterialType;
 import tconstruct.library.tinkering.TinkersItem;
+import tconstruct.library.tinkering.modifiers.IModifier;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
 import tconstruct.library.utils.ToolBuilder;
@@ -59,6 +60,11 @@ public abstract class ToolCore extends TinkersItem {
       info.addAttack();
     }
 
+    if(ToolHelper.getFreeModifiers(stack) > 0) {
+      info.addFreeModifiers();
+    }
+
+
     return info.getTooltip();
   }
 
@@ -72,7 +78,11 @@ public abstract class ToolCore extends TinkersItem {
   @Override
   public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
     for (Material head : TinkerRegistry.getAllMaterials()) {
-      subItems.add(buildItem(new Material[]{head, TinkerMaterials.wood, TinkerMaterials.stone}));
+      // todo: make this real?
+      ItemStack tool = buildItem(new Material[]{head, TinkerMaterials.wood, TinkerMaterials.stone});
+      IModifier mod = TinkerRegistry.getModifier("Diamond");
+      mod.apply(tool);
+      subItems.add(tool);
     }
   }
 

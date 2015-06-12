@@ -1,36 +1,24 @@
 package tconstruct.library.tinkering.modifiers;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
-import tconstruct.library.utils.TagUtil;
-import tconstruct.library.utils.ToolTagUtil;
+import tconstruct.library.tinkering.Category;
+import tconstruct.library.tools.ToolHelper;
 
-public class ToolModifier extends Modifier {
-
-  public int requiredModifiers = 1;
-
+/**
+ * Additionally to the standard conditions, ToolModifiers also require a minimum amount of free modifiers
+ */
+public abstract class ToolModifier extends Modifier {
   public ToolModifier(String identifier) {
     super(identifier);
   }
 
   @Override
   public boolean canApply(ItemStack stack) {
-    NBTTagCompound toolTag = TagUtil.getToolTagSafe(stack);
-    if (ToolTagUtil.getFreeModifiers(toolTag) < requiredModifiers) {
-      // also returns false if the tooltag is missing
+    if(!ToolHelper.hasCategory(stack, Category.TOOL))
       return false;
-    }
 
-    // we assume each modifier can only be applied once
-    NBTTagCompound tag = TagUtil.getModifiersTag(stack);
-
-    return !tag.hasKey(getIdentifier());
-  }
-
-  @Override
-  public void apply(ItemStack stack) {
-
+    return super.canApply(stack);
   }
 
   @Override

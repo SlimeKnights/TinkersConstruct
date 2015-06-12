@@ -3,6 +3,7 @@ tooltip.tool.durability=Durability
 tooltip.tool.miningspeed=Mining Speed
 tooltip.tool.harvestlevel=Mining Level
 tooltip.tool.attack=Attack
+tooltip.tool.modifiers=Modifiers
 
 tooltip.part.materialAddedBy=Added by %s
 tooltip.part.missingMaterial=Missing material: %s
