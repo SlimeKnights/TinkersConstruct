@@ -64,9 +64,15 @@ public class TinkerTools extends TinkerPulse {
       }
 
       @Override
-      public void apply(NBTTagCompound modifierTag) {
+      public void updateNBT(NBTTagCompound modifierTag) {
 
       }
+
+      @Override
+      public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
+
+      }
+
 
       @SideOnly(Side.CLIENT)
       @Override

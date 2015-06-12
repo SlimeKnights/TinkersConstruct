@@ -63,14 +63,17 @@ public abstract class Modifier implements IModifier {
     tag.setInteger(Tags.FREE_MODIFIERS, Math.max(0, modifiers));
 
     TagUtil.setToolTag(stack, tag);
-  }
 
-  /**
-   * In this function the modifier saves its own data into the given tag.
-   *
-   * @param modifierTag This tag shall be filled with data. It will be saved into the tool as the modifiers identifier.
-   */
-  public abstract void apply(NBTTagCompound modifierTag);
+    // have the modifier itself save its data
+    tag = TagUtil.getModifiersTag(stack);
+    updateNBT(tag);
+    TagUtil.setModifiersTag(stack, tag);
+
+    // have the modifier apply its effect based on the nbt data
+    NBTTagCompound rootCompound = stack.getTagCompound();
+    applyEffect(rootCompound, tag);
+    stack.setTagCompound(rootCompound);
+  }
 
   public String getLocalizedName() {
     return StatCollector.translateToLocalFormatted(LOCALIZATION_STRING, identifier);

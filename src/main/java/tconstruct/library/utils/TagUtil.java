@@ -89,7 +89,14 @@ public final class TagUtil {
   }
 
   public static NBTTagCompound getModifiersTag(ItemStack stack) {
-    return getTagSafe(getTagSafe(stack), Tags.BASE_MODIFIERS);
+    return getTagSafe(getTagSafe(stack), Tags.TOOL_MODIFIERS);
+  }
+
+  public static void setModifiersTag(ItemStack stack, NBTTagCompound tag) {
+    NBTTagCompound tagCompound = TagUtil.getTagSafe(stack);
+    tagCompound.setTag(Tags.TOOL_MODIFIERS, tag);
+
+    stack.setTagCompound(tagCompound);
   }
 
   /**
