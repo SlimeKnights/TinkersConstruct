@@ -47,6 +47,18 @@ public final class TagUtil {
     return tag == null ? new NBTTagCompound() : tag;
   }
 
+  public static NBTTagCompound getModifiersTag(ItemStack stack) {
+    if (stack == null || stack.getItem() == null || !stack.hasTagCompound()) {
+      return null;
+    }
+
+    if (!(stack.getItem() instanceof ITinkerable)) {
+      return null;
+    }
+
+    return stack.getTagCompound().getCompoundTag(Tags.TOOL_MODIFIERS);
+  }
+
   /**
    * Adds the given value to the integer tag given.
    *

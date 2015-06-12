@@ -15,4 +15,6 @@ public abstract class Modifier implements IModifier {
   public String getIdentifier() {
     return identifier;
   }
+
+
 }

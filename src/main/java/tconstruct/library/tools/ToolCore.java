@@ -64,13 +64,11 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   protected NBTTagCompound buildTag(Material[] materials) {
-    // assumse a simple Head + Handle tool
+    // assume a simple Head + Handle tool
     return ToolBuilder.buildSimpleTool(materials[0], materials[1]);
   }
 
   // Creative tab items
-
-
   @Override
   public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
     for (Material head : TinkerRegistry.getAllMaterials()) {

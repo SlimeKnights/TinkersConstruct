@@ -15,11 +15,15 @@ public final class Tags {
   //public static final String TOOL_RENDER = "Render";
   /** The tag that contains all the actual calculated runtime-information of the tools */
   public static final String TOOL_DATA = "Tinker";
+  /** Contains all the applied modifiers */
+  public static final String TOOL_MODIFIERS = "Modifiers";
 
   public static final String DURABILITY = "Durability";
   public static final String ATTACK = "Attack";
-  public static final String MININGSPEED = "MIningSpeed";
+  public static final String MININGSPEED = "MiningSpeed";
   public static final String HARVESTLEVEL = "HarvestLevel";
+
+  public static final String MODIFIERS = "Modifiers";
 
   public static final String BROKEN = "Broken";
 
