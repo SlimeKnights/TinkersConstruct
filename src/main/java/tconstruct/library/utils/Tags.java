@@ -18,6 +18,9 @@ public final class Tags {
   /** Contains all the applied modifiers */
   public static final String TOOL_MODIFIERS = "Modifiers";
 
+  /** The tag that saves the material information on toolparts */
+  public static final String PART_MATERIAL = "Material";
+
   public static final String DURABILITY = "Durability";
   public static final String ATTACK = "Attack";
   public static final String MININGSPEED = "MiningSpeed";

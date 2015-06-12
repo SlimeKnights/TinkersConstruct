@@ -8,7 +8,6 @@ import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 
-import tconstruct.library.TinkerAPIException;
 import tconstruct.library.client.MaterialRenderInfo;
 import tconstruct.library.tinkering.materials.IMaterialStats;
 import tconstruct.library.tinkering.traits.ITrait;
@@ -22,10 +21,6 @@ public class Material {
    */
   @Nonnull
   public final String identifier;
-  /**
-   * This ID is used to map the material to metadata for items. Has to be between 0 and 65535
-   */
-  public final int metadata;
 
   /**
    * How the material will be rendered on tinker tools etc.
@@ -44,37 +39,28 @@ public class Material {
   private Material() {
     this.identifier = "Unknown";
     this.renderInfo = new MaterialRenderInfo.Default(0xffffff);
-    this.metadata = -1;
     this.textColor = EnumChatFormatting.WHITE;
   }
 
   // simple white material
-  public Material(String identifier, int metadata) {
-    this(identifier, metadata, 0xffffff, EnumChatFormatting.GRAY);
+  public Material(String identifier) {
+    this(identifier, 0xffffff, EnumChatFormatting.GRAY);
   }
 
   // one-colored material
-  public Material(String identifier, int metadata, int color, EnumChatFormatting textColor) {
-    this(identifier, metadata, new MaterialRenderInfo.Default(color), textColor);
+  public Material(String identifier, int color, EnumChatFormatting textColor) {
+    this(identifier, new MaterialRenderInfo.Default(color), textColor);
   }
 
   // multi-colored material
-  public Material(String identifier, int metadata, int colorLow, int colorMid, int colorHigh,
+  public Material(String identifier, int colorLow, int colorMid, int colorHigh,
                   EnumChatFormatting textColor) {
-    this(identifier, metadata, new MaterialRenderInfo.Default(colorLow, colorMid, colorHigh), textColor);
+    this(identifier, new MaterialRenderInfo.Default(colorLow, colorMid, colorHigh), textColor);
   }
 
   // complex material with 3 colors and a real surface texture!
-  public Material(String identifier, int metadata, MaterialRenderInfo renderInfo, EnumChatFormatting textColor) {
-
-    // check metadata bounds: 0 to (2^16)-1
-    if (metadata < 0 || metadata > 65535) {
-      throw new TinkerAPIException(
-          String.format("Metadata for Material \"%s\" is out of bounds: %d", identifier, metadata));
-    }
-
+  public Material(String identifier, MaterialRenderInfo renderInfo, EnumChatFormatting textColor) {
     this.identifier = identifier;
-    this.metadata = metadata;
     this.renderInfo = renderInfo;
     this.textColor = textColor;
   }

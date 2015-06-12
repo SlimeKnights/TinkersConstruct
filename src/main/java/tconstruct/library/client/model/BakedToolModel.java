@@ -60,12 +60,12 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
 
     for (int i = 0; i < parts.length; i++) {
       String id = tag.getString(String.valueOf(i));
-      int meta = TinkerRegistry.getMaterial(id).metadata;
+
       IBakedModel partModel;
       if (broken && brokenParts[i] != null) {
-        partModel = brokenParts[i].getModelByMetadata(meta);
+        partModel = brokenParts[i].getModelByIdentifier(id);
       } else {
-        partModel = parts[i].getModelByMetadata(meta);
+        partModel = parts[i].getModelByIdentifier(id);
       }
 
       quads.addAll(partModel.getGeneralQuads()); // todo: use an efficient collection for this. Preferably a List-List
@@ -74,7 +74,7 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
     IFlexibleBakedModel modifier = modifiers.get(TinkerTools.fortifyMod.getIdentifier());
     if (modifier != null) {
       if (modifier instanceof BakedMaterialModel) {
-        modifier = ((BakedMaterialModel) modifier).getModelByMetadata(1);
+        modifier = ((BakedMaterialModel) modifier).getModelByIdentifier(TinkerMaterials.netherrack.identifier);
       }
       quads.addAll(modifier.getGeneralQuads());
     }

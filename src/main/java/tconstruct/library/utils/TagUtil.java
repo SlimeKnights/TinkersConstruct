@@ -13,6 +13,14 @@ public final class TagUtil {
   private TagUtil() {
   }
 
+  public static NBTTagCompound getTagCompoundSafe(ItemStack stack) {
+    if (stack == null || stack.getItem() == null || !stack.hasTagCompound()) {
+      return new NBTTagCompound();
+    }
+
+    return stack.getTagCompound();
+  }
+
   public static NBTTagCompound getBaseTag(ItemStack stack) {
     if (stack == null || stack.getItem() == null || !stack.hasTagCompound()) {
       return null;
