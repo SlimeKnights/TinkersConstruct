@@ -52,6 +52,8 @@ public abstract class ToolCore extends TinkersItem {
   public String[] getInformation(ItemStack stack) {
     TooltipBuilder info = new TooltipBuilder(stack);
 
+    info.addTraits();
+
     info.addDurability();
     if (hasCategory(Category.HARVEST)) {
       info.addHarvestLevel();
