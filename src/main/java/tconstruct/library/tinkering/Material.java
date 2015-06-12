@@ -1,6 +1,7 @@
 package tconstruct.library.tinkering;
 
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 
 import java.util.Collection;
 import java.util.Map;
@@ -131,5 +132,9 @@ public class Material {
 
   public Collection<ITrait> getAllTraits() {
     return this.traits.values();
+  }
+
+  public String getLocalizedName() {
+    return StatCollector.translateToLocal(String.format("material.%s.name", identifier));
   }
 }

@@ -5,3 +5,5 @@ tooltip.tool.harvestlevel=Mining Level
 tooltip.tool.attack=Attack
 
 tooltip.part.materialAddedBy=Added by %s
+tooltip.part.missingMaterial=Missing material: %s
+tooltip.part.missingInfo=Part has no data
