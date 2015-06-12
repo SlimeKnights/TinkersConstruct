@@ -5,6 +5,7 @@ import net.minecraft.util.StatCollector;
 import tconstruct.library.Util;
 
 public abstract class AbstractTrait implements ITrait {
+  public static final String LOCALIZATION_STRING = "trait.%s.name";
   private final String identifier;
 
   public AbstractTrait(String identifier) {
@@ -18,9 +19,8 @@ public abstract class AbstractTrait implements ITrait {
 
   @Override
   public String getLocalizedName() {
-    String locString = "material.trait." + getIdentifier();
-    locString = Util.sanitizeLocalizationString(locString);
-    return StatCollector.translateToLocal(locString);
+    String locString = Util.sanitizeLocalizationString(getIdentifier());
+    return StatCollector.translateToLocal(String.format(LOCALIZATION_STRING, locString));
   }
 
   /* Updating */

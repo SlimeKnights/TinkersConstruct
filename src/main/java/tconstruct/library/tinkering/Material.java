@@ -9,6 +9,7 @@ import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 
+import tconstruct.library.Util;
 import tconstruct.library.client.MaterialRenderInfo;
 import tconstruct.library.tinkering.materials.IMaterialStats;
 import tconstruct.library.tinkering.traits.ITrait;
@@ -136,6 +137,6 @@ public class Material {
   }
 
   public String getLocalizedName() {
-    return StatCollector.translateToLocal(String.format(LOCALIZATION_STRING, identifier));
+    return StatCollector.translateToLocal(String.format(LOCALIZATION_STRING, Util.sanitizeLocalizationString(identifier)));
   }
 }
