@@ -1,8 +1,13 @@
 package tconstruct.library.tinkering.modifiers;
 
+import com.google.common.collect.Lists;
+
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
+
+import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.utils.TagUtil;
@@ -16,6 +21,9 @@ public abstract class Modifier implements IModifier {
   public final String identifier;
   public int requiredModifiers = 1;
 
+  // A mapping of oredict-entries to how often the item can be applied with this item
+  private final List<RecipeMatch> modifierItems = Lists.newLinkedList();
+
   public Modifier(String identifier) {
     this.identifier = identifier;
 
@@ -25,6 +33,34 @@ public abstract class Modifier implements IModifier {
   @Override
   public String getIdentifier() {
     return identifier;
+  }
+
+  public void addItem(String oredictItem, int count) {
+    modifierItems.add(new RecipeMatch.Oredict(oredictItem, count));
+  }
+
+  public void addItem(String oredictItem) {
+    addItem(oredictItem, 1);
+  }
+
+  public void addItem(Item item, int count) {
+    modifierItems.add(new RecipeMatch.Item(new ItemStack(item), count));
+  }
+
+  public void addItem(Item item) {
+    addItem(item, 1);
+  }
+
+  @Override
+  public RecipeMatch.Match matches(ItemStack[] stacks) {
+    for (RecipeMatch recipe : modifierItems) {
+      RecipeMatch.Match match = recipe.matches(stacks);
+      if (match != null) {
+        return match;
+      }
+    }
+
+    return null;
   }
 
   @Override

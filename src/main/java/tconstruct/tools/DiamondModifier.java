@@ -1,5 +1,6 @@
 package tconstruct.tools;
 
+import net.minecraft.init.Items;
 import net.minecraft.nbt.NBTTagCompound;
 
 import tconstruct.library.tinkering.modifiers.ModifierNBT;
@@ -11,6 +12,8 @@ public class DiamondModifier extends ToolModifier {
 
   public DiamondModifier() {
     super("Diamond");
+
+    addItem(Items.diamond);
   }
 
   @Override

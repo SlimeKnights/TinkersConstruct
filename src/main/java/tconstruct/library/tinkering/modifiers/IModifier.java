@@ -5,9 +5,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.Set;
+
 public interface IModifier {
 
   String getIdentifier();
+
+  /**
+   * Called with a set of itemstacks and returns a match which contains the items that match
+   * and how often the modifier can be applied with them
+   */
+  RecipeMatch.Match matches(ItemStack[] stacks);
 
   /** Returns true if the modifier can be applied to the given itemstack */
   boolean canApply(ItemStack stack);
