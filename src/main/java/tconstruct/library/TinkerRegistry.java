@@ -225,6 +225,10 @@ public final class TinkerRegistry {
     traitRegisteredByMod.get(materialIdentifier).put(trait.getIdentifier(), trace);
   }
 
+  public static String getTrace(Material material) {
+    return materialRegisteredByMod.get(material.identifier);
+  }
+
   private static void error(String message) {
     throw new TinkerAPIException(message);
   }
