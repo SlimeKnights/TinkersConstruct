@@ -63,13 +63,16 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   public ItemStack buildItemFromStacks(ItemStack[] stacks) {
     List<Material> materials = new ArrayList<>(stacks.length);
 
+    if(stacks.length != requiredComponents.length)
+      return null;
+
     // not a valid part arrangement for tis tool
     for (int i = 0; i < stacks.length; i++) {
       if (!validComponent(i, stacks[i])) {
         return null;
       }
 
-      materials.set(i, TinkerUtil.getMaterialFromStack(stacks[i]));
+      materials.add(TinkerUtil.getMaterialFromStack(stacks[i]));
     }
 
     return buildItem(materials);
