@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -14,6 +15,7 @@ import java.util.List;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.tinkering.Material;
 import tconstruct.library.tinkering.MaterialItem;
+import tconstruct.library.tinkering.traits.ITrait;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
 
@@ -43,7 +45,11 @@ public class ToolPart extends MaterialItem implements IToolPart {
       }
       tooltip.add(error);
     } else {
-      tooltip.add(material.textColor + material.getLocalizedName());
+      tooltip.add(material.textColor.toString() + EnumChatFormatting.ITALIC.toString() + material.getLocalizedName());
+
+      for (ITrait trait : material.getAllTraits()) {
+        tooltip.add(material.textColor + trait.getLocalizedName());
+      }
     }
 
     if (advanced) {
