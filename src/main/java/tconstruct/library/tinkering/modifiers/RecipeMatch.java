@@ -14,7 +14,7 @@ public abstract class RecipeMatch {
   public abstract Match matches(ItemStack[] stacks);
 
   /** Removes the match from the stacks */
-  public void removeMatch(ItemStack[] stacks, Match match) {
+  public static void removeMatch(ItemStack[] stacks, Match match) {
     for (ItemStack stack : match.stacks) {
       for (int i = 0; i < stacks.length; i++) {
         // nbt sensitive since toolparts etc. use nbt

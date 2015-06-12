@@ -1,5 +1,6 @@
 package tconstruct.library.utils;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import org.apache.logging.log4j.Logger;
@@ -13,12 +14,34 @@ import tconstruct.library.tinkering.Material;
 import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.tinkering.materials.ToolMaterialStats;
 import tconstruct.library.tinkering.modifiers.IModifier;
+import tconstruct.library.tinkering.modifiers.RecipeMatch;
 
 public final class ToolBuilder {
 
   private static Logger log = Util.getLogger("ToolBuilder");
 
   private ToolBuilder() {
+  }
+
+  public static ItemStack tryModifyTool(ItemStack[] stacks, ItemStack toolStack) {
+    for (IModifier modifier : TinkerRegistry.getAllModifiers()) {
+      RecipeMatch.Match match = modifier.matches(stacks);
+      // found a modifier that is applicable
+      if (match != null) {
+        // but can it be applied?
+        if (modifier.canApply(toolStack)) {
+          ItemStack copy = toolStack.copy();
+          modifier.apply(copy);
+
+          // remove items
+          RecipeMatch.removeMatch(stacks, match);
+
+          return copy;
+        }
+      }
+    }
+
+    return null;
   }
 
   /**

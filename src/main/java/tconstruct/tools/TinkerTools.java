@@ -85,6 +85,7 @@ public class TinkerTools extends TinkerPulse {
     proxy.registerModels();
 
     GameRegistry.addRecipe(new TempToolCrafting());
+    GameRegistry.addRecipe(new TempToolModifying());
   }
 
   @Handler
