@@ -7,8 +7,6 @@ import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.List;
 
-import tconstruct.library.tools.ToolHelper;
-
 /**
  * Used for simple info buidling in the tools!
  */

@@ -3,7 +3,7 @@ package tconstruct.library.tinkering.modifiers;
 import net.minecraft.item.ItemStack;
 
 import tconstruct.library.tinkering.Category;
-import tconstruct.library.tools.ToolHelper;
+import tconstruct.library.utils.ToolHelper;
 
 /**
  * Additionally to the standard conditions, ToolModifiers also require a minimum amount of free modifiers

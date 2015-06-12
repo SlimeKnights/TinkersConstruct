@@ -18,6 +18,7 @@ import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.tinkering.modifiers.IModifier;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.ToolBuilder;
+import tconstruct.library.utils.ToolHelper;
 import tconstruct.library.utils.ToolTagUtil;
 import tconstruct.library.utils.TooltipBuilder;
 import tconstruct.tools.TinkerMaterials;

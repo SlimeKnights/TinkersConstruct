@@ -1,4 +1,4 @@
-package tconstruct.library.tools;
+package tconstruct.library.utils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
