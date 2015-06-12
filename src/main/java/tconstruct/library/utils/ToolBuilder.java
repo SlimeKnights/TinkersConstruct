@@ -2,12 +2,69 @@ package tconstruct.library.utils;
 
 import net.minecraft.nbt.NBTTagCompound;
 
+import org.apache.logging.log4j.Logger;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import tconstruct.library.TinkerRegistry;
+import tconstruct.library.Util;
 import tconstruct.library.tinkering.Material;
+import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.tinkering.materials.ToolMaterialStats;
+import tconstruct.library.tinkering.modifiers.IModifier;
 
 public final class ToolBuilder {
 
+  private static Logger log = Util.getLogger("ToolBuilder");
+
   private ToolBuilder() {
+  }
+
+  /**
+   * Rebuilds a tool from its raw data, material info and applied modifiers
+   *
+   * @param rootNBT The root NBT tag compound of the tool to to rebuild. The NBT will be modified, overwriting old
+   *                data.
+   */
+  public static void rebuildTool(NBTTagCompound rootNBT, TinkersItem tinkersItem) {
+    NBTTagCompound baseTag = rootNBT.getCompoundTag(Tags.BASE_DATA);
+    // no data present
+    if (baseTag == null) {
+      return;
+    }
+
+    // Recalculate tool base stats from material stats
+    NBTTagCompound materialTag = TagUtil.getTagSafe(baseTag, Tags.BASE_MATERIALS);
+    List<Material> materials = new LinkedList<>();
+    int index = 0;
+    while (materialTag.hasKey(String.valueOf(index))) {
+      // load the material from the data
+      String identifier = materialTag.getString(String.valueOf(index));
+      // this will return Material.UNKNOWN if it doesn't exist (anymore)
+      Material mat = TinkerRegistry.getMaterial(identifier);
+      materials.add(mat);
+      index++;
+    }
+
+    NBTTagCompound toolTag = tinkersItem.buildTag(materials);
+    rootNBT.setTag(Tags.TOOL_DATA, toolTag);
+
+    // reapply modifiers
+    NBTTagCompound modifiers = TagUtil.getTagSafe(baseTag, Tags.BASE_MODIFIERS);
+    NBTTagCompound modifiersTag = TagUtil.getTagSafe(rootNBT, Tags.TOOL_MODIFIERS);
+    index = 0;
+    while (modifiers.hasKey(String.valueOf(index))) {
+      String identifier = modifiers.getString(String.valueOf(index));
+      index++;
+      IModifier modifier = TinkerRegistry.getModifier(identifier);
+      if (modifier == null) {
+        log.debug("Missing modifier: {}", identifier);
+        continue;
+      }
+
+      modifier.applyEffect(rootNBT, modifiersTag);
+    }
   }
 
   /**

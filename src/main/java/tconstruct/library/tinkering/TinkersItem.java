@@ -126,6 +126,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   public boolean updateItemStackNBT(NBTTagCompound nbt) {
     // when the itemstack is loaded from NBT we recalculate all the data
     if (nbt.hasKey(Tags.BASE_DATA)) {
+      ToolBuilder.rebuildTool(nbt, this);
 
       // todo: ensure that traits loaded from NBT are mapped to the same string instance as the trait identifier so == lookup matches
 
