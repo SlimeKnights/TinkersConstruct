@@ -5,6 +5,16 @@ import net.minecraft.util.StatCollector;
 import tconstruct.library.Util;
 
 public abstract class AbstractTrait implements ITrait {
+  private final String identifier;
+
+  public AbstractTrait(String identifier) {
+    this.identifier = identifier;
+  }
+
+  @Override
+  public String getIdentifier() {
+    return identifier;
+  }
 
   @Override
   public String getLocalizedName() {

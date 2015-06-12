@@ -7,12 +7,16 @@ import tconstruct.library.TinkerRegistry;
 import tconstruct.library.client.MaterialRenderInfo;
 import tconstruct.library.tinkering.Material;
 import tconstruct.library.tinkering.materials.ToolMaterialStats;
+import tconstruct.library.tinkering.traits.ITrait;
+import tconstruct.library.tinkering.traits.StoneboundTrait;
 
 public final class TinkerMaterials {
 
   public static final Material wood;
   public static final Material stone;
   public static final Material netherrack;
+
+  public static final ITrait stonebound;
 
   private TinkerMaterials() {
   }
@@ -23,12 +27,14 @@ public final class TinkerMaterials {
     netherrack =
         new Material("Netherrack", new MaterialRenderInfo.BlockTexture(Blocks.netherrack),
                      EnumChatFormatting.DARK_RED);
+
+    stonebound = new StoneboundTrait();
   }
 
   public static void registerMaterials() {
     TinkerRegistry.addMaterial(wood);
-    TinkerRegistry.addMaterial(stone);
-    TinkerRegistry.addMaterial(netherrack);
+    TinkerRegistry.addMaterial(stone, stonebound);
+    TinkerRegistry.addMaterial(netherrack, stonebound);
   }
 
   public static void registerToolMaterials() {

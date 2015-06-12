@@ -6,6 +6,9 @@ public interface ITrait {
 
   String getLocalizedName();
 
+  /** Returns how often the trait can be stacked on one item. A value of 1 or less means not stackable. */
+  int getMaxCount();
+
   /* Updating */
 
   /**

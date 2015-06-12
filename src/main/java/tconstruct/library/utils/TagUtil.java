@@ -88,6 +88,10 @@ public final class TagUtil {
     return getTagSafe(getBaseTag(stack), Tags.BASE_MODIFIERS);
   }
 
+  public static NBTTagCompound getMaterialsBaseTag(ItemStack stack) {
+    return getTagSafe(getBaseTag(stack), Tags.BASE_MATERIALS);
+  }
+
   public static NBTTagCompound getModifiersTag(ItemStack stack) {
     return getTagSafe(getTagSafe(stack), Tags.TOOL_MODIFIERS);
   }
@@ -97,6 +101,10 @@ public final class TagUtil {
     tagCompound.setTag(Tags.TOOL_MODIFIERS, tag);
 
     stack.setTagCompound(tagCompound);
+  }
+
+  public static NBTTagCompound getTraitsTag(ItemStack stack) {
+    return getTagSafe(getTagSafe(stack), Tags.TOOL_TRAITS);
   }
 
   /**

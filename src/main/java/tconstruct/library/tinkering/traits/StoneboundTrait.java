@@ -2,11 +2,14 @@ package tconstruct.library.tinkering.traits;
 
 public class StoneboundTrait extends AbstractTrait {
 
-  @Override
-  public String getIdentifier() {
-    return "Stonebound";
+  public StoneboundTrait() {
+    super("Stonebound");
   }
 
+  @Override
+  public int getMaxCount() {
+    return 2;
+  }
 
   @Override
   public float miningSpeed(float speed, float currentSpeed, boolean isEffective) {
