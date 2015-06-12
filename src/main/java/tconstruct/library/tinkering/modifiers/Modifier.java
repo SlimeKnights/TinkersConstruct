@@ -60,7 +60,7 @@ public abstract class Modifier implements IModifier {
     // substract the modifiers
     tag = TagUtil.getToolTagSafe(stack);
     int modifiers = ToolTagUtil.getFreeModifiers(tag) - requiredModifiers;
-    tag.setInteger(Tags.MODIFIERS, Math.max(0, modifiers));
+    tag.setInteger(Tags.FREE_MODIFIERS, Math.max(0, modifiers));
 
     TagUtil.setToolTag(stack, tag);
   }

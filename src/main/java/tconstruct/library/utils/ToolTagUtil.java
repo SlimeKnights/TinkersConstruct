@@ -25,12 +25,12 @@ public final class ToolTagUtil {
   }
 
   public static int getFreeModifiers(NBTTagCompound tag) {
-    return tag.getInteger(Tags.MODIFIERS);
+    return tag.getInteger(Tags.FREE_MODIFIERS);
   }
 
   public static void setFreeModifiers(ItemStack stack, int modifiers) {
     NBTTagCompound toolTag = TagUtil.getToolTag(stack);
-    toolTag.setInteger(Tags.MODIFIERS, modifiers);
+    toolTag.setInteger(Tags.FREE_MODIFIERS, modifiers);
     TagUtil.setToolTag(stack, toolTag);
   }
 }

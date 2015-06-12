@@ -7,8 +7,6 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import tconstruct.library.tinkering.Category;
 import tconstruct.library.tinkering.TinkersItem;
-import tconstruct.library.utils.TagUtil;
-import tconstruct.library.utils.Tags;
 
 public final class ToolHelper {
 
@@ -41,7 +39,7 @@ public final class ToolHelper {
   }
 
   public static int getFreeModifiers(ItemStack stack) {
-    return getIntTag(stack, Tags.MODIFIERS);
+    return getIntTag(stack, Tags.FREE_MODIFIERS);
   }
 
   public static float calcDigSpeed(ItemStack stack, IBlockState blockState) {

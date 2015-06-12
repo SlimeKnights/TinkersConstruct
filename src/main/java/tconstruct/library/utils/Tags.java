@@ -31,7 +31,7 @@ public final class Tags {
   public static final String MININGSPEED = "MiningSpeed";
   public static final String HARVESTLEVEL = "HarvestLevel";
 
-  public static final String MODIFIERS = "FreeModifiers";
+  public static final String FREE_MODIFIERS = "FreeModifiers";
 
   public static final String BROKEN = "Broken";
 
