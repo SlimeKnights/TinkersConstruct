@@ -17,6 +17,7 @@ import tconstruct.library.tinkering.Material;
 import tconstruct.library.tinkering.materials.IMaterialStats;
 import tconstruct.library.tinkering.modifiers.IModifier;
 import tconstruct.library.tinkering.traits.ITrait;
+import tconstruct.library.tools.ToolCore;
 
 public final class TinkerRegistry {
 
@@ -168,9 +169,9 @@ public final class TinkerRegistry {
   ****************************************************************************/
 
   /** This set contains all known tools */
-  public static final Set<Item> tools = new TLinkedHashSet<>();
+  public static final Set<ToolCore> tools = new TLinkedHashSet<>();
 
-  public static void addTool(Item tool) {
+  public static void addTool(ToolCore tool) {
     tools.add(tool);
   }
 
