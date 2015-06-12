@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.List;
 
+import scala.actors.threadpool.Arrays;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.tinkering.Category;
 import tconstruct.library.tinkering.Material;
@@ -68,9 +69,9 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   @Override
-  protected NBTTagCompound buildTag(Material[] materials) {
+  public NBTTagCompound buildTag(List<Material> materials) {
     // assume a simple Head + Handle tool
-    return ToolBuilder.buildSimpleTool(materials[0], materials[1]);
+    return ToolBuilder.buildSimpleTool(materials.get(0), materials.get(1)); // todo: remove or add safety checks
   }
 
   // Creative tab items
@@ -78,7 +79,7 @@ public abstract class ToolCore extends TinkersItem {
   public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
     for (Material head : TinkerRegistry.getAllMaterials()) {
       // todo: make this real?
-      ItemStack tool = buildItem(new Material[]{head, TinkerMaterials.wood, TinkerMaterials.stone});
+      ItemStack tool = buildItem(Arrays.asList(new Material[]{head, TinkerMaterials.wood, TinkerMaterials.stone}));
       IModifier mod = TinkerRegistry.getModifier("Diamond");
       mod.apply(tool);
       subItems.add(tool);

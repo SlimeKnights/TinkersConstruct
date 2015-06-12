@@ -8,14 +8,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import tconstruct.library.TinkerRegistry;
 import tconstruct.library.utils.Tags;
 import tconstruct.library.utils.TinkerUtil;
+import tconstruct.library.utils.ToolBuilder;
 
 /**
  * The base for each Tinker tool.
@@ -61,14 +61,15 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
    * @return The built item or null if invalid input.
    */
   public ItemStack buildItemFromStacks(ItemStack[] stacks) {
-    Material[] materials = new Material[stacks.length];
+    List<Material> materials = new ArrayList<>(stacks.length);
+
     // not a valid part arrangement for tis tool
     for (int i = 0; i < stacks.length; i++) {
       if (!validComponent(i, stacks[i])) {
         return null;
       }
 
-      materials[i] = TinkerUtil.getMaterialFromStack(stacks[i]);
+      materials.set(i, TinkerUtil.getMaterialFromStack(stacks[i]));
     }
 
     return buildItem(materials);
@@ -80,7 +81,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
    * @param materials Materials to build with. Have to be in the correct order. No nulls!
    * @return The built item or null if invalid input.
    */
-  public ItemStack buildItem(Material[] materials) {
+  public ItemStack buildItem(List<Material> materials) {
     ItemStack tool = new ItemStack(this);
     NBTTagCompound basetag = new NBTTagCompound();
     NBTTagCompound toolTag = buildTag(materials);
@@ -96,11 +97,11 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   /**
    * Creates an NBT Tag with the materials that were used to build the item.
    */
-  private NBTTagCompound buildData(Material[] materials) {
+  private NBTTagCompound buildData(List<Material> materials) {
     NBTTagCompound base = new NBTTagCompound();
     NBTTagCompound tag = new NBTTagCompound();
-    for (int i = 0; i < materials.length; i++) {
-      tag.setString(String.valueOf(i), materials[i].identifier);
+    for (int i = 0; i < materials.size(); i++) {
+      tag.setString(String.valueOf(i), materials.get(i).identifier);
     }
 
     base.setTag(Tags.BASE_MATERIALS, tag);
@@ -109,7 +110,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     return base;
   }
 
-  protected abstract NBTTagCompound buildTag(Material[] materials);
+  public abstract NBTTagCompound buildTag(List<Material> materials);
 
   /* Information */
 
@@ -125,21 +126,6 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   public boolean updateItemStackNBT(NBTTagCompound nbt) {
     // when the itemstack is loaded from NBT we recalculate all the data
     if (nbt.hasKey(Tags.BASE_DATA)) {
-      NBTTagCompound data = nbt.getCompoundTag(Tags.BASE_DATA);
-      List<Material> materials = new LinkedList<>();
-      int index = 0;
-      while (data.hasKey(String.valueOf(index))) {
-        // load the material from the data
-        String identifier = data.getString(String.valueOf(index));
-        // this will return Material.UNKNOWN if it doesn't exist (anymore)
-        Material mat = TinkerRegistry.getMaterial(identifier);
-        materials.add(mat);
-        index++;
-      }
-
-      NBTTagCompound toolTag = buildTag(materials.toArray(new Material[materials.size()]));
-      // update the tag
-      nbt.setTag(Tags.TOOL_DATA, toolTag);
 
       // todo: ensure that traits loaded from NBT are mapped to the same string instance as the trait identifier so == lookup matches
 
