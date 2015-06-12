@@ -11,8 +11,9 @@ public final class Tags {
   public static final String BASE_MATERIALS = "Materials";
   /** Contains all the applied modifiers */
   public static final String BASE_MODIFIERS = "Modifiers";
-  /** Extra-data that is specific to this Itemstack and is used to build the item.
-   * An example would be if a special pickaxe had 100 more durability, it'd be stored in here.
+  /**
+   * Extra-data that is specific to this Itemstack and is used to build the item. An example would be if a special
+   * pickaxe had 100 more durability, it'd be stored in here.
    */
   public static final String TINKER_EXTRA = "Special";
 

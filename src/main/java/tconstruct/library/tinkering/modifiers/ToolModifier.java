@@ -9,14 +9,16 @@ import tconstruct.library.tools.ToolHelper;
  * Additionally to the standard conditions, ToolModifiers also require a minimum amount of free modifiers
  */
 public abstract class ToolModifier extends Modifier {
+
   public ToolModifier(String identifier) {
     super(identifier);
   }
 
   @Override
   public boolean canApply(ItemStack stack) {
-    if(!ToolHelper.hasCategory(stack, Category.TOOL))
+    if (!ToolHelper.hasCategory(stack, Category.TOOL)) {
       return false;
+    }
 
     return super.canApply(stack);
   }

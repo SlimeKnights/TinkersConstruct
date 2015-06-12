@@ -2,15 +2,15 @@ package tconstruct.tools;
 
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
 
 import tconstruct.ClientProxy;
 import tconstruct.library.Util;
-import tconstruct.library.client.CustomTextureCreator;
 import tconstruct.library.client.model.MaterialModelLoader;
-import tconstruct.library.tinkering.modifiers.IModifier;
 
-import static tconstruct.tools.TinkerTools.*;
+import static tconstruct.tools.TinkerTools.binding;
+import static tconstruct.tools.TinkerTools.pickHead;
+import static tconstruct.tools.TinkerTools.pickaxe;
+import static tconstruct.tools.TinkerTools.toolrod;
 
 public class ToolClientProxy extends ClientProxy {
 
@@ -24,7 +24,7 @@ public class ToolClientProxy extends ClientProxy {
     registerPartModel(pickHead);
     registerPartModel(binding);
     registerPartModel(toolrod);
-    
+
     registerModifierModel(TinkerTools.diamondMod, Util.getResource("models/item/modifiers/Diamond"));
     registerModifierModel(TinkerTools.fortifyMod, Util.getResource("models/item/modifiers/Fortify"));
   }

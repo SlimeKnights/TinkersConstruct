@@ -35,8 +35,8 @@ public class LocalizationCheckCommand extends CommandBase {
 
     List<String> completions = Lists.newLinkedList();
     String matName = args[0].toLowerCase();
-    for(Material mat : TinkerRegistry.getAllMaterials()) {
-      if(mat.identifier.toLowerCase().startsWith(matName)) {
+    for (Material mat : TinkerRegistry.getAllMaterials()) {
+      if (mat.identifier.toLowerCase().startsWith(matName)) {
         completions.add(mat.identifier);
       }
     }

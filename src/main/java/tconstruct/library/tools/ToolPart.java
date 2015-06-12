@@ -38,13 +38,11 @@ public class ToolPart extends MaterialItem implements IToolPart {
       String error;
       if (materialID != null && !materialID.isEmpty()) {
         error = StatCollector.translateToLocalFormatted("tooltip.part.missingMaterial", materialID);
-      }
-      else {
+      } else {
         error = StatCollector.translateToLocal("tooltip.part.missingInfo");
       }
       tooltip.add(error);
-    }
-    else {
+    } else {
       tooltip.add(material.textColor + material.getLocalizedName());
     }
 

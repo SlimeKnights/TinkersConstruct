@@ -10,6 +10,7 @@ import tconstruct.library.utils.Tags;
 import tconstruct.library.utils.ToolTagUtil;
 
 public abstract class Modifier implements IModifier {
+
   public static final String LOCALIZATION_STRING = "modifier.%s.name";
 
   public final String identifier;
@@ -44,7 +45,9 @@ public abstract class Modifier implements IModifier {
     NBTTagCompound tag = TagUtil.getModifiersBaseTag(stack);
 
     int i = 0;
-    while(tag.hasKey(String.valueOf(i))) i++;
+    while (tag.hasKey(String.valueOf(i))) {
+      i++;
+    }
 
     tag.setString(String.valueOf(i), getIdentifier());
 
@@ -64,6 +67,7 @@ public abstract class Modifier implements IModifier {
 
   /**
    * In this function the modifier saves its own data into the given tag.
+   *
    * @param modifierTag This tag shall be filled with data. It will be saved into the tool as the modifiers identifier.
    */
   public abstract void apply(NBTTagCompound modifierTag);

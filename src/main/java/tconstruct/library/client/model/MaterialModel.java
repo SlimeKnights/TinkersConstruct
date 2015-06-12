@@ -82,7 +82,8 @@ public class MaterialModel implements IModel {
     Map<String, TextureAtlasSprite> sprites = CustomTextureCreator.sprites.get(baseTexture);
 
     for (Map.Entry<String, TextureAtlasSprite> entry : sprites.entrySet()) {
-      model.textures.put("layer0", entry.getValue().getIconName()); // this is sadly needed so that the ItemModelGenerator creates the correct model
+      model.textures.put("layer0", entry.getValue()
+          .getIconName()); // this is sadly needed so that the ItemModelGenerator creates the correct model
       IFlexibleBakedModel model2 = ModelHelper.bakeModelFromModelBlock(model, entry.getValue());
 
       bakedMaterialModel.addMaterialModel(TinkerRegistry.getMaterial(entry.getKey()), model2);

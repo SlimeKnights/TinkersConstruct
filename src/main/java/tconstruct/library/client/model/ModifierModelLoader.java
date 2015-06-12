@@ -36,7 +36,7 @@ public class ModifierModelLoader implements ICustomModelLoader {
   public static String EXTENSION = ".mod";
 
   private static Gson gson = new Gson();
-  private static Type jsonType = new TypeToken<Map<String, String>>(){}.getType();
+  private static Type jsonType = new TypeToken<Map<String, String>>() {}.getType();
   private static final String defaultName = "default";
 
   // holds additional json files that shall be loaded for a specific modifier
@@ -49,7 +49,7 @@ public class ModifierModelLoader implements ICustomModelLoader {
 
   public void registerModifierFile(String modifier, ResourceLocation location) {
     List<ResourceLocation> files = locations.get(modifier);
-    if(files == null) {
+    if (files == null) {
       files = Lists.newLinkedList();
       locations.put(modifier, files);
     }
@@ -68,22 +68,25 @@ public class ModifierModelLoader implements ICustomModelLoader {
     // we therefore need to look through all modifiers to construct a model containing all modifiers for that tool
 
     int start = modelLocation.getResourcePath().lastIndexOf('/');
-    String toolname = modelLocation.getResourcePath().substring(start < 0 ? 0 : start+1, modelLocation.getResourcePath().length()-EXTENSION.length());
+    String toolname = modelLocation.getResourcePath().substring(start < 0 ? 0 : start + 1,
+                                                                modelLocation.getResourcePath().length() - EXTENSION
+                                                                    .length());
     toolname = toolname.toLowerCase();
 
     // we only load once. Without cache we'd have to load ALL modifier files again for each tool!
-    if(cache == null) {
+    if (cache == null) {
       cache = new THashMap<>();
       loadFilesIntoCache();
     }
 
-    if(!cache.containsKey(toolname))
+    if (!cache.containsKey(toolname)) {
       return ModelLoaderRegistry.getMissingModel();
+    }
 
     ModifierModel model = new ModifierModel();
 
     // generate the modelblocks for each entry
-    for(Map.Entry<String, String> entry : cache.get(toolname).entrySet()) {
+    for (Map.Entry<String, String> entry : cache.get(toolname).entrySet()) {
       // check if the modifier actually exists in the game so we don't load unnecessary textures
       IModifier mod = TinkerRegistry.getModifier(entry.getKey());
 
@@ -104,7 +107,8 @@ public class ModifierModelLoader implements ICustomModelLoader {
           CustomTextureCreator.registerTexture(new ResourceLocation(entry.getValue()));
         }
       } catch (IOException e) {
-        TinkerRegistry.log.error("Could not load model for modifier {} on tool {}: {}", entry.getKey(), toolname, modelLocation.toString());
+        TinkerRegistry.log.error("Could not load model for modifier {} on tool {}: {}", entry.getKey(), toolname,
+                                 modelLocation.toString());
       }
     }
 
@@ -121,10 +125,10 @@ public class ModifierModelLoader implements ICustomModelLoader {
     cache.put(defaultName, new THashMap<String, String>());
 
     // loop through all knows modifier-model-files
-    for(Map.Entry<String, List<ResourceLocation>> entry : locations.entrySet()) {
+    for (Map.Entry<String, List<ResourceLocation>> entry : locations.entrySet()) {
       String modifier = entry.getKey();
       List<ResourceLocation> modLocations = entry.getValue();
-      for(ResourceLocation location : modLocations) {
+      for (ResourceLocation location : modLocations) {
         try {
           // load the entries in the json file
           location = new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json");
@@ -133,7 +137,7 @@ public class ModifierModelLoader implements ICustomModelLoader {
           Map<String, String> textureEntries = gson.fromJson(reader, jsonType);
 
           // save them in the cache
-          for(Map.Entry<String, String> textureEntry : textureEntries.entrySet()) {
+          for (Map.Entry<String, String> textureEntry : textureEntries.entrySet()) {
             String tool = textureEntry.getKey().toLowerCase();
             String texture = textureEntry.getValue();
 
@@ -141,7 +145,7 @@ public class ModifierModelLoader implements ICustomModelLoader {
               cache.put(tool, new THashMap<String, String>());
             }
             // we don't allow overriding
-            if(!cache.get(tool).containsKey(modifier)) {
+            if (!cache.get(tool).containsKey(modifier)) {
               cache.get(tool).put(modifier, texture);
             }
           }
@@ -150,7 +154,7 @@ public class ModifierModelLoader implements ICustomModelLoader {
         }
       }
 
-      if(!cache.get(defaultName).containsKey(modifier)) {
+      if (!cache.get(defaultName).containsKey(modifier)) {
         throw new TinkerAPIException(String.format("%s Modifiers model does not contain a default-entry!", modifier));
       }
     }
@@ -160,15 +164,16 @@ public class ModifierModelLoader implements ICustomModelLoader {
     // fill in defaults where models are missing
     Iterator<Map.Entry<String, Map<String, String>>> toolEntryIter = cache.entrySet().iterator();
 // todo: change this to iterate over all registered tools instead?
-    while(toolEntryIter.hasNext()) {
+    while (toolEntryIter.hasNext()) {
       Map.Entry<String, Map<String, String>> toolEntry = toolEntryIter.next();
       //String tool = toolEntry.getKey();
       Map<String, String> textures = toolEntry.getValue();
 
       for (Map.Entry<String, String> defaultEntry : defaults.entrySet()) {
         // check if the tool has an entry for this modifier, otherwise fill in default
-        if(!textures.containsKey(defaultEntry.getKey()))
+        if (!textures.containsKey(defaultEntry.getKey())) {
           textures.put(defaultEntry.getKey(), defaultEntry.getValue());
+        }
       }
     }
   }

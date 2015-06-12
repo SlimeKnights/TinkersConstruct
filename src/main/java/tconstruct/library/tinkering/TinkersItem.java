@@ -36,7 +36,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   /* Tool Information */
   protected void addCategory(Category... categories) {
-    for(Category category : categories) {
+    for (Category category : categories) {
       this.categories.add(category);
     }
   }

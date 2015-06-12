@@ -16,11 +16,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import tconstruct.library.TinkerRegistry;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
 import tconstruct.tools.TinkerMaterials;
-import tconstruct.tools.TinkerTools;
 
 public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmartItemModel {
 
@@ -75,7 +73,7 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
       quads.addAll(partModel.getGeneralQuads()); // todo: use an efficient collection for this. Preferably a List-List
     }
 
-    for(int i = 0; modifiers.hasKey(String.valueOf(i)); i++) {
+    for (int i = 0; modifiers.hasKey(String.valueOf(i)); i++) {
       String modId = modifiers.getString(String.valueOf(i));
       IFlexibleBakedModel modModel = modifierParts.get(modId);
       if (modModel != null) {

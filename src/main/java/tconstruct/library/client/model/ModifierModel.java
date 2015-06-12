@@ -20,15 +20,13 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
-import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
 
 import tconstruct.library.TinkerRegistry;
 
 /**
- * This model contains all modifiers for a tool
- * Note that handling may seem confusing, because modifier textures are loaded on a per-modifier basis, but are
- * translated to a per-tool basis during loading.
+ * This model contains all modifiers for a tool Note that handling may seem confusing, because modifier textures are
+ * loaded on a per-modifier basis, but are translated to a per-tool basis during loading.
  */
 public class ModifierModel implements IModel {
 
@@ -72,14 +70,16 @@ public class ModifierModel implements IModel {
   }
 
   public Map<String, IFlexibleBakedModel> bakeModels(IModelState state, VertexFormat format,
-                                            Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+                                                     Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
     Map<String, IFlexibleBakedModel> bakedModels = new THashMap<>();
 
     // we scale the modifier up slightly so it's always above the tool
     float s = 0.025f;
-    ITransformation transformation = new TRSRTransformation(new Vector3f(0, 0, 0.0001f-s/2f), null, new Vector3f(1,1,1f + s), null);
+    ITransformation
+        transformation =
+        new TRSRTransformation(new Vector3f(0, 0, 0.0001f - s / 2f), null, new Vector3f(1, 1, 1f + s), null);
 
-    for(Map.Entry<String, ModelBlock> entry : models.entrySet()) {
+    for (Map.Entry<String, ModelBlock> entry : models.entrySet()) {
       ModelBlock modelBlock = entry.getValue();
 
       // todo: turn this into an event?

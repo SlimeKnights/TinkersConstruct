@@ -1,11 +1,9 @@
 package tconstruct.library.utils;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
-import tconstruct.library.tinkering.ITinkerable;
-import tconstruct.library.tools.IToolPart;
 import tconstruct.library.tinkering.Material;
+import tconstruct.library.tools.IToolPart;
 
 public final class TinkerUtil {
 

@@ -1,8 +1,6 @@
 package tconstruct.library.client.model;
 
-import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.THashMap;
-import gnu.trove.map.hash.TIntObjectHashMap;
 
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.item.ItemStack;
@@ -10,7 +8,6 @@ import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.ISmartItemModel;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import tconstruct.library.TinkerRegistry;
@@ -39,7 +36,7 @@ public class BakedMaterialModel extends IFlexibleBakedModel.Wrapper implements I
 
   @Override
   public IBakedModel handleItemState(ItemStack stack) {
-    if(stack.getItem() instanceof IMaterialItem) {
+    if (stack.getItem() instanceof IMaterialItem) {
       String id = ((IMaterialItem) stack.getItem()).getMaterialID(stack);
       return getModelByIdentifier(id);
     }

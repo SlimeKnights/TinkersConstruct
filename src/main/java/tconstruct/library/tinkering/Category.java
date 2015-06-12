@@ -3,6 +3,7 @@ package tconstruct.library.tinkering;
 import com.sun.istack.internal.NotNull;
 
 public class Category {
+
   // everything item built is a tool
   public static final Category TOOL = new Category("tool");
   // everything that has weapon as intended use

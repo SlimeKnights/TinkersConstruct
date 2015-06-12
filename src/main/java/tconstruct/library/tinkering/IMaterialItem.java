@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
  * Items implementing this interface contain a material
  */
 public interface IMaterialItem {
+
   /**
    * Returns the material identifier of the material of the part this itemstack holds.
    *

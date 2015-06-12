@@ -17,7 +17,6 @@ import tconstruct.library.tinkering.PartMaterialType;
 import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.tinkering.modifiers.IModifier;
 import tconstruct.library.utils.TagUtil;
-import tconstruct.library.utils.Tags;
 import tconstruct.library.utils.ToolBuilder;
 import tconstruct.library.utils.ToolTagUtil;
 import tconstruct.library.utils.TooltipBuilder;
@@ -52,18 +51,17 @@ public abstract class ToolCore extends TinkersItem {
     TooltipBuilder info = new TooltipBuilder(stack);
 
     info.addDurability();
-    if(hasCategory(Category.HARVEST)) {
+    if (hasCategory(Category.HARVEST)) {
       info.addHarvestLevel();
       info.addMiningSpeed();
     }
-    if(hasCategory(Category.WEAPON)) {
+    if (hasCategory(Category.WEAPON)) {
       info.addAttack();
     }
 
-    if(ToolHelper.getFreeModifiers(stack) > 0) {
+    if (ToolHelper.getFreeModifiers(stack) > 0) {
       info.addFreeModifiers();
     }
-
 
     return info.getTooltip();
   }

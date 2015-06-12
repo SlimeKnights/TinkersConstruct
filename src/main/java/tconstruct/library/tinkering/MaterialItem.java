@@ -12,10 +12,11 @@ import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
 
 /**
- * Represents an item that has a Material associated with it.
- * The metadata of an itemstack identifies which material the itemstack of this item has.
+ * Represents an item that has a Material associated with it. The metadata of an itemstack identifies which material the
+ * itemstack of this item has.
  */
 public class MaterialItem extends Item implements IMaterialItem {
+
   public MaterialItem() {
     this.setHasSubtypes(true);
   }

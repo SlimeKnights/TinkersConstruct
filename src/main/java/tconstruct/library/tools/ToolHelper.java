@@ -9,8 +9,6 @@ import tconstruct.library.tinkering.Category;
 import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
-import tconstruct.library.utils.TinkerUtil;
-import tconstruct.library.utils.ToolTagUtil;
 
 public final class ToolHelper {
 
@@ -18,8 +16,9 @@ public final class ToolHelper {
   }
 
   public static boolean hasCategory(ItemStack stack, Category category) {
-    if(stack == null || stack.getItem() == null || !(stack.getItem() instanceof TinkersItem))
+    if (stack == null || stack.getItem() == null || !(stack.getItem() instanceof TinkersItem)) {
       return false;
+    }
 
     return ((TinkersItem) stack.getItem()).hasCategory(category);
   }
