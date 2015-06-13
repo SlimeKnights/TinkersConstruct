@@ -25,6 +25,7 @@ public interface IModifier {
 
   /**
    * In this function the modifier saves its own data into the given tag.
+   * Take a look at the ModifierNBT class for easy handling.
    *
    * @param modifierTag This tag shall be filled with data. It will be saved into the tool as the modifiers identifier.
    */

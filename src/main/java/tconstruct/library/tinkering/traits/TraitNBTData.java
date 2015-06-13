@@ -5,6 +5,10 @@ import net.minecraft.util.EnumChatFormatting;
 
 import tconstruct.library.tinkering.modifiers.ModifierNBT;
 
+/**
+ * Represents the data of a trait on a tool.
+ * Has level and color-information for tooltips and effects too.
+ */
 public class TraitNBTData extends ModifierNBT {
   public String identifier;
   public EnumChatFormatting color;

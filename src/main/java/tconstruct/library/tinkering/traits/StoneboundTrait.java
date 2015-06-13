@@ -1,5 +1,7 @@
 package tconstruct.library.tinkering.traits;
 
+import net.minecraft.item.ItemStack;
+
 public class StoneboundTrait extends AbstractTrait {
 
   public StoneboundTrait() {
@@ -12,7 +14,7 @@ public class StoneboundTrait extends AbstractTrait {
   }
 
   @Override
-  public float miningSpeed(float speed, float currentSpeed, boolean isEffective) {
+  public float miningSpeed(ItemStack stack, float speed, float currentSpeed, boolean isEffective) {
     // todo: calculate actual speed change based on damage
     currentSpeed = Math.max(0f, speed * 9 / 10);
 
