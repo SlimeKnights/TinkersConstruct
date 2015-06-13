@@ -7,6 +7,7 @@ import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.SimpleBakedModel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.ISmartItemModel;
@@ -52,8 +53,8 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
       return this;
     }
 
-    NBTTagCompound materials = TagUtil.getTagSafe(baseTag, Tags.BASE_MATERIALS);
-    NBTTagCompound modifiers = TagUtil.getTagSafe(baseTag, Tags.BASE_MODIFIERS);
+    NBTTagList materials = TagUtil.getTagListSafe(baseTag, Tags.BASE_MATERIALS, TagUtil.TAG_TYPE_STRING);
+    NBTTagList modifiers = TagUtil.getTagListSafe(baseTag, Tags.BASE_MODIFIERS, TagUtil.TAG_TYPE_STRING);
 
     // get the texture for each part
     List<BakedQuad> quads = new ArrayList<>();
@@ -61,7 +62,7 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
     boolean broken = toolTag.getBoolean(Tags.BROKEN);
 
     for (int i = 0; i < parts.length; i++) {
-      String id = materials.getString(String.valueOf(i));
+      String id = materials.getStringTagAt(i);
 
       IBakedModel partModel;
       if (broken && brokenParts[i] != null) {
@@ -73,8 +74,8 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
       quads.addAll(partModel.getGeneralQuads()); // todo: use an efficient collection for this. Preferably a List-List
     }
 
-    for (int i = 0; modifiers.hasKey(String.valueOf(i)); i++) {
-      String modId = modifiers.getString(String.valueOf(i));
+    for (int i = 0; i < modifiers.tagCount(); i++) {
+      String modId = modifiers.getStringTagAt(i);
       IFlexibleBakedModel modModel = modifierParts.get(modId);
       if (modModel != null) {
         if (modModel instanceof BakedMaterialModel) {

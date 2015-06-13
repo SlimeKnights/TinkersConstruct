@@ -1,12 +1,9 @@
 package tconstruct.library.tinkering.traits;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 
 import tconstruct.library.Util;
-import tconstruct.library.tinkering.modifiers.ModifierNBT;
-import tconstruct.library.utils.TagUtil;
 
 public abstract class AbstractTrait implements ITrait {
   public static final String LOCALIZATION_STRING = "trait.%s.name";
@@ -22,6 +19,7 @@ public abstract class AbstractTrait implements ITrait {
    * @return Level of the trait. 0 If the trait is not present.
    */
   public int getTraitLevel(ItemStack stack) {
+    /*
     NBTTagCompound traits = TagUtil.getTraitsTag(stack);
     for (int i = 0; traits.hasKey(String.valueOf(i)); i++) {
       ModifierNBT data = ModifierNBT.read(traits, String.valueOf(i));
@@ -29,7 +27,7 @@ public abstract class AbstractTrait implements ITrait {
         return data.level;
       }
     }
-
+*/
     return 0;
   }
 

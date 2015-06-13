@@ -8,107 +8,135 @@ import net.minecraft.util.EnumChatFormatting;
  */
 public class ModifierNBT {
 
-  protected final String key;
   public String identifier;
   public EnumChatFormatting color;
   public int level;
+  public String extraInfo;
 
-  public ModifierNBT(String key) {
-    this.key = key;
+  public ModifierNBT() {
+    identifier = "";
+    color = EnumChatFormatting.RESET;
+    level = 0;
   }
 
-  public static ModifierNBT read(NBTTagCompound tag, String key) {
-    ModifierNBT data = new ModifierNBT(key);
+  public ModifierNBT(IModifier modifier) {
+    this.identifier = modifier.getIdentifier();
+    this.level = 1;
+    this.color = EnumChatFormatting.GRAY;
+  }
 
-    NBTTagCompound subTag = tag.getCompoundTag(key);
-    if (subTag != null) {
-      data.identifier = subTag.getString("identifier");
-      data.color = EnumChatFormatting.func_175744_a(subTag.getInteger("color"));
-      data.level = subTag.getInteger("level");
-      if (data.level == 0) {
-        data.level = 1;
-      }
+  public ModifierNBT(NBTTagCompound tag) {
+    this();
+    read(tag);
+  }
+
+  public static ModifierNBT readTag(NBTTagCompound tag) {
+    ModifierNBT data = new ModifierNBT();
+    if (tag != null) {
+      data.read(tag);
     }
 
     return data;
   }
 
-  public void write(NBTTagCompound tag) {
-    NBTTagCompound subTag = tag.getCompoundTag(key);
-    subTag.setString("identifier", identifier);
-    subTag.setInteger("color", color.getColorIndex());
-    if (level > 0) {
-      subTag.setInteger("level", level);
+  public void read(NBTTagCompound tag) {
+    identifier = tag.getString("identifier");
+    color = EnumChatFormatting.func_175744_a(tag.getInteger("color"));
+    level = tag.getInteger("level");
+    if (level == 0) {
+      level = 1;
     }
-    tag.setTag(key, subTag);
+    extraInfo = tag.getString("extraInfo");
   }
 
-  public String getInfo() {
-    return String.valueOf(level);
+  public void write(NBTTagCompound tag) {
+    tag.setString("identifier", identifier);
+    tag.setInteger("color", color.getColorIndex());
+    if (level > 0) {
+      tag.setInteger("level", level);
+    }
+    if (extraInfo != null && !extraInfo.isEmpty()) {
+      tag.setString("extraInfo", extraInfo);
+    }
   }
+
+  public static <T extends ModifierNBT> T readTag(NBTTagCompound tag, Class<T> clazz) {
+    try {
+      T data = clazz.newInstance();
+      data.read(tag);
+      return data;
+    } catch (ReflectiveOperationException e) {
+      return null;
+    }
+  }
+
+  public static IntegerNBT readInteger(NBTTagCompound tag) {
+    return ModifierNBT.readTag(tag, IntegerNBT.class);
+  }
+
+  public static BooleanNBT readBoolean(NBTTagCompound tag) {
+    return ModifierNBT.readTag(tag, BooleanNBT.class);
+  }
+
 
   /**
    * Single boolean value
    */
-  public static class Boolean extends ModifierNBT {
+  public static class BooleanNBT extends ModifierNBT {
 
     public boolean status;
 
-    public Boolean(String key) {
-      super(key);
+    public BooleanNBT(IModifier modifier, boolean status) {
+      super(modifier);
+      this.status = status;
     }
 
     @Override
     public void write(NBTTagCompound tag) {
-      tag.setBoolean(key, status);
+      super.write(tag);
+      tag.setBoolean("status", status);
     }
 
-    public static Boolean read(NBTTagCompound tag, String key) {
-      Boolean data = new Boolean(key);
-      data.status = tag.getBoolean(key);
-      return data;
-    }
-
-    public static void write(boolean value, NBTTagCompound tag, String key) {
-      Boolean data = read(tag, key);
-      data.status = value; // we don't actually use the old value if it exists. but meh.
-
-      data.write(tag);
+    @Override
+    public void read(NBTTagCompound tag) {
+      super.read(tag);
+      status = tag.getBoolean("status");
     }
   }
 
   /**
    * Data can be applied multiple times up to a maximum.
    */
-  public static class Integer extends ModifierNBT {
+  public static class IntegerNBT extends ModifierNBT {
 
     public int current;
     public int max;
 
-    public Integer(String key) {
-      super(key);
+    public IntegerNBT(IModifier modifier, int current, int max) {
+      super(modifier);
+      this.current = current;
+      this.max = max;
+
+      this.extraInfo = calcInfo();
     }
 
     @Override
     public void write(NBTTagCompound tag) {
-      NBTTagCompound subTag = tag.getCompoundTag(key);
-      subTag.setInteger("current", current);
-      subTag.setInteger("max", max);
-      tag.setTag(key, subTag);
-    }
-
-    public static Integer read(NBTTagCompound tag, String key) {
-      Integer data = new Integer(key);
-      NBTTagCompound subTag = tag.getCompoundTag(key);
-      if (subTag != null) {
-        data.current = subTag.getInteger("current");
-        data.max = subTag.getInteger("max");
-      }
-      return data;
+      super.write(tag);
+      tag.setInteger("current", current);
+      tag.setInteger("max", max);
     }
 
     @Override
-    public String getInfo() {
+    public void read(NBTTagCompound tag) {
+      super.read(tag);
+      current = tag.getInteger("current");
+      max = tag.getInteger("max");
+
+      extraInfo = calcInfo();
+    }
+
+    public String calcInfo() {
       if (max > 0) {
         return String.format("%d / %d", current, max);
       }

@@ -2,6 +2,8 @@ package tconstruct.library.utils;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,9 +12,13 @@ import tconstruct.library.tinkering.ITinkerable;
 
 public final class TagUtil {
 
+  public static int TAG_TYPE_STRING = (new NBTTagString()).getId();
+  public static int TAG_TYPE_COMPOUND = (new NBTTagCompound()).getId();
+
   private TagUtil() {
   }
 
+  /* Generic Tag Operations */
   public static NBTTagCompound getTagSafe(ItemStack stack) {
     if (stack == null || stack.getItem() == null || !stack.hasTagCompound()) {
       return new NBTTagCompound();
@@ -29,18 +35,32 @@ public final class TagUtil {
     return tag.getCompoundTag(key);
   }
 
+  public static NBTTagList getTagListSafe(NBTTagCompound tag, String key, int type) {
+    if (tag == null || !tag.hasKey(key)) {
+      return new NBTTagList();
+    }
+
+    return tag.getTagList(key, type);
+  }
+
+
+  /* Operations concerning the base-data of the tool */
   public static NBTTagCompound getBaseTag(ItemStack stack) {
     if (stack == null || stack.getItem() == null || !stack.hasTagCompound()) {
       return null;
     }
 
-    return stack.getTagCompound().getCompoundTag(Tags.BASE_DATA);
+    return getBaseTag(getTagSafe(stack));
   }
 
   public static NBTTagCompound getBaseTagSafe(ItemStack stack) {
     NBTTagCompound tag = getBaseTag(stack);
 
     return tag == null ? new NBTTagCompound() : tag;
+  }
+
+  public static NBTTagCompound getBaseTag(NBTTagCompound rootCompound) {
+    return rootCompound.getCompoundTag(Tags.BASE_DATA);
   }
 
   public static void setBaseTag(ItemStack stack, NBTTagCompound tag) {
@@ -84,16 +104,28 @@ public final class TagUtil {
   }
 
 
-  public static NBTTagCompound getModifiersBaseTag(ItemStack stack) {
-    return getTagSafe(getBaseTag(stack), Tags.BASE_MODIFIERS);
+  public static NBTTagList getModifiersBaseTag(ItemStack stack) {
+    return getTagListSafe(getBaseTag(stack), Tags.BASE_MODIFIERS, TAG_TYPE_STRING);
   }
 
-  public static NBTTagCompound getMaterialsBaseTag(ItemStack stack) {
-    return getTagSafe(getBaseTag(stack), Tags.BASE_MATERIALS);
+  public static NBTTagList getModifiersBaseTag(NBTTagCompound root) {
+    return getTagListSafe(getBaseTag(root), Tags.BASE_MODIFIERS, TAG_TYPE_STRING);
   }
 
-  public static NBTTagCompound getModifiersTag(ItemStack stack) {
-    return getTagSafe(getTagSafe(stack), Tags.TOOL_MODIFIERS);
+  public static NBTTagList getMaterialsBaseTag(ItemStack stack) {
+    return getTagListSafe(getBaseTag(stack), Tags.BASE_MATERIALS, TAG_TYPE_STRING);
+  }
+
+  public static NBTTagList getMaterialsBaseTag(NBTTagCompound root) {
+    return getTagListSafe(getBaseTag(root), Tags.BASE_MATERIALS, TAG_TYPE_STRING);
+  }
+
+  public static NBTTagList getModifiersTag(ItemStack stack) {
+    return getTagListSafe(getTagSafe(stack), Tags.TOOL_MODIFIERS, TAG_TYPE_COMPOUND);
+  }
+
+  public static NBTTagList getModifiersTag(NBTTagCompound root) {
+    return getTagListSafe(root, Tags.TOOL_MODIFIERS, TAG_TYPE_COMPOUND);
   }
 
   public static void setModifiersTag(ItemStack stack, NBTTagCompound tag) {
@@ -103,12 +135,12 @@ public final class TagUtil {
     stack.setTagCompound(tagCompound);
   }
 
-  public static NBTTagCompound getTraitsTag(ItemStack stack) {
-    return getTagSafe(getTagSafe(stack), Tags.TOOL_TRAITS);
+  public static NBTTagList getTraitsTag(ItemStack stack) {
+    return getTagListSafe(getTagSafe(stack), Tags.TOOL_TRAITS, TAG_TYPE_STRING);
   }
 
-  public static NBTTagCompound getTraitsTag(NBTTagCompound root) {
-    return getTagSafe(root, Tags.TOOL_TRAITS);
+  public static NBTTagList getTraitsTag(NBTTagCompound root) {
+    return getTagListSafe(root, Tags.TOOL_TRAITS, TAG_TYPE_STRING);
   }
 
   /**

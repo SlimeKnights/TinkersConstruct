@@ -7,6 +7,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -116,14 +118,20 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
    */
   private NBTTagCompound buildData(List<Material> materials) {
     NBTTagCompound base = new NBTTagCompound();
-    NBTTagCompound tag = new NBTTagCompound();
+    NBTTagList materialList = new NBTTagList();
 
-    for (int i = 0; i < materials.size(); i++) {
-      tag.setString(String.valueOf(i), materials.get(i).identifier);
+    for (Material material : materials) {
+      materialList.appendTag(new NBTTagString(material.identifier));
     }
 
-    base.setTag(Tags.BASE_MATERIALS, tag);
-    base.setTag(Tags.BASE_MODIFIERS, new NBTTagCompound());
+    // pre-type base-modifier list
+    NBTTagList modifierList = new NBTTagList();
+    // we cannot set the type directly, but it gets typed by adding a tag, so we add and remove one
+    modifierList.appendTag(new NBTTagString());
+    modifierList.removeTag(0);
+
+    base.setTag(Tags.BASE_MATERIALS, materialList);
+    base.setTag(Tags.BASE_MODIFIERS, modifierList);
 
     return base;
   }

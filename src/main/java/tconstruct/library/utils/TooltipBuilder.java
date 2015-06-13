@@ -2,6 +2,7 @@ package tconstruct.library.utils;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.StatCollector;
 
 import java.text.DecimalFormat;
@@ -9,8 +10,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
+import tconstruct.library.tinkering.modifiers.IModifier;
 import tconstruct.library.tinkering.modifiers.ModifierNBT;
-import tconstruct.library.tinkering.traits.ITrait;
 
 /**
  * Used for simple info buidling in the tools!
@@ -30,19 +31,22 @@ public class TooltipBuilder {
     return tips.toArray(new String[tips.size()]);
   }
 
-  public TooltipBuilder addTraits() {
+  // also includes traits
+  public TooltipBuilder addModifiers() {
     if (stack != null) {
-      NBTTagCompound materials = TagUtil.getMaterialsBaseTag(stack);
-      NBTTagCompound traits = TagUtil.getTraitsTag(stack);
+      NBTTagList tagList = TagUtil.getModifiersTag(stack);
 
-      // add all traits and use the tag-data to determine which material added it
-      for(int i = 0; traits.hasKey(String.valueOf(i)); i++){
-        ModifierNBT data = ModifierNBT.read(traits, String.valueOf(i));
-        ITrait trait = TinkerRegistry.getTrait(data.identifier);
+      for (int i = 0; i < tagList.tagCount(); i++) {
+        NBTTagCompound tag = tagList.getCompoundTagAt(i);
+        ModifierNBT data = ModifierNBT.readTag(tag);
 
-        if (trait != null) {
-          tips.add(data.color + trait.getLocalizedName() + " " + data.level);
+        // get matching modifier
+        IModifier modifier = TinkerRegistry.getModifier(data.identifier);
+        if (modifier == null) {
+          continue;
         }
+
+        tips.add(data.color + modifier.getTooltip(tag));
       }
     }
 

@@ -1,12 +1,14 @@
 package tconstruct.tools;
 
+import net.minecraft.util.EnumChatFormatting;
+
 import tconstruct.library.tinkering.modifiers.TraitModifier;
 
 // Only for test purposes
 public class StoneboundModifier extends TraitModifier {
 
   public StoneboundModifier() {
-    super("Stonebound", TinkerMaterials.stonebound);
+    super(TinkerMaterials.stonebound, EnumChatFormatting.DARK_GRAY);
 
     addItem("cobblestone");
   }

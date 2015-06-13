@@ -5,8 +5,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Set;
-
 public interface IModifier {
 
   String getIdentifier();
@@ -42,6 +40,11 @@ public interface IModifier {
    */
   void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag);
 
+  /**
+   * Returns the tooltip to display for the given tag of this specific modifier.
+   * Color tags are not necessarry.
+   */
+  String getTooltip(NBTTagCompound modifierTag);
 
   /** Used for specific modifiers that need a texture variant for each material */
   @SideOnly(Side.CLIENT)

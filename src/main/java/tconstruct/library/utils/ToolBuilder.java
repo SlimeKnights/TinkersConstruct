@@ -2,11 +2,11 @@ package tconstruct.library.utils;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
 
 import org.apache.logging.log4j.Logger;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
@@ -15,7 +15,6 @@ import tconstruct.library.tinkering.Material;
 import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.tinkering.materials.ToolMaterialStats;
 import tconstruct.library.tinkering.modifiers.IModifier;
-import tconstruct.library.tinkering.modifiers.ModifierNBT;
 import tconstruct.library.tinkering.modifiers.RecipeMatch;
 import tconstruct.library.tinkering.traits.ITrait;
 
@@ -28,43 +27,40 @@ public final class ToolBuilder {
 
   /**
    * Adds the trait to the tag, taking max-count and already existing traits into account.
-   * @param traitsTag The trait tag on the tool.
+   * @param rootCompound The root compound of the item
    * @param trait The trait to add.
    * @param color The color used on the tooltip. Will not be used if the trait already exists on the tool.
    */
-  public static void addTrait(NBTTagCompound traitsTag, ITrait trait, EnumChatFormatting color) {
+  public static void addTrait(NBTTagCompound rootCompound, ITrait trait, EnumChatFormatting color) {
     // only registered traits allowed
     if (TinkerRegistry.getTrait(trait.getIdentifier()) == null) {
-      log.error("Trying to apply unregistered Trait {}", trait.getIdentifier());
+      log.error("addTrait: Trying to apply unregistered Trait {}", trait.getIdentifier());
       return;
     }
 
-    // find out if the trait already exists or obtain the last tag so we can add a new one
-    ModifierNBT data = null;
-    int i;
-    for (i = 0; traitsTag.hasKey(String.valueOf(i)); i++) {
-      ModifierNBT oldData = ModifierNBT.read(traitsTag, String.valueOf(i));
-      if (trait.getIdentifier().equals(oldData.identifier)) {
-        data = oldData;
-        break;
-      }
+    IModifier traitModifier = TinkerRegistry.getModifier(trait.getIdentifier());
+
+    if (traitModifier == null) {
+      log.error("addTrait: No matching modifier for the Trait {} present", trait.getIdentifier());
+      return;
     }
 
-    // trait is not present yet
-    if(data == null) {
-      data = new ModifierNBT(String.valueOf(i));
-      data.color = color;
-      data.level = 0;
-      data.identifier = trait.getIdentifier();
+    NBTTagCompound tag = new NBTTagCompound();
+    NBTTagList tagList = TagUtil.getModifiersTag(rootCompound);
+    int index = TinkerUtil.getIndexInList(tagList, trait.getIdentifier());
+    if (index >= 0) {
+      tag = tagList.getCompoundTagAt(index);
     }
 
-    // increase the count if possible
-    if(data.level < trait.getMaxCount()) {
-      data.level++;
+    traitModifier.updateNBT(tag);
+
+    if (index >= 0) {
+      tagList.set(index, tag);
+    } else {
+      tagList.appendTag(tag);
     }
 
-    // write the data
-    data.write(traitsTag);
+    traitModifier.applyEffect(rootCompound, tag);
   }
 
   public static ItemStack tryModifyTool(ItemStack[] stacks, ItemStack toolStack, boolean removeItems) {
@@ -125,17 +121,8 @@ public final class ToolBuilder {
     }
 
     // Recalculate tool base stats from material stats
-    NBTTagCompound materialTag = TagUtil.getTagSafe(baseTag, Tags.BASE_MATERIALS);
-    List<Material> materials = new LinkedList<>();
-    int index = 0;
-    while (materialTag.hasKey(String.valueOf(index))) {
-      // load the material from the data
-      String identifier = materialTag.getString(String.valueOf(index));
-      // this will return Material.UNKNOWN if it doesn't exist (anymore)
-      Material mat = TinkerRegistry.getMaterial(identifier);
-      materials.add(mat);
-      index++;
-    }
+    NBTTagList materialTag = TagUtil.getMaterialsBaseTag(rootNBT);
+    List<Material> materials = TinkerUtil.getMaterialsFromTagList(materialTag);
 
     NBTTagCompound toolTag = tinkersItem.buildTag(materials);
     rootNBT.setTag(Tags.TOOL_DATA, toolTag);
@@ -144,19 +131,26 @@ public final class ToolBuilder {
     rootNBT.setTag(Tags.TOOL_TRAITS, traitTag);
 
     // reapply modifiers
-    NBTTagCompound modifiers = TagUtil.getTagSafe(baseTag, Tags.BASE_MODIFIERS);
-    NBTTagCompound modifiersTag = TagUtil.getTagSafe(rootNBT, Tags.TOOL_MODIFIERS);
-    index = 0;
-    while (modifiers.hasKey(String.valueOf(index))) {
-      String identifier = modifiers.getString(String.valueOf(index));
-      index++;
+    NBTTagList modifiers = TagUtil.getModifiersBaseTag(rootNBT);
+    NBTTagList modifiersTag = TagUtil.getModifiersTag(rootNBT);
+    for (int i = 0; i < modifiers.tagCount(); i++) {
+      String identifier = modifiers.getStringTagAt(i);
       IModifier modifier = TinkerRegistry.getModifier(identifier);
       if (modifier == null) {
         log.debug("Missing modifier: {}", identifier);
         continue;
       }
 
-      modifier.applyEffect(rootNBT, modifiersTag);
+      NBTTagCompound tag;
+      int index = TinkerUtil.getIndexInList(modifiersTag, modifier.getIdentifier());
+
+      if (index >= 0) {
+        tag = modifiersTag.getCompoundTagAt(index);
+      } else {
+        tag = new NBTTagCompound();
+      }
+
+      modifier.applyEffect(rootNBT, tag);
     }
   }
 

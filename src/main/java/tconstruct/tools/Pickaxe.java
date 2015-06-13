@@ -26,6 +26,10 @@ public class Pickaxe extends ToolCore {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
+    if (materials.size() < requiredComponents.length) {
+      return new NBTTagCompound();
+    }
+
     return ToolBuilder.buildSimpleTool(materials.get(0), materials.get(1), materials.get(2));
   }
 }

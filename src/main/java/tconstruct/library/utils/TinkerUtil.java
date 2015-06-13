@@ -1,8 +1,15 @@
 package tconstruct.library.utils;
 
-import net.minecraft.item.ItemStack;
+import com.google.common.collect.Lists;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagList;
+
+import java.util.List;
+
+import tconstruct.library.TinkerRegistry;
 import tconstruct.library.tinkering.Material;
+import tconstruct.library.tinkering.modifiers.ModifierNBT;
 import tconstruct.library.tools.IToolPart;
 
 public final class TinkerUtil {
@@ -22,6 +29,34 @@ public final class TinkerUtil {
     }
 
     return ((IToolPart) stack.getItem()).getMaterial(stack);
+  }
+
+  public static int getIndexInList(NBTTagList tagList, String identifier) {
+    // do we already have a tag for this modifier?
+    for (int i = 0; i < tagList.tagCount(); i++) {
+      ModifierNBT data = ModifierNBT.readTag(tagList.getCompoundTagAt(i));
+      if (identifier.equals(data.identifier)) {
+        return i;
+      }
+    }
+
+    return -1;
+  }
+
+  public static List<Material> getMaterialsFromTagList(NBTTagList tagList) {
+    List<Material> materials = Lists.newLinkedList();
+    if (tagList.getTagType() != TagUtil.TAG_TYPE_STRING) {
+      TinkerRegistry.log.error("Incorrect taglist type to get materiallist from TagList");
+      return materials;
+    }
+
+    for (int i = 0; i < tagList.tagCount(); i++) {
+      String identifier = tagList.getStringTagAt(i);
+      Material mat = TinkerRegistry.getMaterial(identifier);
+      materials.add(mat);
+    }
+
+    return materials;
   }
 
   // balantly stolen from StackOverflow and then optimized
