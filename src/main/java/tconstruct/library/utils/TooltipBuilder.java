@@ -34,7 +34,7 @@ public class TooltipBuilder {
   // also includes traits
   public TooltipBuilder addModifiers() {
     if (stack != null) {
-      NBTTagList tagList = TagUtil.getModifiersTag(stack);
+      NBTTagList tagList = TagUtil.getModifiersTagList(stack);
 
       for (int i = 0; i < tagList.tagCount(); i++) {
         NBTTagCompound tag = tagList.getCompoundTagAt(i);

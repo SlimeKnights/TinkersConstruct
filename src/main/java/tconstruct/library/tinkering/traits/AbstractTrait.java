@@ -20,7 +20,7 @@ public abstract class AbstractTrait implements ITrait {
    */
   public int getTraitLevel(ItemStack stack) {
     /*
-    NBTTagCompound traits = TagUtil.getTraitsTag(stack);
+    NBTTagCompound traits = TagUtil.getTraitsTagList(stack);
     for (int i = 0; traits.hasKey(String.valueOf(i)); i++) {
       ModifierNBT data = ModifierNBT.read(traits, String.valueOf(i));
       if (identifier.equals(data.identifier)) {

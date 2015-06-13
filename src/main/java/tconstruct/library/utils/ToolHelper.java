@@ -99,13 +99,13 @@ public final class ToolHelper {
   /* Helper Functions */
 
   public static int getIntTag(ItemStack stack, String key) {
-    NBTTagCompound tag = TagUtil.getToolTagSafe(stack);
+    NBTTagCompound tag = TagUtil.getToolTag(stack);
 
     return tag.getInteger(key);
   }
 
   public static float getfloatTag(ItemStack stack, String key) {
-    NBTTagCompound tag = TagUtil.getToolTagSafe(stack);
+    NBTTagCompound tag = TagUtil.getToolTag(stack);
 
     return tag.getFloat(key);
   }

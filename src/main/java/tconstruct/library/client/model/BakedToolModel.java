@@ -47,14 +47,14 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
   @Override
   public IBakedModel handleItemState(ItemStack stack) {
     NBTTagCompound baseTag = TagUtil.getBaseTag(stack);
-    NBTTagCompound toolTag = TagUtil.getToolTagSafe(stack);
+    NBTTagCompound toolTag = TagUtil.getToolTag(stack);
 
-    if (baseTag == null) {
+    if (baseTag.hasNoTags()) {
       return this;
     }
 
-    NBTTagList materials = TagUtil.getTagListSafe(baseTag, Tags.BASE_MATERIALS, TagUtil.TAG_TYPE_STRING);
-    NBTTagList modifiers = TagUtil.getTagListSafe(baseTag, Tags.BASE_MODIFIERS, TagUtil.TAG_TYPE_STRING);
+    NBTTagList materials = TagUtil.getBaseMaterialsTagList(stack);
+    NBTTagList modifiers = TagUtil.getBaseModifiersTagList(stack);
 
     // get the texture for each part
     List<BakedQuad> quads = new ArrayList<>();

@@ -104,11 +104,12 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     NBTTagCompound basetag = new NBTTagCompound();
     NBTTagCompound toolTag = buildTag(materials);
     NBTTagCompound dataTag = buildData(materials);
-    NBTTagCompound traitTag = buildTraits(materials);
 
     basetag.setTag(Tags.BASE_DATA, dataTag);
     basetag.setTag(Tags.TOOL_DATA, toolTag);
-    basetag.setTag(Tags.TOOL_TRAITS, traitTag);
+
+    // add traits
+    addMaterialTraits(basetag, materials);
 
     return basetag;
   }
@@ -138,16 +139,12 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   public abstract NBTTagCompound buildTag(List<Material> materials);
 
-  public NBTTagCompound buildTraits(List<Material> materials) {
-    NBTTagCompound tag = new NBTTagCompound();
-
+  public void addMaterialTraits(NBTTagCompound root, List<Material> materials) {
     for (Material material : materials) {
       for (ITrait trait : material.getAllTraits()) {
-        ToolBuilder.addTrait(tag, trait, material.textColor);
+        ToolBuilder.addTrait(root, trait, material.textColor);
       }
     }
-
-    return tag;
   }
 
   /* Information */

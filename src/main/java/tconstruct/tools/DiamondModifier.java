@@ -19,11 +19,11 @@ public class DiamondModifier extends BooleanToolModifier {
 
   @Override
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
-    NBTTagCompound toolTag = TagUtil.getTagSafe(rootCompound, Tags.TOOL_DATA);
+    NBTTagCompound toolTag = TagUtil.getToolTag(rootCompound);
     int durability = toolTag.getInteger(Tags.DURABILITY);
     durability += 500;
 
     toolTag.setInteger(Tags.DURABILITY, durability);
-    rootCompound.setTag(Tags.TOOL_DATA, toolTag);
+    TagUtil.setToolTag(rootCompound, toolTag);
   }
 }

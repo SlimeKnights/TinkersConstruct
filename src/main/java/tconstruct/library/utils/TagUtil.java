@@ -8,8 +8,6 @@ import net.minecraft.nbt.NBTTagString;
 import java.util.HashSet;
 import java.util.Set;
 
-import tconstruct.library.tinkering.ITinkerable;
-
 public final class TagUtil {
 
   public static int TAG_TYPE_STRING = (new NBTTagString()).getId();
@@ -46,103 +44,112 @@ public final class TagUtil {
 
   /* Operations concerning the base-data of the tool */
   public static NBTTagCompound getBaseTag(ItemStack stack) {
-    if (stack == null || stack.getItem() == null || !stack.hasTagCompound()) {
-      return null;
-    }
-
     return getBaseTag(getTagSafe(stack));
   }
 
-  public static NBTTagCompound getBaseTagSafe(ItemStack stack) {
-    NBTTagCompound tag = getBaseTag(stack);
-
-    return tag == null ? new NBTTagCompound() : tag;
-  }
-
-  public static NBTTagCompound getBaseTag(NBTTagCompound rootCompound) {
-    return rootCompound.getCompoundTag(Tags.BASE_DATA);
+  public static NBTTagCompound getBaseTag(NBTTagCompound root) {
+    return getTagSafe(root, Tags.BASE_DATA);
   }
 
   public static void setBaseTag(ItemStack stack, NBTTagCompound tag) {
-    NBTTagCompound tagCompound = TagUtil.getTagSafe(stack);
-    tagCompound.setTag(Tags.BASE_DATA, tag);
+    NBTTagCompound root = TagUtil.getTagSafe(stack);
+    setBaseTag(root, tag);
 
-    stack.setTagCompound(tagCompound);
+    stack.setTagCompound(root);
   }
 
-  /**
-   * Returns the Tinkers NBT Tag of an itemstack if present.
-   *
-   * @return the tag or null if none is present or if it's not a tinker tool..
-   */
-  public static NBTTagCompound getToolTag(ItemStack stack) {
-    if (stack == null || stack.getItem() == null || !stack.hasTagCompound()) {
-      return null;
+  public static void setBaseTag(NBTTagCompound root, NBTTagCompound tag) {
+    if(root != null) {
+      root.setTag(Tags.BASE_DATA, tag);
     }
-
-    if (!(stack.getItem() instanceof ITinkerable)) {
-      return null;
-    }
-
-    return stack.getTagCompound().getCompoundTag(Tags.TOOL_DATA);
-  }
-
-  /**
-   * Like getToolTag but returns an empty tag instead of null on failure.
-   */
-  public static NBTTagCompound getToolTagSafe(ItemStack stack) {
-    NBTTagCompound tag = getToolTag(stack);
-
-    return tag == null ? new NBTTagCompound() : tag;
-  }
-
-  public static void setToolTag(ItemStack stack, NBTTagCompound tag) {
-    NBTTagCompound tagCompound = TagUtil.getTagSafe(stack);
-    tagCompound.setTag(Tags.TOOL_DATA, tag);
-
-    stack.setTagCompound(tagCompound);
   }
 
 
-  public static NBTTagList getModifiersBaseTag(ItemStack stack) {
-    return getTagListSafe(getBaseTag(stack), Tags.BASE_MODIFIERS, TAG_TYPE_STRING);
+  public static NBTTagList getBaseModifiersTagList(ItemStack stack) {
+    return getBaseModifiersTagList(getTagSafe(stack));
   }
 
-  public static NBTTagList getModifiersBaseTag(NBTTagCompound root) {
+  public static NBTTagList getBaseModifiersTagList(NBTTagCompound root) {
     return getTagListSafe(getBaseTag(root), Tags.BASE_MODIFIERS, TAG_TYPE_STRING);
   }
 
-  public static NBTTagList getMaterialsBaseTag(ItemStack stack) {
-    return getTagListSafe(getBaseTag(stack), Tags.BASE_MATERIALS, TAG_TYPE_STRING);
+
+  public static NBTTagList getBaseMaterialsTagList(ItemStack stack) {
+    return getBaseModifiersTagList(getTagSafe(stack));
   }
 
-  public static NBTTagList getMaterialsBaseTag(NBTTagCompound root) {
+  public static NBTTagList getBaseMaterialsTagList(NBTTagCompound root) {
     return getTagListSafe(getBaseTag(root), Tags.BASE_MATERIALS, TAG_TYPE_STRING);
   }
 
-  public static NBTTagList getModifiersTag(ItemStack stack) {
-    return getTagListSafe(getTagSafe(stack), Tags.TOOL_MODIFIERS, TAG_TYPE_COMPOUND);
+  /* Operations concerning the calculated tool data */
+  public static NBTTagCompound getToolTag(ItemStack stack) {
+    return getToolTag(getTagSafe(stack));
   }
 
-  public static NBTTagList getModifiersTag(NBTTagCompound root) {
+  public static NBTTagCompound getToolTag(NBTTagCompound root) {
+    return getTagSafe(root, Tags.TOOL_DATA);
+  }
+
+  public static void setToolTag(ItemStack stack, NBTTagCompound tag) {
+    NBTTagCompound root = TagUtil.getTagSafe(stack);
+    setToolTag(root, tag);
+
+    stack.setTagCompound(root);
+  }
+
+  public static void setToolTag(NBTTagCompound root, NBTTagCompound tag) {
+    if(root != null) {
+      root.setTag(Tags.TOOL_DATA, tag);
+    }
+  }
+
+
+  /* Operations concerning the data of modifiers */
+  public static NBTTagList getModifiersTagList(ItemStack stack) {
+    return getModifiersTagList(getTagSafe(stack));
+  }
+
+  public static NBTTagList getModifiersTagList(NBTTagCompound root) {
     return getTagListSafe(root, Tags.TOOL_MODIFIERS, TAG_TYPE_COMPOUND);
   }
 
-  public static void setModifiersTag(ItemStack stack, NBTTagCompound tag) {
-    NBTTagCompound tagCompound = TagUtil.getTagSafe(stack);
-    tagCompound.setTag(Tags.TOOL_MODIFIERS, tag);
+  public static void setModifiersTagList(ItemStack stack, NBTTagList tagList) {
+    NBTTagCompound root = TagUtil.getTagSafe(stack);
+    setModifiersTagList(root, tagList);
 
-    stack.setTagCompound(tagCompound);
+    stack.setTagCompound(root);
   }
 
-  public static NBTTagList getTraitsTag(ItemStack stack) {
-    return getTagListSafe(getTagSafe(stack), Tags.TOOL_TRAITS, TAG_TYPE_STRING);
+  public static void setModifiersTagList(NBTTagCompound root, NBTTagList tagList) {
+    if(root != null) {
+      root.setTag(Tags.TOOL_MODIFIERS, tagList);
+    }
   }
 
-  public static NBTTagList getTraitsTag(NBTTagCompound root) {
+  /* Operations concerning the list of traits present on the tool */
+  public static NBTTagList getTraitsTagList(ItemStack stack) {
+    return getTraitsTagList(getTagSafe(stack));
+  }
+
+  public static NBTTagList getTraitsTagList(NBTTagCompound root) {
     return getTagListSafe(root, Tags.TOOL_TRAITS, TAG_TYPE_STRING);
   }
 
+  public static void setTraitsTagList(ItemStack stack, NBTTagList tagList) {
+    NBTTagCompound root = TagUtil.getTagSafe(stack);
+    setTraitsTagList(root, tagList);
+
+    stack.setTagCompound(root);
+  }
+
+  public static void setTraitsTagList(NBTTagCompound root, NBTTagList tagList) {
+    if (root != null) {
+      root.setTag(Tags.TOOL_TRAITS, tagList);
+    }
+  }
+
+  /* Helper functions */
   /**
    * Adds the given value to the integer tag given.
    *

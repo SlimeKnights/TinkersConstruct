@@ -3,6 +3,8 @@ package tconstruct.library.tinkering.modifiers;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+import tconstruct.library.utils.TagUtil;
+
 public abstract class BooleanToolModifier extends ToolModifier {
 
   public BooleanToolModifier(String identifier) {
@@ -12,7 +14,7 @@ public abstract class BooleanToolModifier extends ToolModifier {
   @Override
   public boolean canApply(ItemStack stack) {
     // can only apply once
-    // todo
+    
 
     return super.canApply(stack);
   }

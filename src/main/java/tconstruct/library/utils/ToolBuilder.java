@@ -46,7 +46,7 @@ public final class ToolBuilder {
     }
 
     NBTTagCompound tag = new NBTTagCompound();
-    NBTTagList tagList = TagUtil.getModifiersTag(rootCompound);
+    NBTTagList tagList = TagUtil.getModifiersTagList(rootCompound);
     int index = TinkerUtil.getIndexInList(tagList, trait.getIdentifier());
     if (index >= 0) {
       tag = tagList.getCompoundTagAt(index);
@@ -114,25 +114,18 @@ public final class ToolBuilder {
    *                data.
    */
   public static void rebuildTool(NBTTagCompound rootNBT, TinkersItem tinkersItem) {
-    NBTTagCompound baseTag = rootNBT.getCompoundTag(Tags.BASE_DATA);
-    // no data present
-    if (baseTag == null) {
-      return;
-    }
-
     // Recalculate tool base stats from material stats
-    NBTTagList materialTag = TagUtil.getMaterialsBaseTag(rootNBT);
+    NBTTagList materialTag = TagUtil.getBaseMaterialsTagList(rootNBT);
     List<Material> materials = TinkerUtil.getMaterialsFromTagList(materialTag);
 
     NBTTagCompound toolTag = tinkersItem.buildTag(materials);
-    rootNBT.setTag(Tags.TOOL_DATA, toolTag);
+    TagUtil.setToolTag(rootNBT, toolTag);
 
-    NBTTagCompound traitTag = tinkersItem.buildTraits(materials);
-    rootNBT.setTag(Tags.TOOL_TRAITS, traitTag);
+    tinkersItem.addMaterialTraits(rootNBT, materials);
 
     // reapply modifiers
-    NBTTagList modifiers = TagUtil.getModifiersBaseTag(rootNBT);
-    NBTTagList modifiersTag = TagUtil.getModifiersTag(rootNBT);
+    NBTTagList modifiers = TagUtil.getBaseModifiersTagList(rootNBT);
+    NBTTagList modifiersTag = TagUtil.getModifiersTagList(rootNBT);
     for (int i = 0; i < modifiers.tagCount(); i++) {
       String identifier = modifiers.getStringTagAt(i);
       IModifier modifier = TinkerRegistry.getModifier(identifier);

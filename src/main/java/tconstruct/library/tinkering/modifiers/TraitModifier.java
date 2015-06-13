@@ -24,7 +24,7 @@ public class TraitModifier extends Modifier {
   @Override
   public boolean canApply(ItemStack stack) {
     // trait data is saved as a modifier
-    NBTTagList tagList = TagUtil.getModifiersTag(stack);
+    NBTTagList tagList = TagUtil.getModifiersTagList(stack);
 
     int index = TinkerUtil.getIndexInList(tagList, trait.getIdentifier());
 
@@ -48,7 +48,7 @@ public class TraitModifier extends Modifier {
   @Override
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
     // add the trait to the traitlist so it gets processed
-    NBTTagList traits = TagUtil.getTraitsTag(rootCompound);
+    NBTTagList traits = TagUtil.getTraitsTagList(rootCompound);
     // if it's not already present
     for (int i = 0; i < traits.tagCount(); i++) {
       if (identifier.equals(traits.getStringTagAt(i))) {
@@ -57,6 +57,7 @@ public class TraitModifier extends Modifier {
     }
 
     traits.appendTag(new NBTTagString(identifier));
+    TagUtil.setTraitsTagList(rootCompound, traits);
   }
 
   @Override

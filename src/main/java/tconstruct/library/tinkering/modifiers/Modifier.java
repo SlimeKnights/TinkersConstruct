@@ -71,7 +71,7 @@ public abstract class Modifier implements IModifier {
   @Override
   public boolean canApply(ItemStack stack) {
     // requires free modifiers
-    NBTTagCompound toolTag = TagUtil.getToolTagSafe(stack);
+    NBTTagCompound toolTag = TagUtil.getToolTag(stack);
     if (ToolTagUtil.getFreeModifiers(toolTag) < requiredModifiers) {
       // also returns false if the tooltag is missing
       return false;
@@ -83,7 +83,7 @@ public abstract class Modifier implements IModifier {
   @Override
   public void apply(ItemStack stack) {
     // add the modifier to its data
-    NBTTagList tagList = TagUtil.getModifiersBaseTag(stack);
+    NBTTagList tagList = TagUtil.getBaseModifiersTagList(stack);
 
     // if the modifier hasn't been on the tool already, add it
     boolean alreadyPresent = false;
@@ -94,56 +94,52 @@ public abstract class Modifier implements IModifier {
       }
     }
 
+    // if the modifier wasn't present before, add it and safe it to the tool
     if (!alreadyPresent) {
       tagList.appendTag(new NBTTagString(getIdentifier()));
+      TagUtil.setModifiersTagList(stack, tagList);
     }
-
-
-    NBTTagCompound base = TagUtil.getBaseTagSafe(stack);
-    base.setTag(Tags.BASE_MODIFIERS, tagList);
-
-    // update the itemstacks NBT
-    TagUtil.setBaseTag(stack, base);
 
 
     // substract the modifiers
-    NBTTagCompound tag = TagUtil.getToolTagSafe(stack);
-    int modifiers = ToolTagUtil.getFreeModifiers(tag) - requiredModifiers;
-    tag.setInteger(Tags.FREE_MODIFIERS, Math.max(0, modifiers));
+    NBTTagCompound toolTag = TagUtil.getToolTag(stack);
+    int modifiers = ToolTagUtil.getFreeModifiers(toolTag) - requiredModifiers;
+    toolTag.setInteger(Tags.FREE_MODIFIERS, Math.max(0, modifiers));
 
-    TagUtil.setToolTag(stack, tag);
+    TagUtil.setToolTag(stack, toolTag);
 
 
     // have the modifier itself save its data
-    tag = new NBTTagCompound();
-    tagList = TagUtil.getModifiersTag(stack);
+    NBTTagCompound modifierTag = new NBTTagCompound();
+    tagList = TagUtil.getModifiersTagList(stack);
     int index = TinkerUtil.getIndexInList(tagList, identifier);
     if (index >= 0) {
-      tag = tagList.getCompoundTagAt(index);
+      modifierTag = tagList.getCompoundTagAt(index);
     }
 
     // some modifiers might not save data, don't save them
-    if (!tag.hasNoTags()) {
+    if (!modifierTag.hasNoTags()) {
       // but if they do, ensure that the identifier is correct
-      ModifierNBT data = ModifierNBT.readTag(tag);
+      ModifierNBT data = ModifierNBT.readTag(modifierTag);
       if (!identifier.equals(data.identifier)) {
         data.identifier = identifier;
-        data.write(tag);
+        data.write(modifierTag);
       }
-      updateNBT(tag);
+      updateNBT(modifierTag);
     }
 
+    // update the tools NBT
     if (index >= 0) {
-      tagList.set(index, tag);
+      tagList.set(index, modifierTag);
     } else {
-      tagList.appendTag(tag);
+      tagList.appendTag(modifierTag);
     }
 
-    TagUtil.setModifiersTag(stack, tag);
+    TagUtil.setModifiersTagList(stack, tagList);
 
     // have the modifier apply its effect based on the nbt data
     NBTTagCompound rootCompound = stack.getTagCompound();
-    applyEffect(rootCompound, tag);
+    applyEffect(rootCompound, modifierTag);
     stack.setTagCompound(rootCompound);
   }
 
