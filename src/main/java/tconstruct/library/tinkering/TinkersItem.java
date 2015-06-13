@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Set;
 
 import tconstruct.library.tinkering.traits.ITrait;
-import tconstruct.library.tinkering.traits.TraitNBTData;
 import tconstruct.library.utils.Tags;
 import tconstruct.library.utils.TinkerUtil;
 import tconstruct.library.utils.ToolBuilder;

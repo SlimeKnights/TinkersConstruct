@@ -15,9 +15,9 @@ import tconstruct.library.tinkering.Material;
 import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.tinkering.materials.ToolMaterialStats;
 import tconstruct.library.tinkering.modifiers.IModifier;
+import tconstruct.library.tinkering.modifiers.ModifierNBT;
 import tconstruct.library.tinkering.modifiers.RecipeMatch;
 import tconstruct.library.tinkering.traits.ITrait;
-import tconstruct.library.tinkering.traits.TraitNBTData;
 
 public final class ToolBuilder {
 
@@ -40,10 +40,10 @@ public final class ToolBuilder {
     }
 
     // find out if the trait already exists or obtain the last tag so we can add a new one
-    TraitNBTData data = null;
+    ModifierNBT data = null;
     int i;
     for (i = 0; traitsTag.hasKey(String.valueOf(i)); i++) {
-      TraitNBTData oldData = TraitNBTData.read(traitsTag, String.valueOf(i));
+      ModifierNBT oldData = ModifierNBT.read(traitsTag, String.valueOf(i));
       if (trait.getIdentifier().equals(oldData.identifier)) {
         data = oldData;
         break;
@@ -52,7 +52,7 @@ public final class ToolBuilder {
 
     // trait is not present yet
     if(data == null) {
-      data = new TraitNBTData(String.valueOf(i));
+      data = new ModifierNBT(String.valueOf(i));
       data.color = color;
       data.level = 0;
       data.identifier = trait.getIdentifier();

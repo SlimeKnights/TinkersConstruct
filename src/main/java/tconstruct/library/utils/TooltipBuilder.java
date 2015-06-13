@@ -9,8 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
+import tconstruct.library.tinkering.modifiers.ModifierNBT;
 import tconstruct.library.tinkering.traits.ITrait;
-import tconstruct.library.tinkering.traits.TraitNBTData;
 
 /**
  * Used for simple info buidling in the tools!
@@ -37,7 +37,7 @@ public class TooltipBuilder {
 
       // add all traits and use the tag-data to determine which material added it
       for(int i = 0; traits.hasKey(String.valueOf(i)); i++){
-        TraitNBTData data = TraitNBTData.read(traits, String.valueOf(i));
+        ModifierNBT data = ModifierNBT.read(traits, String.valueOf(i));
         ITrait trait = TinkerRegistry.getTrait(data.identifier);
 
         if (trait != null) {

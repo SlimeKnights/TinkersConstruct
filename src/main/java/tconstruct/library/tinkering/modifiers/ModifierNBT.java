@@ -1,22 +1,50 @@
 package tconstruct.library.tinkering.modifiers;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
 
 /**
  * Represents the NBT data saved for a modifier.
  */
-public abstract class ModifierNBT {
+public class ModifierNBT {
 
   protected final String key;
+  public String identifier;
+  public EnumChatFormatting color;
+  public int level;
 
-  protected ModifierNBT(String key) {
+  public ModifierNBT(String key) {
     this.key = key;
   }
 
-  public abstract void write(NBTTagCompound tag);
+  public static ModifierNBT read(NBTTagCompound tag, String key) {
+    ModifierNBT data = new ModifierNBT(key);
+
+    NBTTagCompound subTag = tag.getCompoundTag(key);
+    if (subTag != null) {
+      data.identifier = subTag.getString("identifier");
+      data.color = EnumChatFormatting.func_175744_a(subTag.getInteger("color"));
+      data.level = subTag.getInteger("level");
+      if (data.level == 0) {
+        data.level = 1;
+      }
+    }
+
+    return data;
+  }
+
+  public void write(NBTTagCompound tag) {
+    NBTTagCompound subTag = tag.getCompoundTag(key);
+    subTag.setString("identifier", identifier);
+    subTag.setInteger("color", color.getColorIndex());
+    if (level > 0) {
+      subTag.setInteger("level", level);
+    }
+    tag.setTag(key, subTag);
+  }
 
   public String getInfo() {
-    return "";
+    return String.valueOf(level);
   }
 
   /**
