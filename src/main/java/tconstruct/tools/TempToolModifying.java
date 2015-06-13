@@ -22,7 +22,6 @@ public class TempToolModifying implements IRecipe {
   }
 
   private ItemStack outputTool;
-  private ItemStack[] stacks = new ItemStack[0];
 
   @Override
   public ItemStack getCraftingResult(InventoryCrafting p_77572_1_) {
@@ -33,7 +32,7 @@ public class TempToolModifying implements IRecipe {
   public boolean matches(InventoryCrafting inv, World worldIn) {
     outputTool = null;
 
-    stacks = new ItemStack[inv.getSizeInventory()];
+    ItemStack[] stacks = new ItemStack[inv.getSizeInventory()];
     ItemStack tool = null;
 
     for (int i = 0; i < inv.getSizeInventory(); i++) {
@@ -47,7 +46,7 @@ public class TempToolModifying implements IRecipe {
     if(tool == null)
       return false;
 
-    outputTool = ToolBuilder.tryModifyTool(stacks, tool);
+    outputTool = ToolBuilder.tryModifyTool(stacks, tool, false);
 
     return outputTool != null;
   }
@@ -64,6 +63,19 @@ public class TempToolModifying implements IRecipe {
 
   @Override
   public ItemStack[] getRemainingItems(InventoryCrafting inv) {
+    ItemStack[] stacks = new ItemStack[inv.getSizeInventory()];
+    ItemStack tool = null;
+
+    for (int i = 0; i < inv.getSizeInventory(); i++) {
+      stacks[i] = inv.getStackInSlot(i);
+      if(stacks[i] != null && stacks[i].getItem() instanceof TinkersItem) {
+        tool = stacks[i];
+        stacks[i] = null;
+      }
+    }
+
+    ToolBuilder.tryModifyTool(stacks, tool, true);
+
     return stacks;
   }
 }

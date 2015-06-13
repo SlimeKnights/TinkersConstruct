@@ -134,32 +134,9 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   public NBTTagCompound buildTraits(List<Material> materials) {
     NBTTagCompound tag = new NBTTagCompound();
 
-    int count = 0;
-    for (int i = 0; i < materials.size(); i++) {
-      for (ITrait trait : materials.get(i).getAllTraits()) {
-
-        TraitNBTData data = new TraitNBTData(String.valueOf(count));
-        data.color = materials.get(i).textColor;
-        data.level = 0;
-        data.identifier = trait.getIdentifier();
-
-        // check if the trait already exists on the tool
-        for (int j = 0; j < i; j++) {
-          TraitNBTData oldData = TraitNBTData.read(tag, String.valueOf(j));
-          if (trait.getIdentifier().equals(oldData.identifier)) {
-            data = oldData;
-            break;
-          }
-        }
-
-        // can we increase it?
-        if(data.level < trait.getMaxCount()) {
-          data.level++;
-        }
-
-        data.write(tag);
-
-        count++;
+    for (Material material : materials) {
+      for (ITrait trait : material.getAllTraits()) {
+        ToolBuilder.addTrait(tag, trait, material.textColor);
       }
     }
 

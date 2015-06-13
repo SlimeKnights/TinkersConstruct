@@ -2,6 +2,7 @@ package tconstruct.library.utils;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
 
 import org.apache.logging.log4j.Logger;
 
@@ -15,6 +16,8 @@ import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.tinkering.materials.ToolMaterialStats;
 import tconstruct.library.tinkering.modifiers.IModifier;
 import tconstruct.library.tinkering.modifiers.RecipeMatch;
+import tconstruct.library.tinkering.traits.ITrait;
+import tconstruct.library.tinkering.traits.TraitNBTData;
 
 public final class ToolBuilder {
 
@@ -23,22 +26,86 @@ public final class ToolBuilder {
   private ToolBuilder() {
   }
 
-  public static ItemStack tryModifyTool(ItemStack[] stacks, ItemStack toolStack) {
-    for (IModifier modifier : TinkerRegistry.getAllModifiers()) {
-      RecipeMatch.Match match = modifier.matches(stacks);
-      // found a modifier that is applicable
-      if (match != null) {
-        // but can it be applied?
-        if (modifier.canApply(toolStack)) {
-          ItemStack copy = toolStack.copy();
-          modifier.apply(copy);
+  /**
+   * Adds the trait to the tag, taking max-count and already existing traits into account.
+   * @param traitsTag The trait tag on the tool.
+   * @param trait The trait to add.
+   * @param color The color used on the tooltip. Will not be used if the trait already exists on the tool.
+   */
+  public static void addTrait(NBTTagCompound traitsTag, ITrait trait, EnumChatFormatting color) {
+    // only registered traits allowed
+    if (TinkerRegistry.getTrait(trait.getIdentifier()) == null) {
+      log.error("Trying to apply unregistered Trait {}", trait.getIdentifier());
+      return;
+    }
 
-          // remove items
-          RecipeMatch.removeMatch(stacks, match);
+    // find out if the trait already exists or obtain the last tag so we can add a new one
+    TraitNBTData data = null;
+    int i;
+    for (i = 0; traitsTag.hasKey(String.valueOf(i)); i++) {
+      TraitNBTData oldData = TraitNBTData.read(traitsTag, String.valueOf(i));
+      if (trait.getIdentifier().equals(oldData.identifier)) {
+        data = oldData;
+        break;
+      }
+    }
 
-          return copy;
+    // trait is not present yet
+    if(data == null) {
+      data = new TraitNBTData(String.valueOf(i));
+      data.color = color;
+      data.level = 0;
+      data.identifier = trait.getIdentifier();
+    }
+
+    // increase the count if possible
+    if(data.level < trait.getMaxCount()) {
+      data.level++;
+    }
+
+    // write the data
+    data.write(traitsTag);
+  }
+
+  public static ItemStack tryModifyTool(ItemStack[] stacks, ItemStack toolStack, boolean removeItems) {
+    ItemStack copy = toolStack.copy();
+    boolean appliedModifier = false;
+
+    // obtain a working copy of the items if the originals shouldn't be modified
+    if (!removeItems) {
+      ItemStack[] stacksCopy = new ItemStack[stacks.length];
+      for (int i = 0; i < stacks.length; i++) {
+        if (stacks[i] != null) {
+          stacksCopy[i] = stacks[i].copy();
         }
       }
+
+      stacks = stacksCopy;
+    }
+
+    for (IModifier modifier : TinkerRegistry.getAllModifiers()) {
+      RecipeMatch.Match match;
+      do {
+         match = modifier.matches(stacks);
+        // found a modifier that is applicable
+        if (match != null) {
+          // but can it be applied?
+          if (modifier.canApply(copy)) {
+            modifier.apply(copy);
+
+            RecipeMatch.removeMatch(stacks, match);
+
+            appliedModifier = true;
+          } else {
+            // materials would allow another application, but modifier doesn't
+            break;
+          }
+        }
+      } while (match != null);
+    }
+
+    if (appliedModifier) {
+      return copy;
     }
 
     return null;

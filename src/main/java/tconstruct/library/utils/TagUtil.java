@@ -107,6 +107,10 @@ public final class TagUtil {
     return getTagSafe(getTagSafe(stack), Tags.TOOL_TRAITS);
   }
 
+  public static NBTTagCompound getTraitsTag(NBTTagCompound root) {
+    return getTagSafe(root, Tags.TOOL_TRAITS);
+  }
+
   /**
    * Adds the given value to the integer tag given.
    *
