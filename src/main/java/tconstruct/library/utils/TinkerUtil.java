@@ -32,6 +32,28 @@ public final class TinkerUtil {
   }
 
   public static int getIndexInList(NBTTagList tagList, String identifier) {
+    if (tagList.getTagType() == TagUtil.TAG_TYPE_STRING) {
+      return getIndexInStringList(tagList, identifier);
+    } else if (tagList.getTagType() == TagUtil.TAG_TYPE_COMPOUND) {
+      return getIndexInCompoundList(tagList, identifier);
+    }
+
+    // unsupported format
+    return -1;
+  }
+
+  private static int getIndexInStringList(NBTTagList tagList, String identifier) {
+    for (int i = 0; i < tagList.tagCount(); i++) {
+      String data = tagList.getStringTagAt(i);
+      if (identifier.equals(data)) {
+        return i;
+      }
+    }
+
+    return -1;
+  }
+
+  public static int getIndexInCompoundList(NBTTagList tagList, String identifier) {
     // do we already have a tag for this modifier?
     for (int i = 0; i < tagList.tagCount(); i++) {
       ModifierNBT data = ModifierNBT.readTag(tagList.getCompoundTagAt(i));
