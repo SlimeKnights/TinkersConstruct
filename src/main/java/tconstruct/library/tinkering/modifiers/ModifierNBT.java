@@ -40,6 +40,13 @@ public abstract class ModifierNBT {
       data.status = tag.getBoolean(key);
       return data;
     }
+
+    public static void write(boolean value, NBTTagCompound tag, String key) {
+      Boolean data = read(tag, key);
+      data.status = value; // we don't actually use the old value if it exists. but meh.
+
+      data.write(tag);
+    }
   }
 
   /**
