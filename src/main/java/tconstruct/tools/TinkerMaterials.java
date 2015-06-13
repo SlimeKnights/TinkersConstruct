@@ -6,9 +6,9 @@ import net.minecraft.util.EnumChatFormatting;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.client.MaterialRenderInfo;
 import tconstruct.library.tinkering.Material;
-import tconstruct.library.tinkering.materials.ToolMaterialStats;
-import tconstruct.library.tinkering.traits.ITrait;
-import tconstruct.library.tinkering.traits.StoneboundTrait;
+import tconstruct.library.materials.ToolMaterialStats;
+import tconstruct.library.traits.ITrait;
+import tconstruct.library.traits.StoneboundTrait;
 
 public final class TinkerMaterials {
 

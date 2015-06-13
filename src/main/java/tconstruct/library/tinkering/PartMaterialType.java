@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import java.util.HashSet;
 import java.util.Set;
 
-import tconstruct.library.tinkering.materials.ToolMaterialStats;
+import tconstruct.library.materials.ToolMaterialStats;
 import tconstruct.library.tools.IToolPart;
 
 public class PartMaterialType {

@@ -1,4 +1,4 @@
-package tconstruct.library.tinkering.materials;
+package tconstruct.library.materials;
 
 
 public class ToolMaterialStats extends AbstractMaterialStats {

@@ -9,7 +9,7 @@ import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.tinkering.Material;
-import tconstruct.library.tinkering.modifiers.ModifierNBT;
+import tconstruct.library.modifiers.ModifierNBT;
 import tconstruct.library.tools.IToolPart;
 
 public final class TinkerUtil {

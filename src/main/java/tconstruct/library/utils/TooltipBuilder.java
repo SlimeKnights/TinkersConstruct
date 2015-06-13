@@ -10,8 +10,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
-import tconstruct.library.tinkering.modifiers.IModifier;
-import tconstruct.library.tinkering.modifiers.ModifierNBT;
+import tconstruct.library.modifiers.IModifier;
+import tconstruct.library.modifiers.ModifierNBT;
 
 /**
  * Used for simple info buidling in the tools!

@@ -1,4 +1,4 @@
-package tconstruct.library.tinkering.modifiers;
+package tconstruct.library.modifiers;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;

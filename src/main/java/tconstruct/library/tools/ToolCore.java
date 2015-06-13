@@ -16,7 +16,7 @@ import tconstruct.library.tinkering.Category;
 import tconstruct.library.tinkering.Material;
 import tconstruct.library.tinkering.PartMaterialType;
 import tconstruct.library.tinkering.TinkersItem;
-import tconstruct.library.tinkering.modifiers.IModifier;
+import tconstruct.library.modifiers.IModifier;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.ToolBuilder;
 import tconstruct.library.utils.ToolHelper;

@@ -13,10 +13,10 @@ import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
 import tconstruct.library.tinkering.Material;
 import tconstruct.library.tinkering.TinkersItem;
-import tconstruct.library.tinkering.materials.ToolMaterialStats;
-import tconstruct.library.tinkering.modifiers.IModifier;
-import tconstruct.library.tinkering.modifiers.RecipeMatch;
-import tconstruct.library.tinkering.traits.ITrait;
+import tconstruct.library.materials.ToolMaterialStats;
+import tconstruct.library.modifiers.IModifier;
+import tconstruct.library.modifiers.RecipeMatch;
+import tconstruct.library.traits.ITrait;
 
 public final class ToolBuilder {
 

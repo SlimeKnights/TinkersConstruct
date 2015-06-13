@@ -1,4 +1,4 @@
-package tconstruct.library.tinkering.modifiers;
+package tconstruct.library.modifiers;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -6,7 +6,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.EnumChatFormatting;
 
-import tconstruct.library.tinkering.traits.ITrait;
+import tconstruct.library.traits.ITrait;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.TinkerUtil;
 

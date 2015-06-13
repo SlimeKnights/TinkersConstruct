@@ -15,7 +15,7 @@ import java.util.List;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.tinkering.Material;
 import tconstruct.library.tinkering.MaterialItem;
-import tconstruct.library.tinkering.traits.ITrait;
+import tconstruct.library.traits.ITrait;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
 

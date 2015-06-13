@@ -29,7 +29,7 @@ import tconstruct.library.TinkerAPIException;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
 import tconstruct.library.client.CustomTextureCreator;
-import tconstruct.library.tinkering.modifiers.IModifier;
+import tconstruct.library.modifiers.IModifier;
 
 public class ModifierModelLoader implements ICustomModelLoader {
 

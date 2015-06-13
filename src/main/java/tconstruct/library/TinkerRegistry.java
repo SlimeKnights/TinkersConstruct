@@ -3,7 +3,6 @@ package tconstruct.library;
 import gnu.trove.map.hash.THashMap;
 import gnu.trove.set.hash.TLinkedHashSet;
 
-import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Loader;
 
 import org.apache.logging.log4j.Logger;
@@ -14,9 +13,9 @@ import java.util.Map;
 import java.util.Set;
 
 import tconstruct.library.tinkering.Material;
-import tconstruct.library.tinkering.materials.IMaterialStats;
-import tconstruct.library.tinkering.modifiers.IModifier;
-import tconstruct.library.tinkering.traits.ITrait;
+import tconstruct.library.materials.IMaterialStats;
+import tconstruct.library.modifiers.IModifier;
+import tconstruct.library.traits.ITrait;
 import tconstruct.library.tools.ToolCore;
 
 public final class TinkerRegistry {

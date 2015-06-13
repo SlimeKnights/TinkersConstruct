@@ -1,4 +1,4 @@
-package tconstruct.library.tinkering.modifiers;
+package tconstruct.library.modifiers;
 
 import com.google.common.collect.Lists;
 

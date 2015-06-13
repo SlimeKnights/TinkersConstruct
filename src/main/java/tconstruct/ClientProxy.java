@@ -15,7 +15,7 @@ import tconstruct.library.client.CustomTextureCreator;
 import tconstruct.library.client.model.MaterialModelLoader;
 import tconstruct.library.client.model.ModifierModelLoader;
 import tconstruct.library.client.model.ToolModelLoader;
-import tconstruct.library.tinkering.modifiers.IModifier;
+import tconstruct.library.modifiers.IModifier;
 
 public abstract class ClientProxy extends CommonProxy {
 

@@ -1,4 +1,4 @@
-package tconstruct.library.tinkering.traits;
+package tconstruct.library.traits;
 
 import net.minecraft.item.ItemStack;
 

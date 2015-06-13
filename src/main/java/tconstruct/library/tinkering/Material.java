@@ -11,8 +11,8 @@ import javax.annotation.Nonnull;
 
 import tconstruct.library.Util;
 import tconstruct.library.client.MaterialRenderInfo;
-import tconstruct.library.tinkering.materials.IMaterialStats;
-import tconstruct.library.tinkering.traits.ITrait;
+import tconstruct.library.materials.IMaterialStats;
+import tconstruct.library.traits.ITrait;
 
 public class Material {
 

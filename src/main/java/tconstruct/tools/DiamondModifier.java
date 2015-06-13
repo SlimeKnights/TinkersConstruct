@@ -3,9 +3,7 @@ package tconstruct.tools;
 import net.minecraft.init.Items;
 import net.minecraft.nbt.NBTTagCompound;
 
-import tconstruct.library.tinkering.modifiers.BooleanToolModifier;
-import tconstruct.library.tinkering.modifiers.ModifierNBT;
-import tconstruct.library.tinkering.modifiers.ToolModifier;
+import tconstruct.library.modifiers.BooleanToolModifier;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
 

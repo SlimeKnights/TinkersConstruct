@@ -1,4 +1,4 @@
-package tconstruct.library.tinkering.modifiers;
+package tconstruct.library.modifiers;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

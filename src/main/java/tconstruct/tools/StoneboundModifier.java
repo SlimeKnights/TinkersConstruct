@@ -2,7 +2,7 @@ package tconstruct.tools;
 
 import net.minecraft.util.EnumChatFormatting;
 
-import tconstruct.library.tinkering.modifiers.TraitModifier;
+import tconstruct.library.modifiers.TraitModifier;
 
 // Only for test purposes
 public class StoneboundModifier extends TraitModifier {
