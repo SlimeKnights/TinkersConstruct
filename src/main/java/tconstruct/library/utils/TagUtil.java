@@ -75,7 +75,7 @@ public final class TagUtil {
 
 
   public static NBTTagList getBaseMaterialsTagList(ItemStack stack) {
-    return getBaseModifiersTagList(getTagSafe(stack));
+    return getBaseMaterialsTagList(getTagSafe(stack));
   }
 
   public static NBTTagList getBaseMaterialsTagList(NBTTagCompound root) {
