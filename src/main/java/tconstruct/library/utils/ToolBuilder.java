@@ -156,6 +156,11 @@ public final class ToolBuilder {
 
       modifier.applyEffect(rootNBT, tag);
     }
+
+    // adjust free modifiers
+    int freeModifiers = toolTag.getInteger(Tags.FREE_MODIFIERS);
+    freeModifiers -= TagUtil.getBaseModifiersUsed(rootNBT);
+    toolTag.setInteger(Tags.FREE_MODIFIERS, freeModifiers);
   }
 
   /**

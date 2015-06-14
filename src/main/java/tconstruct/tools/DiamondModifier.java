@@ -2,6 +2,7 @@ package tconstruct.tools;
 
 import net.minecraft.init.Items;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
 
 import tconstruct.library.modifiers.Modifier;
 import tconstruct.library.modifiers.ModifierAspect;
@@ -14,7 +15,7 @@ public class DiamondModifier extends Modifier {
     super("Diamond");
 
     addItem(Items.diamond);
-    addAspects(new ModifierAspect.SingleAspect(this));
+    addAspects(new ModifierAspect.SingleAspect(this), new ModifierAspect.DataAspect(this, EnumChatFormatting.AQUA));
   }
 
   @Override

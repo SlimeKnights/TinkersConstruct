@@ -3,6 +3,7 @@ package tconstruct.library.utils;
 import com.google.common.collect.Lists;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
 import java.util.List;
@@ -29,6 +30,18 @@ public final class TinkerUtil {
     }
 
     return ((IToolPart) stack.getItem()).getMaterial(stack);
+  }
+
+  public static boolean hasModifier(NBTTagCompound root, String identifier) {
+    NBTTagList tagList = TagUtil.getBaseModifiersTagList(root);
+
+    for(int i = 0; i < tagList.tagCount(); i++) {
+      if(identifier.equals(tagList.getStringTagAt(i))) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   public static int getIndexInList(NBTTagList tagList, String identifier) {

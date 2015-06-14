@@ -22,6 +22,12 @@ public interface IModifier {
   void apply(ItemStack stack);
 
   /**
+   * Apply the modifier to a root-nbt of an itemstack.
+   * The complete procedure, usually called from the itemstack variant.
+   */
+  void apply(NBTTagCompound root);
+
+  /**
    * In this function the modifier saves its own data into the given tag.
    * Take a look at the ModifierNBT class for easy handling.
    *

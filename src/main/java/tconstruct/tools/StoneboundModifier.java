@@ -12,14 +12,12 @@ import tconstruct.library.utils.ToolTagUtil;
 // Only for test purposes
 public class StoneboundModifier extends TraitModifier {
 
-  private final int maxLevel = 3;
-
   public StoneboundModifier() {
     super(TinkerMaterials.stonebound, EnumChatFormatting.DARK_GRAY);
 
     addItem("cobblestone");
     aspects.clear();
-    addAspects(new ModifierAspect.LevelAspect(this, 3));
+    addAspects(new ModifierAspect.LevelAspect(this, 3), ModifierAspect.freeModifier);
   }
 
   @Override

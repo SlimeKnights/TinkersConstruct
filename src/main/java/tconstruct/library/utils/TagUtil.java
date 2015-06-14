@@ -103,6 +103,14 @@ public final class TagUtil {
     getBaseTag(root).setTag(Tags.BASE_MATERIALS, tagList);
   }
 
+  public static int getBaseModifiersUsed(NBTTagCompound root) {
+    return getBaseTag(root).getInteger(Tags.BASE_USED_MODIFIERS);
+  }
+
+  public static void setBaseModifiersUsed(NBTTagCompound root, int count) {
+    getBaseTag(root).setInteger(Tags.BASE_USED_MODIFIERS, count);
+  }
+
   /* Operations concerning the calculated tool data */
   public static NBTTagCompound getToolTag(ItemStack stack) {
     return getToolTag(getTagSafe(stack));

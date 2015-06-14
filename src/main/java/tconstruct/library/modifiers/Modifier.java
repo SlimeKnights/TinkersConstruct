@@ -16,9 +16,7 @@ import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.utils.TagUtil;
-import tconstruct.library.utils.Tags;
 import tconstruct.library.utils.TinkerUtil;
-import tconstruct.library.utils.ToolTagUtil;
 
 public abstract class Modifier implements IModifier {
 
@@ -35,6 +33,9 @@ public abstract class Modifier implements IModifier {
     this.identifier = identifier;
 
     TinkerRegistry.registerModifier(this);
+
+    // by default a modifier requires a free modifier
+    addAspects(ModifierAspect.freeModifier);
   }
 
   @Override
@@ -76,13 +77,6 @@ public abstract class Modifier implements IModifier {
 
   @Override
   public boolean canApply(ItemStack stack) {
-    // requires free modifiers
-    NBTTagCompound toolTag = TagUtil.getToolTag(stack);
-    if(ToolTagUtil.getFreeModifiers(toolTag) < requiredModifiers) {
-      // also returns false if the tooltag is missing
-      return false;
-    }
-
     // aspects
     for(ModifierAspect aspect : aspects) {
       if(!aspect.canApply(stack)) {
@@ -95,36 +89,26 @@ public abstract class Modifier implements IModifier {
 
   @Override
   public void apply(ItemStack stack) {
-    // add the modifier to its data
-    NBTTagList tagList = TagUtil.getBaseModifiersTagList(stack);
+    NBTTagCompound root = TagUtil.getTagSafe(stack);
+    apply(root);
+    stack.setTagCompound(root);
+  }
 
-    // if the modifier hasn't been on the tool already, add it
-    boolean alreadyPresent = false;
-    for(int i = 0; i < tagList.tagCount(); i++) {
-      if(getIdentifier().equals(tagList.getStringTagAt(i))) {
-        alreadyPresent = true;
-        break;
-      }
-    }
+  @Override
+  public void apply(NBTTagCompound root) {
+    // add the modifier to its data
+    NBTTagList tagList;
 
     // if the modifier wasn't present before, add it and safe it to the tool
-    if(!alreadyPresent) {
+    if(!TinkerUtil.hasModifier(root, getIdentifier())) {
+      tagList = TagUtil.getBaseModifiersTagList(root);;
       tagList.appendTag(new NBTTagString(getIdentifier()));
-      TagUtil.setBaseModifiersTagList(stack, tagList);
+      TagUtil.setBaseModifiersTagList(root, tagList);
     }
-
-
-    // substract the modifiers
-    NBTTagCompound toolTag = TagUtil.getToolTag(stack);
-    int modifiers = ToolTagUtil.getFreeModifiers(toolTag) - requiredModifiers;
-    toolTag.setInteger(Tags.FREE_MODIFIERS, Math.max(0, modifiers));
-
-    TagUtil.setToolTag(stack, toolTag);
-
 
     // have the modifier itself save its data
     NBTTagCompound modifierTag = new NBTTagCompound();
-    tagList = TagUtil.getModifiersTagList(stack);
+    tagList = TagUtil.getModifiersTagList(root);
     int index = TinkerUtil.getIndexInList(tagList, identifier);
     if(index >= 0) {
       modifierTag = tagList.getCompoundTagAt(index);
@@ -132,7 +116,7 @@ public abstract class Modifier implements IModifier {
 
     // update NBT through aspects
     for(ModifierAspect aspect : aspects) {
-      aspect.updateNBT(modifierTag);
+      aspect.updateNBT(root, modifierTag);
     }
 
     updateNBT(modifierTag);
@@ -155,12 +139,9 @@ public abstract class Modifier implements IModifier {
       tagList.appendTag(modifierTag);
     }
 
-    TagUtil.setModifiersTagList(stack, tagList);
+    TagUtil.setModifiersTagList(root, tagList);
 
-    // have the modifier apply its effect based on the nbt data
-    NBTTagCompound rootCompound = stack.getTagCompound();
-    applyEffect(rootCompound, modifierTag);
-    stack.setTagCompound(rootCompound);
+    applyEffect(root, modifierTag);
   }
 
   @Override

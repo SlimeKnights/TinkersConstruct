@@ -11,6 +11,8 @@ public final class Tags {
   public static final String BASE_MATERIALS = "Materials";
   /** Contains all the applied modifiers */
   public static final String BASE_MODIFIERS = "Modifiers";
+  /** An integer indicating how many free modifiers have been used */
+  public static final String BASE_USED_MODIFIERS = "UsedModifiers";
   /**
    * Extra-data that is specific to this Itemstack and is used to build the item. An example would be if a special
    * pickaxe had 100 more durability, it'd be stored in here.
