@@ -103,6 +103,12 @@ public final class ToolBuilder {
     }
 
     if(appliedModifier) {
+      // always rebuild tinkers items to ensure consistency and find problems earlier
+      if(copy.getItem() instanceof TinkersItem) {
+        NBTTagCompound root = TagUtil.getTagSafe(copy);
+        rebuildTool(root, (TinkersItem) copy.getItem());
+        copy.setTagCompound(root);
+      }
       return copy;
     }
 
