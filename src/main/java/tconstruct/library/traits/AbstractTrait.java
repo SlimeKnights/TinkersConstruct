@@ -16,6 +16,7 @@ public abstract class AbstractTrait implements ITrait {
   /**
    * The general assumption is that Traits don't have levels.
    * Should it be needed, however, this function allows you to easily get the level of a trait.
+   *
    * @return Level of the trait. 0 If the trait is not present.
    */
   public int getTraitLevel(ItemStack stack) {

@@ -35,7 +35,7 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
                         Map<String, IFlexibleBakedModel> modifierParts) {
     super(parent, Attributes.DEFAULT_BAKED_FORMAT);
 
-    if (parts.length != brokenParts.length) {
+    if(parts.length != brokenParts.length) {
       throw new RuntimeException("TinkerModel: Length of Parts and BrokenParts Array has to match");
     }
 
@@ -49,7 +49,7 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
     NBTTagCompound baseTag = TagUtil.getBaseTag(stack);
     NBTTagCompound toolTag = TagUtil.getToolTag(stack);
 
-    if (baseTag.hasNoTags()) {
+    if(baseTag.hasNoTags()) {
       return this;
     }
 
@@ -61,24 +61,25 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
 
     boolean broken = toolTag.getBoolean(Tags.BROKEN);
 
-    for (int i = 0; i < parts.length; i++) {
+    for(int i = 0; i < parts.length; i++) {
       String id = materials.getStringTagAt(i);
 
       IBakedModel partModel;
-      if (broken && brokenParts[i] != null) {
+      if(broken && brokenParts[i] != null) {
         partModel = brokenParts[i].getModelByIdentifier(id);
-      } else {
+      }
+      else {
         partModel = parts[i].getModelByIdentifier(id);
       }
 
       quads.addAll(partModel.getGeneralQuads()); // todo: use an efficient collection for this. Preferably a List-List
     }
 
-    for (int i = 0; i < modifiers.tagCount(); i++) {
+    for(int i = 0; i < modifiers.tagCount(); i++) {
       String modId = modifiers.getStringTagAt(i);
       IFlexibleBakedModel modModel = modifierParts.get(modId);
-      if (modModel != null) {
-        if (modModel instanceof BakedMaterialModel) {
+      if(modModel != null) {
+        if(modModel instanceof BakedMaterialModel) {
           modModel = ((BakedMaterialModel) modModel).getModelByIdentifier(TinkerMaterials.netherrack.identifier);
         }
         quads.addAll(modModel.getGeneralQuads());
@@ -98,7 +99,7 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
   static {
     empty_list = Collections.emptyList();
     empty_face_quads = Lists.newArrayList();
-    for (int i = 0; i < 6; i++) {
+    for(int i = 0; i < 6; i++) {
       empty_face_quads.add(empty_list);
     }
   }

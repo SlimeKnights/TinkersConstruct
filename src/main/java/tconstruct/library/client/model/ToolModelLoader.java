@@ -35,18 +35,18 @@ public class ToolModelLoader implements ICustomModelLoader {
 
       List<MaterialModel> parts = new LinkedList<>();
       // also load the parts of the tool, defined as the layers of the tool model
-      for (String s : ToolModel.getLayers()) {
+      for(String s : ToolModel.getLayers()) {
         String r = modelBlock.resolveTextureName(s);
-        if (!"missingno".equals(r)) {
+        if(!"missingno".equals(r)) {
           ModelBlock mb = ModelHelper.loadModelBlockFromTexture(r);
           parts.add(new MaterialModel(mb));
         }
       }
 
       List<MaterialModel> brokenParts = new LinkedList<>();
-      for (String s : ToolModel.getBrokenLayers()) {
+      for(String s : ToolModel.getBrokenLayers()) {
         String r = modelBlock.resolveTextureName(s);
-        if (!"missingno".equals(r)) {
+        if(!"missingno".equals(r)) {
           ModelBlock mb = ModelHelper.loadModelBlockFromTexture(r);
           brokenParts.add(new MaterialModel(mb));
         }
@@ -56,11 +56,12 @@ public class ToolModelLoader implements ICustomModelLoader {
       IModel mods = ModelLoaderRegistry.getModel(ModifierModelLoader.getLocationForToolModifiers(toolName));
       ModifierModel modifiers = null;
 
-      if (mods == null || !(mods instanceof ModifierModel)) {
+      if(mods == null || !(mods instanceof ModifierModel)) {
         TinkerRegistry.log.trace(
             "Toolmodel {} does not have any modifiers associated with it. Be sure that the Tools internal name, the Toolmodels filename and the name used inside the Modifier Model Definition match!",
             modelLocation);
-      } else {
+      }
+      else {
         modifiers = (ModifierModel) mods;
       }
 
@@ -70,7 +71,7 @@ public class ToolModelLoader implements ICustomModelLoader {
       CustomTextureCreator.registerTextures(output.getTextures());
 
       return output;
-    } catch (IOException e) {
+    } catch(IOException e) {
       TinkerRegistry.log.error("Could not load multimodel {}", modelLocation.toString());
     }
     return ModelLoaderRegistry.getMissingModel();

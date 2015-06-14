@@ -31,7 +31,7 @@ public class MaterialModel implements IModel {
 
   @Override
   public Collection<ResourceLocation> getDependencies() {
-    if (model.getParentLocation() == null || model.getParentLocation().getResourcePath().startsWith("builtin/")) {
+    if(model.getParentLocation() == null || model.getParentLocation().getResourcePath().startsWith("builtin/")) {
       return Collections
           .emptyList();
     }
@@ -46,17 +46,17 @@ public class MaterialModel implements IModel {
     ImmutableSet.Builder<ResourceLocation> builder = ImmutableSet.builder();
 
     // item-model. should be the standard.
-    if (model.getRootModel().name.equals("generation marker")) {
-      for (String s : (List<String>) ItemModelGenerator.LAYERS) {
+    if(model.getRootModel().name.equals("generation marker")) {
+      for(String s : (List<String>) ItemModelGenerator.LAYERS) {
         String r = model.resolveTextureName(s);
         ResourceLocation loc = new ResourceLocation(r);
-        if (!r.equals(s)) {
+        if(!r.equals(s)) {
           builder.add(loc);
         }
       }
     }
-    for (String s : (Iterable<String>) model.textures.values()) {
-      if (!s.startsWith("#")) {
+    for(String s : (Iterable<String>) model.textures.values()) {
+      if(!s.startsWith("#")) {
         builder.add(new ResourceLocation(s));
       }
     }
@@ -81,9 +81,9 @@ public class MaterialModel implements IModel {
     String baseTexture = base.getTexture().getIconName();
     Map<String, TextureAtlasSprite> sprites = CustomTextureCreator.sprites.get(baseTexture);
 
-    for (Map.Entry<String, TextureAtlasSprite> entry : sprites.entrySet()) {
+    for(Map.Entry<String, TextureAtlasSprite> entry : sprites.entrySet()) {
       model.textures.put("layer0", entry.getValue()
-          .getIconName()); // this is sadly needed so that the ItemModelGenerator creates the correct model
+                                        .getIconName()); // this is sadly needed so that the ItemModelGenerator creates the correct model
       IFlexibleBakedModel model2 = ModelHelper.bakeModelFromModelBlock(model, entry.getValue());
 
       bakedMaterialModel.addMaterialModel(TinkerRegistry.getMaterial(entry.getKey()), model2);

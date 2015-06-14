@@ -31,7 +31,7 @@ public class TraitModifier extends Modifier {
     NBTTagList tagList = TagUtil.getTraitsTagList(stack);
     int index = TinkerUtil.getIndexInList(tagList, trait.getIdentifier());
 
-    if (index >= 0) {
+    if(index >= 0) {
       return false;
     }
 
@@ -54,8 +54,8 @@ public class TraitModifier extends Modifier {
     // add the trait to the traitlist so it gets processed
     NBTTagList traits = TagUtil.getTraitsTagList(rootCompound);
     // if it's not already present
-    for (int i = 0; i < traits.tagCount(); i++) {
-      if (identifier.equals(traits.getStringTagAt(i))) {
+    for(int i = 0; i < traits.tagCount(); i++) {
+      if(identifier.equals(traits.getStringTagAt(i))) {
         return;
       }
     }

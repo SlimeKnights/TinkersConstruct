@@ -19,7 +19,7 @@ public class MaterialModelLoader implements ICustomModelLoader {
   @Override
   public boolean accepts(ResourceLocation modelLocation) {
     return modelLocation.getResourcePath()
-        .endsWith(EXTENSION); // tinkermaterialmodel extension. Foo.tmat.json
+                        .endsWith(EXTENSION); // tinkermaterialmodel extension. Foo.tmat.json
   }
 
   @Override
@@ -33,7 +33,7 @@ public class MaterialModelLoader implements ICustomModelLoader {
       CustomTextureCreator.registerTextures(model.getTextures());
 
       return model;
-    } catch (IOException e) {
+    } catch(IOException e) {
       TinkerRegistry.log.error("Could not load material model {}", modelLocation.toString());
     }
     return ModelLoaderRegistry.getMissingModel();

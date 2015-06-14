@@ -15,7 +15,6 @@ public interface ITrait {
 
   /**
    * Called each tick
-   * @param stack
    */
   void onUpdate(ItemStack stack);
 

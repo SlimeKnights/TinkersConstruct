@@ -40,7 +40,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   /* Tool Information */
   protected void addCategory(Category... categories) {
-    for (Category category : categories) {
+    for(Category category : categories) {
       this.categories.add(category);
     }
   }
@@ -51,7 +51,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   /* Building the Item */
   public boolean validComponent(int slot, ItemStack stack) {
-    if (slot > requiredComponents.length || slot < 0) {
+    if(slot > requiredComponents.length || slot < 0) {
       return false;
     }
 
@@ -67,12 +67,13 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   public ItemStack buildItemFromStacks(ItemStack[] stacks) {
     List<Material> materials = new ArrayList<>(stacks.length);
 
-    if(stacks.length != requiredComponents.length)
+    if(stacks.length != requiredComponents.length) {
       return null;
+    }
 
     // not a valid part arrangement for tis tool
-    for (int i = 0; i < stacks.length; i++) {
-      if (!validComponent(i, stacks[i])) {
+    for(int i = 0; i < stacks.length; i++) {
+      if(!validComponent(i, stacks[i])) {
         return null;
       }
 
@@ -122,7 +123,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     NBTTagCompound base = new NBTTagCompound();
     NBTTagList materialList = new NBTTagList();
 
-    for (Material material : materials) {
+    for(Material material : materials) {
       materialList.appendTag(new NBTTagString(material.identifier));
     }
 
@@ -141,9 +142,9 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   public abstract NBTTagCompound buildTag(List<Material> materials);
 
   public void addMaterialTraits(NBTTagCompound root, List<Material> materials) {
-    for (Material material : materials) {
-      for (ITrait trait : material.getAllTraits()) {
-          ToolBuilder.addTrait(root, trait, material.textColor);
+    for(Material material : materials) {
+      for(ITrait trait : material.getAllTraits()) {
+        ToolBuilder.addTrait(root, trait, material.textColor);
       }
     }
   }
@@ -161,7 +162,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   @Override
   public boolean updateItemStackNBT(NBTTagCompound nbt) {
     // when the itemstack is loaded from NBT we recalculate all the data
-    if (nbt.hasKey(Tags.BASE_DATA)) {
+    if(nbt.hasKey(Tags.BASE_DATA)) {
       ToolBuilder.rebuildTool(nbt, this);
     }
 

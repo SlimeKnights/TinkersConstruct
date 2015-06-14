@@ -6,7 +6,6 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.RecipeSorter;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,22 +30,21 @@ public class TempToolCrafting implements IRecipe {
     outputTool = null;
 
 
-
     List<ItemStack> input = new LinkedList<ItemStack>();
 
-    for(int i = 0; i < inv.getSizeInventory(); i++)
-    {
+    for(int i = 0; i < inv.getSizeInventory(); i++) {
       ItemStack slot = inv.getStackInSlot(i);
       // empty slot
-      if(slot == null)
+      if(slot == null) {
         continue;
+      }
 
       // save it
       input.add(slot);
     }
 
     ItemStack[] inputs = input.toArray(new ItemStack[input.size()]);
-    for (ToolCore tool : TinkerRegistry.tools) {
+    for(ToolCore tool : TinkerRegistry.tools) {
       outputTool = tool.buildItemFromStacks(inputs);
       if(outputTool != null) {
         break;

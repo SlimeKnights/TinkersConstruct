@@ -43,7 +43,7 @@ public abstract class ClientProxy extends CommonProxy {
     Object o = GameData.getItemRegistry().getNameForObject(item);
 
     // are you trying to add an unregistered item...?
-    if (o == null) {
+    if(o == null) {
       TConstruct.log.error("Trying to register a model for an unregistered item: %s" + item.getUnlocalizedName());
       // bad boi
       return null;
@@ -60,11 +60,11 @@ public abstract class ClientProxy extends CommonProxy {
                                                                          "inventory"));
 
     // We have to readd the default variant if we have custom variants, since it wont be added otherwise
-    if (customVariants.length > 0) {
+    if(customVariants.length > 0) {
       ModelBakery.addVariantName(item, location.toString());
     }
 
-    for (String customVariant : customVariants) {
+    for(String customVariant : customVariants) {
       String custom = location.getResourceDomain() + ":generated_" + customVariant;
       ModelBakery.addVariantName(item, custom);
     }
@@ -78,7 +78,7 @@ public abstract class ClientProxy extends CommonProxy {
    */
   protected ResourceLocation registerToolModel(Item item) {
     ResourceLocation itemLocation = getItemLocation(item);
-    if (itemLocation == null) {
+    if(itemLocation == null) {
       return null;
     }
 
@@ -88,7 +88,7 @@ public abstract class ClientProxy extends CommonProxy {
   }
 
   protected ResourceLocation registerToolModel(Item item, final ResourceLocation location) {
-    if (!location.getResourcePath().endsWith(ToolModelLoader.EXTENSION)) {
+    if(!location.getResourcePath().endsWith(ToolModelLoader.EXTENSION)) {
       TConstruct.log.error("The material-model " + location.toString() + " does not end with '"
                            + ToolModelLoader.EXTENSION
                            + "' and will therefore not be loaded by the custom model loader!");
@@ -99,7 +99,7 @@ public abstract class ClientProxy extends CommonProxy {
 
   public ResourceLocation registerMaterialItemModel(Item item) {
     ResourceLocation itemLocation = getItemLocation(item);
-    if (itemLocation == null) {
+    if(itemLocation == null) {
       return null;
     }
     return registerMaterialModel(item, new ResourceLocation(itemLocation.getResourceDomain(),
@@ -108,7 +108,7 @@ public abstract class ClientProxy extends CommonProxy {
   }
 
   public ResourceLocation registerMaterialModel(Item item, final ResourceLocation location) {
-    if (!location.getResourcePath().endsWith(MaterialModelLoader.EXTENSION)) {
+    if(!location.getResourcePath().endsWith(MaterialModelLoader.EXTENSION)) {
       TConstruct.log.error("The material-model " + location.toString() + " does not end with '"
                            + MaterialModelLoader.EXTENSION
                            + "' and will therefore not be loaded by the custom model loader!");
@@ -143,7 +143,7 @@ public abstract class ClientProxy extends CommonProxy {
     Object o = GameData.getItemRegistry().getNameForObject(item);
 
     // are you trying to add an unregistered item...?
-    if (o == null) {
+    if(o == null) {
       TConstruct.log.error("Trying to register a model for an unregistered item: %s" + item.getUnlocalizedName());
       // bad boi
       return null;

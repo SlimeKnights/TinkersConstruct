@@ -14,7 +14,7 @@ public final class ToolHelper {
   }
 
   public static boolean hasCategory(ItemStack stack, Category category) {
-    if (stack == null || stack.getItem() == null || !(stack.getItem() instanceof TinkersItem)) {
+    if(stack == null || stack.getItem() == null || !(stack.getItem() instanceof TinkersItem)) {
       return false;
     }
 
@@ -43,17 +43,17 @@ public final class ToolHelper {
   }
 
   public static float calcDigSpeed(ItemStack stack, IBlockState blockState) {
-    if (blockState == null) {
+    if(blockState == null) {
       return 0f;
     }
 
     NBTTagCompound tag = TagUtil.getToolTag(stack);
-    if (tag == null) {
+    if(tag == null) {
       return 1f;
     }
 
     // check if the tool has the correct class and harvest level
-    if (!canHarvest(stack, blockState)) {
+    if(!canHarvest(stack, blockState)) {
       return 0f;
     }
 
@@ -70,8 +70,8 @@ public final class ToolHelper {
    * Returns true if the tool is effective for harvesting the given block.
    */
   public static boolean isToolEffective(ItemStack stack, IBlockState state) {
-    for (String type : stack.getItem().getToolClasses(stack)) {
-      if (state.getBlock().isToolEffective(type, state)) {
+    for(String type : stack.getItem().getToolClasses(stack)) {
+      if(state.getBlock().isToolEffective(type, state)) {
         return true;
       }
     }
@@ -86,7 +86,7 @@ public final class ToolHelper {
     Block block = state.getBlock();
 
     // doesn't require a tool
-    if (block.getMaterial().isToolNotRequired()) {
+    if(block.getMaterial().isToolNotRequired()) {
       return true;
     }
 

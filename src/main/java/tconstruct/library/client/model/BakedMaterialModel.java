@@ -11,8 +11,8 @@ import net.minecraftforge.client.model.ISmartItemModel;
 import java.util.Map;
 
 import tconstruct.library.TinkerRegistry;
-import tconstruct.library.tinkering.IMaterialItem;
 import tconstruct.library.materials.Material;
+import tconstruct.library.tinkering.IMaterialItem;
 
 /**
  * This class represents something that has a single material. The base model is the default without a material. The
@@ -36,7 +36,7 @@ public class BakedMaterialModel extends IFlexibleBakedModel.Wrapper implements I
 
   @Override
   public IBakedModel handleItemState(ItemStack stack) {
-    if (stack.getItem() instanceof IMaterialItem) {
+    if(stack.getItem() instanceof IMaterialItem) {
       String id = ((IMaterialItem) stack.getItem()).getMaterialID(stack);
       return getModelByIdentifier(id);
     }
@@ -45,7 +45,7 @@ public class BakedMaterialModel extends IFlexibleBakedModel.Wrapper implements I
 
   public IFlexibleBakedModel getModelByIdentifier(String identifier) {
     IFlexibleBakedModel materialModel = parts.get(identifier);
-    if (materialModel == null) {
+    if(materialModel == null) {
       return this;
     }
 

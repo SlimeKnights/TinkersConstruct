@@ -12,11 +12,11 @@ import java.util.List;
 
 import scala.actors.threadpool.Arrays;
 import tconstruct.library.TinkerRegistry;
-import tconstruct.library.tinkering.Category;
 import tconstruct.library.materials.Material;
+import tconstruct.library.modifiers.IModifier;
+import tconstruct.library.tinkering.Category;
 import tconstruct.library.tinkering.PartMaterialType;
 import tconstruct.library.tinkering.TinkersItem;
-import tconstruct.library.modifiers.IModifier;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.ToolBuilder;
 import tconstruct.library.utils.ToolHelper;
@@ -55,15 +55,15 @@ public abstract class ToolCore extends TinkersItem {
     info.addModifiers();
 
     info.addDurability();
-    if (hasCategory(Category.HARVEST)) {
+    if(hasCategory(Category.HARVEST)) {
       info.addHarvestLevel();
       info.addMiningSpeed();
     }
-    if (hasCategory(Category.WEAPON)) {
+    if(hasCategory(Category.WEAPON)) {
       info.addAttack();
     }
 
-    if (ToolHelper.getFreeModifiers(stack) > 0) {
+    if(ToolHelper.getFreeModifiers(stack) > 0) {
       info.addFreeModifiers();
     }
 
@@ -79,7 +79,7 @@ public abstract class ToolCore extends TinkersItem {
   // Creative tab items
   @Override
   public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
-    for (Material head : TinkerRegistry.getAllMaterials()) {
+    for(Material head : TinkerRegistry.getAllMaterials()) {
       // todo: make this real?
       ItemStack tool = buildItem(Arrays.asList(new Material[]{head, TinkerMaterials.wood, TinkerMaterials.stone}));
       IModifier mod = TinkerRegistry.getModifier("Diamond");
@@ -90,7 +90,7 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public int getHarvestLevel(ItemStack stack, String toolClass) {
-    if (this.getToolClasses(stack).contains(toolClass)) {
+    if(this.getToolClasses(stack).contains(toolClass)) {
       NBTTagCompound tag = TagUtil.getToolTag(stack);
       // will return 0 if the tag has no info anyway
       return ToolTagUtil.getHarvestLevel(tag);

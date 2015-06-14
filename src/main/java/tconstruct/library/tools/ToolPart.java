@@ -33,26 +33,28 @@ public class ToolPart extends MaterialItem implements IToolPart {
   public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
     Material material = getMaterial(stack);
 
-    if (material == Material.UNKNOWN) {
+    if(material == Material.UNKNOWN) {
       NBTTagCompound tag = TagUtil.getTagSafe(stack);
       String materialID = tag.getString(Tags.PART_MATERIAL);
 
       String error;
-      if (materialID != null && !materialID.isEmpty()) {
+      if(materialID != null && !materialID.isEmpty()) {
         error = StatCollector.translateToLocalFormatted("tooltip.part.missingMaterial", materialID);
-      } else {
+      }
+      else {
         error = StatCollector.translateToLocal("tooltip.part.missingInfo");
       }
       tooltip.add(error);
-    } else {
+    }
+    else {
       tooltip.add(material.textColor.toString() + EnumChatFormatting.ITALIC.toString() + material.getLocalizedName());
 
-      for (ITrait trait : material.getAllTraits()) {
+      for(ITrait trait : material.getAllTraits()) {
         tooltip.add(material.textColor + trait.getLocalizedName());
       }
     }
 
-    if (advanced) {
+    if(advanced) {
       String materialInfo = StatCollector.translateToLocalFormatted("tooltip.part.materialAddedBy",
                                                                     TinkerRegistry.getTrace(material));
       tooltip.add(materialInfo);

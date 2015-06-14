@@ -2,15 +2,11 @@ package tconstruct.tools;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
 
-import tconstruct.library.modifiers.Modifier;
 import tconstruct.library.modifiers.ModifierAspect;
-import tconstruct.library.modifiers.ModifierNBT;
 import tconstruct.library.modifiers.TraitModifier;
 import tconstruct.library.utils.TagUtil;
-import tconstruct.library.utils.TinkerUtil;
 import tconstruct.library.utils.ToolTagUtil;
 
 // Only for test purposes
@@ -30,13 +26,13 @@ public class StoneboundModifier extends TraitModifier {
   public boolean canApply(ItemStack stack) {
     // requires free modifiers
     NBTTagCompound toolTag = TagUtil.getToolTag(stack);
-    if (ToolTagUtil.getFreeModifiers(toolTag) < requiredModifiers) {
+    if(ToolTagUtil.getFreeModifiers(toolTag) < requiredModifiers) {
       // also returns false if the tooltag is missing
       return false;
     }
 
     // aspects
-    for (ModifierAspect aspect : aspects) {
+    for(ModifierAspect aspect : aspects) {
       if(!aspect.canApply(stack)) {
         return false;
       }

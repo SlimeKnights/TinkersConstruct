@@ -6,13 +6,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.RecipeSorter;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import tconstruct.library.TinkerRegistry;
-import tconstruct.library.tinkering.ITinkerable;
 import tconstruct.library.tinkering.TinkersItem;
-import tconstruct.library.tools.ToolCore;
 import tconstruct.library.utils.ToolBuilder;
 
 public class TempToolModifying implements IRecipe {
@@ -35,7 +29,7 @@ public class TempToolModifying implements IRecipe {
     ItemStack[] stacks = new ItemStack[inv.getSizeInventory()];
     ItemStack tool = null;
 
-    for (int i = 0; i < inv.getSizeInventory(); i++) {
+    for(int i = 0; i < inv.getSizeInventory(); i++) {
       stacks[i] = inv.getStackInSlot(i);
       if(stacks[i] != null && stacks[i].getItem() instanceof TinkersItem) {
         tool = stacks[i];
@@ -43,8 +37,9 @@ public class TempToolModifying implements IRecipe {
       }
     }
 
-    if(tool == null)
+    if(tool == null) {
       return false;
+    }
 
     outputTool = ToolBuilder.tryModifyTool(stacks, tool, false);
 
@@ -66,7 +61,7 @@ public class TempToolModifying implements IRecipe {
     ItemStack[] stacks = new ItemStack[inv.getSizeInventory()];
     ItemStack tool = null;
 
-    for (int i = 0; i < inv.getSizeInventory(); i++) {
+    for(int i = 0; i < inv.getSizeInventory(); i++) {
       stacks[i] = inv.getStackInSlot(i);
       if(stacks[i] != null && stacks[i].getItem() instanceof TinkersItem) {
         tool = stacks[i];

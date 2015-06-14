@@ -64,9 +64,9 @@ public abstract class Modifier implements IModifier {
 
   @Override
   public RecipeMatch.Match matches(ItemStack[] stacks) {
-    for (RecipeMatch recipe : modifierItems) {
+    for(RecipeMatch recipe : modifierItems) {
       RecipeMatch.Match match = recipe.matches(stacks);
-      if (match != null) {
+      if(match != null) {
         return match;
       }
     }
@@ -78,13 +78,13 @@ public abstract class Modifier implements IModifier {
   public boolean canApply(ItemStack stack) {
     // requires free modifiers
     NBTTagCompound toolTag = TagUtil.getToolTag(stack);
-    if (ToolTagUtil.getFreeModifiers(toolTag) < requiredModifiers) {
+    if(ToolTagUtil.getFreeModifiers(toolTag) < requiredModifiers) {
       // also returns false if the tooltag is missing
       return false;
     }
 
     // aspects
-    for (ModifierAspect aspect : aspects) {
+    for(ModifierAspect aspect : aspects) {
       if(!aspect.canApply(stack)) {
         return false;
       }
@@ -100,15 +100,15 @@ public abstract class Modifier implements IModifier {
 
     // if the modifier hasn't been on the tool already, add it
     boolean alreadyPresent = false;
-    for (int i = 0; i < tagList.tagCount(); i++) {
-      if (getIdentifier().equals(tagList.getStringTagAt(i))) {
+    for(int i = 0; i < tagList.tagCount(); i++) {
+      if(getIdentifier().equals(tagList.getStringTagAt(i))) {
         alreadyPresent = true;
         break;
       }
     }
 
     // if the modifier wasn't present before, add it and safe it to the tool
-    if (!alreadyPresent) {
+    if(!alreadyPresent) {
       tagList.appendTag(new NBTTagString(getIdentifier()));
       TagUtil.setBaseModifiersTagList(stack, tagList);
     }
@@ -126,31 +126,32 @@ public abstract class Modifier implements IModifier {
     NBTTagCompound modifierTag = new NBTTagCompound();
     tagList = TagUtil.getModifiersTagList(stack);
     int index = TinkerUtil.getIndexInList(tagList, identifier);
-    if (index >= 0) {
+    if(index >= 0) {
       modifierTag = tagList.getCompoundTagAt(index);
     }
 
     // update NBT through aspects
-    for (ModifierAspect aspect : aspects) {
+    for(ModifierAspect aspect : aspects) {
       aspect.updateNBT(modifierTag);
     }
 
     updateNBT(modifierTag);
 
     // some modifiers might not save data, don't save them
-    if (!modifierTag.hasNoTags()) {
+    if(!modifierTag.hasNoTags()) {
       // but if they do, ensure that the identifier is correct
       ModifierNBT data = ModifierNBT.readTag(modifierTag);
-      if (!identifier.equals(data.identifier)) {
+      if(!identifier.equals(data.identifier)) {
         data.identifier = identifier;
         data.write(modifierTag);
       }
     }
 
     // update the tools NBT
-    if (index >= 0) {
+    if(index >= 0) {
       tagList.set(index, modifierTag);
-    } else {
+    }
+    else {
       tagList.appendTag(modifierTag);
     }
 
@@ -169,7 +170,7 @@ public abstract class Modifier implements IModifier {
     ModifierNBT data = ModifierNBT.readTag(modifierTag);
 
     sb.append(getLocalizedName());
-    if (data.level > 1) {
+    if(data.level > 1) {
       sb.append(" ");
       sb.append(TinkerUtil.getRomanNumeral(data.level));
     }

@@ -29,14 +29,14 @@ public class LocalizationCheckCommand extends CommandBase {
 
   @Override
   public List addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
-    if (args.length != 1) {
+    if(args.length != 1) {
       return null;
     }
 
     List<String> completions = Lists.newLinkedList();
     String matName = args[0].toLowerCase();
-    for (Material mat : TinkerRegistry.getAllMaterials()) {
-      if (mat.identifier.toLowerCase().startsWith(matName)) {
+    for(Material mat : TinkerRegistry.getAllMaterials()) {
+      if(mat.identifier.toLowerCase().startsWith(matName)) {
         completions.add(mat.identifier);
       }
     }
@@ -46,19 +46,20 @@ public class LocalizationCheckCommand extends CommandBase {
 
   @Override
   public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-    if (args.length > 1) {
+    if(args.length > 1) {
       throw new WrongUsageException(getCommandUsage(sender));
     }
 
-    if (args.length > 0) {
+    if(args.length > 0) {
       Material mat = TinkerRegistry.getMaterial(args[0]);
-      if (mat == Material.UNKNOWN) {
+      if(mat == Material.UNKNOWN) {
         throw new CommandException("Unknown material: " + args[0]);
       }
 
       scanMaterial(mat, sender);
-    } else {
-      for (Material mat : TinkerRegistry.getAllMaterials()) {
+    }
+    else {
+      for(Material mat : TinkerRegistry.getAllMaterials()) {
         scanMaterial(mat, sender);
       }
     }
@@ -69,7 +70,7 @@ public class LocalizationCheckCommand extends CommandBase {
   }
 
   private void checkStr(String str, ICommandSender sender) {
-    if (!StatCollector.canTranslate(str)) {
+    if(!StatCollector.canTranslate(str)) {
       sender.addChatMessage(new ChatComponentText("Missing localization for name: " + str));
     }
   }

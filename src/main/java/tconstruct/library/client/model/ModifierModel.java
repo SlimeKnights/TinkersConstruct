@@ -40,7 +40,7 @@ public class ModifierModel implements IModel {
   }
 
   public String getTextureForModifier(String modifier) {
-    if (!models.containsKey(modifier)) {
+    if(!models.containsKey(modifier)) {
       return null;
     }
 
@@ -56,7 +56,7 @@ public class ModifierModel implements IModel {
   public Collection<ResourceLocation> getTextures() {
     ImmutableSet.Builder<ResourceLocation> builder = ImmutableSet.builder();
 
-    for (ModelBlock modelBlock : models.values()) {
+    for(ModelBlock modelBlock : models.values()) {
       builder.add(new ResourceLocation(modelBlock.resolveTextureName("layer0")));
     }
 
@@ -79,17 +79,18 @@ public class ModifierModel implements IModel {
         transformation =
         new TRSRTransformation(new Vector3f(0, 0, 0.0001f - s / 2f), null, new Vector3f(1, 1, 1f + s), null);
 
-    for (Map.Entry<String, ModelBlock> entry : models.entrySet()) {
+    for(Map.Entry<String, ModelBlock> entry : models.entrySet()) {
       ModelBlock modelBlock = entry.getValue();
 
       // todo: turn this into an event?
       IFlexibleBakedModel bakedModel;
       // check if the corresponding modifier needs this to be a material model
       // if this check ever causes an NPE then a modifier has been removed between model loading and model baking
-      if (TinkerRegistry.getModifier(entry.getKey()).hasTexturePerMaterial()) {
+      if(TinkerRegistry.getModifier(entry.getKey()).hasTexturePerMaterial()) {
         IModel materialModel = new MaterialModel(modelBlock);
         bakedModel = materialModel.bake(state, format, bakedTextureGetter);
-      } else {
+      }
+      else {
         bakedModel = ModelHelper.bakeModelFromModelBlock(modelBlock, bakedTextureGetter, transformation);
       }
 

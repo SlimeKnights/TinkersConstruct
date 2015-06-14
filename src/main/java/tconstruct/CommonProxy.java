@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.LoaderState;
 public class CommonProxy {
 
   public void registerModels() {
-    if (Loader.instance().hasReachedState(LoaderState.INITIALIZATION)) {
+    if(Loader.instance().hasReachedState(LoaderState.INITIALIZATION)) {
       TConstruct.log.error(
           "Proxy.registerModels has to be called during preInit. Otherwise the models wont be found on first load.");
     }

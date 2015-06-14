@@ -60,10 +60,11 @@ public class TConstruct {
   public static PulseManager pulseManager = new PulseManager(modID, "TinkerModules");
 
   public TConstruct() {
-    if (Loader.isModLoaded("Natura")) {
+    if(Loader.isModLoaded("Natura")) {
       log.info("Natura, what are we going to do tomorrow night?");
       LogManager.getLogger("Natura").info("TConstruct, we're going to take over the world!");
-    } else {
+    }
+    else {
       log.info("Preparing to take over the world");
     }
   }
@@ -83,7 +84,7 @@ public class TConstruct {
     //pulseManager.registerPulse(new TinkerTest());
     pulseManager.preInit(event);
 
-    if (event.getSide().isClient()) {
+    if(event.getSide().isClient()) {
       ClientProxy.initClient();
     }
   }

@@ -31,7 +31,7 @@ public class ToolClientProxy extends ClientProxy {
 
   public ResourceLocation registerPartModel(Item item) {
     ResourceLocation itemLocation = getItemLocation(item);
-    if (itemLocation == null) {
+    if(itemLocation == null) {
       return null;
     }
 

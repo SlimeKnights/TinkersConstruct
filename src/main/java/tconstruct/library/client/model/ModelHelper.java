@@ -43,7 +43,7 @@ public class ModelHelper {
     IResource
         iresource =
         Minecraft.getMinecraft().getResourceManager()
-            .getResource(new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json"));
+                 .getResource(new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json"));
     Reader reader = new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8);
 
     return ModelBlock.deserialize(reader);
@@ -83,9 +83,9 @@ public class ModelHelper {
     mb.textures.put("layer0", sprite.getIconName());
     builder.setTexture(sprite);
 
-    for (Object o : mb.getElements()) {
+    for(Object o : mb.getElements()) {
       BlockPart blockpart = (BlockPart) o;
-      for (Object o2 : blockpart.mapFaces.keySet()) {
+      for(Object o2 : blockpart.mapFaces.keySet()) {
         EnumFacing enumfacing = (EnumFacing) o2;
         BlockPartFace blockpartface = (BlockPartFace) blockpart.mapFaces.get(enumfacing);
         builder.addGeneralQuad(makeBakedQuad(blockpart, blockpartface, sprite, enumfacing, transformation, false));

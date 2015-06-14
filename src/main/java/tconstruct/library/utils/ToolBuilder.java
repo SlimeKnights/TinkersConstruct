@@ -11,12 +11,12 @@ import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
-import tconstruct.library.modifiers.TraitModifier;
 import tconstruct.library.materials.Material;
-import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.materials.ToolMaterialStats;
 import tconstruct.library.modifiers.IModifier;
 import tconstruct.library.modifiers.RecipeMatch;
+import tconstruct.library.modifiers.TraitModifier;
+import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.traits.ITrait;
 
 public final class ToolBuilder {
@@ -28,20 +28,21 @@ public final class ToolBuilder {
 
   /**
    * Adds the trait to the tag, taking max-count and already existing traits into account.
+   *
    * @param rootCompound The root compound of the item
-   * @param trait The trait to add.
-   * @param color The color used on the tooltip. Will not be used if the trait already exists on the tool.
+   * @param trait        The trait to add.
+   * @param color        The color used on the tooltip. Will not be used if the trait already exists on the tool.
    */
   public static void addTrait(NBTTagCompound rootCompound, ITrait trait, EnumChatFormatting color) {
     // only registered traits allowed
-    if (TinkerRegistry.getTrait(trait.getIdentifier()) == null) {
+    if(TinkerRegistry.getTrait(trait.getIdentifier()) == null) {
       log.error("addTrait: Trying to apply unregistered Trait {}", trait.getIdentifier());
       return;
     }
 
     IModifier modifier = TinkerRegistry.getModifier(trait.getIdentifier());
 
-    if (modifier == null || !(modifier instanceof TraitModifier)) {
+    if(modifier == null || !(modifier instanceof TraitModifier)) {
       log.error("addTrait: No matching modifier for the Trait {} present", trait.getIdentifier());
       return;
     }
@@ -51,15 +52,16 @@ public final class ToolBuilder {
     NBTTagCompound tag = new NBTTagCompound();
     NBTTagList tagList = TagUtil.getModifiersTagList(rootCompound);
     int index = TinkerUtil.getIndexInList(tagList, trait.getIdentifier());
-    if (index >= 0) {
+    if(index >= 0) {
       tag = tagList.getCompoundTagAt(index);
     }
 
     traitModifier.updateNBTWithColor(tag, color);
 
-    if (index >= 0) {
+    if(index >= 0) {
       tagList.set(index, tag);
-    } else {
+    }
+    else {
       tagList.appendTag(tag);
     }
 
@@ -73,10 +75,10 @@ public final class ToolBuilder {
     boolean appliedModifier = false;
 
     // obtain a working copy of the items if the originals shouldn't be modified
-    if (!removeItems) {
+    if(!removeItems) {
       ItemStack[] stacksCopy = new ItemStack[stacks.length];
-      for (int i = 0; i < stacks.length; i++) {
-        if (stacks[i] != null) {
+      for(int i = 0; i < stacks.length; i++) {
+        if(stacks[i] != null) {
           stacksCopy[i] = stacks[i].copy();
         }
       }
@@ -84,28 +86,29 @@ public final class ToolBuilder {
       stacks = stacksCopy;
     }
 
-    for (IModifier modifier : TinkerRegistry.getAllModifiers()) {
+    for(IModifier modifier : TinkerRegistry.getAllModifiers()) {
       RecipeMatch.Match match;
       do {
-         match = modifier.matches(stacks);
+        match = modifier.matches(stacks);
         // found a modifier that is applicable
-        if (match != null) {
+        if(match != null) {
           // but can it be applied?
-          if (modifier.canApply(copy)) {
+          if(modifier.canApply(copy)) {
             modifier.apply(copy);
 
             RecipeMatch.removeMatch(stacks, match);
 
             appliedModifier = true;
-          } else {
+          }
+          else {
             // materials would allow another application, but modifier doesn't
             break;
           }
         }
-      } while (match != null);
+      } while(match != null);
     }
 
-    if (appliedModifier) {
+    if(appliedModifier) {
       return copy;
     }
 
@@ -133,10 +136,10 @@ public final class ToolBuilder {
     // reapply modifiers
     NBTTagList modifiers = TagUtil.getBaseModifiersTagList(rootNBT);
     NBTTagList modifiersTag = TagUtil.getModifiersTagList(rootNBT);
-    for (int i = 0; i < modifiers.tagCount(); i++) {
+    for(int i = 0; i < modifiers.tagCount(); i++) {
       String identifier = modifiers.getStringTagAt(i);
       IModifier modifier = TinkerRegistry.getModifier(identifier);
-      if (modifier == null) {
+      if(modifier == null) {
         log.debug("Missing modifier: {}", identifier);
         continue;
       }
@@ -144,9 +147,10 @@ public final class ToolBuilder {
       NBTTagCompound tag;
       int index = TinkerUtil.getIndexInList(modifiersTag, modifier.getIdentifier());
 
-      if (index >= 0) {
+      if(index >= 0) {
         tag = modifiersTag.getCompoundTagAt(index);
-      } else {
+      }
+      else {
         tag = new NBTTagCompound();
       }
 
@@ -166,7 +170,7 @@ public final class ToolBuilder {
     // get the start values from the head
     result = calculateHeadParts(headStats);
     // add the accessories
-    for (Material material : accessoriesMaterials) {
+    for(Material material : accessoriesMaterials) {
       ToolMaterialStats accessoryStats = material.getStats(ToolMaterialStats.TYPE);
       calculateAccessoryParts(result, accessoryStats);
     }
@@ -193,7 +197,7 @@ public final class ToolBuilder {
     float speed = 0f;
 
     // sum up stats
-    for (ToolMaterialStats stat : stats) {
+    for(ToolMaterialStats stat : stats) {
       durability += stat.durability;
       attack += stat.attack;
       speed += stat.miningspeed;
@@ -220,7 +224,7 @@ public final class ToolBuilder {
     int durability = baseTag.getInteger(Tags.DURABILITY);
 
     // sum up stats
-    for (ToolMaterialStats stat : stats) {
+    for(ToolMaterialStats stat : stats) {
       durability += stat.durability;
     }
 
@@ -236,12 +240,12 @@ public final class ToolBuilder {
     float multiplier = 0;
 
     // sum up stats
-    for (ToolMaterialStats stat : stats) {
+    for(ToolMaterialStats stat : stats) {
       multiplier += stat.durabilityModifier;
       count++;
     }
 
-    if (count > 0) {
+    if(count > 0) {
       // calculate the multiplier from the summed up stats
       multiplier *= (0.5 + count * 0.5);
       multiplier /= count;
@@ -259,8 +263,8 @@ public final class ToolBuilder {
     int harvestLevel = 0;
 
     // get max
-    for (ToolMaterialStats stat : stats) {
-      if (stat.harvestLevel > harvestLevel) {
+    for(ToolMaterialStats stat : stats) {
+      if(stat.harvestLevel > harvestLevel) {
         harvestLevel = stat.harvestLevel;
       }
     }

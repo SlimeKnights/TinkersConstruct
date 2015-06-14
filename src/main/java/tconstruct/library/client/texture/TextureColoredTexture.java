@@ -42,11 +42,11 @@ public class TextureColoredTexture extends AbstractColoredTexture {
   @Override
   protected int colorPixel(int pixel, int mipmap, int pxCoord) {
     int a = alpha(pixel);
-    if (a == 0) {
+    if(a == 0) {
       return pixel;
     }
 
-    if (textureData == null) {
+    if(textureData == null) {
       loadData();
     }
 
@@ -57,7 +57,7 @@ public class TextureColoredTexture extends AbstractColoredTexture {
     int b = blue(c);
     int g = green(c);
 
-    if (!stencil) {
+    if(!stencil) {
       r = mult(mult(r, red(pixel)), red(pixel));
       g = mult(mult(g, green(pixel)), green(pixel));
       b = mult(mult(b, blue(pixel)), blue(pixel));
@@ -66,9 +66,10 @@ public class TextureColoredTexture extends AbstractColoredTexture {
   }
 
   private void loadData() {
-    if (addTexture != null && addTexture.getFrameCount() > 0) {
+    if(addTexture != null && addTexture.getFrameCount() > 0) {
       textureData = addTexture.getFrameTextureData(0);
-    } else {
+    }
+    else {
       textureData = backupLoadTexture(new ResourceLocation(addTextureLocation),
                                       Minecraft.getMinecraft().getResourceManager());
     }

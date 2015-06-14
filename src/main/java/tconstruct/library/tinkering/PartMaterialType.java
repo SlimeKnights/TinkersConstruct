@@ -22,11 +22,11 @@ public class PartMaterialType {
   }
 
   public boolean isValid(ItemStack stack) {
-    if (stack == null || stack.getItem() == null) {
+    if(stack == null || stack.getItem() == null) {
       return false;
     }
 
-    if (!(stack.getItem() instanceof IToolPart)) {
+    if(!(stack.getItem() instanceof IToolPart)) {
       return false;
     }
 
@@ -36,13 +36,13 @@ public class PartMaterialType {
 
   public boolean isValid(IToolPart part, Material material) {
     // wrong part
-    if (!neededPart.contains(part)) {
+    if(!neededPart.contains(part)) {
       return false;
     }
 
     // not all needed materials present
-    for (String type : neededTypes) {
-      if (!material.hasStats(type)) {
+    for(String type : neededTypes) {
+      if(!material.hasStats(type)) {
         return false;
       }
     }

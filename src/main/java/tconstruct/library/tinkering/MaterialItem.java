@@ -25,7 +25,7 @@ public class MaterialItem extends Item implements IMaterialItem {
   @Override
   public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
     // this adds a variant of each material to the creative menu
-    for (Material mat : TinkerRegistry.getAllMaterials()) {
+    for(Material mat : TinkerRegistry.getAllMaterials()) {
       subItems.add(getItemstackWithMaterial(mat));
     }
   }

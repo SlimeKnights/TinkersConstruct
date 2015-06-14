@@ -90,8 +90,8 @@ public abstract class ModifierAspect {
       NBTTagList modifiers = TagUtil.getModifiersTagList(stack);
       int index = TinkerUtil.getIndexInList(modifiers, parent.getIdentifier());
 
-      if (index >= 0) {
-        if (ModifierNBT.readTag(modifiers.getCompoundTagAt(index)).level >= maxLevel) {
+      if(index >= 0) {
+        if(ModifierNBT.readTag(modifiers.getCompoundTagAt(index)).level >= maxLevel) {
           return false;
         }
       }

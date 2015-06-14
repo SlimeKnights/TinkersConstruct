@@ -32,7 +32,7 @@ public class ModifierNBT {
 
   public static ModifierNBT readTag(NBTTagCompound tag) {
     ModifierNBT data = new ModifierNBT();
-    if (tag != null) {
+    if(tag != null) {
       data.read(tag);
     }
 
@@ -49,10 +49,10 @@ public class ModifierNBT {
   public void write(NBTTagCompound tag) {
     tag.setString("identifier", identifier);
     tag.setInteger("color", color.getColorIndex());
-    if (level > 0) {
+    if(level > 0) {
       tag.setInteger("level", level);
     }
-    if (extraInfo != null && !extraInfo.isEmpty()) {
+    if(extraInfo != null && !extraInfo.isEmpty()) {
       tag.setString("extraInfo", extraInfo);
     }
   }
@@ -62,7 +62,7 @@ public class ModifierNBT {
       T data = clazz.newInstance();
       data.read(tag);
       return data;
-    } catch (ReflectiveOperationException e) {
+    } catch(ReflectiveOperationException e) {
       return null;
     }
   }
@@ -134,7 +134,7 @@ public class ModifierNBT {
     }
 
     public String calcInfo() {
-      if (max > 0) {
+      if(max > 0) {
         return String.format("%d / %d", current, max);
       }
 

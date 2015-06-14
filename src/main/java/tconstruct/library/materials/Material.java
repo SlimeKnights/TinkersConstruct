@@ -81,12 +81,12 @@ public class Material {
    * Returns the given type of stats if the material has them. Returns null Otherwise.
    */
   private IMaterialStats getStatsSafe(String identifier) {
-    if (identifier == null || identifier.isEmpty()) {
+    if(identifier == null || identifier.isEmpty()) {
       return null;
     }
 
-    for (IMaterialStats stat : stats.values()) {
-      if (identifier.equals(stat.getMaterialType())) {
+    for(IMaterialStats stat : stats.values()) {
+      if(identifier.equals(stat.getMaterialType())) {
         return stat;
       }
     }
@@ -115,6 +115,7 @@ public class Material {
   }
 
   /* Traits */
+
   /**
    * Do not use this function with unregistered traits. Use TinkerRegistry.addMaterialTrait instead.
    */
@@ -130,7 +131,7 @@ public class Material {
    * Returns whether the material has a trait with that identifier.
    */
   public boolean hasTrait(String identifier) {
-    if (identifier == null || identifier.isEmpty()) {
+    if(identifier == null || identifier.isEmpty()) {
       return false;
     }
 
@@ -142,6 +143,7 @@ public class Material {
   }
 
   public String getLocalizedName() {
-    return StatCollector.translateToLocal(String.format(LOCALIZATION_STRING, Util.sanitizeLocalizationString(identifier)));
+    return StatCollector
+        .translateToLocal(String.format(LOCALIZATION_STRING, Util.sanitizeLocalizationString(identifier)));
   }
 }

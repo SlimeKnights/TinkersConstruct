@@ -49,12 +49,12 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
     // get the base texture to work on
     int[][] data;
     // basetexture is present and loaded
-    if (baseTexture != null && baseTexture.getFrameCount() > 0) {
+    if(baseTexture != null && baseTexture.getFrameCount() > 0) {
       this.copyFrom(baseTexture);
       int[][] original = baseTexture.getFrameTextureData(0);
       data = new int[original.length][];
-      for (int i = 0; i < original.length; i++) {
-        if (original[i] != null) {
+      for(int i = 0; i < original.length; i++) {
+        if(original[i] != null) {
           data[i] = Arrays.copyOf(original[i], original[i].length);
         }
       }
@@ -62,20 +62,20 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
     // load texture manually
     else {
       data = null;
-      if (extra != null && !extra.isEmpty()) {
+      if(extra != null && !extra.isEmpty()) {
         data = backupLoadTexture(new ResourceLocation(backupTextureLocation + "_" + extra), manager);
       }
-      if (data == null) {
+      if(data == null) {
         data = backupLoadTexture(new ResourceLocation(backupTextureLocation), manager);
       }
     }
 
     // go over the base texture and color it
-    for (int mipmap = 0; mipmap < data.length; mipmap++) {
-      if (data[mipmap] == null) {
+    for(int mipmap = 0; mipmap < data.length; mipmap++) {
+      if(data[mipmap] == null) {
         continue;
       }
-      for (int pxCoord = 0; pxCoord < data[mipmap].length; pxCoord++) {
+      for(int pxCoord = 0; pxCoord < data[mipmap].length; pxCoord++) {
         // we're not working per pixel
         // we take the information in the base texture to calculate the luminosity of the pixel
         // and then color it accordingly with the materials color
@@ -103,10 +103,10 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
       this.height = abufferedimage[0].getHeight();
 
       int[][] aint = new int[abufferedimage.length][];
-      for (int k = 0; k < abufferedimage.length; ++k) {
+      for(int k = 0; k < abufferedimage.length; ++k) {
         BufferedImage bufferedimage = abufferedimage[k];
 
-        if (bufferedimage != null) {
+        if(bufferedimage != null) {
           aint[k] = new int[bufferedimage.getWidth() * bufferedimage.getHeight()];
           bufferedimage
               .getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), aint[k], 0, bufferedimage.getWidth());
@@ -114,9 +114,9 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
       }
 
       return aint;
-    } catch (RuntimeException runtimeexception) {
+    } catch(RuntimeException runtimeexception) {
       TinkerRegistry.log.error("Unable to parse metadata from " + resourcelocation1, runtimeexception);
-    } catch (IOException ioexception1) {
+    } catch(IOException ioexception1) {
       TinkerRegistry.log.error("Unable to load " + resourcelocation1, ioexception1);
     }
 
@@ -124,7 +124,7 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
   }
 
   private ResourceLocation completeResourceLocation(ResourceLocation location, int p_147634_2_) {
-    if (p_147634_2_ == 0) {
+    if(p_147634_2_ == 0) {
       return new ResourceLocation(location.getResourceDomain(),
                                   String.format("%s/%s%s", "textures", location.getResourcePath(), ".png"));
     }

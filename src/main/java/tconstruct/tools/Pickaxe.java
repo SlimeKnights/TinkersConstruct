@@ -4,8 +4,8 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.List;
 
-import tconstruct.library.tinkering.Category;
 import tconstruct.library.materials.Material;
+import tconstruct.library.tinkering.Category;
 import tconstruct.library.tinkering.PartMaterialType;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.utils.ToolBuilder;
@@ -26,7 +26,7 @@ public class Pickaxe extends ToolCore {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    if (materials.size() < requiredComponents.length) {
+    if(materials.size() < requiredComponents.length) {
       return new NBTTagCompound();
     }
 

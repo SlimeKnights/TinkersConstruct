@@ -23,16 +23,17 @@ public abstract class RecipeMatch {
 
   /** Removes the match from the stacks */
   public static void removeMatch(ItemStack[] stacks, Match match) {
-    for (ItemStack stack : match.stacks) {
-      for (int i = 0; i < stacks.length; i++) {
+    for(ItemStack stack : match.stacks) {
+      for(int i = 0; i < stacks.length; i++) {
         // nbt sensitive since toolparts etc. use nbt
-        if (ItemStack.areItemStackTagsEqual(stack, stacks[i])) {
-          if (stacks[i].stackSize < stack.stackSize) {
+        if(ItemStack.areItemStackTagsEqual(stack, stacks[i])) {
+          if(stacks[i].stackSize < stack.stackSize) {
             TinkerRegistry.log.error("RecipeMatch has incorrect stacksize! {}", stacks[i].toString());
             break;
-          } else {
+          }
+          else {
             stacks[i].stackSize -= stack.stackSize;
-            if (stacks[i].stackSize == 0) {
+            if(stacks[i].stackSize == 0) {
               stacks[i] = null;
             }
           }
@@ -56,8 +57,8 @@ public abstract class RecipeMatch {
       List<ItemStack> found = Lists.newLinkedList();
       int stillNeeded = amountNeeded;
 
-      for (ItemStack stack : stacks) {
-        if (OreDictionary.itemMatches(template, stack, false)) {
+      for(ItemStack stack : stacks) {
+        if(OreDictionary.itemMatches(template, stack, false)) {
           // add the amount found to the list
           ItemStack copy = stack.copy();
           copy.stackSize = Math.min(copy.stackSize, stillNeeded);
@@ -65,7 +66,7 @@ public abstract class RecipeMatch {
           stillNeeded -= copy.stackSize;
 
           // we found enough
-          if (stillNeeded <= 0) {
+          if(stillNeeded <= 0) {
             return new Match(found, 1);
           }
         }
@@ -91,9 +92,9 @@ public abstract class RecipeMatch {
       List<ItemStack> found = Lists.newLinkedList();
       int stillNeeded = amountNeeded;
 
-      for (ItemStack ore : OreDictionary.getOres(oredictEntry)) {
-        for (ItemStack stack : stacks) {
-          if (OreDictionary.itemMatches(ore, stack, false)) {
+      for(ItemStack ore : OreDictionary.getOres(oredictEntry)) {
+        for(ItemStack stack : stacks) {
+          if(OreDictionary.itemMatches(ore, stack, false)) {
             // add the amount found to the list
             ItemStack copy = stack.copy();
             copy.stackSize = Math.min(copy.stackSize, stillNeeded);
@@ -101,7 +102,7 @@ public abstract class RecipeMatch {
             stillNeeded -= copy.stackSize;
 
             // we found enough
-            if (stillNeeded <= 0) {
+            if(stillNeeded <= 0) {
               return new Match(found, 1);
             }
           }

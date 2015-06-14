@@ -38,8 +38,8 @@ public class ToolModel implements IModel {
 
   @Override
   public Collection<ResourceLocation> getDependencies() {
-    if (modelBlock.getParentLocation() == null || modelBlock.getParentLocation().getResourcePath()
-        .startsWith("builtin/")) {
+    if(modelBlock.getParentLocation() == null || modelBlock.getParentLocation().getResourcePath()
+                                                           .startsWith("builtin/")) {
       return Collections
           .emptyList();
     }
@@ -52,19 +52,19 @@ public class ToolModel implements IModel {
     ImmutableSet.Builder<ResourceLocation> builder = ImmutableSet.builder();
 
     // regular layers
-    for (String s : getLayers()) {
+    for(String s : getLayers()) {
       String r = modelBlock.resolveTextureName(s);
       ResourceLocation loc = new ResourceLocation(r);
-      if (!r.equals(s)) {
+      if(!r.equals(s)) {
         builder.add(loc);
       }
     }
 
     // broken state textures
-    for (String s : getBrokenLayers()) {
+    for(String s : getBrokenLayers()) {
       String r = modelBlock.resolveTextureName(s);
       ResourceLocation loc = new ResourceLocation(r);
-      if (!r.equals(s)) {
+      if(!r.equals(s)) {
         builder.add(loc);
       }
     }
@@ -85,19 +85,20 @@ public class ToolModel implements IModel {
     BakedMaterialModel[] brokenPartModels = new BakedMaterialModel[partBlocks.size()]; // has to be same size
 
     // we build simple models for the parts, so we can extract the UV information AND have depth
-    for (int i = 0; i < partBlocks.size(); i++) {
+    for(int i = 0; i < partBlocks.size(); i++) {
       partModels[i] = partBlocks.get(i).bakeIt(state, format, bakedTextureGetter);
     }
-    for (int i = 0; i < brokenPartBlocks.size(); i++) {
-      if (brokenPartBlocks.get(i) != null) {
+    for(int i = 0; i < brokenPartBlocks.size(); i++) {
+      if(brokenPartBlocks.get(i) != null) {
         brokenPartModels[i] = brokenPartBlocks.get(i).bakeIt(state, format, bakedTextureGetter);
       }
     }
 
     Map<String, IFlexibleBakedModel> modifierModels;
-    if (modifiers != null) {
+    if(modifiers != null) {
       modifierModels = modifiers.bakeModels(state, format, bakedTextureGetter);
-    } else {
+    }
+    else {
       modifierModels = new THashMap<>();
     }
 
@@ -111,7 +112,7 @@ public class ToolModel implements IModel {
 
   public static String[] getLayers() {
     String[] out = new String[10];
-    for (int i = 0; i < out.length; i++) {
+    for(int i = 0; i < out.length; i++) {
       // regular layers
       out[i] = "layer" + i;
     }
@@ -120,7 +121,7 @@ public class ToolModel implements IModel {
 
   public static String[] getBrokenLayers() {
     String[] out = new String[10];
-    for (int i = 0; i < out.length; i++) {
+    for(int i = 0; i < out.length; i++) {
       // regular layers
       out[i] = "broken" + i;
     }

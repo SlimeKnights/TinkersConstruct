@@ -18,7 +18,7 @@ public final class TagUtil {
 
   /* Generic Tag Operations */
   public static NBTTagCompound getTagSafe(ItemStack stack) {
-    if (stack == null || stack.getItem() == null || !stack.hasTagCompound()) {
+    if(stack == null || stack.getItem() == null || !stack.hasTagCompound()) {
       return new NBTTagCompound();
     }
 
@@ -26,7 +26,7 @@ public final class TagUtil {
   }
 
   public static NBTTagCompound getTagSafe(NBTTagCompound tag, String key) {
-    if (tag == null || !tag.hasKey(key)) {
+    if(tag == null || !tag.hasKey(key)) {
       return new NBTTagCompound();
     }
 
@@ -34,7 +34,7 @@ public final class TagUtil {
   }
 
   public static NBTTagList getTagListSafe(NBTTagCompound tag, String key, int type) {
-    if (tag == null || !tag.hasKey(key)) {
+    if(tag == null || !tag.hasKey(key)) {
       return new NBTTagList();
     }
 
@@ -165,12 +165,13 @@ public final class TagUtil {
   }
 
   public static void setTraitsTagList(NBTTagCompound root, NBTTagList tagList) {
-    if (root != null) {
+    if(root != null) {
       root.setTag(Tags.TOOL_TRAITS, tagList);
     }
   }
 
   /* Helper functions */
+
   /**
    * Adds the given value to the integer tag given.
    *
@@ -208,17 +209,17 @@ public final class TagUtil {
     NBTTagCompound result = new NBTTagCompound();
 
     // cycle through all of the tagcompounds so we don't miss a tag
-    for (NBTTagCompound current : tags) {
-      for (Object o : current.getKeySet()) {
+    for(NBTTagCompound current : tags) {
+      for(Object o : current.getKeySet()) {
         String key = (String) o;
         // skip already processed keys
-        if (processedKeys.contains(key)) {
+        if(processedKeys.contains(key)) {
           continue;
         }
 
         processedKeys.add(key);
 
-        switch (current.getTag(key).getId()) {
+        switch(current.getTag(key).getId()) {
           // int
           case 3:
             result.setInteger(key, averageIntTags(key, tags));
@@ -244,8 +245,8 @@ public final class TagUtil {
     int count = 0;
     int total = 0;
     // get the value for each of the tags
-    for (NBTTagCompound compound : tags) {
-      if (compound.hasKey(key)) {
+    for(NBTTagCompound compound : tags) {
+      if(compound.hasKey(key)) {
         count++;
         total += compound.getInteger(key);
       }
@@ -258,8 +259,8 @@ public final class TagUtil {
     int count = 0;
     float total = 0;
     // get the value for each of the tags
-    for (NBTTagCompound compound : tags) {
-      if (compound.hasKey(key)) {
+    for(NBTTagCompound compound : tags) {
+      if(compound.hasKey(key)) {
         count++;
         total += compound.getFloat(key);
       }

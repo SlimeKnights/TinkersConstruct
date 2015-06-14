@@ -49,26 +49,27 @@ public class CustomTextureCreator {
   public void createCustomTextures(TextureStitchEvent.Pre event) {
     TextureMap map = event.map;
 
-    for (ResourceLocation baseTexture : baseTextures) {
+    for(ResourceLocation baseTexture : baseTextures) {
       // exclude missingno :I
-      if (baseTexture.toString().equals("minecraft:missingno")) {
+      if(baseTexture.toString().equals("minecraft:missingno")) {
         continue;
       }
 
       TextureAtlasSprite base = map.getTextureExtry(baseTexture.toString());
-      if (base == null) {
+      if(base == null) {
         log.error("Missing base texture: " + baseTexture.toString());
         continue;
       }
 
       Map<String, TextureAtlasSprite> builtSprites = Maps.newHashMap();
-      for (Material material : TinkerRegistry.getAllMaterials()) {
+      for(Material material : TinkerRegistry.getAllMaterials()) {
         String location = baseTexture.toString() + "_" + material.identifier;
         TextureAtlasSprite sprite;
 
-        if (exists(location)) {
+        if(exists(location)) {
           sprite = map.registerSprite(new ResourceLocation(location));
-        } else {
+        }
+        else {
           sprite = material.renderInfo.getTexture(base, location);
         }
 
@@ -86,7 +87,7 @@ public class CustomTextureCreator {
       loc = new ResourceLocation(loc.getResourceDomain(), "textures/" + loc.getResourcePath() + ".png");
       Minecraft.getMinecraft().getResourceManager().getAllResources(loc);
       return true;
-    } catch (IOException e) {
+    } catch(IOException e) {
       return false;
     }
   }

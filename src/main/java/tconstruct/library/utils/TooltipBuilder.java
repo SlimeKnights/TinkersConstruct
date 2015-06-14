@@ -33,16 +33,16 @@ public class TooltipBuilder {
 
   // also includes traits
   public TooltipBuilder addModifiers() {
-    if (stack != null) {
+    if(stack != null) {
       NBTTagList tagList = TagUtil.getModifiersTagList(stack);
 
-      for (int i = 0; i < tagList.tagCount(); i++) {
+      for(int i = 0; i < tagList.tagCount(); i++) {
         NBTTagCompound tag = tagList.getCompoundTagAt(i);
         ModifierNBT data = ModifierNBT.readTag(tag);
 
         // get matching modifier
         IModifier modifier = TinkerRegistry.getModifier(data.identifier);
-        if (modifier == null) {
+        if(modifier == null) {
           continue;
         }
 
@@ -54,7 +54,7 @@ public class TooltipBuilder {
   }
 
   public TooltipBuilder addDurability() {
-    if (stack != null) {
+    if(stack != null) {
       tips.add(String.format("%s: %d", StatCollector.translateToLocal("tooltip.tool.durability"),
                              ToolHelper.getDurability(stack)));
     }
@@ -63,7 +63,7 @@ public class TooltipBuilder {
   }
 
   public TooltipBuilder addMiningSpeed() {
-    if (stack != null) {
+    if(stack != null) {
       tips.add(String.format("%s: %s", StatCollector.translateToLocal("tooltip.tool.miningspeed"),
                              df.format(ToolHelper.getMiningSpeed(stack))));
     }
@@ -72,7 +72,7 @@ public class TooltipBuilder {
   }
 
   public TooltipBuilder addHarvestLevel() {
-    if (stack != null) {
+    if(stack != null) {
       tips.add(String.format("%s: %d", StatCollector.translateToLocal("tooltip.tool.harvestlevel"),
                              ToolHelper.getHarvestLevel(stack)));
     }
@@ -81,7 +81,7 @@ public class TooltipBuilder {
   }
 
   public TooltipBuilder addAttack() {
-    if (stack != null) {
+    if(stack != null) {
       tips.add(String.format("%s: %s", StatCollector.translateToLocal("tooltip.tool.attack"),
                              df.format(ToolHelper.getAttack(stack))));
     }
@@ -90,7 +90,7 @@ public class TooltipBuilder {
   }
 
   public TooltipBuilder addFreeModifiers() {
-    if (stack != null) {
+    if(stack != null) {
       tips.add(String.format("%s: %s", StatCollector.translateToLocal("tooltip.tool.modifiers"),
                              df.format(ToolHelper.getFreeModifiers(stack))));
     }
