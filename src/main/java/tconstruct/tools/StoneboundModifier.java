@@ -17,19 +17,12 @@ public class StoneboundModifier extends TraitModifier {
     super(TinkerMaterials.stonebound, EnumChatFormatting.DARK_GRAY);
 
     addItem("cobblestone");
-    aspects.clear();
+    aspects.clear(); // remove traitModifiers aspects
     addAspects(new ModifierAspect.LevelAspect(this, 3), ModifierAspect.freeModifier);
   }
 
   @Override
-  public boolean canApply(ItemStack stack) {
-    // aspects
-    for(ModifierAspect aspect : aspects) {
-      if(!aspect.canApply(stack)) {
-        return false;
-      }
-    }
-
+  public boolean canApplyCustom(ItemStack stack) {
     return true;
   }
 }

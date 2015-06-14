@@ -76,7 +76,7 @@ public abstract class Modifier implements IModifier {
   }
 
   @Override
-  public boolean canApply(ItemStack stack) {
+  public final boolean canApply(ItemStack stack) {
     // aspects
     for(ModifierAspect aspect : aspects) {
       if(!aspect.canApply(stack)) {
@@ -84,6 +84,10 @@ public abstract class Modifier implements IModifier {
       }
     }
 
+    return canApplyCustom(stack);
+  }
+
+  protected boolean canApplyCustom(ItemStack stack) {
     return true;
   }
 

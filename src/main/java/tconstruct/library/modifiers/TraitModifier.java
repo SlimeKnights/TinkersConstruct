@@ -26,16 +26,13 @@ public class TraitModifier extends Modifier {
   }
 
   @Override
-  public boolean canApply(ItemStack stack) {
+  public boolean canApplyCustom(ItemStack stack) {
     // can only apply if the trait isn't present already
     NBTTagList tagList = TagUtil.getTraitsTagList(stack);
     int index = TinkerUtil.getIndexInList(tagList, trait.getIdentifier());
 
-    if(index >= 0) {
-      return false;
-    }
-
-    return super.canApply(stack);
+    // not present yet
+    return index < 0;
   }
 
   @Override
