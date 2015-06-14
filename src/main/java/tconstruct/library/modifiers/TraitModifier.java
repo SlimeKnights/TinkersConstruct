@@ -44,6 +44,10 @@ public class TraitModifier extends Modifier {
     ModifierNBT data = ModifierNBT.readTag(modifierTag);
     data.identifier = identifier;
     data.color = newColor;
+    // we ensure at least lvl1 for compatibility with the level-aspect
+    if(data.level == 0) {
+      data.level = 1;
+    }
     data.write(modifierTag);
   }
 
