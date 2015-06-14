@@ -84,8 +84,10 @@ public final class ToolBuilder {
       RecipeMatch.Match match;
       do {
         match = modifier.matches(stacks);
-        // found a modifier that is applicable
-        if(match != null) {
+        ItemStack backup = copy.copy();
+
+        // found a modifier that is applicable. Try to apply the match
+        while(match != null && match.amount > 0) {
           // but can it be applied?
           if(modifier.canApply(copy)) {
             modifier.apply(copy);
@@ -93,9 +95,12 @@ public final class ToolBuilder {
             RecipeMatch.removeMatch(stacks, match);
 
             appliedModifier = true;
+            match.amount--;
           }
           else {
             // materials would allow another application, but modifier doesn't
+            copy = backup;
+            match = null;
             break;
           }
         }
