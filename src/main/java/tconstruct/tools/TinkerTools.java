@@ -59,10 +59,6 @@ public class TinkerTools extends TinkerPulse {
     diamondMod = new DiamondModifier();
 
     fortifyMod = new Modifier("Fortify") {
-      @Override
-      public boolean canApply(ItemStack stack) {
-        return false;
-      }
 
       @Override
       public void updateNBT(NBTTagCompound modifierTag) {
@@ -85,6 +81,7 @@ public class TinkerTools extends TinkerPulse {
     proxy.registerModels();
 
     new StoneboundModifier();
+    new RedstoneModifier(50);
 
     GameRegistry.addRecipe(new TempToolCrafting());
     GameRegistry.addRecipe(new TempToolModifying());

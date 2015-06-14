@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 
 import com.sun.istack.internal.NotNull;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -50,6 +51,10 @@ public abstract class Modifier implements IModifier {
 
   public void addItem(Item item, int count) {
     modifierItems.add(new RecipeMatch.Item(new ItemStack(item), count));
+  }
+
+  public void addItem(Block block, int count) {
+    modifierItems.add(new RecipeMatch.Item(new ItemStack(block), count));
   }
 
   public void addItem(Item item) {

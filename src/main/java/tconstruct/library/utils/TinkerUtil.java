@@ -79,6 +79,13 @@ public final class TinkerUtil {
     return -1;
   }
 
+  public static NBTTagCompound getModifierTag(ItemStack stack, String identifier) {
+    NBTTagList tagList = TagUtil.getModifiersTagList(stack);
+    int index = getIndexInCompoundList(tagList, identifier);
+
+    return tagList.getCompoundTagAt(index);
+  }
+
   public static List<Material> getMaterialsFromTagList(NBTTagList tagList) {
     List<Material> materials = Lists.newLinkedList();
     if(tagList.getTagType() != TagUtil.TAG_TYPE_STRING) {

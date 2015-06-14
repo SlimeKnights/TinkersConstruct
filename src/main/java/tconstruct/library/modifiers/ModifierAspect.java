@@ -101,6 +101,94 @@ public abstract class ModifierAspect {
   }
 
   /**
+   * The modifier can be applied several times per modifier used.
+   */
+  public static class MultiAspect extends ModifierAspect {
+    private final int countPerLevel;
+
+    private final DataAspect dataAspect;
+    private final LevelAspect levelAspect;
+    private final FreeModifierAspect freeModifierAspect;
+
+    // multiple levels, once every time the maximum is reached
+    public MultiAspect(IModifier parent, EnumChatFormatting color, int maxLevel, int countPerLevel, int modifiersNeeded) {
+      super(parent);
+      this.countPerLevel = countPerLevel;
+
+      dataAspect = new DataAspect(parent, color);
+      freeModifierAspect = new FreeModifierAspect(modifiersNeeded);
+      levelAspect = new LevelAspect(parent, maxLevel);
+    }
+
+    // single-level
+    public MultiAspect(IModifier parent, EnumChatFormatting color, int count) {
+      this(parent, color, 1, count, 1);
+    }
+
+    protected int getMaxForLevel(int level) {
+      return countPerLevel*level;
+    }
+
+    @Override
+    public boolean canApply(ItemStack stack) {
+      // check if the threshold has been reached
+      NBTTagCompound modifierTag = TinkerUtil.getModifierTag(stack, parent.getIdentifier());
+      ModifierNBT.IntegerNBT data = getData(modifierTag);
+
+      // the current level is full / level is 0
+      if(data.current >= getMaxForLevel(data.level)) {
+        // enough modifiers for another level?
+        if(!freeModifierAspect.canApply(stack)) {
+          return false;
+        }
+
+        // can we even apply a new level?
+        if(!levelAspect.canApply(stack)) {
+          return false;
+        }
+      }
+
+      // we have not maxed out this level OR we have enough modifiers and can add a new level
+      return true;
+    }
+
+    @Override
+    public void updateNBT(NBTTagCompound root, NBTTagCompound modifierTag) {
+      // simple data
+      dataAspect.updateNBT(root, modifierTag);
+
+      // increase the current level progress
+      ModifierNBT.IntegerNBT data = getData(modifierTag);
+
+      // new level?
+      if(data.current >= getMaxForLevel(data.level)) {
+        // remove modifiers
+        freeModifierAspect.updateNBT(root, modifierTag);
+        // add a level
+        levelAspect.updateNBT(root, modifierTag);
+
+        // update max. but to do so, we have to re-read the changed data again
+        data = getData(modifierTag);
+        data.max = getMaxForLevel(data.level);
+      }
+
+      // increase the level progress
+      data.current++;
+      data.write(modifierTag);
+    }
+
+    private ModifierNBT.IntegerNBT getData(NBTTagCompound tag) {
+      ModifierNBT.IntegerNBT data = ModifierNBT.readInteger(tag);
+
+      if(data.max == 0) {
+        data.max = getMaxForLevel(data.level);
+      }
+
+      return data;
+    }
+  }
+
+  /**
    * Only applicable on tools.
    */
   public static class ToolAspect extends ModifierAspect {
@@ -172,9 +260,6 @@ public abstract class ModifierAspect {
     @Override
     public void updateNBT(NBTTagCompound root, NBTTagCompound modifierTag) {
       ModifierNBT data = ModifierNBT.readTag(modifierTag);
-      if(data.level == 0) {
-        data.level = 1;
-      }
       data.level++;
       data.write(modifierTag);
     }

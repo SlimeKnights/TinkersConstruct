@@ -3,6 +3,8 @@ package tconstruct.library.modifiers;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 
+import tconstruct.library.TinkerRegistry;
+
 /**
  * Represents the NBT data saved for a modifier.
  */
@@ -63,6 +65,7 @@ public class ModifierNBT {
       data.read(tag);
       return data;
     } catch(ReflectiveOperationException e) {
+      TinkerRegistry.log.error(e);
       return null;
     }
   }
@@ -82,6 +85,9 @@ public class ModifierNBT {
   public static class BooleanNBT extends ModifierNBT {
 
     public boolean status;
+
+    public BooleanNBT() {
+    }
 
     public BooleanNBT(IModifier modifier, boolean status) {
       super(modifier);
@@ -109,6 +115,9 @@ public class ModifierNBT {
     public int current;
     public int max;
 
+    public IntegerNBT() {
+    }
+
     public IntegerNBT(IModifier modifier, int current, int max) {
       super(modifier);
       this.current = current;
@@ -119,6 +128,7 @@ public class ModifierNBT {
 
     @Override
     public void write(NBTTagCompound tag) {
+      calcInfo();
       super.write(tag);
       tag.setInteger("current", current);
       tag.setInteger("max", max);
