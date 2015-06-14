@@ -26,7 +26,7 @@ public abstract class RecipeMatch {
     for(ItemStack stack : match.stacks) {
       for(int i = 0; i < stacks.length; i++) {
         // nbt sensitive since toolparts etc. use nbt
-        if(ItemStack.areItemStackTagsEqual(stack, stacks[i])) {
+        if(ItemStack.areItemStacksEqual(stack, stacks[i])) {
           if(stacks[i].stackSize < stack.stackSize) {
             TinkerRegistry.log.error("RecipeMatch has incorrect stacksize! {}", stacks[i].toString());
             break;
