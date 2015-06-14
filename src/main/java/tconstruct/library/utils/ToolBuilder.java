@@ -52,20 +52,14 @@ public final class ToolBuilder {
     NBTTagCompound tag = new NBTTagCompound();
     NBTTagList tagList = TagUtil.getModifiersTagList(rootCompound);
     int index = TinkerUtil.getIndexInList(tagList, trait.getIdentifier());
-    if(index >= 0) {
-      tag = tagList.getCompoundTagAt(index);
-    }
-
-    traitModifier.updateNBTWithColor(tag, color);
-
-    if(index >= 0) {
-      tagList.set(index, tag);
+    if(index < 0) {
+      traitModifier.updateNBTWithColor(tag, color);
+      tagList.appendTag(tag);
+      TagUtil.setModifiersTagList(rootCompound, tagList);
     }
     else {
-      tagList.appendTag(tag);
+      tag = tagList.getCompoundTagAt(index);
     }
-
-    TagUtil.setModifiersTagList(rootCompound, tagList);
 
     traitModifier.applyEffect(rootCompound, tag);
   }
