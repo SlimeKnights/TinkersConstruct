@@ -33,9 +33,6 @@ public abstract class Modifier implements IModifier {
     this.identifier = identifier;
 
     TinkerRegistry.registerModifier(this);
-
-    // by default a modifier requires a free modifier
-    addAspects(ModifierAspect.freeModifier);
   }
 
   @Override

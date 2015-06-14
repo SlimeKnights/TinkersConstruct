@@ -15,7 +15,7 @@ public class DiamondModifier extends Modifier {
     super("Diamond");
 
     addItem(Items.diamond);
-    addAspects(new ModifierAspect.SingleAspect(this), new ModifierAspect.DataAspect(this, EnumChatFormatting.AQUA));
+    addAspects(new ModifierAspect.SingleAspect(this), new ModifierAspect.DataAspect(this, EnumChatFormatting.AQUA), ModifierAspect.freeModifier);
   }
 
   @Override
