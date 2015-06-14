@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import tconstruct.library.materials.Material;
 import tconstruct.library.traits.ITrait;
 import tconstruct.library.utils.Tags;
 import tconstruct.library.utils.TinkerUtil;

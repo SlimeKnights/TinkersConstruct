@@ -20,7 +20,7 @@ import java.util.Set;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
-import tconstruct.library.tinkering.Material;
+import tconstruct.library.materials.Material;
 
 /**
  * Textures registered with this creator will get a texture created/loaded for each material.

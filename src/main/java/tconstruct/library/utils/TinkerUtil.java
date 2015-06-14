@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagList;
 import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
-import tconstruct.library.tinkering.Material;
+import tconstruct.library.materials.Material;
 import tconstruct.library.modifiers.ModifierNBT;
 import tconstruct.library.tools.IToolPart;
 

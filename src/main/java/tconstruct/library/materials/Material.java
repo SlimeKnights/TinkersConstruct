@@ -1,4 +1,4 @@
-package tconstruct.library.tinkering;
+package tconstruct.library.materials;
 
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
@@ -9,11 +9,9 @@ import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 
-import tconstruct.library.TinkerAPIException;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
 import tconstruct.library.client.MaterialRenderInfo;
-import tconstruct.library.materials.IMaterialStats;
 import tconstruct.library.traits.ITrait;
 
 public class Material {

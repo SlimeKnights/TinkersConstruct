@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import tconstruct.library.tinkering.Material;
+import tconstruct.library.materials.Material;
 import tconstruct.library.materials.IMaterialStats;
 import tconstruct.library.modifiers.IModifier;
 import tconstruct.library.traits.ITrait;

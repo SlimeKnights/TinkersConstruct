@@ -12,7 +12,7 @@ import java.util.List;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
 import tconstruct.library.modifiers.TraitModifier;
-import tconstruct.library.tinkering.Material;
+import tconstruct.library.materials.Material;
 import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.materials.ToolMaterialStats;
 import tconstruct.library.modifiers.IModifier;

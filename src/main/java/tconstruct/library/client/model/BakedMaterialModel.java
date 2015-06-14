@@ -12,7 +12,7 @@ import java.util.Map;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.tinkering.IMaterialItem;
-import tconstruct.library.tinkering.Material;
+import tconstruct.library.materials.Material;
 
 /**
  * This class represents something that has a single material. The base model is the default without a material. The

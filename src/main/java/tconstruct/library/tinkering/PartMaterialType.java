@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import java.util.HashSet;
 import java.util.Set;
 
+import tconstruct.library.materials.Material;
 import tconstruct.library.materials.ToolMaterialStats;
 import tconstruct.library.tools.IToolPart;
 

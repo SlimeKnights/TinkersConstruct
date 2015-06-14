@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
+import tconstruct.library.materials.Material;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
 

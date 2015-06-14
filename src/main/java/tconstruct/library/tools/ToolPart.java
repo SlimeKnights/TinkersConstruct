@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
-import tconstruct.library.tinkering.Material;
+import tconstruct.library.materials.Material;
 import tconstruct.library.tinkering.MaterialItem;
 import tconstruct.library.traits.ITrait;
 import tconstruct.library.utils.TagUtil;

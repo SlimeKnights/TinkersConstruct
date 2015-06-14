@@ -2,6 +2,8 @@ package tconstruct.library.tinkering;
 
 import net.minecraft.item.ItemStack;
 
+import tconstruct.library.materials.Material;
+
 /**
  * Items implementing this interface contain a material
  */

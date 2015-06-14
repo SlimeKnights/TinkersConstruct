@@ -13,7 +13,7 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
-import tconstruct.library.tinkering.Material;
+import tconstruct.library.materials.Material;
 
 public class LocalizationCheckCommand extends CommandBase {
 

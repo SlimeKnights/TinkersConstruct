@@ -5,7 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import java.util.List;
 
 import tconstruct.library.tinkering.Category;
-import tconstruct.library.tinkering.Material;
+import tconstruct.library.materials.Material;
 import tconstruct.library.tinkering.PartMaterialType;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.utils.ToolBuilder;
