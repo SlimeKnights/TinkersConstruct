@@ -45,6 +45,7 @@ public class TraitModifier extends Modifier {
 
   public void updateNBTWithColor(NBTTagCompound modifierTag, EnumChatFormatting newColor) {
     ModifierNBT data = ModifierNBT.readTag(modifierTag);
+    data.identifier = identifier;
     data.color = newColor;
     data.write(modifierTag);
   }
