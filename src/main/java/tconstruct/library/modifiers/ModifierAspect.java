@@ -172,6 +172,9 @@ public abstract class ModifierAspect {
     @Override
     public void updateNBT(NBTTagCompound root, NBTTagCompound modifierTag) {
       ModifierNBT data = ModifierNBT.readTag(modifierTag);
+      if(data.level == 0) {
+        data.level = 1;
+      }
       data.level++;
       data.write(modifierTag);
     }
