@@ -21,7 +21,7 @@ public class ModifierNBT {
 
   public ModifierNBT(IModifier modifier) {
     this.identifier = modifier.getIdentifier();
-    this.level = 1;
+    this.level = 0;
     this.color = EnumChatFormatting.GRAY;
   }
 
@@ -43,9 +43,6 @@ public class ModifierNBT {
     identifier = tag.getString("identifier");
     color = EnumChatFormatting.func_175744_a(tag.getInteger("color"));
     level = tag.getInteger("level");
-    if (level == 0) {
-      level = 1;
-    }
     extraInfo = tag.getString("extraInfo");
   }
 

@@ -19,29 +19,33 @@ public class TraitModifier extends Modifier {
 
     this.trait = trait;
     this.color = color;
+
+    // we assume traits can only be applied once.
+    // If you want stacking traits you'll have to do that stuff yourself :P
+    this.addAspects(new ModifierAspect.SingleAspect(this));
   }
 
   @Override
   public boolean canApply(ItemStack stack) {
-    // trait data is saved as a modifier
-    NBTTagList tagList = TagUtil.getModifiersTagList(stack);
-
+    // can only apply if the trait isn't present already
+    NBTTagList tagList = TagUtil.getTraitsTagList(stack);
     int index = TinkerUtil.getIndexInList(tagList, trait.getIdentifier());
 
-    // if the trait is already present, it can only be applied if the max count has not been reached yet
     if (index >= 0) {
-      ModifierNBT data = ModifierNBT.readTag(tagList.getCompoundTagAt(index));
-      return data.level < trait.getMaxCount();
+      return false;
     }
-
 
     return super.canApply(stack);
   }
 
   @Override
   public void updateNBT(NBTTagCompound modifierTag) {
-    ModifierNBT data = new ModifierNBT(this);
-    data.color = color;
+    updateNBTWithColor(modifierTag, color);
+  }
+
+  public void updateNBTWithColor(NBTTagCompound modifierTag, EnumChatFormatting newColor) {
+    ModifierNBT data = ModifierNBT.readTag(modifierTag);
+    data.color = newColor;
     data.write(modifierTag);
   }
 
@@ -58,10 +62,5 @@ public class TraitModifier extends Modifier {
 
     traits.appendTag(new NBTTagString(identifier));
     TagUtil.setTraitsTagList(rootCompound, traits);
-  }
-
-  @Override
-  public boolean hasTexturePerMaterial() {
-    return false;
   }
 }

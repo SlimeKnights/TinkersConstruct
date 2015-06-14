@@ -11,6 +11,7 @@ import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
+import tconstruct.library.modifiers.TraitModifier;
 import tconstruct.library.tinkering.Material;
 import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.materials.ToolMaterialStats;
@@ -38,12 +39,14 @@ public final class ToolBuilder {
       return;
     }
 
-    IModifier traitModifier = TinkerRegistry.getModifier(trait.getIdentifier());
+    IModifier modifier = TinkerRegistry.getModifier(trait.getIdentifier());
 
-    if (traitModifier == null) {
+    if (modifier == null || !(modifier instanceof TraitModifier)) {
       log.error("addTrait: No matching modifier for the Trait {} present", trait.getIdentifier());
       return;
     }
+
+    TraitModifier traitModifier = (TraitModifier) modifier;
 
     NBTTagCompound tag = new NBTTagCompound();
     NBTTagList tagList = TagUtil.getModifiersTagList(rootCompound);
@@ -52,13 +55,15 @@ public final class ToolBuilder {
       tag = tagList.getCompoundTagAt(index);
     }
 
-    traitModifier.updateNBT(tag);
+    traitModifier.updateNBTWithColor(tag, color);
 
     if (index >= 0) {
       tagList.set(index, tag);
     } else {
       tagList.appendTag(tag);
     }
+
+    TagUtil.setModifiersTagList(rootCompound, tagList);
 
     traitModifier.applyEffect(rootCompound, tag);
   }
@@ -121,6 +126,8 @@ public final class ToolBuilder {
     NBTTagCompound toolTag = tinkersItem.buildTag(materials);
     TagUtil.setToolTag(rootNBT, toolTag);
 
+    // clean up traits
+    rootNBT.removeTag(Tags.TOOL_TRAITS);
     tinkersItem.addMaterialTraits(rootNBT, materials);
 
     // reapply modifiers

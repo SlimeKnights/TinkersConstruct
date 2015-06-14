@@ -11,6 +11,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.StatCollector;
 
+import java.util.Arrays;
 import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
@@ -27,7 +28,8 @@ public abstract class Modifier implements IModifier {
   public int requiredModifiers = 1;
 
   // A mapping of oredict-entries to how often the item can be applied with this item
-  private final List<RecipeMatch> modifierItems = Lists.newLinkedList();
+  protected final List<RecipeMatch> modifierItems = Lists.newLinkedList();
+  protected final List<ModifierAspect> aspects = Lists.newLinkedList();
 
   public Modifier(@NotNull String identifier) {
     this.identifier = identifier;
@@ -56,6 +58,10 @@ public abstract class Modifier implements IModifier {
     addItem(item, 1);
   }
 
+  protected void addAspects(ModifierAspect... aspects) {
+    this.aspects.addAll(Arrays.asList(aspects));
+  }
+
   @Override
   public RecipeMatch.Match matches(ItemStack[] stacks) {
     for (RecipeMatch recipe : modifierItems) {
@@ -75,6 +81,13 @@ public abstract class Modifier implements IModifier {
     if (ToolTagUtil.getFreeModifiers(toolTag) < requiredModifiers) {
       // also returns false if the tooltag is missing
       return false;
+    }
+
+    // aspects
+    for (ModifierAspect aspect : aspects) {
+      if(!aspect.canApply(stack)) {
+        return false;
+      }
     }
 
     return true;
@@ -97,7 +110,7 @@ public abstract class Modifier implements IModifier {
     // if the modifier wasn't present before, add it and safe it to the tool
     if (!alreadyPresent) {
       tagList.appendTag(new NBTTagString(getIdentifier()));
-      TagUtil.setModifiersTagList(stack, tagList);
+      TagUtil.setBaseModifiersTagList(stack, tagList);
     }
 
 
@@ -117,6 +130,13 @@ public abstract class Modifier implements IModifier {
       modifierTag = tagList.getCompoundTagAt(index);
     }
 
+    // update NBT through aspects
+    for (ModifierAspect aspect : aspects) {
+      aspect.updateNBT(modifierTag);
+    }
+
+    updateNBT(modifierTag);
+
     // some modifiers might not save data, don't save them
     if (!modifierTag.hasNoTags()) {
       // but if they do, ensure that the identifier is correct
@@ -125,7 +145,6 @@ public abstract class Modifier implements IModifier {
         data.identifier = identifier;
         data.write(modifierTag);
       }
-      updateNBT(modifierTag);
     }
 
     // update the tools NBT
@@ -160,5 +179,10 @@ public abstract class Modifier implements IModifier {
 
   public String getLocalizedName() {
     return StatCollector.translateToLocalFormatted(LOCALIZATION_STRING, identifier);
+  }
+
+  @Override
+  public boolean hasTexturePerMaterial() {
+    return false;
   }
 }

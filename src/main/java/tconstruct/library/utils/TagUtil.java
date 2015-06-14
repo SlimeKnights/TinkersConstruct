@@ -73,6 +73,16 @@ public final class TagUtil {
     return getTagListSafe(getBaseTag(root), Tags.BASE_MODIFIERS, TAG_TYPE_STRING);
   }
 
+  public static void setBaseModifiersTagList(ItemStack stack, NBTTagList tagList) {
+    NBTTagCompound root = TagUtil.getTagSafe(stack);
+    setBaseModifiersTagList(root, tagList);
+
+    stack.setTagCompound(root);
+  }
+
+  public static void setBaseModifiersTagList(NBTTagCompound root, NBTTagList tagList) {
+    getBaseTag(root).setTag(Tags.BASE_MODIFIERS, tagList);
+  }
 
   public static NBTTagList getBaseMaterialsTagList(ItemStack stack) {
     return getBaseMaterialsTagList(getTagSafe(stack));
@@ -80,6 +90,17 @@ public final class TagUtil {
 
   public static NBTTagList getBaseMaterialsTagList(NBTTagCompound root) {
     return getTagListSafe(getBaseTag(root), Tags.BASE_MATERIALS, TAG_TYPE_STRING);
+  }
+
+  public static void setBaseMaterialsTagList(ItemStack stack, NBTTagList tagList) {
+    NBTTagCompound root = TagUtil.getTagSafe(stack);
+    setBaseMaterialsTagList(root, tagList);
+
+    stack.setTagCompound(root);
+  }
+
+  public static void setBaseMaterialsTagList(NBTTagCompound root, NBTTagList tagList) {
+    getBaseTag(root).setTag(Tags.BASE_MATERIALS, tagList);
   }
 
   /* Operations concerning the calculated tool data */

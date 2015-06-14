@@ -142,7 +142,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   public void addMaterialTraits(NBTTagCompound root, List<Material> materials) {
     for (Material material : materials) {
       for (ITrait trait : material.getAllTraits()) {
-        ToolBuilder.addTrait(root, trait, material.textColor);
+          ToolBuilder.addTrait(root, trait, material.textColor);
       }
     }
   }
@@ -162,9 +162,6 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     // when the itemstack is loaded from NBT we recalculate all the data
     if (nbt.hasKey(Tags.BASE_DATA)) {
       ToolBuilder.rebuildTool(nbt, this);
-
-      // todo: ensure that traits loaded from NBT are mapped to the same string instance as the trait identifier so == lookup matches
-
     }
 
     // return value shoudln't matter since it's never checked
