@@ -9,6 +9,8 @@ import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 
+import tconstruct.library.TinkerAPIException;
+import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
 import tconstruct.library.client.MaterialRenderInfo;
 import tconstruct.library.materials.IMaterialStats;
@@ -69,6 +71,10 @@ public class Material {
   }
 
   /* Stats */
+
+  /**
+   * Do not use this function directly stats. Use TinkerRegistry.addMaterialStats instead.
+   */
   public void addStats(IMaterialStats materialStats) {
     this.stats.put(materialStats.getMaterialType(), materialStats);
   }
@@ -111,7 +117,14 @@ public class Material {
   }
 
   /* Traits */
+  /**
+   * Do not use this function with unregistered traits. Use TinkerRegistry.addMaterialTrait instead.
+   */
   public void addTrait(ITrait materialTrait) {
+    // rgister unregistered traits
+    if(TinkerRegistry.getTrait(materialTrait.getIdentifier()) == null) {
+      TinkerRegistry.addTrait(materialTrait);
+    }
     this.traits.put(materialTrait.getIdentifier(), materialTrait);
   }
 
@@ -123,13 +136,7 @@ public class Material {
       return false;
     }
 
-    for (ITrait trait : traits.values()) {
-      if (identifier.equals(trait.getIdentifier())) {
-        return true;
-      }
-    }
-
-    return false;
+    return traits.containsKey(identifier);
   }
 
   public Collection<ITrait> getAllTraits() {
