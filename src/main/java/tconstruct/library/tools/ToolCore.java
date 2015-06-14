@@ -82,8 +82,6 @@ public abstract class ToolCore extends TinkersItem {
     for(Material head : TinkerRegistry.getAllMaterials()) {
       // todo: make this real?
       ItemStack tool = buildItem(Arrays.asList(new Material[]{head, TinkerMaterials.wood, TinkerMaterials.stone}));
-      IModifier mod = TinkerRegistry.getModifier("Diamond");
-      mod.apply(tool);
       subItems.add(tool);
     }
   }
