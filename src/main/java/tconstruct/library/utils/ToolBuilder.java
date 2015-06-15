@@ -114,7 +114,7 @@ public final class ToolBuilder {
             // materials would allow another application, but modifier doesn't
             // if we have already applied another modifier we cancel the whole thing to prevent situations where
             // only a part of the modifiers gets applied. either all or none.
-            if(appliedModifiers.size() > 0 && !appliedModifiers.contains(modifier)) {
+            if(appliedModifiers.size() > 0 || !appliedModifiers.contains(modifier)) {
               // if we have a reason, rather tell the player that
               if(caughtException != null) {
                 throw caughtException;

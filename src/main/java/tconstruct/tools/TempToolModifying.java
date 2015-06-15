@@ -45,7 +45,7 @@ public class TempToolModifying implements IRecipe {
     try {
       outputTool = ToolBuilder.tryModifyTool(stacks, tool, false);
     } catch(ModifyException e) {
-      e.printStackTrace();
+      System.out.println(e.getMessage());
     }
 
     return outputTool != null;
