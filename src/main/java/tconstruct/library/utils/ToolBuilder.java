@@ -1,5 +1,7 @@
 package tconstruct.library.utils;
 
+import com.google.common.collect.Sets;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -8,12 +10,14 @@ import net.minecraft.util.EnumChatFormatting;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.Set;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
 import tconstruct.library.materials.Material;
 import tconstruct.library.materials.ToolMaterialStats;
 import tconstruct.library.modifiers.IModifier;
+import tconstruct.library.modifiers.ModifyException;
 import tconstruct.library.modifiers.RecipeMatch;
 import tconstruct.library.modifiers.TraitModifier;
 import tconstruct.library.tinkering.TinkersItem;
@@ -64,9 +68,9 @@ public final class ToolBuilder {
     traitModifier.applyEffect(rootCompound, tag);
   }
 
-  public static ItemStack tryModifyTool(ItemStack[] stacks, ItemStack toolStack, boolean removeItems) {
+  public static ItemStack tryModifyTool(ItemStack[] stacks, ItemStack toolStack, boolean removeItems)
+      throws ModifyException {
     ItemStack copy = toolStack.copy();
-    boolean appliedModifier = false;
 
     // obtain a working copy of the items if the originals shouldn't be modified
     if(!removeItems) {
@@ -80,6 +84,7 @@ public final class ToolBuilder {
       stacks = stacksCopy;
     }
 
+    Set<IModifier> appliedModifiers = Sets.newHashSet();
     for(IModifier modifier : TinkerRegistry.getAllModifiers()) {
       RecipeMatch.Match match;
       do {
@@ -94,7 +99,7 @@ public final class ToolBuilder {
 
             RecipeMatch.removeMatch(stacks, match);
 
-            appliedModifier = true;
+            appliedModifiers.add(modifier);
             match.amount--;
           }
           else {
@@ -107,7 +112,7 @@ public final class ToolBuilder {
       } while(match != null);
     }
 
-    if(appliedModifier) {
+    if(!appliedModifiers.isEmpty()) {
       // always rebuild tinkers items to ensure consistency and find problems earlier
       if(copy.getItem() instanceof TinkersItem) {
         NBTTagCompound root = TagUtil.getTagSafe(copy);

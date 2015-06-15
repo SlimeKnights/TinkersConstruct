@@ -15,8 +15,13 @@ public interface IModifier {
    */
   RecipeMatch.Match matches(ItemStack[] stacks);
 
-  /** Returns true if the modifier can be applied to the given itemstack */
-  boolean canApply(ItemStack stack);
+  /**
+   * Returns true if the modifier can be applied to the given itemstack
+   *
+   * @throws ModifyException Thrown if there is a specific reason why the modifier couldn't be applied.
+   *                         The exception contains a localized string describing what's wrong.
+   */
+  boolean canApply(ItemStack stack) throws ModifyException;
 
   /** Apply the modifier to that itemstack. The complete procedure */
   void apply(ItemStack stack);
@@ -51,6 +56,8 @@ public interface IModifier {
    * Color tags are not necessarry.
    */
   String getTooltip(NBTTagCompound modifierTag);
+
+  String getLocalizedName();
 
   /** Used for specific modifiers that need a texture variant for each material */
   @SideOnly(Side.CLIENT)

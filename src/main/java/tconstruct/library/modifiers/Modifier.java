@@ -78,7 +78,7 @@ public abstract class Modifier implements IModifier {
   }
 
   @Override
-  public final boolean canApply(ItemStack stack) {
+  public final boolean canApply(ItemStack stack) throws ModifyException {
     // aspects
     for(ModifierAspect aspect : aspects) {
       if(!aspect.canApply(stack)) {
@@ -165,6 +165,7 @@ public abstract class Modifier implements IModifier {
     return sb.toString();
   }
 
+  @Override
   public String getLocalizedName() {
     return StatCollector.translateToLocalFormatted(LOCALIZATION_STRING, identifier);
   }

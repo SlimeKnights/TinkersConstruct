@@ -8,3 +8,8 @@ tooltip.tool.modifiers=Modifiers
 tooltip.part.materialAddedBy=Added by %s
 tooltip.part.missingMaterial=Missing material: %s
 tooltip.part.missingInfo=Part has no data
+
+// Errors from modifiers
+gui.error.notEnoughModifiers=Not enough Modifiers. (%d needed)
+gui.error.SingleModifier=%s can only be applied once.
+gui.error.MaxLevelModifier=Maximum Level for %s already reached.
