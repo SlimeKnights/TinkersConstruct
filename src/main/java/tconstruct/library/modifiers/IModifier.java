@@ -35,6 +35,7 @@ public interface IModifier {
   /**
    * In this function the modifier saves its own data into the given tag.
    * Take a look at the ModifierNBT class for easy handling.
+   * Do not apply any actual effect of the modifier here, ONLY update the modifiers tag!
    *
    * @param modifierTag This tag shall be filled with data. It will be saved into the tool as the modifiers identifier.
    */
@@ -43,8 +44,9 @@ public interface IModifier {
   /**
    * This is the actual bread and butter of the modifier. This function applies the actual effect like adding a trait,
    * increasing miningspeed, etc. It is important that the application is DETERMINISTIC! The result has to solely depend
-   * on the NBT and has to give the same result every time. This is needed so the tool can be rebuilt and modifiers
+   * on the NBT of the modifierTag and has to give the same result every time. This is needed so the tool can be rebuilt and modifiers
    * reapplied.
+   * Do NOT modify the tag itself. That's done in updateNBT. You'll get very unhappy otherwise.
    *
    * @param rootCompound The main compound of the item to be modified.
    * @param modifierTag  The same tag as for updateNBT.
