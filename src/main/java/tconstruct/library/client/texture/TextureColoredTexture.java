@@ -6,9 +6,9 @@ import net.minecraft.util.ResourceLocation;
 
 public class TextureColoredTexture extends AbstractColoredTexture {
 
-  private final TextureAtlasSprite addTexture;
-  private final String addTextureLocation;
-  private int[][] textureData;
+  protected final TextureAtlasSprite addTexture;
+  protected final String addTextureLocation;
+  protected int[][] textureData;
 
   public boolean stencil = false;
 

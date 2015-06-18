@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import tconstruct.library.client.texture.AnimatedColoredTexture;
 import tconstruct.library.client.texture.SimpleColoredTexture;
 import tconstruct.library.client.texture.TextureColoredTexture;
 
@@ -70,25 +71,39 @@ public interface MaterialRenderInfo {
   /**
    * Uses a block texture instead of a color to create the texture
    */
-  class BlockTexture implements MaterialRenderInfo {
+  class MultiplicativeTexture implements MaterialRenderInfo {
 
-    protected final Block block;
+    protected String texturePath;
 
-    public BlockTexture(Block block) {
-      this.block = block;
+    public MultiplicativeTexture(String texturePath) {
+      this.texturePath = texturePath;
     }
 
     @Override
     public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
-      ResourceLocation blockloc = new ResourceLocation(block.getDefaultState().toString());
-      blockloc = new ResourceLocation(blockloc.getResourceDomain(), "blocks/" + blockloc.getResourcePath());
-      TextureAtlasSprite
-          blockTexture =
-          Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(blockloc.toString());
+      TextureAtlasSprite blockTexture = Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(texturePath);
 
-      TextureColoredTexture sprite = new TextureColoredTexture(blockTexture, baseTexture, location);
+      if(blockTexture == null) {
+        blockTexture = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
+      }
+
+      TextureColoredTexture sprite = new AnimatedColoredTexture(blockTexture, baseTexture, location);
       sprite.stencil = false;
       return sprite;
+    }
+  }
+
+  /**
+   * Uses a block texture instead of a color to create the texture
+   */
+  class BlockTexture extends MultiplicativeTexture {
+
+    public BlockTexture(Block block) {
+      super("");
+      ResourceLocation blockloc = new ResourceLocation(block.getDefaultState().toString());
+      blockloc = new ResourceLocation(blockloc.getResourceDomain(), "blocks/" + blockloc.getResourcePath());
+
+      texturePath = blockloc.toString();
     }
   }
 }

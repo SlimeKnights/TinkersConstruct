@@ -6,11 +6,16 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.client.resources.data.AnimationMetadataSection;
+import net.minecraft.client.resources.data.TextureMetadataSection;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
 
@@ -70,6 +75,14 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
       }
     }
 
+    processData(data);
+
+    this.framesTextureData.add(data);
+
+    return false;
+  }
+
+  protected void processData(int[][] data) {
     // go over the base texture and color it
     for(int mipmap = 0; mipmap < data.length; mipmap++) {
       if(data[mipmap] == null) {
@@ -82,10 +95,6 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
         data[mipmap][pxCoord] = colorPixel(data[mipmap][pxCoord], mipmap, pxCoord);
       }
     }
-
-    this.framesTextureData.add(data);
-
-    return false;
   }
 
   protected abstract int colorPixel(int pixel, int mipmap, int pxCoord);
@@ -123,7 +132,71 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
     return null;
   }
 
-  private ResourceLocation completeResourceLocation(ResourceLocation location, int p_147634_2_) {
+  // completely emulates the behaviour of the TextureMap texture loading process
+  protected TextureAtlasSprite backupLoadtextureAtlasSprite(ResourceLocation resourceLocation, IResourceManager resourceManager) {
+    ResourceLocation resourcelocation1 = this.completeResourceLocation(resourceLocation, 0);
+    TextureAtlasSprite textureAtlasSprite = TextureAtlasSprite.makeAtlasSprite(resourceLocation);
+
+    try {
+      IResource iresource = resourceManager.getResource(resourcelocation1);
+      BufferedImage[] abufferedimage = new BufferedImage[1 + 4]; // iirc TextureMap.mipmapLevels is always 4? :I
+      abufferedimage[0] = TextureUtil.readBufferedImage(iresource.getInputStream());
+      TextureMetadataSection texturemetadatasection = (TextureMetadataSection)iresource.getMetadata("texture");
+
+      // metadata
+      if (texturemetadatasection != null)
+      {
+        List list = texturemetadatasection.getListMipmaps();
+        int i1;
+
+        if (!list.isEmpty())
+        {
+          int l = abufferedimage[0].getWidth();
+          i1 = abufferedimage[0].getHeight();
+
+          if (MathHelper.roundUpToPowerOfTwo(l) != l || MathHelper.roundUpToPowerOfTwo(i1) != i1)
+          {
+            throw new RuntimeException("Unable to load extra miplevels, source-texture is not power of two");
+          }
+        }
+
+        Iterator iterator3 = list.iterator();
+
+        while (iterator3.hasNext())
+        {
+          i1 = ((Integer)iterator3.next()).intValue();
+
+          if (i1 > 0 && i1 < abufferedimage.length - 1 && abufferedimage[i1] == null)
+          {
+            ResourceLocation resourcelocation2 = this.completeResourceLocation(resourceLocation, i1);
+
+            try
+            {
+              abufferedimage[i1] = TextureUtil.readBufferedImage(resourceManager.getResource(resourcelocation2).getInputStream());
+            }
+            catch (IOException ioexception)
+            {
+              TinkerRegistry.log.error("Unable to load miplevel {} from: {}", new Object[] {Integer.valueOf(i1), resourcelocation2, ioexception});
+            }
+          }
+        }
+      }
+
+      AnimationMetadataSection animationmetadatasection = (AnimationMetadataSection)iresource.getMetadata("animation");
+      textureAtlasSprite.loadSprite(abufferedimage, animationmetadatasection);
+
+      return textureAtlasSprite;
+
+    } catch(RuntimeException runtimeexception) {
+      TinkerRegistry.log.error("Unable to parse metadata from " + resourcelocation1, runtimeexception);
+    } catch(IOException ioexception1) {
+      TinkerRegistry.log.error("Unable to load " + resourcelocation1, ioexception1);
+    }
+
+    return null;
+  }
+
+  protected ResourceLocation completeResourceLocation(ResourceLocation location, int p_147634_2_) {
     if(p_147634_2_ == 0) {
       return new ResourceLocation(location.getResourceDomain(),
                                   String.format("%s/%s%s", "textures", location.getResourcePath(), ".png"));
