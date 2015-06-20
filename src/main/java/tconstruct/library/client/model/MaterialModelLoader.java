@@ -6,6 +6,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.LoaderState;
 
 import java.io.IOException;
 
@@ -24,6 +26,10 @@ public class MaterialModelLoader implements ICustomModelLoader {
 
   @Override
   public IModel loadModel(ResourceLocation modelLocation) {
+    if(!Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
+      return ModelLoaderRegistry.getMissingModel();
+    }
+
     try {
       ModelBlock modelBlock = ModelHelper.loadModelBlock(modelLocation);
 

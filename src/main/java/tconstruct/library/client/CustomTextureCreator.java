@@ -8,6 +8,8 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -47,6 +49,13 @@ public class CustomTextureCreator {
   // low since other event-handlers might want to register textures beforehand
   @SubscribeEvent(priority = EventPriority.LOW)
   public void createCustomTextures(TextureStitchEvent.Pre event) {
+    // only do the processing once: at the end of the loading when the resource manager gets reloaded
+    // this is equivalent to a resourcepack change midgame
+
+    if(!Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
+      return;
+    }
+
     TextureMap map = event.map;
 
     for(ResourceLocation baseTexture : baseTextures) {
