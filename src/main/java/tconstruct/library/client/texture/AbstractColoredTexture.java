@@ -77,7 +77,9 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
 
     processData(data);
 
-    this.framesTextureData.add(data);
+    if(this.framesTextureData.isEmpty()) {
+      this.framesTextureData.add(data);
+    }
 
     return false;
   }
