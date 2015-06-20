@@ -5,6 +5,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import tconstruct.library.mantle.RecipeMatch;
+
 public interface IModifier {
 
   String getIdentifier();

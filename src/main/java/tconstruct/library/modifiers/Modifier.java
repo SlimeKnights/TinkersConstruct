@@ -16,6 +16,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
+import tconstruct.library.mantle.RecipeMatch;
+import tconstruct.library.mantle.RecipeMatchRegistry;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.TinkerUtil;
 
@@ -24,10 +26,9 @@ public abstract class Modifier implements IModifier {
   public static final String LOCALIZATION_STRING = "modifier.%s.name";
 
   public final String identifier;
-  public int requiredModifiers = 1;
 
   // A mapping of oredict-entries to how often the item can be applied with this item
-  protected final List<RecipeMatch> modifierItems = Lists.newLinkedList();
+  protected final RecipeMatchRegistry modifierItems = new RecipeMatchRegistry();
   protected final List<ModifierAspect> aspects = Lists.newLinkedList();
 
   public Modifier(@NotNull String identifier) {
@@ -41,24 +42,20 @@ public abstract class Modifier implements IModifier {
     return identifier;
   }
 
-  public void addItem(String oredictItem, int count) {
-    modifierItems.add(new RecipeMatch.Oredict(oredictItem, count));
-  }
-
   public void addItem(String oredictItem) {
-    addItem(oredictItem, 1);
-  }
-
-  public void addItem(Item item, int count) {
-    modifierItems.add(new RecipeMatch.Item(new ItemStack(item), count));
-  }
-
-  public void addItem(Block block, int count) {
-    modifierItems.add(new RecipeMatch.Item(new ItemStack(block), count));
+    modifierItems.addItem(oredictItem);
   }
 
   public void addItem(Item item) {
-    addItem(item, 1);
+    modifierItems.addItem(item);
+  }
+
+  public void addItem(Block block, int count) {
+    modifierItems.addItem(block, count);
+  }
+
+  public RecipeMatchRegistry getItemRegistry() {
+    return modifierItems;
   }
 
   protected void addAspects(ModifierAspect... aspects) {
@@ -67,14 +64,7 @@ public abstract class Modifier implements IModifier {
 
   @Override
   public RecipeMatch.Match matches(ItemStack[] stacks) {
-    for(RecipeMatch recipe : modifierItems) {
-      RecipeMatch.Match match = recipe.matches(stacks);
-      if(match != null) {
-        return match;
-      }
-    }
-
-    return null;
+    return modifierItems.matches(stacks);
   }
 
   @Override

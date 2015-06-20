@@ -1,4 +1,4 @@
-package tconstruct.library.modifiers;
+package tconstruct.library.mantle;
 
 import com.google.common.collect.Lists;
 
@@ -46,10 +46,21 @@ public abstract class RecipeMatch {
   public static class Item extends RecipeMatch {
     private final ItemStack template;
     private final int amountNeeded;
+    private final int amountMatched;
 
     public Item(ItemStack template, int amountNeeded) {
+      this(template, amountNeeded, 1);
+    }
+
+    /**
+     * @param template       The itemstack to match
+     * @param amountNeeded   How many of the itemstack are needed for the match
+     * @param amountMatched  If amountneeded itemstacks are present, as how many matches does this count?
+     */
+    public Item(ItemStack template, int amountNeeded, int amountMatched) {
       this.template = template;
       this.amountNeeded = amountNeeded;
+      this.amountMatched = amountMatched;
     }
 
     @Override
@@ -67,7 +78,7 @@ public abstract class RecipeMatch {
 
           // we found enough
           if(stillNeeded <= 0) {
-            return new Match(found, 1);
+            return new Match(found, amountMatched);
           }
         }
       }
@@ -79,12 +90,18 @@ public abstract class RecipeMatch {
   /** A specific amount of an oredicted material is needed to match. */
   public static class Oredict extends RecipeMatch {
 
-    private final String oredictEntry;
+    private final String oredictEntry; // todo: change this to the actual list in the oredict
     private final int amountNeeded;
+    private final int amountMatched;
 
     public Oredict(String oredictEntry, int amountNeeded) {
+      this(oredictEntry, amountNeeded, 1);
+    }
+
+    public Oredict(String oredictEntry, int amountNeeded, int amountMatched) {
       this.oredictEntry = oredictEntry;
       this.amountNeeded = amountNeeded;
+      this.amountMatched = amountMatched;
     }
 
     @Override
@@ -103,7 +120,7 @@ public abstract class RecipeMatch {
 
             // we found enough
             if(stillNeeded <= 0) {
-              return new Match(found, 1);
+              return new Match(found, amountMatched);
             }
           }
         }

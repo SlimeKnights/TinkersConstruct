@@ -22,7 +22,7 @@ public class RedstoneModifier extends Modifier {
     this.max = max;
 
     addItem(Items.redstone);
-    addItem(Blocks.redstone_block, 1);
+    addItem(Blocks.redstone_block, 9);
 
     addAspects(new ModifierAspect.MultiAspect(this, EnumChatFormatting.DARK_RED, 5, max, 1));
   }
