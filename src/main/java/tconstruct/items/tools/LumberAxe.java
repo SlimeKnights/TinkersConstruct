@@ -98,7 +98,7 @@ public class LumberAxe extends AOEHarvestTool
             if(detectTree(world, x,y,z, wood)) {
                 NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
                 int meta = world.getBlockMetadata(x, y, z);
-                breakTree(world, x, y, z, stack, tags, wood, meta, player);
+                breakTree(world, x, y, z, x, y, z, stack, tags, wood, meta, player);
                 // custom block breaking code, don't call vanilla code
                 return true;
             }
@@ -141,7 +141,7 @@ public class LumberAxe extends AOEHarvestTool
         return numLeaves > 3;
     }
 
-    private void breakTree (World world, int x, int y, int z, ItemStack stack, NBTTagCompound tags, Block bID, int meta, EntityPlayer player)
+    private void breakTree (World world, int x, int y, int z, int xStart, int yStart, int zStart, ItemStack stack, NBTTagCompound tags, Block bID, int meta, EntityPlayer player)
     {
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
@@ -173,23 +173,30 @@ public class LumberAxe extends AOEHarvestTool
                                 MinecraftForge.EVENT_BUS.post(event);
                                 cancelHarvest = event.isCanceled();
 
-                                if (cancelHarvest)
-                                {
-                                    breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player);
-                                }
-                                else
-                                {
-                                    if (localBlock == bID && localMeta % 4 == meta % 4)
-                                    {
-                                        if (!player.capabilities.isCreativeMode)
-                                        {
-                                            localBlock.harvestBlock(world, player, x,y,z, localMeta);
-                                            onBlockDestroyed(stack, world, localBlock, xPos, yPos, zPos, player);
-                                        }
+                                int xDist = xPos - xStart;
+                                int yDist = yPos - yStart;
+                                int zDist = zPos - zStart;
 
-                                        world.setBlockToAir(xPos, yPos, zPos);
-                                        if (!world.isRemote)
-                                            breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player);
+                                if (9*xDist*xDist + yDist*yDist + 9*zDist*zDist < 2500 )
+                                {
+                                    if (cancelHarvest)
+                                    {
+                                        breakTree(world, xPos, yPos, zPos, xStart, yStart, zStart, stack, tags, bID, meta, player);
+                                    }
+                                    else
+                                    {
+                                        if (localBlock == bID && localMeta % 4 == meta % 4)
+                                        {
+                                            if (!player.capabilities.isCreativeMode)
+                                            {
+                                                localBlock.harvestBlock(world, player, x,y,z, localMeta);
+                                                onBlockDestroyed(stack, world, localBlock, xPos, yPos, zPos, player);
+                                            }
+
+                                            world.setBlockToAir(xPos, yPos, zPos);
+                                            if (!world.isRemote)
+                                                breakTree(world, xPos, yPos, zPos, xStart, yStart, zStart, stack, tags, bID, meta, player);
+                                        }
                                     }
                                 }
                             }
