@@ -1,7 +1,12 @@
 package tconstruct.library.materials;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 
 import java.util.Collection;
 import java.util.Map;
@@ -12,6 +17,8 @@ import javax.annotation.Nonnull;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
 import tconstruct.library.client.MaterialRenderInfo;
+import tconstruct.library.mantle.RecipeMatch;
+import tconstruct.library.mantle.RecipeMatchRegistry;
 import tconstruct.library.traits.ITrait;
 
 public class Material {
@@ -26,11 +33,25 @@ public class Material {
   public final String identifier;
 
   /**
+   * Items associated with this material. Used for repairing and identifying items that belong to a material.
+   */
+  protected RecipeMatchRegistry materialItems;
+
+  /** The fluid associated with this material */
+  protected Fluid fluid;
+
+  /**
    * How the material will be rendered on tinker tools etc.
    */
   public final MaterialRenderInfo renderInfo;
 
   public final EnumChatFormatting textColor; // used in tooltips and other text
+
+  /**
+   * This item, if it is not null, represents the material for rendering.
+   * In general if you want to give a person this material, you can give them this item.
+   */
+  private ItemStack representativeItem;
 
 
   // we use a Treemap for 2 reasons:
@@ -140,6 +161,61 @@ public class Material {
 
   public Collection<ITrait> getAllTraits() {
     return this.traits.values();
+  }
+
+  /* Data about the material itself */
+
+  public boolean hasFluid() {
+    return fluid != null;
+  }
+
+  public Fluid getFluid() {
+    return fluid;
+  }
+
+  public void setFluid(Fluid fluid) {
+    if(!FluidRegistry.isFluidRegistered(fluid)) {
+      TinkerRegistry.log.warn("Materials cannot have an unregistered fluid associated with them!");
+    }
+    this.fluid = fluid;
+  }
+
+  public RecipeMatch.Match matches(ItemStack... stacks) {
+    return materialItems.matches(stacks);
+  }
+
+  public void addItem(String oredictItem) {
+    materialItems.addItem(oredictItem);
+  }
+
+  public void addItem(Item item) {
+    materialItems.addItem(item);
+  }
+
+  public void addItem(Block block, int count) {
+    materialItems.addItem(block, count);
+  }
+
+  public RecipeMatchRegistry getItemRegistry() {
+    return materialItems;
+  }
+
+  public void setRepresentativeItem(ItemStack representativeItem) {
+    if(representativeItem == null) {
+      this.representativeItem = null;
+    }
+    else if(matches(representativeItem) != null) {
+      this.representativeItem = representativeItem;
+    }
+    else {
+      TinkerRegistry.log.warn("Itemstack {} cannot represent material {} since it is not associated with the material!",
+                              representativeItem.toString(),
+                              identifier);
+    }
+  }
+
+  public ItemStack getRepresentativeItem() {
+    return representativeItem;
   }
 
   public String getLocalizedName() {

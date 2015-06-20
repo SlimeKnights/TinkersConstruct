@@ -18,7 +18,7 @@ import tconstruct.library.materials.Material;
 import tconstruct.library.materials.ToolMaterialStats;
 import tconstruct.library.modifiers.IModifier;
 import tconstruct.library.modifiers.ModifyException;
-import tconstruct.library.modifiers.RecipeMatch;
+import tconstruct.library.mantle.RecipeMatch;
 import tconstruct.library.modifiers.TraitModifier;
 import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.traits.ITrait;
@@ -68,6 +68,15 @@ public final class ToolBuilder {
     traitModifier.applyEffect(rootCompound, tag);
   }
 
+  /**
+   * Takes a tool and an array of itemstacks and tries to modify the tool with those.
+   * If removeItems is true, the items used in the process will be removed from the array.
+   * @param stacks       Items to modify the tool with
+   * @param toolStack    The tool
+   * @param removeItems  If true the applied items will be removed from the array
+   * @return The modified tool or null if something went wrong or no modifier applied.
+   * @throws ModifyException Thrown when not matching modifiers could be applied. Contains extra-information why the process failed.
+   */
   public static ItemStack tryModifyTool(ItemStack[] stacks, ItemStack toolStack, boolean removeItems)
       throws ModifyException {
     ItemStack copy = toolStack.copy();
