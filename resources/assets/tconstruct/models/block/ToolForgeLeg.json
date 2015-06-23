@@ -1,0 +1,16 @@
+{
+	"elements": [
+		// One of the tables leg
+		{
+		 "from": [ 0, 0, 0 ],
+         "to": [ 4, 12, 4 ],
+         "faces": {
+            "down":  { "uv": [ 0, 0,  16, 16 ], "texture": "#legBottom", "cullface": "down" },
+            "north": { "uv": [ 12, 4, 16, 16 ], "texture": "#leg",    "cullface": "north"   },
+            "south": { "uv": [ 12, 4, 16, 16 ], "texture": "#leg",    "cullface": "south"   },
+            "west":  { "uv": [  0, 4,  4, 16 ], "texture": "#leg",    "cullface": "west"    },
+            "east":  { "uv": [  0, 4,  4, 16 ], "texture": "#leg",    "cullface": "east"    }
+         }
+		}
+	]
+}
