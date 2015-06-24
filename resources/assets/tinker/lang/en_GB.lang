@@ -1,0 +1,57 @@
+inventory.knapsack=Rucksack
+
+MetalOre.Aluminum.name=Aluminium Ore
+
+block.oreberry.aluminum.name=Aluminium Oreberry Bush
+
+block.ore.gravel.aluminum.name=Aluminium Gravel Ore
+
+tile.cloth.gray.slab.name=Grey Wool Slab
+tile.cloth.silver.slab.name=Light Grey Wool Slab
+
+item.oreberry.aluminum.name=Aluminium Oreberry
+
+item.tconstruct.Materials.AluminumIngot.name=Aluminium Ingot
+item.tconstruct.Materials.RawAluminum.name=Raw Aluminium
+item.tconstruct.Materials.AluBrassIngot.name=Aluminium Brass Ingot
+item.tconstruct.Materials.AluminumNugget.name=Aluminium Nugget
+item.tconstruct.Materials.AluBrassNugget.name=Aluminium Brass Nugget
+item.tconstruct.Materials.AluminumDust.name=Aluminium Dust
+item.tconstruct.Materials.AluBrassDust.name=Aluminium Brass Dust
+
+# damn, there's a British word for this but I can't quite suss it out
+item.tconstruct.jerky.beef.name=Beef Jerky
+item.tconstruct.jerky.pig.name=Bacon Jerky
+item.tconstruct.jerky.chicken.name=Chicken Jerky
+item.tconstruct.jerky.sheep.name=Mutton Jerky
+item.tconstruct.jerky.fish.name=Fish Jerky
+item.tconstruct.jerky.zombie.name=Monster Jerky
+
+beginnertool.pickaxe=Beginner's Pickaxe
+
+StorageMetals.Aluminum.name=Block of Aluminium
+StorageMetals.AlBrass.name=Block of Aluminium Brass
+
+block.stainedglass.gray.name=Grey Stained Glass
+block.stainedglass.lightgray.name=Light Grey Stained Glass
+
+block.stainedglass.gray.pane.name=Grey Stained Pane
+block.stainedglass.lightgray.pane.name=Light Grey Stained Pane
+
+item.tconstruct.storage.knapsack.name=Rucksack  
+
+item.tconstruct.bucket.Aluminum.name=Molten Aluminium Bucket
+item.tconstruct.bucket.AluBrass.name=Molten Aluminium Brass Bucket
+
+tile.fluid.molten.aluminum.name=Molten Aluminium
+tile.fluid.molten.alubrass.name=Molten Aluminium Brass
+
+LiquidMetal.Aluminum.name=Molten Aluminium
+LiquidMetal.AluBrass.name=Molten Aluminium Brass
+
+key.tarmor=Armour Gui
+
+fluid.aluminum.molten=Molten Aluminium
+fluid.aluminumbrass.molten=Molten Aluminium Brass
+
+knapsack.tooltip=A Rucksack to hold your things.
