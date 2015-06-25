@@ -2,13 +2,13 @@
 	"forge_marker": 1,
 	"defaults": {
 		"textures": {
-			"top": "tconstruct:blocks/toolforge_top",
-			"bottom": "minecraft:blocks/iron_block",
-			"side": "#bottom",
+			"top": "tconstruct:blocks/partbuilder_top",
+			"side": "tconstruct:blocks/table_side",
+			"bottom": "minecraft:blocks/log_oak",
 			"leg": "#bottom",
 			"legBottom": "#bottom"
 		},
-		"model": "tconstruct:ToolForgePlate"
+		"model": "tconstruct:TablePlate"
 	},
 	"variants": {
 		"normal": [{
