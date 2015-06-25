@@ -6,11 +6,12 @@
 			 "to": [ 16, 16, 16 ],
 			 "faces": {
 				"up":    { "uv": [ 0,  0, 16, 16 ], "texture": "#top", "cullface": "up"   },
-				"north": { "uv": [ 0,  0, 16, 1  ], "texture": "#top", "cullface": "north"},
-				"south": { "uv": [ 0, 15, 16, 16 ], "texture": "#top", "cullface": "south"},
-				"west":  { "uv": [ 0,  0,  1, 16 ], "texture": "#top", "cullface": "west" },
-				"east":  { "uv": [ 15, 0, 16, 16 ], "texture": "#top", "cullface": "east" }
+				"north": { "uv": [ 0,  0, 16,  1 ], "texture": "#top", "cullface": "north", "rotation": 180},
+				"south": { "uv": [ 0, 15, 16, 16 ], "texture": "#top", "cullface": "south", "rotation": 0},
+				"west":  { "uv": [ 0,  0,  1, 16 ], "texture": "#top", "cullface": "west",  "rotation": 270 },
+				"east":  { "uv": [15,  0, 16, 16 ], "texture": "#top", "cullface": "east",  "rotation": 90 }
 			 },
+			 "uvlock": true,
 			 "__comment": "Table plate at the top"
 		},
 		// the side of the top part
