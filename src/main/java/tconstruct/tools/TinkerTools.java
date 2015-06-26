@@ -367,6 +367,9 @@ public class TinkerTools
         OreDictionary.registerOre("slimeball", new ItemStack(TinkerTools.materials, 1, 36));
 
         BlockDispenser.dispenseBehaviorRegistry.putObject(TinkerTools.titleIcon, new TDispenserBehaviorSpawnEgg());
+        
+        // Added into forge in 1.8. Remove this line when porting.
+        OreDictionary.registerOre("chestWood", new ItemStack(Blocks.chest));
     }
 
 
@@ -694,7 +697,7 @@ public class TinkerTools
         GameRegistry.addRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 2), "p", "w", 'p', new ItemStack(TinkerTools.blankPattern, 1, 0), 'w', new ItemStack(Blocks.log, 1, 1));
         GameRegistry.addRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 3), "p", "w", 'p', new ItemStack(TinkerTools.blankPattern, 1, 0), 'w', new ItemStack(Blocks.log, 1, 2));
         GameRegistry.addRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 4), "p", "w", 'p', new ItemStack(TinkerTools.blankPattern, 1, 0), 'w', new ItemStack(Blocks.log, 1, 3));
-        GameRegistry.addRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 5), "p", "w", 'p', new ItemStack(TinkerTools.blankPattern, 1, 0), 'w', Blocks.chest);
+        GameRegistry.addRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 5), "p", "w", 'p', new ItemStack(TinkerTools.blankPattern, 1, 0), 'w', "chestWood");
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 1), "p", "w", 'p', new ItemStack(TinkerTools.blankPattern, 1, 0), 'w', "logWood"));
         GameRegistry.addRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 10), "p", "w", 'p', new ItemStack(TinkerTools.blankPattern, 1, 0), 'w', new ItemStack(Blocks.planks, 1, 0));
         GameRegistry.addRecipe(new ItemStack(TinkerTools.toolStationWood, 1, 11), "p", "w", 'p', new ItemStack(TinkerTools.blankPattern, 1, 0), 'w', new ItemStack(Blocks.planks, 1, 1));
