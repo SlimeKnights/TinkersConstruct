@@ -135,6 +135,7 @@ public class TinkerWorld
         TinkerWorld.stoneLadder = new StoneLadder().setBlockName("decoration.stoneladder");
         TinkerTools.multiBrick = new MultiBrick().setBlockName("Decoration.Brick");
         TinkerTools.multiBrickFancy = new MultiBrickFancy().setBlockName("Decoration.BrickFancy");
+        TinkerTools.multiBrickMetal = new MultiBrickMetal().setBlockName("Decoration.BrickMetal");
 
         // Ores
         String[] berryOres = new String[] { "berry_iron", "berry_gold", "berry_copper", "berry_tin", "berry_iron_ripe", "berry_gold_ripe", "berry_copper_ripe", "berry_tin_ripe" };
@@ -195,6 +196,7 @@ public class TinkerWorld
         GameRegistry.registerBlock(TinkerWorld.stoneLadder, "decoration.stoneladder");
         GameRegistry.registerBlock(TinkerTools.multiBrick, MultiBrickItem.class, "decoration.multibrick");
         GameRegistry.registerBlock(TinkerTools.multiBrickFancy, MultiBrickFancyItem.class, "decoration.multibrickfancy");
+        GameRegistry.registerBlock(TinkerTools.multiBrickMetal, MultiBrickMetalItem.class, "decoration.multibrickmetal");
 
         // Ores
         GameRegistry.registerBlock(TinkerWorld.oreBerry, OreberryBushItem.class, "ore.berries.one");

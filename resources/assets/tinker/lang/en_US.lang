@@ -88,6 +88,10 @@ block.brick.slime.name=Slime Brick
 block.brick.blueslime.name=Slime Brick
 block.brick.endstone.name=Endstone Brick
 block.brick.obsidian.ingot.name=Obsidian Brick
+block.brick.alumite.name=Alumite Brick
+block.brick.ardite.name=Ardite Brick
+block.brick.cobalt.name=Cobalt Brick
+block.brick.manyullyn.name=Manyullyn Brick
 
 block.fancybrick.obsidian.name=Fancy Obsidian Brick
 block.fancybrick.sandstone.name=Fancy Sandstone Brick
@@ -105,6 +109,10 @@ block.fancybrick.endstone.name=Fancy Endstone Brick
 block.fancybrick.obsidian.ingot.name=Fancy Obsidian Brick
 block.fancybrick.stone.road.name=Stone Road
 block.fancybrick.stone.name=Fancy Stone Brick
+block.fancybrick.alumite.name=Fancy Alumite Brick
+block.fancybrick.ardite.name=Fancy Ardite Brick
+block.fancybrick.cobalt.name=Fancy Cobalt Brick
+block.fancybrick.manyullyn.name=Fancy Manyullyn Brick
 
 tile.rail.wood.name=Wooden Rail
 

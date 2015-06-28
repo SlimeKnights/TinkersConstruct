@@ -122,6 +122,7 @@ public class TinkerTools
     public static Block craftedSoil; //TODO: Untwine this
     public static Block multiBrick;
     public static Block multiBrickFancy;
+    public static Block multiBrickMetal;
     // Tool modifiers
     public static ModFlux modFlux;
     public static ModLapis modLapis;
@@ -592,6 +593,19 @@ public class TinkerTools
             chiseling.addDetailing(TinkerSmeltery.smeltery, 2, TinkerSmeltery.smeltery, 8, TinkerTools.chisel);
             chiseling.addDetailing(TinkerSmeltery.smeltery, 8, TinkerSmeltery.smeltery, 9, TinkerTools.chisel);
             chiseling.addDetailing(TinkerSmeltery.smeltery, 9, TinkerSmeltery.smeltery, 10, TinkerTools.chisel);
+        }
+
+        if(TinkerWorld.metalBlock != null) {
+            // metal bricks
+            chiseling.addDetailing(TinkerWorld.metalBlock, 8, TinkerTools.multiBrickMetal, 0, TinkerTools.chisel);
+            chiseling.addDetailing(TinkerWorld.metalBlock, 1, TinkerTools.multiBrickMetal, 1, TinkerTools.chisel);
+            chiseling.addDetailing(TinkerWorld.metalBlock, 0, TinkerTools.multiBrickMetal, 2, TinkerTools.chisel);
+            chiseling.addDetailing(TinkerWorld.metalBlock, 2, TinkerTools.multiBrickMetal, 3, TinkerTools.chisel);
+            // fancy metal bricks
+            chiseling.addDetailing(TinkerTools.multiBrickMetal, 0, TinkerTools.multiBrickMetal, 4, TinkerTools.chisel);
+            chiseling.addDetailing(TinkerTools.multiBrickMetal, 1, TinkerTools.multiBrickMetal, 5, TinkerTools.chisel);
+            chiseling.addDetailing(TinkerTools.multiBrickMetal, 2, TinkerTools.multiBrickMetal, 6, TinkerTools.chisel);
+            chiseling.addDetailing(TinkerTools.multiBrickMetal, 3, TinkerTools.multiBrickMetal, 7, TinkerTools.chisel);
         }
     }
 
