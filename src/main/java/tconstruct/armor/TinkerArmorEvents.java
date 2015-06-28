@@ -65,8 +65,12 @@ public class TinkerArmorEvents
             return;
 
         ItemStack glove = TPlayerStats.get(event.entityPlayer).armor.getStackInSlot(1);
-        if(event.entityPlayer.worldObj.isRemote) // todo: sync extended inventory with clients so this stuff and rendering is done properly...
-            glove = ArmorProxyClient.armorExtended.getStackInSlot(1);
+        if(event.entityPlayer.worldObj.isRemote) { // todo: sync extended inventory with clients so this stuff and rendering is done properly...
+            if(ArmorProxyClient.armorExtended != null)
+                glove = ArmorProxyClient.armorExtended.getStackInSlot(1);
+            else
+                glove = null;
+        }
         if(glove == null || !glove.hasTagCompound())
             return;
 

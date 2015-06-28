@@ -20,6 +20,8 @@ public class InventoryTabKnapsack extends AbstractTab
     @Override
     public boolean shouldAddToList ()
     {
-        return ArmorProxyClient.armorExtended.inventory[2] != null && ArmorProxyClient.armorExtended.inventory[2].getItem() == TinkerArmor.knapsack;
+        return ArmorProxyClient.armorExtended != null
+                && ArmorProxyClient.armorExtended.inventory[2] != null
+                && ArmorProxyClient.armorExtended.inventory[2].getItem() == TinkerArmor.knapsack;
     }
 }

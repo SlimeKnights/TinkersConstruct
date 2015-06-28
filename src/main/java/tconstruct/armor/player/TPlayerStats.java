@@ -38,7 +38,8 @@ public class TPlayerStats implements IExtendedEntityProperties, IPlayerExtendedI
 
     public TPlayerStats()
     {
-
+        this.armor = new ArmorExtended();
+        this.knapsack = new KnapsackInventory();
     }
 
     public TPlayerStats(EntityPlayer entityplayer)
