@@ -70,7 +70,9 @@ public class ToolModel implements IModel {
     }
 
     // modifier textures
-    builder.addAll(modifiers.getTextures());
+    if(modifiers != null) {
+      builder.addAll(modifiers.getTextures());
+    }
 
     return builder.build();
   }
