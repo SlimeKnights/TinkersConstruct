@@ -1,23 +1,7 @@
 {
-	"forge_marker": 1,
-	"defaults": {
-		"textures": {
-			"top": "tconstruct:blocks/toolforge_top",
-			"bottom": "minecraft:blocks/iron_block",
-			"side": "#bottom",
-			"leg": "#bottom",
-			"legBottom": "#bottom"
-		},
-		"model": "tconstruct:ToolForgePlate"
-	},
 	"variants": {
-		"normal": [{
-			"submodel": {
-				"leg1": {"model": "tconstruct:TableLeg"},
-				"leg2": {"model": "tconstruct:TableLeg", "y": 90},
-				"leg3": {"model": "tconstruct:TableLeg", "y": 180},
-				"leg4": {"model": "tconstruct:TableLeg", "y": 270}
-			}
-		}]
+		"normal": {
+            "model": "tconstruct:ToolForge"
+		}
 	}
 }
