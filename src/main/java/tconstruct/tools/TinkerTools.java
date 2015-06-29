@@ -85,6 +85,8 @@ public class TinkerTools extends TinkerPulse {
 
     GameRegistry.addRecipe(new TempToolCrafting());
     GameRegistry.addRecipe(new TempToolModifying());
+
+    MinecraftForge.EVENT_BUS.register(new ToolClientEvents());
   }
 
   @Handler
