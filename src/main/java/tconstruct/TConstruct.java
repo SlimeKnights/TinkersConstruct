@@ -5,8 +5,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkCheckHandler;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +15,8 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 
 import mantle.pulsar.control.PulseManager;
-import tconstruct.debug.StickOfDebugging;
+import tconstruct.debug.LocalizationCheckCommand;
+import tconstruct.library.Util;
 import tconstruct.tools.TinkerMaterials;
 import tconstruct.tools.TinkerTools;
 
@@ -31,7 +32,7 @@ import tconstruct.tools.TinkerTools;
 //dependencies = "required-after:Forge@[10.13.1.1217,);required-after:Mantle@[1.7.10-0.3.2,);after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion;after:ThermalFoundation")
 public class TConstruct {
 
-  public static final String modID = "TConstruct";
+  public static final String modID = Util.MODID;
   public static final String modVersion = "${version}";
   /*
    * The value of one ingot in millibuckets
@@ -59,10 +60,11 @@ public class TConstruct {
   public static PulseManager pulseManager = new PulseManager(modID, "TinkerModules");
 
   public TConstruct() {
-    if (Loader.isModLoaded("Natura")) {
+    if(Loader.isModLoaded("Natura")) {
       log.info("Natura, what are we going to do tomorrow night?");
       LogManager.getLogger("Natura").info("TConstruct, we're going to take over the world!");
-    } else {
+    }
+    else {
       log.info("Preparing to take over the world");
     }
   }
@@ -82,8 +84,9 @@ public class TConstruct {
     //pulseManager.registerPulse(new TinkerTest());
     pulseManager.preInit(event);
 
-    if(event.getSide().isClient())
+    if(event.getSide().isClient()) {
       ClientProxy.initClient();
+    }
   }
 
   @Mod.EventHandler
@@ -96,4 +99,8 @@ public class TConstruct {
     pulseManager.postInit(event);
   }
 
+  @Mod.EventHandler
+  public void starting(FMLServerStartingEvent event) {
+    event.registerServerCommand(new LocalizationCheckCommand());
+  }
 }

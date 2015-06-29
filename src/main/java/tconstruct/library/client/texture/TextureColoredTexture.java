@@ -5,9 +5,10 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
 
 public class TextureColoredTexture extends AbstractColoredTexture {
-  private final TextureAtlasSprite addTexture;
-  private final String addTextureLocation;
-  private int[][] textureData;
+
+  protected final TextureAtlasSprite addTexture;
+  protected final String addTextureLocation;
+  protected int[][] textureData;
 
   public boolean stencil = false;
 
@@ -31,7 +32,8 @@ public class TextureColoredTexture extends AbstractColoredTexture {
     this.addTexture = addTexture;
   }
 
-  public TextureColoredTexture(TextureAtlasSprite addTexture, String baseTextureLocation, String extra, String spriteName) {
+  public TextureColoredTexture(TextureAtlasSprite addTexture, String baseTextureLocation, String extra,
+                               String spriteName) {
     super(baseTextureLocation, extra, spriteName);
     this.addTextureLocation = addTexture.getIconName();
     this.addTexture = addTexture;
@@ -40,11 +42,13 @@ public class TextureColoredTexture extends AbstractColoredTexture {
   @Override
   protected int colorPixel(int pixel, int mipmap, int pxCoord) {
     int a = alpha(pixel);
-    if(a == 0)
+    if(a == 0) {
       return pixel;
+    }
 
-    if(textureData == null)
+    if(textureData == null) {
       loadData();
+    }
 
     int c = textureData[mipmap][pxCoord];
 
@@ -58,7 +62,7 @@ public class TextureColoredTexture extends AbstractColoredTexture {
       g = mult(mult(g, green(pixel)), green(pixel));
       b = mult(mult(b, blue(pixel)), blue(pixel));
     }
-    return compose(r,g,b,a);
+    return compose(r, g, b, a);
   }
 
   private void loadData() {

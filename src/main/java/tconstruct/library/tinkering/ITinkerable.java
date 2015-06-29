@@ -3,24 +3,14 @@ package tconstruct.library.tinkering;
 import net.minecraft.item.ItemStack;
 
 /**
- * All classes implementing this interface
+ * All classes implementing this interface represent a item that has tinkers data. Usually also used for modifiers to
+ * access the data.
  */
 public interface ITinkerable {
 
   /**
-   * Returns the tag key of the tag with the tinker data.
+   * Returns an String of arrays, where each String represents an information about the tool. Used to display
+   * Information about the item in a tooltip or the GUI
    */
-  public String getTagName();
-
-  /**
-   * Returns a String that returns the category of the item. For example "tool", "armor" or
-   * "accessory". Used to determine compatibility with modifiers etc.
-   */
-  public String getItemType();
-
-  /**
-   * Returns an String of arrays, where each String represents an information about the tool. Used
-   * to display Information about the item in a tooltip or the GUI
-   */
-  public String[] getInformation(ItemStack stack);
+  String[] getInformation(ItemStack stack);
 }

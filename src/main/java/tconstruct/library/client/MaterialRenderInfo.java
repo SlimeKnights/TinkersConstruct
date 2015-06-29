@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import tconstruct.library.client.texture.AnimatedColoredTexture;
 import tconstruct.library.client.texture.SimpleColoredTexture;
 import tconstruct.library.client.texture.TextureColoredTexture;
 
@@ -15,10 +16,14 @@ import tconstruct.library.client.texture.TextureColoredTexture;
  */
 @SideOnly(Side.CLIENT)
 public interface MaterialRenderInfo {
+
   TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location);
 
-  /** Colors the texture of the tool with the material color */
+  /**
+   * Colors the texture of the tool with the material color
+   */
   class Default implements MaterialRenderInfo {
+
     // colors to be used
     protected final int low, mid, high;
 
@@ -39,6 +44,7 @@ public interface MaterialRenderInfo {
   }
 
   class CustomDefault extends Default {
+
     protected final String customSuffix;
 
     public CustomDefault(int low, int mid, int high, String customSuffix) {
@@ -54,30 +60,50 @@ public interface MaterialRenderInfo {
     @Override
     public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
       // use the base texture with the suffix if it exists
-      if(CustomTextureCreator.exists(baseTexture.toString() + "_" + customSuffix))
+      if(CustomTextureCreator.exists(baseTexture.toString() + "_" + customSuffix)) {
         return new SimpleColoredTexture(low, mid, high, baseTexture.getIconName(), customSuffix, location);
+      }
       // otherwise default texture
       return super.getTexture(baseTexture, location);
     }
   }
 
-  /** Uses a block texture instead of a color to create the texture */
-  class BlockTexture implements MaterialRenderInfo {
-    protected final Block block;
+  /**
+   * Uses a block texture instead of a color to create the texture
+   */
+  class MultiplicativeTexture implements MaterialRenderInfo {
 
-    public BlockTexture(Block block) {
-      this.block = block;
+    protected String texturePath;
+
+    public MultiplicativeTexture(String texturePath) {
+      this.texturePath = texturePath;
     }
 
     @Override
     public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
-      ResourceLocation blockloc = new ResourceLocation(block.getDefaultState().toString());
-      blockloc = new ResourceLocation(blockloc.getResourceDomain(), "blocks/" + blockloc.getResourcePath());
-      TextureAtlasSprite blockTexture = Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(blockloc.toString());
+      TextureAtlasSprite blockTexture = Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(texturePath);
 
-      TextureColoredTexture sprite = new TextureColoredTexture(blockTexture, baseTexture, location);
+      if(blockTexture == null) {
+        blockTexture = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
+      }
+
+      TextureColoredTexture sprite = new AnimatedColoredTexture(blockTexture, baseTexture, location);
       sprite.stencil = false;
       return sprite;
+    }
+  }
+
+  /**
+   * Uses a block texture instead of a color to create the texture
+   */
+  class BlockTexture extends MultiplicativeTexture {
+
+    public BlockTexture(Block block) {
+      super("");
+      ResourceLocation blockloc = new ResourceLocation(block.getDefaultState().toString());
+      blockloc = new ResourceLocation(blockloc.getResourceDomain(), "blocks/" + blockloc.getResourcePath());
+
+      texturePath = blockloc.toString();
     }
   }
 }

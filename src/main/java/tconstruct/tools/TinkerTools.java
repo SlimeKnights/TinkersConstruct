@@ -1,11 +1,16 @@
 package tconstruct.tools;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.apache.logging.log4j.Logger;
 
@@ -13,8 +18,10 @@ import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import tconstruct.CommonProxy;
 import tconstruct.TinkerPulse;
-import tconstruct.Util;
-import tconstruct.library.tinkering.ToolPart;
+import tconstruct.library.Util;
+import tconstruct.library.modifiers.IModifier;
+import tconstruct.library.modifiers.Modifier;
+import tconstruct.library.tools.ToolPart;
 
 @Pulse(id = TinkerTools.PulseId, description = "This module contains all the tools and everything related to it.")
 public class TinkerTools extends TinkerPulse {
@@ -34,6 +41,9 @@ public class TinkerTools extends TinkerPulse {
   public static ToolPart toolrod;
   public static ToolPart binding;
 
+  public static IModifier diamondMod;
+  public static IModifier fortifyMod;
+
   @Handler
   public void preInit(FMLPreInitializationEvent event) {
     TinkerMaterials.registerToolMaterials();
@@ -44,7 +54,39 @@ public class TinkerTools extends TinkerPulse {
     toolrod = registerItem(new ToolPart(), "ToolRod");
     binding = registerItem(new ToolPart(), "Binding");
 
-    pickaxe = registerItem(new Item(), "Pickaxe");
+    pickaxe = registerItem(new Pickaxe(), "Pickaxe");
+
+    diamondMod = new DiamondModifier();
+
+    fortifyMod = new Modifier("Fortify") {
+
+      @Override
+      public void updateNBT(NBTTagCompound modifierTag) {
+
+      }
+
+      @Override
+      public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
+
+      }
+
+
+      @SideOnly(Side.CLIENT)
+      @Override
+      public boolean hasTexturePerMaterial() {
+        return true;
+      }
+    };
+
+    proxy.registerModels();
+
+    new StoneboundModifier();
+    new RedstoneModifier(50);
+
+    GameRegistry.addRecipe(new TempToolCrafting());
+    GameRegistry.addRecipe(new TempToolModifying());
+
+    MinecraftForge.EVENT_BUS.register(new ToolClientEvents());
   }
 
   @Handler
@@ -102,7 +144,7 @@ public class TinkerTools extends TinkerPulse {
   @Handler
   public void postInit(FMLPostInitializationEvent event) {
     //register models
-    proxy.registerModels();
+
   }
 
   private void registerTools() {

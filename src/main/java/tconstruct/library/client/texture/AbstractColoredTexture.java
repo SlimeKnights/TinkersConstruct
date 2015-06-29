@@ -3,19 +3,24 @@ package tconstruct.library.client.texture;
 import com.google.common.collect.Lists;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.client.resources.data.AnimationMetadataSection;
+import net.minecraft.client.resources.data.TextureMetadataSection;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
-import tconstruct.library.utils.Log;
+import tconstruct.library.TinkerRegistry;
 
 public abstract class AbstractColoredTexture extends TextureAtlasSprite {
+
   private final TextureAtlasSprite baseTexture;
   private final String backupTextureLocation;
   private final String extra;
@@ -54,23 +59,37 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
       int[][] original = baseTexture.getFrameTextureData(0);
       data = new int[original.length][];
       for(int i = 0; i < original.length; i++) {
-        if(original[i] != null)
+        if(original[i] != null) {
           data[i] = Arrays.copyOf(original[i], original[i].length);
+        }
       }
     }
     // load texture manually
     else {
       data = null;
-      if(extra != null && !extra.isEmpty())
+      if(extra != null && !extra.isEmpty()) {
         data = backupLoadTexture(new ResourceLocation(backupTextureLocation + "_" + extra), manager);
-      if(data == null)
+      }
+      if(data == null) {
         data = backupLoadTexture(new ResourceLocation(backupTextureLocation), manager);
+      }
     }
 
+    processData(data);
+
+    if(this.framesTextureData.isEmpty()) {
+      this.framesTextureData.add(data);
+    }
+
+    return false;
+  }
+
+  protected void processData(int[][] data) {
     // go over the base texture and color it
     for(int mipmap = 0; mipmap < data.length; mipmap++) {
-      if(data[mipmap] == null)
+      if(data[mipmap] == null) {
         continue;
+      }
       for(int pxCoord = 0; pxCoord < data[mipmap].length; pxCoord++) {
         // we're not working per pixel
         // we take the information in the base texture to calculate the luminosity of the pixel
@@ -78,10 +97,6 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
         data[mipmap][pxCoord] = colorPixel(data[mipmap][pxCoord], mipmap, pxCoord);
       }
     }
-
-    this.framesTextureData.add(data);
-
-    return false;
   }
 
   protected abstract int colorPixel(int pixel, int mipmap, int pxCoord);
@@ -99,37 +114,98 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
       this.height = abufferedimage[0].getHeight();
 
       int[][] aint = new int[abufferedimage.length][];
-      for (int k = 0; k < abufferedimage.length; ++k)
-      {
+      for(int k = 0; k < abufferedimage.length; ++k) {
         BufferedImage bufferedimage = abufferedimage[k];
 
-        if (bufferedimage != null)
-        {
+        if(bufferedimage != null) {
           aint[k] = new int[bufferedimage.getWidth() * bufferedimage.getHeight()];
-          bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), aint[k], 0, bufferedimage.getWidth());
+          bufferedimage
+              .getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), aint[k], 0, bufferedimage.getWidth());
         }
       }
 
       return aint;
-    }
-    catch (RuntimeException runtimeexception)
-    {
-      Log.error("Unable to parse metadata from " + resourcelocation1, runtimeexception);
-    }
-    catch (IOException ioexception1)
-    {
-      Log.error("Unable to load " + resourcelocation1, ioexception1);
+    } catch(RuntimeException runtimeexception) {
+      TinkerRegistry.log.error("Unable to parse metadata from " + resourcelocation1, runtimeexception);
+    } catch(IOException ioexception1) {
+      TinkerRegistry.log.error("Unable to load " + resourcelocation1, ioexception1);
     }
 
     return null;
   }
 
-  private ResourceLocation completeResourceLocation(ResourceLocation location, int p_147634_2_)
-  {
-    if(p_147634_2_ == 0)
-      return new ResourceLocation(location.getResourceDomain(), String.format("%s/%s%s", "textures", location.getResourcePath(), ".png"));
+  // completely emulates the behaviour of the TextureMap texture loading process
+  protected TextureAtlasSprite backupLoadtextureAtlasSprite(ResourceLocation resourceLocation, IResourceManager resourceManager) {
+    ResourceLocation resourcelocation1 = this.completeResourceLocation(resourceLocation, 0);
+    TextureAtlasSprite textureAtlasSprite = TextureAtlasSprite.makeAtlasSprite(resourceLocation);
 
-    return new ResourceLocation(location.getResourceDomain(), String.format("%s/mipmaps/%s.%d%s", "textures", location.getResourcePath(), p_147634_2_, ".png"));
+    try {
+      IResource iresource = resourceManager.getResource(resourcelocation1);
+      BufferedImage[] abufferedimage = new BufferedImage[1 + 4]; // iirc TextureMap.mipmapLevels is always 4? :I
+      abufferedimage[0] = TextureUtil.readBufferedImage(iresource.getInputStream());
+      TextureMetadataSection texturemetadatasection = (TextureMetadataSection)iresource.getMetadata("texture");
+
+      // metadata
+      if (texturemetadatasection != null)
+      {
+        List list = texturemetadatasection.getListMipmaps();
+        int i1;
+
+        if (!list.isEmpty())
+        {
+          int l = abufferedimage[0].getWidth();
+          i1 = abufferedimage[0].getHeight();
+
+          if (MathHelper.roundUpToPowerOfTwo(l) != l || MathHelper.roundUpToPowerOfTwo(i1) != i1)
+          {
+            throw new RuntimeException("Unable to load extra miplevels, source-texture is not power of two");
+          }
+        }
+
+        Iterator iterator3 = list.iterator();
+
+        while (iterator3.hasNext())
+        {
+          i1 = ((Integer)iterator3.next()).intValue();
+
+          if (i1 > 0 && i1 < abufferedimage.length - 1 && abufferedimage[i1] == null)
+          {
+            ResourceLocation resourcelocation2 = this.completeResourceLocation(resourceLocation, i1);
+
+            try
+            {
+              abufferedimage[i1] = TextureUtil.readBufferedImage(resourceManager.getResource(resourcelocation2).getInputStream());
+            }
+            catch (IOException ioexception)
+            {
+              TinkerRegistry.log.error("Unable to load miplevel {} from: {}", new Object[] {Integer.valueOf(i1), resourcelocation2, ioexception});
+            }
+          }
+        }
+      }
+
+      AnimationMetadataSection animationmetadatasection = (AnimationMetadataSection)iresource.getMetadata("animation");
+      textureAtlasSprite.loadSprite(abufferedimage, animationmetadatasection);
+
+      return textureAtlasSprite;
+
+    } catch(RuntimeException runtimeexception) {
+      TinkerRegistry.log.error("Unable to parse metadata from " + resourcelocation1, runtimeexception);
+    } catch(IOException ioexception1) {
+      TinkerRegistry.log.error("Unable to load " + resourcelocation1, ioexception1);
+    }
+
+    return null;
+  }
+
+  protected ResourceLocation completeResourceLocation(ResourceLocation location, int p_147634_2_) {
+    if(p_147634_2_ == 0) {
+      return new ResourceLocation(location.getResourceDomain(),
+                                  String.format("%s/%s%s", "textures", location.getResourcePath(), ".png"));
+    }
+
+    return new ResourceLocation(location.getResourceDomain(), String
+        .format("%s/mipmaps/%s.%d%s", "textures", location.getResourcePath(), p_147634_2_, ".png"));
   }
 
   // borrowed from Shadows of Physis
@@ -139,14 +215,14 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
     double g = green(col) / 255.0;
     double b = blue(col) / 255.0;
 
-    return getPerceptualBrightness(r,g,b);
+    return getPerceptualBrightness(r, g, b);
   }
 
   public static int getPerceptualBrightness(double r, double g, double b) {
 
-    double brightness = Math.sqrt(0.241 * r*r + 0.691 * g*g + 0.068 * b*b);
+    double brightness = Math.sqrt(0.241 * r * r + 0.691 * g * g + 0.068 * b * b);
 
-    return (int)(brightness*255);
+    return (int) (brightness * 255);
   }
 
   public static int compose(int r, int g, int b, int a) {
@@ -174,6 +250,6 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
   }
 
   protected static int mult(int c1, int c2) {
-    return (int)((float)c1 * (c2/255f));
+    return (int) ((float) c1 * (c2 / 255f));
   }
 }

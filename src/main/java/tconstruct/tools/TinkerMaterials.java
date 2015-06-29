@@ -5,8 +5,10 @@ import net.minecraft.util.EnumChatFormatting;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.client.MaterialRenderInfo;
-import tconstruct.library.tinkering.Material;
-import tconstruct.library.tinkering.materials.ToolMaterialStats;
+import tconstruct.library.materials.Material;
+import tconstruct.library.materials.ToolMaterialStats;
+import tconstruct.library.traits.ITrait;
+import tconstruct.library.traits.StoneboundTrait;
 
 public final class TinkerMaterials {
 
@@ -14,19 +16,25 @@ public final class TinkerMaterials {
   public static final Material stone;
   public static final Material netherrack;
 
+  public static final ITrait stonebound;
+
   private TinkerMaterials() {
   }
 
   static {
-    wood = new Material("Wood", 0, 0xffaa00, 0xffaa00, 0xffcc22, EnumChatFormatting.YELLOW);
-    stone = new Material("Stone", 1, 0x555555, EnumChatFormatting.DARK_GRAY);
-    netherrack = new Material("Netherrack", 2, new MaterialRenderInfo.BlockTexture(Blocks.netherrack), EnumChatFormatting.DARK_RED);
+    wood = new Material("Wood", 0xffaa00, 0xffaa00, 0xffcc22, EnumChatFormatting.YELLOW);
+    stone = new Material("Stone", 0x555555, EnumChatFormatting.DARK_GRAY);
+    netherrack =
+        new Material("Netherrack", new MaterialRenderInfo.MultiplicativeTexture("minecraft:blocks/lava_still"),
+                     EnumChatFormatting.DARK_RED);
+
+    stonebound = new StoneboundTrait();
   }
 
   public static void registerMaterials() {
     TinkerRegistry.addMaterial(wood);
-    TinkerRegistry.addMaterial(stone);
-    TinkerRegistry.addMaterial(netherrack);
+    TinkerRegistry.addMaterial(stone, stonebound);
+    TinkerRegistry.addMaterial(netherrack, stonebound);
   }
 
   public static void registerToolMaterials() {

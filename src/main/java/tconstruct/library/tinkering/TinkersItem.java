@@ -1,35 +1,57 @@
 package tconstruct.library.tinkering;
 
 
+import gnu.trove.set.hash.THashSet;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
-import tconstruct.library.TinkerRegistry;
+import tconstruct.library.materials.Material;
+import tconstruct.library.traits.ITrait;
 import tconstruct.library.utils.Tags;
 import tconstruct.library.utils.TinkerUtil;
+import tconstruct.library.utils.ToolBuilder;
 
 /**
  * The base for each Tinker tool.
  */
 public abstract class TinkersItem extends Item implements ITinkerable, IModifyable {
 
-  public final PartMaterialWrapper[] requiredComponents;
+  public final PartMaterialType[] requiredComponents;
+  // used to classify what the thing can do
+  protected final Set<Category> categories = new THashSet<>();
 
-  public TinkersItem(PartMaterialWrapper... requiredComponents) {
+  public TinkersItem(PartMaterialType... requiredComponents) {
     this.requiredComponents = requiredComponents;
 
     this.setMaxStackSize(1);
+    this.setHasSubtypes(true);
+  }
+
+
+  /* Tool Information */
+  protected void addCategory(Category... categories) {
+    for(Category category : categories) {
+      this.categories.add(category);
+    }
+  }
+
+  public boolean hasCategory(Category category) {
+    return categories.contains(category);
   }
 
   /* Building the Item */
   public boolean validComponent(int slot, ItemStack stack) {
-    if (slot > requiredComponents.length || slot < 0) {
+    if(slot > requiredComponents.length || slot < 0) {
       return false;
     }
 
@@ -43,14 +65,19 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
    * @return The built item or null if invalid input.
    */
   public ItemStack buildItemFromStacks(ItemStack[] stacks) {
-    Material[] materials = new Material[stacks.length];
+    List<Material> materials = new ArrayList<>(stacks.length);
+
+    if(stacks.length != requiredComponents.length) {
+      return null;
+    }
+
     // not a valid part arrangement for tis tool
-    for (int i = 0; i < stacks.length; i++) {
-      if (!validComponent(i, stacks[i])) {
+    for(int i = 0; i < stacks.length; i++) {
+      if(!validComponent(i, stacks[i])) {
         return null;
       }
 
-      materials[i] = TinkerUtil.getMaterialFromStack(stacks[i]);
+      materials.add(TinkerUtil.getMaterialFromStack(stacks[i]));
     }
 
     return buildItem(materials);
@@ -62,36 +89,64 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
    * @param materials Materials to build with. Have to be in the correct order. No nulls!
    * @return The built item or null if invalid input.
    */
-  public ItemStack buildItem(Material[] materials) {
+  public ItemStack buildItem(List<Material> materials) {
     ItemStack tool = new ItemStack(this);
-    NBTTagCompound basetag = new NBTTagCompound();
-    NBTTagCompound toolTag = buildTag(materials);
-    NBTTagCompound dataTag = buildData(materials);
-
-    basetag.setTag(getTagName(), toolTag);
-    basetag.setTag(Tags.TINKER_DATA, dataTag);
-    tool.setTagCompound(basetag);
+    tool.setTagCompound(buildItemNBT(materials));
 
     return tool;
   }
 
   /**
-   * Creates an NBT Tag with the materials that were used to build the item.
+   * Builds the NBT for a new tinker item with the given data.
+   *
+   * @param materials Materials to build with. Have to be in the correct order. No nulls!
+   * @return The built nbt
    */
-  private NBTTagCompound buildData(Material[] materials) {
-    NBTTagCompound tag = new NBTTagCompound();
-    for (int i = 0; i < materials.length; i++) {
-      tag.setString(String.valueOf(i), materials[i].identifier);
-    }
+  public NBTTagCompound buildItemNBT(List<Material> materials) {
+    NBTTagCompound basetag = new NBTTagCompound();
+    NBTTagCompound toolTag = buildTag(materials);
+    NBTTagCompound dataTag = buildData(materials);
 
-    return tag;
+    basetag.setTag(Tags.BASE_DATA, dataTag);
+    basetag.setTag(Tags.TOOL_DATA, toolTag);
+
+    // add traits
+    addMaterialTraits(basetag, materials);
+
+    return basetag;
   }
 
-  protected abstract NBTTagCompound buildTag(Material[] materials);
+  /**
+   * Creates an NBT Tag with the materials that were used to build the item.
+   */
+  private NBTTagCompound buildData(List<Material> materials) {
+    NBTTagCompound base = new NBTTagCompound();
+    NBTTagList materialList = new NBTTagList();
 
-  @Override
-  public String getTagName() {
-    return Tags.TOOL_BASE;
+    for(Material material : materials) {
+      materialList.appendTag(new NBTTagString(material.identifier));
+    }
+
+    // pre-type base-modifier list
+    NBTTagList modifierList = new NBTTagList();
+    // we cannot set the type directly, but it gets typed by adding a tag, so we add and remove one
+    modifierList.appendTag(new NBTTagString());
+    modifierList.removeTag(0);
+
+    base.setTag(Tags.BASE_MATERIALS, materialList);
+    base.setTag(Tags.BASE_MODIFIERS, modifierList);
+
+    return base;
+  }
+
+  public abstract NBTTagCompound buildTag(List<Material> materials);
+
+  public void addMaterialTraits(NBTTagCompound root, List<Material> materials) {
+    for(Material material : materials) {
+      for(ITrait trait : material.getAllTraits()) {
+        ToolBuilder.addTrait(root, trait, material.textColor);
+      }
+    }
   }
 
   /* Information */
@@ -107,22 +162,8 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   @Override
   public boolean updateItemStackNBT(NBTTagCompound nbt) {
     // when the itemstack is loaded from NBT we recalculate all the data
-    if (nbt.hasKey(Tags.TINKER_DATA)) {
-      NBTTagCompound data = nbt.getCompoundTag(Tags.TINKER_DATA);
-      List<Material> materials = new LinkedList<>();
-      int index = 0;
-      while (data.hasKey(String.valueOf(index))) {
-        // load the material from the data
-        String identifier = data.getString(String.valueOf(index));
-        // this will return Material.UNKNOWN if it doesn't exist (anymore)
-        Material mat = TinkerRegistry.getMaterial(identifier);
-        materials.add(mat);
-        index++;
-      }
-
-      NBTTagCompound toolTag = buildTag(materials.toArray(new Material[materials.size()]));
-      // update the tag
-      nbt.setTag(Tags.TOOL_BASE, toolTag);
+    if(nbt.hasKey(Tags.BASE_DATA)) {
+      ToolBuilder.rebuildTool(nbt, this);
     }
 
     // return value shoudln't matter since it's never checked
