@@ -34,10 +34,12 @@ public class TinkerTools extends TinkerPulse {
 
   // Tools
   public static Item pickaxe;
+  public static Item shovel;
 
   // Tool Parts
   public static ToolPart pickHead;
-
+  public static ToolPart shovelHead;
+  
   public static ToolPart toolrod;
   public static ToolPart binding;
 
@@ -50,11 +52,13 @@ public class TinkerTools extends TinkerPulse {
     MinecraftForge.EVENT_BUS.register(this);
 
     pickHead = registerItem(new ToolPart(), "PickHead");
+    shovelHead = registerItem(new ToolPart(), "ShovelHead");
 
     toolrod = registerItem(new ToolPart(), "ToolRod");
     binding = registerItem(new ToolPart(), "Binding");
 
     pickaxe = registerItem(new Pickaxe(), "Pickaxe");
+    shovel = registerItem(new Shovel(), "Shovel");
 
     diamondMod = new DiamondModifier();
 

@@ -1,0 +1,8 @@
+{
+    "parent": "tconstruct:item/tools/TinkerTool",
+    "textures": {
+        "layer0": "tconstruct:items/shovel/shovel_head",
+		"layer1": "tconstruct:items/shovel/shovel_handle",
+		"broken0": "tconstruct:items/shovel/broken_shovel_head"
+    }
+}

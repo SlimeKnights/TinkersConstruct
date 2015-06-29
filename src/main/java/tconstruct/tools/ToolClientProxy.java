@@ -11,6 +11,8 @@ import static tconstruct.tools.TinkerTools.binding;
 import static tconstruct.tools.TinkerTools.pickHead;
 import static tconstruct.tools.TinkerTools.pickaxe;
 import static tconstruct.tools.TinkerTools.toolrod;
+import static tconstruct.tools.TinkerTools.shovel;
+import static tconstruct.tools.TinkerTools.shovelHead;
 
 public class ToolClientProxy extends ClientProxy {
 
@@ -19,9 +21,13 @@ public class ToolClientProxy extends ClientProxy {
     //MinecraftForge.EVENT_BUS.register(new EventHandlerClient());
 
     registerToolModel(pickaxe);
+    registerToolModel(shovel);
+    
 
     // parts
     registerPartModel(pickHead);
+    registerPartModel(shovelHead);
+    
     registerPartModel(binding);
     registerPartModel(toolrod);
 
