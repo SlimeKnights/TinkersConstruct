@@ -62,8 +62,8 @@ public class ArmorProxyClient extends ArmorProxyCommon {
 	
 	public static TPlayerStats playerStats = new TPlayerStats();
 	
-	public static KnapsackInventory knapsack = playerStats.knapsack;
-	public static ArmorExtended armorExtended = playerStats.armor;
+	public static KnapsackInventory knapsack = new KnapsackInventory();
+	public static ArmorExtended armorExtended = new ArmorExtended();
 
 	@Override
 	public void preInit() {
