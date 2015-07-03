@@ -1,4 +1,5 @@
 {
     "default": "tconstruct:items/friedEgg",
-	"pickaxe": "tconstruct:items/pickaxe/modifier_diamond"
+	"pickaxe": "tconstruct:items/pickaxe/modifier_diamond",
+	"shovel": "tconstruct:items/shovel/modifier_diamond"
 }
