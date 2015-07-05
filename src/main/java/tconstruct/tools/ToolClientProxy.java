@@ -16,7 +16,9 @@ public class ToolClientProxy extends ClientProxy {
 
   @Override
   public void registerModels() {
-    //MinecraftForge.EVENT_BUS.register(new EventHandlerClient());
+    // blocks
+
+
 
     registerToolModel(pickaxe);
 

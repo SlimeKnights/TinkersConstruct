@@ -1,5 +1,6 @@
 package tconstruct.tools;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,6 +12,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import org.apache.logging.log4j.Logger;
 
@@ -22,6 +24,10 @@ import tconstruct.library.Util;
 import tconstruct.library.modifiers.IModifier;
 import tconstruct.library.modifiers.Modifier;
 import tconstruct.library.tools.ToolPart;
+import tconstruct.tools.block.BlockTable;
+import tconstruct.tools.block.ToolTableBlock;
+import tconstruct.tools.item.ItemTable;
+import tconstruct.tools.tileentity.TileTable;
 
 @Pulse(id = TinkerTools.PulseId, description = "This module contains all the tools and everything related to it.")
 public class TinkerTools extends TinkerPulse {
@@ -32,6 +38,9 @@ public class TinkerTools extends TinkerPulse {
   @SidedProxy(clientSide = "tconstruct.tools.ToolClientProxy", serverSide = "tconstruct.CommonProxy")
   public static CommonProxy proxy;
 
+  // Blocks
+  public static ToolTableBlock toolTables;
+
   // Tools
   public static Item pickaxe;
 
@@ -41,6 +50,7 @@ public class TinkerTools extends TinkerPulse {
   public static ToolPart toolrod;
   public static ToolPart binding;
 
+  // Modifiers
   public static IModifier diamondMod;
   public static IModifier fortifyMod;
 
@@ -48,6 +58,9 @@ public class TinkerTools extends TinkerPulse {
   public void preInit(FMLPreInitializationEvent event) {
     TinkerMaterials.registerToolMaterials();
     MinecraftForge.EVENT_BUS.register(this);
+
+    toolTables = registerBlock(new ToolTableBlock(), ItemTable.class, "ToolTables");
+    GameRegistry.registerTileEntity(TileTable.class, "Table");
 
     pickHead = registerItem(new ToolPart(), "PickHead");
 
@@ -91,6 +104,15 @@ public class TinkerTools extends TinkerPulse {
 
   @Handler
   public void init(FMLInitializationEvent event) {
+
+    // todo: remove debug recipe stuff
+    ItemStack table = BlockTable.createItemstackWithBlock(toolTables, 1, Blocks.iron_block, 0);
+
+    GameRegistry.addRecipe(new ShapedOreRecipe(table,
+                                 "ABA",
+                                 "A A",
+                                 'A', "cobblestone",
+                                 'B', Item.getItemFromBlock(Blocks.iron_block)));
 
     /*
     ToolPart a, b;

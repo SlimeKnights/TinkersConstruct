@@ -32,7 +32,7 @@ public class ToolClientEvents {
   public void onModelBake(ModelBakeEvent event) {
     // replace the baked table models with smart variants
 
-    //replaceModel(new ModelResourceLocation(LOCATION_ToolTable, "type=stenciltable"), MODEL_StencilTable, event);
+    replaceModel(new ModelResourceLocation(LOCATION_ToolTable, "type=stenciltable"), MODEL_StencilTable, event);
     replaceModel(new ModelResourceLocation(LOCATION_ToolTable, "type=partbuilder"), MODEL_PartBuilder, event);
     replaceModel(new ModelResourceLocation(LOCATION_ToolForge, "normal"), MODEL_ToolForge, event);
     //replaceModel(new ModelResourceLocation(LOCATION_ToolTable, "type=toolstation"), MODEL_ToolStation, event);

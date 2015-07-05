@@ -17,9 +17,12 @@ import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IRetexturableModel;
 import net.minecraftforge.client.model.ISmartBlockModel;
+import net.minecraftforge.common.property.IExtendedBlockState;
 
 import java.util.List;
 import java.util.Map;
+
+import tconstruct.tools.block.BlockTable;
 
 public class BakedTableModel implements ISmartBlockModel, IFlexibleBakedModel {
 
@@ -44,6 +47,11 @@ public class BakedTableModel implements ISmartBlockModel, IFlexibleBakedModel {
   public IBakedModel handleBlockState(IBlockState state) {
     // get texture from state
     String texture = null; // todo: get texture from state
+
+    if(state instanceof IExtendedBlockState) {
+      IExtendedBlockState extendedState = (IExtendedBlockState) state;
+      texture = extendedState.getValue(BlockTable.TEXTURE);
+    }
 
     if(texture == null) {
       return standard;
