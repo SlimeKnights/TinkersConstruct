@@ -10,13 +10,13 @@ import java.util.List;
 import tconstruct.library.TinkerRegistry;
 
 // todo: move to Mantle
-
 /**
  * Utility class that allows to find a specific subset of items in a list of itemstacks.
  * Matches can be found through oredictionary, simple nbt-independant item-meta combinations etc.
  *
  * The match returned by this class can then be used to remove the found recipe match from the items.
  */
+// MANTLE
 public abstract class RecipeMatch {
 
   public abstract Match matches(ItemStack[] stacks);

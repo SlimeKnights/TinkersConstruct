@@ -25,7 +25,7 @@ public final class TinkerMaterials {
     wood = new Material("Wood", 0xffaa00, 0xffaa00, 0xffcc22, EnumChatFormatting.YELLOW);
     stone = new Material("Stone", 0x555555, EnumChatFormatting.DARK_GRAY);
     netherrack =
-        new Material("Netherrack", new MaterialRenderInfo.MultiplicativeTexture("minecraft:blocks/lava_still"),
+        new Material("Netherrack", new MaterialRenderInfo.BlockTexture(Blocks.netherrack),
                      EnumChatFormatting.DARK_RED);
 
     stonebound = new StoneboundTrait();

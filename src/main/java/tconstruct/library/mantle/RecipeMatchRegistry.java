@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Contains a set of matches. Allows you to easily find if a set of itemstacks matches one of them.
  */
+// MANTLE
 public class RecipeMatchRegistry {
   protected final List<RecipeMatch> items = Lists.newArrayList();
 
