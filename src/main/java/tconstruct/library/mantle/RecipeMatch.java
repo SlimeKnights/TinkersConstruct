@@ -90,7 +90,7 @@ public abstract class RecipeMatch {
   /** A specific amount of an oredicted material is needed to match. */
   public static class Oredict extends RecipeMatch {
 
-    private final String oredictEntry; // todo: change this to the actual list in the oredict
+    private final List<ItemStack> oredictEntry; // todo: change this to the actual list in the oredict
     private final int amountNeeded;
     private final int amountMatched;
 
@@ -99,7 +99,7 @@ public abstract class RecipeMatch {
     }
 
     public Oredict(String oredictEntry, int amountNeeded, int amountMatched) {
-      this.oredictEntry = oredictEntry;
+      this.oredictEntry = OreDictionary.getOres(oredictEntry);
       this.amountNeeded = amountNeeded;
       this.amountMatched = amountMatched;
     }
@@ -109,7 +109,7 @@ public abstract class RecipeMatch {
       List<ItemStack> found = Lists.newLinkedList();
       int stillNeeded = amountNeeded;
 
-      for(ItemStack ore : OreDictionary.getOres(oredictEntry)) {
+      for(ItemStack ore : oredictEntry) {
         for(ItemStack stack : stacks) {
           if(OreDictionary.itemMatches(ore, stack, false)) {
             // add the amount found to the list
