@@ -96,14 +96,27 @@ public interface MaterialRenderInfo {
   /**
    * Uses a block texture instead of a color to create the texture
    */
-  class BlockTexture extends MultiplicativeTexture {
+  class BlockTexture implements MaterialRenderInfo {
+    protected String texturePath;
 
     public BlockTexture(Block block) {
-      super("");
       ResourceLocation blockloc = new ResourceLocation(block.getDefaultState().toString());
       blockloc = new ResourceLocation(blockloc.getResourceDomain(), "blocks/" + blockloc.getResourcePath());
 
       texturePath = blockloc.toString();
+    }
+
+    @Override
+    public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
+      TextureAtlasSprite blockTexture = Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(texturePath);
+
+      if(blockTexture == null) {
+        blockTexture = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
+      }
+
+      TextureColoredTexture sprite = new TextureColoredTexture(blockTexture, baseTexture, location);
+      sprite.stencil = false;
+      return sprite;
     }
   }
 }
