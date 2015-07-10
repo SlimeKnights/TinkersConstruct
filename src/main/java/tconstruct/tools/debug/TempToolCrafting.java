@@ -1,4 +1,4 @@
-package tconstruct.tools;
+package tconstruct.tools.debug;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;

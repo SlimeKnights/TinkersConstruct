@@ -1,4 +1,4 @@
-package tconstruct.tools;
+package tconstruct.tools.modifiers;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -9,6 +9,7 @@ import tconstruct.library.modifiers.ModifierAspect;
 import tconstruct.library.modifiers.TraitModifier;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.ToolTagUtil;
+import tconstruct.tools.TinkerMaterials;
 
 // Only for test purposes
 public class StoneboundModifier extends TraitModifier {

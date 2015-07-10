@@ -10,7 +10,7 @@ import tconstruct.library.client.model.MaterialModelLoader;
 import static tconstruct.tools.TinkerTools.binding;
 import static tconstruct.tools.TinkerTools.pickHead;
 import static tconstruct.tools.TinkerTools.pickaxe;
-import static tconstruct.tools.TinkerTools.toolrod;
+import static tconstruct.tools.TinkerTools.toolRod;
 
 public class ToolClientProxy extends ClientProxy {
 
@@ -25,7 +25,7 @@ public class ToolClientProxy extends ClientProxy {
     // parts
     registerPartModel(pickHead);
     registerPartModel(binding);
-    registerPartModel(toolrod);
+    registerPartModel(toolRod);
 
     registerModifierModel(TinkerTools.diamondMod, Util.getResource("models/item/modifiers/Diamond"));
     registerModifierModel(TinkerTools.fortifyMod, Util.getResource("models/item/modifiers/Fortify"));

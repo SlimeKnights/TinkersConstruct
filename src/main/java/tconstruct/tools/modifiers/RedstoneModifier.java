@@ -1,4 +1,4 @@
-package tconstruct.tools;
+package tconstruct.tools.modifiers;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -36,6 +36,7 @@ public class RedstoneModifier extends Modifier {
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
     ModifierNBT.IntegerNBT data = ModifierNBT.readInteger(modifierTag);
 
+    // todo: This is a TEST IMPLEMENTATION!
     NBTTagCompound tag = TagUtil.getToolTag(rootCompound);
     float speed = tag.getFloat(Tags.MININGSPEED);
     speed += data.current/10f;

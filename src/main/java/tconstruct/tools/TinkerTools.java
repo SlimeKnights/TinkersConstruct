@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import org.apache.logging.log4j.Logger;
@@ -19,6 +20,7 @@ import org.apache.logging.log4j.Logger;
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import tconstruct.CommonProxy;
+import tconstruct.TinkerItems;
 import tconstruct.TinkerPulse;
 import tconstruct.library.Util;
 import tconstruct.library.modifiers.IModifier;
@@ -26,7 +28,12 @@ import tconstruct.library.modifiers.Modifier;
 import tconstruct.library.tools.ToolPart;
 import tconstruct.tools.block.BlockTable;
 import tconstruct.tools.block.ToolTableBlock;
+import tconstruct.tools.debug.TempToolCrafting;
+import tconstruct.tools.debug.TempToolModifying;
 import tconstruct.tools.item.ItemTable;
+import tconstruct.tools.modifiers.DiamondModifier;
+import tconstruct.tools.modifiers.RedstoneModifier;
+import tconstruct.tools.modifiers.StoneboundModifier;
 import tconstruct.tools.tileentity.TileTable;
 
 @Pulse(id = TinkerTools.PulseId, description = "This module contains all the tools and everything related to it.")
@@ -47,30 +54,59 @@ public class TinkerTools extends TinkerPulse {
   // Tool Parts
   public static ToolPart pickHead;
 
-  public static ToolPart toolrod;
+  public static ToolPart toolRod;
   public static ToolPart binding;
 
   // Modifiers
   public static IModifier diamondMod;
   public static IModifier fortifyMod;
+  public static IModifier redstoneMod;
 
+
+  // PRE-INITIALIZATION
   @Handler
   public void preInit(FMLPreInitializationEvent event) {
     TinkerMaterials.registerToolMaterials();
-    MinecraftForge.EVENT_BUS.register(this);
 
+    // register items
+    registerToolParts();
+    registerTools();
+    registerModifiers();
+
+    // register blocks
     toolTables = registerBlock(new ToolTableBlock(), ItemTable.class, "ToolTables");
     GameRegistry.registerTileEntity(TileTable.class, "Table");
 
-    pickHead = registerItem(new ToolPart(), "PickHead");
+    proxy.registerModels();
 
-    toolrod = registerItem(new ToolPart(), "ToolRod");
-    binding = registerItem(new ToolPart(), "Binding");
 
+    // debug things
+    // todo: remove. ignore this
+    new StoneboundModifier();
+
+    GameRegistry.addRecipe(new TempToolCrafting());
+    GameRegistry.addRecipe(new TempToolModifying());
+
+    // register events
+    MinecraftForge.EVENT_BUS.register(new ToolClientEvents());
+  }
+
+  private void registerToolParts() {
+    pickHead = registerItem(new ToolPart(), "partPickHead");
+
+    toolRod = registerItem(new ToolPart(), "partToolRod");
+    binding = registerItem(new ToolPart(), "partBinding");
+  }
+
+  private void registerTools() {
     pickaxe = registerItem(new Pickaxe(), "Pickaxe");
+  }
 
+  private void registerModifiers() {
     diamondMod = new DiamondModifier();
+    redstoneMod = new RedstoneModifier(50);
 
+    // todo: fix
     fortifyMod = new Modifier("Fortify") {
 
       @Override
@@ -90,21 +126,12 @@ public class TinkerTools extends TinkerPulse {
         return true;
       }
     };
-
-    proxy.registerModels();
-
-    new StoneboundModifier();
-    new RedstoneModifier(50);
-
-    GameRegistry.addRecipe(new TempToolCrafting());
-    GameRegistry.addRecipe(new TempToolModifying());
-
-    MinecraftForge.EVENT_BUS.register(new ToolClientEvents());
   }
 
+
+  // INITIALIZATION
   @Handler
   public void init(FMLInitializationEvent event) {
-
     // todo: remove debug recipe stuff
     ItemStack table = BlockTable.createItemstackWithBlock(toolTables, 1, Blocks.iron_block, 0);
 
@@ -114,62 +141,14 @@ public class TinkerTools extends TinkerPulse {
                                  'A', "cobblestone",
                                  'B', Item.getItemFromBlock(Blocks.iron_block)));
 
-    /*
-    ToolPart a, b;
-    a = new ToolPart();
-    b = new ToolPart();
 
-    GameRegistry.registerItem(a, "ItemA");
-    GameRegistry.registerItem(b, "ItemB");
-
-    PartMaterialWrapper c, d;
-    c = new PartMaterialWrapper(a, ToolMaterialStats.TYPE);
-    d = new PartMaterialWrapper(b, ToolMaterialStats.TYPE);
-
-    TinkersItem testTool = new TestTool(c, d);
-
-    GameRegistry.registerItem(testTool, "TestTool2");
-
-    ItemStack e, f;
-    e = new ItemStack(a, 1, TinkerMaterials.stone.metadata);
-    f = new ItemStack(b, 1, TinkerMaterials.wood.metadata);
-
-    ItemStack result = testTool.buildItemFromStacks(new ItemStack[]{e, f});
-    log.info(result.hasTagCompound());
-
-    TestBlock testBlock = new TestBlock();
-    GameRegistry.registerBlock(testBlock, "TestBlock");
-
-    if(FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT && false) {
-      Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(testTool,
-                                                                             new ItemMeshDefinition() {
-                                                                               @Override
-                                                                               public ModelResourceLocation getModelLocation(
-                                                                                   ItemStack stack) {
-                                                                                 return new ModelResourceLocation(
-                                                                                     "TConstruct:TestTool2",
-                                                                                     "inventory");
-                                                                               }
-                                                                             });
-      Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().registerBlockWithStateMapper(
-          testBlock, new StateMapperBase() {
-            @Override
-            protected ModelResourceLocation getModelResourceLocation(IBlockState p_178132_1_) {
-              return new ModelResourceLocation("TConstruct:TestBlock");
-            }
-          });
-
-    }
-    */
   }
 
+
+  // POST-INITIALIZATION
   @Handler
   public void postInit(FMLPostInitializationEvent event) {
     //register models
-
-  }
-
-  private void registerTools() {
 
   }
 }

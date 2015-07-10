@@ -15,7 +15,7 @@ public class Pickaxe extends ToolCore {
   // Pick-head, binding, tool-rod
   public Pickaxe() {
     super(new PartMaterialType.ToolPartType(TinkerTools.pickHead),
-          new PartMaterialType.ToolPartType(TinkerTools.toolrod),
+          new PartMaterialType.ToolPartType(TinkerTools.toolRod),
           new PartMaterialType.ToolPartType(TinkerTools.binding));
 
     addCategory(Category.HARVEST);
