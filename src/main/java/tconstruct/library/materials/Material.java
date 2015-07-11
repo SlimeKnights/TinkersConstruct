@@ -7,6 +7,9 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Collection;
 import java.util.Map;
@@ -14,6 +17,7 @@ import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 
+import tconstruct.library.TinkerAPIException;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
 import tconstruct.library.client.MaterialRenderInfo;
@@ -23,7 +27,7 @@ import tconstruct.library.traits.ITrait;
 
 public class Material {
 
-  public static final Material UNKNOWN = new Material();
+  public static final Material UNKNOWN = new Material("Unknown");
   public static final String LOCALIZATION_STRING = "material.%s.name";
 
   /**
@@ -37,15 +41,24 @@ public class Material {
    */
   protected RecipeMatchRegistry materialItems;
 
-  /** The fluid associated with this material */
+  /** The fluid associated with this material, can be null */
   protected Fluid fluid;
 
+  /** Material can be crafted into parts in the PartBuilder */
+  public boolean craftable;
+
+  /** Material can be cast into parts using the Smeltery and a Cast. Fluid must be NON NULL */
+  public boolean castable;
+
+
   /**
+   * Client-Information
    * How the material will be rendered on tinker tools etc.
    */
-  public final MaterialRenderInfo renderInfo;
-
-  public final EnumChatFormatting textColor; // used in tooltips and other text
+  @SideOnly(Side.CLIENT)
+  public MaterialRenderInfo renderInfo;// = new MaterialRenderInfo.Default(0xffffff);
+  @SideOnly(Side.CLIENT)
+  public EnumChatFormatting textColor;// = EnumChatFormatting.WHITE; // used in tooltips and other text
 
   /**
    * This item, if it is not null, represents the material for rendering.
@@ -60,33 +73,53 @@ public class Material {
   protected final Map<String, IMaterialStats> stats = new TreeMap<>();
   protected final Map<String, ITrait> traits = new TreeMap<>();
 
-  private Material() {
-    this.identifier = "Unknown";
-    this.renderInfo = new MaterialRenderInfo.Default(0xffffff);
-    this.textColor = EnumChatFormatting.WHITE;
-  }
-
-  // simple white material
   public Material(String identifier) {
-    this(identifier, 0xffffff, EnumChatFormatting.GRAY);
-  }
-
-  // one-colored material
-  public Material(String identifier, int color, EnumChatFormatting textColor) {
-    this(identifier, new MaterialRenderInfo.Default(color), textColor);
-  }
-
-  // multi-colored material
-  public Material(String identifier, int colorLow, int colorMid, int colorHigh,
-                  EnumChatFormatting textColor) {
-    this(identifier, new MaterialRenderInfo.Default(colorLow, colorMid, colorHigh), textColor);
-  }
-
-  // complex material with 3 colors and a real surface texture!
-  public Material(String identifier, MaterialRenderInfo renderInfo, EnumChatFormatting textColor) {
     this.identifier = identifier;
+    if(FMLCommonHandler.instance().getSide().isClient()) {
+      setRenderInfo(0xffffff, EnumChatFormatting.WHITE);
+    }
+  }
+
+  /** Associates this fluid with the material. Used for melting/casting items. */
+  public Material setFluid(Fluid fluid) {
+    if(!FluidRegistry.isFluidRegistered(fluid)) {
+      TinkerRegistry.log.warn("Materials cannot have an unregistered fluid associated with them!");
+    }
+    this.fluid = fluid;
+    return this;
+  }
+
+  /** Setting this to true allows to craft parts in the PartBuilder */
+  public Material setCraftable(boolean craftable) {
+    this.craftable = craftable;
+    return this;
+  }
+
+
+  /** Setting this to true allows to cast parts of this material. NEEDS TO HAVE A FLUID SET BEFOREHAND! */
+  public Material setCastable(boolean castable) {
+    if(!hasFluid()) {
+      throw new TinkerAPIException("Castable materials need a Fluid set");
+    }
+    this.castable = castable;
+    return this;
+  }
+
+  /**
+   * The display information for the Material. You should totally set this if you want your material to be visible.
+   *
+   * @param renderInfo How the textures for the material are generated
+   * @param textColor  The color of the text associated with the material. Tooltips etc.
+   */
+  @SideOnly(Side.CLIENT)
+  public void setRenderInfo(MaterialRenderInfo renderInfo, EnumChatFormatting textColor) {
     this.renderInfo = renderInfo;
     this.textColor = textColor;
+  }
+
+  @SideOnly(Side.CLIENT)
+  public void setRenderInfo(int color, EnumChatFormatting textColor) {
+    setRenderInfo(new MaterialRenderInfo.Default(color), textColor);
   }
 
   /* Stats */
@@ -94,8 +127,9 @@ public class Material {
   /**
    * Do not use this function directly stats. Use TinkerRegistry.addMaterialStats instead.
    */
-  public void addStats(IMaterialStats materialStats) {
+  public Material addStats(IMaterialStats materialStats) {
     this.stats.put(materialStats.getMaterialType(), materialStats);
+    return this;
   }
 
   /**
@@ -140,12 +174,13 @@ public class Material {
   /**
    * Do not use this function with unregistered traits. Use TinkerRegistry.addMaterialTrait instead.
    */
-  public void addTrait(ITrait materialTrait) {
+  public Material addTrait(ITrait materialTrait) {
     // rgister unregistered traits
     if(TinkerRegistry.getTrait(materialTrait.getIdentifier()) == null) {
       TinkerRegistry.addTrait(materialTrait);
     }
     this.traits.put(materialTrait.getIdentifier(), materialTrait);
+    return this;
   }
 
   /**
@@ -171,13 +206,6 @@ public class Material {
 
   public Fluid getFluid() {
     return fluid;
-  }
-
-  public void setFluid(Fluid fluid) {
-    if(!FluidRegistry.isFluidRegistered(fluid)) {
-      TinkerRegistry.log.warn("Materials cannot have an unregistered fluid associated with them!");
-    }
-    this.fluid = fluid;
   }
 
   public RecipeMatch.Match matches(ItemStack... stacks) {
@@ -221,5 +249,9 @@ public class Material {
   public String getLocalizedName() {
     return StatCollector
         .translateToLocal(String.format(LOCALIZATION_STRING, Util.sanitizeLocalizationString(identifier)));
+  }
+
+  public String getIdentifier() {
+    return identifier;
   }
 }

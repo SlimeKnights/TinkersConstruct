@@ -83,19 +83,21 @@ public class TinkerTools extends TinkerPulse {
     // debug things
     // todo: remove. ignore this
     new StoneboundModifier();
-
     GameRegistry.addRecipe(new TempToolCrafting());
     GameRegistry.addRecipe(new TempToolModifying());
 
     // register events
-    MinecraftForge.EVENT_BUS.register(new ToolClientEvents());
+    if(event.getSide().isClient()) {
+      TinkerMaterials.registerMaterialRendering();
+      MinecraftForge.EVENT_BUS.register(new ToolClientEvents());
+    }
   }
 
   private void registerToolParts() {
-    pickHead = registerItem(new ToolPart(), "partPickHead");
+    pickHead = registerItem(new ToolPart(), "PickHead");
 
-    toolRod = registerItem(new ToolPart(), "partToolRod");
-    binding = registerItem(new ToolPart(), "partBinding");
+    toolRod = registerItem(new ToolPart(), "ToolRod");
+    binding = registerItem(new ToolPart(), "Binding");
   }
 
   private void registerTools() {

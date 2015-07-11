@@ -3,6 +3,8 @@ package tconstruct.tools;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.client.MaterialRenderInfo;
@@ -26,20 +28,27 @@ public final class TinkerMaterials {
   }
 
   static {
-    wood = new Material("Wood", 0xffaa00, 0xffaa00, 0xffcc22, EnumChatFormatting.YELLOW);
-    stone = new Material("Stone", 0x555555, EnumChatFormatting.DARK_GRAY);
-    netherrack =
-        new Material("Netherrack", new MaterialRenderInfo.BlockTexture(Blocks.netherrack),
-                     EnumChatFormatting.DARK_RED);
+    wood = new Material("Wood");
+    stone = new Material("Stone");
+    netherrack = new Material("Netherrack");
 
-    xu = new Material("Unstable", new MaterialRenderInfo() {
+    xu = new Material("Unstable");
+
+    stonebound = new StoneboundTrait();
+  }
+
+  @SideOnly(Side.CLIENT)
+  public static void registerMaterialRendering() {
+    wood.setRenderInfo(new MaterialRenderInfo.Default(0xffaa00, 0xffaa00, 0xffcc22), EnumChatFormatting.YELLOW);
+    stone.setRenderInfo(0x555555, EnumChatFormatting.DARK_GRAY);
+    netherrack.setRenderInfo(new MaterialRenderInfo.BlockTexture(Blocks.netherrack), EnumChatFormatting.DARK_RED);
+
+    xu.setRenderInfo(new MaterialRenderInfo() {
       @Override
       public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
         return new ExtraUtilityTexture(baseTexture, location);
       }
     }, EnumChatFormatting.GRAY);
-
-    stonebound = new StoneboundTrait();
   }
 
   public static void registerMaterials() {
