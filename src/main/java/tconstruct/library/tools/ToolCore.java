@@ -1,5 +1,7 @@
 package tconstruct.library.tools;
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -8,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import scala.actors.threadpool.Arrays;
@@ -80,8 +83,12 @@ public abstract class ToolCore extends TinkersItem {
   @Override
   public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
     for(Material head : TinkerRegistry.getAllMaterials()) {
-      // todo: make this real?
-      ItemStack tool = buildItem(Arrays.asList(new Material[]{head, TinkerMaterials.wood, TinkerMaterials.stone}));
+      List<Material> mats = new ArrayList<Material>(requiredComponents.length);
+
+      for(int i = 0; i < requiredComponents.length; i++)
+        mats.add(head);
+
+      ItemStack tool = buildItem(mats);
       subItems.add(tool);
     }
   }
