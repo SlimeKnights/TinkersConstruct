@@ -3,6 +3,7 @@ package tconstruct.library;
 import com.google.common.base.CharMatcher;
 
 import gnu.trove.map.hash.THashMap;
+import gnu.trove.set.hash.THashSet;
 import gnu.trove.set.hash.TLinkedHashSet;
 
 import net.minecraftforge.common.MinecraftForge;
@@ -43,6 +44,8 @@ public final class TinkerRegistry {
   private static final Map<String, String> materialRegisteredByMod = new THashMap<>();
   private static final Map<String, Map<String, String>> statRegisteredByMod = new THashMap<>();
   private static final Map<String, Map<String, String>> traitRegisteredByMod = new THashMap<>();
+
+  private static final Set<String> cancelledMaterials = new THashSet<>(); // contains all cancelled materials, allows us to eat calls regarding the material silently
 
   public static void addMaterial(Material material, IMaterialStats stats, ITrait trait) {
     addMaterial(material, stats);
@@ -89,6 +92,7 @@ public final class TinkerRegistry {
     if(MinecraftForge.EVENT_BUS.post(event)) {
       // event cancelled
       log.trace("Addition of material {} cancelled by event", material.getIdentifier());
+      cancelledMaterials.add(material.getIdentifier());
       return;
     }
 
@@ -124,6 +128,7 @@ public final class TinkerRegistry {
   }
 
   public static void addMaterialStats(String materialIdentifier, IMaterialStats stats) {
+    if(cancelledMaterials.contains(materialIdentifier)) return;
     if(!materials.containsKey(materialIdentifier)) {
       error(String.format("Could not add Stats \"%s\" to \"%s\": Unknown Material", stats.getIdentifier(),
                           materialIdentifier));
@@ -139,6 +144,7 @@ public final class TinkerRegistry {
       error(String.format("Could not add Stats \"%s\": Material is null", stats.getIdentifier()));
       return;
     }
+    if(cancelledMaterials.contains(material.identifier)) return;
 
     String identifier = material.identifier;
     // duplicate stats
@@ -177,6 +183,7 @@ public final class TinkerRegistry {
   }
 
   public static void addMaterialTrait(String materialIdentifier, ITrait trait) {
+    if(cancelledMaterials.contains(materialIdentifier)) return;
     if(!materials.containsKey(materialIdentifier)) {
       error(String.format("Could not add Trait \"%s\" to \"%s\": Unknown Material",
                           trait.getIdentifier(), materialIdentifier));
@@ -192,6 +199,7 @@ public final class TinkerRegistry {
       error(String.format("Could not add Trait \"%s\": Material is null", trait.getIdentifier()));
       return;
     }
+    if(cancelledMaterials.contains(material.identifier)) return;
 
     String identifier = material.identifier;
     // duplicate traits
