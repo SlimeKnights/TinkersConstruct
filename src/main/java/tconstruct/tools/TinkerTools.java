@@ -36,7 +36,7 @@ import tconstruct.tools.modifiers.RedstoneModifier;
 import tconstruct.tools.modifiers.StoneboundModifier;
 import tconstruct.tools.tileentity.TileTable;
 
-@Pulse(id = TinkerTools.PulseId, description = "This module contains all the tools and everything related to it.")
+@Pulse(id = TinkerTools.PulseId, description = "All the tools and everything related to it.")
 public class TinkerTools extends TinkerPulse {
 
   public static final String PulseId = "TinkerTools";

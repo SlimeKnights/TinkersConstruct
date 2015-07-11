@@ -6,6 +6,8 @@ import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import tconstruct.library.Util;
+import tconstruct.smeltery.TinkerSmeltery;
+import tconstruct.tools.TinkerTools;
 
 /**
  * Just a small helper class that provides some function for cleaner Pulses.
@@ -16,6 +18,14 @@ import tconstruct.library.Util;
  */
 // MANTLE
 public abstract class TinkerPulse {
+  protected static boolean isToolsLoaded() {
+    return TConstruct.pulseManager.isPulseLoaded(TinkerTools.PulseId);
+  }
+
+  protected static boolean isSmelteryLoaded() {
+    return TConstruct.pulseManager.isPulseLoaded(TinkerSmeltery.PulseId);
+  }
+
 
   /**
    * Sets the correct unlocalized name and registers the item.
