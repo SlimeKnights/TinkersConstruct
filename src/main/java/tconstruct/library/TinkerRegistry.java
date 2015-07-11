@@ -114,7 +114,7 @@ public final class TinkerRegistry {
 
   public static void addMaterialStats(String materialIdentifier, IMaterialStats stats) {
     if(!materials.containsKey(materialIdentifier)) {
-      error(String.format("Could not add Stats \"%s\" to \"%s\": Unknown Material", stats.getMaterialType(),
+      error(String.format("Could not add Stats \"%s\" to \"%s\": Unknown Material", stats.getIdentifier(),
                           materialIdentifier));
       return;
     }
@@ -125,22 +125,28 @@ public final class TinkerRegistry {
 
   public static void addMaterialStats(Material material, IMaterialStats stats) {
     if(material == null) {
-      error(String.format("Could not add Stats \"%s\": Material is null", stats.getMaterialType()));
+      error(String.format("Could not add Stats \"%s\": Material is null", stats.getIdentifier()));
       return;
     }
 
     String identifier = material.identifier;
     // duplicate stats
-    if(material.getStats(stats.getMaterialType()) != null) {
+    if(material.getStats(stats.getIdentifier()) != null) {
       String registeredBy = "Unknown";
       Map<String, String> matReg = statRegisteredByMod.get(identifier);
       if(matReg != null) {
-        registeredBy = matReg.get(stats.getMaterialType());
+        registeredBy = matReg.get(stats.getIdentifier());
       }
 
       error(String.format(
           "Could not add Stats to \"%s\": Stats of type \"%s\" were already registered by %s",
-          identifier, stats.getMaterialType(), registeredBy));
+          identifier, stats.getIdentifier(), registeredBy));
+      return;
+    }
+
+    // ensure there are default stats present
+    if(Material.UNKNOWN.getStats(stats.getIdentifier()) == null) {
+      error("Could not add Stat of type \"%s\": Default Material does not have default stats for said type. Please add default-values to the default material \"unknown\" first.", stats.getIdentifier());
       return;
     }
 
@@ -232,7 +238,7 @@ public final class TinkerRegistry {
     if(!statRegisteredByMod.containsKey(materialIdentifier)) {
       statRegisteredByMod.put(materialIdentifier, new HashMap<String, String>());
     }
-    statRegisteredByMod.get(materialIdentifier).put(stats.getMaterialType(), trace);
+    statRegisteredByMod.get(materialIdentifier).put(stats.getIdentifier(), trace);
   }
 
   static void putTraitTrace(String materialIdentifier, ITrait trait, String trace) {

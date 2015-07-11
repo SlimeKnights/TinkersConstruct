@@ -9,7 +9,7 @@ public class AbstractMaterialStats implements IMaterialStats {
   }
 
   @Override
-  public String getMaterialType() {
+  public String getIdentifier() {
     return materialType;
   }
 }

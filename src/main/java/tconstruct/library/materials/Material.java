@@ -27,8 +27,12 @@ import tconstruct.library.traits.ITrait;
 
 public class Material {
 
-  public static final Material UNKNOWN = new Material("Unknown");
+  public static final Material UNKNOWN = new Material("unknown");
   public static final String LOCALIZATION_STRING = "material.%s.name";
+
+  static {
+    UNKNOWN.addStats(new ToolMaterialStats(0, 1, 1, 1, 0));
+  }
 
   /**
    * This String uniquely identifies a material.
@@ -128,7 +132,7 @@ public class Material {
    * Do not use this function directly stats. Use TinkerRegistry.addMaterialStats instead.
    */
   public Material addStats(IMaterialStats materialStats) {
-    this.stats.put(materialStats.getMaterialType(), materialStats);
+    this.stats.put(materialStats.getIdentifier(), materialStats);
     return this;
   }
 
@@ -141,7 +145,7 @@ public class Material {
     }
 
     for(IMaterialStats stat : stats.values()) {
-      if(identifier.equals(stat.getMaterialType())) {
+      if(identifier.equals(stat.getIdentifier())) {
         return stat;
       }
     }
