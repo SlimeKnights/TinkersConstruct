@@ -177,7 +177,7 @@ public class TinkerArmor
         // "ingotNaturalAluminum"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerArmor.heartCanister, 1, 0), " # ", "#B#", " # ", '#', "ingotTin", 'B', Items.bone));
 
-        GameRegistry.addRecipe(new ItemStack(TinkerArmor.diamondApple), " d ", "d#d", " d ", 'd', new ItemStack(Items.diamond), '#', new ItemStack(Items.apple));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TinkerArmor.diamondApple), " d ", "d#d", " d ", 'd', "gemDiamond", '#', new ItemStack(Items.apple)));
         GameRegistry.addShapelessRecipe(new ItemStack(TinkerArmor.heartCanister, 1, 2), new ItemStack(TinkerArmor.diamondApple), new ItemStack(TinkerTools.materials, 1, 8), new ItemStack(TinkerArmor.heartCanister, 1, 0), new ItemStack(TinkerArmor.heartCanister, 1, 1));
         GameRegistry.addShapelessRecipe(new ItemStack(TinkerArmor.heartCanister, 1, 1), new ItemStack(TinkerArmor.heartCanister, 1, 3));
         GameRegistry.addShapelessRecipe(new ItemStack(TinkerArmor.heartCanister, 1, 4), new ItemStack(TinkerArmor.heartCanister, 1, 2), new ItemStack(TinkerArmor.heartCanister, 1, 3), new ItemStack(Items.golden_apple, 1, 1));
@@ -193,12 +193,12 @@ public class TinkerArmor
         ItemStack leather = new ItemStack(Items.leather);
         ItemStack glass = new ItemStack(Blocks.glass);
         ItemStack string = new ItemStack(Items.string);
-        GameRegistry.addShapedRecipe(travelGoggles.getDefaultItem(), "# #", "q#q", "g g", '#', leather, 'q', glass, 'g', new ItemStack(Items.gold_ingot));
-        GameRegistry.addRecipe(new ShapedOreRecipe(travelWings.getDefaultItem(), "g g", "i#i", "i i", '#', Items.ender_pearl, 'g', Items.gold_ingot, 'i', "ingotBronze"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(travelGoggles.getDefaultItem(), "# #", "q#q", "g g", '#', leather, 'q', "blockGlass", 'g', "ingotGold"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(travelWings.getDefaultItem(), "g g", "i#i", "i i", '#', Items.ender_pearl, 'g', "ingotGold", 'i', "ingotBronze"));
         GameRegistry.addRecipe(new ShapedOreRecipe(travelVest.getDefaultItem(), "#w#", "#i#", "#w#", '#', leather, 'i', "ingotAluminum", 'w', new ItemStack(Blocks.wool, 1, Short.MAX_VALUE)));
         GameRegistry.addRecipe(new ShapedOreRecipe(travelBoots.getDefaultItem(), "#s#", "#i#", "#s#", '#', leather, 's', string, 'i', "ingotAluminum"));
         GameRegistry.addShapedRecipe(travelGlove.getDefaultItem(), "  #", "###", " ##", '#', leather);
-        GameRegistry.addRecipe(new ShapedOreRecipe(travelBelt.getDefaultItem(), "###", "ici", "###", '#', leather, 'c', new ItemStack(Blocks.chest), 'i', "ingotAluminum"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(travelBelt.getDefaultItem(), "###", "ici", "###", '#', leather, 'c', "chestWood", 'i', "ingotAluminum"));
     }
 
     protected static void addRecipesForDryingRack ()
