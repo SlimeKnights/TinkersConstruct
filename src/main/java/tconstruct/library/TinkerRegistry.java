@@ -5,7 +5,9 @@ import com.google.common.base.CharMatcher;
 import gnu.trove.map.hash.THashMap;
 import gnu.trove.set.hash.TLinkedHashSet;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.eventhandler.Event;
 
 import org.apache.logging.log4j.Logger;
 
@@ -14,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import tconstruct.library.events.MaterialEvent;
 import tconstruct.library.materials.IMaterialStats;
 import tconstruct.library.materials.Material;
 import tconstruct.library.modifiers.IModifier;
@@ -78,6 +81,14 @@ public final class TinkerRegistry {
           "Could not register Material \"%s\": It was already registered by %s",
           material.identifier,
           registeredBy));
+      return;
+    }
+
+    MaterialEvent.MaterialRegisterEvent event = new MaterialEvent.MaterialRegisterEvent(material);
+
+    if(MinecraftForge.EVENT_BUS.post(event)) {
+      // event cancelled
+      log.trace("Addition of material {} cancelled by event", material.getIdentifier());
       return;
     }
 
@@ -150,6 +161,15 @@ public final class TinkerRegistry {
       return;
     }
 
+    MaterialEvent.StatRegisterEvent<?> event = new MaterialEvent.StatRegisterEvent<>(material, stats);
+    MinecraftForge.EVENT_BUS.post(event);
+
+    // overridden stats from event
+    if(event.getResult() == Event.Result.ALLOW) {
+      stats = event.newStats;
+    }
+
+
     material.addStats(stats);
 
     String activeMod = Loader.instance().activeModContainer().getModId();
@@ -185,6 +205,13 @@ public final class TinkerRegistry {
       error(String.format(
           "Could not add Trait to \"%s\": Trait \"%s\" was already registered by %s",
           identifier, trait.getIdentifier(), registeredBy));
+      return;
+    }
+
+    MaterialEvent.TraitRegisterEvent<?> event = new MaterialEvent.TraitRegisterEvent<>(material, trait);
+    if(MinecraftForge.EVENT_BUS.post(event)) {
+      // cancelled
+      log.trace("Trait {} on {} cancelled by event", trait.getIdentifier(), material.getIdentifier());
       return;
     }
 
