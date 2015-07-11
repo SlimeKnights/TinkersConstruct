@@ -1,5 +1,7 @@
 package tconstruct.library;
 
+import com.google.common.base.CharMatcher;
+
 import gnu.trove.map.hash.THashMap;
 import gnu.trove.set.hash.TLinkedHashSet;
 
@@ -54,7 +56,21 @@ public final class TinkerRegistry {
     addMaterialStats(material.identifier, stats);
   }
 
+  /**
+   * Registers a material. The materials identifier has to be lowercase and not contain any spaces.
+   * Identifiers have to be globally unique!
+   */
   public static void addMaterial(Material material) {
+    // ensure material identifiers are safe
+    if(CharMatcher.WHITESPACE.matchesAnyOf(material.getIdentifier())) {
+      error("Could not register Material \"%s\": Material identifier must not contain any spaces.", material.identifier);
+      return;
+    }
+    if(CharMatcher.JAVA_UPPER_CASE.matchesAnyOf(material.getIdentifier())) {
+      error("Could not register Material \"%s\": Material identifier must be completely lowercase.", material.identifier);
+      return;
+    }
+
     // duplicate material
     if(materials.containsKey(material.identifier)) {
       String registeredBy = materialRegisteredByMod.get(material.identifier);
@@ -230,7 +246,7 @@ public final class TinkerRegistry {
     return materialRegisteredByMod.get(material.identifier);
   }
 
-  private static void error(String message) {
-    throw new TinkerAPIException(message);
+  private static void error(String message, Object... params) {
+    throw new TinkerAPIException(String.format(message, params));
   }
 }

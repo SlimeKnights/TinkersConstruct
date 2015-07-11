@@ -74,7 +74,7 @@ public class Material {
   protected final Map<String, ITrait> traits = new TreeMap<>();
 
   public Material(String identifier) {
-    this.identifier = identifier;
+    this.identifier = Util.sanitizeLocalizationString(identifier); // lowercases and removes whitespaces
     if(FMLCommonHandler.instance().getSide().isClient()) {
       setRenderInfo(0xffffff, EnumChatFormatting.WHITE);
     }

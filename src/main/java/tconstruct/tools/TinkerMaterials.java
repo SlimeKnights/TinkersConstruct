@@ -28,11 +28,11 @@ public final class TinkerMaterials {
   }
 
   static {
-    wood = new Material("Wood");
-    stone = new Material("Stone");
-    netherrack = new Material("Netherrack");
+    wood = new Material("wood");
+    stone = new Material("stone");
+    netherrack = new Material("netherrack");
 
-    xu = new Material("Unstable");
+    xu = new Material("unstable");
 
     stonebound = new StoneboundTrait();
   }
