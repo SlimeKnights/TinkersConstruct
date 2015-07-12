@@ -3,6 +3,8 @@ package tconstruct.library.client.model;
 import com.google.common.base.Charsets;
 import com.google.common.base.Function;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockPart;
@@ -31,6 +33,15 @@ public class ModelHelper {
 
   private static final ItemModelGenerator generator = new ItemModelGenerator();
   private static final FaceBakery faceBakery = new FaceBakery();
+
+  public static TextureAtlasSprite getTextureFromBlock(Block block, int meta) {
+    IBlockState state = block.getStateFromMeta(meta);
+    return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(state);
+  }
+
+  public static TextureAtlasSprite getTextureFromBlockstate(IBlockState state) {
+    return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(state);
+  }
 
   /**
    * Loads a model from the given location

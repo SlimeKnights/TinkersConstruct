@@ -3,6 +3,7 @@ package tconstruct.tools.tileentity;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -12,6 +13,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.property.IExtendedBlockState;
 
+import tconstruct.library.client.model.ModelHelper;
 import tconstruct.tools.block.BlockTable;
 
 public class TileTable extends TileEntity {
@@ -27,9 +29,10 @@ public class TileTable extends TileEntity {
       ItemStack stack = ItemStack.loadItemStackFromNBT(getTileData().getCompoundTag(FEET_TAG));
       if(stack != null) {
         Block block = Block.getBlockFromItem(stack.getItem());
-        IBlockState istate = block.getStateFromMeta(stack.getItemDamage());
-        IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getModelFromBlockState(istate, this.getWorld(), this.getPos());
-        texture = model.getTexture().getIconName();
+        texture = ModelHelper.getTextureFromBlock(block, stack.getItemDamage()).getIconName();
+        //IBlockState istate = block.getStateFromMeta(stack.getItemDamage());
+        //IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getModelFromBlockState(istate, this.getWorld(), this.getPos());
+        //texture = model.getTexture().getIconName();
         getTileData().setString("texture", texture);
       }
     }
