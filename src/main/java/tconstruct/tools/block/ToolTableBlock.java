@@ -101,9 +101,16 @@ public class ToolTableBlock extends BlockTable {
   }
 
   @Override
+  public int damageDropped(IBlockState state) {
+    return getMetaFromState(state);
+  }
+
+  @Override
   public int getMetaFromState(IBlockState state) {
     return ((TableTypes)state.getValue(TABLES)).ordinal();
   }
+
+  // todo: NBT of dropped blocks and pickBlock
 
   public enum TableTypes implements IStringSerializable {
     StencilTable,
