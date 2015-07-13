@@ -7,6 +7,8 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -17,11 +19,14 @@ import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
+import java.util.List;
+
 import tconstruct.common.property.PropertyString;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.tools.tileentity.TileTable;
 
 public class BlockTable extends Block implements ITileEntityProvider {
+
   public static final PropertyString TEXTURE = new PropertyString("texture");
 
 
@@ -72,6 +77,46 @@ public class BlockTable extends Block implements ITileEntityProvider {
         ((TileTable) te).updateTextureBlock(tag.getCompoundTag(TileTable.FEET_TAG));
       }
     }
+  }
+
+  @Override
+  public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+    // we pull up a few calls to this point in time because we still have the TE here
+    // the execution otherwise is equivalent to vanilla order
+    IBlockState state = world.getBlockState(pos);
+    this.onBlockDestroyedByPlayer(world, pos, state);
+    if(willHarvest) {
+      this.harvestBlock(world, player, pos, state, world.getTileEntity(pos));
+    }
+
+
+    world.setBlockToAir(pos);
+    // return false to prevent the above called functions to be called again
+    // side effect of this is that no xp will be dropped. but it shoudln't anyway from a table :P
+    return false;
+  }
+
+  @Override
+  // save the block data from the table to the item on drop. Only works because of removedByPlayer fix above :I
+  public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+    List<ItemStack> items = super.getDrops(world, pos, state, fortune);
+
+    // get block data from the block
+    TileEntity te = world.getTileEntity(pos);
+    if(te != null && te instanceof TileTable) {
+      NBTTagCompound data = ((TileTable) te).getTextureBlock();
+
+      for(ItemStack item : items) {
+        // save the data from the block onto the item
+        if(item.getItem() == Item.getItemFromBlock(this)) {
+          NBTTagCompound tag = new NBTTagCompound();
+          tag.setTag(TileTable.FEET_TAG, data);
+          item.setTagCompound(tag);
+        }
+      }
+    }
+
+    return items;
   }
 
   public static ItemStack createItemstackWithBlock(BlockTable table, int tableMeta, Block block, int blockMeta) {

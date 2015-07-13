@@ -58,4 +58,8 @@ public class TileTable extends TileEntity {
   public void updateTextureBlock(NBTTagCompound tag) {
     getTileData().setTag(FEET_TAG, tag);
   }
+
+  public NBTTagCompound getTextureBlock() {
+    return getTileData().getCompoundTag(FEET_TAG);
+  }
 }
