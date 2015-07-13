@@ -1,19 +1,26 @@
 package tconstruct.library;
 
 import com.google.common.base.CharMatcher;
+import com.google.common.collect.Lists;
 
 import gnu.trove.map.hash.THashMap;
 import gnu.trove.set.hash.THashSet;
 import gnu.trove.set.hash.TLinkedHashSet;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import org.apache.logging.log4j.Logger;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,6 +30,7 @@ import tconstruct.library.materials.Material;
 import tconstruct.library.modifiers.IModifier;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.traits.ITrait;
+import tconstruct.tools.TinkerTools;
 
 public final class TinkerRegistry {
 
@@ -242,6 +250,15 @@ public final class TinkerRegistry {
     tools.add(tool);
   }
 
+  /** Adds a new oredict entry that can be used for toolforge crafting */
+  public static void addToolForgeBlock(String oredict) {
+    if(TinkerTools.toolTables == null) {
+      return;
+    }
+
+    TinkerTools.toolTables.toolForgeBlocks.add(oredict);
+    TinkerTools.registerToolForgeRecipe(oredict);
+  }
 
   /*---------------------------------------------------------------------------
   | Modifiers                                                                 |

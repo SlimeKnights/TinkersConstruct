@@ -1,6 +1,7 @@
 package tconstruct.tools;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -22,6 +23,7 @@ import mantle.pulsar.pulse.Pulse;
 import tconstruct.CommonProxy;
 import tconstruct.TinkerItems;
 import tconstruct.TinkerPulse;
+import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
 import tconstruct.library.modifiers.IModifier;
 import tconstruct.library.modifiers.Modifier;
@@ -134,18 +136,33 @@ public class TinkerTools extends TinkerPulse {
   // INITIALIZATION
   @Handler
   public void init(FMLInitializationEvent event) {
-    // todo: remove debug recipe stuff
-    ItemStack table = BlockTable.createItemstackWithBlock(toolTables, 1, Blocks.iron_block, 0);
-
-    GameRegistry.addRecipe(new ShapedOreRecipe(table,
-                                 "ABA",
-                                 "A A",
-                                 'A', "cobblestone",
-                                 'B', Item.getItemFromBlock(Blocks.iron_block)));
-
-
+    registerRecipies();
   }
 
+  private void registerRecipies() {
+    // todo: remove debug recipe stuff
+    ItemStack pattern = new ItemStack(Items.stick);
+
+    GameRegistry.addRecipe(new TableRecipe(OreDictionary.getOres("plankWood"), toolTables, ToolTableBlock.TableTypes.StencilTable.ordinal(), "P", "B", 'P', pattern, 'B', "plankWood"));
+    GameRegistry.addRecipe(new TableRecipe(OreDictionary.getOres("logWood"), toolTables, ToolTableBlock.TableTypes.PartBuilder.ordinal(), "P", "B", 'P', pattern, 'B', "logWood"));
+    GameRegistry.addRecipe(
+        new ShapedOreRecipe(new ItemStack(toolTables, 1, ToolTableBlock.TableTypes.ToolStation.ordinal()), "P", "B", 'P', pattern, 'B', "workbench"));
+
+    TinkerRegistry.addToolForgeBlock("blockIron");
+    TinkerRegistry.addToolForgeBlock("blockGold");
+  }
+
+  // called by TinkerRegistry.addToolForgeBlock
+  public static void registerToolForgeRecipe(String oredict) {
+    // todo: change recipe to brick vs. smeltery-bricks wether smeltery pulse is active
+    GameRegistry.addRecipe(new TableRecipe(OreDictionary.getOres(oredict), toolTables, ToolTableBlock.TableTypes.ToolForge.ordinal(),
+                                           "BBB",
+                                           "MTM",
+                                           "M M",
+                                           'B', Blocks.stonebrick,
+                                           'M', oredict,
+                                           'T', new ItemStack(toolTables, 1, ToolTableBlock.TableTypes.ToolStation.ordinal())));
+  }
 
   // POST-INITIALIZATION
   @Handler
