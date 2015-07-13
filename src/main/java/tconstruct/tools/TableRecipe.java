@@ -11,6 +11,7 @@ import java.util.List;
 import tconstruct.tools.block.BlockTable;
 
 public class TableRecipe extends ShapedOreRecipe {
+
   protected final List<ItemStack> outputBlocks; // first one found of these determines the output block used
 
 
@@ -25,8 +26,9 @@ public class TableRecipe extends ShapedOreRecipe {
       for(ItemStack ore : outputBlocks) {
         ItemStack stack = craftMatrix.getStackInSlot(i);
         if(OreDictionary.itemMatches(ore, stack, false) && Block.getBlockFromItem(stack.getItem()) != null) {
-          BlockTable block = (BlockTable)Block.getBlockFromItem(output.getItem());
-          return BlockTable.createItemstackWithBlock(block, output.getItemDamage(), Block.getBlockFromItem(stack.getItem()), stack.getItemDamage());
+          BlockTable block = (BlockTable) Block.getBlockFromItem(output.getItem());
+          return BlockTable.createItemstack(block, output.getItemDamage(), Block.getBlockFromItem(stack.getItem()),
+                                            stack.getItemDamage());
         }
       }
     }

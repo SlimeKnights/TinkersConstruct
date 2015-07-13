@@ -56,7 +56,8 @@ public class ToolTableBlock extends BlockTable {
       // only add the first entry per oredict
       List<ItemStack> ores = OreDictionary.getOres(oredict);
       if(ores.size() > 0) {
-        list.add(createItemstackWithBlock(this, TableTypes.ToolForge.meta, Block.getBlockFromItem(ores.get(0).getItem()), ores.get(0).getItemDamage()));
+        list.add(createItemstack(this, TableTypes.ToolForge.meta, Block.getBlockFromItem(ores.get(0).getItem()),
+                                 ores.get(0).getItemDamage()));
       }
     }
   }
@@ -71,12 +72,11 @@ public class ToolTableBlock extends BlockTable {
         block.getSubBlocks(stack.getItem(), null, subBlocks);
 
         for(ItemStack subBlock : subBlocks) {
-          list.add(createItemstackWithBlock(this, meta,
-                                            Block.getBlockFromItem(subBlock.getItem()), subBlock.getItemDamage()));
+          list.add(createItemstack(this, meta, Block.getBlockFromItem(subBlock.getItem()), subBlock.getItemDamage()));
         }
       }
       else {
-        list.add(createItemstackWithBlock(this, meta, block, blockMeta));
+        list.add(createItemstack(this, meta, block, blockMeta));
       }
     }
   }

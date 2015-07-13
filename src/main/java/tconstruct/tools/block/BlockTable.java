@@ -130,7 +130,7 @@ public class BlockTable extends Block implements ITileEntityProvider {
     return super.getPickBlock(target, world, pos, player);
   }
 
-  public static ItemStack createItemstackWithBlock(BlockTable table, int tableMeta, Block block, int blockMeta) {
+  public static ItemStack createItemstack(BlockTable table, int tableMeta, Block block, int blockMeta) {
     ItemStack stack = new ItemStack(table, 1, tableMeta);
 
     if(block != null) {
