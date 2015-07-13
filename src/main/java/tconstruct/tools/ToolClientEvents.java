@@ -25,17 +25,15 @@ public class ToolClientEvents {
   // tool tables
   private static final ResourceLocation MODEL_StencilTable = Util.getResource("block/StencilTable");
   private static final ResourceLocation MODEL_PartBuilder  = Util.getResource("block/PartBuilder");
-  private static final String LOCATION_ToolTable = Util.resource("ToolTables");
-
-  // tool forge
+  private static final ResourceLocation MODEL_ToolStation  = Util.getResource("block/ToolStation");
   private static final ResourceLocation MODEL_ToolForge  = Util.getResource("block/ToolForge");
-  private static final String LOCATION_ToolForge = Util.resource("ToolForge");
+  private static final String LOCATION_ToolTable = Util.resource("ToolTables");
 
   // the actual locations where the models are located
   public static final ModelResourceLocation locStencilTable = new ModelResourceLocation(LOCATION_ToolTable, "type=stenciltable");
   public static final ModelResourceLocation locPartBuilder = new ModelResourceLocation(LOCATION_ToolTable, "type=partbuilder");
   public static final ModelResourceLocation locToolStation = new ModelResourceLocation(LOCATION_ToolTable, "type=toolstation");
-  public static final ModelResourceLocation locToolForge = new ModelResourceLocation(LOCATION_ToolForge, "normal");
+  public static final ModelResourceLocation locToolForge = new ModelResourceLocation(LOCATION_ToolTable, "type=toolforge");
 
   @SubscribeEvent
   public void onModelBake(ModelBakeEvent event) {
@@ -45,8 +43,7 @@ public class ToolClientEvents {
     // tool tables
     replaceModel(locStencilTable, MODEL_StencilTable, event);
     replaceModel(locPartBuilder, MODEL_PartBuilder, event);
-
-    // toolforge has no variants, which is why it uses normal
+    // tool station has no variants
     replaceModel(locToolForge, MODEL_ToolForge, event);
 
     // silence the missing-model message for the default itemblock

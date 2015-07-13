@@ -9,6 +9,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import tconstruct.ClientProxy;
 import tconstruct.library.Util;
 import tconstruct.library.client.model.MaterialModelLoader;
+import tconstruct.tools.block.ToolTableBlock;
 
 import static tconstruct.tools.TinkerTools.binding;
 import static tconstruct.tools.TinkerTools.pickHead;
@@ -22,9 +23,10 @@ public class ToolClientProxy extends ClientProxy {
     // blocks
 
     Item tableItem = Item.getItemFromBlock(TinkerTools.toolTables);
-    ModelLoader.setCustomModelResourceLocation(tableItem, 0, ToolClientEvents.locStencilTable);
-    ModelLoader.setCustomModelResourceLocation(tableItem, 1, ToolClientEvents.locPartBuilder);
-    ModelLoader.setCustomModelResourceLocation(tableItem, 2, ToolClientEvents.locToolStation);
+    ModelLoader.setCustomModelResourceLocation(tableItem, ToolTableBlock.TableTypes.StencilTable.ordinal(), ToolClientEvents.locStencilTable);
+    ModelLoader.setCustomModelResourceLocation(tableItem, ToolTableBlock.TableTypes.PartBuilder.ordinal(), ToolClientEvents.locPartBuilder);
+    ModelLoader.setCustomModelResourceLocation(tableItem, ToolTableBlock.TableTypes.ToolStation.ordinal(), ToolClientEvents.locToolStation);
+    ModelLoader.setCustomModelResourceLocation(tableItem, ToolTableBlock.TableTypes.ToolForge.ordinal(), ToolClientEvents.locToolForge);
 
     // todo: tool forge item model register
 
