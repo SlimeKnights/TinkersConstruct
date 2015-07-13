@@ -1,7 +1,10 @@
 package tconstruct.tools;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 
 import tconstruct.ClientProxy;
 import tconstruct.library.Util;
@@ -18,7 +21,12 @@ public class ToolClientProxy extends ClientProxy {
   public void registerModels() {
     // blocks
 
+    Item tableItem = Item.getItemFromBlock(TinkerTools.toolTables);
+    ModelLoader.setCustomModelResourceLocation(tableItem, 0, ToolClientEvents.locStencilTable);
+    ModelLoader.setCustomModelResourceLocation(tableItem, 1, ToolClientEvents.locPartBuilder);
+    ModelLoader.setCustomModelResourceLocation(tableItem, 2, ToolClientEvents.locToolStation);
 
+    // todo: tool forge item model register
 
     registerToolModel(pickaxe);
 

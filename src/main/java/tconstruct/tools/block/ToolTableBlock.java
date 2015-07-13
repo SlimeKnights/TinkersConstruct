@@ -110,8 +110,6 @@ public class ToolTableBlock extends BlockTable {
     return ((TableTypes)state.getValue(TABLES)).ordinal();
   }
 
-  // todo: NBT of dropped blocks and pickBlock
-
   public enum TableTypes implements IStringSerializable {
     StencilTable,
     PartBuilder,

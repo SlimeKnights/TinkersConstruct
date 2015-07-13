@@ -21,20 +21,33 @@ import tconstruct.library.Util;
 import tconstruct.tools.client.BakedTableModel;
 
 public class ToolClientEvents {
+
+  // tool tables
   private static final ResourceLocation MODEL_StencilTable = Util.getResource("block/StencilTable");
   private static final ResourceLocation MODEL_PartBuilder  = Util.getResource("block/PartBuilder");
   private static final String LOCATION_ToolTable = Util.resource("ToolTables");
 
+  // tool forge
   private static final ResourceLocation MODEL_ToolForge  = Util.getResource("block/ToolForge");
   private static final String LOCATION_ToolForge = Util.resource("ToolForge");
+
+  // the actual locations where the models are located
+  public static final ModelResourceLocation locStencilTable = new ModelResourceLocation(LOCATION_ToolTable, "type=stenciltable");
+  public static final ModelResourceLocation locPartBuilder = new ModelResourceLocation(LOCATION_ToolTable, "type=partbuilder");
+  public static final ModelResourceLocation locToolStation = new ModelResourceLocation(LOCATION_ToolTable, "type=toolstation");
+  public static final ModelResourceLocation locToolForge = new ModelResourceLocation(LOCATION_ToolForge, "normal");
 
   @SubscribeEvent
   public void onModelBake(ModelBakeEvent event) {
     // replace the baked table models with smart variants
 
-    replaceModel(new ModelResourceLocation(LOCATION_ToolTable, "type=stenciltable"), MODEL_StencilTable, event);
-    replaceModel(new ModelResourceLocation(LOCATION_ToolTable, "type=partbuilder"), MODEL_PartBuilder, event);
-    replaceModel(new ModelResourceLocation(LOCATION_ToolForge, "normal"), MODEL_ToolForge, event);
+
+    // tool tables
+    replaceModel(locStencilTable, MODEL_StencilTable, event);
+    replaceModel(locPartBuilder, MODEL_PartBuilder, event);
+
+    // toolforge has no variants, which is why it uses normal
+    replaceModel(locToolForge, MODEL_ToolForge, event);
     //replaceModel(new ModelResourceLocation(LOCATION_ToolTable, "type=toolstation"), MODEL_ToolStation, event);
   }
 
