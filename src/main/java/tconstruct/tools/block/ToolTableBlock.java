@@ -39,21 +39,21 @@ public class ToolTableBlock extends BlockTable {
   @Override
   public void getSubBlocks(Item itemIn, CreativeTabs tab, List list) {
     // planks for the stencil table
-    addBlocksFromOredict("plankWood", TableTypes.StencilTable.ordinal(), list);
+    addBlocksFromOredict("plankWood", TableTypes.StencilTable.meta, list);
 
     // logs for the part builder
-    addBlocksFromOredict("logWood", TableTypes.PartBuilder.ordinal(), list);
+    addBlocksFromOredict("logWood", TableTypes.PartBuilder.meta, list);
 
     // stencil table is boring
     //addBlocksFromOredict("workbench", TableTypes.ToolStation.ordinal(), list);
-    list.add(new ItemStack(this, TableTypes.ToolStation.ordinal()));
+    list.add(new ItemStack(this, TableTypes.ToolStation.meta));
 
     // toolforge has custom blocks
     for(String oredict : toolForgeBlocks) {
       // only add the first entry per oredict
       List<ItemStack> ores = OreDictionary.getOres(oredict);
       if(ores.size() > 0) {
-        list.add(createItemstackWithBlock(this, TableTypes.ToolForge.ordinal(), Block.getBlockFromItem(ores.get(0).getItem()), ores.get(0).getItemDamage()));
+        list.add(createItemstackWithBlock(this, TableTypes.ToolForge.meta, Block.getBlockFromItem(ores.get(0).getItem()), ores.get(0).getItemDamage()));
       }
     }
   }
@@ -85,11 +85,7 @@ public class ToolTableBlock extends BlockTable {
 
   @Override
   public IBlockState getStateFromMeta(int meta) {
-    if(meta > TableTypes.values().length || meta < 0) {
-      meta = 0;
-    }
-
-    return this.getDefaultState().withProperty(TABLES, TableTypes.values()[meta]);
+    return this.getDefaultState().withProperty(TABLES, TableTypes.fromMeta(meta));
   }
 
   @Override
@@ -99,7 +95,7 @@ public class ToolTableBlock extends BlockTable {
 
   @Override
   public int getMetaFromState(IBlockState state) {
-    return ((TableTypes) state.getValue(TABLES)).ordinal();
+    return ((TableTypes) state.getValue(TABLES)).meta;
   }
 
   public enum TableTypes implements IStringSerializable {
@@ -107,6 +103,20 @@ public class ToolTableBlock extends BlockTable {
     PartBuilder,
     ToolStation,
     ToolForge;
+
+    TableTypes() {
+      meta = this.ordinal();
+    }
+
+    public final int meta;
+
+    public static TableTypes fromMeta(int meta) {
+      if(meta < 0 || meta > values().length) {
+        meta = 0;
+      }
+
+      return values()[meta];
+    }
 
     @Override
     public String getName() {

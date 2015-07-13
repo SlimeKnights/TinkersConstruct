@@ -143,10 +143,10 @@ public class TinkerTools extends TinkerPulse {
     // todo: remove debug recipe stuff
     ItemStack pattern = new ItemStack(Items.stick);
 
-    GameRegistry.addRecipe(new TableRecipe(OreDictionary.getOres("plankWood"), toolTables, ToolTableBlock.TableTypes.StencilTable.ordinal(), "P", "B", 'P', pattern, 'B', "plankWood"));
-    GameRegistry.addRecipe(new TableRecipe(OreDictionary.getOres("logWood"), toolTables, ToolTableBlock.TableTypes.PartBuilder.ordinal(), "P", "B", 'P', pattern, 'B', "logWood"));
+    GameRegistry.addRecipe(new TableRecipe(OreDictionary.getOres("plankWood"), toolTables, ToolTableBlock.TableTypes.StencilTable.meta, "P", "B", 'P', pattern, 'B', "plankWood"));
+    GameRegistry.addRecipe(new TableRecipe(OreDictionary.getOres("logWood"), toolTables, ToolTableBlock.TableTypes.PartBuilder.meta, "P", "B", 'P', pattern, 'B', "logWood"));
     GameRegistry.addRecipe(
-        new ShapedOreRecipe(new ItemStack(toolTables, 1, ToolTableBlock.TableTypes.ToolStation.ordinal()), "P", "B", 'P', pattern, 'B', "workbench"));
+        new ShapedOreRecipe(new ItemStack(toolTables, 1, ToolTableBlock.TableTypes.ToolStation.meta), "P", "B", 'P', pattern, 'B', "workbench"));
 
     TinkerRegistry.addToolForgeBlock("blockIron");
     TinkerRegistry.addToolForgeBlock("blockGold");
@@ -155,13 +155,13 @@ public class TinkerTools extends TinkerPulse {
   // called by TinkerRegistry.addToolForgeBlock
   public static void registerToolForgeRecipe(String oredict) {
     // todo: change recipe to brick vs. smeltery-bricks wether smeltery pulse is active
-    GameRegistry.addRecipe(new TableRecipe(OreDictionary.getOres(oredict), toolTables, ToolTableBlock.TableTypes.ToolForge.ordinal(),
+    GameRegistry.addRecipe(new TableRecipe(OreDictionary.getOres(oredict), toolTables, ToolTableBlock.TableTypes.ToolForge.meta,
                                            "BBB",
                                            "MTM",
                                            "M M",
                                            'B', Blocks.stonebrick,
                                            'M', oredict,
-                                           'T', new ItemStack(toolTables, 1, ToolTableBlock.TableTypes.ToolStation.ordinal())));
+                                           'T', new ItemStack(toolTables, 1, ToolTableBlock.TableTypes.ToolStation.meta)));
   }
 
   // POST-INITIALIZATION

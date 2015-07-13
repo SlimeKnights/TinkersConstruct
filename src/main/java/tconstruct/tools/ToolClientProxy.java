@@ -23,10 +23,10 @@ public class ToolClientProxy extends ClientProxy {
     // blocks
 
     Item tableItem = Item.getItemFromBlock(TinkerTools.toolTables);
-    ModelLoader.setCustomModelResourceLocation(tableItem, ToolTableBlock.TableTypes.StencilTable.ordinal(), ToolClientEvents.locStencilTable);
-    ModelLoader.setCustomModelResourceLocation(tableItem, ToolTableBlock.TableTypes.PartBuilder.ordinal(), ToolClientEvents.locPartBuilder);
-    ModelLoader.setCustomModelResourceLocation(tableItem, ToolTableBlock.TableTypes.ToolStation.ordinal(), ToolClientEvents.locToolStation);
-    ModelLoader.setCustomModelResourceLocation(tableItem, ToolTableBlock.TableTypes.ToolForge.ordinal(), ToolClientEvents.locToolForge);
+    ModelLoader.setCustomModelResourceLocation(tableItem, ToolTableBlock.TableTypes.StencilTable.meta, ToolClientEvents.locStencilTable);
+    ModelLoader.setCustomModelResourceLocation(tableItem, ToolTableBlock.TableTypes.PartBuilder.meta, ToolClientEvents.locPartBuilder);
+    ModelLoader.setCustomModelResourceLocation(tableItem, ToolTableBlock.TableTypes.ToolStation.meta, ToolClientEvents.locToolStation);
+    ModelLoader.setCustomModelResourceLocation(tableItem, ToolTableBlock.TableTypes.ToolForge.meta, ToolClientEvents.locToolForge);
 
     // todo: tool forge item model register
 
