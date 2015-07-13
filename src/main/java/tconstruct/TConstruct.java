@@ -108,6 +108,8 @@ public class TConstruct {
   @Mod.EventHandler
   public void postInit(FMLPostInitializationEvent event) {
     pulseManager.postInit(event);
+
+    ExtraOreDict.oredictThings();
   }
 
   @Mod.EventHandler
