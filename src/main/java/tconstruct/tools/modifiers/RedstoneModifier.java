@@ -2,7 +2,6 @@ package tconstruct.tools.modifiers;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 
@@ -11,7 +10,6 @@ import tconstruct.library.modifiers.ModifierAspect;
 import tconstruct.library.modifiers.ModifierNBT;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
-import tconstruct.library.utils.TinkerUtil;
 
 public class RedstoneModifier extends Modifier {
   private final int max;

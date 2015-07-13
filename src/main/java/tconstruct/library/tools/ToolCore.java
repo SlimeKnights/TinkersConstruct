@@ -1,7 +1,5 @@
 package tconstruct.library.tools;
 
-import com.google.common.collect.Lists;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -13,10 +11,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import java.util.ArrayList;
 import java.util.List;
 
-import scala.actors.threadpool.Arrays;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.materials.Material;
-import tconstruct.library.modifiers.IModifier;
 import tconstruct.library.tinkering.Category;
 import tconstruct.library.tinkering.PartMaterialType;
 import tconstruct.library.tinkering.TinkersItem;
@@ -25,7 +21,6 @@ import tconstruct.library.utils.ToolBuilder;
 import tconstruct.library.utils.ToolHelper;
 import tconstruct.library.utils.ToolTagUtil;
 import tconstruct.library.utils.TooltipBuilder;
-import tconstruct.tools.TinkerMaterials;
 
 /**
  * Intermediate abstraction layer for all tools/melee weapons. This class has all the callbacks for blocks and enemies

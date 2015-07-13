@@ -14,11 +14,11 @@ import java.util.Set;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
+import tconstruct.library.mantle.RecipeMatch;
 import tconstruct.library.materials.Material;
 import tconstruct.library.materials.ToolMaterialStats;
 import tconstruct.library.modifiers.IModifier;
 import tconstruct.library.modifiers.ModifyException;
-import tconstruct.library.mantle.RecipeMatch;
 import tconstruct.library.modifiers.TraitModifier;
 import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.traits.ITrait;
