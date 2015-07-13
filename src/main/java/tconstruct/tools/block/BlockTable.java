@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
@@ -117,6 +118,16 @@ public class BlockTable extends Block implements ITileEntityProvider {
     }
 
     return items;
+  }
+
+  @Override
+  public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
+    List<ItemStack> drops = getDrops(world, pos, world.getBlockState(pos), 0);
+    if(drops.size() > 0) {
+      return drops.get(0);
+    }
+
+    return super.getPickBlock(target, world, pos, player);
   }
 
   public static ItemStack createItemstackWithBlock(BlockTable table, int tableMeta, Block block, int blockMeta) {
