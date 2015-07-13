@@ -27,7 +27,7 @@ public class MaterialModelLoader implements ICustomModelLoader {
   @Override
   public IModel loadModel(ResourceLocation modelLocation) {
     if(!Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
-      return ModelLoaderRegistry.getMissingModel();
+      return DummyModel.INSTANCE;
     }
 
     try {
