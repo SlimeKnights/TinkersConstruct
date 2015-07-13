@@ -48,7 +48,9 @@ public class ToolClientEvents {
 
     // toolforge has no variants, which is why it uses normal
     replaceModel(locToolForge, MODEL_ToolForge, event);
-    //replaceModel(new ModelResourceLocation(LOCATION_ToolTable, "type=toolstation"), MODEL_ToolStation, event);
+
+    // silence the missing-model message for the default itemblock
+    event.modelRegistry.putObject(new ModelResourceLocation(LOCATION_ToolTable, "inventory"), event.modelRegistry.getObject(locToolStation));
   }
 
   private void replaceModel(ModelResourceLocation modelVariantLocation, ResourceLocation modelLocation, ModelBakeEvent event) {
