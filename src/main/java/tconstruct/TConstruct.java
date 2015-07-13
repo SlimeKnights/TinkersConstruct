@@ -97,7 +97,8 @@ public class TConstruct {
   public void postInit(FMLPostInitializationEvent event) {
     pulseManager.postInit(event);
 
-    ExtraOreDict.oredictThings();
+    TinkerOredict.ensureOredict();
+    TinkerOredict.registerTinkerOredict();
   }
 
   @Mod.EventHandler
