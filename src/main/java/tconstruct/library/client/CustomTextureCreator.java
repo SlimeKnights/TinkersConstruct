@@ -6,6 +6,8 @@ import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.common.Loader;
@@ -27,7 +29,7 @@ import tconstruct.library.materials.Material;
 /**
  * Textures registered with this creator will get a texture created/loaded for each material.
  */
-public class CustomTextureCreator {
+public class CustomTextureCreator implements IResourceManagerReloadListener {
 
   private static Logger log = Util.getLogger("TextureGen");
 
@@ -99,5 +101,16 @@ public class CustomTextureCreator {
     } catch(IOException e) {
       return false;
     }
+  }
+
+  @Override
+  public void onResourceManagerReload(IResourceManager resourceManager) {
+    // clear cache
+    baseTextures.clear();
+    for(Map map : sprites.values()) {
+      // safety in case there are some references lying around
+      map.clear();
+    }
+    sprites.clear();
   }
 }

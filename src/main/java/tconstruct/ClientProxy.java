@@ -1,6 +1,8 @@
 package tconstruct;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -28,7 +30,11 @@ public abstract class ClientProxy extends CommonProxy {
     ModelLoaderRegistry.registerLoader(loader);
     ModelLoaderRegistry.registerLoader(materialLoader);
     ModelLoaderRegistry.registerLoader(modifierLoader);
-    MinecraftForge.EVENT_BUS.register(new CustomTextureCreator());
+
+    CustomTextureCreator creator = new CustomTextureCreator();
+
+    MinecraftForge.EVENT_BUS.register(creator);
+    ((IReloadableResourceManager)Minecraft.getMinecraft().getResourceManager()).registerReloadListener(creator);
   }
 
   protected ResourceLocation registerModel(Item item, String... customVariants) {
