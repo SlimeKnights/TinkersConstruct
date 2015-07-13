@@ -33,9 +33,10 @@ public class ToolTableBlock extends BlockTable {
 
   public ToolTableBlock() {
     super(Material.wood);
-    this.setCreativeTab(CreativeTabs.tabFood);
+    this.setCreativeTab(CreativeTabs.tabFood); // todo: fix
 
-    //partBuilderLegs.add(Blocks.);
+    this.setStepSound(soundTypeWood);
+    this.setResistance(5.0f);
   }
 
   @SideOnly(Side.CLIENT)

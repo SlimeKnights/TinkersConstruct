@@ -4,12 +4,14 @@ import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.Attributes;
@@ -17,14 +19,18 @@ import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IRetexturableModel;
 import net.minecraftforge.client.model.ISmartBlockModel;
+import net.minecraftforge.client.model.ISmartItemModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
 
 import java.util.List;
 import java.util.Map;
 
+import tconstruct.library.client.model.ModelHelper;
+import tconstruct.library.utils.TagUtil;
 import tconstruct.tools.block.BlockTable;
+import tconstruct.tools.tileentity.TileTable;
 
-public class BakedTableModel implements ISmartBlockModel, IFlexibleBakedModel {
+public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlexibleBakedModel {
 
   private final IFlexibleBakedModel standard;
   private final IRetexturableModel tableModel;
@@ -57,6 +63,25 @@ public class BakedTableModel implements ISmartBlockModel, IFlexibleBakedModel {
       return standard;
     }
 
+    return getActualModel(texture);
+  }
+
+
+  @Override
+  public IBakedModel handleItemState(ItemStack stack) {
+    ItemStack blockStack = ItemStack.loadItemStackFromNBT(TagUtil.getTagSafe(stack).getCompoundTag(TileTable.FEET_TAG));
+    if(blockStack == null) {
+      return standard;
+    }
+
+    Block block = Block.getBlockFromItem(blockStack.getItem());
+
+    String texture = ModelHelper.getTextureFromBlock(block, blockStack.getItemDamage()).getIconName();
+
+    return getActualModel(texture);
+  }
+
+  protected IFlexibleBakedModel getActualModel(String texture) {
     if(cache.containsKey(texture)) {
       return cache.get(texture);
     }

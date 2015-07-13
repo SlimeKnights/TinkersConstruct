@@ -1,5 +1,6 @@
 {
     "textures": {
+            "particle": "tconstruct:blocks/toolforge_top",
             "top": "tconstruct:blocks/toolforge_top",
 			"bottom": "minecraft:blocks/iron_block",
 			"leg": "minecraft:blocks/iron_block",
