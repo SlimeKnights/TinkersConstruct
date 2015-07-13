@@ -15,6 +15,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import org.apache.logging.log4j.Logger;
 
@@ -141,11 +142,23 @@ public class TinkerTools extends TinkerPulse {
     // todo: remove debug recipe stuff
     ItemStack pattern = new ItemStack(Items.stick);
 
-    GameRegistry.addRecipe(new TableRecipe(OreDictionary.getOres("plankWood"), toolTables, ToolTableBlock.TableTypes.StencilTable.meta, "P", "B", 'P', pattern, 'B', "plankWood"));
-    GameRegistry.addRecipe(new TableRecipe(OreDictionary.getOres("logWood"), toolTables, ToolTableBlock.TableTypes.PartBuilder.meta, "P", "B", 'P', pattern, 'B', "logWood"));
+    // Crafting Station
     GameRegistry.addRecipe(
-        new ShapedOreRecipe(new ItemStack(toolTables, 1, ToolTableBlock.TableTypes.ToolStation.meta), "P", "B", 'P', pattern, 'B', "workbench"));
-
+        new ShapelessOreRecipe(new ItemStack(toolTables, 1, ToolTableBlock.TableTypes.CraftingStation.meta),
+                               "workbench"));
+    // Stencil Table
+    GameRegistry.addRecipe(
+        new TableRecipe(OreDictionary.getOres("plankWood"), toolTables, ToolTableBlock.TableTypes.StencilTable.meta,
+                        "P", "B", 'P', pattern, 'B', "plankWood"));
+    // Part Builder
+    GameRegistry.addRecipe(
+        new TableRecipe(OreDictionary.getOres("logWood"), toolTables, ToolTableBlock.TableTypes.PartBuilder.meta, "P",
+                        "B", 'P', pattern, 'B', "logWood"));
+    // Tool Station
+    GameRegistry.addRecipe(
+        new ShapedOreRecipe(new ItemStack(toolTables, 1, ToolTableBlock.TableTypes.ToolStation.meta),
+                            "P", "B", 'P', pattern, 'B', "workbench"));
+    // Tool Forge
     TinkerRegistry.addToolForgeBlock("blockIron");
     TinkerRegistry.addToolForgeBlock("blockGold");
   }
@@ -153,19 +166,19 @@ public class TinkerTools extends TinkerPulse {
   // called by TinkerRegistry.addToolForgeBlock
   public static void registerToolForgeRecipe(String oredict) {
     // todo: change recipe to brick vs. smeltery-bricks wether smeltery pulse is active
-    GameRegistry.addRecipe(new TableRecipe(OreDictionary.getOres(oredict), toolTables, ToolTableBlock.TableTypes.ToolForge.meta,
-                                           "BBB",
-                                           "MTM",
-                                           "M M",
-                                           'B', Blocks.stonebrick,
-                                           'M', oredict,
-                                           'T', new ItemStack(toolTables, 1, ToolTableBlock.TableTypes.ToolStation.meta)));
+    GameRegistry
+        .addRecipe(new TableRecipe(OreDictionary.getOres(oredict), toolTables, ToolTableBlock.TableTypes.ToolForge.meta,
+                                   "BBB",
+                                   "MTM",
+                                   "M M",
+                                   'B', Blocks.stonebrick,
+                                   'M', oredict,
+                                   'T', new ItemStack(toolTables, 1, ToolTableBlock.TableTypes.ToolStation.meta)));
   }
 
   // POST-INITIALIZATION
   @Handler
   public void postInit(FMLPostInitializationEvent event) {
-    //register models
 
   }
 }
