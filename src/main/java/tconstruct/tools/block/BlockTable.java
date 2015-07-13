@@ -131,14 +131,16 @@ public class BlockTable extends Block implements ITileEntityProvider {
   }
 
   public static ItemStack createItemstackWithBlock(BlockTable table, int tableMeta, Block block, int blockMeta) {
-    ItemStack blockStack = new ItemStack(block, 1, blockMeta);
-
     ItemStack stack = new ItemStack(table, 1, tableMeta);
-    NBTTagCompound tag = new NBTTagCompound();
-    NBTTagCompound subTag = new NBTTagCompound();
-    blockStack.writeToNBT(subTag);
-    tag.setTag(TileTable.FEET_TAG, subTag);
-    stack.setTagCompound(tag);
+
+    if(block != null) {
+      ItemStack blockStack = new ItemStack(block, 1, blockMeta);
+      NBTTagCompound tag = new NBTTagCompound();
+      NBTTagCompound subTag = new NBTTagCompound();
+      blockStack.writeToNBT(subTag);
+      tag.setTag(TileTable.FEET_TAG, subTag);
+      stack.setTagCompound(tag);
+    }
 
     return stack;
   }

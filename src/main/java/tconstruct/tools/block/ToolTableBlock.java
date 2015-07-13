@@ -50,7 +50,11 @@ public class ToolTableBlock extends BlockTable {
 
     // toolforge has custom blocks
     for(String oredict : toolForgeBlocks) {
-      addBlocksFromOredict(oredict, TableTypes.ToolForge.ordinal(), list);
+      // only add the first entry per oredict
+      List<ItemStack> ores = OreDictionary.getOres(oredict);
+      if(ores.size() > 0) {
+        list.add(createItemstackWithBlock(this, TableTypes.ToolForge.ordinal(), Block.getBlockFromItem(ores.get(0).getItem()), ores.get(0).getItemDamage()));
+      }
     }
   }
 
