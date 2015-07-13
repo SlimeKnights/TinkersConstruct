@@ -1,5 +1,6 @@
 {
 	"variants": {
+        "type=craftingstation": { "model": "tconstruct:CraftingStation" },
         "type=stenciltable": { "model": "tconstruct:StencilTable" },
         "type=partbuilder": { "model": "tconstruct:PartBuilder" },
         "type=toolstation": { "model": "tconstruct:ToolStation" },

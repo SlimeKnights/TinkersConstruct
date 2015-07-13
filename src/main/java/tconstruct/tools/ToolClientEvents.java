@@ -23,6 +23,7 @@ import tconstruct.tools.client.BakedTableModel;
 public class ToolClientEvents {
 
   // tool tables
+  private static final ResourceLocation MODEL_CraftingStation = Util.getResource("block/CraftingStation");
   private static final ResourceLocation MODEL_StencilTable = Util.getResource("block/StencilTable");
   private static final ResourceLocation MODEL_PartBuilder  = Util.getResource("block/PartBuilder");
   private static final ResourceLocation MODEL_ToolStation  = Util.getResource("block/ToolStation");
@@ -30,6 +31,7 @@ public class ToolClientEvents {
   private static final String LOCATION_ToolTable = Util.resource("ToolTables");
 
   // the actual locations where the models are located
+  public static final ModelResourceLocation locCraftingStation = new ModelResourceLocation(LOCATION_ToolTable, "type=craftingstation");
   public static final ModelResourceLocation locStencilTable = new ModelResourceLocation(LOCATION_ToolTable, "type=stenciltable");
   public static final ModelResourceLocation locPartBuilder = new ModelResourceLocation(LOCATION_ToolTable, "type=partbuilder");
   public static final ModelResourceLocation locToolStation = new ModelResourceLocation(LOCATION_ToolTable, "type=toolstation");

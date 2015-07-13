@@ -38,6 +38,9 @@ public class ToolTableBlock extends BlockTable {
   @SideOnly(Side.CLIENT)
   @Override
   public void getSubBlocks(Item itemIn, CreativeTabs tab, List list) {
+    // crafting station is boring
+    list.add(new ItemStack(this, 1, TableTypes.CraftingStation.meta));
+
     // planks for the stencil table
     addBlocksFromOredict("plankWood", TableTypes.StencilTable.meta, list);
 
@@ -46,7 +49,7 @@ public class ToolTableBlock extends BlockTable {
 
     // stencil table is boring
     //addBlocksFromOredict("workbench", TableTypes.ToolStation.ordinal(), list);
-    list.add(new ItemStack(this, TableTypes.ToolStation.meta));
+    list.add(new ItemStack(this, 1, TableTypes.ToolStation.meta));
 
     // toolforge has custom blocks
     for(String oredict : toolForgeBlocks) {
@@ -99,6 +102,7 @@ public class ToolTableBlock extends BlockTable {
   }
 
   public enum TableTypes implements IStringSerializable {
+    CraftingStation,
     StencilTable,
     PartBuilder,
     ToolStation,
