@@ -3,6 +3,8 @@ package tconstruct.tools;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemColored;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
@@ -23,6 +25,7 @@ import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import tconstruct.CommonProxy;
 import tconstruct.TinkerPulse;
+import tconstruct.common.item.ItemBlockMeta;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
 import tconstruct.library.modifiers.IModifier;
@@ -31,7 +34,6 @@ import tconstruct.library.tools.ToolPart;
 import tconstruct.tools.block.ToolTableBlock;
 import tconstruct.tools.debug.TempToolCrafting;
 import tconstruct.tools.debug.TempToolModifying;
-import tconstruct.tools.item.ItemTable;
 import tconstruct.tools.modifiers.DiamondModifier;
 import tconstruct.tools.modifiers.RedstoneModifier;
 import tconstruct.tools.modifiers.StoneboundModifier;
@@ -77,7 +79,7 @@ public class TinkerTools extends TinkerPulse {
     registerModifiers();
 
     // register blocks
-    toolTables = registerBlock(new ToolTableBlock(), ItemTable.class, "ToolTables");
+    toolTables = registerBlock(new ToolTableBlock(), ItemBlockMeta.class, "ToolTables");
     GameRegistry.registerTileEntity(TileTable.class, "Table");
     GameRegistry.registerTileEntity(TileCraftingStation.class, "CraftingStation");
     GameRegistry.registerTileEntity(TilePatternChest.class, "PatternChest");

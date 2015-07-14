@@ -57,11 +57,11 @@ public abstract class TinkerPulse {
 
   protected static <T extends Block> T registerBlock(T block,
                                                      Class<? extends ItemBlock> itemBlockClazz,
-                                                     String unlocName) {
+                                                     String unlocName, Object... itemCtorArgs) {
     if(!Character.isUpperCase(unlocName.charAt(0))) TConstruct.log.warn("Unlocalized name {} should start with upper case!", unlocName);
 
     block.setUnlocalizedName(Util.prefix(unlocName));
-    GameRegistry.registerBlock(block, itemBlockClazz, unlocName);
+    GameRegistry.registerBlock(block, itemBlockClazz, unlocName, itemCtorArgs);
     return block;
   }
 }

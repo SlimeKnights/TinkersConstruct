@@ -26,9 +26,6 @@ public class TileTable extends TileEntity {
       if(stack != null) {
         Block block = Block.getBlockFromItem(stack.getItem());
         texture = ModelHelper.getTextureFromBlock(block, stack.getItemDamage()).getIconName();
-        //IBlockState istate = block.getStateFromMeta(stack.getItemDamage());
-        //IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getModelFromBlockState(istate, this.getWorld(), this.getPos());
-        //texture = model.getTexture().getIconName();
         getTileData().setString("texture", texture);
       }
     }
