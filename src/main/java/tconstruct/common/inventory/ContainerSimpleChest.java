@@ -6,7 +6,7 @@ import net.minecraft.inventory.Slot;
 
 import tconstruct.common.tileentity.TileSimpleChest;
 
-public class ContainerSimpleChest extends TinkerContainer<TileSimpleChest> {
+public class ContainerSimpleChest extends BaseContainer<TileSimpleChest> {
 
   public ContainerSimpleChest(TileSimpleChest tile, int rows, int columns, InventoryPlayer playerInventory) {
     super(tile);

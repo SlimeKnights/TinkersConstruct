@@ -5,7 +5,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -15,7 +14,7 @@ import net.minecraft.world.World;
 import java.util.List;
 
 /** Same as Container but provides some extra functionality to simplify things */
-public abstract class TinkerContainer<T extends TileEntity> extends Container {
+public abstract class BaseContainer<T extends TileEntity> extends Container {
 
   protected double maxDist = 8 * 8; // 8 blocks
   protected T tile;
@@ -23,7 +22,7 @@ public abstract class TinkerContainer<T extends TileEntity> extends Container {
   protected final BlockPos pos;
   protected final World world;
 
-  public TinkerContainer(T tile) {
+  public BaseContainer(T tile) {
     this.tile = tile;
 
     this.world = tile.getWorld();
