@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkCheckHandler;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 import org.apache.logging.log4j.LogManager;
@@ -58,6 +59,7 @@ public class TConstruct {
   //public static PulseManager pulsar = new PulseManager(modID, new ForgeCFG("TinkersModules", "Modules: Disabling these will disable a chunk of the mod"));
 
   public static PulseManager pulseManager = new PulseManager(modID, "TinkerModules");
+  public static TinkerGuiHandler guiHandler = new TinkerGuiHandler();
 
   public TConstruct() {
     if(Loader.isModLoaded("Natura")) {
@@ -82,6 +84,8 @@ public class TConstruct {
 
     pulseManager.registerPulse(new TinkerTools());
     pulseManager.preInit(event);
+
+    NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);
 
     if(event.getSide().isClient()) {
       ClientProxy.initClient();
