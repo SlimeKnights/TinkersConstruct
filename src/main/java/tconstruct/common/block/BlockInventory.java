@@ -81,4 +81,11 @@ public abstract class BlockInventory extends BlockContainer {
   public int damageDropped(IBlockState state) {
     return getMetaFromState(state);
   }
+
+  // BlockContainer sets this to -1, which equals invisible
+  // we need 3 for standard forge rendering
+  @Override
+  public int getRenderType() {
+    return 3;
+  }
 }
