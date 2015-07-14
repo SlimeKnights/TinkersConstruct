@@ -35,6 +35,7 @@ import tconstruct.tools.item.ItemTable;
 import tconstruct.tools.modifiers.DiamondModifier;
 import tconstruct.tools.modifiers.RedstoneModifier;
 import tconstruct.tools.modifiers.StoneboundModifier;
+import tconstruct.tools.tileentity.TileCraftingStation;
 import tconstruct.tools.tileentity.TileTable;
 
 @Pulse(id = TinkerTools.PulseId, description = "All the tools and everything related to it.")
@@ -77,6 +78,7 @@ public class TinkerTools extends TinkerPulse {
     // register blocks
     toolTables = registerBlock(new ToolTableBlock(), ItemTable.class, "ToolTables");
     GameRegistry.registerTileEntity(TileTable.class, "Table");
+    GameRegistry.registerTileEntity(TileCraftingStation.class, "CraftingStation");
 
     proxy.registerModels();
 
