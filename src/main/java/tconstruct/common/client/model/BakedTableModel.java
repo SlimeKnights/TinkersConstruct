@@ -96,6 +96,8 @@ public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlex
         bakedModel =
         retexturedModel.bake(retexturedModel.getDefaultState(), Attributes.DEFAULT_BAKED_FORMAT, textureGetter);
 
+    bakedModel = new BlockItemModelWrapper(bakedModel);
+
     cache.put(texture, bakedModel);
 
     return bakedModel;
