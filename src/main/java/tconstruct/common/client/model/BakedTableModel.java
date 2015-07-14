@@ -25,10 +25,10 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 import java.util.List;
 import java.util.Map;
 
-import tconstruct.library.client.model.ModelHelper;
-import tconstruct.library.utils.TagUtil;
 import tconstruct.common.block.BlockTable;
 import tconstruct.common.tileentity.TileTable;
+import tconstruct.library.client.model.ModelHelper;
+import tconstruct.library.utils.TagUtil;
 
 public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlexibleBakedModel {
 

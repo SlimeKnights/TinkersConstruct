@@ -10,6 +10,7 @@ import java.util.List;
 import tconstruct.library.TinkerRegistry;
 
 // todo: move to Mantle
+
 /**
  * Utility class that allows to find a specific subset of items in a list of itemstacks.
  * Matches can be found through oredictionary, simple nbt-independant item-meta combinations etc.
@@ -44,6 +45,7 @@ public abstract class RecipeMatch {
 
   /** A specific amount of a certain item is needed. Supports wildcard-metadata. Not NBT sensitive. */
   public static class Item extends RecipeMatch {
+
     private final ItemStack template;
     private final int amountNeeded;
     private final int amountMatched;
@@ -53,9 +55,9 @@ public abstract class RecipeMatch {
     }
 
     /**
-     * @param template       The itemstack to match
-     * @param amountNeeded   How many of the itemstack are needed for the match
-     * @param amountMatched  If amountneeded itemstacks are present, as how many matches does this count?
+     * @param template      The itemstack to match
+     * @param amountNeeded  How many of the itemstack are needed for the match
+     * @param amountMatched If amountneeded itemstacks are present, as how many matches does this count?
      */
     public Item(ItemStack template, int amountNeeded, int amountMatched) {
       this.template = template;

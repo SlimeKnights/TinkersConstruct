@@ -6,11 +6,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.property.IExtendedBlockState;
 
-import tconstruct.library.client.model.ModelHelper;
 import tconstruct.common.block.BlockTable;
+import tconstruct.library.client.model.ModelHelper;
 
 public class TileTable extends TileInventory {
 

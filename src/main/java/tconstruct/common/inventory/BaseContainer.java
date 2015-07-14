@@ -54,9 +54,10 @@ public abstract class BaseContainer<T extends TileEntity> extends Container {
 
   /**
    * Draws the player inventory starting at the given position
+   *
    * @param playerInventory The players inventory
-   * @param xCorner Default Value: 8
-   * @param yCorner Default Value: (rows - 4) * 18 + 103
+   * @param xCorner         Default Value: 8
+   * @param yCorner         Default Value: (rows - 4) * 18 + 103
    */
   protected void addPlayerInventory(InventoryPlayer playerInventory, int xCorner, int yCorner) {
     int index = 9;

@@ -6,6 +6,7 @@ import net.minecraft.util.StatCollector;
 import tconstruct.library.Util;
 
 public abstract class AbstractTrait implements ITrait {
+
   public static final String LOCALIZATION_STRING = "trait.%s.name";
   private final String identifier;
 

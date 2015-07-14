@@ -80,6 +80,7 @@ public abstract class ModifierAspect {
    * Any modifier not having this has to take care of it itself.
    */
   public static class DataAspect extends ModifierAspect {
+
     private final EnumChatFormatting color;
 
     public DataAspect(IModifier parent, EnumChatFormatting color) {
@@ -106,6 +107,7 @@ public abstract class ModifierAspect {
    * The modifier can be applied several times per modifier used.
    */
   public static class MultiAspect extends ModifierAspect {
+
     private final int countPerLevel;
 
     private final DataAspect dataAspect;
@@ -128,7 +130,7 @@ public abstract class ModifierAspect {
     }
 
     protected int getMaxForLevel(int level) {
-      return countPerLevel*level;
+      return countPerLevel * level;
     }
 
     @Override

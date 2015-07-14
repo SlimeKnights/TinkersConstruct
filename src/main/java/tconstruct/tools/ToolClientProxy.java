@@ -7,7 +7,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import tconstruct.ClientProxy;
 import tconstruct.library.Util;
 import tconstruct.library.client.model.MaterialModelLoader;
-import tconstruct.tools.block.ToolTableBlock;
+import tconstruct.tools.block.BlockToolTable;
 
 import static tconstruct.tools.TinkerTools.binding;
 import static tconstruct.tools.TinkerTools.pickHead;
@@ -20,11 +20,11 @@ public class ToolClientProxy extends ClientProxy {
   public void registerModels() {
     // blocks
     Item tableItem = Item.getItemFromBlock(TinkerTools.toolTables);
-    ModelLoader.setCustomModelResourceLocation(tableItem, ToolTableBlock.TableTypes.CraftingStation.meta, ToolClientEvents.locCraftingStation);
-    ModelLoader.setCustomModelResourceLocation(tableItem, ToolTableBlock.TableTypes.StencilTable.meta, ToolClientEvents.locStencilTable);
-    ModelLoader.setCustomModelResourceLocation(tableItem, ToolTableBlock.TableTypes.PartBuilder.meta, ToolClientEvents.locPartBuilder);
-    ModelLoader.setCustomModelResourceLocation(tableItem, ToolTableBlock.TableTypes.ToolStation.meta, ToolClientEvents.locToolStation);
-    ModelLoader.setCustomModelResourceLocation(tableItem, ToolTableBlock.TableTypes.ToolForge.meta, ToolClientEvents.locToolForge);
+    ModelLoader.setCustomModelResourceLocation(tableItem, BlockToolTable.TableTypes.CraftingStation.meta, ToolClientEvents.locCraftingStation);
+    ModelLoader.setCustomModelResourceLocation(tableItem, BlockToolTable.TableTypes.StencilTable.meta, ToolClientEvents.locStencilTable);
+    ModelLoader.setCustomModelResourceLocation(tableItem, BlockToolTable.TableTypes.PartBuilder.meta, ToolClientEvents.locPartBuilder);
+    ModelLoader.setCustomModelResourceLocation(tableItem, BlockToolTable.TableTypes.ToolStation.meta, ToolClientEvents.locToolStation);
+    ModelLoader.setCustomModelResourceLocation(tableItem, BlockToolTable.TableTypes.ToolForge.meta, ToolClientEvents.locToolForge);
 
     registerToolModel(pickaxe);
 

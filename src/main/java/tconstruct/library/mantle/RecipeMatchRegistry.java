@@ -14,6 +14,7 @@ import java.util.List;
  */
 // MANTLE
 public class RecipeMatchRegistry {
+
   protected final List<RecipeMatch> items = Lists.newArrayList();
 
   public RecipeMatch.Match matches(Collection<ItemStack> stacks) {
@@ -34,6 +35,7 @@ public class RecipeMatchRegistry {
 
   /**
    * Associates an oredict entry with this material. Used for repairing and other.
+   *
    * @param oredictItem   Oredict-String
    * @param amountNeeded  How many of this item are needed to count as one full material item.
    * @param amountMatched If both item and amount are present, how often did they match?
@@ -51,6 +53,7 @@ public class RecipeMatchRegistry {
 
   /**
    * Associates a block with this material. Used for repairing and other.
+   *
    * @param amountMatched For how many matches the block counts (e.g. redstone dust = 1 match, Redstone block = 9)
    */
   public void addItem(Block block, int amountMatched) {
@@ -59,6 +62,7 @@ public class RecipeMatchRegistry {
 
   /**
    * Associates an item entry with this material. Used for repairing and other.
+   *
    * @param item          The item
    * @param amountNeeded  How many of this item are needed to count as one full material item.
    * @param amountMatched If both item and amount are present, how often did they match?

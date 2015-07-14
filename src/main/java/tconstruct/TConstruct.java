@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 
 import mantle.pulsar.control.PulseManager;
+import tconstruct.common.GuiHandler;
 import tconstruct.debug.LocalizationCheckCommand;
 import tconstruct.library.Util;
 import tconstruct.tools.TinkerMaterials;
@@ -59,7 +60,7 @@ public class TConstruct {
   //public static PulseManager pulsar = new PulseManager(modID, new ForgeCFG("TinkersModules", "Modules: Disabling these will disable a chunk of the mod"));
 
   public static PulseManager pulseManager = new PulseManager(modID, "TinkerModules");
-  public static TinkerGuiHandler guiHandler = new TinkerGuiHandler();
+  public static GuiHandler guiHandler = new GuiHandler();
 
   public TConstruct() {
     if(Loader.isModLoaded("Natura")) {

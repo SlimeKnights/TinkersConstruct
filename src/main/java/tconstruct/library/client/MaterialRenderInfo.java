@@ -97,6 +97,7 @@ public interface MaterialRenderInfo {
    * Uses a block texture instead of a color to create the texture
    */
   class BlockTexture implements MaterialRenderInfo {
+
     protected String texturePath;
 
     public BlockTexture(Block block) {

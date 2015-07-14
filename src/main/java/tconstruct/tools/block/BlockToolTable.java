@@ -15,7 +15,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
@@ -29,15 +28,14 @@ import java.util.Set;
 
 import tconstruct.TConstruct;
 import tconstruct.common.block.BlockTable;
-import tconstruct.common.tileentity.TileTable;
 import tconstruct.tools.tileentity.TileCraftingStation;
 
-public class ToolTableBlock extends BlockTable {
+public class BlockToolTable extends BlockTable {
 
   public static final PropertyEnum TABLES = PropertyEnum.create("type", TableTypes.class);
   public final Set<String> toolForgeBlocks = Sets.newHashSet(); // oredict list of toolforge blocks
 
-  public ToolTableBlock() {
+  public BlockToolTable() {
     super(Material.wood);
     this.setCreativeTab(CreativeTabs.tabFood); // todo: fix
 

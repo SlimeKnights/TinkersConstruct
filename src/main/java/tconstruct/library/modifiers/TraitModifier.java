@@ -11,6 +11,7 @@ import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.TinkerUtil;
 
 public class TraitModifier extends Modifier {
+
   private final ITrait trait;
   private final EnumChatFormatting color;
 

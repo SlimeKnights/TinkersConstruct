@@ -20,6 +20,7 @@ import tconstruct.tools.TinkerTools;
  */
 // MANTLE
 public abstract class TinkerPulse {
+
   protected static boolean isToolsLoaded() {
     return TConstruct.pulseManager.isPulseLoaded(TinkerTools.PulseId);
   }
@@ -40,7 +41,9 @@ public abstract class TinkerPulse {
    * Sets the correct unlocalized name and registers the item.
    */
   protected static <T extends Item> T registerItem(T item, String unlocName) {
-    if(!Character.isUpperCase(unlocName.charAt(0))) TConstruct.log.warn("Unlocalized name {} should start with upper case!", unlocName);
+    if(!Character.isUpperCase(unlocName.charAt(0))) {
+      TConstruct.log.warn("Unlocalized name {} should start with upper case!", unlocName);
+    }
 
     item.setUnlocalizedName(Util.prefix(unlocName));
     GameRegistry.registerItem(item, unlocName);
@@ -48,7 +51,9 @@ public abstract class TinkerPulse {
   }
 
   protected static <T extends Block> T registerBlock(T block, String unlocName) {
-    if(!Character.isUpperCase(unlocName.charAt(0))) TConstruct.log.warn("Unlocalized name {} should start with upper case!", unlocName);
+    if(!Character.isUpperCase(unlocName.charAt(0))) {
+      TConstruct.log.warn("Unlocalized name {} should start with upper case!", unlocName);
+    }
 
     block.setUnlocalizedName(Util.prefix(unlocName));
     GameRegistry.registerBlock(block, unlocName);
@@ -58,7 +63,9 @@ public abstract class TinkerPulse {
   protected static <T extends Block> T registerBlock(T block,
                                                      Class<? extends ItemBlock> itemBlockClazz,
                                                      String unlocName, Object... itemCtorArgs) {
-    if(!Character.isUpperCase(unlocName.charAt(0))) TConstruct.log.warn("Unlocalized name {} should start with upper case!", unlocName);
+    if(!Character.isUpperCase(unlocName.charAt(0))) {
+      TConstruct.log.warn("Unlocalized name {} should start with upper case!", unlocName);
+    }
 
     block.setUnlocalizedName(Util.prefix(unlocName));
     GameRegistry.registerBlock(block, itemBlockClazz, unlocName, itemCtorArgs);

@@ -18,6 +18,7 @@ import java.util.Collections;
  * It's never actually used and gets replaced with the real models when the resource manager reloads.
  */
 public class DummyModel implements IModel {
+
   public static final DummyModel INSTANCE = new DummyModel();
 
   @Override

@@ -71,9 +71,10 @@ public final class ToolBuilder {
   /**
    * Takes a tool and an array of itemstacks and tries to modify the tool with those.
    * If removeItems is true, the items used in the process will be removed from the array.
-   * @param stacks       Items to modify the tool with
-   * @param toolStack    The tool
-   * @param removeItems  If true the applied items will be removed from the array
+   *
+   * @param stacks      Items to modify the tool with
+   * @param toolStack   The tool
+   * @param removeItems If true the applied items will be removed from the array
    * @return The modified tool or null if something went wrong or no modifier applied.
    * @throws ModifyException Thrown when not matching modifiers could be applied. Contains extra-information why the process failed.
    */

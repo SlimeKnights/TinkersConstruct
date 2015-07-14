@@ -80,8 +80,9 @@ public abstract class ToolCore extends TinkersItem {
     for(Material head : TinkerRegistry.getAllMaterials()) {
       List<Material> mats = new ArrayList<Material>(requiredComponents.length);
 
-      for(int i = 0; i < requiredComponents.length; i++)
+      for(int i = 0; i < requiredComponents.length; i++) {
         mats.add(head);
+      }
 
       ItemStack tool = buildItem(mats);
       subItems.add(tool);

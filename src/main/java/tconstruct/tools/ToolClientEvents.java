@@ -10,17 +10,17 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.io.IOException;
 
-import tconstruct.library.Util;
 import tconstruct.common.client.model.BakedTableModel;
+import tconstruct.library.Util;
 
 public class ToolClientEvents {
 
   // tool tables
   private static final ResourceLocation MODEL_CraftingStation = Util.getResource("block/CraftingStation");
   private static final ResourceLocation MODEL_StencilTable = Util.getResource("block/StencilTable");
-  private static final ResourceLocation MODEL_PartBuilder  = Util.getResource("block/PartBuilder");
-  private static final ResourceLocation MODEL_ToolStation  = Util.getResource("block/ToolStation");
-  private static final ResourceLocation MODEL_ToolForge  = Util.getResource("block/ToolForge");
+  private static final ResourceLocation MODEL_PartBuilder = Util.getResource("block/PartBuilder");
+  private static final ResourceLocation MODEL_ToolStation = Util.getResource("block/ToolStation");
+  private static final ResourceLocation MODEL_ToolForge = Util.getResource("block/ToolForge");
   private static final String LOCATION_ToolTable = Util.resource("ToolTables");
 
   // the actual locations where the models are located
@@ -50,7 +50,7 @@ public class ToolClientEvents {
       IModel model = event.modelLoader.getModel(modelLocation);
       if(model instanceof IRetexturableModel) {
         IRetexturableModel tableModel = (IRetexturableModel) model;
-        IFlexibleBakedModel standard = (IFlexibleBakedModel)event.modelRegistry.getObject(modelVariantLocation);
+        IFlexibleBakedModel standard = (IFlexibleBakedModel) event.modelRegistry.getObject(modelVariantLocation);
         IFlexibleBakedModel finalModel = new BakedTableModel(standard, tableModel);
 
         event.modelRegistry.putObject(modelVariantLocation, finalModel);

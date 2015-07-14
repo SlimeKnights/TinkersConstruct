@@ -11,6 +11,7 @@ import tconstruct.library.Util;
 import tconstruct.tools.tileentity.TilePatternChest;
 
 public class GuiPatternChest extends GuiContainer {
+
   private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/patternchest.png");
 
   public GuiPatternChest(InventoryPlayer playerInv, World world, BlockPos pos, TilePatternChest tile) {

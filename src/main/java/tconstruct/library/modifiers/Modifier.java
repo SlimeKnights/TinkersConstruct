@@ -97,7 +97,7 @@ public abstract class Modifier implements IModifier {
 
     // if the modifier wasn't present before, add it and safe it to the tool
     if(!TinkerUtil.hasModifier(root, getIdentifier())) {
-      tagList = TagUtil.getBaseModifiersTagList(root);;
+      tagList = TagUtil.getBaseModifiersTagList(root);
       tagList.appendTag(new NBTTagString(getIdentifier()));
       TagUtil.setBaseModifiersTagList(root, tagList);
     }

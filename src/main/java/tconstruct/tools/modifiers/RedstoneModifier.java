@@ -12,6 +12,7 @@ import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
 
 public class RedstoneModifier extends Modifier {
+
   private final int max;
 
   public RedstoneModifier(int max) {
@@ -37,7 +38,7 @@ public class RedstoneModifier extends Modifier {
     // todo: This is a TEST IMPLEMENTATION!
     NBTTagCompound tag = TagUtil.getToolTag(rootCompound);
     float speed = tag.getFloat(Tags.MININGSPEED);
-    speed += data.current/10f;
+    speed += data.current / 10f;
     tag.setFloat(Tags.MININGSPEED, speed);
   }
 }

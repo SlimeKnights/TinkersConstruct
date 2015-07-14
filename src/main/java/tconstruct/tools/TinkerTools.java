@@ -24,12 +24,13 @@ import mantle.pulsar.pulse.Pulse;
 import tconstruct.CommonProxy;
 import tconstruct.TinkerPulse;
 import tconstruct.common.item.ItemBlockMeta;
+import tconstruct.common.tileentity.TileTable;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
 import tconstruct.library.modifiers.IModifier;
 import tconstruct.library.modifiers.Modifier;
 import tconstruct.library.tools.ToolPart;
-import tconstruct.tools.block.ToolTableBlock;
+import tconstruct.tools.block.BlockToolTable;
 import tconstruct.tools.debug.TempToolCrafting;
 import tconstruct.tools.debug.TempToolModifying;
 import tconstruct.tools.modifiers.DiamondModifier;
@@ -37,7 +38,6 @@ import tconstruct.tools.modifiers.RedstoneModifier;
 import tconstruct.tools.modifiers.StoneboundModifier;
 import tconstruct.tools.tileentity.TileCraftingStation;
 import tconstruct.tools.tileentity.TilePatternChest;
-import tconstruct.common.tileentity.TileTable;
 
 @Pulse(id = TinkerTools.PulseId, description = "All the tools and everything related to it.")
 public class TinkerTools extends TinkerPulse {
@@ -49,7 +49,7 @@ public class TinkerTools extends TinkerPulse {
   public static CommonProxy proxy;
 
   // Blocks
-  public static ToolTableBlock toolTables;
+  public static BlockToolTable toolTables;
 
   // Tools
   public static Item pickaxe;
@@ -77,7 +77,7 @@ public class TinkerTools extends TinkerPulse {
     registerModifiers();
 
     // register blocks
-    toolTables = registerBlock(new ToolTableBlock(), ItemBlockMeta.class, "ToolTables");
+    toolTables = registerBlock(new BlockToolTable(), ItemBlockMeta.class, "ToolTables");
     GameRegistry.registerTileEntity(TileTable.class, "Table");
     GameRegistry.registerTileEntity(TileCraftingStation.class, "CraftingStation");
     GameRegistry.registerTileEntity(TilePatternChest.class, "PatternChest");
@@ -148,19 +148,19 @@ public class TinkerTools extends TinkerPulse {
 
     // Crafting Station
     GameRegistry.addRecipe(
-        new ShapelessOreRecipe(new ItemStack(toolTables, 1, ToolTableBlock.TableTypes.CraftingStation.meta),
+        new ShapelessOreRecipe(new ItemStack(toolTables, 1, BlockToolTable.TableTypes.CraftingStation.meta),
                                "workbench"));
     // Stencil Table
     GameRegistry.addRecipe(
-        new TableRecipe(OreDictionary.getOres("plankWood"), toolTables, ToolTableBlock.TableTypes.StencilTable.meta,
+        new TableRecipe(OreDictionary.getOres("plankWood"), toolTables, BlockToolTable.TableTypes.StencilTable.meta,
                         "P", "B", 'P', pattern, 'B', "plankWood"));
     // Part Builder
     GameRegistry.addRecipe(
-        new TableRecipe(OreDictionary.getOres("logWood"), toolTables, ToolTableBlock.TableTypes.PartBuilder.meta, "P",
+        new TableRecipe(OreDictionary.getOres("logWood"), toolTables, BlockToolTable.TableTypes.PartBuilder.meta, "P",
                         "B", 'P', pattern, 'B', "logWood"));
     // Tool Station
     GameRegistry.addRecipe(
-        new ShapedOreRecipe(new ItemStack(toolTables, 1, ToolTableBlock.TableTypes.ToolStation.meta),
+        new ShapedOreRecipe(new ItemStack(toolTables, 1, BlockToolTable.TableTypes.ToolStation.meta),
                             "P", "B", 'P', pattern, 'B', "workbench"));
     // Tool Forge
     TinkerRegistry.addToolForgeBlock("blockIron");
@@ -171,13 +171,13 @@ public class TinkerTools extends TinkerPulse {
   public static void registerToolForgeRecipe(String oredict) {
     // todo: change recipe to brick vs. smeltery-bricks wether smeltery pulse is active
     GameRegistry
-        .addRecipe(new TableRecipe(OreDictionary.getOres(oredict), toolTables, ToolTableBlock.TableTypes.ToolForge.meta,
+        .addRecipe(new TableRecipe(OreDictionary.getOres(oredict), toolTables, BlockToolTable.TableTypes.ToolForge.meta,
                                    "BBB",
                                    "MTM",
                                    "M M",
                                    'B', Blocks.stonebrick,
                                    'M', oredict,
-                                   'T', new ItemStack(toolTables, 1, ToolTableBlock.TableTypes.ToolStation.meta)));
+                                   'T', new ItemStack(toolTables, 1, BlockToolTable.TableTypes.ToolStation.meta)));
   }
 
   // POST-INITIALIZATION

@@ -7,11 +7,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import tconstruct.tools.TinkerTools;
-import tconstruct.tools.block.ToolTableBlock;
+import tconstruct.tools.block.BlockToolTable;
 
 // Holds all the things oredicted by Tinkers :)
 class TinkerOredict {
-  private TinkerOredict() {}
+
+  private TinkerOredict() {
+  }
 
   // Things that are not from tinkers but should be oredicted
   public static void ensureOredict() {
@@ -22,13 +24,12 @@ class TinkerOredict {
   // All the oredicted things in tinkers. Only registers if the item is actually present
   public static void registerTinkerOredict() {
     // TinkerTools Pulse
-    oredict("workbench", TinkerTools.toolTables, ToolTableBlock.TableTypes.CraftingStation.meta);
+    oredict("workbench", TinkerTools.toolTables, BlockToolTable.TableTypes.CraftingStation.meta);
 
     oredict("partPickHead", TinkerTools.pickHead);
     oredict("partBinding", TinkerTools.binding);
     oredict("partToolRod", TinkerTools.toolRod);
   }
-
 
 
   private static void oredict(String name, Item item) {

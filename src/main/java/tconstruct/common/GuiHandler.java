@@ -11,21 +11,19 @@ import tconstruct.library.mantle.IInventoryGui;
 public class GuiHandler implements IGuiHandler {
 
   @Override
-  public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
-  {
-    TileEntity te = world.getTileEntity(new BlockPos(x,y,z));
+  public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+    TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
     if(te instanceof IInventoryGui) {
-      return ((IInventoryGui) te).createContainer(player.inventory, world, new BlockPos(x,y,z));
+      return ((IInventoryGui) te).createContainer(player.inventory, world, new BlockPos(x, y, z));
     }
     return null;
   }
 
   @Override
-  public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
-  {
-    TileEntity te = world.getTileEntity(new BlockPos(x,y,z));
+  public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+    TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
     if(te instanceof IInventoryGui) {
-      return ((IInventoryGui) te).createGui(player.inventory, world, new BlockPos(x,y,z));
+      return ((IInventoryGui) te).createGui(player.inventory, world, new BlockPos(x, y, z));
     }
     return null;
   }

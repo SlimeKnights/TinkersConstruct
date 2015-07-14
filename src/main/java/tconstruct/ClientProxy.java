@@ -34,7 +34,7 @@ public abstract class ClientProxy extends CommonProxy {
     CustomTextureCreator creator = new CustomTextureCreator();
 
     MinecraftForge.EVENT_BUS.register(creator);
-    ((IReloadableResourceManager)Minecraft.getMinecraft().getResourceManager()).registerReloadListener(creator);
+    ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(creator);
   }
 
   protected ResourceLocation registerModel(Item item, String... customVariants) {

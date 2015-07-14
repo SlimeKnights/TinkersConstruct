@@ -23,8 +23,8 @@ import net.minecraftforge.common.property.IUnlistedProperty;
 import java.util.List;
 
 import tconstruct.common.property.PropertyString;
-import tconstruct.library.utils.TagUtil;
 import tconstruct.common.tileentity.TileTable;
+import tconstruct.library.utils.TagUtil;
 
 public class BlockTable extends BlockInventory implements ITileEntityProvider {
 

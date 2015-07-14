@@ -11,6 +11,7 @@ import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.utils.ToolBuilder;
 
 public class TempToolModifying implements IRecipe {
+
   static {
     // register the recipe with the recipesorter
     RecipeSorter.register("tcon:mod", TempToolModifying.class, RecipeSorter.Category.SHAPELESS, "");

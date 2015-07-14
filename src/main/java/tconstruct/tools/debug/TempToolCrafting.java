@@ -13,6 +13,7 @@ import tconstruct.library.TinkerRegistry;
 import tconstruct.library.tools.ToolCore;
 
 public class TempToolCrafting implements IRecipe {
+
   static {
     // register the recipe with the recipesorter
     RecipeSorter.register("tcon:tool", TempToolCrafting.class, RecipeSorter.Category.SHAPELESS, "");

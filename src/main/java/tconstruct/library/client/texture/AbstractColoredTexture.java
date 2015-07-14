@@ -143,33 +143,28 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
       IResource iresource = resourceManager.getResource(resourcelocation1);
       BufferedImage[] abufferedimage = new BufferedImage[1 + 4]; // iirc TextureMap.mipmapLevels is always 4? :I
       abufferedimage[0] = TextureUtil.readBufferedImage(iresource.getInputStream());
-      TextureMetadataSection texturemetadatasection = (TextureMetadataSection)iresource.getMetadata("texture");
+      TextureMetadataSection texturemetadatasection = (TextureMetadataSection) iresource.getMetadata("texture");
 
       // metadata
-      if (texturemetadatasection != null)
-      {
+      if(texturemetadatasection != null) {
         List list = texturemetadatasection.getListMipmaps();
         int i1;
 
-        if (!list.isEmpty())
-        {
+        if(!list.isEmpty()) {
           int l = abufferedimage[0].getWidth();
           i1 = abufferedimage[0].getHeight();
 
-          if (MathHelper.roundUpToPowerOfTwo(l) != l || MathHelper.roundUpToPowerOfTwo(i1) != i1)
-          {
+          if(MathHelper.roundUpToPowerOfTwo(l) != l || MathHelper.roundUpToPowerOfTwo(i1) != i1) {
             throw new RuntimeException("Unable to load extra miplevels, source-texture is not power of two");
           }
         }
 
         Iterator iterator3 = list.iterator();
 
-        while (iterator3.hasNext())
-        {
-          i1 = ((Integer)iterator3.next()).intValue();
+        while(iterator3.hasNext()) {
+          i1 = ((Integer) iterator3.next()).intValue();
 
-          if (i1 > 0 && i1 < abufferedimage.length - 1 && abufferedimage[i1] == null)
-          {
+          if(i1 > 0 && i1 < abufferedimage.length - 1 && abufferedimage[i1] == null) {
             ResourceLocation resourcelocation2 = this.completeResourceLocation(resourceLocation, i1);
 
             try
@@ -184,7 +179,7 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
         }
       }
 
-      AnimationMetadataSection animationmetadatasection = (AnimationMetadataSection)iresource.getMetadata("animation");
+      AnimationMetadataSection animationmetadatasection = (AnimationMetadataSection) iresource.getMetadata("animation");
       textureAtlasSprite.loadSprite(abufferedimage, animationmetadatasection);
 
       return textureAtlasSprite;
