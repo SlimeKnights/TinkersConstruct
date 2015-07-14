@@ -5,11 +5,11 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 
 import tconstruct.common.inventory.ContainerSimpleChest;
-import tconstruct.common.tileentity.TileSimpleChest;
+import tconstruct.common.tileentity.TileInventory;
 
 public class ContainerPatternChest extends ContainerSimpleChest {
 
-  public ContainerPatternChest(int rows, int columns, InventoryPlayer playerInventory, TileSimpleChest tile) {
+  public ContainerPatternChest(int rows, int columns, InventoryPlayer playerInventory, TileInventory tile) {
     super(tile, rows, columns, playerInventory);
   }
 

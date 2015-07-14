@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Set;
 
 import tconstruct.TConstruct;
+import tconstruct.common.block.BlockTable;
+import tconstruct.common.tileentity.TileTable;
 import tconstruct.tools.tileentity.TileCraftingStation;
 
 public class ToolTableBlock extends BlockTable {
@@ -58,11 +60,8 @@ public class ToolTableBlock extends BlockTable {
   }
 
   @Override
-  public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-                                  EnumFacing side, float hitX, float hitY, float hitZ) {
-    if(!worldIn.isRemote) {
-      playerIn.openGui(TConstruct.instance, 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
-    }
+  protected boolean openGui(EntityPlayer player, World world, BlockPos pos) {
+    player.openGui(TConstruct.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
     return true;
   }
 
@@ -121,11 +120,6 @@ public class ToolTableBlock extends BlockTable {
   @Override
   public IBlockState getStateFromMeta(int meta) {
     return this.getDefaultState().withProperty(TABLES, TableTypes.fromMeta(meta));
-  }
-
-  @Override
-  public int damageDropped(IBlockState state) {
-    return getMetaFromState(state);
   }
 
   @Override

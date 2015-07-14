@@ -1,4 +1,4 @@
-package tconstruct.tools.block;
+package tconstruct.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
@@ -24,9 +24,9 @@ import java.util.List;
 
 import tconstruct.common.property.PropertyString;
 import tconstruct.library.utils.TagUtil;
-import tconstruct.tools.tileentity.TileTable;
+import tconstruct.common.tileentity.TileTable;
 
-public class BlockTable extends Block implements ITileEntityProvider {
+public class BlockTable extends BlockInventory implements ITileEntityProvider {
 
   public static final PropertyString TEXTURE = new PropertyString("texture");
 
@@ -47,7 +47,14 @@ public class BlockTable extends Block implements ITileEntityProvider {
 
   @Override
   public TileEntity createNewTileEntity(World worldIn, int meta) {
-    return new TileTable();
+    // table without inventory by default
+    return new TileTable("tile.table", 0, 0);
+  }
+
+  @Override
+  protected boolean openGui(EntityPlayer player, World world, BlockPos pos) {
+    // no gui by default
+    return false;
   }
 
   @Override
@@ -71,6 +78,8 @@ public class BlockTable extends Block implements ITileEntityProvider {
   @Override
   public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer,
                               ItemStack stack) {
+    super.onBlockPlacedBy(world, pos, state, placer, stack);
+
     NBTTagCompound tag = TagUtil.getTagSafe(stack);
     if(tag.hasKey(TileTable.FEET_TAG)) {
       TileEntity te = world.getTileEntity(pos);

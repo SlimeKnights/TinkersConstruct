@@ -8,7 +8,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.util.List;
 
-import tconstruct.tools.block.BlockTable;
+import tconstruct.common.block.BlockTable;
 
 public class TableRecipe extends ShapedOreRecipe {
 

@@ -4,11 +4,11 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 
-import tconstruct.common.tileentity.TileSimpleChest;
+import tconstruct.common.tileentity.TileInventory;
 
-public class ContainerSimpleChest extends BaseContainer<TileSimpleChest> {
+public class ContainerSimpleChest extends BaseContainer<TileInventory> {
 
-  public ContainerSimpleChest(TileSimpleChest tile, int rows, int columns, InventoryPlayer playerInventory) {
+  public ContainerSimpleChest(TileInventory tile, int rows, int columns, InventoryPlayer playerInventory) {
     super(tile);
 
     int index = 0;
@@ -17,11 +17,11 @@ public class ContainerSimpleChest extends BaseContainer<TileSimpleChest> {
     for(int i = 0; i < rows; ++i) {
       for(int j = 0; j < columns; ++j) {
         // safety
-        if(index > tile.getInventory().getSizeInventory()) {
+        if(index > tile.getSizeInventory()) {
           break;
         }
 
-        this.addSlotToContainer(createSlot(tile.getInventory(), index, 8 + j * 18, 18 + i * 18));
+        this.addSlotToContainer(createSlot(tile, index, 8 + j * 18, 18 + i * 18));
         index++;
       }
     }

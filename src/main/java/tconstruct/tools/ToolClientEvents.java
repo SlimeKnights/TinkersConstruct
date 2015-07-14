@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.io.IOException;
 
 import tconstruct.library.Util;
-import tconstruct.tools.client.BakedTableModel;
+import tconstruct.common.client.model.BakedTableModel;
 
 public class ToolClientEvents {
 

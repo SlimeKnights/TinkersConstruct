@@ -5,10 +5,10 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class SlotRestricted extends Slot {
+public class SlotRestrictedItem extends Slot {
   private final Item allowedItem;
 
-  public SlotRestricted(Item item, IInventory inventoryIn, int index, int xPosition, int yPosition) {
+  public SlotRestrictedItem(Item item, IInventory inventoryIn, int index, int xPosition, int yPosition) {
     super(inventoryIn, index, xPosition, yPosition);
     allowedItem = item;
   }

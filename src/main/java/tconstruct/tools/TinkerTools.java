@@ -3,8 +3,6 @@ package tconstruct.tools;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemColored;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
@@ -39,7 +37,7 @@ import tconstruct.tools.modifiers.RedstoneModifier;
 import tconstruct.tools.modifiers.StoneboundModifier;
 import tconstruct.tools.tileentity.TileCraftingStation;
 import tconstruct.tools.tileentity.TilePatternChest;
-import tconstruct.tools.tileentity.TileTable;
+import tconstruct.common.tileentity.TileTable;
 
 @Pulse(id = TinkerTools.PulseId, description = "All the tools and everything related to it.")
 public class TinkerTools extends TinkerPulse {

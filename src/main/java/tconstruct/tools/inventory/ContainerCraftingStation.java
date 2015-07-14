@@ -34,7 +34,7 @@ public class ContainerCraftingStation extends Container {
     this.tile = tile;
 
     craftResult = new InventoryCraftResult();
-    craftMatrix = new InventoryCraftingPersistent(this, tile.getInventory(), 3, 3);
+    craftMatrix = new InventoryCraftingPersistent(this, tile, 3, 3);
 
     this.addSlotToContainer(new SlotCrafting(playerInventory.player, this.craftMatrix, this.craftResult, 0, 124, 35));
     int i;

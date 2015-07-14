@@ -1,4 +1,4 @@
-package tconstruct.tools.client;
+package tconstruct.common.client.model;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
@@ -27,8 +27,8 @@ import java.util.Map;
 
 import tconstruct.library.client.model.ModelHelper;
 import tconstruct.library.utils.TagUtil;
-import tconstruct.tools.block.BlockTable;
-import tconstruct.tools.tileentity.TileTable;
+import tconstruct.common.block.BlockTable;
+import tconstruct.common.tileentity.TileTable;
 
 public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlexibleBakedModel {
 
@@ -52,7 +52,7 @@ public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlex
   @Override
   public IBakedModel handleBlockState(IBlockState state) {
     // get texture from state
-    String texture = null; // todo: get texture from state
+    String texture = null;
 
     if(state instanceof IExtendedBlockState) {
       IExtendedBlockState extendedState = (IExtendedBlockState) state;

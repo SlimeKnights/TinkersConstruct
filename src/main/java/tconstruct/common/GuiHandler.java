@@ -1,4 +1,4 @@
-package tconstruct;
+package tconstruct.common;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 
 import tconstruct.library.mantle.IInventoryGui;
 
-public class TinkerGuiHandler implements IGuiHandler {
+public class GuiHandler implements IGuiHandler {
 
   @Override
   public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)

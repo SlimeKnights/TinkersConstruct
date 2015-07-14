@@ -6,12 +6,12 @@ import net.minecraft.inventory.Container;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-import tconstruct.common.tileentity.TileSimpleChest;
+import tconstruct.common.tileentity.TileInventory;
 import tconstruct.library.mantle.IInventoryGui;
 import tconstruct.tools.client.GuiPatternChest;
 import tconstruct.tools.inventory.ContainerPatternChest;
 
-public class TilePatternChest extends TileSimpleChest implements IInventoryGui {
+public class TilePatternChest extends TileInventory implements IInventoryGui {
 
   public TilePatternChest() {
     super("container.patternChest", 30);

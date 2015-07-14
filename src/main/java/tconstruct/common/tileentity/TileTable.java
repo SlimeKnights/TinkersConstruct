@@ -1,4 +1,4 @@
-package tconstruct.tools.tileentity;
+package tconstruct.common.tileentity;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -10,11 +10,19 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.property.IExtendedBlockState;
 
 import tconstruct.library.client.model.ModelHelper;
-import tconstruct.tools.block.BlockTable;
+import tconstruct.common.block.BlockTable;
 
-public class TileTable extends TileEntity {
+public class TileTable extends TileInventory {
 
   public static final String FEET_TAG = "textureBlock";
+
+  public TileTable(String name, int inventorySize) {
+    super(name, inventorySize);
+  }
+
+  public TileTable(String name, int inventorySize, int maxStackSize) {
+    super(name, inventorySize, maxStackSize);
+  }
 
   public IExtendedBlockState writeExtendedBlockState(IExtendedBlockState state) {
     String texture = getTileData().getString("texture");

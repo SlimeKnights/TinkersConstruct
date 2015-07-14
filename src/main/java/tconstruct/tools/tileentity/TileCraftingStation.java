@@ -6,11 +6,12 @@ import net.minecraft.inventory.Container;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+import tconstruct.common.tileentity.TileTable;
 import tconstruct.library.mantle.IInventoryGui;
 import tconstruct.tools.client.GuiCraftingStation;
 import tconstruct.tools.inventory.ContainerCraftingStation;
 
-public class TileCraftingStation extends TileTableInventory implements IInventoryGui {
+public class TileCraftingStation extends TileTable implements IInventoryGui {
 
   public TileCraftingStation() {
     super("container.craftingStation", 9);

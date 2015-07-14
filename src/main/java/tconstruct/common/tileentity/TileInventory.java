@@ -22,16 +22,17 @@ public class TileInventory extends TileEntity implements IInventory {
   /**
    * @param name Localization String for the inventory title. Can be overridden through setCustomName
    */
-  public TileInventory(String name, int invSize) {
-    this(name, invSize, 64);
+  public TileInventory(String name, int inventorySize) {
+    this(name, inventorySize, 64);
   }
 
   /**
    * @param name Localization String for the inventory title. Can be overridden through setCustomName
    */
-  public TileInventory(String name, int invSize, int maxStackSize) {
-    inventory = new ItemStack[invSize];
-    stackSizeLimit = maxStackSize;
+  public TileInventory(String name, int inventorySize, int maxStackSize) {
+    this.inventory = new ItemStack[inventorySize];
+    this.stackSizeLimit = maxStackSize;
+    this.inventoryTitle = name;
   }
 
     /* Inventory management */
