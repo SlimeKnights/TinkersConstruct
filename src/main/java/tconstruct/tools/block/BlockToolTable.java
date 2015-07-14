@@ -28,6 +28,7 @@ import java.util.Set;
 
 import tconstruct.TConstruct;
 import tconstruct.common.block.BlockTable;
+import tconstruct.common.tileentity.TileTable;
 import tconstruct.tools.tileentity.TileCraftingStation;
 
 public class BlockToolTable extends BlockTable {
@@ -53,7 +54,7 @@ public class BlockToolTable extends BlockTable {
       case ToolStation:
       case ToolForge:
       default:
-        return null;
+        return super.createNewTileEntity(worldIn, meta);
     }
   }
 
