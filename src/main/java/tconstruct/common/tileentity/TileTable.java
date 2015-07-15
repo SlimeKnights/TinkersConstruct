@@ -15,6 +15,11 @@ public class TileTable extends TileInventory {
 
   public static final String FEET_TAG = "textureBlock";
 
+  // default constructor for loading
+  public TileTable() {
+    super("", 0, 0);
+  }
+
   public TileTable(String name, int inventorySize) {
     super(name, inventorySize);
   }
