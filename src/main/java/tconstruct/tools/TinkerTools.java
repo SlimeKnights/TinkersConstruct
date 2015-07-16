@@ -2,6 +2,7 @@ package tconstruct.tools;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,6 +24,7 @@ import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import tconstruct.CommonProxy;
 import tconstruct.TinkerPulse;
+import tconstruct.common.block.BlockTable;
 import tconstruct.common.item.ItemBlockMeta;
 import tconstruct.common.tileentity.TileTable;
 import tconstruct.library.TinkerRegistry;
@@ -154,10 +156,20 @@ public class TinkerTools extends TinkerPulse {
     GameRegistry.addRecipe(
         new TableRecipe(OreDictionary.getOres("plankWood"), toolTables, BlockToolTable.TableTypes.StencilTable.meta,
                         "P", "B", 'P', pattern, 'B', "plankWood"));
+    GameRegistry.addRecipe(BlockTable.createItemstack(toolTables, BlockToolTable.TableTypes.StencilTable.meta, Blocks.rail, 0),
+                           "P", "B", 'P', pattern, 'B', Blocks.rail);
+    GameRegistry.addRecipe(BlockTable.createItemstack(toolTables, BlockToolTable.TableTypes.StencilTable.meta, Blocks.melon_block, 0),
+                           "P", "B", 'P', pattern, 'B', Blocks.melon_block);
+
     // Part Builder
     GameRegistry.addRecipe(
         new TableRecipe(OreDictionary.getOres("logWood"), toolTables, BlockToolTable.TableTypes.PartBuilder.meta, "P",
                         "B", 'P', pattern, 'B', "logWood"));
+    GameRegistry.addRecipe(BlockTable.createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, Blocks.rail, 0),
+                           "P", "B", 'P', pattern, 'B', Blocks.rail);
+    GameRegistry.addRecipe(BlockTable.createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, Blocks.cactus, 0),
+                           "P", "B", 'P', pattern, 'B', Blocks.cactus);
+
     // Tool Station
     GameRegistry.addRecipe(
         new ShapedOreRecipe(new ItemStack(toolTables, 1, BlockToolTable.TableTypes.ToolStation.meta),
