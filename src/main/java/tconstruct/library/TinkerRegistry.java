@@ -245,11 +245,11 @@ public final class TinkerRegistry {
 
   /** Adds a new oredict entry that can be used for toolforge crafting */
   public static void addToolForgeBlock(String oredict) {
-    if(TinkerTools.toolTables == null) {
+    if(TinkerTools.toolForge == null) {
       return;
     }
 
-    TinkerTools.toolTables.toolForgeBlocks.add(oredict);
+    TinkerTools.toolForge.baseBlocks.add(oredict);
     TinkerTools.registerToolForgeRecipe(oredict);
   }
 

@@ -22,13 +22,14 @@ public class ToolClientEvents {
   private static final ResourceLocation MODEL_ToolStation = Util.getResource("block/ToolStation");
   private static final ResourceLocation MODEL_ToolForge = Util.getResource("block/ToolForge");
   private static final String LOCATION_ToolTable = Util.resource("ToolTables");
+  private static final String LOCATION_ToolForge = Util.resource("ToolForge");
 
   // the actual locations where the models are located
   public static final ModelResourceLocation locCraftingStation = new ModelResourceLocation(LOCATION_ToolTable, "type=craftingstation");
   public static final ModelResourceLocation locStencilTable = new ModelResourceLocation(LOCATION_ToolTable, "type=stenciltable");
   public static final ModelResourceLocation locPartBuilder = new ModelResourceLocation(LOCATION_ToolTable, "type=partbuilder");
   public static final ModelResourceLocation locToolStation = new ModelResourceLocation(LOCATION_ToolTable, "type=toolstation");
-  public static final ModelResourceLocation locToolForge = new ModelResourceLocation(LOCATION_ToolTable, "type=toolforge");
+  public static final ModelResourceLocation locToolForge = new ModelResourceLocation(LOCATION_ToolForge, "normal");
 
   @SubscribeEvent
   public void onModelBake(ModelBakeEvent event) {

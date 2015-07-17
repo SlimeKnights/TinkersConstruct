@@ -1,7 +1,6 @@
 package tconstruct.tools.block;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -24,25 +23,30 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
-import java.util.Set;
 
 import tconstruct.TConstruct;
 import tconstruct.common.block.BlockTable;
-import tconstruct.common.tileentity.TileTable;
 import tconstruct.tools.tileentity.TileCraftingStation;
+import tconstruct.tools.tileentity.TilePartBuilder;
+import tconstruct.tools.tileentity.TileStencilTable;
+import tconstruct.tools.tileentity.TileToolStation;
 
 public class BlockToolTable extends BlockTable {
 
   public static final PropertyEnum TABLES = PropertyEnum.create("type", TableTypes.class);
-  public final Set<String> toolForgeBlocks = Sets.newHashSet(); // oredict list of toolforge blocks
 
   public BlockToolTable() {
     super(Material.wood);
     this.setCreativeTab(CreativeTabs.tabFood); // todo: fix
 
     this.setStepSound(soundTypeWood);
-    this.setResistance(5.0f);
+    this.setResistance(5f);
+    this.setHardness(2f);
+
+    // set axe as effective tool for all variants
+    this.setHarvestLevel("axe", 0);
   }
+
 
   @Override
   public TileEntity createNewTileEntity(World worldIn, int meta) {
@@ -50,9 +54,11 @@ public class BlockToolTable extends BlockTable {
       case CraftingStation:
         return new TileCraftingStation();
       case StencilTable:
+        return new TileStencilTable();
       case PartBuilder:
+        return new TilePartBuilder();
       case ToolStation:
-      case ToolForge:
+        return new TileToolStation();
       default:
         return super.createNewTileEntity(worldIn, meta);
     }
@@ -80,15 +86,6 @@ public class BlockToolTable extends BlockTable {
     //addBlocksFromOredict("workbench", TableTypes.ToolStation.ordinal(), list);
     list.add(new ItemStack(this, 1, TableTypes.ToolStation.meta));
 
-    // toolforge has custom blocks
-    for(String oredict : toolForgeBlocks) {
-      // only add the first entry per oredict
-      List<ItemStack> ores = OreDictionary.getOres(oredict);
-      if(ores.size() > 0) {
-        list.add(createItemstack(this, TableTypes.ToolForge.meta, Block.getBlockFromItem(ores.get(0).getItem()),
-                                 ores.get(0).getItemDamage()));
-      }
-    }
   }
 
   private void addBlocksFromOredict(String oredict, int meta, List<ItemStack> list) {
@@ -131,7 +128,7 @@ public class BlockToolTable extends BlockTable {
     StencilTable,
     PartBuilder,
     ToolStation,
-    ToolForge;
+    PatternChest;
 
     TableTypes() {
       meta = this.ordinal();

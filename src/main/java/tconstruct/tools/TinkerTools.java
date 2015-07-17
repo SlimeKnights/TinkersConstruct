@@ -32,6 +32,7 @@ import tconstruct.library.Util;
 import tconstruct.library.modifiers.IModifier;
 import tconstruct.library.modifiers.Modifier;
 import tconstruct.library.tools.ToolPart;
+import tconstruct.tools.block.BlockToolForge;
 import tconstruct.tools.block.BlockToolTable;
 import tconstruct.tools.debug.TempToolCrafting;
 import tconstruct.tools.debug.TempToolModifying;
@@ -39,7 +40,10 @@ import tconstruct.tools.modifiers.DiamondModifier;
 import tconstruct.tools.modifiers.RedstoneModifier;
 import tconstruct.tools.modifiers.StoneboundModifier;
 import tconstruct.tools.tileentity.TileCraftingStation;
+import tconstruct.tools.tileentity.TilePartBuilder;
 import tconstruct.tools.tileentity.TilePatternChest;
+import tconstruct.tools.tileentity.TileStencilTable;
+import tconstruct.tools.tileentity.TileToolStation;
 
 @Pulse(id = TinkerTools.PulseId, description = "All the tools and everything related to it.")
 public class TinkerTools extends TinkerPulse {
@@ -52,6 +56,7 @@ public class TinkerTools extends TinkerPulse {
 
   // Blocks
   public static BlockToolTable toolTables;
+  public static BlockToolForge toolForge;
 
   // Tools
   public static Item pickaxe;
@@ -82,7 +87,12 @@ public class TinkerTools extends TinkerPulse {
     toolTables = registerBlock(new BlockToolTable(), ItemBlockMeta.class, "ToolTables");
     GameRegistry.registerTileEntity(TileTable.class, "Table");
     GameRegistry.registerTileEntity(TileCraftingStation.class, "CraftingStation");
+    GameRegistry.registerTileEntity(TileStencilTable.class, "StencilTable");
+    GameRegistry.registerTileEntity(TilePartBuilder.class, "PartBuilder");
     GameRegistry.registerTileEntity(TilePatternChest.class, "PatternChest");
+    GameRegistry.registerTileEntity(TileToolStation.class, "ToolStation");
+
+    toolForge = registerBlock(new BlockToolForge(), ItemBlockMeta.class, "ToolForge");
 
     proxy.registerModels();
 
@@ -183,7 +193,7 @@ public class TinkerTools extends TinkerPulse {
   public static void registerToolForgeRecipe(String oredict) {
     // todo: change recipe to brick vs. smeltery-bricks wether smeltery pulse is active
     GameRegistry
-        .addRecipe(new TableRecipe(OreDictionary.getOres(oredict), toolTables, BlockToolTable.TableTypes.ToolForge.meta,
+        .addRecipe(new TableRecipe(OreDictionary.getOres(oredict), toolForge, 0,
                                    "BBB",
                                    "MTM",
                                    "M M",
