@@ -26,6 +26,7 @@ import java.util.List;
 
 import tconstruct.TConstruct;
 import tconstruct.common.block.BlockTable;
+import tconstruct.library.TinkerRegistry;
 import tconstruct.tools.tileentity.TileCraftingStation;
 import tconstruct.tools.tileentity.TilePartBuilder;
 import tconstruct.tools.tileentity.TileStencilTable;
@@ -37,7 +38,7 @@ public class BlockToolTable extends BlockTable {
 
   public BlockToolTable() {
     super(Material.wood);
-    this.setCreativeTab(CreativeTabs.tabFood); // todo: fix
+    this.setCreativeTab(TinkerRegistry.tabTools);
 
     this.setStepSound(soundTypeWood);
     this.setResistance(5f);

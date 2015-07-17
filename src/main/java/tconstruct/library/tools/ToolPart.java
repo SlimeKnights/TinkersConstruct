@@ -21,6 +21,10 @@ import tconstruct.library.utils.Tags;
 
 public class ToolPart extends MaterialItem implements IToolPart {
 
+  public ToolPart() {
+    this.setCreativeTab(TinkerRegistry.tabTools);
+  }
+
   @Override
   public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
     super.getSubItems(itemIn, tab, subItems);

@@ -6,6 +6,11 @@ import gnu.trove.map.hash.THashMap;
 import gnu.trove.set.hash.THashSet;
 import gnu.trove.set.hash.TLinkedHashSet;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -18,6 +23,7 @@ import java.util.Map;
 import java.util.Set;
 
 import tconstruct.library.events.MaterialEvent;
+import tconstruct.library.mantle.CreativeTab;
 import tconstruct.library.materials.IMaterialStats;
 import tconstruct.library.materials.Material;
 import tconstruct.library.modifiers.IModifier;
@@ -33,6 +39,12 @@ public final class TinkerRegistry {
   private TinkerRegistry() {
   }
 
+  /*---------------------------------------------------------------------------
+  | CREATIVE TABS                                                             |
+  ---------------------------------------------------------------------------*/
+  public static CreativeTab tabTools = new CreativeTab("TinkerTools", new ItemStack(Items.iron_pickaxe));
+  public static CreativeTab tabSmeltery = new CreativeTab("TinkerSmeltery", new ItemStack(Item.getItemFromBlock(Blocks.stonebrick)));
+  public static CreativeTab tabWorld = new CreativeTab("TinkerWorld", new ItemStack(Item.getItemFromBlock(Blocks.slime_block)));
 
   /*---------------------------------------------------------------------------
   | MATERIALS                                                                 |

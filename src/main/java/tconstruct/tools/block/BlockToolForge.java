@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 import tconstruct.common.block.BlockTable;
+import tconstruct.library.TinkerRegistry;
 import tconstruct.tools.tileentity.TileToolStation;
 
 // This literally only is its own block because it has a different material
@@ -28,7 +29,7 @@ public class BlockToolForge extends BlockTable {
 
   public BlockToolForge() {
     super(Material.iron);
-    this.setCreativeTab(CreativeTabs.tabFood); // todo: fix
+    this.setCreativeTab(TinkerRegistry.tabTools);
 
     this.setStepSound(soundTypeMetal);
     this.setResistance(10f);
