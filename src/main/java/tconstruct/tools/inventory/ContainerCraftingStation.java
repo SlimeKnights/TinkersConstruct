@@ -12,25 +12,20 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+import tconstruct.common.inventory.BaseContainer;
 import tconstruct.library.mantle.InventoryCraftingPersistent;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.tileentity.TileCraftingStation;
 
 // nearly the same as ContainerWorkbench but uses the TileEntities inventory
-public class ContainerCraftingStation extends Container {
-
-  protected final TileCraftingStation tile;
+public class ContainerCraftingStation extends BaseContainer<TileCraftingStation> {
 
   public InventoryCraftingPersistent craftMatrix;
   public IInventory craftResult;
-  private World world;
-  private BlockPos pos;
 
   public ContainerCraftingStation(InventoryPlayer playerInventory, World worldIn, BlockPos pos,
                                   TileCraftingStation tile) {
-    this.world = worldIn;
-    this.pos = pos;
-    this.tile = tile;
+    super(tile);
 
     craftResult = new InventoryCraftResult();
     craftMatrix = new InventoryCraftingPersistent(this, tile, 3, 3);
@@ -45,42 +40,15 @@ public class ContainerCraftingStation extends Container {
       }
     }
 
-    for(i = 0; i < 3; ++i) {
-      for(j = 0; j < 9; ++j) {
-        this.addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-      }
-    }
-
-    for(i = 0; i < 9; ++i) {
-      this.addSlotToContainer(new Slot(playerInventory, i, 8 + i * 18, 142));
-    }
+    this.addPlayerInventory(playerInventory, 8, 84);
 
     this.onCraftMatrixChanged(this.craftMatrix);
   }
 
+  // update crafting
   public void onCraftMatrixChanged(IInventory inventoryIn) {
     this.craftResult
         .setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.world));
-  }
-
-  public void onContainerClosed(EntityPlayer playerIn) {
-    super.onContainerClosed(playerIn);
-
-    if(!this.world.isRemote) {
-      for(int i = 0; i < 9; ++i) {
-        ItemStack itemstack = this.craftMatrix.getStackInSlotOnClosing(i);
-
-        if(itemstack != null) {
-          playerIn.dropPlayerItemWithRandomChoice(itemstack, false);
-        }
-      }
-    }
-  }
-
-  public boolean canInteractWith(EntityPlayer playerIn) {
-    return this.world.getBlockState(this.pos).getBlock() != TinkerTools.toolTables ? false : playerIn.getDistanceSq(
-        (double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
-        (double) this.pos.getZ() + 0.5D) <= 64.0D;
   }
 
   public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
