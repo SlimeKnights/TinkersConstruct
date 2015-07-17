@@ -85,12 +85,12 @@ public class TinkerTools extends TinkerPulse {
 
     // register blocks
     toolTables = registerBlock(new BlockToolTable(), ItemBlockMeta.class, "ToolTables");
-    GameRegistry.registerTileEntity(TileTable.class, "Table");
-    GameRegistry.registerTileEntity(TileCraftingStation.class, "CraftingStation");
-    GameRegistry.registerTileEntity(TileStencilTable.class, "StencilTable");
-    GameRegistry.registerTileEntity(TilePartBuilder.class, "PartBuilder");
-    GameRegistry.registerTileEntity(TilePatternChest.class, "PatternChest");
-    GameRegistry.registerTileEntity(TileToolStation.class, "ToolStation");
+    registerTE(TileTable.class, "Table");
+    registerTE(TileCraftingStation.class, "CraftingStation");
+    registerTE(TileStencilTable.class, "StencilTable");
+    registerTE(TilePartBuilder.class, "PartBuilder");
+    registerTE(TilePatternChest.class, "PatternChest");
+    registerTE(TileToolStation.class, "ToolStation");
 
     toolForge = registerBlock(new BlockToolForge(), ItemBlockMeta.class, "ToolForge");
 

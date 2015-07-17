@@ -3,6 +3,7 @@ package tconstruct;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -70,5 +71,9 @@ public abstract class TinkerPulse {
     block.setUnlocalizedName(Util.prefix(unlocName));
     GameRegistry.registerBlock(block, itemBlockClazz, unlocName, itemCtorArgs);
     return block;
+  }
+
+  protected static void registerTE(Class<? extends TileEntity> teClazz, String name) {
+    GameRegistry.registerTileEntity(teClazz, Util.prefix(name));
   }
 }
