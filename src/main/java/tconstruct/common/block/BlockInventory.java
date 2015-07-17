@@ -47,7 +47,7 @@ public abstract class BlockInventory extends BlockContainer {
       return this.openGui(player, world, pos);
     }
 
-    return false;
+    return true;
   }
 
 
