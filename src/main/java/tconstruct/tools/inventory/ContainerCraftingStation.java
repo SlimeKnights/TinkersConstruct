@@ -1,5 +1,7 @@
 package tconstruct.tools.inventory;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockChest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -9,6 +11,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
@@ -23,8 +26,7 @@ public class ContainerCraftingStation extends BaseContainer<TileCraftingStation>
   public InventoryCraftingPersistent craftMatrix;
   public IInventory craftResult;
 
-  public ContainerCraftingStation(InventoryPlayer playerInventory, World worldIn, BlockPos pos,
-                                  TileCraftingStation tile) {
+  public ContainerCraftingStation(InventoryPlayer playerInventory, TileCraftingStation tile) {
     super(tile);
 
     craftResult = new InventoryCraftResult();
@@ -41,6 +43,17 @@ public class ContainerCraftingStation extends BaseContainer<TileCraftingStation>
     }
 
     this.addPlayerInventory(playerInventory, 8, 84);
+
+    TileEntityChest chest = tile.detectChest();
+    Block blockChest = world.getBlockState(chest.getPos()).getBlock();
+    if(chest != null && blockChest instanceof BlockChest) {
+      IInventory inventory = ((BlockChest) blockChest).getLockableContainer(world, chest.getPos());
+      if(inventory != null) {
+        Container sideInventory = new ContainerSideInventory(chest, inventory, -6 - 18 * 6, 8, 6);
+
+        addSubContainer(sideInventory);
+      }
+    }
 
     this.onCraftMatrixChanged(this.craftMatrix);
   }
