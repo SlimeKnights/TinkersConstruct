@@ -1,10 +1,13 @@
 package tconstruct.common.inventory;
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -22,12 +25,31 @@ public abstract class BaseContainer<T extends TileEntity> extends Container {
   protected final BlockPos pos;
   protected final World world;
 
+  public List<Container> subContainers = Lists.newArrayList();
+
   public BaseContainer(T tile) {
     this.tile = tile;
 
     this.world = tile.getWorld();
     this.pos = tile.getPos();
     this.originalBlock = world.getBlockState(pos).getBlock();
+  }
+
+  public <T extends Container> T getSubContainer(Class<T> clazz) {
+    return getSubContainer(clazz, 0);
+  }
+
+  public <T extends Container> T getSubContainer(Class<T> clazz, int index) {
+    for(Container sub : subContainers) {
+      if(clazz.isAssignableFrom(sub.getClass())) {
+        index--;
+      }
+      if(index < 0) {
+        return (T)sub;
+      }
+    }
+
+    return null;
   }
 
   @Override
@@ -38,10 +60,31 @@ public abstract class BaseContainer<T extends TileEntity> extends Container {
       return false;
     }
 
+    // check if subcontainers are valid
+    for(Container sub : subContainers) {
+      if(!sub.canInteractWith(playerIn))
+        return false;
+    }
+
     // too far away from block?
     return playerIn.getDistanceSq((double) pos.getX() + 0.5d,
                                   (double) pos.getY() + 0.5d,
                                   (double) pos.getZ() + 0.5d) <= maxDist;
+  }
+
+  public void addSubContainer(Container subcontainer) {
+    subContainers.add(subcontainer);
+
+    for(Object slot : subcontainer.inventorySlots) {
+      addSlotToContainer((Slot)slot);
+    }
+  }
+
+  @Override
+  public void onContainerClosed(EntityPlayer playerIn) {
+    for(Container sub : subContainers) {
+      sub.onContainerClosed(playerIn);
+    }
   }
 
   @SuppressWarnings("unchecked")
