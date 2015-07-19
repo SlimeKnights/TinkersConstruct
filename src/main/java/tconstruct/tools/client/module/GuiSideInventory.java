@@ -27,6 +27,13 @@ public class GuiSideInventory extends GuiModule {
   private static final GuiElementScalable slot = new GuiElementScalable(7, 7, 18, 18);
   private static final GuiElementScalable slotEmpty = new GuiElementScalable(7 + 18, 7, 18, 18);
 
+  private static final GuiElement sliderNormal = new GuiElement(7, 25, 12, 15);
+  private static final GuiElement sliderLow = new GuiElement(7+12, 25, 12, 15);
+  private static final GuiElement sliderHigh = new GuiElement(7+12+12, 25, 12, 15);
+  private static final GuiElement sliderTop = new GuiElement(43, 7, 14, 1);
+  private static final GuiElement sliderBottom = new GuiElement(43, 38, 14, 1);
+  private static final GuiElementScalable sliderBackground = new GuiElementScalable(43, 8, 14, 30);
+
   // we use the chest gui as a preset for our parts
   private static final ResourceLocation
       GUI_INVENTORY =
@@ -36,6 +43,8 @@ public class GuiSideInventory extends GuiModule {
 
   private int columns;
   private int slotCount;
+
+  private GuiSlider slider = new GuiSlider(sliderNormal, sliderHigh, sliderLow, sliderTop, sliderBottom, sliderBackground);
 
   public GuiSideInventory(Container container, int slotCount, int columns) {
     super(container, false, false);
@@ -55,6 +64,17 @@ public class GuiSideInventory extends GuiModule {
 
     // at most as big as the parent
     this.ySize = calcCappedYSize(parentSizeY - borderTop.h - borderBottom.h);
+
+    // update slider (if needed)
+    if(ySize < parentSizeY - borderTop.h - borderBottom.h) {
+      slider.setEnabled(true);
+      //slider.setPosition(guiRight() - borderRight.w, guiTop + borderTop.h);
+      slider.setPosition(guiRight()-6, guiTop + borderTop.h);
+      slider.setSize(ySize - borderTop.h - borderBottom.h);
+    }
+    else {
+      slider.setEnabled(false);
+    }
   }
 
   private int calcCappedYSize(int max) {
@@ -96,6 +116,10 @@ public class GuiSideInventory extends GuiModule {
     x += cornerBottomLeft.draw(x, y);
     x += borderBottom.drawScaledX(x, y, midW);
     cornerBottomRight.draw(x, y);
+
+    // slider
+    slider.update(mouseX, mouseY);
+    slider.draw();
   }
 
   protected int drawSlots(int xPos, int yPos) {
