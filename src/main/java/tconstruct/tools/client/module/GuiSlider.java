@@ -33,9 +33,10 @@ public class GuiSlider {
 
   protected boolean isScrolling;
   protected boolean isHighlighted;
-  // where the slider was clicked
+  // where the slider was clicked on the slider itself (not on the bar, on the thing that slides)
   private int clickX;
   private int clickY;
+  private boolean clickedBar; // if the bar has already been clicked and not released
 
   public GuiSlider(GuiElement slider, GuiElement sliderHighlighted, GuiElement sliderDisabled, GuiElement slideBarTop, GuiElement slideBarBottom, GuiElementScalable slideBar) {
     this.slider = slider;
@@ -112,6 +113,11 @@ public class GuiSlider {
     int x = mouseX - xPos;
     int y = mouseY - yPos;
 
+    // reset click data
+    if(!mouseDown && clickedBar) {
+      clickedBar = false;
+    }
+
     // button not pressed and scrolling -> stop scrolling
     if(!mouseDown && isScrolling) {
       isScrolling = false;
@@ -119,20 +125,20 @@ public class GuiSlider {
     // button pressed and scrolling -> update position of slider
     else if(isScrolling) {
       float d = maxValue - minValue;
-      float val = (float) (y - clickX) / (float) (getUsableSlidebarHeight() - slider.h);
+      float val = (float) (y - clickY) / (float) (getUsableSlidebarHeight() - slider.h);
       val *= d;
 
       if(val < (float) increment / 2f) {
         // < 1/2 increment
-        currentValue = minValue;
+        setSliderValue(minValue);
       }
       else if(val > maxValue - ((float) increment / 2f)) {
         // > max-1/2 increment
-        currentValue = maxValue;
+        setSliderValue(maxValue);
       }
       else {
         // in between
-        currentValue = (int) (minValue + (float) increment * val);
+        setSliderValue((int) (minValue + (float) increment * val));
       }
     }
     // not scrolling yet but possibly inside the slider
@@ -141,13 +147,46 @@ public class GuiSlider {
       isHighlighted = true;
       if(mouseDown) {
         isScrolling = true;
-        clickX = x;
-        clickY = y;
+        clickX = x - sliderOffset;
+        clickY = y - getSliderTop();
       }
+    }
+    // not on the slider but clicked on the bar
+    else if(mouseDown && !clickedBar &&
+            x >= 0 && y >= 0 &&
+            x <= slideBar.w && y <= height) {
+      if(y < getSliderTop())
+        decrement();
+      else
+        increment();
+
+      clickedBar = true;
     }
     else {
       isHighlighted = false;
     }
+  }
+
+  public int increment() {
+    setSliderValue(currentValue + increment);
+    return currentValue;
+  }
+
+  public int decrement() {
+    setSliderValue(currentValue - increment);
+    return currentValue;
+  }
+
+  public int setSliderValue(int val) {
+    if(val > maxValue) {
+      val = maxValue;
+    }
+    else if(val < minValue) {
+      val = minValue;
+    }
+
+    currentValue = val;
+    return currentValue;
   }
 
   private int getSliderTop() {
