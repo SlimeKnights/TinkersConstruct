@@ -3,18 +3,30 @@ package tconstruct.tools.client;
 import com.google.common.collect.Lists;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
+import tconstruct.TConstruct;
 import tconstruct.tools.client.module.GuiModule;
 import tconstruct.tools.inventory.ContainerMultiModule;
 import tconstruct.tools.inventory.SlotWrapper;
 
 public class GuiMultiModule extends GuiContainer {
+
+  // NEI-stuff >:(
+  private static Field NEI_Manager;
+
+  static {
+    try {
+      NEI_Manager = GuiContainer.class.getDeclaredField("manager");
+    } catch(NoSuchFieldException e) {
+      NEI_Manager = null;
+    }
+  }
 
   protected List<GuiModule> modules = Lists.newArrayList();
 
@@ -69,14 +81,17 @@ public class GuiMultiModule extends GuiContainer {
     super.setWorldAndResolution(mc, width, height);
 
     // workaround for NEIs ASM hax. sigh.
-    GuiScreen tmp = mc.currentScreen;
-    // todo: change this to reflection to set the manager to the same instance as this one
-    for(GuiModule module : modules) {
-      mc.currentScreen = module;
-      module.setWorldAndResolution(mc, width, height);
-      updateSubmodule(module);
+    try {
+      for(GuiModule module : modules) {
+        module.setWorldAndResolution(mc, width, height);
+        if(NEI_Manager != null) {
+          NEI_Manager.set(module, NEI_Manager.get(this));
+        }
+        updateSubmodule(module);
+      }
+    } catch(IllegalAccessException e) {
+      TConstruct.log.error(e);
     }
-    mc.currentScreen = tmp;
   }
 
   @Override
