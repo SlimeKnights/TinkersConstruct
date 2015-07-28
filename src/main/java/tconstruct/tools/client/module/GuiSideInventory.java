@@ -10,6 +10,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import tconstruct.common.client.gui.GuiElement;
 import tconstruct.common.client.gui.GuiElementScalable;
 import tconstruct.library.Util;
+import tconstruct.tools.client.GuiMultiModule;
 
 // a side inventory to be displayed to the left or right of another GUI
 @SideOnly(Side.CLIENT)
@@ -47,12 +48,12 @@ public class GuiSideInventory extends GuiModule {
   private int firstSlotId;
   private int lastSlotId;
 
-  private GuiSlider
+  private GuiPartSlider
       slider =
-      new GuiSlider(sliderNormal, sliderHigh, sliderLow, sliderTop, sliderBottom, sliderBackground);
+      new GuiPartSlider(sliderNormal, sliderHigh, sliderLow, sliderTop, sliderBottom, sliderBackground);
 
-  public GuiSideInventory(Container container, int slotCount, int columns) {
-    super(container, false, false);
+  public GuiSideInventory(GuiMultiModule parent, Container container, int slotCount, int columns) {
+    super(parent, container, false, false);
 
     this.columns = columns;
     this.slotCount = slotCount;

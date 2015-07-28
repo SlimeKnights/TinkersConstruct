@@ -6,18 +6,22 @@ import net.minecraft.inventory.Slot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import tconstruct.tools.client.GuiMultiModule;
+
 // a sub-gui. Mostly the same as a separate GuiContainer, but doesn't do the calls that affect the game as if this were the only gui
 @SideOnly(Side.CLIENT)
 public abstract class GuiModule extends GuiContainer {
+  protected final GuiMultiModule parent;
 
   // left or right of the parent
   private final boolean right;
   // top or bottom of the parent
   private final boolean bottom;
 
-  public GuiModule(Container container, boolean right, boolean bottom) {
+  public GuiModule(GuiMultiModule parent, Container container, boolean right, boolean bottom) {
     super(container);
 
+    this.parent = parent;
     this.right = right;
     this.bottom = bottom;
   }

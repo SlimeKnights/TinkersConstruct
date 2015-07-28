@@ -10,8 +10,8 @@ import tconstruct.common.client.gui.GuiElement;
 import tconstruct.common.client.gui.GuiElementScalable;
 
 // a vertical slider!
-public class GuiSlider {
 @SideOnly(Side.CLIENT)
+public class GuiPartSlider extends GuiPart {
 
   // gui info
   public final GuiElement slider;
@@ -28,9 +28,6 @@ public class GuiSlider {
 
   // positioning info
   protected int currentValue;
-  public int xPos;
-  public int yPos;
-  public int height;
   public int sliderOffset; // x-offset of the slider to the left edge of the slideBar
   protected boolean enabled;
 
@@ -41,7 +38,7 @@ public class GuiSlider {
   private int clickY;
   private boolean clickedBar; // if the bar has already been clicked and not released
 
-  public GuiSlider(GuiElement slider, GuiElement sliderHighlighted, GuiElement sliderDisabled, GuiElement slideBarTop, GuiElement slideBarBottom, GuiElementScalable slideBar) {
+  public GuiPartSlider(GuiElement slider, GuiElement sliderHighlighted, GuiElement sliderDisabled, GuiElement slideBarTop, GuiElement slideBarBottom, GuiElementScalable slideBar) {
     this.slider = slider;
     this.sliderHighlighted = sliderHighlighted;
     this.sliderDisabled = sliderDisabled;
@@ -50,6 +47,7 @@ public class GuiSlider {
     this.slideBarBottom = slideBarBottom;
 
     height = slideBar.h;
+    width = slideBar.w;
     currentValue = minValue = 0;
     maxValue = slideBar.h;
     increment = 1;
@@ -77,12 +75,6 @@ public class GuiSlider {
 
   public int getValue() {
     return currentValue;
-  }
-
-  /** Where the slider will be drawn. Upper left corner. */
-  public void setPosition(int x, int y) {
-    this.xPos = x;
-    this.yPos = y;
   }
 
   public void setEnabled(boolean enabled) {
