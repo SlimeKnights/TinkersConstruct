@@ -11,10 +11,8 @@ import tconstruct.library.Util;
 // a side inventory to be displayed to the left or right of another GUI
 public class GuiSideInventory extends GuiModule {
 
-  private static final GuiElement
-      cornerTopLeft =
-      new GuiElement(0, 0, 7, 7, 64, 64);
-  // this one sets default texture w/h
+  // first one sets default texture w/h
+  private static final GuiElement cornerTopLeft = new GuiElement(0, 0, 7, 7, 64, 64);
   private static final GuiElement cornerTopRight = new GuiElement(64 - 7, 0, 7, 7);
   private static final GuiElement cornerBottomLeft = new GuiElement(0, 64 - 7, 7, 7);
   private static final GuiElement cornerBottomRight = new GuiElement(64 - 7, 64 - 7, 7, 7);
@@ -28,8 +26,8 @@ public class GuiSideInventory extends GuiModule {
   private static final GuiElementScalable slotEmpty = new GuiElementScalable(7 + 18, 7, 18, 18);
 
   private static final GuiElement sliderNormal = new GuiElement(7, 25, 12, 15);
-  private static final GuiElement sliderLow = new GuiElement(7+12, 25, 12, 15);
-  private static final GuiElement sliderHigh = new GuiElement(7+12+12, 25, 12, 15);
+  private static final GuiElement sliderLow = new GuiElement(7 + 12, 25, 12, 15);
+  private static final GuiElement sliderHigh = new GuiElement(7 + 12 + 12, 25, 12, 15);
   private static final GuiElement sliderTop = new GuiElement(43, 7, 14, 1);
   private static final GuiElement sliderBottom = new GuiElement(43, 38, 14, 1);
   private static final GuiElementScalable sliderBackground = new GuiElementScalable(43, 8, 14, 30);
@@ -44,7 +42,9 @@ public class GuiSideInventory extends GuiModule {
   private int columns;
   private int slotCount;
 
-  private GuiSlider slider = new GuiSlider(sliderNormal, sliderHigh, sliderLow, sliderTop, sliderBottom, sliderBackground);
+  private GuiSlider
+      slider =
+      new GuiSlider(sliderNormal, sliderHigh, sliderLow, sliderTop, sliderBottom, sliderBackground);
 
   public GuiSideInventory(Container container, int slotCount, int columns) {
     super(container, false, false);
@@ -69,7 +69,7 @@ public class GuiSideInventory extends GuiModule {
     if(ySize < parentSizeY - borderTop.h - borderBottom.h) {
       slider.setEnabled(true);
       //slider.setPosition(guiRight() - borderRight.w, guiTop + borderTop.h);
-      slider.setPosition(guiRight()-6, guiTop + borderTop.h);
+      slider.setPosition(guiRight() - 6, guiTop + borderTop.h);
       slider.setSize(ySize - borderTop.h - borderBottom.h);
     }
     else {

@@ -35,23 +35,6 @@ public abstract class BaseContainer<T extends TileEntity> extends Container {
     this.originalBlock = world.getBlockState(pos).getBlock();
   }
 
-  public <T extends Container> T getSubContainer(Class<T> clazz) {
-    return getSubContainer(clazz, 0);
-  }
-
-  public <T extends Container> T getSubContainer(Class<T> clazz, int index) {
-    for(Container sub : subContainers) {
-      if(clazz.isAssignableFrom(sub.getClass())) {
-        index--;
-      }
-      if(index < 0) {
-        return (T)sub;
-      }
-    }
-
-    return null;
-  }
-
   @Override
   public boolean canInteractWith(EntityPlayer playerIn) {
     Block block = world.getBlockState(pos).getBlock();
@@ -60,31 +43,10 @@ public abstract class BaseContainer<T extends TileEntity> extends Container {
       return false;
     }
 
-    // check if subcontainers are valid
-    for(Container sub : subContainers) {
-      if(!sub.canInteractWith(playerIn))
-        return false;
-    }
-
     // too far away from block?
     return playerIn.getDistanceSq((double) pos.getX() + 0.5d,
                                   (double) pos.getY() + 0.5d,
                                   (double) pos.getZ() + 0.5d) <= maxDist;
-  }
-
-  public void addSubContainer(Container subcontainer) {
-    subContainers.add(subcontainer);
-
-    for(Object slot : subcontainer.inventorySlots) {
-      addSlotToContainer((Slot)slot);
-    }
-  }
-
-  @Override
-  public void onContainerClosed(EntityPlayer playerIn) {
-    for(Container sub : subContainers) {
-      sub.onContainerClosed(playerIn);
-    }
   }
 
   @SuppressWarnings("unchecked")

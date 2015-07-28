@@ -7,6 +7,7 @@ import net.minecraft.client.gui.GuiScreen;
  * The coordinates all refer to the coordinates inside the graphics!
  */
 public class GuiElement {
+  // this is totally completely ugly but it's a simple solution that doesn't clutter everything too much >_>
   public static int defaultTexW = 256;
   public static int defaultTexH = 256;
 

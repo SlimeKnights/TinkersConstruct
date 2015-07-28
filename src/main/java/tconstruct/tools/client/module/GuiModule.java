@@ -3,8 +3,12 @@ package tconstruct.tools.client.module;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.Slot;
 
 import java.io.IOException;
+import java.util.Set;
+
+import tconstruct.tools.inventory.SlotWrapper;
 
 // a sub-gui. Mostly the same as a separate GuiContainer, but doesn't do the calls that affect the game as if this were the only gui
 public abstract class GuiModule extends GuiContainer {
@@ -29,6 +33,10 @@ public abstract class GuiModule extends GuiContainer {
     return guiTop + ySize;
   }
 
+  public int getYSize() {
+    return ySize;
+  }
+
   @Override
   public void initGui() {
     this.guiLeft = (this.width - this.xSize) / 2;
@@ -47,15 +55,35 @@ public abstract class GuiModule extends GuiContainer {
       this.guiTop = parentY;
   }
 
+  public boolean shoudlDrawSlot(Slot slot) {
+    return true;
+  }
+/*
+  public void updateDragged(boolean dragSplitting, Set draggedSlots) {
+    this.dragSplitting = dragSplitting;
+    this.dragSplittingSlots.clear();
+    for(Object o : draggedSlots) {
+      if(o instanceof SlotWrapper)
+        this.dragSplittingSlots.add(((SlotWrapper) o).parent);
+      else
+        this.dragSplittingSlots.add(o);
+    }
+  }
+*/
   public void handleDrawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
     this.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
   }
-
-  public int getYSize() {
-    return ySize;
-  }
-
+/*
   public void handleMouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
     this.mouseClicked(mouseX, mouseY, mouseButton);
   }
+
+  public void handleMouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
+    this.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
+  }
+
+  public void handleMouseReleased(int mouseX, int mouseY, int state) {
+    this.mouseReleased(mouseX, mouseY, state);
+  }
+  */
 }
