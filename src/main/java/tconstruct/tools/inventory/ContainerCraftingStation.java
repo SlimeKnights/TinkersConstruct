@@ -21,7 +21,7 @@ import tconstruct.tools.TinkerTools;
 import tconstruct.tools.tileentity.TileCraftingStation;
 
 // nearly the same as ContainerWorkbench but uses the TileEntities inventory
-public class ContainerCraftingStation extends BaseContainer<TileCraftingStation> {
+public class ContainerCraftingStation extends ContainerMultiModule<TileCraftingStation> {
 
   public InventoryCraftingPersistent craftMatrix;
   public IInventory craftResult;

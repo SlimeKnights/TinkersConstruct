@@ -1,7 +1,13 @@
 package tconstruct.tools.client.module;
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+
+import java.util.List;
 
 import tconstruct.common.client.gui.GuiElement;
 import tconstruct.tools.client.GuiMultiModule;
@@ -13,6 +19,7 @@ public class GuiTinkerTabs extends GuiModule {
   protected static final GuiElement GUI_TabActiveR = new GuiElement(140,32,28,32,256,256);
 
   public GuiPartTabs tabs;
+  public List<BlockPos> tabData;
 
   public GuiTinkerTabs(GuiMultiModule parent, Container container) {
     super(parent, container, false, false);
@@ -21,6 +28,12 @@ public class GuiTinkerTabs extends GuiModule {
     this.ySize = GUI_TabActiveC.h;
 
     this.tabs = new GuiPartTabs(parent, GUI_Tab, GUI_Tab, GUI_Tab, GUI_TabActiveL, GUI_TabActiveC, GUI_TabActiveR);
+    this.tabData = Lists.newArrayList();
+  }
+
+  public void addTab(ItemStack icon, BlockPos data) {
+    this.tabData.add(data);
+    this.tabs.addTab(icon);
   }
 
   @Override

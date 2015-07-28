@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -33,8 +34,8 @@ public class GuiPartTabs extends GuiPart {
   // space between 2 tabs
   public int spacing = 2;
 
-  int selected;
-  List<ItemStack> icons = Lists.newArrayList();
+  public int selected;
+  protected List<ItemStack> icons = Lists.newArrayList();
 
   private final GuiMultiModule parent;
   private boolean clicked = false;
@@ -54,6 +55,11 @@ public class GuiPartTabs extends GuiPart {
 
   public void addTab(ItemStack icon) {
     icons.add(icon);
+  }
+
+  public void clear() {
+    selected = 0;
+    icons.clear();
   }
 
   public void update(int mouseX, int mouseY) {
@@ -134,7 +140,10 @@ public class GuiPartTabs extends GuiPart {
 
       ItemStack icon = icons.get(i);
       if(icon != null) {
+        RenderHelper.enableGUIStandardItemLighting();
         drawItemStack(icon, x + (actualTab.w - 16) / 2, y + (actualTab.h - 16) / 2);
+        RenderHelper.disableStandardItemLighting();
+        //RenderHelper.enableStandardItemLighting();
       }
     }
   }

@@ -32,7 +32,7 @@ import tconstruct.tools.tileentity.TilePartBuilder;
 import tconstruct.tools.tileentity.TileStencilTable;
 import tconstruct.tools.tileentity.TileToolStation;
 
-public class BlockToolTable extends BlockTable {
+public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
 
   public static final PropertyEnum TABLES = PropertyEnum.create("type", TableTypes.class);
 
@@ -122,6 +122,23 @@ public class BlockToolTable extends BlockTable {
   @Override
   public int getMetaFromState(IBlockState state) {
     return ((TableTypes) state.getValue(TABLES)).meta;
+  }
+
+  @Override
+  public boolean isMaster(IBlockState state) {
+    return state.getValue(TABLES) == TableTypes.CraftingStation;
+  }
+
+  @Override
+  public int getGuiNumber(IBlockState state) {
+    switch((TableTypes)state.getValue(TABLES)) {
+      case StencilTable: return 10;
+      case PatternChest: return 15;
+      case PartBuilder: return 20;
+      case ToolStation: return 25;
+      case CraftingStation: return 50;
+      default: return 0;
+    }
   }
 
   public enum TableTypes implements IStringSerializable {

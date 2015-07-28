@@ -16,13 +16,13 @@ import tconstruct.tools.inventory.ContainerSideInventory;
 import tconstruct.tools.tileentity.TileCraftingStation;
 
 @SideOnly(Side.CLIENT)
-public class GuiCraftingStation extends GuiMultiModule {
+public class GuiCraftingStation extends GuiTinkerStation {
 
   private static final ResourceLocation BACKGROUND = new ResourceLocation("textures/gui/container/crafting_table.png");
   protected final TileCraftingStation tile;
 
   public GuiCraftingStation(InventoryPlayer playerInv, World world, BlockPos pos, TileCraftingStation tile) {
-    super((ContainerMultiModule)tile.createContainer(playerInv, world, pos));
+    super(world, pos, (ContainerMultiModule)tile.createContainer(playerInv, world, pos));
 
     this.tile = tile;
 
@@ -30,7 +30,7 @@ public class GuiCraftingStation extends GuiMultiModule {
       ContainerCraftingStation container = (ContainerCraftingStation) inventorySlots;
       ContainerSideInventory chestContainer = container.getSubContainer(ContainerSideInventory.class);
       if(chestContainer != null) {
-        this.addModule(new GuiSideInventory(chestContainer, chestContainer.getSlotCount(), chestContainer.columns));
+        this.addModule(new GuiSideInventory(this, chestContainer, chestContainer.getSlotCount(), chestContainer.columns));
       }
     }
   }

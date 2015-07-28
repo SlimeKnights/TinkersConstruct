@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -23,7 +24,7 @@ import tconstruct.library.TinkerRegistry;
 import tconstruct.tools.tileentity.TileToolStation;
 
 // This literally only is its own block because it has a different material
-public class BlockToolForge extends BlockTable {
+public class BlockToolForge extends BlockTable implements ITinkerStationBlock {
 
   public final Set<String> baseBlocks = Sets.newHashSet(); // oredict list of toolforge blocks
 
@@ -59,5 +60,16 @@ public class BlockToolForge extends BlockTable {
   @Override
   protected BlockState createBlockState() {
     return new ExtendedBlockState(this, new IProperty[]{}, new IUnlistedProperty[]{TEXTURE});
+  }
+
+  @Override
+  public boolean isMaster(IBlockState state) {
+    return false;
+  }
+
+  @Override
+  public int getGuiNumber(IBlockState state) {
+    // same as toolstation
+    return 25;
   }
 }

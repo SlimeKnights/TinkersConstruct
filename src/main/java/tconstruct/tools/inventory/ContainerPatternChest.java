@@ -1,10 +1,12 @@
 package tconstruct.tools.inventory;
 
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 
 import tconstruct.common.inventory.ContainerSimpleChest;
+import tconstruct.common.inventory.SlotRestrictedItem;
 import tconstruct.common.tileentity.TileInventory;
 
 public class ContainerPatternChest extends ContainerSimpleChest {
@@ -15,6 +17,6 @@ public class ContainerPatternChest extends ContainerSimpleChest {
 
   @Override
   protected Slot createSlot(IInventory inventory, int index, int x, int y) {
-    return super.createSlot(inventory, index, x, y);
+    return new SlotRestrictedItem(Items.stick, inventory, index, x,y);
   }
 }
