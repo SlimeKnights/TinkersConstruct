@@ -3,14 +3,17 @@ package tconstruct.tools.client;
 import com.google.common.collect.Lists;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.Slot;
 
 import java.io.IOException;
 import java.util.List;
 
-import codechicken.nei.recipe.GuiRecipe;
 import tconstruct.tools.client.module.GuiModule;
+import tconstruct.tools.inventory.ContainerMultiModule;
+import tconstruct.tools.inventory.SlotWrapper;
 
 public class GuiMultiModule extends GuiContainer {
 
@@ -21,7 +24,7 @@ public class GuiMultiModule extends GuiContainer {
   public int realWidth;
   public int realHeight;
 
-  public GuiMultiModule(Container container) {
+  public GuiMultiModule(ContainerMultiModule container) {
     super(container);
 
     realWidth = -1;
@@ -62,10 +65,15 @@ public class GuiMultiModule extends GuiContainer {
   public void setWorldAndResolution(Minecraft mc, int width, int height) {
     super.setWorldAndResolution(mc, width, height);
 
+    // workaround for NEIs ASM hax. sigh.
+    GuiScreen tmp = mc.currentScreen;
+    // todo: change this to reflection to set the manager to the same instance as this one
     for(GuiModule module : modules) {
+      mc.currentScreen = module;
       module.setWorldAndResolution(mc, width, height);
       updateSubmodule(module);
     }
+    mc.currentScreen = tmp;
   }
 
   @Override
@@ -96,6 +104,8 @@ public class GuiMultiModule extends GuiContainer {
     ySize = oldH;
   }
 
+
+  // needed to get the correct slot on clicking
   @Override
   protected boolean isPointInRegion(int left, int top, int right, int bottom, int pointX, int pointY) {
     pointX -= this.cornerX;
@@ -121,4 +131,110 @@ public class GuiMultiModule extends GuiContainer {
       ySize = module.guiBottom() - this.guiTop;
     }
   }
+
+  @Override
+  public void drawSlot(Slot slotIn) {
+    GuiModule module = getModuleForSlot(slotIn.slotNumber);
+
+    if(module != null) {
+      Slot slot = slotIn;
+      // unwrap for the call to the module
+      if(slotIn instanceof SlotWrapper) {
+        slot = ((SlotWrapper) slotIn).parent;
+      }
+      if(!module.shoudlDrawSlot(slot))
+        return;
+    }
+
+    super.drawSlot(slotIn);
+  }
+
+  @Override
+  public boolean isMouseOverSlot(Slot slotIn, int mouseX, int mouseY) {
+    GuiModule module = getModuleForSlot(slotIn.slotNumber);
+
+    // mouse inside the module of the slot?
+    if(module != null) {
+      if(this.isPointInRegion(module.guiLeft, module.guiTop, module.guiRight(), module.guiBottom(), mouseX, mouseY)) {
+        mouseX -= this.cornerX;
+        mouseY -= this.cornerY;
+        // unwrap for the call to the module
+        if(slotIn instanceof SlotWrapper) {
+          slotIn = ((SlotWrapper) slotIn).parent;
+        }
+
+        return module.isMouseOverSlot(slotIn, mouseX, mouseY);
+      }
+    }
+
+    return super.isMouseOverSlot(slotIn, mouseX, mouseY);
+  }
+/*
+  @Override
+  protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+    GuiModule module = getModuleForPoint(mouseX, mouseY);
+    if(module != null) {
+      mouseX -= this.cornerX;
+      mouseY -= this.cornerY;
+      module.handleMouseClicked(mouseX, mouseY, mouseButton);
+    }
+    else {
+      super.mouseClicked(mouseX, mouseY, mouseButton);
+    }
+  }
+
+  @Override
+  protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
+    GuiModule module = getModuleForPoint(mouseX, mouseY);
+    if(module != null) {
+      mouseX -= this.cornerX;
+      mouseY -= this.cornerY;
+      module.handleMouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
+    }
+    else {
+      super.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
+    }
+  }
+
+  @Override
+  protected void mouseReleased(int mouseX, int mouseY, int state) {
+    GuiModule module = getModuleForPoint(mouseX, mouseY);
+    if(module != null) {
+      mouseX -= this.cornerX;
+      mouseY -= this.cornerY;
+      module.handleMouseReleased(mouseX, mouseY, state);
+    }
+    else {
+      super.mouseReleased(mouseX, mouseY, state);
+    }
+  }
+
+  private GuiModule getModuleForPoint(int x, int y) {
+    for(GuiModule module : modules) {
+      if(this.isPointInRegion(module.guiLeft, module.guiTop, module.guiRight(), module.guiBottom(), x + this.cornerX, y + this.cornerY)) {
+        return module;
+      }
+    }
+
+    return null;
+  }
+*/
+  private GuiModule getModuleForSlot(int slotNumber) {
+    return getModuleForContainer(getContainer().getSlotContainer(slotNumber));
+  }
+
+  private GuiModule getModuleForContainer(Container container) {
+    for(GuiModule module : modules) {
+      if(module.inventorySlots == container) {
+        return module;
+      }
+    }
+
+    return null;
+  }
+
+  private ContainerMultiModule getContainer() {
+    return (ContainerMultiModule) inventorySlots;
+  }
+
 }
