@@ -67,6 +67,9 @@ public class GuiSlider {
     this.minValue = min;
     this.maxValue = max;
     this.increment = stepsize;
+
+    // just in case
+    setSliderValue(currentValue);
   }
 
   public int getValue() {
@@ -107,6 +110,10 @@ public class GuiSlider {
   }
 
   public void update(int mouseX, int mouseY) {
+    if(!enabled) {
+      return;
+    }
+
     boolean mouseDown = Mouse.isButtonDown(0); // left mouse button
 
     // relative position inside the widget
@@ -138,7 +145,7 @@ public class GuiSlider {
       }
       else {
         // in between
-        setSliderValue((int) (minValue + (float) increment * val));
+        setSliderValue((int) (minValue + (float) increment * Math.round(val)));
       }
     }
     // not scrolling yet but possibly inside the slider
@@ -155,10 +162,12 @@ public class GuiSlider {
     else if(mouseDown && !clickedBar &&
             x >= 0 && y >= 0 &&
             x <= slideBar.w && y <= height) {
-      if(y < getSliderTop())
+      if(y < getSliderTop()) {
         decrement();
-      else
+      }
+      else {
         increment();
+      }
 
       clickedBar = true;
     }

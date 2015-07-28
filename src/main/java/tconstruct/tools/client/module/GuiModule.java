@@ -55,7 +55,7 @@ public abstract class GuiModule extends GuiContainer {
       this.guiTop = parentY;
   }
 
-  public boolean shoudlDrawSlot(Slot slot) {
+  public boolean shouldDrawSlot(Slot slot) {
     return true;
   }
 /*

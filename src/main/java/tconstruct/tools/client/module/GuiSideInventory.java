@@ -2,6 +2,7 @@ package tconstruct.tools.client.module;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
 
 import tconstruct.common.client.gui.GuiElement;
@@ -37,10 +38,11 @@ public class GuiSideInventory extends GuiModule {
       GUI_INVENTORY =
       Util.getResource("textures/gui/generic.png");
 
-  //protected final IInventory inventory;
-
   private int columns;
   private int slotCount;
+
+  private int firstSlotId;
+  private int lastSlotId;
 
   private GuiSlider
       slider =
@@ -54,8 +56,20 @@ public class GuiSideInventory extends GuiModule {
 
     this.xSize = columns * slot.h + borderLeft.w + borderRight.w;
     this.ySize = calcCappedYSize(999999);
+  }
 
-//    this.inventory = inventory;
+  @Override
+  public boolean shouldDrawSlot(Slot slot) {
+    // all visible
+    if(!slider.enabled)
+      return true;
+
+    return firstSlotId <= slot.getSlotIndex() && lastSlotId > slot.getSlotIndex();
+  }
+
+  @Override
+  public boolean isMouseOverSlot(Slot slotIn, int mouseX, int mouseY) {
+    return super.isMouseOverSlot(slotIn, mouseX, mouseY) && shouldDrawSlot(slotIn);
   }
 
   @Override
@@ -65,27 +79,64 @@ public class GuiSideInventory extends GuiModule {
     // at most as big as the parent
     this.ySize = calcCappedYSize(parentSizeY - borderTop.h - borderBottom.h);
 
-    // update slider (if needed)
-    if(ySize < parentSizeY - borderTop.h - borderBottom.h) {
+    // update slider or disable it
+    if(getDisplayedRows() < getTotalRows()) {
       slider.setEnabled(true);
-      //slider.setPosition(guiRight() - borderRight.w, guiTop + borderTop.h);
       slider.setPosition(guiRight() - 6, guiTop + borderTop.h);
       slider.setSize(ySize - borderTop.h - borderBottom.h);
+
+      // update slider values
+      slider.setSliderParameters(0, getTotalRows() - getDisplayedRows(), 1);
+      updateSlots();
     }
     else {
       slider.setEnabled(false);
     }
   }
 
+  private int getDisplayedRows() {
+    return slider.height/slot.h;
+  }
+
+  private int getTotalRows() {
+    int total = slotCount / columns;
+    if(slotCount % columns != 0)
+      total++;
+
+    return total;
+  }
+
   private int calcCappedYSize(int max) {
-    int h = borderTop.h + borderBottom.h + slot.h * (slotCount / columns);
-    if(slotCount % columns != 0) {
-      h += slot.h;
-    }
+    int h = borderTop.h + borderBottom.h + slot.h * getTotalRows();
+
+    // not higher than the max
     while(h > max) {
       h -= slot.h;
     }
     return h;
+  }
+
+  // updates slot visibility
+  protected void updateSlots() {
+    firstSlotId = slider.getValue() * columns;
+    lastSlotId = Math.min(slotCount, firstSlotId + getDisplayedRows() * columns);
+
+    for(Object o : inventorySlots.inventorySlots) {
+      Slot slot = (Slot) o;
+      if(shouldDrawSlot(slot)) {
+        // calc position of the slot
+        int offset = slot.getSlotIndex() - firstSlotId;
+        int x = (offset % columns) * GuiSideInventory.slot.w;
+        int y = (offset / columns) * GuiSideInventory.slot.h;
+
+        slot.xDisplayPosition = x + -6 - GuiSideInventory.slot.w * columns;
+        slot.yDisplayPosition = y + 8;
+      }
+      else {
+        slot.xDisplayPosition = 0;
+        slot.yDisplayPosition = 0;
+      }
+    }
   }
 
   @Override
@@ -118,22 +169,26 @@ public class GuiSideInventory extends GuiModule {
     cornerBottomRight.draw(x, y);
 
     // slider
-    slider.update(mouseX, mouseY);
-    slider.draw();
+    if(slider.enabled) {
+      slider.update(mouseX, mouseY);
+      slider.draw();
+
+      updateSlots();
+    }
   }
 
   protected int drawSlots(int xPos, int yPos) {
     int width = columns * slot.w;
     int height = ySize - borderTop.h - borderBottom.h;
 
-    int fullRows = slotCount / columns;
+    int fullRows = (lastSlotId - firstSlotId)/columns;
     int y;
     for(y = 0; y < fullRows * slot.h && y < height; y += slot.h) {
       slot.drawScaledX(xPos, yPos + y, width);
     }
 
     // draw partial row and unused slots
-    int slotsLeft = slotCount % columns;
+    int slotsLeft = (lastSlotId - firstSlotId) % columns;
     if(slotsLeft > 0) {
       slot.drawScaledX(xPos, yPos + y, slotsLeft * slot.w);
       // empty slots that don't exist

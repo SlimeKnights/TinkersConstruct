@@ -11,6 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import tconstruct.tools.client.module.GuiSideInventory;
 import tconstruct.tools.inventory.ContainerCraftingStation;
+import tconstruct.tools.inventory.ContainerMultiModule;
 import tconstruct.tools.inventory.ContainerSideInventory;
 import tconstruct.tools.tileentity.TileCraftingStation;
 
@@ -21,7 +22,7 @@ public class GuiCraftingStation extends GuiMultiModule {
   protected final TileCraftingStation tile;
 
   public GuiCraftingStation(InventoryPlayer playerInv, World world, BlockPos pos, TileCraftingStation tile) {
-    super(tile.createContainer(playerInv, world, pos));
+    super((ContainerMultiModule)tile.createContainer(playerInv, world, pos));
 
     this.tile = tile;
 
