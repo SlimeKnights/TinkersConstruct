@@ -1,11 +1,14 @@
 package tconstruct.common.client.gui;
 
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Represents a GUI element INSIDE the graphics.
  * The coordinates all refer to the coordinates inside the graphics!
  */
+@SideOnly(Side.CLIENT)
 public class GuiElement {
   // this is totally completely ugly but it's a simple solution that doesn't clutter everything too much >_>
   public static int defaultTexW = 256;

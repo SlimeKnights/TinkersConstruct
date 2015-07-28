@@ -6,6 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -15,6 +17,7 @@ import tconstruct.tools.client.module.GuiModule;
 import tconstruct.tools.inventory.ContainerMultiModule;
 import tconstruct.tools.inventory.SlotWrapper;
 
+@SideOnly(Side.CLIENT)
 public class GuiMultiModule extends GuiContainer {
 
   // NEI-stuff >:(

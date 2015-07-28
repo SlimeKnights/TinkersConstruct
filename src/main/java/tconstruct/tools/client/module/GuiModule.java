@@ -1,16 +1,13 @@
 package tconstruct.tools.client.module;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-
-import java.io.IOException;
-import java.util.Set;
-
-import tconstruct.tools.inventory.SlotWrapper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 // a sub-gui. Mostly the same as a separate GuiContainer, but doesn't do the calls that affect the game as if this were the only gui
+@SideOnly(Side.CLIENT)
 public abstract class GuiModule extends GuiContainer {
 
   // left or right of the parent

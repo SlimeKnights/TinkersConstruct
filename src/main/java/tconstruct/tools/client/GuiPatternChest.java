@@ -6,10 +6,13 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import tconstruct.library.Util;
 import tconstruct.tools.tileentity.TilePatternChest;
 
+@SideOnly(Side.CLIENT)
 public class GuiPatternChest extends GuiContainer {
 
   private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/patternchest.png");

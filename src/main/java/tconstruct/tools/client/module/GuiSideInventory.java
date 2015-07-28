@@ -4,12 +4,15 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import tconstruct.common.client.gui.GuiElement;
 import tconstruct.common.client.gui.GuiElementScalable;
 import tconstruct.library.Util;
 
 // a side inventory to be displayed to the left or right of another GUI
+@SideOnly(Side.CLIENT)
 public class GuiSideInventory extends GuiModule {
 
   // first one sets default texture w/h
