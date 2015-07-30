@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraftforge.fml.relauncher.Side;
@@ -76,6 +77,19 @@ public class GuiMultiModule extends GuiContainer {
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
     for(GuiModule module : modules) {
       module.handleDrawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+    }
+  }
+
+  @Override
+  protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+    for(GuiModule module : modules) {
+      // set correct state for the module
+      GlStateManager.pushMatrix();
+      GlStateManager.translate(-this.guiLeft, -this.guiTop, 0.0F);
+      GlStateManager.translate(module.guiLeft, module.guiTop, 0.0F);
+      GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+      module.handleDrawGuiContainerForegroundLayer(mouseX, mouseY);
+      GlStateManager.popMatrix();
     }
   }
 

@@ -74,6 +74,11 @@ public abstract class GuiModule extends GuiContainer {
   public void handleDrawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
     this.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
   }
+
+  public void handleDrawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+    this.drawGuiContainerForegroundLayer(mouseX, mouseY);
+  }
+
 /*
   public void handleMouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
     this.mouseClicked(mouseX, mouseY, mouseButton);
