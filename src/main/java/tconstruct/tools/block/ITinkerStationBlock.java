@@ -1,6 +1,9 @@
 package tconstruct.tools.block;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
 
 /**
  * Blocks implementing this interface are part of the tinker station GUI system
@@ -21,4 +24,9 @@ public interface ITinkerStationBlock {
    * 50 - Crafting Station
    */
   int getGuiNumber(IBlockState state);
+
+  /**
+   * Open the gui of this block for the given player. Same as BlockInventory.openGui, coincidentally! ;)
+   */
+  boolean openGui(EntityPlayer player, World world, BlockPos pos);
 }

@@ -5,8 +5,11 @@ import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -16,18 +19,24 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
+import tconstruct.TConstruct;
+import tconstruct.library.mantle.IInventoryGui;
 import tconstruct.tools.block.ITinkerStationBlock;
 import tconstruct.tools.client.module.GuiTinkerTabs;
 import tconstruct.tools.inventory.ContainerMultiModule;
+import tconstruct.tools.network.TinkerStationTabPacket;
 
 @SideOnly(Side.CLIENT)
 // Takes care of the tinker station pseudo-multiblock
 public class GuiTinkerStation extends GuiMultiModule {
 
   protected GuiTinkerTabs tinkerTabs;
+  private World world;
 
   public GuiTinkerStation(World world, BlockPos pos, ContainerMultiModule container) {
     super(container);
+
+    this.world = world;
 
     tinkerTabs = new GuiTinkerTabs(this, container);
     addModule(tinkerTabs);
@@ -43,6 +52,22 @@ public class GuiTinkerStation extends GuiMultiModule {
   @Override
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
     super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+  }
+
+  public void onTabSelection(int selection) {
+    if(selection < 0 || selection > tinkerTabs.tabData.size())
+      return;
+
+    BlockPos pos = tinkerTabs.tabData.get(selection);
+    IBlockState state = world.getBlockState(pos);
+    if(state.getBlock() instanceof ITinkerStationBlock) {
+      TileEntity te = world.getTileEntity(pos);
+      if(te instanceof IInventoryGui) {
+        TConstruct.network.network.sendToServer(new TinkerStationTabPacket(pos));
+      }
+      //Minecraft.getMinecraft().thePlayer.openGui(TConstruct.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+      //state.getBlock().onBlockActivated(world, tinkerTabs.tabData.get(selection), state, Minecraft.getMinecraft().thePlayer, EnumFacing.UP, 0, 0, 0);
+    }
   }
 
   public void detectedTinkerStationParts(World world, BlockPos start) {

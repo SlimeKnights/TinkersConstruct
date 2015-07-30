@@ -17,6 +17,7 @@ import java.util.Map;
 
 import mantle.pulsar.control.PulseManager;
 import tconstruct.common.GuiHandler;
+import tconstruct.common.network.NetworkWrapper;
 import tconstruct.debug.LocalizationCheckCommand;
 import tconstruct.library.Util;
 import tconstruct.tools.TinkerMaterials;
@@ -61,6 +62,7 @@ public class TConstruct {
 
   public static PulseManager pulseManager = new PulseManager(modID, "TinkerModules");
   public static GuiHandler guiHandler = new GuiHandler();
+  public static NetworkWrapper network = new TinkerNetwork();
 
   public TConstruct() {
     if(Loader.isModLoaded("Natura")) {

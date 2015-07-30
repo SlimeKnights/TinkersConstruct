@@ -1,6 +1,5 @@
 package tconstruct.tools.client;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.BlockPos;
@@ -12,13 +11,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import tconstruct.library.Util;
 import tconstruct.tools.inventory.ContainerMultiModule;
 import tconstruct.tools.tileentity.TilePatternChest;
+import tconstruct.tools.tileentity.TileToolStation;
 
 @SideOnly(Side.CLIENT)
-public class GuiPatternChest extends GuiTinkerStation {
+public class GuiToolStation extends GuiTinkerStation {
+  private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/toolstation.png");
 
-  private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/patternchest.png");
-
-  public GuiPatternChest(InventoryPlayer playerInv, World world, BlockPos pos, TilePatternChest tile) {
+  public GuiToolStation(InventoryPlayer playerInv, World world, BlockPos pos, TileToolStation tile) {
     super(world, pos, (ContainerMultiModule)tile.createContainer(playerInv, world, pos));
 
     this.xSize = 194;
@@ -29,8 +28,8 @@ public class GuiPatternChest extends GuiTinkerStation {
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
     this.mc.getTextureManager().bindTexture(BACKGROUND);
-    int cornerX = (this.width - this.xSize) / 2;
-    int cornerY = (this.height - this.ySize) / 2;
-    this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);
+    this.drawTexturedModalRect(cornerX, cornerY, 0, 0, realWidth, realHeight);
+
+    super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
   }
 }

@@ -79,6 +79,8 @@ public class ContainerMultiModule<T extends TileEntity> extends BaseContainer<T>
     for(Container sub : subContainers) {
       sub.onContainerClosed(playerIn);
     }
+
+    super.onContainerClosed(playerIn);
   }
 
   @Override

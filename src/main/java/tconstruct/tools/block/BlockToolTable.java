@@ -66,7 +66,7 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
   }
 
   @Override
-  protected boolean openGui(EntityPlayer player, World world, BlockPos pos) {
+  public boolean openGui(EntityPlayer player, World world, BlockPos pos) {
     player.openGui(TConstruct.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
     return true;
   }

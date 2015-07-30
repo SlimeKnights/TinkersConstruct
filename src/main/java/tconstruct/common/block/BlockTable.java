@@ -66,7 +66,7 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
   }
 
   @Override
-  protected boolean openGui(EntityPlayer player, World world, BlockPos pos) {
+  public boolean openGui(EntityPlayer player, World world, BlockPos pos) {
     // no gui by default
     return false;
   }
