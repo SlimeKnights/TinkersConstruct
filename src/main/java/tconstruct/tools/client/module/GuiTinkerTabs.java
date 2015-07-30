@@ -2,6 +2,7 @@ package tconstruct.tools.client.module;
 
 import com.google.common.collect.Lists;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
@@ -62,6 +63,18 @@ public class GuiTinkerTabs extends GuiModule {
     // new selection
     if(sel != tabs.selected) {
       parent.onTabSelection(tabs.selected);
+    }
+  }
+
+  @Override
+  protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+    // highlighted tooltip
+    if(tabs.highlighted > -1) {
+      BlockPos pos = tabData.get(tabs.highlighted);
+      String name = Minecraft.getMinecraft().thePlayer.worldObj.getBlockState(pos).getBlock().getLocalizedName();
+
+      // the origin has been translated to the top left of this gui rather than the screen, so we have to adjust
+      drawHoveringText(Lists.newArrayList(name), mouseX - this.guiLeft, mouseY - this.guiTop);
     }
   }
 }

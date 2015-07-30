@@ -35,6 +35,7 @@ public class GuiPartTabs extends GuiPart {
   public int spacing = 2;
 
   public int selected;
+  public int highlighted;
   protected List<ItemStack> icons = Lists.newArrayList();
 
   private final GuiMultiModule parent;
@@ -65,6 +66,26 @@ public class GuiPartTabs extends GuiPart {
   public void update(int mouseX, int mouseY) {
     boolean mouseDown = Mouse.isButtonDown(0); // left mouse button
 
+    // did we click on a tab?
+    mouseX -= this.xPos;
+    mouseY -= this.yPos;
+
+    // update highlighted
+    highlighted = -1;
+    if(mouseY >= 0 && mouseY <= tab[1].h) {
+      // which one did we click?
+      int x = 0;
+      for(int i = 0; i < icons.size(); i++) {
+        // clicking on spacing has no effect
+        if(mouseX >= x && mouseX < x + tab[1].w) {
+          highlighted = i;
+          break;
+        }
+        x += tab[1].w;
+        x += spacing;
+      }
+    }
+
     // already clicked
     if(clicked) {
       // still clicking
@@ -85,22 +106,9 @@ public class GuiPartTabs extends GuiPart {
       return;
     }
 
-    // did we click on a tab?
-    mouseX -= this.xPos;
-    mouseY -= this.yPos;
-
-    if(mouseY >= 0 && mouseY <= tab[1].h) {
-      // which one did we click?
-      int x = 0;
-      for(int i = 0; i < icons.size(); i++) {
-        // clicking on spacing has no effect
-        if(mouseX >= x && mouseX < x + tab[1].w) {
-          selected = i;
-          return;
-        }
-        x += tab[1].w;
-        x += spacing;
-      }
+    // was new click, select highlighted
+    if(highlighted > -1) {
+      selected = highlighted;
     }
   }
 
