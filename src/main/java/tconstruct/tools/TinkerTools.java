@@ -58,6 +58,9 @@ public class TinkerTools extends TinkerPulse {
   public static BlockToolTable toolTables;
   public static BlockToolForge toolForge;
 
+  // General Items
+  public static Item pattern;
+
   // Tools
   public static Item pickaxe;
 
@@ -72,7 +75,6 @@ public class TinkerTools extends TinkerPulse {
   public static IModifier fortifyMod;
   public static IModifier redstoneMod;
 
-
   // PRE-INITIALIZATION
   @Handler
   public void preInit(FMLPreInitializationEvent event) {
@@ -82,6 +84,8 @@ public class TinkerTools extends TinkerPulse {
     registerToolParts();
     registerTools();
     registerModifiers();
+
+    pattern = Items.stick;
 
     // register blocks
     toolTables = registerBlock(new BlockToolTable(), ItemBlockMeta.class, "ToolTables");
@@ -156,7 +160,7 @@ public class TinkerTools extends TinkerPulse {
 
   private void registerRecipies() {
     // todo: remove debug recipe stuff
-    ItemStack pattern = new ItemStack(Items.stick);
+    ItemStack pattern = new ItemStack(TinkerTools.pattern);
 
     // Crafting Station
     GameRegistry.addRecipe(
