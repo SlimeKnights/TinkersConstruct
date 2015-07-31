@@ -85,7 +85,7 @@ public class TinkerTools extends TinkerPulse {
     registerTools();
     registerModifiers();
 
-    pattern = Items.stick;
+    pattern = registerItem(new Item(), "pattern");
 
     // register blocks
     toolTables = registerBlock(new BlockToolTable(), ItemBlockMeta.class, "ToolTables");
@@ -179,10 +179,14 @@ public class TinkerTools extends TinkerPulse {
     GameRegistry.addRecipe(
         new TableRecipe(OreDictionary.getOres("logWood"), toolTables, BlockToolTable.TableTypes.PartBuilder.meta, "P",
                         "B", 'P', pattern, 'B', "logWood"));
-    GameRegistry.addRecipe(BlockTable.createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, Blocks.rail, 0),
+    GameRegistry.addRecipe(BlockTable.createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, Blocks.golden_rail, 0),
                            "P", "B", 'P', pattern, 'B', Blocks.rail);
     GameRegistry.addRecipe(BlockTable.createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, Blocks.cactus, 0),
                            "P", "B", 'P', pattern, 'B', Blocks.cactus);
+
+    // Pattern Chest
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolTables, 1, BlockToolTable.TableTypes.PatternChest.meta),
+                                               "P", "B", 'P', pattern, 'B', "chestWood"));
 
     // Tool Station
     GameRegistry.addRecipe(

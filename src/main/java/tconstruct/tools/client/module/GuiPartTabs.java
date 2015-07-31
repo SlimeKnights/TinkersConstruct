@@ -142,6 +142,8 @@ public class GuiPartTabs extends GuiPart {
         actualTab = toDraw[1];
       }
 
+      // todo: draw all the tabs first and then all the itemstacks so it doesn't have to switch texture in between all the time
+
       // rebind texture from drawing an itemstack
       Minecraft.getMinecraft().getTextureManager().bindTexture(tabsResource);
       actualTab.draw(x, y);

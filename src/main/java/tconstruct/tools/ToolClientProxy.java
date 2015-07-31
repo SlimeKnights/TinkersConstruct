@@ -27,7 +27,12 @@ public class ToolClientProxy extends ClientProxy {
     tableItem = Item.getItemFromBlock(TinkerTools.toolForge);
     ModelLoader.setCustomModelResourceLocation(tableItem, 0, ToolClientEvents.locToolForge);
 
+    // general items
+    registerItemModel(TinkerTools.pattern);
+
+    // tools
     registerToolModel(pickaxe);
+
 
     // parts
     registerPartModel(pickHead);
