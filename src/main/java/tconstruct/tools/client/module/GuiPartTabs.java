@@ -95,6 +95,7 @@ public class GuiPartTabs extends GuiPart {
       // release click
       else {
         clicked = false;
+        return;
       }
     }
     // new click
