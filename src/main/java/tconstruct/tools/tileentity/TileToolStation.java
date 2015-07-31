@@ -8,6 +8,8 @@ import net.minecraft.world.World;
 
 import tconstruct.common.tileentity.TileTable;
 import tconstruct.library.mantle.IInventoryGui;
+import tconstruct.tools.client.GuiToolStation;
+import tconstruct.tools.inventory.ContainerToolStation;
 
 public class TileToolStation extends TileTable implements IInventoryGui {
 
@@ -17,11 +19,11 @@ public class TileToolStation extends TileTable implements IInventoryGui {
 
   @Override
   public Container createContainer(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
-    return null;
+    return new ContainerToolStation(inventoryplayer, this);
   }
 
   @Override
   public GuiContainer createGui(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
-    return null;
+    return new GuiToolStation(inventoryplayer, world, pos, this);
   }
 }

@@ -19,16 +19,11 @@ public class GuiToolStation extends GuiTinkerStation {
 
   public GuiToolStation(InventoryPlayer playerInv, World world, BlockPos pos, TileToolStation tile) {
     super(world, pos, (ContainerMultiModule)tile.createContainer(playerInv, world, pos));
-
-    this.xSize = 194;
-    this.ySize = 168;
   }
 
   @Override
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-    this.mc.getTextureManager().bindTexture(BACKGROUND);
-    this.drawTexturedModalRect(cornerX, cornerY, 0, 0, realWidth, realHeight);
+    drawBackground(BACKGROUND);
 
     super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
   }

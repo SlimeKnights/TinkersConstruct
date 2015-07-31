@@ -45,13 +45,17 @@ public class ContainerCraftingStation extends ContainerMultiModule<TileCraftingS
     this.addPlayerInventory(playerInventory, 8, 84);
 
     TileEntityChest chest = tile.detectChest();
-    Block blockChest = world.getBlockState(chest.getPos()).getBlock();
-    if(chest != null && blockChest instanceof BlockChest) {
-      IInventory inventory = ((BlockChest) blockChest).getLockableContainer(world, chest.getPos());
-      if(inventory != null) {
-        Container sideInventory = new ContainerSideInventory(chest, inventory, -6 - 18 * 6, 8, 6);
+    // TE present?
+    if(chest != null) {
+      Block blockChest = world.getBlockState(chest.getPos()).getBlock();
+      // It's a chest?
+      if(blockChest instanceof BlockChest) {
+        IInventory inventory = ((BlockChest) blockChest).getLockableContainer(world, chest.getPos());
+        if(inventory != null) {
+          Container sideInventory = new ContainerSideInventory(chest, inventory, -6 - 18 * 6, 8, 6);
 
-        addSubContainer(sideInventory);
+          addSubContainer(sideInventory);
+        }
       }
     }
 

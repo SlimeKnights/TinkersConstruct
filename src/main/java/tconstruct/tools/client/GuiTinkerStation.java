@@ -6,10 +6,13 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -20,6 +23,8 @@ import java.util.Queue;
 import java.util.Set;
 
 import tconstruct.TConstruct;
+import tconstruct.common.client.gui.GuiElement;
+import tconstruct.library.Util;
 import tconstruct.library.mantle.IInventoryGui;
 import tconstruct.tools.block.ITinkerStationBlock;
 import tconstruct.tools.client.module.GuiTinkerTabs;
@@ -29,6 +34,7 @@ import tconstruct.tools.network.TinkerStationTabPacket;
 @SideOnly(Side.CLIENT)
 // Takes care of the tinker station pseudo-multiblock
 public class GuiTinkerStation extends GuiMultiModule {
+  protected final ResourceLocation SLOTS = Util.getResource("textures/gui/slots.png");
 
   protected GuiTinkerTabs tinkerTabs;
   private World world;
@@ -49,9 +55,15 @@ public class GuiTinkerStation extends GuiMultiModule {
     }
   }
 
-  @Override
-  protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-    super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+  protected void drawBackground(ResourceLocation background) {
+    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+    this.mc.getTextureManager().bindTexture(background);
+    this.drawTexturedModalRect(cornerX, cornerY, 0, 0, realWidth, realHeight);
+  }
+
+  protected void drawSlotBackground(Slot slot, GuiElement element) {
+    this.mc.getTextureManager().bindTexture(SLOTS);
+    element.draw(slot.xDisplayPosition + this.cornerX - 1, slot.yDisplayPosition + this.cornerY - 1);
   }
 
   public void onTabSelection(int selection) {

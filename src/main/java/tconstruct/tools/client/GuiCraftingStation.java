@@ -37,9 +37,7 @@ public class GuiCraftingStation extends GuiTinkerStation {
 
   @Override
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-    this.mc.getTextureManager().bindTexture(BACKGROUND);
-    this.drawTexturedModalRect(cornerX, cornerY, 0, 0, realWidth, realHeight);
+    drawBackground(BACKGROUND);
 
     super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
   }

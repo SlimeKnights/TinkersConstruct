@@ -29,6 +29,7 @@ import tconstruct.common.block.BlockTable;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.tools.tileentity.TileCraftingStation;
 import tconstruct.tools.tileentity.TilePartBuilder;
+import tconstruct.tools.tileentity.TilePatternChest;
 import tconstruct.tools.tileentity.TileStencilTable;
 import tconstruct.tools.tileentity.TileToolStation;
 
@@ -60,6 +61,8 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
         return new TilePartBuilder();
       case ToolStation:
         return new TileToolStation();
+      case PatternChest:
+        return new TilePatternChest();
       default:
         return super.createNewTileEntity(worldIn, meta);
     }
@@ -79,6 +82,8 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
 
     // planks for the stencil table
     addBlocksFromOredict("plankWood", TableTypes.StencilTable.meta, list);
+
+    list.add(new ItemStack(this, 1, TableTypes.PatternChest.meta));
 
     // logs for the part builder
     addBlocksFromOredict("logWood", TableTypes.PartBuilder.meta, list);
