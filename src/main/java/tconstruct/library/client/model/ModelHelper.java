@@ -19,6 +19,7 @@ import net.minecraft.client.resources.model.SimpleBakedModel;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.Attributes;
+import net.minecraftforge.client.model.IColoredBakedQuad;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.ITransformation;
 
@@ -41,6 +42,27 @@ public class ModelHelper {
 
   public static TextureAtlasSprite getTextureFromBlockstate(IBlockState state) {
     return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(state);
+  }
+
+  public static BakedQuad colorQuad(int color, BakedQuad quad) {
+    int[] data = quad.getVertexData();
+
+    int a = (color >> 24);
+    if(a == 0)
+      a = 255;
+
+    int c = 0;
+    c |= ((color >> 16) & 0xFF) <<  0; // red
+    c |= ((color >>  8) & 0xFF) <<  8; // green
+    c |= ((color >>  0) & 0xFF) << 16; // blue
+    c |= (a & 0xFF) << 24; // alpha
+
+    // update color in the data. all 4 Vertices.
+    for(int i = 0; i < 4; i++) {
+      data[i * 7 + 3] = c;
+    }
+
+    return new IColoredBakedQuad.ColoredBakedQuad(data, -1, quad.getFace());
   }
 
   /**

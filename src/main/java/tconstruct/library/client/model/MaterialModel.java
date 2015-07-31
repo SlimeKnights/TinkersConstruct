@@ -1,8 +1,13 @@
 package tconstruct.library.client.model;
 
 import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Maps;
 
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemModelGenerator;
 import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -12,6 +17,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IModelState;
+import net.minecraftforge.client.model.IPerspectiveState;
+import net.minecraftforge.client.model.ItemLayerModel;
+import net.minecraftforge.client.model.TRSRTransformation;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -20,6 +28,8 @@ import java.util.Map;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.client.CustomTextureCreator;
+import tconstruct.library.client.MaterialRenderInfo;
+import tconstruct.library.materials.Material;
 
 public class MaterialModel implements IModel {
 
@@ -71,8 +81,10 @@ public class MaterialModel implements IModel {
 
   public BakedMaterialModel bakeIt(IModelState state, VertexFormat format,
                                    Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+    ItemLayerModel itemModel = new ItemLayerModel(model);
+
     // obtain the base model with the base texture
-    IFlexibleBakedModel base = ModelHelper.bakeModelFromModelBlock(model, bakedTextureGetter);
+    IFlexibleBakedModel base = itemModel.bake(state, format, bakedTextureGetter);
 
     // turn it into a baked material-model
     BakedMaterialModel bakedMaterialModel = new BakedMaterialModel(base);
@@ -82,14 +94,39 @@ public class MaterialModel implements IModel {
     Map<String, TextureAtlasSprite> sprites = CustomTextureCreator.sprites.get(baseTexture);
 
     for(Map.Entry<String, TextureAtlasSprite> entry : sprites.entrySet()) {
-      model.textures.put("layer0", entry.getValue()
-                                        .getIconName()); // this is sadly needed so that the ItemModelGenerator creates the correct model
-      IFlexibleBakedModel model2 = ModelHelper.bakeModelFromModelBlock(model, entry.getValue());
+      Material material = TinkerRegistry.getMaterial(entry.getKey());
 
-      bakedMaterialModel.addMaterialModel(TinkerRegistry.getMaterial(entry.getKey()), model2);
+      IModel model2 = itemModel.retexture(ImmutableMap.of("layer0", entry.getValue().getIconName()));
+      IFlexibleBakedModel bakedModel2 = model2.bake(state, format, bakedTextureGetter);
+
+      // if it's a colored material we need to color the quads
+      if(material.renderInfo instanceof MaterialRenderInfo.Color) {
+        int color = ((MaterialRenderInfo.Color) material.renderInfo).color;
+
+        ImmutableList.Builder<BakedQuad> quads = ImmutableList.builder();
+        // ItemLayerModel.BakedModel only uses general quads
+        for(BakedQuad quad : bakedModel2.getGeneralQuads()) {
+          quads.add(ModelHelper.colorQuad(color, quad));
+        }
+
+        // create a new model with the colored quads
+        if(state instanceof IPerspectiveState) {
+          IPerspectiveState ps = (IPerspectiveState) state;
+          Map<ItemCameraTransforms.TransformType, TRSRTransformation> map = Maps.newHashMap();
+          for(ItemCameraTransforms.TransformType type : ItemCameraTransforms.TransformType.values()) {
+            map.put(type, ps.forPerspective(type).apply(this));
+          }
+          bakedModel2 =
+              new ItemLayerModel.BakedModel(quads.build(), bakedModel2.getTexture(), bakedModel2.getFormat(), Maps
+                  .immutableEnumMap(map));
+        }
+        else {
+          bakedModel2 = new ItemLayerModel.BakedModel(quads.build(), bakedModel2.getTexture(), bakedModel2.getFormat());
+        }
+      }
+
+      bakedMaterialModel.addMaterialModel(material, bakedModel2);
     }
-
-    model.textures.put("layer0", baseTexture);
 
     return bakedMaterialModel;
   }

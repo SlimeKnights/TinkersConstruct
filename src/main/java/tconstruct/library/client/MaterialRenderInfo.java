@@ -20,6 +20,23 @@ public interface MaterialRenderInfo {
   TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location);
 
   /**
+   * Does not actually generate a new texture. Used for vertex-coloring in the model generation
+   * Safes VRAM, so we use vertex colors instead of creating new data.
+   */
+  class Color implements MaterialRenderInfo {
+    public final int color;
+
+    public Color(int color) {
+      this.color = color;
+    }
+
+    @Override
+    public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
+      return null;
+    }
+  }
+
+  /**
    * Colors the texture of the tool with the material color
    */
   class Default implements MaterialRenderInfo {
@@ -31,10 +48,6 @@ public interface MaterialRenderInfo {
       this.low = low;
       this.mid = mid;
       this.high = high;
-    }
-
-    public Default(int color) {
-      this(color, color, color);
     }
 
     @Override
@@ -49,11 +62,6 @@ public interface MaterialRenderInfo {
 
     public CustomDefault(int low, int mid, int high, String customSuffix) {
       super(low, mid, high);
-      this.customSuffix = customSuffix;
-    }
-
-    public CustomDefault(int color, String customSuffix) {
-      super(color);
       this.customSuffix = customSuffix;
     }
 

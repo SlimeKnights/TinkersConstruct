@@ -81,10 +81,24 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
           sprite = map.registerSprite(new ResourceLocation(location));
         }
         else {
-          sprite = material.renderInfo.getTexture(base, location);
+          // material does not need a special generated texture
+          if(material.renderInfo == null)
+            continue;
+
+          // standard color rendering has special treatment
+          if(material.renderInfo instanceof MaterialRenderInfo.Color) {
+            // add the base sprite but DON'T stitch it
+            sprite = base;
+          }
+          else {
+            sprite = material.renderInfo.getTexture(base, location);
+          }
         }
 
-        map.setTextureEntry(location, sprite);
+        // stitch new textures
+        if(sprite != base && sprite != null) {
+          map.setTextureEntry(location, sprite);
+        }
         builtSprites.put(material.identifier, sprite);
       }
 
