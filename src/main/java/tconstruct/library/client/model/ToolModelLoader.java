@@ -74,7 +74,8 @@ public class ToolModelLoader implements ICustomModelLoader {
       IModel output = new ToolModel(modelBlock, parts, brokenParts, modifiers);
 
       // inform the texture manager about the textures it has to process
-      CustomTextureCreator.registerTextures(output.getTextures());
+      for(Object tex : modelBlock.textures.values())
+        CustomTextureCreator.registerTexture(new ResourceLocation((String) tex));
 
       return output;
     } catch(IOException e) {
