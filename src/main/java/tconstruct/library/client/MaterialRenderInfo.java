@@ -68,7 +68,7 @@ public interface MaterialRenderInfo {
     @Override
     public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
       // use the base texture with the suffix if it exists
-      if(CustomTextureCreator.exists(baseTexture.toString() + "_" + customSuffix)) {
+      if(CustomTextureCreator.exists(baseTexture.getIconName() + "_" + customSuffix)) {
         return new SimpleColoredTexture(low, mid, high, baseTexture.getIconName(), customSuffix, location);
       }
       // otherwise default texture
