@@ -24,6 +24,7 @@ import java.util.Set;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
+import tconstruct.library.client.texture.AbstractColoredTexture;
 import tconstruct.library.materials.Material;
 
 /**
@@ -82,21 +83,38 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
         }
         else {
           // material does not need a special generated texture
-          if(material.renderInfo == null)
+          if(material.renderInfo == null) {
             continue;
+          }
 
-          // standard color rendering has special treatment
-          if(material.renderInfo instanceof MaterialRenderInfo.Color) {
-            // add the base sprite but DON'T stitch it
-            sprite = base;
+          TextureAtlasSprite matBase = base;
+
+          // different base texture?
+          if(material.renderInfo.getTextureSuffix() != null) {
+            String loc2 = baseTexture.toString() + "_" + material.renderInfo.getTextureSuffix();
+            TextureAtlasSprite base2 = map.getTextureExtry(loc2);
+            // can we manually load it?
+            if(base2 == null && exists(loc2)) {
+              base2 = new AbstractColoredTexture(loc2, loc2) {
+                @Override
+                protected int colorPixel(int pixel, int mipmap, int pxCoord) {
+                  return pixel;
+                }
+              };
+
+              // save in the map so it's getting reused by the others and is available
+              map.setTextureEntry(loc2, base2);
+            }
+            if(base2 != null) {
+              matBase = base2;
+            }
           }
-          else {
-            sprite = material.renderInfo.getTexture(base, location);
-          }
+
+          sprite = material.renderInfo.getTexture(matBase, location);
         }
 
         // stitch new textures
-        if(sprite != base && sprite != null) {
+        if(sprite != null && material.renderInfo.isStitched()) {
           map.setTextureEntry(location, sprite);
         }
         builtSprites.put(material.identifier, sprite);

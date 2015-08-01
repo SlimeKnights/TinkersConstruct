@@ -18,6 +18,7 @@ public final class TinkerMaterials {
 
   public static final Material wood;
   public static final Material stone;
+  public static final Material flint;
   public static final Material netherrack;
 
   public static final Material xu;
@@ -30,6 +31,7 @@ public final class TinkerMaterials {
   static {
     wood = new Material("wood");
     stone = new Material("stone");
+    flint = new Material("flint");
     netherrack = new Material("netherrack");
 
     xu = new Material("unstable");
@@ -39,11 +41,15 @@ public final class TinkerMaterials {
 
   @SideOnly(Side.CLIENT)
   public static void registerMaterialRendering() {
-    wood.setRenderInfo(new MaterialRenderInfo.Default(0xffaa00, 0xffaa00, 0xffcc22), EnumChatFormatting.YELLOW);
-    stone.setRenderInfo(0x555555, EnumChatFormatting.DARK_GRAY);
+    //wood.setRenderInfo(new MaterialRenderInfo.Default(0xffaa00, 0xffaa00, 0xffcc22), EnumChatFormatting.YELLOW);
+    wood.setRenderInfo(new MaterialRenderInfo.MultiColor(0xff0000, 0x00ff00, 0x0000ff).setTextureSuffix("contrast"), EnumChatFormatting.YELLOW);
+    //stone.setRenderInfo(new MaterialRenderInfo.Default(0x555555, 0x555555, 0xffffff), EnumChatFormatting.YELLOW);
+    stone.setRenderInfo(0x555555, EnumChatFormatting.GRAY);
+    flint.setRenderInfo(new MaterialRenderInfo.Default(0xffffff)
+                            .setTextureSuffix("contrast"), EnumChatFormatting.DARK_GRAY);
     netherrack.setRenderInfo(new MaterialRenderInfo.BlockTexture(Blocks.netherrack), EnumChatFormatting.DARK_RED);
 
-    xu.setRenderInfo(new MaterialRenderInfo() {
+    xu.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() {
       @Override
       public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
         return new ExtraUtilityTexture(baseTexture, location);
@@ -54,6 +60,7 @@ public final class TinkerMaterials {
   public static void registerMaterials() {
     TinkerRegistry.addMaterial(wood);
     TinkerRegistry.addMaterial(stone, stonebound);
+    TinkerRegistry.addMaterial(flint);
     TinkerRegistry.addMaterial(netherrack, stonebound);
 
     TinkerRegistry.addMaterial(xu);
@@ -62,6 +69,7 @@ public final class TinkerMaterials {
   public static void registerToolMaterials() {
     TinkerRegistry.addMaterialStats(wood, new ToolMaterialStats(1, 97, 1.0f, 3.5f, 0.9f));
     TinkerRegistry.addMaterialStats(stone, new ToolMaterialStats(1, 120, 0.2f, 4.0f, 1.0f));
+    TinkerRegistry.addMaterialStats(flint, new ToolMaterialStats(1, 120, 0.2f, 4.0f, 1.0f));
     TinkerRegistry.addMaterialStats(netherrack, new ToolMaterialStats(2, 200, 0.5f, 5.0f, 1.4f));
     TinkerRegistry.addMaterialStats(xu, new ToolMaterialStats(2, 200, 0.5f, 5.0f, 1.4f));
   }

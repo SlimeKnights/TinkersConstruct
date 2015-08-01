@@ -18,10 +18,6 @@ public class ExtraUtilityTexture extends AbstractColoredTexture {
     super(baseTexture, spriteName);
   }
 
-  public ExtraUtilityTexture(String baseTextureLocation, String extra, String spriteName) {
-    super(baseTextureLocation, extra, spriteName);
-  }
-
   @Override
   protected void processData(int[][] data) {
     // preprocess

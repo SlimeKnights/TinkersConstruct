@@ -21,23 +21,27 @@ import tconstruct.library.TinkerRegistry;
 
 public abstract class AbstractColoredTexture extends TextureAtlasSprite {
 
-  private final TextureAtlasSprite baseTexture;
-  private final String backupTextureLocation;
-  private final String extra;
+  private TextureAtlasSprite baseTexture;
+  private String backupTextureLocation;
+  private String extra;
 
   protected AbstractColoredTexture(TextureAtlasSprite baseTexture, String spriteName) {
     super(spriteName);
     this.baseTexture = baseTexture;
     this.backupTextureLocation = baseTexture.getIconName();
-    this.extra = "";
   }
 
-  protected AbstractColoredTexture(String baseTextureLocation, String extra, String spriteName) {
+  protected AbstractColoredTexture(String baseTextureLocation, String spriteName) {
     super(spriteName);
 
     this.baseTexture = null;
     this.backupTextureLocation = baseTextureLocation;
-    this.extra = extra;
+  }
+
+  public TextureAtlasSprite setSuffix(String suffix) {
+    this.extra = suffix;
+    this.baseTexture = null;
+    return this;
   }
 
   @Override

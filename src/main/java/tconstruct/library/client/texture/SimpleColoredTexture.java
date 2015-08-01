@@ -14,14 +14,6 @@ public class SimpleColoredTexture extends AbstractColoredTexture {
     this.colorHigh = colorHigh;
   }
 
-  public SimpleColoredTexture(int colorLow, int colorMid, int colorHigh, String baseTextureLocation, String extra,
-                              String spriteName) {
-    super(baseTextureLocation, extra, spriteName);
-    this.colorLow = colorLow;
-    this.colorMid = colorMid;
-    this.colorHigh = colorHigh;
-  }
-
   int minBrightness;
   int maxBrightness;
 

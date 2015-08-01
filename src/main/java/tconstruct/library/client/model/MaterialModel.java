@@ -100,8 +100,8 @@ public class MaterialModel implements IModel {
       IFlexibleBakedModel bakedModel2 = model2.bake(state, format, bakedTextureGetter);
 
       // if it's a colored material we need to color the quads
-      if(material.renderInfo instanceof MaterialRenderInfo.Color) {
-        int color = ((MaterialRenderInfo.Color) material.renderInfo).color;
+      if(material.renderInfo.useVertexColoring()) {
+        int color = (material.renderInfo).getVertexColor();
 
         ImmutableList.Builder<BakedQuad> quads = ImmutableList.builder();
         // ItemLayerModel.BakedModel only uses general quads

@@ -18,33 +18,85 @@ import tconstruct.library.client.texture.TextureColoredTexture;
 public interface MaterialRenderInfo {
 
   TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location);
+  boolean isStitched();
+  boolean useVertexColoring();
+  int getVertexColor();
+
+  // this actually would require its own thing, but we put it here for simplicity
+  String getTextureSuffix();
+  MaterialRenderInfo setTextureSuffix(String suffix);
+
+  abstract class AbstractMaterialRenderInfo implements MaterialRenderInfo {
+    private String suffix;
+
+    @Override
+    public boolean isStitched() {
+      return true;
+    }
+
+    @Override
+    public boolean useVertexColoring() {
+      return false;
+    }
+
+    @Override
+    public int getVertexColor() {
+      return 0xffffffff; // white and opaque
+    }
+
+    @Override
+    public String getTextureSuffix() {
+      return suffix;
+    }
+
+    @Override
+    public MaterialRenderInfo setTextureSuffix(String suffix) {
+      this.suffix = suffix;
+      return this;
+    }
+  }
 
   /**
    * Does not actually generate a new texture. Used for vertex-coloring in the model generation
    * Safes VRAM, so we use vertex colors instead of creating new data.
    */
-  class Color implements MaterialRenderInfo {
+  class Default extends AbstractMaterialRenderInfo {
     public final int color;
 
-    public Color(int color) {
+    public Default(int color) {
       this.color = color;
     }
 
     @Override
     public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
-      return null;
+      return baseTexture;
+    }
+
+    @Override
+    public boolean isStitched() {
+      return false;
+    }
+
+    @Override
+    public boolean useVertexColoring() {
+      return true;
+    }
+
+    @Override
+    public int getVertexColor() {
+      return color;
     }
   }
 
   /**
    * Colors the texture of the tool with the material color
    */
-  class Default implements MaterialRenderInfo {
+  class MultiColor extends AbstractMaterialRenderInfo {
 
     // colors to be used
     protected final int low, mid, high;
 
-    public Default(int low, int mid, int high) {
+    public MultiColor(int low, int mid, int high) {
       this.low = low;
       this.mid = mid;
       this.high = high;
@@ -56,55 +108,10 @@ public interface MaterialRenderInfo {
     }
   }
 
-  class CustomDefault extends Default {
-
-    protected final String customSuffix;
-
-    public CustomDefault(int low, int mid, int high, String customSuffix) {
-      super(low, mid, high);
-      this.customSuffix = customSuffix;
-    }
-
-    @Override
-    public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
-      // use the base texture with the suffix if it exists
-      if(CustomTextureCreator.exists(baseTexture.getIconName() + "_" + customSuffix)) {
-        return new SimpleColoredTexture(low, mid, high, baseTexture.getIconName(), customSuffix, location);
-      }
-      // otherwise default texture
-      return super.getTexture(baseTexture, location);
-    }
-  }
-
   /**
-   * Uses a block texture instead of a color to create the texture
+   * Uses a (block) texture instead of a color to create the texture
    */
-  class MultiplicativeTexture implements MaterialRenderInfo {
-
-    protected String texturePath;
-
-    public MultiplicativeTexture(String texturePath) {
-      this.texturePath = texturePath;
-    }
-
-    @Override
-    public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
-      TextureAtlasSprite blockTexture = Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(texturePath);
-
-      if(blockTexture == null) {
-        blockTexture = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
-      }
-
-      TextureColoredTexture sprite = new AnimatedColoredTexture(blockTexture, baseTexture, location);
-      sprite.stencil = false;
-      return sprite;
-    }
-  }
-
-  /**
-   * Uses a block texture instead of a color to create the texture
-   */
-  class BlockTexture implements MaterialRenderInfo {
+  class BlockTexture extends AbstractMaterialRenderInfo {
 
     protected String texturePath;
 
@@ -128,4 +135,31 @@ public interface MaterialRenderInfo {
       return sprite;
     }
   }
+
+
+  /**
+   * Creates an animated texture from an animated base texture. USE WITH CAUTION.
+   * ACTUALLY ONLY USE THIS IF YOU KNOW EXACTLY WHAT YOU'RE DOING.
+   */
+  class AnimatedTexture extends AbstractMaterialRenderInfo {
+
+    protected String texturePath;
+
+    public AnimatedTexture(String texturePath) {
+      this.texturePath = texturePath;
+    }
+
+    @Override
+    public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
+      TextureAtlasSprite blockTexture = Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(texturePath);
+
+      if(blockTexture == null) {
+        blockTexture = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
+      }
+
+      TextureColoredTexture sprite = new AnimatedColoredTexture(blockTexture, baseTexture, location);
+      return sprite;
+    }
+  }
+
 }

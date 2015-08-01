@@ -19,22 +19,9 @@ public class TextureColoredTexture extends AbstractColoredTexture {
     this.addTexture = null;
   }
 
-  public TextureColoredTexture(String addTextureLocation, String baseTextureLocation, String extra, String spriteName) {
-    super(baseTextureLocation, extra, spriteName);
-    this.addTextureLocation = addTextureLocation;
-    this.addTexture = null;
-  }
-
   public TextureColoredTexture(TextureAtlasSprite addTexture, TextureAtlasSprite baseTexture,
                                String spriteName) {
     super(baseTexture, spriteName);
-    this.addTextureLocation = addTexture.getIconName();
-    this.addTexture = addTexture;
-  }
-
-  public TextureColoredTexture(TextureAtlasSprite addTexture, String baseTextureLocation, String extra,
-                               String spriteName) {
-    super(baseTextureLocation, extra, spriteName);
     this.addTextureLocation = addTexture.getIconName();
     this.addTexture = addTexture;
   }

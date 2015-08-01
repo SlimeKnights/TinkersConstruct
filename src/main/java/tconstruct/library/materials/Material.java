@@ -123,7 +123,7 @@ public class Material {
 
   @SideOnly(Side.CLIENT)
   public void setRenderInfo(int color, EnumChatFormatting textColor) {
-    setRenderInfo(new MaterialRenderInfo.Color(color), textColor);
+    setRenderInfo(new MaterialRenderInfo.Default(color), textColor);
   }
 
   /* Stats */
