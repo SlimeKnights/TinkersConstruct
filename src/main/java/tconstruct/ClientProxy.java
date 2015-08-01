@@ -127,6 +127,15 @@ public abstract class ClientProxy extends CommonProxy {
     modifierLoader.registerModifierFile(modifier.getIdentifier(), location);
   }
 
+  public ResourceLocation registerItemModel(Item item) {
+    ResourceLocation itemLocation = getItemLocation(item);
+    if(itemLocation == null) {
+      return null;
+    }
+
+    return registerIt(item, itemLocation);
+  }
+
   private static ResourceLocation registerIt(Item item, final ResourceLocation location) {
     // plop it in.
     // This here is needed for the model to be found ingame when the game looks for a model to render an Itemstack
