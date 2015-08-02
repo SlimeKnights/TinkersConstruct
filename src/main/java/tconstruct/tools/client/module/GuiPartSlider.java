@@ -81,6 +81,10 @@ public class GuiPartSlider extends GuiPart {
     this.enabled = enabled;
   }
 
+  public boolean isEnabled() {
+    return this.enabled;
+  }
+
   public void draw() {
     // slidebar background
     slideBarTop.draw(xPos, yPos);

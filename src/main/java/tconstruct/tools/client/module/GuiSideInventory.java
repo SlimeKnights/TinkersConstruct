@@ -65,7 +65,7 @@ public class GuiSideInventory extends GuiModule {
   @Override
   public boolean shouldDrawSlot(Slot slot) {
     // all visible
-    if(!slider.enabled)
+    if(!slider.isEnabled())
       return true;
 
     return firstSlotId <= slot.getSlotIndex() && lastSlotId > slot.getSlotIndex();
@@ -173,7 +173,7 @@ public class GuiSideInventory extends GuiModule {
     cornerBottomRight.draw(x, y);
 
     // slider
-    if(slider.enabled) {
+    if(slider.isEnabled()) {
       slider.update(mouseX, mouseY);
       slider.draw();
 
