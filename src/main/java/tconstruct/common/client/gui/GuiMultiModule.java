@@ -7,18 +7,25 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.lang.reflect.Field;
+import java.util.Collections;
 import java.util.List;
 
+import codechicken.nei.VisiblityData;
+import codechicken.nei.api.INEIGuiHandler;
+import codechicken.nei.api.TaggedInventoryArea;
 import tconstruct.TConstruct;
 import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.common.inventory.SlotWrapper;
 
 @SideOnly(Side.CLIENT)
-public class GuiMultiModule extends GuiContainer {
+@Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
+public class GuiMultiModule extends GuiContainer implements INEIGuiHandler {
 
   // NEI-stuff >:(
   private static Field NEI_Manager;
@@ -277,4 +284,38 @@ public class GuiMultiModule extends GuiContainer {
     return (ContainerMultiModule) inventorySlots;
   }
 
+  /** NEI INTEGRATION */
+
+  @Override
+  public VisiblityData modifyVisiblity(GuiContainer guiContainer, VisiblityData visiblityData) {
+    return visiblityData;
+  }
+
+  @Override
+  public Iterable<Integer> getItemSpawnSlots(GuiContainer guiContainer, ItemStack itemStack) {
+    return null;
+  }
+
+  @Override
+  public List<TaggedInventoryArea> getInventoryAreas(GuiContainer guiContainer) {
+    return Collections.EMPTY_LIST;
+  }
+
+  @Override
+  public boolean handleDragNDrop(GuiContainer guiContainer, int x, int y, ItemStack itemStack, int k) {
+    return false;
+  }
+
+  @Override
+  public boolean hideItemPanelSlot(GuiContainer guiContainer, int x, int y, int w, int h) {
+    for(GuiModule module : modules) {
+      // check if the panel overlaps the module (check totally not stolen from stackoverflow)
+      if(module.guiLeft < x + w && module.guiRight() > x &&
+         module.guiTop < y + h && module.guiBottom() > y) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 }
