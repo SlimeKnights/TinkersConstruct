@@ -15,7 +15,7 @@ import tconstruct.tools.inventory.ContainerPatternChest;
 public class TilePatternChest extends TileTable implements IInventoryGui {
 
   public TilePatternChest() {
-    super("container.patternChest", 30);
+    super("container.patternChest", 30, 1);
   }
 
   @Override
