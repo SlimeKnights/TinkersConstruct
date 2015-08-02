@@ -17,6 +17,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import tconstruct.common.client.gui.GuiElement;
+import tconstruct.common.client.gui.GuiModule;
 import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.library.Util;
 import tconstruct.tools.TinkerMaterials;
@@ -36,6 +37,22 @@ public class GuiToolStation extends GuiTinkerStation {
     super(world, pos, (ContainerMultiModule) tile.createContainer(playerInv, world, pos));
 
     this.ySize = 174;
+  }
+
+  @Override
+  public void initGui() {
+    super.initGui();
+
+    // workaround to line up the tabs on switching even though the GUI is a tad higher
+    this.guiTop = cornerY + 4;
+    this.cornerX = this.guiLeft;
+    this.cornerY = this.guiTop;
+    this.realWidth = xSize;
+    this.realHeight = ySize;
+
+    for(GuiModule module : modules) {
+      updateSubmodule(module);
+    }
   }
 
   @Override
@@ -75,7 +92,7 @@ public class GuiToolStation extends GuiTinkerStation {
     GlStateManager.disableDepth();
 
     // draw the halftransparent "cover" over the item
-    GlStateManager.color(1.0f, 1.0f, 1.0f, 0.6f);
+    GlStateManager.color(1.0f, 1.0f, 1.0f, 0.7f);
     ItemCover.draw(this.cornerX + 7, this.cornerY + 18);
 
     // full opaque. Draw the borders of the slots
