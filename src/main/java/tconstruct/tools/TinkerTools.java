@@ -31,6 +31,7 @@ import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
 import tconstruct.library.modifiers.IModifier;
 import tconstruct.library.modifiers.Modifier;
+import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.ToolPart;
 import tconstruct.tools.block.BlockToolForge;
 import tconstruct.tools.block.BlockToolTable;
@@ -62,7 +63,7 @@ public class TinkerTools extends TinkerPulse {
   public static Item pattern;
 
   // Tools
-  public static Item pickaxe;
+  public static ToolCore pickaxe;
 
   // Tool Parts
   public static ToolPart pickHead;
