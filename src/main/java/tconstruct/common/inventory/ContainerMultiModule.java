@@ -37,17 +37,17 @@ public class ContainerMultiModule<T extends TileEntity> extends BaseContainer<T>
     }
   }
 
-  public <T extends Container> T getSubContainer(Class<T> clazz) {
+  public <TC extends Container> TC getSubContainer(Class<TC> clazz) {
     return getSubContainer(clazz, 0);
   }
 
-  public <T extends Container> T getSubContainer(Class<T> clazz, int index) {
+  public <TC extends Container> TC getSubContainer(Class<TC> clazz, int index) {
     for(Container sub : subContainers) {
       if(clazz.isAssignableFrom(sub.getClass())) {
         index--;
       }
       if(index < 0) {
-        return (T) sub;
+        return (TC) sub;
       }
     }
 

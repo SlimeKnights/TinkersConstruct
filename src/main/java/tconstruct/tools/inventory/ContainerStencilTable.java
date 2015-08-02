@@ -1,17 +1,22 @@
 package tconstruct.tools.inventory;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockChest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityChest;
 
 import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.common.inventory.SlotRestrictedItem;
 import tconstruct.library.mantle.InventoryCraftingPersistent;
 import tconstruct.tools.TinkerTools;
+import tconstruct.tools.tileentity.TilePatternChest;
 import tconstruct.tools.tileentity.TileStencilTable;
 
 public class ContainerStencilTable extends ContainerMultiModule<TileStencilTable> {
@@ -28,7 +33,14 @@ public class ContainerStencilTable extends ContainerMultiModule<TileStencilTable
     this.addSlotToContainer(new SlotRestrictedItem(TinkerTools.pattern, this.craftMatrix, 0, 48, 35));
     this.addSlotToContainer(new SlotStencilCrafting(playerInventory.player, craftMatrix, craftResult, 1, 106, 35));
 
-    addPlayerInventory(playerInventory, 8, 84);
+    this.addPlayerInventory(playerInventory, 8, 84);
+
+    TilePatternChest chest = detectTE(TilePatternChest.class);
+    // TE present?
+    if(chest != null) {
+      Container sideInventory = new ContainerPatternChest.SideInventory(chest, chest, 6 + 176, 8, 6);
+      addSubContainer(sideInventory);
+    }
   }
 
   @Override

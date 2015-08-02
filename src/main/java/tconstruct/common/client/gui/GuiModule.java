@@ -12,9 +12,9 @@ public abstract class GuiModule extends GuiContainer {
   protected final GuiMultiModule parent;
 
   // left or right of the parent
-  private final boolean right;
+  protected final boolean right;
   // top or bottom of the parent
-  private final boolean bottom;
+  protected final boolean bottom;
 
   public GuiModule(GuiMultiModule parent, Container container, boolean right, boolean bottom) {
     super(container);

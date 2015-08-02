@@ -50,18 +50,32 @@ public class GuiSideInventory extends GuiModule {
   private int firstSlotId;
   private int lastSlotId;
 
+  // distance of upper left corner to first slot
+  private int xd;
+  private int yd;
+
   private GuiPartSlider
       slider =
       new GuiPartSlider(sliderNormal, sliderHigh, sliderLow, sliderTop, sliderBottom, sliderBackground);
 
   public GuiSideInventory(GuiMultiModule parent, Container container, int slotCount, int columns) {
-    super(parent, container, false, false);
+    this(parent, container, slotCount, columns, false);
+  }
+
+  public GuiSideInventory(GuiMultiModule parent, Container container, int slotCount, int columns, boolean rightSide) {
+    super(parent, container, rightSide, false);
 
     this.columns = columns;
     this.slotCount = slotCount;
 
     this.xSize = columns * slot.h + borderLeft.w + borderRight.w;
     this.ySize = calcCappedYSize(999999);
+
+
+    this.xd = -6;
+    this.yd = 8;
+
+    updateSlots();
   }
 
   @Override
@@ -97,6 +111,7 @@ public class GuiSideInventory extends GuiModule {
     }
     else {
       slider.setEnabled(false);
+      updateSlots();
     }
   }
 
@@ -135,8 +150,12 @@ public class GuiSideInventory extends GuiModule {
         int x = (offset % columns) * GuiSideInventory.slot.w;
         int y = (offset / columns) * GuiSideInventory.slot.h;
 
-        slot.xDisplayPosition = x + -6 - GuiSideInventory.slot.w * columns;
-        slot.yDisplayPosition = y + 8;
+        slot.xDisplayPosition = x + xd - GuiSideInventory.slot.w * columns;
+        slot.yDisplayPosition = y + yd;
+
+        if(this.right) {
+          slot.xDisplayPosition += parent.xSize;
+        }
       }
       else {
         slot.xDisplayPosition = 0;

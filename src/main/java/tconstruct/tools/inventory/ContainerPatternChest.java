@@ -1,6 +1,9 @@
 package tconstruct.tools.inventory;
 
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
+import net.minecraft.tileentity.TileEntity;
 
 import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.common.inventory.SlotRestrictedItem;
@@ -29,5 +32,17 @@ public class ContainerPatternChest extends ContainerMultiModule<TilePatternChest
 
     // player inventory
     addPlayerInventory(playerInventory, 17, 86);
+  }
+
+  public static class SideInventory extends ContainerSideInventory {
+
+    public SideInventory(TileEntity tile, IInventory inventory, int x, int y, int columns) {
+      super(tile, inventory, x, y, columns);
+    }
+
+    @Override
+    protected Slot createSlot(IInventory inventory, int index, int x, int y) {
+      return new SlotRestrictedItem(TinkerTools.pattern, (TilePatternChest)tile, index, x, y);
+    }
   }
 }
