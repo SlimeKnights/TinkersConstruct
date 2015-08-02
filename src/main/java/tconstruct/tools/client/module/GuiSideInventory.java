@@ -9,8 +9,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import tconstruct.common.client.gui.GuiElement;
 import tconstruct.common.client.gui.GuiElementScalable;
+import tconstruct.common.client.gui.GuiModule;
+import tconstruct.common.client.gui.GuiPartSlider;
 import tconstruct.library.Util;
-import tconstruct.tools.client.GuiMultiModule;
+import tconstruct.common.client.gui.GuiMultiModule;
 
 // a side inventory to be displayed to the left or right of another GUI
 @SideOnly(Side.CLIENT)

@@ -1,13 +1,10 @@
-package tconstruct.tools.client.module;
+package tconstruct.common.client.gui;
 
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.lwjgl.input.Mouse;
-
-import tconstruct.common.client.gui.GuiElement;
-import tconstruct.common.client.gui.GuiElementScalable;
 
 // a vertical slider!
 @SideOnly(Side.CLIENT)

@@ -1,8 +1,6 @@
 package tconstruct.tools.client;
 
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.ContainerChest;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -11,7 +9,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import tconstruct.tools.client.module.GuiSideInventory;
 import tconstruct.tools.inventory.ContainerCraftingStation;
-import tconstruct.tools.inventory.ContainerMultiModule;
+import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.tools.inventory.ContainerSideInventory;
 import tconstruct.tools.tileentity.TileCraftingStation;
 

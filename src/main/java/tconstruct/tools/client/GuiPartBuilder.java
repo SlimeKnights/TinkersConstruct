@@ -1,6 +1,5 @@
 package tconstruct.tools.client;
 
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
@@ -9,9 +8,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import tconstruct.library.Util;
-import tconstruct.tools.inventory.ContainerMultiModule;
+import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.tools.tileentity.TilePartBuilder;
-import tconstruct.tools.tileentity.TilePatternChest;
 
 @SideOnly(Side.CLIENT)
 public class GuiPartBuilder extends GuiTinkerStation {

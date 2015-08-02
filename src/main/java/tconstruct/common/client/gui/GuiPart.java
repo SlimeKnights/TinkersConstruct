@@ -1,4 +1,4 @@
-package tconstruct.tools.client.module;
+package tconstruct.common.client.gui;
 
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

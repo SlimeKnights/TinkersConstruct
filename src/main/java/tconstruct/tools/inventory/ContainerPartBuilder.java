@@ -2,6 +2,7 @@ package tconstruct.tools.inventory;
 
 import net.minecraft.entity.player.InventoryPlayer;
 
+import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.tools.tileentity.TilePartBuilder;
 
 public class ContainerPartBuilder extends ContainerMultiModule<TilePartBuilder> {

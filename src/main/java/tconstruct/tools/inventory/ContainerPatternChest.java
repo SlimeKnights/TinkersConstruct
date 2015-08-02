@@ -1,13 +1,9 @@
 package tconstruct.tools.inventory;
 
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
 
-import tconstruct.common.inventory.ContainerSimpleChest;
+import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.common.inventory.SlotRestrictedItem;
-import tconstruct.common.tileentity.TileInventory;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.tileentity.TilePatternChest;
 

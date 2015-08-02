@@ -1,4 +1,4 @@
-package tconstruct.tools.client.module;
+package tconstruct.common.client.gui;
 
 import com.google.common.collect.Lists;
 
@@ -14,9 +14,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Mouse;
 
 import java.util.List;
-
-import tconstruct.common.client.gui.GuiElement;
-import tconstruct.tools.client.GuiMultiModule;
 
 @SideOnly(Side.CLIENT)
 public class GuiPartTabs extends GuiPart {

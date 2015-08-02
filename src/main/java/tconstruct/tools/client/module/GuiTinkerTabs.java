@@ -11,7 +11,8 @@ import net.minecraft.util.BlockPos;
 import java.util.List;
 
 import tconstruct.common.client.gui.GuiElement;
-import tconstruct.tools.client.GuiMultiModule;
+import tconstruct.common.client.gui.GuiModule;
+import tconstruct.common.client.gui.GuiPartTabs;
 import tconstruct.tools.client.GuiTinkerStation;
 
 public class GuiTinkerTabs extends GuiModule {

@@ -8,6 +8,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
 
+import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.common.inventory.SlotRestrictedItem;
 import tconstruct.library.mantle.InventoryCraftingPersistent;
 import tconstruct.tools.TinkerTools;

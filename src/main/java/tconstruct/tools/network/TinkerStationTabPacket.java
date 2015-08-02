@@ -1,24 +1,17 @@
 package tconstruct.tools.network;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetHandlerPlayClient;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraft.network.play.server.S2FPacketSetSlot;
 import net.minecraft.util.BlockPos;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import io.netty.buffer.ByteBuf;
 import tconstruct.TConstruct;
-import tconstruct.common.network.AbstractPacket;
 import tconstruct.common.network.AbstractPacketThreadsafe;
-import tconstruct.tools.inventory.ContainerMultiModule;
 
 /**
  * Sent to the server when the user clicks on a tab in the TinkerStation GUI

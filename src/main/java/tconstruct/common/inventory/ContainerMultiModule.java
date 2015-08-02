@@ -1,4 +1,4 @@
-package tconstruct.tools.inventory;
+package tconstruct.common.inventory;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -11,8 +11,6 @@ import net.minecraft.tileentity.TileEntity;
 
 import java.util.List;
 import java.util.Map;
-
-import tconstruct.common.inventory.BaseContainer;
 
 public class ContainerMultiModule<T extends TileEntity> extends BaseContainer<T> {
 

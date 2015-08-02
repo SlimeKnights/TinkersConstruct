@@ -12,12 +12,9 @@ import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
 
-import tconstruct.common.inventory.BaseContainer;
+import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.library.mantle.InventoryCraftingPersistent;
-import tconstruct.tools.TinkerTools;
 import tconstruct.tools.tileentity.TileCraftingStation;
 
 // nearly the same as ContainerWorkbench but uses the TileEntities inventory

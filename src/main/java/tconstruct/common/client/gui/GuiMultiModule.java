@@ -1,4 +1,4 @@
-package tconstruct.tools.client;
+package tconstruct.common.client.gui;
 
 import com.google.common.collect.Lists;
 
@@ -14,9 +14,8 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import tconstruct.TConstruct;
-import tconstruct.tools.client.module.GuiModule;
-import tconstruct.tools.inventory.ContainerMultiModule;
-import tconstruct.tools.inventory.SlotWrapper;
+import tconstruct.common.inventory.ContainerMultiModule;
+import tconstruct.common.inventory.SlotWrapper;
 
 @SideOnly(Side.CLIENT)
 public class GuiMultiModule extends GuiContainer {

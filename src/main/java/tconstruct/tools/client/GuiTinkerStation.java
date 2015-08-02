@@ -5,13 +5,11 @@ import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -24,11 +22,12 @@ import java.util.Set;
 
 import tconstruct.TConstruct;
 import tconstruct.common.client.gui.GuiElement;
+import tconstruct.common.client.gui.GuiMultiModule;
 import tconstruct.library.Util;
 import tconstruct.library.mantle.IInventoryGui;
 import tconstruct.tools.block.ITinkerStationBlock;
 import tconstruct.tools.client.module.GuiTinkerTabs;
-import tconstruct.tools.inventory.ContainerMultiModule;
+import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.tools.network.TinkerStationTabPacket;
 
 @SideOnly(Side.CLIENT)
