@@ -1,10 +1,13 @@
 package tconstruct.library.client.model;
 
 import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
 import gnu.trove.map.hash.THashMap;
 
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
@@ -13,7 +16,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IModelState;
+import net.minecraftforge.client.model.IPerspectiveState;
 import net.minecraftforge.client.model.ITransformation;
+import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.TRSRTransformation;
 
 import java.util.Collection;
@@ -30,13 +35,13 @@ import tconstruct.library.TinkerRegistry;
  */
 public class ModifierModel implements IModel {
 
-  private Map<String, ModelBlock> models = new THashMap<>();
+  private Map<String, String> models = new THashMap<>();
 
   public ModifierModel() {
   }
 
-  public void addModelForModifier(String modifier, ModelBlock model) {
-    models.put(modifier, model);
+  public void addModelForModifier(String modifier, String texture) {
+    models.put(modifier, texture);
   }
 
   public String getTextureForModifier(String modifier) {
@@ -44,20 +49,20 @@ public class ModifierModel implements IModel {
       return null;
     }
 
-    return models.get(modifier).resolveTextureName("layer0");
+    return models.get(modifier);
   }
 
   @Override
   public Collection<ResourceLocation> getDependencies() {
-    return Collections.EMPTY_LIST; // none
+    return ImmutableList.of(); // none
   }
 
   @Override
   public Collection<ResourceLocation> getTextures() {
     ImmutableSet.Builder<ResourceLocation> builder = ImmutableSet.builder();
 
-    for(ModelBlock modelBlock : models.values()) {
-      builder.add(new ResourceLocation(modelBlock.resolveTextureName("layer0")));
+    for(String texture : models.values()) {
+      builder.add(new ResourceLocation(texture));
     }
 
     return builder.build();
@@ -79,19 +84,20 @@ public class ModifierModel implements IModel {
         transformation =
         new TRSRTransformation(new Vector3f(0, 0, 0.0001f - s / 2f), null, new Vector3f(1, 1, 1f + s), null);
 
-    for(Map.Entry<String, ModelBlock> entry : models.entrySet()) {
-      ModelBlock modelBlock = entry.getValue();
-
+    for(Map.Entry<String, String> entry : models.entrySet()) {
       // todo: turn this into an event?
       IFlexibleBakedModel bakedModel;
       // check if the corresponding modifier needs this to be a material model
       // if this check ever causes an NPE then a modifier has been removed between model loading and model baking
       if(TinkerRegistry.getModifier(entry.getKey()).hasTexturePerMaterial()) {
-        IModel materialModel = new MaterialModel(modelBlock);
+        IModel materialModel = new MaterialModel(ImmutableList.of(new ResourceLocation(entry.getValue())));
         bakedModel = materialModel.bake(state, format, bakedTextureGetter);
       }
       else {
-        bakedModel = ModelHelper.bakeModelFromModelBlock(modelBlock, bakedTextureGetter, transformation);
+        //ItemCameraTransforms transforms = new ItemCameraTransforms(modelBlock.getThirdPersonTransform(), modelBlock.getFirstPersonTransform(), modelBlock.getHeadTransform(), modelBlock.getInGuiTransform());
+        //IPerspectiveState perspectiveState = new IPerspectiveState.Impl(state, transforms);
+        IModel model = ItemLayerModel.instance.retexture(ImmutableMap.of("layer0", entry.getValue()));
+        bakedModel = model.bake(state, format, bakedTextureGetter);
       }
 
       bakedModels.put(entry.getKey(), bakedModel);

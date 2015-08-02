@@ -1,39 +1,49 @@
 package tconstruct.library.client.model;
 
 import com.google.common.base.Charsets;
-import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.reflect.TypeToken;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.BlockPart;
-import net.minecraft.client.renderer.block.model.BlockPartFace;
-import net.minecraft.client.renderer.block.model.FaceBakery;
-import net.minecraft.client.renderer.block.model.ItemModelGenerator;
-import net.minecraft.client.renderer.block.model.ModelBlock;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.IResource;
-import net.minecraft.client.resources.model.ModelRotation;
-import net.minecraft.client.resources.model.SimpleBakedModel;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.IColoredBakedQuad;
-import net.minecraftforge.client.model.IFlexibleBakedModel;
-import net.minecraftforge.client.model.ITransformation;
+import net.minecraftforge.client.model.IModelPart;
+import net.minecraftforge.client.model.IModelState;
+import net.minecraftforge.client.model.IPerspectiveState;
+import net.minecraftforge.client.model.TRSRTransformation;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.lang.reflect.Type;
+import java.util.Map;
+
+import javax.vecmath.Vector3f;
 
 public class ModelHelper {
 
-  // copy of the one in the ModelBakery
-  public static final ModelBlock DEFAULT_PARENT;
+  static final Type maptype = new TypeToken<Map<String, String>>() {}.getType();
+  private static final Gson
+      GSON =
+      new GsonBuilder().registerTypeAdapter(maptype, ModelTextureDeserializer.INSTANCE).create();
 
-  private static final ItemModelGenerator generator = new ItemModelGenerator();
-  private static final FaceBakery faceBakery = new FaceBakery();
+  public static final IPerspectiveState DEFAULT_ITEM_STATE;
+  public static final IPerspectiveState DEFAULT_TOOL_STATE;
 
   public static TextureAtlasSprite getTextureFromBlock(Block block, int meta) {
     IBlockState state = block.getStateFromMeta(meta);
@@ -48,13 +58,14 @@ public class ModelHelper {
     int[] data = quad.getVertexData();
 
     int a = (color >> 24);
-    if(a == 0)
+    if(a == 0) {
       a = 255;
+    }
 
     int c = 0;
-    c |= ((color >> 16) & 0xFF) <<  0; // red
-    c |= ((color >>  8) & 0xFF) <<  8; // green
-    c |= ((color >>  0) & 0xFF) << 16; // blue
+    c |= ((color >> 16) & 0xFF) << 0; // red
+    c |= ((color >> 8) & 0xFF) << 8; // green
+    c |= ((color >> 0) & 0xFF) << 16; // blue
     c |= (a & 0xFF) << 24; // alpha
 
     // update color in the data. all 4 Vertices.
@@ -65,117 +76,95 @@ public class ModelHelper {
     return new IColoredBakedQuad.ColoredBakedQuad(data, -1, quad.getFace());
   }
 
-  /**
-   * Loads a model from the given location
-   *
-   * @param location Usually something like "modid:models/mySuperAwesomeModel". Note that it contains the path but not
-   *                 the file extension.
-   * @return The modelblock deserialized from the data.
-   */
-  public static ModelBlock loadModelBlock(ResourceLocation location) throws IOException {
+  public static Map<String, String> loadTexturesFromJson(ResourceLocation location) throws IOException {
+    // get the json
     IResource
         iresource =
         Minecraft.getMinecraft().getResourceManager()
                  .getResource(new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json"));
     Reader reader = new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8);
 
-    return ModelBlock.deserialize(reader);
+    return GSON.fromJson(reader, maptype);
   }
 
-  public static ModelBlock loadModelBlockFromTexture(String textureName) throws IOException {
-    ModelBlock modelBlock = ModelBlock.deserialize(ModelHelper.getPartModelJSON(textureName));
-    modelBlock.name = textureName;
-    return modelBlock;
+  public static ImmutableList<ResourceLocation> loadTextureListFromJson(ResourceLocation location) throws IOException {
+    ImmutableList.Builder<ResourceLocation> builder = ImmutableList.builder();
+    for(String s : loadTexturesFromJson(location).values()) {
+      builder.add(new ResourceLocation(s));
+    }
+
+    return builder.build();
   }
 
   public static ResourceLocation getModelLocation(ResourceLocation location) {
     return new ResourceLocation(location.getResourceDomain(), "models/" + location.getResourcePath() + ".json");
   }
 
-  public static IFlexibleBakedModel bakeModelFromModelBlock(ModelBlock model,
-                                                            Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-    TextureAtlasSprite sprite = bakedTextureGetter.apply(new ResourceLocation(model.resolveTextureName("layer0")));
-    return bakeModelFromModelBlock(model, sprite);
-  }
-
-  public static IFlexibleBakedModel bakeModelFromModelBlock(ModelBlock model,
-                                                            Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter,
-                                                            ITransformation transformation) {
-    TextureAtlasSprite sprite = bakedTextureGetter.apply(new ResourceLocation(model.resolveTextureName("layer0")));
-    return bakeModelFromModelBlock(model, sprite, transformation);
-  }
-
-  public static IFlexibleBakedModel bakeModelFromModelBlock(ModelBlock model, TextureAtlasSprite sprite) {
-    return bakeModelFromModelBlock(model, sprite, ModelRotation.X0_Y0);
-  }
-
-  public static IFlexibleBakedModel bakeModelFromModelBlock(ModelBlock model, TextureAtlasSprite sprite,
-                                                            ITransformation transformation) {
-    ModelBlock mb = generator.makeItemModel(Minecraft.getMinecraft().getTextureMapBlocks(), model);
-    SimpleBakedModel.Builder builder = (new SimpleBakedModel.Builder(mb));
-    mb.textures.put("layer0", sprite.getIconName());
-    builder.setTexture(sprite);
-
-    for(Object o : mb.getElements()) {
-      BlockPart blockpart = (BlockPart) o;
-      for(Object o2 : blockpart.mapFaces.keySet()) {
-        EnumFacing enumfacing = (EnumFacing) o2;
-        BlockPartFace blockpartface = (BlockPartFace) blockpart.mapFaces.get(enumfacing);
-        builder.addGeneralQuad(makeBakedQuad(blockpart, blockpartface, sprite, enumfacing, transformation, false));
+  public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> getTransformsFromState(IModelState state, IModelPart part) {
+    if(state instanceof IPerspectiveState) {
+      IPerspectiveState ps = (IPerspectiveState) state;
+      Map<ItemCameraTransforms.TransformType, TRSRTransformation> map = Maps.newHashMap();
+      for(ItemCameraTransforms.TransformType type : ItemCameraTransforms.TransformType.values()) {
+        map.put(type, ps.forPerspective(type).apply(part));
       }
+      return Maps.immutableEnumMap(map);
     }
-
-    return new IFlexibleBakedModel.Wrapper(builder.makeBakedModel(), Attributes.DEFAULT_BAKED_FORMAT);
-  }
-
-  public static IFlexibleBakedModel bakeModelWithTexture(IFlexibleBakedModel model, TextureAtlasSprite newSprite) {
-    SimpleBakedModel.Builder builder = (new SimpleBakedModel.Builder(model, newSprite));
-
-    return new IFlexibleBakedModel.Wrapper(builder.makeBakedModel(), Attributes.DEFAULT_BAKED_FORMAT);
-  }
-
-  public static BakedQuad makeBakedQuad(BlockPart p_177589_1_, BlockPartFace p_177589_2_,
-                                        TextureAtlasSprite p_177589_3_, EnumFacing p_177589_4_,
-                                        net.minecraftforge.client.model.ITransformation p_177589_5_,
-                                        boolean p_177589_6_) {
-    return faceBakery
-        .makeBakedQuad(p_177589_1_.positionFrom, p_177589_1_.positionTo, p_177589_2_, p_177589_3_, p_177589_4_,
-                       p_177589_5_, p_177589_1_.partRotation, p_177589_6_, p_177589_1_.shade);
-  }
-
-
-  static String getPartModelJSON(String texture) {
-    return String.format("{"
-                         + "    \"parent\": \"builtin/generated\","
-                         + "    \"textures\": {"
-                         + "        \"layer0\": \"%s\""
-                         + "    }"
-                         + "}"
-        , texture);
+    return ImmutableMap.of();
   }
 
   static {
-    DEFAULT_PARENT = ModelBlock.deserialize("{"
-                                            + "\t\"elements\": [{\n"
-                                            + "\t\t\"from\": [0, 0, 0],\n"
-                                            + "\t\t\"to\": [16, 16, 16],\n"
-                                            + "\t\t\"faces\": {\n"
-                                            + "\t\t\t\"down\": {\"uv\": [0, 0, 16, 16], \"texture\":\"\"}\n"
-                                            + "\t\t}\n"
-                                            + "\t}],\n"
-                                            + "\t\n"
-                                            + "    \"display\": {\n"
-                                            + "        \"thirdperson\": {\n"
-                                            + "            \"rotation\": [ 0, 90, -35 ],\n"
-                                            + "            \"translation\": [ 0, 1.25, -3.5 ],\n"
-                                            + "            \"scale\": [ 0.85, 0.85, 0.85 ]\n"
-                                            + "        },\n"
-                                            + "        \"firstperson\": {\n"
-                                            + "            \"rotation\": [ 0, -135, 25 ],\n"
-                                            + "            \"translation\": [ 0, 4, 2 ],\n"
-                                            + "            \"scale\": [ 1.7, 1.7, 1.7 ]\n"
-                                            + "        }\n"
-                                            + "    }\n"
-                                            + "}");
+    // equals forge:default-item
+    IModelState thirdperson = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
+        new Vector3f(0, 1f / 16, -3f / 16),
+        TRSRTransformation.quatFromYXZDegrees(new Vector3f(-90, 0, 0)),
+        new Vector3f(0.55f, 0.55f, 0.55f),
+        null));
+    IModelState firstperson = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
+        new Vector3f(0, 4f / 16, 2f / 16),
+        TRSRTransformation.quatFromYXZDegrees(new Vector3f(0, -135, 25)),
+        new Vector3f(1.7f, 1.7f, 1.7f),
+        null));
+    DEFAULT_ITEM_STATE = new IPerspectiveState.Impl(TRSRTransformation.identity(), ImmutableMap
+                                                        .of(ItemCameraTransforms.TransformType.THIRD_PERSON, thirdperson,
+                                                            ItemCameraTransforms.TransformType.FIRST_PERSON, firstperson));
+
+    thirdperson = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
+        new Vector3f(0, 1.25f / 16, -3.5f / 16),
+        TRSRTransformation.quatFromYXZDegrees(new Vector3f(0, 90, -35)),
+        new Vector3f(0.85f, 0.85f, 0.85f),
+        null));
+    firstperson = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
+        new Vector3f(0, 4f / 16, 2f / 16),
+        TRSRTransformation.quatFromYXZDegrees(new Vector3f(0, -135, 25)),
+        new Vector3f(1.7f, 1.7f, 1.7f),
+        null));
+    DEFAULT_TOOL_STATE = new IPerspectiveState.Impl(TRSRTransformation.identity(), ImmutableMap
+        .of(ItemCameraTransforms.TransformType.THIRD_PERSON, thirdperson,
+            ItemCameraTransforms.TransformType.FIRST_PERSON, firstperson));
+  }
+
+  /**
+   * Deseralizes a json in the format of { "textures": { "foo": "texture",... }}
+   * Ignores all invalid json
+   */
+  public static class ModelTextureDeserializer implements JsonDeserializer<Map<String, String>> {
+
+    public static final ModelTextureDeserializer INSTANCE = new ModelTextureDeserializer();
+
+    private static final Gson GSON = new Gson();
+
+    @Override
+    public Map<String, String> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+        throws JsonParseException {
+
+      JsonObject obj = json.getAsJsonObject();
+      JsonElement texElem = obj.get("textures");
+
+      if(texElem == null) {
+        throw new JsonParseException("Missing textures entry in json");
+      }
+
+      return GSON.fromJson(texElem, maptype);
+    }
   }
 }

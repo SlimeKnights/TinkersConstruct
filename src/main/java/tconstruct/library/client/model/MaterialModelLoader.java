@@ -1,6 +1,5 @@
 package tconstruct.library.client.model;
 
-import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ICustomModelLoader;
@@ -31,9 +30,7 @@ public class MaterialModelLoader implements ICustomModelLoader {
     }
 
     try {
-      ModelBlock modelBlock = ModelHelper.loadModelBlock(modelLocation);
-
-      IModel model = new MaterialModel(modelBlock);
+      IModel model = new MaterialModel(ModelHelper.loadTextureListFromJson(modelLocation));
 
       // register the base texture for texture generation
       CustomTextureCreator.registerTextures(model.getTextures());

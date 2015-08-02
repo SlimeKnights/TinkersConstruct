@@ -1,5 +1,8 @@
 package tconstruct.library.client.model;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+
 import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
@@ -12,8 +15,10 @@ import net.minecraftforge.fml.common.LoaderState;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.client.CustomTextureCreator;
@@ -34,27 +39,45 @@ public class ToolModelLoader implements ICustomModelLoader {
     }
 
     try {
-      ModelBlock modelBlock = ModelHelper.loadModelBlock(modelLocation);
+      // Modelblock is used since our format is compatible to the vanilla format
+      // and we don't have to write our own json deserializer
+      // it also provides us with the textures
+      //ModelBlock modelBlock = ModelHelper.loadModelBlock(modelLocation);
 
-      modelBlock.parent = ModelHelper.DEFAULT_PARENT;
-      modelBlock.name = modelLocation.toString();
+      Map<String, String> textures = ModelHelper.loadTexturesFromJson(modelLocation);
+      ImmutableList.Builder<ResourceLocation> builder = ImmutableList.builder();
 
-      List<MaterialModel> parts = new LinkedList<>();
-      // also load the parts of the tool, defined as the layers of the tool model
-      for(String s : ToolModel.getLayers()) {
-        String r = modelBlock.resolveTextureName(s);
-        if(!"missingno".equals(r)) {
-          ModelBlock mb = ModelHelper.loadModelBlockFromTexture(r);
-          parts.add(new MaterialModel(mb));
-        }
-      }
+      List<MaterialModel> parts = Lists.newArrayList();
+      List<MaterialModel> brokenParts = Lists.newArrayList();
 
-      List<MaterialModel> brokenParts = new LinkedList<>();
-      for(String s : ToolModel.getBrokenLayers()) {
-        String r = modelBlock.resolveTextureName(s);
-        if(!"missingno".equals(r)) {
-          ModelBlock mb = ModelHelper.loadModelBlockFromTexture(r);
-          brokenParts.add(new MaterialModel(mb));
+      for(Map.Entry<String, String> entry : textures.entrySet()) {
+        String name = entry.getKey();
+        try {
+          int i = Integer.valueOf(name.substring(5));
+          List<MaterialModel> listToAdd;
+
+          if(name.startsWith("layer")) {
+            listToAdd = parts;
+          }
+          else if(name.startsWith("broken")) {
+            listToAdd = brokenParts;
+          }
+          // invalid entry, ignore
+          else {
+            TinkerRegistry.log.warn("Toolmodel {} has invalid texture entry {}; Skipping layer.", modelLocation, name);
+            continue;
+          }
+
+          ResourceLocation location = new ResourceLocation(entry.getValue());
+          MaterialModel partModel = new MaterialModel(ImmutableList.of(location));
+          while(listToAdd.size() <= i) {
+            listToAdd.add(null);
+          }
+          listToAdd.set(i, partModel);
+
+          builder.add(location);
+        } catch(NumberFormatException e) {
+          TinkerRegistry.log.error("Toolmodel {} has invalid texture entry {}; Skipping layer.", modelLocation, name);
         }
       }
 
@@ -71,11 +94,10 @@ public class ToolModelLoader implements ICustomModelLoader {
         modifiers = (ModifierModel) mods;
       }
 
-      IModel output = new ToolModel(modelBlock, parts, brokenParts, modifiers);
+      IModel output = new ToolModel(builder.build(), parts, brokenParts, modifiers);
 
       // inform the texture manager about the textures it has to process
-      for(Object tex : modelBlock.textures.values())
-        CustomTextureCreator.registerTexture(new ResourceLocation((String) tex));
+      CustomTextureCreator.registerTextures(builder.build());
 
       return output;
     } catch(IOException e) {

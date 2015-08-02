@@ -4,6 +4,7 @@ import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.reflect.TypeToken;
 
 import gnu.trove.map.hash.THashMap;
@@ -96,19 +97,12 @@ public class ModifierModelLoader implements ICustomModelLoader {
         continue;
       }
 
-      try {
-        ModelBlock modelBlock = ModelHelper.loadModelBlockFromTexture(entry.getValue());
-        modelBlock.parent = ModelHelper.DEFAULT_PARENT;
-        // using the String from the modifier means an == check succeeds and fixes lowercasing from the loading from files
-        model.addModelForModifier(mod.getIdentifier(), modelBlock);
+      // using the String from the modifier means an == check succeeds and fixes lowercasing from the loading from files
+      model.addModelForModifier(mod.getIdentifier(), entry.getValue());
 
-        // register per-material modifiers for texture creation
-        if(mod.hasTexturePerMaterial()) {
-          CustomTextureCreator.registerTexture(new ResourceLocation(entry.getValue()));
-        }
-      } catch(IOException e) {
-        TinkerRegistry.log.error("Could not load model for modifier {} on tool {}: {}", entry.getKey(), toolname,
-                                 modelLocation.toString());
+      // register per-material modifiers for texture creation
+      if(mod.hasTexturePerMaterial()) {
+        CustomTextureCreator.registerTexture(new ResourceLocation(entry.getValue()));
       }
     }
 

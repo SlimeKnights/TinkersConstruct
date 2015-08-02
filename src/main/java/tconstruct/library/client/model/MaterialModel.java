@@ -31,46 +31,10 @@ import tconstruct.library.client.CustomTextureCreator;
 import tconstruct.library.client.MaterialRenderInfo;
 import tconstruct.library.materials.Material;
 
-public class MaterialModel implements IModel {
+public class MaterialModel extends ItemLayerModel {
 
-  private final ModelBlock model;
-
-  public MaterialModel(ModelBlock model) {
-    this.model = model;
-  }
-
-  @Override
-  public Collection<ResourceLocation> getDependencies() {
-    if(model.getParentLocation() == null || model.getParentLocation().getResourcePath().startsWith("builtin/")) {
-      return Collections
-          .emptyList();
-    }
-    return Collections.singletonList(model.getParentLocation());
-  }
-
-  @Override
-  public Collection<ResourceLocation> getTextures() {
-    // setting parent here to make textures resolve properly
-    model.parent = ModelHelper.DEFAULT_PARENT;
-
-    ImmutableSet.Builder<ResourceLocation> builder = ImmutableSet.builder();
-
-    // item-model. should be the standard.
-    if(model.getRootModel().name.equals("generation marker")) {
-      for(String s : (List<String>) ItemModelGenerator.LAYERS) {
-        String r = model.resolveTextureName(s);
-        ResourceLocation loc = new ResourceLocation(r);
-        if(!r.equals(s)) {
-          builder.add(loc);
-        }
-      }
-    }
-    for(String s : (Iterable<String>) model.textures.values()) {
-      if(!s.startsWith("#")) {
-        builder.add(new ResourceLocation(s));
-      }
-    }
-    return builder.build();
+  public MaterialModel(ImmutableList<ResourceLocation> textures) {
+    super(textures);
   }
 
   @Override
@@ -79,12 +43,11 @@ public class MaterialModel implements IModel {
     return bakeIt(state, format, bakedTextureGetter);
   }
 
+  // the only difference here is the return-type
   public BakedMaterialModel bakeIt(IModelState state, VertexFormat format,
                                    Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-    ItemLayerModel itemModel = new ItemLayerModel(model);
-
-    // obtain the base model with the base texture
-    IFlexibleBakedModel base = itemModel.bake(state, format, bakedTextureGetter);
+    // normal model as the base
+    IFlexibleBakedModel base = super.bake(state, format, bakedTextureGetter);
 
     // turn it into a baked material-model
     BakedMaterialModel bakedMaterialModel = new BakedMaterialModel(base);
@@ -96,7 +59,7 @@ public class MaterialModel implements IModel {
     for(Map.Entry<String, TextureAtlasSprite> entry : sprites.entrySet()) {
       Material material = TinkerRegistry.getMaterial(entry.getKey());
 
-      IModel model2 = itemModel.retexture(ImmutableMap.of("layer0", entry.getValue().getIconName()));
+      IModel model2 = this.retexture(ImmutableMap.of("layer0", entry.getValue().getIconName()));
       IFlexibleBakedModel bakedModel2 = model2.bake(state, format, bakedTextureGetter);
 
       // if it's a colored material we need to color the quads
@@ -133,6 +96,6 @@ public class MaterialModel implements IModel {
 
   @Override
   public IModelState getDefaultState() {
-    return ModelRotation.X0_Y0;
+    return ModelHelper.DEFAULT_ITEM_STATE;
   }
 }

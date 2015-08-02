@@ -1,8 +1,11 @@
 package tconstruct.library.client.model;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.client.resources.model.SimpleBakedModel;
 import net.minecraft.item.ItemStack;
@@ -10,30 +13,38 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
+import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.ISmartItemModel;
+import net.minecraftforge.client.model.ItemLayerModel;
+import net.minecraftforge.client.model.TRSRTransformation;
+
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import javax.vecmath.Matrix4f;
+
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
 import tconstruct.tools.TinkerMaterials;
 
-public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmartItemModel {
+public class BakedToolModel extends ItemLayerModel.BakedModel implements ISmartItemModel {
 
   protected BakedMaterialModel[] parts;
   protected BakedMaterialModel[] brokenParts;
   protected Map<String, IFlexibleBakedModel> modifierParts;
+  protected final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
 
   /**
    * The length of brokenParts has to match the length of parts. If a part does not have a broken texture, the entry in
    * the array simply is null.
    */
-  public BakedToolModel(IBakedModel parent, BakedMaterialModel[] parts, BakedMaterialModel[] brokenParts,
-                        Map<String, IFlexibleBakedModel> modifierParts) {
-    super(parent, Attributes.DEFAULT_BAKED_FORMAT);
+  public BakedToolModel(IFlexibleBakedModel parent, BakedMaterialModel[] parts, BakedMaterialModel[] brokenParts,
+                        Map<String, IFlexibleBakedModel> modifierParts, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transform) {
+    super((ImmutableList<BakedQuad>) parent.getGeneralQuads(), parent.getTexture(), parent.getFormat(), transform);
 
     if(parts.length != brokenParts.length) {
       throw new RuntimeException("TinkerModel: Length of Parts and BrokenParts Array has to match");
@@ -42,6 +53,7 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
     this.parts = parts;
     this.brokenParts = brokenParts;
     this.modifierParts = modifierParts;
+    this.transforms = transform;
   }
 
   @Override
@@ -57,7 +69,7 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
     NBTTagList modifiers = TagUtil.getBaseModifiersTagList(stack);
 
     // get the texture for each part
-    List<BakedQuad> quads = new ArrayList<>();
+    ImmutableList.Builder<BakedQuad> quads = ImmutableList.builder();
 
     boolean broken = toolTag.getBoolean(Tags.BROKEN);
 
@@ -86,10 +98,8 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
       }
     }
 
-    SimpleBakedModel
-        model =
-        new SimpleBakedModel(quads, empty_face_quads, this.isAmbientOcclusion(), this.isGui3d(), this.getTexture(),
-                             this.getItemCameraTransforms());
+    IFlexibleBakedModel model = new ItemLayerModel.BakedModel(quads.build(), this.getTexture(), this.getFormat(), transforms);
+
     return model;
   }
 
@@ -102,5 +112,10 @@ public class BakedToolModel extends IFlexibleBakedModel.Wrapper implements ISmar
     for(int i = 0; i < 6; i++) {
       empty_face_quads.add(empty_list);
     }
+  }
+
+  @Override
+  public Pair<IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
+    return null;
   }
 }
