@@ -76,15 +76,11 @@ public class DiamondApple extends ItemFood
     public String getUnlocalizedName (ItemStack itemstack)
     {
         int damage = itemstack.getItemDamage();
-        int name_index = 0;
+        int name_index = damage;
 
-        if( damage < 0 )
+        if( name_index < 0 || name_index >= itemNames.length )
         {
             name_index = 0;
-        }
-        else if( damage >= itemNames.length )
-        {
-            name_index = itemNames.length-1;
         }
 
         return (new StringBuilder()).append("item.food.").append(itemNames[name_index]).toString();
