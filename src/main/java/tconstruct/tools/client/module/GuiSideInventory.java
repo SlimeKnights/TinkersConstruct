@@ -11,6 +11,7 @@ import tconstruct.common.client.gui.GuiElement;
 import tconstruct.common.client.gui.GuiElementScalable;
 import tconstruct.common.client.gui.GuiModule;
 import tconstruct.common.client.gui.GuiPartSlider;
+import tconstruct.common.inventory.BaseContainer;
 import tconstruct.library.Util;
 import tconstruct.common.client.gui.GuiMultiModule;
 
@@ -28,6 +29,8 @@ public class GuiSideInventory extends GuiModule {
   private static final GuiElementScalable borderBottom = new GuiElementScalable(7, 64 - 7, 64 - 7 - 7, 7);
   private static final GuiElementScalable borderLeft = new GuiElementScalable(0, 7, 7, 64 - 7 - 7);
   private static final GuiElementScalable borderRight = new GuiElementScalable(64 - 7, 7, 7, 64 - 7 - 7);
+
+  private static final GuiElementScalable textBackground = new GuiElementScalable(7 + 18, 7, 18, 10);
 
   private static final GuiElementScalable slot = new GuiElementScalable(7, 7, 18, 18);
   private static final GuiElementScalable slotEmpty = new GuiElementScalable(7 + 18, 7, 18, 18);
@@ -69,13 +72,21 @@ public class GuiSideInventory extends GuiModule {
     this.slotCount = slotCount;
 
     this.xSize = columns * slot.h + borderLeft.w + borderRight.w;
-    this.ySize = calcCappedYSize(999999);
+    this.ySize = calcCappedYSize(slot.h * 10);
 
 
     this.xd = -6;
     this.yd = 8;
 
     updateSlots();
+  }
+
+  private boolean shouldDrawName() {
+    if(this.inventorySlots instanceof BaseContainer) {
+      return ((BaseContainer) this.inventorySlots).getInventoryDisplayName() != null;
+    }
+
+    return false;
   }
 
   @Override
@@ -130,6 +141,9 @@ public class GuiSideInventory extends GuiModule {
   private int calcCappedYSize(int max) {
     int h = borderTop.h + borderBottom.h + slot.h * getTotalRows();
 
+    if(shouldDrawName())
+      h += textBackground.h;
+
     // not higher than the max
     while(h > max) {
       h -= slot.h;
@@ -156,11 +170,23 @@ public class GuiSideInventory extends GuiModule {
         if(this.right) {
           slot.xDisplayPosition += parent.xSize;
         }
+
+        if(this.shouldDrawName()) {
+          slot.yDisplayPosition += textBackground.h;
+        }
       }
       else {
         slot.xDisplayPosition = 0;
         slot.yDisplayPosition = 0;
       }
+    }
+  }
+
+  @Override
+  public void handleDrawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+    if(shouldDrawName()) {
+      String name = ((BaseContainer)inventorySlots).getInventoryDisplayName().getUnformattedText();
+      this.fontRendererObj.drawString(name, borderLeft.w, borderTop.h-1, 0x404040);
     }
   }
 
@@ -183,7 +209,14 @@ public class GuiSideInventory extends GuiModule {
     x = guiLeft;
     y += cornerTopLeft.h;
     x += borderLeft.drawScaledY(x, y, midH);
-    x += drawSlots(x, y);
+    // name?
+    if(shouldDrawName()) {
+      textBackground.drawScaledX(x,y, midW);
+      x += drawSlots(x, y + textBackground.h);
+    }
+    else {
+      x += drawSlots(x, y);
+    }
     borderRight.drawScaledY(x, y, midH);
 
     // bottom row

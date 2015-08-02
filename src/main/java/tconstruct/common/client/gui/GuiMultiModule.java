@@ -5,9 +5,11 @@ import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -97,6 +99,22 @@ public class GuiMultiModule extends GuiContainer implements INEIGuiHandler {
       module.handleDrawGuiContainerForegroundLayer(mouseX, mouseY);
       GlStateManager.popMatrix();
     }
+
+    drawContainerName();
+    drawPlayerInventoryName();
+  }
+
+  protected void drawContainerName() {
+    ContainerMultiModule multiContainer = (ContainerMultiModule) this.inventorySlots;
+    IChatComponent localizedName = multiContainer.getInventoryDisplayName();
+    if(localizedName != null) {
+      this.fontRendererObj.drawString(localizedName.getUnformattedText(), 8, 6, 0x404040);
+    }
+  }
+
+  protected void drawPlayerInventoryName() {
+    String localizedName = Minecraft.getMinecraft().thePlayer.inventory.getDisplayName().getUnformattedText();
+    this.fontRendererObj.drawString(localizedName, 8, this.ySize - 96 + 2, 0x404040);
   }
 
   @Override

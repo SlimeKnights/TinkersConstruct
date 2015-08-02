@@ -12,9 +12,12 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
 
 import java.util.List;
+
+import tconstruct.library.mantle.IInventoryGui;
 
 /** Same as Container but provides some extra functionality to simplify things */
 public abstract class BaseContainer<T extends TileEntity> extends Container {
@@ -52,6 +55,13 @@ public abstract class BaseContainer<T extends TileEntity> extends Container {
   @SuppressWarnings("unchecked")
   public List<ItemStack> getInventory() {
     return (List<ItemStack>) super.getInventory();
+  }
+
+  public IChatComponent getInventoryDisplayName() {
+    if(tile instanceof IInventory) {
+      return ((IInventory) tile).getDisplayName();
+    }
+    return null;
   }
 
   // standard yOffset calculation for chestlike inventories:

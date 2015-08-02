@@ -31,6 +31,6 @@ public class ContainerToolStation extends ContainerMultiModule<TileToolStation> 
     addSlotToContainer(new Slot(tile, 4, x+22, y-5));  // +22, -7
     addSlotToContainer(new Slot(tile, 5, x+18, y+20)); // +20,+20
 
-    this.addPlayerInventory(playerInventory, 8, 84);
+    this.addPlayerInventory(playerInventory, 8, 84 + 8);
   }
 }

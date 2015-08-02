@@ -28,12 +28,14 @@ public class GuiToolStation extends GuiTinkerStation {
 
   private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/toolstation.png");
 
-  private static final GuiElement ItemCover = new GuiElement(176, 18, 80, 64);
-  private static final GuiElement SlotBackground = new GuiElement(176, 0, 18, 18, 256, 256);
+  private static final GuiElement ItemCover = new GuiElement(176, 18, 80, 64, 256, 256);
+  private static final GuiElement SlotBackground = new GuiElement(176, 0, 18, 18);
   private static final GuiElement SlotBorder = new GuiElement(194, 0, 18, 18);
 
   public GuiToolStation(InventoryPlayer playerInv, World world, BlockPos pos, TileToolStation tile) {
     super(world, pos, (ContainerMultiModule) tile.createContainer(playerInv, world, pos));
+
+    this.ySize = 174;
   }
 
   @Override
