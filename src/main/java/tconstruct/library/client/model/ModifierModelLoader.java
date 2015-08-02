@@ -36,8 +36,6 @@ public class ModifierModelLoader implements ICustomModelLoader {
 
   public static String EXTENSION = ".mod";
 
-  private static Gson gson = new Gson();
-  private static Type jsonType = new TypeToken<Map<String, String>>() {}.getType();
   private static final String defaultName = "default";
 
   // holds additional json files that shall be loaded for a specific modifier
@@ -125,10 +123,7 @@ public class ModifierModelLoader implements ICustomModelLoader {
       for(ResourceLocation location : modLocations) {
         try {
           // load the entries in the json file
-          location = new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json");
-          IResource iresource = Minecraft.getMinecraft().getResourceManager().getResource(location);
-          Reader reader = new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8);
-          Map<String, String> textureEntries = gson.fromJson(reader, jsonType);
+          Map<String, String> textureEntries = ModelHelper.loadTexturesFromJson(location);
 
           // save them in the cache
           for(Map.Entry<String, String> textureEntry : textureEntries.entrySet()) {
