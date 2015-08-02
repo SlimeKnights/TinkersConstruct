@@ -30,21 +30,4 @@ public class TileCraftingStation extends TileTable implements IInventoryGui {
   public GuiContainer createGui(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
     return new GuiCraftingStation(inventoryplayer, world, pos, this);
   }
-
-  /** Searches for a sidechest to display in the UI */
-  public TileEntityChest detectChest() {
-    return ObjectUtils.firstNonNull(detectChest(pos.north()),
-                                    detectChest(pos.east()),
-                                    detectChest(pos.south()),
-                                    detectChest(pos.west()));
-  }
-
-  private TileEntityChest detectChest(BlockPos pos) {
-    TileEntity te = this.worldObj.getTileEntity(pos);
-
-    if(te != null && te instanceof TileEntityChest) {
-      return (TileEntityChest) te;
-    }
-    return null;
-  }
 }

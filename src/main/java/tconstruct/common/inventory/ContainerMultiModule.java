@@ -8,6 +8,9 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+
+import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -96,5 +99,22 @@ public class ContainerMultiModule<T extends TileEntity> extends BaseContainer<T>
     }
 
     return super.slotClick(slotId, clickedButton, mode, playerIn);
+  }
+
+  /** Searches for a sidechest to display in the UI */
+  public <TE extends TileEntity> TE detectTE(Class<TE> clazz) {
+    return ObjectUtils.firstNonNull(detectChest(this.pos.north(), clazz),
+                                    detectChest(this.pos.east(), clazz),
+                                    detectChest(this.pos.south(), clazz),
+                                    detectChest(this.pos.west(), clazz));
+  }
+
+  private <TE extends TileEntity> TE detectChest(BlockPos pos, Class<TE> clazz) {
+    TileEntity te = this.world.getTileEntity(pos);
+
+    if(te != null && clazz.isAssignableFrom(te.getClass())) {
+      return (TE) te;
+    }
+    return null;
   }
 }
