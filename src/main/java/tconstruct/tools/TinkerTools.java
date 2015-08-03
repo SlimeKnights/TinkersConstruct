@@ -70,6 +70,7 @@ public class TinkerTools extends TinkerPulse {
 
   public static ToolPart toolRod;
   public static ToolPart binding;
+  public static ToolPart largePlate;
 
   // Modifiers
   public static IModifier diamondMod;
@@ -120,6 +121,8 @@ public class TinkerTools extends TinkerPulse {
 
     toolRod = registerItem(new ToolPart(), "ToolRod");
     binding = registerItem(new ToolPart(), "Binding");
+
+    largePlate = registerItem(new ToolPart(), "LargePlate");
   }
 
   private void registerTools() {
