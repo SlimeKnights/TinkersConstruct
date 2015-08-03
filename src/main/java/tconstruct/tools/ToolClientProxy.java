@@ -22,9 +22,9 @@ public class ToolClientProxy extends ClientProxy {
   @Override
   public void init() {
     ToolBuildGuiInfo info = new ToolBuildGuiInfo(TinkerTools.pickaxe);
-    info.addSlotPosition(33+20, 42+20);
+    info.addSlotPosition(33+20, 42-20);
     info.addSlotPosition(33, 42);
-    info.addSlotPosition(33-20, 42-20);
+    info.addSlotPosition(33-20, 42+20);
 
     TinkerRegistryClient.addToolBuilding(info);
   }

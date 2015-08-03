@@ -11,9 +11,6 @@ public class ContainerToolStation extends ContainerMultiModule<TileToolStation> 
   public ContainerToolStation(InventoryPlayer playerInventory, TileToolStation tile) {
     super(tile);
 
-    // output slot
-    addSlotToContainer(new Slot(tile, 0, 124,38));
-
     // modular slots for input
     // Area: 7,18, 80x64
 
@@ -30,6 +27,9 @@ public class ContainerToolStation extends ContainerMultiModule<TileToolStation> 
     addSlotToContainer(new Slot(tile, 3, x, y-23));    // +-0, -21
     addSlotToContainer(new Slot(tile, 4, x+22, y-5));  // +22, -7
     addSlotToContainer(new Slot(tile, 5, x+18, y+20)); // +20,+20
+
+    // output slot
+    addSlotToContainer(new Slot(tile, 0, 124,38));
 
     this.addPlayerInventory(playerInventory, 8, 84 + 8);
   }

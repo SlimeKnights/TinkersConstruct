@@ -6,6 +6,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.io.IOException;
+
 // a sub-gui. Mostly the same as a separate GuiContainer, but doesn't do the calls that affect the game as if this were the only gui
 @SideOnly(Side.CLIENT)
 public abstract class GuiModule extends GuiContainer {
@@ -52,6 +54,8 @@ public abstract class GuiModule extends GuiContainer {
       this.guiTop = parentY + parentSizeY - this.ySize;
     else
       this.guiTop = parentY;
+
+    
   }
 
   public boolean shouldDrawSlot(Slot slot) {
@@ -77,17 +81,29 @@ public abstract class GuiModule extends GuiContainer {
     this.drawGuiContainerForegroundLayer(mouseX, mouseY);
   }
 
-/*
-  public void handleMouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-    this.mouseClicked(mouseX, mouseY, mouseButton);
+
+  /**
+   * Custom mouse click handling.
+   * @return True to prevent the main container handling the mouseclick
+   */
+  public boolean handleMouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+    return false;
   }
 
-  public void handleMouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
-    this.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
+  /**
+   * Custom mouse click handling.
+   * @return True to prevent the main container handling the mouseclick
+   */
+  public boolean handleMouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
+    return false;
   }
 
-  public void handleMouseReleased(int mouseX, int mouseY, int state) {
-    this.mouseReleased(mouseX, mouseY, state);
+  /**
+   * Custom mouse click handling.
+   * @return True to prevent the main container handling the mouseclick
+   */
+  public boolean handleMouseReleased(int mouseX, int mouseY, int state) {
+    return false;
   }
-  */
+
 }

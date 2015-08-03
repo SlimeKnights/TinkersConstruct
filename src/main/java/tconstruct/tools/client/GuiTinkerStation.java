@@ -33,15 +33,28 @@ import tconstruct.tools.network.TinkerStationTabPacket;
 @SideOnly(Side.CLIENT)
 // Takes care of the tinker station pseudo-multiblock
 public class GuiTinkerStation extends GuiMultiModule {
-  protected final ResourceLocation SLOTS = Util.getResource("textures/gui/slots.png");
+  public static final ResourceLocation ICONS = Util.getResource("textures/gui/icons.png");
+
+  public static final GuiElement ICON_Pickaxe = new GuiElement(18*0, 18*13, 18, 18, 256, 256);
+  public static final GuiElement ICON_Dust = new GuiElement(18*1, 18*13, 18, 18);
+  public static final GuiElement ICON_Lapis = new GuiElement(18*2, 18*13, 18, 18);
+  public static final GuiElement ICON_Ingot = new GuiElement(18*3, 18*13, 18, 18);
+  public static final GuiElement ICON_Gem = new GuiElement(18*4, 18*13, 18, 18);
+  public static final GuiElement ICON_Quartz = new GuiElement(18*5, 18*13, 18, 18);
+  public static final GuiElement ICON_Anvil = new GuiElement(18*3, 0, 18, 18);
+  public static final GuiElement ICON_Pattern = new GuiElement(18*3,18*12,18,18);
+
+
+  protected final ContainerMultiModule container;
 
   protected GuiTinkerTabs tinkerTabs;
-  private World world;
+  private final World world;
 
   public GuiTinkerStation(World world, BlockPos pos, ContainerMultiModule container) {
     super(container);
 
     this.world = world;
+    this.container = container;
 
     tinkerTabs = new GuiTinkerTabs(this, container);
     addModule(tinkerTabs);
@@ -60,8 +73,8 @@ public class GuiTinkerStation extends GuiMultiModule {
     this.drawTexturedModalRect(cornerX, cornerY, 0, 0, realWidth, realHeight);
   }
 
-  protected void drawSlotBackground(Slot slot, GuiElement element) {
-    this.mc.getTextureManager().bindTexture(SLOTS);
+  protected void drawIcon(Slot slot, GuiElement element) {
+    this.mc.getTextureManager().bindTexture(ICONS);
     element.draw(slot.xDisplayPosition + this.cornerX - 1, slot.yDisplayPosition + this.cornerY - 1);
   }
 

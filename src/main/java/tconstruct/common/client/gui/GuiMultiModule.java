@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -14,6 +13,7 @@ import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.List;
@@ -234,56 +234,53 @@ public class GuiMultiModule extends GuiContainer implements INEIGuiHandler {
     return super.isMouseOverSlot(slotIn, mouseX, mouseY);
   }
 
-  /*
-    @Override
-    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-      GuiModule module = getModuleForPoint(mouseX, mouseY);
-      if(module != null) {
-        mouseX -= this.cornerX;
-        mouseY -= this.cornerY;
-        module.handleMouseClicked(mouseX, mouseY, mouseButton);
+
+  @Override
+  protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+    GuiModule module = getModuleForPoint(mouseX, mouseY);
+    if(module != null) {
+      if(module.handleMouseClicked(mouseX, mouseY, mouseButton)) {
+        return;
       }
-      else {
-        super.mouseClicked(mouseX, mouseY, mouseButton);
+    }
+    super.mouseClicked(mouseX, mouseY, mouseButton);
+  }
+
+  @Override
+  protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
+    GuiModule module = getModuleForPoint(mouseX, mouseY);
+    if(module != null) {
+      if(module.handleMouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick)) {
+        return;
       }
     }
 
-    @Override
-    protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
-      GuiModule module = getModuleForPoint(mouseX, mouseY);
-      if(module != null) {
-        mouseX -= this.cornerX;
-        mouseY -= this.cornerY;
-        module.handleMouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
-      }
-      else {
-        super.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
+    super.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
+  }
+
+  @Override
+  protected void mouseReleased(int mouseX, int mouseY, int state) {
+    GuiModule module = getModuleForPoint(mouseX, mouseY);
+    if(module != null) {
+      if(module.handleMouseReleased(mouseX, mouseY, state)) {
+        return;
       }
     }
 
-    @Override
-    protected void mouseReleased(int mouseX, int mouseY, int state) {
-      GuiModule module = getModuleForPoint(mouseX, mouseY);
-      if(module != null) {
-        mouseX -= this.cornerX;
-        mouseY -= this.cornerY;
-        module.handleMouseReleased(mouseX, mouseY, state);
-      }
-      else {
-        super.mouseReleased(mouseX, mouseY, state);
+    super.mouseReleased(mouseX, mouseY, state);
+  }
+
+  private GuiModule getModuleForPoint(int x, int y) {
+    for(GuiModule module : modules) {
+      if(this.isPointInRegion(module.guiLeft, module.guiTop, module.guiRight(), module.guiBottom(),
+                              x + this.cornerX, y + this.cornerY)) {
+        return module;
       }
     }
 
-    private GuiModule getModuleForPoint(int x, int y) {
-      for(GuiModule module : modules) {
-        if(this.isPointInRegion(module.guiLeft, module.guiTop, module.guiRight(), module.guiBottom(), x + this.cornerX, y + this.cornerY)) {
-          return module;
-        }
-      }
+    return null;
+  }
 
-      return null;
-    }
-  */
   private GuiModule getModuleForSlot(int slotNumber) {
     return getModuleForContainer(getContainer().getSlotContainer(slotNumber));
   }
