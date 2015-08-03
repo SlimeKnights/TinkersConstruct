@@ -15,6 +15,7 @@ import java.util.List;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.materials.Material;
 import tconstruct.library.tinkering.MaterialItem;
+import tconstruct.library.tinkering.PartMaterialType;
 import tconstruct.library.traits.ITrait;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
@@ -27,9 +28,24 @@ public class ToolPart extends MaterialItem implements IToolPart {
 
   @Override
   public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
-    super.getSubItems(itemIn, tab, subItems);
-    // todo: check if the part supports the material
+    for(Material mat : TinkerRegistry.getAllMaterials()) {
+      // check if the material makes sense for this item (is it usable to build stuff?)
+      if(canUseMaterial(mat)) {
+        subItems.add(getItemstackWithMaterial(mat));
+      }
+    }
+  }
 
+  public boolean canUseMaterial(Material mat) {
+    for(ToolCore tool : TinkerRegistry.getTools()) {
+      for(PartMaterialType pmt : tool.requiredComponents) {
+        if(pmt.isValid(this, mat)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   @SideOnly(Side.CLIENT)
