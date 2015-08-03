@@ -156,7 +156,14 @@ public class TinkerTools extends TinkerPulse {
   // INITIALIZATION
   @Handler
   public void init(FMLInitializationEvent event) {
+    registerToolBuilding();
     registerRecipies();
+
+    proxy.init();
+  }
+
+  private void registerToolBuilding() {
+    TinkerRegistry.registerToolCrafting(pickaxe);
   }
 
   private void registerRecipies() {

@@ -45,7 +45,7 @@ public class TempToolCrafting implements IRecipe {
     }
 
     ItemStack[] inputs = input.toArray(new ItemStack[input.size()]);
-    for(ToolCore tool : TinkerRegistry.tools) {
+    for(ToolCore tool : TinkerRegistry.getTools()) {
       outputTool = tool.buildItemFromStacks(inputs);
       if(outputTool != null) {
         break;

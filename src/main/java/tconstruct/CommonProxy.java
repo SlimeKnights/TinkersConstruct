@@ -11,6 +11,13 @@ import net.minecraftforge.fml.common.LoaderState;
  */
 public class CommonProxy {
 
+  public void init() {
+    if(!Loader.instance().isInState(LoaderState.INITIALIZATION)) {
+      TConstruct.log.error(
+          "Proxy.init has to be called during Initialisation.");
+    }
+  }
+
   public void registerModels() {
     if(Loader.instance().hasReachedState(LoaderState.INITIALIZATION)) {
       TConstruct.log.error(

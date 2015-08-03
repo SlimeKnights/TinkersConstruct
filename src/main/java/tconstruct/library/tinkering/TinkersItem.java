@@ -139,6 +139,18 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     return base;
   }
 
+  /**
+   * Builds an unusable tool that only has the rendering info
+   */
+  public ItemStack buildItemForRendering(List<Material> materials) {
+    ItemStack tool = new ItemStack(this);
+    NBTTagCompound base = new NBTTagCompound();
+    base.setTag(Tags.BASE_DATA, buildData(materials));
+    tool.setTagCompound(base);
+
+    return tool;
+  }
+
   public abstract NBTTagCompound buildTag(List<Material> materials);
 
   public void addMaterialTraits(NBTTagCompound root, List<Material> materials) {

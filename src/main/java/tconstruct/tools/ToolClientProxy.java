@@ -5,7 +5,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 
 import tconstruct.ClientProxy;
+import tconstruct.library.TinkerRegistryClient;
 import tconstruct.library.Util;
+import tconstruct.library.client.ToolBuildGuiInfo;
 import tconstruct.library.client.model.MaterialModelLoader;
 import tconstruct.tools.block.BlockToolTable;
 
@@ -15,6 +17,16 @@ import static tconstruct.tools.TinkerTools.pickaxe;
 import static tconstruct.tools.TinkerTools.toolRod;
 
 public class ToolClientProxy extends ClientProxy {
+
+  @Override
+  public void init() {
+    ToolBuildGuiInfo info = new ToolBuildGuiInfo(TinkerTools.pickaxe);
+    info.addSlotPosition(33+20, 42+20);
+    info.addSlotPosition(33, 42);
+    info.addSlotPosition(33-20, 42-20);
+
+    TinkerRegistryClient.addToolBuilding(info);
+  }
 
   @Override
   public void registerModels() {

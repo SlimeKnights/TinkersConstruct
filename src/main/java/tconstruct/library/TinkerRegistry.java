@@ -1,12 +1,13 @@
 package tconstruct.library;
 
 import com.google.common.base.CharMatcher;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 
 import gnu.trove.map.hash.THashMap;
 import gnu.trove.set.hash.THashSet;
 import gnu.trove.set.hash.TLinkedHashSet;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -43,8 +44,12 @@ public final class TinkerRegistry {
   | CREATIVE TABS                                                             |
   ---------------------------------------------------------------------------*/
   public static CreativeTab tabTools = new CreativeTab("TinkerTools", new ItemStack(Items.iron_pickaxe));
-  public static CreativeTab tabSmeltery = new CreativeTab("TinkerSmeltery", new ItemStack(Item.getItemFromBlock(Blocks.stonebrick)));
-  public static CreativeTab tabWorld = new CreativeTab("TinkerWorld", new ItemStack(Item.getItemFromBlock(Blocks.slime_block)));
+  public static CreativeTab
+      tabSmeltery =
+      new CreativeTab("TinkerSmeltery", new ItemStack(Item.getItemFromBlock(Blocks.stonebrick)));
+  public static CreativeTab
+      tabWorld =
+      new CreativeTab("TinkerWorld", new ItemStack(Item.getItemFromBlock(Blocks.slime_block)));
 
   /*---------------------------------------------------------------------------
   | MATERIALS                                                                 |
@@ -58,7 +63,10 @@ public final class TinkerRegistry {
   private static final Map<String, Map<String, String>> statRegisteredByMod = new THashMap<>();
   private static final Map<String, Map<String, String>> traitRegisteredByMod = new THashMap<>();
 
-  private static final Set<String> cancelledMaterials = new THashSet<>(); // contains all cancelled materials, allows us to eat calls regarding the material silently
+  private static final Set<String>
+      cancelledMaterials =
+      new THashSet<>();
+      // contains all cancelled materials, allows us to eat calls regarding the material silently
 
   public static void addMaterial(Material material, IMaterialStats stats, ITrait trait) {
     addMaterial(material, stats);
@@ -141,7 +149,9 @@ public final class TinkerRegistry {
   }
 
   public static void addMaterialStats(String materialIdentifier, IMaterialStats stats) {
-    if(cancelledMaterials.contains(materialIdentifier)) return;
+    if(cancelledMaterials.contains(materialIdentifier)) {
+      return;
+    }
     if(!materials.containsKey(materialIdentifier)) {
       error(String.format("Could not add Stats \"%s\" to \"%s\": Unknown Material", stats.getIdentifier(),
                           materialIdentifier));
@@ -157,7 +167,9 @@ public final class TinkerRegistry {
       error(String.format("Could not add Stats \"%s\": Material is null", stats.getIdentifier()));
       return;
     }
-    if(cancelledMaterials.contains(material.identifier)) return;
+    if(cancelledMaterials.contains(material.identifier)) {
+      return;
+    }
 
     String identifier = material.identifier;
     // duplicate stats
@@ -176,7 +188,8 @@ public final class TinkerRegistry {
 
     // ensure there are default stats present
     if(Material.UNKNOWN.getStats(stats.getIdentifier()) == null) {
-      error("Could not add Stat of type \"%s\": Default Material does not have default stats for said type. Please add default-values to the default material \"unknown\" first.", stats.getIdentifier());
+      error("Could not add Stat of type \"%s\": Default Material does not have default stats for said type. Please add default-values to the default material \"unknown\" first.", stats
+          .getIdentifier());
       return;
     }
 
@@ -196,7 +209,9 @@ public final class TinkerRegistry {
   }
 
   public static void addMaterialTrait(String materialIdentifier, ITrait trait) {
-    if(cancelledMaterials.contains(materialIdentifier)) return;
+    if(cancelledMaterials.contains(materialIdentifier)) {
+      return;
+    }
     if(!materials.containsKey(materialIdentifier)) {
       error(String.format("Could not add Trait \"%s\" to \"%s\": Unknown Material",
                           trait.getIdentifier(), materialIdentifier));
@@ -212,7 +227,9 @@ public final class TinkerRegistry {
       error(String.format("Could not add Trait \"%s\": Material is null", trait.getIdentifier()));
       return;
     }
-    if(cancelledMaterials.contains(material.identifier)) return;
+    if(cancelledMaterials.contains(material.identifier)) {
+      return;
+    }
 
     String identifier = material.identifier;
     // duplicate traits
@@ -249,10 +266,17 @@ public final class TinkerRegistry {
   ---------------------------------------------------------------------------*/
 
   /** This set contains all known tools */
-  public static final Set<ToolCore> tools = new TLinkedHashSet<>();
+  private static final Set<ToolCore> tools = new TLinkedHashSet<>();
+  private static final Set<Item> toolStationCrafting = Sets.newHashSet();
+  private static final Set<Item> toolForgeCrafting = Sets.newHashSet();
 
-  public static void addTool(ToolCore tool) {
+
+  public static void registerTool(ToolCore tool) {
     tools.add(tool);
+  }
+
+  public static Set<ToolCore> getTools() {
+    return ImmutableSet.copyOf(tools);
   }
 
   /** Adds a new oredict entry that can be used for toolforge crafting */
@@ -263,6 +287,30 @@ public final class TinkerRegistry {
 
     TinkerTools.toolForge.baseBlocks.add(oredict);
     TinkerTools.registerToolForgeRecipe(oredict);
+  }
+
+  /** Adds a tool to the Crafting UI of both the Tool Station as well as the Tool Forge */
+  public static void registerToolCrafting(Item tool) {
+    registerToolStationCrafting(tool);
+    registerToolForgeCrafting(tool);
+  }
+
+  /** Adds a tool to the Crafting UI of the Tool Station */
+  public static void registerToolStationCrafting(Item tool) {
+    toolStationCrafting.add(tool);
+  }
+
+  public static Set<Item> getToolStationCrafting() {
+    return ImmutableSet.copyOf(toolStationCrafting);
+  }
+
+  /** Adds a tool to the Crafting UI of the Tool Forge */
+  public static void registerToolForgeCrafting(Item tool) {
+    toolForgeCrafting.add(tool);
+  }
+
+  public static Set<Item> getToolForgeCrafting() {
+    return ImmutableSet.copyOf(toolForgeCrafting);
   }
 
   /*---------------------------------------------------------------------------
