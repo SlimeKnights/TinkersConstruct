@@ -17,6 +17,7 @@ import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.materials.Material;
+import tconstruct.library.materials.ToolMaterialStats;
 import tconstruct.library.tinkering.Category;
 import tconstruct.library.tinkering.PartMaterialType;
 import tconstruct.library.tinkering.TinkersItem;
@@ -84,6 +85,9 @@ public abstract class ToolCore extends TinkersItem {
   @Override
   public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
     for(Material head : TinkerRegistry.getAllMaterials()) {
+      if(!head.hasStats(ToolMaterialStats.TYPE))
+        continue;
+
       List<Material> mats = new ArrayList<Material>(requiredComponents.length);
 
       for(int i = 0; i < requiredComponents.length; i++) {
