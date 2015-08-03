@@ -53,13 +53,15 @@ public class ToolModelLoader implements ICustomModelLoader {
       for(Map.Entry<String, String> entry : textures.entrySet()) {
         String name = entry.getKey();
         try {
-          int i = Integer.valueOf(name.substring(5));
+          int i;
           List<MaterialModel> listToAdd;
 
           if(name.startsWith("layer")) {
+            i = Integer.valueOf(name.substring(5));
             listToAdd = parts;
           }
           else if(name.startsWith("broken")) {
+            i = Integer.valueOf(name.substring(6));
             listToAdd = brokenParts;
           }
           // invalid entry, ignore
