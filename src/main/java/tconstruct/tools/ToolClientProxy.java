@@ -1,6 +1,10 @@
 package tconstruct.tools;
 
+import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 
@@ -9,10 +13,13 @@ import tconstruct.library.TinkerRegistryClient;
 import tconstruct.library.Util;
 import tconstruct.library.client.ToolBuildGuiInfo;
 import tconstruct.library.client.model.MaterialModelLoader;
+import tconstruct.library.utils.TagUtil;
 import tconstruct.tools.block.BlockToolTable;
+import tconstruct.tools.item.Pattern;
 
 import static tconstruct.tools.TinkerTools.binding;
 import static tconstruct.tools.TinkerTools.largePlate;
+import static tconstruct.tools.TinkerTools.log;
 import static tconstruct.tools.TinkerTools.pickHead;
 import static tconstruct.tools.TinkerTools.pickaxe;
 import static tconstruct.tools.TinkerTools.toolRod;
@@ -41,7 +48,23 @@ public class ToolClientProxy extends ClientProxy {
     ModelLoader.setCustomModelResourceLocation(tableItem, 0, ToolClientEvents.locToolForge);
 
     // general items
-    registerItemModel(TinkerTools.pattern);
+
+    // patterns
+    final ResourceLocation patternLoc = getItemLocation(TinkerTools.pattern);
+    ModelLoader.setCustomMeshDefinition(TinkerTools.pattern, new ItemMeshDefinition() {
+      @Override
+      public ModelResourceLocation getModelLocation(ItemStack stack) {
+        NBTTagCompound tag = TagUtil.getTagSafe(stack);
+        String suffix = tag.getString(Pattern.TAG_PARTTYPE);
+
+        if(!suffix.isEmpty())
+          suffix = "_" + suffix;
+
+        return new ModelResourceLocation(new ResourceLocation(patternLoc.getResourceDomain(),
+                                                              patternLoc.getResourcePath() + suffix),
+                                         "inventory");
+      }
+    });
 
     // tools
     registerToolModel(pickaxe);

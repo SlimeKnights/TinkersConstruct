@@ -52,7 +52,7 @@ public class TextureColoredTexture extends AbstractColoredTexture {
     return compose(r, g, b, a);
   }
 
-  private void loadData() {
+  protected void loadData() {
     if(addTexture != null && addTexture.getFrameCount() > 0) {
       textureData = addTexture.getFrameTextureData(0);
     }

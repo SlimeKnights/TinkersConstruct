@@ -59,18 +59,14 @@ public class ExtraUtilityTexture extends AbstractColoredTexture {
     super.processData(data);
   }
 
-  private int coord(int x, int y) {
-    return y * width + x;
-  }
-
   @Override
   protected int colorPixel(int pixel, int mipmap, int pxCoord) {
     if(!trans[pxCoord]) {
       int lum;
       if(edge[pxCoord]) {
         short alpha = 255;
-        int x = pxCoord % width;
-        int y = pxCoord / width;
+        int x = getX(pxCoord);
+        int y = getY(pxCoord);
         lum = 256 + (x * 16 / width + y * 16 / height - 16) * 6;
         if(lum >= 256) {
           lum = 255 - (lum - 256);

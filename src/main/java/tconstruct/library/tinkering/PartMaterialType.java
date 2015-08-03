@@ -1,5 +1,7 @@
 package tconstruct.library.tinkering;
 
+import com.google.common.collect.ImmutableSet;
+
 import net.minecraft.item.ItemStack;
 
 import java.util.HashSet;
@@ -48,6 +50,10 @@ public class PartMaterialType {
     }
 
     return true;
+  }
+
+  public Set<IToolPart> getPossibleParts() {
+    return ImmutableSet.copyOf(neededPart);
   }
 
   public static class ToolPartType extends PartMaterialType {

@@ -28,6 +28,8 @@ import tconstruct.library.mantle.CreativeTab;
 import tconstruct.library.materials.IMaterialStats;
 import tconstruct.library.materials.Material;
 import tconstruct.library.modifiers.IModifier;
+import tconstruct.library.tinkering.PartMaterialType;
+import tconstruct.library.tools.IToolPart;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.traits.ITrait;
 import tconstruct.tools.TinkerTools;
@@ -267,16 +269,24 @@ public final class TinkerRegistry {
 
   /** This set contains all known tools */
   private static final Set<ToolCore> tools = new TLinkedHashSet<>();
+  private static final Set<IToolPart> toolParts = new TLinkedHashSet<>();
   private static final Set<Item> toolStationCrafting = Sets.newHashSet();
   private static final Set<Item> toolForgeCrafting = Sets.newHashSet();
 
 
   public static void registerTool(ToolCore tool) {
     tools.add(tool);
+
+    for(PartMaterialType pmt : tool.requiredComponents) {
+      toolParts.addAll(pmt.getPossibleParts());
+    }
   }
 
   public static Set<ToolCore> getTools() {
     return ImmutableSet.copyOf(tools);
+  }
+  public static Set<IToolPart> getToolParts() {
+    return ImmutableSet.copyOf(toolParts);
   }
 
   /** Adds a new oredict entry that can be used for toolforge crafting */

@@ -37,6 +37,7 @@ import tconstruct.tools.block.BlockToolForge;
 import tconstruct.tools.block.BlockToolTable;
 import tconstruct.tools.debug.TempToolCrafting;
 import tconstruct.tools.debug.TempToolModifying;
+import tconstruct.tools.item.Pattern;
 import tconstruct.tools.modifiers.DiamondModifier;
 import tconstruct.tools.modifiers.RedstoneModifier;
 import tconstruct.tools.modifiers.StoneboundModifier;
@@ -87,7 +88,7 @@ public class TinkerTools extends TinkerPulse {
     registerTools();
     registerModifiers();
 
-    pattern = registerItem(new Item(), "pattern");
+    pattern = registerItem(new Pattern(), "Pattern");
 
     // register blocks
     toolTables = registerBlock(new BlockToolTable(), ItemBlockMeta.class, "ToolTables");

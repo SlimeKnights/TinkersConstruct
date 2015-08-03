@@ -251,4 +251,17 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
   protected static int mult(int c1, int c2) {
     return (int) ((float) c1 * (c2 / 255f));
   }
+
+  // Get coordinates from index and vice versa
+  protected int getX(int pxCoord) {
+    return pxCoord % width;
+  }
+
+  protected int getY(int pxCoord) {
+   return pxCoord / width;
+  }
+
+  protected int coord(int x, int y) {
+    return y * width + x;
+  }
 }

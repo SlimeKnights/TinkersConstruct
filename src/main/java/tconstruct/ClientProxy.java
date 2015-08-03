@@ -153,7 +153,7 @@ public abstract class ClientProxy extends CommonProxy {
     return location;
   }
 
-  protected static ResourceLocation getItemLocation(Item item) {
+  public static ResourceLocation getItemLocation(Item item) {
     // get the registered name for the object
     Object o = GameData.getItemRegistry().getNameForObject(item);
 

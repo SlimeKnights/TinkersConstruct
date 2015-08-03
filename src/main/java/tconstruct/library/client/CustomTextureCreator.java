@@ -8,8 +8,12 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -24,8 +28,15 @@ import java.util.Set;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
+import tconstruct.library.client.model.MaterialModel;
+import tconstruct.library.client.model.MaterialModelLoader;
 import tconstruct.library.client.texture.AbstractColoredTexture;
+import tconstruct.library.client.texture.PatternTexture;
 import tconstruct.library.materials.Material;
+import tconstruct.library.tools.IToolPart;
+import tconstruct.tools.TinkerTools;
+import tconstruct.tools.ToolClientEvents;
+import tconstruct.tools.ToolClientProxy;
 
 /**
  * Textures registered with this creator will get a texture created/loaded for each material.
@@ -61,6 +72,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
 
     TextureMap map = event.map;
 
+    // Create textures for toolparts and tools - Textures that need 1 per material
     for(ResourceLocation baseTexture : baseTextures) {
       // exclude missingno :I
       if(baseTexture.toString().equals("minecraft:missingno")) {
@@ -121,6 +133,34 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
       }
 
       sprites.put(baseTexture.toString(), builtSprites);
+    }
+
+    // add stencil and cast textures for all used toolparts
+    try {
+      ResourceLocation patternModelLocation = ToolClientProxy.getItemLocation(TinkerTools.pattern);
+      patternModelLocation = new ResourceLocation(patternModelLocation.getResourceDomain(), "item/" + patternModelLocation.getResourcePath());
+      IModel patternModel = ModelLoaderRegistry.getModel(patternModelLocation);
+      ResourceLocation patternLocation = patternModel.getTextures().iterator().next();
+      TextureAtlasSprite pattern = map.getTextureExtry(patternLocation.toString());
+
+      for(IToolPart toolpart : TinkerRegistry.getToolParts()) {
+        if(!(toolpart instanceof Item))
+          continue; // WHY?!
+
+        ResourceLocation modelLocation = ToolClientProxy.getItemLocation((Item)toolpart);
+        IModel partModel = ModelLoaderRegistry.getModel(new ResourceLocation(modelLocation.getResourceDomain(),
+                                                                             "item/parts/" + modelLocation
+                                                                                 .getResourcePath() + MaterialModelLoader.EXTENSION));
+        ResourceLocation partTexture = partModel.getTextures().iterator().next();
+
+        String partPatternLocation = ToolClientEvents.locBlankPattern.toString() + "_" + modelLocation.getResourcePath();
+        TextureAtlasSprite partPatternTexture = new PatternTexture(partTexture.toString(), pattern, partPatternLocation);
+
+        map.setTextureEntry(partPatternLocation, partPatternTexture);
+      }
+    } catch(IOException e) {
+      // should never happen
+      log.error(e);
     }
   }
 
