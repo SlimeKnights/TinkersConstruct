@@ -13,6 +13,7 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameData;
 
+import tconstruct.library.Util;
 import tconstruct.library.client.CustomTextureCreator;
 import tconstruct.library.client.model.MaterialModelLoader;
 import tconstruct.library.client.model.ModifierModelLoader;
@@ -154,16 +155,6 @@ public abstract class ClientProxy extends CommonProxy {
   }
 
   public static ResourceLocation getItemLocation(Item item) {
-    // get the registered name for the object
-    Object o = GameData.getItemRegistry().getNameForObject(item);
-
-    // are you trying to add an unregistered item...?
-    if(o == null) {
-      TConstruct.log.error("Trying to register a model for an unregistered item: %s" + item.getUnlocalizedName());
-      // bad boi
-      return null;
-    }
-
-    return (ResourceLocation) o;
+    return Util.getItemLocation(item);
   }
 }

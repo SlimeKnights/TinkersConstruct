@@ -20,6 +20,7 @@ import tconstruct.common.GuiHandler;
 import tconstruct.common.network.NetworkWrapper;
 import tconstruct.debug.LocalizationCheckCommand;
 import tconstruct.library.Util;
+import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerMaterials;
 import tconstruct.tools.TinkerTools;
 
@@ -86,6 +87,7 @@ public class TConstruct {
     TinkerMaterials.registerMaterials();
 
     pulseManager.registerPulse(new TinkerTools());
+    pulseManager.registerPulse(new TinkerSmeltery());
     pulseManager.preInit(event);
 
     NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);

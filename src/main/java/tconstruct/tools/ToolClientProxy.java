@@ -7,10 +7,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.MinecraftForge;
 
 import tconstruct.ClientProxy;
 import tconstruct.library.TinkerRegistryClient;
 import tconstruct.library.Util;
+import tconstruct.library.client.CustomTextureCreator;
 import tconstruct.library.client.ToolBuildGuiInfo;
 import tconstruct.library.client.model.MaterialModelLoader;
 import tconstruct.library.utils.TagUtil;
@@ -25,6 +27,14 @@ import static tconstruct.tools.TinkerTools.pickaxe;
 import static tconstruct.tools.TinkerTools.toolRod;
 
 public class ToolClientProxy extends ClientProxy {
+
+  @Override
+  public void preInit() {
+    super.preInit();
+
+    TinkerMaterials.registerMaterialRendering();
+    MinecraftForge.EVENT_BUS.register(new ToolClientEvents());
+  }
 
   @Override
   public void init() {
@@ -51,6 +61,8 @@ public class ToolClientProxy extends ClientProxy {
 
     // patterns
     final ResourceLocation patternLoc = getItemLocation(TinkerTools.pattern);
+    CustomTextureCreator.patternModelLocation = new ResourceLocation(patternLoc.getResourceDomain(), "item/" + patternLoc.getResourcePath());
+
     ModelLoader.setCustomMeshDefinition(TinkerTools.pattern, new ItemMeshDefinition() {
       @Override
       public ModelResourceLocation getModelLocation(ItemStack stack) {

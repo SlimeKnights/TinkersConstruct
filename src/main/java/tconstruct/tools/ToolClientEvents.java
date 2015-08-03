@@ -26,7 +26,11 @@ import tconstruct.library.tools.IToolPart;
 
 public class ToolClientEvents {
 
-  private Function<ResourceLocation, TextureAtlasSprite> textureGetter;
+  public static Function<ResourceLocation, TextureAtlasSprite> textureGetter = new Function<ResourceLocation, TextureAtlasSprite>() {
+    public TextureAtlasSprite apply(ResourceLocation location) {
+      return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
+    }
+  };
 
   // tool tables
   private static final ResourceLocation MODEL_CraftingStation = Util.getResource("block/CraftingStation");
@@ -50,16 +54,8 @@ public class ToolClientEvents {
 
   @SubscribeEvent
   public void onModelBake(ModelBakeEvent event) {
-    textureGetter = new Function<ResourceLocation, TextureAtlasSprite>() {
-      public TextureAtlasSprite apply(ResourceLocation location) {
-        return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
-      }
-    };
-
     // add the models for the pattern variants
-    if(TinkerTools.pattern != null) {
-      replacePatternModel(locBlankPattern, MODEL_BlankPattern, event);
-    }
+    replacePatternModel(locBlankPattern, MODEL_BlankPattern, event);
 
     // replace the baked table models with smart variants
 
@@ -73,7 +69,7 @@ public class ToolClientEvents {
     event.modelRegistry.putObject(new ModelResourceLocation(LOCATION_ToolTable, "inventory"), event.modelRegistry.getObject(locToolStation));
   }
 
-  private void replaceTableModel(ModelResourceLocation modelVariantLocation, ResourceLocation modelLocation, ModelBakeEvent event) {
+  public static void replaceTableModel(ModelResourceLocation modelVariantLocation, ResourceLocation modelLocation, ModelBakeEvent event) {
     try {
       IModel model = event.modelLoader.getModel(modelLocation);
       if(model instanceof IRetexturableModel) {
@@ -88,7 +84,7 @@ public class ToolClientEvents {
     }
   }
 
-  private void replacePatternModel(ResourceLocation locPattern, ResourceLocation modelLocation, ModelBakeEvent event) {
+  public static void replacePatternModel(ResourceLocation locPattern, ResourceLocation modelLocation, ModelBakeEvent event) {
     try {
       IModel model = event.modelLoader.getModel(modelLocation);
       if(model instanceof IRetexturableModel) {

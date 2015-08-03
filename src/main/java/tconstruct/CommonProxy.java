@@ -11,6 +11,15 @@ import net.minecraftforge.fml.common.LoaderState;
  */
 public class CommonProxy {
 
+  public void preInit() {
+    if(Loader.instance().isInState(LoaderState.PREINITIALIZATION)) {
+      TConstruct.log.error(
+          "Proxy.preInit has to be called during Pre-Initialisation.");
+    }
+
+    registerModels();
+  }
+
   public void init() {
     if(!Loader.instance().isInState(LoaderState.INITIALIZATION)) {
       TConstruct.log.error(
@@ -18,7 +27,14 @@ public class CommonProxy {
     }
   }
 
-  public void registerModels() {
+  public void postInit() {
+    if(!Loader.instance().isInState(LoaderState.INITIALIZATION)) {
+      TConstruct.log.error(
+          "Proxy.postInit has to be called during Post-Initialisation.");
+    }
+  }
+
+  protected void registerModels() {
     if(Loader.instance().hasReachedState(LoaderState.INITIALIZATION)) {
       TConstruct.log.error(
           "Proxy.registerModels has to be called during preInit. Otherwise the models wont be found on first load.");

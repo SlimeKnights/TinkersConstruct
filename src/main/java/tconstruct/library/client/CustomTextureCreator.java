@@ -12,7 +12,6 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
@@ -28,15 +27,12 @@ import java.util.Set;
 
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
-import tconstruct.library.client.model.MaterialModel;
 import tconstruct.library.client.model.MaterialModelLoader;
 import tconstruct.library.client.texture.AbstractColoredTexture;
+import tconstruct.library.client.texture.CastTexture;
 import tconstruct.library.client.texture.PatternTexture;
 import tconstruct.library.materials.Material;
 import tconstruct.library.tools.IToolPart;
-import tconstruct.tools.TinkerTools;
-import tconstruct.tools.ToolClientEvents;
-import tconstruct.tools.ToolClientProxy;
 
 /**
  * Textures registered with this creator will get a texture created/loaded for each material.
@@ -59,6 +55,9 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
   public static void registerTexture(ResourceLocation texture) {
     baseTextures.add(texture);
   }
+
+  public static ResourceLocation patternModelLocation;
+  public static ResourceLocation castModelLocation;
 
   // low since other event-handlers might want to register textures beforehand
   @SubscribeEvent(priority = EventPriority.LOW)
@@ -136,24 +135,83 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
     }
 
     // add stencil and cast textures for all used toolparts
+    createPatterntextures(map);
+  }
+
+  private static void createPatterntextures(TextureMap map) {
+    // nothing to do
+    if(patternModelLocation == null && castModelLocation == null)
+      return;
+
     try {
-      ResourceLocation patternModelLocation = ToolClientProxy.getItemLocation(TinkerTools.pattern);
-      patternModelLocation = new ResourceLocation(patternModelLocation.getResourceDomain(), "item/" + patternModelLocation.getResourcePath());
-      IModel patternModel = ModelLoaderRegistry.getModel(patternModelLocation);
-      ResourceLocation patternLocation = patternModel.getTextures().iterator().next();
-      TextureAtlasSprite pattern = map.getTextureExtry(patternLocation.toString());
+      TextureAtlasSprite pattern = null;
+      TextureAtlasSprite cast = null;
+      {
+        IModel patternModel = ModelLoaderRegistry.getModel(patternModelLocation);
+        ResourceLocation patternLocation = patternModel.getTextures().iterator().next();
+        pattern = map.getTextureExtry(patternLocation.toString());
+      }
+      {
+          IModel patternModel = ModelLoaderRegistry.getModel(castModelLocation);
+          ResourceLocation patternLocation = patternModel.getTextures().iterator().next();
+          cast = map.getTextureExtry(patternLocation.toString());
+      }
+
+      String patternLocString = Util.getResource("Pattern").toString() + "_";
+      String castLocString = Util.getResource("Cast").toString() + "_";
 
       for(IToolPart toolpart : TinkerRegistry.getToolParts()) {
         if(!(toolpart instanceof Item))
           continue; // WHY?!
 
-        ResourceLocation modelLocation = ToolClientProxy.getItemLocation((Item)toolpart);
+        ResourceLocation modelLocation = Util.getItemLocation((Item)toolpart);
         IModel partModel = ModelLoaderRegistry.getModel(new ResourceLocation(modelLocation.getResourceDomain(),
                                                                              "item/parts/" + modelLocation
                                                                                  .getResourcePath() + MaterialModelLoader.EXTENSION));
         ResourceLocation partTexture = partModel.getTextures().iterator().next();
 
-        String partPatternLocation = ToolClientEvents.locBlankPattern.toString() + "_" + modelLocation.getResourcePath();
+        // Pattern
+        if(pattern != null) {
+          String partPatternLocation = patternLocString + modelLocation.getResourcePath();
+          TextureAtlasSprite partPatternTexture =
+              new PatternTexture(partTexture.toString(), pattern, partPatternLocation);
+
+          map.setTextureEntry(partPatternLocation, partPatternTexture);
+        }
+        if(cast != null) {
+          String partCastLocation = castLocString + modelLocation.getResourcePath();
+          TextureAtlasSprite partCastTexture =
+              new CastTexture(partTexture.toString(), cast, partCastLocation);
+
+          map.setTextureEntry(partCastLocation, partCastTexture);
+        }
+      }
+    } catch(IOException e) {
+      // should never happen
+      log.error(e);
+    }
+  }
+
+
+  private static void createCastTextures(TextureMap map) {
+    try {
+      IModel patternModel = ModelLoaderRegistry.getModel(castModelLocation);
+      ResourceLocation patternLocation = patternModel.getTextures().iterator().next();
+      TextureAtlasSprite pattern = map.getTextureExtry(patternLocation.toString());
+
+      String patternLocString = Util.getResource("Cast").toString() + "_";
+
+      for(IToolPart toolpart : TinkerRegistry.getToolParts()) {
+        if(!(toolpart instanceof Item))
+          continue; // WHY?!
+
+        ResourceLocation modelLocation = Util.getItemLocation((Item)toolpart);
+        IModel partModel = ModelLoaderRegistry.getModel(new ResourceLocation(modelLocation.getResourceDomain(),
+                                                                             "item/parts/" + modelLocation
+                                                                                 .getResourcePath() + MaterialModelLoader.EXTENSION));
+        ResourceLocation partTexture = partModel.getTextures().iterator().next();
+
+        String partPatternLocation = patternLocString + modelLocation.getResourcePath();
         TextureAtlasSprite partPatternTexture = new PatternTexture(partTexture.toString(), pattern, partPatternLocation);
 
         map.setTextureEntry(partPatternLocation, partPatternTexture);

@@ -2,7 +2,7 @@
     #Must not have a parent because of how stuff is managed in code
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "tconstruct:items/blank_pattern"
+        "layer0": "tconstruct:items/blank_cast"
     },
     "display": {
         "thirdperson": {

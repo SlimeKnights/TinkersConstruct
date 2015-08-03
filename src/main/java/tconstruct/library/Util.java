@@ -1,10 +1,14 @@
 package tconstruct.library;
 
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameData;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import tconstruct.TConstruct;
 
 public class Util {
 
@@ -47,5 +51,19 @@ public class Util {
    */
   public static String prefix(String name) {
     return String.format("%s.%s", MODID, name);
+  }
+
+  public static ResourceLocation getItemLocation(Item item) {
+    // get the registered name for the object
+    Object o = GameData.getItemRegistry().getNameForObject(item);
+
+    // are you trying to add an unregistered item...?
+    if(o == null) {
+      TinkerRegistry.log.error("Trying to register a model for an unregistered item: %s" + item.getUnlocalizedName());
+      // bad boi
+      return null;
+    }
+
+    return (ResourceLocation) o;
   }
 }

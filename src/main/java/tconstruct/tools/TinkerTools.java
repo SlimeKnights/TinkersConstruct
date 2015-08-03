@@ -61,7 +61,7 @@ public class TinkerTools extends TinkerPulse {
   public static BlockToolForge toolForge;
 
   // General Items
-  public static Item pattern;
+  public static Pattern pattern;
 
   // Tools
   public static ToolCore pickaxe;
@@ -101,7 +101,7 @@ public class TinkerTools extends TinkerPulse {
 
     toolForge = registerBlock(new BlockToolForge(), ItemBlockMeta.class, "ToolForge");
 
-    proxy.registerModels();
+    proxy.preInit();
 
 
     // debug things
@@ -109,12 +109,6 @@ public class TinkerTools extends TinkerPulse {
     new StoneboundModifier();
     GameRegistry.addRecipe(new TempToolCrafting());
     GameRegistry.addRecipe(new TempToolModifying());
-
-    // register events
-    if(event.getSide().isClient()) {
-      TinkerMaterials.registerMaterialRendering();
-      MinecraftForge.EVENT_BUS.register(new ToolClientEvents());
-    }
   }
 
   private void registerToolParts() {
@@ -225,6 +219,6 @@ public class TinkerTools extends TinkerPulse {
   // POST-INITIALIZATION
   @Handler
   public void postInit(FMLPostInitializationEvent event) {
-
+    proxy.postInit();
   }
 }
