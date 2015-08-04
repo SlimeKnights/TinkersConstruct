@@ -29,16 +29,55 @@ public class PatternTexture extends TextureColoredTexture {
     int c = textureData[mipmap][pxCoord];
 
     int a = alpha(c);
-    // if not fully opaque, return pattern texture
-    if(a < 255) {
+
+    float mult = 1.0f;
+    if(a < 64) {
       return pixel;
     }
 
-    int r = red(pixel) / 2;
-    int g = green(pixel) / 2;
-    int b = blue(pixel) / 2;
+    boolean edge = false;
+    if(x > 0) {
+      a = alpha(textureData[mipmap][coord(x - 1, y)]);
+      if(a < 64) {
+        edge = true;
+      }
+    }
+    if(y < height-1) {
+      a = alpha(textureData[mipmap][coord(x, y + 1)]);
+      if(a < 64) {
+        edge = true;
+      }
+    }
+    if(x < width-1) {
+      a = alpha(textureData[mipmap][coord(x + 1, y)]);
+      if(a < 64) {
+        edge = true;
+      }
+    }
+    if(y > 0) {
+      a = alpha(textureData[mipmap][coord(x, y - 1)]);
+      if(a < 64) {
+        edge = true;
+      }
+    }
+
+    mult = 0.5f;
+    if(edge)
+      mult = 0.6f;
+
+
+    int r = (int)((float)red(pixel) * mult);
+    int g = (int)((float)green(pixel) * mult);
+    int b = (int)((float)blue(pixel) * mult);
+
+    if(r > 255)
+      r = 255;
+    if(g > 255)
+      g = 255;
+    if(b > 255)
+      b = 255;
 
     // otherwise darken color for pattern imprint
-    return compose(r, g, b, a);
+    return compose(r, g, b, 255);
   }
 }
