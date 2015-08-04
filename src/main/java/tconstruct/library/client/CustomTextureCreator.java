@@ -69,8 +69,14 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
       return;
     }
 
-    TextureMap map = event.map;
+    // create textures for each material where needed
+    createMaterialTextures(event.map);
 
+    // add stencil and cast textures for all used toolparts
+    createPatterntextures(event.map);
+  }
+
+  private void createMaterialTextures(TextureMap map) {
     // Create textures for toolparts and tools - Textures that need 1 per material
     for(ResourceLocation baseTexture : baseTextures) {
       // exclude missingno :I
@@ -133,12 +139,9 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
 
       sprites.put(baseTexture.toString(), builtSprites);
     }
-
-    // add stencil and cast textures for all used toolparts
-    createPatterntextures(map);
   }
 
-  private static void createPatterntextures(TextureMap map) {
+  private void createPatterntextures(TextureMap map) {
     // nothing to do
     if(patternModelLocation == null && castModelLocation == null)
       return;
@@ -192,35 +195,6 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
     }
   }
 
-
-  private static void createCastTextures(TextureMap map) {
-    try {
-      IModel patternModel = ModelLoaderRegistry.getModel(castModelLocation);
-      ResourceLocation patternLocation = patternModel.getTextures().iterator().next();
-      TextureAtlasSprite pattern = map.getTextureExtry(patternLocation.toString());
-
-      String patternLocString = Util.getResource("Cast").toString() + "_";
-
-      for(IToolPart toolpart : TinkerRegistry.getToolParts()) {
-        if(!(toolpart instanceof Item))
-          continue; // WHY?!
-
-        ResourceLocation modelLocation = Util.getItemLocation((Item)toolpart);
-        IModel partModel = ModelLoaderRegistry.getModel(new ResourceLocation(modelLocation.getResourceDomain(),
-                                                                             "item/parts/" + modelLocation
-                                                                                 .getResourcePath() + MaterialModelLoader.EXTENSION));
-        ResourceLocation partTexture = partModel.getTextures().iterator().next();
-
-        String partPatternLocation = patternLocString + modelLocation.getResourcePath();
-        TextureAtlasSprite partPatternTexture = new PatternTexture(partTexture.toString(), pattern, partPatternLocation);
-
-        map.setTextureEntry(partPatternLocation, partPatternTexture);
-      }
-    } catch(IOException e) {
-      // should never happen
-      log.error(e);
-    }
-  }
 
   public static boolean exists(String res) {
     try {

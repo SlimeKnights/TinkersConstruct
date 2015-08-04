@@ -7,9 +7,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.tools.client.module.GuiSideInventory;
 import tconstruct.tools.inventory.ContainerCraftingStation;
-import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.tools.inventory.ContainerSideInventory;
 import tconstruct.tools.tileentity.TileCraftingStation;
 

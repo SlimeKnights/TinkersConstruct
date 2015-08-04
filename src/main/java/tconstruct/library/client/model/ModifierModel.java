@@ -7,8 +7,6 @@ import com.google.common.collect.ImmutableSet;
 
 import gnu.trove.map.hash.THashMap;
 
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.resources.model.ModelRotation;
@@ -16,13 +14,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IModelState;
-import net.minecraftforge.client.model.IPerspectiveState;
 import net.minecraftforge.client.model.ITransformation;
 import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.TRSRTransformation;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 
 import javax.vecmath.Vector3f;

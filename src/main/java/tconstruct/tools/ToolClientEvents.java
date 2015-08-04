@@ -13,7 +13,6 @@ import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IRetexturableModel;
-import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.io.IOException;
@@ -21,7 +20,6 @@ import java.io.IOException;
 import tconstruct.common.client.model.BakedTableModel;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
-import tconstruct.library.client.model.ModelHelper;
 import tconstruct.library.tools.IToolPart;
 
 public class ToolClientEvents {

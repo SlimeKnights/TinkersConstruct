@@ -21,7 +21,6 @@ import tconstruct.tools.item.Pattern;
 
 import static tconstruct.tools.TinkerTools.binding;
 import static tconstruct.tools.TinkerTools.largePlate;
-import static tconstruct.tools.TinkerTools.log;
 import static tconstruct.tools.TinkerTools.pickHead;
 import static tconstruct.tools.TinkerTools.pickaxe;
 import static tconstruct.tools.TinkerTools.toolRod;

@@ -17,8 +17,6 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-import tconstruct.library.mantle.IInventoryGui;
-
 /** Same as Container but provides some extra functionality to simplify things */
 public abstract class BaseContainer<T extends TileEntity> extends Container {
 

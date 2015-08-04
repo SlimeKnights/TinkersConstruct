@@ -8,8 +8,6 @@ import net.minecraftforge.fml.common.registry.GameData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import tconstruct.TConstruct;
-
 public class Util {
 
   public static final String MODID = "TConstruct";

@@ -7,8 +7,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import tconstruct.library.Util;
 import tconstruct.common.inventory.ContainerMultiModule;
+import tconstruct.library.Util;
 import tconstruct.tools.tileentity.TilePatternChest;
 
 @SideOnly(Side.CLIENT)

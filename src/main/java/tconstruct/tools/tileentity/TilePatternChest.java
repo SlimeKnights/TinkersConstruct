@@ -6,7 +6,6 @@ import net.minecraft.inventory.Container;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-import tconstruct.common.tileentity.TileInventory;
 import tconstruct.common.tileentity.TileTable;
 import tconstruct.library.mantle.IInventoryGui;
 import tconstruct.tools.client.GuiPatternChest;

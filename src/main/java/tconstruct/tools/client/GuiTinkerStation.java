@@ -23,11 +23,11 @@ import java.util.Set;
 import tconstruct.TConstruct;
 import tconstruct.common.client.gui.GuiElement;
 import tconstruct.common.client.gui.GuiMultiModule;
+import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.library.Util;
 import tconstruct.library.mantle.IInventoryGui;
 import tconstruct.tools.block.ITinkerStationBlock;
 import tconstruct.tools.client.module.GuiTinkerTabs;
-import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.tools.network.TinkerStationTabPacket;
 
 @SideOnly(Side.CLIENT)

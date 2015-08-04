@@ -10,8 +10,8 @@ import tconstruct.common.client.gui.GuiMultiModule;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.TinkerRegistryClient;
 import tconstruct.library.client.ToolBuildGuiInfo;
-import tconstruct.tools.client.GuiButtonRepair;
 import tconstruct.tools.client.GuiButtonItem;
+import tconstruct.tools.client.GuiButtonRepair;
 import tconstruct.tools.client.GuiToolStation;
 
 public class GuiButtonsToolStation extends GuiSideButtons {
