@@ -105,13 +105,6 @@ public class GuiToolStation extends GuiTinkerStation {
     int x = 0;
     int y = 0;
 
-    // the slot backgrounds
-    for(int i = 0; i < activeSlots; i++) {
-      Slot slot = inventorySlots.getSlot(i);
-      SlotBackground.draw(x + this.cornerX + slot.xDisplayPosition - 1, y + this.cornerY + slot.yDisplayPosition - 1);
-    }
-
-
     // draw the item background
     final float scale = 4.0f;
     GlStateManager.scale(scale, scale, 1.0f);
@@ -142,8 +135,15 @@ public class GuiToolStation extends GuiTinkerStation {
     GlStateManager.disableDepth();
 
     // draw the halftransparent "cover" over the item
-    GlStateManager.color(1.0f, 1.0f, 1.0f, 0.7f);
+    GlStateManager.color(1.0f, 1.0f, 1.0f, 0.82f);
     ItemCover.draw(this.cornerX + 7, this.cornerY + 18);
+
+    // the slot backgrounds
+    GlStateManager.color(1.0f, 1.0f, 1.0f, 0.28f);
+    for(int i = 0; i < activeSlots; i++) {
+      Slot slot = inventorySlots.getSlot(i);
+      SlotBackground.draw(x + this.cornerX + slot.xDisplayPosition - 1, y + this.cornerY + slot.yDisplayPosition - 1);
+    }
 
     // full opaque. Draw the borders of the slots
     GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);

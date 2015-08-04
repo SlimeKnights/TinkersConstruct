@@ -16,7 +16,7 @@ public class GuiOutlineTexture extends ExtraUtilityTexture {
   protected int colorPixel(int pixel, int mipmap, int pxCoord) {
     if(!trans[pxCoord]) {
       if(edge[pxCoord]) {
-        return compose(95,95,95, 255);
+        return compose(50,50,50, 255);
       }
       else {
         return 0;
