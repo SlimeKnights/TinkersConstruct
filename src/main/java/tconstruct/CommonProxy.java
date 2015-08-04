@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.LoaderState;
 public class CommonProxy {
 
   public void preInit() {
-    if(Loader.instance().isInState(LoaderState.PREINITIALIZATION)) {
+    if(!Loader.instance().isInState(LoaderState.PREINITIALIZATION)) {
       TConstruct.log.error(
           "Proxy.preInit has to be called during Pre-Initialisation.");
     }
@@ -28,7 +28,7 @@ public class CommonProxy {
   }
 
   public void postInit() {
-    if(!Loader.instance().isInState(LoaderState.INITIALIZATION)) {
+    if(!Loader.instance().isInState(LoaderState.POSTINITIALIZATION)) {
       TConstruct.log.error(
           "Proxy.postInit has to be called during Post-Initialisation.");
     }
