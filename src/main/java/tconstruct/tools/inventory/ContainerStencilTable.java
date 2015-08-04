@@ -6,6 +6,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
 
@@ -21,6 +22,8 @@ public class ContainerStencilTable extends ContainerMultiModule<TileStencilTable
   public InventoryCraftingPersistent craftMatrix;
   public IInventory craftResult;
 
+  private final Container patternChestSideInventory;
+
   public ContainerStencilTable(InventoryPlayer playerInventory, TileStencilTable tile) {
     super(tile);
 
@@ -33,8 +36,11 @@ public class ContainerStencilTable extends ContainerMultiModule<TileStencilTable
     TilePatternChest chest = detectTE(TilePatternChest.class);
     // TE present?
     if(chest != null) {
-      Container sideInventory = new ContainerPatternChest.SideInventory(chest, chest, 6 + 176, 8, 6);
-      addSubContainer(sideInventory, true);
+      patternChestSideInventory = new ContainerPatternChest.SideInventory(chest, chest, 6 + 176, 8, 6);
+      addSubContainer(patternChestSideInventory, true);
+    }
+    else {
+      patternChestSideInventory = null;
     }
 
     this.addPlayerInventory(playerInventory, 8, 84);
@@ -57,8 +63,36 @@ public class ContainerStencilTable extends ContainerMultiModule<TileStencilTable
     }
   }
 
+  @Override
+  public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
+    // we always want to shiftclick the output into a pattern chest if present
+    // note that we leave out a few checks/callbacks because we rely on how the stenciltable works
+    if(index != 1) {
+      return super.transferStackInSlot(playerIn, index);
+    }
+
+    Slot slot = (Slot) this.inventorySlots.get(index);
+    if(slot == null || !slot.getHasStack()) {
+      return null;
+    }
+
+    ItemStack itemstack = slot.getStack().copy();
+    ItemStack ret = slot.getStack().copy();
+
+    if(patternChestSideInventory != null) {
+      if(moveToContainer(itemstack, patternChestSideInventory)) {
+        return null;
+      }
+
+      return notifySlotAfterTransfer(playerIn, itemstack, ret, slot);
+    }
+
+    return super.transferStackInSlot(playerIn, index);
+  }
+
   // copy of the slotCrafting class that prevents the extra crafting-recipe-result-getting the vanilla one does
   protected static class SlotStencilCrafting extends SlotCrafting {
+
     private final InventoryCrafting craftMatrix;
 
     public SlotStencilCrafting(EntityPlayer player, InventoryCrafting craftingInventory, IInventory p_i45790_3_, int slotIndex, int xPosition, int yPosition) {

@@ -175,21 +175,25 @@ public class ContainerMultiModule<T extends TileEntity> extends BaseContainer<T>
       return null;
     }
 
-    // notify slot
-    slot.onSlotChange(itemstack, ret);
+    return notifySlotAfterTransfer(playerIn, itemstack, ret, slot);
+  }
 
-    if(itemstack.stackSize == ret.stackSize) {
+  protected ItemStack notifySlotAfterTransfer(EntityPlayer player, ItemStack stack, ItemStack original, Slot slot) {
+    // notify slot
+    slot.onSlotChange(stack, original);
+
+    if(stack.stackSize == original.stackSize) {
       return null;
     }
 
     // update slot we pulled from
-    slot.putStack(itemstack);
-    slot.onPickupFromSlot(playerIn, itemstack);
+    slot.putStack(stack);
+    slot.onPickupFromSlot(player, stack);
 
     if(slot.getHasStack() && slot.getStack().stackSize == 0)
       slot.putStack(null);
 
-    return ret;
+    return original;
   }
 
   protected boolean moveToTileInventory(ItemStack itemstack) {
@@ -214,8 +218,7 @@ public class ContainerMultiModule<T extends TileEntity> extends BaseContainer<T>
       return false;
 
     for(Container submodule : containers) {
-      Pair<Integer, Integer> range = subContainerSlotRanges.get(submodule);
-      if(!this.mergeItemStack(itemstack, range.getLeft(), range.getRight(), false)) {
+      if(moveToContainer(itemstack, submodule)) {
         return true;
       }
     }
@@ -223,17 +226,33 @@ public class ContainerMultiModule<T extends TileEntity> extends BaseContainer<T>
     return false;
   }
 
+  protected boolean moveToContainer(ItemStack itemstack, Container container) {
+    Pair<Integer, Integer> range = subContainerSlotRanges.get(container);
+    if(!this.mergeItemStack(itemstack, range.getLeft(), range.getRight(), false)) {
+      return true;
+    }
+    return false;
+  }
+
+
   protected boolean refillAnyContainer(ItemStack itemstack, Collection<Container> containers) {
     if(itemstack == null || itemstack.stackSize == 0)
       return false;
 
     for(Container submodule : containers) {
-      Pair<Integer, Integer> range = subContainerSlotRanges.get(submodule);
-      if(!this.mergeItemStackRefill(itemstack, range.getLeft(), range.getRight(), false)) {
+      if(refillContainer(itemstack, submodule)) {
         return true;
       }
     }
 
+    return false;
+  }
+
+  protected boolean refillContainer(ItemStack itemstack, Container container) {
+    Pair<Integer, Integer> range = subContainerSlotRanges.get(container);
+    if(!this.mergeItemStackRefill(itemstack, range.getLeft(), range.getRight(), false)) {
+      return true;
+    }
     return false;
   }
 
