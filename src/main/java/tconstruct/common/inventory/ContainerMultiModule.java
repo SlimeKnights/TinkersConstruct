@@ -2,6 +2,7 @@ package tconstruct.common.inventory;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -11,30 +12,49 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ContainerMultiModule<T extends TileEntity> extends BaseContainer<T> {
 
   public List<Container> subContainers = Lists.newArrayList();
 
   // lookup used to redirect slot specific things to the appropriate container
-  private Map<Integer, Container> slotContainerMap = Maps.newHashMap();
+  protected Map<Integer, Container> slotContainerMap = Maps.newHashMap();
+  protected Map<Container, Pair<Integer, Integer>> subContainerSlotRanges = Maps.newHashMap();
+  protected int subContainerSlotStart = -1;
+  protected Set<Container> shiftClickContainers = Sets.newHashSet();
 
   public ContainerMultiModule(T tile) {
     super(tile);
   }
 
 
-  public void addSubContainer(Container subcontainer) {
+  /**
+   * @param subcontainer        The container to add
+   * @param preferForShiftClick If true shift clicking on slots of the main-container will try to move to this module before the player inventory
+   */
+  public void addSubContainer(Container subcontainer, boolean preferForShiftClick) {
+    if(subContainers.isEmpty()) {
+      subContainerSlotStart = inventorySlots.size();
+    }
     subContainers.add(subcontainer);
 
+    if(preferForShiftClick)
+      shiftClickContainers.add(subcontainer);
+
+    int begin = inventorySlots.size();
     for(Object slot : subcontainer.inventorySlots) {
       SlotWrapper wrapper = new SlotWrapper((Slot) slot);
       addSlotToContainer(wrapper);
       slotContainerMap.put(wrapper.slotNumber, subcontainer);
     }
+    int end = inventorySlots.size();
+    subContainerSlotRanges.put(subcontainer, Pair.of(begin, end));
   }
 
   public <TC extends Container> TC getSubContainer(Class<TC> clazz) {
@@ -87,18 +107,134 @@ public class ContainerMultiModule<T extends TileEntity> extends BaseContainer<T>
   @Override
   public ItemStack slotClick(int slotId, int clickedButton, int mode, EntityPlayer playerIn) {
     if(slotId == -999 && mode == 5) {
-      for(Container container : subContainers)
+      for(Container container : subContainers) {
         container.slotClick(slotId, clickedButton, mode, playerIn);
+      }
     }
-
+/*
     if(slotContainerMap.containsKey(slotId)) {
       int actualId = slotId;
-      if(this.inventorySlots.get(slotId) instanceof SlotWrapper)
+      if(this.inventorySlots.get(slotId) instanceof SlotWrapper) {
         actualId = ((SlotWrapper) this.inventorySlots.get(slotId)).parent.slotNumber;
+      }
       return slotContainerMap.get(slotId).slotClick(actualId, clickedButton, mode, playerIn);
-    }
+    }*/
 
     return super.slotClick(slotId, clickedButton, mode, playerIn);
+  }
+
+  // More sophisticated version of the one in BaseContainer
+  // Takes submodules into account when shiftclicking!
+  @Override
+  public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
+    Slot slot = (Slot) this.inventorySlots.get(index);
+
+    if(slot == null || !slot.getHasStack()) {
+      return null;
+    }
+
+    ItemStack ret = slot.getStack().copy();
+    ItemStack itemstack = slot.getStack().copy();
+
+    Container container = getSlotContainer(index);
+
+    // Is the slot from a module?
+    if(container != this) {
+      // Try moving module -> tile inventory
+      moveToTileInventory(itemstack);
+
+      // Try moving module -> player inventory
+      if(moveToPlayerInventory(itemstack)) {
+        return null;
+      }
+    }
+    // Is the slot from the tile?
+    else if(index < subContainerSlotStart || (index < playerInventoryStart && subContainerSlotStart < 0)) {
+      // Try moving tile -> preferred modules
+      refillAnyContainer(itemstack, subContainers);
+
+      // Try moving module -> player inventory
+      moveToPlayerInventory(itemstack);
+
+      // Try moving module -> all submodules
+      if(moveToAnyContainer(itemstack, subContainers))
+        return null;
+    }
+    // Slot is from the player inventory (if present)
+    else if(index >= playerInventoryStart && playerInventoryStart >= 0) {
+      // Try moving player -> tile inventory
+      moveToTileInventory(itemstack);
+
+      // try moving player -> modules
+      if(moveToAnyContainer(itemstack, subContainers)) {
+        return null;
+      }
+    }
+    // you violated some assumption or something. Shame on you.
+    else {
+      return null;
+    }
+
+    // notify slot
+    slot.onSlotChange(itemstack, ret);
+
+    if(itemstack.stackSize == ret.stackSize) {
+      return null;
+    }
+
+    // update slot we pulled from
+    slot.putStack(itemstack);
+    slot.onPickupFromSlot(playerIn, itemstack);
+
+    if(slot.getHasStack() && slot.getStack().stackSize == 0)
+      slot.putStack(null);
+
+    return ret;
+  }
+
+  protected boolean moveToTileInventory(ItemStack itemstack) {
+    if(itemstack == null || itemstack.stackSize == 0)
+      return false;
+
+    int end = subContainerSlotStart;
+    if(end < 0)
+      end = playerInventoryStart;
+    return !this.mergeItemStack(itemstack, 0, end, false);
+  }
+
+  protected boolean moveToPlayerInventory(ItemStack itemstack) {
+    if(itemstack == null || itemstack.stackSize == 0)
+      return false;
+
+    return playerInventoryStart > 0 && !this.mergeItemStack(itemstack, playerInventoryStart, this.inventorySlots.size(), true);
+  }
+
+  protected boolean moveToAnyContainer(ItemStack itemstack, Collection<Container> containers) {
+    if(itemstack == null || itemstack.stackSize == 0)
+      return false;
+
+    for(Container submodule : containers) {
+      Pair<Integer, Integer> range = subContainerSlotRanges.get(submodule);
+      if(!this.mergeItemStack(itemstack, range.getLeft(), range.getRight(), false)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  protected boolean refillAnyContainer(ItemStack itemstack, Collection<Container> containers) {
+    if(itemstack == null || itemstack.stackSize == 0)
+      return false;
+
+    for(Container submodule : containers) {
+      Pair<Integer, Integer> range = subContainerSlotRanges.get(submodule);
+      if(!this.mergeItemStackRefill(itemstack, range.getLeft(), range.getRight(), false)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   /** Searches for a sidechest to display in the UI */

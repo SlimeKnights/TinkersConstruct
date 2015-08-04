@@ -30,14 +30,14 @@ public class ContainerStencilTable extends ContainerMultiModule<TileStencilTable
     this.addSlotToContainer(new SlotRestrictedItem(TinkerTools.pattern, this.craftMatrix, 0, 48, 35));
     this.addSlotToContainer(new SlotStencilCrafting(playerInventory.player, craftMatrix, craftResult, 1, 106, 35));
 
-    this.addPlayerInventory(playerInventory, 8, 84);
-
     TilePatternChest chest = detectTE(TilePatternChest.class);
     // TE present?
     if(chest != null) {
       Container sideInventory = new ContainerPatternChest.SideInventory(chest, chest, 6 + 176, 8, 6);
-      addSubContainer(sideInventory);
+      addSubContainer(sideInventory, true);
     }
+
+    this.addPlayerInventory(playerInventory, 8, 84);
   }
 
   @Override

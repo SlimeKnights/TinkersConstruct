@@ -39,8 +39,6 @@ public class ContainerCraftingStation extends ContainerMultiModule<TileCraftingS
       }
     }
 
-    this.addPlayerInventory(playerInventory, 8, 84);
-
     TileEntityChest chest = detectTE(TileEntityChest.class);
     // TE present?
     if(chest != null) {
@@ -51,10 +49,12 @@ public class ContainerCraftingStation extends ContainerMultiModule<TileCraftingS
         if(inventory != null) {
           Container sideInventory = new ContainerSideInventory(chest, inventory, -6 - 18 * 6, 8, 6);
 
-          addSubContainer(sideInventory);
+          addSubContainer(sideInventory, false);
         }
       }
     }
+
+    this.addPlayerInventory(playerInventory, 8, 84);
 
     this.onCraftMatrixChanged(this.craftMatrix);
   }
@@ -63,52 +63,6 @@ public class ContainerCraftingStation extends ContainerMultiModule<TileCraftingS
   public void onCraftMatrixChanged(IInventory inventoryIn) {
     this.craftResult
         .setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.world));
-  }
-
-  public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-    ItemStack itemstack = null;
-    Slot slot = (Slot) this.inventorySlots.get(index);
-
-    if(slot != null && slot.getHasStack()) {
-      ItemStack itemstack1 = slot.getStack();
-      itemstack = itemstack1.copy();
-
-      if(index == 0) {
-        if(!this.mergeItemStack(itemstack1, 10, 46, true)) {
-          return null;
-        }
-
-        slot.onSlotChange(itemstack1, itemstack);
-      }
-      else if(index >= 10 && index < 37) {
-        if(!this.mergeItemStack(itemstack1, 37, 46, false)) {
-          return null;
-        }
-      }
-      else if(index >= 37 && index < 46) {
-        if(!this.mergeItemStack(itemstack1, 10, 37, false)) {
-          return null;
-        }
-      }
-      else if(!this.mergeItemStack(itemstack1, 10, 46, false)) {
-        return null;
-      }
-
-      if(itemstack1.stackSize == 0) {
-        slot.putStack((ItemStack) null);
-      }
-      else {
-        slot.onSlotChanged();
-      }
-
-      if(itemstack1.stackSize == itemstack.stackSize) {
-        return null;
-      }
-
-      slot.onPickupFromSlot(playerIn, itemstack1);
-    }
-
-    return itemstack;
   }
 
   public boolean canMergeSlot(ItemStack p_94530_1_, Slot p_94530_2_) {
