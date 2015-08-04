@@ -39,8 +39,8 @@ public class ToolClientProxy extends ClientProxy {
   public void init() {
     ToolBuildGuiInfo info = new ToolBuildGuiInfo(TinkerTools.pickaxe);
     info.addSlotPosition(33+20, 42-20);
-    info.addSlotPosition(33, 42);
     info.addSlotPosition(33-20, 42+20);
+    info.addSlotPosition(33, 42);
 
     TinkerRegistryClient.addToolBuilding(info);
   }

@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -16,7 +17,13 @@ import tconstruct.common.client.gui.GuiElement;
 import tconstruct.common.client.gui.GuiModule;
 import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.library.Util;
+import tconstruct.library.client.CustomTextureCreator;
 import tconstruct.library.client.ToolBuildGuiInfo;
+import tconstruct.library.mantle.RecipeMatch;
+import tconstruct.library.tinkering.MaterialItem;
+import tconstruct.library.tinkering.PartMaterialType;
+import tconstruct.library.tinkering.TinkersItem;
+import tconstruct.library.tools.IToolPart;
 import tconstruct.tools.client.module.GuiButtonsToolStation;
 import tconstruct.tools.client.module.GuiSideButtons;
 import tconstruct.tools.tileentity.TileToolStation;
@@ -149,37 +156,63 @@ public class GuiToolStation extends GuiTinkerStation {
     this.mc.getTextureManager().bindTexture(Util.getResource("textures/gui/icons.png"));
 
     // slot logos
-    for(int i = 0; i < activeSlots; i++) {
-      Slot slot = inventorySlots.getSlot(i);
-      if(currentInfo == GuiButtonRepair.info) {
-        GuiElement icon = null;
-        
-        if(i == 0) {
-          icon = ICON_Pickaxe;
-        }
-        else if(i == 1) {
-          icon = ICON_Dust;
-        }
-        else if(i == 2) {
-          icon = ICON_Lapis;
-        }
-        else if(i == 3) {
-          icon = ICON_Ingot;
-        }
-        else if(i == 4) {
-          icon = ICON_Gem;
-        }
-        else if(i == 5) {
-          icon = ICON_Quartz;
+    if(currentInfo == GuiButtonRepair.info) {
+      drawRepairSlotIcons();
+    }
+    else if(currentInfo.tool != null && currentInfo.tool.getItem() instanceof TinkersItem) {
+      PartMaterialType[] pmts = ((TinkersItem) currentInfo.tool.getItem()).requiredComponents;
+      for(int i = 0; i < activeSlots; i++) {
+        if(i >= pmts.length) {
+          continue;
         }
 
-        if(icon != null) {
-          icon.draw(x + this.cornerX + slot.xDisplayPosition - 1, y + this.cornerY + slot.yDisplayPosition - 1);
+        IToolPart part = pmts[i].getPossibleParts().iterator().next();
+        if(!(part instanceof MaterialItem)) {
+          continue;
         }
+
+        ItemStack stack = ((MaterialItem) part).getItemstackWithMaterial(CustomTextureCreator.guiMaterial);
+        Slot slot = inventorySlots.getSlot(i);
+        itemRender.renderItemIntoGUI(stack, x + this.cornerX + slot.xDisplayPosition, y + this.cornerY + slot.yDisplayPosition);
       }
     }
 
     // continue as usual and hope that the drawing state is not completely wrecked
     super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+  }
+
+  protected void drawRepairSlotIcons() {
+    for(int i = 0; i < activeSlots; i++) {
+      drawRepairSlotIcon(i);
+    }
+  }
+
+  protected void drawRepairSlotIcon(int i) {
+    GuiElement icon = null;
+    Slot slot = inventorySlots.getSlot(i);
+
+    if(i == 0) {
+      icon = ICON_Pickaxe;
+    }
+    else if(i == 1) {
+      icon = ICON_Dust;
+    }
+    else if(i == 2) {
+      icon = ICON_Lapis;
+    }
+    else if(i == 3) {
+      icon = ICON_Ingot;
+    }
+    else if(i == 4) {
+      icon = ICON_Gem;
+    }
+    else if(i == 5) {
+      icon = ICON_Quartz;
+    }
+
+    if(icon != null) {
+      drawIcon(slot, icon);
+      //icon.draw(x + this.cornerX + slot.xDisplayPosition - 1, y + this.cornerY + slot.yDisplayPosition - 1);
+    }
   }
 }
