@@ -38,6 +38,10 @@ public abstract class GuiModule extends GuiContainer {
     return ySize;
   }
 
+  public void setYSize(int ySize) {
+    this.ySize = ySize;
+  }
+
   @Override
   public void initGui() {
     this.guiLeft = (this.width - this.xSize) / 2;

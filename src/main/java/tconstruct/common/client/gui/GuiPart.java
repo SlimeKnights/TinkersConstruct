@@ -17,4 +17,9 @@ public abstract class GuiPart {
     this.xPos = x;
     this.yPos = y;
   }
+
+  public void setSize(int width, int height) {
+    this.width = width;
+    this.height = height;
+  }
 }
