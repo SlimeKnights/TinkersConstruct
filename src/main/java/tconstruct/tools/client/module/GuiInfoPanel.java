@@ -5,6 +5,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
 
@@ -12,11 +13,14 @@ import tconstruct.common.client.gui.GuiElement;
 import tconstruct.common.client.gui.GuiElementScalable;
 import tconstruct.common.client.gui.GuiModule;
 import tconstruct.common.client.gui.GuiMultiModule;
+import tconstruct.common.client.gui.GuiPartSlider;
 import tconstruct.library.Util;
 
 public class GuiInfoPanel extends GuiModule {
   private static int resW = 118;
   private static int resH = 75;
+
+  private static ResourceLocation BACKGROUND = Util.getResource("textures/gui/panel.png");
 
   private static GuiElement topLeft  = new GuiElement(0,0, 4, 4, 256,256);
   private static GuiElement topRight = new GuiElement(resW+4,0, 4, 4);
@@ -30,9 +34,15 @@ public class GuiInfoPanel extends GuiModule {
 
   private static GuiElementScalable background = new GuiElementScalable(4,4, resW, resH);
 
+  private static GuiElement sliderNormal = new GuiElement(0, 83, 3, 5);
+  private static GuiElement sliderHover = sliderNormal.shift(sliderNormal.w, 0);
+
+  private static GuiElementScalable sliderBar = new GuiElementScalable(0, 88, 3, 4);
+
   private GuiPartBorder border = new GuiPartBorder();
 
   private FontRenderer fontRenderer;
+  private GuiPartSlider slider = new GuiPartSlider(sliderNormal, sliderHover, sliderHover, sliderBar, sliderBar, sliderBar);
 
   protected String[] text;
 
@@ -68,32 +78,41 @@ public class GuiInfoPanel extends GuiModule {
   }
 
   public GuiInfoPanel wood() {
-    return shift(resW + 8, 0);
+    shift(resW + 8, 0);
+    shiftSlider(6, 0);
+    return this;
   }
 
   public GuiInfoPanel metal() {
-    return shift(resW + 8, resH + 8);
+    shift(resW + 8, resH + 8);
+    shiftSlider(12, 0);
+    return this;
   }
 
-  private GuiInfoPanel shift(int xd, int yd) {
-    GuiInfoPanel panel = this;
+  private void shift(int xd, int yd) {
+    border.borderTop = top.shift(xd, yd);
+    border.borderBottom = bot.shift(xd, yd);
+    border.borderLeft = left.shift(xd, yd);
+    border.borderRight = right.shift(xd, yd);
 
-    panel.border.borderTop = top.shift(xd, yd);
-    panel.border.borderBottom = bot.shift(xd, yd);
-    panel.border.borderLeft = left.shift(xd, yd);
-    panel.border.borderRight = right.shift(xd, yd);
+    border.cornerTopLeft = topLeft.shift(xd, yd);
+    border.cornerTopRight = topRight.shift(xd, yd);
+    border.cornerBottomLeft = botLeft.shift(xd, yd);
+    border.cornerBottomRight = botRight.shift(xd, yd);
+  }
 
-    panel.border.cornerTopLeft = topLeft.shift(xd, yd);
-    panel.border.cornerTopRight = topRight.shift(xd, yd);
-    panel.border.cornerBottomLeft = botLeft.shift(xd, yd);
-    panel.border.cornerBottomRight = botRight.shift(xd, yd);
-
-    return panel;
+  private void shiftSlider(int xd, int yd) {
+    slider = new GuiPartSlider(sliderNormal.shift(xd, yd),
+                               sliderHover.shift(xd, yd),
+                               sliderHover.shift(xd, yd),
+                               sliderBar.shift(xd, yd),
+                               sliderBar.shift(xd, yd),
+                               sliderBar.shift(xd, yd));
   }
 
   @Override
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-    this.mc.getTextureManager().bindTexture(Util.getResource("textures/gui/panel.png"));
+    this.mc.getTextureManager().bindTexture(BACKGROUND);
 
     border.draw();
     background.drawScaled(guiLeft + 4, guiTop + 4, xSize - 8, ySize - 8);

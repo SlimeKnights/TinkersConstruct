@@ -27,6 +27,7 @@ public class GuiPartSlider extends GuiPart {
   protected int currentValue;
   public int sliderOffset; // x-offset of the slider to the left edge of the slideBar
   protected boolean enabled;
+  protected boolean hidden;
 
   protected boolean isScrolling;
   protected boolean isHighlighted;
@@ -53,6 +54,9 @@ public class GuiPartSlider extends GuiPart {
 
     isScrolling = false;
     isHighlighted = false;
+
+    enabled = true;
+    hidden = false;
   }
 
   /** Sets the height of the whole slider and slidebar */
@@ -83,6 +87,9 @@ public class GuiPartSlider extends GuiPart {
   }
 
   public void draw() {
+    if(hidden)
+      return;
+
     // slidebar background
     slideBarTop.draw(xPos, yPos);
     slideBar.drawScaledY(xPos, yPos + slideBarTop.h, getUsableSlidebarHeight());
@@ -106,7 +113,7 @@ public class GuiPartSlider extends GuiPart {
   }
 
   public void update(int mouseX, int mouseY) {
-    if(!enabled) {
+    if(!enabled || hidden) {
       return;
     }
 

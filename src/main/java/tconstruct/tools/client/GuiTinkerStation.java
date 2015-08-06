@@ -43,6 +43,9 @@ public class GuiTinkerStation extends GuiMultiModule {
   public static final GuiElement ICON_Quartz = new GuiElement(18*5, 18*13, 18, 18);
   public static final GuiElement ICON_Anvil = new GuiElement(18*3, 0, 18, 18);
   public static final GuiElement ICON_Pattern = new GuiElement(18*3,18*12,18,18);
+  public static final GuiElement ICON_Button = new GuiElement(180, 216, 18, 18);
+  public static final GuiElement ICON_ButtonHover = new GuiElement(180+18*2, 216, 18, 18);
+  public static final GuiElement ICON_ButtonPressed = new GuiElement(180-18*2, 216, 18, 18);
 
 
   protected final ContainerMultiModule container;

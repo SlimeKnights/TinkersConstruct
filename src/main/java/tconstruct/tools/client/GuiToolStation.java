@@ -39,9 +39,17 @@ public class GuiToolStation extends GuiTinkerStation {
   private static final GuiElement SlotBackground = new GuiElement(176, 0, 18, 18);
   private static final GuiElement SlotBorder = new GuiElement(194, 0, 18, 18);
 
+  private static final GuiElement SlotSpace = new GuiElement(0, 174, 18, 4);
+  private static final GuiElement SlotSpaceTop = new GuiElement(0, 174+2, 18, 2);
+  private static final GuiElement SlotSpaceBottom = new GuiElement(0, 174, 18, 2);
+
   private static final int Table_slot_count = 6;
 
-  protected GuiSideButtons buttons;
+  protected GuiElement buttonDecoration = SlotSpace;
+  protected GuiElement buttonDecorationTop = SlotSpaceTop;
+  protected GuiElement buttonDecorationBot = SlotSpaceBottom;
+
+  protected GuiButtonsToolStation buttons;
   protected int activeSlots; // how many of the available slots are active
 
   protected GuiInfoPanel toolInfo;
@@ -65,6 +73,8 @@ public class GuiToolStation extends GuiTinkerStation {
     traitInfo.yOffset = toolInfo.getYSize() + 9;
 
     this.ySize = 174;
+
+    wood();
   }
 
   @Override
@@ -78,9 +88,6 @@ public class GuiToolStation extends GuiTinkerStation {
     for(GuiModule module : modules) {
       module.guiTop += 4;
     }
-
-    toolInfo.wood();
-    traitInfo.metal();
   }
 
   public void onToolSelection(ToolBuildGuiInfo info) {
@@ -112,8 +119,12 @@ public class GuiToolStation extends GuiTinkerStation {
       }
     }
 
-    toolInfo.setText(new String[]{"Tool name", "Desc1", "This is a long desc with lorem ipsum blabla bla bla bla bla bla blabla lba bal bal balb al abl abla blablablablabal bla bla balbal bal ba laballbalbalbalalalb laballab mrgrhlomlbl amlm", "foobar"});
-    traitInfo.setText(new String[]{"Traits", "Awesome", "This is a long desc with lorem ipsum blabla bla bla bla bla bla blabla lba bal bal balb al abl abla blablablablabal bla bla balbal bal ba laballbalbalbalalalb laballab mrgrhlomlbl amlm", "foobar"});
+    toolInfo.setText(new String[]{"Tool name", "Desc1",
+                                  "This is a long desc with lorem ipsum blabla bla bla bla bla bla blabla lba bal bal balb al abl abla blablablablabal bla bla balbal bal ba laballbalbalbalalalb laballab mrgrhlomlbl amlm",
+                                  "foobar"});
+    traitInfo.setText(new String[]{"Traits", "Awesome",
+                                   "This is a long desc with lorem ipsum blabla bla bla bla bla bla blabla lba bal bal balb al abl abla blablablablabal bla bla balbal bal ba laballbalbalbalalalb laballab mrgrhlomlbl amlm",
+                                   "foobar"});
   }
 
   @Override
@@ -235,7 +246,28 @@ public class GuiToolStation extends GuiTinkerStation {
 
     if(icon != null) {
       drawIcon(slot, icon);
-      //icon.draw(x + this.cornerX + slot.xDisplayPosition - 1, y + this.cornerY + slot.yDisplayPosition - 1);
     }
+  }
+
+  protected void wood() {
+    toolInfo.wood();
+    traitInfo.wood();
+
+    buttonDecoration = SlotSpace.shift(SlotSpace.w,0);
+    buttonDecorationTop = SlotSpaceTop.shift(SlotSpace.w,0);
+    buttonDecorationBot = SlotSpaceBottom.shift(SlotSpace.w,0);
+
+    buttons.wood();
+  }
+
+  protected void metal() {
+    toolInfo.metal();
+    traitInfo.metal();
+
+    buttonDecoration = SlotSpace.shift(SlotSpace.w*2,0);
+    buttonDecorationTop = SlotSpaceTop.shift(SlotSpace.w*2,0);
+    buttonDecorationBot = SlotSpaceBottom.shift(SlotSpace.w*2,0);
+
+    buttons.metal();
   }
 }

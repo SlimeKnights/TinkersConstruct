@@ -12,6 +12,7 @@ import tconstruct.library.TinkerRegistryClient;
 import tconstruct.library.client.ToolBuildGuiInfo;
 import tconstruct.tools.client.GuiButtonItem;
 import tconstruct.tools.client.GuiButtonRepair;
+import tconstruct.tools.client.GuiTinkerStation;
 import tconstruct.tools.client.GuiToolStation;
 
 public class GuiButtonsToolStation extends GuiSideButtons {
@@ -22,18 +23,26 @@ public class GuiButtonsToolStation extends GuiSideButtons {
 
   protected int selected = 0;
 
+  private int style = 0;
+
+
   @Override
   public void updatePosition(int parentX, int parentY, int parentSizeX, int parentSizeY) {
     super.updatePosition(parentX, parentY, parentSizeX, parentSizeY);
 
     int index = 0;
 
-    addButton(new GuiButtonRepair(index++, -1, -1));
+    {
+      GuiButtonItem button = new GuiButtonRepair(index++, -1, -1);
+      shiftButton(button, 0, -18 * style);
+      addButton(button);
+    }
 
     for(Item item : TinkerRegistry.getToolStationCrafting()) {
       ToolBuildGuiInfo info = TinkerRegistryClient.getToolBuildInfoForTool(item);
       if(info != null) {
         GuiButtonItem button = new GuiButtonItem(index++, -1, -1, info.tool, info);
+        shiftButton(button, 0, -18 * style);
         addButton(button);
 
         if(index - 1 == selected) {
@@ -60,5 +69,28 @@ public class GuiButtonsToolStation extends GuiSideButtons {
     selected = button.id;
 
     ((GuiToolStation) parent).onToolSelection(((GuiButtonItem) button).info);
+  }
+
+  public void wood() {
+    for(Object o : buttonList) {
+      shiftButton((GuiButtonItem) o, 0, -36);
+    }
+
+    style = 2;
+  }
+
+  public void metal() {
+    for(Object o : buttonList) {
+      shiftButton((GuiButtonItem) o, 0, -18);
+    }
+
+    style = 1;
+  }
+
+  private void shiftButton(GuiButtonItem button, int xd, int yd) {
+    button.setGraphics(GuiTinkerStation.ICON_Button.shift(xd, yd),
+                       GuiTinkerStation.ICON_ButtonHover.shift(xd, yd),
+                       GuiTinkerStation.ICON_ButtonPressed.shift(xd, yd),
+                       GuiTinkerStation.ICONS);
   }
 }

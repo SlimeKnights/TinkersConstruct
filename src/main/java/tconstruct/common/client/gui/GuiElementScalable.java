@@ -62,6 +62,8 @@ public class GuiElementScalable extends GuiElement {
   }
 
   public GuiElementScalable shift(int xd, int yd) {
-    return new GuiElementScalable(this.x + xd, this.y + yd, this.w, this.h);
+    GuiElementScalable element = new GuiElementScalable(this.x + xd, this.y + yd, this.w, this.h);
+    element.setTextureSize(this.texW, texH);
+    return element;
   }
 }

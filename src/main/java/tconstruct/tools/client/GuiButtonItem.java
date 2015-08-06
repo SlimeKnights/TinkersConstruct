@@ -11,8 +11,7 @@ import tconstruct.library.Util;
 import tconstruct.library.client.ToolBuildGuiInfo;
 
 public class GuiButtonItem extends GuiButton {
-  private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/icons.png");
-
+  // Positions from generic.png
   protected static final GuiElement GUI_Button_pressed = new GuiElement(144, 216, 18, 18, 256, 256);
   protected static final GuiElement GUI_Button_normal = new GuiElement(144 + 18 * 2, 216, 18, 18, 256, 256);
   protected static final GuiElement GUI_Button_hover = new GuiElement(144 + 18 * 4, 216, 18, 18, 256, 256);
@@ -24,6 +23,7 @@ public class GuiButtonItem extends GuiButton {
   private GuiElement guiPressed = GUI_Button_pressed;
   private GuiElement guiNormal = GUI_Button_normal;
   private GuiElement guiHover = GUI_Button_hover;
+  private ResourceLocation locBackground = GuiTinkerStation.ICONS;
 
   public GuiButtonItem(int buttonId, int x, int y, String displayName, ToolBuildGuiInfo info) {
     super(buttonId, x, y, 18, 18, displayName);
@@ -39,10 +39,11 @@ public class GuiButtonItem extends GuiButton {
     this.info = info;
   }
 
-  public GuiButtonItem setGraphics(GuiElement normal, GuiElement hover, GuiElement pressed) {
+  public GuiButtonItem setGraphics(GuiElement normal, GuiElement hover, GuiElement pressed, ResourceLocation background) {
     guiPressed = pressed;
     guiNormal = normal;
     guiHover = hover;
+    locBackground = background;
 
     return this;
   }
@@ -50,7 +51,7 @@ public class GuiButtonItem extends GuiButton {
   @Override
   public void drawButton(Minecraft mc, int mouseX, int mouseY) {
     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-    mc.getTextureManager().bindTexture(BACKGROUND);
+    mc.getTextureManager().bindTexture(locBackground);
 
     if(this.visible) {
       this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition &&
@@ -60,10 +61,10 @@ public class GuiButtonItem extends GuiButton {
         guiPressed.draw(xPosition, yPosition);
       }
       else if(hovered) {
-        guiNormal.draw(xPosition, yPosition);
+        guiHover.draw(xPosition, yPosition);
       }
       else {
-        guiHover.draw(xPosition, yPosition);
+        guiNormal.draw(xPosition, yPosition);
       }
 
       drawIcon(mc);
