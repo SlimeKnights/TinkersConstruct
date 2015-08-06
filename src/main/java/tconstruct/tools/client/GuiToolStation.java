@@ -1,5 +1,6 @@
 package tconstruct.tools.client;
 
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
@@ -15,6 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.util.Point;
 
 import tconstruct.common.client.gui.GuiElement;
+import tconstruct.common.client.gui.GuiElementScalable;
 import tconstruct.common.client.gui.GuiModule;
 import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.library.Util;
@@ -39,15 +41,26 @@ public class GuiToolStation extends GuiTinkerStation {
   private static final GuiElement SlotBackground = new GuiElement(176, 0, 18, 18);
   private static final GuiElement SlotBorder = new GuiElement(194, 0, 18, 18);
 
-  private static final GuiElement SlotSpace = new GuiElement(0, 174, 18, 4);
   private static final GuiElement SlotSpaceTop = new GuiElement(0, 174+2, 18, 2);
   private static final GuiElement SlotSpaceBottom = new GuiElement(0, 174, 18, 2);
+  private static final GuiElement PanelSpaceL = new GuiElement(0, 174, 5, 4);
+  private static final GuiElement PanelSpaceR = new GuiElement(9, 174, 9, 4);
 
+  private static final GuiElement BeamLeft = new GuiElement(0, 180, 2, 7);
+  private static final GuiElement BeamRight = new GuiElement(131, 180, 2, 7);
+  private static final GuiElementScalable BeamCenter = new GuiElementScalable(2, 180, 129, 7);
+
+  public static final int Column_Count = 5;
   private static final int Table_slot_count = 6;
 
-  protected GuiElement buttonDecoration = SlotSpace;
   protected GuiElement buttonDecorationTop = SlotSpaceTop;
   protected GuiElement buttonDecorationBot = SlotSpaceBottom;
+  protected GuiElement panelDecorationL = PanelSpaceL;
+  protected GuiElement panelDecorationR = PanelSpaceR;
+
+  protected GuiElement beamL = new GuiElement(0, 0, 0, 0);
+  protected GuiElement beamR = new GuiElement(0, 0, 0, 0);
+  protected GuiElementScalable beamC = new GuiElementScalable(0, 0, 0, 0);
 
   protected GuiButtonsToolStation buttons;
   protected int activeSlots; // how many of the available slots are active
@@ -56,7 +69,6 @@ public class GuiToolStation extends GuiTinkerStation {
   protected GuiInfoPanel traitInfo;
 
   protected ToolBuildGuiInfo currentInfo;
-
 
 
   public GuiToolStation(InventoryPlayer playerInv, World world, BlockPos pos, TileToolStation tile) {
@@ -84,6 +96,12 @@ public class GuiToolStation extends GuiTinkerStation {
     // workaround to line up the tabs on switching even though the GUI is a tad higher
     this.guiTop += 4;
     this.cornerY += 4;
+
+    buttons.yOffset = beamC.h + buttonDecorationTop.h;
+    toolInfo.xOffset = 2;
+    toolInfo.yOffset = beamC.h + panelDecorationL.h;
+    traitInfo.xOffset = toolInfo.xOffset;
+    traitInfo.yOffset = toolInfo.yOffset + toolInfo.getYSize() + 4;
 
     for(GuiModule module : modules) {
       module.guiTop += 4;
@@ -209,6 +227,37 @@ public class GuiToolStation extends GuiTinkerStation {
       }
     }
 
+
+    this.mc.getTextureManager().bindTexture(BACKGROUND);
+    x = buttons.guiLeft - beamL.w - 2;
+    y = cornerY;
+    // draw the beams at the top
+    x += beamL.draw(x, y);
+    x += beamC.drawScaledX(x, y, buttons.xSize);
+    beamR.draw(x, y);
+
+    x = toolInfo.guiLeft - beamL.w;
+    x += beamL.draw(x, y);
+    x += beamC.drawScaledX(x, y, toolInfo.xSize);
+    beamR.draw(x, y);
+
+    // draw the decoration for the buttons
+    for(Object o : buttons.buttonList) {
+      GuiButton button = (GuiButton) o;
+
+      buttonDecorationTop.draw(button.xPosition, button.yPosition - buttonDecorationTop.h);
+      // don't draw the bottom for the buttons in the last row
+      if(button.id < buttons.buttonList.size() - Column_Count) {
+        buttonDecorationBot.draw(button.xPosition, button.yPosition + button.height);
+      }
+    }
+
+    // draw the decorations for the panels
+    panelDecorationL.draw(toolInfo.guiLeft + 5, toolInfo.guiTop - panelDecorationL.h);
+    panelDecorationR.draw(toolInfo.guiRight() - 5 - panelDecorationR.w, toolInfo.guiTop - panelDecorationR.h);
+    panelDecorationL.draw(traitInfo.guiLeft + 5, traitInfo.guiTop - panelDecorationL.h);
+    panelDecorationR.draw(traitInfo.guiRight() - 5 - panelDecorationR.w, traitInfo.guiTop - panelDecorationR.h);
+
     GlStateManager.enableDepth();
 
     // continue as usual and hope that the drawing state is not completely wrecked
@@ -253,21 +302,31 @@ public class GuiToolStation extends GuiTinkerStation {
     toolInfo.wood();
     traitInfo.wood();
 
-    buttonDecoration = SlotSpace.shift(SlotSpace.w,0);
-    buttonDecorationTop = SlotSpaceTop.shift(SlotSpace.w,0);
-    buttonDecorationBot = SlotSpaceBottom.shift(SlotSpace.w,0);
+    buttonDecorationTop = SlotSpaceTop.shift(SlotSpaceTop.w,0);
+    buttonDecorationBot = SlotSpaceBottom.shift(SlotSpaceBottom.w,0);
+    panelDecorationL = PanelSpaceL.shift(18, 0);
+    panelDecorationR = PanelSpaceR.shift(18, 0);
 
     buttons.wood();
+
+    beamL = BeamLeft;
+    beamR = BeamRight;
+    beamC = BeamCenter;
   }
 
   protected void metal() {
     toolInfo.metal();
     traitInfo.metal();
 
-    buttonDecoration = SlotSpace.shift(SlotSpace.w*2,0);
-    buttonDecorationTop = SlotSpaceTop.shift(SlotSpace.w*2,0);
-    buttonDecorationBot = SlotSpaceBottom.shift(SlotSpace.w*2,0);
+    buttonDecorationTop = SlotSpaceTop.shift(SlotSpaceTop.w*2,0);
+    buttonDecorationBot = SlotSpaceBottom.shift(SlotSpaceBottom.w*2,0);
+    panelDecorationL = PanelSpaceL.shift(18*2, 0);
+    panelDecorationR = PanelSpaceR.shift(18*2, 0);
 
     buttons.metal();
+
+    beamL = BeamLeft.shift(0, BeamLeft.h);
+    beamR = BeamRight.shift(0, BeamRight.h);
+    beamC = BeamCenter.shift(0, BeamCenter.h);
   }
 }

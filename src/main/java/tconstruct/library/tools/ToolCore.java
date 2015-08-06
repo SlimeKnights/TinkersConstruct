@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
+import tconstruct.library.Util;
 import tconstruct.library.materials.Material;
 import tconstruct.library.materials.ToolMaterialStats;
 import tconstruct.library.tinkering.Category;
@@ -103,5 +104,10 @@ public abstract class ToolCore extends TinkersItem {
       return ToolTagUtil.getHarvestLevel(tag);
     }
     return super.getHarvestLevel(stack, toolClass);
+  }
+
+  /** A simple string identifier for the tool, used for identification in texture generation etc. */
+  public String getIdentifier() {
+    return Util.getItemLocation(this).getResourcePath();
   }
 }

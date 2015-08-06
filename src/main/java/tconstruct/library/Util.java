@@ -57,7 +57,7 @@ public class Util {
 
     // are you trying to add an unregistered item...?
     if(o == null) {
-      TinkerRegistry.log.error("Trying to register a model for an unregistered item: %s" + item.getUnlocalizedName());
+      TinkerRegistry.log.error("Item %s is not registered!" + item.getUnlocalizedName());
       // bad boi
       return null;
     }

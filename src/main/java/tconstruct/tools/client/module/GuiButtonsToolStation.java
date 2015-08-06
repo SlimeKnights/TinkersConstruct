@@ -18,7 +18,7 @@ import tconstruct.tools.client.GuiToolStation;
 public class GuiButtonsToolStation extends GuiSideButtons {
 
   public GuiButtonsToolStation(GuiMultiModule parent, Container container) {
-    super(parent, container, 4);
+    super(parent, container, GuiToolStation.Column_Count);
   }
 
   protected int selected = 0;
@@ -39,14 +39,16 @@ public class GuiButtonsToolStation extends GuiSideButtons {
     }
 
     for(Item item : TinkerRegistry.getToolStationCrafting()) {
-      ToolBuildGuiInfo info = TinkerRegistryClient.getToolBuildInfoForTool(item);
-      if(info != null) {
-        GuiButtonItem button = new GuiButtonItem(index++, -1, -1, info.tool, info);
-        shiftButton(button, 0, -18 * style);
-        addButton(button);
+      for(int i = 0; i < 25; i++) {
+        ToolBuildGuiInfo info = TinkerRegistryClient.getToolBuildInfoForTool(item);
+        if(info != null) {
+          GuiButtonItem button = new GuiButtonItem(index++, -1, -1, info.tool, info);
+          shiftButton(button, 0, -18 * style);
+          addButton(button);
 
-        if(index - 1 == selected) {
-          button.pressed = true;
+          if(index - 1 == selected) {
+            button.pressed = true;
+          }
         }
       }
     }

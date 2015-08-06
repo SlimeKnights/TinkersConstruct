@@ -53,15 +53,16 @@ public abstract class GuiModule extends GuiContainer {
 
   public void updatePosition(int parentX, int parentY, int parentSizeX, int parentSizeY) {
     if(right)
-      this.guiLeft = parentX + parentSizeX - xOffset;
+      this.guiLeft = parentX + parentSizeX;
     else
-      this.guiLeft = parentX - this.xSize + xOffset;
+      this.guiLeft = parentX - this.xSize;
 
     if(bottom)
       this.guiTop = parentY + parentSizeY - this.ySize;
     else
       this.guiTop = parentY;
 
+    this.guiLeft += xOffset;
     this.guiTop += yOffset;
   }
 

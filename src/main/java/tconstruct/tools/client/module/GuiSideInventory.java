@@ -53,18 +53,20 @@ public class GuiSideInventory extends GuiModule {
 
   protected int yOffset = 5;
   private int xOffset;
-  protected boolean connected = true;
+  protected boolean connected;
 
   private GuiPartSlider
       slider =
       new GuiPartSlider(sliderNormal, sliderHigh, sliderLow, sliderTop, sliderBottom, sliderBackground);
 
   public GuiSideInventory(GuiMultiModule parent, Container container, int slotCount, int columns) {
-    this(parent, container, slotCount, columns, true);
+    this(parent, container, slotCount, columns, true, false);
   }
 
-  public GuiSideInventory(GuiMultiModule parent, Container container, int slotCount, int columns, boolean rightSide) {
+  public GuiSideInventory(GuiMultiModule parent, Container container, int slotCount, int columns, boolean rightSide, boolean connected) {
     super(parent, container, rightSide, false);
+
+    this.connected = connected;
 
     this.columns = columns;
     this.slotCount = slotCount;

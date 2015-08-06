@@ -28,8 +28,6 @@ public class GuiSideButtons extends GuiModule {
   }
 
   public void addButton(GuiButton button) {
-    this.buttonList.add(button);
-
     int count = buttonList.size();
 
     int rows = (count-1)/columns + 1;
@@ -47,6 +45,8 @@ public class GuiSideButtons extends GuiModule {
     if(this.right) {
       button.xPosition += parent.xSize;
     }
+
+    this.buttonList.add(button);
   }
 
   @Override
