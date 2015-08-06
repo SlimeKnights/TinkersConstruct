@@ -45,6 +45,10 @@ public class GuiElement {
     return this;
   }
 
+  public GuiElement shift(int xd, int yd) {
+    return new GuiElement(this.x + xd, this.y + yd, this.w, this.h, this.texW, this.texH);
+  }
+
   /**
    * Draws the element at the given x/y coordinates
    * @param xPos  X-Coordinate on the screen

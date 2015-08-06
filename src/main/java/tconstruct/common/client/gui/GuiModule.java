@@ -18,6 +18,9 @@ public abstract class GuiModule extends GuiContainer {
   // top or bottom of the parent
   protected final boolean bottom;
 
+  public int yOffset = 0;
+  public int xOffset = 0;
+
   public GuiModule(GuiMultiModule parent, Container container, boolean right, boolean bottom) {
     super(container);
 
@@ -50,16 +53,16 @@ public abstract class GuiModule extends GuiContainer {
 
   public void updatePosition(int parentX, int parentY, int parentSizeX, int parentSizeY) {
     if(right)
-      this.guiLeft = parentX + parentSizeX;
+      this.guiLeft = parentX + parentSizeX - xOffset;
     else
-      this.guiLeft = parentX - this.xSize;
+      this.guiLeft = parentX - this.xSize + xOffset;
 
     if(bottom)
       this.guiTop = parentY + parentSizeY - this.ySize;
     else
       this.guiTop = parentY;
 
-    
+    this.guiTop += yOffset;
   }
 
   public boolean shouldDrawSlot(Slot slot) {

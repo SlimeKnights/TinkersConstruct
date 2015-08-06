@@ -1,6 +1,7 @@
 package tconstruct.tools.client;
 
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
@@ -25,6 +26,7 @@ import tconstruct.library.tinkering.PartMaterialType;
 import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.tools.IToolPart;
 import tconstruct.tools.client.module.GuiButtonsToolStation;
+import tconstruct.tools.client.module.GuiInfoPanel;
 import tconstruct.tools.client.module.GuiSideButtons;
 import tconstruct.tools.tileentity.TileToolStation;
 
@@ -41,13 +43,26 @@ public class GuiToolStation extends GuiTinkerStation {
 
   protected GuiSideButtons buttons;
   protected int activeSlots; // how many of the available slots are active
+
+  protected GuiInfoPanel toolInfo;
+  protected GuiInfoPanel traitInfo;
+
   protected ToolBuildGuiInfo currentInfo;
+
+
 
   public GuiToolStation(InventoryPlayer playerInv, World world, BlockPos pos, TileToolStation tile) {
     super(world, pos, (ContainerMultiModule) tile.createContainer(playerInv, world, pos));
 
     buttons = new GuiButtonsToolStation(this, inventorySlots);
     this.addModule(buttons);
+    toolInfo = new GuiInfoPanel(this, inventorySlots);
+    this.addModule(toolInfo);
+    traitInfo = new GuiInfoPanel(this, inventorySlots);
+    this.addModule(traitInfo);
+
+    toolInfo.yOffset = 5;
+    traitInfo.yOffset = toolInfo.getYSize() + 9;
 
     this.ySize = 174;
   }
@@ -63,6 +78,9 @@ public class GuiToolStation extends GuiTinkerStation {
     for(GuiModule module : modules) {
       module.guiTop += 4;
     }
+
+    toolInfo.wood();
+    traitInfo.metal();
   }
 
   public void onToolSelection(ToolBuildGuiInfo info) {
@@ -93,6 +111,9 @@ public class GuiToolStation extends GuiTinkerStation {
         slot.yDisplayPosition = 0;
       }
     }
+
+    toolInfo.setText(new String[]{"Tool name", "Desc1", "This is a long desc with lorem ipsum blabla bla bla bla bla bla blabla lba bal bal balb al abl abla blablablablabal bla bla balbal bal ba laballbalbalbalalalb laballab mrgrhlomlbl amlm", "foobar"});
+    traitInfo.setText(new String[]{"Traits", "Awesome", "This is a long desc with lorem ipsum blabla bla bla bla bla bla blabla lba bal bal balb al abl abla blablablablabal bla bla balbal bal ba laballbalbalbalalalb laballab mrgrhlomlbl amlm", "foobar"});
   }
 
   @Override
@@ -118,7 +139,7 @@ public class GuiToolStation extends GuiTinkerStation {
           itemRender.renderItemIntoGUI(currentInfo.tool, logoX, logoY);
         }
         else if(currentInfo == GuiButtonRepair.info) {
-          this.mc.getTextureManager().bindTexture(Util.getResource("textures/gui/icons.png"));
+          this.mc.getTextureManager().bindTexture(ICONS);
           ICON_Anvil.draw(logoX, logoY);
         }
       }
@@ -153,7 +174,7 @@ public class GuiToolStation extends GuiTinkerStation {
           x + this.cornerX + slot.xDisplayPosition - 1, y + this.cornerY + slot.yDisplayPosition - 1);
     }
 
-    this.mc.getTextureManager().bindTexture(Util.getResource("textures/gui/icons.png"));
+    this.mc.getTextureManager().bindTexture(ICONS);
 
     // slot logos
     if(currentInfo == GuiButtonRepair.info) {
@@ -176,6 +197,8 @@ public class GuiToolStation extends GuiTinkerStation {
         itemRender.renderItemIntoGUI(stack, x + this.cornerX + slot.xDisplayPosition, y + this.cornerY + slot.yDisplayPosition);
       }
     }
+
+    GlStateManager.enableDepth();
 
     // continue as usual and hope that the drawing state is not completely wrecked
     super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);

@@ -36,4 +36,32 @@ public class GuiElementScalable extends GuiElement {
 
     return w;
   }
+
+  public int drawScaled(int xPos, int yPos, int width, int height) {
+    // we draw full height row-wise
+    int full = height/this.h;
+    for(int i = 0; i < full; i++) {
+      drawScaledX(xPos, yPos + i*this.h, width);
+    }
+
+    yPos += full*this.h;
+
+    // and the remainder is drawn manually
+    int yRest = height%this.h;
+    // the same as drawScaledX but with the remaining height
+    for(int i = 0; i < width / w; i++) {
+      drawScaledY(xPos + i * w, yPos, yRest);
+    }
+    // remainder that doesn't fit total width
+    int remainder = width % w;
+    if(remainder > 0) {
+      GuiScreen.drawModalRectWithCustomSizedTexture(xPos + width - remainder, yPos, x, y, remainder, yRest, texW, texH);
+    }
+
+    return width;
+  }
+
+  public GuiElementScalable shift(int xd, int yd) {
+    return new GuiElementScalable(this.x + xd, this.y + yd, this.w, this.h);
+  }
 }
