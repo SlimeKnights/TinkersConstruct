@@ -41,6 +41,7 @@ import tconstruct.tools.tileentity.TileCraftingStation;
 import tconstruct.tools.tileentity.TilePartBuilder;
 import tconstruct.tools.tileentity.TilePatternChest;
 import tconstruct.tools.tileentity.TileStencilTable;
+import tconstruct.tools.tileentity.TileToolForge;
 import tconstruct.tools.tileentity.TileToolStation;
 
 @Pulse(id = TinkerTools.PulseId, description = "All the tools and everything related to it.")
@@ -94,6 +95,7 @@ public class TinkerTools extends TinkerPulse {
     registerTE(TilePartBuilder.class, "PartBuilder");
     registerTE(TilePatternChest.class, "PatternChest");
     registerTE(TileToolStation.class, "ToolStation");
+    registerTE(TileToolForge.class, "ToolForge");
 
     toolForge = registerBlock(new BlockToolForge(), ItemBlockMeta.class, "ToolForge");
 

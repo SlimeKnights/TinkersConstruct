@@ -8,9 +8,11 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
@@ -19,8 +21,10 @@ import net.minecraftforge.oredict.OreDictionary;
 import java.util.List;
 import java.util.Set;
 
+import tconstruct.TConstruct;
 import tconstruct.common.block.BlockTable;
 import tconstruct.library.TinkerRegistry;
+import tconstruct.tools.tileentity.TileToolForge;
 import tconstruct.tools.tileentity.TileToolStation;
 
 // This literally only is its own block because it has a different material
@@ -40,8 +44,14 @@ public class BlockToolForge extends BlockTable implements ITinkerStationBlock {
   }
 
   @Override
+  public boolean openGui(EntityPlayer player, World world, BlockPos pos) {
+    player.openGui(TConstruct.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+    return true;
+  }
+
+  @Override
   public TileEntity createNewTileEntity(World worldIn, int meta) {
-    return new TileToolStation();
+    return new TileToolForge();
   }
 
   @Override
