@@ -120,11 +120,11 @@ public class GuiSideInventory extends GuiModule {
     this.ySize = calcCappedYSize(parentSizeY - 10);
     // slider needed?
     if(getDisplayedRows() < getTotalRows()) {
-      slider.setEnabled(true);
+      slider.enable();
       this.xSize = columns * slot.w + slider.width +2*border.w;
     }
     else {
-      slider.setEnabled(false);
+      slider.disable();
       this.xSize = columns * slot.w + border.w*2;
     }
 

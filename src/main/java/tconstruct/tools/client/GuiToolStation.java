@@ -97,6 +97,7 @@ public class GuiToolStation extends GuiTinkerStation {
     this.guiTop += 4;
     this.cornerY += 4;
 
+    buttons.xOffset = -2;
     buttons.yOffset = beamC.h + buttonDecorationTop.h;
     toolInfo.xOffset = 2;
     toolInfo.yOffset = beamC.h + panelDecorationL.h;
@@ -137,9 +138,7 @@ public class GuiToolStation extends GuiTinkerStation {
       }
     }
 
-    toolInfo.setText(new String[]{"Tool name", "Desc1",
-                                  "This is a long desc with lorem ipsum blabla bla bla bla bla bla blabla lba bal bal balb al abl abla blablablablabal bla bla balbal bal ba laballbalbalbalalalb laballab mrgrhlomlbl amlm",
-                                  "foobar"});
+    toolInfo.setText(new String[]{"Tool name", "Desc1", "Desc2", "Desc3", null, "Desc4", "Desc5"});
     traitInfo.setText(new String[]{"Traits", "Awesome",
                                    "This is a long desc with lorem ipsum blabla bla bla bla bla bla blabla lba bal bal balb al abl abla blablablablabal bla bla balbal bal ba laballbalbalbalalalb laballab mrgrhlomlbl amlm",
                                    "foobar"});
@@ -229,7 +228,7 @@ public class GuiToolStation extends GuiTinkerStation {
 
 
     this.mc.getTextureManager().bindTexture(BACKGROUND);
-    x = buttons.guiLeft - beamL.w - 2;
+    x = buttons.guiLeft - beamL.w;
     y = cornerY;
     // draw the beams at the top
     x += beamL.draw(x, y);

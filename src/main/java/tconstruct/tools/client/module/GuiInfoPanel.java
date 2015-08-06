@@ -71,6 +71,8 @@ public class GuiInfoPanel extends GuiModule {
 
     border.setPosition(guiLeft, guiTop);
     border.setSize(xSize, ySize);
+    slider.setPosition(guiRight() - slider.width - border.w, guiTop + border.h + 12);
+    slider.setSize(this.ySize - border.h*2 - 2 - 12);
   }
 
   public void setText(String[] text) {
@@ -128,6 +130,7 @@ public class GuiInfoPanel extends GuiModule {
 
     int y = 4;
     int x = 5;
+    int w = xSize-10;
     int color = 0xfff0f0f0;
 
     // draw caption
@@ -139,6 +142,29 @@ public class GuiInfoPanel extends GuiModule {
     y += 12;
 
 
+    // check if we need a slider
+    int neededHeight = 0;
+    boolean needSlider = false;
+    for(int i = 1; i < text.length; i++) {
+      if(text[i] == null) {
+        neededHeight += fontRenderer.FONT_HEIGHT;
+        continue;
+      }
+
+      List<String> parts = fontRenderer.listFormattedStringToWidth(text[i], w);
+      neededHeight += parts.size() * fontRenderer.FONT_HEIGHT;
+      if(neededHeight + y > ySize - 4) {
+        needSlider = true;
+        break;
+      }
+    }
+
+    if(needSlider) {
+      slider.show();
+      w -= 5;
+    } else {
+      slider.hide();
+    }
 
     // draw remainder (while possible)
     for(int i = 1; i < text.length; i++) {
@@ -149,9 +175,7 @@ public class GuiInfoPanel extends GuiModule {
       }
 
       // same as drawSplitString except that we know the rendered height
-      List<String> parts = fontRenderer.listFormattedStringToWidth(text[i], xSize-10);
-
-      y += 2;
+      List<String> parts = fontRenderer.listFormattedStringToWidth(text[i], w);
 
       for(String str : parts) {
         if(y + fontRenderer.FONT_HEIGHT > ySize - 4)
@@ -160,5 +184,9 @@ public class GuiInfoPanel extends GuiModule {
         y += fontRenderer.FONT_HEIGHT;
       }
     }
+
+    this.mc.getTextureManager().bindTexture(BACKGROUND);
+    slider.update(mouseX, mouseY);
+    slider.draw();
   }
 }

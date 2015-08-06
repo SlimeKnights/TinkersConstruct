@@ -26,7 +26,7 @@ public class GuiStencilTable extends GuiTinkerStation {
       ContainerStencilTable container = (ContainerStencilTable) inventorySlots;
       ContainerSideInventory chestContainer = container.getSubContainer(ContainerPatternChest.SideInventory.class);
       if(chestContainer != null) {
-        this.addModule(new GuiSideInventory(this, chestContainer, chestContainer.getSlotCount(), chestContainer.columns, true));
+        this.addModule(new GuiSideInventory(this, chestContainer, chestContainer.getSlotCount(), chestContainer.columns, true, false));
       }
     }
   }

@@ -78,12 +78,28 @@ public class GuiPartSlider extends GuiPart {
     return currentValue;
   }
 
-  public void setEnabled(boolean enabled) {
-    this.enabled = enabled;
+  public void enable() {
+    this.enabled = true;
+  }
+
+  public void disable() {
+    this.enabled = false;
   }
 
   public boolean isEnabled() {
     return this.enabled;
+  }
+
+  public void hide() {
+    this.hidden = true;
+  }
+
+  public void show() {
+    this.hidden = false;
+  }
+
+  public boolean isHidden() {
+    return this.hidden;
   }
 
   public void draw() {
