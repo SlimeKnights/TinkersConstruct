@@ -506,6 +506,7 @@ public class SmelteryGui extends ActiveContainerGui
 
             this.zLevel = 0.0F;
             itemRender.zLevel = 0.0F;
+            RenderHelper.enableGUIStandardItemLighting();
         }
     }
 
