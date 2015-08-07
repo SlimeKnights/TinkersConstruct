@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
-import tconstruct.TConstruct;
+import tconstruct.TinkerNetwork;
 import tconstruct.common.client.gui.GuiElement;
 import tconstruct.common.client.gui.GuiMultiModule;
 import tconstruct.common.inventory.ContainerMultiModule;
@@ -90,7 +90,7 @@ public class GuiTinkerStation extends GuiMultiModule {
     if(state.getBlock() instanceof ITinkerStationBlock) {
       TileEntity te = world.getTileEntity(pos);
       if(te instanceof IInventoryGui) {
-        TConstruct.network.network.sendToServer(new TinkerStationTabPacket(pos));
+        TinkerNetwork.sendToServer(new TinkerStationTabPacket(pos));
       }
       //Minecraft.getMinecraft().thePlayer.openGui(TConstruct.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
       //state.getBlock().onBlockActivated(world, tinkerTabs.tabData.get(selection), state, Minecraft.getMinecraft().thePlayer, EnumFacing.UP, 0, 0, 0);
