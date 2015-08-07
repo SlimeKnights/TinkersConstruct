@@ -381,7 +381,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 else if (o instanceof EntityLivingBase)
                 {
                     EntityLivingBase living = (EntityLivingBase) o;
-                    if (living.attackEntityFrom(new SmelteryDamageSource(), 5))
+                    if (!living.isDead && living.attackEntityFrom(new SmelteryDamageSource(), 5))
                     {
                         if (currentLiquid + 40 < maxLiquid)
                         {
