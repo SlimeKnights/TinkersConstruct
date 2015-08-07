@@ -1,12 +1,14 @@
 package tconstruct.tools.client;
 
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Slot;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import tconstruct.common.client.gui.GuiModule;
 import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.tools.client.module.GuiSideInventory;
 import tconstruct.tools.inventory.ContainerCraftingStation;
@@ -31,6 +33,11 @@ public class GuiCraftingStation extends GuiTinkerStation {
         this.addModule(new GuiSideInventory(this, chestContainer, chestContainer.getSlotCount(), chestContainer.columns));
       }
     }
+  }
+
+  public boolean isSlotInChestInventory(Slot slot) {
+    GuiModule module = getModuleForSlot(slot.slotNumber);
+    return module instanceof GuiSideInventory;
   }
 
   @Override

@@ -19,6 +19,7 @@ import mantle.pulsar.control.PulseManager;
 import tconstruct.common.GuiHandler;
 import tconstruct.debug.LocalizationCheckCommand;
 import tconstruct.library.Util;
+import tconstruct.plugin.nei.NEITinkerConfig;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerMaterials;
 import tconstruct.tools.TinkerTools;
@@ -84,8 +85,11 @@ public class TConstruct {
     // the basic tinker materials are always present
     TinkerMaterials.registerMaterials();
 
+    // Tinker pulses
     pulseManager.registerPulse(new TinkerTools());
     pulseManager.registerPulse(new TinkerSmeltery());
+    // Plugins/Integration
+
     pulseManager.preInit(event);
 
     NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);

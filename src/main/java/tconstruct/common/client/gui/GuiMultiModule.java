@@ -270,7 +270,7 @@ public class GuiMultiModule extends GuiContainer implements INEIGuiHandler {
     super.mouseReleased(mouseX, mouseY, state);
   }
 
-  private GuiModule getModuleForPoint(int x, int y) {
+  protected GuiModule getModuleForPoint(int x, int y) {
     for(GuiModule module : modules) {
       if(this.isPointInRegion(module.guiLeft, module.guiTop, module.guiRight(), module.guiBottom(),
                               x + this.cornerX, y + this.cornerY)) {
@@ -281,11 +281,11 @@ public class GuiMultiModule extends GuiContainer implements INEIGuiHandler {
     return null;
   }
 
-  private GuiModule getModuleForSlot(int slotNumber) {
+  protected GuiModule getModuleForSlot(int slotNumber) {
     return getModuleForContainer(getContainer().getSlotContainer(slotNumber));
   }
 
-  private GuiModule getModuleForContainer(Container container) {
+  protected GuiModule getModuleForContainer(Container container) {
     for(GuiModule module : modules) {
       if(module.inventorySlots == container) {
         return module;
@@ -295,7 +295,7 @@ public class GuiMultiModule extends GuiContainer implements INEIGuiHandler {
     return null;
   }
 
-  private ContainerMultiModule getContainer() {
+  protected ContainerMultiModule getContainer() {
     return (ContainerMultiModule) inventorySlots;
   }
 
