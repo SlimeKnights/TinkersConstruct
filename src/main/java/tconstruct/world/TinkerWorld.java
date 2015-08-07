@@ -369,14 +369,14 @@ public class TinkerWorld
         GameRegistry.addRecipe(new ItemStack(TinkerTools.toolRod, 2, 1), "c", "c", 'c', new ItemStack(Blocks.cobblestone));
         //
         ItemStack aluBrass = new ItemStack(TinkerTools.materials, 1, 14);
-        // Clock Recipe - Vanilla alternativ
-        GameRegistry.addRecipe(new ItemStack(Items.clock), " i ", "iri", " i ", 'i', aluBrass, 'r', new ItemStack(Items.redstone));
-        // Gold Pressure Plate - Vanilla alternativ
+        // Clock Recipe - Vanilla alternative
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.clock), " i ", "iri", " i ", 'i', aluBrass, 'r', "dustRedstone"));
+        // Gold Pressure Plate - Vanilla alternative
         // todo: temporarily disabled due to light weighted pressure plate being smeltable to gold
         //GameRegistry.addRecipe(new ItemStack(Blocks.light_weighted_pressure_plate, 0, 1), "ii", 'i', aluBrass);
 
         // Ultra hardcore recipes
-        GameRegistry.addRecipe(new ItemStack(goldHead), patSurround, '#', new ItemStack(Items.gold_ingot), 'm', new ItemStack(Items.skull, 1, 3));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(goldHead), patSurround, '#', "ingotGold", 'm', new ItemStack(Items.skull, 1, 3)));
 
         // Wool Slab Recipes
         for (int sc = 0; sc <= 7; sc++)
@@ -405,9 +405,9 @@ public class TinkerWorld
         GameRegistry.addShapelessRecipe(new ItemStack(TinkerWorld.slimeExplosive, 1, 2), TinkerWorld.strangeFood, Blocks.tnt);
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerWorld.slimeExplosive, 1, 0), "slimeball", Blocks.tnt));
 
-        GameRegistry.addShapelessRecipe(new ItemStack(TinkerWorld.slimeChannel, 1, 0), new ItemStack(TinkerWorld.slimeGel, 1, Short.MAX_VALUE), new ItemStack(Items.redstone));
-        GameRegistry.addShapelessRecipe(new ItemStack(TinkerWorld.bloodChannel, 1, 0), new ItemStack(TinkerWorld.strangeFood, 1, 1), new ItemStack(TinkerWorld.strangeFood, 1, 1), new ItemStack(TinkerWorld.strangeFood, 1, 1), new ItemStack(TinkerWorld.strangeFood, 1, 1), new ItemStack(Items.redstone));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerWorld.slimeChannel, 1, 0), "slimeball", "slimeball", "slimeball", "slimeball", new ItemStack(Items.redstone)));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerWorld.slimeChannel, 1, 0), new ItemStack(TinkerWorld.slimeGel, 1, Short.MAX_VALUE), "dustRedstone"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerWorld.bloodChannel, 1, 0), new ItemStack(TinkerWorld.strangeFood, 1, 1), new ItemStack(TinkerWorld.strangeFood, 1, 1), new ItemStack(TinkerWorld.strangeFood, 1, 1), new ItemStack(TinkerWorld.strangeFood, 1, 1), "dustRedstone"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerWorld.slimeChannel, 1, 0), "slimeball", "slimeball", "slimeball", "slimeball", "dustRedstone"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TinkerWorld.slimePad, 1, 0), TinkerWorld.slimeChannel, "slimeball"));
 
         GameRegistry.addRecipe(new ItemStack(TinkerWorld.meatBlock), "mmm", "mbm", "mmm", 'b', new ItemStack(Items.bone), 'm', new ItemStack(Items.porkchop));
