@@ -20,7 +20,7 @@ public class CraftingStationContainer extends Container
     /** The crafting matrix inventory (3x3). */
     public InventoryCrafting craftMatrix;// = new InventoryCrafting(this, 3, 3);
     public IInventory craftResult;// = new InventoryCraftResult();
-    private CraftingStationLogic logic;
+    public CraftingStationLogic logic;
     private World worldObj;
     EntityPlayer player;
     private int posX;
