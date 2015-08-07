@@ -1,13 +1,15 @@
 package tconstruct.tools.client.module;
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
+import java.util.ListIterator;
 
 import tconstruct.common.client.gui.GuiElement;
 import tconstruct.common.client.gui.GuiElementScalable;
@@ -37,13 +39,16 @@ public class GuiInfoPanel extends GuiModule {
   private static GuiElement sliderNormal = new GuiElement(0, 83, 3, 5);
   private static GuiElement sliderHover = sliderNormal.shift(sliderNormal.w, 0);
 
-  private static GuiElementScalable sliderBar = new GuiElementScalable(0, 88, 3, 4);
+  private static GuiElementScalable sliderBar = new GuiElementScalable(0, 88, 3, 8);
+  private static GuiElement sliderTop = new GuiElement(3, 88, 3, 4);
+  private static GuiElement sliderBot = new GuiElement(3, 92, 3, 4);
 
   private GuiPartBorder border = new GuiPartBorder();
 
-  private FontRenderer fontRenderer;
-  private GuiPartSlider slider = new GuiPartSlider(sliderNormal, sliderHover, sliderHover, sliderBar, sliderBar, sliderBar);
+  private FontRenderer fontRenderer = Minecraft.getMinecraft().fontRendererObj;
+  private GuiPartSlider slider = new GuiPartSlider(sliderNormal, sliderHover, sliderHover, sliderTop, sliderBot, sliderBar);
 
+  protected String caption;
   protected String[] text;
 
   public GuiInfoPanel(GuiMultiModule parent, Container container) {
@@ -62,7 +67,8 @@ public class GuiInfoPanel extends GuiModule {
     this.xSize = resW + 8;
     this.ySize = resH + 8;
 
-    text = new String[]{"Caption"};
+    caption = "Caption";
+    text = new String[]{"Text"};
   }
 
   @Override
@@ -72,11 +78,79 @@ public class GuiInfoPanel extends GuiModule {
     border.setPosition(guiLeft, guiTop);
     border.setSize(xSize, ySize);
     slider.setPosition(guiRight() - slider.width - border.w, guiTop + border.h + 12);
-    slider.setSize(this.ySize - border.h*2 - 2 - 12);
+    slider.setSize(this.ySize - border.h * 2 - 2 - 12);
+    updateSliderParameters();
+  }
+
+  public void setCaption(String caption) {
+    this.caption = caption;
+    updateSliderParameters();
   }
 
   public void setText(String[] text) {
     this.text = text;
+    updateSliderParameters();
+  }
+
+  public boolean hasCaption() {
+    return caption != null && !caption.isEmpty();
+  }
+
+
+  public int calcNeededHeight() {
+    int neededHeight = 0;
+
+    if(hasCaption()) {
+      neededHeight += fontRenderer.FONT_HEIGHT;
+      neededHeight += 3;
+    }
+
+    neededHeight += fontRenderer.FONT_HEIGHT * getTotalLines().size();
+
+    return neededHeight;
+  }
+
+  protected void updateSliderParameters() {
+    // we assume slider not shown
+    slider.hide();
+
+    int h = ySize - border.h*2;
+
+    // check if we can display all lines
+    if(calcNeededHeight() <= h)
+      // can display all, stay hidden
+      return;
+
+    // we need the slider
+    slider.show();
+    // check how many lines we can show
+    int neededHeight = calcNeededHeight(); // recalc because width changed due to slider
+    int hiddenRows = (neededHeight - h) / fontRenderer.FONT_HEIGHT;
+    if((neededHeight - h) % fontRenderer.FONT_HEIGHT > 0) {
+      hiddenRows++;
+    }
+
+    slider.setSliderParameters(0, hiddenRows, 1);
+  }
+
+  protected List<String> getTotalLines() {
+    int w = xSize - border.w*2 - 2;
+    if(!slider.isHidden()) {
+      w -= 5;
+    }
+
+    List<String> lines = Lists.newLinkedList();
+    for(String line : text) {
+      // empty line
+      if(line == null || line.isEmpty()) {
+        lines.add("");
+        continue;
+      }
+
+      lines.addAll(fontRenderer.listFormattedStringToWidth(line, w));
+    }
+
+    return lines;
   }
 
   public GuiInfoPanel wood() {
@@ -107,8 +181,8 @@ public class GuiInfoPanel extends GuiModule {
     slider = new GuiPartSlider(sliderNormal.shift(xd, yd),
                                sliderHover.shift(xd, yd),
                                sliderHover.shift(xd, yd),
-                               sliderBar.shift(xd, yd),
-                               sliderBar.shift(xd, yd),
+                               sliderTop.shift(xd, yd),
+                               sliderBot.shift(xd, yd),
                                sliderBar.shift(xd, yd));
   }
 
@@ -124,65 +198,29 @@ public class GuiInfoPanel extends GuiModule {
       return;
     }
 
-    if(fontRenderer == null) {
-      fontRenderer = Minecraft.getMinecraft().fontRendererObj;
-    }
-
     int y = 4;
     int x = 5;
     int w = xSize-10;
     int color = 0xfff0f0f0;
 
     // draw caption
-    String caption = text[0];
-    x = xSize/2;
-    x -= fontRenderer.getStringWidth(caption)/2;
-    fontRenderer.drawStringWithShadow(EnumChatFormatting.UNDERLINE + caption, guiLeft + x, guiTop + y, color);
-    x = 5;
-    y += 12;
+    if(hasCaption()) {
+      int x2 = xSize / 2;
+      x2 -=fontRenderer.getStringWidth(caption) / 2;
+      fontRenderer.drawStringWithShadow(EnumChatFormatting.UNDERLINE + caption, guiLeft + x2, guiTop + y, color);
+      y += fontRenderer.FONT_HEIGHT + 3;
+    }
 
-
-    // check if we need a slider
-    int neededHeight = 0;
-    boolean needSlider = false;
-    for(int i = 1; i < text.length; i++) {
-      if(text[i] == null) {
-        neededHeight += fontRenderer.FONT_HEIGHT;
-        continue;
-      }
-
-      List<String> parts = fontRenderer.listFormattedStringToWidth(text[i], w);
-      neededHeight += parts.size() * fontRenderer.FONT_HEIGHT;
-      if(neededHeight + y > ySize - 4) {
-        needSlider = true;
+    // render shown lines
+    ListIterator<String> iter = getTotalLines().listIterator(slider.getValue());
+    while(iter.hasNext()) {
+      if(y + fontRenderer.FONT_HEIGHT > ySize - border.h) {
         break;
       }
-    }
 
-    if(needSlider) {
-      slider.show();
-      w -= 5;
-    } else {
-      slider.hide();
-    }
-
-    // draw remainder (while possible)
-    for(int i = 1; i < text.length; i++) {
-      // null equals newline
-      if(text[i] == null) {
-        y += fontRenderer.FONT_HEIGHT;
-        continue;
-      }
-
-      // same as drawSplitString except that we know the rendered height
-      List<String> parts = fontRenderer.listFormattedStringToWidth(text[i], w);
-
-      for(String str : parts) {
-        if(y + fontRenderer.FONT_HEIGHT > ySize - 4)
-          break;
-        fontRenderer.drawStringWithShadow(str, guiLeft + x, guiTop + y, color);
-        y += fontRenderer.FONT_HEIGHT;
-      }
+      String line = iter.next();
+      fontRenderer.drawStringWithShadow(line, guiLeft + x, guiTop + y, color);
+      y += fontRenderer.FONT_HEIGHT;
     }
 
     this.mc.getTextureManager().bindTexture(BACKGROUND);

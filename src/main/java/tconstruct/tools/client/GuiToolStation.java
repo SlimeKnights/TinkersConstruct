@@ -1,8 +1,8 @@
 package tconstruct.tools.client;
 
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
@@ -13,23 +13,26 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.Point;
 
+import java.io.IOException;
+
+import tconstruct.TinkerNetwork;
 import tconstruct.common.client.gui.GuiElement;
 import tconstruct.common.client.gui.GuiElementScalable;
 import tconstruct.common.client.gui.GuiModule;
 import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.library.Util;
-import tconstruct.library.client.CustomTextureCreator;
 import tconstruct.library.client.ToolBuildGuiInfo;
-import tconstruct.library.mantle.RecipeMatch;
-import tconstruct.library.tinkering.MaterialItem;
-import tconstruct.library.tinkering.PartMaterialType;
 import tconstruct.library.tinkering.TinkersItem;
-import tconstruct.library.tools.IToolPart;
+import tconstruct.library.tools.ToolCore;
 import tconstruct.tools.client.module.GuiButtonsToolStation;
 import tconstruct.tools.client.module.GuiInfoPanel;
-import tconstruct.tools.client.module.GuiSideButtons;
+import tconstruct.tools.inventory.ContainerToolStation;
+import tconstruct.tools.inventory.SlotToolStationIn;
+import tconstruct.tools.network.ToolStationSelectionPacket;
+import tconstruct.tools.network.ToolStationTextPacket;
 import tconstruct.tools.tileentity.TileToolStation;
 
 @SideOnly(Side.CLIENT)
@@ -37,11 +40,12 @@ public class GuiToolStation extends GuiTinkerStation {
 
   private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/toolstation.png");
 
-  private static final GuiElement ItemCover = new GuiElement(176, 18, 80, 64, 256, 256);
+  private static final GuiElement TextFieldActive = new GuiElement(0, 210, 102, 12, 256, 256);
+  private static final GuiElement ItemCover = new GuiElement(176, 18, 80, 64);
   private static final GuiElement SlotBackground = new GuiElement(176, 0, 18, 18);
   private static final GuiElement SlotBorder = new GuiElement(194, 0, 18, 18);
 
-  private static final GuiElement SlotSpaceTop = new GuiElement(0, 174+2, 18, 2);
+  private static final GuiElement SlotSpaceTop = new GuiElement(0, 174 + 2, 18, 2);
   private static final GuiElement SlotSpaceBottom = new GuiElement(0, 174, 18, 2);
   private static final GuiElement PanelSpaceL = new GuiElement(0, 174, 5, 4);
   private static final GuiElement PanelSpaceR = new GuiElement(9, 174, 9, 4);
@@ -64,6 +68,8 @@ public class GuiToolStation extends GuiTinkerStation {
 
   protected GuiButtonsToolStation buttons;
   protected int activeSlots; // how many of the available slots are active
+
+  public GuiTextField textField;
 
   protected GuiInfoPanel toolInfo;
   protected GuiInfoPanel traitInfo;
@@ -92,10 +98,18 @@ public class GuiToolStation extends GuiTinkerStation {
   @Override
   public void initGui() {
     super.initGui();
+    Keyboard.enableRepeatEvents(true);
 
     // workaround to line up the tabs on switching even though the GUI is a tad higher
     this.guiTop += 4;
     this.cornerY += 4;
+
+    // todo: sync text via network
+    textField = new GuiTextField(0, fontRendererObj, cornerX + 70, cornerY + 7, 92, 12);
+    //textField.setFocused(true);
+    //textField.setCanLoseFocus(false);
+    textField.setEnableBackgroundDrawing(false);
+    textField.setMaxStringLength(40);
 
     buttons.xOffset = -2;
     buttons.yOffset = beamC.h + buttonDecorationTop.h;
@@ -109,9 +123,25 @@ public class GuiToolStation extends GuiTinkerStation {
     }
   }
 
+  @Override
+  public void onGuiClosed() {
+    super.onGuiClosed();
+    Keyboard.enableRepeatEvents(false);
+  }
+
   public void onToolSelection(ToolBuildGuiInfo info) {
     activeSlots = Math.min(info.positions.size(), Table_slot_count);
     currentInfo = info;
+
+    ToolCore tool = null;
+
+    if(info.tool != null && info.tool.getItem() instanceof ToolCore) {
+      tool = (ToolCore) info.tool.getItem();
+    }
+
+    ((ContainerToolStation)inventorySlots).setToolSelection(tool, activeSlots);
+    // update the server (and others)
+    TinkerNetwork.sendToServer(new ToolStationSelectionPacket(tool, activeSlots));
 
     int i;
     for(i = 0; i < activeSlots; i++) {
@@ -126,6 +156,7 @@ public class GuiToolStation extends GuiTinkerStation {
     int stillFilled = 0;
     for(; i < Table_slot_count; i++) {
       Slot slot = inventorySlots.getSlot(i);
+
       if(slot.getHasStack()) {
         slot.xDisplayPosition = 87 + 20 * stillFilled;
         slot.yDisplayPosition = 62;
@@ -138,15 +169,59 @@ public class GuiToolStation extends GuiTinkerStation {
       }
     }
 
-    toolInfo.setText(new String[]{"Tool name", "Desc1", "Desc2", "Desc3", null, "Desc4", "Desc5"});
+    toolInfo.setCaption("Tool name");
+    toolInfo.setText(new String[]{"Desc1", "Desc2", "Desc3", null, "Desc4", "Desc5"});
     traitInfo.setText(new String[]{"Traits", "Awesome",
                                    "This is a long desc with lorem ipsum blabla bla bla bla bla bla blabla lba bal bal balb al abl abla blablablablabal bla bla balbal bal ba laballbalbalbalalalb laballab mrgrhlomlbl amlm",
                                    "foobar"});
   }
 
   @Override
+  protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+    super.mouseClicked(mouseX, mouseY, mouseButton);
+    textField.mouseClicked(mouseX, mouseY, mouseButton);
+  }
+
+  @Override
+  protected void keyTyped(char typedChar, int keyCode) throws IOException {
+    if(!textField.isFocused()) {
+      super.keyTyped(typedChar, keyCode);
+    }
+    else {
+      if(keyCode == 1) {
+        this.mc.thePlayer.closeScreen();
+      }
+
+      textField.textboxKeyTyped(typedChar, keyCode);
+      TinkerNetwork.sendToServer(new ToolStationTextPacket(textField.getText()));
+    }
+  }
+
+  @Override
+  public void updateScreen() {
+    super.updateScreen();
+    textField.updateCursorCounter();
+  }
+
+  @Override
+  public void drawSlot(Slot slotIn) {
+    // don't draw dormant slots with no item
+    if(slotIn instanceof SlotToolStationIn && ((SlotToolStationIn) slotIn).isDormant() && !slotIn.getHasStack())
+      return;
+
+    super.drawSlot(slotIn);
+  }
+
+  @Override
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
     drawBackground(BACKGROUND);
+
+    if(textField.isFocused()) {
+      TextFieldActive.draw(cornerX + 68, cornerY + 6);
+    }
+
+    // draw textfield
+    textField.drawTextBox();
 
     int xOff = 0;
     int yOff = 0;
@@ -157,7 +232,7 @@ public class GuiToolStation extends GuiTinkerStation {
     // draw the item background
     final float scale = 4.0f;
     GlStateManager.scale(scale, scale, 1.0f);
-    //renderItemIntoGuiBackground(back, (this.cornerX + 15) / 4 + xOff, (this.cornerY + 18) / 4 + yOff);
+
     {
       int logoX = (this.cornerX + 10) / 4 + xOff;
       int logoY = (this.cornerY + 18) / 4 + yOff;
@@ -196,10 +271,12 @@ public class GuiToolStation extends GuiTinkerStation {
 
     // full opaque. Draw the borders of the slots
     GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-    for(int i = 0; i < activeSlots; i++) {
+    for(int i = 0; i < Table_slot_count; i++) {
       Slot slot = inventorySlots.getSlot(i);
-      SlotBorder.draw(
-          x + this.cornerX + slot.xDisplayPosition - 1, y + this.cornerY + slot.yDisplayPosition - 1);
+      if(slot instanceof SlotToolStationIn && (!((SlotToolStationIn) slot).isDormant() || slot.getHasStack())) {
+        SlotBorder.draw(
+            x + this.cornerX + slot.xDisplayPosition - 1, y + this.cornerY + slot.yDisplayPosition - 1);
+      }
     }
 
     this.mc.getTextureManager().bindTexture(ICONS);
@@ -209,20 +286,20 @@ public class GuiToolStation extends GuiTinkerStation {
       drawRepairSlotIcons();
     }
     else if(currentInfo.tool != null && currentInfo.tool.getItem() instanceof TinkersItem) {
-      PartMaterialType[] pmts = ((TinkersItem) currentInfo.tool.getItem()).requiredComponents;
       for(int i = 0; i < activeSlots; i++) {
-        if(i >= pmts.length) {
-          continue;
-        }
-
-        IToolPart part = pmts[i].getPossibleParts().iterator().next();
-        if(!(part instanceof MaterialItem)) {
-          continue;
-        }
-
-        ItemStack stack = ((MaterialItem) part).getItemstackWithMaterial(CustomTextureCreator.guiMaterial);
         Slot slot = inventorySlots.getSlot(i);
-        itemRender.renderItemIntoGUI(stack, x + this.cornerX + slot.xDisplayPosition, y + this.cornerY + slot.yDisplayPosition);
+        if(!(slot instanceof SlotToolStationIn)) {
+          continue;
+        }
+
+        ItemStack stack = ((SlotToolStationIn) slot).icon;
+        if(stack == null) {
+          continue;
+        }
+
+        itemRender.renderItemIntoGUI(stack,
+                                     x + this.cornerX + slot.xDisplayPosition,
+                                     y + this.cornerY + slot.yDisplayPosition);
       }
     }
 
@@ -301,8 +378,8 @@ public class GuiToolStation extends GuiTinkerStation {
     toolInfo.wood();
     traitInfo.wood();
 
-    buttonDecorationTop = SlotSpaceTop.shift(SlotSpaceTop.w,0);
-    buttonDecorationBot = SlotSpaceBottom.shift(SlotSpaceBottom.w,0);
+    buttonDecorationTop = SlotSpaceTop.shift(SlotSpaceTop.w, 0);
+    buttonDecorationBot = SlotSpaceBottom.shift(SlotSpaceBottom.w, 0);
     panelDecorationL = PanelSpaceL.shift(18, 0);
     panelDecorationR = PanelSpaceR.shift(18, 0);
 
@@ -317,10 +394,10 @@ public class GuiToolStation extends GuiTinkerStation {
     toolInfo.metal();
     traitInfo.metal();
 
-    buttonDecorationTop = SlotSpaceTop.shift(SlotSpaceTop.w*2,0);
-    buttonDecorationBot = SlotSpaceBottom.shift(SlotSpaceBottom.w*2,0);
-    panelDecorationL = PanelSpaceL.shift(18*2, 0);
-    panelDecorationR = PanelSpaceR.shift(18*2, 0);
+    buttonDecorationTop = SlotSpaceTop.shift(SlotSpaceTop.w * 2, 0);
+    buttonDecorationBot = SlotSpaceBottom.shift(SlotSpaceBottom.w * 2, 0);
+    panelDecorationL = PanelSpaceL.shift(18 * 2, 0);
+    panelDecorationR = PanelSpaceR.shift(18 * 2, 0);
 
     buttons.metal();
 

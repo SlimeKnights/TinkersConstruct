@@ -9,6 +9,7 @@ import net.minecraft.util.EnumChatFormatting;
 
 import org.apache.logging.log4j.Logger;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -21,6 +22,7 @@ import tconstruct.library.modifiers.IModifier;
 import tconstruct.library.modifiers.ModifyException;
 import tconstruct.library.modifiers.TraitModifier;
 import tconstruct.library.tinkering.TinkersItem;
+import tconstruct.library.tools.ToolCore;
 import tconstruct.library.traits.ITrait;
 
 public final class ToolBuilder {
@@ -28,6 +30,47 @@ public final class ToolBuilder {
   private static Logger log = Util.getLogger("ToolBuilder");
 
   private ToolBuilder() {
+  }
+
+  /**
+   * Takes an array of Itemstacks and tries to build a tool with it. Amount of itemstacks has to match exactly.
+   *
+   * @param stacks Input.
+   * @return The built tool or null if none could be built.
+   */
+  public static ItemStack tryBuildTool(ItemStack[] stacks, String name) {
+    int length = -1;
+    ItemStack[] input;
+    // remove trailing nulls
+    for(int i = 0; i < stacks.length; i++) {
+      if(stacks[i] == null) {
+        if(length < 0) {
+          length = i;
+        }
+      }
+      else if(length >= 0) {
+        // incorrect input. gap with null in the stacks passed
+        return null;
+      }
+    }
+
+    input = Arrays.copyOf(stacks, length);
+
+    for(ToolCore tool : TinkerRegistry.getTools()) {
+      ItemStack output = tool.buildItemFromStacks(input);
+      if(output != null) {
+        // name the item
+        if(name == null || name.isEmpty()) {
+          name = tool.getDefaultLocalizedName();
+        }
+
+        output.setStackDisplayName(name);
+
+        return output;
+      }
+    }
+
+    return null;
   }
 
   /**

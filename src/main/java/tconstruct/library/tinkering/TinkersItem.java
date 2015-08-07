@@ -61,7 +61,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   /**
    * Builds an Itemstack of this tool with the given materials, if applicable.
    *
-   * @param stacks Items to build with. Have to be in the correct order. No nulls!
+   * @param stacks Items to build with. Have to be in the correct order and have exact length. No nulls!
    * @return The built item or null if invalid input.
    */
   public ItemStack buildItemFromStacks(ItemStack[] stacks) {

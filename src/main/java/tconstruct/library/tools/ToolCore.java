@@ -110,4 +110,8 @@ public abstract class ToolCore extends TinkersItem {
   public String getIdentifier() {
     return Util.getItemLocation(this).getResourcePath();
   }
+
+  public String getDefaultLocalizedName() {
+    return "todo " + getIdentifier();
+  }
 }
