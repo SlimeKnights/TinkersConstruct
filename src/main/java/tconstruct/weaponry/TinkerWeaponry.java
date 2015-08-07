@@ -280,6 +280,18 @@ public class TinkerWeaponry {
                 tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
                 Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);
             }
+
+            // Stone parts
+            FluidType stone = FluidType.getFluidType("Stone");
+            for (int sc = 0; sc < patternOutputs.length; sc++)
+            {
+                if (patternOutputs[sc] != null)
+                {
+                    ItemStack item =  new ItemStack(patternOutputs[sc], 1, 1);
+                    int amount = (8 * woodPattern.getPatternCost(new ItemStack(woodPattern, 1, sc))) / 2;
+                    Smeltery.addMelting(stone, item, 1, amount);
+                }
+            }
         }
     }
 
