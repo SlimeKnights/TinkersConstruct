@@ -299,29 +299,34 @@ public class GuiMultiModule extends GuiContainer implements INEIGuiHandler {
     return (ContainerMultiModule) inventorySlots;
   }
 
-  /** NEI INTEGRATION */
+  /* NEI INTEGRATION */
 
   @Override
+  @Optional.Method(modid = "NotEnoughItems")
   public VisiblityData modifyVisiblity(GuiContainer guiContainer, VisiblityData visiblityData) {
     return visiblityData;
   }
 
   @Override
+  @Optional.Method(modid = "NotEnoughItems")
   public Iterable<Integer> getItemSpawnSlots(GuiContainer guiContainer, ItemStack itemStack) {
     return null;
   }
 
   @Override
+  @Optional.Method(modid = "NotEnoughItems")
   public List<TaggedInventoryArea> getInventoryAreas(GuiContainer guiContainer) {
     return Collections.EMPTY_LIST;
   }
 
   @Override
+  @Optional.Method(modid = "NotEnoughItems")
   public boolean handleDragNDrop(GuiContainer guiContainer, int x, int y, ItemStack itemStack, int k) {
     return false;
   }
 
   @Override
+  @Optional.Method(modid = "NotEnoughItems")
   public boolean hideItemPanelSlot(GuiContainer guiContainer, int x, int y, int w, int h) {
     for(GuiModule module : modules) {
       // check if the panel overlaps the module (check totally not stolen from stackoverflow)
