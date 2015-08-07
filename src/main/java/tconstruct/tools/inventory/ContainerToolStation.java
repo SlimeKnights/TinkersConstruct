@@ -9,6 +9,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 import tconstruct.common.inventory.ContainerMultiModule;
+import tconstruct.library.modifiers.ModifyException;
+import tconstruct.library.tinkering.IModifyable;
 import tconstruct.library.tinkering.PartMaterialType;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.utils.ToolBuilder;
@@ -92,11 +94,27 @@ public class ContainerToolStation extends ContainerMultiModule<TileToolStation> 
   // update crafting - called whenever the content of an input slot changes
   @Override
   public void onCraftMatrixChanged(IInventory inventoryIn) {
-    out.inventory.setInventorySlotContents(0, buildTool());
+    ItemStack result = modifyTool(false);
+    if(result == null) result = buildTool();
+
+    out.inventory.setInventorySlotContents(0, result);
   }
 
   // Called when the crafting result is taken out of its slot
   public void onResultTaken(EntityPlayer playerIn, ItemStack stack) {
+    // modify?
+    if(modifyTool(true) != null) {
+      // perfect, items already got removed but we still have to clean up 0-stacks and remove the tool
+      tile.setInventorySlotContents(0, null); // slot where the tool was
+      for(int i = 1; i < tile.getSizeInventory(); i++) {
+        if(tile.getStackInSlot(i) != null && tile.getStackInSlot(i).stackSize == 0) {
+          tile.setInventorySlotContents(i, null);
+        }
+      }
+      onCraftMatrixChanged(null);
+      return;
+    }
+
     // calculate the result again (serverside)
     ItemStack tool = buildTool();
 
@@ -113,11 +131,31 @@ public class ContainerToolStation extends ContainerMultiModule<TileToolStation> 
     }
   }
 
+  private ItemStack modifyTool(boolean remove) {
+    ItemStack[] input = new ItemStack[tile.getSizeInventory()];
+    for(int i = 0; i < input.length; i++) {
+      input[i] = tile.getStackInSlot(i);
+    }
+
+    // modify or actual building?
+    ItemStack modifyable = ((Slot)inventorySlots.get(0)).getStack();
+    if(modifyable != null && modifyable.getItem() instanceof IModifyable) {
+      try {
+        return ToolBuilder.tryModifyTool(input, modifyable, remove);
+      } catch(ModifyException e) {
+        e.printStackTrace();
+      }
+    }
+
+    return null;
+  }
+
   private ItemStack buildTool() {
     ItemStack[] input = new ItemStack[tile.getSizeInventory()];
     for(int i = 0; i < input.length; i++) {
       input[i] = tile.getStackInSlot(i);
     }
+
     return ToolBuilder.tryBuildTool(input, toolName);
   }
 
