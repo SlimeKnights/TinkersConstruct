@@ -60,7 +60,7 @@ public class GuiSideInventory extends GuiModule {
       new GuiPartSlider(sliderNormal, sliderHigh, sliderLow, sliderTop, sliderBottom, sliderBackground);
 
   public GuiSideInventory(GuiMultiModule parent, Container container, int slotCount, int columns) {
-    this(parent, container, slotCount, columns, true, false);
+    this(parent, container, slotCount, columns, false, false);
   }
 
   public GuiSideInventory(GuiMultiModule parent, Container container, int slotCount, int columns, boolean rightSide, boolean connected) {
