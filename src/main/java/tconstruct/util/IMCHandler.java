@@ -288,7 +288,7 @@ public final class IMCHandler {
                 if(FluidType.getFluidType(liquid.getFluid()) == null)
                     FluidType.registerFluidType(liquid.getFluid().getName(), Block.getBlockFromItem(block.getItem()), block.getItemDamage(), temperature, liquid.getFluid(), false);
 
-                Smeltery.addMelting(Block.getBlockFromItem(block.getItem()), block.getItemDamage(), temperature, liquid);
+                Smeltery.addMelting(item, Block.getBlockFromItem(block.getItem()), block.getItemDamage(), temperature, liquid);
                 TConstruct.logger.debug("Smeltery IMC: Added melting: " + item.getDisplayName() + " to " + liquid.amount + "mb " + liquid.getLocalizedName());
             }
             else if(type.equals("addSmelteryFuel")) {
