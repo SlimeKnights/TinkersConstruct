@@ -8,7 +8,9 @@ import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
 
+import tconstruct.Config;
 import tconstruct.library.TinkerRegistry;
+import tconstruct.library.Util;
 import tconstruct.library.tools.IToolPart;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.tools.ToolClientProxy;
@@ -31,18 +33,37 @@ public class Pattern extends Item {
       }
 
       ItemStack stack = new ItemStack(this);
-      this.setTagForPart(stack, (Item)toolpart);
+      setTagForPart(stack, toolpart);
 
       subItems.add(stack);
     }
   }
 
-  public void setTagForPart(ItemStack stack, Item toolPart) {
+  public static void setTagForPart(ItemStack stack, IToolPart toolPart) {
     NBTTagCompound tag = TagUtil.getTagSafe(stack);
-    ResourceLocation partLocation = ToolClientProxy.getItemLocation(toolPart);
+    String id = toolPart.getIdentifier();
 
-    tag.setString(TAG_PARTTYPE, partLocation.getResourcePath());
+    tag.setString(TAG_PARTTYPE, id);
 
     stack.setTagCompound(tag);
+  }
+
+  public static IToolPart getPartFromTag(ItemStack stack) {
+    NBTTagCompound tag = TagUtil.getTagSafe(stack);
+    String part = tag.getString(TAG_PARTTYPE);
+
+    for(IToolPart toolpart : TinkerRegistry.getToolParts()) {
+      if(part.equals(toolpart.getIdentifier()))
+        return toolpart;
+    }
+
+    return null;
+  }
+
+  public boolean isBlankPattern(ItemStack stack) {
+    if(stack == null || !(stack.getItem() instanceof Pattern))
+      return false;
+
+    return Config.reuseStencil || (!stack.hasTagCompound());
   }
 }

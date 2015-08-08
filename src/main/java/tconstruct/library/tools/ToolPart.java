@@ -13,6 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
+import tconstruct.library.Util;
 import tconstruct.library.materials.Material;
 import tconstruct.library.tinkering.MaterialItem;
 import tconstruct.library.tinkering.PartMaterialType;
@@ -79,5 +80,17 @@ public class ToolPart extends MaterialItem implements IToolPart {
                                                                     TinkerRegistry.getTrace(material));
       tooltip.add(materialInfo);
     }
+  }
+
+  @Override
+  public String getIdentifier() {
+    return Util.getItemLocation(this).getResourcePath();
+  }
+
+  static String getIdentifier(ItemStack stack) {
+    if(stack != null && stack.getItem() instanceof IToolPart) {
+      return ((IToolPart) stack.getItem()).getIdentifier();
+    }
+    return null;
   }
 }
