@@ -27,7 +27,7 @@ import tconstruct.library.traits.ITrait;
 
 public class Material {
 
-  public static final Material UNKNOWN = new Material("unknown");
+  public static final Material UNKNOWN = new Material("unknown", EnumChatFormatting.WHITE);
   public static final String LOCALIZATION_STRING = "material.%s.name";
 
   static {
@@ -61,8 +61,8 @@ public class Material {
    */
   @SideOnly(Side.CLIENT)
   public MaterialRenderInfo renderInfo;// = new MaterialRenderInfo.Default(0xffffff);
-  @SideOnly(Side.CLIENT)
-  public EnumChatFormatting textColor;// = EnumChatFormatting.WHITE; // used in tooltips and other text
+
+  public EnumChatFormatting textColor = EnumChatFormatting.WHITE; // used in tooltips and other text. Saved in NBT.
 
   /**
    * This item, if it is not null, represents the material for rendering.
@@ -77,10 +77,11 @@ public class Material {
   protected final Map<String, IMaterialStats> stats = new TreeMap<>();
   protected final Map<String, ITrait> traits = new TreeMap<>();
 
-  public Material(String identifier) {
+  public Material(String identifier, EnumChatFormatting textColor) {
     this.identifier = Util.sanitizeLocalizationString(identifier); // lowercases and removes whitespaces
+    this.textColor = this.textColor;
     if(FMLCommonHandler.instance().getSide().isClient()) {
-      setRenderInfo(0xffffff, EnumChatFormatting.WHITE);
+      setRenderInfo(0xffffff);
     }
   }
 
@@ -111,19 +112,17 @@ public class Material {
 
   /**
    * The display information for the Material. You should totally set this if you want your material to be visible.
+   *  @param renderInfo How the textures for the material are generated
    *
-   * @param renderInfo How the textures for the material are generated
-   * @param textColor  The color of the text associated with the material. Tooltips etc.
    */
   @SideOnly(Side.CLIENT)
-  public void setRenderInfo(MaterialRenderInfo renderInfo, EnumChatFormatting textColor) {
+  public void setRenderInfo(MaterialRenderInfo renderInfo) {
     this.renderInfo = renderInfo;
-    this.textColor = textColor;
   }
 
   @SideOnly(Side.CLIENT)
-  public void setRenderInfo(int color, EnumChatFormatting textColor) {
-    setRenderInfo(new MaterialRenderInfo.Default(color), textColor);
+  public void setRenderInfo(int color) {
+    setRenderInfo(new MaterialRenderInfo.Default(color));
   }
 
   /* Stats */

@@ -1,5 +1,6 @@
 package tconstruct.tools.client;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.GlStateManager;
@@ -23,6 +24,7 @@ import tconstruct.common.client.gui.GuiElement;
 import tconstruct.common.client.gui.GuiElementScalable;
 import tconstruct.common.client.gui.GuiModule;
 import tconstruct.common.inventory.ContainerMultiModule;
+import tconstruct.library.TinkerRegistryClient;
 import tconstruct.library.Util;
 import tconstruct.library.client.ToolBuildGuiInfo;
 import tconstruct.library.tinkering.TinkersItem;
@@ -74,7 +76,7 @@ public class GuiToolStation extends GuiTinkerStation {
   protected GuiInfoPanel toolInfo;
   protected GuiInfoPanel traitInfo;
 
-  protected ToolBuildGuiInfo currentInfo;
+  public ToolBuildGuiInfo currentInfo = GuiButtonRepair.info;
 
 
   public GuiToolStation(InventoryPlayer playerInv, World world, BlockPos pos, TileToolStation tile) {
@@ -121,6 +123,8 @@ public class GuiToolStation extends GuiTinkerStation {
     for(GuiModule module : modules) {
       module.guiTop += 4;
     }
+
+    updateGUI();
   }
 
   @Override
@@ -139,13 +143,29 @@ public class GuiToolStation extends GuiTinkerStation {
       tool = (ToolCore) info.tool.getItem();
     }
 
-    ((ContainerToolStation)inventorySlots).setToolSelection(tool, activeSlots);
+    ((ContainerToolStation) inventorySlots).setToolSelection(tool, activeSlots);
     // update the server (and others)
     TinkerNetwork.sendToServer(new ToolStationSelectionPacket(tool, activeSlots));
+    updateGUI();
+  }
 
+  public void onToolSelectionPacket(ToolStationSelectionPacket packet) {
+    ToolBuildGuiInfo info = TinkerRegistryClient.getToolBuildInfoForTool(packet.tool);
+    if(info == null) {
+      info = GuiButtonRepair.info;
+    }
+    activeSlots = packet.activeSlots;
+    currentInfo = info;
+
+    buttons.setSelectedbuttonByTool(currentInfo.tool);
+
+    updateGUI();
+  }
+
+  public void updateGUI() {
     int i;
     for(i = 0; i < activeSlots; i++) {
-      Point point = info.positions.get(i);
+      Point point = currentInfo.positions.get(i);
 
       Slot slot = inventorySlots.getSlot(i);
       slot.xDisplayPosition = point.getX();
@@ -349,6 +369,11 @@ public class GuiToolStation extends GuiTinkerStation {
   protected void drawRepairSlotIcon(int i) {
     GuiElement icon = null;
     Slot slot = inventorySlots.getSlot(i);
+    // only empty solts get the logo since something else than the displayed thing might be in there.
+    // which would look weird.
+    if(slot.getHasStack()) {
+      return;
+    }
 
     if(i == 0) {
       icon = ICON_Pickaxe;

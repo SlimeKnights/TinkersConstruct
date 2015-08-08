@@ -29,12 +29,12 @@ public final class TinkerMaterials {
   }
 
   static {
-    wood = new Material("wood");
-    stone = new Material("stone");
-    flint = new Material("flint");
-    netherrack = new Material("netherrack");
+    wood = new Material("wood", EnumChatFormatting.YELLOW);
+    stone = new Material("stone", EnumChatFormatting.GRAY);
+    flint = new Material("flint", EnumChatFormatting.DARK_GRAY);
+    netherrack = new Material("netherrack", EnumChatFormatting.DARK_RED);
 
-    xu = new Material("unstable");
+    xu = new Material("unstable", EnumChatFormatting.WHITE);
 
     stonebound = new StoneboundTrait();
   }
@@ -42,19 +42,19 @@ public final class TinkerMaterials {
   @SideOnly(Side.CLIENT)
   public static void registerMaterialRendering() {
     //wood.setRenderInfo(new MaterialRenderInfo.Default(0xffaa00, 0xffaa00, 0xffcc22), EnumChatFormatting.YELLOW);
-    wood.setRenderInfo(new MaterialRenderInfo.MultiColor(0xff0000, 0x00ff00, 0x0000ff).setTextureSuffix("contrast"), EnumChatFormatting.YELLOW);
+    wood.setRenderInfo(new MaterialRenderInfo.MultiColor(0xff0000, 0x00ff00, 0x0000ff).setTextureSuffix("contrast"));
     //stone.setRenderInfo(new MaterialRenderInfo.Default(0x555555, 0x555555, 0xffffff), EnumChatFormatting.YELLOW);
-    stone.setRenderInfo(0x555555, EnumChatFormatting.GRAY);
+    stone.setRenderInfo(0x555555);
     flint.setRenderInfo(new MaterialRenderInfo.Default(0xffffff)
-                            .setTextureSuffix("contrast"), EnumChatFormatting.DARK_GRAY);
-    netherrack.setRenderInfo(new MaterialRenderInfo.BlockTexture(Blocks.netherrack), EnumChatFormatting.DARK_RED);
+                            .setTextureSuffix("contrast"));
+    netherrack.setRenderInfo(new MaterialRenderInfo.BlockTexture(Blocks.netherrack));
 
     xu.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() {
       @Override
       public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
         return new ExtraUtilityTexture(baseTexture, location);
       }
-    }, EnumChatFormatting.GRAY);
+    });
   }
 
   public static void registerMaterials() {

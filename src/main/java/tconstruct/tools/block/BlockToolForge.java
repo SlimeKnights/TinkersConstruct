@@ -9,6 +9,7 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -23,6 +24,7 @@ import java.util.Set;
 
 import tconstruct.TConstruct;
 import tconstruct.common.block.BlockTable;
+import tconstruct.common.inventory.BaseContainer;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.tools.tileentity.TileToolForge;
 import tconstruct.tools.tileentity.TileToolStation;
@@ -46,6 +48,9 @@ public class BlockToolForge extends BlockTable implements ITinkerStationBlock {
   @Override
   public boolean openGui(EntityPlayer player, World world, BlockPos pos) {
     player.openGui(TConstruct.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+    if(player.openContainer instanceof BaseContainer) {
+      ((BaseContainer) player.openContainer).syncOnOpen((EntityPlayerMP) player);
+    }
     return true;
   }
 

@@ -3,6 +3,7 @@ package tconstruct.tools.client.module;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 import java.io.IOException;
 
@@ -10,6 +11,7 @@ import tconstruct.common.client.gui.GuiMultiModule;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.TinkerRegistryClient;
 import tconstruct.library.client.ToolBuildGuiInfo;
+import tconstruct.library.tools.ToolCore;
 import tconstruct.tools.client.GuiButtonItem;
 import tconstruct.tools.client.GuiButtonRepair;
 import tconstruct.tools.client.GuiTinkerStation;
@@ -54,13 +56,16 @@ public class GuiButtonsToolStation extends GuiSideButtons {
     }
 
     // activate currently selected/default
-    try {
-      GuiButton button = (GuiButton) buttonList.get(selected);
-      this.actionPerformed(button);
-    } catch(IOException e) {
-      TinkerRegistryClient.log.error(e);
+    ((GuiToolStation) parent).updateGUI();
+  }
+
+  public void setSelectedbuttonByTool(ItemStack stack) {
+    for(Object o : buttonList) {
+      GuiButtonItem btn = (GuiButtonItem) o;
+      btn.pressed = ItemStack.areItemStacksEqual(btn.info.tool, stack);
     }
   }
+
 
   @Override
   protected void actionPerformed(GuiButton button) throws IOException {

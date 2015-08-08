@@ -323,12 +323,12 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
   }
 
   static {
-    guiMaterial = new Material("_internal_gui");
+    guiMaterial = new Material("_internal_gui", EnumChatFormatting.WHITE);
     guiMaterial.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() {
       @Override
       public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
         return new GuiOutlineTexture(baseTexture, location);
       }
-    }, EnumChatFormatting.WHITE);
+    });
   }
 }

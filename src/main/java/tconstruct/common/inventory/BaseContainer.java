@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
@@ -14,10 +15,15 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import tconstruct.TinkerNetwork;
 import tconstruct.library.TinkerAPIException;
+import tconstruct.tools.inventory.ContainerToolStation;
 
 /** Same as Container but provides some extra functionality to simplify things */
 public abstract class BaseContainer<T extends TileEntity> extends Container {
@@ -36,6 +42,31 @@ public abstract class BaseContainer<T extends TileEntity> extends Container {
     this.world = tile.getWorld();
     this.pos = tile.getPos();
     this.originalBlock = world.getBlockState(pos).getBlock();
+  }
+
+  public void syncOnOpen(EntityPlayerMP playerOpened) {
+    // find another player that already has the gui for this tile open
+    WorldServer server = playerOpened.getServerForPlayer();
+    for(EntityPlayer player : (List<EntityPlayer>)server.playerEntities) {
+      if(player == playerOpened)
+        continue;
+      if(player.openContainer instanceof BaseContainer) {
+        if(this.sameGui((ContainerToolStation) player.openContainer)) {
+          syncWithOtherContainer((BaseContainer<T>) player.openContainer, playerOpened);
+          return;
+        }
+      }
+    }
+
+    // no player has a container open for the tile
+    syncNewContainer(playerOpened);
+  }
+
+  protected void syncWithOtherContainer(BaseContainer<T> otherContainer, EntityPlayerMP player) {}
+  protected void syncNewContainer(EntityPlayerMP player) {}
+
+  public boolean sameGui(ContainerToolStation otherContainer) {
+    return this.tile == otherContainer.tile;
   }
 
   @Override

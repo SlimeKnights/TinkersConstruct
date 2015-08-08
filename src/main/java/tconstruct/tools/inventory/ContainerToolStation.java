@@ -3,11 +3,14 @@ package tconstruct.tools.inventory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import tconstruct.TinkerNetwork;
+import tconstruct.common.inventory.BaseContainer;
 import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.library.modifiers.ModifyException;
 import tconstruct.library.tinkering.IModifyable;
@@ -15,11 +18,15 @@ import tconstruct.library.tinkering.PartMaterialType;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.utils.ToolBuilder;
 import tconstruct.tools.client.GuiToolStation;
+import tconstruct.tools.network.ToolStationSelectionPacket;
+import tconstruct.tools.network.ToolStationTextPacket;
 import tconstruct.tools.tileentity.TileToolStation;
 
 public class ContainerToolStation extends ContainerMultiModule<TileToolStation> {
 
   protected SlotToolStationOut out;
+  protected ToolCore selectedTool; // needed for newly opened containers to sync
+  protected int activeSlots;
   public String toolName;
 
   public ContainerToolStation(InventoryPlayer playerInventory, TileToolStation tile) {
@@ -46,9 +53,33 @@ public class ContainerToolStation extends ContainerMultiModule<TileToolStation> 
     this.addPlayerInventory(playerInventory, 8, 84 + 8);
   }
 
+  @Override
+  protected void syncNewContainer(EntityPlayerMP player) {
+    TinkerNetwork.sendTo(new ToolStationSelectionPacket(null, tile.getSizeInventory()), player);
+  }
+
+  @Override
+  protected void syncWithOtherContainer(BaseContainer<TileToolStation> otherContainer, EntityPlayerMP player) {
+    this.syncWithOtherContainer((ContainerToolStation) otherContainer, player);
+  }
+
+  protected void syncWithOtherContainer(ContainerToolStation otherContainer, EntityPlayerMP player) {
+    // set same selection as other container
+    this.setToolSelection(otherContainer.selectedTool, otherContainer.activeSlots);
+    this.setToolName(otherContainer.toolName);
+    // also send the data to the player
+    TinkerNetwork.sendTo(new ToolStationSelectionPacket(otherContainer.selectedTool, otherContainer.activeSlots), player);
+    if(otherContainer.toolName != null && !otherContainer.toolName.isEmpty()) {
+      TinkerNetwork.sendTo(new ToolStationTextPacket(otherContainer.toolName), player);
+    }
+  }
+
   public void setToolSelection(ToolCore tool, int activeSlots) {
     if(activeSlots > tile.getSizeInventory())
       activeSlots = tile.getSizeInventory();
+
+    this.activeSlots = activeSlots;
+    this.selectedTool = tool;
 
     for(int i = 0; i < tile.getSizeInventory(); i++) {
       Slot slot = (Slot)inventorySlots.get(i);
@@ -71,6 +102,10 @@ public class ContainerToolStation extends ContainerMultiModule<TileToolStation> 
               slotToolPart.setRestriction(pmts[i]);
             }
           }
+        }
+
+        if(world.isRemote) {
+          slotToolPart.updateIcon();
         }
       }
     }
@@ -161,9 +196,5 @@ public class ContainerToolStation extends ContainerMultiModule<TileToolStation> 
 
   public boolean canMergeSlot(ItemStack stack, Slot slot) {
     return slot != out && super.canMergeSlot(stack, slot);
-  }
-
-  public boolean sameGui(ContainerToolStation otherContainer) {
-    return this.tile == otherContainer.tile;
   }
 }

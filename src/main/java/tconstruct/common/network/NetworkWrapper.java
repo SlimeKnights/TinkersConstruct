@@ -2,6 +2,7 @@ package tconstruct.common.network;
 
 import com.google.common.base.Throwables;
 
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -11,7 +12,7 @@ public class NetworkWrapper {
   private int id = 0;
 
   public NetworkWrapper(String channelName) {
-    network = new SimpleNetworkWrapper(channelName);
+    network = NetworkRegistry.INSTANCE.newSimpleChannel(channelName);
   }
 
   /**

@@ -14,7 +14,9 @@ public class TinkerNetwork extends NetworkWrapper {
 
   public TinkerNetwork() {
     super(TConstruct.modID);
+  }
 
+  public void setup() {
     // register all the packets
     registerPacketServer(TinkerStationTabPacket.class);
     registerPacket(ToolStationSelectionPacket.class);
