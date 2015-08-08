@@ -81,11 +81,11 @@ public class TinkerTools extends TinkerPulse {
     TinkerMaterials.registerToolMaterials();
 
     // register items
+    pattern = registerItem(new Pattern(), "Pattern");
+
     registerToolParts();
     registerTools();
     registerModifiers();
-
-    pattern = registerItem(new Pattern(), "Pattern");
 
     // register blocks
     toolTables = registerBlock(new BlockToolTable(), ItemBlockMeta.class, "ToolTables");
@@ -110,12 +110,12 @@ public class TinkerTools extends TinkerPulse {
   }
 
   private void registerToolParts() {
-    pickHead = registerItem(new ToolPart(), "PickHead");
+    pickHead = registerToolPart(new ToolPart(), "PickHead");
 
-    toolRod = registerItem(new ToolPart(), "ToolRod");
-    binding = registerItem(new ToolPart(), "Binding");
+    toolRod = registerToolPart(new ToolPart(), "ToolRod");
+    binding = registerToolPart(new ToolPart(), "Binding");
 
-    largePlate = registerItem(new ToolPart(), "LargePlate");
+    largePlate = registerToolPart(new ToolPart(), "LargePlate");
   }
 
   private void registerTools() {
@@ -147,7 +147,6 @@ public class TinkerTools extends TinkerPulse {
       }
     };
   }
-
 
   // INITIALIZATION
   @Handler
@@ -218,5 +217,16 @@ public class TinkerTools extends TinkerPulse {
   @Handler
   public void postInit(FMLPostInitializationEvent event) {
     proxy.postInit();
+  }
+
+
+  private ToolPart registerToolPart(ToolPart part, String name) {
+    ToolPart ret = registerItem(part, name);
+
+    ItemStack stencil = new ItemStack(pattern);
+    Pattern.setTagForPart(stencil, part);
+    TinkerRegistry.registerStencilTableCrafting(stencil);
+
+    return ret;
   }
 }

@@ -9,8 +9,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import tconstruct.Config;
 import tconstruct.common.tileentity.TileTable;
 import tconstruct.library.mantle.IInventoryGui;
+import tconstruct.tools.TinkerTools;
 import tconstruct.tools.client.GuiStencilTable;
 import tconstruct.tools.inventory.ContainerStencilTable;
 
@@ -28,5 +30,10 @@ public class TileStencilTable extends TileTable implements IInventoryGui {
   @Override
   public GuiContainer createGui(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
     return new GuiStencilTable(inventoryplayer, world, pos, this);
+  }
+
+  @Override
+  public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
+    return itemstack != null && itemstack.getItem() == TinkerTools.pattern && (Config.reuseStencil || !itemstack.hasTagCompound());
   }
 }

@@ -51,7 +51,7 @@ public abstract class BaseContainer<T extends TileEntity> extends Container {
       if(player == playerOpened)
         continue;
       if(player.openContainer instanceof BaseContainer) {
-        if(this.sameGui((ContainerToolStation) player.openContainer)) {
+        if(this.sameGui((BaseContainer<T>) player.openContainer)) {
           syncWithOtherContainer((BaseContainer<T>) player.openContainer, playerOpened);
           return;
         }
@@ -62,10 +62,19 @@ public abstract class BaseContainer<T extends TileEntity> extends Container {
     syncNewContainer(playerOpened);
   }
 
+  /**
+   * Called when the container is opened and another player already has a container for this tile open
+   * Sync to the same state here.
+   */
   protected void syncWithOtherContainer(BaseContainer<T> otherContainer, EntityPlayerMP player) {}
+
+  /**
+   * Called when the container is opened and no other player has it open.
+   * Set the default state here.
+   */
   protected void syncNewContainer(EntityPlayerMP player) {}
 
-  public boolean sameGui(ContainerToolStation otherContainer) {
+  public boolean sameGui(BaseContainer otherContainer) {
     return this.tile == otherContainer.tile;
   }
 

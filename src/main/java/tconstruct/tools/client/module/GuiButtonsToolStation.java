@@ -94,7 +94,7 @@ public class GuiButtonsToolStation extends GuiSideButtons {
     style = 1;
   }
 
-  private void shiftButton(GuiButtonItem button, int xd, int yd) {
+  protected void shiftButton(GuiButtonItem button, int xd, int yd) {
     button.setGraphics(GuiTinkerStation.ICON_Button.shift(xd, yd),
                        GuiTinkerStation.ICON_ButtonHover.shift(xd, yd),
                        GuiTinkerStation.ICON_ButtonPressed.shift(xd, yd),

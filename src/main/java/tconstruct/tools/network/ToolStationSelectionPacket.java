@@ -14,6 +14,7 @@ import java.util.List;
 import io.netty.buffer.ByteBuf;
 import tconstruct.TConstruct;
 import tconstruct.TinkerNetwork;
+import tconstruct.common.inventory.BaseContainer;
 import tconstruct.common.network.AbstractPacketThreadsafe;
 import tconstruct.library.TinkerRegistryClient;
 import tconstruct.library.client.ToolBuildGuiInfo;
@@ -58,7 +59,7 @@ public class ToolStationSelectionPacket extends AbstractPacketThreadsafe {
         if(player == netHandler.playerEntity)
           continue;
         if(player.openContainer instanceof ContainerToolStation) {
-          if(((ContainerToolStation) container).sameGui((ContainerToolStation) player.openContainer)) {
+          if(((BaseContainer) container).sameGui((BaseContainer) player.openContainer)) {
             ((ContainerToolStation) player.openContainer).setToolSelection(tool, activeSlots);
             // same gui, send him an update
             TinkerNetwork.sendTo(this, (EntityPlayerMP) player);

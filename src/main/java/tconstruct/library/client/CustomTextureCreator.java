@@ -197,14 +197,14 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
 
         // Pattern
         if(pattern != null) {
-          String partPatternLocation = patternLocString + modelLocation.getResourcePath();
+          String partPatternLocation = patternLocString + toolpart.getIdentifier();
           TextureAtlasSprite partPatternTexture =
               new PatternTexture(partTexture.toString(), pattern, partPatternLocation);
 
           map.setTextureEntry(partPatternLocation, partPatternTexture);
         }
         if(cast != null) {
-          String partCastLocation = castLocString + modelLocation.getResourcePath();
+          String partCastLocation = castLocString + toolpart.getIdentifier();
           TextureAtlasSprite partCastTexture =
               new CastTexture(partTexture.toString(), cast, partCastLocation);
 

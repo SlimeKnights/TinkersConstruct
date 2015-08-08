@@ -1,6 +1,7 @@
 package tconstruct.tools.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -10,10 +11,12 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
 
+import tconstruct.TinkerNetwork;
+import tconstruct.common.inventory.BaseContainer;
 import tconstruct.common.inventory.ContainerMultiModule;
-import tconstruct.common.inventory.SlotRestrictedItem;
 import tconstruct.library.mantle.InventoryCraftingPersistent;
-import tconstruct.tools.TinkerTools;
+import tconstruct.tools.item.Pattern;
+import tconstruct.tools.network.StencilTableSelectionPacket;
 import tconstruct.tools.tileentity.TilePatternChest;
 import tconstruct.tools.tileentity.TileStencilTable;
 
@@ -21,6 +24,8 @@ public class ContainerStencilTable extends ContainerMultiModule<TileStencilTable
 
   public InventoryCraftingPersistent craftMatrix;
   public IInventory craftResult;
+
+  private ItemStack output;
 
   private final Container patternChestSideInventory;
 
@@ -30,7 +35,7 @@ public class ContainerStencilTable extends ContainerMultiModule<TileStencilTable
     this.craftMatrix = new InventoryCraftingPersistent(this, tile, 1, 1);
     this.craftResult = new InventoryCraftResult();
 
-    this.addSlotToContainer(new SlotRestrictedItem(TinkerTools.pattern, this.craftMatrix, 0, 48, 35));
+    this.addSlotToContainer(new SlotStencil(this.craftMatrix, 0, 48, 35));
     this.addSlotToContainer(new SlotStencilCrafting(playerInventory.player, craftMatrix, craftResult, 1, 106, 35));
 
     TilePatternChest chest = detectTE(TilePatternChest.class);
@@ -47,6 +52,25 @@ public class ContainerStencilTable extends ContainerMultiModule<TileStencilTable
   }
 
   @Override
+  protected void syncWithOtherContainer(BaseContainer<TileStencilTable> otherContainer, EntityPlayerMP player) {
+    syncWithOtherContainer((ContainerStencilTable) otherContainer, player);
+  }
+
+  protected void syncWithOtherContainer(ContainerStencilTable otherContainer, EntityPlayerMP player) {
+    this.setOutput(otherContainer.output);
+    if(output != null) {
+      TinkerNetwork.sendTo(new StencilTableSelectionPacket(output), player);
+    }
+  }
+
+  public void setOutput(ItemStack stack) {
+    if(stack != null && stack.getItem() instanceof Pattern) {
+      output = stack;
+    }
+    updateResult();
+  }
+
+  @Override
   public void onCraftMatrixChanged(IInventory inventoryIn) {
     updateResult();
   }
@@ -59,7 +83,7 @@ public class ContainerStencilTable extends ContainerMultiModule<TileStencilTable
     }
     else {
       // set pattern from selection (or null if no selection)
-      craftResult.setInventorySlotContents(0, craftMatrix.getStackInSlot(0).copy());
+      craftResult.setInventorySlotContents(0, output);
     }
   }
 

@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import tconstruct.common.network.AbstractPacket;
 import tconstruct.common.network.NetworkWrapper;
+import tconstruct.tools.network.StencilTableSelectionPacket;
 import tconstruct.tools.network.TinkerStationTabPacket;
 import tconstruct.tools.network.ToolStationSelectionPacket;
 import tconstruct.tools.network.ToolStationTextPacket;
@@ -18,6 +19,7 @@ public class TinkerNetwork extends NetworkWrapper {
 
   public void setup() {
     // register all the packets
+    registerPacket(StencilTableSelectionPacket.class);
     registerPacketServer(TinkerStationTabPacket.class);
     registerPacket(ToolStationSelectionPacket.class);
     registerPacket(ToolStationTextPacket.class);

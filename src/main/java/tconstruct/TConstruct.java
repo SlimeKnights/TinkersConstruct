@@ -97,6 +97,8 @@ public class TConstruct {
     if(event.getSide().isClient()) {
       ClientProxy.initClient();
     }
+
+    TinkerNetwork.instance.setup();
   }
 
   @Mod.EventHandler

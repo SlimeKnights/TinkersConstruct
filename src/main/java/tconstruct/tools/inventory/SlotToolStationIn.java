@@ -4,6 +4,8 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import tconstruct.library.client.CustomTextureCreator;
 import tconstruct.library.tinkering.MaterialItem;
@@ -53,9 +55,13 @@ public class SlotToolStationIn extends Slot {
     dormant = true;
   }
 
+
   public void setRestriction(PartMaterialType restriction) {
     this.restriction = restriction;
+  }
 
+  @SideOnly(Side.CLIENT)
+  public void updateIcon() {
     if(restriction != null) {
       for(IToolPart part : restriction.getPossibleParts()) {
         if(part instanceof MaterialItem) {

@@ -33,6 +33,7 @@ import tconstruct.library.tools.IToolPart;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.traits.ITrait;
 import tconstruct.tools.TinkerTools;
+import tconstruct.tools.item.Pattern;
 
 public final class TinkerRegistry {
 
@@ -264,7 +265,7 @@ public final class TinkerRegistry {
   }
 
   /*---------------------------------------------------------------------------
-  | TOOLS & WEAPONS                                                           |
+  | TOOLS & WEAPONS & Crafting                                                |
   ---------------------------------------------------------------------------*/
 
   /** This set contains all known tools */
@@ -272,7 +273,7 @@ public final class TinkerRegistry {
   private static final Set<IToolPart> toolParts = new TLinkedHashSet<>();
   private static final Set<Item> toolStationCrafting = Sets.newHashSet();
   private static final Set<Item> toolForgeCrafting = Sets.newHashSet();
-
+  private static final Set<ItemStack> stencilTableCrafting = Sets.newHashSet();
 
   public static void registerTool(ToolCore tool) {
     tools.add(tool);
@@ -321,6 +322,19 @@ public final class TinkerRegistry {
 
   public static Set<Item> getToolForgeCrafting() {
     return ImmutableSet.copyOf(toolForgeCrafting);
+  }
+
+  public static void registerStencilTableCrafting(ItemStack stencil) {
+    if(!(stencil.getItem() instanceof Pattern)) {
+      error(String.format(
+          "Stencil Table Crafting has to be a pattern (%s)", stencil.toString()));
+      return;
+    }
+    stencilTableCrafting.add(stencil);
+  }
+
+  public static Set<ItemStack> getStencilTableCrafting() {
+    return ImmutableSet.copyOf(stencilTableCrafting);
   }
 
   /*---------------------------------------------------------------------------

@@ -6,8 +6,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.tileentity.TileEntity;
 
 import tconstruct.common.inventory.ContainerMultiModule;
-import tconstruct.common.inventory.SlotRestrictedItem;
-import tconstruct.tools.TinkerTools;
 import tconstruct.tools.tileentity.TilePatternChest;
 
 public class ContainerPatternChest extends ContainerMultiModule<TilePatternChest> {
@@ -25,7 +23,7 @@ public class ContainerPatternChest extends ContainerMultiModule<TilePatternChest
           break;
         }
 
-        this.addSlotToContainer(new SlotRestrictedItem(TinkerTools.pattern, tile, index, 8 + j * 18, 18 + i * 18));
+        this.addSlotToContainer(new SlotStencil(tile, index, 8 + j * 18, 18 + i * 18));
         index++;
       }
     }
@@ -42,7 +40,7 @@ public class ContainerPatternChest extends ContainerMultiModule<TilePatternChest
 
     @Override
     protected Slot createSlot(IInventory inventory, int index, int x, int y) {
-      return new SlotRestrictedItem(TinkerTools.pattern, (TilePatternChest)tile, index, x, y);
+      return new SlotStencil((TilePatternChest)tile, index, x, y);
     }
   }
 }
