@@ -1,7 +1,9 @@
 package tconstruct.library;
 
 import com.google.common.base.CharMatcher;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import gnu.trove.map.hash.THashMap;
@@ -20,6 +22,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -273,7 +276,7 @@ public final class TinkerRegistry {
   private static final Set<IToolPart> toolParts = new TLinkedHashSet<>();
   private static final Set<Item> toolStationCrafting = Sets.newHashSet();
   private static final Set<Item> toolForgeCrafting = Sets.newHashSet();
-  private static final Set<ItemStack> stencilTableCrafting = Sets.newHashSet();
+  private static final List<ItemStack> stencilTableCrafting = Lists.newLinkedList();
 
   public static void registerTool(ToolCore tool) {
     tools.add(tool);
@@ -333,8 +336,8 @@ public final class TinkerRegistry {
     stencilTableCrafting.add(stencil);
   }
 
-  public static Set<ItemStack> getStencilTableCrafting() {
-    return ImmutableSet.copyOf(stencilTableCrafting);
+  public static List<ItemStack> getStencilTableCrafting() {
+    return ImmutableList.copyOf(stencilTableCrafting);
   }
 
   /*---------------------------------------------------------------------------

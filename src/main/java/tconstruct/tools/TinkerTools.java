@@ -110,6 +110,7 @@ public class TinkerTools extends TinkerPulse {
   }
 
   private void registerToolParts() {
+    // The order the items are registered in represents the order in the stencil table GUI too
     pickHead = registerToolPart(new ToolPart(), "PickHead");
 
     toolRod = registerToolPart(new ToolPart(), "ToolRod");
