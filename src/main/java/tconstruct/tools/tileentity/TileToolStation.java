@@ -5,6 +5,8 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import tconstruct.common.tileentity.TileTable;
 import tconstruct.library.mantle.IInventoryGui;
@@ -23,6 +25,7 @@ public class TileToolStation extends TileTable implements IInventoryGui {
   }
 
   @Override
+  @SideOnly(Side.CLIENT)
   public GuiContainer createGui(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
     return new GuiToolStation(inventoryplayer, world, pos, this);
   }
