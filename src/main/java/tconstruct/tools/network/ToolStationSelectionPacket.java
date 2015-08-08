@@ -15,7 +15,11 @@ import io.netty.buffer.ByteBuf;
 import tconstruct.TConstruct;
 import tconstruct.TinkerNetwork;
 import tconstruct.common.network.AbstractPacketThreadsafe;
+import tconstruct.library.TinkerRegistryClient;
+import tconstruct.library.client.ToolBuildGuiInfo;
 import tconstruct.library.tools.ToolCore;
+import tconstruct.tools.client.GuiButtonRepair;
+import tconstruct.tools.client.GuiToolStation;
 import tconstruct.tools.inventory.ContainerToolStation;
 
 public class ToolStationSelectionPacket extends AbstractPacketThreadsafe {
@@ -36,6 +40,9 @@ public class ToolStationSelectionPacket extends AbstractPacketThreadsafe {
     Container container = Minecraft.getMinecraft().thePlayer.openContainer;
     if(container instanceof ContainerToolStation) {
       ((ContainerToolStation) container).setToolSelection(tool, activeSlots);
+      if(Minecraft.getMinecraft().currentScreen instanceof GuiToolStation) {
+        ((GuiToolStation) Minecraft.getMinecraft().currentScreen).onToolSelectionPacket(this);
+      }
     }
   }
 
@@ -48,8 +55,11 @@ public class ToolStationSelectionPacket extends AbstractPacketThreadsafe {
       // find all people who also have the same gui open and update them too
       WorldServer server = netHandler.playerEntity.getServerForPlayer();
       for(EntityPlayer player : (List<EntityPlayer>)server.playerEntities) {
+        if(player == netHandler.playerEntity)
+          continue;
         if(player.openContainer instanceof ContainerToolStation) {
           if(((ContainerToolStation) container).sameGui((ContainerToolStation) player.openContainer)) {
+            ((ContainerToolStation) player.openContainer).setToolSelection(tool, activeSlots);
             // same gui, send him an update
             TinkerNetwork.sendTo(this, (EntityPlayerMP) player);
           }
