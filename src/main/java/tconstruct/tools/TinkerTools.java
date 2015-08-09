@@ -111,12 +111,12 @@ public class TinkerTools extends TinkerPulse {
 
   private void registerToolParts() {
     // The order the items are registered in represents the order in the stencil table GUI too
-    pickHead = registerToolPart(new ToolPart(), "PickHead");
+    pickHead = registerToolPart(new ToolPart(ToolPart.COST_Ingot), "PickHead");
 
-    toolRod = registerToolPart(new ToolPart(), "ToolRod");
-    binding = registerToolPart(new ToolPart(), "Binding");
+    toolRod = registerToolPart(new ToolPart(ToolPart.COST_Shard), "ToolRod");
+    binding = registerToolPart(new ToolPart(ToolPart.COST_Shard), "Binding");
 
-    largePlate = registerToolPart(new ToolPart(), "LargePlate");
+    largePlate = registerToolPart(new ToolPart(ToolPart.COST_Ingot*8), "LargePlate");
   }
 
   private void registerTools() {

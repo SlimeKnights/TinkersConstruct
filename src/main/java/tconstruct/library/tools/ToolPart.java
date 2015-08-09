@@ -23,8 +23,19 @@ import tconstruct.library.utils.Tags;
 
 public class ToolPart extends MaterialItem implements IToolPart {
 
-  public ToolPart() {
+  public static int COST_Ingot = 2;
+  public static int COST_Shard = 1;
+
+  protected int cost;
+
+  public ToolPart(int cost) {
     this.setCreativeTab(TinkerRegistry.tabTools);
+    this.cost = cost;
+  }
+
+  @Override
+  public int getCost() {
+    return cost;
   }
 
   @Override

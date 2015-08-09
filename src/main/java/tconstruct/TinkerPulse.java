@@ -30,8 +30,8 @@ public abstract class TinkerPulse {
     return TConstruct.pulseManager.isPulseLoaded(TinkerSmeltery.PulseId);
   }
 
-  protected static ToolPart registerToolPart(String unlocName) {
-    ToolPart part = new ToolPart();
+  protected static ToolPart registerToolPart(String unlocName, int cost) {
+    ToolPart part = new ToolPart(cost);
     registerItem(part, unlocName);
     OreDictionary.registerOre(String.format("part%s", unlocName), part);
 
