@@ -49,6 +49,8 @@ public class GuiButtonsStencilTable extends GuiSideButtons {
         button.pressed = true;
       }
     }
+
+    super.updatePosition(parentX, parentY, parentSizeX, parentSizeY);
   }
 
   public void setSelectedbuttonByItem(ItemStack stack) {

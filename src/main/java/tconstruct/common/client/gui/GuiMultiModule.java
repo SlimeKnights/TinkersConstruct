@@ -18,7 +18,9 @@ import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.List;
 
+import codechicken.nei.LayoutManager;
 import codechicken.nei.VisiblityData;
+import codechicken.nei.api.API;
 import codechicken.nei.api.INEIGuiHandler;
 import codechicken.nei.api.TaggedInventoryArea;
 import tconstruct.TConstruct;
@@ -304,6 +306,20 @@ public class GuiMultiModule extends GuiContainer implements INEIGuiHandler {
   @Override
   @Optional.Method(modid = "NotEnoughItems")
   public VisiblityData modifyVisiblity(GuiContainer guiContainer, VisiblityData visiblityData) {
+    int x = LayoutManager.stateButtons[0].x + LayoutManager.stateButtons[0].w;
+    int x2 = LayoutManager.timeButtons[3].x + LayoutManager.timeButtons[3].w;
+    int y2 = LayoutManager.heal.y + LayoutManager.heal.h;
+
+
+    for(GuiModule module : modules) {
+      if(x > module.guiLeft) {
+        visiblityData.showStateButtons = false;
+      }
+      if(x2 > module.guiLeft && y2 > module.guiTop) {
+        visiblityData.showUtilityButtons = false;
+      }
+    }
+
     return visiblityData;
   }
 

@@ -55,6 +55,8 @@ public class GuiButtonsToolStation extends GuiSideButtons {
       }
     }
 
+    super.updatePosition(parentX, parentY, parentSizeX, parentSizeY);
+
     // activate currently selected/default
     ((GuiToolStation) parent).updateGUI();
   }
