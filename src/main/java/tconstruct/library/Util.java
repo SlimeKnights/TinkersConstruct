@@ -8,10 +8,12 @@ import net.minecraftforge.fml.common.registry.GameData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Locale;
+
 public class Util {
 
   public static final String MODID = "TConstruct";
-  public static final String RESOURCE = MODID.toLowerCase();
+  public static final String RESOURCE = MODID.toLowerCase(Locale.US);
 
   public static Logger getLogger(String type) {
     String log = MODID;
@@ -24,7 +26,7 @@ public class Util {
    * Removes all whitespaces from the given string and makes it lowerspace.
    */
   public static String sanitizeLocalizationString(String string) {
-    return string.toLowerCase().replaceAll(" ", "");
+    return string.toLowerCase(Locale.US).replaceAll(" ", "");
   }
 
   /**

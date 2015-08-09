@@ -2,6 +2,8 @@ package tconstruct.library.tinkering;
 
 import com.sun.istack.internal.NotNull;
 
+import java.util.Locale;
+
 public class Category {
 
   // everything item built is a tool
@@ -15,6 +17,6 @@ public class Category {
   private final String name;
 
   public Category(@NotNull String name) {
-    this.name = name.toLowerCase();
+    this.name = name.toLowerCase(Locale.US);
   }
 }

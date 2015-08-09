@@ -14,6 +14,7 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import tconstruct.library.TinkerAPIException;
@@ -60,7 +61,7 @@ public class ModifierModelLoader implements ICustomModelLoader {
     String toolname = modelLocation.getResourcePath().substring(start < 0 ? 0 : start + 1,
                                                                 modelLocation.getResourcePath().length() - EXTENSION
                                                                     .length());
-    toolname = toolname.toLowerCase();
+    toolname = toolname.toLowerCase(Locale.US);
 
     // we only load once. Without cache we'd have to load ALL modifier files again for each tool!
     if(cache == null) {
@@ -117,7 +118,7 @@ public class ModifierModelLoader implements ICustomModelLoader {
 
           // save them in the cache
           for(Map.Entry<String, String> textureEntry : textureEntries.entrySet()) {
-            String tool = textureEntry.getKey().toLowerCase();
+            String tool = textureEntry.getKey().toLowerCase(Locale.US);
             String texture = textureEntry.getValue();
 
             if(!cache.containsKey(tool)) {
