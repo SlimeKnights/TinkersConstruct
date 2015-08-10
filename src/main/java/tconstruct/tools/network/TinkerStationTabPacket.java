@@ -1,5 +1,6 @@
 package tconstruct.tools.network;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -12,6 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 import tconstruct.TConstruct;
 import tconstruct.common.network.AbstractPacketThreadsafe;
+import tconstruct.tools.block.ITinkerStationBlock;
 
 /**
  * Sent to the server when the user clicks on a tab in the TinkerStation GUI
@@ -48,7 +50,14 @@ public class TinkerStationTabPacket extends AbstractPacketThreadsafe {
       player.inventory.setItemStack(null);
     }
 
-    player.openGui(TConstruct.instance, 0, player.worldObj, blockX, blockY, blockZ);
+    BlockPos pos = new BlockPos(blockX, blockY, blockZ);
+    IBlockState state = player.worldObj.getBlockState(pos);
+    if(state.getBlock() instanceof ITinkerStationBlock) {
+      ((ITinkerStationBlock) state.getBlock()).openGui(player, player.worldObj, pos);
+    }
+    else {
+      player.openGui(TConstruct.instance, 0, player.worldObj, blockX, blockY, blockZ);
+    }
 
     // set hedl item again for the new container
     if(heldStack != null) {
