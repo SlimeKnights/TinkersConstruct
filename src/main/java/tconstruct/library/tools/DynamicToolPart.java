@@ -19,6 +19,7 @@ import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class DynamicToolPart extends CraftingItem implements IToolPart
@@ -85,7 +86,7 @@ public class DynamicToolPart extends CraftingItem implements IToolPart
             if(toolmat == null)
                 return super.getItemStackDisplayName(stack);
 
-            material = toolmat.localizationString.substring(9); // :(
+            material = toolmat.localizationString.toLowerCase(Locale.ENGLISH).startsWith("material.") ? toolmat.localizationString.substring(9) : toolmat.localizationString; // :(
             matName = toolmat.prefixName();
         }
         else
