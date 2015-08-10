@@ -22,7 +22,7 @@ import tconstruct.tools.network.ToolStationSelectionPacket;
 import tconstruct.tools.network.ToolStationTextPacket;
 import tconstruct.tools.tileentity.TileToolStation;
 
-public class ContainerToolStation extends ContainerMultiModule<TileToolStation> {
+public class ContainerToolStation extends ContainerTinkerStation<TileToolStation> {
 
   protected SlotToolStationOut out;
   protected ToolCore selectedTool; // needed for newly opened containers to sync

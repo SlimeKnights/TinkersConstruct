@@ -9,6 +9,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.library.Util;
+import tconstruct.tools.inventory.ContainerTinkerStation;
 import tconstruct.tools.tileentity.TilePatternChest;
 
 @SideOnly(Side.CLIENT)
@@ -17,7 +18,7 @@ public class GuiPatternChest extends GuiTinkerStation {
   private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/patternchest.png");
 
   public GuiPatternChest(InventoryPlayer playerInv, World world, BlockPos pos, TilePatternChest tile) {
-    super(world, pos, (ContainerMultiModule)tile.createContainer(playerInv, world, pos));
+    super(world, pos, (ContainerTinkerStation)tile.createContainer(playerInv, world, pos));
 
     this.xSize = 194;
     this.ySize = 168;

@@ -1,7 +1,12 @@
 package tconstruct.tools.inventory;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Queues;
+import com.google.common.collect.Sets;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -12,13 +17,22 @@ import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 
 import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.library.mantle.InventoryCraftingPersistent;
+import tconstruct.tools.block.BlockToolTable;
+import tconstruct.tools.block.ITinkerStationBlock;
 import tconstruct.tools.tileentity.TileCraftingStation;
 
 // nearly the same as ContainerWorkbench but uses the TileEntities inventory
-public class ContainerCraftingStation extends ContainerMultiModule<TileCraftingStation> {
+public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftingStation> {
 
   public InventoryCraftingPersistent craftMatrix;
   public IInventory craftResult;
@@ -68,5 +82,6 @@ public class ContainerCraftingStation extends ContainerMultiModule<TileCraftingS
   public boolean canMergeSlot(ItemStack p_94530_1_, Slot p_94530_2_) {
     return p_94530_2_.inventory != this.craftResult && super.canMergeSlot(p_94530_1_, p_94530_2_);
   }
+
 
 }

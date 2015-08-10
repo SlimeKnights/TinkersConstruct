@@ -135,11 +135,6 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
   }
 
   @Override
-  public boolean isMaster(IBlockState state) {
-    return state.getValue(TABLES) == TableTypes.CraftingStation;
-  }
-
-  @Override
   public int getGuiNumber(IBlockState state) {
     switch((TableTypes)state.getValue(TABLES)) {
       case StencilTable: return 10;

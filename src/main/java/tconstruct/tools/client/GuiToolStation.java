@@ -30,6 +30,7 @@ import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.tools.client.module.GuiButtonsToolStation;
 import tconstruct.tools.client.module.GuiInfoPanel;
+import tconstruct.tools.inventory.ContainerTinkerStation;
 import tconstruct.tools.inventory.ContainerToolStation;
 import tconstruct.tools.inventory.SlotToolStationIn;
 import tconstruct.tools.network.ToolStationSelectionPacket;
@@ -79,7 +80,7 @@ public class GuiToolStation extends GuiTinkerStation {
 
 
   public GuiToolStation(InventoryPlayer playerInv, World world, BlockPos pos, TileToolStation tile) {
-    super(world, pos, (ContainerMultiModule) tile.createContainer(playerInv, world, pos));
+    super(world, pos, (ContainerTinkerStation) tile.createContainer(playerInv, world, pos));
 
     buttons = new GuiButtonsToolStation(this, inventorySlots);
     this.addModule(buttons);

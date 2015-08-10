@@ -13,6 +13,7 @@ import tconstruct.tools.client.module.GuiSideInventory;
 import tconstruct.tools.inventory.ContainerPartBuilder;
 import tconstruct.tools.inventory.ContainerPatternChest;
 import tconstruct.tools.inventory.ContainerSideInventory;
+import tconstruct.tools.inventory.ContainerTinkerStation;
 import tconstruct.tools.tileentity.TilePartBuilder;
 
 @SideOnly(Side.CLIENT)
@@ -20,7 +21,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
   private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/partbuilder.png");
 
   public GuiPartBuilder(InventoryPlayer playerInv, World world, BlockPos pos, TilePartBuilder tile) {
-    super(world, pos, (ContainerMultiModule)tile.createContainer(playerInv, world, pos));
+    super(world, pos, (ContainerTinkerStation)tile.createContainer(playerInv, world, pos));
 
     if(inventorySlots instanceof ContainerPartBuilder) {
       ContainerPartBuilder container = (ContainerPartBuilder) inventorySlots;

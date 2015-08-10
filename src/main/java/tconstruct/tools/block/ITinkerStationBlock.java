@@ -9,9 +9,6 @@ import net.minecraft.world.World;
  * Blocks implementing this interface are part of the tinker station GUI system
  */
 public interface ITinkerStationBlock {
-  /** At least 1 master has to be present for a tinker station. Usually the crafting station. */
-  boolean isMaster(IBlockState state);
-
   /**
    * Used for sorting the tabs in the UI. Tabs are sorted from low to high.
    * Duplicate entries will be treated as the same and their blocks will be ignored.

@@ -7,7 +7,7 @@ import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.tools.tileentity.TilePartBuilder;
 import tconstruct.tools.tileentity.TilePatternChest;
 
-public class ContainerPartBuilder extends ContainerMultiModule<TilePartBuilder> {
+public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder> {
 
   public ContainerPartBuilder(InventoryPlayer playerInventory, TilePartBuilder tile) {
     super(tile);

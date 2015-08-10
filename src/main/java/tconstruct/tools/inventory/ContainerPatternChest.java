@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.tools.tileentity.TilePatternChest;
 
-public class ContainerPatternChest extends ContainerMultiModule<TilePatternChest> {
+public class ContainerPatternChest extends ContainerTinkerStation<TilePatternChest> {
 
   public ContainerPatternChest(int rows, int columns, InventoryPlayer playerInventory, TilePatternChest tile) {
     super(tile);

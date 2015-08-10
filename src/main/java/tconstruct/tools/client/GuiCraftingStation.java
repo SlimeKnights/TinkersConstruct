@@ -13,6 +13,7 @@ import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.tools.client.module.GuiSideInventory;
 import tconstruct.tools.inventory.ContainerCraftingStation;
 import tconstruct.tools.inventory.ContainerSideInventory;
+import tconstruct.tools.inventory.ContainerTinkerStation;
 import tconstruct.tools.tileentity.TileCraftingStation;
 
 @SideOnly(Side.CLIENT)
@@ -22,7 +23,7 @@ public class GuiCraftingStation extends GuiTinkerStation {
   protected final TileCraftingStation tile;
 
   public GuiCraftingStation(InventoryPlayer playerInv, World world, BlockPos pos, TileCraftingStation tile) {
-    super(world, pos, (ContainerMultiModule)tile.createContainer(playerInv, world, pos));
+    super(world, pos, (ContainerTinkerStation)tile.createContainer(playerInv, world, pos));
 
     this.tile = tile;
 

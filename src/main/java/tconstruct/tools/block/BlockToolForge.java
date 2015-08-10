@@ -78,11 +78,6 @@ public class BlockToolForge extends BlockTable implements ITinkerStationBlock {
   }
 
   @Override
-  public boolean isMaster(IBlockState state) {
-    return false;
-  }
-
-  @Override
   public int getGuiNumber(IBlockState state) {
     // same as toolstation
     return 25;

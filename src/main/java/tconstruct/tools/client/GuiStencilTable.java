@@ -14,6 +14,7 @@ import tconstruct.tools.client.module.GuiSideInventory;
 import tconstruct.tools.inventory.ContainerPatternChest;
 import tconstruct.tools.inventory.ContainerSideInventory;
 import tconstruct.tools.inventory.ContainerStencilTable;
+import tconstruct.tools.inventory.ContainerTinkerStation;
 import tconstruct.tools.network.StencilTableSelectionPacket;
 import tconstruct.tools.tileentity.TileStencilTable;
 
@@ -26,7 +27,7 @@ public class GuiStencilTable extends GuiTinkerStation {
   protected GuiButtonsStencilTable buttons;
 
   public GuiStencilTable(InventoryPlayer playerInv, World world, BlockPos pos, TileStencilTable tile) {
-    super(world, pos, (ContainerMultiModule) tile.createContainer(playerInv, world, pos));
+    super(world, pos, (ContainerTinkerStation) tile.createContainer(playerInv, world, pos));
 
     buttons = new GuiButtonsStencilTable(this, inventorySlots, false);
     this.addModule(buttons);

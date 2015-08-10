@@ -20,7 +20,7 @@ import tconstruct.tools.network.StencilTableSelectionPacket;
 import tconstruct.tools.tileentity.TilePatternChest;
 import tconstruct.tools.tileentity.TileStencilTable;
 
-public class ContainerStencilTable extends ContainerMultiModule<TileStencilTable> {
+public class ContainerStencilTable extends ContainerTinkerStation<TileStencilTable> {
 
   public InventoryCraftingPersistent craftMatrix;
   public IInventory craftResult;
