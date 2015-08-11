@@ -327,6 +327,7 @@ public final class TinkerRegistry {
     return ImmutableSet.copyOf(toolForgeCrafting);
   }
 
+  /** Adds a new pattern to craft to the stenciltable. NBT sensitive. Has to be a Pattern. */
   public static void registerStencilTableCrafting(ItemStack stencil) {
     if(!(stencil.getItem() instanceof Pattern)) {
       error(String.format(

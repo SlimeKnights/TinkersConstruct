@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import tconstruct.TinkerNetwork;
 import tconstruct.common.inventory.BaseContainer;
 import tconstruct.common.inventory.ContainerMultiModule;
+import tconstruct.library.TinkerRegistry;
 import tconstruct.library.mantle.InventoryCraftingPersistent;
 import tconstruct.tools.item.Pattern;
 import tconstruct.tools.network.StencilTableSelectionPacket;
@@ -64,10 +65,19 @@ public class ContainerStencilTable extends ContainerTinkerStation<TileStencilTab
   }
 
   public void setOutput(ItemStack stack) {
-    if(stack != null && stack.getItem() instanceof Pattern) {
-      output = stack;
+    if(stack == null) {
+      return;
     }
-    updateResult();
+    // ensure that the output is valid
+    for(ItemStack candidate : TinkerRegistry.getStencilTableCrafting()) {
+      // NBT sensitive
+      if(stack.getIsItemStackEqual(candidate)) {
+        // yay
+        output = stack;
+        updateResult();
+        return;
+      }
+    }
   }
 
   @Override
