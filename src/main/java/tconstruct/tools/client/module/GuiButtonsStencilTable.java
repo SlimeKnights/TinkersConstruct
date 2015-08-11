@@ -41,7 +41,7 @@ public class GuiButtonsStencilTable extends GuiSideButtons {
       }
 
       ItemStack icon = ((MaterialItem) part).getItemstackWithMaterial(CustomTextureCreator.guiMaterial);
-      GuiButtonItem button = new GuiButtonItem(index++, -1, -1, icon, new ItemInfoWrapper(stencil));
+      GuiButtonItem button = new GuiButtonItem<ItemStack>(index++, -1, -1, icon, stencil);
       shiftButton(button, 0, 18);
       addButton(button);
 
@@ -55,8 +55,8 @@ public class GuiButtonsStencilTable extends GuiSideButtons {
 
   public void setSelectedbuttonByItem(ItemStack stack) {
     for(Object o : buttonList) {
-      GuiButtonItem button = (GuiButtonItem) o;
-      button.pressed = ItemStack.areItemStacksEqual(((ItemInfoWrapper) button.info).itemStack, stack);
+      GuiButtonItem<ItemStack> button = (GuiButtonItem<ItemStack>) o;
+      button.pressed = ItemStack.areItemStacksEqual(button.data, stack);
     }
   }
 
@@ -70,7 +70,7 @@ public class GuiButtonsStencilTable extends GuiSideButtons {
     selected = button.id;
 
     ContainerStencilTable container = ((ContainerStencilTable) parent.inventorySlots);
-    ItemStack output = ((ItemInfoWrapper) ((GuiButtonItem) button).info).itemStack;
+    ItemStack output = ((GuiButtonItem<ItemStack>) button).data;
 
     container.setOutput(output);
 
@@ -82,14 +82,5 @@ public class GuiButtonsStencilTable extends GuiSideButtons {
                        GuiTinkerStation.ICON_ButtonHover.shift(xd, yd),
                        GuiTinkerStation.ICON_ButtonPressed.shift(xd, yd),
                        GuiTinkerStation.ICONS);
-  }
-
-  // we abuse this because I'm too lazy to make new stuff *cough*
-  private static class ItemInfoWrapper extends ToolBuildGuiInfo {
-    public ItemStack itemStack;
-
-    public ItemInfoWrapper(ItemStack out) {
-      this.itemStack = out;
-    }
   }
 }

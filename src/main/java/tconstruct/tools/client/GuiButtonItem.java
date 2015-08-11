@@ -10,14 +10,14 @@ import tconstruct.common.client.gui.GuiElement;
 import tconstruct.library.Util;
 import tconstruct.library.client.ToolBuildGuiInfo;
 
-public class GuiButtonItem extends GuiButton {
+public class GuiButtonItem<T> extends GuiButton {
   // Positions from generic.png
   protected static final GuiElement GUI_Button_pressed = new GuiElement(144, 216, 18, 18, 256, 256);
   protected static final GuiElement GUI_Button_normal = new GuiElement(144 + 18 * 2, 216, 18, 18, 256, 256);
   protected static final GuiElement GUI_Button_hover = new GuiElement(144 + 18 * 4, 216, 18, 18, 256, 256);
 
   private final ItemStack icon;
-  public final ToolBuildGuiInfo info;
+  public final T data;
   public boolean pressed;
 
   private GuiElement guiPressed = GUI_Button_pressed;
@@ -25,18 +25,18 @@ public class GuiButtonItem extends GuiButton {
   private GuiElement guiHover = GUI_Button_hover;
   private ResourceLocation locBackground = GuiTinkerStation.ICONS;
 
-  public GuiButtonItem(int buttonId, int x, int y, String displayName, ToolBuildGuiInfo info) {
+  public GuiButtonItem(int buttonId, int x, int y, String displayName, T data) {
     super(buttonId, x, y, 18, 18, displayName);
 
     this.icon = null;
-    this.info = info;
+    this.data = data;
   }
 
-  public GuiButtonItem(int buttonId, int x, int y, ItemStack icon, ToolBuildGuiInfo info) {
+  public GuiButtonItem(int buttonId, int x, int y, ItemStack icon, T data) {
     super(buttonId, x, y, 18, 18, icon.getDisplayName());
 
     this.icon = icon;
-    this.info = info;
+    this.data = data;
   }
 
   public GuiButtonItem setGraphics(GuiElement normal, GuiElement hover, GuiElement pressed, ResourceLocation background) {

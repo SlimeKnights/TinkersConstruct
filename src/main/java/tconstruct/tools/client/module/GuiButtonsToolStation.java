@@ -44,7 +44,7 @@ public class GuiButtonsToolStation extends GuiSideButtons {
       for(int i = 0; i < 25; i++) {
         ToolBuildGuiInfo info = TinkerRegistryClient.getToolBuildInfoForTool(item);
         if(info != null) {
-          GuiButtonItem button = new GuiButtonItem(index++, -1, -1, info.tool, info);
+          GuiButtonItem button = new GuiButtonItem<ToolBuildGuiInfo>(index++, -1, -1, info.tool, info);
           shiftButton(button, 0, -18 * style);
           addButton(button);
 
@@ -63,8 +63,8 @@ public class GuiButtonsToolStation extends GuiSideButtons {
 
   public void setSelectedbuttonByTool(ItemStack stack) {
     for(Object o : buttonList) {
-      GuiButtonItem btn = (GuiButtonItem) o;
-      btn.pressed = ItemStack.areItemStacksEqual(btn.info.tool, stack);
+      GuiButtonItem<ToolBuildGuiInfo> btn = (GuiButtonItem<ToolBuildGuiInfo>) o;
+      btn.pressed = ItemStack.areItemStacksEqual(btn.data.tool, stack);
     }
   }
 
@@ -77,7 +77,7 @@ public class GuiButtonsToolStation extends GuiSideButtons {
     ((GuiButtonItem) button).pressed = true;
     selected = button.id;
 
-    ((GuiToolStation) parent).onToolSelection(((GuiButtonItem) button).info);
+    ((GuiToolStation) parent).onToolSelection(((GuiButtonItem<ToolBuildGuiInfo>) button).data);
   }
 
   public void wood() {
