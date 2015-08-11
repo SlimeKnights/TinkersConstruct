@@ -1,9 +1,5 @@
 package tconstruct.tools.client;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Queues;
-import com.google.common.collect.Sets;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Slot;
@@ -17,10 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.Queue;
-import java.util.Set;
 
 import tconstruct.TinkerNetwork;
 import tconstruct.common.client.gui.GuiElement;
@@ -28,29 +21,33 @@ import tconstruct.common.client.gui.GuiMultiModule;
 import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.library.Util;
 import tconstruct.library.mantle.IInventoryGui;
-import tconstruct.tools.block.BlockToolTable;
 import tconstruct.tools.block.ITinkerStationBlock;
 import tconstruct.tools.client.module.GuiTinkerTabs;
-import tconstruct.tools.inventory.ContainerCraftingStation;
 import tconstruct.tools.inventory.ContainerTinkerStation;
 import tconstruct.tools.network.TinkerStationTabPacket;
 
 @SideOnly(Side.CLIENT)
 // Takes care of the tinker station pseudo-multiblock
 public class GuiTinkerStation extends GuiMultiModule {
+
   public static final ResourceLocation ICONS = Util.getResource("textures/gui/icons.png");
 
-  public static final GuiElement ICON_Pickaxe = new GuiElement(18*0, 18*13, 18, 18, 256, 256);
-  public static final GuiElement ICON_Dust = new GuiElement(18*1, 18*13, 18, 18);
-  public static final GuiElement ICON_Lapis = new GuiElement(18*2, 18*13, 18, 18);
-  public static final GuiElement ICON_Ingot = new GuiElement(18*3, 18*13, 18, 18);
-  public static final GuiElement ICON_Gem = new GuiElement(18*4, 18*13, 18, 18);
-  public static final GuiElement ICON_Quartz = new GuiElement(18*5, 18*13, 18, 18);
-  public static final GuiElement ICON_Anvil = new GuiElement(18*3, 0, 18, 18);
-  public static final GuiElement ICON_Pattern = new GuiElement(18*3,18*12,18,18);
+  public static final GuiElement ICON_Anvil = new GuiElement(18 * 3, 0, 18, 18, 256, 256);
+
+  public static final GuiElement ICON_Pattern = new GuiElement(18 * 0, 18 * 12, 18, 18);
+  public static final GuiElement ICON_Shard = new GuiElement(18 * 1, 18 * 12, 18, 18);
+  public static final GuiElement ICON_Block = new GuiElement(18 * 2, 18 * 12, 18, 18);
+
+  public static final GuiElement ICON_Pickaxe = new GuiElement(18 * 0, 18 * 13, 18, 18);
+  public static final GuiElement ICON_Dust = new GuiElement(18 * 1, 18 * 13, 18, 18);
+  public static final GuiElement ICON_Lapis = new GuiElement(18 * 2, 18 * 13, 18, 18);
+  public static final GuiElement ICON_Ingot = new GuiElement(18 * 3, 18 * 13, 18, 18);
+  public static final GuiElement ICON_Gem = new GuiElement(18 * 4, 18 * 13, 18, 18);
+  public static final GuiElement ICON_Quartz = new GuiElement(18 * 5, 18 * 13, 18, 18);
+
   public static final GuiElement ICON_Button = new GuiElement(180, 216, 18, 18);
-  public static final GuiElement ICON_ButtonHover = new GuiElement(180+18*2, 216, 18, 18);
-  public static final GuiElement ICON_ButtonPressed = new GuiElement(180-18*2, 216, 18, 18);
+  public static final GuiElement ICON_ButtonHover = new GuiElement(180 + 18 * 2, 216, 18, 18);
+  public static final GuiElement ICON_ButtonPressed = new GuiElement(180 - 18 * 2, 216, 18, 18);
 
 
   protected final ContainerMultiModule container;
@@ -69,7 +66,7 @@ public class GuiTinkerStation extends GuiMultiModule {
 
     // add tab data
     if(container.hasCraftingStation) {
-      for(Pair<BlockPos, IBlockState> pair : (List<Pair<BlockPos, IBlockState>>)container.tinkerStationBlocks) {
+      for(Pair<BlockPos, IBlockState> pair : (List<Pair<BlockPos, IBlockState>>) container.tinkerStationBlocks) {
         IBlockState state = pair.getRight();
         BlockPos blockPos = pair.getLeft();
         ItemStack stack = state.getBlock().getDrops(world, blockPos, state, 0).get(0);
@@ -79,8 +76,9 @@ public class GuiTinkerStation extends GuiMultiModule {
 
     // preselect the correct tab
     for(int i = 0; i < tinkerTabs.tabData.size(); i++) {
-      if(tinkerTabs.tabData.get(i).equals(pos))
+      if(tinkerTabs.tabData.get(i).equals(pos)) {
         tinkerTabs.tabs.selected = i;
+      }
     }
   }
 
@@ -96,8 +94,9 @@ public class GuiTinkerStation extends GuiMultiModule {
   }
 
   public void onTabSelection(int selection) {
-    if(selection < 0 || selection > tinkerTabs.tabData.size())
+    if(selection < 0 || selection > tinkerTabs.tabData.size()) {
       return;
+    }
 
     BlockPos pos = tinkerTabs.tabData.get(selection);
     IBlockState state = world.getBlockState(pos);
