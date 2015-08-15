@@ -72,7 +72,7 @@ public class GuiButtonsStencilTable extends GuiSideButtons {
     ContainerStencilTable container = ((ContainerStencilTable) parent.inventorySlots);
     ItemStack output = ((GuiButtonItem<ItemStack>) button).data;
 
-    container.setOutput(output);
+    container.setOutput(output.copy());
 
     TinkerNetwork.sendToServer(new StencilTableSelectionPacket(output));
   }

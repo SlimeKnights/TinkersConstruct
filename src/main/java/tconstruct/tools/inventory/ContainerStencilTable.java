@@ -14,6 +14,8 @@ import net.minecraft.item.ItemStack;
 import tconstruct.TinkerNetwork;
 import tconstruct.common.inventory.BaseContainer;
 import tconstruct.common.inventory.ContainerMultiModule;
+import tconstruct.common.inventory.IContainerCraftingCustom;
+import tconstruct.common.inventory.SlotCraftingCustom;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.mantle.InventoryCraftingPersistent;
 import tconstruct.tools.item.Pattern;
@@ -21,7 +23,9 @@ import tconstruct.tools.network.StencilTableSelectionPacket;
 import tconstruct.tools.tileentity.TilePatternChest;
 import tconstruct.tools.tileentity.TileStencilTable;
 
-public class ContainerStencilTable extends ContainerTinkerStation<TileStencilTable> {
+public class ContainerStencilTable
+    extends ContainerTinkerStation<TileStencilTable>
+    implements IContainerCraftingCustom {
 
   public InventoryCraftingPersistent craftMatrix;
   public IInventory craftResult;
@@ -37,7 +41,7 @@ public class ContainerStencilTable extends ContainerTinkerStation<TileStencilTab
     this.craftResult = new InventoryCraftResult();
 
     this.addSlotToContainer(new SlotStencil(this.craftMatrix, 0, 48, 35));
-    this.addSlotToContainer(new SlotStencilCrafting(playerInventory.player, craftMatrix, craftResult, 1, 106, 35));
+    this.addSlotToContainer(new SlotCraftingCustom(this, playerInventory.player, craftMatrix, craftResult, 1, 106, 35));
 
     TilePatternChest chest = detectTE(TilePatternChest.class);
     // TE present?
@@ -71,7 +75,7 @@ public class ContainerStencilTable extends ContainerTinkerStation<TileStencilTab
     // ensure that the output is valid
     for(ItemStack candidate : TinkerRegistry.getStencilTableCrafting()) {
       // NBT sensitive
-      if(stack.getIsItemStackEqual(candidate)) {
+      if(ItemStack.areItemStacksEqual(stack, candidate)) {
         // yay
         output = stack;
         updateResult();
@@ -88,12 +92,12 @@ public class ContainerStencilTable extends ContainerTinkerStation<TileStencilTab
   // Sets the result in the output slot depending on if there's a pattern in the input and on which pattern was selected
   public void updateResult() {
     // no pattern :(
-    if(craftMatrix.getStackInSlot(0) == null) {
+    if(craftMatrix.getStackInSlot(0) == null || output == null) {
       craftResult.setInventorySlotContents(0, null);
     }
     else {
       // set pattern from selection (or null if no selection)
-      craftResult.setInventorySlotContents(0, output);
+      craftResult.setInventorySlotContents(0, output.copy());
     }
   }
 
@@ -124,28 +128,21 @@ public class ContainerStencilTable extends ContainerTinkerStation<TileStencilTab
     return super.transferStackInSlot(playerIn, index);
   }
 
-  // copy of the slotCrafting class that prevents the extra crafting-recipe-result-getting the vanilla one does
-  protected static class SlotStencilCrafting extends SlotCrafting {
+  @Override
+  public void onCrafting(EntityPlayer player, ItemStack output, IInventory craftMatrix) {
+    ItemStack itemstack1 = craftMatrix.getStackInSlot(0);
 
-    private final InventoryCrafting craftMatrix;
-
-    public SlotStencilCrafting(EntityPlayer player, InventoryCrafting craftingInventory, IInventory p_i45790_3_, int slotIndex, int xPosition, int yPosition) {
-      super(player, craftingInventory, p_i45790_3_, slotIndex, xPosition, yPosition);
-
-      this.craftMatrix = craftingInventory;
+    // Assumption: Only 1 input, will always be decreased by only 1
+    if(itemstack1 != null) {
+      craftMatrix.decrStackSize(0, 1);
     }
 
-    @Override
-    public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack) {
-      net.minecraftforge.fml.common.FMLCommonHandler.instance().firePlayerCraftingEvent(playerIn, stack, craftMatrix);
-      this.onCrafting(stack);
+    updateResult();
+  }
 
-      ItemStack itemstack1 = this.craftMatrix.getStackInSlot(0);
-
-      // Assumption: Only 1 input, will always be decreased by only 1
-      if(itemstack1 != null) {
-        this.craftMatrix.decrStackSize(0, 1);
-      }
-    }
+  @Override
+  public boolean canMergeSlot(ItemStack p_94530_1_, Slot p_94530_2_) {
+    // prevents that doubleclicking on a stencil pulls them out of the crafting slot
+    return p_94530_2_.inventory != this.craftResult && super.canMergeSlot(p_94530_1_, p_94530_2_);
   }
 }
