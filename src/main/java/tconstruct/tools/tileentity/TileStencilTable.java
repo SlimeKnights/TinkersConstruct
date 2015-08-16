@@ -28,6 +28,7 @@ public class TileStencilTable extends TileTable implements IInventoryGui {
   }
 
   @Override
+  @SideOnly(Side.CLIENT)
   public GuiContainer createGui(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
     return new GuiStencilTable(inventoryplayer, world, pos, this);
   }
