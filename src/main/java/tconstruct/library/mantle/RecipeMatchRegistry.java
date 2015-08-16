@@ -33,6 +33,35 @@ public class RecipeMatchRegistry {
     return null;
   }
 
+  // looks for a match with at least the given amount in the given itemstacks
+  public RecipeMatch.Match matches(ItemStack[] stacks, int minAmount) {
+    stacks = copyItemStackArray(stacks); // copy so we don't modify original
+
+    List<RecipeMatch.Match> matches = Lists.newLinkedList();
+
+    RecipeMatch.Match match;
+    int sum = 0;
+    while(sum < minAmount && (match = matches(stacks)) != null) {
+      matches.add(match);
+      RecipeMatch.removeMatch(stacks, match);
+
+      sum += match.amount;
+    }
+
+    // not enough found
+    if(sum < minAmount) {
+      return null;
+    }
+
+    // merge all found matches into one match
+    List<ItemStack> foundStacks = Lists.newLinkedList();
+    for(RecipeMatch.Match m : matches) {
+      foundStacks.addAll(m.stacks);
+    }
+
+    return new RecipeMatch.Match(foundStacks, sum);
+  }
+
   /**
    * Associates an oredict entry with this material. Used for repairing and other.
    *
@@ -41,7 +70,7 @@ public class RecipeMatchRegistry {
    * @param amountMatched If both item and amount are present, how often did they match?
    */
   public void addItem(String oredictItem, int amountNeeded, int amountMatched) {
-    items.add(new RecipeMatch.Oredict(oredictItem, amountNeeded));
+    items.add(new RecipeMatch.Oredict(oredictItem, amountNeeded, amountMatched));
   }
 
   /**
@@ -68,7 +97,7 @@ public class RecipeMatchRegistry {
    * @param amountMatched If both item and amount are present, how often did they match?
    */
   public void addItem(Item item, int amountNeeded, int amountMatched) {
-    items.add(new RecipeMatch.Item(new ItemStack(item), 1, amountMatched));
+    items.add(new RecipeMatch.Item(new ItemStack(item), amountNeeded, amountMatched));
   }
 
   /**
@@ -80,5 +109,18 @@ public class RecipeMatchRegistry {
 
   public void addRecipeMatch(RecipeMatch match) {
     items.add(match);
+  }
+
+
+
+  public static ItemStack[] copyItemStackArray(ItemStack[] in) {
+    ItemStack[] stacksCopy = new ItemStack[in.length];
+    for(int i = 0; i < in.length; i++) {
+      if(in[i] != null) {
+        stacksCopy[i] = in[i].copy();
+      }
+    }
+
+    return stacksCopy;
   }
 }
