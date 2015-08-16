@@ -74,6 +74,12 @@ public class InventoryCraftingPersistent extends InventoryCrafting {
     this.eventHandler.onCraftMatrixChanged(this);
   }
 
+  @Override
+  public void markDirty() {
+    this.parent.markDirty();
+    this.eventHandler.onCraftMatrixChanged(this);
+  }
+
   public void clear() {
     // inventory can't clear the tile container
   }
