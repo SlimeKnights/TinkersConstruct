@@ -93,6 +93,12 @@ public class GuiTinkerStation extends GuiMultiModule {
     element.draw(slot.xDisplayPosition + this.cornerX - 1, slot.yDisplayPosition + this.cornerY - 1);
   }
 
+  protected void drawIconEmpty(Slot slot, GuiElement element) {
+    if(slot.getHasStack())
+      return;
+    drawIcon(slot, element);
+  }
+
   public void onTabSelection(int selection) {
     if(selection < 0 || selection > tinkerTabs.tabData.size()) {
       return;

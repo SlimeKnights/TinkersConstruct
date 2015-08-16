@@ -252,7 +252,6 @@ public class GuiToolStation extends GuiTinkerStation {
     // draw the item background
     final float scale = 4.0f;
     GlStateManager.scale(scale, scale, 1.0f);
-
     {
       int logoX = (this.cornerX + 10) / 4 + xOff;
       int logoY = (this.cornerY + 18) / 4 + yOff;
@@ -269,7 +268,7 @@ public class GuiToolStation extends GuiTinkerStation {
     }
     GlStateManager.scale(1f / scale, 1f / scale, 1.0f);
 
-    // rebind gui texture
+    // rebind gui texture since itemstack drawing sets it to something else
     this.mc.getTextureManager().bindTexture(BACKGROUND);
 
     // reset state after item drawing
@@ -395,7 +394,7 @@ public class GuiToolStation extends GuiTinkerStation {
     }
 
     if(icon != null) {
-      drawIcon(slot, icon);
+      drawIconEmpty(slot, icon);
     }
   }
 
