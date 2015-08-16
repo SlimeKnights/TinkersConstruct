@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 
 import org.apache.logging.log4j.Logger;
 
@@ -19,15 +20,15 @@ import tconstruct.library.mantle.RecipeMatch;
 import tconstruct.library.materials.Material;
 import tconstruct.library.materials.ToolMaterialStats;
 import tconstruct.library.modifiers.IModifier;
-import tconstruct.library.modifiers.ModifyException;
+import tconstruct.library.modifiers.TinkerGuiException;
 import tconstruct.library.modifiers.TraitModifier;
 import tconstruct.library.tinkering.MaterialItem;
 import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.tools.IToolPart;
+import tconstruct.library.tools.Pattern;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.traits.ITrait;
 import tconstruct.tools.TinkerTools;
-import tconstruct.library.tools.Pattern;
 
 public final class ToolBuilder {
 
@@ -123,10 +124,10 @@ public final class ToolBuilder {
    * @param toolStack   The tool
    * @param removeItems If true the applied items will be removed from the array
    * @return The modified tool or null if something went wrong or no modifier applied.
-   * @throws ModifyException Thrown when not matching modifiers could be applied. Contains extra-information why the process failed.
+   * @throws TinkerGuiException Thrown when not matching modifiers could be applied. Contains extra-information why the process failed.
    */
   public static ItemStack tryModifyTool(ItemStack[] stacks, ItemStack toolStack, boolean removeItems)
-      throws ModifyException {
+      throws TinkerGuiException {
     ItemStack copy = toolStack.copy();
 
     // obtain a working copy of the items if the originals shouldn't be modified
@@ -143,11 +144,11 @@ public final class ToolBuilder {
 
         // found a modifier that is applicable. Try to apply the match
         while(match != null && match.amount > 0) {
-          ModifyException caughtException = null;
+          TinkerGuiException caughtException = null;
           boolean canApply = false;
           try {
             canApply = modifier.canApply(copy);
-          } catch(ModifyException e) {
+          } catch(TinkerGuiException e) {
             caughtException = e;
           }
 
@@ -199,15 +200,17 @@ public final class ToolBuilder {
    * If multiple materials match, matches with multiple items are preferred.
    * Otherwise the first match will be taken.
    *
-   * @param pattern        Input-pattern. Has to be a Pattern.
-   * @param materialItems  The Itemstacks to craft the item out of
-   * @param removeItems    If true the match will be removed from the passed items
+   * @param pattern       Input-pattern. Has to be a Pattern.
+   * @param materialItems The Itemstacks to craft the item out of
+   * @param removeItems   If true the match will be removed from the passed items
    * @return ItemStack[2] Array containing the built item in the first slot and eventual secondary output in the second one. Null if no item could be built.
    */
-  public static ItemStack[] tryBuildToolPart(ItemStack pattern, ItemStack[] materialItems, boolean removeItems) {
+  public static ItemStack[] tryBuildToolPart(ItemStack pattern, ItemStack[] materialItems, boolean removeItems)
+      throws TinkerGuiException {
     IToolPart part = Pattern.getPartFromTag(pattern);
     if(part == null || !(part instanceof MaterialItem)) {
-      return null;
+      String error = StatCollector.translateToLocalFormatted("gui.error.invalidPattern");
+      throw new TinkerGuiException(error);
     }
 
     if(!removeItems) {
@@ -240,8 +243,7 @@ public final class ToolBuilder {
     }
 
     // nope, no material
-    if(match == null)
-    {
+    if(match == null) {
       return null;
     }
 

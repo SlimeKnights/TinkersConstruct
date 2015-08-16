@@ -68,7 +68,7 @@ public abstract class Modifier implements IModifier {
   }
 
   @Override
-  public final boolean canApply(ItemStack stack) throws ModifyException {
+  public final boolean canApply(ItemStack stack) throws TinkerGuiException {
     // aspects
     for(ModifierAspect aspect : aspects) {
       if(!aspect.canApply(stack)) {

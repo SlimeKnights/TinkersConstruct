@@ -11,8 +11,7 @@ import net.minecraft.item.ItemStack;
 
 import tconstruct.TinkerNetwork;
 import tconstruct.common.inventory.BaseContainer;
-import tconstruct.common.inventory.ContainerMultiModule;
-import tconstruct.library.modifiers.ModifyException;
+import tconstruct.library.modifiers.TinkerGuiException;
 import tconstruct.library.tinkering.IModifyable;
 import tconstruct.library.tinkering.PartMaterialType;
 import tconstruct.library.tools.ToolCore;
@@ -177,7 +176,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     if(modifyable != null && modifyable.getItem() instanceof IModifyable) {
       try {
         return ToolBuilder.tryModifyTool(input, modifyable, remove);
-      } catch(ModifyException e) {
+      } catch(TinkerGuiException e) {
         e.printStackTrace();
       }
     }

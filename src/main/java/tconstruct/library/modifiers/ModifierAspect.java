@@ -34,7 +34,7 @@ public abstract class ModifierAspect {
     this.parent = parent;
   }
 
-  public abstract boolean canApply(ItemStack stack) throws ModifyException;
+  public abstract boolean canApply(ItemStack stack) throws TinkerGuiException;
 
   public abstract void updateNBT(NBTTagCompound root, NBTTagCompound modifierTag);
 
@@ -50,12 +50,12 @@ public abstract class ModifierAspect {
     }
 
     @Override
-    public boolean canApply(ItemStack stack) throws ModifyException {
+    public boolean canApply(ItemStack stack) throws TinkerGuiException {
       NBTTagCompound toolTag = TagUtil.getToolTag(stack);
       if(ToolTagUtil.getFreeModifiers(toolTag) < requiredModifiers) {
         String error = StatCollector.translateToLocalFormatted("gui.error.notEnoughModifiers", requiredModifiers);
         // also returns false if the tooltag is missing
-        throw new ModifyException(error);
+        throw new TinkerGuiException(error);
       }
 
       return true;
@@ -134,7 +134,7 @@ public abstract class ModifierAspect {
     }
 
     @Override
-    public boolean canApply(ItemStack stack) throws ModifyException {
+    public boolean canApply(ItemStack stack) throws TinkerGuiException {
       // check if the threshold has been reached
       NBTTagCompound modifierTag = TinkerUtil.getModifierTag(stack, parent.getIdentifier());
       ModifierNBT.IntegerNBT data = getData(modifierTag);
@@ -218,14 +218,14 @@ public abstract class ModifierAspect {
     }
 
     @Override
-    public boolean canApply(ItemStack stack) throws ModifyException {
+    public boolean canApply(ItemStack stack) throws TinkerGuiException {
       // check if the modifier is present in the base info.
       // this is not the same as checking if the modifier has data. But should be sufficient
       NBTTagList modifiers = TagUtil.getBaseModifiersTagList(stack);
       int index = TinkerUtil.getIndexInList(modifiers, parent.getIdentifier());
 
       if(index >= 0) {
-        throw new ModifyException(StatCollector.translateToLocalFormatted("gui.error.SingleModifier",
+        throw new TinkerGuiException(StatCollector.translateToLocalFormatted("gui.error.SingleModifier",
                                                                           parent.getLocalizedName()));
       }
 
@@ -253,13 +253,13 @@ public abstract class ModifierAspect {
 
 
     @Override
-    public boolean canApply(ItemStack stack) throws ModifyException {
+    public boolean canApply(ItemStack stack) throws TinkerGuiException {
       NBTTagList modifiers = TagUtil.getModifiersTagList(stack);
       int index = TinkerUtil.getIndexInList(modifiers, parent.getIdentifier());
 
       if(index >= 0) {
         if(ModifierNBT.readTag(modifiers.getCompoundTagAt(index)).level >= maxLevel) {
-          throw new ModifyException(StatCollector.translateToLocalFormatted("gui.error.MaxLevelModifier", parent.getLocalizedName()));
+          throw new TinkerGuiException(StatCollector.translateToLocalFormatted("gui.error.MaxLevelModifier", parent.getLocalizedName()));
         }
       }
 

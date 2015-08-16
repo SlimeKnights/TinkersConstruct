@@ -24,6 +24,7 @@ import tconstruct.common.inventory.IContainerCraftingCustom;
 import tconstruct.common.inventory.SlotCraftingCustom;
 import tconstruct.common.inventory.SlotOut;
 import tconstruct.library.mantle.InventoryCraftingPersistent;
+import tconstruct.library.modifiers.TinkerGuiException;
 import tconstruct.library.utils.ToolBuilder;
 import tconstruct.tools.block.BlockToolTable;
 import tconstruct.tools.tileentity.TilePartBuilder;
@@ -110,10 +111,18 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
     // no pattern -> no output
     if(!patternSlot.getHasStack() || (!input1.getHasStack() && !input2.getHasStack() && !secondarySlot.getHasStack())) {
       craftResult.setInventorySlotContents(0, null);
+      updateGUI();
     }
     else {
-      ItemStack[] toolPart = ToolBuilder.tryBuildToolPart(patternSlot.getStack(), new ItemStack[]{input1.getStack(),
-                                                                                    input2.getStack()}, false);
+      Throwable throwable = null;
+      ItemStack[] toolPart;
+      try {
+        toolPart = ToolBuilder.tryBuildToolPart(patternSlot.getStack(), new ItemStack[]{input1.getStack(),
+                                                                                        input2.getStack()}, false);
+      } catch(TinkerGuiException e) {
+        toolPart = null;
+        throwable = e;
+      }
 
       ItemStack secondary = secondarySlot.getStack();
 
@@ -125,6 +134,13 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
       }
       else {
         craftResult.setInventorySlotContents(0, null);
+      }
+
+      if(throwable != null) {
+        error(throwable.getMessage());
+      }
+      else {
+        updateGUI();
       }
     }
   }
@@ -148,8 +164,13 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
 
   @Override
   public void onCrafting(EntityPlayer player, ItemStack output, IInventory craftMatrix) {
-    ItemStack[] toolPart = ToolBuilder.tryBuildToolPart(patternSlot.getStack(), new ItemStack[]{input1.getStack(),
-                                                                                                input2.getStack()}, true);
+    ItemStack[] toolPart = new ItemStack[0];
+    try {
+      toolPart = ToolBuilder.tryBuildToolPart(patternSlot.getStack(), new ItemStack[]{input1.getStack(),
+                                                                                      input2.getStack()}, true);
+    } catch(TinkerGuiException e) {
+      // don't need any user information at this stage
+    }
     if(toolPart == null) {
       // undefined :I
       return;

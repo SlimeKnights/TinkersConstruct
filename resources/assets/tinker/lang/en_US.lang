@@ -1,4 +1,6 @@
-// GUI Stuff
+//////////////////
+//   Tooltips   //
+//////////////////
 tooltip.tool.durability=Durability
 tooltip.tool.miningspeed=Mining Speed
 tooltip.tool.harvestlevel=Mining Level
@@ -9,7 +11,23 @@ tooltip.part.materialAddedBy=Added by %s
 tooltip.part.missingMaterial=Missing material: %s
 tooltip.part.missingInfo=Part has no data
 
-// Errors from modifiers
+////////////////////////
+// GUI Error messages //
+////////////////////////
+
+gui.error=ERROR
+gui.warning=WARNING
+// GUI Errors from the different Tinker Tables
+gui.error.invalidPattern=Pattern does not contain a valid tool part!
+gui.error.uselessToolPart=This part can not be used to craft any tool!\nEither the material %s is missing some information or no tool uses %s in its crafting.
+// GUI Errors from modifiers
 gui.error.notEnoughModifiers=Not enough Modifiers. (%d needed)
 gui.error.SingleModifier=%s can only be applied once.
 gui.error.MaxLevelModifier=Maximum Level for %s already reached.
+
+//////////////////
+//     GUIs     //
+//////////////////
+
+// PartBuilder
+gui.partBuilder.info=Here you can craft tool parts to fulfill your tinkering fantasies.\n-nTo craft a part simply put its pattern into the left slot. The two remaining slots hold the material you want to craft your part out of.

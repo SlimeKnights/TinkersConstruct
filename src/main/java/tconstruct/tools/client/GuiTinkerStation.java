@@ -115,4 +115,8 @@ public class GuiTinkerStation extends GuiMultiModule {
       //state.getBlock().onBlockActivated(world, tinkerTabs.tabData.get(selection), state, Minecraft.getMinecraft().thePlayer, EnumFacing.UP, 0, 0, 0);
     }
   }
+
+  public void error(String message) {}
+  public void warning(String message) {}
+  public void updateDisplay() {}
 }

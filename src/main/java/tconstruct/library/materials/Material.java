@@ -234,6 +234,10 @@ public class Material extends RecipeMatchRegistry {
         .translateToLocal(String.format(LOCALIZATION_STRING, Util.sanitizeLocalizationString(identifier)));
   }
 
+  public String getLocalizedNameColored() {
+    return textColor.toString() + getLocalizedName();
+  }
+
   public String getIdentifier() {
     return identifier;
   }

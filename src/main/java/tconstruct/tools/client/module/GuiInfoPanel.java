@@ -87,7 +87,15 @@ public class GuiInfoPanel extends GuiModule {
     updateSliderParameters();
   }
 
-  public void setText(String[] text) {
+  public void setText(String... text) {
+    // convert \n in localized text to actual newlines
+    for(int i = 0; i < text.length; i++) {
+      int j = 0;
+      while((j = text[i].indexOf("\\n")) >= 0)
+      {
+        text[i] = text[i].substring(0, j) + '\n' + text[i].substring(j+2);
+      }
+    }
     this.text = text;
     updateSliderParameters();
   }

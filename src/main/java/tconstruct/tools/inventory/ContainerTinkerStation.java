@@ -5,9 +5,13 @@ import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -19,6 +23,7 @@ import java.util.Set;
 import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.tools.block.BlockToolTable;
 import tconstruct.tools.block.ITinkerStationBlock;
+import tconstruct.tools.client.GuiTinkerStation;
 
 public class ContainerTinkerStation<T extends TileEntity> extends ContainerMultiModule<T> {
 
@@ -114,6 +119,51 @@ public class ContainerTinkerStation<T extends TileEntity> extends ContainerMulti
     }*/
 
     return hasMaster;
+  }
+
+  /** Tells the client to take the current state and update its info displays */
+  public void updateGUI() {
+    if(tile.getWorld().isRemote) {
+      tconstruct.tools.inventory.ContainerTinkerStation.clientGuiUpdate();
+    }
+  }
+
+  /** Tells the client to display the LOCALIZED error message */
+  public void error(String message) {
+    if(tile.getWorld().isRemote) {
+      tconstruct.tools.inventory.ContainerTinkerStation.clientError(message);
+    }
+  }
+
+  /** Tells the client to display the LOCALIZED warning message */
+  public void warning(String message) {
+    if(tile.getWorld().isRemote) {
+      tconstruct.tools.inventory.ContainerTinkerStation.clientWarning(message);
+    }
+  }
+
+  @SideOnly(Side.CLIENT)
+  private static void clientGuiUpdate() {
+    GuiScreen screen = Minecraft.getMinecraft().currentScreen;
+    if(screen instanceof GuiTinkerStation) {
+      ((GuiTinkerStation) screen).updateDisplay();
+    }
+  }
+
+  @SideOnly(Side.CLIENT)
+  private static void clientError(String message) {
+    GuiScreen screen = Minecraft.getMinecraft().currentScreen;
+    if(screen instanceof GuiTinkerStation) {
+      ((GuiTinkerStation) screen).warning(message);
+    }
+  }
+
+  @SideOnly(Side.CLIENT)
+  private static void clientWarning(String message) {
+    GuiScreen screen = Minecraft.getMinecraft().currentScreen;
+    if(screen instanceof GuiTinkerStation) {
+      ((GuiTinkerStation) screen).warning(message);
+    }
   }
 
   private static class TinkerBlockComp implements Comparator<Pair<BlockPos, IBlockState>> {

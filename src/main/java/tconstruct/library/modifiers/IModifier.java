@@ -20,10 +20,10 @@ public interface IModifier {
   /**
    * Returns true if the modifier can be applied to the given itemstack
    *
-   * @throws ModifyException Thrown if there is a specific reason why the modifier couldn't be applied.
+   * @throws TinkerGuiException Thrown if there is a specific reason why the modifier couldn't be applied.
    *                         The exception contains a localized string describing what's wrong.
    */
-  boolean canApply(ItemStack stack) throws ModifyException;
+  boolean canApply(ItemStack stack) throws TinkerGuiException;
 
   /** Apply the modifier to that itemstack. The complete procedure */
   void apply(ItemStack stack);

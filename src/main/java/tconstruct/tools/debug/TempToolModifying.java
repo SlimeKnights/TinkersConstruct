@@ -6,7 +6,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.RecipeSorter;
 
-import tconstruct.library.modifiers.ModifyException;
+import tconstruct.library.modifiers.TinkerGuiException;
 import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.utils.ToolBuilder;
 
@@ -45,7 +45,7 @@ public class TempToolModifying implements IRecipe {
 
     try {
       outputTool = ToolBuilder.tryModifyTool(stacks, tool, false);
-    } catch(ModifyException e) {
+    } catch(TinkerGuiException e) {
       System.out.println(e.getMessage());
     }
 
@@ -77,7 +77,7 @@ public class TempToolModifying implements IRecipe {
 
     try {
       ToolBuilder.tryModifyTool(stacks, tool, true);
-    } catch(ModifyException e) {
+    } catch(TinkerGuiException e) {
       e.printStackTrace();
     }
 
