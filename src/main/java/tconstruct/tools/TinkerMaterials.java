@@ -11,6 +11,7 @@ import tconstruct.library.client.MaterialRenderInfo;
 import tconstruct.library.client.texture.ExtraUtilityTexture;
 import tconstruct.library.materials.Material;
 import tconstruct.library.materials.ToolMaterialStats;
+import tconstruct.library.tools.ToolPart;
 import tconstruct.library.traits.ITrait;
 import tconstruct.library.traits.StoneboundTrait;
 
@@ -64,6 +65,14 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterial(netherrack, stonebound);
 
     TinkerRegistry.addMaterial(xu);
+
+    wood.setCraftable(true);
+    stone.setCraftable(true);
+
+    wood.addItem("plankWood", 1, ToolPart.COST_Ingot);
+    wood.addItem("logWood", 1, ToolPart.COST_Ingot*4);
+    stone.addItem("cobblestone", 1, ToolPart.COST_Shard);
+    stone.addItem("stone", 1, ToolPart.COST_Ingot);
   }
 
   public static void registerToolMaterials() {

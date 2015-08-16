@@ -21,9 +21,13 @@ import tconstruct.library.materials.ToolMaterialStats;
 import tconstruct.library.modifiers.IModifier;
 import tconstruct.library.modifiers.ModifyException;
 import tconstruct.library.modifiers.TraitModifier;
+import tconstruct.library.tinkering.MaterialItem;
 import tconstruct.library.tinkering.TinkersItem;
+import tconstruct.library.tools.IToolPart;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.traits.ITrait;
+import tconstruct.tools.TinkerTools;
+import tconstruct.tools.item.Pattern;
 
 public final class ToolBuilder {
 
@@ -127,14 +131,7 @@ public final class ToolBuilder {
 
     // obtain a working copy of the items if the originals shouldn't be modified
     if(!removeItems) {
-      ItemStack[] stacksCopy = new ItemStack[stacks.length];
-      for(int i = 0; i < stacks.length; i++) {
-        if(stacks[i] != null) {
-          stacksCopy[i] = stacks[i].copy();
-        }
-      }
-
-      stacks = stacksCopy;
+      stacks = Util.copyItemStackArray(stacks);
     }
 
     Set<IModifier> appliedModifiers = Sets.newHashSet();
@@ -193,6 +190,77 @@ public final class ToolBuilder {
     }
 
     return null;
+  }
+
+  /**
+   * Takes a pattern and itemstacks and crafts the materialitem of the pattern out of it.
+   * The output consists of an ItemStack[2] array that contains the part in the first slot and eventual leftover output in the 2nd one.
+   * The itemstacks have to match at least 1 material.
+   * If multiple materials match, matches with multiple items are preferred.
+   * Otherwise the first match will be taken.
+   *
+   * @param pattern        Input-pattern. Has to be a Pattern.
+   * @param materialItems  The Itemstacks to craft the item out of
+   * @param removeItems    If true the match will be removed from the passed items
+   * @return ItemStack[2] Array containing the built item in the first slot and eventual secondary output in the second one. Null if no item could be built.
+   */
+  public static ItemStack[] tryBuildToolPart(ItemStack pattern, ItemStack[] materialItems, boolean removeItems) {
+    IToolPart part = Pattern.getPartFromTag(pattern);
+    if(part == null || !(part instanceof MaterialItem)) {
+      return null;
+    }
+
+    if(!removeItems) {
+      materialItems = Util.copyItemStackArray(materialItems);
+    }
+
+    // find the material from the input
+    RecipeMatch.Match match = null;
+    Material foundMaterial = null;
+    for(Material material : TinkerRegistry.getAllMaterials()) {
+      // craftable?
+      if(!material.craftable) {
+        continue;
+      }
+      RecipeMatch.Match newMatch = material.matches(materialItems, part.getCost());
+      if(newMatch == null) {
+        continue;
+      }
+
+      // we found a match, yay
+      if(match == null) {
+        match = newMatch;
+        foundMaterial = material;
+        // is it more complex than the old one?
+      }
+      else if(newMatch.stacks.size() > match.stacks.size()) {
+        match = newMatch;
+        foundMaterial = material;
+      }
+    }
+
+    // nope, no material
+    if(match == null)
+    {
+      return null;
+    }
+
+    ItemStack output = ((MaterialItem) part).getItemstackWithMaterial(foundMaterial);
+    if(output == null) {
+      return null;
+    }
+
+    RecipeMatch.removeMatch(materialItems, match);
+
+    // check if we have secondary output
+    ItemStack secondary = null;
+    if(match.amount > part.getCost()) {
+      secondary = TinkerTools.shard.getItemstackWithMaterial(foundMaterial);
+      secondary.stackSize = match.amount - part.getCost();
+    }
+
+    // build an item with this
+    return new ItemStack[]{output, secondary};
   }
 
   /**

@@ -22,7 +22,7 @@ public class RecipeMatchRegistry {
   }
 
   // looks for a match in the given itemstacks
-  public RecipeMatch.Match matches(ItemStack[] stacks) {
+  public RecipeMatch.Match matches(ItemStack... stacks) {
     for(RecipeMatch recipe : items) {
       RecipeMatch.Match match = recipe.matches(stacks);
       if(match != null) {
@@ -73,9 +73,6 @@ public class RecipeMatchRegistry {
     items.add(new RecipeMatch.Oredict(oredictItem, amountNeeded, amountMatched));
   }
 
-  /**
-   * Associates an oredict entry with this material. Used for repairing and other.
-   */
   public void addItem(String oredictItem) {
     addItem(oredictItem, 1, 1);
   }

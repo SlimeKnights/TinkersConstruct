@@ -25,7 +25,7 @@ import tconstruct.library.mantle.RecipeMatch;
 import tconstruct.library.mantle.RecipeMatchRegistry;
 import tconstruct.library.traits.ITrait;
 
-public class Material {
+public class Material extends RecipeMatchRegistry {
 
   public static final Material UNKNOWN = new Material("unknown", EnumChatFormatting.WHITE);
   public static final String LOCALIZATION_STRING = "material.%s.name";
@@ -43,7 +43,7 @@ public class Material {
   /**
    * Items associated with this material. Used for repairing and identifying items that belong to a material.
    */
-  protected RecipeMatchRegistry materialItems;
+  protected RecipeMatchRegistry materialItems = new RecipeMatchRegistry();
 
   /** The fluid associated with this material, can be null */
   protected Fluid fluid;
@@ -112,8 +112,8 @@ public class Material {
 
   /**
    * The display information for the Material. You should totally set this if you want your material to be visible.
-   *  @param renderInfo How the textures for the material are generated
    *
+   * @param renderInfo How the textures for the material are generated
    */
   @SideOnly(Side.CLIENT)
   public void setRenderInfo(MaterialRenderInfo renderInfo) {
@@ -209,26 +209,6 @@ public class Material {
 
   public Fluid getFluid() {
     return fluid;
-  }
-
-  public RecipeMatch.Match matches(ItemStack... stacks) {
-    return materialItems.matches(stacks);
-  }
-
-  public void addItem(String oredictItem) {
-    materialItems.addItem(oredictItem);
-  }
-
-  public void addItem(Item item) {
-    materialItems.addItem(item);
-  }
-
-  public void addItem(Block block, int count) {
-    materialItems.addItem(block, count);
-  }
-
-  public RecipeMatchRegistry getItemRegistry() {
-    return materialItems;
   }
 
   public void setRepresentativeItem(ItemStack representativeItem) {
