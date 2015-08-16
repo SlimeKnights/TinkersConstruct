@@ -27,6 +27,7 @@ import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
 import tconstruct.library.modifiers.IModifier;
 import tconstruct.library.modifiers.Modifier;
+import tconstruct.library.tinkering.MaterialItem;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.ToolPart;
 import tconstruct.tools.block.BlockToolForge;
@@ -34,6 +35,7 @@ import tconstruct.tools.block.BlockToolTable;
 import tconstruct.tools.debug.TempToolCrafting;
 import tconstruct.tools.debug.TempToolModifying;
 import tconstruct.tools.item.Pattern;
+import tconstruct.tools.item.Shard;
 import tconstruct.tools.modifiers.DiamondModifier;
 import tconstruct.tools.modifiers.RedstoneModifier;
 import tconstruct.tools.modifiers.StoneboundModifier;
@@ -59,6 +61,7 @@ public class TinkerTools extends TinkerPulse {
 
   // General Items
   public static Pattern pattern;
+  public static MaterialItem shard;
 
   // Tools
   public static ToolCore pickaxe;
@@ -82,6 +85,8 @@ public class TinkerTools extends TinkerPulse {
 
     // register items
     pattern = registerItem(new Pattern(), "Pattern");
+
+    shard = registerItem(new Shard(), "Shard");
 
     registerToolParts();
     registerTools();

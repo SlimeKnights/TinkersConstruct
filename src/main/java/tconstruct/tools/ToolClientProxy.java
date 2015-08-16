@@ -23,6 +23,7 @@ import static tconstruct.tools.TinkerTools.binding;
 import static tconstruct.tools.TinkerTools.largePlate;
 import static tconstruct.tools.TinkerTools.pickHead;
 import static tconstruct.tools.TinkerTools.pickaxe;
+import static tconstruct.tools.TinkerTools.shard;
 import static tconstruct.tools.TinkerTools.toolRod;
 
 public class ToolClientProxy extends ClientProxy {
@@ -82,6 +83,7 @@ public class ToolClientProxy extends ClientProxy {
 
 
     // parts
+    registerPartModel(shard);
     registerPartModel(pickHead);
     registerPartModel(binding);
     registerPartModel(toolRod);
