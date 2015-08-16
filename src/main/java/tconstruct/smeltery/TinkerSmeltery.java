@@ -12,7 +12,7 @@ import mantle.pulsar.pulse.Pulse;
 import tconstruct.CommonProxy;
 import tconstruct.TinkerPulse;
 import tconstruct.library.Util;
-import tconstruct.tools.item.Pattern;
+import tconstruct.library.tools.Pattern;
 
 @Pulse(id = TinkerSmeltery.PulseId, description = "The smeltery and items needed for it")
 public class TinkerSmeltery extends TinkerPulse {

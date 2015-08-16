@@ -14,18 +14,14 @@ import java.util.ListIterator;
 import tconstruct.TinkerNetwork;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.client.CustomTextureCreator;
-import tconstruct.library.client.ToolBuildGuiInfo;
 import tconstruct.library.tinkering.MaterialItem;
 import tconstruct.library.tools.IToolPart;
 import tconstruct.tools.client.GuiButtonItem;
 import tconstruct.tools.client.GuiPartBuilder;
-import tconstruct.tools.client.GuiStencilTable;
 import tconstruct.tools.client.GuiTinkerStation;
 import tconstruct.tools.inventory.ContainerPartBuilder;
-import tconstruct.tools.inventory.ContainerStencilTable;
-import tconstruct.tools.item.Pattern;
+import tconstruct.library.tools.Pattern;
 import tconstruct.tools.network.PartCrafterSelectionPacket;
-import tconstruct.tools.network.StencilTableSelectionPacket;
 
 public class GuiButtonsPartCrafter extends GuiSideButtons {
 

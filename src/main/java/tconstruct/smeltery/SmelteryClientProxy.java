@@ -11,7 +11,7 @@ import net.minecraftforge.common.MinecraftForge;
 import tconstruct.ClientProxy;
 import tconstruct.library.client.CustomTextureCreator;
 import tconstruct.library.utils.TagUtil;
-import tconstruct.tools.item.Pattern;
+import tconstruct.library.tools.Pattern;
 
 public class SmelteryClientProxy extends ClientProxy {
 

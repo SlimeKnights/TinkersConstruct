@@ -4,7 +4,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-import tconstruct.tools.item.Pattern;
+import tconstruct.library.tools.Pattern;
 
 public class SlotStencil extends Slot {
 

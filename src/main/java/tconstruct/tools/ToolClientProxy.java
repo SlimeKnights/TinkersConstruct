@@ -17,7 +17,7 @@ import tconstruct.library.client.ToolBuildGuiInfo;
 import tconstruct.library.client.model.MaterialModelLoader;
 import tconstruct.library.utils.TagUtil;
 import tconstruct.tools.block.BlockToolTable;
-import tconstruct.tools.item.Pattern;
+import tconstruct.library.tools.Pattern;
 
 import static tconstruct.tools.TinkerTools.binding;
 import static tconstruct.tools.TinkerTools.largePlate;

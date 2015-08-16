@@ -1,19 +1,15 @@
-package tconstruct.tools.item;
+package tconstruct.library.tools;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
 
 import tconstruct.Config;
 import tconstruct.library.TinkerRegistry;
-import tconstruct.library.Util;
-import tconstruct.library.tools.IToolPart;
 import tconstruct.library.utils.TagUtil;
-import tconstruct.tools.ToolClientProxy;
 
 public class Pattern extends Item {
   public static final String TAG_PARTTYPE = "PartType";

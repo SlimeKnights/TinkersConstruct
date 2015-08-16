@@ -34,7 +34,7 @@ import tconstruct.tools.block.BlockToolForge;
 import tconstruct.tools.block.BlockToolTable;
 import tconstruct.tools.debug.TempToolCrafting;
 import tconstruct.tools.debug.TempToolModifying;
-import tconstruct.tools.item.Pattern;
+import tconstruct.library.tools.Pattern;
 import tconstruct.tools.item.Shard;
 import tconstruct.tools.modifiers.DiamondModifier;
 import tconstruct.tools.modifiers.RedstoneModifier;
@@ -202,12 +202,16 @@ public class TinkerTools extends TinkerPulse {
         new ShapedOreRecipe(new ItemStack(toolTables, 1, BlockToolTable.TableTypes.ToolStation.meta),
                             "P", "B", 'P', pattern, 'B', "workbench"));
     // Tool Forge
-    TinkerRegistry.addToolForgeBlock("blockIron");
-    TinkerRegistry.addToolForgeBlock("blockGold");
+    registerToolForgeBlock("blockIron");
+    registerToolForgeBlock("blockGold");
   }
 
-  // called by TinkerRegistry.addToolForgeBlock
-  public static void registerToolForgeRecipe(String oredict) {
+  public static void registerToolForgeBlock(String oredict) {
+    toolForge.baseBlocks.add(oredict);
+    registerToolForgeRecipe(oredict);
+  }
+
+  private static void registerToolForgeRecipe(String oredict) {
     // todo: change recipe to brick vs. smeltery-bricks wether smeltery pulse is active
     GameRegistry
         .addRecipe(new TableRecipe(OreDictionary.getOres(oredict), toolForge, 0,

@@ -33,10 +33,9 @@ import tconstruct.library.materials.Material;
 import tconstruct.library.modifiers.IModifier;
 import tconstruct.library.tinkering.PartMaterialType;
 import tconstruct.library.tools.IToolPart;
+import tconstruct.library.tools.Pattern;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.traits.ITrait;
-import tconstruct.tools.TinkerTools;
-import tconstruct.tools.item.Pattern;
 
 public final class TinkerRegistry {
 
@@ -291,16 +290,6 @@ public final class TinkerRegistry {
   }
   public static Set<IToolPart> getToolParts() {
     return ImmutableSet.copyOf(toolParts);
-  }
-
-  /** Adds a new oredict entry that can be used for toolforge crafting */
-  public static void addToolForgeBlock(String oredict) {
-    if(TinkerTools.toolForge == null) {
-      return;
-    }
-
-    TinkerTools.toolForge.baseBlocks.add(oredict);
-    TinkerTools.registerToolForgeRecipe(oredict);
   }
 
   /** Adds a tool to the Crafting UI of both the Tool Station as well as the Tool Forge */

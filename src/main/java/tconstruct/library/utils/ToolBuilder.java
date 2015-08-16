@@ -27,7 +27,7 @@ import tconstruct.library.tools.IToolPart;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.traits.ITrait;
 import tconstruct.tools.TinkerTools;
-import tconstruct.tools.item.Pattern;
+import tconstruct.library.tools.Pattern;
 
 public final class ToolBuilder {
 
