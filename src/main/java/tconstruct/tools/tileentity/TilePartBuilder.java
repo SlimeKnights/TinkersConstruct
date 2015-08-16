@@ -16,7 +16,7 @@ import tconstruct.tools.inventory.ContainerPartBuilder;
 public class TilePartBuilder extends TileTable implements IInventoryGui {
 
   public TilePartBuilder() {
-    super("container.partBuilder", 2);
+    super("container.partBuilder", 4);
   }
 
   @Override
