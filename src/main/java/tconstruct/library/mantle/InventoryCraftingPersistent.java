@@ -5,6 +5,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 
+import tconstruct.TinkerNetwork;
+import tconstruct.tools.network.InventoryCraftingSyncPacket;
+
 // variant of InventoryCrafting that saves its itemstacks into the given inventory
 public class InventoryCraftingPersistent extends InventoryCrafting {
 
@@ -78,6 +81,7 @@ public class InventoryCraftingPersistent extends InventoryCrafting {
   public void markDirty() {
     this.parent.markDirty();
     this.eventHandler.onCraftMatrixChanged(this);
+    TinkerNetwork.sendToServer(new InventoryCraftingSyncPacket());
   }
 
   public void clear() {

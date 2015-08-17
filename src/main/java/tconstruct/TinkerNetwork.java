@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import tconstruct.common.network.AbstractPacket;
 import tconstruct.common.network.NetworkWrapper;
+import tconstruct.tools.network.InventoryCraftingSyncPacket;
 import tconstruct.tools.network.PartCrafterSelectionPacket;
 import tconstruct.tools.network.StencilTableSelectionPacket;
 import tconstruct.tools.network.TinkerStationTabPacket;
@@ -25,6 +26,7 @@ public class TinkerNetwork extends NetworkWrapper {
     registerPacket(ToolStationSelectionPacket.class);
     registerPacket(ToolStationTextPacket.class);
     registerPacketServer(TinkerStationTabPacket.class);
+    registerPacketServer(InventoryCraftingSyncPacket.class);
   }
 
   public static void sendToAll(AbstractPacket packet)
