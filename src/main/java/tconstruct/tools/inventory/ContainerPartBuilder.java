@@ -10,6 +10,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
@@ -217,5 +218,17 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
     Minecraft mc = Minecraft.getMinecraft();
     ScaledResolution scaledresolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
     mc.currentScreen.onResize(mc, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
+  }
+
+  @Override
+  @SideOnly(Side.CLIENT)
+  public ItemStack slotClick(int slotId, int clickedButton, int mode, EntityPlayer playerIn) {
+    ItemStack ret = super.slotClick(slotId, clickedButton, mode, playerIn);
+    // this is called solely to update the gui buttons
+    Minecraft mc = Minecraft.getMinecraft();
+    ScaledResolution scaledresolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+    mc.currentScreen.onResize(mc, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
+
+    return ret;
   }
 }
