@@ -1,14 +1,18 @@
 package tconstruct.tools.client;
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -17,6 +21,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.Point;
 
 import java.io.IOException;
+import java.util.List;
 
 import tconstruct.TinkerNetwork;
 import tconstruct.common.client.gui.GuiElement;
@@ -26,7 +31,9 @@ import tconstruct.common.inventory.ContainerMultiModule;
 import tconstruct.library.TinkerRegistryClient;
 import tconstruct.library.Util;
 import tconstruct.library.client.ToolBuildGuiInfo;
+import tconstruct.library.tinkering.PartMaterialType;
 import tconstruct.library.tinkering.TinkersItem;
+import tconstruct.library.tools.IToolPart;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.tools.client.module.GuiButtonsToolStation;
 import tconstruct.tools.client.module.GuiInfoPanel;
@@ -189,11 +196,37 @@ public class GuiToolStation extends GuiTinkerStation {
       }
     }
 
-    toolInfo.setCaption("Tool name");
-    toolInfo.setText(new String[]{"Desc1", "Desc2", "Desc3", null, "Desc4", "Desc5"});
-    traitInfo.setText(new String[]{"Traits", "Awesome",
-                                   "This is a long desc with lorem ipsum blabla bla bla bla bla bla blabla lba bal bal balb al abl abla blablablablabal bla bla balbal bal ba laballbalbalbalalalb laballab mrgrhlomlbl amlm",
-                                   "foobar"});
+    // repair info
+    if(currentInfo.tool == null) {
+      toolInfo.setCaption("Tool name");
+      toolInfo.setText(new String[]{"Desc1", "Desc2", "Desc3", null, "Desc4", "Desc5"});
+      traitInfo.setText(new String[]{"Traits", "Awesome",
+                                     "This is a long desc with lorem ipsum blabla bla bla bla bla bla blabla lba bal bal balb al abl abla blablablablabal bla bla balbal bal ba laballbalbalbalalalb laballab mrgrhlomlbl amlm",
+                                     "foobar"});
+    }
+    // tool info
+    else {
+      // Tool info
+      ToolCore tool = (ToolCore)currentInfo.tool.getItem();
+      toolInfo.setCaption(tool.getLocalizedToolName());
+      toolInfo.setText(tool.getLocalizedDescription());
+
+      // Components
+      traitInfo.setCaption(StatCollector.translateToLocal("gui.toolStation.components"));
+      List<String> text = Lists.newLinkedList();
+      for(PartMaterialType pmt : tool.requiredComponents) {
+        StringBuilder sb = new StringBuilder(" * ");
+        for(IToolPart part : pmt.getPossibleParts()) {
+          if(part instanceof Item) {
+            sb.append(((Item) part).getItemStackDisplayName(new ItemStack((Item) part)));
+            sb.append("/");
+          }
+        }
+        sb.deleteCharAt(sb.length()-1); // removes last '/'
+        text.add(sb.toString());
+      }
+      traitInfo.setText(text.toArray(new String[text.size()]));
+    }
   }
 
   @Override

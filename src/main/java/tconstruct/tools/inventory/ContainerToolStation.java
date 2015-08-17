@@ -31,15 +31,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
   public ContainerToolStation(InventoryPlayer playerInventory, TileToolStation tile) {
     super(tile);
 
-    // modular slots for input
-    // Area: 7,18, 80x64
-
-    // slot1 - center for repairing/main slot
-    int x = 7 + 80/2 - 8;
-    int y = 18 + 64/2 - 8;
-
-    x -= 6;
-
+    // input slots
     int i;
     for(i = 0; i < tile.getSizeInventory(); i++) {
       addSlotToContainer(new SlotToolStationIn(tile, i, 0, 0, this));
@@ -177,7 +169,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
       try {
         return ToolBuilder.tryModifyTool(input, modifyable, remove);
       } catch(TinkerGuiException e) {
-        e.printStackTrace();
+        error(e.getMessage());
       }
     }
 

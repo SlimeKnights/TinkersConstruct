@@ -22,6 +22,11 @@ item.tconstruct.pickaxe.name=Pickaxe
 // material.<identifier>.prefix=Wooden %s - Used for stuff like "Wooden Pickaxe" if no specific name is given
 
 //////////////////
+//  Tool Info   //
+//////////////////
+item.tconstruct.pickaxe.desc=Breaks blocks.\nWho wouldn't want one?
+
+//////////////////
 //   Tooltips   //
 //////////////////
 tooltip.tool.durability=Durability
