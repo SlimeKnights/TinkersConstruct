@@ -19,7 +19,7 @@ import tconstruct.tools.inventory.ContainerStencilTable;
 public class TileStencilTable extends TileTable implements IInventoryGui {
 
   public TileStencilTable() {
-    super("container.stencilTable", 1);
+    super("gui.stencilTable.name", 1);
   }
 
   @Override

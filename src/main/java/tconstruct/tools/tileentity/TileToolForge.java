@@ -11,6 +11,10 @@ import tconstruct.tools.client.GuiToolForge;
 
 public class TileToolForge extends TileToolStation {
 
+  public TileToolForge() {
+    inventoryTitle = "gui.toolForge.name";
+  }
+
   @Override
   @SideOnly(Side.CLIENT)
   public GuiContainer createGui(InventoryPlayer inventoryplayer, World world, BlockPos pos) {

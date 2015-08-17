@@ -16,7 +16,7 @@ import tconstruct.tools.inventory.ContainerToolStation;
 public class TileToolStation extends TileTable implements IInventoryGui {
 
   public TileToolStation() {
-    super("container.toolStation", 6);
+    super("gui.toolStation.name", 6);
   }
 
   @Override

@@ -52,5 +52,17 @@ gui.error.MaxLevelModifier=Maximum Level for %s already reached.
 //     GUIs     //
 //////////////////
 
+// Crafting Station
+gui.craftingStation.name=Crafting Station
+// Stencil Table
+gui.stencilTable.name=Stencil Table
 // PartBuilder
+gui.partBuilder.name=Part Builder
+gui.partCrafter.name=Part Crafter
 gui.partBuilder.info=Here you can craft tool parts to fulfill your tinkering fantasies.\n-nTo craft a part simply put its pattern into the left slot. The two remaining slots hold the material you want to craft your part out of.
+// Tool Station/Forge
+gui.toolStation.name=Tool Station
+gui.toolForge.name=Tool Forge
+gui.toolStation.components=Components
+// Pattern Chest
+gui.patternChest.name=Pattern Chest
