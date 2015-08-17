@@ -197,9 +197,11 @@ public class TConstruct
                 VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());
 
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
-            VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
             MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
-            MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
+            if(pulsar.isPulseLoaded("Tinkers' Smeltery")) {
+                VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
+                MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
+            }
         }
 
         TConstructAPI.PROP_NAME = TPlayerStats.PROP_NAME;
