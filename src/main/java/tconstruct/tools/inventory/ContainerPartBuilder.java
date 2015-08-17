@@ -71,6 +71,9 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
       boolean hasCraftingStation = false;
       boolean hasStencilTable = false;
       for(Pair<BlockPos, IBlockState> pair : tinkerStationBlocks) {
+        if(!pair.getRight().getProperties().containsKey(BlockToolTable.TABLES))
+          continue;
+        
         BlockToolTable.TableTypes type = (BlockToolTable.TableTypes) pair.getRight().getValue(BlockToolTable.TABLES);
         if(type != null) {
           if(type == BlockToolTable.TableTypes.CraftingStation)

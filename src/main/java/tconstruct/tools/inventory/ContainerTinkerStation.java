@@ -94,9 +94,11 @@ public class ContainerTinkerStation<T extends TileEntity> extends ContainerMulti
         found.add(number);
         tinkerStationBlocks.add(Pair.of(pos, state));
         ret.add(state);
-        BlockToolTable.TableTypes type = (BlockToolTable.TableTypes) state.getValue(BlockToolTable.TABLES);
-        if(type != null && type == BlockToolTable.TableTypes.CraftingStation)
-          hasMaster = true;
+        if(state.getProperties().containsKey(BlockToolTable.TABLES)) {
+          BlockToolTable.TableTypes type = (BlockToolTable.TableTypes) state.getValue(BlockToolTable.TABLES);
+          if(type != null && type == BlockToolTable.TableTypes.CraftingStation)
+            hasMaster = true;
+        }
       }
     }
 
