@@ -77,7 +77,7 @@ public class GuiInfoPanel extends GuiModule {
 
     border.setPosition(guiLeft, guiTop);
     border.setSize(xSize, ySize);
-    slider.setPosition(guiRight() - slider.width - border.w, guiTop + border.h + 12);
+    slider.setPosition(guiRight() - border.w - 2, guiTop + border.h + 12);
     slider.setSize(this.ySize - border.h * 2 - 2 - 12);
     updateSliderParameters();
   }
@@ -90,6 +90,8 @@ public class GuiInfoPanel extends GuiModule {
   public void setText(String... text) {
     // convert \n in localized text to actual newlines
     for(int i = 0; i < text.length; i++) {
+      if(text[i] == null)
+        continue;
       int j = 0;
       while((j = text[i].indexOf("\\n")) >= 0)
       {
@@ -142,9 +144,9 @@ public class GuiInfoPanel extends GuiModule {
   }
 
   protected List<String> getTotalLines() {
-    int w = xSize - border.w*2 - 2;
+    int w = xSize - border.w;
     if(!slider.isHidden()) {
-      w -= 5;
+      w -= slider.width + 3;
     }
 
     List<String> lines = Lists.newLinkedList();
@@ -201,11 +203,6 @@ public class GuiInfoPanel extends GuiModule {
     border.draw();
     background.drawScaled(guiLeft + 4, guiTop + 4, xSize - 8, ySize - 8);
 
-    if(text == null || text.length == 0) {
-      // no text to draw
-      return;
-    }
-
     int y = 4;
     int x = 5;
     int w = xSize-10;
@@ -217,6 +214,12 @@ public class GuiInfoPanel extends GuiModule {
       x2 -=fontRenderer.getStringWidth(caption) / 2;
       fontRenderer.drawStringWithShadow(EnumChatFormatting.UNDERLINE + caption, guiLeft + x2, guiTop + y, color);
       y += fontRenderer.FONT_HEIGHT + 3;
+    }
+
+
+    if(text == null || text.length == 0) {
+      // no text to draw
+      return;
     }
 
     // render shown lines
