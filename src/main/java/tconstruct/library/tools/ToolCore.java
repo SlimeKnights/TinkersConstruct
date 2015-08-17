@@ -7,6 +7,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +75,16 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   @Override
+  public ItemStack buildItem(List<Material> materials) {
+    ItemStack tool = super.buildItem(materials);
+
+    // reset to prevent the ITALIC prepended by tooltip rendering
+    tool.setStackDisplayName(EnumChatFormatting.RESET + getLocalizedToolName(materials.get(0)));
+
+    return tool;
+  }
+
+  @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     // assume a simple Head + Handle tool
     return ToolBuilder.buildSimpleTool(materials.get(0), materials.get(1)); // todo: remove or add safety checks
@@ -111,7 +123,13 @@ public abstract class ToolCore extends TinkersItem {
     return Util.getItemLocation(this).getResourcePath();
   }
 
-  public String getDefaultLocalizedName() {
-    return "todo " + getIdentifier();
+  /** The tools name completely without material information */
+  public String getLocalizedToolName() {
+    return StatCollector.translateToLocal(getIdentifier());
+  }
+
+  /** The tools name with the given material. e.g. "Wooden Pickaxe" */
+  public String getLocalizedToolName(Material material) {
+    return material.getLocalizedItemName(getLocalizedToolName());
   }
 }

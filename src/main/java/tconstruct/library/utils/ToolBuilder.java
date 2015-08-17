@@ -65,11 +65,8 @@ public final class ToolBuilder {
       ItemStack output = tool.buildItemFromStacks(input);
       if(output != null) {
         // name the item
-        if(name == null || name.isEmpty()) {
-          name = tool.getDefaultLocalizedName();
-        }
-
-        output.setStackDisplayName(name);
+        if(name != null && !name.isEmpty())
+          output.setStackDisplayName(name);
 
         return output;
       }

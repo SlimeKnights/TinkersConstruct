@@ -66,7 +66,7 @@ public class LocalizationCheckCommand extends CommandBase {
   }
 
   private void scanMaterial(Material material, ICommandSender sender) {
-    checkStr(String.format(Material.LOCALIZATION_STRING, material.identifier), sender);
+    checkStr(String.format(Material.LOCALIZATION_NAME, material.identifier), sender);
   }
 
   private void checkStr(String str, ICommandSender sender) {

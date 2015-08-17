@@ -53,7 +53,7 @@ public class Util {
    * namespace.
    */
   public static String prefix(String name) {
-    return String.format("%s.%s", MODID, name);
+    return String.format("%s.%s", RESOURCE, name.toLowerCase(Locale.US));
   }
 
   public static ResourceLocation getItemLocation(Item item) {

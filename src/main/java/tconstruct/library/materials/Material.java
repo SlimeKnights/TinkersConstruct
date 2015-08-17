@@ -1,7 +1,5 @@
 package tconstruct.library.materials;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
@@ -21,14 +19,14 @@ import tconstruct.library.TinkerAPIException;
 import tconstruct.library.TinkerRegistry;
 import tconstruct.library.Util;
 import tconstruct.library.client.MaterialRenderInfo;
-import tconstruct.library.mantle.RecipeMatch;
 import tconstruct.library.mantle.RecipeMatchRegistry;
 import tconstruct.library.traits.ITrait;
 
 public class Material extends RecipeMatchRegistry {
 
   public static final Material UNKNOWN = new Material("unknown", EnumChatFormatting.WHITE);
-  public static final String LOCALIZATION_STRING = "material.%s.name";
+  public static final String LOCALIZATION_NAME = "material.%s.name";
+  public static final String LOCALIZATION_PREFIX = "material.%s.prefix";
 
   static {
     UNKNOWN.addStats(new ToolMaterialStats(0, 1, 1, 1, 0));
@@ -231,7 +229,16 @@ public class Material extends RecipeMatchRegistry {
 
   public String getLocalizedName() {
     return StatCollector
-        .translateToLocal(String.format(LOCALIZATION_STRING, Util.sanitizeLocalizationString(identifier)));
+        .translateToLocal(String.format(LOCALIZATION_NAME, Util.sanitizeLocalizationString(identifier)));
+  }
+
+  /** Takes a string and turns it into a named variant for this material. E.g. pickaxe -> wooden pickaxe */
+  public String getLocalizedItemName(String itemName) {
+    if(StatCollector.canTranslate(String.format(LOCALIZATION_PREFIX, Util.sanitizeLocalizationString(identifier)))) {
+      return StatCollector.translateToLocalFormatted(String.format(LOCALIZATION_PREFIX, Util.sanitizeLocalizationString(identifier)), itemName);
+    }
+
+    return getLocalizedName() + " " + itemName;
   }
 
   public String getLocalizedNameColored() {

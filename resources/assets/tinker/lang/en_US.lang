@@ -1,4 +1,27 @@
 //////////////////
+//    Blocks    //
+//////////////////
+
+//////////////////
+//    Items     //
+//////////////////
+
+// General Items
+
+// Tools
+item.tconstruct.pickaxe.name=Pickaxe
+
+// Material specific tools
+// item.tconstruct.<tool>.<material>
+// item.tconstruct.pickaxe.wood=Wooden Pickaxe
+
+//////////////////
+//  Materials   //
+//////////////////
+// material.<identifier>.name
+// material.<identifier>.prefix=Wooden %s - Used for stuff like "Wooden Pickaxe" if no specific name is given
+
+//////////////////
 //   Tooltips   //
 //////////////////
 tooltip.tool.durability=Durability
