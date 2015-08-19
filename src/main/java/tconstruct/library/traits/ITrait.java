@@ -8,6 +8,9 @@ public interface ITrait {
 
   String getLocalizedName();
 
+  /** A short description to tell the user what the trait does */
+  String getLocalizedDesc();
+
   /** Returns how often the trait can be stacked on one item. A value of 1 or less means not stackable. */
   int getMaxCount();
 

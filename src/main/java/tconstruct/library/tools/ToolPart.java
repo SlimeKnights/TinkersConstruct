@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -91,6 +92,21 @@ public class ToolPart extends MaterialItem implements IToolPart {
                                                                     TinkerRegistry.getTrace(material));
       tooltip.add(materialInfo);
     }
+  }
+
+  @Override
+  public String getItemStackDisplayName(ItemStack stack) {
+    Material material = getMaterial(stack);
+
+    String locString = getUnlocalizedName() + "." + material.getIdentifier();
+
+    // custom name?
+    if(StatCollector.canTranslate(locString)) {
+      return Util.translate(locString);
+    }
+
+    // no, create the default name combo
+    return material.getLocalizedItemName(super.getItemStackDisplayName(stack));
   }
 
   @Override

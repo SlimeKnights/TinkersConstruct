@@ -1,34 +1,52 @@
-//////////////////
-//    Blocks    //
-//////////////////
+################
+#    Blocks    #
+################
 
-//////////////////
-//    Items     //
-//////////////////
+################
+#    Items     #
+################
 
-// General Items
+# General Items
 
-// Tools
+# Tools
 item.tconstruct.pickaxe.name=Pickaxe
 
-// Material specific tools
-// item.tconstruct.<tool>.<material>
-// item.tconstruct.pickaxe.wood=Wooden Pickaxe
+# Tool Parts
+item.tconstruct.pickhead.name=Pickaxe Head
+item.tconstruct.binding.name=Binding
+item.tconstruct.toolrod.name=Toolrod
 
-//////////////////
-//  Materials   //
-//////////////////
-// material.<identifier>.name
-// material.<identifier>.prefix=Wooden %s - Used for stuff like "Wooden Pickaxe" if no specific name is given
+# Material specific tools and toolparts
+# item.tconstruct.<tool>.<material>
+# item.tconstruct.pickaxe.wood=Wooden Pickaxe
 
-//////////////////
-//  Tool Info   //
-//////////////////
-item.tconstruct.pickaxe.desc=Breaks blocks.\nWho wouldn't want one?
 
-//////////////////
-//   Tooltips   //
-//////////////////
+
+#################
+#   Materials   #
+#################
+# material.<identifier>.name
+# material.<identifier>.prefix
+# material.wood.prefix=Wooden %s - Used for stuff like "Wooden Pickaxe" if no specific name is given
+
+material.wood.name=Wood
+material.wood.prefix=Wooden %s
+
+##############
+#   Traits   #
+##############
+
+trait.stonebound.name=Stonebound
+trait.stonebound.desc=Your tool absolutely loves stone. The tool mines faster as it wears out, but does less damage
+
+#################
+#   Tool Info   #
+#################
+item.tconstruct.pickaxe.desc=The Pickaxe is a precise mining tool. It is effective on stone and ores.\nIt breaks blocks, OK?
+
+################
+#   Tooltips   #
+################
 tooltip.tool.durability=Durability
 tooltip.tool.miningspeed=Mining Speed
 tooltip.tool.harvestlevel=Mining Level
@@ -39,35 +57,41 @@ tooltip.part.materialAddedBy=Added by %s
 tooltip.part.missingMaterial=Missing material: %s
 tooltip.part.missingInfo=Part has no data
 
-////////////////////////
-// GUI Error messages //
-////////////////////////
+######################
+# GUI Error messages #
+######################
 
 gui.error=ERROR
 gui.warning=WARNING
-// GUI Errors from the different Tinker Tables
+# GUI Errors from the different Tinker Tables
 gui.error.invalidPattern=Pattern does not contain a valid tool part!
 gui.error.uselessToolPart=This part can not be used to craft any tool!\nEither the material %s is missing some information or no tool uses %s in its crafting.
-// GUI Errors from modifiers
+# GUI Errors from modifiers
 gui.error.notEnoughModifiers=Not enough Modifiers. (%d needed)
 gui.error.SingleModifier=%s can only be applied once.
 gui.error.MaxLevelModifier=Maximum Level for %s already reached.
 
-//////////////////
-//     GUIs     //
-//////////////////
+################
+#     GUIs     #
+################
 
-// Crafting Station
+# Crafting Station
 gui.craftingStation.name=Crafting Station
-// Stencil Table
+
+# Stencil Table
 gui.stencilTable.name=Stencil Table
-// PartBuilder
+
+# PartBuilder
 gui.partBuilder.name=Part Builder
 gui.partCrafter.name=Part Crafter
 gui.partBuilder.info=Here you can craft tool parts to fulfill your tinkering fantasies.\n-nTo craft a part simply put its pattern into the left slot. The two remaining slots hold the material you want to craft your part out of.
-// Tool Station/Forge
+
+# Tool Station/Forge
 gui.toolStation.name=Tool Station
 gui.toolForge.name=Tool Forge
+gui.toolStation.repair=Repair & Modify
+gui.toolStation.traits=Traits
 gui.toolStation.components=Components
-// Pattern Chest
+
+# Pattern Chest
 gui.patternChest.name=Pattern Chest

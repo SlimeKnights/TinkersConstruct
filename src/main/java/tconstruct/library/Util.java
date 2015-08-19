@@ -4,6 +4,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.fml.common.registry.GameData;
 
 import org.apache.logging.log4j.LogManager;
@@ -54,6 +55,11 @@ public class Util {
    */
   public static String prefix(String name) {
     return String.format("%s.%s", RESOURCE, name.toLowerCase(Locale.US));
+  }
+
+  public static String translate(String key, String... pars) {
+    // translates twice to allow rerouting/alias
+    return StatCollector.translateToLocal(StatCollector.translateToLocal(String.format(key, pars)).trim()).trim();
   }
 
   public static ResourceLocation getItemLocation(Item item) {

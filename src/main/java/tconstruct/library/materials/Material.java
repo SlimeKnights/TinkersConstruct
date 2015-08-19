@@ -25,8 +25,8 @@ import tconstruct.library.traits.ITrait;
 public class Material extends RecipeMatchRegistry {
 
   public static final Material UNKNOWN = new Material("unknown", EnumChatFormatting.WHITE);
-  public static final String LOCALIZATION_NAME = "material.%s.name";
-  public static final String LOCALIZATION_PREFIX = "material.%s.prefix";
+  public static final String LOC_Name = "material.%s.name";
+  public static final String LOC_Prefix = "material.%s.prefix";
 
   static {
     UNKNOWN.addStats(new ToolMaterialStats(0, 1, 1, 1, 0));
@@ -37,11 +37,6 @@ public class Material extends RecipeMatchRegistry {
    */
   @Nonnull
   public final String identifier;
-
-  /**
-   * Items associated with this material. Used for repairing and identifying items that belong to a material.
-   */
-  protected RecipeMatchRegistry materialItems = new RecipeMatchRegistry();
 
   /** The fluid associated with this material, can be null */
   protected Fluid fluid;
@@ -77,7 +72,7 @@ public class Material extends RecipeMatchRegistry {
 
   public Material(String identifier, EnumChatFormatting textColor) {
     this.identifier = Util.sanitizeLocalizationString(identifier); // lowercases and removes whitespaces
-    this.textColor = this.textColor;
+    this.textColor = textColor;
     if(FMLCommonHandler.instance().getSide().isClient()) {
       setRenderInfo(0xffffff);
     }
@@ -228,14 +223,13 @@ public class Material extends RecipeMatchRegistry {
   }
 
   public String getLocalizedName() {
-    return StatCollector
-        .translateToLocal(String.format(LOCALIZATION_NAME, Util.sanitizeLocalizationString(identifier)));
+    return Util.translate(LOC_Name, getIdentifier());
   }
 
   /** Takes a string and turns it into a named variant for this material. E.g. pickaxe -> wooden pickaxe */
   public String getLocalizedItemName(String itemName) {
-    if(StatCollector.canTranslate(String.format(LOCALIZATION_PREFIX, Util.sanitizeLocalizationString(identifier)))) {
-      return StatCollector.translateToLocalFormatted(String.format(LOCALIZATION_PREFIX, Util.sanitizeLocalizationString(identifier)), itemName);
+    if(StatCollector.canTranslate(String.format(LOC_Prefix, getIdentifier()))) {
+      return StatCollector.translateToLocalFormatted(String.format(LOC_Prefix, Util.sanitizeLocalizationString(identifier)), itemName);
     }
 
     return getLocalizedName() + " " + itemName;

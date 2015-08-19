@@ -7,11 +7,12 @@ import tconstruct.library.Util;
 
 public abstract class AbstractTrait implements ITrait {
 
-  public static final String LOCALIZATION_STRING = "trait.%s.name";
+  public static final String LOC_Name = "trait.%s.name";
+  public static final String LOC_Desc = "trait.%s.desc";
   private final String identifier;
 
   public AbstractTrait(String identifier) {
-    this.identifier = identifier;
+    this.identifier = Util.sanitizeLocalizationString(identifier);
   }
 
   /**
@@ -40,8 +41,12 @@ public abstract class AbstractTrait implements ITrait {
 
   @Override
   public String getLocalizedName() {
-    String locString = Util.sanitizeLocalizationString(getIdentifier());
-    return StatCollector.translateToLocal(String.format(LOCALIZATION_STRING, locString));
+    return Util.translate(LOC_Name, getIdentifier());
+  }
+
+  @Override
+  public String getLocalizedDesc() {
+    return Util.translate(LOC_Desc, getIdentifier());
   }
 
   /* Updating */

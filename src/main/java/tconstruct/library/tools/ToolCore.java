@@ -125,7 +125,7 @@ public abstract class ToolCore extends TinkersItem {
 
   /** The tools name completely without material information */
   public String getLocalizedToolName() {
-    return StatCollector.translateToLocal(getUnlocalizedName() + ".name");
+    return Util.translate(getUnlocalizedName() + ".name");
   }
 
   /** The tools name with the given material. e.g. "Wooden Pickaxe" */
@@ -135,6 +135,6 @@ public abstract class ToolCore extends TinkersItem {
 
   /** Returns info about the Tool. Displayed in the tool stations etc. */
   public String getLocalizedDescription() {
-    return StatCollector.translateToLocal(getUnlocalizedName() + ".desc");
+    return Util.translate(getUnlocalizedName() + ".desc");
   }
 }
