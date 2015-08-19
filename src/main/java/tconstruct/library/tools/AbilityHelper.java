@@ -257,6 +257,7 @@ public class AbilityHelper
 
     public static float calcKnockback(Entity user, Entity entity, ItemStack stack, ToolCore tool, NBTTagCompound toolTags, int baseDamage)
     {
+        if(user == null) return 0;
         float knockback = 0;
 
         if (entity instanceof EntityLivingBase && user instanceof EntityLivingBase)
