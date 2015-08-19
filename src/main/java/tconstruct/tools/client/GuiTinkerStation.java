@@ -1,6 +1,7 @@
 package tconstruct.tools.client;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -111,8 +112,9 @@ public class GuiTinkerStation extends GuiMultiModule {
       if(te instanceof IInventoryGui) {
         TinkerNetwork.sendToServer(new TinkerStationTabPacket(pos));
       }
-      //Minecraft.getMinecraft().thePlayer.openGui(TConstruct.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
-      //state.getBlock().onBlockActivated(world, tinkerTabs.tabData.get(selection), state, Minecraft.getMinecraft().thePlayer, EnumFacing.UP, 0, 0, 0);
+
+      // sound!
+      mc.getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
     }
   }
 
