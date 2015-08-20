@@ -182,7 +182,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
         continue;
       }
 
-      tooltip.add(data.color.toString() + " + " + modifier.getLocalizedName());
+      tooltip.add(data.color.toString() + modifier.getLocalizedName());
     }
     // remaining data
     Collections.addAll(tooltip, this.getInformation(stack));

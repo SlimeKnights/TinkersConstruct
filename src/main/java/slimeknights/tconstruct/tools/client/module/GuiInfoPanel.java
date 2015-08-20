@@ -240,7 +240,7 @@ public class GuiInfoPanel extends GuiModule {
     }
 
     // are we hovering over an entry?
-    float y = 4 + guiTop;
+    float y = 5 + guiTop;
 
     if(hasCaption()) {
       y += fontRenderer.FONT_HEIGHT + 3;
@@ -291,7 +291,7 @@ public class GuiInfoPanel extends GuiModule {
     border.draw();
     background.drawScaled(guiLeft + 4, guiTop + 4, xSize - 8, ySize - 8);
 
-    float y = 4 + guiTop;
+    float y = 5 + guiTop;
     float x = 5 + guiLeft;
     int color = 0xfff0f0f0;
 
