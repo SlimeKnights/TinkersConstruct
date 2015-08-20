@@ -1,5 +1,7 @@
 package tconstruct.tools.client;
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -11,9 +13,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.List;
+
 import tconstruct.library.Util;
+import tconstruct.library.materials.IMaterialStats;
 import tconstruct.library.materials.Material;
 import tconstruct.library.tools.ToolPart;
+import tconstruct.library.traits.ITrait;
 import tconstruct.tools.client.module.GuiButtonsPartCrafter;
 import tconstruct.tools.client.module.GuiInfoPanel;
 import tconstruct.tools.client.module.GuiSideInventory;
@@ -111,7 +117,30 @@ public class GuiPartBuilder extends GuiTinkerStation {
         // Material is OK, display material properties
         else {
           info.setCaption(material.getLocalizedNameColored());
-          info.setText("Material info goes here");
+
+          List<String> stats = Lists.newLinkedList();
+          List<String> tips = Lists.newArrayList();
+          for(IMaterialStats stat : material.getAllStats()) {
+            stats.addAll(stat.getLocalizedInfo());
+            stats.add(null);
+            tips.addAll(stat.getLocalizedDesc());
+            tips.add(null);
+          }
+
+          // Traits
+          for(ITrait trait : material.getAllTraits()) {
+            stats.add(trait.getLocalizedName());
+            tips.add(trait.getLocalizedDesc());
+          }
+
+          if(!stats.isEmpty() && stats.get(stats.size()-1) == null) {
+            // last empty line
+            stats.remove(stats.size()-1);
+            tips.remove(tips.size()-1);
+          }
+
+          info.setText(stats);
+          info.setTooltips(tips);
         }
       }
     }

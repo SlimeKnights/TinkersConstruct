@@ -15,8 +15,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import tconstruct.library.TinkerRegistry;
 import tconstruct.library.materials.Material;
+import tconstruct.library.modifiers.IModifier;
+import tconstruct.library.modifiers.ModifierNBT;
 import tconstruct.library.traits.ITrait;
+import tconstruct.library.utils.TagUtil;
 import tconstruct.library.utils.Tags;
 import tconstruct.library.utils.TinkerUtil;
 import tconstruct.library.utils.ToolBuilder;
@@ -166,6 +170,21 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   @Override
   public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip,
                              boolean advanced) {
+    // modifiers
+    NBTTagList tagList = TagUtil.getModifiersTagList(stack);
+    for(int i = 0; i < tagList.tagCount(); i++) {
+      NBTTagCompound tag = tagList.getCompoundTagAt(i);
+      ModifierNBT data = ModifierNBT.readTag(tag);
+
+      // get matching modifier
+      IModifier modifier = TinkerRegistry.getModifier(data.identifier);
+      if(modifier == null) {
+        continue;
+      }
+
+      tooltip.add(data.color.toString() + " + " + modifier.getLocalizedName());
+    }
+    // remaining data
     Collections.addAll(tooltip, this.getInformation(stack));
   }
 

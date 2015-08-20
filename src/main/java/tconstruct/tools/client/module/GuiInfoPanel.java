@@ -57,7 +57,7 @@ public class GuiInfoPanel extends GuiModule {
   protected List<String> tooltips;
   private TIntList tooltipLines = new TIntLinkedList();
 
-  public float textScale = 0.9f;
+  public float textScale = 1.0f;
 
 
   public GuiInfoPanel(GuiMultiModule parent, Container container) {
@@ -173,13 +173,13 @@ public class GuiInfoPanel extends GuiModule {
     List<String> lines = Lists.newLinkedList();
     tooltipLines.clear();
     for(String line : text) {
+      tooltipLines.add(lines.size());
       // empty line
       if(line == null || line.isEmpty()) {
         lines.add("");
         continue;
       }
 
-      tooltipLines.add(lines.size());
       lines.addAll(fontRenderer.listFormattedStringToWidth(line, w));
     }
 
@@ -244,7 +244,7 @@ public class GuiInfoPanel extends GuiModule {
         break;
       }
 
-      if(mouseY >= y && mouseY < y + textHeight) {
+      if(mouseY > y && mouseY <= y + textHeight) {
         index = iter.nextIndex();
         break;
       }
@@ -264,7 +264,7 @@ public class GuiInfoPanel extends GuiModule {
     while(tooltipLines.size() > i && index > tooltipLines.get(i))
       i++;
 
-    if(i > tooltips.size())
+    if(i > tooltips.size() || tooltips.get(i) == null)
       return;
 
     int w = Math.min(200, this.width - mouseX - 12);

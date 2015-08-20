@@ -32,6 +32,20 @@ item.tconstruct.toolrod.name=Toolrod
 material.wood.name=Wood
 material.wood.prefix=Wooden %s
 
+#############
+#   Stats   #
+#############
+stat.durability.name=Durability
+stat.durability.desc=The base-value for durability calculations.\nUsually an integral part to the overall durability of a tool.
+stat.quality.name=Quality
+stat.quality.desc=How good the tool is for secondary toolparts.\nInfluences many different stats. Best value is 1.0.
+stat.miningspeed.name=Mining Speed
+stat.miningspeed.desc=How fast a tool with a tool head of this material can mine blocks.\nMay be influenced by other toolparts.
+stat.harvestlevel.name=Mining Level
+stat.harvestlevel.desc=What range of blocks a tool with a tool head of this material can mine.
+stat.attack.name=Attack
+stat.attack.desc=Attackstuff
+
 ##############
 #   Traits   #
 ##############
@@ -52,10 +66,6 @@ item.tconstruct.pickaxe.desc=The Pickaxe is a precise mining tool. It is effecti
 ################
 #   Tooltips   #
 ################
-tooltip.tool.durability=Durability
-tooltip.tool.miningspeed=Mining Speed
-tooltip.tool.harvestlevel=Mining Level
-tooltip.tool.attack=Attack
 tooltip.tool.modifiers=Modifiers
 
 tooltip.part.materialAddedBy=Added by %s

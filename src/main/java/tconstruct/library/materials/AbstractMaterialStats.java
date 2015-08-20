@@ -1,6 +1,6 @@
 package tconstruct.library.materials;
 
-public class AbstractMaterialStats implements IMaterialStats {
+public abstract class AbstractMaterialStats implements IMaterialStats {
 
   protected final String materialType;
 
