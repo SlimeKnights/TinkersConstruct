@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import tconstruct.library.TinkerRegistry;
+import tconstruct.library.Util;
 import tconstruct.library.mantle.RecipeMatch;
 import tconstruct.library.mantle.RecipeMatchRegistry;
 import tconstruct.library.utils.TagUtil;
@@ -23,7 +24,8 @@ import tconstruct.library.utils.TinkerUtil;
 
 public abstract class Modifier implements IModifier {
 
-  public static final String LOCALIZATION_STRING = "modifier.%s.name";
+  public static final String LOC_Name = "modifier.%s.name";
+  public static final String LOC_Desc = "modifier.%s.desc";
 
   public final String identifier;
 
@@ -157,7 +159,12 @@ public abstract class Modifier implements IModifier {
 
   @Override
   public String getLocalizedName() {
-    return StatCollector.translateToLocalFormatted(LOCALIZATION_STRING, identifier);
+    return Util.translate(LOC_Name, getIdentifier());
+  }
+
+  @Override
+  public String getLocalizedDesc() {
+    return Util.translate(LOC_Desc, getIdentifier());
   }
 
   @Override

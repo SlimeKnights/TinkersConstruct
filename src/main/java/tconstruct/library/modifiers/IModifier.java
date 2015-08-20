@@ -11,6 +11,10 @@ public interface IModifier {
 
   String getIdentifier();
 
+  String getLocalizedName();
+  /** A short description to tell the user what the trait does */
+  String getLocalizedDesc();
+
   /**
    * Called with a set of itemstacks and returns a match which contains the items that match
    * and how often the modifier can be applied with them
@@ -60,8 +64,6 @@ public interface IModifier {
    * Color tags are not necessarry.
    */
   String getTooltip(NBTTagCompound modifierTag);
-
-  String getLocalizedName();
 
   /** Used for specific modifiers that need a texture variant for each material */
   @SideOnly(Side.CLIENT)

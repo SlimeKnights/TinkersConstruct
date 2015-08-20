@@ -4,11 +4,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 import tconstruct.library.Util;
+import tconstruct.library.modifiers.Modifier;
 
 public abstract class AbstractTrait implements ITrait {
 
-  public static final String LOC_Name = "trait.%s.name";
-  public static final String LOC_Desc = "trait.%s.desc";
+  public static final String LOC_Name = Modifier.LOC_Name;
+  public static final String LOC_Desc = Modifier.LOC_Desc;
   private final String identifier;
 
   public AbstractTrait(String identifier) {

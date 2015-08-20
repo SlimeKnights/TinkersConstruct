@@ -62,6 +62,18 @@ public class Util {
     return StatCollector.translateToLocal(StatCollector.translateToLocal(String.format(key, pars)).trim()).trim();
   }
 
+  public static String convertNewlines(String line) {
+    if(line == null)
+      return null;
+    int j;
+    while((j = line.indexOf("\\n")) >= 0)
+    {
+      line = line.substring(0, j) + '\n' + line.substring(j+2);
+    }
+
+    return line;
+  }
+
   public static ResourceLocation getItemLocation(Item item) {
     // get the registered name for the object
     Object o = GameData.getItemRegistry().getNameForObject(item);

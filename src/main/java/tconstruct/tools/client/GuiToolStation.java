@@ -10,7 +10,10 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -28,13 +31,17 @@ import tconstruct.common.client.gui.GuiElement;
 import tconstruct.common.client.gui.GuiElementScalable;
 import tconstruct.common.client.gui.GuiModule;
 import tconstruct.common.inventory.ContainerMultiModule;
+import tconstruct.library.TinkerRegistry;
 import tconstruct.library.TinkerRegistryClient;
 import tconstruct.library.Util;
 import tconstruct.library.client.ToolBuildGuiInfo;
+import tconstruct.library.modifiers.IModifier;
+import tconstruct.library.modifiers.ModifierNBT;
 import tconstruct.library.tinkering.PartMaterialType;
 import tconstruct.library.tinkering.TinkersItem;
 import tconstruct.library.tools.IToolPart;
 import tconstruct.library.tools.ToolCore;
+import tconstruct.library.utils.TagUtil;
 import tconstruct.tools.client.module.GuiButtonsToolStation;
 import tconstruct.tools.client.module.GuiInfoPanel;
 import tconstruct.tools.inventory.ContainerTinkerStation;
@@ -196,17 +203,64 @@ public class GuiToolStation extends GuiTinkerStation {
       }
     }
 
-    // repair info
-    if(currentInfo.tool == null) {
-      toolInfo.setCaption("Tool name");
-      toolInfo.setText(new String[]{"Desc1", "Desc2", "Desc3", null, "Desc4", "Desc5"});
-      traitInfo.setText(new String[]{"Traits", "Awesome",
-                                     "This is a long desc with lorem ipsum blabla bla bla bla bla bla blabla lba bal bal balb al abl abla blablablablabal bla bla balbal bal ba laballbalbalbalalalb laballab mrgrhlomlbl amlm",
-                                     "foobar"});
+    updateDisplay();
+  }
+
+  @Override
+  public void updateDisplay() {
+    // tool info of existing or tool to build
+    ContainerToolStation container = (ContainerToolStation) inventorySlots;
+    ItemStack toolStack = container.getResult();
+    if(toolStack == null) toolStack = inventorySlots.getSlot(0).getStack();
+
+    if(toolStack != null && toolStack.getItem() instanceof ToolCore) {
+      ToolCore tool = (ToolCore) toolStack.getItem();
+      toolInfo.setCaption(tool.getLocalizedToolName());
+
+      toolInfo.setText(tool.getInformation(toolStack));
+
+      traitInfo.setCaption(StatCollector.translateToLocal("gui.toolStation.traits"));
+
+      List<String> mods = Lists.newLinkedList();
+      List<String> tips = Lists.newLinkedList();
+      NBTTagList tagList = TagUtil.getModifiersTagList(toolStack);
+      for(int i = 0; i < tagList.tagCount(); i++) {
+        NBTTagCompound tag = tagList.getCompoundTagAt(i);
+        ModifierNBT data = ModifierNBT.readTag(tag);
+
+        // get matching modifier
+        IModifier modifier = TinkerRegistry.getModifier(data.identifier);
+        if(modifier == null) {
+          continue;
+        }
+
+        mods.add(data.color.toString() + " + " + modifier.getLocalizedName());
+        tips.add(modifier.getLocalizedDesc());
+      }
+
+      traitInfo.setText(mods.toArray(new String[mods.size()]));
+      traitInfo.setTooltips(tips.toArray(new String[tips.size()]));
     }
-    // tool info
+    // repair info
+    else if(currentInfo.tool == null) {
+      toolInfo.setCaption(StatCollector.translateToLocal("gui.toolStation.repair"));
+      toolInfo.setText();
+
+      traitInfo.setCaption(null);
+      String c = EnumChatFormatting.DARK_GRAY.toString();
+      String[] art = new String[] {
+          c + "",
+          c + "",
+          c + "       .",
+          c + "     /( _________",
+          c + "     |  >:=========`",
+          c + "     )(  ",
+          c + "     \"\""
+      };
+      traitInfo.setText(art);
+    }
+    // tool build info
     else {
-      // Tool info
       ToolCore tool = (ToolCore)currentInfo.tool.getItem();
       toolInfo.setCaption(tool.getLocalizedToolName());
       toolInfo.setText(tool.getLocalizedDescription());

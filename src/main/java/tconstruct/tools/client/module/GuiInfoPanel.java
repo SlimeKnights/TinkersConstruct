@@ -2,6 +2,9 @@ package tconstruct.tools.client.module;
 
 import com.google.common.collect.Lists;
 
+import gnu.trove.list.TIntList;
+import gnu.trove.list.linked.TIntLinkedList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.inventory.Container;
@@ -50,6 +53,8 @@ public class GuiInfoPanel extends GuiModule {
 
   protected String caption;
   protected String[] text;
+  protected String[] tooltips;
+  private TIntList tooltipLines = new TIntLinkedList();
 
   public GuiInfoPanel(GuiMultiModule parent, Container container) {
     super(parent, container, true, false);
@@ -90,16 +95,18 @@ public class GuiInfoPanel extends GuiModule {
   public void setText(String... text) {
     // convert \n in localized text to actual newlines
     for(int i = 0; i < text.length; i++) {
-      if(text[i] == null)
-        continue;
-      int j = 0;
-      while((j = text[i].indexOf("\\n")) >= 0)
-      {
-        text[i] = text[i].substring(0, j) + '\n' + text[i].substring(j+2);
-      }
+      text[i] = Util.convertNewlines(text[i]);
     }
     this.text = text;
     updateSliderParameters();
+  }
+
+  public void setTooltips(String... tooltips) {
+    // convert \n in localized text to actual newlines
+    for(int i = 0; i < tooltips.length; i++) {
+      tooltips[i] = Util.convertNewlines(tooltips[i]);
+    }
+    this.tooltips = tooltips;
   }
 
   public boolean hasCaption() {
@@ -150,6 +157,7 @@ public class GuiInfoPanel extends GuiModule {
     }
 
     List<String> lines = Lists.newLinkedList();
+    tooltipLines.clear();
     for(String line : text) {
       // empty line
       if(line == null || line.isEmpty()) {
@@ -157,6 +165,7 @@ public class GuiInfoPanel extends GuiModule {
         continue;
       }
 
+      tooltipLines.add(lines.size());
       lines.addAll(fontRenderer.listFormattedStringToWidth(line, w));
     }
 
@@ -197,6 +206,55 @@ public class GuiInfoPanel extends GuiModule {
   }
 
   @Override
+  protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+    if(tooltips == null)
+      return;
+    if(mouseX < guiLeft || mouseX > guiRight())
+      return;
+
+    // are we hovering over an entry?
+    int y = 4 + guiTop;
+
+    if(hasCaption()) {
+      y += fontRenderer.FONT_HEIGHT + 3;
+    }
+
+    // get the index of the currently hovered line
+    int index = -1;
+    ListIterator<String> iter = getTotalLines().listIterator(slider.getValue());
+    while(iter.hasNext()) {
+      if(y + fontRenderer.FONT_HEIGHT > guiTop + ySize - border.h) {
+        break;
+      }
+
+      if(mouseY >= y && mouseY < y + fontRenderer.FONT_HEIGHT) {
+        index = iter.nextIndex();
+        break;
+      }
+      else {
+        iter.next();
+      }
+      y += fontRenderer.FONT_HEIGHT;
+    }
+
+    // no line hovered
+    if(index < 0) {
+      return;
+    }
+
+    // get the tooltip index from the hovered line
+    int i = 0;
+    while(tooltipLines.size() > i && index > tooltipLines.get(i))
+      i++;
+
+    if(i > tooltips.length)
+      return;
+
+    int w = Math.min(200, this.width - mouseX - 12);
+    drawHoveringText(fontRenderer.listFormattedStringToWidth(tooltips[i], w), mouseX - guiLeft, mouseY - guiTop);
+  }
+
+  @Override
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
     this.mc.getTextureManager().bindTexture(BACKGROUND);
 
@@ -205,7 +263,6 @@ public class GuiInfoPanel extends GuiModule {
 
     int y = 4;
     int x = 5;
-    int w = xSize-10;
     int color = 0xfff0f0f0;
 
     // draw caption

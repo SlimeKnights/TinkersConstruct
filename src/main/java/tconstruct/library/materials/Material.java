@@ -228,6 +228,8 @@ public class Material extends RecipeMatchRegistry {
 
   /** Takes a string and turns it into a named variant for this material. E.g. pickaxe -> wooden pickaxe */
   public String getLocalizedItemName(String itemName) {
+    if(this == UNKNOWN) return itemName;
+
     if(StatCollector.canTranslate(String.format(LOC_Prefix, getIdentifier()))) {
       return StatCollector.translateToLocalFormatted(String.format(LOC_Prefix, Util.sanitizeLocalizationString(identifier)), itemName);
     }

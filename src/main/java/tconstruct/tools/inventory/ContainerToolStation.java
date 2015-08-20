@@ -44,6 +44,10 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     this.addPlayerInventory(playerInventory, 8, 84 + 8);
   }
 
+  public ItemStack getResult() {
+    return out.getStack();
+  }
+
   @Override
   protected void syncNewContainer(EntityPlayerMP player) {
     TinkerNetwork.sendTo(new ToolStationSelectionPacket(null, tile.getSizeInventory()), player);
@@ -120,6 +124,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
   // update crafting - called whenever the content of an input slot changes
   @Override
   public void onCraftMatrixChanged(IInventory inventoryIn) {
+    updateGUI();
     ItemStack result = modifyTool(false);
     if(result == null) result = buildTool();
 

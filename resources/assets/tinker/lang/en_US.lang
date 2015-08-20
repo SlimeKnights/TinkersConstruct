@@ -36,8 +36,13 @@ material.wood.prefix=Wooden %s
 #   Traits   #
 ##############
 
-trait.stonebound.name=Stonebound
-trait.stonebound.desc=Your tool absolutely loves stone. The tool mines faster as it wears out, but does less damage
+# traits are also modifiers, they use the same prefix so they don't have to be localized twice
+modifier.stonebound.name=Stonebound
+modifier.stonebound.desc=Your tool absolutely loves stone. The tool mines faster as it wears out, but does less damage
+
+#################
+#   Modifiers   #
+#################
 
 #################
 #   Tool Info   #
@@ -84,7 +89,7 @@ gui.stencilTable.name=Stencil Table
 # PartBuilder
 gui.partBuilder.name=Part Builder
 gui.partCrafter.name=Part Crafter
-gui.partBuilder.info=Here you can craft tool parts to fulfill your tinkering fantasies.\n-nTo craft a part simply put its pattern into the left slot. The two remaining slots hold the material you want to craft your part out of.
+gui.partBuilder.info=Here you can craft tool parts to fulfill your tinkering fantasies.\n\nTo craft a part simply put its pattern into the left slot. The two remaining slots hold the material you want to craft your part out of.
 
 # Tool Station/Forge
 gui.toolStation.name=Tool Station
@@ -92,6 +97,7 @@ gui.toolForge.name=Tool Forge
 gui.toolStation.repair=Repair & Modify
 gui.toolStation.traits=Traits
 gui.toolStation.components=Components
+gui.toolStation.info=The main way to repair or change your tools. Place a tool and a material on the left to get started.
 
 # Pattern Chest
 gui.patternChest.name=Pattern Chest
