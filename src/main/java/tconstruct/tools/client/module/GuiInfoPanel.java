@@ -7,6 +7,7 @@ import gnu.trove.list.linked.TIntLinkedList;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
@@ -55,6 +56,9 @@ public class GuiInfoPanel extends GuiModule {
   protected String[] text;
   protected String[] tooltips;
   private TIntList tooltipLines = new TIntLinkedList();
+
+  public float textScale = 0.9f;
+
 
   public GuiInfoPanel(GuiMultiModule parent, Container container) {
     super(parent, container, true, false);
@@ -156,6 +160,8 @@ public class GuiInfoPanel extends GuiModule {
       w -= slider.width + 3;
     }
 
+    w =(int) ((float)w/textScale);
+
     List<String> lines = Lists.newLinkedList();
     tooltipLines.clear();
     for(String line : text) {
@@ -213,28 +219,31 @@ public class GuiInfoPanel extends GuiModule {
       return;
 
     // are we hovering over an entry?
-    int y = 4 + guiTop;
+    float y = 4 + guiTop;
 
     if(hasCaption()) {
       y += fontRenderer.FONT_HEIGHT + 3;
     }
 
+    float textHeight = fontRenderer.FONT_HEIGHT * textScale + 0.5f;
+    float lowerBound = (guiTop + ySize - border.h)/textScale;
+
     // get the index of the currently hovered line
     int index = -1;
     ListIterator<String> iter = getTotalLines().listIterator(slider.getValue());
     while(iter.hasNext()) {
-      if(y + fontRenderer.FONT_HEIGHT > guiTop + ySize - border.h) {
+      if(y + textHeight > lowerBound) {
         break;
       }
 
-      if(mouseY >= y && mouseY < y + fontRenderer.FONT_HEIGHT) {
+      if(mouseY >= y && mouseY < y + textHeight) {
         index = iter.nextIndex();
         break;
       }
       else {
         iter.next();
       }
-      y += fontRenderer.FONT_HEIGHT;
+      y += textHeight;
     }
 
     // no line hovered
@@ -261,35 +270,43 @@ public class GuiInfoPanel extends GuiModule {
     border.draw();
     background.drawScaled(guiLeft + 4, guiTop + 4, xSize - 8, ySize - 8);
 
-    int y = 4;
-    int x = 5;
+    float y = 4 + guiTop;
+    float x = 5 + guiLeft;
     int color = 0xfff0f0f0;
 
     // draw caption
     if(hasCaption()) {
       int x2 = xSize / 2;
       x2 -=fontRenderer.getStringWidth(caption) / 2;
-      fontRenderer.drawStringWithShadow(EnumChatFormatting.UNDERLINE + caption, guiLeft + x2, guiTop + y, color);
+      fontRenderer.drawStringWithShadow(EnumChatFormatting.UNDERLINE + caption, guiLeft + x2, y, color);
       y += fontRenderer.FONT_HEIGHT + 3;
     }
 
 
-    if(text == null || text.length == 0) {
+    if(text == null || text.size() == 0) {
       // no text to draw
       return;
     }
 
+    float textHeight = fontRenderer.FONT_HEIGHT * textScale + 0.5f;
+    float lowerBound = (guiTop + ySize - border.h)/textScale;
+    GlStateManager.scale(textScale, textScale, 1.0f);
+    x /= textScale;
+    y /= textScale;
+
     // render shown lines
     ListIterator<String> iter = getTotalLines().listIterator(slider.getValue());
     while(iter.hasNext()) {
-      if(y + fontRenderer.FONT_HEIGHT > ySize - border.h) {
+      if(y + textHeight > lowerBound) {
         break;
       }
 
       String line = iter.next();
-      fontRenderer.drawStringWithShadow(line, guiLeft + x, guiTop + y, color);
-      y += fontRenderer.FONT_HEIGHT;
+      fontRenderer.drawStringWithShadow(line, x, y, color);
+      y += textHeight;
     }
+
+    GlStateManager.scale(1f/textScale, 1f/textScale, 1.0f);
 
     this.mc.getTextureManager().bindTexture(BACKGROUND);
     slider.update(mouseX, mouseY);
