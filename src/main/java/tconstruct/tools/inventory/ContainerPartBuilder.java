@@ -28,6 +28,7 @@ import tconstruct.library.mantle.InventoryCraftingPersistent;
 import tconstruct.library.modifiers.TinkerGuiException;
 import tconstruct.library.utils.ToolBuilder;
 import tconstruct.tools.block.BlockToolTable;
+import tconstruct.tools.client.GuiPartBuilder;
 import tconstruct.tools.tileentity.TilePartBuilder;
 import tconstruct.tools.tileentity.TilePatternChest;
 
@@ -219,8 +220,9 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
 
     // this is called solely to update the gui buttons
     Minecraft mc = Minecraft.getMinecraft();
-    ScaledResolution scaledresolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
-    mc.currentScreen.onResize(mc, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
+    if(mc.currentScreen instanceof GuiPartBuilder) {
+      ((GuiPartBuilder) mc.currentScreen).updateButtons();
+    }
   }
 
   @Override
@@ -229,8 +231,9 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
     ItemStack ret = super.slotClick(slotId, clickedButton, mode, playerIn);
     // this is called solely to update the gui buttons
     Minecraft mc = Minecraft.getMinecraft();
-    ScaledResolution scaledresolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
-    mc.currentScreen.onResize(mc, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
+    if(mc.currentScreen instanceof GuiPartBuilder) {
+      ((GuiPartBuilder) mc.currentScreen).updateButtons();
+    }
 
     return ret;
   }

@@ -133,4 +133,8 @@ public class GuiPartBuilder extends GuiTinkerStation {
     info.setCaption(StatCollector.translateToLocal("gui.warning"));
     info.setText(message);
   }
+
+  public void updateButtons() {
+    buttons.updatePosition(this.cornerX, this.cornerY, this.realWidth, this.realHeight);
+  }
 }

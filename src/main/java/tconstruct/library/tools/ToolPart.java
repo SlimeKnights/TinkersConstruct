@@ -80,8 +80,6 @@ public class ToolPart extends MaterialItem implements IToolPart {
       tooltip.add(error);
     }
     else {
-      tooltip.add(material.textColor.toString() + EnumChatFormatting.ITALIC.toString() + material.getLocalizedName());
-
       for(ITrait trait : material.getAllTraits()) {
         tooltip.add(material.textColor + trait.getLocalizedName());
       }
@@ -90,6 +88,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
     if(advanced) {
       String materialInfo = StatCollector.translateToLocalFormatted("tooltip.part.materialAddedBy",
                                                                     TinkerRegistry.getTrace(material));
+      tooltip.add("");
       tooltip.add(materialInfo);
     }
   }

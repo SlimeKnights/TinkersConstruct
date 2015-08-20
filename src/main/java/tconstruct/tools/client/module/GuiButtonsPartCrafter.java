@@ -64,6 +64,7 @@ public class GuiButtonsPartCrafter extends GuiSideButtons {
       }
     }
 
+    buttonList.clear();
     for(ItemStack stencil : patterns) {
       IToolPart part = Pattern.getPartFromTag(stencil);
       if(part == null || !(part instanceof MaterialItem)) {
