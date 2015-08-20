@@ -238,8 +238,8 @@ public class GuiToolStation extends GuiTinkerStation {
         tips.add(modifier.getLocalizedDesc());
       }
 
-      traitInfo.setText(mods.toArray(new String[mods.size()]));
-      traitInfo.setTooltips(tips.toArray(new String[tips.size()]));
+      traitInfo.setText(mods);
+      traitInfo.setTooltips(tips);
     }
     // repair info
     else if(currentInfo.tool == null) {

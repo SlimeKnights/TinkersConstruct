@@ -53,8 +53,8 @@ public class GuiInfoPanel extends GuiModule {
   private GuiPartSlider slider = new GuiPartSlider(sliderNormal, sliderHover, sliderHover, sliderTop, sliderBot, sliderBar);
 
   protected String caption;
-  protected String[] text;
-  protected String[] tooltips;
+  protected List<String> text;
+  protected List<String> tooltips;
   private TIntList tooltipLines = new TIntLinkedList();
 
   public float textScale = 0.9f;
@@ -77,7 +77,7 @@ public class GuiInfoPanel extends GuiModule {
     this.ySize = resH + 8;
 
     caption = "Caption";
-    text = new String[]{"Text"};
+    text = Lists.newLinkedList();
   }
 
   @Override
@@ -97,18 +97,26 @@ public class GuiInfoPanel extends GuiModule {
   }
 
   public void setText(String... text) {
+    setText(Lists.newArrayList(text));
+  }
+
+  public void setText(List<String> text) {
     // convert \n in localized text to actual newlines
-    for(int i = 0; i < text.length; i++) {
-      text[i] = Util.convertNewlines(text[i]);
+    if(text != null) {
+      for(int i = 0; i < text.size(); i++) {
+        text.set(i, Util.convertNewlines(text.get(i)));
+      }
     }
     this.text = text;
     updateSliderParameters();
   }
 
-  public void setTooltips(String... tooltips) {
+  public void setTooltips(List<String> tooltips) {
     // convert \n in localized text to actual newlines
-    for(int i = 0; i < tooltips.length; i++) {
-      tooltips[i] = Util.convertNewlines(tooltips[i]);
+    if(tooltips != null) {
+      for(int i = 0; i < tooltips.size(); i++) {
+        tooltips.set(i, Util.convertNewlines(tooltips.get(i)));
+      }
     }
     this.tooltips = tooltips;
   }
@@ -256,11 +264,11 @@ public class GuiInfoPanel extends GuiModule {
     while(tooltipLines.size() > i && index > tooltipLines.get(i))
       i++;
 
-    if(i > tooltips.length)
+    if(i > tooltips.size())
       return;
 
     int w = Math.min(200, this.width - mouseX - 12);
-    drawHoveringText(fontRenderer.listFormattedStringToWidth(tooltips[i], w), mouseX - guiLeft, mouseY - guiTop);
+    drawHoveringText(fontRenderer.listFormattedStringToWidth(tooltips.get(i), w), mouseX - guiLeft, mouseY - guiTop);
   }
 
   @Override
