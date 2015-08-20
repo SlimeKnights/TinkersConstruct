@@ -10,6 +10,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
@@ -125,6 +126,10 @@ public class GuiInfoPanel extends GuiModule {
     return caption != null && !caption.isEmpty();
   }
 
+  public boolean hasTooltips() {
+    return tooltips != null && !tooltips.isEmpty();
+  }
+
 
   public int calcNeededHeight() {
     int neededHeight = 0;
@@ -226,6 +231,14 @@ public class GuiInfoPanel extends GuiModule {
     if(mouseX < guiLeft || mouseX > guiRight())
       return;
 
+    // floating over tooltip info?
+    if(hasTooltips()
+       && mouseX >= guiRight() - border.w - fontRenderer.getCharWidth('?')/2 && mouseX < guiRight()
+       && mouseY > guiTop+5 && mouseY < guiTop+5+fontRenderer.FONT_HEIGHT) {
+      int w = MathHelper.clamp_int(this.width - mouseX - 12, 10, 200);
+      drawHoveringText(fontRenderer.listFormattedStringToWidth(Util.translate("gui.general.hover"), w), mouseX - guiLeft, mouseY - guiTop);
+    }
+
     // are we hovering over an entry?
     float y = 4 + guiTop;
 
@@ -267,7 +280,7 @@ public class GuiInfoPanel extends GuiModule {
     if(i > tooltips.size() || tooltips.get(i) == null)
       return;
 
-    int w = Math.min(200, this.width - mouseX - 12);
+    int w = MathHelper.clamp_int(this.width - mouseX - 12, 10, 200);
     drawHoveringText(fontRenderer.listFormattedStringToWidth(tooltips.get(i), w), mouseX - guiLeft, mouseY - guiTop);
   }
 
@@ -282,11 +295,17 @@ public class GuiInfoPanel extends GuiModule {
     float x = 5 + guiLeft;
     int color = 0xfff0f0f0;
 
+
+    // info ? in the top right corner
+    if(hasTooltips()) {
+      fontRenderer.drawString("?", guiRight() - border.w - fontRenderer.getCharWidth('?')/2, guiTop+5, 0xff5f5f5f, false);
+    }
+
     // draw caption
     if(hasCaption()) {
       int x2 = xSize / 2;
       x2 -=fontRenderer.getStringWidth(caption) / 2;
-      fontRenderer.drawStringWithShadow(EnumChatFormatting.UNDERLINE + caption, guiLeft + x2, y, color);
+      fontRenderer.drawStringWithShadow(EnumChatFormatting.UNDERLINE + EnumChatFormatting.getTextWithoutFormattingCodes(caption), guiLeft + x2, y, color);
       y += fontRenderer.FONT_HEIGHT + 3;
     }
 

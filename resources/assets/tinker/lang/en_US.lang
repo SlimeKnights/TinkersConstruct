@@ -90,6 +90,9 @@ gui.error.MaxLevelModifier=Maximum Level for %s already reached.
 #     GUIs     #
 ################
 
+# General things used in multiple GUIs
+gui.general.hover=Hover over the entries for more info
+
 # Crafting Station
 gui.craftingStation.name=Crafting Station
 
