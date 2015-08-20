@@ -19,9 +19,11 @@ class TinkerOredict {
   public static void ensureOredict() {
     // crafting table
     OreDictionary.registerOre("workbench", Blocks.crafting_table);
+    // some vanilla blocks
     OreDictionary.registerOre("blockCactus", Blocks.cactus);
     OreDictionary.registerOre("blockPumpkin", Blocks.pumpkin);
     OreDictionary.registerOre("blockPumpkin", Blocks.lit_pumpkin);
+    OreDictionary.registerOre("blockObsidian", Blocks.obsidian);
   }
 
   // All the oredicted things in tinkers. Only registers if the item is actually present

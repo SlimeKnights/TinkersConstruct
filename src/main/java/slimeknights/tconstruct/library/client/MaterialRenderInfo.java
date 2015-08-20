@@ -4,10 +4,15 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.io.IOException;
+
+import slimeknights.tconstruct.library.client.model.ModelHelper;
 import slimeknights.tconstruct.library.client.texture.AnimatedColoredTexture;
+import slimeknights.tconstruct.library.client.texture.InverseColoredTexture;
 import slimeknights.tconstruct.library.client.texture.SimpleColoredTexture;
 import slimeknights.tconstruct.library.client.texture.TextureColoredTexture;
 
@@ -108,18 +113,28 @@ public interface MaterialRenderInfo {
     }
   }
 
+  class InverseMultiColor extends MultiColor {
+
+    public InverseMultiColor(int low, int mid, int high) {
+      super(low, mid, high);
+    }
+
+    @Override
+    public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
+      return new InverseColoredTexture(low, mid, high, baseTexture, location);
+    }
+  }
+
   /**
    * Uses a (block) texture instead of a color to create the texture
    */
   class BlockTexture extends AbstractMaterialRenderInfo {
 
     protected String texturePath;
+    protected Block block;
 
-    public BlockTexture(Block block) {
-      ResourceLocation blockloc = new ResourceLocation(block.getDefaultState().toString());
-      blockloc = new ResourceLocation(blockloc.getResourceDomain(), "blocks/" + blockloc.getResourcePath());
-
-      texturePath = blockloc.toString();
+    public BlockTexture(String texturePath) {
+      this.texturePath = texturePath;
     }
 
     @Override

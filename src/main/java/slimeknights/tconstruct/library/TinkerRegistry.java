@@ -186,7 +186,7 @@ public final class TinkerRegistry {
       }
 
       error(String.format(
-          "Could not add Stats to \"%s\": Stats of type \"%s\" were already registered by %s",
+          "Could not add Stats to \"%s\": Stats of type \"%s\" were already registered by %s. Use the events to modify stats.",
           identifier, stats.getIdentifier(), registeredBy));
       return;
     }

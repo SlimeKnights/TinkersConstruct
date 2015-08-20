@@ -81,8 +81,6 @@ public class TinkerTools extends TinkerPulse {
   // PRE-INITIALIZATION
   @Handler
   public void preInit(FMLPreInitializationEvent event) {
-    TinkerMaterials.registerToolMaterials();
-
     // register items
     pattern = registerItem(new Pattern(), "Pattern");
 

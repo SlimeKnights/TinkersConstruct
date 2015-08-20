@@ -114,8 +114,9 @@ public class Material extends RecipeMatchRegistry {
   }
 
   @SideOnly(Side.CLIENT)
-  public void setRenderInfo(int color) {
+  public MaterialRenderInfo setRenderInfo(int color) {
     setRenderInfo(new MaterialRenderInfo.Default(color));
+    return renderInfo;
   }
 
   /* Stats */

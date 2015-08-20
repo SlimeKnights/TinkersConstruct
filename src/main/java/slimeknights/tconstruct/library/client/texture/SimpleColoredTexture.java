@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 public class SimpleColoredTexture extends AbstractColoredTexture {
 
-  private final int colorLow, colorMid, colorHigh;
+  protected final int colorLow, colorMid, colorHigh;
 
   public SimpleColoredTexture(int colorLow, int colorMid, int colorHigh, TextureAtlasSprite baseTexture,
                               String spriteName) {

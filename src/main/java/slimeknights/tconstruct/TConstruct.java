@@ -82,6 +82,7 @@ public class TConstruct {
   @Mod.EventHandler
   public void preInit(FMLPreInitializationEvent event) {
     // the basic tinker materials are always present
+    TinkerMaterials.setupMaterials();
     TinkerMaterials.registerMaterials();
 
     // Tinker pulses
