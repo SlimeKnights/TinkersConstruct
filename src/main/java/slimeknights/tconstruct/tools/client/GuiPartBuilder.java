@@ -164,6 +164,8 @@ public class GuiPartBuilder extends GuiTinkerStation {
   }
 
   public void updateButtons() {
-    buttons.updatePosition(this.cornerX, this.cornerY, this.realWidth, this.realHeight);
+    if(buttons != null) {
+      buttons.updatePosition(this.cornerX, this.cornerY, this.realWidth, this.realHeight);
+    }
   }
 }
