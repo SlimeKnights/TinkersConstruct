@@ -21,6 +21,7 @@ import java.util.Map;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
+import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
 import slimeknights.tconstruct.library.materials.Material;
 
 public class MaterialModel extends ItemLayerModel {
@@ -54,8 +55,8 @@ public class MaterialModel extends ItemLayerModel {
       IModel model2 = this.retexture(ImmutableMap.of("layer0", entry.getValue().getIconName()));
       IFlexibleBakedModel bakedModel2 = model2.bake(state, format, bakedTextureGetter);
 
-      // if it's a colored material we need to color the quads
-      if(material.renderInfo.useVertexColoring()) {
+      // if it's a colored material we need to color the quads. But only if the texture was not a custom texture
+      if(material.renderInfo.useVertexColoring() && !CustomTextureCreator.exists(baseTexture + "_" + material.renderInfo.getTextureSuffix())) {
         int color = (material.renderInfo).getVertexColor();
 
         ImmutableList.Builder<BakedQuad> quads = ImmutableList.builder();
