@@ -277,7 +277,7 @@ public class GuiInfoPanel extends GuiModule {
     while(tooltipLines.size() > i && index > tooltipLines.get(i))
       i++;
 
-    if(i > tooltips.size() || tooltips.get(i) == null)
+    if(i >= tooltips.size() || tooltips.get(i) == null)
       return;
 
     int w = MathHelper.clamp_int(this.width - mouseX - 12, 10, 200);
