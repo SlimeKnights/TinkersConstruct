@@ -393,7 +393,7 @@ public final class ToolBuilder {
 
     // sum up stats
     for(ToolMaterialStats stat : stats) {
-      multiplier += stat.durabilityModifier;
+      multiplier += stat.quality;
       count++;
     }
 

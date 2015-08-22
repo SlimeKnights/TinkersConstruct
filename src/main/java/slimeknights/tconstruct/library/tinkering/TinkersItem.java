@@ -75,7 +75,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       return null;
     }
 
-    // not a valid part arrangement for tis tool
+    // not a valid part arrangement for this tool
     for(int i = 0; i < stacks.length; i++) {
       if(!validComponent(i, stacks[i])) {
         return null;
