@@ -1,13 +1,18 @@
 package slimeknights.tconstruct.library.tools;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +24,7 @@ import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
+import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.library.utils.ToolHelper;
@@ -133,5 +139,35 @@ public abstract class ToolCore extends TinkersItem {
   /** Returns info about the Tool. Displayed in the tool stations etc. */
   public String getLocalizedDescription() {
     return Util.translate(getUnlocalizedName() + ".desc");
+  }
+
+  /* Additional Trait callbacks */
+
+  @Override
+  public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+    super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
+
+    NBTTagList list = TagUtil.getTraitsTagList(stack);
+    for(int i = 0; i < list.tagCount(); i++) {
+      ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
+      if(trait != null) {
+        trait.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
+      }
+    }
+  }
+
+  @Override
+  public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
+    boolean ret = super.onBlockDestroyed(stack, worldIn, blockIn, pos, playerIn);
+
+    NBTTagList list = TagUtil.getTraitsTagList(stack);
+    for(int i = 0; i < list.tagCount(); i++) {
+      ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
+      if(trait != null) {
+        trait.afterBlockBreak(stack, worldIn, blockIn, pos, playerIn);
+      }
+    }
+
+    return ret;
   }
 }
