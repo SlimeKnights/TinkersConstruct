@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
+import slimeknights.tconstruct.library.utils.ToolHelper;
 
 /**
  * The base for each Tinker tool.
@@ -38,9 +39,8 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     this.requiredComponents = requiredComponents;
 
     this.setMaxStackSize(1);
-    this.setHasSubtypes(true);
+    //this.setHasSubtypes(true);
   }
-
 
   /* Tool Information */
   protected void addCategory(Category... categories) {

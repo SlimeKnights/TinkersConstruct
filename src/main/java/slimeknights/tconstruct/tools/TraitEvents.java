@@ -10,6 +10,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.library.utils.ToolHelper;
 
 public class TraitEvents {
 
@@ -17,7 +18,7 @@ public class TraitEvents {
   public void mineSpeed(PlayerEvent.BreakSpeed event) {
     ItemStack tool = event.entityPlayer.inventory.getCurrentItem();
 
-    if(isTool(tool)) {
+    if(isTool(tool) && !ToolHelper.isBroken(tool)) {
       NBTTagList list = TagUtil.getTraitsTagList(tool);
       for(int i = 0; i < list.tagCount(); i++) {
         ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
@@ -31,7 +32,7 @@ public class TraitEvents {
   public void blockBreak(BlockEvent.BreakEvent event) {
     ItemStack tool = event.getPlayer().inventory.getCurrentItem();
 
-    if(isTool(tool)) {
+    if(isTool(tool) && !ToolHelper.isBroken(tool)) {
       NBTTagList list = TagUtil.getTraitsTagList(tool);
       for(int i = 0; i < list.tagCount(); i++) {
         ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
@@ -48,7 +49,7 @@ public class TraitEvents {
     }
     ItemStack tool = event.harvester.inventory.getCurrentItem();
 
-    if(isTool(tool)) {
+    if(isTool(tool) && !ToolHelper.isBroken(tool)) {
       NBTTagList list = TagUtil.getTraitsTagList(tool);
       for(int i = 0; i < list.tagCount(); i++) {
         ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));

@@ -53,6 +53,7 @@ public interface ITrait {
 
   /**
    * Called after the block has been destroyed. See {@link net.minecraft.item.Item#onBlockDestroyed(ItemStack, World, Block, BlockPos, EntityLivingBase)}
+   * Called before the tools durability is reduced.
    */
   void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player);
 
@@ -106,7 +107,7 @@ public interface ITrait {
    * @param newDamage The current damage that will be dealt, possibly modified by other traits
    * @return The damage to deal, Standard return value is newDamage
    */
-  int onToolDamage(ItemStack tool, int damage, int newDamage);
+  int onToolDamage(ItemStack tool, int damage, int newDamage, EntityLivingBase entity);
 
   /**
    * Called before the tools durability is getting increased.
@@ -116,7 +117,7 @@ public interface ITrait {
    * @param newAmount The current damage that will be healed, possibly modified by other traits
    * @return The damage to deal. Standard return value is newAmount
    */
-  int onToolHeal(ItemStack tool, int amount, int newAmount);
+  int onToolHeal(ItemStack tool, int amount, int newAmount, EntityLivingBase entity);
 
   /**
    * Called before the tool is getting repaired with its repair material.

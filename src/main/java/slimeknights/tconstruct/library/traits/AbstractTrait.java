@@ -43,6 +43,11 @@ public abstract class AbstractTrait implements ITrait {
   }
 
   @Override
+  public int getMaxCount() {
+    return 1;
+  }
+
+  @Override
   public String getIdentifier() {
     return identifier;
   }
@@ -104,12 +109,12 @@ public abstract class AbstractTrait implements ITrait {
   }
 
   @Override
-  public int onToolDamage(ItemStack tool, int damage, int newDamage) {
+  public int onToolDamage(ItemStack tool, int damage, int newDamage, EntityLivingBase entity) {
     return newDamage;
   }
 
   @Override
-  public int onToolHeal(ItemStack tool, int amount, int newAmount) {
+  public int onToolHeal(ItemStack tool, int amount, int newAmount, EntityLivingBase entity) {
     return newAmount;
   }
 
