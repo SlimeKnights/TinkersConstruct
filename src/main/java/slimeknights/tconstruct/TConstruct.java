@@ -18,6 +18,7 @@ import java.util.Map;
 import mantle.pulsar.control.PulseManager;
 import slimeknights.tconstruct.debug.LocalizationCheckCommand;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -84,6 +85,7 @@ public class TConstruct {
     // the basic tinker materials are always present
     TinkerMaterials.setupMaterials();
     TinkerMaterials.registerMaterials();
+    HarvestLevels.init();
 
     // Tinker pulses
     pulseManager.registerPulse(new TinkerTools());

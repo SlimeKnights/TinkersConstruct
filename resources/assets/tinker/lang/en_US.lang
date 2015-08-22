@@ -72,6 +72,18 @@ tooltip.part.materialAddedBy=Added by %s
 tooltip.part.missingMaterial=Missing material: %s
 tooltip.part.missingInfo=Part has no data
 
+##################
+#   UI Strings   #
+##################
+# general strings used in GUIs, tooltips and other display stuff
+
+ui.mininglevel.stone=Stone
+ui.mininglevel.iron=Iron
+#ui.mininglevel.redstone=Redstone
+ui.mininglevel.diamond=Diamond
+ui.mininglevel.obsidian=Obsidian
+ui.mininglevel.cobalt=Cobalt
+
 ######################
 # GUI Error messages #
 ######################

@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.traits.StoneboundTrait;
 import static slimeknights.tconstruct.library.tools.ToolPart.COST_Ingot;
 import static slimeknights.tconstruct.library.tools.ToolPart.COST_Shard;
+import static slimeknights.tconstruct.library.utils.HarvestLevels.*;
 
 public final class TinkerMaterials {
 
@@ -142,15 +143,15 @@ public final class TinkerMaterials {
   }
 
   public static void registerToolMaterials() {
-    TinkerRegistry.addMaterialStats(wood, new ToolMaterialStats(1, 97, 1.0f, 3.5f, 0.9f));
-    TinkerRegistry.addMaterialStats(stone, new ToolMaterialStats(1, 120, 0.2f, 4.0f, 1.0f));
-    TinkerRegistry.addMaterialStats(flint, new ToolMaterialStats(1, 120, 0.2f, 4.0f, 1.0f));
-    TinkerRegistry.addMaterialStats(cactus, new ToolMaterialStats(1, 120, 0.2f, 4.0f, 1.0f));
-    TinkerRegistry.addMaterialStats(obsidian, new ToolMaterialStats(1, 120, 0.2f, 4.0f, 1.0f));
-    TinkerRegistry.addMaterialStats(prismarine, new ToolMaterialStats(1, 120, 0.2f, 4.0f, 1.0f));
-    TinkerRegistry.addMaterialStats(netherrack, new ToolMaterialStats(2, 200, 0.5f, 5.0f, 1.4f));
-    TinkerRegistry.addMaterialStats(endstone, new ToolMaterialStats(1, 120, 0.2f, 4.0f, 1.0f));
-    TinkerRegistry.addMaterialStats(xu, new ToolMaterialStats(2, 200, 0.5f, 5.0f, 1.4f));
+    TinkerRegistry.addMaterialStats(wood, new ToolMaterialStats(STONE, 97, 1.0f, 3.5f, 0.9f));
+    TinkerRegistry.addMaterialStats(stone, new ToolMaterialStats(STONE, 120, 0.2f, 4.0f, 1.0f));
+    TinkerRegistry.addMaterialStats(flint, new ToolMaterialStats(IRON, 120, 0.2f, 4.0f, 1.0f));
+    TinkerRegistry.addMaterialStats(cactus, new ToolMaterialStats(IRON, 120, 0.2f, 4.0f, 1.0f));
+    TinkerRegistry.addMaterialStats(obsidian, new ToolMaterialStats(COBALT, 120, 0.2f, 4.0f, 1.0f));
+    TinkerRegistry.addMaterialStats(prismarine, new ToolMaterialStats(IRON, 120, 0.2f, 4.0f, 1.0f));
+    TinkerRegistry.addMaterialStats(netherrack, new ToolMaterialStats(IRON, 200, 0.5f, 5.0f, 1.4f));
+    TinkerRegistry.addMaterialStats(endstone, new ToolMaterialStats(OBSIDIAN, 120, 0.2f, 4.0f, 1.0f));
+    TinkerRegistry.addMaterialStats(xu, new ToolMaterialStats(DIAMOND, 200, 0.5f, 5.0f, 1.4f));
   }
 
   public static void registerBowMaterials() {
