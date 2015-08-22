@@ -270,6 +270,7 @@ public final class ToolBuilder {
    *                data.
    */
   public static void rebuildTool(NBTTagCompound rootNBT, TinkersItem tinkersItem) {
+    boolean broken = TagUtil.getToolTag(rootNBT).getBoolean(Tags.BROKEN);
     // Recalculate tool base stats from material stats
     NBTTagList materialTag = TagUtil.getBaseMaterialsTagList(rootNBT);
     List<Material> materials = TinkerUtil.getMaterialsFromTagList(materialTag);
@@ -319,6 +320,11 @@ public final class ToolBuilder {
     int freeModifiers = toolTag.getInteger(Tags.FREE_MODIFIERS);
     freeModifiers -= TagUtil.getBaseModifiersUsed(rootNBT);
     toolTag.setInteger(Tags.FREE_MODIFIERS, freeModifiers);
+
+    // broken?
+    if(broken) {
+      toolTag.setBoolean(Tags.BROKEN, true);
+    }
   }
 
   /**

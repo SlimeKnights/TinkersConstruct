@@ -2,11 +2,15 @@ package slimeknights.tconstruct.library.utils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
+import slimeknights.tconstruct.library.traits.ITrait;
 
 public final class ToolHelper {
 
@@ -47,8 +51,7 @@ public final class ToolHelper {
       return 0f;
     }
 
-    NBTTagCompound tag = TagUtil.getToolTag(stack);
-    if(tag == null) {
+    if(!stack.hasTagCompound()) {
       return 1f;
     }
 
@@ -57,9 +60,14 @@ public final class ToolHelper {
       return 0f;
     }
 
+    if(isBroken(stack)) {
+      return 0.3f;
+    }
+
     // calculate speed depending on stats
 
     // strength = default 1
+    NBTTagCompound tag = TagUtil.getToolTag(stack);
     float strength = stack.getItem().getStrVsBlock(stack, blockState.getBlock());
     float speed = tag.getFloat(Tags.MININGSPEED);
 
@@ -94,6 +102,56 @@ public final class ToolHelper {
     int level = block.getHarvestLevel(state);
 
     return stack.getItem().getHarvestLevel(stack, type) >= level;
+  }
+
+  public static void damageTool(ItemStack stack, int amount, EntityLivingBase entity) {
+    if(amount == 0 || isBroken(stack))
+      return;
+
+    int actualAmount = amount;
+    NBTTagList list = TagUtil.getTraitsTagList(stack);
+    for(int i = 0; i < list.tagCount(); i++) {
+      ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
+      if(trait != null) {
+        if(amount > 0) {
+          actualAmount = trait.onToolDamage(stack, amount, actualAmount, entity);
+        } else {
+          actualAmount = trait.onToolHeal(stack, amount, actualAmount, entity);
+        }
+      }
+    }
+
+    // ensure we never deal more damage than durability
+    actualAmount = Math.min(actualAmount, stack.getMaxDamage() - stack.getItemDamage());
+    stack.damageItem(actualAmount, entity);
+
+    if(stack.getMaxDamage() - stack.getItemDamage() == 0) {
+      breakTool(stack, entity);
+    }
+  }
+
+  public static void healTool(ItemStack stack, int amount, EntityLivingBase entity) {
+    damageTool(stack, -amount, entity);
+  }
+
+  public static boolean isBroken(ItemStack stack) {
+    return TagUtil.getToolTag(stack).getBoolean(Tags.BROKEN);
+  }
+
+  public static void breakTool(ItemStack stack, EntityLivingBase entity) {
+    NBTTagCompound tag = TagUtil.getToolTag(stack);
+    tag.setBoolean(Tags.BROKEN, true);
+    TagUtil.setToolTag(stack, tag);
+
+    entity.renderBrokenItemStack(stack);
+  }
+
+  public static void repairTool(ItemStack stack, int amount, EntityLivingBase entity) {
+    NBTTagCompound tag = TagUtil.getToolTag(stack);
+    tag.setBoolean(Tags.BROKEN, false);
+    TagUtil.setToolTag(stack, tag);
+
+    healTool(stack, amount, entity);
   }
 
   /* Helper Functions */

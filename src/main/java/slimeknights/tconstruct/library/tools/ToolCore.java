@@ -47,6 +47,16 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   @Override
+  public int getMaxDamage(ItemStack stack) {
+    return ToolHelper.getDurability(stack);
+  }
+
+  @Override
+  public boolean isDamageable() {
+    return true;
+  }
+
+  @Override
   public float getDigSpeed(ItemStack itemstack, IBlockState state) {
     return ToolHelper.calcDigSpeed(itemstack, state);
   }
@@ -158,8 +168,6 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
-    boolean ret = super.onBlockDestroyed(stack, worldIn, blockIn, pos, playerIn);
-
     NBTTagList list = TagUtil.getTraitsTagList(stack);
     for(int i = 0; i < list.tagCount(); i++) {
       ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
@@ -168,6 +176,8 @@ public abstract class ToolCore extends TinkersItem {
       }
     }
 
-    return ret;
+    ToolHelper.damageTool(stack, 1, playerIn);
+
+    return hasCategory(Category.TOOL);
   }
 }
