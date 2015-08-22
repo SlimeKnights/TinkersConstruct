@@ -1,7 +1,20 @@
 package slimeknights.tconstruct.library.traits;
 
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.world.BlockEvent;
 
+/**
+ * Traits are specific properties on tools with special effects.
+ * The trait object contains basic information about the trait.
+ * The corresponding trait object gets events forwarded to it when a tool with that trait executes them
+ */
 public interface ITrait {
 
   String getIdentifier();
@@ -17,60 +30,103 @@ public interface ITrait {
   /* Updating */
 
   /**
-   * Called each tick
+   * Called each tick by the tool. See {@link net.minecraft.item.Item#onUpdate(ItemStack, World, Entity, int, boolean)}
    */
-  void onUpdate(ItemStack stack);
-
-  /* Harvesting */
+  void onUpdate(ItemStack tool, World world, Entity entity, int itemSlot, boolean isSelected);
 
   /**
-   * Called when a block is mined.
-   *
-   * @param speed        The original, unmodified speed from the tool
-   * @param currentSpeed How fast the block will be harvested currently, possibly modified by other traits
-   * @param isEffective  If the tool is effective for the block to harvest
-   * @return How fast the block should be harvested. Standard return value is currentSpeed
+   * Called by stuff that's in the Armor slot? Unused so far.
    */
-  float miningSpeed(ItemStack stack, float speed, float currentSpeed, boolean isEffective);
+  void onArmorTick(ItemStack tool, World world, EntityPlayer player);
+
+  /* Mining/Harvesting */
 
   /**
-   * Called just before a block breaks, analog to Item.onBlockStartBreak
-   *
-   * @return Return true to prevent harvesting of the block.
+   * Called when a block is mined. See {@link net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed}.
    */
-  boolean beforeBlockBreak(ItemStack stack);
+  void miningSpeed(ItemStack tool, PlayerEvent.BreakSpeed event);
 
   /**
-   * Called after a block has been broken.
+   * Called just before a block breaks. See {@link net.minecraftforge.event.world.BlockEvent.BreakEvent}.
    */
-  void afterBlockBreak(ItemStack stack);
+  void beforeBlockBreak(ItemStack tool, BlockEvent.BreakEvent event);
+
+  /**
+   * Called after the block has been destroyed. See {@link net.minecraft.item.Item#onBlockDestroyed(ItemStack, World, Block, BlockPos, EntityLivingBase)}
+   */
+  void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player);
+
+  /**
+   * Called after a block has been broken. See {@link net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent}
+   * Note that, as opposed to the original event, this only gets called with a player.
+   */
+  void blockHarvestDrops(ItemStack tool, BlockEvent.HarvestDropsEvent event);
+
+
   /* Attacking */
-
-  /**
-   * Called when an entity is hit, before the damage is dealt.
-   *
-   * @param damage        The original, unmodified damage from the tool
-   * @param currentDamage The damage that will be dealt currently, possibly modified by other traits
-   * @return The damage to deal. Standard return value is currentDamage
-   */
-  float onHit(ItemStack stack, float damage, float currentDamage);
-
 
   /**
    * Called AFTER damage calculations, allows to let the weapon crit.
    *
+   * @param tool   The tool dealing the damage.
+   * @param target The entity to hit.
    * @return true if it should be a crit. false will NOT prevent a crit from other sources.
    */
-  boolean doesCriticalHit(ItemStack stack);
+  boolean isCriticalHit(ItemStack tool, EntityLivingBase target);
+
+  /**
+   * Called when an entity is hit, before the damage is dealt.
+   *
+   * @param tool       The tool dealing the damage.
+   * @param target     The entity to hit.
+   * @param damage     The original, unmodified damage from the tool.
+   * @param newDamage  The damage that will be dealt currently, possibly modified by other traits.
+   * @param isCritical If the hit will be a critical hit.
+   * @return The damage to deal. Standard return value is newDamage.
+   */
+  float onHit(ItemStack tool, EntityLivingBase target, float damage, float newDamage, boolean isCritical);
+
+  /**
+   * Called after an entity has been hit, after the damage is dealt.
+   *
+   * @param tool        The tool that dealt the damage.
+   * @param target      The entity hit.
+   * @param damageDealt How much damage has been dealt to the entity.
+   * @param wasCritical If the hit was a critical hit.
+   */
+  void afterHit(ItemStack tool, EntityLivingBase target, float damageDealt, boolean wasCritical);
 
   /* Damage tool */
 
   /**
-   * Called when the tools durability is getting damaged
+   * Called before the tools durability is getting reduced.
    *
-   * @param damage        The original, unmodified damage that would be dealt
-   * @param currentDamage The current damage that will be dealt, possibly modified by other traits
-   * @return The damage to deal, Standard return value is currentDamage
+   * @param tool      The tool to be damaged.
+   * @param damage    The original, unmodified damage that would be dealt
+   * @param newDamage The current damage that will be dealt, possibly modified by other traits
+   * @return The damage to deal, Standard return value is newDamage
    */
-  int onDamage(ItemStack stack, int damage, int currentDamage);
+  int onToolDamage(ItemStack tool, int damage, int newDamage);
+
+  /**
+   * Called before the tools durability is getting increased.
+   *
+   * @param tool      The tool to be healed.
+   * @param amount    The original, unmodified amount that would be healed
+   * @param newAmount The current damage that will be healed, possibly modified by other traits
+   * @return The damage to deal. Standard return value is newAmount
+   */
+  int onToolHeal(ItemStack tool, int amount, int newAmount);
+
+  /**
+   * Called before the tool is getting repaired with its repair material.
+   * Do not confuse this with onToolHeal, which will be called afterwards.
+   * This callback as well as onToolHeal will be called multiple times when a tool is getting repaired with multiple items.
+   *
+   * @param tool       The tool to repair.
+   * @param amount     How much durability will be repaired. Can be bigger than the damage the tool has.
+   * @param repairItem The item the tool will be repaired with.
+   * @return True to allow the repair, false to prevent the repairing. Standard value is true.
+   */
+  boolean onRepair(ItemStack tool, int amount, ItemStack repairItem);
 }

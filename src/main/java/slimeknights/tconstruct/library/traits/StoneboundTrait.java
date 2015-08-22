@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.traits;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 
 public class StoneboundTrait extends AbstractTrait {
 
@@ -14,10 +15,7 @@ public class StoneboundTrait extends AbstractTrait {
   }
 
   @Override
-  public float miningSpeed(ItemStack stack, float speed, float currentSpeed, boolean isEffective) {
-    // todo: calculate actual speed change based on damage
-    currentSpeed = Math.max(0f, speed * 9 / 10);
-
-    return currentSpeed;
+  public void miningSpeed(ItemStack tool, PlayerEvent.BreakSpeed event) {
+    event.newSpeed = Math.max(0f, event.newSpeed * 9 / 10);
   }
 }

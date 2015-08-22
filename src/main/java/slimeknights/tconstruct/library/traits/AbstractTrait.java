@@ -1,6 +1,14 @@
 package slimeknights.tconstruct.library.traits;
 
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.world.BlockEvent;
 
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -49,43 +57,64 @@ public abstract class AbstractTrait implements ITrait {
     return Util.translate(LOC_Desc, getIdentifier());
   }
 
+
   /* Updating */
+
   @Override
-  public void onUpdate(ItemStack stack) {
-
-  }
-
-
-  /* Harvesting */
-  @Override
-  public float miningSpeed(ItemStack stack, float speed, float currentSpeed, boolean isEffective) {
-    return currentSpeed;
+  public void onUpdate(ItemStack tool, World world, Entity entity, int itemSlot, boolean isSelected) {
   }
 
   @Override
-  public boolean beforeBlockBreak(ItemStack stack) {
-    return false;
+  public void onArmorTick(ItemStack tool, World world, EntityPlayer player) {
+  }
+
+
+  /* Mining & Harvesting */
+
+  @Override
+  public void miningSpeed(ItemStack tool, PlayerEvent.BreakSpeed event) {
   }
 
   @Override
-  public void afterBlockBreak(ItemStack stack) {
+  public void beforeBlockBreak(ItemStack tool, BlockEvent.BreakEvent event) {
+  }
 
+  @Override
+  public void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player) {
+  }
+
+  @Override
+  public void blockHarvestDrops(ItemStack tool, BlockEvent.HarvestDropsEvent event) {
   }
 
   /* Attacking */
-  @Override
-  public float onHit(ItemStack stack, float damage, float currentDamage) {
-    return currentDamage;
-  }
 
   @Override
-  public boolean doesCriticalHit(ItemStack stack) {
+  public boolean isCriticalHit(ItemStack tool, EntityLivingBase target) {
     return false;
   }
 
-  /* Damage tool */
   @Override
-  public int onDamage(ItemStack stack, int damage, int currentDamage) {
-    return currentDamage;
+  public float onHit(ItemStack tool, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
+    return newDamage;
+  }
+
+  @Override
+  public void afterHit(ItemStack tool, EntityLivingBase target, float damageDealt, boolean wasCritical) {
+  }
+
+  @Override
+  public int onToolDamage(ItemStack tool, int damage, int newDamage) {
+    return newDamage;
+  }
+
+  @Override
+  public int onToolHeal(ItemStack tool, int amount, int newAmount) {
+    return newAmount;
+  }
+
+  @Override
+  public boolean onRepair(ItemStack tool, int amount, ItemStack repairItem) {
+    return true;
   }
 }
