@@ -56,7 +56,7 @@ public class MaterialModel extends ItemLayerModel {
       IFlexibleBakedModel bakedModel2 = model2.bake(state, format, bakedTextureGetter);
 
       // if it's a colored material we need to color the quads. But only if the texture was not a custom texture
-      if(material.renderInfo.useVertexColoring() && !CustomTextureCreator.exists(baseTexture + "_" + material.renderInfo.getTextureSuffix())) {
+      if(material.renderInfo.useVertexColoring() && !CustomTextureCreator.exists(baseTexture + "_" + material.identifier)) {
         int color = (material.renderInfo).getVertexColor();
 
         ImmutableList.Builder<BakedQuad> quads = ImmutableList.builder();
