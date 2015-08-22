@@ -92,7 +92,8 @@ gui.error=ERROR
 gui.warning=WARNING
 # GUI Errors from the different Tinker Tables
 gui.error.invalidPattern=Pattern does not contain a valid tool part!
-gui.error.uselessToolPart=This part can not be used to craft any tool!\nEither the material %s is missing some information or no tool uses %s in its crafting.
+gui.error.uselessToolPart=This part can not be used to craft any tool!\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting.
+gui.error.wrongMaterialPart=One or multiple items have an unsupported material for this tool.
 # GUI Errors from modifiers
 gui.error.notEnoughModifiers=Not enough Modifiers. (%d needed)
 gui.error.SingleModifier=%s can only be applied once.

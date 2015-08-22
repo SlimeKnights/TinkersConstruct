@@ -265,10 +265,25 @@ public class GuiToolStation extends GuiTinkerStation {
       toolInfo.setText(tool.getLocalizedDescription());
 
       // Components
-      traitInfo.setCaption(StatCollector.translateToLocal("gui.toolStation.components"));
       List<String> text = Lists.newLinkedList();
-      for(PartMaterialType pmt : tool.requiredComponents) {
-        StringBuilder sb = new StringBuilder(" * ");
+      for(int i = 0; i < tool.requiredComponents.length; i++) {
+        PartMaterialType pmt = tool.requiredComponents[i];
+        StringBuilder sb = new StringBuilder();
+
+        ItemStack slotStack = container.getSlot(i).getStack();
+        if(!pmt.isValid(slotStack)) {
+          sb.append(EnumChatFormatting.RED);
+
+          // is an item in the slot?
+          if(slotStack != null && slotStack.getItem() instanceof IToolPart) {
+            if(pmt.isValidItem((IToolPart) slotStack.getItem())) {
+              // the item has an invalid material
+              warning(Util.translate("gui.error.wrongMaterialPart"));
+            }
+          }
+        }
+
+        sb.append(" * ");
         for(IToolPart part : pmt.getPossibleParts()) {
           if(part instanceof Item) {
             sb.append(((Item) part).getItemStackDisplayName(new ItemStack((Item) part)));
@@ -278,6 +293,7 @@ public class GuiToolStation extends GuiTinkerStation {
         sb.deleteCharAt(sb.length()-1); // removes last '/'
         text.add(sb.toString());
       }
+      traitInfo.setCaption(StatCollector.translateToLocal("gui.toolStation.components"));
       traitInfo.setText(text.toArray(new String[text.size()]));
     }
   }

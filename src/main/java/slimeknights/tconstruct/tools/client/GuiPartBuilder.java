@@ -110,7 +110,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
         Material material = toolPart.getMaterial(output);
         // Material for the toolpart does not make sense, can't build anything out of it!
         if(!toolPart.canUseMaterial(material)) {
-          String materialName = material.getLocalizedNameColored() + EnumChatFormatting.GRAY;
+          String materialName = material.getLocalizedNameColored() + EnumChatFormatting.WHITE;
           String error = StatCollector.translateToLocalFormatted("gui.error.uselessToolPart", materialName, (new ItemStack(toolPart)).getDisplayName());
           warning(error);
         }

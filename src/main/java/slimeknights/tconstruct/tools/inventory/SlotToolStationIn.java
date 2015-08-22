@@ -36,10 +36,14 @@ public class SlotToolStationIn extends Slot {
     if(dormant) return false;
 
     // otherwise we check if we have item info and restrict it to that
-    if(restriction != null)
-      return restriction.isValid(stack);
+    if(restriction != null) {
+      if(stack != null && stack.getItem() instanceof IToolPart) {
+        return restriction.isValidItem((IToolPart) stack.getItem());
+      }
+      return false;
+    }
 
-    // note that we only take the part into acount when it's set. This is because it's only ever set clientside
+    // note that we only take the part into account when it's set. This is because it's only ever set clientside
     return super.isItemValid(stack);
   }
 
