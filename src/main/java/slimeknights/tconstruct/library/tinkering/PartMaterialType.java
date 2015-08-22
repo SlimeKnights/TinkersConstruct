@@ -37,12 +37,14 @@ public class PartMaterialType {
   }
 
   public boolean isValid(IToolPart part, Material material) {
-    // wrong part
-    if(!neededPart.contains(part)) {
-      return false;
-    }
+    return isValidItem(part) && isValidMaterial(material);
+  }
 
-    // not all needed materials present
+  public boolean isValidItem(IToolPart part) {
+    return neededPart.contains(part);
+  }
+
+  public boolean isValidMaterial(Material material) {
     for(String type : neededTypes) {
       if(!material.hasStats(type)) {
         return false;

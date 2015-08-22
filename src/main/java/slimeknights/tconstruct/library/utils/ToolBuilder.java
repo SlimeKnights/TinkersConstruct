@@ -16,6 +16,7 @@ import java.util.Set;
 
 import slimeknights.tconstruct.library.mantle.RecipeMatch;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
+import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -272,6 +273,16 @@ public final class ToolBuilder {
     // Recalculate tool base stats from material stats
     NBTTagList materialTag = TagUtil.getBaseMaterialsTagList(rootNBT);
     List<Material> materials = TinkerUtil.getMaterialsFromTagList(materialTag);
+
+    // ensure all needed Stats are present
+    while(materials.size() < tinkersItem.requiredComponents.length) {
+      materials.add(Material.UNKNOWN);
+    }
+    for(int i = 0; i < tinkersItem.requiredComponents.length; i++) {
+      if(!tinkersItem.requiredComponents[i].isValidMaterial(materials.get(i))) {
+        materials.set(i, Material.UNKNOWN);
+      }
+    }
 
     NBTTagCompound toolTag = tinkersItem.buildTag(materials);
     TagUtil.setToolTag(rootNBT, toolTag);
