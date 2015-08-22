@@ -36,6 +36,7 @@ public abstract class RecipeMatch {
             stacks[i].stackSize -= stack.stackSize;
             if(stacks[i].stackSize == 0) {
               stacks[i] = null;
+              break;
             }
           }
         }
