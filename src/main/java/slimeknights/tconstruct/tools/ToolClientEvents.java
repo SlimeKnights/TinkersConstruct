@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.io.IOException;
 
 import slimeknights.tconstruct.common.client.model.BakedTableModel;
+import slimeknights.tconstruct.common.client.model.BlockItemModelWrapper;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.IToolPart;
@@ -63,8 +64,15 @@ public class ToolClientEvents {
     // tool station has no variants
     replaceTableModel(locToolForge, MODEL_ToolForge, event);
 
+    // fix itemblock model for the ones not using the custom baked model
+    event.modelRegistry.putObject(locCraftingStation, new BlockItemModelWrapper((IFlexibleBakedModel) event.modelRegistry
+        .getObject(locCraftingStation)));
+    event.modelRegistry.putObject(locToolStation, new BlockItemModelWrapper((IFlexibleBakedModel) event.modelRegistry
+        .getObject(locToolStation)));
+
     // silence the missing-model message for the default itemblock
     event.modelRegistry.putObject(new ModelResourceLocation(LOCATION_ToolTable, "inventory"), event.modelRegistry.getObject(locToolStation));
+    event.modelRegistry.putObject(new ModelResourceLocation(LOCATION_ToolForge, "inventory"), event.modelRegistry.getObject(locToolForge));
   }
 
   public static void replaceTableModel(ModelResourceLocation modelVariantLocation, ResourceLocation modelLocation, ModelBakeEvent event) {
