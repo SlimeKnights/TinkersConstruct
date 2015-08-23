@@ -132,7 +132,7 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
     } catch(RuntimeException runtimeexception) {
       TinkerRegistry.log.error("Unable to parse metadata from " + resourcelocation1, runtimeexception);
     } catch(IOException ioexception1) {
-      TinkerRegistry.log.error("Unable to load " + resourcelocation1, ioexception1);
+      TinkerRegistry.log.error("Unable to generate " + this.getIconName() + ": unable to load " + resourcelocation1 + "!\nBase texture: " + baseTexture.getIconName(), ioexception1);
     }
 
     return null;
