@@ -142,15 +142,15 @@ public final class TinkerMaterials {
   }
 
   public static void registerToolMaterials() {
-    TinkerRegistry.addMaterialStats(wood,       new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, STONE));
-    TinkerRegistry.addMaterialStats(stone,      new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, STONE));
-    TinkerRegistry.addMaterialStats(flint,      new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, IRON));
-    TinkerRegistry.addMaterialStats(cactus,     new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, IRON));
-    TinkerRegistry.addMaterialStats(obsidian,   new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, COBALT));
-    TinkerRegistry.addMaterialStats(prismarine, new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, IRON));
-    TinkerRegistry.addMaterialStats(netherrack, new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, IRON));
-    TinkerRegistry.addMaterialStats(endstone,   new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, OBSIDIAN));
-    TinkerRegistry.addMaterialStats(xu,         new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, DIAMOND));
+    TinkerRegistry.addMaterialStats(wood,       new ToolMaterialStats(  97, 3.00f, 0.20f, 0.80f, 0.60f, STONE));
+    TinkerRegistry.addMaterialStats(stone,      new ToolMaterialStats( 131, 4.00f, 0.50f, 0.01f, 0.20f, STONE));
+    TinkerRegistry.addMaterialStats(flint,      new ToolMaterialStats( 200, 5.70f, 1.10f, 0.20f, 0.20f, IRON));
+    TinkerRegistry.addMaterialStats(cactus,     new ToolMaterialStats( 153, 4.50f, 2.00f, 0.25f, 0.30f, IRON));
+    //TinkerRegistry.addMaterialStats(obsidian,   new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, COBALT));
+    //TinkerRegistry.addMaterialStats(prismarine, new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, IRON));
+    //TinkerRegistry.addMaterialStats(netherrack, new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, IRON));
+    //TinkerRegistry.addMaterialStats(endstone,   new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, OBSIDIAN));
+    //TinkerRegistry.addMaterialStats(xu,         new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, DIAMOND));
   }
 
   public static void registerBowMaterials() {
