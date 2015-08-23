@@ -102,6 +102,7 @@ public final class TinkerMaterials {
     wood.setRepresentativeItem(new ItemStack(Items.stick));
 
     stone.setCraftable(true);
+    stone.addTrait(stonebound);
     stone.addItem("cobblestone", 1, COST_Ingot);
     stone.addItem("stone", 1, COST_Ingot);
     stone.setRepresentativeItem(new ItemStack(Blocks.cobblestone));
@@ -138,20 +139,18 @@ public final class TinkerMaterials {
     }
 
     TinkerRegistry.addMaterial(xu);
-
-
   }
 
   public static void registerToolMaterials() {
-    TinkerRegistry.addMaterialStats(wood, new ToolMaterialStats(STONE, 97, 1.0f, 3.5f, 0.9f));
-    TinkerRegistry.addMaterialStats(stone, new ToolMaterialStats(STONE, 120, 0.2f, 4.0f, 1.0f));
-    TinkerRegistry.addMaterialStats(flint, new ToolMaterialStats(IRON, 120, 0.2f, 4.0f, 1.0f));
-    TinkerRegistry.addMaterialStats(cactus, new ToolMaterialStats(IRON, 120, 0.2f, 4.0f, 1.0f));
-    TinkerRegistry.addMaterialStats(obsidian, new ToolMaterialStats(COBALT, 120, 0.2f, 4.0f, 1.0f));
-    TinkerRegistry.addMaterialStats(prismarine, new ToolMaterialStats(IRON, 120, 0.2f, 4.0f, 1.0f));
-    TinkerRegistry.addMaterialStats(netherrack, new ToolMaterialStats(IRON, 200, 0.5f, 5.0f, 1.4f));
-    TinkerRegistry.addMaterialStats(endstone, new ToolMaterialStats(OBSIDIAN, 120, 0.2f, 4.0f, 1.0f));
-    TinkerRegistry.addMaterialStats(xu, new ToolMaterialStats(DIAMOND, 200, 0.5f, 5.0f, 1.4f));
+    TinkerRegistry.addMaterialStats(wood,       new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, STONE));
+    TinkerRegistry.addMaterialStats(stone,      new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, STONE));
+    TinkerRegistry.addMaterialStats(flint,      new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, IRON));
+    TinkerRegistry.addMaterialStats(cactus,     new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, IRON));
+    TinkerRegistry.addMaterialStats(obsidian,   new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, COBALT));
+    TinkerRegistry.addMaterialStats(prismarine, new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, IRON));
+    TinkerRegistry.addMaterialStats(netherrack, new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, IRON));
+    TinkerRegistry.addMaterialStats(endstone,   new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, OBSIDIAN));
+    TinkerRegistry.addMaterialStats(xu,         new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, DIAMOND));
   }
 
   public static void registerBowMaterials() {

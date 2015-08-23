@@ -29,7 +29,7 @@ public class Material extends RecipeMatchRegistry {
   public static final String LOC_Prefix = "material.%s.prefix";
 
   static {
-    UNKNOWN.addStats(new ToolMaterialStats(0, 1, 1, 1, 0));
+    UNKNOWN.addStats(new ToolMaterialStats(1, 1, 1, 1, 1, 0));
   }
 
   /**

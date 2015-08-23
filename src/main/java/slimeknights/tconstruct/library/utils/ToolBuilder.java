@@ -16,7 +16,6 @@ import java.util.Set;
 
 import slimeknights.tconstruct.library.mantle.RecipeMatch;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
-import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -410,7 +409,7 @@ public final class ToolBuilder {
 
     // sum up stats
     for(ToolMaterialStats stat : stats) {
-      multiplier += stat.quality;
+      multiplier += stat.handleQuality;
       count++;
     }
 
