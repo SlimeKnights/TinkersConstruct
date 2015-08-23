@@ -70,32 +70,36 @@ public interface ITrait {
    * Called AFTER damage calculations, allows to let the weapon crit.
    *
    * @param tool   The tool dealing the damage.
+   * @param player The player (or entity) that is hitting the target.
    * @param target The entity to hit.
    * @return true if it should be a crit. false will NOT prevent a crit from other sources.
    */
-  boolean isCriticalHit(ItemStack tool, EntityLivingBase target);
+  boolean isCriticalHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target);
 
   /**
    * Called when an entity is hit, before the damage is dealt.
    *
    * @param tool       The tool dealing the damage.
+   * @param player     The player (or entity) that is hitting the target.
    * @param target     The entity to hit.
    * @param damage     The original, unmodified damage from the tool.
    * @param newDamage  The damage that will be dealt currently, possibly modified by other traits.
    * @param isCritical If the hit will be a critical hit.
    * @return The damage to deal. Standard return value is newDamage.
    */
-  float onHit(ItemStack tool, EntityLivingBase target, float damage, float newDamage, boolean isCritical);
+  float onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical);
 
   /**
    * Called after an entity has been hit, after the damage is dealt.
    *
    * @param tool        The tool that dealt the damage.
+   * @param player      The player (or entity) that hit the target.
    * @param target      The entity hit.
    * @param damageDealt How much damage has been dealt to the entity.
    * @param wasCritical If the hit was a critical hit.
+   * @param wasHit      If the target was actually hit. False when the entity was still invulnerable, or prevented the damage because of some other reason.
    */
-  void afterHit(ItemStack tool, EntityLivingBase target, float damageDealt, boolean wasCritical);
+  void afterHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damageDealt, boolean wasCritical, boolean wasHit);
 
   /* Damage tool */
 

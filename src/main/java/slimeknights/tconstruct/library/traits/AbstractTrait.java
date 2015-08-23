@@ -95,17 +95,17 @@ public abstract class AbstractTrait implements ITrait {
   /* Attacking */
 
   @Override
-  public boolean isCriticalHit(ItemStack tool, EntityLivingBase target) {
+  public boolean isCriticalHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target) {
     return false;
   }
 
   @Override
-  public float onHit(ItemStack tool, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
+  public float onHit(ItemStack tool,  EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
     return newDamage;
   }
 
   @Override
-  public void afterHit(ItemStack tool, EntityLivingBase target, float damageDealt, boolean wasCritical) {
+  public void afterHit(ItemStack tool,  EntityLivingBase player, EntityLivingBase target, float damageDealt, boolean wasCritical, boolean wasHit) {
   }
 
   @Override
