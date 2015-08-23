@@ -27,6 +27,7 @@ import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.debug.TempToolModifying;
+import slimeknights.tconstruct.tools.item.Pickaxe;
 import slimeknights.tconstruct.tools.modifiers.StoneboundModifier;
 import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
 import slimeknights.tconstruct.CommonProxy;

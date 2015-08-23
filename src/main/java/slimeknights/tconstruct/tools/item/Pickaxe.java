@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools;
+package slimeknights.tconstruct.tools.item;
 
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -11,6 +11,7 @@ import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 public class Pickaxe extends ToolCore {
 

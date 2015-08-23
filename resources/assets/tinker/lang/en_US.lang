@@ -7,6 +7,7 @@
 ################
 
 # General Items
+item.tconstruct.shard.name=Shard
 
 # Tools
 item.tconstruct.pickaxe.name=Pickaxe
