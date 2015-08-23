@@ -67,7 +67,7 @@ public interface ITrait {
   /* Attacking */
 
   /**
-   * Called AFTER damage calculations, allows to let the weapon crit.
+   * Called BEFORE onHit, allows to let the weapon crit.
    *
    * @param tool   The tool dealing the damage.
    * @param player The player (or entity) that is hitting the target.
@@ -77,12 +77,13 @@ public interface ITrait {
   boolean isCriticalHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target);
 
   /**
-   * Called when an entity is hit, before the damage is dealt.
+   * Called when an entity is hit, before the damage is dealt and before critical hit calculation.
+   * Critical hit damage will be calculated off the result of this!
    *
    * @param tool       The tool dealing the damage.
    * @param player     The player (or entity) that is hitting the target.
    * @param target     The entity to hit.
-   * @param damage     The original, unmodified damage from the tool.
+   * @param damage     The original, unmodified damage from the tool. Does not includes critical damage, that will be calculated afterwards.
    * @param newDamage  The damage that will be dealt currently, possibly modified by other traits.
    * @param isCritical If the hit will be a critical hit.
    * @return The damage to deal. Standard return value is newDamage.
@@ -90,12 +91,25 @@ public interface ITrait {
   float onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical);
 
   /**
+   * Modify the knockback applied. Called after onHit and with the actual damage value. Damage value INCLUDES crit damage here.
+   * @param tool         The tool dealing the damage.
+   * @param player       The player (or entity) that is hitting the target.
+   * @param target       The entity to hit.
+   * @param damage       The damage that will be dealt, including critical hit damage.
+   * @param knockback    Unmodified base knockback
+   * @param newKnockback Current knockback, possibly modified by other traits.
+   * @param isCritical   If the hit will be a critical hit.
+   * @return The knockback, Standard return value is newKnockback.
+   */
+  float knockBack(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float knockback, float newKnockback, boolean isCritical);
+
+  /**
    * Called after an entity has been hit, after the damage is dealt.
    *
    * @param tool        The tool that dealt the damage.
    * @param player      The player (or entity) that hit the target.
    * @param target      The entity hit.
-   * @param damageDealt How much damage has been dealt to the entity.
+   * @param damageDealt How much damage has been dealt to the entity. This is the ACTUAL damage dealt - the difference in Health of the entity.
    * @param wasCritical If the hit was a critical hit.
    * @param wasHit      If the target was actually hit. False when the entity was still invulnerable, or prevented the damage because of some other reason.
    */

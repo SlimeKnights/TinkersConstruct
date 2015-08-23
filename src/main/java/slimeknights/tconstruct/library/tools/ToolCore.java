@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 
@@ -56,6 +57,14 @@ public abstract class ToolCore extends TinkersItem {
     return true;
   }
 
+  /**
+   * Actually deal damage to the entity we hit. Can be overridden for special behaviour
+   * @return True if the entity was hit. Usually the return value of {@link Entity#attackEntityFrom(DamageSource, float)}
+   */
+  public boolean dealDamage(ItemStack stack, EntityPlayer player, EntityLivingBase entity, float damage) {
+    return entity.attackEntityFrom(DamageSource.causePlayerDamage(player), damage);
+  }
+
   @Override
   public float getDigSpeed(ItemStack itemstack, IBlockState state) {
     return ToolHelper.calcDigSpeed(itemstack, state);
@@ -63,8 +72,7 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
-    // deal damage
-    return true;
+    return ToolHelper.attackEntity(stack, this, player, entity);
   }
 
   @Override

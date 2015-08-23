@@ -109,6 +109,13 @@ public abstract class AbstractTrait implements ITrait {
   }
 
   @Override
+  public float knockBack(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float knockback, float newKnockback, boolean isCritical) {
+    return newKnockback;
+  }
+
+  /* Durability and repairing */
+
+  @Override
   public int onToolDamage(ItemStack tool, int damage, int newDamage, EntityLivingBase entity) {
     return newDamage;
   }

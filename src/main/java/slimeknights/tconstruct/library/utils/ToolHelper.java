@@ -1,15 +1,31 @@
 package slimeknights.tconstruct.library.utils;
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.play.server.S12PacketEntityVelocity;
+import net.minecraft.potion.Potion;
+import net.minecraft.stats.AchievementList;
+import net.minecraft.stats.StatList;
+import net.minecraft.util.MathHelper;
+
+import java.util.List;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
+import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
 
 public final class ToolHelper {
@@ -39,7 +55,7 @@ public final class ToolHelper {
   }
 
   public static float getAttack(ItemStack stack) {
-    return getIntTag(stack, Tags.ATTACK);
+    return getfloatTag(stack, Tags.ATTACK);
   }
 
   public static int getFreeModifiers(ItemStack stack) {
@@ -104,6 +120,10 @@ public final class ToolHelper {
     return stack.getItem().getHarvestLevel(stack, type) >= level;
   }
 
+
+
+  /* Tool Durability */
+
   public static void damageTool(ItemStack stack, int amount, EntityLivingBase entity) {
     if(amount == 0 || isBroken(stack))
       return;
@@ -157,6 +177,148 @@ public final class ToolHelper {
 
     healTool(stack, amount, entity);
   }
+
+
+  /* Dealing tons of damage */
+
+  /**
+   * Makes all the calls to attack an entity. Takes enchantments and potions and traits into account. Basically call this when a tool deals damage.
+   * Most of this function is the same as {@link EntityPlayer#attackTargetEntityWithCurrentItem(Entity targetEntity)}
+   */
+  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityPlayer player, Entity targetEntity) {
+    // todo: check how 1.9 does this and if we should steal it
+    // nothing to do, no target?
+    if(targetEntity == null || !targetEntity.canAttackWithItem() || targetEntity.hitByEntity(player) || !stack.hasTagCompound()) {
+      return false;
+    }
+    if(!(targetEntity instanceof EntityLivingBase)) {
+      return false;
+    }
+    EntityLivingBase target = (EntityLivingBase) targetEntity;
+
+    NBTTagCompound toolTag = TagUtil.getToolTag(stack);
+
+    // traits on the tool
+    List<ITrait> traits = Lists.newLinkedList();
+    NBTTagList traitsTagList = TagUtil.getTraitsTagList(stack);
+    for(int i = 0; i < traitsTagList.tagCount(); i++) {
+      ITrait trait = TinkerRegistry.getTrait(traitsTagList.getStringTagAt(i));
+      if(trait != null) {
+        traits.add(trait);
+      }
+    }
+
+    // players base damage
+    float baseDamage = (float)player.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
+
+    // missing because not supported by tcon tools: vanilla damage enchantments, we have our own modifiers
+    // missing because not supported by tcon tools: vanilla knockback enchantments, we have our own modifiers
+    float baseKnockback = player.isSprinting() ? 1 : 0;
+
+    // tool damage
+    baseDamage += ToolHelper.getAttack(stack);
+
+    // calculate if it's a critical hit
+    boolean isCritical = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Potion.blindness) && player.ridingEntity == null && targetEntity instanceof EntityLivingBase;
+    for(ITrait trait : traits) {
+      if(trait.isCriticalHit(stack, player, target))
+        isCritical = true;
+    }
+
+    // calculate actual damage
+    float damage = baseDamage;
+    for(ITrait trait : traits) {
+      damage = trait.onHit(stack, player, target, baseDamage, damage, isCritical);
+    }
+
+    // apply critical damage
+    if(isCritical) {
+      damage *= 1.5f;
+    }
+
+    // calculate actual knockback
+    float knockback = baseKnockback;
+    for(ITrait trait : traits) {
+      knockback = trait.knockBack(stack, player, target, damage, baseKnockback, knockback, isCritical);
+    }
+
+    // missing because not supported by tcon tools: vanilla fire aspect enchantments, we have our own modifiers
+
+    float oldHP = target.getHealth();
+    // deal the damage
+    boolean hit = tool.dealDamage(stack, player, target, damage);
+
+    // did we hit?
+    if(hit) {
+      // actual damage dealt
+      float damageDealt = oldHP - target.getHealth();
+
+      double oldVelX = target.motionX;
+      double oldVelY = target.motionY;
+      double oldVelZ = target.motionZ;
+
+      // apply knockback
+      if(knockback > 0f) {
+        double velX = -MathHelper.sin(player.rotationYaw * (float) Math.PI / 180.0F) * knockback * 0.5F;
+        double velZ = MathHelper.cos(player.rotationYaw * (float)Math.PI / 180.0F) * knockback * 0.5F;
+        targetEntity.addVelocity(velX, 0.1d, velZ);
+
+        // slow down player
+        player.motionX *= 0.6f;
+        player.motionZ *= 0.6f;
+        player.setSprinting(false);
+      }
+
+      // Send movement changes caused by attacking directly to hit players.
+      // I guess this is to allow better handling at the hit players side? No idea why it resets the motion though.
+      if (targetEntity instanceof EntityPlayerMP && targetEntity.velocityChanged)
+      {
+        ((EntityPlayerMP)targetEntity).playerNetServerHandler.sendPacket(new S12PacketEntityVelocity(targetEntity));
+        targetEntity.velocityChanged = false;
+        targetEntity.motionX = oldVelX;
+        targetEntity.motionY = oldVelY;
+        targetEntity.motionZ = oldVelZ;
+      }
+
+      // vanilla critical callback
+      if(isCritical) {
+        player.onCriticalHit(target);
+      }
+
+      // "magical" critical damage? (aka caused by modifiers)
+      if(damage > baseDamage) {
+        // this usually only displays some particles :)
+        player.onEnchantmentCritical(targetEntity);
+      }
+
+      // vanilla achievement support :D
+      if(damage >= 18f) {
+        player.triggerAchievement(AchievementList.overkill);
+      }
+
+      player.setLastAttacker(target);
+
+      // no idea what this actually does
+      EnchantmentHelper.func_151384_a(target, player);
+      EnchantmentHelper.func_151385_b(player, target);
+
+
+      // call post-hit callbacks before reducing the durability
+      for(ITrait trait : traits) {
+        trait.afterHit(stack, player, target, damageDealt, isCritical, hit);
+      }
+
+      // damage the tool
+      stack.hitEntity(target, player);
+      damageTool(stack, Math.max(1, (int) damage), player);
+
+      player.addStat(StatList.damageDealtStat, Math.round(damage*10f));
+      player.addExhaustion(0.3f);
+    }
+
+    return true;
+  }
+
 
   /* Helper Functions */
 
