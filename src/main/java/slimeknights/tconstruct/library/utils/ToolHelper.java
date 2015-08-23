@@ -143,6 +143,8 @@ public final class ToolHelper {
     tag.setBoolean(Tags.BROKEN, true);
     TagUtil.setToolTag(stack, tag);
 
+    stack.setItemDamage(stack.getMaxDamage());
+
     entity.renderBrokenItemStack(stack);
   }
 
@@ -150,6 +152,8 @@ public final class ToolHelper {
     NBTTagCompound tag = TagUtil.getToolTag(stack);
     tag.setBoolean(Tags.BROKEN, false);
     TagUtil.setToolTag(stack, tag);
+
+    stack.setItemDamage(stack.getMaxDamage());
 
     healTool(stack, amount, entity);
   }
