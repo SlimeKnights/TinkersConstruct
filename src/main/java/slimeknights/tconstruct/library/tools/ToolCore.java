@@ -57,6 +57,19 @@ public abstract class ToolCore extends TinkersItem {
     return true;
   }
 
+  /* Tool and Weapon specific properties */
+
+  /** Multiplier for damage from materials. Should be fixed per tool. */
+  public abstract float damagePotential();
+
+  /**
+   * A fixed damage value where the calculations start to apply dimishing returns.
+   * Basically if you'd hit more than that damage with this tool, the damage is gradually reduced depending on how much the cutoff is exceeded.
+   */
+  public float damageCutoff() {
+    return 15.0f; // in general this should be sufficient and only needs increasing if it's a stronger weapon
+  }
+
   /**
    * Actually deal damage to the entity we hit. Can be overridden for special behaviour
    * @return True if the entity was hit. Usually the return value of {@link Entity#attackEntityFrom(DamageSource, float)}
@@ -103,12 +116,6 @@ public abstract class ToolCore extends TinkersItem {
     tool.setStackDisplayName(EnumChatFormatting.RESET + getLocalizedToolName(materials.get(0)));
 
     return tool;
-  }
-
-  @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
-    // assume a simple Head + Handle tool
-    return ToolBuilder.buildSimpleTool(materials.get(0), materials.get(1)); // todo: remove or add safety checks
   }
 
   // Creative tab items

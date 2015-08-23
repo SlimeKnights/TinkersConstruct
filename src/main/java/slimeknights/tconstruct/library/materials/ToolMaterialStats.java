@@ -34,7 +34,7 @@ public class ToolMaterialStats extends AbstractMaterialStats {
 
   public final int durability; // usually between 1 and 2000
   public final int harvestLevel; // see HarvestLevels class
-  public final float attack; // usually between 0 and 5 (in HEARTS)
+  public final float attack; // usually between 0 and 10 (in 1/2 hearts, so divide by 2 for damage in hearts)
   public final float miningspeed; // usually between 1 and 10
   public final float handleQuality; // how good the material is for handles. 0.0 - 1.0
   public final float extraQuality; // how good the material is for secondary parts. 0.0 - 1.0

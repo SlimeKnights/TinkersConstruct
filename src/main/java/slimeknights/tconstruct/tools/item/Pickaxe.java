@@ -28,6 +28,11 @@ public class Pickaxe extends ToolCore {
   }
 
   @Override
+  public float damagePotential() {
+    return 0.3f;
+  }
+
+  @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     if(materials.size() != requiredComponents.length) {
       return new NBTTagCompound();

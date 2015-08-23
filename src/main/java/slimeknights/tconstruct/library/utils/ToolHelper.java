@@ -196,8 +196,6 @@ public final class ToolHelper {
     }
     EntityLivingBase target = (EntityLivingBase) targetEntity;
 
-    NBTTagCompound toolTag = TagUtil.getToolTag(stack);
-
     // traits on the tool
     List<ITrait> traits = Lists.newLinkedList();
     NBTTagList traitsTagList = TagUtil.getTraitsTagList(stack);
@@ -217,6 +215,7 @@ public final class ToolHelper {
 
     // tool damage
     baseDamage += ToolHelper.getAttack(stack);
+    baseDamage *= tool.damagePotential();
 
     // calculate if it's a critical hit
     boolean isCritical = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Potion.blindness) && player.ridingEntity == null && targetEntity instanceof EntityLivingBase;
@@ -235,6 +234,9 @@ public final class ToolHelper {
     if(isCritical) {
       damage *= 1.5f;
     }
+
+    // calculate cutoff
+    damage = calcCuttoffDamage(damage, tool.damageCutoff());
 
     // calculate actual knockback
     float knockback = baseKnockback;
@@ -319,6 +321,23 @@ public final class ToolHelper {
     return true;
   }
 
+  public static float calcCuttoffDamage(float damage, float cutoff) {
+    float p = 1f;
+    float d = damage;
+    damage = 0f;
+    while(d > cutoff) {
+      damage += p * cutoff;
+      // safety for ridiculous values
+      if(p > 0.000001f) {
+        p *= 0.9f;
+      }
+      d -= cutoff;
+    }
+
+    damage += p*d;
+
+    return damage;
+  }
 
   /* Helper Functions */
 
