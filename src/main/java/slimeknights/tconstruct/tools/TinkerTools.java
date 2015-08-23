@@ -28,6 +28,7 @@ import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.debug.TempToolModifying;
 import slimeknights.tconstruct.tools.item.Pickaxe;
+import slimeknights.tconstruct.tools.item.BroadSword;
 import slimeknights.tconstruct.tools.modifiers.StoneboundModifier;
 import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
 import slimeknights.tconstruct.CommonProxy;
@@ -67,12 +68,15 @@ public class TinkerTools extends TinkerPulse {
 
   // Tools
   public static ToolCore pickaxe;
+  public static ToolCore broadSword;
 
   // Tool Parts
   public static ToolPart pickHead;
+  public static ToolPart swordBlade;
 
   public static ToolPart toolRod;
   public static ToolPart binding;
+  public static ToolPart wideGuard;
   public static ToolPart largePlate;
 
   // Modifiers
@@ -117,15 +121,19 @@ public class TinkerTools extends TinkerPulse {
   private void registerToolParts() {
     // The order the items are registered in represents the order in the stencil table GUI too
     pickHead = registerToolPart(new ToolPart(ToolPart.COST_Ingot), "PickHead");
+    swordBlade = registerToolPart(new ToolPart(ToolPart.COST_Ingot), "SwordBlade");
 
     toolRod = registerToolPart(new ToolPart(ToolPart.COST_Shard), "ToolRod");
     binding = registerToolPart(new ToolPart(ToolPart.COST_Shard), "Binding");
+
+    wideGuard = registerToolPart(new ToolPart(ToolPart.COST_Shard), "WideGuard");
 
     largePlate = registerToolPart(new ToolPart(ToolPart.COST_Ingot*8), "LargePlate");
   }
 
   private void registerTools() {
     pickaxe = registerItem(new Pickaxe(), "Pickaxe");
+    broadSword = registerItem(new BroadSword(), "BroadSword");
   }
 
   private void registerModifiers() {

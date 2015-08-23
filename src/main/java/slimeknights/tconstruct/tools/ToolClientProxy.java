@@ -20,11 +20,14 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.tools.Pattern;
 
 import static slimeknights.tconstruct.tools.TinkerTools.binding;
+import static slimeknights.tconstruct.tools.TinkerTools.broadSword;
 import static slimeknights.tconstruct.tools.TinkerTools.largePlate;
 import static slimeknights.tconstruct.tools.TinkerTools.pickHead;
 import static slimeknights.tconstruct.tools.TinkerTools.pickaxe;
 import static slimeknights.tconstruct.tools.TinkerTools.shard;
+import static slimeknights.tconstruct.tools.TinkerTools.swordBlade;
 import static slimeknights.tconstruct.tools.TinkerTools.toolRod;
+import static slimeknights.tconstruct.tools.TinkerTools.wideGuard;
 
 public class ToolClientProxy extends ClientProxy {
 
@@ -80,13 +83,16 @@ public class ToolClientProxy extends ClientProxy {
 
     // tools
     registerToolModel(pickaxe);
+    registerToolModel(broadSword);
 
 
     // parts
     registerPartModel(shard);
     registerPartModel(pickHead);
+    registerPartModel(swordBlade);
     registerPartModel(binding);
     registerPartModel(toolRod);
+    registerPartModel(wideGuard);
     registerPartModel(largePlate);
 
     registerModifierModel(TinkerTools.diamondMod, Util.getResource("models/item/modifiers/Diamond"));
