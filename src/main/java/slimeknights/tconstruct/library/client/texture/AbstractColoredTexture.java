@@ -2,7 +2,9 @@ package slimeknights.tconstruct.library.client.texture;
 
 import com.google.common.collect.Lists;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
@@ -10,6 +12,7 @@ import net.minecraft.client.resources.data.AnimationMetadataSection;
 import net.minecraft.client.resources.data.TextureMetadataSection;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -107,6 +110,10 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
 
   // loads the base texture manually, same procedure as TextureMap
   protected int[][] backupLoadTexture(ResourceLocation resourceLocation, IResourceManager resourceManager) {
+    if(resourceLocation.equals(TextureMap.LOCATION_MISSING_TEXTURE)) {
+      return Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite().getFrameTextureData(0);
+    }
+
     ResourceLocation resourcelocation1 = this.completeResourceLocation(resourceLocation, 0);
 
     try {
