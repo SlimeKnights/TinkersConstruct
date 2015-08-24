@@ -87,7 +87,10 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public float getDigSpeed(ItemStack itemstack, IBlockState state) {
-    return ToolHelper.calcDigSpeed(itemstack, state);
+    if(ToolHelper.isToolEffective(itemstack, state)) {
+      return ToolHelper.calcDigSpeed(itemstack, state);
+    }
+    return super.getDigSpeed(itemstack, state);
   }
 
   @Override
@@ -218,7 +221,11 @@ public abstract class ToolCore extends TinkersItem {
       }
     }
 
-    ToolHelper.damageTool(stack, 1, playerIn);
+    int damage = 1;
+    if(!ToolHelper.isToolEffective(stack, worldIn.getBlockState(pos))) {
+      damage *= 2;
+    }
+    ToolHelper.damageTool(stack, damage, playerIn);
 
     return hasCategory(Category.TOOL);
   }
