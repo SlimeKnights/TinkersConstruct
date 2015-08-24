@@ -7,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.List;
 
-import slimeknights.tconstruct.Config;
+import slimeknights.tconstruct.common.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.utils.TagUtil;
 

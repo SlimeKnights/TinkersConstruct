@@ -4,7 +4,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.tileentity.TileEntity;
 
-import slimeknights.tconstruct.common.inventory.BaseContainer;
+import slimeknights.mantle.inventory.BaseContainer;
 
 public class ContainerSideInventory extends BaseContainer<TileEntity> {
   public final int columns;

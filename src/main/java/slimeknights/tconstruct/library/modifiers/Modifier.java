@@ -4,8 +4,6 @@ import com.google.common.collect.Lists;
 
 import com.sun.istack.internal.NotNull;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -16,8 +14,7 @@ import java.util.List;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.mantle.RecipeMatch;
-import slimeknights.tconstruct.library.mantle.RecipeMatchRegistry;
+import slimeknights.mantle.util.RecipeMatchRegistry;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 

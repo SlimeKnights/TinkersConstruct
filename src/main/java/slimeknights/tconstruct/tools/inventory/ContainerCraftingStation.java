@@ -13,7 +13,7 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.tileentity.TileEntityChest;
 
 import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
-import slimeknights.tconstruct.library.mantle.InventoryCraftingPersistent;
+import slimeknights.mantle.inventory.InventoryCraftingPersistent;
 
 // nearly the same as ContainerWorkbench but uses the TileEntities inventory
 public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftingStation> {

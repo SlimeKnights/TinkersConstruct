@@ -13,9 +13,9 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import java.util.List;
 
 import io.netty.buffer.ByteBuf;
-import slimeknights.tconstruct.TinkerNetwork;
-import slimeknights.tconstruct.common.inventory.BaseContainer;
-import slimeknights.tconstruct.common.network.AbstractPacketThreadsafe;
+import slimeknights.tconstruct.common.TinkerNetwork;
+import slimeknights.mantle.inventory.BaseContainer;
+import slimeknights.mantle.network.AbstractPacketThreadsafe;
 import slimeknights.tconstruct.tools.inventory.ContainerStencilTable;
 import slimeknights.tconstruct.tools.client.GuiStencilTable;
 

@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.client.module;
 
-import slimeknights.tconstruct.common.client.gui.GuiElement;
-import slimeknights.tconstruct.common.client.gui.GuiElementScalable;
+import slimeknights.mantle.client.gui.GuiElement;
+import slimeknights.mantle.client.gui.GuiElementScalable;
 
 public final class GuiGeneric {
   // first one sets default texture w/h

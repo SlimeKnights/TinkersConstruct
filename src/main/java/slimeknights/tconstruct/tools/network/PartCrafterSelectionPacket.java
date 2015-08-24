@@ -7,7 +7,7 @@ import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 
 import io.netty.buffer.ByteBuf;
-import slimeknights.tconstruct.common.network.AbstractPacketThreadsafe;
+import slimeknights.mantle.network.AbstractPacketThreadsafe;
 import slimeknights.tconstruct.tools.inventory.ContainerPartBuilder;
 
 public class PartCrafterSelectionPacket extends AbstractPacketThreadsafe {

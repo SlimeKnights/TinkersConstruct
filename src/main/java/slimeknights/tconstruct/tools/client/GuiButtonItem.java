@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-import slimeknights.tconstruct.common.client.gui.GuiElement;
+import slimeknights.mantle.client.gui.GuiElement;
 
 public class GuiButtonItem<T> extends GuiButton {
   // Positions from generic.png

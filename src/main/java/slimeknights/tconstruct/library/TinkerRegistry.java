@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import slimeknights.tconstruct.library.mantle.CreativeTab;
+import slimeknights.mantle.client.CreativeTab;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.events.MaterialEvent;

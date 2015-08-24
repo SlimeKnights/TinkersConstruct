@@ -5,7 +5,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.network.NetHandlerPlayServer;
 
 import io.netty.buffer.ByteBuf;
-import slimeknights.tconstruct.common.network.AbstractPacketThreadsafe;
+import slimeknights.mantle.network.AbstractPacketThreadsafe;
 
 public class InventoryCraftingSyncPacket extends AbstractPacketThreadsafe {
 

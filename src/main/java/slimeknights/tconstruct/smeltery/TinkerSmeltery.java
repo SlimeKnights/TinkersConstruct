@@ -9,8 +9,8 @@ import org.apache.logging.log4j.Logger;
 
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
-import slimeknights.tconstruct.TinkerPulse;
-import slimeknights.tconstruct.CommonProxy;
+import slimeknights.tconstruct.common.TinkerPulse;
+import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.Pattern;
 
@@ -20,7 +20,7 @@ public class TinkerSmeltery extends TinkerPulse {
   public static final String PulseId = "TinkerSmeltery";
   static final Logger log = Util.getLogger(PulseId);
 
-  @SidedProxy(clientSide = "slimeknights.tconstruct.smeltery.SmelteryClientProxy", serverSide = "slimeknights.tconstruct.CommonProxy")
+  @SidedProxy(clientSide = "slimeknights.tconstruct.smeltery.SmelteryClientProxy", serverSide = "slimeknights.tconstruct.common.CommonProxy")
   public static CommonProxy proxy;
 
   public static Pattern cast;

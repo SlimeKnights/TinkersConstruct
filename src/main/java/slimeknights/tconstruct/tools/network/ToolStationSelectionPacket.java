@@ -12,9 +12,9 @@ import net.minecraft.world.WorldServer;
 import java.util.List;
 
 import io.netty.buffer.ByteBuf;
-import slimeknights.tconstruct.TinkerNetwork;
-import slimeknights.tconstruct.common.inventory.BaseContainer;
-import slimeknights.tconstruct.common.network.AbstractPacketThreadsafe;
+import slimeknights.tconstruct.common.TinkerNetwork;
+import slimeknights.mantle.inventory.BaseContainer;
+import slimeknights.mantle.network.AbstractPacketThreadsafe;
 import slimeknights.tconstruct.tools.inventory.ContainerToolStation;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.tools.client.GuiToolStation;

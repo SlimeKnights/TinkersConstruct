@@ -5,8 +5,8 @@ import net.minecraft.inventory.Container;
 
 import java.io.IOException;
 
-import slimeknights.tconstruct.common.client.gui.GuiModule;
-import slimeknights.tconstruct.common.client.gui.GuiMultiModule;
+import slimeknights.mantle.client.gui.GuiModule;
+import slimeknights.mantle.client.gui.GuiMultiModule;
 
 /**
  * A grid of buttons that allows you to select one of them

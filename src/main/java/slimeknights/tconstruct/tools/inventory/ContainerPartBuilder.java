@@ -17,10 +17,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import slimeknights.tconstruct.common.inventory.IContainerCraftingCustom;
-import slimeknights.tconstruct.common.inventory.SlotCraftingCustom;
-import slimeknights.tconstruct.common.inventory.SlotOut;
-import slimeknights.tconstruct.library.mantle.InventoryCraftingPersistent;
+import slimeknights.mantle.inventory.IContainerCraftingCustom;
+import slimeknights.mantle.inventory.SlotCraftingCustom;
+import slimeknights.mantle.inventory.SlotOut;
+import slimeknights.mantle.inventory.InventoryCraftingPersistent;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.tools.block.BlockToolTable;

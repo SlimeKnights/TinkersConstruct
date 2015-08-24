@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+import slimeknights.mantle.block.BlockInventory;
 import slimeknights.tconstruct.TConstruct;
 
 public abstract class BlockInventoryTinkers extends BlockInventory {

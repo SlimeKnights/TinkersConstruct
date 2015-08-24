@@ -16,15 +16,15 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
 
-import slimeknights.tconstruct.TinkerNetwork;
-import slimeknights.tconstruct.common.client.gui.GuiMultiModule;
-import slimeknights.tconstruct.common.inventory.ContainerMultiModule;
+import slimeknights.tconstruct.common.TinkerNetwork;
+import slimeknights.mantle.client.gui.GuiMultiModule;
+import slimeknights.mantle.inventory.ContainerMultiModule;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.tools.block.ITinkerStationBlock;
 import slimeknights.tconstruct.tools.client.module.GuiTinkerTabs;
 import slimeknights.tconstruct.tools.network.TinkerStationTabPacket;
-import slimeknights.tconstruct.common.client.gui.GuiElement;
-import slimeknights.tconstruct.library.mantle.IInventoryGui;
+import slimeknights.mantle.client.gui.GuiElement;
+import slimeknights.mantle.IInventoryGui;
 import slimeknights.tconstruct.tools.inventory.ContainerTinkerStation;
 
 @SideOnly(Side.CLIENT)

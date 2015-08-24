@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
-import slimeknights.tconstruct.common.inventory.ContainerMultiModule;
+import slimeknights.mantle.inventory.ContainerMultiModule;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.block.ITinkerStationBlock;
 import slimeknights.tconstruct.tools.client.GuiTinkerStation;

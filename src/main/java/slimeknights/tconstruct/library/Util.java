@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Locale;
 
-import slimeknights.tconstruct.library.mantle.RecipeMatchRegistry;
+import slimeknights.mantle.util.RecipeMatchRegistry;
 
 public class Util {
 

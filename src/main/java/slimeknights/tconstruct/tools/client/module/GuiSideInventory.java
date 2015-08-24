@@ -7,12 +7,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import slimeknights.tconstruct.common.client.gui.GuiModule;
-import slimeknights.tconstruct.common.client.gui.GuiElement;
-import slimeknights.tconstruct.common.client.gui.GuiElementScalable;
-import slimeknights.tconstruct.common.client.gui.GuiMultiModule;
-import slimeknights.tconstruct.common.client.gui.GuiPartSlider;
-import slimeknights.tconstruct.common.inventory.BaseContainer;
+import slimeknights.mantle.client.gui.GuiModule;
+import slimeknights.mantle.client.gui.GuiElement;
+import slimeknights.mantle.client.gui.GuiElementScalable;
+import slimeknights.mantle.client.gui.GuiMultiModule;
+import slimeknights.mantle.client.gui.GuiWidgetSlider;
+import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.library.Util;
 
 // a side inventory to be displayed to the left or right of another GUI
@@ -43,7 +43,7 @@ public class GuiSideInventory extends GuiModule {
       GUI_INVENTORY =
       Util.getResource("textures/gui/generic.png");
 
-  protected GuiPartBorder border = new GuiPartBorder();
+  protected GuiWidgetBorder border = new GuiWidgetBorder();
 
   private int columns;
   private int slotCount;
@@ -55,9 +55,9 @@ public class GuiSideInventory extends GuiModule {
   private int xOffset;
   protected boolean connected;
 
-  private GuiPartSlider
+  private GuiWidgetSlider
       slider =
-      new GuiPartSlider(sliderNormal, sliderHigh, sliderLow, sliderTop, sliderBottom, sliderBackground);
+      new GuiWidgetSlider(sliderNormal, sliderHigh, sliderLow, sliderTop, sliderBottom, sliderBackground);
 
   public GuiSideInventory(GuiMultiModule parent, Container container, int slotCount, int columns) {
     this(parent, container, slotCount, columns, false, false);

@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 
-import slimeknights.tconstruct.ClientProxy;
+import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.tools.Pattern;

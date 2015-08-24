@@ -16,13 +16,16 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 
 import mantle.pulsar.control.PulseManager;
+import slimeknights.tconstruct.common.ClientProxy;
+import slimeknights.tconstruct.common.TinkerNetwork;
+import slimeknights.tconstruct.common.TinkerOredict;
 import slimeknights.tconstruct.debug.LocalizationCheckCommand;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.common.GuiHandler;
+import slimeknights.mantle.GuiHandler;
 
 /**
  * TConstruct, the tool mod. Craft your tools with style, then modify until the original is gone!

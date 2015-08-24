@@ -5,7 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import slimeknights.tconstruct.library.mantle.RecipeMatch;
+import slimeknights.mantle.util.RecipeMatch;
 
 public interface IModifier {
 

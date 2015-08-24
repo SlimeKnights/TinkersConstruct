@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ListIterator;
 
-import slimeknights.tconstruct.TinkerNetwork;
+import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;

@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import slimeknights.tconstruct.common.client.gui.GuiModule;
+import slimeknights.mantle.client.gui.GuiModule;
 import slimeknights.tconstruct.tools.client.module.GuiSideInventory;
 import slimeknights.tconstruct.tools.inventory.ContainerCraftingStation;
 import slimeknights.tconstruct.tools.inventory.ContainerSideInventory;

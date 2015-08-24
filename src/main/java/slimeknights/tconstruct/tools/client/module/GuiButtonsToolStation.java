@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 
 import java.io.IOException;
 
-import slimeknights.tconstruct.common.client.gui.GuiMultiModule;
+import slimeknights.mantle.client.gui.GuiMultiModule;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.TinkerRegistryClient;
 import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;

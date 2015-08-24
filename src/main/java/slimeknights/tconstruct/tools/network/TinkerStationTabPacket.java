@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 import slimeknights.tconstruct.tools.block.ITinkerStationBlock;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.network.AbstractPacketThreadsafe;
+import slimeknights.mantle.network.AbstractPacketThreadsafe;
 
 /**
  * Sent to the server when the user clicks on a tab in the TinkerStation GUI

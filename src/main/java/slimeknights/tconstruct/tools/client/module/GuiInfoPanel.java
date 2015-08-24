@@ -16,12 +16,12 @@ import net.minecraft.util.ResourceLocation;
 import java.util.List;
 import java.util.ListIterator;
 
-import slimeknights.tconstruct.common.client.gui.GuiElement;
-import slimeknights.tconstruct.common.client.gui.GuiModule;
-import slimeknights.tconstruct.common.client.gui.GuiMultiModule;
-import slimeknights.tconstruct.common.client.gui.GuiPartSlider;
+import slimeknights.mantle.client.gui.GuiElement;
+import slimeknights.mantle.client.gui.GuiModule;
+import slimeknights.mantle.client.gui.GuiMultiModule;
+import slimeknights.mantle.client.gui.GuiWidgetSlider;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.common.client.gui.GuiElementScalable;
+import slimeknights.mantle.client.gui.GuiElementScalable;
 
 public class GuiInfoPanel extends GuiModule {
   private static int resW = 118;
@@ -48,10 +48,10 @@ public class GuiInfoPanel extends GuiModule {
   private static GuiElement sliderTop = new GuiElement(3, 88, 3, 4);
   private static GuiElement sliderBot = new GuiElement(3, 92, 3, 4);
 
-  private GuiPartBorder border = new GuiPartBorder();
+  private GuiWidgetBorder border = new GuiWidgetBorder();
 
   private FontRenderer fontRenderer = Minecraft.getMinecraft().fontRendererObj;
-  private GuiPartSlider slider = new GuiPartSlider(sliderNormal, sliderHover, sliderHover, sliderTop, sliderBot, sliderBar);
+  private GuiWidgetSlider slider = new GuiWidgetSlider(sliderNormal, sliderHover, sliderHover, sliderTop, sliderBot, sliderBar);
 
   protected String caption;
   protected List<String> text;
@@ -216,7 +216,7 @@ public class GuiInfoPanel extends GuiModule {
   }
 
   private void shiftSlider(int xd, int yd) {
-    slider = new GuiPartSlider(sliderNormal.shift(xd, yd),
+    slider = new GuiWidgetSlider(sliderNormal.shift(xd, yd),
                                sliderHover.shift(xd, yd),
                                sliderHover.shift(xd, yd),
                                sliderTop.shift(xd, yd),

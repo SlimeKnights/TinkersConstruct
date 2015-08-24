@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 
 import java.io.IOException;
 
-import slimeknights.tconstruct.TinkerNetwork;
+import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;

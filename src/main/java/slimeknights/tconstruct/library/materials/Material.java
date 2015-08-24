@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.TinkerAPIException;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.MaterialRenderInfo;
-import slimeknights.tconstruct.library.mantle.RecipeMatchRegistry;
+import slimeknights.mantle.util.RecipeMatchRegistry;
 import slimeknights.tconstruct.library.traits.ITrait;
 
 public class Material extends RecipeMatchRegistry {
@@ -232,7 +232,8 @@ public class Material extends RecipeMatchRegistry {
     if(this == UNKNOWN) return itemName;
 
     if(StatCollector.canTranslate(String.format(LOC_Prefix, getIdentifier()))) {
-      return StatCollector.translateToLocalFormatted(String.format(LOC_Prefix, Util.sanitizeLocalizationString(identifier)), itemName);
+      return StatCollector.translateToLocalFormatted(String.format(LOC_Prefix, Util
+          .sanitizeLocalizationString(identifier)), itemName);
     }
 
     return getLocalizedName() + " " + itemName;

@@ -10,9 +10,9 @@ import net.minecraft.util.BlockPos;
 
 import java.util.List;
 
-import slimeknights.tconstruct.common.client.gui.GuiModule;
-import slimeknights.tconstruct.common.client.gui.GuiElement;
-import slimeknights.tconstruct.common.client.gui.GuiPartTabs;
+import slimeknights.mantle.client.gui.GuiModule;
+import slimeknights.mantle.client.gui.GuiElement;
+import slimeknights.mantle.client.gui.GuiWidgetTabs;
 import slimeknights.tconstruct.tools.client.GuiTinkerStation;
 
 public class GuiTinkerTabs extends GuiModule {
@@ -21,7 +21,7 @@ public class GuiTinkerTabs extends GuiModule {
   protected static final GuiElement GUI_TabActiveC = new GuiElement(28,32,28,32,256,256);
   protected static final GuiElement GUI_TabActiveR = new GuiElement(140,32,28,32,256,256);
 
-  public GuiPartTabs tabs;
+  public GuiWidgetTabs tabs;
   public List<BlockPos> tabData;
 
   public final GuiTinkerStation parent;
@@ -34,7 +34,7 @@ public class GuiTinkerTabs extends GuiModule {
     this.xSize = GUI_TabActiveC.w;
     this.ySize = GUI_TabActiveC.h;
 
-    this.tabs = new GuiPartTabs(parent, GUI_Tab, GUI_Tab, GUI_Tab, GUI_TabActiveL, GUI_TabActiveC, GUI_TabActiveR);
+    this.tabs = new GuiWidgetTabs(parent, GUI_Tab, GUI_Tab, GUI_Tab, GUI_TabActiveL, GUI_TabActiveC, GUI_TabActiveR);
     this.tabData = Lists.newArrayList();
   }
 

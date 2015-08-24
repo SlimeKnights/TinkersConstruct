@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tools;
 import com.google.common.collect.Lists;
 
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
@@ -24,10 +23,10 @@ import java.util.List;
 
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
-import slimeknights.tconstruct.TinkerPulse;
-import slimeknights.tconstruct.common.block.BlockTable;
-import slimeknights.tconstruct.common.item.ItemBlockMeta;
-import slimeknights.tconstruct.common.tileentity.TileTable;
+import slimeknights.tconstruct.common.TinkerPulse;
+import slimeknights.mantle.block.BlockTable;
+import slimeknights.mantle.item.ItemBlockMeta;
+import slimeknights.mantle.tileentity.TileTable;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
@@ -37,7 +36,7 @@ import slimeknights.tconstruct.tools.item.Pickaxe;
 import slimeknights.tconstruct.tools.item.BroadSword;
 import slimeknights.tconstruct.tools.modifiers.StoneboundModifier;
 import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
-import slimeknights.tconstruct.CommonProxy;
+import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.IModifier;
@@ -61,7 +60,7 @@ public class TinkerTools extends TinkerPulse {
   public static final String PulseId = "TinkerTools";
   static final Logger log = Util.getLogger(PulseId);
 
-  @SidedProxy(clientSide = "slimeknights.tconstruct.tools.ToolClientProxy", serverSide = "slimeknights.tconstruct.CommonProxy")
+  @SidedProxy(clientSide = "slimeknights.tconstruct.tools.ToolClientProxy", serverSide = "slimeknights.tconstruct.common.CommonProxy")
   public static CommonProxy proxy;
 
   // Blocks
