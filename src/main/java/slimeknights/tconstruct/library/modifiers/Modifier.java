@@ -21,7 +21,7 @@ import slimeknights.tconstruct.library.mantle.RecipeMatchRegistry;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 
-public abstract class Modifier implements IModifier {
+public abstract class Modifier extends RecipeMatchRegistry implements IModifier {
 
   public static final String LOC_Name = "modifier.%s.name";
   public static final String LOC_Desc = "modifier.%s.desc";
@@ -41,22 +41,6 @@ public abstract class Modifier implements IModifier {
   @Override
   public String getIdentifier() {
     return identifier;
-  }
-
-  public void addItem(String oredictItem) {
-    modifierItems.addItem(oredictItem);
-  }
-
-  public void addItem(Item item) {
-    modifierItems.addItem(item);
-  }
-
-  public void addItem(Block block, int count) {
-    modifierItems.addItem(block, count);
-  }
-
-  public RecipeMatchRegistry getItemRegistry() {
-    return modifierItems;
   }
 
   protected void addAspects(ModifierAspect... aspects) {
