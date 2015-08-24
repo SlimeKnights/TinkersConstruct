@@ -18,7 +18,7 @@ public class RedstoneModifier extends Modifier {
   private final int max;
 
   public RedstoneModifier(int max) {
-    super("Redstone");
+    super("redstone");
 
     this.max = max;
 

@@ -31,7 +31,7 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
   protected final List<ModifierAspect> aspects = Lists.newLinkedList();
 
   public Modifier(@NotNull String identifier) {
-    this.identifier = identifier;
+    this.identifier = Util.sanitizeLocalizationString(identifier);
 
     TinkerRegistry.registerModifier(this);
   }

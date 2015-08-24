@@ -8,7 +8,7 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 public class StoneboundTrait extends AbstractTrait {
 
   public StoneboundTrait() {
-    super("Stonebound");
+    super("stonebound");
   }
 
   @Override
