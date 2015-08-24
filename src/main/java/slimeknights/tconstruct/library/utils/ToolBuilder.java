@@ -59,6 +59,9 @@ public final class ToolBuilder {
       }
     }
 
+    if(length < 0)
+      return null;
+
     input = Arrays.copyOf(stacks, length);
 
     for(ToolCore tool : TinkerRegistry.getTools()) {
