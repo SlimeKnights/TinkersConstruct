@@ -125,6 +125,7 @@ gui.toolStation.repair=Repair & Modify
 gui.toolStation.traits=Traits
 gui.toolStation.components=Components
 gui.toolStation.info=The main way to repair or change your tools. Place a tool and a material on the left to get started.
+gui.toolStation.noTraits=None :[
 
 # Pattern Chest
 gui.patternChest.name=Pattern Chest
