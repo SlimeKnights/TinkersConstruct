@@ -28,6 +28,11 @@ public class BroadSword extends ToolCore {
   }
 
   @Override
+  public int attackSpeed() {
+    return 1;
+  }
+
+  @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     if(materials.size() != requiredComponents.length) {
       return new NBTTagCompound();

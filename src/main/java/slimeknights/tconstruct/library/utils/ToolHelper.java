@@ -13,11 +13,13 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.play.server.S0BPacketAnimation;
 import net.minecraft.network.play.server.S12PacketEntityVelocity;
 import net.minecraft.potion.Potion;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.WorldServer;
 
 import java.util.List;
 
@@ -348,6 +350,19 @@ public final class ToolHelper {
     }
 
     return damage;
+  }
+
+  public static void swingItem(int speed, EntityLivingBase entity) {
+    if (!entity.isSwingInProgress || entity.swingProgressInt >= 3 || entity.swingProgressInt < 0)
+    {
+      entity.swingProgressInt = Math.min(4, -1 + speed);
+      entity.isSwingInProgress = true;
+
+      if (entity.worldObj instanceof WorldServer)
+      {
+        ((WorldServer)entity.worldObj).getEntityTracker().sendToAllTrackingEntity(entity, new S0BPacketAnimation(entity, 0));
+      }
+    }
   }
 
   /* Helper Functions */

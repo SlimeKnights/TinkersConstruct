@@ -71,6 +71,13 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   /**
+   * Allows you to speed up the attack. 0 is standard attack. 5 is max speed. Negative values are not possible.
+   */
+  public int attackSpeed() {
+    return 0;
+  }
+
+  /**
    * Actually deal damage to the entity we hit. Can be overridden for special behaviour
    * @return True if the entity was hit. Usually the return value of {@link Entity#attackEntityFrom(DamageSource, float)}
    */
@@ -86,6 +93,24 @@ public abstract class ToolCore extends TinkersItem {
   @Override
   public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
     return ToolHelper.attackEntity(stack, this, player, entity);
+  }
+
+  @Override
+  public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
+    if(attackSpeed() > 0) {
+      int speed = Math.min(5, attackSpeed());
+      ToolHelper.swingItem(speed, entityLiving);
+      return true;
+    }
+    return super.onEntitySwing(entityLiving, stack);
+  }
+
+  @Override
+  public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+    if(attackSpeed() > 0) {
+      target.hurtResistantTime -= attackSpeed();
+    }
+    return super.hitEntity(stack, target, attacker);
   }
 
   @Override
