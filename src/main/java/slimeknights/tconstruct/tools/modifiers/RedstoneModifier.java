@@ -68,7 +68,7 @@ public class RedstoneModifier extends Modifier {
     // the most important function in the whole file!
     ModifierNBT data = ModifierNBT.readTag(modifierTag);
 
-    for(int i = data.level; i > 1; i++) {
+    for(int i = data.level; i > 1; i--) {
       if(StatCollector.canTranslate(String.format(LOC_Name + i, getIdentifier()))) {
         return StatCollector.translateToLocal(String.format(LOC_Name + i, getIdentifier()));
       }
