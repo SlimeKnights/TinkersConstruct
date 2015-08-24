@@ -53,11 +53,16 @@ stat.attack.desc=Attackstuff
 
 # traits are also modifiers, they use the same prefix so they don't have to be localized twice
 modifier.stonebound.name=Stonebound
-modifier.stonebound.desc=Your tool absolutely loves stone. The tool mines faster as it wears out, but does less damage
+modifier.stonebound.desc=Your tool absolutely loves stone. The tool mines faster as it wears out, but does less damage.
 
 #################
 #   Modifiers   #
 #################
+
+modifier.redstone.name=Haste
+modifier.redstone.name2=Haster
+modifier.redstone.name3=Hastest
+modifier.redstone.desc=The redstone impulse when hitting blocks motivates your tool to mine faster. Increases mining speed.
 
 #################
 #   Tool Info   #

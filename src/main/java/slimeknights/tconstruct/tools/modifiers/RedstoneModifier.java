@@ -5,7 +5,9 @@ import net.minecraft.init.Items;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.tools.ToolNBT;
@@ -61,5 +63,19 @@ public class RedstoneModifier extends Modifier {
     speed -= toolData.speed;
     speed += tag.getFloat(Tags.MININGSPEED);
     tag.setFloat(Tags.MININGSPEED, speed);
+  }
+
+  @Override
+  public String getTooltip(NBTTagCompound modifierTag) {
+    // the most important function in the whole file!
+    ModifierNBT data = ModifierNBT.readTag(modifierTag);
+
+    for(int i = data.level; i > 1; i++) {
+      if(StatCollector.canTranslate(String.format(LOC_Name + i, getIdentifier()))) {
+        return StatCollector.translateToLocal(String.format(LOC_Name + i, getIdentifier()));
+      }
+    }
+
+    return super.getTooltip(modifierTag);
   }
 }
