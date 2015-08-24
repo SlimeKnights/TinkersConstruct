@@ -30,15 +30,14 @@ public abstract class RecipeMatch {
         if(ItemStack.areItemsEqual(stack, stacks[i]) && ItemStack.areItemStackTagsEqual(stack, stacks[i])) {
           if(stacks[i].stackSize < stack.stackSize) {
             TinkerRegistry.log.error("RecipeMatch has incorrect stacksize! {}", stacks[i].toString());
-            break;
           }
           else {
             stacks[i].stackSize -= stack.stackSize;
             if(stacks[i].stackSize == 0) {
               stacks[i] = null;
-              break;
             }
           }
+          break;
         }
       }
     }
