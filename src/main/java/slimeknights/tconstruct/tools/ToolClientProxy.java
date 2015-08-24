@@ -12,6 +12,8 @@ import net.minecraftforge.common.MinecraftForge;
 import slimeknights.tconstruct.ClientProxy;
 import slimeknights.tconstruct.library.TinkerRegistryClient;
 import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
+import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
@@ -21,6 +23,7 @@ import slimeknights.tconstruct.library.tools.Pattern;
 
 import static slimeknights.tconstruct.tools.TinkerTools.binding;
 import static slimeknights.tconstruct.tools.TinkerTools.broadSword;
+import static slimeknights.tconstruct.tools.TinkerTools.hatchet;
 import static slimeknights.tconstruct.tools.TinkerTools.largePlate;
 import static slimeknights.tconstruct.tools.TinkerTools.pickHead;
 import static slimeknights.tconstruct.tools.TinkerTools.pickaxe;
@@ -82,18 +85,16 @@ public class ToolClientProxy extends ClientProxy {
     });
 
     // tools
-    registerToolModel(pickaxe);
-    registerToolModel(broadSword);
+    for(ToolCore tool : TinkerTools.tools) {
+      registerToolModel(tool);
+    }
 
 
     // parts
     registerPartModel(shard);
-    registerPartModel(pickHead);
-    registerPartModel(swordBlade);
-    registerPartModel(binding);
-    registerPartModel(toolRod);
-    registerPartModel(wideGuard);
-    registerPartModel(largePlate);
+    for(ToolPart part : TinkerTools.toolparts) {
+      registerPartModel(part);
+    }
 
     registerModifierModel(TinkerTools.diamondMod, Util.getResource("models/item/modifiers/Diamond"));
     registerModifierModel(TinkerTools.fortifyMod, Util.getResource("models/item/modifiers/Fortify"));
