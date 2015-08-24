@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -236,7 +235,7 @@ public final class ToolHelper {
     }
 
     // calculate cutoff
-    damage = calcCuttoffDamage(damage, tool.damageCutoff());
+    damage = calcCutoffDamage(damage, tool.damageCutoff());
 
     // calculate actual knockback
     float knockback = baseKnockback;
@@ -321,7 +320,7 @@ public final class ToolHelper {
     return true;
   }
 
-  public static float calcCuttoffDamage(float damage, float cutoff) {
+  public static float calcCutoffDamage(float damage, float cutoff) {
     float p = 1f;
     float d = damage;
     damage = 0f;
@@ -335,6 +334,18 @@ public final class ToolHelper {
     }
 
     damage += p*d;
+
+    return damage;
+  }
+
+  public static float getActualDamage(ItemStack stack, EntityPlayer player) {
+    float damage = (float)player.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
+
+    if(stack.getItem() instanceof ToolCore) {
+      damage += ToolHelper.getAttack(stack);
+      damage *= ((ToolCore) stack.getItem()).damagePotential();
+      damage = ToolHelper.calcCutoffDamage(damage, ((ToolCore) stack.getItem()).damageCutoff());
+    }
 
     return damage;
   }

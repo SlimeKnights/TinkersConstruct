@@ -212,10 +212,10 @@ public class GuiToolStation extends GuiTinkerStation {
     ItemStack toolStack = container.getResult();
     if(toolStack == null) toolStack = inventorySlots.getSlot(0).getStack();
 
+    // current tool to build or repair/modify
     if(toolStack != null && toolStack.getItem() instanceof ToolCore) {
       ToolCore tool = (ToolCore) toolStack.getItem();
       toolInfo.setCaption(tool.getLocalizedToolName());
-
       toolInfo.setText(tool.getInformation(toolStack));
 
       traitInfo.setCaption(StatCollector.translateToLocal("gui.toolStation.traits"));

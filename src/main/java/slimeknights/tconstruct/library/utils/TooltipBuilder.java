@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.utils;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -13,6 +14,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
+import slimeknights.tconstruct.library.tools.ToolCore;
 
 /**
  * Used for simple info buidling in the tools!
@@ -82,7 +84,8 @@ public class TooltipBuilder {
 
   public TooltipBuilder addAttack() {
     if(stack != null) {
-      tips.add(ToolMaterialStats.formatAttack(ToolHelper.getAttack(stack)));
+      float attack = ToolHelper.getActualDamage(stack, Minecraft.getMinecraft().thePlayer);
+      tips.add(ToolMaterialStats.formatAttack(attack));
     }
 
     return this;
