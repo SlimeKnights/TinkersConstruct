@@ -113,6 +113,8 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
     basetag.setTag(Tags.BASE_DATA, dataTag);
     basetag.setTag(Tags.TOOL_DATA, toolTag);
+    // copy of the original tool data
+    basetag.setTag(Tags.TOOL_DATA_ORIG, toolTag.copy());
 
     // add traits
     addMaterialTraits(basetag, materials);

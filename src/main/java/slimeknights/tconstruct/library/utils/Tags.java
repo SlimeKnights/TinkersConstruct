@@ -21,7 +21,8 @@ public final class Tags {
 
   //public static final String TOOL_RENDER = "Render";
   /** The tag that contains all the actual calculated runtime-information of the tools */
-  public static final String TOOL_DATA = "Tool";
+  public static final String TOOL_DATA = "Stats";
+  public static final String TOOL_DATA_ORIG = "StatsOriginal";
 
   public static final String TOOL_MODIFIERS = "Modifiers";
   public static final String TOOL_TRAITS = "Traits";

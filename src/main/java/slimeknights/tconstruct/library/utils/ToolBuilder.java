@@ -287,8 +287,11 @@ public final class ToolBuilder {
       }
     }
 
+    // the base stats of the tool
     NBTTagCompound toolTag = tinkersItem.buildTag(materials);
     TagUtil.setToolTag(rootNBT, toolTag);
+    // and its copy for reference
+    rootNBT.setTag(Tags.TOOL_DATA_ORIG, toolTag.copy());
 
     // clean up traits
     rootNBT.removeTag(Tags.TOOL_TRAITS);

@@ -8,6 +8,8 @@ import net.minecraft.nbt.NBTTagString;
 import java.util.HashSet;
 import java.util.Set;
 
+import slimeknights.tconstruct.library.tools.ToolNBT;
+
 public final class TagUtil {
 
   public static int TAG_TYPE_STRING = (new NBTTagString()).getId();
@@ -176,6 +178,15 @@ public final class TagUtil {
     if(root != null) {
       root.setTag(Tags.TOOL_TRAITS, tagList);
     }
+  }
+
+  /* Tool stats */
+  public static ToolNBT getToolStats(NBTTagCompound root) {
+    return new ToolNBT(getToolTag(root));
+  }
+
+  public static ToolNBT getOriginalToolStats(NBTTagCompound root) {
+    return new ToolNBT(getTagSafe(root, Tags.TOOL_DATA_ORIG));
   }
 
   /* Helper functions */
