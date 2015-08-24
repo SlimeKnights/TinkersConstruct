@@ -28,8 +28,6 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
 
   public final String identifier;
 
-  // A mapping of oredict-entries to how often the item can be applied with this item
-  protected final RecipeMatchRegistry modifierItems = new RecipeMatchRegistry();
   protected final List<ModifierAspect> aspects = Lists.newLinkedList();
 
   public Modifier(@NotNull String identifier) {
@@ -45,11 +43,6 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
 
   protected void addAspects(ModifierAspect... aspects) {
     this.aspects.addAll(Arrays.asList(aspects));
-  }
-
-  @Override
-  public RecipeMatch.Match matches(ItemStack[] stacks) {
-    return modifierItems.matches(stacks);
   }
 
   @Override
