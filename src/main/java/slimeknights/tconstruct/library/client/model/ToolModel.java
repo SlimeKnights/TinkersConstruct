@@ -77,7 +77,7 @@ public class ToolModel extends ItemLayerModel {
       modifierModels = modifiers.bakeModels(state, format, bakedTextureGetter);
     }
     else {
-      modifierModels = new THashMap<>();
+      modifierModels = new THashMap<String, IFlexibleBakedModel>();
     }
 
     ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms = ModelHelper.getTransformsFromState(state, this);

@@ -45,8 +45,8 @@ repositories {
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
 
 version = "1.0"
 group= "slimeknights"

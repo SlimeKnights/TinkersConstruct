@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.utils;
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -25,7 +27,7 @@ public class TooltipBuilder {
 
   private static final DecimalFormat df = new DecimalFormat("#.##");
 
-  private final List<String> tips = new LinkedList<>();
+  private final List<String> tips = Lists.newLinkedList();
   private final ItemStack stack;
 
   public TooltipBuilder(ItemStack stack) {

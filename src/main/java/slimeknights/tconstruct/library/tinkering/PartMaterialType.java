@@ -14,7 +14,7 @@ import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 public class PartMaterialType {
 
   // ANY of these has to match
-  private final Set<IToolPart> neededPart = new HashSet<>();
+  private final Set<IToolPart> neededPart = new HashSet<IToolPart>();
   // ALL of the material stats have to be there
   private final String[] neededTypes;
 

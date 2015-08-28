@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Set;
 
 import slimeknights.mantle.client.CreativeTab;
+import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.events.MaterialEvent;
@@ -61,17 +62,16 @@ public final class TinkerRegistry {
   ---------------------------------------------------------------------------*/
 
   // Identifier to Material mapping. Hashmap so we can look it up directly without iterating
-  private static final Map<String, Material> materials = new THashMap<>();
-  private static final Map<String, ITrait> traits = new THashMap<>();
+  private static final Map<String, Material> materials = new THashMap<String, Material>();
+  private static final Map<String, ITrait> traits = new THashMap<String, ITrait>();
   // traceability information who registered what. Used to find errors.
-  private static final Map<String, String> materialRegisteredByMod = new THashMap<>();
-  private static final Map<String, Map<String, String>> statRegisteredByMod = new THashMap<>();
-  private static final Map<String, Map<String, String>> traitRegisteredByMod = new THashMap<>();
+  private static final Map<String, String> materialRegisteredByMod = new THashMap<String, String>();
+  private static final Map<String, Map<String, String>> statRegisteredByMod = new THashMap<String, Map<String, String>>();
+  private static final Map<String, Map<String, String>> traitRegisteredByMod = new THashMap<String, Map<String, String>>();
 
-  private static final Set<String>
-      cancelledMaterials =
-      new THashSet<>();
-      // contains all cancelled materials, allows us to eat calls regarding the material silently
+  // contains all cancelled materials, allows us to eat calls regarding the material silently
+  private static final Set<String> cancelledMaterials = new THashSet<String>();
+
 
   public static void addMaterial(Material material, IMaterialStats stats, ITrait trait) {
     addMaterial(material, stats);
@@ -198,7 +198,7 @@ public final class TinkerRegistry {
       return;
     }
 
-    MaterialEvent.StatRegisterEvent<?> event = new MaterialEvent.StatRegisterEvent<>(material, stats);
+    MaterialEvent.StatRegisterEvent<?> event = new MaterialEvent.StatRegisterEvent<IMaterialStats>(material, stats);
     MinecraftForge.EVENT_BUS.post(event);
 
     // overridden stats from event
@@ -251,7 +251,7 @@ public final class TinkerRegistry {
       return;
     }
 
-    MaterialEvent.TraitRegisterEvent<?> event = new MaterialEvent.TraitRegisterEvent<>(material, trait);
+    MaterialEvent.TraitRegisterEvent<?> event = new MaterialEvent.TraitRegisterEvent<ITrait>(material, trait);
     if(MinecraftForge.EVENT_BUS.post(event)) {
       // cancelled
       log.trace("Trait {} on {} cancelled by event", trait.getIdentifier(), material.getIdentifier());
@@ -271,8 +271,8 @@ public final class TinkerRegistry {
   ---------------------------------------------------------------------------*/
 
   /** This set contains all known tools */
-  private static final Set<ToolCore> tools = new TLinkedHashSet<>();
-  private static final Set<IToolPart> toolParts = new TLinkedHashSet<>();
+  private static final Set<ToolCore> tools = new TLinkedHashSet<ToolCore>();
+  private static final Set<IToolPart> toolParts = new TLinkedHashSet<IToolPart>();
   private static final Set<Item> toolStationCrafting = Sets.newHashSet();
   private static final Set<Item> toolForgeCrafting = Sets.newHashSet();
   private static final List<ItemStack> stencilTableCrafting = Lists.newLinkedList();
@@ -333,7 +333,7 @@ public final class TinkerRegistry {
   /*---------------------------------------------------------------------------
   | Modifiers                                                                 |
   ---------------------------------------------------------------------------*/
-  public static final Map<String, IModifier> modifiers = new THashMap<>();
+  public static final Map<String, IModifier> modifiers = new THashMap<String, IModifier>();
 
   public static void registerModifier(IModifier modifier) {
     modifiers.put(modifier.getIdentifier(), modifier);

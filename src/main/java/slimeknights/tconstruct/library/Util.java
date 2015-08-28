@@ -59,7 +59,7 @@ public class Util {
 
   public static String translate(String key, String... pars) {
     // translates twice to allow rerouting/alias
-    return StatCollector.translateToLocal(StatCollector.translateToLocal(String.format(key, pars)).trim()).trim();
+    return StatCollector.translateToLocal(StatCollector.translateToLocal(String.format(key, (Object) pars)).trim()).trim();
   }
 
   public static String convertNewlines(String line) {

@@ -67,8 +67,8 @@ public class Material extends RecipeMatchRegistry {
   // we use a Treemap for 2 reasons:
   // * A Map so we can obtain the stats we want quickly
   // * A treemap because we can sort it, so that all materials have the same order when iterating
-  protected final Map<String, IMaterialStats> stats = new TreeMap<>();
-  protected final Map<String, ITrait> traits = new TreeMap<>();
+  protected final Map<String, IMaterialStats> stats = new TreeMap<String, IMaterialStats>();
+  protected final Map<String, ITrait> traits = new TreeMap<String, ITrait>();
 
   public Material(String identifier, EnumChatFormatting textColor) {
     this.identifier = Util.sanitizeLocalizationString(identifier); // lowercases and removes whitespaces

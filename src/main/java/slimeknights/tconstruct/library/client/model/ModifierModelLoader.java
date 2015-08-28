@@ -65,7 +65,7 @@ public class ModifierModelLoader implements ICustomModelLoader {
 
     // we only load once. Without cache we'd have to load ALL modifier files again for each tool!
     if(cache == null) {
-      cache = new THashMap<>();
+      cache = new THashMap<String, Map<String, String>>();
       loadFilesIntoCache();
     }
 

@@ -23,7 +23,7 @@ public final class TinkerRegistryClient {
   /*---------------------------------------------------------------------------
   | GUI & CRAFTING                                                            |
   ---------------------------------------------------------------------------*/
-  private static final Map<Item, ToolBuildGuiInfo> toolBuildInfo = new THashMap<>();
+  private static final Map<Item, ToolBuildGuiInfo> toolBuildInfo = new THashMap<Item, ToolBuildGuiInfo>();
 
   public static void addToolBuilding(ToolBuildGuiInfo info) {
     toolBuildInfo.put(info.tool.getItem(), info);

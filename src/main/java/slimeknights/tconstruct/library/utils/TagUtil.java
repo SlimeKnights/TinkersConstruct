@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.utils;
 
+import com.google.common.collect.Sets;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -224,7 +226,7 @@ public final class TagUtil {
    * @return The combined TagCompound
    */
   public static NBTTagCompound combineTagsAverage(NBTTagCompound... tags) {
-    Set<String> processedKeys = new HashSet<>();
+    Set<String> processedKeys = Sets.newHashSet();
     NBTTagCompound result = new NBTTagCompound();
 
     // cycle through all of the tagcompounds so we don't miss a tag
