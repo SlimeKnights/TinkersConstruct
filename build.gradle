@@ -5,11 +5,12 @@
  * Authors: boni, Sunstrike, ProgWML6
  * Help from AbrarSyed
  */
-
+/*
 buildscript {
     repositories {
         mavenCentral()
 		mavenLocal()
+        jcenter()
         maven {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
@@ -20,8 +21,12 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.0-SNAPSHOT'
     }
+}
+*/
+plugins {
+    id "net.minecraftforge.gradle.forge" version "2.0.1"
 }
 
 repositories {
@@ -39,12 +44,12 @@ repositories {
     }
 }
 
-apply plugin: 'forge'
+apply plugin: 'net.minecraftforge.gradle.forge'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 version = "1.0"
-group= "tconstruct"
+group= "slimeknights"
 archivesBaseName = "TConstruct"
 
 // External properties
@@ -118,7 +123,7 @@ jar {
         attributes 'FMLAT': 'TConstruct_at.cfg'
     }
 }
-
+/*
 // Create deobf dev jars
 task deobfJar(type: Jar) {
     from sourceSets.main.output
@@ -130,9 +135,9 @@ task deobfJar(type: Jar) {
 
 // Create API library jar
 task libJar(type: Jar) {
-    from(sourceSets.main.java) {
-        include "tconstruct/library/**/*"
-    }
+    from(sourceSets.main.java) {*/
+        //include "tconstruct/library/**/*"
+/*    }
     classifier = 'lib'
 }
 
@@ -146,7 +151,7 @@ artifacts {
     archives deobfJar
     archives libJar
     archives sourceJar
-}
+}*/
 // verify the properties exist.. or initialize.
 if (!project.hasProperty("keystore_location")) // keystore location
     ext.keystore_location = ".";
