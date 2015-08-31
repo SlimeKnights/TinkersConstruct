@@ -15,7 +15,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
@@ -25,11 +27,12 @@ import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.library.utils.ToolHelper;
+import slimeknights.tconstruct.library.utils.ToolTagUtil;
 
 /**
  * The base for each Tinker tool.
  */
-public abstract class TinkersItem extends Item implements ITinkerable, IModifyable {
+public abstract class TinkersItem extends Item implements ITinkerable, IModifyable, IRepairable {
 
   public final PartMaterialType[] requiredComponents;
   // used to classify what the thing can do
@@ -165,6 +168,89 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
         ToolBuilder.addTrait(root, trait, material.textColor);
       }
     }
+  }
+
+  /* Repairing */
+
+  @Override
+  public ItemStack repair(ItemStack repairable, ItemStack[] repairItems) {
+    if(repairable.getItemDamage() > 0 && !ToolHelper.isBroken(repairable)) {
+      // undamaged and not broken - no need to repair
+      return null;
+    }
+
+    // we assume the first required part exclusively determines repair material
+    List<Material> materials = TinkerUtil.getMaterialsFromTagList(TagUtil.getBaseMaterialsTagList(repairable));
+    if(materials.isEmpty()) {
+      return null;
+    }
+
+    Material material = materials.get(0);
+    ItemStack[] items = Util.copyItemStackArray(repairItems);
+    // ensure the items only contain valid items
+    RecipeMatch.Match match;
+    while((match = material.matches(items)) != null) {
+      RecipeMatch.removeMatch(items, match);
+    }
+
+    for(int i = 0; i < repairItems.length; i++) {
+      // was non-null and did not get modified (stacksize changed or null now, usually)
+      if(repairItems[i] != null && ItemStack.areItemStacksEqual(repairItems[i], items[i])) {
+        // found an item that was not touched
+        return null;
+      }
+    }
+
+    // now do it all over again with the real items, to actually repair \o/
+    ItemStack item = repairable.copy();
+    // repair for each match so the end result is the same as if each one had been applied individually
+    while((match = material.matches(repairItems)) != null) {
+      // is the tool still damaged?
+      if(item.getItemDamage() == 0) {
+        // we're done
+        break;
+      }
+      // todo: fire event?
+      // do the actual repair
+      int amount = calculateRepair(repairable, match.amount);
+      ToolHelper.repairTool(item, amount);
+
+      // save that we repaired it :I
+      NBTTagCompound tag = TagUtil.getExtraTag(repairable);
+      TagUtil.addInteger(tag, Tags.REPAIR_COUNT, 1);
+      TagUtil.setExtraTag(repairable, tag);
+
+      // use up items
+      RecipeMatch.removeMatch(repairItems, match);
+    }
+
+    return item;
+  }
+
+  private int calculateRepair(ItemStack tool, int materialValue)
+  {
+    int baseDurability = TagUtil.getOriginalToolStats(tool).durability;
+    int increase = (int) (50  + (baseDurability * 0.4f * materialValue));
+
+    int modifiers = ToolTagUtil.getFreeModifiers(TagUtil.getTagSafe(tool));
+    float mods = 1.0f;
+    if (modifiers == 2)
+      mods = 0.9f;
+    else if (modifiers == 1)
+      mods = 0.8f;
+    else if (modifiers == 0)
+      mods = 0.7f;
+
+    increase *= mods;
+
+    NBTTagCompound tag = TagUtil.getExtraTag(tool);
+    int repair = tag.getInteger(Tags.REPAIR_COUNT);
+    float repairCount = (100 - repair) / 100f;
+    if (repairCount < 0.5f)
+      repairCount = 0.5f;
+    increase *= repairCount;
+
+    return increase;
   }
 
   /* Information */

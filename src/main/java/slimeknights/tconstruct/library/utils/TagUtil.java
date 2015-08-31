@@ -183,12 +183,39 @@ public final class TagUtil {
   }
 
   /* Tool stats */
+  public static ToolNBT getToolStats(ItemStack stack) {
+    return getToolStats(getTagSafe(stack));
+  }
+
   public static ToolNBT getToolStats(NBTTagCompound root) {
     return new ToolNBT(getToolTag(root));
   }
 
+  public static ToolNBT getOriginalToolStats(ItemStack stack) {
+    return getOriginalToolStats(getTagSafe(stack));
+  }
+
   public static ToolNBT getOriginalToolStats(NBTTagCompound root) {
     return new ToolNBT(getTagSafe(root, Tags.TOOL_DATA_ORIG));
+  }
+
+  /* Extra data */
+  public static NBTTagCompound getExtraTag(ItemStack stack) {
+    return getExtraTag(getTagSafe(stack));
+  }
+
+  public static NBTTagCompound getExtraTag(NBTTagCompound root) {
+    return getTagSafe(root, Tags.TINKER_EXTRA);
+  }
+
+  public static void setExtraTag(ItemStack stack, NBTTagCompound tag) {
+    NBTTagCompound root = getTagSafe(stack);
+    setExtraTag(root, tag);
+    stack.setTagCompound(root);
+  }
+
+  public static void setExtraTag(NBTTagCompound root, NBTTagCompound tag) {
+    root.setTag(Tags.TINKER_EXTRA, tag);
   }
 
   /* Helper functions */

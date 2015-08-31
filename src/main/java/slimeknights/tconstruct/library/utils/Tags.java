@@ -39,6 +39,9 @@ public final class Tags {
 
   public static final String BROKEN = "Broken";
 
+  // Extra
+  public static final String REPAIR_COUNT = "RepairCount";
+
   private Tags() {
   }
 }
