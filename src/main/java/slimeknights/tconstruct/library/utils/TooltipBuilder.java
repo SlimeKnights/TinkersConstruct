@@ -62,7 +62,7 @@ public class TooltipBuilder {
 
   public TooltipBuilder addDurability() {
     if(stack != null) {
-      tips.add(ToolMaterialStats.formatDurability(ToolHelper.getDurability(stack)));
+      tips.add(ToolMaterialStats.formatDurability(ToolHelper.getCurrentDurability(stack)));
     }
 
     return this;
