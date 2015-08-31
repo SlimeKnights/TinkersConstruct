@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 import slimeknights.mantle.util.RecipeMatch;
+import slimeknights.tconstruct.library.tinkering.IRepairable;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.tools.IToolPart;
@@ -114,6 +115,20 @@ public final class ToolBuilder {
     }
 
     traitModifier.applyEffect(rootCompound, tag);
+  }
+
+  public static ItemStack tryRepairTool(ItemStack[] stacks, ItemStack toolStack, boolean removeItems) {
+    if(toolStack == null || !(toolStack.getItem() instanceof IRepairable)) {
+      return null;
+    }
+    ItemStack copy = toolStack.copy();
+
+    // obtain a working copy of the items if the originals shouldn't be modified
+    if(!removeItems) {
+      stacks = Util.copyItemStackArray(stacks);
+    }
+
+    return ((IRepairable) toolStack.getItem()).repair(toolStack, stacks);
   }
 
   /**

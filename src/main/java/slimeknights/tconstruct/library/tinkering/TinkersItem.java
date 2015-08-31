@@ -174,7 +174,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   @Override
   public ItemStack repair(ItemStack repairable, ItemStack[] repairItems) {
-    if(repairable.getItemDamage() > 0 && !ToolHelper.isBroken(repairable)) {
+    if(repairable.getItemDamage() == 0 && !ToolHelper.isBroken(repairable)) {
       // undamaged and not broken - no need to repair
       return null;
     }
@@ -188,7 +188,13 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     Material material = materials.get(0);
     ItemStack[] items = Util.copyItemStackArray(repairItems);
     // ensure the items only contain valid items
-    RecipeMatch.Match match;
+    RecipeMatch.Match match = material.matches(items);
+
+    // not a single match -> nothing to repair with
+    if(match == null) {
+      return null;
+    }
+
     while((match = material.matches(items)) != null) {
       RecipeMatch.removeMatch(items, match);
     }
@@ -212,13 +218,13 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       }
       // todo: fire event?
       // do the actual repair
-      int amount = calculateRepair(repairable, match.amount);
+      int amount = calculateRepair(item, match.amount);
       ToolHelper.repairTool(item, amount);
 
       // save that we repaired it :I
-      NBTTagCompound tag = TagUtil.getExtraTag(repairable);
+      NBTTagCompound tag = TagUtil.getExtraTag(item);
       TagUtil.addInteger(tag, Tags.REPAIR_COUNT, 1);
-      TagUtil.setExtraTag(repairable, tag);
+      TagUtil.setExtraTag(item, tag);
 
       // use up items
       RecipeMatch.removeMatch(repairItems, match);

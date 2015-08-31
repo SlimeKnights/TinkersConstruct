@@ -11,8 +11,10 @@ import net.minecraft.item.ItemStack;
 
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.mantle.inventory.BaseContainer;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tinkering.IModifyable;
+import slimeknights.tconstruct.library.tinkering.IRepairable;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
@@ -125,7 +127,12 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
   @Override
   public void onCraftMatrixChanged(IInventory inventoryIn) {
     updateGUI();
-    ItemStack result = modifyTool(false);
+    ItemStack result;
+    // 1. try repairing
+    result = repairTool(false);
+    // 2. try modifying
+    if(result == null) result = modifyTool(false);
+    // 3. try building a new tool
     if(result == null) result = buildTool();
 
     out.inventory.setInventorySlotContents(0, result);
@@ -133,8 +140,8 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
 
   // Called when the crafting result is taken out of its slot
   public void onResultTaken(EntityPlayer playerIn, ItemStack stack) {
-    // modify?
-    if(modifyTool(true) != null) {
+    // repair or modify?
+    if(repairTool(true) != null || modifyTool(true) != null) {
       // perfect, items already got removed but we still have to clean up 0-stacks and remove the tool
       tile.setInventorySlotContents(0, null); // slot where the tool was
       for(int i = 1; i < tile.getSizeInventory(); i++) {
@@ -162,20 +169,40 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     }
   }
 
-  private ItemStack modifyTool(boolean remove) {
+  private ItemStack repairTool(boolean remove) {
+    ItemStack repairable = ((Slot)inventorySlots.get(0)).getStack();
+
+    // modifying possible?
+    if(repairable == null || !(repairable.getItem() instanceof IRepairable)) {
+      return null;
+    }
+
     ItemStack[] input = new ItemStack[tile.getSizeInventory()];
-    for(int i = 0; i < input.length; i++) {
+    // start with 1 - tool is not an input
+    for(int i = 1; i < input.length; i++) {
       input[i] = tile.getStackInSlot(i);
     }
 
-    // modify or actual building?
+    return ToolBuilder.tryRepairTool(input, repairable, remove);
+  }
+
+  private ItemStack modifyTool(boolean remove) {
     ItemStack modifyable = ((Slot)inventorySlots.get(0)).getStack();
-    if(modifyable != null && modifyable.getItem() instanceof IModifyable) {
-      try {
-        return ToolBuilder.tryModifyTool(input, modifyable, remove);
-      } catch(TinkerGuiException e) {
-        error(e.getMessage());
-      }
+
+    // modifying possible?
+    if(modifyable == null || !(modifyable.getItem() instanceof IModifyable)) {
+      return null;
+    }
+
+    ItemStack[] input = new ItemStack[tile.getSizeInventory()];
+    for(int i = 1; i < input.length; i++) {
+      input[i] = tile.getStackInSlot(i);
+    }
+
+    try {
+      return ToolBuilder.tryModifyTool(input, modifyable, remove);
+    } catch(TinkerGuiException e) {
+      error(e.getMessage());
     }
 
     return null;

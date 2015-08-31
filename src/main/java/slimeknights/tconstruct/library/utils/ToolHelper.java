@@ -125,6 +125,10 @@ public final class ToolHelper {
 
   /* Tool Durability */
 
+  public static int getCurrentDurability(ItemStack stack) {
+    return stack.getMaxDamage() - stack.getItemDamage();
+  }
+
   /** Damages the tool. Entity is only needed in case the tool breaks for rendering the break effect. */
   public static void damageTool(ItemStack stack, int amount, EntityLivingBase entity) {
     if(amount == 0 || isBroken(stack))
@@ -144,10 +148,10 @@ public final class ToolHelper {
     }
 
     // ensure we never deal more damage than durability
-    actualAmount = Math.min(actualAmount, stack.getMaxDamage() - stack.getItemDamage());
+    actualAmount = Math.min(actualAmount, getCurrentDurability(stack));
     stack.setItemDamage(stack.getItemDamage() + actualAmount);
 
-    if(stack.getMaxDamage() - stack.getItemDamage() == 0) {
+    if(getCurrentDurability(stack) == 0) {
       breakTool(stack, entity);
     }
   }
@@ -178,11 +182,13 @@ public final class ToolHelper {
   }
 
   public static void repairTool(ItemStack stack, int amount, EntityLivingBase entity) {
-    NBTTagCompound tag = TagUtil.getToolTag(stack);
-    tag.setBoolean(Tags.BROKEN, false);
-    TagUtil.setToolTag(stack, tag);
+    if(isBroken(stack)) {
+      NBTTagCompound tag = TagUtil.getToolTag(stack);
+      tag.setBoolean(Tags.BROKEN, false);
+      TagUtil.setToolTag(stack, tag);
 
-    stack.setItemDamage(stack.getMaxDamage());
+      stack.setItemDamage(stack.getMaxDamage());
+    }
 
     healTool(stack, amount, entity);
   }
