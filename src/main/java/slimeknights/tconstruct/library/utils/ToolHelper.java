@@ -125,6 +125,7 @@ public final class ToolHelper {
 
   /* Tool Durability */
 
+  /** Damages the tool. Entity is only needed in case the tool breaks for rendering the break effect. */
   public static void damageTool(ItemStack stack, int amount, EntityLivingBase entity) {
     if(amount == 0 || isBroken(stack))
       return;
@@ -144,7 +145,7 @@ public final class ToolHelper {
 
     // ensure we never deal more damage than durability
     actualAmount = Math.min(actualAmount, stack.getMaxDamage() - stack.getItemDamage());
-    stack.damageItem(actualAmount, entity);
+    stack.setItemDamage(stack.getItemDamage() + actualAmount);
 
     if(stack.getMaxDamage() - stack.getItemDamage() == 0) {
       breakTool(stack, entity);
@@ -166,7 +167,14 @@ public final class ToolHelper {
 
     stack.setItemDamage(stack.getMaxDamage());
 
-    entity.renderBrokenItemStack(stack);
+    if(entity != null) {
+      entity.renderBrokenItemStack(stack);
+    }
+  }
+
+  public static void repairTool(ItemStack stack, int amount) {
+    // entity is optional, only needed for rendering break effect, never needed when repairing
+    repairTool(stack, amount, null);
   }
 
   public static void repairTool(ItemStack stack, int amount, EntityLivingBase entity) {
