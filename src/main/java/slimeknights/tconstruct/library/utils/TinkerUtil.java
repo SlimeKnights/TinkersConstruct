@@ -11,6 +11,7 @@ import java.util.List;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
+import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.IToolPart;
 
 public final class TinkerUtil {
@@ -25,11 +26,11 @@ public final class TinkerUtil {
     if(stack == null || stack.getItem() == null) {
       return Material.UNKNOWN;
     }
-    if(!(stack.getItem() instanceof IToolPart)) {
+    if(!(stack.getItem() instanceof IMaterialItem)) {
       return Material.UNKNOWN;
     }
 
-    return ((IToolPart) stack.getItem()).getMaterial(stack);
+    return ((IMaterialItem) stack.getItem()).getMaterial(stack);
   }
 
   public static boolean hasModifier(NBTTagCompound root, String identifier) {
