@@ -11,11 +11,11 @@ import net.minecraft.item.ItemStack;
 
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.mantle.inventory.BaseContainer;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tinkering.IModifyable;
 import slimeknights.tconstruct.library.tinkering.IRepairable;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.tools.client.GuiToolStation;
@@ -130,9 +130,11 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     ItemStack result;
     // 1. try repairing
     result = repairTool(false);
-    // 2. try modifying
+    // 2. try swapping tool parts
+    if(result == null) result = replaceToolParts(false);
+    // 3. try modifying
     if(result == null) result = modifyTool(false);
-    // 3. try building a new tool
+    // 4. try building a new tool
     if(result == null) result = buildTool();
 
     out.inventory.setInventorySlotContents(0, result);
@@ -140,33 +142,27 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
 
   // Called when the crafting result is taken out of its slot
   public void onResultTaken(EntityPlayer playerIn, ItemStack stack) {
-    // repair or modify?
-    if(repairTool(true) != null || modifyTool(true) != null) {
-      // perfect, items already got removed but we still have to clean up 0-stacks and remove the tool
-      tile.setInventorySlotContents(0, null); // slot where the tool was
-      for(int i = 1; i < tile.getSizeInventory(); i++) {
-        if(tile.getStackInSlot(i) != null && tile.getStackInSlot(i).stackSize == 0) {
-          tile.setInventorySlotContents(i, null);
+    if(repairTool(true) != null ||
+       replaceToolParts(true) != null ||
+       modifyTool(true) != null) {
+      updateSlotsAfterToolAction();
+    }
+    else {
+      // calculate the result again (serverside)
+      ItemStack tool = buildTool();
+
+      // we built a tool
+      if(tool != null) {
+        // remove 1 of each in the slots
+        // it's guaranteed that each slot that has an item has used exactly 1 item to build the tool
+        for(int i = 0; i < tile.getSizeInventory(); i++) {
+          tile.decrStackSize(i, 1);
         }
+
+        setToolName("");
       }
-      onCraftMatrixChanged(null);
-      return;
     }
-
-    // calculate the result again (serverside)
-    ItemStack tool = buildTool();
-
-    // we built a tool
-    if(tool != null) {
-      // remove 1 of each in the slots
-      // it's guaranteed that each slot that has an item has used exactly 1 item to build the tool
-      for(int i = 0; i < tile.getSizeInventory(); i++) {
-        tile.decrStackSize(i, 1);
-      }
-
-      setToolName("");
-      onCraftMatrixChanged(null);
-    }
+    onCraftMatrixChanged(null);
   }
 
   private ItemStack repairTool(boolean remove) {
@@ -177,13 +173,22 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
       return null;
     }
 
-    ItemStack[] input = new ItemStack[tile.getSizeInventory()];
-    // start with 1 - tool is not an input
-    for(int i = 1; i < input.length; i++) {
-      input[i] = tile.getStackInSlot(i);
+    return ToolBuilder.tryRepairTool(getInputs(), repairable, remove);
+  }
+
+  private ItemStack replaceToolParts(boolean remove) {
+    ItemStack tool = ((Slot)inventorySlots.get(0)).getStack();
+
+    if(tool == null || !(tool.getItem() instanceof TinkersItem)) {
+      return null;
     }
 
-    return ToolBuilder.tryRepairTool(input, repairable, remove);
+    try {
+      return ToolBuilder.tryReplaceToolParts(tool, getInputs(), remove);
+    } catch(TinkerGuiException e) {
+      error(e.getMessage());
+    }
+    return null;
   }
 
   private ItemStack modifyTool(boolean remove) {
@@ -194,13 +199,8 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
       return null;
     }
 
-    ItemStack[] input = new ItemStack[tile.getSizeInventory()];
-    for(int i = 1; i < input.length; i++) {
-      input[i] = tile.getStackInSlot(i);
-    }
-
     try {
-      return ToolBuilder.tryModifyTool(input, modifyable, remove);
+      return ToolBuilder.tryModifyTool(getInputs(), modifyable, remove);
     } catch(TinkerGuiException e) {
       error(e.getMessage());
     }
@@ -217,6 +217,27 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     return ToolBuilder.tryBuildTool(input, toolName);
   }
 
+  /**
+   * Removes the tool in the input slot and fixes all stacks that have stacksize 0 after being used up.
+   */
+  private void updateSlotsAfterToolAction() {
+// perfect, items already got removed but we still have to clean up 0-stacks and remove the tool
+    tile.setInventorySlotContents(0, null); // slot where the tool was
+    for(int i = 1; i < tile.getSizeInventory(); i++) {
+      if(tile.getStackInSlot(i) != null && tile.getStackInSlot(i).stackSize == 0) {
+        tile.setInventorySlotContents(i, null);
+      }
+    }
+  }
+
+  private ItemStack[] getInputs() {
+    ItemStack[] input = new ItemStack[tile.getSizeInventory()-1];
+    for(int i = 1; i < tile.getSizeInventory(); i++) {
+      input[i-1] = tile.getStackInSlot(i);
+    }
+
+    return input;
+  }
   public boolean canMergeSlot(ItemStack stack, Slot slot) {
     return slot != out && super.canMergeSlot(stack, slot);
   }
