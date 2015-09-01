@@ -1,0 +1,138 @@
+################
+#    Blocks    #
+################
+
+################
+#    Items     #
+################
+
+# General Items
+item.tconstruct.shard.name=Shard
+
+# Tools
+item.tconstruct.pickaxe.name=Pickaxe
+
+# Tool Parts
+item.tconstruct.pickhead.name=Pickaxe Head
+item.tconstruct.binding.name=Binding
+item.tconstruct.toolrod.name=Toolrod
+
+# Material specific tools and toolparts
+# item.tconstruct.<tool>.<material>
+# item.tconstruct.pickaxe.wood=Wooden Pickaxe
+
+
+
+#################
+#   Materials   #
+#################
+# material.<identifier>.name
+# material.<identifier>.prefix
+# material.wood.prefix=Wooden %s - Used for stuff like "Wooden Pickaxe" if no specific name is given
+
+material.wood.name=Wood
+material.wood.prefix=Wooden %s
+
+#############
+#   Stats   #
+#############
+stat.durability.name=Durability
+stat.durability.desc=The base-value for durability calculations.\nUsually an integral part to the overall durability of a tool.
+stat.quality.name=Quality
+stat.quality.desc=How good the tool is for secondary toolparts.\nInfluences many different stats. Best value is 1.0.
+stat.miningspeed.name=Mining Speed
+stat.miningspeed.desc=How fast a tool with a tool head of this material can mine blocks.\nMay be influenced by other toolparts.
+stat.harvestlevel.name=Mining Level
+stat.harvestlevel.desc=What range of blocks a tool with a tool head of this material can mine.
+stat.attack.name=Attack
+stat.attack.desc=Attackstuff
+
+##############
+#   Traits   #
+##############
+
+# traits are also modifiers, they use the same prefix so they don't have to be localized twice
+modifier.stonebound.name=Stonebound
+modifier.stonebound.desc=Your tool absolutely loves stone. The tool mines faster as it wears out, but does less damage.
+
+#################
+#   Modifiers   #
+#################
+
+modifier.redstone.name=Haste
+modifier.redstone.name2=Haster
+modifier.redstone.name3=Hastest
+modifier.redstone.desc=The redstone impulse when hitting blocks motivates your tool to mine faster. Increases mining speed.
+
+#################
+#   Tool Info   #
+#################
+item.tconstruct.pickaxe.desc=The Pickaxe is a precise mining tool. It is effective on stone and ores.\nIt breaks blocks, OK?
+
+################
+#   Tooltips   #
+################
+tooltip.tool.modifiers=Modifiers
+
+tooltip.part.materialAddedBy=Added by %s
+tooltip.part.missingMaterial=Missing material: %s
+tooltip.part.missingInfo=Part has no data
+
+##################
+#   UI Strings   #
+##################
+# general strings used in GUIs, tooltips and other display stuff
+
+ui.mininglevel.stone=Stone
+ui.mininglevel.iron=Iron
+#ui.mininglevel.redstone=Redstone
+ui.mininglevel.diamond=Diamond
+ui.mininglevel.obsidian=Obsidian
+ui.mininglevel.cobalt=Cobalt
+
+######################
+# GUI Error messages #
+######################
+
+gui.error=ERROR
+gui.warning=WARNING
+# GUI Errors from the different Tinker Tables
+gui.error.invalidPattern=Pattern does not contain a valid tool part!
+gui.error.uselessToolPart=This part can not be used to craft any tool!\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting.
+gui.error.wrongMaterialPart=One or multiple items have an unsupported material for this tool.
+gui.error.notEnoughDurability=Not enough durability to replace parts!\n%d more durability required.
+# GUI Errors from modifiers
+gui.error.notEnoughModifiers=Not enough Modifiers. (%d needed)
+gui.error.SingleModifier=%s can only be applied once.
+gui.error.MaxLevelModifier=Maximum Level for %s already reached.
+gui.error.noModifierForItem=No modifier found for %s.
+
+################
+#     GUIs     #
+################
+
+# General things used in multiple GUIs
+gui.general.hover=Hover over the entries for more info
+
+# Crafting Station
+gui.craftingStation.name=Crafting Station
+
+# Stencil Table
+gui.stencilTable.name=Stencil Table
+
+# PartBuilder
+gui.partBuilder.name=Part Builder
+gui.partCrafter.name=Part Crafter
+gui.partBuilder.info=Here you can craft tool parts to fulfill your tinkering fantasies.\n\nTo craft a part simply put its pattern into the left slot. The two remaining slots hold the material you want to craft your part out of.
+
+# Tool Station/Forge
+gui.toolStation.name=Tool Station
+gui.toolForge.name=Tool Forge
+gui.toolStation.repair=Repair & Modify
+gui.toolStation.traits=Traits
+gui.toolStation.components=Components
+gui.toolStation.info=The main way to repair or change your tools. Place a tool and a material on the left to get started.
+gui.toolStation.noTraits=None :[
+
+# Pattern Chest
+gui.patternChest.name=Pattern Chest
