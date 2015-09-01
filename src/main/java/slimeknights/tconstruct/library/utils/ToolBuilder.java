@@ -2,9 +2,14 @@ package slimeknights.tconstruct.library.utils;
 
 import com.google.common.collect.Sets;
 
+import gnu.trove.map.TIntIntMap;
+import gnu.trove.map.hash.TIntIntHashMap;
+import gnu.trove.procedure.TIntIntProcedure;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
@@ -15,10 +20,6 @@ import java.util.List;
 import java.util.Set;
 
 import slimeknights.mantle.util.RecipeMatch;
-import slimeknights.tconstruct.library.tinkering.IRepairable;
-import slimeknights.tconstruct.library.tinkering.MaterialItem;
-import slimeknights.tconstruct.library.tinkering.TinkersItem;
-import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
@@ -26,6 +27,11 @@ import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.modifiers.TraitModifier;
+import slimeknights.tconstruct.library.tinkering.IRepairable;
+import slimeknights.tconstruct.library.tinkering.MaterialItem;
+import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tinkering.TinkersItem;
+import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
@@ -60,8 +66,9 @@ public final class ToolBuilder {
       }
     }
 
-    if(length < 0)
+    if(length < 0) {
       return null;
+    }
 
     input = Arrays.copyOf(stacks, length);
 
@@ -69,8 +76,9 @@ public final class ToolBuilder {
       ItemStack output = tool.buildItemFromStacks(input);
       if(output != null) {
         // name the item
-        if(name != null && !name.isEmpty())
+        if(name != null && !name.isEmpty()) {
           output.setStackDisplayName(name);
+        }
 
         return output;
       }
@@ -206,6 +214,101 @@ public final class ToolBuilder {
     }
 
     return null;
+  }
+
+  /**
+   * Takes a tool and toolparts and replaces the parts inside the tool with the given ones.
+   * Toolparts have to be applicable to the tool. Toolparts must not be duplicates of currently used parts.
+   *
+   * @param toolStack   The tool to replace the parts in
+   * @param toolPartsIn The toolparts.
+   * @param removeItems If true the applied items will be removed from the array
+   * @return The tool with the replaced parts or null if the conditions have not been met.
+   */
+  public static ItemStack tryReplaceToolParts(ItemStack toolStack, final ItemStack[] toolPartsIn, final boolean removeItems)
+      throws TinkerGuiException {
+    if(toolStack == null || !(toolStack.getItem() instanceof TinkersItem)) {
+      return null;
+    }
+
+    // we never modify the original. Caller can remove all of them if we return a result
+    final ItemStack[] toolParts = Util.copyItemStackArray(toolPartsIn);
+
+    TIntIntMap assigned = new TIntIntHashMap();
+    TinkersItem tool = (TinkersItem) toolStack.getItem();
+    // materiallist has to be copied because it affects the actual NBT on the tool if it's changed
+    final NBTTagList materialList = (NBTTagList) TagUtil.getBaseMaterialsTagList(toolStack).copy();
+
+    // assing each toolpart to a slot in the tool
+    for(int i = 0; i < toolParts.length; i++) {
+      ItemStack part = toolParts[i];
+      if(part == null) {
+        continue;
+      }
+      if(!(part.getItem() instanceof IToolPart)) {
+        // invalid item for toolpart replacement
+        return null;
+      }
+
+      int candidate = -1;
+      // find an applicable slot in the tool structure corresponding to the toolparts position
+      for(int j = 0; j < tool.requiredComponents.length; j++) {
+        PartMaterialType pmt = tool.requiredComponents[j];
+        String partMat = ((IToolPart) part.getItem()).getMaterial(part).getIdentifier();
+        String currentMat = materialList.getStringTagAt(j);
+        // is valid and not the same material?
+        if(pmt.isValid(part) && !partMat.equals(currentMat)) {
+          // part not taken up by previous part already?
+          if(!assigned.valueCollection().contains(j)) {
+            candidate = j;
+            // if a tool has multiple of the same parts we may want to replace another one as the currently selected
+            // for that purpose we only allow to overwrite the current selection if the input slot is a later one than the current one
+            if(i > j) {
+              break;
+            }
+          }
+        }
+      }
+
+      // no assignment found for a part. Invalid input.
+      if(candidate < 0) {
+        return null;
+      }
+      assigned.put(i, candidate);
+    }
+
+    // did we assign nothing?
+    if(assigned.isEmpty()) {
+      return null;
+    }
+
+    // We now know which parts to replace with which inputs. Yay. Now we only have to do so.
+    // to do so we simply switch out the materials used and rebuild the tool
+    assigned.forEachEntry(new TIntIntProcedure() {
+      @Override
+      public boolean execute(int i, int j) {
+        String mat = ((IToolPart) toolParts[i].getItem()).getMaterial(toolParts[i]).getIdentifier();
+        materialList.set(j, new NBTTagString(mat));
+        if(removeItems) {
+          toolPartsIn[i].stackSize--;
+        }
+        return true;
+      }
+    });
+
+    ItemStack output = toolStack.copy();
+    TagUtil.setBaseMaterialsTagList(output, materialList);
+    NBTTagCompound tag = output.getTagCompound();
+    rebuildTool(tag, (TinkersItem) output.getItem());
+    output.setTagCompound(tag);
+
+    // check if the output has enough durability. we only allow it if the result would not be broken
+    if(output.getItemDamage() > output.getMaxDamage()) {
+      String error = StatCollector.translateToLocalFormatted("gui.error.notEnoughDurability", output.getItemDamage() - output.getMaxDamage());
+      throw new TinkerGuiException(error);
+    }
+
+    return output;
   }
 
   /**
