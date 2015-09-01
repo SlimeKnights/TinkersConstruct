@@ -143,20 +143,18 @@ public final class ToolBuilder {
    * Takes a tool and an array of itemstacks and tries to modify the tool with those.
    * If removeItems is true, the items used in the process will be removed from the array.
    *
-   * @param stacks      Items to modify the tool with
+   * @param input       Items to modify the tool with
    * @param toolStack   The tool
    * @param removeItems If true the applied items will be removed from the array
    * @return The modified tool or null if something went wrong or no modifier applied.
    * @throws TinkerGuiException Thrown when not matching modifiers could be applied. Contains extra-information why the process failed.
    */
-  public static ItemStack tryModifyTool(ItemStack[] stacks, ItemStack toolStack, boolean removeItems)
+  public static ItemStack tryModifyTool(ItemStack[] input, ItemStack toolStack, boolean removeItems)
       throws TinkerGuiException {
     ItemStack copy = toolStack.copy();
 
     // obtain a working copy of the items if the originals shouldn't be modified
-    if(!removeItems) {
-      stacks = Util.copyItemStackArray(stacks);
-    }
+    ItemStack[] stacks = Util.copyItemStackArray(input);
 
     Set<IModifier> appliedModifiers = Sets.newHashSet();
     for(IModifier modifier : TinkerRegistry.getAllModifiers()) {
@@ -201,6 +199,25 @@ public final class ToolBuilder {
           }
         }
       } while(match != null);
+    }
+
+    // check if all itemstacks were touched - otherwise there's an invalid item in the input
+    for(int i = 0; i < input.length; i++) {
+      if(input[i] != null && ItemStack.areItemStacksEqual(input[i], stacks[i])) {
+        if(!appliedModifiers.isEmpty()) {
+          String error =
+              StatCollector.translateToLocalFormatted("gui.error.noModifierForItem", input[i].getDisplayName());
+          throw new TinkerGuiException(error);
+        }
+        return null;
+      }
+    }
+
+    // update output itemstacks
+    if(removeItems) {
+      for(int i = 0; i < input.length; i++) {
+        input[i] = stacks[i];
+      }
     }
 
     if(!appliedModifiers.isEmpty()) {
