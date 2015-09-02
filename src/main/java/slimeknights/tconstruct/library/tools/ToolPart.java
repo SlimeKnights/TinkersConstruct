@@ -22,8 +22,9 @@ import slimeknights.tconstruct.library.utils.Tags;
 
 public class ToolPart extends MaterialItem implements IToolPart {
 
-  public static int COST_Ingot = 2;
-  public static int COST_Shard = 1;
+  public static int COST_Ingot = 4;    // one ingot/block
+  public static int COST_Shard = 2;    // half an ingot
+  public static int COST_Fragment = 1; // quarter of an ingot. For stuff that takes 4 to craft into a block.
 
   protected int cost;
 
