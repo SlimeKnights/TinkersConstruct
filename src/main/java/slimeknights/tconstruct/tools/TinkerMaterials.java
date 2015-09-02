@@ -22,6 +22,8 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.traits.StoneboundTrait;
+
+import static slimeknights.tconstruct.library.tools.ToolPart.COST_Fragment;
 import static slimeknights.tconstruct.library.tools.ToolPart.COST_Ingot;
 import static slimeknights.tconstruct.library.tools.ToolPart.COST_Shard;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.*;
@@ -53,6 +55,12 @@ public final class TinkerMaterials {
   public static final Material cobalt     = mat("cobalt", EnumChatFormatting.DARK_BLUE);
   public static final Material manyullyn  = mat("manyullyn", EnumChatFormatting.DARK_PURPLE);
 
+  // Mod support Metals
+  public static final Material copper     = mat("copper", EnumChatFormatting.GOLD);
+
+  // Alloys
+  public static final Material pigiron    = mat("pigiron", EnumChatFormatting.RED);
+  public static final Material bronze     = mat("bronze", EnumChatFormatting.GOLD);
 
 
   public static final Material xu;
@@ -86,6 +94,15 @@ public final class TinkerMaterials {
     //endstone.setRenderInfo(new MaterialRenderInfo.BlockTexture("minecraft:blocks/end_stone"));
     endstone.setRenderInfo(new MaterialRenderInfo.InverseMultiColor(0x5c6296, 0x3c4276, 0x3c4276));
 
+    bone.setRenderInfo(0xede6bf);
+    paper.setRenderInfo(0xffffff); // paper has custom textures
+    sponge.setRenderInfo(new MaterialRenderInfo.BlockTexture("minecraft:blocks/sponge"));
+    slime.setRenderInfo(0x82c873);
+    blueslime.setRenderInfo(0x74c8c7);
+
+    // Metals
+    iron.setRenderInfo(0xffffff);
+
     xu.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() {
       @Override
       public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
@@ -95,6 +112,7 @@ public final class TinkerMaterials {
   }
 
   public static void setupMaterials() {
+    // natural resources/blocks
     wood.setCraftable(true);
     wood.addItem("stickWood", 1, COST_Shard);
     wood.addItem("plankWood", 1, COST_Ingot);
@@ -111,22 +129,52 @@ public final class TinkerMaterials {
     flint.addItem(Items.flint, 1, COST_Ingot);
     flint.setRepresentativeItem(new ItemStack(Items.flint));
 
+    cactus.setCraftable(true);
+    cactus.addItem(Blocks.cactus, COST_Ingot);
+    cactus.setRepresentativeItem(new ItemStack(Blocks.cactus));
+
     obsidian.setCraftable(true);
-    obsidian.setFluid(FluidRegistry.WATER).setCastable(true);
+    obsidian.setFluid(FluidRegistry.WATER).setCastable(true); // todo
     obsidian.addItem(Blocks.obsidian, COST_Ingot);
     obsidian.setRepresentativeItem(new ItemStack(Blocks.obsidian));
 
     prismarine.setCraftable(true);
-    prismarine.addItem(Items.prismarine_shard, 1, COST_Shard);
-    prismarine.setRepresentativeItem(new ItemStack(Items.prismarine_shard));
+    prismarine.addItem(Items.prismarine_shard, 1, COST_Fragment);
+    prismarine.addItem(Blocks.prismarine, COST_Ingot);
+    prismarine.setRepresentativeItem(Items.prismarine_shard);
 
     netherrack.setCraftable(true);
     netherrack.addItem(Blocks.netherrack, COST_Ingot);
-    netherrack.setRepresentativeItem(new ItemStack(Blocks.netherrack));
+    netherrack.setRepresentativeItem(Blocks.netherrack);
 
     endstone.setCraftable(true);
     endstone.addItem(Blocks.end_stone, COST_Ingot);
-    endstone.setRepresentativeItem(new ItemStack(Blocks.end_stone));
+    endstone.setRepresentativeItem(Blocks.end_stone);
+
+    // item/special resources
+    bone.setCraftable(true);
+    bone.addItem(Items.bone, 1, COST_Ingot);
+    bone.setRepresentativeItem(Items.bone);
+
+    paper.setCraftable(true);
+    paper.addItem(Items.paper, 1, COST_Fragment);
+    paper.setRepresentativeItem(Items.paper);
+
+    sponge.setCraftable(true);
+    sponge.addItem(Blocks.sponge, COST_Ingot);
+    sponge.setRepresentativeItem(Blocks.sponge);
+
+    slime.setCraftable(true);
+    // todo: slime
+
+    blueslime.setCraftable(true);
+    // todo: blueslime
+
+    // Metals
+    iron.addItem(Items.iron_ingot);
+    iron.setRepresentativeItem(Items.iron_ingot);
+    // todo: remaining metals
+
 
     registerToolMaterials();
     registerBowMaterials();
@@ -142,17 +190,27 @@ public final class TinkerMaterials {
   }
 
   public static void registerToolMaterials() {
+    // natural resources/blocks
     TinkerRegistry.addMaterialStats(wood,       new ToolMaterialStats(  97, 3.00f, 0.20f, 0.80f, 0.60f, STONE));
     TinkerRegistry.addMaterialStats(stone,      new ToolMaterialStats( 195, 4.00f, 0.50f, 0.01f, 0.20f, STONE));
     TinkerRegistry.addMaterialStats(flint,      new ToolMaterialStats( 300, 5.70f, 1.10f, 0.20f, 0.20f, IRON));
     TinkerRegistry.addMaterialStats(cactus,     new ToolMaterialStats( 229, 4.50f, 2.00f, 0.25f, 0.30f, IRON));
-    //TinkerRegistry.addMaterialStats(obsidian,   new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, COBALT));
-    //TinkerRegistry.addMaterialStats(prismarine, new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, IRON));
-    //TinkerRegistry.addMaterialStats(netherrack, new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, IRON));
+    TinkerRegistry.addMaterialStats(obsidian,   new ToolMaterialStats(   1, 1.00f, 1.00f, 0.10f, 0.20f, COBALT));
+    TinkerRegistry.addMaterialStats(prismarine, new ToolMaterialStats(   1, 1.00f, 1.00f, 0.10f, 0.20f, IRON));
+    TinkerRegistry.addMaterialStats(netherrack, new ToolMaterialStats(   1, 1.00f, 1.00f, 0.10f, 0.20f, IRON));
     //TinkerRegistry.addMaterialStats(endstone,   new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, OBSIDIAN));
-    //TinkerRegistry.addMaterialStats(xu,         new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, DIAMOND));
+
+    // item/special resources
+    //bone paper sponge slime blueslime
+    TinkerRegistry.addMaterialStats(bone,      new ToolMaterialStats(   1, 1.00f, 1.00f, 0.10f, 0.20f, COBALT));
+    TinkerRegistry.addMaterialStats(paper,     new ToolMaterialStats(   1, 1.00f, 1.00f, 0.10f, 0.20f, COBALT));
+    //TinkerRegistry.addMaterialStats(sponge,    new ToolMaterialStats(   1, 1.00f, 1.00f, 0.10f, 0.20f, COBALT));
+    TinkerRegistry.addMaterialStats(slime,     new ToolMaterialStats(   1, 1.00f, 1.00f, 0.10f, 0.20f, COBALT));
+    TinkerRegistry.addMaterialStats(blueslime, new ToolMaterialStats(   1, 1.00f, 1.00f, 0.10f, 0.20f, COBALT));
 
     TinkerRegistry.addMaterialStats(iron,       new ToolMaterialStats( 375, 6.00f, 1.80f, 0.50f, 0.60f, IRON));
+
+    //TinkerRegistry.addMaterialStats(xu,         new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, DIAMOND));
   }
 
   public static void registerBowMaterials() {

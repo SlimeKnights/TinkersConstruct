@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.materials;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
@@ -204,6 +206,15 @@ public class Material extends RecipeMatchRegistry {
   public Fluid getFluid() {
     return fluid;
   }
+
+  public void setRepresentativeItem(Item representativeItem) {
+    setRepresentativeItem(new ItemStack(representativeItem));
+  }
+
+  public void setRepresentativeItem(Block representativeBlock) {
+    setRepresentativeItem(new ItemStack(representativeBlock));
+  }
+
 
   public void setRepresentativeItem(ItemStack representativeItem) {
     if(representativeItem == null) {
