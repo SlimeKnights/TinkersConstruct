@@ -262,6 +262,10 @@ public final class ToolHelper {
     // missing because not supported by tcon tools: vanilla fire aspect enchantments, we have our own modifiers
 
     float oldHP = target.getHealth();
+
+    double oldVelX = target.motionX;
+    double oldVelY = target.motionY;
+    double oldVelZ = target.motionZ;
     // deal the damage
     boolean hit = tool.dealDamage(stack, player, target, damage);
 
@@ -270,9 +274,10 @@ public final class ToolHelper {
       // actual damage dealt
       float damageDealt = oldHP - target.getHealth();
 
-      double oldVelX = target.motionX;
-      double oldVelY = target.motionY;
-      double oldVelZ = target.motionZ;
+      // apply knockback modifier
+      oldVelX = target.motionX = oldVelX + (target.motionX - oldVelX)*tool.knockback();
+      oldVelY = target.motionY = oldVelY + (target.motionY - oldVelY)*tool.knockback();
+      oldVelZ = target.motionZ = oldVelZ + (target.motionZ - oldVelZ)*tool.knockback();
 
       // apply knockback
       if(knockback > 0f) {

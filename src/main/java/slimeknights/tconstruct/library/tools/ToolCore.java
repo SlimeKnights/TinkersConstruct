@@ -77,6 +77,13 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   /**
+   * Knockback modifier. Basically this takes the vanilla knockback on hit and modifies it by this factor.
+   */
+  public float knockback() {
+    return 1.0f;
+  }
+
+  /**
    * Actually deal damage to the entity we hit. Can be overridden for special behaviour
    * @return True if the entity was hit. Usually the return value of {@link Entity#attackEntityFrom(DamageSource, float)}
    */
