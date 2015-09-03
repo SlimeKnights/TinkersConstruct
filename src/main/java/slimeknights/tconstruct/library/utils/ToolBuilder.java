@@ -26,7 +26,6 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
-import slimeknights.tconstruct.library.modifiers.TraitModifier;
 import slimeknights.tconstruct.library.tinkering.IRepairable;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
@@ -34,6 +33,7 @@ import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.tools.TinkerTools;
 
@@ -103,12 +103,12 @@ public final class ToolBuilder {
 
     IModifier modifier = TinkerRegistry.getModifier(trait.getIdentifier());
 
-    if(modifier == null || !(modifier instanceof TraitModifier)) {
+    if(modifier == null || !(modifier instanceof AbstractTrait)) {
       log.error("addTrait: No matching modifier for the Trait {} present", trait.getIdentifier());
       return;
     }
 
-    TraitModifier traitModifier = (TraitModifier) modifier;
+    AbstractTrait traitModifier = (AbstractTrait) modifier;
 
     NBTTagCompound tag = new NBTTagCompound();
     NBTTagList tagList = TagUtil.getModifiersTagList(rootCompound);
@@ -129,7 +129,6 @@ public final class ToolBuilder {
     if(toolStack == null || !(toolStack.getItem() instanceof IRepairable)) {
       return null;
     }
-    ItemStack copy = toolStack.copy();
 
     // obtain a working copy of the items if the originals shouldn't be modified
     if(!removeItems) {

@@ -5,22 +5,38 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierAspect;
+import slimeknights.tconstruct.library.modifiers.ModifierNBT;
+import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.library.utils.TinkerUtil;
 
-public abstract class AbstractTrait implements ITrait {
+// Trait and modifier in one! Useful because modifiers are saved as traits
+public abstract class AbstractTrait extends Modifier implements ITrait {
 
   public static final String LOC_Name = Modifier.LOC_Name;
   public static final String LOC_Desc = Modifier.LOC_Desc;
-  private final String identifier;
+  //private final String identifier;
+  protected final EnumChatFormatting color;
 
-  public AbstractTrait(String identifier) {
-    this.identifier = Util.sanitizeLocalizationString(identifier);
+  public AbstractTrait(String identifier, EnumChatFormatting color) {
+    super(Util.sanitizeLocalizationString(identifier));
+    //this.identifier = Util.sanitizeLocalizationString(identifier);
+    this.color = color;
+
+    // we assume traits can only be applied once.
+    // If you want stacking traits you'll have to do that stuff yourself :P
+    this.addAspects(new ModifierAspect.SingleAspect(this));
   }
 
   /**
@@ -128,5 +144,47 @@ public abstract class AbstractTrait implements ITrait {
   @Override
   public boolean onRepair(ItemStack tool, int amount, ItemStack repairItem) {
     return true;
+  }
+
+  /* Modifier things */
+  @Override
+  public boolean canApplyCustom(ItemStack stack) {
+    // can only apply if the trait isn't present already
+    NBTTagList tagList = TagUtil.getTraitsTagList(stack);
+    int index = TinkerUtil.getIndexInList(tagList, this.getIdentifier());
+
+    // not present yet
+    return index < 0;
+  }
+
+  @Override
+  public void updateNBT(NBTTagCompound modifierTag) {
+    updateNBTWithColor(modifierTag, color);
+  }
+
+  public void updateNBTWithColor(NBTTagCompound modifierTag, EnumChatFormatting newColor) {
+    ModifierNBT data = ModifierNBT.readTag(modifierTag);
+    data.identifier = identifier;
+    data.color = newColor;
+    // we ensure at least lvl1 for compatibility with the level-aspect
+    if(data.level == 0) {
+      data.level = 1;
+    }
+    data.write(modifierTag);
+  }
+
+  @Override
+  public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
+    // add the trait to the traitlist so it gets processed
+    NBTTagList traits = TagUtil.getTraitsTagList(rootCompound);
+    // if it's not already present
+    for(int i = 0; i < traits.tagCount(); i++) {
+      if(identifier.equals(traits.getStringTagAt(i))) {
+        return;
+      }
+    }
+
+    traits.appendTag(new NBTTagString(identifier));
+    TagUtil.setTraitsTagList(rootCompound, traits);
   }
 }

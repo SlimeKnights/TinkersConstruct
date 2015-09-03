@@ -34,7 +34,6 @@ import slimeknights.tconstruct.tools.debug.TempToolModifying;
 import slimeknights.tconstruct.tools.item.Hatchet;
 import slimeknights.tconstruct.tools.item.Pickaxe;
 import slimeknights.tconstruct.tools.item.BroadSword;
-import slimeknights.tconstruct.tools.modifiers.StoneboundModifier;
 import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -123,8 +122,6 @@ public class TinkerTools extends TinkerPulse {
 
 
     // debug things
-    // todo: remove. ignore this
-    new StoneboundModifier();
     GameRegistry.addRecipe(new TempToolCrafting());
     GameRegistry.addRecipe(new TempToolModifying());
   }
