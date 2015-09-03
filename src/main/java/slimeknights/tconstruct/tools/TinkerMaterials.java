@@ -19,7 +19,9 @@ import slimeknights.tconstruct.library.client.texture.ExtraUtilityTexture;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.traits.ITrait;
-import slimeknights.tconstruct.library.traits.TraitStonebound;
+import slimeknights.tconstruct.tools.modifiers.TraitCheap;
+import slimeknights.tconstruct.tools.modifiers.TraitEcological;
+import slimeknights.tconstruct.tools.modifiers.TraitStonebound;
 
 import static slimeknights.tconstruct.library.tools.ToolPart.COST_Fragment;
 import static slimeknights.tconstruct.library.tools.ToolPart.COST_Ingot;
@@ -63,7 +65,9 @@ public final class TinkerMaterials {
 
   public static final Material xu;
 
-  public static final ITrait stonebound;
+  public static final TraitEcological ecological = new TraitEcological();
+  public static final TraitCheap cheap = new TraitCheap();
+  public static final TraitStonebound stonebound = new TraitStonebound();
 
   private static Material mat(String name, EnumChatFormatting color) {
     Material mat = new Material(name, color);
@@ -76,8 +80,6 @@ public final class TinkerMaterials {
 
   static {
     xu = new Material("unstable", EnumChatFormatting.WHITE);
-
-    stonebound = new TraitStonebound();
   }
 
   @SideOnly(Side.CLIENT)
@@ -116,12 +118,13 @@ public final class TinkerMaterials {
     wood.addItem("plankWood", 1, COST_Ingot);
     wood.addItem("logWood", 1, COST_Ingot * 4);
     wood.setRepresentativeItem(new ItemStack(Items.stick));
+    wood.addTrait(ecological);
 
     stone.setCraftable(true);
-    stone.addTrait(stonebound);
     stone.addItem("cobblestone", 1, COST_Ingot);
     stone.addItem("stone", 1, COST_Ingot);
     stone.setRepresentativeItem(new ItemStack(Blocks.cobblestone));
+    stone.addTrait(cheap);
 
     flint.setCraftable(true);
     flint.addItem(Items.flint, 1, COST_Ingot);
