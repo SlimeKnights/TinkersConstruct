@@ -7,24 +7,10 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 
-public class StoneboundTrait extends AbstractTrait {
+public class TraitStonebound extends AbstractTrait {
 
-  public StoneboundTrait() {
+  public TraitStonebound() {
     super("stonebound", EnumChatFormatting.DARK_GRAY);
-
-    addItem("cobblestone");
-    aspects.clear(); // remove traitModifiers aspects
-    addAspects(new ModifierAspect.LevelAspect(this, 3), ModifierAspect.freeModifier);
-  }
-
-  @Override
-  public boolean canApplyCustom(ItemStack stack) {
-    return true;
-  }
-
-  @Override
-  public int getMaxCount() {
-    return 2;
   }
 
   @Override

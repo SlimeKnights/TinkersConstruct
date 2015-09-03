@@ -14,14 +14,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 import slimeknights.tconstruct.library.client.MaterialRenderInfo;
-import slimeknights.tconstruct.library.client.texture.AnimatedColoredTexture;
-import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.texture.ExtraUtilityTexture;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.traits.ITrait;
-import slimeknights.tconstruct.library.traits.StoneboundTrait;
+import slimeknights.tconstruct.library.traits.TraitStonebound;
 
 import static slimeknights.tconstruct.library.tools.ToolPart.COST_Fragment;
 import static slimeknights.tconstruct.library.tools.ToolPart.COST_Ingot;
@@ -79,7 +77,7 @@ public final class TinkerMaterials {
   static {
     xu = new Material("unstable", EnumChatFormatting.WHITE);
 
-    stonebound = new StoneboundTrait();
+    stonebound = new TraitStonebound();
   }
 
   @SideOnly(Side.CLIENT)

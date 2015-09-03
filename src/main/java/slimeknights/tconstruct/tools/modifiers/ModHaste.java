@@ -13,12 +13,12 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 
-public class RedstoneModifier extends Modifier {
+public class ModHaste extends Modifier {
 
   private final int max;
 
-  public RedstoneModifier(int max) {
-    super("redstone");
+  public ModHaste(int max) {
+    super("haste");
 
     this.max = max;
 

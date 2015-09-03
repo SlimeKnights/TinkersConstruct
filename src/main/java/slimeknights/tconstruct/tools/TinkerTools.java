@@ -45,8 +45,8 @@ import slimeknights.tconstruct.tools.block.BlockToolForge;
 import slimeknights.tconstruct.tools.debug.TempToolCrafting;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.tools.item.Shard;
-import slimeknights.tconstruct.tools.modifiers.DiamondModifier;
-import slimeknights.tconstruct.tools.modifiers.RedstoneModifier;
+import slimeknights.tconstruct.tools.modifiers.ModDiamond;
+import slimeknights.tconstruct.tools.modifiers.ModHaste;
 import slimeknights.tconstruct.tools.tileentity.TilePartBuilder;
 import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
 import slimeknights.tconstruct.tools.tileentity.TileStencilTable;
@@ -147,8 +147,8 @@ public class TinkerTools extends TinkerPulse {
   }
 
   private void registerModifiers() {
-    diamondMod = new DiamondModifier();
-    redstoneMod = new RedstoneModifier(50);
+    diamondMod = new ModDiamond();
+    redstoneMod = new ModHaste(50);
 
     // todo: fix
     fortifyMod = new Modifier("Fortify") {

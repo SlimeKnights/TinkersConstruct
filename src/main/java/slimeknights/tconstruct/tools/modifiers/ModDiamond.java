@@ -9,10 +9,10 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 
-public class DiamondModifier extends Modifier {
+public class ModDiamond extends Modifier {
 
-  public DiamondModifier() {
-    super("Diamond");
+  public ModDiamond() {
+    super("diamond");
 
     addItem(Items.diamond);
     addAspects(new ModifierAspect.SingleAspect(this), new ModifierAspect.DataAspect(this, EnumChatFormatting.AQUA), ModifierAspect.freeModifier);
