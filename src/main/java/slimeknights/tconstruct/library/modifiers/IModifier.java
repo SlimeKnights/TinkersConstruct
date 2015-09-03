@@ -61,9 +61,10 @@ public interface IModifier {
 
   /**
    * Returns the tooltip to display for the given tag of this specific modifier.
-   * Color tags are not necessarry.
+   * If detailed is true also include building info like how much X already is in it. Used in the toolstation display.
+   * Color tags are not necessary.
    */
-  String getTooltip(NBTTagCompound modifierTag);
+  String getTooltip(NBTTagCompound modifierTag, boolean detailed);
 
   /** Used for specific modifiers that need a texture variant for each material */
   @SideOnly(Side.CLIENT)

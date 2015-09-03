@@ -64,16 +64,23 @@ public class RedstoneModifier extends Modifier {
   }
 
   @Override
-  public String getTooltip(NBTTagCompound modifierTag) {
+  public String getTooltip(NBTTagCompound modifierTag, boolean detailed) {
     // the most important function in the whole file!
-    ModifierNBT data = ModifierNBT.readTag(modifierTag);
+    ModifierNBT data = ModifierNBT.readInteger(modifierTag);
+
+    String basic = super.getTooltip(modifierTag, false);
 
     for(int i = data.level; i > 1; i--) {
       if(StatCollector.canTranslate(String.format(LOC_Name + i, getIdentifier()))) {
-        return StatCollector.translateToLocal(String.format(LOC_Name + i, getIdentifier()));
+        basic = StatCollector.translateToLocal(String.format(LOC_Name + i, getIdentifier()));
+        break;
       }
     }
 
-    return super.getTooltip(modifierTag);
+    if(detailed) {
+      return basic + " " + data.extraInfo;
+    }
+
+    return basic;
   }
 }

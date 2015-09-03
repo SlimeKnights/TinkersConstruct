@@ -116,7 +116,7 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
   }
 
   @Override
-  public String getTooltip(NBTTagCompound modifierTag) {
+  public String getTooltip(NBTTagCompound modifierTag, boolean detailed) {
     StringBuilder sb = new StringBuilder();
 
     ModifierNBT data = ModifierNBT.readTag(modifierTag);

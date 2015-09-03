@@ -233,7 +233,7 @@ public class GuiToolStation extends GuiTinkerStation {
           continue;
         }
 
-        mods.add(data.color + modifier.getTooltip(tag) + (data.extraInfo != null ? " " + data.extraInfo : ""));
+        mods.add(data.color + modifier.getTooltip(tag, true));
         tips.add(modifier.getLocalizedDesc());
       }
 
