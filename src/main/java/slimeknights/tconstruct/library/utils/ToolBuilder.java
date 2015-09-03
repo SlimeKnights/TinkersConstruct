@@ -216,7 +216,14 @@ public final class ToolBuilder {
     // update output itemstacks
     if(removeItems) {
       for(int i = 0; i < input.length; i++) {
-        input[i] = stacks[i];
+        // stacks might be null because stacksize got 0 during processing, we have to reflect that in the input
+        // so the caller can identify that
+        if(input[i] != null && stacks[i] == null) {
+          input[i].stackSize = 0;
+        }
+        else {
+          input[i] = stacks[i];
+        }
       }
     }
 
