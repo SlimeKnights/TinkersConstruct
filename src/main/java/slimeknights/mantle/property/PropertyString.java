@@ -12,7 +12,7 @@ public class PropertyString implements IUnlistedProperty<String> {
 
   @Override
   public String getName() {
-    return null;
+    return name;
   }
 
   @Override

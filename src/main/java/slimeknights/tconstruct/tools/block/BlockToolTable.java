@@ -121,7 +121,7 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
 
   @Override
   protected BlockState createBlockState() {
-    return new ExtendedBlockState(this, new IProperty[]{TABLES}, new IUnlistedProperty[]{TEXTURE});
+    return new ExtendedBlockState(this, new IProperty[]{TABLES}, new IUnlistedProperty[]{TEXTURE, INVENTORY});
   }
 
   @Override

@@ -20,6 +20,7 @@ import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.ForgeHooks;
 
 import java.util.List;
 
@@ -95,6 +96,7 @@ public final class ToolHelper {
    * Returns true if the tool is effective for harvesting the given block.
    */
   public static boolean isToolEffective(ItemStack stack, IBlockState state) {
+    // check material
     for(String type : stack.getItem().getToolClasses(stack)) {
       if(state.getBlock().isToolEffective(type, state)) {
         return true;

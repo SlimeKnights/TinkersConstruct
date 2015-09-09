@@ -20,12 +20,15 @@ import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IRetexturableModel;
 import net.minecraftforge.client.model.ISmartBlockModel;
 import net.minecraftforge.client.model.ISmartItemModel;
+import net.minecraftforge.client.model.MultiModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import slimeknights.mantle.block.BlockTable;
+import slimeknights.mantle.property.PropertyTableItem;
 import slimeknights.mantle.tileentity.TileTable;
 import slimeknights.tconstruct.library.client.model.ModelHelper;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -53,17 +56,20 @@ public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlex
   public IBakedModel handleBlockState(IBlockState state) {
     // get texture from state
     String texture = null;
+    List<PropertyTableItem.TableItem> items = Collections.emptyList();
 
     if(state instanceof IExtendedBlockState) {
       IExtendedBlockState extendedState = (IExtendedBlockState) state;
       texture = extendedState.getValue(BlockTable.TEXTURE);
+      if(extendedState.getValue(BlockTable.INVENTORY) != null)
+        items = extendedState.getValue(BlockTable.INVENTORY).items;
     }
 
-    if(texture == null) {
+    if(texture == null && items == null) {
       return standard;
     }
 
-    return getActualModel(texture);
+    return getActualModel(texture, items);
   }
 
 
@@ -78,23 +84,36 @@ public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlex
 
     String texture = ModelHelper.getTextureFromBlock(block, blockStack.getItemDamage()).getIconName();
 
-    return getActualModel(texture);
+    return getActualModel(texture, Collections.<PropertyTableItem.TableItem>emptyList());
   }
 
-  protected IFlexibleBakedModel getActualModel(String texture) {
+  protected IFlexibleBakedModel getActualModel(String texture, List<PropertyTableItem.TableItem> items) {
     if(cache.containsKey(texture)) {
-      return cache.get(texture);
+      //return cache.get(texture);
     }
 
-    ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
-    builder.put("bottom", texture);
-    builder.put("leg", texture);
-    builder.put("legBottom", texture);
-    IModel retexturedModel = tableModel.retexture(builder.build());
+    IFlexibleBakedModel bakedModel = standard;
 
-    IFlexibleBakedModel
-        bakedModel =
-        retexturedModel.bake(retexturedModel.getDefaultState(), Attributes.DEFAULT_BAKED_FORMAT, textureGetter);
+    if(texture != null) {
+      ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
+      builder.put("bottom", texture);
+      builder.put("leg", texture);
+      builder.put("legBottom", texture);
+      IModel retexturedModel = tableModel.retexture(builder.build());
+
+
+      bakedModel = retexturedModel.bake(retexturedModel.getDefaultState(), Attributes.DEFAULT_BAKED_FORMAT, textureGetter);
+    }
+
+    // add all the items to display on the table
+    if(items != null && !items.isEmpty()) {
+      ImmutableMap.Builder<String, IFlexibleBakedModel> pb = ImmutableMap.builder();
+      int i = 0;
+      for(PropertyTableItem.TableItem item : items) {
+        pb.put(String.valueOf(i), new TRSRBakedModel(item.model, item.x, item.y + 1f, item.z,  item.r, 0, 0, item.s));
+      }
+      bakedModel = new MultiModel.Baked(bakedModel, pb.build());
+    }
 
     bakedModel = new BlockItemModelWrapper(bakedModel);
 
@@ -120,7 +139,7 @@ public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlex
 
   @Override
   public boolean isAmbientOcclusion() {
-    return standard.isAmbientOcclusion();
+    return false;
   }
 
   @Override

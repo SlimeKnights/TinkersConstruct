@@ -72,7 +72,7 @@ public class BlockToolForge extends BlockTable implements ITinkerStationBlock {
 
   @Override
   protected BlockState createBlockState() {
-    return new ExtendedBlockState(this, new IProperty[]{}, new IUnlistedProperty[]{TEXTURE});
+    return new ExtendedBlockState(this, new IProperty[]{}, new IUnlistedProperty[]{TEXTURE, INVENTORY});
   }
 
   @Override

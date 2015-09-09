@@ -25,6 +25,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import slimeknights.mantle.property.PropertyTableItem;
 import slimeknights.mantle.tileentity.TileTable;
 import slimeknights.mantle.property.PropertyString;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -32,10 +33,12 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 public class BlockTable extends BlockInventory implements ITileEntityProvider {
 
   public static final PropertyString TEXTURE = new PropertyString("texture");
+  public static final PropertyTableItem INVENTORY = new PropertyTableItem();
 
 
   public BlockTable(Material materialIn) {
     super(materialIn);
+
   }
 
   @Override
@@ -73,7 +76,7 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
 
   @Override
   protected BlockState createBlockState() {
-    return new ExtendedBlockState(this, new IProperty[0], new IUnlistedProperty[]{TEXTURE});
+    return new ExtendedBlockState(this, new IProperty[0], new IUnlistedProperty[]{TEXTURE, INVENTORY});
   }
 
   @Override

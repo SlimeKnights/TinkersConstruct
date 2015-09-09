@@ -61,7 +61,7 @@ public class BlockItemModelWrapper implements IPerspectiveAwareModel, IFlexibleB
 
   @Override
   public boolean isAmbientOcclusion() {
-    return parent.isAmbientOcclusion();
+    return false;
   }
 
   @Override
