@@ -110,7 +110,7 @@ public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlex
       ImmutableMap.Builder<String, IFlexibleBakedModel> pb = ImmutableMap.builder();
       int i = 0;
       for(PropertyTableItem.TableItem item : items) {
-        pb.put(String.valueOf(i), new TRSRBakedModel(item.model, item.x, item.y + 1f, item.z,  item.r, 0, 0, item.s));
+        pb.put(String.valueOf(i++), new TRSRBakedModel(item.model, item.x, item.y + 1f, item.z,  item.r, 0, 0, item.s));
       }
       bakedModel = new MultiModel.Baked(bakedModel, pb.build());
     }

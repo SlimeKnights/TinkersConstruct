@@ -3,11 +3,16 @@ package slimeknights.tconstruct.tools.tileentity;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import slimeknights.mantle.block.BlockTable;
+import slimeknights.mantle.property.PropertyTableItem;
 import slimeknights.mantle.tileentity.TileTable;
 import slimeknights.tconstruct.tools.client.GuiPartBuilder;
 import slimeknights.mantle.IInventoryGui;
@@ -28,5 +33,31 @@ public class TilePartBuilder extends TileTable implements IInventoryGui {
   @SideOnly(Side.CLIENT)
   public GuiContainer createGui(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
     return new GuiPartBuilder(inventoryplayer, world, pos, this);
+  }
+
+  protected IExtendedBlockState setInventoryDisplay(IExtendedBlockState state) {
+    PropertyTableItem.TableItems toDisplay = new PropertyTableItem.TableItems();
+    float c = 0.2f;
+    float[] x = new float[] {c, -c, c, -c};
+    float[] y = new float[] {-c, -c, c, c};
+    for(int i = 0; i < 4; i++) {
+      PropertyTableItem.TableItem item = getTableItem(getStackInSlot(i));
+      if(item != null) {
+        item.x += x[i];
+        item.z += y[i];
+        item.s *= 0.46875f;
+
+        // correct itemblock because scaling
+        if(getStackInSlot(i).getItem() instanceof ItemBlock) {
+          item.y = -(1f - item.s)/2f;
+        }
+
+        //item.s *= 2/5f;
+        toDisplay.items.add(item);
+      }
+    }
+
+    // add inventory if needed
+    return state.withProperty(BlockTable.INVENTORY, toDisplay);
   }
 }
