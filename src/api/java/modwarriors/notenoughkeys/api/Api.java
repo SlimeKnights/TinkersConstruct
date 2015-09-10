@@ -25,13 +25,14 @@ public class Api {
 	 * Registers a mod's keys with NEK
 	 *
 	 * @param modname        The NAME of the mod registering the key
-	 * @param keyDecriptions A String[] (Array[String]) of the key descriptions. i.e. new String[]{"key.hotbar1"}
+	 * @param keyDescriptions A String[] (Array[String]) of the key descriptions
+	 *                           as an inherit array. i.e. ("modName", "key.hotbar1", "key.hotbar2")
 	 */
-	public static void registerMod(String modname, String[] keyDecriptions) {
+	public static void registerMod(String modname, String... keyDescriptions) {
 		try {
 			Class.forName("modwarriors.notenoughkeys.keys.KeyHelper").getMethod(
 					"registerMod", String.class, String[].class
-			).invoke(null, modname, keyDecriptions);
+			).invoke(null, modname, keyDescriptions);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
