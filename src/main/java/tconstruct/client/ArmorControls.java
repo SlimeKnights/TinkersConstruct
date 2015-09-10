@@ -98,7 +98,7 @@ public class ArmorControls {
 	@Optional.Method(modid = "notenoughkeys")
 	@SubscribeEvent
 	public void keyEventSpecial(KeyBindingPressedEvent event) {
-		this.sendPress(event.keyBinding, event.keyBinding.isPressed());
+		this.sendPress(event.keyBinding, event.isKeyBindingPressed);
 	}
 
 	private void checkKeys(int keycode) {
