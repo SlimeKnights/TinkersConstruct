@@ -89,12 +89,16 @@ public class TileTable extends TileInventory {
   @Override
   public Packet getDescriptionPacket() {
     // note that this sends all of the tile data. you should change this if you use additional tile data
-    return new S35PacketUpdateTileEntity(this.getPos(), this.getBlockMetadata(), getTileData());
+    NBTTagCompound tag = (NBTTagCompound) getTileData().copy();
+    writeToNBT(tag);
+    return new S35PacketUpdateTileEntity(this.getPos(), this.getBlockMetadata(), tag);
   }
 
   @Override
   public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-    getTileData().setTag(FEET_TAG, pkt.getNbtCompound().getTag(FEET_TAG));
+    NBTTagCompound tag = pkt.getNbtCompound();
+    getTileData().setTag(FEET_TAG, tag.getTag(FEET_TAG));
+    readFromNBT(tag);
   }
 
   public void updateTextureBlock(NBTTagCompound tag) {
