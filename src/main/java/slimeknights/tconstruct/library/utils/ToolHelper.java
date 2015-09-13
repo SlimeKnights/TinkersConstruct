@@ -321,10 +321,10 @@ public final class ToolHelper {
       }
 
       player.setLastAttacker(target);
-
-      // no idea what this actually does
-      EnchantmentHelper.func_151384_a(target, player);
-      EnchantmentHelper.func_151385_b(player, target);
+      
+      // we don't support vanilla thorns or antispider enchantments
+      //EnchantmentHelper.applyThornEnchantments(target, player);
+      //EnchantmentHelper.applyArthropodEnchantments(player, target);
 
 
       // call post-hit callbacks before reducing the durability

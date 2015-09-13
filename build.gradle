@@ -5,7 +5,7 @@
  * Authors: boni, Sunstrike, ProgWML6
  * Help from AbrarSyed
  */
-/*
+
 buildscript {
     repositories {
         mavenCentral()
@@ -24,10 +24,10 @@ buildscript {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.0-SNAPSHOT'
     }
 }
-*/
+/*
 plugins {
     id "net.minecraftforge.gradle.forge" version "2.0.1"
-}
+}*/
 
 repositories {
     maven {
@@ -45,6 +45,7 @@ repositories {
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
+//apply plugin: 'forge'
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
@@ -74,7 +75,7 @@ minecraft {
     // stable_#            stables are built at the discretion of the MCP team.
     // Use non-default mappings at your own risk. they may not allways work.
     // simply re-run your setup task after changing the mappings to update your workspace.
-    mappings = "stable_nodoc_16"
+    mappings = "snapshot_20150912"
 }
 
 dependencies {
