@@ -12,11 +12,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
 
+import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerAPIException;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -29,6 +30,13 @@ public class Material extends RecipeMatchRegistry {
   public static final Material UNKNOWN = new Material("unknown", EnumChatFormatting.WHITE);
   public static final String LOC_Name = "material.%s.name";
   public static final String LOC_Prefix = "material.%s.prefix";
+
+  // How much the different items are "worth"
+  // the values are used for both liquid conversion as well as part crafting
+  public static final int VALUE_Ingot = 144;
+  public static final int VALUE_Nugget = VALUE_Ingot/9;
+  public static final int VALUE_Fragment = VALUE_Ingot/4;
+  public static final int VALUE_Shard = VALUE_Ingot/2;
 
   static {
     UNKNOWN.addStats(new ToolMaterialStats(1, 1, 1, 1, 1, 0));
@@ -65,12 +73,16 @@ public class Material extends RecipeMatchRegistry {
    */
   private ItemStack representativeItem;
 
+  /**
+   * This item will be used instead of the generic shard item when returning leftovers.
+   */
+  private ItemStack shardItem;
 
-  // we use a Treemap for 2 reasons:
+  // we use a specific map for 2 reasons:
   // * A Map so we can obtain the stats we want quickly
-  // * A treemap because we can sort it, so that all materials have the same order when iterating
-  protected final Map<String, IMaterialStats> stats = new TreeMap<String, IMaterialStats>();
-  protected final Map<String, ITrait> traits = new TreeMap<String, ITrait>();
+  // * the linked map to ensure the order when iterating
+  protected final Map<String, IMaterialStats> stats = new LinkedHashMap<String, IMaterialStats>();
+  protected final Map<String, ITrait> traits = new LinkedHashMap<String, ITrait>();
 
   public Material(String identifier, EnumChatFormatting textColor) {
     this.identifier = Util.sanitizeLocalizationString(identifier); // lowercases and removes whitespaces
@@ -232,6 +244,44 @@ public class Material extends RecipeMatchRegistry {
 
   public ItemStack getRepresentativeItem() {
     return representativeItem;
+  }
+
+
+  public void setShard(Item item) {
+    setShard(new ItemStack(item));
+  }
+
+  public void setShard(ItemStack stack) {
+    if(stack == null) {
+      this.shardItem = null;
+    }
+    else {
+      RecipeMatch.Match match = matches(stack);
+      if(match != null) {
+        if(match.amount == VALUE_Shard) {
+          this.shardItem = stack;
+        }
+        else {
+          TinkerRegistry.log.warn("Itemstack {} cannot be shard of material {} since it does not have the correct value! (is {}, has to be {})",
+                                  representativeItem.toString(),
+                                  identifier,
+                                  match.amount,
+                                  VALUE_Shard);
+        }
+      }
+      else {
+        TinkerRegistry.log.warn("Itemstack {} cannot be shard of material {} since it is not associated with the material!",
+                                stack.toString(),
+                                identifier);
+      }
+    }
+  }
+
+  public ItemStack getShard() {
+    if(shardItem != null) {
+      return shardItem.copy();
+    }
+    return null;
   }
 
   public String getLocalizedName() {

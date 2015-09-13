@@ -27,7 +27,7 @@ import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.mantle.block.BlockTable;
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.tileentity.TileTable;
-import slimeknights.tconstruct.library.tinkering.MaterialItem;
+import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.debug.TempToolModifying;
@@ -44,7 +44,7 @@ import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.tools.block.BlockToolForge;
 import slimeknights.tconstruct.tools.debug.TempToolCrafting;
 import slimeknights.tconstruct.library.tools.Pattern;
-import slimeknights.tconstruct.tools.item.Shard;
+import slimeknights.tconstruct.library.tools.Shard;
 import slimeknights.tconstruct.tools.modifiers.ModDiamond;
 import slimeknights.tconstruct.tools.modifiers.ModHaste;
 import slimeknights.tconstruct.tools.tileentity.TilePartBuilder;
@@ -68,7 +68,7 @@ public class TinkerTools extends TinkerPulse {
 
   // General Items
   public static Pattern pattern;
-  public static MaterialItem shard;
+  public static Shard shard;
 
   // Tools
   public static ToolCore pickaxe;
@@ -120,6 +120,8 @@ public class TinkerTools extends TinkerPulse {
 
     proxy.preInit();
 
+    // set shard
+    TinkerRegistry.setShardItem(shard);
 
     // debug things
     GameRegistry.addRecipe(new TempToolCrafting());
@@ -128,16 +130,16 @@ public class TinkerTools extends TinkerPulse {
 
   private void registerToolParts() {
     // The order the items are registered in represents the order in the stencil table GUI too
-    pickHead = registerToolPart(new ToolPart(TinkerMaterials.VALUE_Ingot*2), "PickHead");
-    axeHead = registerToolPart(new ToolPart(TinkerMaterials.VALUE_Ingot*2), "AxeHead");
-    swordBlade = registerToolPart(new ToolPart(TinkerMaterials.VALUE_Ingot*2), "SwordBlade");
+    pickHead = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "PickHead");
+    axeHead = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "AxeHead");
+    swordBlade = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "SwordBlade");
 
-    toolRod = registerToolPart(new ToolPart(TinkerMaterials.VALUE_Shard), "ToolRod");
-    binding = registerToolPart(new ToolPart(TinkerMaterials.VALUE_Shard), "Binding");
+    toolRod = registerToolPart(new ToolPart(Material.VALUE_Shard), "ToolRod");
+    binding = registerToolPart(new ToolPart(Material.VALUE_Shard), "Binding");
 
-    wideGuard = registerToolPart(new ToolPart(TinkerMaterials.VALUE_Shard), "WideGuard");
+    wideGuard = registerToolPart(new ToolPart(Material.VALUE_Shard), "WideGuard");
 
-    largePlate = registerToolPart(new ToolPart(TinkerMaterials.VALUE_Shard*8), "LargePlate");
+    largePlate = registerToolPart(new ToolPart(Material.VALUE_Shard*8), "LargePlate");
   }
 
   private void registerTools() {

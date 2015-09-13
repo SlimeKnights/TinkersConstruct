@@ -35,7 +35,9 @@ import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.tools.Pattern;
+import slimeknights.tconstruct.library.tools.Shard;
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.library.traits.ITrait;
 
 public final class TinkerRegistry {
@@ -276,6 +278,7 @@ public final class TinkerRegistry {
   private static final Set<Item> toolStationCrafting = Sets.newHashSet();
   private static final Set<Item> toolForgeCrafting = Sets.newHashSet();
   private static final List<ItemStack> stencilTableCrafting = Lists.newLinkedList();
+  private static Shard shardItem;
 
   public static void registerTool(ToolCore tool) {
     tools.add(tool);
@@ -328,6 +331,21 @@ public final class TinkerRegistry {
 
   public static List<ItemStack> getStencilTableCrafting() {
     return ImmutableList.copyOf(stencilTableCrafting);
+  }
+
+  public static void setShardItem(Shard shard) {
+    if(shard == null) {
+      return;
+    }
+    shardItem = shard;
+  }
+
+  public static ItemStack getShard(Material material) {
+    ItemStack out = material.getShard();
+    if(out == null) {
+      out = shardItem.getItemstackWithMaterial(material);
+    }
+    return out;
   }
 
   /*---------------------------------------------------------------------------
