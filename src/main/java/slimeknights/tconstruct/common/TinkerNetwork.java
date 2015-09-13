@@ -4,6 +4,8 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.tools.network.InventorySlotSyncPacket;
+import slimeknights.tconstruct.tools.network.InventoryUpdateSyncPacket;
 import slimeknights.tconstruct.tools.network.PartCrafterSelectionPacket;
 import slimeknights.tconstruct.tools.network.TinkerStationTabPacket;
 import slimeknights.mantle.network.AbstractPacket;
@@ -28,6 +30,7 @@ public class TinkerNetwork extends NetworkWrapper {
     registerPacket(ToolStationTextPacket.class);
     registerPacketServer(TinkerStationTabPacket.class);
     registerPacketServer(InventoryCraftingSyncPacket.class);
+    registerPacketClient(InventorySlotSyncPacket.class);
   }
 
   public static void sendToAll(AbstractPacket packet)

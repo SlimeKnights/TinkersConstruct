@@ -2,18 +2,28 @@ package slimeknights.mantle.tileentity;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.world.WorldServer;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
 
+import java.util.List;
+
 import slimeknights.mantle.block.BlockTable;
 import slimeknights.mantle.property.PropertyTableItem;
+import slimeknights.tconstruct.common.Config;
+import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.client.model.ModelHelper;
+import slimeknights.tconstruct.tools.network.InventorySlotSyncPacket;
+import slimeknights.tconstruct.tools.network.InventoryUpdateSyncPacket;
 
 public class TileTable extends TileInventory {
 
@@ -107,5 +117,28 @@ public class TileTable extends TileInventory {
 
   public NBTTagCompound getTextureBlock() {
     return getTileData().getCompoundTag(FEET_TAG);
+  }
+
+  @Override
+  public void setInventorySlotContents(int slot, ItemStack itemstack) {
+    // we sync slot changes to all clients around
+    if(this.worldObj != null  && this.worldObj instanceof WorldServer && !this.worldObj.isRemote && !ItemStack.areItemStacksEqual(itemstack, getStackInSlot(slot))) {
+      Chunk chunk = getWorld().getChunkFromBlockCoords(getPos());
+      for(EntityPlayer player : (List<EntityPlayer>) getWorld().playerEntities) {
+        // only send to relevant players
+        if(!(player instanceof EntityPlayerMP)) {
+          continue;
+        }
+        EntityPlayerMP playerMP = (EntityPlayerMP) player;
+        if(((WorldServer) worldObj).getPlayerManager().isPlayerWatchingChunk(playerMP, chunk.xPosition, chunk.zPosition)) {
+          TinkerNetwork.sendTo(new InventorySlotSyncPacket(itemstack, slot, pos), playerMP);
+        }
+      }
+    }
+    super.setInventorySlotContents(slot, itemstack);
+
+    if(getWorld() != null && getWorld().isRemote && Config.renderTableItems) {
+      Minecraft.getMinecraft().renderGlobal.markBlockForUpdate(pos);
+    }
   }
 }
