@@ -23,12 +23,16 @@ import slimeknights.tconstruct.tools.modifiers.TraitCheap;
 import slimeknights.tconstruct.tools.modifiers.TraitEcological;
 import slimeknights.tconstruct.tools.modifiers.TraitStonebound;
 
-import static slimeknights.tconstruct.library.tools.ToolPart.COST_Fragment;
-import static slimeknights.tconstruct.library.tools.ToolPart.COST_Ingot;
-import static slimeknights.tconstruct.library.tools.ToolPart.COST_Shard;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.*;
 
 public final class TinkerMaterials {
+
+  // How much the different items are "worth"
+  // the values are used for both liquid conversion as well as part crafting
+  public static final int VALUE_Ingot = 144;
+  public static final int VALUE_Shard = VALUE_Ingot/2;
+  public static final int VALUE_Fragment = VALUE_Ingot/4;
+  public static final int VALUE_Nugget = VALUE_Ingot/9;
 
   public static final List<Material> materials = Lists.newArrayList();
 
@@ -114,55 +118,55 @@ public final class TinkerMaterials {
   public static void setupMaterials() {
     // natural resources/blocks
     wood.setCraftable(true);
-    wood.addItem("stickWood", 1, COST_Shard);
-    wood.addItem("plankWood", 1, COST_Ingot);
-    wood.addItem("logWood", 1, COST_Ingot * 4);
+    wood.addItem("stickWood", 1, VALUE_Shard);
+    wood.addItem("plankWood", 1, VALUE_Ingot);
+    wood.addItem("logWood", 1, VALUE_Ingot * 4);
     wood.setRepresentativeItem(new ItemStack(Items.stick));
     wood.addTrait(ecological);
 
     stone.setCraftable(true);
-    stone.addItem("cobblestone", 1, COST_Ingot);
-    stone.addItem("stone", 1, COST_Ingot);
+    stone.addItem("cobblestone", 1, VALUE_Ingot);
+    stone.addItem("stone", 1, VALUE_Ingot);
     stone.setRepresentativeItem(new ItemStack(Blocks.cobblestone));
     stone.addTrait(cheap);
 
     flint.setCraftable(true);
-    flint.addItem(Items.flint, 1, COST_Ingot);
+    flint.addItem(Items.flint, 1, VALUE_Ingot);
     flint.setRepresentativeItem(new ItemStack(Items.flint));
 
     cactus.setCraftable(true);
-    cactus.addItem(Blocks.cactus, COST_Ingot);
+    cactus.addItem(Blocks.cactus, VALUE_Ingot);
     cactus.setRepresentativeItem(new ItemStack(Blocks.cactus));
 
     obsidian.setCraftable(true);
     obsidian.setFluid(FluidRegistry.WATER).setCastable(true); // todo
-    obsidian.addItem(Blocks.obsidian, COST_Ingot);
+    obsidian.addItem(Blocks.obsidian, VALUE_Ingot);
     obsidian.setRepresentativeItem(new ItemStack(Blocks.obsidian));
 
     prismarine.setCraftable(true);
-    prismarine.addItem(Items.prismarine_shard, 1, COST_Fragment);
-    prismarine.addItem(Blocks.prismarine, COST_Ingot);
+    prismarine.addItem(Items.prismarine_shard, 1, VALUE_Fragment);
+    prismarine.addItem(Blocks.prismarine, VALUE_Ingot);
     prismarine.setRepresentativeItem(Items.prismarine_shard);
 
     netherrack.setCraftable(true);
-    netherrack.addItem(Blocks.netherrack, COST_Ingot);
+    netherrack.addItem(Blocks.netherrack, VALUE_Ingot);
     netherrack.setRepresentativeItem(Blocks.netherrack);
 
     endstone.setCraftable(true);
-    endstone.addItem(Blocks.end_stone, COST_Ingot);
+    endstone.addItem(Blocks.end_stone, VALUE_Ingot);
     endstone.setRepresentativeItem(Blocks.end_stone);
 
     // item/special resources
     bone.setCraftable(true);
-    bone.addItem(Items.bone, 1, COST_Ingot);
+    bone.addItem(Items.bone, 1, VALUE_Ingot);
     bone.setRepresentativeItem(Items.bone);
 
     paper.setCraftable(true);
-    paper.addItem(Items.paper, 1, COST_Fragment);
+    paper.addItem(Items.paper, 1, VALUE_Fragment);
     paper.setRepresentativeItem(Items.paper);
 
     sponge.setCraftable(true);
-    sponge.addItem(Blocks.sponge, COST_Ingot);
+    sponge.addItem(Blocks.sponge, VALUE_Ingot);
     sponge.setRepresentativeItem(Blocks.sponge);
 
     slime.setCraftable(true);

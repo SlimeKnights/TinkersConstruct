@@ -35,6 +35,7 @@ import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.traits.ITrait;
+import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 public final class ToolBuilder {
@@ -397,9 +398,10 @@ public final class ToolBuilder {
 
     // check if we have secondary output
     ItemStack secondary = null;
-    if(match.amount > part.getCost()) {
+    int leftover = (match.amount - part.getCost())/TinkerMaterials.VALUE_Shard;
+    if(leftover > 0) {
       secondary = TinkerTools.shard.getItemstackWithMaterial(foundMaterial);
-      secondary.stackSize = match.amount - part.getCost();
+      secondary.stackSize = leftover;
     }
 
     // build an item with this

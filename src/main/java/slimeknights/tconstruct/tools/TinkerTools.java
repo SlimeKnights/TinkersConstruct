@@ -128,16 +128,16 @@ public class TinkerTools extends TinkerPulse {
 
   private void registerToolParts() {
     // The order the items are registered in represents the order in the stencil table GUI too
-    pickHead = registerToolPart(new ToolPart(ToolPart.COST_Ingot), "PickHead");
-    axeHead = registerToolPart(new ToolPart(ToolPart.COST_Ingot), "AxeHead");
-    swordBlade = registerToolPart(new ToolPart(ToolPart.COST_Ingot), "SwordBlade");
+    pickHead = registerToolPart(new ToolPart(TinkerMaterials.VALUE_Ingot*2), "PickHead");
+    axeHead = registerToolPart(new ToolPart(TinkerMaterials.VALUE_Ingot*2), "AxeHead");
+    swordBlade = registerToolPart(new ToolPart(TinkerMaterials.VALUE_Ingot*2), "SwordBlade");
 
-    toolRod = registerToolPart(new ToolPart(ToolPart.COST_Shard), "ToolRod");
-    binding = registerToolPart(new ToolPart(ToolPart.COST_Shard), "Binding");
+    toolRod = registerToolPart(new ToolPart(TinkerMaterials.VALUE_Shard), "ToolRod");
+    binding = registerToolPart(new ToolPart(TinkerMaterials.VALUE_Shard), "Binding");
 
-    wideGuard = registerToolPart(new ToolPart(ToolPart.COST_Shard), "WideGuard");
+    wideGuard = registerToolPart(new ToolPart(TinkerMaterials.VALUE_Shard), "WideGuard");
 
-    largePlate = registerToolPart(new ToolPart(ToolPart.COST_Ingot*8), "LargePlate");
+    largePlate = registerToolPart(new ToolPart(TinkerMaterials.VALUE_Shard*8), "LargePlate");
   }
 
   private void registerTools() {
