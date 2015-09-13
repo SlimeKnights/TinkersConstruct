@@ -14,7 +14,7 @@ import net.minecraft.util.IChatComponent;
 // Updated version of InventoryLogic in Mantle. Also contains a few bugfixes
 public class TileInventory extends TileEntity implements IInventory {
 
-  protected ItemStack[] inventory;
+  private ItemStack[] inventory;
   protected String inventoryTitle;
   protected boolean hasCustomName;
   protected int stackSizeLimit;
