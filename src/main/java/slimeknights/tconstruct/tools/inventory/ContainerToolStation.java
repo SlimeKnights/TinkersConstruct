@@ -23,6 +23,7 @@ import slimeknights.tconstruct.tools.network.ToolStationSelectionPacket;
 import slimeknights.tconstruct.tools.network.ToolStationTextPacket;
 import slimeknights.tconstruct.tools.tileentity.TileToolStation;
 
+// also tool forge
 public class ContainerToolStation extends ContainerTinkerStation<TileToolStation> {
 
   protected SlotToolStationOut out;
@@ -52,6 +53,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
 
   @Override
   protected void syncNewContainer(EntityPlayerMP player) {
+    this.activeSlots = tile.getSizeInventory();
     TinkerNetwork.sendTo(new ToolStationSelectionPacket(null, tile.getSizeInventory()), player);
   }
 
