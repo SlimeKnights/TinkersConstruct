@@ -13,6 +13,7 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameData;
 
+import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
 import slimeknights.tconstruct.library.Util;
@@ -157,5 +158,10 @@ public abstract class ClientProxy extends CommonProxy {
 
   public static ResourceLocation getItemLocation(Item item) {
     return Util.getItemLocation(item);
+  }
+
+  @Override
+  public void sendPacketToServerOnly(AbstractPacket packet) {
+    TinkerNetwork.sendToServer(packet);
   }
 }

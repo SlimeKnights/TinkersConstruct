@@ -3,6 +3,7 @@ package slimeknights.tconstruct.common;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
 
+import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.tconstruct.TConstruct;
 
 /**
@@ -41,5 +42,9 @@ public class CommonProxy {
       TConstruct.log.error(
           "Proxy.registerModels has to be called during preInit. Otherwise the models wont be found on first load.");
     }
+  }
+
+  public void sendPacketToServerOnly(AbstractPacket packet) {
+
   }
 }
