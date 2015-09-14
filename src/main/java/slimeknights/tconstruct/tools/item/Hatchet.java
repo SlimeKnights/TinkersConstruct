@@ -1,8 +1,11 @@
 package slimeknights.tconstruct.tools.item;
 
+import com.google.common.collect.ImmutableSet;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
@@ -21,6 +24,15 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 public class Hatchet extends ToolCore {
 
+  public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
+      ImmutableSet.of(net.minecraft.block.material.Material.wood,
+                      net.minecraft.block.material.Material.leaves,
+                      net.minecraft.block.material.Material.vine,
+                      net.minecraft.block.material.Material.plants,
+                      net.minecraft.block.material.Material.gourd,
+                      net.minecraft.block.material.Material.cactus,
+                      net.minecraft.block.material.Material.circuits);
+
   public Hatchet() {
     super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
           new PartMaterialType.ToolPartType(TinkerTools.axeHead),
@@ -30,6 +42,11 @@ public class Hatchet extends ToolCore {
     addCategory(Category.WEAPON);
 
     this.setHarvestLevel("axe", 0);
+  }
+
+  @Override
+  public boolean isEffective(Block block) {
+    return effective_materials.contains(block.getMaterial()) || ItemAxe.EFFECTIVE_ON.contains(block);
   }
 
   @Override

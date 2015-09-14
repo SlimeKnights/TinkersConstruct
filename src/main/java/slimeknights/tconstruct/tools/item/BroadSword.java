@@ -1,5 +1,8 @@
 package slimeknights.tconstruct.tools.item;
 
+import com.google.common.collect.ImmutableSet;
+
+import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.List;
@@ -14,12 +17,24 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 public class BroadSword extends ToolCore {
 
+  public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
+      ImmutableSet.of(net.minecraft.block.material.Material.web,
+                      net.minecraft.block.material.Material.vine,
+                      net.minecraft.block.material.Material.coral,
+                      net.minecraft.block.material.Material.gourd,
+                      net.minecraft.block.material.Material.leaves);
+
   public BroadSword() {
     super(new PartMaterialType.ToolPartType(TinkerTools.swordBlade),
           new PartMaterialType.ToolPartType(TinkerTools.toolRod),
           new PartMaterialType.ToolPartType(TinkerTools.wideGuard));
 
     addCategory(Category.WEAPON);
+  }
+
+  @Override
+  public boolean isEffective(Block block) {
+    return effective_materials.contains(block.getMaterial());
   }
 
   @Override

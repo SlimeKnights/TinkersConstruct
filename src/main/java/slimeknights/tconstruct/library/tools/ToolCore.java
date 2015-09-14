@@ -93,10 +93,14 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public float getDigSpeed(ItemStack itemstack, IBlockState state) {
-    if(ToolHelper.isToolEffective(itemstack, state)) {
+    if(isEffective(state.getBlock()) || ToolHelper.isToolEffective(itemstack, state)) {
       return ToolHelper.calcDigSpeed(itemstack, state);
     }
     return super.getDigSpeed(itemstack, state);
+  }
+
+  public boolean isEffective(Block block) {
+    return false;
   }
 
   @Override
