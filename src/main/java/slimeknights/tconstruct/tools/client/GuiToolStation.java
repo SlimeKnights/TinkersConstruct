@@ -103,7 +103,7 @@ public class GuiToolStation extends GuiTinkerStation {
     this.addModule(traitInfo);
 
     toolInfo.yOffset = 5;
-    traitInfo.yOffset = toolInfo.getYSize() + 9;
+    traitInfo.yOffset = toolInfo.ySize + 9;
 
     this.ySize = 174;
 
@@ -131,7 +131,7 @@ public class GuiToolStation extends GuiTinkerStation {
     toolInfo.xOffset = 2;
     toolInfo.yOffset = beamC.h + panelDecorationL.h;
     traitInfo.xOffset = toolInfo.xOffset;
-    traitInfo.yOffset = toolInfo.yOffset + toolInfo.getYSize() + 4;
+    traitInfo.yOffset = toolInfo.yOffset + toolInfo.ySize + 4;
 
     for(GuiModule module : modules) {
       module.guiTop += 4;

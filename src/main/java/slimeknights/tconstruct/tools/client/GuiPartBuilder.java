@@ -60,7 +60,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
       }
 
       info = new GuiInfoPanel(this, container);
-      info.setYSize(150);
+      info.ySize = 150;
       info.yOffset += 5;
       this.addModule(info);
     }

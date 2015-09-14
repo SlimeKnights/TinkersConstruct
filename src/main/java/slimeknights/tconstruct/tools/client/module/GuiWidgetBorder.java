@@ -45,7 +45,7 @@ public class GuiWidgetBorder extends GuiWidget {
     gui.guiTop -= borderTop.h;
 
     gui.xSize += borderLeft.w + borderRight.w;
-    gui.setYSize(gui.getYSize() + borderTop.h + borderBottom.h);
+    gui.ySize += borderTop.h + borderBottom.h;
   }
 
   @Override
