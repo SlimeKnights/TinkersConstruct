@@ -35,12 +35,7 @@ public class ToolClientProxy extends ClientProxy {
 
   @Override
   public void init() {
-    ToolBuildGuiInfo info = new ToolBuildGuiInfo(TinkerTools.pickaxe);
-    info.addSlotPosition(33+20, 42-20);
-    info.addSlotPosition(33-20, 42+20);
-    info.addSlotPosition(33, 42);
-
-    TinkerRegistryClient.addToolBuilding(info);
+    toolBuildInfo();
   }
 
   @Override
@@ -100,5 +95,28 @@ public class ToolClientProxy extends ClientProxy {
     String path = "parts/" + itemLocation.getResourcePath() + MaterialModelLoader.EXTENSION;
 
     return registerMaterialModel(item, new ResourceLocation(itemLocation.getResourceDomain(), path));
+  }
+
+  private void toolBuildInfo() {
+    // pickaxe
+    ToolBuildGuiInfo info = new ToolBuildGuiInfo(TinkerTools.pickaxe);
+    info.addSlotPosition(33+20, 42-20);
+    info.addSlotPosition(33-20, 42+20);
+    info.addSlotPosition(33, 42);
+    TinkerRegistryClient.addToolBuilding(info);
+
+    // hatchet
+    info = new ToolBuildGuiInfo(TinkerTools.hatchet);
+    info.addSlotPosition(33+20, 42-20);
+    info.addSlotPosition(33-20, 42+20);
+    info.addSlotPosition(33, 42);
+    TinkerRegistryClient.addToolBuilding(info);
+
+    // broadsword
+    info = new ToolBuildGuiInfo(TinkerTools.broadSword);
+    info.addSlotPosition(33+20, 42-20);
+    info.addSlotPosition(33-20, 42+20);
+    info.addSlotPosition(33, 42);
+    TinkerRegistryClient.addToolBuilding(info);
   }
 }

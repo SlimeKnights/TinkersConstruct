@@ -18,8 +18,12 @@ import slimeknights.tconstruct.tools.client.GuiToolStation;
 
 public class GuiButtonsToolStation extends GuiSideButtons {
 
-  public GuiButtonsToolStation(GuiMultiModule parent, Container container) {
+  protected final GuiToolStation parent;
+
+  public GuiButtonsToolStation(GuiToolStation parent, Container container) {
     super(parent, container, GuiToolStation.Column_Count);
+
+    this.parent = parent;
   }
 
   protected int selected = 0;
@@ -39,17 +43,15 @@ public class GuiButtonsToolStation extends GuiSideButtons {
       addButton(button);
     }
 
-    for(Item item : TinkerRegistry.getToolStationCrafting()) {
-      for(int i = 0; i < 25; i++) {
-        ToolBuildGuiInfo info = TinkerRegistryClient.getToolBuildInfoForTool(item);
-        if(info != null) {
-          GuiButtonItem button = new GuiButtonItem<ToolBuildGuiInfo>(index++, -1, -1, info.tool, info);
-          shiftButton(button, 0, -18 * style);
-          addButton(button);
+    for(Item item : parent.getBuildableItems()) {
+      ToolBuildGuiInfo info = TinkerRegistryClient.getToolBuildInfoForTool(item);
+      if(info != null) {
+        GuiButtonItem button = new GuiButtonItem<ToolBuildGuiInfo>(index++, -1, -1, info.tool, info);
+        shiftButton(button, 0, -18 * style);
+        addButton(button);
 
-          if(index - 1 == selected) {
-            button.pressed = true;
-          }
+        if(index - 1 == selected) {
+          button.pressed = true;
         }
       }
     }
@@ -57,7 +59,7 @@ public class GuiButtonsToolStation extends GuiSideButtons {
     super.updatePosition(parentX, parentY, parentSizeX, parentSizeY);
 
     // activate currently selected/default
-    ((GuiToolStation) parent).updateGUI();
+    parent.updateGUI();
   }
 
   public void setSelectedButtonByTool(ItemStack stack) {
@@ -76,7 +78,7 @@ public class GuiButtonsToolStation extends GuiSideButtons {
     ((GuiButtonItem) button).pressed = true;
     selected = button.id;
 
-    ((GuiToolStation) parent).onToolSelection(((GuiButtonItem<ToolBuildGuiInfo>) button).data);
+    parent.onToolSelection(((GuiButtonItem<ToolBuildGuiInfo>) button).data);
   }
 
   public void wood() {

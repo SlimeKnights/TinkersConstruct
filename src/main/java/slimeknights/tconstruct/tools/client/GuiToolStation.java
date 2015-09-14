@@ -25,6 +25,7 @@ import org.lwjgl.util.Point;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.mantle.client.gui.GuiElement;
@@ -144,6 +145,10 @@ public class GuiToolStation extends GuiTinkerStation {
   public void onGuiClosed() {
     super.onGuiClosed();
     Keyboard.enableRepeatEvents(false);
+  }
+
+  public Set<ToolCore> getBuildableItems() {
+    return TinkerRegistry.getToolStationCrafting();
   }
 
   public void onToolSelection(ToolBuildGuiInfo info) {

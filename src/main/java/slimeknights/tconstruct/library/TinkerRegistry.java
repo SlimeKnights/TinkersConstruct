@@ -275,8 +275,8 @@ public final class TinkerRegistry {
   /** This set contains all known tools */
   private static final Set<ToolCore> tools = new TLinkedHashSet<ToolCore>();
   private static final Set<IToolPart> toolParts = new TLinkedHashSet<IToolPart>();
-  private static final Set<Item> toolStationCrafting = Sets.newHashSet();
-  private static final Set<Item> toolForgeCrafting = Sets.newHashSet();
+  private static final Set<ToolCore> toolStationCrafting = Sets.newHashSet();
+  private static final Set<ToolCore> toolForgeCrafting = Sets.newHashSet();
   private static final List<ItemStack> stencilTableCrafting = Lists.newLinkedList();
   private static Shard shardItem;
 
@@ -296,26 +296,26 @@ public final class TinkerRegistry {
   }
 
   /** Adds a tool to the Crafting UI of both the Tool Station as well as the Tool Forge */
-  public static void registerToolCrafting(Item tool) {
+  public static void registerToolCrafting(ToolCore tool) {
     registerToolStationCrafting(tool);
     registerToolForgeCrafting(tool);
   }
 
   /** Adds a tool to the Crafting UI of the Tool Station */
-  public static void registerToolStationCrafting(Item tool) {
+  public static void registerToolStationCrafting(ToolCore tool) {
     toolStationCrafting.add(tool);
   }
 
-  public static Set<Item> getToolStationCrafting() {
+  public static Set<ToolCore> getToolStationCrafting() {
     return ImmutableSet.copyOf(toolStationCrafting);
   }
 
   /** Adds a tool to the Crafting UI of the Tool Forge */
-  public static void registerToolForgeCrafting(Item tool) {
+  public static void registerToolForgeCrafting(ToolCore tool) {
     toolForgeCrafting.add(tool);
   }
 
-  public static Set<Item> getToolForgeCrafting() {
+  public static Set<ToolCore> getToolForgeCrafting() {
     return ImmutableSet.copyOf(toolForgeCrafting);
   }
 

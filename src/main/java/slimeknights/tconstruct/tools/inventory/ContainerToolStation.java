@@ -9,8 +9,11 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import java.util.Set;
+
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.mantle.inventory.BaseContainer;
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tinkering.IModifyable;
 import slimeknights.tconstruct.library.tinkering.IRepairable;
@@ -216,8 +219,13 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
       input[i] = tile.getStackInSlot(i);
     }
 
-    return ToolBuilder.tryBuildTool(input, toolName);
+    return ToolBuilder.tryBuildTool(input, toolName, getBuildableTools());
   }
+
+  protected Set<ToolCore> getBuildableTools() {
+    return TinkerRegistry.getToolStationCrafting();
+  }
+
 
   /**
    * Removes the tool in the input slot and fixes all stacks that have stacksize 0 after being used up.

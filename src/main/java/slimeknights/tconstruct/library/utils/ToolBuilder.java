@@ -6,6 +6,7 @@ import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.hash.TIntIntHashMap;
 import gnu.trove.procedure.TIntIntProcedure;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -16,6 +17,7 @@ import net.minecraft.util.StatCollector;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -43,13 +45,17 @@ public final class ToolBuilder {
   private ToolBuilder() {
   }
 
+  public static ItemStack tryBuildTool(ItemStack[] stacks, String name) {
+    return tryBuildTool(stacks, name, TinkerRegistry.getTools());
+  }
+
   /**
    * Takes an array of Itemstacks and tries to build a tool with it. Amount of itemstacks has to match exactly.
    *
    * @param stacks Input.
    * @return The built tool or null if none could be built.
    */
-  public static ItemStack tryBuildTool(ItemStack[] stacks, String name) {
+  public static ItemStack tryBuildTool(ItemStack[] stacks, String name, Collection<ToolCore> possibleTools) {
     int length = -1;
     ItemStack[] input;
     // remove trailing nulls
@@ -71,8 +77,11 @@ public final class ToolBuilder {
 
     input = Arrays.copyOf(stacks, length);
 
-    for(ToolCore tool : TinkerRegistry.getTools()) {
-      ItemStack output = tool.buildItemFromStacks(input);
+    for(Item item : possibleTools) {
+      if(!(item instanceof ToolCore)) {
+        continue;
+      }
+      ItemStack output = ((ToolCore) item).buildItemFromStacks(input);
       if(output != null) {
         // name the item
         if(name != null && !name.isEmpty()) {
