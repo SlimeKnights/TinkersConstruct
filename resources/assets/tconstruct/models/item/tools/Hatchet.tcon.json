@@ -1,9 +1,9 @@
 {
     "parent": "tconstruct:item/tools/TinkerTool",
     "textures": {
+        "layer0": "tconstruct:items/pickaxe/pick_handle",
         "layer1": "tconstruct:items/hatchet/axe_head",
-		"layer0": "tconstruct:items/pickaxe/pick_handle",
 		"layer2": "tconstruct:items/hatchet/axe_binding",
-		"broken0": "tconstruct:items/hatchet/broken_axe_head"
+		"broken1": "tconstruct:items/hatchet/broken_axe_head"
     }
 }

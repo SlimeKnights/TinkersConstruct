@@ -48,9 +48,9 @@ public class ToolBuildGuiInfo {
   static {
     RenderMaterials = new Material[4];
     RenderMaterials[0] = new Material("_internal_render1", EnumChatFormatting.WHITE);
-    RenderMaterials[0].setRenderInfo(0xc1c1c1);
+    RenderMaterials[0].setRenderInfo(0x684e1e);
     RenderMaterials[1] = new Material("_internal_render2", EnumChatFormatting.WHITE);
-    RenderMaterials[1].setRenderInfo(0x684e1e);
+    RenderMaterials[1].setRenderInfo(0xc1c1c1);
     RenderMaterials[2] = new Material("_internal_render3", EnumChatFormatting.WHITE);
     RenderMaterials[2].setRenderInfo(0x2376dd);
     RenderMaterials[3] = new Material("_internal_render4", EnumChatFormatting.WHITE);

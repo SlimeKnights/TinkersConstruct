@@ -1,9 +1,9 @@
 {
     "parent": "tconstruct:item/tools/TinkerTool",
     "textures": {
-        "layer0": "tconstruct:items/pickaxe/pick_head",
-		"layer1": "tconstruct:items/pickaxe/pick_handle",
+        "layer0": "tconstruct:items/pickaxe/pick_handle",
+        "layer1": "tconstruct:items/pickaxe/pick_head",
 		"layer2": "tconstruct:items/pickaxe/pick_binding",
-		"broken0": "tconstruct:items/pickaxe/broken_pick_head"
+		"broken1": "tconstruct:items/pickaxe/broken_pick_head"
     }
 }

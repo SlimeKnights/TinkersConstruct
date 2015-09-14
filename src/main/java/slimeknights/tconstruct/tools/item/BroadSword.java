@@ -25,8 +25,8 @@ public class BroadSword extends ToolCore {
                       net.minecraft.block.material.Material.leaves);
 
   public BroadSword() {
-    super(new PartMaterialType.ToolPartType(TinkerTools.swordBlade),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod),
+    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
+          new PartMaterialType.ToolPartType(TinkerTools.swordBlade),
           new PartMaterialType.ToolPartType(TinkerTools.wideGuard));
 
     addCategory(Category.WEAPON);
@@ -49,8 +49,8 @@ public class BroadSword extends ToolCore {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    ToolMaterialStats head = materials.get(0).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats handle = materials.get(1).getStats(ToolMaterialStats.TYPE);
+    ToolMaterialStats handle = materials.get(0).getStats(ToolMaterialStats.TYPE);
+    ToolMaterialStats head = materials.get(1).getStats(ToolMaterialStats.TYPE);
     ToolMaterialStats guard = materials.get(2).getStats(ToolMaterialStats.TYPE);
 
     ToolNBT data = new ToolNBT(head);

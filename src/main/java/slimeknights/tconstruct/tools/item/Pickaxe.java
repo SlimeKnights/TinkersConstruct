@@ -30,8 +30,8 @@ public class Pickaxe extends ToolCore {
 
   // Pick-head, binding, tool-rod
   public Pickaxe() {
-    super(new PartMaterialType.ToolPartType(TinkerTools.pickHead),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod),
+    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
+          new PartMaterialType.ToolPartType(TinkerTools.pickHead),
           new PartMaterialType.ToolPartType(TinkerTools.binding));
 
     addCategory(Category.HARVEST);
@@ -52,8 +52,8 @@ public class Pickaxe extends ToolCore {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    ToolMaterialStats head = materials.get(0).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats handle = materials.get(1).getStats(ToolMaterialStats.TYPE);
+    ToolMaterialStats handle = materials.get(0).getStats(ToolMaterialStats.TYPE);
+    ToolMaterialStats head = materials.get(1).getStats(ToolMaterialStats.TYPE);
     ToolMaterialStats binding = materials.get(2).getStats(ToolMaterialStats.TYPE);
 
     ToolNBT data = new ToolNBT(head);

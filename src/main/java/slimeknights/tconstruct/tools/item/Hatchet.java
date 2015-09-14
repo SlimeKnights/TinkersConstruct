@@ -74,8 +74,8 @@ public class Hatchet extends ToolCore {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    ToolMaterialStats head = materials.get(0).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats handle = materials.get(1).getStats(ToolMaterialStats.TYPE);
+    ToolMaterialStats handle = materials.get(0).getStats(ToolMaterialStats.TYPE);
+    ToolMaterialStats head = materials.get(1).getStats(ToolMaterialStats.TYPE);
     ToolMaterialStats binding = materials.get(2).getStats(ToolMaterialStats.TYPE);
 
     ToolNBT data = new ToolNBT(head);
