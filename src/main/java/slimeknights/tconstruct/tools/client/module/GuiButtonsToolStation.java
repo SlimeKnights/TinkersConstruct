@@ -60,7 +60,7 @@ public class GuiButtonsToolStation extends GuiSideButtons {
     ((GuiToolStation) parent).updateGUI();
   }
 
-  public void setSelectedbuttonByTool(ItemStack stack) {
+  public void setSelectedButtonByTool(ItemStack stack) {
     for(Object o : buttonList) {
       GuiButtonItem<ToolBuildGuiInfo> btn = (GuiButtonItem<ToolBuildGuiInfo>) o;
       btn.pressed = ItemStack.areItemStacksEqual(btn.data.tool, stack);

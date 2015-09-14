@@ -170,7 +170,7 @@ public class GuiToolStation extends GuiTinkerStation {
     activeSlots = packet.activeSlots;
     currentInfo = info;
 
-    buttons.setSelectedbuttonByTool(currentInfo.tool);
+    buttons.setSelectedButtonByTool(currentInfo.tool);
 
     updateGUI();
   }
