@@ -24,6 +24,7 @@ import java.util.Map;
 import javax.vecmath.Vector3f;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.materials.Material;
 
 /**
  * This model contains all modifiers for a tool Note that handling may seem confusing, because modifier textures are
@@ -82,21 +83,25 @@ public class ModifierModel implements IModel {
 
     for(Map.Entry<String, String> entry : models.entrySet()) {
       // todo: turn this into an event?
-      IFlexibleBakedModel bakedModel;
       // check if the corresponding modifier needs this to be a material model
       // if this check ever causes an NPE then a modifier has been removed between model loading and model baking
       if(TinkerRegistry.getModifier(entry.getKey()).hasTexturePerMaterial()) {
-        IModel materialModel = new MaterialModel(ImmutableList.of(new ResourceLocation(entry.getValue())));
-        bakedModel = materialModel.bake(state, format, bakedTextureGetter);
+        MaterialModel materialModel = new MaterialModel(ImmutableList.of(new ResourceLocation(entry.getValue())));
+        BakedMaterialModel bakedModel = materialModel.bakeIt(state, format, bakedTextureGetter);
+        for(Material material : TinkerRegistry.getAllMaterials()) {
+          IFlexibleBakedModel materialBakedModel = bakedModel.getModelByIdentifier(material.getIdentifier());
+          if(materialBakedModel != bakedModel) {
+            bakedModels.put(entry.getKey() + material.getIdentifier(), materialBakedModel);
+          }
+        }
       }
       else {
         //ItemCameraTransforms transforms = new ItemCameraTransforms(modelBlock.getThirdPersonTransform(), modelBlock.getFirstPersonTransform(), modelBlock.getHeadTransform(), modelBlock.getInGuiTransform());
         //IPerspectiveState perspectiveState = new IPerspectiveState.Impl(state, transforms);
         IModel model = ItemLayerModel.instance.retexture(ImmutableMap.of("layer0", entry.getValue()));
-        bakedModel = model.bake(state, format, bakedTextureGetter);
+        IFlexibleBakedModel bakedModel = model.bake(state, format, bakedTextureGetter);
+        bakedModels.put(entry.getKey(), bakedModel);
       }
-
-      bakedModels.put(entry.getKey(), bakedModel);
     }
 
     return bakedModels;

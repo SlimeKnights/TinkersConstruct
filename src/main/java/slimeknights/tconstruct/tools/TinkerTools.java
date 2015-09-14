@@ -28,12 +28,14 @@ import slimeknights.mantle.block.BlockTable;
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.tileentity.TileTable;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.debug.TempToolModifying;
 import slimeknights.tconstruct.tools.item.Hatchet;
 import slimeknights.tconstruct.tools.item.Pickaxe;
 import slimeknights.tconstruct.tools.item.BroadSword;
+import slimeknights.tconstruct.tools.modifiers.ModFortify;
 import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -139,7 +141,7 @@ public class TinkerTools extends TinkerPulse {
 
     wideGuard = registerToolPart(new ToolPart(Material.VALUE_Shard), "WideGuard");
 
-    largePlate = registerToolPart(new ToolPart(Material.VALUE_Shard*8), "LargePlate");
+    largePlate = registerToolPart(new ToolPart(Material.VALUE_Shard * 8), "LargePlate");
   }
 
   private void registerTools() {
@@ -251,9 +253,18 @@ public class TinkerTools extends TinkerPulse {
   public void postInit(FMLPostInitializationEvent event) {
     proxy.postInit();
 
+    registerFortifyModifiers();
+
     MinecraftForge.EVENT_BUS.register(new TraitEvents());
   }
 
+  private void registerFortifyModifiers() {
+    for(Material mat : TinkerRegistry.getAllMaterials()) {
+      if(mat.hasStats(ToolMaterialStats.TYPE)) {
+        new ModFortify(mat);
+      }
+    }
+  }
 
   private static <T extends ToolCore> T registerTool(T item, String unlocName) {
     tools.add(item);

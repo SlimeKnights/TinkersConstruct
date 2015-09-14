@@ -24,6 +24,10 @@ public final class ToolTagUtil {
     return tag.getInteger(Tags.HARVESTLEVEL);
   }
 
+  public static void setHarvestLevel(NBTTagCompound tag, int value) {
+    tag.setInteger(Tags.HARVESTLEVEL, value);
+  }
+
   public static int getFreeModifiers(NBTTagCompound tag) {
     return tag.getInteger(Tags.FREE_MODIFIERS);
   }
