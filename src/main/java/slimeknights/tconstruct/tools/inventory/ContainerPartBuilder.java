@@ -95,7 +95,7 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
 
     this.addPlayerInventory(playerInventory, 8, 84);
 
-    updateResult();
+    onCraftMatrixChanged(null);
   }
 
   public boolean isPartCrafter() {

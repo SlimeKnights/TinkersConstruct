@@ -50,6 +50,7 @@ public class ContainerStencilTable
     }
 
     this.addPlayerInventory(playerInventory, 8, 84);
+    onCraftMatrixChanged(null);
   }
 
   @Override

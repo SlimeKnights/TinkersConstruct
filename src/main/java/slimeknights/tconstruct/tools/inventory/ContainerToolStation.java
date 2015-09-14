@@ -48,6 +48,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     addSlotToContainer(out);
 
     this.addPlayerInventory(playerInventory, 8, 84 + 8);
+    onCraftMatrixChanged(null);
   }
 
   public ItemStack getResult() {
