@@ -72,8 +72,8 @@ public class ToolClientEvents {
         .getObject(locCraftingStation)));
 
     // silence the missing-model message for the default itemblock
-    //event.modelRegistry.putObject(new ModelResourceLocation(LOCATION_ToolTable, "inventory"), event.modelRegistry.getObject(locToolStation));
-    //event.modelRegistry.putObject(new ModelResourceLocation(LOCATION_ToolForge, "inventory"), event.modelRegistry.getObject(locToolForge));
+    event.modelRegistry.putObject(new ModelResourceLocation(LOCATION_ToolTable, "inventory"), event.modelRegistry.getObject(locToolStation));
+    event.modelRegistry.putObject(new ModelResourceLocation(LOCATION_ToolForge, "inventory"), event.modelRegistry.getObject(locToolForge));
   }
 
   public static void replaceTableModel(ModelResourceLocation modelVariantLocation, ResourceLocation modelLocation, ModelBakeEvent event) {
