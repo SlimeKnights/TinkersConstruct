@@ -45,7 +45,7 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
 
     this.setStepSound(soundTypeWood);
     this.setResistance(5f);
-    this.setHardness(2f);
+    this.setHardness(1f);
 
     // set axe as effective tool for all variants
     this.setHarvestLevel("axe", 0);

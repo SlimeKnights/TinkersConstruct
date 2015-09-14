@@ -38,7 +38,7 @@ public class BlockToolForge extends BlockTable implements ITinkerStationBlock {
 
     this.setStepSound(soundTypeMetal);
     this.setResistance(10f);
-    this.setHardness(5f);
+    this.setHardness(2f);
 
     this.setHarvestLevel("pickaxe", 0);
   }
