@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Locale;
 
 import slimeknights.mantle.util.RecipeMatchRegistry;
+import slimeknights.tconstruct.library.materials.Material;
 
 public class Util {
 
@@ -60,6 +61,11 @@ public class Util {
   public static String translate(String key, String... pars) {
     // translates twice to allow rerouting/alias
     return StatCollector.translateToLocal(StatCollector.translateToLocal(String.format(key, (Object[]) pars)).trim()).trim();
+  }
+
+  public static String translateFormatted(String key, String... pars) {
+    // translates twice to allow rerouting/alias
+    return StatCollector.translateToLocal(StatCollector.translateToLocalFormatted(key, (Object[]) pars).trim()).trim();
   }
 
   public static String convertNewlines(String line) {

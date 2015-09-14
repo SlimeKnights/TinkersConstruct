@@ -9,6 +9,9 @@
 # General Items
 item.tconstruct.shard.name=Shard
 
+item.tconstruct.pattern.blank=Blank Pattern
+item.tconstruct.pattern.name=Pattern: %s
+
 # Tools
 item.tconstruct.pickaxe.name=Pickaxe
 

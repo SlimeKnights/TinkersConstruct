@@ -104,6 +104,11 @@ public class ToolPart extends MaterialItem implements IToolPart {
   }
 
   @Override
+  public String getLocalizedName() {
+    return super.getItemStackDisplayName(null);
+  }
+
+  @Override
   public String getIdentifier() {
     return Util.getItemLocation(this).getResourcePath();
   }

@@ -8,6 +8,8 @@ import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 public interface IToolPart extends IMaterialItem {
   String getIdentifier();
 
+  String getLocalizedName();
+
   /**
    * Returns the cost to craft the tool in 0.5 steps.<br>
    * 1 = 1 shard<br>

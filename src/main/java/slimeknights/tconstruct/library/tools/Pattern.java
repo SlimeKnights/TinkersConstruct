@@ -9,6 +9,7 @@ import java.util.List;
 
 import slimeknights.tconstruct.common.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
 public class Pattern extends Item {
@@ -33,6 +34,17 @@ public class Pattern extends Item {
 
       subItems.add(stack);
     }
+  }
+
+  @Override
+  public String getItemStackDisplayName(ItemStack stack) {
+    IToolPart part = getPartFromTag(stack);
+    String unloc = this.getUnlocalizedNameInefficiently(stack);
+    if(part == null) {
+      return Util.translate(unloc + ".blank");
+    }
+
+    return Util.translateFormatted(unloc + ".name", part.getLocalizedName());
   }
 
   public static void setTagForPart(ItemStack stack, IToolPart toolPart) {
