@@ -3,7 +3,11 @@ package slimeknights.tconstruct.tools.item;
 import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 
 import java.util.List;
 
@@ -45,6 +49,32 @@ public class BroadSword extends ToolCore {
   @Override
   public int attackSpeed() {
     return 1;
+  }
+
+  // Blocking and sword things
+  /**
+   * returns the action that specifies what animation to play when the items is being used
+   */
+  public EnumAction getItemUseAction(ItemStack stack)
+  {
+    return EnumAction.BLOCK;
+  }
+
+  /**
+   * How long it takes to use or consume an item
+   */
+  public int getMaxItemUseDuration(ItemStack stack)
+  {
+    return 72000;
+  }
+
+  /**
+   * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
+   */
+  public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
+  {
+    playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
+    return itemStackIn;
   }
 
   @Override
