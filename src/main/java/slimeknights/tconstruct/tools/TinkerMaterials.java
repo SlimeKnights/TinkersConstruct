@@ -20,7 +20,9 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.tools.modifiers.TraitCheap;
+import slimeknights.tconstruct.tools.modifiers.TraitCrude;
 import slimeknights.tconstruct.tools.modifiers.TraitEcological;
+import slimeknights.tconstruct.tools.modifiers.TraitPrickly;
 import slimeknights.tconstruct.tools.modifiers.TraitSplintering;
 import slimeknights.tconstruct.tools.modifiers.TraitStonebound;
 
@@ -65,8 +67,10 @@ public final class TinkerMaterials {
 
   public static final AbstractTrait ecological = new TraitEcological();
   public static final AbstractTrait cheap = new TraitCheap();
-  public static final AbstractTrait stonebound = new TraitStonebound();
+  public static final AbstractTrait crude = new TraitCrude();
   public static final AbstractTrait splintering = new TraitSplintering();
+  public static final AbstractTrait prickly = new TraitPrickly();
+  public static final AbstractTrait stonebound = new TraitStonebound();
 
   private static Material mat(String name, EnumChatFormatting color) {
     Material mat = new Material(name, color);
@@ -128,10 +132,12 @@ public final class TinkerMaterials {
     flint.setCraftable(true);
     flint.addItem(Items.flint, 1, Material.VALUE_Ingot);
     flint.setRepresentativeItem(new ItemStack(Items.flint));
+    flint.addTrait(crude);
 
     cactus.setCraftable(true);
     cactus.addItem(Blocks.cactus, Material.VALUE_Ingot);
     cactus.setRepresentativeItem(new ItemStack(Blocks.cactus));
+    cactus.addTrait(prickly);
 
     obsidian.setCraftable(true);
     obsidian.setFluid(FluidRegistry.WATER).setCastable(true); // todo
