@@ -11,8 +11,11 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
+
+import java.util.Random;
 
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -23,6 +26,8 @@ import slimeknights.tconstruct.library.utils.TinkerUtil;
 
 // Trait and modifier in one! Useful because modifiers are saved as traits
 public abstract class AbstractTrait extends Modifier implements ITrait {
+
+  protected static final Random random = new Random();
 
   public static final String LOC_Name = Modifier.LOC_Name;
   public static final String LOC_Desc = Modifier.LOC_Desc;
@@ -127,6 +132,10 @@ public abstract class AbstractTrait extends Modifier implements ITrait {
   @Override
   public float knockBack(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float knockback, float newKnockback, boolean isCritical) {
     return newKnockback;
+  }
+
+  @Override
+  public void onBlock(ItemStack tool, EntityPlayer player, LivingHurtEvent event) {
   }
 
   /* Durability and repairing */
