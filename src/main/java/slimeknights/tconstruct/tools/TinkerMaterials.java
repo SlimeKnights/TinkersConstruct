@@ -18,8 +18,10 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.texture.ExtraUtilityTexture;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.tools.modifiers.TraitCheap;
 import slimeknights.tconstruct.tools.modifiers.TraitEcological;
+import slimeknights.tconstruct.tools.modifiers.TraitSplintering;
 import slimeknights.tconstruct.tools.modifiers.TraitStonebound;
 
 import static slimeknights.tconstruct.library.utils.HarvestLevels.*;
@@ -61,9 +63,10 @@ public final class TinkerMaterials {
 
   public static final Material xu;
 
-  public static final TraitEcological ecological = new TraitEcological();
-  public static final TraitCheap cheap = new TraitCheap();
-  public static final TraitStonebound stonebound = new TraitStonebound();
+  public static final AbstractTrait ecological = new TraitEcological();
+  public static final AbstractTrait cheap = new TraitCheap();
+  public static final AbstractTrait stonebound = new TraitStonebound();
+  public static final AbstractTrait splintering = new TraitSplintering();
 
   private static Material mat(String name, EnumChatFormatting color) {
     Material mat = new Material(name, color);
@@ -152,6 +155,7 @@ public final class TinkerMaterials {
     bone.setCraftable(true);
     bone.addItem(Items.bone, 1, Material.VALUE_Ingot);
     bone.setRepresentativeItem(Items.bone);
+    bone.addTrait(splintering);
 
     paper.setCraftable(true);
     paper.addItem(Items.paper, 1, Material.VALUE_Fragment);
