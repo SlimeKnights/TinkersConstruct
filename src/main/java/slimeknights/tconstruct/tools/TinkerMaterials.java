@@ -178,10 +178,12 @@ public final class TinkerMaterials {
     sponge.setRepresentativeItem(Blocks.sponge);
 
     slime.setCraftable(true);
-    // todo: slime
+    slime.addItem(TinkerTools.matSlimeCrystal, 1, Material.VALUE_Ingot);
+    slime.setRepresentativeItem(TinkerTools.matSlimeCrystal);
 
     blueslime.setCraftable(true);
-    // todo: blueslime
+    blueslime.addItem(TinkerTools.matSlimeCrystalBlue, 1, Material.VALUE_Ingot);
+    blueslime.setRepresentativeItem(TinkerTools.matSlimeCrystalBlue);
 
     // Metals
     iron.addItem(Items.iron_ingot);

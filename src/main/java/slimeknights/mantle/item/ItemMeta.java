@@ -2,6 +2,7 @@ package slimeknights.mantle.item;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
@@ -16,7 +17,9 @@ public class ItemMeta extends Item {
 
   @Override
   public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
-    super.getSubItems(itemIn, tab, subItems);
+    for(int i = 0; i < maxMeta; i++) {
+      subItems.add(new ItemStack(itemIn, 1, i));
+    }
   }
 
   @Override

@@ -85,17 +85,17 @@ public class TConstruct {
 
   @Mod.EventHandler
   public void preInit(FMLPreInitializationEvent event) {
-    // the basic tinker materials are always present
-    TinkerMaterials.setupMaterials();
-    TinkerMaterials.registerMaterials();
-    HarvestLevels.init();
-
     // Tinker pulses
     pulseManager.registerPulse(new TinkerTools());
     pulseManager.registerPulse(new TinkerSmeltery());
     // Plugins/Integration
 
     pulseManager.preInit(event);
+
+    // the basic tinker materials are always present
+    TinkerMaterials.setupMaterials();
+    TinkerMaterials.registerMaterials();
+    HarvestLevels.init();
 
     NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);
 

@@ -98,6 +98,17 @@ public class RecipeMatchRegistry {
   }
 
   /**
+   * Associates an item entry with this material. Used for repairing and other.
+   *
+   * @param item          The item
+   * @param amountNeeded  How many of this item are needed to count as one full material item.
+   * @param amountMatched If both item and amount are present, how often did they match?
+   */
+  public void addItem(ItemStack item, int amountNeeded, int amountMatched) {
+    items.add(new RecipeMatch.Item(item, amountNeeded, amountMatched));
+  }
+
+  /**
    * Associates an item with this material. Used for repairing and other.
    */
   public void addItem(Item item) {
