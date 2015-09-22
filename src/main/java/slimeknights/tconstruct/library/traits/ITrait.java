@@ -56,7 +56,7 @@ public interface ITrait {
    * Called after the block has been destroyed. See {@link net.minecraft.item.Item#onBlockDestroyed(ItemStack, World, Block, BlockPos, EntityLivingBase)}
    * Called before the tools durability is reduced.
    */
-  void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player);
+  void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player, boolean wasEffective);
 
   /**
    * Called after a block has been broken. See {@link net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent}

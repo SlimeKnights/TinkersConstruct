@@ -106,7 +106,7 @@ public abstract class AbstractTrait extends Modifier implements ITrait {
   }
 
   @Override
-  public void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player) {
+  public void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
   }
 
   @Override

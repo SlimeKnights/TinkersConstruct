@@ -34,7 +34,7 @@ public class TraitEcological extends AbstractTrait {
   }
 
   @Override
-  public void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player) {
+  public void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
     splinter(player);
   }
 
@@ -45,7 +45,7 @@ public class TraitEcological extends AbstractTrait {
 
   private void splinter(EntityLivingBase player) {
     // SPLINTERS!
-    if(random.nextInt(chance) == 0) {
+    if(!player.worldObj.isRemote && random.nextInt(chance) == 0) {
       player.attackEntityFrom(DamageSource.cactus, 0.1f);
     }
   }

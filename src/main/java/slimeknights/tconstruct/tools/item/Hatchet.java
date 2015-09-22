@@ -64,12 +64,12 @@ public class Hatchet extends ToolCore {
   }
 
   @Override
-  public void afterBlockBreak(ItemStack stack, World world, Block block, BlockPos pos, EntityLivingBase player, int damage) {
+  public void afterBlockBreak(ItemStack stack, World world, Block block, BlockPos pos, EntityLivingBase player, int damage, boolean wasEffective) {
     // breaking leaves does not reduce durability
     if(block.isLeaves(world, pos)) {
       damage = 0;
     }
-    super.afterBlockBreak(stack, world, block, pos, player, damage);
+    super.afterBlockBreak(stack, world, block, pos, player, damage, wasEffective);
   }
 
   @Override

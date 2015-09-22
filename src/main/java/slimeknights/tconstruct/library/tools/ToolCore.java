@@ -223,21 +223,20 @@ public abstract class ToolCore extends TinkersItem {
   public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
     if(ToolHelper.isBroken(stack)) return false;
 
-    int damage = 1;
-    if(!ToolHelper.isToolEffective(stack, worldIn.getBlockState(pos))) {
-      damage *= 2;
-    }
-    afterBlockBreak(stack, worldIn, blockIn, pos, playerIn, damage);
+    boolean effective = isEffective(blockIn) || ToolHelper.isToolEffective(stack, worldIn.getBlockState(pos));
+    int damage = effective ? 1 : 2;
+
+    afterBlockBreak(stack, worldIn, blockIn, pos, playerIn, damage, effective);
 
     return hasCategory(Category.TOOL);
   }
 
-  public void afterBlockBreak(ItemStack stack, World world, Block block, BlockPos pos, EntityLivingBase player, int damage) {
+  public void afterBlockBreak(ItemStack stack, World world, Block block, BlockPos pos, EntityLivingBase player, int damage, boolean wasEffective) {
     NBTTagList list = TagUtil.getTraitsTagList(stack);
     for(int i = 0; i < list.tagCount(); i++) {
       ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
       if(trait != null) {
-        trait.afterBlockBreak(stack, world, block, pos, player);
+        trait.afterBlockBreak(stack, world, block, pos, player, wasEffective);
       }
     }
 
