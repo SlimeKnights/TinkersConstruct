@@ -19,8 +19,10 @@ import slimeknights.tconstruct.library.client.texture.ExtraUtilityTexture;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
+import slimeknights.tconstruct.tools.modifiers.TraitAridiculous;
 import slimeknights.tconstruct.tools.modifiers.TraitCheap;
 import slimeknights.tconstruct.tools.modifiers.TraitCrude;
+import slimeknights.tconstruct.tools.modifiers.TraitDuritos;
 import slimeknights.tconstruct.tools.modifiers.TraitEcological;
 import slimeknights.tconstruct.tools.modifiers.TraitPrickly;
 import slimeknights.tconstruct.tools.modifiers.TraitSplintering;
@@ -70,6 +72,8 @@ public final class TinkerMaterials {
   public static final AbstractTrait crude = new TraitCrude();
   public static final AbstractTrait splintering = new TraitSplintering();
   public static final AbstractTrait prickly = new TraitPrickly();
+  public static final AbstractTrait duritos = new TraitDuritos();
+  public static final AbstractTrait aridiculous = new TraitAridiculous();
   public static final AbstractTrait stonebound = new TraitStonebound();
 
   private static Material mat(String name, EnumChatFormatting color) {
@@ -143,6 +147,7 @@ public final class TinkerMaterials {
     obsidian.setFluid(FluidRegistry.WATER).setCastable(true); // todo
     obsidian.addItem(Blocks.obsidian, Material.VALUE_Ingot);
     obsidian.setRepresentativeItem(new ItemStack(Blocks.obsidian));
+    obsidian.addTrait(duritos);
 
     prismarine.setCraftable(true);
     prismarine.addItem(Items.prismarine_shard, 1, Material.VALUE_Fragment);
@@ -152,6 +157,7 @@ public final class TinkerMaterials {
     netherrack.setCraftable(true);
     netherrack.addItem(Blocks.netherrack, Material.VALUE_Ingot);
     netherrack.setRepresentativeItem(Blocks.netherrack);
+    netherrack.addTrait(aridiculous);
 
     endstone.setCraftable(true);
     endstone.addItem(Blocks.end_stone, Material.VALUE_Ingot);
@@ -201,7 +207,7 @@ public final class TinkerMaterials {
     // natural resources/blocks
     TinkerRegistry.addMaterialStats(wood,       new ToolMaterialStats( 137, 3.00f, 0.20f, 0.80f, 0.60f, STONE));
     TinkerRegistry.addMaterialStats(stone,      new ToolMaterialStats( 195, 4.00f, 0.50f, 0.05f, 0.18f, STONE));
-    TinkerRegistry.addMaterialStats(flint,      new ToolMaterialStats( 285, 5.70f, 1.10f, 0.20f, 0.19f, IRON));
+    TinkerRegistry.addMaterialStats(flint,      new ToolMaterialStats( 285, 5.70f, 0.90f, 0.20f, 0.19f, IRON));
     TinkerRegistry.addMaterialStats(cactus,     new ToolMaterialStats( 229, 4.50f, 2.00f, 0.25f, 0.43f, IRON));
     TinkerRegistry.addMaterialStats(obsidian,   new ToolMaterialStats(  99, 7.07f, 2.80f, 0.02f, 0.24f, COBALT));
     TinkerRegistry.addMaterialStats(prismarine, new ToolMaterialStats( 512, 5.50f, 5.00f, 0.18f, 0.84f, IRON));
@@ -209,7 +215,7 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterialStats(endstone,   new ToolMaterialStats( 333, 3.33f, 1.23f, 0.33f, 0.33f, OBSIDIAN));
 
     // item/special resources
-    TinkerRegistry.addMaterialStats(bone,      new ToolMaterialStats( 235, 5.09f, 1.00f, 0.70f, 0.56f, IRON));
+    TinkerRegistry.addMaterialStats(bone,      new ToolMaterialStats( 235, 5.09f, 1.50f, 0.70f, 0.56f, IRON));
     TinkerRegistry.addMaterialStats(paper,     new ToolMaterialStats(  42, 0.50f, 0.05f, 0.01f, 0.70f, STONE));
     TinkerRegistry.addMaterialStats(sponge,    new ToolMaterialStats( 350, 3.00f, 0.00f, 0.01f, 0.01f, STONE));
     TinkerRegistry.addMaterialStats(slime,     new ToolMaterialStats(1000, 4.00f, 1.80f, 0.50f, 0.10f, STONE));
