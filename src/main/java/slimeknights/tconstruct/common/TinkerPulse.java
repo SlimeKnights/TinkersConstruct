@@ -31,6 +31,11 @@ public abstract class TinkerPulse {
     return TConstruct.pulseManager.isPulseLoaded(TinkerSmeltery.PulseId);
   }
 
+  protected static boolean isWorldLoaded() {
+    //return TConstruct.pulseManager.isPulseLoaded(TinkerWorld.PulseId);
+    return false;
+  }
+
   protected static ToolPart registerToolPart(String unlocName, int cost) {
     ToolPart part = new ToolPart(cost);
     registerItem(part, unlocName);

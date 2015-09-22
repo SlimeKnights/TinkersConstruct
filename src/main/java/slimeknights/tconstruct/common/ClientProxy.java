@@ -74,11 +74,22 @@ public abstract class ClientProxy extends CommonProxy {
     }
 
     for(String customVariant : customVariants) {
-      String custom = location.getResourceDomain() + ":generated_" + customVariant;
+      String custom = location.getResourceDomain() + ":" + customVariant;
       ModelBakery.addVariantName(item, custom);
     }
 
     return location;
+  }
+
+  protected void registerItemModel(ItemStack item, String name) {
+
+    // tell Minecraft which textures it has to load. This is resource-domain sensitive
+    if(!name.contains(":"))
+      name = Util.resource(name);
+
+    ModelBakery.addVariantName(item.getItem(), name);
+    // tell the game which model to use for this item-meta combination
+    ModelLoader.setCustomModelResourceLocation(item.getItem(), item.getMetadata(), new ModelResourceLocation(name, "inventory"));
   }
 
   /**

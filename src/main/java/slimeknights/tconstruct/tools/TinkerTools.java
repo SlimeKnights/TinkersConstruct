@@ -3,7 +3,10 @@ package slimeknights.tconstruct.tools;
 import com.google.common.collect.Lists;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -23,6 +26,7 @@ import java.util.List;
 
 import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
+import slimeknights.mantle.item.ItemMeta;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.mantle.block.BlockTable;
 import slimeknights.mantle.item.ItemBlockMeta;
@@ -30,6 +34,7 @@ import slimeknights.mantle.tileentity.TileTable;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tools.ToolPart;
+import slimeknights.tconstruct.tools.block.BlockSlimeSand;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.debug.TempToolModifying;
 import slimeknights.tconstruct.tools.item.Hatchet;
@@ -67,10 +72,17 @@ public class TinkerTools extends TinkerPulse {
   // Blocks
   public static BlockToolTable toolTables;
   public static BlockToolForge toolForge;
+  public static BlockSlimeSand slimeSand;
 
   // General Items
   public static Pattern pattern;
   public static Shard shard;
+  public static Item materials;
+
+  // Material Itemstacks
+  public static ItemStack matSlimeBallBlue;
+  public static ItemStack matSlimeCrystal;
+  public static ItemStack matSlimeCrystalBlue;
 
   // Tools
   public static ToolCore pickaxe;
@@ -103,6 +115,10 @@ public class TinkerTools extends TinkerPulse {
     pattern = registerItem(new Pattern(), "Pattern");
 
     shard = registerItem(new Shard(), "Shard");
+    materials = registerItem(new ItemMeta(2), "Materials");
+    matSlimeBallBlue = new ItemStack(materials, 1, 0);
+    matSlimeCrystal = new ItemStack(materials, 1, 1);
+    matSlimeCrystalBlue = new ItemStack(materials, 1, 2);
 
     registerToolParts();
     registerTools();
@@ -110,6 +126,9 @@ public class TinkerTools extends TinkerPulse {
 
     // register blocks
     toolTables = registerBlock(new BlockToolTable(), ItemBlockMeta.class, "ToolTables");
+    toolForge = registerBlock(new BlockToolForge(), ItemBlockMeta.class, "ToolForge");
+    slimeSand = registerBlock(new BlockSlimeSand(), ItemBlockMeta.class, "SlimeSand");
+
     registerTE(TileTable.class, "Table");
     registerTE(TileCraftingStation.class, "CraftingStation");
     registerTE(TileStencilTable.class, "StencilTable");
@@ -118,16 +137,12 @@ public class TinkerTools extends TinkerPulse {
     registerTE(TileToolStation.class, "ToolStation");
     registerTE(TileToolForge.class, "ToolForge");
 
-    toolForge = registerBlock(new BlockToolForge(), ItemBlockMeta.class, "ToolForge");
+    oredict();
 
     proxy.preInit();
 
     // set shard
     TinkerRegistry.setShardItem(shard);
-
-    // debug things
-    GameRegistry.addRecipe(new TempToolCrafting());
-    GameRegistry.addRecipe(new TempToolModifying());
   }
 
   private void registerToolParts() {
@@ -176,6 +191,10 @@ public class TinkerTools extends TinkerPulse {
     };
   }
 
+  private void oredict() {
+    OreDictionary.registerOre("slimeball", matSlimeBallBlue);
+  }
+
   // INITIALIZATION
   @Handler
   public void init(FMLInitializationEvent event) {
@@ -206,16 +225,19 @@ public class TinkerTools extends TinkerPulse {
     GameRegistry.addRecipe(BlockTable
                                .createItemstack(toolTables, BlockToolTable.TableTypes.StencilTable.meta, Blocks.rail, 0),
                            "P", "B", 'P', pattern, 'B', Blocks.rail);
-    GameRegistry.addRecipe(BlockTable.createItemstack(toolTables, BlockToolTable.TableTypes.StencilTable.meta, Blocks.melon_block, 0),
+    GameRegistry.addRecipe(BlockTable
+                               .createItemstack(toolTables, BlockToolTable.TableTypes.StencilTable.meta, Blocks.melon_block, 0),
                            "P", "B", 'P', pattern, 'B', Blocks.melon_block);
 
     // Part Builder
     GameRegistry.addRecipe(
         new TableRecipe(OreDictionary.getOres("logWood"), toolTables, BlockToolTable.TableTypes.PartBuilder.meta, "P",
                         "B", 'P', pattern, 'B', "logWood"));
-    GameRegistry.addRecipe(BlockTable.createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, Blocks.golden_rail, 0),
+    GameRegistry.addRecipe(BlockTable
+                               .createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, Blocks.golden_rail, 0),
                            "P", "B", 'P', pattern, 'B', Blocks.rail);
-    GameRegistry.addRecipe(BlockTable.createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, Blocks.cactus, 0),
+    GameRegistry.addRecipe(BlockTable
+                               .createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, Blocks.cactus, 0),
                            "P", "B", 'P', pattern, 'B', Blocks.cactus);
 
     // Pattern Chest
@@ -229,6 +251,19 @@ public class TinkerTools extends TinkerPulse {
     // Tool Forge
     registerToolForgeBlock("blockIron");
     registerToolForgeBlock("blockGold");
+
+    // blue slimeball has a recipe if world isn't present
+    if(!isWorldLoaded()) {
+      GameRegistry.addRecipe(new ShapelessOreRecipe(matSlimeBallBlue, Items.slime_ball, "dyeBlue"));
+    }
+
+    // Slime Sand
+    GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimeSand, 1, 0), Items.slime_ball, Items.slime_ball, Items.slime_ball, Items.slime_ball, "sand", "dirt"));
+    GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimeSand, 1, 1), matSlimeBallBlue, matSlimeBallBlue, matSlimeBallBlue, matSlimeBallBlue, "sand", "dirt"));
+
+    // Slime crystals
+    FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(slimeSand, 1, 0), matSlimeCrystal, 0);
+    FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(slimeSand, 1, 1), matSlimeCrystalBlue, 0);
   }
 
   public static void registerToolForgeBlock(String oredict) {

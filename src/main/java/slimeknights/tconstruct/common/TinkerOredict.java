@@ -24,6 +24,8 @@ public class TinkerOredict {
     OreDictionary.registerOre("blockPumpkin", Blocks.pumpkin);
     OreDictionary.registerOre("blockPumpkin", Blocks.lit_pumpkin);
     OreDictionary.registerOre("blockObsidian", Blocks.obsidian);
+
+    OreDictionary.registerOre("dirt", Blocks.dirt);
   }
 
   // All the oredicted things in tinkers. Only registers if the item is actually present
