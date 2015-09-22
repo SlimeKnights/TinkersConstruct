@@ -14,8 +14,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
-import slimeknights.tconstruct.library.client.MaterialRenderInfo;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.client.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.texture.ExtraUtilityTexture;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
@@ -30,7 +30,10 @@ import slimeknights.tconstruct.tools.modifiers.TraitSlimey;
 import slimeknights.tconstruct.tools.modifiers.TraitSplintering;
 import slimeknights.tconstruct.tools.modifiers.TraitStonebound;
 
-import static slimeknights.tconstruct.library.utils.HarvestLevels.*;
+import static slimeknights.tconstruct.library.utils.HarvestLevels.COBALT;
+import static slimeknights.tconstruct.library.utils.HarvestLevels.IRON;
+import static slimeknights.tconstruct.library.utils.HarvestLevels.OBSIDIAN;
+import static slimeknights.tconstruct.library.utils.HarvestLevels.STONE;
 
 public final class TinkerMaterials {
 
@@ -69,15 +72,15 @@ public final class TinkerMaterials {
 
   public static final Material xu;
 
-  public static final AbstractTrait ecological = new TraitEcological();
+  public static final AbstractTrait aridiculous = new TraitAridiculous();
   public static final AbstractTrait cheap = new TraitCheap();
   public static final AbstractTrait crude = new TraitCrude();
+  public static final AbstractTrait duritos = new TraitDuritos(); // yes you read that correctly
+  public static final AbstractTrait ecological = new TraitEcological();
   public static final AbstractTrait splintering = new TraitSplintering();
   public static final AbstractTrait prickly = new TraitPrickly();
-  public static final AbstractTrait duritos = new TraitDuritos();
   public static final AbstractTrait slimeyGreen = new TraitSlimey(EntitySlime.class);
   public static final AbstractTrait slimeyBlue = new TraitSlimey(EntitySlime.class); // todo: blue slime
-  public static final AbstractTrait aridiculous = new TraitAridiculous();
   public static final AbstractTrait stonebound = new TraitStonebound();
 
   private static Material mat(String name, EnumChatFormatting color) {

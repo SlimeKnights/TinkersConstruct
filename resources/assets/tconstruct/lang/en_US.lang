@@ -35,6 +35,23 @@ item.tconstruct.toolrod.name=Toolrod
 
 material.wood.name=Wood
 material.wood.prefix=Wooden %s
+material.stone.name=Stone
+material.flint.name=Flint
+material.cactus.name=Cactus
+material.obsidian.name=Obsidian
+material.prismarine.name=Prismarine
+material.netherrack.name=Netherrack
+material.endstone.name=End
+material.bone.name=Bone
+material.paper.name=Paper
+material.sponge.name=Sponge
+material.slime.name=Slime
+material.blueslime.name=Blue Slime
+material.blueslime.prefix=Slime %s
+material.ardite.name=Ardite
+material.cobalt.name=Cobalt
+material.manyullyn.name=Manyullyn
+material.iron.name=Iron
 
 #############
 #   Stats   #
@@ -55,8 +72,24 @@ stat.attack.desc=Attackstuff
 ##############
 
 # traits are also modifiers, they use the same prefix so they don't have to be localized twice
+modifier.aridiculous.name=Aridiculous
+modifier.aridiculous.desc=Turn up the heat! The tool works better in hotter environments.
+modifier.cheap.name=Cheap
+modifier.cheap.desc=More bang for your buck! Increases durability gained when repairing the tool.
+modifier.crude.name=Crude
+modifier.crude.desc=Armor is for cowards! Bonus damage against unarmored targets.
+modifier.duritos.name=Duritos
+modifier.duritos.desc=Doesn't taste as good as it sounds. Your tool lasts longer ...most of the time.
+modifier.ecological.name=Ecological
+modifier.ecological.desc=Green Power! Renewable resources are good, but don't catch a splinter.
+modifier.splintering.name=Splintering
+modifier.splintering.desc=A souvenir for your enemies! Hit them more to deal more damage.
+modifier.prickly.name=Prickly
+modifier.prickly.desc=Ouch! Nobody is safe from those thorns, better not touch them.
+modifier.slimey.name=Slimey
+modifier.slimey.desc=Eww, gooey! It'll wash off.
 modifier.stonebound.name=Stonebound
-modifier.stonebound.desc=Your tool absolutely loves stone. The tool mines faster as it wears out, but does less damage.
+modifier.stonebound.desc=Your tool absolutely loves stone! The tool mines faster as it wears out, but does less damage.
 
 #################
 #   Modifiers   #
