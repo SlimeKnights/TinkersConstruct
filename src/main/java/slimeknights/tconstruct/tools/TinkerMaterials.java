@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools;
 import com.google.common.collect.Lists;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -25,6 +26,7 @@ import slimeknights.tconstruct.tools.modifiers.TraitCrude;
 import slimeknights.tconstruct.tools.modifiers.TraitDuritos;
 import slimeknights.tconstruct.tools.modifiers.TraitEcological;
 import slimeknights.tconstruct.tools.modifiers.TraitPrickly;
+import slimeknights.tconstruct.tools.modifiers.TraitSlimey;
 import slimeknights.tconstruct.tools.modifiers.TraitSplintering;
 import slimeknights.tconstruct.tools.modifiers.TraitStonebound;
 
@@ -73,6 +75,8 @@ public final class TinkerMaterials {
   public static final AbstractTrait splintering = new TraitSplintering();
   public static final AbstractTrait prickly = new TraitPrickly();
   public static final AbstractTrait duritos = new TraitDuritos();
+  public static final AbstractTrait slimeyGreen = new TraitSlimey(EntitySlime.class);
+  public static final AbstractTrait slimeyBlue = new TraitSlimey(EntitySlime.class); // todo: blue slime
   public static final AbstractTrait aridiculous = new TraitAridiculous();
   public static final AbstractTrait stonebound = new TraitStonebound();
 
@@ -180,10 +184,12 @@ public final class TinkerMaterials {
     slime.setCraftable(true);
     slime.addItem(TinkerTools.matSlimeCrystal, 1, Material.VALUE_Ingot);
     slime.setRepresentativeItem(TinkerTools.matSlimeCrystal);
+    slime.addTrait(slimeyGreen);
 
     blueslime.setCraftable(true);
     blueslime.addItem(TinkerTools.matSlimeCrystalBlue, 1, Material.VALUE_Ingot);
     blueslime.setRepresentativeItem(TinkerTools.matSlimeCrystalBlue);
+    blueslime.addTrait(slimeyBlue);
 
     // Metals
     iron.addItem(Items.iron_ingot);
