@@ -246,8 +246,7 @@ public class GuiToolStation extends GuiTinkerStation {
         mods.add(StatCollector.translateToLocal("gui.toolStation.noTraits"));
       }
 
-      traitInfo.setText(mods);
-      traitInfo.setTooltips(tips);
+      traitInfo.setText(mods, tips);
     }
     // repair info
     else if(currentInfo.tool == null) {

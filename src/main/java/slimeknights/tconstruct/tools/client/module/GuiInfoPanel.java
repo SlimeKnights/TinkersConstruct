@@ -98,10 +98,14 @@ public class GuiInfoPanel extends GuiModule {
   }
 
   public void setText(String... text) {
-    setText(Lists.newArrayList(text));
+    setText(Lists.newArrayList(text), null);
   }
 
   public void setText(List<String> text) {
+    setText(text, null);
+  }
+
+  public void setText(List<String> text, List<String> tooltips) {
     // convert \n in localized text to actual newlines
     if(text != null) {
       for(int i = 0; i < text.size(); i++) {
@@ -110,9 +114,11 @@ public class GuiInfoPanel extends GuiModule {
     }
     this.text = text;
     updateSliderParameters();
+
+    setTooltips(tooltips);
   }
 
-  public void setTooltips(List<String> tooltips) {
+  protected void setTooltips(List<String> tooltips) {
     // convert \n in localized text to actual newlines
     if(tooltips != null) {
       for(int i = 0; i < tooltips.size(); i++) {

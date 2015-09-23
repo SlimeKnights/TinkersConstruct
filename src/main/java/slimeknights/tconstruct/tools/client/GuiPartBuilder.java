@@ -139,8 +139,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
             tips.remove(tips.size()-1);
           }
 
-          info.setText(stats);
-          info.setTooltips(tips);
+          info.setText(stats, tips);
         }
       }
     }
