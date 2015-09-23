@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.tools;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,6 +19,7 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 
+import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
@@ -144,6 +146,11 @@ public abstract class ToolCore extends TinkersItem {
     }
 
     return info.getTooltip();
+  }
+
+  @Override
+  public FontRenderer getFontRenderer(ItemStack stack) {
+    return ClientProxy.fontRenderer;
   }
 
   @Override

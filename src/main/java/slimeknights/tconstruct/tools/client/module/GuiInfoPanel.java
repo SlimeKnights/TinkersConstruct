@@ -20,6 +20,7 @@ import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.mantle.client.gui.GuiModule;
 import slimeknights.mantle.client.gui.GuiMultiModule;
 import slimeknights.mantle.client.gui.GuiWidgetSlider;
+import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.mantle.client.gui.GuiElementScalable;
 
@@ -50,7 +51,7 @@ public class GuiInfoPanel extends GuiModule {
 
   private GuiWidgetBorder border = new GuiWidgetBorder();
 
-  private FontRenderer fontRenderer = Minecraft.getMinecraft().fontRendererObj;
+  private FontRenderer fontRenderer = ClientProxy.fontRenderer;
   private GuiWidgetSlider slider = new GuiWidgetSlider(sliderNormal, sliderHover, sliderHover, sliderTop, sliderBot, sliderBar);
 
   protected String caption;

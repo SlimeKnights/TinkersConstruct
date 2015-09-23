@@ -3,11 +3,13 @@ package slimeknights.tconstruct.library.materials;
 
 import com.google.common.collect.Lists;
 
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 
 import java.text.DecimalFormat;
 import java.util.List;
 
+import slimeknights.mantle.client.CustomFontRenderer;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 
@@ -64,27 +66,31 @@ public class ToolMaterialStats extends AbstractMaterialStats {
   }
 
   public static String formatDurability(int durability) {
-    return String.format("%s: %s", Util.translate(LOC_Durability), df.format(durability));
+    return formatDurability(durability, 1000);
+  }
+
+  public static String formatDurability(int durability, int ref) {
+    return String.format("%s: %c%s", Util.translate(LOC_Durability), CustomFontRenderer.valueToColorCode((float)durability/(float)ref), df.format(durability)) + EnumChatFormatting.RESET;
   }
 
   public static String formatHarvestLevel(int level) {
-    return String.format("%s: %s", Util.translate(LOC_HarvestLevel), HarvestLevels.getHarvestLevelName(level));
+    return String.format("%s: %s", Util.translate(LOC_HarvestLevel), HarvestLevels.getHarvestLevelName(level)) + EnumChatFormatting.RESET;
   }
 
   public static String formatMiningSpeed(float speed) {
-    return String.format("%s: %s", Util.translate(LOC_MiningSpeed), df.format(speed));
+    return String.format("%s: %c%s", Util.translate(LOC_MiningSpeed), CustomFontRenderer.valueToColorCode(speed/10f), df.format(speed)) + EnumChatFormatting.RESET;
   }
 
   public static String formatAttack(float attack) {
-    return String.format("%s: %s", Util.translate(LOC_Attack), df.format(attack));
+    return String.format("%s: %c%s", Util.translate(LOC_Attack), CustomFontRenderer.valueToColorCode(attack/10f), df.format(attack)) + EnumChatFormatting.RESET;
   }
 
   public static String formatHandle(float quality) {
-    return String.format("%s: %s", Util.translate(LOC_Handle), dfPercent.format(quality));
+    return String.format("%s: %c%s", Util.translate(LOC_Handle), CustomFontRenderer.valueToColorCode(quality), dfPercent.format(quality)) + EnumChatFormatting.RESET;
   }
 
   public static String formatExtra(float quality) {
-    return String.format("%s: %s", Util.translate(LOC_Extra), dfPercent.format(quality));
+    return String.format("%s: %c%s", Util.translate(LOC_Extra), CustomFontRenderer.valueToColorCode(quality), dfPercent.format(quality));
   }
 
   @Override

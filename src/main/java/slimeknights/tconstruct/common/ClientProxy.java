@@ -13,16 +13,21 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameData;
 
+import java.lang.reflect.Field;
+
+import slimeknights.mantle.client.CustomFontRenderer;
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
+import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
 import slimeknights.tconstruct.library.client.model.ModifierModelLoader;
 import slimeknights.tconstruct.library.client.model.ToolModelLoader;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 
 public abstract class ClientProxy extends CommonProxy {
+
+  public static CustomFontRenderer fontRenderer;
 
   protected static final ToolModelLoader loader = new ToolModelLoader();
   protected static final MaterialModelLoader materialLoader = new MaterialModelLoader();
@@ -33,11 +38,35 @@ public abstract class ClientProxy extends CommonProxy {
     ModelLoaderRegistry.registerLoader(loader);
     ModelLoaderRegistry.registerLoader(materialLoader);
     ModelLoaderRegistry.registerLoader(modifierLoader);
+  }
+
+  public static void initRenderer() {
 
     CustomTextureCreator creator = new CustomTextureCreator();
 
     MinecraftForge.EVENT_BUS.register(creator);
     ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(creator);
+
+    fontRenderer = new CustomFontRenderer(Minecraft.getMinecraft().gameSettings,
+                                          new ResourceLocation("textures/font/ascii.png"),
+                                          Minecraft.getMinecraft().renderEngine);
+    if(Minecraft.getMinecraft().gameSettings.language != null) {
+      fontRenderer.setUnicodeFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLocaleUnicode());
+      fontRenderer.setBidiFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLanguageBidirectional());
+    }
+    ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(fontRenderer);
+
+    try {
+      Class clazz = Class.forName("codechicken.lib.gui.GuiDraw");
+      Field field = clazz.getDeclaredField("fontRenderer");
+      field.set(null, fontRenderer);
+    } catch(ClassNotFoundException e) {
+      e.printStackTrace();
+    } catch(NoSuchFieldException e) {
+      e.printStackTrace();
+    } catch(IllegalAccessException e) {
+      e.printStackTrace();
+    }
   }
 
   protected ResourceLocation registerModel(Item item, String... customVariants) {
@@ -84,12 +113,14 @@ public abstract class ClientProxy extends CommonProxy {
   protected void registerItemModel(ItemStack item, String name) {
 
     // tell Minecraft which textures it has to load. This is resource-domain sensitive
-    if(!name.contains(":"))
+    if(!name.contains(":")) {
       name = Util.resource(name);
+    }
 
     ModelBakery.addVariantName(item.getItem(), name);
     // tell the game which model to use for this item-meta combination
-    ModelLoader.setCustomModelResourceLocation(item.getItem(), item.getMetadata(), new ModelResourceLocation(name, "inventory"));
+    ModelLoader.setCustomModelResourceLocation(item.getItem(), item
+        .getMetadata(), new ModelResourceLocation(name, "inventory"));
   }
 
   /**

@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
 import java.text.DecimalFormat;
@@ -13,6 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
@@ -62,7 +64,12 @@ public class TooltipBuilder {
 
   public TooltipBuilder addDurability() {
     if(stack != null) {
-      tips.add(ToolMaterialStats.formatDurability(ToolHelper.getCurrentDurability(stack)));
+      if(ToolHelper.isBroken(stack)) {
+        tips.add(String.format("%s: %s%s%s", Util.translate(ToolMaterialStats.LOC_Durability), EnumChatFormatting.DARK_RED, EnumChatFormatting.BOLD, Util.translate("tooltip.tool.broken")));
+      }
+      else {
+        tips.add(ToolMaterialStats.formatDurability(ToolHelper.getCurrentDurability(stack), ToolHelper.getDurability(stack)));
+      }
     }
 
     return this;

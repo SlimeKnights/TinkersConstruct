@@ -109,6 +109,7 @@ item.tconstruct.pickaxe.desc=The Pickaxe is a precise mining tool. It is effecti
 #   Tooltips   #
 ################
 tooltip.tool.modifiers=Modifiers
+tooltip.tool.broken=Broken
 
 tooltip.part.materialAddedBy=Material added by %s
 tooltip.part.missingMaterial=Missing material: %s

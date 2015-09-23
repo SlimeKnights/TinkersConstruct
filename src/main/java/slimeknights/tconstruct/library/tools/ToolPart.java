@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools;
 
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -11,6 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -110,6 +112,11 @@ public class ToolPart extends MaterialItem implements IToolPart {
 
     // no, create the default name combo
     return material.getLocalizedItemName(super.getItemStackDisplayName(stack));
+  }
+
+  @Override
+  public FontRenderer getFontRenderer(ItemStack stack) {
+    return ClientProxy.fontRenderer;
   }
 
   @Override

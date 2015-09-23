@@ -117,6 +117,10 @@ public class TConstruct {
 
     TinkerOredict.ensureOredict();
     TinkerOredict.registerTinkerOredict();
+
+    if(event.getSide().isClient()) {
+      ClientProxy.initRenderer();
+    }
   }
 
   @Mod.EventHandler
