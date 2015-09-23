@@ -286,7 +286,11 @@ public class GuiInfoPanel extends GuiModule {
     if(i >= tooltips.size() || tooltips.get(i) == null)
       return;
 
-    int w = MathHelper.clamp_int(this.width - mouseX - 12, 10, 200);
+    int w = MathHelper.clamp_int(this.width - mouseX - 12, 0, 200);
+    if(w < 100) {
+      mouseX -= 100-w;
+      w = 100;
+    }
     drawHoveringText(fontRenderer.listFormattedStringToWidth(tooltips.get(i), w), mouseX - guiLeft, mouseY - guiTop);
   }
 
