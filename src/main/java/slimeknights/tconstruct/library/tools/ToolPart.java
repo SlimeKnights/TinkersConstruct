@@ -13,6 +13,7 @@ import java.util.List;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
@@ -61,6 +62,8 @@ public class ToolPart extends MaterialItem implements IToolPart {
   public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
     Material material = getMaterial(stack);
 
+    // Material traits/info
+
     if(material == Material.UNKNOWN) {
       NBTTagCompound tag = TagUtil.getTagSafe(stack);
       String materialID = tag.getString(Tags.PART_MATERIAL);
@@ -80,12 +83,15 @@ public class ToolPart extends MaterialItem implements IToolPart {
       }
     }
 
-    if(advanced) {
-      String materialInfo = StatCollector.translateToLocalFormatted("tooltip.part.materialAddedBy",
-                                                                    TinkerRegistry.getTrace(material));
-      tooltip.add("");
-      tooltip.add(materialInfo);
+    // Stats
+    for(IMaterialStats stat : material.getAllStats()) {
+      tooltip.addAll(stat.getLocalizedInfo());
     }
+
+    String materialInfo = StatCollector.translateToLocalFormatted("tooltip.part.materialAddedBy",
+                                                                  TinkerRegistry.getTrace(material));
+    tooltip.add("");
+    tooltip.add(materialInfo);
   }
 
   @Override
