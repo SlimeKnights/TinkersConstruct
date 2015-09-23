@@ -11,6 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import slimeknights.tconstruct.common.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
@@ -84,8 +85,10 @@ public class ToolPart extends MaterialItem implements IToolPart {
     }
 
     // Stats
-    for(IMaterialStats stat : material.getAllStats()) {
-      tooltip.addAll(stat.getLocalizedInfo());
+    if(Config.extraTooltips) {
+      for(IMaterialStats stat : material.getAllStats()) {
+        tooltip.addAll(stat.getLocalizedInfo());
+      }
     }
 
     String materialInfo = StatCollector.translateToLocalFormatted("tooltip.part.materialAddedBy",

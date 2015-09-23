@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 import slimeknights.mantle.util.RecipeMatch;
+import slimeknights.tconstruct.common.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
@@ -279,7 +280,9 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       tooltip.add(data.color.toString() + modifier.getLocalizedName());
     }
     // remaining data
-    Collections.addAll(tooltip, this.getInformation(stack));
+    if(Config.extraTooltips) {
+      Collections.addAll(tooltip, this.getInformation(stack));
+    }
   }
 
   /* NBT loading */
