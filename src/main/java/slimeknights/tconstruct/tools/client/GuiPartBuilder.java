@@ -129,7 +129,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
 
           // Traits
           for(ITrait trait : material.getAllTraits()) {
-            stats.add(trait.getLocalizedName());
+            stats.add(material.textColor + trait.getLocalizedName());
             tips.add(trait.getLocalizedDesc());
           }
 
