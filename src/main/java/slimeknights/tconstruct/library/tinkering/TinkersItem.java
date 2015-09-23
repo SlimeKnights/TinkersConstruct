@@ -233,10 +233,10 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     return item;
   }
 
-  private int calculateRepair(ItemStack tool, int materialValue)
+  protected int calculateRepair(ItemStack tool, int materialValue)
   {
     int baseDurability = TagUtil.getOriginalToolStats(tool).durability;
-    int increase = (int) (50  + (baseDurability * 0.4f * materialValue));
+    float increase = (50f  + (baseDurability * 0.4f * materialValue)/Material.VALUE_Ingot);
 
     int modifiers = ToolTagUtil.getFreeModifiers(TagUtil.getTagSafe(tool));
     float mods = 1.0f;
@@ -256,7 +256,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       repairCount = 0.5f;
     increase *= repairCount;
 
-    return increase;
+    return (int)increase;
   }
 
   /* Information */
