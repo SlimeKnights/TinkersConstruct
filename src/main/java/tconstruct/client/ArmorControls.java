@@ -4,12 +4,13 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.InputEvent;
+import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 import mantle.common.network.AbstractPacket;
 import modwarriors.notenoughkeys.api.Api;
 import modwarriors.notenoughkeys.api.KeyBindingPressedEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraftforge.client.event.MouseEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -85,29 +86,34 @@ public class ArmorControls {
 	}
 
 	@SubscribeEvent
-	public void mouseEvent(InputEvent.MouseInputEvent event) {
-		if (!Loader.isModLoaded("notenoughkeys"))
-			this.checkKeys();
+	public void mouseEvent(MouseEvent event) {
+		if (!Loader.isModLoaded("notenoughkeys")) this.checkKeys(event.button + 100);
 	}
 
 	@SubscribeEvent
-	public void keyEvent(InputEvent.KeyInputEvent event) {
-		if (!Loader.isModLoaded("notenoughkeys"))
-			this.checkKeys();
+	public void keyEvent(KeyInputEvent event) {
+		if (!Loader.isModLoaded("notenoughkeys")) this.checkKeys(-1);
 	}
 
 	@Optional.Method(modid = "notenoughkeys")
 	@SubscribeEvent
 	public void keyEventSpecial(KeyBindingPressedEvent event) {
-		this.keyPressed(event.keyBinding);
+		this.sendPress(event.keyBinding, event.isKeyBindingPressed);
 	}
 
-	private void checkKeys() {
+	private void checkKeys(int keycode) {
 		for (KeyBinding key : this.keys) {
-			if (key != null && this.isKeyActive(key.getKeyCode())) {
-				this.keyPressed(key);
-			}
+			if (keycode < 0 || key.getKeyCode() == keycode)
+				this.checkKeyAndSendPress(key);
 		}
+	}
+	
+	private void checkKeyAndSendPress(KeyBinding key) {
+		this.sendPress(key, this.isKeyActive(key.getKeyCode()));
+	}
+	
+	private void sendPress(KeyBinding key, boolean isPressed) {
+		if (isPressed) this.keyPressed(key);
 	}
 
 	private boolean isKeyActive(int keyCode) {
