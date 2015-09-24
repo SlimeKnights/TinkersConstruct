@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.tools;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -21,6 +23,7 @@ import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.tools.Pattern;
+import slimeknights.tconstruct.tools.client.RenderEvents;
 
 import static slimeknights.tconstruct.tools.TinkerTools.matSlimeBallBlue;
 import static slimeknights.tconstruct.tools.TinkerTools.matSlimeCrystal;
@@ -41,6 +44,9 @@ public class ToolClientProxy extends ClientProxy {
   @Override
   public void init() {
     toolBuildInfo();
+    RenderEvents renderEvents = new RenderEvents();
+    MinecraftForge.EVENT_BUS.register(renderEvents);
+    ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(renderEvents);
   }
 
   @Override
