@@ -116,6 +116,17 @@ public final class ToolHelper {
     return false;
   }
 
+  // also checks for the tools effectiveness
+  protected static boolean isToolEffective2(ItemStack stack, IBlockState state) {
+    if(isToolEffective(stack, state))
+      return true;
+
+    if(stack.getItem() instanceof ToolCore && ((ToolCore) stack.getItem()).isEffective(state.getBlock()))
+      return true;
+
+    return false;
+  }
+
   /**
    * Checks if an item has the right harvest level of the correct type for the block.
    */
@@ -205,7 +216,10 @@ public final class ToolHelper {
           if(xp == origin.getX() && yp == origin.getY() && zp == origin.getZ()) {
             continue;
           }
-          builder.add(new BlockPos(xp, yp, zp));
+          BlockPos pos = new BlockPos(xp, yp, zp);
+          if(isToolEffective2(stack, world.getBlockState(pos))) {
+            builder.add(pos);
+          }
         }
       }
     }
@@ -224,16 +238,8 @@ public final class ToolHelper {
     Block block = state.getBlock();
 
     // only effective materials
-    if (!isToolEffective(stack, state)) {
-      if(stack.getItem() instanceof ToolCore) {
-        if(!((ToolCore) stack.getItem()).isEffective(block)) {
-          return;
-        }
-      }
-      else {
-        return;
-      }
-      // basically: don't return if it's effective.
+    if(!isToolEffective2(stack, state)) {
+      return;
     }
 
     IBlockState refState = world.getBlockState(refPos);
