@@ -1,0 +1,8 @@
+{
+    "textures": {
+        "default": "tconstruct:items/friedEgg",
+        "pickaxe": "tconstruct:items/pickaxe/mod_redstone",
+        "shovel": "tconstruct:items/shovel/mod_redstone",
+        "hatchet": "tconstruct:items/hatchet/mod_redstone"
+    }
+}

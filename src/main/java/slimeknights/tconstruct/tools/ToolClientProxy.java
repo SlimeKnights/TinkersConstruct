@@ -98,6 +98,7 @@ public class ToolClientProxy extends ClientProxy {
 
     registerModifierModel(TinkerTools.diamondMod, Util.getResource("models/item/modifiers/Diamond"));
     registerModifierModel(TinkerTools.fortifyMod, Util.getResource("models/item/modifiers/Fortify"));
+    registerModifierModel(TinkerTools.redstoneMod, Util.getResource("models/item/modifiers/Redstone"));
   }
 
   public ResourceLocation registerPartModel(Item item) {
