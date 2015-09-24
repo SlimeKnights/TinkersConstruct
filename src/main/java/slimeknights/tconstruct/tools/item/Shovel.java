@@ -15,7 +15,8 @@ public class Shovel extends ToolCore {
 
   public Shovel() {
     super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.shovelHead));
+          new PartMaterialType.ToolPartType(TinkerTools.shovelHead),
+          new PartMaterialType.ToolPartType(TinkerTools.binding));
 
     addCategory(Category.HARVEST);
 
@@ -28,7 +29,7 @@ public class Shovel extends ToolCore {
     if(materials.size() < requiredComponents.length) {
       return new NBTTagCompound();
     }
-    return ToolBuilder.buildSimpleTool(materials.get(0), materials.get(1));
+    return ToolBuilder.buildSimpleTool(materials.get(0), materials.get(1), materials.get(2));
   }
 
   @Override
