@@ -1,9 +1,9 @@
 {
     "parent": "tconstruct:item/tools/TinkerTool",
     "textures": {
-        "layer0": "tconstruct:items/broadsword/sword_handle",
-        "layer1": "tconstruct:items/broadsword/sword_blade",
-		"layer2": "tconstruct:items/broadsword/sword_guard",
-		"broken1": "tconstruct:items/broadsword/broken_sword_blade"
+        "layer0": "tconstruct:items/broadsword/handle",
+        "layer1": "tconstruct:items/broadsword/blade",
+		"layer2": "tconstruct:items/broadsword/guard",
+		"broken1": "tconstruct:items/broadsword/broken_blade"
     }
 }
