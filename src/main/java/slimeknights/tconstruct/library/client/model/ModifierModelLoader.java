@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.client.model;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.gson.JsonParseException;
 
 import gnu.trove.map.hash.THashMap;
 
@@ -131,6 +132,9 @@ public class ModifierModelLoader implements ICustomModelLoader {
           }
         } catch(IOException e) {
           TinkerRegistry.log.error("Cannot load modifier-model {}", entry.getValue());
+        } catch(JsonParseException e) {
+          TinkerRegistry.log.error("Cannot load modifier-model {}", entry.getValue());
+          throw e;
         }
       }
 
