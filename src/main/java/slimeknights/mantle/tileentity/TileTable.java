@@ -23,7 +23,6 @@ import slimeknights.tconstruct.common.Config;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.client.model.ModelHelper;
 import slimeknights.tconstruct.tools.network.InventorySlotSyncPacket;
-import slimeknights.tconstruct.tools.network.InventoryUpdateSyncPacket;
 
 public class TileTable extends TileInventory {
 
