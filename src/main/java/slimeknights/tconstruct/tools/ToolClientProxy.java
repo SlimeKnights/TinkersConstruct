@@ -37,7 +37,6 @@ public class ToolClientProxy extends ClientProxy {
   public void preInit() {
     super.preInit();
 
-    TinkerMaterials.registerMaterialRendering();
     MinecraftForge.EVENT_BUS.register(new ToolClientEvents());
   }
 

@@ -88,13 +88,12 @@ public class TConstruct {
     // Tinker pulses
     pulseManager.registerPulse(new TinkerTools());
     pulseManager.registerPulse(new TinkerSmeltery());
+    pulseManager.registerPulse(new TinkerMaterials());
     // Plugins/Integration
 
     pulseManager.preInit(event);
 
     // the basic tinker materials are always present
-    TinkerMaterials.setupMaterials();
-    TinkerMaterials.registerMaterials();
     HarvestLevels.init();
 
     NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);

@@ -9,11 +9,16 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import mantle.pulsar.pulse.Handler;
+import mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.texture.ExtraUtilityTexture;
@@ -35,8 +40,10 @@ import static slimeknights.tconstruct.library.utils.HarvestLevels.IRON;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.OBSIDIAN;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.STONE;
 
+@Pulse(id = TinkerMaterials.PulseId, forced = true)
 public final class TinkerMaterials {
 
+  static final String PulseId = "TinkerTools";
   public static final List<Material> materials = Lists.newArrayList();
 
   // natural resources/blocks
@@ -88,16 +95,29 @@ public final class TinkerMaterials {
     materials.add(mat);
     return mat;
   }
-
-  private TinkerMaterials() {
-  }
-
+  
   static {
     xu = new Material("unstable", EnumChatFormatting.WHITE);
   }
 
+  @Handler
+  public void registerMaterials(FMLPreInitializationEvent event) {
+    for(Material material : materials) {
+      TinkerRegistry.addMaterial(material);
+    }
+
+    TinkerRegistry.addMaterial(xu);
+  }
+
+  @Handler
+  public void registerRendering(FMLPostInitializationEvent event) {
+    if(event.getSide().isClient()) {
+      TinkerMaterials.registerMaterialRendering();
+    }
+  }
+
   @SideOnly(Side.CLIENT)
-  public static void registerMaterialRendering() {
+  private static void registerMaterialRendering() {
     wood.setRenderInfo(new MaterialRenderInfo.MultiColor(0x6e572a, 0x745f38, 0x8e671d));
     stone.setRenderInfo(0x898989);
     flint.setRenderInfo(0xffffff).setTextureSuffix("contrast");
@@ -125,7 +145,8 @@ public final class TinkerMaterials {
     });
   }
 
-  public static void setupMaterials() {
+  @Handler
+  public void setupMaterials(FMLInitializationEvent event) {
     // natural resources/blocks
     wood.setCraftable(true);
     wood.addItem("stickWood", 1, Material.VALUE_Shard);
@@ -201,19 +222,9 @@ public final class TinkerMaterials {
 
 
     registerToolMaterials();
-    registerBowMaterials();
-    registerBowMaterials();
   }
 
-  public static void registerMaterials() {
-    for(Material material : materials) {
-      TinkerRegistry.addMaterial(material);
-    }
-
-    TinkerRegistry.addMaterial(xu);
-  }
-
-  public static void registerToolMaterials() {
+  public void registerToolMaterials() {
     // Stats:                                                   Durability, speed, attack, handle, extra, harvestlevel
     // natural resources/blocks
     TinkerRegistry.addMaterialStats(wood,       new ToolMaterialStats( 137, 3.00f, 0.20f, 0.80f, 0.60f, STONE));
@@ -237,11 +248,11 @@ public final class TinkerMaterials {
     //TinkerRegistry.addMaterialStats(xu,         new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, DIAMOND));
   }
 
-  public static void registerBowMaterials() {
+  public void registerBowMaterials() {
 
   }
 
-  public static void registerProjectileMaterials() {
+  public void registerProjectileMaterials() {
 
   }
 }
