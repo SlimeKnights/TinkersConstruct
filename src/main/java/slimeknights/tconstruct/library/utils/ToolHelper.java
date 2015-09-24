@@ -1,9 +1,13 @@
 package slimeknights.tconstruct.library.utils;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -13,12 +17,18 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.network.play.server.S0BPacketAnimation;
 import net.minecraft.network.play.server.S12PacketEntityVelocity;
+import net.minecraft.network.play.server.S23PacketBlockChange;
 import net.minecraft.potion.Potion;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatList;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3i;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.ForgeHooks;
 
@@ -123,7 +133,178 @@ public final class ToolHelper {
     return stack.getItem().getHarvestLevel(stack, type) >= level;
   }
 
+  /* Harvesting */
 
+  public static ImmutableList<BlockPos> calcAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin, int width, int height, int depth) {
+    // only works with toolcore because we need the raytrace call
+    if(stack == null || !(stack.getItem() instanceof ToolCore))
+      return ImmutableList.of();
+
+    // find out where the player is hitting the block
+    IBlockState state = world.getBlockState(origin);
+    Block block = state.getBlock();
+
+    if(block.getMaterial() == Material.air) {
+      // what are you DOING?
+      return ImmutableList.of();
+    }
+
+    MovingObjectPosition mop = ((ToolCore) stack.getItem()).getMovingObjectPositionFromPlayer(world, player, false);
+    if(mop == null) {
+      return ImmutableList.of();
+    }
+
+    // we know the block and we know which side of the block we're hitting. time to calculate the depth along the different axes
+    int x,y,z;
+    BlockPos start = origin;
+    switch(mop.sideHit) {
+      case DOWN:
+      case UP:
+        // x y depends on the angle we look?
+        Vec3i vec = player.getHorizontalFacing().getDirectionVec();
+        x = vec.getX() * height + vec.getZ() * width;
+        y = mop.sideHit.getAxisDirection().getOffset() * -depth;
+        z = vec.getX() * width + vec.getZ() * height;
+        start = start.add(-x/2, 0, -z/2);
+        if(x % 2 == 0) {
+          if(x > 0 && mop.hitVec.xCoord - mop.getBlockPos().getX() > 0.5d) start = start.add(1,0,0);
+          else if (x < 0 && mop.hitVec.xCoord - mop.getBlockPos().getX() < 0.5d) start = start.add(-1,0,0);
+        }
+        if(z % 2 == 0) {
+          if(z > 0 && mop.hitVec.zCoord - mop.getBlockPos().getZ() > 0.5d) start = start.add(0,0,1);
+          else if(z < 0 && mop.hitVec.zCoord - mop.getBlockPos().getZ() < 0.5d) start = start.add(0,0,-1);
+        }
+        break;
+      case NORTH:
+      case SOUTH:
+        x = width;
+        y = height;
+        z = mop.sideHit.getAxisDirection().getOffset() * -depth;
+        start = start.add(-x/2, -y/2, 0);
+        if(x % 2 == 0 && mop.hitVec.xCoord - mop.getBlockPos().getX() > 0.5d) start = start.add(1,0,0);
+        if(y % 2 == 0 && mop.hitVec.yCoord - mop.getBlockPos().getY() > 0.5d) start = start.add(0,1,0);
+        break;
+      case WEST:
+      case EAST:
+        x = mop.sideHit.getAxisDirection().getOffset() * -depth;
+        y = height;
+        z = width;
+        start = start.add(-0, -y/2, -z/2);
+        if(y % 2 == 0 && mop.hitVec.yCoord - mop.getBlockPos().getY() > 0.5d) start = start.add(0,1,0);
+        if(z % 2 == 0 && mop.hitVec.zCoord - mop.getBlockPos().getZ() > 0.5d) start = start.add(0,0,1);
+        break;
+      default:
+        x = y = z = 0;
+    }
+
+    ImmutableList.Builder<BlockPos> builder = ImmutableList.builder();
+    for(int xp = start.getX(); xp != start.getX() + x; xp += x/MathHelper.abs_int(x)) {
+      for(int yp = start.getY(); yp != start.getY() + y; yp += y/MathHelper.abs_int(y)) {
+        for(int zp = start.getZ(); zp != start.getZ() + z; zp += z/MathHelper.abs_int(z)) {
+          // don't add the origin block
+          if(xp == origin.getX() && yp == origin.getY() && zp == origin.getZ()) {
+            continue;
+          }
+          builder.add(new BlockPos(xp, yp, zp));
+        }
+      }
+    }
+
+    return builder.build();
+  }
+
+  public static void breakExtraBlock(ItemStack stack, World world, EntityPlayer player, BlockPos pos, BlockPos refPos) {
+    // prevent calling that stuff for air blocks, could lead to unexpected behaviour since it fires events
+    if (world.isAirBlock(pos))
+      return;
+
+    // check if the block can be broken, since extra block breaks shouldn't instantly break stuff like obsidian
+    // or precious ores you can't harvest while mining stone
+    IBlockState state = world.getBlockState(pos);
+    Block block = state.getBlock();
+
+    // only effective materials
+    if (!isToolEffective(stack, state)) {
+      if(stack.getItem() instanceof ToolCore) {
+        if(!((ToolCore) stack.getItem()).isEffective(block)) {
+          return;
+        }
+      }
+      else {
+        return;
+      }
+      // basically: don't return if it's effective.
+    }
+
+    IBlockState refState = world.getBlockState(refPos);
+    float refStrength = ForgeHooks.blockStrength(refState, player, world, refPos);
+    float strength = ForgeHooks.blockStrength(state, player, world, pos);
+
+    // only harvestable blocks that aren't impossibly slow to harvest
+    if (!ForgeHooks.canHarvestBlock(block, player, world, pos) || refStrength/strength > 10f)
+      return;
+
+    if (player.capabilities.isCreativeMode) {
+      block.onBlockHarvested(world, pos, state, player);
+      if (block.removedByPlayer(world, pos, player, false))
+        block.onBlockDestroyedByPlayer(world, pos, state);
+
+      // send update to client
+      if (!world.isRemote) {
+        ((EntityPlayerMP)player).playerNetServerHandler.sendPacket(new S23PacketBlockChange(world, pos));
+      }
+      return;
+    }
+
+    // callback to the tool the player uses. Called on both sides. This damages the tool n stuff.
+    player.getCurrentEquippedItem().onBlockDestroyed(world, block, pos, player);
+
+    // server sided handling
+    if (!world.isRemote) {
+      // serverside we reproduce ItemInWorldManager.tryHarvestBlock
+
+      // ItemInWorldManager.removeBlock
+      block.onBlockHarvested(world, pos, state, player);
+
+      if(block.removedByPlayer(world, pos, player, true)) // boolean is if block can be harvested, checked above
+      {
+        block.onBlockDestroyedByPlayer(world, pos, state);
+        block.harvestBlock(world, player, pos, state, world.getTileEntity(pos));
+      }
+
+      // always send block update to client
+      EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
+      mpPlayer.playerNetServerHandler.sendPacket(new S23PacketBlockChange(world, pos));
+    }
+    // client sided handling
+    else {
+      PlayerControllerMP pcmp = Minecraft.getMinecraft().playerController;
+      // clientside we do a "this clock has been clicked on long enough to be broken" call. This should not send any new packets
+      // the code above, executed on the server, sends a block-updates that give us the correct state of the block we destroy.
+
+      // following code can be found in PlayerControllerMP.onPlayerDestroyBlock
+      world.playAuxSFX(2001, pos, Block.getStateId(state));
+      if(block.removedByPlayer(world, pos, player, true))
+      {
+        block.onBlockDestroyedByPlayer(world, pos, state);
+      }
+      // callback to the tool
+      ItemStack itemstack = player.getCurrentEquippedItem();
+      if (itemstack != null)
+      {
+        itemstack.onBlockDestroyed(world, block, pos, player);
+
+        if (itemstack.stackSize == 0)
+        {
+          player.destroyCurrentEquippedItem();
+        }
+      }
+
+      // send an update to the server, so we get an update back
+      //if(PHConstruct.extraBlockUpdates)
+        Minecraft.getMinecraft().getNetHandler().addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, Minecraft.getMinecraft().objectMouseOver.sideHit));
+    }
+  }
 
   /* Tool Durability */
 
