@@ -36,7 +36,6 @@ import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.tools.block.BlockSlimeSand;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
-import slimeknights.tconstruct.tools.debug.TempToolModifying;
 import slimeknights.tconstruct.tools.item.Hatchet;
 import slimeknights.tconstruct.tools.item.Pickaxe;
 import slimeknights.tconstruct.tools.item.BroadSword;
@@ -49,7 +48,6 @@ import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.tools.block.BlockToolForge;
-import slimeknights.tconstruct.tools.debug.TempToolCrafting;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.Shard;
 import slimeknights.tconstruct.tools.modifiers.ModDiamond;
@@ -59,6 +57,7 @@ import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
 import slimeknights.tconstruct.tools.tileentity.TileStencilTable;
 import slimeknights.tconstruct.tools.tileentity.TileToolForge;
 import slimeknights.tconstruct.tools.tileentity.TileToolStation;
+import slimeknights.tconstruct.tools.item.Shovel;
 
 @Pulse(id = TinkerTools.PulseId, description = "All the tools and everything related to it.")
 public class TinkerTools extends TinkerPulse {
@@ -86,11 +85,13 @@ public class TinkerTools extends TinkerPulse {
 
   // Tools
   public static ToolCore pickaxe;
+  public static ToolCore shovel;
   public static ToolCore hatchet;
   public static ToolCore broadSword;
 
   // Tool Parts
   public static ToolPart pickHead;
+  public static ToolPart shovelHead;
   public static ToolPart axeHead;
   public static ToolPart swordBlade;
 
@@ -148,6 +149,7 @@ public class TinkerTools extends TinkerPulse {
   private void registerToolParts() {
     // The order the items are registered in represents the order in the stencil table GUI too
     pickHead = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "PickHead");
+    shovelHead = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "ShovelHead");
     axeHead = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "AxeHead");
     swordBlade = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "SwordBlade");
 
@@ -161,6 +163,7 @@ public class TinkerTools extends TinkerPulse {
 
   private void registerTools() {
     pickaxe = registerTool(new Pickaxe(), "Pickaxe");
+    shovel = registerTool(new Shovel(), "Shovel");
     hatchet = registerTool(new Hatchet(), "Hatchet");
     broadSword = registerTool(new BroadSword(), "BroadSword");
   }
