@@ -1,5 +1,9 @@
 {
-    "default": "tconstruct:items/friedEgg",
-	"pickaxe": "tconstruct:items/pickaxe/modifier_diamond",
-	"shovel": "tconstruct:items/shovel/modifier_diamond"
+    "textures": {
+        "default": "tconstruct:items/friedEgg",
+        "pickaxe": "tconstruct:items/pickaxe/mod_diamond",
+        "shovel": "tconstruct:items/shovel/mod_diamond",
+        "hatchet": "tconstruct:items/hatchet/mod_diamond",
+        "broadsword": "tconstruct:items/broadsword/mod_diamond"
+    }
 }

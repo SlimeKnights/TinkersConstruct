@@ -10,6 +10,7 @@ buildscript {
     repositories {
         mavenCentral()
 		mavenLocal()
+        jcenter()
         maven {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
@@ -20,9 +21,13 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.0-SNAPSHOT'
     }
 }
+/*
+plugins {
+    id "net.minecraftforge.gradle.forge" version "2.0.1"
+}*/
 
 repositories {
     maven {
@@ -39,12 +44,13 @@ repositories {
     }
 }
 
-apply plugin: 'forge'
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+apply plugin: 'net.minecraftforge.gradle.forge'
+//apply plugin: 'forge'
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
 
 version = "1.0"
-group= "tconstruct"
+group= "slimeknights"
 archivesBaseName = "TConstruct"
 
 // External properties
@@ -69,7 +75,7 @@ minecraft {
     // stable_#            stables are built at the discretion of the MCP team.
     // Use non-default mappings at your own risk. they may not allways work.
     // simply re-run your setup task after changing the mappings to update your workspace.
-    mappings = "stable_nodoc_16"
+    mappings = "snapshot_20150912"
 }
 
 dependencies {
@@ -118,7 +124,7 @@ jar {
         attributes 'FMLAT': 'TConstruct_at.cfg'
     }
 }
-
+/*
 // Create deobf dev jars
 task deobfJar(type: Jar) {
     from sourceSets.main.output
@@ -130,9 +136,9 @@ task deobfJar(type: Jar) {
 
 // Create API library jar
 task libJar(type: Jar) {
-    from(sourceSets.main.java) {
-        include "tconstruct/library/**/*"
-    }
+    from(sourceSets.main.java) {*/
+        //include "tconstruct/library/**/*"
+/*    }
     classifier = 'lib'
 }
 
@@ -146,7 +152,7 @@ artifacts {
     archives deobfJar
     archives libJar
     archives sourceJar
-}
+}*/
 // verify the properties exist.. or initialize.
 if (!project.hasProperty("keystore_location")) // keystore location
     ext.keystore_location = ".";

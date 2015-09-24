@@ -1,4 +1,6 @@
 {
-    "default": "tconstruct:items/friedEgg",
-	"pickaxe": "tconstruct:items/pickaxe/modifier_fortified"
+    "textures": {
+        "default": "tconstruct:items/friedEgg",
+        "pickaxe": "tconstruct:items/pickaxe/mod_fortified"
+    }
 }
