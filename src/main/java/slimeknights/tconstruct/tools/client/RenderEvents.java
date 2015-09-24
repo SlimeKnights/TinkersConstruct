@@ -37,7 +37,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 import slimeknights.tconstruct.library.tools.IAoeTool;
-import slimeknights.tconstruct.library.tools.ToolCore;
 
 @SideOnly(Side.CLIENT)
 public class RenderEvents implements IResourceManagerReloadListener {
