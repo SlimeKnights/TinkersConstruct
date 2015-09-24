@@ -156,6 +156,7 @@ public class ModifierModelLoader implements ICustomModelLoader {
       for(Map.Entry<String, String> defaultEntry : defaults.entrySet()) {
         // check if the tool has an entry for this modifier, otherwise fill in default
         if(!textures.containsKey(defaultEntry.getKey())) {
+          TinkerRegistry.log.debug("Filling in default for modifier {} on tool {}", defaultEntry.getKey(), toolEntry.getKey());
           textures.put(defaultEntry.getKey(), defaultEntry.getValue());
         }
       }
