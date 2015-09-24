@@ -36,7 +36,7 @@ public class CustomFontRenderer extends FontRenderer {
     // we use \u2700 to \u27FF, where the lower byte represents the Hue of the color
     if((int)letter >= 0x2700 && (int)letter <= 0x27FF) {
       int hue = letter & 0xFF;
-      int color = Color.HSBtoRGB((float)hue/255f, 0.9f, 0.9f);
+      int color = Color.HSBtoRGB((float)hue/255f, 0.65f, 0.8f);
 
       if ((color & -67108864) == 0)
       {
