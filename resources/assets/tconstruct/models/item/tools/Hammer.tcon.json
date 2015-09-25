@@ -5,6 +5,6 @@
         "layer1": "tconstruct:items/hammer/head",
 		"layer2": "tconstruct:items/hammer/back",
 		"layer3": "tconstruct:items/hammer/front",
-		"broken1": "tconstruct:items/hammer/broken_handle"
+		"broken0": "tconstruct:items/hammer/broken_handle"
     }
 }
