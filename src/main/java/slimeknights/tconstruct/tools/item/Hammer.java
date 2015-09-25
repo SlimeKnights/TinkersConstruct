@@ -15,8 +15,8 @@ import java.util.List;
 public class Hammer extends ToolCore{
 
 	public Hammer(){
-		super(new PartMaterialType.ToolPartType(TinkerTools.hammerHead),
-				new PartMaterialType.ToolPartType(TinkerTools.toughToolRod),
+		super(new PartMaterialType.ToolPartType(TinkerTools.toughToolRod),
+				new PartMaterialType.ToolPartType(TinkerTools.hammerHead),
 				new PartMaterialType.ToolPartType(TinkerTools.largePlate),
 				new PartMaterialType.ToolPartType(TinkerTools.largePlate));
 
