@@ -35,11 +35,10 @@ public class TinkerPotion extends Potion {
     }
   }
 
-  public static TinkerPotion Splinter = new TinkerPotion(Util.getResource("splinter"), true, false);
 
   private final boolean show;
 
-  protected TinkerPotion(ResourceLocation location, boolean badEffect, boolean showInInventory) {
+  public TinkerPotion(ResourceLocation location, boolean badEffect, boolean showInInventory) {
     super(idCounter++, location, badEffect, 0xffffff);
     setPotionName("potion." + location.getResourcePath());
 
@@ -59,5 +58,13 @@ public class TinkerPotion extends Potion {
     PotionEffect effect = new PotionEffect(this.id, duration, level, false, false);
     entity.addPotionEffect(effect);
     return effect;
+  }
+
+  public int getLevel(EntityLivingBase entity) {
+    PotionEffect effect = entity.getActivePotionEffect(this);
+    if(effect != null) {
+      return effect.getAmplifier();
+    }
+    return 0;
   }
 }

@@ -31,6 +31,9 @@ import slimeknights.tconstruct.tools.modifiers.TraitCheap;
 import slimeknights.tconstruct.tools.modifiers.TraitCrude;
 import slimeknights.tconstruct.tools.modifiers.TraitDuritos;
 import slimeknights.tconstruct.tools.modifiers.TraitEcological;
+import slimeknights.tconstruct.tools.modifiers.TraitInsatiable;
+import slimeknights.tconstruct.tools.modifiers.TraitMomentum;
+import slimeknights.tconstruct.tools.modifiers.TraitPetramor;
 import slimeknights.tconstruct.tools.modifiers.TraitPrickly;
 import slimeknights.tconstruct.tools.modifiers.TraitSlimey;
 import slimeknights.tconstruct.tools.modifiers.TraitSplintering;
@@ -85,10 +88,13 @@ public final class TinkerMaterials {
   public static final AbstractTrait crude = new TraitCrude();
   public static final AbstractTrait duritos = new TraitDuritos(); // yes you read that correctly
   public static final AbstractTrait ecological = new TraitEcological();
-  public static final AbstractTrait splintering = new TraitSplintering();
+  public static final AbstractTrait insatiable = new TraitInsatiable();
+  public static final AbstractTrait momentum = new TraitMomentum();
+  public static final AbstractTrait petramor = new TraitPetramor();
   public static final AbstractTrait prickly = new TraitPrickly();
   public static final AbstractTrait slimeyGreen = new TraitSlimey(EntitySlime.class);
   public static final AbstractTrait slimeyBlue = new TraitSlimey(EntitySlime.class); // todo: blue slime
+  public static final AbstractTrait splintering = new TraitSplintering();
   public static final AbstractTrait stonebound = new TraitStonebound();
 
   private static Material mat(String name, EnumChatFormatting color) {
@@ -137,6 +143,9 @@ public final class TinkerMaterials {
 
     // Metals
     iron.setRenderInfo(0xffffff);
+    cobalt.setRenderInfo(0x2376dd);
+    ardite.setRenderInfo(0xa53000);
+    manyullyn.setRenderInfo(0x7338a5);
 
     xu.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() {
       @Override
@@ -220,10 +229,13 @@ public final class TinkerMaterials {
     // todo: remaining metals
 
     safeAdd(cobalt, TinkerCommons.ingotCobalt, Material.VALUE_Ingot, true);
+    cobalt.addTrait(momentum);
 
     safeAdd(ardite, TinkerCommons.ingotArdite, Material.VALUE_Ingot, true);
+    ardite.addTrait(petramor);
 
     safeAdd(manyullyn, TinkerCommons.ingotManyullyn, Material.VALUE_Ingot, true);
+    manyullyn.addTrait(insatiable);
 
     registerToolMaterials();
   }
@@ -263,7 +275,7 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterialStats(iron,       new ToolMaterialStats( 353, 6.00f, 1.80f, 0.50f, 0.60f, IRON));
     TinkerRegistry.addMaterialStats(cobalt,     new ToolMaterialStats( 420,11.11f, 3.20f, 0.40f, 0.60f, COBALT));
     TinkerRegistry.addMaterialStats(ardite,     new ToolMaterialStats( 720, 2.42f, 1.80f, 0.75f, 0.75f, COBALT));
-    TinkerRegistry.addMaterialStats(manyullyn,  new ToolMaterialStats( 513, 7.80f, 7.72f, 0.30f, 0.70f, COBALT));
+    TinkerRegistry.addMaterialStats(manyullyn,  new ToolMaterialStats( 513, 7.80f, 8.72f, 0.30f, 0.70f, COBALT));
 
     //TinkerRegistry.addMaterialStats(xu,         new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, DIAMOND));
   }
