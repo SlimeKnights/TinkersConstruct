@@ -398,6 +398,9 @@ public final class ToolHelper {
     if(!(targetEntity instanceof EntityLivingBase)) {
       return false;
     }
+    if(isBroken(stack)) {
+      return false;
+    }
     EntityLivingBase target = (EntityLivingBase) targetEntity;
 
     // traits on the tool
