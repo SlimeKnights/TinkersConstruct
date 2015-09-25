@@ -5,7 +5,6 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.tools.network.InventorySlotSyncPacket;
-import slimeknights.tconstruct.tools.network.InventoryUpdateSyncPacket;
 import slimeknights.tconstruct.tools.network.PartCrafterSelectionPacket;
 import slimeknights.tconstruct.tools.network.TinkerStationTabPacket;
 import slimeknights.mantle.network.AbstractPacket;

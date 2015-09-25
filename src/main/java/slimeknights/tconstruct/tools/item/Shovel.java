@@ -34,6 +34,7 @@ public class Shovel extends ToolCore {
 
   @Override
   public float damagePotential() {
+    // TODO, Assign actual value.
     return 0.2f;
   }
 }
