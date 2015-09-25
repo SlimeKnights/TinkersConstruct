@@ -1,5 +1,5 @@
 {
-    "parent": "builtin/generated",
+    "parent": "tconstruct:item/DefaultItem",
     "textures": {
         "layer0": "tconstruct:items/materials/slimeblue"
     }
