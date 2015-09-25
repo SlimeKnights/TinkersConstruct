@@ -36,9 +36,7 @@ import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.tools.block.BlockSlimeSand;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
-import slimeknights.tconstruct.tools.item.Hatchet;
-import slimeknights.tconstruct.tools.item.Pickaxe;
-import slimeknights.tconstruct.tools.item.BroadSword;
+import slimeknights.tconstruct.tools.item.*;
 import slimeknights.tconstruct.tools.modifiers.ModFortify;
 import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
 import slimeknights.tconstruct.common.CommonProxy;
@@ -57,7 +55,6 @@ import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
 import slimeknights.tconstruct.tools.tileentity.TileStencilTable;
 import slimeknights.tconstruct.tools.tileentity.TileToolForge;
 import slimeknights.tconstruct.tools.tileentity.TileToolStation;
-import slimeknights.tconstruct.tools.item.Shovel;
 
 @Pulse(id = TinkerTools.PulseId, description = "All the tools and everything related to it.")
 public class TinkerTools extends TinkerPulse {
@@ -88,15 +85,20 @@ public class TinkerTools extends TinkerPulse {
   public static ToolCore shovel;
   public static ToolCore hatchet;
   public static ToolCore broadSword;
+  public static ToolCore hammer;
 
   // Tool Parts
   public static ToolPart pickHead;
   public static ToolPart shovelHead;
   public static ToolPart axeHead;
+  public static ToolPart broadAxeHead;
   public static ToolPart swordBlade;
+  public static ToolPart hammerHead;
 
   public static ToolPart toolRod;
+  public static ToolPart toughToolRod;
   public static ToolPart binding;
+  public static ToolPart toughBinding;
   public static ToolPart wideGuard;
   public static ToolPart largePlate;
 
@@ -151,10 +153,14 @@ public class TinkerTools extends TinkerPulse {
     pickHead = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "PickHead");
     shovelHead = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "ShovelHead");
     axeHead = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "AxeHead");
+    broadAxeHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "BroadAxeHead");
     swordBlade = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "SwordBlade");
+    hammerHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "HammerHead");
 
     toolRod = registerToolPart(new ToolPart(Material.VALUE_Shard), "ToolRod");
+    toughToolRod = registerToolPart(new ToolPart(Material.VALUE_Ingot * 3), "ToughToolRod");
     binding = registerToolPart(new ToolPart(Material.VALUE_Shard), "Binding");
+    toughBinding = registerToolPart(new ToolPart(Material.VALUE_Ingot * 3), "ToughBinding");
 
     wideGuard = registerToolPart(new ToolPart(Material.VALUE_Shard), "WideGuard");
 
@@ -166,6 +172,7 @@ public class TinkerTools extends TinkerPulse {
     shovel = registerTool(new Shovel(), "Shovel");
     hatchet = registerTool(new Hatchet(), "Hatchet");
     broadSword = registerTool(new BroadSword(), "BroadSword");
+    hammer = registerTool(new Hammer(), "Hammer");
   }
 
   private void registerModifiers() {
