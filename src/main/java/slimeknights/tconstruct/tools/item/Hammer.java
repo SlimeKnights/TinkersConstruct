@@ -1,18 +1,27 @@
 package slimeknights.tconstruct.tools.item;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemPickaxe;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.IAoeTool;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
+import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.List;
 
-public class Hammer extends ToolCore{
+public class Hammer extends ToolCore implements IAoeTool {
 
 	public Hammer(){
 		super(new PartMaterialType.ToolPartType(TinkerTools.toughToolRod),
@@ -22,7 +31,7 @@ public class Hammer extends ToolCore{
 
 		addCategory(Category.HARVEST);
 
-		setHarvestLevel("hammer", 0);
+		setHarvestLevel("pickaxe", 0);
 	}
 
 	@Override
@@ -42,4 +51,17 @@ public class Hammer extends ToolCore{
 		// TODO, Assign actual value.
 		return 0;
 	}
+
+  @Override
+  public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
+    for(BlockPos extraPos : getExtraBlocksToBreak(itemstack, player.worldObj, player, pos))
+    	ToolHelper.breakExtraBlock(itemstack, player.worldObj, player, extraPos, pos);
+
+    return super.onBlockStartBreak(itemstack, pos, player);
+  }
+
+  @Override
+  public ImmutableList<BlockPos> getExtraBlocksToBreak(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
+    return ToolHelper.calcAOEBlocks(stack, world, player, origin, 3,3,1);
+  }
 }
