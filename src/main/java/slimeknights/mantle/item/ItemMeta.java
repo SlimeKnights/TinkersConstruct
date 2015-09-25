@@ -17,7 +17,7 @@ public class ItemMeta extends Item {
 
   @Override
   public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
-    for(int i = 0; i < maxMeta; i++) {
+    for(int i = 0; i <= maxMeta; i++) {
       subItems.add(new ItemStack(itemIn, 1, i));
     }
   }
