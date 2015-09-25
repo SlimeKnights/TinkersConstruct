@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tools;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.resources.IReloadableResourceManager;
-import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,21 +13,17 @@ import net.minecraftforge.common.MinecraftForge;
 
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.TinkerRegistryClient;
-import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
-import slimeknights.tconstruct.library.tools.ToolCore;
-import slimeknights.tconstruct.library.tools.ToolPart;
-import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
-import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
 import slimeknights.tconstruct.library.tools.Pattern;
+import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.ToolPart;
+import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.client.RenderEvents;
 
-import static slimeknights.tconstruct.tools.TinkerTools.matSlimeBallBlue;
-import static slimeknights.tconstruct.tools.TinkerTools.matSlimeCrystal;
-import static slimeknights.tconstruct.tools.TinkerTools.matSlimeCrystalBlue;
-import static slimeknights.tconstruct.tools.TinkerTools.materials;
 import static slimeknights.tconstruct.tools.TinkerTools.shard;
 
 public class ToolClientProxy extends ClientProxy {
@@ -65,9 +60,7 @@ public class ToolClientProxy extends ClientProxy {
     ModelLoader.setCustomModelResourceLocation(slimeSand, 1, new ModelResourceLocation("tconstruct:SlimeSand","type=blue"));
 
     // general items
-    registerItemModel(matSlimeBallBlue, "SlimeBallBlue");
-    registerItemModel(matSlimeCrystal, "SlimeCrystal");
-    registerItemModel(matSlimeCrystalBlue, "SlimeCrystalBlue");
+
     //registerItemModel(new ItemStack(materials, 1, 2), "SlimeCrystalRed");
 
     // patterns

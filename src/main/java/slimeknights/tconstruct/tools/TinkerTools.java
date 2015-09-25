@@ -34,6 +34,7 @@ import slimeknights.mantle.tileentity.TileTable;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tools.ToolPart;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.tools.block.BlockSlimeSand;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.item.*;
@@ -75,11 +76,6 @@ public class TinkerTools extends TinkerPulse {
   public static Shard shard;
   public static Item materials;
 
-  // Material Itemstacks
-  public static ItemStack matSlimeBallBlue;
-  public static ItemStack matSlimeCrystal;
-  public static ItemStack matSlimeCrystalBlue;
-
   // Tools
   public static ToolCore pickaxe;
   public static ToolCore shovel;
@@ -118,10 +114,6 @@ public class TinkerTools extends TinkerPulse {
     pattern = registerItem(new Pattern(), "Pattern");
 
     shard = registerItem(new Shard(), "Shard");
-    materials = registerItem(new ItemMeta(2), "Materials");
-    matSlimeBallBlue = new ItemStack(materials, 1, 0);
-    matSlimeCrystal = new ItemStack(materials, 1, 1);
-    matSlimeCrystalBlue = new ItemStack(materials, 1, 2);
 
     registerToolParts();
     registerTools();
@@ -202,7 +194,7 @@ public class TinkerTools extends TinkerPulse {
   }
 
   private void oredict() {
-    OreDictionary.registerOre("slimeball", matSlimeBallBlue);
+
   }
 
   // INITIALIZATION
@@ -262,18 +254,20 @@ public class TinkerTools extends TinkerPulse {
     registerToolForgeBlock("blockIron");
     registerToolForgeBlock("blockGold");
 
+
+    ItemStack slimeBallBlue = TinkerCommons.matSlimeBallBlue;
     // blue slimeball has a recipe if world isn't present
     if(!isWorldLoaded()) {
-      GameRegistry.addRecipe(new ShapelessOreRecipe(matSlimeBallBlue, Items.slime_ball, "dyeBlue"));
+      GameRegistry.addRecipe(new ShapelessOreRecipe(slimeBallBlue, Items.slime_ball, "dyeBlue"));
     }
 
     // Slime Sand
     GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimeSand, 1, 0), Items.slime_ball, Items.slime_ball, Items.slime_ball, Items.slime_ball, "sand", "dirt"));
-    GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimeSand, 1, 1), matSlimeBallBlue, matSlimeBallBlue, matSlimeBallBlue, matSlimeBallBlue, "sand", "dirt"));
+    GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimeSand, 1, 1), slimeBallBlue, slimeBallBlue, slimeBallBlue, slimeBallBlue, "sand", "dirt"));
 
     // Slime crystals
-    FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(slimeSand, 1, 0), matSlimeCrystal, 0);
-    FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(slimeSand, 1, 1), matSlimeCrystalBlue, 0);
+    FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(slimeSand, 1, 0), TinkerCommons.matSlimeCrystal, 0);
+    FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(slimeSand, 1, 1), TinkerCommons.matSlimeCrystalBlue, 0);
   }
 
   public static void registerToolForgeBlock(String oredict) {

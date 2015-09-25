@@ -25,6 +25,7 @@ import slimeknights.tconstruct.library.client.texture.ExtraUtilityTexture;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.tools.modifiers.TraitAridiculous;
 import slimeknights.tconstruct.tools.modifiers.TraitCheap;
 import slimeknights.tconstruct.tools.modifiers.TraitCrude;
@@ -206,13 +207,11 @@ public final class TinkerMaterials {
     sponge.setRepresentativeItem(Blocks.sponge);
 
     slime.setCraftable(true);
-    slime.addItem(TinkerTools.matSlimeCrystal, 1, Material.VALUE_Ingot);
-    slime.setRepresentativeItem(TinkerTools.matSlimeCrystal);
+    safeAdd(slime, TinkerCommons.matSlimeCrystal, Material.VALUE_Ingot, true);
     slime.addTrait(slimeyGreen);
 
     blueslime.setCraftable(true);
-    blueslime.addItem(TinkerTools.matSlimeCrystalBlue, 1, Material.VALUE_Ingot);
-    blueslime.setRepresentativeItem(TinkerTools.matSlimeCrystalBlue);
+    safeAdd(slime, TinkerCommons.matSlimeCrystalBlue, Material.VALUE_Ingot, true);
     blueslime.addTrait(slimeyBlue);
 
     // Metals
@@ -220,8 +219,26 @@ public final class TinkerMaterials {
     iron.setRepresentativeItem(Items.iron_ingot);
     // todo: remaining metals
 
+    safeAdd(cobalt, TinkerCommons.ingotCobalt, Material.VALUE_Ingot, true);
+
+    safeAdd(ardite, TinkerCommons.ingotArdite, Material.VALUE_Ingot, true);
+
+    safeAdd(manyullyn, TinkerCommons.ingotManyullyn, Material.VALUE_Ingot, true);
 
     registerToolMaterials();
+  }
+
+  private void safeAdd(Material material, ItemStack item, int value) {
+    this.safeAdd(material, item, value, false);
+  }
+
+  private void safeAdd(Material material, ItemStack item, int value, boolean representative) {
+    if(item != null) {
+      material.addItem(item, 1, value);
+      if(representative) {
+        material.setRepresentativeItem(item);
+      }
+    }
   }
 
   public void registerToolMaterials() {

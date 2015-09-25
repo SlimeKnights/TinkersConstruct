@@ -16,7 +16,7 @@ public class ItemMetaDynamic extends ItemMeta {
 
   }
 
-  public void addMeta(int meta) {
+  public ItemStack addMeta(int meta) {
     if(meta > MAX) {
       throw new IllegalArgumentException(String.format("Metadata too high, highest supported value is %d. Meta was %d", MAX, meta));
     }
@@ -24,6 +24,7 @@ public class ItemMetaDynamic extends ItemMeta {
       maxMeta = meta;
       setValid(meta);
     }
+    return new ItemStack(this, 1, meta);
   }
 
   @Override
