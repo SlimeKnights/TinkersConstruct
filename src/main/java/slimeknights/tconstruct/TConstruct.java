@@ -19,6 +19,7 @@ import mantle.pulsar.control.PulseManager;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.common.TinkerOredict;
+import slimeknights.tconstruct.debug.DumpMaterialTest;
 import slimeknights.tconstruct.debug.LocalizationCheckCommand;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
@@ -125,5 +126,6 @@ public class TConstruct {
   @Mod.EventHandler
   public void starting(FMLServerStartingEvent event) {
     event.registerServerCommand(new LocalizationCheckCommand());
+    event.registerServerCommand(new DumpMaterialTest());
   }
 }
