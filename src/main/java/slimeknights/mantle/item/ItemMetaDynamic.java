@@ -12,7 +12,7 @@ public class ItemMetaDynamic extends ItemMeta {
   protected long availabilityMask;
 
   public ItemMetaDynamic() {
-    super(0);
+    super(-1);
 
   }
 
