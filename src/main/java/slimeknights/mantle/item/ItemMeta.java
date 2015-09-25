@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ItemMeta extends Item {
 
-  private int maxMeta;
+  protected int maxMeta;
 
   public ItemMeta(int maxMeta) {
     setHasSubtypes(true);
