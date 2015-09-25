@@ -276,8 +276,8 @@ public final class TinkerRegistry {
   /** This set contains all known tools */
   private static final Set<ToolCore> tools = new TLinkedHashSet<ToolCore>();
   private static final Set<IToolPart> toolParts = new TLinkedHashSet<IToolPart>();
-  private static final Set<ToolCore> toolStationCrafting = Sets.newHashSet();
-  private static final Set<ToolCore> toolForgeCrafting = Sets.newHashSet();
+  private static final Set<ToolCore> toolStationCrafting = Sets.newLinkedHashSet();
+  private static final Set<ToolCore> toolForgeCrafting = Sets.newLinkedHashSet();
   private static final List<ItemStack> stencilTableCrafting = Lists.newLinkedList();
   private static Shard shardItem;
 

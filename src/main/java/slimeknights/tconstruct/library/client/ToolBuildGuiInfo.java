@@ -10,8 +10,10 @@ import org.lwjgl.util.Point;
 import java.util.List;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.TinkerRegistryClient;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 public class ToolBuildGuiInfo {
 
@@ -33,6 +35,14 @@ public class ToolBuildGuiInfo {
     }
 
     this.tool = tool.buildItemForRendering(mats);
+  }
+
+  public static ToolBuildGuiInfo default3Part(TinkersItem tool) {
+    ToolBuildGuiInfo info = new ToolBuildGuiInfo(tool);
+    info.addSlotPosition(33-20, 42+20);
+    info.addSlotPosition(33+20, 42-20);
+    info.addSlotPosition(33, 42);
+    return info;
   }
 
   /**

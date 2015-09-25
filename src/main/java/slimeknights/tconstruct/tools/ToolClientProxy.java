@@ -113,23 +113,38 @@ public class ToolClientProxy extends ClientProxy {
   private void toolBuildInfo() {
     // pickaxe
     ToolBuildGuiInfo info = new ToolBuildGuiInfo(TinkerTools.pickaxe);
+    info.addSlotPosition(33-18, 42+18);
     info.addSlotPosition(33+20, 42-20);
-    info.addSlotPosition(33-20, 42+20);
     info.addSlotPosition(33, 42);
+    TinkerRegistryClient.addToolBuilding(info);
+
+    // shovel
+    info = new ToolBuildGuiInfo(TinkerTools.shovel);
+    info.addSlotPosition(33, 42);
+    info.addSlotPosition(33+18, 42-18);
+    info.addSlotPosition(33-20, 42+20);
     TinkerRegistryClient.addToolBuilding(info);
 
     // hatchet
     info = new ToolBuildGuiInfo(TinkerTools.hatchet);
-    info.addSlotPosition(33+20, 42-20);
-    info.addSlotPosition(33-20, 42+20);
-    info.addSlotPosition(33, 42);
+    info.addSlotPosition(33-11, 42+11); // rod
+    info.addSlotPosition(33-2, 42-20); // head
+    info.addSlotPosition(33+18, 42-8); // binding
     TinkerRegistryClient.addToolBuilding(info);
 
     // broadsword
     info = new ToolBuildGuiInfo(TinkerTools.broadSword);
-    info.addSlotPosition(33+20, 42-20);
-    info.addSlotPosition(33-20, 42+20);
-    info.addSlotPosition(33, 42);
+    info.addSlotPosition(33-20-1, 42+20);
+    info.addSlotPosition(33+20-1, 42-20);
+    info.addSlotPosition(33-2-1, 42+2);
+    TinkerRegistryClient.addToolBuilding(info);
+
+    // hammer
+    info = new ToolBuildGuiInfo(TinkerTools.hammer);
+    info.addSlotPosition(33-10, 42+10);
+    info.addSlotPosition(33+13, 42-13);
+    info.addSlotPosition(33+10-16, 42-10-16);
+    info.addSlotPosition(33+10+16, 42-10+16);
     TinkerRegistryClient.addToolBuilding(info);
   }
 }

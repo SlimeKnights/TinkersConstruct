@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library;
 
+import com.google.common.collect.Maps;
+
 import gnu.trove.map.hash.THashMap;
 
 import net.minecraft.item.Item;
@@ -23,7 +25,7 @@ public final class TinkerRegistryClient {
   /*---------------------------------------------------------------------------
   | GUI & CRAFTING                                                            |
   ---------------------------------------------------------------------------*/
-  private static final Map<Item, ToolBuildGuiInfo> toolBuildInfo = new THashMap<Item, ToolBuildGuiInfo>();
+  private static final Map<Item, ToolBuildGuiInfo> toolBuildInfo = Maps.newLinkedHashMap();
 
   public static void addToolBuilding(ToolBuildGuiInfo info) {
     toolBuildInfo.put(info.tool.getItem(), info);

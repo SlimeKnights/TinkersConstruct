@@ -38,6 +38,7 @@ import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.client.module.GuiButtonsToolStation;
 import slimeknights.tconstruct.tools.inventory.ContainerToolStation;
 import slimeknights.tconstruct.tools.network.ToolStationSelectionPacket;
@@ -353,18 +354,21 @@ public class GuiToolStation extends GuiTinkerStation {
     // draw textfield
     textField.drawTextBox();
 
-    int xOff = 0;
-    int yOff = 0;
+    //int xOff = 3;
+    //int yOff = 6;
 
     int x = 0;
     int y = 0;
 
     // draw the item background
-    final float scale = 4.0f;
+    final float scale = 3.7f;
+    final float xOff = 10f;
+    final float yOff = 22f;
+    GlStateManager.translate(xOff, yOff, 0);
     GlStateManager.scale(scale, scale, 1.0f);
     {
-      int logoX = (this.cornerX + 10) / 4 + xOff;
-      int logoY = (this.cornerY + 18) / 4 + yOff;
+      int logoX = (int) (this.cornerX / scale);
+      int logoY = (int) (this.cornerY / scale);
 
       if(currentInfo != null) {
         if(currentInfo.tool != null) {
@@ -377,6 +381,7 @@ public class GuiToolStation extends GuiTinkerStation {
       }
     }
     GlStateManager.scale(1f / scale, 1f / scale, 1.0f);
+    GlStateManager.translate(-xOff, -yOff, 0);
 
     // rebind gui texture since itemstack drawing sets it to something else
     this.mc.getTextureManager().bindTexture(BACKGROUND);

@@ -208,8 +208,11 @@ public class TinkerTools extends TinkerPulse {
 
   private void registerToolBuilding() {
     TinkerRegistry.registerToolCrafting(pickaxe);
+    TinkerRegistry.registerToolCrafting(shovel);
     TinkerRegistry.registerToolCrafting(hatchet);
-    TinkerRegistry.registerToolForgeCrafting(broadSword);
+    TinkerRegistry.registerToolCrafting(broadSword);
+
+    TinkerRegistry.registerToolForgeCrafting(hammer);
   }
 
   private void registerRecipies() {
