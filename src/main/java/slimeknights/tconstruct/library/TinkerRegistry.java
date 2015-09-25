@@ -4,6 +4,7 @@ import com.google.common.base.CharMatcher;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import gnu.trove.map.hash.THashMap;
@@ -64,7 +65,7 @@ public final class TinkerRegistry {
   ---------------------------------------------------------------------------*/
 
   // Identifier to Material mapping. Hashmap so we can look it up directly without iterating
-  private static final Map<String, Material> materials = new THashMap<String, Material>();
+  private static final Map<String, Material> materials = Maps.newLinkedHashMap();
   private static final Map<String, ITrait> traits = new THashMap<String, ITrait>();
   // traceability information who registered what. Used to find errors.
   private static final Map<String, String> materialRegisteredByMod = new THashMap<String, String>();
