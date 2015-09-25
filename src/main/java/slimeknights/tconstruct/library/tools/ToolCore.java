@@ -14,6 +14,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -248,5 +249,10 @@ public abstract class ToolCore extends TinkersItem {
     }
 
     ToolHelper.damageTool(stack, damage, player);
+  }
+
+  // elevate to public
+  public MovingObjectPosition getMovingObjectPositionFromPlayer(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
+    return super.getMovingObjectPositionFromPlayer(worldIn, playerIn, useLiquids);
   }
 }

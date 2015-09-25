@@ -19,6 +19,7 @@ import mantle.pulsar.control.PulseManager;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.common.TinkerOredict;
+import slimeknights.tconstruct.debug.DumpMaterialTest;
 import slimeknights.tconstruct.debug.LocalizationCheckCommand;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
@@ -88,13 +89,12 @@ public class TConstruct {
     // Tinker pulses
     pulseManager.registerPulse(new TinkerTools());
     pulseManager.registerPulse(new TinkerSmeltery());
+    pulseManager.registerPulse(new TinkerMaterials());
     // Plugins/Integration
 
     pulseManager.preInit(event);
 
     // the basic tinker materials are always present
-    TinkerMaterials.setupMaterials();
-    TinkerMaterials.registerMaterials();
     HarvestLevels.init();
 
     NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);
@@ -126,5 +126,6 @@ public class TConstruct {
   @Mod.EventHandler
   public void starting(FMLServerStartingEvent event) {
     event.registerServerCommand(new LocalizationCheckCommand());
+    event.registerServerCommand(new DumpMaterialTest());
   }
 }
