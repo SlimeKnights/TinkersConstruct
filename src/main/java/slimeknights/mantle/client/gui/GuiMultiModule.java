@@ -23,8 +23,8 @@ import codechicken.nei.VisiblityData;
 import codechicken.nei.api.INEIGuiHandler;
 import codechicken.nei.api.TaggedInventoryArea;
 import slimeknights.mantle.inventory.ContainerMultiModule;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.mantle.inventory.SlotWrapper;
+import slimeknights.tconstruct.TConstruct;
 
 @SideOnly(Side.CLIENT)
 @Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")

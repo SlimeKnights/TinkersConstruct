@@ -25,9 +25,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import slimeknights.mantle.property.PropertyString;
 import slimeknights.mantle.property.PropertyTableItem;
 import slimeknights.mantle.tileentity.TileTable;
-import slimeknights.mantle.property.PropertyString;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
 public class BlockTable extends BlockInventory implements ITileEntityProvider {

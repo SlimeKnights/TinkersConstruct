@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools;
 
 import com.google.common.collect.Lists;
+import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -24,33 +25,35 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
-import slimeknights.mantle.item.ItemMeta;
-import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.mantle.block.BlockTable;
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.tileentity.TileTable;
+import slimeknights.tconstruct.common.CommonProxy;
+import slimeknights.tconstruct.common.TinkerPulse;
+import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.modifiers.IModifier;
+import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tools.Pattern;
+import slimeknights.tconstruct.library.tools.Shard;
+import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.tools.block.BlockSlimeSand;
-import slimeknights.tconstruct.tools.block.BlockToolTable;
-import slimeknights.tconstruct.tools.item.*;
-import slimeknights.tconstruct.tools.modifiers.ModFortify;
-import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
-import slimeknights.tconstruct.common.CommonProxy;
-import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.modifiers.IModifier;
-import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.tools.block.BlockToolForge;
-import slimeknights.tconstruct.library.tools.Pattern;
-import slimeknights.tconstruct.library.tools.Shard;
+import slimeknights.tconstruct.tools.block.BlockToolTable;
+import slimeknights.tconstruct.tools.item.BroadSword;
+import slimeknights.tconstruct.tools.item.Hammer;
+import slimeknights.tconstruct.tools.item.Hatchet;
+import slimeknights.tconstruct.tools.item.Pickaxe;
+import slimeknights.tconstruct.tools.item.Shovel;
 import slimeknights.tconstruct.tools.modifiers.ModDiamond;
+import slimeknights.tconstruct.tools.modifiers.ModFortify;
 import slimeknights.tconstruct.tools.modifiers.ModHaste;
+import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
 import slimeknights.tconstruct.tools.tileentity.TilePartBuilder;
 import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
 import slimeknights.tconstruct.tools.tileentity.TileStencilTable;
@@ -108,7 +111,7 @@ public class TinkerTools extends TinkerPulse {
   static List<ToolPart> toolparts = Lists.newLinkedList(); // ^ all toolparts
 
   // PRE-INITIALIZATION
-  @Handler
+  @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
     // register items
     pattern = registerItem(new Pattern(), "Pattern");
@@ -198,7 +201,7 @@ public class TinkerTools extends TinkerPulse {
   }
 
   // INITIALIZATION
-  @Handler
+  @Subscribe
   public void init(FMLInitializationEvent event) {
     registerToolBuilding();
     registerRecipies();
@@ -291,7 +294,7 @@ public class TinkerTools extends TinkerPulse {
   }
 
   // POST-INITIALIZATION
-  @Handler
+  @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
     proxy.postInit();
 

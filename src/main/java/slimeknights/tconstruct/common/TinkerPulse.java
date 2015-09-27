@@ -8,8 +8,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerTools;
 

@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.smeltery;
 
+import com.google.common.eventbus.Subscribe;
+
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -7,10 +9,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import org.apache.logging.log4j.Logger;
 
-import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
-import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.CommonProxy;
+import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.Pattern;
 
@@ -28,7 +29,7 @@ public class TinkerSmeltery extends TinkerPulse {
   // currently only a dummy-class
 
   // PRE-INITIALIZATION
-  @Handler
+  @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
     cast = registerItem(new Pattern(), "Cast");
 
@@ -36,12 +37,13 @@ public class TinkerSmeltery extends TinkerPulse {
   }
 
   // INITIALIZATION
+  @Subscribe
   public void init(FMLInitializationEvent event) {
     proxy.init();
   }
 
   // POST-INITIALIZATION
-  @Handler
+  @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
     proxy.postInit();
   }

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools;
 
 import com.google.common.collect.Lists;
+import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.monster.EntitySlime;
@@ -17,7 +18,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
-import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.MaterialRenderInfo;
@@ -107,7 +107,7 @@ public final class TinkerMaterials {
     xu = new Material("unstable", EnumChatFormatting.WHITE);
   }
 
-  @Handler
+  @Subscribe
   public void registerMaterials(FMLPreInitializationEvent event) {
     for(Material material : materials) {
       TinkerRegistry.addMaterial(material);
@@ -116,7 +116,7 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterial(xu);
   }
 
-  @Handler
+  @Subscribe
   public void registerRendering(FMLPostInitializationEvent event) {
     if(event.getSide().isClient()) {
       TinkerMaterials.registerMaterialRendering();
@@ -155,7 +155,7 @@ public final class TinkerMaterials {
     });
   }
 
-  @Handler
+  @Subscribe
   public void setupMaterials(FMLInitializationEvent event) {
     // natural resources/blocks
     wood.setCraftable(true);

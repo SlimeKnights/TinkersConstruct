@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.shared;
 
-import net.minecraft.item.Item;
+import com.google.common.eventbus.Subscribe;
+
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -8,9 +9,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import org.apache.logging.log4j.Logger;
 
-import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
-import slimeknights.mantle.item.ItemMeta;
 import slimeknights.mantle.item.ItemMetaDynamic;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
@@ -48,7 +47,7 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack matSlimeCrystal;
   public static ItemStack matSlimeCrystalBlue;
 
-  @Handler
+  @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
     // Ingots and nuggets
     if(isToolsLoaded() || isSmelteryLoaded()) {

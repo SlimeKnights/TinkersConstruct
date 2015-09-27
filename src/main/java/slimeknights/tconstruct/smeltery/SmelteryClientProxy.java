@@ -10,8 +10,8 @@ import net.minecraftforge.common.MinecraftForge;
 
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
-import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.tools.Pattern;
+import slimeknights.tconstruct.library.utils.TagUtil;
 
 public class SmelteryClientProxy extends ClientProxy {
 

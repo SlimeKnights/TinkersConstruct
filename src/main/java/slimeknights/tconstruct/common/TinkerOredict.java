@@ -6,8 +6,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.block.BlockToolTable;
 
 // Holds all the things oredicted by Tinkers :)
 public class TinkerOredict {

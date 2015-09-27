@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 
 import mantle.pulsar.control.PulseManager;
+import slimeknights.mantle.GuiHandler;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.common.TinkerOredict;
@@ -27,7 +28,6 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.mantle.GuiHandler;
 
 /**
  * TConstruct, the tool mod. Craft your tools with style, then modify until the original is gone!
@@ -66,7 +66,7 @@ public class TConstruct {
     /* Loads modules in a way that doesn't clutter the @Mod list */
   //public static PulseManager pulsar = new PulseManager(modID, new ForgeCFG("TinkersModules", "Modules: Disabling these will disable a chunk of the mod"));
 
-  public static PulseManager pulseManager = new PulseManager(modID, "TinkerModules");
+  public static PulseManager pulseManager = new PulseManager("TinkerModules");
   public static GuiHandler guiHandler = new GuiHandler();
 
   public TConstruct() {
@@ -94,7 +94,7 @@ public class TConstruct {
     pulseManager.registerPulse(new TinkerMaterials());
     // Plugins/Integration
 
-    pulseManager.preInit(event);
+    //pulseManager.preInit(event);
 
     // the basic tinker materials are always present
     HarvestLevels.init();
@@ -110,12 +110,12 @@ public class TConstruct {
 
   @Mod.EventHandler
   public void init(FMLInitializationEvent event) {
-    pulseManager.init(event);
+    //pulseManager.init(event);
   }
 
   @Mod.EventHandler
   public void postInit(FMLPostInitializationEvent event) {
-    pulseManager.postInit(event);
+    //pulseManager.postInit(event);
 
     TinkerOredict.ensureOredict();
     TinkerOredict.registerTinkerOredict();
