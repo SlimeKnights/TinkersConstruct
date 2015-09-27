@@ -18,7 +18,12 @@ public class TinkerPotion extends Potion {
   static {
     Potion[] old = Potion.potionTypes;
     try {
-      Field field = Potion.class.getDeclaredField("potionTypes");
+      Field field;
+      try {
+        field = Potion.class.getDeclaredField("potionTypes");
+      } catch(NoSuchFieldException e) {
+        field = Potion.class.getDeclaredField("field_76425_a");
+      }
       field.setAccessible(true);
 
       // remove final modifier from field
