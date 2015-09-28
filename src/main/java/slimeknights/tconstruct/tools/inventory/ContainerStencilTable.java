@@ -14,7 +14,7 @@ import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.mantle.inventory.IContainerCraftingCustom;
 import slimeknights.mantle.inventory.SlotCraftingCustom;
 import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.mantle.inventory.InventoryCraftingPersistent;
+import slimeknights.tconstruct.shared.inventory.InventoryCraftingPersistent;
 import slimeknights.tconstruct.tools.network.StencilTableSelectionPacket;
 import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
 import slimeknights.tconstruct.tools.tileentity.TileStencilTable;

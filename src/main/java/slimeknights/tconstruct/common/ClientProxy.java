@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.registry.GameData;
 
 import java.lang.reflect.Field;
 
-import slimeknights.mantle.client.CustomFontRenderer;
+import slimeknights.tconstruct.library.client.CustomFontRenderer;
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;

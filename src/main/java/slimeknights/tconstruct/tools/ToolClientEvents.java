@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.io.IOException;
 
-import slimeknights.mantle.client.model.BakedTableModel;
+import slimeknights.tconstruct.shared.client.BakedTableModel;
 import slimeknights.mantle.client.model.BlockItemModelWrapper;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;

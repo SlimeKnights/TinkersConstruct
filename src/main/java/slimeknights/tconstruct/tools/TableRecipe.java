@@ -8,7 +8,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.util.List;
 
-import slimeknights.mantle.block.BlockTable;
+import slimeknights.tconstruct.shared.block.BlockTable;
 
 public class TableRecipe extends ShapedOreRecipe {
 

@@ -8,10 +8,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import slimeknights.mantle.tileentity.TileTable;
+import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.tools.client.GuiPatternChest;
 import slimeknights.tconstruct.tools.inventory.ContainerPatternChest;
-import slimeknights.mantle.IInventoryGui;
+import slimeknights.mantle.common.IInventoryGui;
 
 public class TilePatternChest extends TileTable implements IInventoryGui {
 

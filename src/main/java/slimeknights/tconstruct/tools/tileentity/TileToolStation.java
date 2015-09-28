@@ -11,13 +11,13 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import slimeknights.mantle.block.BlockTable;
-import slimeknights.mantle.property.PropertyTableItem;
-import slimeknights.mantle.tileentity.TileTable;
+import slimeknights.tconstruct.shared.block.BlockTable;
+import slimeknights.tconstruct.shared.block.PropertyTableItem;
+import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
 import slimeknights.tconstruct.tools.client.GuiButtonRepair;
 import slimeknights.tconstruct.tools.inventory.ContainerToolStation;
-import slimeknights.mantle.IInventoryGui;
+import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.tools.client.GuiToolStation;
 
 public class TileToolStation extends TileTable implements IInventoryGui {

@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 
 import mantle.pulsar.control.PulseManager;
-import slimeknights.mantle.GuiHandler;
+import slimeknights.mantle.common.GuiHandler;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.common.TinkerOredict;
@@ -37,7 +37,8 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 
 @Mod(modid = TConstruct.modID, name = "Tinkers' Construct", version = TConstruct.modVersion,
-    dependencies = "required-after:Forge@[11.14.,);required-after:Mantle@[1.8-0.4,)")
+    dependencies = "required-after:Forge@[11.14.,);required-after:mantle@[1.8-0.5,)")
+//dependencies = "required-after:Forge@[11.14.,);required-after:mantle@[1.8-0.4,)")
 //dependencies = "required-after:Forge@[10.13.1.1217,);required-after:Mantle@[1.7.10-0.3.2,);after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion;after:ThermalFoundation")
 public class TConstruct {
 
@@ -69,6 +70,16 @@ public class TConstruct {
   public static PulseManager pulseManager = new PulseManager("TinkerModules");
   public static GuiHandler guiHandler = new GuiHandler();
 
+  // Tinker pulses
+  static {
+    pulseManager.registerPulse(new TinkerCommons());
+    pulseManager.registerPulse(new TinkerTools());
+    pulseManager.registerPulse(new TinkerSmeltery());
+    pulseManager.registerPulse(new TinkerMaterials());
+    // Plugins/Integration
+  }
+
+
   public TConstruct() {
     if(Loader.isModLoaded("Natura")) {
       log.info("Natura, what are we going to do tomorrow night?");
@@ -87,16 +98,6 @@ public class TConstruct {
 
   @Mod.EventHandler
   public void preInit(FMLPreInitializationEvent event) {
-    // Tinker pulses
-    pulseManager.registerPulse(new TinkerCommons());
-    pulseManager.registerPulse(new TinkerTools());
-    pulseManager.registerPulse(new TinkerSmeltery());
-    pulseManager.registerPulse(new TinkerMaterials());
-    // Plugins/Integration
-
-    //pulseManager.preInit(event);
-
-    // the basic tinker materials are always present
     HarvestLevels.init();
 
     NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);
@@ -110,13 +111,11 @@ public class TConstruct {
 
   @Mod.EventHandler
   public void init(FMLInitializationEvent event) {
-    //pulseManager.init(event);
+
   }
 
   @Mod.EventHandler
   public void postInit(FMLPostInitializationEvent event) {
-    //pulseManager.postInit(event);
-
     TinkerOredict.ensureOredict();
     TinkerOredict.registerTinkerOredict();
 

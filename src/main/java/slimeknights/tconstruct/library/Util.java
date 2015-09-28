@@ -16,7 +16,7 @@ import slimeknights.mantle.util.RecipeMatchRegistry;
 
 public class Util {
 
-  public static final String MODID = "TConstruct";
+  public static final String MODID = "tconstruct";
   public static final String RESOURCE = MODID.toLowerCase(Locale.US);
 
   public static Logger getLogger(String type) {

@@ -26,9 +26,9 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 import mantle.pulsar.pulse.Pulse;
-import slimeknights.mantle.block.BlockTable;
+import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.mantle.item.ItemBlockMeta;
-import slimeknights.mantle.tileentity.TileTable;
+import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.TinkerRegistry;

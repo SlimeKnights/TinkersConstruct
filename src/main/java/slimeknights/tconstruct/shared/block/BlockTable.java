@@ -1,4 +1,4 @@
-package slimeknights.mantle.block;
+package slimeknights.tconstruct.shared.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
@@ -25,9 +25,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import slimeknights.mantle.block.BlockInventory;
 import slimeknights.mantle.property.PropertyString;
-import slimeknights.mantle.property.PropertyTableItem;
-import slimeknights.mantle.tileentity.TileTable;
+import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
 public class BlockTable extends BlockInventory implements ITileEntityProvider {

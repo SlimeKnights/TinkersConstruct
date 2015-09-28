@@ -1,4 +1,4 @@
-package slimeknights.mantle.tileentity;
+package slimeknights.tconstruct.shared.tileentity;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -17,8 +17,9 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 
 import java.util.List;
 
-import slimeknights.mantle.block.BlockTable;
-import slimeknights.mantle.property.PropertyTableItem;
+import slimeknights.mantle.tileentity.TileInventory;
+import slimeknights.tconstruct.shared.block.BlockTable;
+import slimeknights.tconstruct.shared.block.PropertyTableItem;
 import slimeknights.tconstruct.common.Config;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.client.model.ModelHelper;

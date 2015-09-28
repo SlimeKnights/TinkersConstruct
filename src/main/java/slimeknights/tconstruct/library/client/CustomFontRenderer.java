@@ -1,4 +1,4 @@
-package slimeknights.mantle.client;
+package slimeknights.tconstruct.library.client;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.texture.TextureManager;

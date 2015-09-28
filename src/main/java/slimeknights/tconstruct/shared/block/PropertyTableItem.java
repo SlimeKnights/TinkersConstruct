@@ -1,4 +1,4 @@
-package slimeknights.mantle.property;
+package slimeknights.tconstruct.shared.block;
 
 import com.google.common.collect.Lists;
 

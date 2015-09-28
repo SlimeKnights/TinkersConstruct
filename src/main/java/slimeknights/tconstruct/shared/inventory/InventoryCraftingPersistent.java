@@ -1,4 +1,4 @@
-package slimeknights.mantle.inventory;
+package slimeknights.tconstruct.shared.inventory;
 
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
