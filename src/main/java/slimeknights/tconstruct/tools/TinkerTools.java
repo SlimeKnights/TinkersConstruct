@@ -127,6 +127,9 @@ public class TinkerTools extends TinkerPulse {
     toolForge = registerBlock(new BlockToolForge(), ItemBlockMeta.class, "ToolForge");
     slimeSand = registerBlock(new BlockSlimeSand(), ItemBlockMeta.class, "SlimeSand");
 
+    ItemBlockMeta.setMappingProperty(toolTables, BlockToolTable.TABLES);
+    ItemBlockMeta.setMappingProperty(slimeSand, BlockSlimeSand.TYPE);
+
     registerTE(TileTable.class, "Table");
     registerTE(TileCraftingStation.class, "CraftingStation");
     registerTE(TileStencilTable.class, "StencilTable");

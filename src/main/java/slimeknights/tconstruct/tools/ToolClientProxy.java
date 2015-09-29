@@ -11,6 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 
+import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.TinkerRegistryClient;
 import slimeknights.tconstruct.library.Util;
@@ -54,10 +55,12 @@ public class ToolClientProxy extends ClientProxy {
     tableItem = Item.getItemFromBlock(TinkerTools.toolForge);
     ModelLoader.setCustomModelResourceLocation(tableItem, 0, ToolClientEvents.locToolForge);
 
-    Item slimeSand = Item.getItemFromBlock(TinkerTools.slimeSand);
+    ItemBlockMeta slimeSand = (ItemBlockMeta) Item.getItemFromBlock(TinkerTools.slimeSand);
+    slimeSand.registerItemModels();
     //ModelBakery.addVariantName(slimeSand, "tconstruct:SlimeSand#type=green", "tconstruct:SlimeSand#type=blue");
-    ModelLoader.setCustomModelResourceLocation(slimeSand, 0, new ModelResourceLocation("tconstruct:SlimeSand", "type=green"));
-    ModelLoader.setCustomModelResourceLocation(slimeSand, 1, new ModelResourceLocation("tconstruct:SlimeSand","type=blue"));
+    //ModelLoader.setCustomModelResourceLocation(slimeSand, 0, new ModelResourceLocation("tconstruct:SlimeSand", "type=green"));
+    //ModelLoader.setCustomModelResourceLocation(slimeSand, 1, new ModelResourceLocation("tconstruct:SlimeSand","type=blue"));
+
 
     // general items
 
