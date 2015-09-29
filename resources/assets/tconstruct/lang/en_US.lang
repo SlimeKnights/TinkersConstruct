@@ -2,23 +2,76 @@
 #    Blocks    #
 ################
 
+tile.tconstruct.tooltables.name
+tile.tconstruct.toolforge.name=Tool Forge
+tile.tconstruct.slimesand.name
+
 ################
 #    Items     #
 ################
 
 # General Items
-item.tconstruct.shard.name=Shard
+item.tconstruct.materials.slimeballblue.name=Slime Ball
+item.tconstruct.materials.slimecrystalgreen.name=Green Slime Crystal
+item.tconstruct.materials.slimecrystalblue.name=Blue Slime Crystal
+item.tconstruct.ingots.ingotcobalt.name=Cobalt Ingot
+item.tconstruct.ingots.ingotardite.name=Ardite Ingot
+item.tconstruct.ingots.ingotmanyullyn.name=Manyullyn Ingot
+item.tconstruct.nuggets.nuggetcobalt.name=Cobalt Nugget
+item.tconstruct.nuggets.nuggetardite.name=Ardite Nugget
+item.tconstruct.nuggets.nuggetmanyullyn.name=Manyullyn Nugget
 
 item.tconstruct.pattern.blank=Blank Pattern
 item.tconstruct.pattern.name=Pattern: %s
+item.tconstruct.cast.blank=Blank Cast
+item.tconstruct.cast.name=Cast: %s
 
 # Tools
 item.tconstruct.pickaxe.name=Pickaxe
+item.tconstruct.shovel.name=Shovel
+item.tconstruct.hatchet.name=Hatchet
+item.tconstruct.mattock.name=Mattock
+item.tconstruct.frypan.name=Frypan
+item.tconstruct.battlesign.name=Battlesign
+item.tconstruct.dagger.name=Dagger
+item.tconstruct.broadsword.name=Broadsword
+item.tconstruct.longsword.name=Longsword
+item.tconstruct.rapier.name=Rapier
+item.tconstruct.cutlass.name=Cutlass
+
+item.tconstruct.hammer.name=Hammer
+item.tconstruct.excavator.name=Excavator
+item.tconstruct.broadaxe.name=Lumberaxe
+item.tconstruct.cleaver.name=Cleaver
+item.tconstruct.battleaxe.name=Battleaxe
+item.tconstruct.scythe.name=Scythe
 
 # Tool Parts
+item.tconstruct.shard.name=Shard
+
 item.tconstruct.pickhead.name=Pickaxe Head
+item.tconstruct.shovelhead.name=Shovel Head
+item.tconstruct.axehead.name=Axe Head
+item.tconstruct.panhead.name=Pan
+item.tconstruct.signhead.name=Sign Plate
 item.tconstruct.binding.name=Binding
 item.tconstruct.toolrod.name=Toolrod
+item.tconstruct.knifeblade.name=Knife Blade
+item.tconstruct.swordblade.name=Sword Blade
+item.tconstruct.wideguard.name=Wide Guard
+item.tconstruct.crossguard.name=Cross Guard
+item.tconstruct.handguard.name=Hand Guard
+item.tconstruct.fullguard.name=Full Guard
+
+#Large Tool Parts
+item.tconstruct.hammerhead.name=Hammer Head
+item.tconstruct.excavatorhead.name=Excavator Head
+item.tconstruct.broadaxehead.name=Broad Axe Head
+item.tconstruct.largeplate.name=Large Plate
+item.tconstruct.toughbinding.name=Tough Binding
+item.tconstruct.toughtoolrod.name=Tough Toolrod
+item.tconstruct.scythehead.name=Scythe Head
+item.tconstruct.largeswordblade.name=Large Sword Blade
 
 # Material specific tools and toolparts
 # item.tconstruct.<tool>.<material>

@@ -1,6 +1,6 @@
 {
     "parent": "tconstruct:item/DefaultItem",
     "textures": {
-        "layer0": "tconstruct:items/materials/slimecrystal"
+        "layer0": "tconstruct:items/materials/slimecrystalgreen"
     }
 }

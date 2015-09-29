@@ -54,27 +54,27 @@ public class TinkerCommons extends TinkerPulse {
       nuggets = registerItem(new ItemMetaDynamic(), "Nuggets");
       ingots = registerItem(new ItemMetaDynamic(), "Ingots");
 
-      nuggetCobalt = nuggets.addMeta(0);
-      ingotCobalt = ingots.addMeta(0);
+      nuggetCobalt = nuggets.addMeta(0, "NuggetCobalt");
+      ingotCobalt = ingots.addMeta(0, "IngotCobalt");
 
-      nuggetArdite = nuggets.addMeta(1);
-      ingotArdite = ingots.addMeta(1);
+      nuggetArdite = nuggets.addMeta(1, "NuggetArdite");
+      ingotArdite = ingots.addMeta(1, "IngotArdite");
 
       if(isSmelteryLoaded()) {
-        nuggetManyullyn = nuggets.addMeta(2);
-        ingotManyullyn = ingots.addMeta(2);
+        nuggetManyullyn = nuggets.addMeta(2, "NuggetManyullyn");
+        ingotManyullyn = ingots.addMeta(2, "IngotManyullyn");
       }
     }
 
     // Materials
     if(isToolsLoaded() || isWorldLoaded()) {
       materials = registerItem(new ItemMetaDynamic(), "Materials");
-      matSlimeBallBlue = materials.addMeta(0);
+      matSlimeBallBlue = materials.addMeta(0, "SlimeBallBlue");
     }
 
     if(isToolsLoaded()) {
-      matSlimeCrystal = materials.addMeta(1);
-      matSlimeCrystalBlue = materials.addMeta(2);
+      matSlimeCrystal = materials.addMeta(1, "SlimeCrystalGreen");
+      matSlimeCrystalBlue = materials.addMeta(2, "SlimeCrystalBlue");
     }
 
     // oredicting time
