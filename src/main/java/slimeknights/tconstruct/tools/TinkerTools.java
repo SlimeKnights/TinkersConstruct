@@ -48,6 +48,7 @@ import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.item.BroadSword;
 import slimeknights.tconstruct.tools.item.Hammer;
 import slimeknights.tconstruct.tools.item.Hatchet;
+import slimeknights.tconstruct.tools.item.ItemBlockTable;
 import slimeknights.tconstruct.tools.item.Pickaxe;
 import slimeknights.tconstruct.tools.item.Shovel;
 import slimeknights.tconstruct.tools.modifiers.ModDiamond;
@@ -123,8 +124,8 @@ public class TinkerTools extends TinkerPulse {
     registerModifiers();
 
     // register blocks
-    toolTables = registerBlock(new BlockToolTable(), ItemBlockMeta.class, "ToolTables");
-    toolForge = registerBlock(new BlockToolForge(), ItemBlockMeta.class, "ToolForge");
+    toolTables = registerBlock(new BlockToolTable(), ItemBlockTable.class, "ToolTables");
+    toolForge = registerBlock(new BlockToolForge(), ItemBlockTable.class, "ToolForge");
     slimeSand = registerBlock(new BlockSlimeSand(), ItemBlockMeta.class, "SlimeSand");
 
     ItemBlockMeta.setMappingProperty(toolTables, BlockToolTable.TABLES);
