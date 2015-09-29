@@ -2,6 +2,7 @@ package slimeknights.tconstruct.common;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -24,8 +25,13 @@ public class TinkerOredict {
     OreDictionary.registerOre("blockPumpkin", Blocks.pumpkin);
     OreDictionary.registerOre("blockPumpkin", Blocks.lit_pumpkin);
     OreDictionary.registerOre("blockObsidian", Blocks.obsidian);
+    OreDictionary.registerOre("blockNetherrack", Blocks.netherrack);
+    OreDictionary.registerOre("blockPrismarine", Blocks.prismarine);
 
     OreDictionary.registerOre("dirt", Blocks.dirt);
+
+    OreDictionary.registerOre("flint", Items.flint);
+    OreDictionary.registerOre("shardPrismarine", Items.prismarine_shard);
   }
 
   // All the oredicted things in tinkers. Only registers if the item is actually present

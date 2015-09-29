@@ -172,18 +172,18 @@ public final class TinkerMaterials {
     stone.addTrait(cheap);
 
     flint.setCraftable(true);
-    flint.addItem(Items.flint, 1, Material.VALUE_Ingot);
+    flint.addItem("flint", 1, Material.VALUE_Ingot);
     flint.setRepresentativeItem(new ItemStack(Items.flint));
     flint.addTrait(crude);
 
     cactus.setCraftable(true);
-    cactus.addItem(Blocks.cactus, Material.VALUE_Ingot);
+    cactus.addItem("blockCactus", 1, Material.VALUE_Ingot);
     cactus.setRepresentativeItem(new ItemStack(Blocks.cactus));
     cactus.addTrait(prickly);
 
     obsidian.setCraftable(true);
     obsidian.setFluid(FluidRegistry.WATER).setCastable(true); // todo
-    obsidian.addItem(Blocks.obsidian, Material.VALUE_Ingot);
+    obsidian.addItem("blockObsidian", 1, Material.VALUE_Ingot);
     obsidian.setRepresentativeItem(new ItemStack(Blocks.obsidian));
     obsidian.addTrait(duritos);
 
