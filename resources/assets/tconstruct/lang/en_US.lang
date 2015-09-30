@@ -111,14 +111,16 @@ material.iron.name=Iron
 #############
 stat.durability.name=Durability
 stat.durability.desc=The base-value for durability calculations.\nUsually an integral part to the overall durability of a tool.
-stat.quality.name=Quality
-stat.quality.desc=How good the tool is for secondary toolparts.\nInfluences many different stats. Best value is 1.0.
 stat.miningspeed.name=Mining Speed
 stat.miningspeed.desc=How fast a tool with a tool head of this material can mine blocks.\nMay be influenced by other toolparts.
 stat.harvestlevel.name=Mining Level
 stat.harvestlevel.desc=What range of blocks a tool with a tool head of this material can mine.
 stat.attack.name=Attack
-stat.attack.desc=Attackstuff
+stat.attack.desc=Base value for attack calculations.\nThe end result depens on the tool itself and the other components used.
+stat.handle.name=Handle
+stat.handle.desc=How good the material is for a handle.\nInfluences many different stats.
+stat.extra.name=Quality
+stat.extra.desc=How good the material is for secondary parts.\nInfluences many different stats.
 
 ##############
 #   Traits   #
