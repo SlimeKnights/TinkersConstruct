@@ -33,7 +33,7 @@ Please include the following:
 	* ForgeModLoader-client-0.log (the FML log) from the root folder of the client
 
 ##Licenses
-Most code is public domain under [Creative Commons 0](http://creativecommons.org/publicdomain/zero/1.0/).
+Most code is public domain under [Creative Commons 0](http://creativecommons.org/publicdomain/zero/1.0/). The rework will be licensed under the [MIT License](https://tldrlegal.com/license/mit-license)
 
 Textures and binaries are licensed under [Creative Commons 3](http://creativecommons.org/licenses/by/3.0/).
 
