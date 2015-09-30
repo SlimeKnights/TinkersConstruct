@@ -126,23 +126,29 @@ stat.attack.desc=Attackstuff
 
 # traits are also modifiers, they use the same prefix so they don't have to be localized twice
 modifier.aridiculous.name=Aridiculous
-modifier.aridiculous.desc=Turn up the heat! The tool works better in hotter environments.
+modifier.aridiculous.desc=§oTurn up the heat!§r\nThe tool works better in hotter environments.
 modifier.cheap.name=Cheap
-modifier.cheap.desc=More bang for your buck! Increases durability gained when repairing the tool.
+modifier.cheap.desc=§oMore bang for your buck!§r\nIncreases durability gained when repairing the tool.
 modifier.crude.name=Crude
-modifier.crude.desc=Armor is for cowards! Bonus damage against unarmored targets.
+modifier.crude.desc=§oArmor is for cowards!§r\nBonus damage against unarmored targets.
 modifier.duritos.name=Duritos
-modifier.duritos.desc=Doesn't taste as good as it sounds. Your tool lasts longer ...most of the time.
+modifier.duritos.desc=§oDoesn't taste as good as it sounds.§r\nYour tool lasts longer ...most of the time.
 modifier.ecological.name=Ecological
-modifier.ecological.desc=Green Power! Renewable resources are good, but don't catch a splinter.
+modifier.ecological.desc=§oGreen Power!§r\nRenewable resources are good, but don't catch a splinter.
+modifier.insatiable.name=Insatiable
+modifier.insatiable.desc=§oDevour!§r\nDuring combat you deal more and more damage but also consume more and more durability.
+modifier.momentum.name=Momentum
+modifier.momentum.desc=§oFaster, keep going!§r\nMining blocks increases your speed, as long as you keep going.
+modifier.petramor.name=Petramor
+modifier.petramor.desc=§oSo much stone, must see it all!§r\nYou tool loves stone, it literally wants to merge with it.
 modifier.splintering.name=Splintering
-modifier.splintering.desc=A souvenir for your enemies! Hit them more to deal more damage.
+modifier.splintering.desc=§oA souvenir for your enemies!§r\nHit them more to deal more damage.
 modifier.prickly.name=Prickly
-modifier.prickly.desc=Ouch! Nobody is safe from those thorns, better not touch them.
+modifier.prickly.desc=§oOuch!§r\nNobody is safe from those thorns, better not touch them.
 modifier.slimey.name=Slimey
-modifier.slimey.desc=Eww, gooey! It'll wash off.
+modifier.slimey.desc=§oEww, gooey!§r\nIt'll wash off.
 modifier.stonebound.name=Stonebound
-modifier.stonebound.desc=Your tool absolutely loves stone! The tool mines faster as it wears out, but does less damage.
+modifier.stonebound.desc=§oYour tool absolutely loves stone!§r\nThe tool mines faster as it wears out, but does less damage.
 
 #################
 #   Modifiers   #
