@@ -99,6 +99,7 @@ public class TConstruct {
   @Mod.EventHandler
   public void preInit(FMLPreInitializationEvent event) {
     HarvestLevels.init();
+    TinkerOredict.ensureOredict();
 
     NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);
 
@@ -107,6 +108,8 @@ public class TConstruct {
     }
 
     TinkerNetwork.instance.setup();
+
+    TinkerOredict.registerTinkerOredict();
   }
 
   @Mod.EventHandler
@@ -116,9 +119,6 @@ public class TConstruct {
 
   @Mod.EventHandler
   public void postInit(FMLPostInitializationEvent event) {
-    TinkerOredict.ensureOredict();
-    TinkerOredict.registerTinkerOredict();
-
     if(event.getSide().isClient()) {
       ClientProxy.initRenderer();
     }
