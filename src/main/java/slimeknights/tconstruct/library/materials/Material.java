@@ -307,4 +307,8 @@ public class Material extends RecipeMatchRegistry {
   public String getIdentifier() {
     return identifier;
   }
+
+  public String getTextColor() {
+    return textColor.toString();
+  }
 }
