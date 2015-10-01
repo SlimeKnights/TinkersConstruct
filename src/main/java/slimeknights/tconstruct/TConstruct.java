@@ -22,6 +22,7 @@ import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.common.TinkerOredict;
 import slimeknights.tconstruct.debug.DumpMaterialTest;
 import slimeknights.tconstruct.debug.LocalizationCheckCommand;
+import slimeknights.tconstruct.debug.TinkerDebug;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -77,6 +78,8 @@ public class TConstruct {
     pulseManager.registerPulse(new TinkerSmeltery());
     pulseManager.registerPulse(new TinkerMaterials());
     // Plugins/Integration
+
+    pulseManager.registerPulse(new TinkerDebug());
   }
 
 
@@ -122,11 +125,5 @@ public class TConstruct {
     if(event.getSide().isClient()) {
       ClientProxy.initRenderer();
     }
-  }
-
-  @Mod.EventHandler
-  public void starting(FMLServerStartingEvent event) {
-    event.registerServerCommand(new LocalizationCheckCommand());
-    event.registerServerCommand(new DumpMaterialTest());
   }
 }
