@@ -53,6 +53,7 @@ import slimeknights.tconstruct.tools.item.Pickaxe;
 import slimeknights.tconstruct.tools.item.Shovel;
 import slimeknights.tconstruct.tools.modifiers.ModDiamond;
 import slimeknights.tconstruct.tools.modifiers.ModFortify;
+import slimeknights.tconstruct.tools.modifiers.ModHarvestSize;
 import slimeknights.tconstruct.tools.modifiers.ModHaste;
 import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
 import slimeknights.tconstruct.tools.tileentity.TilePartBuilder;
@@ -106,6 +107,8 @@ public class TinkerTools extends TinkerPulse {
   public static IModifier diamondMod;
   public static IModifier fortifyMod;
   public static IModifier redstoneMod;
+  public static IModifier harvestWidth;
+  public static IModifier harvestHeight;
 
   // Helper stuff
   static List<ToolCore> tools = Lists.newLinkedList(); // contains all tools registered in this pulse
@@ -177,6 +180,16 @@ public class TinkerTools extends TinkerPulse {
   private void registerModifiers() {
     diamondMod = new ModDiamond();
     redstoneMod = new ModHaste(50);
+
+    Modifier harvestWidth = new ModHarvestSize("width");
+    Modifier harvestHeight = new ModHarvestSize("height");
+
+    // todo: proper items
+    harvestWidth.addItem(Items.arrow, 1, 1);
+    harvestHeight.addItem(Blocks.ladder, 1);
+
+    TinkerTools.harvestWidth = harvestWidth;
+    TinkerTools.harvestHeight = harvestHeight;
 
     // todo: fix
     fortifyMod = new Modifier("Fortify") {
@@ -307,6 +320,7 @@ public class TinkerTools extends TinkerPulse {
     registerFortifyModifiers();
 
     MinecraftForge.EVENT_BUS.register(new TraitEvents());
+    MinecraftForge.EVENT_BUS.register(new ToolEvents());
   }
 
   private void registerFortifyModifiers() {

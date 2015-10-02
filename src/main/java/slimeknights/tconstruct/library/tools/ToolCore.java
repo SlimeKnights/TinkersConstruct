@@ -109,6 +109,17 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   @Override
+  public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
+    if(this instanceof IAoeTool) {
+      for(BlockPos extraPos : ((IAoeTool)this).getExtraBlocksToBreak(itemstack, player.worldObj, player, pos)) {
+        ToolHelper.breakExtraBlock(itemstack, player.worldObj, player, extraPos, pos);
+      }
+    }
+
+    return super.onBlockStartBreak(itemstack, pos, player);
+  }
+
+  @Override
   public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
     return ToolHelper.attackEntity(stack, this, player, entity);
   }

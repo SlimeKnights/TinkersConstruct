@@ -47,15 +47,6 @@ public class Hammer extends ToolCore implements IAoeTool {
   }
 
   @Override
-  public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
-    for(BlockPos extraPos : getExtraBlocksToBreak(itemstack, player.worldObj, player, pos)) {
-      ToolHelper.breakExtraBlock(itemstack, player.worldObj, player, extraPos, pos);
-    }
-
-    return super.onBlockStartBreak(itemstack, pos, player);
-  }
-
-  @Override
   public ImmutableList<BlockPos> getExtraBlocksToBreak(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
     return ToolHelper.calcAOEBlocks(stack, world, player, origin, 3, 3, 1);
   }
