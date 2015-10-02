@@ -54,6 +54,11 @@ public class Hatchet extends ToolCore {
     return 0.73f;
   }
 
+  @Override
+  public float knockback() {
+    return 1.3f;
+  }
+
   // hatches 1 : leaves 0
   @Override
   public float getDigSpeed(ItemStack itemstack, IBlockState state) {

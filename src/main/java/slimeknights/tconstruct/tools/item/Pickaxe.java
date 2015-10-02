@@ -60,7 +60,7 @@ public class Pickaxe extends ToolCore {
 
     // handle influences durability
     // binding quality influences how well the handle interacts with the head
-    data.durability *= 0.2f + 0.8f*(handle.handleQuality * (1 + binding.extraQuality)/2);
+    data.durability *= 0.33f + 0.77f*(handle.handleQuality * (1 + binding.extraQuality)/2);
     // handle also influences mining speed a bit (0-20% change)
     data.speed *= 0.8f + handle.handleQuality*0.2f;
     // binding adds a bit to the speed

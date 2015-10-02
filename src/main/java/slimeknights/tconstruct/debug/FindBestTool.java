@@ -46,7 +46,7 @@ public class FindBestTool extends CommandBase {
   @Override
   public void processCommand(ICommandSender sender, String[] args) throws CommandException {
     if(sender.getEntityWorld().isRemote) return;
-    ToolCore tool = TinkerTools.pickaxe;
+    ToolCore tool = TinkerTools.hatchet;
     List<Triple<ItemStack, ImmutableList<Material>, Object[]>> results = Lists.newArrayList();
 
     @SuppressWarnings("unchecked")
@@ -61,6 +61,12 @@ public class FindBestTool extends CommandBase {
           @Override
           public Float apply(ItemStack itemStack) {
             return ToolHelper.getMiningSpeed(itemStack);
+          }
+        },
+        new Function<ItemStack, Float>() {
+          @Override
+          public Float apply(ItemStack itemStack) {
+            return ToolHelper.getAttack(itemStack);
           }
         }
     };
@@ -84,25 +90,52 @@ public class FindBestTool extends CommandBase {
         return (Float) input.getRight()[1];
       }
     });
+    List<Float> attacks = Lists.transform(results, new com.google.common.base.Function<Triple<ItemStack,ImmutableList<Material>,Object[]>, Float>() {
+      @Nullable
+      @Override
+      public Float apply(Triple<ItemStack, ImmutableList<Material>, Object[]> input) {
+        return (Float) input.getRight()[2];
+      }
+    });
 
     // calculate upper quartile of durability
     final int durQuart = (int) getQuartile(Ordering.natural().reverse().sortedCopy(durabilities));
     final float speedQuart = (float) getQuartile(Ordering.natural().reverse().sortedCopy(speeds));
+    final float attackQuart = (float) getQuartile(Ordering.natural().reverse().sortedCopy(attacks));
 
-    Predicate<Triple<ItemStack, ImmutableList<Material>, Object[]>> filter = new Predicate<Triple<ItemStack, ImmutableList<Material>, Object[]>>() {
+    Predicate<Triple<ItemStack, ImmutableList<Material>, Object[]>> filter1 = new Predicate<Triple<ItemStack, ImmutableList<Material>, Object[]>>() {
 
       @Override
       public boolean apply(@Nullable Triple<ItemStack, ImmutableList<Material>, Object[]> entry) {
-        return ((Integer)entry.getRight()[0]) > durQuart &&
-               ((Float)entry.getRight()[1]) > speedQuart;
+        return ((Integer)entry.getRight()[0]) > durQuart
+               && ((Float)entry.getRight()[1]) > speedQuart;
+      }
+    };
+
+    Predicate<Triple<ItemStack, ImmutableList<Material>, Object[]>> filter2 = new Predicate<Triple<ItemStack, ImmutableList<Material>, Object[]>>() {
+
+      @Override
+      public boolean apply(@Nullable Triple<ItemStack, ImmutableList<Material>, Object[]> entry) {
+        return ((Integer)entry.getRight()[0]) > durQuart
+               && ((Float)entry.getRight()[2]) > attackQuart;
+      }
+    };
+
+    Predicate<Triple<ItemStack, ImmutableList<Material>, Object[]>> filter3 = new Predicate<Triple<ItemStack, ImmutableList<Material>, Object[]>>() {
+
+      @Override
+      public boolean apply(@Nullable Triple<ItemStack, ImmutableList<Material>, Object[]> entry) {
+        return ((Integer)entry.getRight()[0]) > durQuart
+               && ((Float)entry.getRight()[1]) > speedQuart
+               && ((Float)entry.getRight()[2]) > attackQuart;
       }
     };
 
     // get all tools that are above in both quartiles
-    Collection<Triple<ItemStack, ImmutableList<Material>, Object[]>> best = Collections2.filter(results, filter);
+    Collection<Triple<ItemStack, ImmutableList<Material>, Object[]>> best = Collections2.filter(results, filter1);
 
-    sender.addChatMessage(new ChatComponentText(String.format("%d are in the upper quartile of both stats", best.size())));
-/*
+    sender.addChatMessage(new ChatComponentText(String.format("%d are in the upper quartile of stats (%d; %f; %f)", best.size(), durQuart, speedQuart, attackQuart)));
+
     best = new Ordering<Triple<ItemStack, ImmutableList<Material>, Object[]>>() {
 
       @Override
@@ -110,7 +143,7 @@ public class FindBestTool extends CommandBase {
         return (Integer)right.getRight()[0] - (Integer)left.getRight()[0];
       }
     }.sortedCopy(best);
-*/
+
     for(Triple<ItemStack, ImmutableList<Material>, Object[]> foo : best) {
       StringBuilder text = new StringBuilder();
       text.append("Materials: ");
@@ -124,9 +157,11 @@ public class FindBestTool extends CommandBase {
       text.append(foo.getRight()[0]);
       text.append(" Speed: ");
       text.append(foo.getRight()[1]);
+      text.append(" Dmg: ");
+      text.append(foo.getRight()[2]);
 
       sender.addChatMessage(foo.getLeft().getChatComponent().appendSibling(new ChatComponentText(text.toString())));
-      System.out.println(text.toString());
+      //System.out.println(text.toString());
     }
   }
 
@@ -162,12 +197,13 @@ public class FindBestTool extends CommandBase {
   }
 
   private <T extends Number> double getQuartile(List<T> entries) {
+    int quartile = 10;
     if(entries.size()%2 == 1) {
-      return entries.get(entries.size()/16).doubleValue();
+      return entries.get(entries.size()/quartile).doubleValue();
     }
 
-    T v1 = entries.get(entries.size()/16);
-    T v2 = entries.get(entries.size()/16 + 1);
+    T v1 = entries.get(entries.size()/quartile);
+    T v2 = entries.get(entries.size()/quartile + 1);
     return ((v1.doubleValue() + v2.doubleValue())/2d);
   }
 }
