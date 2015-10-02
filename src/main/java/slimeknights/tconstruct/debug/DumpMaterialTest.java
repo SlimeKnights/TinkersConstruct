@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.item.BroadSword;
 import slimeknights.tconstruct.tools.item.Hatchet;
 import slimeknights.tconstruct.tools.item.Pickaxe;
+import slimeknights.tconstruct.tools.item.Shovel;
 
 public class DumpMaterialTest extends CommandBase {
   public static String path = "./dumps/";
@@ -49,6 +50,7 @@ public class DumpMaterialTest extends CommandBase {
     printTool(new Pickaxe(), baseMaterial);
     printTool(new Hatchet(), baseMaterial);
     printTool(new BroadSword(), baseMaterial);
+    printTool(new Shovel(), baseMaterial);
 
     for(Material mat1 : TinkerRegistry.getAllMaterials()) {
       if(!mat1.hasStats(ToolMaterialStats.TYPE))
@@ -56,6 +58,7 @@ public class DumpMaterialTest extends CommandBase {
       printTool(new Pickaxe(), mat1);
       printTool(new Hatchet(), mat1);
       printTool(new BroadSword(), mat1);
+      printTool(new Shovel(), mat1);
     }
   }
 

@@ -67,7 +67,7 @@ public class Pickaxe extends ToolCore {
     data.speed += (binding.miningspeed * binding.extraQuality)*0.14f;
 
     // 3 free modifiers
-    data.modifiers = 3;
+    data.modifiers = DEFAULT_MODIFIERS;
 
     return data.get();
   }

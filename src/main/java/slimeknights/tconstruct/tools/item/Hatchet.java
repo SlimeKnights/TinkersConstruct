@@ -101,7 +101,7 @@ public class Hatchet extends ToolCore {
     data.speed *= 0.6f + 0.4f * coeff;
 
     // 3 free modifiers
-    data.modifiers = 3;
+    data.modifiers = DEFAULT_MODIFIERS;
 
     return data.get();
   }

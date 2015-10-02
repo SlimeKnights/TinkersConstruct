@@ -46,7 +46,7 @@ public class FindBestTool extends CommandBase {
   @Override
   public void processCommand(ICommandSender sender, String[] args) throws CommandException {
     if(sender.getEntityWorld().isRemote) return;
-    ToolCore tool = TinkerTools.hatchet;
+    ToolCore tool = TinkerTools.shovel;
     List<Triple<ItemStack, ImmutableList<Material>, Object[]>> results = Lists.newArrayList();
 
     @SuppressWarnings("unchecked")
@@ -197,7 +197,7 @@ public class FindBestTool extends CommandBase {
   }
 
   private <T extends Number> double getQuartile(List<T> entries) {
-    int quartile = 10;
+    int quartile = 8;
     if(entries.size()%2 == 1) {
       return entries.get(entries.size()/quartile).doubleValue();
     }

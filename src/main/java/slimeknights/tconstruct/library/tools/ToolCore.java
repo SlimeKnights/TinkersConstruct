@@ -40,6 +40,8 @@ import slimeknights.tconstruct.library.utils.TooltipBuilder;
  */
 public abstract class ToolCore extends TinkersItem {
 
+  protected final static int DEFAULT_MODIFIERS = 3;
+
   public ToolCore(PartMaterialType... requiredComponents) {
     super(requiredComponents);
 
