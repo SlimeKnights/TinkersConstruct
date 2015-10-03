@@ -39,6 +39,11 @@ public class ModFortify extends Modifier {
   }
 
   @Override
+  public String getLocalizedDesc() {
+    return Util.translateFormatted(String.format(LOC_Desc, "fortify"), material.getLocalizedName());
+  }
+
+  @Override
   public void updateNBT(NBTTagCompound modifierTag) {
     // nothing needed besides aspects
   }

@@ -157,13 +157,17 @@ modifier.stonebound.desc=§oYour tool absolutely loves stone!§r\nThe tool mines
 #################
 
 modifier.diamond.name=Diamond
+modifier.diamond.desc=§oShiny!§r\nIncreased durability!
 modifier.fortify.name=Fortified (%s)
+modifier.fortify.desc=§oHarder, better, faster, stronger!§r\nMining level increased to the same level as %s.
 modifier.harvestwidth.name=Width++
+modifier.harvestwidth.desc=§oExpand!§r\nIncreases the width of the area affected by your tool. The effect is tool specific.
 modifier.harvestheight.name=Height++
+modifier.harvestheight.desc=§oExpand!§r\nIncreases the height of the area affected by your tool. The effect is tool specific.
 modifier.redstone.name=Haste
 modifier.redstone.name2=Haster
 modifier.redstone.name3=Hastest
-modifier.redstone.desc=The redstone impulse when hitting blocks motivates your tool to mine faster. Increases mining speed.
+modifier.redstone.desc=§oWeeeeeee!§r\nThe redstone impulse when hitting blocks motivates your tool to mine faster.
 
 #################
 #   Tool Info   #
