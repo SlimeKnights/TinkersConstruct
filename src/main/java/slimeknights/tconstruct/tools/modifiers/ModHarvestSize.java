@@ -15,7 +15,7 @@ public class ModHarvestSize extends Modifier {
   public ModHarvestSize(String name) {
     super("harvest" + name.toLowerCase(Locale.US));
 
-    addAspects(new ModifierAspect.SingleAspect(this), new ModifierAspect.DataAspect(this, EnumChatFormatting.GRAY), ModifierAspect.harvestOnly, ModifierAspect.freeModifier);
+    addAspects(new ModifierAspect.SingleAspect(this), new ModifierAspect.DataAspect(this, EnumChatFormatting.WHITE), ModifierAspect.harvestOnly, ModifierAspect.freeModifier);
   }
 
   @Override

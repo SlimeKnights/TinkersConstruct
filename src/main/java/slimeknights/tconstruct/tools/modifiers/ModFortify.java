@@ -5,6 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerAPIException;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -30,6 +31,11 @@ public class ModFortify extends Modifier {
     ItemStack blade = TinkerTools.swordBlade.getItemstackWithMaterial(material);
     ItemStack binding = TinkerTools.binding.getItemstackWithMaterial(material);
     addRecipeMatch(new RecipeMatch.ItemCombination(1, blade, binding));
+  }
+
+  @Override
+  public String getLocalizedName() {
+    return Util.translateFormatted(String.format(LOC_Name, "fortify"), material.getLocalizedName());
   }
 
   @Override

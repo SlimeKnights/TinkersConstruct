@@ -156,6 +156,10 @@ modifier.stonebound.desc=§oYour tool absolutely loves stone!§r\nThe tool mines
 #   Modifiers   #
 #################
 
+modifier.diamond.name=Diamond
+modifier.fortify.name=Fortified (%s)
+modifier.harvestwidth.name=Width++
+modifier.harvestheight.name=Height++
 modifier.redstone.name=Haste
 modifier.redstone.name2=Haster
 modifier.redstone.name3=Hastest
