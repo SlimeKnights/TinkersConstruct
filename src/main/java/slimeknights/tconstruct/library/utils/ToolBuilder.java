@@ -443,13 +443,19 @@ public final class ToolBuilder {
     // and its copy for reference
     rootNBT.setTag(Tags.TOOL_DATA_ORIG, toolTag.copy());
 
+    // save the old modifiers list and clean up all tags that get set by modifiers/traits
+    NBTTagList modifiersTagOld = TagUtil.getModifiersTagList(rootNBT);
+    rootNBT.removeTag(Tags.TOOL_MODIFIERS); // the active-modifiers tag
+    rootNBT.setTag(Tags.TOOL_MODIFIERS, new NBTTagList());
+    rootNBT.removeTag("ench"); // and the enchantments tag
+
     // clean up traits
     rootNBT.removeTag(Tags.TOOL_TRAITS);
     tinkersItem.addMaterialTraits(rootNBT, materials);
 
     // reapply modifiers
     NBTTagList modifiers = TagUtil.getBaseModifiersTagList(rootNBT);
-    NBTTagList modifiersTag = TagUtil.getModifiersTagList(rootNBT);
+    // copy over and reapply all relevant modifiers
     for(int i = 0; i < modifiers.tagCount(); i++) {
       String identifier = modifiers.getStringTagAt(i);
       IModifier modifier = TinkerRegistry.getModifier(identifier);
@@ -459,10 +465,10 @@ public final class ToolBuilder {
       }
 
       NBTTagCompound tag;
-      int index = TinkerUtil.getIndexInList(modifiersTag, modifier.getIdentifier());
+      int index = TinkerUtil.getIndexInList(modifiersTagOld, modifier.getIdentifier());
 
       if(index >= 0) {
-        tag = modifiersTag.getCompoundTagAt(index);
+        tag = modifiersTagOld.getCompoundTagAt(index);
       }
       else {
         tag = new NBTTagCompound();
