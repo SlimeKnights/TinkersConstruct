@@ -226,28 +226,36 @@ public class TBaseWorldGenerator implements IWorldGenerator
     void generateNether (Random random, int xChunk, int zChunk, World world)
     {
         int xPos, yPos, zPos;
-        if (PHConstruct.generateNetherOres)
+        if (PHConstruct.generateCobalt)
         {
-            for (int i = 0; i < PHConstruct.netherDensity; i++)
+            for (int i = 0; i < PHConstruct.cobaltDensity; i++)
             {
                 xPos = xChunk + random.nextInt(16);
                 yPos = random.nextInt(64) + 32;
                 zPos = zChunk + random.nextInt(16);
                 cobalt.generate(world, random, xPos, yPos, zPos);
 
+            }
+            for (int i = 0; i < PHConstruct.cobaltDensity; i++)
+            {
+                xPos = xChunk + random.nextInt(16);
+                yPos = random.nextInt(128);
+                zPos = zChunk + random.nextInt(16);
+                cobalt.generate(world, random, xPos, yPos, zPos);
+            }
+        }
+        if (PHConstruct.generateArdite)
+        {
+            for (int i = 0; i < PHConstruct.arditeDensity; i++)
+            {
                 xPos = xChunk + random.nextInt(16);
                 yPos = random.nextInt(64) + 32;
                 zPos = zChunk + random.nextInt(16);
                 ardite.generate(world, random, xPos, yPos, zPos);
 
             }
-            for (int i = 0; i < PHConstruct.netherDensity; i++)
+            for (int i = 0; i < PHConstruct.arditeDensity; i++)
             {
-                xPos = xChunk + random.nextInt(16);
-                yPos = random.nextInt(128);
-                zPos = zChunk + random.nextInt(16);
-                cobalt.generate(world, random, xPos, yPos, zPos);
-
                 xPos = xChunk + random.nextInt(16);
                 yPos = random.nextInt(128);
                 zPos = zChunk + random.nextInt(16);

@@ -102,7 +102,16 @@ public class PHConstruct
         generateCopper = config.get("Worldgen Disabler", "Generate Copper", ic2).getBoolean(ic2);
         generateTin = config.get("Worldgen Disabler", "Generate Tin", ic2).getBoolean(ic2);
         generateAluminum = config.get("Worldgen Disabler", "Generate Aluminum", xycraft).getBoolean(xycraft);
-        generateNetherOres = config.get("Worldgen Disabler", "Generate Cobalt and Ardite", true).getBoolean(true);
+        if(config.hasKey("worldgen disabler", "Generate Cobalt and Ardite")) {
+            generateNetherOres = config.get("Worldgen Disabler", "Generate Cobalt and Ardite", true).getBoolean(true);
+            generateCobalt = generateArdite = generateNetherOres;
+            ConfigCategory cat = config.getCategory("worldgen disabler");
+            cat.remove("Generate Cobalt and Ardite");
+        }
+        else {
+            generateCobalt = config.get("Worldgen Disabler", "Generate Cobalt", true).getBoolean(true);
+            generateArdite = config.get("Worldgen Disabler", "Generate Ardite", true).getBoolean(true);
+        }
 
         generateIronSurface = config.get("Worldgen Disabler", "Generate Surface Iron", true).getBoolean(true);
         generateGoldSurface = config.get("Worldgen Disabler", "Generate Surface Gold", true).getBoolean(true);
@@ -122,7 +131,16 @@ public class PHConstruct
         copperuDensity = config.get("Worldgen", "Copper Underground Density", 2, "Density: Chances per chunk").getInt(2);
         tinuDensity = config.get("Worldgen", "Tin Underground Density", 2).getInt(2);
         aluminumuDensity = config.get("Worldgen", "Aluminum Underground Density", 3).getInt(3);
-        netherDensity = config.get("Worldgen", "Nether Ores Density", 8).getInt(8);
+        if(config.hasKey("worldgen", "Nether Ores Density")) {
+            netherDensity = config.get("Worldgen", "Nether Ores Density", 8).getInt(8);
+            cobaltDensity = arditeDensity = netherDensity;
+            ConfigCategory cat = config.getCategory("worldgen");
+            cat.remove("Nether Ores Density");
+        }
+        else {
+            cobaltDensity = config.get("worldgen", "Cobalt Ore Density", 8).getInt(8);
+            arditeDensity = config.get("worldgen", "Ardite Ore Density", 8).getInt(8);
+        }
 
         copperuMinY = config.get("Worldgen", "Copper Underground Min Y", 20).getInt(20);
         copperuMaxY = config.get("Worldgen", "Copper Underground Max Y", 60).getInt(60);
@@ -225,7 +243,10 @@ public class PHConstruct
     public static boolean generateCopper;
     public static boolean generateTin;
     public static boolean generateAluminum;
+    @Deprecated
     public static boolean generateNetherOres;
+    public static boolean generateArdite;
+    public static boolean generateCobalt;
 
     public static boolean generateIronSurface;
     public static boolean generateGoldSurface;
@@ -247,7 +268,10 @@ public class PHConstruct
     public static int copperuDensity;
     public static int tinuDensity;
     public static int aluminumuDensity;
+    @Deprecated
     public static int netherDensity;
+    public static int cobaltDensity;
+    public static int arditeDensity;
 
     public static int ironsRarity;
     public static int goldsRarity;
