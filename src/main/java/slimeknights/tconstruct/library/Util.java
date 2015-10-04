@@ -57,12 +57,12 @@ public class Util {
     return String.format("%s.%s", RESOURCE, name.toLowerCase(Locale.US));
   }
 
-  public static String translate(String key, String... pars) {
+  public static String translate(String key, Object... pars) {
     // translates twice to allow rerouting/alias
     return StatCollector.translateToLocal(StatCollector.translateToLocal(String.format(key, (Object[]) pars)).trim()).trim();
   }
 
-  public static String translateFormatted(String key, String... pars) {
+  public static String translateFormatted(String key, Object... pars) {
     // translates twice to allow rerouting/alias
     return StatCollector.translateToLocal(StatCollector.translateToLocalFormatted(key, (Object[]) pars).trim()).trim();
   }

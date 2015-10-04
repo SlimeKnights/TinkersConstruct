@@ -184,6 +184,8 @@ tooltip.part.materialAddedBy=Material added by %s
 tooltip.part.missingMaterial=Missing material: %s
 tooltip.part.missingInfo=Part has no data
 
+tooltip.pattern.cost=Material Cost: %d
+
 ##################
 #   UI Strings   #
 ##################
