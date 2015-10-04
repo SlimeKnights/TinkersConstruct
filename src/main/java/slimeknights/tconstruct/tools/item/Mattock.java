@@ -17,6 +17,7 @@ import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
+import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -77,7 +78,7 @@ public class Mattock extends ToolCore {
     if(toolClass == null) {
       return -1;
     }
-    
+
     // axe harvestlevel
     if(toolClass.equals("axe")) {
       return TagUtil.getToolTag(stack).getInteger(MattockToolNBT.TAG_AxeLevel);
@@ -99,6 +100,25 @@ public class Mattock extends ToolCore {
   @Override
   public float damagePotential() {
     return 0.66f;
+  }
+
+  @Override
+  public int[] getRepairParts() {
+    return new int[] {1,2};
+  }
+
+  @Override
+  protected int calculateRepair(ItemStack tool, int materialValue, int index) {
+    List<Material> materials = TinkerUtil.getMaterialsFromTagList(TagUtil.getBaseMaterialsTagList(tool));
+
+    ToolMaterialStats stats[] = new ToolMaterialStats[2];
+    stats[0] = materials.get(1).getStats(ToolMaterialStats.TYPE);
+    stats[1] = materials.get(2).getStats(ToolMaterialStats.TYPE);
+    int total = stats[0].durability + stats[1].durability;
+
+    float coeff = stats[index-1].durability / (float)total;
+
+    return (int)Math.max(1f,super.calculateRepair(tool, materialValue, index)*coeff);
   }
 
   @Override
