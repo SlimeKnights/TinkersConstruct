@@ -1,12 +1,16 @@
 package tconstruct.world.gen;
 
+import com.google.common.collect.Sets;
 import cpw.mods.fml.common.IWorldGenerator;
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
+import java.util.Set;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.*;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderFlat;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -57,6 +61,8 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
         int initialHeight = height;
         Ellipse2D.Double ellipse = new Ellipse2D.Double(0, 0, xRange, zRange);
 
+        Set<Chunk> chunks = Sets.newHashSet();
+
         // Basic shape
         for (int x = 0; x <= xRange; x++)
         {
@@ -65,7 +71,10 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                 for (int y = 0; y <= height; y++)
                 {
                     if (ellipse.contains(x, z))
+                    {
                         world.setBlock(x + xChunk, y + yCenter, z + zChunk, base, 5, 0);
+                        chunks.add(world.getChunkFromBlockCoords(x + xChunk, z + zChunk));
+                    }
                 }
             }
         }
@@ -147,6 +156,11 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
         for (int i = 0; i < 3; i++)
         {
             trees.generate(world, random, xChunk + random.nextInt(xRange), yCenter + initialHeight + 3, zChunk + random.nextInt(zRange));
+        }
+
+        // fix heightmap
+        for(Chunk chunk : chunks) {
+            chunk.generateSkylightMap();
         }
     }
 
