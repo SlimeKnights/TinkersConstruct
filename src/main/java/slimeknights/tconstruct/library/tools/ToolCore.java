@@ -17,6 +17,8 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -175,9 +177,16 @@ public abstract class ToolCore extends TinkersItem {
     return info.getTooltip();
   }
 
+  @SideOnly(Side.CLIENT)
   @Override
   public FontRenderer getFontRenderer(ItemStack stack) {
     return ClientProxy.fontRenderer;
+  }
+
+  @SideOnly(Side.CLIENT)
+  @Override
+  public boolean hasEffect(ItemStack stack) {
+    return false; // no effect for you.
   }
 
   @Override
