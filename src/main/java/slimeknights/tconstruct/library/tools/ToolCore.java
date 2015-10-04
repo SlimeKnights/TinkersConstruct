@@ -135,9 +135,16 @@ public abstract class ToolCore extends TinkersItem {
     return super.onEntitySwing(entityLiving, stack);
   }
 
+  public boolean canUseSecondaryItem() {
+    return true;
+  }
+
   @Override
   public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-    return ToolHelper.useSecondaryItem(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
+    if(canUseSecondaryItem()) {
+      return ToolHelper.useSecondaryItem(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
+    }
+    return super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
   }
 
   @Override

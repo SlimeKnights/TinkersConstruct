@@ -620,17 +620,24 @@ public final class ToolHelper {
   public static int getSecondaryItemSlot(EntityPlayer player) {
     int slot = player.inventory.currentItem;
     int max = InventoryPlayer.getHotbarSize() - 1;
-    if(slot == 0) {
-      slot = max;
-    }
-    else {
+    if(slot < max) {
       slot++;
     }
 
     // find next slot that has an item in it
     for(; slot < max; slot++) {
-      if(player.inventory.getStackInSlot(slot) != null) {
-        break;
+      ItemStack secondaryItem = player.inventory.getStackInSlot(slot);
+      if(secondaryItem != null) {
+        if(!(secondaryItem.getItem() instanceof ToolCore) || !((ToolCore) secondaryItem.getItem()).canUseSecondaryItem()) {
+          break;
+        }
+      }
+    }
+
+    ItemStack secondaryItem = player.inventory.getStackInSlot(slot);
+    if(secondaryItem != null) {
+      if((secondaryItem.getItem() instanceof ToolCore) && ((ToolCore) secondaryItem.getItem()).canUseSecondaryItem()) {
+        return player.inventory.currentItem;
       }
     }
 
