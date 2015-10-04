@@ -5,6 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.library.materials.Material;
@@ -36,6 +37,10 @@ public class TinkerVintageCraft {
   }
 
   private void integrateTools() {
+    // pattern
+    GameRegistry.addRecipe(new ShapedOreRecipe(pattern, "PS", "SP", 'P', "vcraft-plankWood", 'S', "stickWood"));
+    GameRegistry.addRecipe(new ShapedOreRecipe(pattern, "SP", "PS", 'P', "vcraft-plankWood", 'S', "stickWood"));
+
     // stenciltable
     GameRegistry.addRecipe(
         new TableRecipe(OreDictionary.getOres("vcraft-plankWood"), toolTables, BlockToolTable.TableTypes.StencilTable.meta,
