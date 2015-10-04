@@ -19,6 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 import mantle.pulsar.pulse.Pulse;
+import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.texture.ExtraUtilityTexture;
@@ -289,5 +290,18 @@ public final class TinkerMaterials {
 
   public void registerProjectileMaterials() {
 
+  }
+
+  @Subscribe
+  public void postInit(FMLPostInitializationEvent event) {
+    // each material without a shard set gets the default one set
+    for(Material material : TinkerRegistry.getAllMaterials()) {
+      ItemStack shard = TinkerTools.shard.getItemstackWithMaterial(material);
+
+      material.addRecipeMatch(new RecipeMatch.ItemCombination(Material.VALUE_Shard, shard));
+      if(material.getShard() != null) {
+        material.setShard(shard);
+      }
+    }
   }
 }
