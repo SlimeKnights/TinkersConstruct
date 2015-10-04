@@ -10,6 +10,8 @@ import net.minecraft.block.BlockSkull;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GlStateManager;
@@ -27,8 +29,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -37,11 +41,44 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 import slimeknights.tconstruct.library.tools.IAoeTool;
+import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.utils.ToolHelper;
 
 @SideOnly(Side.CLIENT)
 public class RenderEvents implements IResourceManagerReloadListener {
 
+  private static final ResourceLocation widgetsTexPath = new ResourceLocation("textures/gui/widgets.png"); // GuiIngame.widgetsTexPath
   private final TextureAtlasSprite[] destroyBlockIcons = new TextureAtlasSprite[10];
+
+  @SubscribeEvent
+  public void onRenderGUI(RenderGameOverlayEvent.Pre event) {
+    // we're only interested in the inventory
+    if(event.type != RenderGameOverlayEvent.ElementType.HOTBAR) {
+      return;
+    }
+
+    EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+    ItemStack stack = player.getCurrentEquippedItem();
+    if(stack == null) {
+      return;
+    }
+
+    // do we hold a tool that supports secondary item usage?
+    if(stack.getItem() instanceof ToolCore && ((ToolCore) stack.getItem()).canUseSecondaryItem()) {
+      int slot = ToolHelper.getSecondaryItemSlot(player);
+
+      if(slot != player.inventory.currentItem) {
+        // render the special border around the secondary item that would be used
+        int x = event.resolution.getScaledWidth() / 2 - 90 + slot * 20 + 2;
+        int y = event.resolution.getScaledHeight() - 16 - 3;
+
+        // render a cool underlay thing
+        GlStateManager.color(1,1,1,0.5f);
+        Minecraft.getMinecraft().getTextureManager().bindTexture(widgetsTexPath);
+        Gui.drawScaledCustomSizeModalRect(x, y, 1, 23, 22, 22, 16, 16, 256,256);
+      }
+    }
+  }
 
   @SubscribeEvent
   public void renderExtraBlockBreak(RenderWorldLastEvent event) {
