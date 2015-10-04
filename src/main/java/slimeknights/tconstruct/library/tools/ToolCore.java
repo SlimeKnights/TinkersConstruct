@@ -23,6 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -180,6 +181,16 @@ public abstract class ToolCore extends TinkersItem {
     }
 
     return info.getTooltip();
+  }
+
+  @Override
+  public void getTooltipDetailed(ItemStack stack, List<String> tooltips) {
+    tooltips.addAll(Arrays.asList(getInformation(stack)));
+  }
+
+  @Override
+  public void getTooltipComponents(ItemStack stack, List<String> tooltips) {
+
   }
 
   @SideOnly(Side.CLIENT)

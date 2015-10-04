@@ -121,6 +121,8 @@ stat.handle.name=Handle
 stat.handle.desc=How good the material is for a handle.\nInfluences many different stats.
 stat.extra.name=Quality
 stat.extra.desc=How good the material is for secondary parts.\nInfluences many different stats.
+stat.axespeed=name=Axe Speed
+stat.shovelspeed=name=Shovel Speed
 
 ##############
 #   Traits   #
@@ -179,6 +181,8 @@ item.tconstruct.pickaxe.desc=The Pickaxe is a precise mining tool. It is effecti
 ################
 tooltip.tool.modifiers=Modifiers
 tooltip.tool.broken=Broken
+tooltip.tool.holdShift=Hold §e§oShift§r for Stats
+tooltip.tool.holdCtrl=Hold §e§bCtrl§r for more
 
 tooltip.part.materialAddedBy=Material added by %s
 tooltip.part.missingMaterial=Missing material: %s

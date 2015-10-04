@@ -9,7 +9,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -276,7 +279,37 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   @Override
   public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip,
                              boolean advanced) {
+    boolean shift = Util.isShiftKeyDown();
+    boolean ctrl = Util.isCtrlKeyDown();
     // modifiers
+    if(!shift && !ctrl) {
+      DecimalFormat df = new DecimalFormat("#.##");
+      getTooltip(stack, tooltip);
+
+      tooltip.add("");
+      // info tooltip for detailed and componend info
+      tooltip.add(Util.translate("tooltip.tool.holdShift"));
+      tooltip.add(Util.translate("tooltip.tool.holdCtrl"));
+
+      tooltip.add(EnumChatFormatting.BLUE +
+                  StatCollector.translateToLocalFormatted("attribute.modifier.plus.0",
+                                                          df.format(ToolHelper.getAttack(stack)),
+                                                          StatCollector
+                                                              .translateToLocal("attribute.name.generic.attackDamage")));
+    }
+    // detailed data
+    else if(Config.extraTooltips && shift) {
+      getTooltipDetailed(stack, tooltip);
+    }
+    // component data
+    else if(Config.extraTooltips && ctrl) {
+      getTooltipComponents(stack, tooltip);
+    }
+  }
+
+  @Override
+  public void getTooltip(ItemStack stack, List<String> tooltips) {
+    // Default tooltip: modifiers
     NBTTagList tagList = TagUtil.getModifiersTagList(stack);
     for(int i = 0; i < tagList.tagCount(); i++) {
       NBTTagCompound tag = tagList.getCompoundTagAt(i);
@@ -288,11 +321,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
         continue;
       }
 
-      tooltip.add(data.color.toString() + modifier.getLocalizedName());
-    }
-    // remaining data
-    if(Config.extraTooltips) {
-      Collections.addAll(tooltip, this.getInformation(stack));
+      tooltips.add(data.color.toString() + modifier.getLocalizedName());
     }
   }
 
