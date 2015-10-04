@@ -176,8 +176,8 @@ public class Mattock extends ToolCore {
     data.harvestLevel = Math.round((axe.harvestLevel + shovel.harvestLevel) / 2f); // backup
 
     // damage
-    data.attack = 5f;
-    data.attack += axe.attack * 0.7f + shovel.attack * 0.3f;
+    data.attack = 4f;
+    data.attack += (axe.attack * 0.7f + shovel.attack * 0.3f)/2f;
 
     // 3 free modifiers
     data.modifiers = DEFAULT_MODIFIERS;
