@@ -16,5 +16,6 @@ public class TinkerDebug {
     event.registerServerCommand(new LocalizationCheckCommand());
     event.registerServerCommand(new DumpMaterialTest());
     event.registerServerCommand(new FindBestTool());
+    event.registerServerCommand(new DamageTool());
   }
 }
