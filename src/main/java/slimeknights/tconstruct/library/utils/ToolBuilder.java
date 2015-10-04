@@ -6,6 +6,7 @@ import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.hash.TIntIntHashMap;
 import gnu.trove.procedure.TIntIntProcedure;
 
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -486,6 +487,38 @@ public final class ToolBuilder {
     if(broken) {
       toolTag.setBoolean(Tags.BROKEN, true);
     }
+  }
+
+  public static void addEnchantment(NBTTagCompound rootTag, Enchantment enchantment) {
+    NBTTagList enchantments = rootTag.getTagList("ench", 10);
+    if(enchantments == null) {
+      enchantments = new NBTTagList();
+    }
+
+    NBTTagCompound enchTag = new NBTTagCompound();
+
+    int id = -1;
+    for(int i = 0; i < enchantments.tagCount(); i++) {
+      if(enchantments.getCompoundTagAt(i).getShort("id") == enchantment.effectId) {
+        enchTag = enchantments.getCompoundTagAt(i);
+        id = i;
+        break;
+      }
+    }
+
+    int level = enchTag.getShort("lvl") + 1;
+    level = Math.min(level, enchantment.getMaxLevel());
+    enchTag.setShort("id", (short)enchantment.effectId);
+    enchTag.setShort("lvl", (short)level);
+
+    if(id < 0) {
+      enchantments.appendTag(enchTag);
+    }
+    else {
+      enchantments.set(id, enchTag);
+    }
+
+    rootTag.setTag("ench", enchantments);
   }
 
   /**

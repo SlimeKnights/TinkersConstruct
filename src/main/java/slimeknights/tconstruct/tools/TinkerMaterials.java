@@ -37,6 +37,7 @@ import slimeknights.tconstruct.tools.modifiers.TraitPetramor;
 import slimeknights.tconstruct.tools.modifiers.TraitPrickly;
 import slimeknights.tconstruct.tools.modifiers.TraitSlimey;
 import slimeknights.tconstruct.tools.modifiers.TraitSplintering;
+import slimeknights.tconstruct.tools.modifiers.TraitSqueaky;
 import slimeknights.tconstruct.tools.modifiers.TraitStonebound;
 
 import static slimeknights.tconstruct.library.utils.HarvestLevels.COBALT;
@@ -95,6 +96,7 @@ public final class TinkerMaterials {
   public static final AbstractTrait slimeyGreen = new TraitSlimey(EntitySlime.class);
   public static final AbstractTrait slimeyBlue = new TraitSlimey(EntitySlime.class); // todo: blue slime
   public static final AbstractTrait splintering = new TraitSplintering();
+  public static final AbstractTrait squeaky = new TraitSqueaky();
   public static final AbstractTrait stonebound = new TraitStonebound();
 
   private static Material mat(String name, EnumChatFormatting color) {
@@ -214,6 +216,7 @@ public final class TinkerMaterials {
     sponge.setCraftable(true);
     sponge.addItem(Blocks.sponge, Material.VALUE_Ingot);
     sponge.setRepresentativeItem(Blocks.sponge);
+    sponge.addTrait(squeaky);
 
     slime.setCraftable(true);
     safeAdd(slime, TinkerCommons.matSlimeCrystal, Material.VALUE_Ingot, true);
