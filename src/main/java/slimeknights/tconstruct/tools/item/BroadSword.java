@@ -96,7 +96,7 @@ public class BroadSword extends ToolCore {
     data.durability *= 0.95f + 0.05f*handle.handleQuality;
 
     // 3 free modifiers
-    data.modifiers = 3;
+    data.modifiers = DEFAULT_MODIFIERS;
 
     return data.get();
   }

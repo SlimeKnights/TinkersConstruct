@@ -135,12 +135,25 @@ public class ToolClientProxy extends ClientProxy {
     info.addSlotPosition(33+18, 42-8); // binding
     TinkerRegistryClient.addToolBuilding(info);
 
+    // mattock
+    info = new ToolBuildGuiInfo(TinkerTools.mattock);
+    info.addSlotPosition(33-11, 42+11); // rod
+    info.addSlotPosition(33-2, 42-20); // axe head
+    info.addSlotPosition(33+18, 42-8); // shovel head
+    TinkerRegistryClient.addToolBuilding(info);
+
     // broadsword
     info = new ToolBuildGuiInfo(TinkerTools.broadSword);
     info.addSlotPosition(33-20-1, 42+20);
     info.addSlotPosition(33+20-1, 42-20);
     info.addSlotPosition(33-2-1, 42+2);
     TinkerRegistryClient.addToolBuilding(info);
+
+    // longsword
+    // rapier
+    // dagger
+    // battlesign
+    // frypan
 
     // hammer
     info = new ToolBuildGuiInfo(TinkerTools.hammer);
@@ -149,5 +162,11 @@ public class ToolClientProxy extends ClientProxy {
     info.addSlotPosition(33+10+16, 42-10+16); // plate 1
     info.addSlotPosition(33+10-16, 42-10-16); // plate 2
     TinkerRegistryClient.addToolBuilding(info);
+
+    // excavator
+    // lumberaxe
+    // cleaver
+    // battleaxe
+    // scythe
   }
 }
