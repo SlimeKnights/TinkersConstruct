@@ -14,6 +14,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -25,6 +26,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3i;
@@ -590,6 +592,51 @@ public final class ToolHelper {
       }
     }
   }
+
+  public static boolean useSecondaryItem(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    int slot = getSecondaryItemSlot(player);
+
+    // last slot selected
+    if(slot == player.inventory.currentItem) {
+      return false;
+    }
+
+    ItemStack secondaryItem = player.inventory.getStackInSlot(slot);
+
+    // do we have an item to use?
+    if(secondaryItem == null) {
+      return false;
+    }
+
+    // use it
+    int oldSlot = player.inventory.currentItem;
+    player.inventory.currentItem = slot;
+    boolean ret = secondaryItem.onItemUse(player, world, pos, side, hitX, hitY, hitZ);
+    player.inventory.currentItem = oldSlot;
+
+    return ret;
+  }
+
+  public static int getSecondaryItemSlot(EntityPlayer player) {
+    int slot = player.inventory.currentItem;
+    int max = InventoryPlayer.getHotbarSize() - 1;
+    if(slot == 0) {
+      slot = max;
+    }
+    else {
+      slot++;
+    }
+
+    // find next slot that has an item in it
+    for(; slot < max; slot++) {
+      if(player.inventory.getStackInSlot(slot) != null) {
+        break;
+      }
+    }
+
+    return slot;
+  }
+
 
   /* Helper Functions */
 
