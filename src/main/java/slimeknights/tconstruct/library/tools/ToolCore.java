@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.tools;
 
+import com.google.common.collect.Sets;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.FontRenderer;
@@ -21,7 +23,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -33,6 +37,7 @@ import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.library.utils.ToolTagUtil;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
@@ -190,11 +195,44 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   @Override
+  public String getItemStackDisplayName(ItemStack stack) {
+    // if the tool is not named we use the repair tools for a prefix like thing
+    List<Material> materials = TinkerUtil.getMaterialsFromTagList(TagUtil.getBaseMaterialsTagList(stack));
+    // we save all the ones for the name in a set so we don't have the same material in it twice
+    Set<Material> nameMaterials = Sets.newLinkedHashSet();
+
+    for(int index : getRepairParts()) {
+      nameMaterials.add(materials.get(index));
+    }
+
+    String itemName = super.getItemStackDisplayName(stack);
+
+    // no material
+    if(nameMaterials.isEmpty())
+      return itemName;
+    // only one material - prefix
+    if(nameMaterials.size() == 1)
+      return nameMaterials.iterator().next().getLocalizedItemName(itemName);
+
+    // multiple materials. we'll have to combine
+    StringBuilder sb = new StringBuilder();
+    Iterator<Material> iter = nameMaterials.iterator();
+    Material material = iter.next();
+    sb.append(material.getLocalizedName());
+    while(iter.hasNext()) {
+      material = iter.next();
+      sb.append("-");
+      sb.append(material.getLocalizedName());
+    }
+    sb.append(" ");
+    sb.append(itemName);
+
+    return sb.toString();
+  }
+
+  @Override
   public ItemStack buildItem(List<Material> materials) {
     ItemStack tool = super.buildItem(materials);
-
-    // reset to prevent the ITALIC prepended by tooltip rendering
-    tool.setStackDisplayName(EnumChatFormatting.RESET + getLocalizedToolName(materials.get(0)));
 
     return tool;
   }
