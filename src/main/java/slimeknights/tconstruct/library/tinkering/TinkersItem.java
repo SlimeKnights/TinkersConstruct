@@ -196,6 +196,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
     // ensure the items only contain valid items
     ItemStack[] items = Util.copyItemStackArray(repairItems);
+    boolean foundMatch = false;
     for(int index : getRepairParts()) {
       Material material = materials.get(index);
       RecipeMatch.Match match = material.matches(items);
@@ -204,11 +205,17 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       if(match == null) {
         continue;
       }
+      foundMatch = true;
 
       while((match = material.matches(items)) != null) {
         RecipeMatch.removeMatch(items, match);
       }
     }
+
+    if(!foundMatch) {
+      return null;
+    }
+
     // check if all items were used
     for(int i = 0; i < repairItems.length; i++) {
       // was non-null and did not get modified (stacksize changed or null now, usually)
