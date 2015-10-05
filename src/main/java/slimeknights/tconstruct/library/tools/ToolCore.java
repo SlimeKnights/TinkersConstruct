@@ -15,7 +15,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -119,8 +118,8 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
-    if(this instanceof IAoeTool) {
-      for(BlockPos extraPos : ((IAoeTool)this).getExtraBlocksToBreak(itemstack, player.worldObj, player, pos)) {
+    if(this instanceof IAoeTool && ((IAoeTool)this).isAoeHarvestTool()) {
+      for(BlockPos extraPos : ((IAoeTool)this).getAOEBlocks(itemstack, player.worldObj, player, pos)) {
         ToolHelper.breakExtraBlock(itemstack, player.worldObj, player, extraPos, pos);
       }
     }

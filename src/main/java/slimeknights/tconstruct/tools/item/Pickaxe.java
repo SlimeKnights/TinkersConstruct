@@ -52,9 +52,13 @@ public class Pickaxe extends ToolCore implements IAoeTool {
     return effective_materials.contains(block.getMaterial()) || ItemPickaxe.EFFECTIVE_ON.contains(block);
   }
 
+  @Override
+  public boolean isAoeHarvestTool() {
+    return true;
+  }
 
   @Override
-  public ImmutableList<BlockPos> getExtraBlocksToBreak(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
+  public ImmutableList<BlockPos> getAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
     return ToolHelper.calcAOEBlocks(stack, world, player, origin, 1, 1, 1);
   }
 

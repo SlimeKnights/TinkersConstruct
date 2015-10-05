@@ -11,5 +11,12 @@ import net.minecraft.world.World;
  * An item that breaks multiple blocks at once
  */
 public interface IAoeTool {
-  ImmutableList<BlockPos> getExtraBlocksToBreak(ItemStack stack, World world, EntityPlayer player, BlockPos origin);
+  /** returns the blocks affected by the tool */
+  ImmutableList<BlockPos> getAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin);
+
+  /**
+   * returns wether or not the tools AOE is breaking blocks
+   * Mostly used for the extra blockbreak rendering
+   */
+  boolean isAoeHarvestTool();
 }

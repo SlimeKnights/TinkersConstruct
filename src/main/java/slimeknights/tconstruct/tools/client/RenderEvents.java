@@ -11,7 +11,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GlStateManager;
@@ -90,7 +89,8 @@ public class RenderEvents implements IResourceManagerReloadListener {
       MovingObjectPosition mop = player.rayTrace(controllerMP.getBlockReachDistance(), event.partialTicks);
       if(mop != null) {
         ItemStack stack = player.getCurrentEquippedItem();
-        ImmutableList<BlockPos> extraBlocks = ((IAoeTool) stack.getItem()).getExtraBlocksToBreak(stack, world, player, mop.getBlockPos());
+        ImmutableList<BlockPos> extraBlocks = ((IAoeTool) stack.getItem()).getAOEBlocks(stack, world, player, mop
+            .getBlockPos());
         for(BlockPos pos : extraBlocks) {
           event.context.drawSelectionBox(player, new MovingObjectPosition(new Vec3(0,0,0), null, pos), 0, event.partialTicks);
         }
@@ -99,7 +99,9 @@ public class RenderEvents implements IResourceManagerReloadListener {
 
     // extra-blockbreak animation
     if(controllerMP.isHittingBlock) {
-      if(controllerMP.currentItemHittingBlock != null && controllerMP.currentItemHittingBlock.getItem() instanceof IAoeTool) {
+      if(controllerMP.currentItemHittingBlock != null &&
+         controllerMP.currentItemHittingBlock.getItem() instanceof IAoeTool &&
+         ((IAoeTool) controllerMP.currentItemHittingBlock.getItem()).isAoeHarvestTool()) {
         ItemStack stack = controllerMP.currentItemHittingBlock;
         BlockPos pos = controllerMP.currentBlock;
         drawBlockDamageTexture(Tessellator.getInstance(),
@@ -107,7 +109,7 @@ public class RenderEvents implements IResourceManagerReloadListener {
                                player,
                                event.partialTicks,
                                world,
-                               ((IAoeTool) stack.getItem()).getExtraBlocksToBreak(stack, world, player, pos));
+                               ((IAoeTool) stack.getItem()).getAOEBlocks(stack, world, player, pos));
       }
     }
   }

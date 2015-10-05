@@ -72,7 +72,12 @@ public class Hatchet extends ToolCore implements IAoeTool {
   }
 
   @Override
-  public ImmutableList<BlockPos> getExtraBlocksToBreak(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
+  public boolean isAoeHarvestTool() {
+    return true;
+  }
+
+  @Override
+  public ImmutableList<BlockPos> getAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
     return ToolHelper.calcAOEBlocks(stack, world, player, origin, 1, 1, 1);
   }
 
