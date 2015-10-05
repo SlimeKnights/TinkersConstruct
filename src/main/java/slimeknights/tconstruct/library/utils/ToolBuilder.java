@@ -456,6 +456,7 @@ public final class ToolBuilder {
 
     // reapply modifiers
     NBTTagList modifiers = TagUtil.getBaseModifiersTagList(rootNBT);
+    NBTTagList modifiersTag = TagUtil.getModifiersTagList(rootNBT);
     // copy over and reapply all relevant modifiers
     for(int i = 0; i < modifiers.tagCount(); i++) {
       String identifier = modifiers.getStringTagAt(i);
@@ -476,6 +477,9 @@ public final class ToolBuilder {
       }
 
       modifier.applyEffect(rootNBT, tag);
+      if(!tag.hasNoTags()) {
+        modifiersTag.appendTag(tag);
+      }
     }
 
     // adjust free modifiers
