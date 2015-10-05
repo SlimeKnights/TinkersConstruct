@@ -24,7 +24,7 @@ import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class Hammer extends AoeToolCore {
+public class Hammer extends Pickaxe {
 
   public Hammer() {
     super(new PartMaterialType.ToolPartType(TinkerTools.toughToolRod),
@@ -32,14 +32,7 @@ public class Hammer extends AoeToolCore {
           new PartMaterialType.ToolPartType(TinkerTools.largePlate),
           new PartMaterialType.ToolPartType(TinkerTools.largePlate));
 
-    addCategory(Category.HARVEST, Category.WEAPON);
-
-    setHarvestLevel("pickaxe", 0);
-  }
-
-  @Override
-  public boolean isEffective(Block block) {
-    return Pickaxe.effective_materials.contains(block.getMaterial()) || ItemPickaxe.EFFECTIVE_ON.contains(block);
+    addCategory(Category.WEAPON);
   }
 
   @Override

@@ -30,9 +30,13 @@ public class Pickaxe extends AoeToolCore {
 
   // Pick-head, binding, tool-rod
   public Pickaxe() {
-    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.pickHead),
-          new PartMaterialType.ToolPartType(TinkerTools.binding));
+    this(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
+         new PartMaterialType.ToolPartType(TinkerTools.pickHead),
+         new PartMaterialType.ToolPartType(TinkerTools.binding));
+  }
+
+  public Pickaxe(PartMaterialType... requiredComponents) {
+    super(requiredComponents);
 
     addCategory(Category.HARVEST);
 

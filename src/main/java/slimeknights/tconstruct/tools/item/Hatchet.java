@@ -34,9 +34,13 @@ public class Hatchet extends AoeToolCore {
                       net.minecraft.block.material.Material.circuits);
 
   public Hatchet() {
-    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.axeHead),
-          new PartMaterialType.ToolPartType(TinkerTools.binding));
+    this(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
+         new PartMaterialType.ToolPartType(TinkerTools.axeHead),
+         new PartMaterialType.ToolPartType(TinkerTools.binding));
+  }
+
+  protected Hatchet(PartMaterialType... requiredComponents) {
+    super(requiredComponents);
 
     addCategory(Category.HARVEST);
     addCategory(Category.WEAPON);
