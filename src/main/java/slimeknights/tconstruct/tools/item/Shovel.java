@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.tools.item;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemSpade;
 import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.List;
@@ -18,10 +20,23 @@ public class Shovel extends AoeToolCore {
     super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
           new PartMaterialType.ToolPartType(TinkerTools.shovelHead),
           new PartMaterialType.ToolPartType(TinkerTools.binding));
+  public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
+      ImmutableSet.of(net.minecraft.block.material.Material.grass,
+                      net.minecraft.block.material.Material.ground,
+                      net.minecraft.block.material.Material.sand,
+                      net.minecraft.block.material.Material.craftedSnow,
+                      net.minecraft.block.material.Material.snow,
+                      net.minecraft.block.material.Material.clay,
+                      net.minecraft.block.material.Material.cake);
 
     addCategory(Category.HARVEST);
 
     setHarvestLevel("shovel", 0);
+  }
+
+  @Override
+  public boolean isEffective(Block block) {
+    return effective_materials.contains(block.getMaterial()) || ItemSpade.EFFECTIVE_ON.contains(block);
   }
 
   @Override
