@@ -1,11 +1,17 @@
 package slimeknights.tconstruct.tools.item;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.world.World;
 
 import java.util.List;
 
@@ -13,6 +19,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.IAoeTool;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -22,7 +29,7 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class Mattock extends ToolCore {
+public class Mattock extends ToolCore implements IAoeTool {
 
   public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials_axe =
       ImmutableSet.of(net.minecraft.block.material.Material.wood,
@@ -105,6 +112,39 @@ public class Mattock extends ToolCore {
   @Override
   public int[] getRepairParts() {
     return new int[] {1,2};
+  }
+
+  @Override
+  public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    if(ToolHelper.isBroken(stack)) {
+      return false;
+    }
+
+    boolean ret = Items.diamond_hoe.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);;
+    for(BlockPos blockPos : getAOEBlocks(stack, worldIn, playerIn, pos)) {
+      if(ToolHelper.isBroken(stack)) {
+        break;
+      }
+
+      ret |= Items.diamond_hoe.onItemUse(stack, playerIn, worldIn, blockPos, side, hitX, hitY, hitZ);
+    }
+
+    return ret;
+  }
+
+  @Override
+  public boolean isAoeHarvestTool() {
+    return false;
+  }
+
+  @Override
+  public ImmutableList<BlockPos> getAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
+    return ToolHelper.calcAOEBlocks(stack, world, player, origin, 1, 1, 1);
+  }
+
+  @Override
+  public boolean canUseSecondaryItem() {
+    return false;
   }
 
   @Override

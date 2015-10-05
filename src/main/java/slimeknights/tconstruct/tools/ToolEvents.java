@@ -43,6 +43,13 @@ public class ToolEvents {
       event.width += width ? 1 : 0;
       event.height += height ? 1 : 0;
     }
+    else if(event.tool == TinkerTools.mattock) {
+      int c = 0;
+      if(width) c++;
+      if(height) c++;
+      event.width += c;
+      event.height += c;
+    }
     else if(event.tool == TinkerTools.hammer) {
       event.width += width ? 2 : 0;
       event.height += height ? 2 : 0;
