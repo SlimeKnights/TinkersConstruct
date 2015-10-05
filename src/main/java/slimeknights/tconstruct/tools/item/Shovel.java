@@ -1,12 +1,6 @@
 package slimeknights.tconstruct.tools.item;
 
-import com.google.common.collect.ImmutableList;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
 
 import java.util.List;
 
@@ -14,14 +8,11 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.IAoeTool;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.AoeToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
-import slimeknights.tconstruct.library.utils.ToolBuilder;
-import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class Shovel extends ToolCore implements IAoeTool {
+public class Shovel extends AoeToolCore {
 
   public Shovel() {
     super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
@@ -31,16 +22,6 @@ public class Shovel extends ToolCore implements IAoeTool {
     addCategory(Category.HARVEST);
 
     setHarvestLevel("shovel", 0);
-  }
-
-  @Override
-  public boolean isAoeHarvestTool() {
-    return true;
-  }
-
-  @Override
-  public ImmutableList<BlockPos> getAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
-    return ToolHelper.calcAOEBlocks(stack, world, player, origin, 1, 1, 1);
   }
 
   @Override

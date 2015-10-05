@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.AoeToolCore;
 import slimeknights.tconstruct.library.tools.IAoeTool;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
@@ -23,7 +24,7 @@ import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class Hammer extends ToolCore implements IAoeTool {
+public class Hammer extends AoeToolCore {
 
   public Hammer() {
     super(new PartMaterialType.ToolPartType(TinkerTools.toughToolRod),
@@ -44,11 +45,6 @@ public class Hammer extends ToolCore implements IAoeTool {
   @Override
   public float damagePotential() {
     return 0.7f;
-  }
-
-  @Override
-  public boolean isAoeHarvestTool() {
-    return true;
   }
 
   @Override

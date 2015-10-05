@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.AoeToolCore;
 import slimeknights.tconstruct.library.tools.IAoeTool;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
@@ -29,7 +30,7 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class Mattock extends ToolCore implements IAoeTool {
+public class Mattock extends AoeToolCore {
 
   public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials_axe =
       ImmutableSet.of(net.minecraft.block.material.Material.wood,
@@ -135,11 +136,6 @@ public class Mattock extends ToolCore implements IAoeTool {
   @Override
   public boolean isAoeHarvestTool() {
     return false;
-  }
-
-  @Override
-  public ImmutableList<BlockPos> getAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
-    return ToolHelper.calcAOEBlocks(stack, world, player, origin, 1, 1, 1);
   }
 
   @Override

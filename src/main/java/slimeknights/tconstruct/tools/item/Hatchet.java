@@ -1,12 +1,10 @@
 package slimeknights.tconstruct.tools.item;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,13 +17,12 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.IAoeTool;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.AoeToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class Hatchet extends ToolCore implements IAoeTool {
+public class Hatchet extends AoeToolCore {
 
   public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
       ImmutableSet.of(net.minecraft.block.material.Material.wood,
@@ -69,16 +66,6 @@ public class Hatchet extends ToolCore implements IAoeTool {
       return ToolHelper.calcDigSpeed(itemstack, state);
     }
     return super.getDigSpeed(itemstack, state);
-  }
-
-  @Override
-  public boolean isAoeHarvestTool() {
-    return true;
-  }
-
-  @Override
-  public ImmutableList<BlockPos> getAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
-    return ToolHelper.calcAOEBlocks(stack, world, player, origin, 1, 1, 1);
   }
 
   @Override
