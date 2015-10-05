@@ -198,6 +198,7 @@ public class Mattock extends ToolCore implements IAoeTool {
     data.durability = (axe.durability + shovel.durability)/3;
     data.durability = (int)(axe.durability * 0.33f * shovel.extraQuality + shovel.durability * 0.33f * axe.extraQuality);
     data.durability *= 0.5f + 0.5f * handle.handleQuality;
+    data.durability += 0.07f * handle.durability;
 
     // backup speed
     data.speed = (axe.miningspeed + shovel.miningspeed)/2f;

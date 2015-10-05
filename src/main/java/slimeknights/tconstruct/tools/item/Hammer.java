@@ -67,6 +67,7 @@ public class Hammer extends ToolCore implements IAoeTool {
 
     data.durability += plate1.durability * plate1.extraQuality + plate2.durability * plate2.extraQuality;
     data.durability *= 1.5f * handle.handleQuality;
+    data.durability += 0.05f * handle.durability;
 
     data.speed *= 0.3f + 0.4f * head.extraQuality;
     data.speed += 0.3f * handle.miningspeed * handle.handleQuality;

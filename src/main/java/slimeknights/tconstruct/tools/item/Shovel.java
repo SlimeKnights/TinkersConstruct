@@ -58,7 +58,9 @@ public class Shovel extends ToolCore implements IAoeTool {
 
     // durability is mostly head
     data.durability *= 0.8f;
-    data.durability += (0.2f*handle.handleQuality * handle.durability);
+    data.durability += (0.01f + 0.15f*handle.handleQuality) * handle.durability;
+    // flat durability from other parts
+    data.durability += 0.05f * binding.durability;
 
     // binding adds a bit of speed
     data.speed *= 0.9f;

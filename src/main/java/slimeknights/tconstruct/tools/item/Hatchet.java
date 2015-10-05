@@ -106,6 +106,8 @@ public class Hatchet extends ToolCore implements IAoeTool {
 
     // handle.. stuff..
     data.durability *= 0.8f + 0.2f * handle.handleQuality;
+    // flat durability from other parts
+    data.durability += 0.05f * handle.durability + 0.15f * binding.durability;
 
     // how well handle and binding interact
     float coeff = (0.5f + handle.handleQuality / 2) * (0.5f + binding.extraQuality / 2);
