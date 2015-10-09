@@ -46,6 +46,7 @@ import slimeknights.tconstruct.tools.block.BlockSlimeSand;
 import slimeknights.tconstruct.tools.block.BlockToolForge;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.item.BroadSword;
+import slimeknights.tconstruct.tools.item.FryPan;
 import slimeknights.tconstruct.tools.item.Hammer;
 import slimeknights.tconstruct.tools.item.Hatchet;
 import slimeknights.tconstruct.tools.item.ItemBlockTable;
@@ -88,6 +89,7 @@ public class TinkerTools extends TinkerPulse {
   public static ToolCore hatchet;
   public static ToolCore mattock;
   public static ToolCore broadSword;
+  public static ToolCore frypan;
   public static ToolCore hammer;
 
   // Tool Parts
@@ -177,6 +179,7 @@ public class TinkerTools extends TinkerPulse {
     hatchet = registerTool(new Hatchet(), "Hatchet");
     mattock = registerTool(new Mattock(), "Mattock");
     broadSword = registerTool(new BroadSword(), "BroadSword");
+    frypan = registerTool(new FryPan(), "FryPan");
     hammer = registerTool(new Hammer(), "Hammer");
   }
 
