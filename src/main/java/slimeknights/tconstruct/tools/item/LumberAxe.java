@@ -86,7 +86,7 @@ public class LumberAxe extends Hatchet {
 
     while(!candidates.isEmpty()) {
       BlockPos candidate = candidates.pop();
-      if(isLog(world, candidate)) {
+      if((pos == null || candidate.getY() > pos.getY()) && isLog(world, candidate)) {
         pos = candidate.up();
         // go up
         while(isLog(world, pos)) {
