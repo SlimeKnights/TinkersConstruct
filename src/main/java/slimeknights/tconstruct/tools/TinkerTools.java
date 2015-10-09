@@ -50,6 +50,7 @@ import slimeknights.tconstruct.tools.item.FryPan;
 import slimeknights.tconstruct.tools.item.Hammer;
 import slimeknights.tconstruct.tools.item.Hatchet;
 import slimeknights.tconstruct.tools.item.ItemBlockTable;
+import slimeknights.tconstruct.tools.item.LongSword;
 import slimeknights.tconstruct.tools.item.Mattock;
 import slimeknights.tconstruct.tools.item.Pickaxe;
 import slimeknights.tconstruct.tools.item.Shovel;
@@ -89,8 +90,11 @@ public class TinkerTools extends TinkerPulse {
   public static ToolCore hatchet;
   public static ToolCore mattock;
   public static ToolCore broadSword;
+  public static ToolCore longSword;
   public static ToolCore frypan;
   public static ToolCore hammer;
+  public static ToolCore excavator;
+  public static ToolCore lumberAxe;
 
   // Tool Parts
   public static ToolPart pickHead;
@@ -179,6 +183,7 @@ public class TinkerTools extends TinkerPulse {
     hatchet = registerTool(new Hatchet(), "Hatchet");
     mattock = registerTool(new Mattock(), "Mattock");
     broadSword = registerTool(new BroadSword(), "BroadSword");
+    longSword = registerTool(new LongSword(), "LongSword");
     frypan = registerTool(new FryPan(), "FryPan");
     hammer = registerTool(new Hammer(), "Hammer");
   }
