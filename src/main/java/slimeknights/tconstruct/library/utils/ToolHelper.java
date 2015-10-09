@@ -485,7 +485,7 @@ public final class ToolHelper {
 
       // apply knockback modifier
       oldVelX = target.motionX = oldVelX + (target.motionX - oldVelX)*tool.knockback();
-      oldVelY = target.motionY = oldVelY + (target.motionY - oldVelY)*tool.knockback();
+      oldVelY = target.motionY = oldVelY + (target.motionY - oldVelY)*tool.knockback()/3f;
       oldVelZ = target.motionZ = oldVelZ + (target.motionZ - oldVelZ)*tool.knockback();
 
       // apply knockback
