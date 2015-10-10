@@ -120,7 +120,7 @@ public final class ToolHelper {
   }
 
   // also checks for the tools effectiveness
-  protected static boolean isToolEffective2(ItemStack stack, IBlockState state) {
+  public static boolean isToolEffective2(ItemStack stack, IBlockState state) {
     if(isToolEffective(stack, state))
       return true;
 
@@ -280,7 +280,7 @@ public final class ToolHelper {
     }
 
     // callback to the tool the player uses. Called on both sides. This damages the tool n stuff.
-    player.getCurrentEquippedItem().onBlockDestroyed(world, block, pos, player);
+    stack.onBlockDestroyed(world, block, pos, player);
 
     // server sided handling
     if (!world.isRemote) {
@@ -312,20 +312,16 @@ public final class ToolHelper {
         block.onBlockDestroyedByPlayer(world, pos, state);
       }
       // callback to the tool
-      ItemStack itemstack = player.getCurrentEquippedItem();
-      if (itemstack != null)
-      {
-        itemstack.onBlockDestroyed(world, block, pos, player);
+      stack.onBlockDestroyed(world, block, pos, player);
 
-        if (itemstack.stackSize == 0)
-        {
-          player.destroyCurrentEquippedItem();
-        }
+      if (stack.stackSize == 0 && stack == player.getCurrentEquippedItem())
+      {
+        player.destroyCurrentEquippedItem();
       }
 
       // send an update to the server, so we get an update back
       //if(PHConstruct.extraBlockUpdates)
-        Minecraft.getMinecraft().getNetHandler().addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, Minecraft.getMinecraft().objectMouseOver.sideHit));
+      Minecraft.getMinecraft().getNetHandler().addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, Minecraft.getMinecraft().objectMouseOver.sideHit));
     }
   }
 
@@ -528,7 +524,7 @@ public final class ToolHelper {
       }
 
       player.setLastAttacker(target);
-      
+
       // we don't support vanilla thorns or antispider enchantments
       //EnchantmentHelper.applyThornEnchantments(target, player);
       //EnchantmentHelper.applyArthropodEnchantments(player, target);
