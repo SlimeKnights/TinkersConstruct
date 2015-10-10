@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -45,6 +46,7 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.tools.block.BlockSlimeSand;
 import slimeknights.tconstruct.tools.block.BlockToolForge;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
+import slimeknights.tconstruct.tools.item.BattleSign;
 import slimeknights.tconstruct.tools.item.BroadSword;
 import slimeknights.tconstruct.tools.item.FryPan;
 import slimeknights.tconstruct.tools.item.Hammer;
@@ -92,6 +94,8 @@ public class TinkerTools extends TinkerPulse {
   public static ToolCore broadSword;
   public static ToolCore longSword;
   public static ToolCore frypan;
+  public static ToolCore battleSign;
+
   public static ToolCore hammer;
   public static ToolCore excavator;
   public static ToolCore lumberAxe;
@@ -185,6 +189,8 @@ public class TinkerTools extends TinkerPulse {
     broadSword = registerTool(new BroadSword(), "BroadSword");
     longSword = registerTool(new LongSword(), "LongSword");
     frypan = registerTool(new FryPan(), "FryPan");
+    battleSign = registerTool(new BattleSign(), "BattleSign");
+
     hammer = registerTool(new Hammer(), "Hammer");
   }
 
@@ -333,6 +339,7 @@ public class TinkerTools extends TinkerPulse {
 
     MinecraftForge.EVENT_BUS.register(new TraitEvents());
     MinecraftForge.EVENT_BUS.register(new ToolEvents());
+    MinecraftForge.EVENT_BUS.register(battleSign); // battlesign events
   }
 
   private void registerFortifyModifiers() {

@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.mantle.network.NetworkWrapper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
 import slimeknights.tconstruct.tools.network.InventoryCraftingSyncPacket;
 import slimeknights.tconstruct.tools.network.InventorySlotSyncPacket;
 import slimeknights.tconstruct.tools.network.PartCrafterSelectionPacket;
@@ -30,6 +31,7 @@ public class TinkerNetwork extends NetworkWrapper {
     registerPacketServer(TinkerStationTabPacket.class);
     registerPacketServer(InventoryCraftingSyncPacket.class);
     registerPacketClient(InventorySlotSyncPacket.class);
+    registerPacketClient(EntityMovementChangePacket.class);
   }
 
   public static void sendToAll(AbstractPacket packet)

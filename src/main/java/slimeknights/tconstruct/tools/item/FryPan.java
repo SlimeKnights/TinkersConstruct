@@ -136,7 +136,7 @@ public class FryPan extends ToolCore {
 
     data.attack += 1.0f;
 
-    data.modifiers = 2;
+    data.modifiers = 4;
 
     return data.get();
   }
