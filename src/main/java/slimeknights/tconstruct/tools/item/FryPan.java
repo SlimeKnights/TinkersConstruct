@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.item;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,6 +16,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
@@ -69,9 +72,15 @@ public class FryPan extends ToolCore {
       ToolHelper.attackEntity(stack, this, player, entity);
       player.getEntityAttribute(SharedMonsterAttributes.attackDamage).removeModifier(modifier);
 
-      // todo: BOING sound!
+      player.worldObj.playSoundAtEntity(player, Sounds.frypan_boing, 1.5f, 0.6f + 0.2f * TConstruct.random.nextFloat());
       entity.addVelocity(x,y,z);
     }
+  }
+
+  @Override
+  public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+    attacker.worldObj.playSoundAtEntity(attacker, Sounds.frypan_boing, 1.2f, 0.8f + 0.4f * TConstruct.random.nextFloat());
+    return super.hitEntity(stack, target, attacker);
   }
 
   /**

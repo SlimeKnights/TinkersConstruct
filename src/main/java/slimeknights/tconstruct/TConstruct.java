@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
+import java.util.Random;
 
 import mantle.pulsar.control.PulseManager;
 import slimeknights.mantle.common.GuiHandler;
@@ -55,6 +56,7 @@ public class TConstruct {
   public static final int liquidUpdateAmount = 6;
 */
   public static final Logger log = LogManager.getLogger(modID);
+  public static final Random random = new Random();
 
   /* Instance of this mod, used for grabbing prototype fields */
   @Mod.Instance(modID)
