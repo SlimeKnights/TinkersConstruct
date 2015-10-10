@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -337,5 +338,19 @@ public abstract class ToolCore extends TinkersItem {
   // elevate to public
   public MovingObjectPosition getMovingObjectPositionFromPlayer(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
     return super.getMovingObjectPositionFromPlayer(worldIn, playerIn, useLiquids);
+  }
+
+  protected void preventSlowDown(Entity entityIn, float originalSpeed) {
+    // has to be done in onUpdate because onTickUsing is too early and gets overwritten. bleh.
+    if(entityIn instanceof EntityPlayerSP) {
+      EntityPlayerSP playerSP = (EntityPlayerSP) entityIn;
+      ItemStack usingItem = playerSP.getItemInUse();
+      if (usingItem != null && usingItem.getItem() == this)
+      {
+        // no slowdown from charging it up
+        playerSP.movementInput.moveForward *= originalSpeed * 5.0F;
+        playerSP.movementInput.moveStrafe *= originalSpeed * 5.0F;
+      }
+    }
   }
 }

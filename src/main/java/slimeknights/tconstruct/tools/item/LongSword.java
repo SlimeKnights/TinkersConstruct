@@ -46,16 +46,7 @@ public class LongSword extends BroadSword {
   @Override
   public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
     // has to be done in onUpdate because onTickUsing is too early and gets overwritten. bleh.
-    if(entityIn instanceof EntityPlayerSP) {
-      EntityPlayerSP playerSP = (EntityPlayerSP) entityIn;
-      ItemStack usingItem = playerSP.getItemInUse();
-      if (usingItem != null && usingItem.getItem() == this)
-      {
-        // no slowdown from charging it up
-        playerSP.movementInput.moveForward *= 5.0F;
-        playerSP.movementInput.moveStrafe *= 5.0F;
-      }
-    }
+    preventSlowDown(entityIn, 0.9f);
 
     super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
   }

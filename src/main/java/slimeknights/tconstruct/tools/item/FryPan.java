@@ -79,7 +79,8 @@ public class FryPan extends ToolCore {
 
   @Override
   public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-    attacker.worldObj.playSoundAtEntity(attacker, Sounds.frypan_boing, 1.2f, 0.8f + 0.4f * TConstruct.random.nextFloat());
+    attacker.worldObj.playSoundAtEntity(attacker, Sounds.frypan_boing, 1.2f,
+                                        0.8f + 0.4f * TConstruct.random.nextFloat());
     return super.hitEntity(stack, target, attacker);
   }
 
@@ -91,6 +92,14 @@ public class FryPan extends ToolCore {
     // in our case we want it to also go BANG :D
     onPlayerStoppedUsing(stack, worldIn, playerIn, 0);
     return stack;
+  }
+
+  @Override
+  public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+    // has to be done in onUpdate because onTickUsing is too early and gets overwritten. bleh.
+    preventSlowDown(entityIn, 0.7f);
+
+    super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
   }
 
   /**
