@@ -12,13 +12,18 @@ import java.util.List;
 
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 public class Excavator extends Shovel {
 
   public Excavator() {
-    super(); // todo
+    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
+          new PartMaterialType.ToolPartType(TinkerTools.toolRod),
+          new PartMaterialType.ToolPartType(TinkerTools.toolRod),
+          new PartMaterialType.ToolPartType(TinkerTools.toolRod)); // todo
   }
 
   @Override

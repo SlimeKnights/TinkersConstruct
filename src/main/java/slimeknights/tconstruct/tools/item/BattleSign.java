@@ -17,15 +17,18 @@ import java.util.List;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
+import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
 
 // BattleSign Ability: Blocks more damage and can reflect projectiles. The ultimate defensive weapon.
 public class BattleSign extends BroadSword {
 
   public BattleSign() {
-    super(); // todo
+    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
+          new PartMaterialType.ToolPartType(TinkerTools.toolRod)); // todo
   }
 
   @Override

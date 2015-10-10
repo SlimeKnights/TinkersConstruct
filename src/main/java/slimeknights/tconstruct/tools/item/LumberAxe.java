@@ -25,14 +25,19 @@ import java.util.Stack;
 
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
+import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.events.TinkerToolEvent;
 
 public class LumberAxe extends Hatchet {
 
   public LumberAxe() {
-    super(); // todo
+    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
+          new PartMaterialType.ToolPartType(TinkerTools.toolRod),
+          new PartMaterialType.ToolPartType(TinkerTools.toolRod),
+          new PartMaterialType.ToolPartType(TinkerTools.toolRod)); // todo
   }
 
   @Override
@@ -144,7 +149,7 @@ public class LumberAxe extends Hatchet {
 
 
     FMLCommonHandler.instance().bus().register(new TreeChopTask(itemstack, start, player, speed));
-    return false;
+    return true;
   }
 
   public static class TreeChopTask {

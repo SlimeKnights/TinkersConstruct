@@ -10,13 +10,17 @@ import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 // Ability: Berserk. Can be activated on demand, gives a speedboost, jump boost, mining boost, damage boost. Also makes you take more damage
 // Screen turns red/with a red border (steal from thaumcraft) and you can't switch item while berserk is active
 public class BattleAxe extends ToolCore {
 
   public BattleAxe() {
-    super(); // todo: handle, head1, head2, binding
+    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
+          new PartMaterialType.ToolPartType(TinkerTools.toolRod),
+          new PartMaterialType.ToolPartType(TinkerTools.toolRod),
+          new PartMaterialType.ToolPartType(TinkerTools.toolRod)); // todo: handle, head1, head2, binding
 
     addCategory(Category.WEAPON);
 

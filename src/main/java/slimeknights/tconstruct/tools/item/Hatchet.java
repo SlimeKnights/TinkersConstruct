@@ -5,10 +5,12 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -70,6 +72,15 @@ public class Hatchet extends AoeToolCore {
       return ToolHelper.calcDigSpeed(itemstack, state);
     }
     return super.getDigSpeed(itemstack, state);
+  }
+
+  @Override
+  public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
+    if(LumberAxe.detectTree(player.worldObj, pos)) {
+      LumberAxe.fellTree(itemstack, pos, player);
+      return true;
+    }
+    return super.onBlockStartBreak(itemstack, pos, player);
   }
 
   @Override
