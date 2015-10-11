@@ -3,6 +3,6 @@
     "textures": {
         "layer0": "tconstruct:items/battlesign/handle",
         "layer1": "tconstruct:items/battlesign/head",
-		"broken1": "tconstruct:items/battlesign/broken_head"
+        "broken1": "tconstruct:items/battlesign/broken_head"
     }
 }
