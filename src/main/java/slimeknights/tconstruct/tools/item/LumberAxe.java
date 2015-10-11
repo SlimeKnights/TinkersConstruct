@@ -34,10 +34,10 @@ import slimeknights.tconstruct.tools.events.TinkerToolEvent;
 public class LumberAxe extends Hatchet {
 
   public LumberAxe() {
-    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod)); // todo
+    super(new PartMaterialType.ToolPartType(TinkerTools.toughToolRod),
+          new PartMaterialType.ToolPartType(TinkerTools.broadAxeHead),
+          new PartMaterialType.ToolPartType(TinkerTools.largePlate),
+          new PartMaterialType.ToolPartType(TinkerTools.toughBinding));
   }
 
   @Override
