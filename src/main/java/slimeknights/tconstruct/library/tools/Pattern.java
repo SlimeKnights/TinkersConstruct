@@ -1,18 +1,24 @@
 package slimeknights.tconstruct.library.tools;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import slimeknights.tconstruct.common.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
 public class Pattern extends Item {
+
+  private static final DecimalFormat df = new DecimalFormat("#.##");
+
   public static final String TAG_PARTTYPE = "PartType";
 
   public Pattern() {
@@ -61,17 +67,32 @@ public class Pattern extends Item {
     String part = tag.getString(TAG_PARTTYPE);
 
     for(IToolPart toolpart : TinkerRegistry.getToolParts()) {
-      if(part.equals(toolpart.getIdentifier()))
+      if(part.equals(toolpart.getIdentifier())) {
         return toolpart;
+      }
     }
 
     return null;
   }
 
   public boolean isBlankPattern(ItemStack stack) {
-    if(stack == null || !(stack.getItem() instanceof Pattern))
+    if(stack == null || !(stack.getItem() instanceof Pattern)) {
       return false;
+    }
 
-    return Config.reuseStencil || (!stack.hasTagCompound());
+    if(!stack.hasTagCompound()) {
+      return true;
+    }
+
+    return Config.reuseStencil || !stack.getTagCompound().hasKey(TAG_PARTTYPE);
+  }
+
+  @Override
+  public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
+    IToolPart part = getPartFromTag(stack);
+    if(part != null) {
+      float cost = part.getCost() / (float) Material.VALUE_Ingot;
+      tooltip.add(Util.translateFormatted("tooltip.pattern.cost", df.format(cost)));
+    }
   }
 }

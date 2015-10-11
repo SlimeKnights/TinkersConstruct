@@ -9,7 +9,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -173,6 +176,11 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   /* Repairing */
 
+  /** Returns indices of the parts that are used for repairing */
+  public int[] getRepairParts() {
+    return new int[] {1};
+  }
+
   @Override
   public ItemStack repair(ItemStack repairable, ItemStack[] repairItems) {
     if(repairable.getItemDamage() == 0 && !ToolHelper.isBroken(repairable)) {
@@ -186,20 +194,29 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       return null;
     }
 
-    Material material = materials.get(0);
-    ItemStack[] items = Util.copyItemStackArray(repairItems);
     // ensure the items only contain valid items
-    RecipeMatch.Match match = material.matches(items);
+    ItemStack[] items = Util.copyItemStackArray(repairItems);
+    boolean foundMatch = false;
+    for(int index : getRepairParts()) {
+      Material material = materials.get(index);
+      RecipeMatch.Match match = material.matches(items);
 
-    // not a single match -> nothing to repair with
-    if(match == null) {
+      // not a single match -> nothing to repair with
+      if(match == null) {
+        continue;
+      }
+      foundMatch = true;
+
+      while((match = material.matches(items)) != null) {
+        RecipeMatch.removeMatch(items, match);
+      }
+    }
+
+    if(!foundMatch) {
       return null;
     }
 
-    while((match = material.matches(items)) != null) {
-      RecipeMatch.removeMatch(items, match);
-    }
-
+    // check if all items were used
     for(int i = 0; i < repairItems.length; i++) {
       // was non-null and did not get modified (stacksize changed or null now, usually)
       if(repairItems[i] != null && ItemStack.areItemStacksEqual(repairItems[i], items[i])) {
@@ -210,31 +227,35 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
     // now do it all over again with the real items, to actually repair \o/
     ItemStack item = repairable.copy();
-    // repair for each match so the end result is the same as if each one had been applied individually
-    while((match = material.matches(repairItems)) != null) {
-      // is the tool still damaged?
-      if(item.getItemDamage() == 0) {
-        // we're done
-        break;
+    for(int index : getRepairParts()) {
+      RecipeMatch.Match match;
+      Material material = materials.get(index);
+
+      // repair for each match so the end result is the same as if each one had been applied individually
+      while((match = material.matches(repairItems)) != null) {
+        // is the tool still damaged?
+        if(item.getItemDamage() == 0) {
+          // we're done
+          break;
+        }
+        // todo: fire event?
+        // do the actual repair
+        int amount = calculateRepair(item, match.amount, index);
+        ToolHelper.repairTool(item, amount);
+
+        // save that we repaired it :I
+        NBTTagCompound tag = TagUtil.getExtraTag(item);
+        TagUtil.addInteger(tag, Tags.REPAIR_COUNT, 1);
+        TagUtil.setExtraTag(item, tag);
+
+        // use up items
+        RecipeMatch.removeMatch(repairItems, match);
       }
-      // todo: fire event?
-      // do the actual repair
-      int amount = calculateRepair(item, match.amount);
-      ToolHelper.repairTool(item, amount);
-
-      // save that we repaired it :I
-      NBTTagCompound tag = TagUtil.getExtraTag(item);
-      TagUtil.addInteger(tag, Tags.REPAIR_COUNT, 1);
-      TagUtil.setExtraTag(item, tag);
-
-      // use up items
-      RecipeMatch.removeMatch(repairItems, match);
     }
-
     return item;
   }
 
-  protected int calculateRepair(ItemStack tool, int materialValue)
+  protected int calculateRepair(ItemStack tool, int materialValue, int index)
   {
     int baseDurability = TagUtil.getOriginalToolStats(tool).durability;
     float increase = (50f  + (baseDurability * 0.4f * materialValue)/Material.VALUE_Ingot);
@@ -265,7 +286,37 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   @Override
   public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip,
                              boolean advanced) {
+    boolean shift = Util.isShiftKeyDown();
+    boolean ctrl = Util.isCtrlKeyDown();
     // modifiers
+    if(!shift && !ctrl) {
+      DecimalFormat df = new DecimalFormat("#.##");
+      getTooltip(stack, tooltip);
+
+      tooltip.add("");
+      // info tooltip for detailed and componend info
+      tooltip.add(Util.translate("tooltip.tool.holdShift"));
+      tooltip.add(Util.translate("tooltip.tool.holdCtrl"));
+
+      tooltip.add(EnumChatFormatting.BLUE +
+                  StatCollector.translateToLocalFormatted("attribute.modifier.plus.0",
+                                                          df.format(ToolHelper.getAttack(stack)),
+                                                          StatCollector
+                                                              .translateToLocal("attribute.name.generic.attackDamage")));
+    }
+    // detailed data
+    else if(Config.extraTooltips && shift) {
+      getTooltipDetailed(stack, tooltip);
+    }
+    // component data
+    else if(Config.extraTooltips && ctrl) {
+      getTooltipComponents(stack, tooltip);
+    }
+  }
+
+  @Override
+  public void getTooltip(ItemStack stack, List<String> tooltips) {
+    // Default tooltip: modifiers
     NBTTagList tagList = TagUtil.getModifiersTagList(stack);
     for(int i = 0; i < tagList.tagCount(); i++) {
       NBTTagCompound tag = tagList.getCompoundTagAt(i);
@@ -277,11 +328,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
         continue;
       }
 
-      tooltip.add(data.color.toString() + modifier.getLocalizedName());
-    }
-    // remaining data
-    if(Config.extraTooltips) {
-      Collections.addAll(tooltip, this.getInformation(stack));
+      tooltips.add(data.color.toString() + modifier.getLocalizedName());
     }
   }
 

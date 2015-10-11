@@ -9,8 +9,11 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import java.util.Random;
 import java.util.Set;
 
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -169,6 +172,12 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
       }
     }
     onCraftMatrixChanged(null);
+
+    this.playCraftSound(playerIn);
+  }
+
+  protected void playCraftSound(EntityPlayer player) {
+    player.worldObj.playSoundAtEntity(player, Sounds.saw, 0.8f, 0.8f + 0.4f * TConstruct.random.nextFloat());
   }
 
   private ItemStack repairTool(boolean remove) {

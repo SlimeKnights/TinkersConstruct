@@ -1,12 +1,10 @@
 package slimeknights.tconstruct.tools.item;
 
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemSpade;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
 
 import java.util.List;
 
@@ -14,19 +12,29 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.IAoeTool;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.AoeToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
-import slimeknights.tconstruct.library.utils.ToolBuilder;
-import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class Shovel extends ToolCore implements IAoeTool {
+public class Shovel extends AoeToolCore {
+
+  public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
+      ImmutableSet.of(net.minecraft.block.material.Material.grass,
+                      net.minecraft.block.material.Material.ground,
+                      net.minecraft.block.material.Material.sand,
+                      net.minecraft.block.material.Material.craftedSnow,
+                      net.minecraft.block.material.Material.snow,
+                      net.minecraft.block.material.Material.clay,
+                      net.minecraft.block.material.Material.cake);
 
   public Shovel() {
-    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.shovelHead),
-          new PartMaterialType.ToolPartType(TinkerTools.binding));
+    this(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
+         new PartMaterialType.ToolPartType(TinkerTools.shovelHead),
+         new PartMaterialType.ToolPartType(TinkerTools.binding));
+  }
+
+  protected Shovel(PartMaterialType... requiredComponents) {
+    super(requiredComponents);
 
     addCategory(Category.HARVEST);
 
@@ -34,8 +42,8 @@ public class Shovel extends ToolCore implements IAoeTool {
   }
 
   @Override
-  public ImmutableList<BlockPos> getExtraBlocksToBreak(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
-    return ToolHelper.calcAOEBlocks(stack, world, player, origin, 1, 1, 1);
+  public boolean isEffective(Block block) {
+    return effective_materials.contains(block.getMaterial()) || ItemSpade.EFFECTIVE_ON.contains(block);
   }
 
   @Override
@@ -53,7 +61,9 @@ public class Shovel extends ToolCore implements IAoeTool {
 
     // durability is mostly head
     data.durability *= 0.8f;
-    data.durability += (0.2f*handle.handleQuality * handle.durability);
+    data.durability += (0.01f + 0.15f*handle.handleQuality) * handle.durability;
+    // flat durability from other parts
+    data.durability += 0.05f * binding.durability;
 
     // binding adds a bit of speed
     data.speed *= 0.9f;

@@ -5,7 +5,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkCheckHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -14,17 +13,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
+import java.util.Random;
 
 import mantle.pulsar.control.PulseManager;
 import slimeknights.mantle.common.GuiHandler;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.common.TinkerOredict;
-import slimeknights.tconstruct.debug.DumpMaterialTest;
-import slimeknights.tconstruct.debug.LocalizationCheckCommand;
 import slimeknights.tconstruct.debug.TinkerDebug;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
+import slimeknights.tconstruct.plugin.TinkerVintageCraft;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerMaterials;
@@ -57,6 +56,7 @@ public class TConstruct {
   public static final int liquidUpdateAmount = 6;
 */
   public static final Logger log = LogManager.getLogger(modID);
+  public static final Random random = new Random();
 
   /* Instance of this mod, used for grabbing prototype fields */
   @Mod.Instance(modID)
@@ -78,6 +78,7 @@ public class TConstruct {
     pulseManager.registerPulse(new TinkerSmeltery());
     pulseManager.registerPulse(new TinkerMaterials());
     // Plugins/Integration
+    pulseManager.registerPulse(new TinkerVintageCraft());
 
     pulseManager.registerPulse(new TinkerDebug());
   }

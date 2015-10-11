@@ -51,7 +51,20 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
       }
     }
 
+    NBTTagList modifiers = TagUtil.getBaseModifiersTagList(stack);
+    for(int i = 0; i < modifiers.tagCount(); i++) {
+      String id = modifiers.getStringTagAt(i);
+      IModifier mod = TinkerRegistry.getModifier(id);
+      if(mod != null && !canApplyTogether(mod)) {
+        return false;
+      }
+    }
+
     return canApplyCustom(stack);
+  }
+
+  public boolean canApplyTogether(IModifier otherModifier) {
+    return true;
   }
 
   protected boolean canApplyCustom(ItemStack stack) {

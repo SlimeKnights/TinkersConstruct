@@ -29,9 +29,13 @@ public class BroadSword extends ToolCore {
                       net.minecraft.block.material.Material.leaves);
 
   public BroadSword() {
-    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.swordBlade),
-          new PartMaterialType.ToolPartType(TinkerTools.wideGuard));
+    this(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
+         new PartMaterialType.ToolPartType(TinkerTools.swordBlade),
+         new PartMaterialType.ToolPartType(TinkerTools.wideGuard));
+  }
+
+  protected BroadSword(PartMaterialType... requiredComponents) {
+    super(requiredComponents);
 
     addCategory(Category.WEAPON);
   }
@@ -96,7 +100,7 @@ public class BroadSword extends ToolCore {
     data.durability *= 0.95f + 0.05f*handle.handleQuality;
 
     // 3 free modifiers
-    data.modifiers = 3;
+    data.modifiers = DEFAULT_MODIFIERS;
 
     return data.get();
   }

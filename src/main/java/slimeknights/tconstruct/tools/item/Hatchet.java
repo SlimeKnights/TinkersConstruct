@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.item;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.block.Block;
@@ -11,6 +10,7 @@ import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -19,13 +19,12 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.IAoeTool;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.AoeToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class Hatchet extends ToolCore implements IAoeTool {
+public class Hatchet extends AoeToolCore {
 
   public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
       ImmutableSet.of(net.minecraft.block.material.Material.wood,
@@ -37,9 +36,13 @@ public class Hatchet extends ToolCore implements IAoeTool {
                       net.minecraft.block.material.Material.circuits);
 
   public Hatchet() {
-    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.axeHead),
-          new PartMaterialType.ToolPartType(TinkerTools.binding));
+    this(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
+         new PartMaterialType.ToolPartType(TinkerTools.axeHead),
+         new PartMaterialType.ToolPartType(TinkerTools.binding));
+  }
+
+  protected Hatchet(PartMaterialType... requiredComponents) {
+    super(requiredComponents);
 
     addCategory(Category.HARVEST);
     addCategory(Category.WEAPON);
@@ -72,8 +75,12 @@ public class Hatchet extends ToolCore implements IAoeTool {
   }
 
   @Override
-  public ImmutableList<BlockPos> getExtraBlocksToBreak(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
-    return ToolHelper.calcAOEBlocks(stack, world, player, origin, 1, 1, 1);
+  public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
+    if(LumberAxe.detectTree(player.worldObj, pos)) {
+      LumberAxe.fellTree(itemstack, pos, player);
+      return true;
+    }
+    return super.onBlockStartBreak(itemstack, pos, player);
   }
 
   @Override
@@ -101,6 +108,8 @@ public class Hatchet extends ToolCore implements IAoeTool {
 
     // handle.. stuff..
     data.durability *= 0.8f + 0.2f * handle.handleQuality;
+    // flat durability from other parts
+    data.durability += 0.05f * handle.durability + 0.15f * binding.durability;
 
     // how well handle and binding interact
     float coeff = (0.5f + handle.handleQuality / 2) * (0.5f + binding.extraQuality / 2);

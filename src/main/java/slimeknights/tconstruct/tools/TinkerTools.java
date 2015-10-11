@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -45,10 +46,18 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.tools.block.BlockSlimeSand;
 import slimeknights.tconstruct.tools.block.BlockToolForge;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
+import slimeknights.tconstruct.tools.item.BattleAxe;
+import slimeknights.tconstruct.tools.item.BattleSign;
 import slimeknights.tconstruct.tools.item.BroadSword;
+import slimeknights.tconstruct.tools.item.Cleaver;
+import slimeknights.tconstruct.tools.item.Excavator;
+import slimeknights.tconstruct.tools.item.FryPan;
 import slimeknights.tconstruct.tools.item.Hammer;
 import slimeknights.tconstruct.tools.item.Hatchet;
 import slimeknights.tconstruct.tools.item.ItemBlockTable;
+import slimeknights.tconstruct.tools.item.LongSword;
+import slimeknights.tconstruct.tools.item.LumberAxe;
+import slimeknights.tconstruct.tools.item.Mattock;
 import slimeknights.tconstruct.tools.item.Pickaxe;
 import slimeknights.tconstruct.tools.item.Shovel;
 import slimeknights.tconstruct.tools.modifiers.ModDiamond;
@@ -85,8 +94,21 @@ public class TinkerTools extends TinkerPulse {
   public static ToolCore pickaxe;
   public static ToolCore shovel;
   public static ToolCore hatchet;
+  public static ToolCore mattock;
   public static ToolCore broadSword;
+  public static ToolCore longSword;
+  public static ToolCore rapier;
+  public static ToolCore cutlass;
+  public static ToolCore dagger;
+  public static ToolCore fryPan;
+  public static ToolCore battleSign;
+
   public static ToolCore hammer;
+  public static ToolCore excavator;
+  public static ToolCore lumberAxe;
+  public static ToolCore cleaver;
+  public static ToolCore battleAxe;
+  public static ToolCore scythe;
 
   // Tool Parts
   public static ToolPart pickHead;
@@ -173,8 +195,21 @@ public class TinkerTools extends TinkerPulse {
     pickaxe = registerTool(new Pickaxe(), "Pickaxe");
     shovel = registerTool(new Shovel(), "Shovel");
     hatchet = registerTool(new Hatchet(), "Hatchet");
+    mattock = registerTool(new Mattock(), "Mattock");
     broadSword = registerTool(new BroadSword(), "BroadSword");
+    longSword = registerTool(new LongSword(), "LongSword");
+    // rapier
+    // cutlass
+    // dagger
+    fryPan = registerTool(new FryPan(), "FryPan");
+    battleSign = registerTool(new BattleSign(), "BattleSign");
+
     hammer = registerTool(new Hammer(), "Hammer");
+    excavator = registerTool(new Excavator(), "Excavator");
+    lumberAxe = registerTool(new LumberAxe(), "LumberAxe");
+    cleaver = registerTool(new Cleaver(), "Cleaver");
+    battleAxe = registerTool(new BattleAxe(), "BattleAxe");
+    // scythe
   }
 
   private void registerModifiers() {
@@ -230,6 +265,7 @@ public class TinkerTools extends TinkerPulse {
     TinkerRegistry.registerToolCrafting(pickaxe);
     TinkerRegistry.registerToolCrafting(shovel);
     TinkerRegistry.registerToolCrafting(hatchet);
+    TinkerRegistry.registerToolCrafting(mattock);
     TinkerRegistry.registerToolCrafting(broadSword);
 
     TinkerRegistry.registerToolForgeCrafting(hammer);
@@ -321,6 +357,7 @@ public class TinkerTools extends TinkerPulse {
 
     MinecraftForge.EVENT_BUS.register(new TraitEvents());
     MinecraftForge.EVENT_BUS.register(new ToolEvents());
+    MinecraftForge.EVENT_BUS.register(battleSign); // battlesign events
   }
 
   private void registerFortifyModifiers() {

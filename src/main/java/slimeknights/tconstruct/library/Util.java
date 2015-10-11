@@ -1,5 +1,10 @@
+/* Code for ctl and shift down from TicTooltips by squeek502
+ * https://github.com/squeek502/TiC-Tooltips/blob/1.7.10/java/squeek/tictooltips/helpers/KeyHelper.java
+ */
+
 package slimeknights.tconstruct.library;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -9,6 +14,7 @@ import net.minecraftforge.fml.common.registry.GameData;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.input.Keyboard;
 
 import java.util.Locale;
 
@@ -57,12 +63,12 @@ public class Util {
     return String.format("%s.%s", RESOURCE, name.toLowerCase(Locale.US));
   }
 
-  public static String translate(String key, String... pars) {
+  public static String translate(String key, Object... pars) {
     // translates twice to allow rerouting/alias
     return StatCollector.translateToLocal(StatCollector.translateToLocal(String.format(key, (Object[]) pars)).trim()).trim();
   }
 
-  public static String translateFormatted(String key, String... pars) {
+  public static String translateFormatted(String key, Object... pars) {
     // translates twice to allow rerouting/alias
     return StatCollector.translateToLocal(StatCollector.translateToLocalFormatted(key, (Object[]) pars).trim()).trim();
   }
@@ -95,5 +101,26 @@ public class Util {
 
   public static ItemStack[] copyItemStackArray(ItemStack[] in) {
     return RecipeMatchRegistry.copyItemStackArray(in);
+  }
+
+
+  /* Code for ctl and shift down  from TicTooltips by squeek502
+   * https://github.com/squeek502/TiC-Tooltips/blob/1.7.10/java/squeek/tictooltips/helpers/KeyHelper.java
+   */
+  public static boolean isCtrlKeyDown()
+  {
+    // prioritize CONTROL, but allow OPTION as well on Mac (note: GuiScreen's isCtrlKeyDown only checks for the OPTION key on Mac)
+    boolean isCtrlKeyDown = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL);
+    if (!isCtrlKeyDown && Minecraft.isRunningOnMac) {
+      isCtrlKeyDown = Keyboard.isKeyDown(Keyboard.KEY_LMETA) || Keyboard.isKeyDown(Keyboard.KEY_RMETA);
+    }
+
+    return isCtrlKeyDown;
+  }
+
+  public static boolean isShiftKeyDown()
+  {
+    return Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
+
   }
 }

@@ -1,7 +1,10 @@
 package slimeknights.tconstruct.library.tools;
 
+import com.google.common.collect.Sets;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -13,12 +16,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -30,6 +38,7 @@ import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.library.utils.ToolTagUtil;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
@@ -110,8 +119,8 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
-    if(this instanceof IAoeTool) {
-      for(BlockPos extraPos : ((IAoeTool)this).getExtraBlocksToBreak(itemstack, player.worldObj, player, pos)) {
+    if(this instanceof IAoeTool && ((IAoeTool)this).isAoeHarvestTool()) {
+      for(BlockPos extraPos : ((IAoeTool)this).getAOEBlocks(itemstack, player.worldObj, player, pos)) {
         ToolHelper.breakExtraBlock(itemstack, player.worldObj, player, extraPos, pos);
       }
     }
@@ -132,6 +141,18 @@ public abstract class ToolCore extends TinkersItem {
       return true;
     }
     return super.onEntitySwing(entityLiving, stack);
+  }
+
+  public boolean canUseSecondaryItem() {
+    return true;
+  }
+
+  @Override
+  public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+    if(canUseSecondaryItem()) {
+      return ToolHelper.useSecondaryItem(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
+    }
+    return super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
   }
 
   @Override
@@ -163,16 +184,66 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   @Override
+  public void getTooltipDetailed(ItemStack stack, List<String> tooltips) {
+    tooltips.addAll(Arrays.asList(getInformation(stack)));
+  }
+
+  @Override
+  public void getTooltipComponents(ItemStack stack, List<String> tooltips) {
+
+  }
+
+  @SideOnly(Side.CLIENT)
+  @Override
   public FontRenderer getFontRenderer(ItemStack stack) {
     return ClientProxy.fontRenderer;
+  }
+
+  @SideOnly(Side.CLIENT)
+  @Override
+  public boolean hasEffect(ItemStack stack) {
+    return false; // no effect for you.
+  }
+
+  @Override
+  public String getItemStackDisplayName(ItemStack stack) {
+    // if the tool is not named we use the repair tools for a prefix like thing
+    List<Material> materials = TinkerUtil.getMaterialsFromTagList(TagUtil.getBaseMaterialsTagList(stack));
+    // we save all the ones for the name in a set so we don't have the same material in it twice
+    Set<Material> nameMaterials = Sets.newLinkedHashSet();
+
+    for(int index : getRepairParts()) {
+      nameMaterials.add(materials.get(index));
+    }
+
+    String itemName = super.getItemStackDisplayName(stack);
+
+    // no material
+    if(nameMaterials.isEmpty())
+      return itemName;
+    // only one material - prefix
+    if(nameMaterials.size() == 1)
+      return nameMaterials.iterator().next().getLocalizedItemName(itemName);
+
+    // multiple materials. we'll have to combine
+    StringBuilder sb = new StringBuilder();
+    Iterator<Material> iter = nameMaterials.iterator();
+    Material material = iter.next();
+    sb.append(material.getLocalizedName());
+    while(iter.hasNext()) {
+      material = iter.next();
+      sb.append("-");
+      sb.append(material.getLocalizedName());
+    }
+    sb.append(" ");
+    sb.append(itemName);
+
+    return sb.toString();
   }
 
   @Override
   public ItemStack buildItem(List<Material> materials) {
     ItemStack tool = super.buildItem(materials);
-
-    // reset to prevent the ITALIC prepended by tooltip rendering
-    tool.setStackDisplayName(EnumChatFormatting.RESET + getLocalizedToolName(materials.get(0)));
 
     return tool;
   }
@@ -267,5 +338,19 @@ public abstract class ToolCore extends TinkersItem {
   // elevate to public
   public MovingObjectPosition getMovingObjectPositionFromPlayer(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
     return super.getMovingObjectPositionFromPlayer(worldIn, playerIn, useLiquids);
+  }
+
+  protected void preventSlowDown(Entity entityIn, float originalSpeed) {
+    // has to be done in onUpdate because onTickUsing is too early and gets overwritten. bleh.
+    if(entityIn instanceof EntityPlayerSP) {
+      EntityPlayerSP playerSP = (EntityPlayerSP) entityIn;
+      ItemStack usingItem = playerSP.getItemInUse();
+      if (usingItem != null && usingItem.getItem() == this)
+      {
+        // no slowdown from charging it up
+        playerSP.movementInput.moveForward *= originalSpeed * 5.0F;
+        playerSP.movementInput.moveStrafe *= originalSpeed * 5.0F;
+      }
+    }
   }
 }

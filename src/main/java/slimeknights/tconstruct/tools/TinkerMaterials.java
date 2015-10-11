@@ -19,6 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 import mantle.pulsar.pulse.Pulse;
+import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.texture.ExtraUtilityTexture;
@@ -37,6 +38,7 @@ import slimeknights.tconstruct.tools.modifiers.TraitPetramor;
 import slimeknights.tconstruct.tools.modifiers.TraitPrickly;
 import slimeknights.tconstruct.tools.modifiers.TraitSlimey;
 import slimeknights.tconstruct.tools.modifiers.TraitSplintering;
+import slimeknights.tconstruct.tools.modifiers.TraitSqueaky;
 import slimeknights.tconstruct.tools.modifiers.TraitStonebound;
 
 import static slimeknights.tconstruct.library.utils.HarvestLevels.COBALT;
@@ -95,6 +97,7 @@ public final class TinkerMaterials {
   public static final AbstractTrait slimeyGreen = new TraitSlimey(EntitySlime.class);
   public static final AbstractTrait slimeyBlue = new TraitSlimey(EntitySlime.class); // todo: blue slime
   public static final AbstractTrait splintering = new TraitSplintering();
+  public static final AbstractTrait squeaky = new TraitSqueaky();
   public static final AbstractTrait stonebound = new TraitStonebound();
 
   private static Material mat(String name, EnumChatFormatting color) {
@@ -214,6 +217,7 @@ public final class TinkerMaterials {
     sponge.setCraftable(true);
     sponge.addItem(Blocks.sponge, Material.VALUE_Ingot);
     sponge.setRepresentativeItem(Blocks.sponge);
+    sponge.addTrait(squeaky);
 
     slime.setCraftable(true);
     safeAdd(slime, TinkerCommons.matSlimeCrystal, Material.VALUE_Ingot, true);
@@ -286,5 +290,18 @@ public final class TinkerMaterials {
 
   public void registerProjectileMaterials() {
 
+  }
+
+  @Subscribe
+  public void postInit(FMLPostInitializationEvent event) {
+    // each material without a shard set gets the default one set
+    for(Material material : TinkerRegistry.getAllMaterials()) {
+      ItemStack shard = TinkerTools.shard.getItemstackWithMaterial(material);
+
+      material.addRecipeMatch(new RecipeMatch.ItemCombination(Material.VALUE_Shard, shard));
+      if(material.getShard() != null) {
+        material.setShard(shard);
+      }
+    }
   }
 }

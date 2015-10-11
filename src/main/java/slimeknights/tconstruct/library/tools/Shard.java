@@ -1,7 +1,9 @@
 package slimeknights.tconstruct.library.tools;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
@@ -21,5 +23,10 @@ public class Shard extends ToolPart {
       if(mat.craftable || mat.castable)
         subItems.add(getItemstackWithMaterial(mat));
     }
+  }
+
+  @Override
+  public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
+    // no stats n stuff
   }
 }

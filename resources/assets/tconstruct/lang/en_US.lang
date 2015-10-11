@@ -121,6 +121,8 @@ stat.handle.name=Handle
 stat.handle.desc=How good the material is for a handle.\nInfluences many different stats.
 stat.extra.name=Quality
 stat.extra.desc=How good the material is for secondary parts.\nInfluences many different stats.
+stat.axespeed=name=Axe Speed
+stat.shovelspeed=name=Shovel Speed
 
 ##############
 #   Traits   #
@@ -156,10 +158,18 @@ modifier.stonebound.desc=§oYour tool absolutely loves stone!§r\nThe tool mines
 #   Modifiers   #
 #################
 
+modifier.diamond.name=Diamond
+modifier.diamond.desc=§oShiny!§r\nIncreased durability!
+modifier.fortify.name=Fortified (%s)
+modifier.fortify.desc=§oHarder, better, faster, stronger!§r\nMining level increased to the same level as %s.
+modifier.harvestwidth.name=Width++
+modifier.harvestwidth.desc=§oExpand!§r\nIncreases the width of the area affected by your tool. The effect is tool specific.
+modifier.harvestheight.name=Height++
+modifier.harvestheight.desc=§oExpand!§r\nIncreases the height of the area affected by your tool. The effect is tool specific.
 modifier.redstone.name=Haste
 modifier.redstone.name2=Haster
 modifier.redstone.name3=Hastest
-modifier.redstone.desc=The redstone impulse when hitting blocks motivates your tool to mine faster. Increases mining speed.
+modifier.redstone.desc=§oWeeeeeee!§r\nThe redstone impulse when hitting blocks motivates your tool to mine faster.
 
 #################
 #   Tool Info   #
@@ -171,10 +181,14 @@ item.tconstruct.pickaxe.desc=The Pickaxe is a precise mining tool. It is effecti
 ################
 tooltip.tool.modifiers=Modifiers
 tooltip.tool.broken=Broken
+tooltip.tool.holdShift=Hold §e§oShift§r for Stats
+tooltip.tool.holdCtrl=Hold §e§bCtrl§r for more
 
 tooltip.part.materialAddedBy=Material added by %s
 tooltip.part.missingMaterial=Missing material: %s
 tooltip.part.missingInfo=Part has no data
+
+tooltip.pattern.cost=Material Cost: %d
 
 ##################
 #   UI Strings   #

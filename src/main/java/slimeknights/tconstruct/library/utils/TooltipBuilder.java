@@ -108,4 +108,12 @@ public class TooltipBuilder {
 
     return this;
   }
+
+  public TooltipBuilder addCustom(String custom) {
+    if(stack != null) {
+      tips.add(custom);
+    }
+
+    return this;
+  }
 }

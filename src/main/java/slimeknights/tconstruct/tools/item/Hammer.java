@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.AoeToolCore;
 import slimeknights.tconstruct.library.tools.IAoeTool;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
@@ -23,7 +24,7 @@ import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class Hammer extends ToolCore implements IAoeTool {
+public class Hammer extends Pickaxe {
 
   public Hammer() {
     super(new PartMaterialType.ToolPartType(TinkerTools.toughToolRod),
@@ -31,14 +32,7 @@ public class Hammer extends ToolCore implements IAoeTool {
           new PartMaterialType.ToolPartType(TinkerTools.largePlate),
           new PartMaterialType.ToolPartType(TinkerTools.largePlate));
 
-    addCategory(Category.HARVEST, Category.WEAPON);
-
-    setHarvestLevel("pickaxe", 0);
-  }
-
-  @Override
-  public boolean isEffective(Block block) {
-    return Pickaxe.effective_materials.contains(block.getMaterial()) || ItemPickaxe.EFFECTIVE_ON.contains(block);
+    addCategory(Category.WEAPON);
   }
 
   @Override
@@ -47,7 +41,7 @@ public class Hammer extends ToolCore implements IAoeTool {
   }
 
   @Override
-  public ImmutableList<BlockPos> getExtraBlocksToBreak(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
+  public ImmutableList<BlockPos> getAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
     return ToolHelper.calcAOEBlocks(stack, world, player, origin, 3, 3, 1);
   }
 
@@ -62,6 +56,7 @@ public class Hammer extends ToolCore implements IAoeTool {
 
     data.durability += plate1.durability * plate1.extraQuality + plate2.durability * plate2.extraQuality;
     data.durability *= 1.5f * handle.handleQuality;
+    data.durability += 0.05f * handle.durability;
 
     data.speed *= 0.3f + 0.4f * head.extraQuality;
     data.speed += 0.3f * handle.miningspeed * handle.handleQuality;
