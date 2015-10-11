@@ -37,7 +37,7 @@ public class Hammer extends Pickaxe {
 
   @Override
   public float damagePotential() {
-    return 0.7f;
+    return 1.0f;
   }
 
   @Override

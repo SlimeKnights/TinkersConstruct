@@ -28,7 +28,6 @@ public class Hatchet extends AoeToolCore {
 
   public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
       ImmutableSet.of(net.minecraft.block.material.Material.wood,
-                      net.minecraft.block.material.Material.leaves,
                       net.minecraft.block.material.Material.vine,
                       net.minecraft.block.material.Material.plants,
                       net.minecraft.block.material.Material.gourd,

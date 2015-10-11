@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.item;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
@@ -25,19 +26,36 @@ import java.util.Stack;
 
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.AoeToolCore;
+import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.events.TinkerToolEvent;
 
-public class LumberAxe extends Hatchet {
+public class LumberAxe extends AoeToolCore {
+
+  public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
+      ImmutableSet.of(net.minecraft.block.material.Material.wood,
+                      net.minecraft.block.material.Material.cactus,
+                      net.minecraft.block.material.Material.circuits);
 
   public LumberAxe() {
     super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
           new PartMaterialType.ToolPartType(TinkerTools.toolRod),
           new PartMaterialType.ToolPartType(TinkerTools.toolRod),
           new PartMaterialType.ToolPartType(TinkerTools.toolRod)); // todo
+
+    addCategory(Category.HARVEST);
+
+    this.setHarvestLevel("axe", 0);
+  }
+
+  @Override
+  public float damagePotential() {
+    return 1.0f;
   }
 
   @Override

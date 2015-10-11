@@ -59,6 +59,7 @@ import slimeknights.tconstruct.tools.item.LongSword;
 import slimeknights.tconstruct.tools.item.LumberAxe;
 import slimeknights.tconstruct.tools.item.Mattock;
 import slimeknights.tconstruct.tools.item.Pickaxe;
+import slimeknights.tconstruct.tools.item.Scythe;
 import slimeknights.tconstruct.tools.item.Shovel;
 import slimeknights.tconstruct.tools.modifiers.ModDiamond;
 import slimeknights.tconstruct.tools.modifiers.ModFortify;
@@ -209,7 +210,7 @@ public class TinkerTools extends TinkerPulse {
     lumberAxe = registerTool(new LumberAxe(), "LumberAxe");
     cleaver = registerTool(new Cleaver(), "Cleaver");
     battleAxe = registerTool(new BattleAxe(), "BattleAxe");
-    // scythe
+    scythe = registerTool(new Scythe(), "Scythe");
   }
 
   private void registerModifiers() {

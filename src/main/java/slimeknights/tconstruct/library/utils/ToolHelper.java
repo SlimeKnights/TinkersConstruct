@@ -8,10 +8,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -33,9 +35,11 @@ import net.minecraft.util.Vec3i;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.IShearable;
 
 import java.util.List;
 
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
@@ -230,7 +234,8 @@ public final class ToolHelper {
           if(xp == origin.getX() && yp == origin.getY() && zp == origin.getZ()) {
             continue;
           }
-          if(distance > 0 && MathHelper.abs_int(xp - origin.getX()) + MathHelper.abs_int(yp - origin.getY()) + MathHelper.abs_int(zp - origin.getZ()) > distance) {
+          if(distance > 0 && MathHelper.abs_int(xp - origin.getX()) + MathHelper.abs_int(yp - origin.getY()) + MathHelper.abs_int(
+              zp - origin.getZ()) > distance) {
             continue;
           }
           BlockPos pos = new BlockPos(xp, yp, zp);
@@ -321,9 +326,48 @@ public final class ToolHelper {
 
       // send an update to the server, so we get an update back
       //if(PHConstruct.extraBlockUpdates)
-      Minecraft.getMinecraft().getNetHandler().addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, Minecraft.getMinecraft().objectMouseOver.sideHit));
+      Minecraft.getMinecraft().getNetHandler().addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, Minecraft
+          .getMinecraft().objectMouseOver.sideHit));
     }
   }
+
+  public static boolean shearBlock(ItemStack itemstack, World world, EntityPlayer player, BlockPos pos) {
+    // only serverside since it creates entities
+    if(world.isRemote) {
+      return false;
+    }
+
+    Block block = world.getBlockState(pos).getBlock();
+    if (block instanceof IShearable)
+    {
+      IShearable target = (IShearable)block;
+      if (target.isShearable(itemstack, world, pos))
+      {
+        int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemstack);
+        List<ItemStack> drops = target.onSheared(itemstack, world, pos, fortune);
+
+        for(ItemStack stack : drops)
+        {
+          float f = 0.7F;
+          double d  = (double)(TConstruct.random.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+          double d1 = (double)(TConstruct.random.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+          double d2 = (double)(TConstruct.random.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+          EntityItem entityitem = new EntityItem(player.worldObj, (double)pos.getX() + d, (double)pos.getY() + d1, (double)pos.getZ() + d2, stack);
+          entityitem.setDefaultPickupDelay();
+          world.spawnEntityInWorld(entityitem);
+        }
+
+        itemstack.damageItem(1, player);
+        player.addStat(net.minecraft.stats.StatList.mineBlockStatArray[Block.getIdFromBlock(block)], 1);
+
+        world.setBlockToAir(pos);
+
+        return true;
+      }
+    }
+    return false;
+  }
+
 
   /* Tool Durability */
 
