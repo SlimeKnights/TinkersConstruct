@@ -652,6 +652,10 @@ public final class ToolHelper {
     int oldSlot = player.inventory.currentItem;
     player.inventory.currentItem = slot;
     boolean ret = secondaryItem.onItemUse(player, world, pos, side, hitX, hitY, hitZ);
+    // might have gotten used up
+    if(secondaryItem.stackSize == 0) {
+      player.inventory.setInventorySlotContents(slot, null);
+    }
     player.inventory.currentItem = oldSlot;
 
     return ret;
