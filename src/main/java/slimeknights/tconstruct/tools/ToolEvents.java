@@ -50,7 +50,9 @@ public class ToolEvents {
       event.width += c;
       event.height += c;
     }
-    else if(event.tool == TinkerTools.hammer) {
+    else if(event.tool == TinkerTools.hammer ||
+            event.tool == TinkerTools.excavator ||
+            event.tool == TinkerTools.lumberAxe) {
       event.width += width ? 2 : 0;
       event.height += height ? 2 : 0;
       event.distance = 2;
