@@ -28,7 +28,7 @@ public class BattleSign extends BroadSword {
 
   public BattleSign() {
     super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod)); // todo
+          new PartMaterialType.ToolPartType(TinkerTools.wideBoard));
   }
 
   @Override

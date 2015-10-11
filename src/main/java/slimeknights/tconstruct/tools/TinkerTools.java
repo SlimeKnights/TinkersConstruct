@@ -117,7 +117,11 @@ public class TinkerTools extends TinkerPulse {
   public static ToolPart axeHead;
   public static ToolPart broadAxeHead;
   public static ToolPart swordBlade;
+  public static ToolPart largeSwordBlade;
   public static ToolPart hammerHead;
+  public static ToolPart excavatorHead;
+  public static ToolPart pan;
+  public static ToolPart wideBoard;
 
   public static ToolPart toolRod;
   public static ToolPart toughToolRod;
@@ -180,7 +184,11 @@ public class TinkerTools extends TinkerPulse {
     axeHead = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "AxeHead");
     broadAxeHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "BroadAxeHead");
     swordBlade = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "SwordBlade");
+    largeSwordBlade = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "LargeSwordBlade");
     hammerHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "HammerHead");
+    excavatorHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "ExcavatorHead");
+    pan = registerToolPart(new ToolPart(Material.VALUE_Ingot), "Pan");
+    wideBoard = registerToolPart(new ToolPart(Material.VALUE_Ingot), "WideBoard");
 
     toolRod = registerToolPart(new ToolPart(Material.VALUE_Shard), "ToolRod");
     toughToolRod = registerToolPart(new ToolPart(Material.VALUE_Ingot * 3), "ToughToolRod");
