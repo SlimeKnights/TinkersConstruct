@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tools;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -120,8 +119,8 @@ public class TinkerTools extends TinkerPulse {
   public static ToolPart largeSwordBlade;
   public static ToolPart hammerHead;
   public static ToolPart excavatorHead;
-  public static ToolPart pan;
-  public static ToolPart wideBoard;
+  public static ToolPart panHead;
+  public static ToolPart signHead;
 
   public static ToolPart toolRod;
   public static ToolPart toughToolRod;
@@ -187,8 +186,8 @@ public class TinkerTools extends TinkerPulse {
     largeSwordBlade = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "LargeSwordBlade");
     hammerHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "HammerHead");
     excavatorHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "ExcavatorHead");
-    pan = registerToolPart(new ToolPart(Material.VALUE_Ingot), "Pan");
-    wideBoard = registerToolPart(new ToolPart(Material.VALUE_Ingot), "WideBoard");
+    panHead = registerToolPart(new ToolPart(Material.VALUE_Ingot), "PanHead");
+    signHead = registerToolPart(new ToolPart(Material.VALUE_Ingot), "SignHead");
 
     toolRod = registerToolPart(new ToolPart(Material.VALUE_Shard), "ToolRod");
     toughToolRod = registerToolPart(new ToolPart(Material.VALUE_Ingot * 3), "ToughToolRod");

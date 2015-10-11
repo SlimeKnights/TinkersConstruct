@@ -32,7 +32,7 @@ public class FryPan extends ToolCore {
 
   public FryPan() {
     super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.pan));
+          new PartMaterialType.ToolPartType(TinkerTools.panHead));
 
     addCategory(Category.WEAPON);
   }
