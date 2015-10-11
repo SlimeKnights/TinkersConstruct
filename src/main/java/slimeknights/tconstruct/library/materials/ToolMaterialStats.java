@@ -9,7 +9,7 @@ import net.minecraft.util.MathHelper;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import slimeknights.mantle.client.CustomFontRenderer;
+import slimeknights.tconstruct.library.client.CustomFontRenderer;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 

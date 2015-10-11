@@ -3,14 +3,14 @@ package slimeknights.tconstruct.common;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.tools.network.InventorySlotSyncPacket;
-import slimeknights.tconstruct.tools.network.PartCrafterSelectionPacket;
-import slimeknights.tconstruct.tools.network.TinkerStationTabPacket;
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.mantle.network.NetworkWrapper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.tools.network.InventoryCraftingSyncPacket;
+import slimeknights.tconstruct.tools.network.InventorySlotSyncPacket;
+import slimeknights.tconstruct.tools.network.PartCrafterSelectionPacket;
 import slimeknights.tconstruct.tools.network.StencilTableSelectionPacket;
+import slimeknights.tconstruct.tools.network.TinkerStationTabPacket;
 import slimeknights.tconstruct.tools.network.ToolStationSelectionPacket;
 import slimeknights.tconstruct.tools.network.ToolStationTextPacket;
 

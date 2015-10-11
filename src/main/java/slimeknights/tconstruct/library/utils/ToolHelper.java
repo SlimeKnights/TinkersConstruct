@@ -39,6 +39,7 @@ import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
+import slimeknights.tconstruct.tools.events.TinkerToolEvent;
 
 public final class ToolHelper {
 
@@ -147,6 +148,10 @@ public final class ToolHelper {
   /* Harvesting */
 
   public static ImmutableList<BlockPos> calcAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin, int width, int height, int depth) {
+    return calcAOEBlocks(stack, world, player, origin, width, height, depth, -1);
+  }
+
+  public static ImmutableList<BlockPos> calcAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin, int width, int height, int depth, int distance) {
     // only works with toolcore because we need the raytrace call
     if(stack == null || !(stack.getItem() instanceof ToolCore))
       return ImmutableList.of();
@@ -164,6 +169,13 @@ public final class ToolHelper {
     if(mop == null) {
       return ImmutableList.of();
     }
+
+    // fire event
+    TinkerToolEvent.ExtraBlockBreak event = TinkerToolEvent.ExtraBlockBreak.fireEvent(stack, player, width, height, depth, distance);
+    width = event.width;
+    height = event.height;
+    depth = event.depth;
+    distance = event.distance;
 
     // we know the block and we know which side of the block we're hitting. time to calculate the depth along the different axes
     int x,y,z;
@@ -214,6 +226,9 @@ public final class ToolHelper {
         for(int zp = start.getZ(); zp != start.getZ() + z; zp += z/MathHelper.abs_int(z)) {
           // don't add the origin block
           if(xp == origin.getX() && yp == origin.getY() && zp == origin.getZ()) {
+            continue;
+          }
+          if(distance > 0 && MathHelper.abs_int(xp - origin.getX()) + MathHelper.abs_int(yp - origin.getY()) + MathHelper.abs_int(zp - origin.getZ()) > distance) {
             continue;
           }
           BlockPos pos = new BlockPos(xp, yp, zp);
@@ -396,6 +411,9 @@ public final class ToolHelper {
       return false;
     }
     if(!(targetEntity instanceof EntityLivingBase)) {
+      return false;
+    }
+    if(isBroken(stack)) {
       return false;
     }
     EntityLivingBase target = (EntityLivingBase) targetEntity;

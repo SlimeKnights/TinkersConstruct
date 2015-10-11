@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools;
 
 import com.google.common.collect.Lists;
+import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.monster.EntitySlime;
@@ -17,7 +18,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
-import mantle.pulsar.pulse.Handler;
 import mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.MaterialRenderInfo;
@@ -25,11 +25,15 @@ import slimeknights.tconstruct.library.client.texture.ExtraUtilityTexture;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.tools.modifiers.TraitAridiculous;
 import slimeknights.tconstruct.tools.modifiers.TraitCheap;
 import slimeknights.tconstruct.tools.modifiers.TraitCrude;
 import slimeknights.tconstruct.tools.modifiers.TraitDuritos;
 import slimeknights.tconstruct.tools.modifiers.TraitEcological;
+import slimeknights.tconstruct.tools.modifiers.TraitInsatiable;
+import slimeknights.tconstruct.tools.modifiers.TraitMomentum;
+import slimeknights.tconstruct.tools.modifiers.TraitPetramor;
 import slimeknights.tconstruct.tools.modifiers.TraitPrickly;
 import slimeknights.tconstruct.tools.modifiers.TraitSlimey;
 import slimeknights.tconstruct.tools.modifiers.TraitSplintering;
@@ -84,10 +88,13 @@ public final class TinkerMaterials {
   public static final AbstractTrait crude = new TraitCrude();
   public static final AbstractTrait duritos = new TraitDuritos(); // yes you read that correctly
   public static final AbstractTrait ecological = new TraitEcological();
-  public static final AbstractTrait splintering = new TraitSplintering();
+  public static final AbstractTrait insatiable = new TraitInsatiable();
+  public static final AbstractTrait momentum = new TraitMomentum();
+  public static final AbstractTrait petramor = new TraitPetramor();
   public static final AbstractTrait prickly = new TraitPrickly();
   public static final AbstractTrait slimeyGreen = new TraitSlimey(EntitySlime.class);
   public static final AbstractTrait slimeyBlue = new TraitSlimey(EntitySlime.class); // todo: blue slime
+  public static final AbstractTrait splintering = new TraitSplintering();
   public static final AbstractTrait stonebound = new TraitStonebound();
 
   private static Material mat(String name, EnumChatFormatting color) {
@@ -100,7 +107,7 @@ public final class TinkerMaterials {
     xu = new Material("unstable", EnumChatFormatting.WHITE);
   }
 
-  @Handler
+  @Subscribe
   public void registerMaterials(FMLPreInitializationEvent event) {
     for(Material material : materials) {
       TinkerRegistry.addMaterial(material);
@@ -109,7 +116,7 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterial(xu);
   }
 
-  @Handler
+  @Subscribe
   public void registerRendering(FMLPostInitializationEvent event) {
     if(event.getSide().isClient()) {
       TinkerMaterials.registerMaterialRendering();
@@ -136,6 +143,9 @@ public final class TinkerMaterials {
 
     // Metals
     iron.setRenderInfo(0xffffff);
+    cobalt.setRenderInfo(0x2376dd);
+    ardite.setRenderInfo(0xa53000);
+    manyullyn.setRenderInfo(0x7338a5);
 
     xu.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() {
       @Override
@@ -145,7 +155,7 @@ public final class TinkerMaterials {
     });
   }
 
-  @Handler
+  @Subscribe
   public void setupMaterials(FMLInitializationEvent event) {
     // natural resources/blocks
     wood.setCraftable(true);
@@ -162,18 +172,18 @@ public final class TinkerMaterials {
     stone.addTrait(cheap);
 
     flint.setCraftable(true);
-    flint.addItem(Items.flint, 1, Material.VALUE_Ingot);
+    flint.addItem("flint", 1, Material.VALUE_Ingot);
     flint.setRepresentativeItem(new ItemStack(Items.flint));
     flint.addTrait(crude);
 
     cactus.setCraftable(true);
-    cactus.addItem(Blocks.cactus, Material.VALUE_Ingot);
+    cactus.addItem("blockCactus", 1, Material.VALUE_Ingot);
     cactus.setRepresentativeItem(new ItemStack(Blocks.cactus));
     cactus.addTrait(prickly);
 
     obsidian.setCraftable(true);
     obsidian.setFluid(FluidRegistry.WATER).setCastable(true); // todo
-    obsidian.addItem(Blocks.obsidian, Material.VALUE_Ingot);
+    obsidian.addItem("blockObsidian", 1, Material.VALUE_Ingot);
     obsidian.setRepresentativeItem(new ItemStack(Blocks.obsidian));
     obsidian.addTrait(duritos);
 
@@ -206,13 +216,11 @@ public final class TinkerMaterials {
     sponge.setRepresentativeItem(Blocks.sponge);
 
     slime.setCraftable(true);
-    slime.addItem(TinkerTools.matSlimeCrystal, 1, Material.VALUE_Ingot);
-    slime.setRepresentativeItem(TinkerTools.matSlimeCrystal);
+    safeAdd(slime, TinkerCommons.matSlimeCrystal, Material.VALUE_Ingot, true);
     slime.addTrait(slimeyGreen);
 
     blueslime.setCraftable(true);
-    blueslime.addItem(TinkerTools.matSlimeCrystalBlue, 1, Material.VALUE_Ingot);
-    blueslime.setRepresentativeItem(TinkerTools.matSlimeCrystalBlue);
+    safeAdd(slime, TinkerCommons.matSlimeCrystalBlue, Material.VALUE_Ingot, true);
     blueslime.addTrait(slimeyBlue);
 
     // Metals
@@ -220,8 +228,29 @@ public final class TinkerMaterials {
     iron.setRepresentativeItem(Items.iron_ingot);
     // todo: remaining metals
 
+    safeAdd(cobalt, TinkerCommons.ingotCobalt, Material.VALUE_Ingot, true);
+    cobalt.addTrait(momentum);
+
+    safeAdd(ardite, TinkerCommons.ingotArdite, Material.VALUE_Ingot, true);
+    ardite.addTrait(petramor);
+
+    safeAdd(manyullyn, TinkerCommons.ingotManyullyn, Material.VALUE_Ingot, true);
+    manyullyn.addTrait(insatiable);
 
     registerToolMaterials();
+  }
+
+  private void safeAdd(Material material, ItemStack item, int value) {
+    this.safeAdd(material, item, value, false);
+  }
+
+  private void safeAdd(Material material, ItemStack item, int value, boolean representative) {
+    if(item != null) {
+      material.addItem(item, 1, value);
+      if(representative) {
+        material.setRepresentativeItem(item);
+      }
+    }
   }
 
   public void registerToolMaterials() {
@@ -238,12 +267,15 @@ public final class TinkerMaterials {
 
     // item/special resources
     TinkerRegistry.addMaterialStats(bone,      new ToolMaterialStats( 235, 5.09f, 1.50f, 0.70f, 0.56f, IRON));
-    TinkerRegistry.addMaterialStats(paper,     new ToolMaterialStats(  42, 0.50f, 0.05f, 0.01f, 0.70f, STONE));
-    TinkerRegistry.addMaterialStats(sponge,    new ToolMaterialStats( 350, 3.00f, 0.00f, 0.01f, 0.01f, STONE));
-    TinkerRegistry.addMaterialStats(slime,     new ToolMaterialStats(1000, 4.00f, 1.80f, 0.50f, 0.10f, STONE));
-    TinkerRegistry.addMaterialStats(blueslime, new ToolMaterialStats( 250, 4.00f, 1.80f, 0.30f, 1.00f, STONE));
+    TinkerRegistry.addMaterialStats(paper,     new ToolMaterialStats(  42, 0.51f, 0.05f, 0.01f, 0.70f, STONE));
+    TinkerRegistry.addMaterialStats(sponge,    new ToolMaterialStats( 350, 3.02f, 0.00f, 0.01f, 0.01f, STONE));
+    TinkerRegistry.addMaterialStats(slime,     new ToolMaterialStats(1000, 4.03f, 1.80f, 0.50f, 0.10f, STONE));
+    TinkerRegistry.addMaterialStats(blueslime, new ToolMaterialStats( 250, 4.24f, 1.80f, 0.30f, 1.00f, STONE));
 
-    TinkerRegistry.addMaterialStats(iron,       new ToolMaterialStats( 353, 6.00f, 1.80f, 0.50f, 0.60f, IRON));
+    TinkerRegistry.addMaterialStats(iron,       new ToolMaterialStats( 453, 6.00f, 1.80f, 0.50f, 0.60f, IRON));
+    TinkerRegistry.addMaterialStats(cobalt,     new ToolMaterialStats( 420,11.11f, 3.20f, 0.40f, 0.60f, COBALT));
+    TinkerRegistry.addMaterialStats(ardite,     new ToolMaterialStats( 820, 2.42f, 1.80f, 0.75f, 0.75f, COBALT));
+    TinkerRegistry.addMaterialStats(manyullyn,  new ToolMaterialStats( 513, 7.80f, 8.72f, 0.30f, 0.70f, COBALT));
 
     //TinkerRegistry.addMaterialStats(xu,         new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, DIAMOND));
   }

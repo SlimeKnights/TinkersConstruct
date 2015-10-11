@@ -82,7 +82,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
     }
     else {
       for(ITrait trait : material.getAllTraits()) {
-        tooltip.add(material.textColor + trait.getLocalizedName());
+        tooltip.add(material.getTextColor() + trait.getLocalizedName());
       }
     }
 

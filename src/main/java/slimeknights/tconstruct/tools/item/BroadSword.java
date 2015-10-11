@@ -85,8 +85,8 @@ public class BroadSword extends ToolCore {
 
     ToolNBT data = new ToolNBT(head);
 
-    // sword has 2 base damage!
-    data.attack += 2f;
+    // sword has 1.5 hearts base damage!
+    data.attack += 3f;
 
     // attack damage: blade, modified 10% by handle and 20% by guard
     data.attack *= 0.7f + 0.1f*handle.handleQuality + 0.2f*guard.extraQuality;

@@ -292,7 +292,10 @@ public class GuiInfoPanel extends GuiModule {
       mouseX -= 100-w;
       w = 100;
     }
-    drawHoveringText(fontRenderer.listFormattedStringToWidth(tooltips.get(i), w), mouseX - guiLeft, mouseY - guiTop);
+
+    List<String> lines = fontRenderer.listFormattedStringToWidth(tooltips.get(i), w);
+
+    drawHoveringText(lines, mouseX - guiLeft, mouseY - guiTop - lines.size()*fontRenderer.FONT_HEIGHT/2);
   }
 
   @Override

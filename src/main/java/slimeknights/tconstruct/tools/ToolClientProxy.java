@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tools;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.resources.IReloadableResourceManager;
-import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,23 +11,20 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 
+import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.TinkerRegistryClient;
-import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
-import slimeknights.tconstruct.library.tools.ToolCore;
-import slimeknights.tconstruct.library.tools.ToolPart;
-import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
-import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
 import slimeknights.tconstruct.library.tools.Pattern;
+import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.ToolPart;
+import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.client.RenderEvents;
 
-import static slimeknights.tconstruct.tools.TinkerTools.matSlimeBallBlue;
-import static slimeknights.tconstruct.tools.TinkerTools.matSlimeCrystal;
-import static slimeknights.tconstruct.tools.TinkerTools.matSlimeCrystalBlue;
-import static slimeknights.tconstruct.tools.TinkerTools.materials;
 import static slimeknights.tconstruct.tools.TinkerTools.shard;
 
 public class ToolClientProxy extends ClientProxy {
@@ -59,15 +55,15 @@ public class ToolClientProxy extends ClientProxy {
     tableItem = Item.getItemFromBlock(TinkerTools.toolForge);
     ModelLoader.setCustomModelResourceLocation(tableItem, 0, ToolClientEvents.locToolForge);
 
-    Item slimeSand = Item.getItemFromBlock(TinkerTools.slimeSand);
+    ItemBlockMeta slimeSand = (ItemBlockMeta) Item.getItemFromBlock(TinkerTools.slimeSand);
+    slimeSand.registerItemModels();
     //ModelBakery.addVariantName(slimeSand, "tconstruct:SlimeSand#type=green", "tconstruct:SlimeSand#type=blue");
-    ModelLoader.setCustomModelResourceLocation(slimeSand, 0, new ModelResourceLocation("tconstruct:SlimeSand", "type=green"));
-    ModelLoader.setCustomModelResourceLocation(slimeSand, 1, new ModelResourceLocation("tconstruct:SlimeSand","type=blue"));
+    //ModelLoader.setCustomModelResourceLocation(slimeSand, 0, new ModelResourceLocation("tconstruct:SlimeSand", "type=green"));
+    //ModelLoader.setCustomModelResourceLocation(slimeSand, 1, new ModelResourceLocation("tconstruct:SlimeSand","type=blue"));
+
 
     // general items
-    registerItemModel(matSlimeBallBlue, "SlimeBallBlue");
-    registerItemModel(matSlimeCrystal, "SlimeCrystal");
-    registerItemModel(matSlimeCrystalBlue, "SlimeCrystalBlue");
+
     //registerItemModel(new ItemStack(materials, 1, 2), "SlimeCrystalRed");
 
     // patterns
@@ -120,23 +116,38 @@ public class ToolClientProxy extends ClientProxy {
   private void toolBuildInfo() {
     // pickaxe
     ToolBuildGuiInfo info = new ToolBuildGuiInfo(TinkerTools.pickaxe);
+    info.addSlotPosition(33-18, 42+18);
     info.addSlotPosition(33+20, 42-20);
-    info.addSlotPosition(33-20, 42+20);
     info.addSlotPosition(33, 42);
+    TinkerRegistryClient.addToolBuilding(info);
+
+    // shovel
+    info = new ToolBuildGuiInfo(TinkerTools.shovel);
+    info.addSlotPosition(33, 42);
+    info.addSlotPosition(33+18, 42-18);
+    info.addSlotPosition(33-20, 42+20);
     TinkerRegistryClient.addToolBuilding(info);
 
     // hatchet
     info = new ToolBuildGuiInfo(TinkerTools.hatchet);
-    info.addSlotPosition(33+20, 42-20);
-    info.addSlotPosition(33-20, 42+20);
-    info.addSlotPosition(33, 42);
+    info.addSlotPosition(33-11, 42+11); // rod
+    info.addSlotPosition(33-2, 42-20); // head
+    info.addSlotPosition(33+18, 42-8); // binding
     TinkerRegistryClient.addToolBuilding(info);
 
     // broadsword
     info = new ToolBuildGuiInfo(TinkerTools.broadSword);
-    info.addSlotPosition(33+20, 42-20);
-    info.addSlotPosition(33-20, 42+20);
-    info.addSlotPosition(33, 42);
+    info.addSlotPosition(33-20-1, 42+20);
+    info.addSlotPosition(33+20-1, 42-20);
+    info.addSlotPosition(33-2-1, 42+2);
+    TinkerRegistryClient.addToolBuilding(info);
+
+    // hammer
+    info = new ToolBuildGuiInfo(TinkerTools.hammer);
+    info.addSlotPosition(33-10, 42+10); // handle
+    info.addSlotPosition(33+13, 42-13); // head
+    info.addSlotPosition(33+10+16, 42-10+16); // plate 1
+    info.addSlotPosition(33+10-16, 42-10-16); // plate 2
     TinkerRegistryClient.addToolBuilding(info);
   }
 }

@@ -2,23 +2,76 @@
 #    Blocks    #
 ################
 
+tile.tconstruct.tooltables.name
+tile.tconstruct.toolforge.name=Tool Forge
+tile.tconstruct.slimesand.name
+
 ################
 #    Items     #
 ################
 
 # General Items
-item.tconstruct.shard.name=Shard
+item.tconstruct.materials.slimeballblue.name=Slime Ball
+item.tconstruct.materials.slimecrystalgreen.name=Green Slime Crystal
+item.tconstruct.materials.slimecrystalblue.name=Blue Slime Crystal
+item.tconstruct.ingots.ingotcobalt.name=Cobalt Ingot
+item.tconstruct.ingots.ingotardite.name=Ardite Ingot
+item.tconstruct.ingots.ingotmanyullyn.name=Manyullyn Ingot
+item.tconstruct.nuggets.nuggetcobalt.name=Cobalt Nugget
+item.tconstruct.nuggets.nuggetardite.name=Ardite Nugget
+item.tconstruct.nuggets.nuggetmanyullyn.name=Manyullyn Nugget
 
 item.tconstruct.pattern.blank=Blank Pattern
 item.tconstruct.pattern.name=Pattern: %s
+item.tconstruct.cast.blank=Blank Cast
+item.tconstruct.cast.name=Cast: %s
 
 # Tools
 item.tconstruct.pickaxe.name=Pickaxe
+item.tconstruct.shovel.name=Shovel
+item.tconstruct.hatchet.name=Hatchet
+item.tconstruct.mattock.name=Mattock
+item.tconstruct.frypan.name=Frypan
+item.tconstruct.battlesign.name=Battlesign
+item.tconstruct.dagger.name=Dagger
+item.tconstruct.broadsword.name=Broadsword
+item.tconstruct.longsword.name=Longsword
+item.tconstruct.rapier.name=Rapier
+item.tconstruct.cutlass.name=Cutlass
+
+item.tconstruct.hammer.name=Hammer
+item.tconstruct.excavator.name=Excavator
+item.tconstruct.broadaxe.name=Lumberaxe
+item.tconstruct.cleaver.name=Cleaver
+item.tconstruct.battleaxe.name=Battleaxe
+item.tconstruct.scythe.name=Scythe
 
 # Tool Parts
+item.tconstruct.shard.name=Shard
+
 item.tconstruct.pickhead.name=Pickaxe Head
+item.tconstruct.shovelhead.name=Shovel Head
+item.tconstruct.axehead.name=Axe Head
+item.tconstruct.panhead.name=Pan
+item.tconstruct.signhead.name=Sign Plate
 item.tconstruct.binding.name=Binding
 item.tconstruct.toolrod.name=Toolrod
+item.tconstruct.knifeblade.name=Knife Blade
+item.tconstruct.swordblade.name=Sword Blade
+item.tconstruct.wideguard.name=Wide Guard
+item.tconstruct.crossguard.name=Cross Guard
+item.tconstruct.handguard.name=Hand Guard
+item.tconstruct.fullguard.name=Full Guard
+
+#Large Tool Parts
+item.tconstruct.hammerhead.name=Hammer Head
+item.tconstruct.excavatorhead.name=Excavator Head
+item.tconstruct.broadaxehead.name=Broad Axe Head
+item.tconstruct.largeplate.name=Large Plate
+item.tconstruct.toughbinding.name=Tough Binding
+item.tconstruct.toughtoolrod.name=Tough Toolrod
+item.tconstruct.scythehead.name=Scythe Head
+item.tconstruct.largeswordblade.name=Large Sword Blade
 
 # Material specific tools and toolparts
 # item.tconstruct.<tool>.<material>
@@ -58,14 +111,16 @@ material.iron.name=Iron
 #############
 stat.durability.name=Durability
 stat.durability.desc=The base-value for durability calculations.\nUsually an integral part to the overall durability of a tool.
-stat.quality.name=Quality
-stat.quality.desc=How good the tool is for secondary toolparts.\nInfluences many different stats. Best value is 1.0.
 stat.miningspeed.name=Mining Speed
 stat.miningspeed.desc=How fast a tool with a tool head of this material can mine blocks.\nMay be influenced by other toolparts.
 stat.harvestlevel.name=Mining Level
 stat.harvestlevel.desc=What range of blocks a tool with a tool head of this material can mine.
 stat.attack.name=Attack
-stat.attack.desc=Attackstuff
+stat.attack.desc=Base value for attack calculations.\nThe end result depens on the tool itself and the other components used.
+stat.handle.name=Handle
+stat.handle.desc=How good the material is for a handle.\nInfluences many different stats.
+stat.extra.name=Quality
+stat.extra.desc=How good the material is for secondary parts.\nInfluences many different stats.
 
 ##############
 #   Traits   #
@@ -73,23 +128,29 @@ stat.attack.desc=Attackstuff
 
 # traits are also modifiers, they use the same prefix so they don't have to be localized twice
 modifier.aridiculous.name=Aridiculous
-modifier.aridiculous.desc=Turn up the heat! The tool works better in hotter environments.
+modifier.aridiculous.desc=§oTurn up the heat!§r\nThe tool works better in hotter environments.
 modifier.cheap.name=Cheap
-modifier.cheap.desc=More bang for your buck! Increases durability gained when repairing the tool.
+modifier.cheap.desc=§oMore bang for your buck!§r\nIncreases durability gained when repairing the tool.
 modifier.crude.name=Crude
-modifier.crude.desc=Armor is for cowards! Bonus damage against unarmored targets.
+modifier.crude.desc=§oArmor is for cowards!§r\nBonus damage against unarmored targets.
 modifier.duritos.name=Duritos
-modifier.duritos.desc=Doesn't taste as good as it sounds. Your tool lasts longer ...most of the time.
+modifier.duritos.desc=§oDoesn't taste as good as it sounds.§r\nYour tool lasts longer ...most of the time.
 modifier.ecological.name=Ecological
-modifier.ecological.desc=Green Power! Renewable resources are good, but don't catch a splinter.
+modifier.ecological.desc=§oGreen Power!§r\nRenewable resources are good, but don't catch a splinter.
+modifier.insatiable.name=Insatiable
+modifier.insatiable.desc=§oDevour!§r\nDuring combat you deal more and more damage but also consume more and more durability.
+modifier.momentum.name=Momentum
+modifier.momentum.desc=§oFaster, keep going!§r\nMining blocks increases your speed, as long as you keep going.
+modifier.petramor.name=Petramor
+modifier.petramor.desc=§oSo much stone, must see it all!§r\nYou tool loves stone, it literally wants to merge with it.
 modifier.splintering.name=Splintering
-modifier.splintering.desc=A souvenir for your enemies! Hit them more to deal more damage.
+modifier.splintering.desc=§oA souvenir for your enemies!§r\nHit them more to deal more damage.
 modifier.prickly.name=Prickly
-modifier.prickly.desc=Ouch! Nobody is safe from those thorns, better not touch them.
+modifier.prickly.desc=§oOuch!§r\nNobody is safe from those thorns, better not touch them.
 modifier.slimey.name=Slimey
-modifier.slimey.desc=Eww, gooey! It'll wash off.
+modifier.slimey.desc=§oEww, gooey!§r\nIt'll wash off.
 modifier.stonebound.name=Stonebound
-modifier.stonebound.desc=Your tool absolutely loves stone! The tool mines faster as it wears out, but does less damage.
+modifier.stonebound.desc=§oYour tool absolutely loves stone!§r\nThe tool mines faster as it wears out, but does less damage.
 
 #################
 #   Modifiers   #

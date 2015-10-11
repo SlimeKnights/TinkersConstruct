@@ -40,6 +40,8 @@ import slimeknights.tconstruct.library.utils.TooltipBuilder;
  */
 public abstract class ToolCore extends TinkersItem {
 
+  protected final static int DEFAULT_MODIFIERS = 3;
+
   public ToolCore(PartMaterialType... requiredComponents) {
     super(requiredComponents);
 
@@ -104,6 +106,17 @@ public abstract class ToolCore extends TinkersItem {
 
   public boolean isEffective(Block block) {
     return false;
+  }
+
+  @Override
+  public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
+    if(this instanceof IAoeTool) {
+      for(BlockPos extraPos : ((IAoeTool)this).getExtraBlocksToBreak(itemstack, player.worldObj, player, pos)) {
+        ToolHelper.breakExtraBlock(itemstack, player.worldObj, player, extraPos, pos);
+      }
+    }
+
+    return super.onBlockStartBreak(itemstack, pos, player);
   }
 
   @Override

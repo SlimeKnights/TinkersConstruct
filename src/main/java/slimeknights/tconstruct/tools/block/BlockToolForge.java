@@ -21,7 +21,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import java.util.List;
 import java.util.Set;
 
-import slimeknights.mantle.block.BlockTable;
+import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.tools.tileentity.TileToolForge;

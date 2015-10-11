@@ -12,13 +12,10 @@ import net.minecraft.util.EnumChatFormatting;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import scala.Int;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
@@ -27,6 +24,7 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.item.BroadSword;
 import slimeknights.tconstruct.tools.item.Hatchet;
 import slimeknights.tconstruct.tools.item.Pickaxe;
+import slimeknights.tconstruct.tools.item.Shovel;
 
 public class DumpMaterialTest extends CommandBase {
   public static String path = "./dumps/";
@@ -34,7 +32,7 @@ public class DumpMaterialTest extends CommandBase {
 
   public DumpMaterialTest() {
     baseMaterial = new Material("Baseline", EnumChatFormatting.WHITE);
-    baseMaterial.addStats(new ToolMaterialStats(1000, 100, 100, 1, 1, 1));
+    baseMaterial.addStats(new ToolMaterialStats(500, 10, 10, 1, 1, 1));
   }
 
   @Override
@@ -49,13 +47,23 @@ public class DumpMaterialTest extends CommandBase {
 
   @Override
   public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-    printTool(new Pickaxe());
-    printTool(new Hatchet());
-    printTool(new BroadSword());
+    printTool(new Pickaxe(), baseMaterial);
+    printTool(new Hatchet(), baseMaterial);
+    printTool(new BroadSword(), baseMaterial);
+    printTool(new Shovel(), baseMaterial);
+
+    for(Material mat1 : TinkerRegistry.getAllMaterials()) {
+      if(!mat1.hasStats(ToolMaterialStats.TYPE))
+        continue;
+      printTool(new Pickaxe(), mat1);
+      printTool(new Hatchet(), mat1);
+      printTool(new BroadSword(), mat1);
+      printTool(new Shovel(), mat1);
+    }
   }
 
-  private void printTool(ToolCore tool) throws CommandException {
-    File file = new File("dump_" + tool.getClass().getSimpleName() + ".html");
+  private void printTool(ToolCore tool, Material head) throws CommandException {
+    File file = new File("dumps/" + tool.getClass().getSimpleName() + "_" + head.getIdentifier() + ".html");
     PrintWriter pw = null;
     try {
       pw = new PrintWriter(file);
@@ -65,6 +73,7 @@ public class DumpMaterialTest extends CommandBase {
     }
 
     DecimalFormat df = new DecimalFormat("#.00");
+    ToolMaterialStats ref = baseMaterial.getStats(ToolMaterialStats.TYPE);// head.getStats(ToolMaterialStats.TYPE);
 
     List<String> header = Lists.newArrayList();
     header.add("");
@@ -88,16 +97,16 @@ public class DumpMaterialTest extends CommandBase {
       for(Material mat2 : TinkerRegistry.getAllMaterials()) {
         if(!mat2.hasStats(ToolMaterialStats.TYPE))
           continue;
-        ItemStack stack = tool.buildItem(ImmutableList.of(mat1, baseMaterial, mat2));
+        ItemStack stack = tool.buildItem(ImmutableList.of(mat1, head, mat2));
         int d = ToolHelper.getDurability(stack);
         String s = String.format("<td bgcolor=\"%s\">%s</td>", Integer
-            .toHexString(floatToCol((float) d / 1000f)), String.valueOf(d));
+            .toHexString(floatToCol((float) d / (float) ref.durability)), String.valueOf(d));
         dur.add(s);
         float sp = ToolHelper.getMiningSpeed(stack);
-        s = String.format("<td bgcolor=\"%s\">%s</td>", Integer.toHexString(floatToCol(sp/100f)), df.format(sp));
+        s = String.format("<td bgcolor=\"%s\">%s</td>", Integer.toHexString(floatToCol(sp/ref.miningspeed)), df.format(sp));
         speed.add(s);
         float at = ToolHelper.getAttack(stack) * tool.damagePotential();
-        s = String.format("<td bgcolor=\"%s\">%s</td>", Integer.toHexString(floatToCol(at/100f)), df.format(at));
+        s = String.format("<td bgcolor=\"%s\">%s</td>", Integer.toHexString(floatToCol(at/ref.attack)), df.format(at));
         att.add(s);
       }
     }

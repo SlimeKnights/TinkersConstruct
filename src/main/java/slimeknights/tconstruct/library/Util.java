@@ -13,11 +13,10 @@ import org.apache.logging.log4j.Logger;
 import java.util.Locale;
 
 import slimeknights.mantle.util.RecipeMatchRegistry;
-import slimeknights.tconstruct.library.materials.Material;
 
 public class Util {
 
-  public static final String MODID = "TConstruct";
+  public static final String MODID = "tconstruct";
   public static final String RESOURCE = MODID.toLowerCase(Locale.US);
 
   public static Logger getLogger(String type) {

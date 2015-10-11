@@ -8,8 +8,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import slimeknights.mantle.tileentity.TileTable;
-import slimeknights.mantle.IInventoryGui;
+import slimeknights.tconstruct.shared.tileentity.TileTable;
+import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.tools.client.GuiCraftingStation;
 import slimeknights.tconstruct.tools.inventory.ContainerCraftingStation;
 

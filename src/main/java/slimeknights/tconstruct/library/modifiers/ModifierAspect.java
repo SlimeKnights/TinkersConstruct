@@ -22,7 +22,9 @@ public abstract class ModifierAspect {
 
   public static final ModifierAspect freeModifier = new FreeModifierAspect(1);
 
-  public static final ModifierAspect toolOnly = new ToolAspect();
+  public static final ModifierAspect toolOnly = new CategoryAspect(Category.TOOL);
+  public static final ModifierAspect harvestOnly = new CategoryAspect(Category.HARVEST);
+  public static final ModifierAspect weaponOnly = new CategoryAspect(Category.WEAPON);
 
   protected final IModifier parent;
 
@@ -195,11 +197,17 @@ public abstract class ModifierAspect {
   /**
    * Only applicable on tools.
    */
-  public static class ToolAspect extends ModifierAspect {
+  public static class CategoryAspect extends ModifierAspect {
+
+    protected final Category category;
+
+    public CategoryAspect(Category category) {
+      this.category = category;
+    }
 
     @Override
     public boolean canApply(ItemStack stack) {
-      return ToolHelper.hasCategory(stack, Category.TOOL);
+      return ToolHelper.hasCategory(stack, category);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.google.common.base.CharMatcher;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import gnu.trove.map.hash.THashMap;
@@ -27,17 +28,15 @@ import java.util.Map;
 import java.util.Set;
 
 import slimeknights.mantle.client.CreativeTab;
-import slimeknights.tconstruct.library.materials.ToolMaterialStats;
-import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.events.MaterialEvent;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
+import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.Shard;
 import slimeknights.tconstruct.library.tools.ToolCore;
-import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.library.traits.ITrait;
 
 public final class TinkerRegistry {
@@ -64,7 +63,7 @@ public final class TinkerRegistry {
   ---------------------------------------------------------------------------*/
 
   // Identifier to Material mapping. Hashmap so we can look it up directly without iterating
-  private static final Map<String, Material> materials = new THashMap<String, Material>();
+  private static final Map<String, Material> materials = Maps.newLinkedHashMap();
   private static final Map<String, ITrait> traits = new THashMap<String, ITrait>();
   // traceability information who registered what. Used to find errors.
   private static final Map<String, String> materialRegisteredByMod = new THashMap<String, String>();
@@ -275,8 +274,8 @@ public final class TinkerRegistry {
   /** This set contains all known tools */
   private static final Set<ToolCore> tools = new TLinkedHashSet<ToolCore>();
   private static final Set<IToolPart> toolParts = new TLinkedHashSet<IToolPart>();
-  private static final Set<ToolCore> toolStationCrafting = Sets.newHashSet();
-  private static final Set<ToolCore> toolForgeCrafting = Sets.newHashSet();
+  private static final Set<ToolCore> toolStationCrafting = Sets.newLinkedHashSet();
+  private static final Set<ToolCore> toolForgeCrafting = Sets.newLinkedHashSet();
   private static final List<ItemStack> stencilTableCrafting = Lists.newLinkedList();
   private static Shard shardItem;
 
