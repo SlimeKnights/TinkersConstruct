@@ -46,6 +46,11 @@ public class BroadSword extends ToolCore {
   }
 
   @Override
+  public boolean canUseSecondaryItem() {
+    return false;
+  }
+
+  @Override
   public float damagePotential() {
     return 1.0f;
   }

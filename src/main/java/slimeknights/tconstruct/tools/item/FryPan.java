@@ -38,6 +38,11 @@ public class FryPan extends ToolCore {
   }
 
   @Override
+  public boolean canUseSecondaryItem() {
+    return false;
+  }
+
+  @Override
   public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int timeLeft) {
     if(world.isRemote)
       return;
