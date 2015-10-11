@@ -20,10 +20,10 @@ import slimeknights.tconstruct.tools.TinkerTools;
 public class Excavator extends Shovel {
 
   public Excavator() {
-    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod)); // todo
+    super(new PartMaterialType.ToolPartType(TinkerTools.toughToolRod),
+          new PartMaterialType.ToolPartType(TinkerTools.excavatorHead),
+          new PartMaterialType.ToolPartType(TinkerTools.largePlate),
+          new PartMaterialType.ToolPartType(TinkerTools.toughBinding));
   }
 
   @Override

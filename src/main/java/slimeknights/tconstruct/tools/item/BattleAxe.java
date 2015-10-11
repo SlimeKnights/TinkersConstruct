@@ -17,10 +17,10 @@ import slimeknights.tconstruct.tools.TinkerTools;
 public class BattleAxe extends ToolCore {
 
   public BattleAxe() {
-    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod)); // todo: handle, head1, head2, binding
+    super(new PartMaterialType.ToolPartType(TinkerTools.toughToolRod),
+          new PartMaterialType.ToolPartType(TinkerTools.broadAxeHead),
+          new PartMaterialType.ToolPartType(TinkerTools.broadAxeHead),
+          new PartMaterialType.ToolPartType(TinkerTools.toughBinding));
 
     addCategory(Category.WEAPON);
 

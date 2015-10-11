@@ -20,7 +20,7 @@ public class LongSword extends BroadSword {
   public LongSword() {
     super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
           new PartMaterialType.ToolPartType(TinkerTools.swordBlade),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod)); // todo
+          new PartMaterialType.ToolPartType(TinkerTools.toolRod));
   }
 
   @Override

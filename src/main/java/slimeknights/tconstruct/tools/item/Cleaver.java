@@ -20,10 +20,10 @@ import slimeknights.tconstruct.tools.TinkerTools;
 public class Cleaver extends BroadSword {
 
   public Cleaver() {
-    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod)); // todo
+    super(new PartMaterialType.ToolPartType(TinkerTools.toughToolRod),
+          new PartMaterialType.ToolPartType(TinkerTools.largeSwordBlade),
+          new PartMaterialType.ToolPartType(TinkerTools.largePlate),
+          new PartMaterialType.ToolPartType(TinkerTools.toughToolRod));
   }
 
   @Override
