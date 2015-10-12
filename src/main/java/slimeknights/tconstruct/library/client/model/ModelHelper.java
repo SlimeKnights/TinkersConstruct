@@ -61,12 +61,18 @@ public class ModelHelper {
     if(a == 0) {
       a = 255;
     }
-
+    int r = (color >> 16) & 0xFF;
+    int g = (color >> 8) & 0xFF;
+    int b = (color >> 0) & 0xFF;
+/*
     int c = 0;
     c |= ((color >> 16) & 0xFF) << 0; // red
     c |= ((color >> 8) & 0xFF) << 8; // green
     c |= ((color >> 0) & 0xFF) << 16; // blue
     c |= (a & 0xFF) << 24; // alpha
+*/
+
+    int c = r | g << 8 | b << 16 | a << 24;
 
     // update color in the data. all 4 Vertices.
     for(int i = 0; i < 4; i++) {

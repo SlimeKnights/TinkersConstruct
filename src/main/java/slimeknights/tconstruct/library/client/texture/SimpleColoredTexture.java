@@ -38,9 +38,10 @@ public class SimpleColoredTexture extends AbstractColoredTexture {
     }
 
     // calculate the actual limits where we change color
-    int d =max-min;
-    minBrightness = Math.max(min+1, min + (int)(d * (1f - weight)));
-    maxBrightness = Math.min(max-1, max - (int)(d * (1f - weight)));
+    int d = max-min;
+    d /= 2;
+    minBrightness = Math.max(min+1, min + (int)(d * 0.4f));
+    maxBrightness = Math.min(max-1, max - (int)(d * 0.3f));
 
     super.processData(data);
   }
@@ -65,9 +66,9 @@ public class SimpleColoredTexture extends AbstractColoredTexture {
     int b = blue(c);
     int g = green(c);
 
-    r = mult(r, brightness) & 0xff;
-    g = mult(g, brightness) & 0xff;
-    b = mult(b, brightness) & 0xff;
+    r = mult(r, red(pixel)) & 0xff;
+    g = mult(g, blue(pixel)) & 0xff;
+    b = mult(b, green(pixel)) & 0xff;
 
     // put it back together
     return compose(r, g, b, a);

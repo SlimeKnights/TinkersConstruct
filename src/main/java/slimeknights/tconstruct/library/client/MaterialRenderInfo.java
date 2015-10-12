@@ -13,6 +13,7 @@ import java.io.IOException;
 import slimeknights.tconstruct.library.client.model.ModelHelper;
 import slimeknights.tconstruct.library.client.texture.AnimatedColoredTexture;
 import slimeknights.tconstruct.library.client.texture.InverseColoredTexture;
+import slimeknights.tconstruct.library.client.texture.MetalColoredTexture;
 import slimeknights.tconstruct.library.client.texture.SimpleColoredTexture;
 import slimeknights.tconstruct.library.client.texture.TextureColoredTexture;
 
@@ -122,6 +123,30 @@ public interface MaterialRenderInfo {
     @Override
     public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
       return new InverseColoredTexture(low, mid, high, baseTexture, location);
+    }
+  }
+
+  class Metal extends AbstractMaterialRenderInfo {
+    protected float shinyness;
+    protected float brightness;
+    protected float hueshift;
+    public int color;
+
+    public Metal(int color, float shinyness, float brightness, float hueshift) {
+      this.color = color;
+      this.shinyness = shinyness;
+      this.brightness = brightness;
+      this.hueshift = hueshift;
+    }
+
+    public Metal(int color) {
+      this(color, 0.4f, 0.4f, 0.1f);
+    }
+
+
+    @Override
+    public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
+      return new MetalColoredTexture(baseTexture, location, color, shinyness, brightness, hueshift);
     }
   }
 
