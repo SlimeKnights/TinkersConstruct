@@ -35,8 +35,7 @@ public class MetalColoredTexture extends AbstractColoredTexture {
       return pixel;
     }
 
-    int brightness = getPerceptualBrightness(pixel);
-    float l = brightness/255f;
+    float l = getPerceptualBrightness(pixel)/255f;
 
     int c = baseColor;
 
