@@ -155,7 +155,7 @@ public final class TinkerMaterials {
     ardite.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() {
       @Override
       public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
-        return new MetalTextureTexture(Util.resource("items/materials/ardite_rust"), baseTexture, location, 0xa53000, 0.4f, 0.4f, 0.1f);
+        return new MetalTextureTexture(Util.resource("items/materials/ardite_rust"), baseTexture, location, 0xf97217, 0.4f, 0.4f, 0.1f);
       }
     });
     //ardite.setRenderInfo(new MaterialRenderInfo.MultiColor(0x4e0000, 0xbc2a00, 0xff9e00).setTextureSuffix("metal"));

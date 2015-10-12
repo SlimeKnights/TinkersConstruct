@@ -4,18 +4,18 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 
-public class MetalTextureTexture extends TextureColoredTexture {
+public class MetalTextureTexture extends MetalColoredTexture {
 
-  protected MetalColoredTexture texture2;
+  protected TextureColoredTexture texture2;
 
   public MetalTextureTexture(String addTextureLocation, TextureAtlasSprite baseTexture, String spriteName, int baseColor, float shinyness, float brightness, float hueshift) {
-    super(addTextureLocation, baseTexture, spriteName);
-    texture2 = new MetalColoredTexture(baseTexture, spriteName, baseColor, shinyness, brightness, hueshift);
+    super(baseTexture, spriteName, baseColor, shinyness, brightness, hueshift);
+    texture2 = new TextureColoredTexture(addTextureLocation, baseTexture, spriteName);
   }
 
   public MetalTextureTexture(TextureAtlasSprite addTexture, TextureAtlasSprite baseTexture, String spriteName, int baseColor, float shinyness, float brightness, float hueshift) {
-    super(addTexture, baseTexture, spriteName);
-    texture2 = new MetalColoredTexture(baseTexture, spriteName, baseColor, shinyness, brightness, hueshift);
+    super(baseTexture, spriteName, baseColor, shinyness, brightness, hueshift);
+    texture2 = new TextureColoredTexture(addTexture, baseTexture, spriteName);
   }
 
   @Override
