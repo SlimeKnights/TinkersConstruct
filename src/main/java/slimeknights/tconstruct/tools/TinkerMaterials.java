@@ -21,9 +21,11 @@ import java.util.List;
 import mantle.pulsar.pulse.Pulse;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.texture.ExtraUtilityTexture;
 import slimeknights.tconstruct.library.client.texture.MetalColoredTexture;
+import slimeknights.tconstruct.library.client.texture.MetalTextureTexture;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
@@ -149,7 +151,13 @@ public final class TinkerMaterials {
     //iron.setRenderInfo(new MaterialRenderInfo.Metal(0xcccccc, 0.0f, 0f, 0f));
     iron.setRenderInfo(new MaterialRenderInfo.Metal(0xcccccc, 0.1f, 0f, 0f));
     cobalt.setRenderInfo(new MaterialRenderInfo.Metal(0x2376a1, 0.25f, 0.2f, 0.1f));
-    ardite.setRenderInfo(new MaterialRenderInfo.Metal(0xa53000, 0.4f, 0.4f, 0.1f));
+    //ardite.setRenderInfo(new MaterialRenderInfo.Metal(0xa53000, 0.4f, 0.4f, 0.1f));
+    ardite.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() {
+      @Override
+      public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
+        return new MetalTextureTexture(Util.resource("items/materials/ardite_rust"), baseTexture, location, 0xa53000, 0.4f, 0.4f, 0.1f);
+      }
+    });
     //ardite.setRenderInfo(new MaterialRenderInfo.MultiColor(0x4e0000, 0xbc2a00, 0xff9e00).setTextureSuffix("metal"));
     //ardite.setRenderInfo(new MaterialRenderInfo.MultiColor(0x0000FF, 0x00FF00, 0xff9e00).setTextureSuffix("metal"));
     manyullyn.setRenderInfo(new MaterialRenderInfo.Metal(0x7338a5, 0.1f, 0f, 0.05f));
