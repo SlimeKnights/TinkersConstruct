@@ -4,16 +4,21 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
+import java.util.Iterator;
 import java.util.List;
 
 import slimeknights.tconstruct.TConstruct;
@@ -73,9 +78,16 @@ public class FryPan extends ToolCore {
 
       // bonus damage!
       AttributeModifier modifier = new AttributeModifier(itemModifierUUID, "Weapon modifier", progress * 5f, 0);
+
+
+      // we set the entity on fire for the hit if it was fully charged
+      // this makes it so it drops cooked stuff.. and it'funny :D
+      boolean flamingStrike = progress >= 1f && entity.isBurning();
+      if(!flamingStrike) entity.setFire(1);
       player.getEntityAttribute(SharedMonsterAttributes.attackDamage).applyModifier(modifier);
       ToolHelper.attackEntity(stack, this, player, entity);
       player.getEntityAttribute(SharedMonsterAttributes.attackDamage).removeModifier(modifier);
+      if(!flamingStrike) entity.extinguish();
 
       player.worldObj.playSoundAtEntity(player, Sounds.frypan_boing, 1.5f, 0.6f + 0.2f * TConstruct.random.nextFloat());
       entity.addVelocity(x,y,z);
@@ -95,7 +107,7 @@ public class FryPan extends ToolCore {
   @Override
   public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityPlayer playerIn) {
     // in our case we want it to also go BANG :D
-    onPlayerStoppedUsing(stack, worldIn, playerIn, 0);
+    //onPlayerStoppedUsing(stack, worldIn, playerIn, 0);
     return stack;
   }
 
