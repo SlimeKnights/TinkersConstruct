@@ -98,8 +98,25 @@ public class ToolClientProxy extends ClientProxy {
     }
 
     registerModifierModel(TinkerTools.diamondMod, Util.getResource("models/item/modifiers/Diamond"));
-    registerModifierModel(TinkerTools.fortifyMod, Util.getResource("models/item/modifiers/Fortify"));
     registerModifierModel(TinkerTools.redstoneMod, Util.getResource("models/item/modifiers/Redstone"));
+    // we add a temporary modifier that does nothing to work around the model restrictions for the fortify modifier
+    registerModifierModel(new Modifier("fortify") {
+      @Override
+      public void updateNBT(NBTTagCompound modifierTag) {
+      }
+
+      @Override
+      public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
+
+      }
+
+      @Override
+      public boolean hasTexturePerMaterial() {
+        return true;
+      }
+    }, Util.getResource("models/item/modifiers/Fortify"));
+    // special treatment for fortify
+    //modifierLoader.registerModifierFile("fortify", Util.getResource("models/item/modifiers/Fortify"));
   }
 
   public ResourceLocation registerPartModel(Item item) {

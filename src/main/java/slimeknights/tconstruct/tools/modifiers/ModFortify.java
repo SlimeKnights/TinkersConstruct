@@ -54,4 +54,9 @@ public class ModFortify extends Modifier {
     ToolMaterialStats stats = material.getStats(ToolMaterialStats.TYPE);
     ToolTagUtil.setHarvestLevel(tag, stats.harvestLevel);
   }
+
+  @Override
+  public boolean hasTexturePerMaterial() {
+    return true;
+  }
 }

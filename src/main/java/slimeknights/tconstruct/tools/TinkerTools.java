@@ -131,10 +131,10 @@ public class TinkerTools extends TinkerPulse {
 
   // Modifiers
   public static IModifier diamondMod;
-  public static IModifier fortifyMod;
   public static IModifier redstoneMod;
   public static IModifier harvestWidth;
   public static IModifier harvestHeight;
+  public static List<IModifier> fortifyMods;
 
   // Helper stuff
   static List<ToolCore> tools = Lists.newLinkedList(); // contains all tools registered in this pulse
@@ -233,27 +233,6 @@ public class TinkerTools extends TinkerPulse {
 
     TinkerTools.harvestWidth = harvestWidth;
     TinkerTools.harvestHeight = harvestHeight;
-
-    // todo: fix
-    fortifyMod = new Modifier("Fortify") {
-
-      @Override
-      public void updateNBT(NBTTagCompound modifierTag) {
-
-      }
-
-      @Override
-      public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
-
-      }
-
-
-      @SideOnly(Side.CLIENT)
-      @Override
-      public boolean hasTexturePerMaterial() {
-        return true;
-      }
-    };
   }
 
   private void oredict() {
@@ -359,9 +338,9 @@ public class TinkerTools extends TinkerPulse {
   // POST-INITIALIZATION
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
-    proxy.postInit();
-
     registerFortifyModifiers();
+
+    proxy.postInit();
 
     MinecraftForge.EVENT_BUS.register(new TraitEvents());
     MinecraftForge.EVENT_BUS.register(new ToolEvents());
@@ -369,9 +348,10 @@ public class TinkerTools extends TinkerPulse {
   }
 
   private void registerFortifyModifiers() {
+    fortifyMods = Lists.newArrayList();
     for(Material mat : TinkerRegistry.getAllMaterials()) {
       if(mat.hasStats(ToolMaterialStats.TYPE)) {
-        new ModFortify(mat);
+        fortifyMods.add(new ModFortify(mat));
       }
     }
   }
