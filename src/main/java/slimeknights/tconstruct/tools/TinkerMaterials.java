@@ -279,7 +279,7 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterialStats(obsidian,   new ToolMaterialStats(  99, 7.07f, 2.80f, 0.02f, 0.24f, COBALT));
     TinkerRegistry.addMaterialStats(prismarine, new ToolMaterialStats( 512, 5.50f, 5.00f, 0.18f, 0.84f, IRON));
     TinkerRegistry.addMaterialStats(netherrack, new ToolMaterialStats( 222, 4.89f, 1.00f, 0.10f, 0.27f, IRON));
-    TinkerRegistry.addMaterialStats(endstone,   new ToolMaterialStats( 333, 3.33f, 1.23f, 0.33f, 0.33f, OBSIDIAN));
+    TinkerRegistry.addMaterialStats(endstone,   new ToolMaterialStats( 333, 3.33f, 3.23f, 0.33f, 0.33f, OBSIDIAN));
 
     // item/special resources
     TinkerRegistry.addMaterialStats(bone,      new ToolMaterialStats( 235, 5.09f, 1.50f, 0.70f, 0.56f, IRON));

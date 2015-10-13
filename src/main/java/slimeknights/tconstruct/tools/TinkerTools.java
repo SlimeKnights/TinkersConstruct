@@ -254,8 +254,16 @@ public class TinkerTools extends TinkerPulse {
     TinkerRegistry.registerToolCrafting(hatchet);
     TinkerRegistry.registerToolCrafting(mattock);
     TinkerRegistry.registerToolCrafting(broadSword);
+    TinkerRegistry.registerToolCrafting(longSword);
+    TinkerRegistry.registerToolCrafting(fryPan);
+    TinkerRegistry.registerToolCrafting(battleSign);
 
     TinkerRegistry.registerToolForgeCrafting(hammer);
+    TinkerRegistry.registerToolForgeCrafting(excavator);
+    TinkerRegistry.registerToolForgeCrafting(lumberAxe);
+    TinkerRegistry.registerToolForgeCrafting(cleaver);
+    TinkerRegistry.registerToolForgeCrafting(battleAxe);
+    TinkerRegistry.registerToolForgeCrafting(scythe);
   }
 
   private void registerRecipies() {

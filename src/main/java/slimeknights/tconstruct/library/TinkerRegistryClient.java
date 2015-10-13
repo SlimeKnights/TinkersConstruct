@@ -32,4 +32,8 @@ public final class TinkerRegistryClient {
   public static ToolBuildGuiInfo getToolBuildInfoForTool(Item tool) {
     return toolBuildInfo.get(tool);
   }
+
+  public static void clear() {
+    toolBuildInfo.clear();
+  }
 }
