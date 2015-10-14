@@ -140,7 +140,7 @@ public final class TinkerMaterials {
     prismarine.setRenderInfo(new MaterialRenderInfo.BlockTexture("minecraft:blocks/prismarine_bricks"));
     netherrack.setRenderInfo(new MaterialRenderInfo.BlockTexture("minecraft:blocks/netherrack"));
     //endstone.setRenderInfo(new MaterialRenderInfo.BlockTexture("minecraft:blocks/end_stone"));
-    endstone.setRenderInfo(new MaterialRenderInfo.InverseMultiColor(0x5c6296, 0x3c4276, 0x3c4276));
+    endstone.setRenderInfo(new MaterialRenderInfo.InverseMultiColor(0x5c6296, 0x3c4276, 0x212a76));
 
     bone.setRenderInfo(0xede6bf);
     paper.setRenderInfo(0xffffff); // paper has custom textures
@@ -208,8 +208,9 @@ public final class TinkerMaterials {
     cactus.setRepresentativeItem(new ItemStack(Blocks.cactus));
     cactus.addTrait(prickly);
 
+    obsidian.setFluid(FluidRegistry.WATER); // todo
     obsidian.setCraftable(true);
-    obsidian.setFluid(FluidRegistry.WATER).setCastable(true); // todo
+    obsidian.setCastable(true);
     obsidian.addItem("blockObsidian", 1, Material.VALUE_Ingot);
     obsidian.setRepresentativeItem(new ItemStack(Blocks.obsidian));
     obsidian.addTrait(duritos);
@@ -248,23 +249,31 @@ public final class TinkerMaterials {
     slime.addTrait(slimeyGreen);
 
     blueslime.setCraftable(true);
-    safeAdd(slime, TinkerCommons.matSlimeCrystalBlue, Material.VALUE_Ingot, true);
+    safeAdd(blueslime, TinkerCommons.matSlimeCrystalBlue, Material.VALUE_Ingot, true);
     blueslime.addTrait(slimeyBlue);
 
     knightslime.setCraftable(true);
     safeAdd(knightslime, TinkerCommons.matKnightSlime, Material.VALUE_Ingot, true);
 
     // Metals
-    iron.addItem(Items.iron_ingot);
+    iron.setFluid(FluidRegistry.WATER); // todo
+    iron.setCastable(true);
+    iron.addItem("ingotIron", 1, Material.VALUE_Ingot);
     iron.setRepresentativeItem(Items.iron_ingot);
     // todo: remaining metals
 
+    cobalt.setFluid(FluidRegistry.WATER); // todo
+    cobalt.setCastable(true);
     safeAdd(cobalt, TinkerCommons.ingotCobalt, Material.VALUE_Ingot, true);
     cobalt.addTrait(momentum);
 
+    ardite.setFluid(FluidRegistry.WATER); // todo
+    ardite.setCastable(true);
     safeAdd(ardite, TinkerCommons.ingotArdite, Material.VALUE_Ingot, true);
     ardite.addTrait(petramor);
 
+    manyullyn.setFluid(FluidRegistry.WATER); // todo
+    manyullyn.setCastable(true);
     safeAdd(manyullyn, TinkerCommons.ingotManyullyn, Material.VALUE_Ingot, true);
     manyullyn.addTrait(insatiable);
 
