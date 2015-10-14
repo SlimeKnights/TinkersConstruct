@@ -312,9 +312,17 @@ public class TinkerTools extends TinkerPulse {
 
 
     ItemStack slimeBallBlue = TinkerCommons.matSlimeBallBlue;
+    ItemStack knightSlime = TinkerCommons.matKnightSlime;
     // blue slimeball has a recipe if world isn't present
     if(!isWorldLoaded()) {
       GameRegistry.addRecipe(new ShapelessOreRecipe(slimeBallBlue, Items.slime_ball, "dyeBlue"));
+    }
+    if(!isSmelteryLoaded()) {
+      GameRegistry.addRecipe(new ShapelessOreRecipe(knightSlime, slimeBallBlue, "dyePurple", "ingotIron"));
+      // extra utility recipe if both are not loaded
+      if(!isWorldLoaded()) {
+        GameRegistry.addRecipe(new ShapelessOreRecipe(knightSlime, Items.slime_ball, "dyeBlue", "dyePurple", "ingotIron"));
+      }
     }
 
     // Slime Sand

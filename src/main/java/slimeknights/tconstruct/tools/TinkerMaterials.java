@@ -82,6 +82,7 @@ public final class TinkerMaterials {
   public static final Material manyullyn  = mat("manyullyn", EnumChatFormatting.DARK_PURPLE);
 
   // Alloys
+  public static final Material knightslime= mat("knightslime", EnumChatFormatting.LIGHT_PURPLE);
   public static final Material pigiron    = mat("pigiron", EnumChatFormatting.RED);
   public static final Material bronze     = mat("bronze", EnumChatFormatting.GOLD);
 
@@ -162,6 +163,17 @@ public final class TinkerMaterials {
     //ardite.setRenderInfo(new MaterialRenderInfo.MultiColor(0x0000FF, 0x00FF00, 0xff9e00).setTextureSuffix("metal"));
     manyullyn.setRenderInfo(new MaterialRenderInfo.Metal(0x623588, 0.15f, 0.3f, 0.05f));
 
+    // alloys
+    //knightslime.setRenderInfo(new MaterialRenderInfo.MultiColor(0x9c9c9c, 0xb79acc, 0xbc61f8).setTextureSuffix("contrast")); // looks awesome as obsidian
+    TinkerMaterials.knightslime.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() { // not technically a metal
+      @Override
+      public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
+        //return new MetalTextureTexture(Util.resource("blocks/slime/slimeblock_purple"), baseTexture, location, 0xdf86fa, 0.4f, 0.2f, 0.0f);
+        return new MetalColoredTexture(baseTexture, location, 0x683bd0, 0.0f, 0.5f, 0.3f);
+      }
+    });
+
+    // specul
     xu.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() {
       @Override
       public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
@@ -239,6 +251,9 @@ public final class TinkerMaterials {
     safeAdd(slime, TinkerCommons.matSlimeCrystalBlue, Material.VALUE_Ingot, true);
     blueslime.addTrait(slimeyBlue);
 
+    knightslime.setCraftable(true);
+    safeAdd(knightslime, TinkerCommons.matKnightSlime, Material.VALUE_Ingot, true);
+
     // Metals
     iron.addItem(Items.iron_ingot);
     iron.setRepresentativeItem(Items.iron_ingot);
@@ -292,6 +307,8 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterialStats(cobalt,     new ToolMaterialStats( 720,11.11f, 3.20f, 0.40f, 0.60f, COBALT));
     TinkerRegistry.addMaterialStats(ardite,     new ToolMaterialStats(1234, 2.42f, 1.80f, 0.64f, 0.78f, COBALT));
     TinkerRegistry.addMaterialStats(manyullyn,  new ToolMaterialStats( 513, 7.80f, 8.72f, 0.30f, 0.70f, COBALT));
+
+    TinkerRegistry.addMaterialStats(knightslime,  new ToolMaterialStats( 513, 7.80f, 8.72f, 0.30f, 0.70f, OBSIDIAN));
 
     //TinkerRegistry.addMaterialStats(xu,         new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, DIAMOND));
   }
