@@ -149,7 +149,7 @@ public final class TinkerMaterials {
 
     // Metals
     //iron.setRenderInfo(new MaterialRenderInfo.Metal(0xcccccc, 0.0f, 0f, 0f));
-    iron.setRenderInfo(new MaterialRenderInfo.Metal(0x999999, 0.8f, 0f, 0f));
+    iron.setRenderInfo(new MaterialRenderInfo.Metal(0xcacaca, 0f, 0.3f, 0f));
     cobalt.setRenderInfo(new MaterialRenderInfo.Metal(0x173b75, 0.25f, 0.5f, -0.1f));
     //ardite.setRenderInfo(new MaterialRenderInfo.Metal(0xa53000, 0.4f, 0.4f, 0.1f));
     ardite.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() {
