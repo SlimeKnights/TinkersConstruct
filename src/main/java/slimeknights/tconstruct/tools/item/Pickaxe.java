@@ -66,7 +66,7 @@ public class Pickaxe extends AoeToolCore {
     // binding quality influences how well the handle interacts with the head
     data.durability *= 0.33f + 0.77f*(handle.handleQuality * (1 + binding.extraQuality)/2);
     // flat durability from other parts
-    data.durability += 0.1f * handle.durability + 0.05f * binding.durability;
+    data.durability += 0.15f * handle.durability + 0.10f * binding.durability;
     // handle also influences mining speed a bit (0-20% change)
     data.speed *= 0.8f + handle.handleQuality*0.2f;
     // binding adds a bit to the speed
