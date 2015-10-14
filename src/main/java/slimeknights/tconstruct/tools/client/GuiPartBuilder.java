@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.client;
 
 import com.google.common.collect.Lists;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -164,7 +165,13 @@ public class GuiPartBuilder extends GuiTinkerStation {
 
   public void updateButtons() {
     if(buttons != null) {
-      buttons.updatePosition(this.cornerX, this.cornerY, this.realWidth, this.realHeight);
+      // this needs to be done threadsafe, since the buttons may be getting rendered currently
+      Minecraft.getMinecraft().addScheduledTask(new Runnable() {
+        @Override
+        public void run() {
+          buttons.updatePosition(cornerX, cornerY, realWidth, realHeight);
+        }
+      });
     }
   }
 }
