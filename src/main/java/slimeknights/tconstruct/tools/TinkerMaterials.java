@@ -311,13 +311,12 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterialStats(sponge,     new ToolMaterialStats( 850, 3.02f, 0.00f, 0.01f, 0.01f, STONE));
     TinkerRegistry.addMaterialStats(slime,      new ToolMaterialStats(1200, 4.03f, 1.80f, 0.66f, 0.15f, STONE));
     TinkerRegistry.addMaterialStats(blueslime,  new ToolMaterialStats( 550, 4.24f, 1.80f, 0.30f, 1.00f, STONE));
+    TinkerRegistry.addMaterialStats(knightslime,new ToolMaterialStats( 902, 3.81f, 6.33f, 0.83f, 0.41f, OBSIDIAN));
 
     TinkerRegistry.addMaterialStats(iron,       new ToolMaterialStats( 853, 6.00f, 1.80f, 0.50f, 0.60f, IRON));
     TinkerRegistry.addMaterialStats(cobalt,     new ToolMaterialStats( 720,11.11f, 3.20f, 0.40f, 0.60f, COBALT));
     TinkerRegistry.addMaterialStats(ardite,     new ToolMaterialStats(1234, 2.42f, 1.80f, 0.64f, 0.78f, COBALT));
     TinkerRegistry.addMaterialStats(manyullyn,  new ToolMaterialStats( 513, 7.80f, 8.72f, 0.30f, 0.70f, COBALT));
-
-    TinkerRegistry.addMaterialStats(knightslime,  new ToolMaterialStats( 513, 7.80f, 8.72f, 0.30f, 0.70f, OBSIDIAN));
 
     //TinkerRegistry.addMaterialStats(xu,         new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, DIAMOND));
   }
