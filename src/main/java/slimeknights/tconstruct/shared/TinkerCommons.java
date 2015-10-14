@@ -44,6 +44,7 @@ public class TinkerCommons extends TinkerPulse {
 
   // Material Itemstacks
   public static ItemStack matSlimeBallBlue;
+  public static ItemStack matSlimeBallPurple;
   public static ItemStack matSlimeCrystal;
   public static ItemStack matSlimeCrystalBlue;
   public static ItemStack matKnightSlime;
@@ -71,12 +72,13 @@ public class TinkerCommons extends TinkerPulse {
     if(isToolsLoaded() || isWorldLoaded()) {
       materials = registerItem(new ItemMetaDynamic(), "Materials");
       matSlimeBallBlue = materials.addMeta(0, "SlimeBallBlue");
+      matSlimeBallPurple = materials.addMeta(1, "SlimeBallPurple");
     }
 
     if(isToolsLoaded()) {
-      matSlimeCrystal = materials.addMeta(1, "SlimeCrystalGreen");
-      matSlimeCrystalBlue = materials.addMeta(2, "SlimeCrystalBlue");
-      matKnightSlime = materials.addMeta(3, "KnightSlime");
+      matSlimeCrystal = materials.addMeta(9, "SlimeCrystalGreen");
+      matSlimeCrystalBlue = materials.addMeta(10, "SlimeCrystalBlue");
+      matKnightSlime = materials.addMeta(11, "KnightSlime");
     }
 
     // oredicting time

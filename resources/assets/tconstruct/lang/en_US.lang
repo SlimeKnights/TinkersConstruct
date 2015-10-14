@@ -12,8 +12,10 @@ tile.tconstruct.slimesand.name
 
 # General Items
 item.tconstruct.materials.slimeballblue.name=Slime Ball
+item.tconstruct.materials.slimeballpurple.name=Slime Ball
 item.tconstruct.materials.slimecrystalgreen.name=Green Slime Crystal
 item.tconstruct.materials.slimecrystalblue.name=Blue Slime Crystal
+item.tconstruct.materials.knightslime.name=Knightslime Ingot
 item.tconstruct.ingots.ingotcobalt.name=Cobalt Ingot
 item.tconstruct.ingots.ingotardite.name=Ardite Ingot
 item.tconstruct.ingots.ingotmanyullyn.name=Manyullyn Ingot
@@ -101,6 +103,7 @@ material.sponge.name=Sponge
 material.slime.name=Slime
 material.blueslime.name=Blue Slime
 material.blueslime.prefix=Slime %s
+material.knightslime.name=Knightslime
 material.ardite.name=Ardite
 material.cobalt.name=Cobalt
 material.manyullyn.name=Manyullyn
