@@ -41,13 +41,13 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack ingotCobalt;
   public static ItemStack ingotArdite;
   public static ItemStack ingotManyullyn;
+  public static ItemStack ingotKnightSlime;
 
   // Material Itemstacks
   public static ItemStack matSlimeBallBlue;
   public static ItemStack matSlimeBallPurple;
   public static ItemStack matSlimeCrystal;
   public static ItemStack matSlimeCrystalBlue;
-  public static ItemStack matKnightSlime;
 
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
@@ -78,7 +78,7 @@ public class TinkerCommons extends TinkerPulse {
     if(isToolsLoaded()) {
       matSlimeCrystal = materials.addMeta(9, "SlimeCrystalGreen");
       matSlimeCrystalBlue = materials.addMeta(10, "SlimeCrystalBlue");
-      matKnightSlime = materials.addMeta(11, "KnightSlime");
+      ingotKnightSlime = ingots.addMeta(3, "KnightSlime");
     }
 
     // oredicting time

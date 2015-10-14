@@ -253,7 +253,7 @@ public final class TinkerMaterials {
     blueslime.addTrait(slimeyBlue);
 
     knightslime.setCraftable(true);
-    safeAdd(knightslime, TinkerCommons.matKnightSlime, Material.VALUE_Ingot, true);
+    safeAdd(knightslime, TinkerCommons.ingotKnightSlime, Material.VALUE_Ingot, true);
 
     // Metals
     iron.setFluid(FluidRegistry.WATER); // todo
