@@ -372,7 +372,7 @@ public final class ToolBuilder {
     Material foundMaterial = null;
     for(Material material : TinkerRegistry.getAllMaterials()) {
       // craftable?
-      if(!material.craftable) {
+      if(!material.isCraftable()) {
         continue;
       }
       RecipeMatch.Match newMatch = material.matches(materialItems, part.getCost());

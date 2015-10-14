@@ -18,6 +18,7 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 
 import slimeknights.mantle.util.RecipeMatch;
+import slimeknights.tconstruct.common.Config;
 import slimeknights.tconstruct.library.TinkerAPIException;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -52,10 +53,10 @@ public class Material extends RecipeMatchRegistry {
   protected Fluid fluid;
 
   /** Material can be crafted into parts in the PartBuilder */
-  public boolean craftable;
+  protected boolean craftable;
 
   /** Material can be cast into parts using the Smeltery and a Cast. Fluid must be NON NULL */
-  public boolean castable;
+  protected boolean castable;
 
 
   /**
@@ -107,6 +108,9 @@ public class Material extends RecipeMatchRegistry {
     return this;
   }
 
+  public boolean isCraftable() {
+    return this.craftable || (Config.craftCastableMaterials && castable);
+  }
 
   /** Setting this to true allows to cast parts of this material. NEEDS TO HAVE A FLUID SET BEFOREHAND! */
   public Material setCastable(boolean castable) {
@@ -115,6 +119,10 @@ public class Material extends RecipeMatchRegistry {
     }
     this.castable = castable;
     return this;
+  }
+
+  public boolean isCastable() {
+    return this.castable;
   }
 
   /**

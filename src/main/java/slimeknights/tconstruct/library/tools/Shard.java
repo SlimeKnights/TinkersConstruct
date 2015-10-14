@@ -20,7 +20,7 @@ public class Shard extends ToolPart {
   public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
     // this adds a variant of each material to the creative menu
     for(Material mat : TinkerRegistry.getAllMaterials()) {
-      if(mat.craftable || mat.castable)
+      if(mat.isCraftable() || mat.isCastable())
         subItems.add(getItemstackWithMaterial(mat));
     }
   }
