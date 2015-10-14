@@ -268,9 +268,10 @@ public class TinkerTools extends TinkerPulse {
 
   private void registerRecipies() {
     // Pattern
-    ItemStack pattern = new ItemStack(TinkerTools.pattern);
+    ItemStack pattern = new ItemStack(TinkerTools.pattern, 4);
     GameRegistry.addRecipe(new ShapedOreRecipe(pattern, "PS", "SP", 'P', "plankWood", 'S', "stickWood"));
     GameRegistry.addRecipe(new ShapedOreRecipe(pattern, "SP", "PS", 'P', "plankWood", 'S', "stickWood"));
+    pattern.stackSize = 1;
 
     // Crafting Station
     GameRegistry.addRecipe(
