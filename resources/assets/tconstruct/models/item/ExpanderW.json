@@ -1,0 +1,6 @@
+{
+    "parent": "tconstruct:item/DefaultItem",
+    "textures": {
+        "layer0": "tconstruct:items/materials/expander_hor"
+    }
+}

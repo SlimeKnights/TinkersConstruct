@@ -48,6 +48,8 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack matSlimeBallPurple;
   public static ItemStack matSlimeCrystal;
   public static ItemStack matSlimeCrystalBlue;
+  public static ItemStack matExpanderW;
+  public static ItemStack matExpanderH;
 
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
@@ -78,6 +80,9 @@ public class TinkerCommons extends TinkerPulse {
     if(isToolsLoaded()) {
       matSlimeCrystal = materials.addMeta(9, "SlimeCrystalGreen");
       matSlimeCrystalBlue = materials.addMeta(10, "SlimeCrystalBlue");
+      matExpanderW = materials.addMeta(12, "ExpanderW");
+      matExpanderH = materials.addMeta(13, "ExpanderH");
+
       ingotKnightSlime = ingots.addMeta(3, "KnightSlime");
     }
 

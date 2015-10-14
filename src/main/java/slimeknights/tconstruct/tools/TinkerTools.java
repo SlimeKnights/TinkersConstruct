@@ -8,15 +8,12 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -227,9 +224,8 @@ public class TinkerTools extends TinkerPulse {
     Modifier harvestWidth = new ModHarvestSize("width");
     Modifier harvestHeight = new ModHarvestSize("height");
 
-    // todo: proper items
-    harvestWidth.addItem(Items.arrow, 1, 1);
-    harvestHeight.addItem(Blocks.ladder, 1);
+    harvestWidth.addItem(TinkerCommons.matExpanderW, 1, 1);
+    harvestHeight.addItem(TinkerCommons.matExpanderH, 1, 1);
 
     TinkerTools.harvestWidth = harvestWidth;
     TinkerTools.harvestHeight = harvestHeight;
@@ -314,7 +310,7 @@ public class TinkerTools extends TinkerPulse {
 
     ItemStack slimeBallBlue = TinkerCommons.matSlimeBallBlue;
     ItemStack slimeBallPurple = TinkerCommons.matSlimeBallPurple;
-    ItemStack knightSlime = TinkerCommons.matKnightSlime;
+    ItemStack knightSlime = TinkerCommons.ingotKnightSlime;
     // blue slimeball has a recipe if world isn't present
     if(!isWorldLoaded()) {
       GameRegistry.addRecipe(new ShapelessOreRecipe(slimeBallBlue, Items.slime_ball, "dyeBlue"));
@@ -327,6 +323,23 @@ public class TinkerTools extends TinkerPulse {
         GameRegistry.addRecipe(new ShapelessOreRecipe(knightSlime, Items.slime_ball, "dyePurple", "ingotIron"));
       }
     }
+
+    // Expander items for the Harvest-Width/Height modifier
+    GameRegistry.addRecipe(new ShapedOreRecipe(TinkerCommons.matExpanderW,
+                                               " L ",
+                                               "PSP",
+                                               " L ",
+                                               'L', "gemLapis",
+                                               'P', Blocks.piston,
+                                               'S', slimeBallPurple));
+
+    GameRegistry.addRecipe(new ShapedOreRecipe(TinkerCommons.matExpanderH,
+                                               " P ",
+                                               "LSL",
+                                               " P ",
+                                               'L', "gemLapis",
+                                               'P', Blocks.piston,
+                                               'S', slimeBallPurple));
 
     // Slime Sand
     GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimeSand, 1, 0), Items.slime_ball, Items.slime_ball, Items.slime_ball, Items.slime_ball, "sand", "dirt"));
