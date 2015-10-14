@@ -5,6 +5,12 @@
        "frypan_hit"
      ]
    },
+   "toy_squeak": {
+     "category": "neutral",
+     "sounds": [
+       "toy_squeak"
+     ]
+   },
    "little_saw": {
      "category": "neutral",
      "sounds": [
