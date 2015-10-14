@@ -15,7 +15,7 @@ import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.Pattern;
 
-@Pulse(id = TinkerSmeltery.PulseId, description = "The smeltery and items needed for it")
+@Pulse(id = TinkerSmeltery.PulseId, description = "The smeltery and items needed for it", defaultEnable = false)
 public class TinkerSmeltery extends TinkerPulse {
 
   public static final String PulseId = "TinkerSmeltery";

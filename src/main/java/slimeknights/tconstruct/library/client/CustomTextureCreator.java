@@ -27,14 +27,14 @@ import java.util.Map;
 import java.util.Set;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
 import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
+import slimeknights.tconstruct.library.client.texture.CastTexture;
 import slimeknights.tconstruct.library.client.texture.GuiOutlineTexture;
 import slimeknights.tconstruct.library.client.texture.PatternTexture;
-import slimeknights.tconstruct.library.tools.IToolPart;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.texture.CastTexture;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.tools.IToolPart;
 
 /**
  * Textures registered with this creator will get a texture created/loaded for each material.
@@ -169,12 +169,12 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
     try {
       TextureAtlasSprite pattern = null;
       TextureAtlasSprite cast = null;
-      {
+      if(patternModelLocation != null) {
         IModel patternModel = ModelLoaderRegistry.getModel(patternModelLocation);
         ResourceLocation patternLocation = patternModel.getTextures().iterator().next();
         pattern = map.getTextureExtry(patternLocation.toString());
       }
-      {
+      if(castModelLocation != null) {
         IModel patternModel = ModelLoaderRegistry.getModel(castModelLocation);
         ResourceLocation patternLocation = patternModel.getTextures().iterator().next();
         cast = map.getTextureExtry(patternLocation.toString());
