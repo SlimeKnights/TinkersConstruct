@@ -125,8 +125,7 @@ public final class TinkerRegistry {
 
     // register material
     materials.put(material.identifier, material);
-    String activeMod = Loader.instance().activeModContainer().getModId();
-    putMaterialTrace(material.identifier, activeMod);
+    putMaterialTrace(material.identifier);
   }
 
   public static Material getMaterial(String identifier) {
@@ -368,8 +367,8 @@ public final class TinkerRegistry {
   | Traceability & Internal stuff                                             |
   ---------------------------------------------------------------------------*/
 
-  static void putMaterialTrace(String materialIdentifier, String trace) {
-    String activeMod = Loader.instance().activeModContainer().getModId();
+  static void putMaterialTrace(String materialIdentifier) {
+    String activeMod = Loader.instance().activeModContainer().getName();
     materialRegisteredByMod.put(materialIdentifier, activeMod);
   }
 
