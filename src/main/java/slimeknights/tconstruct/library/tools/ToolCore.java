@@ -190,7 +190,7 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public void getTooltipComponents(ItemStack stack, List<String> tooltips) {
-
+    tooltips.add("Not implemented :(");
   }
 
   @SideOnly(Side.CLIENT)
