@@ -11,6 +11,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 
+import java.util.Locale;
+
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.TinkerRegistryClient;
@@ -35,13 +37,16 @@ public class ToolClientProxy extends ClientProxy {
   @Override
   public void preInit() {
     super.preInit();
-
-    MinecraftForge.EVENT_BUS.register(new ToolClientEvents());
   }
 
   @Override
   public void init() {
     toolBuildInfo();
+  }
+
+  @Override
+  public void postInit() {
+    MinecraftForge.EVENT_BUS.register(new ToolClientEvents());
     RenderEvents renderEvents = new RenderEvents();
     MinecraftForge.EVENT_BUS.register(renderEvents);
     ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(renderEvents);
@@ -70,14 +75,14 @@ public class ToolClientProxy extends ClientProxy {
     //registerItemModel(new ItemStack(materials, 1, 2), "SlimeCrystalRed");
 
     // patterns
-    final ResourceLocation patternLoc = getItemLocation(TinkerTools.pattern);
+    final ResourceLocation patternLoc = ToolClientEvents.locBlankPattern;
     CustomTextureCreator.patternModelLocation = new ResourceLocation(patternLoc.getResourceDomain(), "item/" + patternLoc.getResourcePath());
 
     ModelLoader.setCustomMeshDefinition(TinkerTools.pattern, new ItemMeshDefinition() {
       @Override
       public ModelResourceLocation getModelLocation(ItemStack stack) {
         NBTTagCompound tag = TagUtil.getTagSafe(stack);
-        String suffix = tag.getString(Pattern.TAG_PARTTYPE);
+        String suffix = tag.getString(Pattern.TAG_PARTTYPE).toLowerCase(Locale.US);
 
         if(!suffix.isEmpty())
           suffix = "_" + suffix;

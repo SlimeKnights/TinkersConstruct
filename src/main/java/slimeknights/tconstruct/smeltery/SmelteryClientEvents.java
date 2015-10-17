@@ -5,6 +5,7 @@ import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.tools.ToolClientEvents;
 
 public class SmelteryClientEvents {
@@ -16,6 +17,6 @@ public class SmelteryClientEvents {
   @SubscribeEvent
   public void onModelBake(ModelBakeEvent event) {
     // add the extra cast models. See ToolClientEvents for more info with the pattern
-    ToolClientEvents.replacePatternModel(locBlankCast, MODEL_BlankCast, event);
+    ToolClientEvents.replacePatternModel(locBlankCast, MODEL_BlankCast, event, CustomTextureCreator.castLocString);
   }
 }

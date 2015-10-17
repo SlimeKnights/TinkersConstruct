@@ -23,6 +23,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -35,6 +36,9 @@ import slimeknights.tconstruct.library.client.texture.GuiOutlineTexture;
 import slimeknights.tconstruct.library.client.texture.PatternTexture;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.smeltery.SmelteryClientEvents;
+import slimeknights.tconstruct.tools.ToolClientEvents;
+import slimeknights.tconstruct.tools.ToolClientProxy;
 
 /**
  * Textures registered with this creator will get a texture created/loaded for each material.
@@ -61,6 +65,8 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
   // set these to the pattern/cast model to generate part-textures for them
   public static ResourceLocation patternModelLocation;
   public static ResourceLocation castModelLocation;
+  public static String patternLocString;
+  public static String castLocString;
 
   public static final Material guiMaterial;
 
@@ -173,15 +179,16 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
         IModel patternModel = ModelLoaderRegistry.getModel(patternModelLocation);
         ResourceLocation patternLocation = patternModel.getTextures().iterator().next();
         pattern = map.getTextureExtry(patternLocation.toString());
+        patternLocString = patternLocation + "_";
       }
       if(castModelLocation != null) {
         IModel patternModel = ModelLoaderRegistry.getModel(castModelLocation);
         ResourceLocation patternLocation = patternModel.getTextures().iterator().next();
         cast = map.getTextureExtry(patternLocation.toString());
+        castLocString = patternLocation + "_";
       }
 
-      String patternLocString = Util.getResource("Pattern").toString() + "_";
-      String castLocString = Util.getResource("Cast").toString() + "_";
+
 
       for(IToolPart toolpart : TinkerRegistry.getToolParts()) {
         if(!(toolpart instanceof Item)) {
@@ -197,16 +204,26 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
 
         // Pattern
         if(pattern != null) {
-          String partPatternLocation = patternLocString + toolpart.getIdentifier();
-          TextureAtlasSprite partPatternTexture =
-              new PatternTexture(partTexture.toString(), pattern, partPatternLocation);
+          String partPatternLocation = patternLocString + toolpart.getIdentifier().toLowerCase(Locale.US);
+          TextureAtlasSprite partPatternTexture;
+          if(exists(partPatternLocation)) {
+            partPatternTexture = map.registerSprite(new ResourceLocation(partPatternLocation));
+          }
+          else {
+            partPatternTexture = new PatternTexture(partTexture.toString(), pattern, partPatternLocation);
+          }
 
           map.setTextureEntry(partPatternLocation, partPatternTexture);
         }
         if(cast != null) {
-          String partCastLocation = castLocString + toolpart.getIdentifier();
-          TextureAtlasSprite partCastTexture =
-              new CastTexture(partTexture.toString(), cast, partCastLocation);
+          String partCastLocation = castLocString + toolpart.getIdentifier().toLowerCase(Locale.US);
+          TextureAtlasSprite partCastTexture;
+          if(exists(partCastLocation)) {
+            partCastTexture = map.registerSprite(new ResourceLocation(partCastLocation));
+          }
+          else {
+            partCastTexture = new CastTexture(partTexture.toString(), cast, partCastLocation);
+          }
 
           map.setTextureEntry(partCastLocation, partCastTexture);
         }
@@ -258,6 +275,11 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
         log.error(e);
       }
     }
+  }
+
+  public static String getItemLoc(String res) {
+    ResourceLocation loc = new ResourceLocation(res);
+    return String.format("%s:items/%s", loc.getResourceDomain(), loc.getResourcePath());
   }
 
   public static boolean exists(String res) {

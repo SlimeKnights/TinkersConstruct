@@ -8,6 +8,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 
+import java.util.Locale;
+
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.tools.Pattern;
@@ -24,13 +26,13 @@ public class SmelteryClientProxy extends ClientProxy {
 
   @Override
   protected void registerModels() {
-    final ResourceLocation castLoc = getItemLocation(TinkerSmeltery.cast);
+    final ResourceLocation castLoc = SmelteryClientEvents.locBlankCast;
     CustomTextureCreator.castModelLocation = new ResourceLocation(castLoc.getResourceDomain(), "item/" + castLoc.getResourcePath());
     ModelLoader.setCustomMeshDefinition(TinkerSmeltery.cast, new ItemMeshDefinition() {
       @Override
       public ModelResourceLocation getModelLocation(ItemStack stack) {
         NBTTagCompound tag = TagUtil.getTagSafe(stack);
-        String suffix = tag.getString(Pattern.TAG_PARTTYPE);
+        String suffix = tag.getString(Pattern.TAG_PARTTYPE).toLowerCase(Locale.US);
 
         if(!suffix.isEmpty())
           suffix = "_" + suffix;

@@ -18,7 +18,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.io.IOException;
+import java.util.Locale;
 
+import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.shared.client.BakedTableModel;
 import slimeknights.mantle.client.model.BlockItemModelWrapper;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -57,7 +59,7 @@ public class ToolClientEvents {
   @SubscribeEvent
   public void onModelBake(ModelBakeEvent event) {
     // add the models for the pattern variants
-    replacePatternModel(locBlankPattern, MODEL_BlankPattern, event);
+    replacePatternModel(locBlankPattern, MODEL_BlankPattern, event, CustomTextureCreator.patternLocString);
 
     // replace the baked table models with smart variants
 
@@ -91,7 +93,7 @@ public class ToolClientEvents {
     }
   }
 
-  public static void replacePatternModel(ResourceLocation locPattern, ResourceLocation modelLocation, ModelBakeEvent event) {
+  public static void replacePatternModel(ResourceLocation locPattern, ResourceLocation modelLocation, ModelBakeEvent event, String baseString) {
     try {
       IModel model = event.modelLoader.getModel(modelLocation);
       if(model instanceof IRetexturableModel) {
@@ -102,10 +104,11 @@ public class ToolClientEvents {
             continue; // WHY?!
 
           ResourceLocation partLocation = ToolClientProxy.getItemLocation((Item) toolpart);
-          String suffix = partLocation.getResourcePath();
+          String suffix = partLocation.getResourcePath().toLowerCase(Locale.US);
           // get texture
           String partPatternLocation = locPattern.toString() + "_" + suffix;
-          IModel partPatternModel = itemModel.retexture(ImmutableMap.of("layer0", partPatternLocation));
+          String partPatternTexture = baseString + suffix;
+          IModel partPatternModel = itemModel.retexture(ImmutableMap.of("layer0", partPatternTexture));
           IFlexibleBakedModel baked = partPatternModel.bake(partPatternModel.getDefaultState(), Attributes.DEFAULT_BAKED_FORMAT, textureGetter);
           event.modelRegistry.putObject(new ModelResourceLocation(partPatternLocation, "inventory"), baked);
         }
