@@ -1,6 +1,6 @@
 {
     "parent": "tconstruct:item/DefaultItem",
     "textures": {
-        "layer0": "tconstruct:items/blank_cast"
+        "layer0": "tconstruct:items/cast"
     }
 }
