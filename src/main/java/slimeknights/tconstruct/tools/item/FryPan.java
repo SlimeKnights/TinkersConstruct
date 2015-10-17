@@ -53,7 +53,7 @@ public class FryPan extends ToolCore {
       return;
 
     float progress = (float)(getMaxItemUseDuration(stack) - timeLeft)/30f;
-    float strength = .5f + 1.5f*progress;
+    float strength = .1f + 1.5f*progress*progress;
 
     // is the player currently looking at an entity?
     player.rayTrace(3.3f, 0);
@@ -73,7 +73,7 @@ public class FryPan extends ToolCore {
     if(mop.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
       Entity entity = mop.entityHit;
       double x = look.xCoord * strength;
-      double y = look.yCoord/3f * strength + 0.5f;
+      double y = look.yCoord/3f * strength + 0.1f + 0.4f * progress;
       double z = look.zCoord * strength;
 
       // bonus damage!
