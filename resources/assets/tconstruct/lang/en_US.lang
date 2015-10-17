@@ -2,9 +2,14 @@
 #    Blocks    #
 ################
 
-tile.tconstruct.tooltables.name
+tile.tconstruct.tooltables.craftingstation.name=Crafting Station
+tile.tconstruct.tooltables.stenciltable.name=Stencil Table
+tile.tconstruct.tooltables.partbuilder.name=Part Builder
+tile.tconstruct.tooltables.toolstation.name=Tool Station
+tile.tconstruct.tooltables.patternchest.name=Pattern Chest
 tile.tconstruct.toolforge.name=Tool Forge
-tile.tconstruct.slimesand.name
+tile.tconstruct.slimesand.green.name=Slimesand
+tile.tconstruct.slimesand.blue.name=Slimesand
 
 ################
 #    Items     #
@@ -62,7 +67,7 @@ item.tconstruct.axehead.name=Axe Head
 item.tconstruct.panhead.name=Pan
 item.tconstruct.signhead.name=Sign Plate
 item.tconstruct.binding.name=Binding
-item.tconstruct.toolrod.name=Toolrod
+item.tconstruct.toolrod.name=Tool Rod
 item.tconstruct.knifeblade.name=Knife Blade
 item.tconstruct.swordblade.name=Sword Blade
 item.tconstruct.wideguard.name=Wide Guard
@@ -76,7 +81,7 @@ item.tconstruct.excavatorhead.name=Excavator Head
 item.tconstruct.broadaxehead.name=Broad Axe Head
 item.tconstruct.largeplate.name=Large Plate
 item.tconstruct.toughbinding.name=Tough Binding
-item.tconstruct.toughtoolrod.name=Tough Toolrod
+item.tconstruct.toughtoolrod.name=Tough Tool Rod
 item.tconstruct.scythehead.name=Scythe Head
 item.tconstruct.largeswordblade.name=Large Sword Blade
 
