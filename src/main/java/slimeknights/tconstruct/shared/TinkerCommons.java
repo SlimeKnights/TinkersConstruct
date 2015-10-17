@@ -58,15 +58,15 @@ public class TinkerCommons extends TinkerPulse {
       nuggets = registerItem(new ItemMetaDynamic(), "Nuggets");
       ingots = registerItem(new ItemMetaDynamic(), "Ingots");
 
-      nuggetCobalt = nuggets.addMeta(0, "NuggetCobalt");
-      ingotCobalt = ingots.addMeta(0, "IngotCobalt");
+      nuggetCobalt = nuggets.addMeta(0, "Cobalt");
+      ingotCobalt = ingots.addMeta(0, "Cobalt");
 
-      nuggetArdite = nuggets.addMeta(1, "NuggetArdite");
-      ingotArdite = ingots.addMeta(1, "IngotArdite");
+      nuggetArdite = nuggets.addMeta(1, "Ardite");
+      ingotArdite = ingots.addMeta(1, "Ardite");
 
       if(isSmelteryLoaded()) {
-        nuggetManyullyn = nuggets.addMeta(2, "NuggetManyullyn");
-        ingotManyullyn = ingots.addMeta(2, "IngotManyullyn");
+        nuggetManyullyn = nuggets.addMeta(2, "Manyullyn");
+        ingotManyullyn = ingots.addMeta(2, "Manyullyn");
       }
     }
 
