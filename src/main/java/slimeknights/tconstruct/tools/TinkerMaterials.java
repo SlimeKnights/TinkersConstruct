@@ -133,7 +133,7 @@ public final class TinkerMaterials {
   @SideOnly(Side.CLIENT)
   private static void registerMaterialRendering() {
     wood.setRenderInfo(new MaterialRenderInfo.MultiColor(0x6e572a, 0x745f38, 0x8e671d));
-    stone.setRenderInfo(0x898989);
+    stone.setRenderInfo(0x696969);
     flint.setRenderInfo(0xffffff).setTextureSuffix("contrast");
     cactus.setRenderInfo(0x006d0a); // cactus has custom textures
     obsidian.setRenderInfo(new MaterialRenderInfo.MultiColor(0x71589c, 0x8f60d4, 0x8c53df).setTextureSuffix("contrast")); // increase each color by 20 to get thaumium
@@ -169,7 +169,7 @@ public final class TinkerMaterials {
       @Override
       public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
         //return new MetalTextureTexture(Util.resource("blocks/slime/slimeblock_purple"), baseTexture, location, 0xdf86fa, 0.4f, 0.2f, 0.0f);
-        return new MetalColoredTexture(baseTexture, location, 0x683bd0, 0.0f, 0.5f, 0.3f);
+        return new MetalColoredTexture(baseTexture, location, 0x685bd0, 0.0f, 0.5f, 0.3f);
       }
     });
 
