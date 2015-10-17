@@ -118,6 +118,11 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   @Override
+  public boolean canHarvestBlock(Block block, ItemStack itemStack) {
+    return isEffective(block);
+  }
+
+  @Override
   public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
     if(this instanceof IAoeTool && ((IAoeTool)this).isAoeHarvestTool()) {
       for(BlockPos extraPos : ((IAoeTool)this).getAOEBlocks(itemstack, player.worldObj, player, pos)) {
