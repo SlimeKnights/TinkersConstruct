@@ -3,6 +3,8 @@ package slimeknights.tconstruct.library.tinkering;
 
 import gnu.trove.set.hash.THashSet;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,6 +13,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -60,6 +63,28 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     return categories.contains(category);
   }
 
+  /* INDESTRUCTIBLE */
+
+  @Override
+  public boolean hasCustomEntity(ItemStack stack) {
+    return true;
+  }
+
+  @Override
+  public Entity createEntity(World world, Entity location, ItemStack itemstack) {
+    EntityItem entity = new IndestructibleEntityItem(world, location.posX, location.posY, location.posZ, itemstack);
+    if(location instanceof EntityItem) {
+      // workaround for private access on that field >_>
+      NBTTagCompound tag = new NBTTagCompound();
+      location.writeToNBT(tag);
+      entity.setPickupDelay(tag.getShort("PickupDelay"));
+    }
+    entity.motionX = location.motionX;
+    entity.motionY = location.motionY;
+    entity.motionZ = location.motionZ;
+    return entity;
+  }
+
   /* Building the Item */
   public boolean validComponent(int slot, ItemStack stack) {
     if(slot > requiredComponents.length || slot < 0) {
@@ -68,6 +93,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
     return requiredComponents[slot].isValid(stack);
   }
+
 
   /**
    * Builds an Itemstack of this tool with the given materials, if applicable.

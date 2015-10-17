@@ -1,5 +1,7 @@
 package slimeknights.tconstruct;
 
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -7,6 +9,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkCheckHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 import org.apache.logging.log4j.LogManager;
@@ -22,6 +25,7 @@ import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.common.TinkerOredict;
 import slimeknights.tconstruct.debug.TinkerDebug;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.plugin.TinkerVintageCraft;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -105,6 +109,8 @@ public class TConstruct {
     HarvestLevels.init();
     TinkerOredict.ensureOredict();
 
+    EntityRegistry.registerModEntity(IndestructibleEntityItem.class, "Indestructible Item", 0, TConstruct.instance, 32, 5, true);
+
     NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);
 
     if(event.getSide().isClient()) {
@@ -126,5 +132,8 @@ public class TConstruct {
     if(event.getSide().isClient()) {
       ClientProxy.initRenderer();
     }
+
+    // prevents tools from despawning
+    MinecraftForge.EVENT_BUS.register(IndestructibleEntityItem.EventHandler.instance);
   }
 }
