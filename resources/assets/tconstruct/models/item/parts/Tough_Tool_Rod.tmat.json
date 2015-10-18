@@ -1,6 +1,6 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "tconstruct:items/parts/toolrod"
+        "layer0": "tconstruct:items/parts/tough_tool_rod"
     }
 }

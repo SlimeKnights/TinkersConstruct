@@ -21,8 +21,8 @@ public class CommonsClientProxy extends ClientProxy {
 
   @Override
   protected void registerModels() {
-    nuggets.registerItemModels("Nugget");
-    ingots.registerItemModels("Ingot");
+    nuggets.registerItemModels("nugget_");
+    ingots.registerItemModels("ingot_");
     materials.registerItemModels("");
   }
 
