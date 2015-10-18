@@ -7,6 +7,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.Locale;
+
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.ToolPart;
@@ -48,8 +50,8 @@ public abstract class TinkerPulse {
    * Sets the correct unlocalized name and registers the item.
    */
   protected static <T extends Item> T registerItem(T item, String unlocName) {
-    if(!Character.isUpperCase(unlocName.charAt(0))) {
-      TConstruct.log.warn("Unlocalized name {} should start with upper case!", unlocName);
+    if(!unlocName.equals(unlocName.toLowerCase(Locale.US))) {
+      throw new IllegalArgumentException(String.format("Unlocalized names need to be all lowercase! Item: %s", unlocName));
     }
 
     item.setUnlocalizedName(Util.prefix(unlocName));
@@ -58,10 +60,6 @@ public abstract class TinkerPulse {
   }
 
   protected static <T extends Block> T registerBlock(T block, String unlocName) {
-    if(!Character.isUpperCase(unlocName.charAt(0))) {
-      TConstruct.log.warn("Unlocalized name {} should start with upper case!", unlocName);
-    }
-
     block.setUnlocalizedName(Util.prefix(unlocName));
     GameRegistry.registerBlock(block, unlocName);
     return block;
@@ -70,8 +68,8 @@ public abstract class TinkerPulse {
   protected static <T extends Block> T registerBlock(T block,
                                                      Class<? extends ItemBlock> itemBlockClazz,
                                                      String unlocName, Object... itemCtorArgs) {
-    if(!Character.isUpperCase(unlocName.charAt(0))) {
-      TConstruct.log.warn("Unlocalized name {} should start with upper case!", unlocName);
+    if(!unlocName.equals(unlocName.toLowerCase(Locale.US))) {
+      throw new IllegalArgumentException(String.format("Unlocalized names need to be all lowercase! Block: %s", unlocName));
     }
 
     block.setUnlocalizedName(Util.prefix(unlocName));
@@ -80,6 +78,10 @@ public abstract class TinkerPulse {
   }
 
   protected static void registerTE(Class<? extends TileEntity> teClazz, String name) {
+    if(!name.equals(name.toLowerCase(Locale.US))) {
+      throw new IllegalArgumentException(String.format("Unlocalized names need to be all lowercase! TE: %s", name));
+    }
+
     GameRegistry.registerTileEntity(teClazz, Util.prefix(name));
   }
 }

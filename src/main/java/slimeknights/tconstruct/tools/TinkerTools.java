@@ -141,29 +141,29 @@ public class TinkerTools extends TinkerPulse {
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
     // register items
-    pattern = registerItem(new Pattern(), "Pattern");
+    pattern = registerItem(new Pattern(), "pattern");
 
-    shard = registerItem(new Shard(), "Shard");
+    shard = registerItem(new Shard(), "shard");
 
     registerToolParts();
     registerTools();
     registerModifiers();
 
     // register blocks
-    toolTables = registerBlock(new BlockToolTable(), ItemBlockTable.class, "ToolTables");
-    toolForge = registerBlock(new BlockToolForge(), ItemBlockTable.class, "ToolForge");
-    slimeSand = registerBlock(new BlockSlimeSand(), ItemBlockMeta.class, "SlimeSand");
+    toolTables = registerBlock(new BlockToolTable(), ItemBlockTable.class, "tooltables");
+    toolForge = registerBlock(new BlockToolForge(), ItemBlockTable.class, "toolforge");
+    slimeSand = registerBlock(new BlockSlimeSand(), ItemBlockMeta.class, "slimesand");
 
     ItemBlockMeta.setMappingProperty(toolTables, BlockToolTable.TABLES);
     ItemBlockMeta.setMappingProperty(slimeSand, BlockSlimeSand.TYPE);
 
-    registerTE(TileTable.class, "Table");
-    registerTE(TileCraftingStation.class, "CraftingStation");
-    registerTE(TileStencilTable.class, "StencilTable");
-    registerTE(TilePartBuilder.class, "PartBuilder");
-    registerTE(TilePatternChest.class, "PatternChest");
-    registerTE(TileToolStation.class, "ToolStation");
-    registerTE(TileToolForge.class, "ToolForge");
+    registerTE(TileTable.class, "table");
+    registerTE(TileCraftingStation.class, "craftingstation");
+    registerTE(TileStencilTable.class, "stenciltable");
+    registerTE(TilePartBuilder.class, "partbuilder");
+    registerTE(TilePatternChest.class, "patternchest");
+    registerTE(TileToolStation.class, "toolstation");
+    registerTE(TileToolForge.class, "toolforge");
 
     oredict();
 
@@ -175,46 +175,46 @@ public class TinkerTools extends TinkerPulse {
 
   private void registerToolParts() {
     // The order the items are registered in represents the order in the stencil table GUI too
-    pickHead = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "PickHead");
-    shovelHead = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "ShovelHead");
-    axeHead = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "AxeHead");
-    broadAxeHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "BroadAxeHead");
-    swordBlade = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "SwordBlade");
-    largeSwordBlade = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "LargeSwordBlade");
-    hammerHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "HammerHead");
-    excavatorHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "ExcavatorHead");
-    panHead = registerToolPart(new ToolPart(Material.VALUE_Ingot), "PanHead");
-    signHead = registerToolPart(new ToolPart(Material.VALUE_Ingot), "SignHead");
+    pickHead = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "pick_head");
+    shovelHead = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "shovel_head");
+    axeHead = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "axe_head");
+    broadAxeHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "broad_axe_head");
+    swordBlade = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "sword_blade");
+    largeSwordBlade = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "large_sword_blade");
+    hammerHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "hammer_head");
+    excavatorHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "excavator_head");
+    panHead = registerToolPart(new ToolPart(Material.VALUE_Ingot), "pan_head");
+    signHead = registerToolPart(new ToolPart(Material.VALUE_Ingot), "sign_head");
 
-    toolRod = registerToolPart(new ToolPart(Material.VALUE_Shard), "ToolRod");
-    toughToolRod = registerToolPart(new ToolPart(Material.VALUE_Ingot * 3), "ToughToolRod");
-    binding = registerToolPart(new ToolPart(Material.VALUE_Shard), "Binding");
-    toughBinding = registerToolPart(new ToolPart(Material.VALUE_Ingot * 3), "ToughBinding");
+    toolRod = registerToolPart(new ToolPart(Material.VALUE_Shard), "tool_rod");
+    toughToolRod = registerToolPart(new ToolPart(Material.VALUE_Ingot * 3), "tough_tool_rod");
+    binding = registerToolPart(new ToolPart(Material.VALUE_Shard), "binding");
+    toughBinding = registerToolPart(new ToolPart(Material.VALUE_Ingot * 3), "tough_binding");
 
-    wideGuard = registerToolPart(new ToolPart(Material.VALUE_Shard), "WideGuard");
+    wideGuard = registerToolPart(new ToolPart(Material.VALUE_Shard), "wide_guard");
 
-    largePlate = registerToolPart(new ToolPart(Material.VALUE_Shard * 8), "LargePlate");
+    largePlate = registerToolPart(new ToolPart(Material.VALUE_Shard * 8), "large_plate");
   }
 
   private void registerTools() {
-    pickaxe = registerTool(new Pickaxe(), "Pickaxe");
-    shovel = registerTool(new Shovel(), "Shovel");
-    hatchet = registerTool(new Hatchet(), "Hatchet");
-    mattock = registerTool(new Mattock(), "Mattock");
-    broadSword = registerTool(new BroadSword(), "BroadSword");
-    longSword = registerTool(new LongSword(), "LongSword");
+    pickaxe = registerTool(new Pickaxe(), "pickaxe");
+    shovel = registerTool(new Shovel(), "shovel");
+    hatchet = registerTool(new Hatchet(), "hatchet");
+    mattock = registerTool(new Mattock(), "mattock");
+    broadSword = registerTool(new BroadSword(), "broadsword");
+    longSword = registerTool(new LongSword(), "longsword");
     // rapier
     // cutlass
     // dagger
-    fryPan = registerTool(new FryPan(), "FryPan");
-    battleSign = registerTool(new BattleSign(), "BattleSign");
+    fryPan = registerTool(new FryPan(), "frypan");
+    battleSign = registerTool(new BattleSign(), "battlesign");
 
-    hammer = registerTool(new Hammer(), "Hammer");
-    excavator = registerTool(new Excavator(), "Excavator");
-    lumberAxe = registerTool(new LumberAxe(), "LumberAxe");
-    cleaver = registerTool(new Cleaver(), "Cleaver");
-    battleAxe = registerTool(new BattleAxe(), "BattleAxe");
-    scythe = registerTool(new Scythe(), "Scythe");
+    hammer = registerTool(new Hammer(), "hammer");
+    excavator = registerTool(new Excavator(), "excavator");
+    lumberAxe = registerTool(new LumberAxe(), "lumberaxe");
+    cleaver = registerTool(new Cleaver(), "cleaver");
+    battleAxe = registerTool(new BattleAxe(), "battleaxe");
+    scythe = registerTool(new Scythe(), "scythe");
   }
 
   private void registerModifiers() {
@@ -225,7 +225,7 @@ public class TinkerTools extends TinkerPulse {
     Modifier harvestHeight = new ModHarvestSize("height");
 
     if(TinkerCommons.matExpanderW == null) {
-      throw new RuntimeException("Loading order somehow got derped. I have no idea why this happens.");
+      throw new RuntimeException("Loading order within TCon got messed up. This is a randomly occurring bug. Just restart until it works.");
     }
 
     harvestWidth.addItem(TinkerCommons.matExpanderW, 1, 1);

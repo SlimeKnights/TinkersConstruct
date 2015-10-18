@@ -31,7 +31,7 @@ public class TinkerSmeltery extends TinkerPulse {
   // PRE-INITIALIZATION
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
-    cast = registerItem(new Pattern(), "Cast");
+    cast = registerItem(new Pattern(), "cast");
 
     proxy.preInit();
   }

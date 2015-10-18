@@ -56,17 +56,17 @@ public class TinkerCommons extends TinkerPulse {
   public void preInit(FMLPreInitializationEvent event) {
     // Ingots and nuggets
     if(isToolsLoaded() || isSmelteryLoaded()) {
-      nuggets = registerItem(new ItemMetaDynamic(), "Nuggets");
-      ingots = registerItem(new ItemMetaDynamic(), "Ingots");
+      nuggets = registerItem(new ItemMetaDynamic(), "nuggets");
+      ingots = registerItem(new ItemMetaDynamic(), "ingots");
 
-      nuggetCobalt = nuggets.addMeta(0, "Cobalt");
-      ingotCobalt = ingots.addMeta(0, "Cobalt");
+      nuggetCobalt = nuggets.addMeta(0, "cobalt");
+      ingotCobalt = ingots.addMeta(0, "cobalt");
 
-      nuggetArdite = nuggets.addMeta(1, "Ardite");
-      ingotArdite = ingots.addMeta(1, "Ardite");
+      nuggetArdite = nuggets.addMeta(1, "ardite");
+      ingotArdite = ingots.addMeta(1, "ardite");
 
-      nuggetManyullyn = nuggets.addMeta(2, "Manyullyn");
-      ingotManyullyn = ingots.addMeta(2, "Manyullyn");
+      nuggetManyullyn = nuggets.addMeta(2, "manyullyn");
+      ingotManyullyn = ingots.addMeta(2, "manyullyn");
 
       ItemStack nugget = nuggetCobalt.copy();
       nugget.stackSize = 9;
@@ -86,18 +86,18 @@ public class TinkerCommons extends TinkerPulse {
 
     // Materials
     if(isToolsLoaded() || isWorldLoaded()) {
-      materials = registerItem(new ItemMetaDynamic(), "Materials");
-      matSlimeBallBlue = materials.addMeta(0, "SlimeBallBlue");
-      matSlimeBallPurple = materials.addMeta(1, "SlimeBallPurple");
+      materials = registerItem(new ItemMetaDynamic(), "materials");
+      matSlimeBallBlue = materials.addMeta(0, "slimeball_blue");
+      matSlimeBallPurple = materials.addMeta(1, "slimeball_purple");
     }
 
     if(isToolsLoaded()) {
-      matSlimeCrystal = materials.addMeta(9, "SlimeCrystalGreen");
-      matSlimeCrystalBlue = materials.addMeta(10, "SlimeCrystalBlue");
-      matExpanderW = materials.addMeta(12, "ExpanderW");
-      matExpanderH = materials.addMeta(13, "ExpanderH");
+      matSlimeCrystal = materials.addMeta(9, "slimecrystal_green");
+      matSlimeCrystalBlue = materials.addMeta(10, "slimecrystal_blue");
+      matExpanderW = materials.addMeta(12, "expander_w");
+      matExpanderH = materials.addMeta(13, "expander_h");
 
-      ingotKnightSlime = ingots.addMeta(3, "KnightSlime");
+      ingotKnightSlime = ingots.addMeta(3, "knightslime");
     }
 
     // oredicting time

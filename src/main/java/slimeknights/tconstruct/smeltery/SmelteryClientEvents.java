@@ -11,8 +11,8 @@ import slimeknights.tconstruct.tools.ToolClientEvents;
 public class SmelteryClientEvents {
 
   // Blank Pattern
-  private static final ResourceLocation MODEL_BlankCast = Util.getResource("item/Cast");
-  public static final ResourceLocation locBlankCast = Util.getResource("Cast");
+  private static final ResourceLocation MODEL_BlankCast = Util.getResource("item/cast");
+  public static final ResourceLocation locBlankCast = Util.getResource("cast");
 
   @SubscribeEvent
   public void onModelBake(ModelBakeEvent event) {

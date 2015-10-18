@@ -37,13 +37,13 @@ public class ToolClientEvents {
   };
 
   // tool tables
-  private static final ResourceLocation MODEL_CraftingStation = Util.getResource("block/CraftingStation");
-  private static final ResourceLocation MODEL_StencilTable = Util.getResource("block/StencilTable");
-  private static final ResourceLocation MODEL_PartBuilder = Util.getResource("block/PartBuilder");
-  private static final ResourceLocation MODEL_ToolStation = Util.getResource("block/ToolStation");
-  private static final ResourceLocation MODEL_ToolForge = Util.getResource("block/ToolForge");
-  private static final String LOCATION_ToolTable = Util.resource("ToolTables");
-  private static final String LOCATION_ToolForge = Util.resource("ToolForge");
+  private static final ResourceLocation MODEL_CraftingStation = Util.getResource("block/craftingstation");
+  private static final ResourceLocation MODEL_StencilTable = Util.getResource("block/stenciltable");
+  private static final ResourceLocation MODEL_PartBuilder = Util.getResource("block/partbuilder");
+  private static final ResourceLocation MODEL_ToolStation = Util.getResource("block/toolstation");
+  private static final ResourceLocation MODEL_ToolForge = Util.getResource("block/toolforge");
+  private static final String LOCATION_ToolTable = Util.resource("tooltables");
+  private static final String LOCATION_ToolForge = Util.resource("toolforge");
 
   // the actual locations where the models are located
   public static final ModelResourceLocation locCraftingStation = new ModelResourceLocation(LOCATION_ToolTable, "type=craftingstation");
@@ -53,8 +53,8 @@ public class ToolClientEvents {
   public static final ModelResourceLocation locToolForge = new ModelResourceLocation(LOCATION_ToolForge, "normal");
 
   // Blank Pattern
-  private static final ResourceLocation MODEL_BlankPattern = Util.getResource("item/Pattern");
-  public static final ResourceLocation locBlankPattern = Util.getResource("Pattern");
+  private static final ResourceLocation MODEL_BlankPattern = Util.getResource("item/pattern");
+  public static final ResourceLocation locBlankPattern = Util.getResource("pattern");
 
   @SubscribeEvent
   public void onModelBake(ModelBakeEvent event) {
