@@ -53,7 +53,7 @@ import static slimeknights.tconstruct.library.utils.HarvestLevels.STONE;
 @Pulse(id = TinkerMaterials.PulseId, forced = true)
 public final class TinkerMaterials {
 
-  static final String PulseId = "TinkerTools";
+  static final String PulseId = "TinkerMaterials";
   public static final List<Material> materials = Lists.newArrayList();
 
   // natural resources/blocks
