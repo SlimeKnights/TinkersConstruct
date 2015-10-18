@@ -224,6 +224,10 @@ public class TinkerTools extends TinkerPulse {
     Modifier harvestWidth = new ModHarvestSize("width");
     Modifier harvestHeight = new ModHarvestSize("height");
 
+    if(TinkerCommons.matExpanderW == null) {
+      throw new RuntimeException("Loading order somehow got derped. I have no idea why this happens.");
+    }
+
     harvestWidth.addItem(TinkerCommons.matExpanderW, 1, 1);
     harvestHeight.addItem(TinkerCommons.matExpanderH, 1, 1);
 
