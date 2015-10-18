@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.block.BlockPrismarine;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.init.Blocks;
@@ -217,8 +218,10 @@ public final class TinkerMaterials {
 
     prismarine.setCraftable(true);
     prismarine.addItem(Items.prismarine_shard, 1, Material.VALUE_Fragment);
-    prismarine.addItem(Blocks.prismarine, Material.VALUE_Ingot);
-    prismarine.setRepresentativeItem(Items.prismarine_shard);
+    prismarine.addItem(new ItemStack(Blocks.prismarine, 1, BlockPrismarine.ROUGH_META), 1, Material.VALUE_Ingot);
+    prismarine.addItem(new ItemStack(Blocks.prismarine, 1, BlockPrismarine.BRICKS_META), 1, Material.VALUE_Fragment*9);
+    prismarine.addItem(new ItemStack(Blocks.prismarine, 1, BlockPrismarine.DARK_META), 1, Material.VALUE_Ingot*2);
+    prismarine.setRepresentativeItem(Blocks.prismarine);
 
     netherrack.setCraftable(true);
     netherrack.addItem(Blocks.netherrack, Material.VALUE_Ingot);
