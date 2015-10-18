@@ -311,7 +311,7 @@ public class TinkerTools extends TinkerPulse {
     registerToolForgeBlock("blockIron");
     registerToolForgeBlock("blockGold");
 
-
+    // Materials
     ItemStack slimeBallBlue = TinkerCommons.matSlimeBallBlue;
     ItemStack slimeBallPurple = TinkerCommons.matSlimeBallPurple;
     ItemStack knightSlime = TinkerCommons.ingotKnightSlime;
@@ -326,6 +326,9 @@ public class TinkerTools extends TinkerPulse {
       if(!isWorldLoaded()) {
         GameRegistry.addRecipe(new ShapelessOreRecipe(knightSlime, Items.slime_ball, "dyePurple", "ingotIron"));
       }
+
+      GameRegistry.addShapelessRecipe(TinkerCommons.ingotManyullyn, TinkerCommons.ingotCobalt, TinkerCommons.ingotArdite, Blocks.coal_block);
+      GameRegistry.addShapelessRecipe(TinkerCommons.nuggetManyullyn, TinkerCommons.nuggetCobalt, TinkerCommons.nuggetArdite, Items.coal);
     }
 
     // Expander items for the Harvest-Width/Height modifier

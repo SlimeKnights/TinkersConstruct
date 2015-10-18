@@ -64,10 +64,8 @@ public class TinkerCommons extends TinkerPulse {
       nuggetArdite = nuggets.addMeta(1, "Ardite");
       ingotArdite = ingots.addMeta(1, "Ardite");
 
-      if(isSmelteryLoaded()) {
-        nuggetManyullyn = nuggets.addMeta(2, "Manyullyn");
-        ingotManyullyn = ingots.addMeta(2, "Manyullyn");
-      }
+      nuggetManyullyn = nuggets.addMeta(2, "Manyullyn");
+      ingotManyullyn = ingots.addMeta(2, "Manyullyn");
     }
 
     // Materials
