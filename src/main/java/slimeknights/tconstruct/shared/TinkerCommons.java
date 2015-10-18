@@ -5,6 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
 import org.apache.logging.log4j.Logger;
@@ -66,6 +67,21 @@ public class TinkerCommons extends TinkerPulse {
 
       nuggetManyullyn = nuggets.addMeta(2, "Manyullyn");
       ingotManyullyn = ingots.addMeta(2, "Manyullyn");
+
+      ItemStack nugget = nuggetCobalt.copy();
+      nugget.stackSize = 9;
+      GameRegistry.addShapelessRecipe(nugget, ingotCobalt);
+      GameRegistry.addShapedRecipe(ingotCobalt, "###","###","###", '#', nuggetCobalt);
+
+      nugget = nuggetArdite.copy();
+      nugget.stackSize = 9;
+      GameRegistry.addShapelessRecipe(nugget, ingotArdite);
+      GameRegistry.addShapedRecipe(ingotArdite, "###","###","###", '#', nuggetArdite);
+
+      nugget = nuggetManyullyn.copy();
+      nugget.stackSize = 9;
+      GameRegistry.addShapelessRecipe(nugget, ingotManyullyn);
+      GameRegistry.addShapedRecipe(ingotManyullyn, "###","###","###", '#', nuggetManyullyn);
     }
 
     // Materials
