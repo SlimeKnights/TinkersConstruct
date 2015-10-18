@@ -4,6 +4,6 @@
         "transform": "forge:default-block"
     },
 	"variants": {
-        "normal": { "model": "tconstruct:ToolForge" }
+        "normal": { "model": "tconstruct:toolforge" }
     }
 }

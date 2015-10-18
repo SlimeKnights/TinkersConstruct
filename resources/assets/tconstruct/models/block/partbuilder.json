@@ -1,5 +1,5 @@
 {
-    "parent": "tconstruct:block/Table",
+    "parent": "tconstruct:block/table",
     "textures": {
         "particle": "tconstruct:blocks/partbuilder_top",
         "top": "tconstruct:blocks/partbuilder_top",

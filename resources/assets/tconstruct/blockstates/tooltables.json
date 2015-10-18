@@ -1,0 +1,13 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block"
+    },
+	"variants": {
+        "type=craftingstation": { "model": "tconstruct:craftingstation" },
+        "type=stenciltable": { "model": "tconstruct:stenciltable" },
+        "type=partbuilder": { "model": "tconstruct:partbuilder" },
+        "type=toolstation": { "model": "tconstruct:toolstation" },
+        "type=toolforge": { "model": "tconstruct:toolforge" }
+    }
+}

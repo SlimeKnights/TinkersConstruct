@@ -1,5 +1,5 @@
 {
-    "parent": "tconstruct:item/DefaultItem",
+    "parent": "tconstruct:item/defaultitem",
     "textures": {
         "layer0": "tconstruct:items/materials/slimecrystalblue"
     }
