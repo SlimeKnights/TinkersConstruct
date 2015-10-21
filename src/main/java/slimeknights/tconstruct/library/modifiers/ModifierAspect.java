@@ -6,6 +6,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
@@ -83,9 +84,13 @@ public abstract class ModifierAspect {
    */
   public static class DataAspect extends ModifierAspect {
 
-    private final EnumChatFormatting color;
+    private final int color;
 
     public DataAspect(IModifier parent, EnumChatFormatting color) {
+      this(parent, Util.enumChatFormattingToColor(color));
+    }
+
+    public DataAspect(IModifier parent, int color) {
       super(parent);
       this.color = color;
     }

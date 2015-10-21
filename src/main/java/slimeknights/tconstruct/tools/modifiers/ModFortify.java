@@ -26,7 +26,7 @@ public class ModFortify extends Modifier {
     }
 
     this.material = material;
-    addAspects(new ModifierAspect.SingleAspect(this), new ModifierAspect.DataAspect(this, material.textColor), ModifierAspect.harvestOnly);
+    addAspects(new ModifierAspect.SingleAspect(this), new ModifierAspect.DataAspect(this, material.materialTextColor), ModifierAspect.harvestOnly);
 
     ItemStack blade = TinkerTools.swordBlade.getItemstackWithMaterial(material);
     ItemStack binding = TinkerTools.binding.getItemstackWithMaterial(material);

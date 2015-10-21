@@ -32,9 +32,13 @@ public abstract class AbstractTrait extends Modifier implements ITrait {
   public static final String LOC_Name = Modifier.LOC_Name;
   public static final String LOC_Desc = Modifier.LOC_Desc;
   //private final String identifier;
-  protected final EnumChatFormatting color;
+  protected final int color;
 
   public AbstractTrait(String identifier, EnumChatFormatting color) {
+    this(identifier, Util.enumChatFormattingToColor(color));
+  }
+
+  public AbstractTrait(String identifier, int color) {
     super(Util.sanitizeLocalizationString(identifier));
     //this.identifier = Util.sanitizeLocalizationString(identifier);
     this.color = color;
@@ -171,7 +175,7 @@ public abstract class AbstractTrait extends Modifier implements ITrait {
     updateNBTWithColor(modifierTag, color);
   }
 
-  public void updateNBTWithColor(NBTTagCompound modifierTag, EnumChatFormatting newColor) {
+  public void updateNBTWithColor(NBTTagCompound modifierTag, int newColor) {
     ModifierNBT data = ModifierNBT.readTag(modifierTag);
     data.identifier = identifier;
     data.color = newColor;

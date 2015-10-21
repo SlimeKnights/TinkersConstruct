@@ -19,9 +19,9 @@ import javax.annotation.Nonnull;
 
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.common.Config;
-import slimeknights.tconstruct.library.TinkerAPIException;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.CustomFontRenderer;
 import slimeknights.tconstruct.library.client.MaterialRenderInfo;
 import slimeknights.mantle.util.RecipeMatchRegistry;
 import slimeknights.tconstruct.library.traits.ITrait;
@@ -65,8 +65,7 @@ public class Material extends RecipeMatchRegistry {
    */
   @SideOnly(Side.CLIENT)
   public MaterialRenderInfo renderInfo;// = new MaterialRenderInfo.Default(0xffffff);
-
-  public EnumChatFormatting textColor = EnumChatFormatting.WHITE; // used in tooltips and other text. Saved in NBT.
+  public int materialTextColor = 0xffffff; // used in tooltips and other text. Saved in NBT.
 
   /**
    * This item, if it is not null, represents the material for rendering.
@@ -86,10 +85,14 @@ public class Material extends RecipeMatchRegistry {
   protected final Map<String, ITrait> traits = new LinkedHashMap<String, ITrait>();
 
   public Material(String identifier, EnumChatFormatting textColor) {
+    this(identifier, Util.enumChatFormattingToColor(textColor));
+  }
+
+  public Material(String identifier, int color) {
     this.identifier = Util.sanitizeLocalizationString(identifier); // lowercases and removes whitespaces
-    this.textColor = textColor;
+    this.materialTextColor = color;
     if(FMLCommonHandler.instance().getSide().isClient()) {
-      setRenderInfo(0xffffff);
+      setRenderInfo(color);
     }
   }
 
@@ -306,7 +309,7 @@ public class Material extends RecipeMatchRegistry {
   }
 
   public String getLocalizedNameColored() {
-    return textColor.toString() + getLocalizedName();
+    return getTextColor() + getLocalizedName();
   }
 
   public String getIdentifier() {
@@ -314,6 +317,6 @@ public class Material extends RecipeMatchRegistry {
   }
 
   public String getTextColor() {
-    return textColor.toString();
+    return CustomFontRenderer.encodeColor(materialTextColor);
   }
 }

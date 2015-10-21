@@ -4,6 +4,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.CustomFontRenderer;
 
 /**
  * Represents the NBT data saved for a modifier.
@@ -11,20 +13,20 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 public class ModifierNBT {
 
   public String identifier;
-  public EnumChatFormatting color;
+  public int color;
   public int level;
   public String extraInfo;
 
   public ModifierNBT() {
     identifier = "";
-    color = EnumChatFormatting.RESET;
+    color = 0xffffff;
     level = 0;
   }
 
   public ModifierNBT(IModifier modifier) {
     this.identifier = modifier.getIdentifier();
     this.level = 0;
-    this.color = EnumChatFormatting.GRAY;
+    this.color = Util.enumChatFormattingToColor(EnumChatFormatting.GRAY);
   }
 
   public ModifierNBT(NBTTagCompound tag) {
@@ -43,20 +45,24 @@ public class ModifierNBT {
 
   public void read(NBTTagCompound tag) {
     identifier = tag.getString("identifier");
-    color = EnumChatFormatting.func_175744_a(tag.getInteger("color"));
+    color = tag.getInteger("color");
     level = tag.getInteger("level");
     extraInfo = tag.getString("extraInfo");
   }
 
   public void write(NBTTagCompound tag) {
     tag.setString("identifier", identifier);
-    tag.setInteger("color", color.getColorIndex());
+    tag.setInteger("color", color);
     if(level > 0) {
       tag.setInteger("level", level);
     }
     if(extraInfo != null && !extraInfo.isEmpty()) {
       tag.setString("extraInfo", extraInfo);
     }
+  }
+
+  public String getColorString() {
+    return CustomFontRenderer.encodeColor(color);
   }
 
   public static <T extends ModifierNBT> T readTag(NBTTagCompound tag, Class<T> clazz) {

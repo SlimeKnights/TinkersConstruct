@@ -55,7 +55,7 @@ public class TooltipBuilder {
           continue;
         }
 
-        tips.add(data.color + modifier.getTooltip(tag, false));
+        tips.add(data.getColorString() + modifier.getTooltip(tag, false));
       }
     }
 

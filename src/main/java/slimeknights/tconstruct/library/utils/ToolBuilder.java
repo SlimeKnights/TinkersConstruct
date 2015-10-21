@@ -103,7 +103,7 @@ public final class ToolBuilder {
    * @param trait        The trait to add.
    * @param color        The color used on the tooltip. Will not be used if the trait already exists on the tool.
    */
-  public static void addTrait(NBTTagCompound rootCompound, ITrait trait, EnumChatFormatting color) {
+  public static void addTrait(NBTTagCompound rootCompound, ITrait trait, int color) {
     // only registered traits allowed
     if(TinkerRegistry.getTrait(trait.getIdentifier()) == null) {
       log.error("addTrait: Trying to apply unregistered Trait {}", trait.getIdentifier());

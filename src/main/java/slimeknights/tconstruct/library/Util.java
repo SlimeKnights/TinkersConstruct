@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fml.common.registry.GameData;
@@ -123,4 +124,29 @@ public class Util {
     return Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
 
   }
+
+
+  /**
+   * Returns the actual color value for a chatformatting
+    */
+  public static int enumChatFormattingToColor(EnumChatFormatting color) {
+    int i = color.getColorIndex();
+    int j = (i >> 3 & 1) * 85;
+    int k = (i >> 2 & 1) * 170 + j;
+    int l = (i >> 1 & 1) * 170 + j;
+    int i1 = (i >> 0 & 1) * 170 + j;
+    if (i == 6)
+    {
+      k += 85;
+    }
+    if (i >= 16)
+    {
+      k /= 4;
+      l /= 4;
+      i1 /= 4;
+    }
+
+    return (k & 255) << 16 | (l & 255) << 8 | i1 & 255;
+  }
+
 }

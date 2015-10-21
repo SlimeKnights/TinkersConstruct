@@ -17,7 +17,6 @@ import net.minecraft.world.World;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -195,7 +194,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   public void addMaterialTraits(NBTTagCompound root, List<Material> materials) {
     for(Material material : materials) {
       for(ITrait trait : material.getAllTraits()) {
-        ToolBuilder.addTrait(root, trait, material.textColor);
+        ToolBuilder.addTrait(root, trait, material.materialTextColor);
       }
     }
   }
@@ -354,7 +353,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
         continue;
       }
 
-      tooltips.add(data.color.toString() + modifier.getLocalizedName());
+      tooltips.add(data.getColorString() + modifier.getLocalizedName());
     }
   }
 
