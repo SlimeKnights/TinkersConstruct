@@ -114,15 +114,12 @@ public class Material extends RecipeMatchRegistry {
 
   /** Setting this to true allows to cast parts of this material. NEEDS TO HAVE A FLUID SET BEFOREHAND! */
   public Material setCastable(boolean castable) {
-    if(!hasFluid()) {
-      throw new TinkerAPIException("Castable materials need a Fluid set");
-    }
     this.castable = castable;
     return this;
   }
 
   public boolean isCastable() {
-    return this.castable;
+    return hasFluid() && this.castable;
   }
 
   /**
