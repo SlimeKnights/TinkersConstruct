@@ -70,7 +70,7 @@ public class ToolMaterialStats extends AbstractMaterialStats {
   }
 
   public static String formatDurability(int durability, int ref) {
-    return String.format("%s: %c%s", Util.translate(LOC_Durability), CustomFontRenderer.valueToColorCode((float)durability/(float)ref), df.format(durability)) + EnumChatFormatting.RESET;
+    return String.format("%s: %s%s", Util.translate(LOC_Durability), CustomFontRenderer.valueToColorCode((float)durability/(float)ref), df.format(durability)) + EnumChatFormatting.RESET;
   }
 
   public static String formatHarvestLevel(int level) {
@@ -78,19 +78,19 @@ public class ToolMaterialStats extends AbstractMaterialStats {
   }
 
   public static String formatMiningSpeed(float speed) {
-    return String.format("%s: %c%s", Util.translate(LOC_MiningSpeed), CustomFontRenderer.valueToColorCode(speed/10f), df.format(speed)) + EnumChatFormatting.RESET;
+    return String.format("%s: %s%s", Util.translate(LOC_MiningSpeed), CustomFontRenderer.valueToColorCode(speed/10f), df.format(speed)) + EnumChatFormatting.RESET;
   }
 
   public static String formatAttack(float attack) {
-    return String.format("%s: %c%s", Util.translate(LOC_Attack), CustomFontRenderer.valueToColorCode(attack/10f), df.format(attack)) + EnumChatFormatting.RESET;
+    return String.format("%s: %s%s", Util.translate(LOC_Attack), CustomFontRenderer.valueToColorCode(attack/10f), df.format(attack)) + EnumChatFormatting.RESET;
   }
 
   public static String formatHandle(float quality) {
-    return String.format("%s: %c%s", Util.translate(LOC_Handle), CustomFontRenderer.valueToColorCode(quality), dfPercent.format(quality)) + EnumChatFormatting.RESET;
+    return String.format("%s: %s%s", Util.translate(LOC_Handle), CustomFontRenderer.valueToColorCode(quality), dfPercent.format(quality)) + EnumChatFormatting.RESET;
   }
 
   public static String formatExtra(float quality) {
-    return String.format("%s: %c%s", Util.translate(LOC_Extra), CustomFontRenderer.valueToColorCode(quality), dfPercent.format(quality));
+    return String.format("%s: %s%s", Util.translate(LOC_Extra), CustomFontRenderer.valueToColorCode(quality), dfPercent.format(quality));
   }
 
   @Override

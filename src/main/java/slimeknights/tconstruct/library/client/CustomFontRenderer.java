@@ -17,8 +17,13 @@ import java.awt.*;
  */
 @SideOnly(Side.CLIENT)
 public class CustomFontRenderer extends FontRenderer {
+  protected static int MARKER = 0x2700;
 
   private boolean dropShadow;
+  private int state = 0;
+  private int red;
+  private int green;
+  private int blue;
 
   public CustomFontRenderer(GameSettings gameSettingsIn, ResourceLocation location, TextureManager textureManagerIn) {
     super(gameSettingsIn, location, textureManagerIn, true);
@@ -34,10 +39,18 @@ public class CustomFontRenderer extends FontRenderer {
   protected float renderUnicodeChar(char letter, boolean italic) {
     // special color settings through char code
     // we use \u2700 to \u27FF, where the lower byte represents the Hue of the color
-    if((int)letter >= 0x2700 && (int)letter <= 0x27FF) {
-      int hue = letter & 0xFF;
-      int color = Color.HSBtoRGB((float)hue/255f, 0.65f, 0.8f);
+    if((int)letter >= MARKER && (int)letter <= MARKER + 0xFF) {
+      int value = letter & 0xFF;
+      switch(state) {
+        case 0: red = value; break;
+        case 1: green = value; break;
+        case 2: blue = value; break;
+        default: this.setColor(1f, 1f, 1f, 1f); return 0;
+      }
 
+      state = ++state % 3;
+
+      int color = (red << 16) | (green << 8) | blue | (0xff << 24);
       if ((color & -67108864) == 0)
       {
         color |= -16777216;
@@ -55,7 +68,31 @@ public class CustomFontRenderer extends FontRenderer {
       return 0;
     }
 
+    // invalid sequence encountered
+    if(state != 0) {
+      state = 0;
+      this.setColor(1f, 1f, 1f, 1f);
+    }
+
     return super.renderUnicodeChar(letter, italic);
+  }
+
+  public static String encodeColor(int color) {
+    int r = ((color >> 16) & 255);
+    int g = ((color >>  8) & 255);
+    int b = ((color >>  0) & 255);
+    return encodeColor(r, g, b);
+  }
+
+  public static String encodeColor(float r, float g, float b) {
+    return encodeColor(r*255, g*255, b*255);
+  }
+
+  public static String encodeColor(int r, int g, int b) {
+    return String.format("%c%c%c",
+                         ((char)(MARKER + (r&0xFF))),
+                         ((char)(MARKER + (g&0xFF))),
+                         ((char)(MARKER + (b&0xFF))));
   }
 
   /**
@@ -63,12 +100,13 @@ public class CustomFontRenderer extends FontRenderer {
    * Returns a color between red and green, depending on the value. 1.0 is green.
    * If the value goes above 1.0 it continues along the color spectrum.
    */
-  public static char valueToColorCode(float v) {
+  public static String valueToColorCode(float v) {
     // 0.0 -> 0 = red
     // 1.0 -> 1/3 = green
     // 1.5 -> 1/2 = aqua
     v /= 3f;
     v = MathHelper.clamp_float(v, 0.01f, 0.5f);
-    return (char)(0x2700 + (int)(v*255f));
+    int color = Color.HSBtoRGB(v, 0.65f, 0.8f);
+    return encodeColor(color);
   }
 }
