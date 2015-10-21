@@ -80,6 +80,14 @@ public class GuiInfoPanel extends GuiModule {
 
     caption = "Caption";
     text = Lists.newLinkedList();
+
+    fontRendererObj = fontRenderer;
+  }
+
+  @Override
+  public void setWorldAndResolution(Minecraft mc, int width, int height) {
+    super.setWorldAndResolution(mc, width, height);
+    fontRendererObj = fontRenderer;
   }
 
   @Override
