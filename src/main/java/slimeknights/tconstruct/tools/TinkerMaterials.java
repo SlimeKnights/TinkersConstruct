@@ -57,35 +57,35 @@ public final class TinkerMaterials {
   public static final List<Material> materials = Lists.newArrayList();
 
   // natural resources/blocks
-  public static final Material wood       = mat("wood", EnumChatFormatting.YELLOW);
-  public static final Material stone      = mat("stone", EnumChatFormatting.GRAY);
-  public static final Material flint      = mat("flint", EnumChatFormatting.DARK_GRAY);
-  public static final Material cactus     = mat("cactus", EnumChatFormatting.DARK_GREEN);
-  public static final Material obsidian   = mat("obsidian", EnumChatFormatting.LIGHT_PURPLE);
-  public static final Material prismarine = mat("prismarine", EnumChatFormatting.DARK_AQUA);
-  public static final Material netherrack = mat("netherrack", EnumChatFormatting.DARK_RED);
-  public static final Material endstone   = mat("endstone", EnumChatFormatting.GOLD);
+  public static final Material wood       = mat("wood", 0x8e661b);
+  public static final Material stone      = mat("stone", 0x999999);
+  public static final Material flint      = mat("flint", 0x696969);
+  public static final Material cactus     = mat("cactus", 0x00a10f);
+  public static final Material obsidian   = mat("obsidian", 0x601cc4);
+  public static final Material prismarine = mat("prismarine", 0x7edebc);
+  public static final Material netherrack = mat("netherrack", 0xb84f4f);
+  public static final Material endstone   = mat("endstone", 0xe0d890);
 
   // item/special resources
-  public static final Material bone       = mat("bone", EnumChatFormatting.WHITE);
-  public static final Material paper      = mat("paper", EnumChatFormatting.WHITE);
-  public static final Material sponge     = mat("sponge", EnumChatFormatting.YELLOW);
-  public static final Material slime      = mat("slime", EnumChatFormatting.GREEN);
-  public static final Material blueslime  = mat("blueslime", EnumChatFormatting.BLUE);
+  public static final Material bone       = mat("bone", 0xede6bf);
+  public static final Material paper      = mat("paper", 0xffffff);
+  public static final Material sponge     = mat("sponge", 0xcacc4e);
+  public static final Material slime      = mat("slime", 0x82c873);
+  public static final Material blueslime  = mat("blueslime", 0x74c8c7);
 
   // Metals
-  public static final Material iron       = mat("iron", EnumChatFormatting.GRAY);
-  public static final Material copper     = mat("copper", EnumChatFormatting.GOLD);
+  public static final Material iron       = mat("iron", 0xcacaca);
+  public static final Material copper     = mat("copper", 0xed9f07);
 
   // Nether Materials
-  public static final Material ardite     = mat("ardite", EnumChatFormatting.RED);
-  public static final Material cobalt     = mat("cobalt", EnumChatFormatting.DARK_BLUE);
-  public static final Material manyullyn  = mat("manyullyn", EnumChatFormatting.DARK_PURPLE);
+  public static final Material ardite     = mat("ardite", 0xd14210);
+  public static final Material cobalt     = mat("cobalt", 0x2882d4);
+  public static final Material manyullyn  = mat("manyullyn", 0x882ff8);
 
   // Alloys
-  public static final Material knightslime= mat("knightslime", EnumChatFormatting.LIGHT_PURPLE);
-  public static final Material pigiron    = mat("pigiron", EnumChatFormatting.RED);
-  public static final Material bronze     = mat("bronze", EnumChatFormatting.GOLD);
+  public static final Material knightslime= mat("knightslime", 0xe03fde);
+  public static final Material pigiron    = mat("pigiron", 0xff9cc4);
+  public static final Material bronze     = mat("bronze", 0xd2a869);
 
 
   public static final Material xu;
@@ -105,7 +105,7 @@ public final class TinkerMaterials {
   public static final AbstractTrait squeaky = new TraitSqueaky();
   public static final AbstractTrait stonebound = new TraitStonebound();
 
-  private static Material mat(String name, EnumChatFormatting color) {
+  private static Material mat(String name, int color) {
     Material mat = new Material(name, color);
     materials.add(mat);
     return mat;
