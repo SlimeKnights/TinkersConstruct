@@ -197,10 +197,10 @@ public class ToolClientProxy extends ClientProxy {
 
     // hammer
     info = new ToolBuildGuiInfo(TinkerTools.hammer);
-    info.addSlotPosition(33-10, 42+10); // handle
-    info.addSlotPosition(33+13, 42-13); // head
-    info.addSlotPosition(33+10+16, 42-10+16); // plate 1
-    info.addSlotPosition(33+10-16, 42-10-16); // plate 2
+    info.addSlotPosition(33-10-2, 42+10); // handle
+    info.addSlotPosition(33+13-2, 42-13); // head
+    info.addSlotPosition(33+10+16-2, 42-10+16); // plate 1
+    info.addSlotPosition(33+10-16-2, 42-10-16); // plate 2
     TinkerRegistryClient.addToolBuilding(info);
 
     // excavator

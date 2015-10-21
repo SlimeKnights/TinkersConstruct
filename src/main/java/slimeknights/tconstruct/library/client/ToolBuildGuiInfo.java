@@ -64,7 +64,7 @@ public class ToolBuildGuiInfo {
     RenderMaterials[2] = new Material("_internal_render3", EnumChatFormatting.WHITE);
     RenderMaterials[2].setRenderInfo(0x2376dd);
     RenderMaterials[3] = new Material("_internal_render4", EnumChatFormatting.WHITE);
-    RenderMaterials[3].setRenderInfo(0x8f60d4);
+    RenderMaterials[3].setRenderInfo(0x7146b0);
 
     for(Material mat : RenderMaterials) {
       // yes, these will only be registered clientside
