@@ -47,6 +47,7 @@ public class DumpMaterialTest extends CommandBase {
 
   @Override
   public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+    printStats();
     printTool(new Pickaxe(), baseMaterial);
     printTool(new Hatchet(), baseMaterial);
     printTool(new BroadSword(), baseMaterial);
@@ -60,6 +61,49 @@ public class DumpMaterialTest extends CommandBase {
       printTool(new BroadSword(), mat1);
       printTool(new Shovel(), mat1);
     }
+  }
+
+  private void printStats() throws CommandException {
+    File file = new File("dumps/materials.html");
+    PrintWriter pw = null;
+    try {
+      pw = new PrintWriter(file);
+    } catch(FileNotFoundException e) {
+      e.printStackTrace();
+      throw new CommandException(e.getMessage());
+    }
+
+
+    List<String> header = Lists.newArrayList("Materials", "Durability", "Speed", "Attack", "Handle", "Extra");
+    List<List<String>> rows = Lists.newArrayList();
+
+    for(Material mat1 : TinkerRegistry.getAllMaterials()) {
+      if(!mat1.hasStats(ToolMaterialStats.TYPE))
+        continue;
+
+      ToolMaterialStats stats = mat1.getStats(ToolMaterialStats.TYPE);
+      List<String> row = Lists.newArrayList();
+      rows.add(row);
+      row.add("<td>" + mat1.getIdentifier() + "</td>");
+      row.add(String.format("<td>%d<br>%d<br>%d</td>", stats.durability, (int)(stats.durability*stats.handleQuality), (int)(stats.durability*stats.extraQuality)));
+      row.add(String.format("<td>%.2f<br>%.2f<br>%.2f</td>", stats.miningspeed, (stats.miningspeed*stats.handleQuality), (stats.miningspeed*stats.extraQuality)));
+      row.add(String.format("<td>%.2f<br>%.2f<br>%.2f</td>", stats.attack, (stats.attack*stats.handleQuality), (stats.attack*stats.extraQuality)));
+      row.add(String.format("<td>%.2f</td>", stats.handleQuality));
+      row.add(String.format("<td>%.2f</td>", stats.extraQuality));
+    }
+
+    StringBuilder sb = new StringBuilder();
+    sb.append("<html>");
+    sb.append("<head>");
+    sb.append("Materials");
+    sb.append("</head>");
+    sb.append("<body>");
+    sb.append(array2HTML(header, rows, false));
+    sb.append("</body>");
+    sb.append("</html>");
+
+    pw.print(sb.toString());
+    pw.close();
   }
 
   private void printTool(ToolCore tool, Material head) throws CommandException {
@@ -118,13 +162,13 @@ public class DumpMaterialTest extends CommandBase {
     sb.append("</head>");
     sb.append("<body>");
     header.set(0, "Durability");
-    sb.append(array2HTML(header, tableDur));
+    sb.append(array2HTML(header, tableDur, true));
     sb.append("<hr>");
     header.set(0, "Speed");
-    sb.append(array2HTML(header, tableSpeed));
+    sb.append(array2HTML(header, tableSpeed, true));
     sb.append("<hr>");
     header.set(0, "Attack");
-    sb.append(array2HTML(header, tableAttack));
+    sb.append(array2HTML(header, tableAttack, true));
     sb.append("</body>");
     sb.append("</html>");
 
@@ -136,7 +180,7 @@ public class DumpMaterialTest extends CommandBase {
     return Color.HSBtoRGB(f/3f, 0.65f, 0.8f) & 0xffffff;
   }
 
-  public static String array2HTML(List header, List array){
+  public static String array2HTML(List header, List array, boolean headerAsRowCaption){
     StringBuilder html = new StringBuilder(
         "<table border=\"1\">");
     for(Object elem : header){
@@ -145,7 +189,8 @@ public class DumpMaterialTest extends CommandBase {
     for(int i = 0; i < array.size(); i++) {
       List<Object> row = (List<Object>)array.get(i);
       html.append("<tr>");
-      html.append("<td>" + header.get(i+1) + "</td>");
+      if(headerAsRowCaption)
+        html.append("<td>" + header.get(i+1) + "</td>");
       for(Object elem : row){
         html.append(elem.toString());
         //html.append("<td>" + elem.toString() + "</td>");
