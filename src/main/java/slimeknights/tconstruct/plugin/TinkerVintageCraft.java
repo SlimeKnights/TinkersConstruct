@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-import mantle.pulsar.pulse.Pulse;
+import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.tools.TableRecipe;
 import slimeknights.tconstruct.tools.block.BlockToolTable;

@@ -1,7 +1,6 @@
 package slimeknights.tconstruct;
 
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -18,8 +17,8 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 import java.util.Random;
 
-import mantle.pulsar.control.PulseManager;
 import slimeknights.mantle.common.GuiHandler;
+import slimeknights.mantle.pulsar.control.PulseManager;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.common.TinkerOredict;
