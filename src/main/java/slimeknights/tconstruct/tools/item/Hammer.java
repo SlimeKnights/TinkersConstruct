@@ -3,6 +3,8 @@ package slimeknights.tconstruct.tools.item;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
@@ -12,6 +14,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
@@ -38,6 +41,15 @@ public class Hammer extends Pickaxe {
   @Override
   public float damagePotential() {
     return 1.0f;
+  }
+
+  @Override
+  public boolean dealDamage(ItemStack stack, EntityPlayer player, EntityLivingBase entity, float damage) {
+    // bonus damage vs. undead!
+    if(entity.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD) {
+      damage += 3 + TConstruct.random.nextInt(4);
+    }
+    return super.dealDamage(stack, player, entity, damage);
   }
 
   @Override
