@@ -25,6 +25,20 @@ public class ToolNBT {
     read(tag);
   }
 
+  public ToolNBT handle(ToolMaterialStats... handles) {
+    for(ToolMaterialStats stats : handles) {
+      durability += stats.durability * stats.handleQuality;
+    }
+    return this;
+  }
+
+  public ToolNBT extra(ToolMaterialStats... extras) {
+    for(ToolMaterialStats stats : extras) {
+      durability += stats.durability * stats.extraQuality;
+    }
+    return this;
+  }
+
   public void read(NBTTagCompound tag) {
     durability = tag.getInteger(Tags.DURABILITY);
     harvestLevel = tag.getInteger(Tags.HARVESTLEVEL);

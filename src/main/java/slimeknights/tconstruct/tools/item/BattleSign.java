@@ -153,12 +153,12 @@ public class BattleSign extends BroadSword {
     ToolMaterialStats head = materials.get(1).getStats(ToolMaterialStats.TYPE);
 
     ToolNBT data = new ToolNBT(head);
+    data.handle(handle);
 
-    data.durability += (0.1f + 0.2f * handle.handleQuality) * head.durability;
-    data.durability += (0.1f + 0.2f * head.extraQuality) * handle.durability;
-    data.speed *= 0.4f + 0.6f * handle.extraQuality;
-
-    data.attack += 2.0f;
+    data.durability *= 1f + 0.3f * (handle.extraQuality - 0.5f);
+    data.speed *= 1f + 0.05f * (handle.handleQuality * handle.miningspeed);
+    data.attack += 2f;
+    data.attack *= 1f + 0.05f * handle.handleQuality * handle.extraQuality;
 
     data.modifiers = 4;
 

@@ -93,17 +93,22 @@ public class BroadSword extends ToolCore {
     ToolMaterialStats guard = materials.get(2).getStats(ToolMaterialStats.TYPE);
 
     ToolNBT data = new ToolNBT(head);
+    data.handle(handle).extra(guard);
 
+    data.durability *= 1f + 0.3f * (guard.extraQuality - 0.5f);
+    data.speed *= 1f + 0.05f * (handle.handleQuality * handle.miningspeed);
     // sword has 1.5 hearts base damage!
     data.attack += 3f;
+    data.attack *= 1f + 0.15f * handle.handleQuality * guard.extraQuality;
 
+    /*
     // attack damage: blade, modified 10% by handle and 20% by guard
     data.attack *= 0.7f + 0.1f*handle.handleQuality + 0.2f*guard.extraQuality;
 
     // durability: guard adds a bit to it, handle has minimal impact
     data.durability += 0.1f * guard.durability * guard.extraQuality;
     data.durability *= 0.95f + 0.05f*handle.handleQuality;
-
+*/
     // 3 free modifiers
     data.modifiers = DEFAULT_MODIFIERS;
 

@@ -73,9 +73,4 @@ public class LongSword extends BroadSword {
 
     super.onPlayerStoppedUsing(stack, world, player, timeLeft);
   }
-
-  @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
-    return super.buildTag(materials);
-  }
 }

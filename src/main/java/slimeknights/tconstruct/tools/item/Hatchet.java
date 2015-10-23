@@ -98,10 +98,19 @@ public class Hatchet extends AoeToolCore {
     ToolMaterialStats binding = materials.get(2).getStats(ToolMaterialStats.TYPE);
 
     ToolNBT data = new ToolNBT(head);
+    data.handle(handle).extra(binding);
 
     // bonus base damage
     data.attack += 1f;
 
+    data.durability *= 1f + 0.15f * (binding.extraQuality - 0.5f);
+    data.speed *= 1f + 0.1f * (handle.handleQuality * handle.miningspeed);
+
+    // % bonus attack damage max for a good handle/extra combination
+    // but not too much or the player will feel bad about it.
+    data.attack *= 1f + 0.1f * handle.handleQuality * binding.extraQuality;
+
+/*
     // the binding has the most impact here, since it has to hold the parts together
     data.durability = data.durability / 2 + (int) (binding.extraQuality * (float) data.durability / 2f);
 
@@ -115,7 +124,7 @@ public class Hatchet extends AoeToolCore {
 
     data.attack *= 0.6f + 0.4f * coeff;
     data.speed *= 0.6f + 0.4f * coeff;
-
+*/
     // 3 free modifiers
     data.modifiers = DEFAULT_MODIFIERS;
 

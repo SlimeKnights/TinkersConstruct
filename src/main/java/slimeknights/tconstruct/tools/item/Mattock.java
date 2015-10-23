@@ -188,20 +188,18 @@ public class Mattock extends AoeToolCore {
     MattockToolNBT data = new MattockToolNBT();
 
     // durability
-    data.durability = (axe.durability + shovel.durability)/3;
-    data.durability = (int)(axe.durability * 0.33f * shovel.extraQuality + shovel.durability * 0.33f * axe.extraQuality);
-    data.durability *= 0.5f + 0.5f * handle.handleQuality;
-    data.durability += 0.07f * handle.durability;
+    data.durability = (axe.durability + shovel.durability)/2;
+    data.durability *= 1f + 0.05f * (axe.extraQuality*shovel.extraQuality);
 
     // backup speed
     data.speed = (axe.miningspeed + shovel.miningspeed)/2f;
+    data.speed *= 1f + 0.3f * (handle.handleQuality * handle.miningspeed);
     // real speed
     data.axeSpeed = axe.miningspeed * 0.8f + 0.2f * handle.handleQuality;
-    data.axeSpeed += 0.2f * shovel.miningspeed * handle.handleQuality * handle.extraQuality;
     data.shovelSpeed = shovel.miningspeed * 0.8f + 0.2f * handle.handleQuality;
-    data.shovelSpeed += 0.2f * axe.miningspeed * handle.handleQuality * handle.extraQuality;
 
-    data.axeSpeed *= 0.8f;
+    // a bit slower because.. it's a mattock
+    data.axeSpeed *= 0.7f;
     data.shovelSpeed *= 0.7f;
 
     // harvest level

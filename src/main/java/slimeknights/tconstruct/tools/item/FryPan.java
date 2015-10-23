@@ -165,11 +165,13 @@ public class FryPan extends ToolCore {
     ToolMaterialStats head = materials.get(1).getStats(ToolMaterialStats.TYPE);
 
     ToolNBT data = new ToolNBT(head);
+    data.handle(handle);
 
-    data.durability += (head.durability + handle.durability) * (0.1f + 0.4f * handle.handleQuality);
-    data.speed *= 0.8f + 0.2f * handle.extraQuality;
-
-    data.attack += 1.0f;
+    data.durability *= 1f + 0.3f * (handle.extraQuality - 0.5f);
+    data.speed *= 1f + 0.05f * (handle.handleQuality * handle.miningspeed);
+    // sword has 1.5 hearts base damage!
+    data.attack += 1f;
+    data.attack *= 1f + 0.1f * handle.handleQuality * handle.extraQuality;
 
     data.modifiers = 4;
 

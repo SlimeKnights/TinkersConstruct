@@ -25,6 +25,7 @@ import java.util.Stack;
 
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
@@ -38,6 +39,9 @@ public class LumberAxe extends Hatchet {
           new PartMaterialType.ToolPartType(TinkerTools.broadAxeHead),
           new PartMaterialType.ToolPartType(TinkerTools.largePlate),
           new PartMaterialType.ToolPartType(TinkerTools.toughBinding));
+
+    // lumberaxe is not a weapon. it's for lumberjacks. Lumberjacks are manly, they're weapons themselves.
+    categories.remove(Category.WEAPON);
   }
 
   @Override
@@ -61,7 +65,16 @@ public class LumberAxe extends Hatchet {
     ToolMaterialStats binding = materials.get(3).getStats(ToolMaterialStats.TYPE);
 
     ToolNBT data = new ToolNBT(head);
+    data.handle(handle).extra(binding, plate);
 
+
+    data.durability *= 1f + 0.15f * (binding.extraQuality - 0.5f);
+    data.speed *= 1f + 0.1f * (handle.handleQuality * handle.miningspeed);
+    data.speed *= 0.3f; // slower because AOE
+    data.attack = head.attack*2f + plate.attack/3f;
+    data.attack *= 1f + 0.1f * handle.handleQuality * binding.extraQuality;
+
+    /*
     // as with the hatchet, the binding is very important. Except this time the plate also factors in
 
     data.durability *= 0.9f;
@@ -77,7 +90,7 @@ public class LumberAxe extends Hatchet {
     data.speed *= 0.6f;
 
     data.attack *= 0.3f + (0.4f + 0.1f * plate.extraQuality) * coeff;
-
+*/
     // 3 free modifiers
     data.modifiers = DEFAULT_MODIFIERS;
 

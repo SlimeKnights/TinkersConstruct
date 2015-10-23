@@ -58,7 +58,13 @@ public class Shovel extends AoeToolCore {
     ToolMaterialStats binding = materials.get(2).getStats(ToolMaterialStats.TYPE);
 
     ToolNBT data = new ToolNBT(head);
+    data.handle(handle).extra(binding);
 
+    data.durability *= 1f + 0.05f * (binding.extraQuality - 0.5f);
+    data.speed *= 1f + 0.3f * (handle.handleQuality * handle.miningspeed);
+    data.attack *= 1f + 0.1f * handle.handleQuality * binding.extraQuality;
+
+    /*
     // durability is mostly head
     data.durability *= 0.8f;
     data.durability += (0.01f + 0.15f*handle.handleQuality) * handle.durability;
@@ -68,7 +74,7 @@ public class Shovel extends AoeToolCore {
     // binding adds a bit of speed
     data.speed *= 0.9f;
     data.speed += (binding.miningspeed * binding.extraQuality)*0.1f;
-
+*/
     // 3 free modifiers
     data.modifiers = DEFAULT_MODIFIERS;
 

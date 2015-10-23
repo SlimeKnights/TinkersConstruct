@@ -65,7 +65,16 @@ public class Hammer extends Pickaxe {
     ToolMaterialStats plate2 = materials.get(3).getStats(ToolMaterialStats.TYPE);
 
     ToolNBT data = new ToolNBT(head);
+    data.handle(handle).extra(plate1, plate2);
 
+    // head acts as the extra here
+    data.durability *= 1f + 0.1f * (head.extraQuality - 0.5f);
+    data.speed *= 1f + 0.2f * (handle.handleQuality * handle.miningspeed);
+    data.speed *= 0.3f; // slower because AOE
+    data.attack = head.attack/2f + (plate1.attack + plate2.attack)/3f; // plates add damage
+    data.attack *= 1f + 0.1f * handle.handleQuality * head.extraQuality;
+
+    /*
     data.durability += plate1.durability * plate1.extraQuality + plate2.durability * plate2.extraQuality;
     data.durability *= 1.5f * handle.handleQuality;
     data.durability += 0.05f * handle.durability;
@@ -74,7 +83,7 @@ public class Hammer extends Pickaxe {
     data.speed += 0.3f * handle.miningspeed * handle.handleQuality;
 
     data.attack += plate1.attack * plate2.attack * (plate1.extraQuality * plate2.extraQuality * 0.5f);
-
+*/
     // 3 free modifiers
     data.modifiers = DEFAULT_MODIFIERS;
 

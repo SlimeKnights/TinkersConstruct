@@ -63,7 +63,7 @@ public class FindBestTool extends CommandBase {
       throw new CommandException("Inavlid arguments");
     }
 
-    ToolCore tool = TinkerTools.pickaxe;
+    ToolCore tool = TinkerTools.hammer;
     List<Triple<ItemStack, ImmutableList<Material>, Object[]>> results = Lists.newArrayList();
 
     @SuppressWarnings("unchecked")

@@ -44,7 +44,14 @@ public class Excavator extends Shovel {
     ToolMaterialStats binding = materials.get(3).getStats(ToolMaterialStats.TYPE);
 
     ToolNBT data = new ToolNBT(head);
+    data.handle(handle).extra(plate, binding);
 
+    data.durability *= 1f + 0.05f * (binding.extraQuality - 0.5f);
+    data.speed *= 1f + 0.3f * (handle.handleQuality * handle.miningspeed);
+    data.attack = head.attack/2f + plate.attack/3f;
+    data.attack *= 1f + 0.1f * handle.handleQuality * binding.extraQuality;
+
+/*
     data.durability += ((0.5f + 0.5f * plate.extraQuality) * plate.durability) * (0.4f + 0.6f * binding.extraQuality);
     data.durability += 0.3f * handle.durability + 0.1f * binding.durability;
     data.durability *= 0.8f + 0.4f * handle.handleQuality;
@@ -56,7 +63,7 @@ public class Excavator extends Shovel {
     data.attack *= 1.2f;
     data.attack += (0.2f + 0.3f*plate.extraQuality) * plate.attack;
     data.attack += 0.15f * binding.attack;
-
+*/
     // 3 free modifiers
     data.modifiers = DEFAULT_MODIFIERS;
 

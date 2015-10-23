@@ -64,14 +64,22 @@ public class Cleaver extends BroadSword {
     ToolMaterialStats guard = materials.get(3).getStats(ToolMaterialStats.TYPE);
 
     ToolNBT data = new ToolNBT(head);
+    data.handle(handle).extra(shield, guard);
 
+    data.durability *= 1f + 0.1f * (guard.extraQuality - 0.5f);
+    data.speed *= 1f + 0.05f * (handle.handleQuality * handle.miningspeed);
+
+    data.attack += 5f;
+    data.attack += shield.attack/3f;
+    data.attack *= 1f + 0.15f * handle.handleQuality * guard.extraQuality;
+/*
     data.durability += 0.5f * shield.durability;
     data.durability *= 0.3f + 0.8f * handle.handleQuality;
     data.durability += 0.5f * guard.extraQuality * shield.durability;
 
     data.attack += 0.2f * shield.attack;
     data.attack *= 0.33f + 0.22f * handle.handleQuality + 0.45f * guard.extraQuality;
-
+*/
     data.modifiers = 2;
 
     return data.get();
