@@ -124,7 +124,7 @@ jar {
         attributes 'FMLAT': 'TConstruct_at.cfg'
     }
 }
-/*
+
 // Create deobf dev jars
 task deobfJar(type: Jar) {
     from sourceSets.main.output
@@ -133,7 +133,7 @@ task deobfJar(type: Jar) {
         attributes 'FMLAT': 'TConstruct_at.cfg'
     }
 }
-
+/*
 // Create API library jar
 task libJar(type: Jar) {
     from(sourceSets.main.java) {*/
@@ -147,12 +147,11 @@ task sourceJar(type: Jar, dependsOn:classes) {
     classifier = 'sources'
     from sourceSets.main.allJava
 }
-
+*/
 artifacts {
     archives deobfJar
-    archives libJar
-    archives sourceJar
-}*/
+}
+
 // verify the properties exist.. or initialize.
 if (!project.hasProperty("keystore_location")) // keystore location
     ext.keystore_location = ".";
@@ -194,3 +193,23 @@ task("uploadJars", dependsOn:"build") {
         }    
     }
 }
+
+task signUniversal(type: SignJar, dependsOn: 'jar') {
+    onlyIf {
+        project.hasProperty('jarsigner')
+    }
+
+    def jarsigner = [:];
+
+    if (project.hasProperty('jarsigner'))
+        jarsigner = project.jarsigner;
+
+    alias = 'tcon'
+    storePass = jarsigner.storepass
+    keyPass = jarsigner.keypass
+    keyStore = jarsigner.keystore
+    inputFile = jar.archivePath
+    outputFile = jar.archivePath
+}
+uploadArchives.dependsOn signUniversal
+build.dependsOn signUniversal
