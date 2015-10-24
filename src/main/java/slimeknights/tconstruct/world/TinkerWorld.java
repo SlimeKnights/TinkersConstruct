@@ -15,6 +15,7 @@ import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.world.block.BlockCongealedSlime;
 import slimeknights.tconstruct.world.block.BlockSlime;
 
 @Pulse(id = TinkerWorld.PulseId, description = "Everything that's found in the world and worldgen")
@@ -33,8 +34,10 @@ public class TinkerWorld extends TinkerPulse {
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
     slimeBlock = registerBlock(new BlockSlime(), ItemBlockMeta.class, "slime");
+    slimeBlockCongealed = registerBlock(new BlockCongealedSlime(), ItemBlockMeta.class, "slime_congealed");
 
     ItemBlockMeta.setMappingProperty(slimeBlock, BlockSlime.TYPE);
+    ItemBlockMeta.setMappingProperty(slimeBlockCongealed, BlockSlime.TYPE);
 
     proxy.preInit();
   }

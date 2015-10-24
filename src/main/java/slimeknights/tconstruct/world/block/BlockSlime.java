@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.world.block;
 
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -8,11 +7,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.world.World;
-import net.minecraftforge.common.property.ExtendedBlockState;
-import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -26,6 +21,7 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
 
   public BlockSlime() {
     this.setCreativeTab(TinkerRegistry.tabWorld);
+    this.disableStats();
   }
 
   @SideOnly(Side.CLIENT)
@@ -58,7 +54,7 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
 
   @Override
   public int damageDropped(IBlockState state) {
-    return super.damageDropped(state);
+    return getMetaFromState(state);
   }
 
   @Override
