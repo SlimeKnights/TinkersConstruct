@@ -8,8 +8,23 @@ tile.tconstruct.tooltables.partbuilder.name=Part Builder
 tile.tconstruct.tooltables.toolstation.name=Tool Station
 tile.tconstruct.tooltables.patternchest.name=Pattern Chest
 tile.tconstruct.toolforge.name=Tool Forge
-tile.tconstruct.slimesand.green.name=Slimesand
-tile.tconstruct.slimesand.blue.name=Slimesand
+
+tile.tconstruct.slimesand.green.name=Green Slimy Mud
+tile.tconstruct.slimesand.blue.name=Blue Slimy Mud
+
+tile.tconstruct.slime.green.name=Green Slime Block
+tile.tconstruct.slime.blue.name=Blue Slime Block
+tile.tconstruct.slime.purple.name=Purple Slime Block
+tile.tconstruct.slime.blood.name=Blood Slime Block
+tile.tconstruct.slime.magma.name=Magma Slime Block
+tile.tconstruct.slime.tooltip=Decorative only
+
+tile.tconstruct.slime_congealed.green.name=Congealed Green Slime Block
+tile.tconstruct.slime_congealed.blue.name=Congealed Blue Slime Block
+tile.tconstruct.slime_congealed.purple.name=Congealed Purple Slime Block
+tile.tconstruct.slime_congealed.blood.name=Congealed Blood Slime Block
+tile.tconstruct.slime_congealed.magma.name=Congealed Magma Slime Block
+tile.tconstruct.slime_congealed.tooltip=Bouncy!
 
 ################
 #    Items     #
