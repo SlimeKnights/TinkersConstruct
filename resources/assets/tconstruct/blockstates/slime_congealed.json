@@ -43,7 +43,7 @@
         "inventory": {
             "model": "slime",
             "textures": {
-                "all": "tconstruct:blocks/slime"
+                "all": "minecraft:blocks/slime"
             }
         }
     }
