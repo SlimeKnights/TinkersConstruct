@@ -31,6 +31,7 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 /**
  * TConstruct, the tool mod. Craft your tools with style, then modify until the original is gone!
@@ -77,6 +78,7 @@ public class TConstruct {
   // Tinker pulses
   static {
     pulseManager.registerPulse(new TinkerCommons());
+    pulseManager.registerPulse(new TinkerWorld());
     pulseManager.registerPulse(new TinkerTools());
     pulseManager.registerPulse(new TinkerSmeltery());
     pulseManager.registerPulse(new TinkerMaterials());

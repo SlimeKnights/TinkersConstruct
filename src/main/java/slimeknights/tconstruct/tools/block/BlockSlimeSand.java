@@ -12,12 +12,15 @@ import net.minecraft.util.IStringSerializable;
 
 import java.util.List;
 
+import slimeknights.tconstruct.library.TinkerRegistry;
+
 public class BlockSlimeSand extends Block {
 
   public static final PropertyEnum TYPE = PropertyEnum.create("type", SoilTypes.class);
 
   public BlockSlimeSand() {
     super(Material.clay);
+    this.setCreativeTab(TinkerRegistry.tabTools);
     this.slipperiness = 0.8F;
     this.setHardness(3.0f);
 
