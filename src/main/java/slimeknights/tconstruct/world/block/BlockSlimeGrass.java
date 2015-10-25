@@ -20,13 +20,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 import java.util.Random;
 
-import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
 
 public class BlockSlimeGrass extends BlockGrass {
   public static PropertyEnum TYPE = PropertyEnum.create("type", DirtType.class);
+  public static PropertyEnum GRASS = PropertyEnum.create("grass", GrassType.class);
 
   public BlockSlimeGrass() {
     this.setCreativeTab(TinkerRegistry.tabWorld);
@@ -35,8 +35,10 @@ public class BlockSlimeGrass extends BlockGrass {
   @SideOnly(Side.CLIENT)
   @Override
   public void getSubBlocks(Item itemIn, CreativeTabs tab, List list) {
-    for(DirtType type : DirtType.values()) {
-      list.add(new ItemStack(this, 1, type.meta));
+    for(GrassType grass : GrassType.values()) {
+      for(DirtType type : DirtType.values()) {
+        list.add(new ItemStack(this, 1, getMetaFromState(getDefaultState().withProperty(TYPE, type).withProperty(GRASS, grass))));
+      }
     }
   }
 
@@ -71,7 +73,7 @@ public class BlockSlimeGrass extends BlockGrass {
           if(worldIn.getLightFromNeighbors(pos1.up()) >= 4 && block.getLightOpacity(worldIn, pos1.up()) <= 2) {
             IBlockState newState = getStateFromDirt(state1);
             if(newState != null) {
-              worldIn.setBlockState(pos1, newState);
+              worldIn.setBlockState(pos1, newState.withProperty(GRASS, state.getValue(GRASS)));
             }
           }
         }
@@ -81,17 +83,23 @@ public class BlockSlimeGrass extends BlockGrass {
 
   @Override
   protected BlockState createBlockState() {
-    return new BlockState(this, TYPE, BlockGrass.SNOWY);
+    return new BlockState(this, TYPE, GRASS, BlockGrass.SNOWY);
   }
 
   @Override
   public IBlockState getStateFromMeta(int meta) {
-    return this.getDefaultState().withProperty(TYPE, DirtType.fromMeta(meta));
+    if(meta > 15) meta = 0;
+
+    return this.getDefaultState().withProperty(TYPE, DirtType.values()[meta%5]).withProperty(GRASS, GrassType.values()[meta/5]);
   }
 
   @Override
   public int getMetaFromState(IBlockState state) {
-    return ((DirtType) state.getValue(TYPE)).meta;
+    DirtType type = ((DirtType) state.getValue(TYPE));
+    GrassType grass = (GrassType) state.getValue(GRASS);
+
+    //type goes from 0-5, grass goes from 0-2 resulting in 0-5, 6-10, 11-15
+    return type.ordinal() + grass.ordinal()*5;
   }
 
   @Override
@@ -120,8 +128,10 @@ public class BlockSlimeGrass extends BlockGrass {
         return TinkerWorld.slimeDirt.getStateFromMeta(BlockSlimeDirt.DirtType.BLUE.getMeta());
       case PURPLE:
         return TinkerWorld.slimeDirt.getStateFromMeta(BlockSlimeDirt.DirtType.PURPLE.getMeta());
+      case MAGMA:
+        return TinkerWorld.slimeDirt.getStateFromMeta(BlockSlimeDirt.DirtType.MAGMA.getMeta());
     }
-    return Blocks.dirt.getDefaultState();
+    return TinkerWorld.slimeDirt.getStateFromMeta(BlockSlimeDirt.DirtType.GREEN.getMeta());
   }
 
   /** Returns the grass blockstate for the given dirt type or null */
@@ -151,43 +161,37 @@ public class BlockSlimeGrass extends BlockGrass {
 
   @Override
   public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
-    float loop = 250;
-    float x = Math.abs((loop - (Math.abs(pos.getX())%(2*loop)))/loop);
-    float z = Math.abs((loop - (Math.abs(pos.getZ())%(2*loop)))/loop);
+    IBlockState state = worldIn.getBlockState(pos);
+    if(state.getBlock() != this) return 0xffffff;
 
-    if(x < z) {
-      float tmp = x;
-      x = z;
-      z = tmp;
+    GrassType grassType = (GrassType) state.getValue(GRASS);
+
+    if(grassType == GrassType.PURPLE) {
+      return SlimeColorizer.getColorPurple(pos.getX(), pos.getZ());
     }
-
-    return SlimeColorizer.getColor(x, z);
+    else if(grassType == GrassType.ORANGE) {
+      return SlimeColorizer.getColorOrange(pos.getX(), pos.getZ());
+    }
+    return SlimeColorizer.getColorBlue(pos.getX(), pos.getZ());
   }
 
-  public enum DirtType implements IStringSerializable, EnumBlock.IEnumMeta {
+  public enum GrassType implements IStringSerializable {
+    BLUE,
+    PURPLE,
+    ORANGE;
+
+    @Override
+    public String getName() {
+      return this.toString();
+    }
+  }
+
+  public enum DirtType implements IStringSerializable {
     VANILLA,
     GREEN,
     BLUE,
-    PURPLE;
-
-    DirtType() {
-      this.meta = this.ordinal();
-    }
-
-    public final int meta;
-
-    @Override
-    public int getMeta() {
-      return meta;
-    }
-
-    public static DirtType fromMeta(int meta) {
-      if(meta < 0 || meta > values().length) {
-        meta = 0;
-      }
-
-      return values()[meta];
-    }
+    PURPLE,
+    MAGMA;
 
     @Override
     public String getName() {

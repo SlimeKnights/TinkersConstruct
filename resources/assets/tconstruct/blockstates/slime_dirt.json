@@ -24,6 +24,11 @@
                 "textures": {
                     "all": "tconstruct:blocks/slime/slimedirt_purple"
                 }
+            },
+            "magma": {
+                "textures": {
+                    "all": "tconstruct:blocks/slime/slimedirt_magma"
+                }
             }
         }
     }

@@ -44,7 +44,17 @@
                     "side": "#particle",
                     "all": "#particle"
                 }
+            },
+            "magma": {
+                "textures": {
+                    "particle": "tconstruct:blocks/slime/slimedirt_magma"
+                }
             }
+        },
+        "grass": {
+            "blue": {},
+            "purple": {},
+            "orange": {}
         },
         "snowy": {
             "false": {

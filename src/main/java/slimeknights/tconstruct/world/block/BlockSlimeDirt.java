@@ -18,7 +18,8 @@ public class BlockSlimeDirt extends EnumBlock<BlockSlimeDirt.DirtType> {
   public enum DirtType implements IStringSerializable, EnumBlock.IEnumMeta {
     GREEN,
     BLUE,
-    PURPLE;
+    PURPLE,
+    MAGMA;
 
     DirtType() {
       this.meta = this.ordinal();
