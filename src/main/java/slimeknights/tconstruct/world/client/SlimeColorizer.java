@@ -11,7 +11,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
 
 public class SlimeColorizer implements IResourceManagerReloadListener {
-  private static final ResourceLocation LOC_SLIME_PNG = Util.getResource("textures/colormap/bluegrasscolor.png");
+  private static final ResourceLocation LOC_SLIME_PNG = Util.getResource("textures/colormap/slimegrasscolor.png");
   //private static final ResourceLocation LOC_SLIME_PNG = Util.getResource("textures/colormap/orangegrasscolor.png");
 
   private static int[] colorBuffer = new int[65536];
