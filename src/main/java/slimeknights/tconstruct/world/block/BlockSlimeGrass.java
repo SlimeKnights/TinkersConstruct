@@ -118,6 +118,8 @@ public class BlockSlimeGrass extends BlockGrass {
         return TinkerWorld.slimeDirt.getStateFromMeta(BlockSlimeDirt.DirtType.GREEN.getMeta());
       case BLUE:
         return TinkerWorld.slimeDirt.getStateFromMeta(BlockSlimeDirt.DirtType.BLUE.getMeta());
+      case PURPLE:
+        return TinkerWorld.slimeDirt.getStateFromMeta(BlockSlimeDirt.DirtType.PURPLE.getMeta());
     }
     return Blocks.dirt.getDefaultState();
   }
@@ -137,6 +139,10 @@ public class BlockSlimeGrass extends BlockGrass {
       // blue slimedirt
       else if(dirtState.getValue(BlockSlimeDirt.TYPE) == BlockSlimeDirt.DirtType.BLUE) {
         return this.getDefaultState().withProperty(TYPE, DirtType.BLUE);
+      }
+      // purple slimedirt
+      else if(dirtState.getValue(BlockSlimeDirt.TYPE) == BlockSlimeDirt.DirtType.PURPLE) {
+        return this.getDefaultState().withProperty(TYPE, DirtType.PURPLE);
       }
     }
 
@@ -161,7 +167,8 @@ public class BlockSlimeGrass extends BlockGrass {
   public enum DirtType implements IStringSerializable, EnumBlock.IEnumMeta {
     VANILLA,
     GREEN,
-    BLUE;
+    BLUE,
+    PURPLE;
 
     DirtType() {
       this.meta = this.ordinal();
