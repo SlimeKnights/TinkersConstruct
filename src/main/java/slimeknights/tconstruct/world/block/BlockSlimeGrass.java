@@ -159,6 +159,24 @@ public class BlockSlimeGrass extends BlockGrass {
     return null;
   }
 
+  // Used for the item
+  @SideOnly(Side.CLIENT)
+  @Override
+  public int getRenderColor(IBlockState state) {
+    GrassType grassType = (GrassType) state.getValue(GRASS);
+
+    if(grassType == GrassType.PURPLE) {
+      return 0xa92dff;
+    }
+    else if(grassType == GrassType.ORANGE) {
+      return 0xd09800;
+    }
+
+    return 0x2aec81;
+  }
+
+  // Used for the block in world
+  @SideOnly(Side.CLIENT)
   @Override
   public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
     IBlockState state = worldIn.getBlockState(pos);
