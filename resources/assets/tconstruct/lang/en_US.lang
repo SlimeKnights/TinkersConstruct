@@ -26,6 +26,19 @@ tile.tconstruct.slime_congealed.blood.name=Congealed Blood Slime Block
 tile.tconstruct.slime_congealed.magma.name=Congealed Magma Slime Block
 tile.tconstruct.slime_congealed.tooltip=Bouncy!
 
+tile.tconstruct.slime_dirt.green.name=Green Slime Dirt
+tile.tconstruct.slime_dirt.blue.name=Blue Slime Dirt
+tile.tconstruct.slime_dirt.purple.name=Purple Slime Dirt
+tile.tconstruct.slime_dirt.blood.name=Blood Slime Dirt
+tile.tconstruct.slime_dirt.magma.name=Magma Slime Dirt
+
+tile.tconstruct.slime_grass.vanilla.name=Slime Grass
+tile.tconstruct.slime_grass.green.name=Green Slime Grass
+tile.tconstruct.slime_grass.blue.name=Blue Slime Grass
+tile.tconstruct.slime_grass.purple.name=Purple Slime Grass
+tile.tconstruct.slime_grass.blood.name=Blood Slime Grass
+tile.tconstruct.slime_grass.magma.name=Magma Slime Grass
+
 ################
 #    Items     #
 ################

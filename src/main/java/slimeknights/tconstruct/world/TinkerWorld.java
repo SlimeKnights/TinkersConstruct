@@ -48,6 +48,7 @@ public class TinkerWorld extends TinkerPulse {
 
     ItemBlockMeta.setMappingProperty(slimeBlock, BlockSlime.TYPE);
     ItemBlockMeta.setMappingProperty(slimeBlockCongealed, BlockSlime.TYPE);
+    ItemBlockMeta.setMappingProperty(slimeGrass, BlockSlimeGrass.TYPE);
 
     if(event.getSide().isClient()) {
       ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new SlimeColorizer());
