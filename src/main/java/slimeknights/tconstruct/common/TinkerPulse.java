@@ -9,6 +9,8 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Locale;
 
+import slimeknights.mantle.block.EnumBlock;
+import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.ToolPart;
@@ -62,6 +64,12 @@ public abstract class TinkerPulse {
   protected static <T extends Block> T registerBlock(T block, String unlocName) {
     block.setUnlocalizedName(Util.prefix(unlocName));
     GameRegistry.registerBlock(block, unlocName);
+    return block;
+  }
+
+  protected static <T extends EnumBlock> T registerEnumBlock(T block, String unlocName) {
+    registerBlock(block, ItemBlockMeta.class, unlocName);
+    ItemBlockMeta.setMappingProperty(block, block.prop);
     return block;
   }
 

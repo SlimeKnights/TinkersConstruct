@@ -92,7 +92,6 @@ public class TinkerCommons extends TinkerPulse {
     }
 
     if(isToolsLoaded()) {
-      log.info("adding expander");
       matSlimeCrystal = materials.addMeta(9, "slimecrystal_green");
       matSlimeCrystalBlue = materials.addMeta(10, "slimecrystal_blue");
       matExpanderW = materials.addMeta(12, "expander_w");
