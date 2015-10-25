@@ -64,7 +64,7 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
     public final int meta;
 
     public static SlimeType fromMeta(int meta) {
-      if(meta < 0 || meta > values().length) {
+      if(meta < 0 || meta >= values().length) {
         meta = 0;
       }
 

@@ -2,13 +2,18 @@ package slimeknights.tconstruct.debug;
 
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 import org.apache.logging.log4j.Logger;
+
+import java.util.Set;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -47,6 +52,32 @@ public class TinkerDebug {
       } catch(Exception e) {
         log.error("Caught exception in modifier " + modifier.getIdentifier());
         log.error(e);
+      }
+    }
+
+    // check all blocks if all metadatas are supported
+    for(ResourceLocation identifier : (Set<ResourceLocation>) Block.blockRegistry.getKeys()) {
+      // only our own stuff
+      if(!identifier.getResourceDomain().equals(Util.RESOURCE)) {
+        continue;
+      }
+
+      Block block = (Block)Block.blockRegistry.getObject(identifier);
+      for(int i = 0; i < 16; i++) {
+        block.getMetaFromState(block.getStateFromMeta(i));
+      }
+    }
+
+    // same for items
+    for(ResourceLocation identifier : (Set<ResourceLocation>) Item.itemRegistry.getKeys()) {
+      // only our own stuff
+      if(!identifier.getResourceDomain().equals(Util.RESOURCE)) {
+        continue;
+      }
+
+      Item item = (Item) Item.itemRegistry.getObject(identifier);
+      for(int i = 0; i < 0x7FFF; i++) {
+        item.getMetadata(i);
       }
     }
   }

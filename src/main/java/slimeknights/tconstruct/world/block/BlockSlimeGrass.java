@@ -88,7 +88,7 @@ public class BlockSlimeGrass extends BlockGrass {
 
   @Override
   public IBlockState getStateFromMeta(int meta) {
-    if(meta > 15) meta = 0;
+    if(meta > 14) meta = 0;
 
     return this.getDefaultState().withProperty(TYPE, DirtType.values()[meta%5]).withProperty(GRASS, GrassType.values()[meta/5]);
   }
