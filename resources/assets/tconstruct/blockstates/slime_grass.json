@@ -1,0 +1,35 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block",
+        "model": "grass",
+        "textures": {
+            "particle": "blocks/dirt",
+            "bottom": "#particle",
+            "top": "tconstruct:blocks/slime/slimegrass_top",
+            "side": "#particle",
+            "overlay": "tconstruct:blocks/slime/slimegrass_overlay"
+        }
+    },
+	"variants": {
+        "snowy=false": {
+            "model": "grass",
+            "textures": {
+                "overlay": "tconstruct:blocks/slime/slimegrass_overlay"
+            }
+        },
+        "snowy=true": {
+            "model": "tconstruct:cube_overlay_side",
+            "textures": {
+                "all": "blocks/dirt",
+                "overlay": "tconstruct:blocks/slime/slimesnow_overlay"
+            }
+        },
+        "inventory": {
+            "model": "cube_all",
+            "textures": {
+                "all": "tconstruct:blocks/slimesand"
+            }
+        }
+    }
+}
