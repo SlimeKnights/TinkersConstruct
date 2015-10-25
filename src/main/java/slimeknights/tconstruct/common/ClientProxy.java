@@ -20,6 +20,7 @@ import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
+import slimeknights.tconstruct.library.client.ItemBlockModelSetter;
 import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
 import slimeknights.tconstruct.library.client.model.ModifierModelLoader;
 import slimeknights.tconstruct.library.client.model.ToolModelLoader;
@@ -38,6 +39,8 @@ public abstract class ClientProxy extends CommonProxy {
     ModelLoaderRegistry.registerLoader(loader);
     ModelLoaderRegistry.registerLoader(materialLoader);
     ModelLoaderRegistry.registerLoader(modifierLoader);
+
+    MinecraftForge.EVENT_BUS.register(new ItemBlockModelSetter());
   }
 
   public static void initRenderer() {

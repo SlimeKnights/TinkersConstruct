@@ -35,12 +35,6 @@
         },
         "type=magma": {
             "model": "tconstruct:slime_magma"
-        },
-        "inventory": {
-            "model": "slime",
-            "textures": {
-                "all": "minecraft:blocks/slime"
-            }
         }
     }
 }
