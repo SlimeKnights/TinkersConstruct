@@ -22,7 +22,21 @@ import slimeknights.tconstruct.world.block.BlockSlimeGrass;
 public class SlimeIslandGenerator implements IWorldGenerator {
 
   // defines the jaggedness of the surface/bottom
-  protected int randomness = 2; // 2% chance to have an abnormality in the surface
+  protected int randomness = 1; // 2% chance to have an abnormality in the surface
+
+  protected SlimeLakeGenerator lakeGenGreen;
+  protected SlimeLakeGenerator lakeGenBlue;
+  protected SlimeLakeGenerator lakeGenPurple;
+
+  public SlimeIslandGenerator() {
+    IBlockState slimeGreen = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.GREEN);
+    IBlockState slimeBlue = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.BLUE);
+    IBlockState slimePurple = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.PURPLE);
+
+    lakeGenGreen = new SlimeLakeGenerator(Blocks.water.getDefaultState(), slimeGreen, slimeGreen, slimeBlue, slimePurple);
+    lakeGenBlue = new SlimeLakeGenerator(Blocks.water.getDefaultState(), slimeBlue, slimeGreen, slimeBlue, slimePurple);
+    lakeGenPurple = new SlimeLakeGenerator(Blocks.water.getDefaultState(), slimePurple, slimePurple);
+  }
 
   protected boolean shouldGenerateInDimension(int id) {
     return id != 1 && id != -1;
@@ -49,32 +63,31 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     // defoult is a blue island
     BlockSlimeGrass.GrassType grass = BlockSlimeGrass.GrassType.BLUE;
     BlockSlimeDirt.DirtType dirt = BlockSlimeDirt.DirtType.BLUE;
+    SlimeLakeGenerator lakeGen = lakeGenBlue;
 
     int rnr = random.nextInt(10);
     // purple island.. rare!
     if(rnr <= 1) {
       grass = BlockSlimeGrass.GrassType.PURPLE;
       dirt = BlockSlimeDirt.DirtType.PURPLE;
+      lakeGen = lakeGenPurple;
     }
     // green island.. not so rare
     else if(rnr < 6) {
       dirt = BlockSlimeDirt.DirtType.GREEN;
+      lakeGen = lakeGenGreen;
     }
 
     IBlockState dirtState = TinkerWorld.slimeDirt.getDefaultState().withProperty(BlockSlimeDirt.TYPE, dirt);
     IBlockState grassState = TinkerWorld.slimeGrass.getStateFromDirt(dirtState).withProperty(BlockSlimeGrass.GRASS, grass);
-    IBlockState liquid = Blocks.water.getDefaultState();
 
     int x = chunkX*16 + 7 + random.nextInt(6) - 3;
     int z = chunkZ*16 + 7 + random.nextInt(6) - 3;
 
-    IBlockState slimeGreen = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.GREEN);
-    IBlockState slimeBlue = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.BLUE);
-    IBlockState slimePurple = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.PURPLE);
-    generateIsland(random, world, x, z, dirtState, grassState, liquid);
+    generateIsland(random, world, x, z, dirtState, grassState, lakeGen);
   }
 
-  public void generateIsland(Random random, World world, int xPos, int zPos, IBlockState dirt, IBlockState grass, IBlockState liquid, IBlockState... slimes) {
+  public void generateIsland(Random random, World world, int xPos, int zPos, IBlockState dirt, IBlockState grass, SlimeLakeGenerator lakeGenerator) {
     int xRange = 20 + random.nextInt(13);
     int zRange = 20 + random.nextInt(13);
     int yRange = 11 + random.nextInt(3);
@@ -173,6 +186,9 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     }
 
     // lake
-    //SlimeLakeGenerator.generateLake(random, world, center, liquid, slimes);
+    if(lakeGenerator != null) {
+      //System.out.println(center.toString());
+      lakeGenerator.generateLake(random, world, center);
+    }
   }
 }
