@@ -71,13 +71,17 @@ public class BlockSlimeGrass extends BlockGrass {
           IBlockState state1 = worldIn.getBlockState(pos1);
 
           if(worldIn.getLightFromNeighbors(pos1.up()) >= 4 && block.getLightOpacity(worldIn, pos1.up()) <= 2) {
-            IBlockState newState = getStateFromDirt(state1);
-            if(newState != null) {
-              worldIn.setBlockState(pos1, newState.withProperty(GRASS, state.getValue(GRASS)));
-            }
+            convert(worldIn, pos1, state1, (GrassType) state.getValue(GRASS));
           }
         }
       }
+    }
+  }
+
+  public void convert(World world, BlockPos pos, IBlockState state, GrassType grassType) {
+    IBlockState newState = getStateFromDirt(state);
+    if(newState != null) {
+      world.setBlockState(pos, newState.withProperty(GRASS, grassType));
     }
   }
 
@@ -117,7 +121,7 @@ public class BlockSlimeGrass extends BlockGrass {
   }
 
   /** Returns the blockstate for the dirt underneath the grass */
-  protected IBlockState getDirtState(IBlockState grassState) {
+  public IBlockState getDirtState(IBlockState grassState) {
     DirtType type = (DirtType) grassState.getValue(TYPE);
     switch(type) {
       case VANILLA:
@@ -135,7 +139,7 @@ public class BlockSlimeGrass extends BlockGrass {
   }
 
   /** Returns the grass blockstate for the given dirt type or null */
-  protected IBlockState getStateFromDirt(IBlockState dirtState) {
+  public IBlockState getStateFromDirt(IBlockState dirtState) {
     // vanilla dirt?
     if(dirtState.getBlock() == Blocks.dirt && dirtState.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT) {
       return this.getDefaultState().withProperty(TYPE, DirtType.VANILLA);

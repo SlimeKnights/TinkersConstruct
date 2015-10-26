@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import org.apache.logging.log4j.Logger;
 
@@ -22,6 +23,7 @@ import slimeknights.tconstruct.world.block.BlockSlime;
 import slimeknights.tconstruct.world.block.BlockSlimeDirt;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
+import slimeknights.tconstruct.world.worldgen.SlimeIslandGenerator;
 
 @Pulse(id = TinkerWorld.PulseId, description = "Everything that's found in the world and worldgen")
 public class TinkerWorld extends TinkerPulse {
@@ -29,13 +31,13 @@ public class TinkerWorld extends TinkerPulse {
   public static final String PulseId = "TinkerWorld";
   static final Logger log = Util.getLogger(PulseId);
 
-  @SidedProxy(clientSide = "slimeknights.tconstruct.common.CommonProxy", serverSide = "slimeknights.tconstruct.common.CommonProxy")
+  @SidedProxy(clientSide = "slimeknights.tconstruct.world.WorldClientProxy", serverSide = "slimeknights.tconstruct.common.CommonProxy")
   public static CommonProxy proxy;
 
-  public static Block slimeBlock;
-  public static Block slimeBlockCongealed;
-  public static Block slimeDirt;
-  public static Block slimeGrass;
+  public static BlockSlime slimeBlock;
+  public static BlockCongealedSlime slimeBlockCongealed;
+  public static BlockSlimeDirt slimeDirt;
+  public static BlockSlimeGrass slimeGrass;
 
   // PRE-INITIALIZATION
   @Subscribe
@@ -50,10 +52,6 @@ public class TinkerWorld extends TinkerPulse {
     ItemBlockMeta.setMappingProperty(slimeBlockCongealed, BlockSlime.TYPE);
     ItemBlockMeta.setMappingProperty(slimeGrass, BlockSlimeGrass.TYPE);
 
-    if(event.getSide().isClient()) {
-      ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new SlimeColorizer());
-    }
-
     proxy.preInit();
   }
 
@@ -66,6 +64,8 @@ public class TinkerWorld extends TinkerPulse {
   // POST-INITIALIZATION
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
+    GameRegistry.registerWorldGenerator(new SlimeIslandGenerator(), 5);
+
     proxy.postInit();
   }
 }
