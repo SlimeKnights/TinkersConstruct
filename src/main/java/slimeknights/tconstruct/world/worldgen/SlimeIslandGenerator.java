@@ -83,8 +83,8 @@ public class SlimeIslandGenerator implements IWorldGenerator {
 
     int yBottom = world.getHeight(new BlockPos(xPos,0,zPos)).getY() + 50 + random.nextInt(50);
 
-    BlockPos center = new BlockPos(xPos - xRange/2, yBottom + height, zPos - zRange/2);
-    BlockPos start = new BlockPos(xPos - xRange, yBottom, zPos - zRange);
+    BlockPos center = new BlockPos(xPos, yBottom + height, zPos);
+    BlockPos start = new BlockPos(xPos - xRange/2, yBottom, zPos - zRange/2);
 
     // the elliptic shape
     Ellipse2D.Double ellipse = new Ellipse2D.Double(0, 0, xRange, zRange);
@@ -96,7 +96,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
       {
         for (int y = 0; y <= yRange; y++)
         {
-          if (ellipse.contains(x, z)) {// && xd*xd + zd*zd + yd*yd < r*r) {
+          if (ellipse.contains(x, z) && world.isAirBlock(start.add(x,y,z))) {
             world.setBlockState(start.add(x,y,z), dirt, 2);
           }
         }
