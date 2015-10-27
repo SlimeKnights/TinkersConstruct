@@ -74,13 +74,15 @@ public class ItemBlockModelSetter {
         if(blockLoc != null) {
           // update the model to do perspective transformation
           IFlexibleBakedModel bakedBlockModel = (IFlexibleBakedModel) event.modelRegistry.getObject(blockLoc);
-          bakedBlockModel = new BlockItemModelWrapper(bakedBlockModel);
-          event.modelRegistry.putObject(blockLoc, bakedBlockModel);
+          if(bakedBlockModel != null) {
+            bakedBlockModel = new BlockItemModelWrapper(bakedBlockModel);
+            event.modelRegistry.putObject(blockLoc, bakedBlockModel);
 
-          if(first) {
-            // silence the error
-            event.modelRegistry.putObject(loc, bakedBlockModel);
-            first = false;
+            if(first) {
+              // silence the error
+              event.modelRegistry.putObject(loc, bakedBlockModel);
+              first = false;
+            }
           }
 
           // map the item-meta to the updated block model
