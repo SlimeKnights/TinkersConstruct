@@ -139,7 +139,9 @@ public class SlimeLakeGenerator implements IWorldGenerator {
             if ((yy < 4 || random.nextInt(2) != 0) && world.getBlockState(pos.add(xx, yy, zz)).getBlock().getMaterial().isSolid()) {
               // bottom of the lake?
               if(world.getBlockState(pos.add(xx, yy+1, zz)).getBlock().getMaterial().isLiquid()) {
-                world.setBlockState(pos.add(xx, yy, zz), lakeBottomBlock, 2);
+                if(random.nextInt(10) == 0) {
+                  world.setBlockState(pos.add(xx, yy, zz), lakeBottomBlock, 2);
+                }
               }
               // no, around the lake
               else if(slimeBlocks.length > 0) {
