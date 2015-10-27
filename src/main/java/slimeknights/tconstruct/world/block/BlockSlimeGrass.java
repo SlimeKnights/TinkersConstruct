@@ -3,6 +3,7 @@ package slimeknights.tconstruct.world.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockGrass;
+import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -46,8 +47,50 @@ public class BlockSlimeGrass extends BlockGrass {
 
   @Override
   public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-    // todo: grow slime thingies :D
-    super.grow(worldIn, rand, pos, state);
+    BlockPos blockpos1 = pos.up();
+    int i = 0;
+
+    while (i < 128)
+    {
+      BlockPos blockpos2 = blockpos1;
+      int j = 0;
+
+      while (true)
+      {
+        if (j < i / 16)
+        {
+          blockpos2 = blockpos2.add(rand.nextInt(3) - 1, (rand.nextInt(3) - 1) * rand.nextInt(3) / 2, rand.nextInt(3) - 1);
+
+          if (worldIn.getBlockState(blockpos2.down()).getBlock() == this && !worldIn.getBlockState(blockpos2).getBlock().isNormalCube())
+          {
+            ++j;
+            continue;
+          }
+        }
+        else if (worldIn.isAirBlock(blockpos2))
+        {
+          IBlockState plantState;
+          if (rand.nextInt(8) == 0)
+          {
+            plantState = TinkerWorld.slimeGrassTall.getDefaultState().withProperty(BlockTallSlimeGrass.TYPE, BlockTallSlimeGrass.SlimePlantType.FERN);
+          }
+          else
+          {
+            plantState = TinkerWorld.slimeGrassTall.getDefaultState().withProperty(BlockTallSlimeGrass.TYPE, BlockTallSlimeGrass.SlimePlantType.TALL_GRASS);
+          }
+
+          plantState = plantState.withProperty(BlockTallSlimeGrass.FOLIAGE, state.getValue(FOLIAGE));
+
+          if (TinkerWorld.slimeGrassTall.canBlockStay(worldIn, blockpos2, plantState))
+          {
+            worldIn.setBlockState(blockpos2, plantState, 3);
+          }
+        }
+
+        ++i;
+        break;
+      }
+    }
   }
 
   @Override
