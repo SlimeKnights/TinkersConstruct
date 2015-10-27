@@ -22,9 +22,9 @@ import java.util.List;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.world.block.BlockSlime.SlimeType;
 
-public class BlockCongealedSlime extends Block {
+public class BlockSlimeCongealed extends Block {
 
-  public BlockCongealedSlime() {
+  public BlockSlimeCongealed() {
     super(Material.sponge);
     this.setCreativeTab(TinkerRegistry.tabWorld);
     this.slipperiness = 0.5f;

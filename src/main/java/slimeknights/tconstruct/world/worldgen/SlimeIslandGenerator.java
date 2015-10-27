@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.world.worldgen;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
@@ -14,7 +13,6 @@ import java.util.Random;
 
 import slimeknights.tconstruct.common.Config;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.BlockCongealedSlime;
 import slimeknights.tconstruct.world.block.BlockSlime;
 import slimeknights.tconstruct.world.block.BlockSlimeDirt;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
