@@ -11,9 +11,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -163,6 +165,16 @@ public class BlockSlimeGrass extends BlockGrass {
     return null;
   }
 
+  @Override
+  public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
+    return plantable.getPlantType(world, pos) == TinkerWorld.slimePlantType;
+  }
+
+  @Override
+  public int getBlockColor() {
+    return SlimeColorizer.colorBlue;
+  }
+
   // Used for the item
   @SideOnly(Side.CLIENT)
   @Override
@@ -176,7 +188,7 @@ public class BlockSlimeGrass extends BlockGrass {
   @Override
   public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
     IBlockState state = worldIn.getBlockState(pos);
-    if(state.getBlock() != this) return 0xffffff;
+    if(state.getBlock() != this) return getBlockColor();
 
     FoliageType foliageType = (FoliageType) state.getValue(FOLIAGE);
     return SlimeColorizer.getColorForPos(pos, foliageType);

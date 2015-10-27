@@ -2,6 +2,7 @@ package slimeknights.tconstruct.world;
 
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -20,6 +21,7 @@ import slimeknights.tconstruct.world.block.BlockSlime;
 import slimeknights.tconstruct.world.block.BlockSlimeDirt;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
 import slimeknights.tconstruct.world.block.BlockSlimeLeaves;
+import slimeknights.tconstruct.world.block.BlockTallSlimeGrass;
 import slimeknights.tconstruct.world.item.ItemBlockLeaves;
 import slimeknights.tconstruct.world.worldgen.SlimeIslandGenerator;
 
@@ -37,6 +39,9 @@ public class TinkerWorld extends TinkerPulse {
   public static BlockSlimeDirt slimeDirt;
   public static BlockSlimeGrass slimeGrass;
   public static BlockSlimeLeaves slimeLeaves;
+  public static BlockTallSlimeGrass slimeGrassTall;
+
+  public static final EnumPlantType slimePlantType = EnumPlantType.getPlantType("slime");
 
   // PRE-INITIALIZATION
   @Subscribe
@@ -47,11 +52,13 @@ public class TinkerWorld extends TinkerPulse {
     slimeDirt = registerEnumBlock(new BlockSlimeDirt(), "slime_dirt");
     slimeGrass = registerBlock(new BlockSlimeGrass(), ItemBlockMeta.class, "slime_grass");
     slimeLeaves = registerBlock(new BlockSlimeLeaves(), ItemBlockLeaves.class, "slime_leaves");
+    slimeGrassTall = registerBlock(new BlockTallSlimeGrass(), ItemBlockMeta.class, "slime_grass_tall");
 
     ItemBlockMeta.setMappingProperty(slimeBlock, BlockSlime.TYPE);
     ItemBlockMeta.setMappingProperty(slimeBlockCongealed, BlockSlime.TYPE);
     ItemBlockMeta.setMappingProperty(slimeGrass, BlockSlimeGrass.TYPE);
     ItemBlockMeta.setMappingProperty(slimeLeaves, BlockSlimeGrass.FOLIAGE);
+    ItemBlockMeta.setMappingProperty(slimeGrassTall, BlockTallSlimeGrass.TYPE);
 
     proxy.preInit();
   }

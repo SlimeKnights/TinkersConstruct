@@ -138,7 +138,7 @@ public class SlimeTreeGenerator implements IWorldGenerator {
   {
     while(height >= 0) {
       Block block = world.getBlockState(pos).getBlock();
-      if (block == Blocks.air || block.isLeaves(world, pos))
+      if (block == Blocks.air || block.isReplaceable(world, pos) || block.isLeaves(world, pos))
       {
         this.setBlockAndMetadata(world, pos, log);
       }
@@ -151,7 +151,7 @@ public class SlimeTreeGenerator implements IWorldGenerator {
   protected void setBlockAndMetadata (World world, BlockPos pos, IBlockState state)
   {
     Block block = world.getBlockState(pos).getBlock();
-    if (block == null || block.canPlaceBlockAt(world, pos) || world.getBlockState(pos) == leaves)
+    if (block == Blocks.air || block.canPlaceBlockAt(world, pos) || world.getBlockState(pos) == leaves)
     {
       world.setBlockState(pos, state, 2);
     }

@@ -144,7 +144,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
   @Override
   public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
     IBlockState state = worldIn.getBlockState(pos);
-    if(state.getBlock() != this) return 0xffffff;
+    if(state.getBlock() != this) return getBlockColor();
 
     FoliageType foliageType = (FoliageType) state.getValue(BlockSlimeGrass.FOLIAGE);
     return SlimeColorizer.getColorForPos(pos, foliageType);
