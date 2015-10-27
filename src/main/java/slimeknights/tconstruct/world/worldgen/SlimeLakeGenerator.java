@@ -114,7 +114,7 @@ public class SlimeLakeGenerator implements IWorldGenerator {
               if (b.topMaterial.getBlock() == Blocks.MYCELIUM) {
                 world.setBlock(grassPos, Blocks.MYCELIUM.defaultBlockState(), Block.UPDATE_CLIENTS);
               } else {
-                world.setBlock(grassPos, Blocks.GRASS.defaultBlockState(), Block.UPDATE_CLIENTS);
+                world.setBlock(grassPos, Blocks.FOLIAGE.defaultBlockState(), Block.UPDATE_CLIENTS);
               }
             }
           }

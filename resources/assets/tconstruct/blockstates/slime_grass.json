@@ -51,11 +51,6 @@
                 }
             }
         },
-        "grass": {
-            "blue": {},
-            "purple": {},
-            "orange": {}
-        },
         "snowy": {
             "false": {
                 "textures": {

@@ -26,7 +26,7 @@ import slimeknights.tconstruct.world.client.SlimeColorizer;
 
 public class BlockSlimeGrass extends BlockGrass {
   public static PropertyEnum TYPE = PropertyEnum.create("type", DirtType.class);
-  public static PropertyEnum GRASS = PropertyEnum.create("grass", GrassType.class);
+  public static PropertyEnum FOLIAGE = PropertyEnum.create("foliage", FoliageType.class);
 
   public BlockSlimeGrass() {
     this.setCreativeTab(TinkerRegistry.tabWorld);
@@ -35,9 +35,9 @@ public class BlockSlimeGrass extends BlockGrass {
   @SideOnly(Side.CLIENT)
   @Override
   public void getSubBlocks(Item itemIn, CreativeTabs tab, List list) {
-    for(GrassType grass : GrassType.values()) {
+    for(FoliageType grass : FoliageType.values()) {
       for(DirtType type : DirtType.values()) {
-        list.add(new ItemStack(this, 1, getMetaFromState(getDefaultState().withProperty(TYPE, type).withProperty(GRASS, grass))));
+        list.add(new ItemStack(this, 1, getMetaFromState(getDefaultState().withProperty(TYPE, type).withProperty(FOLIAGE, grass))));
       }
     }
   }
@@ -71,36 +71,36 @@ public class BlockSlimeGrass extends BlockGrass {
           IBlockState state1 = worldIn.getBlockState(pos1);
 
           if(worldIn.getLightFromNeighbors(pos1.up()) >= 4 && block.getLightOpacity(worldIn, pos1.up()) <= 2) {
-            convert(worldIn, pos1, state1, (GrassType) state.getValue(GRASS));
+            convert(worldIn, pos1, state1, (FoliageType) state.getValue(FOLIAGE));
           }
         }
       }
     }
   }
 
-  public void convert(World world, BlockPos pos, IBlockState state, GrassType grassType) {
+  public void convert(World world, BlockPos pos, IBlockState state, FoliageType foliageType) {
     IBlockState newState = getStateFromDirt(state);
     if(newState != null) {
-      world.setBlockState(pos, newState.withProperty(GRASS, grassType));
+      world.setBlockState(pos, newState.withProperty(FOLIAGE, foliageType));
     }
   }
 
   @Override
   protected BlockState createBlockState() {
-    return new BlockState(this, TYPE, GRASS, BlockGrass.SNOWY);
+    return new BlockState(this, TYPE, FOLIAGE, BlockGrass.SNOWY);
   }
 
   @Override
   public IBlockState getStateFromMeta(int meta) {
     if(meta > 14) meta = 0;
 
-    return this.getDefaultState().withProperty(TYPE, DirtType.values()[meta%5]).withProperty(GRASS, GrassType.values()[meta/5]);
+    return this.getDefaultState().withProperty(TYPE, DirtType.values()[meta%5]).withProperty(FOLIAGE, FoliageType.values()[meta/5]);
   }
 
   @Override
   public int getMetaFromState(IBlockState state) {
     DirtType type = ((DirtType) state.getValue(TYPE));
-    GrassType grass = (GrassType) state.getValue(GRASS);
+    FoliageType grass = (FoliageType) state.getValue(FOLIAGE);
 
     //type goes from 0-5, grass goes from 0-2 resulting in 0-5, 6-10, 11-15
     return type.ordinal() + grass.ordinal()*5;
@@ -167,16 +167,8 @@ public class BlockSlimeGrass extends BlockGrass {
   @SideOnly(Side.CLIENT)
   @Override
   public int getRenderColor(IBlockState state) {
-    GrassType grassType = (GrassType) state.getValue(GRASS);
-
-    if(grassType == GrassType.PURPLE) {
-      return 0xa92dff;
-    }
-    else if(grassType == GrassType.ORANGE) {
-      return 0xd09800;
-    }
-
-    return 0x2aec81;
+    FoliageType foliageType = (FoliageType) state.getValue(FOLIAGE);
+    return SlimeColorizer.getColorStatic(foliageType);
   }
 
   // Used for the block in world
@@ -186,18 +178,11 @@ public class BlockSlimeGrass extends BlockGrass {
     IBlockState state = worldIn.getBlockState(pos);
     if(state.getBlock() != this) return 0xffffff;
 
-    GrassType grassType = (GrassType) state.getValue(GRASS);
-
-    if(grassType == GrassType.PURPLE) {
-      return SlimeColorizer.getColorPurple(pos.getX(), pos.getZ());
-    }
-    else if(grassType == GrassType.ORANGE) {
-      return SlimeColorizer.getColorOrange(pos.getX(), pos.getZ());
-    }
-    return SlimeColorizer.getColorBlue(pos.getX(), pos.getZ());
+    FoliageType foliageType = (FoliageType) state.getValue(FOLIAGE);
+    return SlimeColorizer.getColorForPos(pos, foliageType);
   }
 
-  public enum GrassType implements IStringSerializable {
+  public enum FoliageType implements IStringSerializable {
     BLUE,
     PURPLE,
     ORANGE;

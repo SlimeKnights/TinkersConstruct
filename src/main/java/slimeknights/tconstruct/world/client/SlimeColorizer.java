@@ -3,14 +3,20 @@ package slimeknights.tconstruct.world.client;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
 
 import java.io.IOException;
 
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.world.block.BlockSlimeGrass;
 
 public class SlimeColorizer implements IResourceManagerReloadListener {
+
+  public static int colorBlue = 0x2aec81;
+  public static int colorPurple = 0xa92dff;
+  public static int colorOrange = 0xd09800;
 
   private static final ResourceLocation LOC_SLIME_BLUE_PNG = Util.getResource("textures/colormap/slimegrasscolor.png");
   private static final ResourceLocation LOC_SLIME_PURPLE_PNG =
@@ -47,6 +53,29 @@ public class SlimeColorizer implements IResourceManagerReloadListener {
     }
 
     return buffer[(int) (x * 255f) << 8 | (int) (z * 255f)];
+  }
+
+  /** Position independant Slime foliage color */
+  public static int getColorStatic(BlockSlimeGrass.FoliageType type) {
+    if(type == BlockSlimeGrass.FoliageType.PURPLE) {
+      return SlimeColorizer.colorPurple;
+    }
+    else if(type == BlockSlimeGrass.FoliageType.ORANGE) {
+      return SlimeColorizer.colorOrange;
+    }
+
+    return SlimeColorizer.colorBlue;
+  }
+
+  /** Position dependant Slime foliage color */
+  public static int getColorForPos(BlockPos pos, BlockSlimeGrass.FoliageType type) {
+    if(type == BlockSlimeGrass.FoliageType.PURPLE) {
+      return SlimeColorizer.getColorPurple(pos.getX(), pos.getZ());
+    }
+    else if(type == BlockSlimeGrass.FoliageType.ORANGE) {
+      return SlimeColorizer.getColorOrange(pos.getX(), pos.getZ());
+    }
+    return SlimeColorizer.getColorBlue(pos.getX(), pos.getZ());
   }
 
   @Override

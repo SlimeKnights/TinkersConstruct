@@ -59,14 +59,14 @@ public class SlimeIslandGenerator implements IWorldGenerator {
 
     // We do. determine parameters of the slime island!
     // defoult is a blue island
-    BlockSlimeGrass.GrassType grass = BlockSlimeGrass.GrassType.BLUE;
+    BlockSlimeGrass.FoliageType grass = BlockSlimeGrass.FoliageType.BLUE;
     BlockSlimeDirt.DirtType dirt = BlockSlimeDirt.DirtType.BLUE;
     SlimeLakeGenerator lakeGen = lakeGenBlue;
 
     int rnr = random.nextInt(10);
     // purple island.. rare!
     if(rnr <= 1) {
-      grass = BlockSlimeGrass.GrassType.PURPLE;
+      grass = BlockSlimeGrass.FoliageType.PURPLE;
       dirt = BlockSlimeDirt.DirtType.PURPLE;
       lakeGen = lakeGenPurple;
     }
@@ -77,7 +77,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     }
 
     IBlockState dirtState = TinkerWorld.slimeDirt.getDefaultState().withProperty(BlockSlimeDirt.TYPE, dirt);
-    IBlockState grassState = TinkerWorld.slimeGrass.getStateFromDirt(dirtState).withProperty(BlockSlimeGrass.GRASS, grass);
+    IBlockState grassState = TinkerWorld.slimeGrass.getStateFromDirt(dirtState).withProperty(BlockSlimeGrass.FOLIAGE, grass);
 
     int x = chunkX*16 + 7 + random.nextInt(6) - 3;
     int z = chunkZ*16 + 7 + random.nextInt(6) - 3;
