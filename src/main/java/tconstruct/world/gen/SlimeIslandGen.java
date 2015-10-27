@@ -61,8 +61,6 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
         int initialHeight = height;
         Ellipse2D.Double ellipse = new Ellipse2D.Double(0, 0, xRange, zRange);
 
-        Set<Chunk> chunks = Sets.newHashSet();
-
         // Basic shape
         for (int x = 0; x <= xRange; x++)
         {
@@ -72,8 +70,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                 {
                     if (ellipse.contains(x, z))
                     {
-                        world.setBlock(x + xChunk, y + yCenter, z + zChunk, base, 5, 0);
-                        chunks.add(world.getChunkFromBlockCoords(x + xChunk, z + zChunk));
+                        world.setBlock(x + xChunk, y + yCenter, z + zChunk, base, 5, 2);
                     }
                 }
             }
@@ -96,7 +93,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                     }
                     else
                     {
-                        world.setBlock(xPos, yPos, zPos, Blocks.air, 0, 0);
+                        world.setBlock(xPos, yPos, zPos, Blocks.air, 0, 2);
 
                     }
                 }
@@ -120,7 +117,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                     }
                     else
                     {
-                        world.setBlock(xPos, yPos, zPos, Blocks.air, 0, 0);
+                        world.setBlock(xPos, yPos, zPos, Blocks.air, 0, 2);
                     }
                 }
             }
@@ -140,7 +137,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                     {
                         Block block = world.getBlock(xPos, yPos + 1, zPos);
                         if (block == null || block == Blocks.air)
-                            world.setBlock(xPos, yPos, zPos, top, 0, 0);
+                            world.setBlock(xPos, yPos, zPos, top, 0, 2);
                     }
                 }
             }
@@ -156,11 +153,6 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
         for (int i = 0; i < 3; i++)
         {
             trees.generate(world, random, xChunk + random.nextInt(xRange), yCenter + initialHeight + 3, zChunk + random.nextInt(zRange));
-        }
-
-        // fix heightmap
-        for(Chunk chunk : chunks) {
-            chunk.generateSkylightMap();
         }
     }
 
@@ -267,7 +259,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                 {
                     if (validLocations[(xPos * 16 + zPos) * 8 + yPos] && world.getBlock(x + xPos, y + yPos - 1, z + zPos) == base && world.getSavedLightValue(EnumSkyBlock.Sky, x + xPos, y + yPos, z + zPos) > 0)
                     {
-                        world.setBlock(x + xPos, y + yPos - 1, z + zPos, top, 0, 0);
+                        world.setBlock(x + xPos, y + yPos - 1, z + zPos, top, 0, 2);
                     }
                 }
             }
