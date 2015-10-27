@@ -17,8 +17,11 @@ import tconstruct.armor.items.TravelWings;
 import tconstruct.armor.player.ArmorExtended;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.modifier.IModifyable;
+import tconstruct.util.config.PHConstruct;
 import tconstruct.util.network.ArmourGuiSyncPacket;
 import tconstruct.world.entity.BlueSlime;
+
+import java.util.Locale;
 
 public class TinkerArmorEvents
 {
@@ -43,8 +46,9 @@ public class TinkerArmorEvents
         if (event.entityLiving instanceof IBossDisplayData)
         {
             String entityName = event.entityLiving.getClass().getSimpleName().toLowerCase();
-            if (entityName.contains("entitynpc") || entityName.contains("entitycustomnpc"))
-                return;
+            for(String name : PHConstruct.heartDropBlacklist)
+                if (name.toLowerCase(Locale.US).equals(entityName))
+                    return;
 
             int count = event.entityLiving instanceof EntityDragon ? 5 : 1;
             for (int i = 0; i < count; i++)

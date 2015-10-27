@@ -210,6 +210,7 @@ public class PHConstruct
         meltableVillagers = config.get("Experimental", "Allow villagers to be melted down for emeralds", true).getBoolean(true);
         minimalTextures = config.get("Experimental", "Minimal Textures", false).getBoolean(false);
         extraBlockUpdates = config.get("Experimental", "Send additional block updates when using AOE tools", true,"This fixes very fast tools sometimes resulting in ghost blocks, but causes a bit more network traffic. Should be fine in theory.").getBoolean(true);
+        heartDropBlacklist = config.get("Experimental", "YellowHeartDropBlacklist", new String[] {"entitynpc", "entitycustomnpc"}, "Entity classes listed here will not drop yellow hearts. The values are the actual class names in lowercase.").getStringList();
 
         /* Save the configuration file only if it has changed */
         if (config.hasChanged())
@@ -390,5 +391,5 @@ public class PHConstruct
     public static boolean meltableVillagers;
     public static boolean minimalTextures;
     public static boolean extraBlockUpdates;
-
+    public static String[] heartDropBlacklist;
 }
