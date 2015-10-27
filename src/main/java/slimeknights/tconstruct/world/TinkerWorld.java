@@ -19,6 +19,8 @@ import slimeknights.tconstruct.world.block.BlockSlimeCongealed;
 import slimeknights.tconstruct.world.block.BlockSlime;
 import slimeknights.tconstruct.world.block.BlockSlimeDirt;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
+import slimeknights.tconstruct.world.block.BlockSlimeLeaves;
+import slimeknights.tconstruct.world.item.ItemBlockLeaves;
 import slimeknights.tconstruct.world.worldgen.SlimeIslandGenerator;
 
 @Pulse(id = TinkerWorld.PulseId, description = "Everything that's found in the world and worldgen")
@@ -34,6 +36,7 @@ public class TinkerWorld extends TinkerPulse {
   public static BlockSlimeCongealed slimeBlockCongealed;
   public static BlockSlimeDirt slimeDirt;
   public static BlockSlimeGrass slimeGrass;
+  public static BlockSlimeLeaves slimeLeaves;
 
   // PRE-INITIALIZATION
   @Subscribe
@@ -43,10 +46,12 @@ public class TinkerWorld extends TinkerPulse {
 
     slimeDirt = registerEnumBlock(new BlockSlimeDirt(), "slime_dirt");
     slimeGrass = registerBlock(new BlockSlimeGrass(), ItemBlockMeta.class, "slime_grass");
+    slimeLeaves = registerBlock(new BlockSlimeLeaves(), ItemBlockLeaves.class, "slime_leaves");
 
     ItemBlockMeta.setMappingProperty(slimeBlock, BlockSlime.TYPE);
     ItemBlockMeta.setMappingProperty(slimeBlockCongealed, BlockSlime.TYPE);
     ItemBlockMeta.setMappingProperty(slimeGrass, BlockSlimeGrass.TYPE);
+    ItemBlockMeta.setMappingProperty(slimeLeaves, BlockSlimeGrass.FOLIAGE);
 
     proxy.preInit();
   }

@@ -26,6 +26,9 @@ public class SlimeIslandGenerator implements IWorldGenerator {
   protected SlimeLakeGenerator lakeGenBlue;
   protected SlimeLakeGenerator lakeGenPurple;
 
+  protected SlimeTreeGenerator treeGenBlue;
+  protected SlimeTreeGenerator treeGenPurple;
+
   public SlimeIslandGenerator() {
     IBlockState slimeGreen = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.GREEN);
     IBlockState slimeBlue = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.BLUE);
@@ -34,6 +37,9 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     lakeGenGreen = new SlimeLakeGenerator(Blocks.water.getDefaultState(), slimeGreen, slimeGreen, slimeBlue, slimePurple);
     lakeGenBlue = new SlimeLakeGenerator(Blocks.water.getDefaultState(), slimeBlue, slimeGreen, slimeBlue, slimePurple);
     lakeGenPurple = new SlimeLakeGenerator(Blocks.water.getDefaultState(), slimePurple, slimePurple);
+
+    treeGenBlue = new SlimeTreeGenerator(5, 4, slimeGreen, TinkerWorld.slimeLeaves.getDefaultState().withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.BLUE));
+    treeGenPurple = new SlimeTreeGenerator(5, 4, slimeGreen, TinkerWorld.slimeLeaves.getDefaultState().withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.PURPLE));
   }
 
   protected boolean shouldGenerateInDimension(int id) {
@@ -62,6 +68,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     BlockSlimeGrass.FoliageType grass = BlockSlimeGrass.FoliageType.BLUE;
     BlockSlimeDirt.DirtType dirt = BlockSlimeDirt.DirtType.BLUE;
     SlimeLakeGenerator lakeGen = lakeGenBlue;
+    SlimeTreeGenerator treeGenerator = treeGenPurple; // purple trees on blue/green islands
 
     int rnr = random.nextInt(10);
     // purple island.. rare!
@@ -69,6 +76,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
       grass = BlockSlimeGrass.FoliageType.PURPLE;
       dirt = BlockSlimeDirt.DirtType.PURPLE;
       lakeGen = lakeGenPurple;
+      treeGenerator = treeGenBlue; // blue trees on purple grass. yay
     }
     // green island.. not so rare
     else if(rnr < 6) {
@@ -82,10 +90,10 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     int x = chunkX*16 + 7 + random.nextInt(6) - 3;
     int z = chunkZ*16 + 7 + random.nextInt(6) - 3;
 
-    generateIsland(random, world, x, z, dirtState, grassState, lakeGen);
+    generateIsland(random, world, x, z, dirtState, grassState, lakeGen, treeGenerator);
   }
 
-  public void generateIsland(Random random, World world, int xPos, int zPos, IBlockState dirt, IBlockState grass, SlimeLakeGenerator lakeGenerator) {
+  public void generateIsland(Random random, World world, int xPos, int zPos, IBlockState dirt, IBlockState grass, SlimeLakeGenerator lakeGenerator, SlimeTreeGenerator treeGenerator) {
     int xRange = 20 + random.nextInt(13);
     int zRange = 20 + random.nextInt(13);
     int yRange = 11 + random.nextInt(3);
@@ -187,6 +195,14 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     if(lakeGenerator != null) {
       //System.out.println(center.toString());
       lakeGenerator.generateLake(random, world, center);
+    }
+
+    if(treeGenerator != null) {
+      // trees
+      for(int i = 0; i < 3; i++) {
+        BlockPos pos = start.add(random.nextInt(xRange), height, random.nextInt(zRange));
+        treeGenerator.generateTree(random, world, pos);
+      }
     }
   }
 }

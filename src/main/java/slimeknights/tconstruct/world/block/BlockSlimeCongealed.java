@@ -13,10 +13,12 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.Iterator;
 import java.util.List;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -90,6 +92,36 @@ public class BlockSlimeCongealed extends Block {
     if (entity instanceof EntityLivingBase)
     {
       ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.jump.id, 1, 2));
+    }
+  }
+
+  /* Log behaviour for slimetrees */
+  @Override
+  public boolean canSustainLeaves(IBlockAccess world, BlockPos pos) {
+    return true;
+  }
+
+  // this causes leaves to decay when you break the block
+  @Override
+  public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+  {
+    byte b0 = 4;
+    int i = b0 + 1;
+
+    if (worldIn.isAreaLoaded(pos.add(-i, -i, -i), pos.add(i, i, i)))
+    {
+      Iterator iterator = BlockPos.getAllInBox(pos.add(-b0, -b0, -b0), pos.add(b0, b0, b0)).iterator();
+
+      while (iterator.hasNext())
+      {
+        BlockPos blockpos1 = (BlockPos)iterator.next();
+        IBlockState iblockstate1 = worldIn.getBlockState(blockpos1);
+
+        if (iblockstate1.getBlock().isLeaves(worldIn, blockpos1))
+        {
+          iblockstate1.getBlock().beginLeavesDecay(worldIn, blockpos1);
+        }
+      }
     }
   }
 }
