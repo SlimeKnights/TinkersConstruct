@@ -58,7 +58,7 @@ public abstract class HarvestTool extends ToolCore
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         // broken tools suck.
         if (tags.getBoolean("Broken"))
-            return -1;
+            return 0;
 
         // tadaaaa
         return tags.getInteger("HarvestLevel");

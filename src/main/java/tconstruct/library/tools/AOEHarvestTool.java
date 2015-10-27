@@ -6,6 +6,7 @@ import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.management.ItemInWorldManager;
 import net.minecraft.util.MovingObjectPosition;
 
@@ -29,7 +30,12 @@ public abstract class AOEHarvestTool extends HarvestTool {
         // only effective materials matter. We don't want to aoe when beraking dirt with a hammer.
         Block block = player.worldObj.getBlock(x,y,z);
         int meta = player.worldObj.getBlockMetadata(x,y,z);
-        if(block == null || !isEffective(block, meta))
+        if(block == null || !isEffective(block, meta) || !stack.hasTagCompound())
+            return super.onBlockStartBreak(stack, x,y,z, player);
+
+        // tool broken?
+        NBTTagCompound toolTags = stack.getTagCompound().getCompoundTag("InfiTool");
+        if(toolTags == null || toolTags.getBoolean("Broken"))
             return super.onBlockStartBreak(stack, x,y,z, player);
 
         MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(player.worldObj, player, false, 4.5d);
