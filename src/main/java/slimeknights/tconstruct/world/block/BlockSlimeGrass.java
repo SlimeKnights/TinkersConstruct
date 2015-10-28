@@ -16,6 +16,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -23,6 +24,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 import java.util.Random;
 
+import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
@@ -210,7 +212,8 @@ public class BlockSlimeGrass extends BlockGrass {
 
   @Override
   public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
-    return plantable.getPlantType(world, pos) == TinkerWorld.slimePlantType;
+    // can sustain both slimeplants and normal plants
+    return plantable.getPlantType(world, pos) == TinkerWorld.slimePlantType || plantable.getPlantType(world, pos) == EnumPlantType.Plains;
   }
 
   @Override

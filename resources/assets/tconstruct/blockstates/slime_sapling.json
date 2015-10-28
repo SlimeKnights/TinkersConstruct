@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block",
+        "model": "cross"
+    },
+	"variants": {
+        "foliage": {
+            "blue": {
+                "textures": {
+                    "cross": "tconstruct:blocks/slime/slimesapling_blue"
+                }
+            },
+            "purple": {
+                "textures": {
+                    "cross": "tconstruct:blocks/slime/slimesapling_purple"
+                }
+            },
+            "orange": {
+                "textures": {
+                    "cross": "tconstruct:blocks/slime/slimesapling_orange"
+                }
+            }
+        }
+    }
+}

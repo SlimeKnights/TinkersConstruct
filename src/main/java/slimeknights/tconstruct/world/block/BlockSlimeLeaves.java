@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Random;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass.FoliageType;
 
@@ -67,7 +68,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
   // sapling item
   @Override
   public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-    return super.getItemDropped(state, rand, fortune);
+    return Item.getItemFromBlock(TinkerWorld.slimeSapling);
   }
 
   // sapling meta

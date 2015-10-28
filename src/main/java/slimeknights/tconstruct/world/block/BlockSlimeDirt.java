@@ -6,6 +6,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 
 import slimeknights.mantle.block.EnumBlock;
@@ -22,7 +23,8 @@ public class BlockSlimeDirt extends EnumBlock<BlockSlimeDirt.DirtType> {
 
   @Override
   public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
-    return plantable.getPlantType(world, pos) == TinkerWorld.slimePlantType;
+    // can sustain both slimeplants and normal plants
+    return plantable.getPlantType(world, pos) == TinkerWorld.slimePlantType || plantable.getPlantType(world, pos) == EnumPlantType.Plains;
   }
 
   public enum DirtType implements IStringSerializable, EnumBlock.IEnumMeta {

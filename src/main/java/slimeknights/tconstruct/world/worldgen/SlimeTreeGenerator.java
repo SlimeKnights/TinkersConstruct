@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.common.IWorldGenerator;
@@ -20,13 +21,17 @@ public class SlimeTreeGenerator implements IWorldGenerator {
   public final IBlockState leaves;
   public final boolean seekHeight;
 
-  public SlimeTreeGenerator(int treeHeight, int treeRange, IBlockState log, IBlockState leaves)
-  {
+  public SlimeTreeGenerator(int treeHeight, int treeRange, IBlockState log, IBlockState leaves, boolean seekHeight) {
     this.minTreeHeight = treeHeight;
     this.treeHeightRange = treeRange;
     this.log = log;
     this.leaves = leaves;
-    this.seekHeight = true;
+    this.seekHeight = seekHeight;
+  }
+
+  public SlimeTreeGenerator(int treeHeight, int treeRange, IBlockState log, IBlockState leaves)
+  {
+    this(treeHeight, treeRange, log, leaves, true);
   }
 
 
@@ -51,8 +56,7 @@ public class SlimeTreeGenerator implements IWorldGenerator {
     if (yPos >= 1 && yPos + height + 1 <= 256)
     {
       Block soil = world.getBlockState(pos.down()).getBlock();
-      //boolean isSoil = (soil != null && soil.canSustainPlant(world, pos.down(), EnumFacing.UP, TinkerWorld.slimeSapling));
-      boolean isSoil = true;
+      boolean isSoil = (soil != null && soil.canSustainPlant(world, pos.down(), EnumFacing.UP, TinkerWorld.slimeSapling));
 
       if (isSoil)
       {
