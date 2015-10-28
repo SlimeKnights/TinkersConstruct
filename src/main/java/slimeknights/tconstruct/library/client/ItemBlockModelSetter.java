@@ -25,6 +25,7 @@ import java.util.Set;
 import slimeknights.mantle.client.model.BlockItemModelWrapper;
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 @SideOnly(Side.CLIENT)
 public class ItemBlockModelSetter {
@@ -59,6 +60,7 @@ public class ItemBlockModelSetter {
       // and then set each item-meta combination to the corresponding block model
 
       Block block = item.block;
+      if(block == TinkerWorld.slimeSapling) continue; // has custom itemmodel
       boolean first = true;
 
       // cycle through all metadatas
