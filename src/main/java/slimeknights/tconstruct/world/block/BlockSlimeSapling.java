@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.world.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
@@ -21,7 +20,6 @@ import java.util.Random;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.client.SlimeColorizer;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass.FoliageType;
 import slimeknights.tconstruct.world.worldgen.SlimeTreeGenerator;
 

@@ -55,6 +55,14 @@ public class SlimeColorizer implements IResourceManagerReloadListener {
     return buffer[(int) (x * 255f) << 8 | (int) (z * 255f)];
   }
 
+  /** Block.getRenderColor needs BGR instead of RGB for some reason */
+  public static int getColorStaticBGR(BlockSlimeGrass.FoliageType type) {
+    int color = getColorStatic(type);
+    return (color >> 16) & 0xff |
+           (color & 0xff) << 16 |
+           (color & 0xff00);
+  }
+
   /** Position independant Slime foliage color */
   public static int getColorStatic(BlockSlimeGrass.FoliageType type) {
     if(type == BlockSlimeGrass.FoliageType.PURPLE) {

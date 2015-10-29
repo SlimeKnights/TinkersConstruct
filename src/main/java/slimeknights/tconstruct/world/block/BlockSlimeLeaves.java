@@ -137,7 +137,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
   @Override
   public int getRenderColor(IBlockState state) {
     FoliageType foliageType = (FoliageType) state.getValue(BlockSlimeGrass.FOLIAGE);
-    return SlimeColorizer.getColorStatic(foliageType);
+    return SlimeColorizer.getColorStaticBGR(foliageType);
   }
 
   // Used for the block in world
