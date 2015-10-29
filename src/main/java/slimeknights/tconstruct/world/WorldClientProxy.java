@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
 import slimeknights.tconstruct.world.block.BlockSlimeLeaves;
 import slimeknights.tconstruct.world.block.BlockSlimeSapling;
+import slimeknights.tconstruct.world.block.BlockSlimeVine;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
 
 public class WorldClientProxy extends ClientProxy {
@@ -38,6 +39,7 @@ public class WorldClientProxy extends ClientProxy {
         .ignore(BlockSlimeGrass.FOLIAGE, BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE).build());
     ModelLoader.setCustomStateMapper(TinkerWorld.slimeGrassTall, (new StateMap.Builder()).ignore(BlockSlimeGrass.FOLIAGE).build());
     ModelLoader.setCustomStateMapper(TinkerWorld.slimeSapling, (new StateMap.Builder()).ignore(BlockSlimeSapling.STAGE, BlockSapling.TYPE).build());
+    ModelLoader.setCustomStateMapper(TinkerWorld.slimeVine, (new StateMap.Builder()).ignore(BlockSlimeVine.FOLIAGE).build());
 
     // items
     IBlockState state = TinkerWorld.slimeSapling.getDefaultState();

@@ -22,6 +22,7 @@ import slimeknights.tconstruct.world.block.BlockSlimeDirt;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
 import slimeknights.tconstruct.world.block.BlockSlimeLeaves;
 import slimeknights.tconstruct.world.block.BlockSlimeSapling;
+import slimeknights.tconstruct.world.block.BlockSlimeVine;
 import slimeknights.tconstruct.world.block.BlockTallSlimeGrass;
 import slimeknights.tconstruct.world.item.ItemBlockLeaves;
 import slimeknights.tconstruct.world.worldgen.SlimeIslandGenerator;
@@ -42,6 +43,7 @@ public class TinkerWorld extends TinkerPulse {
   public static BlockSlimeLeaves slimeLeaves;
   public static BlockTallSlimeGrass slimeGrassTall;
   public static BlockSlimeSapling slimeSapling;
+  public static BlockSlimeVine slimeVine;
 
   public static final EnumPlantType slimePlantType = EnumPlantType.getPlantType("slime");
 
@@ -56,6 +58,7 @@ public class TinkerWorld extends TinkerPulse {
     slimeLeaves = registerBlock(new BlockSlimeLeaves(), ItemBlockLeaves.class, "slime_leaves");
     slimeGrassTall = registerBlock(new BlockTallSlimeGrass(), ItemBlockMeta.class, "slime_grass_tall");
     slimeSapling = registerBlock(new BlockSlimeSapling(), ItemBlockMeta.class, "slime_sapling");
+    slimeVine = registerBlock(new BlockSlimeVine(), ItemBlockMeta.class, "slime_vine");
 
     ItemBlockMeta.setMappingProperty(slimeBlock, BlockSlime.TYPE);
     ItemBlockMeta.setMappingProperty(slimeBlockCongealed, BlockSlime.TYPE);
@@ -63,6 +66,7 @@ public class TinkerWorld extends TinkerPulse {
     ItemBlockMeta.setMappingProperty(slimeLeaves, BlockSlimeGrass.FOLIAGE);
     ItemBlockMeta.setMappingProperty(slimeGrassTall, BlockTallSlimeGrass.TYPE);
     ItemBlockMeta.setMappingProperty(slimeSapling, BlockSlimeGrass.FOLIAGE);
+    ItemBlockMeta.setMappingProperty(slimeVine, BlockSlimeGrass.FOLIAGE);
 
     proxy.preInit();
   }

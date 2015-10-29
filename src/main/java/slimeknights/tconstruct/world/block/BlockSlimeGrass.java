@@ -240,10 +240,23 @@ public class BlockSlimeGrass extends BlockGrass {
     return SlimeColorizer.getColorForPos(pos, foliageType);
   }
 
-  public enum FoliageType implements IStringSerializable {
+  public enum FoliageType implements IStringSerializable, EnumBlock.IEnumMeta {
     BLUE,
     PURPLE,
     ORANGE;
+
+    public static FoliageType getValFromMeta(int meta) {
+      if(meta < 0 || meta >= values().length) {
+        meta = 0;
+      }
+
+      return values()[meta];
+    }
+
+    @Override
+    public int getMeta() {
+      return ordinal();
+    }
 
     @Override
     public String getName() {

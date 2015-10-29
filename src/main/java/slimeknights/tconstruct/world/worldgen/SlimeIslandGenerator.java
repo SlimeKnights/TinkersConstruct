@@ -3,6 +3,7 @@ package slimeknights.tconstruct.world.worldgen;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -218,6 +219,47 @@ public class SlimeIslandGenerator implements IWorldGenerator {
       }
     }
 
-
+    IBlockState vine = TinkerWorld.slimeVine.getDefaultState();
+    vine = vine.withProperty(BlockSlimeGrass.FOLIAGE, grass.getValue(BlockSlimeGrass.FOLIAGE));
+    for(int i = 0; i < 30; i++) {
+      BlockPos pos = start.add(-1 + random.nextInt(xRange+2), 0, -1 + random.nextInt(zRange + 2));
+      tryPlacingVine(random, world, pos, height, vine);
+    }
   }
+
+  // takse the position and goes up until it finds a block. if it doesn't find a block directly above it'll check if it has side blocks on the way up to attach to.
+  public void tryPlacingVine(Random random, World world, BlockPos below, int limit, IBlockState vine) {
+    BlockPos pos = below;
+    BlockPos candidate = null;
+    // check straight up first
+    for(int i = 0; i < limit; i++) {
+      // check around for a possible block
+      if(vine.getBlock().canPlaceBlockOnSide(world, pos, EnumFacing.NORTH)
+          || vine.getBlock().canPlaceBlockOnSide(world, pos, EnumFacing.EAST)
+          || vine.getBlock().canPlaceBlockOnSide(world, pos, EnumFacing.SOUTH)
+          || vine.getBlock().canPlaceBlockOnSide(world, pos, EnumFacing.WEST)) {
+        if(candidate == null || random.nextInt(4) == 0) {
+          candidate = pos;
+        }
+      }
+
+      pos = pos.up();
+    }
+
+    if(candidate != null) {
+      // place the vine
+      world.setBlockState(candidate, vine);
+      // and let it grow, let it grow, let it groooooow!
+      pos = candidate;
+      for(int size = random.nextInt(8); size >= 0; size++) {
+        if(world.getBlockState(pos).getBlock() != vine.getBlock()) {
+          break;
+        }
+        TinkerWorld.slimeVine.grow(world, random, pos, world.getBlockState(pos));
+        pos = pos.down();
+      }
+    }
+  }
+
+
 }
