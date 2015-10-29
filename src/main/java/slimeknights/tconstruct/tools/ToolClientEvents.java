@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -109,7 +110,7 @@ public class ToolClientEvents {
           String partPatternLocation = locPattern.toString() + "_" + suffix;
           String partPatternTexture = baseString + suffix;
           IModel partPatternModel = itemModel.retexture(ImmutableMap.of("layer0", partPatternTexture));
-          IFlexibleBakedModel baked = partPatternModel.bake(partPatternModel.getDefaultState(), Attributes.DEFAULT_BAKED_FORMAT, textureGetter);
+          IFlexibleBakedModel baked = partPatternModel.bake(partPatternModel.getDefaultState(), DefaultVertexFormats.ITEM, textureGetter);
           event.modelRegistry.putObject(new ModelResourceLocation(partPatternLocation, "inventory"), baked);
         }
       }
