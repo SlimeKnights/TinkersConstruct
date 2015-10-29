@@ -30,7 +30,7 @@ public class LiquidMetalFinite extends BlockFluidFinite
     }
 
     @Override
-    public void registerBlockIcons (IIconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         stillIcon = iconRegister.registerIcon("tinker:" + texture);
         flowIcon = iconRegister.registerIcon("tinker:" + texture + "_flow");

@@ -261,7 +261,7 @@ public class FlexibleToolRenderer implements IItemRenderer {
 
     public int getIcons(ItemStack item, ItemRenderType type, Entity ent, IIcon[] parts)
     {
-        int iconParts = toolIcons;//tool.getRenderPasses(item.getItemDamage());
+        int iconParts = toolIcons;//tool.getRenderPasses(item.getMetadata());
         // TODO: have the tools define how many render passes they have
         // (requires more logic rewrite than it sounds like)
 

@@ -76,7 +76,7 @@ public class ToolCoreRenderer implements IItemRenderer
         if (data.length > 1)
             ent = (Entity) data[1];
 
-        int iconParts = toolIcons;//tool.getRenderPasses(item.getItemDamage());
+        int iconParts = toolIcons;//tool.getRenderPasses(item.getMetadata());
         // TODO: have the tools define how many render passes they have
         // (requires more logic rewrite than it sounds like)
 

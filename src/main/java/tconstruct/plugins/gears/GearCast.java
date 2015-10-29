@@ -19,6 +19,6 @@ public class GearCast extends Item implements IPattern {
 
     @Override
     public ItemStack getPatternOutput(ItemStack pattern, ItemStack input, PatternBuilder.MaterialSet set) {
-        return TConstructRegistry.getPartMapping(this, pattern.getItemDamage(), set.materialID);
+        return TConstructRegistry.getPartMapping(this, pattern.getMetadata(), set.materialID);
     }
 }

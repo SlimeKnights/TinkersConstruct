@@ -24,11 +24,11 @@ public class PotionLauncher extends Item
         super();
         this.maxStackSize = 1;
         this.setCreativeTab(CreativeTabs.tabCombat);
-        this.setMaxDamage(3);
+        this.setMaxDurability(3);
     }
 
     @Override
-    public ItemStack onEaten (ItemStack stack, World world, EntityPlayer player)
+    public ItemStack onItemUseFinish (ItemStack stack, World world, EntityPlayer player)
     {
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         boolean loaded = tags.getBoolean("Loaded");

@@ -74,7 +74,7 @@ public class LaunchedPotion extends EntityThrowable
             this.potionDamage = new ItemStack(Items.potionitem, 1, 0);
         }
 
-        this.potionDamage.setItemDamage(par1);
+        this.potionDamage.setMetadata(par1);
     }
 
     /**
@@ -88,7 +88,7 @@ public class LaunchedPotion extends EntityThrowable
             this.potionDamage = new ItemStack(Items.potionitem, 1, 0);
         }
 
-        return this.potionDamage.getItemDamage();
+        return this.potionDamage.getMetadata();
     }
 
     /**

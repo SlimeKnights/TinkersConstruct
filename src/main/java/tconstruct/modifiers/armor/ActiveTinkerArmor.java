@@ -30,7 +30,7 @@ public class ActiveTinkerArmor extends ActiveArmorMod
                 if (current > 0) {
                     current--;
                     tag.setInteger("Damage", current);
-                    itemStack.setItemDamage(current);
+                    itemStack.setMetadata(current);
                 }
             }
         }

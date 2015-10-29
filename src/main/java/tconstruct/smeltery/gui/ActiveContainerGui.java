@@ -14,11 +14,11 @@ public abstract class ActiveContainerGui extends GuiContainer
     }
 
     @Override
-    public void func_146977_a (Slot slot)
+    public void drawSlot (Slot slot)
     {
         if (!(slot instanceof ActiveSlot) || ((ActiveSlot) slot).getActive())
         {
-            super.func_146977_a(slot);
+            super.drawSlot(slot);
         }
     }
 

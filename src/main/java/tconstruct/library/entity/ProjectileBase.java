@@ -103,7 +103,8 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
         }
 
         if(block != null)
-            worldObj.playSoundAtEntity(this, block.stepSound.getBreakSound(), 0.7f, 1.0f);
+            // TODO: verify change from block.stepSound.getBreakSound(), which no longer exists
+            worldObj.playSoundAtEntity(this, block.stepSound.getStepSound(), 0.7f, 1.0f);
     }
 
     protected void playHitEntitySound()
@@ -403,7 +404,7 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
         // do a raytrace from old to new position
         Vec3 curPos = Vec3.createVectorHelper(this.posX, this.posY, this.posZ);
         Vec3 newPos = Vec3.createVectorHelper(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-        MovingObjectPosition movingobjectposition = this.worldObj.func_147447_a(curPos, newPos, false, true, false);
+        MovingObjectPosition movingobjectposition = this.worldObj.rayTraceBlocks(curPos, newPos, false, true, false);
 
         // raytrace messes with the positions. get new ones!
         curPos = Vec3.createVectorHelper(this.posX, this.posY, this.posZ);
@@ -504,7 +505,7 @@ public abstract class ProjectileBase extends EntityArrow implements IEntityAddit
         this.setPosition(this.posX, this.posY, this.posZ);
 
         // tell blocks we collided with, that we collided with them!
-        this.func_145775_I();
+        this.doBlockCollisions();
     }
 
     public void drawCritParticles()

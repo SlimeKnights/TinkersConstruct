@@ -53,7 +53,7 @@ public class EquipBlock extends InventoryBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons (IIconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
         // this.blockIcon =
         // par1iconRegister.registerIcon(Block.blockIron.getUnlocalizedName());
@@ -157,7 +157,7 @@ public class EquipBlock extends InventoryBlock
                         }
 
                         stack.stackSize -= itemSize;
-                        EntityItem entityitem = new EntityItem(par1World, (double) ((float) x + jumpX), (double) ((float) y + jumpY), (double) ((float) z + jumpZ), new ItemStack(stack.getItem(), itemSize, stack.getItemDamage()));
+                        EntityItem entityitem = new EntityItem(par1World, (double) ((float) x + jumpX), (double) ((float) y + jumpY), (double) ((float) z + jumpZ), new ItemStack(stack.getItem(), itemSize, stack.getMetadata()));
 
                         if (stack.hasTagCompound())
                         {

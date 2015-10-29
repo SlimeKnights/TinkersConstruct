@@ -455,7 +455,7 @@ public class TankLayerScan extends LogicComponent
             if (servant instanceof IServantLogic)
                 ((IServantLogic) servant).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
         }
-        master.getWorldObj().markBlockForUpdate(master.xCoord, master.yCoord, master.zCoord);
+        master.getWorld().markBlockForUpdate(master.xCoord, master.yCoord, master.zCoord);
     }
 
     protected void invalidateBlocksAbove (int height)
@@ -498,7 +498,7 @@ public class TankLayerScan extends LogicComponent
 
             for (int i = 0; i < layerAir.tagCount(); ++i)
             {
-                int[] coord = layerAir.func_150306_c(i);
+                int[] coord = layerAir.getIntArrayAt(i);
                 layerAirCoords.add(new CoordTuple(coord[0], coord[1], coord[2]));
             }
         }
@@ -510,7 +510,7 @@ public class TankLayerScan extends LogicComponent
 
             for (int i = 0; i < blocks.tagCount(); ++i)
             {
-                int[] coord = blocks.func_150306_c(i);
+                int[] coord = blocks.getIntArrayAt(i);
                 blockCoords.add(new CoordTuple(coord[0], coord[1], coord[2]));
             }
         }
@@ -522,7 +522,7 @@ public class TankLayerScan extends LogicComponent
 
             for (int i = 0; i < air.tagCount(); ++i)
             {
-                int[] coord = air.func_150306_c(i);
+                int[] coord = air.getIntArrayAt(i);
                 airCoords.add(new CoordTuple(coord[0], coord[1], coord[2]));
             }
         }

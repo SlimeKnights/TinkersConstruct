@@ -31,7 +31,7 @@ public class TConstructBlock extends MantleBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons (IIconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         this.icons = new IIcon[textureNames.length];
 

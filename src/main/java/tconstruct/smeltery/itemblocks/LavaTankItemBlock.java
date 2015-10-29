@@ -15,7 +15,7 @@ public class LavaTankItemBlock extends MultiItemBlock
     public LavaTankItemBlock(Block b)
     {
         super(b, "LavaTank", blockTypes);
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 

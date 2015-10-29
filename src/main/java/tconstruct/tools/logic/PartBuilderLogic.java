@@ -172,7 +172,7 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
     }
 
     @Override
-    public int[] getAccessibleSlotsFromSide (int side)
+    public int[] getSlotsForFace (int side)
     {
         return new int[0];
     }
@@ -196,19 +196,9 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
     }
 
     @Override
-    public boolean hasCustomInventoryName ()
+    public boolean isCustomInventoryName ()
     {
         return false;
-    }
-
-    @Override
-    public void openInventory ()
-    {
-    }
-
-    @Override
-    public void closeInventory ()
-    {
     }
 
     @Override

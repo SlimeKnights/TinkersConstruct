@@ -18,7 +18,7 @@ public class LiquidTextureLogic extends TileEntity
     public void setLiquidType (int tex)
     {
         texturePos = tex;
-        worldObj.func_147479_m(xCoord, yCoord, zCoord);
+        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 
     public int getLiquidType ()
@@ -61,7 +61,7 @@ public class LiquidTextureLogic extends TileEntity
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        readCustomNBT(packet.func_148857_g());
-        worldObj.func_147479_m(xCoord, yCoord, zCoord);
+        readCustomNBT(packet.getNbtCompound());
+        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 }

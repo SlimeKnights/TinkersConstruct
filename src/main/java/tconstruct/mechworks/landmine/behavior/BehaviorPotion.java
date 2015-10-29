@@ -21,7 +21,7 @@ public class BehaviorPotion extends Behavior
     @Override
     public void executeLogic (World par1World, int par2, int par3, int par4, ItemStack par5ItemStack, Entity triggerer, boolean willBlockBeRemoved)
     {
-        if (ItemPotion.isSplash(par5ItemStack.getItemDamage()))
+        if (ItemPotion.isSplash(par5ItemStack.getMetadata()))
         {
             par1World.playSoundAtEntity(triggerer, "random.bow", 0.5F, 0.4F / (ItemBlockLandmine.getRandom().nextFloat() * 0.4F + 0.8F));
 
@@ -41,7 +41,7 @@ public class BehaviorPotion extends Behavior
         {
             if (triggerer instanceof EntityPlayer)
             {
-                Items.potionitem.onEaten(par5ItemStack, par1World, (EntityPlayer) triggerer);
+                Items.potionitem.onItemUseFinish(par5ItemStack, par1World, (EntityPlayer) triggerer);
             }
             else if (triggerer instanceof EntityLivingBase)
             {

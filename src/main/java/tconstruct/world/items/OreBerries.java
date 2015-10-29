@@ -25,7 +25,7 @@ public class OreBerries extends CraftingItem
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        switch (stack.getItemDamage())
+        switch (stack.getMetadata())
         {
         case 0:
             list.add(StatCollector.translateToLocal("oreberries1.tooltip"));
@@ -51,7 +51,7 @@ public class OreBerries extends CraftingItem
     @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
-        if (stack.getItemDamage() == 5)
+        if (stack.getMetadata() == 5)
         {
             EntityXPOrb entity = new EntityXPOrb(world, player.posX, player.posY + 1, player.posZ, itemRand.nextInt(14) + 6);
             spawnEntity(player.posX, player.posY + 1, player.posZ, entity, world, player);

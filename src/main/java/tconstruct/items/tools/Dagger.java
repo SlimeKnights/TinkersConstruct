@@ -32,7 +32,7 @@ public class Dagger extends Weapon
     }
 
     @Override
-    public ItemStack onEaten (ItemStack itemstack, World world, EntityPlayer player)
+    public ItemStack onItemUseFinish (ItemStack itemstack, World world, EntityPlayer player)
     {
         ItemStack stack = itemstack.copy();
         if (!world.isRemote)

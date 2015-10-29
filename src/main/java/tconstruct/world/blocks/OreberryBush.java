@@ -49,7 +49,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerBlockIcons (IIconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         this.fastIcons = new IIcon[textureNames.length];
         this.fancyIcons = new IIcon[textureNames.length];

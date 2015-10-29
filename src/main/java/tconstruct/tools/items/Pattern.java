@@ -22,7 +22,7 @@ public class Pattern extends CraftingItem implements IPattern
     {
         super(names, patternTypes, folder, "tinker", TConstructRegistry.materialTab);
         this.setHasSubtypes(true);
-        this.setMaxDamage(0);
+        this.setMaxDurability(0);
         this.setContainerItem(this);
         this.setMaxStackSize(1);
     }
@@ -80,7 +80,7 @@ public class Pattern extends CraftingItem implements IPattern
     @Override
     public int getPatternCost (ItemStack pattern)
     {
-        switch (pattern.getItemDamage())
+        switch (pattern.getMetadata())
         {
         case 0:
             return 2;
@@ -142,6 +142,6 @@ public class Pattern extends CraftingItem implements IPattern
     @Override
     public ItemStack getPatternOutput (ItemStack stack, ItemStack input, MaterialSet set)
     {
-        return TConstructRegistry.getPartMapping((Item) this, stack.getItemDamage(), set.materialID);
+        return TConstructRegistry.getPartMapping((Item) this, stack.getMetadata(), set.materialID);
     }
 }

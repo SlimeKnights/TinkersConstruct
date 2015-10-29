@@ -287,7 +287,7 @@ public class WeaponryHandler {
 
         // set the correct material on the 2nd part
         DualMaterialToolPart dualPart = (DualMaterialToolPart) bolt2.getItem();
-        bolt1.setItemDamage(dualPart.getMaterialID2(bolt1));
+        bolt1.setMetadata(dualPart.getMaterialID2(bolt1));
 
         // update the part positions xX
         event.headStack = bolt1;
@@ -315,7 +315,7 @@ public class WeaponryHandler {
         // weaponry part
         if(event.pattern.getItem() == TinkerWeaponry.woodPattern) {
             // crossbow or bow limb
-            if (event.pattern.getItemDamage() == 1 || event.pattern.getItemDamage() == 3) {
+            if (event.pattern.getMetadata() == 1 || event.pattern.getMetadata() == 3) {
                 // only allow crafting if the material has bow stats
                 PatternBuilder.ItemKey key =  PatternBuilder.instance.getItemKey(event.material);
                 if(key == null)
@@ -330,7 +330,7 @@ public class WeaponryHandler {
             }
         }
         // arrow stats, still in tool
-        if(event.pattern.getItem() == TinkerTools.woodPattern && event.pattern.getItemDamage() == 25) {
+        if(event.pattern.getItem() == TinkerTools.woodPattern && event.pattern.getMetadata() == 25) {
             // only allow crafting if the material has bow stats
             PatternBuilder.ItemKey key =  PatternBuilder.instance.getItemKey(event.material);
             if(key == null)

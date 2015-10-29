@@ -13,7 +13,7 @@ public class SlimeTallGrassItem extends MultiItemBlock
     public SlimeTallGrassItem(Block b)
     {
         super(b, "block.slime", blockTypes);
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 

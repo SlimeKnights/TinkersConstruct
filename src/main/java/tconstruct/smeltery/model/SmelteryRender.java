@@ -129,7 +129,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                         renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, MathHelper.clamp_float(blockHeight, 0.01F, 1.0F), 1.0F);
 
                         Block liquidBlock = Block.getBlockFromItem(blockToRender.getItem());
-                        BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), x, posY, z, renderer, world);
+                        BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getMetadata(), x, posY, z, renderer, world);
                     }
                 }
                 i++;

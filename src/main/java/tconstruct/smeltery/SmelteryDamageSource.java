@@ -12,7 +12,7 @@ public class SmelteryDamageSource extends DamageSource
     }
 
     @Override
-    public IChatComponent func_151519_b (EntityLivingBase par1EntityLiving)
+    public IChatComponent getDeathMessage (EntityLivingBase par1EntityLiving)
     {
         String type = "";
         switch (AbilityHelper.random.nextInt(4))
@@ -33,6 +33,6 @@ public class SmelteryDamageSource extends DamageSource
         EntityLivingBase entityliving1 = par1EntityLiving.func_94060_bK();
         String s = "death." + type + this.damageType;
         String s1 = s + ".player";
-        return entityliving1 != null && StatCollector.canTranslate(s1) ? new ChatComponentTranslation(s1, new Object[] { par1EntityLiving.func_145748_c_(), entityliving1.func_145748_c_() }) : new ChatComponentTranslation(s, new Object[] { par1EntityLiving.func_145748_c_() });
+        return entityliving1 != null && StatCollector.canTranslate(s1) ? new ChatComponentTranslation(s1, new Object[] { par1EntityLiving.getFormattedCommandSenderName(), entityliving1.getFormattedCommandSenderName() }) : new ChatComponentTranslation(s, new Object[] { par1EntityLiving.getFormattedCommandSenderName() });
     }
 }

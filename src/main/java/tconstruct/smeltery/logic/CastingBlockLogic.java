@@ -198,7 +198,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
                         castingDelay = recipe.coolTime;
                     }
                     renderOffset = copyLiquid.amount;
-                    worldObj.func_147479_m(xCoord, yCoord, zCoord);
+                    worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
                     this.liquid = copyLiquid;
                     needsUpdate = true;
                 }
@@ -219,7 +219,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
                     renderOffset = roomInTank;
                     castingDelay = liquidCasting.getCastingDelay(this.liquid, inventory[0]);
                     this.liquid.amount = this.capacity;
-                    worldObj.func_147479_m(xCoord, yCoord, zCoord);
+                    worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
                     needsUpdate = true;
                 }
                 return roomInTank;
@@ -231,7 +231,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
                 {
                     renderOffset += resource.amount;
                     this.liquid.amount += resource.amount;
-                    worldObj.func_147479_m(xCoord, yCoord, zCoord);
+                    worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
                     needsUpdate = true;
                 }
                 return resource.amount;
@@ -328,12 +328,12 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     public ItemStack decrStackSize (int slot, int quantity)
     {
         ItemStack stack = super.decrStackSize(slot, quantity);
-        worldObj.func_147479_m(xCoord, yCoord, zCoord);
+        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
         return stack;
     }
 
     @Override
-    public int[] getAccessibleSlotsFromSide (int side)
+    public int[] getSlotsForFace (int side)
     {
         return new int[] { 0, 1 };
     }
@@ -382,19 +382,19 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     }
 
     @Override
-    public boolean hasCustomInventoryName ()
+    public boolean isCustomInventoryName ()
     {
         return false;
     }
 
     @Override
-    public void openInventory ()
+    public void openChest ()
     {
 
     }
 
     @Override
-    public void closeInventory ()
+    public void closeChest ()
     {
 
     }
@@ -404,7 +404,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     public void markDirty () // Isn't actually called?
     {
         super.markDirty();
-        worldObj.func_147479_m(xCoord, yCoord, zCoord);
+        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
         needsUpdate = true;
     }
 
@@ -423,7 +423,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
             renderOffset -= 6;
             if(renderOffset < 0)
                 renderOffset = 0;
-            worldObj.func_147479_m(xCoord, yCoord, zCoord);
+            worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
         }
 
         tick++;
@@ -522,7 +522,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        readFromNBT(packet.func_148857_g());
-        worldObj.func_147479_m(xCoord, yCoord, zCoord);
+        readFromNBT(packet.getNbtCompound());
+        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 }

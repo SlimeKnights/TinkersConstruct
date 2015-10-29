@@ -79,7 +79,7 @@ public class HamboneItemBlock extends ItemBlock
      */
 
     @Override
-    public ItemStack onEaten (ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
+    public ItemStack onItemUseFinish (ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
         --par1ItemStack.stackSize;
         par3EntityPlayer.getFoodStats().addStats(getHealAmount(), getSaturationModifier());

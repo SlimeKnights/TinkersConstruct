@@ -101,7 +101,7 @@ public class ArmorExtended implements IInventory
     }
 
     @Override
-    public boolean hasCustomInventoryName ()
+    public boolean isCustomInventoryName ()
     {
         return false;
     }
@@ -250,16 +250,6 @@ public class ArmorExtended implements IInventory
                 this.inventory[i] = null;
             }
         }
-    }
-
-    @Override
-    public void openInventory ()
-    {
-    }
-
-    @Override
-    public void closeInventory ()
-    {
     }
 
     public void writeInventoryToStream (ByteBuf os) throws IOException

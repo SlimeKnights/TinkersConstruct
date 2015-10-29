@@ -29,7 +29,7 @@ import java.util.List;
 public class Crossbow extends ProjectileWeapon {
     public Crossbow() {
         super(0, "Crossbow");
-        this.setMaxDamage(100);
+        this.setMaxDurability(100);
     }
 
     public boolean isLoaded(ItemStack itemStack)

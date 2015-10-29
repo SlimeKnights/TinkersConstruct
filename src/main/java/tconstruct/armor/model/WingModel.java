@@ -160,7 +160,7 @@ public class WingModel extends ModelBiped
             this.WingBaseLeft.rotateAngleY = -MathHelper.sin(partialTick / slow) / 15f + 0.8f;
             this.WingBaseLeft.rotateAngleZ = -MathHelper.sin(partialTick / slow) / 15f + 0.3f;
         }
-        else if (player.isSprinting() || this.onGround > 0)
+        else if (player.isSprinting() || this.swingProgress > 0)
         {
             float slow = 1.73f;
             this.WingBaseRight.rotateAngleX = MathHelper.sin(partialTick / slow) / 15f + 0.5235988F;

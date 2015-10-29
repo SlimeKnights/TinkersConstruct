@@ -15,14 +15,14 @@ public class SearedTableItemBlock extends MultiItemBlock
     public SearedTableItemBlock(Block b)
     {
         super(b, "SearedBlock", blockTypes);
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 
     @Override
     public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List p_77624_3_, boolean p_77624_4_) {
         String tooltip = "";
-        switch (p_77624_1_.getItemDamage()) {
+        switch (p_77624_1_.getMetadata()) {
             case 0:
                 tooltip = "smeltery.castingtable.tooltip";
                 break;

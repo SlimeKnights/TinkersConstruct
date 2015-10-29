@@ -15,14 +15,14 @@ public class GlassBlockItem extends MultiItemBlock
     public GlassBlockItem(Block b)
     {
         super(b, "block.glass", blockTypes);
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 
     @Override
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        if (stack.hasTagCompound() && stack.getItemDamage() == 0)
+        if (stack.hasTagCompound() && stack.getMetadata() == 0)
         {
             NBTTagCompound contentTags = stack.getTagCompound().getCompoundTag("Contents");
             if (contentTags != null)

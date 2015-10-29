@@ -11,7 +11,7 @@ public abstract class ItemModTypeFilter extends ItemModifier
     public ItemModTypeFilter(int effect, String dataKey, ItemStack[] items, int[] values)
     {
         super(items, effect, dataKey);
-        assert items.length == values.length : "Itemstacks and their values for tool modifiers must be the same length";
+        assert items.length == values.length : "ItemStacks and their values for tool modifiers must be the same length";
         this.increase = new ArrayList<Integer>();
         for (int i = 0; i < values.length; i++)
         {
@@ -42,7 +42,7 @@ public abstract class ItemModTypeFilter extends ItemModifier
             for (Object check : stacks)
             {
                 ItemStack stack = (ItemStack) check;
-                if (stack.getItemDamage() == Short.MAX_VALUE)
+                if (stack.getMetadata() == Short.MAX_VALUE)
                 {
                     if (this.areItemsEquivalent(inputStack, stack))
                         match = true;
@@ -73,7 +73,7 @@ public abstract class ItemModTypeFilter extends ItemModifier
                 for (int iter = 0; iter < stacks.size(); iter++)
                 {
                     ItemStack stack = (ItemStack) stacks.get(iter);
-                    if (stack.getItemDamage() == Short.MAX_VALUE)
+                    if (stack.getMetadata() == Short.MAX_VALUE)
                     {
                         if (this.areItemsEquivalent(inputStack, stack))
                             amount += increase.get(iter);

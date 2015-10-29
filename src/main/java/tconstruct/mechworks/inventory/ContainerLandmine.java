@@ -58,7 +58,7 @@ public class ContainerLandmine extends Container
     @Override
     public boolean canInteractWith (EntityPlayer entityplayer)
     {
-        Block block = te.getWorldObj().getBlock(te.xCoord, te.yCoord, te.zCoord);
+        Block block = te.getWorld().getBlock(te.xCoord, te.yCoord, te.zCoord);
         if (block != TinkerMechworks.landmine)
             return false;
         return te.isUseableByPlayer(entityplayer);
@@ -111,35 +111,35 @@ public class ContainerLandmine extends Container
         if (par3 == 5)
         {
             int i1 = this.field_94536_g;
-            this.field_94536_g = func_94532_c(par2);
+            this.field_94536_g = getDragEvent(par2);
 
             if ((i1 != 1 || this.field_94536_g != 2) && i1 != this.field_94536_g)
             {
-                this.func_94533_d();
+                this.resetDrag();
             }
             else if (inventoryplayer.getItemStack() == null)
             {
-                this.func_94533_d();
+                this.resetDrag();
             }
             else if (this.field_94536_g == 0)
             {
-                this.field_94535_f = func_94529_b(par2);
+                this.field_94535_f = extractDragMode(par2);
 
-                if (func_94528_d(this.field_94535_f))
+                if (isValidDragMode(this.field_94535_f))
                 {
                     this.field_94536_g = 1;
                     this.field_94537_h.clear();
                 }
                 else
                 {
-                    this.func_94533_d();
+                    this.resetDrag();
                 }
             }
             else if (this.field_94536_g == 1)
             {
                 Slot slot = (Slot) this.inventorySlots.get(par1);
 
-                if (slot != null && func_94527_a(slot, inventoryplayer.getItemStack(), true) && slot.isItemValid(inventoryplayer.getItemStack()) && inventoryplayer.getItemStack().stackSize > this.field_94537_h.size() && this.canDragIntoSlot(slot))
+                if (slot != null && canAddItemToSlot(slot, inventoryplayer.getItemStack(), true) && slot.isItemValid(inventoryplayer.getItemStack()) && inventoryplayer.getItemStack().stackSize > this.field_94537_h.size() && this.canDragIntoSlot(slot))
                 {
                     this.field_94537_h.add(slot);
                 }
@@ -156,11 +156,11 @@ public class ContainerLandmine extends Container
                     {
                         Slot slot1 = (Slot) iterator.next();
 
-                        if (slot1 != null && func_94527_a(slot1, inventoryplayer.getItemStack(), true) && slot1.isItemValid(inventoryplayer.getItemStack()) && inventoryplayer.getItemStack().stackSize >= this.field_94537_h.size() && this.canDragIntoSlot(slot1))
+                        if (slot1 != null && canAddItemToSlot(slot1, inventoryplayer.getItemStack(), true) && slot1.isItemValid(inventoryplayer.getItemStack()) && inventoryplayer.getItemStack().stackSize >= this.field_94537_h.size() && this.canDragIntoSlot(slot1))
                         {
                             ItemStack itemstack2 = itemstack1.copy();
                             int j1 = slot1.getHasStack() ? slot1.getStack().stackSize : 0;
-                            func_94525_a(this.field_94537_h, this.field_94535_f, itemstack2, j1);
+                            computeStackSize(this.field_94537_h, this.field_94535_f, itemstack2, j1);
 
                             if (itemstack2.stackSize > itemstack2.getMaxStackSize())
                             {
@@ -187,16 +187,16 @@ public class ContainerLandmine extends Container
                     inventoryplayer.setItemStack(itemstack1);
                 }
 
-                this.func_94533_d();
+                this.resetDrag();
             }
             else
             {
-                this.func_94533_d();
+                this.resetDrag();
             }
         }
         else if (this.field_94536_g != 0)
         {
-            this.func_94533_d();
+            this.resetDrag();
         }
         else
         {
@@ -301,7 +301,7 @@ public class ContainerLandmine extends Container
                                     inventoryplayer.setItemStack((ItemStack) null);
                                 }
                             }
-                            else if (shouldDoStuff && slot2 instanceof SlotBehavedOnly && itemstack4 != null && slot2.isItemValid(new ItemStack(itemstack4.getItem(), 1, itemstack4.getItemDamage())))
+                            else if (shouldDoStuff && slot2 instanceof SlotBehavedOnly && itemstack4 != null && slot2.isItemValid(new ItemStack(itemstack4.getItem(), 1, itemstack4.getMetadata())))
                             {
                                 k1 = par2 == 0 ? 1 : 1;
 
@@ -473,7 +473,7 @@ public class ContainerLandmine extends Container
                         {
                             Slot slot3 = (Slot) this.inventorySlots.get(i2);
 
-                            if (slot3.getHasStack() && func_94527_a(slot3, itemstack1, true) && slot3.canTakeStack(par4EntityPlayer) && this.func_94530_a(itemstack1, slot3) && (l1 != 0 || slot3.getStack().stackSize != slot3.getStack().getMaxStackSize()))
+                            if (slot3.getHasStack() && canAddItemToSlot(slot3, itemstack1, true) && slot3.canTakeStack(par4EntityPlayer) && this.func_94530_a(itemstack1, slot3) && (l1 != 0 || slot3.getStack().stackSize != slot3.getStack().getMaxStackSize()))
                             {
                                 int j2 = Math.min(itemstack1.getMaxStackSize() - itemstack1.stackSize, slot3.getStack().stackSize);
                                 ItemStack itemstack5 = slot3.decrStackSize(j2);

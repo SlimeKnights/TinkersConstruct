@@ -15,7 +15,7 @@ public class PigIronMoltenBlock extends TConstructFluid
     }
 
     @Override
-    public void registerBlockIcons (IIconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         this.stillIcon = iconRegister.registerIcon("tinker:" + texture);
         this.flowIcon = iconRegister.registerIcon("tinker:" + texture);

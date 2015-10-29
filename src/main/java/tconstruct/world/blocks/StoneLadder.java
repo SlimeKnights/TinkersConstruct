@@ -19,12 +19,12 @@ public class StoneLadder extends BlockLadder
     public StoneLadder()
     {
         super();
-        this.setBlockName("decoration.stoneladder");
+        this.setUnlocalizedName("decoration.stoneladder");
         this.setCreativeTab(CreativeTabs.tabDecorations);
     }
 
     @Override
-    public void registerBlockIcons (IIconRegister register)
+    public void registerIcons (IIconRegister register)
     {
         icon = register.registerIcon("tinker:ladder_stone");
     }

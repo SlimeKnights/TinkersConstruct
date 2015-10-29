@@ -69,13 +69,10 @@ public class BattlesignLogic extends EquipLogic
     }
 
     @Override
-    public void openInventory ()
+    public boolean isCustomInventoryName()
     {
-    }
-
-    @Override
-    public void closeInventory ()
-    {
+        // TODO: Fix this in Mantle
+        return super.hasCustomInventoryName();
     }
 
     public void setText (String[] text)
@@ -101,6 +98,6 @@ public class BattlesignLogic extends EquipLogic
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity pkt)
     {
-        this.readFromNBT(pkt.func_148857_g());
+        this.readFromNBT(pkt.getNbtCompound());
     }
 }

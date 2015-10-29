@@ -78,7 +78,7 @@ public class BlockLandmine extends BlockContainer
         ItemStack camo = te.getStackInSlot(3);
         if (camo != null)
         {
-            return BlockUtils.getBlockFromItem(camo.getItem()).getIcon(par5, camo.getItemDamage());
+            return BlockUtils.getBlockFromItem(camo.getItem()).getIcon(par5, camo.getMetadata());
         }
         else
         {
@@ -116,7 +116,7 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public void registerBlockIcons (IIconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
         this.blockIcon = par1IconRegister.registerIcon("tinker:Landmine");
     }
@@ -140,7 +140,7 @@ public class BlockLandmine extends BlockContainer
             if (this != null)
             {
                 ItemStack is = new ItemStack(this, 1, damageDropped(tileentity.triggerType));
-                if (tileentity.hasCustomInventoryName())
+                if (tileentity.isCustomInventoryName())
                 {
                     is.setStackDisplayName(tileentity.getInventoryName());
                 }
@@ -158,7 +158,7 @@ public class BlockLandmine extends BlockContainer
 
                         int ss = itemstack.stackSize;
                         itemstack.stackSize -= ss;
-                        EntityItem entityitem = new EntityItem(par1World, (double) ((float) par2), (double) ((float) par3), (double) ((float) par4), new ItemStack(itemstack.getItem(), ss, itemstack.getItemDamage()));
+                        EntityItem entityitem = new EntityItem(par1World, (double) ((float) par2), (double) ((float) par3), (double) ((float) par4), new ItemStack(itemstack.getItem(), ss, itemstack.getMetadata()));
 
                         if (itemstack.hasTagCompound())
                         {
@@ -194,7 +194,7 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public boolean getBlocksMovement (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
+    public boolean isNormalCube (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
     {
         return true;
     }

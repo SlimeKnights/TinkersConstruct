@@ -54,14 +54,14 @@ public class TinkerToolEvents
             }
 
             // slab pattern chest
-            if(item == Item.getItemFromBlock(TinkerTools.craftingSlabWood) && event.crafting.getItemDamage() == 4) {
+            if(item == Item.getItemFromBlock(TinkerTools.craftingSlabWood) && event.crafting.getMetadata() == 4) {
                 // copy over NBT
                 for(int i = 0; i < event.craftMatrix.getSizeInventory(); i++) {
                     ItemStack stack = event.craftMatrix.getStackInSlot(i);
                     if(stack == null)
                         continue;
                     // regular pattern chest
-                    if(stack.getItem() == Item.getItemFromBlock(TinkerTools.toolStationWood) && stack.getItemDamage() == 5)
+                    if(stack.getItem() == Item.getItemFromBlock(TinkerTools.toolStationWood) && stack.getMetadata() == 5)
                     {
                         event.crafting.setTagCompound(stack.getTagCompound());
                         break;
@@ -179,7 +179,7 @@ public class TinkerToolEvents
     public void craftPart (PartBuilderEvent.NormalPart event)
     {
         // bowstring
-        if (event.pattern.getItem() == TinkerTools.woodPattern && event.pattern.getItemDamage() == 23)
+        if (event.pattern.getItem() == TinkerTools.woodPattern && event.pattern.getMetadata() == 23)
         {
             ItemStack result = craftBowString(event.material);
             if (result != null)
@@ -189,7 +189,7 @@ public class TinkerToolEvents
         }
 
         // fletching
-        if (event.pattern.getItem() == TinkerTools.woodPattern && event.pattern.getItemDamage() == 24)
+        if (event.pattern.getItem() == TinkerTools.woodPattern && event.pattern.getMetadata() == 24)
         {
             ItemStack result = craftFletching(event.material);
             if (result != null)

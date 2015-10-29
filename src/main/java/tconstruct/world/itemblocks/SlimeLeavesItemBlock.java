@@ -10,7 +10,7 @@ public class SlimeLeavesItemBlock extends MultiItemBlock
     public SlimeLeavesItemBlock(Block b)
     {
         super(b, "block.slime.leaves", blockTypes);
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 

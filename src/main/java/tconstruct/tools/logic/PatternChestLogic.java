@@ -40,7 +40,7 @@ public class PatternChestLogic extends InventoryLogic
     }
 
     @Override
-    public boolean hasCustomInventoryName ()
+    public boolean isCustomInventoryName ()
     {
         return true;
     }
@@ -50,13 +50,4 @@ public class PatternChestLogic extends InventoryLogic
         return itemstack != null && itemstack.getItem() instanceof IPattern;
     }
 
-    @Override
-    public void openInventory ()
-    {
-    }
-
-    @Override
-    public void closeInventory ()
-    {
-    }
 }

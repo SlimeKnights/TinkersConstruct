@@ -408,7 +408,7 @@ public class TinkerWeaponry {
                 continue;
 
             // material id for the pickaxe head == material id for the fluid! such hack. wow.
-            int matID = recipe.getResult().getItemDamage();
+            int matID = recipe.getResult().getMetadata();
 
             // register our casting stuff
             for(Integer id : TConstructRegistry.toolMaterials.keySet()) {

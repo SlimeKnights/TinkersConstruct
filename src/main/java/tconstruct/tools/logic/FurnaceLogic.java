@@ -141,7 +141,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     {
         if (this.canSmelt())
         {
-            ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.inventory[0]);
+            ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.inventory[0]);
 
             if (this.inventory[2] == null)
             {
@@ -168,7 +168,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
             return false;
         else
         {
-            ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.inventory[0]);
+            ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.inventory[0]);
             if (itemstack == null)
                 return false;
             if (this.inventory[2] == null)
@@ -187,7 +187,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
 
     public ItemStack getResultFor (ItemStack stack)
     {
-        ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(stack);
+        ItemStack result = FurnaceRecipes.instance().getSmeltingResult(stack);
         if (result != null) // Only valid for food
             return result.copy();
 
@@ -233,7 +233,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
                 return 200;
             if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD"))
                 return 200;
-            if (item instanceof ItemHoe && ((ItemHoe) item).getToolMaterialName().equals("WOOD"))
+            if (item instanceof ItemHoe && ((ItemHoe) item).getMaterialName().equals("WOOD"))
                 return 200;
             if (item == Items.stick)
                 return 100;
@@ -293,8 +293,8 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        readNetworkNBT(packet.func_148857_g());
-        worldObj.func_147479_m(xCoord, yCoord, zCoord);
+        readNetworkNBT(packet.getNbtCompound());
+        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override
@@ -354,18 +354,18 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     }
 
     @Override
-    public boolean hasCustomInventoryName ()
+    public boolean isCustomInventoryName ()
     {
         return false;
     }
 
     @Override
-    public void openInventory ()
+    public void openChest ()
     {
     }
 
     @Override
-    public void closeInventory ()
+    public void closeChest ()
     {
     }
 
@@ -381,7 +381,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     }
 
     @Override
-    public int[] getAccessibleSlotsFromSide (int par1)
+    public int[] getSlotsForFace (int par1)
     {
         return par1 == 0 ? slots_bottom : (par1 == 1 ? slots_top : slots_sides);
     }

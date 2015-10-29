@@ -49,7 +49,7 @@ public class Manual extends CraftingItem
 
     private BookData getData (ItemStack stack)
     {
-        switch (stack.getItemDamage())
+        switch (stack.getMetadata())
         {
         case 0:
             return TProxyClient.manualData.beginner;
@@ -68,7 +68,7 @@ public class Manual extends CraftingItem
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        switch (stack.getItemDamage())
+        switch (stack.getMetadata())
         {
         case 0:
             list.add("\u00a7o" + StatCollector.translateToLocal("manual1.tooltip"));

@@ -114,7 +114,7 @@ public class ToolForgeContainer extends ToolStationContainer
     @Override
     public boolean canInteractWith (EntityPlayer entityplayer)
     {
-        Block block = logic.getWorldObj().getBlock(logic.xCoord, logic.yCoord, logic.zCoord);
+        Block block = logic.getWorld().getBlock(logic.xCoord, logic.yCoord, logic.zCoord);
         if (block != TinkerTools.toolForge && block != TinkerTools.craftingSlabWood)
             return false;
         return logic.isUseableByPlayer(entityplayer);

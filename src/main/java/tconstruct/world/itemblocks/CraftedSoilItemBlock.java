@@ -15,14 +15,14 @@ public class CraftedSoilItemBlock extends MultiItemBlock
     public CraftedSoilItemBlock(Block b)
     {
         super(b, "CraftedSoil", blockTypes);
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 
     @Override
     public String getUnlocalizedName (ItemStack itemstack)
     {
-        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, this.blockTypes.length - 1);
+        int pos = MathHelper.clamp_int(itemstack.getMetadata(), 0, this.blockTypes.length - 1);
         if (pos <= 4)
             return super.getUnlocalizedName(itemstack);
         return (new StringBuilder()).append("block.slime.soil.").append(this.blockTypes[pos]).toString();
@@ -32,7 +32,7 @@ public class CraftedSoilItemBlock extends MultiItemBlock
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        switch (stack.getItemDamage())
+        switch (stack.getMetadata())
         {
         case 1:
             if(StatCollector.canTranslate("grout.tooltip"))

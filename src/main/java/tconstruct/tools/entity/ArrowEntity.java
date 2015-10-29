@@ -134,7 +134,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             ++this.ticksInAir;
             Vec3 vec3 = Vec3.createVectorHelper(this.posX, this.posY, this.posZ);
             Vec3 vec31 = Vec3.createVectorHelper(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-            MovingObjectPosition movingobjectposition = this.worldObj.func_147447_a(vec3, vec31, false, true, false);
+            MovingObjectPosition movingobjectposition = this.worldObj.rayTraceBlocks(vec3, vec31, false, true, false);
             vec3 = Vec3.createVectorHelper(this.posX, this.posY, this.posZ);
             vec31 = Vec3.createVectorHelper(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
 
@@ -396,7 +396,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             this.motionZ *= (double) dropSpeed;
             this.motionY -= (double) ySpeed;
             this.setPosition(this.posX, this.posY, this.posZ);
-            this.func_145775_I();
+            this.doBlockCollisions();
         }
     }
 
@@ -427,7 +427,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                 // TODO is this needed???
                 // crashreportcategory.addCrashSection("Item ID",
                 // Integer.valueOf(par1ItemStack.itemID));
-                crashreportcategory.addCrashSection("Item data", Integer.valueOf(par1ItemStack.getItemDamage()));
+                crashreportcategory.addCrashSection("Item data", Integer.valueOf(par1ItemStack.getMetadata()));
                 // crashreportcategory.addCrashSectionCallable("Item name", new
                 // CallableItemName(this, par1ItemStack));
                 throw new ReportedException(crashreport);

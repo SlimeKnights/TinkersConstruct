@@ -670,9 +670,9 @@ public class GlassPaneConnected extends GlassBlockConnected
     }
 
     @Override
-    public void registerBlockIcons (IIconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
-        super.registerBlockIcons(par1IconRegister);
+        super.registerIcons(par1IconRegister);
         this.theIcon = par1IconRegister.registerIcon("tinker:glass/" + folder + "/glass_side");
     }
 

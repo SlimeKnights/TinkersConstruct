@@ -14,7 +14,7 @@ public class MetalItemBlock extends MultiItemBlock
     public MetalItemBlock(Block b)
     {
         super(b, "StorageMetals", blockTypes);
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 

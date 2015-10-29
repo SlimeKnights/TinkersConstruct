@@ -10,7 +10,7 @@ public class SlimeSaplingItemBlock extends MultiItemBlock
     public SlimeSaplingItemBlock(Block b)
     {
         super(b, "block.slime.sapling", blockTypes);
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 

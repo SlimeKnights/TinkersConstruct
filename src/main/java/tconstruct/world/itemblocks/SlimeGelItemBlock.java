@@ -10,7 +10,7 @@ public class SlimeGelItemBlock extends MultiItemBlock
     public SlimeGelItemBlock(Block b)
     {
         super(b, "block.slime.congealed", blockTypes);
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 

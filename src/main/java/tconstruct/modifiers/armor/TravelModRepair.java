@@ -103,7 +103,7 @@ public class TravelModRepair extends ItemModifier
         if (damage < 0)
             damage = 0;
         tags.setInteger("Damage", damage);
-        input.setItemDamage(damage);
+        input.setMetadata(damage);
     }
 
     @Override

@@ -39,20 +39,20 @@ public class Jerky extends SpecialFood
     @Override
     public String getUnlocalizedName (ItemStack stack)
     {
-        int arr = MathHelper.clamp_int(stack.getItemDamage(), 0, unlocalizedNames.length);
+        int arr = MathHelper.clamp_int(stack.getMetadata(), 0, unlocalizedNames.length);
         return "item.tconstruct." + unlocalizedNames[arr];
     }
 
     @Override
     protected void onFoodEaten (ItemStack stack, World world, EntityPlayer player)
     {
-        if (stack.getItemDamage() == 7)
+        if (stack.getMetadata() == 7)
         {
             int duration = 0;
-            PotionEffect potion = player.getActivePotionEffect(Potion.field_76434_w);
+            PotionEffect potion = player.getActivePotionEffect(Potion.healthBoost);
             if (potion != null)
                 duration = potion.getDuration();
-            player.addPotionEffect(new PotionEffect(Potion.field_76434_w.id, duration + 60 * 60, 1));
+            player.addPotionEffect(new PotionEffect(Potion.healthBoost.id, duration + 60 * 60, 1));
         }
     }
 
@@ -60,7 +60,7 @@ public class Jerky extends SpecialFood
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        int type = stack.getItemDamage();
+        int type = stack.getMetadata();
         switch (type)
         {
         case 6:

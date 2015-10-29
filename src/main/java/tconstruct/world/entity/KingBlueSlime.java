@@ -17,7 +17,7 @@ public class KingBlueSlime extends SlimeBase implements IBossDisplayData {
         this.experienceValue = 500;
 
         // persistance required. this is used by named entities to not despawn, for example.
-        func_110163_bv();
+        enablePersistence();
     }
 
     @Override

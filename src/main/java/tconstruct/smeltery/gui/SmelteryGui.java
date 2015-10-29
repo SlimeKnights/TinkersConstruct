@@ -546,7 +546,7 @@ public class SmelteryGui extends ActiveContainerGui
             {
                 fluidToBeBroughtUp = logic.moltenMetal.get(i).getFluidID();
 
-                TConstruct.packetPipeline.sendToServer(new SmelteryPacket(logic.getWorldObj().provider.dimensionId, logic.xCoord, logic.yCoord, logic.zCoord, this.isShiftKeyDown(), fluidToBeBroughtUp));
+                TConstruct.packetPipeline.sendToServer(new SmelteryPacket(logic.getWorld().provider.dimensionId, logic.xCoord, logic.yCoord, logic.zCoord, this.isShiftKeyDown(), fluidToBeBroughtUp));
             }
             base += fluidHeights[i];
         }

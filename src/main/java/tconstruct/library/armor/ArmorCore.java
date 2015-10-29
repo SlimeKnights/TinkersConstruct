@@ -33,7 +33,7 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
     {
         super(ArmorMaterial.CHAIN, 0, part.getPartId());
         this.maxStackSize = 1;
-        this.setMaxDamage(100);
+        this.setMaxDurability(100);
         this.armorPart = part;
         this.baseProtection = baseProtection;
         this.modifyType = type;
@@ -287,13 +287,13 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor, IMod
                 {
                     tags.setInteger("Damage", 0);
                     tags.setBoolean("Broken", true);
-                    armor.setItemDamage(0);
+                    armor.setMetadata(0);
                     entity.worldObj.playSound(entity.posX, entity.posY, entity.posZ, "random.break", 1f, 1f, true);
                 }
                 else
                 {
                     tags.setInteger("Damage", currentDurability + damage);
-                    armor.setItemDamage(currentDurability + damage);
+                    armor.setMetadata(currentDurability + damage);
                 }
             }
         }

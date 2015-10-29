@@ -34,7 +34,7 @@ public class SmelteryBlock extends InventoryBlock
         setStepSound(soundTypeMetal);
         rand = new Random();
         this.setCreativeTab(TConstructRegistry.blockTab);
-        this.setBlockName("tconstruct.Smeltery");
+        this.setUnlocalizedName("tconstruct.Smeltery");
     }
 
     public SmelteryBlock(String prefix)

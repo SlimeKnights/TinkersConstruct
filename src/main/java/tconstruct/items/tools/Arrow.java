@@ -24,7 +24,7 @@ public class Arrow extends ToolCore
         super(3);
         this.setUnlocalizedName("InfiTool.Arrow");
         this.setMaxStackSize(64);
-        this.setMaxDamage(0);
+        this.setMaxDurability(0);
     }
 
     @Override

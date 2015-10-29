@@ -63,7 +63,7 @@ public class BehaviorBlockThrow extends Behavior
                 break;
             }
 
-            EntityFallingBlock entityfallingsand = new EntityFallingBlock(par1World, (double) ((float) par2 + 0.5F), (double) ((float) par3 + 2F), (double) ((float) par4 + 0.5F), BlockUtils.getBlockFromItemStack(par5ItemStack), par5ItemStack.getItemDamage());
+            EntityFallingBlock entityfallingsand = new EntityFallingBlock(par1World, (double) ((float) par2 + 0.5F), (double) ((float) par3 + 2F), (double) ((float) par4 + 0.5F), BlockUtils.getBlockFromItemStack(par5ItemStack), par5ItemStack.getMetadata());
             entityfallingsand.preventEntitySpawning = false;
             entityfallingsand.ticksExisted = 2;
             entityfallingsand.motionX = vec0;

@@ -24,19 +24,19 @@ public class PatternBuilder
     /* Register methods */
     public void registerMaterial (ItemStack material, int value, String key)
     {
-        materials.add(new ItemKey(material.getItem(), material.getItemDamage(), value, key));
+        materials.add(new ItemKey(material.getItem(), material.getMetadata(), value, key));
     }
 
     public void registerMaterialSet (String key, ItemStack shard, ItemStack rod, int materialID)
     {
         materialSets.put(key, new MaterialSet(shard, rod, materialID));
-        materials.add(new ItemKey(shard.getItem(), shard.getItemDamage(), 1, key));
+        materials.add(new ItemKey(shard.getItem(), shard.getMetadata(), 1, key));
     }
 
     public void registerFullMaterial (ItemStack material, int value, String key, ItemStack shard, ItemStack rod, int materialID)
     {
-        materials.add(new ItemKey(material.getItem(), material.getItemDamage(), value, key));
-        materials.add(new ItemKey(shard.getItem(), shard.getItemDamage(), 1, key));
+        materials.add(new ItemKey(material.getItem(), material.getMetadata(), value, key));
+        materials.add(new ItemKey(shard.getItem(), shard.getMetadata(), 1, key));
         materialSets.put(key, new MaterialSet(shard, rod, materialID));
     }
 
@@ -94,7 +94,7 @@ public class PatternBuilder
                      * if ( patternValue < totalMaterial ) { if (otherPattern !=
                      * null) { int otherValue =
                      * ((IPattern)otherPattern.getItem()
-                     * ).getPatternCost(otherPattern.getItemDamage()); if
+                     * ).getPatternCost(otherPattern.getMetadata()); if
                      * (patternValue + otherValue <= key.value) { ItemStack
                      * otherPart = getMatchingPattern(otherPattern, mat); return
                      * new ItemStack[] { toolPart, otherPart }; //Material +
@@ -146,7 +146,7 @@ public class PatternBuilder
     public ItemKey getItemKey (ItemStack material)
     {
         Item mat = material.getItem();
-        int damage = material.getItemDamage();
+        int damage = material.getMetadata();
         for (ItemKey ik : materials)
         {
             if (mat == ik.item && (ik.damage == Short.MAX_VALUE || damage == ik.damage))

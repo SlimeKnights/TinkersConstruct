@@ -20,8 +20,8 @@ public abstract class BehaviorProjectileBaseDispense extends BehaviorDefaultDisp
     public ItemStack dispenseStack(IBlockSource blockSource, ItemStack stack)
     {
         World world = blockSource.getWorld();
-        IPosition iposition = BlockDispenser.func_149939_a(blockSource);
-        EnumFacing enumfacing = BlockDispenser.func_149937_b(blockSource.getBlockMetadata());
+        IPosition iposition = BlockDispenser.getIPositionFromBlockSource(blockSource);
+        EnumFacing enumfacing = BlockDispenser.getFacingDirection(blockSource.getBlockMetadata());
 
         ItemStack reference;
 

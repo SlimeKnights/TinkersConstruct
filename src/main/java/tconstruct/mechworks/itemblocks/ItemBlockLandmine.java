@@ -28,7 +28,7 @@ public class ItemBlockLandmine extends ItemBlock
     {
         String interaction = null;
 
-        switch (par1ItemStack.getItemDamage())
+        switch (par1ItemStack.getMetadata())
         {
         case 0:
             interaction = StatCollector.translateToLocal("landmine1.tooltip");
@@ -71,7 +71,7 @@ public class ItemBlockLandmine extends ItemBlock
                 te = (TileEntityLandmine) TinkerMechworks.landmine.createTileEntity(world, metadata);
             }
 
-            te.triggerType = stack.getItemDamage();
+            te.triggerType = stack.getMetadata();
             world.setTileEntity(x, y, z, te);
 
             TinkerMechworks.landmine.onPostBlockPlaced(world, x, y, z, metadata);

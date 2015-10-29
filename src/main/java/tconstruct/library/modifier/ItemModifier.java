@@ -55,7 +55,7 @@ public abstract class ItemModifier
                 {
                     ItemStack removeStack = (ItemStack) iterate.next();
 
-                    if (craftingStack.getItem() == removeStack.getItem() && (removeStack.getItemDamage() == Short.MAX_VALUE || craftingStack.getItemDamage() == removeStack.getItemDamage()))
+                    if (craftingStack.getItem() == removeStack.getItem() && (removeStack.getMetadata() == Short.MAX_VALUE || craftingStack.getMetadata() == removeStack.getMetadata()))
                     {
                         canCraft = true;
                         list.remove(removeStack);
@@ -236,7 +236,7 @@ public abstract class ItemModifier
     {
         if (stack1.getItem() != stack2.getItem())
             return false;
-        if (stack1.getItemDamage() != stack2.getItemDamage())
+        if (stack1.getMetadata() != stack2.getMetadata())
             return false;
         return ItemStack.areItemStackTagsEqual(stack1, stack2);
     }

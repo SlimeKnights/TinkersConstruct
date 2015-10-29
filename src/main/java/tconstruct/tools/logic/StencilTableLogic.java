@@ -109,7 +109,7 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
     }
 
     @Override
-    public int[] getAccessibleSlotsFromSide (int side)
+    public int[] getSlotsForFace (int side)
     {
         return new int[0];
     }
@@ -133,18 +133,18 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
     }
 
     @Override
-    public boolean hasCustomInventoryName ()
+    public boolean isCustomInventoryName ()
     {
         return true;
     }
 
     @Override
-    public void closeInventory ()
+    public void closeChest ()
     {
     }
 
     @Override
-    public void openInventory ()
+    public void openChest ()
     {
     }
 }

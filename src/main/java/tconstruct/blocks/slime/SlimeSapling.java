@@ -33,7 +33,7 @@ public class SlimeSapling extends BlockSapling
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons (IIconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         this.icons = new IIcon[textureNames.length];
 
@@ -76,7 +76,7 @@ public class SlimeSapling extends BlockSapling
     }
 
     @Override
-    public void func_149879_c (World world, int x, int y, int z, Random random)
+    public void markOrGrowMarked (World world, int x, int y, int z, Random random)
     {
         boneFertilize(world, x, y, z, random, null);
     }

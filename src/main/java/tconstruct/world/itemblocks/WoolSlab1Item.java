@@ -14,18 +14,18 @@ public class WoolSlab1Item extends MultiItemBlock
 
     public WoolSlab1Item(Block b)
     {
-        super(b, "", "slab", ItemDye.field_150923_a);
+        super(b, "", "slab", ItemDye.dyeColorNames);
         this.setSpecialIndex(7, 15);
         this.block = b;
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 
     @Override
     public String getUnlocalizedName (ItemStack par1ItemStack)
     {
-        int i = MathHelper.clamp_int(par1ItemStack.getItemDamage(), 0, 7);
-        return super.getUnlocalizedName() + "." + ItemDye.field_150923_a[7 - i] + ".slab";
+        int i = MathHelper.clamp_int(par1ItemStack.getMetadata(), 0, 7);
+        return super.getUnlocalizedName() + "." + ItemDye.dyeColorNames[7 - i] + ".slab";
     }
 
     @Override
@@ -36,11 +36,11 @@ public class WoolSlab1Item extends MultiItemBlock
         int trueMeta = meta % 8;
         boolean flag = (b) != null;
 
-        if ((side == 1 && flag || side == 0 && !flag) && b == this.block && trueMeta == stack.getItemDamage())
+        if ((side == 1 && flag || side == 0 && !flag) && b == this.block && trueMeta == stack.getMetadata())
         {
             if (world.setBlock(x, y, z, Blocks.wool, trueMeta, 3))
             {
-                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), this.block.stepSound.soundName, (this.block.stepSound.getVolume() + 1.0F) / 2.0F, this.block.stepSound.getPitch() * 0.8F);
+                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), this.block.stepSound.soundName, (this.block.stepSound.getVolume() + 1.0F) / 2.0F, this.block.stepSound.getFrequency() * 0.8F);
                 --stack.stackSize;
                 return true;
             }

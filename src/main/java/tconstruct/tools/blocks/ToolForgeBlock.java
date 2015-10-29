@@ -50,9 +50,9 @@ public class ToolForgeBlock extends InventoryBlock
     IIcon textureTop;
 
     @Override
-    public void registerBlockIcons (IIconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
-        super.registerBlockIcons(iconRegister);
+        super.registerIcons(iconRegister);
         textureTop = iconRegister.registerIcon("tinker:toolforge_top");
     }
 

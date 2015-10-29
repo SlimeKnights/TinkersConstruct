@@ -75,10 +75,10 @@ public class BlockSkinRenderHelper
             render.aoLightValueScratchYZNN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos - 1);
             render.aoLightValueScratchYZNP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos + 1);
             render.aoLightValueScratchXYPN = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos);
-            flag3 = render.blockAccess.getBlock(xPos + 1, yPos - 1, zPos).getCanBlockGrass();
-            flag2 = render.blockAccess.getBlock(xPos - 1, yPos - 1, zPos).getCanBlockGrass();
-            flag5 = render.blockAccess.getBlock(xPos, yPos - 1, zPos + 1).getCanBlockGrass();
-            flag4 = render.blockAccess.getBlock(xPos, yPos - 1, zPos - 1).getCanBlockGrass();
+            flag3 = render.blockAccess.getBlock(xPos + 1, yPos - 1, zPos).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag2 = render.blockAccess.getBlock(xPos - 1, yPos - 1, zPos).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag5 = render.blockAccess.getBlock(xPos, yPos - 1, zPos + 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag4 = render.blockAccess.getBlock(xPos, yPos - 1, zPos - 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
 
             if (!flag4 && !flag2)
             {
@@ -190,10 +190,10 @@ public class BlockSkinRenderHelper
             render.aoLightValueScratchXYPP = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos);
             render.aoLightValueScratchYZPN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos - 1);
             render.aoLightValueScratchYZPP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos + 1);
-            flag3 = render.blockAccess.getBlock(xPos + 1, yPos + 1, zPos).getCanBlockGrass();
-            flag2 = render.blockAccess.getBlock(xPos - 1, yPos + 1, zPos).getCanBlockGrass();
-            flag5 = render.blockAccess.getBlock(xPos, yPos + 1, zPos + 1).getCanBlockGrass();
-            flag4 = render.blockAccess.getBlock(xPos, yPos + 1, zPos - 1).getCanBlockGrass();
+            flag3 = render.blockAccess.getBlock(xPos + 1, yPos + 1, zPos).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag2 = render.blockAccess.getBlock(xPos - 1, yPos + 1, zPos).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag5 = render.blockAccess.getBlock(xPos, yPos + 1, zPos + 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag4 = render.blockAccess.getBlock(xPos, yPos + 1, zPos - 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
 
             if (!flag4 && !flag2)
             {
@@ -296,10 +296,10 @@ public class BlockSkinRenderHelper
             render.aoBrightnessYZNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos);
             render.aoBrightnessYZPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
             render.aoBrightnessXZPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos);
-            flag3 = render.blockAccess.getBlock(xPos + 1, yPos, zPos - 1).getCanBlockGrass();
-            flag2 = render.blockAccess.getBlock(xPos - 1, yPos, zPos - 1).getCanBlockGrass();
-            flag5 = render.blockAccess.getBlock(xPos, yPos + 1, zPos - 1).getCanBlockGrass();
-            flag4 = render.blockAccess.getBlock(xPos, yPos - 1, zPos - 1).getCanBlockGrass();
+            flag3 = render.blockAccess.getBlock(xPos + 1, yPos, zPos - 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag2 = render.blockAccess.getBlock(xPos - 1, yPos, zPos - 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag5 = render.blockAccess.getBlock(xPos, yPos + 1, zPos - 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag4 = render.blockAccess.getBlock(xPos, yPos - 1, zPos - 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
 
             if (!flag2 && !flag4)
             {
@@ -413,10 +413,10 @@ public class BlockSkinRenderHelper
             render.aoBrightnessXZPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos);
             render.aoBrightnessYZNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos);
             render.aoBrightnessYZPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
-            flag3 = render.blockAccess.getBlock(xPos + 1, yPos, zPos + 1).getCanBlockGrass();
-            flag2 = render.blockAccess.getBlock(xPos - 1, yPos, zPos + 1).getCanBlockGrass();
-            flag5 = render.blockAccess.getBlock(xPos, yPos + 1, zPos + 1).getCanBlockGrass();
-            flag4 = render.blockAccess.getBlock(xPos, yPos - 1, zPos + 1).getCanBlockGrass();
+            flag3 = render.blockAccess.getBlock(xPos + 1, yPos, zPos + 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag2 = render.blockAccess.getBlock(xPos - 1, yPos, zPos + 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag5 = render.blockAccess.getBlock(xPos, yPos + 1, zPos + 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag4 = render.blockAccess.getBlock(xPos, yPos - 1, zPos + 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
 
             if (!flag2 && !flag4)
             {
@@ -530,10 +530,10 @@ public class BlockSkinRenderHelper
             render.aoBrightnessXZNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1);
             render.aoBrightnessXZNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1);
             render.aoBrightnessXYNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
-            flag3 = render.blockAccess.getBlock(xPos - 1, yPos + 1, zPos).getCanBlockGrass();
-            flag2 = render.blockAccess.getBlock(xPos - 1, yPos - 1, zPos).getCanBlockGrass();
-            flag5 = render.blockAccess.getBlock(xPos - 1, yPos, zPos - 1).getCanBlockGrass();
-            flag4 = render.blockAccess.getBlock(xPos - 1, yPos, zPos + 1).getCanBlockGrass();
+            flag3 = render.blockAccess.getBlock(xPos - 1, yPos + 1, zPos).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag2 = render.blockAccess.getBlock(xPos - 1, yPos - 1, zPos).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag5 = render.blockAccess.getBlock(xPos - 1, yPos, zPos - 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag4 = render.blockAccess.getBlock(xPos - 1, yPos, zPos + 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
 
             if (!flag5 && !flag2)
             {
@@ -647,10 +647,10 @@ public class BlockSkinRenderHelper
             render.aoBrightnessXZPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1);
             render.aoBrightnessXZPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1);
             render.aoBrightnessXYPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
-            flag3 = render.blockAccess.getBlock(xPos + 1, yPos + 1, zPos).getCanBlockGrass();
-            flag2 = render.blockAccess.getBlock(xPos + 1, yPos - 1, zPos).getCanBlockGrass();
-            flag5 = render.blockAccess.getBlock(xPos + 1, yPos, zPos + 1).getCanBlockGrass();
-            flag4 = render.blockAccess.getBlock(xPos + 1, yPos, zPos - 1).getCanBlockGrass();
+            flag3 = render.blockAccess.getBlock(xPos + 1, yPos + 1, zPos).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag2 = render.blockAccess.getBlock(xPos + 1, yPos - 1, zPos).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag5 = render.blockAccess.getBlock(xPos + 1, yPos, zPos + 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag4 = render.blockAccess.getBlock(xPos + 1, yPos, zPos - 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
 
             if (!flag2 && !flag4)
             {
@@ -951,10 +951,10 @@ public class BlockSkinRenderHelper
             render.aoLightValueScratchYZNN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos - 1);
             render.aoLightValueScratchYZNP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos + 1);
             render.aoLightValueScratchXYPN = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos);
-            flag3 = render.blockAccess.getBlock(xPos + 1, yPos - 1, zPos).getCanBlockGrass();
-            flag2 = render.blockAccess.getBlock(xPos - 1, yPos - 1, zPos).getCanBlockGrass();
-            flag5 = render.blockAccess.getBlock(xPos, yPos - 1, zPos + 1).getCanBlockGrass();
-            flag4 = render.blockAccess.getBlock(xPos, yPos - 1, zPos - 1).getCanBlockGrass();
+            flag3 = render.blockAccess.getBlock(xPos + 1, yPos - 1, zPos).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag2 = render.blockAccess.getBlock(xPos - 1, yPos - 1, zPos).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag5 = render.blockAccess.getBlock(xPos, yPos - 1, zPos + 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag4 = render.blockAccess.getBlock(xPos, yPos - 1, zPos - 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
 
             if (!flag4 && !flag2)
             {
@@ -1066,10 +1066,10 @@ public class BlockSkinRenderHelper
             render.aoLightValueScratchXYPP = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos);
             render.aoLightValueScratchYZPN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos - 1);
             render.aoLightValueScratchYZPP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos + 1);
-            flag3 = render.blockAccess.getBlock(xPos + 1, yPos + 1, zPos).getCanBlockGrass();
-            flag2 = render.blockAccess.getBlock(xPos - 1, yPos + 1, zPos).getCanBlockGrass();
-            flag5 = render.blockAccess.getBlock(xPos, yPos + 1, zPos + 1).getCanBlockGrass();
-            flag4 = render.blockAccess.getBlock(xPos, yPos + 1, zPos - 1).getCanBlockGrass();
+            flag3 = render.blockAccess.getBlock(xPos + 1, yPos + 1, zPos).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag2 = render.blockAccess.getBlock(xPos - 1, yPos + 1, zPos).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag5 = render.blockAccess.getBlock(xPos, yPos + 1, zPos + 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag4 = render.blockAccess.getBlock(xPos, yPos + 1, zPos - 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
 
             if (!flag4 && !flag2)
             {
@@ -1170,10 +1170,10 @@ public class BlockSkinRenderHelper
             render.aoBrightnessYZNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos);
             render.aoBrightnessYZPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
             render.aoBrightnessXZPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos);
-            flag3 = render.blockAccess.getBlock(xPos + 1, yPos, zPos - 1).getCanBlockGrass();
-            flag2 = render.blockAccess.getBlock(xPos - 1, yPos, zPos - 1).getCanBlockGrass();
-            flag5 = render.blockAccess.getBlock(xPos, yPos + 1, zPos - 1).getCanBlockGrass();
-            flag4 = render.blockAccess.getBlock(xPos, yPos - 1, zPos - 1).getCanBlockGrass();
+            flag3 = render.blockAccess.getBlock(xPos + 1, yPos, zPos - 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag2 = render.blockAccess.getBlock(xPos - 1, yPos, zPos - 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag5 = render.blockAccess.getBlock(xPos, yPos + 1, zPos - 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag4 = render.blockAccess.getBlock(xPos, yPos - 1, zPos - 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
 
             if (!flag2 && !flag4)
             {
@@ -1286,10 +1286,10 @@ public class BlockSkinRenderHelper
             render.aoBrightnessXZPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos);
             render.aoBrightnessYZNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos);
             render.aoBrightnessYZPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
-            flag3 = render.blockAccess.getBlock(xPos + 1, yPos, zPos + 1).getCanBlockGrass();
-            flag2 = render.blockAccess.getBlock(xPos - 1, yPos, zPos + 1).getCanBlockGrass();
-            flag5 = render.blockAccess.getBlock(xPos, yPos + 1, zPos + 1).getCanBlockGrass();
-            flag4 = render.blockAccess.getBlock(xPos, yPos - 1, zPos + 1).getCanBlockGrass();
+            flag3 = render.blockAccess.getBlock(xPos + 1, yPos, zPos + 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag2 = render.blockAccess.getBlock(xPos - 1, yPos, zPos + 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag5 = render.blockAccess.getBlock(xPos, yPos + 1, zPos + 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag4 = render.blockAccess.getBlock(xPos, yPos - 1, zPos + 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
 
             if (!flag2 && !flag4)
             {
@@ -1402,10 +1402,10 @@ public class BlockSkinRenderHelper
             render.aoBrightnessXZNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1);
             render.aoBrightnessXZNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1);
             render.aoBrightnessXYNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
-            flag3 = render.blockAccess.getBlock(xPos - 1, yPos + 1, zPos).getCanBlockGrass();
-            flag2 = render.blockAccess.getBlock(xPos - 1, yPos - 1, zPos).getCanBlockGrass();
-            flag5 = render.blockAccess.getBlock(xPos - 1, yPos, zPos - 1).getCanBlockGrass();
-            flag4 = render.blockAccess.getBlock(xPos - 1, yPos, zPos + 1).getCanBlockGrass();
+            flag3 = render.blockAccess.getBlock(xPos - 1, yPos + 1, zPos).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag2 = render.blockAccess.getBlock(xPos - 1, yPos - 1, zPos).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag5 = render.blockAccess.getBlock(xPos - 1, yPos, zPos - 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag4 = render.blockAccess.getBlock(xPos - 1, yPos, zPos + 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
 
             if (!flag5 && !flag2)
             {
@@ -1518,10 +1518,10 @@ public class BlockSkinRenderHelper
             render.aoBrightnessXZPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1);
             render.aoBrightnessXZPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1);
             render.aoBrightnessXYPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
-            flag3 = render.blockAccess.getBlock(xPos + 1, yPos + 1, zPos).getCanBlockGrass();
-            flag2 = render.blockAccess.getBlock(xPos + 1, yPos - 1, zPos).getCanBlockGrass();
-            flag5 = render.blockAccess.getBlock(xPos + 1, yPos, zPos + 1).getCanBlockGrass();
-            flag4 = render.blockAccess.getBlock(xPos + 1, yPos, zPos - 1).getCanBlockGrass();
+            flag3 = render.blockAccess.getBlock(xPos + 1, yPos + 1, zPos).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag2 = render.blockAccess.getBlock(xPos + 1, yPos - 1, zPos).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag5 = render.blockAccess.getBlock(xPos + 1, yPos, zPos + 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
+            flag4 = render.blockAccess.getBlock(xPos + 1, yPos, zPos - 1).isTranslucent(); // TODO: Verify this is correct rename of getCanBlockGrass()
 
             if (!flag2 && !flag4)
             {

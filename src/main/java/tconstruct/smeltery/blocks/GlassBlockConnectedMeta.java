@@ -66,7 +66,7 @@ public class GlassBlockConnectedMeta extends GlassBlockConnected
     }
 
     @Override
-    public void registerBlockIcons (IIconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
         for (int i = 0; i < textures.length; i++)
         {

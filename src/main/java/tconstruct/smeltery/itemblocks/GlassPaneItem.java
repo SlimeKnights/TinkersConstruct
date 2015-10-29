@@ -10,7 +10,7 @@ public class GlassPaneItem extends MultiItemBlock
     public GlassPaneItem(Block b)
     {
         super(b, "block.glass", "pane", blockTypes);
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 

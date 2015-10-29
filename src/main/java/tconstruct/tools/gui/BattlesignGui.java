@@ -158,7 +158,7 @@ public class BattlesignGui extends GuiScreen
 
         Keyboard.enableRepeatEvents(false);
 
-        TConstruct.packetPipeline.sendToServer(new SignDataPacket(battlesign.getWorldObj().provider.dimensionId, battlesign.xCoord, battlesign.yCoord, battlesign.zCoord, text));
+        TConstruct.packetPipeline.sendToServer(new SignDataPacket(battlesign.getWorld().provider.dimensionId, battlesign.xCoord, battlesign.yCoord, battlesign.zCoord, text));
     }
 
     private float calcLuminance (float r, float g, float b)

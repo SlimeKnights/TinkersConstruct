@@ -18,7 +18,7 @@ public class ToolPart extends CraftingItem implements IToolPart
     {
         super(toolMaterialNames, buildTextureNames(textureType), "parts/", "tinker", TConstructRegistry.partTab);
         this.setHasSubtypes(true);
-        this.setMaxDamage(0);
+        this.setMaxDurability(0);
         this.partName = name;
     }
 
@@ -26,8 +26,8 @@ public class ToolPart extends CraftingItem implements IToolPart
     public String getItemStackDisplayName (ItemStack par1ItemStack)
     {
         String material = "";
-        if(par1ItemStack.getItemDamage() < toolTextureNames.length)
-            material = toolTextureNames[par1ItemStack.getItemDamage()];
+        if(par1ItemStack.getMetadata() < toolTextureNames.length)
+            material = toolTextureNames[par1ItemStack.getMetadata()];
         String name = "";
         
         if (StatCollector.canTranslate("toolpart." + partName + "." + material))
@@ -74,8 +74,8 @@ public class ToolPart extends CraftingItem implements IToolPart
     @Override
     public int getMaterialID (ItemStack stack)
     {
-        if (TConstructRegistry.toolMaterials.keySet().contains(stack.getItemDamage()))
-            return stack.getItemDamage();
+        if (TConstructRegistry.toolMaterials.keySet().contains(stack.getMetadata()))
+            return stack.getMetadata();
 
         return -1;
     }

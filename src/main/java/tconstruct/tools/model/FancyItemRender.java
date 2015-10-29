@@ -100,7 +100,7 @@ public class FancyItemRender extends Render
                     }
 
                     f5 = 1.0F;
-                    this.itemRenderBlocks.renderBlockAsItem(block, itemstack.getItemDamage(), f5);
+                    this.itemRenderBlocks.renderBlockAsItem(block, itemstack.getMetadata(), f5);
                     GL11.glPopMatrix();
                 }
             }
@@ -120,7 +120,7 @@ public class FancyItemRender extends Render
                         GL11.glScalef(0.5F, 0.5F, 0.5F);
                     }
 
-                    for (int k = 0; k < itemstack.getItem().getRenderPasses(itemstack.getItemDamage()); ++k)
+                    for (int k = 0; k < itemstack.getItem().getRenderPasses(itemstack.getMetadata()); ++k)
                     {
                         this.random.setSeed(187L);
                         IIcon icon = itemstack.getItem().getIcon(itemstack, k);
@@ -302,7 +302,7 @@ public class FancyItemRender extends Render
     public void renderItemIntoGUI (FontRenderer par1FontRenderer, TextureManager par2TextureManager, ItemStack par3ItemStack, int par4, int par5, boolean renderEffect)
     {
         Item k = par3ItemStack.getItem();
-        int l = par3ItemStack.getItemDamage();
+        int l = par3ItemStack.getMetadata();
         Object object = par3ItemStack.getIconIndex();
         float f;
         int i1;
@@ -509,8 +509,8 @@ public class FancyItemRender extends Render
 
             if (par3ItemStack.isItemDamaged())
             {
-                int k = (int) Math.round(13.0D - (double) par3ItemStack.getItemDamageForDisplay() * 13.0D / (double) par3ItemStack.getMaxDamage());
-                int l = (int) Math.round(255.0D - (double) par3ItemStack.getItemDamageForDisplay() * 255.0D / (double) par3ItemStack.getMaxDamage());
+                int k = (int) Math.round(13.0D - (double) par3ItemStack.getCurrentDurability() * 13.0D / (double) par3ItemStack.getMaxDurability());
+                int l = (int) Math.round(255.0D - (double) par3ItemStack.getCurrentDurability() * 255.0D / (double) par3ItemStack.getMaxDurability());
                 GL11.glDisable(GL11.GL_LIGHTING);
                 GL11.glDisable(GL11.GL_DEPTH_TEST);
                 GL11.glDisable(GL11.GL_TEXTURE_2D);

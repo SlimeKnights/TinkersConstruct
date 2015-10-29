@@ -34,7 +34,7 @@ public class WoodRail extends BlockRailBase
      * When this method is called, your block should register all the icons it needs with the given IconRegister. This
      * is the only chance you get to register icons.
      */
-    public void registerBlockIcons (IIconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
         this.blockIcon = par1IconRegister.registerIcon("tinker:woodrail");
         this.theIcon = par1IconRegister.registerIcon("tinker:woodrail_turn");
@@ -42,9 +42,9 @@ public class WoodRail extends BlockRailBase
 
     protected void func_94358_a (World par1World, int par2, int par3, int par4, int par5, int par6, Block par7)
     {
-        if (par7 != Blocks.air && par7.canProvidePower() && (new Rail(par1World, par2, par3, par4)).func_150650_a() == 3)
+        if (par7 != Blocks.air && par7.canProvidePower() && (new Rail(par1World, par2, par3, par4)).countAdjacentRails() == 3)
         {
-            this.func_150052_a(par1World, par2, par3, par4, false);
+            this.refreshTrackShape(par1World, par2, par3, par4, false);
         }
     }
 

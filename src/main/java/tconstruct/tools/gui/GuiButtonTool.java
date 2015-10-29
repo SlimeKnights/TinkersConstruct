@@ -44,9 +44,9 @@ public class GuiButtonTool extends GuiButton
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             mc.getTextureManager().bindTexture(background);
 
-            this.field_146123_n = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
-            int var5 = this.getHoverState(this.field_146123_n);
-            int index = 18 * getHoverState(field_146123_n);
+            this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+            int var5 = this.getHoverState(this.hovered);
+            int index = 18 * getHoverState(hovered);
             this.drawTexturedModalRect(this.xPosition, this.yPosition, 144 + index * 2, 216, 18, 18);
             this.drawTexturedModalRect(this.xPosition, this.yPosition, textureX * 18, textureY * 18, 18, 18);
         }

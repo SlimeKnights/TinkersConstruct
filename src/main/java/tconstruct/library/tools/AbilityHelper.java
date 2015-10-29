@@ -398,24 +398,24 @@ public class AbilityHelper
             if (damageTrue <= 0)
             {
                 tags.getCompoundTag("InfiTool").setInteger("Damage", 0);
-                //stack.setItemDamage(0);
+                //stack.setMetadata(0);
                 tags.getCompoundTag("InfiTool").setBoolean("Broken", false);
             }
 
             else if (damageTrue > maxDamage)
             {
                 breakTool(stack, tags, entity);
-                //stack.setItemDamage(0);
+                //stack.setMetadata(0);
             }
 
             else
             {
                 tags.getCompoundTag("InfiTool").setInteger("Damage", damage + dam);
                 int toolDamage = (damage * 100 / maxDamage) + 1;
-                int stackDamage = stack.getItemDamage();
+                int stackDamage = stack.getMetadata();
                 if (toolDamage != stackDamage)
                 {
-                    //stack.setItemDamage((damage * 100 / maxDamage) + 1);
+                    //stack.setMetadata((damage * 100 / maxDamage) + 1);
                 }
             }
         }
@@ -477,7 +477,7 @@ public class AbilityHelper
             energy -= usage;
             tags.setInteger("Energy", energy);
 
-            //stack.setItemDamage(1 + (tool.getMaxEnergyStored(stack) - energy) * (stack.getMaxDamage() - 1) / tool.getMaxEnergyStored(stack));
+            //stack.setMetadata(1 + (tool.getMaxEnergyStored(stack) - energy) * (stack.getMaxDamage() - 1) / tool.getMaxEnergyStored(stack));
         }
         return true;
     }
@@ -584,7 +584,7 @@ public class AbilityHelper
             if (side != 0 && world.getBlock(x, y + 1, z).isAir(world, x, y + 1, z) && (block == Blocks.grass || block == Blocks.dirt))
             {
                 Block block1 = Blocks.farmland;
-                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), block1.stepSound.getStepResourcePath(), (block1.stepSound.getVolume() + 1.0F) / 2.0F, block1.stepSound.getPitch() * 0.8F);
+                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), block1.stepSound.getDigResourcePath(), (block1.stepSound.getVolume() + 1.0F) / 2.0F, block1.stepSound.getVolume() * 0.8F);
 
                 if (world.isRemote)
                 {
@@ -727,7 +727,7 @@ public class AbilityHelper
             d3 = ((EntityPlayerMP) player).theItemInWorldManager.getBlockReachDistance();
         }
         Vec3 vec31 = vec3.addVector((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
-        return world.func_147447_a(vec3, vec31, par3, !par3, par3);
+        return world.rayTraceBlocks(vec3, vec31, par3, !par3, par3);
     }
 
     public static float calcToolSpeed (ToolCore tool, NBTTagCompound tags)

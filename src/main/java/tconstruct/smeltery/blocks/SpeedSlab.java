@@ -24,7 +24,7 @@ public class SpeedSlab extends SlabBase
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons (IIconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
     }
 

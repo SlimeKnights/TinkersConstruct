@@ -86,7 +86,7 @@ public class TitleIcon extends Item
     public String getItemStackDisplayName (ItemStack par1ItemStack)
     {
         String s = ("" + StatCollector.translateToLocal(this.getUnlocalizedName() + ".name")).trim();
-        String s1 = mobNames[par1ItemStack.getItemDamage()];
+        String s1 = mobNames[par1ItemStack.getMetadata()];
 
         if (s1 != null)
         {
@@ -107,7 +107,7 @@ public class TitleIcon extends Item
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack (ItemStack stack, int pass)
     {
-        int damage = stack.getItemDamage();
+        int damage = stack.getMetadata();
         if (damage == 255)
             return 0xffffff;
         if (damage >= 4096)
@@ -131,7 +131,7 @@ public class TitleIcon extends Item
                 d0 = 0.5D;
             }
 
-            int damage = stack.getItemDamage();
+            int damage = stack.getMetadata();
             switch (damage)
             {
             case 0:
@@ -162,7 +162,7 @@ public class TitleIcon extends Item
             d0 = 0.5D;
         }
 
-        int damage = stack.getItemDamage();
+        int damage = stack.getMetadata();
         EntityLiving entity = null;
         switch (damage)
         {

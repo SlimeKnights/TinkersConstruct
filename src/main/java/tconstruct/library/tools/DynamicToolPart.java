@@ -69,8 +69,8 @@ public class DynamicToolPart extends CraftingItem implements IToolPart
     @Override
     public int getMaterialID (ItemStack stack)
     {
-        if (TConstructRegistry.toolMaterials.keySet().contains(stack.getItemDamage()))
-            return stack.getItemDamage();
+        if (TConstructRegistry.toolMaterials.keySet().contains(stack.getMetadata()))
+            return stack.getMetadata();
 
         return -1;
     }

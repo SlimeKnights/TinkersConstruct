@@ -162,7 +162,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                             }
 
                             stack.stackSize -= itemSize;
-                            EntityItem entityitem = new EntityItem(worldObj, (double) ((float) xCoord + jumpX + offsetX), (double) ((float) yCoord + jumpY), (double) ((float) zCoord + jumpZ + offsetZ), new ItemStack(stack.getItem(), itemSize, stack.getItemDamage()));
+                            EntityItem entityitem = new EntityItem(worldObj, (double) ((float) xCoord + jumpX + offsetX), (double) ((float) yCoord + jumpY), (double) ((float) zCoord + jumpZ + offsetZ), new ItemStack(stack.getItem(), itemSize, stack.getMetadata()));
 
                             if (stack.hasTagCompound())
                             {
@@ -1123,7 +1123,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     }
                 }
                 needsUpdate = true;
-                worldObj.func_147479_m(xCoord, yCoord, zCoord);
+                worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
             }
             return amount;
         }
@@ -1271,9 +1271,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        readFromNBT(packet.func_148857_g());
+        readFromNBT(packet.getNbtCompound());
         markDirty();
-        worldObj.func_147479_m(xCoord, yCoord, zCoord);
+        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
         this.needsUpdate = true;
     }
 
@@ -1284,18 +1284,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     }
 
     @Override
-    public boolean hasCustomInventoryName ()
+    public boolean isCustomInventoryName ()
     {
         return true;
-    }
-
-    @Override
-    public void closeInventory ()
-    {
-    }
-
-    @Override
-    public void openInventory ()
-    {
     }
 }

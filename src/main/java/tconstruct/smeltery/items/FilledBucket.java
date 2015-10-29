@@ -106,7 +106,7 @@ public class FilledBucket extends ItemBucket
                     return stack;
                 }
 
-                if (this.tryPlaceContainedLiquid(world, clickX, clickY, clickZ, stack.getItemDamage()) && !player.capabilities.isCreativeMode)
+                if (this.tryPlaceContainedLiquid(world, clickX, clickY, clickZ, stack.getMetadata()) && !player.capabilities.isCreativeMode)
                 {
                     return new ItemStack(Items.bucket);
                 }
@@ -176,7 +176,7 @@ public class FilledBucket extends ItemBucket
     @Override
     public String getUnlocalizedName (ItemStack stack)
     {
-        int arr = MathHelper.clamp_int(stack.getItemDamage(), 0, materialNames.length);
+        int arr = MathHelper.clamp_int(stack.getMetadata(), 0, materialNames.length);
         return getUnlocalizedName() + "." + materialNames[arr];
     }
 

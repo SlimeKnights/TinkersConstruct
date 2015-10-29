@@ -66,7 +66,7 @@ public class Chisel extends ToolCore
     {
         if (entityplayer.capabilities.isCreativeMode)
         {
-            onEaten(stack, world, entityplayer);
+            onItemUseFinish(stack, world, entityplayer);
         }
         else
         {
@@ -78,7 +78,7 @@ public class Chisel extends ToolCore
     }
 
     @Override
-    public ItemStack onEaten (ItemStack itemstack, World world, EntityPlayer entityplayer)
+    public ItemStack onItemUseFinish (ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
         if (!world.isRemote)
         {

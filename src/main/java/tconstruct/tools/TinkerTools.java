@@ -148,16 +148,16 @@ public class TinkerTools
 
 
         //Blocks
-        TinkerTools.toolStationWood = new ToolStationBlock(Material.wood).setBlockName("ToolStation");
-        TinkerTools.toolForge = new ToolForgeBlock(Material.iron).setBlockName("ToolForge");
-        TinkerTools.craftingStationWood = new CraftingStationBlock(Material.wood).setBlockName("CraftingStation");
-        TinkerTools.craftingSlabWood = new CraftingSlab(Material.wood).setBlockName("CraftingSlab");
-        TinkerTools.furnaceSlab = new FurnaceSlab(Material.rock).setBlockName("FurnaceSlab");
+        TinkerTools.toolStationWood = new ToolStationBlock(Material.wood).setUnlocalizedName("ToolStation");
+        TinkerTools.toolForge = new ToolForgeBlock(Material.iron).setUnlocalizedName("ToolForge");
+        TinkerTools.craftingStationWood = new CraftingStationBlock(Material.wood).setUnlocalizedName("CraftingStation");
+        TinkerTools.craftingSlabWood = new CraftingSlab(Material.wood).setUnlocalizedName("CraftingSlab");
+        TinkerTools.furnaceSlab = new FurnaceSlab(Material.rock).setUnlocalizedName("FurnaceSlab");
 
-        TinkerTools.heldItemBlock = new EquipBlock(Material.wood).setBlockName("Frypan");
-        TinkerTools.battlesignBlock = new BattlesignBlock(Material.wood).setBlockName("Battlesign");
+        TinkerTools.heldItemBlock = new EquipBlock(Material.wood).setUnlocalizedName("Frypan");
+        TinkerTools.battlesignBlock = new BattlesignBlock(Material.wood).setUnlocalizedName("Battlesign");
 
-        TinkerTools.craftedSoil = new SoilBlock().setLightOpacity(0).setBlockName("TConstruct.Soil");
+        TinkerTools.craftedSoil = new SoilBlock().setLightOpacity(0).setUnlocalizedName("TConstruct.Soil");
         TinkerTools.craftedSoil.stepSound = Block.soundTypeGravel;
 
         GameRegistry.registerBlock(TinkerTools.toolStationWood, ToolStationItemBlock.class, "ToolStationBlock");
@@ -394,7 +394,7 @@ public class TinkerTools
     //@Override
     public int getBurnTime (ItemStack fuel)
     {
-        if (fuel.getItem() == TinkerTools.materials && fuel.getItemDamage() == 7)
+        if (fuel.getItem() == TinkerTools.materials && fuel.getMetadata() == 7)
             return 26400;
         return 0;
     }
@@ -646,35 +646,35 @@ public class TinkerTools
 
         if (PHConstruct.labotimizeVanillaTools)
         {
-            Items.wooden_pickaxe.setMaxDamage(1);
-            Items.wooden_axe.setMaxDamage(1);
-            Items.wooden_shovel.setMaxDamage(1);
-            Items.wooden_hoe.setMaxDamage(1);
-            Items.wooden_sword.setMaxDamage(1);
+            Items.wooden_pickaxe.setMaxDurability(1);
+            Items.wooden_axe.setMaxDurability(1);
+            Items.wooden_shovel.setMaxDurability(1);
+            Items.wooden_hoe.setMaxDurability(1);
+            Items.wooden_sword.setMaxDurability(1);
 
-            Items.stone_pickaxe.setMaxDamage(1);
-            Items.stone_axe.setMaxDamage(1);
-            Items.stone_shovel.setMaxDamage(1);
-            Items.stone_hoe.setMaxDamage(1);
-            Items.stone_sword.setMaxDamage(1);
+            Items.stone_pickaxe.setMaxDurability(1);
+            Items.stone_axe.setMaxDurability(1);
+            Items.stone_shovel.setMaxDurability(1);
+            Items.stone_hoe.setMaxDurability(1);
+            Items.stone_sword.setMaxDurability(1);
 
-            Items.iron_pickaxe.setMaxDamage(1);
-            Items.iron_axe.setMaxDamage(1);
-            Items.iron_shovel.setMaxDamage(1);
-            Items.iron_hoe.setMaxDamage(1);
-            Items.iron_sword.setMaxDamage(1);
+            Items.iron_pickaxe.setMaxDurability(1);
+            Items.iron_axe.setMaxDurability(1);
+            Items.iron_shovel.setMaxDurability(1);
+            Items.iron_hoe.setMaxDurability(1);
+            Items.iron_sword.setMaxDurability(1);
 
-            Items.diamond_pickaxe.setMaxDamage(1);
-            Items.diamond_axe.setMaxDamage(1);
-            Items.diamond_shovel.setMaxDamage(1);
-            Items.diamond_hoe.setMaxDamage(1);
-            Items.diamond_sword.setMaxDamage(1);
+            Items.diamond_pickaxe.setMaxDurability(1);
+            Items.diamond_axe.setMaxDurability(1);
+            Items.diamond_shovel.setMaxDurability(1);
+            Items.diamond_hoe.setMaxDurability(1);
+            Items.diamond_sword.setMaxDurability(1);
 
-            Items.golden_pickaxe.setMaxDamage(1);
-            Items.golden_axe.setMaxDamage(1);
-            Items.golden_shovel.setMaxDamage(1);
-            Items.golden_hoe.setMaxDamage(1);
-            Items.golden_sword.setMaxDamage(1);
+            Items.golden_pickaxe.setMaxDurability(1);
+            Items.golden_axe.setMaxDurability(1);
+            Items.golden_shovel.setMaxDurability(1);
+            Items.golden_hoe.setMaxDurability(1);
+            Items.golden_sword.setMaxDurability(1);
         }
     }
 

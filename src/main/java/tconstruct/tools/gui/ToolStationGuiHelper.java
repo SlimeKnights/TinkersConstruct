@@ -30,7 +30,7 @@ public final class ToolStationGuiHelper {
     // non-instantiable
     private ToolStationGuiHelper() {}
 
-    private static final FontRenderer fontRendererObj = Minecraft.getMinecraft().fontRenderer;
+    private static final FontRenderer fontRendererObj = Minecraft.getMinecraft().fontRendererObj;
     private static int xPos, yPos;
 
     private static final DecimalFormat df =  new DecimalFormat("#.##");

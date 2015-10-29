@@ -12,7 +12,7 @@ public class GlassPane extends PaneBase
         super(Material.glass, "glass/", blockTextures);
         this.setHardness(0.3F);
         this.stepSound = soundTypeGlass;
-        this.setBlockName("tconstruct.glasspane");
+        this.setUnlocalizedName("tconstruct.glasspane");
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 }

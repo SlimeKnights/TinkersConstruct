@@ -19,7 +19,7 @@ public class BloodBlock extends TConstructFluid
     {
         if (entity instanceof EntityLivingBase)
         {
-            ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.field_76434_w.id, 20 * 15, 0));
+            ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.healthBoost.id, 20 * 15, 0));
             ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.poison.id, 20 * 5, 1));
         }
     }

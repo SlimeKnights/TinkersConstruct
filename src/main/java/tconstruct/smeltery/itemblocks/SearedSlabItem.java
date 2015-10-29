@@ -10,7 +10,7 @@ public class SearedSlabItem extends MultiItemBlock
     public SearedSlabItem(Block b)
     {
         super(b, "block.searedstone.slab", blockTypes);
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 

@@ -26,7 +26,7 @@ public class TankItemRenderer implements IItemRenderer {
 
         RenderBlocks renderblocks = (RenderBlocks) data[0];
         Block block = Block.getBlockFromItem(item.getItem());
-        int meta = item.getItemDamage();
+        int meta = item.getMetadata();
 
         if(item.hasTagCompound() && item.getTagCompound().hasKey("Fluid"))
         {
