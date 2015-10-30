@@ -20,6 +20,7 @@ import slimeknights.tconstruct.world.block.BlockSlimeGrass;
 import slimeknights.tconstruct.world.block.BlockSlimeLeaves;
 import slimeknights.tconstruct.world.block.BlockSlimeSapling;
 import slimeknights.tconstruct.world.block.BlockSlimeVine;
+import slimeknights.tconstruct.world.block.BlockTallSlimeGrass;
 import slimeknights.tconstruct.world.client.CustomStateMap;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
 
@@ -63,5 +64,24 @@ public class WorldClientProxy extends ClientProxy {
     registerItemModel(stack, "slime_sapling_purple");
     stack = new ItemStack(sapling, 1, TinkerWorld.slimeSapling.getMetaFromState(state.withProperty(BlockSlimeSapling.FOLIAGE, BlockSlimeGrass.FoliageType.ORANGE)));
     registerItemModel(stack, "slime_sapling_orange");
+
+    for(BlockSlimeGrass.FoliageType foliage : BlockSlimeGrass.FoliageType.values()) {
+      state = TinkerWorld.slimeGrassTall.getDefaultState();
+      state = state.withProperty(BlockTallSlimeGrass.FOLIAGE, foliage);
+      state = state.withProperty(BlockTallSlimeGrass.TYPE, BlockTallSlimeGrass.SlimePlantType.TALL_GRASS);
+      stack = new ItemStack(TinkerWorld.slimeGrassTall, 0, TinkerWorld.slimeGrassTall.getMetaFromState(state));
+      registerItemModel(stack, "slime_tall_grass");
+
+      state = state.withProperty(BlockTallSlimeGrass.TYPE, BlockTallSlimeGrass.SlimePlantType.FERN);
+      stack = new ItemStack(TinkerWorld.slimeGrassTall, 0, TinkerWorld.slimeGrassTall.getMetaFromState(state));
+      registerItemModel(stack, "slime_fern");
+    }
+
+    registerItemModel(new ItemStack(TinkerWorld.slimeVineBlue1), "slime_vine");
+    registerItemModel(new ItemStack(TinkerWorld.slimeVineBlue2), "slime_vine_mid");
+    registerItemModel(new ItemStack(TinkerWorld.slimeVineBlue3), "slime_vine_end");
+    registerItemModel(new ItemStack(TinkerWorld.slimeVinePurple1), "slime_vine");
+    registerItemModel(new ItemStack(TinkerWorld.slimeVinePurple2), "slime_vine_mid");
+    registerItemModel(new ItemStack(TinkerWorld.slimeVinePurple3), "slime_vine_end");
   }
 }

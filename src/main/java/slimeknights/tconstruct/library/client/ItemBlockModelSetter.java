@@ -3,6 +3,10 @@ package slimeknights.tconstruct.library.client;
 import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockSapling;
+import net.minecraft.block.BlockTallGrass;
+import net.minecraft.block.BlockVine;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -60,7 +64,7 @@ public class ItemBlockModelSetter {
       // and then set each item-meta combination to the corresponding block model
 
       Block block = item.block;
-      if(block == TinkerWorld.slimeSapling) continue; // has custom itemmodel
+      if(block instanceof BlockSapling || block instanceof BlockVine || block instanceof BlockBush) continue; // has custom itemmodel
       boolean first = true;
 
       // cycle through all metadatas
