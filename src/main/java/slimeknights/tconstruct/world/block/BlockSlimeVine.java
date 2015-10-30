@@ -2,14 +2,8 @@ package slimeknights.tconstruct.world.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockVine;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
@@ -17,7 +11,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
 import java.util.Random;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -25,82 +18,14 @@ import slimeknights.tconstruct.world.block.BlockSlimeGrass.FoliageType;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
 
 public class BlockSlimeVine extends BlockVine {
-  public static PropertyEnum FOLIAGE = BlockSlimeGrass.FOLIAGE;
-  public static PropertyInteger STAGE = PropertyInteger.create("stage", 0, 2); // 0 = full, 1 = middle, 2 = end
+  protected final FoliageType foliage;
+  protected final BlockSlimeVine nextStage;
 
-  public static final int FULL_STAGE = 0;
-  public static final int MID_STAGE = 1;
-  public static final int END_STAGE = 2;
-
-  public BlockSlimeVine() {
+  public BlockSlimeVine(FoliageType foliage, BlockSlimeVine nextStage) {
     this.setCreativeTab(TinkerRegistry.tabWorld);
-    this.setDefaultState(this.blockState.getBaseState()
-                                        .withProperty(UP, false)
-                                        .withProperty(NORTH, false)
-                                        .withProperty(EAST, false)
-                                        .withProperty(SOUTH, false)
-                                        .withProperty(WEST, false)
-                                        .withProperty(STAGE, 0));
-  }
 
-  @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List list) {
-    for(FoliageType type : FoliageType.values()) {
-      list.add(new ItemStack(this, 1, getMetaFromState(this.getDefaultState().withProperty(BlockSlimeGrass.FOLIAGE, type))));
-    }
-  }
-
-  @Override
-  protected BlockState createBlockState() {
-    return new BlockState(this, UP, NORTH, EAST, SOUTH, WEST, FOLIAGE, STAGE);
-  }
-
-  @Override
-  public IBlockState getStateFromMeta(int meta) {
-    FoliageType foliage = FoliageType.getValFromMeta(meta & 3);
-    int stage = meta >> 2;
-    if(stage > 2) stage = 0;
-    return getDefaultState().withProperty(FOLIAGE, foliage).withProperty(STAGE, stage);
-  }
-
-  @Override
-  public int getMetaFromState(IBlockState state) {
-    return ((FoliageType)state.getValue(FOLIAGE)).getMeta() | ((Integer)state.getValue(STAGE)) << 2;
-  }
-
-  @Override
-  public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-    IBlockState base = state;
-    IBlockState above = worldIn.getBlockState(pos.up());
-
-    boolean n,e,s,w;
-    n = canAttachTo(worldIn, pos.north());
-    e = canAttachTo(worldIn, pos.east());
-    s = canAttachTo(worldIn, pos.south());
-    w = canAttachTo(worldIn, pos.west());
-
-    // got another vine above?
-    if(!(n || e || s || w) && above.getBlock() == this) {
-      // base state on aboves state
-      base = above.getBlock().getActualState(above, worldIn, pos.up());
-    }
-    // set state on surrounding blocks
-    else {
-      base = base.withProperty(NORTH, n);
-      base = base.withProperty(EAST, e);
-      base = base.withProperty(SOUTH, s);
-      base = base.withProperty(WEST, w);
-    }
-
-    // check if block above
-    base = base.withProperty(UP, canAttachTo(worldIn, pos.up()));
-
-    // set correct foliage and stage
-    base = base.withProperty(FOLIAGE, state.getValue(FOLIAGE));
-    base = base.withProperty(STAGE, state.getValue(STAGE));
-
-
-    return base;
+    this.foliage = foliage;
+    this.nextStage = nextStage;
   }
 
   private Boolean canAttachTo(IBlockAccess world, BlockPos pos) {
@@ -109,19 +34,18 @@ public class BlockSlimeVine extends BlockVine {
     return block.isFullCube() && block.getMaterial().blocksMovement();
   }
 
-  @Override
-  public boolean isReplaceable(World worldIn, BlockPos pos) {
-    return true;
-  }
-
   /**
    * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
    * IBlockstate
    */
   public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
   {
-    IBlockState iblockstate = this.getStateFromMeta(meta).withProperty(UP, Boolean.valueOf(false)).withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false));
-    return facing.getAxis().isHorizontal() ? iblockstate.withProperty(getPropertyFor(facing.getOpposite()), Boolean.valueOf(true)) : iblockstate;
+    IBlockState iblockstate = this.getDefaultState();
+    iblockstate = iblockstate.withProperty(NORTH, canAttachTo(worldIn, pos.north()));
+    iblockstate = iblockstate.withProperty(EAST, canAttachTo(worldIn, pos.east()));
+    iblockstate = iblockstate.withProperty(SOUTH, canAttachTo(worldIn, pos.south()));
+    iblockstate = iblockstate.withProperty(WEST, canAttachTo(worldIn, pos.west()));
+    return iblockstate;
   }
 
   @Override
@@ -133,7 +57,7 @@ public class BlockSlimeVine extends BlockVine {
     // are we anchored to a block?
     if(!canAttachTo(worldIn, pos.north()) && !canAttachTo(worldIn, pos.east()) && !canAttachTo(worldIn, pos.south()) && !canAttachTo(worldIn, pos.west())) {
       // are we held up from above?
-      if(worldIn.getBlockState(pos.up()).getBlock() != this) {
+      if(!(worldIn.getBlockState(pos.up()).getBlock() instanceof BlockVine)) {
         this.dropBlockAsItem(worldIn, pos, state, 0);
         worldIn.setBlockToAir(pos);
       }
@@ -141,7 +65,7 @@ public class BlockSlimeVine extends BlockVine {
 
     // notify bottom block to update its state since ours might have changed as well
     BlockPos down = pos.down();
-    while(worldIn.getBlockState(down).getBlock() == this) {
+    while(worldIn.getBlockState(down).getBlock() instanceof BlockVine) {
       worldIn.markBlockForUpdate(down);
       down = down.down();
     }
@@ -158,7 +82,7 @@ public class BlockSlimeVine extends BlockVine {
 
   public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
     // end parts don't grow
-    if((Integer)state.getValue(STAGE) == END_STAGE) {
+    if(nextStage == null) {
       return;
     }
 
@@ -169,87 +93,22 @@ public class BlockSlimeVine extends BlockVine {
       if(!canAttachTo(worldIn, below.north()) && !canAttachTo(worldIn, below.east()) && !canAttachTo(worldIn, below.south()) && !canAttachTo(worldIn, below.west())) {
         // at most 3 middle parts
         int i = 0;
-        for(; worldIn.getBlockState(below.up(i)).getBlock() == this; i++) {
-          if((Integer) worldIn.getBlockState(below.up(i)).getValue(STAGE) != MID_STAGE)
-            break;
+        while(worldIn.getBlockState(pos.up(i)).getBlock() == this) {
+          i++;
         }
 
         if(i > 2 || rand.nextInt(2) == 0) {
-          state = state.withProperty(STAGE, (Integer) state.getValue(STAGE) + 1);
+          state = nextStage.getDefaultState()
+                           .withProperty(NORTH, state.getValue(NORTH))
+                           .withProperty(EAST, state.getValue(EAST))
+                           .withProperty(SOUTH, state.getValue(SOUTH))
+                           .withProperty(WEST, state.getValue(WEST));
         }
       }
 
       worldIn.setBlockState(below, state);
     }
   }
-
-  @Override
-  public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-    float f1 = 1.0F;
-    float f2 = 1.0F;
-    float f3 = 1.0F;
-    float f4 = 0.0F;
-    float f5 = 0.0F;
-    float f6 = 0.0F;
-    boolean flag = false;
-
-    if (this.canAttachTo(worldIn, pos.west()))
-    {
-      f4 = Math.max(f4, 0.0625F);
-      f1 = 0.0F;
-      f2 = 0.0F;
-      f5 = 1.0F;
-      f3 = 0.0F;
-      f6 = 1.0F;
-      flag = true;
-    }
-
-    if (this.canAttachTo(worldIn, pos.east()))
-    {
-      f1 = Math.min(f1, 0.9375F);
-      f4 = 1.0F;
-      f2 = 0.0F;
-      f5 = 1.0F;
-      f3 = 0.0F;
-      f6 = 1.0F;
-      flag = true;
-    }
-
-    if (this.canAttachTo(worldIn, pos.north()))
-    {
-      f6 = Math.max(f6, 0.0625F);
-      f3 = 0.0F;
-      f1 = 0.0F;
-      f4 = 1.0F;
-      f2 = 0.0F;
-      f5 = 1.0F;
-      flag = true;
-    }
-
-    if (this.canAttachTo(worldIn, pos.south()))
-    {
-      f3 = Math.min(f3, 0.9375F);
-      f6 = 1.0F;
-      f1 = 0.0F;
-      f4 = 1.0F;
-      f2 = 0.0F;
-      f5 = 1.0F;
-      flag = true;
-    }
-
-    if (!flag && this.canAttachTo(worldIn, pos.up()))
-    {
-      f2 = Math.min(f2, 0.9375F);
-      f5 = 1.0F;
-      f1 = 0.0F;
-      f4 = 1.0F;
-      f3 = 0.0F;
-      f6 = 1.0F;
-    }
-
-    this.setBlockBounds(f1, f2, f3, f4, f5, f6);
-  }
-
 
   @Override
   @SideOnly(Side.CLIENT)
@@ -262,8 +121,7 @@ public class BlockSlimeVine extends BlockVine {
   @SideOnly(Side.CLIENT)
   @Override
   public int getRenderColor(IBlockState state) {
-    FoliageType foliageType = (FoliageType) state.getValue(FOLIAGE);
-    return SlimeColorizer.getColorStaticBGR(foliageType);
+    return SlimeColorizer.getColorStaticBGR(foliage);
   }
 
   // Used for the block in world
@@ -273,7 +131,6 @@ public class BlockSlimeVine extends BlockVine {
     IBlockState state = worldIn.getBlockState(pos);
     if(state.getBlock() != this) return getBlockColor();
 
-    FoliageType foliageType = (FoliageType) state.getValue(FOLIAGE);
-    return SlimeColorizer.getColorForPos(pos, foliageType);
+    return SlimeColorizer.getColorForPos(pos, foliage);
   }
 }

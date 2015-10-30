@@ -17,6 +17,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.BlockSlime;
 import slimeknights.tconstruct.world.block.BlockSlimeDirt;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
+import slimeknights.tconstruct.world.block.BlockSlimeVine;
 
 public class SlimeIslandGenerator implements IWorldGenerator {
 
@@ -77,6 +78,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     SlimeLakeGenerator lakeGen = lakeGenBlue;
     SlimePlantGenerator plantGen = plantGenPurple;
     SlimeTreeGenerator treeGen = treeGenPurple; // purple trees on blue/green islands
+    IBlockState vine = TinkerWorld.slimeVineBlue1.getDefaultState();
 
     int rnr = random.nextInt(10);
     // purple island.. rare!
@@ -86,6 +88,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
       lakeGen = lakeGenPurple;
       treeGen = treeGenBlue; // blue trees on purple grass. yay
       plantGen = plantGenBlue;
+      vine = TinkerWorld.slimeVinePurple1.getDefaultState();
     }
     // green island.. not so rare
     else if(rnr < 6) {
@@ -99,10 +102,10 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     int x = chunkX*16 + 7 + random.nextInt(6) - 3;
     int z = chunkZ*16 + 7 + random.nextInt(6) - 3;
 
-    generateIsland(random, world, x, z, dirtState, grassState, lakeGen, treeGen, plantGen);
+    generateIsland(random, world, x, z, dirtState, grassState, vine, lakeGen, treeGen, plantGen);
   }
 
-  public void generateIsland(Random random, World world, int xPos, int zPos, IBlockState dirt, IBlockState grass, SlimeLakeGenerator lakeGenerator, SlimeTreeGenerator treeGenerator, SlimePlantGenerator plantGen) {
+  public void generateIsland(Random random, World world, int xPos, int zPos, IBlockState dirt, IBlockState grass, IBlockState vine, SlimeLakeGenerator lakeGenerator, SlimeTreeGenerator treeGenerator, SlimePlantGenerator plantGen) {
     int xRange = 20 + random.nextInt(13);
     int zRange = 20 + random.nextInt(13);
     int yRange = 11 + random.nextInt(3);
@@ -219,11 +222,11 @@ public class SlimeIslandGenerator implements IWorldGenerator {
       }
     }
 
-    IBlockState vine = TinkerWorld.slimeVine.getDefaultState();
-    vine = vine.withProperty(BlockSlimeGrass.FOLIAGE, grass.getValue(BlockSlimeGrass.FOLIAGE));
-    for(int i = 0; i < 30; i++) {
-      BlockPos pos = start.add(-1 + random.nextInt(xRange+2), 0, -1 + random.nextInt(zRange + 2));
-      tryPlacingVine(random, world, pos, height, vine);
+    if(vine != null) {
+      for(int i = 0; i < 30; i++) {
+        BlockPos pos = start.add(-1 + random.nextInt(xRange + 2), 0, -1 + random.nextInt(zRange + 2));
+        tryPlacingVine(random, world, pos, height, vine);
+      }
     }
   }
 
@@ -238,7 +241,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
           || vine.getBlock().canPlaceBlockOnSide(world, pos, EnumFacing.EAST)
           || vine.getBlock().canPlaceBlockOnSide(world, pos, EnumFacing.SOUTH)
           || vine.getBlock().canPlaceBlockOnSide(world, pos, EnumFacing.WEST)) {
-        if(candidate == null || random.nextInt(4) == 0) {
+        if(candidate == null || random.nextInt(10) == 0) {
           candidate = pos;
         }
       }
@@ -248,14 +251,15 @@ public class SlimeIslandGenerator implements IWorldGenerator {
 
     if(candidate != null) {
       // place the vine
-      world.setBlockState(candidate, vine);
+      world.setBlockState(candidate, vine.getBlock().onBlockPlaced(world, candidate, EnumFacing.UP, 0, 0, 0, 0, null));
+
       // and let it grow, let it grow, let it groooooow!
       pos = candidate;
       for(int size = random.nextInt(8); size >= 0; size++) {
-        if(world.getBlockState(pos).getBlock() != vine.getBlock()) {
+        if(!(world.getBlockState(pos).getBlock() instanceof BlockSlimeVine)) {
           break;
         }
-        TinkerWorld.slimeVine.grow(world, random, pos, world.getBlockState(pos));
+        ((BlockSlimeVine)world.getBlockState(pos).getBlock()).grow(world, random, pos, world.getBlockState(pos));
         pos = pos.down();
       }
     }

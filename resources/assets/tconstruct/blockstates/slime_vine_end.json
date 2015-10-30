@@ -3,7 +3,7 @@
     "defaults": {
         "transform": "forge:default-block",
         "textures": {
-            "vine": "tconstruct:blocks/slime/slimevine"
+            "vine": "tconstruct:blocks/slime/slimevine_end"
         }
     },
 	"variants": {

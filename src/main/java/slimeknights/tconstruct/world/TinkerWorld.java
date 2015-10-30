@@ -43,7 +43,12 @@ public class TinkerWorld extends TinkerPulse {
   public static BlockSlimeLeaves slimeLeaves;
   public static BlockTallSlimeGrass slimeGrassTall;
   public static BlockSlimeSapling slimeSapling;
-  public static BlockSlimeVine slimeVine;
+  public static BlockSlimeVine slimeVineBlue1;
+  public static BlockSlimeVine slimeVinePurple1;
+  public static BlockSlimeVine slimeVineBlue2;
+  public static BlockSlimeVine slimeVinePurple2;
+  public static BlockSlimeVine slimeVineBlue3;
+  public static BlockSlimeVine slimeVinePurple3;
 
   public static final EnumPlantType slimePlantType = EnumPlantType.getPlantType("slime");
 
@@ -58,7 +63,14 @@ public class TinkerWorld extends TinkerPulse {
     slimeLeaves = registerBlock(new BlockSlimeLeaves(), ItemBlockLeaves.class, "slime_leaves");
     slimeGrassTall = registerBlock(new BlockTallSlimeGrass(), ItemBlockMeta.class, "slime_grass_tall");
     slimeSapling = registerBlock(new BlockSlimeSapling(), ItemBlockMeta.class, "slime_sapling");
-    slimeVine = registerBlock(new BlockSlimeVine(), ItemBlockMeta.class, "slime_vine");
+
+    slimeVineBlue3 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.BLUE, null), "slime_vine_blue_end");
+    slimeVineBlue2 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.BLUE, slimeVineBlue3), "slime_vine_blue_mid");
+    slimeVineBlue1 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.BLUE, slimeVineBlue2), "slime_vine_blue");
+
+    slimeVinePurple3 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.PURPLE, null), "slime_vine_purple_end");
+    slimeVinePurple2 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.PURPLE, slimeVinePurple3), "slime_vine_purple_mid");
+    slimeVinePurple1 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.PURPLE, slimeVinePurple2), "slime_vine_purple");
 
     ItemBlockMeta.setMappingProperty(slimeBlock, BlockSlime.TYPE);
     ItemBlockMeta.setMappingProperty(slimeBlockCongealed, BlockSlime.TYPE);
@@ -66,7 +78,6 @@ public class TinkerWorld extends TinkerPulse {
     ItemBlockMeta.setMappingProperty(slimeLeaves, BlockSlimeGrass.FOLIAGE);
     ItemBlockMeta.setMappingProperty(slimeGrassTall, BlockTallSlimeGrass.TYPE);
     ItemBlockMeta.setMappingProperty(slimeSapling, BlockSlimeGrass.FOLIAGE);
-    ItemBlockMeta.setMappingProperty(slimeVine, BlockSlimeGrass.FOLIAGE);
 
     proxy.preInit();
   }
