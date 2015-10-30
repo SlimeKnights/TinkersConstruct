@@ -39,6 +39,24 @@ tile.tconstruct.slime_grass.purple.name=Purple Slime Grass
 tile.tconstruct.slime_grass.blood.name=Blood Slime Grass
 tile.tconstruct.slime_grass.magma.name=Magma Slime Grass
 
+tile.tconstruct.slime_leaves.blue.name=Slime Leaves
+tile.tconstruct.slime_leaves.purple.name=Slime Leaves
+tile.tconstruct.slime_leaves.orange.name=Slime Leaves
+
+tile.tconstruct.slime_grass_tall.tall_grass.name=Tall Slime Grass
+tile.tconstruct.slime_grass_tall.fern.name=Slime Fern
+
+tile.tconstruct.slime_sapling.blue.name=Blue Slime Sapling
+tile.tconstruct.slime_sapling.purple.name=Purple Slime Sapling
+tile.tconstruct.slime_sapling.orange.name=Magma Slime Sapling
+
+tile.tconstruct.slime_vine_blue.name=Blue Slime Vine
+tile.tconstruct.slime_vine_blue_mid.name=Blue Slime Vine
+tile.tconstruct.slime_vine_blue_end.name=Blue Slime Vine
+tile.tconstruct.slime_vine_purple.name=Purple Slime Vine
+tile.tconstruct.slime_vine_purple_mid.name=Purple Slime Vine
+tile.tconstruct.slime_vine_purple_end.name=Purple Slime Vine
+
 ################
 #    Items     #
 ################
