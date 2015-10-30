@@ -125,7 +125,7 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
   @Override
   public int getRenderColor(IBlockState state) {
     FoliageType foliageType = (FoliageType) state.getValue(FOLIAGE);
-    return SlimeColorizer.getColorStaticBGR(foliageType);
+    return SlimeColorizer.getColorStatic(foliageType);
   }
 
   // Used for the block in world

@@ -141,7 +141,7 @@ public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlex
 
   @Override
   public boolean isAmbientOcclusion() {
-    return false;
+    return standard.isAmbientOcclusion();
   }
 
   @Override

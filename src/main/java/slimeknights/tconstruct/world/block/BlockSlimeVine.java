@@ -134,7 +134,7 @@ public class BlockSlimeVine extends BlockVine {
   @SideOnly(Side.CLIENT)
   @Override
   public int getRenderColor(IBlockState state) {
-    return SlimeColorizer.getColorStaticBGR(foliage);
+    return SlimeColorizer.getColorStatic(foliage);
   }
 
   // Used for the block in world
