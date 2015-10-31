@@ -11,14 +11,17 @@ public class IndestructibleEntityItem extends EntityItem {
 
   public IndestructibleEntityItem(World worldIn, double x, double y, double z) {
     super(worldIn, x, y, z);
+    isImmuneToFire = true;
   }
 
   public IndestructibleEntityItem(World worldIn, double x, double y, double z, ItemStack stack) {
     super(worldIn, x, y, z, stack);
+    isImmuneToFire = true;
   }
 
   public IndestructibleEntityItem(World worldIn) {
     super(worldIn);
+    isImmuneToFire = true;
   }
 
   @Override
