@@ -325,7 +325,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
       tooltip.add(EnumChatFormatting.BLUE +
                   StatCollector.translateToLocalFormatted("attribute.modifier.plus.0",
-                                                          df.format(ToolHelper.getAttack(stack)),
+                                                          df.format(ToolHelper.getActualDamage(stack, playerIn)),
                                                           StatCollector
                                                               .translateToLocal("attribute.name.generic.attackDamage")));
     }
