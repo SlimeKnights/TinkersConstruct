@@ -7,6 +7,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -75,10 +76,13 @@ public class BlockSlimeCongealed extends Block {
     {
       if (entity.motionY < -0.08F)
       {
-        world.playSoundEffect(entity.posX, entity.posY, entity.posZ, stepSound.soundName,
+        world.playSoundEffect(entity.posX, entity.posY, entity.posZ, stepSound.getStepSound(),
                               stepSound.getVolume() / 2.0F, stepSound.getFrequency() * 0.65F);
       }
       entity.motionY *= -1.2F;
+      if(entity instanceof EntityItem) {
+        entity.onGround = false;
+      }
     }
   }
 
