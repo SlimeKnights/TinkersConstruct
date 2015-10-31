@@ -227,10 +227,10 @@ modifier.harvestwidth.name=Width++
 modifier.harvestwidth.desc=§oExpand!§r\nIncreases the width of the area affected by your tool. The effect is tool specific.
 modifier.harvestheight.name=Height++
 modifier.harvestheight.desc=§oExpand!§r\nIncreases the height of the area affected by your tool. The effect is tool specific.
-modifier.redstone.name=Haste
-modifier.redstone.name2=Haster
-modifier.redstone.name3=Hastest
-modifier.redstone.desc=§oWeeeeeee!§r\nThe redstone impulse when hitting blocks motivates your tool to mine faster.
+modifier.haste.name=Haste
+modifier.haste.name2=Haster
+modifier.haste.name3=Hastest
+modifier.haste.desc=§oWeeeeeee!§r\nThe redstone impulse when hitting blocks motivates your tool to mine faster.
 
 #################
 #   Tool Info   #
