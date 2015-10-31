@@ -37,6 +37,7 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
 
   public BlockTallSlimeGrass() {
     setCreativeTab(TinkerRegistry.tabWorld);
+    this.setStepSound(soundTypeGrass);
   }
 
   @SideOnly(Side.CLIENT)

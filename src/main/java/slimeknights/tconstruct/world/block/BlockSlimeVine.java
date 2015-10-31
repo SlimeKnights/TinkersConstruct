@@ -29,6 +29,7 @@ public class BlockSlimeVine extends BlockVine {
 
   public BlockSlimeVine(FoliageType foliage, BlockSlimeVine nextStage) {
     this.setCreativeTab(TinkerRegistry.tabWorld);
+    this.setStepSound(soundTypeGrass);
 
     this.foliage = foliage;
     this.nextStage = nextStage;

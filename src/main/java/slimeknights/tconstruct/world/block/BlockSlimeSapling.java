@@ -29,6 +29,7 @@ public class BlockSlimeSapling extends BlockSapling {
   public BlockSlimeSapling() {
     setCreativeTab(TinkerRegistry.tabWorld);
     setDefaultState(this.blockState.getBaseState());
+    this.setStepSound(soundTypeGrass);
   }
 
   @Override

@@ -20,6 +20,7 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
   public BlockSlime() {
     this.setCreativeTab(TinkerRegistry.tabWorld);
     this.disableStats();
+    this.setStepSound(SLIME_SOUND);
   }
 
   @SideOnly(Side.CLIENT)

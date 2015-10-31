@@ -31,6 +31,7 @@ public class BlockSlimeCongealed extends Block {
     this.setCreativeTab(TinkerRegistry.tabWorld);
     this.slipperiness = 0.5f;
     this.disableStats();
+    this.setStepSound(SLIME_SOUND);
   }
 
 

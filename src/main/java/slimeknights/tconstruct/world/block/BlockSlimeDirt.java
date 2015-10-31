@@ -19,6 +19,8 @@ public class BlockSlimeDirt extends EnumBlock<BlockSlimeDirt.DirtType> {
   public BlockSlimeDirt() {
     super(Material.ground, TYPE, DirtType.class);
     this.setCreativeTab(TinkerRegistry.tabWorld);
+    this.setHardness(0.55f);
+    this.setStepSound(SLIME_SOUND);
   }
 
   @Override
