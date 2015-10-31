@@ -34,6 +34,7 @@ public class TilePartBuilder extends TileTable implements IInventoryGui {
     return new GuiPartBuilder(inventoryplayer, world, pos, this);
   }
 
+  @Override
   protected IExtendedBlockState setInventoryDisplay(IExtendedBlockState state) {
     PropertyTableItem.TableItems toDisplay = new PropertyTableItem.TableItems();
     float c = 0.2f;

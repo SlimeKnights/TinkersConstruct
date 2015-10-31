@@ -65,14 +65,11 @@ public class ToolClientEvents {
     // replace the baked table models with smart variants
 
     // tool tables
+    replaceTableModel(locCraftingStation, MODEL_CraftingStation, event);
     replaceTableModel(locStencilTable, MODEL_StencilTable, event);
     replaceTableModel(locPartBuilder, MODEL_PartBuilder, event);
     replaceTableModel(locToolStation, MODEL_ToolStation, event); // tool station has no variants but we want the item support
     replaceTableModel(locToolForge, MODEL_ToolForge, event);
-
-    // fix itemblock model for the ones not using the custom baked model
-    event.modelRegistry.putObject(locCraftingStation, new BlockItemModelWrapper((IFlexibleBakedModel) event.modelRegistry
-        .getObject(locCraftingStation)));
 
     // silence the missing-model message for the default itemblock
     event.modelRegistry.putObject(new ModelResourceLocation(LOCATION_ToolTable, "inventory"), event.modelRegistry.getObject(locToolStation));
