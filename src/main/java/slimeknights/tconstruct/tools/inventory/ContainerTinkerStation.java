@@ -168,7 +168,7 @@ public class ContainerTinkerStation<T extends TileEntity> extends ContainerMulti
   private static void clientError(String message) {
     GuiScreen screen = Minecraft.getMinecraft().currentScreen;
     if(screen instanceof GuiTinkerStation) {
-      ((GuiTinkerStation) screen).warning(message);
+      ((GuiTinkerStation) screen).error(message);
     }
   }
 

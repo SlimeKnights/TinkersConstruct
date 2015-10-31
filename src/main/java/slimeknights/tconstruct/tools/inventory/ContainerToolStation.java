@@ -135,26 +135,46 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
   // update crafting - called whenever the content of an input slot changes
   @Override
   public void onCraftMatrixChanged(IInventory inventoryIn) {
+    // reset gui state
     updateGUI();
-    ItemStack result;
-    // 1. try repairing
-    result = repairTool(false);
-    // 2. try swapping tool parts
-    if(result == null) result = replaceToolParts(false);
-    // 3. try modifying
-    if(result == null) result = modifyTool(false);
-    // 4. try building a new tool
-    if(result == null) result = buildTool();
+    try {
+      ItemStack result;
+      // 1. try repairing
+      result = repairTool(false);
+      // 2. try swapping tool parts
+      if(result == null) {
+        result = replaceToolParts(false);
+      }
+      // 3. try modifying
+      if(result == null) {
+        result = modifyTool(false);
+      }
+      // 4. try building a new tool
+      if(result == null)
+        result = buildTool();
 
-    out.inventory.setInventorySlotContents(0, result);
-    updateGUI();
+      out.inventory.setInventorySlotContents(0, result);
+      updateGUI();
+    } catch(TinkerGuiException e) {
+      // error ;(
+      out.inventory.setInventorySlotContents(0, null);
+      this.error(e.getMessage());
+    }
   }
 
   // Called when the crafting result is taken out of its slot
   public void onResultTaken(EntityPlayer playerIn, ItemStack stack) {
-    if(repairTool(true) != null ||
-       replaceToolParts(true) != null ||
-       modifyTool(true) != null) {
+    boolean resultTaken = false;
+
+    try {
+      resultTaken = repairTool(true) != null ||
+                    replaceToolParts(true) != null ||
+                    modifyTool(true) != null;
+    } catch(TinkerGuiException e) {
+      // no error updating needed
+    }
+
+    if(resultTaken) {
       updateSlotsAfterToolAction();
     }
     else {
@@ -192,22 +212,17 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     return ToolBuilder.tryRepairTool(getInputs(), repairable, remove);
   }
 
-  private ItemStack replaceToolParts(boolean remove) {
+  private ItemStack replaceToolParts(boolean remove) throws TinkerGuiException {
     ItemStack tool = ((Slot)inventorySlots.get(0)).getStack();
 
     if(tool == null || !(tool.getItem() instanceof TinkersItem)) {
       return null;
     }
 
-    try {
-      return ToolBuilder.tryReplaceToolParts(tool, getInputs(), remove);
-    } catch(TinkerGuiException e) {
-      error(e.getMessage());
-    }
-    return null;
+    return ToolBuilder.tryReplaceToolParts(tool, getInputs(), remove);
   }
 
-  private ItemStack modifyTool(boolean remove) {
+  private ItemStack modifyTool(boolean remove) throws TinkerGuiException {
     ItemStack modifyable = ((Slot)inventorySlots.get(0)).getStack();
 
     // modifying possible?
@@ -215,13 +230,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
       return null;
     }
 
-    try {
-      return ToolBuilder.tryModifyTool(getInputs(), modifyable, remove);
-    } catch(TinkerGuiException e) {
-      error(e.getMessage());
-    }
-
-    return null;
+    return ToolBuilder.tryModifyTool(getInputs(), modifyable, remove);
   }
 
   private ItemStack buildTool() {
