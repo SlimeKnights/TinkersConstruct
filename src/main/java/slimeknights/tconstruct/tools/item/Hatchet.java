@@ -75,10 +75,6 @@ public class Hatchet extends AoeToolCore {
 
   @Override
   public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
-    if(LumberAxe.detectTree(player.worldObj, pos)) {
-      LumberAxe.fellTree(itemstack, pos, player);
-      return true;
-    }
     return super.onBlockStartBreak(itemstack, pos, player);
   }
 
