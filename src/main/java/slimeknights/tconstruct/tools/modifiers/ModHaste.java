@@ -25,7 +25,7 @@ public class ModHaste extends Modifier {
     addItem(Items.redstone);
     addItem(Blocks.redstone_block, 9);
 
-    addAspects(new ModifierAspect.MultiAspect(this, EnumChatFormatting.DARK_RED, 5, max, 1));
+    addAspects(new ModifierAspect.MultiAspect(this, EnumChatFormatting.DARK_RED, 5, max, 1), ModifierAspect.harvestOnly);
   }
 
   @Override
