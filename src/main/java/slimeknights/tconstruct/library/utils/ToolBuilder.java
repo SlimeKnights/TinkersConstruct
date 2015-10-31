@@ -172,39 +172,41 @@ public final class ToolBuilder {
         ItemStack backup = copy.copy();
 
         // found a modifier that is applicable. Try to apply the match
-        while(match != null && match.amount > 0) {
-          TinkerGuiException caughtException = null;
-          boolean canApply = false;
-          try {
-            canApply = modifier.canApply(copy);
-          } catch(TinkerGuiException e) {
-            caughtException = e;
-          }
-
-          // but can it be applied?
-          if(canApply) {
-            modifier.apply(copy);
-
-            RecipeMatch.removeMatch(stacks, match);
-
-            appliedModifiers.add(modifier);
-            match.amount--;
-          }
-          else {
-            // materials would allow another application, but modifier doesn't
-            // if we have already applied another modifier we cancel the whole thing to prevent situations where
-            // only a part of the modifiers gets applied. either all or none.
-            if(appliedModifiers.size() > 0 || !appliedModifiers.contains(modifier)) {
-              // if we have a reason, rather tell the player that
-              if(caughtException != null) {
-                throw caughtException;
-              }
-              return null;
+        if(match != null) {
+          while(match.amount > 0) {
+            TinkerGuiException caughtException = null;
+            boolean canApply = false;
+            try {
+              canApply = modifier.canApply(copy);
+            } catch(TinkerGuiException e) {
+              caughtException = e;
             }
-            copy = backup;
-            match = null;
-            break;
+
+            // but can it be applied?
+            if(canApply) {
+              modifier.apply(copy);
+
+              appliedModifiers.add(modifier);
+              match.amount--;
+            }
+            else {
+              // materials would allow another application, but modifier doesn't
+              // if we have already applied another modifier we cancel the whole thing to prevent situations where
+              // only a part of the modifiers gets applied. either all or none.
+              if(appliedModifiers.size() > 0 || !appliedModifiers.contains(modifier)) {
+                // if we have a reason, rather tell the player that
+                if(caughtException != null) {
+                  throw caughtException;
+                }
+                return null;
+              }
+              copy = backup;
+              match = null;
+              break;
+            }
           }
+
+          RecipeMatch.removeMatch(stacks, match);
         }
       } while(match != null);
     }
