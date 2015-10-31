@@ -123,21 +123,36 @@ public class ContainerTinkerStation<T extends TileEntity> extends ContainerMulti
   /** Tells the client to take the current state and update its info displays */
   public void updateGUI() {
     if(tile.getWorld().isRemote) {
-      ContainerTinkerStation.clientGuiUpdate();
+      Minecraft.getMinecraft().addScheduledTask(new Runnable() {
+        @Override
+        public void run() {
+          ContainerTinkerStation.clientGuiUpdate();
+        }
+      });
     }
   }
 
   /** Tells the client to display the LOCALIZED error message */
-  public void error(String message) {
+  public void error(final String message) {
     if(tile.getWorld().isRemote) {
-      ContainerTinkerStation.clientError(message);
+      Minecraft.getMinecraft().addScheduledTask(new Runnable() {
+        @Override
+        public void run() {
+          ContainerTinkerStation.clientError(message);
+        }
+      });
     }
   }
 
   /** Tells the client to display the LOCALIZED warning message */
-  public void warning(String message) {
+  public void warning(final String message) {
     if(tile.getWorld().isRemote) {
-      ContainerTinkerStation.clientWarning(message);
+      Minecraft.getMinecraft().addScheduledTask(new Runnable() {
+        @Override
+        public void run() {
+          ContainerTinkerStation.clientWarning(message);
+        }
+      });
     }
   }
 

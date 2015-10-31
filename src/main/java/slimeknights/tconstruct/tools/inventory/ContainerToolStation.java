@@ -147,6 +147,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     if(result == null) result = buildTool();
 
     out.inventory.setInventorySlotContents(0, result);
+    updateGUI();
   }
 
   // Called when the crafting result is taken out of its slot
