@@ -25,7 +25,7 @@ public class BakedMaterialModel extends IFlexibleBakedModel.Wrapper implements I
   protected Map<String, IFlexibleBakedModel> parts;
 
   public BakedMaterialModel(IFlexibleBakedModel base) {
-    super(base, Attributes.DEFAULT_BAKED_FORMAT);
+    super(base, base.getFormat());
 
     this.parts = new THashMap<String, IFlexibleBakedModel>(TinkerRegistry.getAllMaterials().size());
   }
