@@ -22,13 +22,15 @@ import net.minecraftforge.client.model.ISmartBlockModel;
 import net.minecraftforge.client.model.ISmartItemModel;
 import net.minecraftforge.client.model.MultiModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import slimeknights.mantle.client.model.BlockItemModelWrapper;
-import slimeknights.mantle.client.model.TRSRBakedModel;
+import slimeknights.tconstruct.library.client.model.TRSRBakedModel;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.block.PropertyTableItem;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
@@ -59,19 +61,26 @@ public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlex
     // get texture from state
     String texture = null;
     List<PropertyTableItem.TableItem> items = Collections.emptyList();
+    float rotation = 0;
 
     if(state instanceof IExtendedBlockState) {
       IExtendedBlockState extendedState = (IExtendedBlockState) state;
       texture = extendedState.getValue(BlockTable.TEXTURE);
       if(extendedState.getValue(BlockTable.INVENTORY) != null)
         items = extendedState.getValue(BlockTable.INVENTORY).items;
+
+      EnumFacing face = (EnumFacing) extendedState.getValue((IUnlistedProperty) BlockTable.FACING);
+      rotation = 360 - face.getOpposite().getHorizontalIndex() * 90f;
     }
 
+    // models are symmetric, no need to rotate if there's nothing on it where rotation matters, so we just use default
     if(texture == null && items == null) {
       return standard;
     }
 
-    return getActualModel(texture, items);
+
+
+    return getActualModel(texture, items, rotation);
   }
 
 
@@ -86,10 +95,10 @@ public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlex
 
     String texture = ModelHelper.getTextureFromBlock(block, blockStack.getItemDamage()).getIconName();
 
-    return getActualModel(texture, Collections.<PropertyTableItem.TableItem>emptyList());
+    return getActualModel(texture, Collections.<PropertyTableItem.TableItem>emptyList(), 0);
   }
 
-  protected IFlexibleBakedModel getActualModel(String texture, List<PropertyTableItem.TableItem> items) {
+  protected IFlexibleBakedModel getActualModel(String texture, List<PropertyTableItem.TableItem> items, float rotation) {
     if(cache.containsKey(texture)) {
       //return cache.get(texture);
     }
@@ -104,7 +113,7 @@ public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlex
       IModel retexturedModel = tableModel.retexture(builder.build());
 
 
-      bakedModel = retexturedModel.bake(retexturedModel.getDefaultState(), Attributes.DEFAULT_BAKED_FORMAT, textureGetter);
+      bakedModel = retexturedModel.bake(retexturedModel.getDefaultState(), standard.getFormat(), textureGetter);
     }
 
     // add all the items to display on the table
@@ -117,6 +126,8 @@ public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlex
       bakedModel = new MultiModel.Baked(bakedModel, pb.build());
     }
 
+    if(rotation < 360)
+      bakedModel = new TRSRBakedModel(bakedModel, 0, 0, 0, 0, (float)Math.PI * (rotation/180f), 0, 1);
     bakedModel = new BlockItemModelWrapper(bakedModel);
 
     cache.put(texture, bakedModel);

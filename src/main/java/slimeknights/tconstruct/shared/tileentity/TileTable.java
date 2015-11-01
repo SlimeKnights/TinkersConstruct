@@ -10,10 +10,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
 
 import java.util.List;
 
@@ -28,6 +30,7 @@ import slimeknights.tconstruct.tools.network.InventorySlotSyncPacket;
 public class TileTable extends TileInventory {
 
   public static final String FEET_TAG = "textureBlock";
+  public static final String FACE_TAG = "facing";
   protected int displaySlot = 0;
 
   // default constructor for loading
@@ -60,6 +63,9 @@ public class TileTable extends TileInventory {
     if(texture != null && !texture.isEmpty()) {
       state = state.withProperty(BlockTable.TEXTURE, texture);
     }
+
+    EnumFacing facing = EnumFacing.getFront(getTileData().getInteger(FACE_TAG));
+    state = state.withProperty((IUnlistedProperty)BlockTable.FACING, facing);
 
     state = setInventoryDisplay(state);
 
@@ -108,7 +114,12 @@ public class TileTable extends TileInventory {
   public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
     NBTTagCompound tag = pkt.getNbtCompound();
     getTileData().setTag(FEET_TAG, tag.getTag(FEET_TAG));
+    getTileData().setTag(FACE_TAG, tag.getTag(FACE_TAG));
     readFromNBT(tag);
+  }
+
+  public void setFacing(EnumFacing face) {
+    getTileData().setInteger(FACE_TAG, face.getIndex());
   }
 
   public void updateTextureBlock(NBTTagCompound tag) {

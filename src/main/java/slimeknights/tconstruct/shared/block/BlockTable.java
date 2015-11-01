@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -13,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
@@ -27,6 +29,7 @@ import java.util.List;
 
 import slimeknights.mantle.block.BlockInventory;
 import slimeknights.mantle.property.PropertyString;
+import slimeknights.mantle.property.PropertyUnlistedDirection;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
@@ -34,11 +37,11 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
 
   public static final PropertyString TEXTURE = new PropertyString("texture");
   public static final PropertyTableItem INVENTORY = new PropertyTableItem();
+  public static final PropertyUnlistedDirection FACING = new PropertyUnlistedDirection("facing", EnumFacing.Plane.HORIZONTAL);
 
 
   public BlockTable(Material materialIn) {
     super(materialIn);
-
   }
 
   @Override
@@ -76,7 +79,7 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
 
   @Override
   protected BlockState createBlockState() {
-    return new ExtendedBlockState(this, new IProperty[0], new IUnlistedProperty[]{TEXTURE, INVENTORY});
+    return new ExtendedBlockState(this, new IProperty[0], new IUnlistedProperty[]{TEXTURE, INVENTORY, FACING});
   }
 
   @Override
@@ -98,11 +101,12 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
     super.onBlockPlacedBy(world, pos, state, placer, stack);
 
     NBTTagCompound tag = TagUtil.getTagSafe(stack);
-    if(tag.hasKey(TileTable.FEET_TAG)) {
-      TileEntity te = world.getTileEntity(pos);
-      if(te != null && te instanceof TileTable) {
+    TileEntity te = world.getTileEntity(pos);
+    if(te != null && te instanceof TileTable) {
+      if(tag.hasKey(TileTable.FEET_TAG)) {
         ((TileTable) te).updateTextureBlock(tag.getCompoundTag(TileTable.FEET_TAG));
       }
+      ((TileTable) te).setFacing(placer.getHorizontalFacing().getOpposite());
     }
   }
 
