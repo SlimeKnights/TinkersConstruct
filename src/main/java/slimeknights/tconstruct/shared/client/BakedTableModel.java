@@ -14,7 +14,6 @@ import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IRetexturableModel;
@@ -27,15 +26,14 @@ import net.minecraftforge.common.property.IUnlistedProperty;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import slimeknights.mantle.client.model.BlockItemModelWrapper;
-import slimeknights.tconstruct.library.client.model.TRSRBakedModel;
+import slimeknights.mantle.client.model.TRSRBakedModel;
+import slimeknights.tconstruct.library.client.model.ModelHelper;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.block.PropertyTableItem;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
-import slimeknights.tconstruct.library.client.model.ModelHelper;
-import slimeknights.tconstruct.library.utils.TagUtil;
 
 public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlexibleBakedModel {
 
