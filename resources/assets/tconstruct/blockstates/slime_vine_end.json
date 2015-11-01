@@ -61,10 +61,10 @@
             },
             "false": {}
         },
-        "north=false,east=false,south=false,west=false,up=false": {
+        "east=false,north=false,south=false,up=false,west=false": {
             "model": "leaves",
             "textures": {
-                "all": "tconstruct:block/slime/vine"
+                "all": "#vine"
             }
         }
     }
