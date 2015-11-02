@@ -772,7 +772,7 @@ smeltery.castingtable.tooltip=Équipement de fonderie de base
 smeltery.castingfaucet.tooltip=Cette fonderie fuit
 smeltery.castingbasin.tooltip=Pour les fonderie ambitieuse
 #Dear translators, only translate these lines if the jokes are applicable in your language.
-grout.tooltip=J'enduit !
+grout.tooltip=J'suis groot !
 frypankill.tooltip=Ce pauvre animal a rencontré sa mort en un *bang* bruyant
 
 tconstruct.waila.empty=Vide
