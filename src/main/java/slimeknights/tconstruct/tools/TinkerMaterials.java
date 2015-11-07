@@ -56,38 +56,38 @@ public final class TinkerMaterials {
   static final String PulseId = "TinkerMaterials";
   public static final List<Material> materials = Lists.newArrayList();
 
+  // not all listed materials are available by default. They enable when the needed material is present
+
   // natural resources/blocks
   public static final Material wood       = mat("wood", 0x8e661b);
   public static final Material stone      = mat("stone", 0x999999);
   public static final Material flint      = mat("flint", 0x696969);
   public static final Material cactus     = mat("cactus", 0x00a10f);
+  public static final Material bone       = mat("bone", 0xede6bf);
   public static final Material obsidian   = mat("obsidian", 0x601cc4);
   public static final Material prismarine = mat("prismarine", 0x7edebc);
-  public static final Material netherrack = mat("netherrack", 0xb84f4f);
   public static final Material endstone   = mat("endstone", 0xe0d890);
-
-  // item/special resources
-  public static final Material bone       = mat("bone", 0xede6bf);
   public static final Material paper      = mat("paper", 0xffffff);
   public static final Material sponge     = mat("sponge", 0xcacc4e);
+
+  // Slime
+  public static final Material knightslime= mat("knightslime", 0xe03fde);
   public static final Material slime      = mat("slime", 0x82c873);
   public static final Material blueslime  = mat("blueslime", 0x74c8c7);
 
   // Metals
   public static final Material iron       = mat("iron", 0xcacaca);
+  public static final Material pigiron    = mat("pigiron", 0xff9cc4);
   public static final Material copper     = mat("copper", 0xed9f07);
+  public static final Material bronze     = mat("bronze", 0xd2a869);
 
   // Nether Materials
+  public static final Material netherrack = mat("netherrack", 0xb84f4f);
   public static final Material ardite     = mat("ardite", 0xd14210);
   public static final Material cobalt     = mat("cobalt", 0x2882d4);
   public static final Material manyullyn  = mat("manyullyn", 0x882ff8);
 
-  // Alloys
-  public static final Material knightslime= mat("knightslime", 0xe03fde);
-  public static final Material pigiron    = mat("pigiron", 0xff9cc4);
-  public static final Material bronze     = mat("bronze", 0xd2a869);
-
-
+  // specul
   public static final Material xu;
 
   public static final AbstractTrait aridiculous = new TraitAridiculous();
@@ -143,11 +143,12 @@ public final class TinkerMaterials {
     //endstone.setRenderInfo(new MaterialRenderInfo.BlockTexture("minecraft:blocks/end_stone"));
     endstone.setRenderInfo(new MaterialRenderInfo.InverseMultiColor(0x5c6296, 0x3c4276, 0x212a76));
 
-    bone.setRenderInfo(0xede6bf);
+    bone.setRenderInfo(0xede6bf).setTextureSuffix("bone_base");
     paper.setRenderInfo(0xffffff); // paper has custom textures
     sponge.setRenderInfo(new MaterialRenderInfo.BlockTexture("minecraft:blocks/sponge"));
     slime.setRenderInfo(0x82c873);
     blueslime.setRenderInfo(0x74c8c7);
+
 
     // Metals
     //iron.setRenderInfo(new MaterialRenderInfo.Metal(0xcccccc, 0.0f, 0f, 0f));
@@ -163,6 +164,8 @@ public final class TinkerMaterials {
     //ardite.setRenderInfo(new MaterialRenderInfo.MultiColor(0x4e0000, 0xbc2a00, 0xff9e00).setTextureSuffix("metal"));
     //ardite.setRenderInfo(new MaterialRenderInfo.MultiColor(0x0000FF, 0x00FF00, 0xff9e00).setTextureSuffix("metal"));
     manyullyn.setRenderInfo(new MaterialRenderInfo.Metal(0xa93df5, 0.4f, 0.2f, -0.1f));
+
+    pigiron.setRenderInfo(new MaterialRenderInfo.Metal(0xd37c78, 0.1f, 0.1f, 0f));
 
     // alloys
     //knightslime.setRenderInfo(new MaterialRenderInfo.MultiColor(0x9c9c9c, 0xb79acc, 0xbc61f8).setTextureSuffix("contrast")); // looks awesome as obsidian
