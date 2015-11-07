@@ -1,7 +1,7 @@
 {
     "parent": "tconstruct:item/tools/TinkerTool",
     "textures": {
-        "layer0": "tconstruct:items/cleaver/handle",
+        "layer0": "tconstruct:items/broadsword/handle",
         "layer1": "tconstruct:items/cleaver/head",
         "layer2": "tconstruct:items/cleaver/shield",
         "layer3": "tconstruct:items/cleaver/guard",
