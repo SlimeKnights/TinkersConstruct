@@ -31,6 +31,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.tools.modifiers.TraitAquadynamic;
 import slimeknights.tconstruct.tools.modifiers.TraitAridiculous;
 import slimeknights.tconstruct.tools.modifiers.TraitCheap;
 import slimeknights.tconstruct.tools.modifiers.TraitCrude;
@@ -90,6 +91,7 @@ public final class TinkerMaterials {
   // specul
   public static final Material xu;
 
+  public static final AbstractTrait aquadynamic = new TraitAquadynamic();
   public static final AbstractTrait aridiculous = new TraitAridiculous();
   public static final AbstractTrait cheap = new TraitCheap();
   public static final AbstractTrait crude = new TraitCrude();
@@ -225,6 +227,7 @@ public final class TinkerMaterials {
     prismarine.addItem(new ItemStack(Blocks.prismarine, 1, BlockPrismarine.BRICKS_META), 1, Material.VALUE_Fragment*9);
     prismarine.addItem(new ItemStack(Blocks.prismarine, 1, BlockPrismarine.DARK_META), 1, Material.VALUE_Ingot*2);
     prismarine.setRepresentativeItem(Blocks.prismarine);
+    prismarine.addTrait(aquadynamic);
 
     netherrack.setCraftable(true);
     netherrack.addItem(Blocks.netherrack, Material.VALUE_Ingot);

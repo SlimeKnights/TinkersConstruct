@@ -189,6 +189,8 @@ stat.shovelspeed=name=Shovel Speed
 ##############
 
 # traits are also modifiers, they use the same prefix so they don't have to be localized twice
+modifier.aquadynamic.name=Aquadynamic
+modifier.aquadynamic.desc=§oIt's getting wet in here!§r\nThe tool is unhindered by water and loves rainy evenings.
 modifier.aridiculous.name=Aridiculous
 modifier.aridiculous.desc=§oTurn up the heat!§r\nThe tool works better in hotter environments.
 modifier.cheap.name=Cheap
