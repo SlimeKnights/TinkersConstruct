@@ -68,7 +68,12 @@ public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlex
         items = extendedState.getValue(BlockTable.INVENTORY).items;
 
       EnumFacing face = (EnumFacing) extendedState.getValue((IUnlistedProperty) BlockTable.FACING);
-      rotation = 360 - face.getOpposite().getHorizontalIndex() * 90f;
+      if(face != null) {
+        rotation = 360 - face.getOpposite().getHorizontalIndex() * 90f;
+      }
+      else {
+        rotation = 360;
+      }
     }
 
     // models are symmetric, no need to rotate if there's nothing on it where rotation matters, so we just use default
