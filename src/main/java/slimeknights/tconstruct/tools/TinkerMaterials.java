@@ -45,6 +45,7 @@ import slimeknights.tconstruct.tools.modifiers.TraitSlimey;
 import slimeknights.tconstruct.tools.modifiers.TraitSplintering;
 import slimeknights.tconstruct.tools.modifiers.TraitSqueaky;
 import slimeknights.tconstruct.tools.modifiers.TraitStonebound;
+import slimeknights.tconstruct.tools.modifiers.TraitTasty;
 import slimeknights.tconstruct.tools.modifiers.TraitUnnatural;
 
 import static slimeknights.tconstruct.library.utils.HarvestLevels.COBALT;
@@ -107,6 +108,7 @@ public final class TinkerMaterials {
   public static final AbstractTrait splintering = new TraitSplintering();
   public static final AbstractTrait squeaky = new TraitSqueaky();
   public static final AbstractTrait stonebound = new TraitStonebound();
+  public static final AbstractTrait tasty = new TraitTasty();
   public static final AbstractTrait unnatural = new TraitUnnatural();
 
   private static Material mat(String name, int color) {
@@ -273,6 +275,10 @@ public final class TinkerMaterials {
     iron.addItem("ingotIron", 1, Material.VALUE_Ingot);
     iron.setRepresentativeItem(Items.iron_ingot);
     // todo: remaining metals
+
+    pigiron.setFluid(FluidRegistry.WATER); // todo
+    pigiron.setCastable(true);
+    pigiron.addTrait(tasty);
 
     cobalt.setFluid(FluidRegistry.WATER); // todo
     cobalt.setCastable(true);
