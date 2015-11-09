@@ -68,7 +68,7 @@ public final class TinkerMaterials {
   public static final Material obsidian   = mat("obsidian", 0x601cc4);
   public static final Material prismarine = mat("prismarine", 0x7edebc);
   public static final Material endstone   = mat("endstone", 0xe0d890);
-  public static final Material paper      = mat("paper", 0xffffff);
+  public static final Material paper      = new Material("paper", 0xffffff);//mat("paper", 0xffffff);
   public static final Material sponge     = mat("sponge", 0xcacc4e);
 
   // Slime
