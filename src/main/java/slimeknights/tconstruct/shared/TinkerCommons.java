@@ -10,9 +10,11 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import org.apache.logging.log4j.Logger;
 
+import slimeknights.mantle.item.ItemEdible;
 import slimeknights.mantle.item.ItemMetaDynamic;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.CommonProxy;
+import slimeknights.tconstruct.common.Config;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.Util;
 
@@ -31,6 +33,8 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemMetaDynamic nuggets;
   public static ItemMetaDynamic ingots;
   public static ItemMetaDynamic materials;
+  //public static ItemMetaDynamic slimeballs;
+  public static ItemEdible edibles;
 
   // Nugget Itemstacks
   public static ItemStack nuggetCobalt;
@@ -47,18 +51,36 @@ public class TinkerCommons extends TinkerPulse {
   // Material Itemstacks
   public static ItemStack matSlimeBallBlue;
   public static ItemStack matSlimeBallPurple;
+  public static ItemStack matSlimeBallBlood;
+
   public static ItemStack matSlimeCrystal;
   public static ItemStack matSlimeCrystalBlue;
+
   public static ItemStack matExpanderW;
   public static ItemStack matExpanderH;
 
+  // Misc.
+  public static ItemStack bacon;
+
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
-    // Ingots and nuggets
-    if(isToolsLoaded() || isSmelteryLoaded()) {
-      nuggets = registerItem(new ItemMetaDynamic(), "nuggets");
-      ingots = registerItem(new ItemMetaDynamic(), "ingots");
+    boolean forced = Config.forceRegisterAll; // causes to always register all items
 
+    // create the items. We can probably always create them since they handle themselves dynamically
+    nuggets = registerItem(new ItemMetaDynamic(), "nuggets");
+    ingots = registerItem(new ItemMetaDynamic(), "ingots");
+    materials = registerItem(new ItemMetaDynamic(), "materials");
+    edibles = registerItem(new ItemEdible(), "edible");
+
+    // Items that can always be present.. slimeballs
+    matSlimeBallBlue = edibles.addFood(1, 1, 1f, "slimeball_blue");
+    matSlimeBallPurple = edibles.addFood(2, 1, 2f, "slimeball_purple");
+    matSlimeBallBlood = edibles.addFood(3, 1, 1.5f, "slimeball_blood");
+
+    // All other items are either ingots or items for modifiers
+
+    // Ingots and nuggets
+    if(isToolsLoaded() || isSmelteryLoaded() || forced) {
       nuggetCobalt = nuggets.addMeta(0, "cobalt");
       ingotCobalt = ingots.addMeta(0, "cobalt");
 
@@ -85,13 +107,9 @@ public class TinkerCommons extends TinkerPulse {
     }
 
     // Materials
-    if(isToolsLoaded() || isWorldLoaded()) {
-      materials = registerItem(new ItemMetaDynamic(), "materials");
-      matSlimeBallBlue = materials.addMeta(0, "slimeball_blue");
-      matSlimeBallPurple = materials.addMeta(1, "slimeball_purple");
-    }
+    if(isToolsLoaded() || forced) {
+      bacon = edibles.addFood(0, 4, 0.6f, "bacon");
 
-    if(isToolsLoaded()) {
       matSlimeCrystal = materials.addMeta(9, "slimecrystal_green");
       matSlimeCrystalBlue = materials.addMeta(10, "slimecrystal_blue");
       matExpanderW = materials.addMeta(12, "expander_w");
@@ -108,14 +126,27 @@ public class TinkerCommons extends TinkerPulse {
   }
 
   private void registerOredicts() {
-    oredict(matSlimeBallBlue, "slimeball");
+    String dict = "slimeball";
+    oredict(matSlimeBallBlue, dict);
+    oredict(matSlimeBallPurple, dict);
+    oredict(matSlimeBallBlood, dict);
+
+    dict = "ingot";
+    oredict(ingotCobalt, dict + "Cobalt");
+    oredict(ingotArdite, dict + "Ardite");
+    oredict(ingotManyullyn, dict + "Manyullyn");
+
+    dict = "nugget";
+    oredict(nuggetCobalt, dict + "Cobalt");
+    oredict(nuggetArdite, dict + "Ardite");
+    oredict(nuggetManyullyn, dict + "Manyullyn");
   }
 
   private void registerRecipies() {}
 
   private void oredict(ItemStack stack, String name) {
     if(stack != null) {
-      OreDictionary.registerOre("slimeball", matSlimeBallBlue);
+      OreDictionary.registerOre(name, stack);
     }
   }
 }

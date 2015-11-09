@@ -4,6 +4,7 @@ import net.minecraft.item.ItemStack;
 
 import slimeknights.tconstruct.common.ClientProxy;
 
+import static slimeknights.tconstruct.shared.TinkerCommons.edibles;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingotArdite;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingotCobalt;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingotManyullyn;
@@ -24,6 +25,7 @@ public class CommonsClientProxy extends ClientProxy {
     nuggets.registerItemModels("nugget_");
     ingots.registerItemModels("ingot_");
     materials.registerItemModels("");
+    edibles.registerItemModels("");
   }
 
   @Override

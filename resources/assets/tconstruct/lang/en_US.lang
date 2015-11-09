@@ -62,8 +62,11 @@ tile.tconstruct.slime_vine_purple_end.name=Purple Slime Vine
 ################
 
 # General Items
-item.tconstruct.materials.slimeball_blue.name=Slime Ball
-item.tconstruct.materials.slimeball_purple.name=Slime Ball
+item.tconstruct.edible.bacon.name=Bacon
+item.tconstruct.edible.slimeball_blue.name=Slime Ball
+item.tconstruct.edible.slimeball_purple.name=Slime Ball
+item.tconstruct.edible.slimeball_blood.name=Coagulated Blood
+
 item.tconstruct.materials.slimecrystal_green.name=Green Slime Crystal
 item.tconstruct.materials.slimecrystal_blue.name=Blue Slime Crystal
 item.tconstruct.materials.expander_w.name=Expander (Horizontal)
