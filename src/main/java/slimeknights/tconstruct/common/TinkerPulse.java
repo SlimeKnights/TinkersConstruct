@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 /**
  * Just a small helper class that provides some function for cleaner Pulses.
@@ -36,8 +37,7 @@ public abstract class TinkerPulse {
   }
 
   protected static boolean isWorldLoaded() {
-    //return TConstruct.pulseManager.isPulseLoaded(TinkerWorld.PulseId);
-    return false;
+    return TConstruct.pulseManager.isPulseLoaded(TinkerWorld.PulseId);
   }
 
   protected static ToolPart registerToolPart(String unlocName, int cost) {
