@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.events;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.Cancelable;
 
 import slimeknights.tconstruct.library.events.TinkerEvent;
 import slimeknights.tconstruct.library.tools.ToolCore;
@@ -38,6 +39,20 @@ public abstract class TinkerToolEvent extends TinkerEvent {
 
       MinecraftForge.EVENT_BUS.post(event);
       return event;
+    }
+  }
+
+  public static class OnRepair extends TinkerToolEvent {
+    public final int amount;
+
+    public OnRepair(ItemStack itemStack, int amount) {
+      super(itemStack);
+      this.amount = amount;
+    }
+
+    public static boolean fireEvent(ItemStack itemStack, int amount) {
+      OnRepair event = new OnRepair(itemStack, amount);
+      return !MinecraftForge.EVENT_BUS.post(event);
     }
   }
 }

@@ -436,6 +436,8 @@ public final class ToolHelper {
       stack.setItemDamage(stack.getMaxDamage());
     }
 
+    TinkerToolEvent.OnRepair.fireEvent(stack, amount);
+
     healTool(stack, amount, entity);
   }
 
