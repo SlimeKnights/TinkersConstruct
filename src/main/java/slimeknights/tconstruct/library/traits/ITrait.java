@@ -148,8 +148,6 @@ public interface ITrait {
    *
    * @param tool       The tool to repair.
    * @param amount     How much durability will be repaired. Can be bigger than the damage the tool has.
-   * @param repairItem The item the tool will be repaired with.
-   * @return True to allow the repair, false to prevent the repairing. Standard value is true.
    */
-  boolean onRepair(ItemStack tool, int amount, ItemStack repairItem);
+  void onRepair(ItemStack tool, int amount);
 }

@@ -155,9 +155,7 @@ public abstract class AbstractTrait extends Modifier implements ITrait {
   }
 
   @Override
-  public boolean onRepair(ItemStack tool, int amount, ItemStack repairItem) {
-    return true;
-  }
+  public void onRepair(ItemStack tool, int amount) {}
 
   /* Modifier things */
   @Override

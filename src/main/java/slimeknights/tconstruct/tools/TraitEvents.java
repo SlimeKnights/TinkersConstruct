@@ -13,6 +13,7 @@ import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
+import slimeknights.tconstruct.tools.events.TinkerToolEvent;
 
 public class TraitEvents {
 
@@ -78,6 +79,19 @@ public class TraitEvents {
         if(trait != null) {
           trait.onBlock(tool, (EntityPlayer) event.entity, event);
         }
+      }
+    }
+  }
+
+  @SubscribeEvent
+  public void onRepair(TinkerToolEvent.OnRepair event) {
+    ItemStack tool = event.itemStack;
+
+    NBTTagList list = TagUtil.getTraitsTagList(tool);
+    for(int i = 0; i < list.tagCount(); i++) {
+      ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
+      if(trait != null) {
+        trait.onRepair(tool, event.amount);
       }
     }
   }
