@@ -45,6 +45,7 @@ import slimeknights.tconstruct.tools.modifiers.TraitSlimey;
 import slimeknights.tconstruct.tools.modifiers.TraitSplintering;
 import slimeknights.tconstruct.tools.modifiers.TraitSqueaky;
 import slimeknights.tconstruct.tools.modifiers.TraitStonebound;
+import slimeknights.tconstruct.tools.modifiers.TraitUnnatural;
 
 import static slimeknights.tconstruct.library.utils.HarvestLevels.COBALT;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.IRON;
@@ -106,6 +107,7 @@ public final class TinkerMaterials {
   public static final AbstractTrait splintering = new TraitSplintering();
   public static final AbstractTrait squeaky = new TraitSqueaky();
   public static final AbstractTrait stonebound = new TraitStonebound();
+  public static final AbstractTrait unnatural = new TraitUnnatural();
 
   private static Material mat(String name, int color) {
     Material mat = new Material(name, color);
@@ -263,6 +265,7 @@ public final class TinkerMaterials {
 
     knightslime.setCraftable(true);
     safeAdd(knightslime, TinkerCommons.ingotKnightSlime, Material.VALUE_Ingot, true);
+    knightslime.addTrait(unnatural);
 
     // Metals
     iron.setFluid(FluidRegistry.WATER); // todo
