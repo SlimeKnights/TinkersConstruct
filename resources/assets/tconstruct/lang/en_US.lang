@@ -220,8 +220,10 @@ modifier.slimey.name=Slimey
 modifier.slimey.desc=§oEww, gooey!§r\nIt'll wash off.
 modifier.stonebound.name=Stonebound
 modifier.stonebound.desc=§oYour tool absolutely loves stone!§r\nThe tool mines faster as it wears out, but does less damage.
-modifier.Unnatural.name=Unnatural
-modifier.Unnatural.desc=§oAbomination!§r\nThe tool mines faster the higher its mining level is above the required one.
+modifier.unnatural.name=Unnatural
+modifier.unnatural.desc=§oAbomination!§r\nThe tool mines faster the higher its mining level is above the required one.
+modifier.tasty.name=Tasty
+modifier.tasty.desc=§oOm Nom Nom!§r\nSmells so good.. You'd rather eat your tool than starve.
 
 #################
 #   Modifiers   #
