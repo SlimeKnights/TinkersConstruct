@@ -127,11 +127,11 @@ public class TinkerTools extends TinkerPulse {
   public static ToolPart largePlate;
 
   // Modifiers
-  public static IModifier diamondMod;
-  public static IModifier redstoneMod;
-  public static IModifier harvestWidth;
-  public static IModifier harvestHeight;
-  public static List<IModifier> fortifyMods;
+  public static Modifier diamondMod;
+  public static Modifier redstoneMod;
+  public static Modifier harvestWidth;
+  public static Modifier harvestHeight;
+  public static List<Modifier> fortifyMods;
 
   // Helper stuff
   static List<ToolCore> tools = Lists.newLinkedList(); // contains all tools registered in this pulse
@@ -218,21 +218,20 @@ public class TinkerTools extends TinkerPulse {
   }
 
   private void registerModifiers() {
+    // create the modifiers
     diamondMod = new ModDiamond();
     redstoneMod = new ModHaste(50);
 
-    Modifier harvestWidth = new ModHarvestSize("width");
-    Modifier harvestHeight = new ModHarvestSize("height");
+    harvestWidth = new ModHarvestSize("width");
+    harvestHeight = new ModHarvestSize("height");
 
-    if(TinkerCommons.matExpanderW == null) {
-      throw new RuntimeException("Loading order within TCon got messed up. This is a randomly occurring bug. Just restart until it works.");
-    }
+    // register the items for the modifiers
+    diamondMod.addItem("gemDiamond");
+    redstoneMod.addItem("dustRedstone");
+    redstoneMod.addItem("blockRedstone", 1, 9);
 
     harvestWidth.addItem(TinkerCommons.matExpanderW, 1, 1);
     harvestHeight.addItem(TinkerCommons.matExpanderH, 1, 1);
-
-    TinkerTools.harvestWidth = harvestWidth;
-    TinkerTools.harvestHeight = harvestHeight;
   }
 
   private void oredict() {
