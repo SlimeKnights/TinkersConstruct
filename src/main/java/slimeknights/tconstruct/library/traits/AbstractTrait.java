@@ -87,6 +87,10 @@ public abstract class AbstractTrait extends Modifier implements ITrait {
     return Util.translate(LOC_Desc, getIdentifier());
   }
 
+  @Override
+  public boolean isHidden() {
+    return false;
+  }
 
   /* Updating */
 

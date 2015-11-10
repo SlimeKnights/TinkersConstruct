@@ -25,6 +25,11 @@ public interface ITrait {
   /** A short description to tell the user what the trait does */
   String getLocalizedDesc();
 
+  /** Return true to hide the trait from the user.
+   *  Useful for internal stuff.
+   */
+  boolean isHidden();
+
   /** Returns how often the trait can be stacked on one item. A value of 1 or less means not stackable. */
   int getMaxCount();
 

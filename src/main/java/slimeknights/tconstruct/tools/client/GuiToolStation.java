@@ -37,6 +37,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.client.module.GuiButtonsToolStation;
@@ -235,7 +236,7 @@ public class GuiToolStation extends GuiTinkerStation {
 
         // get matching modifier
         IModifier modifier = TinkerRegistry.getModifier(data.identifier);
-        if(modifier == null) {
+        if(modifier == null || (modifier instanceof ITrait && ((ITrait) modifier).isHidden())) {
           continue;
         }
 

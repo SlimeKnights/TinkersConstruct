@@ -349,7 +349,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
       // get matching modifier
       IModifier modifier = TinkerRegistry.getModifier(data.identifier);
-      if(modifier == null) {
+      if(modifier == null || (modifier instanceof ITrait && ((ITrait) modifier).isHidden())) {
         continue;
       }
 
