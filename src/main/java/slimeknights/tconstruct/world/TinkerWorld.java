@@ -2,13 +2,18 @@ package slimeknights.tconstruct.world;
 
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemColored;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 import org.apache.logging.log4j.Logger;
 
@@ -17,6 +22,7 @@ import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.world.block.BlockSlimeCongealed;
 import slimeknights.tconstruct.world.block.BlockSlime;
 import slimeknights.tconstruct.world.block.BlockSlimeDirt;
@@ -80,13 +86,57 @@ public class TinkerWorld extends TinkerPulse {
     ItemBlockMeta.setMappingProperty(slimeGrassTall, BlockTallSlimeGrass.TYPE);
     ItemBlockMeta.setMappingProperty(slimeSapling, BlockSlimeGrass.FOLIAGE);
 
+    oredict();
     proxy.preInit();
+  }
+
+  private void oredict() {
+    OreDictionary.registerOre("blockSlime", slimeBlock);
   }
 
   // INITIALIZATION
   @Subscribe
   public void init(FMLInitializationEvent event) {
+    addRecipies();
     proxy.init();
+  }
+
+  private void addRecipies() {
+    // Slimeblocks
+    String congealedRecipe[] = {"##","##"};
+
+    ItemStack stack = new ItemStack(slimeBlockCongealed);
+    IBlockState state = slimeBlockCongealed.getDefaultState();
+
+    // green slime
+    addSlimeRecipes(new ItemStack(Items.slime_ball), BlockSlime.SlimeType.GREEN);
+
+    // blue slime
+    addSlimeRecipes(TinkerCommons.matSlimeBallBlue, BlockSlime.SlimeType.BLUE);
+
+    // purple slime
+    addSlimeRecipes(TinkerCommons.matSlimeBallPurple, BlockSlime.SlimeType.PURPLE);
+
+    // blood slime
+    addSlimeRecipes(TinkerCommons.matSlimeBallBlood, BlockSlime.SlimeType.BLOOD);
+
+    // magma slime
+    //stack.setItemDamage(slimeBlockCongealed.getMetaFromState(state.withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.MAGMA)));
+    //GameRegistry.addRecipe(stack, "##", "##", '#', ???);
+
+    // todo: if we ever get the slimeblock substitution, track if it was successful and alter the recipe used to match vanilla
+
+  }
+
+  private void addSlimeRecipes(ItemStack slimeball, BlockSlime.SlimeType type) {
+    ItemStack congealed = new ItemStack(slimeBlockCongealed);
+    congealed.setItemDamage(slimeBlockCongealed.getMetaFromState(slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, type)));
+
+    ItemStack block = new ItemStack(slimeBlock);
+    block.setItemDamage(slimeBlock.getMetaFromState(slimeBlock.getDefaultState().withProperty(BlockSlime.TYPE, type)));
+
+    GameRegistry.addRecipe(congealed.copy(), "##", "##", '#', slimeball);
+    GameRegistry.addRecipe(block, "#", '#', congealed);
   }
 
   // POST-INITIALIZATION
