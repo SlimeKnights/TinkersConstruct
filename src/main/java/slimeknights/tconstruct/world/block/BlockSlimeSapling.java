@@ -119,7 +119,7 @@ public class BlockSlimeSapling extends BlockSapling {
 
     IBlockState slimeGreen = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.GREEN);
     IBlockState leaves = TinkerWorld.slimeLeaves.getDefaultState().withProperty(BlockSlimeGrass.FOLIAGE, state.getValue(FOLIAGE));
-    SlimeTreeGenerator gen = new SlimeTreeGenerator(5, 4, slimeGreen, leaves);
+    SlimeTreeGenerator gen = new SlimeTreeGenerator(5, 4, slimeGreen, leaves, null);
 
     // replace sapling with air
     worldIn.setBlockToAir(pos);

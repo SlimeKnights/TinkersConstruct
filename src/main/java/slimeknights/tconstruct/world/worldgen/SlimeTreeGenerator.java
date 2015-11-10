@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.world.worldgen;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockVine;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
@@ -19,19 +21,21 @@ public class SlimeTreeGenerator implements IWorldGenerator {
   public final int treeHeightRange;
   public final IBlockState log;
   public final IBlockState leaves;
+  public final IBlockState vine;
   public final boolean seekHeight;
 
-  public SlimeTreeGenerator(int treeHeight, int treeRange, IBlockState log, IBlockState leaves, boolean seekHeight) {
+  public SlimeTreeGenerator(int treeHeight, int treeRange, IBlockState log, IBlockState leaves, IBlockState vine, boolean seekHeight) {
     this.minTreeHeight = treeHeight;
     this.treeHeightRange = treeRange;
     this.log = log;
     this.leaves = leaves;
+    this.vine = vine;
     this.seekHeight = seekHeight;
   }
 
-  public SlimeTreeGenerator(int treeHeight, int treeRange, IBlockState log, IBlockState leaves)
+  public SlimeTreeGenerator(int treeHeight, int treeRange, IBlockState log, IBlockState leaves, IBlockState vine)
   {
-    this(treeHeight, treeRange, log, leaves, true);
+    this(treeHeight, treeRange, log, leaves, vine, true);
   }
 
 
@@ -122,9 +126,33 @@ public class SlimeTreeGenerator implements IWorldGenerator {
     this.setBlockAndMetadata(world, pos.add(+2, 0, -2), leaves);
     this.setBlockAndMetadata(world, pos.add(-2, 0, +2), leaves);
     this.setBlockAndMetadata(world, pos.add(-2, 0, -2), leaves);
+
+    // vines, woo
+    if(vine != null) {
+      pos = pos.down();
+
+      this.setBlockAndMetadata(world, pos.add(+3, 0,  0), getRandomizedVine(random));
+      this.setBlockAndMetadata(world, pos.add(-3, 0,  0), getRandomizedVine(random));
+      this.setBlockAndMetadata(world, pos.add( 0, 0, -3), getRandomizedVine(random));
+      this.setBlockAndMetadata(world, pos.add( 0, 0, +3), getRandomizedVine(random));
+      this.setBlockAndMetadata(world, pos.add(+2, 0, +2), getRandomizedVine(random));
+      this.setBlockAndMetadata(world, pos.add(+2, 0, -2), getRandomizedVine(random));
+      this.setBlockAndMetadata(world, pos.add(-2, 0, +2), getRandomizedVine(random));
+      this.setBlockAndMetadata(world, pos.add(-2, 0, -2), getRandomizedVine(random));
+    }
   }
 
-  void placeDiamondLayer (World world, BlockPos pos, int range)
+  protected IBlockState getRandomizedVine(Random random) {
+    IBlockState state = vine;
+    PropertyBool[] sides = new PropertyBool[] {BlockVine.NORTH, BlockVine.EAST, BlockVine.SOUTH, BlockVine.WEST};
+    for(int i = random.nextInt(3) + 1; i > 0; i--) {
+      state = state.withProperty(sides[random.nextInt(sides.length)], true);
+    }
+
+    return state;
+  }
+
+  protected void placeDiamondLayer (World world, BlockPos pos, int range)
   {
     for (int x = -range; x <= range; x++)
     {
@@ -138,7 +166,7 @@ public class SlimeTreeGenerator implements IWorldGenerator {
     }
   }
 
-  void placeTrunk (World world, BlockPos pos, int height)
+  protected void placeTrunk (World world, BlockPos pos, int height)
   {
     while(height >= 0) {
       Block block = world.getBlockState(pos).getBlock();
