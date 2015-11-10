@@ -39,9 +39,11 @@ import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
+import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.library.utils.ToolTagUtil;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
+import slimeknights.tconstruct.tools.modifiers.ToolGrowth;
 
 /**
  * Intermediate abstraction layer for all tools/melee weapons. This class has all the callbacks for blocks and enemies
@@ -50,6 +52,11 @@ import slimeknights.tconstruct.library.utils.TooltipBuilder;
 public abstract class ToolCore extends TinkersItem {
 
   protected final static int DEFAULT_MODIFIERS = 3;
+  protected final static ToolGrowth toolGrowth;
+  static {
+    toolGrowth = new ToolGrowth();
+    TinkerRegistry.addTrait(toolGrowth);
+  }
 
   public ToolCore(PartMaterialType... requiredComponents) {
     super(requiredComponents);
@@ -251,6 +258,14 @@ public abstract class ToolCore extends TinkersItem {
     ItemStack tool = super.buildItem(materials);
 
     return tool;
+  }
+
+  @Override
+  public void addMaterialTraits(NBTTagCompound root, List<Material> materials) {
+    super.addMaterialTraits(root, materials);
+
+    // give every tool the tool-growth trait
+    ToolBuilder.addTrait(root, toolGrowth, 0xffffff);
   }
 
   // Creative tab items
