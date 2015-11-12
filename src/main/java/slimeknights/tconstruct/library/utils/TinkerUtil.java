@@ -12,7 +12,6 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.tools.IToolPart;
 
 public final class TinkerUtil {
 

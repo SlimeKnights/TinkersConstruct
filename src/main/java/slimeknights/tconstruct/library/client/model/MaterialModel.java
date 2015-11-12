@@ -21,7 +21,6 @@ import java.util.Map;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
-import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
 import slimeknights.tconstruct.library.materials.Material;
 
 public class MaterialModel extends ItemLayerModel {

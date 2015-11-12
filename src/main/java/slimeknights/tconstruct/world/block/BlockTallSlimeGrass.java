@@ -4,12 +4,10 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -27,8 +25,8 @@ import java.util.Random;
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.client.SlimeColorizer;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass.FoliageType;
+import slimeknights.tconstruct.world.client.SlimeColorizer;
 
 public class BlockTallSlimeGrass extends BlockBush implements IShearable {
 

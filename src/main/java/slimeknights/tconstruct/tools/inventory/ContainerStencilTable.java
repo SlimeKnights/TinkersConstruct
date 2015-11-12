@@ -9,10 +9,10 @@ import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.mantle.inventory.IContainerCraftingCustom;
 import slimeknights.mantle.inventory.SlotCraftingCustom;
+import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.inventory.InventoryCraftingPersistent;
 import slimeknights.tconstruct.tools.network.StencilTableSelectionPacket;

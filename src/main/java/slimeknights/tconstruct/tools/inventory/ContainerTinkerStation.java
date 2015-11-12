@@ -15,7 +15,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 
 import slimeknights.mantle.inventory.ContainerMultiModule;
 import slimeknights.tconstruct.tools.block.BlockToolTable;

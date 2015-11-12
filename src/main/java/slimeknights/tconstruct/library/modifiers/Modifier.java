@@ -12,9 +12,9 @@ import net.minecraft.nbt.NBTTagString;
 import java.util.Arrays;
 import java.util.List;
 
+import slimeknights.mantle.util.RecipeMatchRegistry;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.mantle.util.RecipeMatchRegistry;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 

@@ -27,31 +27,30 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.mantle.client.gui.GuiElement;
+import slimeknights.mantle.client.gui.GuiElementScalable;
 import slimeknights.mantle.client.gui.GuiModule;
+import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.TinkerRegistryClient;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
+import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
-import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.client.module.GuiButtonsToolStation;
+import slimeknights.tconstruct.tools.client.module.GuiInfoPanel;
+import slimeknights.tconstruct.tools.inventory.ContainerTinkerStation;
 import slimeknights.tconstruct.tools.inventory.ContainerToolStation;
+import slimeknights.tconstruct.tools.inventory.SlotToolStationIn;
 import slimeknights.tconstruct.tools.network.ToolStationSelectionPacket;
 import slimeknights.tconstruct.tools.network.ToolStationTextPacket;
 import slimeknights.tconstruct.tools.tileentity.TileToolStation;
-import slimeknights.mantle.client.gui.GuiElementScalable;
-import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
-import slimeknights.tconstruct.library.modifiers.IModifier;
-import slimeknights.tconstruct.library.tools.ToolCore;
-import slimeknights.tconstruct.tools.client.module.GuiInfoPanel;
-import slimeknights.tconstruct.tools.inventory.ContainerTinkerStation;
-import slimeknights.tconstruct.tools.inventory.SlotToolStationIn;
 
 @SideOnly(Side.CLIENT)
 public class GuiToolStation extends GuiTinkerStation {

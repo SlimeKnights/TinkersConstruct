@@ -12,9 +12,9 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import java.util.List;
 
 import io.netty.buffer.ByteBuf;
+import slimeknights.mantle.network.AbstractPacketThreadsafe;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.tools.inventory.ContainerToolStation;
-import slimeknights.mantle.network.AbstractPacketThreadsafe;
 
 public class ToolStationTextPacket extends AbstractPacketThreadsafe {
 

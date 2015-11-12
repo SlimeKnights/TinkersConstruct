@@ -11,9 +11,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import io.netty.buffer.ByteBuf;
-import slimeknights.tconstruct.tools.block.ITinkerStationBlock;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.mantle.network.AbstractPacketThreadsafe;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.tools.block.ITinkerStationBlock;
 
 /**
  * Sent to the server when the user clicks on a tab in the TinkerStation GUI

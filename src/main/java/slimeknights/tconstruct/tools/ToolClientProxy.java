@@ -20,7 +20,6 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
 import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
-import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.ToolCore;
@@ -28,7 +27,6 @@ import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.client.RenderEvents;
-import slimeknights.tconstruct.tools.modifiers.ModFortify;
 
 import static slimeknights.tconstruct.tools.TinkerTools.shard;
 

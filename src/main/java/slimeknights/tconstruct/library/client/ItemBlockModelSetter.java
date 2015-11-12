@@ -1,15 +1,10 @@
 package slimeknights.tconstruct.library.client;
 
-import com.google.common.collect.Sets;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockSapling;
-import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.BlockVine;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -18,8 +13,6 @@ import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameData;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -29,7 +22,6 @@ import java.util.Set;
 import slimeknights.mantle.client.model.BlockItemModelWrapper;
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.world.TinkerWorld;
 
 @SideOnly(Side.CLIENT)
 public class ItemBlockModelSetter {

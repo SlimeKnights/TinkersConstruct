@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.world.item;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
 
 import slimeknights.mantle.item.ItemBlockMeta;
 

@@ -16,17 +16,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
-import slimeknights.tconstruct.library.tools.ToolPart;
-import slimeknights.tconstruct.tools.client.module.GuiButtonsPartCrafter;
-import slimeknights.tconstruct.tools.client.module.GuiSideInventory;
-import slimeknights.tconstruct.tools.inventory.ContainerSideInventory;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.library.traits.ITrait;
+import slimeknights.tconstruct.tools.client.module.GuiButtonsPartCrafter;
 import slimeknights.tconstruct.tools.client.module.GuiInfoPanel;
+import slimeknights.tconstruct.tools.client.module.GuiSideInventory;
 import slimeknights.tconstruct.tools.inventory.ContainerPartBuilder;
 import slimeknights.tconstruct.tools.inventory.ContainerPatternChest;
+import slimeknights.tconstruct.tools.inventory.ContainerSideInventory;
 import slimeknights.tconstruct.tools.inventory.ContainerTinkerStation;
 import slimeknights.tconstruct.tools.tileentity.TilePartBuilder;
 

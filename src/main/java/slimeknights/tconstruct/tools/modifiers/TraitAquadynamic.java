@@ -1,11 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers;
 
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
 import slimeknights.tconstruct.library.traits.AbstractTrait;

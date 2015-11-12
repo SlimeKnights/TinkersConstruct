@@ -3,11 +3,9 @@ package slimeknights.tconstruct.tools.network;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.NetHandlerPlayServer;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
 import slimeknights.mantle.network.AbstractPacketThreadsafe;
 
 public class EntityMovementChangePacket extends AbstractPacketThreadsafe {

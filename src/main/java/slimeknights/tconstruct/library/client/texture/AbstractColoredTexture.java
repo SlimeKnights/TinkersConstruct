@@ -12,7 +12,6 @@ import net.minecraft.client.resources.data.AnimationMetadataSection;
 import net.minecraft.client.resources.data.TextureMetadataSection;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ModelLoader;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

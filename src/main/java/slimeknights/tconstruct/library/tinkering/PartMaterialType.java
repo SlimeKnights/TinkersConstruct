@@ -7,9 +7,9 @@ import net.minecraft.item.ItemStack;
 import java.util.HashSet;
 import java.util.Set;
 
-import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.tools.IToolPart;
 
 public class PartMaterialType {
 

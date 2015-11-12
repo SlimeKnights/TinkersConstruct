@@ -10,8 +10,8 @@ import net.minecraft.util.BlockPos;
 
 import java.util.List;
 
-import slimeknights.mantle.client.gui.GuiModule;
 import slimeknights.mantle.client.gui.GuiElement;
+import slimeknights.mantle.client.gui.GuiModule;
 import slimeknights.mantle.client.gui.GuiWidgetTabs;
 import slimeknights.tconstruct.tools.client.GuiTinkerStation;
 

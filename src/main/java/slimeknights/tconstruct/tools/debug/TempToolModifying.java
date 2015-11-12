@@ -6,9 +6,9 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.RecipeSorter;
 
+import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
-import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 
 public class TempToolModifying implements IRecipe {
 

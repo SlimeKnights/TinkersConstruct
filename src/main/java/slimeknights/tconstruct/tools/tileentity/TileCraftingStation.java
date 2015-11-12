@@ -4,17 +4,16 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.block.PropertyTableItem;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
-import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.tools.client.GuiCraftingStation;
 import slimeknights.tconstruct.tools.inventory.ContainerCraftingStation;
 

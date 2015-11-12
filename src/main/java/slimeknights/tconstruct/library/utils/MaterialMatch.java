@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.utils;
 import com.google.common.collect.Lists;
 
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
 

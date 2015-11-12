@@ -6,12 +6,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 import slimeknights.tconstruct.common.ClientProxy;
@@ -25,7 +23,6 @@ import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
-import slimeknights.tconstruct.library.utils.ToolHelper;
 
 public class ToolPart extends MaterialItem implements IToolPart {
 

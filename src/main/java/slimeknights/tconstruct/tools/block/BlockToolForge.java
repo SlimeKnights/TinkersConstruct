@@ -21,11 +21,11 @@ import net.minecraftforge.oredict.OreDictionary;
 import java.util.List;
 import java.util.Set;
 
-import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.mantle.inventory.BaseContainer;
-import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.tools.tileentity.TileToolForge;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.shared.block.BlockTable;
+import slimeknights.tconstruct.tools.tileentity.TileToolForge;
 
 // This literally only is its own block because it has a different material
 public class BlockToolForge extends BlockTable implements ITinkerStationBlock {

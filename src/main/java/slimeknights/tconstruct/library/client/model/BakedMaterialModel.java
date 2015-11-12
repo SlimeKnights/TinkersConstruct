@@ -4,7 +4,6 @@ import gnu.trove.map.hash.THashMap;
 
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.ISmartItemModel;
 

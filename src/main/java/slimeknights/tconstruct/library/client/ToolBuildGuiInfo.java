@@ -10,10 +10,8 @@ import org.lwjgl.util.Point;
 import java.util.List;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.TinkerRegistryClient;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
-import slimeknights.tconstruct.tools.TinkerTools;
 
 public class ToolBuildGuiInfo {
 

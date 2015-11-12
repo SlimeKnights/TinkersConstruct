@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tools.events;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.eventhandler.Cancelable;
 
 import slimeknights.tconstruct.library.events.TinkerEvent;
 import slimeknights.tconstruct.library.tools.ToolCore;

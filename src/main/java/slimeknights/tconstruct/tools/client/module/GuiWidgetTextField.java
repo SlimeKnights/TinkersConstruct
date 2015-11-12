@@ -3,9 +3,9 @@ package slimeknights.tconstruct.tools.client.module;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 
-import slimeknights.mantle.client.gui.GuiWidget;
 import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.mantle.client.gui.GuiElementScalable;
+import slimeknights.mantle.client.gui.GuiWidget;
 
 public class GuiWidgetTextField extends GuiWidget {
 

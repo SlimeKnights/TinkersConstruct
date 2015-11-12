@@ -9,12 +9,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.common.Config;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.inventory.ContainerStencilTable;
-import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.tools.client.GuiStencilTable;
+import slimeknights.tconstruct.tools.inventory.ContainerStencilTable;
 
 public class TileStencilTable extends TileTable implements IInventoryGui {
 

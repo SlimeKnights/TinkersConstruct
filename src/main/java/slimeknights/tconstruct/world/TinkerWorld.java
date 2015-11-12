@@ -2,11 +2,8 @@ package slimeknights.tconstruct.world;
 
 import com.google.common.eventbus.Subscribe;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemColored;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -23,8 +20,8 @@ import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.world.block.BlockSlimeCongealed;
 import slimeknights.tconstruct.world.block.BlockSlime;
+import slimeknights.tconstruct.world.block.BlockSlimeCongealed;
 import slimeknights.tconstruct.world.block.BlockSlimeDirt;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
 import slimeknights.tconstruct.world.block.BlockSlimeLeaves;
@@ -103,10 +100,6 @@ public class TinkerWorld extends TinkerPulse {
 
   private void addRecipies() {
     // Slimeblocks
-    String congealedRecipe[] = {"##","##"};
-
-    ItemStack stack = new ItemStack(slimeBlockCongealed);
-    IBlockState state = slimeBlockCongealed.getDefaultState();
 
     // green slime
     addSlimeRecipes(new ItemStack(Items.slime_ball), BlockSlime.SlimeType.GREEN);
@@ -124,8 +117,6 @@ public class TinkerWorld extends TinkerPulse {
     //stack.setItemDamage(slimeBlockCongealed.getMetaFromState(state.withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.MAGMA)));
     //GameRegistry.addRecipe(stack, "##", "##", '#', ???);
 
-    // todo: if we ever get the slimeblock substitution, track if it was successful and alter the recipe used to match vanilla
-
   }
 
   private void addSlimeRecipes(ItemStack slimeball, BlockSlime.SlimeType type) {
@@ -136,6 +127,7 @@ public class TinkerWorld extends TinkerPulse {
     block.setItemDamage(slimeBlock.getMetaFromState(slimeBlock.getDefaultState().withProperty(BlockSlime.TYPE, type)));
 
     GameRegistry.addRecipe(congealed.copy(), "##", "##", '#', slimeball);
+    // todo: if we ever get the slimeblock substitution, track if it was successful and alter the recipe used to match vanilla
     GameRegistry.addRecipe(block, "#", '#', congealed);
   }
 

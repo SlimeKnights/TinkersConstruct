@@ -18,12 +18,12 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 
 import slimeknights.mantle.util.RecipeMatch;
+import slimeknights.mantle.util.RecipeMatchRegistry;
 import slimeknights.tconstruct.common.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomFontRenderer;
 import slimeknights.tconstruct.library.client.MaterialRenderInfo;
-import slimeknights.mantle.util.RecipeMatchRegistry;
 import slimeknights.tconstruct.library.traits.ITrait;
 
 public class Material extends RecipeMatchRegistry {

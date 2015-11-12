@@ -10,11 +10,11 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.block.PropertyTableItem;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.tools.client.GuiPartBuilder;
-import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.tools.inventory.ContainerPartBuilder;
 
 public class TilePartBuilder extends TileTable implements IInventoryGui {

@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.tools.client.module;
 
-import slimeknights.mantle.client.gui.GuiModule;
-import slimeknights.mantle.client.gui.GuiWidget;
 import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.mantle.client.gui.GuiElementScalable;
+import slimeknights.mantle.client.gui.GuiModule;
+import slimeknights.mantle.client.gui.GuiWidget;
 
 public class GuiWidgetBorder extends GuiWidget {
   // all elements based on generic gui

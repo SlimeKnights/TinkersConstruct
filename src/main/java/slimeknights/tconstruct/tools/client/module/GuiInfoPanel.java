@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.ListIterator;
 
 import slimeknights.mantle.client.gui.GuiElement;
+import slimeknights.mantle.client.gui.GuiElementScalable;
 import slimeknights.mantle.client.gui.GuiModule;
 import slimeknights.mantle.client.gui.GuiMultiModule;
 import slimeknights.mantle.client.gui.GuiWidgetSlider;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.mantle.client.gui.GuiElementScalable;
 
 public class GuiInfoPanel extends GuiModule {
   private static int resW = 118;

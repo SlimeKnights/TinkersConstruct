@@ -12,8 +12,10 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.tools.TableRecipe;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
 
-import static slimeknights.tconstruct.tools.TinkerMaterials.*;
-import static slimeknights.tconstruct.tools.TinkerTools.*;
+import static slimeknights.tconstruct.tools.TinkerMaterials.stone;
+import static slimeknights.tconstruct.tools.TinkerMaterials.wood;
+import static slimeknights.tconstruct.tools.TinkerTools.pattern;
+import static slimeknights.tconstruct.tools.TinkerTools.toolTables;
 
 @Pulse(id = TinkerVintageCraft.PulseId, modsRequired = TinkerVintageCraft.modid)
 public class TinkerVintageCraft {

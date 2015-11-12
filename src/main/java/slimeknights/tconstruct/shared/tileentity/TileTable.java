@@ -20,11 +20,11 @@ import net.minecraftforge.common.property.IUnlistedProperty;
 import java.util.List;
 
 import slimeknights.mantle.tileentity.TileInventory;
-import slimeknights.tconstruct.shared.block.BlockTable;
-import slimeknights.tconstruct.shared.block.PropertyTableItem;
 import slimeknights.tconstruct.common.Config;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.client.model.ModelHelper;
+import slimeknights.tconstruct.shared.block.BlockTable;
+import slimeknights.tconstruct.shared.block.PropertyTableItem;
 import slimeknights.tconstruct.tools.network.InventorySlotSyncPacket;
 
 public class TileTable extends TileInventory {

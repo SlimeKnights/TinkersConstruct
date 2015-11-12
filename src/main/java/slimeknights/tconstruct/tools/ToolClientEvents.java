@@ -10,7 +10,6 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.client.model.Attributes;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IRetexturableModel;
@@ -21,12 +20,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.io.IOException;
 import java.util.Locale;
 
-import slimeknights.tconstruct.library.client.CustomTextureCreator;
-import slimeknights.tconstruct.shared.client.BakedTableModel;
-import slimeknights.mantle.client.model.BlockItemModelWrapper;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.shared.client.BakedTableModel;
 
 @SideOnly(Side.CLIENT)
 public class ToolClientEvents {

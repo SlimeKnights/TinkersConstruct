@@ -7,7 +7,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import slimeknights.tconstruct.library.tools.ToolNBT;

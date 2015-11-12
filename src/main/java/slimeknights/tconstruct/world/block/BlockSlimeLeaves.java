@@ -24,8 +24,8 @@ import java.util.Random;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.client.SlimeColorizer;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass.FoliageType;
+import slimeknights.tconstruct.world.client.SlimeColorizer;
 
 public class BlockSlimeLeaves extends BlockLeaves {
 

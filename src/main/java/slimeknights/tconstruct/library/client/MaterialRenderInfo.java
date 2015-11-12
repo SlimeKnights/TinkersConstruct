@@ -3,14 +3,9 @@ package slimeknights.tconstruct.library.client;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.io.IOException;
-
-import slimeknights.tconstruct.library.client.model.ModelHelper;
 import slimeknights.tconstruct.library.client.texture.AnimatedColoredTexture;
 import slimeknights.tconstruct.library.client.texture.InverseColoredTexture;
 import slimeknights.tconstruct.library.client.texture.MetalColoredTexture;

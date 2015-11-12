@@ -7,9 +7,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import slimeknights.mantle.client.gui.GuiModule;
 import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.mantle.client.gui.GuiElementScalable;
+import slimeknights.mantle.client.gui.GuiModule;
 import slimeknights.mantle.client.gui.GuiMultiModule;
 import slimeknights.mantle.client.gui.GuiWidgetSlider;
 import slimeknights.mantle.inventory.BaseContainer;

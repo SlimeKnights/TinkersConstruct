@@ -10,7 +10,6 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
 import java.text.DecimalFormat;
-import java.util.LinkedList;
 import java.util.List;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -18,7 +17,6 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
-import slimeknights.tconstruct.library.tools.ToolCore;
 
 /**
  * Used for simple info buidling in the tools!

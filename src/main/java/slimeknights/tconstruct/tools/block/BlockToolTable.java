@@ -25,11 +25,11 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
 
+import slimeknights.mantle.inventory.BaseContainer;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.mantle.inventory.BaseContainer;
-import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.tools.tileentity.TilePartBuilder;
 import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
 import slimeknights.tconstruct.tools.tileentity.TileStencilTable;

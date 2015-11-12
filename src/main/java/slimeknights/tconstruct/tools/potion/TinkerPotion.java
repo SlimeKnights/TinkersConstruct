@@ -9,8 +9,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
-import slimeknights.tconstruct.library.Util;
-
 public class TinkerPotion extends Potion {
   private static int idCounter = 32;
 

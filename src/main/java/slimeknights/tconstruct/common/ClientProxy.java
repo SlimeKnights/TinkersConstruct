@@ -15,10 +15,10 @@ import net.minecraftforge.fml.common.registry.GameData;
 
 import java.lang.reflect.Field;
 
-import slimeknights.tconstruct.library.client.CustomFontRenderer;
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.CustomFontRenderer;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.client.ItemBlockModelSetter;
 import slimeknights.tconstruct.library.client.model.MaterialModelLoader;

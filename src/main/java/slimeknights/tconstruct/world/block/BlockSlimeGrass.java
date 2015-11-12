@@ -3,7 +3,6 @@ package slimeknights.tconstruct.world.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockGrass;
-import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;

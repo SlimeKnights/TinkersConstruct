@@ -13,11 +13,11 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import java.util.List;
 
 import io.netty.buffer.ByteBuf;
-import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.mantle.network.AbstractPacketThreadsafe;
-import slimeknights.tconstruct.tools.inventory.ContainerStencilTable;
+import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.tools.client.GuiStencilTable;
+import slimeknights.tconstruct.tools.inventory.ContainerStencilTable;
 
 public class StencilTableSelectionPacket extends AbstractPacketThreadsafe {
 

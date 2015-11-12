@@ -36,9 +36,6 @@ import slimeknights.tconstruct.library.client.texture.GuiOutlineTexture;
 import slimeknights.tconstruct.library.client.texture.PatternTexture;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tools.IToolPart;
-import slimeknights.tconstruct.smeltery.SmelteryClientEvents;
-import slimeknights.tconstruct.tools.ToolClientEvents;
-import slimeknights.tconstruct.tools.ToolClientProxy;
 
 /**
  * Textures registered with this creator will get a texture created/loaded for each material.

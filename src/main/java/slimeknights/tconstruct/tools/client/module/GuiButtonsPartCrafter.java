@@ -16,11 +16,11 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.tools.client.GuiButtonItem;
 import slimeknights.tconstruct.tools.client.GuiPartBuilder;
 import slimeknights.tconstruct.tools.client.GuiTinkerStation;
 import slimeknights.tconstruct.tools.inventory.ContainerPartBuilder;
-import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.tools.network.PartCrafterSelectionPacket;
 
 public class GuiButtonsPartCrafter extends GuiSideButtons {
