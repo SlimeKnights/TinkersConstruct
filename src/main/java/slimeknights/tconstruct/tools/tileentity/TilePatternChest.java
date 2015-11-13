@@ -21,7 +21,7 @@ public class TilePatternChest extends TileTable implements IInventoryGui {
 
   @Override
   public Container createContainer(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
-    return new ContainerPatternChest(3, 10, inventoryplayer, this);
+    return new ContainerPatternChest(inventoryplayer, this);
   }
 
   @Override

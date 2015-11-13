@@ -28,7 +28,9 @@ public class GuiPatternChest extends GuiTinkerStation {
   public GuiPatternChest(InventoryPlayer playerInv, World world, BlockPos pos, TilePatternChest tile) {
     super(world, pos, (ContainerTinkerStation)tile.createContainer(playerInv, world, pos));
 
-    guiInventory = new GuiDynInventory(this, container.getSubContainer(ContainerPatternChest.SideInventory.class), 0, tile.getSizeInventory());
+    // we use the sideinventory class for the inventory itself
+    // it doesn't contain the player inventory
+    guiInventory = new GuiDynInventory(this, container.getSubContainer(ContainerPatternChest.SideInventory.class));
     addModule(guiInventory);
     //guiInventory.setPosition(16, 16);
     //guiInventory.setSize(162, 54);

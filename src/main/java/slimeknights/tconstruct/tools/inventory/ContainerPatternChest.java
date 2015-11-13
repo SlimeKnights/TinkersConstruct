@@ -9,24 +9,11 @@ import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
 
 public class ContainerPatternChest extends ContainerTinkerStation<TilePatternChest> {
 
-  public ContainerPatternChest(int rows, int columns, InventoryPlayer playerInventory, TilePatternChest tile) {
+  public ContainerPatternChest(InventoryPlayer playerInventory, TilePatternChest tile) {
     super(tile);
 
-    int index = 0;
-
     // chest inventory. we have it as a module
-    ContainerSideInventory inv = new SideInventory(tile, tile, 8, 18, columns);
-    /*for(int i = 0; i < rows; ++i) {
-      for(int j = 0; j < columns; ++j) {
-        // safety
-        if(index > tile.getSizeInventory()) {
-          break;
-        }
-
-        this.addSlotToContainer(new SlotStencil(tile, index, 8 + j * 18, 18 + i * 18));
-        index++;
-      }
-    }*/
+    ContainerSideInventory inv = new SideInventory(tile, tile, 8, 18, 9); // columns don't matter since they get set by gui
     this.addSubContainer(inv, true);
 
     // player inventory

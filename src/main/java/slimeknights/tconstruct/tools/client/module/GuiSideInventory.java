@@ -19,11 +19,11 @@ import slimeknights.tconstruct.library.Util;
 @SideOnly(Side.CLIENT)
 public class GuiSideInventory extends GuiModule {
 
-  protected static final GuiElementScalable overlap = new GuiElementScalable(21, 45, 7, 14);
-  protected static final GuiElement overlapTopLeft = new GuiElement(7, 40, 7, 7, 64, 64);
-  protected static final GuiElement overlapTopRight = new GuiElement(14, 40, 7, 7);
-  protected static final GuiElement overlapBottomLeft = new GuiElement(7, 47, 7, 7);
-  protected static final GuiElement overlapBottomRight = new GuiElement(14, 47, 7, 7);
+  protected static final GuiElementScalable overlap = GuiGeneric.overlap;
+  protected static final GuiElement overlapTopLeft = GuiGeneric.overlapTopLeft;
+  protected static final GuiElement overlapTopRight = GuiGeneric.overlapTopRight;
+  protected static final GuiElement overlapBottomLeft = GuiGeneric.overlapBottomLeft;
+  protected static final GuiElement overlapBottomRight = GuiGeneric.overlapBottomRight;
   protected static final GuiElement overlapTop = new GuiElement(7, 0, 7, 7); // same as borderTop but only 7 wide
 
   protected static final GuiElementScalable textBackground = GuiGeneric.textBackground;
@@ -31,12 +31,12 @@ public class GuiSideInventory extends GuiModule {
   protected static final GuiElementScalable slot = GuiGeneric.slot;
   protected static final GuiElementScalable slotEmpty = GuiGeneric.slotEmpty;
 
-  protected static final GuiElement sliderNormal = new GuiElement(7, 25, 10, 15);
-  protected static final GuiElement sliderLow = new GuiElement(17, 25, 10, 15);
-  protected static final GuiElement sliderHigh = new GuiElement(27, 25, 10, 15);
-  protected static final GuiElement sliderTop = new GuiElement(43, 7, 12, 1);
-  protected static final GuiElement sliderBottom = new GuiElement(43, 38, 12, 1);
-  protected static final GuiElementScalable sliderBackground = new GuiElementScalable(43, 8, 12, 30);
+  protected static final GuiElement sliderNormal = GuiGeneric.sliderNormal;
+  protected static final GuiElement sliderLow = GuiGeneric.sliderLow;
+  protected static final GuiElement sliderHigh = GuiGeneric.sliderHigh;
+  protected static final GuiElement sliderTop = GuiGeneric.sliderTop;
+  protected static final GuiElement sliderBottom = GuiGeneric.sliderBottom;
+  protected static final GuiElementScalable sliderBackground = GuiGeneric.sliderBackground;
 
   // we use the chest gui as a preset for our parts
   private static final ResourceLocation

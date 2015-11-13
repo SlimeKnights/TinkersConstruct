@@ -23,12 +23,12 @@ public class GuiDynInventory extends GuiModule {
   protected static final GuiElementScalable slot = GuiGeneric.slot;
   protected static final GuiElementScalable slotEmpty = GuiGeneric.slotEmpty;
 
-  protected static final GuiElement sliderNormal = new GuiElement(7, 25, 10, 15, 64,64);
-  protected static final GuiElement sliderLow = new GuiElement(17, 25, 10, 15);
-  protected static final GuiElement sliderHigh = new GuiElement(27, 25, 10, 15);
-  protected static final GuiElement sliderTop = new GuiElement(43, 7, 12, 1);
-  protected static final GuiElement sliderBottom = new GuiElement(43, 38, 12, 1);
-  protected static final GuiElementScalable sliderBackground = new GuiElementScalable(43, 8, 12, 30);
+  protected static final GuiElement sliderNormal = GuiGeneric.sliderNormal;
+  protected static final GuiElement sliderLow = GuiGeneric.sliderLow;
+  protected static final GuiElement sliderHigh = GuiGeneric.sliderHigh;
+  protected static final GuiElement sliderTop = GuiGeneric.sliderTop;
+  protected static final GuiElement sliderBottom = GuiGeneric.sliderBottom;
+  protected static final GuiElementScalable sliderBackground = GuiGeneric.sliderBackground;
 
   private GuiWidgetSlider slider = new GuiWidgetSlider(sliderNormal, sliderHigh, sliderLow, sliderTop, sliderBottom, sliderBackground);
 
@@ -40,18 +40,13 @@ public class GuiDynInventory extends GuiModule {
 
   private int firstSlotId;
   private int lastSlotId;
-  // from start to end are the indices of the slots that we draw/represent
-  private int indexStart;
-  private int indexEnd;
 
   // Container containing the slots to display
   protected final Container container;
 
-  public GuiDynInventory(GuiMultiModule parent, Container container, int indexStart, int indexEnd) {
+  public GuiDynInventory(GuiMultiModule parent, Container container) {
     super(parent, container, false, false);
     this.container = container;
-    this.indexStart = indexStart;
-    this.indexEnd = indexEnd;
 
     // default parameters.
     // These corresponds to a regular inventory
@@ -60,7 +55,7 @@ public class GuiDynInventory extends GuiModule {
     xSize = 162;
     ySize = 54;
 
-    slotCount = indexEnd - indexStart;
+    slotCount = container.inventorySlots.size();
     firstSlotId = 0;
     lastSlotId = slotCount;
   }
@@ -128,9 +123,6 @@ public class GuiDynInventory extends GuiModule {
     lastSlotId = Math.min(slotCount, firstSlotId + rows * columns);
 
     for(Slot slot : (List<Slot>) container.inventorySlots) {
-      if(slot.getSlotIndex() < indexStart || slot.getSlotIndex() >= indexEnd) {
-        continue;
-      }
       if(shouldDrawSlot(slot)) {
         // calc position of the slot
         int offset = slot.getSlotIndex() - firstSlotId;
