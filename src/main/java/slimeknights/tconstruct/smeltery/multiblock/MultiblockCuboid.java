@@ -29,6 +29,7 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
    * @param limit  Maximum INNER size of the multiblock.
    * @return All blocks that belong to the multiblock or an empty list if no multiblock is present.
    */
+  @Override
   public List<BlockPos> detectMultiblock(World world, BlockPos center, int limit) {
     // list of blocks that are part of the multiblock
     List<BlockPos> subBlocks = Lists.newArrayList();
@@ -47,8 +48,8 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
     }
 
     // walls too far away?
-    if(edges[EnumFacing.SOUTH.getHorizontalIndex()] - edges[EnumFacing.NORTH.getHorizontalIndex()] > limit ||
-       edges[EnumFacing.EAST.getHorizontalIndex()] - edges[EnumFacing.WEST.getHorizontalIndex()] > limit) {
+    if(edges[EnumFacing.SOUTH.getHorizontalIndex()] - edges[EnumFacing.NORTH.getHorizontalIndex()] > limit+2 ||
+       edges[EnumFacing.EAST.getHorizontalIndex()] - edges[EnumFacing.WEST.getHorizontalIndex()] > limit+2) {
       return Lists.newArrayList();
     }
 
@@ -139,10 +140,10 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
     }
 
     // validate inside of the floor
-    from.add(1, 0, 1);
-    to.add(-1, 0, -1);
+    from = from.add(1, 0, 1);
+    to = to.add(-1, 0, -1);
 
-    for(BlockPos z = from; z.getZ() > to.getZ(); z = z.add(0, 0, 1)) {
+    for(BlockPos z = from; z.getZ() <= to.getZ(); z = z.add(0, 0, 1)) {
       for(BlockPos x = z; x.getX() <= to.getX(); x = x.add(1, 0, 0)) {
         if(ceiling && !isCeilingBlock(world, x)) {
           return false;
@@ -180,15 +181,28 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
       }
     }
 
-    // validate the 4 sides
+    // validate the inside
     List<BlockPos> blocks = Lists.newLinkedList();
     for(int x = edges[1]+1; x < edges[3]; x++) {
-      blocks.add(center.add(x, 0, edges[2]+1));
-      blocks.add(center.add(x, 0, edges[0]-1));
+      for(int z = edges[2]+1; z < edges[0]; z++) {
+        blocks.add(center.add(x, 0 ,z));
+      }
+    }
+    for(BlockPos pos : blocks) {
+      if(!isInnerBlock(world, pos)) {
+        return false;
+      }
+    }
+
+    // validate the 4 sides
+    blocks = Lists.newLinkedList();
+    for(int x = edges[1]+1; x < edges[3]; x++) {
+      blocks.add(center.add(x, 0, edges[2]));
+      blocks.add(center.add(x, 0, edges[0]));
     }
     for(int z = edges[2]+1; z < edges[0]; z++) {
-      blocks.add(center.add(edges[1]+1, 0, z));
-      blocks.add(center.add(edges[3]-1, 0, z));
+      blocks.add(center.add(edges[1], 0, z));
+      blocks.add(center.add(edges[3], 0, z));
     }
 
     for(BlockPos pos : blocks) {

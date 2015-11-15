@@ -11,6 +11,7 @@ import java.util.List;
 
 import slimeknights.mantle.multiblock.IMasterLogic;
 import slimeknights.mantle.multiblock.IServantLogic;
+import slimeknights.mantle.multiblock.MultiServantLogic;
 
 /**
  * Base class for a rectangular multiblock detection
@@ -91,6 +92,8 @@ public abstract class MultiblockDetection {
     return pos;
   }
 
+  public abstract List<BlockPos> detectMultiblock(World world, BlockPos center, int limit);
+
   /* Allowed blocks */
   public boolean isInnerBlock(World world, BlockPos pos) {
     return world.isAirBlock(pos);
@@ -104,12 +107,11 @@ public abstract class MultiblockDetection {
       throw new IllegalArgumentException("Master must be of IMasterLogic");
     }
 
-    IMasterLogic masterLogic = (IMasterLogic) masterBlock;
     // assign master to each servant
     for(BlockPos pos : servants) {
       TileEntity slave = world.getTileEntity(pos);
-      if(slave instanceof IServantLogic) {
-        ((IServantLogic) slave).setPotentialMaster(masterLogic, world, pos);
+      if(slave instanceof MultiServantLogic) {
+        ((MultiServantLogic) slave).overrideMaster(master);
       }
     }
   }
