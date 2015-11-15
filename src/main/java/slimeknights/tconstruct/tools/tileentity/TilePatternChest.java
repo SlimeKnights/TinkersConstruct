@@ -16,7 +16,7 @@ import slimeknights.tconstruct.tools.inventory.ContainerPatternChest;
 public class TilePatternChest extends TileTable implements IInventoryGui {
 
   public TilePatternChest() {
-    super("gui.patternChest.name", 30, 1);
+    super("gui.patternChest.name", 27, 1);
   }
 
   @Override
