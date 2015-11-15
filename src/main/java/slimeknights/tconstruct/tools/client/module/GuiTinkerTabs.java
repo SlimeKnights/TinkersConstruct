@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.client.module;
 
 import com.google.common.collect.Lists;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
@@ -72,7 +73,9 @@ public class GuiTinkerTabs extends GuiModule {
     // highlighted tooltip
     if(tabs.highlighted > -1) {
       BlockPos pos = tabData.get(tabs.highlighted);
-      String name = Minecraft.getMinecraft().thePlayer.worldObj.getBlockState(pos).getBlock().getLocalizedName();
+      IBlockState state = Minecraft.getMinecraft().thePlayer.worldObj.getBlockState(pos);
+      ItemStack stack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
+      String name = stack.getDisplayName();
 
       // the origin has been translated to the top left of this gui rather than the screen, so we have to adjust
       drawHoveringText(Lists.newArrayList(name), mouseX - this.guiLeft, mouseY - this.guiTop);
