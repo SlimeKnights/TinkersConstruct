@@ -3,18 +3,21 @@ package slimeknights.tconstruct.tools.inventory;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
 import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
 
 public class ContainerPatternChest extends ContainerTinkerStation<TilePatternChest> {
 
+  protected ContainerSideInventory inventory;
+
   public ContainerPatternChest(InventoryPlayer playerInventory, TilePatternChest tile) {
     super(tile);
 
     // chest inventory. we have it as a module
-    ContainerSideInventory inv = new SideInventory(tile, tile, 8, 18, 9); // columns don't matter since they get set by gui
-    this.addSubContainer(inv, true);
+    inventory = new SideInventory(tile, tile, 8, 18, 9); // columns don't matter since they get set by gui
+    this.addSubContainer(inventory, true);
 
     // player inventory
     this.addPlayerInventory(playerInventory, 8, 84);
@@ -28,7 +31,23 @@ public class ContainerPatternChest extends ContainerTinkerStation<TilePatternChe
 
     @Override
     protected Slot createSlot(IInventory inventory, int index, int x, int y) {
-      return new SlotStencil((TilePatternChest)tile, index, x, y);
+      return new SlotPatternChest((TilePatternChest)tile, index, x, y);
+    }
+  }
+
+  public static class SlotPatternChest extends SlotStencil {
+
+    public final TilePatternChest patternChest;
+
+    public SlotPatternChest(TilePatternChest inventoryIn, int index, int xPosition, int yPosition) {
+      super(inventoryIn, index, xPosition, yPosition);
+
+      this.patternChest = inventoryIn;
+    }
+
+    @Override
+    public boolean isItemValid(ItemStack stack) {
+      return super.isItemValid(stack) && patternChest.isItemValidForSlot(0, stack); // slot parameter is unused
     }
   }
 }

@@ -319,3 +319,4 @@ gui.toolStation.noTraits=None :[
 
 # Pattern Chest
 gui.patternChest.name=Pattern Chest
+gui.castChest.name=Cast Chest
