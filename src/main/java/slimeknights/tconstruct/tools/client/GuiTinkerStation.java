@@ -83,12 +83,6 @@ public class GuiTinkerStation extends GuiMultiModule {
     }
   }
 
-  protected void drawBackground(ResourceLocation background) {
-    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-    this.mc.getTextureManager().bindTexture(background);
-    this.drawTexturedModalRect(cornerX, cornerY, 0, 0, realWidth, realHeight);
-  }
-
   protected void drawIcon(Slot slot, GuiElement element) {
     this.mc.getTextureManager().bindTexture(ICONS);
     element.draw(slot.xDisplayPosition + this.cornerX - 1, slot.yDisplayPosition + this.cornerY - 1);

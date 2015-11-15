@@ -1,22 +1,29 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.World;
 
+import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.mantle.multiblock.IMasterLogic;
 import slimeknights.mantle.multiblock.IServantLogic;
+import slimeknights.mantle.tileentity.TileInventory;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
+import slimeknights.tconstruct.smeltery.client.GuiSmeltery;
+import slimeknights.tconstruct.smeltery.inventory.ContainerSmeltery;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockDetection;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockSmeltery;
 
-public class TileSmeltery extends TileEntity implements IMasterLogic, IUpdatePlayerListBox {
+public class TileSmeltery extends TileInventory implements IMasterLogic, IUpdatePlayerListBox, IInventoryGui {
 
   protected static final int MAX_SIZE = 7;
 
@@ -26,6 +33,7 @@ public class TileSmeltery extends TileEntity implements IMasterLogic, IUpdatePla
   protected int tick;
 
   public TileSmeltery() {
+    super("gui.smeltery.name", 0);
     multiblock = new MultiblockSmeltery(this);
   }
 
@@ -78,7 +86,18 @@ public class TileSmeltery extends TileEntity implements IMasterLogic, IUpdatePla
     }
   }
 
-  /* Network */
+  /* GUI */
+  @Override
+  public Container createContainer(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
+    return new ContainerSmeltery(inventoryplayer, this);
+  }
+
+  @Override
+  public GuiContainer createGui(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
+    return new GuiSmeltery((ContainerSmeltery)createContainer(inventoryplayer, world, pos));
+  }
+
+  /* Network & Saving */
 
   @Override
   public void writeToNBT(NBTTagCompound compound) {

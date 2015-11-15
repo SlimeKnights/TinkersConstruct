@@ -16,10 +16,12 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
+import slimeknights.mantle.block.BlockInventory;
+import slimeknights.tconstruct.common.block.BlockInventoryTinkers;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 
-public class BlockSmelteryController extends BlockContainer {
+public class BlockSmelteryController extends BlockInventoryTinkers {
 
   public static PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
   public static PropertyBool ACTIVE = PropertyBool.create("active");
