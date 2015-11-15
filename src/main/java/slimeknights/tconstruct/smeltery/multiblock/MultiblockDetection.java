@@ -18,6 +18,23 @@ import slimeknights.mantle.multiblock.MultiServantLogic;
  */
 public abstract class MultiblockDetection {
 
+  /** Represents a multiblock structure. Contains all its info. */
+  public static class MultiblockStructure {
+
+    public final int xd; // x-width of the structure
+    public final int yd; // y-height of the structure
+    public final int zd; // z-width of the structure
+
+    public final List<BlockPos> blocks; // all blocks that are part of the structure
+
+    public MultiblockStructure(int xd, int yd, int zd, List<BlockPos> blocks) {
+      this.xd = xd;
+      this.yd = yd;
+      this.zd = zd;
+      this.blocks = blocks;
+    }
+  }
+
   /**
    * Pass in any position inside the multiblock.
    * It'll detect the bottommost center block if one exists.
@@ -92,7 +109,7 @@ public abstract class MultiblockDetection {
     return pos;
   }
 
-  public abstract List<BlockPos> detectMultiblock(World world, BlockPos center, int limit);
+  public abstract MultiblockStructure detectMultiblock(World world, BlockPos center, int limit);
 
   /* Allowed blocks */
   public boolean isInnerBlock(World world, BlockPos pos) {

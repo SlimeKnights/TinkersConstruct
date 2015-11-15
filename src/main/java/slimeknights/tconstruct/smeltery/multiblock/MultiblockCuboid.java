@@ -25,16 +25,17 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
    * Detects a cuboid multiblock
    *
    * @param world  The world.
-   * @param center A position inside the multiblock. Preferably at the center directly above the floor.
+   * @param center A position inside the multiblock at the height of the master block
    * @param limit  Maximum INNER size of the multiblock.
-   * @return All blocks that belong to the multiblock or an empty list if no multiblock is present.
+   * @return Info about the multiblock or null if none was found
    */
   @Override
-  public List<BlockPos> detectMultiblock(World world, BlockPos center, int limit) {
+  public MultiblockStructure detectMultiblock(World world, BlockPos center, int limit) {
     // list of blocks that are part of the multiblock
     List<BlockPos> subBlocks = Lists.newArrayList();
 
     // move as low as possible
+    int masterY = center.getY();
     center = getOuterPos(world, center, EnumFacing.DOWN, limit + 1).up();
 
     // distances to the edges including the outer blocks
@@ -48,15 +49,17 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
     }
 
     // walls too far away?
-    if(edges[EnumFacing.SOUTH.getHorizontalIndex()] - edges[EnumFacing.NORTH.getHorizontalIndex()] > limit+2 ||
-       edges[EnumFacing.EAST.getHorizontalIndex()] - edges[EnumFacing.WEST.getHorizontalIndex()] > limit+2) {
-      return Lists.newArrayList();
+    int xd = (edges[EnumFacing.SOUTH.getHorizontalIndex()] - edges[EnumFacing.NORTH.getHorizontalIndex()]) - 1;
+    int zd = (edges[EnumFacing.EAST.getHorizontalIndex()] - edges[EnumFacing.WEST.getHorizontalIndex()]) - 1;
+    if(xd > limit ||
+       zd > limit) {
+      return null;
     }
 
     // check the floor (frame check done inside)
     if(hasFloor) {
       if(!detectFloor(world, center.down(), edges, subBlocks)) {
-        return Lists.newArrayList();
+        return null;
       }
     }
 
@@ -69,19 +72,19 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
     }
 
     // no walls?
-    if(height < 1) {
-      return Lists.newArrayList();
+    if(height < 1 + masterY - center.getY()) {
+      return null;
     }
 
     // detect ceiling (yup. frame check done inside.)
     if(hasCeiling) {
       // move as high as possible
       if(!detectCeiling(world, center.up(height + 1), edges, subBlocks)) {
-        return Lists.newArrayList();
+        return null;
       }
     }
 
-    return subBlocks;
+    return new MultiblockStructure(xd, height, zd, subBlocks);
   }
 
   /* Valid Blocks */
@@ -191,6 +194,9 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
     for(BlockPos pos : blocks) {
       if(!isInnerBlock(world, pos)) {
         return false;
+      }
+      if(!world.isAirBlock(pos)) {
+        subBlocks.add(pos);
       }
     }
 

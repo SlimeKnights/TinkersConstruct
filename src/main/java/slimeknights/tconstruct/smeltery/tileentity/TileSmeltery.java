@@ -10,8 +10,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 
-import java.util.List;
-
 import slimeknights.mantle.multiblock.IMasterLogic;
 import slimeknights.mantle.multiblock.IServantLogic;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
@@ -60,18 +58,16 @@ public class TileSmeltery extends TileEntity implements IMasterLogic, IUpdatePla
       active = false;
     }
     else {
-
       EnumFacing in = ((EnumFacing) state.getValue(BlockSmelteryController.FACING)).getOpposite();
 
-      List<BlockPos> blocks = multiblock.detectMultiblock(this.worldObj, this.getPos().offset(in), MAX_SIZE);
-      if(blocks.isEmpty()) {
+      MultiblockDetection.MultiblockStructure structure = multiblock.detectMultiblock(this.worldObj, this.getPos().offset(in), MAX_SIZE);
+      if(structure == null) {
         active = false;
       }
       else {
         // we found a valid smeltery. yay.
         active = true;
-        MultiblockDetection.assignMultiBlock(this.worldObj, this.getPos(), blocks);
-        System.out.println("Formed Smeltery with " + blocks.size() + " blocks");
+        MultiblockDetection.assignMultiBlock(this.worldObj, this.getPos(), structure.blocks);
       }
     }
 
