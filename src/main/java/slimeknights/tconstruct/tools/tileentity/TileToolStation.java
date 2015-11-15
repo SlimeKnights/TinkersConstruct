@@ -41,9 +41,11 @@ public class TileToolStation extends TileTable implements IInventoryGui {
     PropertyTableItem.TableItems toDisplay = new PropertyTableItem.TableItems();
 
     ToolBuildGuiInfo info = GuiButtonRepair.info;
+    /* Disabled for now
+    // todo: evaluate this again
     if(Minecraft.getMinecraft().currentScreen instanceof GuiToolStation) {
       info = ((GuiToolStation) Minecraft.getMinecraft().currentScreen).currentInfo;
-    }
+    }*/
     float s = 0.46875f;
 
     for(int i = 0; i < info.positions.size(); i++) {
