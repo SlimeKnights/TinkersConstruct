@@ -53,7 +53,7 @@ public class BlockSmelteryController extends BlockContainer {
   public boolean isActive(IBlockAccess world, BlockPos pos) {
     TileEntity te = world.getTileEntity(pos);
     if(te instanceof TileSmeltery) {
-      return false; // todo
+      return ((TileSmeltery) te).isActive();
     }
     return false;
   }

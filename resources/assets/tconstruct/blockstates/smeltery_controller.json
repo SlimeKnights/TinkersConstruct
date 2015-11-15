@@ -31,6 +31,15 @@
             "west": {
                 "y": 270
             }
+        },
+        "inventory": {
+            "model": "orientable",
+            "textures": {
+                "particle": "#side",
+                "top": "tconstruct:blocks/smeltery/seared_brick",
+                "side": "#top",
+                "front": "tconstruct:blocks/smeltery/smeltery_inactive"
+            }
         }
     }
 }

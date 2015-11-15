@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
@@ -35,8 +36,21 @@ public class BlockSeared extends EnumBlock<BlockSeared.SearedType> implements IT
   /* BlockContainer TE handling */
   @Override
   public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+    TileEntity te = worldIn.getTileEntity(pos);
+    if(te instanceof TileSmelteryComponent) {
+      ((TileSmelteryComponent) te).notifyMasterOfChange();
+    }
+
     super.breakBlock(worldIn, pos, state);
     worldIn.removeTileEntity(pos);
+  }
+
+  @Override
+  public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+    TileEntity te = worldIn.getTileEntity(pos);
+    if(te instanceof TileSmelteryComponent) {
+      ((TileSmelteryComponent) te).notifyMasterOfChange();
+    }
   }
 
   @Override
