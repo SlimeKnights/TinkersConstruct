@@ -268,7 +268,7 @@ tooltip.pattern.cost=Material Cost: %d
 
 ui.mininglevel.stone=Stone
 ui.mininglevel.iron=Iron
-#ui.mininglevel.redstone=Redstone
+#ui.mininglevel.redstone=Redstone # replaced with diamond
 ui.mininglevel.diamond=Diamond
 ui.mininglevel.obsidian=Obsidian
 ui.mininglevel.cobalt=Cobalt
@@ -280,15 +280,15 @@ ui.mininglevel.cobalt=Cobalt
 gui.error=ERROR
 gui.warning=WARNING
 # GUI Errors from the different Tinker Tables
-gui.error.invalidPattern=Pattern does not contain a valid tool part!
-gui.error.uselessToolPart=This part can not be used to craft any tool!\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting.
-gui.error.wrongMaterialPart=One or multiple items have an unsupported material for this tool.
-gui.error.notEnoughDurability=Not enough durability to replace parts!\n%d more durability required.
+gui.error.invalid_pattern=Pattern does not contain a valid tool part!
+gui.error.useless_tool_part=This part can not be used to craft any tool!\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting.
+gui.error.wrong_material_part=One or multiple items have an unsupported material for this tool.
+gui.error.not_enough_durability=Not enough durability to replace parts!\n%d more durability required.
 # GUI Errors from modifiers
-gui.error.notEnoughModifiers=Not enough Modifiers. (%d needed)
-gui.error.SingleModifier=%s can only be applied once.
-gui.error.MaxLevelModifier=Maximum Level for %s already reached.
-gui.error.noModifierForItem=No modifier found for %s.
+gui.error.not_enough_modifiers=Not enough Modifiers. (%d needed)
+gui.error.single_modifier=%s can only be applied once.
+gui.error.max_level_modifier=Maximum Level for %s already reached.
+gui.error.no_modifier_for_item=No modifier found for %s.
 
 ################
 #     GUIs     #
@@ -298,25 +298,25 @@ gui.error.noModifierForItem=No modifier found for %s.
 gui.general.hover=Hover over the entries for more info
 
 # Crafting Station
-gui.craftingStation.name=Crafting Station
+gui.craftingstation.name=Crafting Station
 
 # Stencil Table
-gui.stencilTable.name=Stencil Table
+gui.stenciltable.name=Stencil Table
 
 # PartBuilder
-gui.partBuilder.name=Part Builder
-gui.partCrafter.name=Part Crafter
-gui.partBuilder.info=Here you can craft tool parts to fulfill your tinkering fantasies.\n\nTo craft a part simply put its pattern into the left slot. The two remaining slots hold the material you want to craft your part out of.
+gui.partbuilder.name=Part Builder
+gui.partcrafter.name=Part Crafter
+gui.partbuilder.info=Here you can craft tool parts to fulfill your tinkering fantasies.\n\nTo craft a part simply put its pattern into the left slot. The two remaining slots hold the material you want to craft your part out of.
 
 # Tool Station/Forge
-gui.toolStation.name=Tool Station
-gui.toolForge.name=Tool Forge
-gui.toolStation.repair=Repair & Modify
-gui.toolStation.traits=Traits
-gui.toolStation.components=Components
-gui.toolStation.info=The main way to repair or change your tools. Place a tool and a material on the left to get started.
-gui.toolStation.noTraits=None :[
+gui.toolstation.name=Tool Station
+gui.toolforge.name=Tool Forge
+gui.toolstation.repair=Repair & Modify
+gui.toolstation.traits=Traits
+gui.toolstation.components=Components
+gui.toolstation.info=The main way to repair or change your tools. Place a tool and a material on the left to get started.
+gui.toolstation.noTraits=None :[
 
 # Pattern Chest
-gui.patternChest.name=Pattern Chest
-gui.castChest.name=Cast Chest
+gui.patternchest.name=Pattern Chest
+gui.castchest.name=Cast Chest

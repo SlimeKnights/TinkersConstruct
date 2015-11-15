@@ -224,7 +224,7 @@ public class GuiToolStation extends GuiTinkerStation {
       toolInfo.setCaption(tool.getLocalizedToolName());
       toolInfo.setText(tool.getInformation(toolStack));
 
-      traitInfo.setCaption(StatCollector.translateToLocal("gui.toolStation.traits"));
+      traitInfo.setCaption(StatCollector.translateToLocal("gui.toolstation.traits"));
 
       List<String> mods = Lists.newLinkedList();
       List<String> tips = Lists.newLinkedList();
@@ -244,14 +244,14 @@ public class GuiToolStation extends GuiTinkerStation {
       }
 
       if(mods.isEmpty()) {
-        mods.add(StatCollector.translateToLocal("gui.toolStation.noTraits"));
+        mods.add(StatCollector.translateToLocal("gui.toolstation.noTraits"));
       }
 
       traitInfo.setText(mods, tips);
     }
     // repair info
     else if(currentInfo.tool == null) {
-      toolInfo.setCaption(StatCollector.translateToLocal("gui.toolStation.repair"));
+      toolInfo.setCaption(StatCollector.translateToLocal("gui.toolstation.repair"));
       toolInfo.setText();
 
       traitInfo.setCaption(null);
@@ -287,7 +287,7 @@ public class GuiToolStation extends GuiTinkerStation {
           if(slotStack != null && slotStack.getItem() instanceof IToolPart) {
             if(pmt.isValidItem((IToolPart) slotStack.getItem())) {
               // the item has an invalid material
-              warning(Util.translate("gui.error.wrongMaterialPart"));
+              warning(Util.translate("gui.error.wrong_material_part"));
             }
           }
         }
@@ -302,7 +302,7 @@ public class GuiToolStation extends GuiTinkerStation {
         sb.deleteCharAt(sb.length()-1); // removes last '/'
         text.add(sb.toString());
       }
-      traitInfo.setCaption(StatCollector.translateToLocal("gui.toolStation.components"));
+      traitInfo.setCaption(StatCollector.translateToLocal("gui.toolstation.components"));
       traitInfo.setText(text.toArray(new String[text.size()]));
     }
   }

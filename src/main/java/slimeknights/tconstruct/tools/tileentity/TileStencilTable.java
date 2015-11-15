@@ -19,7 +19,7 @@ import slimeknights.tconstruct.tools.inventory.ContainerStencilTable;
 public class TileStencilTable extends TileTable implements IInventoryGui {
 
   public TileStencilTable() {
-    super("gui.stencilTable.name", 1);
+    super("gui.stenciltable.name", 1);
   }
 
   @Override

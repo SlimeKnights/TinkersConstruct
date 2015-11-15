@@ -21,7 +21,7 @@ import slimeknights.tconstruct.tools.inventory.ContainerPatternChest;
 public class TilePatternChest extends TileTable implements IInventoryGui {
 
   public TilePatternChest() {
-    super("gui.patternChest.name", 27, 1);
+    super("gui.patternchest.name", 27, 1);
   }
 
   @Override
@@ -67,7 +67,7 @@ public class TilePatternChest extends TileTable implements IInventoryGui {
     // do we hold casts instead of patterns?
     for(int i = 0; i < getSizeInventory(); i++) {
       if(getStackInSlot(i) != null && getStackInSlot(i).getItem() == TinkerSmeltery.cast) {
-        return "gui.castChest.name";
+        return "gui.castchest.name";
       }
     }
     return super.getCommandSenderName();

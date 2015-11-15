@@ -23,7 +23,7 @@ import slimeknights.tconstruct.tools.inventory.ContainerToolStation;
 public class TileToolStation extends TileTable implements IInventoryGui {
 
   public TileToolStation() {
-    super("gui.toolStation.name", 6);
+    super("gui.toolstation.name", 6);
   }
 
   @Override

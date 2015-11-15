@@ -14,7 +14,7 @@ import slimeknights.tconstruct.tools.inventory.ContainerToolForge;
 public class TileToolForge extends TileToolStation {
 
   public TileToolForge() {
-    inventoryTitle = "gui.toolForge.name";
+    inventoryTitle = "gui.toolforge.name";
   }
 
   @Override

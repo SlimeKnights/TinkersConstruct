@@ -20,7 +20,7 @@ import slimeknights.tconstruct.tools.inventory.ContainerPartBuilder;
 public class TilePartBuilder extends TileTable implements IInventoryGui {
 
   public TilePartBuilder() {
-    super("gui.partBuilder.name", 4);
+    super("gui.partbuilder.name", 4);
   }
 
   @Override

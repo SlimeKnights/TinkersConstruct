@@ -215,7 +215,7 @@ public final class ToolBuilder {
       if(input[i] != null && ItemStack.areItemStacksEqual(input[i], stacks[i])) {
         if(!appliedModifiers.isEmpty()) {
           String error =
-              StatCollector.translateToLocalFormatted("gui.error.noModifierForItem", input[i].getDisplayName());
+              StatCollector.translateToLocalFormatted("gui.error.no_modifier_for_item", input[i].getDisplayName());
           throw new TinkerGuiException(error);
         }
         return null;
@@ -337,7 +337,7 @@ public final class ToolBuilder {
 
     // check if the output has enough durability. we only allow it if the result would not be broken
     if(output.getItemDamage() > output.getMaxDamage()) {
-      String error = StatCollector.translateToLocalFormatted("gui.error.notEnoughDurability", output.getItemDamage() - output.getMaxDamage());
+      String error = StatCollector.translateToLocalFormatted("gui.error.not_enough_durability", output.getItemDamage() - output.getMaxDamage());
       throw new TinkerGuiException(error);
     }
 
@@ -360,7 +360,7 @@ public final class ToolBuilder {
       throws TinkerGuiException {
     IToolPart part = Pattern.getPartFromTag(pattern);
     if(part == null || !(part instanceof MaterialItem)) {
-      String error = StatCollector.translateToLocalFormatted("gui.error.invalidPattern");
+      String error = StatCollector.translateToLocalFormatted("gui.error.invalid_pattern");
       throw new TinkerGuiException(error);
     }
 

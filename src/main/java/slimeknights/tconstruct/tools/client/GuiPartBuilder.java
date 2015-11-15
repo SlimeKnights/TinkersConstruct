@@ -112,7 +112,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
         // Material for the toolpart does not make sense, can't build anything out of it!
         if(!toolPart.canUseMaterial(material)) {
           String materialName = material.getLocalizedNameColored() + EnumChatFormatting.WHITE;
-          String error = StatCollector.translateToLocalFormatted("gui.error.uselessToolPart", materialName, (new ItemStack(toolPart)).getDisplayName());
+          String error = StatCollector.translateToLocalFormatted("gui.error.useless_tool_part", materialName, (new ItemStack(toolPart)).getDisplayName());
           warning(error);
         }
         // Material is OK, display material properties
@@ -149,7 +149,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
     // No output, display general usage information
     else {
       info.setCaption(container.getInventoryDisplayName().getFormattedText());
-      info.setText(StatCollector.translateToLocal("gui.partBuilder.info"));
+      info.setText(StatCollector.translateToLocal("gui.partbuilder.info"));
     }
   }
 

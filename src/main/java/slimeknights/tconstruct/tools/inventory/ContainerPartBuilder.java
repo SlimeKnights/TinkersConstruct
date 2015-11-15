@@ -203,7 +203,7 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
 
   public IChatComponent getInventoryDisplayName() {
     if(partCrafter) {
-      return new ChatComponentTranslation("gui.partCrafter.name");
+      return new ChatComponentTranslation("gui.partcrafter.name");
     }
 
     return super.getInventoryDisplayName();
