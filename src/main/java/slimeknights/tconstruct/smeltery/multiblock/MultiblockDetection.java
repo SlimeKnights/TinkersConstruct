@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery.multiblock;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -98,7 +99,7 @@ public abstract class MultiblockDetection {
   public abstract boolean isValidBlock(World world, BlockPos pos);
 
   public static void assignMultiBlock(World world, BlockPos master, List<BlockPos> servants) {
-    Block masterBlock = world.getBlockState(master).getBlock();
+    TileEntity masterBlock = world.getTileEntity(master);
     if(!(masterBlock instanceof IMasterLogic)) {
       throw new IllegalArgumentException("Master must be of IMasterLogic");
     }
@@ -106,9 +107,9 @@ public abstract class MultiblockDetection {
     IMasterLogic masterLogic = (IMasterLogic) masterBlock;
     // assign master to each servant
     for(BlockPos pos : servants) {
-      IBlockState state = world.getBlockState(pos);
-      if(state.getBlock() instanceof IServantLogic) {
-        ((IServantLogic) state.getBlock()).setPotentialMaster(masterLogic, world, pos);
+      TileEntity slave = world.getTileEntity(pos);
+      if(slave instanceof IServantLogic) {
+        ((IServantLogic) slave).setPotentialMaster(masterLogic, world, pos);
       }
     }
   }

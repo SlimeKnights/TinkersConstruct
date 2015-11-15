@@ -42,13 +42,13 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack nuggetManyullyn;
 
   // Ingot Itemstacks
-  public static ItemStack searedBrick;
   public static ItemStack ingotCobalt;
   public static ItemStack ingotArdite;
   public static ItemStack ingotManyullyn;
   public static ItemStack ingotKnightSlime;
 
   // Material Itemstacks
+  public static ItemStack searedBrick;
   public static ItemStack matSlimeBallBlue;
   public static ItemStack matSlimeBallPurple;
   public static ItemStack matSlimeBallBlood;
@@ -78,6 +78,10 @@ public class TinkerCommons extends TinkerPulse {
     matSlimeBallBlood = edibles.addFood(3, 1, 1.5f, "slimeball_blood");
 
     // All other items are either ingots or items for modifiers
+
+    if(isSmelteryLoaded() || forced) {
+      searedBrick = materials.addMeta(8, "seared_brick");
+    }
 
     // Ingots and nuggets
     if(isToolsLoaded() || isSmelteryLoaded() || forced) {

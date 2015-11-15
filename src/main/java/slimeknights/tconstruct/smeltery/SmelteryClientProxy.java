@@ -26,6 +26,11 @@ public class SmelteryClientProxy extends ClientProxy {
 
   @Override
   protected void registerModels() {
+    // Blocks
+
+
+    // Items
+
     final ResourceLocation castLoc = SmelteryClientEvents.locBlankCast;
     CustomTextureCreator.castModelLocation = new ResourceLocation(castLoc.getResourceDomain(), "item/" + castLoc.getResourcePath());
     ModelLoader.setCustomMeshDefinition(TinkerSmeltery.cast, new ItemMeshDefinition() {

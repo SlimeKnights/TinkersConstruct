@@ -14,6 +14,10 @@ import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.Pattern;
+import slimeknights.tconstruct.smeltery.block.BlockSeared;
+import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
+import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
+import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 
 @Pulse(id = TinkerSmeltery.PulseId, description = "The smeltery and items needed for it", defaultEnable = false)
 public class TinkerSmeltery extends TinkerPulse {
@@ -24,13 +28,22 @@ public class TinkerSmeltery extends TinkerPulse {
   @SidedProxy(clientSide = "slimeknights.tconstruct.smeltery.SmelteryClientProxy", serverSide = "slimeknights.tconstruct.common.CommonProxy")
   public static CommonProxy proxy;
 
-  public static Pattern cast;
+  // Blocks
+  public static BlockSeared searedBlock;
+  public static BlockSmelteryController smelteryController;
 
-  // currently only a dummy-class
+  // Items
+  public static Pattern cast;
 
   // PRE-INITIALIZATION
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
+    searedBlock = registerEnumBlock(new BlockSeared(), "seared");
+    smelteryController = registerBlock(new BlockSmelteryController(), "smeltery_controller");
+
+    registerTE(TileSmeltery.class, "smeltery_controller");
+    registerTE(TileSmelteryComponent.class, "smeltery_component");
+
     cast = registerItem(new Pattern(), "cast");
 
     proxy.preInit();
