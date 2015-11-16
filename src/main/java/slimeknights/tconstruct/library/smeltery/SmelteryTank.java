@@ -1,5 +1,9 @@
 package slimeknights.tconstruct.library.smeltery;
 
+import com.google.common.collect.Lists;
+
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.List;
@@ -9,6 +13,11 @@ public class SmelteryTank {
 
   protected List<FluidStack> liquids; // currently contained liquids in the smeltery
   protected int maxCapacity;
+
+  public SmelteryTank() {
+    liquids = Lists.newArrayList();
+    maxCapacity = 0;
+  }
 
   public void setCapacity(int maxCapacity) {
     this.maxCapacity = maxCapacity;
@@ -90,4 +99,32 @@ public class SmelteryTank {
     // nothing drained
     return null;
   }
+
+  /* Saving and loading */
+
+  public void writeToNBT(NBTTagCompound tag) {
+    NBTTagList taglist = new NBTTagList();
+
+    for(FluidStack liquid : liquids) {
+      NBTTagCompound fluidTag = new NBTTagCompound();
+      liquid.writeToNBT(fluidTag);
+      taglist.appendTag(fluidTag);
+    }
+
+    tag.setTag("Liquids", taglist);
+  }
+
+  public void readFromNBT(NBTTagCompound tag) {
+    NBTTagList taglist = tag.getTagList("Liquids", 10);
+
+    liquids.clear();
+    for(int i = 0; i < taglist.tagCount(); i++) {
+      NBTTagCompound fluidTag = taglist.getCompoundTagAt(i);
+      FluidStack liquid = FluidStack.loadFluidStackFromNBT(fluidTag);
+      if(liquid != null) {
+        liquids.add(liquid);
+      }
+    }
+  }
+
 }

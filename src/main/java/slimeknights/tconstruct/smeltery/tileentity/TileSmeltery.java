@@ -55,6 +55,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   public TileSmeltery() {
     super("gui.smeltery.name", 0, 1);
     multiblock = new MultiblockSmeltery(this);
+    liquids = new SmelteryTank();
     tanks = Lists.newLinkedList();
   }
 
@@ -63,7 +64,6 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     if(this.worldObj.isRemote) {
       return;
     }
-    tick = (tick + 1) % 20;
 
     // are we fully formed?
     if(!isActive()) {
@@ -87,6 +87,8 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
         consumeFuel();
       }
     }
+
+    tick = (tick + 1) % 20;
   }
 
   /* Smeltery processing logic. Consuming fuel, heating stuff, creating alloys etc. */
@@ -257,6 +259,8 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
     // adjust inventory sizes
     this.resize(inventorySize);
+
+    //System.out.println(String.format("[%s] Smeltery detected. Size: %d x %d x %d, %d slots", worldObj != null && worldObj.isRemote ? "Client" : "Server", structure.xd, structure.zd, structure.yd, inventorySize));
   }
 
   private void dropItem(ItemStack stack) {
@@ -281,41 +285,38 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
   @Override
   public GuiContainer createGui(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
-    return new GuiSmeltery((ContainerSmeltery)createContainer(inventoryplayer, world, pos));
+    return new GuiSmeltery((ContainerSmeltery)createContainer(inventoryplayer, world, pos), this);
   }
 
   /* Network & Saving */
 
   @Override
+  public void validate() {
+    super.validate();
+    // on validation we set active to false so the smeltery checks anew if it's formed
+    active = false;
+  }
+
+  @Override
   public void writeToNBT(NBTTagCompound compound) {
     super.writeToNBT(compound);
+    liquids.writeToNBT(compound);
 
-    writeDataToNBT(compound);
+    compound.setBoolean("active", active);
   }
 
   @Override
   public void readFromNBT(NBTTagCompound compound) {
     super.readFromNBT(compound);
+    liquids.readFromNBT(compound);
 
-    readDataFromNBT(compound);
-
-    // this is only called on the initial load of the smeltery
-    // we verify its state
-    checkSmelteryStructure();
-  }
-
-  protected void writeDataToNBT(NBTTagCompound tag) {
-    tag.setBoolean("active", active);
-  }
-
-  protected void readDataFromNBT(NBTTagCompound tag) {
-    active = tag.getBoolean("active");
+    active = compound.getBoolean("active");
   }
 
   @Override
   public Packet getDescriptionPacket() {
     NBTTagCompound tag = new NBTTagCompound();
-    writeDataToNBT(tag);
+    writeToNBT(tag);
     return new S35PacketUpdateTileEntity(this.getPos(), this.getBlockMetadata(), tag);
   }
 
@@ -325,7 +326,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
     boolean wasActive = active;
 
-    readDataFromNBT(pkt.getNbtCompound());
+    readFromNBT(pkt.getNbtCompound());
 
     // update chunk (rendering) if the active state changed
     if(isActive() != wasActive) {
