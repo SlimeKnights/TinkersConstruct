@@ -57,6 +57,20 @@ tile.tconstruct.slime_vine_purple.name=Purple Slimy Vine
 tile.tconstruct.slime_vine_purple_mid.name=Purple Slimy Vine
 tile.tconstruct.slime_vine_purple_end.name=Purple Slimy Vine
 
+tile.tconstruct.seared.stone.name=Seared Stone
+tile.tconstruct.seared.cobble.name=Seared Cobblestone
+tile.tconstruct.seared.paver.name=Seared Paver
+tile.tconstruct.seared.brick.name=Seared Bricks
+tile.tconstruct.seared.brick_cracked.name=Cracked Seared Bricks
+tile.tconstruct.seared.brick_fancy.name=Fancy Seared Bricks
+tile.tconstruct.seared.brick_square.name=Square Seared Bricks
+tile.tconstruct.seared.road.name=Seared Road
+tile.tconstruct.seared.creeper.name=Seared Creeperface
+tile.tconstruct.seared.tooltip=Part of the Smeltery. Safe for Decoration.
+
+tile.tconstruct.smeltery_controller.name=Smeltery Controller
+tile.tconstruct.smeltery_controller.tooltip=Brain of the Smeltery
+
 ################
 #    Items     #
 ################
@@ -67,17 +81,20 @@ item.tconstruct.edible.slimeball_blue.name=Slime Ball
 item.tconstruct.edible.slimeball_purple.name=Slime Ball
 item.tconstruct.edible.slimeball_blood.name=Coagulated Blood
 
+item.tconstruct.materials.seared_brick.name=Seared Brick
 item.tconstruct.materials.slimecrystal_green.name=Green Slime Crystal
 item.tconstruct.materials.slimecrystal_blue.name=Blue Slime Crystal
 item.tconstruct.materials.expander_w.name=Expander (Horizontal)
 item.tconstruct.materials.expander_w.tooltip=Don't skip leg day!
 item.tconstruct.materials.expander_h.name=Expander (Vertical)
 item.tconstruct.materials.expander_h.tooltip=Do you even lift?
+
 item.tconstruct.ingots.cobalt.name=Cobalt Ingot
 item.tconstruct.ingots.ardite.name=Ardite Ingot
 item.tconstruct.ingots.manyullyn.name=Manyullyn Ingot
 item.tconstruct.ingots.knightslime.name=Knightslime Ingot
-item.tconstruct.ingots.knightslime.tooltip=Slimy yet metallic. Fascinating!
+item.tconstruct.ingots.knightslime.tooltip=Slimy yet metallic but also stone? Fascinating!
+
 item.tconstruct.nuggets.cobalt.name=Cobalt Nugget
 item.tconstruct.nuggets.ardite.name=Ardite Nugget
 item.tconstruct.nuggets.manyullyn.name=Manyullyn Nugget

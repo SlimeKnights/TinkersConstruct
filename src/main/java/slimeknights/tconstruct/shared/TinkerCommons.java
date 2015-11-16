@@ -80,7 +80,7 @@ public class TinkerCommons extends TinkerPulse {
     // All other items are either ingots or items for modifiers
 
     if(isSmelteryLoaded() || forced) {
-      searedBrick = materials.addMeta(8, "seared_brick");
+      searedBrick = materials.addMeta(0, "seared_brick");
     }
 
     // Ingots and nuggets
