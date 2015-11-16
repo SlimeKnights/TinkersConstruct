@@ -98,6 +98,7 @@ item.tconstruct.ingots.knightslime.tooltip=Slimy yet metallic but also stone? Fa
 item.tconstruct.nuggets.cobalt.name=Cobalt Nugget
 item.tconstruct.nuggets.ardite.name=Ardite Nugget
 item.tconstruct.nuggets.manyullyn.name=Manyullyn Nugget
+item.tconstruct.nuggets.knightslime.name=Knightslime Nugget
 
 item.tconstruct.pattern.blank=Blank Pattern
 item.tconstruct.pattern.name=Pattern: %s

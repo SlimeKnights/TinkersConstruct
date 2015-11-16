@@ -40,6 +40,7 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack nuggetCobalt;
   public static ItemStack nuggetArdite;
   public static ItemStack nuggetManyullyn;
+  public static ItemStack nuggetKnightSlime;
 
   // Ingot Itemstacks
   public static ItemStack ingotCobalt;
@@ -93,21 +94,6 @@ public class TinkerCommons extends TinkerPulse {
 
       nuggetManyullyn = nuggets.addMeta(2, "manyullyn");
       ingotManyullyn = ingots.addMeta(2, "manyullyn");
-
-      ItemStack nugget = nuggetCobalt.copy();
-      nugget.stackSize = 9;
-      GameRegistry.addShapelessRecipe(nugget, ingotCobalt);
-      GameRegistry.addShapedRecipe(ingotCobalt, "###","###","###", '#', nuggetCobalt);
-
-      nugget = nuggetArdite.copy();
-      nugget.stackSize = 9;
-      GameRegistry.addShapelessRecipe(nugget, ingotArdite);
-      GameRegistry.addShapedRecipe(ingotArdite, "###","###","###", '#', nuggetArdite);
-
-      nugget = nuggetManyullyn.copy();
-      nugget.stackSize = 9;
-      GameRegistry.addShapelessRecipe(nugget, ingotManyullyn);
-      GameRegistry.addShapedRecipe(ingotManyullyn, "###","###","###", '#', nuggetManyullyn);
     }
 
     // Materials
@@ -120,6 +106,7 @@ public class TinkerCommons extends TinkerPulse {
       matExpanderH = materials.addMeta(13, "expander_h");
 
       ingotKnightSlime = ingots.addMeta(3, "knightslime");
+      nuggetKnightSlime = nuggets.addMeta(3, "knightslime");
     }
 
     // oredicting time
@@ -139,14 +126,31 @@ public class TinkerCommons extends TinkerPulse {
     oredict(ingotCobalt, dict + "Cobalt");
     oredict(ingotArdite, dict + "Ardite");
     oredict(ingotManyullyn, dict + "Manyullyn");
+    oredict(ingotKnightSlime, dict + "Knightslime");
 
     dict = "nugget";
     oredict(nuggetCobalt, dict + "Cobalt");
     oredict(nuggetArdite, dict + "Ardite");
     oredict(nuggetManyullyn, dict + "Manyullyn");
+    oredict(nuggetKnightSlime, dict + "Knightslime");
   }
 
-  private void registerRecipies() {}
+  private void registerRecipies() {
+    registerIngotNuggetRecipe(ingotCobalt, nuggetCobalt);
+    registerIngotNuggetRecipe(ingotArdite, nuggetArdite);
+    registerIngotNuggetRecipe(ingotManyullyn, nuggetManyullyn);
+    registerIngotNuggetRecipe(ingotKnightSlime, nuggetKnightSlime);
+  }
+
+  private void registerIngotNuggetRecipe(ItemStack ingot, ItemStack nugget) {
+    if(ingot == null || nugget == null) {
+      return;
+    }
+    nugget = nugget.copy();
+    nugget.stackSize = 9;
+    GameRegistry.addShapelessRecipe(nugget, ingot);
+    GameRegistry.addShapedRecipe(ingot, "###","###","###", '#', nugget);
+  }
 
   private void oredict(ItemStack stack, String name) {
     if(stack != null) {
