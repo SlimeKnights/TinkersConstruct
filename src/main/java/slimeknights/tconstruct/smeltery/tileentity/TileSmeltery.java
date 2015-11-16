@@ -288,6 +288,18 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     return new GuiSmeltery((ContainerSmeltery)createContainer(inventoryplayer, world, pos), this);
   }
 
+  public float getMeltingProgress(int index) {
+    if(index < 0 || index > getSizeInventory() - 1) {
+      return -1f;
+    }
+
+    if(itemTempRequired[index] < 0) {
+      return -1f;
+    }
+
+    return (float)itemTemperatures[index]/(float)itemTempRequired[index];
+  }
+
   /* Network & Saving */
 
   @Override

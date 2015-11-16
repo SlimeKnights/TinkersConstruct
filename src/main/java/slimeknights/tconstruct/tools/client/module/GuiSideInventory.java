@@ -45,17 +45,17 @@ public class GuiSideInventory extends GuiModule {
 
   protected GuiWidgetBorder border = new GuiWidgetBorder();
 
-  private int columns;
-  private int slotCount;
+  protected int columns;
+  protected int slotCount;
 
-  private int firstSlotId;
-  private int lastSlotId;
+  protected int firstSlotId;
+  protected int lastSlotId;
 
   protected int yOffset = 5;
   protected int xOffset;
   protected boolean connected;
 
-  private GuiWidgetSlider
+  protected GuiWidgetSlider
       slider =
       new GuiWidgetSlider(sliderNormal, sliderHigh, sliderLow, sliderTop, sliderBottom, sliderBackground);
 
@@ -231,7 +231,7 @@ public class GuiSideInventory extends GuiModule {
   }
 
   @Override
-  public void handleDrawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+  public void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
     if(shouldDrawName()) {
       String name = ((BaseContainer)inventorySlots).getInventoryDisplayName().getUnformattedText();
       this.fontRendererObj.drawString(name, border.w, border.h - 1, 0x404040);
