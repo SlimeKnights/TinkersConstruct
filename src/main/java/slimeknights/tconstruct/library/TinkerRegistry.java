@@ -11,13 +11,16 @@ import gnu.trove.map.hash.THashMap;
 import gnu.trove.set.hash.THashSet;
 import gnu.trove.set.hash.TLinkedHashSet;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.oredict.OreDictionary;
 
 import org.apache.logging.log4j.Logger;
 
@@ -28,10 +31,12 @@ import java.util.Map;
 import java.util.Set;
 
 import slimeknights.mantle.client.CreativeTab;
+import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.events.MaterialEvent;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
+import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
@@ -349,7 +354,7 @@ public final class TinkerRegistry {
   /*---------------------------------------------------------------------------
   | Modifiers                                                                 |
   ---------------------------------------------------------------------------*/
-  public static final Map<String, IModifier> modifiers = new THashMap<String, IModifier>();
+  private static final Map<String, IModifier> modifiers = new THashMap<String, IModifier>();
 
   public static void registerModifier(IModifier modifier) {
     modifiers.put(modifier.getIdentifier(), modifier);
@@ -362,6 +367,47 @@ public final class TinkerRegistry {
   public static Collection<IModifier> getAllModifiers() {
     return modifiers.values();
   }
+
+  /*---------------------------------------------------------------------------
+  | Smeltery                                                                  |
+  ---------------------------------------------------------------------------*/
+  private static List<MeltingRecipe> meltingRegistry = Lists.newLinkedList();
+
+  /** Registers this item with all its metadatas to melt into amount of the given fluid. */
+  public static void registerMelting(Item item, Fluid fluid, int amount) {
+    ItemStack stack = new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE);
+    meltingRegistry.add(new MeltingRecipe(new RecipeMatch.Item(stack, 1, amount), fluid));
+  }
+
+  /** Registers this block with all its metadatas to melt into amount of the given fluid. */
+  public static void registerMelting(Block block, Fluid fluid, int amount) {
+    ItemStack stack = new ItemStack(block, 1, OreDictionary.WILDCARD_VALUE);
+    meltingRegistry.add(new MeltingRecipe(new RecipeMatch.Item(stack, 1, amount), fluid));
+  }
+
+  /** Registers this itemstack NBT-SENSITIVE to melt into amount of the given fluid. */
+  public static void registerMelting(ItemStack stack, Fluid fluid, int amount) {
+    meltingRegistry.add(new MeltingRecipe(new RecipeMatch.ItemCombination(amount, stack), fluid));
+  }
+
+  public static void registerMelting(String oredict, Fluid fluid, int amount) {
+    meltingRegistry.add(new MeltingRecipe(new RecipeMatch.Oredict(oredict, 1, amount), fluid));
+  }
+
+  public static void registerMelting(MeltingRecipe recipe) {
+    meltingRegistry.add(recipe);
+  }
+
+  public static MeltingRecipe getMelting(ItemStack stack) {
+    for(MeltingRecipe recipe : meltingRegistry) {
+      if(recipe.matches(stack)) {
+        return recipe;
+      }
+    }
+
+    return null;
+  }
+
 
   /*---------------------------------------------------------------------------
   | Traceability & Internal stuff                                             |
