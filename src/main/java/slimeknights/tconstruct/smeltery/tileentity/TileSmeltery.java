@@ -271,6 +271,14 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     worldObj.spawnEntityInWorld(entityitem);
   }
 
+  @Override
+  public void setInventorySlotContents(int slot, ItemStack itemstack) {
+    super.setInventorySlotContents(slot, itemstack);
+
+    // when an item gets added, check for its heat required
+    updateHeatRequired(slot);
+  }
+
   /* Fluid handling */
 
   public SmelteryTank getTank() {
@@ -293,7 +301,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
       return -1f;
     }
 
-    if(itemTempRequired[index] < 0) {
+    if(itemTempRequired[index] > temperature) {
       return -1f;
     }
 

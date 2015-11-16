@@ -32,23 +32,23 @@ public abstract class TileHeatingStructure extends TileInventory {
     this.itemTempRequired = Arrays.copyOf(itemTempRequired, size);
   }
 
+  protected void updateHeatRequired(int index) {
+    ItemStack stack = getStackInSlot(index);
+    if(stack != null) {
+      MeltingRecipe melting = TinkerRegistry.getMelting(stack);
+      if(melting != null) {
+        itemTempRequired[index] = melting.output.getFluid().getTemperature(melting.output);
+        return;
+      }
+    }
+
+    itemTempRequired[index] = 0;
+  }
+
   protected void heatItems() {
     for(int i = 0; i < getSizeInventory(); i++) {
       ItemStack stack = getStackInSlot(i);
       if(stack != null) {
-        // already has a temperature?
-        if(itemTempRequired[i] <= 0) {
-          // find out the required temperature
-          MeltingRecipe melting = TinkerRegistry.getMelting(stack);
-          if(melting != null) {
-            itemTempRequired[i] = melting.output.getFluid().getTemperature(melting.output);
-            // not hot enough. error. error. error. :(
-            if(itemTempRequired[i] > temperature) {
-              itemTempRequired[i] = -1;
-            }
-          }
-        }
-
         // heat item if possible
         if(itemTempRequired[i] > 0) {
           // fuel is present, turn up the heat
@@ -76,6 +76,9 @@ public abstract class TileHeatingStructure extends TileInventory {
     return 1 + temperature/50;
   }
 
+  public int getTemperature(int i) {
+    return itemTemperatures[i];
+  }
 
   /**
    * Called when an item finished heating up.
