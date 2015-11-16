@@ -18,6 +18,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.oredict.OreDictionary;
@@ -372,6 +373,7 @@ public final class TinkerRegistry {
   | Smeltery                                                                  |
   ---------------------------------------------------------------------------*/
   private static List<MeltingRecipe> meltingRegistry = Lists.newLinkedList();
+  private static Map<FluidStack, Integer> smelteryFuels = Maps.newHashMap();
 
   /** Registers this item with all its metadatas to melt into amount of the given fluid. */
   public static void registerMelting(Item item, Fluid fluid, int amount) {
@@ -408,6 +410,48 @@ public final class TinkerRegistry {
     return null;
   }
 
+  /**
+   * Registers a liquid to be used as smeltery fuel.
+   * Temperature is derived from fluid temperature.
+   * @param fluidStack   The fluid. Amount is the minimal increment that is consumed at once.
+   * @param fuelDuration How many ticks the consumtpion of the fluidStack lasts.
+   */
+  public static void registerSmelteryFuel(FluidStack fluidStack, int fuelDuration) {
+    smelteryFuels.put(fluidStack, fuelDuration);
+  }
+
+  /** Checks if the given fluidstack can be used as smeltery fuel */
+  public static boolean isSmelteryFuel(FluidStack in) {
+    for(Map.Entry<FluidStack, Integer> entry : smelteryFuels.entrySet()) {
+      if(entry.getKey().isFluidEqual(in)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /** Reduces the fluidstack by one increment of the fuel and returns how much fuel duration it gives. */
+  public static int consumeSmelteryFuel(FluidStack in) {
+    for(Map.Entry<FluidStack, Integer> entry : smelteryFuels.entrySet()) {
+      if(entry.getKey().isFluidEqual(in)) {
+        FluidStack fuel = entry.getKey();
+        int out = entry.getValue();
+        if(in.amount < fuel.amount) {
+          float coeff = (float)in.amount/(float)fuel.amount;
+          out = Math.round(coeff * in.amount);
+          in.amount = 0;
+        }
+        else {
+          in.amount -= fuel.amount;
+        }
+
+        return out;
+      }
+    }
+
+    return 0;
+  }
 
   /*---------------------------------------------------------------------------
   | Traceability & Internal stuff                                             |
