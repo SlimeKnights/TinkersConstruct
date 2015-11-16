@@ -112,6 +112,7 @@ public class SmelteryTank {
     }
 
     tag.setTag("Liquids", taglist);
+    tag.setInteger("LiquidCapacity", maxCapacity);
   }
 
   public void readFromNBT(NBTTagCompound tag) {
@@ -125,6 +126,8 @@ public class SmelteryTank {
         liquids.add(liquid);
       }
     }
+
+    maxCapacity = tag.getInteger("LiquidCapacity");
   }
 
 }
