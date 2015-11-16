@@ -158,7 +158,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
   private void searchForFuel() {
     // is the current tank still up to date?
-    if(hasFuel(currentTank)) {
+    if(currentTank != null && hasFuel(currentTank)) {
       return;
     }
 
