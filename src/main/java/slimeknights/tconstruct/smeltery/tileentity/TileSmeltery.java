@@ -17,7 +17,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidTank;
 
 import java.util.List;
@@ -26,7 +25,9 @@ import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.mantle.multiblock.IMasterLogic;
 import slimeknights.mantle.multiblock.IServantLogic;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
+import slimeknights.tconstruct.library.smeltery.SmelteryTank;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
 import slimeknights.tconstruct.smeltery.client.GuiSmeltery;
 import slimeknights.tconstruct.smeltery.events.TinkerSmelteryEvent;
@@ -34,10 +35,10 @@ import slimeknights.tconstruct.smeltery.inventory.ContainerSmeltery;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockDetection;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockSmeltery;
 
-public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, IUpdatePlayerListBox, IInventoryGui,
-                                                           IFluidTank {
+public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, IUpdatePlayerListBox, IInventoryGui {
 
   protected static final int MAX_SIZE = 7;
+  protected static final int CAPACITY_PER_BLOCK = Material.VALUE_Ingot * 8;
 
   // Info about the smeltery structure/multiblock
   public boolean active;
@@ -46,7 +47,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   public BlockPos currentTank;
 
   // Info about the state of the smeltery. Liquids etc.
-  protected List<FluidStack> liquids; // currently contained liquids in the smeltery
+  protected SmelteryTank liquids;
 
   protected MultiblockSmeltery multiblock;
   protected int tick;
@@ -54,6 +55,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   public TileSmeltery() {
     super("gui.smeltery.name", 0, 1);
     multiblock = new MultiblockSmeltery(this);
+    tanks = Lists.newLinkedList();
   }
 
   @Override
@@ -98,10 +100,10 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
     TinkerSmelteryEvent.OnMelting event = TinkerSmelteryEvent.OnMelting.fireEvent(this, stack, recipe.output);
 
-    int filled = this.fill(event.result, false);
+    int filled = liquids.fill(event.result, false);
 
     if(filled == event.result.amount) {
-      this.fill(event.result, true);
+      liquids.fill(event.result, true);
 
       // only clear out items n stuff if it was successful
       setInventorySlotContents(slot, null);
@@ -251,6 +253,8 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
       }
     }
 
+    this.liquids.setCapacity(inventorySize * CAPACITY_PER_BLOCK);
+
     // adjust inventory sizes
     this.resize(inventorySize);
   }
@@ -265,35 +269,8 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
   /* Fluid handling */
 
-
-  @Override
-  public FluidStack getFluid() {
-    return null; // todo
-  }
-
-  @Override
-  public int getFluidAmount() {
-    return 0; // todo
-  }
-
-  @Override
-  public int getCapacity() {
-    return 0; // todo
-  }
-
-  @Override
-  public FluidTankInfo getInfo() {
-    return null; // todo
-  }
-
-  @Override
-  public int fill(FluidStack resource, boolean doFill) {
-    return 0; // todo
-  }
-
-  @Override
-  public FluidStack drain(int maxDrain, boolean doDrain) {
-    return null; // todo
+  public SmelteryTank getTank() {
+    return liquids;
   }
 
   /* GUI */
