@@ -7,6 +7,7 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -58,6 +59,14 @@ public class BlockSmelteryController extends BlockInventoryTinkers {
       return ((TileSmeltery) te).isActive();
     }
     return false;
+  }
+
+  @Override
+  protected boolean openGui(EntityPlayer player, World world, BlockPos pos) {
+    if(!isActive(world, pos)) {
+      return false;
+    }
+    return super.openGui(player, world, pos);
   }
 
   @Override
