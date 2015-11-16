@@ -18,6 +18,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -309,6 +311,15 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   }
 
   /* Network & Saving */
+
+  @SideOnly(Side.CLIENT)
+  public void updateTemperatureFromPacket(int index, int heat) {
+    if(index < 0 || index > getSizeInventory()-1) {
+      return;
+    }
+
+    itemTemperatures[index] = heat;
+  }
 
   @Override
   public void validate() {
