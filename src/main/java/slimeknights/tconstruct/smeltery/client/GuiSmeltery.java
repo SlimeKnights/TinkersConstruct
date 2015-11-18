@@ -4,8 +4,6 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -19,7 +17,6 @@ import java.util.List;
 
 import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.mantle.client.gui.GuiMultiModule;
-import slimeknights.mantle.inventory.ContainerMultiModule;
 import slimeknights.tconstruct.library.TinkerRegistryClient;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.RenderUtil;
@@ -218,7 +215,7 @@ public class GuiSmeltery extends GuiMultiModule {
       amount = calcLiquidText(amount, 1000000, Util.translate("gui.smeltery.liquid.kilobucket"), text);
       amount = calcLiquidText(amount, 1000, Util.translate("gui.smeltery.liquid.bucket"), text);
     }
-    amount = calcLiquidText(amount, 1, Util.translate("gui.smeltery.liquid.millibucket"), text);
+    calcLiquidText(amount, 1, Util.translate("gui.smeltery.liquid.millibucket"), text);
   }
 
   private int calcLiquidText(int amount, int divider, String unit, List<String> text) {
@@ -227,6 +224,6 @@ public class GuiSmeltery extends GuiMultiModule {
       text.add(String.format("%d %s%s", full, EnumChatFormatting.GRAY, unit));
     }
 
-    return amount - full*divider;
+    return amount % divider;
   }
 }
