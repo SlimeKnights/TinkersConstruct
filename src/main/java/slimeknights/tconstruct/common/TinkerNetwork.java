@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.mantle.network.NetworkWrapper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.smeltery.network.SmelteryFluidUpdatePacket;
 import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
 import slimeknights.tconstruct.tools.network.InventoryCraftingSyncPacket;
 import slimeknights.tconstruct.tools.network.InventorySlotSyncPacket;
@@ -24,6 +25,8 @@ public class TinkerNetwork extends NetworkWrapper {
 
   public void setup() {
     // register all the packets
+
+    // TOOLS
     registerPacket(StencilTableSelectionPacket.class);
     registerPacket(PartCrafterSelectionPacket.class);
     registerPacket(ToolStationSelectionPacket.class);
@@ -32,6 +35,9 @@ public class TinkerNetwork extends NetworkWrapper {
     registerPacketServer(InventoryCraftingSyncPacket.class);
     registerPacketClient(InventorySlotSyncPacket.class);
     registerPacketClient(EntityMovementChangePacket.class);
+
+    // SMELTERY
+    registerPacketClient(SmelteryFluidUpdatePacket.class);
   }
 
   public static void sendToAll(AbstractPacket packet)

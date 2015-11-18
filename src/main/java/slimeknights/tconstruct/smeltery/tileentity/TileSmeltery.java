@@ -26,8 +26,10 @@ import java.util.List;
 import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.mantle.multiblock.IMasterLogic;
 import slimeknights.mantle.multiblock.IServantLogic;
+import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.smeltery.ISmelteryTankHandler;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import slimeknights.tconstruct.library.smeltery.SmelteryTank;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
@@ -36,8 +38,10 @@ import slimeknights.tconstruct.smeltery.events.TinkerSmelteryEvent;
 import slimeknights.tconstruct.smeltery.inventory.ContainerSmeltery;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockDetection;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockSmeltery;
+import slimeknights.tconstruct.smeltery.network.SmelteryFluidUpdatePacket;
 
-public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, IUpdatePlayerListBox, IInventoryGui {
+public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, IUpdatePlayerListBox, IInventoryGui,
+                                                                  ISmelteryTankHandler {
 
   protected static final int MAX_SIZE = 7;
   protected static final int CAPACITY_PER_BLOCK = Material.VALUE_Ingot * 8;
@@ -57,7 +61,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   public TileSmeltery() {
     super("gui.smeltery.name", 0, 1);
     multiblock = new MultiblockSmeltery(this);
-    liquids = new SmelteryTank();
+    liquids = new SmelteryTank(this);
     tanks = Lists.newLinkedList();
   }
 
@@ -319,6 +323,21 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     }
 
     itemTemperatures[index] = heat;
+  }
+
+  @SideOnly(Side.CLIENT)
+  public void updateFluidsFromPacket(List<FluidStack> fluids) {
+    this.liquids.setFluids(fluids);
+    // todo: update smeltery liquid rendering in world
+  }
+
+  @Override
+  public void onTankChanged(List<FluidStack> fluids, FluidStack changed) {
+    // notify clients of liquid changes.
+    // the null check is to prevent potential crashes during loading
+    if(worldObj != null && !worldObj.isRemote) {
+      TinkerNetwork.sendToAll(new SmelteryFluidUpdatePacket(pos, fluids));
+    }
   }
 
   @Override

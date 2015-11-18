@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.List;
@@ -11,12 +12,14 @@ import java.util.ListIterator;
 
 public class SmelteryTank {
 
+  protected final ISmelteryTankHandler parent;
   protected List<FluidStack> liquids; // currently contained liquids in the smeltery
   protected int maxCapacity;
 
-  public SmelteryTank() {
+  public SmelteryTank(ISmelteryTankHandler parent) {
     liquids = Lists.newArrayList();
     maxCapacity = 0;
+    this.parent = parent;
   }
 
   public void setCapacity(int maxCapacity) {
@@ -25,6 +28,11 @@ public class SmelteryTank {
 
   public List<FluidStack> getFluids() {
     return liquids;
+  }
+
+  public void setFluids(List<FluidStack> fluids) {
+    this.liquids = fluids;
+    parent.onTankChanged(liquids, null);
   }
 
   public int getMaxCapacity() {
@@ -55,6 +63,7 @@ public class SmelteryTank {
       if(liquid.isFluidEqual(resource)) {
         // yup. add it
         liquid.amount += usable;
+        parent.onTankChanged(liquids, liquid);
         return usable;
       }
     }
@@ -63,6 +72,7 @@ public class SmelteryTank {
     resource = resource.copy();
     resource.amount = usable;
     liquids.add(resource);
+    parent.onTankChanged(liquids, resource);
     return usable;
   }
 
@@ -87,6 +97,7 @@ public class SmelteryTank {
           if(liquid.amount <= 0) {
             iter.remove();
           }
+          parent.onTankChanged(liquids, liquid);
         }
 
         // return drained amount
