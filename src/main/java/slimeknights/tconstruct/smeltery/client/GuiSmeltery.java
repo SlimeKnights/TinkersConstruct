@@ -192,16 +192,25 @@ public class GuiSmeltery extends GuiMultiModule {
     }
     // Ingots
     if(type == TinkerRegistryClient.FluidDisplayType.INGOTS) {
+      amount = calcLiquidText(amount, Material.VALUE_Block, Util.translate("gui.smeltery.liquid.block"), text);
       amount = calcLiquidText(amount, Material.VALUE_Ingot, Util.translate("gui.smeltery.liquid.ingot"), text);
       amount = calcLiquidText(amount, Material.VALUE_Nugget, Util.translate("gui.smeltery.liquid.nugget"), text);
     }
+    // Seared ingots/blocks
+    if(type == TinkerRegistryClient.FluidDisplayType.SEARED) {
+      amount = calcLiquidText(amount, Material.VALUE_SearedBlock, Util.translate("gui.smeltery.liquid.block"), text);
+    }
+    // Glass
+    if(type == TinkerRegistryClient.FluidDisplayType.GLASS) {
+      amount = calcLiquidText(amount, Material.VALUE_Glass, Util.translate("gui.smeltery.liquid.block"), text);
+    }
     // Blocks
     else if(type == TinkerRegistryClient.FluidDisplayType.BLOCKS) {
-      amount = calcLiquidText(amount, Material.VALUE_Ingot, Util.translate("gui.smeltery.liquid.block"), text);
+      amount = calcLiquidText(amount, Material.VALUE_Block, Util.translate("gui.smeltery.liquid.block"), text);
     }
     // Gems
     else if(type == TinkerRegistryClient.FluidDisplayType.GEMS) {
-      amount = calcLiquidText(amount, Material.VALUE_Ingot, Util.translate("gui.smeltery.liquid.gem"), text);
+      amount = calcLiquidText(amount, Material.VALUE_Gem, Util.translate("gui.smeltery.liquid.gem"), text);
     }
     // Buckets
     else {

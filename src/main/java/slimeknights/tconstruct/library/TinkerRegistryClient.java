@@ -58,6 +58,8 @@ public final class TinkerRegistryClient {
     BUCKETS,
     INGOTS,
     BLOCKS,
+    SEARED,
+    GLASS,
     GEMS
   }
 }
