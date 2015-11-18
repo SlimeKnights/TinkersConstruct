@@ -341,3 +341,13 @@ gui.castchest.name=Cast Chest
 
 # Smeltery
 gui.smeltery.name=Smeltery
+gui.smeltery.capacity=Fuel
+gui.smeltery.capacity=Capacity
+gui.smeltery.capacity_available=Free
+gui.smeltery.liquid.kilobucket=kb
+gui.smeltery.liquid.bucket=b
+gui.smeltery.liquid.millibucket=mb
+gui.smeltery.liquid.ingot=Ingot
+gui.smeltery.liquid.nugget=Nugget
+gui.smeltery.liquid.block=Block
+gui.smeltery.liquid.gem=Gem
