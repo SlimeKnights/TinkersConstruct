@@ -99,7 +99,7 @@ public class GuiDynInventory extends GuiModule {
       return;
     }
 
-    slider.update(mouseX, mouseY);
+    slider.update(mouseX, mouseY, !isMouseOverFullSlot(mouseX, mouseY) && isMouseInModule(mouseX, mouseY));
     updateSlots();
   }
 
@@ -143,7 +143,6 @@ public class GuiDynInventory extends GuiModule {
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
     this.mc.getTextureManager().bindTexture(GuiGeneric.LOCATION);
     if(sliderActive) {
-      slider.update(mouseX, mouseY);
       slider.draw();
 
       updateSlots();
