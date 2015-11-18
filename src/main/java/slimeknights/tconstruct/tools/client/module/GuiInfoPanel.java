@@ -358,6 +358,7 @@ public class GuiInfoPanel extends GuiModule {
     GlStateManager.scale(1f/textScale, 1f/textScale, 1.0f);
 
     this.mc.getTextureManager().bindTexture(BACKGROUND);
+    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
     slider.update(mouseX, mouseY, !isMouseOverFullSlot(mouseX, mouseY) && isMouseInModule(mouseX, mouseY));
     slider.draw();
   }
