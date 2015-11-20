@@ -23,8 +23,14 @@ public class TankRenderer extends TileEntitySpecialRenderer {
       FluidTankInfo info = te.getTankInfo(null)[0];
       FluidStack liquid = info.fluid;
 
-      float height = (float)liquid.amount / (float)info.capacity;
-      height += te.renderOffset;
+      float height = ((float)liquid.amount - te.renderOffset) / (float)info.capacity;
+
+      if(te.renderOffset > 1.2f || te.renderOffset < -1.2f) {
+        te.renderOffset -= (te.renderOffset / 12f + 0.1f) * partialTicks;
+      }
+      else {
+        te.renderOffset = 0;
+      }
 
       float d = 0.001f;
       RenderUtil.renderFluidCuboid(liquid, te.getPos(), x,y,z, d, d, d, 1d-d, height-d, 1d-d);
