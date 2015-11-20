@@ -12,12 +12,15 @@ import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.smeltery.block.BlockSeared;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
+import slimeknights.tconstruct.smeltery.block.BlockTank;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
+import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 
 @Pulse(id = TinkerSmeltery.PulseId, description = "The smeltery and items needed for it", defaultEnable = false)
 public class TinkerSmeltery extends TinkerPulse {
@@ -31,6 +34,7 @@ public class TinkerSmeltery extends TinkerPulse {
   // Blocks
   public static BlockSeared searedBlock;
   public static BlockSmelteryController smelteryController;
+  public static BlockTank searedTank;
 
   // Items
   public static Pattern cast;
@@ -40,9 +44,11 @@ public class TinkerSmeltery extends TinkerPulse {
   public void preInit(FMLPreInitializationEvent event) {
     searedBlock = registerEnumBlock(new BlockSeared(), "seared");
     smelteryController = registerBlock(new BlockSmelteryController(), "smeltery_controller");
+    searedTank = registerEnumBlock(new BlockTank(), "seared_tank");
 
     registerTE(TileSmeltery.class, "smeltery_controller");
     registerTE(TileSmelteryComponent.class, "smeltery_component");
+    registerTE(TileTank.class, "smeltery_tank");
 
     cast = registerItem(new Pattern(), "cast");
 
