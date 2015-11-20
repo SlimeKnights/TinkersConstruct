@@ -16,6 +16,8 @@ import org.lwjgl.opengl.GL11;
 public final class RenderUtil {
   private RenderUtil() {}
 
+  public static float FLUID_OFFSET = 0.001f; // offset on each side for fluid rendering in tanks and stuff
+
   protected static Minecraft mc = Minecraft.getMinecraft();
 
   /** Renders the given texture tiled into a GUI */

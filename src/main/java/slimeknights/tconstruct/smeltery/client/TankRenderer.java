@@ -32,7 +32,7 @@ public class TankRenderer extends TileEntitySpecialRenderer {
         te.renderOffset = 0;
       }
 
-      float d = 0.001f;
+      float d = RenderUtil.FLUID_OFFSET;
       RenderUtil.renderFluidCuboid(liquid, te.getPos(), x,y,z, d, d, d, 1d-d, height-d, 1d-d);
     }
   }
