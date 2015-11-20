@@ -101,6 +101,10 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
           result = FluidContainerRegistry.drainFluidContainer(stack);
         }
       }
+      else {
+        // prevent placing liquids
+        return true;
+      }
     }
 
     if(result != null) {
