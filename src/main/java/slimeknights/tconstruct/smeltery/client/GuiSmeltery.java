@@ -114,7 +114,7 @@ public class GuiSmeltery extends GuiMultiModule {
       for(int i = 0; i < heights.length; i++) {
         int h = heights[i];
         FluidStack liquid = liquids.getFluids().get(i);
-        TextureAtlasSprite fluidSprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(liquid.getFluid().getStill().toString());
+        TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite(liquid.getFluid().getStill().toString());
 
         RenderUtil.putTiledTextureQuads(worldrenderer, x, y, w, h, this.zLevel, fluidSprite);
         y -= h;

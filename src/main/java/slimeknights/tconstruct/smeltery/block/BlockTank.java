@@ -59,7 +59,7 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
 
   @Override
   public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
-    if(worldIn.isRemote) return true;
+    //if(worldIn.isRemote) return true;
 
     TileEntity te = worldIn.getTileEntity(pos);
     if(!(te instanceof IFluidHandler)) {
@@ -104,12 +104,24 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
     }
 
     if(result != null) {
-      playerIn.inventory.decrStackSize(playerIn.inventory.currentItem, 1);
-      PlayerHelper.spawnItemAtPlayer(playerIn, result);
+      if(!playerIn.capabilities.isCreativeMode) {
+        playerIn.inventory.decrStackSize(playerIn.inventory.currentItem, 1);
+        PlayerHelper.spawnItemAtPlayer(playerIn, result);
+      }
       return true;
     }
 
     return false;
+  }
+
+  @Override
+  public int getLightValue(IBlockAccess world, BlockPos pos) {
+    TileEntity te = world.getTileEntity(pos);
+    if(!(te instanceof TileTank)) {
+      return 0;
+    }
+    TileTank tank = (TileTank) te;
+    return tank.getBrightness();
   }
 
   @SideOnly(Side.CLIENT)

@@ -1,6 +1,9 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -11,11 +14,13 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 public class TileTank extends TileSmelteryComponent implements IFluidHandler {
 
+  public static final int CAPACITY = FluidContainerRegistry.BUCKET_VOLUME * 4;
+
   public FluidTank tank;
-  public int renderOffset;
+  public float renderOffset;
 
   public TileTank() {
-    this.tank = new FluidTank(FluidContainerRegistry.BUCKET_VOLUME);
+    this.tank = new FluidTank(CAPACITY);
   }
 
   @Override
@@ -77,7 +82,7 @@ public class TileTank extends TileSmelteryComponent implements IFluidHandler {
 
   public int getBrightness() {
     if(containsFluid()) {
-      return (tank.getFluid().getFluid().getLuminosity() * tank.getFluidAmount()) / tank.getCapacity();
+      return tank.getFluid().getFluid().getLuminosity();
     }
     return 0;
   }

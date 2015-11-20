@@ -7,6 +7,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.Locale;
 
@@ -14,6 +16,8 @@ import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.smeltery.client.TankRenderer;
+import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 
 public class SmelteryClientProxy extends ClientProxy {
 
@@ -28,9 +32,10 @@ public class SmelteryClientProxy extends ClientProxy {
   protected void registerModels() {
     // Blocks
 
+    // TEs
+    ClientRegistry.bindTileEntitySpecialRenderer(TileTank.class, new TankRenderer());
 
     // Items
-
     final ResourceLocation castLoc = SmelteryClientEvents.locBlankCast;
     CustomTextureCreator.castModelLocation = new ResourceLocation(castLoc.getResourceDomain(), "item/" + castLoc.getResourcePath());
     ModelLoader.setCustomMeshDefinition(TinkerSmeltery.cast, new ItemMeshDefinition() {

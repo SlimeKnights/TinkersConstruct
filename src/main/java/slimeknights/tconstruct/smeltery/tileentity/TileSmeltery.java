@@ -372,8 +372,6 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
   @Override
   public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-    super.onDataPacket(net, pkt);
-
     boolean wasActive = active;
 
     readFromNBT(pkt.getNbtCompound());
