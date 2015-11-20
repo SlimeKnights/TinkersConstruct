@@ -93,12 +93,12 @@ public final class RenderUtil {
     TextureAtlasSprite still = mc.getTextureMapBlocks().getTextureExtry(fluid.getFluid().getStill(fluid).toString());
     TextureAtlasSprite flowing = mc.getTextureMapBlocks().getTextureExtry(fluid.getFluid().getFlowing(fluid).toString());
 
-    putTexturedQuad(renderer, still, 0, 0, 0, x2-x1, y2-y1, z2-z1, EnumFacing.DOWN);
-    putTexturedQuad(renderer, flowing, 0, 0, 0, x2-x1, y2-y1, z2-z1, EnumFacing.NORTH);
-    putTexturedQuad(renderer, flowing, 0, 0, 0, x2-x1, y2-y1, z2-z1, EnumFacing.EAST);
-    putTexturedQuad(renderer, flowing, 0, 0, 0, x2-x1, y2-y1, z2-z1, EnumFacing.SOUTH);
-    putTexturedQuad(renderer, flowing, 0, 0, 0, x2-x1, y2-y1, z2-z1, EnumFacing.WEST);
-    putTexturedQuad(renderer, still  , 0, 0, 0, x2-x1, y2-y1, z2-z1, EnumFacing.UP);
+    putTexturedQuad(renderer, still,   x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.DOWN);
+    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.NORTH);
+    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.EAST);
+    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.SOUTH);
+    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.WEST);
+    putTexturedQuad(renderer, still  , x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.UP);
 
     tessellator.draw();
 
