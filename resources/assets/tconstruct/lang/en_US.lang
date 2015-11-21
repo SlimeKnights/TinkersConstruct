@@ -341,7 +341,9 @@ gui.castchest.name=Cast Chest
 
 # Smeltery
 gui.smeltery.name=Smeltery
-gui.smeltery.capacity=Fuel
+gui.smeltery.fuel=Fuel
+gui.smeltery.fuel.empty=No fuel found
+gui.smeltery.fuel.heat=Temperature: %d
 gui.smeltery.capacity=Capacity
 gui.smeltery.capacity_available=Free
 gui.smeltery.liquid.kilobucket=kb

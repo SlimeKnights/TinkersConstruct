@@ -40,7 +40,8 @@ public class SmelteryFluidUpdatePacket extends AbstractPacketThreadsafe {
 
   @Override
   public void handleServerSafe(NetHandlerPlayServer netHandler) {
-    // clientside only
+    // Clientside only
+    throw new UnsupportedOperationException("Clientside only");
   }
 
   @Override

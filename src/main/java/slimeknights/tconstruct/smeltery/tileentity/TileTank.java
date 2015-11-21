@@ -11,6 +11,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.IFluidTank;
 
 public class TileTank extends TileSmelteryComponent implements IFluidHandler {
 
@@ -70,6 +71,10 @@ public class TileTank extends TileSmelteryComponent implements IFluidHandler {
   @Override
   public FluidTankInfo[] getTankInfo(EnumFacing from) {
     return new FluidTankInfo[]{new FluidTankInfo(tank)};
+  }
+
+  IFluidTank getInternalTank() {
+    return tank;
   }
 
   public float getFluidAmountScaled() {

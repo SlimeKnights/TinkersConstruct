@@ -7,6 +7,7 @@ import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.mantle.network.NetworkWrapper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidUpdatePacket;
+import slimeknights.tconstruct.smeltery.network.SmelteryFuelUpdatePacket;
 import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
 import slimeknights.tconstruct.tools.network.InventoryCraftingSyncPacket;
 import slimeknights.tconstruct.tools.network.InventorySlotSyncPacket;
@@ -38,6 +39,7 @@ public class TinkerNetwork extends NetworkWrapper {
 
     // SMELTERY
     registerPacketClient(SmelteryFluidUpdatePacket.class);
+    registerPacketClient(SmelteryFuelUpdatePacket.class);
   }
 
   public static void sendToAll(AbstractPacket packet)

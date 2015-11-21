@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL11;
 public final class RenderUtil {
   private RenderUtil() {}
 
-  public static float FLUID_OFFSET = 0.001f; // offset on each side for fluid rendering in tanks and stuff
+  public static float FLUID_OFFSET = 0.001f; //
 
   protected static Minecraft mc = Minecraft.getMinecraft();
 
@@ -34,30 +34,40 @@ public final class RenderUtil {
 
   /** Adds a quad to the rendering pipeline. Call startDrawingQuads beforehand. You need to call draw() yourself. */
   public static void putTiledTextureQuads(WorldRenderer renderer, int x, int y, int width, int height, float depth, TextureAtlasSprite sprite) {
+    //renderer.addVertexWithUV(x,               y + height, depth, sprite.getMinU(), sprite.getMaxV());
+    //renderer.addVertexWithUV(x + width, y + height, depth, sprite.getMaxU(), sprite.getMaxV());
+    //renderer.addVertexWithUV(x + width, y, depth, sprite.getMaxU(), sprite.getMinV());
+    //renderer.addVertexWithUV(x,               y, depth, sprite.getMinU(), sprite.getMinV());
+
+    float u1 = sprite.getMinU();
+    float v1 = sprite.getMinV();
+
     // tile vertically
     do {
       int renderHeight = Math.min(sprite.getIconHeight(), height);
       height -= renderHeight;
-      y -= renderHeight;
 
-      float v = sprite.getInterpolatedV((16f * renderHeight)/(float)sprite.getIconHeight());
+      float v2 = sprite.getInterpolatedV((16f * renderHeight)/(float)sprite.getIconHeight());
 
       // we need to draw the quads per width too
       int x2 = x;
+      int width2 = width;
       // tile horizontally
       do {
-        int renderWidth = Math.min(sprite.getIconWidth(), width);
-        width -= renderWidth;
+        int renderWidth = Math.min(sprite.getIconWidth(), width2);
+        width2 -= renderWidth;
 
-        float u = sprite.getInterpolatedU((16f * renderWidth)/(float)sprite.getIconWidth());
+        float u2 = sprite.getInterpolatedU((16f * renderWidth)/(float)sprite.getIconWidth());
 
-        renderer.addVertexWithUV(x2, y + renderHeight, depth, sprite.getMinU(), v);
-        renderer.addVertexWithUV(x2 + renderWidth, y + renderHeight, depth, u, v);
-        renderer.addVertexWithUV(x2 + renderWidth, y, depth, u, sprite.getMinV());
-        renderer.addVertexWithUV(x2, y, depth, sprite.getMinU(), sprite.getMinV());
+        renderer.addVertexWithUV(x2,               y,                depth, u1, v1);
+        renderer.addVertexWithUV(x2,               y + renderHeight, depth, u1, v2);
+        renderer.addVertexWithUV(x2 + renderWidth, y + renderHeight, depth, u2, v2);
+        renderer.addVertexWithUV(x2 + renderWidth, y,                depth, u2, v1);
 
         x2 += renderWidth;
-      } while(width > 0);
+      } while(width2 > 0);
+
+      y += renderHeight;
     } while(height > 0);
   }
 

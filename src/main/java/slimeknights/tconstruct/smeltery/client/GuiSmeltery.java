@@ -12,6 +12,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
 
 import java.util.List;
 
@@ -35,6 +36,8 @@ public class GuiSmeltery extends GuiMultiModule {
 
   protected final GuiSmelterySideinventory sideinventory;
   protected final TileSmeltery smeltery;
+
+  private TileSmeltery.FuelInfo fuelInfo;
 
   public GuiSmeltery(ContainerSmeltery container, TileSmeltery smeltery) {
     super(container);
@@ -82,10 +85,16 @@ public class GuiSmeltery extends GuiMultiModule {
     // Fuel
     else if(71 <= mouseX && mouseX < 83 && 16 <= mouseY && mouseY < 68) {
       List<String> text = Lists.newArrayList();
-      FluidStack fuel = new FluidStack(FluidRegistry.LAVA, 1000); // todo
+      FluidStack fuel = fuelInfo.fluid;
       text.add(EnumChatFormatting.WHITE + Util.translate("gui.smeltery.fuel"));
-      text.add(fuel.getLocalizedName());
-      liquidToString(fuel, text);
+      if(fuel != null) {
+        text.add(fuel.getLocalizedName());
+        liquidToString(fuel, text);
+      }
+      else {
+        text.add(Util.translate("gui.smeltery.fuel.empty"));
+      }
+      text.add(Util.translateFormatted("gui.smeltery.fuel.heat", fuelInfo.heat));
       this.drawHoveringText(text, mouseX, mouseY);
     }
   }
@@ -115,15 +124,29 @@ public class GuiSmeltery extends GuiMultiModule {
         int h = heights[i];
         FluidStack liquid = liquids.getFluids().get(i);
         TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite(liquid.getFluid().getStill().toString());
+        //TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite("minecraft:blocks/fire_layer_0");
 
-        RenderUtil.putTiledTextureQuads(worldrenderer, x, y, w, h, this.zLevel, fluidSprite);
+        RenderUtil.putTiledTextureQuads(worldrenderer, x, y - h, w, h, this.zLevel, fluidSprite);
         y -= h;
       }
 
       tessellator.draw();
     }
 
-    // todo: draw fuel
+    // update fuel info
+    fuelInfo = smeltery.getFuelDisplay();
+
+    if(fuelInfo.fluid != null && fuelInfo.fluid.amount > 0) {
+      int x = 71 + cornerX;
+      int y = 16 + cornerY + 52;
+      int w = 12;
+      int h = (int)(52f * (float)fuelInfo.fluid.amount / (float)fuelInfo.maxCap);
+
+      TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite(fuelInfo.fluid.getFluid().getStill().toString());
+      //TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite("minecraft:blocks/fire_layer_0");
+
+      RenderUtil.renderTiledTextureAtlas(x, y - h, w, h, this.zLevel, fluidSprite);
+    }
   }
 
   protected FluidStack getFluidHovered(int y) {
