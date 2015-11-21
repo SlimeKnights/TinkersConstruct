@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.BlockPos;
 
 import java.util.Set;
 
@@ -218,6 +219,23 @@ public final class TagUtil {
   }
 
   /* Helper functions */
+
+  public static NBTTagCompound writePos(BlockPos pos) {
+    NBTTagCompound tag = new NBTTagCompound();
+    if(pos != null) {
+      tag.setInteger("X", pos.getX());
+      tag.setInteger("Y", pos.getY());
+      tag.setInteger("Z", pos.getZ());
+    }
+    return tag;
+  }
+
+  public static BlockPos readPos(NBTTagCompound tag) {
+    if(tag != null) {
+      return new BlockPos(tag.getInteger("X"), tag.getInteger("Y"), tag.getInteger("Z"));
+    }
+    return null;
+  }
 
   /**
    * Adds the given value to the integer tag given.

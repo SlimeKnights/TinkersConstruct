@@ -9,14 +9,17 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -32,6 +35,8 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.smeltery.ISmelteryTankHandler;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import slimeknights.tconstruct.library.smeltery.SmelteryTank;
+import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
 import slimeknights.tconstruct.smeltery.client.GuiSmeltery;
 import slimeknights.tconstruct.smeltery.events.TinkerSmelteryEvent;
@@ -39,6 +44,7 @@ import slimeknights.tconstruct.smeltery.inventory.ContainerSmeltery;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockDetection;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockSmeltery;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidUpdatePacket;
+import slimeknights.tconstruct.smeltery.network.SmelteryFuelUpdatePacket;
 
 public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, IUpdatePlayerListBox, IInventoryGui,
                                                                   ISmelteryTankHandler {
@@ -51,6 +57,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   public MultiblockDetection.MultiblockStructure info;
   public List<BlockPos> tanks;
   public BlockPos currentTank;
+  public FluidStack currentFuel; // the fuel that was last consumed
 
   // Info about the state of the smeltery. Liquids etc.
   protected SmelteryTank liquids;
@@ -156,7 +163,13 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
         // we can drain. actually drain and add the fuel
         if(drained.amount == amount) {
           tank.drain(amount, true);
+          currentFuel = drained.copy();
           addFuel(bonusFuel, drained.getFluid().getTemperature(drained));
+
+          // notify client of fuel/temperature changes
+          if(worldObj != null && !worldObj.isRemote) {
+            TinkerNetwork.sendToAll(new SmelteryFuelUpdatePacket(pos, currentTank, temperature, currentFuel));
+          }
         }
       }
     }
@@ -164,13 +177,21 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
   private void searchForFuel() {
     // is the current tank still up to date?
-    if(currentTank != null && hasFuel(currentTank)) {
+    if(currentTank != null && hasFuel(currentTank, currentFuel)) {
       return;
     }
 
-    // nope, current tank is empty, check others
+    // nope, current tank is empty, check others for same fuel
     for(BlockPos pos : tanks) {
-      if(hasFuel(pos)) {
+      if(hasFuel(pos, currentFuel)) {
+        currentTank = pos;
+        return;
+      }
+    }
+
+    // nothing found, try again with new fuel
+    for(BlockPos pos : tanks) {
+      if(hasFuel(pos, null)) {
         currentTank = pos;
         return;
       }
@@ -180,11 +201,17 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   }
 
   // checks if the given location has a fluid tank that contains fuel
-  private boolean hasFuel(BlockPos pos) {
+  private boolean hasFuel(BlockPos pos, FluidStack preference) {
     IFluidTank tank = getTankAt(pos);
     if(tank != null) {
       if(tank.getFluidAmount() > 0 && TinkerRegistry.isSmelteryFuel(tank.getFluid())) {
-        return true;
+        // if we have a preference, only use that
+        if(preference != null && tank.getFluid().isFluidEqual(preference)) {
+          return true;
+        }
+        else if(preference == null) {
+          return true;
+        }
       }
     }
 
@@ -192,9 +219,9 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   }
 
   private IFluidTank getTankAt(BlockPos pos) {
-    IBlockState state = worldObj.getBlockState(pos);
-    if(state.getBlock() instanceof IFluidTank) {
-      return (IFluidTank) state.getBlock();
+    TileEntity te = worldObj.getTileEntity(pos);
+    if(te instanceof TileTank) {
+      return ((TileTank) te).getInternalTank();
     }
 
     return null;
@@ -245,8 +272,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     // find all tanks for input
     tanks.clear();
     for(BlockPos pos : structure.blocks) {
-      // todo: check if is tank
-      if(false) {
+      if(worldObj.getBlockState(pos).getBlock() == TinkerSmeltery.searedTank) {
         tanks.add(pos);
       }
     }
@@ -314,6 +340,51 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     return (float)itemTemperatures[index]/(float)itemTempRequired[index];
   }
 
+  @SideOnly(Side.CLIENT)
+  public FuelInfo getFuelDisplay() {
+    FuelInfo info = new FuelInfo();
+
+    // we still have leftover fuel
+    if(hasFuel()) {
+      info.fluid = currentFuel.copy();
+      info.fluid.amount = 0;
+      info.heat = this.temperature;
+      info.maxCap = currentFuel.amount;
+    }
+    else if(currentTank != null) {
+      // we need to consume fuel, check the current tank
+      if(hasFuel(currentTank, currentFuel)) {
+        IFluidTank tank = getTankAt(currentTank);
+        info.fluid = tank.getFluid().copy();
+        info.heat = temperature;
+        info.maxCap = tank.getCapacity();
+      }
+    }
+
+    // check all other tanks (except the current one that we already checked) for more fuel
+    for(BlockPos pos : tanks) {
+      if(pos == currentTank) continue;
+
+      IFluidTank tank = getTankAt(pos);
+      // tank exists and has something in it
+      if(tank != null && tank.getFluidAmount() > 0) {
+        // we don't have fuel yet, use this
+        if(info.fluid == null) {
+          info.fluid = tank.getFluid().copy();
+          info.heat = info.fluid.getFluid().getTemperature(info.fluid);
+          info.maxCap = tank.getCapacity();
+        }
+        // otherwise add the same together
+        else if(tank.getFluid().isFluidEqual(info.fluid)) {
+          info.fluid.amount += tank.getFluidAmount();
+          info.maxCap += tank.getCapacity();
+        }
+      }
+    }
+
+    return info;
+  }
+
   /* Network & Saving */
 
   @SideOnly(Side.CLIENT)
@@ -353,6 +424,18 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     liquids.writeToNBT(compound);
 
     compound.setBoolean("active", active);
+    compound.setTag("currentTank", TagUtil.writePos(currentTank));
+    NBTTagList tankList = new NBTTagList();
+    for(BlockPos pos : tanks) {
+      tankList.appendTag(TagUtil.writePos(pos));
+    }
+    compound.setTag("tanks", tankList);
+
+    NBTTagCompound fuelTag = new NBTTagCompound();
+    if(currentFuel != null) {
+      currentFuel.writeToNBT(fuelTag);
+    }
+    compound.setTag("currentFuel", fuelTag);
   }
 
   @Override
@@ -361,6 +444,14 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     liquids.readFromNBT(compound);
 
     active = compound.getBoolean("active");
+    NBTTagList tankList = compound.getTagList("tanks", 10);
+    tanks.clear();
+    for(int i = 0; i < tankList.tagCount(); i++) {
+      tanks.add(TagUtil.readPos(tankList.getCompoundTagAt(i)));
+    }
+
+    NBTTagCompound fuelTag = compound.getCompoundTag("currentFuel");
+    currentFuel = FluidStack.loadFluidStackFromNBT(fuelTag);
   }
 
   @Override
@@ -386,5 +477,11 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
   public boolean isActive() {
     return active;
+  }
+
+  public static class FuelInfo {
+    public int heat;
+    public int maxCap;
+    public FluidStack fluid;
   }
 }
