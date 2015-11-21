@@ -23,6 +23,16 @@ public class MultiblockSmeltery extends MultiblockCuboid {
   }
 
   @Override
+  public MultiblockStructure detectMultiblock(World world, BlockPos center, int limit) {
+    hasTank = false;
+    MultiblockStructure ret = super.detectMultiblock(world, center, limit);
+    if(!hasTank) {
+      return null;
+    }
+    return ret;
+  }
+
+  @Override
   public boolean isValidBlock(World world, BlockPos pos) {
     // controller always is valid
     if(pos.equals(smeltery.getPos())) {
@@ -42,7 +52,12 @@ public class MultiblockSmeltery extends MultiblockCuboid {
       }
     }
 
-    // todo: isTank
+    // we need a tank
+    if(state.getBlock() == TinkerSmeltery.searedTank) {
+      hasTank = true;
+      return true;
+    }
+
     // todo: isDrain or something
 
     return state.getBlock() == TinkerSmeltery.searedBlock;
