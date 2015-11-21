@@ -1,6 +1,9 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Arrays;
 
@@ -80,6 +83,10 @@ public abstract class TileHeatingStructure extends TileInventory {
     return itemTemperatures[i];
   }
 
+  public int getTemperature() {
+    return temperature;
+  }
+
   /**
    * Called when an item finished heating up.
    * Return true if the processing was successful, then the heating data will be cleared.
@@ -99,5 +106,32 @@ public abstract class TileHeatingStructure extends TileInventory {
 
   public boolean hasFuel() {
     return fuel > 0;
+  }
+
+  /* Loading and Saving */
+
+  @SideOnly(Side.CLIENT)
+  public void updateTemperatureFromPacket(int temperature) {
+    this.temperature = temperature;
+  }
+
+  @Override
+  public void writeToNBT(NBTTagCompound tags) {
+    super.writeToNBT(tags);
+    tags.setInteger("fuel", fuel);
+    tags.setInteger("temperature", temperature);
+    tags.setBoolean("needsFuel", needsFuel);
+    tags.setIntArray("itemTemperatures", itemTemperatures);
+    tags.setIntArray("itemTempRequired", itemTempRequired);
+  }
+
+  @Override
+  public void readFromNBT(NBTTagCompound tags) {
+    super.readFromNBT(tags);
+    fuel = tags.getInteger("fuel");
+    temperature = tags.getInteger("temperature");
+    needsFuel = tags.getBoolean("needsFuel");
+    itemTemperatures = tags.getIntArray("itemTemperatures");
+    itemTempRequired = tags.getIntArray("itemTempRequired");
   }
 }
