@@ -41,6 +41,12 @@ public abstract class TileHeatingStructure extends TileInventory {
       MeltingRecipe melting = TinkerRegistry.getMelting(stack);
       if(melting != null) {
         itemTempRequired[index] = melting.output.getFluid().getTemperature(melting.output);
+
+        // instantly consume fuel if required
+        if(!hasFuel()) {
+          consumeFuel();
+        }
+
         return;
       }
     }
@@ -91,6 +97,18 @@ public abstract class TileHeatingStructure extends TileInventory {
 
   public int getTemperature() {
     return temperature;
+  }
+
+  @Override
+  public void setInventorySlotContents(int slot, ItemStack itemstack) {
+    // reset heat if set to null or a different item
+    if(itemstack == null || (getStackInSlot(slot) != null && !itemstack.getIsItemStackEqual(getStackInSlot(slot)))) {
+      itemTemperatures[slot] = 0;
+    }
+    super.setInventorySlotContents(slot, itemstack);
+
+    // when an item gets added, check for its heat required
+    updateHeatRequired(slot);
   }
 
   /**
