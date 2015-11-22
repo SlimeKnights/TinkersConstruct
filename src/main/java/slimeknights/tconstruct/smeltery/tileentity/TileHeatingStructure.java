@@ -56,13 +56,16 @@ public abstract class TileHeatingStructure extends TileInventory {
         if(itemTempRequired[i] > 0) {
           // fuel is present, turn up the heat
           if(fuel > 0) {
-            itemTemperatures[i] += heatSlot(i);
-
+            // are we done heating?
             if(itemTemperatures[i] >= itemTempRequired[i]) {
               if(onItemFinishedHeating(stack, i)) {
                 itemTemperatures[i] = 0;
                 itemTempRequired[i] = 0;
               }
+            }
+            // otherwise turn up the heat
+            else {
+              itemTemperatures[i] += heatSlot(i);
             }
           }
           else {
@@ -71,6 +74,9 @@ public abstract class TileHeatingStructure extends TileInventory {
             return;
           }
         }
+      }
+      else {
+        itemTemperatures[i] = 0;
       }
     }
   }
