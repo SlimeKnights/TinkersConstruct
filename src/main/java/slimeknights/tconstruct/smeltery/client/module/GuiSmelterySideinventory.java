@@ -65,8 +65,12 @@ public class GuiSmelterySideinventory extends GuiSideInventory {
 
     // draw the "heat" bars for each slot
     for(Slot slot : (List<Slot>)inventorySlots.inventorySlots) {
-      if(shouldDrawSlot(slot)) {
+      if(slot.getHasStack() && shouldDrawSlot(slot)) {
         float progress = smeltery.getMeltingProgress(slot.getSlotIndex());
+
+        if(progress == Float.NaN || progress > 1f) {
+          continue;
+        }
 
         GuiElement bar = progressBar;
         if(progress < 0) {
