@@ -42,6 +42,7 @@ public class InventorySlotSyncPacket extends AbstractPacketThreadsafe {
   @Override
   public void handleServerSafe(NetHandlerPlayServer netHandler) {
     // only send to clients
+    throw new UnsupportedOperationException("Clientside only");
   }
 
   @Override

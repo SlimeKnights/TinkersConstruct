@@ -36,7 +36,8 @@ public class TinkerStationTabPacket extends AbstractPacketThreadsafe {
 
   @Override
   public void handleClientSafe(NetHandlerPlayClient netHandler) {
-    // never
+    // Serverside only
+    throw new UnsupportedOperationException("Serverside only");
   }
 
   @Override

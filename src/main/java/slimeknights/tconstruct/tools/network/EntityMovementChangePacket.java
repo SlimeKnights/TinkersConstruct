@@ -43,6 +43,7 @@ public class EntityMovementChangePacket extends AbstractPacketThreadsafe {
   @Override
   public void handleServerSafe(NetHandlerPlayServer netHandler) {
     // only ever sent to clients
+    throw new UnsupportedOperationException("Serverside only");
   }
 
   @Override

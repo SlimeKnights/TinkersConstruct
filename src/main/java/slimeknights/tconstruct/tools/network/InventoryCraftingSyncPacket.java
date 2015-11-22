@@ -11,7 +11,8 @@ public class InventoryCraftingSyncPacket extends AbstractPacketThreadsafe {
 
   @Override
   public void handleClientSafe(NetHandlerPlayClient netHandler) {
-    // serverside only
+    // Serverside only
+    throw new UnsupportedOperationException("Serverside only");
   }
 
   @Override
