@@ -31,6 +31,15 @@ public class ContainerSmeltery extends ContainerMultiModule<TileSmeltery> {
   }
 
   @Override
+  public void onCraftGuiOpened(ICrafting listener) {
+    super.onCraftGuiOpened(listener);
+
+    for(int i = 0; i < oldHeats.length; i++) {
+      listener.sendProgressBarUpdate(this, i, tile.getTemperature(i));
+    }
+  }
+
+  @Override
   public void detectAndSendChanges() {
     super.detectAndSendChanges();
 
