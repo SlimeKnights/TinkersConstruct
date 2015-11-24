@@ -37,6 +37,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import org.lwjgl.opengl.GL11;
+
 import java.util.List;
 
 import slimeknights.tconstruct.library.tools.IAoeTool;
@@ -139,8 +141,10 @@ public class RenderEvents implements IResourceManagerReloadListener {
       GlStateManager.pushMatrix();
       //preRenderDamagedBlocks END
 
-      worldRendererIn.startDrawingQuads();
-      worldRendererIn.setVertexFormat(DefaultVertexFormats.BLOCK);
+      // todo: 1.8.8
+      //worldRendererIn.startDrawingQuads();
+      //worldRendererIn.setVertexFormat(DefaultVertexFormats.BLOCK);
+      worldRendererIn.func_181668_a(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
       worldRendererIn.setTranslation(-d0, -d1, -d2);
       worldRendererIn.markDirty();
 

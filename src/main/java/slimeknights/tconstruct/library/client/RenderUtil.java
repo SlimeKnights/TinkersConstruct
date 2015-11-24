@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -24,7 +25,9 @@ public final class RenderUtil {
   public static void renderTiledTextureAtlas(int x, int y, int width, int height, float depth, TextureAtlasSprite sprite) {
     Tessellator tessellator = Tessellator.getInstance();
     WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-    worldrenderer.startDrawingQuads();
+    //worldrenderer.startDrawingQuads();
+    // todo: 1.8.8
+    worldrenderer.func_181668_a(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
     mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
     putTiledTextureQuads(worldrenderer, x, y, width, height, depth, sprite);
@@ -59,10 +62,11 @@ public final class RenderUtil {
 
         float u2 = sprite.getInterpolatedU((16f * renderWidth)/(float)sprite.getIconWidth());
 
-        renderer.addVertexWithUV(x2,               y,                depth, u1, v1);
-        renderer.addVertexWithUV(x2,               y + renderHeight, depth, u1, v2);
-        renderer.addVertexWithUV(x2 + renderWidth, y + renderHeight, depth, u2, v2);
-        renderer.addVertexWithUV(x2 + renderWidth, y,                depth, u2, v1);
+        // todo: 1.8.8
+        //renderer.addVertexWithUV(x2,               y,                depth, u1, v1);
+        //renderer.addVertexWithUV(x2,               y + renderHeight, depth, u1, v2);
+        //renderer.addVertexWithUV(x2 + renderWidth, y + renderHeight, depth, u2, v2);
+        //renderer.addVertexWithUV(x2 + renderWidth, y,                depth, u2, v1);
 
         x2 += renderWidth;
       } while(width2 > 0);
@@ -94,11 +98,14 @@ public final class RenderUtil {
   public static void renderFluidCuboid(FluidStack fluid, BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2) {
     Tessellator tessellator = Tessellator.getInstance();
     WorldRenderer renderer = tessellator.getWorldRenderer();
-    renderer.startDrawingQuads();
+    // todo: 1.8.8
+    //renderer.startDrawingQuads();
+    renderer.func_181668_a(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
     mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
     int color = fluid.getFluid().getColor(fluid);
     RenderUtil.setColorRGBA(color);
-    renderer.setBrightness(mc.theWorld.getCombinedLight(pos, fluid.getFluid().getLuminosity()));
+    // ?
+    //renderer.setBrightness(mc.theWorld.getCombinedLight(pos, fluid.getFluid().getLuminosity()));
 
     pre(x, y, z);
 
@@ -163,7 +170,8 @@ public final class RenderUtil {
         maxV = sprite.getInterpolatedV(y2*16d);
         break;
     }
-
+    // todo: 1.8.8
+/*
     switch(face) {
       case DOWN:
         renderer.addVertexWithUV(x1, y1, z1, minU, minV);
@@ -201,7 +209,7 @@ public final class RenderUtil {
         renderer.addVertexWithUV(x2, y2, z2, maxU, minV);
         renderer.addVertexWithUV(x2, y1, z2, maxU, maxV);
         break;
-    }
+    }*/
   }
 
   protected static void pre(double x, double y, double z) {

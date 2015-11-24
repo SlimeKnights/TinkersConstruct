@@ -8,11 +8,14 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
+
+import org.lwjgl.opengl.GL11;
 
 import java.util.List;
 
@@ -117,7 +120,9 @@ public class GuiSmeltery extends GuiMultiModule {
       // prepare rendering
       Tessellator tessellator = Tessellator.getInstance();
       WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-      worldrenderer.startDrawingQuads();
+      //worldrenderer.startDrawingQuads();
+      // todo: 1.8.8
+      worldrenderer.func_181668_a(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
       mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
       for(int i = 0; i < heights.length; i++) {
