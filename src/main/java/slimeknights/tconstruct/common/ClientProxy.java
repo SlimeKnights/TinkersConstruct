@@ -64,11 +64,11 @@ public abstract class ClientProxy extends CommonProxy {
       Field field = clazz.getDeclaredField("fontRenderer");
       field.set(null, fontRenderer);
     } catch(ClassNotFoundException e) {
-      e.printStackTrace();
+      TConstruct.log.debug("Could not integrate FondRenderer with NEI");
     } catch(NoSuchFieldException e) {
-      e.printStackTrace();
+      TConstruct.log.debug("Could not integrate FondRenderer with NEI");
     } catch(IllegalAccessException e) {
-      e.printStackTrace();
+      TConstruct.log.debug("Could not integrate FondRenderer with NEI");
     }
   }
 
