@@ -10,6 +10,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 import slimeknights.mantle.block.EnumBlock;
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 
 public class BlockEnumSmeltery<T extends Enum<T> & EnumBlock.IEnumMeta> extends EnumBlock<T> implements ITileEntityProvider {
@@ -17,6 +18,7 @@ public class BlockEnumSmeltery<T extends Enum<T> & EnumBlock.IEnumMeta> extends 
   public BlockEnumSmeltery(Material material, PropertyEnum prop, Class<T> clazz) {
     super(material, prop, clazz);
 
+    this.setCreativeTab(TinkerRegistry.tabSmeltery);
     this.isBlockContainer = true; // has TE
   }
 

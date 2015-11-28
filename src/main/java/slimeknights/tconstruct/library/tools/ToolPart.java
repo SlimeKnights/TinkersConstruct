@@ -29,7 +29,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
   protected int cost;
 
   public ToolPart(int cost) {
-    this.setCreativeTab(TinkerRegistry.tabTools);
+    this.setCreativeTab(TinkerRegistry.tabParts);
     this.cost = cost;
   }
 
