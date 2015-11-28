@@ -12,6 +12,8 @@ import gnu.trove.set.hash.THashSet;
 import gnu.trove.set.hash.TLinkedHashSet;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -376,6 +378,7 @@ public final class TinkerRegistry {
   private static List<MeltingRecipe> meltingRegistry = Lists.newLinkedList();
   private static List<AlloyRecipe> alloyRegistry = Lists.newLinkedList();
   private static Map<FluidStack, Integer> smelteryFuels = Maps.newHashMap();
+  private static Map<String, FluidStack> entityMeltingRegistry = Maps.newHashMap();
 
   /** Registers this item with all its metadatas to melt into amount of the given fluid. */
   public static void registerMelting(Item item, Fluid fluid, int amount) {
@@ -470,6 +473,20 @@ public final class TinkerRegistry {
     return 0;
   }
 
+  public static void registerEntityMelting(Class<? extends Entity> clazz, FluidStack liquid) {
+    String name = EntityList.classToStringMapping.get(clazz);
+
+    if(name == null) {
+      error("Entity Melting: Entity %s is not registered in the EntityList", clazz.getSimpleName());
+    }
+
+    entityMeltingRegistry.put(name, liquid);
+  }
+
+  public static FluidStack getMeltingForEntity(Entity entity) {
+    String name = EntityList.getEntityString(entity);
+    return entityMeltingRegistry.get(name);
+  }
 
   /*---------------------------------------------------------------------------
   | Traceability & Internal stuff                                             |
