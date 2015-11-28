@@ -4,6 +4,10 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -14,12 +18,17 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -37,6 +46,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
 import slimeknights.tconstruct.library.smeltery.ISmelteryTankHandler;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
+import slimeknights.tconstruct.library.smeltery.SmelteryDamageSource;
 import slimeknights.tconstruct.library.smeltery.SmelteryTank;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -133,10 +143,39 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     return false;
   }
 
-
   // This is how you get blisters
   protected void interactWithEntitiesInside() {
+    // find all entities inside the smeltery
 
+    AxisAlignedBB bb = info.getBoundingBox();
+
+    List<Entity> entities = worldObj.getEntitiesWithinAABB(Entity.class, bb);
+    for(Entity entity : entities) {
+      // item?
+      if(entity instanceof EntityItem) {
+        if(TinkerRegistry.getMelting(((EntityItem) entity).getEntityItem()) != null) {
+          // todo: pick up and ISidedInventory
+        }
+      }
+      else {
+        // custom melting?
+        FluidStack fluid = TinkerRegistry.getMeltingForEntity(entity);
+        // no custom melting but a living entity that's alive?
+        if(fluid == null && entity instanceof EntityLivingBase) {
+          if(entity.isEntityAlive() && !entity.isDead) {
+            fluid = new FluidStack(FluidRegistry.WATER, 1); // todo: blood
+          }
+        }
+
+        if(fluid != null) {
+          // hurt it
+          if(entity.attackEntityFrom(SmelteryDamageSource.instance, 1f)) {
+            // spill the blood
+            liquids.fill(fluid, true);
+          }
+        }
+      }
+    }
   }
 
   // check for alloys and create them
