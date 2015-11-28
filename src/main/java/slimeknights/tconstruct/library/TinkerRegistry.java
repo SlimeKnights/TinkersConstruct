@@ -37,6 +37,7 @@ import slimeknights.tconstruct.library.events.MaterialEvent;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
+import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.IToolPart;
@@ -373,6 +374,7 @@ public final class TinkerRegistry {
   | Smeltery                                                                  |
   ---------------------------------------------------------------------------*/
   private static List<MeltingRecipe> meltingRegistry = Lists.newLinkedList();
+  private static List<AlloyRecipe> alloyRegistry = Lists.newLinkedList();
   private static Map<FluidStack, Integer> smelteryFuels = Maps.newHashMap();
 
   /** Registers this item with all its metadatas to melt into amount of the given fluid. */
@@ -408,6 +410,21 @@ public final class TinkerRegistry {
     }
 
     return null;
+  }
+
+  public static void registerAlloy(FluidStack result, FluidStack... inputs) {
+    if(result.amount < 1) {
+      error("Alloy Recipe: Resulting alloy %s has to have an amount (%d)", result.getLocalizedName(), result.amount);
+    }
+    if(inputs.length < 2) {
+      error("Alloy Recipe: Alloy for %s must consist of at least 2 liquids", result.getLocalizedName());
+    }
+
+    alloyRegistry.add(new AlloyRecipe(result, inputs));
+  }
+
+  public static List<AlloyRecipe> getAlloys() {
+    return ImmutableList.copyOf(alloyRegistry);
   }
 
   /**
@@ -452,6 +469,7 @@ public final class TinkerRegistry {
 
     return 0;
   }
+
 
   /*---------------------------------------------------------------------------
   | Traceability & Internal stuff                                             |
