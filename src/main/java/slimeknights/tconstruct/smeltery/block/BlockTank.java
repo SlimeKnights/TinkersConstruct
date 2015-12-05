@@ -38,7 +38,7 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
     setResistance(20F);
     setStepSound(soundTypeMetal);
 
-    setDefaultState(this.blockState.getBaseState().withProperty(KNOB, true));
+    setDefaultState(this.blockState.getBaseState().withProperty(KNOB, false));
   }
 
   @Override
@@ -55,6 +55,15 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
   public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
     boolean hasKnob = (state.getValue(TYPE)) == TankType.TANK && worldIn.isAirBlock(pos.up());
     return super.getActualState(state, worldIn, pos).withProperty(KNOB, hasKnob);
+  }
+
+  @Override
+  public IBlockState getStateFromMeta(int meta) {
+    IBlockState state = super.getStateFromMeta(meta);
+    if(meta == TankType.TANK.getMeta()) {
+      state = state.withProperty(KNOB, true);
+    }
+    return state;
   }
 
   @Override
