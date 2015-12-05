@@ -63,13 +63,13 @@ public class TilePatternChest extends TileTable implements IInventoryGui {
   }
 
   @Override
-  public String getCommandSenderName() {
+  public String getName() {
     // do we hold casts instead of patterns?
     for(int i = 0; i < getSizeInventory(); i++) {
       if(getStackInSlot(i) != null && getStackInSlot(i).getItem() == TinkerSmeltery.cast) {
         return "gui.castchest.name";
       }
     }
-    return super.getCommandSenderName();
+    return super.getName();
   }
 }
