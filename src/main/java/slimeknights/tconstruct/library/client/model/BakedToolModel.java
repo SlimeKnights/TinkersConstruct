@@ -40,7 +40,7 @@ public class BakedToolModel extends ItemLayerModel.BakedModel implements ISmartI
    */
   public BakedToolModel(IFlexibleBakedModel parent, BakedMaterialModel[] parts, BakedMaterialModel[] brokenParts,
                         Map<String, IFlexibleBakedModel> modifierParts, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transform) {
-    super((ImmutableList<BakedQuad>) parent.getGeneralQuads(), parent.getTexture(), parent.getFormat(), transform);
+    super((ImmutableList<BakedQuad>) parent.getGeneralQuads(), parent.getParticleTexture(), parent.getFormat(), transform);
 
     if(parts.length != brokenParts.length) {
       throw new RuntimeException("TinkerModel: Length of Parts and BrokenParts Array has to match");
@@ -94,7 +94,7 @@ public class BakedToolModel extends ItemLayerModel.BakedModel implements ISmartI
       }
     }
 
-    IFlexibleBakedModel model = new ItemLayerModel.BakedModel(quads.build(), this.getTexture(), this.getFormat(), transforms);
+    IFlexibleBakedModel model = new ItemLayerModel.BakedModel(quads.build(), this.getParticleTexture(), this.getFormat(), transforms);
 
     return model;
   }

@@ -45,7 +45,7 @@ public class MaterialModel extends ItemLayerModel {
     BakedMaterialModel bakedMaterialModel = new BakedMaterialModel(base);
 
     // and generate the baked model for each material-variant we have for the base texture
-    String baseTexture = base.getTexture().getIconName();
+    String baseTexture = base.getParticleTexture().getIconName();
     Map<String, TextureAtlasSprite> sprites = CustomTextureCreator.sprites.get(baseTexture);
 
     for(Map.Entry<String, TextureAtlasSprite> entry : sprites.entrySet()) {
@@ -72,11 +72,11 @@ public class MaterialModel extends ItemLayerModel {
             map.put(type, ps.forPerspective(type).apply(this));
           }
           bakedModel2 =
-              new ItemLayerModel.BakedModel(quads.build(), bakedModel2.getTexture(), bakedModel2.getFormat(), Maps
+              new ItemLayerModel.BakedModel(quads.build(), bakedModel2.getParticleTexture(), bakedModel2.getFormat(), Maps
                   .immutableEnumMap(map));
         }
         else {
-          bakedModel2 = new ItemLayerModel.BakedModel(quads.build(), bakedModel2.getTexture(), bakedModel2.getFormat());
+          bakedModel2 = new ItemLayerModel.BakedModel(quads.build(), bakedModel2.getParticleTexture(), bakedModel2.getFormat());
         }
       }
 

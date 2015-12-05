@@ -122,7 +122,7 @@ public class GuiSmeltery extends GuiMultiModule {
       WorldRenderer worldrenderer = tessellator.getWorldRenderer();
       //worldrenderer.startDrawingQuads();
       // todo: 1.8.8
-      worldrenderer.func_181668_a(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+      worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
       mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
       for(int i = 0; i < heights.length; i++) {

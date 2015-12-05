@@ -169,8 +169,8 @@ public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlex
   }
 
   @Override
-  public TextureAtlasSprite getTexture() {
-    return standard.getTexture();
+  public TextureAtlasSprite getParticleTexture() {
+    return standard.getParticleTexture();
   }
 
   @Override

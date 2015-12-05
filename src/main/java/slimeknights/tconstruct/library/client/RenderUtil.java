@@ -27,7 +27,7 @@ public final class RenderUtil {
     WorldRenderer worldrenderer = tessellator.getWorldRenderer();
     //worldrenderer.startDrawingQuads();
     // todo: 1.8.8
-    worldrenderer.func_181668_a(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+    worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
     mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
     putTiledTextureQuads(worldrenderer, x, y, width, height, depth, sprite);
@@ -37,11 +37,6 @@ public final class RenderUtil {
 
   /** Adds a quad to the rendering pipeline. Call startDrawingQuads beforehand. You need to call draw() yourself. */
   public static void putTiledTextureQuads(WorldRenderer renderer, int x, int y, int width, int height, float depth, TextureAtlasSprite sprite) {
-    //renderer.addVertexWithUV(x,               y + height, depth, sprite.getMinU(), sprite.getMaxV());
-    //renderer.addVertexWithUV(x + width, y + height, depth, sprite.getMaxU(), sprite.getMaxV());
-    //renderer.addVertexWithUV(x + width, y, depth, sprite.getMaxU(), sprite.getMinV());
-    //renderer.addVertexWithUV(x,               y, depth, sprite.getMinU(), sprite.getMinV());
-
     float u1 = sprite.getMinU();
     float v1 = sprite.getMinV();
 
@@ -100,7 +95,7 @@ public final class RenderUtil {
     WorldRenderer renderer = tessellator.getWorldRenderer();
     // todo: 1.8.8
     //renderer.startDrawingQuads();
-    renderer.func_181668_a(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+    renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
     mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
     int color = fluid.getFluid().getColor(fluid);
     RenderUtil.setColorRGBA(color);
