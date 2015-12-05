@@ -25,9 +25,7 @@ public final class RenderUtil {
   public static void renderTiledTextureAtlas(int x, int y, int width, int height, float depth, TextureAtlasSprite sprite) {
     Tessellator tessellator = Tessellator.getInstance();
     WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-    //worldrenderer.startDrawingQuads();
-    // todo: 1.8.8
-    worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+    worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
     mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 
     putTiledTextureQuads(worldrenderer, x, y, width, height, depth, sprite);
@@ -57,11 +55,10 @@ public final class RenderUtil {
 
         float u2 = sprite.getInterpolatedU((16f * renderWidth)/(float)sprite.getIconWidth());
 
-        // todo: 1.8.8
-        //renderer.addVertexWithUV(x2,               y,                depth, u1, v1);
-        //renderer.addVertexWithUV(x2,               y + renderHeight, depth, u1, v2);
-        //renderer.addVertexWithUV(x2 + renderWidth, y + renderHeight, depth, u2, v2);
-        //renderer.addVertexWithUV(x2 + renderWidth, y,                depth, u2, v1);
+        renderer.pos(x2,               y,                depth).tex(u1, v1).endVertex();
+        renderer.pos(x2,               y + renderHeight, depth).tex(u1, v2).endVertex();
+        renderer.pos(x2 + renderWidth, y + renderHeight, depth).tex(u2, v2).endVertex();
+        renderer.pos(x2 + renderWidth, y,                depth).tex(u2, v1).endVertex();
 
         x2 += renderWidth;
       } while(width2 > 0);
@@ -93,43 +90,55 @@ public final class RenderUtil {
   public static void renderFluidCuboid(FluidStack fluid, BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2) {
     Tessellator tessellator = Tessellator.getInstance();
     WorldRenderer renderer = tessellator.getWorldRenderer();
-    // todo: 1.8.8
-    //renderer.startDrawingQuads();
     renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
     mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
     int color = fluid.getFluid().getColor(fluid);
-    RenderUtil.setColorRGBA(color);
-    // ?
-    //renderer.setBrightness(mc.theWorld.getCombinedLight(pos, fluid.getFluid().getLuminosity()));
+    //RenderUtil.setColorRGBA(color);
+    int brightness = mc.theWorld.getCombinedLight(pos, fluid.getFluid().getLuminosity());
 
     pre(x, y, z);
 
     TextureAtlasSprite still = mc.getTextureMapBlocks().getTextureExtry(fluid.getFluid().getStill(fluid).toString());
     TextureAtlasSprite flowing = mc.getTextureMapBlocks().getTextureExtry(fluid.getFluid().getFlowing(fluid).toString());
 
-    putTexturedQuad(renderer, still,   x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.DOWN);
-    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.NORTH);
-    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.EAST);
-    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.SOUTH);
-    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.WEST);
-    putTexturedQuad(renderer, still  , x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.UP);
+    putTexturedQuad(renderer, still,   x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.DOWN, color, brightness);
+    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.NORTH, color, brightness);
+    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.EAST, color, brightness);
+    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.SOUTH, color, brightness);
+    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.WEST, color, brightness);
+    putTexturedQuad(renderer, still  , x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.UP, color, brightness);
 
     tessellator.draw();
 
     post();
   }
 
-  public static void putTexturedCuboid(WorldRenderer renderer, ResourceLocation location, double x1, double y1, double z1, double x2, double y2, double z2) {
+  public static void putTexturedCuboid(WorldRenderer renderer, ResourceLocation location, double x1, double y1, double z1, double x2, double y2, double z2,
+                                       int color, int brightness) {
     TextureAtlasSprite sprite = mc.getTextureMapBlocks().getTextureExtry(location.toString());
-    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.DOWN);
-    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.NORTH);
-    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.EAST);
-    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.SOUTH);
-    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.WEST);
-    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.UP);
+    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.DOWN, color, brightness);
+    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.NORTH, color, brightness);
+    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.EAST, color, brightness);
+    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.SOUTH, color, brightness);
+    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.WEST, color, brightness);
+    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.UP, color, brightness);
   }
 
-  public static void putTexturedQuad(WorldRenderer renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face) {
+  public static void putTexturedQuad(WorldRenderer renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
+                                     int color, int brightness) {
+    int l1 = brightness >> 0x10 & 0xFFFF;
+    int l2 = brightness & 0xFFFF;
+
+    int a = color >> 24 & 0xFF;
+    int r = color >> 16 & 0xFF;
+    int g = color >> 8 & 0xFF;
+    int b = color & 0xFF;
+
+    putTexturedQuad(renderer, sprite, x,y,z, w,h, d, face, r,g,b,a, l1, l2);
+  }
+
+  public static void putTexturedQuad(WorldRenderer renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
+                                     int r, int g, int b, int a, int light1, int light2) {
     double minU = sprite.getMinU();
     double maxU = sprite.getMaxU();
     double minV = sprite.getMinV();
@@ -165,46 +174,45 @@ public final class RenderUtil {
         maxV = sprite.getInterpolatedV(y2*16d);
         break;
     }
-    // todo: 1.8.8
-/*
+
     switch(face) {
       case DOWN:
-        renderer.addVertexWithUV(x1, y1, z1, minU, minV);
-        renderer.addVertexWithUV(x2, y1, z1, maxU, minV);
-        renderer.addVertexWithUV(x2, y1, z2, maxU, maxV);
-        renderer.addVertexWithUV(x1, y1, z2, minU, maxV);
+        renderer.pos(x1, y1, z1).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
+        renderer.pos(x2, y1, z1).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
+        renderer.pos(x2, y1, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
+        renderer.pos(x1, y1, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
         break;
       case UP:
-        renderer.addVertexWithUV(x1, y2, z1, minU, minV);
-        renderer.addVertexWithUV(x1, y2, z2, minU, maxV);
-        renderer.addVertexWithUV(x2, y2, z2, maxU, maxV);
-        renderer.addVertexWithUV(x2, y2, z1, maxU, minV);
+        renderer.pos(x1, y2, z1).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
+        renderer.pos(x1, y2, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
+        renderer.pos(x2, y2, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
+        renderer.pos(x2, y2, z1).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
         break;
       case NORTH:
-        renderer.addVertexWithUV(x1, y1, z1, minU, maxV);
-        renderer.addVertexWithUV(x1, y2, z1, minU, minV);
-        renderer.addVertexWithUV(x2, y2, z1, maxU, minV);
-        renderer.addVertexWithUV(x2, y1, z1, maxU, maxV);
+        renderer.pos(x1, y1, z1).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
+        renderer.pos(x1, y2, z1).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
+        renderer.pos(x2, y2, z1).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
+        renderer.pos(x2, y1, z1).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
         break;
       case SOUTH:
-        renderer.addVertexWithUV(x1, y1, z2, maxU, maxV);
-        renderer.addVertexWithUV(x2, y1, z2, minU, maxV);
-        renderer.addVertexWithUV(x2, y2, z2, minU, minV);
-        renderer.addVertexWithUV(x1, y2, z2, maxU, minV);
+        renderer.pos(x1, y1, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
+        renderer.pos(x2, y1, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
+        renderer.pos(x2, y2, z2).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
+        renderer.pos(x1, y2, z2).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
         break;
       case WEST:
-        renderer.addVertexWithUV(x1, y1, z1, maxU, maxV);
-        renderer.addVertexWithUV(x1, y1, z2, minU, maxV);
-        renderer.addVertexWithUV(x1, y2, z2, minU, minV);
-        renderer.addVertexWithUV(x1, y2, z1, maxU, minV);
+        renderer.pos(x1, y1, z1).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
+        renderer.pos(x1, y1, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
+        renderer.pos(x1, y2, z2).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
+        renderer.pos(x1, y2, z1).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
         break;
       case EAST:
-        renderer.addVertexWithUV(x2, y1, z1, minU, maxV);
-        renderer.addVertexWithUV(x2, y2, z1, minU, minV);
-        renderer.addVertexWithUV(x2, y2, z2, maxU, minV);
-        renderer.addVertexWithUV(x2, y1, z2, maxU, maxV);
+        renderer.pos(x2, y1, z1).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
+        renderer.pos(x2, y2, z1).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
+        renderer.pos(x2, y2, z2).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
+        renderer.pos(x2, y1, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
         break;
-    }*/
+    }
   }
 
   protected static void pre(double x, double y, double z) {
@@ -243,5 +251,9 @@ public final class RenderUtil {
     float b = (float)(color & 255) / 255.0F;
 
     GlStateManager.color(r, g, b, a);
+  }
+
+  public static void setBrightness(WorldRenderer renderer, int brightness) {
+    renderer.putBrightness4(brightness, brightness, brightness, brightness);
   }
 }

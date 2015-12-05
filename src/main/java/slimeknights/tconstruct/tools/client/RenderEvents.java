@@ -141,9 +141,6 @@ public class RenderEvents implements IResourceManagerReloadListener {
       GlStateManager.pushMatrix();
       //preRenderDamagedBlocks END
 
-      // todo: 1.8.8
-      //worldRendererIn.startDrawingQuads();
-      //worldRendererIn.setVertexFormat(DefaultVertexFormats.BLOCK);
       worldRendererIn.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
       worldRendererIn.setTranslation(-d0, -d1, -d2);
       worldRendererIn.markDirty();
