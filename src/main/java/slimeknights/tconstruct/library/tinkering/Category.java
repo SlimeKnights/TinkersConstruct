@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.tinkering;
 
-import com.sun.istack.internal.NotNull;
-
 import java.util.Locale;
 
 public class Category {
@@ -16,7 +14,7 @@ public class Category {
 
   private final String name;
 
-  public Category(@NotNull String name) {
+  public Category(String name) {
     this.name = name.toLowerCase(Locale.US);
   }
 }

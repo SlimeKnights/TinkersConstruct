@@ -2,8 +2,6 @@ package slimeknights.tconstruct.library.modifiers;
 
 import com.google.common.collect.Lists;
 
-import com.sun.istack.internal.NotNull;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -27,7 +25,7 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
 
   protected final List<ModifierAspect> aspects = Lists.newLinkedList();
 
-  public Modifier(@NotNull String identifier) {
+  public Modifier(String identifier) {
     this.identifier = Util.sanitizeLocalizationString(identifier);
 
     TinkerRegistry.registerModifier(this);
