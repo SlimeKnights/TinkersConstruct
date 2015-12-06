@@ -312,7 +312,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
       active = false;
     }
     else {
-      EnumFacing in = ((EnumFacing) state.getValue(BlockSmelteryController.FACING)).getOpposite();
+      EnumFacing in = state.getValue(BlockSmelteryController.FACING).getOpposite();
 
       MultiblockDetection.MultiblockStructure structure = multiblock.detectMultiblock(this.worldObj, this.getPos().offset(in), MAX_SIZE);
       if(structure == null) {
@@ -324,6 +324,10 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
         active = true;
         MultiblockDetection.assignMultiBlock(this.worldObj, this.getPos(), structure.blocks);
         updateSmelteryInfo(structure);
+        // we still have to update since something caused us to rebuild our stats
+        // might be the smeltery size changed
+        if(wasActive)
+          worldObj.markBlockForUpdate(pos);
       }
     }
 
@@ -372,7 +376,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   }
 
   private void dropItem(ItemStack stack) {
-    EnumFacing direction = (EnumFacing) worldObj.getBlockState(pos).getValue(BlockSmelteryController.FACING);
+    EnumFacing direction = worldObj.getBlockState(pos).getValue(BlockSmelteryController.FACING);
     BlockPos pos = this.getPos().offset(direction);
 
     EntityItem entityitem = new EntityItem(worldObj, pos.getX(), pos.getY(), pos.getZ(), stack);
