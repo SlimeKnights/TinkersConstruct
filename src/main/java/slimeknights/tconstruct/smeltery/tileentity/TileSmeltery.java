@@ -142,6 +142,10 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
       setInventorySlotContents(slot, null);
       return true;
     }
+    else {
+      // can't fill into the smeltery, set error satte
+      itemTemperatures[slot] = itemTempRequired[slot] * 2 + 1;
+    }
 
     return false;
   }

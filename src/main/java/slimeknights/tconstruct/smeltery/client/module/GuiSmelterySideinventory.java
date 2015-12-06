@@ -23,6 +23,7 @@ public class GuiSmelterySideinventory extends GuiSideInventory {
 
   protected GuiElement progressBar = new GuiElementScalable(176, 150, 3, 16, 256, 256);
   protected GuiElement unprogressBar = new GuiElementScalable(179, 150, 3, 16);
+  protected GuiElement uberHeatBar =  new GuiElementScalable(182, 150, 3, 16);
 
   public GuiSmelterySideinventory(GuiMultiModule parent, Container container, TileSmeltery smeltery, int slotCount, int columns) {
     super(parent, container, slotCount, columns, false, true);
@@ -68,13 +69,20 @@ public class GuiSmelterySideinventory extends GuiSideInventory {
       if(slot.getHasStack() && shouldDrawSlot(slot)) {
         float progress = smeltery.getMeltingProgress(slot.getSlotIndex());
 
-        if(progress == Float.NaN || progress > 1f) {
+        if(progress == Float.NaN) {
           continue;
         }
 
         GuiElement bar = progressBar;
         if(progress < 0) {
           bar = unprogressBar;
+          progress = 1f;
+        }
+        else if((progress > 1f && progress < 2f) || progress == Float.POSITIVE_INFINITY) {
+          progress = 1f;
+        }
+        else if(progress > 2f) {
+          bar = uberHeatBar;
           progress = 1f;
         }
 

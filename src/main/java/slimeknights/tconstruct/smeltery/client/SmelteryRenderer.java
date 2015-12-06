@@ -1,11 +1,7 @@
 package slimeknights.tconstruct.smeltery.client;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.BlockPos;
-import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.ModelFluid;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.List;
