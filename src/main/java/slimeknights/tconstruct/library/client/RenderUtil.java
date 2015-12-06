@@ -17,7 +17,7 @@ import org.lwjgl.opengl.GL11;
 public final class RenderUtil {
   private RenderUtil() {}
 
-  public static float FLUID_OFFSET = 0.001f; //
+  public static float FLUID_OFFSET = 0.005f;
 
   protected static Minecraft mc = Minecraft.getMinecraft();
 
@@ -113,6 +113,84 @@ public final class RenderUtil {
     post();
   }
 
+  public static void renderStackedFluidCuboid(FluidStack fluid, double px, double py, double pz, BlockPos pos,
+                                              BlockPos from, BlockPos to, double ymin, double ymax) {
+    Tessellator tessellator = Tessellator.getInstance();
+    WorldRenderer renderer = tessellator.getWorldRenderer();
+    renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+    mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+    int color = fluid.getFluid().getColor(fluid);
+    int brightness = mc.theWorld.getCombinedLight(pos, fluid.getFluid().getLuminosity());
+
+    pre(px, py, pz);
+    GlStateManager.translate(from.getX(), from.getY(), from.getZ());
+
+    TextureAtlasSprite still = mc.getTextureMapBlocks().getTextureExtry(fluid.getFluid().getStill(fluid).toString());
+    TextureAtlasSprite flowing = mc.getTextureMapBlocks().getTextureExtry(fluid.getFluid().getFlowing(fluid).toString());
+
+    int xd = to.getX() - from.getX();
+    int yd = to.getY() - from.getY();
+    int zd = to.getZ() - from.getZ();
+
+    double xmin = FLUID_OFFSET;
+    double xmax = xd + 1d - FLUID_OFFSET;
+    //double ymin = y1;
+    //double ymax = y2;
+    double zmin = FLUID_OFFSET;
+    double zmax = zd + 1d - FLUID_OFFSET;
+
+    double[] xs = new double[2 + xd];
+    double[] ys = new double[2 + yd];
+    double[] zs = new double[2 + zd];
+
+    xs[0] = xmin;
+    for(int i = 1; i <= xd; i++) xs[i] = i;
+    xs[xd+1] = xmax;
+
+    ys[0] = ymin;
+    for(int i = 1; i <= yd; i++) ys[i] = i;
+    ys[yd+1] = ymax;
+
+    zs[0] = zmin;
+    for(int i = 1; i <= zd; i++) zs[i] = i;
+    zs[zd+1] = zmax;
+
+    // render bottom
+    for(int y = 0; y <= yd; y++) {
+      for(int z = 0; z <= zd; z++) {
+        for(int x = 0; x <= xd; x++) {
+
+          double x1 = xs[x];
+          double x2 = xs[x+1] - x1;
+          double y1 = ys[y];
+          double y2 = ys[y+1] - y1;
+          double z1 = zs[z];
+          double z2 = zs[z+1] - z1;
+
+          if(x == 0)  putTexturedQuad(renderer, flowing, x1,y1,z1, x2,y2,z2, EnumFacing.WEST, color, brightness);
+          if(x == xd) putTexturedQuad(renderer, flowing, x1,y1,z1, x2,y2,z2, EnumFacing.EAST, color, brightness);
+          if(y == 0)  putTexturedQuad(renderer,   still, x1,y1,z1, x2,y2,z2, EnumFacing.DOWN, color, brightness);
+          if(y == yd) putTexturedQuad(renderer,   still, x1,y1,z1, x2,y2,z2, EnumFacing.UP, color, brightness);
+          if(z == 0)  putTexturedQuad(renderer, flowing, x1,y1,z1, x2,y2,z2, EnumFacing.NORTH, color, brightness);
+          if(z == zd) putTexturedQuad(renderer, flowing, x1,y1,z1, x2,y2,z2, EnumFacing.SOUTH, color, brightness);
+        }
+      }
+    }
+
+
+
+    //putTexturedQuad(renderer, still,   x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.DOWN, color, brightness);
+    //putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.NORTH, color, brightness);
+    //putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.EAST, color, brightness);
+    //putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.SOUTH, color, brightness);
+    //putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.WEST, color, brightness);
+    //putTexturedQuad(renderer, still  , x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.UP, color, brightness);
+
+    tessellator.draw();
+
+    post();
+  }
+
   public static void putTexturedCuboid(WorldRenderer renderer, ResourceLocation location, double x1, double y1, double z1, double x2, double y2, double z2,
                                        int color, int brightness) {
     TextureAtlasSprite sprite = mc.getTextureMapBlocks().getTextureExtry(location.toString());
@@ -137,12 +215,13 @@ public final class RenderUtil {
     putTexturedQuad(renderer, sprite, x,y,z, w,h, d, face, r,g,b,a, l1, l2);
   }
 
+  // x and x+w has to be within [0,1], same for y/h and z/d
   public static void putTexturedQuad(WorldRenderer renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
                                      int r, int g, int b, int a, int light1, int light2) {
-    double minU = sprite.getMinU();
-    double maxU = sprite.getMaxU();
-    double minV = sprite.getMinV();
-    double maxV = sprite.getMaxV();
+    double minU;
+    double maxU;
+    double minV;
+    double maxV;
 
     double x1 = x;
     double x2 = x + w;
@@ -151,28 +230,44 @@ public final class RenderUtil {
     double z1 = z;
     double z2 = z + d;
 
+    double xt1 = x1%1d;
+    double xt2 = xt1 + w;
+    while(xt2 > 1f) xt2 -= 1f;
+    double yt1 = y1%1d;
+    double yt2 = yt1 + h;
+    while(yt2 > 1f) yt2 -= 1f;
+    double zt1 = z1%1d;
+    double zt2 = zt1 + d;
+    while(zt2 > 1f) zt2 -= 1f;
+
+
     switch(face) {
       case DOWN:
       case UP:
-        minU = sprite.getInterpolatedU(x1*16d);
-        maxU = sprite.getInterpolatedU(x2*16d);
-        minV = sprite.getInterpolatedV(z1*16d);
-        maxV = sprite.getInterpolatedV(z2*16d);
+        minU = sprite.getInterpolatedU(xt1 * 16d);
+        maxU = sprite.getInterpolatedU(xt2 * 16d);
+        minV = sprite.getInterpolatedV(zt1 * 16d);
+        maxV = sprite.getInterpolatedV(zt2 * 16d);
         break;
       case NORTH:
       case SOUTH:
-        minU = sprite.getInterpolatedU(x1*16f);
-        maxU = sprite.getInterpolatedU(x2*16f);
-        minV = sprite.getInterpolatedV(y1*16f);
-        maxV = sprite.getInterpolatedV(y2*16f);
+        minU = sprite.getInterpolatedU(xt1 * 16f);
+        maxU = sprite.getInterpolatedU(xt2 * 16f);
+        minV = sprite.getInterpolatedV(yt1 * 16f);
+        maxV = sprite.getInterpolatedV(yt2 * 16f);
         break;
       case WEST:
       case EAST:
-        minU = sprite.getInterpolatedU(z1*16d);
-        maxU = sprite.getInterpolatedU(z2*16d);
-        minV = sprite.getInterpolatedV(y1*16d);
-        maxV = sprite.getInterpolatedV(y2*16d);
+        minU = sprite.getInterpolatedU(zt1 * 16d);
+        maxU = sprite.getInterpolatedU(zt2 * 16d);
+        minV = sprite.getInterpolatedV(yt1 * 16d);
+        maxV = sprite.getInterpolatedV(yt2 * 16d);
         break;
+      default:
+        minU = sprite.getMinU();
+        maxU = sprite.getMaxU();
+        minV = sprite.getMinV();
+        maxV = sprite.getMaxV();
     }
 
     switch(face) {

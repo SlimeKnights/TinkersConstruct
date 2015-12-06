@@ -16,7 +16,9 @@ import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.smeltery.client.SmelteryRenderer;
 import slimeknights.tconstruct.smeltery.client.TankRenderer;
+import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 
 public class SmelteryClientProxy extends ClientProxy {
@@ -34,6 +36,8 @@ public class SmelteryClientProxy extends ClientProxy {
 
     // TEs
     ClientRegistry.bindTileEntitySpecialRenderer(TileTank.class, new TankRenderer());
+    ClientRegistry.bindTileEntitySpecialRenderer(TileSmeltery.class, new SmelteryRenderer());
+
 
     // Items
     final ResourceLocation castLoc = SmelteryClientEvents.locBlankCast;

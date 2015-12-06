@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery.multiblock;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -27,36 +28,38 @@ public abstract class MultiblockDetection {
     public final int zd; // z-width of the structure
 
     public final List<BlockPos> blocks; // all blocks that are part of the structure
+    public final BlockPos minPos; // smallest coordinate in the multiblock
+    public final BlockPos maxPos; // largest coordinate in the multiblock
 
-    protected AxisAlignedBB bb;
+    protected final AxisAlignedBB bb;
 
     public MultiblockStructure(int xd, int yd, int zd, List<BlockPos> blocks) {
       this.xd = xd;
       this.yd = yd;
       this.zd = zd;
       this.blocks = blocks;
+
+      int minx = Integer.MAX_VALUE;
+      int maxx = Integer.MIN_VALUE;
+      int miny = Integer.MAX_VALUE;
+      int maxy = Integer.MIN_VALUE;
+      int minz = Integer.MAX_VALUE;
+      int maxz = Integer.MIN_VALUE;
+      for(BlockPos pos : blocks) {
+        if(pos.getX() < minx) minx = pos.getX();
+        if(pos.getX() > maxx) maxx = pos.getX();
+        if(pos.getY() < miny) miny = pos.getY();
+        if(pos.getY() > maxy) maxy = pos.getY();
+        if(pos.getZ() < minz) minz = pos.getZ();
+        if(pos.getZ() > maxz) maxz = pos.getZ();
+      }
+
+      bb = AxisAlignedBB.fromBounds(minx, miny, minz, maxx+1, maxy+1, maxz+1);
+      minPos = new BlockPos(minx, miny, minz);
+      maxPos = new BlockPos(maxx, maxy, maxz);
     }
 
     public AxisAlignedBB getBoundingBox() {
-      if(bb == null) {
-        int minx = Integer.MAX_VALUE;
-        int maxx = Integer.MIN_VALUE;
-        int miny = Integer.MAX_VALUE;
-        int maxy = Integer.MIN_VALUE;
-        int minz = Integer.MAX_VALUE;
-        int maxz = Integer.MIN_VALUE;
-        for(BlockPos pos : blocks) {
-          if(pos.getX() < minx) minx = pos.getX();
-          if(pos.getX() > maxx) maxx = pos.getX();
-          if(pos.getY() < miny) miny = pos.getY();
-          if(pos.getY() > maxy) maxy = pos.getY();
-          if(pos.getZ() < minz) minz = pos.getZ();
-          if(pos.getZ() > maxz) maxz = pos.getZ();
-        }
-
-        bb = AxisAlignedBB.fromBounds(minx, miny, minz, maxx+1, maxy+1, maxz+1);
-      }
-
       return bb;
     }
   }

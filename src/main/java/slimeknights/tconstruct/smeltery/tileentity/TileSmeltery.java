@@ -74,6 +74,9 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   public BlockPos currentTank;
   public FluidStack currentFuel; // the fuel that was last consumed
 
+  public BlockPos minPos; // smallest coordinate INSIDE the smeltery
+  public BlockPos maxPos; // biggest coordinate INSIDE the smeltery
+
   // Info about the state of the smeltery. Liquids etc.
   protected SmelteryTank liquids;
 
@@ -334,6 +337,14 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   protected void updateSmelteryInfo(MultiblockDetection.MultiblockStructure structure) {
     info = structure;
 
+    if(info != null) {
+      minPos = info.minPos.add(1,1,1); // add walls and floor
+      maxPos = info.maxPos.add(-1, 0, -1); // subtract walls, no ceiling
+    }
+    else {
+      minPos = maxPos = this.pos;
+    }
+
     // find all tanks for input
     tanks.clear();
     for(BlockPos pos : structure.blocks) {
@@ -495,6 +506,9 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
       currentFuel.writeToNBT(fuelTag);
     }
     compound.setTag("currentFuel", fuelTag);
+
+    compound.setTag("minPos", TagUtil.writePos(minPos));
+    compound.setTag("maxPos", TagUtil.writePos(maxPos));
   }
 
   @Override
@@ -511,6 +525,9 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
     NBTTagCompound fuelTag = compound.getCompoundTag("currentFuel");
     currentFuel = FluidStack.loadFluidStackFromNBT(fuelTag);
+
+    minPos = TagUtil.readPos(compound.getCompoundTag("minPos"));
+    maxPos = TagUtil.readPos(compound.getCompoundTag("maxPos"));
   }
 
   @Override

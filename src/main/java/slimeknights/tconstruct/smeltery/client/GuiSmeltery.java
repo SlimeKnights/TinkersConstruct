@@ -112,7 +112,7 @@ public class GuiSmeltery extends GuiMultiModule {
     SmelteryTank liquids = smeltery.getTank();
     if(liquids.getUsedCapacity() > 0) {
       int capacity = Math.max(liquids.getUsedCapacity(), liquids.getMaxCapacity());
-      int[] heights = calcLiquidHeights(liquids.getFluids(), capacity, scala.h);
+      int[] heights = calcLiquidHeights(liquids.getFluids(), capacity);
       int x = 8 + cornerX;
       int y = 16 + scala.h + cornerY; // y starting position
       int w = scala.w;
@@ -154,7 +154,7 @@ public class GuiSmeltery extends GuiMultiModule {
 
   protected FluidStack getFluidHovered(int y) {
     SmelteryTank tank = smeltery.getTank();
-    int[] heights = calcLiquidHeights(tank.getFluids(), tank.getMaxCapacity(), 52);
+    int[] heights = calcLiquidHeights(tank.getFluids(), tank.getMaxCapacity());
 
     for(int i = 0; i < heights.length; i++) {
       if(y < heights[i]) {
@@ -166,42 +166,8 @@ public class GuiSmeltery extends GuiMultiModule {
     return null;
   }
 
-  // calculate the rendering heights for all the liquids
-  protected int[] calcLiquidHeights (List<FluidStack> liquids, int capacity, int height)
-  {
-    int fluidHeights[] = new int[liquids.size()];
-
-    for (int i = 0; i < liquids.size(); i++)
-    {
-      FluidStack liquid = liquids.get(i);
-
-      float h = (float) liquid.amount / (float) capacity;
-      fluidHeights[i] = Math.max(3, (int) Math.ceil(h * (float)height));
-    }
-
-    // check if we have enough height to render everything
-    int sum = 0;
-    do
-    {
-      sum = 0;
-      int biggest = -1;
-      int m = 0;
-      for (int i = 0; i < fluidHeights.length; i++)
-      {
-        sum += fluidHeights[i];
-        if (liquids.get(i).amount > biggest)
-        {
-          biggest = liquids.get(i).amount;
-          m = i;
-        }
-      }
-
-      // remove a pixel from the biggest one
-      if (sum > height)
-        fluidHeights[m]--;
-    } while (sum > height);
-
-    return fluidHeights;
+  protected int[] calcLiquidHeights(List<FluidStack> liquids, int capacity) {
+    return SmelteryRenderer.calcLiquidHeights(liquids, capacity, scala.h, 3);
   }
 
 
