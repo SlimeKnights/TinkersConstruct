@@ -117,6 +117,7 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
   protected boolean detectPlaneXZ(World world, BlockPos center, int[] edges, boolean ceiling, List<BlockPos> subBlocks) {
     BlockPos from = center.add(edges[1], 0, edges[2]);
     BlockPos to = center.add(edges[3], 0, edges[0]);
+    List<BlockPos> candidates = Lists.newLinkedList();
 
     // validate frame first
     if(hasFrame) {
@@ -138,7 +139,7 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
         if(!isFrameBlock(world, pos)) {
           return false;
         }
-        subBlocks.add(pos);
+        candidates.add(pos);
       }
     }
 
@@ -154,16 +155,18 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
         else if(!ceiling && !isFloorBlock(world, x)) {
           return false;
         }
-        subBlocks.add(x);
+        candidates.add(x);
       }
     }
 
+    subBlocks.addAll(candidates);
     return true;
   }
 
   protected boolean detectLayer(World world, BlockPos center, int layer, int[] edges, List<BlockPos> subBlocks) {
     BlockPos from = center.add(edges[1], 0, edges[2]);
     BlockPos to = center.add(edges[3], 0, edges[0]);
+    List<BlockPos> candidates = Lists.newLinkedList();
 
     // validate frame first
     if(hasFrame) {
@@ -180,7 +183,7 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
         if(!isFrameBlock(world, pos)) {
           return false;
         }
-        subBlocks.add(pos);
+        candidates.add(pos);
       }
     }
 
@@ -188,7 +191,7 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
     List<BlockPos> blocks = Lists.newLinkedList();
     for(int x = edges[1]+1; x < edges[3]; x++) {
       for(int z = edges[2]+1; z < edges[0]; z++) {
-        blocks.add(center.add(x, 0 ,z));
+        candidates.add(center.add(x, 0 ,z));
       }
     }
     for(BlockPos pos : blocks) {
@@ -196,7 +199,7 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
         return false;
       }
       if(!world.isAirBlock(pos)) {
-        subBlocks.add(pos);
+        candidates.add(pos);
       }
     }
 
@@ -215,9 +218,10 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
       if(!isWallBlock(world, pos)) {
         return false;
       }
-      subBlocks.add(pos);
+      candidates.add(pos);
     }
 
+    subBlocks.addAll(candidates);
     return true;
   }
 }
