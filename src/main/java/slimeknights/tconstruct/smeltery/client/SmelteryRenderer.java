@@ -1,8 +1,20 @@
 package slimeknights.tconstruct.smeltery.client;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
+
+import org.lwjgl.opengl.GL11;
 
 import java.util.List;
 
@@ -26,15 +38,16 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
 
     List<FluidStack> fluids = tank.getFluids();
 
+    // calculate x/z parameters. they'll be the same for all liquids
+    double x1 = smeltery.minPos.getX() - smeltery.getPos().getX();
+    double y1 = smeltery.minPos.getY() - smeltery.getPos().getY();
+    double z1 = smeltery.minPos.getZ() - smeltery.getPos().getZ();
+
+    double x2 = smeltery.maxPos.getX() - smeltery.getPos().getX();
+    double z2 = smeltery.maxPos.getZ() - smeltery.getPos().getZ();
+
     // empty smeltery :(
     if(!fluids.isEmpty()) {
-      // calculate x/z parameters. they'll be the same for all liquids
-      double x1 = smeltery.minPos.getX() - smeltery.getPos().getX();
-      double y1 = smeltery.minPos.getY() - smeltery.getPos().getY();
-      double z1 = smeltery.minPos.getZ() - smeltery.getPos().getZ();
-
-      double x2 = smeltery.maxPos.getX() - smeltery.getPos().getX();
-      double z2 = smeltery.maxPos.getZ() - smeltery.getPos().getZ();
 
       BlockPos minPos = new BlockPos(x1, y1, z1);
       BlockPos maxPos = new BlockPos(x2, y1, z2);
@@ -54,7 +67,39 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
       }
     }
 
+    // render items
+    int xd = 1 + smeltery.maxPos.getX() - smeltery.minPos.getX();
+    int zd = 1 + smeltery.maxPos.getZ() - smeltery.minPos.getZ();
+    int layer = xd*zd;
+    //Tessellator tessellator = Tessellator.getInstance();
+    //WorldRenderer renderer = tessellator.getWorldRenderer();
+    //renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+    //Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+    RenderUtil.pre(x,y,z);
+    GlStateManager.disableCull();
+    GlStateManager.translate(x1, y1, z1);
+    GlStateManager.translate(0.5f, 0.5f, 0.5f);
 
+    for(int i = 0; i < smeltery.getSizeInventory(); i++) {
+      if(smeltery.isStackInSlot(i)) {
+        // calculate position inside the smeltery from slot index
+        int h = i / layer;
+        int i2 = i % layer;
+        BlockPos pos = smeltery.minPos.add(i2 % xd, h, i2 / xd);
+
+        ItemStack stack = smeltery.getStackInSlot(i);
+
+        //GlStateManager.pushMatrix();
+        GlStateManager.translate(i2 % xd, h, i2 / xd);
+        IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
+        //Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(smeltery.getWorld(), model, Blocks.bedrock.getDefaultState(), pos, renderer, false);
+        Minecraft.getMinecraft().getRenderItem().renderItem(stack, model);
+        GlStateManager.translate(-i2 % xd, -h, -i2 / xd);
+        //GlStateManager.popMatrix();
+      }
+    }
+//    tessellator.draw();
+    RenderUtil.post();
   }
 
   /**

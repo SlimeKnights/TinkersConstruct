@@ -310,7 +310,7 @@ public final class RenderUtil {
     }
   }
 
-  protected static void pre(double x, double y, double z) {
+  public static void pre(double x, double y, double z) {
     GlStateManager.pushMatrix();
 
     GlStateManager.disableLighting();
@@ -329,7 +329,7 @@ public final class RenderUtil {
     GlStateManager.translate(x, y, z);
   }
 
-  protected static void post() {
+  public static void post() {
     GlStateManager.disableBlend();
     GlStateManager.enableLighting();
     GlStateManager.popMatrix();
