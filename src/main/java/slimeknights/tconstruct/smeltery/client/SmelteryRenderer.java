@@ -43,12 +43,6 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
       BlockPos minPos = new BlockPos(x1, y1, z1);
       BlockPos maxPos = new BlockPos(x2, y1, z2);
 
-      x1 += RenderUtil.FLUID_OFFSET;
-      y1 += RenderUtil.FLUID_OFFSET;
-      z1 += RenderUtil.FLUID_OFFSET;
-      x2 += 1d - RenderUtil.FLUID_OFFSET;
-      z2 += 1d - RenderUtil.FLUID_OFFSET;
-
       // calc heights, we use mB capacities and then convert it over to blockheights during rendering
       int yd = 1 + smeltery.maxPos.getY() - smeltery.minPos.getY();
       // one block height = 1000 mb
