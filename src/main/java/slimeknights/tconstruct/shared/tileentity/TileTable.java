@@ -134,17 +134,7 @@ public class TileTable extends TileInventory {
   public void setInventorySlotContents(int slot, ItemStack itemstack) {
     // we sync slot changes to all clients around
     if(this.worldObj != null  && this.worldObj instanceof WorldServer && !this.worldObj.isRemote && !ItemStack.areItemStacksEqual(itemstack, getStackInSlot(slot))) {
-      Chunk chunk = getWorld().getChunkFromBlockCoords(getPos());
-      for(EntityPlayer player : (List<EntityPlayer>) getWorld().playerEntities) {
-        // only send to relevant players
-        if(!(player instanceof EntityPlayerMP)) {
-          continue;
-        }
-        EntityPlayerMP playerMP = (EntityPlayerMP) player;
-        if(((WorldServer) worldObj).getPlayerManager().isPlayerWatchingChunk(playerMP, chunk.xPosition, chunk.zPosition)) {
-          TinkerNetwork.sendTo(new InventorySlotSyncPacket(itemstack, slot, pos), playerMP);
-        }
-      }
+      TinkerNetwork.sendToClients((WorldServer) this.worldObj, this.pos, new InventorySlotSyncPacket(itemstack, slot, pos));
     }
     super.setInventorySlotContents(slot, itemstack);
 

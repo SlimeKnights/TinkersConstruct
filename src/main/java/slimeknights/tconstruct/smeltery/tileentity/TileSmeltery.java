@@ -24,6 +24,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
@@ -58,6 +59,7 @@ import slimeknights.tconstruct.smeltery.multiblock.MultiblockDetection;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockSmeltery;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.SmelteryFuelUpdatePacket;
+import slimeknights.tconstruct.smeltery.network.SmelteryInventoryUpdatePacket;
 
 public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, ITickable, IInventoryGui,
                                                                   ISmelteryTankHandler {
@@ -469,6 +471,15 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   }
 
   /* Network & Saving */
+
+  @Override
+  public void setInventorySlotContents(int slot, ItemStack itemstack) {
+    // send to client if needed
+    if(this.worldObj != null && this.worldObj instanceof WorldServer && !this.worldObj.isRemote && !ItemStack.areItemStacksEqual(itemstack, getStackInSlot(slot))) {
+      TinkerNetwork.sendToClients((WorldServer) this.worldObj, this.pos, new SmelteryInventoryUpdatePacket(itemstack, slot, pos));
+    }
+    super.setInventorySlotContents(slot, itemstack);
+  }
 
   @SideOnly(Side.CLIENT)
   public void updateTemperatureFromPacket(int index, int heat) {
