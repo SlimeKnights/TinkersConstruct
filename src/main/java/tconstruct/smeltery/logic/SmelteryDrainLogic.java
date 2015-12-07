@@ -179,8 +179,8 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        readFromNBT(packet.func_148857_g());
-        worldObj.func_147479_m(xCoord, yCoord, zCoord);
+        readFromNBT(packet.getNbtCompound());
+        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 
     public int comparatorStrength ()

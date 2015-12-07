@@ -26,7 +26,7 @@ public class PaneBase extends BlockStainedGlassPane
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons (IIconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         this.icons = new IIcon[textureNames.length];
         this.sideIcons = new IIcon[textureNames.length];
@@ -40,7 +40,7 @@ public class PaneBase extends BlockStainedGlassPane
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149735_b (int p_149735_1_, int p_149735_2_)
+    public IIcon getItemIcon (int p_149735_1_, int p_149735_2_)
     {
         return icons[p_149735_2_];
     }

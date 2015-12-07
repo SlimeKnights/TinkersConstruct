@@ -25,7 +25,7 @@ public class SlimeFluid extends BlockFluidClassic
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons (IIconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         stillIcon = iconRegister.registerIcon("tinker:slime_blue");
         flowIcon = iconRegister.registerIcon("tinker:slime_blue_flow");

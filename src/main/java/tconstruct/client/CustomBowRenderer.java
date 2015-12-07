@@ -33,7 +33,7 @@ public class CustomBowRenderer implements IItemRenderer
     {
         EntityLivingBase living = (EntityLivingBase) data[1];
         ItemRenderer renderer = RenderManager.instance.itemRenderer;
-        for (int i = 0; i < item.getItem().getRenderPasses(item.getItemDamage()) + 1; i++)
+        for (int i = 0; i < item.getItem().getRenderPasses(item.getMetadata()) + 1; i++)
             renderItem(living, item, i, type);
     }
 

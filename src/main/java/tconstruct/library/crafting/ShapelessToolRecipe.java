@@ -41,7 +41,7 @@ public class ShapelessToolRecipe extends ShapelessRecipes
                     {
                         ItemStack itemstack1 = (ItemStack) iterator.next();
 
-                        // TConstruct.logger.info("Rawr! "+itemstack1.getItemDamage());
+                        // TConstruct.logger.info("Rawr! "+itemstack1.getMetadata());
                         if (itemstack.getItem() == itemstack1.getItem())
                         {
                             if (itemstack.getItem() instanceof ToolCore)
@@ -52,7 +52,7 @@ public class ShapelessToolRecipe extends ShapelessRecipes
 
                                 flag = true;
                             }
-                            else if((itemstack1.getItemDamage() == Short.MAX_VALUE || itemstack.getItemDamage() == itemstack1.getItemDamage()))
+                            else if((itemstack1.getMetadata() == Short.MAX_VALUE || itemstack.getMetadata() == itemstack1.getMetadata()))
                                 flag = true;
 
                             arraylist.remove(itemstack1);

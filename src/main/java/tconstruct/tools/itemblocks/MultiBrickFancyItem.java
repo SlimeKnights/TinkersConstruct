@@ -15,7 +15,7 @@ public class MultiBrickFancyItem extends MultiItemBlock
     public MultiBrickFancyItem(Block b)
     {
         super(b, "block.fancybrick", blockTypes);
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 
@@ -23,7 +23,7 @@ public class MultiBrickFancyItem extends MultiItemBlock
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        switch (stack.getItemDamage())
+        switch (stack.getMetadata())
         {
         case 5:
         case 6:

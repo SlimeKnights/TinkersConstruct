@@ -34,7 +34,7 @@ import tconstruct.weaponry.TinkerWeaponry;
  * render tag, bottom layer
  * 
  * Damage: Replacement for metadata MaxDamage: ItemStacks only read
- * setMaxDamage() Broken: Represents whether the tool is broken (boolean)
+ * setMaxDurability() Broken: Represents whether the tool is broken (boolean)
  * Attack: How much damage a mob will take MiningSpeed: The speed at which
  * a tool mines
  * 
@@ -64,7 +64,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
     {
         super();
         this.maxStackSize = 1;
-        this.setMaxDamage(100);
+        this.setMaxDurability(100);
         this.setUnlocalizedName("InfiTool");
         this.setCreativeTab(TConstructRegistry.toolTab);
         damageVsEntity = baseDamage;
@@ -706,7 +706,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
             if (nearbyStack != null)
             {
                 Item item = nearbyStack.getItem();
-                if (item instanceof ItemPotion && ((ItemPotion) item).isSplash(nearbyStack.getItemDamage()))
+                if (item instanceof ItemPotion && ((ItemPotion) item).isSplash(nearbyStack.getMetadata()))
                 {
                     nearbyStack = item.onItemRightClick(nearbyStack, world, player);
                     if (nearbyStack.stackSize < 1)
@@ -822,7 +822,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
 
     @Override
     public void setDamage(ItemStack stack, int damage) {
-        int change = damage - stack.getItemDamage();
+        int change = damage - stack.getMetadata();
         if(change == 0)
             return;
 
@@ -866,7 +866,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
         {
             energy += energyReceived;
             tags.setInteger("Energy", energy);
-            //container.setItemDamage(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 2) / getMaxEnergyStored(container));
+            //container.setMetadata(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 2) / getMaxEnergyStored(container));
         }
         return energyReceived;
     }
@@ -889,7 +889,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IEq
         {
             energy -= energyExtracted;
             tags.setInteger("Energy", energy);
-            //container.setItemDamage(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 1) / getMaxEnergyStored(container));
+            //container.setMetadata(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 1) / getMaxEnergyStored(container));
         }
         return energyExtracted;
     }

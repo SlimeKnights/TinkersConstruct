@@ -21,9 +21,9 @@ public class BattlesignTesr extends TileEntitySpecialRenderer
         GL11.glTranslated(x, y, z);
         GL11.glScalef(f, -f, f);
 
-        FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
+        FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
 
-        switch (te.getWorldObj().getBlockMetadata(te.xCoord, te.yCoord, te.zCoord))
+        switch (te.getWorld().getBlockMetadata(te.xCoord, te.yCoord, te.zCoord))
         {
         case 0:
             GL11.glRotatef(-90F, 0F, 1F, 0F);
@@ -46,7 +46,7 @@ public class BattlesignTesr extends TileEntitySpecialRenderer
 
         if (strings != null && strings.length > 0)
         {
-            float lum = calcLuminance(te.getWorldObj().getBlock(te.xCoord, te.yCoord, te.zCoord).colorMultiplier(te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord));
+            float lum = calcLuminance(te.getWorld().getBlock(te.xCoord, te.yCoord, te.zCoord).colorMultiplier(te.getWorld(), te.xCoord, te.yCoord, te.zCoord));
 
             for (int i = 0; i < strings.length; i++)
             {

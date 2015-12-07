@@ -10,7 +10,7 @@ public class StainedGlassClearItem extends MultiItemBlock
     public StainedGlassClearItem(Block b)
     {
         super(b, "block.stainedglass", blockTypes);
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 

@@ -18,7 +18,7 @@ public class ArmorPattern extends CraftingItem implements ItemBlocklike
     {
         super(patternName, getPatternNames(patternType), folder, "tinker", TConstructRegistry.materialTab);
         this.setHasSubtypes(true);
-        this.setMaxDamage(0);
+        this.setMaxDurability(0);
         this.setContainerItem(this);
         this.setMaxStackSize(1);
     }

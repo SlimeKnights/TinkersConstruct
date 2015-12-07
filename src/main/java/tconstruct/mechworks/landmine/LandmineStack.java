@@ -59,11 +59,11 @@ public class LandmineStack
             ItemStack stack = (ItemStack) o;
             if (isBlock && stack.getItem() instanceof ItemBlock)
             {
-                return block == ((ItemBlock) stack.getItem()).field_150939_a && (meta == stack.getItemDamage() || meta == -314159265);
+                return block == ((ItemBlock) stack.getItem()).blockInstance && (meta == stack.getMetadata() || meta == -314159265);
             }
             else if (!isBlock)
             {
-                return item == stack.getItem() && (meta == stack.getItemDamage() || meta == -314159265);
+                return item == stack.getItem() && (meta == stack.getMetadata() || meta == -314159265);
             }
             else
             {

@@ -81,7 +81,7 @@ public class TinkerArmor
         MinecraftForge.EVENT_BUS.register(new TinkerArmorEvents());
         FMLCommonHandler.instance().bus().register(new ArmorAbilities());
 
-        TinkerArmor.dryingRack = new DryingRack().setBlockName("Armor.DryingRack");
+        TinkerArmor.dryingRack = new DryingRack().setUnlocalizedName("Armor.DryingRack");
         GameRegistry.registerBlock(TinkerArmor.dryingRack, "Armor.DryingRack");
         GameRegistry.registerTileEntity(DryingRackLogic.class, "Armor.DryingRack");
         TinkerArmor.diamondApple = new DiamondApple().setUnlocalizedName("tconstruct.apple.diamond");

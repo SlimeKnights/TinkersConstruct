@@ -97,18 +97,18 @@ public class TinkerWorld
         MinecraftForge.EVENT_BUS.register(new TinkerWorldEvents());
 
         //Blocks
-        TinkerWorld.meatBlock = new MeatBlock().setBlockName("tconstruct.meatblock");
-        TinkerWorld.woolSlab1 = new SlabBase(Material.cloth, Blocks.wool, 0, 8).setBlockName("cloth");
+        TinkerWorld.meatBlock = new MeatBlock().setUnlocalizedName("tconstruct.meatblock");
+        TinkerWorld.woolSlab1 = new SlabBase(Material.cloth, Blocks.wool, 0, 8).setUnlocalizedName("cloth");
         TinkerWorld.woolSlab1.setStepSound(Block.soundTypeCloth).setCreativeTab(CreativeTabs.tabDecorations);
-        TinkerWorld.woolSlab2 = new SlabBase(Material.cloth, Blocks.wool, 8, 8).setBlockName("cloth");
+        TinkerWorld.woolSlab2 = new SlabBase(Material.cloth, Blocks.wool, 8, 8).setUnlocalizedName("cloth");
         TinkerWorld.woolSlab2.setStepSound(Block.soundTypeCloth).setCreativeTab(CreativeTabs.tabDecorations);
         // Traps
-        TinkerWorld.punji = new Punji().setBlockName("trap.punji");
-        TinkerWorld.barricadeOak = new BarricadeBlock(Blocks.log, 0).setBlockName("trap.barricade.oak");
-        TinkerWorld.barricadeSpruce = new BarricadeBlock(Blocks.log, 1).setBlockName("trap.barricade.spruce");
-        TinkerWorld.barricadeBirch = new BarricadeBlock(Blocks.log, 2).setBlockName("trap.barricade.birch");
-        TinkerWorld.barricadeJungle = new BarricadeBlock(Blocks.log, 3).setBlockName("trap.barricade.jungle");
-        TinkerWorld.slimeExplosive = new SlimeExplosive().setHardness(0.0F).setStepSound(Block.soundTypeGrass).setBlockName("explosive.slime");
+        TinkerWorld.punji = new Punji().setUnlocalizedName("trap.punji");
+        TinkerWorld.barricadeOak = new BarricadeBlock(Blocks.log, 0).setUnlocalizedName("trap.barricade.oak");
+        TinkerWorld.barricadeSpruce = new BarricadeBlock(Blocks.log, 1).setUnlocalizedName("trap.barricade.spruce");
+        TinkerWorld.barricadeBirch = new BarricadeBlock(Blocks.log, 2).setUnlocalizedName("trap.barricade.birch");
+        TinkerWorld.barricadeJungle = new BarricadeBlock(Blocks.log, 3).setUnlocalizedName("trap.barricade.jungle");
+        TinkerWorld.slimeExplosive = new SlimeExplosive().setHardness(0.0F).setStepSound(Block.soundTypeGrass).setUnlocalizedName("explosive.slime");
 
         // Slime
         TinkerWorld.slimeStep = new StepSoundSlime("mob.slime", 1.0f, 1.0f);
@@ -116,42 +116,42 @@ public class TinkerWorld
         TinkerWorld.blueSlimeFluid = new Fluid("slime.blue");
         if (!FluidRegistry.registerFluid(TinkerWorld.blueSlimeFluid))
             TinkerWorld.blueSlimeFluid = FluidRegistry.getFluid("slime.blue");
-        TinkerWorld.slimePool = new SlimeFluid(TinkerWorld.blueSlimeFluid, Material.water).setCreativeTab(TConstructRegistry.blockTab).setStepSound(TinkerWorld.slimeStep).setBlockName("liquid.slime");
+        TinkerWorld.slimePool = new SlimeFluid(TinkerWorld.blueSlimeFluid, Material.water).setCreativeTab(TConstructRegistry.blockTab).setStepSound(TinkerWorld.slimeStep).setUnlocalizedName("liquid.slime");
         GameRegistry.registerBlock(TinkerWorld.slimePool, "liquid.slime");
         TinkerWorld.blueSlimeFluid.setBlock(TinkerWorld.slimePool);
 
         // Slime Islands
-        TinkerWorld.slimeGel = new SlimeGel().setStepSound(TinkerWorld.slimeStep).setLightOpacity(0).setBlockName("slime.gel");
-        TinkerWorld.slimeGrass = new SlimeGrass().setStepSound(Block.soundTypeGrass).setLightOpacity(0).setBlockName("slime.grass");
-        TinkerWorld.slimeTallGrass = new SlimeTallGrass().setStepSound(Block.soundTypeGrass).setBlockName("slime.grass.tall");
-        TinkerWorld.slimeLeaves = (SlimeLeaves) new SlimeLeaves().setStepSound(TinkerWorld.slimeStep).setLightOpacity(0).setBlockName("slime.leaves");
-        TinkerWorld.slimeSapling = (SlimeSapling) new SlimeSapling().setStepSound(TinkerWorld.slimeStep).setBlockName("slime.sapling");
-        TinkerWorld.slimeChannel = new ConveyorBase(Material.water, "greencurrent").setHardness(0.3f).setStepSound(TinkerWorld.slimeStep).setBlockName("slime.channel");
-        TinkerWorld.bloodChannel = new ConveyorBase(Material.water, "liquid_cow").setHardness(0.3f).setStepSound(TinkerWorld.slimeStep).setBlockName("blood.channel");
-        TinkerWorld.slimePad = new SlimePad(Material.cloth).setStepSound(TinkerWorld.slimeStep).setHardness(0.3f).setBlockName("slime.pad");
+        TinkerWorld.slimeGel = new SlimeGel().setStepSound(TinkerWorld.slimeStep).setLightOpacity(0).setUnlocalizedName("slime.gel");
+        TinkerWorld.slimeGrass = new SlimeGrass().setStepSound(Block.soundTypeGrass).setLightOpacity(0).setUnlocalizedName("slime.grass");
+        TinkerWorld.slimeTallGrass = new SlimeTallGrass().setStepSound(Block.soundTypeGrass).setUnlocalizedName("slime.grass.tall");
+        TinkerWorld.slimeLeaves = (SlimeLeaves) new SlimeLeaves().setStepSound(TinkerWorld.slimeStep).setLightOpacity(0).setUnlocalizedName("slime.leaves");
+        TinkerWorld.slimeSapling = (SlimeSapling) new SlimeSapling().setStepSound(TinkerWorld.slimeStep).setUnlocalizedName("slime.sapling");
+        TinkerWorld.slimeChannel = new ConveyorBase(Material.water, "greencurrent").setHardness(0.3f).setStepSound(TinkerWorld.slimeStep).setUnlocalizedName("slime.channel");
+        TinkerWorld.bloodChannel = new ConveyorBase(Material.water, "liquid_cow").setHardness(0.3f).setStepSound(TinkerWorld.slimeStep).setUnlocalizedName("blood.channel");
+        TinkerWorld.slimePad = new SlimePad(Material.cloth).setStepSound(TinkerWorld.slimeStep).setHardness(0.3f).setUnlocalizedName("slime.pad");
 
         // Decoration
-        TinkerWorld.stoneTorch = new StoneTorch().setBlockName("decoration.stonetorch");
-        TinkerWorld.stoneLadder = new StoneLadder().setBlockName("decoration.stoneladder");
-        TinkerTools.multiBrick = new MultiBrick().setBlockName("Decoration.Brick");
-        TinkerTools.multiBrickFancy = new MultiBrickFancy().setBlockName("Decoration.BrickFancy");
-        TinkerTools.multiBrickMetal = new MultiBrickMetal().setBlockName("Decoration.BrickMetal");
+        TinkerWorld.stoneTorch = new StoneTorch().setUnlocalizedName("decoration.stonetorch");
+        TinkerWorld.stoneLadder = new StoneLadder().setUnlocalizedName("decoration.stoneladder");
+        TinkerTools.multiBrick = new MultiBrick().setUnlocalizedName("Decoration.Brick");
+        TinkerTools.multiBrickFancy = new MultiBrickFancy().setUnlocalizedName("Decoration.BrickFancy");
+        TinkerTools.multiBrickMetal = new MultiBrickMetal().setUnlocalizedName("Decoration.BrickMetal");
 
         // Ores
         String[] berryOres = new String[] { "berry_iron", "berry_gold", "berry_copper", "berry_tin", "berry_iron_ripe", "berry_gold_ripe", "berry_copper_ripe", "berry_tin_ripe" };
-        TinkerWorld.oreBerry = (OreberryBush) new OreberryBush(berryOres, 0, 4, new String[] { "oreIron", "oreGold", "oreCopper", "oreTin" }).setBlockName("ore.berries.one");
+        TinkerWorld.oreBerry = (OreberryBush) new OreberryBush(berryOres, 0, 4, new String[] { "oreIron", "oreGold", "oreCopper", "oreTin" }).setUnlocalizedName("ore.berries.one");
         String[] berryOresTwo = new String[] { "berry_aluminum", "berry_essence", "", "", "berry_aluminum_ripe", "berry_essence_ripe", "", "" };
-        TinkerWorld.oreBerrySecond = (OreberryBush) new OreberryBushEssence(berryOresTwo, 4, 2, new String[] { "oreAluminum", "oreSilver" }).setBlockName("ore.berries.two");
+        TinkerWorld.oreBerrySecond = (OreberryBush) new OreberryBushEssence(berryOresTwo, 4, 2, new String[] { "oreAluminum", "oreSilver" }).setUnlocalizedName("ore.berries.two");
 
         String[] oreTypes = new String[] { "nether_slag", "nether_cobalt", "nether_ardite", "ore_copper", "ore_tin", "ore_aluminum", "ore_slag" };
-        TinkerWorld.oreSlag = new MetalOre(Material.rock, 10.0F, oreTypes).setBlockName("tconstruct.stoneore");
+        TinkerWorld.oreSlag = new MetalOre(Material.rock, 10.0F, oreTypes).setUnlocalizedName("tconstruct.stoneore");
         TinkerWorld.oreSlag.setHarvestLevel("pickaxe", 4, 1);
         TinkerWorld.oreSlag.setHarvestLevel("pickaxe", 4, 2);
         TinkerWorld.oreSlag.setHarvestLevel("pickaxe", 1, 3);
         TinkerWorld.oreSlag.setHarvestLevel("pickaxe", 1, 4);
         TinkerWorld.oreSlag.setHarvestLevel("pickaxe", 1, 5);
 
-        TinkerWorld.oreGravel = new GravelOre().setBlockName("GravelOre").setBlockName("tconstruct.gravelore");
+        TinkerWorld.oreGravel = new GravelOre().setUnlocalizedName("GravelOre").setUnlocalizedName("tconstruct.gravelore");
         TinkerWorld.oreGravel.setHarvestLevel("shovel", 1, 0);
         TinkerWorld.oreGravel.setHarvestLevel("shovel", 2, 1);
         TinkerWorld.oreGravel.setHarvestLevel("shovel", 1, 2);
@@ -159,7 +159,7 @@ public class TinkerWorld
         TinkerWorld.oreGravel.setHarvestLevel("shovel", 1, 4);
         TinkerWorld.oreGravel.setHarvestLevel("shovel", 4, 5);
         // Rail
-        TinkerWorld.woodenRail = new WoodRail().setStepSound(Block.soundTypeWood).setCreativeTab(TConstructRegistry.blockTab).setBlockName("rail.wood");
+        TinkerWorld.woodenRail = new WoodRail().setStepSound(Block.soundTypeWood).setCreativeTab(TConstructRegistry.blockTab).setUnlocalizedName("rail.wood");
 
         GameRegistry.registerBlock(TinkerWorld.meatBlock, HamboneItemBlock.class, "MeatBlock");
         OreDictionary.registerOre("hambone", new ItemStack(TinkerWorld.meatBlock));
@@ -234,7 +234,7 @@ public class TinkerWorld
         Items.cake.setMaxStackSize(16);
         // Block.torchWood.setTickRandomly(false);
 
-        TinkerWorld.metalBlock = new TMetalBlock(Material.iron, 10.0F).setBlockName("tconstruct.metalblock");
+        TinkerWorld.metalBlock = new TMetalBlock(Material.iron, 10.0F).setUnlocalizedName("tconstruct.metalblock");
         TinkerWorld.metalBlock.stepSound = Block.soundTypeMetal;
         GameRegistry.registerBlock(TinkerWorld.metalBlock, MetalItemBlock.class, "MetalBlock");
         FluidType.registerFluidType("Slime", TinkerWorld.slimeGel, 0, 250, TinkerWorld.blueSlimeFluid, false);
@@ -415,43 +415,43 @@ public class TinkerWorld
 
     private void addRecipesForFurnace ()
     {
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerTools.craftedSoil, 1, 3), new ItemStack(TinkerTools.craftedSoil, 1, 4), 0.2f); // Concecrated
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerTools.craftedSoil, 1, 3), new ItemStack(TinkerTools.craftedSoil, 1, 4), 0.2f); // Concecrated
         // Soil
 
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerTools.craftedSoil, 1, 0), new ItemStack(TinkerTools.materials, 1, 1), 2f); // Slime
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerTools.craftedSoil, 1, 1), new ItemStack(TinkerTools.materials, 1, 2), 2f); // Seared brick item
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerTools.craftedSoil, 1, 2), new ItemStack(TinkerTools.materials, 1, 17), 2f); // Blue Slime
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerTools.craftedSoil, 1, 6), new ItemStack(TinkerTools.materials, 1, 37), 2f); // Nether seared
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerTools.craftedSoil, 1, 0), new ItemStack(TinkerTools.materials, 1, 1), 2f); // Slime
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerTools.craftedSoil, 1, 1), new ItemStack(TinkerTools.materials, 1, 2), 2f); // Seared brick item
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerTools.craftedSoil, 1, 2), new ItemStack(TinkerTools.materials, 1, 17), 2f); // Blue Slime
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerTools.craftedSoil, 1, 6), new ItemStack(TinkerTools.materials, 1, 37), 2f); // Nether seared
         // brick
 
-        // FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreSlag,
+        // FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TRepo.oreSlag,
         // 1, new ItemStack(TRepo.materials, 1, 3), 3f);
-        // FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreSlag,
+        // FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TRepo.oreSlag,
         // 2, new ItemStack(TRepo.materials, 1, 4), 3f);
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerWorld.oreSlag, 1, 3), new ItemStack(TinkerTools.materials, 1, 9), 0.5f);
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerWorld.oreSlag, 1, 4), new ItemStack(TinkerTools.materials, 1, 10), 0.5f);
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerWorld.oreSlag, 1, 5), new ItemStack(TinkerTools.materials, 1, 11), 0.5f);
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerWorld.oreSlag, 1, 3), new ItemStack(TinkerTools.materials, 1, 9), 0.5f);
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerWorld.oreSlag, 1, 4), new ItemStack(TinkerTools.materials, 1, 10), 0.5f);
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerWorld.oreSlag, 1, 5), new ItemStack(TinkerTools.materials, 1, 11), 0.5f);
 
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerWorld.oreBerries, 1, 0), new ItemStack(TinkerTools.materials, 1, 19), 0.2f);
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerWorld.oreBerries, 1, 1), new ItemStack(Items.gold_nugget), 0.2f);
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerWorld.oreBerries, 1, 2), new ItemStack(TinkerTools.materials, 1, 20), 0.2f);
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerWorld.oreBerries, 1, 3), new ItemStack(TinkerTools.materials, 1, 21), 0.2f);
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerWorld.oreBerries, 1, 4), new ItemStack(TinkerTools.materials, 1, 22), 0.2f);
-        // FurnaceRecipes.smelting().func_151394_a(new
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerWorld.oreBerries, 1, 0), new ItemStack(TinkerTools.materials, 1, 19), 0.2f);
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerWorld.oreBerries, 1, 1), new ItemStack(Items.gold_nugget), 0.2f);
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerWorld.oreBerries, 1, 2), new ItemStack(TinkerTools.materials, 1, 20), 0.2f);
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerWorld.oreBerries, 1, 3), new ItemStack(TinkerTools.materials, 1, 21), 0.2f);
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerWorld.oreBerries, 1, 4), new ItemStack(TinkerTools.materials, 1, 22), 0.2f);
+        // FurnaceRecipes.instance().addSmeltingRecipe(new
         // ItemStack(TRepo.oreBerries, 5, new ItemStack(TRepo.materials, 1, 23),
         // 0.2f);
 
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerWorld.oreGravel, 1, 0), new ItemStack(Items.iron_ingot), 0.2f);
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerWorld.oreGravel, 1, 1), new ItemStack(Items.gold_ingot), 0.2f);
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerWorld.oreGravel, 1, 2), new ItemStack(TinkerTools.materials, 1, 9), 0.2f);
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerWorld.oreGravel, 1, 3), new ItemStack(TinkerTools.materials, 1, 10), 0.2f);
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerWorld.oreGravel, 1, 4), new ItemStack(TinkerTools.materials, 1, 11), 0.2f);
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerWorld.oreGravel, 1, 0), new ItemStack(Items.iron_ingot), 0.2f);
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerWorld.oreGravel, 1, 1), new ItemStack(Items.gold_ingot), 0.2f);
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerWorld.oreGravel, 1, 2), new ItemStack(TinkerTools.materials, 1, 9), 0.2f);
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerWorld.oreGravel, 1, 3), new ItemStack(TinkerTools.materials, 1, 10), 0.2f);
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerWorld.oreGravel, 1, 4), new ItemStack(TinkerTools.materials, 1, 11), 0.2f);
 
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerTools.materials, 1, 38), new ItemStack(TinkerTools.materials, 1, 4), 0.2f);
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerTools.materials, 1, 39), new ItemStack(TinkerTools.materials, 1, 3), 0.2f);
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerTools.materials, 1, 40), new ItemStack(TinkerTools.materials, 1, 11), 0.2f);
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerTools.materials, 1, 41), new ItemStack(TinkerTools.materials, 1, 5), 0.2f);
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerTools.materials, 1, 42), new ItemStack(TinkerTools.materials, 1, 14), 0.2f);
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerTools.materials, 1, 38), new ItemStack(TinkerTools.materials, 1, 4), 0.2f);
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerTools.materials, 1, 39), new ItemStack(TinkerTools.materials, 1, 3), 0.2f);
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerTools.materials, 1, 40), new ItemStack(TinkerTools.materials, 1, 11), 0.2f);
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerTools.materials, 1, 41), new ItemStack(TinkerTools.materials, 1, 5), 0.2f);
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerTools.materials, 1, 42), new ItemStack(TinkerTools.materials, 1, 14), 0.2f);
 
     }
 

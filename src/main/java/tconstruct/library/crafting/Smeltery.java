@@ -67,7 +67,7 @@ public class Smeltery
     public static void addMelting (ItemStack stack, int temperature, FluidStack output)
     {
         if (stack.getItem() instanceof ItemBlock)
-            addMelting(stack, ((ItemBlock) stack.getItem()).field_150939_a, stack.getItemDamage(), temperature, output);
+            addMelting(stack, ((ItemBlock) stack.getItem()).blockInstance, stack.getMetadata(), temperature, output);
         else
             throw new IllegalArgumentException("ItemStack must house a block.");
     }
@@ -236,7 +236,7 @@ public class Smeltery
             temp = type.baseTemperature;
 
         if (input.getItem() instanceof ItemBlock)
-            addMelting(input, ((ItemBlock) input.getItem()).field_150939_a, input.getItemDamage(), type.baseTemperature + temperatureDifference, new FluidStack(type.fluid, fluidAmount));
+            addMelting(input, ((ItemBlock) input.getItem()).blockInstance, input.getMetadata(), type.baseTemperature + temperatureDifference, new FluidStack(type.fluid, fluidAmount));
         else
             addMelting(input, type.renderBlock, type.renderMeta, type.baseTemperature + temperatureDifference, new FluidStack(type.fluid, fluidAmount));
     }

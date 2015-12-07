@@ -613,7 +613,7 @@ public class GlassBlockConnected extends MantleBlock
     }
 
     @Override
-    public void registerBlockIcons (IIconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
         icons[0] = par1IconRegister.registerIcon("tinker:glass/" + folder + "/glass");
         icons[1] = par1IconRegister.registerIcon("tinker:glass/" + folder + "/glass_1_d");

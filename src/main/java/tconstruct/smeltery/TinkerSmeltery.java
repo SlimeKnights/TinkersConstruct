@@ -156,25 +156,25 @@ public class TinkerSmeltery
         TinkerSmeltery.buckets = new FilledBucket(BlockUtils.getBlockFromItem(TinkerSmeltery.buckets));
         GameRegistry.registerItem(TinkerSmeltery.buckets, "buckets");
 
-        TinkerSmeltery.searedSlab = new SearedSlab().setBlockName("SearedSlab");
+        TinkerSmeltery.searedSlab = new SearedSlab().setUnlocalizedName("SearedSlab");
         TinkerSmeltery.searedSlab.stepSound = Block.soundTypeStone;
 
-        TinkerSmeltery.speedSlab = new SpeedSlab().setBlockName("SpeedSlab");
+        TinkerSmeltery.speedSlab = new SpeedSlab().setUnlocalizedName("SpeedSlab");
         TinkerSmeltery.speedSlab.stepSound = Block.soundTypeStone;
 
-        TinkerSmeltery.glueBlock = new GlueBlock().setBlockName("GlueBlock").setCreativeTab(TConstructRegistry.blockTab);
+        TinkerSmeltery.glueBlock = new GlueBlock().setUnlocalizedName("GlueBlock").setCreativeTab(TConstructRegistry.blockTab);
 
         // Smeltery
-        TinkerSmeltery.smeltery = new SmelteryBlock().setBlockName("Smeltery");
-        TinkerSmeltery.smelteryNether = new SmelteryBlock("nether").setBlockName("Smeltery");
-        TinkerSmeltery.lavaTank = new LavaTankBlock().setBlockName("LavaTank");
+        TinkerSmeltery.smeltery = new SmelteryBlock().setUnlocalizedName("Smeltery");
+        TinkerSmeltery.smelteryNether = new SmelteryBlock("nether").setUnlocalizedName("Smeltery");
+        TinkerSmeltery.lavaTank = new LavaTankBlock().setUnlocalizedName("LavaTank");
         TinkerSmeltery.lavaTank.setStepSound(Block.soundTypeGlass);
-        TinkerSmeltery.lavaTankNether = new LavaTankBlock("nether").setStepSound(Block.soundTypeGlass).setBlockName("LavaTank");
+        TinkerSmeltery.lavaTankNether = new LavaTankBlock("nether").setStepSound(Block.soundTypeGlass).setUnlocalizedName("LavaTank");
 
-        TinkerSmeltery.searedBlock = new SearedBlock().setBlockName("SearedBlock");
-        TinkerSmeltery.searedBlockNether = new SearedBlock("nether").setBlockName("SearedBlock");
+        TinkerSmeltery.searedBlock = new SearedBlock().setUnlocalizedName("SearedBlock");
+        TinkerSmeltery.searedBlockNether = new SearedBlock("nether").setUnlocalizedName("SearedBlock");
 
-        TinkerSmeltery.castingChannel = (new CastingChannelBlock()).setBlockName("CastingChannel");
+        TinkerSmeltery.castingChannel = (new CastingChannelBlock()).setUnlocalizedName("CastingChannel");
 
         // Liquids
         TinkerSmeltery.liquidMetal = new MaterialLiquid(MapColor.tntColor);
@@ -265,7 +265,7 @@ public class TinkerSmeltery
 
         TinkerSmeltery.bloodFluid = new Fluid("blood").setDensity(3000).setViscosity(6000).setTemperature(1300);
         boolean isBloodPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.bloodFluid);
-        TinkerSmeltery.blood = new BloodBlock(TinkerSmeltery.bloodFluid, Material.water, "liquid_cow").setBlockName("liquid.blood");
+        TinkerSmeltery.blood = new BloodBlock(TinkerSmeltery.bloodFluid, Material.water, "liquid_cow").setUnlocalizedName("liquid.blood");
         GameRegistry.registerBlock(TinkerSmeltery.blood, "liquid.blood");
         if (isBloodPreReg)
         {
@@ -286,7 +286,7 @@ public class TinkerSmeltery
         // Glue
         TinkerSmeltery.glueFluid = new Fluid("glue").setDensity(6000).setViscosity(6000).setTemperature(200);
         boolean isGluePreReg = !FluidRegistry.registerFluid(TinkerSmeltery.glueFluid);
-        TinkerSmeltery.glueFluidBlock = new GlueFluid(TinkerSmeltery.glueFluid, Material.water).setCreativeTab(TConstructRegistry.blockTab).setStepSound(TinkerWorld.slimeStep).setBlockName("liquid.glue");
+        TinkerSmeltery.glueFluidBlock = new GlueFluid(TinkerSmeltery.glueFluid, Material.water).setCreativeTab(TConstructRegistry.blockTab).setStepSound(TinkerWorld.slimeStep).setUnlocalizedName("liquid.glue");
         GameRegistry.registerBlock(TinkerSmeltery.glueFluidBlock, "liquid.glue");
         if (isGluePreReg)
         {
@@ -306,7 +306,7 @@ public class TinkerSmeltery
         // PigIron
         TinkerSmeltery.pigIronFluid = new Fluid("pigiron.molten").setDensity(3000).setViscosity(6000).setTemperature(1300);
         boolean isPigIronPreReg = !FluidRegistry.registerFluid(TinkerSmeltery.pigIronFluid);
-        TinkerSmeltery.pigIronFluidBlock = new PigIronMoltenBlock(pigIronFluid, Material.water, "liquid_pigiron").setBlockName("fluid.molten.pigiron");
+        TinkerSmeltery.pigIronFluidBlock = new PigIronMoltenBlock(pigIronFluid, Material.water, "liquid_pigiron").setUnlocalizedName("fluid.molten.pigiron");
         GameRegistry.registerBlock(TinkerSmeltery.pigIronFluidBlock, "fluid.molten.pigiron");
         if (isPigIronPreReg)
         {
@@ -352,13 +352,13 @@ public class TinkerSmeltery
         FluidType.registerFluidType("PigIron", TinkerWorld.meatBlock, 0, 610, TinkerSmeltery.pigIronFluid, true);
         FluidType.registerFluidType("Glue", TinkerSmeltery.glueBlock, 0, 125, TinkerSmeltery.glueFluid, false);
 
-        TinkerSmeltery.speedBlock = new SpeedBlock().setBlockName("SpeedBlock");
+        TinkerSmeltery.speedBlock = new SpeedBlock().setUnlocalizedName("SpeedBlock");
 
         // Glass
-        TinkerSmeltery.clearGlass = new GlassBlockConnected("clear", false).setBlockName("GlassBlock");
+        TinkerSmeltery.clearGlass = new GlassBlockConnected("clear", false).setUnlocalizedName("GlassBlock");
         TinkerSmeltery.clearGlass.stepSound = Block.soundTypeGlass;
         TinkerSmeltery.glassPane = new GlassPaneConnected("clear", false);
-        TinkerSmeltery.stainedGlassClear = new GlassBlockConnectedMeta("stained", true, "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black").setBlockName("GlassBlock.StainedClear");
+        TinkerSmeltery.stainedGlassClear = new GlassBlockConnectedMeta("stained", true, "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black").setUnlocalizedName("GlassBlock.StainedClear");
         TinkerSmeltery.stainedGlassClear.stepSound = Block.soundTypeGlass;
         TinkerSmeltery.stainedGlassClearPane = new GlassPaneStained();
 
@@ -925,9 +925,9 @@ public class TinkerSmeltery
         LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
         for (ItemStack ore : OreDictionary.getOres(name))
         {
-            tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
-            tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
-            tableCasting.addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, TConstruct.ingotLiquidValue), pattern, 80);
+            tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(ore.getItem(), 1, ore.getMetadata()), false, 50);
+            tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(ore.getItem(), 1, ore.getMetadata()), false, 50);
+            tableCasting.addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getMetadata()), new FluidStack(ft.fluid, TConstruct.ingotLiquidValue), pattern, 80);
         }
     }
 
@@ -947,9 +947,9 @@ public class TinkerSmeltery
                 if(isOreberry)
                     continue;
             }
-            tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
-            tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
-            tableCasting.addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, TConstruct.nuggetLiquidValue), pattern, 40);
+            tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(ore.getItem(), 1, ore.getMetadata()), false, 50);
+            tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(ore.getItem(), 1, ore.getMetadata()), false, 50);
+            tableCasting.addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getMetadata()), new FluidStack(ft.fluid, TConstruct.nuggetLiquidValue), pattern, 40);
         }
     }
 
@@ -957,13 +957,13 @@ public class TinkerSmeltery
     {
         for (ItemStack ore : OreDictionary.getOres(name))
         {
-            TConstructRegistry.getBasinCasting().addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, TConstruct.blockLiquidValue), 100);
+            TConstructRegistry.getBasinCasting().addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getMetadata()), new FluidStack(ft.fluid, TConstruct.blockLiquidValue), 100);
         }
     }
 
     public void addRecipesForFurnace ()
     {
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerSmeltery.speedBlock, 1, 0), new ItemStack(TinkerSmeltery.speedBlock, 1, 2), 0.2f);
+        FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerSmeltery.speedBlock, 1, 0), new ItemStack(TinkerSmeltery.speedBlock, 1, 2), 0.2f);
     }
 
     public void oreRegistry ()
@@ -1007,7 +1007,7 @@ public class TinkerSmeltery
         ores = OreDictionary.getOres("itemRubber");
         if (ores.size() > 0)
         {
-            FurnaceRecipes.smelting().func_151394_a(new ItemStack(TinkerTools.materials, 1, 36), ores.get(0), 0.2f);
+            FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(TinkerTools.materials, 1, 36), ores.get(0), 0.2f);
         }
     }
 
@@ -1034,7 +1034,7 @@ public class TinkerSmeltery
         // register our fluid block for the fluid
         // this constructor implicitly does fluid.setBlock to it, that's why it's not called separately
         TConstructFluid block = new TConstructFluid(fluid, material, texture);
-        block.setBlockName(blockName);
+        block.setUnlocalizedName(blockName);
         GameRegistry.registerBlock(block, blockName);
 
         fluid.setBlock(block);

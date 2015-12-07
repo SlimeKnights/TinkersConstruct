@@ -17,7 +17,7 @@ public class SmelteryItemBlock extends MultiItemBlock
     public SmelteryItemBlock(Block b)
     {
         super(b, "Smeltery", blockTypes);
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 
@@ -25,7 +25,7 @@ public class SmelteryItemBlock extends MultiItemBlock
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        switch (stack.getItemDamage())
+        switch (stack.getMetadata())
         {
         case 0:
             list.add(StatCollector.translateToLocal("smeltery.controller.tooltip"));

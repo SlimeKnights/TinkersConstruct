@@ -23,7 +23,7 @@ public class TArmorBase extends ItemArmor
     {
         super(ArmorMaterial.CLOTH, 0, armorSlot);
         this.maxStackSize = 1;
-        this.setMaxDamage(100);
+        this.setMaxDurability(100);
         setNoRepair();
         canRepair = false;
         this.setCreativeTab(CreativeTabs.tabMisc);

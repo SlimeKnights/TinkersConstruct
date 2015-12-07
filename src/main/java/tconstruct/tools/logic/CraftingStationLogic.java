@@ -88,7 +88,7 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
     }
 
     @Override
-    public int[] getAccessibleSlotsFromSide (int var1)
+    public int[] getSlotsForFace (int var1)
     {
         return new int[] {};
     }
@@ -123,20 +123,20 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
     }
 
     @Override
-    public boolean hasCustomInventoryName ()
+    public boolean isCustomInventoryName ()
     {
         return true;
     }
 
     @Override
-    public void closeInventory ()
+    public void closeChest ()
     {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void openInventory ()
+    public void openChest ()
     {
         // TODO Auto-generated method stub
 

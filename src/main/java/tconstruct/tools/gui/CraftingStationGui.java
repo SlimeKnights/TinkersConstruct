@@ -106,7 +106,7 @@ public class CraftingStationGui extends GuiContainer implements INEIGuiHandler
         {
             if(logic.chest.get() instanceof TileEntity) {
                 TileEntity te = (TileEntity)logic.chest.get();
-                if(te.getWorldObj().getTileEntity(te.xCoord, te.yCoord, te.zCoord) == null && te.getWorldObj().isRemote)
+                if(te.getWorld().getTileEntity(te.xCoord, te.yCoord, te.zCoord) == null && te.getWorld().isRemote)
                 {
                     mc.thePlayer.closeScreen();
                     return;

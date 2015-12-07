@@ -22,7 +22,7 @@ public class GoldenHead extends ItemFood
     @SideOnly(Side.CLIENT)
     public boolean hasEffect (ItemStack par1ItemStack)
     {
-        return par1ItemStack.getItemDamage() > 0;
+        return par1ItemStack.getMetadata() > 0;
     }
 
     @Override
@@ -32,13 +32,13 @@ public class GoldenHead extends ItemFood
      */
     public EnumRarity getRarity (ItemStack par1ItemStack)
     {
-        return par1ItemStack.getItemDamage() == 0 ? EnumRarity.rare : EnumRarity.epic;
+        return par1ItemStack.getMetadata() == 0 ? EnumRarity.rare : EnumRarity.epic;
     }
 
     @Override
     protected void onFoodEaten (ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
-        if (par1ItemStack.getItemDamage() > 0)
+        if (par1ItemStack.getMetadata() > 0)
         {
             if (!par2World.isRemote)
             {

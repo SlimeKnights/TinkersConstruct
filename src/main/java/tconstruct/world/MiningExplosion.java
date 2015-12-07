@@ -65,7 +65,7 @@ public class MiningExplosion extends Explosion
                             if (k1 != Blocks.air)
                             {
                                 Block block = k1;
-                                float f3 = this.exploder != null ? this.exploder.func_145772_a(this, this.world, l, i1, j1, block) : block.getExplosionResistance(this.exploder, world, l, i1, j1, explosionX, explosionY, explosionZ);
+                                float f3 = this.exploder != null ? this.exploder.getExplosionResistance(this, this.world, l, i1, j1, block) : block.getExplosionResistance(this.exploder, world, l, i1, j1, explosionX, explosionY, explosionZ);
                                 f1 -= (f3 + 0.8F) * f2 * 0.25f;
                             }
 

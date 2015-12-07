@@ -38,7 +38,7 @@ public class OreberryBushSecondItem extends MultiItemBlock
         if (side != 1)
             return false;
 
-        int meta = stack.getItemDamage();
+        int meta = stack.getMetadata();
         if (meta % 4 != 1 && world.getFullBlockLightValue(x, y + 1, z) >= 13)
             return false;
 
@@ -48,7 +48,7 @@ public class OreberryBushSecondItem extends MultiItemBlock
 
             if (block != null && block.canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable) TinkerWorld.oreBerrySecond) && WorldHelper.isAirBlock(world, x, y + 1, z))
             {
-                world.setBlock(x, y + 1, z, blockB, stack.getItemDamage() % 4, 3);
+                world.setBlock(x, y + 1, z, blockB, stack.getMetadata() % 4, 3);
                 if (!player.capabilities.isCreativeMode)
                     stack.stackSize--;
                 if (!world.isRemote)
@@ -66,7 +66,7 @@ public class OreberryBushSecondItem extends MultiItemBlock
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        switch (stack.getItemDamage() % 4)
+        switch (stack.getMetadata() % 4)
         {
         case 0:
             list.add(StatCollector.translateToLocal("oreberrybush5.tooltip"));

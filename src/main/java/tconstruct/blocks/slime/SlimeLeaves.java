@@ -52,7 +52,7 @@ public class SlimeLeaves extends BlockLeaves
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerBlockIcons (IIconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         this.fastIcons = new IIcon[fastLeaves.length];
         this.fancyIcons = new IIcon[fancyLeaves.length];

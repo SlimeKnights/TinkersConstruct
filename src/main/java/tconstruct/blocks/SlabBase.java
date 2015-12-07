@@ -76,7 +76,7 @@ public class SlabBase extends MantleBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons (IIconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
     }
 

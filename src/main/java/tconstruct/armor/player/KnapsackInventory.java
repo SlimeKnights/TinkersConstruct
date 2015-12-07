@@ -91,7 +91,7 @@ public class KnapsackInventory implements IInventory
     }
 
     @Override
-    public boolean hasCustomInventoryName ()
+    public boolean isCustomInventoryName ()
     {
         return false;
     }
@@ -197,16 +197,6 @@ public class KnapsackInventory implements IInventory
 
     @Override
     public void markDirty ()
-    {
-    }
-
-    @Override
-    public void openInventory ()
-    {
-    }
-
-    @Override
-    public void closeInventory ()
     {
     }
 

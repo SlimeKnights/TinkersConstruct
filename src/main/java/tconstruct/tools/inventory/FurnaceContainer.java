@@ -38,9 +38,9 @@ public class FurnaceContainer extends Container
     }
 
     @Override
-    public void addCraftingToCrafters (ICrafting par1ICrafting)
+    public void onCraftGuiOpened (ICrafting par1ICrafting)
     {
-        super.addCraftingToCrafters(par1ICrafting);
+        super.onCraftGuiOpened(par1ICrafting);
         par1ICrafting.sendProgressBarUpdate(this, 0, this.furnace.progress);
         par1ICrafting.sendProgressBarUpdate(this, 1, this.furnace.fuel);
         par1ICrafting.sendProgressBarUpdate(this, 2, this.furnace.fuelGague);
@@ -131,7 +131,7 @@ public class FurnaceContainer extends Container
             }
             else if (par2 != 1 && par2 != 0)
             {
-                if (FurnaceRecipes.smelting().getSmeltingResult(itemstack1) != null)
+                if (FurnaceRecipes.instance().getSmeltingResult(itemstack1) != null)
                 {
                     if (!this.mergeItemStack(itemstack1, 0, 1, false))
                     {

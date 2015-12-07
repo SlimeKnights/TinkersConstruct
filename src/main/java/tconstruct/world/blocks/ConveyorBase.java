@@ -131,7 +131,7 @@ public class ConveyorBase extends MantleBlock
     }
 
     @Override
-    public void registerBlockIcons (IIconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         String[] textureNames = new String[] { texturename, texturename + "_flow" };
         this.icons = new IIcon[textureNames.length];

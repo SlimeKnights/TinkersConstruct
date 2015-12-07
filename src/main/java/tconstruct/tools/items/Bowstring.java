@@ -15,7 +15,7 @@ public class Bowstring extends CraftingItem implements IToolPart
     {
         super(toolMaterialNames, buildTextureNames("_bowstring"), "parts/", "tinker", TConstructRegistry.materialTab);
         this.setHasSubtypes(true);
-        this.setMaxDamage(0);
+        this.setMaxDurability(0);
     }
 
     private static String[] buildTextureNames (String textureType)
@@ -38,9 +38,9 @@ public class Bowstring extends CraftingItem implements IToolPart
     @Override
     public int getMaterialID (ItemStack stack)
     {
-        if (stack.getItemDamage() >= toolMaterialNames.length)
+        if (stack.getMetadata() >= toolMaterialNames.length)
             return -1;
-        return stack.getItemDamage();
+        return stack.getMetadata();
     }
 
     @Override

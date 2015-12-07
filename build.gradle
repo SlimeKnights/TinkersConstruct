@@ -100,9 +100,10 @@ if (System.getenv().ARTIFACT_VERSION != null) {
 version = "${config.minecraft_version}-${artifact_version}"
 
 minecraft {
-    version = config.minecraft_version + "-" + config.forge_version
+    version = config.forge_version + "-" + config.minecraft_version
     runDir = 'run'
     replace '${version}', project.version
+    mappings = "snapshot_${config.snapshot}"
 }
 
 sourceSets {

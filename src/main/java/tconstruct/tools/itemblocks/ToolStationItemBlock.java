@@ -10,7 +10,7 @@ public class ToolStationItemBlock extends MultiItemBlock
     public ToolStationItemBlock(Block b)
     {
         super(b, "ToolStation", blockTypes);
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 }

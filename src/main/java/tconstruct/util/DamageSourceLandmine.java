@@ -13,8 +13,8 @@ public class DamageSourceLandmine extends DamageSource
     }
 
     @Override
-    public IChatComponent func_151519_b (EntityLivingBase par1EntityLivingBase)
+    public IChatComponent getDeathMessage (EntityLivingBase par1EntityLivingBase)
     {
-        return new ChatComponentTranslation("death.attack.Landmine", par1EntityLivingBase.func_145748_c_());
+        return new ChatComponentTranslation("death.attack.Landmine", par1EntityLivingBase.getFormattedCommandSenderName());
     }
 }

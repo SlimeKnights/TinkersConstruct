@@ -102,7 +102,7 @@ public abstract class HarvestTool extends ToolCore
     }
 
     @Override
-    public boolean func_150897_b (Block block)
+    public boolean canItemHarvestBlock (Block block)
     {
         return isEffective(block.getMaterial());
     }
@@ -197,7 +197,7 @@ public abstract class HarvestTool extends ToolCore
 
                     if(item instanceof ItemBlock)
                     {
-                        Block blockToPlace = ((ItemBlock) item).field_150939_a;
+                        Block blockToPlace = ((ItemBlock) item).blockInstance;
                         if(blockToPlace.getMaterial().blocksMovement())
                         {
                             if (playerBounds.intersectsWith(blockBounds))
@@ -205,7 +205,7 @@ public abstract class HarvestTool extends ToolCore
                         }
                     }
 
-                    int dmg = nearbyStack.getItemDamage();
+                    int dmg = nearbyStack.getMetadata();
                     int count = nearbyStack.stackSize;
                     if (item == TinkerTools.openBlocksDevNull)
                     {
@@ -221,7 +221,7 @@ public abstract class HarvestTool extends ToolCore
                     // handle creative mode
                     if(player.capabilities.isCreativeMode) {
                         // fun fact: vanilla minecraft does it exactly the same way
-                        nearbyStack.setItemDamage(dmg);
+                        nearbyStack.setMetadata(dmg);
                         nearbyStack.stackSize = count;
                     }
                     if (nearbyStack.stackSize < 1)
@@ -289,7 +289,7 @@ public abstract class HarvestTool extends ToolCore
         }
 
         // callback to the tool the player uses. Called on both sides. This damages the tool n stuff.
-        player.getCurrentEquippedItem().func_150999_a(world, block, x, y, z, player);
+        player.getCurrentEquippedItem().onBlockDestroyed(world, block, x, y, z, player);
 
         // server sided handling
         if (!world.isRemote) {
@@ -324,7 +324,7 @@ public abstract class HarvestTool extends ToolCore
             ItemStack itemstack = player.getCurrentEquippedItem();
             if (itemstack != null)
             {
-                itemstack.func_150999_a(world, block, x, y, z, player);
+                itemstack.onBlockDestroyed(world, block, x, y, z, player);
 
                 if (itemstack.stackSize == 0)
                 {

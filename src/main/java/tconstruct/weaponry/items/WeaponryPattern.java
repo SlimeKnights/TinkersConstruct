@@ -37,7 +37,7 @@ public class WeaponryPattern extends Pattern {
 
     @Override
     public int getPatternCost(ItemStack pattern) {
-        switch(pattern.getItemDamage())
+        switch(pattern.getMetadata())
         {
             case 0: return 1; // shuriken
             case 1: return 8; // crossbow limb

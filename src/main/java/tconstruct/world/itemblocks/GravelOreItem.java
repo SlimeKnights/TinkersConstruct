@@ -10,7 +10,7 @@ public class GravelOreItem extends MultiItemBlock
     public GravelOreItem(Block b)
     {
         super(b, "block.ore.gravel", blockTypes);
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 

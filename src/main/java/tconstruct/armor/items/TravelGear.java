@@ -29,7 +29,7 @@ public class TravelGear extends ArmorCore implements IRevealer, IGoggles
     public TravelGear(ArmorPart part)
     {
         super(0, part, "Clothing", "travelgear", "travel");
-        this.setMaxDamage(1035);
+        this.setMaxDurability(1035);
     }
 
     @Override

@@ -132,7 +132,7 @@ public class SmelteryContainer extends ActiveContainer
     @Override
     public boolean canInteractWith (EntityPlayer entityplayer)
     {
-        Block block = logic.getWorldObj().getBlock(logic.xCoord, logic.yCoord, logic.zCoord);
+        Block block = logic.getWorld().getBlock(logic.xCoord, logic.yCoord, logic.zCoord);
         if (block != TinkerSmeltery.smeltery && block != TinkerSmeltery.smelteryNether)
             return false;
         return logic.isUseableByPlayer(entityplayer);

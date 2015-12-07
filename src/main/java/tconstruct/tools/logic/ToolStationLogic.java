@@ -173,7 +173,7 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
     }
 
     @Override
-    public int[] getAccessibleSlotsFromSide (int side)
+    public int[] getSlotsForFace (int side)
     {
         return new int[0];
     }
@@ -197,18 +197,18 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
     }
 
     @Override
-    public boolean hasCustomInventoryName ()
+    public boolean isCustomInventoryName ()
     {
         return false;
     }
 
     @Override
-    public void openInventory ()
+    public void openChest ()
     {
     }
 
     @Override
-    public void closeInventory ()
+    public void closeChest ()
     {
     }
 

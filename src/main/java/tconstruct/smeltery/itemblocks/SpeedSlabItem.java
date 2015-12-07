@@ -14,14 +14,14 @@ public class SpeedSlabItem extends MultiItemBlock
     public SpeedSlabItem(Block b)
     {
         super(b, "block", "slab", blockTypes);
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 
     @Override
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        int metadata = stack.getItemDamage() % 8;
+        int metadata = stack.getMetadata() % 8;
         if (metadata == 1 || metadata == 4)
             list.add(StatCollector.translateToLocal("speedblock1.tooltip"));
         else

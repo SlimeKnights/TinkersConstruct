@@ -25,7 +25,7 @@ public class CastingRecipe
 
     public boolean matches (FluidStack metal, ItemStack inputCast)
     {
-        if (castingMetal.isFluidEqual(metal) && ((cast != null && cast.getItemDamage() == Short.MAX_VALUE && inputCast.getItem() == cast.getItem()) || ItemStack.areItemStacksEqual(this.cast, inputCast)))
+        if (castingMetal.isFluidEqual(metal) && ((cast != null && cast.getMetadata() == Short.MAX_VALUE && inputCast.getItem() == cast.getItem()) || ItemStack.areItemStacksEqual(this.cast, inputCast)))
         {
             return true;
         }

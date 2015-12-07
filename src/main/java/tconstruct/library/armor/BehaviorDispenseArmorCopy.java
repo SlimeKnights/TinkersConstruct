@@ -18,7 +18,7 @@ final class BehaviorDispenseArmorCopy extends BehaviorDefaultDispenseItem
     @Override
     protected ItemStack dispenseStack (IBlockSource par1IBlockSource, ItemStack par2ItemStack)
     {
-        EnumFacing enumfacing = BlockDispenser.func_149937_b(par1IBlockSource.getBlockMetadata());
+        EnumFacing enumfacing = BlockDispenser.getFacingDirection(par1IBlockSource.getBlockMetadata());
         int i = par1IBlockSource.getXInt() + enumfacing.getFrontOffsetX();
         int j = par1IBlockSource.getYInt() + enumfacing.getFrontOffsetY();
         int k = par1IBlockSource.getZInt() + enumfacing.getFrontOffsetZ();

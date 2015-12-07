@@ -13,11 +13,11 @@ public class Drinkables implements ILiquidDrinkHandler
         //boost health when drink
         if (entity != null)
         {
-            PotionEffect potion = entity.getActivePotionEffect(Potion.field_76434_w);
+            PotionEffect potion = entity.getActivePotionEffect(Potion.healthBoost);
             int duration = 0;
             if (potion != null)
                 duration = potion.getDuration();
-            entity.addPotionEffect(new PotionEffect(Potion.field_76434_w.id, duration + 20 * 30, 0));
+            entity.addPotionEffect(new PotionEffect(Potion.healthBoost.id, duration + 20 * 30, 0));
         }
 
     }

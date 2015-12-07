@@ -48,7 +48,7 @@ public class Landmine extends MantleBlock
     }
 
     @Override
-    public void registerBlockIcons (IIconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
 
     }
@@ -93,9 +93,9 @@ public class Landmine extends MantleBlock
     }
 
     @Override
-    public boolean getBlocksMovement (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
+    public boolean isPassable (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -105,7 +105,7 @@ public class Landmine extends MantleBlock
     @Override
     public boolean canPlaceBlockAt (World par1World, int par2, int par3, int par4)
     {
-        return par1World.doesBlockHaveSolidTopSurface(par1World, par2, par3 - 1, par4) || BlockFence.func_149825_a(par1World.getBlock(par2, par3 - 1, par4));
+        return par1World.doesBlockHaveSolidTopSurface(par1World, par2, par3 - 1, par4) || BlockFence.isFence(par1World.getBlock(par2, par3 - 1, par4));
     }
 
     /**
@@ -117,7 +117,7 @@ public class Landmine extends MantleBlock
     {
         boolean var6 = false;
 
-        if (!par1World.doesBlockHaveSolidTopSurface(par1World, par2, par3 - 1, par4) && !BlockFence.func_149825_a(par1World.getBlock(par2, par3 - 1, par4)))
+        if (!par1World.doesBlockHaveSolidTopSurface(par1World, par2, par3 - 1, par4) && !BlockFence.isFence(par1World.getBlock(par2, par3 - 1, par4)))
         {
             var6 = true;
         }
@@ -215,7 +215,7 @@ public class Landmine extends MantleBlock
              * par1World.notifyBlocksOfNeighborChange(posX, posY, posZ,
              * this.blockID); par1World.notifyBlocksOfNeighborChange(posX, posY
              * - 1, posZ, this.blockID);
-             * par1World.func_147479_m(posX, posY, posZ, posX,
+             * par1World.markBlockForRenderUpdate(posX, posY, posZ, posX,
              * posY, posZ); par1World.playSoundEffect((double)posX + 0.5D,
              * (double)posY + 0.1D, (double)posZ + 0.5D, "random.click", 0.3F,
              * 0.6F);
@@ -226,7 +226,7 @@ public class Landmine extends MantleBlock
          * if (!var6 && var5) { par1World.setBlockMetadataWithNotify(posX, posY,
          * posZ, 0); par1World.notifyBlocksOfNeighborChange(posX, posY, posZ,
          * this.blockID); par1World.notifyBlocksOfNeighborChange(posX, posY - 1,
-         * posZ, this.blockID); par1World.func_147479_m(posX,
+         * posZ, this.blockID); par1World.markBlockForRenderUpdate(posX,
          * posY, posZ, posX, posY, posZ); par1World.playSoundEffect((double)posX
          * + 0.5D, (double)posY + 0.1D, (double)posZ + 0.5D, "random.click",
          * 0.3F, 0.5F); }

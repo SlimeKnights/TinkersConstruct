@@ -88,7 +88,7 @@ public class ArrowRender extends Render
                     }
 
                     f5 = 1.0F;
-                    this.itemRenderBlocks.renderBlockAsItem(block, itemstack.getItemDamage(), f5);
+                    this.itemRenderBlocks.renderBlockAsItem(block, itemstack.getMetadata(), f5);
                     GL11.glPopMatrix();
                 }
             }
@@ -100,7 +100,7 @@ public class ArrowRender extends Render
                 {
                     GL11.glScalef(0.5F, 0.5F, 0.5F);
 
-                    for (int k = 0; k < itemstack.getItem().getRenderPasses(itemstack.getItemDamage()); ++k)
+                    for (int k = 0; k < itemstack.getItem().getRenderPasses(itemstack.getMetadata()); ++k)
                     {
                         this.random.setSeed(187L);
                         IIcon icon = itemstack.getItem().getIcon(itemstack, k);

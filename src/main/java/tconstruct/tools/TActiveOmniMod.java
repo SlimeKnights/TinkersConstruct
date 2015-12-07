@@ -106,7 +106,7 @@ public class TActiveOmniMod extends ActiveToolMod
             if (item == null)
                 return false;
 
-            ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(item, amount, itemMeta));
+            ItemStack result = FurnaceRecipes.instance().getSmeltingResult(new ItemStack(item, amount, itemMeta));
             if (result != null)
             {
                 world.setBlockToAir(x, y, z);
@@ -114,7 +114,7 @@ public class TActiveOmniMod extends ActiveToolMod
                     tool.onBlockDestroyed(stack, world, block, x, y, z, entity);
                 if (!world.isRemote)
                 {
-                    ItemStack spawnme = new ItemStack(result.getItem(), amount * result.stackSize, result.getItemDamage());
+                    ItemStack spawnme = new ItemStack(result.getItem(), amount * result.stackSize, result.getMetadata());
                     if (result.hasTagCompound())
                         spawnme.setTagCompound(result.getTagCompound());
                     if (!(result.getItem() instanceof ItemBlock) && PHConstruct.lavaFortuneInteraction)
@@ -132,7 +132,7 @@ public class TActiveOmniMod extends ActiveToolMod
                     world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (blockMeta << 12));
 
                     int i = spawnme.stackSize;
-                    float f = FurnaceRecipes.smelting().func_151398_b(spawnme);
+                    float f = FurnaceRecipes.instance().getSmeltingExperience(spawnme);
                     int j;
 
                     if (f == 0.0F)

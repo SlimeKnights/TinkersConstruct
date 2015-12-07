@@ -25,15 +25,15 @@ public class SpecialFood extends ItemFood
     }
 
     @Override
-    public int func_150905_g (ItemStack stack)
+    public int getHealAmount (ItemStack stack)
     {
-        return hunger[stack.getItemDamage()];
+        return hunger[stack.getMetadata()];
     }
 
     @Override
-    public float func_150906_h (ItemStack stack)
+    public float getSaturationModifier (ItemStack stack)
     {
-        return saturation[stack.getItemDamage()];
+        return saturation[stack.getMetadata()];
     }
 
     @Override
@@ -60,7 +60,7 @@ public class SpecialFood extends ItemFood
     @Override
     public String getUnlocalizedName (ItemStack stack)
     {
-        int arr = MathHelper.clamp_int(stack.getItemDamage(), 0, unlocalizedNames.length);
+        int arr = MathHelper.clamp_int(stack.getMetadata(), 0, unlocalizedNames.length);
         return getUnlocalizedName() + "." + unlocalizedNames[arr];
     }
 

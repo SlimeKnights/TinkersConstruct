@@ -9,7 +9,7 @@ public class MultiBrickMetalItem extends MultiItemBlock {
     public MultiBrickMetalItem(Block b)
     {
         super(b, "block", blockTypes);
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 }

@@ -84,7 +84,7 @@ public class FrypanContainer extends Container
     @Override
     public boolean canInteractWith (EntityPlayer entityplayer)
     {
-        Block block = logic.getWorldObj().getBlock(logic.xCoord, logic.yCoord, logic.zCoord);
+        Block block = logic.getWorld().getBlock(logic.xCoord, logic.yCoord, logic.zCoord);
         if (block != TinkerTools.heldItemBlock)
             return false;
 

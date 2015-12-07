@@ -23,7 +23,7 @@ public class SoilSlab extends SlabBase
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons (IIconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         this.blockIcon = iconRegister.registerIcon("tinker:grass_top");
     }

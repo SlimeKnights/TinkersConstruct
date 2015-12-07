@@ -18,7 +18,7 @@ public class DiamondApple extends ItemFood
     {
         super(4, 2.0F, false);
         setHasSubtypes(true);
-        setMaxDamage(0);
+        setMaxDurability(0);
         this.setAlwaysEdible();
     }
 
@@ -33,7 +33,7 @@ public class DiamondApple extends ItemFood
             potion = player.getActivePotionEffect(Potion.resistance);
             if (potion != null)
                 duration = potion.getDuration();
-            player.addPotionEffect(new PotionEffect(Potion.field_76444_x.id, duration + 60 * 40, 4));
+            player.addPotionEffect(new PotionEffect(Potion.absorption.id, duration + 60 * 40, 4));
 
             potion = player.getActivePotionEffect(Potion.resistance);
             if (potion != null)
@@ -75,6 +75,6 @@ public class DiamondApple extends ItemFood
     @Override
     public String getUnlocalizedName (ItemStack itemstack)
     {
-        return (new StringBuilder()).append("item.food.").append(itemNames[(itemstack.getItemDamage()>=itemNames.length||itemstack.getItemDamage()<0)?(0):(itemstack.getItemDamage())]).toString();
+        return (new StringBuilder()).append("item.food.").append(itemNames[(itemstack.getMetadata()>= itemNames.length||itemstack.getMetadata()< 0)?(0):(itemstack.getMetadata())]).toString();
     }
 }

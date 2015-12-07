@@ -29,7 +29,7 @@ public class CraftingStationContainer extends Container
 
     public CraftingStationContainer(InventoryPlayer inventorplayer, CraftingStationLogic logic, int x, int y, int z)
     {
-        this.worldObj = logic.getWorldObj();
+        this.worldObj = logic.getWorld();
         this.player = inventorplayer.player;
         this.posX = x;
         this.posY = y;

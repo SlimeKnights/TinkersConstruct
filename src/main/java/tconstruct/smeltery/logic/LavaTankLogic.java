@@ -165,8 +165,8 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        readCustomNBT(packet.func_148857_g());
-        worldObj.func_147479_m(xCoord, yCoord, zCoord);
+        readCustomNBT(packet.getNbtCompound());
+        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 
     /* Updating */
@@ -185,7 +185,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
 
             if(renderOffset < 0)
                 renderOffset = 0;
-            worldObj.func_147479_m(xCoord, yCoord, zCoord);
+            worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
         }
     }
 

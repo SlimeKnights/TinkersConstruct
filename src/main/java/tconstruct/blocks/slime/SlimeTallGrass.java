@@ -83,7 +83,7 @@ public class SlimeTallGrass extends BlockBush implements IShearable
      * When this method is called, your block should register all the icons it needs with the given IconRegister. This
      * is the only chance you get to register icons.
      */
-    public void registerBlockIcons (IIconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
         this.iconArray = new IIcon[grassTypes.length];
 

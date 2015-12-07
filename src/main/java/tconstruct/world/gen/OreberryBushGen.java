@@ -94,7 +94,7 @@ public class OreberryBushGen extends WorldGenerator
          */
 
         Block block = world.getBlock(x, y, z);
-        if (block == null || (block != Blocks.end_portal_frame && !world.getBlock(x, y, z).func_149730_j()))
+        if (block == null || (block != Blocks.end_portal_frame && !world.getBlock(x, y, z).isFullBlock()))
             world.setBlock(x, y, z, this.blockB, metadata, 2);
         else
         {

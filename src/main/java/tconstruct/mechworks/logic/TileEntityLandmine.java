@@ -59,7 +59,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
 
         par1NBTTagCompound.setInteger("triggerType", triggerType);
 
-        if (this.hasCustomInventoryName())
+        if (this.isCustomInventoryName())
         {
             par1NBTTagCompound.setString("CustomName", this.containerName);
         }
@@ -102,7 +102,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        readFromNBT(packet.func_148857_g());
+        readFromNBT(packet.getNbtCompound());
     }
 
     @Override
@@ -183,11 +183,11 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     @Override
     public String getInventoryName ()
     {
-        return this.hasCustomInventoryName() ? this.containerName : "Landmine";
+        return this.isCustomInventoryName() ? this.containerName : "Landmine";
     }
 
     @Override
-    public boolean hasCustomInventoryName ()
+    public boolean isCustomInventoryName ()
     {
         return containerName != null && containerName.length() > 0;
     }
@@ -210,13 +210,15 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     }
 
     @Override
-    public void openInventory ()
+    public void openChest()
     {
+
     }
 
     @Override
-    public void closeInventory ()
+    public void closeChest()
     {
+
     }
 
     @Override
@@ -254,7 +256,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     {
         if (shouldUpdateLogic)
         {
-            worldObj.func_147479_m(xCoord, yCoord, zCoord);
+            worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
             shouldUpdateLogic = false;
         }
         if (soundcountything > 0)

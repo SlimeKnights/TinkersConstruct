@@ -104,7 +104,7 @@ public class TProxyClient extends TProxyCommon {
     }
 
     public static Document getManualFromStack(ItemStack stack) {
-        switch (stack.getItemDamage()) {
+        switch (stack.getMetadata()) {
             case 0:
                 return volume1;
             case 1:

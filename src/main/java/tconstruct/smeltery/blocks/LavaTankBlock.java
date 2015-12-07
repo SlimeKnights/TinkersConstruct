@@ -32,7 +32,7 @@ public class LavaTankBlock extends BlockContainer
         setHardness(3F);
         setResistance(20F);
         setCreativeTab(TConstructRegistry.blockTab);
-        this.setBlockName("TConstruct.LavaTank");
+        this.setUnlocalizedName("TConstruct.LavaTank");
         setStepSound(Block.soundTypeGrass);
     }
 
@@ -54,7 +54,7 @@ public class LavaTankBlock extends BlockContainer
     }
 
     @Override
-    public void registerBlockIcons (IIconRegister IIconRegister)
+    public void registerIcons (IIconRegister IIconRegister)
     {
         String[] textureNames = getTextureNames();
         this.icons = new IIcon[textureNames.length];

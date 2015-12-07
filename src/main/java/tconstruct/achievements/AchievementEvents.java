@@ -61,7 +61,7 @@ public class AchievementEvents
                 for (int i = 0; i < event.drops.size(); i++)
                 {
                     ItemStack is = event.drops.get(i).getEntityItem();
-                    if (FurnaceRecipes.smelting().getSmeltingResult(is) != null && FurnaceRecipes.smelting().getSmeltingResult(is).getItem() instanceof ItemFood)
+                    if (FurnaceRecipes.instance().getSmeltingResult(is) != null && FurnaceRecipes.instance().getSmeltingResult(is).getItem() instanceof ItemFood)
                     {
                         NBTTagCompound stackCompound = is.getTagCompound();
                         if (stackCompound == null)

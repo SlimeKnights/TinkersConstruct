@@ -19,15 +19,15 @@ public class StrangeFood extends SpecialFood
     @Override
     protected void onFoodEaten (ItemStack stack, World world, EntityPlayer player)
     {
-        if (stack.getItemDamage() == 1)
-            player.addPotionEffect(new PotionEffect(Potion.field_76434_w.id, 20 * 15, 0));
+        if (stack.getMetadata() == 1)
+            player.addPotionEffect(new PotionEffect(Potion.healthBoost.id, 20 * 15, 0));
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        int type = stack.getItemDamage();
+        int type = stack.getMetadata();
         switch (type)
         {
         case 0:

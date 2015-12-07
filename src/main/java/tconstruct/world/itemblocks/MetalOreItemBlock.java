@@ -14,7 +14,7 @@ public class MetalOreItemBlock extends MultiItemBlock
     public MetalOreItemBlock(Block b)
     {
         super(b, "MetalOre", blockTypes);
-        setMaxDamage(0);
+        setMaxDurability(0);
         setHasSubtypes(true);
     }
 

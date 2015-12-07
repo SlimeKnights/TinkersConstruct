@@ -23,7 +23,7 @@ public class HeartCanister extends CraftingItem implements IHealthAccessory
     @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
-        int meta = stack.getItemDamage();
+        int meta = stack.getMetadata();
         if (meta == 1 || meta == 3 || meta == 5)
         {
             player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
@@ -52,9 +52,9 @@ public class HeartCanister extends CraftingItem implements IHealthAccessory
     }
 
     @Override
-    public ItemStack onEaten (ItemStack stack, World world, EntityPlayer player)
+    public ItemStack onItemUseFinish (ItemStack stack, World world, EntityPlayer player)
     {
-        int meta = stack.getItemDamage();
+        int meta = stack.getMetadata();
         --stack.stackSize;
         player.heal((meta + 1) * 10);
         world.playSoundAtEntity(player, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);
@@ -76,7 +76,7 @@ public class HeartCanister extends CraftingItem implements IHealthAccessory
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        int meta = stack.getItemDamage();
+        int meta = stack.getMetadata();
         if (meta == 0 || meta % 2 == 1)
             list.add(StatCollector.translateToLocal("item.crafting.tooltip"));
         else
@@ -101,7 +101,7 @@ public class HeartCanister extends CraftingItem implements IHealthAccessory
     @Override
     public boolean canEquipAccessory (ItemStack item, int slot)
     {
-        int type = item.getItemDamage();
+        int type = item.getMetadata();
         return ((type == 2 && slot == 6) || (type == 4 && slot == 5) || (type == 6 && slot == 4));
     }
 

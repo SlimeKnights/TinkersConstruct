@@ -35,7 +35,7 @@ public class BarricadeBlock extends MantleBlock
     }
 
     @Override
-    public void registerBlockIcons (IIconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
 
     }
@@ -98,7 +98,7 @@ public class BarricadeBlock extends MantleBlock
                 this.onPostBlockPlaced(world, x, y, z, meta);
 
                 Block var9 = this;
-                world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, var9.stepSound.soundName, (var9.stepSound.getVolume() + 1.0F) / 2.0F, var9.stepSound.getPitch() * 0.8F);
+                world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, var9.stepSound.soundName, (var9.stepSound.getVolume() + 1.0F) / 2.0F, var9.stepSound.getVolume() * 0.8F);
                 player.swingItem();
                 if (!player.capabilities.isCreativeMode)
                     stack.stackSize -= 1;

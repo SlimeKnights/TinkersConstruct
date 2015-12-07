@@ -98,7 +98,7 @@ public class TVillageTrades implements IVillageTradeHandler
             sc = getNextInt(random, 0, allowedIngredients.size() - 1);
             is = allowedIngredients.get(sc);
 
-            if (is != ingredient || is.getItemDamage() != ingredient.getItemDamage())
+            if (is != ingredient || is.getMetadata() != ingredient.getMetadata())
                 break;
 
             tries++;

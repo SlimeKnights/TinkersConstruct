@@ -25,7 +25,7 @@ public class GravelOre extends BlockSand
     }
 
     @Override
-    public void registerBlockIcons (IIconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         this.icons = new IIcon[textureNames.length];
 

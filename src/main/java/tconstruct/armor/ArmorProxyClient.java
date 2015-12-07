@@ -393,24 +393,24 @@ public class ArmorProxyClient extends ArmorProxyCommon {
 	public void adjustArmor(RenderPlayerEvent.SetArmorModel event) {
 		switch (event.slot) {
 			case 1:
-				ArmorProxyClient.vest.onGround = event.renderer.modelBipedMain.onGround;
+				ArmorProxyClient.vest.swingProgress = event.renderer.modelBipedMain.swingProgress;
 				ArmorProxyClient.vest.isRiding = event.renderer.modelBipedMain.isRiding;
 				ArmorProxyClient.vest.isChild = event.renderer.modelBipedMain.isChild;
 				ArmorProxyClient.vest.isSneak = event.renderer.modelBipedMain.isSneak;
 			case 2:
-				ArmorProxyClient.wings.onGround = event.renderer.modelBipedMain.onGround;
+				ArmorProxyClient.wings.swingProgress = event.renderer.modelBipedMain.swingProgress;
 				ArmorProxyClient.wings.isRiding = event.renderer.modelBipedMain.isRiding;
 				ArmorProxyClient.wings.isChild = event.renderer.modelBipedMain.isChild;
 				ArmorProxyClient.wings.isSneak = event.renderer.modelBipedMain.isSneak;
 
-				ArmorProxyClient.glove.onGround = event.renderer.modelBipedMain.onGround;
+				ArmorProxyClient.glove.swingProgress = event.renderer.modelBipedMain.swingProgress;
 				ArmorProxyClient.glove.isRiding = event.renderer.modelBipedMain.isRiding;
 				ArmorProxyClient.glove.isChild = event.renderer.modelBipedMain.isChild;
 				ArmorProxyClient.glove.isSneak = event.renderer.modelBipedMain.isSneak;
 				ArmorProxyClient.glove.heldItemLeft = event.renderer.modelBipedMain.heldItemLeft;
 				ArmorProxyClient.glove.heldItemRight = event.renderer.modelBipedMain.heldItemRight;
 
-				ArmorProxyClient.belt.onGround = event.renderer.modelBipedMain.onGround;
+				ArmorProxyClient.belt.swingProgress = event.renderer.modelBipedMain.swingProgress;
 				ArmorProxyClient.belt.isRiding = event.renderer.modelBipedMain.isRiding;
 				ArmorProxyClient.belt.isChild = event.renderer.modelBipedMain.isChild;
 				ArmorProxyClient.belt.isSneak = event.renderer.modelBipedMain.isSneak;
@@ -419,7 +419,7 @@ public class ArmorProxyClient extends ArmorProxyCommon {
 
 				break;
 			case 3:
-				ArmorProxyClient.bootbump.onGround = event.renderer.modelBipedMain.onGround;
+				ArmorProxyClient.bootbump.swingProgress = event.renderer.modelBipedMain.swingProgress;
 				ArmorProxyClient.bootbump.isRiding = event.renderer.modelBipedMain.isRiding;
 				ArmorProxyClient.bootbump.isChild = event.renderer.modelBipedMain.isChild;
 				ArmorProxyClient.bootbump.isSneak = event.renderer.modelBipedMain.isSneak;

@@ -20,7 +20,7 @@ public class BehaviorSpawnEgg extends Behavior
         double d0 = par2 + Math.random() + (double) enumfacing.getFrontOffsetX();
         double d1 = (double) ((float) par3 + 0.2F);
         double d2 = par4 + Math.random() + (double) enumfacing.getFrontOffsetZ();
-        Entity entity = ItemMonsterPlacer.spawnCreature(par1World, par5ItemStack.getItemDamage(), d0, d1, d2);
+        Entity entity = ItemMonsterPlacer.spawnCreature(par1World, par5ItemStack.getMetadata(), d0, d1, d2);
 
         if (entity instanceof EntityLivingBase && par5ItemStack.hasDisplayName())
         {
