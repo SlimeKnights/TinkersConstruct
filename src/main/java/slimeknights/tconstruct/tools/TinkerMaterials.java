@@ -38,6 +38,7 @@ import slimeknights.tconstruct.tools.modifiers.TraitCrude;
 import slimeknights.tconstruct.tools.modifiers.TraitDuritos;
 import slimeknights.tconstruct.tools.modifiers.TraitEcological;
 import slimeknights.tconstruct.tools.modifiers.TraitInsatiable;
+import slimeknights.tconstruct.tools.modifiers.TraitMagnetic;
 import slimeknights.tconstruct.tools.modifiers.TraitMomentum;
 import slimeknights.tconstruct.tools.modifiers.TraitPetramor;
 import slimeknights.tconstruct.tools.modifiers.TraitPrickly;
@@ -100,6 +101,7 @@ public final class TinkerMaterials {
   public static final AbstractTrait duritos = new TraitDuritos(); // yes you read that correctly
   public static final AbstractTrait ecological = new TraitEcological();
   public static final AbstractTrait insatiable = new TraitInsatiable();
+  public static final AbstractTrait magnetic = new TraitMagnetic();
   public static final AbstractTrait momentum = new TraitMomentum();
   public static final AbstractTrait petramor = new TraitPetramor();
   public static final AbstractTrait prickly = new TraitPrickly();
@@ -274,6 +276,7 @@ public final class TinkerMaterials {
     iron.setCastable(true);
     iron.addItem("ingotIron", 1, Material.VALUE_Ingot);
     iron.setRepresentativeItem(Items.iron_ingot);
+    iron.addTrait(magnetic);
     // todo: remaining metals
 
     pigiron.setFluid(FluidRegistry.WATER); // todo
