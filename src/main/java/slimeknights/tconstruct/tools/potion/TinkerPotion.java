@@ -10,39 +10,10 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
 public class TinkerPotion extends Potion {
-  private static int idCounter = 32;
-
-  // temp fix of potion array sizes
-  static {
-    Potion[] old = Potion.potionTypes;
-    try {
-      Field field;
-      try {
-        field = Potion.class.getDeclaredField("potionTypes");
-      } catch(NoSuchFieldException e) {
-        field = Potion.class.getDeclaredField("field_76425_a");
-      }
-      field.setAccessible(true);
-
-      // remove final modifier from field
-      Field modifiersField = Field.class.getDeclaredField("modifiers");
-      modifiersField.setAccessible(true);
-      modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-
-      Potion[] pots = Arrays.copyOf(old, 128);
-      field.set(null, pots);
-    } catch(NoSuchFieldException e) {
-      e.printStackTrace();
-    } catch(IllegalAccessException e) {
-      e.printStackTrace();
-    }
-  }
-
-
   private final boolean show;
 
   public TinkerPotion(ResourceLocation location, boolean badEffect, boolean showInInventory) {
-    super(idCounter++, location, badEffect, 0xffffff);
+    super(location, badEffect, 0xffffff);
     setPotionName("potion." + location.getResourcePath());
 
     this.show = showInInventory;
@@ -69,5 +40,10 @@ public class TinkerPotion extends Potion {
       return effect.getAmplifier();
     }
     return 0;
+  }
+
+  @Override
+  public boolean shouldRender(PotionEffect effect) {
+    return false;
   }
 }
