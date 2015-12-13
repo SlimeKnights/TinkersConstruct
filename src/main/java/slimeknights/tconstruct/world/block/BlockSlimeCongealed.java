@@ -30,6 +30,7 @@ public class BlockSlimeCongealed extends Block {
   public BlockSlimeCongealed() {
     super(Material.sponge);
     this.setCreativeTab(TinkerRegistry.tabWorld);
+    this.setHardness(0.5f);
     this.slipperiness = 0.5f;
     this.disableStats();
     this.setStepSound(SLIME_SOUND);

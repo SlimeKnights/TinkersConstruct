@@ -41,8 +41,8 @@ public class SlimeIslandGenerator implements IWorldGenerator {
 
     IBlockState leaves = TinkerWorld.slimeLeaves.getDefaultState();
 
-    lakeGenGreen = new SlimeLakeGenerator(Blocks.water.getDefaultState(), slimeGreen, slimeGreen, slimeBlue, slimePurple);
-    lakeGenBlue = new SlimeLakeGenerator(Blocks.water.getDefaultState(), slimeBlue, slimeGreen, slimeBlue, slimePurple);
+    lakeGenGreen = new SlimeLakeGenerator(Blocks.water.getDefaultState(), slimeGreen, slimeGreen, slimeBlue);
+    lakeGenBlue = new SlimeLakeGenerator(Blocks.water.getDefaultState(), slimeBlue, slimeGreen, slimeBlue);
     lakeGenPurple = new SlimeLakeGenerator(Blocks.water.getDefaultState(), slimePurple, slimePurple);
 
     treeGenBlue = new SlimeTreeGenerator(5, 4, slimeGreen, leaves.withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.BLUE), TinkerWorld.slimeVineBlue3.getDefaultState());
