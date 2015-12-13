@@ -6,6 +6,7 @@ import net.minecraft.util.EnumChatFormatting;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.tools.ToolNBT;
+import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
 public class ModDiamond extends Modifier {
@@ -25,6 +26,9 @@ public class ModDiamond extends Modifier {
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
     ToolNBT data = TagUtil.getToolStats(rootCompound);
     data.durability += 500;
+
+    if(data.harvestLevel < HarvestLevels.DIAMOND)
+      data.harvestLevel++;
 
     TagUtil.setToolTag(rootCompound, data.get());
   }
