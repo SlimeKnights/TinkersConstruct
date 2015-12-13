@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.common;
 
+import com.google.common.eventbus.Subscribe;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -25,9 +27,7 @@ public class TinkerOredict {
 
   public static final String PulseId = "TinkerOredict";
 
-  private TinkerOredict() {}
-
-  @SubscribeEvent
+  @Subscribe
   public static void doTheOredict(FMLPreInitializationEvent event) {
     ensureOredict();
     registerCommon();

@@ -84,6 +84,7 @@ public class TConstruct {
     pulseManager.registerPulse(new TinkerMaterials());
     // Plugins/Integration
     pulseManager.registerPulse(new TinkerVintageCraft());
+    pulseManager.registerPulse(new TinkerOredict());
 
     pulseManager.registerPulse(new TinkerDebug());
   }

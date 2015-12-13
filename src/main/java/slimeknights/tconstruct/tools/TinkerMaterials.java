@@ -60,7 +60,10 @@ import static slimeknights.tconstruct.library.utils.HarvestLevels.IRON;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.OBSIDIAN;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.STONE;
 
-@Pulse(id = TinkerMaterials.PulseId, forced = true)
+/**
+ * All the tool materials tcon supports.
+ */
+@Pulse(id = TinkerMaterials.PulseId, description = "All the tool materials added by TConstruct", pulsesRequired = TinkerTools.PulseId)
 public final class TinkerMaterials {
 
   static final String PulseId = "TinkerMaterials";
@@ -390,6 +393,8 @@ public final class TinkerMaterials {
 
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
+    if(TinkerTools.shard == null) return;
+
     // each material without a shard set gets the default one set
     for(Material material : TinkerRegistry.getAllMaterials()) {
       ItemStack shard = TinkerTools.shard.getItemstackWithMaterial(material);
