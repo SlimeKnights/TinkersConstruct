@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.StatCollector;
 
 import java.util.Arrays;
 import java.util.List;
@@ -139,6 +140,26 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
     }
 
     return sb.toString();
+  }
+
+  public String getLeveledTooltip(NBTTagCompound modifierTag, boolean detailed) {
+    // the most important function in the whole file!
+    ModifierNBT data = ModifierNBT.readInteger(modifierTag);
+
+    String basic = getLocalizedName(); // backup
+
+    for(int i = data.level; i > 1; i--) {
+      if(StatCollector.canTranslate(String.format(LOC_Name + i, getIdentifier()))) {
+        basic = StatCollector.translateToLocal(String.format(LOC_Name + i, getIdentifier()));
+        break;
+      }
+    }
+
+    if(detailed) {
+      return basic + " " + data.extraInfo;
+    }
+
+    return basic;
   }
 
   @Override

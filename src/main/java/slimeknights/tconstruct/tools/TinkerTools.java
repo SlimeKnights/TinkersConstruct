@@ -60,6 +60,7 @@ import slimeknights.tconstruct.tools.modifiers.ModDiamond;
 import slimeknights.tconstruct.tools.modifiers.ModFortify;
 import slimeknights.tconstruct.tools.modifiers.ModHarvestSize;
 import slimeknights.tconstruct.tools.modifiers.ModHaste;
+import slimeknights.tconstruct.tools.modifiers.ModSharpness;
 import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
 import slimeknights.tconstruct.tools.tileentity.TilePartBuilder;
 import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
@@ -127,9 +128,11 @@ public class TinkerTools extends TinkerPulse {
 
   // Modifiers
   public static Modifier diamondMod;
-  public static Modifier redstoneMod;
+  public static Modifier hasteMod;
   public static Modifier harvestWidth;
   public static Modifier harvestHeight;
+  public static Modifier sharpnessMod;
+
   public static List<Modifier> fortifyMods;
 
   // Helper stuff
@@ -219,15 +222,18 @@ public class TinkerTools extends TinkerPulse {
   private void registerModifiers() {
     // create the modifiers
     diamondMod = new ModDiamond();
-    redstoneMod = new ModHaste(50);
+    hasteMod = new ModHaste(50);
+    sharpnessMod = new ModSharpness(24);
 
     harvestWidth = new ModHarvestSize("width");
     harvestHeight = new ModHarvestSize("height");
 
     // register the items for the modifiers
     diamondMod.addItem("gemDiamond");
-    redstoneMod.addItem("dustRedstone");
-    redstoneMod.addItem("blockRedstone", 1, 9);
+    hasteMod.addItem("dustRedstone");
+    hasteMod.addItem("blockRedstone", 1, 9);
+    sharpnessMod.addItem("gemQuartz");
+    sharpnessMod.addItem("blockQuartz", 1, 4);
 
     harvestWidth.addItem(TinkerCommons.matExpanderW, 1, 1);
     harvestHeight.addItem(TinkerCommons.matExpanderH, 1, 1);
