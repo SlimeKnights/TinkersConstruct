@@ -220,23 +220,24 @@ public class TinkerTools extends TinkerPulse {
   }
 
   private void registerModifiers() {
-    // create the modifiers
+    // create the modifiers and add their items
     modDiamond = new ModDiamond();
-    modHaste = new ModHaste(50);
-    modSharpness = new ModSharpness(24);
-
-    modHarvestWidth = new ModHarvestSize("width");
-    modHarvestHeight = new ModHarvestSize("height");
-
-    // register the items for the modifiers
     modDiamond.addItem("gemDiamond");
+
+    modHaste = new ModHaste(50);
     modHaste.addItem("dustRedstone");
     modHaste.addItem("blockRedstone", 1, 9);
+
+    modHarvestWidth = new ModHarvestSize("width");
+    modHarvestWidth.addItem(TinkerCommons.matExpanderW, 1, 1);
+
+    modHarvestHeight = new ModHarvestSize("height");
+    modHarvestHeight.addItem(TinkerCommons.matExpanderH, 1, 1);
+
+
+    modSharpness = new ModSharpness(24);
     modSharpness.addItem("gemQuartz");
     modSharpness.addItem("blockQuartz", 1, 4);
-
-    modHarvestWidth.addItem(TinkerCommons.matExpanderW, 1, 1);
-    modHarvestHeight.addItem(TinkerCommons.matExpanderH, 1, 1);
   }
 
   private void oredict() {

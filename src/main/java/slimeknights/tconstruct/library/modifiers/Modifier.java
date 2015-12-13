@@ -2,6 +2,8 @@ package slimeknights.tconstruct.library.modifiers;
 
 import com.google.common.collect.Lists;
 
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -55,18 +57,27 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
       String id = modifiers.getStringTagAt(i);
       IModifier mod = TinkerRegistry.getModifier(id);
       if(mod != null && !canApplyTogether(mod)) {
-        return false;
+        return false; // todo: throw gui exception
       }
     }
 
+    for(int id : EnchantmentHelper.getEnchantments(stack).keySet()) {
+      if(!canApplyTogether(Enchantment.getEnchantmentById(id)))
+        return false; // todo: throw gui exception
+    }
+
     return canApplyCustom(stack);
+  }
+
+  public boolean canApplyTogether(Enchantment enchantment) {
+    return true;
   }
 
   public boolean canApplyTogether(IModifier otherModifier) {
     return true;
   }
 
-  protected boolean canApplyCustom(ItemStack stack) {
+  protected boolean canApplyCustom(ItemStack stack) throws TinkerGuiException {
     return true;
   }
 

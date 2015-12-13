@@ -6,6 +6,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
+import slimeknights.mantle.util.TagHelper;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -200,19 +201,23 @@ public abstract class ModifierAspect {
   }
 
   /**
-   * Only applicable on tools.
+   * Only applicable on tools with the given categories.
    */
   public static class CategoryAspect extends ModifierAspect {
 
-    protected final Category category;
+    protected final Category[] category;
 
-    public CategoryAspect(Category category) {
+    public CategoryAspect(Category... category) {
       this.category = category;
     }
 
     @Override
     public boolean canApply(ItemStack stack) {
-      return ToolHelper.hasCategory(stack, category);
+      for(Category cat : category)
+        if(!ToolHelper.hasCategory(stack, cat))
+          return false;
+
+      return true;
     }
 
     @Override
@@ -220,6 +225,26 @@ public abstract class ModifierAspect {
       // no extra information needed
     }
   }
+
+  /**
+   * Applicable on all tools that have at least one of those categories
+   */
+  public static class CategoryAnyAspect extends CategoryAspect {
+
+    public CategoryAnyAspect(Category... category) {
+      super(category);
+    }
+
+    @Override
+    public boolean canApply(ItemStack stack) {
+      for(Category cat : category)
+        if(ToolHelper.hasCategory(stack, cat))
+          return true;
+
+      return false;
+    }
+  }
+
 
   /**
    * Can only be applied once

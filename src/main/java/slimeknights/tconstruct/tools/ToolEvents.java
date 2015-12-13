@@ -18,17 +18,17 @@ public class ToolEvents {
   // Extra width/height modifier management
   @SubscribeEvent
   public void onExtraBlockBreak(TinkerToolEvent.ExtraBlockBreak event) {
-    if(TinkerTools.harvestWidth == null || TinkerTools.harvestHeight == null) return;
+    if(TinkerTools.modHarvestWidth == null || TinkerTools.modHarvestHeight == null) return;
 
     NBTTagList modifiers = TagUtil.getBaseModifiersTagList(event.itemStack);
     boolean width = false;
     boolean height = false;
     for(int i = 0; i < modifiers.tagCount(); i++) {
       String modId = modifiers.getStringTagAt(i);
-      if(modId.equals(TinkerTools.harvestWidth.getIdentifier())) {
+      if(modId.equals(TinkerTools.modHarvestWidth.getIdentifier())) {
         width = true;
       }
-      else if(modId.equals(TinkerTools.harvestHeight.getIdentifier())) {
+      else if(modId.equals(TinkerTools.modHarvestHeight.getIdentifier())) {
         height = true;
       }
     }
