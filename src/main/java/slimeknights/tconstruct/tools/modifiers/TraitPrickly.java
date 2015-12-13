@@ -35,7 +35,7 @@ public class TraitPrickly extends AbstractTrait {
   }
 
   private void causeDamage(EntityLivingBase player, EntityLivingBase target) {
-    float damage = 0.5f + (float)random.nextGaussian()/2f;
+    float damage = 0.5f + (float) random.nextGaussian() / 2f;
     EntityDamageSource damageSource = new EntityDamageSource(DamageSource.cactus.damageType, player);
     damageSource.setDamageBypassesArmor();
     damageSource.setDamageIsAbsolute();

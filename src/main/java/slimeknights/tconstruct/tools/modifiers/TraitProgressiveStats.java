@@ -15,11 +15,11 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 /**
  * Base class for tools that progressively gain/award stats.
  * The modifier persists 2 different stat-data on the tool:
- *  - A 'pool' of stats to award
- *  - A 'bonus' of already awarded stats
+ * - A 'pool' of stats to award
+ * - A 'bonus' of already awarded stats
  *
- *  The modifier reapplies the 'bonus' stats on application.
- *  The pool is not touched inheritly but only provided for the logic of the deriving trait.
+ * The modifier reapplies the 'bonus' stats on application.
+ * The pool is not touched inheritly but only provided for the logic of the deriving trait.
  */
 public abstract class TraitProgressiveStats extends AbstractTrait {
 

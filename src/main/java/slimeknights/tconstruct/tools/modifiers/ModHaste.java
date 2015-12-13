@@ -38,10 +38,10 @@ public class ModHaste extends Modifier {
     for(int count = data.current; count > 0; count--) {
       if(speed <= 10f) {
         // linear scaling from 0.08 to 0.06 per piece till 10 miningspeed
-        speed += 0.08f - 0.02f * speed/10f;
+        speed += 0.08f - 0.02f * speed / 10f;
       }
       else if(speed <= 20f) {
-        speed += 0.06f - 0.04 * speed/20f;
+        speed += 0.06f - 0.04 * speed / 20f;
       }
       else {
         speed += 0.01;

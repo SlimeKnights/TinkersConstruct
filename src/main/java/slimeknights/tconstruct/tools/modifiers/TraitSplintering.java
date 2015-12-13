@@ -22,7 +22,7 @@ public class TraitSplintering extends AbstractTrait {
 
     PotionEffect effect = target.getActivePotionEffect(Splinter);
     if(effect != null) {
-      return newDamage + 0.3f * (effect.getAmplifier()+1);
+      return newDamage + 0.3f * (effect.getAmplifier() + 1);
     }
 
     return super.onHit(tool, player, target, damage, newDamage, isCritical);

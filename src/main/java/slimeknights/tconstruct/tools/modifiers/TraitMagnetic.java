@@ -44,7 +44,7 @@ public class TraitMagnetic extends AbstractTrait {
 
     @Override
     public boolean isReady(int duration, int strength) {
-      return (duration&1) == 0; // basically %2
+      return (duration & 1) == 0; // basically %2
     }
 
     @Override
@@ -58,17 +58,19 @@ public class TraitMagnetic extends AbstractTrait {
       List<EntityItem> items = entity.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.fromBounds(x - range, y - range, z - range, x + range, y + range, z + range));
       int pulled = 0;
       for(EntityItem item : items) {
-        if(item.getEntityItem() == null || item.getEntityItem().getItem() == null || item.isDead)
+        if(item.getEntityItem() == null || item.getEntityItem().getItem() == null || item.isDead) {
           continue;
+        }
 
-        if(pulled > 200)
+        if(pulled > 200) {
           break;
+        }
 
         // constant force!
         float strength = 0.07f;
 
         // calculate direction: item -> player
-        Vector3d vec = new Vector3d(x,y,z);
+        Vector3d vec = new Vector3d(x, y, z);
         vec.sub(new Vector3d(item.posX, item.posY, item.posZ));
 
         vec.normalize();

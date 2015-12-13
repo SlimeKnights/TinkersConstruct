@@ -22,10 +22,12 @@ public class TraitDuritos extends AbstractTrait {
     if(r < 0.1f) {
       // double durability used, add the damage again
       return newDamage + damage;
-    } else if(r < 0.5f) {
+    }
+    else if(r < 0.5f) {
       // no durability used, substract the durability
       return Math.max(0, newDamage - damage);
-    } else {
+    }
+    else {
       return super.onToolDamage(tool, damage, newDamage, entity);
     }
   }

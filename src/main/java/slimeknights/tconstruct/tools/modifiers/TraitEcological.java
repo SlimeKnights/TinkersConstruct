@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 // Your tool is green!
 // This is a very weak version of repair/moss.. be careful not to catch any splinters!
 public class TraitEcological extends AbstractTrait {
+
   private static int chance = 100; // 1/X chance of getting the effect
 
   public TraitEcological() {
@@ -25,7 +26,7 @@ public class TraitEcological extends AbstractTrait {
   @Override
   public void onUpdate(ItemStack tool, World world, Entity entity, int itemSlot, boolean isSelected) {
     // *20 because 20 ticks in a second
-    if(random.nextInt(20*chance) == 0) {
+    if(random.nextInt(20 * chance) == 0) {
       ToolHelper.repairTool(tool, 1);
     }
   }

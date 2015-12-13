@@ -53,6 +53,7 @@ public abstract class ToolCore extends TinkersItem {
 
   protected final static int DEFAULT_MODIFIERS = 3;
   protected final static ToolGrowth toolGrowth;
+
   static {
     toolGrowth = new ToolGrowth();
     TinkerRegistry.addTrait(toolGrowth);
@@ -106,6 +107,7 @@ public abstract class ToolCore extends TinkersItem {
 
   /**
    * Actually deal damage to the entity we hit. Can be overridden for special behaviour
+   *
    * @return True if the entity was hit. Usually the return value of {@link Entity#attackEntityFrom(DamageSource, float)}
    */
   public boolean dealDamage(ItemStack stack, EntityPlayer player, EntityLivingBase entity, float damage) {
@@ -131,8 +133,8 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
-    if(this instanceof IAoeTool && ((IAoeTool)this).isAoeHarvestTool()) {
-      for(BlockPos extraPos : ((IAoeTool)this).getAOEBlocks(itemstack, player.worldObj, player, pos)) {
+    if(this instanceof IAoeTool && ((IAoeTool) this).isAoeHarvestTool()) {
+      for(BlockPos extraPos : ((IAoeTool) this).getAOEBlocks(itemstack, player.worldObj, player, pos)) {
         ToolHelper.breakExtraBlock(itemstack, player.worldObj, player, extraPos, pos);
       }
     }
@@ -231,11 +233,13 @@ public abstract class ToolCore extends TinkersItem {
     String itemName = super.getItemStackDisplayName(stack);
 
     // no material
-    if(nameMaterials.isEmpty())
+    if(nameMaterials.isEmpty()) {
       return itemName;
+    }
     // only one material - prefix
-    if(nameMaterials.size() == 1)
+    if(nameMaterials.size() == 1) {
       return nameMaterials.iterator().next().getLocalizedItemName(itemName);
+    }
 
     // multiple materials. we'll have to combine
     StringBuilder sb = new StringBuilder();
@@ -254,13 +258,6 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   @Override
-  public ItemStack buildItem(List<Material> materials) {
-    ItemStack tool = super.buildItem(materials);
-
-    return tool;
-  }
-
-  @Override
   public void addMaterialTraits(NBTTagCompound root, List<Material> materials) {
     super.addMaterialTraits(root, materials);
 
@@ -272,8 +269,9 @@ public abstract class ToolCore extends TinkersItem {
   @Override
   public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
     for(Material head : TinkerRegistry.getAllMaterials()) {
-      if(!head.hasStats(ToolMaterialStats.TYPE))
+      if(!head.hasStats(ToolMaterialStats.TYPE)) {
         continue;
+      }
 
       List<Material> mats = new ArrayList<Material>(requiredComponents.length);
 
@@ -333,7 +331,9 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
-    if(ToolHelper.isBroken(stack)) return false;
+    if(ToolHelper.isBroken(stack)) {
+      return false;
+    }
 
     boolean effective = isEffective(blockIn) || ToolHelper.isToolEffective(stack, worldIn.getBlockState(pos));
     int damage = effective ? 1 : 2;
@@ -365,8 +365,7 @@ public abstract class ToolCore extends TinkersItem {
     if(entityIn instanceof EntityPlayerSP) {
       EntityPlayerSP playerSP = (EntityPlayerSP) entityIn;
       ItemStack usingItem = playerSP.getItemInUse();
-      if (usingItem != null && usingItem.getItem() == this)
-      {
+      if(usingItem != null && usingItem.getItem() == this) {
         // no slowdown from charging it up
         playerSP.movementInput.moveForward *= originalSpeed * 5.0F;
         playerSP.movementInput.moveStrafe *= originalSpeed * 5.0F;

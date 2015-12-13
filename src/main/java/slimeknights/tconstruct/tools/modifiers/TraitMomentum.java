@@ -35,7 +35,7 @@ public class TraitMomentum extends AbstractTrait {
     level += Momentum.getLevel(player);
 
     level = Math.min(32, level);
-    int duration = (int)((10f/ToolHelper.getMiningSpeed(tool)) * 1.5f * 20f);
+    int duration = (int) ((10f / ToolHelper.getMiningSpeed(tool)) * 1.5f * 20f);
 
     Momentum.apply(player, duration, level);
   }

@@ -34,7 +34,7 @@ public class TraitAridiculous extends AbstractTrait {
 
   protected float calcAridiculousness(World world, BlockPos pos) {
     BiomeGenBase biome = world.getBiomeGenForCoords(pos);
-    float rain = world.isRaining() ? biome.getFloatRainfall()/2f : 0f;
+    float rain = world.isRaining() ? biome.getFloatRainfall() / 2f : 0f;
     return (float) (Math.pow(1.25, 3d * (0.5f + biome.temperature - biome.rainfall)) - 1.25d) - rain;
   }
 }

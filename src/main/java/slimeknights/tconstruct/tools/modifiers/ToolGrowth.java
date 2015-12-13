@@ -1,11 +1,8 @@
 package slimeknights.tconstruct.tools.modifiers;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
@@ -14,7 +11,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
-import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
@@ -63,8 +59,9 @@ public class ToolGrowth extends TraitProgressiveStats {
     }
 
     // we don't update if the player is currently breaking a block because that'd reset it
-    if(playerIsBreakingBlock(entity))
+    if(playerIsBreakingBlock(entity)) {
       return;
+    }
 
     // get stat pool
     NBTTagCompound root = TagUtil.getTagSafe(tool);
@@ -123,7 +120,7 @@ public class ToolGrowth extends TraitProgressiveStats {
     }
 
     // add a bit of random
-    famount *= 0.975f + random.nextFloat()*0.05f;
+    famount *= 0.975f + random.nextFloat() * 0.05f;
 
     // calculate stats to add to pool. Baseline: 1000 durability
     int extra = (int) (calcDimishingReturns(totalDurability, 1000f) * famount * DURABILITY_COEFFICIENT);

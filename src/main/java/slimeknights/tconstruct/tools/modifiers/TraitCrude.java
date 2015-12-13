@@ -17,7 +17,7 @@ public class TraitCrude extends AbstractTrait {
     boolean hasArmor = target.getTotalArmorValue() > 0;
     if(hasArmor) {
       // 10% damage boost against unarmed targets!
-      return newDamage + damage*0.1f;
+      return newDamage + damage * 0.1f;
     }
     return super.onHit(tool, player, target, damage, newDamage, isCritical);
   }

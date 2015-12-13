@@ -64,11 +64,14 @@ public class TraitAlien extends TraitProgressiveStats {
       return;
     }
     // every 3.6 seconds we distribute one stat. This means 1h = 1000 applications
-    if(entity.ticksExisted % TICK_PER_STAT > 0) return;
+    if(entity.ticksExisted % TICK_PER_STAT > 0) {
+      return;
+    }
 
     // we don't update if the player is currently breaking a block because that'd reset it
-    if(playerIsBreakingBlock(entity))
+    if(playerIsBreakingBlock(entity)) {
       return;
+    }
 
     NBTTagCompound root = TagUtil.getTagSafe(tool);
     StatNBT pool = getPool(root);
@@ -76,14 +79,14 @@ public class TraitAlien extends TraitProgressiveStats {
     ToolNBT data = TagUtil.getToolStats(tool);
 
     // attack
-    if(entity.ticksExisted % (TICK_PER_STAT*3) == 0) {
+    if(entity.ticksExisted % (TICK_PER_STAT * 3) == 0) {
       if(distributed.attack < pool.attack) {
         data.attack += ATTACK_STEP;
         distributed.attack += ATTACK_STEP;
       }
     }
     // speed
-    else if(entity.ticksExisted % (TICK_PER_STAT*2) == 0) {
+    else if(entity.ticksExisted % (TICK_PER_STAT * 2) == 0) {
       if(distributed.speed < pool.speed) {
         data.speed += SPEED_STEP;
         distributed.speed += SPEED_STEP;

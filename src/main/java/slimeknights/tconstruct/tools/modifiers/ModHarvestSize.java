@@ -21,8 +21,9 @@ public class ModHarvestSize extends Modifier {
   @Override
   protected boolean canApplyCustom(ItemStack stack) {
     // we can only apply this to AOE tools
-    if(!(stack.getItem() instanceof IAoeTool))
+    if(!(stack.getItem() instanceof IAoeTool)) {
       return false;
+    }
 
     return super.canApplyCustom(stack);
   }

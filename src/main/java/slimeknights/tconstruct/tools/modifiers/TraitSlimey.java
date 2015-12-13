@@ -41,7 +41,7 @@ public class TraitSlimey extends AbstractTrait {
     try {
       EntitySlime entity = slime.getConstructor(World.class).newInstance(world);
       //entity.setSlimeSize(1);
-      entity.setPosition(x,y,z);
+      entity.setPosition(x, y, z);
       world.spawnEntityInWorld(entity);
       entity.setLastAttacker(player);
       entity.playLivingSound();

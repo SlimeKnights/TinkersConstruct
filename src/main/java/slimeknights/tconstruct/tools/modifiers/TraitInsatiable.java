@@ -18,7 +18,7 @@ public class TraitInsatiable extends AbstractTrait {
 
   @Override
   public float onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
-    float bonus = Insatiable.getLevel(player)/3f;
+    float bonus = Insatiable.getLevel(player) / 3f;
     return super.onHit(tool, player, target, damage, newDamage, isCritical) + bonus;
   }
 
