@@ -18,6 +18,7 @@ import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.world.block.BlockSlime;
@@ -85,6 +86,8 @@ public class TinkerWorld extends TinkerPulse {
 
     oredict();
     proxy.preInit();
+
+    TinkerRegistry.tabWorld.setDisplayIcon(new ItemStack(slimeSapling));
   }
 
   private void oredict() {

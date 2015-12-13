@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import net.minecraft.item.ItemStack;
@@ -12,6 +13,7 @@ import java.util.List;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 public class ToolBuildGuiInfo {
 
@@ -69,5 +71,8 @@ public class ToolBuildGuiInfo {
       // but it shouldn't matter because they're never used serverside and we don't use indices
       TinkerRegistry.addMaterial(mat);
     }
+
+    TinkerRegistry.tabTools.setDisplayIcon(TinkerTools.pickaxe.buildItemForRendering(ImmutableList.of(RenderMaterials[0], RenderMaterials[1], RenderMaterials[2])));
+    TinkerRegistry.tabParts.setDisplayIcon(TinkerTools.binding.getItemstackWithMaterial(RenderMaterials[2]));
   }
 }

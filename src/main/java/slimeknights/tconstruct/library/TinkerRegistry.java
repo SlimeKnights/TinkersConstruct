@@ -59,7 +59,7 @@ public final class TinkerRegistry {
   /*---------------------------------------------------------------------------
   | CREATIVE TABS                                                             |
   ---------------------------------------------------------------------------*/
-  public static CreativeTab tabGeneral = new CreativeTab("TinkerGeneral", new ItemStack(Blocks.crafting_table));
+  public static CreativeTab tabGeneral = new CreativeTab("TinkerGeneral", new ItemStack(Items.slime_ball));
   public static CreativeTab tabTools = new CreativeTab("TinkerTools", new ItemStack(Items.iron_pickaxe));
   public static CreativeTab tabParts = new CreativeTab("TinkerToolParts", new ItemStack(Items.stick));
   public static CreativeTab tabSmeltery = new CreativeTab("TinkerSmeltery", new ItemStack(Item.getItemFromBlock(Blocks.stonebrick)));

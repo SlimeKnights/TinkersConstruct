@@ -119,6 +119,8 @@ public class TinkerCommons extends TinkerPulse {
     registerRecipies();
 
     proxy.preInit();
+
+    TinkerRegistry.tabGeneral.setDisplayIcon(matSlimeBallBlue);
   }
 
   private void registerRecipies() {

@@ -54,6 +54,8 @@ public class TinkerSmeltery extends TinkerPulse {
     cast.setCreativeTab(TinkerRegistry.tabSmeltery);
 
     proxy.preInit();
+
+    TinkerRegistry.tabSmeltery.setDisplayIcon(new ItemStack(searedTank));
   }
 
   // INITIALIZATION
