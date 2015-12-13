@@ -110,29 +110,9 @@ public class TinkerCommons extends TinkerPulse {
     }
 
     // oredicting time
-    registerOredicts();
     registerRecipies();
 
     proxy.preInit();
-  }
-
-  private void registerOredicts() {
-    String dict = "slimeball";
-    oredict(matSlimeBallBlue, dict);
-    oredict(matSlimeBallPurple, dict);
-    oredict(matSlimeBallBlood, dict);
-
-    dict = "ingot";
-    oredict(ingotCobalt, dict + "Cobalt");
-    oredict(ingotArdite, dict + "Ardite");
-    oredict(ingotManyullyn, dict + "Manyullyn");
-    oredict(ingotKnightSlime, dict + "Knightslime");
-
-    dict = "nugget";
-    oredict(nuggetCobalt, dict + "Cobalt");
-    oredict(nuggetArdite, dict + "Ardite");
-    oredict(nuggetManyullyn, dict + "Manyullyn");
-    oredict(nuggetKnightSlime, dict + "Knightslime");
   }
 
   private void registerRecipies() {
@@ -152,9 +132,4 @@ public class TinkerCommons extends TinkerPulse {
     GameRegistry.addShapedRecipe(ingot, "###","###","###", '#', nugget);
   }
 
-  private void oredict(ItemStack stack, String name) {
-    if(stack != null) {
-      OreDictionary.registerOre(name, stack);
-    }
-  }
 }

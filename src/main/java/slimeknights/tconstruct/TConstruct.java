@@ -108,7 +108,6 @@ public class TConstruct {
   @Mod.EventHandler
   public void preInit(FMLPreInitializationEvent event) {
     HarvestLevels.init();
-    TinkerOredict.ensureOredict();
 
     EntityRegistry.registerModEntity(IndestructibleEntityItem.class, "Indestructible Item", 0, TConstruct.instance, 32, 5, true);
 
@@ -119,8 +118,6 @@ public class TConstruct {
     }
 
     TinkerNetwork.instance.setup();
-
-    TinkerOredict.registerTinkerOredict();
   }
 
   @Mod.EventHandler
