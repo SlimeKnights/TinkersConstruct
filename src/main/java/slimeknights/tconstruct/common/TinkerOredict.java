@@ -92,6 +92,8 @@ public class TinkerOredict {
     oredict(pickHead, "partPickHead");
     oredict(binding,  "partBinding");
     oredict(toolRod,  "partToolRod");
+
+    oredict(slimeSand, "slimeMud");
   }
 
   private static void registerSmeltery() {}
