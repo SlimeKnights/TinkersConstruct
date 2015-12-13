@@ -31,6 +31,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.tools.modifiers.TraitAlien;
 import slimeknights.tconstruct.tools.modifiers.TraitAquadynamic;
 import slimeknights.tconstruct.tools.modifiers.TraitAridiculous;
 import slimeknights.tconstruct.tools.modifiers.TraitCheap;
@@ -94,6 +95,7 @@ public final class TinkerMaterials {
   // specul
   public static final Material xu;
 
+  public static final AbstractTrait alien = new TraitAlien();
   public static final AbstractTrait aquadynamic = new TraitAquadynamic();
   public static final AbstractTrait aridiculous = new TraitAridiculous();
   public static final AbstractTrait cheap = new TraitCheap();
@@ -243,6 +245,7 @@ public final class TinkerMaterials {
     endstone.setCraftable(true);
     endstone.addItem(Blocks.end_stone, Material.VALUE_Ingot);
     endstone.setRepresentativeItem(Blocks.end_stone);
+    endstone.addTrait(alien);
 
     // item/special resources
     bone.setCraftable(true);

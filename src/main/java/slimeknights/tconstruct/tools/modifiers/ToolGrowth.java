@@ -16,7 +16,6 @@ import net.minecraftforge.common.util.FakePlayer;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.tools.ToolNBT;
-import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 
@@ -28,10 +27,7 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
  * Stats are added to the pool on repairing, mining and attacking.
  * Values are dimishing depending on overall stats of the tool. So the growth slows down depending on your overall tool stats.
  */
-public class ToolGrowth extends AbstractTrait {
-
-  public static final String TAG_Pool = "StatPool";
-  public static final String TAG_Bonus = "StatBonus";
+public class ToolGrowth extends TraitProgressiveStats {
 
   protected static float DURABILITY_COEFFICIENT = 0.04f; // % of amount repaired
   protected static float SPEED_INCREMENT = 0.05f; // flat
@@ -46,23 +42,6 @@ public class ToolGrowth extends AbstractTrait {
     super("toolgrowth", EnumChatFormatting.WHITE);
 
     this.addAspects(new ModifierAspect.SingleAspect(this));
-  }
-
-  /* Modifier management */
-
-  @Override
-  public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
-    super.applyEffect(rootCompound, modifierTag);
-    // called on tool loading only
-    // we just apply the saved bonus stats
-    ToolNBT data = TagUtil.getToolStats(rootCompound);
-    GrowthNBT bonus = getBonus(rootCompound);
-
-    data.durability += bonus.durability;
-    data.speed += bonus.speed;
-    data.attack += bonus.attack;
-
-    TagUtil.setToolTag(rootCompound, data.get());
   }
 
   @Override
@@ -97,8 +76,8 @@ public class ToolGrowth extends AbstractTrait {
 
     // get stat pool
     NBTTagCompound root = TagUtil.getTagSafe(tool);
-    GrowthNBT pool = getPool(root);
-    GrowthNBT bonus = getBonus(root);
+    StatNBT pool = getPool(root);
+    StatNBT bonus = getBonus(root);
 
     ToolNBT data = TagUtil.getToolStats(tool);
 
@@ -142,7 +121,7 @@ public class ToolGrowth extends AbstractTrait {
   public void onRepair(ItemStack tool, int amount) {
     // read data from tool
     NBTTagCompound root = TagUtil.getTagSafe(tool);
-    GrowthNBT pool = getPool(root);
+    StatNBT pool = getPool(root);
     int totalDurability = ToolHelper.getDurability(tool);
     float famount = amount;
 
@@ -176,7 +155,7 @@ public class ToolGrowth extends AbstractTrait {
 
     // read data from tool
     NBTTagCompound root = TagUtil.getTagSafe(tool);
-    GrowthNBT pool = getPool(root);
+    StatNBT pool = getPool(root);
     float totalSpeed = ToolHelper.getMiningSpeed(tool);
 
     // calculate stats to add to pool. Baseline: 5
@@ -201,7 +180,7 @@ public class ToolGrowth extends AbstractTrait {
 
     // read data from tool
     NBTTagCompound root = TagUtil.getTagSafe(tool);
-    GrowthNBT pool = getPool(root);
+    StatNBT pool = getPool(root);
     float totalSpeed = ToolHelper.getMiningSpeed(tool);
 
     // calculate stats to add to pool. Baseline: 10 (= 5 hearts)
@@ -218,57 +197,4 @@ public class ToolGrowth extends AbstractTrait {
     return 2f / (1f + (value / baseline) * (value / baseline));
   }
 
-
-
-  protected GrowthNBT getPool(NBTTagCompound root) {
-    return getStats(root, TAG_Pool);
-  }
-
-  protected void setPool(NBTTagCompound root, GrowthNBT data) {
-    setStats(root, data, TAG_Pool);
-  }
-
-  protected GrowthNBT getBonus(NBTTagCompound root) {
-    return getStats(root, TAG_Bonus);
-  }
-
-  protected void setBonus(NBTTagCompound root, GrowthNBT data) {
-    setStats(root, data, TAG_Bonus);
-  }
-
-  private GrowthNBT getStats(NBTTagCompound root, String key) {
-    return ModifierNBT.readTag(TagUtil.getTagSafe(TagUtil.getExtraTag(root), key), GrowthNBT.class);
-  }
-
-  private void setStats(NBTTagCompound root, GrowthNBT data, String key) {
-    NBTTagCompound extra = TagUtil.getExtraTag(root);
-    NBTTagCompound tag = new NBTTagCompound();
-    data.write(tag);
-    extra.setTag(key, tag);
-    TagUtil.setExtraTag(root, extra);
-  }
-
-  public static class GrowthNBT extends ModifierNBT {
-
-    // statpool
-    public int durability;
-    public float attack;
-    public float speed;
-
-    @Override
-    public void read(NBTTagCompound tag) {
-      super.read(tag);
-      durability = tag.getInteger("durability");
-      attack = tag.getFloat("attack");
-      speed = tag.getFloat("speed");
-    }
-
-    @Override
-    public void write(NBTTagCompound tag) {
-      super.write(tag);
-      tag.setInteger("durability", durability);
-      tag.setFloat("attack", attack);
-      tag.setFloat("speed", speed);
-    }
-  }
 }
