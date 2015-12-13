@@ -60,6 +60,7 @@ import slimeknights.tconstruct.tools.modifiers.ModDiamond;
 import slimeknights.tconstruct.tools.modifiers.ModFortify;
 import slimeknights.tconstruct.tools.modifiers.ModHarvestSize;
 import slimeknights.tconstruct.tools.modifiers.ModHaste;
+import slimeknights.tconstruct.tools.modifiers.ModLuck;
 import slimeknights.tconstruct.tools.modifiers.ModSharpness;
 import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
 import slimeknights.tconstruct.tools.tileentity.TilePartBuilder;
@@ -131,6 +132,7 @@ public class TinkerTools extends TinkerPulse {
   public static Modifier modHaste;
   public static Modifier modHarvestWidth;
   public static Modifier modHarvestHeight;
+  public static Modifier modLuck;
   public static Modifier modSharpness;
 
   public static List<Modifier> fortifyMods;
@@ -234,6 +236,9 @@ public class TinkerTools extends TinkerPulse {
     modHarvestHeight = new ModHarvestSize("height");
     modHarvestHeight.addItem(TinkerCommons.matExpanderH, 1, 1);
 
+    modLuck = new ModLuck();
+    modLuck.addItem("gemLapis");
+    modLuck.addItem("blockLapis", 1, 9);
 
     modSharpness = new ModSharpness(24);
     modSharpness.addItem("gemQuartz");
