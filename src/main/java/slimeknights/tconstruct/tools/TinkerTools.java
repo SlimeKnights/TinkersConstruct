@@ -127,11 +127,11 @@ public class TinkerTools extends TinkerPulse {
   public static ToolPart largePlate;
 
   // Modifiers
-  public static Modifier diamondMod;
-  public static Modifier hasteMod;
-  public static Modifier harvestWidth;
-  public static Modifier harvestHeight;
-  public static Modifier sharpnessMod;
+  public static Modifier modDiamond;
+  public static Modifier modHaste;
+  public static Modifier modHarvestWidth;
+  public static Modifier modHarvestHeight;
+  public static Modifier modSharpness;
 
   public static List<Modifier> fortifyMods;
 
@@ -221,22 +221,22 @@ public class TinkerTools extends TinkerPulse {
 
   private void registerModifiers() {
     // create the modifiers
-    diamondMod = new ModDiamond();
-    hasteMod = new ModHaste(50);
-    sharpnessMod = new ModSharpness(24);
+    modDiamond = new ModDiamond();
+    modHaste = new ModHaste(50);
+    modSharpness = new ModSharpness(24);
 
-    harvestWidth = new ModHarvestSize("width");
-    harvestHeight = new ModHarvestSize("height");
+    modHarvestWidth = new ModHarvestSize("width");
+    modHarvestHeight = new ModHarvestSize("height");
 
     // register the items for the modifiers
-    diamondMod.addItem("gemDiamond");
-    hasteMod.addItem("dustRedstone");
-    hasteMod.addItem("blockRedstone", 1, 9);
-    sharpnessMod.addItem("gemQuartz");
-    sharpnessMod.addItem("blockQuartz", 1, 4);
+    modDiamond.addItem("gemDiamond");
+    modHaste.addItem("dustRedstone");
+    modHaste.addItem("blockRedstone", 1, 9);
+    modSharpness.addItem("gemQuartz");
+    modSharpness.addItem("blockQuartz", 1, 4);
 
-    harvestWidth.addItem(TinkerCommons.matExpanderW, 1, 1);
-    harvestHeight.addItem(TinkerCommons.matExpanderH, 1, 1);
+    modHarvestWidth.addItem(TinkerCommons.matExpanderW, 1, 1);
+    modHarvestHeight.addItem(TinkerCommons.matExpanderH, 1, 1);
   }
 
   private void oredict() {

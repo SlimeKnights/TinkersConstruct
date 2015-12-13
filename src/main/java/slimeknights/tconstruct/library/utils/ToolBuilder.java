@@ -494,6 +494,21 @@ public final class ToolBuilder {
     }
   }
 
+  public static short getEnchantmentLevel(NBTTagCompound rootTag, Enchantment enchantment) {
+    NBTTagList enchantments = rootTag.getTagList("ench", 10);
+    if(enchantments == null) {
+      enchantments = new NBTTagList();
+    }
+
+    for(int i = 0; i < enchantments.tagCount(); i++) {
+      if(enchantments.getCompoundTagAt(i).getShort("id") == enchantment.effectId) {
+        return enchantments.getCompoundTagAt(i).getShort("lvl");
+      }
+    }
+
+    return 0;
+  }
+
   public static void addEnchantment(NBTTagCompound rootTag, Enchantment enchantment) {
     NBTTagList enchantments = rootTag.getTagList("ench", 10);
     if(enchantments == null) {

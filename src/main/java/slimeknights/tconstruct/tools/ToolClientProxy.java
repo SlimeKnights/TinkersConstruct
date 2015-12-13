@@ -103,9 +103,9 @@ public class ToolClientProxy extends ClientProxy {
       registerPartModel(part);
     }
 
-    registerModifierModel(TinkerTools.diamondMod, Util.getResource("models/item/modifiers/diamond"));
-    registerModifierModel(TinkerTools.hasteMod, Util.getResource("models/item/modifiers/haste"));
-    registerModifierModel(TinkerTools.sharpnessMod, Util.getResource("models/item/modifiers/sharpness"));
+    registerModifierModel(TinkerTools.modDiamond, Util.getResource("models/item/modifiers/diamond"));
+    registerModifierModel(TinkerTools.modHaste, Util.getResource("models/item/modifiers/haste"));
+    registerModifierModel(TinkerTools.modSharpness, Util.getResource("models/item/modifiers/sharpness"));
     // we add a temporary modifier that does nothing to work around the model restrictions for the fortify modifier
     registerModifierModel(new Modifier("fortify") {
       @Override

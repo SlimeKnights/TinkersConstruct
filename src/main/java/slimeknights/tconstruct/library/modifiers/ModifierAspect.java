@@ -115,7 +115,7 @@ public abstract class ModifierAspect {
    */
   public static class MultiAspect extends ModifierAspect {
 
-    private final int countPerLevel;
+    protected final int countPerLevel;
 
     private final DataAspect dataAspect;
     private final LevelAspect levelAspect;
