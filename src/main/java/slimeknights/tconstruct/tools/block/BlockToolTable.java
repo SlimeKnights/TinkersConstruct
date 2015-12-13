@@ -41,7 +41,7 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
 
   public BlockToolTable() {
     super(Material.wood);
-    this.setCreativeTab(TinkerRegistry.tabTools);
+    this.setCreativeTab(TinkerRegistry.tabGeneral);
 
     this.setStepSound(soundTypeWood);
     this.setResistance(5f);

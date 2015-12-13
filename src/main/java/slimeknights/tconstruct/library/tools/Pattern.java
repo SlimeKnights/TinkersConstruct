@@ -22,7 +22,7 @@ public class Pattern extends Item {
   public static final String TAG_PARTTYPE = "PartType";
 
   public Pattern() {
-    this.setCreativeTab(TinkerRegistry.tabTools);
+    this.setCreativeTab(TinkerRegistry.tabParts);
     this.setHasSubtypes(true);
   }
 

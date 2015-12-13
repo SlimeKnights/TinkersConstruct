@@ -20,7 +20,7 @@ public class BlockSlimeSand extends Block {
 
   public BlockSlimeSand() {
     super(Material.clay);
-    this.setCreativeTab(TinkerRegistry.tabTools);
+    this.setCreativeTab(TinkerRegistry.tabGeneral);
     this.slipperiness = 0.8F;
     this.setHardness(3.0f);
 

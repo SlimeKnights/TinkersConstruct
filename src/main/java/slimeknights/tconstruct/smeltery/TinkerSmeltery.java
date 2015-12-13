@@ -51,6 +51,7 @@ public class TinkerSmeltery extends TinkerPulse {
     registerTE(TileTank.class, "smeltery_tank");
 
     cast = registerItem(new Pattern(), "cast");
+    cast.setCreativeTab(TinkerRegistry.tabSmeltery);
 
     proxy.preInit();
   }

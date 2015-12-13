@@ -16,6 +16,7 @@ import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.Config;
 import slimeknights.tconstruct.common.TinkerPulse;
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 
 /**
@@ -72,6 +73,11 @@ public class TinkerCommons extends TinkerPulse {
     ingots = registerItem(new ItemMetaDynamic(), "ingots");
     materials = registerItem(new ItemMetaDynamic(), "materials");
     edibles = registerItem(new ItemEdible(), "edible");
+
+    nuggets.setCreativeTab(TinkerRegistry.tabGeneral);
+    ingots.setCreativeTab(TinkerRegistry.tabGeneral);
+    materials.setCreativeTab(TinkerRegistry.tabGeneral);
+    edibles.setCreativeTab(TinkerRegistry.tabGeneral);
 
     // Items that can always be present.. slimeballs
     matSlimeBallBlue = edibles.addFood(1, 1, 1f, "slimeball_blue");
