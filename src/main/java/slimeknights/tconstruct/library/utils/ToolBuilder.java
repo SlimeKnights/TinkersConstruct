@@ -483,6 +483,8 @@ public final class ToolBuilder {
       }
     }
 
+    // remaining info, get updated toolTag
+    toolTag = TagUtil.getToolTag(rootNBT);
     // adjust free modifiers
     int freeModifiers = toolTag.getInteger(Tags.FREE_MODIFIERS);
     freeModifiers -= TagUtil.getBaseModifiersUsed(rootNBT);
@@ -492,6 +494,8 @@ public final class ToolBuilder {
     if(broken) {
       toolTag.setBoolean(Tags.BROKEN, true);
     }
+
+    TagUtil.setToolTag(rootNBT, toolTag);
   }
 
   public static short getEnchantmentLevel(NBTTagCompound rootTag, Enchantment enchantment) {
