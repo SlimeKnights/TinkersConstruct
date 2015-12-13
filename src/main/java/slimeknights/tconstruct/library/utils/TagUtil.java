@@ -10,6 +10,7 @@ import net.minecraft.util.BlockPos;
 
 import java.util.Set;
 
+import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 
 public final class TagUtil {
@@ -217,6 +218,34 @@ public final class TagUtil {
   public static void setExtraTag(NBTTagCompound root, NBTTagCompound tag) {
     root.setTag(Tags.TINKER_EXTRA, tag);
   }
+
+  public static Category[] getCategories(NBTTagCompound root) {
+    NBTTagList categories = getTagListSafe(getExtraTag(root), Tags.EXTRA_CATEGORIES, 8);
+    Category[] out = new Category[categories.tagCount()];
+    for(int i = 0; i < out.length; i++) {
+      out[i] = Category.categories.get(categories.getStringTagAt(i));
+    }
+
+    return out;
+  }
+
+  public static void setCategories(ItemStack stack, Category[] categories) {
+    NBTTagCompound root = getTagSafe(stack);
+    setCategories(root, categories);
+    stack.setTagCompound(root);
+  }
+
+  public static void setCategories(NBTTagCompound root, Category[] categories) {
+    NBTTagList list = new NBTTagList();
+    for(Category category : categories) {
+      list.appendTag(new NBTTagString(category.name));
+    }
+
+    NBTTagCompound extra = getExtraTag(root);
+    extra.setTag(Tags.EXTRA_CATEGORIES, list);
+    setExtraTag(root, extra);
+  }
+
 
   /* Helper functions */
 

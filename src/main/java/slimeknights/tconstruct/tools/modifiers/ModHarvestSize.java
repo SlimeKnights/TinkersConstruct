@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
+import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tools.IAoeTool;
 
 public class ModHarvestSize extends Modifier {
@@ -19,7 +20,7 @@ public class ModHarvestSize extends Modifier {
   }
 
   @Override
-  protected boolean canApplyCustom(ItemStack stack) {
+  protected boolean canApplyCustom(ItemStack stack) throws TinkerGuiException {
     // we can only apply this to AOE tools
     if(!(stack.getItem() instanceof IAoeTool)) {
       return false;

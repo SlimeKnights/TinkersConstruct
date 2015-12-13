@@ -1,8 +1,13 @@
 package slimeknights.tconstruct.library.tinkering;
 
+import com.google.common.collect.Maps;
+
 import java.util.Locale;
+import java.util.Map;
 
 public class Category {
+
+  public static Map<String, Category> categories = Maps.newHashMap();
 
   // everything item built is a tool
   public static final Category TOOL = new Category("tool");
@@ -12,9 +17,10 @@ public class Category {
   public static final Category HARVEST = new Category("harvest");
 
 
-  private final String name;
+  public final String name;
 
   public Category(String name) {
     this.name = name.toLowerCase(Locale.US);
+    categories.put(name, this);
   }
 }

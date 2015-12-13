@@ -62,6 +62,16 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     return categories.contains(category);
   }
 
+  protected Category[] getCategories() {
+    Category[] out = new Category[categories.size()];
+    int i = 0;
+    for(Category category : categories) {
+      out[i++] = category;
+    }
+
+    return out;
+  }
+
   /* INDESTRUCTIBLE */
 
   @Override
@@ -147,6 +157,9 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     basetag.setTag(Tags.TOOL_DATA, toolTag);
     // copy of the original tool data
     basetag.setTag(Tags.TOOL_DATA_ORIG, toolTag.copy());
+
+    // save categories on the tool
+    TagUtil.setCategories(basetag, getCategories());
 
     // add traits
     addMaterialTraits(basetag, materials);

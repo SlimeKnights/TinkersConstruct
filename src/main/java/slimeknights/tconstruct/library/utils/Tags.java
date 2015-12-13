@@ -18,6 +18,7 @@ public final class Tags {
    * pickaxe had 100 more durability, it'd be stored in here.
    */
   public static final String TINKER_EXTRA = "Special";
+  public static final String EXTRA_CATEGORIES = "Categories";
 
   //public static final String TOOL_RENDER = "Render";
   /** The tag that contains all the actual calculated runtime-information of the tools */
