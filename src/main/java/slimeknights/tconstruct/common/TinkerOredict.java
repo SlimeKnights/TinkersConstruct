@@ -11,9 +11,11 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 import static slimeknights.tconstruct.shared.TinkerCommons.*;
 import static slimeknights.tconstruct.tools.TinkerTools.*;
+import static slimeknights.tconstruct.world.TinkerWorld.*:
 
 /**
  * oredicts ALL the things in TConstruct.
@@ -47,6 +49,9 @@ public class TinkerOredict {
     oredict(Blocks.obsidian, "blockObsidian");
     oredict(Blocks.netherrack, "blockNetherrack");
     oredict(Blocks.prismarine, "blockPrismarine");
+    oredict(Blocks.slime_block, "blockSlime");
+    oredict(Blocks.vine, "vine");
+    // glowstone block, redstone block
 
     oredict(Blocks.dirt, "dirt");
 
@@ -91,7 +96,20 @@ public class TinkerOredict {
   }
 
   private static void registerSmeltery() {}
-  private static void registerWorld() {}
+  private static void registerWorld() {
+    oredict(slimeSapling, "treeSapling");
+    oredict(slimeBlock, "blockSlime");
+    oredict(slimeBlockCongealed, "blockSlimeCongealed");
+    oredict(slimeDirt, "blockSlimeDirt");
+    oredict(slimeGrass, "blockSlimeGrass");
+    oredict(slimeLeaves, "treeLeaves");
+    oredict(slimeVineBlue1, "vine");
+    oredict(slimeVineBlue2, "vine");
+    oredict(slimeVineBlue3, "vine");
+    oredict(slimeVinePurple1, "vine");
+    oredict(slimeVinePurple2, "vine");
+    oredict(slimeVinePurple3, "vine");
+  }
 
   /* Helper functions */
 
