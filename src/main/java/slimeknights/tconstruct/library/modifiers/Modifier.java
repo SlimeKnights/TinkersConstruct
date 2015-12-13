@@ -57,13 +57,15 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
       String id = modifiers.getStringTagAt(i);
       IModifier mod = TinkerRegistry.getModifier(id);
       if(mod != null && !canApplyTogether(mod)) {
-        return false; // todo: throw gui exception
+        throw new TinkerGuiException(Util.translateFormatted("gui.error.incompatible_modifiers", this.getLocalizedName(), mod.getLocalizedName()));
       }
     }
 
     for(int id : EnchantmentHelper.getEnchantments(stack).keySet()) {
-      if(!canApplyTogether(Enchantment.getEnchantmentById(id)))
-        return false; // todo: throw gui exception
+      if(!canApplyTogether(Enchantment.getEnchantmentById(id))) {
+        String enchName = StatCollector.translateToLocal(Enchantment.getEnchantmentById(id).getName());
+        throw new TinkerGuiException(Util.translateFormatted("gui.error.incompatible_enchantments", this.getLocalizedName(), enchName));
+      }
     }
 
     return canApplyCustom(stack);

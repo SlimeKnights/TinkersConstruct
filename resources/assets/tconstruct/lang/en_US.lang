@@ -321,6 +321,8 @@ gui.error.not_enough_modifiers=Not enough Modifiers. (%d needed)
 gui.error.single_modifier=%s can only be applied once.
 gui.error.max_level_modifier=Maximum Level for %s already reached.
 gui.error.no_modifier_for_item=No modifier found for %s.
+gui.error.incompatible_modifiers=Modifiers %s and %s cannot be applied together
+gui.error.incompatible_enchantments=Modifier %s cannot be combined with enchantment %s
 
 ################
 #     GUIs     #
