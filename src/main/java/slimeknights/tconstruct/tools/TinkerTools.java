@@ -319,10 +319,10 @@ public class TinkerTools extends TinkerPulse {
       GameRegistry.addRecipe(new ShapelessOreRecipe(slimeBallPurple, Items.slime_ball, "dyePurple"));
     }
     if(!isSmelteryLoaded()) {
-      GameRegistry.addRecipe(new ShapelessOreRecipe(knightSlime, slimeBallPurple, "ingotIron"));
+      GameRegistry.addRecipe(new ShapelessOreRecipe(knightSlime, slimeBallPurple, "ingotIron", "stone"));
       // extra utility recipe if both are not loaded
       if(!isWorldLoaded()) {
-        GameRegistry.addRecipe(new ShapelessOreRecipe(knightSlime, Items.slime_ball, "dyePurple", "ingotIron"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(knightSlime, Items.slime_ball, "dyePurple", "ingotIron", "stone"));
       }
 
       GameRegistry.addShapelessRecipe(TinkerCommons.ingotManyullyn, TinkerCommons.ingotCobalt, TinkerCommons.ingotArdite, Blocks.coal_block);
