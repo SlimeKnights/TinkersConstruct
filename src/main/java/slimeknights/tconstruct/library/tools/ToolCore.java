@@ -373,4 +373,11 @@ public abstract class ToolCore extends TinkersItem {
       }
     }
   }
+
+  @Override
+  public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+    // we simply return false. This should be cover any cases and probably 1-2 edge cases where it shouldn't..
+    // ..but I doubt anybody will notice ;o
+    return false;
+  }
 }
