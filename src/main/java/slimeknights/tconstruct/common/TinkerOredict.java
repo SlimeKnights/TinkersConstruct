@@ -11,11 +11,10 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
-import slimeknights.tconstruct.world.TinkerWorld;
 
 import static slimeknights.tconstruct.shared.TinkerCommons.*;
 import static slimeknights.tconstruct.tools.TinkerTools.*;
-import static slimeknights.tconstruct.world.TinkerWorld.*:
+import static slimeknights.tconstruct.world.TinkerWorld.*;
 
 /**
  * oredicts ALL the things in TConstruct.
