@@ -17,6 +17,8 @@ import slimeknights.tconstruct.library.utils.TagUtil;
  */
 public class TraitAlien extends TraitProgressiveStats {
 
+  protected static int TICK_PER_STAT = 72;
+
   protected static int   DURABILITY_STEP = 1;
   protected static float SPEED_STEP = 0.007f;
   protected static float ATTACK_STEP = 0.005f;
@@ -62,7 +64,11 @@ public class TraitAlien extends TraitProgressiveStats {
       return;
     }
     // every 3.6 seconds we distribute one stat. This means 1h = 1000 applications
-    if(entity.ticksExisted % 72 > 0) return;
+    if(entity.ticksExisted % TICK_PER_STAT > 0) return;
+
+    // we don't update if the player is currently breaking a block because that'd reset it
+    if(playerIsBreakingBlock(entity))
+      return;
 
     NBTTagCompound root = TagUtil.getTagSafe(tool);
     StatNBT pool = getPool(root);
@@ -70,14 +76,14 @@ public class TraitAlien extends TraitProgressiveStats {
     ToolNBT data = TagUtil.getToolStats(tool);
 
     // attack
-    if(entity.ticksExisted % 216 == 0) {
+    if(entity.ticksExisted % (TICK_PER_STAT*3) == 0) {
       if(distributed.attack < pool.attack) {
         data.attack += ATTACK_STEP;
         distributed.attack += ATTACK_STEP;
       }
     }
     // speed
-    else if(entity.ticksExisted % 144 == 0) {
+    else if(entity.ticksExisted % (TICK_PER_STAT*2) == 0) {
       if(distributed.speed < pool.speed) {
         data.speed += SPEED_STEP;
         distributed.speed += SPEED_STEP;

@@ -63,16 +63,8 @@ public class ToolGrowth extends TraitProgressiveStats {
     }
 
     // we don't update if the player is currently breaking a block because that'd reset it
-    if(entity instanceof EntityPlayerMP) {
-      if(((EntityPlayerMP) entity).theItemInWorldManager.isDestroyingBlock) {
-        return;
-      }
-    }
-    else if(entity instanceof EntityPlayerSP) {
-      if(Minecraft.getMinecraft().playerController.isHittingBlock) {
-        return;
-      }
-    }
+    if(playerIsBreakingBlock(entity))
+      return;
 
     // get stat pool
     NBTTagCompound root = TagUtil.getTagSafe(tool);
