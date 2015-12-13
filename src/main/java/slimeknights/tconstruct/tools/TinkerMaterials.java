@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.block.BlockPrismarine;
@@ -16,8 +17,12 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
+
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.Map;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.mantle.util.RecipeMatch;
@@ -59,7 +64,10 @@ import static slimeknights.tconstruct.library.utils.HarvestLevels.STONE;
 public final class TinkerMaterials {
 
   static final String PulseId = "TinkerMaterials";
+  static final Logger log = Util.getLogger(PulseId);
+
   public static final List<Material> materials = Lists.newArrayList();
+  private static final Map<Material, String> materialPrerequisite = Maps.newHashMap();
 
   // not all listed materials are available by default. They enable when the needed material is present
 
@@ -76,21 +84,21 @@ public final class TinkerMaterials {
   public static final Material sponge     = mat("sponge", 0xcacc4e);
 
   // Slime
-  public static final Material knightslime= mat("knightslime", 0xe03fde);
+  public static final Material knightslime= mat("knightslime", 0xe03fde, "ingotKnightslime");
   public static final Material slime      = mat("slime", 0x82c873);
-  public static final Material blueslime  = mat("blueslime", 0x74c8c7);
+  public static final Material blueslime  = mat("blueslime", 0x74c8c7, "slimeballBlue");
 
   // Metals
   public static final Material iron       = mat("iron", 0xcacaca);
-  public static final Material pigiron    = mat("pigiron", 0xff9cc4);
-  public static final Material copper     = mat("copper", 0xed9f07);
-  public static final Material bronze     = mat("bronze", 0xd2a869);
+  public static final Material pigiron    = mat("pigiron", 0xff9cc4, "ingotPigiron");
+  public static final Material copper     = mat("copper", 0xed9f07, "ingotCopper");
+  public static final Material bronze     = mat("bronze", 0xd2a869, "ingotBronze");
 
   // Nether Materials
   public static final Material netherrack = mat("netherrack", 0xb84f4f);
-  public static final Material ardite     = mat("ardite", 0xd14210);
-  public static final Material cobalt     = mat("cobalt", 0x2882d4);
-  public static final Material manyullyn  = mat("manyullyn", 0x882ff8);
+  public static final Material ardite     = mat("ardite", 0xd14210, "ingotArdite");
+  public static final Material cobalt     = mat("cobalt", 0x2882d4, "ingotCobalt");
+  public static final Material manyullyn  = mat("manyullyn", 0x882ff8, "ingotManyullyn");
 
   // specul
   public static final Material xu;
@@ -116,8 +124,14 @@ public final class TinkerMaterials {
   public static final AbstractTrait unnatural = new TraitUnnatural();
 
   private static Material mat(String name, int color) {
+    return mat(name, color, null);
+  }
+
+  private static Material mat(String name, int color, String oredict) {
     Material mat = new Material(name, color);
     materials.add(mat);
+    if(oredict != null)
+      materialPrerequisite.put(mat, oredict);
     return mat;
   }
   
@@ -125,13 +139,28 @@ public final class TinkerMaterials {
     xu = new Material("unstable", EnumChatFormatting.WHITE);
   }
 
-  @Subscribe
-  public void registerMaterials(FMLPreInitializationEvent event) {
+  private void registerMaterials() {
     for(Material material : materials) {
+      // has a prerequisite?
+      if(materialPrerequisite.containsKey(material)) {
+        String oredict = materialPrerequisite.get(material);
+        boolean found = false;
+        // we use this method because it doesn't add empty entries to the oredict, even though it is less performant
+        for(String ore : OreDictionary.getOreNames()) {
+          if(ore.equals(oredict)) {
+            found = true;
+            break;
+          }
+        }
+
+        // prerequisite not fulfilled
+        if(!found) {
+          log.debug("Material %s was not registered due to missing oredict entry: ", material.getIdentifier(), oredict);
+          continue;
+        }
+      }
       TinkerRegistry.addMaterial(material);
     }
-//TinkerRegistry.addMaterial(ardite);
-    //TinkerRegistry.addMaterial(xu);
   }
 
   @Subscribe
@@ -198,6 +227,8 @@ public final class TinkerMaterials {
 
   @Subscribe
   public void setupMaterials(FMLInitializationEvent event) {
+    registerMaterials();
+
     // natural resources/blocks
     wood.setCraftable(true);
     wood.addItem("stickWood", 1, Material.VALUE_Shard);

@@ -52,7 +52,6 @@ public class Material extends RecipeMatchRegistry {
   /**
    * This String uniquely identifies a material.
    */
-  @Nonnull
   public final String identifier;
 
   /** The fluid associated with this material, can be null */
