@@ -210,6 +210,8 @@ stat.shovelspeed=name=Shovel Speed
 ##############
 
 # traits are also modifiers, they use the same prefix so they don't have to be localized twice
+modifier.alien.name=Alien
+modifier.alien.desc=§oSomething is off...§r\n..but I can't tell what! Maybe time will tell.
 modifier.aquadynamic.name=Aquadynamic
 modifier.aquadynamic.desc=§oIt's getting wet in here!§r\nThe tool is unhindered by water and loves rainy evenings.
 modifier.aridiculous.name=Aridiculous
@@ -224,6 +226,8 @@ modifier.ecological.name=Ecological
 modifier.ecological.desc=§oGreen Power!§r\nRenewable resources are good, but don't catch a splinter.
 modifier.insatiable.name=Insatiable
 modifier.insatiable.desc=§oDevour!§r\nDuring combat you deal more and more damage but also consume more and more durability.
+modifier.magnetic.name=Magnetic
+modifier.magnetic.desc=§oHow do they work?!§r\nHitting things attracts nearby things?!
 modifier.momentum.name=Momentum
 modifier.momentum.desc=§oFaster, keep going!§r\nMining blocks increases your speed, as long as you keep going.
 modifier.petramor.name=Petramor
