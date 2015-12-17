@@ -191,7 +191,7 @@ public class ContainerTinkerStation<T extends TileEntity> extends ContainerMulti
       IBlockState s1 = o1.getRight();
       IBlockState s2 = o2.getRight();
 
-      return ((ITinkerStationBlock)s1.getBlock()).getGuiNumber(s1) - ((ITinkerStationBlock)s2.getBlock()).getGuiNumber(s2);
+      return ((ITinkerStationBlock)s2.getBlock()).getGuiNumber(s2) - ((ITinkerStationBlock)s1.getBlock()).getGuiNumber(s1);
     }
   }
 }
