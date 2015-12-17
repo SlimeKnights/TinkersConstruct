@@ -56,6 +56,7 @@ import slimeknights.tconstruct.tools.modifiers.TraitTasty;
 import slimeknights.tconstruct.tools.modifiers.TraitUnnatural;
 
 import static slimeknights.tconstruct.library.utils.HarvestLevels.COBALT;
+import static slimeknights.tconstruct.library.utils.HarvestLevels.DIAMOND;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.IRON;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.OBSIDIAN;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.STONE;
@@ -355,7 +356,7 @@ public final class TinkerMaterials {
     // Stats:                                                   Durability, speed, attack, handle, extra, harvestlevel
     // natural resources/blocks
     TinkerRegistry.addMaterialStats(wood,       new ToolMaterialStats( 137, 3.00f, 2.00f, 0.80f, 0.50f, STONE));
-    TinkerRegistry.addMaterialStats(stone,      new ToolMaterialStats( 195, 4.00f, 2.10f, 0.05f, 0.18f, STONE));
+    TinkerRegistry.addMaterialStats(stone,      new ToolMaterialStats( 195, 4.00f, 2.10f, 0.05f, 0.18f, IRON));
     TinkerRegistry.addMaterialStats(flint,      new ToolMaterialStats( 285, 5.70f, 2.80f, 0.20f, 0.19f, IRON));
     TinkerRegistry.addMaterialStats(cactus,     new ToolMaterialStats( 329, 4.50f, 3.40f, 0.25f, 0.43f, IRON));
     TinkerRegistry.addMaterialStats(bone,       new ToolMaterialStats( 413, 5.09f, 2.50f, 0.86f, 0.56f, IRON));
@@ -377,7 +378,7 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterialStats(manyullyn,  new ToolMaterialStats( 513, 7.80f, 8.72f, 0.30f, 0.70f, COBALT));
 
     // Metals
-    TinkerRegistry.addMaterialStats(iron,       new ToolMaterialStats( 853, 6.00f, 6.00f, 0.50f, 0.60f, IRON));
+    TinkerRegistry.addMaterialStats(iron,       new ToolMaterialStats( 853, 6.00f, 6.00f, 0.50f, 0.60f, DIAMOND));
     TinkerRegistry.addMaterialStats(pigiron,    new ToolMaterialStats(1000, 6.50f, 4.50f, 0.66f, 0.73f, OBSIDIAN));
 
     //TinkerRegistry.addMaterialStats(xu,         new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, DIAMOND));

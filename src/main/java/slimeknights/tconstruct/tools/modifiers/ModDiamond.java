@@ -27,7 +27,7 @@ public class ModDiamond extends Modifier {
     ToolNBT data = TagUtil.getToolStats(rootCompound);
     data.durability += 500;
 
-    if(data.harvestLevel < HarvestLevels.DIAMOND)
+    if(data.harvestLevel < HarvestLevels.OBSIDIAN)
       data.harvestLevel++;
 
     TagUtil.setToolTag(rootCompound, data.get());
