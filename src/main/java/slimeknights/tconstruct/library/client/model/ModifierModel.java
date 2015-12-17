@@ -109,6 +109,6 @@ public class ModifierModel implements IModel {
 
   @Override
   public IModelState getDefaultState() {
-    return ModelRotation.X0_Y0;
+    return TRSRTransformation.identity();
   }
 }

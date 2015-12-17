@@ -65,19 +65,7 @@ public class MaterialModel extends ItemLayerModel {
         }
 
         // create a new model with the colored quads
-        if(state instanceof IPerspectiveState) {
-          IPerspectiveState ps = (IPerspectiveState) state;
-          Map<ItemCameraTransforms.TransformType, TRSRTransformation> map = Maps.newHashMap();
-          for(ItemCameraTransforms.TransformType type : ItemCameraTransforms.TransformType.values()) {
-            map.put(type, ps.forPerspective(type).apply(this));
-          }
-          bakedModel2 =
-              new ItemLayerModel.BakedModel(quads.build(), bakedModel2.getParticleTexture(), bakedModel2.getFormat(), Maps
-                  .immutableEnumMap(map));
-        }
-        else {
-          bakedModel2 = new ItemLayerModel.BakedModel(quads.build(), bakedModel2.getParticleTexture(), bakedModel2.getFormat());
-        }
+        bakedModel2 = new ItemLayerModel.BakedModel(quads.build(), bakedModel2.getParticleTexture(), bakedModel2.getFormat());
       }
 
       bakedMaterialModel.addMaterialModel(material, bakedModel2);
@@ -88,6 +76,6 @@ public class MaterialModel extends ItemLayerModel {
 
   @Override
   public IModelState getDefaultState() {
-    return ModelHelper.DEFAULT_ITEM_STATE;
+    return TRSRTransformation.identity();
   }
 }

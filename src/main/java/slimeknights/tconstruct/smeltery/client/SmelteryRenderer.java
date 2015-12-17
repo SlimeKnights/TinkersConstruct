@@ -2,9 +2,11 @@ package slimeknights.tconstruct.smeltery.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -12,6 +14,9 @@ import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
@@ -80,6 +85,11 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
     GlStateManager.translate(x1, y1, z1);
     GlStateManager.translate(0.5f, 0.5f, 0.5f);
 
+    float brightness = smeltery.getWorld().getLightBrightness(smeltery.minPos);
+    OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)(brightness % 0x10000) / 1f,
+                                          (float)(brightness / 0x10000) / 1f);
+    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+
     for(int i = 0; i < smeltery.getSizeInventory(); i++) {
       if(smeltery.isStackInSlot(i)) {
         // calculate position inside the smeltery from slot index
@@ -92,6 +102,7 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
         //GlStateManager.pushMatrix();
         GlStateManager.translate(i2 % xd, h, i2 / xd);
         IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
+        model = ForgeHooksClient.handleCameraTransforms(model , ItemCameraTransforms.TransformType.NONE);
         //Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(smeltery.getWorld(), model, Blocks.bedrock.getDefaultState(), pos, renderer, false);
         Minecraft.getMinecraft().getRenderItem().renderItem(stack, model);
         GlStateManager.translate(-i2 % xd, -h, -i2 / xd);

@@ -7,12 +7,13 @@ import com.google.common.collect.ImmutableSet;
 
 import gnu.trove.map.hash.THashMap;
 
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModelState;
+import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.TRSRTransformation;
 
@@ -80,13 +81,13 @@ public class ToolModel extends ItemLayerModel {
       modifierModels = new THashMap<String, IFlexibleBakedModel>();
     }
 
-    ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms = ModelHelper.getTransformsFromState(state, this);
+    ImmutableMap<TransformType, TRSRTransformation> transforms = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
 
     return new BakedToolModel(base, partModels, brokenPartModels, modifierModels, transforms);
   }
 
   @Override
   public IModelState getDefaultState() {
-    return ModelHelper.DEFAULT_TOOL_STATE;
+    return ModelHelper.DEFAULT_TOOL_STATE.or(TRSRTransformation.identity());
   }
 }

@@ -6,11 +6,13 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
+import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.ISmartItemModel;
 import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.TRSRTransformation;
@@ -27,20 +29,20 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 
-public class BakedToolModel extends ItemLayerModel.BakedModel implements ISmartItemModel {
+public class BakedToolModel extends ItemLayerModel.BakedModel implements ISmartItemModel, IPerspectiveAwareModel {
 
   protected BakedMaterialModel[] parts;
   protected BakedMaterialModel[] brokenParts;
   protected Map<String, IFlexibleBakedModel> modifierParts;
-  protected final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
+  protected final ImmutableMap<TransformType, TRSRTransformation> transforms;
 
   /**
    * The length of brokenParts has to match the length of parts. If a part does not have a broken texture, the entry in
    * the array simply is null.
    */
   public BakedToolModel(IFlexibleBakedModel parent, BakedMaterialModel[] parts, BakedMaterialModel[] brokenParts,
-                        Map<String, IFlexibleBakedModel> modifierParts, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transform) {
-    super((ImmutableList<BakedQuad>) parent.getGeneralQuads(), parent.getParticleTexture(), parent.getFormat(), transform);
+                        Map<String, IFlexibleBakedModel> modifierParts, ImmutableMap<TransformType, TRSRTransformation> transform) {
+    super((ImmutableList<BakedQuad>) parent.getGeneralQuads(), parent.getParticleTexture(), parent.getFormat());
 
     if(parts.length != brokenParts.length) {
       throw new RuntimeException("TinkerModel: Length of Parts and BrokenParts Array has to match");
@@ -87,16 +89,13 @@ public class BakedToolModel extends ItemLayerModel.BakedModel implements ISmartI
       String modId = modifiers.getStringTagAt(i);
       IFlexibleBakedModel modModel = modifierParts.get(modId);
       if(modModel != null) {
-        if(modModel instanceof BakedMaterialModel) {
-          modModel = ((BakedMaterialModel) modModel).getModelByIdentifier(TinkerMaterials.netherrack.identifier);
-        }
         quads.addAll(modModel.getGeneralQuads());
       }
     }
 
-    IFlexibleBakedModel model = new ItemLayerModel.BakedModel(quads.build(), this.getParticleTexture(), this.getFormat(), transforms);
+    IFlexibleBakedModel model = new ItemLayerModel.BakedModel(quads.build(), this.getParticleTexture(), this.getFormat());
 
-    return model;
+    return new IPerspectiveAwareModel.MapWrapper(model, transforms);
   }
 
   private static final List<List<BakedQuad>> empty_face_quads;
@@ -111,7 +110,7 @@ public class BakedToolModel extends ItemLayerModel.BakedModel implements ISmartI
   }
 
   @Override
-  public Pair<IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
-    return null;
+  public Pair<? extends IFlexibleBakedModel, Matrix4f> handlePerspective(TransformType cameraTransformType) {
+    return IPerspectiveAwareModel.MapWrapper.handlePerspective(this, transforms, cameraTransformType);
   }
 }

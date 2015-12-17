@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.client.model;
 
 import com.google.common.base.Charsets;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
@@ -25,6 +26,7 @@ import net.minecraftforge.client.model.IColoredBakedQuad;
 import net.minecraftforge.client.model.IModelPart;
 import net.minecraftforge.client.model.IModelState;
 import net.minecraftforge.client.model.IPerspectiveState;
+import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.client.model.TRSRTransformation;
 
 import java.io.IOException;
@@ -42,8 +44,8 @@ public class ModelHelper {
       GSON =
       new GsonBuilder().registerTypeAdapter(maptype, ModelTextureDeserializer.INSTANCE).create();
 
-  public static final IPerspectiveState DEFAULT_ITEM_STATE;
-  public static final IPerspectiveState DEFAULT_TOOL_STATE;
+  public static final Optional<IModelState> DEFAULT_ITEM_STATE;
+  public static final Optional<IModelState> DEFAULT_TOOL_STATE;
 
   public static TextureAtlasSprite getTextureFromBlock(Block block, int meta) {
     IBlockState state = block.getStateFromMeta(meta);
@@ -106,47 +108,35 @@ public class ModelHelper {
     return new ResourceLocation(location.getResourceDomain(), "models/" + location.getResourcePath() + ".json");
   }
 
-  public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> getTransformsFromState(IModelState state, IModelPart part) {
-    if(state instanceof IPerspectiveState) {
-      IPerspectiveState ps = (IPerspectiveState) state;
-      Map<ItemCameraTransforms.TransformType, TRSRTransformation> map = Maps.newHashMap();
-      for(ItemCameraTransforms.TransformType type : ItemCameraTransforms.TransformType.values()) {
-        map.put(type, ps.forPerspective(type).apply(part));
-      }
-      return Maps.immutableEnumMap(map);
-    }
-    return ImmutableMap.of();
-  }
-
   static {
-    // equals forge:default-item
-    IModelState thirdperson = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
-        new Vector3f(0, 1f / 16, -3f / 16),
-        TRSRTransformation.quatFromYXZDegrees(new Vector3f(-90, 0, 0)),
-        new Vector3f(0.55f, 0.55f, 0.55f),
-        null));
-    IModelState firstperson = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
-        new Vector3f(0, 4f / 16, 2f / 16),
-        TRSRTransformation.quatFromYXZDegrees(new Vector3f(0, -135, 25)),
-        new Vector3f(1.7f, 1.7f, 1.7f),
-        null));
-    DEFAULT_ITEM_STATE = new IPerspectiveState.Impl(TRSRTransformation.identity(), ImmutableMap
-                                                        .of(ItemCameraTransforms.TransformType.THIRD_PERSON, thirdperson,
-                                                            ItemCameraTransforms.TransformType.FIRST_PERSON, firstperson));
-
-    thirdperson = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
-        new Vector3f(0, 1.25f / 16, -3.5f / 16),
-        TRSRTransformation.quatFromYXZDegrees(new Vector3f(0, 90, -35)),
-        new Vector3f(0.85f, 0.85f, 0.85f),
-        null));
-    firstperson = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
-        new Vector3f(0, 4f / 16, 2f / 16),
-        TRSRTransformation.quatFromYXZDegrees(new Vector3f(0, -135, 25)),
-        new Vector3f(1.7f, 1.7f, 1.7f),
-        null));
-    DEFAULT_TOOL_STATE = new IPerspectiveState.Impl(TRSRTransformation.identity(), ImmutableMap
-        .of(ItemCameraTransforms.TransformType.THIRD_PERSON, thirdperson,
-            ItemCameraTransforms.TransformType.FIRST_PERSON, firstperson));
+    {
+      // equals forge:default-item
+      TRSRTransformation thirdperson = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
+          new Vector3f(0, 1f / 16, -3f / 16),
+          TRSRTransformation.quatFromYXZDegrees(new Vector3f(-90, 0, 0)),
+          new Vector3f(0.55f, 0.55f, 0.55f),
+          null));
+      TRSRTransformation firstperson = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
+          new Vector3f(0, 4f / 16, 2f / 16),
+          TRSRTransformation.quatFromYXZDegrees(new Vector3f(0, -135, 25)),
+          new Vector3f(1.7f, 1.7f, 1.7f),
+          null));
+      DEFAULT_ITEM_STATE = Optional.<IModelState>of(new SimpleModelState(ImmutableMap.of(ItemCameraTransforms.TransformType.THIRD_PERSON, thirdperson, ItemCameraTransforms.TransformType.FIRST_PERSON, firstperson)));
+    }
+    {
+      TRSRTransformation thirdperson = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
+          new Vector3f(0, 1.25f / 16, -3.5f / 16),
+          TRSRTransformation.quatFromYXZDegrees(new Vector3f(0, 90, -35)),
+          new Vector3f(0.85f, 0.85f, 0.85f),
+          null));
+      TRSRTransformation firstperson = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
+          new Vector3f(0, 4f / 16, 2f / 16),
+          TRSRTransformation.quatFromYXZDegrees(new Vector3f(0, -135, 25)),
+          new Vector3f(1.7f, 1.7f, 1.7f),
+          null));
+      DEFAULT_TOOL_STATE = Optional.<IModelState>of(new SimpleModelState(ImmutableMap
+                                                                    .of(ItemCameraTransforms.TransformType.THIRD_PERSON, thirdperson, ItemCameraTransforms.TransformType.FIRST_PERSON, firstperson)));
+    }
   }
 
   /**
