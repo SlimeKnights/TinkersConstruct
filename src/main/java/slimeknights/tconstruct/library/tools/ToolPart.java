@@ -123,6 +123,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
     return material.getLocalizedItemName(super.getItemStackDisplayName(stack));
   }
 
+  @SideOnly(Side.CLIENT)
   @Override
   public FontRenderer getFontRenderer(ItemStack stack) {
     return ClientProxy.fontRenderer;

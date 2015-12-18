@@ -5,7 +5,7 @@ import net.minecraft.util.EnumChatFormatting;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.CustomFontRenderer;
+import slimeknights.tconstruct.library.client.CustomFontColor;
 
 /**
  * Represents the NBT data saved for a modifier.
@@ -62,7 +62,7 @@ public class ModifierNBT {
   }
 
   public String getColorString() {
-    return CustomFontRenderer.encodeColor(color);
+    return CustomFontColor.encodeColor(color);
   }
 
   public static <T extends ModifierNBT> T readTag(NBTTagCompound tag, Class<T> clazz) {
