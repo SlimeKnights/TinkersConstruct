@@ -3,17 +3,16 @@ package slimeknights.tconstruct.library.client.model;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 
 import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IModelState;
-import net.minecraftforge.client.model.IPerspectiveState;
+import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.TRSRTransformation;
 
@@ -38,11 +37,13 @@ public class MaterialModel extends ItemLayerModel {
   // the only difference here is the return-type
   public BakedMaterialModel bakeIt(IModelState state, VertexFormat format,
                                    Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+    ImmutableMap<TransformType, TRSRTransformation> map = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
+
     // normal model as the base
     IFlexibleBakedModel base = super.bake(state, format, bakedTextureGetter);
 
     // turn it into a baked material-model
-    BakedMaterialModel bakedMaterialModel = new BakedMaterialModel(base);
+    BakedMaterialModel bakedMaterialModel = new BakedMaterialModel(base, map);
 
     // and generate the baked model for each material-variant we have for the base texture
     String baseTexture = base.getParticleTexture().getIconName();
@@ -67,6 +68,9 @@ public class MaterialModel extends ItemLayerModel {
         // create a new model with the colored quads
         bakedModel2 = new ItemLayerModel.BakedModel(quads.build(), bakedModel2.getParticleTexture(), bakedModel2.getFormat());
       }
+      if(!map.isEmpty()) {
+        bakedModel2 = new IPerspectiveAwareModel.MapWrapper(bakedModel2, map);
+      }
 
       bakedMaterialModel.addMaterialModel(material, bakedModel2);
     }
@@ -76,6 +80,6 @@ public class MaterialModel extends ItemLayerModel {
 
   @Override
   public IModelState getDefaultState() {
-    return TRSRTransformation.identity();
+    return ModelHelper.DEFAULT_ITEM_STATE;
   }
 }

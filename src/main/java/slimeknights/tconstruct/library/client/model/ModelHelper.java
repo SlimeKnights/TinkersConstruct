@@ -44,8 +44,8 @@ public class ModelHelper {
       GSON =
       new GsonBuilder().registerTypeAdapter(maptype, ModelTextureDeserializer.INSTANCE).create();
 
-  public static final Optional<IModelState> DEFAULT_ITEM_STATE;
-  public static final Optional<IModelState> DEFAULT_TOOL_STATE;
+  public static final IModelState DEFAULT_ITEM_STATE;
+  public static final IModelState DEFAULT_TOOL_STATE;
 
   public static TextureAtlasSprite getTextureFromBlock(Block block, int meta) {
     IBlockState state = block.getStateFromMeta(meta);
@@ -121,7 +121,7 @@ public class ModelHelper {
           TRSRTransformation.quatFromYXZDegrees(new Vector3f(0, -135, 25)),
           new Vector3f(1.7f, 1.7f, 1.7f),
           null));
-      DEFAULT_ITEM_STATE = Optional.<IModelState>of(new SimpleModelState(ImmutableMap.of(ItemCameraTransforms.TransformType.THIRD_PERSON, thirdperson, ItemCameraTransforms.TransformType.FIRST_PERSON, firstperson)));
+      DEFAULT_ITEM_STATE = new SimpleModelState(ImmutableMap.of(ItemCameraTransforms.TransformType.THIRD_PERSON, thirdperson, ItemCameraTransforms.TransformType.FIRST_PERSON, firstperson));
     }
     {
       TRSRTransformation thirdperson = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
@@ -134,8 +134,7 @@ public class ModelHelper {
           TRSRTransformation.quatFromYXZDegrees(new Vector3f(0, -135, 25)),
           new Vector3f(1.7f, 1.7f, 1.7f),
           null));
-      DEFAULT_TOOL_STATE = Optional.<IModelState>of(new SimpleModelState(ImmutableMap
-                                                                    .of(ItemCameraTransforms.TransformType.THIRD_PERSON, thirdperson, ItemCameraTransforms.TransformType.FIRST_PERSON, firstperson)));
+      DEFAULT_TOOL_STATE = new SimpleModelState(ImmutableMap.of(ItemCameraTransforms.TransformType.THIRD_PERSON, thirdperson, ItemCameraTransforms.TransformType.FIRST_PERSON, firstperson));
     }
   }
 

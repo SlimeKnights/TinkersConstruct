@@ -88,6 +88,6 @@ public class ToolModel extends ItemLayerModel {
 
   @Override
   public IModelState getDefaultState() {
-    return ModelHelper.DEFAULT_TOOL_STATE.or(TRSRTransformation.identity());
+    return ModelHelper.DEFAULT_TOOL_STATE;
   }
 }
