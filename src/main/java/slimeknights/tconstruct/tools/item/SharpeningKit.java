@@ -22,7 +22,7 @@ public class SharpeningKit extends ToolPart {
   @Override
   public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
     // this adds a variant of each material to the creative menu
-    for(Material mat : TinkerRegistry.getAllMaterials()) {
+    for(Material mat : TinkerRegistry.getAllMaterialsWithStats(ToolMaterialStats.TYPE)) {
       subItems.add(getItemstackWithMaterial(mat));
     }
   }
@@ -30,7 +30,7 @@ public class SharpeningKit extends ToolPart {
   @Override
   public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
     tooltip.addAll(Util.getTooltips(Util.translate("item.tconstruct.sharpening_kit.tooltip")));
-    if(!checkMissingMaterialTooltip(stack, tooltip)) {
+    if(!checkMissingMaterialTooltip(stack, tooltip, ToolMaterialStats.TYPE)) {
       Material material = getMaterial(stack);
       ToolMaterialStats stats = material.getStats(ToolMaterialStats.TYPE);
       tooltip.add(ToolMaterialStats.formatHarvestLevel(stats.harvestLevel));

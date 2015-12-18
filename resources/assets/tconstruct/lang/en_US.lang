@@ -290,9 +290,10 @@ tooltip.tool.broken=Broken
 tooltip.tool.holdShift=Hold §e§oShift§r for Stats
 tooltip.tool.holdCtrl=Hold §e§bCtrl§r for more
 
-tooltip.part.materialAddedBy=Material added by %s
-tooltip.part.missingMaterial=Missing material: %s
-tooltip.part.missingInfo=Part has no data
+tooltip.part.material_added_by=Material added by %s
+tooltip.part.missing_material=Missing material: %s
+tooltip.part.missing_stats=Material is missing the required stats:\n%s
+tooltip.part.missing_info=Part has no data
 
 tooltip.pattern.cost=Material Cost: %d
 

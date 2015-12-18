@@ -134,6 +134,10 @@ public class ToolPart extends MaterialItem implements IToolPart {
   }
 
   public boolean checkMissingMaterialTooltip(ItemStack stack, List<String> tooltip) {
+    return checkMissingMaterialTooltip(stack, tooltip, null);
+  }
+
+  public boolean checkMissingMaterialTooltip(ItemStack stack, List<String> tooltip, String statIdentifier) {
     Material material = getMaterial(stack);
 
     if(material == Material.UNKNOWN) {
@@ -142,12 +146,16 @@ public class ToolPart extends MaterialItem implements IToolPart {
 
       String error;
       if(materialID != null && !materialID.isEmpty()) {
-        error = StatCollector.translateToLocalFormatted("tooltip.part.missingMaterial", materialID);
+        error = StatCollector.translateToLocalFormatted("tooltip.part.missing_material", materialID);
       }
       else {
-        error = StatCollector.translateToLocal("tooltip.part.missingInfo");
+        error = StatCollector.translateToLocal("tooltip.part.missing_info");
       }
-      tooltip.add(error);
+      tooltip.addAll(Util.getTooltips(error));
+      return true;
+    }
+    else if(statIdentifier != null && material.getStats(statIdentifier) == null) {
+      tooltip.addAll(Util.getTooltips(Util.translateFormatted("tooltip.part.missing_stats", material.getLocalizedName(), statIdentifier)));
       return true;
     }
 

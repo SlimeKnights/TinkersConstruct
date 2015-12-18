@@ -67,11 +67,17 @@ public class Util {
     return String.format("%s.%s", RESOURCE, name.toLowerCase(Locale.US));
   }
 
+  /**
+   * Translate the string, insert parameters into the translation key
+   */
   public static String translate(String key, Object... pars) {
     // translates twice to allow rerouting/alias
     return StatCollector.translateToLocal(StatCollector.translateToLocal(String.format(key, (Object[]) pars)).trim()).trim();
   }
 
+  /**
+   * Translate the string, insert parameters into the result of the translation
+   */
   public static String translateFormatted(String key, Object... pars) {
     // translates twice to allow rerouting/alias
     return StatCollector.translateToLocal(StatCollector.translateToLocalFormatted(key, (Object[]) pars).trim()).trim();

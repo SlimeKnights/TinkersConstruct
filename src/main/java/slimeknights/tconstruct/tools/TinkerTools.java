@@ -403,10 +403,8 @@ public class TinkerTools extends TinkerPulse {
 
   private void registerFortifyModifiers() {
     fortifyMods = Lists.newArrayList();
-    for(Material mat : TinkerRegistry.getAllMaterials()) {
-      if(mat.hasStats(ToolMaterialStats.TYPE)) {
-        fortifyMods.add(new ModFortify(mat));
-      }
+    for(Material mat : TinkerRegistry.getAllMaterialsWithStats(ToolMaterialStats.TYPE)) {
+      fortifyMods.add(new ModFortify(mat));
     }
   }
 

@@ -144,6 +144,16 @@ public final class TinkerRegistry {
     return materials.values();
   }
 
+  public static Collection<Material> getAllMaterialsWithStats(String statType) {
+    ImmutableList.Builder<Material> mats = ImmutableList.builder();
+    for(Material material : materials.values()) {
+      if(material.hasStats(statType))
+        mats.add(material);
+    }
+
+    return mats.build();
+  }
+
 
   /*---------------------------------------------------------------------------
   | TRAITS & STATS                                                            |
