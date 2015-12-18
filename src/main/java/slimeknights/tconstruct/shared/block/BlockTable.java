@@ -102,9 +102,12 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
     NBTTagCompound tag = TagUtil.getTagSafe(stack);
     TileEntity te = world.getTileEntity(pos);
     if(te != null && te instanceof TileTable) {
-      if(tag.hasKey(TileTable.FEET_TAG)) {
-        ((TileTable) te).updateTextureBlock(tag.getCompoundTag(TileTable.FEET_TAG));
+      NBTTagCompound feetTag = tag.getCompoundTag(TileTable.FEET_TAG);
+      if(feetTag == null) {
+        feetTag = new NBTTagCompound();
       }
+
+      ((TileTable) te).updateTextureBlock(feetTag);
       ((TileTable) te).setFacing(placer.getHorizontalFacing().getOpposite());
     }
   }
