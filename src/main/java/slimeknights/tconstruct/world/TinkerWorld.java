@@ -1,9 +1,11 @@
 package slimeknights.tconstruct.world;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -130,8 +132,11 @@ public class TinkerWorld extends TinkerPulse {
     block.setItemDamage(slimeBlock.getMetaFromState(slimeBlock.getDefaultState().withProperty(BlockSlime.TYPE, type)));
 
     GameRegistry.addRecipe(congealed.copy(), "##", "##", '#', slimeball);
-    // todo: if we ever get the slimeblock substitution, track if it was successful and alter the recipe used to match vanilla
-    GameRegistry.addRecipe(block, "#", '#', congealed);
+    ItemStack slimeballOut = slimeball.copy();
+    slimeballOut.stackSize = 4;
+    GameRegistry.addRecipe(slimeballOut, "#", '#', congealed.copy());
+
+    GameRegistry.addRecipe(new ShapelessRecipes(block, ImmutableList.of(congealed, slimeball, slimeball, slimeball, slimeball, slimeball)));
   }
 
   // POST-INITIALIZATION
