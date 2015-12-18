@@ -22,6 +22,8 @@ import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 
+import net.minecraft.item.ItemStack;
+
 @Pulse(id = TinkerSmeltery.PulseId, description = "The smeltery and items needed for it", defaultEnable = false)
 public class TinkerSmeltery extends TinkerPulse {
 
