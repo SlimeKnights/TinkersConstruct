@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.modifiers;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerAPIException;
@@ -11,6 +12,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
+import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolTagUtil;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -54,6 +56,26 @@ public class ModFortify extends Modifier {
     NBTTagCompound tag = TagUtil.getToolTag(rootCompound);
     ToolMaterialStats stats = material.getStats(ToolMaterialStats.TYPE);
     ToolTagUtil.setHarvestLevel(tag, stats.harvestLevel);
+
+    // Remove other fortify modifiers, only the last one applies
+    NBTTagList tagList = TagUtil.getModifiersTagList(rootCompound);
+    for(int i = 0; i < tagList.tagCount(); i++) {
+      NBTTagCompound mod = tagList.getCompoundTagAt(i);
+      ModifierNBT data = ModifierNBT.readTag(mod);
+
+      // only up to ourselves
+      if(data.identifier.equals(this.identifier)) {
+        break;
+      }
+
+      // remove other fortify occurences
+      if(data.identifier.startsWith("fortify")) {
+        tagList.removeTag(i);
+        i--; // adjust counter
+      }
+    }
+
+    TagUtil.setModifiersTagList(rootCompound, tagList);
   }
 
   @Override
