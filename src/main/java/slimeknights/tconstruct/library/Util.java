@@ -4,6 +4,8 @@
 
 package slimeknights.tconstruct.library;
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -17,6 +19,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 
+import java.util.List;
 import java.util.Locale;
 
 import slimeknights.mantle.util.RecipeMatchRegistry;
@@ -73,6 +76,24 @@ public class Util {
     // translates twice to allow rerouting/alias
     return StatCollector.translateToLocal(StatCollector.translateToLocalFormatted(key, (Object[]) pars).trim()).trim();
   }
+
+  public static List<String> getTooltips(String text) {
+    List<String> list = Lists.newLinkedList();
+    if(text == null)
+      return list;
+    int j = 0;
+    int k;
+    while((k = text.indexOf("\\n", j)) >= 0)
+    {
+      list.add(text.substring(j, k));
+      j = k+2;
+    }
+
+    list.add(text.substring(j, text.length()));
+
+    return list;
+  }
+
 
   public static String convertNewlines(String line) {
     if(line == null)

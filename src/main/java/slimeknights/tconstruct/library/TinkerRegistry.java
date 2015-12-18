@@ -46,6 +46,7 @@ import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.Shard;
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.library.traits.ITrait;
 
 public final class TinkerRegistry {
@@ -285,6 +286,10 @@ public final class TinkerRegistry {
   private static final List<ItemStack> stencilTableCrafting = Lists.newLinkedList();
   private static Shard shardItem;
 
+  /**
+   * Register a tool, making it known to tinkers' systems.
+   * All toolparts used to craft the tool will be registered as well.
+   */
   public static void registerTool(ToolCore tool) {
     tools.add(tool);
 
@@ -296,6 +301,14 @@ public final class TinkerRegistry {
   public static Set<ToolCore> getTools() {
     return ImmutableSet.copyOf(tools);
   }
+
+  /**
+   * Used for the sharpening kit. Allows to register a toolpart that is not part of a tool.
+   */
+  public static void registerToolPart(IToolPart part) {
+    toolParts.add(part);
+  }
+
   public static Set<IToolPart> getToolParts() {
     return ImmutableSet.copyOf(toolParts);
   }

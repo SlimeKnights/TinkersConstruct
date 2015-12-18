@@ -31,6 +31,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.Shard;
 import slimeknights.tconstruct.library.tools.ToolCore;
@@ -55,6 +56,7 @@ import slimeknights.tconstruct.tools.item.LumberAxe;
 import slimeknights.tconstruct.tools.item.Mattock;
 import slimeknights.tconstruct.tools.item.Pickaxe;
 import slimeknights.tconstruct.tools.item.Scythe;
+import slimeknights.tconstruct.tools.item.SharpeningKit;
 import slimeknights.tconstruct.tools.item.Shovel;
 import slimeknights.tconstruct.tools.modifiers.ModDiamond;
 import slimeknights.tconstruct.tools.modifiers.ModFortify;
@@ -86,7 +88,7 @@ public class TinkerTools extends TinkerPulse {
   // General Items
   public static Pattern pattern;
   public static Shard shard;
-  public static Item materials;
+  public static SharpeningKit sharpeningKit;
 
   // Tools
   public static ToolCore pickaxe;
@@ -148,6 +150,9 @@ public class TinkerTools extends TinkerPulse {
     pattern = registerItem(new Pattern(), "pattern");
 
     shard = registerItem(new Shard(), "shard");
+    sharpeningKit = (SharpeningKit)registerToolPart(new SharpeningKit(), "sharpening_kit");
+    sharpeningKit.setCreativeTab(TinkerRegistry.tabParts);
+    TinkerRegistry.registerToolPart(sharpeningKit);
 
     registerToolParts();
     registerTools();

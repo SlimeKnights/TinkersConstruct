@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -28,9 +29,9 @@ public class ModFortify extends Modifier {
     this.material = material;
     addAspects(new ModifierAspect.SingleAspect(this), new ModifierAspect.DataAspect(this, material.materialTextColor), ModifierAspect.harvestOnly);
 
-    ItemStack blade = TinkerTools.swordBlade.getItemstackWithMaterial(material);
-    ItemStack binding = TinkerTools.binding.getItemstackWithMaterial(material);
-    addRecipeMatch(new RecipeMatch.ItemCombination(1, blade, binding));
+    ItemStack kit = TinkerTools.sharpeningKit.getItemstackWithMaterial(material);
+    ItemStack flint = new ItemStack(Items.flint) ;
+    addRecipeMatch(new RecipeMatch.ItemCombination(1, kit, flint));
   }
 
   @Override

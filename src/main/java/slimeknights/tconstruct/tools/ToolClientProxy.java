@@ -29,6 +29,7 @@ import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.client.RenderEvents;
 
 import static slimeknights.tconstruct.tools.TinkerTools.shard;
+import static slimeknights.tconstruct.tools.TinkerTools.sharpeningKit;
 
 public class ToolClientProxy extends ClientProxy {
 
@@ -99,6 +100,7 @@ public class ToolClientProxy extends ClientProxy {
 
     // parts
     registerPartModel(shard);
+    registerPartModel(sharpeningKit);
     for(ToolPart part : TinkerTools.toolparts) {
       registerPartModel(part);
     }

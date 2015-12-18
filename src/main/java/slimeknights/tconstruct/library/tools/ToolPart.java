@@ -62,26 +62,13 @@ public class ToolPart extends MaterialItem implements IToolPart {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
+  public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
     Material material = getMaterial(stack);
 
     // Material traits/info
     boolean shift = Util.isShiftKeyDown();
 
-    if(material == Material.UNKNOWN) {
-      NBTTagCompound tag = TagUtil.getTagSafe(stack);
-      String materialID = tag.getString(Tags.PART_MATERIAL);
-
-      String error;
-      if(materialID != null && !materialID.isEmpty()) {
-        error = StatCollector.translateToLocalFormatted("tooltip.part.missingMaterial", materialID);
-      }
-      else {
-        error = StatCollector.translateToLocal("tooltip.part.missingInfo");
-      }
-      tooltip.add(error);
-    }
-    else {
+    if(!checkMissingMaterialTooltip(stack, tooltip)) {
       for(ITrait trait : material.getAllTraits()) {
         if(!trait.isHidden()) {
           tooltip.add(material.getTextColor() + trait.getLocalizedName());
@@ -144,5 +131,26 @@ public class ToolPart extends MaterialItem implements IToolPart {
       return ((IToolPart) stack.getItem()).getIdentifier();
     }
     return null;
+  }
+
+  public boolean checkMissingMaterialTooltip(ItemStack stack, List<String> tooltip) {
+    Material material = getMaterial(stack);
+
+    if(material == Material.UNKNOWN) {
+      NBTTagCompound tag = TagUtil.getTagSafe(stack);
+      String materialID = tag.getString(Tags.PART_MATERIAL);
+
+      String error;
+      if(materialID != null && !materialID.isEmpty()) {
+        error = StatCollector.translateToLocalFormatted("tooltip.part.missingMaterial", materialID);
+      }
+      else {
+        error = StatCollector.translateToLocal("tooltip.part.missingInfo");
+      }
+      tooltip.add(error);
+      return true;
+    }
+
+    return false;
   }
 }
