@@ -16,9 +16,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.tools.client.module.GuiButtonsPartCrafter;
@@ -117,39 +119,22 @@ public class GuiPartBuilder extends GuiTinkerStation {
         }
         // Material is OK, display material properties
         else {
-          info.setCaption(material.getLocalizedNameColored());
-
-          List<String> stats = Lists.newLinkedList();
-          List<String> tips = Lists.newArrayList();
-          for(IMaterialStats stat : material.getAllStats()) {
-            stats.addAll(stat.getLocalizedInfo());
-            stats.add(null);
-            tips.addAll(stat.getLocalizedDesc());
-            tips.add(null);
-          }
-
-          // Traits
-          for(ITrait trait : material.getAllTraits()) {
-            if(!trait.isHidden()) {
-              stats.add(material.getTextColor() + trait.getLocalizedName());
-              tips.add(material.getTextColor() + trait.getLocalizedDesc());
-            }
-          }
-
-          if(!stats.isEmpty() && stats.get(stats.size()-1) == null) {
-            // last empty line
-            stats.remove(stats.size()-1);
-            tips.remove(tips.size()-1);
-          }
-
-          info.setText(stats, tips);
+          setDisplayForMaterial(material);
         }
       }
     }
-    // No output, display general usage information
+    // no output, check input
     else {
-      info.setCaption(container.getInventoryDisplayName().getFormattedText());
-      info.setText(StatCollector.translateToLocal("gui.partbuilder.info"));
+      // is our input a material item?
+      Material material = getMaterial(container.getSlot(3).getStack(), container.getSlot(4).getStack());
+      if(material != null) {
+        setDisplayForMaterial(material);
+      }
+      // no, display general usage information
+      else {
+        info.setCaption(container.getInventoryDisplayName().getFormattedText());
+        info.setText(StatCollector.translateToLocal("gui.partbuilder.info"));
+      }
     }
   }
 
@@ -175,5 +160,61 @@ public class GuiPartBuilder extends GuiTinkerStation {
         }
       });
     }
+  }
+
+  protected void setDisplayForMaterial(Material material) {
+    info.setCaption(material.getLocalizedNameColored());
+
+    List<String> stats = Lists.newLinkedList();
+    List<String> tips = Lists.newArrayList();
+    for(IMaterialStats stat : material.getAllStats()) {
+      stats.addAll(stat.getLocalizedInfo());
+      stats.add(null);
+      tips.addAll(stat.getLocalizedDesc());
+      tips.add(null);
+    }
+
+    // Traits
+    for(ITrait trait : material.getAllTraits()) {
+      if(!trait.isHidden()) {
+        stats.add(material.getTextColor() + trait.getLocalizedName());
+        tips.add(material.getTextColor() + trait.getLocalizedDesc());
+      }
+    }
+
+    if(!stats.isEmpty() && stats.get(stats.size()-1) == null) {
+      // last empty line
+      stats.remove(stats.size()-1);
+      tips.remove(tips.size()-1);
+    }
+
+    info.setText(stats, tips);
+  }
+
+  protected Material getMaterial(ItemStack... stacks) {
+    for(ItemStack stack : stacks) {
+      if(stack == null || stack.getItem() == null) {
+        continue;
+      }
+      // material-item?
+      if(stack.getItem() instanceof IMaterialItem) {
+        return ((IMaterialItem) stack.getItem()).getMaterial(stack);
+      }
+    }
+
+    // regular item, check if it belongs to a material
+    for(Material material : TinkerRegistry.getAllMaterials()) {
+      if(material.matches(stacks) != null) {
+        return material;
+      }
+    }
+
+    // no material found
+    return null;
+  }
+
+  private Material getMaterialItem(ItemStack stack) {
+
+    return null;
   }
 }
