@@ -192,17 +192,17 @@ public class TinkerTools extends TinkerPulse {
     largeSwordBlade = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "large_sword_blade");
     hammerHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "hammer_head");
     excavatorHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "excavator_head");
-    panHead = registerToolPart(new ToolPart(Material.VALUE_Ingot), "pan_head");
-    signHead = registerToolPart(new ToolPart(Material.VALUE_Ingot), "sign_head");
+    panHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 3), "pan_head");
+    signHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 3), "sign_head");
 
-    toolRod = registerToolPart(new ToolPart(Material.VALUE_Shard), "tool_rod");
+    toolRod = registerToolPart(new ToolPart(Material.VALUE_Ingot), "tool_rod");
     toughToolRod = registerToolPart(new ToolPart(Material.VALUE_Ingot * 3), "tough_tool_rod");
-    binding = registerToolPart(new ToolPart(Material.VALUE_Shard), "binding");
+    binding = registerToolPart(new ToolPart(Material.VALUE_Ingot), "binding");
     toughBinding = registerToolPart(new ToolPart(Material.VALUE_Ingot * 3), "tough_binding");
 
-    wideGuard = registerToolPart(new ToolPart(Material.VALUE_Shard), "wide_guard");
+    wideGuard = registerToolPart(new ToolPart(Material.VALUE_Ingot), "wide_guard");
 
-    largePlate = registerToolPart(new ToolPart(Material.VALUE_Shard * 8), "large_plate");
+    largePlate = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "large_plate");
   }
 
   private void registerTools() {
