@@ -114,6 +114,17 @@ public abstract class ToolCore extends TinkersItem {
     return entity.attackEntityFrom(DamageSource.causePlayerDamage(player), damage);
   }
 
+  /**
+   * Called when an entity is getting damaged with the tool.
+   * Reduce the tools durability accordingly
+   */
+  public void reduceDurabilityOnHit(ItemStack stack, EntityPlayer player, int damage) {
+    if(!hasCategory(Category.WEAPON)) {
+      damage *= 2;
+    }
+    ToolHelper.damageTool(stack, damage, player);
+  }
+
   @Override
   public float getDigSpeed(ItemStack itemstack, IBlockState state) {
     if(isEffective(state.getBlock()) || ToolHelper.isToolEffective(itemstack, state)) {

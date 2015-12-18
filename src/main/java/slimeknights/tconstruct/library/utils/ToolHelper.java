@@ -584,7 +584,7 @@ public final class ToolHelper {
       // damage the tool
       stack.hitEntity(target, player);
       if(!player.capabilities.isCreativeMode) {
-        damageTool(stack, Math.max(1, (int) damage), player);
+        tool.reduceDurabilityOnHit(stack, player, (int) damage);
       }
 
       player.addStat(StatList.damageDealtStat, Math.round(damage*10f));
