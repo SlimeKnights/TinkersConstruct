@@ -259,6 +259,8 @@ modifier.tasty.desc=§oOm Nom Nom!§r\nSmells so good.. You'd rather eat your to
 
 modifier.diamond.name=Diamond
 modifier.diamond.desc=§oShiny!§r\nIncreased durability!
+modifier.emerald.name=Emerald
+modifier.emerald.desc=§oFancy!§r\nIncreases durability depending on base stats!
 modifier.fortify.name=Fortified (%s)
 modifier.fortify.desc=§oHarder, better, faster, stronger!§r\nMining level increased to the same level as %s.
 modifier.harvestwidth.name=Width++

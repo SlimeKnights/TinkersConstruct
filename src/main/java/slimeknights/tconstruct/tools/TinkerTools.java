@@ -61,6 +61,7 @@ import slimeknights.tconstruct.tools.item.SharpeningKit;
 import slimeknights.tconstruct.tools.item.Shovel;
 import slimeknights.tconstruct.tools.modifiers.ModCreative;
 import slimeknights.tconstruct.tools.modifiers.ModDiamond;
+import slimeknights.tconstruct.tools.modifiers.ModEmerald;
 import slimeknights.tconstruct.tools.modifiers.ModFortify;
 import slimeknights.tconstruct.tools.modifiers.ModHarvestSize;
 import slimeknights.tconstruct.tools.modifiers.ModHaste;
@@ -134,6 +135,7 @@ public class TinkerTools extends TinkerPulse {
 
   // Modifiers
   public static Modifier modDiamond;
+  public static Modifier modEmerald;
   public static Modifier modHaste;
   public static Modifier modHarvestWidth;
   public static Modifier modHarvestHeight;
@@ -234,6 +236,9 @@ public class TinkerTools extends TinkerPulse {
     // create the modifiers and add their items
     modDiamond = new ModDiamond();
     modDiamond.addItem("gemDiamond");
+
+    modEmerald = new ModEmerald();
+    modEmerald.addItem("gemEmerald");
 
     modHaste = new ModHaste(50);
     modHaste.addItem("dustRedstone");
