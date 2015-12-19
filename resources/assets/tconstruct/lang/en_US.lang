@@ -83,11 +83,14 @@ item.tconstruct.edible.slimeball_blood.name=Coagulated Blood
 
 item.tconstruct.materials.seared_brick.name=Seared Brick
 item.tconstruct.materials.slimecrystal_green.name=Green Slime Crystal
+item.tconstruct.materials.slimecrystal_green.tooltip=Used to craft Slime Tools
 item.tconstruct.materials.slimecrystal_blue.name=Blue Slime Crystal
+item.tconstruct.materials.slimecrystal_blue.tooltip=Used to craft Slime Tools
 item.tconstruct.materials.expander_w.name=Expander (Horizontal)
 item.tconstruct.materials.expander_w.tooltip=Don't skip leg day!
 item.tconstruct.materials.expander_h.name=Expander (Vertical)
 item.tconstruct.materials.expander_h.tooltip=Do you even lift?
+item.tconstruct.materials.reinforcement.name=Reinforcement
 
 item.tconstruct.ingots.cobalt.name=Cobalt Ingot
 item.tconstruct.ingots.ardite.name=Ardite Ingot
@@ -271,6 +274,7 @@ modifier.haste.desc=§oWeeeeeee!§r\nThe redstone impulse when hitting blocks mo
 modifier.luck.name=Luck
 modifier.luck.desc=§oShiny!§r\nYou're getting all the nice things. And a lot of them.
 modifier.reinforced.name=Reinforced
+modifier.reinforced.name5=Unbreakable
 modifier.reinforced.desc=§oSo strong!§r\nYour tool sometimes takes less damage.
 modifier.sharpness.name=Sharp
 modifier.sharpness.name2=Sharper

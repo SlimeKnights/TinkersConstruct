@@ -3,7 +3,9 @@ package slimeknights.tconstruct.tools.modifiers;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
@@ -26,5 +28,17 @@ public class ModReinforced extends ModifierTrait {
     }
 
     return Math.max(0, newDamage);
+  }
+
+  @Override
+  public String getTooltip(NBTTagCompound modifierTag, boolean detailed) {
+    ModifierNBT data = ModifierNBT.readTag(modifierTag);
+    if(data.level == maxLevel) {
+      String key = String.format(LOC_Name + 5, getIdentifier());
+      if(StatCollector.canTranslate(key)) {
+        return Util.translate(String.format(LOC_Name + 5, getIdentifier()));
+      }
+    }
+    return super.getTooltip(modifierTag, detailed);
   }
 }
