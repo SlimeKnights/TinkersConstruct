@@ -39,6 +39,7 @@ import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.block.BlockSlimeSand;
 import slimeknights.tconstruct.tools.block.BlockToolForge;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
@@ -63,6 +64,7 @@ import slimeknights.tconstruct.tools.modifiers.ModFortify;
 import slimeknights.tconstruct.tools.modifiers.ModHarvestSize;
 import slimeknights.tconstruct.tools.modifiers.ModHaste;
 import slimeknights.tconstruct.tools.modifiers.ModLuck;
+import slimeknights.tconstruct.tools.modifiers.ModReinforced;
 import slimeknights.tconstruct.tools.modifiers.ModSharpness;
 import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
 import slimeknights.tconstruct.tools.tileentity.TilePartBuilder;
@@ -135,6 +137,7 @@ public class TinkerTools extends TinkerPulse {
   public static Modifier modHarvestWidth;
   public static Modifier modHarvestHeight;
   public static Modifier modLuck;
+  public static Modifier modReinforced;
   public static Modifier modSharpness;
 
   public static List<Modifier> fortifyMods;
@@ -244,6 +247,9 @@ public class TinkerTools extends TinkerPulse {
     modLuck = new ModLuck();
     modLuck.addItem("gemLapis");
     modLuck.addItem("blockLapis", 1, 9);
+
+    modReinforced = new ModReinforced();
+    modReinforced.addItem(TinkerCommons.matReinforcement, 1, 1);
 
     modSharpness = new ModSharpness(24);
     modSharpness.addItem("gemQuartz");
@@ -362,6 +368,18 @@ public class TinkerTools extends TinkerPulse {
                                                'L', "gemLapis",
                                                'P', Blocks.piston,
                                                'S', slimeBallPurple));
+
+    // Reinforcement item
+    String goldThing = "ingotGold";
+    if(TinkerSmeltery.cast != null) {
+      goldThing = "cast";
+    }
+    GameRegistry.addRecipe(new ShapedOreRecipe(TinkerCommons.matReinforcement,
+                                               "OOO",
+                                               "OPO",
+                                               "OOO",
+                                               'O', "blockObsidian",
+                                               'P', goldThing));
 
     // Slime Sand
     GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimeSand, 1, 0), Items.slime_ball, Items.slime_ball, Items.slime_ball, Items.slime_ball, "sand", "dirt"));

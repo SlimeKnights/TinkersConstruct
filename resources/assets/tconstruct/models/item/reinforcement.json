@@ -1,0 +1,6 @@
+{
+    "parent": "tconstruct:item/defaultitem",
+    "textures": {
+        "layer0": "tconstruct:items/materials/reinforcement"
+    }
+}

@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
 
 import static slimeknights.tconstruct.shared.TinkerCommons.*;
@@ -48,6 +49,7 @@ public class TinkerOredict {
     oredict(Blocks.obsidian, "blockObsidian");
     oredict(Blocks.netherrack, "blockNetherrack");
     oredict(Blocks.prismarine, "blockPrismarine");
+    oredict(Blocks.obsidian, "blockObsidian");
     oredict(Blocks.slime_block, "blockSlime");
     oredict(Blocks.vine, "vine");
     // glowstone block, redstone block
@@ -94,9 +96,14 @@ public class TinkerOredict {
     oredict(toolRod,  "partToolRod");
 
     oredict(slimeSand, "slimeMud");
+
+    oredict(pattern, "pattern");
   }
 
-  private static void registerSmeltery() {}
+  private static void registerSmeltery() {
+    oredict(TinkerSmeltery.cast, "cast");
+  }
+
   private static void registerWorld() {
     oredict(slimeSapling, "treeSapling");
     oredict(slimeBlock, "blockSlime");
