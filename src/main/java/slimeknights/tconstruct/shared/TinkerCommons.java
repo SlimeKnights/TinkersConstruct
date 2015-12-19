@@ -61,6 +61,7 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack matExpanderW;
   public static ItemStack matExpanderH;
   public static ItemStack matReinforcement;
+  public static ItemStack matCreativeModifier;
 
   // Misc.
   public static ItemStack bacon;
@@ -112,6 +113,8 @@ public class TinkerCommons extends TinkerPulse {
       matExpanderW = materials.addMeta(12, "expander_w");
       matExpanderH = materials.addMeta(13, "expander_h");
       matReinforcement = materials.addMeta(14, "reinforcement");
+
+      matCreativeModifier = materials.addMeta(50, "creativeModifier");
 
       ingotKnightSlime = ingots.addMeta(3, "knightslime");
       nuggetKnightSlime = nuggets.addMeta(3, "knightslime");

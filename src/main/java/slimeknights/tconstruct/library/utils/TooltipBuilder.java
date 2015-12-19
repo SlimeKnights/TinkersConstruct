@@ -49,7 +49,7 @@ public class TooltipBuilder {
 
         // get matching modifier
         IModifier modifier = TinkerRegistry.getModifier(data.identifier);
-        if(modifier == null) {
+        if(modifier == null || modifier.isHidden()) {
           continue;
         }
 

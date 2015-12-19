@@ -39,6 +39,11 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
     return identifier;
   }
 
+  @Override
+  public boolean isHidden() {
+    return false;
+  }
+
   protected void addAspects(ModifierAspect... aspects) {
     this.aspects.addAll(Arrays.asList(aspects));
   }

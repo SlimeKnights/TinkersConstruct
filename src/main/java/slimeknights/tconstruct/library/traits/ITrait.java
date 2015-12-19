@@ -11,24 +11,14 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
+import slimeknights.tconstruct.library.modifiers.IToolMod;
+
 /**
  * Traits are specific properties on tools with special effects.
  * The trait object contains basic information about the trait.
  * The corresponding trait object gets events forwarded to it when a tool with that trait executes them
  */
-public interface ITrait {
-
-  String getIdentifier();
-
-  String getLocalizedName();
-
-  /** A short description to tell the user what the trait does */
-  String getLocalizedDesc();
-
-  /** Return true to hide the trait from the user.
-   *  Useful for internal stuff.
-   */
-  boolean isHidden();
+public interface ITrait extends IToolMod {
 
   /** Returns how often the trait can be stacked on one item. A value of 1 or less means not stackable. */
   int getMaxCount();

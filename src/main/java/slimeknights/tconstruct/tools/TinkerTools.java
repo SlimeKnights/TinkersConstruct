@@ -59,6 +59,7 @@ import slimeknights.tconstruct.tools.item.Pickaxe;
 import slimeknights.tconstruct.tools.item.Scythe;
 import slimeknights.tconstruct.tools.item.SharpeningKit;
 import slimeknights.tconstruct.tools.item.Shovel;
+import slimeknights.tconstruct.tools.modifiers.ModCreative;
 import slimeknights.tconstruct.tools.modifiers.ModDiamond;
 import slimeknights.tconstruct.tools.modifiers.ModFortify;
 import slimeknights.tconstruct.tools.modifiers.ModHarvestSize;
@@ -140,6 +141,8 @@ public class TinkerTools extends TinkerPulse {
   public static Modifier modReinforced;
   public static Modifier modSharpness;
 
+  public static Modifier modCreative;
+
   public static List<Modifier> fortifyMods;
 
   // Helper stuff
@@ -176,8 +179,6 @@ public class TinkerTools extends TinkerPulse {
     registerTE(TilePatternChest.class, "patternchest");
     registerTE(TileToolStation.class, "toolstation");
     registerTE(TileToolForge.class, "toolforge");
-
-    oredict();
 
     proxy.preInit();
 
@@ -254,10 +255,9 @@ public class TinkerTools extends TinkerPulse {
     modSharpness = new ModSharpness(24);
     modSharpness.addItem("gemQuartz");
     modSharpness.addItem("blockQuartz", 1, 4);
-  }
 
-  private void oredict() {
-
+    modCreative = new ModCreative();
+    modCreative.addItem(TinkerCommons.matCreativeModifier, 1, 1);
   }
 
   // INITIALIZATION

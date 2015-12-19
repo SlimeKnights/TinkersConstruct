@@ -235,7 +235,7 @@ public class GuiToolStation extends GuiTinkerStation {
 
         // get matching modifier
         IModifier modifier = TinkerRegistry.getModifier(data.identifier);
-        if(modifier == null || (modifier instanceof ITrait && ((ITrait) modifier).isHidden())) {
+        if(modifier == null || modifier.isHidden()) {
           continue;
         }
 

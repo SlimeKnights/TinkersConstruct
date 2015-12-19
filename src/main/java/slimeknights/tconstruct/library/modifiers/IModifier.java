@@ -7,13 +7,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.mantle.util.RecipeMatch;
 
-public interface IModifier {
-
-  String getIdentifier();
-
-  String getLocalizedName();
-  /** A short description to tell the user what the trait does */
-  String getLocalizedDesc();
+public interface IModifier extends IToolMod {
 
   /**
    * Called with a set of itemstacks and returns a match which contains the items that match
