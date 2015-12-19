@@ -74,7 +74,7 @@ public class ModLuck extends Modifier {
   public static class LuckAspect extends ModifierAspect.MultiAspect {
 
     public LuckAspect(IModifier parent) {
-      super(parent, EnumChatFormatting.BLUE, 3, baseCount, 1);
+      super(parent, 0x5a82e2, 3, baseCount, 1);
     }
 
     @Override

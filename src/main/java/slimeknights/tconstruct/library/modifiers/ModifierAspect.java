@@ -123,7 +123,7 @@ public abstract class ModifierAspect {
     private final FreeModifierAspect freeModifierAspect;
 
     // multiple levels, once every time the maximum is reached
-    public MultiAspect(IModifier parent, EnumChatFormatting color, int maxLevel, int countPerLevel, int modifiersNeeded) {
+    public MultiAspect(IModifier parent, int color, int maxLevel, int countPerLevel, int modifiersNeeded) {
       super(parent);
       this.countPerLevel = countPerLevel;
 
@@ -133,7 +133,7 @@ public abstract class ModifierAspect {
     }
 
     // single-level
-    public MultiAspect(IModifier parent, EnumChatFormatting color, int count) {
+    public MultiAspect(IModifier parent, int color, int count) {
       this(parent, color, 1, count, 1);
     }
 

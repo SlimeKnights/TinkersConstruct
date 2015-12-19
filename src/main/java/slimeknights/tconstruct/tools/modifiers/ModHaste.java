@@ -20,7 +20,7 @@ public class ModHaste extends Modifier {
 
     this.max = max;
 
-    addAspects(new ModifierAspect.MultiAspect(this, EnumChatFormatting.DARK_RED, 5, max, 1), ModifierAspect.harvestOnly);
+    addAspects(new ModifierAspect.MultiAspect(this, 0x910000, 5, max, 1), ModifierAspect.harvestOnly);
   }
 
   @Override

@@ -20,7 +20,7 @@ public class ModSharpness extends Modifier {
 
     this.max = max;
 
-    addAspects(new ModifierAspect.MultiAspect(this, EnumChatFormatting.WHITE, 5, max, 1));
+    addAspects(new ModifierAspect.MultiAspect(this, 0xfff6f6, 5, max, 1));
   }
 
   @Override
