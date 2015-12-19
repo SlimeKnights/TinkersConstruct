@@ -355,31 +355,31 @@ public final class TinkerMaterials {
   public void registerToolMaterials() {
     // Stats:                                                   Durability, speed, attack, handle, extra, harvestlevel
     // natural resources/blocks
-    TinkerRegistry.addMaterialStats(wood,       new ToolMaterialStats( 117, 3.40f, 2.00f, 0.80f, 0.50f, STONE));
-    TinkerRegistry.addMaterialStats(stone,      new ToolMaterialStats( 178, 3.80f, 2.10f, 0.05f, 0.18f, IRON));
-    TinkerRegistry.addMaterialStats(flint,      new ToolMaterialStats( 275, 5.00f, 2.80f, 0.20f, 0.19f, IRON));
+    TinkerRegistry.addMaterialStats(wood,       new ToolMaterialStats(  73, 3.40f, 2.00f, 0.75f, 0.50f, STONE));
+    TinkerRegistry.addMaterialStats(stone,      new ToolMaterialStats( 131, 3.80f, 2.10f, 0.05f, 0.18f, IRON));
+    TinkerRegistry.addMaterialStats(flint,      new ToolMaterialStats( 235, 5.00f, 2.80f, 0.20f, 0.19f, IRON));
     TinkerRegistry.addMaterialStats(cactus,     new ToolMaterialStats( 329, 4.50f, 3.40f, 0.25f, 0.43f, IRON));
-    TinkerRegistry.addMaterialStats(bone,       new ToolMaterialStats( 413, 5.09f, 2.50f, 0.86f, 0.56f, IRON));
-    TinkerRegistry.addMaterialStats(obsidian,   new ToolMaterialStats( 154, 7.07f, 4.20f, 0.07f, 0.24f, COBALT));
-    TinkerRegistry.addMaterialStats(prismarine, new ToolMaterialStats( 612, 5.50f, 5.50f, 0.18f, 0.84f, IRON));
-    TinkerRegistry.addMaterialStats(endstone,   new ToolMaterialStats( 533, 3.23f, 3.23f, 0.33f, 0.33f, OBSIDIAN));
+    TinkerRegistry.addMaterialStats(bone,       new ToolMaterialStats( 373, 5.09f, 2.50f, 0.81f, 0.56f, IRON));
+    TinkerRegistry.addMaterialStats(obsidian,   new ToolMaterialStats(  89, 7.07f, 4.20f, 0.07f, 0.24f, COBALT));
+    TinkerRegistry.addMaterialStats(prismarine, new ToolMaterialStats( 530, 5.50f, 5.50f, 0.18f, 0.84f, IRON));
+    TinkerRegistry.addMaterialStats(endstone,   new ToolMaterialStats( 412, 3.23f, 3.23f, 0.33f, 0.33f, OBSIDIAN));
     TinkerRegistry.addMaterialStats(paper,      new ToolMaterialStats(  42, 0.51f, 0.05f, 0.01f, 0.70f, STONE));
-    TinkerRegistry.addMaterialStats(sponge,     new ToolMaterialStats( 850, 3.02f, 0.00f, 0.05f, 0.01f, STONE));
+    TinkerRegistry.addMaterialStats(sponge,     new ToolMaterialStats( 650, 3.02f, 0.00f, 0.05f, 0.01f, STONE));
 
     // Slime
     TinkerRegistry.addMaterialStats(slime,      new ToolMaterialStats( 780, 4.03f, 1.80f, 1.00f, 0.15f, STONE));
     TinkerRegistry.addMaterialStats(blueslime,  new ToolMaterialStats( 600, 4.24f, 1.80f, 0.30f, 1.00f, STONE));
-    TinkerRegistry.addMaterialStats(knightslime,new ToolMaterialStats( 902, 3.81f, 5.10f, 0.81f, 0.46f, OBSIDIAN));
+    TinkerRegistry.addMaterialStats(knightslime,new ToolMaterialStats( 902, 3.81f, 5.10f, 0.76f, 0.46f, OBSIDIAN));
 
     // Nether
     TinkerRegistry.addMaterialStats(netherrack, new ToolMaterialStats( 322, 4.89f, 3.00f, 0.10f, 0.27f, IRON));
-    TinkerRegistry.addMaterialStats(cobalt,     new ToolMaterialStats( 720,10.00f, 4.10f, 0.40f, 0.60f, COBALT));
-    TinkerRegistry.addMaterialStats(ardite,     new ToolMaterialStats(1234, 2.42f, 3.60f, 0.64f, 0.78f, COBALT));
+    TinkerRegistry.addMaterialStats(cobalt,     new ToolMaterialStats( 680,10.00f, 4.10f, 0.40f, 0.60f, COBALT));
+    TinkerRegistry.addMaterialStats(ardite,     new ToolMaterialStats( 989, 2.42f, 3.60f, 0.64f, 0.78f, COBALT));
     TinkerRegistry.addMaterialStats(manyullyn,  new ToolMaterialStats( 513, 7.02f, 8.72f, 0.30f, 0.70f, COBALT));
 
     // Metals
-    TinkerRegistry.addMaterialStats(iron,       new ToolMaterialStats( 803, 5.70f, 6.00f, 0.50f, 0.60f, DIAMOND));
-    TinkerRegistry.addMaterialStats(pigiron,    new ToolMaterialStats(1000, 6.20f, 4.50f, 0.66f, 0.73f, OBSIDIAN));
+    TinkerRegistry.addMaterialStats(iron,       new ToolMaterialStats( 275, 5.70f, 6.00f, 0.50f, 0.60f, DIAMOND));
+    TinkerRegistry.addMaterialStats(pigiron,    new ToolMaterialStats( 380, 6.20f, 4.50f, 0.66f, 0.73f, OBSIDIAN));
 
     //TinkerRegistry.addMaterialStats(xu,         new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, DIAMOND));
   }
