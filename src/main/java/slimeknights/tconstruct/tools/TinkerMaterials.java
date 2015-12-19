@@ -366,8 +366,8 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterialStats(sponge,     new ToolMaterialStats( 650, 3.02f, 0.00f, 0.05f, 0.01f, STONE));
 
     // Slime
-    TinkerRegistry.addMaterialStats(slime,      new ToolMaterialStats( 780, 4.03f, 1.80f, 1.00f, 0.15f, STONE));
-    TinkerRegistry.addMaterialStats(blueslime,  new ToolMaterialStats( 600, 4.24f, 1.80f, 0.30f, 1.00f, STONE));
+    TinkerRegistry.addMaterialStats(slime,      new ToolMaterialStats( 600, 4.24f, 1.80f, 0.30f, 1.00f, STONE));
+    TinkerRegistry.addMaterialStats(blueslime,  new ToolMaterialStats( 780, 4.03f, 1.80f, 1.00f, 0.15f, STONE));
     TinkerRegistry.addMaterialStats(knightslime,new ToolMaterialStats( 902, 3.81f, 5.10f, 0.76f, 0.46f, OBSIDIAN));
 
     // Nether
