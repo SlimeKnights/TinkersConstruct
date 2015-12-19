@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.modifiers;
+package slimeknights.tconstruct.tools.modifiers.traits;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;

@@ -43,7 +43,7 @@ import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.library.utils.ToolTagUtil;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
-import slimeknights.tconstruct.tools.modifiers.ToolGrowth;
+import slimeknights.tconstruct.tools.modifiers.traits.ToolGrowth;
 
 /**
  * Intermediate abstraction layer for all tools/melee weapons. This class has all the callbacks for blocks and enemies
