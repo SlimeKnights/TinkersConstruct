@@ -4,22 +4,14 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
-import slimeknights.tconstruct.library.traits.AbstractTrait;
+import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 
-public class ModReinforced extends AbstractTrait {
+public class ModReinforced extends ModifierTrait {
 
   public ModReinforced() {
-    super("reinforced", 0x502e83);
-
-    // register the modifier trait
-    TinkerRegistry.addTrait(this);
-
-    this.aspects.clear();
-    addAspects(new ModifierAspect.DataAspect(this, 0x502e83), new ModifierAspect.LevelAspect(this, 5), ModifierAspect.freeModifier);
+    super("reinforced", 0x502e83, 5);
   }
 
   @Override
