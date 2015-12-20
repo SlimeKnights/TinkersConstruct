@@ -22,7 +22,6 @@ public class Pickaxe extends AoeToolCore {
       ImmutableSet.of(net.minecraft.block.material.Material.iron,
                       net.minecraft.block.material.Material.anvil,
                       net.minecraft.block.material.Material.rock,
-                      net.minecraft.block.material.Material.circuits,
                       net.minecraft.block.material.Material.ice,
                       net.minecraft.block.material.Material.glass,
                       net.minecraft.block.material.Material.packedIce,

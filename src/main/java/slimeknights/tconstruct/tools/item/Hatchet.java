@@ -30,8 +30,7 @@ public class Hatchet extends AoeToolCore {
                       net.minecraft.block.material.Material.vine,
                       net.minecraft.block.material.Material.plants,
                       net.minecraft.block.material.Material.gourd,
-                      net.minecraft.block.material.Material.cactus,
-                      net.minecraft.block.material.Material.circuits);
+                      net.minecraft.block.material.Material.cactus);
 
   public Hatchet() {
     this(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
