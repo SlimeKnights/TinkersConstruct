@@ -118,9 +118,9 @@ public abstract class ModifierAspect {
 
     protected final int countPerLevel;
 
-    private final DataAspect dataAspect;
-    private final LevelAspect levelAspect;
-    private final FreeModifierAspect freeModifierAspect;
+    protected final DataAspect dataAspect;
+    protected final LevelAspect levelAspect;
+    protected final FreeModifierAspect freeModifierAspect;
 
     // multiple levels, once every time the maximum is reached
     public MultiAspect(IModifier parent, int color, int maxLevel, int countPerLevel, int modifiersNeeded) {

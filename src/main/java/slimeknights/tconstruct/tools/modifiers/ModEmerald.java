@@ -17,11 +17,6 @@ public class ModEmerald extends Modifier {
   }
 
   @Override
-  public void updateNBT(NBTTagCompound modifierTag) {
-    // nothing to do, aspects handle stuff
-  }
-
-  @Override
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
     ToolNBT data = TagUtil.getToolStats(rootCompound);
     ToolNBT base = TagUtil.getOriginalToolStats(rootCompound);

@@ -89,6 +89,11 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
   }
 
   @Override
+  public void updateNBT(NBTTagCompound modifierTag) {
+    // nothing to do in most cases, aspects handle the updating for most modifier
+  }
+
+  @Override
   public void apply(ItemStack stack) {
     NBTTagCompound root = TagUtil.getTagSafe(stack);
     apply(root);

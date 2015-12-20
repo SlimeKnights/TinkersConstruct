@@ -29,10 +29,6 @@ public class ModHarvestSize extends Modifier {
     return super.canApplyCustom(stack);
   }
 
-  @Override
-  public void updateNBT(NBTTagCompound modifierTag) {
-    // taken care of by the aspect
-  }
 
   @Override
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {

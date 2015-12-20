@@ -24,11 +24,6 @@ public class ModSharpness extends Modifier {
   }
 
   @Override
-  public void updateNBT(NBTTagCompound modifierTag) {
-    // taken care of by the aspect
-  }
-
-  @Override
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
     ModifierNBT.IntegerNBT data = ModifierNBT.readInteger(modifierTag);
 

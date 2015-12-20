@@ -18,11 +18,6 @@ public class ModDiamond extends Modifier {
   }
 
   @Override
-  public void updateNBT(NBTTagCompound modifierTag) {
-    // no extra data needed
-  }
-
-  @Override
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
     ToolNBT data = TagUtil.getToolStats(rootCompound);
     data.durability += 500;

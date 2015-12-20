@@ -47,11 +47,6 @@ public class ModFortify extends Modifier {
   }
 
   @Override
-  public void updateNBT(NBTTagCompound modifierTag) {
-    // nothing needed besides aspects
-  }
-
-  @Override
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
     NBTTagCompound tag = TagUtil.getToolTag(rootCompound);
     ToolMaterialStats stats = material.getStats(ToolMaterialStats.TYPE);
