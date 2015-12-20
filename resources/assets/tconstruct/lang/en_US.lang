@@ -284,6 +284,8 @@ modifier.sharpness.name3=Sharpest
 modifier.sharpness.name4=Sharpester
 modifier.sharpness.name5=Sharpestest
 modifier.sharpness.desc=§oOuch!§r\nSo sharp, it hurts to look at it.
+modifier.soulbound.name=Soulbound
+modifier.soulbound.desc=§oA merry couple!§r\nYou love your tool. Not even death can part you.
 
 #################
 #   Tool Info   #

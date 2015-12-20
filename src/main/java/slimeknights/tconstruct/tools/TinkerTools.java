@@ -68,6 +68,7 @@ import slimeknights.tconstruct.tools.modifiers.ModHaste;
 import slimeknights.tconstruct.tools.modifiers.ModLuck;
 import slimeknights.tconstruct.tools.modifiers.ModReinforced;
 import slimeknights.tconstruct.tools.modifiers.ModSharpness;
+import slimeknights.tconstruct.tools.modifiers.ModSoulbound;
 import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
 import slimeknights.tconstruct.tools.tileentity.TilePartBuilder;
 import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
@@ -142,6 +143,7 @@ public class TinkerTools extends TinkerPulse {
   public static Modifier modLuck;
   public static Modifier modReinforced;
   public static Modifier modSharpness;
+  public static Modifier modSoulbound;
 
   public static Modifier modCreative;
 
@@ -261,8 +263,13 @@ public class TinkerTools extends TinkerPulse {
     modSharpness.addItem("gemQuartz");
     modSharpness.addItem("blockQuartz", 1, 4);
 
+    modSoulbound = new ModSoulbound();
+    modSoulbound.addItem(Items.nether_star);
+
     modCreative = new ModCreative();
     modCreative.addItem(TinkerCommons.matCreativeModifier, 1, 1);
+
+    MinecraftForge.EVENT_BUS.register(modSoulbound);
   }
 
   // INITIALIZATION
