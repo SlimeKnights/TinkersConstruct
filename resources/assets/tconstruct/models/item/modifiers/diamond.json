@@ -1,6 +1,5 @@
 {
     "textures": {
-        "default": "tconstruct:items/friedegg",
         "pickaxe": "tconstruct:items/pickaxe/mod_diamond",
         "shovel": "tconstruct:items/shovel/mod_diamond",
         "hatchet": "tconstruct:items/hatchet/mod_diamond",

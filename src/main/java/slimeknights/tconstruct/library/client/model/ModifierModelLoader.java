@@ -12,6 +12,8 @@ import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -29,6 +31,7 @@ public class ModifierModelLoader implements ICustomModelLoader {
   public static String EXTENSION = ".mod";
 
   private static final String defaultName = "default";
+  private static final Logger log = Util.getLogger("modifier");
 
   // holds additional json files that shall be loaded for a specific modifier
   protected Map<String, List<ResourceLocation>> locations = Maps.newHashMap();
@@ -82,8 +85,7 @@ public class ModifierModelLoader implements ICustomModelLoader {
       IModifier mod = TinkerRegistry.getModifier(entry.getKey());
 
       if(mod == null) {
-        TinkerRegistry.log.debug("Removing texture {} for modifier {}: No modifier present for texture",
-                                 entry.getValue(), entry.getKey());
+        log.debug("Removing texture {} for modifier {}: No modifier present for texture", entry.getValue(), entry.getKey());
         continue;
       }
 
@@ -131,15 +133,15 @@ public class ModifierModelLoader implements ICustomModelLoader {
             }
           }
         } catch(IOException e) {
-          TinkerRegistry.log.error("Cannot load modifier-model {}", entry.getValue());
+          log.error("Cannot load modifier-model {}", entry.getValue());
         } catch(JsonParseException e) {
-          TinkerRegistry.log.error("Cannot load modifier-model {}", entry.getValue());
+          log.error("Cannot load modifier-model {}", entry.getValue());
           throw e;
         }
       }
 
       if(!cache.get(defaultName).containsKey(modifier)) {
-        throw new TinkerAPIException(String.format("%s Modifiers model does not contain a default-entry!", modifier));
+        log.debug(String.format("%s Modifiers model does not contain a default-entry", modifier));
       }
     }
 
@@ -156,7 +158,7 @@ public class ModifierModelLoader implements ICustomModelLoader {
       for(Map.Entry<String, String> defaultEntry : defaults.entrySet()) {
         // check if the tool has an entry for this modifier, otherwise fill in default
         if(!textures.containsKey(defaultEntry.getKey())) {
-          TinkerRegistry.log.debug("Filling in default for modifier {} on tool {}", defaultEntry.getKey(), toolEntry.getKey());
+          log.debug("Filling in default for modifier {} on tool {}", defaultEntry.getKey(), toolEntry.getKey());
           textures.put(defaultEntry.getKey(), defaultEntry.getValue());
         }
       }

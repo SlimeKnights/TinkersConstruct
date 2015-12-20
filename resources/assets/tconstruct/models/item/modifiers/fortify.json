@@ -1,6 +1,5 @@
 {
     "textures": {
-        "default": "tconstruct:items/friedegg",
         "pickaxe": "tconstruct:items/pickaxe/mod_fortified",
         "hatchet": "tconstruct:items/hatchet/mod_fortified",
         "shovel": "tconstruct:items/shovel/mod_fortified",
