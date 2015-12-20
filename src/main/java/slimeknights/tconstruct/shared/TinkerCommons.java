@@ -114,7 +114,7 @@ public class TinkerCommons extends TinkerPulse {
       matExpanderH = materials.addMeta(13, "expander_h");
       matReinforcement = materials.addMeta(14, "reinforcement");
 
-      matCreativeModifier = materials.addMeta(50, "creativeModifier");
+      matCreativeModifier = materials.addMeta(50, "creative_modifier");
 
       ingotKnightSlime = ingots.addMeta(3, "knightslime");
       nuggetKnightSlime = nuggets.addMeta(3, "knightslime");
