@@ -73,6 +73,7 @@ import slimeknights.tconstruct.tools.modifiers.ModSharpness;
 import slimeknights.tconstruct.tools.modifiers.ModSoulbound;
 import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
 import slimeknights.tconstruct.tools.tileentity.TilePartBuilder;
+import slimeknights.tconstruct.tools.tileentity.TilePartChest;
 import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
 import slimeknights.tconstruct.tools.tileentity.TileStencilTable;
 import slimeknights.tconstruct.tools.tileentity.TileToolForge;
@@ -185,6 +186,7 @@ public class TinkerTools extends TinkerPulse {
     registerTE(TileStencilTable.class, "stenciltable");
     registerTE(TilePartBuilder.class, "partbuilder");
     registerTE(TilePatternChest.class, "patternchest");
+    registerTE(TilePartChest.class, "partchest");
     registerTE(TileToolStation.class, "toolstation");
     registerTE(TileToolForge.class, "toolforge");
 

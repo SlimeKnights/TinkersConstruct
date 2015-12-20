@@ -6,13 +6,13 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
-import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
+import slimeknights.tconstruct.tools.tileentity.TilePartChest;
 
-public class ContainerPatternChest extends ContainerTinkerStation<TilePatternChest> {
+public class ContainerPartChest extends ContainerTinkerStation<TilePartChest> {
 
   protected ContainerSideInventory inventory;
 
-  public ContainerPatternChest(InventoryPlayer playerInventory, TilePatternChest tile) {
+  public ContainerPartChest(InventoryPlayer playerInventory, TilePartChest tile) {
     super(tile);
 
     // chest inventory. we have it as a module
@@ -31,23 +31,23 @@ public class ContainerPatternChest extends ContainerTinkerStation<TilePatternChe
 
     @Override
     protected Slot createSlot(IInventory inventory, int index, int x, int y) {
-      return new SlotPatternChest((TilePatternChest)tile, index, x, y);
+      return new PartSlot((TilePartChest) tile, index, x, y);
     }
   }
 
-  public static class SlotPatternChest extends SlotStencil {
+  // slot that only accepts parts
+  public static class PartSlot extends Slot {
+    private final TilePartChest tile;
 
-    public final TilePatternChest patternChest;
+    public PartSlot(TilePartChest tile, int index, int xPosition, int yPosition) {
+      super(tile, index, xPosition, yPosition);
 
-    public SlotPatternChest(TilePatternChest inventoryIn, int index, int xPosition, int yPosition) {
-      super(inventoryIn, index, xPosition, yPosition);
-
-      this.patternChest = inventoryIn;
+      this.tile = tile;
     }
 
     @Override
     public boolean isItemValid(ItemStack stack) {
-      return super.isItemValid(stack) && patternChest.isItemValidForSlot(getSlotIndex(), stack); // slot parameter is unused
+      return tile.isItemValidForSlot(this.getSlotIndex(), stack);
     }
   }
 }

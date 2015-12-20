@@ -32,6 +32,7 @@ import slimeknights.tconstruct.tools.network.TinkerStationTabPacket;
 public class GuiTinkerStation extends GuiMultiModule {
 
   public static final ResourceLocation ICONS = Util.getResource("textures/gui/icons.png");
+  public static final ResourceLocation BLANK_BACK = Util.getResource("textures/gui/blank.png");
 
   public static final GuiElement ICON_Anvil = new GuiElement(18 * 3, 0, 18, 18, 256, 256);
 

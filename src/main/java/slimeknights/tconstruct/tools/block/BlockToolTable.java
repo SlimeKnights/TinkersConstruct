@@ -31,6 +31,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
 import slimeknights.tconstruct.tools.tileentity.TilePartBuilder;
+import slimeknights.tconstruct.tools.tileentity.TilePartChest;
 import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
 import slimeknights.tconstruct.tools.tileentity.TileStencilTable;
 import slimeknights.tconstruct.tools.tileentity.TileToolStation;
@@ -65,6 +66,8 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
         return new TileToolStation();
       case PatternChest:
         return new TilePatternChest();
+      case PartChest:
+        return new TilePartChest();
       default:
         return super.createNewTileEntity(worldIn, meta);
     }
@@ -92,6 +95,8 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
 
     // logs for the part builder
     addBlocksFromOredict("logWood", TableTypes.PartBuilder.meta, list);
+
+    list.add(new ItemStack(this, 1, TableTypes.PartChest.meta));
 
     // stencil table is boring
     //addBlocksFromOredict("workbench", TableTypes.ToolStation.ordinal(), list);
@@ -139,6 +144,7 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
     switch((TableTypes)state.getValue(TABLES)) {
       case StencilTable: return 10;
       case PatternChest: return 15;
+      case PartChest: return 16;
       case PartBuilder: return 20;
       case ToolStation: return 25;
       case CraftingStation: return 50;
@@ -151,7 +157,8 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
     StencilTable,
     PartBuilder,
     ToolStation,
-    PatternChest;
+    PatternChest,
+    PartChest;
 
     TableTypes() {
       meta = this.ordinal();
