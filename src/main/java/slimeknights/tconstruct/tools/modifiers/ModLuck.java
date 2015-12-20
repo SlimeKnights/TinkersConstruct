@@ -1,30 +1,40 @@
 package slimeknights.tconstruct.tools.modifiers;
 
+import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.world.World;
 
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
+import slimeknights.tconstruct.library.modifiers.ModifierTrait;
+import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 
-public class ModLuck extends Modifier {
+// todo: see design doc
+public class ModLuck extends ModifierTrait {
 
-  private static final int baseCount = 120;
+  protected static final int baseCount = 120;
+  protected static final int maxLevel = 3;
 
+  // we have a bit of redundancy going on here with the luckAspect and the trait class
   private final LuckAspect aspect;
 
   public ModLuck() {
-    super("luck");
+    super("luck", 0x5a82e2, maxLevel);
 
+    aspects.clear();
     aspect = new LuckAspect(this);
-
     addAspects(aspect, new ModifierAspect.CategoryAnyAspect(Category.HARVEST, Category.WEAPON));
   }
 
@@ -35,10 +45,43 @@ public class ModLuck extends Modifier {
 
   @Override
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
+    super.applyEffect(rootCompound, modifierTag);
     ModifierNBT.IntegerNBT data = ModifierNBT.readInteger(modifierTag);
 
     int lvl = aspect.getLevel(data.current);
 
+    applyEnchantments(rootCompound, lvl);
+  }
+
+  @Override
+  public void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
+    rewardProgress(tool);
+  }
+
+  @Override
+  public void afterHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damageDealt, boolean wasCritical, boolean wasHit) {
+    if(player.worldObj.isRemote || !wasHit) {
+      return;
+    }
+    // we reward one chance per full heart damage dealt. No chance for 0.5 heart hits, sorry :(
+    for(int i = (int)(damageDealt/2f); i > 0; i--) {
+      rewardProgress(tool);
+    }
+  }
+
+  public void rewardProgress(ItemStack tool) {
+    // 2% chance
+    if(random.nextFloat() > 0.02f) return;
+
+    try {
+      if(canApply(tool))
+        apply(tool);
+    } catch(TinkerGuiException e) {
+      // no user feedback
+    }
+  }
+
+  protected void applyEnchantments(NBTTagCompound rootCompound, int lvl) {
     boolean harvest = false;
     boolean weapon = false;
 
@@ -69,13 +112,12 @@ public class ModLuck extends Modifier {
   public static class LuckAspect extends ModifierAspect.MultiAspect {
 
     public LuckAspect(IModifier parent) {
-      super(parent, 0x5a82e2, 3, baseCount, 1);
+      super(parent, 0x5a82e2, maxLevel, baseCount, 1);
     }
 
     @Override
     protected int getMaxForLevel(int level) {
-      level = (level + (level+1))/2; // sum(n)
-      return countPerLevel * level;
+      return (countPerLevel * level * (level+1))/2; // sum(n)
     }
 
     public int getLevel(int current) {
