@@ -31,6 +31,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.Pattern;
@@ -158,8 +159,9 @@ public class TinkerTools extends TinkerPulse {
   public static List<Modifier> fortifyMods;
 
   // Helper stuff
-  static List<ToolCore> tools = Lists.newLinkedList(); // contains all tools registered in this pulse
-  static List<ToolPart> toolparts = Lists.newLinkedList(); // ^ all toolparts
+  static List<ToolCore> tools = Lists.newLinkedList();      // contains all tools registered in this pulse
+  static List<ToolPart> toolparts = Lists.newLinkedList();  // ^ all toolparts
+  static List<IModifier> modifiers = Lists.newLinkedList(); // ^ all modifiers
 
   // PRE-INITIALIZATION
   @Subscribe
@@ -245,48 +247,50 @@ public class TinkerTools extends TinkerPulse {
   private void registerModifiers() {
     // create the modifiers and add their items
     modBaneOfArthopods = new ModAntiMonsterType("bane_of_arthopods", 0x61ba49, 5, 10, EnumCreatureAttribute.ARTHROPOD);
+    modBaneOfArthopods = registerModifier(modBaneOfArthopods);
     modBaneOfArthopods.addItem(Items.fermented_spider_eye);
 
-    modDiamond = new ModDiamond();
+    modDiamond = registerModifier(new ModDiamond());
     modDiamond.addItem("gemDiamond");
 
-    modEmerald = new ModEmerald();
+    modEmerald = registerModifier(new ModEmerald());
     modEmerald.addItem("gemEmerald");
 
-    modFiery = new ModFiery();
+    modFiery = registerModifier(new ModFiery());
     modFiery.addItem("dustBlaze");
 
-    modHaste = new ModHaste(50);
+    modHaste = registerModifier(new ModHaste(50));
     modHaste.addItem("dustRedstone");
     modHaste.addItem("blockRedstone", 1, 9);
 
-    modHarvestWidth = new ModHarvestSize("width");
+    modHarvestWidth = registerModifier(new ModHarvestSize("width"));
     modHarvestWidth.addItem(TinkerCommons.matExpanderW, 1, 1);
 
-    modHarvestHeight = new ModHarvestSize("height");
+    modHarvestHeight = registerModifier(new ModHarvestSize("height"));
     modHarvestHeight.addItem(TinkerCommons.matExpanderH, 1, 1);
 
-    modKnockback = new ModKnockback();
+    modKnockback = registerModifier(new ModKnockback());
     modKnockback.addItem("blockPiston", 1, 1);
 
-    modLuck = new ModLuck();
+    modLuck = registerModifier(new ModLuck());
     modLuck.addItem("gemLapis");
     modLuck.addItem("blockLapis", 1, 9);
 
-    modReinforced = new ModReinforced();
+    modReinforced = registerModifier(new ModReinforced());
     modReinforced.addItem(TinkerCommons.matReinforcement, 1, 1);
 
-    modSharpness = new ModSharpness(24);
+    modSharpness = registerModifier(new ModSharpness(24));
     modSharpness.addItem("gemQuartz");
     modSharpness.addItem("blockQuartz", 1, 4);
 
     modSmite = new ModAntiMonsterType("smite", 0xe8d500, 5, 10, EnumCreatureAttribute.UNDEAD);
+    modSmite = registerModifier(modSmite);
     //modSmite.addItem(Blocks.sand, 1);
 
-    modSoulbound = new ModSoulbound();
+    modSoulbound = registerModifier(new ModSoulbound());
     modSoulbound.addItem(Items.nether_star);
 
-    modCreative = new ModCreative();
+    modCreative = registerModifier(new ModCreative());
     modCreative.addItem(TinkerCommons.matCreativeModifier, 1, 1);
 
     MinecraftForge.EVENT_BUS.register(modSoulbound);
@@ -449,6 +453,12 @@ public class TinkerTools extends TinkerPulse {
     MinecraftForge.EVENT_BUS.register(new TraitEvents());
     MinecraftForge.EVENT_BUS.register(new ToolEvents());
     MinecraftForge.EVENT_BUS.register(battleSign); // battlesign events
+  }
+
+  private <T extends IModifier> T registerModifier(T modifier) {
+    TinkerRegistry.registerModifier(modifier);
+    modifiers.add(modifier);
+    return modifier;
   }
 
   private void registerFortifyModifiers() {

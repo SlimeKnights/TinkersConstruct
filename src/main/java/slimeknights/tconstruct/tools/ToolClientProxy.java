@@ -20,6 +20,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
 import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
+import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.ToolCore;
@@ -28,6 +29,7 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.client.RenderEvents;
 
+import static slimeknights.tconstruct.tools.TinkerTools.modifiers;
 import static slimeknights.tconstruct.tools.TinkerTools.shard;
 import static slimeknights.tconstruct.tools.TinkerTools.sharpeningKit;
 
@@ -105,9 +107,10 @@ public class ToolClientProxy extends ClientProxy {
       registerPartModel(part);
     }
 
-    registerModifierModel(TinkerTools.modDiamond, Util.getResource("models/item/modifiers/diamond"));
-    registerModifierModel(TinkerTools.modHaste, Util.getResource("models/item/modifiers/haste"));
-    registerModifierModel(TinkerTools.modSharpness, Util.getResource("models/item/modifiers/sharpness"));
+    for(IModifier modifier : modifiers) {
+      registerModifierModel(modifier, Util.getResource("models/item/modifiers/" + modifier.getIdentifier()));
+    }
+
     // we add a temporary modifier that does nothing to work around the model restrictions for the fortify modifier
     registerModifierModel(new Modifier("fortify") {
       @Override
