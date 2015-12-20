@@ -1,5 +1,17 @@
 {
     "textures": {
-        "pickaxe": "tconstruct:items/friedegg"
+        "battleaxe": "tconstruct:items/battleaxe/mod_smite",
+        "battlesign": "tconstruct:items/mod_smite",
+        "broadsword": "tconstruct:items/broadsword/mod_smite",
+        "cleaver": "tconstruct:items/cleaver/mod_smite",
+        "excavator": "tconstruct:items/excavator/mod_smite",
+        "frypan": "tconstruct:items/frypan/mod_smite",
+        "hammer": "tconstruct:items/hammer/mod_smite",
+        "hatchet": "tconstruct:items/hatchet/mod_smite",
+        "longsword": "tconstruct:items/longsword/mod_smite",
+        "lumberaxe": "tconstruct:items/lumberaxe/mod_smite",
+        "mattock": "tconstruct:items/mattock/mod_smite",
+        "pickaxe": "tconstruct:items/pickaxe/mod_smite",
+        "shovel": "tconstruct:items/shovel/mod_smite"
     }
 }

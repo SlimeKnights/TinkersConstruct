@@ -1,5 +1,17 @@
 {
     "textures": {
-        "pickaxe": "tconstruct:items/friedegg"
+        "battleaxe": "tconstruct:items/battleaxe/mod_reinforced",
+        "battlesign": "tconstruct:items/mod_reinforced",
+        "broadsword": "tconstruct:items/broadsword/mod_reinforced",
+        "cleaver": "tconstruct:items/cleaver/mod_reinforced",
+        "excavator": "tconstruct:items/excavator/mod_reinforced",
+        "frypan": "tconstruct:items/frypan/mod_reinforced",
+        "hammer": "tconstruct:items/hammer/mod_reinforced",
+        "hatchet": "tconstruct:items/hatchet/mod_reinforced",
+        "longsword": "tconstruct:items/longsword/mod_reinforced",
+        "lumberaxe": "tconstruct:items/lumberaxe/mod_reinforced",
+        "mattock": "tconstruct:items/mattock/mod_reinforced",
+        "pickaxe": "tconstruct:items/pickaxe/mod_reinforced",
+        "shovel": "tconstruct:items/shovel/mod_reinforced"
     }
 }

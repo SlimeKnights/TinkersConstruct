@@ -1,5 +1,17 @@
 {
     "textures": {
-        "pickaxe": "tconstruct:items/friedegg"
+        "battleaxe": "tconstruct:items/battleaxe/mod_knockback",
+        "battlesign": "tconstruct:items/mod_knockback",
+        "broadsword": "tconstruct:items/broadsword/mod_knockback",
+        "cleaver": "tconstruct:items/cleaver/mod_knockback",
+        "excavator": "tconstruct:items/excavator/mod_knockback",
+        "frypan": "tconstruct:items/frypan/mod_knockback",
+        "hammer": "tconstruct:items/hammer/mod_knockback",
+        "hatchet": "tconstruct:items/hatchet/mod_knockback",
+        "longsword": "tconstruct:items/longsword/mod_knockback",
+        "lumberaxe": "tconstruct:items/lumberaxe/mod_knockback",
+        "mattock": "tconstruct:items/mattock/mod_knockback",
+        "pickaxe": "tconstruct:items/pickaxe/mod_knockback",
+        "shovel": "tconstruct:items/shovel/mod_knockback"
     }
 }
