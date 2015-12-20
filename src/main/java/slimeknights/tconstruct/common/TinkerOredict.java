@@ -60,6 +60,7 @@ public class TinkerOredict {
 
     oredict(Items.flint, "flint");
     oredict(Items.prismarine_shard, "shardPrismarine");
+    oredict(Items.blaze_powder, "dustBlaze");
   }
 
   // common items and blocks

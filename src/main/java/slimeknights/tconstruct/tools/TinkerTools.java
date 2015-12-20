@@ -64,6 +64,7 @@ import slimeknights.tconstruct.tools.modifiers.ModAntiMonsterType;
 import slimeknights.tconstruct.tools.modifiers.ModCreative;
 import slimeknights.tconstruct.tools.modifiers.ModDiamond;
 import slimeknights.tconstruct.tools.modifiers.ModEmerald;
+import slimeknights.tconstruct.tools.modifiers.ModFiery;
 import slimeknights.tconstruct.tools.modifiers.ModFortify;
 import slimeknights.tconstruct.tools.modifiers.ModHarvestSize;
 import slimeknights.tconstruct.tools.modifiers.ModHaste;
@@ -141,6 +142,7 @@ public class TinkerTools extends TinkerPulse {
   public static Modifier modBaneOfArthopods;
   public static Modifier modDiamond;
   public static Modifier modEmerald;
+  public static Modifier modFiery;
   public static Modifier modHaste;
   public static Modifier modHarvestWidth;
   public static Modifier modHarvestHeight;
@@ -250,6 +252,9 @@ public class TinkerTools extends TinkerPulse {
 
     modEmerald = new ModEmerald();
     modEmerald.addItem("gemEmerald");
+
+    modFiery = new ModFiery();
+    modFiery.addItem("dustBlaze");
 
     modHaste = new ModHaste(50);
     modHaste.addItem("dustRedstone");

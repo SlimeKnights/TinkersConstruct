@@ -257,10 +257,14 @@ modifier.tasty.desc=§oOm Nom Nom!§r\nSmells so good.. You'd rather eat your to
 #   Modifiers   #
 #################
 
+modifier.bane_of_arthopods.name=Bane of Arthopods
+modifier.bane_of_arthopods.desc=§oAnti-Spider!§r\nDeal massive damage to spiders.
 modifier.diamond.name=Diamond
 modifier.diamond.desc=§oShiny!§r\nIncreased durability!
 modifier.emerald.name=Emerald
 modifier.emerald.desc=§oFancy!§r\nIncreases durability depending on base stats!
+modifier.fiery.name=Fiery
+modifier.fiery.desc=§oSo hot right now!§r\nBonus fire damage, sets your enemies on fire.
 modifier.fortify.name=Fortified (%s)
 modifier.fortify.desc=§oHarder, better, faster, stronger!§r\nMining level increased to the same level as %s.
 modifier.harvestwidth.name=Width++
@@ -287,6 +291,8 @@ modifier.sharpness.name3=Sharpest
 modifier.sharpness.name4=Sharpester
 modifier.sharpness.name5=Sharpestest
 modifier.sharpness.desc=§oOuch!§r\nSo sharp, it hurts to look at it.
+modifier.smite.name=Smite
+modifier.smite.desc=§oFor Justice!§r\nDeal massive damage to undead.
 modifier.soulbound.name=Soulbound
 modifier.soulbound.desc=§oA merry couple!§r\nYou love your tool. Not even death can part you.
 
