@@ -14,6 +14,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 public class BlockSlimeDirt extends EnumBlock<BlockSlimeDirt.DirtType> {
+
   public static PropertyEnum TYPE = PropertyEnum.create("type", DirtType.class);
 
   public BlockSlimeDirt() {

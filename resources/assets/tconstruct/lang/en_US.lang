@@ -9,8 +9,16 @@ tile.tconstruct.tooltables.toolstation.name=Tool Station
 tile.tconstruct.tooltables.patternchest.name=Pattern Chest
 tile.tconstruct.toolforge.name=Tool Forge
 
-tile.tconstruct.slimesand.green.name=Green Slimy Mud
-tile.tconstruct.slimesand.blue.name=Blue Slimy Mud
+tile.tconstruct.soil.grout.name=Grout
+tile.tconstruct.soil.grout.tooltip=I am Grout!
+tile.tconstruct.soil.slimy_mud_green.name=Green Slimy Mud
+tile.tconstruct.soil.slimy_mud_green.tooltip=Slow but bouncy
+tile.tconstruct.soil.slimy_mud_blue.name=Blue Slimy Mud
+tile.tconstruct.soil.slimy_mud_blue.tooltip=Slow but bouncy
+tile.tconstruct.soil.graveyard.name=Graveyard Soil
+tile.tconstruct.soil.graveyard.tooltip=Heals undead
+tile.tconstruct.soil.consecrated.name=Consecrated Soil
+tile.tconstruct.soil.consecrated.tooltip=Hurts undead
 
 tile.tconstruct.slime.green.name=Green Slime Block
 tile.tconstruct.slime.blue.name=Blue Slime Block

@@ -98,8 +98,6 @@ public class TinkerOredict {
     oredict(binding,  "partBinding");
     oredict(toolRod,  "partToolRod");
 
-    oredict(slimeSand, "slimeMud");
-
     oredict(pattern, "pattern");
   }
 

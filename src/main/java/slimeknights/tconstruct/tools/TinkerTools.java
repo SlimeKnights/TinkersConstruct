@@ -6,7 +6,6 @@ import com.google.common.eventbus.Subscribe;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.MinecraftForge;
@@ -33,7 +32,6 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.Shard;
 import slimeknights.tconstruct.library.tools.ToolCore;
@@ -42,7 +40,6 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.tools.block.BlockSlimeSand;
 import slimeknights.tconstruct.tools.block.BlockToolForge;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.item.BattleAxe;
@@ -93,7 +90,6 @@ public class TinkerTools extends TinkerPulse {
   // Blocks
   public static BlockToolTable toolTables;
   public static BlockToolForge toolForge;
-  public static BlockSlimeSand slimeSand;
 
   // General Items
   public static Pattern pattern;
@@ -181,10 +177,8 @@ public class TinkerTools extends TinkerPulse {
     // register blocks
     toolTables = registerBlock(new BlockToolTable(), ItemBlockTable.class, "tooltables");
     toolForge = registerBlock(new BlockToolForge(), ItemBlockTable.class, "toolforge");
-    slimeSand = registerBlock(new BlockSlimeSand(), ItemBlockMeta.class, "slimesand");
 
     ItemBlockMeta.setMappingProperty(toolTables, BlockToolTable.TABLES);
-    ItemBlockMeta.setMappingProperty(slimeSand, BlockSlimeSand.TYPE);
 
     registerTE(TileTable.class, "table");
     registerTE(TileCraftingStation.class, "craftingstation");
@@ -285,7 +279,7 @@ public class TinkerTools extends TinkerPulse {
 
     modSmite = new ModAntiMonsterType("smite", 0xe8d500, 5, 10, EnumCreatureAttribute.UNDEAD);
     modSmite = registerModifier(modSmite);
-    //modSmite.addItem(Blocks.sand, 1);
+    modSmite.addItem(TinkerCommons.consecratedSoil, 1, 1);
 
     modSoulbound = registerModifier(new ModSoulbound());
     modSoulbound.addItem(Items.nether_star);
@@ -418,12 +412,12 @@ public class TinkerTools extends TinkerPulse {
                                                'P', goldThing));
 
     // Slime Sand
-    GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimeSand, 1, 0), Items.slime_ball, Items.slime_ball, Items.slime_ball, Items.slime_ball, "sand", "dirt"));
-    GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimeSand, 1, 1), slimeBallBlue, slimeBallBlue, slimeBallBlue, slimeBallBlue, "sand", "dirt"));
+    GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudGreen, Items.slime_ball, Items.slime_ball, Items.slime_ball, Items.slime_ball, "sand", "dirt"));
+    GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudBlue, slimeBallBlue, slimeBallBlue, slimeBallBlue, slimeBallBlue, "sand", "dirt"));
 
     // Slime crystals
-    FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(slimeSand, 1, 0), TinkerCommons.matSlimeCrystal, 0);
-    FurnaceRecipes.instance().addSmeltingRecipe(new ItemStack(slimeSand, 1, 1), TinkerCommons.matSlimeCrystalBlue, 0);
+    FurnaceRecipes.instance().addSmeltingRecipe(TinkerCommons.slimyMudGreen, TinkerCommons.matSlimeCrystal, 0);
+    FurnaceRecipes.instance().addSmeltingRecipe(TinkerCommons.slimyMudBlue, TinkerCommons.matSlimeCrystalBlue, 0);
   }
 
   public static void registerToolForgeBlock(String oredict) {

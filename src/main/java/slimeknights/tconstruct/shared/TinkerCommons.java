@@ -16,6 +16,7 @@ import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.Config;
 import slimeknights.tconstruct.common.TinkerPulse;
+import slimeknights.tconstruct.common.block.BlockSoil;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 
@@ -30,6 +31,15 @@ public class TinkerCommons extends TinkerPulse {
 
   @SidedProxy(clientSide = "slimeknights.tconstruct.shared.CommonsClientProxy", serverSide = "slimeknights.tconstruct.common.CommonProxy")
   public static CommonProxy proxy;
+
+  public static BlockSoil blockSoil;
+
+  // block itemstacks
+  public static ItemStack grout;
+  public static ItemStack slimyMudGreen;
+  public static ItemStack slimyMudBlue;
+  public static ItemStack graveyardSoil;
+  public static ItemStack consecratedSoil;
 
   public static ItemMetaDynamic nuggets;
   public static ItemMetaDynamic ingots;
@@ -69,6 +79,14 @@ public class TinkerCommons extends TinkerPulse {
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
     boolean forced = Config.forceRegisterAll; // causes to always register all items
+
+    blockSoil = registerEnumBlock(new BlockSoil(), "soil");
+
+    grout = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.GROUT.getMeta());
+    slimyMudGreen = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.SLIMY_MUD_GREEN.getMeta());
+    slimyMudBlue = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.SLIMY_MUD_BLUE.getMeta());
+    graveyardSoil = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.GRAVEYARD.getMeta());
+    consecratedSoil = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.CONSECRATED.getMeta());
 
     // create the items. We can probably always create them since they handle themselves dynamically
     nuggets = registerItem(new ItemMetaDynamic(), "nuggets");
