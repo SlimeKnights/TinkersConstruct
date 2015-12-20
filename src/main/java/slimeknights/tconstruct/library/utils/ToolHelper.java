@@ -40,12 +40,14 @@ import net.minecraftforge.common.IShearable;
 import java.util.List;
 
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.tools.events.TinkerToolEvent;
+import slimeknights.tconstruct.tools.network.ToolBreakAnimationPacket;
 
 public final class ToolHelper {
 
@@ -429,8 +431,8 @@ public final class ToolHelper {
 
     stack.setItemDamage(stack.getMaxDamage());
 
-    if(entity != null) {
-      entity.renderBrokenItemStack(stack);
+    if(entity instanceof EntityPlayerMP) {
+      TinkerNetwork.sendTo(new ToolBreakAnimationPacket(stack), (EntityPlayerMP) entity);
     }
   }
 

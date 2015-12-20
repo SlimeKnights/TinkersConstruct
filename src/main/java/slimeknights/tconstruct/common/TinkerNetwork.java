@@ -23,6 +23,7 @@ import slimeknights.tconstruct.tools.network.InventorySlotSyncPacket;
 import slimeknights.tconstruct.tools.network.PartCrafterSelectionPacket;
 import slimeknights.tconstruct.tools.network.StencilTableSelectionPacket;
 import slimeknights.tconstruct.tools.network.TinkerStationTabPacket;
+import slimeknights.tconstruct.tools.network.ToolBreakAnimationPacket;
 import slimeknights.tconstruct.tools.network.ToolStationSelectionPacket;
 import slimeknights.tconstruct.tools.network.ToolStationTextPacket;
 
@@ -45,6 +46,7 @@ public class TinkerNetwork extends NetworkWrapper {
     registerPacketServer(InventoryCraftingSyncPacket.class);
     registerPacketClient(InventorySlotSyncPacket.class);
     registerPacketClient(EntityMovementChangePacket.class);
+    registerPacketClient(ToolBreakAnimationPacket.class);
 
     // SMELTERY
     registerPacketClient(SmelteryFluidUpdatePacket.class);
