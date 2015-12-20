@@ -103,10 +103,12 @@ public abstract class ModifierAspect {
     @Override
     public void updateNBT(NBTTagCompound root, NBTTagCompound modifierTag) {
       // same as above, if already present we don't need to reduce the free modifiers
-      if(TinkerUtil.hasModifier(root, parent.getIdentifier()))
+      if(modifierTag.hasKey("modifierUsed")) {
         return;
+      }
 
       super.updateNBT(root, modifierTag);
+      modifierTag.setBoolean("modifierUsed", true);
     }
   }
 
