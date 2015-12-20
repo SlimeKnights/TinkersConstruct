@@ -362,6 +362,13 @@ gui.error.incompatible_enchantments=Modifier %s cannot be combined with enchantm
 # General things used in multiple GUIs
 gui.general.hover=Hover over the entries for more info
 
+# Creative Tabs
+itemGroup.TinkerGeneral=Tinkers' General Items
+itemGroup.TinkerTools=Tinkers' Tools
+itemGroup.TinkerToolParts=Tinkers' Toolparts
+itemGroup.TinkerSmeltery=Tinkers' Smeltery
+itemGroup.TinkerWorld=Tinkers' World
+
 # Crafting Station
 gui.craftingstation.name=Crafting Station
 
