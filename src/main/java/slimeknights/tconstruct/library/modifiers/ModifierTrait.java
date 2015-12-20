@@ -17,10 +17,10 @@ public class ModifierTrait extends AbstractTrait {
   protected final int maxLevel;
 
   public ModifierTrait(String identifier, int color) {
-    this(identifier, color, 0);
+    this(identifier, color, 0, 0);
   }
 
-  public ModifierTrait(String identifier, int color, int maxLevel) {
+  public ModifierTrait(String identifier, int color, int maxLevel, int countPerLevel) {
     super(identifier, color);
 
     // register the modifier trait
@@ -28,9 +28,15 @@ public class ModifierTrait extends AbstractTrait {
 
     this.maxLevel = maxLevel;
     this.aspects.clear();
-    addAspects(new ModifierAspect.DataAspect(this, color), ModifierAspect.freeModifier);
-    if(maxLevel > 0) {
-      addAspects(new ModifierAspect.LevelAspect(this, maxLevel));
+
+    if(maxLevel > 0 && countPerLevel > 0) {
+      addAspects(new ModifierAspect.MultiAspect(this, color, maxLevel, countPerLevel, 1));
+    }
+    else {
+      addAspects(new ModifierAspect.DataAspect(this, color), ModifierAspect.freeModifier);
+      if(maxLevel > 0) {
+        addAspects(new ModifierAspect.LevelAspect(this, maxLevel));
+      }
     }
   }
 
@@ -48,6 +54,6 @@ public class ModifierTrait extends AbstractTrait {
     // already present, limit by level
     NBTTagCompound tag = TinkerUtil.getModifierTag(stack, identifier);
 
-    return ModifierNBT.readTag(tag).level < maxLevel;
+    return ModifierNBT.readTag(tag).level <= maxLevel;
   }
 }

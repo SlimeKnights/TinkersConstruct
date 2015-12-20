@@ -13,7 +13,7 @@ import slimeknights.tconstruct.library.utils.TinkerUtil;
 public class ModReinforced extends ModifierTrait {
 
   public ModReinforced() {
-    super("reinforced", 0x502e83, 5);
+    super("reinforced", 0x502e83, 5, 0);
   }
 
   @Override

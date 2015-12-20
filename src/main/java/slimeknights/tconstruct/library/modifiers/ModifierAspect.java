@@ -53,6 +53,11 @@ public abstract class ModifierAspect {
       this.requiredModifiers = requiredModifiers;
     }
 
+    protected FreeModifierAspect(IModifier parent, int requiredModifiers) {
+      super(parent);
+      this.requiredModifiers = requiredModifiers;
+    }
+
     @Override
     public boolean canApply(ItemStack stack) throws TinkerGuiException {
       NBTTagCompound toolTag = TagUtil.getToolTag(stack);
@@ -76,6 +81,32 @@ public abstract class ModifierAspect {
       int usedModifiers = TagUtil.getBaseModifiersUsed(root);
       usedModifiers += requiredModifiers;
       TagUtil.setBaseModifiersUsed(root, usedModifiers);
+    }
+  }
+
+  public static class FreeFirstModifierAspect extends FreeModifierAspect {
+
+    public FreeFirstModifierAspect(IModifier parent, int requiredModifiers) {
+      super(parent, requiredModifiers);
+    }
+
+    @Override
+    public boolean canApply(ItemStack stack) throws TinkerGuiException {
+      // can always apply if the parent already has the modifier
+      if(TinkerUtil.hasModifier(TagUtil.getTagSafe(stack), parent.getIdentifier()))
+        return true;
+
+      // otherwise he requires free modifiers
+      return super.canApply(stack);
+    }
+
+    @Override
+    public void updateNBT(NBTTagCompound root, NBTTagCompound modifierTag) {
+      // same as above, if already present we don't need to reduce the free modifiers
+      if(TinkerUtil.hasModifier(root, parent.getIdentifier()))
+        return;
+
+      super.updateNBT(root, modifierTag);
     }
   }
 
@@ -118,9 +149,9 @@ public abstract class ModifierAspect {
 
     protected final int countPerLevel;
 
-    protected final DataAspect dataAspect;
-    protected final LevelAspect levelAspect;
-    protected final FreeModifierAspect freeModifierAspect;
+    protected DataAspect dataAspect;
+    protected LevelAspect levelAspect;
+    protected FreeModifierAspect freeModifierAspect;
 
     // multiple levels, once every time the maximum is reached
     public MultiAspect(IModifier parent, int color, int maxLevel, int countPerLevel, int modifiersNeeded) {

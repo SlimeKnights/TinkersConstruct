@@ -21,7 +21,6 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 
-// todo: see design doc
 public class ModLuck extends ModifierTrait {
 
   protected static final int baseCount = 120;
@@ -31,7 +30,7 @@ public class ModLuck extends ModifierTrait {
   private final LuckAspect aspect;
 
   public ModLuck() {
-    super("luck", 0x5a82e2, maxLevel);
+    super("luck", 0x5a82e2, maxLevel, 0);
 
     aspects.clear();
     aspect = new LuckAspect(this);
@@ -113,6 +112,8 @@ public class ModLuck extends ModifierTrait {
 
     public LuckAspect(IModifier parent) {
       super(parent, 0x5a82e2, maxLevel, baseCount, 1);
+
+      freeModifierAspect = new FreeFirstModifierAspect(parent, 1);
     }
 
     @Override

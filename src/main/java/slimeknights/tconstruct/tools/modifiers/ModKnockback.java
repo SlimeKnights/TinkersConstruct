@@ -4,7 +4,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
@@ -12,10 +11,7 @@ import slimeknights.tconstruct.library.utils.TinkerUtil;
 public class ModKnockback extends ModifierTrait {
 
   public ModKnockback() {
-    super("knockback", 0x9f9f9f, 99); // the sky is the limit, wheeeee
-
-    aspects.clear();
-    addAspects(new ModifierAspect.MultiAspect(this, 0x9f9f9f, 99, 10, 1));
+    super("knockback", 0x9f9f9f, 99, 10); // the sky is the limit, wheeeee
   }
 
   @Override
