@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -59,6 +60,7 @@ import slimeknights.tconstruct.tools.item.Pickaxe;
 import slimeknights.tconstruct.tools.item.Scythe;
 import slimeknights.tconstruct.tools.item.SharpeningKit;
 import slimeknights.tconstruct.tools.item.Shovel;
+import slimeknights.tconstruct.tools.modifiers.ModAntiMonsterType;
 import slimeknights.tconstruct.tools.modifiers.ModCreative;
 import slimeknights.tconstruct.tools.modifiers.ModDiamond;
 import slimeknights.tconstruct.tools.modifiers.ModEmerald;
@@ -136,6 +138,7 @@ public class TinkerTools extends TinkerPulse {
   public static ToolPart largePlate;
 
   // Modifiers
+  public static Modifier modBaneOfArthopods;
   public static Modifier modDiamond;
   public static Modifier modEmerald;
   public static Modifier modHaste;
@@ -145,6 +148,7 @@ public class TinkerTools extends TinkerPulse {
   public static Modifier modLuck;
   public static Modifier modReinforced;
   public static Modifier modSharpness;
+  public static Modifier modSmite;
   public static Modifier modSoulbound;
 
   public static Modifier modCreative;
@@ -238,6 +242,9 @@ public class TinkerTools extends TinkerPulse {
 
   private void registerModifiers() {
     // create the modifiers and add their items
+    modBaneOfArthopods = new ModAntiMonsterType("bane_of_arthopods", 0x61ba49, 5, 10, EnumCreatureAttribute.ARTHROPOD);
+    modBaneOfArthopods.addItem(Items.fermented_spider_eye);
+
     modDiamond = new ModDiamond();
     modDiamond.addItem("gemDiamond");
 
@@ -267,6 +274,9 @@ public class TinkerTools extends TinkerPulse {
     modSharpness = new ModSharpness(24);
     modSharpness.addItem("gemQuartz");
     modSharpness.addItem("blockQuartz", 1, 4);
+
+    modSmite = new ModAntiMonsterType("smite", 0xe8d500, 5, 10, EnumCreatureAttribute.UNDEAD);
+    //modSmite.addItem(Blocks.sand, 1);
 
     modSoulbound = new ModSoulbound();
     modSoulbound.addItem(Items.nether_star);
