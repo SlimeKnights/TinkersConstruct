@@ -170,6 +170,9 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
     ModifierNBT data = ModifierNBT.readInteger(modifierTag);
 
     String basic = getLocalizedName(); // backup
+    if(data.level > 1) {
+      basic += " " + TinkerUtil.getRomanNumeral(data.level);
+    }
 
     for(int i = data.level; i > 1; i--) {
       if(StatCollector.canTranslate(String.format(LOC_Name + i, getIdentifier()))) {

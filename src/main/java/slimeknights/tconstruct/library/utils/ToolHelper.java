@@ -81,6 +81,18 @@ public final class ToolHelper {
     return getIntTag(stack, Tags.FREE_MODIFIERS);
   }
 
+  public static List<ITrait> getTraits(ItemStack stack) {
+    List<ITrait> traits = Lists.newLinkedList();
+    NBTTagList traitsTagList = TagUtil.getTraitsTagList(stack);
+    for(int i = 0; i < traitsTagList.tagCount(); i++) {
+      ITrait trait = TinkerRegistry.getTrait(traitsTagList.getStringTagAt(i));
+      if(trait != null) {
+        traits.add(trait);
+      }
+    }
+    return traits;
+  }
+
   public static float calcDigSpeed(ItemStack stack, IBlockState blockState) {
     if(blockState == null) {
       return 0f;

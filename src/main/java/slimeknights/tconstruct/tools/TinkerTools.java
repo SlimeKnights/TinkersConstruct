@@ -65,6 +65,7 @@ import slimeknights.tconstruct.tools.modifiers.ModEmerald;
 import slimeknights.tconstruct.tools.modifiers.ModFortify;
 import slimeknights.tconstruct.tools.modifiers.ModHarvestSize;
 import slimeknights.tconstruct.tools.modifiers.ModHaste;
+import slimeknights.tconstruct.tools.modifiers.ModKnockback;
 import slimeknights.tconstruct.tools.modifiers.ModLuck;
 import slimeknights.tconstruct.tools.modifiers.ModReinforced;
 import slimeknights.tconstruct.tools.modifiers.ModSharpness;
@@ -140,6 +141,7 @@ public class TinkerTools extends TinkerPulse {
   public static Modifier modHaste;
   public static Modifier modHarvestWidth;
   public static Modifier modHarvestHeight;
+  public static Modifier modKnockback;
   public static Modifier modLuck;
   public static Modifier modReinforced;
   public static Modifier modSharpness;
@@ -251,6 +253,9 @@ public class TinkerTools extends TinkerPulse {
 
     modHarvestHeight = new ModHarvestSize("height");
     modHarvestHeight.addItem(TinkerCommons.matExpanderH, 1, 1);
+
+    modKnockback = new ModKnockback();
+    modKnockback.addItem("blockPiston", 1, 1);
 
     modLuck = new ModLuck();
     modLuck.addItem("gemLapis");

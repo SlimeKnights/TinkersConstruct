@@ -51,6 +51,8 @@ public class TinkerOredict {
     oredict(Blocks.prismarine, "blockPrismarine");
     oredict(Blocks.obsidian, "blockObsidian");
     oredict(Blocks.slime_block, "blockSlime");
+    oredict(Blocks.piston, "blockPiston");
+    oredict(Blocks.sticky_piston, "blockPiston");
     oredict(Blocks.vine, "vine");
     // glowstone block, redstone block
 
