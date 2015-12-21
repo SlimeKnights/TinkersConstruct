@@ -104,6 +104,9 @@ public class GuiSideInventory extends GuiModule {
 
   @Override
   public boolean shouldDrawSlot(Slot slot) {
+    if(slot.getSlotIndex() >= slotCount) {
+      return false;
+    }
     // all visible
     if(!slider.isEnabled())
       return true;
@@ -114,6 +117,16 @@ public class GuiSideInventory extends GuiModule {
   @Override
   public boolean isMouseOverSlot(Slot slotIn, int mouseX, int mouseY) {
     return super.isMouseOverSlot(slotIn, mouseX, mouseY) && shouldDrawSlot(slotIn);
+  }
+
+  public void updateSlotCount(int newSlotCount) {
+    // don't do extra stuff if it's not needed
+    if(slotCount == newSlotCount) return;
+
+    this.slotCount = newSlotCount;
+    // called twice to get correct slider calculation
+    updatePosition(parent.cornerX, parent.cornerY, parent.realWidth, parent.realHeight);
+    updatePosition(parent.cornerX, parent.cornerY, parent.realWidth, parent.realHeight);
   }
 
   @Override

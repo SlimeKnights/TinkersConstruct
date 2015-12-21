@@ -1,15 +1,12 @@
 package slimeknights.tconstruct.tools.inventory;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
-import slimeknights.tconstruct.tools.client.GuiPartBuilder;
-import slimeknights.tconstruct.tools.client.GuiPartChest;
-import slimeknights.tconstruct.tools.client.GuiScalingChest;
+import slimeknights.tconstruct.tools.tileentity.TileTinkerChest;
 import slimeknights.tconstruct.tools.tileentity.TilePartChest;
 
 public class ContainerPartChest extends ContainerTinkerStation<TilePartChest> {
@@ -20,20 +17,21 @@ public class ContainerPartChest extends ContainerTinkerStation<TilePartChest> {
     super(tile);
 
     // chest inventory. we have it as a module
-    inventory = new SideInventory(tile, tile, 8, 18, 9); // columns don't matter since they get set by gui
+    inventory = new DynamicChestInventory(tile, tile, 8, 18, 8); // columns don't matter since they get set by gui
     this.addSubContainer(inventory, true);
 
     // player inventory
     this.addPlayerInventory(playerInventory, 8, 84);
   }
 
-  public static class SideInventory extends ContainerSideInventory {
+  // dynamic chest inventory as a module
+  public static class DynamicChestInventory extends ContainerSideInventory {
 
-    public SideInventory(TileEntity tile, IInventory inventory, int x, int y, int columns) {
+    public DynamicChestInventory(TileEntity tile, IInventory inventory, int x, int y, int columns) {
       super(tile, inventory, x, y, columns);
 
       // add the theoretically possible slots
-      while(this.inventorySlots.size() < TilePartChest.MAX_INVENTORY) {
+      while(this.inventorySlots.size() < TileTinkerChest.MAX_INVENTORY) {
         this.addSlotToContainer(createSlot(inventory, this.inventorySlots.size(), 0,0));
       }
     }

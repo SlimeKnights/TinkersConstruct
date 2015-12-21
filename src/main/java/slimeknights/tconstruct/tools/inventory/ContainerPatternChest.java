@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
 import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
+import slimeknights.tconstruct.tools.tileentity.TileTinkerChest;
 
 public class ContainerPatternChest extends ContainerTinkerStation<TilePatternChest> {
 
@@ -16,17 +17,22 @@ public class ContainerPatternChest extends ContainerTinkerStation<TilePatternChe
     super(tile);
 
     // chest inventory. we have it as a module
-    inventory = new SideInventory(tile, tile, 8, 18, 9); // columns don't matter since they get set by gui
+    inventory = new DynamicChestInventory(tile, tile, 8, 18, 8); // columns don't matter since they get set by gui
     this.addSubContainer(inventory, true);
 
     // player inventory
     this.addPlayerInventory(playerInventory, 8, 84);
   }
 
-  public static class SideInventory extends ContainerSideInventory {
+  public static class DynamicChestInventory extends ContainerSideInventory {
 
-    public SideInventory(TileEntity tile, IInventory inventory, int x, int y, int columns) {
+    public DynamicChestInventory(TileEntity tile, IInventory inventory, int x, int y, int columns) {
       super(tile, inventory, x, y, columns);
+
+      // add the theoretically possible slots
+      while(this.inventorySlots.size() < TileTinkerChest.MAX_INVENTORY) {
+        this.addSlotToContainer(createSlot(inventory, this.inventorySlots.size(), 0,0));
+      }
     }
 
     @Override

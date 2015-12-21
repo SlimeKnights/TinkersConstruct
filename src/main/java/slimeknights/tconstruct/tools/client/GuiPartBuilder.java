@@ -41,6 +41,8 @@ public class GuiPartBuilder extends GuiTinkerStation {
 
   protected GuiButtonsPartCrafter buttons;
   protected GuiInfoPanel info;
+  protected GuiSideInventory sideInventory;
+  protected ContainerSideInventory chestContainer;
 
   public GuiPartBuilder(InventoryPlayer playerInv, World world, BlockPos pos, TilePartBuilder tile) {
     super(world, pos, (ContainerTinkerStation) tile.createContainer(playerInv, world, pos));
@@ -55,10 +57,10 @@ public class GuiPartBuilder extends GuiTinkerStation {
       }
       else {
         // has pattern chest inventory?
-        ContainerSideInventory chestContainer = container.getSubContainer(ContainerPatternChest.SideInventory.class);
+        chestContainer = container.getSubContainer(ContainerPatternChest.DynamicChestInventory.class);
         if(chestContainer != null) {
-          this.addModule(new GuiSideInventory(this, chestContainer, chestContainer
-              .getSlotCount(), chestContainer.columns));
+          sideInventory = new GuiSideInventory(this, chestContainer, chestContainer.getSlotCount(), chestContainer.columns);
+          this.addModule(sideInventory);
         }
       }
 
@@ -93,6 +95,10 @@ public class GuiPartBuilder extends GuiTinkerStation {
   @Override
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
     drawBackground(BACKGROUND);
+
+    if(sideInventory != null) {
+      sideInventory.updateSlotCount(chestContainer.getSizeInventory());
+    }
 
     // draw slot icons
     drawIconEmpty(container.getSlot(1), ICON_Shard);

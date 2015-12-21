@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.client;
 
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -24,6 +25,8 @@ public class GuiStencilTable extends GuiTinkerStation {
   public static final int Column_Count = 4;
 
   protected GuiButtonsStencilTable buttons;
+  protected GuiSideInventory sideInventory;
+  protected ContainerSideInventory chestContainer;
 
   public GuiStencilTable(InventoryPlayer playerInv, World world, BlockPos pos, TileStencilTable tile) {
     super(world, pos, (ContainerTinkerStation) tile.createContainer(playerInv, world, pos));
@@ -33,9 +36,10 @@ public class GuiStencilTable extends GuiTinkerStation {
 
     if(inventorySlots instanceof ContainerStencilTable) {
       ContainerStencilTable container = (ContainerStencilTable) inventorySlots;
-      ContainerSideInventory chestContainer = container.getSubContainer(ContainerPatternChest.SideInventory.class);
+      chestContainer = container.getSubContainer(ContainerPatternChest.DynamicChestInventory.class);
       if(chestContainer != null) {
-        this.addModule(new GuiSideInventory(this, chestContainer, chestContainer.getSlotCount(), chestContainer.columns, true, false));
+        sideInventory = new GuiSideInventory(this, chestContainer, chestContainer.getSizeInventory(), chestContainer.columns, true, false);
+        this.addModule(sideInventory);
       }
     }
   }
@@ -47,6 +51,10 @@ public class GuiStencilTable extends GuiTinkerStation {
   @Override
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
     drawBackground(BACKGROUND);
+
+    if(sideInventory != null) {
+      sideInventory.updateSlotCount(chestContainer.getSizeInventory());
+    }
 
     drawIcon(inventorySlots.getSlot(0), ICON_Pattern);
 

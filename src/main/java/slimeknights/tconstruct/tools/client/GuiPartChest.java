@@ -7,6 +7,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.mantle.client.gui.GuiElementScalable;
+import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.tools.client.module.GuiGeneric;
 import slimeknights.tconstruct.tools.inventory.ContainerPartChest;
 import slimeknights.tconstruct.tools.inventory.ContainerTinkerStation;
@@ -24,7 +25,7 @@ public class GuiPartChest extends GuiTinkerStation {
 
     // we use the sideinventory class for the inventory itself
     // it doesn't contain the player inventory
-    guiInventory = new GuiScalingChest(this, (ContainerPartChest.SideInventory)container.getSubContainer(ContainerPartChest.SideInventory.class));
+    guiInventory = new GuiScalingChest(this, (BaseContainer)container.getSubContainer(ContainerPartChest.DynamicChestInventory.class));
     addModule(guiInventory);
   }
 

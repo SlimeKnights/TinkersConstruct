@@ -42,7 +42,7 @@ public class ContainerStencilTable
     TilePatternChest chest = detectTE(TilePatternChest.class);
     // TE present?
     if(chest != null) {
-      patternChestSideInventory = new ContainerPatternChest.SideInventory(chest, chest, 6 + 176, 8, 6);
+      patternChestSideInventory = new ContainerPatternChest.DynamicChestInventory(chest, chest, 6 + 176, 8, 6);
       addSubContainer(patternChestSideInventory, true);
     }
     else {

@@ -5,7 +5,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -13,15 +12,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
-import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.client.GuiPatternChest;
 import slimeknights.tconstruct.tools.inventory.ContainerPatternChest;
 
-public class TilePatternChest extends TileTable implements IInventoryGui {
+public class TilePatternChest extends TileTinkerChest implements IInventoryGui {
 
   public TilePatternChest() {
-    super("gui.patternchest.name", 27, 1);
+    super("gui.patternchest.name", MAX_INVENTORY, 1);
   }
 
   @Override

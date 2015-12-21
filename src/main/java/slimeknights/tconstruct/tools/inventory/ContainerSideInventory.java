@@ -36,4 +36,8 @@ public class ContainerSideInventory extends BaseContainer<TileEntity> {
   }
 
   public int getSlotCount() { return slotCount; }
+
+  public int getSizeInventory() {
+    return ((IInventory)tile).getSizeInventory();
+  }
 }

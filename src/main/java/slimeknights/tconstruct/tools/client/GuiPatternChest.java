@@ -8,6 +8,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.mantle.client.gui.GuiElementScalable;
+import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.tools.client.module.GuiGeneric;
 import slimeknights.tconstruct.tools.inventory.ContainerPatternChest;
@@ -21,22 +22,22 @@ public class GuiPatternChest extends GuiTinkerStation {
 
   protected static final GuiElementScalable background = GuiGeneric.slotEmpty;
 
-  public GuiDynInventory guiInventory;
+  public GuiScalingChest guiInventory;
 
   public GuiPatternChest(InventoryPlayer playerInv, World world, BlockPos pos, TilePatternChest tile) {
     super(world, pos, (ContainerTinkerStation)tile.createContainer(playerInv, world, pos));
 
     // we use the sideinventory class for the inventory itself
     // it doesn't contain the player inventory
-    guiInventory = new GuiDynInventory(this, container.getSubContainer(ContainerPatternChest.SideInventory.class));
+    guiInventory = new GuiScalingChest(this, (BaseContainer)container.getSubContainer(ContainerPatternChest.DynamicChestInventory.class));
     addModule(guiInventory);
-    //guiInventory.setPosition(16, 16);
-    //guiInventory.setSize(162, 54);
   }
 
   @Override
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
     drawBackground(BACKGROUND);
+
+    guiInventory.update(mouseX, mouseY);
 
     super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
   }

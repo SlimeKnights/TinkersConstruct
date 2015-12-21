@@ -83,7 +83,7 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
       // are we a PartCrafter?
       partCrafter = hasStencilTable && hasCraftingStation;
 
-      Container sideInventory = new ContainerPatternChest.SideInventory(chest, chest, -6, 8, 6);
+      Container sideInventory = new ContainerPatternChest.DynamicChestInventory(chest, chest, -6, 8, 6);
       addSubContainer(sideInventory, true);
 
       patternChest = chest;
