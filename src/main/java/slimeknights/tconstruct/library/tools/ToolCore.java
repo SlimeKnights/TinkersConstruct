@@ -238,7 +238,9 @@ public abstract class ToolCore extends TinkersItem {
     Set<Material> nameMaterials = Sets.newLinkedHashSet();
 
     for(int index : getRepairParts()) {
-      nameMaterials.add(materials.get(index));
+      if(index < materials.size()) {
+        nameMaterials.add(materials.get(index));
+      }
     }
 
     String itemName = super.getItemStackDisplayName(stack);
