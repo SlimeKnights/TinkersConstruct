@@ -30,16 +30,16 @@ public class GuiDynInventory extends GuiModule {
   protected static final GuiElement sliderBottom = GuiGeneric.sliderBottom;
   protected static final GuiElementScalable sliderBackground = GuiGeneric.sliderBackground;
 
-  private GuiWidgetSlider slider = new GuiWidgetSlider(sliderNormal, sliderHigh, sliderLow, sliderTop, sliderBottom, sliderBackground);
+  protected GuiWidgetSlider slider = new GuiWidgetSlider(sliderNormal, sliderHigh, sliderLow, sliderTop, sliderBottom, sliderBackground);
 
   // Logic
-  private int columns; // columns displayed
-  private int rows; // rows displayed
-  private int slotCount;
-  private boolean sliderActive;
+  protected int columns; // columns displayed
+  protected int rows; // rows displayed
+  protected int slotCount;
+  protected boolean sliderActive;
 
-  private int firstSlotId;
-  private int lastSlotId;
+  protected int firstSlotId;
+  protected int lastSlotId;
 
   // Container containing the slots to display
   protected final Container container;
@@ -76,14 +76,17 @@ public class GuiDynInventory extends GuiModule {
     // recalculate columns with slider
     if(sliderActive) {
       columns = (xSize - slider.width) / slot.w;
+      updateSlider();
     }
 
     updateSlots();
   }
 
   protected void updateSlider() {
+    int max = 0;
     if(sliderActive) {
       slider.show();
+      max = slotCount/columns - rows + 1; // the assumption here is that for an active slider this always is >0
     }
     else {
       slider.hide();
@@ -91,7 +94,7 @@ public class GuiDynInventory extends GuiModule {
 
     slider.setPosition(guiLeft + xSize - slider.width, guiTop);
     slider.setSize(ySize);
-    slider.setSliderParameters(0, slotCount/columns - rows + 1, 1);
+    slider.setSliderParameters(0, max, 1);
   }
 
   public void update(int mouseX, int mouseY) {
@@ -122,7 +125,7 @@ public class GuiDynInventory extends GuiModule {
     firstSlotId = slider.getValue() * columns;
     lastSlotId = Math.min(slotCount, firstSlotId + rows * columns);
 
-    for(Slot slot : (List<Slot>) container.inventorySlots) {
+    for(Slot slot : container.inventorySlots) {
       if(shouldDrawSlot(slot)) {
         // calc position of the slot
         int offset = slot.getSlotIndex() - firstSlotId;
@@ -142,7 +145,7 @@ public class GuiDynInventory extends GuiModule {
   @Override
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
     this.mc.getTextureManager().bindTexture(GuiGeneric.LOCATION);
-    if(sliderActive) {
+    if(!slider.isHidden()) {
       slider.draw();
 
       updateSlots();

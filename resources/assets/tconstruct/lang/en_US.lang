@@ -393,6 +393,9 @@ gui.toolstation.noTraits=None :[
 gui.patternchest.name=Pattern Chest
 gui.castchest.name=Cast Chest
 
+# Part Chest
+gui.partchest.name=Part Chest
+
 # Smeltery
 gui.smeltery.name=Smeltery
 gui.smeltery.fuel=Fuel

@@ -17,20 +17,22 @@ public class GuiPartChest extends GuiTinkerStation {
 
   protected static final GuiElementScalable background = GuiGeneric.slotEmpty;
 
-  public GuiDynInventory guiInventory;
+  public GuiScalingChest guiInventory;
 
   public GuiPartChest(InventoryPlayer playerInv, World world, BlockPos pos, TilePartChest tile) {
     super(world, pos, (ContainerTinkerStation)tile.createContainer(playerInv, world, pos));
 
     // we use the sideinventory class for the inventory itself
     // it doesn't contain the player inventory
-    guiInventory = new GuiDynInventory(this, container.getSubContainer(ContainerPartChest.SideInventory.class));
+    guiInventory = new GuiScalingChest(this, (ContainerPartChest.SideInventory)container.getSubContainer(ContainerPartChest.SideInventory.class));
     addModule(guiInventory);
   }
 
   @Override
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
     drawBackground(BLANK_BACK);
+
+    guiInventory.update(mouseX, mouseY);
 
     super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
   }

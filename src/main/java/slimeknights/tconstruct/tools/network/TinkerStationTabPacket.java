@@ -60,7 +60,7 @@ public class TinkerStationTabPacket extends AbstractPacketThreadsafe {
       player.openGui(TConstruct.instance, 0, player.worldObj, blockX, blockY, blockZ);
     }
 
-    // set hedl item again for the new container
+    // set held item again for the new container
     if(heldStack != null) {
       player.inventory.setItemStack(heldStack);
       // also send it to the client
