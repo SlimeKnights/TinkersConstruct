@@ -8,6 +8,22 @@
         "type=stenciltable": { "model": "tconstruct:stenciltable" },
         "type=partbuilder": { "model": "tconstruct:partbuilder" },
         "type=toolstation": { "model": "tconstruct:toolstation" },
-        "type=toolforge": { "model": "tconstruct:toolforge" }
+        "type=toolforge": { "model": "tconstruct:toolforge" },
+        "type=patternchest": {
+            "model": "tconstruct:patternchest",
+            "textures": {
+                "side": "tconstruct:blocks/patternchest",
+                "bottom": "#side",
+                "top": "#side"
+            }
+        },
+        "type=partchest": {
+            "model": "tconstruct:patternchest",
+            "textures": {
+                "side": "tconstruct:blocks/partchest",
+                "bottom": "#side",
+                "top": "#side"
+            }
+        }
     }
 }
