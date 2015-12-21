@@ -353,8 +353,19 @@ public class TinkerTools extends TinkerPulse {
                            "P", "B", 'P', pattern, 'B', Blocks.cactus);
 
     // Pattern Chest
-    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolTables, 1, BlockToolTable.TableTypes.PatternChest.meta),
+    ItemStack patternChest = new ItemStack(toolTables, 1, BlockToolTable.TableTypes.PatternChest.meta);
+    ItemStack partChest = new ItemStack(toolTables, 1, BlockToolTable.TableTypes.PartChest.meta);
+    GameRegistry.addRecipe(new ShapedOreRecipe(patternChest,
                                                "P", "B", 'P', pattern, 'B', "chestWood"));
+    GameRegistry.addRecipe(new ShapedOreRecipe(patternChest,
+                                               "BBB",
+                                               "BPB",
+                                               "BBB", 'P', pattern, 'B', "plankWood"));
+    // Part Chest
+    GameRegistry.addRecipe(new ShapedOreRecipe(partChest,
+                                               " P ",
+                                               "SCS",
+                                               " B ", 'C', "chestWood", 'S', "stickWood", 'B', "plankWood", 'P', pattern));
 
     // Tool Station
     GameRegistry.addRecipe(
