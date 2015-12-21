@@ -13,9 +13,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
@@ -27,6 +29,7 @@ import java.util.List;
 
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
@@ -123,6 +126,11 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
     }
   }
 
+  @Override
+  protected boolean keepInventory(IBlockState state) {
+    return Config.chestsKeepInventory &&
+           (state.getValue(TABLES) == TableTypes.PatternChest || state.getValue(TABLES) == TableTypes.PartChest);
+  }
 
   @Override
   protected BlockState createBlockState() {

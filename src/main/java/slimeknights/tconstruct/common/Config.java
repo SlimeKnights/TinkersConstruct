@@ -5,6 +5,7 @@ public class Config {
 
   public static boolean reuseStencil = true;
   public static boolean craftCastableMaterials = true;
+  public static boolean chestsKeepInventory = true;
 
   // Worldgen
   public static boolean genIslandsInSuperflat = true;

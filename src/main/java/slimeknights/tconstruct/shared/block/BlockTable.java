@@ -29,6 +29,7 @@ import java.util.List;
 import slimeknights.mantle.block.BlockInventory;
 import slimeknights.mantle.property.PropertyString;
 import slimeknights.mantle.property.PropertyUnlistedDirection;
+import slimeknights.mantle.tileentity.TileInventory;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 
@@ -102,13 +103,19 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
     NBTTagCompound tag = TagUtil.getTagSafe(stack);
     TileEntity te = world.getTileEntity(pos);
     if(te != null && te instanceof TileTable) {
+      TileTable table = (TileTable) te;
       NBTTagCompound feetTag = tag.getCompoundTag(TileTable.FEET_TAG);
       if(feetTag == null) {
         feetTag = new NBTTagCompound();
       }
 
-      ((TileTable) te).updateTextureBlock(feetTag);
-      ((TileTable) te).setFacing(placer.getHorizontalFacing().getOpposite());
+      table.updateTextureBlock(feetTag);
+      table.setFacing(placer.getHorizontalFacing().getOpposite());
+
+      // check if we also have an inventory
+      if(tag.hasKey("inventory")) {
+        TileInventory.readInventoryFromNBT(table, tag.getCompoundTag("inventory"));
+      }
     }
   }
 
@@ -122,10 +129,22 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
       this.harvestBlock(world, player, pos, state, world.getTileEntity(pos));
     }
 
+    // clear the inventory if we kept it on the item
+    // otherwise we'd dupe it since it'd also spell when we set the block to air
+    if(keepInventory(state)) {
+      TileEntity te = world.getTileEntity(pos);
+      if(te instanceof TileInventory) {
+        ((TileInventory) te).clear();
+      }
+    }
 
     world.setBlockToAir(pos);
     // return false to prevent the above called functions to be called again
     // side effect of this is that no xp will be dropped. but it shoudln't anyway from a table :P
+    return false;
+  }
+
+  protected boolean keepInventory(IBlockState state) {
     return false;
   }
 
@@ -137,14 +156,22 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
     // get block data from the block
     TileEntity te = world.getTileEntity(pos);
     if(te != null && te instanceof TileTable) {
-      NBTTagCompound data = ((TileTable) te).getTextureBlock();
+      TileTable table = (TileTable) te;
+      NBTTagCompound data = table.getTextureBlock();
 
       for(ItemStack item : items) {
         // save the data from the block onto the item
         if(item.getItem() == Item.getItemFromBlock(this)) {
-          NBTTagCompound tag = new NBTTagCompound();
+          NBTTagCompound tag = TagUtil.getTagSafe(item);
           tag.setTag(TileTable.FEET_TAG, data);
           item.setTagCompound(tag);
+
+          // save inventory?
+          if(keepInventory(state)) {
+            NBTTagCompound inventoryTag = new NBTTagCompound();
+            TileInventory.writeInventoryToNBT(table, inventoryTag);
+            tag.setTag("inventory", inventoryTag);
+          }
         }
       }
     }
