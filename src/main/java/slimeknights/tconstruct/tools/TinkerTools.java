@@ -372,8 +372,9 @@ public class TinkerTools extends TinkerPulse {
         new ShapedOreRecipe(new ItemStack(toolTables, 1, BlockToolTable.TableTypes.ToolStation.meta),
                             "P", "B", 'P', pattern, 'B', "workbench"));
     // Tool Forge
-    registerToolForgeBlock("blockIron");
-    registerToolForgeBlock("blockGold");
+    //registerToolForgeBlock("blockIron");
+    //registerToolForgeBlock("blockGold");
+    registerToolForgeBlock("blockMetal");
 
     // Materials
     ItemStack slimeBallBlue = TinkerCommons.matSlimeBallBlue;
