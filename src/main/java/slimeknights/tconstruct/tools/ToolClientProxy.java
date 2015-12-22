@@ -29,6 +29,9 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.client.RenderEvents;
 
+import static slimeknights.tconstruct.tools.TinkerTools.modCreative;
+import static slimeknights.tconstruct.tools.TinkerTools.modHarvestHeight;
+import static slimeknights.tconstruct.tools.TinkerTools.modHarvestWidth;
 import static slimeknights.tconstruct.tools.TinkerTools.modifiers;
 import static slimeknights.tconstruct.tools.TinkerTools.shard;
 import static slimeknights.tconstruct.tools.TinkerTools.sharpeningKit;
@@ -106,6 +109,10 @@ public class ToolClientProxy extends ClientProxy {
     }
 
     for(IModifier modifier : modifiers) {
+      if(modifier == modCreative || modifier == modHarvestWidth || modifier == modHarvestHeight) {
+        // modifiers without model are blacklisted
+        continue;
+      }
       registerModifierModel(modifier, Util.getResource("models/item/modifiers/" + modifier.getIdentifier()));
     }
 
