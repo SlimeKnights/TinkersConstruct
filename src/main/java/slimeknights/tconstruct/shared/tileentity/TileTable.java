@@ -2,8 +2,6 @@ package slimeknights.tconstruct.shared.tileentity;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -12,15 +10,12 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.WorldServer;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
-import java.util.List;
-
 import slimeknights.mantle.tileentity.TileInventory;
-import slimeknights.tconstruct.common.Config;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.client.model.ModelHelper;
 import slimeknights.tconstruct.shared.block.BlockTable;

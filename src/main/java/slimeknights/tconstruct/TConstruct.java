@@ -22,6 +22,7 @@ import slimeknights.mantle.pulsar.control.PulseManager;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.common.TinkerOredict;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.debug.TinkerDebug;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
@@ -40,7 +41,10 @@ import slimeknights.tconstruct.world.TinkerWorld;
  */
 
 
-@Mod(modid = TConstruct.modID, name = "Tinkers' Construct", version = TConstruct.modVersion,
+@Mod(modid = TConstruct.modID,
+    name = "Tinkers' Construct",
+    version = TConstruct.modVersion,
+    guiFactory = "slimeknights.tconstruct.common.config.ConfigGui$ConfigGuiFactory",
     dependencies = "required-after:Forge@[11.14.,);required-after:mantle@[1.8-0.5,)")
 //dependencies = "required-after:Forge@[11.14.,);required-after:mantle@[1.8-0.4,)")
 //dependencies = "required-after:Forge@[10.13.1.1217,);required-after:Mantle@[1.7.10-0.3.2,);after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion;after:ThermalFoundation")
@@ -108,6 +112,8 @@ public class TConstruct {
 
   @Mod.EventHandler
   public void preInit(FMLPreInitializationEvent event) {
+    Config.load(event);
+
     HarvestLevels.init();
 
     EntityRegistry.registerModEntity(IndestructibleEntityItem.class, "Indestructible Item", 0, TConstruct.instance, 32, 5, true);

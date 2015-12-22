@@ -10,7 +10,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.mantle.common.IInventoryGui;
-import slimeknights.tconstruct.common.Config;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.client.GuiStencilTable;

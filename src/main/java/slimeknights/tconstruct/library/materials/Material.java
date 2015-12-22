@@ -17,7 +17,7 @@ import java.util.Map;
 
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.mantle.util.RecipeMatchRegistry;
-import slimeknights.tconstruct.common.Config;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomFontColor;

@@ -9,7 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import slimeknights.tconstruct.common.Config;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;

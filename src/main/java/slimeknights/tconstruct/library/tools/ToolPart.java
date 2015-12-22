@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 import slimeknights.tconstruct.common.ClientProxy;
-import slimeknights.tconstruct.common.Config;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterialStats;

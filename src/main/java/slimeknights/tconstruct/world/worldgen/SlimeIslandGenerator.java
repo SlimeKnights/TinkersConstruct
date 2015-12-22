@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
-import slimeknights.tconstruct.common.Config;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.BlockSlime;
 import slimeknights.tconstruct.world.block.BlockSlimeDirt;
@@ -58,6 +58,9 @@ public class SlimeIslandGenerator implements IWorldGenerator {
 
   @Override
   public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
+    if(!Config.genSlimeIslands) {
+      return;
+    }
     // do we generate in superflat?
     if(world.getWorldType() == WorldType.FLAT && !Config.genIslandsInSuperflat) {
       return;

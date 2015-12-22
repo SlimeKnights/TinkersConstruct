@@ -16,7 +16,7 @@ import slimeknights.mantle.item.ItemEdible;
 import slimeknights.mantle.item.ItemMetaDynamic;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.CommonProxy;
-import slimeknights.tconstruct.common.Config;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.shared.block.BlockMetal;
 import slimeknights.tconstruct.shared.block.BlockSoil;
