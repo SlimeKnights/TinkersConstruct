@@ -4,9 +4,9 @@ import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 
 import org.apache.logging.log4j.Logger;
 
@@ -16,9 +16,11 @@ import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.Config;
 import slimeknights.tconstruct.common.TinkerPulse;
-import slimeknights.tconstruct.common.block.BlockSoil;
+import slimeknights.tconstruct.shared.block.BlockSoil;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.shared.block.BlockOre;
+import slimeknights.tconstruct.shared.worldgen.NetherOreGenerator;
 
 /**
  * Contains items and blocks and stuff that is shared by multiple pulses, but might be required individually
@@ -33,6 +35,7 @@ public class TinkerCommons extends TinkerPulse {
   public static CommonProxy proxy;
 
   public static BlockSoil blockSoil;
+  public static BlockOre blockOre;
 
   // block itemstacks
   public static ItemStack grout;
@@ -40,6 +43,9 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack slimyMudBlue;
   public static ItemStack graveyardSoil;
   public static ItemStack consecratedSoil;
+
+  public static ItemStack oreCobalt;
+  public static ItemStack oreArdite;
 
   public static ItemMetaDynamic nuggets;
   public static ItemMetaDynamic ingots;
@@ -80,6 +86,7 @@ public class TinkerCommons extends TinkerPulse {
   public void preInit(FMLPreInitializationEvent event) {
     boolean forced = Config.forceRegisterAll; // causes to always register all items
 
+    // Soils
     blockSoil = registerEnumBlock(new BlockSoil(), "soil");
 
     grout = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.GROUT.getMeta());
@@ -87,6 +94,12 @@ public class TinkerCommons extends TinkerPulse {
     slimyMudBlue = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.SLIMY_MUD_BLUE.getMeta());
     graveyardSoil = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.GRAVEYARD.getMeta());
     consecratedSoil = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.CONSECRATED.getMeta());
+
+    // Ores
+    blockOre = registerEnumBlock(new BlockOre(), "ore");
+
+    oreCobalt = new ItemStack(blockOre, 1, BlockOre.OreTypes.COBALT.getMeta());
+    oreArdite = new ItemStack(blockOre, 1, BlockOre.OreTypes.ARDITE.getMeta());
 
     // create the items. We can probably always create them since they handle themselves dynamically
     nuggets = registerItem(new ItemMetaDynamic(), "nuggets");
@@ -163,4 +176,8 @@ public class TinkerCommons extends TinkerPulse {
     GameRegistry.addShapedRecipe(ingot, "###","###","###", '#', nugget);
   }
 
+  @Subscribe
+  public void init(FMLInitializationEvent event) {
+    GameRegistry.registerWorldGenerator(new NetherOreGenerator(), 0);
+  }
 }
