@@ -6,11 +6,11 @@ import net.minecraft.tileentity.TileEntity;
 
 import slimeknights.mantle.inventory.BaseContainer;
 
-public class ContainerSideInventory extends BaseContainer<TileEntity> {
+public class ContainerSideInventory<T extends TileEntity & IInventory> extends BaseContainer<T> {
   public final int columns;
   public final int slotCount;
 
-  public ContainerSideInventory(TileEntity tile, IInventory inventory, int x, int y, int columns) {
+  public ContainerSideInventory(T tile, IInventory inventory, int x, int y, int columns) {
     super(tile);
 
     this.columns = columns;
@@ -38,6 +38,6 @@ public class ContainerSideInventory extends BaseContainer<TileEntity> {
   public int getSlotCount() { return slotCount; }
 
   public int getSizeInventory() {
-    return ((IInventory)tile).getSizeInventory();
+    return tile.getSizeInventory();
   }
 }

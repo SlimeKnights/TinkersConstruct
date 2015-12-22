@@ -16,6 +16,7 @@ import slimeknights.tconstruct.tools.inventory.ContainerSideInventory;
 import slimeknights.tconstruct.tools.inventory.ContainerStencilTable;
 import slimeknights.tconstruct.tools.inventory.ContainerTinkerStation;
 import slimeknights.tconstruct.tools.network.StencilTableSelectionPacket;
+import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
 import slimeknights.tconstruct.tools.tileentity.TileStencilTable;
 
 @SideOnly(Side.CLIENT)
@@ -26,7 +27,7 @@ public class GuiStencilTable extends GuiTinkerStation {
 
   protected GuiButtonsStencilTable buttons;
   protected GuiSideInventory sideInventory;
-  protected ContainerSideInventory chestContainer;
+  protected ContainerPatternChest.DynamicChestInventory chestContainer;
 
   public GuiStencilTable(InventoryPlayer playerInv, World world, BlockPos pos, TileStencilTable tile) {
     super(world, pos, (ContainerTinkerStation) tile.createContainer(playerInv, world, pos));

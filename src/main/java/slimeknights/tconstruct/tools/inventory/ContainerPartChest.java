@@ -11,7 +11,7 @@ import slimeknights.tconstruct.tools.tileentity.TilePartChest;
 
 public class ContainerPartChest extends ContainerTinkerStation<TilePartChest> {
 
-  protected ContainerSideInventory inventory;
+  protected ContainerSideInventory<TilePartChest> inventory;
 
   public ContainerPartChest(InventoryPlayer playerInventory, TilePartChest tile) {
     super(tile);
@@ -25,9 +25,9 @@ public class ContainerPartChest extends ContainerTinkerStation<TilePartChest> {
   }
 
   // dynamic chest inventory as a module
-  public static class DynamicChestInventory extends ContainerSideInventory {
+  public static class DynamicChestInventory extends ContainerSideInventory<TilePartChest> {
 
-    public DynamicChestInventory(TileEntity tile, IInventory inventory, int x, int y, int columns) {
+    public DynamicChestInventory(TilePartChest tile, IInventory inventory, int x, int y, int columns) {
       super(tile, inventory, x, y, columns);
 
       // add the theoretically possible slots
@@ -38,7 +38,7 @@ public class ContainerPartChest extends ContainerTinkerStation<TilePartChest> {
 
     @Override
     protected Slot createSlot(IInventory inventory, int index, int x, int y) {
-      return new PartSlot((TilePartChest) tile, index, x, y);
+      return new PartSlot(tile, index, x, y);
     }
   }
 

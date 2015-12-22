@@ -31,6 +31,7 @@ import slimeknights.tconstruct.tools.inventory.ContainerPatternChest;
 import slimeknights.tconstruct.tools.inventory.ContainerSideInventory;
 import slimeknights.tconstruct.tools.inventory.ContainerTinkerStation;
 import slimeknights.tconstruct.tools.tileentity.TilePartBuilder;
+import slimeknights.tconstruct.tools.tileentity.TilePartChest;
 
 @SideOnly(Side.CLIENT)
 public class GuiPartBuilder extends GuiTinkerStation {
@@ -42,7 +43,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
   protected GuiButtonsPartCrafter buttons;
   protected GuiInfoPanel info;
   protected GuiSideInventory sideInventory;
-  protected ContainerSideInventory chestContainer;
+  protected ContainerPatternChest.DynamicChestInventory chestContainer;
 
   public GuiPartBuilder(InventoryPlayer playerInv, World world, BlockPos pos, TilePartBuilder tile) {
     super(world, pos, (ContainerTinkerStation) tile.createContainer(playerInv, world, pos));
