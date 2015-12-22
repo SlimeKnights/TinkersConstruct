@@ -12,11 +12,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.List;
 
-import slimeknights.mantle.pulsar.pulse.PulseMeta;
+import slimeknights.mantle.pulsar.config.ForgeCFG;
 import slimeknights.tconstruct.TConstruct;
 
 public class Config {
 
+  public static ForgeCFG pulseConfig = new ForgeCFG("TinkerModules", "Modules");
   public static Config instance = new Config();
   private Config() {}
 
@@ -71,6 +72,8 @@ public class Config {
 
     // Modules
     {
+      Modules = pulseConfig.getCategory();
+      /*
       List<String> propOrder = Lists.newArrayList();
       // convert pulse config to MC compatible config for GUI config
       Modules = new ConfigCategory("modules");
@@ -78,11 +81,11 @@ public class Config {
         if(pm.isForced()) continue;
         prop = new Property(pm.getId(), pm.isDefaultEnabled() ? "true" : "false", Property.Type.BOOLEAN);
         prop.setValue(pm.isEnabled());
-        prop.requiresMcRestart();
+        prop.setRequiresMcRestart(true);
         Modules.put(pm.getId(), prop);
         propOrder.add(prop.getName());
       }
-      Modules.setPropertyOrder(propOrder);
+      Modules.setPropertyOrder(propOrder);*/
     }
     // Worldgen
     {
@@ -153,10 +156,15 @@ public class Config {
     }
 
     // save changes if any
+    boolean changed = false;
     if(configFile.hasChanged()) {
       configFile.save();
-      return true;
+      changed = true;
     }
-    return false;
+    if(pulseConfig.getConfig().hasChanged()) {
+      pulseConfig.flush();
+      changed = true;
+    }
+    return changed;
   }
 }

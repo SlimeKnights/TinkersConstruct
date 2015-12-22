@@ -76,7 +76,7 @@ public class TConstruct {
     /* Loads modules in a way that doesn't clutter the @Mod list */
   //public static PulseManager pulsar = new PulseManager(modID, new ForgeCFG("TinkersModules", "Modules: Disabling these will disable a chunk of the mod"));
 
-  public static PulseManager pulseManager = new PulseManager("TinkerModules");
+  public static PulseManager pulseManager = new PulseManager(Config.pulseConfig);
   public static GuiHandler guiHandler = new GuiHandler();
 
   // Tinker pulses
