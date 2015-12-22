@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.common.block;
+package slimeknights.tconstruct.shared.block;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
@@ -26,7 +26,6 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.tools.TinkerTools;
 
 public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
 

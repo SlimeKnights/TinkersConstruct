@@ -88,6 +88,10 @@ public class TinkerOredict {
     dict = "slimecrystal";
     oredict(matSlimeCrystal,     dict, dict + "Green");
     oredict(matSlimeCrystalBlue, dict, dict + "Blue");
+
+    // Ores
+    oredict(oreCobalt, "oreCobalt");
+    oredict(oreArdite, "oreArdite");
   }
 
   private static void registerTools() {
