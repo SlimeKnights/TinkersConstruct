@@ -15,7 +15,7 @@ import java.util.List;
 import slimeknights.tconstruct.library.TinkerRegistry;
 
 public class BlockSlime extends net.minecraft.block.BlockSlime {
-  public static final PropertyEnum TYPE = PropertyEnum.create("type", SlimeType.class);
+  public static final PropertyEnum<SlimeType> TYPE = PropertyEnum.create("type", SlimeType.class);
 
   public BlockSlime() {
     this.setCreativeTab(TinkerRegistry.tabWorld);
@@ -25,7 +25,7 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List list) {
+  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
     for(SlimeType type : SlimeType.values()) {
       list.add(new ItemStack(this, 1, type.meta));
     }

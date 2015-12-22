@@ -5,7 +5,7 @@ import net.minecraft.util.StatCollector;
 
 import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
 
-public class GuiButtonRepair extends GuiButtonItem {
+public class GuiButtonRepair extends GuiButtonItem<ToolBuildGuiInfo> {
 
   public static final ToolBuildGuiInfo info;
 

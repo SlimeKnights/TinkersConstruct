@@ -71,11 +71,8 @@ public class AnimatedColoredTexture extends TextureColoredTexture {
     // animation defined with keyframes
     if(meta.getFrameCount() > 0) {
       //for(int i = 0; i < meta.getFrameCount(); i++) {
-      Iterator iterator = meta.getFrameIndexSet().iterator();
 
-      while(iterator.hasNext()) {
-        int i1 = ((Integer) iterator.next()).intValue();
-
+      for(Integer i1 : meta.getFrameIndexSet()) {
         // missing check if frame index is valid
 
         //this.allocateFrameTextureData(i1);

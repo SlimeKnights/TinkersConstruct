@@ -39,7 +39,7 @@ import slimeknights.tconstruct.tools.tileentity.TileToolStation;
 
 public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
 
-  public static final PropertyEnum TABLES = PropertyEnum.create("type", TableTypes.class);
+  public static final PropertyEnum<TableTypes> TABLES = PropertyEnum.create("type", TableTypes.class);
 
   public BlockToolTable() {
     super(Material.wood);
@@ -85,7 +85,7 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List list) {
+  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
     // crafting station is boring
     list.add(new ItemStack(this, 1, TableTypes.CraftingStation.meta));
 

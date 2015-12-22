@@ -21,7 +21,7 @@ public class ToolBuildGuiInfo {
 
   public final ItemStack tool;
   // the positions where the slots are located
-  public final List<Point> positions = Lists.newArrayList();;
+  public final List<Point> positions = Lists.newArrayList();
 
   public ToolBuildGuiInfo() {
     // for repairing

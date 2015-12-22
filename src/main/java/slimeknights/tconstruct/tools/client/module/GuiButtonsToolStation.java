@@ -36,7 +36,7 @@ public class GuiButtonsToolStation extends GuiSideButtons {
     int index = 0;
 
     {
-      GuiButtonItem button = new GuiButtonRepair(index++, -1, -1);
+      GuiButtonItem<ToolBuildGuiInfo> button = new GuiButtonRepair(index++, -1, -1);
       shiftButton(button, 0, -18 * style);
       addButton(button);
     }
@@ -44,7 +44,7 @@ public class GuiButtonsToolStation extends GuiSideButtons {
     for(Item item : parent.getBuildableItems()) {
       ToolBuildGuiInfo info = TinkerRegistryClient.getToolBuildInfoForTool(item);
       if(info != null) {
-        GuiButtonItem button = new GuiButtonItem<ToolBuildGuiInfo>(index++, -1, -1, info.tool, info);
+        GuiButtonItem<ToolBuildGuiInfo> button = new GuiButtonItem<ToolBuildGuiInfo>(index++, -1, -1, info.tool, info);
         shiftButton(button, 0, -18 * style);
         addButton(button);
 
@@ -62,6 +62,7 @@ public class GuiButtonsToolStation extends GuiSideButtons {
 
   public void setSelectedButtonByTool(ItemStack stack) {
     for(Object o : buttonList) {
+      @SuppressWarnings("unchecked")
       GuiButtonItem<ToolBuildGuiInfo> btn = (GuiButtonItem<ToolBuildGuiInfo>) o;
       btn.pressed = ItemStack.areItemStacksEqual(btn.data.tool, stack);
     }
@@ -69,33 +70,36 @@ public class GuiButtonsToolStation extends GuiSideButtons {
 
 
   @Override
+  @SuppressWarnings("unchecked")
   protected void actionPerformed(GuiButton button) throws IOException {
     for(Object o : buttonList) {
-      ((GuiButtonItem) o).pressed = false;
+      ((GuiButtonItem<ToolBuildGuiInfo>) o).pressed = false;
     }
-    ((GuiButtonItem) button).pressed = true;
+    ((GuiButtonItem<ToolBuildGuiInfo>) button).pressed = true;
     selected = button.id;
 
     parent.onToolSelection(((GuiButtonItem<ToolBuildGuiInfo>) button).data);
   }
 
+  @SuppressWarnings("unchecked")
   public void wood() {
     for(Object o : buttonList) {
-      shiftButton((GuiButtonItem) o, 0, -36);
+      shiftButton((GuiButtonItem<ToolBuildGuiInfo>) o, 0, -36);
     }
 
     style = 2;
   }
 
+  @SuppressWarnings("unchecked")
   public void metal() {
     for(Object o : buttonList) {
-      shiftButton((GuiButtonItem) o, 0, -18);
+      shiftButton((GuiButtonItem<ToolBuildGuiInfo>) o, 0, -18);
     }
 
     style = 1;
   }
 
-  protected void shiftButton(GuiButtonItem button, int xd, int yd) {
+  protected void shiftButton(GuiButtonItem<ToolBuildGuiInfo> button, int xd, int yd) {
     button.setGraphics(GuiTinkerStation.ICON_Button.shift(xd, yd),
                        GuiTinkerStation.ICON_ButtonHover.shift(xd, yd),
                        GuiTinkerStation.ICON_ButtonPressed.shift(xd, yd),

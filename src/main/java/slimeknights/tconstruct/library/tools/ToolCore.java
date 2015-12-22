@@ -280,7 +280,7 @@ public abstract class ToolCore extends TinkersItem {
 
   // Creative tab items
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     for(Material head : TinkerRegistry.getAllMaterials()) {
       if(!head.hasStats(ToolMaterialStats.TYPE)) {
         continue;

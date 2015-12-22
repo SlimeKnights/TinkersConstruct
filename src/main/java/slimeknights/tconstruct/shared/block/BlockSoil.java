@@ -44,7 +44,7 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List list) {
+  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
     for(SoilTypes type : SoilTypes.values()) {
       if(isTypeEnabled(type)) {
         list.add(new ItemStack(this, 1, type.getMeta()));

@@ -17,7 +17,7 @@ public class ItemBlockTable extends ItemBlockMeta {
   }
 
   @Override
-  public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
+  public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
     if(!stack.hasTagCompound()) {
       return;
     }

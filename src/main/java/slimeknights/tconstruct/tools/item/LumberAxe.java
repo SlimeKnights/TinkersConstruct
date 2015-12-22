@@ -11,6 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -157,8 +158,7 @@ public class LumberAxe extends Hatchet {
       speed = event.distance + 1;
     }
 
-
-    FMLCommonHandler.instance().bus().register(new TreeChopTask(itemstack, start, player, speed));
+    MinecraftForge.EVENT_BUS.register(new TreeChopTask(itemstack, start, player, speed));
     return true;
   }
 
@@ -237,7 +237,7 @@ public class LumberAxe extends Hatchet {
 
     private void finish() {
       // goodbye cruel world
-      FMLCommonHandler.instance().bus().unregister(this);
+      MinecraftForge.EVENT_BUS.unregister(this);
     }
   }
 }

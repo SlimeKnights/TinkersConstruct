@@ -7,6 +7,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
@@ -67,7 +68,7 @@ public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlex
       if(extendedState.getValue(BlockTable.INVENTORY) != null)
         items = extendedState.getValue(BlockTable.INVENTORY).items;
 
-      EnumFacing face = (EnumFacing) extendedState.getValue((IUnlistedProperty) BlockTable.FACING);
+      EnumFacing face = extendedState.getValue((IUnlistedProperty<EnumFacing>) BlockTable.FACING);
       if(face != null) {
         rotation = 360 - face.getOpposite().getHorizontalIndex() * 90f;
       }
@@ -139,12 +140,12 @@ public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlex
   }
 
   @Override
-  public List getFaceQuads(EnumFacing p_177551_1_) {
+  public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_) {
     return standard.getFaceQuads(p_177551_1_);
   }
 
   @Override
-  public List getGeneralQuads() {
+  public List<BakedQuad> getGeneralQuads() {
     return standard.getGeneralQuads();
   }
 

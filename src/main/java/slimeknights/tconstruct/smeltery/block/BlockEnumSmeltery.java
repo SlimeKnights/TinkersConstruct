@@ -7,15 +7,16 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.World;
 
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 
-public class BlockEnumSmeltery<T extends Enum<T> & EnumBlock.IEnumMeta> extends EnumBlock<T> implements ITileEntityProvider {
+public class BlockEnumSmeltery<T extends Enum<T> & EnumBlock.IEnumMeta & IStringSerializable> extends EnumBlock<T> implements ITileEntityProvider {
 
-  public BlockEnumSmeltery(Material material, PropertyEnum prop, Class<T> clazz) {
+  public BlockEnumSmeltery(Material material, PropertyEnum<T> prop, Class<T> clazz) {
     super(material, prop, clazz);
 
     this.setCreativeTab(TinkerRegistry.tabSmeltery);

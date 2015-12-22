@@ -17,7 +17,7 @@ public class Shard extends ToolPart {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     // this adds a variant of each material to the creative menu
     for(Material mat : TinkerRegistry.getAllMaterials()) {
       if(mat.isCraftable() || mat.isCastable())
@@ -26,7 +26,7 @@ public class Shard extends ToolPart {
   }
 
   @Override
-  public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
+  public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
     // no stats n stuff
   }
 }

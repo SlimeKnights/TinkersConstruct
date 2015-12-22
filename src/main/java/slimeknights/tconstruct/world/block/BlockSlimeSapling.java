@@ -24,7 +24,7 @@ import slimeknights.tconstruct.world.block.BlockSlimeGrass.FoliageType;
 import slimeknights.tconstruct.world.worldgen.SlimeTreeGenerator;
 
 public class BlockSlimeSapling extends BlockSapling {
-  public static PropertyEnum FOLIAGE = BlockSlimeGrass.FOLIAGE;
+  public static PropertyEnum<FoliageType> FOLIAGE = BlockSlimeGrass.FOLIAGE;
 
   public BlockSlimeSapling() {
     setCreativeTab(TinkerRegistry.tabWorld);
@@ -33,7 +33,7 @@ public class BlockSlimeSapling extends BlockSapling {
   }
 
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List list) {
+  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
     for(FoliageType type : FoliageType.values()) {
       list.add(new ItemStack(this, 1, getMetaFromState(getDefaultState().withProperty(FOLIAGE, type))));
     }

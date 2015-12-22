@@ -118,7 +118,7 @@ public class Mattock extends AoeToolCore {
       return false;
     }
 
-    boolean ret = Items.diamond_hoe.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);;
+    boolean ret = Items.diamond_hoe.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
     for(BlockPos blockPos : getAOEBlocks(stack, worldIn, playerIn, pos)) {
       if(ToolHelper.isBroken(stack)) {
         break;

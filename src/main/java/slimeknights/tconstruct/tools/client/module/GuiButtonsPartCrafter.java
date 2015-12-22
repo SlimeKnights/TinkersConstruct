@@ -72,7 +72,7 @@ public class GuiButtonsPartCrafter extends GuiSideButtons {
       }
 
       ItemStack icon = ((MaterialItem) part).getItemstackWithMaterial(CustomTextureCreator.guiMaterial);
-      GuiButtonItem button = new GuiButtonItem<ItemStack>(index++, -1, -1, icon, stencil);
+      GuiButtonItem<ItemStack> button = new GuiButtonItem<ItemStack>(index++, -1, -1, icon, stencil);
       shiftButton(button, 0, 18);
       addButton(button);
     }
@@ -82,13 +82,13 @@ public class GuiButtonsPartCrafter extends GuiSideButtons {
 
   @Override
   protected void actionPerformed(GuiButton button) throws IOException {
-    ContainerPartBuilder container = ((ContainerPartBuilder) parent.inventorySlots);
+    @SuppressWarnings("unchecked")
     ItemStack pattern = ((GuiButtonItem<ItemStack>) button).data;
 
     TinkerNetwork.sendToServer(new PartCrafterSelectionPacket(pattern));
   }
 
-  protected void shiftButton(GuiButtonItem button, int xd, int yd) {
+  protected void shiftButton(GuiButtonItem<ItemStack> button, int xd, int yd) {
     button.setGraphics(GuiTinkerStation.ICON_Button.shift(xd, yd),
                        GuiTinkerStation.ICON_ButtonHover.shift(xd, yd),
                        GuiTinkerStation.ICON_ButtonPressed.shift(xd, yd),

@@ -7,6 +7,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -26,7 +27,7 @@ import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.block.ITinkerStationBlock;
 import slimeknights.tconstruct.tools.client.GuiTinkerStation;
 
-public class ContainerTinkerStation<T extends TileEntity> extends ContainerMultiModule<T> {
+public class ContainerTinkerStation<T extends TileEntity & IInventory> extends ContainerMultiModule<T> {
 
   public final boolean hasCraftingStation;
   public final List<Pair<BlockPos, IBlockState>> tinkerStationBlocks;
@@ -38,6 +39,7 @@ public class ContainerTinkerStation<T extends TileEntity> extends ContainerMulti
     hasCraftingStation = detectedTinkerStationParts(tile.getWorld(), tile.getPos());
   }
 
+  @SuppressWarnings("unchecked")
   public <TE extends TileEntity> TE getTinkerTE(Class<TE> clazz) {
     for(Pair<BlockPos, IBlockState> pair : tinkerStationBlocks) {
       TileEntity te = this.world.getTileEntity(pair.getLeft());

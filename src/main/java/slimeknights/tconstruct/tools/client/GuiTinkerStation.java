@@ -52,12 +52,12 @@ public class GuiTinkerStation extends GuiMultiModule {
   public static final GuiElement ICON_ButtonPressed = new GuiElement(180 - 18 * 2, 216, 18, 18);
 
 
-  protected final ContainerMultiModule container;
+  protected final ContainerMultiModule<?> container;
 
   protected GuiTinkerTabs tinkerTabs;
   private final World world;
 
-  public GuiTinkerStation(World world, BlockPos pos, ContainerTinkerStation container) {
+  public GuiTinkerStation(World world, BlockPos pos, ContainerTinkerStation<?> container) {
     super(container);
 
     this.world = world;
@@ -68,7 +68,7 @@ public class GuiTinkerStation extends GuiMultiModule {
 
     // add tab data
     if(container.hasCraftingStation) {
-      for(Pair<BlockPos, IBlockState> pair : (List<Pair<BlockPos, IBlockState>>) container.tinkerStationBlocks) {
+      for(Pair<BlockPos, IBlockState> pair : container.tinkerStationBlocks) {
         IBlockState state = pair.getRight();
         BlockPos blockPos = pair.getLeft();
         ItemStack stack = state.getBlock().getDrops(world, blockPos, state, 0).get(0);

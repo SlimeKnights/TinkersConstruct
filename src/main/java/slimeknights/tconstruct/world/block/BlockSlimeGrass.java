@@ -29,8 +29,8 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
 
 public class BlockSlimeGrass extends BlockGrass {
-  public static PropertyEnum TYPE = PropertyEnum.create("type", DirtType.class);
-  public static PropertyEnum FOLIAGE = PropertyEnum.create("foliage", FoliageType.class);
+  public static PropertyEnum<DirtType> TYPE = PropertyEnum.create("type", DirtType.class);
+  public static PropertyEnum<FoliageType> FOLIAGE = PropertyEnum.create("foliage", FoliageType.class);
 
   public BlockSlimeGrass() {
     this.setCreativeTab(TinkerRegistry.tabWorld);
@@ -40,7 +40,7 @@ public class BlockSlimeGrass extends BlockGrass {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List list) {
+  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
     for(FoliageType grass : FoliageType.values()) {
       for(DirtType type : DirtType.values()) {
         list.add(new ItemStack(this, 1, getMetaFromState(getDefaultState().withProperty(TYPE, type).withProperty(FOLIAGE, grass))));

@@ -39,7 +39,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     for(Material mat : TinkerRegistry.getAllMaterials()) {
       // check if the material makes sense for this item (is it usable to build stuff?)
       if(canUseMaterial(mat)) {

@@ -60,7 +60,7 @@ public class TileTable extends TileInventory {
     }
 
     EnumFacing facing = EnumFacing.getFront(getTileData().getInteger(FACE_TAG));
-    state = state.withProperty((IUnlistedProperty)BlockTable.FACING, facing);
+    state = state.withProperty((IUnlistedProperty<EnumFacing>)BlockTable.FACING, facing);
 
     state = setInventoryDisplay(state);
 

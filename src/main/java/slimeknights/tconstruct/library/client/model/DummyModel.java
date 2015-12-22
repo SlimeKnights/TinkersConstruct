@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.client.model;
 
 import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
@@ -23,12 +24,12 @@ public class DummyModel implements IModel {
 
   @Override
   public Collection<ResourceLocation> getDependencies() {
-    return Collections.EMPTY_LIST;
+    return ImmutableList.of();
   }
 
   @Override
   public Collection<ResourceLocation> getTextures() {
-    return Collections.EMPTY_LIST;
+    return ImmutableList.of();
   }
 
   @Override

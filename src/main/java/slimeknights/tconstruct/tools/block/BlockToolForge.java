@@ -58,7 +58,7 @@ public class BlockToolForge extends BlockTable implements ITinkerStationBlock {
   }
 
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List list) {
+  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
     // toolforge has custom blocks
     for(String oredict : baseBlocks) {
       // only add the first entry per oredict

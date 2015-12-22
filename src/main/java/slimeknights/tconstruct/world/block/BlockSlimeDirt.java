@@ -15,7 +15,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 
 public class BlockSlimeDirt extends EnumBlock<BlockSlimeDirt.DirtType> {
 
-  public static PropertyEnum TYPE = PropertyEnum.create("type", DirtType.class);
+  public static PropertyEnum<DirtType> TYPE = PropertyEnum.create("type", DirtType.class);
 
   public BlockSlimeDirt() {
     super(Material.ground, TYPE, DirtType.class);

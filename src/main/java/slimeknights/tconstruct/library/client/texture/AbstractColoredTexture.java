@@ -157,7 +157,7 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
 
       // metadata
       if(texturemetadatasection != null) {
-        List list = texturemetadatasection.getListMipmaps();
+        List<Integer> list = texturemetadatasection.getListMipmaps();
         int i1;
 
         if(!list.isEmpty()) {
@@ -169,27 +169,25 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
           }
         }
 
-        Iterator iterator3 = list.iterator();
-
-        while(iterator3.hasNext()) {
-          i1 = ((Integer) iterator3.next()).intValue();
+        for(Integer aList : list) {
+          i1 = aList;
 
           if(i1 > 0 && i1 < abufferedimage.length - 1 && abufferedimage[i1] == null) {
             ResourceLocation resourcelocation2 = this.completeResourceLocation(resourceLocation, i1);
 
-            try
-            {
-              abufferedimage[i1] = TextureUtil.readBufferedImage(resourceManager.getResource(resourcelocation2).getInputStream());
-            }
-            catch (IOException ioexception)
-            {
-              TinkerRegistry.log.error("Unable to load miplevel {} from: {}", new Object[] {Integer.valueOf(i1), resourcelocation2, ioexception});
+            try {
+              abufferedimage[i1] = TextureUtil
+                  .readBufferedImage(resourceManager.getResource(resourcelocation2).getInputStream());
+            } catch(IOException ioexception) {
+              TinkerRegistry.log
+                  .error("Unable to load miplevel {} from: {}", i1, resourcelocation2,
+                         ioexception);
             }
           }
         }
       }
 
-      AnimationMetadataSection animationmetadatasection = (AnimationMetadataSection) iresource.getMetadata("animation");
+      AnimationMetadataSection animationmetadatasection = iresource.getMetadata("animation");
       textureAtlasSprite.loadSprite(abufferedimage, animationmetadatasection);
 
       return textureAtlasSprite;

@@ -37,7 +37,7 @@ public class GuiButtonItem<T> extends GuiButton {
     this.data = data;
   }
 
-  public GuiButtonItem setGraphics(GuiElement normal, GuiElement hover, GuiElement pressed, ResourceLocation background) {
+  public GuiButtonItem<T> setGraphics(GuiElement normal, GuiElement hover, GuiElement pressed, ResourceLocation background) {
     guiPressed = pressed;
     guiNormal = normal;
     guiHover = hover;

@@ -39,7 +39,7 @@ public class BlockSlimeCongealed extends Block {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List list) {
+  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
     for(SlimeType type : SlimeType.values()) {
       list.add(new ItemStack(this, 1, type.meta));
     }
@@ -116,15 +116,11 @@ public class BlockSlimeCongealed extends Block {
 
     if (worldIn.isAreaLoaded(pos.add(-i, -i, -i), pos.add(i, i, i)))
     {
-      Iterator iterator = BlockPos.getAllInBox(pos.add(-b0, -b0, -b0), pos.add(b0, b0, b0)).iterator();
 
-      while (iterator.hasNext())
-      {
-        BlockPos blockpos1 = (BlockPos)iterator.next();
+      for(BlockPos blockpos1 : BlockPos.getAllInBox(pos.add(-b0, -b0, -b0), pos.add(b0, b0, b0))) {
         IBlockState iblockstate1 = worldIn.getBlockState(blockpos1);
 
-        if (iblockstate1.getBlock().isLeaves(worldIn, blockpos1))
-        {
+        if(iblockstate1.getBlock().isLeaves(worldIn, blockpos1)) {
           iblockstate1.getBlock().beginLeavesDecay(worldIn, blockpos1);
         }
       }

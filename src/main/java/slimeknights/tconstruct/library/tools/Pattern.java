@@ -27,7 +27,7 @@ public class Pattern extends Item {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     subItems.add(new ItemStack(this));
 
     for(IToolPart toolpart : TinkerRegistry.getToolParts()) {
@@ -88,7 +88,7 @@ public class Pattern extends Item {
   }
 
   @Override
-  public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
+  public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
     IToolPart part = getPartFromTag(stack);
     if(part != null) {
       float cost = part.getCost() / (float) Material.VALUE_Ingot;

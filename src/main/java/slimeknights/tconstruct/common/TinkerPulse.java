@@ -59,7 +59,7 @@ public abstract class TinkerPulse {
     return block;
   }
 
-  protected static <T extends EnumBlock> T registerEnumBlock(T block, String unlocName) {
+  protected static <T extends EnumBlock<?>> T registerEnumBlock(T block, String unlocName) {
     registerBlock(block, ItemBlockMeta.class, unlocName);
     ItemBlockMeta.setMappingProperty(block, block.prop);
     return block;

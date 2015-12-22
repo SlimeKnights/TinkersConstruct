@@ -13,7 +13,7 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 
 public class TraitPetramor extends AbstractTrait {
 
-  private static float chance = 0.1f;
+  private static final float chance = 0.1f;
 
   public TraitPetramor() {
     super("petramor", EnumChatFormatting.RED);

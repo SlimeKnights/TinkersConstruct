@@ -180,17 +180,17 @@ public class DumpMaterialTest extends CommandBase {
     return Color.HSBtoRGB(f/3f, 0.65f, 0.8f) & 0xffffff;
   }
 
-  public static String array2HTML(List header, List array, boolean headerAsRowCaption){
+  public static String array2HTML(List<String> header, List<List<String>> array, boolean headerAsRowCaption){
     StringBuilder html = new StringBuilder(
         "<table border=\"1\">");
     for(Object elem : header){
-      html.append("<th>" + elem.toString() + "</th>");
+      html.append("<th>").append(elem.toString()).append("</th>");
     }
     for(int i = 0; i < array.size(); i++) {
-      List<Object> row = (List<Object>)array.get(i);
+      List<String> row = array.get(i);
       html.append("<tr>");
       if(headerAsRowCaption)
-        html.append("<td>" + header.get(i+1) + "</td>");
+        html.append("<td>").append(header.get(i + 1)).append("</td>");
       for(Object elem : row){
         html.append(elem.toString());
         //html.append("<td>" + elem.toString() + "</td>");

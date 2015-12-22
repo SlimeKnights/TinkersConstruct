@@ -39,7 +39,7 @@ public class GuiButtonsStencilTable extends GuiSideButtons {
       }
 
       ItemStack icon = ((MaterialItem) part).getItemstackWithMaterial(CustomTextureCreator.guiMaterial);
-      GuiButtonItem button = new GuiButtonItem<ItemStack>(index++, -1, -1, icon, stencil);
+      GuiButtonItem<ItemStack> button = new GuiButtonItem<ItemStack>(index++, -1, -1, icon, stencil);
       shiftButton(button, 0, 18);
       addButton(button);
 
@@ -53,6 +53,7 @@ public class GuiButtonsStencilTable extends GuiSideButtons {
 
   public void setSelectedbuttonByItem(ItemStack stack) {
     for(Object o : buttonList) {
+      @SuppressWarnings("unchecked")
       GuiButtonItem<ItemStack> button = (GuiButtonItem<ItemStack>) o;
       button.pressed = ItemStack.areItemStacksEqual(button.data, stack);
     }
@@ -60,11 +61,12 @@ public class GuiButtonsStencilTable extends GuiSideButtons {
 
 
   @Override
+  @SuppressWarnings("unchecked")
   protected void actionPerformed(GuiButton button) throws IOException {
     for(Object o : buttonList) {
-      ((GuiButtonItem) o).pressed = false;
+      ((GuiButtonItem<ItemStack>) o).pressed = false;
     }
-    ((GuiButtonItem) button).pressed = true;
+    ((GuiButtonItem<ItemStack>) button).pressed = true;
     selected = button.id;
 
     ContainerStencilTable container = ((ContainerStencilTable) parent.inventorySlots);
@@ -75,7 +77,7 @@ public class GuiButtonsStencilTable extends GuiSideButtons {
     TinkerNetwork.sendToServer(new StencilTableSelectionPacket(output));
   }
 
-  protected void shiftButton(GuiButtonItem button, int xd, int yd) {
+  protected void shiftButton(GuiButtonItem<ItemStack> button, int xd, int yd) {
     button.setGraphics(GuiTinkerStation.ICON_Button.shift(xd, yd),
                        GuiTinkerStation.ICON_ButtonHover.shift(xd, yd),
                        GuiTinkerStation.ICON_ButtonPressed.shift(xd, yd),

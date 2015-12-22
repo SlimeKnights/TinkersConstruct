@@ -14,12 +14,12 @@ public interface IMaterialItem {
    *
    * @return Identifier of a material or "Unknown", null or empty if invalid.
    */
-  public String getMaterialID(ItemStack stack);
+  String getMaterialID(ItemStack stack);
 
   /**
    * Returns the material of the part this itemstack holds.
    *
    * @return Material or Material.UNKNOWN if invalid
    */
-  public Material getMaterial(ItemStack stack);
+  Material getMaterial(ItemStack stack);
 }

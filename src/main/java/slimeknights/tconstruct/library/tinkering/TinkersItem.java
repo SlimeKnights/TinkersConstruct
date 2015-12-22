@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -53,9 +54,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   /* Tool Information */
   protected void addCategory(Category... categories) {
-    for(Category category : categories) {
-      this.categories.add(category);
-    }
+    Collections.addAll(this.categories, categories);
   }
 
   public boolean hasCategory(Category category) {
@@ -322,7 +321,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   /* Information */
 
   @Override
-  public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip,
+  public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip,
                              boolean advanced) {
     boolean shift = Util.isShiftKeyDown();
     boolean ctrl = Util.isCtrlKeyDown();

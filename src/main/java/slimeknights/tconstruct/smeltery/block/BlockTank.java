@@ -28,7 +28,7 @@ import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 
 public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
 
-  public static final PropertyEnum TYPE = PropertyEnum.create("type", TankType.class);
+  public static final PropertyEnum<TankType> TYPE = PropertyEnum.create("type", TankType.class);
   public static final PropertyBool KNOB = PropertyBool.create("has_knob");
 
   public BlockTank() {

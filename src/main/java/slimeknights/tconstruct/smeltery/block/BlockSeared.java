@@ -9,7 +9,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 
 public class BlockSeared extends BlockEnumSmeltery<BlockSeared.SearedType> {
 
-  public final static PropertyEnum TYPE = PropertyEnum.create("type", SearedType.class);
+  public final static PropertyEnum<SearedType> TYPE = PropertyEnum.create("type", SearedType.class);
 
   public BlockSeared() {
     super(Material.rock, TYPE, SearedType.class);
