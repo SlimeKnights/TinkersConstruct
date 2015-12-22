@@ -1,7 +1,7 @@
 {
     "textures": {
         "battleaxe": "tconstruct:items/battleaxe/mod_reinforced",
-        "battlesign": "tconstruct:items/mod_reinforced",
+        "battlesign": "tconstruct:items/battlesign/mod_reinforced",
         "broadsword": "tconstruct:items/broadsword/mod_reinforced",
         "cleaver": "tconstruct:items/cleaver/mod_reinforced",
         "excavator": "tconstruct:items/excavator/mod_reinforced",

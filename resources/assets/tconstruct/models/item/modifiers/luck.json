@@ -1,7 +1,7 @@
 {
     "textures": {
         "battleaxe": "tconstruct:items/battleaxe/mod_luck",
-        "battlesign": "tconstruct:items/mod_luck",
+        "battlesign": "tconstruct:items/battlesign/mod_luck",
         "broadsword": "tconstruct:items/broadsword/mod_luck",
         "cleaver": "tconstruct:items/cleaver/mod_luck",
         "excavator": "tconstruct:items/excavator/mod_luck",

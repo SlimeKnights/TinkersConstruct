@@ -1,7 +1,7 @@
 {
     "textures": {
         "battleaxe": "tconstruct:items/battleaxe/mod_sharpness",
-        "battlesign": "tconstruct:items/mod_sharpness",
+        "battlesign": "tconstruct:items/battlesign/mod_sharpness",
         "broadsword": "tconstruct:items/broadsword/mod_sharpness",
         "cleaver": "tconstruct:items/cleaver/mod_sharpness",
         "excavator": "tconstruct:items/excavator/mod_sharpness",

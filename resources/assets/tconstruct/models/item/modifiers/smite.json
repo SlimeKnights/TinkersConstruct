@@ -1,7 +1,7 @@
 {
     "textures": {
         "battleaxe": "tconstruct:items/battleaxe/mod_smite",
-        "battlesign": "tconstruct:items/mod_smite",
+        "battlesign": "tconstruct:items/battlesign/mod_smite",
         "broadsword": "tconstruct:items/broadsword/mod_smite",
         "cleaver": "tconstruct:items/cleaver/mod_smite",
         "excavator": "tconstruct:items/excavator/mod_smite",
