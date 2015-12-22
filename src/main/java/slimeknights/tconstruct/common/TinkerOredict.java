@@ -83,6 +83,12 @@ public class TinkerOredict {
     oredict(nuggetManyullyn,   dict + "Manyullyn");
     oredict(nuggetKnightSlime, dict + "Knightslime");
 
+    dict = "block";
+    oredict(blockCobalt,      dict + "Cobalt");
+    oredict(blockArdite,      dict + "Ardite");
+    oredict(blockManyullyn,   dict + "Manyullyn");
+    oredict(blockKnightSlime, dict + "Knightslime");
+
     // other materials
     oredict(searedBrick, "ingotBrickSeared");
     dict = "slimecrystal";
@@ -92,6 +98,7 @@ public class TinkerOredict {
     // Ores
     oredict(oreCobalt, "oreCobalt");
     oredict(oreArdite, "oreArdite");
+
   }
 
   private static void registerTools() {

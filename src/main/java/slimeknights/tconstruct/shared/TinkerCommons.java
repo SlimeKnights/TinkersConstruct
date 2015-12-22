@@ -7,6 +7,8 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import org.apache.logging.log4j.Logger;
 
@@ -16,6 +18,7 @@ import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.Config;
 import slimeknights.tconstruct.common.TinkerPulse;
+import slimeknights.tconstruct.shared.block.BlockMetal;
 import slimeknights.tconstruct.shared.block.BlockSoil;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -36,6 +39,7 @@ public class TinkerCommons extends TinkerPulse {
 
   public static BlockSoil blockSoil;
   public static BlockOre blockOre;
+  public static BlockMetal blockMetal;
 
   // block itemstacks
   public static ItemStack grout;
@@ -46,6 +50,11 @@ public class TinkerCommons extends TinkerPulse {
 
   public static ItemStack oreCobalt;
   public static ItemStack oreArdite;
+
+  public static ItemStack blockCobalt;
+  public static ItemStack blockArdite;
+  public static ItemStack blockManyullyn;
+  public static ItemStack blockKnightSlime;
 
   public static ItemMetaDynamic nuggets;
   public static ItemMetaDynamic ingots;
@@ -133,6 +142,13 @@ public class TinkerCommons extends TinkerPulse {
 
       nuggetManyullyn = nuggets.addMeta(2, "manyullyn");
       ingotManyullyn = ingots.addMeta(2, "manyullyn");
+
+      blockMetal = registerEnumBlock(new BlockMetal(), "metal");
+
+      blockCobalt = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.COBALT.getMeta());
+      blockArdite = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.ARDITE.getMeta());
+      blockManyullyn = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.MANYULLYN.getMeta());
+      blockKnightSlime = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.KNIGHTSLIME.getMeta());
     }
 
     // Materials
@@ -160,20 +176,36 @@ public class TinkerCommons extends TinkerPulse {
   }
 
   private void registerRecipies() {
-    registerIngotNuggetRecipe(ingotCobalt, nuggetCobalt);
-    registerIngotNuggetRecipe(ingotArdite, nuggetArdite);
-    registerIngotNuggetRecipe(ingotManyullyn, nuggetManyullyn);
-    registerIngotNuggetRecipe(ingotKnightSlime, nuggetKnightSlime);
+    registerMetalRecipes("Cobalt", ingotCobalt, nuggetCobalt, blockCobalt);
+    registerMetalRecipes("Ardite", ingotArdite, nuggetArdite, blockArdite);
+    registerMetalRecipes("Manyullyn", ingotManyullyn, nuggetManyullyn, blockManyullyn);
+    registerMetalRecipes("Knightslime", ingotKnightSlime, nuggetKnightSlime, blockKnightSlime);
   }
 
-  private void registerIngotNuggetRecipe(ItemStack ingot, ItemStack nugget) {
-    if(ingot == null || nugget == null) {
+  private void registerMetalRecipes(String oreString, ItemStack ingot, ItemStack nugget, ItemStack block) {
+    if(ingot == null) {
       return;
     }
-    nugget = nugget.copy();
-    nugget.stackSize = 9;
-    GameRegistry.addShapelessRecipe(nugget, ingot);
-    GameRegistry.addShapedRecipe(ingot, "###","###","###", '#', nugget);
+
+    // nugget recipies
+    if(nugget != null) {
+      registerFullrecipe(nugget, ingot, "nugget" + oreString, "ingot" + oreString);
+    }
+    // block recipies
+    if(block != null) {
+      registerFullrecipe(ingot, block, "ingot" + oreString, "block" + oreString);
+    }
+  }
+
+  private void registerFullrecipe(ItemStack small, ItemStack big, String oreSmall, String oreBig) {
+    // ingot -> block
+    //GameRegistry.addShapedRecipe(big, "###", "###", "###", '#', small);
+    GameRegistry.addRecipe(new ShapedOreRecipe(big, "###", "###", "###", '#', oreSmall));
+    // block -> 9 ingot
+    small = small.copy();
+    small.stackSize = 9;
+    //GameRegistry.addShapelessRecipe(small, big);
+    GameRegistry.addRecipe(new ShapelessOreRecipe(small, oreBig));
   }
 
   @Subscribe

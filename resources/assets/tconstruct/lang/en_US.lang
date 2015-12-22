@@ -21,6 +21,11 @@ tile.tconstruct.soil.graveyard.tooltip=Heals undead
 tile.tconstruct.soil.consecrated.name=Consecrated Soil
 tile.tconstruct.soil.consecrated.tooltip=Hurts undead
 
+tile.tconstruct.metal.cobalt.name=Block of Cobalt
+tile.tconstruct.metal.ardite.name=Block of Ardite
+tile.tconstruct.metal.manyullyn.name=Block of Manyullyn
+tile.tconstruct.metal.knightslime.name=Block of Knightslime
+
 tile.tconstruct.slime.green.name=Green Slime Block
 tile.tconstruct.slime.blue.name=Blue Slime Block
 tile.tconstruct.slime.purple.name=Purple Slime Block

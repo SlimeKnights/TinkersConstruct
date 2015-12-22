@@ -8,10 +8,10 @@
 	"variants": {
         "type": {
             "cobalt": {
-                "textures": { "overlay": "tconstruct:blocks/cobalt" }
+                "textures": { "overlay": "tconstruct:blocks/ore_cobalt" }
             },
             "ardite": {
-                "textures": { "overlay": "tconstruct:blocks/ardite" }
+                "textures": { "overlay": "tconstruct:blocks/ore_ardite" }
             }
         }
     }
