@@ -16,7 +16,7 @@ public class ArmorExtendedContainer extends ActiveContainer
         invPlayer = inventoryplayer;
         this.armor = armor;
 
-        this.addSlotToContainer(new SlotAccessory(armor, 0, 80, 17, 1));
+        //this.addSlotToContainer(new SlotAccessory(armor, 0, 80, 17, 1));
         this.addSlotToContainer(new SlotAccessory(armor, 1, 80, 35, 1));
         this.addSlotToContainer(new SlotAccessory(armor, 2, 116, 17, 1));
         this.addSlotToContainer(new SlotAccessory(armor, 3, 116, 35, 1));
