@@ -44,23 +44,14 @@ public class TinkerOredict {
     oredict(Blocks.crafting_table, "workbench");
     // some vanilla blocks
     oredict(Blocks.cactus, "blockCactus");
-    oredict(Blocks.pumpkin, "blockPumpkin");
-    oredict(Blocks.lit_pumpkin, "blockPumpkin");
-    oredict(Blocks.obsidian, "blockObsidian");
-    oredict(Blocks.netherrack, "blockNetherrack");
-    oredict(Blocks.prismarine, "blockPrismarine");
-    oredict(Blocks.obsidian, "blockObsidian");
     oredict(Blocks.slime_block, "blockSlime");
-    oredict(Blocks.piston, "blockPiston");
-    oredict(Blocks.sticky_piston, "blockPiston");
+    oredict(Blocks.obsidian, "obsidian");
+    oredict(Blocks.netherrack, "netherrack");
+    oredict(Blocks.prismarine, "prismarine");
     oredict(Blocks.vine, "vine");
     // glowstone block, redstone block
 
     oredict(Blocks.dirt, "dirt");
-
-    oredict(Items.flint, "flint");
-    oredict(Items.prismarine_shard, "shardPrismarine");
-    oredict(Items.blaze_powder, "dustBlaze");
   }
 
   // common items and blocks

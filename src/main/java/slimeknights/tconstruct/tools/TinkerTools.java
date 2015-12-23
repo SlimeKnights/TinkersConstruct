@@ -253,7 +253,7 @@ public class TinkerTools extends TinkerPulse {
     modEmerald.addItem("gemEmerald");
 
     modFiery = registerModifier(new ModFiery());
-    modFiery.addItem("dustBlaze");
+    modFiery.addItem(Items.blaze_powder);
 
     modHaste = registerModifier(new ModHaste(50));
     modHaste.addItem("dustRedstone");
@@ -266,7 +266,8 @@ public class TinkerTools extends TinkerPulse {
     modHarvestHeight.addItem(TinkerCommons.matExpanderH, 1, 1);
 
     modKnockback = registerModifier(new ModKnockback());
-    modKnockback.addItem("blockPiston", 1, 1);
+    modKnockback.addItem(Blocks.piston, 1);
+    modKnockback.addItem(Blocks.sticky_piston, 1);
 
     modLuck = registerModifier(new ModLuck());
     modLuck.addItem("gemLapis");
