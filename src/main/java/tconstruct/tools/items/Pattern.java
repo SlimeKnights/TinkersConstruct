@@ -1,7 +1,11 @@
 package tconstruct.tools.items;
 
 import cpw.mods.fml.relauncher.*;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import mantle.items.abstracts.CraftingItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,6 +41,8 @@ public class Pattern extends CraftingItem implements IPattern
 
     private static final String[] patternName = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign", "knifeblade", "chisel", "largerod", "toughbinding", "largeplate", "broadaxe", "scythe", "excavator", "largeblade", "hammerhead", "fullguard", "bowstring", "fletching", "arrowhead" };
 
+    private static final Map<Integer, Integer> patternCosts = buildPatternCostMap();
+
     @Override
     public void getSubItems (Item b, CreativeTabs tab, List list)
     {
@@ -45,6 +51,41 @@ public class Pattern extends CraftingItem implements IPattern
             // if (i != 23)
             list.add(new ItemStack(b, 1, i));
         }
+    }
+
+    // 2 for full material, 1 for half.
+    private static Map<Integer, Integer> buildPatternCostMap()
+    {
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+        map.put(0, 2);
+        map.put(1, 1);
+        map.put(2, 2);
+        map.put(3, 2);
+        map.put(4, 2);
+        map.put(5, 2);
+        map.put(6, 1);
+        map.put(7, 1);
+        map.put(8, 1);
+        map.put(9, 1);
+        map.put(10, 2);
+        map.put(11, 2);
+        map.put(12, 1);
+        map.put(13, 1);
+        map.put(14, 6);
+        map.put(15, 6);
+        map.put(16, 16);
+        map.put(17, 16);
+        map.put(18, 16);
+        map.put(19, 16);
+        map.put(20, 16);
+        map.put(21, 16);
+        map.put(22, 6);
+        map.put(23, 6);
+        map.put(24, 2);
+        map.put(25, 2);
+
+        return map;
     }
 
     @Override
@@ -76,67 +117,23 @@ public class Pattern extends CraftingItem implements IPattern
         }
     }
 
-    // 2 for full material, 1 for half.
+    public static Map<Integer, Integer> getPatternCosts()
+    {
+        return patternCosts;
+    }
+    
+    public static void setPatternCost (Integer index, Integer newCost)
+    {
+        if (patternCosts.containsKey(index))
+        {
+            patternCosts.put(index, newCost);
+        }
+    }
+
     @Override
     public int getPatternCost (ItemStack pattern)
     {
-        switch (pattern.getItemDamage())
-        {
-        case 0:
-            return 2;
-        case 1:
-            return 1;
-        case 2:
-            return 2;
-        case 3:
-            return 2;
-        case 4:
-            return 2;
-        case 5:
-            return 2;
-        case 6:
-            return 1;
-        case 7:
-            return 1;
-        case 8:
-            return 1;
-        case 9:
-            return 1;
-        case 10:
-            return 2;
-        case 11:
-            return 2;
-        case 12:
-            return 1;
-        case 13:
-            return 1;
-        case 14:
-            return 6;
-        case 15:
-            return 6;
-        case 16:
-            return 16;
-        case 17:
-            return 16;
-        case 18:
-            return 16;
-        case 19:
-            return 16;
-        case 20:
-            return 16;
-        case 21:
-            return 16;
-        case 22:
-            return 6;
-        case 23:
-            return 6;
-        case 24:
-            return 2;
-        case 25:
-            return 2;
-        default:
-            return 0;
-        }
+        return patternCosts.containsKey(pattern.getItemDamage()) ? patternCosts.get(pattern.getItemDamage()) : 0;
     }
 
     @Override
