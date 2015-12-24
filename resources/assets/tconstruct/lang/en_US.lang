@@ -21,6 +21,9 @@ tile.tconstruct.soil.graveyard.tooltip=Heals undead
 tile.tconstruct.soil.consecrated.name=Consecrated Soil
 tile.tconstruct.soil.consecrated.tooltip=Hurts undead
 
+tile.tconstruct.ore.cobalt.name=Cobalt Ore
+tile.tconstruct.ore.ardite.name=Ardite Ore
+
 tile.tconstruct.metal.cobalt.name=Block of Cobalt
 tile.tconstruct.metal.ardite.name=Block of Ardite
 tile.tconstruct.metal.manyullyn.name=Block of Manyullyn
@@ -105,6 +108,7 @@ item.tconstruct.materials.expander_w.tooltip=Don't skip leg day!
 item.tconstruct.materials.expander_h.name=Expander (Vertical)
 item.tconstruct.materials.expander_h.tooltip=Do you even lift?
 item.tconstruct.materials.reinforcement.name=Reinforcement
+item.tconstruct.materials.creative_modifier.name=Creative Modifier
 
 item.tconstruct.ingots.cobalt.name=Cobalt Ingot
 item.tconstruct.ingots.ardite.name=Ardite Ingot
