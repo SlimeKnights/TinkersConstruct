@@ -76,7 +76,8 @@ minecraft {
 dependencies {
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
-	compile "slimeknights.mantle:Mantle:${config.minecraft_version}-${config.mantle_version}:deobf"
+    deobfCompile "slimeknights.mantle:Mantle:${config.minecraft_version}-${config.mantle_version}"
+    deobfCompile "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
     //compile "codechicken:CodeChickenLib:${config.minecraft_version2}-${config.CCLIB_version}:dev"
     //compile "codechicken:CodeChickenCore:${config.minecraft_version2}-${config.ccc_version}:dev"
     //compile "codechicken:NotEnoughItems:${config.minecraft_version2}-${config.NEI_version}:dev"
