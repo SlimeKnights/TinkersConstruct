@@ -35,4 +35,15 @@ public class TableRecipe extends ShapedOreRecipe {
 
     return super.getCraftingResult(craftMatrix);
   }
+
+  @Override
+  public ItemStack getRecipeOutput() {
+    if(!outputBlocks.isEmpty()) {
+      ItemStack stack = outputBlocks.get(0);
+      BlockTable block = (BlockTable) Block.getBlockFromItem(output.getItem());
+      return BlockTable.createItemstack(block, output.getItemDamage(), Block.getBlockFromItem(stack.getItem()),
+                                        stack.getItemDamage());
+    }
+    return super.getRecipeOutput();
+  }
 }
