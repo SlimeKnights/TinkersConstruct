@@ -64,7 +64,15 @@ configurations {
     deployerJars
 }
 
-version = config.mod_version
+ext.artifact_version = 'NFG'
+if (System.getenv().ARTIFACT_VERSION == null) {
+    artifact_version = "${config.mod_version}"
+}
+if (System.getenv().ARTIFACT_VERSION != null) {
+    artifact_version = "${system.getenv().ARTIFACT_VERSION}"
+}
+
+version = "${config.minecraft_version}-${artifact_version}"
 
 minecraft {
     version = config.minecraft_version + "-" + config.forge_version
