@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery;
 
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;

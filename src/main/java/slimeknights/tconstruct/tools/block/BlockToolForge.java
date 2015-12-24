@@ -63,14 +63,10 @@ public class BlockToolForge extends BlockTable implements ITinkerStationBlock {
     for(String oredict : baseBlocks) {
       // only add the first entry per oredict
       List<ItemStack> ores = OreDictionary.getOres(oredict);
-      for(ItemStack ore : ores) {
-        list.add(createItemstack(this, 0, getBlockFromItem(ore.getItem()),ore.getItemDamage()));
-      }
-      /*
       if(ores.size() > 0) {
         list.add(createItemstack(this, 0, getBlockFromItem(ores.get(0).getItem()),
                                  ores.get(0).getItemDamage()));
-      }*/
+      }
     }
   }
 
