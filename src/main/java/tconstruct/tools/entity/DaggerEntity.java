@@ -39,6 +39,13 @@ public class DaggerEntity extends ProjectileBase
     }
 
     @Override
+    public void onHitBlock(MovingObjectPosition movingobjectposition)
+    {
+        super.onHitBlock(movingobjectposition);
+        this.defused = true;
+    }
+
+    @Override
     public void onUpdate() {
         // you turn me right round baby
         if(this.ticksInGround == 0)

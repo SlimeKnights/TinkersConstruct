@@ -1,5 +1,6 @@
 package tconstruct.weaponry.entity;
 
+import net.minecraft.util.MovingObjectPosition;
 import tconstruct.library.entity.ProjectileBase;
 import tconstruct.weaponry.TinkerWeaponry;
 import io.netty.buffer.ByteBuf;
@@ -27,6 +28,13 @@ public class ShurikenEntity extends ProjectileBase {
         super(world, player, speed, accuracy, stack);
         setSize(0.3f, 0.1f);
         this.bounceOnNoDamage = false;
+    }
+
+    @Override
+    public void onHitBlock(MovingObjectPosition movingobjectposition)
+    {
+        super.onHitBlock(movingobjectposition);
+        this.defused = true;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package tconstruct.weaponry.entity;
 
+import net.minecraft.util.MovingObjectPosition;
 import tconstruct.library.entity.ProjectileBase;
 import tconstruct.weaponry.TinkerWeaponry;
 import io.netty.buffer.ByteBuf;
@@ -20,6 +21,13 @@ public class JavelinEntity extends ProjectileBase {
 
     public JavelinEntity(World world, EntityPlayer player, float speed, float accuracy, ItemStack stack) {
         super(world, player, speed, accuracy, stack);
+    }
+
+    @Override
+    public void onHitBlock(MovingObjectPosition movingobjectposition)
+    {
+        super.onHitBlock(movingobjectposition);
+        this.defused = true;
     }
 
     @Override
