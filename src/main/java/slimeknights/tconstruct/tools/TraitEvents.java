@@ -70,7 +70,8 @@ public class TraitEvents {
     if(event.entity == null || !(event.entity instanceof EntityPlayer) || !((EntityPlayer) event.entity).isBlocking()) {
       return;
     }
-    ItemStack tool = ((EntityPlayer) event.entity).getItemInUse();
+    // item in use has to be current item, otherwise MC stops using it
+    ItemStack tool = ((EntityPlayer) event.entity).inventory.getCurrentItem();
 
     if(isTool(tool) && !ToolHelper.isBroken(tool)) {
       NBTTagList list = TagUtil.getTraitsTagList(tool);
