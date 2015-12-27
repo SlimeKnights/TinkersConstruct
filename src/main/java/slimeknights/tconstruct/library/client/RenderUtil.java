@@ -33,6 +33,12 @@ public final class RenderUtil {
     tessellator.draw();
   }
 
+  public static void renderTiledFluid(int x, int y, int width, int height, float depth, FluidStack fluidStack) {
+    TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite(fluidStack.getFluid().getStill(fluidStack).toString());
+    RenderUtil.setColorRGBA(fluidStack.getFluid().getColor(fluidStack));
+    renderTiledTextureAtlas(x,y,width, height, depth, fluidSprite);
+  }
+
   /** Adds a quad to the rendering pipeline. Call startDrawingQuads beforehand. You need to call draw() yourself. */
   public static void putTiledTextureQuads(WorldRenderer renderer, int x, int y, int width, int height, float depth, TextureAtlasSprite sprite) {
     float u1 = sprite.getMinU();
@@ -101,12 +107,13 @@ public final class RenderUtil {
     TextureAtlasSprite still = mc.getTextureMapBlocks().getTextureExtry(fluid.getFluid().getStill(fluid).toString());
     TextureAtlasSprite flowing = mc.getTextureMapBlocks().getTextureExtry(fluid.getFluid().getFlowing(fluid).toString());
 
-    putTexturedQuad(renderer, still,   x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.DOWN, color, brightness);
-    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.NORTH, color, brightness);
-    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.EAST, color, brightness);
-    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.SOUTH, color, brightness);
-    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.WEST, color, brightness);
-    putTexturedQuad(renderer, still  , x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.UP, color, brightness);
+    // x/y/z2 - x/y/z1 is because we need the width/height/depth
+    putTexturedQuad(renderer, still,   x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.DOWN,  color, brightness, false);
+    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.NORTH, color, brightness, true);
+    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.EAST,  color, brightness, true);
+    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.SOUTH, color, brightness, true);
+    putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.WEST,  color, brightness, true);
+    putTexturedQuad(renderer, still  , x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.UP,    color, brightness, false);
 
     tessellator.draw();
 
@@ -129,7 +136,7 @@ public final class RenderUtil {
     TextureAtlasSprite flowing = mc.getTextureMapBlocks().getTextureExtry(fluid.getFluid().getFlowing(fluid).toString());
 
     int xd = to.getX() - from.getX();
-    int yd = to.getY() - from.getY();
+    int yd = (int)(ymax - ymin);
     int zd = to.getZ() - from.getZ();
 
     double xmin = FLUID_OFFSET;
@@ -155,7 +162,7 @@ public final class RenderUtil {
     for(int i = 1; i <= zd; i++) zs[i] = i;
     zs[zd+1] = zmax;
 
-    // render bottom
+    // render each side
     for(int y = 0; y <= yd; y++) {
       for(int z = 0; z <= zd; z++) {
         for(int x = 0; x <= xd; x++) {
@@ -167,12 +174,12 @@ public final class RenderUtil {
           double z1 = zs[z];
           double z2 = zs[z+1] - z1;
 
-          if(x == 0)  putTexturedQuad(renderer, flowing, x1,y1,z1, x2,y2,z2, EnumFacing.WEST, color, brightness);
-          if(x == xd) putTexturedQuad(renderer, flowing, x1,y1,z1, x2,y2,z2, EnumFacing.EAST, color, brightness);
-          if(y == 0)  putTexturedQuad(renderer,   still, x1,y1,z1, x2,y2,z2, EnumFacing.DOWN, color, brightness);
-          if(y == yd) putTexturedQuad(renderer,   still, x1,y1,z1, x2,y2,z2, EnumFacing.UP, color, brightness);
-          if(z == 0)  putTexturedQuad(renderer, flowing, x1,y1,z1, x2,y2,z2, EnumFacing.NORTH, color, brightness);
-          if(z == zd) putTexturedQuad(renderer, flowing, x1,y1,z1, x2,y2,z2, EnumFacing.SOUTH, color, brightness);
+          if(x == 0)  putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.WEST,  color, brightness, true);
+          if(x == xd) putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.EAST,  color, brightness, true);
+          if(y == 0)  putTexturedQuad(renderer, still,   x1, y1, z1, x2, y2, z2, EnumFacing.DOWN,  color, brightness, false);
+          if(y == yd) putTexturedQuad(renderer, still,   x1, y1, z1, x2, y2, z2, EnumFacing.UP,    color, brightness, false);
+          if(z == 0)  putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.NORTH, color, brightness, true);
+          if(z == zd) putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.SOUTH, color, brightness, true);
         }
       }
     }
@@ -193,17 +200,18 @@ public final class RenderUtil {
 
   public static void putTexturedCuboid(WorldRenderer renderer, ResourceLocation location, double x1, double y1, double z1, double x2, double y2, double z2,
                                        int color, int brightness) {
+    boolean flowing = false;
     TextureAtlasSprite sprite = mc.getTextureMapBlocks().getTextureExtry(location.toString());
-    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.DOWN, color, brightness);
-    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.NORTH, color, brightness);
-    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.EAST, color, brightness);
-    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.SOUTH, color, brightness);
-    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.WEST, color, brightness);
-    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.UP, color, brightness);
+    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.DOWN, color, brightness, flowing);
+    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.NORTH, color, brightness, flowing);
+    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.EAST, color, brightness, flowing);
+    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.SOUTH, color, brightness, flowing);
+    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.WEST, color, brightness, flowing);
+    putTexturedQuad(renderer, sprite, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.UP, color, brightness, flowing);
   }
 
   public static void putTexturedQuad(WorldRenderer renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
-                                     int color, int brightness) {
+                                     int color, int brightness, boolean flowing) {
     int l1 = brightness >> 0x10 & 0xFFFF;
     int l2 = brightness & 0xFFFF;
 
@@ -212,16 +220,19 @@ public final class RenderUtil {
     int g = color >> 8 & 0xFF;
     int b = color & 0xFF;
 
-    putTexturedQuad(renderer, sprite, x,y,z, w,h, d, face, r,g,b,a, l1, l2);
+    putTexturedQuad(renderer, sprite, x,y,z, w,h, d, face, r,g,b,a, l1, l2, flowing);
   }
 
   // x and x+w has to be within [0,1], same for y/h and z/d
   public static void putTexturedQuad(WorldRenderer renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
-                                     int r, int g, int b, int a, int light1, int light2) {
+                                     int r, int g, int b, int a, int light1, int light2, boolean flowing) {
     double minU;
     double maxU;
     double minV;
     double maxV;
+
+    double size = 16f;
+    if(flowing) size = 8f;
 
     double x1 = x;
     double x2 = x + w;
@@ -240,28 +251,34 @@ public final class RenderUtil {
     double zt2 = zt1 + d;
     while(zt2 > 1f) zt2 -= 1f;
 
+    // flowing stuff should start from the bottom, not from the start
+    if(flowing) {
+      double tmp = 1d - yt1;
+      yt1 = 1d - yt2;
+      yt2 = tmp;
+    }
 
     switch(face) {
       case DOWN:
       case UP:
-        minU = sprite.getInterpolatedU(xt1 * 16d);
-        maxU = sprite.getInterpolatedU(xt2 * 16d);
-        minV = sprite.getInterpolatedV(zt1 * 16d);
-        maxV = sprite.getInterpolatedV(zt2 * 16d);
+        minU = sprite.getInterpolatedU(xt1 * size);
+        maxU = sprite.getInterpolatedU(xt2 * size);
+        minV = sprite.getInterpolatedV(zt1 * size);
+        maxV = sprite.getInterpolatedV(zt2 * size);
         break;
       case NORTH:
       case SOUTH:
-        minU = sprite.getInterpolatedU(xt1 * 16f);
-        maxU = sprite.getInterpolatedU(xt2 * 16f);
-        minV = sprite.getInterpolatedV(yt1 * 16f);
-        maxV = sprite.getInterpolatedV(yt2 * 16f);
+        minU = sprite.getInterpolatedU(xt2 * size);
+        maxU = sprite.getInterpolatedU(xt1 * size);
+        minV = sprite.getInterpolatedV(yt1 * size);
+        maxV = sprite.getInterpolatedV(yt2 * size);
         break;
       case WEST:
       case EAST:
-        minU = sprite.getInterpolatedU(zt1 * 16d);
-        maxU = sprite.getInterpolatedU(zt2 * 16d);
-        minV = sprite.getInterpolatedV(yt1 * 16d);
-        maxV = sprite.getInterpolatedV(yt2 * 16d);
+        minU = sprite.getInterpolatedU(zt2 * size);
+        maxU = sprite.getInterpolatedU(zt1 * size);
+        minV = sprite.getInterpolatedV(yt1 * size);
+        maxV = sprite.getInterpolatedV(yt2 * size);
         break;
       default:
         minU = sprite.getMinU();

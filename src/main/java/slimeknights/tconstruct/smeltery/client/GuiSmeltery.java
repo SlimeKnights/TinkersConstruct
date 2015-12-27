@@ -120,10 +120,7 @@ public class GuiSmeltery extends GuiMultiModule {
       for(int i = 0; i < heights.length; i++) {
         int h = heights[i];
         FluidStack liquid = liquids.getFluids().get(i);
-        TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite(liquid.getFluid().getStill().toString());
-
-        RenderUtil.setColorRGBA(liquid.getFluid().getColor(liquid));
-        RenderUtil.renderTiledTextureAtlas(x, y - h, w, h, this.zLevel, fluidSprite);
+        RenderUtil.renderTiledFluid(x, y-h, w, h, this.zLevel, liquid);
 
         y -= h;
       }
@@ -138,11 +135,7 @@ public class GuiSmeltery extends GuiMultiModule {
       int w = 12;
       int h = (int)(52f * (float)fuelInfo.fluid.amount / (float)fuelInfo.maxCap);
 
-      TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite(fuelInfo.fluid.getFluid().getStill().toString());
-      //TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite("minecraft:blocks/fire_layer_0");
-
-      RenderUtil.setColorRGBA(fuelInfo.fluid.getFluid().getColor(fuelInfo.fluid));
-      RenderUtil.renderTiledTextureAtlas(x, y - h, w, h, this.zLevel, fluidSprite);
+      RenderUtil.renderTiledFluid(x, y-h, w, h, this.zLevel, fuelInfo.fluid);
     }
   }
 
