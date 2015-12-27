@@ -2,6 +2,7 @@ package slimeknights.tconstruct.common.config;
 
 import com.google.common.collect.Lists;
 
+import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
@@ -41,6 +42,7 @@ public class Config {
   // Clientside configs
   public static boolean renderTableItems = true;
   public static boolean extraTooltips = true;
+  public static boolean enableForgeBucketModel = true; // enables the forge bucket model by default
 
 
   /* Config File */
@@ -150,6 +152,20 @@ public class Config {
       prop = configFile.get(cat, "extraTooltips", extraTooltips);
       prop.comment = "If true tools will show additional info in their tooltips";
       extraTooltips = prop.getBoolean();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "enableForgeBucketModel", enableForgeBucketModel);
+      prop.comment = "If true tools will enable the forge bucket model on startup and then turn itself off. This is only there so that a fresh install gets the buckets turned on by default.";
+      enableForgeBucketModel = prop.getBoolean();
+      if(enableForgeBucketModel) {
+        prop.set(false);
+        ForgeModContainer.replaceVanillaBucketModel = true;
+        Property forgeProp = ForgeModContainer.getConfig().getCategory(Configuration.CATEGORY_CLIENT).get("replaceVanillaBucketModel");
+        if(forgeProp != null) {
+          forgeProp.set(true);
+          ForgeModContainer.getConfig().save();
+        }
+      }
       propOrder.add(prop.getName());
 
       ClientSide.setPropertyOrder(propOrder);
