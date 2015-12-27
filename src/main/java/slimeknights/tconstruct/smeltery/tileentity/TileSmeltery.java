@@ -68,6 +68,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
   protected static final int MAX_SIZE = 7;
   protected static final int CAPACITY_PER_BLOCK = Material.VALUE_Ingot * 8;
+  protected static final int ALLOYING_PER_TICK = 10; // how much liquid can be created per tick to make alloys
 
   // Info about the smeltery structure/multiblock
   public boolean active;
@@ -190,25 +191,31 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   // check for alloys and create them
   protected void alloyAlloys() {
     for(AlloyRecipe recipe : TinkerRegistry.getAlloys()) {
-      // find out how often we can apply the recipe
-      int matched = recipe.matches(liquids.getFluids());
-      if(matched > 0) {
-        // remove all liquids from the tank
-        for(FluidStack liquid : recipe.getFluids()) {
-          FluidStack toDrain = liquid.copy();
-          FluidStack drained = liquids.drain(toDrain, true);
-          // error logging
-          if(!drained.isFluidEqual(toDrain) || drained.amount != toDrain.amount) {
-            log.error("Smeltery alloy creation drained incorrect amount: was %s:%d, should be %s:%d", drained.getUnlocalizedName(), drained.amount, toDrain.getUnlocalizedName(), toDrain.amount);
+        // find out how often we can apply the recipe
+        int matched = recipe.matches(liquids.getFluids());
+        if(matched > ALLOYING_PER_TICK) {
+          matched = ALLOYING_PER_TICK;
+        }
+        while(matched > 0) {
+          // remove all liquids from the tank
+          for(FluidStack liquid : recipe.getFluids()) {
+            FluidStack toDrain = liquid.copy();
+            FluidStack drained = liquids.drain(toDrain, true);
+            // error logging
+            if(!drained.isFluidEqual(toDrain) || drained.amount != toDrain.amount) {
+              log.error("Smeltery alloy creation drained incorrect amount: was %s:%d, should be %s:%d", drained
+                  .getUnlocalizedName(), drained.amount, toDrain.getUnlocalizedName(), toDrain.amount);
+            }
           }
-        }
 
-        // and insert the alloy
-        FluidStack toFill = recipe.getResult().copy();
-        int filled = liquids.fill(toFill, true);
-        if(filled != recipe.getResult().amount) {
-          log.error("Smeltery alloy creation filled incorrect amount: was %d, should be %d (%s)", filled, recipe.getResult().amount*matched, recipe.getResult().getUnlocalizedName());
-        }
+          // and insert the alloy
+          FluidStack toFill = recipe.getResult().copy();
+          int filled = liquids.fill(toFill, true);
+          if(filled != recipe.getResult().amount) {
+            log.error("Smeltery alloy creation filled incorrect amount: was %d, should be %d (%s)", filled,
+                      recipe.getResult().amount * matched, recipe.getResult().getUnlocalizedName());
+          }
+          matched -= filled;
       }
     }
   }
