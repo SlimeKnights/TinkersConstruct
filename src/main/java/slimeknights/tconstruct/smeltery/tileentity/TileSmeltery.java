@@ -467,6 +467,9 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
   @Override
   public AxisAlignedBB getRenderBoundingBox() {
+    if(minPos == null || maxPos == null) {
+      return super.getRenderBoundingBox();
+    }
     return AxisAlignedBB.fromBounds(minPos.getX(), minPos.getY(), minPos.getZ(), maxPos.getX()+1, maxPos.getY()+1, maxPos.getZ()+1);
   }
 

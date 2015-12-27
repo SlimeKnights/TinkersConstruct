@@ -117,23 +117,16 @@ public class GuiSmeltery extends GuiMultiModule {
       int y = 16 + scala.h + cornerY; // y starting position
       int w = scala.w;
 
-      // prepare rendering
-      Tessellator tessellator = Tessellator.getInstance();
-      WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-      worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-      mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-
       for(int i = 0; i < heights.length; i++) {
         int h = heights[i];
         FluidStack liquid = liquids.getFluids().get(i);
         TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite(liquid.getFluid().getStill().toString());
-        //TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite("minecraft:blocks/fire_layer_0");
 
-        RenderUtil.putTiledTextureQuads(worldrenderer, x, y - h, w, h, this.zLevel, fluidSprite);
+        RenderUtil.setColorRGBA(liquid.getFluid().getColor(liquid));
+        RenderUtil.renderTiledTextureAtlas(x, y - h, w, h, this.zLevel, fluidSprite);
+
         y -= h;
       }
-
-      tessellator.draw();
     }
 
     // update fuel info
@@ -148,6 +141,7 @@ public class GuiSmeltery extends GuiMultiModule {
       TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite(fuelInfo.fluid.getFluid().getStill().toString());
       //TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite("minecraft:blocks/fire_layer_0");
 
+      RenderUtil.setColorRGBA(fuelInfo.fluid.getFluid().getColor(fuelInfo.fluid));
       RenderUtil.renderTiledTextureAtlas(x, y - h, w, h, this.zLevel, fluidSprite);
     }
   }
