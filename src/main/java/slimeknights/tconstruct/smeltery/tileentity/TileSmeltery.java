@@ -66,7 +66,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
   static final Logger log = Util.getLogger("Smeltery");
 
-  protected static final int MAX_SIZE = 7;
+  protected static final int MAX_SIZE = 9; // 9 to allow 8x8 smelteries which hold 1 stack and 9x9 for nugget/ingot processing.
   protected static final int CAPACITY_PER_BLOCK = Material.VALUE_Ingot * 8;
   protected static final int ALLOYING_PER_TICK = 10; // how much liquid can be created per tick to make alloys
 
