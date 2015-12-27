@@ -4,6 +4,38 @@
         "obsidian": {
             "model": "forge:fluid",
             "custom": { "fluid": "obsidian" }
+        },
+        "iron": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "iron" }
+        },
+        "gold": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "gold" }
+        },
+        "pigiron": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "pigiron" }
+        },
+        "cobalt": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "cobalt" }
+        },
+        "ardite": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "ardite" }
+        },
+        "manyullyn": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "manyullyn" }
+        },
+        "knightslime": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "knightslime" }
+        },
+        "blood": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "blood" }
         }
     }
 }

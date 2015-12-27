@@ -11,7 +11,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -35,6 +34,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.smeltery.TinkerFluids;
 import slimeknights.tconstruct.tools.modifiers.traits.TraitAlien;
 import slimeknights.tconstruct.tools.modifiers.traits.TraitAquadynamic;
 import slimeknights.tconstruct.tools.modifiers.traits.TraitAridiculous;
@@ -87,13 +87,13 @@ public final class TinkerMaterials {
   public static final Material sponge     = mat("sponge", 0xcacc4e);
 
   // Slime
-  public static final Material knightslime= mat("knightslime", 0xe03fde, "ingotKnightslime");
+  public static final Material knightslime= mat("knightslime", 0xf18ff0, "ingotKnightslime");
   public static final Material slime      = mat("slime", 0x82c873);
   public static final Material blueslime  = mat("blueslime", 0x74c8c7, "slimeballBlue");
 
   // Metals
   public static final Material iron       = mat("iron", 0xcacaca);
-  public static final Material pigiron    = mat("pigiron", 0xff9cc4, "ingotPigiron");
+  public static final Material pigiron    = mat("pigiron", 0xef9e9b, "ingotPigiron");
   public static final Material copper     = mat("copper", 0xed9f07, "ingotCopper");
   public static final Material bronze     = mat("bronze", 0xd2a869, "ingotBronze");
 
@@ -101,7 +101,7 @@ public final class TinkerMaterials {
   public static final Material netherrack = mat("netherrack", 0xb84f4f);
   public static final Material ardite     = mat("ardite", 0xd14210, "ingotArdite");
   public static final Material cobalt     = mat("cobalt", 0x2882d4, "ingotCobalt");
-  public static final Material manyullyn  = mat("manyullyn", 0x882ff8, "ingotManyullyn");
+  public static final Material manyullyn  = mat("manyullyn", 0xa15cf8, "ingotManyullyn");
 
   // specul
   public static final Material xu;
@@ -256,7 +256,7 @@ public final class TinkerMaterials {
     cactus.setRepresentativeItem(new ItemStack(Blocks.cactus));
     cactus.addTrait(prickly);
 
-    obsidian.setFluid(FluidRegistry.WATER); // todo
+    obsidian.setFluid(TinkerFluids.obsidian);
     obsidian.setCraftable(true);
     obsidian.setCastable(true);
     obsidian.addItem(Blocks.obsidian, Material.VALUE_Ingot);
@@ -309,28 +309,28 @@ public final class TinkerMaterials {
     knightslime.addTrait(unnatural);
 
     // Metals
-    iron.setFluid(FluidRegistry.WATER); // todo
+    iron.setFluid(TinkerFluids.iron);
     iron.setCastable(true);
     iron.addItem("ingotIron", 1, Material.VALUE_Ingot);
     iron.setRepresentativeItem(Items.iron_ingot);
     iron.addTrait(magnetic);
     // todo: remaining metals
 
-    pigiron.setFluid(FluidRegistry.WATER); // todo
+    pigiron.setFluid(TinkerFluids.pigIron);
     pigiron.setCastable(true);
     pigiron.addTrait(tasty);
 
-    cobalt.setFluid(FluidRegistry.WATER); // todo
+    cobalt.setFluid(TinkerFluids.cobalt);
     cobalt.setCastable(true);
     safeAdd(cobalt, TinkerCommons.ingotCobalt, Material.VALUE_Ingot, true);
     cobalt.addTrait(momentum);
 
-    ardite.setFluid(FluidRegistry.WATER); // todo
+    ardite.setFluid(TinkerFluids.ardite);
     ardite.setCastable(true);
     safeAdd(ardite, TinkerCommons.ingotArdite, Material.VALUE_Ingot, true);
     ardite.addTrait(petramor);
 
-    manyullyn.setFluid(FluidRegistry.WATER); // todo
+    manyullyn.setFluid(TinkerFluids.manyullyn);
     manyullyn.setCastable(true);
     safeAdd(manyullyn, TinkerCommons.ingotManyullyn, Material.VALUE_Ingot, true);
     manyullyn.addTrait(insatiable);

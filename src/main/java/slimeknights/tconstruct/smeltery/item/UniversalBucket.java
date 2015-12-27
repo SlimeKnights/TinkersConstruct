@@ -3,6 +3,7 @@ package slimeknights.tconstruct.smeltery.item;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -18,15 +19,21 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.smeltery.TinkerFluids;
 
 public class UniversalBucket extends Item implements IFluidContainerItem {
 
@@ -44,6 +51,19 @@ public class UniversalBucket extends Item implements IFluidContainerItem {
     this.nbtSensitive = nbtSensitive;
 
     this.setMaxStackSize(1);
+  }
+
+  @SideOnly(Side.CLIENT)
+  @Override
+  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+    for(Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
+      FluidStack fs = new FluidStack(fluid, capacity);
+      if(FluidContainerRegistry.fillFluidContainer(fs, empty) == null) {
+        ItemStack bucket = new ItemStack(this);
+        this.fill(bucket, fs, true);
+        subItems.add(bucket);
+      }
+    }
   }
 
   @Override

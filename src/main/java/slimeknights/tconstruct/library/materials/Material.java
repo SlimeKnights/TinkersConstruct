@@ -93,6 +93,12 @@ public class Material extends RecipeMatchRegistry {
 
   public Material(String identifier, int color) {
     this.identifier = Util.sanitizeLocalizationString(identifier); // lowercases and removes whitespaces
+
+    // if invisible, make it fully opaque.
+    if(((color >> 24) & 0xFF) == 0) {
+      color |= 0xFF << 24;
+    }
+
     this.materialTextColor = color;
     if(FMLCommonHandler.instance().getSide().isClient()) {
       setRenderInfo(color);
@@ -101,7 +107,7 @@ public class Material extends RecipeMatchRegistry {
 
   /** Associates this fluid with the material. Used for melting/casting items. */
   public Material setFluid(Fluid fluid) {
-    if(!FluidRegistry.isFluidRegistered(fluid)) {
+    if(fluid != null && !FluidRegistry.isFluidRegistered(fluid)) {
       TinkerRegistry.log.warn("Materials cannot have an unregistered fluid associated with them!");
     }
     this.fluid = fluid;
