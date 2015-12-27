@@ -36,12 +36,12 @@ public class AlloyRecipe {
     fluids = builder.build();
   }
 
-  public int matches(List<FluidStack> fluids) {
+  public int matches(List<FluidStack> input) {
     // how often we can apply the alloy
     int times = Integer.MAX_VALUE;
     List<FluidStack> needed = Lists.newLinkedList(fluids);
     // for each liquid in the input
-    for(FluidStack fluid : fluids) {
+    for(FluidStack fluid : input) {
       // check if it's needed
       ListIterator<FluidStack> iter = needed.listIterator();
       while(iter.hasNext()) {
