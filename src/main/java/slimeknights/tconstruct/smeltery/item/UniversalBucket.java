@@ -53,8 +53,6 @@ public class UniversalBucket extends Item implements IFluidContainerItem {
       return (StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".empty")).trim();
     }
 
-
-
     return Util.translateFormatted(this.getUnlocalizedNameInefficiently(stack) + ".name", fluidStack.getLocalizedName());
   }
 
@@ -216,11 +214,16 @@ public class UniversalBucket extends Item implements IFluidContainerItem {
 
     FluidStack fluidStack = getFluid(container);
     if(doDrain && fluidStack != null) {
+      /*
       NBTTagCompound tag = TagUtil.getTagSafe(container);
       tag.removeTag("FluidName");
       tag.removeTag("Amount");
       tag.removeTag("Tag");
       container.setTagCompound(tag);
+*/
+      container.setItem(empty.getItem());
+      container.setTagCompound(empty.getTagCompound());
+      container.setItemDamage(empty.getItemDamage());
     }
 
     return fluidStack;
