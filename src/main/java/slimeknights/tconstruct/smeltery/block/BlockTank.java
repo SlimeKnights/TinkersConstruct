@@ -6,6 +6,7 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
@@ -17,6 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -24,6 +26,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.common.PlayerHelper;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 
 public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
@@ -69,6 +72,8 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
   @Override
   public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
     //if(worldIn.isRemote) return true;
+    // we do it both client and server side, because the client gets animations from this
+    // todo: check if it works properly with pipes n stuff
 
     TileEntity te = worldIn.getTileEntity(pos);
     if(!(te instanceof IFluidHandler)) {
@@ -77,8 +82,13 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
     IFluidHandler tank = (IFluidHandler) te;
     FluidTankInfo[] info = tank.getTankInfo(side);
     FluidStack inTank = null;
+    int capacityLeft = 0;
     if(info.length > 0) {
       inTank = info[0].fluid;
+      capacityLeft = info[0].capacity;
+      if(inTank != null) {
+        capacityLeft -= inTank.amount;
+      }
     }
 
     side = side.getOpposite();
@@ -92,6 +102,10 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
         tank.drain(side, FluidContainerRegistry.getContainerCapacity(liquid, stack), true);
         result = FluidContainerRegistry.fillFluidContainer(liquid, stack);
       }
+      else if(stack.getItem() == Items.bucket) {
+        // replace the input bucket with an empty universal bucket
+        stack = new ItemStack(TinkerSmeltery.bucket);
+      }
     }
     // filled bucket?
     else if(FluidContainerRegistry.isFilledContainer(stack)) {
@@ -100,11 +114,6 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
         // how much can we put into the tank?
         int amount = tank.fill(side, liquid, false);
         // not everything?
-        /*if(amount < liquid.amount) {
-          // can we drain the container partially?
-          ItemStack empty = FluidContainerRegistry.drainFluidContainer();
-          FluidContainerRegistry.fillFluidContainer()
-        }*/
         if(amount == liquid.amount) {
           tank.fill(side, liquid, true);
           result = FluidContainerRegistry.drainFluidContainer(stack);
@@ -113,6 +122,52 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
       else {
         // prevent placing liquids
         return true;
+      }
+    }
+
+    // filled fluid container?
+    if(result == null && stack.getItem() instanceof IFluidContainerItem) {
+      IFluidContainerItem fluidContainer = (IFluidContainerItem) stack.getItem();
+
+      // empty container
+      if(fluidContainer.getFluid(stack) == null) {
+        FluidStack liquid = tank.drain(side, fluidContainer.getCapacity(stack), false);
+        if(liquid != null && liquid.amount > 0) {
+          ItemStack toFill = stack.copy();
+          toFill.stackSize = 1;
+
+          int filled = fluidContainer.fill(toFill, liquid, true);
+          tank.drain(side, filled, true);
+
+          // only 1 item that got filled, replace it
+          if(stack.stackSize == 1) {
+            result = toFill;
+          }
+          else {
+            // had multiple empty items, drop it at the player and keep the decreased stack
+            PlayerHelper.spawnItemAtPlayer(playerIn, toFill);
+            stack.stackSize--;
+            result = stack;
+          }
+        }
+      }
+      // filled container
+      else {
+        // try draining
+        FluidStack drained = fluidContainer.drain(stack, capacityLeft, false);
+        if(drained != null && drained.amount <= capacityLeft) {
+          // do the drain
+          int amount = tank.fill(side, drained, true);
+          if(amount > 0) {
+            fluidContainer.drain(stack, amount, true);
+            // emptying the container should be handled by .drain
+            result = stack;
+          }
+          else {
+            // prevent interaction
+            return true;
+          }
+        }
       }
     }
 
