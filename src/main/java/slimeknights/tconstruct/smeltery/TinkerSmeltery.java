@@ -2,7 +2,13 @@ package slimeknights.tconstruct.smeltery;
 
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -19,6 +25,7 @@ import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.smeltery.block.BlockSeared;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
 import slimeknights.tconstruct.smeltery.block.BlockTank;
+import slimeknights.tconstruct.smeltery.item.UniversalBucket;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
@@ -73,6 +80,27 @@ public class TinkerSmeltery extends TinkerPulse {
   // POST-INITIALIZATION
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
+    registerSmelteryFuel();
+    registerMelting();
+    registerAlloys();
+
     proxy.postInit();
+  }
+
+  private void registerSmelteryFuel() {
+    TinkerRegistry.registerSmelteryFuel(new FluidStack(FluidRegistry.LAVA, 50), 100);
+  }
+
+  private void registerMelting() {
+    TinkerRegistry.registerMelting(Blocks.ice, FluidRegistry.WATER, 100);
+    TinkerRegistry.registerMelting(Blocks.stone, FluidRegistry.LAVA, 100);
+
+    TinkerRegistry.registerEntityMelting(EntitySheep.class, new FluidStack(FluidRegistry.LAVA, 1));
+  }
+
+  private void registerAlloys() {
+    TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.obsidian, 2),
+                                 new FluidStack(FluidRegistry.WATER, 1),
+                                 new FluidStack(FluidRegistry.LAVA, 1));
   }
 }

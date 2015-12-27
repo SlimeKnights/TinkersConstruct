@@ -88,6 +88,9 @@ tile.tconstruct.seared.tooltip=Part of the Smeltery. Safe for Decoration.
 tile.tconstruct.smeltery_controller.name=Smeltery Controller
 tile.tconstruct.smeltery_controller.tooltip=Brain of the Smeltery
 
+# Fluid blocks are mapped onto their fluid names
+tile.tconstruct.molten_obsidian=fluid.tconstruct.obsidian
+
 ################
 #    Items     #
 ################
@@ -183,7 +186,11 @@ item.tconstruct.large_sword_blade.name=Large Sword Blade
 # item.tconstruct.<tool>.<material>
 # item.tconstruct.pickaxe.wood=Wooden Pickaxe
 
+#################
+#    Liquids    #
+#################
 
+fluid.tconstruct.obsidian.name=Molten Obsidian
 
 #################
 #   Materials   #
