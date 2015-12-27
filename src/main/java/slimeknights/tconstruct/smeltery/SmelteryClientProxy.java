@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.smeltery;
 
 import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelDynBucket;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -56,5 +58,14 @@ public class SmelteryClientProxy extends ClientProxy {
                                          "inventory");
       }
     });
+
+    // universal bucket
+    ModelLoader.setCustomMeshDefinition(TinkerSmeltery.bucket, new ItemMeshDefinition() {
+      @Override
+      public ModelResourceLocation getModelLocation(ItemStack stack) {
+        return ModelDynBucket.LOCATION;
+      }
+    });
+    ModelBakery.addVariantName(TinkerSmeltery.bucket, "forge:dynbucket");
   }
 }

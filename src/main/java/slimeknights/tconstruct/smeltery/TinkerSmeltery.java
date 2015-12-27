@@ -39,6 +39,7 @@ public class TinkerSmeltery extends TinkerPulse {
 
   // Items
   public static Pattern cast;
+  public static UniversalBucket bucket;
 
   // PRE-INITIALIZATION
   @Subscribe
@@ -54,7 +55,11 @@ public class TinkerSmeltery extends TinkerPulse {
     cast = registerItem(new Pattern(), "cast");
     cast.setCreativeTab(TinkerRegistry.tabSmeltery);
 
+    bucket = registerItem(new UniversalBucket(), "bucket");
+    bucket.setCreativeTab(TinkerRegistry.tabGeneral);
+
     proxy.preInit();
+    MinecraftForge.EVENT_BUS.register(bucket);
 
     TinkerRegistry.tabSmeltery.setDisplayIcon(new ItemStack(searedTank));
   }

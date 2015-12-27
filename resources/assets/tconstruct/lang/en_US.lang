@@ -129,6 +129,9 @@ item.tconstruct.cast.name=Cast: %
 item.tconstruct.sharpening_kit.name=Sharpening Kit
 item.tconstruct.sharpening_kit.tooltip=Combine with a flint\nUpgrades your tool to the materials mining level.
 
+item.tconstruct.bucket.name=%s Bucket
+item.tconstruct.bucket.empty=Empty Bucket
+
 # Tools
 item.tconstruct.pickaxe.name=Pickaxe
 item.tconstruct.shovel.name=Shovel
