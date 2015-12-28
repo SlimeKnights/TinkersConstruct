@@ -40,6 +40,10 @@
         "milk": {
             "model": "forge:fluid",
             "custom": { "fluid": "milk" }
+        },
+        "blueslime": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "blueslime" }
         }
     }
 }

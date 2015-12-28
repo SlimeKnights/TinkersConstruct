@@ -41,7 +41,7 @@ public class UniversalBucket extends Item implements IFluidContainerItem {
   public final boolean nbtSensitive;
 
   public UniversalBucket() {
-    this(FluidContainerRegistry.BUCKET_VOLUME, new ItemStack(Items.bucket), false);
+    this(FluidContainerRegistry.BUCKET_VOLUME, FluidContainerRegistry.EMPTY_BUCKET, false);
   }
 
   public UniversalBucket(int capacity, ItemStack empty, boolean nbtSensitive) {
@@ -57,7 +57,8 @@ public class UniversalBucket extends Item implements IFluidContainerItem {
   public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     for(Fluid fluid : FluidRegistry.getRegisteredFluids().values()) {
       FluidStack fs = new FluidStack(fluid, capacity);
-      if(FluidContainerRegistry.fillFluidContainer(fs, empty) == null) {
+      ItemStack filled = FluidContainerRegistry.fillFluidContainer(fs, empty);
+      if(filled == null || filled.getItem() == this) {
         ItemStack bucket = new ItemStack(this);
         this.fill(bucket, fs, true);
         subItems.add(bucket);
@@ -195,6 +196,14 @@ public class UniversalBucket extends Item implements IFluidContainerItem {
         }
       }
     }
+  }
+
+  public static ItemStack getFilledBucket(UniversalBucket item, Fluid fluid) {
+    ItemStack stack = new ItemStack(item);
+
+    item.fill(stack, new FluidStack(fluid, item.capacity), true);
+
+    return stack;
   }
 
   /* FluidContainer Management */

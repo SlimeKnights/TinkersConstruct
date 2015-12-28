@@ -3,11 +3,15 @@ package slimeknights.tconstruct.shared;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
-import net.minecraft.block.Block;
+import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -47,46 +51,70 @@ public class TinkerFluids extends TinkerPulse {
   public static FluidMolten knightslime;
   public static FluidColored blood;
   public static FluidColored milk;
+  public static FluidColored blueslime;
 
   static List<Fluid> fluids = Lists.newLinkedList(); // all fluids registered by tcon
 
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
-    obsidian = fluidMetal(TinkerMaterials.obsidian);
-    obsidian.setTemperature(1290);
+    if(isSmelteryLoaded()) {
+      obsidian = fluidMetal(TinkerMaterials.obsidian);
+      obsidian.setTemperature(1290);
 
-    iron = fluidMetal(TinkerMaterials.iron.getIdentifier(), 0xa81212);
-    iron.setTemperature(1038);
+      iron = fluidMetal(TinkerMaterials.iron.getIdentifier(), 0xa81212);
+      iron.setTemperature(1038);
 
-    gold = fluidMetal("gold", 0xf6d609);
-    gold.setTemperature(664);
+      gold = fluidMetal("gold", 0xf6d609);
+      gold.setTemperature(664);
 
-    pigIron = fluidMetal(TinkerMaterials.pigiron);
-    pigIron.setTemperature(800);
-    pigIron.setRarity(EnumRarity.EPIC);
+      pigIron = fluidMetal(TinkerMaterials.pigiron);
+      pigIron.setTemperature(800);
+      pigIron.setRarity(EnumRarity.EPIC);
 
-    cobalt = fluidMetal(TinkerMaterials.cobalt);
-    cobalt.setTemperature(1150);
-    cobalt.setRarity(EnumRarity.RARE);
+      cobalt = fluidMetal(TinkerMaterials.cobalt);
+      cobalt.setTemperature(1150);
+      cobalt.setRarity(EnumRarity.RARE);
 
-    ardite = fluidMetal(TinkerMaterials.ardite);
-    ardite.setTemperature(1299);
-    ardite.setRarity(EnumRarity.RARE);
+      ardite = fluidMetal(TinkerMaterials.ardite);
+      ardite.setTemperature(1299);
+      ardite.setRarity(EnumRarity.RARE);
 
-    manyullyn = fluidMetal(TinkerMaterials.manyullyn);
-    manyullyn.setTemperature(1200);
-    manyullyn.setRarity(EnumRarity.RARE);
+      manyullyn = fluidMetal(TinkerMaterials.manyullyn);
+      manyullyn.setTemperature(1200);
+      manyullyn.setRarity(EnumRarity.RARE);
 
-    knightslime = fluidMetal(TinkerMaterials.knightslime);
-    knightslime.setTemperature(520);
-    knightslime.setRarity(EnumRarity.EPIC);
+      knightslime = fluidMetal(TinkerMaterials.knightslime);
+      knightslime.setTemperature(520);
+      knightslime.setRarity(EnumRarity.EPIC);
 
-    blood = fluidClassic("blood", 0x540000);
-    blood.setTemperature(420);
+      blood = fluidClassic("blood", 0x540000);
+      blood.setTemperature(420);
+      registerDefaultBlock(blood);
+    }
 
     milk = fluidMilk("milk", 0xffffff);
     milk.setTemperature(320);
+    FluidContainerRegistry.registerFluidContainer(new FluidStack(milk, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(Items.milk_bucket), FluidContainerRegistry.EMPTY_BUCKET);
 
+    if(isWorldLoaded()) {
+      blueslime = fluidLiquid("blueslime", 0xef67f0f5);
+      blueslime.setTemperature(310);
+    }
+
+    // register fluid buckets for all of the liquids
+    // ok we can't register them because fluidcontainerregistry is not NBT sensitive.
+/*
+    if(TinkerSmeltery.bucket != null) {
+      for(Fluid fluid : fluids) {
+        if(fluid == milk) {
+          continue;
+        }
+        FluidStack toFill = new FluidStack(fluid, FluidContainerRegistry.BUCKET_VOLUME);
+        ItemStack filled = UniversalBucket.getFilledBucket(TinkerSmeltery.bucket, fluid);
+        FluidContainerRegistry.registerFluidContainer(toFill, filled, FluidContainerRegistry.EMPTY_BUCKET);
+      }
+    }
+*/
     proxy.preInit();
   }
 
@@ -111,6 +139,7 @@ public class TinkerFluids extends TinkerPulse {
 
   private FluidMolten fluidLiquid(String name, int color) {
     FluidMolten fluid = new FluidMolten(name, color, FluidMolten.ICON_LiquidStill, FluidMolten.ICON_LiquidFlowing);
+    registerDefaultBlock(fluid);
     return registerFluid(fluid, true);
   }
 
@@ -124,25 +153,27 @@ public class TinkerFluids extends TinkerPulse {
   private FluidColored fluidMilk(String name, int color) {
     FluidColored fluid = new FluidColored(name, color, FluidColored.ICON_MilkStill, FluidColored.ICON_MilkFlowing);
     fluid = registerFluid(fluid, true);
+    registerDefaultBlock(fluid);
 
     return fluid;
   }
 
-  private <T extends Fluid> T registerFluid(T fluid, boolean classicBlock) {
+  private <T extends Fluid> T registerFluid(T fluid, boolean noBlock) {
     fluid.setUnlocalizedName(Util.prefix(fluid.getName()));
     FluidRegistry.registerFluid(fluid);
 
     fluids.add(fluid);
 
-    if(classicBlock) {
-      Block block = new BlockFluidClassic(fluid, net.minecraft.block.material.Material.water);
-      registerBlock(block, fluid.getName());
-    }
-    else {
+    if(!noBlock) {
       registerFluidBlock(fluid);
     }
 
     return fluid;
+  }
+
+  private BlockFluidBase registerDefaultBlock(Fluid fluid) {
+    BlockFluidBase block = new BlockFluidClassic(fluid, net.minecraft.block.material.Material.water);
+    return registerBlock(block, fluid.getName());
   }
 
   // create and register the block
