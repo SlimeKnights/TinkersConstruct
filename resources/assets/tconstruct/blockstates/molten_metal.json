@@ -36,6 +36,10 @@
         "blood": {
             "model": "forge:fluid",
             "custom": { "fluid": "blood" }
+        },
+        "milk": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "milk" }
         }
     }
 }

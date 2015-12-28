@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.EnumRarity;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -20,6 +21,7 @@ import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.fluid.FluidColored;
 import slimeknights.tconstruct.library.fluid.FluidMolten;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.smeltery.block.BlockMolten;
@@ -43,7 +45,8 @@ public class TinkerFluids extends TinkerPulse {
   public static FluidMolten ardite;
   public static FluidMolten manyullyn;
   public static FluidMolten knightslime;
-  public static FluidMolten blood;
+  public static FluidColored blood;
+  public static FluidColored milk;
 
   static List<Fluid> fluids = Lists.newLinkedList(); // all fluids registered by tcon
 
@@ -60,23 +63,29 @@ public class TinkerFluids extends TinkerPulse {
 
     pigIron = fluidMetal(TinkerMaterials.pigiron);
     pigIron.setTemperature(800);
+    pigIron.setRarity(EnumRarity.EPIC);
 
     cobalt = fluidMetal(TinkerMaterials.cobalt);
     cobalt.setTemperature(1150);
+    cobalt.setRarity(EnumRarity.RARE);
 
     ardite = fluidMetal(TinkerMaterials.ardite);
     ardite.setTemperature(1299);
+    ardite.setRarity(EnumRarity.RARE);
 
     manyullyn = fluidMetal(TinkerMaterials.manyullyn);
     manyullyn.setTemperature(1200);
+    manyullyn.setRarity(EnumRarity.RARE);
 
     knightslime = fluidMetal(TinkerMaterials.knightslime);
     knightslime.setTemperature(520);
+    knightslime.setRarity(EnumRarity.EPIC);
 
-    blood = fluidLiquid("blood", 0x540000);
+    blood = fluidClassic("blood", 0x540000);
     blood.setTemperature(420);
-    Block block = new BlockFluidClassic(blood, net.minecraft.block.material.Material.water);
-    registerBlock(block, "molten_" + blood.getName()); // molten_foobar prefix
+
+    milk = fluidMilk("milk", 0xffffff);
+    milk.setTemperature(320);
 
     proxy.preInit();
   }
@@ -96,23 +105,40 @@ public class TinkerFluids extends TinkerPulse {
   }
 
   private FluidMolten fluidMetal(String name, int color) {
-    FluidMolten fluid = FluidMolten.metal(name, color);
-    fluid.setUnlocalizedName(Util.prefix(name));
+    FluidMolten fluid = new FluidMolten(name, color);
     return registerFluid(fluid, false);
   }
 
   private FluidMolten fluidLiquid(String name, int color) {
-    FluidMolten fluid = FluidMolten.liquid(name, color);
-    fluid.setUnlocalizedName(Util.prefix(name));
+    FluidMolten fluid = new FluidMolten(name, color, FluidMolten.ICON_LiquidStill, FluidMolten.ICON_LiquidFlowing);
     return registerFluid(fluid, true);
   }
 
-  private FluidMolten registerFluid(FluidMolten fluid, boolean noBlock) {
+  private FluidColored fluidClassic(String name, int color) {
+    FluidColored fluid = new FluidColored(name, color, FluidColored.ICON_LiquidStill, FluidColored.ICON_LiquidFlowing);
+    fluid = registerFluid(fluid, true);
+
+    return fluid;
+  }
+
+  private FluidColored fluidMilk(String name, int color) {
+    FluidColored fluid = new FluidColored(name, color, FluidColored.ICON_MilkStill, FluidColored.ICON_MilkFlowing);
+    fluid = registerFluid(fluid, true);
+
+    return fluid;
+  }
+
+  private <T extends Fluid> T registerFluid(T fluid, boolean classicBlock) {
+    fluid.setUnlocalizedName(Util.prefix(fluid.getName()));
     FluidRegistry.registerFluid(fluid);
 
     fluids.add(fluid);
 
-    if(!noBlock) {
+    if(classicBlock) {
+      Block block = new BlockFluidClassic(fluid, net.minecraft.block.material.Material.water);
+      registerBlock(block, fluid.getName());
+    }
+    else {
       registerFluidBlock(fluid);
     }
 
@@ -120,7 +146,7 @@ public class TinkerFluids extends TinkerPulse {
   }
 
   // create and register the block
-  private BlockMolten registerFluidBlock(FluidMolten fluid) {
+  private BlockMolten registerFluidBlock(Fluid fluid) {
     BlockMolten block = new BlockMolten(fluid);
     return registerBlock(block, "molten_" + fluid.getName()); // molten_foobar prefix
   }
