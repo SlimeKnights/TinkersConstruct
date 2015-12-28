@@ -107,7 +107,8 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
 
   protected abstract int colorPixel(int pixel, int mipmap, int pxCoord);
 
-  // loads the base texture manually, same procedure as TextureMap
+  // loads the base texture manually, same procedure as TextureMap.
+  // Be careful, this changes the width and height of the current texture. Be sure to preserve it if needed!
   protected int[][] backupLoadTexture(ResourceLocation resourceLocation, IResourceManager resourceManager) {
     if(resourceLocation.equals(TextureMap.LOCATION_MISSING_TEXTURE)) {
       return Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite().getFrameTextureData(0);

@@ -57,8 +57,15 @@ public class TextureColoredTexture extends AbstractColoredTexture {
       textureData = addTexture.getFrameTextureData(0);
     }
     else {
+      // we need to keep the sizes, otherwise the secondary texture might set our size to a different value
+      // since it uses the same loading code as the main texture
+      // read: 32x32 block textures with 16x16 tool textures = stuff goes boom
+      int w = this.width;
+      int h = this.height;
       textureData = backupLoadTexture(new ResourceLocation(addTextureLocation),
                                       Minecraft.getMinecraft().getResourceManager());
+      this.width = w;
+      this.height = h;
     }
   }
 }
