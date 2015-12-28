@@ -33,7 +33,6 @@ import java.util.List;
 
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.utils.TagUtil;
-import slimeknights.tconstruct.smeltery.TinkerFluids;
 
 public class UniversalBucket extends Item implements IFluidContainerItem {
 

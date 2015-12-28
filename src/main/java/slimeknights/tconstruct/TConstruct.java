@@ -29,7 +29,7 @@ import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.plugin.TinkerVintageCraft;
 import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.smeltery.TinkerFluids;
+import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;

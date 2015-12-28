@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.smeltery;
+package slimeknights.tconstruct.shared;
 
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
@@ -33,7 +33,7 @@ public class TinkerFluids extends TinkerPulse {
   public static final String PulseId = "TinkerFluids";
   static final Logger log = Util.getLogger(PulseId);
 
-  @SidedProxy(clientSide = "slimeknights.tconstruct.smeltery.FluidsClientProxy", serverSide = "slimeknights.tconstruct.common.CommonProxy")
+  @SidedProxy(clientSide = "slimeknights.tconstruct.shared.FluidsClientProxy", serverSide = "slimeknights.tconstruct.common.CommonProxy")
   public static CommonProxy proxy;
 
   // The fluids

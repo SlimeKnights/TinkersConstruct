@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.smeltery;
+package slimeknights.tconstruct.shared;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -13,6 +13,7 @@ import net.minecraftforge.fluids.Fluid;
 
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.shared.TinkerFluids;
 
 public class FluidsClientProxy extends ClientProxy {
 

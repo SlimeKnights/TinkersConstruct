@@ -34,7 +34,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.smeltery.TinkerFluids;
+import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.tools.modifiers.traits.TraitAlien;
 import slimeknights.tconstruct.tools.modifiers.traits.TraitAquadynamic;
 import slimeknights.tconstruct.tools.modifiers.traits.TraitAridiculous;
