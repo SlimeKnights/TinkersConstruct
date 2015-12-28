@@ -67,11 +67,6 @@ public class ToolClientProxy extends ClientProxy {
     tableItem = Item.getItemFromBlock(TinkerTools.toolForge);
     ModelLoader.setCustomModelResourceLocation(tableItem, 0, ToolClientEvents.locToolForge);
 
-    //ModelBakery.addVariantName(slimeSand, "tconstruct:SlimeSand#type=green", "tconstruct:SlimeSand#type=blue");
-    //ModelLoader.setCustomModelResourceLocation(slimeSand, 0, new ModelResourceLocation("tconstruct:SlimeSand", "type=green"));
-    //ModelLoader.setCustomModelResourceLocation(slimeSand, 1, new ModelResourceLocation("tconstruct:SlimeSand","type=blue"));
-
-
     // general items
 
     //registerItemModel(new ItemStack(materials, 1, 2), "SlimeCrystalRed");

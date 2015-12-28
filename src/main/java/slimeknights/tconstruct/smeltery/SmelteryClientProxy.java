@@ -3,6 +3,7 @@ package slimeknights.tconstruct.smeltery;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
@@ -35,6 +36,7 @@ public class SmelteryClientProxy extends ClientProxy {
   @Override
   protected void registerModels() {
     // Blocks
+    registerItemModel(Item.getItemFromBlock(TinkerSmeltery.smelteryController));
 
     // TEs
     ClientRegistry.bindTileEntitySpecialRenderer(TileTank.class, new TankRenderer());

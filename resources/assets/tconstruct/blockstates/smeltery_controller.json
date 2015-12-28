@@ -39,7 +39,8 @@
                 "top": "tconstruct:blocks/smeltery/seared_brick",
                 "side": "#top",
                 "front": "tconstruct:blocks/smeltery/smeltery_inactive"
-            }
+            },
+            "y": 90
         }
     }
 }
