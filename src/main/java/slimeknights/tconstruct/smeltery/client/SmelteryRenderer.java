@@ -85,10 +85,9 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
     GlStateManager.translate(x1, y1, z1);
     GlStateManager.translate(0.5f, 0.5f, 0.5f);
 
-    float brightness = smeltery.getWorld().getLightBrightness(smeltery.minPos);
-    OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)(brightness % 0x10000) / 1f,
-                                          (float)(brightness / 0x10000) / 1f);
     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+
+    RenderHelper.enableStandardItemLighting();
 
     for(int i = 0; i < smeltery.getSizeInventory(); i++) {
       if(smeltery.isStackInSlot(i)) {
@@ -97,7 +96,11 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
         int i2 = i % layer;
         BlockPos pos = smeltery.minPos.add(i2 % xd, h, i2 / xd);
 
+        int brightness = smeltery.getWorld().getCombinedLight(pos, 0);
+
         ItemStack stack = smeltery.getStackInSlot(i);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)(brightness % 0x10000) / 1f,
+                                              (float)(brightness / 0x10000) / 1f);
 
         //GlStateManager.pushMatrix();
         GlStateManager.translate(i2 % xd, h, i2 / xd);
@@ -109,6 +112,7 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
         //GlStateManager.popMatrix();
       }
     }
+    RenderHelper.enableStandardItemLighting();
 //    tessellator.draw();
     RenderUtil.post();
   }

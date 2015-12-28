@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -330,7 +331,7 @@ public final class RenderUtil {
   public static void pre(double x, double y, double z) {
     GlStateManager.pushMatrix();
 
-    GlStateManager.disableLighting();
+    RenderHelper.disableStandardItemLighting();
     GlStateManager.enableBlend();
     GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
@@ -348,7 +349,7 @@ public final class RenderUtil {
 
   public static void post() {
     GlStateManager.disableBlend();
-    GlStateManager.enableLighting();
+    RenderHelper.enableStandardItemLighting();
     GlStateManager.popMatrix();
   }
 
