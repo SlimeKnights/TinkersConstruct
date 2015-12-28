@@ -73,7 +73,13 @@ public class UniversalBucket extends Item implements IFluidContainerItem {
       return (StatCollector.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".empty")).trim();
     }
 
-    return Util.translateFormatted(this.getUnlocalizedNameInefficiently(stack) + ".name", fluidStack.getLocalizedName());
+    String unloc = this.getUnlocalizedNameInefficiently(stack);
+
+    if(StatCollector.canTranslate(unloc + "." + fluidStack.getFluid().getName())) {
+      return Util.translate(unloc + "." + fluidStack.getFluid().getName());
+    }
+
+    return Util.translateFormatted(unloc + ".name", fluidStack.getLocalizedName());
   }
 
   @Override

@@ -88,8 +88,21 @@ tile.tconstruct.seared.tooltip=Part of the Smeltery. Safe for Decoration.
 tile.tconstruct.smeltery_controller.name=Smeltery Controller
 tile.tconstruct.smeltery_controller.tooltip=Brain of the Smeltery
 
+tile.tconstruct.seared_tank.tank.name=Seared Tank
+tile.tconstruct.seared_tank.gauge.name=Seared Gauge
+tile.tconstruct.seared_tank.window.name=Seared Window
+
 # Fluid blocks are mapped onto their fluid names
 tile.tconstruct.molten_obsidian=fluid.tconstruct.obsidian
+tile.tconstruct.molten_iron=fluid.tconstruct.iron
+tile.tconstruct.molten_gold=fluid.tconstruct.gold
+tile.tconstruct.molten_pigiron=fluid.tconstruct.pigiron
+tile.tconstruct.molten_cobalt=fluid.tconstruct.cobalt
+tile.tconstruct.molten_ardite=fluid.tconstruct.ardite
+tile.tconstruct.molten_manyullyn=fluid.tconstruct.manyullyn
+tile.tconstruct.molten_knightslime=fluid.tconstruct.knightslime
+tile.tconstruct.blood=fluid.tconstruct.blood
+tile.tconstruct.milk=fluid.tconstruct.milk
 
 ################
 #    Items     #
@@ -134,6 +147,7 @@ item.tconstruct.sharpening_kit.tooltip=Combine with a flint\nUpgrades your tool 
 
 item.tconstruct.bucket.name=%s Bucket
 item.tconstruct.bucket.empty=Empty Bucket
+item.tconstruct.bucket.blood=Bucket o' Blood
 
 # Tools
 item.tconstruct.pickaxe.name=Pickaxe
@@ -191,6 +205,16 @@ item.tconstruct.large_sword_blade.name=Large Sword Blade
 #################
 
 fluid.tconstruct.obsidian.name=Molten Obsidian
+fluid.tconstruct.iron.name=Molten Iron
+fluid.tconstruct.gold.name=Molten Gold
+fluid.tconstruct.pigiron.name=Molten Pigiron
+fluid.tconstruct.cobalt.name=Molten Cobalt
+fluid.tconstruct.ardite.name=Molten Ardite
+fluid.tconstruct.manyullyn.name=Molten Manyullyn
+fluid.tconstruct.knightslime.name=Molten Knightslime
+fluid.tconstruct.blood.name=Blood
+fluid.tconstruct.milk.name=Milk
+
 
 #################
 #   Materials   #
