@@ -25,6 +25,7 @@ import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.CommonProxy;
+import slimeknights.tconstruct.common.EntityIDs;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -94,7 +95,7 @@ public class TinkerWorld extends TinkerPulse {
     ItemBlockMeta.setMappingProperty(slimeSapling, BlockSlimeGrass.FOLIAGE);
 
 
-    EntityRegistry.registerModEntity(EntityBlueSlime.class, "blueslime", 1, TConstruct.instance, 64, 5, true, 0x47eff5, 0xacfff4);
+    EntityRegistry.registerModEntity(EntityBlueSlime.class, "blueslime", EntityIDs.BLUESLIME, TConstruct.instance, 64, 5, true, 0x47eff5, 0xacfff4);
     //EntitySpawnPlacementRegistry.setPlacementType(EntityBlueSlime.class, EntityLiving.SpawnPlacementType.IN_WATER);
 
 

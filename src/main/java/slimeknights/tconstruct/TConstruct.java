@@ -49,35 +49,17 @@ import slimeknights.tconstruct.world.TinkerWorld;
     dependencies = "required-after:Forge@[11.15.0.1654,);"
                    + "required-after:mantle@[1.8.8-0.6,)",
     acceptedMinecraftVersions = "1.8.8, 1.8.9")
-//dependencies = "required-after:Forge@[11.14.,);required-after:mantle@[1.8-0.4,)")
-//dependencies = "required-after:Forge@[10.13.1.1217,);required-after:Mantle@[1.7.10-0.3.2,);after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion;after:ThermalFoundation")
 public class TConstruct {
 
   public static final String modID = Util.MODID;
   public static final String modVersion = "${version}";
-  /*
-   * The value of one ingot in millibuckets
-  public static final int ingotLiquidValue = 144;
-  public static final int oreLiquidValue = ingotLiquidValue * 2;
-  public static final int blockLiquidValue = ingotLiquidValue * 9;
-  public static final int chunkLiquidValue = ingotLiquidValue / 2;
-  public static final int nuggetLiquidValue = ingotLiquidValue / 9;
-  public static final int stoneLiquidValue = ingotLiquidValue / 8;
 
-  public static final int liquidUpdateAmount = 6;
-*/
   public static final Logger log = LogManager.getLogger(modID);
   public static final Random random = new Random();
 
   /* Instance of this mod, used for grabbing prototype fields */
   @Mod.Instance(modID)
   public static TConstruct instance;
-    /* Proxies for sides, used for graphics processing and client controls */
-  //@SidedProxy(clientSide = "tconstruct.client.TProxyClient", serverSide = "tconstruct.common.TProxyCommon")
-  //public static TProxyCommon proxy;
-
-    /* Loads modules in a way that doesn't clutter the @Mod list */
-  //public static PulseManager pulsar = new PulseManager(modID, new ForgeCFG("TinkersModules", "Modules: Disabling these will disable a chunk of the mod"));
 
   public static PulseManager pulseManager = new PulseManager(Config.pulseConfig);
   public static GuiHandler guiHandler = new GuiHandler();
@@ -119,8 +101,6 @@ public class TConstruct {
     Config.load(event);
 
     HarvestLevels.init();
-
-    EntityRegistry.registerModEntity(IndestructibleEntityItem.class, "Indestructible Item", 0, TConstruct.instance, 32, 5, true);
 
     NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);
 
