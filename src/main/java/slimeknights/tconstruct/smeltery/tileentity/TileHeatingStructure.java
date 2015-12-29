@@ -14,6 +14,8 @@ import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 /** Represents a structure that has an inventory where it heats its items. Like a smeltery. */
 public abstract class TileHeatingStructure extends TileInventory {
 
+  private static final int TIME_FACTOR = 8; // basically an "accuracy" so the heat can be more fine grained. required temp is multpilied by this
+
   protected int fuel; // Ticks left until the current fuel is depleted and fuel is taken from the tanks. Depletes every tick
   protected int temperature; // internal temperature of the smeltery == speed of the smeltery
   protected boolean needsFuel; // If the last tick executed an operation that required fuel.
@@ -35,14 +37,35 @@ public abstract class TileHeatingStructure extends TileInventory {
     this.itemTempRequired = Arrays.copyOf(itemTempRequired, size);
   }
 
-  // Calculate the heat required for the given slot
-  protected abstract void updateHeatRequired(int index);
+
+  public boolean canHeat(int index) {
+    return temperature >= getHeatRequiredForSlot(index);
+  }
+
+  public float getProgress(int index) {
+    if(index >= itemTemperatures.length) {
+      return 0f;
+    }
+    return (float)itemTemperatures[index]/(float)itemTempRequired[index];
+  }
 
   protected void setHeatRequiredForSlot(int index, int heat) {
     if(index < itemTempRequired.length) {
-      itemTempRequired[index] = heat;
+      itemTempRequired[index] = heat * TIME_FACTOR;
     }
   }
+
+  protected int getHeatRequiredForSlot(int index) {
+    if(index >= itemTempRequired.length) {
+      return 0;
+    }
+    return itemTempRequired[index]/TIME_FACTOR;
+  }
+
+  /**
+   * Calculate the heat required for the given slot
+   */
+  protected abstract void updateHeatRequired(int index);
 
   protected void heatItems() {
     for(int i = 0; i < getSizeInventory(); i++) {
@@ -78,7 +101,7 @@ public abstract class TileHeatingStructure extends TileInventory {
   }
 
   protected int heatSlot(int i) {
-    return 1 + temperature/50;
+    return temperature/100; // if your smeltery has <100 heat then it deserves to not create any heat .
   }
 
   public int getTemperature(int i) {

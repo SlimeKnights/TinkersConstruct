@@ -5,8 +5,6 @@ import com.google.common.collect.Lists;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -20,7 +18,6 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
@@ -28,8 +25,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -114,8 +109,10 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
       if(tick == 0) {
         interactWithEntitiesInside();
       }
-      heatItems();
-      alloyAlloys();
+      if(tick % 4 == 0) {
+        heatItems();
+        alloyAlloys();
+      }
 
       if(needsFuel) {
         consumeFuel();
@@ -132,7 +129,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     if(stack != null) {
       MeltingRecipe melting = TinkerRegistry.getMelting(stack);
       if(melting != null) {
-        setHeatRequiredForSlot(index, melting.getTime());
+        setHeatRequiredForSlot(index, Math.max(5, melting.getUsableTemperature()));
 
         // instantly consume fuel if required
         if(!hasFuel()) {
@@ -165,7 +162,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
       return true;
     }
     else {
-      // can't fill into the smeltery, set error satte
+      // can't fill into the smeltery, set error state
       itemTemperatures[slot] = itemTempRequired[slot] * 2 + 1;
     }
 
@@ -264,7 +261,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
         if(drained.amount == amount) {
           tank.drain(amount, true);
           currentFuel = drained.copy();
-          addFuel(bonusFuel, drained.getFluid().getTemperature(drained));
+          addFuel(bonusFuel, drained.getFluid().getTemperature(drained)-300); // convert to °C
 
           // notify client of fuel/temperature changes
           if(worldObj != null && !worldObj.isRemote) {
@@ -439,11 +436,11 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
       return -1f;
     }
 
-    if(itemTempRequired[index] > temperature) {
+    if(!canHeat(index)) {
       return -1f;
     }
 
-    return (float)itemTemperatures[index]/(float)itemTempRequired[index];
+    return getProgress(index);
   }
 
   @SideOnly(Side.CLIENT)
