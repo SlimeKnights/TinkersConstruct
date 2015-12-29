@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.common;
 
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
 
@@ -45,6 +46,10 @@ public class CommonProxy {
   }
 
   public void sendPacketToServerOnly(AbstractPacket packet) {
+
+  }
+
+  public void spawnSlimeParticle(World world, double x, double y, double z) {
 
   }
 }

@@ -8,6 +8,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
@@ -24,7 +25,9 @@ import slimeknights.tconstruct.library.client.ItemBlockModelSetter;
 import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
 import slimeknights.tconstruct.library.client.model.ModifierModelLoader;
 import slimeknights.tconstruct.library.client.model.ToolModelLoader;
+import slimeknights.tconstruct.library.client.particle.EntitySlimeFx;
 import slimeknights.tconstruct.library.modifiers.IModifier;
+import slimeknights.tconstruct.shared.TinkerCommons;
 
 public abstract class ClientProxy extends CommonProxy {
 
@@ -208,5 +211,10 @@ public abstract class ClientProxy extends CommonProxy {
   @Override
   public void sendPacketToServerOnly(AbstractPacket packet) {
     TinkerNetwork.sendToServer(packet);
+  }
+
+  @Override
+  public void spawnSlimeParticle(World world, double x, double y, double z) {
+    Minecraft.getMinecraft().effectRenderer.addEffect(new EntitySlimeFx(world, x,y,z, TinkerCommons.matSlimeBallBlue.getItem(), TinkerCommons.matSlimeBallBlue.getItemDamage()));
   }
 }

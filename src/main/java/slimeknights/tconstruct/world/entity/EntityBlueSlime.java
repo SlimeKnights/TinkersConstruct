@@ -10,6 +10,7 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.particle.EntitySlimeFx;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
@@ -57,7 +58,7 @@ public class EntityBlueSlime extends EntitySlime {
         double d0 = this.posX + (double) f2;
         double d1 = this.posZ + (double) f3;
         double d2 = this.getEntityBoundingBox().minY;
-        Minecraft.getMinecraft().effectRenderer.addEffect(new EntitySlimeFx(this.worldObj, d0, d2, d1, TinkerCommons.matSlimeBallBlue.getItem(), TinkerCommons.matSlimeBallBlue.getItemDamage()));
+        TinkerWorld.proxy.spawnSlimeParticle(this.worldObj, d0, d2, d1);
       }
     }
     return true;
