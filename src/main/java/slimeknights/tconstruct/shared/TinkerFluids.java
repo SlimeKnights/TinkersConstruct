@@ -65,34 +65,34 @@ public class TinkerFluids extends TinkerPulse {
     if(isSmelteryLoaded()) {
       searedStone = fluidStone("stone", -1);
       registerFluid(searedStone, true);
-      searedStone.setTemperature(1200);
+      searedStone.setTemperature(800);
       registerFluidBlock(searedStone);
 
       //obsidian = fluidMetal(TinkerMaterials.obsidian);
       obsidian = fluidStone(TinkerMaterials.obsidian.getIdentifier(), 0x7d24ff);
-      obsidian.setTemperature(1290);
+      obsidian.setTemperature(1000);
       registerFluidBlock(obsidian);
 
       iron = fluidMetal(TinkerMaterials.iron.getIdentifier(), 0xa81212);
-      iron.setTemperature(1038);
+      iron.setTemperature(738);
 
       gold = fluidMetal("gold", 0xf6d609);
-      gold.setTemperature(664);
+      gold.setTemperature(564);
 
       pigIron = fluidMetal(TinkerMaterials.pigiron);
-      pigIron.setTemperature(800);
+      pigIron.setTemperature(600);
       pigIron.setRarity(EnumRarity.EPIC);
 
       cobalt = fluidMetal(TinkerMaterials.cobalt);
-      cobalt.setTemperature(1150);
+      cobalt.setTemperature(990);
       cobalt.setRarity(EnumRarity.RARE);
 
       ardite = fluidMetal(TinkerMaterials.ardite);
-      ardite.setTemperature(1299);
+      ardite.setTemperature(920);
       ardite.setRarity(EnumRarity.RARE);
 
       manyullyn = fluidMetal(TinkerMaterials.manyullyn);
-      manyullyn.setTemperature(1200);
+      manyullyn.setTemperature(1000);
       manyullyn.setRarity(EnumRarity.RARE);
 
       knightslime = fluidMetal(TinkerMaterials.knightslime);

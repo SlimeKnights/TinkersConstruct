@@ -4,8 +4,11 @@ import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -16,10 +19,13 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
+import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.smeltery.block.BlockSeared;
@@ -92,8 +98,24 @@ public class TinkerSmeltery extends TinkerPulse {
   }
 
   private void registerMelting() {
-    TinkerRegistry.registerMelting(Blocks.ice, FluidRegistry.WATER, 100);
-    TinkerRegistry.registerMelting(Blocks.stone, FluidRegistry.LAVA, 100);
+    int bucket = FluidContainerRegistry.BUCKET_VOLUME;
+
+    // Water
+    Fluid water = FluidRegistry.WATER;
+    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Blocks.ice, bucket), water, 305));
+    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Blocks.packed_ice, bucket*2), water, 310));
+    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Blocks.snow, bucket), water, 305));
+    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Items.snowball, bucket/8), water, 301));
+
+    // bloooooood
+    TinkerRegistry.registerMelting(Items.rotten_flesh, TinkerFluids.blood, 5);
+
+    // seared stone
+    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("stone"), TinkerFluids.searedStone, 750));
+    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("cobblestone"), TinkerFluids.searedStone, 750));
+
+    // obsidian
+    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("obsidian", Material.VALUE_Ore), TinkerFluids.obsidian, Material.VALUE_Ore, Material.VALUE_Ore));
 
     TinkerRegistry.registerEntityMelting(EntitySheep.class, new FluidStack(FluidRegistry.LAVA, 1));
   }
