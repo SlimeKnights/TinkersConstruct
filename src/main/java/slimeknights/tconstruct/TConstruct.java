@@ -46,7 +46,8 @@ import slimeknights.tconstruct.world.TinkerWorld;
     name = "Tinkers' Construct",
     version = TConstruct.modVersion,
     guiFactory = "slimeknights.tconstruct.common.config.ConfigGui$ConfigGuiFactory",
-    dependencies = "required-after:Forge@[11.15.0.1647,);required-after:mantle@[1.8.8-0.6,)",
+    dependencies = "required-after:Forge@[11.15.0.1654,);"
+                   + "required-after:mantle@[1.8.8-0.6,)",
     acceptedMinecraftVersions = "1.8.8, 1.8.9")
 //dependencies = "required-after:Forge@[11.14.,);required-after:mantle@[1.8-0.4,)")
 //dependencies = "required-after:Forge@[10.13.1.1217,);required-after:Mantle@[1.7.10-0.3.2,);after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion;after:ThermalFoundation")

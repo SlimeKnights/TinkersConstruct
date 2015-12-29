@@ -62,12 +62,6 @@ public class SmelteryClientProxy extends ClientProxy {
     });
 
     // universal bucket
-    ModelLoader.setCustomMeshDefinition(TinkerSmeltery.bucket, new ItemMeshDefinition() {
-      @Override
-      public ModelResourceLocation getModelLocation(ItemStack stack) {
-        return ModelDynBucket.LOCATION;
-      }
-    });
-    ModelBakery.addVariantName(TinkerSmeltery.bucket, "forge:dynbucket");
+    ModelLoader.setBucketModelDefinition(TinkerSmeltery.bucket);
   }
 }
