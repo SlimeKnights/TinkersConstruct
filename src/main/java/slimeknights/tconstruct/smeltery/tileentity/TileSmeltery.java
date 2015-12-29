@@ -127,6 +127,25 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
   /* Smeltery processing logic. Consuming fuel, heating stuff, creating alloys etc. */
 
+  protected void updateHeatRequired(int index) {
+    ItemStack stack = getStackInSlot(index);
+    if(stack != null) {
+      MeltingRecipe melting = TinkerRegistry.getMelting(stack);
+      if(melting != null) {
+        setHeatRequiredForSlot(index, melting.getTime());
+
+        // instantly consume fuel if required
+        if(!hasFuel()) {
+          consumeFuel();
+        }
+
+        return;
+      }
+    }
+
+    setHeatRequiredForSlot(index, 0);
+  }
+
   // melt stuff
   @Override
   protected boolean onItemFinishedHeating(ItemStack stack, int slot) {

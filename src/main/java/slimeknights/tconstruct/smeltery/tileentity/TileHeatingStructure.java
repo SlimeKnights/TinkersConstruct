@@ -35,23 +35,13 @@ public abstract class TileHeatingStructure extends TileInventory {
     this.itemTempRequired = Arrays.copyOf(itemTempRequired, size);
   }
 
-  protected void updateHeatRequired(int index) {
-    ItemStack stack = getStackInSlot(index);
-    if(stack != null) {
-      MeltingRecipe melting = TinkerRegistry.getMelting(stack);
-      if(melting != null) {
-        itemTempRequired[index] = melting.output.getFluid().getTemperature(melting.output);
+  // Calculate the heat required for the given slot
+  protected abstract void updateHeatRequired(int index);
 
-        // instantly consume fuel if required
-        if(!hasFuel()) {
-          consumeFuel();
-        }
-
-        return;
-      }
+  protected void setHeatRequiredForSlot(int index, int heat) {
+    if(index < itemTempRequired.length) {
+      itemTempRequired[index] = heat;
     }
-
-    itemTempRequired[index] = 0;
   }
 
   protected void heatItems() {
