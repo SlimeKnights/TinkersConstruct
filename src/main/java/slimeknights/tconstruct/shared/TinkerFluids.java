@@ -29,6 +29,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.fluid.FluidColored;
 import slimeknights.tconstruct.library.fluid.FluidMolten;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.shared.block.BlockBlueSlime;
 import slimeknights.tconstruct.smeltery.block.BlockMolten;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 
@@ -42,6 +43,7 @@ public class TinkerFluids extends TinkerPulse {
   public static CommonProxy proxy;
 
   // The fluids
+  public static FluidMolten searedStone;
   public static FluidMolten obsidian;
   public static FluidMolten iron;
   public static FluidMolten gold;
@@ -61,8 +63,15 @@ public class TinkerFluids extends TinkerPulse {
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
     if(isSmelteryLoaded()) {
-      obsidian = fluidMetal(TinkerMaterials.obsidian);
+      searedStone = fluidStone("stone", -1);
+      registerFluid(searedStone, true);
+      searedStone.setTemperature(1200);
+      registerFluidBlock(searedStone);
+
+      //obsidian = fluidMetal(TinkerMaterials.obsidian);
+      obsidian = fluidStone(TinkerMaterials.obsidian.getIdentifier(), 0x7d24ff);
       obsidian.setTemperature(1290);
+      registerFluidBlock(obsidian);
 
       iron = fluidMetal(TinkerMaterials.iron.getIdentifier(), 0xa81212);
       iron.setTemperature(1038);
@@ -100,9 +109,9 @@ public class TinkerFluids extends TinkerPulse {
     FluidContainerRegistry.registerFluidContainer(new FluidStack(milk, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(Items.milk_bucket), FluidContainerRegistry.EMPTY_BUCKET);
 
     if(isWorldLoaded()) {
-      blueslime = fluidLiquid("blueslime", 0xef67f0f5);
+      blueslime = fluidClassic("blueslime", 0xef67f0f5);
       blueslime.setTemperature(310);
-      blockBlueslime = blueslime.getBlock();
+      blockBlueslime = registerBlock(new BlockBlueSlime(blueslime, net.minecraft.block.material.Material.water), blueslime.getName());
     }
 
     // register fluid buckets for all of the liquids
@@ -141,10 +150,16 @@ public class TinkerFluids extends TinkerPulse {
     return registerFluid(fluid, false);
   }
 
-  private FluidMolten fluidLiquid(String name, int color) {
+  private FluidMolten fluidLiquid(String name, int color, boolean withBlock) {
     FluidMolten fluid = new FluidMolten(name, color, FluidMolten.ICON_LiquidStill, FluidMolten.ICON_LiquidFlowing);
-    registerFluid(fluid, true);
-    registerDefaultBlock(fluid);
+    registerFluid(fluid, !withBlock);
+    return fluid;
+  }
+
+  private FluidMolten fluidStone(String name, int color) {
+    FluidMolten fluid = new FluidMolten(name, color, FluidColored.ICON_StoneStill, FluidColored.ICON_StoneFlowing);
+    fluid = registerFluid(fluid, true);
+
     return fluid;
   }
 

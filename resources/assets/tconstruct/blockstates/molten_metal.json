@@ -1,6 +1,10 @@
 {
     "forge_marker": 1,
 	"variants": {
+        "stone": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "stone" }
+        },
         "obsidian": {
             "model": "forge:fluid",
             "custom": { "fluid": "obsidian" }
