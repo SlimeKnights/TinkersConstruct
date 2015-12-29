@@ -15,7 +15,10 @@ public class BlockBlueSlime extends BlockFluidClassic {
 
   @Override
   public boolean canCreatureSpawn(IBlockAccess world, BlockPos pos, EntityLiving.SpawnPlacementType type) {
-    // todo: allow blue slime to spawn
+    if(type == EntityLiving.SpawnPlacementType.IN_WATER) {
+      return true;
+    }
+
     return super.canCreatureSpawn(world, pos, type);
   }
 }

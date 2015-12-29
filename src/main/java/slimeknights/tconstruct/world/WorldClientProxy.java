@@ -4,19 +4,25 @@ import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelSlime;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.block.statemap.StateMap;
+import net.minecraft.client.renderer.entity.RenderSlime;
 import net.minecraft.client.resources.IReloadableResourceManager;
+import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 import slimeknights.tconstruct.common.ClientProxy;
+import slimeknights.tconstruct.library.client.renderer.RenderTinkerSlime;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
 import slimeknights.tconstruct.world.block.BlockSlimeSapling;
 import slimeknights.tconstruct.world.block.BlockTallSlimeGrass;
 import slimeknights.tconstruct.world.client.CustomStateMap;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
+import slimeknights.tconstruct.world.entity.EntityBlueSlime;
 
 public class WorldClientProxy extends ClientProxy {
   public static SlimeColorizer slimeColorizer = new SlimeColorizer();
@@ -77,5 +83,14 @@ public class WorldClientProxy extends ClientProxy {
     registerItemModel(new ItemStack(TinkerWorld.slimeVinePurple1), "slime_vine");
     registerItemModel(new ItemStack(TinkerWorld.slimeVinePurple2), "slime_vine_mid");
     registerItemModel(new ItemStack(TinkerWorld.slimeVinePurple3), "slime_vine_end");
+  }
+
+  @Override
+  public void postInit() {
+    super.postInit();
+
+
+    // Entities
+    RenderingRegistry.registerEntityRenderingHandler(EntityBlueSlime.class, new RenderTinkerSlime(Minecraft.getMinecraft().getRenderManager(), 0xff67f0f5));
   }
 }

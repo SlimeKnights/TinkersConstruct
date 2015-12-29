@@ -13,6 +13,7 @@ import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.BlockSlime;
 import slimeknights.tconstruct.world.block.BlockSlimeDirt;
@@ -41,9 +42,14 @@ public class SlimeIslandGenerator implements IWorldGenerator {
 
     IBlockState leaves = TinkerWorld.slimeLeaves.getDefaultState();
 
-    lakeGenGreen = new SlimeLakeGenerator(Blocks.water.getDefaultState(), slimeGreen, slimeGreen, slimeBlue);
-    lakeGenBlue = new SlimeLakeGenerator(Blocks.water.getDefaultState(), slimeBlue, slimeGreen, slimeBlue);
-    lakeGenPurple = new SlimeLakeGenerator(Blocks.water.getDefaultState(), slimePurple, slimePurple);
+    IBlockState slimeFLuid = Blocks.water.getDefaultState();
+    if(TinkerFluids.blueslime != null) {
+      slimeFLuid = TinkerFluids.blueslime.getBlock().getDefaultState();
+    }
+
+    lakeGenGreen = new SlimeLakeGenerator(slimeFLuid, slimeGreen, slimeGreen, slimeBlue);
+    lakeGenBlue = new SlimeLakeGenerator(slimeFLuid, slimeBlue, slimeGreen, slimeBlue);
+    lakeGenPurple = new SlimeLakeGenerator(slimeFLuid, slimePurple, slimePurple);
 
     treeGenBlue = new SlimeTreeGenerator(5, 4, slimeGreen, leaves.withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.BLUE), TinkerWorld.slimeVineBlue3.getDefaultState());
     treeGenPurple = new SlimeTreeGenerator(5, 4, slimeGreen, leaves.withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.PURPLE), TinkerWorld.slimeVinePurple3.getDefaultState());

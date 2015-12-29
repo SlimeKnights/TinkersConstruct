@@ -3,6 +3,7 @@ package slimeknights.tconstruct.shared;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
@@ -55,6 +56,8 @@ public class TinkerFluids extends TinkerPulse {
 
   static List<Fluid> fluids = Lists.newLinkedList(); // all fluids registered by tcon
 
+  public static Block blockBlueslime;
+
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
     if(isSmelteryLoaded()) {
@@ -99,6 +102,7 @@ public class TinkerFluids extends TinkerPulse {
     if(isWorldLoaded()) {
       blueslime = fluidLiquid("blueslime", 0xef67f0f5);
       blueslime.setTemperature(310);
+      blockBlueslime = blueslime.getBlock();
     }
 
     // register fluid buckets for all of the liquids
@@ -139,8 +143,9 @@ public class TinkerFluids extends TinkerPulse {
 
   private FluidMolten fluidLiquid(String name, int color) {
     FluidMolten fluid = new FluidMolten(name, color, FluidMolten.ICON_LiquidStill, FluidMolten.ICON_LiquidFlowing);
+    registerFluid(fluid, true);
     registerDefaultBlock(fluid);
-    return registerFluid(fluid, true);
+    return fluid;
   }
 
   private FluidColored fluidClassic(String name, int color) {

@@ -3,14 +3,19 @@ package slimeknights.tconstruct.world;
 import com.google.common.collect.ImmutableList;
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -18,6 +23,7 @@ import org.apache.logging.log4j.Logger;
 
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.pulsar.pulse.Pulse;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -31,6 +37,7 @@ import slimeknights.tconstruct.world.block.BlockSlimeLeaves;
 import slimeknights.tconstruct.world.block.BlockSlimeSapling;
 import slimeknights.tconstruct.world.block.BlockSlimeVine;
 import slimeknights.tconstruct.world.block.BlockTallSlimeGrass;
+import slimeknights.tconstruct.world.entity.EntityBlueSlime;
 import slimeknights.tconstruct.world.item.ItemBlockLeaves;
 import slimeknights.tconstruct.world.worldgen.SlimeIslandGenerator;
 
@@ -86,14 +93,14 @@ public class TinkerWorld extends TinkerPulse {
     ItemBlockMeta.setMappingProperty(slimeGrassTall, BlockTallSlimeGrass.TYPE);
     ItemBlockMeta.setMappingProperty(slimeSapling, BlockSlimeGrass.FOLIAGE);
 
-    oredict();
+
+    EntityRegistry.registerModEntity(EntityBlueSlime.class, "blueslime", 1, TConstruct.instance, 64, 5, true, 0x47eff5, 0xacfff4);
+    //EntitySpawnPlacementRegistry.setPlacementType(EntityBlueSlime.class, EntityLiving.SpawnPlacementType.IN_WATER);
+
+
     proxy.preInit();
 
     TinkerRegistry.tabWorld.setDisplayIcon(new ItemStack(slimeSapling));
-  }
-
-  private void oredict() {
-    OreDictionary.registerOre("blockSlime", slimeBlock);
   }
 
   // INITIALIZATION
@@ -143,6 +150,12 @@ public class TinkerWorld extends TinkerPulse {
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
     GameRegistry.registerWorldGenerator(new SlimeIslandGenerator(), 5);
+    for(BiomeGenBase biome : BiomeGenBase.getBiomeGenArray()) {
+      if(biome == null || biome == BiomeGenBase.hell || biome == BiomeGenBase.sky) {
+        continue;
+      }
+      EntityRegistry.addSpawn(EntityBlueSlime.class, 200, 1, 4, EnumCreatureType.MONSTER, biome); // ALL the biomes
+    }
 
     proxy.postInit();
   }
