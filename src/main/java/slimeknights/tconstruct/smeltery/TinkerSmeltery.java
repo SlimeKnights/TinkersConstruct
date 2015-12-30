@@ -110,14 +110,18 @@ public class TinkerSmeltery extends TinkerPulse {
     // bloooooood
     TinkerRegistry.registerMelting(Items.rotten_flesh, TinkerFluids.blood, 5);
 
-    // seared stone
-    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("stone"), TinkerFluids.searedStone, 750));
-    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("cobblestone"), TinkerFluids.searedStone, 750));
+    // seared stone, takes as long as a full block to melt, but gives less
+    TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of("stone", Material.VALUE_SearedMaterial),
+                                                           TinkerFluids.searedStone, Material.VALUE_Ore));
+    TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of("cobblestone", Material.VALUE_SearedMaterial),
+                                                           TinkerFluids.searedStone, Material.VALUE_Ore));
 
     // obsidian
-    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("obsidian", Material.VALUE_Ore), TinkerFluids.obsidian, Material.VALUE_Ore, Material.VALUE_Ore));
+    //TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("obsidian", Material.VALUE_Ore), TinkerFluids.obsidian));
+    TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of("obsidian", Material.VALUE_Ore),
+                                                           TinkerFluids.obsidian, Material.VALUE_Ore));
 
-    TinkerRegistry.registerEntityMelting(EntitySheep.class, new FluidStack(FluidRegistry.LAVA, 1));
+    TinkerRegistry.registerEntityMelting(EntitySheep.class, new FluidStack(TinkerFluids.blood, 5));
   }
 
   private void registerAlloys() {

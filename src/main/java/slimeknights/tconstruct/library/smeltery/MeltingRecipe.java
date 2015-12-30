@@ -9,62 +9,30 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
 
 public class MeltingRecipe {
+
+  private static double LOG9_2 = 0.31546487678;
+
   // speed and temperature are inferred automatically through the output
   public final RecipeMatch input;
   public final FluidStack output;
   public final int temperature;
 
   public MeltingRecipe(RecipeMatch input, Fluid output) {
-    this(input,  new FluidStack(output, input.amountMatched), 300, Material.VALUE_Ingot);
+    this(input,  new FluidStack(output, input.amountMatched));
   }
 
-  public MeltingRecipe(RecipeMatch input, Fluid output, int minTemperature, int baseline) {
-    this(input,  new FluidStack(output, input.amountMatched), minTemperature, baseline);
+  public MeltingRecipe(RecipeMatch input, FluidStack output) {
+    this(input, output, output.getFluid().getTemperature(output));
   }
 
-  /**
-   * FLUIDSTACK AMOUNT IS IGNORED! Only use this if your fluidstack has to carry data the regular fluid doesn't have.
-   */
-  public MeltingRecipe(RecipeMatch input, FluidStack output, int minTemperature, int baseline) {
-    this.output = output;
-    this.input = input;
-
-    output.amount = input.amountMatched;
-
-    // We take an amount as the baseline. We then calculate required temperature depending on that baseline
-    // The temperature can not go below minTemperature
-    // If the result is less than the baseline we linearly reduce the temperature and then penalize it a bit because it's less efficient
-    // If the result is more than the baseline we linearly increase the temperature and then reduce it a bit because it's more efficient
-    // increased temperature cannot go past the fluids temperature
-
-//    int max = Math.max(minTemperature, output.getFluid().getTemperature(output));
-//    int tmp = minTemperature + (max - minTemperature)/2; // tmp for temperature of course, what else?
-    int tmp = output.getFluid().getTemperature(output);
-
-    // calculate how far we're off the baseline
-    float f = (float)output.amount / (float)baseline;
-
-    // penalize
-    if(f < 0) {
-      f += 1/(f*9);
-    }
-    // reward
-    else {
-      f -= f/9;
-    }
-
-    // we take a full block as the baseline for the melting temperature
-    this.temperature = (int)Math.max(minTemperature, f * tmp);
+  public MeltingRecipe(RecipeMatch input, Fluid output, int temperature) {
+    this(input,  new FluidStack(output, input.amountMatched), temperature);
   }
 
-  public MeltingRecipe(RecipeMatch input, Fluid output, int customTemperature) {
-    this(input, new FluidStack(output, input.amountMatched), customTemperature);
-  }
-
-  public MeltingRecipe(RecipeMatch input, FluidStack output, int customTemperature) {
+  public MeltingRecipe(RecipeMatch input, FluidStack output, int temperature) {
     this.input = input;
     this.output =  new FluidStack(output, input.amountMatched);
-    this.temperature = customTemperature;
+    this.temperature = temperature;
   }
 
   /** Required time to execute the recpipe, expressed as "temperature", and also the minimum required temp. for this recipe */
@@ -88,5 +56,32 @@ public class MeltingRecipe {
   public MeltingRecipe register() {
     TinkerRegistry.registerMelting(this);
     return this;
+  }
+
+  /**
+   * Returns a meltingrecipe for the given recipematch, that returns the given fluid-output combination
+   * but the temperature required for it is as if timeAmount would be returned.
+   */
+  public static MeltingRecipe forAmount(RecipeMatch recipeMatch, FluidStack output, int timeAmount) {
+    int base = Material.VALUE_Block;
+    int max_tmp = Math.max(0, output.getFluid().getTemperature() - 300); // we use 0 as baseline, not 300
+
+    double f = (double)timeAmount/(double)base;
+
+    // we calculate 2^log9(f), which effectively gives us 2^(1 for each multiple of 9)
+    // so 1 = 1, 9 = 2, 81 = 4, 1/9 = 1/2, 1/81 = 1/4 etc
+    // we simplify it to f^log9(2) to make calculation simpler
+    f = Math.pow(f, LOG9_2);
+
+    int temperature = 300 + (int)(f * (double)max_tmp);
+
+    return new MeltingRecipe(recipeMatch, output, temperature);
+  }
+
+  /**
+   * See fluidstack variant
+   */
+  public static MeltingRecipe forAmount(RecipeMatch recipeMatch, Fluid fluid, int timeAmount) {
+    return forAmount(recipeMatch, new FluidStack(fluid, recipeMatch.amountMatched), timeAmount);
   }
 }
