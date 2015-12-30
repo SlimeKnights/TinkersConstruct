@@ -145,6 +145,7 @@ public class TinkerSmeltery extends TinkerPulse {
     TinkerRegistry.registerEntityMelting(EntitySheep.class, new FluidStack(TinkerFluids.blood, 5));
 
     registerOredictMelting(TinkerFluids.iron, "Iron");
+    registerOredictMelting(TinkerFluids.gold, "Gold");
   }
 
   private void registerAlloys() {
