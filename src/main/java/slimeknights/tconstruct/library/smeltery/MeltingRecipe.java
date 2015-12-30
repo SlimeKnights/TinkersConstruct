@@ -58,6 +58,11 @@ public class MeltingRecipe {
     return this;
   }
 
+  public static MeltingRecipe registerFor(RecipeMatch recipeMatch, Fluid fluid) {
+    return new MeltingRecipe(recipeMatch, fluid).register();
+  }
+
+
   /**
    * Returns a meltingrecipe for the given recipematch, that returns the given fluid-output combination
    * but the temperature required for it is as if timeAmount would be returned.
