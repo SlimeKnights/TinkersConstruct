@@ -17,7 +17,7 @@ import slimeknights.tconstruct.library.materials.Material;
 
 public class SmeltingRecipeCategory implements IRecipeCategory {
 
-  public static String CATEGORY_Smeltery = Util.prefix("smeltery");
+  public static String CATEGORY = Util.prefix("smeltery");
   public static ResourceLocation background_loc = Util.getResource("textures/gui/jei/smeltery.png");
 
   private final IDrawable background;
@@ -31,7 +31,7 @@ public class SmeltingRecipeCategory implements IRecipeCategory {
   @Nonnull
   @Override
   public String getUid() {
-    return CATEGORY_Smeltery;
+    return CATEGORY;
   }
 
   @Nonnull

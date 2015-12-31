@@ -17,7 +17,7 @@ public class SmeltingRecipeHandler implements IRecipeHandler<MeltingRecipe> {
   @Nonnull
   @Override
   public String getRecipeCategoryUid() {
-    return SmeltingRecipeCategory.CATEGORY_Smeltery;
+    return SmeltingRecipeCategory.CATEGORY;
   }
 
   @Nonnull

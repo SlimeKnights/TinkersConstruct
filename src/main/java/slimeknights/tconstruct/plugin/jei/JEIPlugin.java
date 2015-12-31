@@ -46,13 +46,16 @@ public class JEIPlugin implements IModPlugin {
     // Smeltery
     if(TConstruct.pulseManager.isPulseLoaded(TinkerSmeltery.PulseId)) {
       // Smelting
-      registry.addRecipeCategories(new SmeltingRecipeCategory(guiHelper));
+      registry.addRecipeCategories(new SmeltingRecipeCategory(guiHelper),
+                                   new AlloyRecipeCategory(guiHelper));
 
-      registry.addRecipeHandlers(new SmeltingRecipeHandler());
+      registry.addRecipeHandlers(new SmeltingRecipeHandler(),
+                                 new AlloyRecipeHandler());
 
 
       // melting recipies
       registry.addRecipes(TinkerRegistry.getAllMeltingRecipies());
+      registry.addRecipes(TinkerRegistry.getAlloys());
     }
   }
 
