@@ -249,8 +249,10 @@ public class TinkerSmeltery extends TinkerPulse {
       // we only support single-liquid recipies currently :I
       if(known.keySet().size() == 1) {
         Fluid fluid = known.keySet().iterator().next();
-        int amount = known.get(fluid) * irecipe.getRecipeOutput().stackSize;
-        TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.ofNBT(irecipe.getRecipeOutput(), amount), fluid));
+        ItemStack output = irecipe.getRecipeOutput().copy();
+        int amount = known.get(fluid)/output.stackSize;
+        output.stackSize = 1;
+        TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.ofNBT(output, amount), fluid));
         log.trace("Added automatic melting recipe for %s (%d %s)", irecipe.getRecipeOutput().toString(), amount, fluid.getName());
       }
     }
