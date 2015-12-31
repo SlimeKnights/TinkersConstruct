@@ -436,6 +436,10 @@ public final class TinkerRegistry {
     return null;
   }
 
+  public static List<MeltingRecipe> getAllMeltingRecipies() {
+    return meltingRegistry;
+  }
+
   public static void registerAlloy(FluidStack result, FluidStack... inputs) {
     if(result.amount < 1) {
       error("Alloy Recipe: Resulting alloy %s has to have an amount (%d)", result.getLocalizedName(), result.amount);

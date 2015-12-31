@@ -454,3 +454,7 @@ gui.smeltery.liquid.ingot=Ingot
 gui.smeltery.liquid.nugget=Nugget
 gui.smeltery.liquid.block=Block
 gui.smeltery.liquid.gem=Gem
+
+
+# JEI Plugin
+gui.jei.smelting.title=Smelting

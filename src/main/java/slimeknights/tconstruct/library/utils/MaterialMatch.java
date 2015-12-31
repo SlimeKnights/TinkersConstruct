@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.utils;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import net.minecraft.item.ItemStack;
@@ -25,6 +26,11 @@ public class MaterialMatch extends RecipeMatch {
 
   public MaterialMatch(Material material) {
     this(material, 1, 2);
+  }
+
+  @Override
+  public List<ItemStack> getInputs() {
+    return ImmutableList.of(); // todo
   }
 
   @Override
