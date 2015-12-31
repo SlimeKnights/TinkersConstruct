@@ -498,6 +498,11 @@ public final class TinkerRegistry {
     return 0;
   }
 
+  /** Returns all registered smeltery fuels */
+  public static Collection<FluidStack> getSmelteryFuels() {
+    return smelteryFuels.keySet();
+  }
+
   public static void registerEntityMelting(Class<? extends Entity> clazz, FluidStack liquid) {
     String name = EntityList.classToStringMapping.get(clazz);
 

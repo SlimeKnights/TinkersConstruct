@@ -21,9 +21,11 @@ public class SmeltingRecipeCategory implements IRecipeCategory {
   public static ResourceLocation background_loc = Util.getResource("textures/gui/jei/smeltery.png");
 
   private final IDrawable background;
+  private final IDrawable tankOverlay;
 
   public SmeltingRecipeCategory(IGuiHelper guiHelper) {
     background = guiHelper.createDrawable(background_loc, 0, 0, 160, 60, 0, 0, 0, 0);
+    tankOverlay = guiHelper.createDrawable(background_loc, 160, 0, 18, 18);
   }
 
   @Nonnull
@@ -57,15 +59,18 @@ public class SmeltingRecipeCategory implements IRecipeCategory {
   @Override
   public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
     IGuiItemStackGroup items = recipeLayout.getItemStacks();
-    items.init(0, true, 27, 21);
+    items.init(0, true, 27, 20);
     items.setFromRecipe(0, recipeWrapper.getInputs());
 
     if(recipeWrapper instanceof SmelteryRecipeWrapper) {
       SmelteryRecipeWrapper recipe = (SmelteryRecipeWrapper) recipeWrapper;
 
       IGuiFluidStackGroup fluids = recipeLayout.getFluidStacks();
-      fluids.init(0, true, 115, 6, 18, 32, Material.VALUE_Block, null);
+      fluids.init(0, false, 115, 6, 18, 32, Material.VALUE_Block, null);
       fluids.set(0, recipe.outputs);
+
+      fluids.init(1, false, 72, 38, 16, 16, 1000, tankOverlay);
+      fluids.set(1, recipe.fuels);
     }
   }
 }
