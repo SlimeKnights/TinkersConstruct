@@ -6,7 +6,7 @@ import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 
-public class SmelteryRecipeHandler implements IRecipeHandler<MeltingRecipe> {
+public class SmeltingRecipeHandler implements IRecipeHandler<MeltingRecipe> {
 
   @Nonnull
   @Override
@@ -23,7 +23,7 @@ public class SmelteryRecipeHandler implements IRecipeHandler<MeltingRecipe> {
   @Nonnull
   @Override
   public IRecipeWrapper getRecipeWrapper(@Nonnull MeltingRecipe recipe) {
-    return new SmelteryRecipeWrapper(recipe);
+    return new SmeltingRecipeWrapper(recipe);
   }
 
   @Override

@@ -15,14 +15,14 @@ import mezz.jei.api.recipe.BlankRecipeWrapper;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 
-public class SmelteryRecipeWrapper extends BlankRecipeWrapper {
+public class SmeltingRecipeWrapper extends BlankRecipeWrapper {
 
   protected final List<ItemStack> inputs;
   protected final List<FluidStack> outputs;
   protected final int temperature;
   protected final List<FluidStack> fuels;
 
-  public SmelteryRecipeWrapper(MeltingRecipe recipe) {
+  public SmeltingRecipeWrapper(MeltingRecipe recipe) {
     this.inputs = recipe.input.getInputs();
     this.outputs = ImmutableList.of(recipe.getResult());
     this.temperature = recipe.getTemperature();

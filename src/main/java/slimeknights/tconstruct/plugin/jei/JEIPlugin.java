@@ -48,7 +48,7 @@ public class JEIPlugin implements IModPlugin {
       // Smelting
       registry.addRecipeCategories(new SmeltingRecipeCategory(guiHelper));
 
-      registry.addRecipeHandlers(new SmelteryRecipeHandler());
+      registry.addRecipeHandlers(new SmeltingRecipeHandler());
 
 
       // melting recipies
