@@ -146,6 +146,9 @@ public class TinkerSmeltery extends TinkerPulse {
 
     registerOredictMelting(TinkerFluids.iron, "Iron");
     registerOredictMelting(TinkerFluids.gold, "Gold");
+    registerOredictMelting(TinkerFluids.cobalt, "Cobalt");
+    registerOredictMelting(TinkerFluids.ardite, "Ardite");
+    registerOredictMelting(TinkerFluids.manyullyn, "Manyullyn");
   }
 
   private void registerAlloys() {
@@ -169,7 +172,7 @@ public class TinkerSmeltery extends TinkerPulse {
 
     // register oredicts
     for(Pair<String, Integer> pair : knownOres) {
-      TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of(pair.getLeft(), pair.getRight()), fluid, pair.getRight()));
+      TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(pair.getLeft(), pair.getRight()), fluid));
       builder.add(Pair.of(OreDictionary.getOres(pair.getLeft()), pair.getRight()));
     }
 

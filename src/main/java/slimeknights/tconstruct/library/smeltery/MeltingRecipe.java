@@ -22,7 +22,7 @@ public class MeltingRecipe {
   }
 
   public MeltingRecipe(RecipeMatch input, FluidStack output) {
-    this(input, output, output.getFluid().getTemperature(output));
+    this(input, output, calcTemperature(output.getFluid().getTemperature(output), input.amountMatched));
   }
 
   public MeltingRecipe(RecipeMatch input, Fluid output, int temperature) {
@@ -58,19 +58,9 @@ public class MeltingRecipe {
     return this;
   }
 
-  public static MeltingRecipe registerFor(RecipeMatch recipeMatch, Fluid fluid) {
-    return new MeltingRecipe(recipeMatch, fluid).register();
-  }
-
-
-  /**
-   * Returns a meltingrecipe for the given recipematch, that returns the given fluid-output combination
-   * but the temperature required for it is as if timeAmount would be returned.
-   */
-  public static MeltingRecipe forAmount(RecipeMatch recipeMatch, FluidStack output, int timeAmount) {
+  private static int calcTemperature(int temp, int timeAmount) {
     int base = Material.VALUE_Block;
-    int max_tmp = Math.max(0, output.getFluid().getTemperature() - 300); // we use 0 as baseline, not 300
-
+    int max_tmp = Math.max(0, temp - 300); // we use 0 as baseline, not 300
     double f = (double)timeAmount/(double)base;
 
     // we calculate 2^log9(f), which effectively gives us 2^(1 for each multiple of 9)
@@ -78,9 +68,19 @@ public class MeltingRecipe {
     // we simplify it to f^log9(2) to make calculation simpler
     f = Math.pow(f, LOG9_2);
 
-    int temperature = 300 + (int)(f * (double)max_tmp);
+    return 300 + (int)(f * (double)temp);
+  }
 
-    return new MeltingRecipe(recipeMatch, output, temperature);
+  public static MeltingRecipe registerFor(RecipeMatch recipeMatch, Fluid fluid) {
+    return new MeltingRecipe(recipeMatch, fluid).register();
+  }
+
+  /**
+   * Returns a meltingrecipe for the given recipematch, that returns the given fluid-output combination
+   * but the temperature required for it is as if timeAmount would be returned.
+   */
+  public static MeltingRecipe forAmount(RecipeMatch recipeMatch, FluidStack output, int timeAmount) {
+    return new MeltingRecipe(recipeMatch, output, calcTemperature(output.getFluid().getTemperature(), timeAmount));
   }
 
   /**
