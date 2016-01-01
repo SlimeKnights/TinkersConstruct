@@ -35,6 +35,8 @@ public class BlockFaucet extends BlockContainer {
     super(Material.rock);
 
     setCreativeTab(TinkerRegistry.tabSmeltery);
+    setHardness(3F);
+    setResistance(20F);
   }
 
   @Override
