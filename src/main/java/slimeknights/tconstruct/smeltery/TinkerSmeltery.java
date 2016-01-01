@@ -6,6 +6,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -83,6 +84,8 @@ public class TinkerSmeltery extends TinkerPulse {
 
   private static Map<Fluid, Set<Pair<List<ItemStack>, Integer>>> knownOreFluids = Maps.newHashMap();
 
+  public static ImmutableSet<Block> validSmelteryBlocks;
+
   // PRE-INITIALIZATION
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
@@ -112,6 +115,13 @@ public class TinkerSmeltery extends TinkerPulse {
     MinecraftForge.EVENT_BUS.register(bucket);
 
     TinkerRegistry.tabSmeltery.setDisplayIcon(new ItemStack(searedTank));
+
+    ImmutableSet.Builder<Block> builder = ImmutableSet.builder();
+    builder.add(searedBlock);
+    builder.add(searedTank);
+    builder.add(smelteryIO);
+
+    validSmelteryBlocks = builder.build();
   }
 
   // INITIALIZATION

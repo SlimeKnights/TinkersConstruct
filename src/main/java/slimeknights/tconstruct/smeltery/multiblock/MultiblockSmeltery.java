@@ -58,9 +58,7 @@ public class MultiblockSmeltery extends MultiblockCuboid {
       return true;
     }
 
-    // todo: isDrain or something
-
-    return state.getBlock() == TinkerSmeltery.searedBlock;
+    return TinkerSmeltery.validSmelteryBlocks.contains(state.getBlock());
   }
 
   @Override
