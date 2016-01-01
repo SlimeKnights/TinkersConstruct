@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.common.CommonProxy;
@@ -51,6 +52,7 @@ import slimeknights.tconstruct.smeltery.block.BlockSeared;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
 import slimeknights.tconstruct.smeltery.block.BlockTank;
 import slimeknights.tconstruct.smeltery.item.UniversalBucket;
+import slimeknights.tconstruct.smeltery.tileentity.TileCastingBasin;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingTable;
 import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
@@ -86,13 +88,16 @@ public class TinkerSmeltery extends TinkerPulse {
     smelteryController = registerBlock(new BlockSmelteryController(), "smeltery_controller");
     searedTank = registerEnumBlock(new BlockTank(), "seared_tank");
     faucet = registerBlock(new BlockFaucet(), "faucet");
-    castingBlock = registerBlock(new BlockCasting(), "casting");
+    castingBlock = registerBlock(new BlockCasting(), ItemBlockMeta.class,"casting");
+
+    ItemBlockMeta.setMappingProperty(castingBlock, BlockCasting.TYPE);
 
     registerTE(TileSmeltery.class, "smeltery_controller");
     registerTE(TileSmelteryComponent.class, "smeltery_component");
     registerTE(TileTank.class, "tank");
     registerTE(TileFaucet.class, "faucet");
     registerTE(TileCastingTable.class, "casting_table");
+    registerTE(TileCastingBasin.class, "casting_basin");
 
     cast = registerItem(new Pattern(), "cast");
     cast.setCreativeTab(TinkerRegistry.tabSmeltery);

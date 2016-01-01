@@ -25,7 +25,7 @@ public class BlockMetal extends EnumBlock<BlockMetal.MetalTypes> {
     MANYULLYN,
     KNIGHTSLIME;
 
-    public  final int meta;
+    public final int meta;
 
     MetalTypes() {
       meta = ordinal();
