@@ -45,10 +45,12 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.shared.TinkerFluids;
+import slimeknights.tconstruct.smeltery.block.BlockFaucet;
 import slimeknights.tconstruct.smeltery.block.BlockSeared;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
 import slimeknights.tconstruct.smeltery.block.BlockTank;
 import slimeknights.tconstruct.smeltery.item.UniversalBucket;
+import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
@@ -66,6 +68,7 @@ public class TinkerSmeltery extends TinkerPulse {
   public static BlockSeared searedBlock;
   public static BlockSmelteryController smelteryController;
   public static BlockTank searedTank;
+  public static BlockFaucet faucet;
 
   // Items
   public static Pattern cast;
@@ -79,10 +82,12 @@ public class TinkerSmeltery extends TinkerPulse {
     searedBlock = registerEnumBlock(new BlockSeared(), "seared");
     smelteryController = registerBlock(new BlockSmelteryController(), "smeltery_controller");
     searedTank = registerEnumBlock(new BlockTank(), "seared_tank");
+    faucet = registerBlock(new BlockFaucet(), "faucet");
 
     registerTE(TileSmeltery.class, "smeltery_controller");
     registerTE(TileSmelteryComponent.class, "smeltery_component");
-    registerTE(TileTank.class, "smeltery_tank");
+    registerTE(TileTank.class, "tank");
+    registerTE(TileFaucet.class, "faucet");
 
     cast = registerItem(new Pattern(), "cast");
     cast.setCreativeTab(TinkerRegistry.tabSmeltery);

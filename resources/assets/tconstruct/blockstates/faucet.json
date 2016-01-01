@@ -1,0 +1,23 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block",
+        "model": "tconstruct:faucet"
+    },
+	"variants": {
+        "facing": {
+            "up": { y: 0 },
+            "north": { y: 180 },
+            "east":  { y: 270 },
+            "south": { y: 0 },
+            "west":  { y: 90 }
+        },
+        "inventory": {
+            "model": "tconstruct:faucet",
+            "transform": {
+                "translation": [-0.25, -0.25, -0.25],
+                "scale": [1.5, 1.5, 1.5]
+            }
+        }
+    }
+}

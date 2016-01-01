@@ -37,6 +37,7 @@ public class SmelteryClientProxy extends ClientProxy {
   protected void registerModels() {
     // Blocks
     registerItemModel(Item.getItemFromBlock(TinkerSmeltery.smelteryController));
+    registerItemModel(Item.getItemFromBlock(TinkerSmeltery.faucet));
 
     // TEs
     ClientRegistry.bindTileEntitySpecialRenderer(TileTank.class, new TankRenderer());
