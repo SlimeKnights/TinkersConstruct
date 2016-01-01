@@ -1,7 +1,8 @@
 # Model is facing South (as in: the block it's connected to is south of it)
 {
     "textures": {
-        "tex": "tconstruct:blocks/smeltery/faucet"
+        "tex": "tconstruct:blocks/smeltery/seared_paver",
+        "particle": "tconstruct:blocks/smeltery/seared_paver"
     },
 	"elements": [
 		{
