@@ -8,9 +8,60 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.fluids.IFluidHandler;
 
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+
 public class FluidUtil {
 
   private FluidUtil() {}
+
+  public static boolean interactWithTank(ItemStack stack, EntityPlayer player, IFluidHandler tank, EnumFacing side) {
+    if(stack == null) {
+      return false;
+    }
+
+    ItemStack result;
+
+    // regular bucket?
+    if((result = FluidUtil.tryFillBucket(stack, tank, side)) != null ||
+       (result = FluidUtil.tryEmptyBucket(stack, tank, side)) != null) {
+      // "use up" the input item if the player is not in creative
+      if(!player.capabilities.isCreativeMode) {
+        player.inventory.decrStackSize(player.inventory.currentItem, 1);
+        giveItemToPlayer(result, player);
+      }
+      return true;
+    }
+    // IFluidContainerItems
+    else {
+      // copy of the original item for creative mode
+      ItemStack copy = null;
+      boolean changedBucket = false;
+      if(player.capabilities.isCreativeMode && stack != null) {
+        copy = stack.copy();
+      }
+      // convert to fluidcontainer-bucket if it's a regular empty bucket
+      if(ItemStack.areItemsEqual(stack, FluidContainerRegistry.EMPTY_BUCKET)) {
+        stack = new ItemStack(TinkerSmeltery.bucket);
+        changedBucket = true;
+      }
+
+      // try filling an empty fluidcontainer or emptying a filled fluidcontainer
+      if(FluidUtil.tryFillFluidContainerItem(stack, tank, side, player) ||
+         FluidUtil.tryEmptyFluidContainerItem(stack, tank, side)) {
+        if(player.capabilities.isCreativeMode) {
+          // reset the stack that got modified
+          player.inventory.setInventorySlotContents(player.inventory.currentItem, copy);
+        }
+        else if(changedBucket) {
+          // replace the original bucket with the new one
+          player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
+        }
+        return true;
+      }
+    }
+
+    return false;
+  }
 
   /**
    * Fill an empty bucket from the given tank.
@@ -128,14 +179,7 @@ public class FluidUtil {
         // decrease its stacksize to accommodate the filled one (it was >1 from the check above)
         container.stackSize--;
 
-        // add it to the players inventory
-        if(player.inventory.addItemStackToInventory(toFill)) {
-          player.worldObj.playSoundAtEntity(player, "random.pop", 0.2F, ((player.getRNG().nextFloat() - player.getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
-        }
-        else {
-          // couldn't be added, drop in world
-          player.dropPlayerItemWithRandomChoice(toFill, false);
-        }
+        giveItemToPlayer(toFill, player);
       }
 
       return true;
@@ -178,5 +222,19 @@ public class FluidUtil {
     }
 
     return false;
+  }
+
+  private static void giveItemToPlayer(ItemStack stack, EntityPlayer player) {
+    if(stack == null) {
+      return;
+    }
+    // add it to the players inventory
+    if(player.inventory.addItemStackToInventory(stack)) {
+      player.worldObj.playSoundAtEntity(player, "random.pop", 0.2F, ((player.getRNG().nextFloat() - player.getRNG().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+    }
+    else {
+      // couldn't be added, drop in world
+      player.dropPlayerItemWithRandomChoice(stack, false);
+    }
   }
 }

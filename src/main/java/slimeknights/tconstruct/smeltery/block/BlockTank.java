@@ -14,6 +14,7 @@ import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
@@ -78,33 +79,12 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
     side = side.getOpposite();
 
     ItemStack stack = playerIn.getHeldItem();
-    ItemStack result = null;
-
-    // empty bucket?
-    result = FluidUtil.tryFillBucket(stack, tank, side);
-    // filled bucket?
-    if(result == null) {
-      result = FluidUtil.tryEmptyBucket(stack, tank, side);
-    }
-    // empty fluid container?
-    if(result == null) {
-      // convert to fluidcontainer-bucket if it's a regular empty bucket
-      if(ItemStack.areItemsEqual(stack, FluidContainerRegistry.EMPTY_BUCKET)) {
-        stack = new ItemStack(TinkerSmeltery.bucket);
-      }
-      if(FluidUtil.tryFillFluidContainerItem(stack, tank, side, playerIn)) {
-        result = stack;
-      }
-    }
-    if(result == null && FluidUtil.tryEmptyFluidContainerItem(stack, tank, side)) {
-      result = stack;
+    if(stack == null) {
+      return false;
     }
 
-    if(result != null) {
-      if(!playerIn.capabilities.isCreativeMode) {
-        playerIn.inventory.decrStackSize(playerIn.inventory.currentItem, 1);
-        PlayerHelper.spawnItemAtPlayer(playerIn, result);
-      }
+    // do the thing with the tank and the buckets
+    if(FluidUtil.interactWithTank(stack, playerIn, tank, side)) {
       return true;
     }
 
