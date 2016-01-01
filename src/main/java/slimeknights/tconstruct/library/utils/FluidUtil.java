@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.fluids.IFluidHandler;
 
@@ -71,8 +72,9 @@ public class FluidUtil {
    * @return The filled bucket or null if the liquid couldn't be taken from the tank.
    */
   public static ItemStack tryFillBucket(ItemStack bucket, IFluidHandler tank, EnumFacing side) {
+    FluidTankInfo[] info = tank.getTankInfo(side);
     // check for fluid in the tank
-    if(tank.getTankInfo(side) == null) {
+    if(info == null || info.length == 0) {
       return null;
     }
     // check if we actually have an empty bucket
@@ -80,7 +82,7 @@ public class FluidUtil {
       return null;
     }
     // fluid in the tank
-    FluidStack inTank = tank.getTankInfo(side)[0].fluid;
+    FluidStack inTank = info[0].fluid;
     // drain one bucket if possible
     FluidStack liquid = tank.drain(side, FluidContainerRegistry.getContainerCapacity(inTank, bucket), false);
     if(liquid != null && liquid.amount > 0) {
