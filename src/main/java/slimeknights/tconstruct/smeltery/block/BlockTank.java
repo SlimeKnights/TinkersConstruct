@@ -24,6 +24,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.common.PlayerHelper;
+import slimeknights.tconstruct.library.utils.FluidUtil;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 
@@ -74,95 +75,29 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
       return false;
     }
     IFluidHandler tank = (IFluidHandler) te;
-    FluidTankInfo[] info = tank.getTankInfo(side);
-    FluidStack inTank = null;
-    int capacityLeft = 0;
-    if(info.length > 0) {
-      inTank = info[0].fluid;
-      capacityLeft = info[0].capacity;
-      if(inTank != null) {
-        capacityLeft -= inTank.amount;
-      }
-    }
-
     side = side.getOpposite();
 
     ItemStack stack = playerIn.getHeldItem();
     ItemStack result = null;
+
     // empty bucket?
-    if(FluidContainerRegistry.isEmptyContainer(stack)) {
-      FluidStack liquid = tank.drain(side, FluidContainerRegistry.getContainerCapacity(inTank, stack), false);
-      if(liquid != null && liquid.amount > 0) {
-        tank.drain(side, FluidContainerRegistry.getContainerCapacity(liquid, stack), true);
-        result = FluidContainerRegistry.fillFluidContainer(liquid, stack);
-      }
-      else if(stack.getItem() == Items.bucket) {
-        // replace the input bucket with an empty universal bucket
+    result = FluidUtil.tryFillBucket(stack, tank, side);
+    // filled bucket?
+    if(result == null) {
+      result = FluidUtil.tryEmptyBucket(stack, tank, side);
+    }
+    // empty fluid container?
+    if(result == null) {
+      // convert to fluidcontainer-bucket if it's a regular empty bucket
+      if(ItemStack.areItemsEqual(stack, FluidContainerRegistry.EMPTY_BUCKET)) {
         stack = new ItemStack(TinkerSmeltery.bucket);
       }
-    }
-    // filled bucket?
-    else if(FluidContainerRegistry.isFilledContainer(stack)) {
-      FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(stack);
-      if(tank.canFill(side, liquid.getFluid())) {
-        // how much can we put into the tank?
-        int amount = tank.fill(side, liquid, false);
-        // not everything?
-        if(amount == liquid.amount) {
-          tank.fill(side, liquid, true);
-          result = FluidContainerRegistry.drainFluidContainer(stack);
-        }
-      }
-      else {
-        // prevent placing liquids
-        return true;
+      if(FluidUtil.tryFillFluidContainerItem(stack, tank, side, playerIn)) {
+        result = stack;
       }
     }
-
-    // filled fluid container?
-    if(result == null && stack.getItem() instanceof IFluidContainerItem) {
-      IFluidContainerItem fluidContainer = (IFluidContainerItem) stack.getItem();
-
-      // empty container
-      if(fluidContainer.getFluid(stack) == null) {
-        FluidStack liquid = tank.drain(side, fluidContainer.getCapacity(stack), false);
-        if(liquid != null && liquid.amount > 0) {
-          ItemStack toFill = stack.copy();
-          toFill.stackSize = 1;
-
-          int filled = fluidContainer.fill(toFill, liquid, true);
-          tank.drain(side, filled, true);
-
-          // only 1 item that got filled, replace it
-          if(stack.stackSize == 1) {
-            result = toFill;
-          }
-          else {
-            // had multiple empty items, drop it at the player and keep the decreased stack
-            PlayerHelper.spawnItemAtPlayer(playerIn, toFill);
-            stack.stackSize--;
-            result = stack;
-          }
-        }
-      }
-      // filled container
-      else {
-        // try draining
-        FluidStack drained = fluidContainer.drain(stack, capacityLeft, false);
-        if(drained != null && drained.amount <= capacityLeft) {
-          // do the drain
-          int amount = tank.fill(side, drained, true);
-          if(amount > 0) {
-            fluidContainer.drain(stack, amount, true);
-            // emptying the container should be handled by .drain
-            result = stack;
-          }
-          else {
-            // prevent interaction
-            return true;
-          }
-        }
-      }
+    if(result == null && FluidUtil.tryEmptyFluidContainerItem(stack, tank, side)) {
+      result = stack;
     }
 
     if(result != null) {
@@ -173,7 +108,8 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
       return true;
     }
 
-    return false;
+    // prevent interaction of the item if it's a fluidcontainer. Prevents placing liquids when interacting with the tank
+    return FluidContainerRegistry.isFilledContainer(stack) || stack.getItem() instanceof IFluidContainerItem;
   }
 
   @Override
