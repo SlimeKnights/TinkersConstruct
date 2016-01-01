@@ -30,7 +30,7 @@ public class BlockSeared extends BlockEnumSmeltery<BlockSeared.SearedType> {
     ROAD,
     CREEPER;
 
-    public  final int meta;
+    public final int meta;
 
     SearedType() {
       meta = ordinal();

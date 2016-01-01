@@ -16,9 +16,16 @@ import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 
 public class BlockEnumSmeltery<T extends Enum<T> & EnumBlock.IEnumMeta & IStringSerializable> extends EnumBlock<T> implements ITileEntityProvider {
 
+  public BlockEnumSmeltery(PropertyEnum<T> prop, Class<T> clazz) {
+    this(Material.rock, prop, clazz);
+  }
+
   public BlockEnumSmeltery(Material material, PropertyEnum<T> prop, Class<T> clazz) {
     super(material, prop, clazz);
 
+    setHardness(3F);
+    setResistance(20F);
+    setStepSound(soundTypeMetal);
     this.setCreativeTab(TinkerRegistry.tabSmeltery);
     this.isBlockContainer = true; // has TE
   }

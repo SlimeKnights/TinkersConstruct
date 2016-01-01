@@ -37,6 +37,7 @@ public class BlockFaucet extends BlockContainer {
     setCreativeTab(TinkerRegistry.tabSmeltery);
     setHardness(3F);
     setResistance(20F);
+    setStepSound(soundTypeMetal);
   }
 
   @Override

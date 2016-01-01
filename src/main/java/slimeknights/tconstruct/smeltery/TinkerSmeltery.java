@@ -50,6 +50,7 @@ import slimeknights.tconstruct.smeltery.block.BlockCasting;
 import slimeknights.tconstruct.smeltery.block.BlockFaucet;
 import slimeknights.tconstruct.smeltery.block.BlockSeared;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
+import slimeknights.tconstruct.smeltery.block.BlockSmelteryIO;
 import slimeknights.tconstruct.smeltery.block.BlockTank;
 import slimeknights.tconstruct.smeltery.item.UniversalBucket;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingBasin;
@@ -74,6 +75,7 @@ public class TinkerSmeltery extends TinkerPulse {
   public static BlockTank searedTank;
   public static BlockFaucet faucet;
   public static BlockCasting castingBlock;
+  public static BlockSmelteryIO smelteryIO;
 
   // Items
   public static Pattern cast;
@@ -89,6 +91,7 @@ public class TinkerSmeltery extends TinkerPulse {
     searedTank = registerEnumBlock(new BlockTank(), "seared_tank");
     faucet = registerBlock(new BlockFaucet(), "faucet");
     castingBlock = registerBlock(new BlockCasting(), ItemBlockMeta.class,"casting");
+    smelteryIO = registerEnumBlock(new BlockSmelteryIO(), "smeltery_io");
 
     ItemBlockMeta.setMappingProperty(castingBlock, BlockCasting.TYPE);
 

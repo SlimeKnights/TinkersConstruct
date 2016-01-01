@@ -33,7 +33,6 @@ public class BlockCasting extends BlockInventory {
     setHardness(3F);
     setResistance(20F);
     setCreativeTab(TinkerRegistry.tabSmeltery);
-
   }
 
   @SideOnly(Side.CLIENT)
