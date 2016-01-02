@@ -9,6 +9,7 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
@@ -65,6 +66,77 @@ public class BlockFaucet extends BlockContainer {
    */
   public int getMetaFromState(IBlockState state) {
     return state.getValue(FACING).ordinal();
+  }
+
+  @Override
+  public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
+    EnumFacing facing = worldIn.getBlockState(pos).getValue(FACING);
+
+    float xMin = 0.25F;
+    float xMax = 0.75F;
+    float zMin = 0.25F;
+    float zMax = 0.75F;
+    float yMin = 0.25F;
+    float yMax = 0.625F;
+
+    switch(facing) {
+      case UP:
+        yMin = 0.625F;
+        yMax = 1.0F;
+      case SOUTH:
+        zMin = 0.625F;
+        zMax = 1.0F;
+        break;
+      case NORTH:
+        zMax = 0.375F;
+        zMin = 0F;
+        break;
+      case EAST:
+        xMin = 0.625F;
+        xMax = 1.0F;
+        break;
+      case WEST:
+        xMax = 0.375F;
+        xMin = 0F;
+        break;
+    }
+
+    this.setBlockBounds(xMin, yMin, zMin, xMax, yMax, zMax);
+  }
+
+  @Override
+  public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
+    float xMin = 0.25F;
+    float xMax = 0.75F;
+    float zMin = 0.25F;
+    float zMax = 0.75F;
+    float yMin = 0.25F;
+    float yMax = 0.625F;
+
+    switch(state.getValue(FACING)) {
+      case UP:
+        yMin = 0.625F;
+        yMax = 1.0F;
+      case SOUTH:
+        zMin = 0.625F;
+        zMax = 1.0F;
+        break;
+      case NORTH:
+        zMax = 0.375F;
+        zMin = 0F;
+        break;
+      case EAST:
+        xMin = 0.625F;
+        xMax = 1.0F;
+        break;
+      case WEST:
+        xMax = 0.375F;
+        xMin = 0F;
+        break;
+    }
+
+    return AxisAlignedBB.fromBounds(pos.getX() + xMin, pos.getY() + yMin, pos.getZ() + zMin,
+                                    pos.getX() + xMax, pos.getY() + yMax, pos.getZ() + zMax);
   }
 
   @Override
