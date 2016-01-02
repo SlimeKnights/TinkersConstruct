@@ -62,24 +62,13 @@ public class TinkerOredict {
     oredict(matSlimeBallPurple, dict, dict + "Purple");
     oredict(matSlimeBallBlood,  dict, dict + "Blood");
 
-    dict = "ingot";
-    oredict(ingotCobalt,      dict + "Cobalt");
-    oredict(ingotArdite,      dict + "Ardite");
-    oredict(ingotManyullyn,   dict + "Manyullyn");
-    oredict(ingotKnightSlime, dict + "Knightslime");
+    oredictNIB(nuggetCobalt,      ingotCobalt,      blockCobalt,      "Cobalt");
+    oredictNIB(nuggetArdite,      ingotArdite,      blockArdite,      "Ardite");
+    oredictNIB(nuggetManyullyn,   ingotManyullyn,   blockManyullyn,   "Manyullyn");
+    oredictNIB(nuggetKnightSlime, ingotKnightSlime, blockKnightSlime, "Knightslime");
+    oredictNIB(nuggetPigIron,     ingotPigIron,     blockPigIron,     "Pigiron");
 
-    dict = "nugget";
-    oredict(nuggetCobalt,      dict + "Cobalt");
-    oredict(nuggetArdite,      dict + "Ardite");
-    oredict(nuggetManyullyn,   dict + "Manyullyn");
-    oredict(nuggetKnightSlime, dict + "Knightslime");
-
-    dict = "block";
     String metal = "blockMetal";
-    oredict(blockCobalt,      dict + "Cobalt", metal);
-    oredict(blockArdite,      dict + "Ardite", metal);
-    oredict(blockManyullyn,   dict + "Manyullyn", metal);
-    oredict(blockKnightSlime, dict + "Knightslime", metal);
     oredict(new ItemStack(Blocks.iron_block), metal);
     oredict(new ItemStack(Blocks.gold_block), metal);
 
@@ -93,6 +82,13 @@ public class TinkerOredict {
     oredict(oreCobalt, "oreCobalt");
     oredict(oreArdite, "oreArdite");
   }
+
+  private static void oredictNIB(ItemStack nugget, ItemStack ingot, ItemStack block, String oreSuffix) {
+    oredict(nugget, "nugget" + oreSuffix);
+    oredict(ingot,  "ingot"  + oreSuffix);
+    oredict(block,  "block"  + oreSuffix);
+  }
+
 
   private static void registerTools() {
     // TinkerTools Pulse

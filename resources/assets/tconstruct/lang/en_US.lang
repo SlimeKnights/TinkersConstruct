@@ -28,6 +28,7 @@ tile.tconstruct.metal.cobalt.name=Block of Cobalt
 tile.tconstruct.metal.ardite.name=Block of Ardite
 tile.tconstruct.metal.manyullyn.name=Block of Manyullyn
 tile.tconstruct.metal.knightslime.name=Block of Knightslime
+tile.tconstruct.metal.pigiron.name=Block of Pigiron
 
 tile.tconstruct.slime.green.name=Green Slime Block
 tile.tconstruct.slime.blue.name=Blue Slime Block
@@ -131,11 +132,14 @@ item.tconstruct.ingots.ardite.name=Ardite Ingot
 item.tconstruct.ingots.manyullyn.name=Manyullyn Ingot
 item.tconstruct.ingots.knightslime.name=Knightslime Ingot
 item.tconstruct.ingots.knightslime.tooltip=Slimy yet metallic but also stone? Fascinating!
+item.tconstruct.ingots.pigiron.name=Pigiron Ingot
+item.tconstruct.ingots.pigiron.tooltip=Oink!
 
 item.tconstruct.nuggets.cobalt.name=Cobalt Nugget
 item.tconstruct.nuggets.ardite.name=Ardite Nugget
 item.tconstruct.nuggets.manyullyn.name=Manyullyn Nugget
 item.tconstruct.nuggets.knightslime.name=Knightslime Nugget
+item.tconstruct.nuggets.pigiron.name=Pigiron Nugget
 
 item.tconstruct.pattern.blank=Blank Pattern
 item.tconstruct.pattern.name=Pattern: %s

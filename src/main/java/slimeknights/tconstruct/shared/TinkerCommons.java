@@ -54,6 +54,7 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack blockCobalt;
   public static ItemStack blockArdite;
   public static ItemStack blockManyullyn;
+  public static ItemStack blockPigIron;
   public static ItemStack blockKnightSlime;
 
   public static ItemMetaDynamic nuggets;
@@ -66,12 +67,14 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack nuggetCobalt;
   public static ItemStack nuggetArdite;
   public static ItemStack nuggetManyullyn;
+  public static ItemStack nuggetPigIron;
   public static ItemStack nuggetKnightSlime;
 
   // Ingot Itemstacks
   public static ItemStack ingotCobalt;
   public static ItemStack ingotArdite;
   public static ItemStack ingotManyullyn;
+  public static ItemStack ingotPigIron;
   public static ItemStack ingotKnightSlime;
 
   // Material Itemstacks
@@ -149,6 +152,13 @@ public class TinkerCommons extends TinkerPulse {
       blockArdite = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.ARDITE.getMeta());
       blockManyullyn = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.MANYULLYN.getMeta());
       blockKnightSlime = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.KNIGHTSLIME.getMeta());
+
+      // smeltery only
+      if(isSmelteryLoaded()) {
+        nuggetPigIron = nuggets.addMeta(4, "pigiron");
+        ingotPigIron = ingots.addMeta(4, "pigiron");
+        blockPigIron = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.PIGIRON.getMeta());
+      }
     }
 
     // Materials
@@ -180,6 +190,7 @@ public class TinkerCommons extends TinkerPulse {
     registerMetalRecipes("Ardite", ingotArdite, nuggetArdite, blockArdite);
     registerMetalRecipes("Manyullyn", ingotManyullyn, nuggetManyullyn, blockManyullyn);
     registerMetalRecipes("Knightslime", ingotKnightSlime, nuggetKnightSlime, blockKnightSlime);
+    registerMetalRecipes("Pigiron", ingotPigIron, nuggetPigIron, blockPigIron);
   }
 
   private void registerMetalRecipes(String oreString, ItemStack ingot, ItemStack nugget, ItemStack block) {
