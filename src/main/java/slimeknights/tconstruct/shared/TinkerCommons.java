@@ -210,6 +210,6 @@ public class TinkerCommons extends TinkerPulse {
 
   @Subscribe
   public void init(FMLInitializationEvent event) {
-    GameRegistry.registerWorldGenerator(new NetherOreGenerator(), 0);
+    GameRegistry.registerWorldGenerator(NetherOreGenerator.INSTANCE, 0);
   }
 }

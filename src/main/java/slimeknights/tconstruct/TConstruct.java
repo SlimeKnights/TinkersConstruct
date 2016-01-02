@@ -122,7 +122,5 @@ public class TConstruct {
       ClientProxy.initRenderer();
     }
 
-    // prevents tools from despawning
-    MinecraftForge.EVENT_BUS.register(IndestructibleEntityItem.EventHandler.instance);
   }
 }

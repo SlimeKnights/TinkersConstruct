@@ -22,6 +22,8 @@ import slimeknights.tconstruct.world.block.BlockSlimeVine;
 
 public class SlimeIslandGenerator implements IWorldGenerator {
 
+  public static SlimeIslandGenerator INSTANCE = new SlimeIslandGenerator();
+
   // defines the jaggedness of the surface/bottom
   protected int randomness = 1; // 2% chance to have an abnormality in the surface
 
@@ -59,7 +61,12 @@ public class SlimeIslandGenerator implements IWorldGenerator {
   }
 
   protected boolean shouldGenerateInDimension(int id) {
-    return id != 1 && id != -1;
+    for(int dim : Config.slimeIslandBlacklist) {
+      if(dim == id) {
+        return false;
+      }
+    }
+    return true;
   }
 
   @Override

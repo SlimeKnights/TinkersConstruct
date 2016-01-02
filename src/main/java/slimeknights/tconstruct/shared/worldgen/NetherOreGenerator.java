@@ -17,6 +17,8 @@ import slimeknights.tconstruct.shared.block.BlockOre;
 
 public class NetherOreGenerator implements IWorldGenerator {
 
+  public static NetherOreGenerator INSTANCE = new NetherOreGenerator();
+
   public WorldGenMinable cobaltGen;
   public WorldGenMinable arditeGen;
 

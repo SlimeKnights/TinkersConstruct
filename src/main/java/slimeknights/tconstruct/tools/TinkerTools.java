@@ -473,6 +473,8 @@ public class TinkerTools extends TinkerPulse {
 
     proxy.postInit();
 
+    // prevents tools from despawning
+    MinecraftForge.EVENT_BUS.register(IndestructibleEntityItem.EventHandler.instance);
     MinecraftForge.EVENT_BUS.register(new TraitEvents());
     MinecraftForge.EVENT_BUS.register(new ToolEvents());
     MinecraftForge.EVENT_BUS.register(battleSign); // battlesign events

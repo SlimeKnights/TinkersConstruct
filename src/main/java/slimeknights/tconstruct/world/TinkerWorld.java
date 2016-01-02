@@ -150,7 +150,7 @@ public class TinkerWorld extends TinkerPulse {
   // POST-INITIALIZATION
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
-    GameRegistry.registerWorldGenerator(new SlimeIslandGenerator(), 5);
+    GameRegistry.registerWorldGenerator(SlimeIslandGenerator.INSTANCE, 5);
     for(BiomeGenBase biome : BiomeGenBase.getBiomeGenArray()) {
       if(biome == null || biome == BiomeGenBase.hell || biome == BiomeGenBase.sky) {
         continue;
