@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import java.util.List;
 
 import slimeknights.mantle.item.ItemBlockMeta;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 
 public class ItemBlockTable extends ItemBlockMeta {
@@ -26,6 +27,10 @@ public class ItemBlockTable extends ItemBlockMeta {
     ItemStack legs = ItemStack.loadItemStackFromNBT(tag);
     if(legs != null && legs.getItem() != null) {
       tooltip.add(legs.getDisplayName());
+    }
+
+    if(stack.getTagCompound().hasKey("inventory")) {
+      tooltip.add(Util.translate("tooltip.chest.has_items"));
     }
   }
 }
