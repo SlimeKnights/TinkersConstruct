@@ -56,6 +56,7 @@ import slimeknights.tconstruct.smeltery.block.BlockTank;
 import slimeknights.tconstruct.smeltery.item.UniversalBucket;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingBasin;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingTable;
+import slimeknights.tconstruct.smeltery.tileentity.TileDrain;
 import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
@@ -104,6 +105,7 @@ public class TinkerSmeltery extends TinkerPulse {
     registerTE(TileFaucet.class, "faucet");
     registerTE(TileCastingTable.class, "casting_table");
     registerTE(TileCastingBasin.class, "casting_basin");
+    registerTE(TileDrain.class, "smeltery_drain");
 
     cast = registerItem(new Pattern(), "cast");
     cast.setCreativeTab(TinkerRegistry.tabSmeltery);
@@ -229,7 +231,7 @@ public class TinkerSmeltery extends TinkerPulse {
         inputs = Lists.<Object>newLinkedList(((ShapelessRecipes) irecipe).recipeItems);
       }
       else if(irecipe instanceof ShapedRecipes) {
-        inputs = Arrays.<Object>asList(((ShapedRecipes) irecipe).recipeItems);
+        inputs = Arrays.asList((Object[])((ShapedRecipes) irecipe).recipeItems);
       }
       else {
         // not an ore recipe, stop here because we can't handle it

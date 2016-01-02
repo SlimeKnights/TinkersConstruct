@@ -4,6 +4,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.tileentity.TileEntity;
 
 import slimeknights.mantle.multiblock.MultiServantLogic;
 
@@ -24,4 +25,13 @@ public class TileSmelteryComponent extends MultiServantLogic {
 
   }
 
+  protected TileSmeltery getSmeltery() {
+    if(getHasMaster()) {
+      TileEntity te = worldObj.getTileEntity(getMasterPosition());
+      if(te instanceof TileSmeltery) {
+        return (TileSmeltery) te;
+      }
+    }
+    return null;
+  }
 }
