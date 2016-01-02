@@ -30,6 +30,8 @@ public class WorldClientProxy extends ClientProxy {
   @Override
   public void preInit() {
     ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(slimeColorizer);
+    // Entities
+    RenderingRegistry.registerEntityRenderingHandler(EntityBlueSlime.class, RenderTinkerSlime.FACTORY_BlueSlime);
 
     super.preInit();
   }
@@ -89,8 +91,5 @@ public class WorldClientProxy extends ClientProxy {
   public void postInit() {
     super.postInit();
 
-
-    // Entities
-    RenderingRegistry.registerEntityRenderingHandler(EntityBlueSlime.class, new RenderTinkerSlime(Minecraft.getMinecraft().getRenderManager(), 0xff67f0f5));
   }
 }

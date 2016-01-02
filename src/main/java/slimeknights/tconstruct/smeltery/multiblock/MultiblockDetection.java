@@ -156,7 +156,7 @@ public abstract class MultiblockDetection {
     // assign master to each servant
     for(BlockPos pos : servants) {
       TileEntity slave = world.getTileEntity(pos);
-      if(slave instanceof MultiServantLogic) {
+      if(slave instanceof MultiServantLogic && slave.getWorld() != null) {
         ((MultiServantLogic) slave).overrideMaster(master);
       }
     }

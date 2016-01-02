@@ -1,22 +1,27 @@
 package slimeknights.tconstruct.library.client.renderer;
 
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.model.ModelSlime;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderSlime;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.awt.*;
 
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.RenderUtil;
 
+@SideOnly(Side.CLIENT)
 public class RenderTinkerSlime extends RenderSlime {
+
+  public static final Factory FACTORY_BlueSlime = new Factory(0xff67f0f5);
 
   private static final ResourceLocation slimeTextures = Util.getResource("textures/entity/slime.png");
 
@@ -100,4 +105,17 @@ public class RenderTinkerSlime extends RenderSlime {
     }
   }
 
+  public static class Factory implements IRenderFactory<EntitySlime> {
+
+    private final int color;
+
+    public Factory(int color) {
+      this.color = color;
+    }
+
+    @Override
+    public Render<? super EntitySlime> createRenderFor(RenderManager manager) {
+      return new RenderTinkerSlime(manager, color);
+    }
+  }
 }
