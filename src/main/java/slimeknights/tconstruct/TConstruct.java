@@ -70,11 +70,12 @@ public class TConstruct {
     pulseManager.registerPulse(new TinkerWorld());
     pulseManager.registerPulse(new TinkerTools());
     pulseManager.registerPulse(new TinkerSmeltery());
+    pulseManager.registerPulse(new TinkerOredict()); // oredict the items added in the pulses before, needed for integration
+    pulseManager.registerPulse(new TinkerIntegration()); // takes care of adding all the fluids, materials, melting etc. together
     pulseManager.registerPulse(new TinkerFluids());
     pulseManager.registerPulse(new TinkerMaterials());
     // Plugins/Integration
     pulseManager.registerPulse(new TinkerVintageCraft());
-    pulseManager.registerPulse(new TinkerOredict());
 
     pulseManager.registerPulse(new TinkerDebug());
   }

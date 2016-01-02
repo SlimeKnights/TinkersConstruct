@@ -42,7 +42,7 @@ public class TinkerFluids extends TinkerPulse {
   @SidedProxy(clientSide = "slimeknights.tconstruct.shared.FluidsClientProxy", serverSide = "slimeknights.tconstruct.common.CommonProxy")
   public static CommonProxy proxy;
 
-  // The fluids
+  // The fluids. Note that just because they exist doesn't mean that they're registered!
   public static FluidMolten searedStone;
   public static FluidMolten obsidian;
   public static FluidMolten iron;
@@ -60,57 +60,71 @@ public class TinkerFluids extends TinkerPulse {
 
   public static Block blockBlueslime;
 
+  static {
+    setupIntegrationFluids();
+  }
+
+  public static void setupIntegrationFluids() {
+    // Fluids for integration, getting registered by TinkerIntegration
+    iron = fluidMetal(TinkerMaterials.iron.getIdentifier(), 0xa81212);
+    iron.setTemperature(738);
+
+    pigIron = fluidMetal(TinkerMaterials.pigiron);
+    pigIron.setTemperature(600);
+    pigIron.setRarity(EnumRarity.EPIC);
+
+    cobalt = fluidMetal(TinkerMaterials.cobalt);
+    cobalt.setTemperature(990);
+    cobalt.setRarity(EnumRarity.RARE);
+
+    ardite = fluidMetal(TinkerMaterials.ardite);
+    ardite.setTemperature(920);
+    ardite.setRarity(EnumRarity.RARE);
+
+    manyullyn = fluidMetal(TinkerMaterials.manyullyn);
+    manyullyn.setTemperature(1000);
+    manyullyn.setRarity(EnumRarity.RARE);
+
+    knightslime = fluidMetal(TinkerMaterials.knightslime);
+    knightslime.setTemperature(520);
+    knightslime.setRarity(EnumRarity.EPIC);
+  }
+
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
     if(isSmelteryLoaded()) {
       searedStone = fluidStone("stone", -1);
-      registerFluid(searedStone, true);
+      registerFluid(searedStone);
       searedStone.setTemperature(800);
-      registerFluidBlock(searedStone);
+      registerMoltenBlock(searedStone);
 
-      //obsidian = fluidMetal(TinkerMaterials.obsidian);
       obsidian = fluidStone(TinkerMaterials.obsidian.getIdentifier(), 0x7d24ff);
       obsidian.setTemperature(1000);
-      registerFluidBlock(obsidian);
-
-      iron = fluidMetal(TinkerMaterials.iron.getIdentifier(), 0xa81212);
-      iron.setTemperature(738);
+      registerFluid(obsidian);
+      registerMoltenBlock(obsidian);
 
       gold = fluidMetal("gold", 0xf6d609);
       gold.setTemperature(564);
+      registerFluid(gold);
+      registerMoltenBlock(gold);
 
-      pigIron = fluidMetal(TinkerMaterials.pigiron);
-      pigIron.setTemperature(600);
-      pigIron.setRarity(EnumRarity.EPIC);
-
-      cobalt = fluidMetal(TinkerMaterials.cobalt);
-      cobalt.setTemperature(990);
-      cobalt.setRarity(EnumRarity.RARE);
-
-      ardite = fluidMetal(TinkerMaterials.ardite);
-      ardite.setTemperature(920);
-      ardite.setRarity(EnumRarity.RARE);
-
-      manyullyn = fluidMetal(TinkerMaterials.manyullyn);
-      manyullyn.setTemperature(1000);
-      manyullyn.setRarity(EnumRarity.RARE);
-
-      knightslime = fluidMetal(TinkerMaterials.knightslime);
-      knightslime.setTemperature(520);
-      knightslime.setRarity(EnumRarity.EPIC);
-
+      // blood for the blood god
       blood = fluidClassic("blood", 0x540000);
       blood.setTemperature(420);
-      registerDefaultBlock(blood);
+      registerFluid(blood);
+      registerClassicBlock(blood);
     }
 
     milk = fluidMilk("milk", 0xffffff);
     milk.setTemperature(320);
+    registerFluid(milk);
+    registerClassicBlock(milk);
     FluidContainerRegistry.registerFluidContainer(new FluidStack(milk, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(Items.milk_bucket), FluidContainerRegistry.EMPTY_BUCKET);
 
     if(isWorldLoaded()) {
       blueslime = fluidClassic("blueslime", 0xef67f0f5);
       blueslime.setTemperature(310);
+      registerFluid(blueslime);
       blockBlueslime = registerBlock(new BlockBlueSlime(blueslime, net.minecraft.block.material.Material.water), blueslime.getName());
     }
 
@@ -141,63 +155,59 @@ public class TinkerFluids extends TinkerPulse {
     proxy.postInit();
   }
 
-  private FluidMolten fluidMetal(Material material) {
+  private static FluidMolten fluidMetal(Material material) {
     return fluidMetal(material.getIdentifier(), material.materialTextColor);
   }
 
-  private FluidMolten fluidMetal(String name, int color) {
+  private static FluidMolten fluidMetal(String name, int color) {
     FluidMolten fluid = new FluidMolten(name, color);
-    return registerFluid(fluid, false);
+    return fluid;
   }
 
-  private FluidMolten fluidLiquid(String name, int color, boolean withBlock) {
+  private static FluidMolten fluidLiquid(String name, int color, boolean withBlock) {
     FluidMolten fluid = new FluidMolten(name, color, FluidMolten.ICON_LiquidStill, FluidMolten.ICON_LiquidFlowing);
-    registerFluid(fluid, !withBlock);
+    registerFluid(fluid);
     return fluid;
   }
 
-  private FluidMolten fluidStone(String name, int color) {
+  private static FluidMolten fluidStone(String name, int color) {
     FluidMolten fluid = new FluidMolten(name, color, FluidColored.ICON_StoneStill, FluidColored.ICON_StoneFlowing);
-    fluid = registerFluid(fluid, true);
+    fluid = registerFluid(fluid);
 
     return fluid;
   }
 
-  private FluidColored fluidClassic(String name, int color) {
+  private static FluidColored fluidClassic(String name, int color) {
     FluidColored fluid = new FluidColored(name, color, FluidColored.ICON_LiquidStill, FluidColored.ICON_LiquidFlowing);
-    fluid = registerFluid(fluid, true);
+    fluid = registerFluid(fluid);
 
     return fluid;
   }
 
-  private FluidColored fluidMilk(String name, int color) {
+  private static FluidColored fluidMilk(String name, int color) {
     FluidColored fluid = new FluidColored(name, color, FluidColored.ICON_MilkStill, FluidColored.ICON_MilkFlowing);
-    fluid = registerFluid(fluid, true);
-    registerDefaultBlock(fluid);
+    fluid = registerFluid(fluid);
 
     return fluid;
   }
 
-  private <T extends Fluid> T registerFluid(T fluid, boolean noBlock) {
+  public static <T extends Fluid> T registerFluid(T fluid) {
     fluid.setUnlocalizedName(Util.prefix(fluid.getName()));
     FluidRegistry.registerFluid(fluid);
 
     fluids.add(fluid);
 
-    if(!noBlock) {
-      registerFluidBlock(fluid);
-    }
-
     return fluid;
   }
 
-  private BlockFluidBase registerDefaultBlock(Fluid fluid) {
+  /** Registers a non-burning water based block for the fluid */
+  public static BlockFluidBase registerClassicBlock(Fluid fluid) {
     BlockFluidBase block = new BlockFluidClassic(fluid, net.minecraft.block.material.Material.water);
     return registerBlock(block, fluid.getName());
   }
 
-  // create and register the block
-  private BlockMolten registerFluidBlock(Fluid fluid) {
+  /** Registers a hot lava-based block for the fluid, prefix with molten_ */
+  public static BlockMolten registerMoltenBlock(Fluid fluid) {
     BlockMolten block = new BlockMolten(fluid);
     return registerBlock(block, "molten_" + fluid.getName()); // molten_foobar prefix
   }

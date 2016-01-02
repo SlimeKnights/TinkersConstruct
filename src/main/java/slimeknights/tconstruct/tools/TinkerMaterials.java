@@ -70,7 +70,6 @@ public final class TinkerMaterials {
   static final Logger log = Util.getLogger(PulseId);
 
   public static final List<Material> materials = Lists.newArrayList();
-  private static final Map<Material, String> materialPrerequisite = Maps.newHashMap();
 
   // not all listed materials are available by default. They enable when the needed material is present
 
@@ -87,21 +86,21 @@ public final class TinkerMaterials {
   public static final Material sponge     = mat("sponge", 0xcacc4e);
 
   // Slime
-  public static final Material knightslime= mat("knightslime", 0xf18ff0, "ingotKnightslime");
+  public static final Material knightslime= mat("knightslime", 0xf18ff0);
   public static final Material slime      = mat("slime", 0x82c873);
-  public static final Material blueslime  = mat("blueslime", 0x74c8c7, "slimeballBlue");
+  public static final Material blueslime  = mat("blueslime", 0x74c8c7);
 
   // Metals
   public static final Material iron       = mat("iron", 0xcacaca);
-  public static final Material pigiron    = mat("pigiron", 0xef9e9b, "ingotPigiron");
-  public static final Material copper     = mat("copper", 0xed9f07, "ingotCopper");
-  public static final Material bronze     = mat("bronze", 0xd2a869, "ingotBronze");
+  public static final Material pigiron    = mat("pigiron", 0xef9e9b);
+  public static final Material copper     = mat("copper", 0xed9f07);
+  public static final Material bronze     = mat("bronze", 0xd2a869);
 
   // Nether Materials
   public static final Material netherrack = mat("netherrack", 0xb84f4f);
-  public static final Material ardite     = mat("ardite", 0xd14210, "ingotArdite");
-  public static final Material cobalt     = mat("cobalt", 0x2882d4, "ingotCobalt");
-  public static final Material manyullyn  = mat("manyullyn", 0xa15cf8, "ingotManyullyn");
+  public static final Material ardite     = mat("ardite", 0xd14210);
+  public static final Material cobalt     = mat("cobalt", 0x2882d4);
+  public static final Material manyullyn  = mat("manyullyn", 0xa15cf8);
 
   // specul
   public static final Material xu;
@@ -127,43 +126,13 @@ public final class TinkerMaterials {
   public static final AbstractTrait unnatural = new TraitUnnatural();
 
   private static Material mat(String name, int color) {
-    return mat(name, color, null);
-  }
-
-  private static Material mat(String name, int color, String oredict) {
     Material mat = new Material(name, color);
     materials.add(mat);
-    if(oredict != null)
-      materialPrerequisite.put(mat, oredict);
     return mat;
   }
   
   static {
     xu = new Material("unstable", EnumChatFormatting.WHITE);
-  }
-
-  private void registerMaterials() {
-    for(Material material : materials) {
-      // has a prerequisite?
-      if(materialPrerequisite.containsKey(material)) {
-        String oredict = materialPrerequisite.get(material);
-        boolean found = false;
-        // we use this method because it doesn't add empty entries to the oredict, even though it is less performant
-        for(String ore : OreDictionary.getOreNames()) {
-          if(ore.equals(oredict)) {
-            found = true;
-            break;
-          }
-        }
-
-        // prerequisite not fulfilled
-        if(!found) {
-          log.debug("Material %s was not registered due to missing oredict entry: ", material.getIdentifier(), oredict);
-          continue;
-        }
-      }
-      TinkerRegistry.addMaterial(material);
-    }
   }
 
   @Subscribe
@@ -230,8 +199,6 @@ public final class TinkerMaterials {
 
   @Subscribe
   public void setupMaterials(FMLInitializationEvent event) {
-    registerMaterials();
-
     // natural resources/blocks
     wood.setCraftable(true);
     wood.addItem("stickWood", 1, Material.VALUE_Shard);
@@ -309,29 +276,19 @@ public final class TinkerMaterials {
     knightslime.addTrait(unnatural);
 
     // Metals
-    iron.setFluid(TinkerFluids.iron);
-    iron.setCastable(true);
     iron.addItem("ingotIron", 1, Material.VALUE_Ingot);
     iron.setRepresentativeItem(Items.iron_ingot);
     iron.addTrait(magnetic);
     // todo: remaining metals
 
-    pigiron.setFluid(TinkerFluids.pigIron);
-    pigiron.setCastable(true);
     pigiron.addTrait(tasty);
 
-    cobalt.setFluid(TinkerFluids.cobalt);
-    cobalt.setCastable(true);
     safeAdd(cobalt, TinkerCommons.ingotCobalt, Material.VALUE_Ingot, true);
     cobalt.addTrait(momentum);
 
-    ardite.setFluid(TinkerFluids.ardite);
-    ardite.setCastable(true);
     safeAdd(ardite, TinkerCommons.ingotArdite, Material.VALUE_Ingot, true);
     ardite.addTrait(petramor);
 
-    manyullyn.setFluid(TinkerFluids.manyullyn);
-    manyullyn.setCastable(true);
     safeAdd(manyullyn, TinkerCommons.ingotManyullyn, Material.VALUE_Ingot, true);
     manyullyn.addTrait(insatiable);
 

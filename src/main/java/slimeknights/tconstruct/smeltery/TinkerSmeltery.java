@@ -168,17 +168,12 @@ public class TinkerSmeltery extends TinkerPulse {
                                                            TinkerFluids.searedStone, Material.VALUE_Ore));
 
     // obsidian
-    //TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("obsidian", Material.VALUE_Ore), TinkerFluids.obsidian));
     TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of("obsidian", Material.VALUE_Ore),
                                                            TinkerFluids.obsidian, Material.VALUE_Ore));
 
     TinkerRegistry.registerEntityMelting(EntitySheep.class, new FluidStack(TinkerFluids.blood, 5));
 
-    registerOredictMelting(TinkerFluids.iron, "Iron");
     registerOredictMelting(TinkerFluids.gold, "Gold");
-    registerOredictMelting(TinkerFluids.cobalt, "Cobalt");
-    registerOredictMelting(TinkerFluids.ardite, "Ardite");
-    registerOredictMelting(TinkerFluids.manyullyn, "Manyullyn");
   }
 
   private void registerAlloys() {
