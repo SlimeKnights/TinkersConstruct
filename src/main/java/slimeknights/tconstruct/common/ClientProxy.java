@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.common;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -216,5 +218,19 @@ public abstract class ClientProxy extends CommonProxy {
   @Override
   public void spawnSlimeParticle(World world, double x, double y, double z) {
     Minecraft.getMinecraft().effectRenderer.addEffect(new EntitySlimeFx(world, x,y,z, TinkerCommons.matSlimeBallBlue.getItem(), TinkerCommons.matSlimeBallBlue.getItemDamage()));
+  }
+
+  @Override
+  public void preventPlayerSlowdown(Entity player, float originalSpeed, Item item) {
+    // has to be done in onUpdate because onTickUsing is too early and gets overwritten. bleh.
+    if(player instanceof EntityPlayerSP) {
+      EntityPlayerSP playerSP = (EntityPlayerSP) player;
+      ItemStack usingItem = playerSP.inventory.getCurrentItem();
+      if(usingItem != null && usingItem.getItem() == item) {
+        // no slowdown from charging it up
+        playerSP.movementInput.moveForward *= originalSpeed * 5.0F;
+        playerSP.movementInput.moveStrafe *= originalSpeed * 5.0F;
+      }
+    }
   }
 }

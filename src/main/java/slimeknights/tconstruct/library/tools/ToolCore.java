@@ -43,6 +43,7 @@ import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.library.utils.ToolTagUtil;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
+import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.modifiers.traits.ToolGrowth;
 
 /**
@@ -374,16 +375,7 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   protected void preventSlowDown(Entity entityIn, float originalSpeed) {
-    // has to be done in onUpdate because onTickUsing is too early and gets overwritten. bleh.
-    if(entityIn instanceof EntityPlayerSP) {
-      EntityPlayerSP playerSP = (EntityPlayerSP) entityIn;
-      ItemStack usingItem = playerSP.inventory.getCurrentItem();
-      if(usingItem != null && usingItem.getItem() == this) {
-        // no slowdown from charging it up
-        playerSP.movementInput.moveForward *= originalSpeed * 5.0F;
-        playerSP.movementInput.moveStrafe *= originalSpeed * 5.0F;
-      }
-    }
+    TinkerTools.proxy.preventPlayerSlowdown(entityIn, originalSpeed, this);
   }
 
   @Override
