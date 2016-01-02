@@ -32,7 +32,7 @@ public class Config {
   // Worldgen
   public static boolean genSlimeIslands = true;
   public static boolean genIslandsInSuperflat = false;
-  public static int slimeIslandsRate = 430; // Every x-th chunk will have a slime island. so 1 = every chunk, 100 = every 100th
+  public static int slimeIslandsRate = 730; // Every x-th chunk will have a slime island. so 1 = every chunk, 100 = every 100th
   public static int[] slimeIslandBlacklist = new int[] {-1, 1};
   public static boolean genCobalt = true;
   public static int cobaltRate = 16; // max. cobalt per chunk
