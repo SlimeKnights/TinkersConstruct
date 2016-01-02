@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 
 import java.lang.reflect.InvocationTargetException;
 
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 
 public class TraitSlimey extends AbstractTrait {
@@ -18,9 +19,19 @@ public class TraitSlimey extends AbstractTrait {
 
   protected final Class<? extends EntitySlime> slime;
 
-  public TraitSlimey(Class<? extends EntitySlime> slime) {
-    super("slimey", EnumChatFormatting.GREEN);
+  public TraitSlimey(String suffix, Class<? extends EntitySlime> slime) {
+    super("slimey_" + suffix, EnumChatFormatting.GREEN);
     this.slime = slime;
+  }
+
+  @Override
+  public String getLocalizedName() {
+    return Util.translate(String.format(LOC_Name, "slimey"));
+  }
+
+  @Override
+  public String getLocalizedDesc() {
+    return Util.translate(String.format(LOC_Desc, "slimey"));
   }
 
   @Override
@@ -40,7 +51,7 @@ public class TraitSlimey extends AbstractTrait {
   protected void spawnSlime(EntityLivingBase player, double x, double y, double z, World world) {
     try {
       EntitySlime entity = slime.getConstructor(World.class).newInstance(world);
-      //entity.setSlimeSize(1);
+      entity.setSlimeSize(1);
       entity.setPosition(x, y, z);
       world.spawnEntityInWorld(entity);
       entity.setLastAttacker(player);

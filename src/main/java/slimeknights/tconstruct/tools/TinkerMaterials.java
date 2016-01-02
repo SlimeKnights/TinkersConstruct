@@ -53,6 +53,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.TraitSqueaky;
 import slimeknights.tconstruct.tools.modifiers.traits.TraitStonebound;
 import slimeknights.tconstruct.tools.modifiers.traits.TraitTasty;
 import slimeknights.tconstruct.tools.modifiers.traits.TraitUnnatural;
+import slimeknights.tconstruct.world.entity.EntityBlueSlime;
 
 import static slimeknights.tconstruct.library.utils.HarvestLevels.COBALT;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.DIAMOND;
@@ -117,8 +118,8 @@ public final class TinkerMaterials {
   public static final AbstractTrait momentum = new TraitMomentum();
   public static final AbstractTrait petramor = new TraitPetramor();
   public static final AbstractTrait prickly = new TraitPrickly();
-  public static final AbstractTrait slimeyGreen = new TraitSlimey(EntitySlime.class);
-  public static final AbstractTrait slimeyBlue = new TraitSlimey(EntitySlime.class); // todo: blue slime
+  public static final AbstractTrait slimeyGreen = new TraitSlimey("green", EntitySlime.class);
+  public static final AbstractTrait slimeyBlue = new TraitSlimey("blue", EntityBlueSlime.class);
   public static final AbstractTrait splintering = new TraitSplintering();
   public static final AbstractTrait squeaky = new TraitSqueaky();
   public static final AbstractTrait stonebound = new TraitStonebound();
