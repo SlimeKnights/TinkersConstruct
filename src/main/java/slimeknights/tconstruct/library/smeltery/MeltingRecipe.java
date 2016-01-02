@@ -68,7 +68,7 @@ public class MeltingRecipe {
     // we simplify it to f^log9(2) to make calculation simpler
     f = Math.pow(f, LOG9_2);
 
-    return 300 + (int)(f * (double)temp);
+    return 300 + (int)(f * (double)max_tmp);
   }
 
   public static MeltingRecipe registerFor(RecipeMatch recipeMatch, Fluid fluid) {
