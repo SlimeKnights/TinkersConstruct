@@ -49,7 +49,7 @@ public class UniversalBucket extends Item implements IFluidContainerItem {
     this.empty = empty;
     this.nbtSensitive = nbtSensitive;
 
-    this.setMaxStackSize(1);
+    this.setMaxStackSize(10);
   }
 
   @SideOnly(Side.CLIENT)
@@ -107,8 +107,16 @@ public class UniversalBucket extends Item implements IFluidContainerItem {
             // success!
             player.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
 
-            // todo: take stacking filled containers into account
-            return empty.copy();
+            itemstack.stackSize--;
+
+            if(itemstack.stackSize <= 0) {
+              return empty.copy();
+            }
+            else {
+              // add empty bucket to player inventory
+              player.inventory.addItemStackToInventory(empty.copy());
+              return itemstack;
+            }
           }
         }
       }
@@ -125,7 +133,7 @@ public class UniversalBucket extends Item implements IFluidContainerItem {
     }
 
     Material material = worldIn.getBlockState(pos).getBlock().getMaterial();
-    boolean isSolid = !material.isSolid();
+    boolean isSolid = material.isSolid();
 
     // can only place in air or non-solid blocks
     if(!worldIn.isAirBlock(pos) && isSolid) {
