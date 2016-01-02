@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
@@ -19,6 +20,7 @@ import java.util.Random;
 import slimeknights.tconstruct.common.block.BlockInventoryTinkers;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
+import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 
 public class BlockSmelteryController extends BlockInventoryTinkers {
 
@@ -90,6 +92,15 @@ public class BlockSmelteryController extends BlockInventoryTinkers {
   @Override
   public int getMetaFromState(IBlockState state) {
     return (state.getValue(FACING)).getIndex();
+  }
+
+  // State updating
+  @Override
+  public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+    TileEntity te = worldIn.getTileEntity(pos);
+    if(te instanceof TileSmeltery) {
+      ((TileSmeltery) te).checkSmelteryStructure();
+    }
   }
 
   // RENDERING
