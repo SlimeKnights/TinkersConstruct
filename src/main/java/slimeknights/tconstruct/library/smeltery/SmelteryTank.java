@@ -141,4 +141,12 @@ public class SmelteryTank {
     maxCapacity = tag.getInteger("LiquidCapacity");
   }
 
+  /** Moves the fluid with the passed index to the beginning/bottom of the fluid tank stack */
+  public void moveFluidToBottom(int index) {
+    if(index < liquids.size()) {
+      FluidStack fluid = liquids.get(index);
+      liquids.remove(index);
+      liquids.add(0, fluid);
+    }
+  }
 }

@@ -17,10 +17,12 @@ import net.minecraftforge.fluids.FluidTankInfo;
 
 import org.lwjgl.opengl.GL11;
 
+import java.io.IOException;
 import java.util.List;
 
 import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.mantle.client.gui.GuiMultiModule;
+import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistryClient;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.RenderUtil;
@@ -28,6 +30,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.smeltery.SmelteryTank;
 import slimeknights.tconstruct.smeltery.client.module.GuiSmelterySideinventory;
 import slimeknights.tconstruct.smeltery.inventory.ContainerSmeltery;
+import slimeknights.tconstruct.smeltery.network.SmelteryFluidClicked;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.tools.inventory.ContainerSideInventory;
 
@@ -137,6 +140,28 @@ public class GuiSmeltery extends GuiMultiModule {
 
       RenderUtil.renderTiledFluid(x, y-h, w, h, this.zLevel, fuelInfo.fluid);
     }
+  }
+
+  @Override
+  protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+    if(mouseButton == 0) {
+      mouseX -= cornerX;
+      mouseY -= cornerY;
+      if(8 <= mouseX && mouseX < 60 && 16 <= mouseY && mouseY < 68) {
+        SmelteryTank tank = smeltery.getTank();
+        int[] heights = calcLiquidHeights(tank.getFluids(), tank.getMaxCapacity());
+        int y = 68 - mouseY - 1;
+
+        for(int i = 0; i < heights.length; i++) {
+          if(y < heights[i]) {
+            TinkerNetwork.sendToServer(new SmelteryFluidClicked(i));
+            return;
+          }
+          y -= heights[i];
+        }
+      }
+    }
+    super.mouseClicked(mouseX, mouseY, mouseButton);
   }
 
   protected FluidStack getFluidHovered(int y) {

@@ -14,6 +14,7 @@ import java.util.List;
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.mantle.network.NetworkWrapper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.smeltery.network.SmelteryFluidClicked;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.SmelteryFuelUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.SmelteryInventoryUpdatePacket;
@@ -52,6 +53,7 @@ public class TinkerNetwork extends NetworkWrapper {
     registerPacketClient(SmelteryFluidUpdatePacket.class);
     registerPacketClient(SmelteryFuelUpdatePacket.class);
     registerPacketClient(SmelteryInventoryUpdatePacket.class);
+    registerPacketServer(SmelteryFluidClicked.class);
   }
 
   public static void sendToAll(AbstractPacket packet)
