@@ -377,7 +377,7 @@ public abstract class ToolCore extends TinkersItem {
     // has to be done in onUpdate because onTickUsing is too early and gets overwritten. bleh.
     if(entityIn instanceof EntityPlayerSP) {
       EntityPlayerSP playerSP = (EntityPlayerSP) entityIn;
-      ItemStack usingItem = playerSP.getItemInUse();
+      ItemStack usingItem = playerSP.inventory.getCurrentItem();
       if(usingItem != null && usingItem.getItem() == this) {
         // no slowdown from charging it up
         playerSP.movementInput.moveForward *= originalSpeed * 5.0F;
