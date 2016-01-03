@@ -43,6 +43,7 @@ import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.smeltery.Cast;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.smeltery.block.BlockCasting;
@@ -51,7 +52,7 @@ import slimeknights.tconstruct.smeltery.block.BlockSeared;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryIO;
 import slimeknights.tconstruct.smeltery.block.BlockTank;
-import slimeknights.tconstruct.library.smeltery.Cast;
+import slimeknights.tconstruct.smeltery.item.CastCustom;
 import slimeknights.tconstruct.smeltery.item.UniversalBucket;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingBasin;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingTable;
@@ -80,6 +81,7 @@ public class TinkerSmeltery extends TinkerPulse {
 
   // Items
   public static Cast cast;
+  public static CastCustom castCustom;
   public static UniversalBucket bucket;
 
   private static Map<Fluid, Set<Pair<List<ItemStack>, Integer>>> knownOreFluids = Maps.newHashMap();
@@ -107,15 +109,13 @@ public class TinkerSmeltery extends TinkerPulse {
     registerTE(TileDrain.class, "smeltery_drain");
 
     cast = registerItem(new Cast(), "cast");
-    cast.setCreativeTab(TinkerRegistry.tabSmeltery);
+    castCustom = registerItem(new CastCustom(), "cast_custom");
+    castCustom.addMeta(0, "ingot", Material.VALUE_Ingot);
+    castCustom.addMeta(1, "nugget", Material.VALUE_Nugget);
+    castCustom.addMeta(2, "gem", Material.VALUE_Gem);
 
     bucket = registerItem(new UniversalBucket(), "bucket");
     bucket.setCreativeTab(TinkerRegistry.tabGeneral);
-
-    // ingot cast
-    TinkerRegistry.addCastForItem(Items.iron_ingot);
-    TinkerRegistry.addCastForItem(Items.gold_nugget);
-    TinkerRegistry.addCastForItem(Items.emerald);
 
     proxy.preInit();
     MinecraftForge.EVENT_BUS.register(bucket);

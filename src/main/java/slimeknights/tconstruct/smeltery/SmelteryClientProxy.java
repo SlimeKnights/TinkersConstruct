@@ -39,6 +39,8 @@ public class SmelteryClientProxy extends ClientProxy {
     CustomTextureCreator.castModelLocation = new ResourceLocation(castLoc.getResourceDomain(), "item/" + castLoc.getResourcePath());
     ModelLoader.setCustomMeshDefinition(TinkerSmeltery.cast, new PatternMeshDefinition(castLoc));
 
+    TinkerSmeltery.castCustom.registerItemModels("cast_");
+
     // universal bucket
     ModelLoader.setBucketModelDefinition(TinkerSmeltery.bucket);
   }

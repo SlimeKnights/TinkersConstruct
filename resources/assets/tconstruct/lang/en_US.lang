@@ -145,6 +145,9 @@ item.tconstruct.pattern.blank=Blank Pattern
 item.tconstruct.pattern.name=Pattern: %s
 item.tconstruct.cast.blank=Blank Cast
 item.tconstruct.cast.name=Cast: %s
+item.tconstruct.cast_custom.ingot.name=Cast: Ingot
+item.tconstruct.cast_custom.nugget.name=Cast: Nugget
+item.tconstruct.cast_custom.gem.name=Cast: Gem
 
 item.tconstruct.sharpening_kit.name=Sharpening Kit
 item.tconstruct.sharpening_kit.tooltip=Combine with a flint\nUpgrades your tool to the materials mining level.
@@ -377,6 +380,7 @@ tooltip.part.missing_stats=Material is missing the required stats:\n%s
 tooltip.part.missing_info=Part has no data
 
 tooltip.pattern.cost=Material Cost: %d
+tooltip.cast.cost=Material Cost: %d mb
 
 tooltip.chest.has_items=Contains items
 

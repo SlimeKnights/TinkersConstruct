@@ -386,12 +386,12 @@ public final class TinkerRegistry {
   }
 
   /** Registers a pattern for the given item */
-  public static void addPatternForItem(Item item) {
+  static void addPatternForItem(Item item) {
     patternItems.add(item);
   }
 
   /** Registers a cast for the given item */
-  public static void addCastForItem(Item item) {
+  static void addCastForItem(Item item) {
     castItems.add(item);
   }
 
