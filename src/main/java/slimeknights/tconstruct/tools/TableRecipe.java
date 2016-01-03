@@ -3,17 +3,25 @@ package slimeknights.tconstruct.tools;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.util.List;
 
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.BlockTable;
+
+import static net.minecraftforge.oredict.RecipeSorter.Category.SHAPED;
 
 public class TableRecipe extends ShapedOreRecipe {
 
-  protected final List<ItemStack> outputBlocks; // first one found of these determines the output block used
+  static {
+    RecipeSorter.register("tconstruct:table", TableRecipe.class, SHAPED, "before:minecraft:shaped");
+  }
 
+  protected final List<ItemStack> outputBlocks; // first one found of these determines the output block used
 
   public TableRecipe(List<ItemStack> variantItems, BlockTable result, int meta, Object... recipe) {
     super(new ItemStack(result, 1, meta), recipe);
