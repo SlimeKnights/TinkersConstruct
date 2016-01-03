@@ -13,23 +13,18 @@ public class TileTinkerChest extends TileTable {
   // how big the 'perceived' inventory is
   public int actualSize;
 
-  TileTinkerChest() {
-    super("", 0,0);
-    actualSize = 1;
-  }
-
   public TileTinkerChest(String name) {
     this(name, MAX_INVENTORY);
   }
 
   public TileTinkerChest(String name, int inventorySize) {
     super(name, inventorySize);
-    actualSize = 1;
+    this.actualSize = 1;
   }
 
   public TileTinkerChest(String name, int inventorySize, int maxStackSize) {
     super(name, inventorySize, maxStackSize);
-    actualSize = 1;
+    this.actualSize = 1;
   }
 
   @Override
@@ -40,26 +35,20 @@ public class TileTinkerChest extends TileTable {
   @Override
   public void writeToNBT(NBTTagCompound tags) {
     super.writeToNBT(tags);
-
-    tags.setInteger("ActualInventorySize", actualSize);
   }
 
   @Override
   public void readFromNBT(NBTTagCompound tags) {
+    // we need to set it to max because the loading code uses getSizeInventory and we want to load all stacks
+    actualSize = MAX_INVENTORY;
     super.readFromNBT(tags);
 
-    if(tags.hasKey("ActualInventorySize")) {
-      actualSize = tags.getInteger("ActualInventorySize");
+    // recalculate actual size from inventory:
+    // decrease until it matches
+    while(actualSize > 0 && getStackInSlot(actualSize-1) == null) {
+      actualSize--;
     }
-    else {
-      // calculate actual size
-      actualSize = super.getSizeInventory() - 1;
-      // decrease until it matches
-      while(actualSize > 0 && getStackInSlot(actualSize-1) == null) {
-        actualSize--;
-      }
-      actualSize++; // add empty slot
-    }
+    actualSize++; // add empty slot
   }
 
   @Override
