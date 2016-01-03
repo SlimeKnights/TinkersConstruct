@@ -144,7 +144,7 @@ item.tconstruct.nuggets.pigiron.name=Pigiron Nugget
 item.tconstruct.pattern.blank=Blank Pattern
 item.tconstruct.pattern.name=Pattern: %s
 item.tconstruct.cast.blank=Blank Cast
-item.tconstruct.cast.name=Cast: %
+item.tconstruct.cast.name=Cast: %s
 
 item.tconstruct.sharpening_kit.name=Sharpening Kit
 item.tconstruct.sharpening_kit.tooltip=Combine with a flint\nUpgrades your tool to the materials mining level.

@@ -50,20 +50,7 @@ public class SmelteryClientProxy extends ClientProxy {
     // Items
     final ResourceLocation castLoc = SmelteryClientEvents.locBlankCast;
     CustomTextureCreator.castModelLocation = new ResourceLocation(castLoc.getResourceDomain(), "item/" + castLoc.getResourcePath());
-    ModelLoader.setCustomMeshDefinition(TinkerSmeltery.cast, new ItemMeshDefinition() {
-      @Override
-      public ModelResourceLocation getModelLocation(ItemStack stack) {
-        NBTTagCompound tag = TagUtil.getTagSafe(stack);
-        String suffix = tag.getString(Pattern.TAG_PARTTYPE).toLowerCase(Locale.US);
-
-        if(!suffix.isEmpty())
-          suffix = "_" + suffix;
-
-        return new ModelResourceLocation(new ResourceLocation(castLoc.getResourceDomain(),
-                                                              castLoc.getResourcePath() + suffix),
-                                         "inventory");
-      }
-    });
+    ModelLoader.setCustomMeshDefinition(TinkerSmeltery.cast, new PatternMeshDefinition(castLoc));
 
     // universal bucket
     ModelLoader.setBucketModelDefinition(TinkerSmeltery.bucket);

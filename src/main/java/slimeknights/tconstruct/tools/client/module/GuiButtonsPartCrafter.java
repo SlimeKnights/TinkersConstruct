@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.io.IOException;
@@ -66,7 +67,7 @@ public class GuiButtonsPartCrafter extends GuiSideButtons {
 
     buttonList.clear();
     for(ItemStack stencil : patterns) {
-      IToolPart part = Pattern.getPartFromTag(stencil);
+      Item part = Pattern.getPartFromTag(stencil);
       if(part == null || !(part instanceof MaterialItem)) {
         continue;
       }

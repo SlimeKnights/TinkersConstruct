@@ -294,6 +294,7 @@ public final class TinkerRegistry {
   private static final Set<ToolCore> toolStationCrafting = Sets.newLinkedHashSet();
   private static final Set<ToolCore> toolForgeCrafting = Sets.newLinkedHashSet();
   private static final List<ItemStack> stencilTableCrafting = Lists.newLinkedList();
+  private static final List<Item> patternItems = Lists.newLinkedList();
   private static Shard shardItem;
 
   /**

@@ -192,6 +192,12 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
           continue; // WHY?!
         }
 
+        //String identifier2 = Util.getItemLocation((Item) toolpart).getResourcePath().toLowerCase(Locale.US);
+        String identifier = ((Item) toolpart).getRegistryName();
+        if(identifier.contains(":")) {
+          identifier = identifier.substring(identifier.lastIndexOf(':') + 1);
+        }
+
         ResourceLocation modelLocation = Util.getItemLocation((Item) toolpart);
         IModel partModel = ModelLoaderRegistry.getModel(new ResourceLocation(modelLocation.getResourceDomain(),
                                                                              "item/parts/" + modelLocation
@@ -201,7 +207,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
 
         // Pattern
         if(pattern != null) {
-          String partPatternLocation = patternLocString + toolpart.getIdentifier().toLowerCase(Locale.US);
+          String partPatternLocation = patternLocString + identifier;
           TextureAtlasSprite partPatternTexture;
           if(exists(partPatternLocation)) {
             partPatternTexture = map.registerSprite(new ResourceLocation(partPatternLocation));
@@ -213,7 +219,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
           map.setTextureEntry(partPatternLocation, partPatternTexture);
         }
         if(cast != null) {
-          String partCastLocation = castLocString + toolpart.getIdentifier().toLowerCase(Locale.US);
+          String partCastLocation = castLocString + identifier;
           TextureAtlasSprite partCastTexture;
           if(exists(partCastLocation)) {
             partCastTexture = map.registerSprite(new ResourceLocation(partCastLocation));

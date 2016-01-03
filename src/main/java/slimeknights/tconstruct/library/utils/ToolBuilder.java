@@ -358,11 +358,13 @@ public final class ToolBuilder {
    */
   public static ItemStack[] tryBuildToolPart(ItemStack pattern, ItemStack[] materialItems, boolean removeItems)
       throws TinkerGuiException {
-    IToolPart part = Pattern.getPartFromTag(pattern);
-    if(part == null || !(part instanceof MaterialItem)) {
+    Item itemPart = Pattern.getPartFromTag(pattern);
+    if(itemPart == null || !(itemPart instanceof MaterialItem) || !(itemPart instanceof IToolPart)) {
       String error = StatCollector.translateToLocalFormatted("gui.error.invalid_pattern");
       throw new TinkerGuiException(error);
     }
+
+    IToolPart part = (IToolPart) itemPart;
 
     if(!removeItems) {
       materialItems = Util.copyItemStackArray(materialItems);
@@ -398,7 +400,7 @@ public final class ToolBuilder {
       return null;
     }
 
-    ItemStack output = ((MaterialItem) part).getItemstackWithMaterial(foundMaterial);
+    ItemStack output = ((MaterialItem) itemPart).getItemstackWithMaterial(foundMaterial);
     if(output == null) {
       return null;
     }

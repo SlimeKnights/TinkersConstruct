@@ -181,7 +181,6 @@ public class TinkerSmeltery extends TinkerPulse {
                                  new FluidStack(FluidRegistry.WATER, 1),
                                  new FluidStack(FluidRegistry.LAVA, 1));
 
-    // pigiron: 1 iron ingot, X blood, 1/3 emerald gem
   }
 
   /**

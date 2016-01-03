@@ -116,23 +116,6 @@ public class ToolPart extends MaterialItem implements IToolPart {
     return ClientProxy.fontRenderer;
   }
 
-  @Override
-  public String getLocalizedName() {
-    return super.getItemStackDisplayName(null);
-  }
-
-  @Override
-  public String getIdentifier() {
-    return Util.getItemLocation(this).getResourcePath();
-  }
-
-  static String getIdentifier(ItemStack stack) {
-    if(stack != null && stack.getItem() instanceof IToolPart) {
-      return ((IToolPart) stack.getItem()).getIdentifier();
-    }
-    return null;
-  }
-
   public boolean checkMissingMaterialTooltip(ItemStack stack, List<String> tooltip) {
     return checkMissingMaterialTooltip(stack, tooltip, null);
   }

@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.client.module;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.Container;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class GuiButtonsStencilTable extends GuiSideButtons {
     int index = 0;
 
     for(ItemStack stencil : TinkerRegistry.getStencilTableCrafting()) {
-      IToolPart part = Pattern.getPartFromTag(stencil);
+      Item part = Pattern.getPartFromTag(stencil);
       if(part == null || !(part instanceof MaterialItem)) {
         continue;
       }

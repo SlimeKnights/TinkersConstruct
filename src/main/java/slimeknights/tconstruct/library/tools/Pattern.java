@@ -5,6 +5,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameData;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -36,7 +38,7 @@ public class Pattern extends Item {
       }
 
       ItemStack stack = new ItemStack(this);
-      setTagForPart(stack, toolpart);
+      setTagForPart(stack, (Item)toolpart);
 
       subItems.add(stack);
     }
@@ -44,35 +46,28 @@ public class Pattern extends Item {
 
   @Override
   public String getItemStackDisplayName(ItemStack stack) {
-    IToolPart part = getPartFromTag(stack);
+    Item part = getPartFromTag(stack);
     String unloc = this.getUnlocalizedNameInefficiently(stack);
     if(part == null) {
       return Util.translate(unloc + ".blank");
     }
 
-    return Util.translateFormatted(unloc + ".name", part.getLocalizedName());
+    return Util.translateFormatted(unloc + ".name", part.getItemStackDisplayName(null));
   }
 
-  public static void setTagForPart(ItemStack stack, IToolPart toolPart) {
+  public static void setTagForPart(ItemStack stack, Item toolPart) {
     NBTTagCompound tag = TagUtil.getTagSafe(stack);
-    String id = toolPart.getIdentifier();
 
-    tag.setString(TAG_PARTTYPE, id);
+    tag.setString(TAG_PARTTYPE, toolPart.getRegistryName());
 
     stack.setTagCompound(tag);
   }
 
-  public static IToolPart getPartFromTag(ItemStack stack) {
+  public static Item getPartFromTag(ItemStack stack) {
     NBTTagCompound tag = TagUtil.getTagSafe(stack);
     String part = tag.getString(TAG_PARTTYPE);
 
-    for(IToolPart toolpart : TinkerRegistry.getToolParts()) {
-      if(part.equals(toolpart.getIdentifier())) {
-        return toolpart;
-      }
-    }
-
-    return null;
+    return GameData.getItemRegistry().getObject(new ResourceLocation(part));
   }
 
   public boolean isBlankPattern(ItemStack stack) {
@@ -89,9 +84,9 @@ public class Pattern extends Item {
 
   @Override
   public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-    IToolPart part = getPartFromTag(stack);
-    if(part != null) {
-      float cost = part.getCost() / (float) Material.VALUE_Ingot;
+    Item part = getPartFromTag(stack);
+    if(part != null && part instanceof IToolPart) {
+      float cost = ((IToolPart)part).getCost() / (float) Material.VALUE_Ingot;
       tooltip.add(Util.translateFormatted("tooltip.pattern.cost", df.format(cost)));
     }
   }

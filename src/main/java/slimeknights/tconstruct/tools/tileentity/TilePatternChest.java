@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.tileentity;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
@@ -36,14 +37,14 @@ public class TilePatternChest extends TileTinkerChest implements IInventoryGui {
   // we only allow one type (cast/pattern) and only one of each toolpart
   @Override
   public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
-    IToolPart part = Pattern.getPartFromTag(itemstack);
+    Item part = Pattern.getPartFromTag(itemstack);
 
     if(part == null) {
       return false;
     }
 
     for(int i = 0; i < getSizeInventory(); i++) {
-      IToolPart slotPart = Pattern.getPartFromTag(getStackInSlot(i));
+      Item slotPart = Pattern.getPartFromTag(getStackInSlot(i));
       // duplicate, already present
       if(slotPart != null) {
         // only the same item
@@ -51,7 +52,7 @@ public class TilePatternChest extends TileTinkerChest implements IInventoryGui {
           return false;
         }
         // no duplicate parts
-        if(slotPart.getIdentifier().equals(part.getIdentifier())) {
+        if(slotPart == part) {
           return false;
         }
       }

@@ -9,6 +9,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -17,6 +18,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameData;
 
 import java.lang.reflect.Field;
+import java.util.Locale;
 
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.tconstruct.TConstruct;
@@ -29,6 +31,8 @@ import slimeknights.tconstruct.library.client.model.ModifierModelLoader;
 import slimeknights.tconstruct.library.client.model.ToolModelLoader;
 import slimeknights.tconstruct.library.client.particle.EntitySlimeFx;
 import slimeknights.tconstruct.library.modifiers.IModifier;
+import slimeknights.tconstruct.library.tools.Pattern;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
 public abstract class ClientProxy extends CommonProxy {
@@ -231,6 +235,30 @@ public abstract class ClientProxy extends CommonProxy {
         playerSP.movementInput.moveForward *= originalSpeed * 5.0F;
         playerSP.movementInput.moveStrafe *= originalSpeed * 5.0F;
       }
+    }
+  }
+
+  public static class PatternMeshDefinition implements ItemMeshDefinition {
+
+    private final ResourceLocation baseLocation;
+
+    public PatternMeshDefinition(ResourceLocation baseLocation) {
+      this.baseLocation = baseLocation;
+    }
+
+    @Override
+    public ModelResourceLocation getModelLocation(ItemStack stack) {
+      NBTTagCompound tag = TagUtil.getTagSafe(stack);
+      String suffix = tag.getString(Pattern.TAG_PARTTYPE).toLowerCase(Locale.US);
+      if(suffix.contains(":")) {
+        suffix = suffix.substring(suffix.lastIndexOf(':') + 1);
+      }
+      if(!suffix.isEmpty())
+        suffix = "_" + suffix;
+
+      return new ModelResourceLocation(new ResourceLocation(baseLocation.getResourceDomain(),
+                                                            baseLocation.getResourcePath() + suffix),
+                                       "inventory");
     }
   }
 }

@@ -74,21 +74,7 @@ public class ToolClientProxy extends ClientProxy {
     // patterns
     final ResourceLocation patternLoc = ToolClientEvents.locBlankPattern;
     CustomTextureCreator.patternModelLocation = new ResourceLocation(patternLoc.getResourceDomain(), "item/" + patternLoc.getResourcePath());
-
-    ModelLoader.setCustomMeshDefinition(TinkerTools.pattern, new ItemMeshDefinition() {
-      @Override
-      public ModelResourceLocation getModelLocation(ItemStack stack) {
-        NBTTagCompound tag = TagUtil.getTagSafe(stack);
-        String suffix = tag.getString(Pattern.TAG_PARTTYPE).toLowerCase(Locale.US);
-
-        if(!suffix.isEmpty())
-          suffix = "_" + suffix;
-
-        return new ModelResourceLocation(new ResourceLocation(patternLoc.getResourceDomain(),
-                                                              patternLoc.getResourcePath() + suffix),
-                                         "inventory");
-      }
-    });
+    ModelLoader.setCustomMeshDefinition(TinkerTools.pattern, new PatternMeshDefinition(patternLoc));
 
     // tools
     for(ToolCore tool : TinkerTools.tools) {
