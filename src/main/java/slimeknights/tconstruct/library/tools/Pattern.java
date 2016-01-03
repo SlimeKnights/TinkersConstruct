@@ -90,4 +90,14 @@ public class Pattern extends Item {
       tooltip.add(Util.translateFormatted("tooltip.pattern.cost", df.format(cost)));
     }
   }
+
+  public static String getTextureIdentifier(Item item) {
+    String identifier = item.getRegistryName();
+    // sanitize it (remove modid)
+    if(identifier.contains(":")) {
+      identifier = identifier.substring(identifier.lastIndexOf(':') + 1);
+    }
+
+    return "_" + identifier;
+  }
 }

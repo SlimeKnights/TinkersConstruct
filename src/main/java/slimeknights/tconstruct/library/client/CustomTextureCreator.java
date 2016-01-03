@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -22,6 +23,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
@@ -34,8 +37,10 @@ import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
 import slimeknights.tconstruct.library.client.texture.CastTexture;
 import slimeknights.tconstruct.library.client.texture.GuiOutlineTexture;
 import slimeknights.tconstruct.library.client.texture.PatternTexture;
+import slimeknights.tconstruct.library.client.texture.TextureColoredTexture;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.tools.Pattern;
 
 /**
  * Textures registered with this creator will get a texture created/loaded for each material.
@@ -164,78 +169,88 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
   }
 
   private void createPatterntextures(TextureMap map) {
-    // nothing to do
-    if(patternModelLocation == null && castModelLocation == null) {
-      return;
+    // create Pattern textures
+    if(patternModelLocation != null) {
+      ImmutableList.Builder<Item> builder = ImmutableList.builder();
+      for(IToolPart toolpart : TinkerRegistry.getToolParts()) {
+        if(toolpart instanceof Item) {
+          builder.add((Item) toolpart);
+        }
+      }
+      patternLocString = createPatternTexturesFor(map, patternModelLocation, builder.build(), PatternTexture.class);
+    }
+    // create cast textures
+    if(castModelLocation != null) {
+      ImmutableList.Builder<Item> builder = ImmutableList.builder();
+      for(IToolPart toolpart : TinkerRegistry.getToolParts()) {
+        if(toolpart instanceof Item) {
+          builder.add((Item) toolpart);
+        }
+      }
+      castLocString = createPatternTexturesFor(map, castModelLocation, builder.build(), CastTexture.class);
+    }
+  }
+
+  public String createPatternTexturesFor(TextureMap map, ResourceLocation baseTextureLoc, Iterable<Item> items, Class<? extends TextureColoredTexture> clazz) {
+    Constructor<? extends TextureColoredTexture> constructor;
+    String baseTextureString;
+    TextureAtlasSprite baseTexture;
+    try {
+      constructor = clazz.getConstructor(String.class, TextureAtlasSprite.class, String.class);
+      IModel patternModel = ModelLoaderRegistry.getModel(baseTextureLoc);
+      ResourceLocation patternLocation = patternModel.getTextures().iterator().next();
+      baseTexture = map.getTextureExtry(patternLocation.toString());
+      baseTextureString = patternLocation.toString();
+      if(baseTexture == null) {
+        log.error("No basetexture found for pattern texture generation: " + patternLocation);
+        return null;
+      }
+    } catch(IOException e) {
+      log.error(e);
+      return null;
+    } catch(NoSuchMethodException e) {
+      log.error(e);
+      return null;
     }
 
-    try {
-      TextureAtlasSprite pattern = null;
-      TextureAtlasSprite cast = null;
-      if(patternModelLocation != null) {
-        IModel patternModel = ModelLoaderRegistry.getModel(patternModelLocation);
-        ResourceLocation patternLocation = patternModel.getTextures().iterator().next();
-        pattern = map.getTextureExtry(patternLocation.toString());
-        patternLocString = patternLocation + "_";
-      }
-      if(castModelLocation != null) {
-        IModel patternModel = ModelLoaderRegistry.getModel(castModelLocation);
-        ResourceLocation patternLocation = patternModel.getTextures().iterator().next();
-        cast = map.getTextureExtry(patternLocation.toString());
-        castLocString = patternLocation + "_";
-      }
 
+    for(Item item : items) {
+      try {
+        // get id
+        String identifier = Pattern.getTextureIdentifier(item);
 
-
-      for(IToolPart toolpart : TinkerRegistry.getToolParts()) {
-        if(!(toolpart instanceof Item)) {
-          continue; // WHY?!
-        }
-
-        //String identifier2 = Util.getItemLocation((Item) toolpart).getResourcePath().toLowerCase(Locale.US);
-        String identifier = ((Item) toolpart).getRegistryName();
-        if(identifier.contains(":")) {
-          identifier = identifier.substring(identifier.lastIndexOf(':') + 1);
-        }
-
-        ResourceLocation modelLocation = Util.getItemLocation((Item) toolpart);
+        ResourceLocation modelLocation = Util.getItemLocation(item);
         IModel partModel = ModelLoaderRegistry.getModel(new ResourceLocation(modelLocation.getResourceDomain(),
                                                                              "item/parts/" + modelLocation
                                                                                  .getResourcePath()
                                                                              + MaterialModelLoader.EXTENSION));
         ResourceLocation partTexture = partModel.getTextures().iterator().next();
 
-        // Pattern
-        if(pattern != null) {
-          String partPatternLocation = patternLocString + identifier;
-          TextureAtlasSprite partPatternTexture;
-          if(exists(partPatternLocation)) {
-            partPatternTexture = map.registerSprite(new ResourceLocation(partPatternLocation));
-          }
-          else {
-            partPatternTexture = new PatternTexture(partTexture.toString(), pattern, partPatternLocation);
-          }
-
-          map.setTextureEntry(partPatternLocation, partPatternTexture);
+        String partPatternLocation = baseTextureString + identifier;
+        TextureAtlasSprite partPatternTexture;
+        if(exists(partPatternLocation)) {
+          partPatternTexture = map.registerSprite(new ResourceLocation(partPatternLocation));
         }
-        if(cast != null) {
-          String partCastLocation = castLocString + identifier;
-          TextureAtlasSprite partCastTexture;
-          if(exists(partCastLocation)) {
-            partCastTexture = map.registerSprite(new ResourceLocation(partCastLocation));
-          }
-          else {
-            partCastTexture = new CastTexture(partTexture.toString(), cast, partCastLocation);
-          }
-
-          map.setTextureEntry(partCastLocation, partCastTexture);
+        else {
+          partPatternTexture = constructor.newInstance(partTexture.toString(), baseTexture, partPatternLocation);
         }
+
+        map.setTextureEntry(partPatternLocation, partPatternTexture);
+      } catch(IOException e) {
+        // should never happen
+        log.error(e);
+      } catch(IllegalAccessException e) {
+        log.error(e);
+      } catch(InstantiationException e) {
+        log.error(e);
+      } catch(InvocationTargetException e) {
+        log.error(e);
       }
-    } catch(IOException e) {
-      // should never happen
-      log.error(e);
     }
+
+    return baseTextureString;
   }
+
 
   // the same as materialtextures but only creates the ones for toolparts for the gui
   private void createGUITextures(TextureMap map) {

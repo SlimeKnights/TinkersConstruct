@@ -248,13 +248,11 @@ public abstract class ClientProxy extends CommonProxy {
 
     @Override
     public ModelResourceLocation getModelLocation(ItemStack stack) {
-      NBTTagCompound tag = TagUtil.getTagSafe(stack);
-      String suffix = tag.getString(Pattern.TAG_PARTTYPE).toLowerCase(Locale.US);
-      if(suffix.contains(":")) {
-        suffix = suffix.substring(suffix.lastIndexOf(':') + 1);
+      Item item = Pattern.getPartFromTag(stack);
+      String suffix = "";
+      if(item != null) {
+        suffix = Pattern.getTextureIdentifier(item);
       }
-      if(!suffix.isEmpty())
-        suffix = "_" + suffix;
 
       return new ModelResourceLocation(new ResourceLocation(baseLocation.getResourceDomain(),
                                                             baseLocation.getResourcePath() + suffix),

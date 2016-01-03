@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.shared.client.BakedTableModel;
 
 @SideOnly(Side.CLIENT)
@@ -99,10 +100,9 @@ public class ToolClientEvents {
           if(!(toolpart instanceof Item))
             continue; // WHY?!
 
-          ResourceLocation partLocation = ToolClientProxy.getItemLocation((Item) toolpart);
-          String suffix = partLocation.getResourcePath().toLowerCase(Locale.US);
+          String suffix = Pattern.getTextureIdentifier((Item) toolpart);
           // get texture
-          String partPatternLocation = locPattern.toString() + "_" + suffix;
+          String partPatternLocation = locPattern.toString() + suffix;
           String partPatternTexture = baseString + suffix;
           IModel partPatternModel = itemModel.retexture(ImmutableMap.of("layer0", partPatternTexture));
           IFlexibleBakedModel baked = partPatternModel.bake(partPatternModel.getDefaultState(), DefaultVertexFormats.ITEM, textureGetter);
