@@ -30,10 +30,11 @@ import slimeknights.tconstruct.library.fluid.FluidColored;
 import slimeknights.tconstruct.library.fluid.FluidMolten;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.shared.block.BlockBlueSlime;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.BlockMolten;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 
-@Pulse(id = TinkerFluids.PulseId)
+@Pulse(id = TinkerFluids.PulseId, pulsesRequired = TinkerSmeltery.PulseId, forced = true)
 public class TinkerFluids extends TinkerPulse {
 
   public static final String PulseId = "TinkerFluids";

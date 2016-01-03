@@ -64,7 +64,7 @@ import static slimeknights.tconstruct.library.utils.HarvestLevels.STONE;
 /**
  * All the tool materials tcon supports.
  */
-@Pulse(id = TinkerMaterials.PulseId, description = "All the tool materials added by TConstruct", pulsesRequired = TinkerTools.PulseId)
+@Pulse(id = TinkerMaterials.PulseId, description = "All the tool materials added by TConstruct", pulsesRequired = TinkerTools.PulseId, forced = true)
 public final class TinkerMaterials {
 
   static final String PulseId = "TinkerMaterials";
@@ -131,7 +131,7 @@ public final class TinkerMaterials {
     materials.add(mat);
     return mat;
   }
-  
+
   static {
     xu = new Material("unstable", EnumChatFormatting.WHITE);
   }
