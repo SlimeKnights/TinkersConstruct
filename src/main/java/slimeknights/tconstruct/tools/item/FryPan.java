@@ -50,11 +50,9 @@ public class FryPan extends ToolCore {
     float progress = (float)(getMaxItemUseDuration(stack) - timeLeft)/30f;
     float strength = .1f + 1.5f*progress*progress;
 
-    // is the player currently looking at an entity?
-    player.rayTrace(3.3f, 0);
-
     float range = 3.2f;
 
+    // is the player currently looking at an entity?
     Vec3 eye = new Vec3(player.posX, player.posY + (double)player.getEyeHeight(), player.posZ); // Entity.getPositionEyes
     Vec3 look = player.getLook(1.0f);
     MovingObjectPosition mop = EntityUtil.raytraceEntity(player, eye, look, range, true);
