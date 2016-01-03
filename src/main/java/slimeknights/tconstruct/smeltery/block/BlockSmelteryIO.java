@@ -4,6 +4,7 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -50,6 +51,16 @@ public class BlockSmelteryIO extends BlockEnumSmeltery<BlockSmelteryIO.IOType> {
   @Override
   public TileEntity createNewTileEntity(World worldIn, int meta) {
     return new TileDrain();
+  }
+
+  @Override
+  public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+    EnumFacing side = facing.getOpposite();
+    if(side == EnumFacing.UP || side == EnumFacing.DOWN) {
+      side = placer.getHorizontalFacing().getOpposite();
+    }
+    // set rotation
+    return this.getDefaultState().withProperty(FACING, side);
   }
 
   @Override
