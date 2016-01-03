@@ -4,6 +4,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -51,6 +52,11 @@ public class MaterialIntegration {
       if(!found) {
         return;
       }
+    }
+
+    // decativate fluids if smeltery isn't loaded
+    if(!TConstruct.pulseManager.isPulseLoaded(TinkerSmeltery.PulseId)) {
+      fluid = null;
     }
 
     // fluid first
