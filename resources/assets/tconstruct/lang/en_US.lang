@@ -205,6 +205,12 @@ item.tconstruct.large_sword_blade.name=Large Sword Blade
 # item.tconstruct.pickaxe.wood=Wooden Pickaxe
 
 #################
+#   Entities    #
+#################
+
+entity.tconstruct.blueslime.name=Blue Slime
+
+#################
 #    Liquids    #
 #################
 
