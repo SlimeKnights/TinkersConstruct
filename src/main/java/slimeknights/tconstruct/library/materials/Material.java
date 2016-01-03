@@ -38,7 +38,7 @@ public class Material extends RecipeMatchRegistry {
   public static final int VALUE_Shard = VALUE_Ingot/2;
 
   public static final int VALUE_Ore = VALUE_Ingot*2;
-  public static final int VALUE_Gem = 640;
+  public static final int VALUE_Gem = 666; // divisible by 3!
   public static final int VALUE_Block = VALUE_Ingot*9;
 
   public static final int VALUE_SearedBlock = VALUE_Ingot*2;

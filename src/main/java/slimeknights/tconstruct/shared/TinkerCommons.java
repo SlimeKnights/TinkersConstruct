@@ -153,12 +153,9 @@ public class TinkerCommons extends TinkerPulse {
       blockManyullyn = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.MANYULLYN.getMeta());
       blockKnightSlime = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.KNIGHTSLIME.getMeta());
 
-      // smeltery only
-      if(isSmelteryLoaded()) {
-        nuggetPigIron = nuggets.addMeta(4, "pigiron");
-        ingotPigIron = ingots.addMeta(4, "pigiron");
-        blockPigIron = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.PIGIRON.getMeta());
-      }
+      nuggetPigIron = nuggets.addMeta(4, "pigiron");
+      ingotPigIron = ingots.addMeta(4, "pigiron");
+      blockPigIron = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.PIGIRON.getMeta());
     }
 
     // Materials

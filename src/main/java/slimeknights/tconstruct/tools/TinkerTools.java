@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -407,8 +408,17 @@ public class TinkerTools extends TinkerPulse {
         GameRegistry.addRecipe(new ShapelessOreRecipe(knightSlime, Items.slime_ball, "dyePurple", "ingotIron", "stone"));
       }
 
+      // cobalt ardite manyullyn
+      GameRegistry.addSmelting(TinkerCommons.oreArdite, TinkerCommons.ingotArdite, 1.0f);
+      GameRegistry.addSmelting(TinkerCommons.oreCobalt, TinkerCommons.ingotCobalt, 1.0f);
+
       GameRegistry.addShapelessRecipe(TinkerCommons.ingotManyullyn, TinkerCommons.ingotCobalt, TinkerCommons.ingotArdite, Blocks.coal_block);
       GameRegistry.addShapelessRecipe(TinkerCommons.nuggetManyullyn, TinkerCommons.nuggetCobalt, TinkerCommons.nuggetArdite, Items.coal);
+
+      // pigiron
+      ItemStack pigiron = TinkerCommons.ingotPigIron.copy();
+      pigiron.stackSize = 3;
+      GameRegistry.addRecipe(new ShapelessOreRecipe(pigiron, "ingotIron", "ingotIron", "ingotIron", Items.porkchop, Items.porkchop, Items.porkchop, "gemEmerald"));
     }
 
     // Expander items for the Harvest-Width/Height modifier
