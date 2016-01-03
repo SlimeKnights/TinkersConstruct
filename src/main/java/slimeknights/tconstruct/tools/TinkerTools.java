@@ -83,6 +83,9 @@ import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
 import slimeknights.tconstruct.tools.tileentity.TileStencilTable;
 import slimeknights.tconstruct.tools.tileentity.TileToolForge;
 import slimeknights.tconstruct.tools.tileentity.TileToolStation;
+import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.block.BlockSlime;
+import slimeknights.tconstruct.world.block.BlockSlimeCongealed;
 
 @Pulse(id = TinkerTools.PulseId, description = "All the tools and everything related to it.")
 public class TinkerTools extends TinkerPulse {
@@ -450,9 +453,16 @@ public class TinkerTools extends TinkerPulse {
                                                'O', "blockObsidian",
                                                'P', goldThing));
 
-    // Slime Sand
+    // Slimy Mud
     GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudGreen, Items.slime_ball, Items.slime_ball, Items.slime_ball, Items.slime_ball, "sand", "dirt"));
     GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudBlue, slimeBallBlue, slimeBallBlue, slimeBallBlue, slimeBallBlue, "sand", "dirt"));
+    if(isWorldLoaded()) {
+      // recipies using congealed slime blocks
+      ItemStack congealed = new ItemStack(TinkerWorld.slimeBlockCongealed, 0, BlockSlime.SlimeType.GREEN.meta);
+      GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudGreen, congealed, "sand", "dirt"));
+      congealed = new ItemStack(TinkerWorld.slimeBlockCongealed, 0, BlockSlime.SlimeType.BLUE.meta);
+      GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudBlue, congealed, "sand", "dirt"));
+    }
 
     // Slime crystals
     FurnaceRecipes.instance().addSmeltingRecipe(TinkerCommons.slimyMudGreen, TinkerCommons.matSlimeCrystal, 0);
