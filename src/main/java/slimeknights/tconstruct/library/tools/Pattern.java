@@ -32,13 +32,9 @@ public class Pattern extends Item {
   public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     subItems.add(new ItemStack(this));
 
-    for(IToolPart toolpart : TinkerRegistry.getToolParts()) {
-      if(!(toolpart instanceof Item)) {
-        continue;
-      }
-
+    for(Item toolpart : TinkerRegistry.getPatternItems()) {
       ItemStack stack = new ItemStack(this);
-      setTagForPart(stack, (Item)toolpart);
+      setTagForPart(stack, toolpart);
 
       subItems.add(stack);
     }

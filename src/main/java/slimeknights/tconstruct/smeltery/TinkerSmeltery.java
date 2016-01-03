@@ -53,6 +53,7 @@ import slimeknights.tconstruct.smeltery.block.BlockSeared;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryIO;
 import slimeknights.tconstruct.smeltery.block.BlockTank;
+import slimeknights.tconstruct.smeltery.item.Cast;
 import slimeknights.tconstruct.smeltery.item.UniversalBucket;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingBasin;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingTable;
@@ -80,7 +81,7 @@ public class TinkerSmeltery extends TinkerPulse {
   public static BlockSmelteryIO smelteryIO;
 
   // Items
-  public static Pattern cast;
+  public static Cast cast;
   public static UniversalBucket bucket;
 
   private static Map<Fluid, Set<Pair<List<ItemStack>, Integer>>> knownOreFluids = Maps.newHashMap();
@@ -107,7 +108,7 @@ public class TinkerSmeltery extends TinkerPulse {
     registerTE(TileCastingBasin.class, "casting_basin");
     registerTE(TileDrain.class, "smeltery_drain");
 
-    cast = registerItem(new Pattern(), "cast");
+    cast = registerItem(new Cast(), "cast");
     cast.setCreativeTab(TinkerRegistry.tabSmeltery);
 
     bucket = registerItem(new UniversalBucket(), "bucket");

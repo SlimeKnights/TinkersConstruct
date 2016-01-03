@@ -294,7 +294,8 @@ public final class TinkerRegistry {
   private static final Set<ToolCore> toolStationCrafting = Sets.newLinkedHashSet();
   private static final Set<ToolCore> toolForgeCrafting = Sets.newLinkedHashSet();
   private static final List<ItemStack> stencilTableCrafting = Lists.newLinkedList();
-  private static final List<Item> patternItems = Lists.newLinkedList();
+  private static final Set<Item> patternItems = Sets.newHashSet();
+  private static final Set<Item> castItems = Sets.newHashSet();
   private static Shard shardItem;
 
   /**
@@ -305,7 +306,9 @@ public final class TinkerRegistry {
     tools.add(tool);
 
     for(PartMaterialType pmt : tool.requiredComponents) {
-      toolParts.addAll(pmt.getPossibleParts());
+      for(IToolPart tp : pmt.getPossibleParts()) {
+        registerToolPart(tp);
+      }
     }
   }
 
@@ -318,6 +321,10 @@ public final class TinkerRegistry {
    */
   public static void registerToolPart(IToolPart part) {
     toolParts.add(part);
+    if(part instanceof Item) {
+      addPatternForItem((Item) part);
+      addCastForItem((Item) part);
+    }
   }
 
   public static Set<IToolPart> getToolParts() {
@@ -375,6 +382,26 @@ public final class TinkerRegistry {
       out = shardItem.getItemstackWithMaterial(material);
     }
     return out;
+  }
+
+  /** Registers a pattern for the given item */
+  public static void addPatternForItem(Item item) {
+    patternItems.add(item);
+  }
+
+  /** Registers a cast for the given item */
+  public static void addCastForItem(Item item) {
+    castItems.add(item);
+  }
+
+  /** All items that have a pattern */
+  public static Collection<Item> getPatternItems() {
+    return ImmutableList.copyOf(patternItems);
+  }
+
+  /** All items that have a cast */
+  public static Collection<Item> getCastItems() {
+    return ImmutableList.copyOf(castItems);
   }
 
   /*---------------------------------------------------------------------------

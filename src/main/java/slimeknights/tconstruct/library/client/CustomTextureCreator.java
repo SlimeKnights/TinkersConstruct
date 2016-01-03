@@ -9,21 +9,25 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.RegistryDelegate;
 
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Locale;
@@ -171,23 +175,11 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
   private void createPatterntextures(TextureMap map) {
     // create Pattern textures
     if(patternModelLocation != null) {
-      ImmutableList.Builder<Item> builder = ImmutableList.builder();
-      for(IToolPart toolpart : TinkerRegistry.getToolParts()) {
-        if(toolpart instanceof Item) {
-          builder.add((Item) toolpart);
-        }
-      }
-      patternLocString = createPatternTexturesFor(map, patternModelLocation, builder.build(), PatternTexture.class);
+      patternLocString = createPatternTexturesFor(map, patternModelLocation, TinkerRegistry.getPatternItems(), PatternTexture.class);
     }
     // create cast textures
     if(castModelLocation != null) {
-      ImmutableList.Builder<Item> builder = ImmutableList.builder();
-      for(IToolPart toolpart : TinkerRegistry.getToolParts()) {
-        if(toolpart instanceof Item) {
-          builder.add((Item) toolpart);
-        }
-      }
-      castLocString = createPatternTexturesFor(map, castModelLocation, builder.build(), CastTexture.class);
+      castLocString = createPatternTexturesFor(map, castModelLocation, TinkerRegistry.getCastItems(), CastTexture.class);
     }
   }
 
@@ -219,11 +211,14 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
         // get id
         String identifier = Pattern.getTextureIdentifier(item);
 
+        ResourceLocation modelLocation = getModelLocationForItem(item);
+        IModel partModel = ModelLoaderRegistry.getModel(modelLocation);
+/*
         ResourceLocation modelLocation = Util.getItemLocation(item);
         IModel partModel = ModelLoaderRegistry.getModel(new ResourceLocation(modelLocation.getResourceDomain(),
                                                                              "item/parts/" + modelLocation
                                                                                  .getResourcePath()
-                                                                             + MaterialModelLoader.EXTENSION));
+                                                                             + MaterialModelLoader.EXTENSION));*/
         ResourceLocation partTexture = partModel.getTextures().iterator().next();
 
         String partPatternLocation = baseTextureString + identifier;
@@ -249,6 +244,30 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
     }
 
     return baseTextureString;
+  }
+
+  private ResourceLocation getModelLocationForItem(Item item) {
+    String loc = null;
+    try {
+      Field field = ModelBakery.class.getDeclaredField("customVariantNames");
+      field.setAccessible(true);
+      Map<net.minecraftforge.fml.common.registry.RegistryDelegate<Item>, Set<String>> map = (Map<RegistryDelegate<Item>, Set<String>>) field.get(null);
+      Set<String> variants = map.get(item.delegate);
+      if(variants != null) {
+        loc = variants.iterator().next();
+      }
+    } catch(NoSuchFieldException e) {
+      e.printStackTrace();
+    } catch(IllegalAccessException e) {
+      e.printStackTrace();
+    }
+
+    if(loc == null) {
+      loc = Util.getItemLocation(item).toString();
+    }
+    ResourceLocation rl = new ResourceLocation(loc.replaceAll("#.*", ""));
+    rl = new ResourceLocation(rl.getResourceDomain(), "item/" + rl.getResourcePath());
+    return rl;
   }
 
 

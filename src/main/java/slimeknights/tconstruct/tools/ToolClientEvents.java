@@ -59,7 +59,7 @@ public class ToolClientEvents {
   @SubscribeEvent
   public void onModelBake(ModelBakeEvent event) {
     // add the models for the pattern variants
-    replacePatternModel(locBlankPattern, MODEL_BlankPattern, event, CustomTextureCreator.patternLocString);
+    replacePatternModel(locBlankPattern, MODEL_BlankPattern, event, CustomTextureCreator.patternLocString, TinkerRegistry.getPatternItems());
 
     // replace the baked table models with smart variants
 
@@ -90,17 +90,14 @@ public class ToolClientEvents {
     }
   }
 
-  public static void replacePatternModel(ResourceLocation locPattern, ResourceLocation modelLocation, ModelBakeEvent event, String baseString) {
+  public static void replacePatternModel(ResourceLocation locPattern, ResourceLocation modelLocation, ModelBakeEvent event, String baseString, Iterable<Item> items) {
     try {
       IModel model = event.modelLoader.getModel(modelLocation);
       if(model instanceof IRetexturableModel) {
         IRetexturableModel itemModel = (IRetexturableModel) model;
 
-        for(IToolPart toolpart : TinkerRegistry.getToolParts()) {
-          if(!(toolpart instanceof Item))
-            continue; // WHY?!
-
-          String suffix = Pattern.getTextureIdentifier((Item) toolpart);
+        for(Item item : items) {
+          String suffix = Pattern.getTextureIdentifier(item);
           // get texture
           String partPatternLocation = locPattern.toString() + suffix;
           String partPatternTexture = baseString + suffix;
