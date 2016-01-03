@@ -30,6 +30,7 @@ import java.util.Map;
 
 import slimeknights.mantle.client.model.BlockItemModelWrapper;
 import slimeknights.mantle.client.model.TRSRBakedModel;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.model.ModelHelper;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.shared.block.BlockTable;
@@ -65,8 +66,9 @@ public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlex
     if(state instanceof IExtendedBlockState) {
       IExtendedBlockState extendedState = (IExtendedBlockState) state;
       texture = extendedState.getValue(BlockTable.TEXTURE);
-      if(extendedState.getValue(BlockTable.INVENTORY) != null)
+      if(Config.renderTableItems && extendedState.getValue(BlockTable.INVENTORY) != null) {
         items = extendedState.getValue(BlockTable.INVENTORY).items;
+      }
 
       EnumFacing face = extendedState.getValue((IUnlistedProperty<EnumFacing>) BlockTable.FACING);
       if(face != null) {
