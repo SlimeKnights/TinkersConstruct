@@ -11,6 +11,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.mantle.common.IInventoryGui;
+import slimeknights.tconstruct.library.smeltery.ICast;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -65,7 +66,7 @@ public class TilePatternChest extends TileTinkerChest implements IInventoryGui {
   public String getName() {
     // do we hold casts instead of patterns?
     for(int i = 0; i < getSizeInventory(); i++) {
-      if(getStackInSlot(i) != null && getStackInSlot(i).getItem() == TinkerSmeltery.cast) {
+      if(getStackInSlot(i) != null && getStackInSlot(i).getItem() instanceof ICast) {
         return "gui.castchest.name";
       }
     }

@@ -3,7 +3,6 @@ package slimeknights.tconstruct.smeltery;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.block.Block;
@@ -45,7 +44,6 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
-import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.smeltery.block.BlockCasting;
 import slimeknights.tconstruct.smeltery.block.BlockFaucet;
@@ -53,7 +51,7 @@ import slimeknights.tconstruct.smeltery.block.BlockSeared;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryIO;
 import slimeknights.tconstruct.smeltery.block.BlockTank;
-import slimeknights.tconstruct.smeltery.item.Cast;
+import slimeknights.tconstruct.library.smeltery.Cast;
 import slimeknights.tconstruct.smeltery.item.UniversalBucket;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingBasin;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingTable;
@@ -113,6 +111,11 @@ public class TinkerSmeltery extends TinkerPulse {
 
     bucket = registerItem(new UniversalBucket(), "bucket");
     bucket.setCreativeTab(TinkerRegistry.tabGeneral);
+
+    // ingot cast
+    TinkerRegistry.addCastForItem(Items.iron_ingot);
+    TinkerRegistry.addCastForItem(Items.gold_nugget);
+    TinkerRegistry.addCastForItem(Items.emerald);
 
     proxy.preInit();
     MinecraftForge.EVENT_BUS.register(bucket);

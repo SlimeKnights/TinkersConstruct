@@ -42,6 +42,7 @@ import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.IPattern;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.Shard;
@@ -357,7 +358,7 @@ public final class TinkerRegistry {
 
   /** Adds a new pattern to craft to the stenciltable. NBT sensitive. Has to be a Pattern. */
   public static void registerStencilTableCrafting(ItemStack stencil) {
-    if(!(stencil.getItem() instanceof Pattern)) {
+    if(!(stencil.getItem() instanceof IPattern)) {
       error(String.format(
           "Stencil Table Crafting has to be a pattern (%s)", stencil.toString()));
       return;

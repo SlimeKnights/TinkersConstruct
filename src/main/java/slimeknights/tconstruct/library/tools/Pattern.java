@@ -17,7 +17,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
-public class Pattern extends Item {
+public class Pattern extends Item implements IPattern {
 
   private static final DecimalFormat df = new DecimalFormat("#.##");
 
@@ -67,7 +67,7 @@ public class Pattern extends Item {
   }
 
   public boolean isBlankPattern(ItemStack stack) {
-    if(stack == null || !(stack.getItem() instanceof Pattern)) {
+    if(stack == null || !(stack.getItem() instanceof IPattern)) {
       return false;
     }
 

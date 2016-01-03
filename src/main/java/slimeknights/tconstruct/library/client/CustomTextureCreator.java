@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
@@ -210,27 +211,29 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
       try {
         // get id
         String identifier = Pattern.getTextureIdentifier(item);
-
-        ResourceLocation modelLocation = getModelLocationForItem(item);
-        IModel partModel = ModelLoaderRegistry.getModel(modelLocation);
-/*
-        ResourceLocation modelLocation = Util.getItemLocation(item);
-        IModel partModel = ModelLoaderRegistry.getModel(new ResourceLocation(modelLocation.getResourceDomain(),
-                                                                             "item/parts/" + modelLocation
-                                                                                 .getResourcePath()
-                                                                             + MaterialModelLoader.EXTENSION));*/
-        ResourceLocation partTexture = partModel.getTextures().iterator().next();
-
         String partPatternLocation = baseTextureString + identifier;
         TextureAtlasSprite partPatternTexture;
         if(exists(partPatternLocation)) {
           partPatternTexture = map.registerSprite(new ResourceLocation(partPatternLocation));
+          map.setTextureEntry(partPatternLocation, partPatternTexture);
         }
         else {
-          partPatternTexture = constructor.newInstance(partTexture.toString(), baseTexture, partPatternLocation);
-        }
+          /*
+          ResourceLocation modelLocation = getModelLocationForItem(item);
+          IModel partModel = ModelLoaderRegistry.getModel(modelLocation);
+          */
+          ResourceLocation modelLocation = Util.getItemLocation(item);
+          IModel partModel = ModelLoaderRegistry.getModel(new ResourceLocation(modelLocation.getResourceDomain(),
+                                                                               "item/parts/" + modelLocation
+                                                                                   .getResourcePath()
+                                                                               + MaterialModelLoader.EXTENSION));
+          ResourceLocation partTexture = partModel.getTextures().iterator().next();
 
-        map.setTextureEntry(partPatternLocation, partPatternTexture);
+          if(partModel != ModelLoaderRegistry.getMissingModel()) {
+            partPatternTexture = constructor.newInstance(partTexture.toString(), baseTexture, partPatternLocation);
+            map.setTextureEntry(partPatternLocation, partPatternTexture);
+          }
+        }
       } catch(IOException e) {
         // should never happen
         log.error(e);
