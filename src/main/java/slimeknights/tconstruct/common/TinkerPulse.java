@@ -43,37 +43,40 @@ public abstract class TinkerPulse {
   /**
    * Sets the correct unlocalized name and registers the item.
    */
-  protected static <T extends Item> T registerItem(T item, String unlocName) {
-    if(!unlocName.equals(unlocName.toLowerCase(Locale.US))) {
-      throw new IllegalArgumentException(String.format("Unlocalized names need to be all lowercase! Item: %s", unlocName));
+  protected static <T extends Item> T registerItem(T item, String name) {
+    if(!name.equals(name.toLowerCase(Locale.US))) {
+      throw new IllegalArgumentException(String.format("Unlocalized names need to be all lowercase! Item: %s", name));
     }
 
-    item.setUnlocalizedName(Util.prefix(unlocName));
-    GameRegistry.registerItem(item, unlocName);
+    item.setUnlocalizedName(Util.prefix(name));
+    item.setRegistryName(Util.getResource(name));
+    GameRegistry.registerItem(item, name);
     return item;
   }
 
-  protected static <T extends Block> T registerBlock(T block, String unlocName) {
-    block.setUnlocalizedName(Util.prefix(unlocName));
-    GameRegistry.registerBlock(block, unlocName);
+  protected static <T extends Block> T registerBlock(T block, String name) {
+    block.setUnlocalizedName(Util.prefix(name));
+    block.setRegistryName(Util.getResource(name));
+    GameRegistry.registerBlock(block, name);
     return block;
   }
 
-  protected static <T extends EnumBlock<?>> T registerEnumBlock(T block, String unlocName) {
-    registerBlock(block, ItemBlockMeta.class, unlocName);
+  protected static <T extends EnumBlock<?>> T registerEnumBlock(T block, String name) {
+    registerBlock(block, ItemBlockMeta.class, name);
     ItemBlockMeta.setMappingProperty(block, block.prop);
     return block;
   }
 
   protected static <T extends Block> T registerBlock(T block,
                                                      Class<? extends ItemBlock> itemBlockClazz,
-                                                     String unlocName, Object... itemCtorArgs) {
-    if(!unlocName.equals(unlocName.toLowerCase(Locale.US))) {
-      throw new IllegalArgumentException(String.format("Unlocalized names need to be all lowercase! Block: %s", unlocName));
+                                                     String name, Object... itemCtorArgs) {
+    if(!name.equals(name.toLowerCase(Locale.US))) {
+      throw new IllegalArgumentException(String.format("Unlocalized names need to be all lowercase! Block: %s", name));
     }
 
-    block.setUnlocalizedName(Util.prefix(unlocName));
-    GameRegistry.registerBlock(block, itemBlockClazz, unlocName, itemCtorArgs);
+    block.setUnlocalizedName(Util.prefix(name));
+    block.setRegistryName(Util.getResource(name));
+    GameRegistry.registerBlock(block, itemBlockClazz, name, itemCtorArgs);
     return block;
   }
 
