@@ -38,7 +38,7 @@ public class TableRecipe extends ShapedOreRecipe {
 
   @Override
   public ItemStack getRecipeOutput() {
-    if(!outputBlocks.isEmpty()) {
+    if(!outputBlocks.isEmpty() && output != null) {
       ItemStack stack = outputBlocks.get(0);
       BlockTable block = (BlockTable) Block.getBlockFromItem(output.getItem());
       return BlockTable.createItemstack(block, output.getItemDamage(), Block.getBlockFromItem(stack.getItem()),
