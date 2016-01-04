@@ -15,7 +15,7 @@ import slimeknights.tconstruct.library.traits.AbstractTrait;
 
 public class TraitSlimey extends AbstractTrait {
 
-  private static float chance = 0.01f;
+  private static float chance = 0.0033f;
 
   protected final Class<? extends EntitySlime> slime;
 
