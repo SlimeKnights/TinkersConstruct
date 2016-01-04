@@ -450,7 +450,7 @@ public class TinkerTools extends TinkerPulse {
                                                "OOO",
                                                "OPO",
                                                "OOO",
-                                               'O', "blockObsidian",
+                                               'O', "obsidian",
                                                'P', goldThing));
 
     // Slimy Mud
