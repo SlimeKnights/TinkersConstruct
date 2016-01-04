@@ -14,8 +14,10 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
@@ -142,12 +144,29 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
 
   @Override
   public int getMetaFromState(IBlockState state) {
-    return ((TableTypes) state.getValue(TABLES)).meta;
+    return (state.getValue(TABLES)).meta;
+  }
+
+  @Override
+  public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
+    if(worldIn.getBlockState(pos).getValue(TABLES).isChest) {
+      this.setBlockBounds(0, 0, 0, 1, 0.875f, 1);
+    }
+    else {
+      this.setBlockBounds(0, 0, 0, 1, 1, 1);
+    }
+  }
+
+  @Override
+  public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
+    float y = state.getValue(TABLES).isChest ? 0.875f : 1;
+    return AxisAlignedBB.fromBounds(pos.getX(), pos.getY(), pos.getZ(),
+                                    pos.getX() + 1, pos.getY() + y, pos.getZ() + 1);
   }
 
   @Override
   public int getGuiNumber(IBlockState state) {
-    switch((TableTypes)state.getValue(TABLES)) {
+    switch(state.getValue(TABLES)) {
       case StencilTable: return 10;
       case PatternChest: return 15;
       case PartChest: return 16;
@@ -163,14 +182,21 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
     StencilTable,
     PartBuilder,
     ToolStation,
-    PatternChest,
-    PartChest;
+    PatternChest(true),
+    PartChest(true);
 
     TableTypes() {
       meta = this.ordinal();
+      this.isChest = false;
+    }
+
+    TableTypes(boolean chest) {
+      meta = this.ordinal();
+      this.isChest = chest;
     }
 
     public final int meta;
+    public final boolean isChest;
 
     public static TableTypes fromMeta(int meta) {
       if(meta < 0 || meta >= values().length) {
