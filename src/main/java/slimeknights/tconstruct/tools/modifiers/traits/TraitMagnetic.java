@@ -53,7 +53,7 @@ public class TraitMagnetic extends AbstractTrait {
       double x = entity.posX;
       double y = entity.posY;
       double z = entity.posZ;
-      double range = 1.7d;
+      double range = 2.1d;
 
       List<EntityItem> items = entity.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.fromBounds(x - range, y - range, z - range, x + range, y + range, z + range));
       int pulled = 0;
