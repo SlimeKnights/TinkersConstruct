@@ -160,6 +160,8 @@ public class GuiSmeltery extends GuiMultiModule {
           y -= heights[i];
         }
       }
+      mouseX += cornerX;
+      mouseY += cornerY;
     }
     super.mouseClicked(mouseX, mouseY, mouseButton);
   }
