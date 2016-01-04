@@ -46,7 +46,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
     name = "Tinkers' Construct",
     version = TConstruct.modVersion,
     guiFactory = "slimeknights.tconstruct.common.config.ConfigGui$ConfigGuiFactory",
-    dependencies = "required-after:Forge@[11.15.0.1654,);"
+    dependencies = "required-after:Forge@[11.15.0.1673,);"
                    + "required-after:mantle@[1.8.8-0.6,)",
     acceptedMinecraftVersions = "1.8.9")
 public class TConstruct {
@@ -75,7 +75,7 @@ public class TConstruct {
     pulseManager.registerPulse(new TinkerFluids());
     pulseManager.registerPulse(new TinkerMaterials());
     // Plugins/Integration
-    pulseManager.registerPulse(new TinkerVintageCraft());
+    //pulseManager.registerPulse(new TinkerVintageCraft());
 
     pulseManager.registerPulse(new TinkerDebug());
   }
