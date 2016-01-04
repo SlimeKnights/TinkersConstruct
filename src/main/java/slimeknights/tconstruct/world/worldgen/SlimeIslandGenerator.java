@@ -44,14 +44,18 @@ public class SlimeIslandGenerator implements IWorldGenerator {
 
     IBlockState leaves = TinkerWorld.slimeLeaves.getDefaultState();
 
-    IBlockState slimeFLuid = Blocks.water.getDefaultState();
+    IBlockState slimeFLuidBlue = Blocks.water.getDefaultState();
+    IBlockState slimeFLuidPurple = Blocks.water.getDefaultState();
     if(TinkerFluids.blueslime != null) {
-      slimeFLuid = TinkerFluids.blueslime.getBlock().getDefaultState();
+      slimeFLuidBlue = TinkerFluids.blueslime.getBlock().getDefaultState();
+    }
+    if(TinkerFluids.purpleSlime != null) {
+      slimeFLuidPurple = TinkerFluids.purpleSlime.getBlock().getDefaultState();
     }
 
-    lakeGenGreen = new SlimeLakeGenerator(slimeFLuid, slimeGreen, slimeGreen, slimeBlue);
-    lakeGenBlue = new SlimeLakeGenerator(slimeFLuid, slimeBlue, slimeGreen, slimeBlue);
-    lakeGenPurple = new SlimeLakeGenerator(slimeFLuid, slimePurple, slimePurple);
+    lakeGenGreen = new SlimeLakeGenerator(slimeFLuidBlue, slimeGreen, slimeGreen, slimeBlue);
+    lakeGenBlue = new SlimeLakeGenerator(slimeFLuidBlue, slimeBlue, slimeGreen, slimeBlue);
+    lakeGenPurple = new SlimeLakeGenerator(slimeFLuidPurple, slimePurple, slimePurple);
 
     treeGenBlue = new SlimeTreeGenerator(5, 4, slimeGreen, leaves.withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.BLUE), TinkerWorld.slimeVineBlue3.getDefaultState());
     treeGenPurple = new SlimeTreeGenerator(5, 4, slimeGreen, leaves.withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.PURPLE), TinkerWorld.slimeVinePurple3.getDefaultState());

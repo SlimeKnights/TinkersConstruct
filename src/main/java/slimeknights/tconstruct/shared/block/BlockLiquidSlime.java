@@ -7,9 +7,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 
-public class BlockBlueSlime extends BlockFluidClassic {
+public class BlockLiquidSlime extends BlockFluidClassic {
 
-  public BlockBlueSlime(Fluid fluid, Material material) {
+  public BlockLiquidSlime(Fluid fluid, Material material) {
     super(fluid, material);
   }
 

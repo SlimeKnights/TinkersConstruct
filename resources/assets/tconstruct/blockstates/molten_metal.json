@@ -48,6 +48,10 @@
         "blueslime": {
             "model": "forge:fluid",
             "custom": { "fluid": "blueslime" }
+        },
+        "purpleslime": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "purpleslime" }
         }
     }
 }

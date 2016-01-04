@@ -1,19 +1,14 @@
 package slimeknights.tconstruct.world.entity;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.EntityBreakingFX;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.client.particle.EntitySlimeFx;
 import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.shared.TinkerFluids;
+import slimeknights.tconstruct.shared.block.BlockLiquidSlime;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 public class EntityBlueSlime extends EntitySlime {
@@ -37,7 +32,7 @@ public class EntityBlueSlime extends EntitySlime {
 
   @Override
   public boolean getCanSpawnHere() {
-    if(this.worldObj.getBlockState(this.getPosition()).getBlock() == TinkerFluids.blockBlueslime) {
+    if(this.worldObj.getBlockState(this.getPosition()).getBlock() instanceof BlockLiquidSlime) {
       return true;
     }
     if(this.worldObj.getBlockState(this.getPosition().down()).getBlock() == TinkerWorld.slimeGrass) {

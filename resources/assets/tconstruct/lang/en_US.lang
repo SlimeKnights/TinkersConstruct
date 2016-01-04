@@ -94,6 +94,7 @@ tile.tconstruct.seared_tank.gauge.name=Seared Gauge
 tile.tconstruct.seared_tank.window.name=Seared Window
 
 # Fluid blocks are mapped onto their fluid names
+tile.tconstruct.molten_stone=fluid.tconstruct.stone
 tile.tconstruct.molten_obsidian=fluid.tconstruct.obsidian
 tile.tconstruct.molten_iron=fluid.tconstruct.iron
 tile.tconstruct.molten_gold=fluid.tconstruct.gold
@@ -104,6 +105,8 @@ tile.tconstruct.molten_manyullyn=fluid.tconstruct.manyullyn
 tile.tconstruct.molten_knightslime=fluid.tconstruct.knightslime
 tile.tconstruct.blood=fluid.tconstruct.blood
 tile.tconstruct.milk=fluid.tconstruct.milk
+tile.tconstruct.blueslime=fluid.tconstruct.blueslime
+tile.tconstruct.purpleslime=fluid.tconstruct.purpleslime
 
 ################
 #    Items     #
@@ -217,6 +220,7 @@ entity.tconstruct.blueslime.name=Blue Slime
 #    Liquids    #
 #################
 
+fluid.tconstruct.stone.name=Seared Stone
 fluid.tconstruct.obsidian.name=Molten Obsidian
 fluid.tconstruct.iron.name=Molten Iron
 fluid.tconstruct.gold.name=Molten Gold
@@ -227,6 +231,8 @@ fluid.tconstruct.manyullyn.name=Molten Manyullyn
 fluid.tconstruct.knightslime.name=Molten Knightslime
 fluid.tconstruct.blood.name=Blood
 fluid.tconstruct.milk.name=Milk
+fluid.tconstruct.blueslime.name=Liquid Blue Slime
+fluid.tconstruct.purpleslime.name=Liqud Purple Slime
 
 
 #################

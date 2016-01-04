@@ -29,7 +29,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.fluid.FluidColored;
 import slimeknights.tconstruct.library.fluid.FluidMolten;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.shared.block.BlockBlueSlime;
+import slimeknights.tconstruct.shared.block.BlockLiquidSlime;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.BlockMolten;
 import slimeknights.tconstruct.tools.TinkerMaterials;
@@ -56,10 +56,9 @@ public class TinkerFluids extends TinkerPulse {
   public static FluidColored blood;
   public static FluidColored milk;
   public static FluidColored blueslime;
+  public static FluidColored purpleSlime;
 
   static List<Fluid> fluids = Lists.newLinkedList(); // all fluids registered by tcon
-
-  public static Block blockBlueslime;
 
   static {
     setupIntegrationFluids();
@@ -126,7 +125,12 @@ public class TinkerFluids extends TinkerPulse {
       blueslime = fluidClassic("blueslime", 0xef67f0f5);
       blueslime.setTemperature(310);
       registerFluid(blueslime);
-      blockBlueslime = registerBlock(new BlockBlueSlime(blueslime, net.minecraft.block.material.Material.water), blueslime.getName());
+      registerBlock(new BlockLiquidSlime(blueslime, net.minecraft.block.material.Material.water), blueslime.getName());
+
+      purpleSlime = fluidClassic("purpleslime", 0xefd236ff);
+      purpleSlime.setTemperature(370);
+      registerFluid(purpleSlime);
+      registerBlock(new BlockLiquidSlime(purpleSlime, net.minecraft.block.material.Material.water), purpleSlime.getName());
     }
 
     // register fluid buckets for all of the liquids
