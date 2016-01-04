@@ -18,6 +18,11 @@ import slimeknights.tconstruct.library.materials.Material;
 public class LocalizationCheckCommand extends CommandBase {
 
   @Override
+  public int getRequiredPermissionLevel() {
+    return 0;
+  }
+
+  @Override
   public String getCommandName() {
     return "checkLocalizationStrings";
   }

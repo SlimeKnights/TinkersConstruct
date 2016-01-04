@@ -36,6 +36,11 @@ public class DumpMaterialTest extends CommandBase {
   }
 
   @Override
+  public int getRequiredPermissionLevel() {
+    return 0;
+  }
+
+  @Override
   public String getCommandName() {
     return "dumpMaterialTest";
   }
