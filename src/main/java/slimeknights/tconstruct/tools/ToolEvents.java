@@ -55,7 +55,8 @@ public class ToolEvents {
             event.tool == TinkerTools.lumberAxe) {
       event.width += width ? 2 : 0;
       event.height += height ? 2 : 0;
-      event.distance = 2;
+      //event.distance = 1 + (width ? 1 : 0) + (height ? 1 : 0);
+      event.distance = 3;
     }
   }
 }
