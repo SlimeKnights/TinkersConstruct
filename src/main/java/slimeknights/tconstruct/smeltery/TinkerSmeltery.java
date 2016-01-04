@@ -45,6 +45,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.smeltery.Cast;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.smeltery.block.BlockCasting;
 import slimeknights.tconstruct.smeltery.block.BlockFaucet;
@@ -61,6 +62,8 @@ import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
+import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.block.BlockSlime;
 
 @Pulse(id = TinkerSmeltery.PulseId, description = "The smeltery and items needed for it", defaultEnable = false)
 public class TinkerSmeltery extends TinkerPulse {
@@ -165,6 +168,15 @@ public class TinkerSmeltery extends TinkerPulse {
     // bloooooood
     TinkerRegistry.registerMelting(Items.rotten_flesh, TinkerFluids.blood, 5);
 
+    // purple slime
+    TinkerRegistry.registerMelting(TinkerCommons.matSlimeBallPurple, TinkerFluids.purpleSlime, Material.VALUE_SlimeBall);
+    if(TinkerWorld.slimeBlockCongealed != null) {
+      ItemStack slimeblock = new ItemStack(TinkerWorld.slimeBlockCongealed, 1, BlockSlime.SlimeType.PURPLE.meta);
+      TinkerRegistry.registerMelting(slimeblock, TinkerFluids.purpleSlime, Material.VALUE_SlimeBall*4);
+      slimeblock = new ItemStack(TinkerWorld.slimeBlock, 1, BlockSlime.SlimeType.PURPLE.meta);
+      TinkerRegistry.registerMelting(slimeblock, TinkerFluids.purpleSlime, Material.VALUE_SlimeBall*9);
+    }
+
     // seared stone, takes as long as a full block to melt, but gives less
     TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of("stone", Material.VALUE_SearedMaterial),
                                                            TinkerFluids.searedStone, Material.VALUE_Ore));
@@ -181,10 +193,18 @@ public class TinkerSmeltery extends TinkerPulse {
   }
 
   private void registerAlloys() {
+    // 1 bucket lava + 1 bucket water = 2 buckets obsidian = 1 block obsidian
+    // 1000 + 1000 = 2000
     TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.obsidian, 2),
                                  new FluidStack(FluidRegistry.WATER, 1),
                                  new FluidStack(FluidRegistry.LAVA, 1));
 
+    // 1 iron ingot + 1 purple slime ball + seared stone in molten form = 1 knightslime ingot
+    // 144 + 250 + 288 = 144
+    TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.knightslime, 72),
+                                 new FluidStack(TinkerFluids.iron, 72),
+                                 new FluidStack(TinkerFluids.purpleSlime, 125),
+                                 new FluidStack(TinkerFluids.searedStone, 144));
   }
 
   /**

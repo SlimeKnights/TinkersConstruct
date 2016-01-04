@@ -45,6 +45,8 @@ public class Material extends RecipeMatchRegistry {
   public static final int VALUE_SearedMaterial = VALUE_Ingot/2;
   public static final int VALUE_Glass = 1000;
 
+  public static final int VALUE_SlimeBall = 250;
+
   static {
     UNKNOWN.addStats(new ToolMaterialStats(1, 1, 1, 1, 1, 0));
   }

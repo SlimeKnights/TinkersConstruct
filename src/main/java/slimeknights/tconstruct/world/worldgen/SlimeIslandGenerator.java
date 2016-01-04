@@ -48,6 +48,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     IBlockState slimeFLuidPurple = Blocks.water.getDefaultState();
     if(TinkerFluids.blueslime != null) {
       slimeFLuidBlue = TinkerFluids.blueslime.getBlock().getDefaultState();
+      slimeFLuidPurple = slimeFLuidBlue; // just in case, will never be used with how the mod is set up
     }
     if(TinkerFluids.purpleSlime != null) {
       slimeFLuidPurple = TinkerFluids.purpleSlime.getBlock().getDefaultState();
