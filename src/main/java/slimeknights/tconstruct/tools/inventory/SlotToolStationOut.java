@@ -4,6 +4,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+
+import slimeknights.tconstruct.tools.events.TinkerToolEvent;
 
 public class SlotToolStationOut extends Slot {
 
@@ -22,6 +25,7 @@ public class SlotToolStationOut extends Slot {
 
   @Override
   public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack) {
+    FMLCommonHandler.instance().firePlayerCraftingEvent(playerIn, stack, parent.getTile());
     parent.onResultTaken(playerIn, stack);
     stack.onCrafting(playerIn.getEntityWorld(), playerIn, 1);
 

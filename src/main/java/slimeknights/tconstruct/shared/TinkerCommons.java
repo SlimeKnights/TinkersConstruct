@@ -3,6 +3,7 @@ package slimeknights.tconstruct.shared;
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -219,5 +220,7 @@ public class TinkerCommons extends TinkerPulse {
   @Subscribe
   public void init(FMLInitializationEvent event) {
     GameRegistry.registerWorldGenerator(NetherOreGenerator.INSTANCE, 0);
+
+    MinecraftForge.EVENT_BUS.register(new AchievementEvents());
   }
 }
