@@ -2,6 +2,8 @@ package slimeknights.tconstruct.shared.tileentity;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -13,6 +15,8 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.mantle.tileentity.TileInventory;
 import slimeknights.tconstruct.common.config.Config;
@@ -80,21 +84,29 @@ public class TileTable extends TileInventory {
     return state.withProperty(BlockTable.INVENTORY, toDisplay);
   }
 
+  @SideOnly(Side.CLIENT)
   protected PropertyTableItem.TableItem getTableItem(ItemStack stack) {
     if(stack == null)
       return null;
-    IFlexibleBakedModel stackModel =
-        (IFlexibleBakedModel) Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
-    if(stackModel != null) {
-      PropertyTableItem.TableItem item = new PropertyTableItem.TableItem(stackModel, 0,-0.46875f,0, 0.8f, (float) (-Math.PI/2));
-      if(stack.getItem() instanceof  ItemBlock) {
-        item.y = -0.3125f;
-        item.s = 0.375f;
-        item.r = 0;
-      }
-      return item;
+    IFlexibleBakedModel stackModel;
+    IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
+    if(model == null) {
+      return null;
     }
-    return null;
+    else if(model instanceof IFlexibleBakedModel) {
+      stackModel = (IFlexibleBakedModel) model;
+    }
+    else {
+      stackModel = new IFlexibleBakedModel.Wrapper(model, DefaultVertexFormats.ITEM);
+    }
+
+    PropertyTableItem.TableItem item = new PropertyTableItem.TableItem(stackModel, 0,-0.46875f,0, 0.8f, (float) (-Math.PI/2));
+    if(stack.getItem() instanceof  ItemBlock) {
+      item.y = -0.3125f;
+      item.s = 0.375f;
+      item.r = 0;
+    }
+    return item;
   }
 
   @Override
