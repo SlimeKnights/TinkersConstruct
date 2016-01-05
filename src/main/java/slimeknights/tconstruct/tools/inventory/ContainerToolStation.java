@@ -8,7 +8,9 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.WorldServer;
 
+import java.util.List;
 import java.util.Set;
 
 import slimeknights.mantle.inventory.BaseContainer;
@@ -163,6 +165,15 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
       // error ;(
       out.inventory.setInventorySlotContents(0, null);
       this.error(e.getMessage());
+    }
+    // sync output with other open containers on the server
+    if(!this.world.isRemote) {
+      WorldServer server = (WorldServer) this.world;
+      for(EntityPlayer player : server.playerEntities) {
+        if(player.openContainer != this && player.openContainer instanceof ContainerToolStation) {
+          ((ContainerToolStation) player.openContainer).out.inventory.setInventorySlotContents(0, out.getStack());
+        }
+      }
     }
   }
 
