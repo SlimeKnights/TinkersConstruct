@@ -325,6 +325,7 @@ public class GuiToolStation extends GuiTinkerStation {
 
       textField.textboxKeyTyped(typedChar, keyCode);
       TinkerNetwork.sendToServer(new ToolStationTextPacket(textField.getText()));
+      ((ContainerToolStation)container).setToolName(textField.getText());
     }
   }
 

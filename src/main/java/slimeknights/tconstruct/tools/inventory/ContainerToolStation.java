@@ -127,7 +127,12 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     }
 
     if(out.getHasStack()) {
-      out.inventory.getStackInSlot(0).setStackDisplayName(name);
+      if(name != null && !name.isEmpty()) {
+        out.inventory.getStackInSlot(0).setStackDisplayName(name);
+      }
+      else {
+        out.inventory.getStackInSlot(0).clearCustomName();
+      }
     }
   }
 
