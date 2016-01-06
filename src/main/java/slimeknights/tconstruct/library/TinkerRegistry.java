@@ -40,6 +40,7 @@ import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
+import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.IPattern;
@@ -426,6 +427,8 @@ public final class TinkerRegistry {
   | Smeltery                                                                  |
   ---------------------------------------------------------------------------*/
   private static List<MeltingRecipe> meltingRegistry = Lists.newLinkedList();
+  private static List<CastingRecipe> tableCastRegistry = Lists.newLinkedList();
+  private static List<CastingRecipe> basinCastRegistry = Lists.newLinkedList();
   private static List<AlloyRecipe> alloyRegistry = Lists.newLinkedList();
   private static Map<FluidStack, Integer> smelteryFuels = Maps.newHashMap();
   private static Map<String, FluidStack> entityMeltingRegistry = Maps.newHashMap();
@@ -482,6 +485,29 @@ public final class TinkerRegistry {
 
   public static List<AlloyRecipe> getAlloys() {
     return ImmutableList.copyOf(alloyRegistry);
+  }
+
+  /** Registers a casting recipe for casting table */
+  public static void registerTableCasting(ItemStack output, ItemStack cast, FluidStack fluidStack) {
+    tableCastRegistry.add(new CastingRecipe(output, new RecipeMatch.ItemCombination(1, cast), fluidStack));
+  }
+
+  public static void registerTableCasting(CastingRecipe recipe) {
+    tableCastRegistry.add(recipe);
+  }
+
+  /** Registers a casting recipe for casting table */
+  public static void registerBasinCasting(ItemStack output, FluidStack fluidStack) {
+    registerBasinCasting(output, null, fluidStack);
+  }
+
+  /** Registers a casting recipe using a cast for the casting table */
+  public static void registerBasinCasting(ItemStack output, ItemStack cast, FluidStack fluidStack) {
+    basinCastRegistry.add(new CastingRecipe(output, new RecipeMatch.ItemCombination(1, cast), fluidStack));
+  }
+
+  public static void registerBasinCasting(CastingRecipe recipe) {
+    basinCastRegistry.add(recipe);
   }
 
   /**
