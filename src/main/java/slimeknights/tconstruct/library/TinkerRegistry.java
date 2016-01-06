@@ -488,12 +488,16 @@ public final class TinkerRegistry {
   }
 
   /** Registers a casting recipe for casting table */
-  public static void registerTableCasting(ItemStack output, ItemStack cast, FluidStack fluidStack) {
-    tableCastRegistry.add(new CastingRecipe(output, new RecipeMatch.ItemCombination(1, cast), fluidStack));
+  public static void registerTableCasting(ItemStack output, ItemStack cast, Fluid fluid, int amount) {
+    tableCastRegistry.add(new CastingRecipe(output, new RecipeMatch.ItemCombination(1, cast), fluid, amount));
   }
 
   public static void registerTableCasting(CastingRecipe recipe) {
     tableCastRegistry.add(recipe);
+  }
+
+  public static List<CastingRecipe> getAllTableCastingRecipes() {
+    return tableCastRegistry;
   }
 
   /** Registers a casting recipe for casting table */
@@ -508,6 +512,10 @@ public final class TinkerRegistry {
 
   public static void registerBasinCasting(CastingRecipe recipe) {
     basinCastRegistry.add(recipe);
+  }
+
+  public static List<CastingRecipe> getAllBasinCastingRecipes() {
+    return basinCastRegistry;
   }
 
   /**

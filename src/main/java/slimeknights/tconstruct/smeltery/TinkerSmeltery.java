@@ -196,20 +196,29 @@ public class TinkerSmeltery extends TinkerPulse {
 
     registerOredictMelting(TinkerFluids.gold, "Gold");
 
-    // melt ALL the toolparts n stuff
+    // melt ALL the toolparts n stuff. Also cast them.
     for(Material material : TinkerRegistry.getAllMaterials()) {
       Fluid fluid = material.getFluid();
-      // stone parts melt into seared stone
-      if(material == TinkerMaterials.stone && fluid == null) {
-        fluid = TinkerFluids.searedStone;
-      }
       if(fluid != null){
         for(IToolPart toolPart : TinkerRegistry.getToolParts()) {
           if(toolPart instanceof MaterialItem) {
+            // melting
             ItemStack stack = ((MaterialItem) toolPart).getItemstackWithMaterial(material);
             TinkerRegistry.registerMelting(stack, fluid, toolPart.getCost());
+
+            // casting
+            ItemStack cast = new ItemStack(TinkerSmeltery.cast);
+            Cast.setTagForPart(cast, stack.getItem());
+            TinkerRegistry.registerTableCasting(stack, cast, fluid, toolPart.getCost());
           }
         }
+      }
+    }
+    // register stone toolpart melting
+    for(IToolPart toolPart : TinkerRegistry.getToolParts()) {
+      if(toolPart instanceof MaterialItem) {
+        ItemStack stack = ((MaterialItem) toolPart).getItemstackWithMaterial(TinkerMaterials.stone);
+        TinkerRegistry.registerMelting(stack, TinkerFluids.searedStone, toolPart.getCost());
       }
     }
   }
