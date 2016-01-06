@@ -9,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -45,6 +46,9 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.smeltery.Cast;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
+import slimeknights.tconstruct.library.tinkering.MaterialItem;
+import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.smeltery.block.BlockCasting;
@@ -62,6 +66,7 @@ import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
+import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.BlockSlime;
 
@@ -190,6 +195,23 @@ public class TinkerSmeltery extends TinkerPulse {
     TinkerRegistry.registerEntityMelting(EntitySheep.class, new FluidStack(TinkerFluids.blood, 5));
 
     registerOredictMelting(TinkerFluids.gold, "Gold");
+
+    // melt ALL the toolparts n stuff
+    for(Material material : TinkerRegistry.getAllMaterials()) {
+      Fluid fluid = material.getFluid();
+      // stone parts melt into seared stone
+      if(material == TinkerMaterials.stone && fluid == null) {
+        fluid = TinkerFluids.searedStone;
+      }
+      if(fluid != null){
+        for(IToolPart toolPart : TinkerRegistry.getToolParts()) {
+          if(toolPart instanceof MaterialItem) {
+            ItemStack stack = ((MaterialItem) toolPart).getItemstackWithMaterial(material);
+            TinkerRegistry.registerMelting(stack, fluid, toolPart.getCost());
+          }
+        }
+      }
+    }
   }
 
   private void registerAlloys() {

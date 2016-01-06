@@ -10,7 +10,7 @@ import slimeknights.tconstruct.library.materials.Material;
 
 public class MeltingRecipe {
 
-  private static double LOG9_2 = 0.31546487678;
+  private static final double LOG9_2 = 0.31546487678;
 
   // speed and temperature are inferred automatically through the output
   public final RecipeMatch input;
