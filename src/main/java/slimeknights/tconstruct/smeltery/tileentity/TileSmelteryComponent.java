@@ -22,7 +22,6 @@ public class TileSmelteryComponent extends MultiServantLogic {
   public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
     super.onDataPacket(net, pkt);
     readFromNBT(pkt.getNbtCompound());
-
   }
 
   protected TileSmeltery getSmeltery() {

@@ -14,7 +14,7 @@
             "north": { "uv": [  4,  8, 12, 10 ], "texture": "#tex"},
             "east":  { "uv": [ 12, 10, 14, 16 ], "texture": "#tex", "rotation": 90},
             "south": { "uv": [  4, 10, 12,  8 ], "texture": "#tex"},
-            "west":  { "uv": [  2, 10,  4, 16 ], "texture": "#tex",  "rotation": 270 }
+            "west":  { "uv": [  2, 10,  4, 16 ], "texture": "#tex", "rotation": 270 }
          },
 		 "__comment": "The bottom platform, facing south with the dark texture side"
 		},

@@ -93,6 +93,7 @@ public class BlockFaucet extends BlockContainer {
       case UP:
         yMin = 0.625F;
         yMax = 1.0F;
+        break;
       case SOUTH:
         zMin = 0.625F;
         zMax = 1.0F;
@@ -127,6 +128,7 @@ public class BlockFaucet extends BlockContainer {
       case UP:
         yMin = 0.625F;
         yMax = 1.0F;
+        break;
       case SOUTH:
         zMin = 0.625F;
         zMax = 1.0F;

@@ -6,7 +6,7 @@
     },
 	"variants": {
         "facing": {
-            "up": { y: 0 },
+            "up": { "model": "tconstruct:faucet_top" },
             "north": { y: 180 },
             "east":  { y: 270 },
             "south": { y: 0 },
