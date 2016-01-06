@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.plugin.jei;
 
+import com.google.common.collect.ImmutableList;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IItemRegistry;
 import mezz.jei.api.IJeiHelpers;
@@ -10,6 +12,7 @@ import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.inventory.ContainerCraftingStation;
@@ -45,10 +48,10 @@ public class JEIPlugin implements IModPlugin {
 
     // Smeltery
     if(TConstruct.pulseManager.isPulseLoaded(TinkerSmeltery.PulseId)) {
-      // Smelting
+      CastingRecipeCategory castingCategory = new CastingRecipeCategory(guiHelper);
       registry.addRecipeCategories(new SmeltingRecipeCategory(guiHelper),
                                    new AlloyRecipeCategory(guiHelper),
-                                   new CastingRecipeCategory(guiHelper));
+                                   castingCategory);
 
       registry.addRecipeHandlers(new SmeltingRecipeHandler(),
                                  new AlloyRecipeHandler(),
@@ -57,8 +60,16 @@ public class JEIPlugin implements IModPlugin {
 
       // melting recipies
       registry.addRecipes(TinkerRegistry.getAllMeltingRecipies());
+      // alloys
       registry.addRecipes(TinkerRegistry.getAlloys());
-      registry.addRecipes(TinkerRegistry.getAllTableCastingRecipes());
+
+      // casting
+      for(CastingRecipe recipe : TinkerRegistry.getAllTableCastingRecipes()) {
+        registry.addRecipes(ImmutableList.of(new CastingRecipeWrapper(recipe, castingCategory.castingTable)));
+      }
+      for(CastingRecipe recipe : TinkerRegistry.getAllBasinCastingRecipes()) {
+        registry.addRecipes(ImmutableList.of(new CastingRecipeWrapper(recipe, castingCategory.castingBasin)));
+      }
     }
   }
 

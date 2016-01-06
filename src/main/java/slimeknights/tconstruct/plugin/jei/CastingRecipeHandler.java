@@ -6,12 +6,12 @@ import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 
-public class CastingRecipeHandler implements IRecipeHandler<CastingRecipe> {
+public class CastingRecipeHandler implements IRecipeHandler<CastingRecipeWrapper> {
 
   @Nonnull
   @Override
-  public Class<CastingRecipe> getRecipeClass() {
-    return CastingRecipe.class;
+  public Class<CastingRecipeWrapper> getRecipeClass() {
+    return CastingRecipeWrapper.class;
   }
 
   @Nonnull
@@ -22,14 +22,16 @@ public class CastingRecipeHandler implements IRecipeHandler<CastingRecipe> {
 
   @Nonnull
   @Override
-  public IRecipeWrapper getRecipeWrapper(@Nonnull CastingRecipe recipe) {
-    return new CastingRecipeWrapper(recipe);
+  public IRecipeWrapper getRecipeWrapper(@Nonnull CastingRecipeWrapper recipe) {
+    return recipe;
   }
 
   @Override
-  public boolean isRecipeValid(@Nonnull CastingRecipe recipe) {
-    return recipe.fluid != null &&
-           recipe.fluid.amount > 0 &&
-           recipe.output != null;
+  public boolean isRecipeValid(@Nonnull CastingRecipeWrapper recipe) {
+    return !recipe.inputFluid.isEmpty() &&
+           recipe.inputFluid.get(0) != null &&
+           !recipe.output.isEmpty() &&
+           recipe.output.get(0) != null &&
+           (recipe.cast.isEmpty() || recipe.cast.get(0) != null);
   }
 }
