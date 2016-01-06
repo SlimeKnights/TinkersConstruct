@@ -23,7 +23,7 @@ public class TileFaucet extends TileEntity implements ITickable {
   public static final int TRANSACTION_AMOUNT = Material.VALUE_Ingot;
 
   // direction we're pulling liquid from. cached so we don't have to query the world every time. set on pour-begin
-  private EnumFacing direction;
+  public EnumFacing direction; // used to continue draining and for rendering
   public boolean isPouring;
   public boolean stopPouring;
   public FluidStack drained; // fluid is drained instantly and distributed over time. how much is left
