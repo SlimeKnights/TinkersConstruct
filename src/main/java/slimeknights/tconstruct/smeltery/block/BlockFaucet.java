@@ -8,6 +8,7 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -66,6 +67,15 @@ public class BlockFaucet extends BlockContainer {
    */
   public int getMetaFromState(IBlockState state) {
     return state.getValue(FACING).ordinal();
+  }
+
+  @Override
+  public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+    TileEntity te = worldIn.getTileEntity(pos);
+    if(te instanceof TileFaucet) {
+      return ((TileFaucet) te).activate();
+    }
+    return super.onBlockActivated(worldIn, pos, state, playerIn, side, hitX, hitY, hitZ);
   }
 
   @Override
