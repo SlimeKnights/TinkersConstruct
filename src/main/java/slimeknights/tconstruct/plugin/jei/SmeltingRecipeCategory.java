@@ -66,10 +66,10 @@ public class SmeltingRecipeCategory implements IRecipeCategory {
       SmeltingRecipeWrapper recipe = (SmeltingRecipeWrapper) recipeWrapper;
 
       IGuiFluidStackGroup fluids = recipeLayout.getFluidStacks();
-      fluids.init(0, false, 115, 6, 18, 32, Material.VALUE_Block, null);
+      fluids.init(0, false, 115, 6, 18, 32, Material.VALUE_Block, false, null);
       fluids.set(0, recipe.outputs);
 
-      fluids.init(1, false, 72, 38, 16, 16, 1000, tankOverlay);
+      fluids.init(1, false, 72, 38, 16, 16, 1000, false, tankOverlay);
       fluids.set(1, recipe.fuels);
     }
   }

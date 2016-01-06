@@ -54,9 +54,4 @@ public class SmeltingRecipeWrapper extends BlankRecipeWrapper {
     int x = 80 - minecraft.fontRendererObj.getStringWidth(tmpStr)/2;
     minecraft.fontRendererObj.drawString(tmpStr, x, 10, Color.gray.getRGB());
   }
-
-  @Override
-  public void drawAnimations(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
-
-  }
 }

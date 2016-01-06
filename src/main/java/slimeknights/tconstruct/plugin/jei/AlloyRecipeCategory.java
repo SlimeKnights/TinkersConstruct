@@ -25,7 +25,7 @@ public class AlloyRecipeCategory implements IRecipeCategory {
   protected final IDrawableAnimated arrow;
 
   public AlloyRecipeCategory(IGuiHelper guiHelper) {
-    background = guiHelper.createDrawable(background_loc, 0, 60, 160, 60, 0, 0, 0, 0);
+    background = guiHelper.createDrawable(background_loc, 0, 60, 160, 60);
 
     IDrawableStatic arrowDrawable = guiHelper.createDrawable(background_loc, 160, 60, 24, 17);
     this.arrow = guiHelper.createAnimatedDrawable(arrowDrawable, 200, IDrawableAnimated.StartDirection.LEFT, false);
