@@ -88,10 +88,14 @@ tile.tconstruct.seared.tooltip=Part of the Smeltery. Safe for Decoration.
 
 tile.tconstruct.smeltery_controller.name=Smeltery Controller
 tile.tconstruct.smeltery_controller.tooltip=Brain of the Smeltery
-
+tile.tconstruct.smeltery_io.drain.name=Smeltery Drain
+tile.tconstruct.casting.table.name=Casting Table
+tile.tconstruct.casting.basin.name=Casting Basin
+tile.tconstruct.faucet.name=Faucet
 tile.tconstruct.seared_tank.tank.name=Seared Tank
 tile.tconstruct.seared_tank.gauge.name=Seared Gauge
 tile.tconstruct.seared_tank.window.name=Seared Window
+
 
 # Fluid blocks are mapped onto their fluid names
 tile.tconstruct.molten_stone=fluid.tconstruct.stone
