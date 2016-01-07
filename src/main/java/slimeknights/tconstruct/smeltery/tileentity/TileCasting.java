@@ -1,29 +1,23 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-import slimeknights.mantle.tileentity.TileInventory;
 import slimeknights.tconstruct.common.PlayerHelper;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
-import slimeknights.tconstruct.shared.block.BlockTable;
-import slimeknights.tconstruct.shared.block.PropertyTableItem;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.smeltery.events.TinkerCastingEvent;
 
-public abstract class TileCasting extends TileTable implements ITickable, IFluidHandler {
+public abstract class TileCasting extends TileTable implements ITickable, ISidedInventory, IFluidHandler {
 
   // the internal fluidtank of the casting block
   public FluidTank tank;
@@ -36,6 +30,8 @@ public abstract class TileCasting extends TileTable implements ITickable, IFluid
     // initialize with empty tank
     tank = new FluidTank(0);
   }
+
+  /* Inventory Management */
 
   public void interact(EntityPlayer player) {
     // can't interact if liquid inside
@@ -60,6 +56,23 @@ public abstract class TileCasting extends TileTable implements ITickable, IFluid
       setInventorySlotContents(slot, null);
     }
   }
+
+  @Override
+  public int[] getSlotsForFace(EnumFacing side) {
+    return new int[] {0, 1};
+  }
+
+  @Override
+  public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+    return index == 0;
+  }
+
+  @Override
+  public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+    return index == 1;
+  }
+
+  /* Logic */
 
   @Override
   public void update() {
@@ -105,7 +118,6 @@ public abstract class TileCasting extends TileTable implements ITickable, IFluid
     return null;
   }
 
-
   protected void reset() {
     timer = 0;
     recipe = null;
@@ -113,6 +125,9 @@ public abstract class TileCasting extends TileTable implements ITickable, IFluid
     tank.setFluid(null);
   }
 
+
+
+  /* Fluid Management */
   @Override
   public boolean canFill(EnumFacing from, Fluid fluid) {
     // can only fill if no output in the inventory
