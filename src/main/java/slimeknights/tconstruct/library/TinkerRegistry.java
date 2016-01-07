@@ -496,22 +496,36 @@ public final class TinkerRegistry {
     tableCastRegistry.add(recipe);
   }
 
+  public static CastingRecipe getTableCasting(ItemStack cast, Fluid fluid) {
+    for(CastingRecipe recipe : tableCastRegistry) {
+      if(recipe.matches(cast, fluid)) {
+        return recipe;
+      }
+    }
+    return null;
+  }
+
   public static List<CastingRecipe> getAllTableCastingRecipes() {
     return tableCastRegistry;
   }
 
-  /** Registers a casting recipe for casting table */
-  public static void registerBasinCasting(ItemStack output, FluidStack fluidStack) {
-    registerBasinCasting(output, null, fluidStack);
-  }
 
-  /** Registers a casting recipe using a cast for the casting table */
-  public static void registerBasinCasting(ItemStack output, ItemStack cast, FluidStack fluidStack) {
-    basinCastRegistry.add(new CastingRecipe(output, new RecipeMatch.ItemCombination(1, cast), fluidStack));
+  /** Registers a casting recipe for the casting basin */
+  public static void registerBasinCasting(ItemStack output, ItemStack cast, Fluid fluid, int amount) {
+    basinCastRegistry.add(new CastingRecipe(output, new RecipeMatch.ItemCombination(1, cast), fluid, amount));
   }
 
   public static void registerBasinCasting(CastingRecipe recipe) {
     basinCastRegistry.add(recipe);
+  }
+
+  public static CastingRecipe getBasinCasting(ItemStack cast, Fluid fluid) {
+    for(CastingRecipe recipe : basinCastRegistry) {
+      if(recipe.matches(cast, fluid)) {
+        return recipe;
+      }
+    }
+    return null;
   }
 
   public static List<CastingRecipe> getAllBasinCastingRecipes() {

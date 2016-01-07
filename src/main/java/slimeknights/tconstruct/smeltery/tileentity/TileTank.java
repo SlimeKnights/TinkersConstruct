@@ -28,7 +28,7 @@ public class TileTank extends TileSmelteryComponent implements IFluidHandler {
   public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
     int amount = tank.fill(resource, doFill);
     if(amount > 0 && doFill) {
-      renderOffset = resource.amount;
+      renderOffset = amount;
     }
 
     return amount;
@@ -65,7 +65,7 @@ public class TileTank extends TileSmelteryComponent implements IFluidHandler {
 
   @Override
   public boolean canDrain(EnumFacing from, Fluid fluid) {
-    return tank.getFluidAmount() > 0;
+    return tank.getFluidAmount() > 0 && tank.getFluid().getFluid() == fluid;
   }
 
   @Override

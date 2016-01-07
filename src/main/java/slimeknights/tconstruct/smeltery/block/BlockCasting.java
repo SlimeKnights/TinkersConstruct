@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.World;
@@ -21,6 +22,7 @@ import java.util.List;
 import slimeknights.mantle.block.BlockInventory;
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.smeltery.tileentity.TileCasting;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingBasin;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingTable;
 
@@ -75,6 +77,19 @@ public class BlockCasting extends BlockInventory {
         return new TileCastingBasin();
     }
     return null;
+  }
+
+  @Override
+  public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float clickX, float clickY, float clickZ) {
+    if(player.isSneaking()) {
+      return false;
+    }
+    TileEntity te = world.getTileEntity(pos);
+    if(te instanceof TileCasting) {
+      ((TileCasting) te).interact(player);
+    }
+
+    return super.onBlockActivated(world, pos, state, player, side, clickX, clickY, clickZ);
   }
 
   @Override

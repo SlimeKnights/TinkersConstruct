@@ -71,9 +71,13 @@ public class BlockFaucet extends BlockContainer {
 
   @Override
   public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+    if(playerIn.isSneaking()) {
+      return false;
+    }
     TileEntity te = worldIn.getTileEntity(pos);
     if(te instanceof TileFaucet) {
-      return ((TileFaucet) te).activate();
+      ((TileFaucet) te).activate();
+      return true;
     }
     return super.onBlockActivated(worldIn, pos, state, playerIn, side, hitX, hitY, hitZ);
   }
