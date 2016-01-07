@@ -31,7 +31,7 @@ public class ItemBlockModelSetter {
     Map<IBlockState, ModelResourceLocation> stateMap = event.modelManager.getBlockModelShapes().getBlockStateMapper().putAllStateModelLocations();
 
     // go through all items and if they're itemblockmodels we give them a wrapped block model if there is none set
-    for(ResourceLocation identifier : (Set<ResourceLocation>)Item.itemRegistry.getKeys()) {
+    for(ResourceLocation identifier : Item.itemRegistry.getKeys()) {
       // only our own stuff
       if(!identifier.getResourceDomain().equals(Util.RESOURCE)) {
         continue;
@@ -74,7 +74,7 @@ public class ItemBlockModelSetter {
           IFlexibleBakedModel bakedBlockModel = (IFlexibleBakedModel) event.modelRegistry.getObject(blockLoc);
           if(bakedBlockModel != null) {
             bakedBlockModel = new BlockItemModelWrapper(bakedBlockModel);
-            event.modelRegistry.putObject(blockLoc, bakedBlockModel);
+            //event.modelRegistry.putObject(blockLoc, bakedBlockModel);
 
             if(first) {
               // silence the error
