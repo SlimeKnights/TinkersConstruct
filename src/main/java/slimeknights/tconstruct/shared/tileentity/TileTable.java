@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -85,7 +86,7 @@ public class TileTable extends TileInventory {
   }
 
   @SideOnly(Side.CLIENT)
-  protected PropertyTableItem.TableItem getTableItem(ItemStack stack) {
+  public static PropertyTableItem.TableItem getTableItem(ItemStack stack) {
     if(stack == null)
       return null;
     IFlexibleBakedModel stackModel;
@@ -120,8 +121,14 @@ public class TileTable extends TileInventory {
   @Override
   public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
     NBTTagCompound tag = pkt.getNbtCompound();
-    getTileData().setTag(FEET_TAG, tag.getTag(FEET_TAG));
-    getTileData().setTag(FACE_TAG, tag.getTag(FACE_TAG));
+    NBTBase feet = tag.getTag(FEET_TAG);
+    if(feet != null) {
+      getTileData().setTag(FEET_TAG, feet);
+    }
+    NBTBase facing = tag.getTag(FACE_TAG);
+    if(facing != null) {
+      getTileData().setTag(FACE_TAG, facing);
+    }
     readFromNBT(tag);
   }
 

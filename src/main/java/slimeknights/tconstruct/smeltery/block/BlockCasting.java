@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.smeltery.block;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,7 +15,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -22,6 +28,8 @@ import java.util.List;
 import slimeknights.mantle.block.BlockInventory;
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.shared.block.BlockTable;
+import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.smeltery.tileentity.TileCasting;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingBasin;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingTable;
@@ -47,7 +55,7 @@ public class BlockCasting extends BlockInventory {
 
   @Override
   protected BlockState createBlockState() {
-    return new BlockState(this, TYPE);
+    return new ExtendedBlockState(this, new IProperty[]{TYPE}, new IUnlistedProperty[]{BlockTable.INVENTORY, BlockTable.FACING});
   }
 
   @Override
@@ -87,9 +95,35 @@ public class BlockCasting extends BlockInventory {
     TileEntity te = world.getTileEntity(pos);
     if(te instanceof TileCasting) {
       ((TileCasting) te).interact(player);
+      return true;
     }
 
     return super.onBlockActivated(world, pos, state, player, side, clickX, clickY, clickZ);
+  }
+
+  @Override
+  public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+    super.onBlockPlacedBy(world, pos, state, placer, stack);
+
+    // we have rotation for the stuff too so the items inside rotate according to placement!
+    TileEntity te = world.getTileEntity(pos);
+    if(te != null && te instanceof TileCasting) {
+      ((TileCasting) te).setFacing(placer.getHorizontalFacing().getOpposite());
+    }
+  }
+
+  @Override
+  @SideOnly(Side.CLIENT)
+  public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+    IExtendedBlockState extendedState = (IExtendedBlockState) state;
+
+    TileEntity te = world.getTileEntity(pos);
+    if(te != null && te instanceof TileCasting) {
+      TileCasting tile = (TileCasting) te;
+      return tile.writeExtendedBlockState(extendedState);
+    }
+
+    return super.getExtendedState(state, world, pos);
   }
 
   @Override

@@ -3,6 +3,7 @@
         "top": "tconstruct:blocks/smeltery/castingtable_top",
         "side": "tconstruct:blocks/smeltery/castingtable_side",
         "leg": "tconstruct:blocks/smeltery/castingtable_side",
+        "legBottom": "tconstruct:blocks/smeltery/castingtable_bottom",
         "bottom": "tconstruct:blocks/smeltery/castingtable_bottom",
         "particle": "tconstruct:blocks/smeltery/castingtable_top"
     },

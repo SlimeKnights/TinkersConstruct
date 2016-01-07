@@ -65,17 +65,23 @@ public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlex
 
     if(state instanceof IExtendedBlockState) {
       IExtendedBlockState extendedState = (IExtendedBlockState) state;
-      texture = extendedState.getValue(BlockTable.TEXTURE);
-      if(Config.renderTableItems && extendedState.getValue(BlockTable.INVENTORY) != null) {
-        items = extendedState.getValue(BlockTable.INVENTORY).items;
+      if(extendedState.getUnlistedNames().contains(BlockTable.TEXTURE)) {
+        texture = extendedState.getValue(BlockTable.TEXTURE);
+      }
+      if(Config.renderTableItems && extendedState.getUnlistedNames().contains(BlockTable.INVENTORY)) {
+        if(extendedState.getValue(BlockTable.INVENTORY) != null) {
+          items = extendedState.getValue(BlockTable.INVENTORY).items;
+        }
       }
 
-      EnumFacing face = extendedState.getValue((IUnlistedProperty<EnumFacing>) BlockTable.FACING);
-      if(face != null) {
-        rotation = 360 - face.getOpposite().getHorizontalIndex() * 90f;
-      }
-      else {
-        rotation = 360;
+      if(extendedState.getUnlistedNames().contains(BlockTable.FACING)) {
+        EnumFacing face = extendedState.getValue((IUnlistedProperty<EnumFacing>) BlockTable.FACING);
+        if(face != null) {
+          rotation = 360 - face.getOpposite().getHorizontalIndex() * 90f;
+        }
+        else {
+          rotation = 360;
+        }
       }
     }
 
@@ -111,7 +117,7 @@ public class BakedTableModel implements ISmartBlockModel, ISmartItemModel, IFlex
 
     IFlexibleBakedModel bakedModel = standard;
 
-    if(texture != null) {
+    if(texture != null && tableModel != null) {
       ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
       builder.put("bottom", texture);
       builder.put("leg", texture);

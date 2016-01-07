@@ -8,12 +8,15 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
+import slimeknights.tconstruct.smeltery.block.BlockCasting;
 import slimeknights.tconstruct.smeltery.client.FaucetRenderer;
 import slimeknights.tconstruct.smeltery.client.SmelteryRenderer;
 import slimeknights.tconstruct.smeltery.client.TankRenderer;
 import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
+import slimeknights.tconstruct.tools.ToolClientEvents;
+import slimeknights.tconstruct.tools.block.BlockToolTable;
 
 public class SmelteryClientProxy extends ClientProxy {
 

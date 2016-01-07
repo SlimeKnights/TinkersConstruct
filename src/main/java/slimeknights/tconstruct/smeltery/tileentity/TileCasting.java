@@ -1,22 +1,29 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.mantle.tileentity.TileInventory;
 import slimeknights.tconstruct.common.PlayerHelper;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
+import slimeknights.tconstruct.shared.block.BlockTable;
+import slimeknights.tconstruct.shared.block.PropertyTableItem;
+import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.smeltery.events.TinkerCastingEvent;
 
-public abstract class TileCasting extends TileInventory implements ITickable, IFluidHandler {
+public abstract class TileCasting extends TileTable implements ITickable, IFluidHandler {
 
   // the internal fluidtank of the casting block
   public FluidTank tank;
