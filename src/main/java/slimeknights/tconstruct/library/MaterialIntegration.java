@@ -77,10 +77,14 @@ public class MaterialIntegration {
         material.setCraftable(true);
       }
     }
+  }
+
+  public void integrateRecipes() {
     // register melting and casting
     if(fluid != null && oreSuffix != null) {
-      TinkerSmeltery.registerOredictMelting(fluid, oreSuffix);
+      TinkerSmeltery.registerOredictMeltingCasting(fluid, oreSuffix);
     }
+    TinkerSmeltery.registerToolpartMeltingCasting(material);
   }
 
   public void registerFluidBlock() {

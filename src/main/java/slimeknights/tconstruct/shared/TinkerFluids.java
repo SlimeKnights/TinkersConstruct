@@ -3,7 +3,6 @@ package slimeknights.tconstruct.shared;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
-import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
@@ -61,10 +60,10 @@ public class TinkerFluids extends TinkerPulse {
   static List<Fluid> fluids = Lists.newLinkedList(); // all fluids registered by tcon
 
   static {
-    setupIntegrationFluids();
+    setupFluids();
   }
 
-  public static void setupIntegrationFluids() {
+  public static void setupFluids() {
     // Fluids for integration, getting registered by TinkerIntegration
     iron = fluidMetal(TinkerMaterials.iron.getIdentifier(), 0xa81212);
     iron.setTemperature(738);

@@ -27,6 +27,10 @@ public class CastingRecipe {
     this(output, null,  new FluidStack(fluid, amount), time, false, false);
   }
 
+  public CastingRecipe(ItemStack output, RecipeMatch cast, FluidStack fluid, boolean consumesCast, boolean switchOutputs) {
+    this(output, cast, fluid, 20, consumesCast, switchOutputs); // todo: automagic
+  }
+
   public CastingRecipe(ItemStack output, RecipeMatch cast, FluidStack fluid, int time, boolean consumesCast, boolean switchOutputs) {
     this.output = output;
     this.cast = cast;

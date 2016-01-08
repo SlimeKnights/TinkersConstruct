@@ -55,6 +55,13 @@ public class TinkerIntegration extends TinkerPulse {
     }
   }
 
+  @Subscribe
+  public void init(FMLInitializationEvent event) {
+    for(MaterialIntegration integration : integrationList) {
+      integration.integrateRecipes();
+    }
+  }
+
   public static void integrate(Material material) {
     integrationList.add(new MaterialIntegration(material));
   }
