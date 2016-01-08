@@ -24,6 +24,15 @@ public class CastingRecipeWrapper extends BlankRecipeWrapper {
 
   private final CastingRecipe recipe;
 
+  // do not call with the oredict casting recipes
+  public CastingRecipeWrapper(List<ItemStack> casts, CastingRecipe recipe, IDrawable castingBlock) {
+    this.cast = casts;
+    this.recipe = recipe;
+    this.inputFluid = ImmutableList.of(recipe.fluid);
+    this.output = ImmutableList.of(recipe.getResult());
+    this.castingBlock = castingBlock;
+  }
+
   public CastingRecipeWrapper(CastingRecipe recipe, IDrawable castingBlock) {
     // cast is not required
     if(recipe.cast != null) {
@@ -32,7 +41,7 @@ public class CastingRecipeWrapper extends BlankRecipeWrapper {
     else {
       cast = ImmutableList.of();
     }
-    inputFluid = ImmutableList.of(recipe.fluid);
+    this.inputFluid = ImmutableList.of(recipe.fluid);
     this.recipe = recipe;
     // special treatment of oredict output recipies
     if(recipe.getResult() == null) {
