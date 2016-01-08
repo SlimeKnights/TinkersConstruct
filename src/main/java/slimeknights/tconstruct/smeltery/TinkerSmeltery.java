@@ -98,6 +98,7 @@ public class TinkerSmeltery extends TinkerPulse {
   public static ItemStack castGem;
 
   private static Map<Fluid, Set<Pair<List<ItemStack>, Integer>>> knownOreFluids = Maps.newHashMap();
+  private static List<FluidStack> castCreationFluids = Lists.newLinkedList();
 
   public static ImmutableSet<Block> validSmelteryBlocks;
 
@@ -146,6 +147,8 @@ public class TinkerSmeltery extends TinkerPulse {
   // INITIALIZATION
   @Subscribe
   public void init(FMLInitializationEvent event) {
+    // done here so they're present for integration in MaterialIntegration and fluids in TinkerFluids are also initialized
+    castCreationFluids.add(new FluidStack(TinkerFluids.gold, Material.VALUE_Ingot*2));
     proxy.init();
   }
 
@@ -157,6 +160,11 @@ public class TinkerSmeltery extends TinkerPulse {
     registerAlloys();
 
     registerRecipeOredictMelting();
+
+    // register empty cast creation
+    for(FluidStack fs : castCreationFluids) {
+      TinkerRegistry.registerTableCasting(new ItemStack(cast), null, fs.getFluid(), fs.amount);
+    }
 
     proxy.postInit();
   }
@@ -179,8 +187,7 @@ public class TinkerSmeltery extends TinkerPulse {
     TinkerRegistry.registerMelting(Items.rotten_flesh, TinkerFluids.blood, 5);
 
     // purple slime
-    TinkerRegistry
-        .registerMelting(TinkerCommons.matSlimeBallPurple, TinkerFluids.purpleSlime, Material.VALUE_SlimeBall);
+    TinkerRegistry.registerMelting(TinkerCommons.matSlimeBallPurple, TinkerFluids.purpleSlime, Material.VALUE_SlimeBall);
     if(TinkerWorld.slimeBlockCongealed != null) {
       ItemStack slimeblock = new ItemStack(TinkerWorld.slimeBlockCongealed, 1, BlockSlime.SlimeType.PURPLE.meta);
       TinkerRegistry.registerMelting(slimeblock, TinkerFluids.purpleSlime, Material.VALUE_SlimeBall * 4);
@@ -242,10 +249,12 @@ public class TinkerSmeltery extends TinkerPulse {
           TinkerRegistry.registerTableCasting(stack, cast, fluid, toolPart.getCost());
         }
         // register cast creation from the toolparts
-        TinkerRegistry.registerTableCasting(new CastingRecipe(cast,
-                                                              RecipeMatch.ofNBT(stack),
-                                                              new FluidStack(TinkerFluids.gold, Material.VALUE_Ingot*2),
-                                                              true, true));
+        for(FluidStack fs : castCreationFluids) {
+          TinkerRegistry.registerTableCasting(new CastingRecipe(cast,
+                                                                RecipeMatch.ofNBT(stack),
+                                                                fs,
+                                                                true, true));
+        }
       }
     }
 
