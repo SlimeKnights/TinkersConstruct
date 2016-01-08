@@ -46,6 +46,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.smeltery.Cast;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
+import slimeknights.tconstruct.library.smeltery.OreCastingRecipe;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolPart;
@@ -92,6 +93,11 @@ public class TinkerSmeltery extends TinkerPulse {
   public static CastCustom castCustom;
   public static UniversalBucket bucket;
 
+  // itemstacks!
+  public static ItemStack castIngot;
+  public static ItemStack castNugget;
+  public static ItemStack castGem;
+
   private static Map<Fluid, Set<Pair<List<ItemStack>, Integer>>> knownOreFluids = Maps.newHashMap();
 
   public static ImmutableSet<Block> validSmelteryBlocks;
@@ -118,9 +124,9 @@ public class TinkerSmeltery extends TinkerPulse {
 
     cast = registerItem(new Cast(), "cast");
     castCustom = registerItem(new CastCustom(), "cast_custom");
-    castCustom.addMeta(0, "ingot", Material.VALUE_Ingot);
-    castCustom.addMeta(1, "nugget", Material.VALUE_Nugget);
-    castCustom.addMeta(2, "gem", Material.VALUE_Gem);
+    castIngot = castCustom.addMeta(0, "ingot", Material.VALUE_Ingot);
+    castNugget = castCustom.addMeta(1, "nugget", Material.VALUE_Nugget);
+    castGem = castCustom.addMeta(2, "gem", Material.VALUE_Gem);
 
     bucket = registerItem(new UniversalBucket(), "bucket");
     bucket.setCreativeTab(TinkerRegistry.tabGeneral);
@@ -244,21 +250,39 @@ public class TinkerSmeltery extends TinkerPulse {
    */
   public static void registerOredictMelting(Fluid fluid, String ore) {
     ImmutableSet.Builder<Pair<List<ItemStack>, Integer>> builder = ImmutableSet.builder();
-    Pair<String, Integer> nuggetOre = Pair.of("nugget" + ore, Material.VALUE_Nugget);
-    Pair<String, Integer> ingotOre = Pair.of("ingot" + ore, Material.VALUE_Ingot);
-    Pair<String, Integer> blockOre = Pair.of("block" + ore, Material.VALUE_Block);
-    Pair<String, Integer> oreOre = Pair.of("ore" + ore, Material.VALUE_Ore);
-    Set<Pair<String, Integer>> knownOres = ImmutableSet.of(nuggetOre, ingotOre, blockOre, oreOre);
+    Pair<List<ItemStack>, Integer> nuggetOre = Pair.of(OreDictionary.getOres("nugget" + ore), Material.VALUE_Nugget);
+    Pair<List<ItemStack>, Integer> ingotOre = Pair.of(OreDictionary.getOres("ingot" + ore), Material.VALUE_Ingot);
+    Pair<List<ItemStack>, Integer> blockOre = Pair.of(OreDictionary.getOres("block" + ore), Material.VALUE_Block);
+    Pair<List<ItemStack>, Integer> oreOre = Pair.of(OreDictionary.getOres("ore" + ore), Material.VALUE_Ore);
+
+    builder.add(nuggetOre, ingotOre, blockOre, oreOre);
+    Set<Pair<List<ItemStack>, Integer>> knownOres = builder.build();
 
 
     // register oredicts
-    for(Pair<String, Integer> pair : knownOres) {
+    for(Pair<List<ItemStack>, Integer> pair : knownOres) {
       TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(pair.getLeft(), pair.getRight()), fluid));
-      builder.add(Pair.of(OreDictionary.getOres(pair.getLeft()), pair.getRight()));
     }
 
+    // register oredict castings!
+    // ingot casting
+    TinkerRegistry.registerTableCasting(new OreCastingRecipe(ingotOre.getLeft(),
+                                                             RecipeMatch.ofNBT(castIngot),
+                                                             fluid,
+                                                             ingotOre.getRight()));
+    // nugget casting
+    TinkerRegistry.registerTableCasting(new OreCastingRecipe(nuggetOre.getLeft(),
+                                                             RecipeMatch.ofNBT(castNugget),
+                                                             fluid,
+                                                             nuggetOre.getRight()));
+    // block casting
+    TinkerRegistry.registerBasinCasting(new OreCastingRecipe(blockOre.getLeft(),
+                                                             null, // no cast
+                                                             fluid,
+                                                             blockOre.getRight()));
+
     // used for recipe detection
-    knownOreFluids.put(fluid, builder.build());
+    knownOreFluids.put(fluid, knownOres);
   }
 
   // take all fluids we registered oredicts for and scan all recipies for oredict-recipies that we can apply this to
