@@ -427,6 +427,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   }
 
   @Override
+  @SideOnly(Side.CLIENT)
   public GuiContainer createGui(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
     return new GuiSmeltery((ContainerSmeltery)createContainer(inventoryplayer, world, pos), this);
   }
