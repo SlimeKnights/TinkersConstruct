@@ -16,7 +16,7 @@ public class CastingRecipe {
   public final boolean switchOutputs; // switches cast and output. Mostly used for cast creation
 
   public CastingRecipe(ItemStack output, RecipeMatch cast, Fluid fluid, int amount) {
-    this(output, cast,  fluid, amount, 20); // todo: automagic time
+    this(output, cast,  fluid, amount, calcCooldownTime(fluid, amount));
   }
 
   public CastingRecipe(ItemStack output, RecipeMatch cast, Fluid fluid, int amount, int time) {
@@ -28,7 +28,7 @@ public class CastingRecipe {
   }
 
   public CastingRecipe(ItemStack output, RecipeMatch cast, FluidStack fluid, boolean consumesCast, boolean switchOutputs) {
-    this(output, cast, fluid, 20, consumesCast, switchOutputs); // todo: automagic
+    this(output, cast, fluid, calcCooldownTime(fluid.getFluid(), fluid.amount), consumesCast, switchOutputs);
   }
 
   public CastingRecipe(ItemStack output, RecipeMatch cast, FluidStack fluid, int time, boolean consumesCast, boolean switchOutputs) {
@@ -61,5 +61,13 @@ public class CastingRecipe {
 
   public boolean switchOutputs() {
     return switchOutputs;
+  }
+
+  public static int calcCooldownTime(Fluid fluid, int amount) {
+    // minimum time = faucet animation time :I
+    int time = 24;
+    int temperature = fluid.getTemperature()-300;
+
+    return time + (temperature*amount)/2300;
   }
 }

@@ -18,7 +18,7 @@ public class OreCastingRecipe extends CastingRecipe {
   protected final List<ItemStack> outputs;
 
   public OreCastingRecipe(List<ItemStack> ore, RecipeMatch cast, Fluid fluid, int amount) {
-    this(ore, cast, new FluidStack(fluid, amount), 20, false, false); // todo
+    this(ore, cast, new FluidStack(fluid, amount), calcCooldownTime(fluid, amount), false, false);
   }
 
   public OreCastingRecipe(String ore, RecipeMatch cast, FluidStack fluid, int time, boolean consumesCast, boolean switchOutputs) {
