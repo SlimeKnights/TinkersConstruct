@@ -2,6 +2,8 @@ package slimeknights.tconstruct.library.client.texture;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
+import slimeknights.tconstruct.library.client.RenderUtil;
+
 public class PatternTexture extends TextureColoredTexture {
 
   public PatternTexture(String partTexture, TextureAtlasSprite patternTexture, String spriteName) {
@@ -11,7 +13,7 @@ public class PatternTexture extends TextureColoredTexture {
 
   @Override
   protected int colorPixel(int pixel, int mipmap, int pxCoord) {
-    if(alpha(pixel) == 0) {
+    if(RenderUtil.alpha(pixel) == 0) {
       return pixel;
     }
     // textureData == toolpart
@@ -28,7 +30,7 @@ public class PatternTexture extends TextureColoredTexture {
 
     int c = textureData[mipmap][pxCoord];
 
-    int a = alpha(c);
+    int a = RenderUtil.alpha(c);
 
     float mult = 1.0f;
     if(a < 64) {
@@ -37,25 +39,25 @@ public class PatternTexture extends TextureColoredTexture {
 
     boolean edge = false;
     if(x > 0) {
-      a = alpha(textureData[mipmap][coord(x - 1, y)]);
+      a = RenderUtil.alpha(textureData[mipmap][coord(x - 1, y)]);
       if(a < 64) {
         edge = true;
       }
     }
     if(y < height-1) {
-      a = alpha(textureData[mipmap][coord(x, y + 1)]);
+      a = RenderUtil.alpha(textureData[mipmap][coord(x, y + 1)]);
       if(a < 64) {
         edge = true;
       }
     }
     if(x < width-1) {
-      a = alpha(textureData[mipmap][coord(x + 1, y)]);
+      a = RenderUtil.alpha(textureData[mipmap][coord(x + 1, y)]);
       if(a < 64) {
         edge = true;
       }
     }
     if(y > 0) {
-      a = alpha(textureData[mipmap][coord(x, y - 1)]);
+      a = RenderUtil.alpha(textureData[mipmap][coord(x, y - 1)]);
       if(a < 64) {
         edge = true;
       }
@@ -66,9 +68,9 @@ public class PatternTexture extends TextureColoredTexture {
       mult = 0.6f;
 
 
-    int r = (int)((float)red(pixel) * mult);
-    int g = (int)((float)green(pixel) * mult);
-    int b = (int)((float)blue(pixel) * mult);
+    int r = (int)((float) RenderUtil.red(pixel) * mult);
+    int g = (int)((float) RenderUtil.green(pixel) * mult);
+    int b = (int)((float) RenderUtil.blue(pixel) * mult);
 
     if(r > 255)
       r = 255;
@@ -78,6 +80,6 @@ public class PatternTexture extends TextureColoredTexture {
       b = 255;
 
     // otherwise darken color for pattern imprint
-    return compose(r, g, b, 255);
+    return RenderUtil.compose(r, g, b, 255);
   }
 }

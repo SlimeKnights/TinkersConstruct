@@ -2,6 +2,8 @@ package slimeknights.tconstruct.library.client.texture;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
+import slimeknights.tconstruct.library.client.RenderUtil;
+
 public class CastTexture extends TextureColoredTexture {
 
   public CastTexture(String addTextureLocation, TextureAtlasSprite baseTexture, String spriteName) {
@@ -10,7 +12,7 @@ public class CastTexture extends TextureColoredTexture {
 
   @Override
   protected int colorPixel(int pixel, int mipmap, int pxCoord) {
-    if(alpha(pixel) == 0) {
+    if(RenderUtil.alpha(pixel) == 0) {
       return pixel;
     }
     // textureData == toolpart
@@ -27,7 +29,7 @@ public class CastTexture extends TextureColoredTexture {
 */
     int c = textureData[mipmap][pxCoord];
 
-    int a = alpha(c);
+    int a = RenderUtil.alpha(c);
 
     // we want to have the row above darker and the rew below brighter
     // to achieve that, we check if the above or below is transparent in the tool texture
@@ -53,7 +55,7 @@ public class CastTexture extends TextureColoredTexture {
     int count = 0;
     boolean edge = false;
     if(x > 0) {
-      a = alpha(textureData[mipmap][coord(x - 1, y)]);
+      a = RenderUtil.alpha(textureData[mipmap][coord(x - 1, y)]);
       if(a < 64) {
         //mult = 1.2f;
         count++;
@@ -61,7 +63,7 @@ public class CastTexture extends TextureColoredTexture {
       }
     }
     if(y < height-1) {
-      a = alpha(textureData[mipmap][coord(x, y + 1)]);
+      a = RenderUtil.alpha(textureData[mipmap][coord(x, y + 1)]);
       if(a < 64) {
         //mult = 1.2f;
         count++;
@@ -69,7 +71,7 @@ public class CastTexture extends TextureColoredTexture {
       }
     }
     if(x < width-1) {
-      a = alpha(textureData[mipmap][coord(x + 1, y)]);
+      a = RenderUtil.alpha(textureData[mipmap][coord(x + 1, y)]);
       if(a < 64) {
         //mult = 0.8f;
         count++;
@@ -77,7 +79,7 @@ public class CastTexture extends TextureColoredTexture {
       }
     }
     if(y > 0) {
-      a = alpha(textureData[mipmap][coord(x, y - 1)]);
+      a = RenderUtil.alpha(textureData[mipmap][coord(x, y - 1)]);
       if(a < 64) {
         //mult = 0.8f;
         count-=3;
@@ -96,9 +98,9 @@ public class CastTexture extends TextureColoredTexture {
     else if(count > 0)
       mult = 1.1f;
 
-    int r = (int)((float)red(pixel) * mult);
-    int g = (int)((float)green(pixel) * mult);
-    int b = (int)((float)blue(pixel) * mult);
+    int r = (int)((float) RenderUtil.red(pixel) * mult);
+    int g = (int)((float) RenderUtil.green(pixel) * mult);
+    int b = (int)((float) RenderUtil.blue(pixel) * mult);
 
     if(r > 255)
       r = 255;
@@ -108,6 +110,6 @@ public class CastTexture extends TextureColoredTexture {
       b = 255;
 
     // otherwise darken color for pattern imprint
-    return compose(r, g, b, 255);
+    return RenderUtil.compose(r, g, b, 255);
   }
 }

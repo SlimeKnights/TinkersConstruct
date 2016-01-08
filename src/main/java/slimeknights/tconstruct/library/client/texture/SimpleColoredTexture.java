@@ -2,6 +2,8 @@ package slimeknights.tconstruct.library.client.texture;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
+import slimeknights.tconstruct.library.client.RenderUtil;
+
 public class SimpleColoredTexture extends AbstractColoredTexture {
 
   protected final int colorLow, colorMid, colorHigh;
@@ -27,7 +29,7 @@ public class SimpleColoredTexture extends AbstractColoredTexture {
     for(int x = 0; x < width; ++x) {
       for(int y = 0; y < height; ++y) {
         int c = data[0][y * width + x];
-        if(alpha(c) == 0)
+        if(RenderUtil.alpha(c) == 0)
           continue;
         int b = getPerceptualBrightness(c);
         if(b < min)
@@ -47,7 +49,7 @@ public class SimpleColoredTexture extends AbstractColoredTexture {
   }
 
   protected int colorPixel(int pixel, int mipmap, int pxCoord) {
-    int a = alpha(pixel);
+    int a = RenderUtil.alpha(pixel);
     if(a == 0) {
       return pixel;
     }
@@ -62,15 +64,15 @@ public class SimpleColoredTexture extends AbstractColoredTexture {
     }
 
     // multiply in the color
-    int r = red(c);
-    int b = blue(c);
-    int g = green(c);
+    int r = RenderUtil.red(c);
+    int b = RenderUtil.blue(c);
+    int g = RenderUtil.green(c);
 
-    r = mult(r, red(pixel)) & 0xff;
-    g = mult(g, blue(pixel)) & 0xff;
-    b = mult(b, green(pixel)) & 0xff;
+    r = mult(r, RenderUtil.red(pixel)) & 0xff;
+    g = mult(g, RenderUtil.blue(pixel)) & 0xff;
+    b = mult(b, RenderUtil.green(pixel)) & 0xff;
 
     // put it back together
-    return compose(r, g, b, a);
+    return RenderUtil.compose(r, g, b, a);
   }
 }

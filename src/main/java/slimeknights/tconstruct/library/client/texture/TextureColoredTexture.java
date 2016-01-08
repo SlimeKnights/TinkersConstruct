@@ -4,6 +4,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
 
+import slimeknights.tconstruct.library.client.RenderUtil;
+
 public class TextureColoredTexture extends AbstractColoredTexture {
 
   protected final TextureAtlasSprite addTexture;
@@ -28,7 +30,7 @@ public class TextureColoredTexture extends AbstractColoredTexture {
 
   @Override
   protected int colorPixel(int pixel, int mipmap, int pxCoord) {
-    int a = alpha(pixel);
+    int a = RenderUtil.alpha(pixel);
     if(a == 0) {
       return pixel;
     }
@@ -40,16 +42,16 @@ public class TextureColoredTexture extends AbstractColoredTexture {
     int c = textureData[mipmap][pxCoord];
 
     // multiply in the color
-    int r = red(c);
-    int b = blue(c);
-    int g = green(c);
+    int r = RenderUtil.red(c);
+    int b = RenderUtil.blue(c);
+    int g = RenderUtil.green(c);
 
     if(!stencil) {
-      r = mult(mult(r, red(pixel)), red(pixel));
-      g = mult(mult(g, green(pixel)), green(pixel));
-      b = mult(mult(b, blue(pixel)), blue(pixel));
+      r = mult(mult(r, RenderUtil.red(pixel)), RenderUtil.red(pixel));
+      g = mult(mult(g, RenderUtil.green(pixel)), RenderUtil.green(pixel));
+      b = mult(mult(b, RenderUtil.blue(pixel)), RenderUtil.blue(pixel));
     }
-    return compose(r, g, b, a);
+    return RenderUtil.compose(r, g, b, a);
   }
 
   protected void loadData() {

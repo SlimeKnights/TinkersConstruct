@@ -16,10 +16,10 @@ import net.minecraft.util.ResourceLocation;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.client.RenderUtil;
 
 public abstract class AbstractColoredTexture extends TextureAtlasSprite {
 
@@ -215,9 +215,9 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
   // borrowed from Shadows of Physis
   // Thanks TTFTCUTS! :)
   public static int getPerceptualBrightness(int col) {
-    double r = red(col) / 255.0;
-    double g = green(col) / 255.0;
-    double b = blue(col) / 255.0;
+    double r = RenderUtil.red(col) / 255.0;
+    double g = RenderUtil.green(col) / 255.0;
+    double b = RenderUtil.blue(col) / 255.0;
 
     return getPerceptualBrightness(r, g, b);
   }
@@ -227,30 +227,6 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
     double brightness = Math.sqrt(0.241 * r * r + 0.691 * g * g + 0.068 * b * b);
 
     return (int) (brightness * 255);
-  }
-
-  public static int compose(int r, int g, int b, int a) {
-    int rgb = a;
-    rgb = (rgb << 8) + r;
-    rgb = (rgb << 8) + g;
-    rgb = (rgb << 8) + b;
-    return rgb;
-  }
-
-  public static int alpha(int c) {
-    return (c >> 24) & 0xFF;
-  }
-
-  public static int red(int c) {
-    return (c >> 16) & 0xFF;
-  }
-
-  public static int green(int c) {
-    return (c >> 8) & 0xFF;
-  }
-
-  public static int blue(int c) {
-    return (c) & 0xFF;
   }
 
   protected static int mult(int c1, int c2) {

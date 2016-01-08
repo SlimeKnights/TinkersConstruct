@@ -2,6 +2,8 @@ package slimeknights.tconstruct.library.client.texture;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
+import slimeknights.tconstruct.library.client.RenderUtil;
+
 public class GuiOutlineTexture extends ExtraUtilityTexture {
 
   public GuiOutlineTexture(String baseTextureLocation, String spriteName) {
@@ -16,7 +18,7 @@ public class GuiOutlineTexture extends ExtraUtilityTexture {
   protected int colorPixel(int pixel, int mipmap, int pxCoord) {
     if(!trans[pxCoord]) {
       if(edge[pxCoord]) {
-        return compose(50,50,50, 255);
+        return RenderUtil.compose(50, 50, 50, 255);
       }
       else {
         return 0;

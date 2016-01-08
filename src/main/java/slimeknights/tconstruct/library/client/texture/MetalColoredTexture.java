@@ -5,6 +5,8 @@ import net.minecraft.util.MathHelper;
 
 import java.awt.*;
 
+import slimeknights.tconstruct.library.client.RenderUtil;
+
 public class MetalColoredTexture extends AbstractColoredTexture {
 
   protected int baseColor;
@@ -30,7 +32,7 @@ public class MetalColoredTexture extends AbstractColoredTexture {
 
   @Override
   protected int colorPixel(int pixel, int mipmap, int pxCoord) {
-    int a = alpha(pixel);
+    int a = RenderUtil.alpha(pixel);
     if(a == 0) {
       return pixel;
     }
@@ -40,13 +42,13 @@ public class MetalColoredTexture extends AbstractColoredTexture {
     int c = baseColor;
 
     // multiply in the color
-    int r = red(c);
-    int b = blue(c);
-    int g = green(c);
+    int r = RenderUtil.red(c);
+    int b = RenderUtil.blue(c);
+    int g = RenderUtil.green(c);
 
-    r = mult(r, red(pixel)) & 0xff;
-    g = mult(g, blue(pixel)) & 0xff;
-    b = mult(b, green(pixel)) & 0xff;
+    r = mult(r, RenderUtil.red(pixel)) & 0xff;
+    g = mult(g, RenderUtil.blue(pixel)) & 0xff;
+    b = mult(b, RenderUtil.green(pixel)) & 0xff;
 
 
     float[] hsl = Color.RGBtoHSB(r,g,b, null);
@@ -66,11 +68,11 @@ public class MetalColoredTexture extends AbstractColoredTexture {
       //hsl[2] = MathHelper.clamp_float(hsl[2] + l * l * 0.1f, 0, 1);
 
     c = Color.HSBtoRGB(hsl[0], hsl[1], hsl[2]);
-    r = red(c);
-    b = blue(c);
-    g = green(c);
+    r = RenderUtil.red(c);
+    b = RenderUtil.blue(c);
+    g = RenderUtil.green(c);
 
     // put it back together
-    return compose(r, g, b, a);
+    return RenderUtil.compose(r, g, b, a);
   }
 }

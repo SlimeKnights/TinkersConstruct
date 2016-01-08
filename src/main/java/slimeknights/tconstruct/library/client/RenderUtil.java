@@ -93,13 +93,17 @@ public final class RenderUtil {
     renderFluidCuboid(fluid, pos, x, y, z, wd, hd, dd, 1d-wd, 1d-hd, 1d-dd);
   }
 
-  /** Renders block with offset x/y/z from x1/y1/z1 to x2/y2/z2 inside the block local coordinates, so from 0-1 */
   public static void renderFluidCuboid(FluidStack fluid, BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2) {
+    int color = fluid.getFluid().getColor(fluid);
+    renderFluidCuboid(fluid, pos, x, y, z, x1, y1, z1, x2, y2, z2, color);
+  }
+
+  /** Renders block with offset x/y/z from x1/y1/z1 to x2/y2/z2 inside the block local coordinates, so from 0-1 */
+  public static void renderFluidCuboid(FluidStack fluid, BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2, int color) {
     Tessellator tessellator = Tessellator.getInstance();
     WorldRenderer renderer = tessellator.getWorldRenderer();
     renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
     mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-    int color = fluid.getFluid().getColor(fluid);
     //RenderUtil.setColorRGBA(color);
     int brightness = mc.theWorld.getCombinedLight(pos, fluid.getFluid().getLuminosity());
 
@@ -358,15 +362,39 @@ public final class RenderUtil {
   }
 
   public static void setColorRGBA(int color) {
-    float a = (float)(color >> 24 & 255) / 255.0F;
-    float r = (float)(color >> 16 & 255) / 255.0F;
-    float g = (float)(color >> 8 & 255) / 255.0F;
-    float b = (float)(color & 255) / 255.0F;
+    float a = (float)alpha(color) / 255.0F;
+    float r = (float)red(color) / 255.0F;
+    float g = (float)green(color) / 255.0F;
+    float b = (float)blue(color) / 255.0F;
 
     GlStateManager.color(r, g, b, a);
   }
 
   public static void setBrightness(WorldRenderer renderer, int brightness) {
     renderer.putBrightness4(brightness, brightness, brightness, brightness);
+  }
+
+  public static int compose(int r, int g, int b, int a) {
+    int rgb = a;
+    rgb = (rgb << 8) + r;
+    rgb = (rgb << 8) + g;
+    rgb = (rgb << 8) + b;
+    return rgb;
+  }
+
+  public static int alpha(int c) {
+    return (c >> 24) & 0xFF;
+  }
+
+  public static int red(int c) {
+    return (c >> 16) & 0xFF;
+  }
+
+  public static int green(int c) {
+    return (c >> 8) & 0xFF;
+  }
+
+  public static int blue(int c) {
+    return (c) & 0xFF;
   }
 }

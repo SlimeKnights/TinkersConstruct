@@ -2,6 +2,8 @@ package slimeknights.tconstruct.library.client.texture;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
+import slimeknights.tconstruct.library.client.RenderUtil;
+
 public class InverseColoredTexture extends SimpleColoredTexture {
 
   public InverseColoredTexture(int colorLow, int colorMid, int colorHigh, TextureAtlasSprite baseTexture, String spriteName) {
@@ -10,7 +12,7 @@ public class InverseColoredTexture extends SimpleColoredTexture {
 
   @Override
   protected int colorPixel(int pixel, int mipmap, int pxCoord) {
-    int a = alpha(pixel);
+    int a = RenderUtil.alpha(pixel);
     if(a == 0) {
       return pixel;
     }
@@ -25,15 +27,15 @@ public class InverseColoredTexture extends SimpleColoredTexture {
     }
 
     // multiply in the color
-    int r = red(c);
-    int b = blue(c);
-    int g = green(c);
+    int r = RenderUtil.red(c);
+    int b = RenderUtil.blue(c);
+    int g = RenderUtil.green(c);
 
     r = ~mult(r, brightness) & 0xff;
     g = ~mult(g, brightness) & 0xff;
     b = ~mult(b, brightness) & 0xff;
 
     // put it back together
-    return compose(r, g, b, a);
+    return RenderUtil.compose(r, g, b, a);
   }
 }
