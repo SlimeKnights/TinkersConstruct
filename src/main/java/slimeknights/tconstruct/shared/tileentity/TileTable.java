@@ -64,7 +64,7 @@ public class TileTable extends TileInventory {
       state = state.withProperty(BlockTable.TEXTURE, texture);
     }
 
-    EnumFacing facing = EnumFacing.getFront(getTileData().getInteger(FACE_TAG));
+    EnumFacing facing = getFacing();
     state = state.withProperty((IUnlistedProperty<EnumFacing>)BlockTable.FACING, facing);
 
     state = setInventoryDisplay(state);
@@ -134,6 +134,10 @@ public class TileTable extends TileInventory {
 
   public void setFacing(EnumFacing face) {
     getTileData().setInteger(FACE_TAG, face.getIndex());
+  }
+
+  public EnumFacing getFacing() {
+    return EnumFacing.getFront(getTileData().getInteger(FACE_TAG));
   }
 
   public void updateTextureBlock(NBTTagCompound tag) {

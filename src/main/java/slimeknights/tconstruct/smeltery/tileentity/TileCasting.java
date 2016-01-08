@@ -106,6 +106,20 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     }
   }
 
+  public float getCooldownProgress() {
+    if(recipe == null) {
+      return 1f;
+    }
+    return (float)timer/(float)recipe.getTime();
+  }
+
+  public ItemStack getCurrentResult() {
+    if(recipe == null) {
+      return null;
+    }
+    return recipe.getResult();
+  }
+
   /** Return the recipe for the current state, if one exists. Don't forget to fire the OnCasting event! */
   protected abstract CastingRecipe findRecipe(ItemStack cast, Fluid fluid);
 
