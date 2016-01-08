@@ -18,14 +18,29 @@ public class CastingRecipeWrapper extends BlankRecipeWrapper {
 
   protected final List<ItemStack> cast;
   protected final List<FluidStack> inputFluid;
-  protected final List<ItemStack> output;
+  protected List<ItemStack> output;
 
   public final IDrawable castingBlock;
 
+  private final CastingRecipe recipe;
+
   public CastingRecipeWrapper(CastingRecipe recipe, IDrawable castingBlock) {
-    cast = recipe.cast.getInputs();
+    // cast is not required
+    if(recipe.cast != null) {
+      cast = recipe.cast.getInputs();
+    }
+    else {
+      cast = ImmutableList.of();
+    }
     inputFluid = ImmutableList.of(recipe.fluid);
-    output = ImmutableList.of(recipe.getResult());
+    this.recipe = recipe;
+    // special treatment of oredict output recipies
+    if(recipe.getResult() == null) {
+      output = null;
+    }
+    else {
+      output = ImmutableList.of(recipe.getResult());
+    }
 
     this.castingBlock = castingBlock;
   }
@@ -37,11 +52,21 @@ public class CastingRecipeWrapper extends BlankRecipeWrapper {
 
   @Override
   public List getInputs() {
+    if(cast == null) {
+      return super.getInputs();
+    }
     return cast;
   }
 
   @Override
   public List getOutputs() {
+    if(output == null) {
+      if(recipe.getResult() == null) {
+        return ImmutableList.of();
+      }
+      // we lazily evaluate the output in case the oredict wasn't there before
+      output = ImmutableList.of(recipe.getResult());
+    }
     return output;
   }
 

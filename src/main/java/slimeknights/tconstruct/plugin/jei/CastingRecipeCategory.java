@@ -35,7 +35,7 @@ public class CastingRecipeCategory implements IRecipeCategory {
     this.arrow = guiHelper.createAnimatedDrawable(arrowDrawable, 200, IDrawableAnimated.StartDirection.LEFT, false);
 
     this.castingTable = guiHelper.createDrawable(background_loc, 141, 0, 16, 16);
-    this.castingBasin = guiHelper.createDrawable(background_loc, 141, 18, 16, 16);
+    this.castingBasin = guiHelper.createDrawable(background_loc, 141, 16, 16, 16);
   }
 
   @Nonnull
@@ -84,7 +84,12 @@ public class CastingRecipeCategory implements IRecipeCategory {
       fluids.init(0, true, 22, 10, 18, 32, Material.VALUE_Block, false, null);
       fluids.set(0, recipe.getFluidInputs());
 
-      fluids.init(1, true, 64, 15, 6, 11, cap, false, null);
+      // no cast, bigger fluid
+      int h = 11;
+      if(recipe.getInputs().isEmpty()) {
+        h += 15;
+      }
+      fluids.init(1, true, 64, 15, 6, h, cap, false, null);
       fluids.set(1, recipe.getFluidInputs());
     }
   }

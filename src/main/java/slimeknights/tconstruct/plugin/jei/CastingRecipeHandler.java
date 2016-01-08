@@ -30,8 +30,7 @@ public class CastingRecipeHandler implements IRecipeHandler<CastingRecipeWrapper
   public boolean isRecipeValid(@Nonnull CastingRecipeWrapper recipe) {
     return !recipe.inputFluid.isEmpty() &&
            recipe.inputFluid.get(0) != null &&
-           !recipe.output.isEmpty() &&
-           recipe.output.get(0) != null &&
-           (recipe.cast.isEmpty() || recipe.cast.get(0) != null);
+           (recipe.cast.isEmpty() || recipe.cast.get(0) != null) &&
+           (recipe.output != null && !recipe.output.isEmpty() && recipe.output.get(0) != null);
   }
 }
