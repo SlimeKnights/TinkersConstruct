@@ -158,6 +158,7 @@ public abstract class MultiblockDetection {
       TileEntity slave = world.getTileEntity(pos);
       if(slave instanceof MultiServantLogic && slave.getWorld() != null) {
         ((MultiServantLogic) slave).overrideMaster(master);
+        world.markBlockForUpdate(pos);
       }
     }
   }
