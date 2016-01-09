@@ -23,30 +23,20 @@ public class CastTexture extends TextureColoredTexture {
     // we only want the inner 3/4 of the texture
     int x = getX(pxCoord);
     int y = getY(pxCoord);
-/*
-    if(x < width/8 || x > width - width/8 || y < height/8 || y > height - height/8)
-      return pixel;
-*/
+
     int c = textureData[mipmap][pxCoord];
 
     int a = RenderUtil.alpha(c);
 
     // we want to have the row above darker and the rew below brighter
     // to achieve that, we check if the above or below is transparent in the tool texture
-    float mult = 1.0f;
+    float mult = 1.0f;/*
     if(a < 64) {
-      /*
-      if(y < height-1 && alpha(textureData[mipmap][coord(x, y + 1)]) > 64) {
-        mult = 0.5f;
-      }
-      else if(y > 0 &&  alpha(textureData[mipmap][coord(x, y - 1)]) > 64) {
-        mult = 2.0f;
-      }
-      else {
-        return pixel;
-      }
-      */
       return pixel;
+    }*/
+
+    if(a > 64 && !(x == 0 || x == width - 1 || y == 0 || y == height - 1)) {
+      return 0;
     }
 
     // we want to have the row above darker and the rew below brighter
@@ -54,42 +44,48 @@ public class CastTexture extends TextureColoredTexture {
     // dark takes precedence, so we check for bright first so we can overwrite it
     int count = 0;
     boolean edge = false;
+    a = 0;
     if(x > 0) {
       a = RenderUtil.alpha(textureData[mipmap][coord(x - 1, y)]);
+    }
       if(a < 64) {
         //mult = 1.2f;
         count++;
         edge = true;
       }
-    }
+
+    a = 0;
     if(y < height-1) {
       a = RenderUtil.alpha(textureData[mipmap][coord(x, y + 1)]);
-      if(a < 64) {
-        //mult = 1.2f;
-        count++;
-        edge = true;
-      }
     }
+    if(a < 64) {
+      //mult = 1.2f;
+      count++;
+      edge = true;
+    }
+    a = 0;
     if(x < width-1) {
       a = RenderUtil.alpha(textureData[mipmap][coord(x + 1, y)]);
+    }
       if(a < 64) {
         //mult = 0.8f;
         count++;
         edge = true;
       }
-    }
+    a = 0;
     if(y > 0) {
       a = RenderUtil.alpha(textureData[mipmap][coord(x, y - 1)]);
+    }
       if(a < 64) {
         //mult = 0.8f;
         count-=3;
         edge = true;
       }
-    }
 
-    // inner always are invisible
+
+    // outer always are invisible
     if(!edge || count == 0)
-      return 0;
+      return pixel;
 
     //mult = 1f + 0.1f*count;
 

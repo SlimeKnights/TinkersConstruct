@@ -23,7 +23,8 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
   protected final float xzMin;
   protected final float xzMax;
 
-  protected float scale;
+  protected float yScale;
+  protected float xzScale;
   protected float yOffset;
   protected float xzOffset;
 
@@ -40,7 +41,8 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
     this.yOffset = yMin + (yMax-yMin)/2f;
     this.xzOffset = xzMin + (xzMax - xzMin)/2f;
 
-    this.scale = (xzMax - xzMin);
+    this.xzScale = (this.xzMax - this.xzMin);
+    this.yScale = xzScale;
   }
 
   @Override
@@ -94,7 +96,7 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
 
       //GlStateManager.translate(0.5f, 0.5f, 0.5f);
       GlStateManager.translate(xzOffset, yOffset, xzOffset);
-      GlStateManager.scale(scale, scale, scale);
+      GlStateManager.scale(xzScale, yScale, xzScale);
       GlStateManager.scale(1.01f, 1.01f, 1.01f); // make it a tad bigger so it renders over the liquid (will be blended)
       GlStateManager.scale(2f, 2f, 2f); // renderItem scales by 0.5
 
@@ -118,7 +120,8 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
 
     public Table() {
       super(15/16f, 1f, 1/16f, 15/16f);
-      this.scale = 1f;
+      this.xzScale = 0.875f;
+      this.yScale = 1;
     }
   }
 

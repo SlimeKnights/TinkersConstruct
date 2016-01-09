@@ -23,9 +23,13 @@ public class TileCastingTable extends TileCasting {
     for(int i = 0; i < this.getSizeInventory(); i++) {
       if(isStackInSlot(i)) {
         PropertyTableItem.TableItem item = getTableItem(getStackInSlot(i));
-        item.y -= 1/16f;
-        item.s = 1;
+        item.s = 0.875f;// * 0.875f;
+        item.y -= 1/16f * item.s;
+        //item.s = 1f;
         toDisplay.items.add(item);
+        if(i == 1) {
+          item.y += 0.01f; // don't overlap
+        }
       }
     }
 
