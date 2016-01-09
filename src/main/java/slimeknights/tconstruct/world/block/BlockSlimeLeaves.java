@@ -8,6 +8,7 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Random;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass.FoliageType;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
@@ -62,13 +64,35 @@ public class BlockSlimeLeaves extends BlockLeaves {
 
   @Override
   protected int getSaplingDropChance(IBlockState state) {
-    return 35;
+    return 25;
   }
 
   // sapling item
   @Override
   public Item getItemDropped(IBlockState state, Random rand, int fortune) {
     return Item.getItemFromBlock(TinkerWorld.slimeSapling);
+  }
+
+  @Override
+  protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
+    if(worldIn.rand.nextInt(chance) == 0) {
+      ItemStack stack = null;
+      if(state.getValue(BlockSlimeGrass.FOLIAGE) == FoliageType.PURPLE) {
+        stack = TinkerCommons.matSlimeBallPurple.copy();
+      }
+      else if(state.getValue(BlockSlimeGrass.FOLIAGE) == FoliageType.BLUE) {
+        if(worldIn.rand.nextInt(3) == 0) {
+          stack = TinkerCommons.matSlimeBallBlue.copy();
+        }
+        else {
+          stack = new ItemStack(Items.slime_ball);
+        }
+      }
+
+      if(stack != null) {
+        spawnAsEntity(worldIn, pos, stack);
+      }
+    }
   }
 
   // sapling meta
