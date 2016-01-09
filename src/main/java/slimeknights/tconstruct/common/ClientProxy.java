@@ -111,12 +111,12 @@ public abstract class ClientProxy extends CommonProxy {
 
     // We have to readd the default variant if we have custom variants, since it wont be added otherwise
     if(customVariants.length > 0) {
-      ModelBakery.addVariantName(item, location.toString());
+      ModelLoader.registerItemVariants(item, location);
     }
 
     for(String customVariant : customVariants) {
       String custom = location.getResourceDomain() + ":" + customVariant;
-      ModelBakery.addVariantName(item, custom);
+      ModelLoader.registerItemVariants(item, new ResourceLocation(custom));
     }
 
     return location;
@@ -129,7 +129,7 @@ public abstract class ClientProxy extends CommonProxy {
       name = Util.resource(name);
     }
 
-    ModelBakery.addVariantName(item.getItem(), name);
+    ModelLoader.registerItemVariants(item.getItem(), new ResourceLocation(name));
     // tell the game which model to use for this item-meta combination
     ModelLoader.setCustomModelResourceLocation(item.getItem(), item
         .getMetadata(), new ModelResourceLocation(name, "inventory"));

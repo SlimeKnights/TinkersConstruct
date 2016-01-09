@@ -85,12 +85,12 @@ public class AlloyRecipeCategory implements IRecipeCategory {
         FluidStack in = recipe.getFluidInputs().get(i);
         int x = 21 + (int)(i*w);
         int _w = (int)((i+1)*w - i*w);
-        fluids.init(i+1, true, x, 11, _w, 32, max_amount, null);
+        fluids.init(i+1, true, x, 11, _w, 32, max_amount, false, null);
         fluids.set(i+1, in);
       }
 
       // output
-      fluids.init(0, false, 118, 11, 18, 32, max_amount, null);
+      fluids.init(0, false, 118, 11, 18, 32, max_amount, false, null);
       fluids.set(0, recipe.getFluidOutputs());
     }
   }

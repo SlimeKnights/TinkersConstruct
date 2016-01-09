@@ -26,7 +26,7 @@ public class FluidsClientProxy extends ClientProxy {
       Item item = Item.getItemFromBlock(block);
       FluidStateMapper mapper = new FluidStateMapper(fluid);
       // item-model
-      ModelBakery.addVariantName(item);
+      ModelLoader.registerItemVariants(item);
       ModelLoader.setCustomMeshDefinition(item, mapper);
       // block-model
       ModelLoader.setCustomStateMapper(block, mapper);
