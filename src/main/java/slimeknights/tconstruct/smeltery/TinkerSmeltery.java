@@ -311,6 +311,12 @@ public class TinkerSmeltery extends TinkerPulse {
                                                              fluid,
                                                              blockOre.getRight()));
 
+    // and also cast creation!
+    for(FluidStack fs : castCreationFluids) {
+      TinkerRegistry.registerTableCasting(new CastingRecipe(castIngot, RecipeMatch.of(ingotOre.getLeft()), fs.getFluid(), fs.amount));
+      TinkerRegistry.registerTableCasting(new CastingRecipe(castNugget, RecipeMatch.of(nuggetOre.getLeft()), fs.getFluid(), fs.amount));
+    }
+
     // used for recipe detection
     knownOreFluids.put(fluid, knownOres);
   }
