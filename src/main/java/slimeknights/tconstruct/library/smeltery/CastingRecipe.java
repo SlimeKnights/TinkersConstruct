@@ -41,7 +41,7 @@ public class CastingRecipe {
   }
 
   public boolean matches(ItemStack cast, Fluid fluid) {
-    if((cast == null && this.cast == null) || this.cast.matches(new ItemStack[]{cast}) != null) {
+    if((cast == null && this.cast == null) || (this.cast != null && this.cast.matches(new ItemStack[]{cast}) != null)) {
       return this.fluid.getFluid() == fluid;
     }
     return false;
