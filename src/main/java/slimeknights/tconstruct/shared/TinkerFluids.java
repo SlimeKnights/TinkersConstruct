@@ -52,6 +52,7 @@ public class TinkerFluids extends TinkerPulse {
   public static FluidMolten ardite;
   public static FluidMolten manyullyn;
   public static FluidMolten knightslime;
+  public static FluidMolten emerald;
   public static FluidColored blood;
   public static FluidColored milk;
   public static FluidColored blueslime;
@@ -106,6 +107,11 @@ public class TinkerFluids extends TinkerPulse {
       gold.setTemperature(564);
       registerFluid(gold);
       registerMoltenBlock(gold);
+
+      emerald = fluidMetal("emerald", 0x58e78e);
+      emerald.setTemperature(999);
+      registerFluid(emerald);
+      registerMoltenBlock(emerald);
 
       // blood for the blood god
       blood = fluidClassic("blood", 0x540000);

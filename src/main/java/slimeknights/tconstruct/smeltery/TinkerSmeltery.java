@@ -161,9 +161,10 @@ public class TinkerSmeltery extends TinkerPulse {
 
     registerRecipeOredictMelting();
 
-    // register empty cast creation
+    // register remaining cast creation
     for(FluidStack fs : castCreationFluids) {
       TinkerRegistry.registerTableCasting(new ItemStack(cast), null, fs.getFluid(), fs.amount);
+      TinkerRegistry.registerTableCasting(new CastingRecipe(castGem, RecipeMatch.of("gemEmerald"), fs.getFluid(), fs.amount));
     }
 
     proxy.postInit();
@@ -216,6 +217,12 @@ public class TinkerSmeltery extends TinkerPulse {
         TinkerRegistry.registerMelting(stack, TinkerFluids.searedStone, toolPart.getCost());
       }
     }
+
+    // emerald melting and casting
+    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("gemEmerald", Material.VALUE_Gem), TinkerFluids.emerald));
+    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("blockEmerald", Material.VALUE_Gem*9), TinkerFluids.emerald));
+    TinkerRegistry.registerTableCasting(new ItemStack(Items.emerald), castGem, TinkerFluids.emerald, Material.VALUE_Gem);
+    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.emerald_block), null, TinkerFluids.emerald, Material.VALUE_Gem*9);
   }
 
   private void registerAlloys() {
@@ -231,6 +238,13 @@ public class TinkerSmeltery extends TinkerPulse {
                                  new FluidStack(TinkerFluids.iron, 72),
                                  new FluidStack(TinkerFluids.purpleSlime, 125),
                                  new FluidStack(TinkerFluids.searedStone, 144));
+
+    // i iron ingot + 1 blood... unit thingie + 1/3 gem = 1 pigiron
+    // 144 + 99 + 222 = 144
+    TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.pigIron, 144),
+                                 new FluidStack(TinkerFluids.iron, 48),
+                                 new FluidStack(TinkerFluids.blood, 33),
+                                 new FluidStack(TinkerFluids.emerald, 74));
   }
 
   public static void registerToolpartMeltingCasting(Material material) {

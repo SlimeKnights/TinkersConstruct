@@ -37,6 +37,10 @@
             "model": "forge:fluid",
             "custom": { "fluid": "knightslime" }
         },
+        "emerald": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "emerald" }
+        },
         "blood": {
             "model": "forge:fluid",
             "custom": { "fluid": "blood" }
