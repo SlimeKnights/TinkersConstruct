@@ -87,7 +87,7 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
 
     // render item
     ItemStack stack = te.getCurrentResult();
-    if(progress > 0 && stack != null) {
+    if(progress > 0 && stack != null && te.getStackInSlot(1) == null) {
       RenderUtil.pre(x,y,z);
       int brightness = te.getWorld().getCombinedLight(te.getPos(), 0);
       OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)(brightness % 0x10000) / 1f,

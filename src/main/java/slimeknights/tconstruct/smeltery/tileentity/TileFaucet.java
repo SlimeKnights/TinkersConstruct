@@ -57,6 +57,9 @@ public class TileFaucet extends TileEntity implements ITickable {
 
   @Override
   public void update() {
+    if(worldObj.isRemote) {
+      return;
+    }
     // nothing to do if not pouring
     if(!isPouring) {
       return;
@@ -74,10 +77,6 @@ public class TileFaucet extends TileEntity implements ITickable {
         }
         else {
           reset();
-          // sync to clients
-          if(!worldObj.isRemote && worldObj instanceof WorldServer) {
-            TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new FaucetActivationPacket(pos, null));
-          }
         }
       }
     }
@@ -123,6 +122,11 @@ public class TileFaucet extends TileEntity implements ITickable {
     stopPouring = false;
     drained = null;
     direction = EnumFacing.DOWN; // invalid direction
+
+    // sync to clients
+    if(worldObj != null && !worldObj.isRemote && worldObj instanceof WorldServer) {
+      TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new FaucetActivationPacket(pos, null));
+    }
   }
 
 
@@ -156,9 +160,14 @@ public class TileFaucet extends TileEntity implements ITickable {
   }
 
   public void onActivationPacket(FluidStack fluid) {
-    drained = fluid;
-    isPouring = fluid == null;
-    direction = worldObj.getBlockState(pos).getValue(BlockFaucet.FACING);
+    if(fluid == null) {
+      reset();
+    }
+    else {
+      drained = fluid;
+      isPouring = true;
+      direction = worldObj.getBlockState(pos).getValue(BlockFaucet.FACING);
+    }
   }
 
   @Override

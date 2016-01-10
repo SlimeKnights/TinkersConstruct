@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 
 import io.netty.buffer.ByteBuf;
 import slimeknights.mantle.network.AbstractPacketThreadsafe;
+import slimeknights.tconstruct.smeltery.tileentity.TileCasting;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 
 public class TankFluidUpdatePacket extends AbstractPacketThreadsafe {
@@ -30,6 +31,9 @@ public class TankFluidUpdatePacket extends AbstractPacketThreadsafe {
     TileEntity te = Minecraft.getMinecraft().theWorld.getTileEntity(pos);
     if(te instanceof TileTank) {
       ((TileTank) te).updateFluidTo(fluid);
+    }
+    else if(te instanceof TileCasting) {
+      ((TileCasting) te).updateFluidTo(fluid);
     }
   }
 

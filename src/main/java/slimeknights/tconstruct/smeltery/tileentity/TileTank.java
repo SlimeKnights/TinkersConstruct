@@ -13,6 +13,8 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.TankFluidUpdatePacket;
@@ -58,7 +60,7 @@ public class TileTank extends TileSmelteryComponent implements IFluidHandler {
   public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
     FluidStack amount = tank.drain(maxDrain, doDrain);
     if(amount != null && doDrain) {
-      renderOffset -= maxDrain;
+      renderOffset -= amount.amount;
       if(!worldObj.isRemote && worldObj instanceof WorldServer) {
         TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new TankFluidUpdatePacket(pos, tank.getFluid()));
       }
@@ -102,6 +104,8 @@ public class TileTank extends TileSmelteryComponent implements IFluidHandler {
     return 0;
   }
 
+  // called only clientside to sync with the server
+  @SideOnly(Side.CLIENT)
   public void updateFluidTo(FluidStack fluid) {
     int oldAmount = tank.getFluidAmount();
     tank.setFluid(fluid);

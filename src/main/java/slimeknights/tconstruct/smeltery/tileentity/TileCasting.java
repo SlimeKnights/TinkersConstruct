@@ -5,17 +5,22 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.tconstruct.common.PlayerHelper;
+import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.smeltery.events.TinkerCastingEvent;
+import slimeknights.tconstruct.smeltery.network.TankFluidUpdatePacket;
 
 public abstract class TileCasting extends TileTable implements ITickable, ISidedInventory, IFluidHandler {
 
@@ -139,6 +144,14 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     tank.setFluid(null);
   }
 
+  // called only clientside to sync with the server
+  @SideOnly(Side.CLIENT)
+  public void updateFluidTo(FluidStack fluid) {
+    int oldAmount = tank.getFluidAmount();
+    tank.setFluid(fluid);
+
+    renderOffset += tank.getFluidAmount() - oldAmount;
+  }
 
 
   /* Fluid Management */
@@ -188,13 +201,23 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
         calcTank = tank;
       }
 
-      return calcTank.fill(resource, doFill);
+      int filled = calcTank.fill(resource, doFill);
+      if(filled > 0 && doFill) {
+        renderOffset = filled;
+        if(!worldObj.isRemote && worldObj instanceof WorldServer) {
+          TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new TankFluidUpdatePacket(pos, tank.getFluid()));
+        }
+      }
+      return filled;
     }
 
     // non-empty tank. just try to fill
     int filled = tank.fill(resource, doFill);
     if(filled > 0 && doFill) {
-      renderOffset = filled;
+      renderOffset += filled;
+      if(!worldObj.isRemote && worldObj instanceof WorldServer) {
+        TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new TankFluidUpdatePacket(pos, tank.getFluid()));
+      }
     }
 
     return filled;
@@ -219,6 +242,9 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     if(amount != null && doDrain) {
       renderOffset = -maxDrain;
       // if we're empty after the drain we reset the recipe
+      if(!worldObj.isRemote && worldObj instanceof WorldServer) {
+        TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new TankFluidUpdatePacket(pos, tank.getFluid()));
+      }
       reset();
     }
 
