@@ -13,6 +13,9 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
 
+import slimeknights.tconstruct.common.TinkerNetwork;
+import slimeknights.tconstruct.smeltery.network.TankFluidUpdatePacket;
+
 public class TileTank extends TileSmelteryComponent implements IFluidHandler {
 
   public static final int CAPACITY = FluidContainerRegistry.BUCKET_VOLUME * 4;
@@ -28,7 +31,10 @@ public class TileTank extends TileSmelteryComponent implements IFluidHandler {
   public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
     int amount = tank.fill(resource, doFill);
     if(amount > 0 && doFill) {
-      renderOffset = amount;
+      renderOffset += amount;
+      if(!worldObj.isRemote) {
+        TinkerNetwork.sendToAll(new TankFluidUpdatePacket(pos, tank.getFluid()));
+      }
     }
 
     return amount;
@@ -51,7 +57,10 @@ public class TileTank extends TileSmelteryComponent implements IFluidHandler {
   public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
     FluidStack amount = tank.drain(maxDrain, doDrain);
     if(amount != null && doDrain) {
-      renderOffset = -maxDrain;
+      renderOffset -= maxDrain;
+      if(!worldObj.isRemote) {
+        TinkerNetwork.sendToAll(new TankFluidUpdatePacket(pos, tank.getFluid()));
+      }
     }
 
     return amount;
@@ -90,6 +99,13 @@ public class TileTank extends TileSmelteryComponent implements IFluidHandler {
       return tank.getFluid().getFluid().getLuminosity();
     }
     return 0;
+  }
+
+  public void updateFluidTo(FluidStack fluid) {
+    int oldAmount = tank.getFluidAmount();
+    tank.setFluid(fluid);
+
+    renderOffset += tank.getFluidAmount() - oldAmount;
   }
 
   @Override
