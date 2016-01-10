@@ -14,8 +14,12 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.EnumPlantType;
+import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -26,6 +30,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
 
@@ -116,6 +121,15 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
     }
   }
 
+  @Override
+  public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
+    SoilTypes type = world.getBlockState(pos).getValue(TYPE);
+    if(type == SoilTypes.SLIMY_MUD_GREEN || type == SoilTypes.SLIMY_MUD_BLUE) {
+      // can sustain slimeplants
+      return plantable.getPlantType(world, pos) == TinkerWorld.slimePlantType;
+    }
+    return super.canSustainPlant(world, pos, direction, plantable);
+  }
 
   public enum SoilTypes implements IStringSerializable, EnumBlock.IEnumMeta {
     GROUT,
