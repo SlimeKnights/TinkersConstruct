@@ -55,7 +55,7 @@ public class BlockSmelteryIO extends BlockEnumSmeltery<BlockSmelteryIO.IOType> {
 
   @Override
   public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-    EnumFacing side = facing.getOpposite();
+    EnumFacing side = facing;
     if(side == EnumFacing.UP || side == EnumFacing.DOWN) {
       side = placer.getHorizontalFacing().getOpposite();
     }
