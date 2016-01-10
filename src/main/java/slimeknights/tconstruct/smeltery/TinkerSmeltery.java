@@ -23,6 +23,8 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameData;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -149,6 +151,10 @@ public class TinkerSmeltery extends TinkerPulse {
   public void init(FMLInitializationEvent event) {
     // done here so they're present for integration in MaterialIntegration and fluids in TinkerFluids are also initialized
     castCreationFluids.add(new FluidStack(TinkerFluids.gold, Material.VALUE_Ingot*2));
+
+    // seared brick recipe
+    GameRegistry.addSmelting(TinkerCommons.grout, TinkerCommons.searedBrick, 0);
+
     proxy.init();
   }
 

@@ -2,14 +2,10 @@ package slimeknights.tconstruct.common;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-
-import java.util.List;
 
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.mantle.network.NetworkWrapper;
@@ -19,7 +15,7 @@ import slimeknights.tconstruct.smeltery.network.SmelteryFluidClicked;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.SmelteryFuelUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.SmelteryInventoryUpdatePacket;
-import slimeknights.tconstruct.smeltery.network.TankFluidUpdatePacket;
+import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
 import slimeknights.tconstruct.tools.network.InventoryCraftingSyncPacket;
 import slimeknights.tconstruct.tools.network.InventorySlotSyncPacket;
@@ -56,7 +52,7 @@ public class TinkerNetwork extends NetworkWrapper {
     registerPacketClient(SmelteryFuelUpdatePacket.class);
     registerPacketClient(SmelteryInventoryUpdatePacket.class);
     registerPacketServer(SmelteryFluidClicked.class);
-    registerPacketClient(TankFluidUpdatePacket.class);
+    registerPacketClient(FluidUpdatePacket.class);
     registerPacketClient(FaucetActivationPacket.class);
   }
 

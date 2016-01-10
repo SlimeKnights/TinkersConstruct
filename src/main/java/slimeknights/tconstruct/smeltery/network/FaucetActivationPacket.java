@@ -9,7 +9,7 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
 
 /** Sent to clients to activate the faucet animation clientside */
-public class FaucetActivationPacket extends TankFluidUpdatePacket {
+public class FaucetActivationPacket extends FluidUpdatePacket {
 
   public FaucetActivationPacket() {
   }

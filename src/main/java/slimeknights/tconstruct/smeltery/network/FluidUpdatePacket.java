@@ -14,14 +14,14 @@ import slimeknights.mantle.network.AbstractPacketThreadsafe;
 import slimeknights.tconstruct.smeltery.tileentity.TileCasting;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 
-public class TankFluidUpdatePacket extends AbstractPacketThreadsafe {
+public class FluidUpdatePacket extends AbstractPacketThreadsafe {
   public BlockPos pos;
   public FluidStack fluid;
 
-  public TankFluidUpdatePacket() {
+  public FluidUpdatePacket() {
   }
 
-  public TankFluidUpdatePacket(BlockPos pos, FluidStack fluid) {
+  public FluidUpdatePacket(BlockPos pos, FluidStack fluid) {
     this.pos = pos;
     this.fluid = fluid;
   }

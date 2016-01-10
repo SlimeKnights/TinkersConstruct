@@ -20,7 +20,7 @@ import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.smeltery.events.TinkerCastingEvent;
-import slimeknights.tconstruct.smeltery.network.TankFluidUpdatePacket;
+import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 
 public abstract class TileCasting extends TileTable implements ITickable, ISidedInventory, IFluidHandler {
 
@@ -142,6 +142,10 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     recipe = null;
     tank.setCapacity(0);
     tank.setFluid(null);
+
+    if(!worldObj.isRemote && worldObj instanceof WorldServer) {
+      TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new FluidUpdatePacket(pos, null));
+    }
   }
 
   // called only clientside to sync with the server
@@ -149,6 +153,17 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
   public void updateFluidTo(FluidStack fluid) {
     int oldAmount = tank.getFluidAmount();
     tank.setFluid(fluid);
+
+    if(fluid == null) {
+      tank.setCapacity(0);
+      recipe = null;
+    }
+    else if(recipe == null) {
+      recipe = findRecipe(fluid.getFluid());
+      if(recipe != null) {
+        tank.setCapacity(recipe.fluid.amount);
+      }
+    }
 
     renderOffset += tank.getFluidAmount() - oldAmount;
   }
@@ -205,7 +220,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
       if(filled > 0 && doFill) {
         renderOffset = filled;
         if(!worldObj.isRemote && worldObj instanceof WorldServer) {
-          TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new TankFluidUpdatePacket(pos, tank.getFluid()));
+          TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new FluidUpdatePacket(pos, tank.getFluid()));
         }
       }
       return filled;
@@ -216,7 +231,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     if(filled > 0 && doFill) {
       renderOffset += filled;
       if(!worldObj.isRemote && worldObj instanceof WorldServer) {
-        TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new TankFluidUpdatePacket(pos, tank.getFluid()));
+        TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new FluidUpdatePacket(pos, tank.getFluid()));
       }
     }
 
@@ -243,7 +258,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
       renderOffset = -maxDrain;
       // if we're empty after the drain we reset the recipe
       if(!worldObj.isRemote && worldObj instanceof WorldServer) {
-        TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new TankFluidUpdatePacket(pos, tank.getFluid()));
+        TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new FluidUpdatePacket(pos, tank.getFluid()));
       }
       reset();
     }
