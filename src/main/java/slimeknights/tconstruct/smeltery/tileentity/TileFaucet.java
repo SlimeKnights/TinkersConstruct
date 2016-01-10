@@ -157,7 +157,7 @@ public class TileFaucet extends TileEntity implements ITickable {
 
   public void onActivationPacket(FluidStack fluid) {
     drained = fluid;
-    isPouring = true;
+    isPouring = fluid == null;
     direction = worldObj.getBlockState(pos).getValue(BlockFaucet.FACING);
   }
 
