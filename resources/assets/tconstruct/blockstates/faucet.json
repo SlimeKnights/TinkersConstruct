@@ -1,7 +1,6 @@
 {
     "forge_marker": 1,
     "defaults": {
-        "transform": "forge:default-block",
         "model": "tconstruct:faucet"
     },
 	"variants": {
@@ -15,8 +14,15 @@
         "inventory": {
             "model": "tconstruct:faucet",
             "transform": {
-                "translation": [-0.25, -0.25, -0.25],
-                "scale": [1.5, 1.5, 1.5]
+                "gui": {
+                    "translation": [-0.125, -0.125, -0.125],
+                    "scale": [1.5, 1.5, 1.5]
+                },
+                "thirdperson": {
+                    "rotation": [ {"x": 10}, {"y": -45}, {"z": 170} ],
+                    "translation": [ 0, 0.09375, -0.171875 ],
+                    "scale": [ 0.375, 0.375, 0.375 ]
+                }
             }
         }
     }
