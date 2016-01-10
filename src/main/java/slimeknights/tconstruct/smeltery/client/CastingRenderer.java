@@ -47,7 +47,7 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
 
   @Override
   public void renderTileEntityAt(T te, double x, double y, double z, float partialTicks, int destroyStage) {
-    if(te.tank.getFluidAmount() == 0) {
+    if(te.tank.getFluidAmount() == 0 || te.tank.getCapacity() == 0) {
       return;
     }
 
