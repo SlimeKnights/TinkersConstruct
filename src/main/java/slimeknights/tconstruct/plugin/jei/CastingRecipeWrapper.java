@@ -54,6 +54,10 @@ public class CastingRecipeWrapper extends BlankRecipeWrapper {
     this.castingBlock = castingBlock;
   }
 
+  public boolean hasCast() {
+    return recipe.cast != null;
+  }
+
   @Override
   public List<FluidStack> getFluidInputs() {
     return inputFluid;

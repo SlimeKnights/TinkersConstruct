@@ -63,7 +63,7 @@ public class CastingRecipeCategory implements IRecipeCategory {
 
   @Override
   public void drawAnimations(Minecraft minecraft) {
-
+    arrow.draw(minecraft, 79, 25);
   }
 
   @Override
