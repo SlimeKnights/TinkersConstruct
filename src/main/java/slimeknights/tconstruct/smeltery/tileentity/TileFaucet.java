@@ -8,14 +8,18 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
 
+import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.smeltery.block.BlockFaucet;
+import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
+import slimeknights.tconstruct.smeltery.network.TankFluidUpdatePacket;
 
 public class TileFaucet extends TileEntity implements ITickable {
 
@@ -70,6 +74,10 @@ public class TileFaucet extends TileEntity implements ITickable {
         }
         else {
           reset();
+          // sync to clients
+          if(!worldObj.isRemote && worldObj instanceof WorldServer) {
+            TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new FaucetActivationPacket(pos, null));
+          }
         }
       }
     }
@@ -96,6 +104,12 @@ public class TileFaucet extends TileEntity implements ITickable {
           this.drained = toDrain.drain(direction, filled, true);
           toFill.fill(EnumFacing.UP, this.drained, true);
           this.isPouring = true;
+
+          // sync to clients
+          if(!worldObj.isRemote && worldObj instanceof WorldServer) {
+            TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new FaucetActivationPacket(pos, drained));
+          }
+
           return;
         }
       }
@@ -139,6 +153,12 @@ public class TileFaucet extends TileEntity implements ITickable {
     else {
       reset();
     }
+  }
+
+  public void onActivationPacket(FluidStack fluid) {
+    drained = fluid;
+    isPouring = true;
+    direction = worldObj.getBlockState(pos).getValue(BlockFaucet.FACING);
   }
 
   @Override

@@ -14,6 +14,7 @@ import java.util.List;
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.mantle.network.NetworkWrapper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidClicked;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.SmelteryFuelUpdatePacket;
@@ -56,6 +57,7 @@ public class TinkerNetwork extends NetworkWrapper {
     registerPacketClient(SmelteryInventoryUpdatePacket.class);
     registerPacketServer(SmelteryFluidClicked.class);
     registerPacketClient(TankFluidUpdatePacket.class);
+    registerPacketClient(FaucetActivationPacket.class);
   }
 
   public static void sendToAll(AbstractPacket packet)
@@ -84,7 +86,7 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.network.sendToServer(packet);
   }
 
-  public static void sendToClients(WorldServer world, BlockPos pos ,AbstractPacket packet) {
+  public static void sendToClients(WorldServer world, BlockPos pos, AbstractPacket packet) {
       Chunk chunk = world.getChunkFromBlockCoords(pos);
       for(EntityPlayer player : world.playerEntities) {
         // only send to relevant players
