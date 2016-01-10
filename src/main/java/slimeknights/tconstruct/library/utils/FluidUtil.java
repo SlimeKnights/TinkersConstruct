@@ -207,7 +207,14 @@ public class FluidUtil {
         // create a copy of the container and fill it
         ItemStack toFill = container.copy();
         toFill.stackSize = 1;
-        int filled = fluidContainer.fill(toFill, liquid, true);
+        int filled = fluidContainer.fill(toFill, liquid, false);
+        if(filled > 0) {
+          // This manipulates the container Itemstack!
+          filled = fluidContainer.fill(toFill, liquid, true);
+        }
+        else {
+          return false;
+        }
 
         // check if we can give the itemstack to the player
         if(!insertItemInto(toFill, inventory, world, pos, isCreative)) {
@@ -222,8 +229,15 @@ public class FluidUtil {
       }
       // just 1 empty container to fill, no special treatment needed
       else {
-        // This manipulates the container Itemstack!
-        int filled = fluidContainer.fill(container, liquid, true);
+        int filled = fluidContainer.fill(container, liquid, false);
+        if(filled > 0) {
+          // This manipulates the container Itemstack!
+          filled = fluidContainer.fill(container, liquid, true);
+        }
+        else {
+          return false;
+        }
+        // filling successfull, drain it from the container
         tank.drain(side, filled, true);
       }
 
