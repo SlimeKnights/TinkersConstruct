@@ -79,7 +79,7 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
     //Tessellator tessellator = Tessellator.getInstance();
     //WorldRenderer renderer = tessellator.getWorldRenderer();
     //renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-    //Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+    Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
     RenderUtil.pre(x,y,z);
     GlStateManager.disableCull();
     GlStateManager.translate(x1, y1, z1);
