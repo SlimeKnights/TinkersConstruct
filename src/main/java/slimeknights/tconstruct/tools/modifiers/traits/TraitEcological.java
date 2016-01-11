@@ -17,6 +17,7 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 // This is a very weak version of repair/moss.. be careful not to catch any splinters!
 public class TraitEcological extends AbstractTrait {
 
+  public static DamageSource splinter = new DamageSource("splinter").setDamageBypassesArmor();
   private static int chance = 100; // 1/X chance of getting the effect
 
   public TraitEcological() {
@@ -44,7 +45,7 @@ public class TraitEcological extends AbstractTrait {
   private void splinter(EntityLivingBase player) {
     // SPLINTERS!
     if(!player.worldObj.isRemote && random.nextInt(chance) == 0) {
-      player.attackEntityFrom(DamageSource.cactus, 0.1f);
+      player.attackEntityFrom(splinter, 0.1f);
     }
   }
 }
