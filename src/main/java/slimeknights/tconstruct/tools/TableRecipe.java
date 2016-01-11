@@ -21,7 +21,7 @@ public class TableRecipe extends ShapedOreRecipe {
     RecipeSorter.register("tconstruct:table", TableRecipe.class, SHAPED, "before:minecraft:shaped");
   }
 
-  protected final List<ItemStack> outputBlocks; // first one found of these determines the output block used
+  public final List<ItemStack> outputBlocks; // first one found of these determines the output block used
 
   public TableRecipe(List<ItemStack> variantItems, BlockTable result, int meta, Object... recipe) {
     super(new ItemStack(result, 1, meta), recipe);
@@ -49,8 +49,11 @@ public class TableRecipe extends ShapedOreRecipe {
     if(!outputBlocks.isEmpty() && output != null) {
       ItemStack stack = outputBlocks.get(0);
       BlockTable block = (BlockTable) Block.getBlockFromItem(output.getItem());
-      return BlockTable.createItemstack(block, output.getItemDamage(), Block.getBlockFromItem(stack.getItem()),
-                                        stack.getItemDamage());
+      int meta = stack.getItemDamage();
+      if(meta == OreDictionary.WILDCARD_VALUE) {
+        meta = 0;
+      }
+      return BlockTable.createItemstack(block, output.getItemDamage(), Block.getBlockFromItem(stack.getItem()), meta);
     }
     return super.getRecipeOutput();
   }

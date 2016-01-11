@@ -58,7 +58,8 @@ public class JEIPlugin implements IModPlugin {
                                    new AlloyRecipeCategory(guiHelper),
                                    castingCategory);
 
-      registry.addRecipeHandlers(new SmeltingRecipeHandler(),
+      registry.addRecipeHandlers(new TableRecipeHandler(),
+                                 new SmeltingRecipeHandler(),
                                  new AlloyRecipeHandler(),
                                  new CastingRecipeHandler());
 

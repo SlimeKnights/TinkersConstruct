@@ -476,7 +476,6 @@ public class TinkerTools extends TinkerPulse {
   }
 
   private static void registerToolForgeRecipe(String oredict) {
-    // todo: change recipe to brick vs. smeltery-bricks wether smeltery pulse is active
     Block brick = TinkerSmeltery.searedBlock;
     if(brick == null) {
       brick = Blocks.stonebrick;
