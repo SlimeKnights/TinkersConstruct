@@ -282,6 +282,7 @@ public final class TinkerMaterials {
     iron.addTrait(magnetic);
     // todo: remaining metals
 
+    safeAdd(pigiron, TinkerCommons.ingotPigIron, Material.VALUE_Ingot, true);
     pigiron.addTrait(tasty);
 
     safeAdd(cobalt, TinkerCommons.ingotCobalt, Material.VALUE_Ingot, true);
