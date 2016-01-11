@@ -23,10 +23,12 @@ import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.common.TinkerOredict;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.common.config.ConfigSync;
 import slimeknights.tconstruct.debug.TinkerDebug;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
+import slimeknights.tconstruct.plugin.ChiselAndBits;
 import slimeknights.tconstruct.plugin.TinkerVintageCraft;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
@@ -76,6 +78,7 @@ public class TConstruct {
     pulseManager.registerPulse(new TinkerMaterials());
     // Plugins/Integration
     //pulseManager.registerPulse(new TinkerVintageCraft());
+    pulseManager.registerPulse(new ChiselAndBits());
 
     pulseManager.registerPulse(new TinkerDebug());
   }
@@ -123,5 +126,8 @@ public class TConstruct {
       ClientProxy.initRenderer();
     }
 
+
+    // config syncing
+    MinecraftForge.EVENT_BUS.register(new ConfigSync());
   }
 }

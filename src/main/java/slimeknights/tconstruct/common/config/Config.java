@@ -11,18 +11,23 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import org.apache.logging.log4j.Logger;
+
 import java.util.List;
 
 import slimeknights.mantle.pulsar.config.ForgeCFG;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.Util;
 
 public class Config {
 
   public static ForgeCFG pulseConfig = new ForgeCFG("TinkerModules", "Modules");
   public static Config instance = new Config();
+  public static Logger log = Util.getLogger("Config");
   private Config() {}
 
-  public static boolean forceRegisterAll = false;
+
+  public static boolean forceRegisterAll = false; // enables all common items, even if their module is not present
 
   // Tools and general
   public static boolean reuseStencil = true;
@@ -50,6 +55,7 @@ public class Config {
   static Configuration configFile;
 
   static ConfigCategory Modules;
+  static ConfigCategory Gameplay;
   static ConfigCategory Worldgen;
   static ConfigCategory ClientSide;
 
@@ -88,6 +94,32 @@ public class Config {
         propOrder.add(prop.getName());
       }
       Modules.setPropertyOrder(propOrder);*/
+    }
+    // Gameplay
+    {
+      String cat = "gameplay";
+      List<String> propOrder = Lists.newArrayList();
+      Gameplay = configFile.getCategory(cat);
+
+      prop = configFile.get(cat, "reuseStencils", reuseStencil);
+      prop.comment = "Allows to reuse stencils in the stencil table to turn them into other stencils";
+      reuseStencil = prop.getBoolean();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "chestsKeepInventory", chestsKeepInventory);
+      prop.comment = "Pattern and Part chests keep their inventory when harvested.";
+      chestsKeepInventory = prop.getBoolean();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "craftCastableMaterials", craftCastableMaterials);
+      prop.comment = "Allows to craft all tool parts of all materials in the part builder, including materials that normally have to be cast with a smeltery.";
+      craftCastableMaterials = prop.getBoolean();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "registerAllItems", forceRegisterAll);
+      prop.comment = "Enables all items, even if the Module needed to obtain them is not active";
+      forceRegisterAll = prop.getBoolean();
+      propOrder.add(prop.getName());
     }
     // Worldgen
     {

@@ -25,6 +25,7 @@ public class ConfigGui extends GuiConfig {
     List<IConfigElement> list = Lists.newArrayList();
 
     list.add(new ConfigElement(Config.Modules));
+    list.add(new ConfigElement(Config.Gameplay));
     list.add(new ConfigElement(Config.Worldgen));
     list.add(new ConfigElement(Config.ClientSide));
 

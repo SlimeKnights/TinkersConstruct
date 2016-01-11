@@ -488,3 +488,7 @@ gui.smeltery.liquid.gem=Gem
 gui.jei.smelting.title=Smelting
 gui.jei.alloy.title=Alloying
 gui.jei.casting.title=Casting
+
+# Config
+config.synced.restart=Your configuration has been updated to match the server. Restart Minecraft.
+config.synced.ok=Configuration synced with server.

@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.mantle.network.NetworkWrapper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.config.ConfigSyncPacket;
 import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidClicked;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidUpdatePacket;
@@ -35,6 +36,7 @@ public class TinkerNetwork extends NetworkWrapper {
 
   public void setup() {
     // register all the packets
+    registerPacketClient(ConfigSyncPacket.class);
 
     // TOOLS
     registerPacket(StencilTableSelectionPacket.class);
