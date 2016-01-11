@@ -31,7 +31,7 @@ public class Config {
 
   // Tools and general
   public static boolean reuseStencil = true;
-  public static boolean craftCastableMaterials = true;
+  public static boolean craftCastableMaterials = false;
   public static boolean chestsKeepInventory = true;
 
   // Worldgen
