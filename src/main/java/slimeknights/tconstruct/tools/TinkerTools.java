@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -476,12 +477,16 @@ public class TinkerTools extends TinkerPulse {
 
   private static void registerToolForgeRecipe(String oredict) {
     // todo: change recipe to brick vs. smeltery-bricks wether smeltery pulse is active
+    Block brick = TinkerSmeltery.searedBlock;
+    if(brick == null) {
+      brick = Blocks.stonebrick;
+    }
     GameRegistry
         .addRecipe(new TableRecipe(OreDictionary.getOres(oredict), toolForge, 0,
                                    "BBB",
                                    "MTM",
                                    "M M",
-                                   'B', Blocks.stonebrick,
+                                   'B', brick,
                                    'M', oredict,
                                    'T', new ItemStack(toolTables, 1, BlockToolTable.TableTypes.ToolStation.meta)));
   }

@@ -23,7 +23,6 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -152,17 +151,53 @@ public class TinkerSmeltery extends TinkerPulse {
     // done here so they're present for integration in MaterialIntegration and fluids in TinkerFluids are also initialized
     castCreationFluids.add(new FluidStack(TinkerFluids.gold, Material.VALUE_Ingot*2));
 
-    // seared brick recipe
-    GameRegistry.addSmelting(TinkerCommons.grout, TinkerCommons.searedBrick, 0);
+    registerRecipes();
 
     proxy.init();
+  }
+
+  private void registerRecipes() {
+    // I AM GROUT
+    ItemStack grout = TinkerCommons.grout.copy();
+    grout.stackSize = 2;
+    GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.grout, Items.clay_ball, Blocks.gravel, "sand"));
+    grout = grout.copy();
+    grout.stackSize = 8;
+    GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.grout, Blocks.gravel, "sand", Blocks.gravel, "sand",  Blocks.clay, "sand", Blocks.gravel, "sand", Blocks.gravel));
+
+    // seared bricks
+    GameRegistry.addSmelting(TinkerCommons.grout, TinkerCommons.searedBrick, 0);
+    ItemStack blockSeared = new ItemStack(searedBlock);
+    blockSeared.setItemDamage(BlockSeared.SearedType.BRICK.getMeta());
+    GameRegistry.addShapedRecipe(blockSeared, "bb", "bb", 'b', TinkerCommons.searedBrick);
+
+    // remaining smeltery component recipes
+    ItemStack searedBrick = TinkerCommons.searedBrick;
+    GameRegistry.addRecipe(new ItemStack(smelteryController),
+                           "bbb", "b b", "bbb", 'b', searedBrick); // Controller
+    GameRegistry.addRecipe(new ItemStack(smelteryIO, 1, BlockSmelteryIO.IOType.DRAIN.getMeta()),
+                           "b b", "b b", "b b", 'b', searedBrick); // Drain
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(searedTank, 1, BlockTank.TankType.TANK.getMeta()),
+                                               "bbb", "bgb", "bbb", 'b', searedBrick, 'g', "blockGlass")); // Tank
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(searedTank, 1, BlockTank.TankType.GAUGE.getMeta()),
+                                               "bgb", "ggg", "bgb", 'b', searedBrick, 'g', "blockGlass")); // Glass
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(searedTank, 1, BlockTank.TankType.WINDOW.getMeta()),
+                                               "bgb", "bgb", "bgb", 'b', searedBrick, 'g', "blockGlass")); // Window
+
+    GameRegistry.addRecipe(new ItemStack(castingBlock, 1, BlockCasting.CastingType.TABLE.getMeta()),
+                           "bbb", "b b", "b b", 'b', searedBrick); // Table
+    GameRegistry.addRecipe(new ItemStack(castingBlock, 1, BlockCasting.CastingType.BASIN.getMeta()),
+                           "b b", "b b", "bbb", 'b', searedBrick); // Basin
+    GameRegistry.addRecipe(new ItemStack(faucet),
+                           "b b", " b ", 'b', searedBrick); // Faucet
+    //GameRegistry.addRecipe(new ItemStack(TinkerSmeltery.castingChannel, 4, 0), "b b", "bbb", 'b', searedBrick); // Channel
   }
 
   // POST-INITIALIZATION
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
     registerSmelteryFuel();
-    registerMelting();
+    registerMeltingCasting();
     registerAlloys();
 
     registerRecipeOredictMelting();
@@ -171,6 +206,9 @@ public class TinkerSmeltery extends TinkerPulse {
     for(FluidStack fs : castCreationFluids) {
       TinkerRegistry.registerTableCasting(new ItemStack(cast), null, fs.getFluid(), fs.amount);
       TinkerRegistry.registerTableCasting(new CastingRecipe(castGem, RecipeMatch.of("gemEmerald"), fs.getFluid(), fs.amount));
+      TinkerRegistry.registerTableCasting(new CastingRecipe(castIngot, RecipeMatch.of("ingotBrick"), fs.getFluid(), fs.amount));
+      TinkerRegistry.registerTableCasting(new CastingRecipe(castIngot, RecipeMatch.of("ingotBrickNether"), fs.getFluid(), fs.amount));
+      TinkerRegistry.registerTableCasting(new CastingRecipe(castIngot, new RecipeMatch.Item(TinkerCommons.searedBrick, 1), fs.getFluid(), fs.amount));
     }
 
     proxy.postInit();
@@ -180,7 +218,7 @@ public class TinkerSmeltery extends TinkerPulse {
     TinkerRegistry.registerSmelteryFuel(new FluidStack(FluidRegistry.LAVA, 50), 100);
   }
 
-  private void registerMelting() {
+  private void registerMeltingCasting() {
     int bucket = FluidContainerRegistry.BUCKET_VOLUME;
 
     // Water
@@ -223,6 +261,11 @@ public class TinkerSmeltery extends TinkerPulse {
         TinkerRegistry.registerMelting(stack, TinkerFluids.searedStone, toolPart.getCost());
       }
     }
+
+    // seared block casting
+    ItemStack blockSeared = new ItemStack(searedBlock);
+    blockSeared.setItemDamage(BlockSeared.SearedType.STONE.getMeta());
+    TinkerRegistry.registerBasinCasting(blockSeared, null, TinkerFluids.searedStone, Material.VALUE_SearedBlock);
 
     // emerald melting and casting
     TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("gemEmerald", Material.VALUE_Gem), TinkerFluids.emerald));
