@@ -1,0 +1,44 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block",
+        "model": "cube_all"
+    },
+	"variants": {
+        "type=green": {
+            "model": "cube_all",
+            "textures": {
+                "all": "tconstruct:blocks/slime/slimeblock_green",
+                "particle": "#all"
+            }
+        },
+        "type=blue": {
+            "model": "cube_all",
+            "textures": {
+                "all": "tconstruct:blocks/slime/slimeblock_blue",
+                "particle": "#all"
+            }
+        },
+        "type=purple": {
+            "model": "cube_all",
+            "textures": {
+                "all": "tconstruct:blocks/slime/slimeblock_purple",
+                "particle": "#all"
+            }
+        },
+        "type=blood": {
+            "model": "cube_all",
+            "textures": {
+                "all": "tconstruct:blocks/slime/slimeblock_blood",
+                "particle": "#all"
+            }
+        },
+        "type=magma": {
+            "model": "cube_all",
+            "textures": {
+                "all": "tconstruct:blocks/slime/slimeblock_magma",
+                "particle": "#all"
+            }
+        }
+    }
+}

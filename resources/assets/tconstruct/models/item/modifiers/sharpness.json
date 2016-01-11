@@ -1,0 +1,17 @@
+{
+    "textures": {
+        "battleaxe": "tconstruct:items/battleaxe/mod_sharpness",
+        "battlesign": "tconstruct:items/battlesign/mod_sharpness",
+        "broadsword": "tconstruct:items/broadsword/mod_sharpness",
+        "cleaver": "tconstruct:items/cleaver/mod_sharpness",
+        "excavator": "tconstruct:items/excavator/mod_sharpness",
+        "frypan": "tconstruct:items/frypan/mod_sharpness",
+        "hammer": "tconstruct:items/hammer/mod_sharpness",
+        "hatchet": "tconstruct:items/hatchet/mod_sharpness",
+        "longsword": "tconstruct:items/longsword/mod_sharpness",
+        "lumberaxe": "tconstruct:items/lumberaxe/mod_sharpness",
+        "mattock": "tconstruct:items/mattock/mod_sharpness",
+        "pickaxe": "tconstruct:items/pickaxe/mod_sharpness",
+        "shovel": "tconstruct:items/shovel/mod_sharpness"
+    }
+}

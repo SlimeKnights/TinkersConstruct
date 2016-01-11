@@ -1,0 +1,61 @@
+{
+    "forge_marker": 1,
+	"variants": {
+        "stone": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "stone" }
+        },
+        "obsidian": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "obsidian" }
+        },
+        "iron": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "iron" }
+        },
+        "gold": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "gold" }
+        },
+        "pigiron": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "pigiron" }
+        },
+        "cobalt": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "cobalt" }
+        },
+        "ardite": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "ardite" }
+        },
+        "manyullyn": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "manyullyn" }
+        },
+        "knightslime": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "knightslime" }
+        },
+        "emerald": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "emerald" }
+        },
+        "blood": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "blood" }
+        },
+        "milk": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "milk" }
+        },
+        "blueslime": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "blueslime" }
+        },
+        "purpleslime": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "purpleslime" }
+        }
+    }
+}

@@ -2,55 +2,58 @@
  * Tinkers Construct
  * Master build file
  * 
- * Authors: Sunstrike, ProgWML6
+ * Authors: boni, Sunstrike, ProgWML6
  * Help from AbrarSyed
  */
 
 buildscript {
     repositories {
         mavenCentral()
-	mavenLocal()
+		mavenLocal()
+        jcenter()
         maven {
-            name = 'ForgeFS'
-            url = 'http://files.minecraftforge.net/maven'
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
         }
-	maven {
+        maven {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
     }
 }
-
+/*
+plugins {
+    id "net.minecraftforge.gradle.forge" version "2.0.1"
+}*/
 
 repositories {
     maven {
         name 'CB Maven FS'
         url "http://chickenbones.net/maven/"
     }
-    /*maven {
-         name "ProfMobius Maven FS"
-         url "http://mobiusstrip.eu/maven"
-    }*/
     maven {
         name 'DVS1 Maven FS'
         url 'http://dvs1.progwml6.com/files/maven'
     }
     maven {
-        name 'ForgeFS'
+        name 'forge'
         url 'http://files.minecraftforge.net/maven'
     }
 }
 
-// Load ForgeGradle
-apply plugin: 'forge'
-group = 'tconstruct'
+apply plugin: 'net.minecraftforge.gradle.forge'
+//apply plugin: 'forge'
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
 
-// Define properties file
+group= "slimeknights"
+archivesBaseName = "TConstruct"
+
+// External properties
 ext.configFile = file "build.properties"
-
 configFile.withReader {
     // Load config.  It shall from now be referenced as simply config or project.config
     def prop = new Properties()
@@ -61,18 +64,7 @@ configurations {
     deployerJars
 }
 
-
-dependencies {
-    compile "mantle:Mantle:${config.minecraft_version}-${config.mantle_version}:deobf"
-    compile "codechicken:CodeChickenLib:${config.minecraft_version}-${config.CCLIB_version}:dev"
-    compile "codechicken:CodeChickenCore:${config.minecraft_version}-${config.ccc_version}:dev"
-    compile "codechicken:NotEnoughItems:${config.minecraft_version}-${config.NEI_version}:dev"
-    compile "codechicken:ForgeMultipart:${config.minecraft_version}-${config.fmp_version}:dev"
-    //compile "mcp.mobius.waila:Waila:${config.waila_version}:dev"
-    deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
-}
-
-// Finds and sets version data
+// sets version to the slimeKnights version format
 task buildInfo {
     def cmd = "git rev-parse --short HEAD"
     def proc = cmd.execute()
@@ -84,7 +76,7 @@ task buildInfo {
     }
 
     if (System.getenv().BUILD_NUMBER != null) {
-        ext.buildNum = "build${System.getenv().BUILD_NUMBER}"
+        ext.buildNum = "jenkins${System.getenv().BUILD_NUMBER}"
     } else {
         ext.buildNum = "DEV.${project.buildInfo.revision}"
     }
@@ -101,8 +93,22 @@ version = "${config.minecraft_version}-${artifact_version}"
 
 minecraft {
     version = config.minecraft_version + "-" + config.forge_version
-    runDir = 'run'
+    mappings = config.mappings
+    runDir = "run"
     replace '${version}', project.version
+}
+
+dependencies {
+    // you may put jars on which you depend on in ./libs
+    // or you may define them like so..
+    deobfCompile "slimeknights.mantle:Mantle:${config.minecraft_version}-${config.mantle_version}"
+    deobfCompile "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
+    //compile "codechicken:CodeChickenLib:${config.minecraft_version2}-${config.CCLIB_version}:dev"
+    //compile "codechicken:CodeChickenCore:${config.minecraft_version2}-${config.ccc_version}:dev"
+    //compile "codechicken:NotEnoughItems:${config.minecraft_version2}-${config.NEI_version}:dev"
+    //compile "codechicken:ForgeMultipart:${config.minecraft_version}-${config.fmp_version}:dev"
+    //compile "mcp.mobius.waila:Waila:${config.waila_version}:dev"
+    deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 }
 
 sourceSets {
@@ -112,25 +118,28 @@ sourceSets {
         }
     }
 }
+
 processResources
 {
-    inputs.property "version", artifact_version
-    inputs.property "MCversion", config.minecraft_version
-	
-    // Replace stuff in text files, not binaries.
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "MCversion", project.minecraft.version
+
+    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
-        include '**/*.info'
-        // Replace version and MCversion
-        expand 'version':artifact_version,'MCversion':config.minecraft_version
+        include 'mcmod.info'
+                
+        // replace version and mcversion
+        expand 'version':project.version, 'MCversion':project.minecraft.version
     }
         
-    // Copy everything else that's not text
+    // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
-        exclude '**/*.info'
+        exclude 'mcmod.info'
     }
 }
 
-// Add Coremod Manifest
+// Add Access Transformers Manifest
 jar {
     manifest {
         attributes 'FMLAT': 'TConstruct_at.cfg'
@@ -145,12 +154,12 @@ task deobfJar(type: Jar) {
         attributes 'FMLAT': 'TConstruct_at.cfg'
     }
 }
-
+/*
 // Create API library jar
 task libJar(type: Jar) {
-    from(sourceSets.main.java) {
-        include "tconstruct/library/**/*"
-    }
+    from(sourceSets.main.java) {*/
+        //include "tconstruct/library/**/*"
+/*    }
     classifier = 'lib'
 }
 
@@ -159,12 +168,11 @@ task sourceJar(type: Jar, dependsOn:classes) {
     classifier = 'sources'
     from sourceSets.main.allJava
 }
-
+*/
 artifacts {
     archives deobfJar
-    archives libJar
-    archives sourceJar
 }
+
 // verify the properties exist.. or initialize.
 if (!project.hasProperty("keystore_location")) // keystore location
     ext.keystore_location = ".";
@@ -207,4 +215,22 @@ task("uploadJars", dependsOn:"build") {
     }
 }
 
+task signUniversal(type: SignJar, dependsOn: 'jar') {
+    onlyIf {
+        project.hasProperty('jarsigner')
+    }
 
+    def jarsigner = [:];
+
+    if (project.hasProperty('jarsigner'))
+        jarsigner = project.jarsigner;
+
+    alias = 'tcon'
+    storePass = jarsigner.storepass
+    keyPass = jarsigner.keypass
+    keyStore = jarsigner.keystore
+    inputFile = jar.archivePath
+    outputFile = jar.archivePath
+}
+uploadArchives.dependsOn signUniversal
+build.dependsOn signUniversal

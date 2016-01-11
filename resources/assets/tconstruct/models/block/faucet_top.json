@@ -1,0 +1,56 @@
+{
+    "textures": {
+        "tex": "tconstruct:blocks/smeltery/faucet",
+        "particle": "tconstruct:blocks/smeltery/faucet"
+    },
+	"elements": [
+        {
+		 "from": [  4, 10,  4 ],
+         "to":   [ 12, 16,  6 ],
+         "faces": {
+			"up":    { "uv": [  4,  8, 12, 10 ], "texture": "#tex"},
+            "down":  { "uv": [  4, 10, 12,  8 ], "texture": "#tex"},
+            "north": { "uv": [  4, 16, 12, 10 ], "texture": "#tex"},
+            "east":  { "uv": [ 12, 10, 14, 16 ], "texture": "#tex", "rotation": 180},
+            "south": { "uv": [  4, 16, 12, 10 ], "texture": "#tex"},
+            "west":  { "uv": [  2, 10,  4, 16 ], "texture": "#tex", "rotation": 180}
+         }
+		},
+        {
+		 "from": [  4, 10, 10 ],
+         "to":   [ 12, 16, 12 ],
+         "faces": {
+			"up":    { "uv": [  4,  8, 12, 10 ], "texture": "#tex"},
+            "down":  { "uv": [  4, 10, 12,  8 ], "texture": "#tex"},
+            "north": { "uv": [  4, 16, 12, 10 ], "texture": "#tex"},
+            "east":  { "uv": [ 12, 10, 14, 16 ], "texture": "#tex", "rotation": 180},
+            "south": { "uv": [  4, 16, 12, 10 ], "texture": "#tex"},
+            "west":  { "uv": [  2, 10,  4, 16 ], "texture": "#tex", "rotation": 180}
+         }
+		},
+        {
+         "from": [  4, 10,  6 ],
+         "to":   [  6, 16, 10 ],
+         "faces": {
+			"up":    { "uv": [  6,  8, 10, 10 ], "texture": "#tex"},
+            "down":  { "uv": [  6, 10, 10,  8 ], "texture": "#tex"},
+            "north": { "uv": [  6, 16, 10, 10 ], "texture": "#tex"},
+            "east":  { "uv": [ 12, 10, 14, 16 ], "texture": "#tex", "rotation": 180},
+            "south": { "uv": [  6, 16, 10, 10 ], "texture": "#tex"},
+            "west":  { "uv": [  2, 10,  4, 16 ], "texture": "#tex", "rotation": 180}
+         }
+		},
+        {
+         "from": [ 10, 10,  6 ],
+         "to":   [ 12, 16, 10 ],
+         "faces": {
+			"up":    { "uv": [  6,  8, 10, 10 ], "texture": "#tex"},
+            "down":  { "uv": [  6, 10, 10,  8 ], "texture": "#tex"},
+            "north": { "uv": [  6, 16, 10, 10 ], "texture": "#tex"},
+            "east":  { "uv": [ 12, 10, 14, 16 ], "texture": "#tex", "rotation": 180},
+            "south": { "uv": [  6, 16, 10, 10 ], "texture": "#tex"},
+            "west":  { "uv": [  2, 10,  4, 16 ], "texture": "#tex", "rotation": 180}
+         }
+		}
+	]
+}

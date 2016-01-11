@@ -1,0 +1,44 @@
+{
+   "frypan_hit": {
+     "category": "neutral",
+     "sounds": [
+       "frypan_hit"
+     ]
+   },
+   "toy_squeak": {
+     "category": "neutral",
+     "sounds": [
+       "toy_squeak"
+     ]
+   },
+   "little_saw": {
+     "category": "neutral",
+     "sounds": [
+       "little_saw"
+     ]
+   },
+   "woodHit": {
+     "category": "block",
+     "sounds": [
+       "woodHit1",
+	   "woodHit2",
+	   "woodHit3",
+	   "woodHit4",
+	   "woodHit5"
+     ]
+   },
+   "stoneHit": {
+     "category": "block",
+     "sounds": [
+       "stoneHit1",
+	   "stoneHit2",
+	   "stoneHit3"
+     ]
+   },
+   "crossbowReload": {
+	"category": "neutral",
+	"sounds": [
+		"crossbowReload"
+	]
+   }
+}

@@ -1,0 +1,17 @@
+{
+    "textures": {
+        "battleaxe": "tconstruct:items/battleaxe/mod_fiery",
+        "battlesign": "tconstruct:items/battlesign/mod_fiery",
+        "broadsword": "tconstruct:items/broadsword/mod_fiery",
+        "cleaver": "tconstruct:items/cleaver/mod_fiery",
+        "excavator": "tconstruct:items/excavator/mod_fiery",
+        "frypan": "tconstruct:items/frypan/mod_fiery",
+        "hammer": "tconstruct:items/hammer/mod_fiery",
+        "hatchet": "tconstruct:items/hatchet/mod_fiery",
+        "longsword": "tconstruct:items/longsword/mod_fiery",
+        "lumberaxe": "tconstruct:items/lumberaxe/mod_fiery",
+        "mattock": "tconstruct:items/mattock/mod_fiery",
+        "pickaxe": "tconstruct:items/pickaxe/mod_fiery",
+        "shovel": "tconstruct:items/shovel/mod_fiery"
+    }
+}

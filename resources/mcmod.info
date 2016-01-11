@@ -1,24 +1,17 @@
-[
-  {
-    "modid": "TConstruct",
+[{
+    "modid": "tconstruct",
     "name": "Tinkers' Construct",
     "description": "A little of this, a little of that, a lot of tinkering, and a lot of tools",
     "version": "${version}",
     "mcversion": "${MCversion}",
-    "url": "http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2218638-tinkers-construct",
+    "url": "https://github.com/SlimeKnights/TinkersConstruct",
     "updateUrl": "",
-    "authorList": [
-    "mDiyo",
-    "fuj1n",
-    "ProgWML6",
-    "Sunstrike",
-    "Pillbox",
-    "boni"
+    "authors": [
+      "mDiyo", "fuj1n", "ProgWML6", "Sunstrike", "Pillbox", "boni"
     ],
-    "credits": "Slime Knights, Samtrion, Abculatter_2, Alexbegt",
-    "logoFile": "TinkersConstruct.png",
+    "credits": "Slime Knights, mDiyo",
+    "logoFile": "logo.png",
     "screenshots": [],
     "parent":"",
     "dependencies": []
-  }
-]
+}]

@@ -1,0 +1,35 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block",
+        "model": "cube",
+        "textures": {
+            "particle": "#up",
+            "up": "tconstruct:blocks/smeltery/seared_brick",
+            "down": "#up",
+            "east": "#up",
+            "west": "#up",
+            "north": "tconstruct:blocks/smeltery/drain_front",
+            "south": "tconstruct:blocks/smeltery/drain_back"
+        }
+    },
+	"variants": {
+        "type": {
+            "drain": { }
+        },
+        "facing": {
+            "north": {
+                # nothing to rotate
+            },
+            "east": {
+                "y": 90
+            },
+            "south": {
+                "y": 180
+            },
+            "west": {
+                "y": 270
+            }
+        }
+    }
+}

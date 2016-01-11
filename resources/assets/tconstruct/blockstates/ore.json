@@ -1,0 +1,18 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block",
+        "model": "tconstruct:cube_overlay_all",
+        "textures": {"all": "minecraft:blocks/netherrack" }
+    },
+	"variants": {
+        "type": {
+            "cobalt": {
+                "textures": { "overlay": "tconstruct:blocks/ore_cobalt" }
+            },
+            "ardite": {
+                "textures": { "overlay": "tconstruct:blocks/ore_ardite" }
+            }
+        }
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block"
+    },
+	"variants": {
+        "type=craftingstation": { "model": "tconstruct:craftingstation" },
+        "type=stenciltable": { "model": "tconstruct:stenciltable" },
+        "type=partbuilder": { "model": "tconstruct:partbuilder" },
+        "type=toolstation": { "model": "tconstruct:toolstation" },
+        "type=toolforge": { "model": "tconstruct:toolforge" },
+        "type=patternchest": {
+            "model": "tconstruct:patternchest",
+            "textures": {
+                "side": "tconstruct:blocks/patternchest",
+                "bottom": "#side",
+                "top": "#side"
+            }
+        },
+        "type=partchest": {
+            "model": "tconstruct:patternchest",
+            "textures": {
+                "side": "tconstruct:blocks/partchest",
+                "bottom": "#side",
+                "top": "#side"
+            }
+        }
+    }
+}

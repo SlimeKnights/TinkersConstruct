@@ -1,0 +1,71 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block",
+        "textures": {
+            "vine": "tconstruct:blocks/slime/slimevine_end"
+        }
+    },
+	"variants": {
+        "north": {
+            "true": {
+                "submodel": {
+                    "northSide": {
+                        "model": "tconstruct:vine_north",
+                        "y": 0
+                    }
+                }
+            },
+            "false": {}
+        },
+        "east": {
+            "true": {
+                "submodel": {
+                    "eastSide": {
+                        "model": "tconstruct:vine_north",
+                        "y": 90
+                    }
+                }
+            },
+            "false": {}
+        },
+        "south": {
+            "true": {
+                "submodel": {
+                    "southSide": {
+                        "model": "tconstruct:vine_north",
+                        "y": 180
+                    }
+                }
+            },
+            "false": {}
+        },
+        "west": {
+            "true": {
+                "submodel": {
+                    "westSide": {
+                        "model": "tconstruct:vine_north",
+                        "y": 270
+                    }
+                }
+            },
+            "false": {}
+        },
+        "up": {
+            "true": {
+                "submodel": {
+                    "upSide": {
+                        "model": "tconstruct:vine_up"
+                    }
+                }
+            },
+            "false": {}
+        },
+        "east=false,north=false,south=false,up=false,west=false": {
+            "model": "leaves",
+            "textures": {
+                "all": "#vine"
+            }
+        }
+    }
+}

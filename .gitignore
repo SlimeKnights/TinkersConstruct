@@ -38,3 +38,8 @@ version.properties
 options.txt
 /saves/
 /out
+/src_old
+/resources_old
+/resources/assets/tinker
+/resources/assets/unused
+/design

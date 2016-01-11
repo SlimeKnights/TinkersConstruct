@@ -1,0 +1,11 @@
+{
+    "parent": "tconstruct:block/table",
+    "textures": {
+        "particle": "tconstruct:blocks/craftingstation_top",
+        "top": "tconstruct:blocks/craftingstation_top",
+        "side": "tconstruct:blocks/craftingstation_side",
+        "bottom": "minecraft:blocks/planks_oak",
+        "leg": "tconstruct:blocks/table_side",
+        "legBottom": "minecraft:blocks/planks_oak"
+    }
+}

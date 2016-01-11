@@ -1,0 +1,26 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block",
+        "model": "cube_all"
+    },
+	"variants": {
+        "type": {
+            "cobalt": {
+                "textures": { "all": "tconstruct:blocks/block_cobalt" }
+            },
+            "ardite": {
+                "textures": { "all": "tconstruct:blocks/block_ardite" }
+            },
+            "manyullyn": {
+                "textures": { "all": "tconstruct:blocks/block_manyullyn" }
+            },
+            "knightslime": {
+                "textures": { "all": "tconstruct:blocks/block_knightslime" }
+            },
+            "pigiron": {
+                "textures": { "all": "tconstruct:blocks/block_pigiron" }
+            }
+        }
+    }
+}

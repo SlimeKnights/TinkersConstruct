@@ -1,0 +1,35 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block",
+        "model": "cube_all",
+        "textures": {
+            "all": "blocks/dirt"
+        }
+    },
+	"variants": {
+        "type": {
+            "green": {
+                "model": "cube_all",
+                "textures": {
+                    "all": "tconstruct:blocks/slime/slimedirt_green"
+                }
+            },
+            "blue": {
+                "textures": {
+                    "all": "tconstruct:blocks/slime/slimedirt_blue"
+                }
+            },
+            "purple": {
+                "textures": {
+                    "all": "tconstruct:blocks/slime/slimedirt_purple"
+                }
+            },
+            "magma": {
+                "textures": {
+                    "all": "tconstruct:blocks/slime/slimedirt_magma"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "textures": {
+        "battleaxe": "tconstruct:items/battleaxe/mod_luck",
+        "battlesign": "tconstruct:items/battlesign/mod_luck",
+        "broadsword": "tconstruct:items/broadsword/mod_luck",
+        "cleaver": "tconstruct:items/cleaver/mod_luck",
+        "excavator": "tconstruct:items/excavator/mod_luck",
+        "frypan": "tconstruct:items/frypan/mod_luck",
+        "hammer": "tconstruct:items/hammer/mod_luck",
+        "hatchet": "tconstruct:items/hatchet/mod_luck",
+        "longsword": "tconstruct:items/longsword/mod_luck",
+        "lumberaxe": "tconstruct:items/lumberaxe/mod_luck",
+        "mattock": "tconstruct:items/mattock/mod_luck",
+        "pickaxe": "tconstruct:items/pickaxe/mod_luck",
+        "shovel": "tconstruct:items/shovel/mod_luck"
+    }
+}

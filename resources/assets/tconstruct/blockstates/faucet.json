@@ -1,0 +1,29 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "tconstruct:faucet"
+    },
+	"variants": {
+        "facing": {
+            "up": { "model": "tconstruct:faucet_top" },
+            "north": { y: 180 },
+            "east":  { y: 270 },
+            "south": { y: 0 },
+            "west":  { y: 90 }
+        },
+        "inventory": {
+            "model": "tconstruct:faucet",
+            "transform": {
+                "gui": {
+                    "translation": [-0.125, -0.125, -0.125],
+                    "scale": [1.5, 1.5, 1.5]
+                },
+                "thirdperson": {
+                    "rotation": [ {"x": 10}, {"y": -45}, {"z": 170} ],
+                    "translation": [ 0, 0.09375, -0.171875 ],
+                    "scale": [ 0.375, 0.375, 0.375 ]
+                }
+            }
+        }
+    }
+}

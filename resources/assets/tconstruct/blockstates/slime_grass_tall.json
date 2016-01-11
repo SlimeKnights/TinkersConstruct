@@ -1,0 +1,24 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block",
+        "model": "tallgrass",
+        "textures": {
+            "cross": "tconstruct:blocks/slime/slimegrass_tall"
+        }
+    },
+	"variants": {
+        "type": {
+            "tall_grass": {
+                "textures": {
+                    "cross": "tconstruct:blocks/slime/slimegrass_tall"
+                }
+            },
+            "fern": {
+                "textures": {
+                    "cross": "tconstruct:blocks/slime/slimegrass_fern"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,46 @@
+# Model is facing South (as in: the block it's connected to is south of it)
+{
+    "textures": {
+        "tex": "tconstruct:blocks/smeltery/faucet",
+        "particle": "tconstruct:blocks/smeltery/faucet"
+    },
+	"elements": [
+		{
+		 "from": [  4,  4, 10 ],
+         "to":   [ 12,  6, 16 ],
+         "faces": {
+			"up":    { "uv": [  4, 10, 12, 16 ], "texture": "#tex"},
+            "down":  { "uv": [  4, 10, 12, 16 ], "texture": "#tex", "rotation": 180},
+            "north": { "uv": [  4,  8, 12, 10 ], "texture": "#tex"},
+            "east":  { "uv": [ 12, 10, 14, 16 ], "texture": "#tex", "rotation": 90},
+            "south": { "uv": [  4, 10, 12,  8 ], "texture": "#tex"},
+            "west":  { "uv": [  2, 10,  4, 16 ], "texture": "#tex", "rotation": 270 }
+         },
+		 "__comment": "The bottom platform, facing south with the dark texture side"
+		},
+        {
+		 "from": [ 10,  6, 10 ],
+         "to":   [ 12, 10, 16 ],
+         "faces": {
+			"up":    { "uv": [ 13, 10, 15, 16 ], "texture": "#tex"},
+            "north": { "uv": [  6, 10,  8,  6 ], "texture": "#tex"},
+            "east":  { "uv": [  8, 10, 12, 16 ], "texture": "#tex", "rotation": 90},
+            "south": { "uv": [  6, 10,  8,  6 ], "texture": "#tex"},
+            "west":  { "uv": [  2, 10,  6, 16 ], "texture": "#tex", "rotation": 270}
+         },
+		 "__comment": "Left side from front (east)"
+		},
+        {
+		 "from": [  4,  6, 10 ],
+         "to":   [  6, 10, 16 ],
+         "faces": {
+			"up":    { "uv": [  1, 10,  3, 16 ], "texture": "#tex"},
+            "north": { "uv": [  6, 10,  8,  6 ], "texture": "#tex"},
+            "east":  { "uv": [  2, 10,  6, 16 ], "texture": "#tex", "rotation": 90},
+            "south": { "uv": [  6, 10,  4,  6 ], "texture": "#tex"},
+            "west":  { "uv": [  6, 10, 12, 16 ], "texture": "#tex", "rotation": 270}
+         },
+		 "__comment": "Right side from front (west)"
+		}
+	]
+}

@@ -1,0 +1,64 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block",
+        "model": "tconstruct:tank",
+        "textures": {
+            "side": "#side_normal",
+            "particle": "#side",
+            "top": "#side",
+            "bottom": "#top"
+        }
+    },
+	"variants": {
+        "type": {
+            "tank": {
+                "textures": {
+                    "side": "tconstruct:blocks/smeltery/seared_tank_side",
+                    "top": "tconstruct:blocks/smeltery/seared_tank_top"
+                }
+            },
+            "gauge": {
+                "textures": {
+                    "side": "tconstruct:blocks/smeltery/seared_gauge_side",
+                    "top": "tconstruct:blocks/smeltery/seared_window_top"
+                }
+            },
+            "window": {
+                "textures": {
+                    "side": "tconstruct:blocks/smeltery/seared_window_side",
+                    "top": "tconstruct:blocks/smeltery/seared_window_top"
+                }
+            }
+        },
+#        "connected": {
+#            "none": {
+#            },
+#            "up": {
+#            },
+#            "down": {
+#            },
+#            "both": {
+#            }
+#        },
+        "has_knob": {
+            true: {
+                # that funny knob at the top
+                "submodel": {
+                    "knob": {
+                        "model": "tconstruct:tank_knob",
+                        "textures": {
+                            "top": "tconstruct:blocks/smeltery/seared_tank_top",
+                            "side": "tconstruct:blocks/smeltery/seared_tank_side"
+                        },
+                        "transform": {
+                            "translation": [0, 1, 0]
+                        }
+                    }
+                }
+            },
+            false: {
+            }
+        }
+    }
+}

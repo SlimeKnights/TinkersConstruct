@@ -1,0 +1,12 @@
+{
+    "textures": {
+        "battleaxe": "tconstruct:items/battleaxe/mod_haste",
+        "excavator": "tconstruct:items/excavator/mod_haste",
+        "hammer": "tconstruct:items/hammer/mod_haste",
+        "hatchet": "tconstruct:items/hatchet/mod_haste",
+        "lumberaxe": "tconstruct:items/lumberaxe/mod_haste",
+        "mattock": "tconstruct:items/mattock/mod_haste",
+        "pickaxe": "tconstruct:items/pickaxe/mod_haste",
+        "shovel": "tconstruct:items/shovel/mod_haste"
+    }
+}
