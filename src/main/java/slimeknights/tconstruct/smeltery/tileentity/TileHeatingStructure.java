@@ -115,7 +115,7 @@ public abstract class TileHeatingStructure extends TileInventory {
   @Override
   public void setInventorySlotContents(int slot, ItemStack itemstack) {
     // reset heat if set to null or a different item
-    if(itemstack == null || (getStackInSlot(slot) != null && !itemstack.getIsItemStackEqual(getStackInSlot(slot)))) {
+    if(itemstack == null || (getStackInSlot(slot) != null && !ItemStack.areItemStacksEqual(itemstack, getStackInSlot(slot)))) {
       itemTemperatures[slot] = 0;
     }
     super.setInventorySlotContents(slot, itemstack);
