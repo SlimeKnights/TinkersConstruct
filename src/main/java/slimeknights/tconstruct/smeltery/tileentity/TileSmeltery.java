@@ -23,7 +23,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fml.relauncher.Side;
@@ -43,7 +42,6 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
 import slimeknights.tconstruct.library.smeltery.ISmelteryTankHandler;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
-import slimeknights.tconstruct.library.smeltery.SmelteryDamageSource;
 import slimeknights.tconstruct.library.smeltery.SmelteryTank;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.shared.TinkerFluids;
@@ -61,7 +59,7 @@ import slimeknights.tconstruct.smeltery.network.SmelteryInventoryUpdatePacket;
 public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, ITickable, IInventoryGui,
                                                                   ISmelteryTankHandler {
 
-  public static final DamageSource smelteryDamage = new DamageSource("smeltery").setFireDamage().setDamageIsAbsolute();
+  public static final DamageSource smelteryDamage = new DamageSource("smeltery").setFireDamage();
 
   static final Logger log = Util.getLogger("Smeltery");
 
@@ -208,13 +206,13 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
         // no custom melting but a living entity that's alive?
         if(fluid == null && entity instanceof EntityLivingBase) {
           if(entity.isEntityAlive() && !entity.isDead) {
-            fluid = new FluidStack(TinkerFluids.blood, 5);
+            fluid = new FluidStack(TinkerFluids.blood, 10);
           }
         }
 
         if(fluid != null) {
           // hurt it
-          if(entity.attackEntityFrom(SmelteryDamageSource.instance, 1f)) {
+          if(entity.attackEntityFrom(smelteryDamage, 2f)) {
             // spill the blood
             liquids.fill(fluid, true);
           }
@@ -539,7 +537,6 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   @SideOnly(Side.CLIENT)
   public void updateFluidsFromPacket(List<FluidStack> fluids) {
     this.liquids.setFluids(fluids);
-    // todo: update smeltery liquid rendering in world
   }
 
   @Override

@@ -408,6 +408,10 @@ ui.mininglevel.diamond=Diamond
 ui.mininglevel.obsidian=Obsidian
 ui.mininglevel.cobalt=Cobalt
 
+# Death messages
+death.attack.smeltery=%s tried to create molten player.
+death.attack.splinter=%s caught a splinter. Must've been massive.
+
 ######################
 # GUI Error messages #
 ######################

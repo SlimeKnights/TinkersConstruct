@@ -67,9 +67,7 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
 
   @Override
   public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
-    //if(worldIn.isRemote) return true;
-    // we do it both client and server side, because the client gets animations from this
-    // todo: check if it works properly with pipes n stuff
+    if(worldIn.isRemote) return true;
 
     TileEntity te = worldIn.getTileEntity(pos);
     if(!(te instanceof IFluidHandler)) {

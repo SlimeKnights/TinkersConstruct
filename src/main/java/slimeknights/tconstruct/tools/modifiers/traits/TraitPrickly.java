@@ -13,8 +13,6 @@ import slimeknights.tconstruct.library.traits.AbstractTrait;
 
 public class TraitPrickly extends AbstractTrait {
 
-  private static final DamageSource meanCactus = (new DamageSource(DamageSource.cactus.damageType)).setDamageBypassesArmor().setDamageIsAbsolute();
-
   public TraitPrickly() {
     super("prickly", EnumChatFormatting.DARK_GREEN);
   }

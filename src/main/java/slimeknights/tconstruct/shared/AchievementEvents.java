@@ -14,7 +14,7 @@ import slimeknights.tconstruct.tools.item.Mattock;
 import slimeknights.tconstruct.tools.item.Pickaxe;
 
 public class AchievementEvents {
-  
+
   @SubscribeEvent
   public void onCraft(PlayerEvent.ItemCraftedEvent event) {
     if(event.player == null || event.crafting == null) {
