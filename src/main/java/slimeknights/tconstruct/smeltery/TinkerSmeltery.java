@@ -6,6 +6,8 @@ import com.google.common.collect.Maps;
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.monster.EntityIronGolem;
+import net.minecraft.entity.monster.EntitySnowman;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -250,7 +252,6 @@ public class TinkerSmeltery extends TinkerPulse {
     TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of("obsidian", Material.VALUE_Ore),
                                                            TinkerFluids.obsidian, Material.VALUE_Ore));
 
-    TinkerRegistry.registerEntityMelting(EntitySheep.class, new FluidStack(TinkerFluids.blood, 5));
 
     // gold is melt and castable too, but no tools. Remaining materials are done directly in the MaterialIntegration
     registerOredictMeltingCasting(TinkerFluids.gold, "Gold");
@@ -273,6 +274,10 @@ public class TinkerSmeltery extends TinkerPulse {
     TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("blockEmerald", Material.VALUE_Gem*9), TinkerFluids.emerald));
     TinkerRegistry.registerTableCasting(new ItemStack(Items.emerald), castGem, TinkerFluids.emerald, Material.VALUE_Gem);
     TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.emerald_block), null, TinkerFluids.emerald, Material.VALUE_Gem*9);
+
+    // melt entities into a pulp
+    TinkerRegistry.registerEntityMelting(EntityIronGolem.class, new FluidStack(TinkerFluids.iron, 18));
+    TinkerRegistry.registerEntityMelting(EntitySnowman.class, new FluidStack(FluidRegistry.WATER, 100));
   }
 
   private void registerAlloys() {

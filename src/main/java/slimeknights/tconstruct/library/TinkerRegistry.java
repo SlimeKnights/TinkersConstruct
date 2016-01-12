@@ -588,6 +588,7 @@ public final class TinkerRegistry {
     return smelteryFuels.keySet();
   }
 
+  /** Register an entity to melt into the given fluidstack. The fluidstack is returned for 1 heart damage */
   public static void registerEntityMelting(Class<? extends Entity> clazz, FluidStack liquid) {
     String name = EntityList.classToStringMapping.get(clazz);
 
