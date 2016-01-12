@@ -160,10 +160,10 @@ public class TinkerSmeltery extends TinkerPulse {
     // I AM GROUT
     ItemStack grout = TinkerCommons.grout.copy();
     grout.stackSize = 2;
-    GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.grout, Items.clay_ball, Blocks.gravel, "sand"));
+    GameRegistry.addRecipe(new ShapelessOreRecipe(grout, Items.clay_ball, Blocks.gravel, "sand"));
     grout = grout.copy();
     grout.stackSize = 8;
-    GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.grout, Blocks.gravel, "sand", Blocks.gravel, "sand",  Blocks.clay, "sand", Blocks.gravel, "sand", Blocks.gravel));
+    GameRegistry.addRecipe(new ShapelessOreRecipe(grout, Blocks.gravel, "sand", Blocks.gravel, "sand",  Blocks.clay, "sand", Blocks.gravel, "sand", Blocks.gravel));
 
     // seared bricks
     GameRegistry.addSmelting(TinkerCommons.grout, TinkerCommons.searedBrick, 0);
@@ -265,6 +265,7 @@ public class TinkerSmeltery extends TinkerPulse {
     // seared block casting
     ItemStack blockSeared = new ItemStack(searedBlock);
     blockSeared.setItemDamage(BlockSeared.SearedType.STONE.getMeta());
+    TinkerRegistry.registerTableCasting(TinkerCommons.searedBrick, castIngot, TinkerFluids.searedStone, Material.VALUE_SearedMaterial);
     TinkerRegistry.registerBasinCasting(blockSeared, null, TinkerFluids.searedStone, Material.VALUE_SearedBlock);
 
     // emerald melting and casting
@@ -294,6 +295,12 @@ public class TinkerSmeltery extends TinkerPulse {
                                  new FluidStack(TinkerFluids.iron, 48),
                                  new FluidStack(TinkerFluids.blood, 33),
                                  new FluidStack(TinkerFluids.emerald, 74));
+
+    // 1 ingot cobalt + 1 ingot ardite = 2 ingots manyullyn!
+    // 144 + 144 = 288
+    TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.manyullyn, 4),
+                                 new FluidStack(TinkerFluids.cobalt, 2),
+                                 new FluidStack(TinkerFluids.ardite, 2));
   }
 
   public static void registerToolpartMeltingCasting(Material material) {
