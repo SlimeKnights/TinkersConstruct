@@ -592,7 +592,7 @@ public final class ToolHelper {
 
       // call post-hit callbacks before reducing the durability
       for(ITrait trait : traits) {
-        trait.afterHit(stack, player, target, damageDealt, isCritical, hit);
+        trait.afterHit(stack, player, target, damageDealt, isCritical, hit); // hit is always true
       }
 
       // damage the tool
