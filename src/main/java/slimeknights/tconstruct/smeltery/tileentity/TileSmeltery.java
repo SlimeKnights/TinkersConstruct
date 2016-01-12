@@ -18,6 +18,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
@@ -45,6 +46,7 @@ import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import slimeknights.tconstruct.library.smeltery.SmelteryDamageSource;
 import slimeknights.tconstruct.library.smeltery.SmelteryTank;
 import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
 import slimeknights.tconstruct.smeltery.client.GuiSmeltery;
@@ -58,6 +60,8 @@ import slimeknights.tconstruct.smeltery.network.SmelteryInventoryUpdatePacket;
 
 public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, ITickable, IInventoryGui,
                                                                   ISmelteryTankHandler {
+
+  public static final DamageSource smelteryDamage = new DamageSource("smeltery").setFireDamage().setDamageIsAbsolute();
 
   static final Logger log = Util.getLogger("Smeltery");
 
@@ -173,14 +177,29 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   protected void interactWithEntitiesInside() {
     // find all entities inside the smeltery
 
-    AxisAlignedBB bb = info.getBoundingBox();
+    AxisAlignedBB bb = info.getBoundingBox().contract(1, 1, 1);
 
     List<Entity> entities = worldObj.getEntitiesWithinAABB(Entity.class, bb);
     for(Entity entity : entities) {
       // item?
       if(entity instanceof EntityItem) {
         if(TinkerRegistry.getMelting(((EntityItem) entity).getEntityItem()) != null) {
-          // todo: pick up and ISidedInventory
+          ItemStack stack = ((EntityItem) entity).getEntityItem();
+          // pick it up if we can melt it
+          for(int i = 0; i < this.getSizeInventory(); i++) {
+            if(!isStackInSlot(i)) {
+              // remove 1 from the stack and add it to the smeltery
+              ItemStack invStack = stack.copy();
+              stack.stackSize--;
+              invStack.stackSize = 1;
+              this.setInventorySlotContents(i, invStack);
+            }
+            if(stack.stackSize <= 0) {
+              // picked up whole stack
+              entity.setDead();
+              break;
+            }
+          }
         }
       }
       else {
@@ -189,7 +208,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
         // no custom melting but a living entity that's alive?
         if(fluid == null && entity instanceof EntityLivingBase) {
           if(entity.isEntityAlive() && !entity.isDead) {
-            fluid = new FluidStack(FluidRegistry.WATER, 1); // todo: blood
+            fluid = new FluidStack(TinkerFluids.blood, 5);
           }
         }
 
