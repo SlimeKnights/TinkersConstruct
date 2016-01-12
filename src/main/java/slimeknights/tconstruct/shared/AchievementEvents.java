@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.stats.AchievementList;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -13,6 +14,7 @@ import slimeknights.tconstruct.tools.item.Mattock;
 import slimeknights.tconstruct.tools.item.Pickaxe;
 
 public class AchievementEvents {
+  
   @SubscribeEvent
   public void onCraft(PlayerEvent.ItemCraftedEvent event) {
     if(event.player == null || event.crafting == null) {
@@ -36,6 +38,17 @@ public class AchievementEvents {
     }
   }
 
-  // todo: picking up iron ingot or block from casting basin/table
+  @SubscribeEvent
+  public void onSmelted(PlayerEvent.ItemSmeltedEvent event) {
+    if(event.player == null || event.smelting == null) {
+      return;
+    }
+
+    Item item = event.smelting.getItem();
+    if(item == Items.iron_ingot) {
+      event.player.triggerAchievement(AchievementList.acquireIron);
+    }
+  }
+
   // todo: bow
 }

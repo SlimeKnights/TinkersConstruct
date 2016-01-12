@@ -12,6 +12,7 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -57,8 +58,13 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
       // Additional Info: Only 1 item can only be put into the casting block usually, however recipes
       // can have Itemstacks with stacksize > 1 as output
       // we therefore spill the whole contents on extraction
-      PlayerHelper.spawnItemAtPlayer(player, getStackInSlot(slot));
+      ItemStack stack = getStackInSlot(slot);
+      if(slot == 1) {
+        FMLCommonHandler.instance().firePlayerSmeltedEvent(player, stack);
+      }
+      PlayerHelper.spawnItemAtPlayer(player, stack);
       setInventorySlotContents(slot, null);
+
     }
   }
 
