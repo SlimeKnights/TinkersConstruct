@@ -49,6 +49,11 @@ public class BlockSmelteryIO extends BlockEnumSmeltery<BlockSmelteryIO.IOType> {
   }
 
   @Override
+  public int damageDropped(IBlockState state) {
+    return state.getValue(prop).getMeta(); // no rotation in the dropped drain
+  }
+
+  @Override
   public TileEntity createNewTileEntity(World worldIn, int meta) {
     return new TileDrain();
   }
