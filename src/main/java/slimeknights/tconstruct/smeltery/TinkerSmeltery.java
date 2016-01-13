@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -263,11 +264,13 @@ public class TinkerSmeltery extends TinkerPulse {
       }
     }
 
-    // seared block casting
+    // seared block casting and melting
     ItemStack blockSeared = new ItemStack(searedBlock);
     blockSeared.setItemDamage(BlockSeared.SearedType.STONE.getMeta());
     TinkerRegistry.registerTableCasting(TinkerCommons.searedBrick, castIngot, TinkerFluids.searedStone, Material.VALUE_SearedMaterial);
     TinkerRegistry.registerBasinCasting(blockSeared, null, TinkerFluids.searedStone, Material.VALUE_SearedBlock);
+    // basically a pseudo-oredict of the seared blocks to support wildcard value
+    TinkerRegistry.registerMelting(searedBlock, TinkerFluids.searedStone, Material.VALUE_SearedBlock);
 
     // emerald melting and casting
     TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("gemEmerald", Material.VALUE_Gem), TinkerFluids.emerald));
