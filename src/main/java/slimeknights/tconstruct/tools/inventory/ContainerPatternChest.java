@@ -6,6 +6,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
+import slimeknights.tconstruct.library.smeltery.ICast;
+import slimeknights.tconstruct.library.tools.IPattern;
 import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
 import slimeknights.tconstruct.tools.tileentity.TileTinkerChest;
 
@@ -53,7 +55,7 @@ public class ContainerPatternChest extends ContainerTinkerStation<TilePatternChe
 
     @Override
     public boolean isItemValid(ItemStack stack) {
-      return super.isItemValid(stack) && patternChest.isItemValidForSlot(getSlotIndex(), stack); // slot parameter is unused
+      return patternChest.isItemValidForSlot(getSlotIndex(), stack); // slot parameter is unused
     }
   }
 }

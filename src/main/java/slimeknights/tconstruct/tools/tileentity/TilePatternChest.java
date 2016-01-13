@@ -12,6 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.library.smeltery.ICast;
+import slimeknights.tconstruct.library.tools.IPattern;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -38,17 +39,33 @@ public class TilePatternChest extends TileTinkerChest implements IInventoryGui {
   // we only allow one type (cast/pattern) and only one of each toolpart
   @Override
   public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
+    if(itemstack == null || !(itemstack.getItem() instanceof IPattern || itemstack.getItem() instanceof ICast)) {
+      return false;
+    }
     Item part = Pattern.getPartFromTag(itemstack);
 
     if(part == null) {
-      return false;
+      // not a part cast, go by nbt
+      for(int i = 0; i < getSizeInventory(); i++) {
+        ItemStack inv = getStackInSlot(i);
+        // ensure that the type (pattern/cast) is the same
+        if(inv != null && (
+           (inv.getItem() instanceof IPattern && !(itemstack.getItem() instanceof IPattern)) ||
+           (inv.getItem() instanceof ICast && !(itemstack.getItem() instanceof ICast)))) {
+          return false;
+        }
+        if(ItemStack.areItemsEqual(itemstack, inv) && ItemStack.areItemStackTagsEqual(itemstack, inv)) {
+          return false;
+        }
+      }
+      return true;
     }
 
     for(int i = 0; i < getSizeInventory(); i++) {
       Item slotPart = Pattern.getPartFromTag(getStackInSlot(i));
       // duplicate, already present
       if(slotPart != null) {
-        // only the same item
+        // only the same item (== cast or pattern)
         if(getStackInSlot(i).getItem() != itemstack.getItem()) {
           return false;
         }
