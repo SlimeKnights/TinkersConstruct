@@ -137,6 +137,11 @@ public class BlockCasting extends BlockInventory {
     return false;
   }
 
+  @Override
+  public boolean isFullCube() {
+    return false;
+  }
+
   @SideOnly(Side.CLIENT)
   public EnumWorldBlockLayer getBlockLayer()
   {
