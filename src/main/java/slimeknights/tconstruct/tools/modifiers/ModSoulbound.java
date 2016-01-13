@@ -20,7 +20,7 @@ public class ModSoulbound extends Modifier {
   public ModSoulbound() {
     super("soulbound");
 
-    addAspects(new ModifierAspect.DataAspect(this, 0xf5fbac), new ModifierAspect.SingleAspect(this), ModifierAspect.freeModifier);
+    addAspects(new ModifierAspect.DataAspect(this, 0xf5fbac), new ModifierAspect.SingleAspect(this));
   }
 
   @Override
