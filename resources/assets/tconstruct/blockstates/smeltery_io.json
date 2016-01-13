@@ -11,7 +11,8 @@
             "west": "#up",
             "north": "tconstruct:blocks/smeltery/drain_front",
             "south": "tconstruct:blocks/smeltery/drain_back"
-        }
+        },
+        "uvlock": true
     },
 	"variants": {
         "type": {
