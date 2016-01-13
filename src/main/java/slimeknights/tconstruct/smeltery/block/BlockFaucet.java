@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery.block;
 
 import com.google.common.base.Predicate;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -81,6 +82,26 @@ public class BlockFaucet extends BlockContainer {
     }
     return super.onBlockActivated(worldIn, pos, state, playerIn, side, hitX, hitY, hitZ);
   }
+
+  /* Redstone */
+
+  @Override
+  public boolean canConnectRedstone(IBlockAccess world, BlockPos pos, EnumFacing side) {
+    return true;
+  }
+
+  @Override
+  public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+    if(worldIn.isRemote) {
+      return;
+    }
+    TileEntity te = worldIn.getTileEntity(pos);
+    if(te instanceof TileFaucet) {
+      ((TileFaucet) te).handleRedstone(worldIn.isBlockPowered(pos));
+    }
+  }
+
+  /* Bounds */
 
   @Override
   public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {

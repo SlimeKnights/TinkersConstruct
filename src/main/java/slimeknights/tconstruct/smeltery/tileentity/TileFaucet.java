@@ -27,6 +27,7 @@ public class TileFaucet extends TileEntity implements ITickable {
   public boolean isPouring;
   public boolean stopPouring;
   public FluidStack drained; // fluid is drained instantly and distributed over time. how much is left
+  public boolean lastRedstoneState;
 
   public TileFaucet() {
     reset();
@@ -49,6 +50,15 @@ public class TileFaucet extends TileEntity implements ITickable {
     direction = worldObj.getBlockState(pos).getValue(BlockFaucet.FACING);
     doTransfer();
     return isPouring;
+  }
+
+  public void handleRedstone(boolean hasSignal) {
+    if(hasSignal != lastRedstoneState) {
+      lastRedstoneState = hasSignal;
+      if(hasSignal) {
+        activate();
+      }
+    }
   }
 
   @Override
@@ -118,6 +128,7 @@ public class TileFaucet extends TileEntity implements ITickable {
     stopPouring = false;
     drained = null;
     direction = EnumFacing.DOWN; // invalid direction
+    lastRedstoneState = false;
 
     // sync to clients
     if(worldObj != null && !worldObj.isRemote && worldObj instanceof WorldServer) {
