@@ -32,6 +32,13 @@ public class ModFiery extends ModifierTrait {
 
     // one heart fire damage per 15
     float fireDamage = (float)data.current/15f;
-    target.attackEntityFrom(DamageSource.inFire, fireDamage);
+    if(target.attackEntityFrom(DamageSource.inFire, fireDamage)) {
+      target.hurtResistantTime = 0;
+    }
+  }
+
+  @Override
+  public String getTooltip(NBTTagCompound modifierTag, boolean detailed) {
+    return getLeveledTooltip(modifierTag, detailed);
   }
 }
