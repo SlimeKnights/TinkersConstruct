@@ -95,7 +95,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     // fully filled
     if(tank.getFluidAmount() == tank.getCapacity()) {
       timer++;
-      if(timer >= recipe.getTime()) {
+      if(!worldObj.isRemote && timer >= recipe.getTime()) {
         TinkerCastingEvent.OnCasted event = TinkerCastingEvent.OnCasted.fire(recipe, this);
         // done, finish!
         if(event.consumeCast) {
@@ -118,10 +118,10 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
   }
 
   public float getCooldownProgress() {
-    if(recipe == null) {
-      return 1f;
+    if(recipe == null || tank.getFluidAmount() == 0) {
+      return 0f;
     }
-    return (float)timer/(float)recipe.getTime();
+    return Math.min(1f, (float)timer/(float)recipe.getTime());
   }
 
   public ItemStack getCurrentResult() {
@@ -161,8 +161,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     tank.setFluid(fluid);
 
     if(fluid == null) {
-      tank.setCapacity(0);
-      recipe = null;
+      reset();
     }
     else if(recipe == null) {
       recipe = findRecipe(fluid.getFluid());

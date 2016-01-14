@@ -65,7 +65,7 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
     //GlStateManager.color(0.1f, 0.1f, 0.1f);
     //RenderUtil.renderFluidCuboid(te.tank.getFluid(), te.getPos(), x,y,z, xzMin, yMin, xzMin, xzMax, yh, xzMax);
     FluidStack fluid = te.tank.getFluid();
-    float progress = 0.01f;
+    float progress = 0f;
     if(te.renderOffset == 0) {
       progress = te.getCooldownProgress();
     }
