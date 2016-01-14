@@ -41,6 +41,10 @@ public class FluidUtil {
         player.inventory.decrStackSize(player.inventory.currentItem, 1);
         insertItemInto(result, player.inventory, player.worldObj, player.getPosition(), false);
       }
+      // send inventory updates to client
+      if(player.inventoryContainer != null) {
+        player.inventoryContainer.detectAndSendChanges();
+      }
       return true;
     }
     // IFluidContainerItems
@@ -84,6 +88,10 @@ public class FluidUtil {
           // give the result to the player
           //player.inventory.decrStackSize(player.inventory.currentItem, 1);
           //insertItemInto(stack, player.inventory, player.worldObj, player.getPosition(), false);
+        }
+        // send inventory updates to client
+        if(player.inventoryContainer != null) {
+          player.inventoryContainer.detectAndSendChanges();
         }
         return true;
       }
