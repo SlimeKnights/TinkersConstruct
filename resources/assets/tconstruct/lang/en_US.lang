@@ -396,6 +396,9 @@ tooltip.cast.cost=Material Cost: %d mb
 
 tooltip.chest.has_items=Contains items
 
+tooltip.tank.fluid=%s
+tooltip.tank.amount=%d mb
+
 ##################
 #   UI Strings   #
 ##################

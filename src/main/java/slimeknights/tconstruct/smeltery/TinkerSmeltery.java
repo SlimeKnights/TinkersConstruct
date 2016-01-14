@@ -63,6 +63,7 @@ import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryIO;
 import slimeknights.tconstruct.smeltery.block.BlockTank;
 import slimeknights.tconstruct.smeltery.item.CastCustom;
+import slimeknights.tconstruct.smeltery.item.ItemTank;
 import slimeknights.tconstruct.smeltery.item.UniversalBucket;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingBasin;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingTable;
@@ -112,11 +113,12 @@ public class TinkerSmeltery extends TinkerPulse {
   public void preInit(FMLPreInitializationEvent event) {
     searedBlock = registerEnumBlock(new BlockSeared(), "seared");
     smelteryController = registerBlock(new BlockSmelteryController(), "smeltery_controller");
-    searedTank = registerEnumBlock(new BlockTank(), "seared_tank");
+    searedTank = registerBlock(new BlockTank(), ItemTank.class, "seared_tank");
     faucet = registerBlock(new BlockFaucet(), "faucet");
     castingBlock = registerBlock(new BlockCasting(), ItemBlockMeta.class, "casting");
     smelteryIO = registerEnumBlock(new BlockSmelteryIO(), "smeltery_io");
 
+    ItemBlockMeta.setMappingProperty(searedTank, BlockTank.TYPE);
     ItemBlockMeta.setMappingProperty(castingBlock, BlockCasting.TYPE);
 
     registerTE(TileSmeltery.class, "smeltery_controller");

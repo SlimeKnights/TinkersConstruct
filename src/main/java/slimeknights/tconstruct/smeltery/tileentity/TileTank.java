@@ -113,14 +113,23 @@ public class TileTank extends TileSmelteryComponent implements IFluidHandler {
   @Override
   public void readFromNBT(NBTTagCompound tags) {
     super.readFromNBT(tags);
+    readTankFromNBT(tags);
+  }
+
+  public void readTankFromNBT(NBTTagCompound tags) {
     tank.readFromNBT(tags);
   }
 
   @Override
   public void writeToNBT(NBTTagCompound tags) {
     super.writeToNBT(tags);
+    writeTankToNBT(tags);
+  }
+
+  public void writeTankToNBT(NBTTagCompound tags) {
     tank.writeToNBT(tags);
   }
+
 
   public int comparatorStrength() {
     return 15 * tank.getFluidAmount() / tank.getCapacity();

@@ -1,12 +1,17 @@
 package slimeknights.tconstruct.smeltery.block;
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -23,7 +28,11 @@ import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.List;
+import java.util.Random;
+
 import slimeknights.mantle.block.EnumBlock;
+import slimeknights.mantle.tileentity.TileInventory;
 import slimeknights.tconstruct.common.PlayerHelper;
 import slimeknights.tconstruct.library.utils.FluidUtil;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -89,6 +98,61 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
     // prevent interaction of the item if it's a fluidcontainer. Prevents placing liquids when interacting with the tank
     return FluidContainerRegistry.isFilledContainer(stack) || stack.getItem() instanceof IFluidContainerItem;
   }
+
+  /* Block breaking retains the liquid */
+
+  @Override
+  public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+    TileEntity te = world.getTileEntity(pos);
+    if(te instanceof TileTank && stack != null && stack.hasTagCompound()) {
+      ((TileTank) te).readTankFromNBT(stack.getTagCompound());
+    }
+  }
+
+  @Override
+  public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+    // standard drop logic
+    List<ItemStack> ret = Lists.newArrayList();
+    Random rand = world instanceof World ? ((World)world).rand : RANDOM;
+    Item item = this.getItemDropped(state, rand, fortune);
+    ItemStack stack = null;
+    if (item != null)
+    {
+      stack = new ItemStack(item, 1, this.damageDropped(state));
+      ret.add(stack);
+    }
+
+
+    // save liquid data on the stack
+    TileEntity te = world.getTileEntity(pos);
+    if(te instanceof TileTank && stack != null) {
+      if(((TileTank) te).containsFluid()) {
+        NBTTagCompound tag = new NBTTagCompound();
+        ((TileTank) te).writeTankToNBT(tag);
+        stack.setTagCompound(tag);
+      }
+    }
+    return ret;
+  }
+
+  // fix blockbreak logic order. Needed to have the tile entity when getting the drops
+  @Override
+  public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+    // we pull up a few calls to this point in time because we still have the TE here
+    // the execution otherwise is equivalent to vanilla order
+    IBlockState state = world.getBlockState(pos);
+    this.onBlockDestroyedByPlayer(world, pos, state);
+    if(willHarvest) {
+      this.harvestBlock(world, player, pos, state, world.getTileEntity(pos));
+    }
+
+    world.setBlockToAir(pos);
+    // return false to prevent the above called functions to be called again
+    // side effect of this is that no xp will be dropped. but it shoudln't anyway
+    return false;
+  }
+
+  /* Rendering stuff etc */
 
   @Override
   public int getLightValue(IBlockAccess world, BlockPos pos) {
