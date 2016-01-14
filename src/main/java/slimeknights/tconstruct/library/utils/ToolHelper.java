@@ -36,6 +36,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IShearable;
+import net.minecraftforge.event.world.BlockEvent;
 
 import java.util.List;
 
@@ -268,6 +269,10 @@ public final class ToolHelper {
     if (world.isAirBlock(pos))
       return;
 
+    if(!(player instanceof EntityPlayerMP)) {
+      return;
+    }
+
     // check if the block can be broken, since extra block breaks shouldn't instantly break stuff like obsidian
     // or precious ores you can't harvest while mining stone
     IBlockState state = world.getBlockState(pos);
@@ -275,6 +280,12 @@ public final class ToolHelper {
 
     // only effective materials
     if(!isToolEffective2(stack, state)) {
+      return;
+    }
+
+    // send the blockbreak event
+    int xp = ForgeHooks.onBlockBreakEvent(world, ((EntityPlayerMP) player).theItemInWorldManager.getGameType(), (EntityPlayerMP) player, pos);
+    if(xp == -1) {
       return;
     }
 
@@ -312,6 +323,7 @@ public final class ToolHelper {
       {
         block.onBlockDestroyedByPlayer(world, pos, state);
         block.harvestBlock(world, player, pos, state, world.getTileEntity(pos));
+        block.dropXpOnBlockBreak(world, pos, xp);
       }
 
       // always send block update to client
