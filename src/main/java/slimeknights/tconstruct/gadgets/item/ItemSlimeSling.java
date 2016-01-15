@@ -55,6 +55,10 @@ public class ItemSlimeSling extends Item {
     f = (f * f + f * 2.0F) / 3.0F;
     f *= 4f;
 
+    if(f > 6f) {
+      f = 6f;
+    }
+
     // check if player was targeting a block
     MovingObjectPosition mop = getMovingObjectPositionFromPlayer(world, player, false);
 
