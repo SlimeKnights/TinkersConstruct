@@ -66,7 +66,7 @@ public class ItemSlimeSling extends Item {
                          vec.yCoord * -f/3f,
                          vec.zCoord * -f);
       playerMP.playerNetServerHandler.sendPacket(new S12PacketEntityVelocity(player));
-      TinkerCommons.potionSlimeBounce.apply(player, 60);
+      TinkerCommons.potionSlimeBounce.apply(player);
     }
   }
 }

@@ -15,6 +15,10 @@ public class PotionSlimeBounce extends TinkerPotion {
     super(Util.getResource("slimebounce"), false, true);
   }
 
+  public PotionEffect apply(EntityLivingBase entityLivingBase) {
+    return this.apply(entityLivingBase, 32767);
+  }
+
   @Override
   public boolean isReady(int p_76397_1_, int p_76397_2_) {
     // applies every tick
