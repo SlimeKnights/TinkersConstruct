@@ -22,7 +22,6 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.smeltery.Cast;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
-import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.inventory.ContainerCraftingStation;
@@ -58,8 +57,7 @@ public class JEIPlugin implements IModPlugin {
                                    new AlloyRecipeCategory(guiHelper),
                                    castingCategory);
 
-      registry.addRecipeHandlers(new TableRecipeHandler(),
-                                 new SmeltingRecipeHandler(),
+      registry.addRecipeHandlers(new SmeltingRecipeHandler(),
                                  new AlloyRecipeHandler(),
                                  new CastingRecipeHandler());
 
@@ -68,6 +66,8 @@ public class JEIPlugin implements IModPlugin {
       registry.addRecipes(TinkerRegistry.getAllMeltingRecipies());
       // alloys
       registry.addRecipes(TinkerRegistry.getAlloys());
+      // table recipes
+      registry.addRecipes(TableRecipeMaker.createRecipes(jeiHelpers));
 
       // casting
       // we collect together all casting recipes that create a cast and group them together into one recipe

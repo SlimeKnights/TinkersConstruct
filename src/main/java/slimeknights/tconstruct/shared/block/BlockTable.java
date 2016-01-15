@@ -203,4 +203,18 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
 
     return stack;
   }
+
+  public static ItemStack createItemstack(BlockTable table, int tableMeta, ItemStack blockStack) {
+    ItemStack stack = new ItemStack(table, 1, tableMeta);
+
+    if(blockStack != null) {
+      NBTTagCompound tag = new NBTTagCompound();
+      NBTTagCompound subTag = new NBTTagCompound();
+      blockStack.writeToNBT(subTag);
+      tag.setTag(TileTable.FEET_TAG, subTag);
+      stack.setTagCompound(tag);
+    }
+
+    return stack;
+  }
 }
