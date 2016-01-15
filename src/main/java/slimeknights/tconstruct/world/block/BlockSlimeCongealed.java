@@ -6,6 +6,7 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
@@ -23,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.world.block.BlockSlime.SlimeType;
 
 public class BlockSlimeCongealed extends Block {
@@ -81,6 +83,9 @@ public class BlockSlimeCongealed extends Block {
           //                    stepSound.getVolume() / 2.0F, stepSound.getFrequency() * 0.65F);
       }
       entity.motionY *= -1.2F;
+      if(entity instanceof EntityLiving) {
+        TinkerCommons.potionSlimeBounce.apply((EntityLivingBase) entity);
+      }
       if(entity instanceof EntityItem) {
         entity.onGround = false;
       }
