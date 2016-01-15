@@ -6,8 +6,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.shared.TinkerCommons;
 
 public class PotionSlimeBounce extends TinkerPotion {
 
@@ -15,7 +19,9 @@ public class PotionSlimeBounce extends TinkerPotion {
     super(Util.getResource("slimebounce"), false, true);
   }
 
+  // The effect gets applied indefinitely, but removes itself if the entity is on ground for a few ticks
   public PotionEffect apply(EntityLivingBase entityLivingBase) {
+    MinecraftForge.EVENT_BUS.register(new SlimeBounceHandler(entityLivingBase));
     return this.apply(entityLivingBase, 32767);
   }
 
@@ -48,5 +54,29 @@ public class PotionSlimeBounce extends TinkerPotion {
   public void renderInventoryEffect(int x, int y, PotionEffect effect, Minecraft mc) {
     mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
     mc.getRenderItem().renderItemIntoGUI(new ItemStack(Items.slime_ball), x + 7, y + 8);
+  }
+
+  public static class SlimeBounceHandler {
+
+    public final EntityLivingBase entityLiving;
+    private int timer;
+
+    public SlimeBounceHandler(EntityLivingBase entityLiving) {
+      this.entityLiving = entityLiving;
+      timer = 0;
+    }
+
+    @SubscribeEvent
+    public void onTick(TickEvent.ServerTickEvent event) {
+      if(entityLiving.onGround) {
+        if(++timer > 5) {
+          entityLiving.removePotionEffect(TinkerCommons.potionSlimeBounce.getId());
+          MinecraftForge.EVENT_BUS.unregister(this);
+        }
+      }
+      else {
+        timer = 0;
+      }
+    }
   }
 }
