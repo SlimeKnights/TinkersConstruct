@@ -6,6 +6,7 @@ import gnu.trove.set.hash.THashSet;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -367,6 +368,12 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
       tooltips.add(data.getColorString() + modifier.getTooltip(tag, false));
     }
+  }
+
+  @Override
+  public EnumRarity getRarity(ItemStack stack) {
+    // prevents enchanted items to have a different name color
+    return EnumRarity.COMMON;
   }
 
   /* NBT loading */
