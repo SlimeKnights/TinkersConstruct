@@ -361,7 +361,7 @@ public class TinkerTools extends TinkerPulse {
                         "B", 'P', pattern, 'B', "logWood"));
     GameRegistry.addRecipe(BlockTable
                                .createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, Blocks.golden_rail, 0),
-                           "P", "B", 'P', pattern, 'B', Blocks.rail);
+                           "P", "B", 'P', pattern, 'B', Blocks.golden_rail);
     GameRegistry.addRecipe(BlockTable
                                .createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, Blocks.cactus, 0),
                            "P", "B", 'P', pattern, 'B', Blocks.cactus);

@@ -30,8 +30,6 @@ import slimeknights.tconstruct.tools.inventory.ContainerCraftingStation;
 @mezz.jei.api.JEIPlugin
 public class JEIPlugin implements IModPlugin {
 
-  public static String CATEGORY_Casting = Util.prefix("casting");
-
   public static IJeiHelpers jeiHelpers;
 
   @Override

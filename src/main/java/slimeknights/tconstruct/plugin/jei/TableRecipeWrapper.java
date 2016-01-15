@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.plugin.jei;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -24,11 +25,8 @@ public class TableRecipeWrapper extends ShapedOreRecipeWrapper {
       BlockTable block = (BlockTable) BlockTable.getBlockFromItem(recipe.getRecipeOutput().getItem());
       Block legBlock = Block.getBlockFromItem(stack.getItem());
       if(stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
-        for(int meta = 0; meta < 16; meta++) {
-          // only valid metadatas
-          if(block.getMetaFromState(block.getStateFromMeta(meta)) == meta) {
-            builder.add(BlockTable.createItemstack(block, recipe.getRecipeOutput().getItemDamage(), legBlock, meta));
-          }
+        for(ItemStack sub : JEIPlugin.jeiHelpers.getStackHelper().getSubtypes(stack)) {
+            builder.add(BlockTable.createItemstack(block, recipe.getRecipeOutput().getItemDamage(), legBlock, sub.getItemDamage()));
         }
       }
       else {
