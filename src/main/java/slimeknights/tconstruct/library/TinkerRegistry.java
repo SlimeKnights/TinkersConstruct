@@ -67,6 +67,7 @@ public final class TinkerRegistry {
   public static CreativeTab tabParts = new CreativeTab("TinkerToolParts", new ItemStack(Items.stick));
   public static CreativeTab tabSmeltery = new CreativeTab("TinkerSmeltery", new ItemStack(Item.getItemFromBlock(Blocks.stonebrick)));
   public static CreativeTab tabWorld = new CreativeTab("TinkerWorld", new ItemStack(Item.getItemFromBlock(Blocks.slime_block)));
+  public static CreativeTab tabGadgets = new CreativeTab("TinkerGadgets", new ItemStack(Blocks.tnt));
 
   /*---------------------------------------------------------------------------
   | MATERIALS                                                                 |

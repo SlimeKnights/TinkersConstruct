@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.potion;
+package slimeknights.tconstruct.library.potion;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
@@ -44,6 +44,6 @@ public class TinkerPotion extends Potion {
 
   @Override
   public boolean shouldRender(PotionEffect effect) {
-    return false;
+    return show;
   }
 }

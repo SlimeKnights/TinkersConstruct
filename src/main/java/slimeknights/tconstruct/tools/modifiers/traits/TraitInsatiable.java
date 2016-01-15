@@ -6,7 +6,7 @@ import net.minecraft.util.EnumChatFormatting;
 
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
-import slimeknights.tconstruct.tools.potion.TinkerPotion;
+import slimeknights.tconstruct.library.potion.TinkerPotion;
 
 public class TraitInsatiable extends AbstractTrait {
 

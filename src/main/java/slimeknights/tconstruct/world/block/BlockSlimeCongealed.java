@@ -77,8 +77,8 @@ public class BlockSlimeCongealed extends Block {
     {
       if (entity.motionY < -0.08F)
       {
-        world.playSoundEffect(entity.posX, entity.posY, entity.posZ, stepSound.getStepSound(),
-                              stepSound.getVolume() / 2.0F, stepSound.getFrequency() * 0.65F);
+        //world.playSoundEffect(entity.posX, entity.posY, entity.posZ, stepSound.getStepSound(),
+          //                    stepSound.getVolume() / 2.0F, stepSound.getFrequency() * 0.65F);
       }
       entity.motionY *= -1.2F;
       if(entity instanceof EntityItem) {

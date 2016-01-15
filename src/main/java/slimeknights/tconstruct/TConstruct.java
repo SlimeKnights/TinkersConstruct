@@ -25,6 +25,7 @@ import slimeknights.tconstruct.common.TinkerOredict;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.config.ConfigSync;
 import slimeknights.tconstruct.debug.TinkerDebug;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
@@ -72,6 +73,7 @@ public class TConstruct {
     pulseManager.registerPulse(new TinkerWorld());
     pulseManager.registerPulse(new TinkerTools());
     pulseManager.registerPulse(new TinkerSmeltery());
+    pulseManager.registerPulse(new TinkerGadgets());
     pulseManager.registerPulse(new TinkerOredict()); // oredict the items added in the pulses before, needed for integration
     pulseManager.registerPulse(new TinkerIntegration()); // takes care of adding all the fluids, materials, melting etc. together
     pulseManager.registerPulse(new TinkerFluids());
