@@ -23,7 +23,7 @@ public class RenderTinkerSlime extends RenderSlime {
 
   public static final Factory FACTORY_BlueSlime = new Factory(0xff67f0f5);
 
-  private static final ResourceLocation slimeTextures = Util.getResource("textures/entity/slime.png");
+  public static final ResourceLocation slimeTextures = Util.getResource("textures/entity/slime.png");
 
   private final int color;
   private final ResourceLocation texture;
