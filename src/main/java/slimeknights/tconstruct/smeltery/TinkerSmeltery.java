@@ -255,6 +255,9 @@ public class TinkerSmeltery extends TinkerPulse {
     // obsidian
     TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of("obsidian", Material.VALUE_Ore),
                                                            TinkerFluids.obsidian, Material.VALUE_Ore));
+    // note that obsidian casting gives you 2 ingot value per obsidian, while part crafting only gives 1 per obsidian
+    registerToolpartMeltingCasting(TinkerMaterials.obsidian);
+    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.obsidian), null, TinkerFluids.obsidian, Material.VALUE_Ore);
 
 
     // gold is melt and castable too, but no tools. Remaining materials are done directly in the MaterialIntegration
