@@ -64,25 +64,24 @@ public class ItemSlimeBoots extends ItemArmor {
     }
 
     // thing is wearing slime boots. let's get bouncyyyyy
-    if(!entity.isSneaking()) {
+    if(!entity.isSneaking() && event.distance > 1) {
       event.setCanceled(true); // we don't care about previous cancels, since we just bounceeeee
       //entity.motionY = -(entity.posY - entity.lastTickPosY) * 1.2f;
 
-      entity.motionY = event.distance / 20;
-      entity.motionX = entity.posX - entity.lastTickPosX;
-      entity.motionZ = entity.posZ - entity.lastTickPosZ;
+      entity.motionY = event.distance / 15;
+      //entity.motionX = entity.posX - entity.lastTickPosX;
+      //entity.motionZ = entity.posZ - entity.lastTickPosZ;
       //event.entityLiving.motionY *= -1.2;
       //event.entityLiving.motionY += 0.8;
       event.entityLiving.isAirBorne = true;
-      entity.setJumping(true);
-      entity.onGround = false;
 
       entity.playSound(Sounds.slime_small, 1f, 1f);
+
       if(entity instanceof EntityPlayerMP) {
         ((EntityPlayerMP) entity).playerNetServerHandler
             .sendPacket(new S12PacketEntityVelocity(entity));
-        TinkerCommons.potionSlimeBounce.apply(entity);
       }
+      TinkerCommons.potionSlimeBounce.apply(entity, entity.motionY);
     }
     else {
       event.damageMultiplier = 0.1f;
