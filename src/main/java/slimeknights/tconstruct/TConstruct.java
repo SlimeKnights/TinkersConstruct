@@ -30,6 +30,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.plugin.ChiselAndBits;
+import slimeknights.tconstruct.plugin.CraftingTweaks;
 import slimeknights.tconstruct.plugin.TinkerVintageCraft;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
@@ -81,6 +82,7 @@ public class TConstruct {
     // Plugins/Integration
     //pulseManager.registerPulse(new TinkerVintageCraft());
     pulseManager.registerPulse(new ChiselAndBits());
+    pulseManager.registerPulse(new CraftingTweaks());
 
     pulseManager.registerPulse(new TinkerDebug());
   }
