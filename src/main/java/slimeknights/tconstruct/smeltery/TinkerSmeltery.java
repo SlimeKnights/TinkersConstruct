@@ -211,10 +211,10 @@ public class TinkerSmeltery extends TinkerPulse {
     // register remaining cast creation
     for(FluidStack fs : castCreationFluids) {
       TinkerRegistry.registerTableCasting(new ItemStack(cast), null, fs.getFluid(), fs.amount);
-      TinkerRegistry.registerTableCasting(new CastingRecipe(castGem, RecipeMatch.of("gemEmerald"), fs.getFluid(), fs.amount));
-      TinkerRegistry.registerTableCasting(new CastingRecipe(castIngot, RecipeMatch.of("ingotBrick"), fs.getFluid(), fs.amount));
-      TinkerRegistry.registerTableCasting(new CastingRecipe(castIngot, RecipeMatch.of("ingotBrickNether"), fs.getFluid(), fs.amount));
-      TinkerRegistry.registerTableCasting(new CastingRecipe(castIngot, new RecipeMatch.Item(TinkerCommons.searedBrick, 1), fs.getFluid(), fs.amount));
+      TinkerRegistry.registerTableCasting(new CastingRecipe(castGem, RecipeMatch.of("gemEmerald"), fs, true, true));
+      TinkerRegistry.registerTableCasting(new CastingRecipe(castIngot, RecipeMatch.of("ingotBrick"), fs, true, true));
+      TinkerRegistry.registerTableCasting(new CastingRecipe(castIngot, RecipeMatch.of("ingotBrickNether"), fs, true, true));
+      TinkerRegistry.registerTableCasting(new CastingRecipe(castIngot, new RecipeMatch.Item(TinkerCommons.searedBrick, 1), fs, true, true));
     }
 
     proxy.postInit();
@@ -384,8 +384,8 @@ public class TinkerSmeltery extends TinkerPulse {
 
     // and also cast creation!
     for(FluidStack fs : castCreationFluids) {
-      TinkerRegistry.registerTableCasting(new CastingRecipe(castIngot, RecipeMatch.of(ingotOre.getLeft()), fs.getFluid(), fs.amount));
-      TinkerRegistry.registerTableCasting(new CastingRecipe(castNugget, RecipeMatch.of(nuggetOre.getLeft()), fs.getFluid(), fs.amount));
+      TinkerRegistry.registerTableCasting(new CastingRecipe(castIngot, RecipeMatch.of(ingotOre.getLeft()), fs, true, true));
+      TinkerRegistry.registerTableCasting(new CastingRecipe(castNugget, RecipeMatch.of(nuggetOre.getLeft()), fs, true, true));
     }
 
     // used for recipe detection
