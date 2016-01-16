@@ -60,15 +60,17 @@ public class PotionSlimeBounce extends TinkerPotion {
 
     public final EntityLivingBase entityLiving;
     private int timer;
+    private boolean wasInAir;
 
     public SlimeBounceHandler(EntityLivingBase entityLiving) {
       this.entityLiving = entityLiving;
       timer = 0;
+      wasInAir = false;
     }
 
     @SubscribeEvent
     public void onTick(TickEvent.ServerTickEvent event) {
-      if(entityLiving.onGround) {
+      if(entityLiving.onGround && wasInAir) {
         if(++timer > 5) {
           entityLiving.removePotionEffect(TinkerCommons.potionSlimeBounce.getId());
           MinecraftForge.EVENT_BUS.unregister(this);
@@ -76,6 +78,7 @@ public class PotionSlimeBounce extends TinkerPotion {
       }
       else {
         timer = 0;
+        wasInAir = true;
       }
     }
   }

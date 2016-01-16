@@ -215,6 +215,10 @@ item.tconstruct.large_sword_blade.name=Large Sword Blade
 # item.tconstruct.<tool>.<material>
 # item.tconstruct.pickaxe.wood=Wooden Pickaxe
 
+# Gadgets
+item.tconstruct.slime_boots.name=Slime Boots
+item.tconstruct.slimesling.name=Slimesling
+
 #################
 #   Entities    #
 #################
@@ -240,6 +244,11 @@ fluid.tconstruct.milk.name=Milk
 fluid.tconstruct.blueslime.name=Liquid Blue Slime
 fluid.tconstruct.purpleslime.name=Liquid Purple Slime
 
+#################
+#    Potions    #
+#################
+
+potion.slimebounce=Slimebounce
 
 #################
 #   Materials   #
