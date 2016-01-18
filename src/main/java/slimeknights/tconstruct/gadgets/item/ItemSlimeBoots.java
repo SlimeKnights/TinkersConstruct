@@ -16,6 +16,7 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import slimeknights.tconstruct.common.Sounds;
+import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -64,26 +65,36 @@ public class ItemSlimeBoots extends ItemArmor {
     }
 
     // thing is wearing slime boots. let's get bouncyyyyy
-    if(!entity.isSneaking() && event.distance > 1) {
-      event.setCanceled(true); // we don't care about previous cancels, since we just bounceeeee
-      //entity.motionY = -(entity.posY - entity.lastTickPosY) * 1.2f;
-
-      entity.motionY = event.distance / 15;
-      //entity.motionX = entity.posX - entity.lastTickPosX;
-      //entity.motionZ = entity.posZ - entity.lastTickPosZ;
-      //event.entityLiving.motionY *= -1.2;
-      //event.entityLiving.motionY += 0.8;
-      event.entityLiving.isAirBorne = true;
-
+    if(!entity.isSneaking() && event.distance > 2) {
+      event.damageMultiplier = 0;
+      if(entity.worldObj.isRemote) {
+        entity.motionY *= -0.9;
+        //entity.motionY = event.distance / 15;
+        //entity.motionX = entity.posX - entity.lastTickPosX;
+        //entity.motionZ = entity.posZ - entity.lastTickPosZ;
+        //event.entityLiving.motionY *= -1.2;
+        //event.entityLiving.motionY += 0.8;
+        event.entityLiving.isAirBorne = true;
+        event.entityLiving.onGround = false;
+        double f = 0.91d + 0.04d;
+        //System.out.println((entityLiving.worldObj.isRemote ? "client: " : "server: ") + entityLiving.motionX);
+        // only slow down half as much when bouncing
+        entity.motionX /= f;
+        entity.motionZ /= f;
+      }
+      else {
+        event.setCanceled(true); // we don't care about previous cancels, since we just bounceeeee
+      }
       entity.playSound(Sounds.slime_small, 1f, 1f);
-
+      SlimeBounceHandler.addBounceHandler(entity, entity.motionY);
+/*
       if(entity instanceof EntityPlayerMP) {
         ((EntityPlayerMP) entity).playerNetServerHandler
             .sendPacket(new S12PacketEntityVelocity(entity));
       }
-      TinkerCommons.potionSlimeBounce.apply(entity, entity.motionY);
+      TinkerCommons.potionSlimeBounce.apply(entity, entity.motionY);*/
     }
-    else {
+    else if(!entity.worldObj.isRemote && entity.isSneaking()){
       event.damageMultiplier = 0.1f;
     }
   }

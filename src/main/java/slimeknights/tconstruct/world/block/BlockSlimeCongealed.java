@@ -84,7 +84,7 @@ public class BlockSlimeCongealed extends Block {
       }
       entity.motionY *= -1.2F;
       if(entity instanceof EntityLiving) {
-        TinkerCommons.potionSlimeBounce.apply((EntityLivingBase) entity);
+        //TinkerCommons.potionSlimeBounce.apply((EntityLivingBase) entity);
       }
       if(entity instanceof EntityItem) {
         entity.onGround = false;
