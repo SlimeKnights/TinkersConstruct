@@ -11,6 +11,9 @@ public class TextureColoredTexture extends AbstractColoredTexture {
   protected final TextureAtlasSprite addTexture;
   protected final String addTextureLocation;
   protected int[][] textureData;
+  protected int textureW;
+  protected int textureH;
+  protected float scale;
 
   public boolean stencil = false;
 
@@ -39,7 +42,14 @@ public class TextureColoredTexture extends AbstractColoredTexture {
       loadData();
     }
 
-    int c = textureData[mipmap][pxCoord];
+
+    int texCoord = pxCoord;
+    if(width > textureW) {
+      int texX = (pxCoord % width) % textureW;
+      int texY = (pxCoord / height) % textureH;
+      texCoord = texY * textureW + texX;
+    }
+    int c = textureData[mipmap][texCoord];
 
     // multiply in the color
     int r = RenderUtil.red(c);
@@ -57,6 +67,9 @@ public class TextureColoredTexture extends AbstractColoredTexture {
   protected void loadData() {
     if(addTexture != null && addTexture.getFrameCount() > 0) {
       textureData = addTexture.getFrameTextureData(0);
+      scale = (float)addTexture.getIconWidth() / (float)this.width;
+      textureW = addTexture.getIconWidth();
+      textureH = addTexture.getIconHeight();
     }
     else {
       // we need to keep the sizes, otherwise the secondary texture might set our size to a different value
@@ -66,6 +79,10 @@ public class TextureColoredTexture extends AbstractColoredTexture {
       int h = this.height;
       textureData = backupLoadTexture(new ResourceLocation(addTextureLocation),
                                       Minecraft.getMinecraft().getResourceManager());
+
+      scale = (float)this.width / (float)w;
+      textureW = this.width;
+      textureH = this.height;
       this.width = w;
       this.height = h;
     }
