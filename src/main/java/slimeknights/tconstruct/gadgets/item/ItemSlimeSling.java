@@ -10,6 +10,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
@@ -71,6 +72,7 @@ public class ItemSlimeSling extends Item {
                          vec.zCoord * -f);
       playerMP.playerNetServerHandler.sendPacket(new S12PacketEntityVelocity(player));
       TinkerCommons.potionSlimeBounce.apply(player);
+      player.playSound(Sounds.slimesling, 1f, 1f);
     }
   }
 }

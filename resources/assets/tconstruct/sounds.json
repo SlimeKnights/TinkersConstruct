@@ -1,21 +1,27 @@
 {
    "frypan_hit": {
-     "category": "neutral",
+     "category": "player",
      "sounds": [
        "frypan_hit"
      ]
    },
    "toy_squeak": {
-     "category": "neutral",
+     "category": "player",
      "sounds": [
        "toy_squeak"
      ]
    },
    "little_saw": {
-     "category": "neutral",
+     "category": "player",
      "sounds": [
        "little_saw"
      ]
+   },
+   "slimesling": {
+    "category": "player",
+    "sounds": [
+      "slimesling"
+    ]
    },
    "woodHit": {
      "category": "block",
