@@ -68,13 +68,14 @@ public abstract class TileHeatingStructure extends TileInventory {
   protected abstract void updateHeatRequired(int index);
 
   protected void heatItems() {
+    boolean heatedItem = false;
     for(int i = 0; i < getSizeInventory(); i++) {
       ItemStack stack = getStackInSlot(i);
       if(stack != null) {
         // heat item if possible
         if(itemTempRequired[i] > 0) {
           // fuel is present, turn up the heat
-          if(fuel > 0) {
+          if(hasFuel()) {
             // are we done heating?
             if(itemTemperatures[i] >= itemTempRequired[i]) {
               if(onItemFinishedHeating(stack, i)) {
@@ -85,6 +86,7 @@ public abstract class TileHeatingStructure extends TileInventory {
             // otherwise turn up the heat
             else {
               itemTemperatures[i] += heatSlot(i);
+              heatedItem = true;
             }
           }
           else {
@@ -97,6 +99,10 @@ public abstract class TileHeatingStructure extends TileInventory {
       else {
         itemTemperatures[i] = 0;
       }
+    }
+
+    if(heatedItem) {
+      fuel--;
     }
   }
 
