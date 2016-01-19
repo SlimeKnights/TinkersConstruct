@@ -46,7 +46,7 @@ public class JEIPlugin implements IModPlugin {
 
     if(TConstruct.pulseManager.isPulseLoaded(TinkerTools.PulseId)) {
       // crafting table shiftclicking
-      registry.getRecipeTransferRegistry().addRecipeTransferHandler(ContainerCraftingStation.class, VanillaRecipeCategoryUid.CRAFTING, 1, 9, 10, 36);
+      registry.getRecipeTransferRegistry().addRecipeTransferHandler(new CraftingStationRecipeTransferInfo());
     }
 
     // Smeltery
