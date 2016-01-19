@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraftforge.client.ForgeHooksClient;
@@ -99,18 +100,23 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
         int brightness = smeltery.getWorld().getCombinedLight(pos, 0);
 
         ItemStack stack = smeltery.getStackInSlot(i);
+        boolean isItem = !(stack.getItem() instanceof ItemBlock);
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)(brightness % 0x10000) / 1f,
                                               (float)(brightness / 0x10000) / 1f);
 
         //GlStateManager.pushMatrix();
         GlStateManager.translate(i2 % xd, h, i2 / xd);
         GlStateManager.scale(2f, 2f, 2f);
-        GlStateManager.rotate(-90, 1, 0, 0);
+        if(isItem) {
+          GlStateManager.rotate(-90, 1, 0, 0);
+        }
         IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
         model = ForgeHooksClient.handleCameraTransforms(model , ItemCameraTransforms.TransformType.NONE);
         //Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(smeltery.getWorld(), model, Blocks.bedrock.getDefaultState(), pos, renderer, false);
         Minecraft.getMinecraft().getRenderItem().renderItem(stack, model);
-        GlStateManager.rotate(90, 1, 0, 0);
+        if(isItem) {
+          GlStateManager.rotate(90, 1, 0, 0);
+        }
         GlStateManager.scale(0.5f, 0.5f, 0.5f);
         GlStateManager.translate(-i2 % xd, -h, -i2 / xd);
         //GlStateManager.popMatrix();
