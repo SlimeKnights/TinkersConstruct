@@ -102,6 +102,7 @@ public class TinkerSmeltery extends TinkerPulse {
   public static ItemStack castIngot;
   public static ItemStack castNugget;
   public static ItemStack castGem;
+  public static ItemStack castShard;
 
   private static Map<Fluid, Set<Pair<List<ItemStack>, Integer>>> knownOreFluids = Maps.newHashMap();
   private static List<FluidStack> castCreationFluids = Lists.newLinkedList();
@@ -134,6 +135,12 @@ public class TinkerSmeltery extends TinkerPulse {
     castIngot = castCustom.addMeta(0, "ingot", Material.VALUE_Ingot);
     castNugget = castCustom.addMeta(1, "nugget", Material.VALUE_Nugget);
     castGem = castCustom.addMeta(2, "gem", Material.VALUE_Gem);
+
+    if(TinkerRegistry.getShard() != null) {
+      TinkerRegistry.addCastForItem(TinkerRegistry.getShard());
+      castShard = new ItemStack(cast);
+      Cast.setTagForPart(castShard, TinkerRegistry.getShard());
+    }
 
     bucket = registerItem(new UniversalBucket(), "bucket");
     bucket.setCreativeTab(TinkerRegistry.tabGeneral);
@@ -343,6 +350,25 @@ public class TinkerSmeltery extends TinkerPulse {
       }
     }
 
+    // same for shard
+    if(castShard != null) {
+      ItemStack stack = TinkerRegistry.getShard(material);
+      int cost = TinkerRegistry.getShard().getCost();
+
+      if(fluid != null) {
+        // melting
+        TinkerRegistry.registerMelting(stack, fluid, cost);
+        // casting
+        TinkerRegistry.registerTableCasting(stack, castShard, fluid, cost);
+      }
+      // register cast creation from the toolparts
+      for(FluidStack fs : castCreationFluids) {
+        TinkerRegistry.registerTableCasting(new CastingRecipe(castShard,
+                                                              RecipeMatch.ofNBT(stack),
+                                                              fs,
+                                                              true, true));
+      }
+    }
   }
 
   /**
