@@ -129,12 +129,16 @@ public class TinkerFluids extends TinkerPulse {
     if(isWorldLoaded()) {
       blueslime = fluidClassic("blueslime", 0xef67f0f5);
       blueslime.setTemperature(310);
+      blueslime.setViscosity(1500);
+      blueslime.setDensity(1500);
       registerFluid(blueslime);
       registerBlock(new BlockLiquidSlime(blueslime, net.minecraft.block.material.Material.water), blueslime.getName());
     }
     if(isWorldLoaded() || isSmelteryLoaded()) {
       purpleSlime = fluidClassic("purpleslime", 0xefd236ff);
       purpleSlime.setTemperature(370);
+      purpleSlime.setViscosity(1600);
+      purpleSlime.setDensity(1600);
       registerFluid(purpleSlime);
       registerBlock(new BlockLiquidSlime(purpleSlime, net.minecraft.block.material.Material.water), purpleSlime.getName());
     }
