@@ -39,7 +39,8 @@ public class Cleaver extends BroadSword {
 
   @Override
   public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-    target.hurtResistantTime += 7;
+    target.hurtResistantTime += 12;
+    target.hurtTime += 12;
     return super.hitEntity(stack, target, attacker);
   }
 

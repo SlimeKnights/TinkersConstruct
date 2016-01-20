@@ -186,6 +186,7 @@ public abstract class ToolCore extends TinkersItem {
   public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
     if(attackSpeed() > 0) {
       target.hurtResistantTime -= attackSpeed();
+      target.hurtTime -= attackSpeed();
     }
     return super.hitEntity(stack, target, attacker);
   }
