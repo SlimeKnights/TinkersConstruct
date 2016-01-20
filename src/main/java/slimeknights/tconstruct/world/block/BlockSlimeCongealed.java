@@ -98,14 +98,6 @@ public class BlockSlimeCongealed extends Block {
     entityIn.fall(fallDistance, 0.0F);
   }
 
-  @Override
-  public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
-    if (entity instanceof EntityLivingBase)
-    {
-      ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.jump.id, 1, 2));
-    }
-  }
-
   /* Log behaviour for slimetrees */
   @Override
   public boolean canSustainLeaves(IBlockAccess world, BlockPos pos) {
