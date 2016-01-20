@@ -5,15 +5,16 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
 import slimeknights.mantle.util.RecipeMatch;
+import slimeknights.tconstruct.library.TinkerAPIException;
 
 public class CastingRecipe {
 
   public final RecipeMatch cast;
-  public final FluidStack fluid;
-  public final ItemStack output;
-  public final int time; // ticks to cool down
-  public final boolean consumesCast;
-  public final boolean switchOutputs; // switches cast and output. Mostly used for cast creation
+  protected final FluidStack fluid;
+  protected final ItemStack output;
+  protected final int time; // ticks to cool down
+  protected final boolean consumesCast;
+  protected final boolean switchOutputs; // switches cast and output. Mostly used for cast creation
 
   public CastingRecipe(ItemStack output, RecipeMatch cast, Fluid fluid, int amount) {
     this(output, cast,  fluid, amount, calcCooldownTime(fluid, amount));
@@ -32,6 +33,13 @@ public class CastingRecipe {
   }
 
   public CastingRecipe(ItemStack output, RecipeMatch cast, FluidStack fluid, int time, boolean consumesCast, boolean switchOutputs) {
+    if(output == null) {
+      throw new TinkerAPIException("Casting Recipe is missing an output!");
+    }
+    else if(fluid == null) {
+      throw new TinkerAPIException(String.format("Casting Recipe for %s has no fluid!", output.getDisplayName()));
+    }
+
     this.output = output;
     this.cast = cast;
     this.fluid = fluid;
@@ -49,6 +57,10 @@ public class CastingRecipe {
 
   public ItemStack getResult() {
     return output.copy();
+  }
+
+  public FluidStack getFluid() {
+    return fluid;
   }
 
   public int getTime() {

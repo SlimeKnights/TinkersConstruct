@@ -30,7 +30,7 @@ public class CastingRecipeWrapper extends BlankRecipeWrapper {
   public CastingRecipeWrapper(List<ItemStack> casts, CastingRecipe recipe, IDrawable castingBlock) {
     this.cast = casts;
     this.recipe = recipe;
-    this.inputFluid = ImmutableList.of(recipe.fluid);
+    this.inputFluid = ImmutableList.of(recipe.getFluid());
     this.output = ImmutableList.of(recipe.getResult());
     this.castingBlock = castingBlock;
   }
@@ -43,7 +43,7 @@ public class CastingRecipeWrapper extends BlankRecipeWrapper {
     else {
       cast = ImmutableList.of();
     }
-    this.inputFluid = ImmutableList.of(recipe.fluid);
+    this.inputFluid = ImmutableList.of(recipe.getFluid());
     this.recipe = recipe;
     // special treatment of oredict output recipies
     if(recipe.getResult() == null) {
@@ -94,7 +94,7 @@ public class CastingRecipeWrapper extends BlankRecipeWrapper {
     x -= minecraft.fontRendererObj.getStringWidth(s)/2;
 
     minecraft.fontRendererObj.drawString(s, x, 16, Color.gray.getRGB());
-    if(recipe.consumesCast) {
+    if(recipe.consumesCast()) {
       minecraft.fontRendererObj.drawString(Util.translate("gui.jei.casting.consume"), 78, 48, 0xaa0000);
     }
   }

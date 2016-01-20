@@ -166,7 +166,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     else if(recipe == null) {
       recipe = findRecipe(fluid.getFluid());
       if(recipe != null) {
-        tank.setCapacity(recipe.fluid.amount);
+        tank.setCapacity(recipe.getFluid().amount);
       }
     }
 
@@ -211,7 +211,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
         return 0;
       }
 
-      int capacity = recipe.fluid.amount;
+      int capacity = recipe.getFluid().amount;
       IFluidTank calcTank = new FluidTank(capacity);
 
       // no extra checks needed for the tank since it's empty and we have to set the capacity anyway

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.smeltery;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -27,7 +28,7 @@ public class OreCastingRecipe extends CastingRecipe {
 
   /** The ore list is retained internally, that means changes to the list affect the result */
   public OreCastingRecipe(List<ItemStack> ore, RecipeMatch cast, FluidStack fluid, int time, boolean consumesCast, boolean switchOutputs) {
-    super(null, cast, fluid, time, consumesCast, switchOutputs);
+    super(new ItemStack(Blocks.cobblestone), cast, fluid, time, consumesCast, switchOutputs);
     this.outputs = ore;
   }
 
