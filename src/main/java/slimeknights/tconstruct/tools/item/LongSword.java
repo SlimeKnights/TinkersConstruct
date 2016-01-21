@@ -20,7 +20,7 @@ public class LongSword extends BroadSword {
 
   @Override
   public float damagePotential() {
-    return 1.2f;
+    return 1.3f;
   }
 
   @Override

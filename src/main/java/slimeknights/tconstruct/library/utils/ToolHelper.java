@@ -168,6 +168,8 @@ public final class ToolHelper {
 
   /* Harvesting */
 
+
+
   public static ImmutableList<BlockPos> calcAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin, int width, int height, int depth) {
     return calcAOEBlocks(stack, world, player, origin, width, height, depth, -1);
   }
@@ -269,9 +271,9 @@ public final class ToolHelper {
     if (world.isAirBlock(pos))
       return;
 
-    if(!(player instanceof EntityPlayerMP)) {
-      return;
-    }
+    //if(!(player instanceof EntityPlayerMP)) {
+      //return;
+    //}
 
     // check if the block can be broken, since extra block breaks shouldn't instantly break stuff like obsidian
     // or precious ores you can't harvest while mining stone
@@ -283,12 +285,6 @@ public final class ToolHelper {
       return;
     }
 
-    // send the blockbreak event
-    int xp = ForgeHooks.onBlockBreakEvent(world, ((EntityPlayerMP) player).theItemInWorldManager.getGameType(), (EntityPlayerMP) player, pos);
-    if(xp == -1) {
-      return;
-    }
-
     IBlockState refState = world.getBlockState(refPos);
     float refStrength = ForgeHooks.blockStrength(refState, player, world, refPos);
     float strength = ForgeHooks.blockStrength(state, player, world, pos);
@@ -296,6 +292,8 @@ public final class ToolHelper {
     // only harvestable blocks that aren't impossibly slow to harvest
     if (!ForgeHooks.canHarvestBlock(block, player, world, pos) || refStrength/strength > 10f)
       return;
+
+    // From this point on it's clear that the player CAN break the block
 
     if (player.capabilities.isCreativeMode) {
       block.onBlockHarvested(world, pos, state, player);
@@ -314,6 +312,13 @@ public final class ToolHelper {
 
     // server sided handling
     if (!world.isRemote) {
+      // send the blockbreak event
+      int xp = ForgeHooks.onBlockBreakEvent(world, ((EntityPlayerMP) player).theItemInWorldManager.getGameType(), (EntityPlayerMP) player, pos);
+      if(xp == -1) {
+        return;
+      }
+
+
       // serverside we reproduce ItemInWorldManager.tryHarvestBlock
 
       // ItemInWorldManager.removeBlock

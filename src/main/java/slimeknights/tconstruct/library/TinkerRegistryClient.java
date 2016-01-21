@@ -37,29 +37,4 @@ public final class TinkerRegistryClient {
   public static void clear() {
     toolBuildInfo.clear();
   }
-
-  /*---------------------------------------------------------------------------
-  | SMELTERY GUI & LIQUID CLASSIFICATION                                      |
-  ---------------------------------------------------------------------------*/
-  private static final Map<Fluid, FluidDisplayType> fluidTypes = Maps.newHashMap();
-
-  public static void registerFluidDisplayType(Fluid fluid, FluidDisplayType type) {
-    fluidTypes.put(fluid, type);
-  }
-
-  public static FluidDisplayType getFluidDisplayType(Fluid fluid) {
-    if(!fluidTypes.containsKey(fluid)) {
-      return FluidDisplayType.BUCKETS;
-    }
-    return fluidTypes.get(fluid);
-  }
-
-  public enum FluidDisplayType {
-    BUCKETS,
-    INGOTS,
-    BLOCKS,
-    SEARED,
-    GLASS,
-    GEMS
-  }
 }

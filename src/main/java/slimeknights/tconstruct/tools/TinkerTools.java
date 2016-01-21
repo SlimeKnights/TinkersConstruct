@@ -236,7 +236,7 @@ public class TinkerTools extends TinkerPulse {
     pickaxe = registerTool(new Pickaxe(), "pickaxe");
     shovel = registerTool(new Shovel(), "shovel");
     hatchet = registerTool(new Hatchet(), "hatchet");
-    mattock = registerTool(new Mattock(), "mattock");
+    //mattock = registerTool(new Mattock(), "mattock");
     broadSword = registerTool(new BroadSword(), "broadsword");
     longSword = registerTool(new LongSword(), "longsword");
     // rapier
@@ -249,8 +249,8 @@ public class TinkerTools extends TinkerPulse {
     excavator = registerTool(new Excavator(), "excavator");
     lumberAxe = registerTool(new LumberAxe(), "lumberaxe");
     cleaver = registerTool(new Cleaver(), "cleaver");
-    battleAxe = registerTool(new BattleAxe(), "battleaxe");
-    scythe = registerTool(new Scythe(), "scythe");
+    //battleAxe = registerTool(new BattleAxe(), "battleaxe");
+    //scythe = registerTool(new Scythe(), "scythe");
   }
 
   private void registerModifiers() {
@@ -319,7 +319,7 @@ public class TinkerTools extends TinkerPulse {
     TinkerRegistry.registerToolCrafting(pickaxe);
     TinkerRegistry.registerToolCrafting(shovel);
     TinkerRegistry.registerToolCrafting(hatchet);
-    TinkerRegistry.registerToolCrafting(mattock);
+    //TinkerRegistry.registerToolCrafting(mattock);
     TinkerRegistry.registerToolCrafting(broadSword);
     TinkerRegistry.registerToolCrafting(longSword);
     TinkerRegistry.registerToolCrafting(fryPan);
@@ -329,8 +329,8 @@ public class TinkerTools extends TinkerPulse {
     TinkerRegistry.registerToolForgeCrafting(excavator);
     TinkerRegistry.registerToolForgeCrafting(lumberAxe);
     TinkerRegistry.registerToolForgeCrafting(cleaver);
-    TinkerRegistry.registerToolForgeCrafting(battleAxe);
-    TinkerRegistry.registerToolForgeCrafting(scythe);
+    //TinkerRegistry.registerToolForgeCrafting(battleAxe);
+    //TinkerRegistry.registerToolForgeCrafting(scythe);
   }
 
   private void registerRecipies() {

@@ -96,7 +96,6 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
     if (entity instanceof EntityLivingBase)
     {
       ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.weakness.id, 1));
-      ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.jump.id, 1, 1));
     }
   }
 

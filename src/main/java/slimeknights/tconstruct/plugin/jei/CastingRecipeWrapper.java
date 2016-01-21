@@ -6,12 +6,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
+import java.awt.*;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 
 public class CastingRecipeWrapper extends BlankRecipeWrapper {
@@ -28,7 +30,7 @@ public class CastingRecipeWrapper extends BlankRecipeWrapper {
   public CastingRecipeWrapper(List<ItemStack> casts, CastingRecipe recipe, IDrawable castingBlock) {
     this.cast = casts;
     this.recipe = recipe;
-    this.inputFluid = ImmutableList.of(recipe.fluid);
+    this.inputFluid = ImmutableList.of(recipe.getFluid());
     this.output = ImmutableList.of(recipe.getResult());
     this.castingBlock = castingBlock;
   }
@@ -41,7 +43,7 @@ public class CastingRecipeWrapper extends BlankRecipeWrapper {
     else {
       cast = ImmutableList.of();
     }
-    this.inputFluid = ImmutableList.of(recipe.fluid);
+    this.inputFluid = ImmutableList.of(recipe.getFluid());
     this.recipe = recipe;
     // special treatment of oredict output recipies
     if(recipe.getResult() == null) {
@@ -86,5 +88,14 @@ public class CastingRecipeWrapper extends BlankRecipeWrapper {
   @Override
   public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
     castingBlock.draw(minecraft, 59, 42);
+
+    String s = String.format("%d s", recipe.getTime()/20);
+    int x = 92;
+    x -= minecraft.fontRendererObj.getStringWidth(s)/2;
+
+    minecraft.fontRendererObj.drawString(s, x, 16, Color.gray.getRGB());
+    if(recipe.consumesCast()) {
+      minecraft.fontRendererObj.drawString(Util.translate("gui.jei.casting.consume"), 78, 48, 0xaa0000);
+    }
   }
 }

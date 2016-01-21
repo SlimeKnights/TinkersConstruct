@@ -379,6 +379,10 @@ public final class TinkerRegistry {
     shardItem = shard;
   }
 
+  public static Shard getShard() {
+    return shardItem;
+  }
+
   public static ItemStack getShard(Material material) {
     ItemStack out = material.getShard();
     if(out == null) {
@@ -388,12 +392,12 @@ public final class TinkerRegistry {
   }
 
   /** Registers a pattern for the given item */
-  static void addPatternForItem(Item item) {
+  public static void addPatternForItem(Item item) {
     patternItems.add(item);
   }
 
   /** Registers a cast for the given item */
-  static void addCastForItem(Item item) {
+  public static void addCastForItem(Item item) {
     castItems.add(item);
   }
 

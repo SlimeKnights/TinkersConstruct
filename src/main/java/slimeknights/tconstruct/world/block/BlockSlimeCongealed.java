@@ -84,7 +84,7 @@ public class BlockSlimeCongealed extends Block {
       }
       entity.motionY *= -1.2F;
       if(entity instanceof EntityLiving) {
-        TinkerCommons.potionSlimeBounce.apply((EntityLivingBase) entity);
+        //TinkerCommons.potionSlimeBounce.apply((EntityLivingBase) entity);
       }
       if(entity instanceof EntityItem) {
         entity.onGround = false;
@@ -96,14 +96,6 @@ public class BlockSlimeCongealed extends Block {
   public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
     // no fall damage on congealed slime
     entityIn.fall(fallDistance, 0.0F);
-  }
-
-  @Override
-  public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
-    if (entity instanceof EntityLivingBase)
-    {
-      ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.jump.id, 1, 2));
-    }
   }
 
   /* Log behaviour for slimetrees */

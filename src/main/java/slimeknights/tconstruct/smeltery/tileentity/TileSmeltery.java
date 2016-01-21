@@ -24,6 +24,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -266,23 +267,27 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     // got a tank?
     if(currentTank != null) {
       // consume fuel!
-      IFluidTank tank = getTankAt(currentTank);
-      FluidStack liquid = tank.getFluid();
-      if(liquid != null) {
-        FluidStack in = liquid.copy();
-        int bonusFuel = TinkerRegistry.consumeSmelteryFuel(in);
-        int amount = liquid.amount - in.amount;
-        FluidStack drained = tank.drain(amount, false);
+      TileEntity te = worldObj.getTileEntity(currentTank);
+      if(te instanceof TileTank) {
+        TileTank tank = (TileTank) te;
 
-        // we can drain. actually drain and add the fuel
-        if(drained.amount == amount) {
-          tank.drain(amount, true);
-          currentFuel = drained.copy();
-          addFuel(bonusFuel, drained.getFluid().getTemperature(drained)-300); // convert to °C
+        FluidStack liquid = tank.getInternalTank().getFluid();
+        if(liquid != null) {
+          FluidStack in = liquid.copy();
+          int bonusFuel = TinkerRegistry.consumeSmelteryFuel(in);
+          int amount = liquid.amount - in.amount;
+          FluidStack drained = tank.drain(null, amount, false);
 
-          // notify client of fuel/temperature changes
-          if(worldObj != null && !worldObj.isRemote) {
-            TinkerNetwork.sendToAll(new SmelteryFuelUpdatePacket(pos, currentTank, temperature, currentFuel));
+          // we can drain. actually drain and add the fuel
+          if(drained.amount == amount) {
+            tank.drain(null, amount, true);
+            currentFuel = drained.copy();
+            addFuel(bonusFuel, drained.getFluid().getTemperature(drained) - 300); // convert to °C
+
+            // notify client of fuel/temperature changes
+            if(worldObj != null && !worldObj.isRemote) {
+              TinkerNetwork.sendToAll(new SmelteryFuelUpdatePacket(pos, currentTank, temperature, currentFuel));
+            }
           }
         }
       }

@@ -10,8 +10,12 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
+import slimeknights.tconstruct.common.Sounds;
+import slimeknights.tconstruct.common.TinkerNetwork;
+import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
 
 public class ItemSlimeSling extends Item {
 
@@ -43,11 +47,9 @@ public class ItemSlimeSling extends Item {
   @Override
   public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int timeLeft) {
     // has to be on ground to do something
-    if(!player.onGround || !(player instanceof EntityPlayerMP)) {
+    if(!player.onGround) {
       return;
     }
-
-    EntityPlayerMP playerMP = (EntityPlayerMP) player;
 
     // copy chargeup code from bow \o/
     int i = this.getMaxItemUseDuration(stack) - timeLeft;
@@ -69,8 +71,15 @@ public class ItemSlimeSling extends Item {
       player.addVelocity(vec.xCoord * -f,
                          vec.yCoord * -f/3f,
                          vec.zCoord * -f);
-      playerMP.playerNetServerHandler.sendPacket(new S12PacketEntityVelocity(player));
-      TinkerCommons.potionSlimeBounce.apply(player);
+
+      if(player instanceof EntityPlayerMP) {
+        EntityPlayerMP playerMP = (EntityPlayerMP) player;
+        TinkerNetwork.sendTo(new EntityMovementChangePacket(player), playerMP);
+        //playerMP.playerNetServerHandler.sendPacket(new S12PacketEntityVelocity(player));
+      }
+      player.playSound(Sounds.slimesling, 1f, 1f);
+      SlimeBounceHandler.addBounceHandler(player);
+      //TinkerCommons.potionSlimeBounce.apply(player);
     }
   }
 }

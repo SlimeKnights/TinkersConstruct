@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.EnumPlantType;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -157,6 +158,8 @@ public class TinkerWorld extends TinkerPulse {
       }
       EntityRegistry.addSpawn(EntityBlueSlime.class, 200, 1, 4, EnumCreatureType.MONSTER, biome); // ALL the biomes
     }
+
+    MinecraftForge.EVENT_BUS.register(new WorldEvents());
 
     proxy.postInit();
   }

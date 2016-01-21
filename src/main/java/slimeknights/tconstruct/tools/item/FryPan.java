@@ -93,10 +93,13 @@ public class FryPan extends ToolCore {
   }
 
   @Override
-  public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-    attacker.worldObj.playSoundAtEntity(attacker, Sounds.frypan_boing, 1.2f,
-                                        0.8f + 0.4f * TConstruct.random.nextFloat());
-    return super.hitEntity(stack, target, attacker);
+  public boolean dealDamage(ItemStack stack, EntityPlayer player, EntityLivingBase entity, float damage) {
+    boolean hit = super.dealDamage(stack, player, entity, damage);
+    if(hit) {
+      player.worldObj.playSoundAtEntity(player, Sounds.frypan_boing, 1.2f,
+                                          0.8f + 0.4f * TConstruct.random.nextFloat());
+    }
+    return hit;
   }
 
   /**

@@ -1,33 +1,33 @@
 package slimeknights.tconstruct.smeltery.client;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiPageButtonList;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-
-import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.mantle.client.gui.GuiMultiModule;
 import slimeknights.tconstruct.common.TinkerNetwork;
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.TinkerRegistryClient;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.RenderUtil;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.library.smeltery.SmelteryTank;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.client.module.GuiSmelterySideinventory;
 import slimeknights.tconstruct.smeltery.inventory.ContainerSmeltery;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidClicked;
@@ -184,44 +184,68 @@ public class GuiSmeltery extends GuiMultiModule {
     return SmelteryRenderer.calcLiquidHeights(liquids, capacity, scala.h, 3);
   }
 
+  /* Fluid amount displays */
+  private static Map<Fluid, List<FluidGuiEntry>> fluidGui = Maps.newHashMap();
 
   public void liquidToString(FluidStack fluid, List<String> text) {
-    liquidToString(TinkerRegistryClient.getFluidDisplayType(fluid.getFluid()), fluid.amount, text);
+    int amount = fluid.amount;
+    if(!Util.isShiftKeyDown()) {
+      List<FluidGuiEntry> entries = fluidGui.get(fluid.getFluid());
+      if(entries == null) {
+        entries = calcFluidGuiEntries(fluid.getFluid());
+        fluidGui.put(fluid.getFluid(), entries);
+      }
+
+      for(FluidGuiEntry entry : entries) {
+        amount = calcLiquidText(amount, entry.amount, entry.getText(), text);
+      }
+    }
+
+    // standard display: bucket amounts
+    // we go up to kiloBuckets because we can
+    amount = calcLiquidText(amount, 1000000, Util.translate("gui.smeltery.liquid.kilobucket"), text);
+    amount = calcLiquidText(amount, 1000, Util.translate("gui.smeltery.liquid.bucket"), text);
+    calcLiquidText(amount, 1, Util.translate("gui.smeltery.liquid.millibucket"), text);
   }
 
-  public void liquidToString(TinkerRegistryClient.FluidDisplayType type, int amount, List<String> text) {
-    if(Util.isShiftKeyDown()) {
-      type = TinkerRegistryClient.FluidDisplayType.BUCKETS;
+  private List<FluidGuiEntry> calcFluidGuiEntries(Fluid fluid) {
+    List<FluidGuiEntry> list = Lists.newArrayList();
+
+    // go through all casting recipes for the fluids and check for known "units" like blocks, ingots,...
+    for(CastingRecipe recipe : TinkerRegistry.getAllBasinCastingRecipes()) {
+      // search for a block recipe
+      if(recipe.getFluid().getFluid() == fluid && recipe.cast == null) {
+        // it's a block that is cast solely from the material, using no cast, therefore it's a block made out of the material
+        list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.block"));
+      }
     }
-    // Ingots
-    if(type == TinkerRegistryClient.FluidDisplayType.INGOTS) {
-      amount = calcLiquidText(amount, Material.VALUE_Block, Util.translate("gui.smeltery.liquid.block"), text);
-      amount = calcLiquidText(amount, Material.VALUE_Ingot, Util.translate("gui.smeltery.liquid.ingot"), text);
-      amount = calcLiquidText(amount, Material.VALUE_Nugget, Util.translate("gui.smeltery.liquid.nugget"), text);
+    // table casting
+    for(CastingRecipe recipe : TinkerRegistry.getAllTableCastingRecipes()) {
+      if(recipe.getFluid().getFluid() == fluid) {
+        // nugget
+        if(recipe.cast.matches(new ItemStack[]{TinkerSmeltery.castNugget}) != null) {
+          list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.nugget"));
+        }
+        // ingot
+        if(recipe.cast.matches(new ItemStack[]{TinkerSmeltery.castIngot}) != null) {
+          list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.ingot"));
+        }
+        // gem
+        if(recipe.cast.matches(new ItemStack[]{TinkerSmeltery.castGem}) != null) {
+          list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.gem"));
+        }
+      }
     }
-    // Seared ingots/blocks
-    if(type == TinkerRegistryClient.FluidDisplayType.SEARED) {
-      amount = calcLiquidText(amount, Material.VALUE_SearedBlock, Util.translate("gui.smeltery.liquid.block"), text);
-    }
-    // Glass
-    if(type == TinkerRegistryClient.FluidDisplayType.GLASS) {
-      amount = calcLiquidText(amount, Material.VALUE_Glass, Util.translate("gui.smeltery.liquid.block"), text);
-    }
-    // Blocks
-    else if(type == TinkerRegistryClient.FluidDisplayType.BLOCKS) {
-      amount = calcLiquidText(amount, Material.VALUE_Block, Util.translate("gui.smeltery.liquid.block"), text);
-    }
-    // Gems
-    else if(type == TinkerRegistryClient.FluidDisplayType.GEMS) {
-      amount = calcLiquidText(amount, Material.VALUE_Gem, Util.translate("gui.smeltery.liquid.gem"), text);
-    }
-    // Buckets
-    else {
-      // we go up to kiloBuckets because we can
-      amount = calcLiquidText(amount, 1000000, Util.translate("gui.smeltery.liquid.kilobucket"), text);
-      amount = calcLiquidText(amount, 1000, Util.translate("gui.smeltery.liquid.bucket"), text);
-    }
-    calcLiquidText(amount, 1, Util.translate("gui.smeltery.liquid.millibucket"), text);
+
+    // sort by amount descending because the order in which they're accessed is important since it changes the remaining value during processing
+    list.sort(new Comparator<FluidGuiEntry>() {
+      @Override
+      public int compare(FluidGuiEntry o1, FluidGuiEntry o2) {
+        return o2.amount - o1.amount;
+      }
+    });
+
+    return ImmutableList.copyOf(list);
   }
 
   private int calcLiquidText(int amount, int divider, String unit, List<String> text) {
@@ -231,5 +255,19 @@ public class GuiSmeltery extends GuiMultiModule {
     }
 
     return amount % divider;
+  }
+
+  private static class FluidGuiEntry {
+    public final int amount;
+    public final String unlocName;
+
+    private FluidGuiEntry(int amount, String unlocName) {
+      this.amount = amount;
+      this.unlocName = unlocName;
+    }
+
+    public String getText() {
+      return Util.translate(unlocName);
+    }
   }
 }

@@ -33,11 +33,15 @@ public class TraitPrickly extends AbstractTrait {
   }
 
   private void causeDamage(EntityLivingBase player, EntityLivingBase target) {
-    float damage = 0.5f + (float) random.nextGaussian() / 2f;
-    EntityDamageSource damageSource = new EntityDamageSource(DamageSource.cactus.damageType, player);
-    damageSource.setDamageBypassesArmor();
-    damageSource.setDamageIsAbsolute();
+    float damage = 0.5f + Math.max(-0.5f, (float) random.nextGaussian() / 2f);
+    if(damage > 0) {
+      EntityDamageSource damageSource = new EntityDamageSource(DamageSource.cactus.damageType, player);
+      damageSource.setDamageBypassesArmor();
+      damageSource.setDamageIsAbsolute();
 
-    target.attackEntityFrom(damageSource, damage);
+      // reset hurt resistance time from being hit before
+      target.hurtResistantTime = 0;
+      target.attackEntityFrom(damageSource, damage);
+    }
   }
 }

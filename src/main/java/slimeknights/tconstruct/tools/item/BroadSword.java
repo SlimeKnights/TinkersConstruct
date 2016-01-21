@@ -97,9 +97,10 @@ public class BroadSword extends ToolCore {
 
     data.durability *= 1f + 0.3f * (guard.extraQuality - 0.5f);
     data.speed *= 1f + 0.05f * (handle.handleQuality * handle.miningspeed);
-    // sword has 1.5 hearts base damage!
-    data.attack += 3f;
     data.attack *= 1f + 0.15f * handle.handleQuality * guard.extraQuality;
+
+    // sword has 1.5 hearts base damage!
+    data.attack += 1f;
 
     /*
     // attack damage: blade, modified 10% by handle and 20% by guard

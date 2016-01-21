@@ -31,7 +31,7 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
 
   public CastingRenderer(float yMin, float yMax, float xzMin, float xzMax) {
     // we make the size a tad smaller because of casts so it doesn't overlap
-    float s = 0.999f;
+    float s = 0.9995f;
     this.yMin = yMin*s;
     this.yMax = yMax*s;
     this.xzMin = xzMin*s;
@@ -97,7 +97,8 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
       //GlStateManager.translate(0.5f, 0.5f, 0.5f);
       GlStateManager.translate(xzOffset, yOffset, xzOffset);
       GlStateManager.scale(xzScale, yScale, xzScale);
-      GlStateManager.scale(1.01f, 1.01f, 1.01f); // make it a tad bigger so it renders over the liquid (will be blended)
+      //GlStateManager.scale(1.01f, 1.01f, 1.01f); // make it a tad bigger so it renders over the liquid (will be blended)
+      //GlStateManager.scale(0.999f, 0.999f, 0.999f); // renderItem scales by 0.5
       GlStateManager.scale(2f, 2f, 2f); // renderItem scales by 0.5
 
       // align item orientation with casting tile orientation
@@ -105,7 +106,7 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
       GlStateManager.rotate(-90, 1, 0, 0);
 
       GlStateManager.blendFunc(GL11.GL_CONSTANT_ALPHA, GL11.GL_SRC_ALPHA);
-      GL14.glBlendColor(1f, 1f, 1f, progress/2f);
+      GL14.glBlendColor(1f, 1f, 1f, progress*2f/3f);
       //GL14.glBlendColor(1f, 1f, 1f, 1f); // debug
 
       IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
@@ -119,9 +120,10 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
   public static class Table extends CastingRenderer<TileCastingTable> {
 
     public Table() {
-      super(15/16f, 1f, 1/16f, 15/16f);
+      super(15/16f, 1f + 0.001f, 1/16f, 15/16f);
       this.xzScale = 0.875f;
-      this.yScale = 1;
+      this.yScale = 1f;
+      this.yOffset += 0.001f;
     }
   }
 
