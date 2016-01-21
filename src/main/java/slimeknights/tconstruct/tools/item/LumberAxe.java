@@ -43,6 +43,11 @@ public class LumberAxe extends Hatchet {
   }
 
   @Override
+  public float miningSpeedModifier() {
+    return 0.28f; // a bit slower because it breaks whole trees
+  }
+
+  @Override
   public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
     if(detectTree(player.worldObj, pos)) {
       return fellTree(itemstack, pos, player);
@@ -68,7 +73,6 @@ public class LumberAxe extends Hatchet {
 
     data.durability *= 1f + 0.15f * (binding.extraQuality - 0.5f);
     data.speed *= 1f + 0.1f * (handle.handleQuality * handle.miningspeed);
-    data.speed *= 0.3f; // slower because AOE
     data.attack = head.attack*2f + plate.attack/3f;
     data.attack *= 1f + 0.1f * handle.handleQuality * binding.extraQuality;
 

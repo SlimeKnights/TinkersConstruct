@@ -33,6 +33,11 @@ public class Hammer extends Pickaxe {
   }
 
   @Override
+  public float miningSpeedModifier() {
+    return 0.33f;
+  }
+
+  @Override
   public float damagePotential() {
     return 1.0f;
   }
@@ -64,7 +69,6 @@ public class Hammer extends Pickaxe {
     // head acts as the extra here
     data.durability *= 1f + 0.1f * (head.extraQuality - 0.5f);
     data.speed *= 1f + 0.2f * (handle.handleQuality * handle.miningspeed);
-    data.speed *= 0.3f; // slower because AOE
     data.attack = head.attack/2f + (plate1.attack + plate2.attack)/3f; // plates add damage
     data.attack *= 1f + 0.1f * handle.handleQuality * head.extraQuality;
 

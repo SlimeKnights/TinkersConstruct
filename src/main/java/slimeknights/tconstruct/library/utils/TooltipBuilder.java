@@ -17,6 +17,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
+import slimeknights.tconstruct.library.tools.ToolCore;
 
 /**
  * Used for simple info buidling in the tools!
@@ -75,7 +76,11 @@ public class TooltipBuilder {
 
   public TooltipBuilder addMiningSpeed() {
     if(stack != null) {
-      tips.add(ToolMaterialStats.formatMiningSpeed(ToolHelper.getMiningSpeed(stack)));
+      float speed = ToolHelper.getMiningSpeed(stack);
+      if(stack.getItem() instanceof ToolCore) {
+        speed *= ((ToolCore) stack.getItem()).miningSpeedModifier();
+      }
+      tips.add(ToolMaterialStats.formatMiningSpeed(speed));
     }
 
     return this;

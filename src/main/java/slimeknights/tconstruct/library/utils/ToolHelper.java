@@ -72,6 +72,7 @@ public final class ToolHelper {
     return getIntTag(stack, Tags.HARVESTLEVEL);
   }
 
+  /** Returns the spped saved on the tool. NOT the actual mining speed, multiply by miningSpeedModifier! */
   public static float getMiningSpeed(ItemStack stack) {
     return getfloatTag(stack, Tags.MININGSPEED);
   }
@@ -120,6 +121,10 @@ public final class ToolHelper {
     NBTTagCompound tag = TagUtil.getToolTag(stack);
     float strength = stack.getItem().getStrVsBlock(stack, blockState.getBlock());
     float speed = tag.getFloat(Tags.MININGSPEED);
+
+    if(stack.getItem() instanceof ToolCore) {
+      speed *= ((ToolCore) stack.getItem()).miningSpeedModifier();
+    }
 
     return strength * speed;
   }

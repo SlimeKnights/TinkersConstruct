@@ -81,6 +81,13 @@ public abstract class ToolCore extends TinkersItem {
 
   /* Tool and Weapon specific properties */
 
+  /** Multiplier applied to the actual mining speed of the tool
+   *  Internally a hammer and pick have the same speed, but a hammer is 2/3 slower
+   */
+  public float miningSpeedModifier() {
+    return 1f;
+  }
+
   /** Multiplier for damage from materials. Should be fixed per tool. */
   public abstract float damagePotential();
 

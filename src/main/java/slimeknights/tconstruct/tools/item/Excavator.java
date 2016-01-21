@@ -27,6 +27,11 @@ public class Excavator extends Shovel {
   }
 
   @Override
+  public float miningSpeedModifier() {
+    return 0.35f; // a bit faster than hammers to make terraforming easier
+  }
+
+  @Override
   public float damagePotential() {
     return 0.3f;
   }
