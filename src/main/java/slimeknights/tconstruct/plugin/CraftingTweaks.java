@@ -17,8 +17,7 @@ public class CraftingTweaks {
   public void init(FMLInitializationEvent event) {
     NBTTagCompound tagCompound = new NBTTagCompound();
     tagCompound.setString("ContainerClass", ContainerCraftingStation.class.getName());
-    tagCompound.setInteger("ButtonOffsetX", 10);
-    tagCompound.setInteger("ButtonOffsetY", 49);
+    tagCompound.setString("AlignToGrid", "left");
     FMLInterModComms.sendMessage(modid, "RegisterProvider", tagCompound);
   }
 
