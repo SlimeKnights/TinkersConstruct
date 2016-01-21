@@ -298,14 +298,14 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     int baseDurability = TagUtil.getOriginalToolStats(tool).durability;
     float increase = (50f  + (baseDurability * 0.4f * materialValue)/Material.VALUE_Ingot);
 
-    int modifiers = ToolTagUtil.getFreeModifiers(TagUtil.getTagSafe(tool));
+    int modifiersUsed = TagUtil.getBaseModifiersUsed(tool.getTagCompound());
     float mods = 1.0f;
-    if (modifiers == 2)
+    if(modifiersUsed == 1)
+      mods = 0.95f;
+    else if (modifiersUsed == 2)
       mods = 0.9f;
-    else if (modifiers == 1)
-      mods = 0.8f;
-    else if (modifiers == 0)
-      mods = 0.7f;
+    else if (modifiersUsed >= 3)
+      mods = 0.85f;
 
     increase *= mods;
 
