@@ -58,6 +58,8 @@ public class TinkerFluids extends TinkerPulse {
   public static FluidColored blueslime;
   public static FluidColored purpleSlime;
 
+  public static FluidMolten brass;
+
   static List<Fluid> fluids = Lists.newLinkedList(); // all fluids registered by tcon
 
   static {
@@ -88,6 +90,9 @@ public class TinkerFluids extends TinkerPulse {
     knightslime = fluidMetal(TinkerMaterials.knightslime);
     knightslime.setTemperature(520);
     knightslime.setRarity(EnumRarity.EPIC);
+
+    brass = fluidMetal("brass", 0xe7db5a);
+    brass.setTemperature(480);
   }
 
   @Subscribe

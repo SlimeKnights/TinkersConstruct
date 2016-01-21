@@ -50,6 +50,9 @@ public class TinkerIntegration extends TinkerPulse {
     integrate(TinkerMaterials.ardite, TinkerFluids.ardite, "Ardite");
     integrate(TinkerMaterials.manyullyn, TinkerFluids.manyullyn, "Manyullyn");
 
+    // non-toolmaterial integration
+    integrate(null, TinkerFluids.brass, "Brass");
+
     for(MaterialIntegration integration : integrationList) {
       integration.integrate();
     }
@@ -74,8 +77,11 @@ public class TinkerIntegration extends TinkerPulse {
     integrationList.add(new MaterialIntegration(oreRequirement, material, null, null));
   }
 
-  public static void integrate(Material material, Fluid fluid, String s) {
-    integrationList.add(new MaterialIntegration(material, fluid, s));
+  public static void integrate(Material material, Fluid fluid, String oreSuffix) {
+    integrationList.add(new MaterialIntegration(material, fluid, oreSuffix));
   }
 
+  public static void integrate(Fluid fluid, String oreSuffix) {
+    integrationList.add(new MaterialIntegration("ingot" + oreSuffix, null, fluid, oreSuffix));
+  }
 }

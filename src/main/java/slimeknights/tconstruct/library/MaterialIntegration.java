@@ -84,7 +84,9 @@ public class MaterialIntegration {
     if(fluid != null && oreSuffix != null) {
       TinkerSmeltery.registerOredictMeltingCasting(fluid, oreSuffix);
     }
-    TinkerSmeltery.registerToolpartMeltingCasting(material);
+    if(material != null) {
+      TinkerSmeltery.registerToolpartMeltingCasting(material);
+    }
   }
 
   public void registerFluidBlock() {
