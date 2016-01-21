@@ -4,7 +4,6 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -41,7 +40,6 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.library.utils.ToolHelper;
-import slimeknights.tconstruct.library.utils.ToolTagUtil;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.modifiers.traits.ToolGrowth;
@@ -71,7 +69,7 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public int getMaxDamage(ItemStack stack) {
-    return ToolHelper.getDurability(stack);
+    return ToolHelper.getDurabilityStat(stack);
   }
 
   @Override
@@ -312,7 +310,7 @@ public abstract class ToolCore extends TinkersItem {
     if(this.getToolClasses(stack).contains(toolClass)) {
       NBTTagCompound tag = TagUtil.getToolTag(stack);
       // will return 0 if the tag has no info anyway
-      return ToolTagUtil.getHarvestLevel(tag);
+      return ToolHelper.getHarvestLevelStat(stack);
     }
     return super.getHarvestLevel(stack, toolClass);
   }

@@ -6,14 +6,12 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
-import slimeknights.mantle.util.TagHelper;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
-import slimeknights.tconstruct.library.utils.ToolTagUtil;
 
 /**
  * Have you ever wanted to create a simple modifier that is only allowed on tools
@@ -60,8 +58,7 @@ public abstract class ModifierAspect {
 
     @Override
     public boolean canApply(ItemStack stack) throws TinkerGuiException {
-      NBTTagCompound toolTag = TagUtil.getToolTag(stack);
-      if(ToolTagUtil.getFreeModifiers(toolTag) < requiredModifiers) {
+      if(ToolHelper.getFreeModifiers(stack) < requiredModifiers) {
         String error = StatCollector.translateToLocalFormatted("gui.error.not_enough_modifiers", requiredModifiers);
         // also returns false if the tooltag is missing
         throw new TinkerGuiException(error);
@@ -74,7 +71,7 @@ public abstract class ModifierAspect {
     public void updateNBT(NBTTagCompound root, NBTTagCompound modifierTag) {
       // substract the modifiers
       NBTTagCompound toolTag = TagUtil.getToolTag(root);
-      int modifiers = ToolTagUtil.getFreeModifiers(toolTag) - requiredModifiers;
+      int modifiers = toolTag.getInteger(Tags.FREE_MODIFIERS) - requiredModifiers;
       toolTag.setInteger(Tags.FREE_MODIFIERS, Math.max(0, modifiers));
 
       // and increase the count of used modifiers

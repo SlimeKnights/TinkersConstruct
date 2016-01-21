@@ -111,7 +111,7 @@ public class ToolGrowth extends TraitProgressiveStats {
     // read data from tool
     NBTTagCompound root = TagUtil.getTagSafe(tool);
     StatNBT pool = getPool(root);
-    int totalDurability = ToolHelper.getDurability(tool);
+    int totalDurability = ToolHelper.getDurabilityStat(tool);
     float famount = amount;
 
     // cap the amount if it's more than what gets repaired
@@ -145,7 +145,7 @@ public class ToolGrowth extends TraitProgressiveStats {
     // read data from tool
     NBTTagCompound root = TagUtil.getTagSafe(tool);
     StatNBT pool = getPool(root);
-    float totalSpeed = ToolHelper.getMiningSpeed(tool);
+    float totalSpeed = ToolHelper.getMiningSpeedStat(tool);
 
     // calculate stats to add to pool. Baseline: 5
     float extra = calcDimishingReturns(totalSpeed, 5f) * SPEED_INCREMENT;
@@ -170,7 +170,7 @@ public class ToolGrowth extends TraitProgressiveStats {
     // read data from tool
     NBTTagCompound root = TagUtil.getTagSafe(tool);
     StatNBT pool = getPool(root);
-    float totalSpeed = ToolHelper.getMiningSpeed(tool);
+    float totalSpeed = ToolHelper.getMiningSpeedStat(tool);
 
     // calculate stats to add to pool. Baseline: 10 (= 5 hearts)
     float extra = calcDimishingReturns(totalSpeed, 10f) * ATTACK_INCREMENT;

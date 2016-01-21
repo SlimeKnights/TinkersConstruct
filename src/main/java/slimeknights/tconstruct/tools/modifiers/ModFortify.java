@@ -14,7 +14,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
-import slimeknights.tconstruct.library.utils.ToolTagUtil;
+import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 public class ModFortify extends Modifier {
@@ -50,7 +50,7 @@ public class ModFortify extends Modifier {
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
     NBTTagCompound tag = TagUtil.getToolTag(rootCompound);
     ToolMaterialStats stats = material.getStats(ToolMaterialStats.TYPE);
-    ToolTagUtil.setHarvestLevel(tag, stats.harvestLevel);
+    tag.setInteger(Tags.HARVESTLEVEL, stats.harvestLevel);
 
     // Remove other fortify modifiers, only the last one applies
     NBTTagList tagList = TagUtil.getModifiersTagList(rootCompound);

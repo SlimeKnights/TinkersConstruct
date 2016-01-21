@@ -15,7 +15,7 @@ public class TraitStonebound extends AbstractTrait {
 
   @Override
   public void miningSpeed(ItemStack tool, PlayerEvent.BreakSpeed event) {
-    float damaged = (float) tool.getItemDamage() / (float) ToolHelper.getDurability(tool);
+    float damaged = (float) tool.getItemDamage() / (float) ToolHelper.getDurabilityStat(tool);
 
     event.newSpeed = Math.max(0f, event.newSpeed + damaged * 5.0f);
   }

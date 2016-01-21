@@ -36,7 +36,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IShearable;
-import net.minecraftforge.event.world.BlockEvent;
 
 import java.util.List;
 
@@ -64,22 +63,40 @@ public final class ToolHelper {
   }
 
   /* Basic Tool data */
-  public static int getDurability(ItemStack stack) {
+  public static int getDurabilityStat(ItemStack stack) {
     return getIntTag(stack, Tags.DURABILITY);
   }
 
-  public static int getHarvestLevel(ItemStack stack) {
+  public static int getHarvestLevelStat(ItemStack stack) {
     return getIntTag(stack, Tags.HARVESTLEVEL);
   }
 
-  /** Returns the spped saved on the tool. NOT the actual mining speed, multiply by miningSpeedModifier! */
-  public static float getMiningSpeed(ItemStack stack) {
+  /** Returns the speed saved on the tool. NOT the actual mining speed, see getActualMiningSpeed */
+  public static float getMiningSpeedStat(ItemStack stack) {
     return getfloatTag(stack, Tags.MININGSPEED);
   }
 
-  public static float getAttack(ItemStack stack) {
+  public static float getAttackStat(ItemStack stack) {
     return getfloatTag(stack, Tags.ATTACK);
   }
+
+  public static float getActualAttack(ItemStack stack) {
+    float damage = getAttackStat(stack);
+    if(stack != null && stack.getItem() instanceof ToolCore) {
+      damage *= ((ToolCore) stack.getItem()).damagePotential();
+    }
+    return damage;
+  }
+
+  /** Returns the speed saved on the tool. NOT the actual mining speed, see getActualMiningSpeed */
+  public static float getActualMiningSpeed(ItemStack stack) {
+    float speed = getMiningSpeedStat(stack);
+    if(stack != null && stack.getItem() instanceof ToolCore) {
+      speed *= ((ToolCore) stack.getItem()).miningSpeedModifier();
+    }
+    return speed;
+  }
+
 
   public static int getFreeModifiers(ItemStack stack) {
     return getIntTag(stack, Tags.FREE_MODIFIERS);
@@ -516,7 +533,7 @@ public final class ToolHelper {
     float baseKnockback = player.isSprinting() ? 1 : 0;
 
     // tool damage
-    baseDamage += ToolHelper.getAttack(stack);
+    baseDamage += ToolHelper.getAttackStat(stack);
     baseDamage *= tool.damagePotential();
 
     // calculate if it's a critical hit
@@ -650,10 +667,9 @@ public final class ToolHelper {
 
   public static float getActualDamage(ItemStack stack, EntityPlayer player) {
     float damage = (float)player.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
+    damage += ToolHelper.getActualAttack(stack);
 
     if(stack.getItem() instanceof ToolCore) {
-      damage += ToolHelper.getAttack(stack);
-      damage *= ((ToolCore) stack.getItem()).damagePotential();
       damage = ToolHelper.calcCutoffDamage(damage, ((ToolCore) stack.getItem()).damageCutoff());
     }
 
@@ -731,13 +747,13 @@ public final class ToolHelper {
 
   /* Helper Functions */
 
-  public static int getIntTag(ItemStack stack, String key) {
+  static int getIntTag(ItemStack stack, String key) {
     NBTTagCompound tag = TagUtil.getToolTag(stack);
 
     return tag.getInteger(key);
   }
 
-  public static float getfloatTag(ItemStack stack, String key) {
+  static float getfloatTag(ItemStack stack, String key) {
     NBTTagCompound tag = TagUtil.getToolTag(stack);
 
     return tag.getFloat(key);

@@ -147,14 +147,14 @@ public class DumpMaterialTest extends CommandBase {
         if(!mat2.hasStats(ToolMaterialStats.TYPE))
           continue;
         ItemStack stack = tool.buildItem(ImmutableList.of(mat1, head, mat2));
-        int d = ToolHelper.getDurability(stack);
+        int d = ToolHelper.getDurabilityStat(stack);
         String s = String.format("<td bgcolor=\"%s\">%s</td>", Integer
             .toHexString(floatToCol((float) d / (float) ref.durability)), String.valueOf(d));
         dur.add(s);
-        float sp = ToolHelper.getMiningSpeed(stack);
+        float sp = ToolHelper.getMiningSpeedStat(stack);
         s = String.format("<td bgcolor=\"%s\">%s</td>", Integer.toHexString(floatToCol(sp/ref.miningspeed)), df.format(sp));
         speed.add(s);
-        float at = ToolHelper.getAttack(stack) * tool.damagePotential();
+        float at = ToolHelper.getAttackStat(stack) * tool.damagePotential();
         s = String.format("<td bgcolor=\"%s\">%s</td>", Integer.toHexString(floatToCol(at/ref.attack)), df.format(at));
         att.add(s);
       }

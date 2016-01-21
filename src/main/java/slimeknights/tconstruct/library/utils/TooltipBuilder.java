@@ -67,7 +67,7 @@ public class TooltipBuilder {
         tips.add(String.format("%s: %s%s%s", Util.translate(ToolMaterialStats.LOC_Durability), EnumChatFormatting.DARK_RED, EnumChatFormatting.BOLD, Util.translate("tooltip.tool.broken")));
       }
       else {
-        tips.add(ToolMaterialStats.formatDurability(ToolHelper.getCurrentDurability(stack), ToolHelper.getDurability(stack)));
+        tips.add(ToolMaterialStats.formatDurability(ToolHelper.getCurrentDurability(stack), ToolHelper.getDurabilityStat(stack)));
       }
     }
 
@@ -76,11 +76,7 @@ public class TooltipBuilder {
 
   public TooltipBuilder addMiningSpeed() {
     if(stack != null) {
-      float speed = ToolHelper.getMiningSpeed(stack);
-      if(stack.getItem() instanceof ToolCore) {
-        speed *= ((ToolCore) stack.getItem()).miningSpeedModifier();
-      }
-      tips.add(ToolMaterialStats.formatMiningSpeed(speed));
+      tips.add(ToolMaterialStats.formatMiningSpeed(ToolHelper.getActualMiningSpeed(stack)));
     }
 
     return this;
@@ -88,7 +84,7 @@ public class TooltipBuilder {
 
   public TooltipBuilder addHarvestLevel() {
     if(stack != null) {
-      tips.add(ToolMaterialStats.formatHarvestLevel(ToolHelper.getHarvestLevel(stack)));
+      tips.add(ToolMaterialStats.formatHarvestLevel(ToolHelper.getHarvestLevelStat(stack)));
     }
 
     return this;

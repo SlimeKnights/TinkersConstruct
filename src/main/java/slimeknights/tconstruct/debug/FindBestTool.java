@@ -76,19 +76,19 @@ public class FindBestTool extends CommandBase {
         new Function<ItemStack, Integer>() {
           @Override
           public Integer apply(ItemStack itemStack) {
-            return ToolHelper.getDurability(itemStack);
+            return ToolHelper.getDurabilityStat(itemStack);
           }
         },
         new Function<ItemStack, Float>() {
           @Override
           public Float apply(ItemStack itemStack) {
-            return ToolHelper.getMiningSpeed(itemStack);
+            return ToolHelper.getMiningSpeedStat(itemStack);
           }
         },
         new Function<ItemStack, Float>() {
           @Override
           public Float apply(ItemStack itemStack) {
-            return ToolHelper.getAttack(itemStack);
+            return ToolHelper.getAttackStat(itemStack);
           }
         }
     };

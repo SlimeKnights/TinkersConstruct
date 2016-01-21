@@ -6,7 +6,6 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
-import slimeknights.tconstruct.library.utils.ToolTagUtil;
 
 public class ModCreative extends Modifier {
 
@@ -32,7 +31,7 @@ public class ModCreative extends Modifier {
     // substract the modifiers
     NBTTagCompound toolTag = TagUtil.getToolTag(rootCompound);
     ModifierNBT data = ModifierNBT.readTag(modifierTag);
-    int modifiers = ToolTagUtil.getFreeModifiers(toolTag) + data.level;
+    int modifiers = toolTag.getInteger(Tags.FREE_MODIFIERS) + data.level;
     toolTag.setInteger(Tags.FREE_MODIFIERS, Math.max(0, modifiers));
   }
 }
