@@ -295,9 +295,9 @@ stat.harvestlevel.desc=What range of blocks a tool with a tool head of this mate
 stat.attack.name=Attack
 stat.attack.desc=Base value for attack calculations.\nThe end result depens on the tool itself and the other components used.
 stat.handle.name=Handle
-stat.handle.desc=How good the material is for a handle.\nInfluences many different stats.
+stat.handle.desc=How well the material is suited for a handle.\nThe higher the value, the better your tool will be.\nMaximum of 100%
 stat.extra.name=Quality
-stat.extra.desc=How good the material is for secondary parts.\nInfluences many different stats.
+stat.extra.desc=How well the material is suited for secondary parts.\nThe higher the value, the better your tool will be.\nMaximum of 100%
 stat.axespeed=name=Axe Speed
 stat.shovelspeed=name=Shovel Speed
 
