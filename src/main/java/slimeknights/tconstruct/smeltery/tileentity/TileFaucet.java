@@ -73,9 +73,9 @@ public class TileFaucet extends TileEntity implements ITickable {
 
     if(drained != null) {
       // reduce amount (cooldown)
-      drained.amount -= LIQUID_TRANSFER;
+      pour();
       // done draining
-      if(drained.amount < 0) {
+      if(drained.amount <= 0) {
         drained = null;
         // pour me another, if we want to.
         if(!stopPouring) {
@@ -107,8 +107,8 @@ public class TileFaucet extends TileEntity implements ITickable {
         if(filled > 0) {
           // drain the liquid and transfer it, buffer the amount for delay
           this.drained = toDrain.drain(direction, filled, true);
-          toFill.fill(EnumFacing.UP, this.drained, true);
           this.isPouring = true;
+          pour();
 
           // sync to clients
           if(!worldObj.isRemote && worldObj instanceof WorldServer) {
@@ -121,6 +121,34 @@ public class TileFaucet extends TileEntity implements ITickable {
     }
     // draining unsuccessful
     reset();
+  }
+
+  // takes the liquid inside and executes one pouring step
+  protected void pour() {
+    if(drained == null) {
+      return;
+    }
+
+    TileEntity fillTE = worldObj.getTileEntity(pos.down());
+    if(fillTE instanceof IFluidHandler) {
+      IFluidHandler toFill = (IFluidHandler) fillTE;
+
+      FluidStack fillStack = drained.copy();
+      fillStack.amount = LIQUID_TRANSFER;
+
+      // can we fill?
+      int filled = toFill.fill(EnumFacing.UP, fillStack, false);
+      if(filled > 0) {
+        // transfer it
+        this.drained.amount -= filled;
+        fillStack.amount = filled;
+        toFill.fill(EnumFacing.UP, fillStack, true);
+      }
+    }
+    else {
+      // filling TE got lost. reset. all liquid buffered is lost.
+      reset();
+    }
   }
 
   protected void reset() {
