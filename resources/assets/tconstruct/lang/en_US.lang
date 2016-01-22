@@ -490,6 +490,9 @@ gui.partchest.name=Part Chest
 
 # Smeltery
 gui.smeltery.name=Smeltery
+gui.smeltery.progress.no_recipe=Item can't be molten
+gui.smeltery.progress.no_heat=Not enough heat to melt this item
+gui.smeltery.progress.no_space=Not enough free space in the smeltery
 gui.smeltery.fuel=Fuel
 gui.smeltery.fuel.empty=No fuel found
 gui.smeltery.fuel.heat=Temperature: %d
