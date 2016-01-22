@@ -56,6 +56,10 @@
         "purpleslime": {
             "model": "forge:fluid",
             "custom": { "fluid": "purpleslime" }
+        },
+        "brass": {
+            "model": "forge:fluid",
+            "custom": { "fluid": "brass" }
         }
     }
 }

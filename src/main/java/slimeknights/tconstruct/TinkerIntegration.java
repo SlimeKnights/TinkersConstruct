@@ -3,9 +3,12 @@ package slimeknights.tconstruct;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
 
@@ -56,12 +59,25 @@ public class TinkerIntegration extends TinkerPulse {
     for(MaterialIntegration integration : integrationList) {
       integration.integrate();
     }
+
+    MinecraftForge.EVENT_BUS.register(this);
   }
 
   @Subscribe
   public void init(FMLInitializationEvent event) {
+    // do we got integration
     for(MaterialIntegration integration : integrationList) {
+      // integrate again, some oredicts might not have been present in the previous attempt
       integration.integrateRecipes();
+    }
+  }
+
+  @SubscribeEvent
+  public void onOredictRegister(OreDictionary.OreRegisterEvent event) {
+    // the registered ore might be something we integrate and haven't yet
+    for(MaterialIntegration integration : integrationList) {
+      // calling this multiple time is ok because it does nothing once it was successful
+      integration.integrate();
     }
   }
 
@@ -82,6 +98,6 @@ public class TinkerIntegration extends TinkerPulse {
   }
 
   public static void integrate(Fluid fluid, String oreSuffix) {
-    integrationList.add(new MaterialIntegration("ingot" + oreSuffix, null, fluid, oreSuffix));
+    integrationList.add(new MaterialIntegration(null, fluid, oreSuffix));
   }
 }

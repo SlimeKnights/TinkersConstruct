@@ -57,7 +57,7 @@ public abstract class TinkerPulse {
   protected static <T extends Block> T registerBlock(T block, String name) {
     block.setUnlocalizedName(Util.prefix(name));
     block.setRegistryName(Util.getResource(name));
-    GameRegistry.registerBlock(block, name);
+    GameRegistry.registerBlock(block, Util.resource(name));
     return block;
   }
 

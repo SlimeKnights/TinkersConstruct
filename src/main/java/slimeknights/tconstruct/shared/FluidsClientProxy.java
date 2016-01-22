@@ -21,16 +21,27 @@ public class FluidsClientProxy extends ClientProxy {
   protected void registerModels() {
     super.registerModels();
 
-    for(Fluid fluid : TinkerFluids.fluids) {
-      Block block = fluid.getBlock();
-      Item item = Item.getItemFromBlock(block);
-      FluidStateMapper mapper = new FluidStateMapper(fluid);
-      // item-model
-      ModelLoader.registerItemVariants(item);
-      ModelLoader.setCustomMeshDefinition(item, mapper);
-      // block-model
-      ModelLoader.setCustomStateMapper(block, mapper);
-    }
+    registerFluidModels(TinkerFluids.searedStone);
+    registerFluidModels(TinkerFluids.obsidian);
+    registerFluidModels(TinkerFluids.gold);
+    registerFluidModels(TinkerFluids.emerald);
+
+    registerFluidModels(TinkerFluids.milk);
+    registerFluidModels(TinkerFluids.blueslime);
+    registerFluidModels(TinkerFluids.purpleSlime);
+    registerFluidModels(TinkerFluids.blood);
+  }
+
+  @Override
+  public void registerFluidModels(Fluid fluid) {
+    Block block = fluid.getBlock();
+    Item item = Item.getItemFromBlock(block);
+    FluidStateMapper mapper = new FluidStateMapper(fluid);
+    // item-model
+    ModelLoader.registerItemVariants(item);
+    ModelLoader.setCustomMeshDefinition(item, mapper);
+    // block-model
+    ModelLoader.setCustomStateMapper(block, mapper);
   }
 
   public static class FluidStateMapper extends StateMapperBase implements ItemMeshDefinition {

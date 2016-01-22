@@ -18,6 +18,7 @@ public class MaterialIntegration {
   public Fluid fluid;
   public String oreSuffix; // oredict suffix, e.g. "Iron" -> "ingotIron", "blockIron",...
   public String oreRequirement; // required oredict entry for this integration
+  private boolean integrated;
 
   public MaterialIntegration(Material material) {
     this(material, null);
@@ -36,9 +37,15 @@ public class MaterialIntegration {
     this.fluid = fluid;
     this.oreSuffix = oreSuffix;
     this.oreRequirement = oreRequirement;
+
+    this.integrated = false;
   }
 
   public void integrate() {
+    if(integrated) {
+      return;
+    }
+
     if(oreRequirement != null) {
       boolean found = false;
       // we use this method because it doesn't add empty entries to the oredict, even though it is less performant
@@ -53,6 +60,8 @@ public class MaterialIntegration {
         return;
       }
     }
+
+    integrated = true;
 
     // decativate fluids if smeltery isn't loaded
     if(!TConstruct.pulseManager.isPulseLoaded(TinkerSmeltery.PulseId)) {
@@ -91,5 +100,6 @@ public class MaterialIntegration {
 
   public void registerFluidBlock() {
     TinkerFluids.registerMoltenBlock(fluid);
+    TinkerFluids.proxy.registerFluidModels(fluid);
   }
 }

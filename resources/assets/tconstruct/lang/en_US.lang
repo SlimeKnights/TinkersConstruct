@@ -114,6 +114,7 @@ tile.tconstruct.blood=fluid.tconstruct.blood
 tile.tconstruct.milk=fluid.tconstruct.milk
 tile.tconstruct.blueslime=fluid.tconstruct.blueslime
 tile.tconstruct.purpleslime=fluid.tconstruct.purpleslime
+tile.tconstruct.molten_brass=fluid.tconstruct.brass
 
 ################
 #    Items     #
@@ -245,6 +246,7 @@ fluid.tconstruct.blood.name=Blood
 fluid.tconstruct.milk.name=Milk
 fluid.tconstruct.blueslime.name=Liquid Blue Slime
 fluid.tconstruct.purpleslime.name=Liquid Purple Slime
+fluid.tconstruct.brass.name=Molten Brass
 
 #################
 #    Potions    #

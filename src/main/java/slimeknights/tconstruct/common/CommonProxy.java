@@ -3,6 +3,7 @@ package slimeknights.tconstruct.common;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
 
@@ -52,6 +53,10 @@ public class CommonProxy {
   }
 
   public void spawnSlimeParticle(World world, double x, double y, double z) {
+
+  }
+
+  public void registerFluidModels(Fluid fluid) {
 
   }
 
