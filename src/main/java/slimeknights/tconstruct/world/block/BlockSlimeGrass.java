@@ -119,7 +119,7 @@ public class BlockSlimeGrass extends BlockGrass {
           IBlockState state1 = worldIn.getBlockState(pos1);
 
           if(worldIn.getLightFromNeighbors(pos1.up()) >= 4 && block.getLightOpacity(worldIn, pos1.up()) <= 2) {
-            convert(worldIn, pos1, state1, (FoliageType) state.getValue(FOLIAGE));
+            convert(worldIn, pos1, state1, state.getValue(FOLIAGE));
           }
         }
       }
@@ -147,8 +147,8 @@ public class BlockSlimeGrass extends BlockGrass {
 
   @Override
   public int getMetaFromState(IBlockState state) {
-    DirtType type = ((DirtType) state.getValue(TYPE));
-    FoliageType grass = (FoliageType) state.getValue(FOLIAGE);
+    DirtType type = state.getValue(TYPE);
+    FoliageType grass = state.getValue(FOLIAGE);
 
     //type goes from 0-5, grass goes from 0-2 resulting in 0-5, 6-10, 11-15
     return type.ordinal() + grass.ordinal()*5;
@@ -156,11 +156,11 @@ public class BlockSlimeGrass extends BlockGrass {
 
   @Override
   public int damageDropped(IBlockState state) {
-    DirtType type = (DirtType) state.getValue(TYPE);
+    DirtType type = state.getValue(TYPE);
     if(type == DirtType.VANILLA)
       return 0;
 
-    return ((BlockSlimeDirt.DirtType)getDirtState(state).getValue(BlockSlimeDirt.TYPE)).getMeta();
+    return getDirtState(state).getValue(BlockSlimeDirt.TYPE).getMeta();
   }
 
   @Override
@@ -170,7 +170,7 @@ public class BlockSlimeGrass extends BlockGrass {
 
   /** Returns the blockstate for the dirt underneath the grass */
   public IBlockState getDirtState(IBlockState grassState) {
-    DirtType type = (DirtType) grassState.getValue(TYPE);
+    DirtType type = grassState.getValue(TYPE);
     switch(type) {
       case VANILLA:
         return Blocks.dirt.getDefaultState();
@@ -206,6 +206,10 @@ public class BlockSlimeGrass extends BlockGrass {
       else if(dirtState.getValue(BlockSlimeDirt.TYPE) == BlockSlimeDirt.DirtType.PURPLE) {
         return this.getDefaultState().withProperty(TYPE, DirtType.PURPLE);
       }
+      // magma slimedirt
+      else if(dirtState.getValue(BlockSlimeDirt.TYPE) == BlockSlimeDirt.DirtType.MAGMA) {
+        return this.getDefaultState().withProperty(TYPE, DirtType.MAGMA);
+      }
     }
 
     return null;
@@ -226,7 +230,7 @@ public class BlockSlimeGrass extends BlockGrass {
   @SideOnly(Side.CLIENT)
   @Override
   public int getRenderColor(IBlockState state) {
-    FoliageType foliageType = (FoliageType) state.getValue(FOLIAGE);
+    FoliageType foliageType = state.getValue(FOLIAGE);
     return SlimeColorizer.getColorStatic(foliageType);
   }
 
@@ -237,7 +241,7 @@ public class BlockSlimeGrass extends BlockGrass {
     IBlockState state = worldIn.getBlockState(pos);
     if(state.getBlock() != this) return getBlockColor();
 
-    FoliageType foliageType = (FoliageType) state.getValue(FOLIAGE);
+    FoliageType foliageType = state.getValue(FOLIAGE);
     return SlimeColorizer.getColorForPos(pos, foliageType);
   }
 
