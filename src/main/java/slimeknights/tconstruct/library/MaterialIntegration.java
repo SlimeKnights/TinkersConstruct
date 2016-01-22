@@ -89,6 +89,9 @@ public class MaterialIntegration {
   }
 
   public void integrateRecipes() {
+    if(!integrated) {
+      return;
+    }
     // register melting and casting
     if(fluid != null && oreSuffix != null) {
       TinkerSmeltery.registerOredictMeltingCasting(fluid, oreSuffix);
