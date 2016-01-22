@@ -63,7 +63,7 @@ public class Pickaxe extends AoeToolCore {
     data.handle(handle).extra(binding);
 
     data.durability *= 1f + 0.1f * (binding.extraQuality - 0.5f);
-    data.speed *= 1f + 0.2f * (handle.handleQuality * handle.miningspeed);
+    data.speed *= 1f + 0.03f * (handle.handleQuality * handle.miningspeed);
     data.attack *= 1f + 0.1f * handle.handleQuality * binding.extraQuality;
 
     // handle influences durability

@@ -70,9 +70,9 @@ public class Cleaver extends BroadSword {
     data.durability *= 1f + 0.1f * (guard.extraQuality - 0.5f);
     data.speed *= 1f + 0.05f * (handle.handleQuality * handle.miningspeed);
 
-    data.attack += 5f;
+    data.attack *= 2f/3f;
     data.attack += shield.attack/3f;
-    data.attack *= 1f + 0.15f * handle.handleQuality * guard.extraQuality;
+    data.attack *= 1f + 0.05f * handle.handleQuality * guard.extraQuality;
 /*
     data.durability += 0.5f * shield.durability;
     data.durability *= 0.3f + 0.8f * handle.handleQuality;

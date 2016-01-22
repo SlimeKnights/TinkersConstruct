@@ -313,8 +313,8 @@ public final class TinkerMaterials {
   public void registerToolMaterials() {
     // Stats:                                                   Durability, speed, attack, handle, extra, harvestlevel
     // natural resources/blocks
-    TinkerRegistry.addMaterialStats(wood,       new ToolMaterialStats(  73, 3.40f, 2.00f, 0.75f, 0.50f, STONE));
-    TinkerRegistry.addMaterialStats(stone,      new ToolMaterialStats( 131, 3.80f, 2.10f, 0.05f, 0.18f, IRON));
+    TinkerRegistry.addMaterialStats(wood,       new ToolMaterialStats(  73, 1.80f, 2.00f, 0.75f, 0.50f, STONE));
+    TinkerRegistry.addMaterialStats(stone,      new ToolMaterialStats( 131, 3.50f, 2.10f, 0.05f, 0.18f, IRON));
     TinkerRegistry.addMaterialStats(flint,      new ToolMaterialStats( 235, 5.00f, 2.80f, 0.20f, 0.19f, IRON));
     TinkerRegistry.addMaterialStats(cactus,     new ToolMaterialStats( 329, 4.50f, 3.40f, 0.25f, 0.43f, IRON));
     TinkerRegistry.addMaterialStats(bone,       new ToolMaterialStats( 373, 5.09f, 2.50f, 0.81f, 0.56f, IRON));
@@ -336,7 +336,7 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterialStats(manyullyn,  new ToolMaterialStats( 513, 7.02f, 8.72f, 0.30f, 0.70f, COBALT));
 
     // Metals
-    TinkerRegistry.addMaterialStats(iron,       new ToolMaterialStats( 275, 5.70f, 4.00f, 0.50f, 0.60f, DIAMOND));
+    TinkerRegistry.addMaterialStats(iron,       new ToolMaterialStats( 204, 5.65f, 4.00f, 0.50f, 0.60f, DIAMOND));
     TinkerRegistry.addMaterialStats(pigiron,    new ToolMaterialStats( 380, 6.20f, 4.50f, 0.66f, 0.73f, OBSIDIAN));
 
     //TinkerRegistry.addMaterialStats(xu,         new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, DIAMOND));

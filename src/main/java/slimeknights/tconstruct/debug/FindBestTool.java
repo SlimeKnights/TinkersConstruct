@@ -49,8 +49,6 @@ public class FindBestTool extends CommandBase {
 
   @Override
   public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-    if(sender.getEntityWorld().isRemote) return;
-
     int num, filtertype;
     if(args.length < 1) throw new CommandException("Too few arguments");
     else if(args.length < 2) {
@@ -68,7 +66,7 @@ public class FindBestTool extends CommandBase {
       throw new CommandException("Inavlid arguments");
     }
 
-    ToolCore tool = TinkerTools.hammer;
+    ToolCore tool = TinkerTools.pickaxe;
     List<Triple<ItemStack, ImmutableList<Material>, Object[]>> results = Lists.newArrayList();
 
     @SuppressWarnings("unchecked")
@@ -207,9 +205,9 @@ public class FindBestTool extends CommandBase {
       text.append("Dur: ");
       text.append(foo.getRight()[0]);
       text.append(" Speed: ");
-      text.append(foo.getRight()[1]);
+      text.append((Float)foo.getRight()[1] * tool.miningSpeedModifier());
       text.append(" Dmg: ");
-      text.append(foo.getRight()[2]);
+      text.append((Float)foo.getRight()[2] * tool.damagePotential());
 
       sender.addChatMessage(foo.getLeft().getChatComponent().appendSibling(new ChatComponentText(text.toString())));
       //System.out.println(text.toString());
