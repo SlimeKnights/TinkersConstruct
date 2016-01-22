@@ -289,7 +289,7 @@ public class TinkerTools extends TinkerPulse {
     modReinforced = registerModifier(new ModReinforced());
     modReinforced.addItem(TinkerCommons.matReinforcement, 1, 1);
 
-    modSharpness = registerModifier(new ModSharpness(24));
+    modSharpness = registerModifier(new ModSharpness(72));
     modSharpness.addItem("gemQuartz");
     modSharpness.addItem("blockQuartz", 1, 4);
 

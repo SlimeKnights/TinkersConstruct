@@ -36,12 +36,12 @@ public class ModSharpness extends Modifier {
         attack += 0.10f - 0.05f * attack / 10f;
       }
       else if(attack <= 20f) {
-        // 0.05 to 0.01
-        attack += 0.05f - 0.04 * attack / 20f;
+        // 0.05 to 0.02
+        attack += 0.05f - 0.03 * attack / 20f;
       }
       else {
-        // flat +0.01
-        attack += 0.01;
+        // flat +0.02
+        attack += 0.02;
       }
     }
 
