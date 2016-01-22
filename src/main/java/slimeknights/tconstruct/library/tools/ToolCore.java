@@ -205,9 +205,7 @@ public abstract class ToolCore extends TinkersItem {
       info.addHarvestLevel();
       info.addMiningSpeed();
     }
-    if(hasCategory(Category.WEAPON)) {
-      info.addAttack();
-    }
+    info.addAttack();
 
     if(ToolHelper.getFreeModifiers(stack) > 0) {
       info.addFreeModifiers();

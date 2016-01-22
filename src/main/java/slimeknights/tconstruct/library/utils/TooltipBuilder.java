@@ -67,7 +67,7 @@ public class TooltipBuilder {
         tips.add(String.format("%s: %s%s%s", Util.translate(ToolMaterialStats.LOC_Durability), EnumChatFormatting.DARK_RED, EnumChatFormatting.BOLD, Util.translate("tooltip.tool.broken")));
       }
       else {
-        tips.add(ToolMaterialStats.formatDurability(ToolHelper.getCurrentDurability(stack), ToolHelper.getDurabilityStat(stack)));
+        tips.add(ToolMaterialStats.formatDurability(ToolHelper.getCurrentDurability(stack), ToolHelper.getDurabilityStat(stack), true));
       }
     }
 

@@ -66,12 +66,20 @@ public class ToolMaterialStats extends AbstractMaterialStats {
   }
 
   public static String formatDurability(int durability) {
-    return formatDurability(durability, 1000);
+    return formatDurability(durability, 1000, false);
   }
 
-  public static String formatDurability(int durability, int ref) {
-    return String.format("%s: %s%s", Util.translate(LOC_Durability), CustomFontColor
-        .valueToColorCode((float)durability / (float)ref), df.format(durability)) + EnumChatFormatting.RESET;
+  public static String formatDurability(int durability, int ref, boolean showRef) {
+    String refStr = "";
+    if(showRef) {
+      refStr = EnumChatFormatting.GRAY.toString() + "/" + CustomFontColor.valueToColorCode(1f) + df.format(ref);
+    }
+    return String.format("%s: %s%s%s",
+                         Util.translate(LOC_Durability),
+                         CustomFontColor.valueToColorCode((float)durability / (float)ref),
+                         df.format(durability),
+                         refStr)
+           + EnumChatFormatting.RESET;
   }
 
   public static String formatHarvestLevel(int level) {
