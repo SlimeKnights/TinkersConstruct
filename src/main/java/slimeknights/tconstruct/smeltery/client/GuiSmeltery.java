@@ -221,7 +221,7 @@ public class GuiSmeltery extends GuiMultiModule {
     }
     // table casting
     for(CastingRecipe recipe : TinkerRegistry.getAllTableCastingRecipes()) {
-      if(recipe.getFluid().getFluid() == fluid) {
+      if(recipe.getFluid().getFluid() == fluid && recipe.cast != null) {
         // nugget
         if(recipe.cast.matches(new ItemStack[]{TinkerSmeltery.castNugget}) != null) {
           list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.nugget"));
