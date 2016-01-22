@@ -80,6 +80,6 @@ public class CastingRecipe {
     int time = 24;
     int temperature = fluid.getTemperature()-300;
 
-    return time + (temperature*amount)/2300;
+    return time + (temperature*amount)/1600;
   }
 }
