@@ -89,7 +89,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
       }
     }
 
-    String materialInfo = StatCollector.translateToLocalFormatted("tooltip.part.materialAddedBy",
+    String materialInfo = StatCollector.translateToLocalFormatted("tooltip.part.material_added_by",
                                                                   TinkerRegistry.getTrace(material));
     tooltip.add("");
     tooltip.add(materialInfo);
