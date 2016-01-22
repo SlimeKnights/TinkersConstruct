@@ -31,12 +31,4 @@ public class Cast extends Pattern implements ICast {
       subItems.add(stack);
     }
   }
-
-  @Override
-  public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-    Item part = getPartFromTag(stack);
-    if(part != null && part instanceof IToolPart) {
-      tooltip.add(Util.translateFormatted("tooltip.cast.cost", ((IToolPart)part).getCost()));
-    }
-  }
 }

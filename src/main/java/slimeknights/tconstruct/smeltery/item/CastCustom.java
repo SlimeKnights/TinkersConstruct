@@ -14,6 +14,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.smeltery.ICast;
 import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.tools.Pattern;
 
 public class CastCustom extends ItemMetaDynamic implements ICast {
 
@@ -35,13 +36,5 @@ public class CastCustom extends ItemMetaDynamic implements ICast {
       throw new RuntimeException("Usage of wrong function. Use the addMeta function that has an amount paired with it with this implementation");
     }
     return super.addMeta(meta, name);
-  }
-
-  @Override
-  public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-    int meta = stack.getItemDamage();
-    if(values.containsKey(meta)) {
-      tooltip.add(Util.translateFormatted("tooltip.cast.cost", values.get(meta)));
-    }
   }
 }

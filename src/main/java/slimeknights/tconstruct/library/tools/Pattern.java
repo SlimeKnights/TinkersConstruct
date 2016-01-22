@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 
 public class Pattern extends Item implements IPattern {
 
-  private static final DecimalFormat df = new DecimalFormat("#.##");
+  public static final DecimalFormat df = new DecimalFormat("#.##");
 
   public static final String TAG_PARTTYPE = "PartType";
 

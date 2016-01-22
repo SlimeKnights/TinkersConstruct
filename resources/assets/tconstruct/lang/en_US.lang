@@ -405,7 +405,6 @@ tooltip.part.missing_stats=Material is missing the required stats:\n%s
 tooltip.part.missing_info=Part has no data
 
 tooltip.pattern.cost=Material Cost: %d
-tooltip.cast.cost=Material Cost: %d mb
 
 tooltip.chest.has_items=Contains items
 
