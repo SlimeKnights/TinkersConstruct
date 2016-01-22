@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.Fluid;
@@ -95,24 +96,31 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     // fully filled
     if(tank.getFluidAmount() == tank.getCapacity()) {
       timer++;
-      if(!worldObj.isRemote && timer >= recipe.getTime()) {
-        TinkerCastingEvent.OnCasted event = TinkerCastingEvent.OnCasted.fire(recipe, this);
-        // done, finish!
-        if(event.consumeCast) {
-          setInventorySlotContents(0, null);
-        }
+      if(!worldObj.isRemote) {
+        if(timer >= recipe.getTime()) {
+          TinkerCastingEvent.OnCasted event = TinkerCastingEvent.OnCasted.fire(recipe, this);
+          // done, finish!
+          if(event.consumeCast) {
+            setInventorySlotContents(0, null);
+          }
 
-        // put result into output
-        if(event.switchOutputs) {
-          setInventorySlotContents(1, getStackInSlot(0));
-          setInventorySlotContents(0, event.output);
-        }
-        else {
-          setInventorySlotContents(1, event.output);
-        }
+          // put result into output
+          if(event.switchOutputs) {
+            setInventorySlotContents(1, getStackInSlot(0));
+            setInventorySlotContents(0, event.output);
+          }
+          else {
+            setInventorySlotContents(1, event.output);
+          }
 
-        // reset state
-        reset();
+          worldObj.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "random.fizz", 0.07f, 4f);
+
+          // reset state
+          reset();
+        }
+      }
+      else if(worldObj.rand.nextFloat() > 0.9f) {
+        worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, pos.getX() + worldObj.rand.nextDouble(), pos.getY() + 1.1, pos.getZ() + worldObj.rand.nextDouble(), 0.0D, 0.0D, 0.0D);
       }
     }
   }

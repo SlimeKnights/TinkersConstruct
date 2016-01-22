@@ -66,9 +66,9 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
     //RenderUtil.renderFluidCuboid(te.tank.getFluid(), te.getPos(), x,y,z, xzMin, yMin, xzMin, xzMax, yh, xzMax);
     FluidStack fluid = te.tank.getFluid();
     float progress = 0f;
-    if(te.renderOffset == 0) {
+    //if(te.renderOffset == 0) {
       progress = te.getCooldownProgress();
-    }
+    //}
 
     int color = fluid.getFluid().getColor(fluid);
     int r,g,b,a;
@@ -78,9 +78,9 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
     b = RenderUtil.blue(color);
 
     //a = (int)(((a/255f) * (1f - progress/2f)) * a);
-    r = (int)((float)r * (1f - 0.8*progress));
-    g = (int)((float)g * (1f - 0.8*progress));
-    b = (int)((float)b * (1f - 0.8*progress));
+    r = (int)((float)r * (1f - progress));
+    g = (int)((float)g * (1f - progress));
+    b = (int)((float)b * (1f - progress));
 
     color = RenderUtil.compose(r, g, b, a);
     RenderUtil.renderFluidCuboid(te.tank.getFluid(), te.getPos(), x,y,z, xzMin, yMin, xzMin, xzMax, yh, xzMax, color);
@@ -106,7 +106,7 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
       GlStateManager.rotate(-90, 1, 0, 0);
 
       GlStateManager.blendFunc(GL11.GL_CONSTANT_ALPHA, GL11.GL_SRC_ALPHA);
-      GL14.glBlendColor(1f, 1f, 1f, progress*2f/3f);
+      GL14.glBlendColor(1f, 1f, 1f, progress);
       //GL14.glBlendColor(1f, 1f, 1f, 1f); // debug
 
       IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);

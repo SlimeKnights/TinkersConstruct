@@ -27,7 +27,7 @@ public class TileCastingTable extends TileCasting {
         item.y -= 1/16f * item.s;
         //item.s = 1f;
         toDisplay.items.add(item);
-        if(i == 1) {
+        if(i == 0) {
           item.y -= 0.001f; // don't overlap
         }
       }
