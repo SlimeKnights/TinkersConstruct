@@ -3,9 +3,11 @@ package slimeknights.tconstruct.world;
 import com.google.common.collect.ImmutableList;
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
@@ -131,6 +133,21 @@ public class TinkerWorld extends TinkerPulse {
     //stack.setItemDamage(slimeBlockCongealed.getMetaFromState(state.withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.MAGMA)));
     //GameRegistry.addRecipe(stack, "##", "##", '#', ???);
 
+    // Recipes to get slimy grass. Because why not
+    IBlockState vanillaDirtState = Blocks.dirt.getDefaultState();
+    IBlockState grassState = slimeGrass.getDefaultState().withProperty(BlockSlimeGrass.TYPE, BlockSlimeGrass.DirtType.VANILLA);
+    int meta = slimeGrass.getMetaFromState(grassState.withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.BLUE));
+    ItemStack slime = TinkerCommons.matSlimeBallBlue.copy();
+    GameRegistry.addShapedRecipe(new ItemStack(slimeGrass, 1, meta), " s ", "sBs", " s ", 's', slime, 'B', Blocks.grass);
+
+    meta = slimeGrass.getMetaFromState(grassState.withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.PURPLE));
+    slime = TinkerCommons.matSlimeBallPurple.copy();
+    GameRegistry.addShapedRecipe(new ItemStack(slimeGrass, 1, meta), " s ", "sBs", " s ", 's', slime, 'B', Blocks.grass);
+
+    /* magma
+    meta = slimeGrass.getMetaFromState(grassState.withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.BLUE));
+    slime = new ItemStack(Items.slime_ball);
+    GameRegistry.addShapedRecipe(new ItemStack(slimeGrass, 1, meta), " s ", "sBs", " s ", 's', slime, 'B', Blocks.grass);*/
   }
 
   private void addSlimeRecipes(ItemStack slimeball, BlockSlime.SlimeType type) {
