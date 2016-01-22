@@ -246,6 +246,9 @@ public class TinkerSmeltery extends TinkerPulse {
 
     // bloooooood
     TinkerRegistry.registerMelting(Items.rotten_flesh, TinkerFluids.blood, 5);
+    if(TinkerCommons.matSlimeBallBlood != null) {
+      TinkerRegistry.registerTableCasting(TinkerCommons.matSlimeBallBlood.copy(), null, TinkerFluids.blood, 160);
+    }
 
     // purple slime
     TinkerRegistry.registerMelting(TinkerCommons.matSlimeBallPurple, TinkerFluids.purpleSlime, Material.VALUE_SlimeBall);
