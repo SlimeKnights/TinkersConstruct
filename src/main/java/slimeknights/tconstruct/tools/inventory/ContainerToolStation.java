@@ -170,7 +170,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     if(!this.world.isRemote) {
       WorldServer server = (WorldServer) this.world;
       for(EntityPlayer player : server.playerEntities) {
-        if(player.openContainer != this && player.openContainer instanceof ContainerToolStation) {
+        if(player.openContainer != this && player.openContainer instanceof ContainerToolStation && this.sameGui((ContainerToolStation)player.openContainer)) {
           ((ContainerToolStation) player.openContainer).out.inventory.setInventorySlotContents(0, out.getStack());
         }
       }
