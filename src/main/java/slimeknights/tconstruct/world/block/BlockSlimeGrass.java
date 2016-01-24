@@ -36,6 +36,7 @@ public class BlockSlimeGrass extends BlockGrass {
     this.setCreativeTab(TinkerRegistry.tabWorld);
     this.setHardness(0.65f);
     this.setStepSound(soundTypeGrass);
+    this.slipperiness += 0.05f;
   }
 
   @SideOnly(Side.CLIENT)
