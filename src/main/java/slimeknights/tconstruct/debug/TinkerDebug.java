@@ -37,10 +37,13 @@ public class TinkerDebug {
   public void serverStart(FMLServerStartingEvent event) {
     event.registerServerCommand(new DamageTool());
 
-    ClientCommandHandler.instance.registerCommand(new LocalizationCheckCommand());
-    ClientCommandHandler.instance.registerCommand(new DumpMaterialTest());
-    ClientCommandHandler.instance.registerCommand(new FindBestTool());
-    ClientCommandHandler.instance.registerCommand(new GetToolGrowth());
+    if(event.getSide().isClient()) {
+      ClientCommandHandler.instance.registerCommand(new LocalizationCheckCommand());
+      ClientCommandHandler.instance.registerCommand(new DumpMaterialTest());
+      ClientCommandHandler.instance.registerCommand(new FindBestTool());
+      ClientCommandHandler.instance.registerCommand(new GetToolGrowth());
+      ClientCommandHandler.instance.registerCommand(new CompareVanilla());
+    }
 
     sanityCheck();
   }
