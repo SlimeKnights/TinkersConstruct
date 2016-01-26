@@ -43,17 +43,44 @@ public class TilePatternChest extends TileTinkerChest implements IInventoryGui {
       return false;
     }
     Item part = Pattern.getPartFromTag(itemstack);
+    boolean hasContents = false;
+    for(int i = 0; i < getSizeInventory(); i++) {
+      if(isStackInSlot(i)) {
+        hasContents = true;
+        break;
+      }
+    }
 
+    // empty chest accepts everything
+    if(!hasContents) {
+      return true;
+    }
+    // otherwise check that only same goes into the same chest
+    else {
+      boolean castChest = isCastChest();
+
+      // if cast chest only accept casts.
+      if(castChest && !(itemstack.getItem() instanceof ICast)) {
+        return false;
+      }
+      // and only patterns go into pattern chests
+      else if(!castChest && (!(itemstack.getItem() instanceof IPattern) || itemstack.getItem() instanceof ICast)) {
+        return false;
+      }
+    }
+
+    // now it's ensured that only patterns go in pattern chests, and only casts in cast chests
+    // next find out if the cast already is present in the chest
+
+    // not a part cast? go by nbt
     if(part == null) {
-      // not a part cast, go by nbt
       for(int i = 0; i < getSizeInventory(); i++) {
         ItemStack inv = getStackInSlot(i);
-        // ensure that the type (pattern/cast) is the same
-        if(inv != null && (
-           (inv.getItem() instanceof IPattern && !(itemstack.getItem() instanceof IPattern)) ||
-           (inv.getItem() instanceof ICast && !(itemstack.getItem() instanceof ICast)))) {
-          return false;
+        if(inv == null) {
+          continue;
         }
+
+        // is it exactly the same item?
         if(ItemStack.areItemsEqual(itemstack, inv) && ItemStack.areItemStackTagsEqual(itemstack, inv)) {
           return false;
         }
@@ -61,6 +88,7 @@ public class TilePatternChest extends TileTinkerChest implements IInventoryGui {
       return true;
     }
 
+    // part cast, go by item returned
     for(int i = 0; i < getSizeInventory(); i++) {
       Item slotPart = Pattern.getPartFromTag(getStackInSlot(i));
       // duplicate, already present
@@ -82,11 +110,19 @@ public class TilePatternChest extends TileTinkerChest implements IInventoryGui {
   @Override
   public String getName() {
     // do we hold casts instead of patterns?
-    for(int i = 0; i < getSizeInventory(); i++) {
-      if(getStackInSlot(i) != null && getStackInSlot(i).getItem() instanceof ICast) {
-        return "gui.castchest.name";
-      }
+    if(isCastChest()) {
+      return "gui.castchest.name";
     }
     return super.getName();
+  }
+
+  public boolean isCastChest() {
+    // do we hold casts instead of patterns?
+    for(int i = 0; i < getSizeInventory(); i++) {
+      if(getStackInSlot(i) != null && getStackInSlot(i).getItem() instanceof ICast) {
+        return true;
+      }
+    }
+    return false;
   }
 }
