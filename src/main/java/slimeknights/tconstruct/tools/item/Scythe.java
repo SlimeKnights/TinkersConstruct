@@ -16,8 +16,10 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
+import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
@@ -35,10 +37,10 @@ public class Scythe extends ToolCore {
 
 
   public Scythe() {
-    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod)); // todo
+    super(PartMaterialType.handle(TinkerTools.toolRod),
+          PartMaterialType.head(TinkerTools.toolRod),
+          PartMaterialType.handle(TinkerTools.toolRod),
+          PartMaterialType.extra(TinkerTools.toughBinding)); // todo
   }
 
   @Override
@@ -131,12 +133,12 @@ public class Scythe extends ToolCore {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    ToolMaterialStats handle = materials.get(0).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats head = materials.get(2).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats handle2 = materials.get(1).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats binding = materials.get(3).getStats(ToolMaterialStats.TYPE);
+    HandleMaterialStats handle  = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
+    HeadMaterialStats head      = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    HandleMaterialStats handle2 = materials.get(1).getStatsOrUnknown(HandleMaterialStats.TYPE);
+    ExtraMaterialStats binding  = materials.get(3).getStatsOrUnknown(ExtraMaterialStats.TYPE);
 
-    ToolNBT data = new ToolNBT(head);
+    ToolNBT data = new ToolNBT();
 
     return data.get();
   }

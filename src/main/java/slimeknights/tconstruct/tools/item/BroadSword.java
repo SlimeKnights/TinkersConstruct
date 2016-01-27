@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolCore;
@@ -29,9 +28,9 @@ public class BroadSword extends ToolCore {
                       net.minecraft.block.material.Material.leaves);
 
   public BroadSword() {
-    this(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-         new PartMaterialType.ToolPartType(TinkerTools.swordBlade),
-         new PartMaterialType.ToolPartType(TinkerTools.wideGuard));
+    this(PartMaterialType.handle(TinkerTools.toolRod),
+         PartMaterialType.head(TinkerTools.swordBlade),
+         PartMaterialType.extra(TinkerTools.wideGuard));
   }
 
   protected BroadSword(PartMaterialType... requiredComponents) {
@@ -57,7 +56,12 @@ public class BroadSword extends ToolCore {
 
   @Override
   public int attackSpeed() {
-    return 1;
+    return 0;
+  }
+
+  @Override
+  public float miningSpeedModifier() {
+    return 0.5f; // slooow, because it's a swooooord
   }
 
   // Blocking and sword things
@@ -88,28 +92,9 @@ public class BroadSword extends ToolCore {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    ToolMaterialStats handle = materials.get(0).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats head = materials.get(1).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats guard = materials.get(2).getStats(ToolMaterialStats.TYPE);
-
-    ToolNBT data = new ToolNBT(head);
-    data.handle(handle).extra(guard);
-
-    data.durability *= 1f + 0.3f * (guard.extraQuality - 0.5f);
-    data.speed *= 1f + 0.05f * (handle.handleQuality * handle.miningspeed);
-    data.attack *= 1f + 0.15f * handle.handleQuality * guard.extraQuality;
-
-    /*
-    // attack damage: blade, modified 10% by handle and 20% by guard
-    data.attack *= 0.7f + 0.1f*handle.handleQuality + 0.2f*guard.extraQuality;
-
-    // durability: guard adds a bit to it, handle has minimal impact
-    data.durability += 0.1f * guard.durability * guard.extraQuality;
-    data.durability *= 0.95f + 0.05f*handle.handleQuality;
-*/
-    // 3 free modifiers
-    data.modifiers = DEFAULT_MODIFIERS;
-
+    ToolNBT data = buildDefaultTag(materials);
+    // 2 base damage, like vanilla swords
+    data.attack += 2f;
     return data.get();
   }
 }

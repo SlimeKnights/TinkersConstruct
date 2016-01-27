@@ -15,7 +15,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -34,7 +33,7 @@ import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
@@ -48,7 +47,6 @@ import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.block.BlockToolForge;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
-import slimeknights.tconstruct.tools.item.BattleAxe;
 import slimeknights.tconstruct.tools.item.BattleSign;
 import slimeknights.tconstruct.tools.item.BroadSword;
 import slimeknights.tconstruct.tools.item.Cleaver;
@@ -59,9 +57,7 @@ import slimeknights.tconstruct.tools.item.Hatchet;
 import slimeknights.tconstruct.tools.item.ItemBlockTable;
 import slimeknights.tconstruct.tools.item.LongSword;
 import slimeknights.tconstruct.tools.item.LumberAxe;
-import slimeknights.tconstruct.tools.item.Mattock;
 import slimeknights.tconstruct.tools.item.Pickaxe;
-import slimeknights.tconstruct.tools.item.Scythe;
 import slimeknights.tconstruct.tools.item.SharpeningKit;
 import slimeknights.tconstruct.tools.item.Shovel;
 import slimeknights.tconstruct.tools.modifiers.ModAntiMonsterType;
@@ -86,7 +82,6 @@ import slimeknights.tconstruct.tools.tileentity.TileToolForge;
 import slimeknights.tconstruct.tools.tileentity.TileToolStation;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.BlockSlime;
-import slimeknights.tconstruct.world.block.BlockSlimeCongealed;
 
 @Pulse(id = TinkerTools.PulseId, description = "All the tools and everything related to it.")
 public class TinkerTools extends TinkerPulse {
@@ -512,7 +507,7 @@ public class TinkerTools extends TinkerPulse {
 
   private void registerFortifyModifiers() {
     fortifyMods = Lists.newArrayList();
-    for(Material mat : TinkerRegistry.getAllMaterialsWithStats(ToolMaterialStats.TYPE)) {
+    for(Material mat : TinkerRegistry.getAllMaterialsWithStats(HeadMaterialStats.TYPE)) {
       fortifyMods.add(new ModFortify(mat));
     }
   }

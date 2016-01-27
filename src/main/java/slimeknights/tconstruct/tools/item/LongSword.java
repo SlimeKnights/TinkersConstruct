@@ -4,23 +4,28 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
+import java.util.List;
+
+import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 public class LongSword extends BroadSword {
 
   public LongSword() {
-    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.swordBlade),
-          new PartMaterialType.ToolPartType(TinkerTools.toolRod));
+    super(PartMaterialType.handle(TinkerTools.toolRod),
+          PartMaterialType.head(TinkerTools.swordBlade),
+          PartMaterialType.extra(TinkerTools.toolRod)); // todo: correct part
   }
 
   @Override
   public float damagePotential() {
-    return 1.3f;
+    return 1.2f;
   }
 
   @Override
@@ -67,5 +72,14 @@ public class LongSword extends BroadSword {
     }
 
     super.onPlayerStoppedUsing(stack, world, player, timeLeft);
+  }
+
+  @Override
+  public NBTTagCompound buildTag(List<Material> materials) {
+    ToolNBT data = buildDefaultTag(materials);
+    // 2 base damage, like vanilla swords
+    data.attack -= 1.5f;
+    data.attack = Math.max(1f, data.attack);
+    return data.get();
   }
 }

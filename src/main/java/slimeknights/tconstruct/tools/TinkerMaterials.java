@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.block.BlockPrismarine;
@@ -9,18 +8,17 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.OreDictionary;
 
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
-import java.util.Map;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.mantle.util.RecipeMatch;
@@ -30,8 +28,10 @@ import slimeknights.tconstruct.library.client.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.texture.ExtraUtilityTexture;
 import slimeknights.tconstruct.library.client.texture.MetalColoredTexture;
 import slimeknights.tconstruct.library.client.texture.MetalTextureTexture;
+import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
+import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
@@ -252,6 +252,7 @@ public final class TinkerMaterials {
     // item/special resources
     bone.setCraftable(true);
     bone.addItem(Items.bone, 1, Material.VALUE_Ingot);
+    bone.addItem(new ItemStack(Items.dye, 1, EnumDyeColor.WHITE.getDyeDamage()), 1, Material.VALUE_Fragment);
     bone.setRepresentativeItem(Items.bone);
     bone.addTrait(splintering);
 
@@ -313,31 +314,89 @@ public final class TinkerMaterials {
   public void registerToolMaterials() {
     // Stats:                                                   Durability, speed, attack, handle, extra, harvestlevel
     // natural resources/blocks
-    TinkerRegistry.addMaterialStats(wood,       new ToolMaterialStats(  73, 1.80f, 2.00f, 0.75f, 0.50f, STONE));
-    TinkerRegistry.addMaterialStats(stone,      new ToolMaterialStats( 131, 3.50f, 2.10f, 0.05f, 0.18f, IRON));
-    TinkerRegistry.addMaterialStats(flint,      new ToolMaterialStats( 235, 5.00f, 2.80f, 0.20f, 0.19f, IRON));
-    TinkerRegistry.addMaterialStats(cactus,     new ToolMaterialStats( 329, 4.50f, 3.40f, 0.25f, 0.43f, IRON));
-    TinkerRegistry.addMaterialStats(bone,       new ToolMaterialStats( 373, 5.09f, 2.50f, 0.81f, 0.56f, IRON));
-    TinkerRegistry.addMaterialStats(obsidian,   new ToolMaterialStats(  89, 7.07f, 4.20f, 0.07f, 0.24f, COBALT));
-    TinkerRegistry.addMaterialStats(prismarine, new ToolMaterialStats( 530, 5.50f, 6.00f, 0.18f, 0.84f, IRON));
-    TinkerRegistry.addMaterialStats(endstone,   new ToolMaterialStats( 412, 3.23f, 3.23f, 0.33f, 0.33f, OBSIDIAN));
-    TinkerRegistry.addMaterialStats(paper,      new ToolMaterialStats(  42, 0.51f, 0.05f, 0.01f, 0.70f, STONE));
-    TinkerRegistry.addMaterialStats(sponge,     new ToolMaterialStats( 650, 3.02f, 0.00f, 0.05f, 0.01f, STONE));
+    TinkerRegistry.addMaterialStats(wood,
+                                    new HeadMaterialStats(50, 2.00f, 2.00f, STONE),
+                                    new HandleMaterialStats(1.00f, 0),
+                                    new ExtraMaterialStats(25));
+
+    TinkerRegistry.addMaterialStats(stone,
+                                    new HeadMaterialStats(111, 4.00f, 2.90f, IRON),
+                                    new HandleMaterialStats(0.50f, -50),
+                                    new ExtraMaterialStats(5));
+    TinkerRegistry.addMaterialStats(flint,
+                                    new HeadMaterialStats(150, 5.00f, 2.80f, IRON),
+                                    new HandleMaterialStats(0.60f, -60),
+                                    new ExtraMaterialStats(40));
+    TinkerRegistry.addMaterialStats(cactus,
+                                    new HeadMaterialStats(210, 4.00f, 3.40f, IRON),
+                                    new HandleMaterialStats(0.75f, 20),
+                                    new ExtraMaterialStats(50));
+    TinkerRegistry.addMaterialStats(bone,
+                                    new HeadMaterialStats(230, 5.09f, 2.50f, IRON),
+                                    new HandleMaterialStats(1.10f, 25),
+                                    new ExtraMaterialStats(60));
+    TinkerRegistry.addMaterialStats(obsidian,
+                                    new HeadMaterialStats(89, 7.07f, 4.20f, COBALT),
+                                    new HandleMaterialStats(0.50f, -150),
+                                    new ExtraMaterialStats(90));
+    TinkerRegistry.addMaterialStats(prismarine,
+                                    new HeadMaterialStats(430, 5.50f, 6.00f, IRON),
+                                    new HandleMaterialStats(0.60f, -200),
+                                    new ExtraMaterialStats(100));
+    TinkerRegistry.addMaterialStats(endstone,
+                                    new HeadMaterialStats(420, 3.23f, 3.23f, OBSIDIAN),
+                                    new HandleMaterialStats(0.85f, 0),
+                                    new ExtraMaterialStats(42));
+    TinkerRegistry.addMaterialStats(paper,
+                                    new HeadMaterialStats(12, 0.51f, 0.05f, STONE),
+                                    new HandleMaterialStats(0.10f, 5),
+                                    new ExtraMaterialStats(5));
+    TinkerRegistry.addMaterialStats(sponge,
+                                    new HeadMaterialStats(550, 3.02f, 0.00f, STONE),
+                                    new HandleMaterialStats(1.20f, 250),
+                                    new ExtraMaterialStats(250));
 
     // Slime
-    TinkerRegistry.addMaterialStats(slime,      new ToolMaterialStats( 600, 4.24f, 1.80f, 0.30f, 1.00f, STONE));
-    TinkerRegistry.addMaterialStats(blueslime,  new ToolMaterialStats( 780, 4.03f, 1.80f, 1.00f, 0.15f, STONE));
-    TinkerRegistry.addMaterialStats(knightslime,new ToolMaterialStats( 902, 3.81f, 5.10f, 0.76f, 0.46f, OBSIDIAN));
+    TinkerRegistry.addMaterialStats(slime,
+                                    new HeadMaterialStats(600, 4.24f, 1.80f, STONE),
+                                    new HandleMaterialStats(0.70f, -100),
+                                    new ExtraMaterialStats(250));
+    TinkerRegistry.addMaterialStats(blueslime,
+                                    new HeadMaterialStats(780, 4.03f, 1.80f, STONE),
+                                    new HandleMaterialStats(1.30f, -100),
+                                    new ExtraMaterialStats(200));
+    TinkerRegistry.addMaterialStats(knightslime,
+                                    new HeadMaterialStats(800, 3.81f, 5.10f, OBSIDIAN),
+                                    new HandleMaterialStats(0.50f, 500),
+                                    new ExtraMaterialStats(150));
 
     // Nether
-    TinkerRegistry.addMaterialStats(netherrack, new ToolMaterialStats( 322, 4.89f, 3.00f, 0.10f, 0.27f, IRON));
-    TinkerRegistry.addMaterialStats(cobalt,     new ToolMaterialStats( 680,10.00f, 4.10f, 0.40f, 0.60f, COBALT));
-    TinkerRegistry.addMaterialStats(ardite,     new ToolMaterialStats( 989, 2.42f, 3.60f, 0.64f, 0.78f, COBALT));
-    TinkerRegistry.addMaterialStats(manyullyn,  new ToolMaterialStats( 513, 7.02f, 8.72f, 0.30f, 0.70f, COBALT));
+    TinkerRegistry.addMaterialStats(netherrack,
+                                    new HeadMaterialStats(270, 4.50f, 3.00f, IRON),
+                                    new HandleMaterialStats(0.85f, -150),
+                                    new ExtraMaterialStats(75));
+    TinkerRegistry.addMaterialStats(cobalt,
+                                    new HeadMaterialStats(780, 10.00f, 4.10f, COBALT),
+                                    new HandleMaterialStats(0.90f, 100),
+                                    new ExtraMaterialStats(200));
+    TinkerRegistry.addMaterialStats(ardite,
+                                    new HeadMaterialStats(990, 2.42f, 3.60f, COBALT),
+                                    new HandleMaterialStats(1.40f, -200),
+                                    new ExtraMaterialStats(350));
+    TinkerRegistry.addMaterialStats(manyullyn,
+                                    new HeadMaterialStats(820, 7.02f, 8.72f, COBALT),
+                                    new HandleMaterialStats(0.50f, 250),
+                                    new ExtraMaterialStats(50));
 
     // Metals
-    TinkerRegistry.addMaterialStats(iron,       new ToolMaterialStats( 204, 5.65f, 4.00f, 0.50f, 0.60f, DIAMOND));
-    TinkerRegistry.addMaterialStats(pigiron,    new ToolMaterialStats( 380, 6.20f, 4.50f, 0.66f, 0.73f, OBSIDIAN));
+    TinkerRegistry.addMaterialStats(iron,
+                                    new HeadMaterialStats(204, 6.00f, 4.00f, DIAMOND),
+                                    new HandleMaterialStats(0.85f, 60),
+                                    new ExtraMaterialStats(50));
+    TinkerRegistry.addMaterialStats(pigiron,
+                                    new HeadMaterialStats(380, 6.20f, 4.50f, OBSIDIAN),
+                                    new HandleMaterialStats(1.20f, -100),
+                                    new ExtraMaterialStats(170));
 
     //TinkerRegistry.addMaterialStats(xu,         new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, DIAMOND));
   }

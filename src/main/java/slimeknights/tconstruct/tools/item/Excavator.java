@@ -10,8 +10,10 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
+import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
@@ -20,10 +22,10 @@ import slimeknights.tconstruct.tools.TinkerTools;
 public class Excavator extends Shovel {
 
   public Excavator() {
-    super(new PartMaterialType.ToolPartType(TinkerTools.toughToolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.excavatorHead),
-          new PartMaterialType.ToolPartType(TinkerTools.largePlate),
-          new PartMaterialType.ToolPartType(TinkerTools.toughBinding));
+    super(PartMaterialType.handle(TinkerTools.toughToolRod),
+          PartMaterialType.head(TinkerTools.excavatorHead),
+          PartMaterialType.head(TinkerTools.largePlate),
+          PartMaterialType.extra(TinkerTools.toughBinding));
   }
 
   @Override
@@ -43,34 +45,17 @@ public class Excavator extends Shovel {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    ToolMaterialStats handle = materials.get(0).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats head = materials.get(1).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats plate = materials.get(2).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats binding = materials.get(3).getStats(ToolMaterialStats.TYPE);
+    HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
+    HeadMaterialStats head     = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    HeadMaterialStats plate    = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    ExtraMaterialStats binding = materials.get(3).getStatsOrUnknown(ExtraMaterialStats.TYPE);
 
-    ToolNBT data = new ToolNBT(head);
-    data.handle(handle).extra(plate, binding);
+    ToolNBT data = new ToolNBT();
+    data.head(head, plate);
+    data.extra(binding);
+    data.handle(handle);
 
-    data.durability *= 1f + 0.05f * (binding.extraQuality - 0.5f);
-    data.speed *= 1f + 0.3f * (handle.handleQuality * handle.miningspeed);
-    data.attack = head.attack/2f + plate.attack/3f;
-    data.attack *= 1f + 0.1f * handle.handleQuality * binding.extraQuality;
-
-/*
-    data.durability += ((0.5f + 0.5f * plate.extraQuality) * plate.durability) * (0.4f + 0.6f * binding.extraQuality);
-    data.durability += 0.3f * handle.durability + 0.1f * binding.durability;
-    data.durability *= 0.8f + 0.4f * handle.handleQuality;
-
-    data.speed *= 0.3f + 0.4f * handle.handleQuality;
-    data.speed += 0.3f * handle.miningspeed * binding.extraQuality;
-    data.speed += 0.1f * plate.miningspeed;
-
-    data.attack *= 1.2f;
-    data.attack += (0.2f + 0.3f*plate.extraQuality) * plate.attack;
-    data.attack += 0.15f * binding.attack;
-*/
-    // 3 free modifiers
-    data.modifiers = DEFAULT_MODIFIERS;
+    data.modifiers = 2;
 
     return data.get();
   }

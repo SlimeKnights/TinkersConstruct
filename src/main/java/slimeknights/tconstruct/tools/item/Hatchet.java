@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.AoeToolCore;
@@ -33,9 +32,9 @@ public class Hatchet extends AoeToolCore {
                       net.minecraft.block.material.Material.cactus);
 
   public Hatchet() {
-    this(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-         new PartMaterialType.ToolPartType(TinkerTools.axeHead),
-         new PartMaterialType.ToolPartType(TinkerTools.binding));
+    this(PartMaterialType.handle(TinkerTools.toolRod),
+         PartMaterialType.head(TinkerTools.axeHead),
+         PartMaterialType.extra(TinkerTools.binding));
   }
 
   protected Hatchet(PartMaterialType... requiredComponents) {
@@ -54,7 +53,7 @@ public class Hatchet extends AoeToolCore {
 
   @Override
   public float damagePotential() {
-    return 0.73f;
+    return 1.1f;
   }
 
   @Override
@@ -87,41 +86,8 @@ public class Hatchet extends AoeToolCore {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    ToolMaterialStats handle = materials.get(0).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats head = materials.get(1).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats binding = materials.get(2).getStats(ToolMaterialStats.TYPE);
-
-    ToolNBT data = new ToolNBT(head);
-    data.handle(handle).extra(binding);
-
-    // bonus base damage
-    data.attack += 1f;
-
-    data.durability *= 1f + 0.15f * (binding.extraQuality - 0.5f);
-    data.speed *= 1f + 0.1f * (handle.handleQuality * handle.miningspeed);
-
-    // % bonus attack damage max for a good handle/extra combination
-    // but not too much or the player will feel bad about it.
-    data.attack *= 1f + 0.1f * handle.handleQuality * binding.extraQuality;
-
-/*
-    // the binding has the most impact here, since it has to hold the parts together
-    data.durability = data.durability / 2 + (int) (binding.extraQuality * (float) data.durability / 2f);
-
-    // handle.. stuff..
-    data.durability *= 0.8f + 0.2f * handle.handleQuality;
-    // flat durability from other parts
-    data.durability += 0.05f * handle.durability + 0.15f * binding.durability;
-
-    // how well handle and binding interact
-    float coeff = (0.5f + handle.handleQuality / 2) * (0.5f + binding.extraQuality / 2);
-
-    data.attack *= 0.6f + 0.4f * coeff;
-    data.speed *= 0.6f + 0.4f * coeff;
-*/
-    // 3 free modifiers
-    data.modifiers = DEFAULT_MODIFIERS;
-
+    ToolNBT data = buildDefaultTag(materials);
+    data.attack += 0.5f;
     return data.get();
   }
 }

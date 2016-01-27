@@ -9,11 +9,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import java.util.List;
 
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.AoeToolCore;
-import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 public class Pickaxe extends AoeToolCore {
@@ -29,9 +27,9 @@ public class Pickaxe extends AoeToolCore {
 
   // Pick-head, binding, tool-rod
   public Pickaxe() {
-    this(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-         new PartMaterialType.ToolPartType(TinkerTools.pickHead),
-         new PartMaterialType.ToolPartType(TinkerTools.binding));
+    this(PartMaterialType.handle(TinkerTools.toolRod),
+         PartMaterialType.head(TinkerTools.pickHead),
+         PartMaterialType.extra(TinkerTools.binding));
   }
 
   public Pickaxe(PartMaterialType... requiredComponents) {
@@ -50,34 +48,11 @@ public class Pickaxe extends AoeToolCore {
 
   @Override
   public float damagePotential() {
-    return 0.3f;
+    return 1f;
   }
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    ToolMaterialStats handle = materials.get(0).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats head = materials.get(1).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats binding = materials.get(2).getStats(ToolMaterialStats.TYPE);
-
-    ToolNBT data = new ToolNBT(head);
-    data.handle(handle).extra(binding);
-
-    data.durability *= 1f + 0.1f * (binding.extraQuality - 0.5f);
-    data.speed *= 1f + 0.03f * (handle.handleQuality * handle.miningspeed);
-    data.attack *= 1f + 0.1f * handle.handleQuality * binding.extraQuality;
-
-    // handle influences durability
-    // binding quality influences how well the handle interacts with the head
-    //data.durability *= 0.33f + 0.77f*(handle.handleQuality * (1 + binding.extraQuality)/2);
-    // flat durability from other parts
-    //data.durability += 0.15f * handle.durability + 0.10f * binding.durability;
-    // handle also influences mining speed a bit (0-20% change)
-    // binding adds a bit to the speed
-    //data.speed += (binding.miningspeed * binding.extraQuality)*0.14f;
-
-    // 3 free modifiers
-    data.modifiers = DEFAULT_MODIFIERS;
-
-    return data.get();
+    return buildDefaultTag(materials).get();
   }
 }

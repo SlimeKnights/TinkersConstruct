@@ -48,7 +48,9 @@ public class Material extends RecipeMatchRegistry {
   public static final int VALUE_SlimeBall = 250;
 
   static {
-    UNKNOWN.addStats(new ToolMaterialStats(1, 1, 1, 1, 1, 0));
+    UNKNOWN.addStats(new HeadMaterialStats(1, 1, 1, 0));
+    UNKNOWN.addStats(new HandleMaterialStats(1f, 0));
+    UNKNOWN.addStats(new ExtraMaterialStats(0));
   }
 
   /**
@@ -191,6 +193,15 @@ public class Material extends RecipeMatchRegistry {
   @SuppressWarnings("unchecked")
   public <T extends IMaterialStats> T getStats(String identifier) {
     return (T) getStatsSafe(identifier);
+  }
+
+  @SuppressWarnings("unchecked")
+  public <T extends IMaterialStats> T getStatsOrUnknown(String identifier) {
+    T stats = (T) getStatsSafe(identifier);
+    if(stats == null && this != UNKNOWN) {
+      return UNKNOWN.getStats(identifier);
+    }
+    return stats;
   }
 
   public Collection<IMaterialStats> getAllStats() {

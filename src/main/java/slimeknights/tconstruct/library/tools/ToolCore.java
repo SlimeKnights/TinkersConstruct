@@ -30,8 +30,10 @@ import java.util.Set;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
+import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
@@ -95,6 +97,7 @@ public abstract class ToolCore extends TinkersItem {
    */
   public float damageCutoff() {
     return 15.0f; // in general this should be sufficient and only needs increasing if it's a stronger weapon
+    // fun fact: diamond sword with sharpness V has 15 damage
   }
 
   /**
@@ -288,7 +291,7 @@ public abstract class ToolCore extends TinkersItem {
   @Override
   public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     for(Material head : TinkerRegistry.getAllMaterials()) {
-      if(!head.hasStats(ToolMaterialStats.TYPE)) {
+      if(!head.hasStats(HeadMaterialStats.TYPE)) {
         continue;
       }
 
@@ -388,5 +391,36 @@ public abstract class ToolCore extends TinkersItem {
     // we simply return false. This should be cover any cases and probably 1-2 edge cases where it shouldn't..
     // ..but I doubt anybody will notice ;o
     return false;
+  }
+
+  /**
+   * Builds a default tool from:
+   * 1. Handle
+   * 2. Head
+   * 3. Accessoire (if present)
+   */
+  protected ToolNBT buildDefaultTag(List<Material> materials) {
+    ToolNBT data = new ToolNBT();
+
+    if(materials.size() >= 2) {
+      HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
+      HeadMaterialStats head = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
+      // start with head
+      data.head(head);
+
+      // add in accessoires if present
+      if(materials.size() >= 3) {
+        ExtraMaterialStats binding = materials.get(2).getStatsOrUnknown(ExtraMaterialStats.TYPE);
+        data.extra(binding);
+      }
+
+      // calculate handle impact
+      data.handle(handle);
+    }
+
+    // 3 free modifiers
+    data.modifiers = DEFAULT_MODIFIERS;
+
+    return data;
   }
 }

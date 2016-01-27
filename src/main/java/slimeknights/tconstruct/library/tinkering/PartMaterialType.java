@@ -7,8 +7,10 @@ import net.minecraft.item.ItemStack;
 import java.util.HashSet;
 import java.util.Set;
 
+import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
+import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.tools.IToolPart;
 
 public class PartMaterialType {
@@ -58,10 +60,36 @@ public class PartMaterialType {
     return ImmutableSet.copyOf(neededPart);
   }
 
-  public static class ToolPartType extends PartMaterialType {
+  public static PartMaterialType head(IToolPart part) {
+    return new PartMaterialType(part, HeadMaterialStats.TYPE);
+  }
 
-    public ToolPartType(IToolPart part) {
-      super(part, ToolMaterialStats.TYPE);
+  public static PartMaterialType handle(IToolPart part) {
+    return new PartMaterialType(part, HandleMaterialStats.TYPE);
+  }
+
+  public static PartMaterialType extra(IToolPart part) {
+    return new PartMaterialType(part, ExtraMaterialStats.TYPE);
+  }
+
+  public static class Head extends PartMaterialType {
+
+    public Head(IToolPart part) {
+      super(part, HeadMaterialStats.TYPE);
+    }
+  }
+
+  public static class Handle extends PartMaterialType {
+
+    public Handle(IToolPart part) {
+      super(part, HandleMaterialStats.TYPE);
+    }
+  }
+
+  public static class Extra extends PartMaterialType {
+
+    public Extra(IToolPart part) {
+      super(part, ExtraMaterialStats.TYPE);
     }
   }
 }

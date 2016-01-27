@@ -16,9 +16,7 @@ import java.util.List;
 
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
@@ -27,8 +25,8 @@ import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
 public class BattleSign extends BroadSword {
 
   public BattleSign() {
-    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.signHead));
+    super(PartMaterialType.handle(TinkerTools.toolRod),
+          PartMaterialType.head(TinkerTools.signHead));
   }
 
   @Override
@@ -149,19 +147,6 @@ public class BattleSign extends BroadSword {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    ToolMaterialStats handle = materials.get(0).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats head = materials.get(1).getStats(ToolMaterialStats.TYPE);
-
-    ToolNBT data = new ToolNBT(head);
-    data.handle(handle);
-
-    data.durability *= 1f + 0.3f * (handle.extraQuality - 0.5f);
-    data.speed *= 1f + 0.05f * (handle.handleQuality * handle.miningspeed);
-    data.attack += 2f;
-    data.attack *= 1f + 0.05f * handle.handleQuality * handle.extraQuality;
-
-    data.modifiers = 4;
-
-    return data.get();
+    return buildDefaultTag(materials).get();
   }
 }

@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 import java.util.List;
 
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.AoeToolCore;
@@ -42,9 +42,9 @@ public class Mattock extends AoeToolCore {
                       net.minecraft.block.material.Material.clay);
 
   public Mattock() {
-    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.axeHead),
-          new PartMaterialType.ToolPartType(TinkerTools.shovelHead));
+    super(PartMaterialType.handle(TinkerTools.toolRod),
+          PartMaterialType.head(TinkerTools.axeHead),
+          PartMaterialType.head(TinkerTools.shovelHead));
 
     addCategory(Category.HARVEST);
 
@@ -144,9 +144,9 @@ public class Mattock extends AoeToolCore {
   protected int calculateRepair(ItemStack tool, int materialValue, int index) {
     List<Material> materials = TinkerUtil.getMaterialsFromTagList(TagUtil.getBaseMaterialsTagList(tool));
 
-    ToolMaterialStats stats[] = new ToolMaterialStats[2];
-    stats[0] = materials.get(1).getStats(ToolMaterialStats.TYPE);
-    stats[1] = materials.get(2).getStats(ToolMaterialStats.TYPE);
+    HeadMaterialStats stats[] = new HeadMaterialStats[2];
+    stats[0] = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    stats[1] = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
     int total = stats[0].durability + stats[1].durability;
 
     float coeff = stats[index-1].durability / (float)total;
@@ -164,12 +164,12 @@ public class Mattock extends AoeToolCore {
     info.addDurability();
     // todo: make this proper
     info.addCustom("Axe:");
-    info.addCustom(ToolMaterialStats.formatMiningSpeed(data.axeSpeed));
-    info.addCustom(ToolMaterialStats.formatHarvestLevel(data.axeLevel));
+    info.addCustom(HeadMaterialStats.formatMiningSpeed(data.axeSpeed));
+    info.addCustom(HeadMaterialStats.formatHarvestLevel(data.axeLevel));
 
     info.addCustom("Shovel:");
-    info.addCustom(ToolMaterialStats.formatMiningSpeed(data.shovelSpeed));
-    info.addCustom(ToolMaterialStats.formatHarvestLevel(data.shovelLevel));
+    info.addCustom(HeadMaterialStats.formatMiningSpeed(data.shovelSpeed));
+    info.addCustom(HeadMaterialStats.formatHarvestLevel(data.shovelLevel));
 
     if(ToolHelper.getFreeModifiers(stack) > 0) {
       info.addFreeModifiers();
@@ -180,23 +180,24 @@ public class Mattock extends AoeToolCore {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    ToolMaterialStats handle = materials.get(0).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats axe = materials.get(1).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats shovel = materials.get(2).getStats(ToolMaterialStats.TYPE);
+    HeadMaterialStats handle = materials.get(0).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    HeadMaterialStats axe = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    HeadMaterialStats shovel = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
     //ToolMaterialStats binding = materials.get(3).getStats(ToolMaterialStats.TYPE);
 
+    // todo
     MattockToolNBT data = new MattockToolNBT();
 
     // durability
     data.durability = (axe.durability + shovel.durability)/2;
-    data.durability *= 1f + 0.05f * (axe.extraQuality*shovel.extraQuality);
+    //data.durability *= 1f + 0.05f * (axe.extraQuality*shovel.extraQuality);
 
     // backup speed
     data.speed = (axe.miningspeed + shovel.miningspeed)/2f;
-    data.speed *= 1f + 0.3f * (handle.handleQuality * handle.miningspeed);
+    //data.speed *= 1f + 0.3f * (handle.handleQuality * handle.miningspeed);
     // real speed
-    data.axeSpeed = axe.miningspeed * 0.8f + 0.2f * handle.handleQuality;
-    data.shovelSpeed = shovel.miningspeed * 0.8f + 0.2f * handle.handleQuality;
+    //data.axeSpeed = axe.miningspeed * 0.8f + 0.2f * handle.handleQuality;
+    //data.shovelSpeed = shovel.miningspeed * 0.8f + 0.2f * handle.handleQuality;
 
     // a bit slower because.. it's a mattock
     data.axeSpeed *= 0.7f;

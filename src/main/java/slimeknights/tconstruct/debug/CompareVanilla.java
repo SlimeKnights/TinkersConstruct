@@ -128,7 +128,7 @@ public class CompareVanilla extends CommandBase {
     performToolTests(pw, block, wood,   vanillaWood);
     pw.println(genSection("Stone", "#837E7C"));
     performToolTests(pw, block, stone,  vanillaStone);
-    pw.println(genSection("Iron", "#AAAAAA"));
+    pw.println(genSection("Iron", "#CECECE"));
     performToolTests(pw, block, iron,  vanillaIron);
     pw.println(genSection("Diamond", "#5CB3FF"));
     performToolTests(pw, block, extra1, vanillaDiamond);
@@ -153,13 +153,13 @@ public class CompareVanilla extends CommandBase {
     pw.println(testTool(block, tinker, vanilla));
 
     // Redstone/Efficiency
-    pw.println(genSection("Haste/Efficiency", ""));
+    pw.println(genSection("Haste/Efficiency V", ""));
     ItemStack tinkerModified = applyModifier(TinkerTools.modHaste, tinker);
     ItemStack vanillaModified = applyEnchantment(Enchantment.efficiency, vanilla);
     pw.println(testToolSpeed(block, tinkerModified, vanillaModified));
 
     // Quartz/Sharpness
-    pw.println(genSection("Sharpness", ""));
+    pw.println(genSection("Sharpness V", ""));
     tinkerModified = applyModifier(TinkerTools.modSharpness, tinker);
     vanillaModified = applyEnchantment(Enchantment.sharpness, vanilla);
     pw.println(testToolAttack(tinkerModified, vanillaModified));
@@ -218,7 +218,7 @@ public class CompareVanilla extends CommandBase {
 
   protected String testToolAttack(ItemStack tinker, ItemStack vanilla) {
     float attack1 = ToolHelper.getActualDamage(tinker, Minecraft.getMinecraft().thePlayer);
-    float attack2 = 0;
+    float attack2 = 1f;
     for(AttributeModifier mod : vanilla.getItem().getAttributeModifiers(vanilla).get(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName())) {
       attack2 += mod.getAmount();
     }

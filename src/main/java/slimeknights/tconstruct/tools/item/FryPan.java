@@ -21,11 +21,9 @@ import java.util.List;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.ToolMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolCore;
-import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.EntityUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -33,8 +31,8 @@ import slimeknights.tconstruct.tools.TinkerTools;
 public class FryPan extends ToolCore {
 
   public FryPan() {
-    super(new PartMaterialType.ToolPartType(TinkerTools.toolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.panHead));
+    super(PartMaterialType.handle(TinkerTools.toolRod),
+          PartMaterialType.head(TinkerTools.panHead));
 
     addCategory(Category.WEAPON);
   }
@@ -162,20 +160,6 @@ public class FryPan extends ToolCore {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    ToolMaterialStats handle = materials.get(0).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats head = materials.get(1).getStats(ToolMaterialStats.TYPE);
-
-    ToolNBT data = new ToolNBT(head);
-    data.handle(handle);
-
-    data.durability *= 1f + 0.3f * (handle.extraQuality - 0.5f);
-    data.speed *= 1f + 0.05f * (handle.handleQuality * handle.miningspeed);
-    // sword has 1.5 hearts base damage!
-    data.attack += 1f;
-    data.attack *= 1f + 0.1f * handle.handleQuality * handle.extraQuality;
-
-    data.modifiers = 4;
-
-    return data.get();
+    return buildDefaultTag(materials).get();
   }
 }

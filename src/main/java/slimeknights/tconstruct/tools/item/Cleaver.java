@@ -11,8 +11,10 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
+import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -20,10 +22,10 @@ import slimeknights.tconstruct.tools.TinkerTools;
 public class Cleaver extends BroadSword {
 
   public Cleaver() {
-    super(new PartMaterialType.ToolPartType(TinkerTools.toughToolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.largeSwordBlade),
-          new PartMaterialType.ToolPartType(TinkerTools.largePlate),
-          new PartMaterialType.ToolPartType(TinkerTools.toughToolRod));
+    super(PartMaterialType.handle(TinkerTools.toughToolRod),
+          PartMaterialType.head(TinkerTools.largeSwordBlade),
+          PartMaterialType.head(TinkerTools.largePlate),
+          PartMaterialType.extra(TinkerTools.toughToolRod));
   }
 
   @Override
@@ -34,7 +36,7 @@ public class Cleaver extends BroadSword {
 
   @Override
   public float damagePotential() {
-    return 1.8f;
+    return 1.4f;
   }
 
   @Override
@@ -59,28 +61,18 @@ public class Cleaver extends BroadSword {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    ToolMaterialStats handle = materials.get(0).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats head = materials.get(1).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats shield = materials.get(2).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats guard = materials.get(3).getStats(ToolMaterialStats.TYPE);
+    HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
+    HeadMaterialStats head     = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    HeadMaterialStats shield   = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    ExtraMaterialStats guard   = materials.get(3).getStatsOrUnknown(ExtraMaterialStats.TYPE);
 
-    ToolNBT data = new ToolNBT(head);
-    data.handle(handle).extra(shield, guard);
+    ToolNBT data = new ToolNBT();
+    data.head(head, shield);
+    data.extra(guard);
+    data.handle(handle);
 
-    data.durability *= 1f + 0.1f * (guard.extraQuality - 0.5f);
-    data.speed *= 1f + 0.05f * (handle.handleQuality * handle.miningspeed);
+    data.attack += 2f;
 
-    data.attack *= 2f/3f;
-    data.attack += shield.attack/3f;
-    data.attack *= 1f + 0.05f * handle.handleQuality * guard.extraQuality;
-/*
-    data.durability += 0.5f * shield.durability;
-    data.durability *= 0.3f + 0.8f * handle.handleQuality;
-    data.durability += 0.5f * guard.extraQuality * shield.durability;
-
-    data.attack += 0.2f * shield.attack;
-    data.attack *= 0.33f + 0.22f * handle.handleQuality + 0.45f * guard.extraQuality;
-*/
     data.modifiers = 2;
 
     return data.get();

@@ -14,10 +14,9 @@ import java.util.List;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
-import slimeknights.tconstruct.library.tools.ToolCore;
 
 /**
  * Used for simple info buidling in the tools!
@@ -64,10 +63,11 @@ public class TooltipBuilder {
   public TooltipBuilder addDurability() {
     if(stack != null) {
       if(ToolHelper.isBroken(stack)) {
-        tips.add(String.format("%s: %s%s%s", Util.translate(ToolMaterialStats.LOC_Durability), EnumChatFormatting.DARK_RED, EnumChatFormatting.BOLD, Util.translate("tooltip.tool.broken")));
+        tips.add(String.format("%s: %s%s%s", Util.translate(HeadMaterialStats.LOC_Durability), EnumChatFormatting.DARK_RED, EnumChatFormatting.BOLD, Util.translate("tooltip.tool.broken")));
       }
       else {
-        tips.add(ToolMaterialStats.formatDurability(ToolHelper.getCurrentDurability(stack), ToolHelper.getDurabilityStat(stack), true));
+        tips.add(HeadMaterialStats
+                     .formatDurability(ToolHelper.getCurrentDurability(stack), ToolHelper.getDurabilityStat(stack), true));
       }
     }
 
@@ -76,7 +76,7 @@ public class TooltipBuilder {
 
   public TooltipBuilder addMiningSpeed() {
     if(stack != null) {
-      tips.add(ToolMaterialStats.formatMiningSpeed(ToolHelper.getActualMiningSpeed(stack)));
+      tips.add(HeadMaterialStats.formatMiningSpeed(ToolHelper.getActualMiningSpeed(stack)));
     }
 
     return this;
@@ -84,7 +84,7 @@ public class TooltipBuilder {
 
   public TooltipBuilder addHarvestLevel() {
     if(stack != null) {
-      tips.add(ToolMaterialStats.formatHarvestLevel(ToolHelper.getHarvestLevelStat(stack)));
+      tips.add(HeadMaterialStats.formatHarvestLevel(ToolHelper.getHarvestLevelStat(stack)));
     }
 
     return this;
@@ -93,7 +93,7 @@ public class TooltipBuilder {
   public TooltipBuilder addAttack() {
     if(stack != null) {
       float attack = ToolHelper.getActualDamage(stack, Minecraft.getMinecraft().thePlayer);
-      tips.add(ToolMaterialStats.formatAttack(attack));
+      tips.add(HeadMaterialStats.formatAttack(attack));
     }
 
     return this;

@@ -2,7 +2,9 @@ package slimeknights.tconstruct.library.tools;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
+import slimeknights.tconstruct.library.materials.HandleMaterialStats;
+import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.utils.Tags;
 
 public class ToolNBT {
@@ -12,30 +14,79 @@ public class ToolNBT {
   public float speed; // mining speed
   public int modifiers; // free modifiers
 
-  public ToolNBT() {}
-
-  public ToolNBT(ToolMaterialStats stats) {
-    durability = stats.durability;
-    harvestLevel = stats.harvestLevel;
-    attack = stats.attack;
-    speed = stats.miningspeed;
+  public ToolNBT() {
+    durability = 0;
+    harvestLevel = 0;
+    attack = 0;
+    speed = 0;
   }
 
   public ToolNBT(NBTTagCompound tag) {
     read(tag);
   }
 
-  public ToolNBT handle(ToolMaterialStats... handles) {
-    for(ToolMaterialStats stats : handles) {
-      durability += stats.durability * stats.handleQuality;
+  /** Initialize the stats with the heads. CALL THIS FIRST */
+  public ToolNBT head(HeadMaterialStats... heads) {
+    durability = 0;
+    harvestLevel = 0;
+    attack = 0;
+    speed = 0;
+
+    // average all stats
+    for(HeadMaterialStats head : heads) {
+      if(head != null) {
+        durability += head.durability;
+        attack += head.attack;
+        speed += head.miningspeed;
+
+        // use highest harvestlevel
+        if(head.harvestLevel > harvestLevel) {
+          harvestLevel = head.harvestLevel;
+        }
+      }
     }
+
+    durability = Math.max(1, durability/heads.length);
+    attack /= (float)heads.length;
+    speed /= (float)heads.length;
+
     return this;
   }
 
-  public ToolNBT extra(ToolMaterialStats... extras) {
-    for(ToolMaterialStats stats : extras) {
-      durability += stats.durability * stats.extraQuality;
+  /** Add stats from the accessoires. Call this second! */
+  public ToolNBT extra(ExtraMaterialStats... extras) {
+    int dur = 0;
+    for(ExtraMaterialStats extra : extras) {
+      if(extra != null) {
+        dur += extra.extraDurability;
+      }
     }
+    this.durability += Math.round((float)dur / (float)extras.length);
+
+    return this;
+  }
+
+  /** Calculate in handles. call this last! */
+  public ToolNBT handle(HandleMaterialStats... handles) {
+    // (Average Head Durability + Average Extra Durability) * Average Handle Modifier + Average Handle Durability
+
+    int dur = 0;
+    float modifier = 0f;
+    for(HandleMaterialStats handle : handles) {
+      if(handle != null) {
+        dur += handle.durability;
+        modifier += handle.handleQuality;
+      }
+    }
+
+    modifier /= (float)handles.length;
+    this.durability = Math.round((float)this.durability * modifier);
+
+    // add in handle durability change
+    this.durability += Math.round((float)dur / (float)handles.length);
+
+    this.durability = Math.max(1, this.durability);
+
     return this;
   }
 

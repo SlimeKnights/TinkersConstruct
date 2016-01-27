@@ -12,7 +12,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -21,8 +20,10 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
+import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
+import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolNBT;
@@ -33,10 +34,10 @@ import slimeknights.tconstruct.tools.events.TinkerToolEvent;
 public class LumberAxe extends Hatchet {
 
   public LumberAxe() {
-    super(new PartMaterialType.ToolPartType(TinkerTools.toughToolRod),
-          new PartMaterialType.ToolPartType(TinkerTools.broadAxeHead),
-          new PartMaterialType.ToolPartType(TinkerTools.largePlate),
-          new PartMaterialType.ToolPartType(TinkerTools.toughBinding));
+    super(PartMaterialType.handle(TinkerTools.toughToolRod),
+          PartMaterialType.head(TinkerTools.broadAxeHead),
+          PartMaterialType.head(TinkerTools.largePlate),
+          PartMaterialType.extra(TinkerTools.toughBinding));
 
     // lumberaxe is not a weapon. it's for lumberjacks. Lumberjacks are manly, they're weapons themselves.
     categories.remove(Category.WEAPON);
@@ -62,39 +63,17 @@ public class LumberAxe extends Hatchet {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    ToolMaterialStats handle = materials.get(0).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats head = materials.get(1).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats plate = materials.get(2).getStats(ToolMaterialStats.TYPE);
-    ToolMaterialStats binding = materials.get(3).getStats(ToolMaterialStats.TYPE);
+    HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
+    HeadMaterialStats head     = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    HeadMaterialStats plate    = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    ExtraMaterialStats binding = materials.get(3).getStatsOrUnknown(ExtraMaterialStats.TYPE);
 
-    ToolNBT data = new ToolNBT(head);
-    data.handle(handle).extra(binding, plate);
+    ToolNBT data = new ToolNBT();
+    data.head(head, plate);
+    data.extra(binding);
+    data.handle(handle);
 
-
-    data.durability *= 1f + 0.15f * (binding.extraQuality - 0.5f);
-    data.speed *= 1f + 0.1f * (handle.handleQuality * handle.miningspeed);
-    data.attack = head.attack*2f + plate.attack/3f;
-    data.attack *= 1f + 0.1f * handle.handleQuality * binding.extraQuality;
-
-    /*
-    // as with the hatchet, the binding is very important. Except this time the plate also factors in
-
-    data.durability *= 0.9f;
-    data.durability += plate.durability * binding.extraQuality;
-    data.durability *= 0.8f + 0.2f * handle.handleQuality;
-    data.durability += 0.03f * handle.durability + 0.28 * binding.durability;
-
-    // since it's a big axe.. we calculate the coefficient the same way as with the hatchet :D
-    float coeff = (0.5f + handle.handleQuality / 2) * (0.5f + binding.extraQuality / 2);
-
-    data.speed += 0.11f * plate.miningspeed;
-    data.speed *= 0.6f + 0.4f * coeff;
-    data.speed *= 0.6f;
-
-    data.attack *= 0.3f + (0.4f + 0.1f * plate.extraQuality) * coeff;
-*/
-    // 3 free modifiers
-    data.modifiers = DEFAULT_MODIFIERS;
+    data.modifiers = 2;
 
     return data.get();
   }

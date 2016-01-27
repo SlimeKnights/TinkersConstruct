@@ -9,7 +9,7 @@ import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerAPIException;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.ToolMaterialStats;
+import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
@@ -24,7 +24,7 @@ public class ModFortify extends Modifier {
   public ModFortify(Material material) {
     super("fortify" + material.getIdentifier());
 
-    if(!material.hasStats(ToolMaterialStats.TYPE)) {
+    if(!material.hasStats(HeadMaterialStats.TYPE)) {
       throw new TinkerAPIException(String.format("Trying to add a fortify-modifier for a material without tool stats: %s", material.getIdentifier()));
     }
 
@@ -49,7 +49,7 @@ public class ModFortify extends Modifier {
   @Override
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
     NBTTagCompound tag = TagUtil.getToolTag(rootCompound);
-    ToolMaterialStats stats = material.getStats(ToolMaterialStats.TYPE);
+    HeadMaterialStats stats = material.getStats(HeadMaterialStats.TYPE);
     tag.setInteger(Tags.HARVESTLEVEL, stats.harvestLevel);
 
     // Remove other fortify modifiers, only the last one applies

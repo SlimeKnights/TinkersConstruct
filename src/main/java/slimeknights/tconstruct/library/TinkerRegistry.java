@@ -188,6 +188,13 @@ public final class TinkerRegistry {
     addMaterialStats(material, stats);
   }
 
+  public static void addMaterialStats(Material material, IMaterialStats stats, IMaterialStats... stats2) {
+    addMaterialStats(material, stats);
+    for(IMaterialStats stat : stats2) {
+      addMaterialStats(material, stat);
+    }
+  }
+
   public static void addMaterialStats(Material material, IMaterialStats stats) {
     if(material == null) {
       error(String.format("Could not add Stats \"%s\": Material is null", stats.getIdentifier()));
