@@ -140,6 +140,13 @@ public final class RenderUtil {
     TextureAtlasSprite still = mc.getTextureMapBlocks().getTextureExtry(fluid.getFluid().getStill(fluid).toString());
     TextureAtlasSprite flowing = mc.getTextureMapBlocks().getTextureExtry(fluid.getFluid().getFlowing(fluid).toString());
 
+    if(still == null) {
+      still = mc.getTextureMapBlocks().getMissingSprite();
+    }
+    if(flowing == null) {
+      flowing = mc.getTextureMapBlocks().getMissingSprite();
+    }
+
     int xd = to.getX() - from.getX();
     int yd = (int)(ymax - ymin);
     int zd = to.getZ() - from.getZ();
@@ -231,6 +238,10 @@ public final class RenderUtil {
   // x and x+w has to be within [0,1], same for y/h and z/d
   public static void putTexturedQuad(WorldRenderer renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
                                      int r, int g, int b, int a, int light1, int light2, boolean flowing) {
+    // safety
+    if(sprite == null) {
+      return;
+    }
     double minU;
     double maxU;
     double minV;
