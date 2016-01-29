@@ -64,6 +64,7 @@ public abstract class ToolCore extends TinkersItem {
     super(requiredComponents);
 
     this.setCreativeTab(TinkerRegistry.tabTools);
+    this.setNoRepair(); // >_>
 
     TinkerRegistry.registerTool(this);
     addCategory(Category.TOOL);

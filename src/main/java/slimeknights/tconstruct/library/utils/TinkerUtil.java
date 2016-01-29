@@ -89,7 +89,7 @@ public final class TinkerUtil {
   public static List<Material> getMaterialsFromTagList(NBTTagList tagList) {
     List<Material> materials = Lists.newLinkedList();
     if(tagList.getTagType() != TagUtil.TAG_TYPE_STRING) {
-      TinkerRegistry.log.error("Incorrect taglist type to get materiallist from TagList");
+      //TinkerRegistry.log.error("Incorrect taglist type to get materiallist from TagList");
       return materials;
     }
 
