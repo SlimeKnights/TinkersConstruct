@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 import slimeknights.mantle.util.RecipeMatch;
+import slimeknights.mantle.util.TagHelper;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -203,9 +204,33 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   public abstract NBTTagCompound buildTag(List<Material> materials);
 
+  /** Checks whether an Item built from materials has only valid materials. Uses the standard NBT to determine materials.  */
+  public boolean hasValidMaterials(ItemStack stack) {
+    // checks if the materials used support all stats needed
+    NBTTagList list = TagUtil.getBaseMaterialsTagList(stack);
+    List<Material> materials = TinkerUtil.getMaterialsFromTagList(list);
+
+    // something went wrooooong
+    if(materials.size() != requiredComponents.length) {
+      return false;
+    }
+
+    // check if all materials used have the stats needed
+    for(int i = 0; i < materials.size(); i++) {
+      Material material = materials.get(i);
+      PartMaterialType required = requiredComponents[i];
+      if(!required.isValidMaterial(material)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   public void addMaterialTraits(NBTTagCompound root, List<Material> materials) {
     for(Material material : materials) {
       for(ITrait trait : material.getAllTraits()) {
+        // todo: check as which part the material is used
         ToolBuilder.addTrait(root, trait, material.materialTextColor);
       }
     }

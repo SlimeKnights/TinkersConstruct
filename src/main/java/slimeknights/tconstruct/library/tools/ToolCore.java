@@ -291,11 +291,15 @@ public abstract class ToolCore extends TinkersItem {
       List<Material> mats = new ArrayList<Material>(requiredComponents.length);
 
       for(int i = 0; i < requiredComponents.length; i++) {
+        // todo: check for applicability with stats
         mats.add(head);
       }
 
       ItemStack tool = buildItem(mats);
-      subItems.add(tool);
+      // only valid ones
+      if(!hasValidMaterials(tool)) {
+        subItems.add(tool);
+      }
     }
   }
 
