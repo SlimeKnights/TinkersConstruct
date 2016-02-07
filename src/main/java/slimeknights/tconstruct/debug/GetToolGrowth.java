@@ -9,7 +9,7 @@ import net.minecraft.util.ChatComponentText;
 
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
-import slimeknights.tconstruct.tools.modifiers.traits.TraitProgressiveStats;
+import slimeknights.tconstruct.tools.traits.TraitProgressiveStats;
 
 public class GetToolGrowth extends CommandBase {
 
