@@ -280,14 +280,6 @@ public abstract class ToolCore extends TinkersItem {
     return sb.toString();
   }
 
-  @Override
-  public void addMaterialTraits(NBTTagCompound root, List<Material> materials) {
-    super.addMaterialTraits(root, materials);
-
-    // give every tool the tool-growth trait
-    ToolBuilder.addTrait(root, toolGrowth, 0xffffff);
-  }
-
   // Creative tab items
   @Override
   public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
