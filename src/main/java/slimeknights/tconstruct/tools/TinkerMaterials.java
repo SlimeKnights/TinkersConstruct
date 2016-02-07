@@ -39,6 +39,7 @@ import slimeknights.tconstruct.tools.traits.TraitAlien;
 import slimeknights.tconstruct.tools.traits.TraitAquadynamic;
 import slimeknights.tconstruct.tools.traits.TraitAridiculous;
 import slimeknights.tconstruct.tools.traits.TraitCheap;
+import slimeknights.tconstruct.tools.traits.TraitCheapskate;
 import slimeknights.tconstruct.tools.traits.TraitCrude;
 import slimeknights.tconstruct.tools.traits.TraitDuritos;
 import slimeknights.tconstruct.tools.traits.TraitEcological;
@@ -49,6 +50,7 @@ import slimeknights.tconstruct.tools.traits.TraitPetramor;
 import slimeknights.tconstruct.tools.traits.TraitPrickly;
 import slimeknights.tconstruct.tools.traits.TraitSlimey;
 import slimeknights.tconstruct.tools.traits.TraitSplintering;
+import slimeknights.tconstruct.tools.traits.TraitSplinters;
 import slimeknights.tconstruct.tools.traits.TraitSqueaky;
 import slimeknights.tconstruct.tools.traits.TraitStonebound;
 import slimeknights.tconstruct.tools.traits.TraitTasty;
@@ -110,7 +112,9 @@ public final class TinkerMaterials {
   public static final AbstractTrait aquadynamic = new TraitAquadynamic();
   public static final AbstractTrait aridiculous = new TraitAridiculous();
   public static final AbstractTrait cheap = new TraitCheap();
-  public static final AbstractTrait crude = new TraitCrude();
+  public static final AbstractTrait cheapskate = new TraitCheapskate();
+  public static final AbstractTrait crude = new TraitCrude(1);
+  public static final AbstractTrait crude2 = new TraitCrude(2);
   public static final AbstractTrait duritos = new TraitDuritos(); // yes you read that correctly
   public static final AbstractTrait ecological = new TraitEcological();
   public static final AbstractTrait insatiable = new TraitInsatiable();
@@ -121,6 +125,7 @@ public final class TinkerMaterials {
   public static final AbstractTrait slimeyGreen = new TraitSlimey("green", EntitySlime.class);
   public static final AbstractTrait slimeyBlue = new TraitSlimey("blue", EntityBlueSlime.class);
   public static final AbstractTrait splintering = new TraitSplintering();
+  public static final AbstractTrait splinters = new TraitSplinters();
   public static final AbstractTrait squeaky = new TraitSqueaky();
   public static final AbstractTrait stonebound = new TraitStonebound();
   public static final AbstractTrait tasty = new TraitTasty();
@@ -206,17 +211,20 @@ public final class TinkerMaterials {
     wood.addItem("plankWood", 1, Material.VALUE_Ingot);
     wood.addItem("logWood", 1, Material.VALUE_Ingot * 4);
     wood.setRepresentativeItem(new ItemStack(Items.stick));
-    wood.addTrait(ecological);
+    wood.addTrait(ecological, HeadMaterialStats.TYPE);
+    wood.addTrait(splinters);
 
     stone.setCraftable(true);
     stone.addItem("cobblestone", 1, Material.VALUE_Ingot);
     stone.addItem("stone", 1, Material.VALUE_Ingot);
     stone.setRepresentativeItem(new ItemStack(Blocks.cobblestone));
+    stone.addTrait(cheapskate, HeadMaterialStats.TYPE);
     stone.addTrait(cheap);
 
     flint.setCraftable(true);
     flint.addItem(Items.flint, 1, Material.VALUE_Ingot);
     flint.setRepresentativeItem(new ItemStack(Items.flint));
+    flint.addTrait(crude2, HeadMaterialStats.TYPE);
     flint.addTrait(crude);
 
     cactus.setCraftable(true);
@@ -315,21 +323,21 @@ public final class TinkerMaterials {
     // Stats:                                                   Durability, speed, attack, handle, extra, harvestlevel
     // natural resources/blocks
     TinkerRegistry.addMaterialStats(wood,
-                                    new HeadMaterialStats(50, 2.00f, 2.00f, STONE),
-                                    new HandleMaterialStats(1.00f, 0),
-                                    new ExtraMaterialStats(25));
+                                    new HeadMaterialStats(35, 2.00f, 2.00f, STONE),
+                                    new HandleMaterialStats(1.00f, 25),
+                                    new ExtraMaterialStats(15));
 
     TinkerRegistry.addMaterialStats(stone,
-                                    new HeadMaterialStats(111, 4.00f, 2.90f, IRON),
+                                    new HeadMaterialStats(120, 4.00f, 2.90f, IRON),
                                     new HandleMaterialStats(0.50f, -50),
-                                    new ExtraMaterialStats(5));
+                                    new ExtraMaterialStats(20));
     TinkerRegistry.addMaterialStats(flint,
                                     new HeadMaterialStats(150, 5.00f, 2.80f, IRON),
                                     new HandleMaterialStats(0.60f, -60),
                                     new ExtraMaterialStats(40));
     TinkerRegistry.addMaterialStats(cactus,
                                     new HeadMaterialStats(210, 4.00f, 3.40f, IRON),
-                                    new HandleMaterialStats(0.75f, 20),
+                                    new HandleMaterialStats(0.85f, 20),
                                     new ExtraMaterialStats(50));
     TinkerRegistry.addMaterialStats(bone,
                                     new HeadMaterialStats(230, 5.09f, 2.50f, IRON),
@@ -337,7 +345,7 @@ public final class TinkerMaterials {
                                     new ExtraMaterialStats(60));
     TinkerRegistry.addMaterialStats(obsidian,
                                     new HeadMaterialStats(89, 7.07f, 4.20f, COBALT),
-                                    new HandleMaterialStats(0.50f, -150),
+                                    new HandleMaterialStats(0.90f, -150),
                                     new ExtraMaterialStats(90));
     TinkerRegistry.addMaterialStats(prismarine,
                                     new HeadMaterialStats(430, 5.50f, 6.00f, IRON),
@@ -358,9 +366,9 @@ public final class TinkerMaterials {
 
     // Slime
     TinkerRegistry.addMaterialStats(slime,
-                                    new HeadMaterialStats(600, 4.24f, 1.80f, STONE),
+                                    new HeadMaterialStats(1000, 4.24f, 1.80f, STONE),
                                     new HandleMaterialStats(0.70f, -100),
-                                    new ExtraMaterialStats(250));
+                                    new ExtraMaterialStats(350));
     TinkerRegistry.addMaterialStats(blueslime,
                                     new HeadMaterialStats(780, 4.03f, 1.80f, STONE),
                                     new HandleMaterialStats(1.30f, -100),
@@ -368,7 +376,7 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterialStats(knightslime,
                                     new HeadMaterialStats(800, 3.81f, 5.10f, OBSIDIAN),
                                     new HandleMaterialStats(0.50f, 500),
-                                    new ExtraMaterialStats(150));
+                                    new ExtraMaterialStats(125));
 
     // Nether
     TinkerRegistry.addMaterialStats(netherrack,
@@ -378,11 +386,11 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterialStats(cobalt,
                                     new HeadMaterialStats(780, 10.00f, 4.10f, COBALT),
                                     new HandleMaterialStats(0.90f, 100),
-                                    new ExtraMaterialStats(200));
+                                    new ExtraMaterialStats(300));
     TinkerRegistry.addMaterialStats(ardite,
                                     new HeadMaterialStats(990, 2.42f, 3.60f, COBALT),
                                     new HandleMaterialStats(1.40f, -200),
-                                    new ExtraMaterialStats(350));
+                                    new ExtraMaterialStats(450));
     TinkerRegistry.addMaterialStats(manyullyn,
                                     new HeadMaterialStats(820, 7.02f, 8.72f, COBALT),
                                     new HandleMaterialStats(0.50f, 250),

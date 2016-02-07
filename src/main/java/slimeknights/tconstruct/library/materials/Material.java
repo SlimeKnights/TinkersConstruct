@@ -1,5 +1,8 @@
 package slimeknights.tconstruct.library.materials;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,6 +16,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import slimeknights.mantle.util.RecipeMatch;
@@ -91,7 +96,8 @@ public class Material extends RecipeMatchRegistry {
   // * A Map so we can obtain the stats we want quickly
   // * the linked map to ensure the order when iterating
   protected final Map<String, IMaterialStats> stats = new LinkedHashMap<String, IMaterialStats>();
-  protected final Map<String, ITrait> traits = new LinkedHashMap<String, ITrait>();
+  /** Stat-ID -> Traits */
+  protected final Map<String, List<ITrait>> traits = new LinkedHashMap<String, List<ITrait>>();
 
   public Material(String identifier, EnumChatFormatting textColor) {
     this(identifier, Util.enumChatFormattingToColor(textColor));
@@ -215,30 +221,74 @@ public class Material extends RecipeMatchRegistry {
   /* Traits */
 
   /**
-   * Do not use this function with unregistered traits. Use TinkerRegistry.addMaterialTrait instead.
+   * Adds the trait as the default trait, will be used if no more specific one is present time.
    */
   public Material addTrait(ITrait materialTrait) {
-    // rgister unregistered traits
-    if(TinkerRegistry.getTrait(materialTrait.getIdentifier()) == null) {
-      TinkerRegistry.addTrait(materialTrait);
+    return addTrait(materialTrait, null);
+  }
+
+  /**
+   * Adds the trait to be added if the specified stats are used.
+   */
+  public Material addTrait(ITrait materialTrait, String dependency) {
+    // register unregistered traits
+    if(TinkerRegistry.checkMaterialTrait(this, materialTrait, dependency)) {
+      getStatTraits(dependency).add(materialTrait);
     }
-    this.traits.put(materialTrait.getIdentifier(), materialTrait);
+
     return this;
+  }
+
+  /**
+   * Adds the trait to be added multiple times if the specified stats are used.
+   */
+  public Material addTrait(ITrait materialTrait, int level, String dependency) {
+    // register unregistered traits
+    if(TinkerRegistry.checkMaterialTrait(this, materialTrait, dependency)) {
+      while(level-- > 0) {
+        getStatTraits(dependency).add(materialTrait);
+      }
+    }
+
+    return this;
+  }
+
+  /** Obtains the list of traits for the given stat, creates it if it doesn't exist yet. */
+  protected List<ITrait> getStatTraits(String id) {
+    if(!this.traits.containsKey(id)) {
+      this.traits.put(id, new LinkedList<ITrait>());
+    }
+    return this.traits.get(id);
   }
 
   /**
    * Returns whether the material has a trait with that identifier.
    */
-  public boolean hasTrait(String identifier) {
+  public boolean hasTrait(String identifier, String stats) {
     if(identifier == null || identifier.isEmpty()) {
       return false;
     }
 
-    return traits.containsKey(identifier);
+    return !getStatTraits(stats).isEmpty();
+  }
+
+  public Collection<ITrait> getDefaultTraits() {
+    return ImmutableList.copyOf(getStatTraits(null));
+  }
+
+  public Collection<ITrait> getAllTraitsForStats(String stats) {
+    if(this.traits.containsKey(stats)) {
+      return ImmutableList.copyOf(this.traits.get(stats));
+    }
+    return ImmutableList.of();
   }
 
   public Collection<ITrait> getAllTraits() {
-    return this.traits.values();
+    ImmutableSet.Builder<ITrait> builder = ImmutableSet.builder();
+    for(List<ITrait> traitlist : traits.values()) {
+      builder.addAll(traitlist);
+    }
+    return builder.build();
   }
 
   /* Data about the material itself */

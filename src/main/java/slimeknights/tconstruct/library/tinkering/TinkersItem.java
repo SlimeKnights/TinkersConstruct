@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.library.tinkering;
 
 
+import com.google.common.collect.ImmutableList;
+
 import gnu.trove.set.hash.THashSet;
 
 import net.minecraft.entity.Entity;
@@ -23,10 +25,10 @@ import java.util.List;
 import java.util.Set;
 
 import slimeknights.mantle.util.RecipeMatch;
-import slimeknights.mantle.util.TagHelper;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.events.TinkerEvent;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
@@ -164,6 +166,9 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     // add traits
     addMaterialTraits(basetag, materials);
 
+    // fire toolbuilding event
+    TinkerEvent.OnItemBuilding.fireEvent(basetag, ImmutableList.copyOf(materials));
+
     return basetag;
   }
 
@@ -228,9 +233,16 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   }
 
   public void addMaterialTraits(NBTTagCompound root, List<Material> materials) {
-    for(Material material : materials) {
-      for(ITrait trait : material.getAllTraits()) {
-        // todo: check as which part the material is used
+    int size = requiredComponents.length;
+    // safety
+    if(materials.size() < size) {
+      size = materials.size();
+    }
+    // add corresponding traits per material usage
+    for(int i = 0; i < size; i++) {
+      PartMaterialType required = requiredComponents[i];
+      Material material = materials.get(i);
+      for(ITrait trait : required.getApplicableTraitsForMaterial(material)) {
         ToolBuilder.addTrait(root, trait, material.materialTextColor);
       }
     }
@@ -240,7 +252,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   /** Returns indices of the parts that are used for repairing */
   public int[] getRepairParts() {
-    return new int[] {1};
+    return new int[] {1}; // index 1 usually is the head. 0 is handle.
   }
 
   @Override

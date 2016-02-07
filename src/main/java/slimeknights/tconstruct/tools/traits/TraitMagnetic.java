@@ -14,8 +14,8 @@ import java.util.List;
 import javax.vecmath.Vector3d;
 
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.potion.TinkerPotion;
+import slimeknights.tconstruct.library.traits.AbstractTrait;
 
 public class TraitMagnetic extends AbstractTrait {
 

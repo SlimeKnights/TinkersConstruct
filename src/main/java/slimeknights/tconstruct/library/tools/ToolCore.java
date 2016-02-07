@@ -40,11 +40,10 @@ import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
-import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.modifiers.traits.ToolGrowth;
+import slimeknights.tconstruct.tools.traits.ToolGrowth;
 
 /**
  * Intermediate abstraction layer for all tools/melee weapons. This class has all the callbacks for blocks and enemies
@@ -297,7 +296,7 @@ public abstract class ToolCore extends TinkersItem {
 
       ItemStack tool = buildItem(mats);
       // only valid ones
-      if(!hasValidMaterials(tool)) {
+      if(hasValidMaterials(tool)) {
         subItems.add(tool);
       }
     }

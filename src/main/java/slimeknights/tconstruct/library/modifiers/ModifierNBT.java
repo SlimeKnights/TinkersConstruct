@@ -154,7 +154,7 @@ public class ModifierNBT {
         return String.format("%d / %d", current, max);
       }
 
-      return String.valueOf(current);
+      return current > 0 ? String.valueOf(current) : "";
     }
   }
 }

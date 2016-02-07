@@ -2,14 +2,19 @@ package slimeknights.tconstruct.tools.traits;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 
+import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.modifiers.ModifierAspect;
+import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
+import slimeknights.tconstruct.library.traits.AbstractTraitLeveled;
 
-public class TraitCrude extends AbstractTrait {
+public class TraitCrude extends AbstractTraitLeveled {
 
-  public TraitCrude() {
-    super("crude", EnumChatFormatting.BLACK);
+  public TraitCrude(int levels) {
+    super("crude", 0x424242, 3, levels);
   }
 
   @Override

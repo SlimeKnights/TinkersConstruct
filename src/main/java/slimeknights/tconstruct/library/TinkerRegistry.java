@@ -49,6 +49,7 @@ import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.Shard;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolPart;
+import slimeknights.tconstruct.library.traits.AbstractTraitLeveled;
 import slimeknights.tconstruct.library.traits.ITrait;
 
 public final class TinkerRegistry {
@@ -87,12 +88,12 @@ public final class TinkerRegistry {
 
   public static void addMaterial(Material material, IMaterialStats stats, ITrait trait) {
     addMaterial(material, stats);
-    addMaterialTrait(material.identifier, trait);
+    addMaterialTrait(material.identifier, trait, null);
   }
 
   public static void addMaterial(Material material, ITrait trait) {
     addMaterial(material);
-    addMaterialTrait(material.identifier, trait);
+    addMaterialTrait(material.identifier, trait, null);
   }
 
   public static void addMaterial(Material material, IMaterialStats stats) {
@@ -241,7 +242,7 @@ public final class TinkerRegistry {
     putStatTrace(identifier, stats, activeMod);
   }
 
-  public static void addMaterialTrait(String materialIdentifier, ITrait trait) {
+  public static void addMaterialTrait(String materialIdentifier, ITrait trait, String stats) {
     if(cancelledMaterials.contains(materialIdentifier)) {
       return;
     }
@@ -252,21 +253,31 @@ public final class TinkerRegistry {
     }
 
     Material material = materials.get(materialIdentifier);
-    addMaterialTrait(material, trait);
+    addMaterialTrait(material, trait, stats);
   }
 
-  public static void addMaterialTrait(Material material, ITrait trait) {
+  public static void addMaterialTrait(Material material, ITrait trait, String stats) {
+    if(checkMaterialTrait(material, trait, stats)) {
+      material.addTrait(trait);
+    }
+  }
+
+  /**
+   * Call before adding a trait to a material. Checks consistency and takes care everything is in a consistent state.
+   * Registers the trait if it's not registered, takes events into account.
+   */
+  public static boolean checkMaterialTrait(Material material, ITrait trait, String stats) {
     if(material == null) {
       error(String.format("Could not add Trait \"%s\": Material is null", trait.getIdentifier()));
-      return;
+      return false;
     }
     if(cancelledMaterials.contains(material.identifier)) {
-      return;
+      return false;
     }
 
     String identifier = material.identifier;
     // duplicate traits
-    if(material.hasTrait(trait.getIdentifier())) {
+    if(material.hasTrait(trait.getIdentifier(), stats)) {
       String registeredBy = "Unknown";
       Map<String, String> matReg = traitRegisteredByMod.get(identifier);
       if(matReg != null) {
@@ -276,18 +287,19 @@ public final class TinkerRegistry {
       error(String.format(
           "Could not add Trait to \"%s\": Trait \"%s\" was already registered by %s",
           identifier, trait.getIdentifier(), registeredBy));
-      return;
+      return false;
     }
 
     MaterialEvent.TraitRegisterEvent<?> event = new MaterialEvent.TraitRegisterEvent<ITrait>(material, trait);
     if(MinecraftForge.EVENT_BUS.post(event)) {
       // cancelled
       log.trace("Trait {} on {} cancelled by event", trait.getIdentifier(), material.getIdentifier());
-      return;
+      return false;
     }
 
     addTrait(trait);
-    material.addTrait(trait);
+
+    return true;
   }
 
   public static ITrait getTrait(String identifier) {
@@ -425,6 +437,10 @@ public final class TinkerRegistry {
 
   public static void registerModifier(IModifier modifier) {
     modifiers.put(modifier.getIdentifier(), modifier);
+  }
+
+  public static void registerModifierAlias(IModifier modifier, String alias) {
+    modifiers.put(alias, modifier);
   }
 
   public static IModifier getModifier(String identifier) {

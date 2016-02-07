@@ -9,9 +9,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.potion.TinkerPotion;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.utils.ToolHelper;
-import slimeknights.tconstruct.library.potion.TinkerPotion;
 
 public class TraitMomentum extends AbstractTrait {
 

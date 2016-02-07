@@ -15,7 +15,7 @@ public class TraitCheap extends AbstractTrait {
 
   @Override
   public int onToolHeal(ItemStack tool, int amount, int newAmount, EntityLivingBase entity) {
-    // 10% bonus durability repaired!
-    return newAmount + amount * 10 / 100;
+    // 5% bonus durability repaired!
+    return newAmount + amount * 5 / 100;
   }
 }

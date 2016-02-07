@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.utils;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
 
 import gnu.trove.map.TIntIntMap;
@@ -24,6 +25,7 @@ import java.util.Set;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.events.TinkerEvent;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
@@ -119,9 +121,9 @@ public final class ToolBuilder {
 
     NBTTagCompound tag = new NBTTagCompound();
     NBTTagList tagList = TagUtil.getModifiersTagList(rootCompound);
-    int index = TinkerUtil.getIndexInList(tagList, trait.getIdentifier());
+    int index = TinkerUtil.getIndexInList(tagList, traitModifier.getModifierIdentifier());
     if(index < 0) {
-      traitModifier.updateNBTWithColor(tag, color);
+      traitModifier.updateNBTforTrait(tag, color);
       tagList.appendTag(tag);
       TagUtil.setModifiersTagList(rootCompound, tagList);
     }
@@ -455,6 +457,9 @@ public final class ToolBuilder {
     // clean up traits
     rootNBT.removeTag(Tags.TOOL_TRAITS);
     tinkersItem.addMaterialTraits(rootNBT, materials);
+
+    // fire event
+    TinkerEvent.OnItemBuilding.fireEvent(rootNBT, ImmutableList.copyOf(materials));
 
     // reapply modifiers
     NBTTagList modifiers = TagUtil.getBaseModifiersTagList(rootNBT);

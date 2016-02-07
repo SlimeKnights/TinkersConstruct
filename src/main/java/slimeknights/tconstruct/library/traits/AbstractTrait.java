@@ -48,25 +48,6 @@ public abstract class AbstractTrait extends Modifier implements ITrait {
     this.addAspects(new ModifierAspect.SingleAspect(this));
   }
 
-  /**
-   * The general assumption is that Traits don't have levels.
-   * Should it be needed, however, this function allows you to easily get the level of a trait.
-   *
-   * @return Level of the trait. 0 If the trait is not present.
-   */
-  public int getTraitLevel(ItemStack stack) {
-    /*
-    NBTTagCompound traits = TagUtil.getTraitsTagList(stack);
-    for (int i = 0; traits.hasKey(String.valueOf(i)); i++) {
-      ModifierNBT data = ModifierNBT.read(traits, String.valueOf(i));
-      if (identifier.equals(data.identifier)) {
-        return data.level;
-      }
-    }
-*/
-    return 0;
-  }
-
   @Override
   public int getMaxCount() {
     return 1;
@@ -162,6 +143,12 @@ public abstract class AbstractTrait extends Modifier implements ITrait {
   public void onRepair(ItemStack tool, int amount) {}
 
   /* Modifier things */
+
+  // The name the modifier tag is saved under
+  public String getModifierIdentifier() {
+    return identifier;
+  }
+
   @Override
   public boolean canApplyCustom(ItemStack stack) {
     // can only apply if the trait isn't present already
@@ -174,12 +161,12 @@ public abstract class AbstractTrait extends Modifier implements ITrait {
 
   @Override
   public void updateNBT(NBTTagCompound modifierTag) {
-    updateNBTWithColor(modifierTag, color);
+    updateNBTforTrait(modifierTag, color);
   }
 
-  public void updateNBTWithColor(NBTTagCompound modifierTag, int newColor) {
+  public void updateNBTforTrait(NBTTagCompound modifierTag, int newColor) {
     ModifierNBT data = ModifierNBT.readTag(modifierTag);
-    data.identifier = identifier;
+    data.identifier = getModifierIdentifier();
     data.color = newColor;
     // we ensure at least lvl1 for compatibility with the level-aspect
     if(data.level == 0) {

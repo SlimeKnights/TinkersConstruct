@@ -6,8 +6,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
 
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.potion.TinkerPotion;
+import slimeknights.tconstruct.library.traits.AbstractTrait;
 
 public class TraitSplintering extends AbstractTrait {
 

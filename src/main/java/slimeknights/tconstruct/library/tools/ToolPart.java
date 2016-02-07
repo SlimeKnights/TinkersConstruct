@@ -69,6 +69,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
     boolean shift = Util.isShiftKeyDown();
 
     if(!checkMissingMaterialTooltip(stack, tooltip)) {
+      // todo: make stat sensitive
       for(ITrait trait : material.getAllTraits()) {
         if(!trait.isHidden()) {
           tooltip.add(material.getTextColor() + trait.getLocalizedName());

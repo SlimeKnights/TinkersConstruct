@@ -1,9 +1,11 @@
 package slimeknights.tconstruct.library.tinkering;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.item.ItemStack;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,6 +14,7 @@ import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.traits.ITrait;
 
 public class PartMaterialType {
 
@@ -56,6 +59,25 @@ public class PartMaterialType {
     return true;
   }
 
+  public Collection<ITrait> getApplicableTraitsForMaterial(Material material) {
+    if(!isValidMaterial(material)) {
+      return ImmutableList.of();
+    }
+
+    ImmutableList.Builder<ITrait> traits = ImmutableList.builder();
+    // traits of the types used
+    for(String type : neededTypes) {
+      traits.addAll(material.getAllTraitsForStats(type));
+    }
+
+    // use default trait if none is present
+    if(traits.build().isEmpty()) {
+      traits.addAll(material.getDefaultTraits());
+    }
+
+    return traits.build();
+  }
+
   public Set<IToolPart> getPossibleParts() {
     return ImmutableSet.copyOf(neededPart);
   }
@@ -70,26 +92,5 @@ public class PartMaterialType {
 
   public static PartMaterialType extra(IToolPart part) {
     return new PartMaterialType(part, ExtraMaterialStats.TYPE);
-  }
-
-  public static class Head extends PartMaterialType {
-
-    public Head(IToolPart part) {
-      super(part, HeadMaterialStats.TYPE);
-    }
-  }
-
-  public static class Handle extends PartMaterialType {
-
-    public Handle(IToolPart part) {
-      super(part, HandleMaterialStats.TYPE);
-    }
-  }
-
-  public static class Extra extends PartMaterialType {
-
-    public Extra(IToolPart part) {
-      super(part, ExtraMaterialStats.TYPE);
-    }
   }
 }
