@@ -49,11 +49,6 @@ public abstract class AbstractTrait extends Modifier implements ITrait {
   }
 
   @Override
-  public int getMaxCount() {
-    return 1;
-  }
-
-  @Override
   public String getIdentifier() {
     return identifier;
   }

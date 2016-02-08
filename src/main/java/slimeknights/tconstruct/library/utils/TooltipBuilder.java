@@ -60,9 +60,9 @@ public class TooltipBuilder {
     return this;
   }
 
-  public TooltipBuilder addDurability() {
+  public TooltipBuilder addDurability(boolean textIfBroken) {
     if(stack != null) {
-      if(ToolHelper.isBroken(stack)) {
+      if(ToolHelper.isBroken(stack) && textIfBroken) {
         tips.add(String.format("%s: %s%s%s", Util.translate(HeadMaterialStats.LOC_Durability), EnumChatFormatting.DARK_RED, EnumChatFormatting.BOLD, Util.translate("tooltip.tool.broken")));
       }
       else {

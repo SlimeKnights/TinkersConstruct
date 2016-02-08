@@ -19,10 +19,6 @@ import slimeknights.tconstruct.library.modifiers.IToolMod;
  * The corresponding trait object gets events forwarded to it when a tool with that trait executes them
  */
 public interface ITrait extends IToolMod {
-
-  /** Returns how often the trait can be stacked on one item. A value of 1 or less means not stackable. */
-  int getMaxCount();
-
   /* Updating */
 
   /**

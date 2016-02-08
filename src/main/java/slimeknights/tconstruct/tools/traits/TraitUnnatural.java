@@ -23,8 +23,10 @@ public class TraitUnnatural extends AbstractTrait {
     int hlvl = tool.getItem().getHarvestLevel(tool, block.getHarvestTool(event.state));
     int dif = hlvl - block.getHarvestLevel(event.state);
 
-    // 36% speed per harvest level above
-    event.newSpeed += event.originalSpeed * dif * 0.36f;
+    // 1 speed per harvest level above
+    if(dif > 0) {
+      event.newSpeed += dif;
+    }
   }
 
 }

@@ -161,7 +161,7 @@ public class Mattock extends AoeToolCore {
     MattockToolNBT data = new MattockToolNBT();
     data.read(TagUtil.getToolTag(stack));
 
-    info.addDurability();
+    info.addDurability(false);
     // todo: make this proper
     info.addCustom("Axe:");
     info.addCustom(HeadMaterialStats.formatMiningSpeed(data.axeSpeed));

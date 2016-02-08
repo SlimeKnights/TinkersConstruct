@@ -38,17 +38,26 @@ import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.tools.traits.TraitAlien;
 import slimeknights.tconstruct.tools.traits.TraitAquadynamic;
 import slimeknights.tconstruct.tools.traits.TraitAridiculous;
+import slimeknights.tconstruct.tools.traits.TraitBaconlicious;
+import slimeknights.tconstruct.tools.traits.TraitBonusDamage;
 import slimeknights.tconstruct.tools.traits.TraitCheap;
 import slimeknights.tconstruct.tools.traits.TraitCheapskate;
+import slimeknights.tconstruct.tools.traits.TraitColdblooded;
 import slimeknights.tconstruct.tools.traits.TraitCrude;
+import slimeknights.tconstruct.tools.traits.TraitCrumbling;
 import slimeknights.tconstruct.tools.traits.TraitDuritos;
 import slimeknights.tconstruct.tools.traits.TraitEcological;
+import slimeknights.tconstruct.tools.traits.TraitEnderference;
+import slimeknights.tconstruct.tools.traits.TraitHellish;
 import slimeknights.tconstruct.tools.traits.TraitInsatiable;
+import slimeknights.tconstruct.tools.traits.TraitJagged;
+import slimeknights.tconstruct.tools.traits.TraitLightweight;
 import slimeknights.tconstruct.tools.traits.TraitMagnetic;
 import slimeknights.tconstruct.tools.traits.TraitMomentum;
 import slimeknights.tconstruct.tools.traits.TraitPetramor;
 import slimeknights.tconstruct.tools.traits.TraitPrickly;
 import slimeknights.tconstruct.tools.traits.TraitSlimey;
+import slimeknights.tconstruct.tools.traits.TraitSpiky;
 import slimeknights.tconstruct.tools.traits.TraitSplintering;
 import slimeknights.tconstruct.tools.traits.TraitSplinters;
 import slimeknights.tconstruct.tools.traits.TraitSqueaky;
@@ -111,19 +120,29 @@ public final class TinkerMaterials {
   public static final AbstractTrait alien = new TraitAlien();
   public static final AbstractTrait aquadynamic = new TraitAquadynamic();
   public static final AbstractTrait aridiculous = new TraitAridiculous();
+  public static final AbstractTrait baconlicious = new TraitBaconlicious();
   public static final AbstractTrait cheap = new TraitCheap();
   public static final AbstractTrait cheapskate = new TraitCheapskate();
+  public static final AbstractTrait coldblooded = new TraitColdblooded();
   public static final AbstractTrait crude = new TraitCrude(1);
   public static final AbstractTrait crude2 = new TraitCrude(2);
+  public static final AbstractTrait crumbling = new TraitCrumbling();
   public static final AbstractTrait duritos = new TraitDuritos(); // yes you read that correctly
   public static final AbstractTrait ecological = new TraitEcological();
+  public static final AbstractTrait enderference = new TraitEnderference();
+  public static final AbstractTrait fractured = new TraitBonusDamage("fractured", 2);
+  public static final AbstractTrait hellish = new TraitHellish();
   public static final AbstractTrait insatiable = new TraitInsatiable();
-  public static final AbstractTrait magnetic = new TraitMagnetic();
+  public static final AbstractTrait jagged = new TraitJagged();
+  public static final AbstractTrait lightweight = new TraitLightweight();
+  public static final AbstractTrait magnetic = new TraitMagnetic(1);
+  public static final AbstractTrait magnetic2 = new TraitMagnetic(2);
   public static final AbstractTrait momentum = new TraitMomentum();
   public static final AbstractTrait petramor = new TraitPetramor();
   public static final AbstractTrait prickly = new TraitPrickly();
   public static final AbstractTrait slimeyGreen = new TraitSlimey("green", EntitySlime.class);
   public static final AbstractTrait slimeyBlue = new TraitSlimey("blue", EntityBlueSlime.class);
+  public static final AbstractTrait spiky = new TraitSpiky();
   public static final AbstractTrait splintering = new TraitSplintering();
   public static final AbstractTrait splinters = new TraitSplinters();
   public static final AbstractTrait squeaky = new TraitSqueaky();
@@ -140,6 +159,8 @@ public final class TinkerMaterials {
   static {
     xu = new Material("unstable", EnumChatFormatting.WHITE);
   }
+
+  private static final String HEAD = HeadMaterialStats.TYPE;
 
   @Subscribe
   public void registerRendering(FMLPostInitializationEvent event) {
@@ -211,33 +232,35 @@ public final class TinkerMaterials {
     wood.addItem("plankWood", 1, Material.VALUE_Ingot);
     wood.addItem("logWood", 1, Material.VALUE_Ingot * 4);
     wood.setRepresentativeItem(new ItemStack(Items.stick));
-    wood.addTrait(ecological, HeadMaterialStats.TYPE);
+    wood.addTrait(ecological, HEAD);
     wood.addTrait(splinters);
 
     stone.setCraftable(true);
     stone.addItem("cobblestone", 1, Material.VALUE_Ingot);
     stone.addItem("stone", 1, Material.VALUE_Ingot);
     stone.setRepresentativeItem(new ItemStack(Blocks.cobblestone));
-    stone.addTrait(cheapskate, HeadMaterialStats.TYPE);
+    stone.addTrait(cheapskate, HEAD);
     stone.addTrait(cheap);
 
     flint.setCraftable(true);
     flint.addItem(Items.flint, 1, Material.VALUE_Ingot);
     flint.setRepresentativeItem(new ItemStack(Items.flint));
-    flint.addTrait(crude2, HeadMaterialStats.TYPE);
+    flint.addTrait(crude2, HEAD);
     flint.addTrait(crude);
 
     cactus.setCraftable(true);
     cactus.addItem("blockCactus", 1, Material.VALUE_Ingot);
     cactus.setRepresentativeItem(new ItemStack(Blocks.cactus));
-    cactus.addTrait(prickly);
+    cactus.addTrait(prickly, HEAD);
+    cactus.addTrait(spiky);
 
     obsidian.setFluid(TinkerFluids.obsidian);
     obsidian.setCraftable(true);
     obsidian.setCastable(true);
     obsidian.addItem(Blocks.obsidian, Material.VALUE_Ingot);
     obsidian.setRepresentativeItem(new ItemStack(Blocks.obsidian));
-    obsidian.addTrait(duritos);
+    obsidian.addTrait(duritos, HEAD);
+    obsidian.addTrait(fractured);
 
     prismarine.setCraftable(true);
     prismarine.addItem(Items.prismarine_shard, 1, Material.VALUE_Fragment);
@@ -245,22 +268,25 @@ public final class TinkerMaterials {
     prismarine.addItem(new ItemStack(Blocks.prismarine, 1, BlockPrismarine.BRICKS_META), 1, Material.VALUE_Fragment*9);
     prismarine.addItem(new ItemStack(Blocks.prismarine, 1, BlockPrismarine.DARK_META), 1, Material.VALUE_Ingot*2);
     prismarine.setRepresentativeItem(Blocks.prismarine);
+    prismarine.addTrait(jagged, HEAD);
     prismarine.addTrait(aquadynamic);
 
     netherrack.setCraftable(true);
     netherrack.addItem(Blocks.netherrack, Material.VALUE_Ingot);
     netherrack.setRepresentativeItem(Blocks.netherrack);
-    netherrack.addTrait(aridiculous);
+    netherrack.addTrait(aridiculous, HEAD);
+    netherrack.addTrait(hellish);
 
     endstone.setCraftable(true);
     endstone.addItem(Blocks.end_stone, Material.VALUE_Ingot);
     endstone.setRepresentativeItem(Blocks.end_stone);
-    endstone.addTrait(alien);
+    endstone.addTrait(alien, HEAD);
+    endstone.addTrait(enderference);
 
     // item/special resources
     bone.setCraftable(true);
     bone.addItem(Items.bone, 1, Material.VALUE_Ingot);
-    bone.addItem(new ItemStack(Items.dye, 1, EnumDyeColor.WHITE.getDyeDamage()), 1, Material.VALUE_Fragment);
+    bone.addItem(new ItemStack(Items.dye, 1, EnumDyeColor.WHITE.getDyeDamage()), 1, Material.VALUE_Fragment); // bonemeal
     bone.setRepresentativeItem(Items.bone);
     bone.addTrait(splintering);
 
@@ -283,25 +309,31 @@ public final class TinkerMaterials {
 
     knightslime.setCraftable(true);
     safeAdd(knightslime, TinkerCommons.ingotKnightSlime, Material.VALUE_Ingot, true);
+    knightslime.addTrait(crumbling, HEAD);
     knightslime.addTrait(unnatural);
 
     // Metals
     iron.addItem("ingotIron", 1, Material.VALUE_Ingot);
     iron.setRepresentativeItem(Items.iron_ingot);
+    iron.addTrait(magnetic2, HEAD);
     iron.addTrait(magnetic);
     // todo: remaining metals
 
     safeAdd(pigiron, TinkerCommons.ingotPigIron, Material.VALUE_Ingot, true);
+    pigiron.addTrait(baconlicious, HEAD);
     pigiron.addTrait(tasty);
 
     safeAdd(cobalt, TinkerCommons.ingotCobalt, Material.VALUE_Ingot, true);
-    cobalt.addTrait(momentum);
+    cobalt.addTrait(momentum, HEAD);
+    cobalt.addTrait(lightweight);
 
     safeAdd(ardite, TinkerCommons.ingotArdite, Material.VALUE_Ingot, true);
+    ardite.addTrait(stonebound, HEAD);
     ardite.addTrait(petramor);
 
     safeAdd(manyullyn, TinkerCommons.ingotManyullyn, Material.VALUE_Ingot, true);
-    manyullyn.addTrait(insatiable);
+    manyullyn.addTrait(insatiable, HEAD);
+    manyullyn.addTrait(coldblooded);
 
     registerToolMaterials();
   }
@@ -340,9 +372,9 @@ public final class TinkerMaterials {
                                     new HandleMaterialStats(0.85f, 20),
                                     new ExtraMaterialStats(50));
     TinkerRegistry.addMaterialStats(bone,
-                                    new HeadMaterialStats(230, 5.09f, 2.50f, IRON),
-                                    new HandleMaterialStats(1.10f, 25),
-                                    new ExtraMaterialStats(60));
+                                    new HeadMaterialStats(200, 5.09f, 2.50f, IRON),
+                                    new HandleMaterialStats(1.10f, 60),
+                                    new ExtraMaterialStats(65));
     TinkerRegistry.addMaterialStats(obsidian,
                                     new HeadMaterialStats(89, 7.07f, 4.20f, COBALT),
                                     new HandleMaterialStats(0.90f, -150),

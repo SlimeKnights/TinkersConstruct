@@ -1,12 +1,8 @@
 package slimeknights.tconstruct.tools.traits;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.FoodStats;
 import net.minecraft.world.World;
@@ -14,7 +10,6 @@ import net.minecraft.world.World;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.utils.ToolHelper;
-import slimeknights.tconstruct.shared.TinkerCommons;
 
 public class TraitTasty extends AbstractTrait {
 
@@ -63,25 +58,5 @@ public class TraitTasty extends AbstractTrait {
     player.getFoodStats().addStats(1, 0);
     player.worldObj.playSoundAtEntity(player, Sounds.nom, 0.8f, 1.0f);
     ToolHelper.damageTool(tool, NOM_COST, player);
-  }
-
-  @Override
-  public void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
-    dropBacon(player.worldObj, pos.getX(), pos.getY(), pos.getZ(), 0.005f);
-  }
-
-  @Override
-  public void afterHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damageDealt, boolean wasCritical, boolean wasHit) {
-    // did the target die?
-    if(!target.isEntityAlive() && wasHit) {
-      dropBacon(target.worldObj, target.posX, target.posY, target.posZ, 0.05f);
-    }
-  }
-
-  protected void dropBacon(World world, double x, double y, double z, float chance) {
-    if(!world.isRemote && random.nextFloat() < chance) {
-      EntityItem entity = new EntityItem(world, x, y, z, TinkerCommons.bacon.copy());
-      world.spawnEntityInWorld(entity);
-    }
   }
 }

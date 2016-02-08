@@ -201,9 +201,18 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public String[] getInformation(ItemStack stack) {
+    return getInformation(stack, false);
+  }
+
+  @Override
+  public void getTooltipDetailed(ItemStack stack, List<String> tooltips) {
+    tooltips.addAll(Arrays.asList(getInformation(stack, true)));
+  }
+
+  public String[] getInformation(ItemStack stack, boolean detailed) {
     TooltipBuilder info = new TooltipBuilder(stack);
 
-    info.addDurability();
+    info.addDurability(!detailed);
     if(hasCategory(Category.HARVEST)) {
       info.addHarvestLevel();
       info.addMiningSpeed();
@@ -215,11 +224,6 @@ public abstract class ToolCore extends TinkersItem {
     }
 
     return info.getTooltip();
-  }
-
-  @Override
-  public void getTooltipDetailed(ItemStack stack, List<String> tooltips) {
-    tooltips.addAll(Arrays.asList(getInformation(stack)));
   }
 
   @Override

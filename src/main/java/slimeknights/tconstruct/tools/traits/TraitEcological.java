@@ -1,10 +1,7 @@
 package slimeknights.tconstruct.tools.traits;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
@@ -18,7 +15,7 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 public class TraitEcological extends AbstractTrait {
 
   public static DamageSource splinter = new DamageSource("splinter").setDamageBypassesArmor();
-  private static int chance = 100; // 1/X chance of getting the effect
+  private static int chance = 60; // 1/X chance of getting the effect
 
   public TraitEcological() {
     super("ecological", EnumChatFormatting.GREEN);
@@ -29,23 +26,6 @@ public class TraitEcological extends AbstractTrait {
     // *20 because 20 ticks in a second
     if(random.nextInt(20 * chance) == 0) {
       ToolHelper.repairTool(tool, 1);
-    }
-  }
-
-  @Override
-  public void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
-    splinter(player);
-  }
-
-  @Override
-  public void afterHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damageDealt, boolean wasCritical, boolean wasHit) {
-    splinter(player);
-  }
-
-  private void splinter(EntityLivingBase player) {
-    // SPLINTERS!
-    if(!player.worldObj.isRemote && random.nextInt(chance) == 0) {
-      player.attackEntityFrom(splinter, 0.1f);
     }
   }
 }

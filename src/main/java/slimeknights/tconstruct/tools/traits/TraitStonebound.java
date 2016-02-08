@@ -15,8 +15,13 @@ public class TraitStonebound extends AbstractTrait {
 
   @Override
   public void miningSpeed(ItemStack tool, PlayerEvent.BreakSpeed event) {
-    float damaged = (float) tool.getItemDamage() / (float) ToolHelper.getDurabilityStat(tool);
+    if(ToolHelper.isToolEffective2(tool, event.state)) {
+      int durability = ToolHelper.getCurrentDurability(tool);
+      int maxDurability = ToolHelper.getDurabilityStat(tool);
 
-    event.newSpeed = Math.max(0f, event.newSpeed + damaged * 5.0f);
+      // old tcon stonebound formula
+      double bonus = Math.log((maxDurability - durability) / 72d + 1d) * 2;
+      event.newSpeed += bonus;
+    }
   }
 }

@@ -239,20 +239,6 @@ public class Material extends RecipeMatchRegistry {
     return this;
   }
 
-  /**
-   * Adds the trait to be added multiple times if the specified stats are used.
-   */
-  public Material addTrait(ITrait materialTrait, int level, String dependency) {
-    // register unregistered traits
-    if(TinkerRegistry.checkMaterialTrait(this, materialTrait, dependency)) {
-      while(level-- > 0) {
-        getStatTraits(dependency).add(materialTrait);
-      }
-    }
-
-    return this;
-  }
-
   /** Obtains the list of traits for the given stat, creates it if it doesn't exist yet. */
   protected List<ITrait> getStatTraits(String id) {
     if(!this.traits.containsKey(id)) {

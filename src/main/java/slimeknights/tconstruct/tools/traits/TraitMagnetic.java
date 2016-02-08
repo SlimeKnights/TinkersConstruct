@@ -14,25 +14,30 @@ import java.util.List;
 import javax.vecmath.Vector3d;
 
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.potion.TinkerPotion;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
+import slimeknights.tconstruct.library.traits.AbstractTraitLeveled;
+import slimeknights.tconstruct.library.utils.TinkerUtil;
 
-public class TraitMagnetic extends AbstractTrait {
+public class TraitMagnetic extends AbstractTraitLeveled {
 
   public static TinkerPotion Magnetic = new MagneticPotion();
 
-  public TraitMagnetic() {
-    super("magnetic", EnumChatFormatting.GRAY);
+  public TraitMagnetic(int levels) {
+    super("magnetic", 0xdddddd, 3, levels);
   }
 
   @Override
   public void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
-    Magnetic.apply(player, 20);
+    ModifierNBT data = new ModifierNBT(TinkerUtil.getModifierTag(tool, name));
+    Magnetic.apply(player, 30, data.level);
   }
 
   @Override
   public float onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
-    Magnetic.apply(player, 10);
+    ModifierNBT data = new ModifierNBT(TinkerUtil.getModifierTag(tool, name));
+    Magnetic.apply(player, 30, data.level);
     return super.onHit(tool, player, target, damage, newDamage, isCritical);
   }
 
@@ -53,7 +58,8 @@ public class TraitMagnetic extends AbstractTrait {
       double x = entity.posX;
       double y = entity.posY;
       double z = entity.posZ;
-      double range = 2.1d;
+      double range = 1.8d;
+      range += entity.getActivePotionEffect(this).getAmplifier() * 0.3f;
 
       List<EntityItem> items = entity.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.fromBounds(x - range, y - range, z - range, x + range, y + range, z + range));
       int pulled = 0;

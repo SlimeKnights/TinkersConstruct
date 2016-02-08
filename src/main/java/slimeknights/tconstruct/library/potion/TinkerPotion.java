@@ -13,7 +13,11 @@ public class TinkerPotion extends Potion {
   private final boolean show;
 
   public TinkerPotion(ResourceLocation location, boolean badEffect, boolean showInInventory) {
-    super(location, badEffect, 0xffffff);
+    this(location, badEffect, showInInventory, 0xffffff);
+  }
+
+  public TinkerPotion(ResourceLocation location, boolean badEffect, boolean showInInventory, int color) {
+    super(location, badEffect, color);
     setPotionName("potion." + location.getResourcePath());
 
     this.show = showInInventory;
@@ -29,7 +33,7 @@ public class TinkerPotion extends Potion {
   }
 
   public PotionEffect apply(EntityLivingBase entity, int duration, int level) {
-    PotionEffect effect = new PotionEffect(this.id, duration, level, false, false);
+    PotionEffect effect = new PotionEffect(this.getId(), duration, level, false, false);
     entity.addPotionEffect(effect);
     return effect;
   }

@@ -83,6 +83,15 @@ public final class TinkerUtil {
     NBTTagList tagList = TagUtil.getModifiersTagList(stack);
     int index = getIndexInCompoundList(tagList, identifier);
 
+    // returns new tag if index is out of scope
+    return tagList.getCompoundTagAt(index);
+  }
+
+  public static NBTTagCompound getModifierTag(NBTTagCompound root, String identifier) {
+    NBTTagList tagList = TagUtil.getModifiersTagList(root);
+    int index = getIndexInCompoundList(tagList, identifier);
+
+    // returns new tag if index is out of scope
     return tagList.getCompoundTagAt(index);
   }
 

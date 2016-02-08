@@ -1,13 +1,10 @@
 package slimeknights.tconstruct.tools.traits;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 
@@ -24,15 +21,7 @@ public class TraitPrickly extends AbstractTrait {
     }
   }
 
-  @Override
-  public void onBlock(ItemStack tool, EntityPlayer player, LivingHurtEvent event) {
-    Entity source = event.source.getEntity();
-    if(source instanceof EntityLivingBase && source.isEntityAlive()) {
-      causeDamage(player, (EntityLivingBase) source);
-    }
-  }
-
-  private void causeDamage(EntityLivingBase player, EntityLivingBase target) {
+  static void causeDamage(EntityLivingBase player, EntityLivingBase target) {
     float damage = 0.5f + Math.max(-0.5f, (float) random.nextGaussian() / 2f);
     if(damage > 0) {
       EntityDamageSource damageSource = new EntityDamageSource(DamageSource.cactus.damageType, player);
