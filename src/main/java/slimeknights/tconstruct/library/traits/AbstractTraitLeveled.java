@@ -10,13 +10,21 @@ import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 
+/**
+ * A Trait that has multiple levels and can be applied multiple times
+ * Effectively it's multiple traits that all use one single modifier.
+ */
 public abstract class AbstractTraitLeveled extends AbstractTrait {
 
   protected final String name;
   protected final int levels;
 
   public AbstractTraitLeveled(String identifier, int color, int maxLevels, int levels) {
-    super(identifier + levels, color);
+    this(identifier, String.valueOf(levels), color, maxLevels, levels);
+  }
+
+  public AbstractTraitLeveled(String identifier, String suffix, int color, int maxLevels, int levels) {
+    super(identifier + suffix, color);
     this.name = identifier;
 
     this.levels = levels;
@@ -29,12 +37,10 @@ public abstract class AbstractTraitLeveled extends AbstractTrait {
 
   public void updateNBTforTrait(NBTTagCompound modifierTag, int newColor) {
     super.updateNBTforTrait(modifierTag, newColor);
-    /*
+
     ModifierNBT data = ModifierNBT.readTag(modifierTag);
-    data.identifier = identifier;
-    data.color = newColor;
-    data.level += levels;
-    data.write(modifierTag);*/
+    data.level = 0; // handled by applyEffect in this case
+    data.write(modifierTag);
   }
 
   @Override
@@ -54,11 +60,8 @@ public abstract class AbstractTraitLeveled extends AbstractTrait {
       tagList.appendTag(tag);
     }
     if(!tag.getBoolean(identifier)) {
-      int realLevel = tag.getInteger("reallevel");
-      realLevel += levels;
-      tag.setInteger("reallevel", realLevel);
       ModifierNBT data = ModifierNBT.readTag(tag);
-      data.level = realLevel;
+      data.level += levels;
       data.write(tag);
       tag.setBoolean(identifier, true);
       tagList.set(index, tag);

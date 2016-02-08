@@ -56,6 +56,9 @@ public class ModifierNBT {
     if(level > 0) {
       tag.setInteger("level", level);
     }
+    else {
+      tag.removeTag("level");
+    }
     if(extraInfo != null && !extraInfo.isEmpty()) {
       tag.setString("extraInfo", extraInfo);
     }
