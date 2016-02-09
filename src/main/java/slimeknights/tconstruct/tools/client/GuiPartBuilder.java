@@ -66,8 +66,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
       }
 
       info = new GuiInfoPanel(this, container);
-      info.ySize = 150;
-      info.yOffset += 5;
+      info.ySize = this.ySize;
       this.addModule(info);
     }
   }
@@ -175,8 +174,10 @@ public class GuiPartBuilder extends GuiTinkerStation {
     List<String> stats = Lists.newLinkedList();
     List<String> tips = Lists.newArrayList();
     for(IMaterialStats stat : material.getAllStats()) {
+      stats.add(EnumChatFormatting.UNDERLINE + stat.getLocalizedName());
       stats.addAll(stat.getLocalizedInfo());
       stats.add(null);
+      tips.add(null);
       tips.addAll(stat.getLocalizedDesc());
       tips.add(null);
     }

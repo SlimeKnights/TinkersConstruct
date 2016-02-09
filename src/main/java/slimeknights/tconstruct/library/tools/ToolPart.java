@@ -137,7 +137,14 @@ public class ToolPart extends MaterialItem implements IToolPart {
       }
       else {
         for(IMaterialStats stat : material.getAllStats()) {
-          tooltip.addAll(stat.getLocalizedInfo());
+          if(hasUseForStat(stat.getIdentifier())) {
+            List<String> text = stat.getLocalizedInfo();
+            if(!text.isEmpty()) {
+              tooltip.add("");
+              tooltip.add(EnumChatFormatting.WHITE.toString() + EnumChatFormatting.UNDERLINE + stat.getLocalizedName());
+              tooltip.addAll(stat.getLocalizedInfo());
+            }
+          }
         }
       }
     }

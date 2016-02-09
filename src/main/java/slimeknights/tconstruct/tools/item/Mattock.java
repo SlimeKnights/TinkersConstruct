@@ -194,10 +194,10 @@ public class Mattock extends AoeToolCore {
 
     // backup speed
     data.speed = (axe.miningspeed + shovel.miningspeed)/2f;
-    //data.speed *= 1f + 0.3f * (handle.multiplier * handle.miningspeed);
+    //data.speed *= 1f + 0.3f * (handle.modifier * handle.miningspeed);
     // real speed
-    //data.axeSpeed = axe.miningspeed * 0.8f + 0.2f * handle.multiplier;
-    //data.shovelSpeed = shovel.miningspeed * 0.8f + 0.2f * handle.multiplier;
+    //data.axeSpeed = axe.miningspeed * 0.8f + 0.2f * handle.modifier;
+    //data.shovelSpeed = shovel.miningspeed * 0.8f + 0.2f * handle.modifier;
 
     // a bit slower because.. it's a mattock
     data.axeSpeed *= 0.7f;

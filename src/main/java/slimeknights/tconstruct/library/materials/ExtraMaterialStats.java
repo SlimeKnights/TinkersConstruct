@@ -14,8 +14,8 @@ public class ExtraMaterialStats extends AbstractMaterialStats {
   public final static String TYPE = "extra";
 
   public final static String LOC_Durability = "stat.extra.durability.name";
-
   public final static String LOC_DurabilityDesc = "stat.extra.durability.desc";
+  public final static String COLOR_Durability = HeadMaterialStats.COLOR_Durability;
 
   public final int extraDurability; // usually between 0 and 500
 
@@ -35,10 +35,7 @@ public class ExtraMaterialStats extends AbstractMaterialStats {
   }
 
   public static String formatDurability(int durability) {
-    return String.format("%s: %s",
-                         Util.translate(LOC_Durability),
-                         df.format(durability))
-           + EnumChatFormatting.RESET;
+    return formatNumber(LOC_Durability, COLOR_Durability, durability);
   }
 
 }

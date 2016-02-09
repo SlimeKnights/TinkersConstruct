@@ -15,15 +15,19 @@ public class HeadMaterialStats extends AbstractMaterialStats {
 
   public final static String TYPE = "head";
 
-  public final static String LOC_Durability   = "stat.tool.durability.name";
-  public final static String LOC_MiningSpeed  = "stat.tool.miningspeed.name";
-  public final static String LOC_Attack       = "stat.tool.attack.name";
-  public final static String LOC_HarvestLevel = "stat.tool.harvestlevel.name";
+  public final static String LOC_Durability   = "stat.head.durability.name";
+  public final static String LOC_MiningSpeed  = "stat.head.miningspeed.name";
+  public final static String LOC_Attack       = "stat.head.attack.name";
+  public final static String LOC_HarvestLevel = "stat.head.harvestlevel.name";
 
-  public final static String LOC_DurabilityDesc    = "stat.tool.durability.desc";
-  public final static String LOC_MiningSpeedDesc   = "stat.tool.miningspeed.desc";
-  public final static String LOC_AttackDesc        = "stat.tool.attack.desc";
-  public final static String LOC_HarvestLevelDesc  = "stat.tool.harvestlevel.desc";
+  public final static String LOC_DurabilityDesc    = "stat.head.durability.desc";
+  public final static String LOC_MiningSpeedDesc   = "stat.head.miningspeed.desc";
+  public final static String LOC_AttackDesc        = "stat.head.attack.desc";
+  public final static String LOC_HarvestLevelDesc  = "stat.head.harvestlevel.desc";
+
+  public final static String COLOR_Durability = CustomFontColor.valueToColorCode(1f);
+  public final static String COLOR_Attack     = CustomFontColor.encodeColor(215, 100, 100);
+  public final static String COLOR_Speed      = CustomFontColor.encodeColor(120, 160, 205);
 
   public final int durability; // usually between 1 and 1000
   public final int harvestLevel; // see HarvestLevels class
@@ -51,19 +55,17 @@ public class HeadMaterialStats extends AbstractMaterialStats {
   }
 
   public static String formatDurability(int durability) {
-    return formatDurability(durability, 1000, false);
+    return formatNumber(LOC_Durability, COLOR_Durability, durability);
   }
 
-  public static String formatDurability(int durability, int ref, boolean showRef) {
-    String refStr = "";
-    if(showRef) {
-      refStr = EnumChatFormatting.GRAY.toString() + "/" + CustomFontColor.valueToColorCode(1f) + df.format(ref);
-    }
-    return String.format("%s: %s%s%s",
+  public static String formatDurability(int durability, int ref) {
+    return String.format("%s: %s%s%s/%s%s",
                          Util.translate(LOC_Durability),
                          CustomFontColor.valueToColorCode((float)durability / (float)ref),
                          df.format(durability),
-                         refStr)
+                         EnumChatFormatting.GRAY.toString(),
+                         COLOR_Durability,
+                         df.format(ref))
            + EnumChatFormatting.RESET;
   }
 
@@ -72,13 +74,11 @@ public class HeadMaterialStats extends AbstractMaterialStats {
   }
 
   public static String formatMiningSpeed(float speed) {
-    return String.format("%s: %s%s", Util.translate(LOC_MiningSpeed), CustomFontColor
-        .valueToColorCode(speed / 10f), df.format(speed)) + EnumChatFormatting.RESET;
+    return formatNumber(LOC_MiningSpeed, COLOR_Speed, speed);
   }
 
   public static String formatAttack(float attack) {
-    return String.format("%s: %s%s", Util.translate(LOC_Attack), CustomFontColor
-        .valueToColorCode(attack / 10f), df.format(attack)) + EnumChatFormatting.RESET;
+    return formatNumber(LOC_Attack, COLOR_Attack, attack);
   }
 
   @Override

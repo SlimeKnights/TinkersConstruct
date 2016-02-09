@@ -18,7 +18,7 @@ public class CustomFontColor {
   }
 
   public static String encodeColor(float r, float g, float b) {
-    return encodeColor(r*255, g*255, b*255);
+    return encodeColor((int)r*255, (int)g*255, (int)b*255);
   }
 
   public static String encodeColor(int r, int g, int b) {
