@@ -154,7 +154,7 @@ public class GuiInfoPanel extends GuiModule {
       neededHeight += 3;
     }
 
-    neededHeight += fontRenderer.FONT_HEIGHT * getTotalLines().size();
+    neededHeight += (fontRenderer.FONT_HEIGHT + 0.5f) * getTotalLines().size();
 
     return neededHeight;
   }
@@ -163,7 +163,7 @@ public class GuiInfoPanel extends GuiModule {
     // we assume slider not shown
     slider.hide();
 
-    int h = ySize - border.h*2;
+    int h = ySize - 2*5; // we use 5 as border thickness
 
     // check if we can display all lines
     if(calcNeededHeight() <= h)
@@ -262,7 +262,7 @@ public class GuiInfoPanel extends GuiModule {
     }
 
     float textHeight = fontRenderer.FONT_HEIGHT * textScale + 0.5f;
-    float lowerBound = (guiTop + ySize - border.h)/textScale;
+    float lowerBound = (guiTop + ySize - 5)/textScale;
 
     // get the index of the currently hovered line
     int index = -1;
@@ -338,7 +338,7 @@ public class GuiInfoPanel extends GuiModule {
     }
 
     float textHeight = fontRenderer.FONT_HEIGHT * textScale + 0.5f;
-    float lowerBound = (guiTop + ySize - border.h)/textScale;
+    float lowerBound = (guiTop + ySize - 5)/textScale;
     GlStateManager.scale(textScale, textScale, 1.0f);
     x /= textScale;
     y /= textScale;
@@ -346,7 +346,7 @@ public class GuiInfoPanel extends GuiModule {
     // render shown lines
     ListIterator<String> iter = getTotalLines().listIterator(slider.getValue());
     while(iter.hasNext()) {
-      if(y + textHeight > lowerBound) {
+      if(y + textHeight - 0.5f > lowerBound) {
         break;
       }
 
