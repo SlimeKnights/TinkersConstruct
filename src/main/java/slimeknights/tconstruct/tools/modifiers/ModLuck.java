@@ -30,7 +30,7 @@ public class ModLuck extends ModifierTrait {
   private final LuckAspect aspect;
 
   public ModLuck() {
-    super("luck", 0x5a82e2, maxLevel, 0);
+    super("luck", 0x2d51e2, maxLevel, 0);
 
     aspects.clear();
     aspect = new LuckAspect(this);
