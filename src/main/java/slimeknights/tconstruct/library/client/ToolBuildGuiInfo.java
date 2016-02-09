@@ -30,7 +30,7 @@ public class ToolBuildGuiInfo {
 
   public ToolBuildGuiInfo(TinkersItem tool) {
     List<Material> mats = Lists.newLinkedList();
-    for(int i = 0; i < tool.requiredComponents.length; i++) {
+    for(int i = 0; i < tool.getRequiredComponents().size(); i++) {
       mats.add(RenderMaterials[i%RenderMaterials.length]);
     }
 

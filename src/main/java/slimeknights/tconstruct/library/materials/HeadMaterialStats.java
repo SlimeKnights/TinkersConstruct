@@ -13,17 +13,17 @@ import slimeknights.tconstruct.library.utils.HarvestLevels;
 
 public class HeadMaterialStats extends AbstractMaterialStats {
 
-  public final static String TYPE = "tool";
+  public final static String TYPE = "head";
 
-  public final static String LOC_Durability   = "stat.durability.name";
-  public final static String LOC_MiningSpeed  = "stat.miningspeed.name";
-  public final static String LOC_Attack       = "stat.attack.name";
-  public final static String LOC_HarvestLevel = "stat.harvestlevel.name";
+  public final static String LOC_Durability   = "stat.tool.durability.name";
+  public final static String LOC_MiningSpeed  = "stat.tool.miningspeed.name";
+  public final static String LOC_Attack       = "stat.tool.attack.name";
+  public final static String LOC_HarvestLevel = "stat.tool.harvestlevel.name";
 
-  public final static String LOC_DurabilityDesc    = "stat.durability.desc";
-  public final static String LOC_MiningSpeedDesc   = "stat.miningspeed.desc";
-  public final static String LOC_AttackDesc        = "stat.attack.desc";
-  public final static String LOC_HarvestLevelDesc  = "stat.harvestlevel.desc";
+  public final static String LOC_DurabilityDesc    = "stat.tool.durability.desc";
+  public final static String LOC_MiningSpeedDesc   = "stat.tool.miningspeed.desc";
+  public final static String LOC_AttackDesc        = "stat.tool.attack.desc";
+  public final static String LOC_HarvestLevelDesc  = "stat.tool.harvestlevel.desc";
 
   public final int durability; // usually between 1 and 1000
   public final int harvestLevel; // see HarvestLevels class

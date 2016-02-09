@@ -75,7 +75,7 @@ public class ToolNBT {
     for(HandleMaterialStats handle : handles) {
       if(handle != null) {
         dur += handle.durability;
-        modifier += handle.handleQuality;
+        modifier += handle.multiplier;
       }
     }
 

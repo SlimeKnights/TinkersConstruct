@@ -275,8 +275,9 @@ public class GuiToolStation extends GuiTinkerStation {
 
       // Components
       List<String> text = Lists.newLinkedList();
-      for(int i = 0; i < tool.requiredComponents.length; i++) {
-        PartMaterialType pmt = tool.requiredComponents[i];
+      List<PartMaterialType> pms = tool.getRequiredComponents();
+      for(int i = 0; i < pms.size(); i++) {
+        PartMaterialType pmt = pms.get(i);
         StringBuilder sb = new StringBuilder();
 
         ItemStack slotStack = container.getSlot(i).getStack();

@@ -13,35 +13,43 @@ public class HandleMaterialStats extends AbstractMaterialStats {
 
   public final static String TYPE = "handle";
 
-  public final static String LOC_Handle       = "stat.handle.name";
-//  public final static String LOC_Durability   = ToolMaterialStats.LOC_Durability; //"stat.durability.name";
+  public final static String LOC_Multiplier = "stat.handle.multiplier.name";
+  public final static String LOC_Durability = "stat.handle.durability.name";
 
-  public final static String LOC_HandleDesc       = "stat.handle.desc";
+  public final static String LOC_MultiplierDesc = "stat.handle.multiplier.desc";
+  public final static String LOC_DurabilityDesc = "stat.handle.durability.desc";
 
-  public final float handleQuality; // how good the material is for handles. 0.0 - 1.0
+  public final float multiplier; // how good the material is for handles. 0.0 - 1.0
   public final int durability; // usually between -500 and 500
 
-  public HandleMaterialStats(float handleQuality, int durability) {
+  public HandleMaterialStats(float multiplier, int durability) {
     super(TYPE);
     this.durability = durability;
-    this.handleQuality = handleQuality;
+    this.multiplier = multiplier;
   }
 
   @Override
   public List<String> getLocalizedInfo() {
-    return ImmutableList.of(formatHandle(handleQuality),
-                            HeadMaterialStats.formatDurability(durability));
+    return ImmutableList.of(formatHandle(multiplier),
+                            formatDurability(durability));
   }
 
   @Override
   public List<String> getLocalizedDesc() {
-    return ImmutableList.of(Util.translate(LOC_HandleDesc),
-                            Util.translate(HeadMaterialStats.LOC_DurabilityDesc));
+    return ImmutableList.of(Util.translate(LOC_MultiplierDesc),
+                            Util.translate(LOC_DurabilityDesc));
   }
 
 
   public static String formatHandle(float quality) {
-    return String.format("%s: %s%s", Util.translate(LOC_Handle), CustomFontColor
+    return String.format("%s: %s%s", Util.translate(LOC_Multiplier), CustomFontColor
         .valueToColorCode(quality), dfPercent.format(quality)) + EnumChatFormatting.RESET;
+  }
+
+  public static String formatDurability(int durability) {
+    return String.format("%s: %s",
+                         Util.translate(LOC_Durability),
+                         df.format(durability))
+           + EnumChatFormatting.RESET;
   }
 }

@@ -11,6 +11,7 @@ import java.util.Set;
 
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
+import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.tools.IToolPart;
@@ -57,6 +58,20 @@ public class PartMaterialType {
     }
 
     return true;
+  }
+
+  /**
+   * Returns true if the passed stat is used by this.</br>
+   * This does NOT mean that a material having this stat is usable, since multiple stats might be required!
+   */
+  public boolean usesStat(String statID) {
+    for(String type : neededTypes) {
+      if(type.equals(statID)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   public Collection<ITrait> getApplicableTraitsForMaterial(Material material) {

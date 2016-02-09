@@ -286,20 +286,25 @@ material.pigiron.name=Pig Iron
 #############
 #   Stats   #
 #############
-stat.durability.name=Durability
-stat.durability.desc=The base-value for durability calculations.\nUsually an integral part to the overall durability of a tool.
-stat.miningspeed.name=Mining Speed
-stat.miningspeed.desc=How fast a tool with a tool head of this material can mine blocks.\nMay be influenced by other toolparts.
-stat.harvestlevel.name=Mining Level
-stat.harvestlevel.desc=What range of blocks a tool with a tool head of this material can mine.
-stat.attack.name=Attack
-stat.attack.desc=Base value for attack calculations.\nThe end result depens on the tool itself and the other components used.
+stat.head.name=Head
+stat.head.durability.name=Durability
+stat.head.durability.desc=The base-value for durability calculations.\nUsually an integral part to the overall durability of a tool.
+stat.head.miningspeed.name=Mining Speed
+stat.head.miningspeed.desc=How fast a tool with a tool head of this material can mine blocks.\nMay be influenced by other toolparts.
+stat.head.harvestlevel.name=Mining Level
+stat.head.harvestlevel.desc=What range of blocks a tool with a tool head of this material can mine.
+stat.head.attack.name=Attack
+stat.head.attack.desc=Base value for attack calculations.\nThe end result depens on the tool itself and the other components used.
+
 stat.handle.name=Handle
-stat.handle.desc=How well the material is suited for a handle.\nThe higher the value, the better your tool will be.\nMaximum of 100%
-stat.extra.name=Quality
-stat.extra.desc=How well the material is suited for secondary parts.\nThe higher the value, the better your tool will be.\nMaximum of 100%
-stat.axespeed=name=Axe Speed
-stat.shovelspeed=name=Shovel Speed
+stat.handle.modifier.name=Handle-Modifier
+stat.handle.modifier.desc=How suitable the tool material is as a handle.\nThe total durability of the tool will be multiplied by this.
+stat.handle.durability.name=Handle-Durability
+stat.handle.durability.desc=How well the material can be held.\nTool durability will be changed by this amount.
+
+stat.extra.name=Extra
+stat.extra.durability.name=Extra-Durability
+stat.extra.durability.desc=How much durability this part contributes when used as an accessoire.
 
 ##############
 #   Traits   #

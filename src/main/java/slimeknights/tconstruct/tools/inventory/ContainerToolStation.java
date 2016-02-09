@@ -104,9 +104,9 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
         else {
           slotToolPart.activate();
           if(tool != null) {
-            PartMaterialType[] pmts = tool.requiredComponents;
-            if(i < pmts.length) {
-              slotToolPart.setRestriction(pmts[i]);
+            List<PartMaterialType> pmts = tool.getRequiredComponents();
+            if(i < pmts.size()) {
+              slotToolPart.setRestriction(pmts.get(i));
             }
           }
         }

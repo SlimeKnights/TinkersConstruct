@@ -10,6 +10,11 @@ public interface IMaterialStats {
   String getIdentifier();
 
   /**
+   * Returns the name of the stat type, to be displayed to the player.
+   */
+  String getLocalizedName();
+
+  /**
    * Returns a list containing a String for each player-relevant value.</br>
    * Each line should consist of the name of the value followed by the value itself.</br>
    * Example: "Durability: 25"</br>

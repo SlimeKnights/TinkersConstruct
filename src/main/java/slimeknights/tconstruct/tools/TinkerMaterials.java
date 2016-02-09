@@ -321,6 +321,7 @@ public final class TinkerMaterials {
 
     safeAdd(pigiron, TinkerCommons.ingotPigIron, Material.VALUE_Ingot, true);
     pigiron.addTrait(baconlicious, HEAD);
+    pigiron.addTrait(tasty, HEAD);
     pigiron.addTrait(tasty);
 
     safeAdd(cobalt, TinkerCommons.ingotCobalt, Material.VALUE_Ingot, true);

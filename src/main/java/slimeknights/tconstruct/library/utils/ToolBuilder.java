@@ -286,8 +286,9 @@ public final class ToolBuilder {
 
       int candidate = -1;
       // find an applicable slot in the tool structure corresponding to the toolparts position
-      for(int j = 0; j < tool.requiredComponents.length; j++) {
-        PartMaterialType pmt = tool.requiredComponents[j];
+      List<PartMaterialType> pms = tool.getRequiredComponents();
+      for(int j = 0; j < pms.size(); j++) {
+        PartMaterialType pmt = pms.get(j);
         String partMat = ((IToolPart) part.getItem()).getMaterial(part).getIdentifier();
         String currentMat = materialList.getStringTagAt(j);
         // is valid and not the same material?
@@ -431,13 +432,14 @@ public final class ToolBuilder {
     // Recalculate tool base stats from material stats
     NBTTagList materialTag = TagUtil.getBaseMaterialsTagList(rootNBT);
     List<Material> materials = TinkerUtil.getMaterialsFromTagList(materialTag);
+    List<PartMaterialType> pms = tinkersItem.getRequiredComponents();
 
     // ensure all needed Stats are present
-    while(materials.size() < tinkersItem.requiredComponents.length) {
+    while(materials.size() < pms.size()) {
       materials.add(Material.UNKNOWN);
     }
-    for(int i = 0; i < tinkersItem.requiredComponents.length; i++) {
-      if(!tinkersItem.requiredComponents[i].isValidMaterial(materials.get(i))) {
+    for(int i = 0; i < pms.size(); i++) {
+      if(!pms.get(i).isValidMaterial(materials.get(i))) {
         materials.set(i, Material.UNKNOWN);
       }
     }

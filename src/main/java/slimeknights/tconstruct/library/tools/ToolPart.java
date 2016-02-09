@@ -1,21 +1,27 @@
 package slimeknights.tconstruct.library.tools;
 
+import com.google.common.collect.Maps;
+
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
 
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.CustomFontColor;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
@@ -50,7 +56,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
 
   public boolean canUseMaterial(Material mat) {
     for(ToolCore tool : TinkerRegistry.getTools()) {
-      for(PartMaterialType pmt : tool.requiredComponents) {
+      for(PartMaterialType pmt : tool.getRequiredComponents()) {
         if(pmt.isValid(this, mat)) {
           return true;
         }
@@ -69,10 +75,55 @@ public class ToolPart extends MaterialItem implements IToolPart {
     boolean shift = Util.isShiftKeyDown();
 
     if(!checkMissingMaterialTooltip(stack, tooltip)) {
-      // todo: make stat sensitive
-      for(ITrait trait : material.getAllTraits()) {
-        if(!trait.isHidden()) {
-          tooltip.add(material.getTextColor() + trait.getLocalizedName());
+      // We build a map with Stat -> Traits mappings that allows us to group or not group depending on what's available
+      Map<String, List<ITrait>> mapping = Maps.newConcurrentMap();
+
+      // go through all stats of the material, and check if they have a use, build the map from them
+      for(IMaterialStats stat : material.getAllStats()) {
+        if(hasUseForStat(stat.getIdentifier())) {
+          List<ITrait> traits = material.getAllTraitsForStats(stat.getIdentifier());
+          if(!traits.isEmpty()) {
+            boolean unified = false;
+            for(Map.Entry<String, List<ITrait>> entry : mapping.entrySet()) {
+              // group together if identical
+              if(entry.getValue().equals(traits)) {
+                mapping.put(entry.getKey() + ", " + stat.getLocalizedName(), entry.getValue());
+                mapping.remove(entry.getKey());
+                unified = true;
+                break;
+              }
+            }
+
+            if(!unified) {
+              mapping.put(stat.getLocalizedName(), traits);
+            }
+          }
+        }
+      }
+
+      boolean withType = mapping.size() > 1;
+
+      // convert the entries into tooltips
+      for(Map.Entry<String, List<ITrait>> entry : mapping.entrySet()) {
+        // add the traits in "Stattype: Trait1, Trait2,..." style
+        StringBuilder sb = new StringBuilder();
+        if(withType) {
+          sb.append(EnumChatFormatting.ITALIC.toString());
+          sb.append(entry.getKey());
+          sb.append(": ");
+          sb.append(EnumChatFormatting.RESET.toString());
+        }
+        sb.append(material.getTextColor());
+        List<ITrait> traits = entry.getValue();
+        if(!traits.isEmpty()) {
+          ListIterator<ITrait> iter = traits.listIterator();
+
+          sb.append(iter.next().getLocalizedName());
+          while(iter.hasNext()) {
+            sb.append(", ").append(iter.next().getLocalizedName());
+          }
+
+          tooltip.add(sb.toString());
         }
       }
     }
@@ -81,6 +132,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
     if(Config.extraTooltips) {
       if(!shift) {
         // info tooltip for detailed and componend info
+        tooltip.add("");
         tooltip.add(Util.translate("tooltip.tool.holdShift"));
       }
       else {
@@ -115,6 +167,18 @@ public class ToolPart extends MaterialItem implements IToolPart {
   @Override
   public FontRenderer getFontRenderer(ItemStack stack) {
     return ClientProxy.fontRenderer;
+  }
+
+  public boolean hasUseForStat(String stat) {
+    for(ToolCore tool : TinkerRegistry.getTools()) {
+      for(PartMaterialType pmt : tool.getRequiredComponents()) {
+        if(pmt.isValidItem(this) && pmt.usesStat(stat)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   public boolean checkMissingMaterialTooltip(ItemStack stack, List<String> tooltip) {

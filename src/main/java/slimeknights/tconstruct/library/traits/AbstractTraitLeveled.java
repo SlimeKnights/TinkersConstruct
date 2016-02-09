@@ -5,6 +5,7 @@ import net.minecraft.nbt.NBTTagList;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -29,7 +30,17 @@ public abstract class AbstractTraitLeveled extends AbstractTrait {
 
     this.levels = levels;
 
-    TinkerRegistry.registerModifierAlias(this, name);
+    // don't overwrite the modifier alias if one with less levels already is present
+    // we basically always want the level1 one to be associated with the modifier used
+    IModifier modifier = TinkerRegistry.getModifier(name);
+    if(modifier != null) {
+      if(modifier instanceof AbstractTraitLeveled && ((AbstractTraitLeveled) modifier).levels > this.levels) {
+        TinkerRegistry.registerModifierAlias(this, name);
+      }
+    }
+    else {
+      TinkerRegistry.registerModifierAlias(this, name);
+    }
 
     aspects.clear();
     this.addAspects(new ModifierAspect.LevelAspect(this, maxLevels), new ModifierAspect.DataAspect(this, color));
@@ -76,7 +87,11 @@ public abstract class AbstractTraitLeveled extends AbstractTrait {
 
   @Override
   public String getLocalizedName() {
-    return Util.translate(LOC_Name, name);
+    String locName = Util.translate(LOC_Name, name);
+    if(levels > 1) {
+      locName += " " + TinkerUtil.getRomanNumeral(levels);
+    }
+    return locName;
   }
 
   @Override

@@ -44,7 +44,7 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
  */
 public abstract class TinkersItem extends Item implements ITinkerable, IModifyable, IRepairable {
 
-  public final PartMaterialType[] requiredComponents;
+  protected final PartMaterialType[] requiredComponents;
   // used to classify what the thing can do
   protected final Set<Category> categories = new THashSet<Category>();
 
@@ -56,6 +56,10 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   }
 
   /* Tool Information */
+  public List<PartMaterialType> getRequiredComponents() {
+    return ImmutableList.copyOf(requiredComponents);
+  }
+
   protected void addCategory(Category... categories) {
     Collections.addAll(this.categories, categories);
   }

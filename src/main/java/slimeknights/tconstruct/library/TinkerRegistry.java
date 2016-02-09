@@ -327,7 +327,7 @@ public final class TinkerRegistry {
   public static void registerTool(ToolCore tool) {
     tools.add(tool);
 
-    for(PartMaterialType pmt : tool.requiredComponents) {
+    for(PartMaterialType pmt : tool.getRequiredComponents()) {
       for(IToolPart tp : pmt.getPossibleParts()) {
         registerToolPart(tp);
       }

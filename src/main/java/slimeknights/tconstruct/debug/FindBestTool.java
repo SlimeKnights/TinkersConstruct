@@ -261,7 +261,7 @@ public class FindBestTool extends CommandBase {
 
   public void recurse(ToolCore tool, ImmutableList<Material> materials, List<Triple<ItemStack, ImmutableList<Material>, Object[]>> results, Function<ItemStack, ?> fns[]) {
     // not enough materials yet, recurse
-    if(tool.requiredComponents.length > materials.size()) {
+    if(tool.getRequiredComponents().size() > materials.size()) {
       for(Material mat : TinkerRegistry.getAllMaterials()) {
         if(!mat.hasStats(HeadMaterialStats.TYPE)) continue;
         ImmutableList.Builder<Material> mats = ImmutableList.builder();

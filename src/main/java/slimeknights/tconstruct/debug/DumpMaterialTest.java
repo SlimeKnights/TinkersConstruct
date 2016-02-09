@@ -91,10 +91,10 @@ public class DumpMaterialTest extends CommandBase {
       rows.add(row);
       row.add("<td>" + mat1.getIdentifier() + "</td>");
       /*
-      row.add(String.format("<td>%d<br>%d<br>%d</td>", stats.durability, (int)(stats.durability*stats.handleQuality), (int)(stats.durability*stats.extraQuality)));
-      row.add(String.format("<td>%.2f<br>%.2f<br>%.2f</td>", stats.miningspeed, (stats.miningspeed*stats.handleQuality), (stats.miningspeed*stats.extraQuality)));
-      row.add(String.format("<td>%.2f<br>%.2f<br>%.2f</td>", stats.attack, (stats.attack*stats.handleQuality), (stats.attack*stats.extraQuality)));
-      row.add(String.format("<td>%.2f</td>", stats.handleQuality));
+      row.add(String.format("<td>%d<br>%d<br>%d</td>", stats.durability, (int)(stats.durability*stats.multiplier), (int)(stats.durability*stats.extraQuality)));
+      row.add(String.format("<td>%.2f<br>%.2f<br>%.2f</td>", stats.miningspeed, (stats.miningspeed*stats.multiplier), (stats.miningspeed*stats.extraQuality)));
+      row.add(String.format("<td>%.2f<br>%.2f<br>%.2f</td>", stats.attack, (stats.attack*stats.multiplier), (stats.attack*stats.extraQuality)));
+      row.add(String.format("<td>%.2f</td>", stats.multiplier));
       row.add(String.format("<td>%.2f</td>", stats.extraQuality));*/
     }
 

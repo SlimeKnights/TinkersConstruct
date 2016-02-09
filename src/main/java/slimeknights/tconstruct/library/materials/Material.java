@@ -255,16 +255,24 @@ public class Material extends RecipeMatchRegistry {
       return false;
     }
 
-    return !getStatTraits(stats).isEmpty();
+    for(ITrait trait : getStatTraits(stats)) {
+      if(trait.getIdentifier().equals(identifier)) {
+        return true;
+      }
+    }
+    return false;
   }
 
-  public Collection<ITrait> getDefaultTraits() {
+  public List<ITrait> getDefaultTraits() {
     return ImmutableList.copyOf(getStatTraits(null));
   }
 
-  public Collection<ITrait> getAllTraitsForStats(String stats) {
+  public List<ITrait> getAllTraitsForStats(String stats) {
     if(this.traits.containsKey(stats)) {
       return ImmutableList.copyOf(this.traits.get(stats));
+    }
+    else if(this.traits.containsKey(null)) {
+      return ImmutableList.copyOf(this.traits.get(null));
     }
     return ImmutableList.of();
   }
