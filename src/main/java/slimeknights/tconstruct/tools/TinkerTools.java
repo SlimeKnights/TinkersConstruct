@@ -380,16 +380,6 @@ public class TinkerTools extends TinkerPulse {
     GameRegistry.addRecipe(
         new ShapedOreRecipe(new ItemStack(toolTables, 1, BlockToolTable.TableTypes.ToolStation.meta),
                             "P", "B", 'P', pattern, 'B', "workbench"));
-    // Tool Forge
-    registerToolForgeBlock("blockIron");
-    registerToolForgeBlock("blockGold");
-    registerToolForgeBlock("blockCobalt");
-    registerToolForgeBlock("blockArdite");
-    registerToolForgeBlock("blockManyullyn");
-    registerToolForgeBlock("blockKnightslime");
-    registerToolForgeBlock("blockCopper");
-    registerToolForgeBlock("blockTin");
-    registerToolForgeBlock("blockBronze");
 
     // Materials
     ItemStack slimeBallBlue = TinkerCommons.matSlimeBallBlue;
@@ -466,8 +456,10 @@ public class TinkerTools extends TinkerPulse {
   }
 
   public static void registerToolForgeBlock(String oredict) {
-    toolForge.baseBlocks.add(oredict);
-    registerToolForgeRecipe(oredict);
+    if(toolForge != null) {
+      toolForge.baseBlocks.add(oredict);
+      registerToolForgeRecipe(oredict);
+    }
   }
 
   private static void registerToolForgeRecipe(String oredict) {

@@ -274,7 +274,8 @@ public class TinkerSmeltery extends TinkerPulse {
 
 
     // gold is melt and castable too, but no tools. Remaining materials are done directly in the MaterialIntegration
-    registerOredictMeltingCasting(TinkerFluids.gold, "Gold");
+    // gold is integrated via MaterialIntegration in TinkerIntegration now
+
     // register stone toolpart melting
     for(IToolPart toolPart : TinkerRegistry.getToolParts()) {
       if(toolPart instanceof MaterialItem) {

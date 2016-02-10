@@ -38,23 +38,24 @@ public class TinkerIntegration extends TinkerPulse {
     integrate(TinkerMaterials.endstone);
     integrate(TinkerMaterials.sponge);
 
-    integrate(TinkerMaterials.knightslime, TinkerFluids.knightslime, "Knightslime");
+    integrate(TinkerMaterials.knightslime, TinkerFluids.knightslime, "Knightslime").toolforge();
     integrate(TinkerMaterials.slime, "slimecrystalGreen");
     integrate(TinkerMaterials.blueslime, "slimecrystalBlue");
 
-    integrate(TinkerMaterials.iron, TinkerFluids.iron, "Iron");
-    integrate(TinkerMaterials.pigiron, TinkerFluids.pigIron, "Pigiron");
-    //integrate(TinkerMaterials.cobalt, TinkerFluids.copper, "Copper");
-    //integrate(TinkerMaterials.bronze, TinkerFluids.bronze, "Bronze");
+    integrate(TinkerMaterials.iron, TinkerFluids.iron, "Iron").toolforge();
+    integrate(TinkerMaterials.pigiron, TinkerFluids.pigIron, "Pigiron").toolforge();
+    //integrate(TinkerMaterials.copper, TinkerFluids.copper, "Copper").toolforge();
+    //integrate(TinkerMaterials.bronze, TinkerFluids.bronze, "Bronze").toolforge();
 
 
     integrate(TinkerMaterials.netherrack);
-    integrate(TinkerMaterials.cobalt, TinkerFluids.cobalt, "Cobalt");
-    integrate(TinkerMaterials.ardite, TinkerFluids.ardite, "Ardite");
-    integrate(TinkerMaterials.manyullyn, TinkerFluids.manyullyn, "Manyullyn");
+    integrate(TinkerMaterials.cobalt, TinkerFluids.cobalt, "Cobalt").toolforge();
+    integrate(TinkerMaterials.ardite, TinkerFluids.ardite, "Ardite").toolforge();
+    integrate(TinkerMaterials.manyullyn, TinkerFluids.manyullyn, "Manyullyn").toolforge();
 
     // non-toolmaterial integration
-    integrate(null, TinkerFluids.brass, "Brass");
+    integrate(null, TinkerFluids.gold, "Gold").toolforge();
+    integrate(null, TinkerFluids.brass, "Brass").toolforge();
 
     for(MaterialIntegration integration : integrationList) {
       integration.integrate();
@@ -81,23 +82,28 @@ public class TinkerIntegration extends TinkerPulse {
     }
   }
 
-  public static void integrate(Material material) {
-    integrationList.add(new MaterialIntegration(material));
+  public static MaterialIntegration integrate(Material material) {
+    return add(new MaterialIntegration(material));
   }
 
-  public static void integrate(Material material, Fluid fluid) {
-    integrationList.add(new MaterialIntegration(material, fluid));
+  public static MaterialIntegration integrate(Material material, Fluid fluid) {
+    return add(new MaterialIntegration(material, fluid));
   }
 
-  public static void integrate(Material material, String oreRequirement) {
-    integrationList.add(new MaterialIntegration(oreRequirement, material, null, null));
+  public static MaterialIntegration integrate(Material material, String oreRequirement) {
+    return add(new MaterialIntegration(oreRequirement, material, null, null));
   }
 
-  public static void integrate(Material material, Fluid fluid, String oreSuffix) {
-    integrationList.add(new MaterialIntegration(material, fluid, oreSuffix));
+  public static MaterialIntegration integrate(Material material, Fluid fluid, String oreSuffix) {
+    return add(new MaterialIntegration(material, fluid, oreSuffix));
   }
 
-  public static void integrate(Fluid fluid, String oreSuffix) {
-    integrationList.add(new MaterialIntegration(null, fluid, oreSuffix));
+  public static MaterialIntegration integrate(Fluid fluid, String oreSuffix) {
+    return add(new MaterialIntegration(null, fluid, oreSuffix));
+  }
+
+  private static MaterialIntegration add(MaterialIntegration integration) {
+    integrationList.add(integration);
+    return integration;
   }
 }

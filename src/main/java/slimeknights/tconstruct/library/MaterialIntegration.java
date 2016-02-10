@@ -8,6 +8,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 /**
  * Encapsulates the standard actions for integrating a material/item into tcon
@@ -19,6 +20,7 @@ public class MaterialIntegration {
   public String oreSuffix; // oredict suffix, e.g. "Iron" -> "ingotIron", "blockIron",...
   public String oreRequirement; // required oredict entry for this integration
   private boolean integrated;
+  private boolean toolforge = false;
 
   public MaterialIntegration(Material material) {
     this(material, null);
@@ -39,6 +41,11 @@ public class MaterialIntegration {
     this.oreRequirement = oreRequirement;
 
     this.integrated = false;
+  }
+
+  public MaterialIntegration toolforge() {
+    this.toolforge = true;
+    return this;
   }
 
   public void integrate() {
@@ -85,6 +92,11 @@ public class MaterialIntegration {
       else {
         material.setCraftable(true);
       }
+    }
+
+    // add toolforge recipe
+    if(toolforge && oreSuffix != null && !oreSuffix.isEmpty()) {
+      TinkerTools.registerToolForgeBlock("block" + oreSuffix);
     }
   }
 

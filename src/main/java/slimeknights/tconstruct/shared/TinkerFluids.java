@@ -71,6 +71,9 @@ public class TinkerFluids extends TinkerPulse {
     iron = fluidMetal(TinkerMaterials.iron.getIdentifier(), 0xa81212);
     iron.setTemperature(738);
 
+    gold = fluidMetal("gold", 0xf6d609);
+    gold.setTemperature(564);
+
     pigIron = fluidMetal(TinkerMaterials.pigiron);
     pigIron.setTemperature(600);
     pigIron.setRarity(EnumRarity.EPIC);
@@ -107,11 +110,6 @@ public class TinkerFluids extends TinkerPulse {
       obsidian.setTemperature(1000);
       registerFluid(obsidian);
       registerMoltenBlock(obsidian);
-
-      gold = fluidMetal("gold", 0xf6d609);
-      gold.setTemperature(564);
-      registerFluid(gold);
-      registerMoltenBlock(gold);
 
       emerald = fluidMetal("emerald", 0x58e78e);
       emerald.setTemperature(999);
