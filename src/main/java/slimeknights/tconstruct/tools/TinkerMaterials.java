@@ -259,8 +259,7 @@ public final class TinkerMaterials {
     obsidian.setCastable(true);
     obsidian.addItem(Blocks.obsidian, Material.VALUE_Ingot);
     obsidian.setRepresentativeItem(new ItemStack(Blocks.obsidian));
-    obsidian.addTrait(duritos, HEAD);
-    obsidian.addTrait(fractured);
+    obsidian.addTrait(duritos);
 
     prismarine.setCraftable(true);
     prismarine.addItem(Items.prismarine_shard, 1, Material.VALUE_Fragment);
@@ -288,7 +287,8 @@ public final class TinkerMaterials {
     bone.addItem(Items.bone, 1, Material.VALUE_Ingot);
     bone.addItem(new ItemStack(Items.dye, 1, EnumDyeColor.WHITE.getDyeDamage()), 1, Material.VALUE_Fragment); // bonemeal
     bone.setRepresentativeItem(Items.bone);
-    bone.addTrait(splintering);
+    bone.addTrait(splintering, HEAD);
+    bone.addTrait(fractured);
 
     paper.setCraftable(true);
     paper.addItem(Items.paper, 1, Material.VALUE_Fragment);
@@ -421,7 +421,7 @@ public final class TinkerMaterials {
                                     new HandleMaterialStats(0.90f, 100),
                                     new ExtraMaterialStats(300));
     TinkerRegistry.addMaterialStats(ardite,
-                                    new HeadMaterialStats(990, 2.42f, 3.60f, COBALT),
+                                    new HeadMaterialStats(990, 3.50f, 3.60f, COBALT),
                                     new HandleMaterialStats(1.40f, -200),
                                     new ExtraMaterialStats(450));
     TinkerRegistry.addMaterialStats(manyullyn,

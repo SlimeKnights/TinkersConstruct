@@ -32,6 +32,18 @@ public final class TinkerUtil {
     return ((IMaterialItem) stack.getItem()).getMaterial(stack);
   }
 
+  public static boolean hasTrait(NBTTagCompound root, String identifier) {
+    NBTTagList tagList = TagUtil.getTraitsTagList(root);
+
+    for(int i = 0; i < tagList.tagCount(); i++) {
+      if(identifier.equals(tagList.getStringTagAt(i))) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   public static boolean hasModifier(NBTTagCompound root, String identifier) {
     NBTTagList tagList = TagUtil.getBaseModifiersTagList(root);
 

@@ -34,7 +34,7 @@ public class TraitAlien extends TraitProgressiveStats {
       // ok, we need new stats. Let the fun begin!
       ToolGrowth.StatNBT data = new ToolGrowth.StatNBT();
 
-      int statPoints = 1000; // we distribute a whopping 1000 points worth of stats!
+      int statPoints = 800; // we distribute a whopping X points worth of stats!
       for(; statPoints > 0; statPoints--) {
         switch(random.nextInt(3)) {
           // durability

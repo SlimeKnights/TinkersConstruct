@@ -8,11 +8,13 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IRetexturableModel;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -20,9 +22,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.io.IOException;
 import java.util.Locale;
 
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
+import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.shared.client.BakedTableModel;
@@ -108,6 +112,16 @@ public class ToolClientEvents {
       }
     } catch(IOException e) {
       e.printStackTrace();
+    }
+  }
+
+  //@SubscribeEvent
+  public void materialTooltip(ItemTooltipEvent event) {
+    // check if the item belongs to a material
+    for(Material material : TinkerRegistry.getAllMaterials()) {
+      if(material.matches(event.itemStack) != null) {
+        event.toolTip.add(EnumChatFormatting.DARK_GRAY + material.getLocalizedName());
+      }
     }
   }
 }
