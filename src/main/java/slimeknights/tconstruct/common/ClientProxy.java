@@ -63,7 +63,7 @@ public abstract class ClientProxy extends CommonProxy {
                                           new ResourceLocation("textures/font/ascii.png"),
                                           Minecraft.getMinecraft().renderEngine);
     if(Minecraft.getMinecraft().gameSettings.language != null) {
-      fontRenderer.setUnicodeFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLocaleUnicode());
+      fontRenderer.setUnicodeFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLocaleUnicode() || Minecraft.getMinecraft().gameSettings.forceUnicodeFont);
       fontRenderer.setBidiFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLanguageBidirectional());
     }
     ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(fontRenderer);

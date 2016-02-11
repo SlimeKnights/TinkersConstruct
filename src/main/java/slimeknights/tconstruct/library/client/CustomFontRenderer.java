@@ -1,15 +1,14 @@
 package slimeknights.tconstruct.library.client;
 
-import com.google.common.collect.Lists;
-
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -134,4 +133,10 @@ public class CustomFontRenderer extends FontRenderer {
     return super.renderUnicodeChar(letter, italic);
   }
 
+  @Override
+  public void onResourceManagerReload(IResourceManager resourceManager) {
+    super.onResourceManagerReload(resourceManager);
+    setUnicodeFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLocaleUnicode() || Minecraft.getMinecraft().gameSettings.forceUnicodeFont);
+    setBidiFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLanguageBidirectional());
+  }
 }
