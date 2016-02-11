@@ -175,7 +175,11 @@ public class CompareVanilla extends CommandBase {
       // gui only
     }
 
-    ToolBuilder.rebuildTool(tool.getTagCompound(), (TinkersItem) tool.getItem());
+    try {
+      ToolBuilder.rebuildTool(tool.getTagCompound(), (TinkersItem) tool.getItem());
+    } catch(TinkerGuiException e) {
+      // no need to do anything, NBT is still correct
+    }
 
     return tool;
   }

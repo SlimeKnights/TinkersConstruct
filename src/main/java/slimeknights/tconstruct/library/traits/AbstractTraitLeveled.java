@@ -77,7 +77,19 @@ public abstract class AbstractTraitLeveled extends AbstractTrait {
       tag.setBoolean(identifier, true);
       tagList.set(index, tag);
       TagUtil.setModifiersTagList(rootCompound, tagList);
+
+      applyModifierEffect(rootCompound);
     }
+  }
+
+  /**
+   * Called when the trait gets applied. Called for each application/level of the trait.
+   * Only called once per specific trait (e.g. Writable1 and Writable2) but multiple times overall (per specific trait present)
+   *
+   * Unlike Modifiers that get applied with the total result, you can do things incrementally here.
+   */
+  public void applyModifierEffect(NBTTagCompound rootCompound) {
+
   }
 
   @Override

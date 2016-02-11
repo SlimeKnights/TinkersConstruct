@@ -68,6 +68,9 @@ public class Hammer extends Pickaxe {
     data.head(head, plate1, plate2);
     data.handle(handle);
 
+    // harvestlevel is always determined by the head
+    data.harvestLevel = head.harvestLevel;
+
     // 3 free modifiers
     data.modifiers = DEFAULT_MODIFIERS;
 

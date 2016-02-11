@@ -32,6 +32,7 @@ import slimeknights.tconstruct.library.events.TinkerEvent;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
+import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
@@ -422,10 +423,14 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   public boolean updateItemStackNBT(NBTTagCompound nbt) {
     // when the itemstack is loaded from NBT we recalculate all the data
     if(nbt.hasKey(Tags.BASE_DATA)) {
-      ToolBuilder.rebuildTool(nbt, this);
+      try {
+        ToolBuilder.rebuildTool(nbt, this);
+      } catch(TinkerGuiException e) {
+        // nothing to do
+      }
     }
 
-    // return value shoudln't matter since it's never checked
+    // return value shouldn't matter since it's never checked
     return true;
   }
 }

@@ -36,6 +36,7 @@ public class TinkerIntegration extends TinkerPulse {
     integrate(TinkerMaterials.obsidian, TinkerFluids.obsidian);
     integrate(TinkerMaterials.prismarine);
     integrate(TinkerMaterials.endstone);
+    integrate(TinkerMaterials.paper);
     integrate(TinkerMaterials.sponge);
 
     integrate(TinkerMaterials.knightslime, TinkerFluids.knightslime, "Knightslime").toolforge();

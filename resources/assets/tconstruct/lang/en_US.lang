@@ -369,6 +369,8 @@ modifier.unnatural.name=Unnatural
 modifier.unnatural.desc=§oAbomination!§r\nThe tool mines faster the higher its mining level is above the required one.
 modifier.tasty.name=Tasty
 modifier.tasty.desc=§oOm Nom Nom§r\nSmells so good.. You'd rather eat your tool than starve.
+modifier.writable.name=Writable
+modifier.writable.desc=§oIntellectual!§r\nMore words. More Modifiers. It's only logical!
 
 #################
 #   Modifiers   #

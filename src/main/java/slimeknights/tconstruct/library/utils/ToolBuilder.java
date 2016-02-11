@@ -427,7 +427,7 @@ public final class ToolBuilder {
    * @param rootNBT The root NBT tag compound of the tool to to rebuild. The NBT will be modified, overwriting old
    *                data.
    */
-  public static void rebuildTool(NBTTagCompound rootNBT, TinkersItem tinkersItem) {
+  public static void rebuildTool(NBTTagCompound rootNBT, TinkersItem tinkersItem) throws TinkerGuiException {
     boolean broken = TagUtil.getToolTag(rootNBT).getBoolean(Tags.BROKEN);
     // Recalculate tool base stats from material stats
     NBTTagList materialTag = TagUtil.getBaseMaterialsTagList(rootNBT);
@@ -496,7 +496,7 @@ public final class ToolBuilder {
     // adjust free modifiers
     int freeModifiers = toolTag.getInteger(Tags.FREE_MODIFIERS);
     freeModifiers -= TagUtil.getBaseModifiersUsed(rootNBT);
-    toolTag.setInteger(Tags.FREE_MODIFIERS, freeModifiers);
+    toolTag.setInteger(Tags.FREE_MODIFIERS, Math.max(0, freeModifiers));
 
     // broken?
     if(broken) {
@@ -504,6 +504,10 @@ public final class ToolBuilder {
     }
 
     TagUtil.setToolTag(rootNBT, toolTag);
+
+    if(freeModifiers < 0) {
+      throw new TinkerGuiException(Util.translateFormatted("gui.error.not_enough_modifiers", -freeModifiers));
+    }
   }
 
   public static short getEnchantmentLevel(NBTTagCompound rootTag, Enchantment enchantment) {

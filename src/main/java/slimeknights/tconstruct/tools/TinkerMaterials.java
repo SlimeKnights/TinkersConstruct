@@ -64,6 +64,7 @@ import slimeknights.tconstruct.tools.traits.TraitSqueaky;
 import slimeknights.tconstruct.tools.traits.TraitStonebound;
 import slimeknights.tconstruct.tools.traits.TraitTasty;
 import slimeknights.tconstruct.tools.traits.TraitUnnatural;
+import slimeknights.tconstruct.tools.traits.TraitWritable;
 import slimeknights.tconstruct.world.entity.EntityBlueSlime;
 
 import static slimeknights.tconstruct.library.utils.HarvestLevels.COBALT;
@@ -94,7 +95,7 @@ public final class TinkerMaterials {
   public static final Material obsidian   = mat("obsidian", 0x601cc4);
   public static final Material prismarine = mat("prismarine", 0x7edebc);
   public static final Material endstone   = mat("endstone", 0xe0d890);
-  public static final Material paper      = new Material("paper", 0xffffff);//mat("paper", 0xffffff);
+  public static final Material paper      = mat("paper", 0xffffff);
   public static final Material sponge     = mat("sponge", 0xcacc4e);
 
   // Slime
@@ -149,6 +150,8 @@ public final class TinkerMaterials {
   public static final AbstractTrait stonebound = new TraitStonebound();
   public static final AbstractTrait tasty = new TraitTasty();
   public static final AbstractTrait unnatural = new TraitUnnatural();
+  public static final AbstractTrait writable = new TraitWritable(1);
+  public static final AbstractTrait writable2 = new TraitWritable(2);
 
   private static Material mat(String name, int color) {
     Material mat = new Material(name, color);
@@ -293,6 +296,8 @@ public final class TinkerMaterials {
     paper.setCraftable(true);
     paper.addItem(Items.paper, 1, Material.VALUE_Fragment);
     paper.setRepresentativeItem(Items.paper);
+    paper.addTrait(writable2, HEAD);
+    paper.addTrait(writable);
 
     sponge.setCraftable(true);
     sponge.addItem(Blocks.sponge, Material.VALUE_Ingot);
