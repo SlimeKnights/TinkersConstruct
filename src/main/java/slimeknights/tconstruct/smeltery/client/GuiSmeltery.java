@@ -57,6 +57,8 @@ public class GuiSmeltery extends GuiMultiModule {
 
   @Override
   protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+    super.drawGuiContainerForegroundLayer(mouseX + cornerX, mouseY + cornerY);
+
     // draw the scale
     this.mc.getTextureManager().bindTexture(BACKGROUND);
     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -101,8 +103,6 @@ public class GuiSmeltery extends GuiMultiModule {
       text.add(Util.translateFormatted("gui.smeltery.fuel.heat", fuelInfo.heat));
       this.drawHoveringText(text, mouseX, mouseY);
     }
-
-    super.drawGuiContainerForegroundLayer(mouseX + cornerX, mouseY + cornerY);
   }
 
   @Override
