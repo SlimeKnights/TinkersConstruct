@@ -305,11 +305,12 @@ public class TinkerSmeltery extends TinkerPulse {
   }
 
   private void registerAlloys() {
-    // 1 bucket lava + 1 bucket water = 2 buckets obsidian = 1 block obsidian
-    // 1000 + 1000 = 2000
-    TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.obsidian, 2),
-                                 new FluidStack(FluidRegistry.WATER, 1),
-                                 new FluidStack(FluidRegistry.LAVA, 1));
+    // 1 bucket lava + 1 bucket water = 2 ingots = 1 block obsidian
+    // 1000 + 1000 = 288
+    // 125 + 125 = 36
+    TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.obsidian, 36),
+                                 new FluidStack(FluidRegistry.WATER, 125),
+                                 new FluidStack(FluidRegistry.LAVA, 125));
 
     // 1 iron ingot + 1 purple slime ball + seared stone in molten form = 1 knightslime ingot
     // 144 + 250 + 288 = 144
