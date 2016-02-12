@@ -8,6 +8,7 @@ import slimeknights.tconstruct.library.events.TinkerEvent;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.library.utils.TinkerUtil;
 
 public class TraitCheapskate extends AbstractTrait {
 
@@ -18,9 +19,11 @@ public class TraitCheapskate extends AbstractTrait {
 
   @SubscribeEvent
   public void onToolBuilding(TinkerEvent.OnItemBuilding event) {
-    ToolNBT data = TagUtil.getToolStats(event.tag);
-    // reduce durability by 20%
-    data.durability = Math.max(1, (data.durability * 80) / 100);
-    TagUtil.setToolTag(event.tag, data.get());
+    if(TinkerUtil.hasTrait(event.tag, this.getIdentifier())) {
+      ToolNBT data = TagUtil.getToolStats(event.tag);
+      // reduce durability by 20%
+      data.durability = Math.max(1, (data.durability * 80) / 100);
+      TagUtil.setToolTag(event.tag, data.get());
+    }
   }
 }
