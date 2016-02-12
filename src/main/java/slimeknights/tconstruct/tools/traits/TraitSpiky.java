@@ -27,9 +27,7 @@ public class TraitSpiky extends AbstractTrait {
       damageSource.setDamageBypassesArmor();
       damageSource.setDamageIsAbsolute();
 
-      // reset hurt resistance time from being hit before
-      target.hurtResistantTime = 0;
-      target.attackEntityFrom(damageSource, damage);
+      attackEntitySecondary(damageSource, damage, target, true, false);
       target.hurtResistantTime = 4; // very short invulv time from that
     }
   }

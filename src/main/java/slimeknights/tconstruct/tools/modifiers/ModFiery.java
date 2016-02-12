@@ -32,9 +32,7 @@ public class ModFiery extends ModifierTrait {
 
     // one heart fire damage per 15
     float fireDamage = (float)data.current/15f;
-    if(target.attackEntityFrom(DamageSource.inFire, fireDamage)) {
-      target.hurtResistantTime = 0;
-    }
+    this.attackEntitySecondary(DamageSource.inFire, fireDamage, target, false, true);
   }
 
   @Override

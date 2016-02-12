@@ -4,10 +4,17 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.StatCollector;
 
 import java.util.Arrays;
@@ -205,4 +212,44 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
   public boolean hasTexturePerMaterial() {
     return false;
   }
+
+  protected boolean attackEntitySecondary(DamageSource source, float damage, Entity entity, boolean ignoreInvulv, boolean resetInvulv) {
+    return attackEntitySecondary(source, damage, entity, ignoreInvulv, resetInvulv, true);
+  }
+
+  protected boolean attackEntitySecondary(DamageSource source, float damage, Entity entity, boolean ignoreInvulv, boolean resetInvulv, boolean noKnockback) {
+    IAttributeInstance knockbackAttribute = null;
+    float oldLastDamage = 0;
+    if(entity instanceof EntityLivingBase) {
+      oldLastDamage = ((EntityLivingBase) entity).lastDamage;
+      if(noKnockback) {
+        knockbackAttribute = ((EntityLivingBase) entity).getEntityAttribute(SharedMonsterAttributes.knockbackResistance);
+      }
+    }
+
+    if(knockbackAttribute != null) {
+      knockbackAttribute.applyModifier(ANTI_KNOCKBACK_MOD);
+    }
+
+    // set hurt resistance time to 0 because we always want to deal damage in traits
+    if(ignoreInvulv) {
+      entity.hurtResistantTime = 0;
+    }
+    boolean hit = entity.attackEntityFrom(source, damage);
+    if(entity instanceof EntityLivingBase) {
+      ((EntityLivingBase) entity).lastDamage += oldLastDamage;
+    }
+    // reset hurt resistance time if desired
+    if(resetInvulv) {
+      entity.hurtResistantTime = 0;
+    }
+
+    if(knockbackAttribute != null) {
+      knockbackAttribute.removeModifier(ANTI_KNOCKBACK_MOD);
+    }
+
+    return hit;
+  }
+
+  private static final AttributeModifier ANTI_KNOCKBACK_MOD = new AttributeModifier("Anti Modifier Knockback", 1f, 0);
 }

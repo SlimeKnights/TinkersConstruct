@@ -32,7 +32,9 @@ public class TraitSplinters extends AbstractTrait {
   private void splinter(EntityLivingBase player) {
     // SPLINTERS!
     if(!player.worldObj.isRemote && random.nextInt(chance) == 0) {
-      player.attackEntityFrom(splinter, 0.1f);
+      int oldTime = player.hurtResistantTime;
+      attackEntitySecondary(splinter, 0.1f, player, true, true);
+      player.hurtResistantTime = oldTime; // keep old invulv time
     }
   }
 }

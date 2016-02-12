@@ -16,21 +16,19 @@ public class TraitPrickly extends AbstractTrait {
 
   @Override
   public void afterHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damageDealt, boolean wasCritical, boolean wasHit) {
-    if(target.isEntityAlive()) {
+    if(target.isEntityAlive() && wasHit) {
       causeDamage(player, target);
     }
   }
 
-  static void causeDamage(EntityLivingBase player, EntityLivingBase target) {
+  protected void causeDamage(EntityLivingBase player, EntityLivingBase target) {
     float damage = 0.5f + Math.max(-0.5f, (float) random.nextGaussian() * 0.75f);
     if(damage > 0) {
       EntityDamageSource damageSource = new EntityDamageSource(DamageSource.cactus.damageType, player);
       damageSource.setDamageBypassesArmor();
       damageSource.setDamageIsAbsolute();
 
-      // reset hurt resistance time from being hit before
-      target.hurtResistantTime = 0;
-      target.attackEntityFrom(damageSource, damage);
+      this.attackEntitySecondary(damageSource, damage, target, true, false);
     }
   }
 }
