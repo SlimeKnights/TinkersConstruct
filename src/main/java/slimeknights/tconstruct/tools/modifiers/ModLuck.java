@@ -84,6 +84,8 @@ public class ModLuck extends ModifierTrait {
     boolean harvest = false;
     boolean weapon = false;
 
+    lvl = Math.min(lvl, Enchantment.looting.getMaxLevel());
+
     for(Category category : TagUtil.getCategories(rootCompound)) {
       if(category == Category.HARVEST) harvest = true;
       if(category == Category.WEAPON) weapon = true;
