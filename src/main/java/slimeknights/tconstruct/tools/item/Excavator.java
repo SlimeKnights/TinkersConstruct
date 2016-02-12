@@ -30,7 +30,7 @@ public class Excavator extends Shovel {
 
   @Override
   public float miningSpeedModifier() {
-    return 0.35f; // a bit faster than hammers to make terraforming easier
+    return 0.28f; // a bit faster than hammers to make terraforming easier
   }
 
   @Override
@@ -54,6 +54,8 @@ public class Excavator extends Shovel {
     data.head(head, plate);
     data.extra(binding);
     data.handle(handle);
+
+    data.durability *= 1.75f;
 
     data.modifiers = 2;
 

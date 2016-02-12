@@ -73,6 +73,8 @@ public class Cleaver extends BroadSword {
 
     data.attack += 2f;
 
+    // triple durability!
+    data.durability *= 2f;
     data.modifiers = 2;
 
     return data.get();

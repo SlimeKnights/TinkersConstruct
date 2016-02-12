@@ -45,7 +45,7 @@ public class LumberAxe extends Hatchet {
 
   @Override
   public float miningSpeedModifier() {
-    return 0.28f; // a bit slower because it breaks whole trees
+    return 0.35f; // a bit slower because it breaks whole trees
   }
 
   @Override
@@ -72,6 +72,8 @@ public class LumberAxe extends Hatchet {
     data.head(head, plate);
     data.extra(binding);
     data.handle(handle);
+
+    data.durability *= 2f;
 
     data.modifiers = 2;
 

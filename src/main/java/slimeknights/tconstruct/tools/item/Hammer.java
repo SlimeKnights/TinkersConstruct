@@ -71,6 +71,8 @@ public class Hammer extends Pickaxe {
     // harvestlevel is always determined by the head
     data.harvestLevel = head.harvestLevel;
 
+    data.durability *= 2.5f;
+
     // 3 free modifiers
     data.modifiers = DEFAULT_MODIFIERS;
 
