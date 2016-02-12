@@ -16,12 +16,14 @@ public interface IModifier extends IToolMod {
   RecipeMatch.Match matches(ItemStack[] stacks);
 
   /**
-   * Returns true if the modifier can be applied to the given itemstack
+   * Returns true if the modifier can be applied to the given itemstack.
+   * Modifiers can be applied in bulk, but each application is called separately.
+   * The original contains the unmodified tool.
    *
    * @throws TinkerGuiException Thrown if there is a specific reason why the modifier couldn't be applied.
    *                         The exception contains a localized string describing what's wrong.
    */
-  boolean canApply(ItemStack stack) throws TinkerGuiException;
+  boolean canApply(ItemStack stack, ItemStack original) throws TinkerGuiException;
 
   /** Apply the modifier to that itemstack. The complete procedure */
   void apply(ItemStack stack);

@@ -163,6 +163,7 @@ public final class ToolBuilder {
 
     // obtain a working copy of the items if the originals shouldn't be modified
     ItemStack[] stacks = Util.copyItemStackArray(input);
+    ItemStack[] usedStacks = Util.copyItemStackArray(input);
 
     Set<IModifier> appliedModifiers = Sets.newHashSet();
     for(IModifier modifier : TinkerRegistry.getAllModifiers()) {
@@ -173,11 +174,12 @@ public final class ToolBuilder {
 
         // found a modifier that is applicable. Try to apply the match
         if(match != null) {
+          // we need to apply the whole match
           while(match.amount > 0) {
             TinkerGuiException caughtException = null;
             boolean canApply = false;
             try {
-              canApply = modifier.canApply(copy);
+              canApply = modifier.canApply(copy, toolStack);
             } catch(TinkerGuiException e) {
               caughtException = e;
             }
@@ -193,27 +195,28 @@ public final class ToolBuilder {
               // materials would allow another application, but modifier doesn't
               // if we have already applied another modifier we cancel the whole thing to prevent situations where
               // only a part of the modifiers gets applied. either all or none.
-              if(appliedModifiers.size() > 0 || !appliedModifiers.contains(modifier)) {
-                // if we have a reason, rather tell the player that
-                if(caughtException != null) {
-                  throw caughtException;
-                }
-                return null;
+              // if we have a reason, rather tell the player that
+              if(caughtException != null && !appliedModifiers.contains(modifier)) {
+                throw caughtException;
               }
+
               copy = backup;
-              match = null;
+              RecipeMatch.removeMatch(stacks, match);
               break;
             }
           }
 
-          RecipeMatch.removeMatch(stacks, match);
+          if(match.amount == 0) {
+            RecipeMatch.removeMatch(stacks, match);
+            RecipeMatch.removeMatch(usedStacks, match);
+          }
         }
       } while(match != null);
     }
 
     // check if all itemstacks were touched - otherwise there's an invalid item in the input
     for(int i = 0; i < input.length; i++) {
-      if(input[i] != null && ItemStack.areItemStacksEqual(input[i], stacks[i])) {
+      if(input[i] != null && ItemStack.areItemStacksEqual(input[i], usedStacks[i])) {
         if(!appliedModifiers.isEmpty()) {
           String error =
               StatCollector.translateToLocalFormatted("gui.error.no_modifier_for_item", input[i].getDisplayName());
@@ -226,13 +229,16 @@ public final class ToolBuilder {
     // update output itemstacks
     if(removeItems) {
       for(int i = 0; i < input.length; i++) {
+        if(input[i] == null) {
+          continue;
+        }
         // stacks might be null because stacksize got 0 during processing, we have to reflect that in the input
         // so the caller can identify that
-        if(input[i] != null && stacks[i] == null) {
+        if(usedStacks[i] == null) {
           input[i].stackSize = 0;
         }
         else {
-          input[i] = stacks[i];
+          input[i].stackSize = usedStacks[i].stackSize;
         }
       }
     }

@@ -187,6 +187,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
                     modifyTool(true) != null;
     } catch(TinkerGuiException e) {
       // no error updating needed
+      e.printStackTrace();
     }
 
     if(resultTaken) {

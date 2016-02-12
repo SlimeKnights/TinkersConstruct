@@ -168,7 +168,7 @@ public class CompareVanilla extends CommandBase {
   protected ItemStack applyModifier(IModifier modifier, ItemStack tool) {
     tool = tool.copy();
     try {
-      while(modifier.canApply(tool)) {
+      while(modifier.canApply(tool, tool)) {
         modifier.apply(tool);
       }
     } catch(TinkerGuiException e) {

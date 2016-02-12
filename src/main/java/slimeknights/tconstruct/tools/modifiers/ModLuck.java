@@ -73,7 +73,7 @@ public class ModLuck extends ModifierTrait {
     if(random.nextFloat() > 0.02f) return;
 
     try {
-      if(canApply(tool))
+      if(canApply(tool, tool))
         apply(tool);
     } catch(TinkerGuiException e) {
       // no user feedback

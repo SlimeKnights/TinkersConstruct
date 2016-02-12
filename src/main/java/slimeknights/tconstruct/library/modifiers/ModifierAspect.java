@@ -36,7 +36,7 @@ public abstract class ModifierAspect {
     this.parent = parent;
   }
 
-  public abstract boolean canApply(ItemStack stack) throws TinkerGuiException;
+  public abstract boolean canApply(ItemStack stack, ItemStack original) throws TinkerGuiException;
 
   public abstract void updateNBT(NBTTagCompound root, NBTTagCompound modifierTag);
 
@@ -57,7 +57,8 @@ public abstract class ModifierAspect {
     }
 
     @Override
-    public boolean canApply(ItemStack stack) throws TinkerGuiException {
+    public boolean canApply(ItemStack stack, ItemStack original) throws TinkerGuiException {
+      NBTTagCompound toolTag = TagUtil.getToolTag(stack);
       if(ToolHelper.getFreeModifiers(stack) < requiredModifiers) {
         String error = StatCollector.translateToLocalFormatted("gui.error.not_enough_modifiers", requiredModifiers);
         // also returns false if the tooltag is missing
@@ -88,13 +89,13 @@ public abstract class ModifierAspect {
     }
 
     @Override
-    public boolean canApply(ItemStack stack) throws TinkerGuiException {
+    public boolean canApply(ItemStack stack, ItemStack original) throws TinkerGuiException {
       // can always apply if the parent already has the modifier
       if(TinkerUtil.hasModifier(TagUtil.getTagSafe(stack), parent.getIdentifier()))
         return true;
 
       // otherwise he requires free modifiers
-      return super.canApply(stack);
+      return super.canApply(stack, original);
     }
 
     @Override
@@ -127,7 +128,7 @@ public abstract class ModifierAspect {
     }
 
     @Override
-    public boolean canApply(ItemStack stack) {
+    public boolean canApply(ItemStack stack, ItemStack original) {
       // can always apply
       return true;
     }
@@ -172,20 +173,20 @@ public abstract class ModifierAspect {
     }
 
     @Override
-    public boolean canApply(ItemStack stack) throws TinkerGuiException {
+    public boolean canApply(ItemStack stack, ItemStack original) throws TinkerGuiException {
       // check if the threshold has been reached
       NBTTagCompound modifierTag = TinkerUtil.getModifierTag(stack, parent.getIdentifier());
       ModifierNBT.IntegerNBT data = getData(modifierTag);
 
       // the current level is full / level is 0
       if(data.current >= getMaxForLevel(data.level)) {
-        // enough modifiers for another level?
-        if(!freeModifierAspect.canApply(stack)) {
+        // can we even apply a new level?
+        if(!levelAspect.canApply(stack, original)) {
           return false;
         }
 
-        // can we even apply a new level?
-        if(!levelAspect.canApply(stack)) {
+        // enough modifiers for another level?
+        if(!freeModifierAspect.canApply(stack, original)) {
           return false;
         }
       }
@@ -242,7 +243,7 @@ public abstract class ModifierAspect {
     }
 
     @Override
-    public boolean canApply(ItemStack stack) {
+    public boolean canApply(ItemStack stack, ItemStack original) {
       for(Category cat : category)
         if(!ToolHelper.hasCategory(stack, cat))
           return false;
@@ -266,7 +267,7 @@ public abstract class ModifierAspect {
     }
 
     @Override
-    public boolean canApply(ItemStack stack) {
+    public boolean canApply(ItemStack stack, ItemStack original) {
       for(Category cat : category)
         if(ToolHelper.hasCategory(stack, cat))
           return true;
@@ -286,15 +287,21 @@ public abstract class ModifierAspect {
     }
 
     @Override
-    public boolean canApply(ItemStack stack) throws TinkerGuiException {
+    public boolean canApply(ItemStack stack, ItemStack original) throws TinkerGuiException {
       // check if the modifier is present in the base info.
       // this is not the same as checking if the modifier has data. But should be sufficient
-      NBTTagList modifiers = TagUtil.getBaseModifiersTagList(stack);
-      int index = TinkerUtil.getIndexInList(modifiers, parent.getIdentifier());
 
-      if(index >= 0) {
-        throw new TinkerGuiException(StatCollector.translateToLocalFormatted("gui.error.single_modifier",
-                                                                          parent.getLocalizedName()));
+      if(TinkerUtil.hasModifier(TagUtil.getTagSafe(stack), parent.getIdentifier())) {
+        // check if original already had it too
+        if(TinkerUtil.hasModifier(TagUtil.getTagSafe(original), parent.getIdentifier())) {
+          // error, can't apply if it already had it
+          throw new TinkerGuiException(StatCollector.translateToLocalFormatted("gui.error.single_modifier",
+                                                                               parent.getLocalizedName()));
+        }
+        else {
+          // original didn't have it, we can apply it once therefore, no error
+          return false;
+        }
       }
 
       // applicable if not found
@@ -321,14 +328,19 @@ public abstract class ModifierAspect {
 
 
     @Override
-    public boolean canApply(ItemStack stack) throws TinkerGuiException {
-      NBTTagList modifiers = TagUtil.getModifiersTagList(stack);
-      int index = TinkerUtil.getIndexInList(modifiers, parent.getIdentifier());
+    public boolean canApply(ItemStack stack, ItemStack original) throws TinkerGuiException {
+      int levelNew = ModifierNBT.readTag(TinkerUtil.getModifierTag(stack, parent.getIdentifier())).level;
+      int levelOld = ModifierNBT.readTag(TinkerUtil.getModifierTag(original, parent.getIdentifier())).level;
 
-      if(index >= 0) {
-        if(ModifierNBT.readTag(modifiers.getCompoundTagAt(index)).level >= maxLevel) {
-          throw new TinkerGuiException(StatCollector.translateToLocalFormatted("gui.error.max_level_modifier", parent.getLocalizedName()));
-        }
+      // only 1 level per application
+      // original and stack are equal for the first application, any multiple applications therefore yield >0
+      if(levelNew - levelOld > 0) {
+        return false;
+      }
+
+      // new level would be above max level
+      if(levelNew >= maxLevel) {
+        throw new TinkerGuiException(StatCollector.translateToLocalFormatted("gui.error.max_level_modifier", parent.getLocalizedName()));
       }
 
       return true;

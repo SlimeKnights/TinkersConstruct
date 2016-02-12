@@ -33,10 +33,10 @@ public class ModifierTrait extends AbstractTrait {
       addAspects(new ModifierAspect.MultiAspect(this, color, maxLevel, countPerLevel, 1));
     }
     else {
-      addAspects(new ModifierAspect.DataAspect(this, color), ModifierAspect.freeModifier);
       if(maxLevel > 0) {
         addAspects(new ModifierAspect.LevelAspect(this, maxLevel));
       }
+      addAspects(new ModifierAspect.DataAspect(this, color), ModifierAspect.freeModifier);
     }
   }
 

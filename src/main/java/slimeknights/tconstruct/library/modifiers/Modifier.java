@@ -49,10 +49,10 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
   }
 
   @Override
-  public final boolean canApply(ItemStack stack) throws TinkerGuiException {
+  public final boolean canApply(ItemStack stack, ItemStack original) throws TinkerGuiException {
     // aspects
     for(ModifierAspect aspect : aspects) {
-      if(!aspect.canApply(stack)) {
+      if(!aspect.canApply(stack, original)) {
         return false;
       }
     }
