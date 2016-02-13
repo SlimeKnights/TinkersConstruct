@@ -22,4 +22,9 @@ public interface IMaterialItem {
    * @return Material or Material.UNKNOWN if invalid
    */
   Material getMaterial(ItemStack stack);
+
+  /**
+   * Returns the item with the given material
+   */
+  ItemStack getItemstackWithMaterial(Material material);
 }

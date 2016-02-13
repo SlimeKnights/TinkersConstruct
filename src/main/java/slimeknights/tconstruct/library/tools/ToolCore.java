@@ -15,6 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -33,6 +34,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
+import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
@@ -228,7 +230,41 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public void getTooltipComponents(ItemStack stack, List<String> tooltips) {
-    tooltips.add("Not implemented :(");
+    List<Material> materials = TinkerUtil.getMaterialsFromTagList(TagUtil.getBaseMaterialsTagList(stack));
+    List<PartMaterialType> component = getRequiredComponents();
+
+    if(materials.size() < component.size()) {
+      return;
+    }
+
+    for(int i = 0; i < component.size(); i++) {
+      PartMaterialType pmt = component.get(i);
+      Material material = materials.get(i);
+
+      // get (one possible) toolpart used to craft the thing
+      Iterator<IToolPart> partIter = pmt.getPossibleParts().iterator();
+      if(!partIter.hasNext()) {
+        continue;
+      }
+
+      IToolPart part = partIter.next();
+      ItemStack partStack = part.getItemstackWithMaterial(material);
+      if(partStack != null) {
+        // we have the part, add it
+        tooltips.add(material.getTextColor() + EnumChatFormatting.UNDERLINE + partStack.getDisplayName());
+
+        // find out which stats and traits it contributes and add it to the tooltip
+        for(IMaterialStats stats : material.getAllStats()) {
+          if(pmt.usesStat(stats.getIdentifier())) {
+            tooltips.addAll(stats.getLocalizedInfo());
+            for(ITrait trait : pmt.getApplicableTraitsForMaterial(material)) {
+              tooltips.add(material.getTextColor() + trait.getLocalizedName());
+            }
+          }
+        }
+        tooltips.add("");
+      }
+    }
   }
 
   @SideOnly(Side.CLIENT)

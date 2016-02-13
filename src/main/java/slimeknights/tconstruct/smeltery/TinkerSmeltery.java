@@ -338,7 +338,7 @@ public class TinkerSmeltery extends TinkerPulse {
     Fluid fluid = material.getFluid();
     for(IToolPart toolPart : TinkerRegistry.getToolParts()) {
       if(toolPart instanceof MaterialItem) {
-        ItemStack stack = ((MaterialItem) toolPart).getItemstackWithMaterial(material);
+        ItemStack stack = toolPart.getItemstackWithMaterial(material);
         ItemStack cast = new ItemStack(TinkerSmeltery.cast);
         Cast.setTagForPart(cast, stack.getItem());
 

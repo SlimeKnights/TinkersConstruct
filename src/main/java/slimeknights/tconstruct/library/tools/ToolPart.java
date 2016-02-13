@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import net.minecraft.client.gui.FontRenderer;
@@ -21,7 +22,6 @@ import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.CustomFontColor;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
@@ -66,6 +66,11 @@ public class ToolPart extends MaterialItem implements IToolPart {
     return false;
   }
 
+  @Override
+  public ItemStack getItemstackWithMaterial(Material material) {
+    return super.getItemstackWithMaterial(material);
+  }
+
   @SideOnly(Side.CLIENT)
   @Override
   public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
@@ -75,63 +80,13 @@ public class ToolPart extends MaterialItem implements IToolPart {
     boolean shift = Util.isShiftKeyDown();
 
     if(!checkMissingMaterialTooltip(stack, tooltip)) {
-      // We build a map with Stat -> Traits mappings that allows us to group or not group depending on what's available
-      Map<String, List<ITrait>> mapping = Maps.newConcurrentMap();
-
-      // go through all stats of the material, and check if they have a use, build the map from them
-      for(IMaterialStats stat : material.getAllStats()) {
-        if(hasUseForStat(stat.getIdentifier())) {
-          List<ITrait> traits = material.getAllTraitsForStats(stat.getIdentifier());
-          if(!traits.isEmpty()) {
-            boolean unified = false;
-            for(Map.Entry<String, List<ITrait>> entry : mapping.entrySet()) {
-              // group together if identical
-              if(entry.getValue().equals(traits)) {
-                mapping.put(entry.getKey() + ", " + stat.getLocalizedName(), entry.getValue());
-                mapping.remove(entry.getKey());
-                unified = true;
-                break;
-              }
-            }
-
-            if(!unified) {
-              mapping.put(stat.getLocalizedName(), traits);
-            }
-          }
-        }
-      }
-
-      boolean withType = mapping.size() > 1;
-
-      // convert the entries into tooltips
-      for(Map.Entry<String, List<ITrait>> entry : mapping.entrySet()) {
-        // add the traits in "Stattype: Trait1, Trait2,..." style
-        StringBuilder sb = new StringBuilder();
-        if(withType) {
-          sb.append(EnumChatFormatting.ITALIC.toString());
-          sb.append(entry.getKey());
-          sb.append(": ");
-          sb.append(EnumChatFormatting.RESET.toString());
-        }
-        sb.append(material.getTextColor());
-        List<ITrait> traits = entry.getValue();
-        if(!traits.isEmpty()) {
-          ListIterator<ITrait> iter = traits.listIterator();
-
-          sb.append(iter.next().getLocalizedName());
-          while(iter.hasNext()) {
-            sb.append(", ").append(iter.next().getLocalizedName());
-          }
-
-          tooltip.add(sb.toString());
-        }
-      }
+      tooltip.addAll(getTooltipTraitInfo(material));
     }
 
     // Stats
     if(Config.extraTooltips) {
       if(!shift) {
-        // info tooltip for detailed and componend info
+        // info tooltip for detailed and component info
         tooltip.add("");
         tooltip.add(Util.translate("tooltip.tool.holdShift"));
       }
@@ -153,6 +108,63 @@ public class ToolPart extends MaterialItem implements IToolPart {
                                                                   TinkerRegistry.getTrace(material));
     tooltip.add("");
     tooltip.add(materialInfo);
+  }
+
+  public List<String> getTooltipTraitInfo(Material material) {
+    // We build a map with Stat -> Traits mappings that allows us to group or not group depending on what's available
+    Map<String, List<ITrait>> mapping = Maps.newConcurrentMap();
+
+    // go through all stats of the material, and check if they have a use, build the map from them
+    for(IMaterialStats stat : material.getAllStats()) {
+      if(hasUseForStat(stat.getIdentifier())) {
+        List<ITrait> traits = material.getAllTraitsForStats(stat.getIdentifier());
+        if(!traits.isEmpty()) {
+          boolean unified = false;
+          for(Map.Entry<String, List<ITrait>> entry : mapping.entrySet()) {
+            // group together if identical
+            if(entry.getValue().equals(traits)) {
+              mapping.put(entry.getKey() + ", " + stat.getLocalizedName(), entry.getValue());
+              mapping.remove(entry.getKey());
+              unified = true;
+              break;
+            }
+          }
+
+          if(!unified) {
+            mapping.put(stat.getLocalizedName(), traits);
+          }
+        }
+      }
+    }
+
+    List<String> tooltips = Lists.newLinkedList();
+    boolean withType = mapping.size() > 1;
+
+    // convert the entries into tooltips
+    for(Map.Entry<String, List<ITrait>> entry : mapping.entrySet()) {
+      // add the traits in "Stattype: Trait1, Trait2,..." style
+      StringBuilder sb = new StringBuilder();
+      if(withType) {
+        sb.append(EnumChatFormatting.ITALIC.toString());
+        sb.append(entry.getKey());
+        sb.append(": ");
+        sb.append(EnumChatFormatting.RESET.toString());
+      }
+      sb.append(material.getTextColor());
+      List<ITrait> traits = entry.getValue();
+      if(!traits.isEmpty()) {
+        ListIterator<ITrait> iter = traits.listIterator();
+
+        sb.append(iter.next().getLocalizedName());
+        while(iter.hasNext()) {
+          sb.append(", ").append(iter.next().getLocalizedName());
+        }
+
+        tooltips.add(sb.toString());
+      }
+    }
+
+    return tooltips;
   }
 
   @Override

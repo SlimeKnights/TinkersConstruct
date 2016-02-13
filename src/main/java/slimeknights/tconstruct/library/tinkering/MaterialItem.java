@@ -42,6 +42,7 @@ public class MaterialItem extends Item implements IMaterialItem {
     return TinkerRegistry.getMaterial(tag.getString(Tags.PART_MATERIAL));
   }
 
+  @Override
   public ItemStack getItemstackWithMaterial(Material material) {
     ItemStack stack = new ItemStack(this);
     NBTTagCompound tag = new NBTTagCompound();
