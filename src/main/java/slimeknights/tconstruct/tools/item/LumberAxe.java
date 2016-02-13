@@ -1,11 +1,14 @@
 package slimeknights.tconstruct.tools.item;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 
 import gnu.trove.set.hash.THashSet;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
@@ -22,16 +25,22 @@ import java.util.Stack;
 
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
-import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
+import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.AoeToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.events.TinkerToolEvent;
 
-public class LumberAxe extends Hatchet {
+public class LumberAxe extends AoeToolCore {
+
+  public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
+      ImmutableSet.of(net.minecraft.block.material.Material.wood,
+                      net.minecraft.block.material.Material.gourd,
+                      net.minecraft.block.material.Material.cactus);
 
   public LumberAxe() {
     super(PartMaterialType.handle(TinkerTools.toughToolRod),
@@ -40,7 +49,9 @@ public class LumberAxe extends Hatchet {
           PartMaterialType.extra(TinkerTools.toughBinding));
 
     // lumberaxe is not a weapon. it's for lumberjacks. Lumberjacks are manly, they're weapons themselves.
-    categories.remove(Category.WEAPON);
+    addCategory(Category.HARVEST);
+
+    this.setHarvestLevel("axe", 0);
   }
 
   @Override
@@ -49,8 +60,23 @@ public class LumberAxe extends Hatchet {
   }
 
   @Override
+  public float damagePotential() {
+    return 0.9f;
+  }
+
+  @Override
+  public boolean isEffective(Block block) {
+    return effective_materials.contains(block.getMaterial()) || ItemAxe.EFFECTIVE_ON.contains(block);
+  }
+
+  @Override
+  public float knockback() {
+    return 1.5f;
+  }
+
+  @Override
   public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
-    if(detectTree(player.worldObj, pos)) {
+    if(ToolHelper.isToolEffective2(itemstack, player.worldObj.getBlockState(pos)) && detectTree(player.worldObj, pos)) {
       return fellTree(itemstack, pos, player);
     }
     return super.onBlockStartBreak(itemstack, pos, player);
@@ -58,6 +84,9 @@ public class LumberAxe extends Hatchet {
 
   @Override
   public ImmutableList<BlockPos> getAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
+    if(!ToolHelper.isToolEffective2(stack, world.getBlockState(origin))) {
+      return ImmutableList.of();
+    }
     return ToolHelper.calcAOEBlocks(stack, world, player, origin, 3, 3, 3);
   }
 

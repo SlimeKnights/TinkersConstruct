@@ -10,8 +10,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
+import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.AoeToolCore;
@@ -41,6 +41,9 @@ public class BattleAxe extends AoeToolCore {
 
   @Override
   public ImmutableList<BlockPos> getAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
+    if(!ToolHelper.isToolEffective2(stack, world.getBlockState(origin))) {
+      return ImmutableList.of();
+    }
     return ToolHelper.calcAOEBlocks(stack, world, player, origin, 2, 2, 1);
   }
 

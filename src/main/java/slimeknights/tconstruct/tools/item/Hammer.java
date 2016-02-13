@@ -14,8 +14,8 @@ import java.util.List;
 
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
-import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
+import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolNBT;
@@ -54,6 +54,9 @@ public class Hammer extends Pickaxe {
 
   @Override
   public ImmutableList<BlockPos> getAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
+    if(!ToolHelper.isToolEffective2(stack, world.getBlockState(origin))) {
+      return ImmutableList.of();
+    }
     return ToolHelper.calcAOEBlocks(stack, world, player, origin, 3, 3, 1);
   }
 
