@@ -2,6 +2,8 @@ package slimeknights.tconstruct.shared;
 
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -17,14 +19,15 @@ import slimeknights.mantle.item.ItemEdible;
 import slimeknights.mantle.item.ItemMetaDynamic;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.CommonProxy;
-import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.TinkerPulse;
-import slimeknights.tconstruct.library.potion.PotionSlimeBounce;
-import slimeknights.tconstruct.shared.block.BlockMetal;
-import slimeknights.tconstruct.shared.block.BlockSoil;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.potion.PotionSlimeBounce;
+import slimeknights.tconstruct.shared.block.BlockFirewood;
+import slimeknights.tconstruct.shared.block.BlockMetal;
 import slimeknights.tconstruct.shared.block.BlockOre;
+import slimeknights.tconstruct.shared.block.BlockSoil;
 import slimeknights.tconstruct.shared.worldgen.NetherOreGenerator;
 
 /**
@@ -45,6 +48,7 @@ public class TinkerCommons extends TinkerPulse {
   public static BlockSoil blockSoil;
   public static BlockOre blockOre;
   public static BlockMetal blockMetal;
+  public static Block blockFirewood;
 
   // block itemstacks
   public static ItemStack grout;
@@ -61,6 +65,9 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack blockManyullyn;
   public static ItemStack blockPigIron;
   public static ItemStack blockKnightSlime;
+
+  public static ItemStack lavawood;
+  public static ItemStack firewood;
 
   public static ItemMetaDynamic nuggets;
   public static ItemMetaDynamic ingots;
@@ -117,6 +124,12 @@ public class TinkerCommons extends TinkerPulse {
 
     oreCobalt = new ItemStack(blockOre, 1, BlockOre.OreTypes.COBALT.getMeta());
     oreArdite = new ItemStack(blockOre, 1, BlockOre.OreTypes.ARDITE.getMeta());
+
+    blockFirewood = registerEnumBlock(new BlockFirewood(), "firewood");
+    blockFirewood.setLightLevel(0.5f);
+    blockFirewood.setCreativeTab(TinkerRegistry.tabGeneral);
+    lavawood = new ItemStack(blockFirewood, 1, BlockFirewood.FirewoodType.LAVAWOOD.getMeta());
+    firewood = new ItemStack(blockFirewood, 1, BlockFirewood.FirewoodType.FIREWOOD.getMeta());
 
     // create the items. We can probably always create them since they handle themselves dynamically
     nuggets = registerItem(new ItemMetaDynamic(), "nuggets");
@@ -188,6 +201,8 @@ public class TinkerCommons extends TinkerPulse {
   }
 
   private void registerRecipies() {
+    GameRegistry.addShapelessRecipe(firewood,Items.blaze_powder, lavawood, Items.blaze_powder);
+
     registerMetalRecipes("Cobalt", ingotCobalt, nuggetCobalt, blockCobalt);
     registerMetalRecipes("Ardite", ingotArdite, nuggetArdite, blockArdite);
     registerMetalRecipes("Manyullyn", ingotManyullyn, nuggetManyullyn, blockManyullyn);

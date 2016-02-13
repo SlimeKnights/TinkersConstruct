@@ -30,6 +30,9 @@ tile.tconstruct.metal.manyullyn.name=Block of Manyullyn
 tile.tconstruct.metal.knightslime.name=Block of Knightslime
 tile.tconstruct.metal.pigiron.name=Block of Pigiron
 
+tile.tconstruct.firewood.lavawood.name=Firewood
+tile.tconstruct.firewood.firewood.name=Firewood
+
 tile.tconstruct.slime.green.name=Green Slime Block
 tile.tconstruct.slime.blue.name=Blue Slime Block
 tile.tconstruct.slime.purple.name=Purple Slime Block
@@ -273,6 +276,7 @@ material.endstone.name=End
 material.bone.name=Bone
 material.paper.name=Paper
 material.sponge.name=Sponge
+material.firewood.name=Firewood
 material.slime.name=Slime
 material.blueslime.name=Blue Slime
 material.blueslime.prefix=Slime %s
@@ -317,6 +321,8 @@ modifier.aquadynamic.name=Aquadynamic
 modifier.aquadynamic.desc=§oIt's getting wet in here!§r\nThe tool is unhindered by water and loves rainy evenings.
 modifier.aridiculous.name=Aridiculous
 modifier.aridiculous.desc=§oTurn up the heat!§r\nThe tool works better in hotter environments.
+modifier.autosmelt.name=Autosmelt
+modifier.autosmelt.desc=§oA furnace in tool form!§r\nHarvested blocks get smelted.
 modifier.baconlicious.name=Baconlicious
 modifier.baconlicious.desc=§oBACON!§r\nHitting things sometimes gives bacon.
 modifier.cheap.name=Cheap

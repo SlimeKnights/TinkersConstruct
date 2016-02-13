@@ -25,6 +25,7 @@ public class TileCastingBasin extends TileCasting {
         PropertyTableItem.TableItem item = getTableItem(getStackInSlot(i));
         item.s = 12/16f;
         item.y -= 9/16f;
+        item.y -= 0.001f;
         toDisplay.items.add(item);
       }
     }

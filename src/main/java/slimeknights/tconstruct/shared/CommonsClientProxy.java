@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.shared;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.model.ModelLoader;
 
 import slimeknights.tconstruct.common.ClientProxy;
 

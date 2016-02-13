@@ -298,6 +298,11 @@ public class TinkerSmeltery extends TinkerPulse {
     TinkerRegistry.registerTableCasting(new ItemStack(Items.emerald), castGem, TinkerFluids.emerald, Material.VALUE_Gem);
     TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.emerald_block), null, TinkerFluids.emerald, Material.VALUE_Gem*9);
 
+    // lavawood
+    TinkerRegistry.registerBasinCasting(new CastingRecipe(TinkerCommons.lavawood, RecipeMatch.of("plankWood"),
+                                                          new FluidStack(FluidRegistry.LAVA, 250),
+                                                          100, true, false));
+
     // melt entities into a pulp
     TinkerRegistry.registerEntityMelting(EntityIronGolem.class, new FluidStack(TinkerFluids.iron, 18));
     TinkerRegistry.registerEntityMelting(EntitySnowman.class, new FluidStack(FluidRegistry.WATER, 100));

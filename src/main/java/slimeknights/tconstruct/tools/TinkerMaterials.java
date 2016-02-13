@@ -38,6 +38,7 @@ import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.tools.traits.TraitAlien;
 import slimeknights.tconstruct.tools.traits.TraitAquadynamic;
 import slimeknights.tconstruct.tools.traits.TraitAridiculous;
+import slimeknights.tconstruct.tools.traits.TraitAutosmelt;
 import slimeknights.tconstruct.tools.traits.TraitBaconlicious;
 import slimeknights.tconstruct.tools.traits.TraitBonusDamage;
 import slimeknights.tconstruct.tools.traits.TraitCheap;
@@ -97,6 +98,7 @@ public final class TinkerMaterials {
   public static final Material endstone   = mat("endstone", 0xe0d890);
   public static final Material paper      = mat("paper", 0xffffff);
   public static final Material sponge     = mat("sponge", 0xcacc4e);
+  public static final Material firewood   = mat("firewood", 0xcc5300);
 
   // Slime
   public static final Material knightslime= mat("knightslime", 0xf18ff0);
@@ -121,6 +123,7 @@ public final class TinkerMaterials {
   public static final AbstractTrait alien = new TraitAlien();
   public static final AbstractTrait aquadynamic = new TraitAquadynamic();
   public static final AbstractTrait aridiculous = new TraitAridiculous();
+  public static final AbstractTrait autosmelt = new TraitAutosmelt();
   public static final AbstractTrait baconlicious = new TraitBaconlicious();
   public static final AbstractTrait cheap = new TraitCheap();
   public static final AbstractTrait cheapskate = new TraitCheapskate();
@@ -183,6 +186,7 @@ public final class TinkerMaterials {
     netherrack.setRenderInfo(new MaterialRenderInfo.BlockTexture("minecraft:blocks/netherrack"));
     //endstone.setRenderInfo(new MaterialRenderInfo.BlockTexture("minecraft:blocks/end_stone"));
     endstone.setRenderInfo(new MaterialRenderInfo.InverseMultiColor(0x5c6296, 0x3c4276, 0x212a76));
+    firewood.setRenderInfo(new MaterialRenderInfo.BlockTexture("tconstruct:blocks/firewood"));
 
     bone.setRenderInfo(0xede6bf).setTextureSuffix("bone_base");
     paper.setRenderInfo(0xffffff); // paper has custom textures
@@ -304,6 +308,11 @@ public final class TinkerMaterials {
     sponge.setRepresentativeItem(Blocks.sponge);
     sponge.addTrait(squeaky);
 
+    firewood.setCraftable(true);
+    firewood.addItem(TinkerCommons.blockFirewood, Material.VALUE_Ingot);
+    firewood.setRepresentativeItem(TinkerCommons.blockFirewood);
+    firewood.addTrait(autosmelt);
+
     slime.setCraftable(true);
     safeAdd(slime, TinkerCommons.matSlimeCrystal, Material.VALUE_Ingot, true);
     slime.addTrait(slimeyGreen);
@@ -401,6 +410,10 @@ public final class TinkerMaterials {
                                     new HeadMaterialStats(550, 3.02f, 0.00f, STONE),
                                     new HandleMaterialStats(1.20f, 250),
                                     new ExtraMaterialStats(250));
+    TinkerRegistry.addMaterialStats(firewood,
+                                    new HeadMaterialStats(550, 6.00f, 5.50f, STONE),
+                                    new HandleMaterialStats(1.0f, -200),
+                                    new ExtraMaterialStats(150));
 
     // Slime
     TinkerRegistry.addMaterialStats(slime,

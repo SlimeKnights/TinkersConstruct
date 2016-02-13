@@ -22,6 +22,10 @@ public class OreCastingRecipe extends CastingRecipe {
     this(ore, cast, new FluidStack(fluid, amount), calcCooldownTime(fluid, amount), false, false);
   }
 
+  public OreCastingRecipe(String ore, RecipeMatch cast, Fluid fluid, int amount) {
+    this(OreDictionary.getOres(ore), cast, new FluidStack(fluid, amount), calcCooldownTime(fluid, amount), false, false);
+  }
+
   public OreCastingRecipe(String ore, RecipeMatch cast, FluidStack fluid, int time, boolean consumesCast, boolean switchOutputs) {
     this(OreDictionary.getOres(ore), cast, fluid, time, consumesCast, switchOutputs);
   }

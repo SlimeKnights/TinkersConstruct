@@ -453,6 +453,14 @@ public class TinkerTools extends TinkerPulse {
     // Slime crystals
     FurnaceRecipes.instance().addSmeltingRecipe(TinkerCommons.slimyMudGreen, TinkerCommons.matSlimeCrystal, 0);
     FurnaceRecipes.instance().addSmeltingRecipe(TinkerCommons.slimyMudBlue, TinkerCommons.matSlimeCrystalBlue, 0);
+
+    // lavawood if needed
+    if(!isSmelteryLoaded()) {
+      GameRegistry.addRecipe(new ShapedOreRecipe(TinkerCommons.lavawood,
+                                   " B ", "BWB", " B ",
+                                   'B', "plankWood",
+                                   'W', Items.lava_bucket));
+    }
   }
 
   public static void registerToolForgeBlock(String oredict) {
