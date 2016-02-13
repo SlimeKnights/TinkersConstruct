@@ -216,7 +216,7 @@ public final class ToolBuilder {
 
     // check if all itemstacks were touched - otherwise there's an invalid item in the input
     for(int i = 0; i < input.length; i++) {
-      if(input[i] != null && ItemStack.areItemStacksEqual(input[i], usedStacks[i])) {
+      if(input[i] != null && ItemStack.areItemStacksEqual(input[i], stacks[i])) {
         if(!appliedModifiers.isEmpty()) {
           String error =
               StatCollector.translateToLocalFormatted("gui.error.no_modifier_for_item", input[i].getDisplayName());
