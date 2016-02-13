@@ -14,10 +14,7 @@ public class TraitCrumbling extends AbstractTrait {
 
   @Override
   public void miningSpeed(ItemStack tool, PlayerEvent.BreakSpeed event) {
-    if(ToolHelper.isToolEffective2(tool, event.state)) {
-      event.newSpeed *= 0.9f;
-    }
-    else if(event.state.getBlock().getMaterial().isToolNotRequired()) {
+    if(event.state.getBlock().getMaterial().isToolNotRequired()) {
       event.newSpeed *= ToolHelper.getActualMiningSpeed(tool) * 0.5f;
     }
   }
