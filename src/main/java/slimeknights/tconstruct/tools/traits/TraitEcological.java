@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.tools.traits;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumChatFormatting;
@@ -24,8 +26,8 @@ public class TraitEcological extends AbstractTrait {
   @Override
   public void onUpdate(ItemStack tool, World world, Entity entity, int itemSlot, boolean isSelected) {
     // *20 because 20 ticks in a second
-    if(random.nextInt(20 * chance) == 0) {
-      ToolHelper.repairTool(tool, 1);
+    if(!world.isRemote && entity instanceof EntityLivingBase && random.nextInt(20 * chance) == 0) {
+      ToolHelper.healTool(tool, 1, (EntityLivingBase) entity);
     }
   }
 }
