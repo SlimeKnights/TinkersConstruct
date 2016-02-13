@@ -309,7 +309,7 @@ public final class TinkerMaterials {
     sponge.addTrait(squeaky);
 
     firewood.setCraftable(true);
-    firewood.addItem(TinkerCommons.blockFirewood, Material.VALUE_Ingot);
+    firewood.addItem(TinkerCommons.firewood, 1, Material.VALUE_Ingot);
     firewood.setRepresentativeItem(TinkerCommons.blockFirewood);
     firewood.addTrait(autosmelt);
 

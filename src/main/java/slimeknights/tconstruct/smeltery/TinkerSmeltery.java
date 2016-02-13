@@ -331,9 +331,9 @@ public class TinkerSmeltery extends TinkerPulse {
                                  new FluidStack(TinkerFluids.blood, 33),
                                  new FluidStack(TinkerFluids.emerald, 74));
 
-    // 1 ingot cobalt + 1 ingot ardite = 2 ingots manyullyn!
-    // 144 + 144 = 288
-    TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.manyullyn, 4),
+    // 1 ingot cobalt + 1 ingot ardite = 1 ingot manyullyn!
+    // 144 + 144 = 144
+    TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.manyullyn, 2),
                                  new FluidStack(TinkerFluids.cobalt, 2),
                                  new FluidStack(TinkerFluids.ardite, 2));
   }

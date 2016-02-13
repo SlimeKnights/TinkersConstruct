@@ -30,7 +30,7 @@ tile.tconstruct.metal.manyullyn.name=Block of Manyullyn
 tile.tconstruct.metal.knightslime.name=Block of Knightslime
 tile.tconstruct.metal.pigiron.name=Block of Pigiron
 
-tile.tconstruct.firewood.lavawood.name=Firewood
+tile.tconstruct.firewood.lavawood.name=Lavawood
 tile.tconstruct.firewood.firewood.name=Firewood
 
 tile.tconstruct.slime.green.name=Green Slime Block
@@ -459,8 +459,8 @@ ui.mininglevel.obsidian=Obsidian
 ui.mininglevel.cobalt=Cobalt
 
 # Death messages
-death.attack.smeltery=%s tried to create molten player.
-death.attack.splinter=%s caught a splinter. Must've been massive.
+death.attack.smeltery=%s tried to create molten player
+death.attack.splinter=%s caught a splinter. Must've been massive
 
 ######################
 # GUI Error messages #
