@@ -29,12 +29,12 @@ public class TraitInsatiable extends AbstractTrait {
 
     level = Math.min(10, level);
 
-    Insatiable.apply(player, 15 * 20, level);
+    Insatiable.apply(player, 5 * 20, level);
   }
 
   @Override
   public int onToolDamage(ItemStack tool, int damage, int newDamage, EntityLivingBase entity) {
-    int level = Insatiable.getLevel(entity) + 1;
+    int level = Insatiable.getLevel(entity)/3;
     return super.onToolDamage(tool, damage, newDamage, entity) + level;
   }
 }
