@@ -303,6 +303,10 @@ public class TinkerSmeltery extends TinkerPulse {
                                                           new FluidStack(FluidRegistry.LAVA, 250),
                                                           100, true, false));
 
+
+    // red sand
+    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.sand, 0, 1), new ItemStack(Blocks.sand, 0, 0), TinkerFluids.blood, 10);
+
     // melt entities into a pulp
     TinkerRegistry.registerEntityMelting(EntityIronGolem.class, new FluidStack(TinkerFluids.iron, 18));
     TinkerRegistry.registerEntityMelting(EntitySnowman.class, new FluidStack(FluidRegistry.WATER, 100));
