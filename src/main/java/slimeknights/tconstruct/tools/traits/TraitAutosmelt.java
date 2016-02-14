@@ -33,6 +33,7 @@ public class TraitAutosmelt extends AbstractTrait {
       ItemStack drop = iter.next();
       ItemStack smelted = FurnaceRecipes.instance().getSmeltingResult(drop);
       if(smelted != null) {
+        smelted = smelted.copy();
         smelted.stackSize = drop.stackSize;
         iter.set(smelted);
       }
