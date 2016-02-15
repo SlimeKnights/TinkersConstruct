@@ -5,6 +5,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -39,7 +40,6 @@ public class MaterialIntegration {
     this.fluid = fluid;
     this.oreSuffix = oreSuffix;
     this.oreRequirement = oreRequirement;
-    this.oreRequirement = null;
 
     this.integrated = false;
   }
@@ -54,7 +54,7 @@ public class MaterialIntegration {
       return;
     }
 
-    if(oreRequirement != null) {
+    if(oreRequirement != null || Config.forceRegisterAll) {
       boolean found = false;
       // we use this method because it doesn't add empty entries to the oredict, even though it is less performant
       for(String ore : OreDictionary.getOreNames()) {
