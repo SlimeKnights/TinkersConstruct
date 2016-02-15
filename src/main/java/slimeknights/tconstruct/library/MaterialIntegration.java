@@ -39,6 +39,7 @@ public class MaterialIntegration {
     this.fluid = fluid;
     this.oreSuffix = oreSuffix;
     this.oreRequirement = oreRequirement;
+    this.oreRequirement = null;
 
     this.integrated = false;
   }

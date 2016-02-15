@@ -7,7 +7,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.BlockFluidBase;
-import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -31,6 +30,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.shared.block.BlockLiquidSlime;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.BlockMolten;
+import slimeknights.tconstruct.smeltery.block.BlockTinkerFluid;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 
 @Pulse(id = TinkerFluids.PulseId, pulsesRequired = TinkerSmeltery.PulseId, forced = true)
@@ -58,7 +58,18 @@ public class TinkerFluids extends TinkerPulse {
   public static FluidColored blueslime;
   public static FluidColored purpleSlime;
 
+  // Mod Integration fluids
   public static FluidMolten brass;
+  public static FluidMolten copper;
+  public static FluidMolten tin;
+  public static FluidMolten bronze;
+  public static FluidMolten zinc;
+  public static FluidMolten lead;
+  public static FluidMolten nickel;
+  public static FluidMolten silver;
+  public static FluidMolten electrum;
+  public static FluidMolten steel;
+  public static FluidMolten aluminium;
 
   static List<Fluid> fluids = Lists.newLinkedList(); // all fluids registered by tcon
 
@@ -69,21 +80,22 @@ public class TinkerFluids extends TinkerPulse {
   public static void setupFluids() {
     // Fluids for integration, getting registered by TinkerIntegration
     iron = fluidMetal(TinkerMaterials.iron.getIdentifier(), 0xa81212);
-    iron.setTemperature(738);
+    iron.setTemperature(769);
 
     gold = fluidMetal("gold", 0xf6d609);
-    gold.setTemperature(564);
+    gold.setTemperature(532);
+    gold.setRarity(EnumRarity.RARE);
 
     pigIron = fluidMetal(TinkerMaterials.pigiron);
     pigIron.setTemperature(600);
     pigIron.setRarity(EnumRarity.EPIC);
 
     cobalt = fluidMetal(TinkerMaterials.cobalt);
-    cobalt.setTemperature(990);
+    cobalt.setTemperature(950);
     cobalt.setRarity(EnumRarity.RARE);
 
     ardite = fluidMetal(TinkerMaterials.ardite);
-    ardite.setTemperature(920);
+    ardite.setTemperature(860);
     ardite.setRarity(EnumRarity.RARE);
 
     manyullyn = fluidMetal(TinkerMaterials.manyullyn);
@@ -94,8 +106,41 @@ public class TinkerFluids extends TinkerPulse {
     knightslime.setTemperature(520);
     knightslime.setRarity(EnumRarity.EPIC);
 
-    brass = fluidMetal("brass", 0xe7db5a);
-    brass.setTemperature(480);
+    // Mod Integration fluids
+    brass = fluidMetal("brass", 0xede38b);
+    brass.setTemperature(470);
+
+    copper = fluidMetal(TinkerMaterials.copper);
+    copper.setTemperature(542);
+
+    tin = fluidMetal("tin", 0xc1cddc);
+    tin.setTemperature(350);
+
+    bronze = fluidMetal(TinkerMaterials.bronze);
+    bronze.setTemperature(475);
+
+    zinc = fluidMetal("zinc", 0xd3efe8);
+    zinc.setTemperature(375);
+
+    lead = fluidMetal(TinkerMaterials.lead);
+    lead.setTemperature(400);
+
+    nickel = fluidMetal("nickel", 0xc8c683);
+    nickel.setTemperature(727);
+
+    silver = fluidMetal(TinkerMaterials.silver);
+    silver.setTemperature(480);
+    silver.setRarity(EnumRarity.RARE);
+
+    electrum = fluidMetal(TinkerMaterials.electrum);
+    electrum.setTemperature(500);
+    electrum.setRarity(EnumRarity.EPIC);
+
+    steel = fluidMetal(TinkerMaterials.steel);
+    steel.setTemperature(681);
+
+    aluminium = fluidMetal("aluminium", 0xefe0d5);
+    aluminium.setTemperature(330);
   }
 
   @Subscribe

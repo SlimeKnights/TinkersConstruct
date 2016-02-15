@@ -1,15 +1,10 @@
 package slimeknights.tconstruct.gadgets.item;
 
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.server.S12PacketEntityVelocity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
@@ -19,7 +14,6 @@ import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.shared.TinkerCommons;
 
 public class ItemSlimeBoots extends ItemArmor {
 
@@ -37,7 +31,7 @@ public class ItemSlimeBoots extends ItemArmor {
     return armorType == 3;
   }
 
-  // equipping with rightlcick
+  // equipping with rightclick
   public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
   {
     int slot = 1; // 0 = current item, 1 = feet

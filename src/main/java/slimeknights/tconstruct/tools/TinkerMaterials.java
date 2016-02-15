@@ -108,14 +108,20 @@ public final class TinkerMaterials {
   // Metals
   public static final Material iron       = mat("iron", 0xcacaca);
   public static final Material pigiron    = mat("pigiron", 0xef9e9b);
-  public static final Material copper     = mat("copper", 0xed9f07);
-  public static final Material bronze     = mat("bronze", 0xd2a869);
 
   // Nether Materials
   public static final Material netherrack = mat("netherrack", 0xb84f4f);
   public static final Material ardite     = mat("ardite", 0xd14210);
   public static final Material cobalt     = mat("cobalt", 0x2882d4);
   public static final Material manyullyn  = mat("manyullyn", 0xa15cf8);
+
+  // mod integration
+  public static final Material copper     = mat("copper", 0xed9f07);
+  public static final Material bronze     = mat("bronze", 0xe3bd68);
+  public static final Material lead       = mat("lead", 0x4d4968);
+  public static final Material silver     = mat("silver", 0xd1ecf6);
+  public static final Material electrum   = mat("electrum", 0xe8db49);
+  public static final Material steel      = mat("steel", 0xa7a7a7);
 
   // specul
   public static final Material xu;
@@ -184,7 +190,6 @@ public final class TinkerMaterials {
     obsidian.setRenderInfo(new MaterialRenderInfo.MultiColor(0x71589c, 0x8f60d4, 0x8c53df).setTextureSuffix("contrast")); // increase each color by 20 to get thaumium
     prismarine.setRenderInfo(new MaterialRenderInfo.BlockTexture("minecraft:blocks/prismarine_bricks"));
     netherrack.setRenderInfo(new MaterialRenderInfo.BlockTexture("minecraft:blocks/netherrack"));
-    //endstone.setRenderInfo(new MaterialRenderInfo.BlockTexture("minecraft:blocks/end_stone"));
     endstone.setRenderInfo(new MaterialRenderInfo.InverseMultiColor(0x5c6296, 0x3c4276, 0x212a76));
     firewood.setRenderInfo(new MaterialRenderInfo.BlockTexture("tconstruct:blocks/firewood"));
 
@@ -221,6 +226,14 @@ public final class TinkerMaterials {
         return new MetalColoredTexture(baseTexture, location, 0x685bd0, 0.0f, 0.5f, 0.3f);
       }
     });
+
+    // mod integration
+    copper.setRenderInfo(new MaterialRenderInfo.Metal(0xed9f07, 0.15f, 0.25f, -0.05f));
+    bronze.setRenderInfo(new MaterialRenderInfo.Metal(0xe3bd68, 0.15f, 0.15f, -0.05f));
+    lead.setRenderInfo(new MaterialRenderInfo.Metal(0x4d4968, 0.0f, 0.15f, 0.2f));
+    silver.setRenderInfo(new MaterialRenderInfo.Metal(0xd1ecf6, 1f, 0.5f, 0.1f));
+    electrum.setRenderInfo(new MaterialRenderInfo.Metal(0xeddd51, 0.15f, 0.25f, -0.05f));
+    steel.setRenderInfo(new MaterialRenderInfo.Metal(0x888888, 0.1f, 0.3f, 0.1f));
 
     // specul
     xu.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() {
@@ -331,7 +344,6 @@ public final class TinkerMaterials {
     iron.setRepresentativeItem(Items.iron_ingot);
     iron.addTrait(magnetic2, HEAD);
     iron.addTrait(magnetic);
-    // todo: remaining metals
 
     safeAdd(pigiron, TinkerCommons.ingotPigIron, Material.VALUE_Ingot, true);
     pigiron.addTrait(baconlicious, HEAD);
@@ -349,6 +361,14 @@ public final class TinkerMaterials {
     safeAdd(manyullyn, TinkerCommons.ingotManyullyn, Material.VALUE_Ingot, true);
     manyullyn.addTrait(insatiable, HEAD);
     manyullyn.addTrait(coldblooded);
+
+    // mod integration
+    copper.addItem("ingotCopper", 1, Material.VALUE_Ingot);
+    bronze.addItem("ingotBronze", 1, Material.VALUE_Ingot);
+    lead.addItem("ingotLead", 1, Material.VALUE_Ingot);
+    silver.addItem("ingotSilver", 1, Material.VALUE_Ingot);
+    electrum.addItem("ingotElectrum", 1, Material.VALUE_Ingot);
+    steel.addItem("ingotSteel", 1, Material.VALUE_Ingot);
 
     registerToolMaterials();
   }

@@ -340,6 +340,24 @@ public class TinkerSmeltery extends TinkerPulse {
     TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.manyullyn, 2),
                                  new FluidStack(TinkerFluids.cobalt, 2),
                                  new FluidStack(TinkerFluids.ardite, 2));
+
+    // 3 ingots copper + 1 ingot tin = 4 ingots bronze
+    if(FluidRegistry.isFluidRegistered(TinkerFluids.bronze) &&
+       FluidRegistry.isFluidRegistered(TinkerFluids.copper) &&
+       FluidRegistry.isFluidRegistered(TinkerFluids.tin)) {
+      TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.bronze, 4),
+                                   new FluidStack(TinkerFluids.copper, 3),
+                                   new FluidStack(TinkerFluids.tin, 1));
+    }
+
+    // 1 ingot gold + 1 ingot silver = 2 ingots electrum
+    if(FluidRegistry.isFluidRegistered(TinkerFluids.electrum) &&
+       FluidRegistry.isFluidRegistered(TinkerFluids.gold) &&
+       FluidRegistry.isFluidRegistered(TinkerFluids.silver)) {
+      TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.electrum, 2),
+                                   new FluidStack(TinkerFluids.gold, 1),
+                                   new FluidStack(TinkerFluids.silver, 1));
+    }
   }
 
   public static void registerToolpartMeltingCasting(Material material) {

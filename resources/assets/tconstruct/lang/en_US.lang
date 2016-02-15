@@ -234,6 +234,16 @@ fluid.tconstruct.milk.name=Milk
 fluid.tconstruct.blueslime.name=Liquid Blue Slime
 fluid.tconstruct.purpleslime.name=Liquid Purple Slime
 fluid.tconstruct.brass.name=Molten Brass
+fluid.tconstruct.copper.name=Molten Copper
+fluid.tconstruct.tin.name=Molten Tin
+fluid.tconstruct.bronze.name=Molten Bronze
+fluid.tconstruct.zinc.name=Molten Zinc
+fluid.tconstruct.lead.name=Molten Lead
+fluid.tconstruct.nickel.name=Molten Nickel
+fluid.tconstruct.silver.name=Molten Silver
+fluid.tconstruct.electrum.name=Molten Electrum
+fluid.tconstruct.steel.name=Molten Steel
+fluid.tconstruct.aluminium.name=Molten Aluminium
 
 #################
 #    Potions    #
@@ -270,6 +280,12 @@ material.cobalt.name=Cobalt
 material.manyullyn.name=Manyullyn
 material.iron.name=Iron
 material.pigiron.name=Pig Iron
+material.copper.name=Copper
+material.bronze.name=Bronze
+material.lead.name=Lead
+material.silver.name=Silver
+material.electrum.name=Electrum
+material.steel.name=Steel
 
 #############
 #   Stats   #
