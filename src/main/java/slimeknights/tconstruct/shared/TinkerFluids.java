@@ -220,7 +220,7 @@ public class TinkerFluids extends TinkerPulse {
 
   /** Registers a non-burning water based block for the fluid */
   public static BlockFluidBase registerClassicBlock(Fluid fluid) {
-    BlockFluidBase block = new BlockFluidClassic(fluid, net.minecraft.block.material.Material.water);
+    BlockFluidBase block = new BlockTinkerFluid(fluid, net.minecraft.block.material.Material.water);
     return registerBlock(block, fluid.getName());
   }
 

@@ -102,22 +102,6 @@ tile.tconstruct.seared_tank.gauge.name=Seared Gauge
 tile.tconstruct.seared_tank.window.name=Seared Window
 
 
-# Fluid blocks are mapped onto their fluid names
-tile.tconstruct.molten_stone=fluid.tconstruct.stone
-tile.tconstruct.molten_obsidian=fluid.tconstruct.obsidian
-tile.tconstruct.molten_iron=fluid.tconstruct.iron
-tile.tconstruct.molten_gold=fluid.tconstruct.gold
-tile.tconstruct.molten_pigiron=fluid.tconstruct.pigiron
-tile.tconstruct.molten_cobalt=fluid.tconstruct.cobalt
-tile.tconstruct.molten_ardite=fluid.tconstruct.ardite
-tile.tconstruct.molten_manyullyn=fluid.tconstruct.manyullyn
-tile.tconstruct.molten_knightslime=fluid.tconstruct.knightslime
-tile.tconstruct.molten_emerald=fluid.tconstruct.emerald
-tile.tconstruct.blood=fluid.tconstruct.blood
-tile.tconstruct.milk=fluid.tconstruct.milk
-tile.tconstruct.blueslime=fluid.tconstruct.blueslime
-tile.tconstruct.purpleslime=fluid.tconstruct.purpleslime
-tile.tconstruct.molten_brass=fluid.tconstruct.brass
 
 ################
 #    Items     #
