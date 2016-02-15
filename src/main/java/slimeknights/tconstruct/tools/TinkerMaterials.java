@@ -323,7 +323,7 @@ public final class TinkerMaterials {
 
     firewood.setCraftable(true);
     firewood.addItem(TinkerCommons.firewood, 1, Material.VALUE_Ingot);
-    firewood.setRepresentativeItem(TinkerCommons.blockFirewood);
+    firewood.setRepresentativeItem(TinkerCommons.firewood);
     firewood.addTrait(autosmelt);
 
     slime.setCraftable(true);

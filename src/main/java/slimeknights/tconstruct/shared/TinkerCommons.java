@@ -3,8 +3,10 @@ package slimeknights.tconstruct.shared;
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -197,8 +199,14 @@ public class TinkerCommons extends TinkerPulse {
   }
 
   private void registerRecipies() {
+    // soils
+    GameRegistry.addSmelting(graveyardSoil, consecratedSoil, 0);
+    GameRegistry.addShapelessRecipe(graveyardSoil, Blocks.dirt, Items.rotten_flesh, new ItemStack(Items.dye, 1, 15));
+
+    // firewood
     GameRegistry.addShapelessRecipe(firewood,Items.blaze_powder, lavawood, Items.blaze_powder);
 
+    // metals
     registerMetalRecipes("Cobalt", ingotCobalt, nuggetCobalt, blockCobalt);
     registerMetalRecipes("Ardite", ingotArdite, nuggetArdite, blockArdite);
     registerMetalRecipes("Manyullyn", ingotManyullyn, nuggetManyullyn, blockManyullyn);
