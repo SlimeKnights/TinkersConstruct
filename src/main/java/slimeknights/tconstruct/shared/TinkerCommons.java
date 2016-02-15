@@ -23,7 +23,6 @@ import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.potion.PotionSlimeBounce;
 import slimeknights.tconstruct.shared.block.BlockFirewood;
 import slimeknights.tconstruct.shared.block.BlockMetal;
 import slimeknights.tconstruct.shared.block.BlockOre;
@@ -41,9 +40,6 @@ public class TinkerCommons extends TinkerPulse {
 
   @SidedProxy(clientSide = "slimeknights.tconstruct.shared.CommonsClientProxy", serverSide = "slimeknights.tconstruct.common.CommonProxy")
   public static CommonProxy proxy;
-
-  // potion effect
-  public static PotionSlimeBounce potionSlimeBounce = new PotionSlimeBounce();
 
   public static BlockSoil blockSoil;
   public static BlockOre blockOre;
