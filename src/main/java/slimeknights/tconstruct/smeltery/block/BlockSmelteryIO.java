@@ -13,13 +13,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.fluids.IFluidHandler;
 
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.common.PlayerHelper;
-import slimeknights.tconstruct.library.utils.FluidUtil;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileDrain;
 
 public class BlockSmelteryIO extends BlockEnumSmeltery<BlockSmelteryIO.IOType> {

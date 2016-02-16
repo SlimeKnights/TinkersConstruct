@@ -8,7 +8,6 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,10 +18,8 @@ import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -32,10 +29,6 @@ import java.util.List;
 import java.util.Random;
 
 import slimeknights.mantle.block.EnumBlock;
-import slimeknights.mantle.tileentity.TileInventory;
-import slimeknights.tconstruct.common.PlayerHelper;
-import slimeknights.tconstruct.library.utils.FluidUtil;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 
 public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {

@@ -48,8 +48,5 @@ public class SmelteryClientProxy extends ClientProxy {
     ModelLoader.setCustomMeshDefinition(TinkerSmeltery.cast, new PatternMeshDefinition(castLoc));
 
     TinkerSmeltery.castCustom.registerItemModels("cast_");
-
-    // universal bucket
-    ModelLoader.setBucketModelDefinition(TinkerSmeltery.bucket);
   }
 }

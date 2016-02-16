@@ -78,6 +78,9 @@ public class TinkerFluids extends TinkerPulse {
   }
 
   public static void setupFluids() {
+    // buuuuckeeeeet
+    FluidRegistry.enableUniversalBucket();
+
     // Fluids for integration, getting registered by TinkerIntegration
     iron = fluidMetal(TinkerMaterials.iron.getIdentifier(), 0xa81212);
     iron.setTemperature(769);
@@ -150,22 +153,26 @@ public class TinkerFluids extends TinkerPulse {
       registerFluid(searedStone);
       searedStone.setTemperature(800);
       registerMoltenBlock(searedStone);
+      FluidRegistry.addBucketForFluid(searedStone);
 
       obsidian = fluidStone(TinkerMaterials.obsidian.getIdentifier(), 0x7d24ff);
       obsidian.setTemperature(1000);
       registerFluid(obsidian);
       registerMoltenBlock(obsidian);
+      FluidRegistry.addBucketForFluid(obsidian);
 
       emerald = fluidMetal("emerald", 0x58e78e);
       emerald.setTemperature(999);
       registerFluid(emerald);
       registerMoltenBlock(emerald);
+      FluidRegistry.addBucketForFluid(emerald);
 
       // blood for the blood god
       blood = fluidClassic("blood", 0x540000);
       blood.setTemperature(420);
       registerFluid(blood);
       registerClassicBlock(blood);
+      FluidRegistry.addBucketForFluid(blood);
     }
 
     milk = fluidMilk("milk", 0xffffff);
@@ -181,6 +188,7 @@ public class TinkerFluids extends TinkerPulse {
       blueslime.setDensity(1500);
       registerFluid(blueslime);
       registerBlock(new BlockLiquidSlime(blueslime, net.minecraft.block.material.Material.water), blueslime.getName());
+      FluidRegistry.addBucketForFluid(blueslime);
     }
     if(isWorldLoaded() || isSmelteryLoaded()) {
       purpleSlime = fluidClassic("purpleslime", 0xefd236ff);
@@ -189,6 +197,7 @@ public class TinkerFluids extends TinkerPulse {
       purpleSlime.setDensity(1600);
       registerFluid(purpleSlime);
       registerBlock(new BlockLiquidSlime(purpleSlime, net.minecraft.block.material.Material.water), purpleSlime.getName());
+      FluidRegistry.addBucketForFluid(purpleSlime);
     }
 
     // register fluid buckets for all of the liquids

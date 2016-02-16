@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.smeltery;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -9,7 +8,6 @@ import com.google.common.eventbus.Subscribe;
 import net.minecraft.block.Block;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntitySnowman;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -18,7 +16,6 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -64,7 +61,6 @@ import slimeknights.tconstruct.smeltery.block.BlockSmelteryIO;
 import slimeknights.tconstruct.smeltery.block.BlockTank;
 import slimeknights.tconstruct.smeltery.item.CastCustom;
 import slimeknights.tconstruct.smeltery.item.ItemTank;
-import slimeknights.tconstruct.smeltery.item.UniversalBucket;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingBasin;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingTable;
 import slimeknights.tconstruct.smeltery.tileentity.TileDrain;
@@ -96,7 +92,6 @@ public class TinkerSmeltery extends TinkerPulse {
   // Items
   public static Cast cast;
   public static CastCustom castCustom;
-  public static UniversalBucket bucket;
 
   // itemstacks!
   public static ItemStack castIngot;
@@ -142,11 +137,7 @@ public class TinkerSmeltery extends TinkerPulse {
       Cast.setTagForPart(castShard, TinkerRegistry.getShard());
     }
 
-    bucket = registerItem(new UniversalBucket(), "bucket");
-    bucket.setCreativeTab(TinkerRegistry.tabGeneral);
-
     proxy.preInit();
-    MinecraftForge.EVENT_BUS.register(bucket);
 
     TinkerRegistry.tabSmeltery.setDisplayIcon(new ItemStack(searedTank));
 

@@ -150,9 +150,7 @@ item.tconstruct.cast_custom.gem.name=Gem Cast
 item.tconstruct.sharpening_kit.name=Sharpening Kit
 item.tconstruct.sharpening_kit.tooltip=Combine with a flint\nUpgrades your tool to the materials mining level.
 
-item.tconstruct.bucket.name=%s Bucket
-item.tconstruct.bucket.empty=Empty Bucket
-item.tconstruct.bucket.blood=Bucket o' Blood
+item.forge.bucketFilled.blood=Bucket o' Blood
 
 # Tools
 item.tconstruct.pickaxe.name=Pickaxe

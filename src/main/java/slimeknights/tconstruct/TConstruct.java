@@ -4,11 +4,12 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLMissingMappingsEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkCheckHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 import org.apache.logging.log4j.LogManager;
@@ -27,11 +28,9 @@ import slimeknights.tconstruct.common.config.ConfigSync;
 import slimeknights.tconstruct.debug.TinkerDebug;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.plugin.ChiselAndBits;
 import slimeknights.tconstruct.plugin.CraftingTweaks;
-import slimeknights.tconstruct.plugin.TinkerVintageCraft;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -133,5 +132,16 @@ public class TConstruct {
 
     // config syncing
     MinecraftForge.EVENT_BUS.register(new ConfigSync());
+  }
+
+  // Old version compatibility
+  @Mod.EventHandler
+  public void onMissingMapping(FMLMissingMappingsEvent event) {
+    for(FMLMissingMappingsEvent.MissingMapping mapping : event.get()) {
+      // old universal bucket, got moved into Forge
+      if(mapping.type == GameRegistry.Type.ITEM && mapping.name.equals(Util.resource("bucket"))) {
+        mapping.ignore();
+      }
+    }
   }
 }

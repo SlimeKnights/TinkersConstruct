@@ -81,6 +81,8 @@ public class MaterialIntegration {
       FluidRegistry.registerFluid(fluid);
       TinkerFluids.registerFluid(fluid);
       registerFluidBlock();
+
+      FluidRegistry.addBucketForFluid(fluid);
     }
 
     // register material
