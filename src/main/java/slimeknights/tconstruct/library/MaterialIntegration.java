@@ -54,7 +54,7 @@ public class MaterialIntegration {
       return;
     }
 
-    if(oreRequirement != null || Config.forceRegisterAll) {
+    if(oreRequirement != null && !Config.forceRegisterAll) {
       boolean found = false;
       // we use this method because it doesn't add empty entries to the oredict, even though it is less performant
       for(String ore : OreDictionary.getOreNames()) {

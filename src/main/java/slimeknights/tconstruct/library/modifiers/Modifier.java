@@ -213,11 +213,11 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
     return false;
   }
 
-  protected boolean attackEntitySecondary(DamageSource source, float damage, Entity entity, boolean ignoreInvulv, boolean resetInvulv) {
+  protected static boolean attackEntitySecondary(DamageSource source, float damage, Entity entity, boolean ignoreInvulv, boolean resetInvulv) {
     return attackEntitySecondary(source, damage, entity, ignoreInvulv, resetInvulv, true);
   }
 
-  protected boolean attackEntitySecondary(DamageSource source, float damage, Entity entity, boolean ignoreInvulv, boolean resetInvulv, boolean noKnockback) {
+  protected static boolean attackEntitySecondary(DamageSource source, float damage, Entity entity, boolean ignoreInvulv, boolean resetInvulv, boolean noKnockback) {
     IAttributeInstance knockbackAttribute = null;
     float oldLastDamage = 0;
     if(entity instanceof EntityLivingBase) {
@@ -240,7 +240,7 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
       ((EntityLivingBase) entity).lastDamage += oldLastDamage;
     }
     // reset hurt resistance time if desired
-    if(resetInvulv) {
+    if(hit && resetInvulv) {
       entity.hurtResistantTime = 0;
     }
 

@@ -57,7 +57,7 @@ public class SlimeBounceHandler {
       // preserve motion
       if(!entityLiving.onGround && entityLiving.ticksExisted != bounceTick) {
         if(lastMovX != entityLiving.motionX || lastMovZ != entityLiving.motionZ) {
-          double f = 0.91d + 0.03d;
+          double f = 0.91d + 0.025d;
           //System.out.println((entityLiving.worldObj.isRemote ? "client: " : "server: ") + entityLiving.motionX);
           entityLiving.motionX /= f;
           entityLiving.motionZ /= f;

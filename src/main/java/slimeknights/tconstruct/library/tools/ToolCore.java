@@ -130,7 +130,7 @@ public abstract class ToolCore extends TinkersItem {
    * Reduce the tools durability accordingly
    */
   public void reduceDurabilityOnHit(ItemStack stack, EntityPlayer player, float damage) {
-    damage = Math.min(1f, damage/10f);
+    damage = Math.max(1f, damage/10f);
     if(!hasCategory(Category.WEAPON)) {
       damage *= 2;
     }

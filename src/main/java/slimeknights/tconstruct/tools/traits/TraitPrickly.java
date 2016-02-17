@@ -28,7 +28,7 @@ public class TraitPrickly extends AbstractTrait {
       damageSource.setDamageBypassesArmor();
       damageSource.setDamageIsAbsolute();
 
-      this.attackEntitySecondary(damageSource, damage, target, true, false);
+      attackEntitySecondary(damageSource, damage, target, true, false);
     }
   }
 }
