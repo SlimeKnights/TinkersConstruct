@@ -14,4 +14,6 @@ public abstract class Sounds {
   public static final String frypan_boing = Util.resource("frypan_hit");
   public static final String toy_squeak = Util.resource("toy_squeak");
   public static final String slimesling = Util.resource("slimesling");
+  public static final String shocking_charged = Util.resource("charged");
+  public static final String shocking_discharge = Util.resource("discharge");
 }

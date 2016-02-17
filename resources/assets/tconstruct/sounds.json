@@ -42,9 +42,21 @@
      ]
    },
    "crossbowReload": {
-	"category": "neutral",
+	"category": "player",
 	"sounds": [
 		"crossbowReload"
+	]
+   },
+   "charged": {
+    "category": "player",
+	"sounds": [
+		"charged"
+	]
+   },
+   "discharge": {
+    "category": "player",
+	"sounds": [
+		"discharge"
 	]
    }
 }

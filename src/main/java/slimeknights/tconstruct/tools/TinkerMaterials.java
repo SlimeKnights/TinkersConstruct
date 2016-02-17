@@ -46,22 +46,30 @@ import slimeknights.tconstruct.tools.traits.TraitCheapskate;
 import slimeknights.tconstruct.tools.traits.TraitColdblooded;
 import slimeknights.tconstruct.tools.traits.TraitCrude;
 import slimeknights.tconstruct.tools.traits.TraitCrumbling;
+import slimeknights.tconstruct.tools.traits.TraitDense;
+import slimeknights.tconstruct.tools.traits.TraitDepthdigger;
 import slimeknights.tconstruct.tools.traits.TraitDuritos;
 import slimeknights.tconstruct.tools.traits.TraitEcological;
 import slimeknights.tconstruct.tools.traits.TraitEnderference;
+import slimeknights.tconstruct.tools.traits.TraitEstablished;
 import slimeknights.tconstruct.tools.traits.TraitHellish;
+import slimeknights.tconstruct.tools.traits.TraitHoly;
 import slimeknights.tconstruct.tools.traits.TraitInsatiable;
 import slimeknights.tconstruct.tools.traits.TraitJagged;
 import slimeknights.tconstruct.tools.traits.TraitLightweight;
 import slimeknights.tconstruct.tools.traits.TraitMagnetic;
 import slimeknights.tconstruct.tools.traits.TraitMomentum;
 import slimeknights.tconstruct.tools.traits.TraitPetramor;
+import slimeknights.tconstruct.tools.traits.TraitPoisonous;
 import slimeknights.tconstruct.tools.traits.TraitPrickly;
+import slimeknights.tconstruct.tools.traits.TraitSharp;
+import slimeknights.tconstruct.tools.traits.TraitShocking;
 import slimeknights.tconstruct.tools.traits.TraitSlimey;
 import slimeknights.tconstruct.tools.traits.TraitSpiky;
 import slimeknights.tconstruct.tools.traits.TraitSplintering;
 import slimeknights.tconstruct.tools.traits.TraitSplinters;
 import slimeknights.tconstruct.tools.traits.TraitSqueaky;
+import slimeknights.tconstruct.tools.traits.TraitStiff;
 import slimeknights.tconstruct.tools.traits.TraitStonebound;
 import slimeknights.tconstruct.tools.traits.TraitTasty;
 import slimeknights.tconstruct.tools.traits.TraitUnnatural;
@@ -137,11 +145,15 @@ public final class TinkerMaterials {
   public static final AbstractTrait crude = new TraitCrude(1);
   public static final AbstractTrait crude2 = new TraitCrude(2);
   public static final AbstractTrait crumbling = new TraitCrumbling();
+  public static final AbstractTrait dense = new TraitDense();
+  public static final AbstractTrait depthdigger = new TraitDepthdigger();
   public static final AbstractTrait duritos = new TraitDuritos(); // yes you read that correctly
   public static final AbstractTrait ecological = new TraitEcological();
   public static final AbstractTrait enderference = new TraitEnderference();
+  public static final AbstractTrait established = new TraitEstablished();
   public static final AbstractTrait fractured = new TraitBonusDamage("fractured", 2);
   public static final AbstractTrait hellish = new TraitHellish();
+  public static final AbstractTrait holy = new TraitHoly();
   public static final AbstractTrait insatiable = new TraitInsatiable();
   public static final AbstractTrait jagged = new TraitJagged();
   public static final AbstractTrait lightweight = new TraitLightweight();
@@ -149,13 +161,17 @@ public final class TinkerMaterials {
   public static final AbstractTrait magnetic2 = new TraitMagnetic(2);
   public static final AbstractTrait momentum = new TraitMomentum();
   public static final AbstractTrait petramor = new TraitPetramor();
+  public static final AbstractTrait poisonous = new TraitPoisonous();
   public static final AbstractTrait prickly = new TraitPrickly();
+  public static final AbstractTrait sharp = new TraitSharp();
+  public static final AbstractTrait shocking = new TraitShocking();
   public static final AbstractTrait slimeyGreen = new TraitSlimey("green", EntitySlime.class);
   public static final AbstractTrait slimeyBlue = new TraitSlimey("blue", EntityBlueSlime.class);
   public static final AbstractTrait spiky = new TraitSpiky();
   public static final AbstractTrait splintering = new TraitSplintering();
   public static final AbstractTrait splinters = new TraitSplinters();
   public static final AbstractTrait squeaky = new TraitSqueaky();
+  public static final AbstractTrait stiff = new TraitStiff();
   public static final AbstractTrait stonebound = new TraitStonebound();
   public static final AbstractTrait tasty = new TraitTasty();
   public static final AbstractTrait unnatural = new TraitUnnatural();
@@ -364,11 +380,23 @@ public final class TinkerMaterials {
 
     // mod integration
     copper.addItem("ingotCopper", 1, Material.VALUE_Ingot);
+    copper.addTrait(established);
+
     bronze.addItem("ingotBronze", 1, Material.VALUE_Ingot);
+    bronze.addTrait(dense);
+
     lead.addItem("ingotLead", 1, Material.VALUE_Ingot);
+    lead.addTrait(poisonous);
+
     silver.addItem("ingotSilver", 1, Material.VALUE_Ingot);
+    silver.addTrait(holy);
+
     electrum.addItem("ingotElectrum", 1, Material.VALUE_Ingot);
+    electrum.addTrait(shocking);
+
     steel.addItem("ingotSteel", 1, Material.VALUE_Ingot);
+    steel.addTrait(sharp, HEAD);
+    steel.addTrait(stiff);
 
     registerToolMaterials();
   }
@@ -476,6 +504,37 @@ public final class TinkerMaterials {
                                     new HeadMaterialStats(380, 6.20f, 4.50f, OBSIDIAN),
                                     new HandleMaterialStats(1.20f, -100),
                                     new ExtraMaterialStats(170));
+
+    // Mod Integration
+    TinkerRegistry.addMaterialStats(copper,
+                                    new HeadMaterialStats(210, 5.30f, 3.00f, IRON),
+                                    new HandleMaterialStats(1.05f, 30),
+                                    new ExtraMaterialStats(100));
+
+    TinkerRegistry.addMaterialStats(bronze,
+                                    new HeadMaterialStats(430, 6.80f, 3.50f, DIAMOND),
+                                    new HandleMaterialStats(1.10f, 70),
+                                    new ExtraMaterialStats(80));
+
+    TinkerRegistry.addMaterialStats(lead,
+                                    new HeadMaterialStats(334, 5.25f, 3.50f, IRON),
+                                    new HandleMaterialStats(0.70f, -50),
+                                    new ExtraMaterialStats(100));
+
+    TinkerRegistry.addMaterialStats(silver,
+                                    new HeadMaterialStats(250, 5.00f, 5.00f, IRON),
+                                    new HandleMaterialStats(0.95f, 50),
+                                    new ExtraMaterialStats(150));
+
+    TinkerRegistry.addMaterialStats(electrum,
+                                    new HeadMaterialStats(50, 12.00f, 3.00f, IRON),
+                                    new HandleMaterialStats(1.10f, -25),
+                                    new ExtraMaterialStats(250));
+
+    TinkerRegistry.addMaterialStats(steel,
+                                    new HeadMaterialStats(540, 7.00f, 6.00f, OBSIDIAN),
+                                    new HandleMaterialStats(0.9f, 150),
+                                    new ExtraMaterialStats(25));
 
     //TinkerRegistry.addMaterialStats(xu,         new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, DIAMOND));
   }

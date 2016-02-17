@@ -14,3 +14,11 @@ https://www.freesound.org/people/p3n10/sounds/171294/
 Wood-Hit:
 Hitting Wood by altfuture
 https://www.freesound.org/people/altfuture/sounds/174633/
+
+charged:
+spark(fm_tri-90_sin-110).wav by FreqMan
+https://www.freesound.org/people/FreqMan/sounds/24726/
+
+discharge:
+ELECTRIC_ZAP_001.wav by JoelAUdio
+https://www.freesound.org/people/JoelAudio/sounds/136542/
