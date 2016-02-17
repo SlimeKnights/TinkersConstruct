@@ -276,7 +276,7 @@ public abstract class ToolCore extends TinkersItem {
   @SideOnly(Side.CLIENT)
   @Override
   public boolean hasEffect(ItemStack stack) {
-    return false; // no effect for you.
+    return TagUtil.hasEnchantEffect(stack);
   }
 
   @Override

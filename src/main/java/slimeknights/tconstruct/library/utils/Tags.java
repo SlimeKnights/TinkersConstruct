@@ -43,6 +43,8 @@ public final class Tags {
   // Extra
   public static final String REPAIR_COUNT = "RepairCount";
 
+  public static final String ENCHANT_EFFECT = "EnchantEffect";
+
   private Tags() {
   }
 }

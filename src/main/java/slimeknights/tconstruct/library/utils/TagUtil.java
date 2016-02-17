@@ -246,6 +246,28 @@ public final class TagUtil {
     setExtraTag(root, extra);
   }
 
+  public static void setEnchantEffect(ItemStack stack, boolean active) {
+    NBTTagCompound root = getTagSafe(stack);
+    setEnchantEffect(root, active);
+    stack.setTagCompound(root);
+  }
+
+  public static void setEnchantEffect(NBTTagCompound root, boolean active) {
+    if(active) {
+      root.setBoolean(Tags.ENCHANT_EFFECT, true);
+    }
+    else {
+      root.removeTag(Tags.ENCHANT_EFFECT);
+    }
+  }
+
+  public static boolean hasEnchantEffect(ItemStack stack) {
+    return hasEnchantEffect(getTagSafe(stack));
+  }
+
+  public static boolean hasEnchantEffect(NBTTagCompound root) {
+    return root.getBoolean(Tags.ENCHANT_EFFECT);
+  }
 
   /* Helper functions */
 
