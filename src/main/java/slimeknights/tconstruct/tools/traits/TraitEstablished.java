@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.traits;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import slimeknights.tconstruct.library.traits.AbstractTrait;
@@ -22,10 +23,23 @@ public class TraitEstablished extends AbstractTrait {
     EntityPlayer player = event.getAttackingPlayer();
     if(player != null) {
       if(TinkerUtil.hasTrait(TagUtil.getTagSafe(player.getHeldItem()), identifier)) {
-        float xp = event.getDroppedExperience();
-        xp *= 1.25f + random.nextFloat()*0.5f;
-        event.setDroppedExperience(Math.round(xp));
+        event.setDroppedExperience(getUpdateXP(event.getDroppedExperience()));
       }
     }
+  }
+
+  @SubscribeEvent
+  public void onBlockBreak(BlockEvent.BreakEvent event) {
+    EntityPlayer player = event.getPlayer();
+    if(player != null) {
+      if(TinkerUtil.hasTrait(TagUtil.getTagSafe(player.getHeldItem()), identifier)) {
+        event.setExpToDrop(getUpdateXP(event.getExpToDrop()));
+      }
+    }
+  }
+
+  private int getUpdateXP(float xp) {
+    xp *= 1.25f + random.nextFloat()*0.5f;
+    return 1 + Math.round(xp);
   }
 }
