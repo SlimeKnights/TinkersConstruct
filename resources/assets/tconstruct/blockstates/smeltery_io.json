@@ -9,8 +9,8 @@
             "down": "#up",
             "east": "#up",
             "west": "#up",
-            "north": "tconstruct:blocks/smeltery/drain_front",
-            "south": "tconstruct:blocks/smeltery/drain_back"
+            "south": "tconstruct:blocks/smeltery/drain_front",
+            "north": "tconstruct:blocks/smeltery/drain_back"
         },
         "uvlock": true
     },
@@ -20,16 +20,16 @@
         },
         "facing": {
             "north": {
-                # nothing to rotate
-            },
-            "east": {
-                "y": 90
-            },
-            "south": {
                 "y": 180
             },
-            "west": {
+            "east": {
                 "y": 270
+            },
+            "south": {
+                # front, nothing to rotate
+            },
+            "west": {
+                "y": 90
             }
         }
     }
