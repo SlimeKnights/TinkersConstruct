@@ -8,8 +8,8 @@ import slimeknights.tconstruct.library.Util;
 
 public abstract class AbstractMaterialStats implements IMaterialStats {
 
-  protected static final DecimalFormat df = new DecimalFormat("#,###,###.##");
-  protected static final DecimalFormat dfPercent = new DecimalFormat("#%");
+  public static final DecimalFormat df = new DecimalFormat("#,###,###.##");
+  public static final DecimalFormat dfPercent = new DecimalFormat("#%");
 
   protected final String materialType;
 

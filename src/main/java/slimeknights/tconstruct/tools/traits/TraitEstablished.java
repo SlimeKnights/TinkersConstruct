@@ -23,7 +23,7 @@ public class TraitEstablished extends AbstractTrait {
     if(player != null) {
       if(TinkerUtil.hasTrait(TagUtil.getTagSafe(player.getHeldItem()), identifier)) {
         float xp = event.getDroppedExperience();
-        xp *= 1f + random.nextFloat()*0.5f;
+        xp *= 1.25f + random.nextFloat()*0.5f;
         event.setDroppedExperience(Math.round(xp));
       }
     }

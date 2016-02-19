@@ -9,7 +9,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -25,8 +24,6 @@ public class TooltipBuilder {
 
   public final static String LOC_FreeModifiers = "tooltip.tool.modifiers";
 
-  private static final DecimalFormat df = new DecimalFormat("#.##");
-
   private final List<String> tips = Lists.newLinkedList();
   private final ItemStack stack;
 
@@ -34,83 +31,65 @@ public class TooltipBuilder {
     this.stack = stack;
   }
 
-  public String[] getTooltip() {
-    return tips.toArray(new String[tips.size()]);
-  }
-
-  // also includes traits
-  public TooltipBuilder addModifiers() {
-    if(stack != null) {
-      NBTTagList tagList = TagUtil.getModifiersTagList(stack);
-
-      for(int i = 0; i < tagList.tagCount(); i++) {
-        NBTTagCompound tag = tagList.getCompoundTagAt(i);
-        ModifierNBT data = ModifierNBT.readTag(tag);
-
-        // get matching modifier
-        IModifier modifier = TinkerRegistry.getModifier(data.identifier);
-        if(modifier == null || modifier.isHidden()) {
-          continue;
-        }
-
-        tips.add(data.getColorString() + modifier.getTooltip(tag, false));
-      }
-    }
-
-    return this;
+  public List<String> getTooltip() {
+    return tips;
   }
 
   public TooltipBuilder addDurability(boolean textIfBroken) {
-    if(stack != null) {
-      if(ToolHelper.isBroken(stack) && textIfBroken) {
-        tips.add(String.format("%s: %s%s%s", Util.translate(HeadMaterialStats.LOC_Durability), EnumChatFormatting.DARK_RED, EnumChatFormatting.BOLD, Util.translate("tooltip.tool.broken")));
-      }
-      else {
-        tips.add(HeadMaterialStats
-                     .formatDurability(ToolHelper.getCurrentDurability(stack), ToolHelper.getDurabilityStat(stack)));
-      }
+    if(ToolHelper.isBroken(stack) && textIfBroken) {
+      tips.add(String.format("%s: %s%s%s", Util.translate(HeadMaterialStats.LOC_Durability), EnumChatFormatting.DARK_RED, EnumChatFormatting.BOLD, Util.translate("tooltip.tool.broken")));
+    }
+    else {
+      tips.add(HeadMaterialStats
+                   .formatDurability(ToolHelper.getCurrentDurability(stack), ToolHelper.getDurabilityStat(stack)));
     }
 
     return this;
   }
 
   public TooltipBuilder addMiningSpeed() {
-    if(stack != null) {
-      tips.add(HeadMaterialStats.formatMiningSpeed(ToolHelper.getActualMiningSpeed(stack)));
-    }
+    tips.add(HeadMaterialStats.formatMiningSpeed(ToolHelper.getActualMiningSpeed(stack)));
 
     return this;
   }
 
   public TooltipBuilder addHarvestLevel() {
-    if(stack != null) {
-      tips.add(HeadMaterialStats.formatHarvestLevel(ToolHelper.getHarvestLevelStat(stack)));
-    }
+    tips.add(HeadMaterialStats.formatHarvestLevel(ToolHelper.getHarvestLevelStat(stack)));
 
     return this;
   }
 
   public TooltipBuilder addAttack() {
-    if(stack != null) {
-      float attack = ToolHelper.getActualDamage(stack, Minecraft.getMinecraft().thePlayer);
-      tips.add(HeadMaterialStats.formatAttack(attack));
-    }
+    float attack = ToolHelper.getActualDamage(stack, Minecraft.getMinecraft().thePlayer);
+    tips.add(HeadMaterialStats.formatAttack(attack));
 
     return this;
   }
 
   public TooltipBuilder addFreeModifiers() {
-    if(stack != null) {
-      tips.add(String.format("%s: %d", StatCollector.translateToLocal(LOC_FreeModifiers),
-                             ToolHelper.getFreeModifiers(stack)));
-    }
+    tips.add(String.format("%s: %d", StatCollector.translateToLocal(LOC_FreeModifiers),
+                           ToolHelper.getFreeModifiers(stack)));
 
     return this;
   }
 
-  public TooltipBuilder addCustom(String custom) {
-    if(stack != null) {
-      tips.add(custom);
+  public TooltipBuilder addModifierInfo() {
+    NBTTagList tagList = TagUtil.getModifiersTagList(stack);
+    for(int i = 0; i < tagList.tagCount(); i++) {
+      NBTTagCompound tag = tagList.getCompoundTagAt(i);
+      ModifierNBT data = ModifierNBT.readTag(tag);
+
+      // get matching modifier
+      IModifier modifier = TinkerRegistry.getModifier(data.identifier);
+      if(modifier == null || modifier.isHidden()) {
+        continue;
+      }
+
+      for(String string : modifier.getExtraInfo(stack, tag)) {
+        if(!string.isEmpty()) {
+          tips.add(data.getColorString() + string);
+        }
+      }
     }
 
     return this;

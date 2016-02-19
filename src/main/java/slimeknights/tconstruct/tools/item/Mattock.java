@@ -155,7 +155,7 @@ public class Mattock extends AoeToolCore {
   }
 
   @Override
-  public String[] getInformation(ItemStack stack) {
+  public List<String> getInformation(ItemStack stack) {
     TooltipBuilder info = new TooltipBuilder(stack);
 
     MattockToolNBT data = new MattockToolNBT();
@@ -163,6 +163,7 @@ public class Mattock extends AoeToolCore {
 
     info.addDurability(false);
     // todo: make this proper
+    /*
     info.addCustom("Axe:");
     info.addCustom(HeadMaterialStats.formatMiningSpeed(data.axeSpeed));
     info.addCustom(HeadMaterialStats.formatHarvestLevel(data.axeLevel));
@@ -170,7 +171,7 @@ public class Mattock extends AoeToolCore {
     info.addCustom("Shovel:");
     info.addCustom(HeadMaterialStats.formatMiningSpeed(data.shovelSpeed));
     info.addCustom(HeadMaterialStats.formatHarvestLevel(data.shovelLevel));
-
+*/
     if(ToolHelper.getFreeModifiers(stack) > 0) {
       info.addFreeModifiers();
     }

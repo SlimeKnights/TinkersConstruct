@@ -250,7 +250,7 @@ public class TinkerTools extends TinkerPulse {
 
   private void registerModifiers() {
     // create the modifiers and add their items
-    modBaneOfArthopods = new ModAntiMonsterType("bane_of_arthopods", 0x61ba49, 5, 10, EnumCreatureAttribute.ARTHROPOD);
+    modBaneOfArthopods = new ModAntiMonsterType("bane_of_arthopods", 0x61ba49, 5, 24, EnumCreatureAttribute.ARTHROPOD);
     modBaneOfArthopods = registerModifier(modBaneOfArthopods);
     modBaneOfArthopods.addItem(Items.fermented_spider_eye);
 
@@ -288,7 +288,7 @@ public class TinkerTools extends TinkerPulse {
     modSharpness.addItem("gemQuartz");
     modSharpness.addItem("blockQuartz", 1, 4);
 
-    modSmite = new ModAntiMonsterType("smite", 0xe8d500, 5, 10, EnumCreatureAttribute.UNDEAD);
+    modSmite = new ModAntiMonsterType("smite", 0xe8d500, 5, 24, EnumCreatureAttribute.UNDEAD);
     modSmite = registerModifier(modSmite);
     modSmite.addItem(TinkerCommons.consecratedSoil, 1, 1);
 

@@ -1,10 +1,16 @@
 package slimeknights.tconstruct.tools.modifiers;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 
+import java.util.List;
+
+import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.materials.AbstractMaterialStats;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
@@ -25,13 +31,32 @@ public class ModFiery extends ModifierTrait {
     NBTTagCompound tag = TinkerUtil.getModifierTag(tool, identifier);
     ModifierNBT.IntegerNBT data = ModifierNBT.readInteger(tag);
 
-    int duration = 1;
-    duration += data.current/5;
-
+    int duration = getFireDuration(data);
     target.setFire(duration);
 
     // one heart fire damage per 15
-    float fireDamage = (float)data.current/15f;
+    float fireDamage = getFireDamage(data);
     attackEntitySecondary(DamageSource.inFire, fireDamage, target, false, true);
+  }
+
+  private float getFireDamage(ModifierNBT.IntegerNBT data) {
+    return (float)data.current/15f;
+  }
+
+  private int getFireDuration(ModifierNBT.IntegerNBT data) {
+    return 1 + data.current/8;
+  }
+
+  @Override
+  public List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag) {
+    String loc = String.format(LOC_Extra, getIdentifier());
+    ModifierNBT.IntegerNBT data = ModifierNBT.readInteger(modifierTag);
+    int duration = getFireDuration(data);
+    float dmg = getFireDamage(data);
+
+    return ImmutableList.of(
+        Util.translateFormatted(loc, AbstractMaterialStats.df.format(dmg)),
+        Util.translateFormatted(loc + 2, AbstractMaterialStats.df.format(duration))
+    );
   }
 }

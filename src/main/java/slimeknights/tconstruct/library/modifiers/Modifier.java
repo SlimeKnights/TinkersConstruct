@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.library.modifiers;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -30,6 +30,7 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
 
   public static final String LOC_Name = "modifier.%s.name";
   public static final String LOC_Desc = "modifier.%s.desc";
+  public static final String LOC_Extra = "modifier.%s.extra";
 
   public final String identifier;
 
@@ -206,6 +207,11 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
   @Override
   public String getLocalizedDesc() {
     return Util.translate(LOC_Desc, getIdentifier());
+  }
+
+  @Override
+  public List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag) {
+    return ImmutableList.of();
   }
 
   @Override

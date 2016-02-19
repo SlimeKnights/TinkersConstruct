@@ -11,10 +11,10 @@ import java.util.List;
 public interface ITinkerable {
 
   /**
-   * Returns an String of arrays, where each String represents an information about the tool. Used to display
+   * Returns an List of Strings, where each String represents an information about the tool. Used to display
    * Information about the item in the GUI
    */
-  String[] getInformation(ItemStack stack);
+  List<String> getInformation(ItemStack stack);
 
   /** The default tooltip for the item */
   void getTooltip(ItemStack stack, List<String> tooltips);

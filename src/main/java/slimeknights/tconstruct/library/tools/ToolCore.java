@@ -202,16 +202,24 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   @Override
-  public String[] getInformation(ItemStack stack) {
-    return getInformation(stack, false);
+  public List<String> getInformation(ItemStack stack) {
+    return getInformation(stack, true);
+  }
+
+  @Override
+  public void getTooltip(ItemStack stack, List<String> tooltips) {
+    if(ToolHelper.isBroken(stack)) {
+      tooltips.add("" + EnumChatFormatting.DARK_RED + EnumChatFormatting.BOLD + Util.translate("tooltip.tool.broken"));
+    }
+    super.getTooltip(stack, tooltips);
   }
 
   @Override
   public void getTooltipDetailed(ItemStack stack, List<String> tooltips) {
-    tooltips.addAll(Arrays.asList(getInformation(stack, true)));
+    tooltips.addAll(getInformation(stack, false));
   }
 
-  public String[] getInformation(ItemStack stack, boolean detailed) {
+  public List<String> getInformation(ItemStack stack, boolean detailed) {
     TooltipBuilder info = new TooltipBuilder(stack);
 
     info.addDurability(!detailed);
@@ -223,6 +231,10 @@ public abstract class ToolCore extends TinkersItem {
 
     if(ToolHelper.getFreeModifiers(stack) > 0) {
       info.addFreeModifiers();
+    }
+
+    if(detailed) {
+      info.addModifierInfo();
     }
 
     return info.getTooltip();

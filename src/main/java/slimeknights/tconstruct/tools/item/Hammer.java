@@ -34,6 +34,11 @@ public class Hammer extends Pickaxe {
   }
 
   @Override
+  public List<String> getInformation(ItemStack stack, boolean detailed) {
+    return super.getInformation(stack, detailed);
+  }
+
+  @Override
   public float miningSpeedModifier() {
     return 0.33f;
   }

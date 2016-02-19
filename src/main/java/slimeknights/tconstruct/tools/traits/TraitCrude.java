@@ -1,8 +1,15 @@
 package slimeknights.tconstruct.tools.traits;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
+import java.util.List;
+
+import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.materials.AbstractMaterialStats;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.traits.AbstractTraitLeveled;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
@@ -17,10 +24,23 @@ public class TraitCrude extends AbstractTraitLeveled {
   public float onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
     boolean hasArmor = target.getTotalArmorValue() > 0;
     if(!hasArmor) {
-      ModifierNBT data = new ModifierNBT(TinkerUtil.getModifierTag(tool, "crude"));
+      NBTTagCompound modifierTag = TinkerUtil.getModifierTag(tool, "crude");
       // 10% damage boost against unarmed targets!
-      return newDamage + damage * 0.05f * data.level;
+      return newDamage + damage * bonusModifier(modifierTag);
     }
     return super.onHit(tool, player, target, damage, newDamage, isCritical);
+  }
+
+  private float bonusModifier(NBTTagCompound modifierNBT) {
+    ModifierNBT data = new ModifierNBT(modifierNBT);
+    return 0.05f * data.level;
+  }
+
+  @Override
+  public List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag) {
+    String loc = String.format(LOC_Extra, getModifierIdentifier());
+    float bonus = bonusModifier(modifierTag);
+
+    return ImmutableList.of(Util.translateFormatted(loc, AbstractMaterialStats.dfPercent.format(bonus)));
   }
 }
