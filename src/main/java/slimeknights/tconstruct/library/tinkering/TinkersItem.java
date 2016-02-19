@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.tinkering;
 
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Sets;
 
 import gnu.trove.set.hash.THashSet;
 
@@ -29,6 +30,7 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.events.TinkerEvent;
+import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
@@ -260,6 +262,10 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     return new int[] {1}; // index 1 usually is the head. 0 is handle.
   }
 
+  public float getRepairModifierForPart(int index) {
+    return 1f;
+  }
+
   @Override
   public ItemStack repair(ItemStack repairable, ItemStack[] repairItems) {
     if(repairable.getItemDamage() == 0 && !ToolHelper.isBroken(repairable)) {
@@ -306,6 +312,23 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
     // now do it all over again with the real items, to actually repair \o/
     ItemStack item = repairable.copy();
+
+    while(item.getItemDamage() > 0) {
+      int amount = calculateRepairAmount(materials, repairItems);
+
+      // nothing to repair with, we're therefore done
+      if(amount <= 0) {
+        break;
+      }
+
+      ToolHelper.repairTool(item, calculateRepair(item, amount));
+      // save that we repaired it :I
+      NBTTagCompound tag = TagUtil.getExtraTag(item);
+      TagUtil.addInteger(tag, Tags.REPAIR_COUNT, 1);
+      TagUtil.setExtraTag(item, tag);
+    }
+
+    /*
     for(int index : getRepairParts()) {
       RecipeMatch.Match match;
       Material material = materials.get(index);
@@ -319,7 +342,9 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
         }
         // todo: fire event?
         // do the actual repair
-        int amount = calculateRepair(item, match.amount, index);
+        //int amount = calculateRepair(item, match.amount, index);
+        HeadMaterialStats stats = material.getStats(HeadMaterialStats.TYPE);
+        int amount = (stats.durability * 144) / match.amount;
         ToolHelper.repairTool(item, amount);
 
         // save that we repaired it :I
@@ -330,14 +355,38 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
         // use up items
         RecipeMatch.removeMatch(repairItems, match);
       }
-    }
+    }*/
+
     return item;
   }
 
-  protected int calculateRepair(ItemStack tool, int materialValue, int index)
+  protected int calculateRepairAmount(List<Material> materials, ItemStack[] repairItems) {
+    Set<Material> materialsMatched = Sets.newHashSet();
+    float durability = 0f;
+    // try to match each material once
+    for(int index : getRepairParts()) {
+      Material material = materials.get(index);
+      RecipeMatch.Match match = material.matches(repairItems);
+
+      if(match != null) {
+        HeadMaterialStats stats = material.getStats(HeadMaterialStats.TYPE);
+        if(stats != null) {
+          materialsMatched.add(material);
+          durability += ((float)stats.durability * 144f * getRepairModifierForPart(index)) / (float)match.amount;
+          RecipeMatch.removeMatch(repairItems, match);
+        }
+      }
+    }
+
+    durability *= 1f + ((float)materialsMatched.size()-1)/9f;
+
+    return (int)durability;
+  }
+
+  protected int calculateRepair(ItemStack tool, int amount)
   {
-    int baseDurability = TagUtil.getOriginalToolStats(tool).durability;
-    float increase = (50f  + (baseDurability * 0.4f * materialValue)/Material.VALUE_Ingot);
+    float increase = Math.max(amount, TagUtil.getOriginalToolStats(tool).durability/10);
+    increase = Math.max(50, increase);
 
     int modifiersUsed = TagUtil.getBaseModifiersUsed(tool.getTagCompound());
     float mods = 1.0f;

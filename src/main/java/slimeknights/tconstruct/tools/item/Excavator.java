@@ -47,6 +47,11 @@ public class Excavator extends Shovel {
   }
 
   @Override
+  public int[] getRepairParts() {
+    return new int[] {1,2};
+  }
+
+  @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
     HeadMaterialStats head     = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);

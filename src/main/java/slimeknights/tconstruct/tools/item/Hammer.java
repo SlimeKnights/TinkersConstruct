@@ -66,6 +66,16 @@ public class Hammer extends Pickaxe {
   }
 
   @Override
+  public int[] getRepairParts() {
+    return new int[] {1,2,3};
+  }
+
+  @Override
+  public float getRepairModifierForPart(int index) {
+    return index == 1 ? 1f : 0.5f;
+  }
+
+  @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
     HeadMaterialStats head     = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);

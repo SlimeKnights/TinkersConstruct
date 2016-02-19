@@ -132,6 +132,11 @@ public class Scythe extends ToolCore {
   }
 
   @Override
+  public int[] getRepairParts() {
+    return new int[] {1,2};
+  }
+
+  @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     HandleMaterialStats handle  = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
     HeadMaterialStats head      = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);

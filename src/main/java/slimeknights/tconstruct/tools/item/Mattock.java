@@ -141,20 +141,6 @@ public class Mattock extends AoeToolCore {
   }
 
   @Override
-  protected int calculateRepair(ItemStack tool, int materialValue, int index) {
-    List<Material> materials = TinkerUtil.getMaterialsFromTagList(TagUtil.getBaseMaterialsTagList(tool));
-
-    HeadMaterialStats stats[] = new HeadMaterialStats[2];
-    stats[0] = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
-    stats[1] = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
-    int total = stats[0].durability + stats[1].durability;
-
-    float coeff = stats[index-1].durability / (float)total;
-
-    return (int)Math.max(1f,super.calculateRepair(tool, materialValue, index)*coeff);
-  }
-
-  @Override
   public List<String> getInformation(ItemStack stack) {
     TooltipBuilder info = new TooltipBuilder(stack);
 

@@ -58,6 +58,11 @@ public class BattleAxe extends AoeToolCore {
   }
 
   @Override
+  public int[] getRepairParts() {
+    return new int[] {1,2};
+  }
+
+  @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     HeadMaterialStats handle = materials.get(0).getStats(HeadMaterialStats.TYPE);
     HeadMaterialStats head1 = materials.get(1).getStats(HeadMaterialStats.TYPE);
