@@ -212,8 +212,10 @@ public abstract class ModifierAspect {
 
         // update max. but to do so, we have to re-read the changed data again
         data = getData(modifierTag);
-        data.max = getMaxForLevel(data.level);
       }
+
+      // always update max in case it changed since it got saved
+      data.max = getMaxForLevel(data.level);
 
       // increase the level progress
       data.current++;
