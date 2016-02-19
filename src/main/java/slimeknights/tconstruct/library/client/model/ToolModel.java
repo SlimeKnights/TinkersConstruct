@@ -4,9 +4,11 @@ import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Maps;
 
 import gnu.trove.map.hash.THashMap;
 
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
@@ -26,13 +28,15 @@ public class ToolModel extends ItemLayerModel {
   private final List<MaterialModel> partBlocks;
   private final List<MaterialModel> brokenPartBlocks;
   private final ModifierModel modifiers;
+  private final ImmutableMap<TransformType, TRSRTransformation> transforms;
 
   public ToolModel(ImmutableList<ResourceLocation> defaultTextures, List<MaterialModel> parts, List<MaterialModel> brokenPartBlocks,
-                   ModifierModel modifiers) {
+                   ModifierModel modifiers, ImmutableMap<TransformType, TRSRTransformation> transforms) {
     super(defaultTextures);
     this.partBlocks = parts;
     this.brokenPartBlocks = brokenPartBlocks;
     this.modifiers = modifiers;
+    this.transforms = transforms;
   }
 
   @Override
@@ -81,9 +85,11 @@ public class ToolModel extends ItemLayerModel {
       modifierModels = new THashMap<String, IFlexibleBakedModel>();
     }
 
-    ImmutableMap<TransformType, TRSRTransformation> transforms = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
+    Map<TransformType, TRSRTransformation> builder = Maps.newHashMap();
+    builder.putAll(IPerspectiveAwareModel.MapWrapper.getTransforms(state));
+    builder.putAll(transforms); // only contains actual entries, so we override default values
 
-    return new BakedToolModel(base, partModels, brokenPartModels, modifierModels, transforms);
+    return new BakedToolModel(base, partModels, brokenPartModels, modifierModels, ImmutableMap.copyOf(builder));
   }
 
   @Override

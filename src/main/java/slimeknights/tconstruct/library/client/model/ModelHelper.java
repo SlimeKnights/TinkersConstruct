@@ -17,11 +17,14 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.ItemTransformVec3f;
+import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IColoredBakedQuad;
 import net.minecraftforge.client.model.IModelState;
+import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.client.model.TRSRTransformation;
 
@@ -89,6 +92,26 @@ public class ModelHelper {
     Reader reader = new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8);
 
     return GSON.fromJson(reader, maptype);
+  }
+
+  public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> loadTransformFromJson(ResourceLocation location) throws IOException {
+    // get the json
+    IResource
+        iresource =
+        Minecraft.getMinecraft().getResourceManager()
+                 .getResource(new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json"));
+    Reader reader = new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8);
+
+    // we abuse ModelBlock because all the deserializers are not accessible..
+    ModelBlock modelBlock = ModelBlock.deserialize(reader);
+    ItemCameraTransforms itemCameraTransforms = modelBlock.func_181682_g();
+    ImmutableMap.Builder<ItemCameraTransforms.TransformType, TRSRTransformation> builder = ImmutableMap.builder();
+    for(ItemCameraTransforms.TransformType type : ItemCameraTransforms.TransformType.values()) {
+      if(itemCameraTransforms.getTransform(type) != ItemTransformVec3f.DEFAULT) {
+        builder.put(type, new TRSRTransformation(itemCameraTransforms.getTransform(type)));
+      }
+    }
+    return builder.build();
   }
 
   public static ImmutableList<ResourceLocation> loadTextureListFromJson(ResourceLocation location) throws IOException {

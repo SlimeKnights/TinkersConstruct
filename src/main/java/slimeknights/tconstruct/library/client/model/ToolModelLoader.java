@@ -1,8 +1,12 @@
 package slimeknights.tconstruct.library.client.model;
 
+import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.ModelBlock;
+import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ICustomModelLoader;
@@ -14,6 +18,8 @@ import net.minecraftforge.fml.common.LoaderState;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.List;
 import java.util.Map;
 
@@ -39,8 +45,6 @@ public class ToolModelLoader implements ICustomModelLoader {
       // Modelblock is used since our format is compatible to the vanilla format
       // and we don't have to write our own json deserializer
       // it also provides us with the textures
-      //ModelBlock modelBlock = ModelHelper.loadModelBlock(modelLocation);
-
       Map<String, String> textures = ModelHelper.loadTexturesFromJson(modelLocation);
       ImmutableList.Builder<ResourceLocation> builder = ImmutableList.builder();
 
@@ -93,7 +97,7 @@ public class ToolModelLoader implements ICustomModelLoader {
         modifiers = (ModifierModel) mods;
       }
 
-      IModel output = new ToolModel(builder.build(), parts, brokenParts, modifiers);
+      IModel output = new ToolModel(builder.build(), parts, brokenParts, modifiers, ModelHelper.loadTransformFromJson(modelLocation));
 
       // inform the texture manager about the textures it has to process
       CustomTextureCreator.registerTextures(builder.build());
