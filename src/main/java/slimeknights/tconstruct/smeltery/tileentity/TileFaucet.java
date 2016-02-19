@@ -72,8 +72,6 @@ public class TileFaucet extends TileEntity implements ITickable {
     }
 
     if(drained != null) {
-      // reduce amount (cooldown)
-      pour();
       // done draining
       if(drained.amount <= 0) {
         drained = null;
@@ -84,6 +82,10 @@ public class TileFaucet extends TileEntity implements ITickable {
         else {
           reset();
         }
+      }
+      else {
+        // reduce amount (cooldown)
+        pour();
       }
     }
   }
@@ -134,7 +136,7 @@ public class TileFaucet extends TileEntity implements ITickable {
       IFluidHandler toFill = (IFluidHandler) fillTE;
 
       FluidStack fillStack = drained.copy();
-      fillStack.amount = LIQUID_TRANSFER;
+      fillStack.amount = Math.min(drained.amount, LIQUID_TRANSFER);
 
       // can we fill?
       int filled = toFill.fill(EnumFacing.UP, fillStack, false);
