@@ -73,7 +73,7 @@ public class Hammer extends Pickaxe {
     HeadMaterialStats plate2   = materials.get(3).getStatsOrUnknown(HeadMaterialStats.TYPE);
 
     ToolNBT data = new ToolNBT();
-    data.head(head, plate1, plate2);
+    data.head(head, head, plate1, plate2); // head itself counts for more
     data.handle(handle);
 
     // harvestlevel is always determined by the head
