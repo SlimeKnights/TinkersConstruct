@@ -56,4 +56,13 @@ public class ModifierTrait extends AbstractTrait {
 
     return ModifierNBT.readTag(tag).level <= maxLevel;
   }
+
+
+  @Override
+  public String getTooltip(NBTTagCompound modifierTag, boolean detailed) {
+    if(maxLevel > 0) {
+      return getLeveledTooltip(modifierTag, detailed);
+    }
+    return super.getTooltip(modifierTag, detailed);
+  }
 }

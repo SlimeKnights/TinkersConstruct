@@ -34,9 +34,4 @@ public class ModFiery extends ModifierTrait {
     float fireDamage = (float)data.current/15f;
     attackEntitySecondary(DamageSource.inFire, fireDamage, target, false, true);
   }
-
-  @Override
-  public String getTooltip(NBTTagCompound modifierTag, boolean detailed) {
-    return getLeveledTooltip(modifierTag, detailed);
-  }
 }

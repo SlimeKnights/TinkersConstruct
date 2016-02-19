@@ -23,9 +23,4 @@ public class ModKnockback extends ModifierTrait {
     ModifierNBT.IntegerNBT data = ModifierNBT.readInteger(modifierTag);
     return (float)data.current * 0.1f;
   }
-
-  @Override
-  public String getTooltip(NBTTagCompound modifierTag, boolean detailed) {
-    return getLeveledTooltip(modifierTag, detailed);
-  }
 }
