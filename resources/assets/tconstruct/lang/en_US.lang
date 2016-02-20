@@ -359,6 +359,7 @@ modifier.jagged.desc=§oMoves like jagged!§r\nEvery point durability lost incre
 modifier.jagged.extra=Jagged Damage: +%s
 modifier.lightweight.name=Lightweight
 modifier.lightweight.desc=§oSwift like the wind!§r\nIncreases the overall speed of your tool when mining.
+modifier.lightweight.extra=Bonus Speed: +%s
 modifier.magnetic.name=Magnetic
 modifier.magnetic.desc=§oHow do they work?!§r\nHitting things attracts nearby things?!
 modifier.momentum.name=Momentum

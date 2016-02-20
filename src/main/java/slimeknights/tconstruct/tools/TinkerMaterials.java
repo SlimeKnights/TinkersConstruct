@@ -151,7 +151,7 @@ public final class TinkerMaterials {
   public static final AbstractTrait ecological = new TraitEcological();
   public static final AbstractTrait enderference = new TraitEnderference();
   public static final AbstractTrait established = new TraitEstablished();
-  public static final AbstractTrait fractured = new TraitBonusDamage("fractured", 2);
+  public static final AbstractTrait fractured = new TraitBonusDamage("fractured", 1.5f);
   public static final AbstractTrait hellish = new TraitHellish();
   public static final AbstractTrait holy = new TraitHoly();
   public static final AbstractTrait insatiable = new TraitInsatiable();

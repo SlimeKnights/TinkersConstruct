@@ -36,7 +36,7 @@ public class Cleaver extends BroadSword {
 
   @Override
   public float damagePotential() {
-    return 1.4f;
+    return 0.9f;
   }
 
   @Override
@@ -76,6 +76,7 @@ public class Cleaver extends BroadSword {
     data.extra(guard);
     data.handle(handle);
 
+    data.attack *= 1.4f;
     data.attack += 2f;
 
     // triple durability!

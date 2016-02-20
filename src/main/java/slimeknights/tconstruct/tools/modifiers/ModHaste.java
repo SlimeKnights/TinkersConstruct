@@ -33,18 +33,18 @@ public class ModHaste extends Modifier {
     for(int count = data.current; count > 0; count--) {
       if(speed <= 10f) {
         // linear scaling from 0.08 to 0.06 per piece till 10 miningspeed
-        speed += 0.08f - 0.02f * speed / 10f;
+        speed += 0.15f - 0.05f * speed / 10f;
       }
       else if(speed <= 20f) {
-        speed += 0.06f - 0.04 * speed / 20f;
+        speed += 0.1f - 0.05 * speed / 20f;
       }
       else {
-        speed += 0.01;
+        speed += 0.05;
       }
     }
 
-    // each full level gives a flat 0.1 bonus, not influenced by dimishing returns
-    speed += level * 0.1f;
+    // each full level gives a flat 0.5 bonus, not influenced by dimishing returns
+    speed += level * 0.5f;
 
     // save it to the tool
     NBTTagCompound tag = TagUtil.getToolTag(rootCompound);

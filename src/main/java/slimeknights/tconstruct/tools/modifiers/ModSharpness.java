@@ -32,16 +32,16 @@ public class ModSharpness extends Modifier {
     int level = data.current / max;
     for(int count = data.current; count > 0; count--) {
       if(attack <= 10f) {
-        // linear scaling from 0.1 to 0.05 per piece till 10 damage
-        attack += 0.10f - 0.05f * attack / 10f;
+        // linear scaling from 0.05 to 0.035 per piece till 10 damage
+        attack += 0.05f - 0.025f * attack / 10f;
       }
       else if(attack <= 20f) {
-        // 0.05 to 0.02
-        attack += 0.05f - 0.03 * attack / 20f;
+        // 0.035 to 0.02
+        attack += 0.025f - 0.01 * attack / 20f;
       }
       else {
         // flat +0.02
-        attack += 0.02;
+        attack += 0.015;
       }
     }
 
