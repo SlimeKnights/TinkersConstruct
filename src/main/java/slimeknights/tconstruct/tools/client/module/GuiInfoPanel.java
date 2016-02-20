@@ -183,7 +183,7 @@ public class GuiInfoPanel extends GuiModule {
   }
 
   protected List<String> getTotalLines() {
-    int w = xSize - border.w;
+    int w = xSize - border.w*2 + 2;
     if(!slider.isHidden()) {
       w -= slider.width + 3;
     }
