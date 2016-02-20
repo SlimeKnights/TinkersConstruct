@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class CustomFontColor {
 
-  protected static int MARKER = 0x2700;
+  protected static int MARKER = 0xE700;
 
   private CustomFontColor() {}
 
