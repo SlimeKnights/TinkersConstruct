@@ -368,6 +368,10 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       Material material = materials.get(index);
       RecipeMatch.Match match = material.matches(repairItems);
 
+      if(materialsMatched.contains(material)) {
+        continue;
+      }
+
       if(match != null) {
         HeadMaterialStats stats = material.getStats(HeadMaterialStats.TYPE);
         if(stats != null) {
@@ -385,8 +389,17 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   protected int calculateRepair(ItemStack tool, int amount)
   {
-    float increase = Math.max(amount, TagUtil.getOriginalToolStats(tool).durability/64);
+    float origDur = TagUtil.getOriginalToolStats(tool).durability;
+    float actualDur = ToolHelper.getDurabilityStat(tool);
+
+    // calculate in modifiers that change the total durability of a tool, like diamond
+    // they should not punish the player with higher repair costs
+    float durabilityFactor = actualDur/origDur;
+    float increase = (float)amount * Math.min(10f, durabilityFactor);
+
+    increase = Math.max(increase, actualDur/64f);
     //increase = Math.max(50, increase);
+
 
     int modifiersUsed = TagUtil.getBaseModifiersUsed(tool.getTagCompound());
     float mods = 1.0f;
@@ -406,7 +419,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       repairCount = 0.5f;
     increase *= repairCount;
 
-    return (int)increase;
+    return (int)Math.ceil(increase);
   }
 
   /* Information */
