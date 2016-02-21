@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.client;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -10,13 +9,11 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
@@ -31,12 +28,12 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.model.IPatternOffset;
 import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
 import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
 import slimeknights.tconstruct.library.client.texture.CastTexture;
@@ -44,6 +41,7 @@ import slimeknights.tconstruct.library.client.texture.GuiOutlineTexture;
 import slimeknights.tconstruct.library.client.texture.PatternTexture;
 import slimeknights.tconstruct.library.client.texture.TextureColoredTexture;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.tools.IPattern;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
 
@@ -77,6 +75,8 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
 
   public static final Material guiMaterial;
 
+  private int createdTextures;
+
   // low since other event-handlers might want to register textures beforehand
   @SubscribeEvent(priority = EventPriority.LOW)
   public void createCustomTextures(TextureStitchEvent.Pre event) {
@@ -87,11 +87,15 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
       return;
     }
 
+
+    createdTextures = 0;
     // create textures for each material where needed
     createMaterialTextures(event.map);
 
     // add stencil and cast textures for all used toolparts
     createPatterntextures(event.map);
+
+    log.debug("Generated " + createdTextures + " Textures for Materials");
   }
 
   private void createMaterialTextures(TextureMap map) {
@@ -164,6 +168,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
       }
 
       sprite = material.renderInfo.getTexture(matBase, location);
+      createdTextures++;
     }
 
     // stitch new textures
@@ -231,6 +236,10 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
 
           if(partModel != ModelLoaderRegistry.getMissingModel()) {
             partPatternTexture = constructor.newInstance(partTexture.toString(), baseTexture, partPatternLocation);
+            if(partModel instanceof IPatternOffset) {
+              IPatternOffset offset = (IPatternOffset) partModel;
+              ((TextureColoredTexture)partPatternTexture).setOffset(offset.getXOffset(), offset.getYOffset());
+            }
             map.setTextureEntry(partPatternLocation, partPatternTexture);
           }
         }

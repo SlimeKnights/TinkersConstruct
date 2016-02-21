@@ -1,6 +1,10 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "tconstruct:items/parts/battlesign_head"
+        "layer0": "tconstruct:items/battlesign/head"
+    },
+    "offset": {
+        "x": 0,
+        "y": 2
     }
 }

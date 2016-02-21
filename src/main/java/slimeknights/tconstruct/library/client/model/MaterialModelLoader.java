@@ -1,5 +1,11 @@
 package slimeknights.tconstruct.library.client.model;
 
+import com.google.common.base.Charsets;
+import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ICustomModelLoader;
@@ -9,6 +15,8 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
@@ -30,7 +38,8 @@ public class MaterialModelLoader implements ICustomModelLoader {
     }
 
     try {
-      IModel model = new MaterialModel(ModelHelper.loadTextureListFromJson(modelLocation));
+      ModelHelper.Offset offset = ModelHelper.loadOffsetFromJson(modelLocation);
+      IModel model = new MaterialModel(ModelHelper.loadTextureListFromJson(modelLocation), offset.x, offset.y);
 
       // register the base texture for texture generation
       CustomTextureCreator.registerTextures(model.getTextures());

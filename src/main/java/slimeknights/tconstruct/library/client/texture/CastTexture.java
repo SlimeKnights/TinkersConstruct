@@ -21,10 +21,17 @@ public class CastTexture extends TextureColoredTexture {
     }
 
     // we only want the inner 3/4 of the texture
-    int x = getX(pxCoord);
-    int y = getY(pxCoord);
+    int x2 = getX(pxCoord);
+    int y2 = getY(pxCoord);
+    int x = x2 - offsetX;
+    int y = y2 - offsetY;
 
-    int c = textureData[mipmap][pxCoord];
+    if(x >= width || x < 0 || y >= height || y < 0) {
+      // offset moved it out of the picture, equals transparent
+      return pixel;
+    }
+
+    int c = textureData[mipmap][coord(x, y)];
 
     int a = RenderUtil.alpha(c);
 
@@ -35,7 +42,7 @@ public class CastTexture extends TextureColoredTexture {
       return pixel;
     }*/
 
-    if(a > 64 && !(x == 0 || x == width - 1 || y == 0 || y == height - 1)) {
+    if(a > 64 && !(x2 == 0 || x2 == width - 1 || y2 == 0 || y2 == height - 1)) {
       return 0;
     }
 

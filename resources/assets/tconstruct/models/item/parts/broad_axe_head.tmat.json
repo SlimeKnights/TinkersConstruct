@@ -1,6 +1,10 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "tconstruct:items/parts/broad_axe_head"
+        "layer0": "tconstruct:items/lumberaxe/head"
+    },
+    "offset": {
+        "x": -3,
+        "y": 4
     }
 }

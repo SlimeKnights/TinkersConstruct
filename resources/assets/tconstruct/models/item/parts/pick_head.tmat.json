@@ -1,6 +1,10 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "tconstruct:items/parts/pick_head"
+        "layer0": "tconstruct:items/pickaxe/head"
+    },
+    "offset": {
+        "x": -2,
+        "y": 2
     }
 }

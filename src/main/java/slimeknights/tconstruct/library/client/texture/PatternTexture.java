@@ -25,10 +25,18 @@ public class PatternTexture extends TextureColoredTexture {
     int x = getX(pxCoord);
     int y = getY(pxCoord);
 
+    int x2 = x - offsetX;
+    int y2 = y - offsetY;
+
+    if(x2 >= width || x2 < 0 || y2 >= height || y2 < 0) {
+      // offset moved it out of the picture, equals transparent
+      return pixel;
+    }
+
     if(x < width/8 || x > width - width/8 || y < height/8 || y > height - height/8)
       return pixel;
 
-    int c = textureData[mipmap][pxCoord];
+    int c = textureData[mipmap][coord(x2, y2)];
 
     int a = RenderUtil.alpha(c);
 

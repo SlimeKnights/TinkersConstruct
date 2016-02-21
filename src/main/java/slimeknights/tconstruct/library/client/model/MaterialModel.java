@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.client.model;
 
 import com.google.common.base.Function;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
@@ -11,21 +12,36 @@ import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.IModelPart;
 import net.minecraftforge.client.model.IModelState;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.ItemLayerModel;
+import net.minecraftforge.client.model.ModelStateComposition;
 import net.minecraftforge.client.model.TRSRTransformation;
 
 import java.util.Map;
+
+import javax.vecmath.Quat4f;
+import javax.vecmath.Vector3f;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.materials.Material;
 
-public class MaterialModel extends ItemLayerModel {
+public class MaterialModel extends ItemLayerModel implements IPatternOffset {
+
+  protected final int offsetX;
+  protected final int offsetY;
 
   public MaterialModel(ImmutableList<ResourceLocation> textures) {
+    this(textures, 0, 0);
+  }
+
+  public MaterialModel(ImmutableList<ResourceLocation> textures, int offsetX, int offsetY) {
     super(textures);
+
+    this.offsetX = offsetX;
+    this.offsetY = offsetY;
   }
 
   @Override
@@ -37,7 +53,12 @@ public class MaterialModel extends ItemLayerModel {
   // the only difference here is the return-type
   public BakedMaterialModel bakeIt(IModelState state, VertexFormat format,
                                    Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+    // take offset of texture into account
+    if(offsetX != 0 || offsetY != 0) {
+      state = new ModelStateComposition(state, TRSRTransformation.blockCenterToCorner(new TRSRTransformation(new Vector3f(offsetX/16f, -offsetY/16f, 0), null, null, null)));
+    }
     ImmutableMap<TransformType, TRSRTransformation> map = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
+
 
     // normal model as the base
     IFlexibleBakedModel base = super.bake(state, format, bakedTextureGetter);
@@ -81,5 +102,15 @@ public class MaterialModel extends ItemLayerModel {
   @Override
   public IModelState getDefaultState() {
     return ModelHelper.DEFAULT_ITEM_STATE;
+  }
+
+  @Override
+  public int getXOffset() {
+    return offsetX;
+  }
+
+  @Override
+  public int getYOffset() {
+    return offsetY;
   }
 }

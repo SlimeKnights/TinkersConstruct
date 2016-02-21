@@ -1,6 +1,10 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "tconstruct:items/parts/large_sword_blade"
+        "layer0": "tconstruct:items/cleaver/head"
+    },
+    "offset": {
+        "x": -1,
+        "y": 1
     }
 }

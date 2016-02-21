@@ -24,7 +24,6 @@ import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IColoredBakedQuad;
 import net.minecraftforge.client.model.IModelState;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.client.model.TRSRTransformation;
 
@@ -39,9 +38,10 @@ import javax.vecmath.Vector3f;
 public class ModelHelper {
 
   static final Type maptype = new TypeToken<Map<String, String>>() {}.getType();
+  static final Type offsettype = new TypeToken<Offset>() {}.getType();
   private static final Gson
       GSON =
-      new GsonBuilder().registerTypeAdapter(maptype, ModelTextureDeserializer.INSTANCE).create();
+      new GsonBuilder().registerTypeAdapter(maptype, ModelTextureDeserializer.INSTANCE).registerTypeAdapter(offsettype, OffsetDeserializer.INSTANCE).create();
 
   public static final IModelState DEFAULT_ITEM_STATE;
   public static final IModelState DEFAULT_TOOL_STATE;
@@ -92,6 +92,17 @@ public class ModelHelper {
     Reader reader = new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8);
 
     return GSON.fromJson(reader, maptype);
+  }
+
+  public static Offset loadOffsetFromJson(ResourceLocation location) throws IOException {
+    // get the json
+    IResource
+        iresource =
+        Minecraft.getMinecraft().getResourceManager()
+                 .getResource(new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json"));
+    Reader reader = new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8);
+
+    return GSON.fromJson(reader, offsettype);
   }
 
   public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> loadTransformFromJson(ResourceLocation location) throws IOException {
@@ -180,5 +191,35 @@ public class ModelHelper {
 
       return GSON.fromJson(texElem, maptype);
     }
+  }
+
+  /**
+   * Deseralizes a json in the format of { "offset": { "x": 1, "y": 2 }}
+   * Ignores all invalid json
+   */
+  public static class OffsetDeserializer implements JsonDeserializer<Offset> {
+
+    public static final OffsetDeserializer INSTANCE = new OffsetDeserializer();
+
+    private static final Gson GSON = new Gson();
+
+    @Override
+    public Offset deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+        throws JsonParseException {
+
+      JsonObject obj = json.getAsJsonObject();
+      JsonElement texElem = obj.get("offset");
+
+      if(texElem == null) {
+        return new Offset();
+      }
+
+      return GSON.fromJson(texElem, offsettype);
+    }
+  }
+
+  public static class Offset {
+    public int x;
+    public int y;
   }
 }

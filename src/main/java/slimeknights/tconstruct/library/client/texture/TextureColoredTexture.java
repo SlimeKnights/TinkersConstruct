@@ -14,6 +14,8 @@ public class TextureColoredTexture extends AbstractColoredTexture {
   protected int textureW;
   protected int textureH;
   protected float scale;
+  protected int offsetX = 0;
+  protected int offsetY = 0;
 
   public boolean stencil = false;
 
@@ -86,5 +88,10 @@ public class TextureColoredTexture extends AbstractColoredTexture {
       this.width = w;
       this.height = h;
     }
+  }
+
+  public void setOffset(int x, int y) {
+    offsetX = x;
+    offsetY = y;
   }
 }
