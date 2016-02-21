@@ -436,7 +436,7 @@ public final class TinkerMaterials {
                                     new ExtraMaterialStats(50));
     TinkerRegistry.addMaterialStats(bone,
                                     new HeadMaterialStats(200, 5.09f, 2.50f, IRON),
-                                    new HandleMaterialStats(1.10f, 60),
+                                    new HandleMaterialStats(1.10f, 50),
                                     new ExtraMaterialStats(65));
     TinkerRegistry.addMaterialStats(obsidian,
                                     new HeadMaterialStats(89, 7.07f, 4.20f, COBALT),
@@ -473,7 +473,7 @@ public final class TinkerMaterials {
                                     new HandleMaterialStats(1.30f, -100),
                                     new ExtraMaterialStats(200));
     TinkerRegistry.addMaterialStats(knightslime,
-                                    new HeadMaterialStats(800, 3.81f, 5.10f, OBSIDIAN),
+                                    new HeadMaterialStats(850, 5.8f, 5.10f, OBSIDIAN),
                                     new HandleMaterialStats(0.50f, 500),
                                     new ExtraMaterialStats(125));
 
