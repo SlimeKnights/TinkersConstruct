@@ -138,6 +138,7 @@ public class TinkerTools extends TinkerPulse {
   public static ToolPart binding;
   public static ToolPart toughBinding;
   public static ToolPart wideGuard;
+  public static ToolPart handGuard;
   public static ToolPart largePlate;
 
   // Modifiers
@@ -223,6 +224,7 @@ public class TinkerTools extends TinkerPulse {
     toughBinding = registerToolPart(new ToolPart(Material.VALUE_Ingot * 3), "tough_binding");
 
     wideGuard = registerToolPart(new ToolPart(Material.VALUE_Ingot), "wide_guard");
+    handGuard = registerToolPart(new ToolPart(Material.VALUE_Ingot), "hand_guard");
 
     largePlate = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "large_plate");
   }

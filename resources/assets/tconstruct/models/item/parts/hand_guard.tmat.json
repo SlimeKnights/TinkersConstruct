@@ -1,0 +1,10 @@
+{
+    "parent": "builtin/generated",
+    "textures": {
+        "layer0": "tconstruct:items/longsword/guard"
+    },
+    "offset": {
+        "x": 4,
+        "y": -4
+    }
+}
