@@ -372,7 +372,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
         HeadMaterialStats stats = material.getStats(HeadMaterialStats.TYPE);
         if(stats != null) {
           materialsMatched.add(material);
-          durability += ((float)stats.durability * 144f * getRepairModifierForPart(index)) / (float)match.amount;
+          durability += ((float)stats.durability * (float)match.amount * getRepairModifierForPart(index)) / 144f;
           RecipeMatch.removeMatch(repairItems, match);
         }
       }
@@ -385,8 +385,8 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   protected int calculateRepair(ItemStack tool, int amount)
   {
-    float increase = Math.max(amount, TagUtil.getOriginalToolStats(tool).durability/10);
-    increase = Math.max(50, increase);
+    float increase = Math.max(amount, TagUtil.getOriginalToolStats(tool).durability/64);
+    //increase = Math.max(50, increase);
 
     int modifiersUsed = TagUtil.getBaseModifiersUsed(tool.getTagCompound());
     float mods = 1.0f;
