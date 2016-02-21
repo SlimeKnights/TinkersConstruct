@@ -25,6 +25,9 @@ public class ModDiamond extends Modifier {
     if(data.harvestLevel < HarvestLevels.OBSIDIAN)
       data.harvestLevel++;
 
+    data.attack += 1f;
+    data.speed += 0.5f;
+
     TagUtil.setToolTag(rootCompound, data.get());
   }
 }
