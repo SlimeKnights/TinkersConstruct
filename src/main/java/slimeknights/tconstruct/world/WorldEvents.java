@@ -14,7 +14,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.BlockSoil;
+import slimeknights.tconstruct.world.entity.EntityBlueSlime;
 import slimeknights.tconstruct.world.worldgen.MagmaSlimeIslandGenerator;
+import slimeknights.tconstruct.world.worldgen.SlimeIslandGenerator;
 
 public class WorldEvents {
 
@@ -58,7 +60,12 @@ public class WorldEvents {
     // inside a magma slime island?
     if(MagmaSlimeIslandGenerator.INSTANCE.isSlimeIslandAt(event.world, event.pos.down(3))) {
       // spawn magma slime
-      event.list.add(new BiomeGenBase.SpawnListEntry(EntityMagmaCube.class, 100, 2, 20));
+      event.list.add(new BiomeGenBase.SpawnListEntry(EntityMagmaCube.class, 20, 1, 2));
+    }
+    // inside a slime island?
+    if(SlimeIslandGenerator.INSTANCE.isSlimeIslandAt(event.world, event.pos.down(3))) {
+      // spawn blue slime
+      event.list.add(new BiomeGenBase.SpawnListEntry(EntityBlueSlime.class, 100, 1, 2));
     }
   }
 }
