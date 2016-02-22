@@ -117,7 +117,12 @@ public class BlockSlimeSapling extends BlockSapling {
   public void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand) {
     if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(worldIn, rand, pos)) return;
 
-    IBlockState slimeGreen = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.GREEN);
+    BlockSlime.SlimeType slimeType = BlockSlime.SlimeType.GREEN;
+    if(state.getValue(FOLIAGE) == FoliageType.ORANGE) {
+      slimeType = BlockSlime.SlimeType.MAGMA;
+    }
+
+    IBlockState slimeGreen = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, slimeType);
     IBlockState leaves = TinkerWorld.slimeLeaves.getDefaultState().withProperty(BlockSlimeGrass.FOLIAGE, state.getValue(FOLIAGE));
     SlimeTreeGenerator gen = new SlimeTreeGenerator(5, 4, slimeGreen, leaves, null);
 

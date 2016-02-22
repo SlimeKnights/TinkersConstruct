@@ -7,12 +7,14 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
@@ -167,6 +169,11 @@ public class BlockSlimeGrass extends BlockGrass {
   @Override
   public Item getItemDropped(IBlockState state, Random rand, int fortune) {
     return Item.getItemFromBlock(getDirtState(state).getBlock());
+  }
+
+  @Override
+  public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
+    return this.createStackedBlock(world.getBlockState(pos));
   }
 
   /** Returns the blockstate for the dirt underneath the grass */

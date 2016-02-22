@@ -1,5 +1,9 @@
 package slimeknights.tconstruct.world.worldgen;
 
+import com.google.common.collect.Maps;
+
+import gnu.trove.map.hash.TIntObjectHashMap;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
@@ -7,9 +11,13 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.structure.MapGenStructureData;
+import net.minecraft.world.gen.structure.StructureBoundingBox;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 import java.awt.geom.Ellipse2D;
+import java.util.Map;
 import java.util.Random;
 
 import slimeknights.tconstruct.common.config.Config;
@@ -37,7 +45,13 @@ public class SlimeIslandGenerator implements IWorldGenerator {
   protected SlimeTreeGenerator treeGenBlue;
   protected SlimeTreeGenerator treeGenPurple;
 
+  protected IBlockState air;
+
+  protected TIntObjectHashMap<SlimeIslandData> islandData = new TIntObjectHashMap<SlimeIslandData>();
+
   public SlimeIslandGenerator() {
+    air = Blocks.air.getDefaultState();
+
     IBlockState slimeGreen = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.GREEN);
     IBlockState slimeBlue = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.BLUE);
     IBlockState slimePurple = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.PURPLE);
@@ -63,6 +77,33 @@ public class SlimeIslandGenerator implements IWorldGenerator {
 
     plantGenBlue = new SlimePlantGenerator(BlockSlimeGrass.FoliageType.BLUE, false);
     plantGenPurple = new SlimePlantGenerator(BlockSlimeGrass.FoliageType.PURPLE, false);
+  }
+
+  public boolean isSlimeIslandAt(World world, BlockPos pos) {
+    for(StructureBoundingBox data : getIslandData(world).islands) {
+      if(data.isVecInside(pos)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  protected String getDataName() {
+    return "SlimeIslands";
+  }
+
+  protected SlimeIslandData getIslandData(World world) {
+    int dimensionId = world.provider.getDimensionId();
+    if(!islandData.containsKey(dimensionId)) {
+      SlimeIslandData data = (SlimeIslandData)world.getPerWorldStorage().loadData(SlimeIslandData.class, getDataName());
+      if(data == null) {
+        data = new SlimeIslandData(getDataName());
+        world.getPerWorldStorage().setData(getDataName(), data);
+      }
+      islandData.put(dimensionId, data);
+    }
+
+    return islandData.get(dimensionId);
   }
 
   protected boolean shouldGenerateInDimension(int id) {
@@ -95,7 +136,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     }
 
     // We do. determine parameters of the slime island!
-    // defoult is a blue island
+    // default is a blue island
     BlockSlimeGrass.FoliageType grass = BlockSlimeGrass.FoliageType.BLUE;
     BlockSlimeDirt.DirtType dirt = BlockSlimeDirt.DirtType.BLUE;
     SlimeLakeGenerator lakeGen = lakeGenBlue;
@@ -124,18 +165,19 @@ public class SlimeIslandGenerator implements IWorldGenerator {
 
     int x = chunkX*16 + 7 + random.nextInt(6) - 3;
     int z = chunkZ*16 + 7 + random.nextInt(6) - 3;
+    int y = world.getHeight(new BlockPos(x,0,z)).getY() + 50 + random.nextInt(50) + 11;
 
-    generateIsland(random, world, x, z, dirtState, grassState, vine, lakeGen, treeGen, plantGen);
+    generateIsland(random, world, x, z, y, dirtState, grassState, vine, lakeGen, treeGen, plantGen);
   }
 
-  public void generateIsland(Random random, World world, int xPos, int zPos, IBlockState dirt, IBlockState grass, IBlockState vine, SlimeLakeGenerator lakeGenerator, SlimeTreeGenerator treeGenerator, SlimePlantGenerator plantGen) {
+  public void generateIsland(Random random, World world, int xPos, int zPos, int ySurfacePos, IBlockState dirt, IBlockState grass, IBlockState vine, SlimeLakeGenerator lakeGenerator, SlimeTreeGenerator treeGenerator, SlimePlantGenerator plantGen) {
     int xRange = 20 + random.nextInt(13);
     int zRange = 20 + random.nextInt(13);
     int yRange = 11 + random.nextInt(3);
     int height = yRange;
     //int top = height;
 
-    int yBottom = world.getHeight(new BlockPos(xPos,0,zPos)).getY() + 50 + random.nextInt(50);
+    int yBottom = ySurfacePos - yRange;
 
     BlockPos center = new BlockPos(xPos, yBottom + height, zPos);
     BlockPos start = new BlockPos(xPos - xRange/2, yBottom, zPos - zRange/2);
@@ -150,7 +192,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
       {
         for (int y = 0; y <= yRange; y++)
         {
-          if (ellipse.contains(x, z) && world.isAirBlock(start.add(x,y,z))) {
+          if (ellipse.contains(x, z)) {
             world.setBlockState(start.add(x,y,z), dirt, 2);
           }
         }
@@ -171,12 +213,14 @@ public class SlimeIslandGenerator implements IWorldGenerator {
           BlockPos pos2 = start.add(xRange - x,erode_height - y, zRange - z);
 
           for(BlockPos pos : new BlockPos[]{pos1, pos2}) {
-            if(world.getBlockState(pos.add(-1,+1, 0)) != dirt ||
-               world.getBlockState(pos.add(+1,+1, 0)) != dirt ||
-               world.getBlockState(pos.add( 0,+1,-1)) != dirt ||
-               world.getBlockState(pos.add(-1,+1,+1)) != dirt ||
-               random.nextInt(100) <= randomness) {
-              world.setBlockState(pos, Blocks.air.getDefaultState(), 2);
+            if(world.getBlockState(pos) == dirt) {
+              if(world.getBlockState(pos.add(-1, +1, 0)) != dirt ||
+                 world.getBlockState(pos.add(+1, +1, 0)) != dirt ||
+                 world.getBlockState(pos.add(0, +1, -1)) != dirt ||
+                 world.getBlockState(pos.add(-1, +1, +1)) != dirt ||
+                 random.nextInt(100) <= randomness) {
+                world.setBlockState(pos, air, 2);
+              }
             }
           }
         }
@@ -251,6 +295,10 @@ public class SlimeIslandGenerator implements IWorldGenerator {
         tryPlacingVine(random, world, pos, height, vine);
       }
     }
+
+    // save it
+    getIslandData(world).islands.add(new StructureBoundingBox(start.getX(), start.getY(), start.getZ(),
+                                                              start.getX()+xRange, start.getY()+yRange, start.getZ()+yRange));
   }
 
   // takse the position and goes up until it finds a block. if it doesn't find a block directly above it'll check if it has side blocks on the way up to attach to.

@@ -43,6 +43,7 @@ import slimeknights.tconstruct.world.block.BlockSlimeVine;
 import slimeknights.tconstruct.world.block.BlockTallSlimeGrass;
 import slimeknights.tconstruct.world.entity.EntityBlueSlime;
 import slimeknights.tconstruct.world.item.ItemBlockLeaves;
+import slimeknights.tconstruct.world.worldgen.MagmaSlimeIslandGenerator;
 import slimeknights.tconstruct.world.worldgen.SlimeIslandGenerator;
 
 @Pulse(id = TinkerWorld.PulseId, description = "Everything that's found in the world and worldgen")
@@ -168,7 +169,9 @@ public class TinkerWorld extends TinkerPulse {
   // POST-INITIALIZATION
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
-    GameRegistry.registerWorldGenerator(SlimeIslandGenerator.INSTANCE, 5);
+    GameRegistry.registerWorldGenerator(SlimeIslandGenerator.INSTANCE, 10);
+    GameRegistry.registerWorldGenerator(MagmaSlimeIslandGenerator.INSTANCE, 10);
+
     for(BiomeGenBase biome : BiomeGenBase.getBiomeGenArray()) {
       if(biome == null || biome == BiomeGenBase.hell || biome == BiomeGenBase.sky) {
         continue;
