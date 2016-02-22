@@ -1,0 +1,10 @@
+{
+    "parent": "builtin/generated",
+    "textures": {
+        "layer0": "tconstruct:items/scythe/head"
+    },
+    "offset": {
+        "x": -2,
+        "y": 5
+    }
+}
