@@ -52,6 +52,7 @@ import slimeknights.tconstruct.tools.traits.TraitDuritos;
 import slimeknights.tconstruct.tools.traits.TraitEcological;
 import slimeknights.tconstruct.tools.traits.TraitEnderference;
 import slimeknights.tconstruct.tools.traits.TraitEstablished;
+import slimeknights.tconstruct.tools.traits.TraitFlammable;
 import slimeknights.tconstruct.tools.traits.TraitHellish;
 import slimeknights.tconstruct.tools.traits.TraitHoly;
 import slimeknights.tconstruct.tools.traits.TraitInsatiable;
@@ -71,6 +72,7 @@ import slimeknights.tconstruct.tools.traits.TraitSplinters;
 import slimeknights.tconstruct.tools.traits.TraitSqueaky;
 import slimeknights.tconstruct.tools.traits.TraitStiff;
 import slimeknights.tconstruct.tools.traits.TraitStonebound;
+import slimeknights.tconstruct.tools.traits.TraitSuperheat;
 import slimeknights.tconstruct.tools.traits.TraitTasty;
 import slimeknights.tconstruct.tools.traits.TraitUnnatural;
 import slimeknights.tconstruct.tools.traits.TraitWritable;
@@ -112,6 +114,7 @@ public final class TinkerMaterials {
   public static final Material knightslime= mat("knightslime", 0xf18ff0);
   public static final Material slime      = mat("slime", 0x82c873);
   public static final Material blueslime  = mat("blueslime", 0x74c8c7);
+  public static final Material magmaslime = mat("magmaslime", 0xff960d);
 
   // Metals
   public static final Material iron       = mat("iron", 0xcacaca);
@@ -151,6 +154,7 @@ public final class TinkerMaterials {
   public static final AbstractTrait ecological = new TraitEcological();
   public static final AbstractTrait enderference = new TraitEnderference();
   public static final AbstractTrait established = new TraitEstablished();
+  public static final AbstractTrait flammable = new TraitFlammable();
   public static final AbstractTrait fractured = new TraitBonusDamage("fractured", 1.5f);
   public static final AbstractTrait hellish = new TraitHellish();
   public static final AbstractTrait holy = new TraitHoly();
@@ -171,6 +175,7 @@ public final class TinkerMaterials {
   public static final AbstractTrait splintering = new TraitSplintering();
   public static final AbstractTrait splinters = new TraitSplinters();
   public static final AbstractTrait squeaky = new TraitSqueaky();
+  public static final AbstractTrait superheat = new TraitSuperheat();
   public static final AbstractTrait stiff = new TraitStiff();
   public static final AbstractTrait stonebound = new TraitStonebound();
   public static final AbstractTrait tasty = new TraitTasty();
@@ -214,6 +219,15 @@ public final class TinkerMaterials {
     sponge.setRenderInfo(new MaterialRenderInfo.BlockTexture("minecraft:blocks/sponge"));
     slime.setRenderInfo(0x82c873);
     blueslime.setRenderInfo(0x74c8c7);
+    magmaslime.setRenderInfo(new MaterialRenderInfo.MultiColor(0xa8673b, 0xff8c49, 0xff9d3d));
+    //magmaslime.setRenderInfo(new MaterialRenderInfo.BlockTexture("minecraft:blocks/lava_flow"));
+    /*
+    magmaslime.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() { // not technically a metal
+      @Override
+      public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
+        return new MetalTextureTexture(Util.resource("items/materials/magmaslime_pattern"), baseTexture, location, 0xff8c0d, 0.00f, 0.05f, 0.0f);
+      }
+    });*/
 
 
     // Metals
@@ -244,8 +258,8 @@ public final class TinkerMaterials {
     });
 
     // mod integration
-    copper.setRenderInfo(new MaterialRenderInfo.Metal(0xed9f07, 0.15f, 0.25f, -0.05f));
-    bronze.setRenderInfo(new MaterialRenderInfo.Metal(0xe3bd68, 0.15f, 0.15f, -0.05f));
+    copper.setRenderInfo(new MaterialRenderInfo.Metal(0xefa055, 0.25f, 0.25f, -0.05f));
+    bronze.setRenderInfo(new MaterialRenderInfo.Metal(0xe3bd68, 0.25f, 0.15f, -0.05f));
     lead.setRenderInfo(new MaterialRenderInfo.Metal(0x4d4968, 0.0f, 0.15f, 0.2f));
     silver.setRenderInfo(new MaterialRenderInfo.Metal(0xd1ecf6, 1f, 0.5f, 0.1f));
     electrum.setRenderInfo(new MaterialRenderInfo.Metal(0xeddd51, 0.15f, 0.25f, -0.05f));
@@ -343,7 +357,7 @@ public final class TinkerMaterials {
     firewood.addTrait(autosmelt);
 
     slime.setCraftable(true);
-    safeAdd(slime, TinkerCommons.matSlimeCrystal, Material.VALUE_Ingot, true);
+    safeAdd(slime, TinkerCommons.matSlimeCrystalGreen, Material.VALUE_Ingot, true);
     slime.addTrait(slimeyGreen);
 
     blueslime.setCraftable(true);
@@ -354,6 +368,11 @@ public final class TinkerMaterials {
     safeAdd(knightslime, TinkerCommons.ingotKnightSlime, Material.VALUE_Ingot, true);
     knightslime.addTrait(crumbling, HEAD);
     knightslime.addTrait(unnatural);
+
+    magmaslime.setCraftable(true);
+    safeAdd(magmaslime, TinkerCommons.matSlimeCrystalMagma, Material.VALUE_Ingot, true);
+    magmaslime.addTrait(superheat, HEAD);
+    magmaslime.addTrait(flammable);
 
     // Metals
     iron.addItem("ingotIron", 1, Material.VALUE_Ingot);
@@ -476,6 +495,10 @@ public final class TinkerMaterials {
                                     new HeadMaterialStats(850, 5.8f, 5.10f, OBSIDIAN),
                                     new HandleMaterialStats(0.50f, 500),
                                     new ExtraMaterialStats(125));
+    TinkerRegistry.addMaterialStats(magmaslime,
+                                    new HeadMaterialStats(600, 2.1f, 7.00f, STONE),
+                                    new HandleMaterialStats(0.85f, -200),
+                                    new ExtraMaterialStats(150));
 
     // Nether
     TinkerRegistry.addMaterialStats(netherrack,

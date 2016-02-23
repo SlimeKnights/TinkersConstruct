@@ -21,6 +21,9 @@
             },
             "consecrated": {
                 "textures": { "all": "tconstruct:blocks/consecrated_soil" }
+            },
+            "slimy_mud_magma": {
+                "textures": { "all": "tconstruct:blocks/slimy_mud_magma" }
             }
         }
     }

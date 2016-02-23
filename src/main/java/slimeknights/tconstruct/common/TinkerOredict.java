@@ -8,7 +8,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
@@ -61,6 +60,7 @@ public class TinkerOredict {
     oredict(matSlimeBallBlue,   dict, dict + "Blue");
     oredict(matSlimeBallPurple, dict, dict + "Purple");
     oredict(matSlimeBallBlood,  dict, dict + "Blood");
+    oredict(matSlimeBallMagma,  dict, dict + "Magma");
 
     oredictNIB(nuggetCobalt,      ingotCobalt,      blockCobalt,      "Cobalt");
     oredictNIB(nuggetArdite,      ingotArdite,      blockArdite,      "Ardite");
@@ -75,8 +75,9 @@ public class TinkerOredict {
     // other materials
     oredict(searedBrick, "ingotBrickSeared");
     dict = "slimecrystal";
-    oredict(matSlimeCrystal,     dict, dict + "Green");
+    oredict(matSlimeCrystalGreen, dict, dict + "Green");
     oredict(matSlimeCrystalBlue, dict, dict + "Blue");
+    oredict(matSlimeCrystalMagma, dict, dict + "Magma");
 
     // Ores
     oredict(oreCobalt, "oreCobalt");

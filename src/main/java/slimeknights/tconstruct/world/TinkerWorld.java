@@ -131,8 +131,7 @@ public class TinkerWorld extends TinkerPulse {
     addSlimeRecipes(TinkerCommons.matSlimeBallBlood, BlockSlime.SlimeType.BLOOD);
 
     // magma slime
-    //stack.setItemDamage(slimeBlockCongealed.getMetaFromState(state.withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.MAGMA)));
-    //GameRegistry.addRecipe(stack, "##", "##", '#', ???);
+    addSlimeRecipes(TinkerCommons.matSlimeBallMagma, BlockSlime.SlimeType.MAGMA);
 
     // Recipes to get slimy grass. Because why not
     IBlockState vanillaDirtState = Blocks.dirt.getDefaultState();

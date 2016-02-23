@@ -6,7 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -52,6 +51,7 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack grout;
   public static ItemStack slimyMudGreen;
   public static ItemStack slimyMudBlue;
+  public static ItemStack slimyMudMagma;
   public static ItemStack graveyardSoil;
   public static ItemStack consecratedSoil;
 
@@ -92,9 +92,11 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack matSlimeBallBlue;
   public static ItemStack matSlimeBallPurple;
   public static ItemStack matSlimeBallBlood;
+  public static ItemStack matSlimeBallMagma;
 
-  public static ItemStack matSlimeCrystal;
+  public static ItemStack matSlimeCrystalGreen;
   public static ItemStack matSlimeCrystalBlue;
+  public static ItemStack matSlimeCrystalMagma;
 
   public static ItemStack matExpanderW;
   public static ItemStack matExpanderH;
@@ -114,6 +116,7 @@ public class TinkerCommons extends TinkerPulse {
     grout = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.GROUT.getMeta());
     slimyMudGreen = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.SLIMY_MUD_GREEN.getMeta());
     slimyMudBlue = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.SLIMY_MUD_BLUE.getMeta());
+    slimyMudMagma = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.SLIMY_MUD_MAGMA.getMeta());
     graveyardSoil = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.GRAVEYARD.getMeta());
     consecratedSoil = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.CONSECRATED.getMeta());
 
@@ -144,6 +147,7 @@ public class TinkerCommons extends TinkerPulse {
     matSlimeBallBlue = edibles.addFood(1, 1, 1f, "slimeball_blue");
     matSlimeBallPurple = edibles.addFood(2, 1, 2f, "slimeball_purple");
     matSlimeBallBlood = edibles.addFood(3, 1, 1.5f, "slimeball_blood");
+    matSlimeBallMagma = edibles.addFood(4, 2, 1f, "slimeball_magma");
 
     // All other items are either ingots or items for modifiers
 
@@ -178,8 +182,9 @@ public class TinkerCommons extends TinkerPulse {
     if(isToolsLoaded() || forced) {
       bacon = edibles.addFood(0, 4, 0.6f, "bacon");
 
-      matSlimeCrystal = materials.addMeta(9, "slimecrystal_green");
+      matSlimeCrystalGreen = materials.addMeta(9, "slimecrystal_green");
       matSlimeCrystalBlue = materials.addMeta(10, "slimecrystal_blue");
+      matSlimeCrystalMagma = materials.addMeta(11, "slimecrystal_magma");
       matExpanderW = materials.addMeta(12, "expander_w");
       matExpanderH = materials.addMeta(13, "expander_h");
       matReinforcement = materials.addMeta(14, "reinforcement");

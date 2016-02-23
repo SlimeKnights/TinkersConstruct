@@ -128,7 +128,7 @@ public class TinkerFluids extends TinkerPulse {
     lead = fluidMetal(TinkerMaterials.lead);
     lead.setTemperature(400);
 
-    nickel = fluidMetal("nickel", 0xc8c683);
+    nickel = fluidMetal("nickel", 0xc8d683);
     nickel.setTemperature(727);
 
     silver = fluidMetal(TinkerMaterials.silver);

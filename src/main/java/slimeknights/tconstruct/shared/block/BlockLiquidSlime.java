@@ -14,9 +14,10 @@ import net.minecraftforge.fluids.Fluid;
 
 import java.util.Random;
 
+import slimeknights.tconstruct.smeltery.block.BlockTinkerFluid;
 import slimeknights.tconstruct.world.TinkerWorld;
 
-public class BlockLiquidSlime extends BlockFluidClassic {
+public class BlockLiquidSlime extends BlockTinkerFluid {
 
   public BlockLiquidSlime(Fluid fluid, Material material) {
     super(fluid, material);

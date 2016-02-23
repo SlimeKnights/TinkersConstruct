@@ -390,11 +390,13 @@ public class TinkerTools extends TinkerPulse {
     // Materials
     ItemStack slimeBallBlue = TinkerCommons.matSlimeBallBlue;
     ItemStack slimeBallPurple = TinkerCommons.matSlimeBallPurple;
+    ItemStack slimeBallMagma = TinkerCommons.matSlimeBallMagma;
     ItemStack knightSlime = TinkerCommons.ingotKnightSlime;
     // blue slimeball has a recipe if world isn't present
     if(!isWorldLoaded()) {
       GameRegistry.addRecipe(new ShapelessOreRecipe(slimeBallBlue, Items.slime_ball, "dyeBlue"));
       GameRegistry.addRecipe(new ShapelessOreRecipe(slimeBallPurple, Items.slime_ball, "dyePurple"));
+      GameRegistry.addRecipe(new ShapelessOreRecipe(slimeBallMagma, Items.slime_ball, "dyeOrange"));
     }
     if(!isSmelteryLoaded()) {
       GameRegistry.addRecipe(new ShapelessOreRecipe(knightSlime, slimeBallPurple, "ingotIron", "stone"));
@@ -448,6 +450,7 @@ public class TinkerTools extends TinkerPulse {
     // Slimy Mud
     GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudGreen, Items.slime_ball, Items.slime_ball, Items.slime_ball, Items.slime_ball, "sand", "dirt"));
     GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudBlue, slimeBallBlue, slimeBallBlue, slimeBallBlue, slimeBallBlue, "sand", "dirt"));
+    GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudMagma, slimeBallMagma, Items.magma_cream, slimeBallMagma, Items.magma_cream, Blocks.soul_sand, Blocks.netherrack));
     if(isWorldLoaded()) {
       // recipies using congealed slime blocks
       ItemStack congealed = new ItemStack(TinkerWorld.slimeBlockCongealed, 0, BlockSlime.SlimeType.GREEN.meta);
@@ -457,8 +460,9 @@ public class TinkerTools extends TinkerPulse {
     }
 
     // Slime crystals
-    FurnaceRecipes.instance().addSmeltingRecipe(TinkerCommons.slimyMudGreen, TinkerCommons.matSlimeCrystal, 0);
+    FurnaceRecipes.instance().addSmeltingRecipe(TinkerCommons.slimyMudGreen, TinkerCommons.matSlimeCrystalGreen, 0);
     FurnaceRecipes.instance().addSmeltingRecipe(TinkerCommons.slimyMudBlue, TinkerCommons.matSlimeCrystalBlue, 0);
+    FurnaceRecipes.instance().addSmeltingRecipe(TinkerCommons.slimyMudMagma, TinkerCommons.matSlimeCrystalMagma, 0);
 
     // lavawood if needed
     if(!isSmelteryLoaded()) {
