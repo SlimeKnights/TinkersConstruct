@@ -297,8 +297,10 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     }
 
     // save it
-    getIslandData(world).islands.add(new StructureBoundingBox(start.getX(), start.getY(), start.getZ(),
+    SlimeIslandData data = getIslandData(world);
+    data.islands.add(new StructureBoundingBox(start.getX(), start.getY(), start.getZ(),
                                                               start.getX()+xRange, start.getY()+yRange, start.getZ()+yRange));
+    data.markDirty();
   }
 
   // takse the position and goes up until it finds a block. if it doesn't find a block directly above it'll check if it has side blocks on the way up to attach to.

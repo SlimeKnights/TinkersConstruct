@@ -3,6 +3,7 @@ package slimeknights.tconstruct.world;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityMagmaCube;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -55,17 +56,24 @@ public class WorldEvents {
   }
 
   // Custom slime spawning on slime islands
+  BiomeGenBase.SpawnListEntry magmaSlimeSpawn = new BiomeGenBase.SpawnListEntry(EntityMagmaCube.class, 250, 4, 6);
+  BiomeGenBase.SpawnListEntry blueSlimeSpawn = new BiomeGenBase.SpawnListEntry(EntityBlueSlime.class, 20, 2, 4);
+
   @SubscribeEvent
   public void extraSlimeSpawn(WorldEvent.PotentialSpawns event) {
-    // inside a magma slime island?
-    if(MagmaSlimeIslandGenerator.INSTANCE.isSlimeIslandAt(event.world, event.pos.down(3))) {
-      // spawn magma slime
-      event.list.add(new BiomeGenBase.SpawnListEntry(EntityMagmaCube.class, 20, 1, 2));
-    }
-    // inside a slime island?
-    if(SlimeIslandGenerator.INSTANCE.isSlimeIslandAt(event.world, event.pos.down(3))) {
-      // spawn blue slime
-      event.list.add(new BiomeGenBase.SpawnListEntry(EntityBlueSlime.class, 100, 1, 2));
+    if(event.type == EnumCreatureType.MONSTER || event.type == EnumCreatureType.WATER_CREATURE) {
+      // inside a magma slime island?
+      if(MagmaSlimeIslandGenerator.INSTANCE.isSlimeIslandAt(event.world, event.pos.down(3))) {
+        // spawn magma slime, pig zombies have weight 100
+        event.list.clear();
+        event.list.add(magmaSlimeSpawn);
+      }
+      // inside a slime island?
+      if(SlimeIslandGenerator.INSTANCE.isSlimeIslandAt(event.world, event.pos.down(3))) {
+        // spawn blue slime, most regular mobs have weight 10
+        event.list.clear();
+        event.list.add(blueSlimeSpawn);
+      }
     }
   }
 }
