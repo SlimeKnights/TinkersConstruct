@@ -98,13 +98,13 @@ public class BlockSlimeLeaves extends BlockLeaves {
   // sapling meta
   @Override
   public int damageDropped(IBlockState state) {
-    return ((FoliageType)state.getValue(BlockSlimeGrass.FOLIAGE)).ordinal() & 3; // only first 2 bits
+    return (state.getValue(BlockSlimeGrass.FOLIAGE)).ordinal() & 3; // only first 2 bits
   }
 
   // item dropped on silktouching
   protected ItemStack createStackedBlock(IBlockState state)
   {
-    return new ItemStack(Item.getItemFromBlock(this), 1, ((FoliageType)state.getValue(BlockSlimeGrass.FOLIAGE)).ordinal() & 3);
+    return new ItemStack(Item.getItemFromBlock(this), 1, (state.getValue(BlockSlimeGrass.FOLIAGE)).ordinal() & 3);
   }
 
   @Override
@@ -134,14 +134,14 @@ public class BlockSlimeLeaves extends BlockLeaves {
   public int getMetaFromState(IBlockState state)
   {
 
-    int meta = ((FoliageType)state.getValue(BlockSlimeGrass.FOLIAGE)).ordinal() & 3; // only first 2 bits
+    int meta = (state.getValue(BlockSlimeGrass.FOLIAGE)).ordinal() & 3; // only first 2 bits
 
-    if (!(Boolean) state.getValue(DECAYABLE))
+    if (!state.getValue(DECAYABLE))
     {
       meta |= 4;
     }
 
-    if ((Boolean) state.getValue(CHECK_DECAY))
+    if (state.getValue(CHECK_DECAY))
     {
       meta |= 8;
     }
@@ -160,7 +160,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
   @SideOnly(Side.CLIENT)
   @Override
   public int getRenderColor(IBlockState state) {
-    FoliageType foliageType = (FoliageType) state.getValue(BlockSlimeGrass.FOLIAGE);
+    FoliageType foliageType = state.getValue(BlockSlimeGrass.FOLIAGE);
     return SlimeColorizer.getColorStatic(foliageType);
   }
 
@@ -171,8 +171,8 @@ public class BlockSlimeLeaves extends BlockLeaves {
     IBlockState state = worldIn.getBlockState(pos);
     if(state.getBlock() != this) return getBlockColor();
 
-    FoliageType foliageType = (FoliageType) state.getValue(BlockSlimeGrass.FOLIAGE);
-    return SlimeColorizer.getColorForPos(pos, foliageType);
+    FoliageType foliageType = state.getValue(BlockSlimeGrass.FOLIAGE);
+    return SlimeColorizer.getColorForPos(pos.add(SlimeColorizer.loop/2, 0, SlimeColorizer.loop/2), foliageType);
   }
 
   @Override

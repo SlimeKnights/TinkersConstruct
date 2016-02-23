@@ -139,6 +139,6 @@ public class BlockSlimeVine extends BlockVine {
     IBlockState state = worldIn.getBlockState(pos);
     if(state.getBlock() != this) return getBlockColor();
 
-    return SlimeColorizer.getColorForPos(pos, foliage);
+    return SlimeColorizer.getColorForPos(pos.add(SlimeColorizer.loop/2, 0, SlimeColorizer.loop/2), foliage);
   }
 }

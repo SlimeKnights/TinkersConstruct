@@ -56,8 +56,8 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
 
   @Override
   public int getMetaFromState(IBlockState state) {
-    int meta = ((SlimePlantType)state.getValue(TYPE)).getMeta();
-    meta |= ((FoliageType)state.getValue(FOLIAGE)).ordinal() << 2;
+    int meta = (state.getValue(TYPE)).getMeta();
+    meta |= (state.getValue(FOLIAGE)).ordinal() << 2;
 
     return meta;
   }
@@ -123,7 +123,7 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
   @SideOnly(Side.CLIENT)
   @Override
   public int getRenderColor(IBlockState state) {
-    FoliageType foliageType = (FoliageType) state.getValue(FOLIAGE);
+    FoliageType foliageType = state.getValue(FOLIAGE);
     return SlimeColorizer.getColorStatic(foliageType);
   }
 
@@ -134,7 +134,7 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
     IBlockState state = worldIn.getBlockState(pos);
     if(state.getBlock() != this) return getBlockColor();
 
-    FoliageType foliageType = (FoliageType) state.getValue(FOLIAGE);
+    FoliageType foliageType = state.getValue(FOLIAGE);
     return SlimeColorizer.getColorForPos(pos, foliageType);
   }
 
