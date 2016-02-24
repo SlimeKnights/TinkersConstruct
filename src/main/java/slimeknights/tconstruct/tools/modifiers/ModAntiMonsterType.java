@@ -20,16 +20,19 @@ public class ModAntiMonsterType extends ModifierTrait {
 
   protected final EnumCreatureAttribute type;
 
+  private final float dmgPerItem;
+
   public ModAntiMonsterType(String identifier, int color, int maxLevel, int countPerLevel, EnumCreatureAttribute type) {
     super(identifier, color, maxLevel, countPerLevel);
     this.type = type;
+
+    dmgPerItem = 7f / (float)countPerLevel;
   }
 
   protected float calcIncreasedDamage(NBTTagCompound modifierTag, float baseDamage) {
     ModifierNBT.IntegerNBT data = ModifierNBT.readInteger(modifierTag);
 
-    float level = (float)data.current / (float)data.max;
-    return baseDamage + level * 7f;
+    return baseDamage + (float)data.current * dmgPerItem;
   }
 
   @Override
