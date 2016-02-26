@@ -94,9 +94,12 @@ public class SlimeLakeGenerator implements IWorldGenerator {
       for (int zz = 0; zz < 16; zz++) {
         for (int yy = 0; yy < 8; yy++) {
           if (grid[(xx * 16 + zz) * 8 + yy]) {
-            world.setBlockState(pos.add(xx, yy, zz),
-                                yy >= 4 ? Blocks.air.getDefaultState()
-                                        : liquid, 2);
+            // only if below is not air.. we don't want holes
+            if(!world.isAirBlock(pos.add(xx,yy,zz).down())) {
+              world.setBlockState(pos.add(xx, yy, zz),
+                                  yy >= 4 ? Blocks.air.getDefaultState()
+                                          : liquid, 2);
+            }
           }
         }
       }

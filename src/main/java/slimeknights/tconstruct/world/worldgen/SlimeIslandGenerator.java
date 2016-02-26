@@ -263,7 +263,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
         {
           BlockPos pos = top.down(y);
           if(world.getBlockState(pos) == dirt && world.isAirBlock(pos.up())) {
-            world.setBlockState(pos, grass);
+            world.setBlockState(pos, grass, 2);
             break;
           }
         }
@@ -324,7 +324,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
 
     if(candidate != null) {
       // place the vine
-      world.setBlockState(candidate, vine.getBlock().onBlockPlaced(world, candidate, EnumFacing.UP, 0, 0, 0, 0, null));
+      world.setBlockState(candidate, vine.getBlock().onBlockPlaced(world, candidate, EnumFacing.UP, 0, 0, 0, 0, null), 2);
 
       // and let it grow, let it grow, let it groooooow!
       pos = candidate;
