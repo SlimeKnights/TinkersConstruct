@@ -94,4 +94,8 @@ public class TextureColoredTexture extends AbstractColoredTexture {
     offsetX = x;
     offsetY = y;
   }
+
+  protected int coord2(int x, int y) {
+    return y * textureW + x;
+  }
 }

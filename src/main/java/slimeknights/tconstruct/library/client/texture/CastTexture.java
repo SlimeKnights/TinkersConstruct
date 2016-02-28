@@ -20,18 +20,25 @@ public class CastTexture extends TextureColoredTexture {
       loadData();
     }
 
+    if(width > textureW) {
+      // scale coordinates to match the other texture
+      int texX = (int)((float)getX(pxCoord)*scale);
+      int texY = (int)((float)getY(pxCoord)*scale);
+      pxCoord = texY * textureW + texX;
+    }
+
     // we only want the inner 3/4 of the texture
-    int x2 = getX(pxCoord);
-    int y2 = getY(pxCoord);
+    int x2 = pxCoord % textureW;
+    int y2 = pxCoord / textureH;
     int x = x2 - offsetX;
     int y = y2 - offsetY;
 
-    if(x >= width || x < 0 || y >= height || y < 0) {
+    if(x >= textureW || x < 0 || y >= textureH || y < 0) {
       // offset moved it out of the picture, equals transparent
       return pixel;
     }
 
-    int c = textureData[mipmap][coord(x, y)];
+    int c = textureData[mipmap][coord2(x, y)];
 
     int a = RenderUtil.alpha(c);
 
@@ -42,7 +49,7 @@ public class CastTexture extends TextureColoredTexture {
       return pixel;
     }*/
 
-    if(a > 64 && !(x2 == 0 || x2 == width - 1 || y2 == 0 || y2 == height - 1)) {
+    if(a > 64 && !(x2 == 0 || x2 == textureW - 1 || y2 == 0 || y2 == textureH - 1)) {
       return 0;
     }
 
@@ -53,7 +60,7 @@ public class CastTexture extends TextureColoredTexture {
     boolean edge = false;
     a = 0;
     if(x > 0) {
-      a = RenderUtil.alpha(textureData[mipmap][coord(x - 1, y)]);
+      a = RenderUtil.alpha(textureData[mipmap][coord2(x - 1, y)]);
     }
       if(a < 64) {
         //mult = 1.2f;
@@ -62,8 +69,8 @@ public class CastTexture extends TextureColoredTexture {
       }
 
     a = 0;
-    if(y < height-1) {
-      a = RenderUtil.alpha(textureData[mipmap][coord(x, y + 1)]);
+    if(y < textureH-1) {
+      a = RenderUtil.alpha(textureData[mipmap][coord2(x, y + 1)]);
     }
     if(a < 64) {
       //mult = 1.2f;
@@ -71,8 +78,8 @@ public class CastTexture extends TextureColoredTexture {
       edge = true;
     }
     a = 0;
-    if(x < width-1) {
-      a = RenderUtil.alpha(textureData[mipmap][coord(x + 1, y)]);
+    if(x < textureW-1) {
+      a = RenderUtil.alpha(textureData[mipmap][coord2(x + 1, y)]);
     }
       if(a < 64) {
         //mult = 0.8f;
@@ -81,7 +88,7 @@ public class CastTexture extends TextureColoredTexture {
       }
     a = 0;
     if(y > 0) {
-      a = RenderUtil.alpha(textureData[mipmap][coord(x, y - 1)]);
+      a = RenderUtil.alpha(textureData[mipmap][coord2(x, y - 1)]);
     }
       if(a < 64) {
         //mult = 0.8f;
