@@ -506,7 +506,7 @@ public final class TinkerMaterials {
                                     new HandleMaterialStats(0.85f, -150),
                                     new ExtraMaterialStats(75));
     TinkerRegistry.addMaterialStats(cobalt,
-                                    new HeadMaterialStats(780, 10.00f, 4.10f, COBALT),
+                                    new HeadMaterialStats(780, 12.00f, 4.10f, COBALT),
                                     new HandleMaterialStats(0.90f, 100),
                                     new ExtraMaterialStats(300));
     TinkerRegistry.addMaterialStats(ardite,

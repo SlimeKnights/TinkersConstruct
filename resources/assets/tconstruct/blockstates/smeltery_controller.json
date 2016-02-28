@@ -12,16 +12,16 @@
     },
 	"variants": {
         "active": {
-            true: {
+            "true": {
                 "textures": { "front": "tconstruct:blocks/smeltery/smeltery_active" }
             },
-            false: {
+            "false": {
                 "textures": { "front": "tconstruct:blocks/smeltery/smeltery_inactive" }
             }
         },
         "facing": {
             "north": {
-                # nothing to rotate
+                "__comment": "nothing to rotate"
             },
             "east": {
                 "y": 90

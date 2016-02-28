@@ -40,7 +40,7 @@ public class Hammer extends Pickaxe {
 
   @Override
   public float miningSpeedModifier() {
-    return 0.33f;
+    return 0.4f;
   }
 
   @Override
