@@ -33,6 +33,7 @@ public class Config {
   public static boolean reuseStencil = true;
   public static boolean craftCastableMaterials = false;
   public static boolean chestsKeepInventory = true;
+  public static boolean autosmeltlapis = true;
 
   // Worldgen
   public static boolean genSlimeIslands = true;
@@ -112,6 +113,11 @@ public class Config {
       chestsKeepInventory = prop.getBoolean();
       propOrder.add(prop.getName());
 
+      prop = configFile.get(cat, "AutosmeltFortuneInteraction", autosmeltlapis);
+      prop.comment = "Fortune increases drops after harvesting a block with autosmelt";
+      autosmeltlapis = prop.getBoolean();
+      propOrder.add(prop.getName());
+
       prop = configFile.get(cat, "craftCastableMaterials", craftCastableMaterials);
       prop.comment = "Allows to craft all tool parts of all materials in the part builder, including materials that normally have to be cast with a smeltery.";
       craftCastableMaterials = prop.getBoolean();
@@ -142,6 +148,11 @@ public class Config {
       prop = configFile.get(cat, "slimeIslandRate", slimeIslandsRate);
       prop.comment = "One in every X chunks will contain a slime island";
       slimeIslandsRate = prop.getInt();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "magmaIslandRate", magmaIslandsRate);
+      prop.comment = "One in every X chunks will contain a magma island in the nether";
+      magmaIslandsRate = prop.getInt();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "slimeIslandBlacklist", slimeIslandBlacklist);
