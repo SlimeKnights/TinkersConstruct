@@ -22,6 +22,7 @@ tile.tconstruct.soil.graveyard.name=Graveyard Soil
 tile.tconstruct.soil.graveyard.tooltip=Heals undead
 tile.tconstruct.soil.consecrated.name=Consecrated Soil
 tile.tconstruct.soil.consecrated.tooltip=Hurts undead
+tile.tconstruct.soil.mudbrick.name=Mud Bricks
 
 tile.tconstruct.ore.cobalt.name=Cobalt Ore
 tile.tconstruct.ore.ardite.name=Ardite Ore
@@ -118,6 +119,7 @@ item.tconstruct.edible.slimeball_blood.name=Coagulated Blood
 item.tconstruct.edible.slimeball_magma.name=Slime Ball
 
 item.tconstruct.materials.seared_brick.name=Seared Brick
+item.tconstruct.materials.mud_brick.name=Mud Brick
 item.tconstruct.materials.slimecrystal_green.name=Green Slime Crystal
 item.tconstruct.materials.slimecrystal_green.tooltip=Used to craft Slime Tools
 item.tconstruct.materials.slimecrystal_blue.name=Blue Slime Crystal
@@ -153,6 +155,7 @@ item.tconstruct.pattern.blank=Blank Pattern
 item.tconstruct.pattern.name=%s Pattern
 item.tconstruct.cast.blank=Blank Cast
 item.tconstruct.cast.name=%s Cast
+item.tconstruct.clay_cast.name=%s Clay Cast
 item.tconstruct.cast_custom.ingot.name=Ingot Cast
 item.tconstruct.cast_custom.nugget.name=Nugget Cast
 item.tconstruct.cast_custom.gem.name=Gem Cast

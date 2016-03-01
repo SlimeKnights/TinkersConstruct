@@ -157,7 +157,7 @@ public class TinkerFluids extends TinkerPulse {
       registerMoltenBlock(searedStone);
       FluidRegistry.addBucketForFluid(searedStone);
 
-      obsidian = fluidStone(TinkerMaterials.obsidian.getIdentifier(), 0x411385);
+      obsidian = fluidStone(TinkerMaterials.obsidian.getIdentifier(), 0x2c0d59);
       obsidian.setTemperature(1000);
       registerFluid(obsidian);
       registerMoltenBlock(obsidian);

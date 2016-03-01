@@ -13,6 +13,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.smeltery.ICast;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 public class Cast extends Pattern implements ICast {
 
@@ -22,7 +23,9 @@ public class Cast extends Pattern implements ICast {
 
   @Override
   public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-    subItems.add(new ItemStack(this));
+    if(this == TinkerSmeltery.cast) {
+      subItems.add(new ItemStack(this));
+    }
 
     for(Item toolpart : TinkerRegistry.getCastItems()) {
       ItemStack stack = new ItemStack(this);
