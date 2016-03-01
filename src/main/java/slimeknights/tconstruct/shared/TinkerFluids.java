@@ -45,6 +45,8 @@ public class TinkerFluids extends TinkerPulse {
   // The fluids. Note that just because they exist doesn't mean that they're registered!
   public static FluidMolten searedStone;
   public static FluidMolten obsidian;
+  public static FluidMolten clay;
+  public static FluidMolten dirt;
   public static FluidMolten iron;
   public static FluidMolten gold;
   public static FluidMolten pigIron;
@@ -149,17 +151,29 @@ public class TinkerFluids extends TinkerPulse {
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
     if(isSmelteryLoaded()) {
-      searedStone = fluidStone("stone", -1);
-      registerFluid(searedStone);
+      searedStone = fluidStone("stone", 0x777777);
       searedStone.setTemperature(800);
+      registerFluid(searedStone);
       registerMoltenBlock(searedStone);
       FluidRegistry.addBucketForFluid(searedStone);
 
-      obsidian = fluidStone(TinkerMaterials.obsidian.getIdentifier(), 0x7d24ff);
+      obsidian = fluidStone(TinkerMaterials.obsidian.getIdentifier(), 0x411385);
       obsidian.setTemperature(1000);
       registerFluid(obsidian);
       registerMoltenBlock(obsidian);
       FluidRegistry.addBucketForFluid(obsidian);
+
+      clay = fluidStone("clay", 0xc67453);
+      clay.setTemperature(700);
+      registerFluid(clay);
+      registerMoltenBlock(clay);
+      FluidRegistry.addBucketForFluid(clay);
+
+      dirt = fluidStone("dirt", 0xa68564);
+      dirt.setTemperature(500);
+      registerFluid(dirt);
+      registerMoltenBlock(dirt);
+      FluidRegistry.addBucketForFluid(dirt);
 
       emerald = fluidMetal("emerald", 0x58e78e);
       emerald.setTemperature(999);
@@ -236,7 +250,7 @@ public class TinkerFluids extends TinkerPulse {
     return fluid;
   }
 
-  private static FluidMolten fluidLiquid(String name, int color, boolean withBlock) {
+  private static FluidMolten fluidLiquid(String name, int color) {
     FluidMolten fluid = new FluidMolten(name, color, FluidMolten.ICON_LiquidStill, FluidMolten.ICON_LiquidFlowing);
     registerFluid(fluid);
     return fluid;

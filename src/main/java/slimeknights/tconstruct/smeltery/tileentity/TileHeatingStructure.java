@@ -111,6 +111,9 @@ public abstract class TileHeatingStructure extends TileInventory {
   }
 
   public int getTemperature(int i) {
+    if(i < 0 || i >= itemTemperatures.length) {
+      return 0;
+    }
     return itemTemperatures[i];
   }
 

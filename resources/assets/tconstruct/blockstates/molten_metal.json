@@ -1,105 +1,89 @@
 {
     "forge_marker": 1,
-	"variants": {
-        "stone": {
-            "model": "forge:fluid",
+    "defaults": {
+        "model": "forge:fluid"
+    },
+    "variants": {
+        "stone": [{
             "custom": { "fluid": "stone" }
-        },
-        "obsidian": {
-            "model": "forge:fluid",
+        }],
+        "obsidian": [{
             "custom": { "fluid": "obsidian" }
-        },
-        "iron": {
-            "model": "forge:fluid",
+        }],
+        "iron": [{
             "custom": { "fluid": "iron" }
-        },
-        "gold": {
-            "model": "forge:fluid",
+        }],
+        "gold": [{
             "custom": { "fluid": "gold" }
-        },
-        "pigiron": {
-            "model": "forge:fluid",
+        }],
+        "pigiron": [{
             "custom": { "fluid": "pigiron" }
-        },
-        "cobalt": {
-            "model": "forge:fluid",
+        }],
+        "cobalt": [{
             "custom": { "fluid": "cobalt" }
-        },
-        "ardite": {
-            "model": "forge:fluid",
+        }],
+        "ardite": [{
             "custom": { "fluid": "ardite" }
-        },
-        "manyullyn": {
-            "model": "forge:fluid",
+        }],
+        "manyullyn": [{
             "custom": { "fluid": "manyullyn" }
-        },
-        "knightslime": {
-            "model": "forge:fluid",
+        }],
+        "knightslime": [{
             "custom": { "fluid": "knightslime" }
-        },
-        "emerald": {
-            "model": "forge:fluid",
+        }],
+        "emerald": [{
             "custom": { "fluid": "emerald" }
-        },
-        "blood": {
-            "model": "forge:fluid",
+        }],
+        "blood": [{
             "custom": { "fluid": "blood" }
-        },
-        "milk": {
-            "model": "forge:fluid",
+        }],
+        "milk": [{
             "custom": { "fluid": "milk" }
-        },
-        "blueslime": {
-            "model": "forge:fluid",
+        }],
+        "blueslime": [{
             "custom": { "fluid": "blueslime" }
-        },
-        "purpleslime": {
-            "model": "forge:fluid",
+        }],
+        "purpleslime": [{
             "custom": { "fluid": "purpleslime" }
-        },
-        "brass": {
-            "model": "forge:fluid",
+        }],
+        "brass": [{
             "custom": { "fluid": "brass" }
-        },
-        "copper": {
-            "model": "forge:fluid",
+        }],
+        "copper": [{
             "custom": { "fluid": "copper" }
-        },
-        "tin": {
-            "model": "forge:fluid",
+        }],
+        "tin": [{
             "custom": { "fluid": "tin" }
-        },
-        "bronze": {
-            "model": "forge:fluid",
+        }],
+        "bronze": [{
             "custom": { "fluid": "bronze" }
-        },
-        "zinc": {
-            "model": "forge:fluid",
+        }],
+        "zinc": [{
             "custom": { "fluid": "zinc" }
-        },
-        "lead": {
-            "model": "forge:fluid",
+        }],
+        "lead": [{
             "custom": { "fluid": "lead" }
-        },
-        "nickel": {
-            "model": "forge:fluid",
+        }],
+        "nickel": [{
             "custom": { "fluid": "nickel" }
-        },
-        "silver": {
-            "model": "forge:fluid",
+        }],
+        "silver": [{
             "custom": { "fluid": "silver" }
-        },
-        "electrum": {
-            "model": "forge:fluid",
+        }],
+        "electrum": [{
             "custom": { "fluid": "electrum" }
-        },
-        "steel": {
-            "model": "forge:fluid",
+        }],
+        "steel": [{
             "custom": { "fluid": "steel" }
-        },
-        "aluminium": {
-            "model": "forge:fluid",
+        }],
+        "aluminium": [{
             "custom": { "fluid": "aluminium" }
-        }
+        }],
+        "dirt": [{
+            "custom": { "fluid": "dirt" }
+        }],
+        "clay": [{
+            "custom": { "fluid": "clay" }
+        }]
     }
 }

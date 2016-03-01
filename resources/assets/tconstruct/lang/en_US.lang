@@ -224,6 +224,8 @@ entity.tconstruct.blueslime.name=Blue Slime
 
 fluid.tconstruct.stone.name=Seared Stone
 fluid.tconstruct.obsidian.name=Molten Obsidian
+fluid.tconstruct.clay.name=Molten Clay
+fluid.tconstruct.dirt.name=Liquid Dirt
 fluid.tconstruct.iron.name=Molten Iron
 fluid.tconstruct.gold.name=Molten Gold
 fluid.tconstruct.pigiron.name=Molten Pigiron

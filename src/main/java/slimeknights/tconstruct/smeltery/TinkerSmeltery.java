@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -162,6 +163,9 @@ public class TinkerSmeltery extends TinkerPulse {
     if(FluidRegistry.isFluidRegistered(TinkerFluids.brass)) {
       castCreationFluids.add(new FluidStack(TinkerFluids.brass, Material.VALUE_Ingot));
     }
+    if(FluidRegistry.isFluidRegistered(TinkerFluids.clay)) {
+      clayCreationFluids.add(new FluidStack(TinkerFluids.clay, Material.VALUE_Ingot*2));
+    }
 
     registerRecipes();
 
@@ -275,7 +279,7 @@ public class TinkerSmeltery extends TinkerPulse {
     // register stone toolpart melting
     for(IToolPart toolPart : TinkerRegistry.getToolParts()) {
       if(toolPart instanceof MaterialItem) {
-        ItemStack stack = ((MaterialItem) toolPart).getItemstackWithMaterial(TinkerMaterials.stone);
+        ItemStack stack = toolPart.getItemstackWithMaterial(TinkerMaterials.stone);
         TinkerRegistry.registerMelting(stack, TinkerFluids.searedStone, toolPart.getCost());
       }
     }
@@ -287,6 +291,15 @@ public class TinkerSmeltery extends TinkerPulse {
     TinkerRegistry.registerBasinCasting(blockSeared, null, TinkerFluids.searedStone, Material.VALUE_SearedBlock);
     // basically a pseudo-oredict of the seared blocks to support wildcard value
     TinkerRegistry.registerMelting(searedBlock, TinkerFluids.searedStone, Material.VALUE_SearedBlock);
+    TinkerRegistry.registerMelting(TinkerCommons.searedBrick, TinkerFluids.searedStone, Material.VALUE_SearedMaterial);
+
+    // melt all the dirt into mud
+    ItemStack stack = new ItemStack(Blocks.dirt, 1, OreDictionary.WILDCARD_VALUE);
+    RecipeMatch rm = new RecipeMatch.Item(stack, 1, Material.VALUE_Ingot);
+    TinkerRegistry.registerMelting(MeltingRecipe.forAmount(rm, TinkerFluids.dirt, Material.VALUE_BrickBlock));
+
+    // hardened clay
+    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.hardened_clay), null, TinkerFluids.clay, Material.VALUE_BrickBlock);
 
     // emerald melting and casting
     TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("gemEmerald", Material.VALUE_Gem), TinkerFluids.emerald));
@@ -318,6 +331,14 @@ public class TinkerSmeltery extends TinkerPulse {
                                    new FluidStack(FluidRegistry.WATER, 125),
                                    new FluidStack(FluidRegistry.LAVA, 125));
     }
+
+    // 1 bucket water + 4 seared ingot + 4 mud bricks = 1 block hardened clay
+    // 1000 + 288 + 576 = 576
+    // 250 + 72 + 144 = 144
+    TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.clay, 144),
+                                 new FluidStack(FluidRegistry.WATER, 250),
+                                 new FluidStack(TinkerFluids.searedStone, 72),
+                                 new FluidStack(TinkerFluids.dirt, 144));
 
     // 1 iron ingot + 1 purple slime ball + seared stone in molten form = 1 knightslime ingot
     // 144 + 250 + 288 = 144

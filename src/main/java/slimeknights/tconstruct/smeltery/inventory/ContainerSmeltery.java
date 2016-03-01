@@ -48,7 +48,7 @@ public class ContainerSmeltery extends ContainerMultiModule<TileSmeltery> {
       int temp = tile.getTemperature(i);
       if(temp != oldHeats[i]) {
         oldHeats[i] = temp;
-        for(ICrafting crafter : (List<ICrafting>)this.crafters) {
+        for(ICrafting crafter : this.crafters) {
           crafter.sendProgressBarUpdate(this, i, temp);
         }
       }
