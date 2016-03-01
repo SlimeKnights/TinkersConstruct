@@ -34,6 +34,7 @@ public class Config {
   public static boolean craftCastableMaterials = false;
   public static boolean chestsKeepInventory = true;
   public static boolean autosmeltlapis = true;
+  public static boolean obsidianAlloy = true;
 
   // Worldgen
   public static boolean genSlimeIslands = true;
@@ -126,6 +127,12 @@ public class Config {
       prop = configFile.get(cat, "registerAllItems", forceRegisterAll);
       prop.comment = "Enables all items, even if the Module needed to obtain them is not active";
       forceRegisterAll = prop.getBoolean();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "obsidianAlloy", obsidianAlloy);
+      prop.comment = "Allows the creation of obsidian in the smeltery, using a bucket of lava and water.";
+      obsidianAlloy = prop.getBoolean();
+      prop.requiresMcRestart();
       propOrder.add(prop.getName());
     }
     // Worldgen
