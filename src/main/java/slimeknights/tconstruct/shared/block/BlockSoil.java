@@ -65,6 +65,8 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
         return TinkerCommons.matSlimeBallBlue != null;
       case SLIMY_MUD_MAGMA:
         return TinkerCommons.matSlimeBallMagma != null;
+      case MUDBRICK:
+        return TinkerCommons.mudBrick != null;
       case SLIMY_MUD_GREEN:
       case GRAVEYARD:
       case CONSECRATED:
@@ -138,7 +140,8 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
     SLIMY_MUD_BLUE,
     GRAVEYARD,
     CONSECRATED,
-    SLIMY_MUD_MAGMA;
+    SLIMY_MUD_MAGMA,
+    MUDBRICK;
 
     public  final int meta;
 

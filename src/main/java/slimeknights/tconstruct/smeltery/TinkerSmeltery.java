@@ -297,6 +297,7 @@ public class TinkerSmeltery extends TinkerPulse {
     ItemStack stack = new ItemStack(Blocks.dirt, 1, OreDictionary.WILDCARD_VALUE);
     RecipeMatch rm = new RecipeMatch.Item(stack, 1, Material.VALUE_Ingot);
     TinkerRegistry.registerMelting(MeltingRecipe.forAmount(rm, TinkerFluids.dirt, Material.VALUE_BrickBlock));
+    TinkerRegistry.registerTableCasting(TinkerCommons.mudBrick, castIngot, TinkerFluids.dirt, Material.VALUE_Ingot);
 
     // hardened clay
     TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.hardened_clay), null, TinkerFluids.clay, Material.VALUE_BrickBlock);

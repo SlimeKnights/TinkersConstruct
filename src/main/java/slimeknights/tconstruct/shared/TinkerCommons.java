@@ -54,6 +54,7 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack slimyMudMagma;
   public static ItemStack graveyardSoil;
   public static ItemStack consecratedSoil;
+  public static ItemStack mudBrickBlock;
 
   public static ItemStack oreCobalt;
   public static ItemStack oreArdite;
@@ -89,6 +90,7 @@ public class TinkerCommons extends TinkerPulse {
 
   // Material Itemstacks
   public static ItemStack searedBrick;
+  public static ItemStack mudBrick;
   public static ItemStack matSlimeBallBlue;
   public static ItemStack matSlimeBallPurple;
   public static ItemStack matSlimeBallBlood;
@@ -119,6 +121,7 @@ public class TinkerCommons extends TinkerPulse {
     slimyMudMagma = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.SLIMY_MUD_MAGMA.getMeta());
     graveyardSoil = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.GRAVEYARD.getMeta());
     consecratedSoil = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.CONSECRATED.getMeta());
+    mudBrickBlock = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.MUDBRICK.getMeta());
 
     // Ores
     blockOre = registerEnumBlock(new BlockOre(), "ore");
@@ -153,6 +156,7 @@ public class TinkerCommons extends TinkerPulse {
 
     if(isSmelteryLoaded() || forced) {
       searedBrick = materials.addMeta(0, "seared_brick");
+      mudBrick = materials.addMeta(1, "mud_brick");
     }
 
     // Ingots and nuggets
@@ -207,6 +211,9 @@ public class TinkerCommons extends TinkerPulse {
     // soils
     GameRegistry.addSmelting(graveyardSoil, consecratedSoil, 0);
     GameRegistry.addShapelessRecipe(graveyardSoil, Blocks.dirt, Items.rotten_flesh, new ItemStack(Items.dye, 1, 15));
+    if(mudBrick != null) {
+      GameRegistry.addShapedRecipe(mudBrickBlock, "BB", "BB", 'B', mudBrick);
+    }
 
     // firewood
     GameRegistry.addShapelessRecipe(firewood,Items.blaze_powder, lavawood, Items.blaze_powder);

@@ -24,6 +24,9 @@
             },
             "slimy_mud_magma": {
                 "textures": { "all": "tconstruct:blocks/slimy_mud_magma" }
+            },
+            "mudbrick": {
+                "textures": { "all": "tconstruct:blocks/mud_brick" }
             }
         }
     }
