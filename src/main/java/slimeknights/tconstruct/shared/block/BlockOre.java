@@ -33,12 +33,6 @@ public class BlockOre extends EnumBlock<BlockOre.OreTypes> {
     setCreativeTab(TinkerRegistry.tabWorld);
   }
 
-  @Override
-  public int getExpDrop(IBlockAccess world, BlockPos pos, int fortune) {
-    Random rand = world instanceof World ? ((World)world).rand : new Random();
-    return MathHelper.getRandomIntegerInRange(rand, 4, 6);
-  }
-
   @SideOnly(Side.CLIENT)
   public EnumWorldBlockLayer getBlockLayer() {
     return EnumWorldBlockLayer.CUTOUT_MIPPED;
