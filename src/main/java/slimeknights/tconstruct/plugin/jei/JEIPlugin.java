@@ -6,6 +6,10 @@ import com.google.common.collect.Maps;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.List;
 import java.util.Map;
@@ -70,10 +74,10 @@ public class JEIPlugin implements IModPlugin {
 
       // casting
       // we collect together all casting recipes that create a cast and group them together into one recipe
-      Map<Item, List<ItemStack>> castDict = Maps.newHashMap();
+      Map<Triple<Item, Item, Fluid>, List<ItemStack >> castDict = Maps.newHashMap();
       for(CastingRecipe recipe : TinkerRegistry.getAllTableCastingRecipes()) {
         if(recipe.cast != null && recipe.getResult() != null && recipe.getResult().getItem() instanceof Cast) {
-          Item output = Cast.getPartFromTag(recipe.getResult());
+          Triple<Item, Item, Fluid> output = Triple.of(recipe.getResult().getItem(), Cast.getPartFromTag(recipe.getResult()), recipe.getFluid().getFluid());
           if(!castDict.containsKey(output)) {
             // recipe for the cast doesn't exist yet. create list and recipe and add it
             List<ItemStack> list = Lists.newLinkedList();
