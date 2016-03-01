@@ -20,6 +20,9 @@
             },
             "pigiron": {
                 "textures": { "all": "tconstruct:blocks/block_pigiron" }
+            },
+            "silky_jewel": {
+                "textures": { "all": "tconstruct:blocks/block_silky_jewel" }
             }
         }
     }

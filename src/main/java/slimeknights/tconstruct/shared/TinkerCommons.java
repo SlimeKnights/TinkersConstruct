@@ -64,6 +64,7 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack blockManyullyn;
   public static ItemStack blockPigIron;
   public static ItemStack blockKnightSlime;
+  public static ItemStack blockSilkyJewel;
 
   public static ItemStack lavawood;
   public static ItemStack firewood;
@@ -104,6 +105,8 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack matExpanderH;
   public static ItemStack matReinforcement;
   public static ItemStack matCreativeModifier;
+  public static ItemStack matSilkyCloth;
+  public static ItemStack matSilkyJewel;
 
   // Misc.
   public static ItemStack bacon;
@@ -176,6 +179,7 @@ public class TinkerCommons extends TinkerPulse {
       blockArdite = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.ARDITE.getMeta());
       blockManyullyn = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.MANYULLYN.getMeta());
       blockKnightSlime = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.KNIGHTSLIME.getMeta());
+      blockSilkyJewel = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.SILKY_JEWEL.getMeta());
 
       nuggetPigIron = nuggets.addMeta(4, "pigiron");
       ingotPigIron = ingots.addMeta(4, "pigiron");
@@ -192,6 +196,9 @@ public class TinkerCommons extends TinkerPulse {
       matExpanderW = materials.addMeta(12, "expander_w");
       matExpanderH = materials.addMeta(13, "expander_h");
       matReinforcement = materials.addMeta(14, "reinforcement");
+
+      matSilkyCloth = materials.addMeta(15, "silky_cloth");
+      matSilkyJewel = materials.addMeta(16, "silky_jewel");
 
       matCreativeModifier = materials.addMeta(50, "creative_modifier");
 
@@ -224,6 +231,10 @@ public class TinkerCommons extends TinkerPulse {
     registerMetalRecipes("Manyullyn", ingotManyullyn, nuggetManyullyn, blockManyullyn);
     registerMetalRecipes("Knightslime", ingotKnightSlime, nuggetKnightSlime, blockKnightSlime);
     registerMetalRecipes("Pigiron", ingotPigIron, nuggetPigIron, blockPigIron);
+
+    if(blockSilkyJewel != null && matSilkyJewel != null) {
+      GameRegistry.addShapedRecipe(blockSilkyJewel, "###", "###", "###", '#', matSilkyJewel);
+    }
   }
 
   private void registerMetalRecipes(String oreString, ItemStack ingot, ItemStack nugget, ItemStack block) {

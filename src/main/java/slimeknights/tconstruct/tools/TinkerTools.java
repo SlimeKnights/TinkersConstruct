@@ -72,6 +72,7 @@ import slimeknights.tconstruct.tools.modifiers.ModKnockback;
 import slimeknights.tconstruct.tools.modifiers.ModLuck;
 import slimeknights.tconstruct.tools.modifiers.ModReinforced;
 import slimeknights.tconstruct.tools.modifiers.ModSharpness;
+import slimeknights.tconstruct.tools.modifiers.ModSilktouch;
 import slimeknights.tconstruct.tools.modifiers.ModSoulbound;
 import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
 import slimeknights.tconstruct.tools.tileentity.TilePartBuilder;
@@ -155,6 +156,7 @@ public class TinkerTools extends TinkerPulse {
   public static Modifier modLuck;
   public static Modifier modReinforced;
   public static Modifier modSharpness;
+  public static Modifier modSilktouch;
   public static Modifier modSmite;
   public static Modifier modSoulbound;
 
@@ -293,6 +295,9 @@ public class TinkerTools extends TinkerPulse {
     modSharpness = registerModifier(new ModSharpness(72));
     modSharpness.addItem("gemQuartz");
     modSharpness.addItem("blockQuartz", 1, 4);
+
+    modSilktouch = registerModifier(new ModSilktouch());
+    modSilktouch.addItem(TinkerCommons.matSilkyJewel, 1, 1);
 
     modSmite = new ModAntiMonsterType("smite", 0xe8d500, 5, 24, EnumCreatureAttribute.UNDEAD);
     modSmite = registerModifier(modSmite);
@@ -434,6 +439,20 @@ public class TinkerTools extends TinkerPulse {
                                                'L', "gemLapis",
                                                'P', Blocks.piston,
                                                'S', slimeBallPurple));
+
+    // silky cloth/jewel
+    GameRegistry.addRecipe(new ShapedOreRecipe(TinkerCommons.matSilkyCloth,
+                                               "CCC",
+                                               "CGC",
+                                               "CCC",
+                                               'C', Items.string,
+                                               'G', "ingotGold"));
+    GameRegistry.addRecipe(new ShapedOreRecipe(TinkerCommons.matSilkyJewel,
+                                               " C ",
+                                               "CEC",
+                                               " C ",
+                                               'C', TinkerCommons.matSilkyCloth,
+                                               'E', "gemEmerald"));
 
     // Reinforcement item
     String goldThing = "ingotGold";

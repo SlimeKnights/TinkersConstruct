@@ -31,6 +31,7 @@ tile.tconstruct.metal.ardite.name=Block of Ardite
 tile.tconstruct.metal.manyullyn.name=Block of Manyullyn
 tile.tconstruct.metal.knightslime.name=Block of Knightslime
 tile.tconstruct.metal.pigiron.name=Block of Pigiron
+tile.tconstruct.metal.silky_jewel.name=Silky Block of Jewel
 
 tile.tconstruct.firewood.lavawood.name=Lavawood
 tile.tconstruct.firewood.firewood.name=Firewood
@@ -128,6 +129,10 @@ item.tconstruct.materials.expander_w.tooltip=Don't skip leg day!
 item.tconstruct.materials.expander_h.name=Expander (Vertical)
 item.tconstruct.materials.expander_h.tooltip=Do you even lift?
 item.tconstruct.materials.reinforcement.name=Reinforcement
+item.tconstruct.materials.reinforcement.tooltip=Reinforced Modifier
+item.tconstruct.materials.silky_cloth.name=Silky Cloth
+item.tconstruct.materials.silky_jewel.name=Silky Jewel
+item.tconstruct.materials.silky_jewel.tooltip=Silktouch Modifier
 item.tconstruct.materials.creative_modifier.name=Creative Modifier
 
 item.tconstruct.ingots.cobalt.name=Cobalt Ingot
@@ -450,6 +455,8 @@ modifier.sharpness.name3=Sharpest
 modifier.sharpness.name4=Sharpester
 modifier.sharpness.name5=Sharpestest
 modifier.sharpness.desc=§oOuch!§r\nSo sharp, it hurts to look at it.
+modifier.silktouch.name=Silktouch
+modifier.silktouch.desc=§oSmooth as silk!§r\nMined blocks drop themselves instead of the usual items.
 modifier.smite.name=Smite
 modifier.smite.desc=§oFor Justice!§r\nDeal massive damage to undead.
 modifier.smite.extra=Vs Undead: +%s
