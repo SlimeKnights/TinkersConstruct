@@ -35,6 +35,7 @@ public class Config {
   public static boolean chestsKeepInventory = true;
   public static boolean autosmeltlapis = true;
   public static boolean obsidianAlloy = true;
+  public static boolean claycasts = true;
 
   // Worldgen
   public static boolean genSlimeIslands = true;
@@ -112,6 +113,12 @@ public class Config {
       prop = configFile.get(cat, "chestsKeepInventory", chestsKeepInventory);
       prop.comment = "Pattern and Part chests keep their inventory when harvested.";
       chestsKeepInventory = prop.getBoolean();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "enableClayCasts", claycasts);
+      prop.comment = "Adds single-use clay casts.";
+      claycasts = prop.getBoolean();
+      prop.requiresMcRestart();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "AutosmeltFortuneInteraction", autosmeltlapis);

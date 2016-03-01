@@ -93,6 +93,7 @@ public class TinkerSmeltery extends TinkerPulse {
   // Items
   public static Cast cast;
   public static CastCustom castCustom;
+  public static Cast clayCast;
 
   // itemstacks!
   public static ItemStack castIngot;
@@ -102,6 +103,7 @@ public class TinkerSmeltery extends TinkerPulse {
 
   private static Map<Fluid, Set<Pair<List<ItemStack>, Integer>>> knownOreFluids = Maps.newHashMap();
   private static List<FluidStack> castCreationFluids = Lists.newLinkedList();
+  private static List<FluidStack> clayCreationFluids = Lists.newLinkedList();
 
   public static ImmutableSet<Block> validSmelteryBlocks;
 
@@ -131,6 +133,8 @@ public class TinkerSmeltery extends TinkerPulse {
     castIngot = castCustom.addMeta(0, "ingot", Material.VALUE_Ingot);
     castNugget = castCustom.addMeta(1, "nugget", Material.VALUE_Nugget);
     castGem = castCustom.addMeta(2, "gem", Material.VALUE_Gem);
+
+    clayCast = registerItem(new Cast(), "clay_cast");
 
     if(TinkerRegistry.getShard() != null) {
       TinkerRegistry.addCastForItem(TinkerRegistry.getShard());
@@ -375,6 +379,24 @@ public class TinkerSmeltery extends TinkerPulse {
                                                                 RecipeMatch.ofNBT(stack),
                                                                 fs,
                                                                 true, true));
+        }
+
+        // clay casts
+        if(Config.claycasts) {
+          ItemStack clayCast = new ItemStack(TinkerSmeltery.clayCast);
+          Cast.setTagForPart(clayCast, stack.getItem());
+
+          if(fluid != null) {
+            RecipeMatch rm = RecipeMatch.ofNBT(clayCast);
+            FluidStack fs = new FluidStack(fluid, toolPart.getCost());
+            TinkerRegistry.registerTableCasting(new CastingRecipe(stack, rm, fs, true, false));
+          }
+          for(FluidStack fs : clayCreationFluids) {
+            TinkerRegistry.registerTableCasting(new CastingRecipe(clayCast,
+                                                                  RecipeMatch.ofNBT(stack),
+                                                                  fs,
+                                                                  true, true));
+          }
         }
       }
     }

@@ -101,6 +101,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
           TinkerCastingEvent.OnCasted event = TinkerCastingEvent.OnCasted.fire(recipe, this);
           // done, finish!
           if(event.consumeCast) {
+            // todo: play breaking sound and animation
             setInventorySlotContents(0, null);
           }
 

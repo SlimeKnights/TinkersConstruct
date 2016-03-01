@@ -7,6 +7,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 import slimeknights.tconstruct.common.ClientProxy;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.smeltery.client.CastingRenderer;
 import slimeknights.tconstruct.smeltery.client.FaucetRenderer;
@@ -45,6 +46,13 @@ public class SmelteryClientProxy extends ClientProxy {
     final ResourceLocation castLoc = SmelteryClientEvents.locBlankCast;
     CustomTextureCreator.castModelLocation = new ResourceLocation(castLoc.getResourceDomain(), "item/" + castLoc.getResourcePath());
     ModelLoader.setCustomMeshDefinition(TinkerSmeltery.cast, new PatternMeshDefinition(castLoc));
+
+    if(Config.claycasts) {
+      final ResourceLocation clayCastLoc = SmelteryClientEvents.locClayCast;
+      CustomTextureCreator.castModelLocation = new ResourceLocation(clayCastLoc.getResourceDomain(),
+                                                                    "item/" + clayCastLoc.getResourcePath());
+      ModelLoader.setCustomMeshDefinition(TinkerSmeltery.clayCast, new PatternMeshDefinition(clayCastLoc));
+    }
 
     TinkerSmeltery.castCustom.registerItemModels("cast_");
   }

@@ -1,9 +1,11 @@
 package slimeknights.tconstruct.tools;
 
 import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -14,6 +16,7 @@ import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IRetexturableModel;
+import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -26,6 +29,7 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
+import slimeknights.tconstruct.library.client.model.ModelHelper;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
@@ -95,10 +99,14 @@ public class ToolClientEvents {
   }
 
   public static void replacePatternModel(ResourceLocation locPattern, ResourceLocation modelLocation, ModelBakeEvent event, String baseString, Iterable<Item> items) {
+    replacePatternModel(locPattern, modelLocation, event, baseString, items, -1);
+  }
+
+  public static void replacePatternModel(ResourceLocation locPattern, ResourceLocation modelLocation, ModelBakeEvent event, String baseString, Iterable<Item> items, int color) {
     try {
       IModel model = event.modelLoader.getModel(modelLocation);
       if(model instanceof IRetexturableModel) {
-        IRetexturableModel itemModel = (IRetexturableModel) model;
+        IRetexturableModel<?> itemModel = (IRetexturableModel<?>) model;
 
         for(Item item : items) {
           String suffix = Pattern.getTextureIdentifier(item);
@@ -107,6 +115,14 @@ public class ToolClientEvents {
           String partPatternTexture = baseString + suffix;
           IModel partPatternModel = itemModel.retexture(ImmutableMap.of("layer0", partPatternTexture));
           IFlexibleBakedModel baked = partPatternModel.bake(partPatternModel.getDefaultState(), DefaultVertexFormats.ITEM, textureGetter);
+          if(color > -1) {
+            ImmutableList.Builder<BakedQuad> quads = ImmutableList.builder();
+            // ItemLayerModel.BakedModel only uses general quads
+            for(BakedQuad quad : baked.getGeneralQuads()) {
+              quads.add(ModelHelper.colorQuad(color, quad));
+            }
+            baked = new ItemLayerModel.BakedModel(quads.build(), baked.getParticleTexture(), baked.getFormat());
+          }
           event.modelRegistry.putObject(new ModelResourceLocation(partPatternLocation, "inventory"), baked);
         }
       }
