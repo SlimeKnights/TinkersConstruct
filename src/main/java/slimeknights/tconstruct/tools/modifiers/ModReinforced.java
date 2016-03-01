@@ -13,7 +13,7 @@ import slimeknights.tconstruct.library.utils.TinkerUtil;
 public class ModReinforced extends ModifierTrait {
 
   public ModReinforced() {
-    super("reinforced", 0x502e83, 5, 0);
+    super("reinforced", 0x502e83, 7, 0);
   }
 
   @Override
@@ -22,7 +22,7 @@ public class ModReinforced extends ModifierTrait {
     NBTTagCompound tag = TinkerUtil.getModifierTag(tool, identifier);
     ModifierNBT data = ModifierNBT.readTag(tag);
 
-    float chance = (float)data.level * 0.20f;
+    float chance = (float)data.level * 0.15f;
     if(chance >= random.nextFloat()) {
       newDamage -= damage;
     }
@@ -34,9 +34,9 @@ public class ModReinforced extends ModifierTrait {
   public String getTooltip(NBTTagCompound modifierTag, boolean detailed) {
     ModifierNBT data = ModifierNBT.readTag(modifierTag);
     if(data.level == maxLevel) {
-      String key = String.format(LOC_Name + 5, getIdentifier());
+      String key = String.format("modifier.%s.unbreakable", getIdentifier());
       if(StatCollector.canTranslate(key)) {
-        return Util.translate(String.format(LOC_Name + 5, getIdentifier()));
+        return Util.translate(key);
       }
     }
     return super.getTooltip(modifierTag, detailed);
