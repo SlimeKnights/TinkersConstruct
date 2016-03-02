@@ -105,6 +105,9 @@ tile.tconstruct.seared_tank.tank.name=Seared Tank
 tile.tconstruct.seared_tank.gauge.name=Seared Gauge
 tile.tconstruct.seared_tank.window.name=Seared Window
 
+tile.tconstruct.stone_torch.name=Stone Torch
+tile.tconstruct.stone_ladder.name=Stone Ladder
+tile.tconstruct.wood_rail.name=Wooden Rail
 
 
 ################
@@ -219,6 +222,7 @@ item.tconstruct.large_sword_blade.name=Large Sword Blade
 # Gadgets
 item.tconstruct.slime_boots.name=Slime Boots
 item.tconstruct.slimesling.name=Slimesling
+item.tconstruct.stone_stick.name=Stone Rod
 
 #################
 #   Entities    #

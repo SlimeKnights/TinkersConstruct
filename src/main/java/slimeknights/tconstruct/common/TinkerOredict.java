@@ -17,6 +17,7 @@ import slimeknights.tconstruct.tools.block.BlockToolTable;
 import static slimeknights.tconstruct.shared.TinkerCommons.*;
 import static slimeknights.tconstruct.tools.TinkerTools.*;
 import static slimeknights.tconstruct.world.TinkerWorld.*;
+import static slimeknights.tconstruct.gadgets.TinkerGadgets.*;
 
 /**
  * oredicts ALL the things in TConstruct.
@@ -34,6 +35,7 @@ public class TinkerOredict {
     registerTools();
     registerSmeltery();
     registerWorld();
+    registerGadgets();
   }
 
 
@@ -120,6 +122,11 @@ public class TinkerOredict {
     oredict(slimeVinePurple1, "vine");
     oredict(slimeVinePurple2, "vine");
     oredict(slimeVinePurple3, "vine");
+  }
+
+  private static void registerGadgets() {
+    oredict(stoneStick, "rodStone");
+    oredict(stoneTorch, "torch");
   }
 
   /* Helper functions */

@@ -1,0 +1,24 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-item",
+        "model": "normal_rail_flat",
+        "textures": {
+            "rail": "tconstruct:blocks/wood_rail"
+        }
+    },
+    "variants": {
+        "shape": {
+            "north_south": {},
+            "east_west": { "y": 90 },
+            "ascending_east": { "model": "normal_rail_raised_ne", "y": 90 },
+            "ascending_west": { "model": "normal_rail_raised_sw", "y": 90 },
+            "ascending_north": { "model": "normal_rail_raised_ne" },
+            "ascending_south": { "model": "normal_rail_raised_sw" },
+            "south_east": { "model": "normal_rail_curved", "textures": { "rail": "tconstruct:blocks/wood_rail_turn" }},
+            "south_west": { "model": "normal_rail_curved", "textures": { "rail": "tconstruct:blocks/wood_rail_turn" }, "y": 90 },
+            "north_west": { "model": "normal_rail_curved", "textures": { "rail": "tconstruct:blocks/wood_rail_turn" }, "y": 180 },
+            "north_east": { "model": "normal_rail_curved", "textures": { "rail": "tconstruct:blocks/wood_rail_turn" }, "y": 270 }
+        }
+    }
+}
