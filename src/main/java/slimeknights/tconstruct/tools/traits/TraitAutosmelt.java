@@ -44,6 +44,15 @@ public class TraitAutosmelt extends AbstractTrait {
             smelted.stackSize *= random.nextInt(fortune + 1) + 1;
           }
           iter.set(smelted);
+
+          // drop XP for it
+          float xp = FurnaceRecipes.instance().getSmeltingExperience(smelted);
+          if(xp < 1 && Math.random() < xp) {
+            xp += 1f;
+          }
+          if(xp >= 1f) {
+            event.state.getBlock().dropXpOnBlockBreak(event.world, event.pos, (int) xp);
+          }
         }
       }
     }
@@ -54,7 +63,8 @@ public class TraitAutosmelt extends AbstractTrait {
     if(world.isRemote && wasEffective) {
       for(int i = 0; i < 3; i++) {
         world.spawnParticle(EnumParticleTypes.FLAME,
-                            pos.getX() + random.nextDouble(), pos.getY() + random.nextDouble(), pos.getZ() + random.nextDouble(),
+                            pos.getX() + random.nextDouble(),
+                            pos.getY() + random.nextDouble(), pos.getZ() + random.nextDouble(),
                             0.0D, 0.0D, 0.0D);
       }
     }
