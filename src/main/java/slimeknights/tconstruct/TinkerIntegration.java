@@ -3,18 +3,24 @@ package slimeknights.tconstruct;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
+
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.MaterialIntegration;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.tools.TinkerMaterials;
@@ -24,6 +30,7 @@ import slimeknights.tconstruct.tools.TinkerMaterials;
 public class TinkerIntegration extends TinkerPulse {
 
   public static final String PulseId = "TinkerIntegration";
+  static final Logger log = Util.getLogger(PulseId);
   public static List<MaterialIntegration> integrationList = Lists.newLinkedList();
 
   @Subscribe
@@ -81,6 +88,8 @@ public class TinkerIntegration extends TinkerPulse {
 
   @Subscribe
   public void init(FMLInitializationEvent event) {
+    handleIMCs();
+
     // do we got integration
     for(MaterialIntegration integration : integrationList) {
       // integrate again, some oredicts might not have been present in the previous attempt
@@ -94,6 +103,32 @@ public class TinkerIntegration extends TinkerPulse {
     for(MaterialIntegration integration : integrationList) {
       // calling this multiple time is ok because it does nothing once it was successful
       integration.integrate();
+    }
+  }
+
+  private void handleIMCs() {
+    for(FMLInterModComms.IMCMessage message : FMLInterModComms.fetchRuntimeMessages(TConstruct.instance)) {
+      try {
+        if(message.key.equals("integrateSmeltery")) {
+          NBTTagCompound tag = message.getNBTValue();
+          String fluidName = tag.getString("fluid");
+          String ore = tag.getString("ore");
+          boolean toolforge = tag.getBoolean("toolforge");
+
+          Fluid fluid = FluidRegistry.getFluid(fluidName);
+
+          if(fluid != null && ore != null && !ore.isEmpty()) {
+            MaterialIntegration materialIntegration = new MaterialIntegration(null, fluid, ore);
+            if(toolforge) {
+              materialIntegration.toolforge();
+            }
+            integrationList.add(materialIntegration);
+            materialIntegration.integrate();
+          }
+        }
+      } catch(ClassCastException e) {
+        log.error("Got invalid " + message.key + " IMC from " + message.getSender());
+      }
     }
   }
 

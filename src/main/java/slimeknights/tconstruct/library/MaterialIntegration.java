@@ -77,8 +77,7 @@ public class MaterialIntegration {
     }
 
     // fluid first
-    if(fluid != null) {
-      FluidRegistry.registerFluid(fluid);
+    if(fluid != null && !FluidRegistry.isFluidRegistered(fluid)) {
       TinkerFluids.registerFluid(fluid);
       registerFluidBlock();
 
