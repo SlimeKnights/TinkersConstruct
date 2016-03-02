@@ -9,7 +9,7 @@ import slimeknights.tconstruct.library.utils.Tags;
 public class TraitWritable extends AbstractTraitLeveled {
 
   public TraitWritable(int levels) {
-    super("writable", 0xffffff, 3, levels);
+    super("writable", String.valueOf(levels), 0xffffff, 3, 1);
   }
 
   @Override
