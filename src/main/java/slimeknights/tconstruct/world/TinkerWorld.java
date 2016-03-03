@@ -144,10 +144,9 @@ public class TinkerWorld extends TinkerPulse {
     slime = TinkerCommons.matSlimeBallPurple.copy();
     GameRegistry.addShapedRecipe(new ItemStack(slimeGrass, 1, meta), " s ", "sBs", " s ", 's', slime, 'B', Blocks.grass);
 
-    /* magma
-    meta = slimeGrass.getMetaFromState(grassState.withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.BLUE));
-    slime = new ItemStack(Items.slime_ball);
-    GameRegistry.addShapedRecipe(new ItemStack(slimeGrass, 1, meta), " s ", "sBs", " s ", 's', slime, 'B', Blocks.grass);*/
+    meta = slimeGrass.getMetaFromState(grassState.withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.ORANGE));
+    slime = TinkerCommons.matSlimeBallMagma.copy();
+    GameRegistry.addShapedRecipe(new ItemStack(slimeGrass, 1, meta), " s ", "sBs", " s ", 's', slime, 'B', Blocks.grass);
   }
 
   private void addSlimeRecipes(ItemStack slimeball, BlockSlime.SlimeType type) {
