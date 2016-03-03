@@ -265,7 +265,7 @@ public class TinkerTools extends TinkerPulse {
     modBaneOfArthopods = registerModifier(modBaneOfArthopods);
     modBaneOfArthopods.addItem(Items.fermented_spider_eye);
 
-    modBeheading = new ModBeheading();
+    modBeheading = registerModifier(new ModBeheading());
     modBeheading.addRecipeMatch(new RecipeMatch.ItemCombination(1, new ItemStack(Items.ender_pearl), new ItemStack(Blocks.obsidian)));
 
     modDiamond = registerModifier(new ModDiamond());
@@ -314,8 +314,6 @@ public class TinkerTools extends TinkerPulse {
 
     modCreative = registerModifier(new ModCreative());
     modCreative.addItem(TinkerCommons.matCreativeModifier, 1, 1);
-
-    MinecraftForge.EVENT_BUS.register(modSoulbound);
   }
 
   // INITIALIZATION

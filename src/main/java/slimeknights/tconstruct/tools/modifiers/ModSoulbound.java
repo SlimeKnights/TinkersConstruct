@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.modifiers;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -21,6 +22,8 @@ public class ModSoulbound extends Modifier {
     super("soulbound");
 
     addAspects(new ModifierAspect.DataAspect(this, 0xf5fbac), new ModifierAspect.SingleAspect(this));
+
+    MinecraftForge.EVENT_BUS.register(this);
   }
 
   @Override
