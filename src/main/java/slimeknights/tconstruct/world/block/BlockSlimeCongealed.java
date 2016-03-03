@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -75,6 +76,9 @@ public class BlockSlimeCongealed extends Block {
 
   @Override
   public void onLanded(World world, Entity entity) {
+    if(!(entity instanceof EntityLiving) && !(entity instanceof EntityItem)) {
+      return;
+    }
     if (entity.motionY < 0)
     {
       if (entity.motionY < -0.08F)
