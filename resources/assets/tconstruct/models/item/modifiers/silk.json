@@ -1,0 +1,17 @@
+{
+    "textures": {
+        "battleaxe": "tconstruct:items/battleaxe/mod_silk",
+        "battlesign": "tconstruct:items/battlesign/mod_silk",
+        "broadsword": "tconstruct:items/broadsword/mod_silk",
+        "cleaver": "tconstruct:items/cleaver/mod_silk",
+        "excavator": "tconstruct:items/excavator/mod_silk",
+        "frypan": "tconstruct:items/frypan/mod_silk",
+        "hammer": "tconstruct:items/hammer/mod_silk",
+        "hatchet": "tconstruct:items/hatchet/mod_silk",
+        "longsword": "tconstruct:items/longsword/mod_silk",
+        "lumberaxe": "tconstruct:items/lumberaxe/mod_silk",
+        "mattock": "tconstruct:items/mattock/mod_silk",
+        "pickaxe": "tconstruct:items/pickaxe/mod_silk",
+        "shovel": "tconstruct:items/shovel/mod_silk"
+    }
+}
