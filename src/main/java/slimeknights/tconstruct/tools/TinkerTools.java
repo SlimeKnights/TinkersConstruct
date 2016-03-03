@@ -26,6 +26,7 @@ import java.util.List;
 
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.pulsar.pulse.Pulse;
+import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.EntityIDs;
@@ -61,6 +62,7 @@ import slimeknights.tconstruct.tools.item.Pickaxe;
 import slimeknights.tconstruct.tools.item.SharpeningKit;
 import slimeknights.tconstruct.tools.item.Shovel;
 import slimeknights.tconstruct.tools.modifiers.ModAntiMonsterType;
+import slimeknights.tconstruct.tools.modifiers.ModBeheading;
 import slimeknights.tconstruct.tools.modifiers.ModCreative;
 import slimeknights.tconstruct.tools.modifiers.ModDiamond;
 import slimeknights.tconstruct.tools.modifiers.ModEmerald;
@@ -146,6 +148,7 @@ public class TinkerTools extends TinkerPulse {
 
   // Modifiers
   public static Modifier modBaneOfArthopods;
+  public static Modifier modBeheading;
   public static Modifier modDiamond;
   public static Modifier modEmerald;
   public static Modifier modFiery;
@@ -261,6 +264,9 @@ public class TinkerTools extends TinkerPulse {
     modBaneOfArthopods = new ModAntiMonsterType("bane_of_arthopods", 0x61ba49, 5, 24, EnumCreatureAttribute.ARTHROPOD);
     modBaneOfArthopods = registerModifier(modBaneOfArthopods);
     modBaneOfArthopods.addItem(Items.fermented_spider_eye);
+
+    modBeheading = new ModBeheading();
+    modBeheading.addRecipeMatch(new RecipeMatch.ItemCombination(1, new ItemStack(Items.ender_pearl), new ItemStack(Blocks.obsidian)));
 
     modDiamond = registerModifier(new ModDiamond());
     modDiamond.addItem("gemDiamond");

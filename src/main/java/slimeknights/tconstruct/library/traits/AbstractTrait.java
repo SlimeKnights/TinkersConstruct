@@ -27,8 +27,6 @@ import slimeknights.tconstruct.library.utils.TinkerUtil;
 // Trait and modifier in one! Useful because modifiers are saved as traits
 public abstract class AbstractTrait extends Modifier implements ITrait {
 
-  protected static final Random random = new Random();
-
   public static final String LOC_Name = Modifier.LOC_Name;
   public static final String LOC_Desc = Modifier.LOC_Desc;
   //private final String identifier;

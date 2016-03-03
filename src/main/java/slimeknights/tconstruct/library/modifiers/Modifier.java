@@ -19,6 +19,7 @@ import net.minecraft.util.StatCollector;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import slimeknights.mantle.util.RecipeMatchRegistry;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -31,6 +32,8 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
   public static final String LOC_Name = "modifier.%s.name";
   public static final String LOC_Desc = "modifier.%s.desc";
   public static final String LOC_Extra = "modifier.%s.extra";
+
+  protected static final Random random = new Random();
 
   public final String identifier;
 
