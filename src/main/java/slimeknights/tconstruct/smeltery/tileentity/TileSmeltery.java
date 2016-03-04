@@ -282,7 +282,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
           if(drained.amount == amount) {
             tank.drain(null, amount, true);
             currentFuel = drained.copy();
-            addFuel(bonusFuel, drained.getFluid().getTemperature(drained) - 300); // convert to °C
+            addFuel(bonusFuel, drained.getFluid().getTemperature(drained) - 300); // convert to degree celcius
 
             // notify client of fuel/temperature changes
             if(worldObj != null && !worldObj.isRemote) {

@@ -50,7 +50,7 @@ public class SmeltingRecipeWrapper extends BlankRecipeWrapper {
 
   @Override
   public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
-    String tmpStr = String.valueOf(temperature) + "°";
+    String tmpStr = String.valueOf(temperature) + "\u00B0";
     int x = 80 - minecraft.fontRendererObj.getStringWidth(tmpStr)/2;
     minecraft.fontRendererObj.drawString(tmpStr, x, 10, Color.gray.getRGB());
   }
