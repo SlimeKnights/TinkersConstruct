@@ -33,8 +33,8 @@ import slimeknights.tconstruct.common.EntityIDs;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
+import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
@@ -72,6 +72,7 @@ import slimeknights.tconstruct.tools.modifiers.ModHarvestSize;
 import slimeknights.tconstruct.tools.modifiers.ModHaste;
 import slimeknights.tconstruct.tools.modifiers.ModKnockback;
 import slimeknights.tconstruct.tools.modifiers.ModLuck;
+import slimeknights.tconstruct.tools.modifiers.ModNecrotic;
 import slimeknights.tconstruct.tools.modifiers.ModReinforced;
 import slimeknights.tconstruct.tools.modifiers.ModSharpness;
 import slimeknights.tconstruct.tools.modifiers.ModSilktouch;
@@ -158,6 +159,7 @@ public class TinkerTools extends TinkerPulse {
   public static Modifier modHarvestHeight;
   public static Modifier modKnockback;
   public static Modifier modLuck;
+  public static Modifier modNecrotic;
   public static Modifier modReinforced;
   public static Modifier modSharpness;
   public static Modifier modSilktouch;
@@ -295,6 +297,9 @@ public class TinkerTools extends TinkerPulse {
     modLuck = registerModifier(new ModLuck());
     modLuck.addItem("gemLapis");
     modLuck.addItem("blockLapis", 1, 9);
+
+    modNecrotic = registerModifier(new ModNecrotic());
+    modNecrotic.addItem(TinkerCommons.matNecroticBone, 1, 1);
 
     modReinforced = registerModifier(new ModReinforced());
     modReinforced.addItem(TinkerCommons.matReinforcement, 1, 1);

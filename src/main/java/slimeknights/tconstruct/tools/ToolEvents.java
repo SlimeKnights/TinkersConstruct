@@ -2,16 +2,25 @@ package slimeknights.tconstruct.tools;
 
 import com.google.common.collect.Sets;
 
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.Random;
 import java.util.Set;
 
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.tools.events.TinkerToolEvent;
 
 public class ToolEvents {
+  private static final Random random = new Random();
 
   public final static Set<ToolCore> smallTools = Sets.newHashSet();
 
@@ -57,6 +66,21 @@ public class ToolEvents {
       event.height += height ? 2 : 0;
       //event.distance = 1 + (width ? 1 : 0) + (height ? 1 : 0);
       event.distance = 3;
+    }
+  }
+
+  @SubscribeEvent
+  public void onLivingDrop(LivingDropsEvent event) {
+    if(event.entityLiving instanceof EntitySkeleton && event.source.getEntity() instanceof EntityPlayer) {
+      if(((EntitySkeleton) event.entityLiving).getSkeletonType() == 1) {
+        float chance = 0.10f;
+        chance += 0.05f + EnchantmentHelper.getLootingModifier((EntityLivingBase) event.source.getEntity());
+        if(random.nextFloat() < chance) {
+          EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, TinkerCommons.matNecroticBone.copy());
+          entityitem.setDefaultPickupDelay();
+          event.drops.add(entityitem);
+        }
+      }
     }
   }
 }
