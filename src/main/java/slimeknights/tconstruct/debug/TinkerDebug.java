@@ -20,8 +20,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 
-// todo: deactivate by default
-@Pulse(id=TinkerDebug.PulseId, description = "Debug utilities")
+@Pulse(id=TinkerDebug.PulseId, description = "Debug utilities", defaultEnable = false)
 public class TinkerDebug {
   public static final String PulseId = "TinkerDebug";
   static final Logger log = Util.getLogger(PulseId);

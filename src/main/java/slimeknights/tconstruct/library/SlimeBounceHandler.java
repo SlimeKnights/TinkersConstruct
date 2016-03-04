@@ -2,8 +2,10 @@ package slimeknights.tconstruct.library;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -90,6 +92,10 @@ public class SlimeBounceHandler {
   }
 
   public static void addBounceHandler(EntityLivingBase entity, double bounce) {
+    // only supports actual players as it uses the PlayerTick event
+    if(!(entity instanceof EntityPlayer) || entity instanceof FakePlayer) {
+      return;
+    }
     SlimeBounceHandler handler = bouncingEntities.get(entity);
     if(handler == null) {
       // wasn't bouncing yet, register it
