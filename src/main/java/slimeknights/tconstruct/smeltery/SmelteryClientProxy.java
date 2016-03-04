@@ -54,6 +54,6 @@ public class SmelteryClientProxy extends ClientProxy {
       ModelLoader.setCustomMeshDefinition(TinkerSmeltery.clayCast, new PatternMeshDefinition(clayCastLoc));
     }
 
-    TinkerSmeltery.castCustom.registerItemModels("cast_");
+    TinkerSmeltery.castCustom.registerItemModels();
   }
 }

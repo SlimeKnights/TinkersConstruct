@@ -1,6 +1,0 @@
-{
-    "parent": "tconstruct:item/defaultitem",
-    "textures": {
-        "layer0": "tconstruct:items/cast_ingot"
-    }
-}

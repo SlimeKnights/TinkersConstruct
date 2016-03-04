@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.shared;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.model.ModelLoader;
 
 import slimeknights.tconstruct.common.ClientProxy;
 
@@ -15,10 +13,10 @@ public class CommonsClientProxy extends ClientProxy {
 
   @Override
   protected void registerModels() {
-    nuggets.registerItemModels("nugget_");
-    ingots.registerItemModels("ingot_");
-    materials.registerItemModels("");
-    edibles.registerItemModels("");
+    nuggets.registerItemModels();
+    ingots.registerItemModels();
+    materials.registerItemModels();
+    edibles.registerItemModels();
   }
 
   @Override
