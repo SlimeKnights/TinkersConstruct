@@ -284,6 +284,7 @@ public final class TinkerMaterials {
     wood.setRepresentativeItem(new ItemStack(Items.stick));
     wood.addTrait(ecological, HEAD);
     wood.addTrait(splinters);
+    wood.addTrait(ecological);
 
     stone.setCraftable(true);
     stone.addItem("cobblestone", 1, Material.VALUE_Ingot);
