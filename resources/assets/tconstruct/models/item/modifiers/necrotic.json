@@ -1,0 +1,17 @@
+{
+    "textures": {
+        "battleaxe": "tconstruct:items/battleaxe/mod_necrotic",
+        "battlesign": "tconstruct:items/battlesign/mod_necrotic",
+        "broadsword": "tconstruct:items/broadsword/mod_necrotic",
+        "cleaver": "tconstruct:items/cleaver/mod_necrotic",
+        "excavator": "tconstruct:items/excavator/mod_necrotic",
+        "frypan": "tconstruct:items/frypan/mod_necrotic",
+        "hammer": "tconstruct:items/hammer/mod_necrotic",
+        "hatchet": "tconstruct:items/hatchet/mod_necrotic",
+        "longsword": "tconstruct:items/longsword/mod_necrotic",
+        "lumberaxe": "tconstruct:items/lumberaxe/mod_necrotic",
+        "mattock": "tconstruct:items/mattock/mod_necrotic",
+        "pickaxe": "tconstruct:items/pickaxe/mod_necrotic",
+        "shovel": "tconstruct:items/shovel/mod_necrotic"
+    }
+}
