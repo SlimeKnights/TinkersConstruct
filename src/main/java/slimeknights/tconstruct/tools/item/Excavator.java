@@ -2,7 +2,9 @@ package slimeknights.tconstruct.tools.item;
 
 import com.google.common.collect.ImmutableList;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
@@ -17,7 +19,9 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
+import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.traits.InfiTool;
 
 public class Excavator extends Shovel {
 
@@ -26,6 +30,12 @@ public class Excavator extends Shovel {
           PartMaterialType.head(TinkerTools.excavatorHead),
           PartMaterialType.head(TinkerTools.largePlate),
           PartMaterialType.extra(TinkerTools.toughBinding));
+  }
+
+  @Override
+  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+    addDefaultSubItems(subItems);
+    addInfiTool(subItems, "InfiDigger");
   }
 
   @Override

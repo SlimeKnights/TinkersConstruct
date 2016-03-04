@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
@@ -44,7 +45,9 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
+import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.traits.InfiTool;
 import slimeknights.tconstruct.tools.traits.ToolGrowth;
 
 /**
@@ -334,6 +337,10 @@ public abstract class ToolCore extends TinkersItem {
   // Creative tab items
   @Override
   public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+    addDefaultSubItems(subItems);
+  }
+
+  protected void addDefaultSubItems(List<ItemStack> subItems) {
     for(Material head : TinkerRegistry.getAllMaterials()) {
       if(!head.hasStats(HeadMaterialStats.TYPE)) {
         continue;
@@ -352,6 +359,24 @@ public abstract class ToolCore extends TinkersItem {
         subItems.add(tool);
       }
     }
+  }
+
+  protected void addInfiTool(List<ItemStack> subitems, String name) {
+    ItemStack tool = getInfiTool(name);
+    if(hasValidMaterials(tool)) {
+      subitems.add(tool);
+    }
+  }
+
+  protected ItemStack getInfiTool(String name) {
+    // The InfiHarvester!
+    List<Material> materials = ImmutableList.of(TinkerMaterials.slime, TinkerMaterials.cobalt, TinkerMaterials.ardite, TinkerMaterials.ardite);
+    materials = materials.subList(0, requiredComponents.length);
+    ItemStack tool = buildItem(materials);
+    InfiTool.INSTANCE.apply(tool);
+    tool.setStackDisplayName(name);
+
+    return tool;
   }
 
   @Override

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.item;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -7,6 +8,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S12PacketEntityVelocity;
@@ -25,6 +27,7 @@ import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.EntityUtil;
+import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 
@@ -35,6 +38,22 @@ public class FryPan extends ToolCore {
           PartMaterialType.head(TinkerTools.panHead));
 
     addCategory(Category.WEAPON);
+  }
+
+  @Override
+  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+    addDefaultSubItems(subItems);
+    ItemStack tool = getInfiTool("Bane of Pigs");
+
+    if(tool != null) {
+      for(int i = 0; i < 25 * 5; i++) {
+        TinkerTools.modFiery.apply(tool);
+      }
+
+      if(hasValidMaterials(tool)) {
+        subItems.add(tool);
+      }
+    }
   }
 
   @Override

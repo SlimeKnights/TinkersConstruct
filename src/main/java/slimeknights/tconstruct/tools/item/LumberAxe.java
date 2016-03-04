@@ -7,7 +7,9 @@ import com.google.common.collect.Lists;
 import gnu.trove.set.hash.THashSet;
 
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -32,8 +34,10 @@ import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.AoeToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
+import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.events.TinkerToolEvent;
+import slimeknights.tconstruct.tools.traits.InfiTool;
 
 public class LumberAxe extends AoeToolCore {
 
@@ -52,6 +56,12 @@ public class LumberAxe extends AoeToolCore {
     addCategory(Category.HARVEST);
 
     this.setHarvestLevel("axe", 0);
+  }
+
+  @Override
+  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+    addDefaultSubItems(subItems);
+    addInfiTool(subItems, "InfiChopper");
   }
 
   @Override

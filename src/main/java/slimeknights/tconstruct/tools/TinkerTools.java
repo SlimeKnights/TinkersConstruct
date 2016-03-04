@@ -83,6 +83,7 @@ import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
 import slimeknights.tconstruct.tools.tileentity.TileStencilTable;
 import slimeknights.tconstruct.tools.tileentity.TileToolForge;
 import slimeknights.tconstruct.tools.tileentity.TileToolStation;
+import slimeknights.tconstruct.tools.traits.InfiTool;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.BlockSlime;
 
@@ -314,6 +315,9 @@ public class TinkerTools extends TinkerPulse {
 
     modCreative = registerModifier(new ModCreative());
     modCreative.addItem(TinkerCommons.matCreativeModifier, 1, 1);
+
+    // ensure infitool trait
+    TinkerRegistry.addTrait(InfiTool.INSTANCE);
   }
 
   // INITIALIZATION

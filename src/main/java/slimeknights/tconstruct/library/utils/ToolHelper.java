@@ -654,8 +654,12 @@ public final class ToolHelper {
     while(d > cutoff) {
       damage += p * cutoff;
       // safety for ridiculous values
-      if(p > 0.000001f) {
+      if(p > 0.001f) {
         p *= 0.9f;
+      }
+      else {
+        damage += p * cutoff * ((d/cutoff) - 1f);
+        return damage;
       }
       d -= cutoff;
     }
