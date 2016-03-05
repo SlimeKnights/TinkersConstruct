@@ -4,9 +4,11 @@ import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -20,6 +22,7 @@ import java.util.List;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.MaterialIntegration;
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.shared.TinkerFluids;
@@ -32,6 +35,7 @@ public class TinkerIntegration extends TinkerPulse {
   public static final String PulseId = "TinkerIntegration";
   static final Logger log = Util.getLogger(PulseId);
   public static List<MaterialIntegration> integrationList = Lists.newLinkedList();
+  public static List<NBTTagList> alloys = Lists.newLinkedList();
 
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
@@ -95,6 +99,8 @@ public class TinkerIntegration extends TinkerPulse {
       // integrate again, some oredicts might not have been present in the previous attempt
       integration.integrateRecipes();
     }
+
+    handleAlloyIMCs();
   }
 
   @SubscribeEvent
@@ -118,16 +124,53 @@ public class TinkerIntegration extends TinkerPulse {
           Fluid fluid = FluidRegistry.getFluid(fluidName);
 
           if(fluid != null && ore != null && !ore.isEmpty()) {
-            MaterialIntegration materialIntegration = new MaterialIntegration(null, fluid, ore);
-            if(toolforge) {
-              materialIntegration.toolforge();
+            boolean isNew = true;
+            for(MaterialIntegration mi : integrationList) {
+              if(mi.fluid != null && mi.fluid.getName().equals(fluidName)) {
+                isNew = false;
+              }
             }
-            integrationList.add(materialIntegration);
-            materialIntegration.integrate();
+            // only integrate if not present already
+            if(isNew) {
+              MaterialIntegration materialIntegration = new MaterialIntegration(null, fluid, ore);
+              if(toolforge) {
+                materialIntegration.toolforge();
+              }
+              integrationList.add(materialIntegration);
+              materialIntegration.integrate();
+            }
           }
+          if(tag.hasKey("alloy")) {
+            alloys.add(tag.getTagList("alloy", 10));
+          }
+        }
+        if(message.key.equals("alloy")) {
+          alloys.add(message.getNBTValue().getTagList("alloy", 10));
         }
       } catch(ClassCastException e) {
         log.error("Got invalid " + message.key + " IMC from " + message.getSender());
+      }
+    }
+  }
+
+  private void handleAlloyIMCs() {
+    for(NBTTagList taglist : alloys) {
+      List<FluidStack> fluids = Lists.newLinkedList();
+      for(int i = 0; i < taglist.tagCount(); i++) {
+        NBTTagCompound tag = taglist.getCompoundTagAt(i);
+        FluidStack fs = FluidStack.loadFluidStackFromNBT(tag);
+        if(fs == null) {
+          fluids.clear();
+          break;
+        }
+      }
+
+      // needs at least 3 fluids
+      if(fluids.size() > 2) {
+        FluidStack output = fluids.get(0);
+        FluidStack[] input = new FluidStack[fluids.size()-1];
+        input = fluids.subList(1, fluids.size()).toArray(input);
+        TinkerRegistry.registerAlloy(output, input);
       }
     }
   }
