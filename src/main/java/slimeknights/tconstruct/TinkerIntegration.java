@@ -138,6 +138,7 @@ public class TinkerIntegration extends TinkerPulse {
               }
               integrationList.add(materialIntegration);
               materialIntegration.integrate();
+              log.info("Added integration smelting for " + ore + " from " + message.getSender());
             }
           }
           if(tag.hasKey("alloy")) {
@@ -163,6 +164,7 @@ public class TinkerIntegration extends TinkerPulse {
           fluids.clear();
           break;
         }
+        fluids.add(fs);
       }
 
       // needs at least 3 fluids
@@ -171,6 +173,7 @@ public class TinkerIntegration extends TinkerPulse {
         FluidStack[] input = new FluidStack[fluids.size()-1];
         input = fluids.subList(1, fluids.size()).toArray(input);
         TinkerRegistry.registerAlloy(output, input);
+        log.debug("Added integration alloy: " + output.getLocalizedName());
       }
     }
   }
