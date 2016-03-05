@@ -1,0 +1,31 @@
+language: java
+sudo: true
+cache:
+  directories:
+  - "$HOME/.gradle/caches"
+  - "$HOME/.gradle/wrapper"
+notifications:
+  email: false
+  irc:
+    channels:
+      secure: Rd4c9WhmrVR6PnvUlJG98iTwwPI7AskIfdfSmjiM5A2RlU1kMLhe8MzZsrDniJlWvG5FVJVnWKw5j2tLQXwwLfUj5LngVj3XKp62fuV7QT9RhfTSZ7piKWUtNHZz+zcujBf/AgONsHjMEJQ4/LDIwiQncPtaf8uDj9VEolvvUgJEuoy9gl+cARVqaD3C6v8/ZhoxcBsDfBDS0G+UBqDMzq/XuFnyQA5ztorXgryLFPpW2nHDjKlyNy/9SVx65Q84C+eblxovTf/PtAtZTPGEbEuc3Xuxbt+Oxcu1VPK4lVit3lgPxK8LeW4E9/naafjpjmUlVPaEdlWrqnYqY41HQShhyA0daTP6eBp8atPViyTVpo7+Vr2FoPWBulkJMHiP0TajBZSN++3D0EGCrzEKAyucYR2cetknkwIU35C19WqtaVFXQIZeeDyLDYdkAHXfacZ+cJLox1XoBxkbkmXXAu9WUEPLDptGv+7Po1ZiuVeybWeJD9B/a22hrDzYr2fsv5Z3XROapN670pHduNLqNBJl40Pob3+hZ5EHbRxrUWmJBFvewYZuSlatFWc/DHdT9pbph0b3LA/ImYE55K+o/Q3iVsPtXWvSKFkXz/E/o5F4x4NZGAVrwwT1UW1a9xdCvv+mAMoSTHHoknjDwgRjjODyEhV4tVUi4LMppMGF+0E=
+    nick: travis-ci
+    password:
+      secure: fejJ/2u4n5/yQXma+YG17fDrEfBb8ClP2+030Zbb6c5n/K9QK3iQcSMvBSSudQD4TMAzqraeblI/fsxuAAJA+bUTKwUbOG6APFL7uO/K8JBa/116Jlw55Ppcn7RVoih9h2xaEJhJlSGBTpsyYQ8nhNROP73zzOSbDowKXRwCzIeKP86cItkZT7LLhw3Q9XqDqRrNpoqu0UMOOzHcr2b7Qt6S2wntc7eRSIL9mJogEPJC+qVpqJHWybSM3Jy6/lrr7qwy/HbP3KWfXvaYTTy7gYKbf+Y0LMYhQwF8xV1JL9aK5CD+6/yZwVAWQ86QMyFqIEapwn/fp1bUQ/hiUTIap7Q1hYF63ckm/zu2Wfou3KYKlQx+PL0F4IU04F6eKJzWgWai6OE2hyiGs/UxQRMY1EoetoXow+fnFbpJPSjjbvpAKYAzzjdDS2QS42MjT1AeYDj2AhCP8WZZ6q2bRIoloMQTe9dimls7k0lTtddL1mW0516lPPL1gJjOMIbMSM/5CiMuAX7inn4HRy0nQYlvi3KyfC/8Ga6rwFQ2yPE6n8Sb2u4bNoU8QXgkEB4PyRzAs0/yOt3B4Vvj0+rrsHEOon5p0sFws1HfJYyw0pvHqjFuSlRZz6vCJ9THnkrItOlMzuOFR9DmEGtOe0/3T4nUkBFyGKKW7nqh+MJL82XRQQE=
+before_install:
+- sudo pip install codecov
+after_success:
+- sudo codecov
+before_deploy:
+- export RELEASE_JAR=$(ls build/libs/*.jar)
+deploy:
+  provider: releases
+  api_key:
+    secure: BsWoyVEdvAeXOiiUDRNlSHwZyCFZiikz1sTQAv6zPRQSJxR9i3WTPm+tEH2LvpoQIiYi+6JQJHKQ50xbo9KZ7fuExslAiY9gyJ9qwYsQpwRrd6dqwhHh1jrHslizFB6IWRJbBhKhT88EZBZuk4mOtdTcAbh+/qadj/7TY52gLGeCxwAV3CtBU5b0jPCL+I12BJMdvXx36iKGAFD3uJoO0jXUeCwdVE6WH5RtQ19pYfSEfE1AR/p5+HkR9CK0ZvuTtf3DDTX6OUfbiOmNTHBcwkpbqilPf/8+estNNgnHLUa2H9GQUahwN8UnU2kkg429/4W0LbutAlWh9bLbgOKA3veq05wPyqdTDHqCS4gLaBLW2IvlxT7HpfrT0cnWwF7kHoV2dKsrbjkizED6ZFsTVDucllr5U78xodcjaUNnqrTUT3pw31tuYNxt+WjKHYyJnNJ1APS8g9AxHz5QiNpz95r4WL/MWpiXKAFQaCSltGaxuLZa68G2HGIyZcfBtVwkaE4LXZhUK1aTdeJG4jdC6f7n7oi5Dcdq/kBTrUhc7JlC2rDFqCgaPx6SoQSa51EwG99MHzJSAgq+KQOXUtjd3d4+lQ5yBpk0nq9TS7kzPfPw259W2xe3xGNqB/7r+zFjbNkJteu9nP1lr4rQzs1oBTOcCkM9+pZNkmVf50J4OhI=
+  file: "${RELEASE_JAR}"
+  file_glob: true
+  skip_cleanup: true
+  on:
+    repo: GTNewHorizons/TinkersConstruct
+    branch: 1.7.10
+    tags: true

@@ -17,6 +17,7 @@ import tconstruct.library.crafting.FluidType;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.items.Pattern;
+import tconstruct.util.config.PHConstruct;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -38,7 +39,8 @@ public class TinkerGears {
     public void postInit(FMLPostInitializationEvent event) {
         ItemStack cast = new ItemStack(gearCast);
         FluidStack aluCastLiquid = new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue);
-        FluidStack goldCastLiquid = new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue*2);
+        if(!PHConstruct.removeGoldCastRecipes)
+            FluidStack goldCastLiquid = new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue*2);
 
         // find all gears in the registry
         for(String oreName : OreDictionary.getOreNames()) {
@@ -51,7 +53,8 @@ public class TinkerGears {
             if(!oreName.equals("gearWood")) {
                 for(ItemStack g : gears) {
                     TConstructRegistry.getTableCasting().addCastingRecipe(cast, aluCastLiquid, g, false, 50);
-                    TConstructRegistry.getTableCasting().addCastingRecipe(cast, goldCastLiquid, g, false, 50);
+                    if(!PHConstruct.removeGoldCastRecipes)
+                        TConstructRegistry.getTableCasting().addCastingRecipe(cast, goldCastLiquid, g, false, 50);
                 }
             }
 
