@@ -1,5 +1,9 @@
-language: python
+language: java
 sudo: false
+cache:
+  directories:
+  - "$HOME/.gradle/caches"
+  - "$HOME/.gradle/wrapper"
 notifications:
   email: false
   irc:
@@ -7,10 +11,17 @@ notifications:
       secure: Rd4c9WhmrVR6PnvUlJG98iTwwPI7AskIfdfSmjiM5A2RlU1kMLhe8MzZsrDniJlWvG5FVJVnWKw5j2tLQXwwLfUj5LngVj3XKp62fuV7QT9RhfTSZ7piKWUtNHZz+zcujBf/AgONsHjMEJQ4/LDIwiQncPtaf8uDj9VEolvvUgJEuoy9gl+cARVqaD3C6v8/ZhoxcBsDfBDS0G+UBqDMzq/XuFnyQA5ztorXgryLFPpW2nHDjKlyNy/9SVx65Q84C+eblxovTf/PtAtZTPGEbEuc3Xuxbt+Oxcu1VPK4lVit3lgPxK8LeW4E9/naafjpjmUlVPaEdlWrqnYqY41HQShhyA0daTP6eBp8atPViyTVpo7+Vr2FoPWBulkJMHiP0TajBZSN++3D0EGCrzEKAyucYR2cetknkwIU35C19WqtaVFXQIZeeDyLDYdkAHXfacZ+cJLox1XoBxkbkmXXAu9WUEPLDptGv+7Po1ZiuVeybWeJD9B/a22hrDzYr2fsv5Z3XROapN670pHduNLqNBJl40Pob3+hZ5EHbRxrUWmJBFvewYZuSlatFWc/DHdT9pbph0b3LA/ImYE55K+o/Q3iVsPtXWvSKFkXz/E/o5F4x4NZGAVrwwT1UW1a9xdCvv+mAMoSTHHoknjDwgRjjODyEhV4tVUi4LMppMGF+0E=
     nick: travis-ci
     password:
-      secure: wKlUtsVuZb478agCE0DzN8DnSgT63o3Kiw6YHSwF1WueMQY5FqD8nIn4+7tHG5UnU3eI/Kfqjoq17sG6JRGnEGz3ks2ln19//MdMcZeOlknzKE/903p7UTXbYuvHSn9blrxrV0oskbg4xmTiQPe1sn4pMug3y5ozxZSNspqzrIT34hEqio9+1JDCDHp6Bb+yukxsYHpuTQtMBdCY+6PQFUPAKF7AczLevL/4UIYVNHGDB96Vtfelxw9ZPxTKTFPZ5V5hH8/zR9QjOQUUZDQk/D8x+j14VHAZosuYjjgrv9EKD/vdfW3vIhJynWkO+Mvuj6u7nrUaLOugEbKMo+YnizGcRiMJlD95pP+V69jKUl7zXyG9mo0xLSp8EOaN5qhhlCHbnt0WPtcg/mogxZrrTQHYmslWebpcs7GCFk8EE0UbLgKOUZq/1SroCL2e6y9kkihcfqYaktzTWUsJPn1V0RnJnSLakYRKU1J4cjoxjR0njVa9z9JVPFpRgh8pVHFZh/I0Ee57dWtJqJoseiobJqsCi5al4dg4dH4fVELMWntOJJRRWydbbr0KzBHDOyynXRUpAZlkYp4Kab5mfi5wD6cLgqePlaVYDy2YL7SCI5osTh8oCgsKkq7EDEVb42hgLwm/xKqbVqCxs7pM5Wi8A2aLDgIpd1SjoiUHKYo614A=
-install:
-- pip install codecov
-script:
-- codecov run tests.py
-after_success:
-- codecov
+      secure: BK7dtwW2Nh9MSvzX1pFDivMTooOjGFR7/JeC4VXaj+qaQ+SodNIqIVFSJulxvu8a31MMsbYFWGSy6OlynZK7635/1qbG2D/YNeGAtW4yTxqUFJjs01SRPWmYEPpOOqoETrRkfV1Pdnb7MXqP470XOtFshGuUej73OAMB///DM9zDZD6l/PIcooCcK+kmHsBsv5cHpQF0QO75ai3TKsw7nVat61iK+AxtodOn2P3uGRkdtozY0GjltGqSAf++n8GBnYcdNJsDwFHsdp0scMt4iRpiJyZNnbuDU63FmxqkTG0ueE3FC787+Sx5u7wCCe6lTK2sXUI/3ktDo3JR6C1vXI7Yzd7MnFAq/WTb7F5OcJMs3ArGVR7gahoyOgtZ8eFaCa0yHYZ3s+JU3Vie/7/HU3KEFongfAmbvrC7gOFG8si0kkdhDdY191X3Rx6ah0a28UAgQ4rmEHhA9GjqhPFT2PYPscvaj5q+hJIt45uwMwmzwuDJtNy9/VkXOCw8KeNlPzTw++tfCPjV7z0QfA3Z+QT3BCF96+1yq3ro4z7HstQJSFpq0q8jxDv76D3FfeW5izlc8N7Cn5oucNY5XVbDuD3JiuQDSWBOk1j7yp4sCa1FHLzIIErIe/xoalZdIp2FN/zKSn7kq0ofNlHr0S+XpNvgU640wLGKXNI/txTGfRg=
+before_deploy:
+- export RELEASE_JAR=$(ls build/libs/*.jar)
+deploy:
+  provider: releases
+  api_key:
+    secure: BsWoyVEdvAeXOiiUDRNlSHwZyCFZiikz1sTQAv6zPRQSJxR9i3WTPm+tEH2LvpoQIiYi+6JQJHKQ50xbo9KZ7fuExslAiY9gyJ9qwYsQpwRrd6dqwhHh1jrHslizFB6IWRJbBhKhT88EZBZuk4mOtdTcAbh+/qadj/7TY52gLGeCxwAV3CtBU5b0jPCL+I12BJMdvXx36iKGAFD3uJoO0jXUeCwdVE6WH5RtQ19pYfSEfE1AR/p5+HkR9CK0ZvuTtf3DDTX6OUfbiOmNTHBcwkpbqilPf/8+estNNgnHLUa2H9GQUahwN8UnU2kkg429/4W0LbutAlWh9bLbgOKA3veq05wPyqdTDHqCS4gLaBLW2IvlxT7HpfrT0cnWwF7kHoV2dKsrbjkizED6ZFsTVDucllr5U78xodcjaUNnqrTUT3pw31tuYNxt+WjKHYyJnNJ1APS8g9AxHz5QiNpz95r4WL/MWpiXKAFQaCSltGaxuLZa68G2HGIyZcfBtVwkaE4LXZhUK1aTdeJG4jdC6f7n7oi5Dcdq/kBTrUhc7JlC2rDFqCgaPx6SoQSa51EwG99MHzJSAgq+KQOXUtjd3d4+lQ5yBpk0nq9TS7kzPfPw259W2xe3xGNqB/7r+zFjbNkJteu9nP1lr4rQzs1oBTOcCkM9+pZNkmVf50J4OhI=
+  file: "${RELEASE_JAR}"
+  file_glob: true
+  skip_cleanup: true
+  on:
+    repo: GTNewHorizons/TinkersConstruct
+    branch: 1.7.10
+    tags: true
