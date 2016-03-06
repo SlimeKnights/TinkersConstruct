@@ -21,6 +21,9 @@
             "pigiron": {
                 "textures": { "all": "tconstruct:blocks/block_pigiron" }
             },
+            "alubrass": {
+                "textures": { "all": "tconstruct:blocks/block_alubrass" }
+            },
             "silky_jewel": {
                 "textures": { "all": "tconstruct:blocks/block_silky_jewel" }
             }

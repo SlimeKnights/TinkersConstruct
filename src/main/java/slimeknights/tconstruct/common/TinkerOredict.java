@@ -69,6 +69,7 @@ public class TinkerOredict {
     oredictNIB(nuggetManyullyn,   ingotManyullyn,   blockManyullyn,   "Manyullyn");
     oredictNIB(nuggetKnightSlime, ingotKnightSlime, blockKnightSlime, "Knightslime");
     oredictNIB(nuggetPigIron,     ingotPigIron,     blockPigIron,     "Pigiron");
+    oredictNIB(nuggetAlubrass,    ingotAlubrass,    blockAlubrass,    "Alubrass");
 
     String metal = "blockMetal";
     oredict(new ItemStack(Blocks.iron_block), metal);

@@ -9,6 +9,7 @@
         "ardite": [{ "textures": { "layer0": "tconstruct:items/materials/ingot_ardite" }}],
         "manyullyn": [{ "textures": { "layer0": "tconstruct:items/materials/ingot_manyullyn" }}],
         "pigiron": [{ "textures": { "layer0": "tconstruct:items/materials/ingot_pigiron" }}],
-        "knightslime": [{ "textures": { "layer0": "tconstruct:items/materials/ingot_knightslime" }}]
+        "knightslime": [{ "textures": { "layer0": "tconstruct:items/materials/ingot_knightslime" }}],
+        "alubrass": [{ "textures": { "layer0": "tconstruct:items/materials/ingot_alubrass" }}]
     }
 }

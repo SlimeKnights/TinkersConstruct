@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.smeltery;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -105,8 +104,8 @@ public class TinkerSmeltery extends TinkerPulse {
   public static ItemStack castGear;
 
   private static Map<Fluid, Set<Pair<List<ItemStack>, Integer>>> knownOreFluids = Maps.newHashMap();
-  private static List<FluidStack> castCreationFluids = Lists.newLinkedList();
-  private static List<FluidStack> clayCreationFluids = Lists.newLinkedList();
+  public static List<FluidStack> castCreationFluids = Lists.newLinkedList();
+  public static List<FluidStack> clayCreationFluids = Lists.newLinkedList();
 
   public static ImmutableSet<Block> validSmelteryBlocks;
 
@@ -381,6 +380,14 @@ public class TinkerSmeltery extends TinkerPulse {
       TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.electrum, 2),
                                    new FluidStack(TinkerFluids.gold, 1),
                                    new FluidStack(TinkerFluids.silver, 1));
+    }
+
+    if(FluidRegistry.isFluidRegistered(TinkerFluids.alubrass) &&
+       FluidRegistry.isFluidRegistered(TinkerFluids.copper) &&
+       FluidRegistry.isFluidRegistered(TinkerFluids.aluminum)) {
+      TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.alubrass, 4),
+                                   new FluidStack(TinkerFluids.copper, 1),
+                                   new FluidStack(TinkerFluids.aluminum, 3));
     }
   }
 

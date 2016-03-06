@@ -60,6 +60,8 @@ public class TinkerFluids extends TinkerPulse {
   public static FluidColored blueslime;
   public static FluidColored purpleSlime;
 
+  public static FluidMolten alubrass;
+
   // Mod Integration fluids
   public static FluidMolten brass;
   public static FluidMolten copper;
@@ -110,6 +112,9 @@ public class TinkerFluids extends TinkerPulse {
     knightslime = fluidMetal(TinkerMaterials.knightslime);
     knightslime.setTemperature(520);
     knightslime.setRarity(EnumRarity.EPIC);
+
+    alubrass = fluidMetal("alubrass", 0xece347);
+    alubrass.setTemperature(500);
 
     // Mod Integration fluids
     brass = fluidMetal("brass", 0xede38b);

@@ -65,6 +65,7 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack blockPigIron;
   public static ItemStack blockKnightSlime;
   public static ItemStack blockSilkyJewel;
+  public static ItemStack blockAlubrass;
 
   public static ItemStack lavawood;
   public static ItemStack firewood;
@@ -81,6 +82,7 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack nuggetManyullyn;
   public static ItemStack nuggetPigIron;
   public static ItemStack nuggetKnightSlime;
+  public static ItemStack nuggetAlubrass;
 
   // Ingot Itemstacks
   public static ItemStack ingotCobalt;
@@ -88,6 +90,7 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack ingotManyullyn;
   public static ItemStack ingotPigIron;
   public static ItemStack ingotKnightSlime;
+  public static ItemStack ingotAlubrass;
 
   // Material Itemstacks
   public static ItemStack searedBrick;
@@ -174,17 +177,21 @@ public class TinkerCommons extends TinkerPulse {
       nuggetManyullyn = nuggets.addMeta(2, "manyullyn");
       ingotManyullyn = ingots.addMeta(2, "manyullyn");
 
+      nuggetPigIron = nuggets.addMeta(4, "pigiron");
+      ingotPigIron = ingots.addMeta(4, "pigiron");
+
+      nuggetAlubrass = nuggets.addMeta(5, "alubrass");
+      ingotAlubrass = ingots.addMeta(5, "alubrass");
+
       blockMetal = registerEnumBlock(new BlockMetal(), "metal");
 
       blockCobalt = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.COBALT.getMeta());
       blockArdite = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.ARDITE.getMeta());
       blockManyullyn = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.MANYULLYN.getMeta());
       blockKnightSlime = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.KNIGHTSLIME.getMeta());
-      blockSilkyJewel = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.SILKY_JEWEL.getMeta());
-
-      nuggetPigIron = nuggets.addMeta(4, "pigiron");
-      ingotPigIron = ingots.addMeta(4, "pigiron");
       blockPigIron = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.PIGIRON.getMeta());
+      blockAlubrass = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.ALUBRASS.getMeta());
+      blockSilkyJewel = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.SILKY_JEWEL.getMeta());
     }
 
     // Materials
@@ -234,13 +241,14 @@ public class TinkerCommons extends TinkerPulse {
     registerMetalRecipes("Manyullyn", ingotManyullyn, nuggetManyullyn, blockManyullyn);
     registerMetalRecipes("Knightslime", ingotKnightSlime, nuggetKnightSlime, blockKnightSlime);
     registerMetalRecipes("Pigiron", ingotPigIron, nuggetPigIron, blockPigIron);
+    registerMetalRecipes("Alubrass", ingotAlubrass, nuggetAlubrass, blockAlubrass);
 
     if(blockSilkyJewel != null && matSilkyJewel != null) {
       GameRegistry.addShapedRecipe(blockSilkyJewel, "###", "###", "###", '#', matSilkyJewel);
     }
   }
 
-  private void registerMetalRecipes(String oreString, ItemStack ingot, ItemStack nugget, ItemStack block) {
+  private static void registerMetalRecipes(String oreString, ItemStack ingot, ItemStack nugget, ItemStack block) {
     if(ingot == null) {
       return;
     }
@@ -255,7 +263,7 @@ public class TinkerCommons extends TinkerPulse {
     }
   }
 
-  private void registerFullrecipe(ItemStack small, ItemStack big, String oreSmall, String oreBig) {
+  private static void registerFullrecipe(ItemStack small, ItemStack big, String oreSmall, String oreBig) {
     // ingot -> block
     //GameRegistry.addShapedRecipe(big, "###", "###", "###", '#', small);
     GameRegistry.addRecipe(new ShapedOreRecipe(big, "###", "###", "###", '#', oreSmall));

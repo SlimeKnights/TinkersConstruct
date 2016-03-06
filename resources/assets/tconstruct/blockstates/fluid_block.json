@@ -79,6 +79,9 @@
         "aluminum": [{
             "custom": { "fluid": "aluminum" }
         }],
+        "alubrass": [{
+            "custom": { "fluid": "alubrass" }
+        }],
         "dirt": [{
             "custom": { "fluid": "dirt" }
         }],

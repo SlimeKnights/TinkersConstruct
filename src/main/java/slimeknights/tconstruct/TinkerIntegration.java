@@ -1,5 +1,6 @@
 package slimeknights.tconstruct;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
@@ -26,6 +27,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.shared.TinkerFluids;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 
 // Takes care of adding all the generic-ish materials
@@ -36,6 +38,8 @@ public class TinkerIntegration extends TinkerPulse {
   static final Logger log = Util.getLogger(PulseId);
   public static List<MaterialIntegration> integrationList = Lists.newLinkedList();
   public static List<NBTTagList> alloys = Lists.newLinkedList();
+
+  private MaterialIntegration alubrassIntegration = null;
 
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
@@ -106,9 +110,22 @@ public class TinkerIntegration extends TinkerPulse {
   @SubscribeEvent
   public void onOredictRegister(OreDictionary.OreRegisterEvent event) {
     // the registered ore might be something we integrate and haven't yet
-    for(MaterialIntegration integration : integrationList) {
+    for(MaterialIntegration integration : ImmutableList.copyOf(integrationList)) {
       // calling this multiple time is ok because it does nothing once it was successful
       integration.integrate();
+    }
+  }
+
+  @SubscribeEvent
+  public void onFluidRegister(FluidRegistry.FluidRegisterEvent event) {
+    // add alubrass if both copper and aluminum are present
+    if(FluidRegistry.isFluidRegistered(TinkerFluids.aluminum) && FluidRegistry.isFluidRegistered(TinkerFluids.copper)) {
+      if(alubrassIntegration == null) {
+        alubrassIntegration = integrate(TinkerFluids.alubrass, "Alubrass").toolforge();
+        alubrassIntegration.integrate();
+
+        TinkerSmeltery.castCreationFluids.add(new FluidStack(TinkerFluids.alubrass, Material.VALUE_Ingot));
+      }
     }
   }
 
