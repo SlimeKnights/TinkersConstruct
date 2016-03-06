@@ -171,7 +171,6 @@ public class TinkerIntegration extends TinkerPulse {
         }
         // melting blacklist
         else if(message.key.equals("blacklistMelting")) {
-          new ItemStack(Blocks.wool, 1, OreDictionary.WILDCARD_VALUE)
           // oredict blacklist
           if(message.getMessageType() == String.class) {
             TinkerSmeltery.meltingBlacklist.addAll(OreDictionary.getOres(message.getStringValue(), false));
