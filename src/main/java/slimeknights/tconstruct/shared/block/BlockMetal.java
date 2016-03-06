@@ -2,10 +2,20 @@ package slimeknights.tconstruct.shared.block;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.TinkerFluids;
 
 public class BlockMetal extends EnumBlock<BlockMetal.MetalTypes> {
 
@@ -17,6 +27,17 @@ public class BlockMetal extends EnumBlock<BlockMetal.MetalTypes> {
     setHardness(5f);
     setHarvestLevel("pickaxe", -1); // we're generous. no harvest level required
     setCreativeTab(TinkerRegistry.tabGeneral);
+  }
+
+  @SideOnly(Side.CLIENT)
+  @Override
+  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+    for(MetalTypes type : MetalTypes.values()) {
+      if(type == MetalTypes.ALUBRASS && !FluidRegistry.isFluidRegistered(TinkerFluids.alubrass)) {
+        continue;
+      }
+      list.add(new ItemStack(this, 1, type.getMeta()));
+    }
   }
 
   public enum MetalTypes implements IStringSerializable, EnumBlock.IEnumMeta {

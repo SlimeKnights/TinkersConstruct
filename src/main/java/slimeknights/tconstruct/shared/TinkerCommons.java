@@ -28,6 +28,7 @@ import slimeknights.tconstruct.shared.block.BlockFirewood;
 import slimeknights.tconstruct.shared.block.BlockMetal;
 import slimeknights.tconstruct.shared.block.BlockOre;
 import slimeknights.tconstruct.shared.block.BlockSoil;
+import slimeknights.tconstruct.shared.item.ItemMetaDynamicTinkers;
 import slimeknights.tconstruct.shared.worldgen.NetherOreGenerator;
 
 /**
@@ -143,8 +144,8 @@ public class TinkerCommons extends TinkerPulse {
     firewood = new ItemStack(blockFirewood, 1, BlockFirewood.FirewoodType.FIREWOOD.getMeta());
 
     // create the items. We can probably always create them since they handle themselves dynamically
-    nuggets = registerItem(new ItemMetaDynamic(), "nuggets");
-    ingots = registerItem(new ItemMetaDynamic(), "ingots");
+    nuggets = registerItem(new ItemMetaDynamicTinkers(), "nuggets");
+    ingots = registerItem(new ItemMetaDynamicTinkers(), "ingots");
     materials = registerItem(new ItemMetaDynamic(), "materials");
     edibles = registerItem(new ItemEdible(), "edible");
 
