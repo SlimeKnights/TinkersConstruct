@@ -7,6 +7,8 @@
     "variants": {
         "ingot": [{ "textures": { "layer0": "tconstruct:items/cast_ingot" }}],
         "nugget": [{ "textures": { "layer0": "tconstruct:items/cast_nugget" }}],
-        "gem": [{ "textures": { "layer0": "tconstruct:items/cast_gem" }}]
+        "gem": [{ "textures": { "layer0": "tconstruct:items/cast_gem" }}],
+        "plate": [{ "textures": { "layer0": "tconstruct:items/cast_plate" }}],
+        "gear": [{ "textures": { "layer0": "tconstruct:items/cast_gear" }}]
     }
 }

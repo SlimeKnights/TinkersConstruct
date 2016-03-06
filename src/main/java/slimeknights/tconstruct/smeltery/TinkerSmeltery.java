@@ -101,6 +101,8 @@ public class TinkerSmeltery extends TinkerPulse {
   public static ItemStack castNugget;
   public static ItemStack castGem;
   public static ItemStack castShard;
+  public static ItemStack castPlate;
+  public static ItemStack castGear;
 
   private static Map<Fluid, Set<Pair<List<ItemStack>, Integer>>> knownOreFluids = Maps.newHashMap();
   private static List<FluidStack> castCreationFluids = Lists.newLinkedList();
@@ -134,6 +136,8 @@ public class TinkerSmeltery extends TinkerPulse {
     castIngot = castCustom.addMeta(0, "ingot", Material.VALUE_Ingot);
     castNugget = castCustom.addMeta(1, "nugget", Material.VALUE_Nugget);
     castGem = castCustom.addMeta(2, "gem", Material.VALUE_Gem);
+    castPlate = castCustom.addMeta(3, "plate", Material.VALUE_Ingot);
+    castGear = castCustom.addMeta(4, "gear", Material.VALUE_Ingot*4);
 
     clayCast = registerItem(new Cast(), "clay_cast");
 
@@ -454,8 +458,10 @@ public class TinkerSmeltery extends TinkerPulse {
     Pair<List<ItemStack>, Integer> ingotOre = Pair.of(OreDictionary.getOres("ingot" + ore), Material.VALUE_Ingot);
     Pair<List<ItemStack>, Integer> blockOre = Pair.of(OreDictionary.getOres("block" + ore), Material.VALUE_Block);
     Pair<List<ItemStack>, Integer> oreOre = Pair.of(OreDictionary.getOres("ore" + ore), Material.VALUE_Ore);
+    Pair<List<ItemStack>, Integer> plateOre = Pair.of(OreDictionary.getOres("plate" + ore), Material.VALUE_Ingot);
+    Pair<List<ItemStack>, Integer> gearOre = Pair.of(OreDictionary.getOres("gear" + ore), Material.VALUE_Ingot);
 
-    builder.add(nuggetOre, ingotOre, blockOre, oreOre);
+    builder.add(nuggetOre, ingotOre, blockOre, oreOre, plateOre, gearOre);
     Set<Pair<List<ItemStack>, Integer>> knownOres = builder.build();
 
 
@@ -480,11 +486,23 @@ public class TinkerSmeltery extends TinkerPulse {
                                                              null, // no cast
                                                              fluid,
                                                              blockOre.getRight()));
+    // plate casting
+    TinkerRegistry.registerTableCasting(new OreCastingRecipe(plateOre.getLeft(),
+                                                             RecipeMatch.ofNBT(castPlate),
+                                                             fluid,
+                                                             plateOre.getRight()));
+    // gear casting
+    TinkerRegistry.registerTableCasting(new OreCastingRecipe(gearOre.getLeft(),
+                                                             RecipeMatch.ofNBT(castGear),
+                                                             fluid,
+                                                             gearOre.getRight()));
 
     // and also cast creation!
     for(FluidStack fs : castCreationFluids) {
       TinkerRegistry.registerTableCasting(new CastingRecipe(castIngot, RecipeMatch.of(ingotOre.getLeft()), fs, true, true));
       TinkerRegistry.registerTableCasting(new CastingRecipe(castNugget, RecipeMatch.of(nuggetOre.getLeft()), fs, true, true));
+      TinkerRegistry.registerTableCasting(new CastingRecipe(castPlate, RecipeMatch.of(plateOre.getLeft()), fs, true, true));
+      TinkerRegistry.registerTableCasting(new CastingRecipe(castGear, RecipeMatch.of(gearOre.getLeft()), fs, true, true));
     }
 
     // used for recipe detection
