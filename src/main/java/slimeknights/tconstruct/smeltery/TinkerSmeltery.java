@@ -303,6 +303,11 @@ public class TinkerSmeltery extends TinkerPulse {
     TinkerRegistry.registerTableCasting(TinkerCommons.mudBrick, castIngot, TinkerFluids.dirt, Material.VALUE_Ingot);
 
     // hardened clay
+    TinkerRegistry.registerMelting(Items.clay_ball, TinkerFluids.clay, Material.VALUE_Ingot);
+    TinkerRegistry.registerMelting(Blocks.clay, TinkerFluids.clay, Material.VALUE_BrickBlock);
+    // decided against support for melting hardened clay. Once it's hardened, it stays hard. Same for bricks.
+    //TinkerRegistry.registerMelting(Blocks.hardened_clay, TinkerFluids.clay, Material.VALUE_BrickBlock);
+    //TinkerRegistry.registerMelting(Blocks.stained_hardened_clay, TinkerFluids.clay, Material.VALUE_BrickBlock);
     TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.hardened_clay), null, TinkerFluids.clay, Material.VALUE_BrickBlock);
 
     // emerald melting and casting
