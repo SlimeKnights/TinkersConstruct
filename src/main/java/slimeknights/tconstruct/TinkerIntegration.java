@@ -76,12 +76,12 @@ public class TinkerIntegration extends TinkerPulse {
     integrate(TinkerMaterials.steel, TinkerFluids.steel, "Steel").toolforge();
 
     // non-toolmaterial integration
-    integrate(null, TinkerFluids.gold, "Gold").toolforge();
-    integrate(null, TinkerFluids.brass, "Brass").toolforge();
-    integrate(null, TinkerFluids.tin, "Tin").toolforge();
-    integrate(null, TinkerFluids.nickel, "Nickel").toolforge();
-    integrate(null, TinkerFluids.zinc, "Zinc").toolforge();
-    integrate(null, TinkerFluids.aluminium, "Aluminium").toolforge();
+    integrate(TinkerFluids.gold, "Gold").toolforge();
+    integrate(TinkerFluids.brass, "Brass").toolforge();
+    integrate(TinkerFluids.tin, "Tin").toolforge();
+    integrate(TinkerFluids.nickel, "Nickel").toolforge();
+    integrate(TinkerFluids.zinc, "Zinc").toolforge();
+    integrate(TinkerFluids.aluminum, "Aluminum").toolforge();
 
     for(MaterialIntegration integration : integrationList) {
       integration.integrate();

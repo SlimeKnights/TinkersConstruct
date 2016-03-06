@@ -57,7 +57,7 @@ public class FluidsClientProxy extends ClientProxy {
       this.fluid = fluid;
 
       // have each block hold its fluid per nbt? hm
-      this.location = new ModelResourceLocation(Util.getResource("molten_metal"), fluid.getName());
+      this.location = new ModelResourceLocation(Util.getResource("fluid_block"), fluid.getName());
     }
 
     @Override

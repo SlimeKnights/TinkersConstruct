@@ -71,7 +71,7 @@ public class TinkerFluids extends TinkerPulse {
   public static FluidMolten silver;
   public static FluidMolten electrum;
   public static FluidMolten steel;
-  public static FluidMolten aluminium;
+  public static FluidMolten aluminum;
 
   static List<Fluid> fluids = Lists.newLinkedList(); // all fluids registered by tcon
 
@@ -144,8 +144,8 @@ public class TinkerFluids extends TinkerPulse {
     steel = fluidMetal(TinkerMaterials.steel);
     steel.setTemperature(681);
 
-    aluminium = fluidMetal("aluminium", 0xefe0d5);
-    aluminium.setTemperature(330);
+    aluminum = fluidMetal("aluminum", 0xefe0d5);
+    aluminum.setTemperature(330);
   }
 
   @Subscribe

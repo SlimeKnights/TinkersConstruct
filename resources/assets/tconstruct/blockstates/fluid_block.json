@@ -76,8 +76,8 @@
         "steel": [{
             "custom": { "fluid": "steel" }
         }],
-        "aluminium": [{
-            "custom": { "fluid": "aluminium" }
+        "aluminum": [{
+            "custom": { "fluid": "aluminum" }
         }],
         "dirt": [{
             "custom": { "fluid": "dirt" }
