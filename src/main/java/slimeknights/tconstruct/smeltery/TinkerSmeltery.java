@@ -108,6 +108,7 @@ public class TinkerSmeltery extends TinkerPulse {
   public static List<FluidStack> clayCreationFluids = Lists.newLinkedList();
 
   public static ImmutableSet<Block> validSmelteryBlocks;
+  public static List<ItemStack> meltingBlacklist = Lists.newLinkedList();
 
   // PRE-INITIALIZATION
   @Subscribe
@@ -526,8 +527,17 @@ public class TinkerSmeltery extends TinkerPulse {
     // we go through all recipies, and if it's an ore recipe we go through its contents and check if it
     // only consists of one of our known oredict entries
     for(IRecipe irecipe : CraftingManager.getInstance().getRecipeList()) {
+      // blacklisted?
+      boolean blacklisted = false;
+      for(ItemStack blacklistItem : meltingBlacklist) {
+        if(OreDictionary.itemMatches(blacklistItem, irecipe.getRecipeOutput(), false)) {
+          blacklisted = true;
+          break;
+        }
+      }
+
       // recipe already has a melting recipe?
-      if(TinkerRegistry.getMelting(irecipe.getRecipeOutput()) != null) {
+      if(blacklisted || TinkerRegistry.getMelting(irecipe.getRecipeOutput()) != null) {
         continue;
       }
 

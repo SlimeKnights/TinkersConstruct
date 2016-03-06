@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.MinecraftForge;
@@ -132,6 +134,7 @@ public class TinkerIntegration extends TinkerPulse {
   private void handleIMCs() {
     for(FMLInterModComms.IMCMessage message : FMLInterModComms.fetchRuntimeMessages(TConstruct.instance)) {
       try {
+        // smeltery melting
         if(message.key.equals("integrateSmeltery")) {
           NBTTagCompound tag = message.getNBTValue();
           String fluidName = tag.getString("fluid");
@@ -162,8 +165,20 @@ public class TinkerIntegration extends TinkerPulse {
             alloys.add(tag.getTagList("alloy", 10));
           }
         }
-        if(message.key.equals("alloy")) {
+        // smeltery alloys
+        else if(message.key.equals("alloy")) {
           alloys.add(message.getNBTValue().getTagList("alloy", 10));
+        }
+        // melting blacklist
+        else if(message.key.equals("blacklistMelting")) {
+          new ItemStack(Blocks.wool, 1, OreDictionary.WILDCARD_VALUE)
+          // oredict blacklist
+          if(message.getMessageType() == String.class) {
+            TinkerSmeltery.meltingBlacklist.addAll(OreDictionary.getOres(message.getStringValue(), false));
+          }
+          else {
+            TinkerSmeltery.meltingBlacklist.add(message.getItemStackValue());
+          }
         }
       } catch(ClassCastException e) {
         log.error("Got invalid " + message.key + " IMC from " + message.getSender());
