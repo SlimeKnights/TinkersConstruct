@@ -47,16 +47,12 @@ public class BlockMetal extends EnumBlock<BlockMetal.MetalTypes> {
     KNIGHTSLIME,
     PIGIRON,
     ALUBRASS,
-    SILKY_JEWEL(15);
+    SILKY_JEWEL;
 
     public final int meta;
 
     MetalTypes() {
       meta = ordinal();
-    }
-
-    MetalTypes(int meta) {
-      this.meta = meta;
     }
 
     @Override
