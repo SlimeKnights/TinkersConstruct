@@ -167,15 +167,8 @@ public class TinkerWorld extends TinkerPulse {
   // POST-INITIALIZATION
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
-    GameRegistry.registerWorldGenerator(SlimeIslandGenerator.INSTANCE, 10);
-    GameRegistry.registerWorldGenerator(MagmaSlimeIslandGenerator.INSTANCE, 10);
-
-    for(BiomeGenBase biome : BiomeGenBase.getBiomeGenArray()) {
-      if(biome == null || biome == BiomeGenBase.hell || biome == BiomeGenBase.sky) {
-        continue;
-      }
-      EntityRegistry.addSpawn(EntityBlueSlime.class, 200, 1, 4, EnumCreatureType.MONSTER, biome); // ALL the biomes
-    }
+    GameRegistry.registerWorldGenerator(SlimeIslandGenerator.INSTANCE, 25);
+    GameRegistry.registerWorldGenerator(MagmaSlimeIslandGenerator.INSTANCE, 25);
 
     MinecraftForge.EVENT_BUS.register(new WorldEvents());
 
