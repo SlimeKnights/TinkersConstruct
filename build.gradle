@@ -94,7 +94,7 @@ if (System.getenv().ARTIFACT_VERSION == null) {
     artifact_version = "${config.mod_version}.${project.buildInfo.buildNum}"
 }
 if (System.getenv().ARTIFACT_VERSION != null) {
-    artifact_version = "${system.getenv().ARTIFACT_VERSION}"
+    artifact_version = "${System.getenv().ARTIFACT_VERSION}"
 }
 
 version = "${config.minecraft_version}-${artifact_version}"
