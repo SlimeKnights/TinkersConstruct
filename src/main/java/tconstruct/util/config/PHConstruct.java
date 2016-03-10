@@ -60,6 +60,7 @@ public class PHConstruct
         craftMetalTools = config.get("Difficulty Changes", "Craft metals with Wood Patterns", false).getBoolean(false);
         vanillaMetalBlocks = config.get("Difficulty Changes", "Craft vanilla metal blocks", true).getBoolean(true);
         lavaFortuneInteraction = config.get("Difficulty Changes", "Enable Auto-Smelt and Fortune interaction", true).getBoolean(true);
+        removeGoldCastRecipes = config.get("Difficulty Changes", "Remove Gold Cast Recipes", true).getBoolean(true);
         removeVanillaToolRecipes = config.get("Difficulty Changes", "Remove Vanilla Tool Recipes", false).getBoolean(false);
         labotimizeVanillaTools = config.get("Difficulty Changes", "Remove Vanilla Tool Effectiveness", false).getBoolean(false);
         miningLevelIncrease = config.get("Difficulty Changes", "Modifiers increase Mining Level", true).getBoolean(true);
@@ -342,6 +343,7 @@ public class PHConstruct
     public static boolean craftMetalTools;
     public static boolean vanillaMetalBlocks;
     public static boolean removeVanillaToolRecipes;
+    public static boolean removeGoldCastRecipes;
     public static boolean labotimizeVanillaTools;
     public static boolean miningLevelIncrease;
     public static boolean denyMattock;

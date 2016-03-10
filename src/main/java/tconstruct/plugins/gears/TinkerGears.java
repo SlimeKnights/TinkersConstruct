@@ -17,6 +17,7 @@ import tconstruct.library.crafting.FluidType;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.items.Pattern;
+import tconstruct.util.config.PHConstruct;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -51,7 +52,8 @@ public class TinkerGears {
             if(!oreName.equals("gearWood")) {
                 for(ItemStack g : gears) {
                     TConstructRegistry.getTableCasting().addCastingRecipe(cast, aluCastLiquid, g, false, 50);
-                    TConstructRegistry.getTableCasting().addCastingRecipe(cast, goldCastLiquid, g, false, 50);
+                    if(!PHConstruct.removeGoldCastRecipes)
+                        TConstructRegistry.getTableCasting().addCastingRecipe(cast, goldCastLiquid, g, false, 50);
                 }
             }
 
