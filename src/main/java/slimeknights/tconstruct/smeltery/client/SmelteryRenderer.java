@@ -59,7 +59,7 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
       BlockPos maxPos = new BlockPos(x2, y1, z2);
 
       // calc heights, we use mB capacities and then convert it over to blockheights during rendering
-      int yd = 1 + smeltery.maxPos.getY() - smeltery.minPos.getY();
+      int yd = 1 + Math.max(0, smeltery.maxPos.getY() - smeltery.minPos.getY());
       // one block height = 1000 mb
       int[] heights = calcLiquidHeights(fluids, tank.getMaxCapacity(), yd * 1000 - (int)(RenderUtil.FLUID_OFFSET*2000d), 100);
 
@@ -162,6 +162,11 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
           biggest = liquids.get(i).amount;
           m = i;
         }
+      }
+
+      // we can't get a result without going negative
+      if(fluidHeights[m] == 0) {
+        break;
       }
 
       // remove a pixel from the biggest one

@@ -127,6 +127,9 @@ public final class RenderUtil {
 
   public static void renderStackedFluidCuboid(FluidStack fluid, double px, double py, double pz, BlockPos pos,
                                               BlockPos from, BlockPos to, double ymin, double ymax) {
+    if(ymin >= ymax) {
+      return;
+    }
     Tessellator tessellator = Tessellator.getInstance();
     WorldRenderer renderer = tessellator.getWorldRenderer();
     renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
