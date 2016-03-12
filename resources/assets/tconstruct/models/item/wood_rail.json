@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "tconstruct:/blocks/wood_rail"
+        "layer0": "tconstruct:blocks/wood_rail"
     },
     "display": {
         "thirdperson": {
