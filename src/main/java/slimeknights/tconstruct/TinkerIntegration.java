@@ -12,6 +12,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -111,6 +113,10 @@ public class TinkerIntegration extends TinkerPulse {
 
   @SubscribeEvent
   public void onOredictRegister(OreDictionary.OreRegisterEvent event) {
+    // we're only interested in preInit
+    if(Loader.instance().hasReachedState(LoaderState.INITIALIZATION)) {
+      return;
+    }
     // the registered ore might be something we integrate and haven't yet
     for(MaterialIntegration integration : ImmutableList.copyOf(integrationList)) {
       // calling this multiple time is ok because it does nothing once it was successful
@@ -120,6 +126,11 @@ public class TinkerIntegration extends TinkerPulse {
 
   @SubscribeEvent
   public void onFluidRegister(FluidRegistry.FluidRegisterEvent event) {
+    // we're only interested in preInit
+    if(Loader.instance().hasReachedState(LoaderState.INITIALIZATION)) {
+      return;
+    }
+
     // add alubrass if both copper and aluminum are present
     if(FluidRegistry.isFluidRegistered(TinkerFluids.aluminum) && FluidRegistry.isFluidRegistered(TinkerFluids.copper)) {
       if(alubrassIntegration == null) {
