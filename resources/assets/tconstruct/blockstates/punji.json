@@ -1,0 +1,22 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-block",
+        "textures": {
+            "all": "tconstruct:blocks/punji"
+        },
+        "model": "tconstruct:punji"
+    },
+	"variants": {
+        "facing": {
+            "up": { "x": 180 },
+            "down": {},
+            "west": { "x": 90, "y": 90 },
+            "east":  { "x": 270, "y": 90 },
+            "south": { "x": 90 },
+            "north":  { "x": 270 }
+        },
+        "inventory": [{
+        }]
+    }
+}

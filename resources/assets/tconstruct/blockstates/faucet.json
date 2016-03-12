@@ -6,10 +6,10 @@
 	"variants": {
         "facing": {
             "up": { "model": "tconstruct:faucet_top" },
-            "north": { y: 180 },
-            "east":  { y: 270 },
-            "south": { y: 0 },
-            "west":  { y: 90 }
+            "north": { "y": 180 },
+            "east":  { "y": 270 },
+            "south": { "y": 0 },
+            "west":  { "y": 90 }
         },
         "inventory": {
             "model": "tconstruct:faucet",

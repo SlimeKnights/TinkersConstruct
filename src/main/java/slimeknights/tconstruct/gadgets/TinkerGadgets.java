@@ -22,6 +22,7 @@ import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
+import slimeknights.tconstruct.gadgets.block.BlockPunji;
 import slimeknights.tconstruct.gadgets.block.BlockStoneLadder;
 import slimeknights.tconstruct.gadgets.block.BlockStoneTorch;
 import slimeknights.tconstruct.gadgets.block.BlockWoodRail;
@@ -44,6 +45,7 @@ public class TinkerGadgets extends TinkerPulse {
   public static Block stoneTorch;
   public static Block stoneLadder;
   public static Block woodRail;
+  public static Block punji;
 
   public static ItemSlimeSling slimeSling;
   public static ItemSlimeBoots slimeBoots;
@@ -55,6 +57,7 @@ public class TinkerGadgets extends TinkerPulse {
     stoneTorch = registerBlock(new BlockStoneTorch(), "stone_torch");
     stoneLadder = registerBlock(new BlockStoneLadder(), "stone_ladder");
     woodRail = registerBlock(new BlockWoodRail(), "wood_rail");
+    punji = registerBlock(new BlockPunji(), "punji");
 
     slimeSling = registerItem(new ItemSlimeSling(), "slimesling");
     slimeBoots = registerItem(new ItemSlimeBoots(), "slime_boots");
