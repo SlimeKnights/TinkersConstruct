@@ -1,7 +1,6 @@
 {
     "forge_marker": 1,
     "defaults": {
-        "transform": "forge:default-block",
         "textures": {
             "all": "tconstruct:blocks/punji"
         },
@@ -9,14 +8,74 @@
     },
 	"variants": {
         "facing": {
-            "up": { "x": 180 },
+            "up": { "x": 180, "y": 0 },
             "down": {},
-            "west": { "x": 90, "y": 90 },
-            "east":  { "x": 270, "y": 90 },
-            "south": { "x": 90 },
-            "north":  { "x": 270 }
+            "west": { "transform": { "rotation": {"z": 270}, "post-rotation": {"y": 270}}},
+            "east":  { "transform": { "rotation": {"z": 90 }, "post-rotation": {"y": 270}}},
+            "south": { "transform": { "rotation": {"x": 270}, "post-rotation": {"y": 270}}},
+            "north":  { "transform": { "rotation": {"x": 90}, "post-rotation": {"y": 90}}}
+        },
+        "connection_horizontal": {
+            "none": {},
+            "north": {
+                "submodel": { "stick_north": { "model": "tconstruct:punji_stick", "transform": { "translation": [ 0, 0, -0.5 ] } } }
+            },
+            "east": {
+                "submodel": { "stick_east": { "model": "tconstruct:punji_stick", "transform": { "translation": [ -0.5, 0, 0 ] } } }
+            },
+            "both": {
+                "submodel": {
+                    "stick_north": { "model": "tconstruct:punji_stick", "transform": { "translation": [ 0, 0, -0.5 ] } },
+                    "stick_east": { "model": "tconstruct:punji_stick", "transform": { "translation": [ -0.5, 0, 0 ] } }
+                }
+            }
+        },
+        "connection_diagonal": {
+            "none": {},
+            "northeast": {
+                "submodel": { "stick_northeast": { "model": "tconstruct:punji_stick", "transform": { "translation": [ -0.5, 0, -0.5 ] } } }
+            },
+            "southwest": {
+                "submodel": { "stick_southwest": { "model": "tconstruct:punji_stick", "transform": { "translation": [ 0.5, 0, -0.5 ] } } }
+            },
+            "both": {
+                "submodel": {
+                    "stick_northeast": { "model": "tconstruct:punji_stick", "transform": { "translation": [ -0.5, 0, -0.5 ] } },
+                    "stick_southwest": { "model": "tconstruct:punji_stick", "transform": { "translation": [ 0.5, 0, -0.5 ] } }
+                }
+            }
+        },
+        "connection_vertical": {
+            "none": {},
+            "up": {
+                "model": "tconstruct:punji_corner"
+            },
+            "down": {
+                "submodel": { "stick_down": { "model": "tconstruct:punji", "x": 270 } }
+            },
+            "both": {
+                "submodel": {
+                    "sticks_down": { "model": "tconstruct:punji", "x": 90 },
+                    "sticks_up": { "model": "tconstruct:punji", "x": 270 }
+                }
+            }
         },
         "inventory": [{
+            "transform": {
+                "gui": {
+                    "translation": [ 0, 0.125, 0 ],
+                    "scale": [1.25, 1.25, 1.25]
+                },
+                "thirdperson": {
+                    "rotation": [ {"x": 10}, {"y": -45}, {"z": 170} ],
+                    "translation": [ 0, 0, -0.171875 ],
+                    "scale": [ 0.375, 0.375, 0.375 ]
+                },
+                "firstperson": {
+                    "translation": [ 0, 0.25, 0 ],
+                    "scale": [1.25, 1.25, 1.25]
+                }
+            }
         }]
     }
 }
