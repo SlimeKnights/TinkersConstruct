@@ -26,13 +26,13 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 public class BlockPunji extends Block {
 
   public static final PropertyDirection FACING = PropertyDirection.create("facing");
-  public static final PropertyEnum<ConnectionHorizontal> CON_HOR = PropertyEnum.create("connection_horizontal", ConnectionHorizontal.class);
-  public static final PropertyEnum<ConnectionDiagonal> CON_DIA = PropertyEnum.create("connection_diagonal", ConnectionDiagonal.class);
-  public static final PropertyEnum<ConnectionVertical> CON_VER = PropertyEnum.create("connection_vertical", ConnectionVertical.class);
-  //public static final PropertyBool NORTH = PropertyBool.create("north");
-  //public static final PropertyBool EAST = PropertyBool.create("east");
-  //public static final PropertyBool NORTHEAST = PropertyBool.create("northeast");
-  //public static final PropertyBool NORTHWEST = PropertyBool.create("northwest");
+  //public static final PropertyEnum<ConnectionHorizontal> CON_HOR = PropertyEnum.create("connection_horizontal", ConnectionHorizontal.class);
+  //public static final PropertyEnum<ConnectionDiagonal> CON_DIA = PropertyEnum.create("connection_diagonal", ConnectionDiagonal.class);
+  //public static final PropertyEnum<ConnectionVertical> CON_VER = PropertyEnum.create("connection_vertical", ConnectionVertical.class);
+  public static final PropertyBool NORTH = PropertyBool.create("north");
+  public static final PropertyBool EAST = PropertyBool.create("east");
+  public static final PropertyBool NORTHEAST = PropertyBool.create("northeast");
+  public static final PropertyBool NORTHWEST = PropertyBool.create("northwest");
 
   public BlockPunji() {
     super(Material.plants);
@@ -47,7 +47,7 @@ public class BlockPunji extends Block {
 
   @Override
   protected BlockState createBlockState() {
-    return new BlockState(this, FACING, CON_HOR, CON_DIA, CON_VER);
+    return new BlockState(this, FACING, NORTH, EAST, NORTHEAST, NORTHWEST);
   }
 
   /**
@@ -59,7 +59,7 @@ public class BlockPunji extends Block {
     }
     EnumFacing face = EnumFacing.values()[meta];
 
-    return this.getDefaultState().withProperty(FACING, face).withProperty(CON_HOR, ConnectionHorizontal.NONE).withProperty(CON_VER, ConnectionVertical.NONE);
+    return this.getDefaultState().withProperty(FACING, face);
   }
 
   /**
@@ -71,9 +71,6 @@ public class BlockPunji extends Block {
 
   @Override
   public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-    ConnectionVertical ver = ConnectionVertical.NONE;
-    ConnectionDiagonal dia = ConnectionDiagonal.NONE;
-    ConnectionHorizontal hor = ConnectionHorizontal.NONE;
     EnumFacing facing = state.getValue(FACING);
 
     int off = -facing.ordinal() % 2;
@@ -85,62 +82,24 @@ public class BlockPunji extends Block {
     IBlockState north = worldIn.getBlockState(pos.offset(face1));
     IBlockState east = worldIn.getBlockState(pos.offset(face2));
     if(north.getBlock() == this && north.getValue(FACING) == facing) {
-      hor = ConnectionHorizontal.NORTH;
+      state = state.withProperty(NORTH, true);
     }
     if(east.getBlock() == this && east.getValue(FACING) == facing) {
-      if(hor == ConnectionHorizontal.NORTH) {
-        hor = ConnectionHorizontal.BOTH;
-      }
-      else {
-        hor = ConnectionHorizontal.EAST;
-      }
+      state = state.withProperty(EAST, true);
     }
 
     // Diagonal connections
     IBlockState northeast = worldIn.getBlockState(pos.offset(face1).offset(face2));
-    IBlockState southwest = worldIn.getBlockState(pos.offset(face1).offset(face2.getOpposite()));
+    IBlockState northwest = worldIn.getBlockState(pos.offset(face1).offset(face2.getOpposite()));
     if(northeast.getBlock() == this && northeast.getValue(FACING) == facing) {
-      dia = ConnectionDiagonal.NORTHEAST;
+      state = state.withProperty(NORTHEAST, true);
     }
-    if(southwest.getBlock() == this && southwest.getValue(FACING) == facing) {
-      if(dia == ConnectionDiagonal.NORTHEAST) {
-        dia = ConnectionDiagonal.BOTH;
-      }
-      else {
-        dia = ConnectionDiagonal.SOUTHWEST;
-      }
+    if(northwest.getBlock() == this && northwest.getValue(FACING) == facing) {
+      state = state.withProperty(NORTHWEST, true);
     }
 
-    // up/down model?
-    if(facing.getAxis() != EnumFacing.Axis.Y) {
-      for(EnumFacing dir : EnumFacing.Plane.HORIZONTAL.facings()) {
-        IBlockState stateDir = worldIn.getBlockState(pos.offset(dir));
-        if(stateDir.getBlock() == this) {
-          if(stateDir.getValue(FACING) == EnumFacing.DOWN) {
-            if(ver == ConnectionVertical.NONE) {
-              ver = ConnectionVertical.DOWN;
-            }
-            else {
-              ver = ConnectionVertical.BOTH;
-            }
-          }
-          if(stateDir.getValue(FACING) == EnumFacing.UP) {
-            if(ver == ConnectionVertical.NONE) {
-              ver = ConnectionVertical.UP;
-            }
-            else {
-              ver = ConnectionVertical.BOTH;
-            }
-          }
-        }
-      }
-    }
 
-    ver = ConnectionVertical.NONE;
-
-    return state.withProperty(CON_HOR, hor)
-                .withProperty(CON_DIA, dia)
-                .withProperty(CON_VER, ver);
+    return state;
   }
 
   /**
@@ -227,35 +186,15 @@ public class BlockPunji extends Block {
     return false;
   }
 
-  private enum ConnectionHorizontal implements IStringSerializable {
-    NONE,
-    NORTH,
-    EAST,
-    BOTH;
-
-    @Override
-    public String getName() {
-      return this.toString();
-    }
-  }
-
-  private enum ConnectionDiagonal implements IStringSerializable {
-    NONE,
-    NORTHEAST,
-    SOUTHWEST,
-    BOTH;
-
-    @Override
-    public String getName() {
-      return this.toString();
-    }
-  }
-
-  private enum ConnectionVertical implements IStringSerializable {
-    NONE,
-    UP,
-    DOWN,
-    BOTH;
+  private enum Corner implements IStringSerializable {
+    NONE_UP,
+    NORTH_DOWN,
+    EAST_UP,
+    EAST_DOWN,
+    SOUTH_UP,
+    SOUTH_DOWN,
+    WEST_UP,
+    WEST_DOWN;
 
     @Override
     public String getName() {
