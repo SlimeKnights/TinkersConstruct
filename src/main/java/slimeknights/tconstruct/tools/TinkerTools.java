@@ -225,7 +225,7 @@ public class TinkerTools extends TinkerPulse {
     largeSwordBlade = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "large_sword_blade");
     hammerHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "hammer_head");
     excavatorHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "excavator_head");
-    scytheHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "scythe_head");
+    //scytheHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "scythe_head");
     panHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 3), "pan_head");
     signHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 3), "sign_head");
 
@@ -236,7 +236,7 @@ public class TinkerTools extends TinkerPulse {
 
     wideGuard = registerToolPart(new ToolPart(Material.VALUE_Ingot), "wide_guard");
     handGuard = registerToolPart(new ToolPart(Material.VALUE_Ingot), "hand_guard");
-    crossGuard = registerToolPart(new ToolPart(Material.VALUE_Ingot), "cross_guard");
+    //crossGuard = registerToolPart(new ToolPart(Material.VALUE_Ingot), "cross_guard");
 
     largePlate = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "large_plate");
   }
