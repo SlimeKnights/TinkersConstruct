@@ -27,9 +27,9 @@ public class TraitAridiculous extends AbstractTrait {
   }
 
   @Override
-  public float onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
+  public float damage(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
     float extraDamage = 2f * calcAridiculousness(player.worldObj, player.getPosition());
-    return extraDamage + super.onHit(tool, player, target, damage, newDamage, isCritical);
+    return extraDamage + super.damage(tool, player, target, damage, newDamage, isCritical);
   }
 
   protected float calcAridiculousness(World world, BlockPos pos) {

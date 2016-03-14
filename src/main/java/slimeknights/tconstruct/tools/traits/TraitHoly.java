@@ -22,12 +22,12 @@ public class TraitHoly extends AbstractTrait {
   }
 
   @Override
-  public float onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
+  public float damage(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
     if(target.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD) {
-      return newDamage + bonusDamage;
+      newDamage += bonusDamage;
     }
 
-    return super.onHit(tool, player, target, damage, newDamage, isCritical);
+    return super.damage(tool, player, target, damage, newDamage, isCritical);
   }
 
   @Override

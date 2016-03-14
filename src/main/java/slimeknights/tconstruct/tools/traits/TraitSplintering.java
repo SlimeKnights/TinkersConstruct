@@ -18,14 +18,14 @@ public class TraitSplintering extends AbstractTrait {
   }
 
   @Override
-  public float onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
+  public float damage(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
 
     PotionEffect effect = target.getActivePotionEffect(Splinter);
     if(effect != null) {
-      return newDamage + 0.3f * (effect.getAmplifier() + 1);
+      newDamage += 0.3f * (effect.getAmplifier() + 1);
     }
 
-    return super.onHit(tool, player, target, damage, newDamage, isCritical);
+    return super.damage(tool, player, target, damage, newDamage, isCritical);
   }
 
   @Override

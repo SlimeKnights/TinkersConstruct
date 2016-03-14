@@ -23,17 +23,17 @@ public class TraitHellish extends AbstractTrait {
   }
 
   @Override
-  public float onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
+  public float damage(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
     for(EnumCreatureType creatureType : EnumCreatureType.values()) {
       for(BiomeGenBase.SpawnListEntry spawnListEntry : BiomeGenBase.hell.getSpawnableList(creatureType)) {
         if(spawnListEntry.entityClass.equals(target.getClass())) {
           // nether mob
-          return super.onHit(tool, player, target, damage, newDamage, isCritical);
+          return super.damage(tool, player, target, damage, newDamage, isCritical);
         }
       }
     }
 
-    return super.onHit(tool, player, target, damage, newDamage + bonusDamage, isCritical);
+    return super.damage(tool, player, target, damage, newDamage + bonusDamage, isCritical);
   }
 
   @Override

@@ -35,10 +35,9 @@ public class TraitMagnetic extends AbstractTraitLeveled {
   }
 
   @Override
-  public float onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
+  public void onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, boolean isCritical) {
     ModifierNBT data = new ModifierNBT(TinkerUtil.getModifierTag(tool, name));
     Magnetic.apply(player, 30, data.level);
-    return super.onHit(tool, player, target, damage, newDamage, isCritical);
   }
 
   private static class MagneticPotion extends TinkerPotion {

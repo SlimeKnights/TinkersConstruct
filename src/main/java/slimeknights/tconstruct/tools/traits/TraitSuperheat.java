@@ -21,7 +21,7 @@ public class TraitSuperheat extends AbstractTrait {
   }
 
   @Override
-  public float onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
+  public float damage(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
     if(target.isBurning()) {
       newDamage += damage * bonus;
     }

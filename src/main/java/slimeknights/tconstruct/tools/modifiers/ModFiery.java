@@ -22,9 +22,8 @@ public class ModFiery extends ModifierTrait {
   }
 
   @Override
-  public float onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
+  public void onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, boolean isCritical) {
     dealFireDamage(tool, target);
-    return super.onHit(tool, player, target, damage, newDamage, isCritical);
   }
 
   protected void dealFireDamage(ItemStack tool, EntityLivingBase target) {

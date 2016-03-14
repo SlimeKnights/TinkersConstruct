@@ -546,7 +546,7 @@ public final class ToolHelper {
     // calculate actual damage
     float damage = baseDamage;
     for(ITrait trait : traits) {
-      damage = trait.onHit(stack, player, target, baseDamage, damage, isCritical);
+      damage = trait.damage(stack, player, target, baseDamage, damage, isCritical);
     }
 
     // apply critical damage
@@ -570,7 +570,15 @@ public final class ToolHelper {
     double oldVelX = target.motionX;
     double oldVelY = target.motionY;
     double oldVelZ = target.motionZ;
+
+
+    int hurtResistantTime = target.hurtResistantTime;
     // deal the damage
+    for(ITrait trait : traits) {
+      trait.onHit(stack, player, target, damage, isCritical);
+      // reset hurt reristant time
+      target.hurtResistantTime = hurtResistantTime;
+    }
     boolean hit = tool.dealDamage(stack, player, target, damage);
 
     // did we hit?

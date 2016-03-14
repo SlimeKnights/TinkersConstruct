@@ -36,12 +36,12 @@ public class ModAntiMonsterType extends ModifierTrait {
   }
 
   @Override
-  public float onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
+  public float damage(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
     if(target.getCreatureAttribute() == type) {
       NBTTagCompound tag = TinkerUtil.getModifierTag(tool, identifier);
       return calcIncreasedDamage(tag, newDamage);
     }
-    return super.onHit(tool, player, target, damage, newDamage, isCritical);
+    return super.damage(tool, player, target, damage, newDamage, isCritical);
   }
 
   @Override

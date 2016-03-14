@@ -21,9 +21,9 @@ public class TraitShocking extends AbstractTrait {
   }
 
   @Override
-  public float onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
+  public void onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, boolean isCritical) {
     if(player.worldObj.isRemote) {
-      return super.onHit(tool, player, target, damage, newDamage, isCritical);
+      return;
     }
     NBTTagCompound tag = TinkerUtil.getModifierTag(tool, identifier);
     Data data = Data.read(tag);
@@ -46,7 +46,6 @@ public class TraitShocking extends AbstractTrait {
         TagUtil.setEnchantEffect(tool, false);
       }
     }
-    return super.onHit(tool, player, target, damage, newDamage, isCritical);
   }
 
   @Override

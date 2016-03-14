@@ -24,12 +24,11 @@ public class TraitEnderference extends AbstractTrait {
   }
 
   @Override
-  public float onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
+  public void onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, boolean isCritical) {
     if(target instanceof EntityEnderman) {
       PotionEffect effect = new PotionEffect(Enderference.getId(), 100, 1, false, true);
       target.addPotionEffect(effect);
     }
-    return super.onHit(tool, player, target, damage, newDamage, isCritical);
   }
 
   @Override

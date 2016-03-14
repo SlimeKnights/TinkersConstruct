@@ -70,6 +70,7 @@ public interface ITrait extends IToolMod {
 
   /**
    * Called when an entity is hit, before the damage is dealt and before critical hit calculation.
+   * Allows to modify the damage dealt.
    * Critical hit damage will be calculated off the result of this!
    *
    * @param tool       The tool dealing the damage.
@@ -80,7 +81,20 @@ public interface ITrait extends IToolMod {
    * @param isCritical If the hit will be a critical hit.
    * @return The damage to deal. Standard return value is newDamage.
    */
-  float onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical);
+  float damage(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical);
+
+  /**
+   * Called when an entity is hit, just before the damage is dealt. Damage is the final damage dealt, including critical damage.
+   * Damage has been fully calculated. You can deal damage to the entity in this callback.
+   * The hurtResistantTime will be set correctly before the call, and it will be reset after the call for the original damage call.
+   *
+   * @param tool       The tool dealing the damage.
+   * @param player     The player (or entity) that is hitting the target.
+   * @param target     The entity to hit.
+   * @param damage     The original, unmodified damage from the tool. Does not includes critical damage, that will be calculated afterwards.
+   * @param isCritical If the hit will be a critical hit.
+   */
+  void onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, boolean isCritical);
 
   /**
    * Modify the knockback applied. Called after onHit and with the actual damage value. Damage value INCLUDES crit damage here.

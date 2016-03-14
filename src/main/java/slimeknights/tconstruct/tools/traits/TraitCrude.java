@@ -21,14 +21,14 @@ public class TraitCrude extends AbstractTraitLeveled {
   }
 
   @Override
-  public float onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
+  public float damage(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
     boolean hasArmor = target.getTotalArmorValue() > 0;
     if(!hasArmor) {
       NBTTagCompound modifierTag = TinkerUtil.getModifierTag(tool, "crude");
       // 10% damage boost against unarmed targets!
-      return newDamage + damage * bonusModifier(modifierTag);
+      newDamage += damage * bonusModifier(modifierTag);
     }
-    return super.onHit(tool, player, target, damage, newDamage, isCritical);
+    return super.damage(tool, player, target, damage, newDamage, isCritical);
   }
 
   private float bonusModifier(NBTTagCompound modifierNBT) {
