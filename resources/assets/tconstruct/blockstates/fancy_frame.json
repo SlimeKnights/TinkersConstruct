@@ -1,0 +1,36 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "item_frame",
+        "textures": {
+            "particle": "#wood",
+            "wood": "tconstruct:blocks/block_ardite",
+            "back": "tconstruct:blocks/itemframe_background"
+        },
+        "transform": {
+            "gui": {
+                "rotation": [ {"y": 135} ],
+                "scale": [ 1.6, 1.6, 1.6 ],
+                "translation": [ 0, 0.2, 0 ]
+            },
+            "firstperson": {
+                "rotation": [ {"x": 0}, {"y": 35}, {"z": -20} ],
+                "translation": [ -0.6, 0.32, 0 ]
+            },
+            "thirdperson": {
+                "rotation": [ {"x": 90} ],
+                "translation": [ 0, 0.18, -0.175 ],
+                "scale": [ 0.5, 0.5, 0.5 ]
+            }
+        }
+    },
+    "variants": {
+        "gold":      [{ "textures": { "wood": "minecraft:blocks/gold_block" } }],
+        "jewel":     [{ "textures": { "wood": "tconstruct:blocks/block_silky_jewel" } }],
+        "alubrass":  [{ "textures": { "wood": "tconstruct:blocks/block_alubrass" } }],
+        "cobalt":    [{ "textures": { "wood": "tconstruct:blocks/block_cobalt" } }],
+        "ardite":    [{ "textures": { "wood": "tconstruct:blocks/block_ardite" } }],
+        "manyullyn": [{ "textures": { "wood": "tconstruct:blocks/block_manyullyn" } }],
+        "map":       [{ "model": "item_frame_map" }]
+    }
+}

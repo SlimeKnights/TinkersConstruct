@@ -228,6 +228,13 @@ item.tconstruct.slime_boots.name=Slime Boots
 item.tconstruct.slimesling.name=Slimesling
 item.tconstruct.stone_stick.name=Stone Rod
 
+item.tconstruct.fancy_frame.jewel.name=Fancy Item Frame
+item.tconstruct.fancy_frame.alubrass.name=Aluminium Brass Item Frame
+item.tconstruct.fancy_frame.cobalt.name=Cobalt Item Frame
+item.tconstruct.fancy_frame.ardite.name=Ardite Item Frame
+item.tconstruct.fancy_frame.manyullyn.name=Manyullyn Item Frame
+item.tconstruct.fancy_frame.gold.name=Golden Item Frame
+
 #################
 #   Entities    #
 #################

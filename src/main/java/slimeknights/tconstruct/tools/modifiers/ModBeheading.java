@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.tools.TinkerTools;
 
+// todo: make some kind of class->head registry that can be expanded via IMC for the lookup
 public class ModBeheading extends Modifier {
 
   public ModBeheading() {

@@ -105,7 +105,7 @@ public class RenderTinkerSlime extends RenderSlime {
     }
   }
 
-  public static class Factory implements IRenderFactory<EntitySlime> {
+  private static class Factory implements IRenderFactory<EntitySlime> {
 
     private final int color;
 
