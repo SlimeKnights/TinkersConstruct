@@ -73,6 +73,9 @@ public class TraitShocking extends AbstractTrait {
     if(dist < 0.1f) {
       return;
     }
+    else if(dist > 5f) {
+      dist = 5f;
+    }
     data.charge += dist*2f;
 
     // play sound when fully charged
