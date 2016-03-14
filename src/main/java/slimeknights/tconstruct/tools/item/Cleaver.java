@@ -48,6 +48,7 @@ public class Cleaver extends BroadSword {
 
   @Override
   public void onUpdate(ItemStack stack, World worldIn, Entity entity, int itemSlot, boolean isSelected) {
+    super.onUpdate(stack, worldIn, entity, itemSlot, isSelected);
     if (entity instanceof EntityPlayer)
     {
       EntityPlayer player = (EntityPlayer) entity;
