@@ -58,6 +58,7 @@ import slimeknights.tconstruct.tools.item.Hatchet;
 import slimeknights.tconstruct.tools.item.ItemBlockTable;
 import slimeknights.tconstruct.tools.item.LongSword;
 import slimeknights.tconstruct.tools.item.LumberAxe;
+import slimeknights.tconstruct.tools.item.Mattock;
 import slimeknights.tconstruct.tools.item.Pickaxe;
 import slimeknights.tconstruct.tools.item.SharpeningKit;
 import slimeknights.tconstruct.tools.item.Shovel;
@@ -245,7 +246,7 @@ public class TinkerTools extends TinkerPulse {
     pickaxe = registerTool(new Pickaxe(), "pickaxe");
     shovel = registerTool(new Shovel(), "shovel");
     hatchet = registerTool(new Hatchet(), "hatchet");
-    //mattock = registerTool(new Mattock(), "mattock");
+    mattock = registerTool(new Mattock(), "mattock");
     broadSword = registerTool(new BroadSword(), "broadsword");
     longSword = registerTool(new LongSword(), "longsword");
     // rapier
@@ -338,7 +339,7 @@ public class TinkerTools extends TinkerPulse {
     TinkerRegistry.registerToolCrafting(pickaxe);
     TinkerRegistry.registerToolCrafting(shovel);
     TinkerRegistry.registerToolCrafting(hatchet);
-    //TinkerRegistry.registerToolCrafting(mattock);
+    TinkerRegistry.registerToolCrafting(mattock);
     TinkerRegistry.registerToolCrafting(broadSword);
     TinkerRegistry.registerToolCrafting(longSword);
     TinkerRegistry.registerToolCrafting(fryPan);

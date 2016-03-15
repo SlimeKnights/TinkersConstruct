@@ -340,6 +340,9 @@ stat.extra.name=Extra
 stat.extra.durability.name=stat.head.durability.name
 stat.extra.durability.desc=How much durability this part contributes when used as an accessoire.
 
+stat.mattock.axelevel.name=Axe Level
+stat.mattock.shovellevel.name=Shovel Level
+
 ##############
 #   Traits   #
 ##############

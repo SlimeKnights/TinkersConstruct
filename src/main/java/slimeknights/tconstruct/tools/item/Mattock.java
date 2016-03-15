@@ -9,17 +9,21 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 import java.util.List;
 
+import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.AoeToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
+import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
@@ -52,32 +56,6 @@ public class Mattock extends AoeToolCore {
     this.setHarvestLevel("mattock", 0);
   }
 
-  // custom dig speed calculation!
-  @Override
-  public float getDigSpeed(ItemStack itemstack, IBlockState state) {
-    Block block = state.getBlock();
-
-    if(ToolHelper.canHarvest(itemstack, state)) {
-      // axe effective?
-      if(effective_materials_axe.contains(block.getMaterial()) || block.isToolEffective("axe", state)) {
-        float strength = itemstack.getItem().getStrVsBlock(itemstack, state.getBlock());
-        float speed = TagUtil.getToolTag(itemstack).getFloat(MattockToolNBT.TAG_Axe);
-
-        return strength * speed;
-      }
-      // shovel effective?
-      else if(effective_materials_shovel.contains(block.getMaterial()) || block.isToolEffective("shovel", state)) {
-        float strength = itemstack.getItem().getStrVsBlock(itemstack, state.getBlock());
-        float speed = TagUtil.getToolTag(itemstack).getFloat(MattockToolNBT.TAG_Shovel);
-
-        return strength * speed;
-      }
-    }
-
-    // durp
-    return super.getDigSpeed(itemstack, state);
-  }
-
   @Override
   public int getHarvestLevel(ItemStack stack, String toolClass) {
     if(toolClass == null) {
@@ -86,11 +64,11 @@ public class Mattock extends AoeToolCore {
 
     // axe harvestlevel
     if(toolClass.equals("axe")) {
-      return TagUtil.getToolTag(stack).getInteger(MattockToolNBT.TAG_AxeLevel);
+      return getAxeLevel(stack);
     }
     // shovel harvestlevel
-    if(toolClass.equals("shovel")) {
-      return TagUtil.getToolTag(stack).getInteger(MattockToolNBT.TAG_ShovelLevel);
+    else if(toolClass.equals("shovel")) {
+      return getShovelLevel(stack);
     }
 
     // none of them
@@ -103,8 +81,18 @@ public class Mattock extends AoeToolCore {
   }
 
   @Override
+  public float miningSpeedModifier() {
+    return 0.95f;
+  }
+
+  @Override
   public float damagePotential() {
-    return 0.66f;
+    return 0.95f;
+  }
+
+  @Override
+  public float knockback() {
+    return 1.1f;
   }
 
   @Override
@@ -141,25 +129,28 @@ public class Mattock extends AoeToolCore {
   }
 
   @Override
-  public List<String> getInformation(ItemStack stack) {
+  public List<String> getInformation(ItemStack stack, boolean detailed) {
     TooltipBuilder info = new TooltipBuilder(stack);
 
-    MattockToolNBT data = new MattockToolNBT();
-    data.read(TagUtil.getToolTag(stack));
+    info.addDurability(!detailed);
 
-    info.addDurability(false);
-    // todo: make this proper
-    /*
-    info.addCustom("Axe:");
-    info.addCustom(HeadMaterialStats.formatMiningSpeed(data.axeSpeed));
-    info.addCustom(HeadMaterialStats.formatHarvestLevel(data.axeLevel));
+    // special axe harvest level
+    String text = Util.translate("stat.mattock.axelevel.name");
+    info.add(String.format("%s: %s", text, HarvestLevels.getHarvestLevelName(getAxeLevel(stack))) + EnumChatFormatting.RESET);
 
-    info.addCustom("Shovel:");
-    info.addCustom(HeadMaterialStats.formatMiningSpeed(data.shovelSpeed));
-    info.addCustom(HeadMaterialStats.formatHarvestLevel(data.shovelLevel));
-*/
+    // special shovel harvest level
+    text = Util.translate("stat.mattock.shovellevel.name");
+    info.add(String.format("%s: %s", text, HarvestLevels.getHarvestLevelName(getShovelLevel(stack))) + EnumChatFormatting.RESET);
+
+    info.addMiningSpeed();
+    info.addAttack();
+
     if(ToolHelper.getFreeModifiers(stack) > 0) {
       info.addFreeModifiers();
+    }
+
+    if(detailed) {
+      info.addModifierInfo();
     }
 
     return info.getTooltip();
@@ -167,37 +158,20 @@ public class Mattock extends AoeToolCore {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    HeadMaterialStats handle = materials.get(0).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
     HeadMaterialStats axe = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
     HeadMaterialStats shovel = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
-    //ToolMaterialStats binding = materials.get(3).getStats(ToolMaterialStats.TYPE);
 
-    // todo
     MattockToolNBT data = new MattockToolNBT();
+    data.head(axe, shovel);
+    data.handle(handle);
 
-    // durability
-    data.durability = (axe.durability + shovel.durability)/2;
-    //data.durability *= 1f + 0.05f * (axe.extraQuality*shovel.extraQuality);
-
-    // backup speed
-    data.speed = (axe.miningspeed + shovel.miningspeed)/2f;
-    //data.speed *= 1f + 0.3f * (handle.modifier * handle.miningspeed);
-    // real speed
-    //data.axeSpeed = axe.miningspeed * 0.8f + 0.2f * handle.modifier;
-    //data.shovelSpeed = shovel.miningspeed * 0.8f + 0.2f * handle.modifier;
-
-    // a bit slower because.. it's a mattock
-    data.axeSpeed *= 0.7f;
-    data.shovelSpeed *= 0.7f;
-
-    // harvest level
+    // special harvest levels
     data.axeLevel = axe.harvestLevel;
     data.shovelLevel = shovel.harvestLevel;
-    data.harvestLevel = Math.round((axe.harvestLevel + shovel.harvestLevel) / 2f); // backup
 
-    // damage
-    data.attack = 4f;
-    data.attack += (axe.attack * 0.7f + shovel.attack * 0.3f)/2f;
+    // base damage!
+    data.attack += 3;
 
     // 3 free modifiers
     data.modifiers = DEFAULT_MODIFIERS;
@@ -205,23 +179,32 @@ public class Mattock extends AoeToolCore {
     return data.get();
   }
 
+  protected int getAxeLevel(ItemStack stack) {
+    return new MattockToolNBT(TagUtil.getToolTag(stack)).axeLevel;
+  }
+
+  protected int getShovelLevel(ItemStack stack) {
+    return new MattockToolNBT(TagUtil.getToolTag(stack)).shovelLevel;
+  }
+
   public static class MattockToolNBT extends ToolNBT {
 
-    private static final String TAG_Axe = Tags.MININGSPEED + "Axe";
-    private static final String TAG_Shovel = Tags.MININGSPEED + "Shovel";
     private static final String TAG_AxeLevel = Tags.HARVESTLEVEL + "Axe";
     private static final String TAG_ShovelLevel = Tags.HARVESTLEVEL + "Shovel";
 
-    public float axeSpeed;
-    public float shovelSpeed;
     public int axeLevel;
     public int shovelLevel;
+
+    public MattockToolNBT() {
+    }
+
+    public MattockToolNBT(NBTTagCompound tag) {
+      super(tag);
+    }
 
     @Override
     public void read(NBTTagCompound tag) {
       super.read(tag);
-      axeSpeed = tag.getFloat(TAG_Axe);
-      shovelSpeed = tag.getFloat(TAG_Shovel);
       axeLevel = tag.getInteger(TAG_AxeLevel);
       shovelLevel = tag.getInteger(TAG_ShovelLevel);
     }
@@ -229,8 +212,6 @@ public class Mattock extends AoeToolCore {
     @Override
     public void write(NBTTagCompound tag) {
       super.write(tag);
-      tag.setFloat(TAG_Axe, axeSpeed);
-      tag.setFloat(TAG_Shovel, shovelSpeed);
       tag.setInteger(TAG_AxeLevel, axeLevel);
       tag.setInteger(TAG_ShovelLevel, shovelLevel);
     }

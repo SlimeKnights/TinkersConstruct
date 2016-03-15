@@ -141,11 +141,11 @@ public class ToolClientProxy extends ClientProxy {
     TinkerRegistryClient.addToolBuilding(info);
 
     // mattock
-    /*info = new ToolBuildGuiInfo(TinkerTools.mattock);
+    info = new ToolBuildGuiInfo(TinkerTools.mattock);
     info.addSlotPosition(33-11, 42+11); // rod
     info.addSlotPosition(33-2, 42-20); // axe head
     info.addSlotPosition(33+18, 42-8); // shovel head
-    TinkerRegistryClient.addToolBuilding(info);*/
+    TinkerRegistryClient.addToolBuilding(info);
 
     // broadsword
     info = new ToolBuildGuiInfo(TinkerTools.broadSword);

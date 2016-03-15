@@ -468,8 +468,6 @@ public final class ToolHelper {
     tag.setBoolean(Tags.BROKEN, true);
     TagUtil.setToolTag(stack, tag);
 
-    stack.setItemDamage(stack.getMaxDamage());
-
     if(entity instanceof EntityPlayerMP) {
       TinkerNetwork.sendTo(new ToolBreakAnimationPacket(stack), (EntityPlayerMP) entity);
     }
@@ -482,11 +480,13 @@ public final class ToolHelper {
 
   public static void repairTool(ItemStack stack, int amount, EntityLivingBase entity) {
     if(isBroken(stack)) {
+      // ensure correct damage value
+      stack.setItemDamage(stack.getMaxDamage());
+
+      // setItemDamage might break the tool again, so we do this afterwards
       NBTTagCompound tag = TagUtil.getToolTag(stack);
       tag.setBoolean(Tags.BROKEN, false);
       TagUtil.setToolTag(stack, tag);
-
-      stack.setItemDamage(stack.getMaxDamage());
     }
 
     TinkerToolEvent.OnRepair.fireEvent(stack, amount);

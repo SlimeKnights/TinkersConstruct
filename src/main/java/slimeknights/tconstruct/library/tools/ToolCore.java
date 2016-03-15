@@ -80,6 +80,15 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   @Override
+  public void setDamage(ItemStack stack, int damage) {
+    super.setDamage(stack, damage);
+
+    if(getDamage(stack) == getMaxDamage(stack)) {
+      ToolHelper.breakTool(stack, null);
+    }
+  }
+
+  @Override
   public boolean isDamageable() {
     return true;
   }
