@@ -139,40 +139,39 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
   {
     int fluidHeights[] = new int[liquids.size()];
 
-    for (int i = 0; i < liquids.size(); i++)
-    {
-      FluidStack liquid = liquids.get(i);
+    if(liquids.size() > 0) {
 
-      float h = (float) liquid.amount / (float) capacity;
-      fluidHeights[i] = Math.max(min, (int) Math.ceil(h * (float)height));
-    }
+      for(int i = 0; i < liquids.size(); i++) {
+        FluidStack liquid = liquids.get(i);
 
-    // check if we have enough height to render everything
-    int sum = 0;
-    do
-    {
-      sum = 0;
-      int biggest = -1;
-      int m = 0;
-      for (int i = 0; i < fluidHeights.length; i++)
-      {
-        sum += fluidHeights[i];
-        if (liquids.get(i).amount > biggest)
-        {
-          biggest = liquids.get(i).amount;
-          m = i;
+        float h = (float) liquid.amount / (float) capacity;
+        fluidHeights[i] = Math.max(min, (int) Math.ceil(h * (float) height));
+      }
+
+      // check if we have enough height to render everything
+      int sum = 0;
+      do {
+        sum = 0;
+        int biggest = -1;
+        int m = 0;
+        for(int i = 0; i < fluidHeights.length; i++) {
+          sum += fluidHeights[i];
+          if(liquids.get(i).amount > biggest) {
+            biggest = liquids.get(i).amount;
+            m = i;
+          }
         }
-      }
 
-      // we can't get a result without going negative
-      if(fluidHeights[m] == 0) {
-        break;
-      }
+        // we can't get a result without going negative
+        if(fluidHeights[m] == 0) {
+          break;
+        }
 
-      // remove a pixel from the biggest one
-      if (sum > height)
-        fluidHeights[m]--;
-    } while (sum > height);
+        // remove a pixel from the biggest one
+        if(sum > height)
+          fluidHeights[m]--;
+      } while(sum > height);
+    }
 
     return fluidHeights;
   }
