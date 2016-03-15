@@ -38,8 +38,15 @@ public class TraitEstablished extends AbstractTrait {
     }
   }
 
-  private int getUpdateXP(float xp) {
-    xp *= 1.25f + random.nextFloat()*0.5f;
-    return 1 + Math.round(xp);
+  private int getUpdateXP(int xp) {
+    if(xp == 0) {
+      // 3% chance to give 1 xp still
+      if(random.nextFloat() < 0.03f) {
+        return 1;
+      }
+      return 0;
+    }
+    float exp = (float)xp * 1.25f + random.nextFloat()*0.5f;
+    return 1 + Math.round(exp);
   }
 }
