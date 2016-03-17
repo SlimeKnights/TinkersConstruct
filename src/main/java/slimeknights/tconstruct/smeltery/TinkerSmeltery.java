@@ -604,7 +604,7 @@ public class TinkerSmeltery extends TinkerPulse {
         int amount = known.get(fluid) / output.stackSize;
         output.stackSize = 1;
         TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.ofNBT(output, amount), fluid));
-        log.trace("Added automatic melting recipe for %s (%d %s)", irecipe.getRecipeOutput().toString(), amount, fluid
+        log.trace("Added automatic melting recipe for {} ({} {})", irecipe.getRecipeOutput().toString(), amount, fluid
             .getName());
       }
     }
