@@ -6,10 +6,10 @@
     "mcversion": "${MCversion}",
     "url": "https://github.com/SlimeKnights/TinkersConstruct",
     "updateUrl": "",
-    "authors": [
-      "mDiyo", "fuj1n", "ProgWML6", "Sunstrike", "Pillbox", "boni"
+    "authorList": [
+      "boni"
     ],
-    "credits": "Slime Knights, mDiyo",
+    "credits": "Slime Knights, mDiyo, fuj1n, ProgWML6, Sunstrike, Pillbox",
     "logoFile": "logo.png",
     "screenshots": [],
     "parent":"",
