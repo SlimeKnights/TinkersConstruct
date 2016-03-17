@@ -13,6 +13,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -238,7 +239,7 @@ public class GuiSmeltery extends GuiMultiModule {
     }
 
     // sort by amount descending because the order in which they're accessed is important since it changes the remaining value during processing
-    list.sort(new Comparator<FluidGuiEntry>() {
+    Collections.sort(list, new Comparator<FluidGuiEntry>() {
       @Override
       public int compare(FluidGuiEntry o1, FluidGuiEntry o2) {
         return o2.amount - o1.amount;
