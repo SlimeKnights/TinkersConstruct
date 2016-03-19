@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared.block;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
@@ -8,22 +9,22 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
+import java.util.Locale;
 
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.TConstruct;
@@ -41,7 +42,7 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
     this.slipperiness = 0.8F;
     this.setHardness(3.0f);
 
-    this.setStepSound(soundTypeSand);
+    this.setSoundType(SoundType.SAND);
 
     setHarvestLevel("Shovel", -1);
     setCreativeTab(TinkerRegistry.tabGeneral);
@@ -99,7 +100,7 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
     entity.motionZ *= 0.4;
     if (entity instanceof EntityLivingBase)
     {
-      ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.weakness.id, 1));
+      ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.weakness, 1));
     }
   }
 
@@ -125,13 +126,13 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
   }
 
   @Override
-  public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
+  public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
     SoilTypes type = world.getBlockState(pos).getValue(TYPE);
     if(type == SoilTypes.SLIMY_MUD_GREEN || type == SoilTypes.SLIMY_MUD_BLUE) {
       // can sustain slimeplants
       return plantable.getPlantType(world, pos) == TinkerWorld.slimePlantType;
     }
-    return super.canSustainPlant(world, pos, direction, plantable);
+    return super.canSustainPlant(state, world, pos, direction, plantable);
   }
 
   public enum SoilTypes implements IStringSerializable, EnumBlock.IEnumMeta {
@@ -151,7 +152,7 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
 
     @Override
     public String getName() {
-      return this.toString();
+      return this.toString().toLowerCase(Locale.US);
     }
 
     @Override

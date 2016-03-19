@@ -6,7 +6,7 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -52,7 +52,7 @@ public class BattleSign extends BroadSword {
     }
 
     EntityPlayer player = (EntityPlayer) event.entityLiving;
-    ItemStack battlesign = player.getCurrentEquippedItem();
+    ItemStack battlesign = player.getHeldItemMainhand();
 
     // got hit by something: reduce damage
     int damage = event.ammount < 2f ? 1 : Math.round(event.ammount/2f);
@@ -78,12 +78,12 @@ public class BattleSign extends BroadSword {
     }
 
     EntityPlayer player = (EntityPlayer) event.entityLiving;
-    ItemStack battlesign = player.getCurrentEquippedItem();
+    ItemStack battlesign = player.getHeldItemMainhand();
 
     // ensure the player is looking at the projectile (aka not getting shot into the back)
     Entity projectile = event.source.getSourceOfDamage();
-    Vec3 motion = new Vec3(projectile.motionX, projectile.motionY, projectile.motionZ);
-    Vec3 look = player.getLookVec();
+    Vec3d motion = new Vec3d(projectile.motionX, projectile.motionY, projectile.motionZ);
+    Vec3d look = player.getLookVec();
 
     // this gives a factor of how much we're looking at the incoming arrow
     double strength = -look.dotProduct(motion.normalize());
@@ -133,12 +133,12 @@ public class BattleSign extends BroadSword {
     }
     EntityPlayer player = (EntityPlayer) entity;
     // needs to be blocking with a battlesign
-    if(!player.isBlocking() || player.getCurrentEquippedItem().getItem() != this) {
+    if(!player.isActiveItemStackBlocking() || player.getHeldItemMainhand().getItem() != this) {
       return false;
     }
 
     // broken battlesign.
-    if(ToolHelper.isBroken(player.getCurrentEquippedItem())) {
+    if(ToolHelper.isBroken(player.getHeldItemMainhand())) {
       return false;
     }
 

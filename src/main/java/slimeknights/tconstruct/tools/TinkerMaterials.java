@@ -10,7 +10,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -190,7 +190,7 @@ public final class TinkerMaterials {
   }
 
   static {
-    xu = new Material("unstable", EnumChatFormatting.WHITE);
+    xu = new Material("unstable", TextFormatting.WHITE);
   }
 
   private static final String HEAD = HeadMaterialStats.TYPE;

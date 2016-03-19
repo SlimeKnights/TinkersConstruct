@@ -3,10 +3,14 @@ package slimeknights.tconstruct.tools.item;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -29,9 +33,8 @@ public class Cleaver extends BroadSword {
   }
 
   @Override
-  public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
-    // no blocking for you
-    return itemStackIn;
+  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    return ActionResult.newResult(EnumActionResult.FAIL, itemStackIn);
   }
 
   @Override
@@ -52,10 +55,10 @@ public class Cleaver extends BroadSword {
     if (entity instanceof EntityPlayer)
     {
       EntityPlayer player = (EntityPlayer) entity;
-      ItemStack equipped = player.getCurrentEquippedItem();
+      ItemStack equipped = player.getHeldItemMainhand();
       if (equipped == stack)
       {
-        player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 2, 2, true, false));
+        player.addPotionEffect(new PotionEffect(MobEffects.digSlowdown, 2, 2, true, false));
       }
     }
   }

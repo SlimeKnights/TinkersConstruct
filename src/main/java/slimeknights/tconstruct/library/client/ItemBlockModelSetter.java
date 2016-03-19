@@ -5,11 +5,11 @@ import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.BlockVine;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -17,7 +17,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Map;
-import java.util.Set;
 
 import slimeknights.mantle.client.model.BlockItemModelWrapper;
 import slimeknights.mantle.item.ItemBlockMeta;
@@ -28,7 +27,7 @@ public class ItemBlockModelSetter {
 
   @SubscribeEvent(priority = EventPriority.LOWEST)
   public void onBake(ModelBakeEvent event) {
-    Map<IBlockState, ModelResourceLocation> stateMap = event.modelManager.getBlockModelShapes().getBlockStateMapper().putAllStateModelLocations();
+    Map<IBlockState, ModelResourceLocation> stateMap = event.getModelManager().getBlockModelShapes().getBlockStateMapper().putAllStateModelLocations();
 
     // go through all items and if they're itemblockmodels we give them a wrapped block model if there is none set
     for(ResourceLocation identifier : Item.itemRegistry.getKeys()) {
@@ -46,7 +45,7 @@ public class ItemBlockModelSetter {
       ModelResourceLocation loc = new ModelResourceLocation(identifier, "inventory");
 
       // does it have an inventory model set?
-      Object model = event.modelRegistry.getObject(loc);
+      Object model = event.getModelRegistry().getObject(loc);
       if(model != null) {
         // yes it does, nothing to do for us
         continue;
@@ -71,14 +70,14 @@ public class ItemBlockModelSetter {
         ModelResourceLocation blockLoc = stateMap.get(state);
         if(blockLoc != null) {
           // update the model to do perspective transformation
-          IFlexibleBakedModel bakedBlockModel = (IFlexibleBakedModel) event.modelRegistry.getObject(blockLoc);
+          IBakedModel bakedBlockModel = event.getModelRegistry().getObject(blockLoc);
           if(bakedBlockModel != null) {
             bakedBlockModel = new BlockItemModelWrapper(bakedBlockModel);
             //event.modelRegistry.putObject(blockLoc, bakedBlockModel);
 
             if(first) {
               // silence the error
-              event.modelRegistry.putObject(loc, bakedBlockModel);
+              event.getModelRegistry().putObject(loc, bakedBlockModel);
               first = false;
             }
           }

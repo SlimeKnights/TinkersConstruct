@@ -4,14 +4,15 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -20,6 +21,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.mantle.inventory.IContainerCraftingCustom;
 import slimeknights.mantle.inventory.SlotCraftingCustom;
 import slimeknights.mantle.inventory.SlotOut;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.shared.inventory.InventoryCraftingPersistent;
@@ -201,9 +203,9 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
     return p_94530_2_.inventory != this.craftResult && super.canMergeSlot(p_94530_1_, p_94530_2_);
   }
 
-  public IChatComponent getInventoryDisplayName() {
+  public String getInventoryDisplayName() {
     if(partCrafter) {
-      return new ChatComponentTranslation("gui.partcrafter.name");
+      return Util.translate("gui.partcrafter.name");
     }
 
     return super.getInventoryDisplayName();
@@ -223,8 +225,8 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
 
   @Override
   @SideOnly(Side.CLIENT)
-  public ItemStack slotClick(int slotId, int clickedButton, int mode, EntityPlayer playerIn) {
-    ItemStack ret = super.slotClick(slotId, clickedButton, mode, playerIn);
+  public ItemStack slotClick(int slotId, int dragType, ClickType type, EntityPlayer player) {
+    ItemStack ret = super.slotClick(slotId, dragType, type, player);
     // this is called solely to update the gui buttons
     Minecraft mc = Minecraft.getMinecraft();
     if(mc.currentScreen instanceof GuiPartBuilder) {

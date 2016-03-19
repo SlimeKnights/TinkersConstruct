@@ -7,12 +7,12 @@ package slimeknights.tconstruct.library;
 import com.google.common.collect.Lists;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.registry.GameData;
 
 import org.apache.logging.log4j.LogManager;
@@ -72,7 +72,7 @@ public class Util {
    */
   public static String translate(String key, Object... pars) {
     // translates twice to allow rerouting/alias
-    return StatCollector.translateToLocal(StatCollector.translateToLocal(String.format(key, (Object[]) pars)).trim()).trim();
+    return I18n.translateToLocal(I18n.translateToLocal(String.format(key, (Object[]) pars)).trim()).trim();
   }
 
   /**
@@ -80,7 +80,7 @@ public class Util {
    */
   public static String translateFormatted(String key, Object... pars) {
     // translates twice to allow rerouting/alias
-    return StatCollector.translateToLocal(StatCollector.translateToLocalFormatted(key, (Object[]) pars).trim()).trim();
+    return I18n.translateToLocal(I18n.translateToLocalFormatted(key, (Object[]) pars).trim()).trim();
   }
 
   public static List<String> getTooltips(String text) {
@@ -156,7 +156,7 @@ public class Util {
   /**
    * Returns the actual color value for a chatformatting
     */
-  public static int enumChatFormattingToColor(EnumChatFormatting color) {
+  public static int enumChatFormattingToColor(TextFormatting color) {
     int i = color.getColorIndex();
     int j = (i >> 3 & 1) * 85;
     int k = (i >> 2 & 1) * 170 + j;

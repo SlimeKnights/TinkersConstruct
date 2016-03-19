@@ -2,14 +2,15 @@ package slimeknights.tconstruct.tools.item;
 
 import com.google.common.collect.ImmutableSet;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -26,7 +27,6 @@ import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
-import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -76,7 +76,7 @@ public class Mattock extends AoeToolCore {
   }
 
   @Override
-  public boolean isEffective(Block block) {
+  public boolean isEffective(IBlockState block) {
     return effective_materials_axe.contains(block.getMaterial()) || effective_materials_shovel.contains(block.getMaterial());
   }
 
@@ -101,18 +101,21 @@ public class Mattock extends AoeToolCore {
   }
 
   @Override
-  public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+  public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
     if(ToolHelper.isBroken(stack)) {
-      return false;
+      return EnumActionResult.FAIL;
     }
 
-    boolean ret = Items.diamond_hoe.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
+    EnumActionResult ret = Items.diamond_hoe.onItemUse(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
     for(BlockPos blockPos : getAOEBlocks(stack, worldIn, playerIn, pos)) {
       if(ToolHelper.isBroken(stack)) {
         break;
       }
 
-      ret |= Items.diamond_hoe.onItemUse(stack, playerIn, worldIn, blockPos, side, hitX, hitY, hitZ);
+      EnumActionResult ret2 = Items.diamond_hoe.onItemUse(stack, playerIn, worldIn, blockPos, hand, facing, hitX, hitY, hitZ);
+      if(ret != EnumActionResult.SUCCESS) {
+        ret = ret2;
+      }
     }
 
     return ret;
@@ -136,11 +139,11 @@ public class Mattock extends AoeToolCore {
 
     // special axe harvest level
     String text = Util.translate("stat.mattock.axelevel.name");
-    info.add(String.format("%s: %s", text, HarvestLevels.getHarvestLevelName(getAxeLevel(stack))) + EnumChatFormatting.RESET);
+    info.add(String.format("%s: %s", text, HarvestLevels.getHarvestLevelName(getAxeLevel(stack))) + TextFormatting.RESET);
 
     // special shovel harvest level
     text = Util.translate("stat.mattock.shovellevel.name");
-    info.add(String.format("%s: %s", text, HarvestLevels.getHarvestLevelName(getShovelLevel(stack))) + EnumChatFormatting.RESET);
+    info.add(String.format("%s: %s", text, HarvestLevels.getHarvestLevelName(getShovelLevel(stack))) + TextFormatting.RESET);
 
     info.addMiningSpeed();
     info.addAttack();

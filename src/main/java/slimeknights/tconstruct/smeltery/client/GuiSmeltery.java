@@ -4,10 +4,9 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import net.minecraft.client.gui.GuiPageButtonList;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -22,10 +21,8 @@ import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.mantle.client.gui.GuiMultiModule;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.TinkerRegistryClient;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.RenderUtil;
-import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.library.smeltery.SmelteryTank;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -77,13 +74,13 @@ public class GuiSmeltery extends GuiMultiModule {
       if(hovered == null) {
         int usedCap = smeltery.getTank().getUsedCapacity();
         int maxCap = smeltery.getTank().getMaxCapacity();
-        text.add(EnumChatFormatting.WHITE + Util.translate("gui.smeltery.capacity"));
-        text.add(EnumChatFormatting.GRAY.toString() + maxCap + Util.translate("gui.smeltery.liquid.millibucket"));
+        text.add(TextFormatting.WHITE + Util.translate("gui.smeltery.capacity"));
+        text.add(TextFormatting.GRAY.toString() + maxCap + Util.translate("gui.smeltery.liquid.millibucket"));
         text.add(Util.translateFormatted("gui.smeltery.capacity_available"));
-        text.add(EnumChatFormatting.GRAY.toString() + (maxCap - usedCap) + Util.translate("gui.smeltery.liquid.millibucket"));
+        text.add(TextFormatting.GRAY.toString() + (maxCap - usedCap) + Util.translate("gui.smeltery.liquid.millibucket"));
       }
       else {
-        text.add(EnumChatFormatting.WHITE + hovered.getLocalizedName());
+        text.add(TextFormatting.WHITE + hovered.getLocalizedName());
         liquidToString(hovered, text);
       }
 
@@ -93,7 +90,7 @@ public class GuiSmeltery extends GuiMultiModule {
     else if(71 <= mouseX && mouseX < 83 && 16 <= mouseY && mouseY < 68) {
       List<String> text = Lists.newArrayList();
       FluidStack fuel = fuelInfo.fluid;
-      text.add(EnumChatFormatting.WHITE + Util.translate("gui.smeltery.fuel"));
+      text.add(TextFormatting.WHITE + Util.translate("gui.smeltery.fuel"));
       if(fuel != null) {
         text.add(fuel.getLocalizedName());
         liquidToString(fuel, text);
@@ -252,7 +249,7 @@ public class GuiSmeltery extends GuiMultiModule {
   private int calcLiquidText(int amount, int divider, String unit, List<String> text) {
     int full = amount/divider;
     if(full > 0) {
-      text.add(String.format("%d %s%s", full, EnumChatFormatting.GRAY, unit));
+      text.add(String.format("%d %s%s", full, TextFormatting.GRAY, unit));
     }
 
     return amount % divider;

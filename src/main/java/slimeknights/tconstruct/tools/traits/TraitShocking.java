@@ -6,7 +6,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.play.server.S29PacketSoundEffect;
+import net.minecraft.network.play.server.SPacketSoundEffect;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.world.World;
 
@@ -29,12 +29,9 @@ public class TraitShocking extends AbstractTrait {
     Data data = Data.read(tag);
     if(data.charge >= 100f) {
       if(attackEntitySecondary(new EntityDamageSource("lightningBolt", player), 5f, target, false, true, false)) {
-        //player.worldObj.playSoundEffect(target.posX, target.posY, target.posZ, "ambient.weather.thunder", 10000f, 1f);
-        //player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "ambient.weather.thunder", 10000.0F, 0.9F);
-        //player.playSound(Sounds.shocking_discharge, 1f, 0.8f + random.nextFloat()*0.2f);
         if(player instanceof EntityPlayerMP) {
-          ((EntityPlayerMP) player).worldObj.playSoundEffect(player.posX, player.posY, player.posZ, Sounds.shocking_discharge, 2f, 1f);
-          //((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new S29PacketSoundEffect(Sounds.shocking_discharge, player.posX, player.posY, player.posZ, 1f, 0.8f + 0.2f*random.nextFloat()));
+          // 1.9
+          //((EntityPlayerMP) player).worldObj.playSoundEffect(player.posX, player.posY, player.posZ, Sounds.shocking_discharge, 2f, 1f);
         }
         data.charge = 0;
 
@@ -83,7 +80,8 @@ public class TraitShocking extends AbstractTrait {
       TagUtil.setEnchantEffect(tool, true);
       // send only to the player that is charged
       if(entity instanceof EntityPlayerMP) {
-        ((EntityPlayerMP) entity).playerNetServerHandler.sendPacket(new S29PacketSoundEffect(Sounds.shocking_charged, entity.posX, entity.posY, entity.posZ, 1f, 0.8f + 0.2f*random.nextFloat()));
+        // 1.9
+        //((EntityPlayerMP) entity).playerNetServerHandler.sendPacket(new SPacketSoundEffect(Sounds.shocking_charged, entity.posX, entity.posY, entity.posZ, 1f, 0.8f + 0.2f * random.nextFloat()));
       }
     }
 

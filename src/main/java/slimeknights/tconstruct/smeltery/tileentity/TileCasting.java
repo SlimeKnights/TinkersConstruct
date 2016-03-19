@@ -1,11 +1,14 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -114,7 +117,8 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
             setInventorySlotContents(1, event.output);
           }
 
-          worldObj.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "random.fizz", 0.07f, 4f);
+          // 1.9 test if sound works
+          worldObj.playSound(null, pos, SoundEvents.block_lava_extinguish, SoundCategory.AMBIENT, 0.07f, 4f);
 
           // reset state
           reset();

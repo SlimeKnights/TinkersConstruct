@@ -4,7 +4,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.common.util.FakePlayer;
 
 import slimeknights.tconstruct.TConstruct;
@@ -37,7 +39,8 @@ public final class PlayerHelper {
       }
       // if it got picked up, we're playing the sound
       else {
-        player.worldObj.playSoundAtEntity(player, "random.pop", 0.2F, ((TConstruct.random.nextFloat() - TConstruct.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+        // 1.9 check if this plays
+        player.worldObj.playSound(player, player.getPosition(), SoundEvents.entity_item_pickup, SoundCategory.PLAYERS, 0.2F, ((TConstruct.random.nextFloat() - TConstruct.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
         if(player instanceof EntityPlayerMP)
           player.inventoryContainer.detectAndSendChanges();
       }

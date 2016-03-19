@@ -2,7 +2,6 @@ package slimeknights.tconstruct.smeltery.network;
 
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.network.NetHandlerPlayServer;
-import net.minecraft.util.BlockPos;
 
 import io.netty.buffer.ByteBuf;
 import slimeknights.mantle.network.AbstractPacketThreadsafe;

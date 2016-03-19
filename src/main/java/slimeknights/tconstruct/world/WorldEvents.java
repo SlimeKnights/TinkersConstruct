@@ -5,10 +5,11 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityMagmaCube;
-import net.minecraft.util.BlockPos;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -52,7 +53,7 @@ public class WorldEvents {
 
   private void bounce(Entity entity, float amount) {
     entity.motionY += amount;
-    entity.playSound(Sounds.slime_small, 0.5f + amount, 1f);
+    entity.playSound(SoundEvents.entity_slime_squish, 0.5f + amount, 1f);
   }
 
   // Custom slime spawning on slime islands

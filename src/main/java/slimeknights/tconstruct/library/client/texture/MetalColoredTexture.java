@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.client.texture;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 import java.awt.*;
 

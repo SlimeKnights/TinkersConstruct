@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tools.traits;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 
@@ -13,7 +13,7 @@ import slimeknights.tconstruct.library.traits.AbstractTrait;
 public class TraitDuritos extends AbstractTrait {
 
   public TraitDuritos() {
-    super("duritos", EnumChatFormatting.LIGHT_PURPLE);
+    super("duritos", TextFormatting.LIGHT_PURPLE);
   }
 
   @Override

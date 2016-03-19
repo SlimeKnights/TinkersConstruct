@@ -12,10 +12,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -41,7 +41,6 @@ import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolCore;
-import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.tools.client.module.GuiButtonsToolStation;
 import slimeknights.tconstruct.tools.client.module.GuiInfoPanel;
@@ -224,7 +223,7 @@ public class GuiToolStation extends GuiTinkerStation {
       toolInfo.setCaption(tool.getLocalizedToolName());
       toolInfo.setText(tool.getInformation(toolStack));
 
-      traitInfo.setCaption(StatCollector.translateToLocal("gui.toolstation.traits"));
+      traitInfo.setCaption(I18n.translateToLocal("gui.toolstation.traits"));
 
       List<String> mods = Lists.newLinkedList();
       List<String> tips = Lists.newLinkedList();
@@ -244,18 +243,18 @@ public class GuiToolStation extends GuiTinkerStation {
       }
 
       if(mods.isEmpty()) {
-        mods.add(StatCollector.translateToLocal("gui.toolstation.noTraits"));
+        mods.add(I18n.translateToLocal("gui.toolstation.noTraits"));
       }
 
       traitInfo.setText(mods, tips);
     }
     // repair info
     else if(currentInfo.tool == null) {
-      toolInfo.setCaption(StatCollector.translateToLocal("gui.toolstation.repair"));
+      toolInfo.setCaption(I18n.translateToLocal("gui.toolstation.repair"));
       toolInfo.setText();
 
       traitInfo.setCaption(null);
-      String c = EnumChatFormatting.DARK_GRAY.toString();
+      String c = TextFormatting.DARK_GRAY.toString();
       String[] art = new String[] {
           c + "",
           c + "",
@@ -282,7 +281,7 @@ public class GuiToolStation extends GuiTinkerStation {
 
         ItemStack slotStack = container.getSlot(i).getStack();
         if(!pmt.isValid(slotStack)) {
-          sb.append(EnumChatFormatting.RED);
+          sb.append(TextFormatting.RED);
 
           // is an item in the slot?
           if(slotStack != null && slotStack.getItem() instanceof IToolPart) {
@@ -303,7 +302,7 @@ public class GuiToolStation extends GuiTinkerStation {
         sb.deleteCharAt(sb.length()-1); // removes last '/'
         text.add(sb.toString());
       }
-      traitInfo.setCaption(StatCollector.translateToLocal("gui.toolstation.components"));
+      traitInfo.setCaption(I18n.translateToLocal("gui.toolstation.components"));
       traitInfo.setText(text.toArray(new String[text.size()]));
     }
   }
@@ -549,7 +548,7 @@ public class GuiToolStation extends GuiTinkerStation {
 
   @Override
   public void error(String message) {
-    toolInfo.setCaption(StatCollector.translateToLocal("gui.error"));
+    toolInfo.setCaption(I18n.translateToLocal("gui.error"));
     toolInfo.setText(message);
     traitInfo.setCaption(null);
     traitInfo.setText();
@@ -557,7 +556,7 @@ public class GuiToolStation extends GuiTinkerStation {
 
   @Override
   public void warning(String message) {
-    toolInfo.setCaption(StatCollector.translateToLocal("gui.warning"));
+    toolInfo.setCaption(I18n.translateToLocal("gui.warning"));
     toolInfo.setText(message);
     traitInfo.setCaption(null);
     traitInfo.setText();

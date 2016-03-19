@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tools.item;
 
 import com.google.common.collect.ImmutableSet;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -40,7 +40,7 @@ public class Shovel extends AoeToolCore {
   }
 
   @Override
-  public boolean isEffective(Block block) {
+  public boolean isEffective(IBlockState block) {
     return effective_materials.contains(block.getMaterial()) || ItemSpade.EFFECTIVE_ON.contains(block);
   }
 

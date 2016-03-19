@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.traits;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,14 +8,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
-
-import java.util.Random;
 
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -32,7 +30,7 @@ public abstract class AbstractTrait extends Modifier implements ITrait {
   //private final String identifier;
   protected final int color;
 
-  public AbstractTrait(String identifier, EnumChatFormatting color) {
+  public AbstractTrait(String identifier, TextFormatting color) {
     this(identifier, Util.enumChatFormattingToColor(color));
   }
 
@@ -88,7 +86,7 @@ public abstract class AbstractTrait extends Modifier implements ITrait {
   }
 
   @Override
-  public void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
+  public void afterBlockBreak(ItemStack tool, World world, IBlockState state, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
   }
 
   @Override

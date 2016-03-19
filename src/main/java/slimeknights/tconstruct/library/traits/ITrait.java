@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.library.traits;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -44,10 +44,10 @@ public interface ITrait extends IToolMod {
   void beforeBlockBreak(ItemStack tool, BlockEvent.BreakEvent event);
 
   /**
-   * Called after the block has been destroyed. See {@link net.minecraft.item.Item#onBlockDestroyed(ItemStack, World, Block, BlockPos, EntityLivingBase)}
+   * Called after the block has been destroyed. See {@link net.minecraft.item.Item#onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving)}
    * Called before the tools durability is reduced.
    */
-  void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player, boolean wasEffective);
+  void afterBlockBreak(ItemStack tool, World world, IBlockState state, BlockPos pos, EntityLivingBase player, boolean wasEffective);
 
   /**
    * Called after a block has been broken. See {@link net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent}

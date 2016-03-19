@@ -11,11 +11,14 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.play.server.S12PacketEntityVelocity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.network.play.server.SPacketEntityVelocity;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -27,7 +30,6 @@ import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.EntityUtil;
-import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 
@@ -62,7 +64,7 @@ public class FryPan extends ToolCore {
   }
 
   @Override
-  public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int timeLeft) {
+  public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase player, int timeLeft) {
     if(world.isRemote)
       return;
 
@@ -72,9 +74,9 @@ public class FryPan extends ToolCore {
     float range = 3.2f;
 
     // is the player currently looking at an entity?
-    Vec3 eye = new Vec3(player.posX, player.posY + (double)player.getEyeHeight(), player.posZ); // Entity.getPositionEyes
-    Vec3 look = player.getLook(1.0f);
-    MovingObjectPosition mop = EntityUtil.raytraceEntity(player, eye, look, range, true);
+    Vec3d eye = new Vec3d(player.posX, player.posY + (double)player.getEyeHeight(), player.posZ); // Entity.getPositionEyes
+    Vec3d look = player.getLook(1.0f);
+    RayTraceResult mop = EntityUtil.raytraceEntity(player, eye, look, range, true);
 
     // nothing hit :(
     if(mop == null) {
@@ -82,50 +84,46 @@ public class FryPan extends ToolCore {
     }
 
     // we hit something. let it FLYYYYYYYYY
-    if(mop.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
+    if(mop.typeOfHit == RayTraceResult.Type.ENTITY) {
       Entity entity = mop.entityHit;
       double x = look.xCoord * strength;
       double y = look.yCoord/3f * strength + 0.1f + 0.4f * progress;
       double z = look.zCoord * strength;
 
       // bonus damage!
-      AttributeModifier modifier = new AttributeModifier(itemModifierUUID, "Weapon modifier", progress * 5f, 0);
+      AttributeModifier modifier = new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", progress * 5f, 0);
 
 
       // we set the entity on fire for the hit if it was fully charged
       // this makes it so it drops cooked stuff.. and it'funny :D
       boolean flamingStrike = progress >= 1f && entity.isBurning();
       if(!flamingStrike) entity.setFire(1);
-      player.getEntityAttribute(SharedMonsterAttributes.attackDamage).applyModifier(modifier);
+      player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).applyModifier(modifier);
       ToolHelper.attackEntity(stack, this, player, entity);
-      player.getEntityAttribute(SharedMonsterAttributes.attackDamage).removeModifier(modifier);
+      player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).removeModifier(modifier);
       if(!flamingStrike) entity.extinguish();
 
-      player.worldObj.playSoundAtEntity(player, Sounds.frypan_boing, 1.5f, 0.6f + 0.2f * TConstruct.random.nextFloat());
+      // 1.9
+      //player.worldObj.playSoundAtEntity(player, Sounds.frypan_boing, 1.5f, 0.6f + 0.2f * TConstruct.random.nextFloat());
       entity.addVelocity(x,y,z);
       if(entity instanceof EntityPlayerMP) {
-        ((EntityPlayerMP)entity).playerNetServerHandler.sendPacket(new S12PacketEntityVelocity(entity));
+        ((EntityPlayerMP)entity).playerNetServerHandler.sendPacket(new SPacketEntityVelocity(entity));
       }
     }
   }
 
   @Override
-  public boolean dealDamage(ItemStack stack, EntityPlayer player, EntityLivingBase entity, float damage) {
+  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
     boolean hit = super.dealDamage(stack, player, entity, damage);
     if(hit) {
-      player.worldObj.playSoundAtEntity(player, Sounds.frypan_boing, 1.2f,
-                                          0.8f + 0.4f * TConstruct.random.nextFloat());
+      // 1.9
+      //player.worldObj.playSoundAtEntity(player, Sounds.frypan_boing, 1.2f, 0.8f + 0.4f * TConstruct.random.nextFloat());
     }
     return hit;
   }
 
-  /**
-   * Called when the itemUseDuration runs out
-   */
   @Override
-  public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityPlayer playerIn) {
-    // in our case we want it to also go BANG :D
-    //onPlayerStoppedUsing(stack, worldIn, playerIn, 0);
+  public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
     return stack;
   }
 
@@ -140,6 +138,7 @@ public class FryPan extends ToolCore {
   /**
    * How long it takes to use or consume an item
    */
+  @Override
   public int getMaxItemUseDuration(ItemStack stack)
   {
     return 5 * 20;
@@ -148,23 +147,16 @@ public class FryPan extends ToolCore {
   /**
    * returns the action that specifies what animation to play when the items is being used
    */
+  @Override
   public EnumAction getItemUseAction(ItemStack stack)
   {
     return EnumAction.BOW;
   }
 
-  /**
-   * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
-   */
-  public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
-  {
-    playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
-    return itemStackIn;
-  }
-
   @Override
-  public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-    return super.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ);
+  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    playerIn.setActiveHand(hand);
+    return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
   }
 
   @Override

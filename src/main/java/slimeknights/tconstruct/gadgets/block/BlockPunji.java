@@ -1,26 +1,28 @@
 package slimeknights.tconstruct.gadgets.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.MobEffects;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import scala.None;
+import java.util.Locale;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 
 public class BlockPunji extends Block {
@@ -36,9 +38,9 @@ public class BlockPunji extends Block {
 
   public BlockPunji() {
     super(Material.plants);
-
-    this.setBlockBounds(0.125f, 0, 0.125f, 0.875f, 0.375f, 0.875f);
-    this.setStepSound(Block.soundTypeGrass);
+  // 1.9
+    //this.setBlockBounds(0.125f, 0, 0.125f, 0.875f, 0.375f, 0.875f);
+    this.setSoundType(SoundType.PLANT);
     this.setCreativeTab(TinkerRegistry.tabGadgets);
     this.setHardness(3.0f);
 
@@ -46,8 +48,8 @@ public class BlockPunji extends Block {
   }
 
   @Override
-  protected BlockState createBlockState() {
-    return new BlockState(this, FACING, NORTH, EAST, NORTHEAST, NORTHWEST);
+  protected BlockStateContainer createBlockState() {
+    return new BlockStateContainer(this, FACING, NORTH, EAST, NORTHEAST, NORTHWEST);
   }
 
   /**
@@ -128,6 +130,8 @@ public class BlockPunji extends Block {
     }
   }
 
+  // 1.9
+  /*
   @Override
   public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
     EnumFacing facing = worldIn.getBlockState(pos).getValue(FACING);
@@ -179,7 +183,7 @@ public class BlockPunji extends Block {
     setBlockBoundsBasedOnState(state.getValue(FACING));
     return super.getCollisionBoundingBox(worldIn, pos, state);
   }
-
+*/
   @Override
   public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
     if(entityIn instanceof EntityLiving) {
@@ -188,17 +192,17 @@ public class BlockPunji extends Block {
         damage += entityIn.fallDistance * 1.5f + 2f;
       }
       entityIn.attackEntityFrom(DamageSource.cactus, damage);
-      ((EntityLiving) entityIn).addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), 20, 1));
+      ((EntityLiving) entityIn).addPotionEffect(new PotionEffect(MobEffects.moveSlowdown, 20, 1));
     }
   }
 
   @Override
-  public boolean isOpaqueCube() {
+  public boolean isOpaqueCube(IBlockState state) {
     return false;
   }
 
   @Override
-  public boolean isFullCube() {
+  public boolean isFullCube(IBlockState state) {
     return false;
   }
 
@@ -214,7 +218,7 @@ public class BlockPunji extends Block {
 
     @Override
     public String getName() {
-      return this.toString();
+      return this.toString().toLowerCase(Locale.US);
     }
   }
 }

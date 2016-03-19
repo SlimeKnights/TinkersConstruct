@@ -1,11 +1,12 @@
 package slimeknights.tconstruct.tools.item;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -52,11 +53,13 @@ public class LongSword extends BroadSword {
   }
 
   @Override
-  public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int timeLeft) {
+  public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase player, int timeLeft) {
     int time = this.getMaxItemUseDuration(stack) - timeLeft;
     if (time > 5)
     {
-      player.addExhaustion(0.2F);
+      if(player instanceof EntityPlayer) {
+        ((EntityPlayer) player).addExhaustion(0.2F);
+      }
       player.setSprinting(true);
 
       float increase = (float) (0.02 * time + 0.2);
@@ -68,7 +71,8 @@ public class LongSword extends BroadSword {
       if (speed > 0.925f)
         speed = 0.925f;
       player.motionX = (double) (-MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed);
-      player.motionZ = (double) (MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed);
+      player.motionZ = (double) (MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper
+          .cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed);
     }
 
     super.onPlayerStoppedUsing(stack, world, player, timeLeft);

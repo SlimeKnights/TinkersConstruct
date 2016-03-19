@@ -15,7 +15,7 @@ import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -26,10 +26,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -59,7 +59,7 @@ public class RenderEvents implements IResourceManagerReloadListener {
     }
 
     EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-    ItemStack stack = player.getCurrentEquippedItem();
+    ItemStack stack = player.getHeldItemMainhand();
     if(stack == null) {
       return;
     }
@@ -87,14 +87,14 @@ public class RenderEvents implements IResourceManagerReloadListener {
     EntityPlayer player = Minecraft.getMinecraft().thePlayer;
     World world = player.worldObj;
     // AOE preview
-    if(player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof IAoeTool) {
-      MovingObjectPosition mop = player.rayTrace(controllerMP.getBlockReachDistance(), event.partialTicks);
+    if(player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof IAoeTool) {
+      RayTraceResult mop = player.rayTrace(controllerMP.getBlockReachDistance(), event.partialTicks);
       if(mop != null) {
-        ItemStack stack = player.getCurrentEquippedItem();
+        ItemStack stack = player.getHeldItemMainhand();
         ImmutableList<BlockPos> extraBlocks = ((IAoeTool) stack.getItem()).getAOEBlocks(stack, world, player, mop
             .getBlockPos());
         for(BlockPos pos : extraBlocks) {
-          event.context.drawSelectionBox(player, new MovingObjectPosition(new Vec3(0,0,0), null, pos), 0, event.partialTicks);
+          event.context.drawSelectionBox(player, new RayTraceResult(new Vec3d(0, 0, 0), null, pos), 0, event.partialTicks);
         }
       }
     }
@@ -107,7 +107,7 @@ public class RenderEvents implements IResourceManagerReloadListener {
         ItemStack stack = controllerMP.currentItemHittingBlock;
         BlockPos pos = controllerMP.currentBlock;
         drawBlockDamageTexture(Tessellator.getInstance(),
-                               Tessellator.getInstance().getWorldRenderer(),
+                               Tessellator.getInstance().getBuffer(),
                                player,
                                event.partialTicks,
                                world,
@@ -117,7 +117,7 @@ public class RenderEvents implements IResourceManagerReloadListener {
   }
 
   // RenderGlobal.drawBlockDamageTexture
-  public void drawBlockDamageTexture(Tessellator tessellatorIn, WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, World world, List<BlockPos> blocks)
+  public void drawBlockDamageTexture(Tessellator tessellatorIn, VertexBuffer vertexBuffer, Entity entityIn, float partialTicks, World world, List<BlockPos> blocks)
   {
     double d0 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * (double)partialTicks;
     double d1 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double)partialTicks;
@@ -141,9 +141,9 @@ public class RenderEvents implements IResourceManagerReloadListener {
       GlStateManager.pushMatrix();
       //preRenderDamagedBlocks END
 
-      worldRendererIn.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-      worldRendererIn.setTranslation(-d0, -d1, -d2);
-      worldRendererIn.markDirty();
+      vertexBuffer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+      vertexBuffer.setTranslation(-d0, -d1, -d2);
+      vertexBuffer.noColor();
 
       for(BlockPos blockpos : blocks) {
         double d3 = (double)blockpos.getX() - d0;
@@ -159,7 +159,7 @@ public class RenderEvents implements IResourceManagerReloadListener {
         {
             IBlockState iblockstate = world.getBlockState(blockpos);
 
-            if (iblockstate.getBlock().getMaterial() != Material.air)
+            if (iblockstate.getBlock().getMaterial(iblockstate) != Material.air)
             {
               TextureAtlasSprite textureatlassprite = this.destroyBlockIcons[progress];
               BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
@@ -169,7 +169,7 @@ public class RenderEvents implements IResourceManagerReloadListener {
       }
 
       tessellatorIn.draw();
-      worldRendererIn.setTranslation(0.0D, 0.0D, 0.0D);
+      vertexBuffer.setTranslation(0.0D, 0.0D, 0.0D);
       // postRenderDamagedBlocks BEGIN
       GlStateManager.disableAlpha();
       GlStateManager.doPolygonOffset(0.0F, 0.0F);

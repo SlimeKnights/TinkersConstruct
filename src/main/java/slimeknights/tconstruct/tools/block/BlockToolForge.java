@@ -2,9 +2,10 @@ package slimeknights.tconstruct.tools.block;
 
 import com.google.common.collect.Sets;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,7 +13,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
@@ -36,7 +37,7 @@ public class BlockToolForge extends BlockTable implements ITinkerStationBlock {
     super(Material.iron);
     this.setCreativeTab(TinkerRegistry.tabGeneral);
 
-    this.setStepSound(soundTypeMetal);
+    this.setSoundType(SoundType.METAL);
     this.setResistance(10f);
     this.setHardness(2f);
 
@@ -71,7 +72,7 @@ public class BlockToolForge extends BlockTable implements ITinkerStationBlock {
   }
 
   @Override
-  protected BlockState createBlockState() {
+  protected BlockStateContainer createBlockState() {
     return new ExtendedBlockState(this, new IProperty[]{}, new IUnlistedProperty[]{TEXTURE, INVENTORY, FACING});
   }
 

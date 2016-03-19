@@ -4,15 +4,15 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -52,13 +52,13 @@ public class BlockSlimeLeaves extends BlockLeaves {
   }
 
   @Override
-  public boolean isOpaqueCube() {
-    return Blocks.leaves.isOpaqueCube();
+  public boolean isOpaqueCube(IBlockState state) {
+    return Blocks.leaves.isOpaqueCube(state);
   }
 
   @SideOnly(Side.CLIENT)
   @Override
-  public EnumWorldBlockLayer getBlockLayer() {
+  public BlockRenderLayer getBlockLayer() {
     return Blocks.leaves.getBlockLayer();
   }
 
@@ -108,8 +108,8 @@ public class BlockSlimeLeaves extends BlockLeaves {
   }
 
   @Override
-  protected BlockState createBlockState() {
-    return new BlockState(this, BlockSlimeGrass.FOLIAGE, CHECK_DECAY, DECAYABLE);
+  protected BlockStateContainer createBlockState() {
+    return new BlockStateContainer(this, BlockSlimeGrass.FOLIAGE, CHECK_DECAY, DECAYABLE);
   }
 
   /**
@@ -149,6 +149,8 @@ public class BlockSlimeLeaves extends BlockLeaves {
     return meta;
   }
 
+  // 1.9
+  /*
   @Override
   @SideOnly(Side.CLIENT)
   public int getBlockColor ()
@@ -174,7 +176,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
     FoliageType foliageType = state.getValue(BlockSlimeGrass.FOLIAGE);
     return SlimeColorizer.getColorForPos(pos.add(SlimeColorizer.loop/2, 0, SlimeColorizer.loop/2), foliageType);
   }
-
+*/
   @Override
   public BlockPlanks.EnumType getWoodType(int meta) {
     throw new NotImplementedException(); // unused by our code.
@@ -187,7 +189,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
   }
 
   @Override
-  public boolean isLeaves(IBlockAccess world, BlockPos pos) {
+  public boolean isLeaves(IBlockState state, IBlockAccess world, BlockPos pos) {
     return true;
   }
 }

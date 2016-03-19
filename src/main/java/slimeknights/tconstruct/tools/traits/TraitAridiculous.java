@@ -2,8 +2,8 @@ package slimeknights.tconstruct.tools.traits;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -16,7 +16,7 @@ import slimeknights.tconstruct.library.traits.AbstractTrait;
 public class TraitAridiculous extends AbstractTrait {
 
   public TraitAridiculous() {
-    super("aridiculous", EnumChatFormatting.DARK_RED);
+    super("aridiculous", TextFormatting.DARK_RED);
   }
 
   @Override
@@ -34,7 +34,7 @@ public class TraitAridiculous extends AbstractTrait {
 
   protected float calcAridiculousness(World world, BlockPos pos) {
     BiomeGenBase biome = world.getBiomeGenForCoords(pos);
-    float rain = world.isRaining() ? biome.getFloatRainfall() / 2f : 0f;
-    return (float) (Math.pow(1.25, 3d * (0.5f + biome.temperature - biome.rainfall)) - 1.25d) - rain;
+    float rain = world.isRaining() ? biome.getRainfall() / 2f : 0f;
+    return (float) (Math.pow(1.25, 3d * (0.5f + biome.getTemperature() - biome.getRainfall())) - 1.25d) - rain;
   }
 }

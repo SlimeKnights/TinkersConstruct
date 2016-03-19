@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,10 +12,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
@@ -45,19 +45,19 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
   }
 
   @Override
-  public boolean isOpaqueCube() {
+  public boolean isOpaqueCube(IBlockState state) {
     return false;
   }
 
   @Override
-  public boolean isFullCube() {
+  public boolean isFullCube(IBlockState state) {
     return false;
   }
 
   @SideOnly(Side.CLIENT)
-  public EnumWorldBlockLayer getBlockLayer()
+  public BlockRenderLayer getBlockLayer()
   {
-    return EnumWorldBlockLayer.CUTOUT;
+    return BlockRenderLayer.CUTOUT;
   }
 
   @Override
@@ -78,7 +78,7 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
   }
 
   @Override
-  protected BlockState createBlockState() {
+  protected BlockStateContainer createBlockState() {
     return new ExtendedBlockState(this, new IProperty[0], new IUnlistedProperty[]{TEXTURE, INVENTORY, FACING});
   }
 
@@ -120,13 +120,12 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
   }
 
   @Override
-  public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+  public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
     // we pull up a few calls to this point in time because we still have the TE here
     // the execution otherwise is equivalent to vanilla order
-    IBlockState state = world.getBlockState(pos);
     this.onBlockDestroyedByPlayer(world, pos, state);
     if(willHarvest) {
-      this.harvestBlock(world, player, pos, state, world.getTileEntity(pos));
+      this.harvestBlock(world, player, pos, state, world.getTileEntity(pos), player.getHeldItemMainhand());
     }
 
     // clear the inventory if we kept it on the item
@@ -180,13 +179,13 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
   }
 
   @Override
-  public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
+  public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
     List<ItemStack> drops = getDrops(world, pos, world.getBlockState(pos), 0);
     if(drops.size() > 0) {
       return drops.get(0);
     }
 
-    return super.getPickBlock(target, world, pos, player);
+    return super.getPickBlock(state, target, world, pos, player);
   }
 
   public static ItemStack createItemstack(BlockTable table, int tableMeta, Block block, int blockMeta) {

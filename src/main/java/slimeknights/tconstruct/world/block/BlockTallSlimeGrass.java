@@ -4,14 +4,17 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
@@ -20,6 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import slimeknights.mantle.block.EnumBlock;
@@ -35,7 +39,7 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
 
   public BlockTallSlimeGrass() {
     setCreativeTab(TinkerRegistry.tabWorld);
-    this.setStepSound(soundTypeGrass);
+    this.setSoundType(SoundType.PLANT);
   }
 
   @SideOnly(Side.CLIENT)
@@ -50,8 +54,8 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
 
   /* State stuff */
   @Override
-  protected BlockState createBlockState() {
-    return new BlockState(this, TYPE, FOLIAGE);
+  protected BlockStateContainer createBlockState() {
+    return new BlockStateContainer(this, TYPE, FOLIAGE);
   }
 
   @Override
@@ -84,14 +88,14 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
   /* Logic stuff */
 
   @Override
-  public boolean isReplaceable(World worldIn, BlockPos pos) {
+  public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
     return true;
   }
 
   @Override
-  public int getDamageValue(World worldIn, BlockPos pos) {
-    IBlockState iblockstate = worldIn.getBlockState(pos);
-    return iblockstate.getBlock().getMetaFromState(iblockstate);
+  public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+    int meta = this.getMetaFromState(state);
+    return new ItemStack(Item.getItemFromBlock(this), 1, meta);
   }
 
   @Override
@@ -100,7 +104,9 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
   }
 
   @Override
-  protected boolean canPlaceBlockOn(Block ground) {
+  public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+    IBlockState soil = worldIn.getBlockState(pos.down());
+    Block ground = soil.getBlock();
     return ground == TinkerWorld.slimeGrass || ground == TinkerWorld.slimeDirt;
   }
 
@@ -114,14 +120,15 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
     return Block.EnumOffsetType.XYZ;
   }
 
-  @Override
+  // 1.9
+  //@Override
   public int getBlockColor() {
     return SlimeColorizer.colorBlue;
   }
 
   // Used for the item
   @SideOnly(Side.CLIENT)
-  @Override
+  //@Override
   public int getRenderColor(IBlockState state) {
     FoliageType foliageType = state.getValue(FOLIAGE);
     return SlimeColorizer.getColorStatic(foliageType);
@@ -129,7 +136,7 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
 
   // Used for the block in world
   @SideOnly(Side.CLIENT)
-  @Override
+  //@Override
   public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
     IBlockState state = worldIn.getBlockState(pos);
     if(state.getBlock() != this) return getBlockColor();
@@ -175,7 +182,7 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
 
     @Override
     public String getName() {
-      return this.toString();
+      return this.toString().toLowerCase(Locale.US);
     }
   }
 }

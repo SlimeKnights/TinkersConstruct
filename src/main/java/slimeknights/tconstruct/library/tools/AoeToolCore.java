@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;

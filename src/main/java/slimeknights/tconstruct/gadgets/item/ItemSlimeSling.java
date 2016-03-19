@@ -1,20 +1,22 @@
 package slimeknights.tconstruct.gadgets.item;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.server.S12PacketEntityVelocity;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
 
 public class ItemSlimeSling extends Item {
@@ -24,13 +26,10 @@ public class ItemSlimeSling extends Item {
     this.setCreativeTab(TinkerRegistry.tabGadgets);
   }
 
-  /**
-   * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
-   */
-  public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
-  {
-    playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
-    return itemStackIn;
+  @Override
+  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    playerIn.setActiveHand(hand);
+    return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
   }
 
   @Override
@@ -44,8 +43,13 @@ public class ItemSlimeSling extends Item {
   }
 
   // sling logic
+
   @Override
-  public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int timeLeft) {
+  public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase entity, int timeLeft) {
+    if(!(entity instanceof EntityPlayer)) {
+      return;
+    }
+    EntityPlayer player = (EntityPlayer) entity;
     // has to be on ground to do something
     if(!player.onGround) {
       return;
@@ -62,11 +66,11 @@ public class ItemSlimeSling extends Item {
     }
 
     // check if player was targeting a block
-    MovingObjectPosition mop = getMovingObjectPositionFromPlayer(world, player, false);
+    RayTraceResult mop = getMovingObjectPositionFromPlayer(world, player, false);
 
-    if(mop != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+    if(mop != null && mop.typeOfHit == RayTraceResult.Type.BLOCK) {
       // we fling the inverted player look vector
-      Vec3 vec = player.getLookVec().normalize();
+      Vec3d vec = player.getLookVec().normalize();
 
       player.addVelocity(vec.xCoord * -f,
                          vec.yCoord * -f/3f,
@@ -77,7 +81,8 @@ public class ItemSlimeSling extends Item {
         TinkerNetwork.sendTo(new EntityMovementChangePacket(player), playerMP);
         //playerMP.playerNetServerHandler.sendPacket(new S12PacketEntityVelocity(player));
       }
-      player.playSound(Sounds.slimesling, 1f, 1f);
+      //1.9
+      //player.playSound(Sounds.slimesling, 1f, 1f);
       SlimeBounceHandler.addBounceHandler(player);
       //TinkerCommons.potionSlimeBounce.apply(player);
     }

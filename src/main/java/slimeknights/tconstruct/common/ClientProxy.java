@@ -4,12 +4,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.resources.IReloadableResourceManager;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelBakery;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -18,7 +17,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameData;
 
 import java.lang.reflect.Field;
-import java.util.Locale;
 
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.tconstruct.TConstruct;
@@ -32,7 +30,6 @@ import slimeknights.tconstruct.library.client.model.ToolModelLoader;
 import slimeknights.tconstruct.library.client.particle.EntitySlimeFx;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.tools.Pattern;
-import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
 public abstract class ClientProxy extends CommonProxy {

@@ -3,6 +3,8 @@ package slimeknights.tconstruct.gadgets.item;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -10,40 +12,38 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 
 public class ItemSlimeBoots extends ItemArmor {
 
-  public static ArmorMaterial SLIME_MATERIAL = EnumHelper.addArmorMaterial("SLIME", Util.resource("slime"), 0, new int[]{0, 0, 0, 0}, 0);
+  public static ArmorMaterial SLIME_MATERIAL = EnumHelper.addArmorMaterial("SLIME", Util.resource("slime"), 0, new int[]{0, 0, 0, 0}, 0, SoundEvents.block_slime_place);
 
   public ItemSlimeBoots() {
-    super(SLIME_MATERIAL, 0, 3);
+    super(SLIME_MATERIAL, 0, EntityEquipmentSlot.FEET);
     this.setCreativeTab(TinkerRegistry.tabGadgets);
     this.setMaxStackSize(1);
   }
 
   @Override
-  public boolean isValidArmor(ItemStack stack, int armorType, Entity entity) {
+  public boolean isValidArmor(ItemStack stack, EntityEquipmentSlot armorType, Entity entity) {
     // can be worn as boots
-    return armorType == 3;
+    return armorType == EntityEquipmentSlot.FEET;
   }
 
   // equipping with rightclick
-  public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
+  public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
   {
-    int slot = 1; // 0 = current item, 1 = feet
-    ItemStack itemstack = playerIn.getEquipmentInSlot(slot);
+    ItemStack itemstack = player.getItemStackFromSlot(EntityEquipmentSlot.FEET);
 
     if (itemstack == null)
     {
-      playerIn.setCurrentItemOrArmor(slot, itemStackIn.copy());
-      itemStackIn.stackSize--;
+      player.setItemStackToSlot(EntityEquipmentSlot.FEET, stack.copy());
+      stack.stackSize--;
     }
 
-    return itemStackIn;
+    return stack;
   }
 
   // RUBBERY BOUNCY BOUNCERY WOOOOO
@@ -53,7 +53,7 @@ public class ItemSlimeBoots extends ItemArmor {
     if(entity == null) {
       return;
     }
-    ItemStack feet = entity.getEquipmentInSlot(1);
+    ItemStack feet = entity.getItemStackFromSlot(EntityEquipmentSlot.FEET);
     if(feet == null || feet.getItem() != this) {
       return;
     }
@@ -79,7 +79,8 @@ public class ItemSlimeBoots extends ItemArmor {
       else {
         event.setCanceled(true); // we don't care about previous cancels, since we just bounceeeee
       }
-      entity.playSound(Sounds.slime_small, 1f, 1f);
+      // 1.9
+      //entity.playSound(Sounds.slime_small, 1f, 1f);
       SlimeBounceHandler.addBounceHandler(entity, entity.motionY);
 /*
       if(entity instanceof EntityPlayerMP) {

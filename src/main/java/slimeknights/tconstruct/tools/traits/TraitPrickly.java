@@ -4,14 +4,14 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 
 public class TraitPrickly extends AbstractTrait {
 
   public TraitPrickly() {
-    super("prickly", EnumChatFormatting.DARK_GREEN);
+    super("prickly", TextFormatting.DARK_GREEN);
   }
 
   @Override

@@ -1,24 +1,21 @@
 package slimeknights.tconstruct.tools.modifiers;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import slimeknights.tconstruct.library.modifiers.IModifier;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.utils.TagUtil;
-import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 
 public class ModLuck extends ModifierTrait {
@@ -39,7 +36,7 @@ public class ModLuck extends ModifierTrait {
 
   @Override
   public boolean canApplyTogether(Enchantment enchantment) {
-    return enchantment != Enchantment.silkTouch;
+    return enchantment != Enchantments.silkTouch;
   }
 
   @Override
@@ -53,7 +50,7 @@ public class ModLuck extends ModifierTrait {
   }
 
   @Override
-  public void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
+  public void afterBlockBreak(ItemStack tool, World world, IBlockState state, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
     rewardProgress(tool);
   }
 
@@ -84,7 +81,7 @@ public class ModLuck extends ModifierTrait {
     boolean harvest = false;
     boolean weapon = false;
 
-    lvl = Math.min(lvl, Enchantment.looting.getMaxLevel());
+    lvl = Math.min(lvl, Enchantments.looting.getMaxLevel());
 
     for(Category category : TagUtil.getCategories(rootCompound)) {
       if(category == Category.HARVEST) harvest = true;
@@ -93,14 +90,14 @@ public class ModLuck extends ModifierTrait {
 
     // weapons get looting
     if(weapon) {
-      while(lvl > ToolBuilder.getEnchantmentLevel(rootCompound, Enchantment.looting)) {
-        ToolBuilder.addEnchantment(rootCompound, Enchantment.looting);
+      while(lvl > ToolBuilder.getEnchantmentLevel(rootCompound, Enchantments.looting)) {
+        ToolBuilder.addEnchantment(rootCompound, Enchantments.looting);
       }
     }
     // harvest tools get fortune
     if(harvest) {
-      while(lvl > ToolBuilder.getEnchantmentLevel(rootCompound, Enchantment.fortune)) {
-        ToolBuilder.addEnchantment(rootCompound, Enchantment.fortune);
+      while(lvl > ToolBuilder.getEnchantmentLevel(rootCompound, Enchantments.fortune)) {
+        ToolBuilder.addEnchantment(rootCompound, Enchantments.fortune);
       }
     }
   }

@@ -5,7 +5,8 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.text.TextComponentString;
 
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -29,7 +30,7 @@ public class GetToolGrowth extends CommandBase {
   }
 
   @Override
-  public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+  public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
     if(sender.getCommandSenderEntity() instanceof EntityPlayer) {
       EntityPlayer player = (EntityPlayer) sender.getCommandSenderEntity();
       ItemStack item = player.inventory.getCurrentItem();
@@ -38,17 +39,17 @@ public class GetToolGrowth extends CommandBase {
 
       if(bonus != null) {
         String b = String.format("Applied bonus:\n  Durability: %d\n  Speed: %f\n  Attack: %f", bonus.durability, bonus.speed, bonus.attack);
-        sender.addChatMessage(new ChatComponentText(b));
+        sender.addChatMessage(new TextComponentString(b));
       }
       else {
-        sender.addChatMessage(new ChatComponentText("No bonus"));
+        sender.addChatMessage(new TextComponentString("No bonus"));
       }
       if(pool != null) {
         String p = String.format("Applied bonus:\n  Durability: %d\n  Speed: %f\n  Attack: %f", pool.durability, pool.speed, pool.attack);
-        sender.addChatMessage(new ChatComponentText(p));
+        sender.addChatMessage(new TextComponentString(p));
       }
       else {
-        sender.addChatMessage(new ChatComponentText("No bonus"));
+        sender.addChatMessage(new TextComponentString("No bonus"));
       }
 
 

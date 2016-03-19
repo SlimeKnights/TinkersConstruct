@@ -2,7 +2,7 @@ package slimeknights.tconstruct.common;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -92,7 +92,7 @@ public class TinkerNetwork extends NetworkWrapper {
           continue;
         }
         EntityPlayerMP playerMP = (EntityPlayerMP) player;
-        if(world.getPlayerManager().isPlayerWatchingChunk(playerMP, chunk.xPosition, chunk.zPosition)) {
+        if(world.getPlayerChunkManager().isPlayerWatchingChunk(playerMP, chunk.xPosition, chunk.zPosition)) {
           TinkerNetwork.sendTo(packet, playerMP);
         }
       }

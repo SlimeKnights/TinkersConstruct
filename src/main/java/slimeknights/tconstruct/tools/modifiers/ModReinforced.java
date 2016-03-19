@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tools.modifiers;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
@@ -35,7 +35,7 @@ public class ModReinforced extends ModifierTrait {
     ModifierNBT data = ModifierNBT.readTag(modifierTag);
     if(data.level == maxLevel) {
       String key = String.format("modifier.%s.unbreakable", getIdentifier());
-      if(StatCollector.canTranslate(key)) {
+      if(I18n.canTranslate(key)) {
         return Util.translate(key);
       }
     }

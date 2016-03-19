@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,9 +12,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -26,6 +27,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import slimeknights.mantle.block.EnumBlock;
@@ -48,8 +50,8 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
   }
 
   @Override
-  protected BlockState createBlockState() {
-    return new BlockState(this, TYPE, KNOB);
+  protected BlockStateContainer createBlockState() {
+    return new BlockStateContainer(this, TYPE, KNOB);
   }
 
   @Override
@@ -68,7 +70,7 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
   }
 
   @Override
-  public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+  public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
     if(worldIn.isRemote) return true;
 
     TileEntity te = worldIn.getTileEntity(pos);
@@ -78,7 +80,7 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
     IFluidHandler tank = (IFluidHandler) te;
     side = side.getOpposite();
 
-    ItemStack stack = playerIn.getHeldItem();
+    ItemStack stack = playerIn.getHeldItemMainhand();
     if(stack == null) {
       return false;
     }
@@ -129,14 +131,14 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
   }
 
   // fix blockbreak logic order. Needed to have the tile entity when getting the drops
+
   @Override
-  public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+  public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
     // we pull up a few calls to this point in time because we still have the TE here
     // the execution otherwise is equivalent to vanilla order
-    IBlockState state = world.getBlockState(pos);
     this.onBlockDestroyedByPlayer(world, pos, state);
     if(willHarvest) {
-      this.harvestBlock(world, player, pos, state, world.getTileEntity(pos));
+      this.harvestBlock(world, player, pos, state, world.getTileEntity(pos), player.getHeldItemMainhand());
     }
 
     world.setBlockToAir(pos);
@@ -148,7 +150,7 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
   /* Rendering stuff etc */
 
   @Override
-  public int getLightValue(IBlockAccess world, BlockPos pos) {
+  public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
     TileEntity te = world.getTileEntity(pos);
     if(!(te instanceof TileTank)) {
       return 0;
@@ -158,9 +160,9 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
   }
 
   @SideOnly(Side.CLIENT)
-  public EnumWorldBlockLayer getBlockLayer()
+  public BlockRenderLayer getBlockLayer()
   {
-    return EnumWorldBlockLayer.CUTOUT;
+    return BlockRenderLayer.CUTOUT;
   }
 
   public boolean isFullCube()
@@ -186,7 +188,7 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
 
     @Override
     public String getName() {
-      return this.toString();
+      return this.toString().toLowerCase(Locale.US);
     }
 
     @Override

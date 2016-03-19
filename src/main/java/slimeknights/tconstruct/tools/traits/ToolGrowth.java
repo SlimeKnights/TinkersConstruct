@@ -1,12 +1,12 @@
 package slimeknights.tconstruct.tools.traits;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 
@@ -35,7 +35,7 @@ public class ToolGrowth extends TraitProgressiveStats {
   protected static float ATTACK_STEP = 0.01f;
 
   public ToolGrowth() {
-    super("toolgrowth", EnumChatFormatting.WHITE);
+    super("toolgrowth", TextFormatting.WHITE);
 
     this.addAspects(new ModifierAspect.SingleAspect(this));
   }
@@ -133,7 +133,7 @@ public class ToolGrowth extends TraitProgressiveStats {
 
   // Filling the pool with speed
   @Override
-  public void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
+  public void afterBlockBreak(ItemStack tool, World world, IBlockState state, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
     if(player instanceof FakePlayer || world.isRemote) {
       return;
     }

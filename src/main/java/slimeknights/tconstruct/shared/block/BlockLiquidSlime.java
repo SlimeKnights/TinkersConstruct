@@ -5,11 +5,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 
 import java.util.Random;
@@ -58,11 +57,7 @@ public class BlockLiquidSlime extends BlockTinkerFluid {
   }
 
   @Override
-  public boolean canCreatureSpawn(IBlockAccess world, BlockPos pos, EntityLiving.SpawnPlacementType type) {
-    if(type == EntityLiving.SpawnPlacementType.IN_WATER) {
-      return true;
-    }
-
-    return super.canCreatureSpawn(world, pos, type);
+  public boolean canCreatureSpawn(IBlockState state, IBlockAccess world, BlockPos pos, EntityLiving.SpawnPlacementType type) {
+    return type == EntityLiving.SpawnPlacementType.IN_WATER || super.canCreatureSpawn(state, world, pos, type);
   }
 }

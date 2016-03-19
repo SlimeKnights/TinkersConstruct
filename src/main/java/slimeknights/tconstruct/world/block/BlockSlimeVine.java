@@ -2,9 +2,10 @@ package slimeknights.tconstruct.world.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockVine;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -23,7 +24,7 @@ public class BlockSlimeVine extends BlockVine {
 
   public BlockSlimeVine(FoliageType foliage, BlockSlimeVine nextStage) {
     this.setCreativeTab(TinkerRegistry.tabWorld);
-    this.setStepSound(soundTypeGrass);
+    this.setSoundType(SoundType.PLANT);
 
     this.foliage = foliage;
     this.nextStage = nextStage;
@@ -37,9 +38,10 @@ public class BlockSlimeVine extends BlockVine {
   }
 */
   private Boolean canAttachTo(IBlockAccess world, BlockPos pos) {
-    Block block = world.getBlockState(pos).getBlock();
+    IBlockState state = world.getBlockState(pos);
+    Block block = state.getBlock();
 
-    return block.isFullCube() && block.getMaterial().blocksMovement();
+    return block.isFullCube(state) && block.getMaterial(state).blocksMovement();
   }
 
   /**
@@ -73,8 +75,9 @@ public class BlockSlimeVine extends BlockVine {
 
     // notify bottom block to update its state since ours might have changed as well
     BlockPos down = pos.down();
-    while(worldIn.getBlockState(down).getBlock() instanceof BlockVine) {
-      worldIn.markBlockForUpdate(down);
+    IBlockState state2;
+    while((state2 = worldIn.getBlockState(down)).getBlock() instanceof BlockVine) {
+      worldIn.notifyBlockUpdate(down, state2, state2, 3);
       down = down.down();
     }
   }
@@ -118,6 +121,8 @@ public class BlockSlimeVine extends BlockVine {
     }
   }
 
+  // 1.9
+  /*
   @Override
   @SideOnly(Side.CLIENT)
   public int getBlockColor ()
@@ -140,5 +145,5 @@ public class BlockSlimeVine extends BlockVine {
     if(state.getBlock() != this) return getBlockColor();
 
     return SlimeColorizer.getColorForPos(pos.add(SlimeColorizer.loop/2, 0, SlimeColorizer.loop/2), foliage);
-  }
+  }*/
 }

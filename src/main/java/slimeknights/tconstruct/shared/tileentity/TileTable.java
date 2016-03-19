@@ -2,18 +2,17 @@ package slimeknights.tconstruct.shared.tileentity;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.WorldServer;
-import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
@@ -89,19 +88,13 @@ public class TileTable extends TileInventory {
   public static PropertyTableItem.TableItem getTableItem(ItemStack stack) {
     if(stack == null)
       return null;
-    IFlexibleBakedModel stackModel;
+
     IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
     if(model == null) {
       return null;
     }
-    else if(model instanceof IFlexibleBakedModel) {
-      stackModel = (IFlexibleBakedModel) model;
-    }
-    else {
-      stackModel = new IFlexibleBakedModel.Wrapper(model, DefaultVertexFormats.ITEM);
-    }
 
-    PropertyTableItem.TableItem item = new PropertyTableItem.TableItem(stackModel, 0,-0.46875f,0, 0.8f, (float) (-Math.PI/2));
+    PropertyTableItem.TableItem item = new PropertyTableItem.TableItem(model, 0,-0.46875f,0, 0.8f, (float) (-Math.PI/2));
     if(stack.getItem() instanceof  ItemBlock) {
       item.y = -0.3125f;
       item.s = 0.375f;
@@ -115,11 +108,11 @@ public class TileTable extends TileInventory {
     // note that this sends all of the tile data. you should change this if you use additional tile data
     NBTTagCompound tag = (NBTTagCompound) getTileData().copy();
     writeToNBT(tag);
-    return new S35PacketUpdateTileEntity(this.getPos(), this.getBlockMetadata(), tag);
+    return new SPacketUpdateTileEntity(this.getPos(), this.getBlockMetadata(), tag);
   }
 
   @Override
-  public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+  public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
     NBTTagCompound tag = pkt.getNbtCompound();
     NBTBase feet = tag.getTag(FEET_TAG);
     if(feet != null) {
@@ -157,7 +150,7 @@ public class TileTable extends TileInventory {
     super.setInventorySlotContents(slot, itemstack);
 
     if(getWorld() != null && getWorld().isRemote && Config.renderTableItems) {
-      Minecraft.getMinecraft().renderGlobal.markBlockForUpdate(pos);
+      Minecraft.getMinecraft().renderGlobal.notifyBlockUpdate(null, pos, null, null, 0);
     }
   }
 }

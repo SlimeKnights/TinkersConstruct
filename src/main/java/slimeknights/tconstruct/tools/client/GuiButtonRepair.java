@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.client;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 
 import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
 
@@ -10,7 +10,7 @@ public class GuiButtonRepair extends GuiButtonItem<ToolBuildGuiInfo> {
   public static final ToolBuildGuiInfo info;
 
   public GuiButtonRepair(int buttonId, int x, int y) {
-    super(buttonId, x, y, StatCollector.translateToLocal("gui.repair"), info);
+    super(buttonId, x, y, I18n.translateToLocal("gui.repair"), info);
   }
 
   @Override

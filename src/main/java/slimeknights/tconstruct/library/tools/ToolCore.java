@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.tools;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.creativetab.CreativeTabs;
@@ -14,17 +13,19 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.EntityDamageSource;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -133,13 +134,17 @@ public abstract class ToolCore extends TinkersItem {
    *
    * @return True if the entity was hit. Usually the return value of {@link Entity#attackEntityFrom(DamageSource, float)}
    */
-  public boolean dealDamage(ItemStack stack, EntityPlayer player, EntityLivingBase entity, float damage) {
-    return entity.attackEntityFrom(DamageSource.causePlayerDamage(player), damage);
+  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
+    if(player instanceof EntityPlayer) {
+      return entity.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) player), damage);
+    }
+    return entity.attackEntityFrom(DamageSource.causeMobDamage(player), damage);
   }
 
   /**
    * Called when an entity is getting damaged with the tool.
    * Reduce the tools durability accordingly
+   * player can be null!
    */
   public void reduceDurabilityOnHit(ItemStack stack, EntityPlayer player, float damage) {
     damage = Math.max(1f, damage/10f);
@@ -150,20 +155,20 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   @Override
-  public float getDigSpeed(ItemStack itemstack, IBlockState state) {
-    if(isEffective(state.getBlock()) || ToolHelper.isToolEffective(itemstack, state)) {
-      return ToolHelper.calcDigSpeed(itemstack, state);
+  public float getStrVsBlock(ItemStack stack, IBlockState state) {
+    if(isEffective(state) || ToolHelper.isToolEffective(stack, state)) {
+      return ToolHelper.calcDigSpeed(stack, state);
     }
-    return super.getDigSpeed(itemstack, state);
+    return super.getStrVsBlock(stack, state);
   }
 
-  public boolean isEffective(Block block) {
+  public boolean isEffective(IBlockState block) {
     return false;
   }
 
   @Override
-  public boolean canHarvestBlock(Block block, ItemStack itemStack) {
-    return isEffective(block);
+  public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
+    return isEffective(state);
   }
 
   @Override
@@ -197,11 +202,11 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   @Override
-  public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+  public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
     if(canUseSecondaryItem()) {
-      return ToolHelper.useSecondaryItem(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
+      return ToolHelper.useSecondaryItem(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
     }
-    return super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
+    return super.onItemUse(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
   }
 
   @Override
@@ -221,7 +226,7 @@ public abstract class ToolCore extends TinkersItem {
   @Override
   public void getTooltip(ItemStack stack, List<String> tooltips) {
     if(ToolHelper.isBroken(stack)) {
-      tooltips.add("" + EnumChatFormatting.DARK_RED + EnumChatFormatting.BOLD + Util.translate("tooltip.tool.broken"));
+      tooltips.add("" + TextFormatting.DARK_RED + TextFormatting.BOLD + Util.translate("tooltip.tool.broken"));
     }
     super.getTooltip(stack, tooltips);
   }
@@ -275,7 +280,7 @@ public abstract class ToolCore extends TinkersItem {
       ItemStack partStack = part.getItemstackWithMaterial(material);
       if(partStack != null) {
         // we have the part, add it
-        tooltips.add(material.getTextColor() + EnumChatFormatting.UNDERLINE + partStack.getDisplayName());
+        tooltips.add(material.getTextColor() + TextFormatting.UNDERLINE + partStack.getDisplayName());
 
         // find out which stats and traits it contributes and add it to the tooltip
         for(IMaterialStats stats : material.getAllStats()) {
@@ -434,25 +439,25 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   @Override
-  public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
+  public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
     if(ToolHelper.isBroken(stack)) {
       return false;
     }
 
-    boolean effective = isEffective(blockIn) || ToolHelper.isToolEffective(stack, worldIn.getBlockState(pos));
+    boolean effective = isEffective(state) || ToolHelper.isToolEffective(stack, worldIn.getBlockState(pos));
     int damage = effective ? 1 : 2;
 
-    afterBlockBreak(stack, worldIn, blockIn, pos, playerIn, damage, effective);
+    afterBlockBreak(stack, worldIn, state, pos, entityLiving, damage, effective);
 
     return hasCategory(Category.TOOL);
   }
 
-  public void afterBlockBreak(ItemStack stack, World world, Block block, BlockPos pos, EntityLivingBase player, int damage, boolean wasEffective) {
+  public void afterBlockBreak(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityLivingBase player, int damage, boolean wasEffective) {
     NBTTagList list = TagUtil.getTraitsTagList(stack);
     for(int i = 0; i < list.tagCount(); i++) {
       ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
       if(trait != null) {
-        trait.afterBlockBreak(stack, world, block, pos, player, wasEffective);
+        trait.afterBlockBreak(stack, world, state, pos, player, wasEffective);
       }
     }
 
@@ -460,7 +465,7 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   // elevate to public
-  public MovingObjectPosition getMovingObjectPositionFromPlayer(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
+  public RayTraceResult getMovingObjectPositionFromPlayer(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
     return super.getMovingObjectPositionFromPlayer(worldIn, playerIn, useLiquids);
   }
 

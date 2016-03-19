@@ -6,32 +6,32 @@ import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.IRetexturableModel;
 import net.minecraftforge.client.model.ItemLayerModel;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.io.IOException;
-import java.util.Locale;
 
-import slimeknights.tconstruct.common.config.Config;
+import slimeknights.mantle.client.model.BakedSimple;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.client.model.ModelHelper;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.shared.client.BakedTableModel;
 
@@ -79,21 +79,21 @@ public class ToolClientEvents {
     replaceTableModel(locToolForge, MODEL_ToolForge, event);
 
     // silence the missing-model message for the default itemblock
-    event.modelRegistry.putObject(new ModelResourceLocation(LOCATION_ToolTable, "inventory"), event.modelRegistry.getObject(locToolStation));
-    event.modelRegistry.putObject(new ModelResourceLocation(LOCATION_ToolForge, "inventory"), event.modelRegistry.getObject(locToolForge));
+    event.getModelRegistry().putObject(new ModelResourceLocation(LOCATION_ToolTable, "inventory"), event.getModelRegistry().getObject(locToolStation));
+    event.getModelRegistry().putObject(new ModelResourceLocation(LOCATION_ToolForge, "inventory"), event.getModelRegistry().getObject(locToolForge));
   }
 
   public static void replaceTableModel(ModelResourceLocation modelVariantLocation, ResourceLocation modelLocation, ModelBakeEvent event) {
     try {
-      IModel model = event.modelLoader.getModel(modelLocation);
+      IModel model = ModelLoaderRegistry.getModel(modelLocation);
       if(model instanceof IRetexturableModel) {
         IRetexturableModel tableModel = (IRetexturableModel) model;
-        IFlexibleBakedModel standard = (IFlexibleBakedModel) event.modelRegistry.getObject(modelVariantLocation);
-        IFlexibleBakedModel finalModel = new BakedTableModel(standard, tableModel);
+        IBakedModel standard = event.getModelRegistry().getObject(modelVariantLocation);
+        IBakedModel finalModel = new BakedTableModel(standard, tableModel, DefaultVertexFormats.BLOCK);
 
-        event.modelRegistry.putObject(modelVariantLocation, finalModel);
+        event.getModelRegistry().putObject(modelVariantLocation, finalModel);
       }
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
     }
   }
@@ -104,9 +104,9 @@ public class ToolClientEvents {
 
   public static void replacePatternModel(ResourceLocation locPattern, ResourceLocation modelLocation, ModelBakeEvent event, String baseString, Iterable<Item> items, int color) {
     try {
-      IModel model = event.modelLoader.getModel(modelLocation);
+      IModel model = ModelLoaderRegistry.getModel(modelLocation);
       if(model instanceof IRetexturableModel) {
-        IRetexturableModel<?> itemModel = (IRetexturableModel<?>) model;
+        IRetexturableModel itemModel = (IRetexturableModel) model;
 
         for(Item item : items) {
           String suffix = Pattern.getTextureIdentifier(item);
@@ -114,19 +114,19 @@ public class ToolClientEvents {
           String partPatternLocation = locPattern.toString() + suffix;
           String partPatternTexture = baseString + suffix;
           IModel partPatternModel = itemModel.retexture(ImmutableMap.of("layer0", partPatternTexture));
-          IFlexibleBakedModel baked = partPatternModel.bake(partPatternModel.getDefaultState(), DefaultVertexFormats.ITEM, textureGetter);
+          IBakedModel baked = partPatternModel.bake(partPatternModel.getDefaultState(), DefaultVertexFormats.ITEM, textureGetter);
           if(color > -1) {
             ImmutableList.Builder<BakedQuad> quads = ImmutableList.builder();
             // ItemLayerModel.BakedModel only uses general quads
-            for(BakedQuad quad : baked.getGeneralQuads()) {
+            for(BakedQuad quad : baked.getQuads(null, null, 0)) {
               quads.add(ModelHelper.colorQuad(color, quad));
             }
-            baked = new ItemLayerModel.BakedModel(quads.build(), baked.getParticleTexture(), baked.getFormat());
+            baked = new BakedSimple.Wrapper(quads.build(), ((IPerspectiveAwareModel)baked));
           }
-          event.modelRegistry.putObject(new ModelResourceLocation(partPatternLocation, "inventory"), baked);
+          event.getModelRegistry().putObject(new ModelResourceLocation(partPatternLocation, "inventory"), baked);
         }
       }
-    } catch(IOException e) {
+    } catch(Exception e) {
       e.printStackTrace();
     }
   }
@@ -136,7 +136,7 @@ public class ToolClientEvents {
     // check if the item belongs to a material
     for(Material material : TinkerRegistry.getAllMaterials()) {
       if(material.matches(event.itemStack) != null) {
-        event.toolTip.add(EnumChatFormatting.DARK_GRAY + material.getLocalizedName());
+        event.toolTip.add(TextFormatting.DARK_GRAY + material.getLocalizedName());
       }
     }
   }

@@ -8,7 +8,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -46,7 +46,7 @@ public class Hatchet extends AoeToolCore {
   }
 
   @Override
-  public boolean isEffective(Block block) {
+  public boolean isEffective(IBlockState block) {
     return effective_materials.contains(block.getMaterial()) || ItemAxe.EFFECTIVE_ON.contains(block);
   }
 
@@ -62,20 +62,20 @@ public class Hatchet extends AoeToolCore {
 
   // hatches 1 : leaves 0
   @Override
-  public float getDigSpeed(ItemStack itemstack, IBlockState state) {
-    if(state.getBlock().getMaterial() == net.minecraft.block.material.Material.leaves) {
-      return ToolHelper.calcDigSpeed(itemstack, state);
+  public float getStrVsBlock(ItemStack stack, IBlockState state) {
+    if(state.getBlock().getMaterial(state) == net.minecraft.block.material.Material.leaves) {
+      return ToolHelper.calcDigSpeed(stack, state);
     }
-    return super.getDigSpeed(itemstack, state);
+    return super.getStrVsBlock(stack, state);
   }
 
   @Override
-  public void afterBlockBreak(ItemStack stack, World world, Block block, BlockPos pos, EntityLivingBase player, int damage, boolean wasEffective) {
+  public void afterBlockBreak(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityLivingBase player, int damage, boolean wasEffective) {
     // breaking leaves does not reduce durability
-    if(block.isLeaves(world, pos)) {
+    if(state.getBlock().isLeaves(state, world, pos)) {
       damage = 0;
     }
-    super.afterBlockBreak(stack, world, block, pos, player, damage, wasEffective);
+    super.afterBlockBreak(stack, world, state, pos, player, damage, wasEffective);
   }
 
   @Override

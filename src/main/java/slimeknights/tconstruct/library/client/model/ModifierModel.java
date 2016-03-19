@@ -7,11 +7,10 @@ import com.google.common.collect.ImmutableSet;
 
 import gnu.trove.map.hash.THashMap;
 
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
-import net.minecraft.client.resources.model.ModelRotation;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IModelState;
 import net.minecraftforge.client.model.ITransformation;
@@ -66,14 +65,14 @@ public class ModifierModel implements IModel {
   }
 
   @Override
-  public IFlexibleBakedModel bake(IModelState state, VertexFormat format,
+  public IBakedModel bake(IModelState state, VertexFormat format,
                                   Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
     throw new UnsupportedOperationException("The modifier-Model is not built to be used as an item model");
   }
 
-  public Map<String, IFlexibleBakedModel> bakeModels(IModelState state, VertexFormat format,
+  public Map<String, IBakedModel> bakeModels(IModelState state, VertexFormat format,
                                                      Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-    Map<String, IFlexibleBakedModel> bakedModels = new THashMap<String, IFlexibleBakedModel>();
+    Map<String, IBakedModel> bakedModels = new THashMap<String, IBakedModel>();
 
     // we scale the modifier up slightly so it's always above the tool
     float s = 0.025f;
@@ -89,7 +88,7 @@ public class ModifierModel implements IModel {
         MaterialModel materialModel = new MaterialModel(ImmutableList.of(new ResourceLocation(entry.getValue())));
         BakedMaterialModel bakedModel = materialModel.bakeIt(state, format, bakedTextureGetter);
         for(Material material : TinkerRegistry.getAllMaterials()) {
-          IFlexibleBakedModel materialBakedModel = bakedModel.getModelByIdentifier(material.getIdentifier());
+          IBakedModel materialBakedModel = bakedModel.getModelByIdentifier(material.getIdentifier());
           if(materialBakedModel != bakedModel) {
             bakedModels.put(entry.getKey() + material.getIdentifier(), materialBakedModel);
           }
@@ -99,7 +98,7 @@ public class ModifierModel implements IModel {
         //ItemCameraTransforms transforms = new ItemCameraTransforms(modelBlock.getThirdPersonTransform(), modelBlock.getFirstPersonTransform(), modelBlock.getHeadTransform(), modelBlock.getInGuiTransform());
         //IPerspectiveState perspectiveState = new IPerspectiveState.Impl(state, transforms);
         IModel model = ItemLayerModel.instance.retexture(ImmutableMap.of("layer0", entry.getValue()));
-        IFlexibleBakedModel bakedModel = model.bake(state, format, bakedTextureGetter);
+        IBakedModel bakedModel = model.bake(state, format, bakedTextureGetter);
         bakedModels.put(entry.getKey(), bakedModel);
       }
     }

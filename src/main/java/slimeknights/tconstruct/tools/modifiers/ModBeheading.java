@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumHand;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -38,7 +39,7 @@ public class ModBeheading extends Modifier {
   @SubscribeEvent
   public void onLivingDrops(LivingDropsEvent event) {
     if(event.source.getEntity() instanceof EntityPlayer) {
-      ItemStack item = ((EntityPlayer) event.source.getEntity()).getHeldItem();
+      ItemStack item = ((EntityPlayer) event.source.getEntity()).getHeldItem(EnumHand.MAIN_HAND);
       NBTTagCompound tag = TinkerUtil.getModifierTag(item, getIdentifier());
       int level = ModifierNBT.readTag(tag).level;
       // has beheading

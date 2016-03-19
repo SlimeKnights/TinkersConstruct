@@ -6,7 +6,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 
 import java.util.List;
 
@@ -48,7 +48,7 @@ public class ModAntiMonsterType extends ModifierTrait {
   public List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag) {
     String loc = String.format(LOC_Extra, getIdentifier());
 
-    if(StatCollector.canTranslate(loc)) {
+    if(I18n.canTranslate(loc)) {
       float dmg = calcIncreasedDamage(modifierTag, 0);
       return ImmutableList.of(Util.translateFormatted(loc, AbstractMaterialStats.df.format(dmg)));
     }

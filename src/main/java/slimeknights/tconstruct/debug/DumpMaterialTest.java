@@ -7,7 +7,8 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.text.TextFormatting;
 
 import java.awt.*;
 import java.io.File;
@@ -31,7 +32,7 @@ public class DumpMaterialTest extends CommandBase {
   public Material baseMaterial;
 
   public DumpMaterialTest() {
-    baseMaterial = new Material("Baseline", EnumChatFormatting.WHITE);
+    baseMaterial = new Material("Baseline", TextFormatting.WHITE);
     baseMaterial.addStats(new HeadMaterialStats(500, 10, 10, 1));
   }
 
@@ -51,7 +52,7 @@ public class DumpMaterialTest extends CommandBase {
   }
 
   @Override
-  public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+  public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
     printStats();
     printTool(new Pickaxe(), baseMaterial);
     printTool(new Hatchet(), baseMaterial);

@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.client;
 
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.Set;

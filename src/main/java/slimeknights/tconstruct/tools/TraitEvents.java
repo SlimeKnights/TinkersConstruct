@@ -67,7 +67,7 @@ public class TraitEvents {
 
   @SubscribeEvent
   public void playerBlockEvent(LivingHurtEvent event) {
-    if(event.entity == null || !(event.entity instanceof EntityPlayer) || !((EntityPlayer) event.entity).isBlocking()) {
+    if(event.entity == null || !(event.entity instanceof EntityPlayer) || !((EntityPlayer) event.entity).isActiveItemStackBlocking()) {
       return;
     }
     // item in use has to be current item, otherwise MC stops using it

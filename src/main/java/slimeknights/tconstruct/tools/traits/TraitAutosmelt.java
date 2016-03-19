@@ -1,12 +1,13 @@
 package slimeknights.tconstruct.tools.traits;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
@@ -25,7 +26,7 @@ public class TraitAutosmelt extends AbstractTrait {
 
   @Override
   public boolean canApplyTogether(Enchantment enchantment) {
-    return enchantment != Enchantment.silkTouch;
+    return enchantment != Enchantments.silkTouch;
   }
 
   @Override
@@ -39,7 +40,7 @@ public class TraitAutosmelt extends AbstractTrait {
         if(smelted != null) {
           smelted = smelted.copy();
           smelted.stackSize = drop.stackSize;
-          int fortune = EnchantmentHelper.getFortuneModifier(event.harvester);
+          int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, tool);
           if(Config.autosmeltlapis && fortune > 0) {
             smelted.stackSize *= random.nextInt(fortune + 1) + 1;
           }
@@ -59,7 +60,7 @@ public class TraitAutosmelt extends AbstractTrait {
   }
 
   @Override
-  public void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
+  public void afterBlockBreak(ItemStack tool, World world, IBlockState state, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
     if(world.isRemote && wasEffective) {
       for(int i = 0; i < 3; i++) {
         world.spawnParticle(EnumParticleTypes.FLAME,

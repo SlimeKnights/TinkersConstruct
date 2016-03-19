@@ -1,31 +1,26 @@
 package slimeknights.tconstruct.world.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Iterator;
 import java.util.List;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.world.block.BlockSlime.SlimeType;
 
 public class BlockSlimeCongealed extends Block {
@@ -36,7 +31,7 @@ public class BlockSlimeCongealed extends Block {
     this.setHardness(0.5f);
     this.slipperiness = 0.5f;
     this.disableStats();
-    this.setStepSound(SLIME_SOUND);
+    this.setSoundType(SoundType.SLIME);
   }
 
 
@@ -49,8 +44,8 @@ public class BlockSlimeCongealed extends Block {
   }
 
   @Override
-  protected BlockState createBlockState() {
-    return new BlockState(this, BlockSlime.TYPE);
+  protected BlockStateContainer createBlockState() {
+    return new BlockStateContainer(this, BlockSlime.TYPE);
   }
 
   @Override
@@ -68,9 +63,9 @@ public class BlockSlimeCongealed extends Block {
     return getMetaFromState(state);
   }
 
-  @Override
+  // 1.9
   public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
-    return AxisAlignedBB.fromBounds(pos.getX(), pos.getY(), pos.getZ(),
+    return new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(),
                                     pos.getX() + 1.0D, pos.getY() + 0.625D, pos.getZ() + 1.0D);
   }
 
@@ -103,8 +98,9 @@ public class BlockSlimeCongealed extends Block {
   }
 
   /* Log behaviour for slimetrees */
+
   @Override
-  public boolean canSustainLeaves(IBlockAccess world, BlockPos pos) {
+  public boolean canSustainLeaves(IBlockState state, IBlockAccess world, BlockPos pos) {
     return true;
   }
 
@@ -121,8 +117,8 @@ public class BlockSlimeCongealed extends Block {
       for(BlockPos blockpos1 : BlockPos.getAllInBox(pos.add(-b0, -b0, -b0), pos.add(b0, b0, b0))) {
         IBlockState iblockstate1 = worldIn.getBlockState(blockpos1);
 
-        if(iblockstate1.getBlock().isLeaves(worldIn, blockpos1)) {
-          iblockstate1.getBlock().beginLeavesDecay(worldIn, blockpos1);
+        if(iblockstate1.getBlock().isLeaves(iblockstate1, worldIn, blockpos1)) {
+          iblockstate1.getBlock().beginLeavesDecay(iblockstate1, worldIn, blockpos1);
         }
       }
     }

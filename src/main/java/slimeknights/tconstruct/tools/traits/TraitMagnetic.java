@@ -1,12 +1,11 @@
 package slimeknights.tconstruct.tools.traits;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -16,7 +15,6 @@ import javax.vecmath.Vector3d;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.potion.TinkerPotion;
-import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.traits.AbstractTraitLeveled;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 
@@ -29,7 +27,7 @@ public class TraitMagnetic extends AbstractTraitLeveled {
   }
 
   @Override
-  public void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
+  public void afterBlockBreak(ItemStack tool, World world, IBlockState state, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
     ModifierNBT data = new ModifierNBT(TinkerUtil.getModifierTag(tool, name));
     Magnetic.apply(player, 30, data.level);
   }
@@ -60,7 +58,7 @@ public class TraitMagnetic extends AbstractTraitLeveled {
       double range = 1.8d;
       range += entity.getActivePotionEffect(this).getAmplifier() * 0.3f;
 
-      List<EntityItem> items = entity.worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.fromBounds(x - range, y - range, z - range, x + range, y + range, z + range));
+      List<EntityItem> items = entity.worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
       int pulled = 0;
       for(EntityItem item : items) {
         if(item.getEntityItem() == null || item.getEntityItem().getItem() == null || item.isDead) {

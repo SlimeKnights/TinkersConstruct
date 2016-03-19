@@ -5,7 +5,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -13,9 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.library.smeltery.ICast;
 import slimeknights.tconstruct.library.tools.IPattern;
-import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.client.GuiPatternChest;
 import slimeknights.tconstruct.tools.inventory.ContainerPatternChest;
 

@@ -2,9 +2,8 @@ package slimeknights.tconstruct.library.modifiers;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tinkering.Category;
@@ -60,7 +59,7 @@ public abstract class ModifierAspect {
     public boolean canApply(ItemStack stack, ItemStack original) throws TinkerGuiException {
       NBTTagCompound toolTag = TagUtil.getToolTag(stack);
       if(ToolHelper.getFreeModifiers(stack) < requiredModifiers) {
-        String error = StatCollector.translateToLocalFormatted("gui.error.not_enough_modifiers", requiredModifiers);
+        String error = I18n.translateToLocalFormatted("gui.error.not_enough_modifiers", requiredModifiers);
         // also returns false if the tooltag is missing
         throw new TinkerGuiException(error);
       }
@@ -118,7 +117,7 @@ public abstract class ModifierAspect {
 
     private final int color;
 
-    public DataAspect(IModifier parent, EnumChatFormatting color) {
+    public DataAspect(IModifier parent, TextFormatting color) {
       this(parent, Util.enumChatFormattingToColor(color));
     }
 
@@ -297,8 +296,8 @@ public abstract class ModifierAspect {
         // check if original already had it too
         if(TinkerUtil.hasModifier(TagUtil.getTagSafe(original), parent.getIdentifier())) {
           // error, can't apply if it already had it
-          throw new TinkerGuiException(StatCollector.translateToLocalFormatted("gui.error.single_modifier",
-                                                                               parent.getLocalizedName()));
+          throw new TinkerGuiException(I18n.translateToLocalFormatted("gui.error.single_modifier",
+                                                                      parent.getLocalizedName()));
         }
         else {
           // original didn't have it, we can apply it once therefore, no error
@@ -342,7 +341,7 @@ public abstract class ModifierAspect {
 
       // new level would be above max level
       if(levelNew >= maxLevel) {
-        throw new TinkerGuiException(StatCollector.translateToLocalFormatted("gui.error.max_level_modifier", parent.getLocalizedName()));
+        throw new TinkerGuiException(I18n.translateToLocalFormatted("gui.error.max_level_modifier", parent.getLocalizedName()));
       }
 
       return true;

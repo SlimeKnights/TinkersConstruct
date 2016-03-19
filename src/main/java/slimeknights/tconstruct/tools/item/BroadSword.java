@@ -2,11 +2,14 @@ package slimeknights.tconstruct.tools.item;
 
 import com.google.common.collect.ImmutableSet;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -40,7 +43,7 @@ public class BroadSword extends ToolCore {
   }
 
   @Override
-  public boolean isEffective(Block block) {
+  public boolean isEffective(IBlockState block) {
     return effective_materials.contains(block.getMaterial());
   }
 
@@ -68,6 +71,7 @@ public class BroadSword extends ToolCore {
   /**
    * returns the action that specifies what animation to play when the items is being used
    */
+  @Override
   public EnumAction getItemUseAction(ItemStack stack)
   {
     return EnumAction.BLOCK;
@@ -76,18 +80,16 @@ public class BroadSword extends ToolCore {
   /**
    * How long it takes to use or consume an item
    */
+  @Override
   public int getMaxItemUseDuration(ItemStack stack)
   {
     return 72000;
   }
 
-  /**
-   * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
-   */
-  public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
-  {
-    playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
-    return itemStackIn;
+  @Override
+  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    playerIn.setActiveHand(hand);
+    return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
   }
 
   @Override

@@ -2,8 +2,6 @@ package slimeknights.tconstruct.library.fluid;
 
 import net.minecraft.item.EnumRarity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-import net.minecraftforge.fluids.FluidStack;
 
 import slimeknights.tconstruct.library.Util;
 

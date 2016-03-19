@@ -86,7 +86,7 @@ public class CastingRecipeWrapper extends BlankRecipeWrapper {
   }
 
   @Override
-  public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
+  public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
     castingBlock.draw(minecraft, 59, 42);
 
     String s = String.format("%d s", recipe.getTime()/20);

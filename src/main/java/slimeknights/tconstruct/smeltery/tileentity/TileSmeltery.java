@@ -14,17 +14,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -176,7 +175,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   protected void interactWithEntitiesInside() {
     // find all entities inside the smeltery
 
-    AxisAlignedBB bb = info.getBoundingBox().contract(1, 1, 1);
+    AxisAlignedBB bb = info.getBoundingBox().contract(1);
 
     List<Entity> entities = worldObj.getEntitiesWithinAABB(Entity.class, bb);
     for(Entity entity : entities) {
@@ -377,14 +376,15 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
         updateSmelteryInfo(structure);
         // we still have to update since something caused us to rebuild our stats
         // might be the smeltery size changed
-        if(wasActive)
-          worldObj.markBlockForUpdate(pos);
+        if(wasActive) {
+          worldObj.notifyBlockUpdate(getPos(), state, state, 3);
+        }
       }
     }
 
     // mark the block for updating so the smeltery controller block updates its graphics
     if(wasActive != isActive()) {
-      worldObj.markBlockForUpdate(pos);
+      worldObj.notifyBlockUpdate(getPos(), state, state, 3);
       this.markDirty();
     }
   }
@@ -516,7 +516,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     if(minPos == null || maxPos == null) {
       return super.getRenderBoundingBox();
     }
-    return AxisAlignedBB.fromBounds(minPos.getX(), minPos.getY(), minPos.getZ(), maxPos.getX()+1, maxPos.getY()+1, maxPos.getZ()+1);
+    return new AxisAlignedBB(minPos.getX(), minPos.getY(), minPos.getZ(), maxPos.getX()+1, maxPos.getY()+1, maxPos.getZ()+1);
   }
 
   /* Network & Saving */
@@ -606,18 +606,19 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   public Packet getDescriptionPacket() {
     NBTTagCompound tag = new NBTTagCompound();
     writeToNBT(tag);
-    return new S35PacketUpdateTileEntity(this.getPos(), this.getBlockMetadata(), tag);
+    return new SPacketUpdateTileEntity(this.getPos(), this.getBlockMetadata(), tag);
   }
 
   @Override
-  public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+  public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
     boolean wasActive = active;
 
     readFromNBT(pkt.getNbtCompound());
 
     // update chunk (rendering) if the active state changed
     if(isActive() != wasActive) {
-      worldObj.markBlockForUpdate(pos);
+      IBlockState state = worldObj.getBlockState(getPos());
+      worldObj.notifyBlockUpdate(getPos(), state, state, 3);
     }
   }
 

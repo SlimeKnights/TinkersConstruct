@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tools.traits;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 
@@ -10,7 +10,7 @@ import slimeknights.tconstruct.library.traits.AbstractTrait;
 public class TraitCheap extends AbstractTrait {
 
   public TraitCheap() {
-    super("cheap", EnumChatFormatting.DARK_GRAY);
+    super("cheap", TextFormatting.DARK_GRAY);
   }
 
   @Override

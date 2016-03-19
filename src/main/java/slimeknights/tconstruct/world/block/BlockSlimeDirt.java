@@ -1,13 +1,17 @@
 package slimeknights.tconstruct.world.block;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.util.BlockPos;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
+
+import java.util.Locale;
 
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -21,11 +25,11 @@ public class BlockSlimeDirt extends EnumBlock<BlockSlimeDirt.DirtType> {
     super(Material.ground, TYPE, DirtType.class);
     this.setCreativeTab(TinkerRegistry.tabWorld);
     this.setHardness(0.55f);
-    this.setStepSound(SLIME_SOUND);
+    this.setSoundType(SoundType.SLIME);
   }
 
   @Override
-  public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
+  public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
     // can sustain both slimeplants and normal plants
     return plantable.getPlantType(world, pos) == TinkerWorld.slimePlantType || plantable.getPlantType(world, pos) == EnumPlantType.Plains;
   }
@@ -49,7 +53,7 @@ public class BlockSlimeDirt extends EnumBlock<BlockSlimeDirt.DirtType> {
 
     @Override
     public String getName() {
-      return this.toString();
+      return this.toString().toLowerCase(Locale.US);
     }
   }
 }

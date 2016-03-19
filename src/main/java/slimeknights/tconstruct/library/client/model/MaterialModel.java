@@ -1,51 +1,53 @@
 package slimeknights.tconstruct.library.client.model;
 
 import com.google.common.base.Function;
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
+import net.minecraft.client.renderer.block.model.SimpleBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.IModelPart;
 import net.minecraftforge.client.model.IModelState;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.ModelStateComposition;
 import net.minecraftforge.client.model.TRSRTransformation;
 
+import java.util.Collection;
 import java.util.Map;
 
-import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
+import slimeknights.mantle.client.model.BakedSimple;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.materials.Material;
 
-public class MaterialModel extends ItemLayerModel implements IPatternOffset {
+public class MaterialModel implements IPatternOffset, IModel {
 
   protected final int offsetX;
   protected final int offsetY;
+
+  private final ImmutableList<ResourceLocation> textures;
 
   public MaterialModel(ImmutableList<ResourceLocation> textures) {
     this(textures, 0, 0);
   }
 
   public MaterialModel(ImmutableList<ResourceLocation> textures, int offsetX, int offsetY) {
-    super(textures);
+    this.textures = textures;
 
     this.offsetX = offsetX;
     this.offsetY = offsetY;
   }
 
   @Override
-  public IFlexibleBakedModel bake(IModelState state, VertexFormat format,
+  public IBakedModel bake(IModelState state, VertexFormat format,
                                   Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
     return bakeIt(state, format, bakedTextureGetter);
   }
@@ -61,7 +63,7 @@ public class MaterialModel extends ItemLayerModel implements IPatternOffset {
 
 
     // normal model as the base
-    IFlexibleBakedModel base = super.bake(state, format, bakedTextureGetter);
+    IBakedModel base = new ItemLayerModel(textures).bake(state, format, bakedTextureGetter);
 
     // turn it into a baked material-model
     BakedMaterialModel bakedMaterialModel = new BakedMaterialModel(base, map);
@@ -73,8 +75,8 @@ public class MaterialModel extends ItemLayerModel implements IPatternOffset {
     for(Map.Entry<String, TextureAtlasSprite> entry : sprites.entrySet()) {
       Material material = TinkerRegistry.getMaterial(entry.getKey());
 
-      IModel model2 = this.retexture(ImmutableMap.of("layer0", entry.getValue().getIconName()));
-      IFlexibleBakedModel bakedModel2 = model2.bake(state, format, bakedTextureGetter);
+      IModel model2 = ItemLayerModel.instance.retexture(ImmutableMap.of("layer0", entry.getValue().getIconName()));
+      IBakedModel bakedModel2 = model2.bake(state, format, bakedTextureGetter);
 
       // if it's a colored material we need to color the quads. But only if the texture was not a custom texture
       if(material.renderInfo.useVertexColoring() && !CustomTextureCreator.exists(baseTexture + "_" + material.identifier)) {
@@ -82,15 +84,12 @@ public class MaterialModel extends ItemLayerModel implements IPatternOffset {
 
         ImmutableList.Builder<BakedQuad> quads = ImmutableList.builder();
         // ItemLayerModel.BakedModel only uses general quads
-        for(BakedQuad quad : bakedModel2.getGeneralQuads()) {
+        for(BakedQuad quad : bakedModel2.getQuads(null, null, 0)) {
           quads.add(ModelHelper.colorQuad(color, quad));
         }
 
         // create a new model with the colored quads
-        bakedModel2 = new ItemLayerModel.BakedModel(quads.build(), bakedModel2.getParticleTexture(), bakedModel2.getFormat());
-      }
-      if(!map.isEmpty()) {
-        bakedModel2 = new IPerspectiveAwareModel.MapWrapper(bakedModel2, map);
+        bakedModel2 = new BakedSimple(quads.build(),  map, bakedModel2);
       }
 
       bakedMaterialModel.addMaterialModel(material, bakedModel2);
@@ -100,8 +99,18 @@ public class MaterialModel extends ItemLayerModel implements IPatternOffset {
   }
 
   @Override
+  public Collection<ResourceLocation> getDependencies() {
+    return ImmutableList.of();
+  }
+
+  @Override
+  public Collection<ResourceLocation> getTextures() {
+    return textures;
+  }
+
+  @Override
   public IModelState getDefaultState() {
-    return ModelHelper.DEFAULT_ITEM_STATE;
+    return TRSRTransformation.identity();
   }
 
   @Override

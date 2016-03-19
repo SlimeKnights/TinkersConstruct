@@ -1,12 +1,11 @@
 package slimeknights.tconstruct.smeltery.client;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -61,7 +60,7 @@ public class FaucetRenderer extends TileEntitySpecialRenderer<TileFaucet> {
       RenderUtil.pre(x,y,z);
 
       Tessellator tessellator = Tessellator.getInstance();
-      WorldRenderer renderer = tessellator.getWorldRenderer();
+      VertexBuffer renderer = tessellator.getBuffer();
       renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
       Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
       int color = te.drained.getFluid().getColor(te.drained);

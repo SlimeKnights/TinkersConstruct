@@ -2,7 +2,7 @@ package slimeknights.tconstruct.shared.block;
 
 import com.google.common.collect.Lists;
 
-import net.minecraftforge.client.model.IFlexibleBakedModel;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
 import java.util.List;
@@ -34,20 +34,20 @@ public class PropertyTableItem implements IUnlistedProperty<PropertyTableItem.Ta
   }
 
   public static class TableItem {
-    public final IFlexibleBakedModel model;
+    public final IBakedModel model;
     public float x,y,z;
     public float s;
     public float r;
 
-    public TableItem(IFlexibleBakedModel model) {
+    public TableItem(IBakedModel model) {
       this(model, 0,0,0);
     }
 
-    public TableItem(IFlexibleBakedModel model, float x, float y, float z) {
+    public TableItem(IBakedModel model, float x, float y, float z) {
       this(model, x,y,z, 1, 0);
     }
 
-    public TableItem(IFlexibleBakedModel model, float x, float y, float z, float s, float r) {
+    public TableItem(IBakedModel model, float x, float y, float z, float s, float r) {
       this.model = model;
       this.x = x;
       this.y = y;

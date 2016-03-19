@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.client.texture;
 import com.google.common.collect.Lists;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.PngSizeInfo;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.texture.TextureUtil;
@@ -10,7 +11,7 @@ import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.data.AnimationMetadataSection;
 import net.minecraft.client.resources.data.TextureMetadataSection;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.image.BufferedImage;
@@ -87,7 +88,7 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
       this.framesTextureData.add(data);
     }
 
-    return false;
+    return true;
   }
 
   protected void processData(int[][] data) {
@@ -154,8 +155,10 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
       IResource iresource = resourceManager.getResource(resourcelocation1);
       BufferedImage[] abufferedimage = new BufferedImage[1 + 4]; // iirc TextureMap.mipmapLevels is always 4? :I
       abufferedimage[0] = TextureUtil.readBufferedImage(iresource.getInputStream());
-      TextureMetadataSection texturemetadatasection = (TextureMetadataSection) iresource.getMetadata("texture");
+      TextureMetadataSection texturemetadatasection = iresource.getMetadata("texture");
 
+      // 1.9
+      /*
       // metadata
       if(texturemetadatasection != null) {
         List<Integer> list = texturemetadatasection.getListMipmaps();
@@ -186,10 +189,11 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
             }
           }
         }
-      }
+      }*/
 
+      PngSizeInfo pngsizeinfo = PngSizeInfo.makeFromResource(iresource);
       AnimationMetadataSection animationmetadatasection = iresource.getMetadata("animation");
-      textureAtlasSprite.loadSprite(abufferedimage, animationmetadatasection);
+      textureAtlasSprite.loadSprite(pngsizeinfo, animationmetadatasection != null);
 
       return textureAtlasSprite;
 

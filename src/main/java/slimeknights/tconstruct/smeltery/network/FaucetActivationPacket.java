@@ -3,7 +3,7 @@ package slimeknights.tconstruct.smeltery.network;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 
 import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;

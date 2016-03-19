@@ -214,7 +214,8 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
   }
 
   protected void playCraftSound(EntityPlayer player) {
-    player.worldObj.playSoundAtEntity(player, Sounds.saw, 0.8f, 0.8f + 0.4f * TConstruct.random.nextFloat());
+    // 1.9
+    //player.worldObj.playSoundAtEntity(player, Sounds.saw, 0.8f, 0.8f + 0.4f * TConstruct.random.nextFloat());
   }
 
   private ItemStack repairTool(boolean remove) {
