@@ -1,4 +1,3 @@
-#Contains the default transforms for items
 {
     "parent": "builtin/generated",
     "display": {
