@@ -28,6 +28,7 @@ import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
 import slimeknights.tconstruct.library.client.model.ModifierModelLoader;
 import slimeknights.tconstruct.library.client.model.ToolModelLoader;
 import slimeknights.tconstruct.library.client.particle.EntitySlimeFx;
+import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -55,6 +56,7 @@ public abstract class ClientProxy extends CommonProxy {
 
     MinecraftForge.EVENT_BUS.register(creator);
     ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(creator);
+    ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(AbstractColoredTexture.CacheClearer.INSTANCE);
 
     fontRenderer = new CustomFontRenderer(Minecraft.getMinecraft().gameSettings,
                                           new ResourceLocation("textures/font/ascii.png"),

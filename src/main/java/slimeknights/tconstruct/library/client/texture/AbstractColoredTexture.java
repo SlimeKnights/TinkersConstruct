@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.client.texture;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.PngSizeInfo;
@@ -9,20 +10,28 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.client.resources.data.AnimationMetadataSection;
 import net.minecraft.client.resources.data.TextureMetadataSection;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
+import org.apache.commons.io.IOUtils;
+
 import java.awt.image.BufferedImage;
+import java.io.Closeable;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.RenderUtil;
 
 public abstract class AbstractColoredTexture extends TextureAtlasSprite {
+
+  protected static Map<String, TextureAtlasSprite> cache = Maps.newHashMap();
 
   private TextureAtlasSprite baseTexture;
   private String backupTextureLocation;
@@ -58,6 +67,17 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
     this.frameCounter = 0;
     this.tickCounter = 0;
 
+    if(baseTexture == null || baseTexture.getFrameCount() <= 0) {
+      // ensure it's null so stuff gets loaded
+      baseTexture = null;
+      if(extra != null && !extra.isEmpty()) {
+        baseTexture = backupLoadTexture(new ResourceLocation(backupTextureLocation + "_" + extra), manager);
+      }
+      if(baseTexture == null) {
+        baseTexture = backupLoadTexture(new ResourceLocation(backupTextureLocation), manager);
+      }
+    }
+
     // get the base texture to work on
     int[][] data;
     // basetexture is present and loaded
@@ -71,15 +91,11 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
         }
       }
     }
-    // load texture manually
     else {
-      data = null;
-      if(extra != null && !extra.isEmpty()) {
-        data = backupLoadTexture(new ResourceLocation(backupTextureLocation + "_" + extra), manager);
-      }
-      if(data == null) {
-        data = backupLoadTexture(new ResourceLocation(backupTextureLocation), manager);
-      }
+      this.width = 1; // needed so we don't crash
+      this.height = 1;
+      // failure
+      return false;
     }
 
     processData(data);
@@ -88,7 +104,7 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
       this.framesTextureData.add(data);
     }
 
-    return true;
+    return false;
   }
 
   protected void processData(int[][] data) {
@@ -108,47 +124,51 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
 
   protected abstract int colorPixel(int pixel, int mipmap, int pxCoord);
 
+
   // loads the base texture manually, same procedure as TextureMap.
   // Be careful, this changes the width and height of the current texture. Be sure to preserve it if needed!
-  protected int[][] backupLoadTexture(ResourceLocation resourceLocation, IResourceManager resourceManager) {
+  protected TextureAtlasSprite backupLoadTexture(ResourceLocation resourceLocation, IResourceManager resourceManager) {
     if(resourceLocation.equals(TextureMap.LOCATION_MISSING_TEXTURE)) {
-      return Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite().getFrameTextureData(0);
+      return Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
     }
 
-    ResourceLocation resourcelocation1 = this.completeResourceLocation(resourceLocation, 0);
+    String id = resourceLocation.toString();
+    TextureAtlasSprite sprite = cache.get(id);
+    if(sprite != null) {
+      // got it cached
+      return sprite;
+    }
+
+    sprite = TextureAtlasSprite.makeAtlasSprite(resourceLocation);
+    IResource iresource = null;
+    resourceLocation = this.getResourceLocation(resourceLocation);
 
     try {
-      IResource iresource = resourceManager.getResource(resourcelocation1);
-      BufferedImage[] abufferedimage = new BufferedImage[1 + 4];
-      abufferedimage[0] = TextureUtil.readBufferedImage(iresource.getInputStream());
+      // load the general info
+      PngSizeInfo pngsizeinfo = PngSizeInfo.makeFromResource(resourceManager.getResource(resourceLocation));
+      iresource = resourceManager.getResource(resourceLocation);
+      boolean flag = iresource.getMetadata("animation") != null;
+      sprite.loadSprite(pngsizeinfo, flag);
 
-      this.width = abufferedimage[0].getWidth();
-      this.height = abufferedimage[0].getHeight();
+      // load the actual texture data
+      sprite.loadSpriteFrames(iresource, Minecraft.getMinecraft().gameSettings.mipmapLevels + 1);
 
-      int[][] aint = new int[abufferedimage.length][];
-      for(int k = 0; k < abufferedimage.length; ++k) {
-        BufferedImage bufferedimage = abufferedimage[k];
-
-        if(bufferedimage != null) {
-          aint[k] = new int[bufferedimage.getWidth() * bufferedimage.getHeight()];
-          bufferedimage
-              .getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), aint[k], 0, bufferedimage.getWidth());
-        }
-      }
-
-      return aint;
-    } catch(RuntimeException runtimeexception) {
-      TinkerRegistry.log.error("Unable to parse metadata from " + resourcelocation1, runtimeexception);
-    } catch(IOException ioexception1) {
-      TinkerRegistry.log.error("Unable to generate " + this.getIconName() + ": unable to load " + resourcelocation1 + "!\nBase texture: " + baseTexture.getIconName(), ioexception1);
+      cache.put(id, sprite);
+    } catch(IOException e) {
+      TinkerRegistry.log.error("Unable to generate " + this.getIconName() + ": unable to load " + resourceLocation + "!\nBase texture: " + baseTexture.getIconName(), e);
+      net.minecraftforge.fml.client.FMLClientHandler.instance().trackMissingTexture(resourceLocation);
+      sprite = null;
+    } finally
+    {
+      IOUtils.closeQuietly(iresource);
     }
 
-    return null;
+    return sprite;
   }
 
   // completely emulates the behaviour of the TextureMap texture loading process
   protected TextureAtlasSprite backupLoadtextureAtlasSprite(ResourceLocation resourceLocation, IResourceManager resourceManager) {
-    ResourceLocation resourcelocation1 = this.completeResourceLocation(resourceLocation, 0);
+    ResourceLocation resourcelocation1 = null;//this.completeResourceLocation(resourceLocation, 0);
     TextureAtlasSprite textureAtlasSprite = TextureAtlasSprite.makeAtlasSprite(resourceLocation);
 
     try {
@@ -206,14 +226,9 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
     return null;
   }
 
-  protected ResourceLocation completeResourceLocation(ResourceLocation location, int p_147634_2_) {
-    if(p_147634_2_ == 0) {
-      return new ResourceLocation(location.getResourceDomain(),
-                                  String.format("%s/%s%s", "textures", location.getResourcePath(), ".png"));
-    }
-
-    return new ResourceLocation(location.getResourceDomain(), String
-        .format("%s/mipmaps/%s.%d%s", "textures", location.getResourcePath(), p_147634_2_, ".png"));
+  protected ResourceLocation getResourceLocation(ResourceLocation resourceLocation)
+  {
+    return new ResourceLocation(resourceLocation.getResourceDomain(), String.format("%s/%s%s", "textures", resourceLocation.getResourcePath(), ".png"));
   }
 
   // borrowed from Shadows of Physis
@@ -248,5 +263,17 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
 
   protected int coord(int x, int y) {
     return y * width + x;
+  }
+
+
+  public static class CacheClearer implements IResourceManagerReloadListener {
+    public static CacheClearer INSTANCE = new CacheClearer();
+
+    private CacheClearer() {}
+
+    @Override
+    public void onResourceManagerReload(IResourceManager resourceManager) {
+      AbstractColoredTexture.cache.clear();
+    }
   }
 }
