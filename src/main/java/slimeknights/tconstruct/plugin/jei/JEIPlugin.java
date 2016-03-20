@@ -39,6 +39,7 @@ public class JEIPlugin implements IModPlugin {
 
   @Override
   public void register(IModRegistry registry) {
+    jeiHelpers = registry.getJeiHelpers();
     IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
     if(TConstruct.pulseManager.isPulseLoaded(TinkerTools.PulseId)) {
