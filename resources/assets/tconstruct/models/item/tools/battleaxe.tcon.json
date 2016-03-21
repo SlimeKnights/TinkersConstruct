@@ -1,5 +1,4 @@
 {
-    "parent": "tconstruct:item/tools/TinkerTool",
     "textures": {
         "layer0": "tconstruct:items/battleaxe/handle",
         "layer1": "tconstruct:items/battleaxe/backhead",

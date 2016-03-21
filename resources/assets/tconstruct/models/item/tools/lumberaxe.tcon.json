@@ -1,5 +1,4 @@
 {
-    "parent": "tconstruct:item/tools/TinkerTool",
     "textures": {
         "layer0": "tconstruct:items/lumberaxe/handle",
         "layer1": "tconstruct:items/lumberaxe/head",

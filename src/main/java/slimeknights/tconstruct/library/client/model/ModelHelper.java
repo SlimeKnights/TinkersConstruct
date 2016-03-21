@@ -20,6 +20,9 @@ import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.TRSRTransformation;
 
+import org.apache.commons.io.IOUtils;
+
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -34,46 +37,46 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
       GSON =
       new GsonBuilder().registerTypeAdapter(maptype, ModelTextureDeserializer.INSTANCE).registerTypeAdapter(offsettype, OffsetDeserializer.INSTANCE).create();
 
-  public static Map<String, String> loadTexturesFromJson(ResourceLocation location) throws IOException {
-    // get the json
-    IResource
-        iresource =
-        Minecraft.getMinecraft().getResourceManager()
-                 .getResource(new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json"));
-    Reader reader = new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8);
+  public static Reader getReaderForResource(ResourceLocation location) throws IOException {
+    ResourceLocation file = new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json");
+    IResource iresource = Minecraft.getMinecraft().getResourceManager().getResource(file);
+    return new BufferedReader(new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8));
+  }
 
-    return GSON.fromJson(reader, maptype);
+  public static Map<String, String> loadTexturesFromJson(ResourceLocation location) throws IOException {
+    Reader reader = getReaderForResource(location);
+    try {
+      return GSON.fromJson(reader, maptype);
+    } finally {
+      IOUtils.closeQuietly(reader);
+    }
   }
 
   public static Offset loadOffsetFromJson(ResourceLocation location) throws IOException {
-    // get the json
-    IResource
-        iresource =
-        Minecraft.getMinecraft().getResourceManager()
-                 .getResource(new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json"));
-    Reader reader = new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8);
-
-    return GSON.fromJson(reader, offsettype);
+    Reader reader = getReaderForResource(location);
+    try {
+      return GSON.fromJson(reader, offsettype);
+    } finally {
+      IOUtils.closeQuietly(reader);
+    }
   }
 
   public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> loadTransformFromJson(ResourceLocation location) throws IOException {
-    // get the json
-    IResource
-        iresource =
-        Minecraft.getMinecraft().getResourceManager()
-                 .getResource(new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json"));
-    Reader reader = new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8);
-
-    // we abuse ModelBlock because all the deserializers are not accessible..
-    ModelBlock modelBlock = ModelBlock.deserialize(reader);
-    ItemCameraTransforms itemCameraTransforms = modelBlock.getAllTransforms();
-    ImmutableMap.Builder<ItemCameraTransforms.TransformType, TRSRTransformation> builder = ImmutableMap.builder();
-    for(ItemCameraTransforms.TransformType type : ItemCameraTransforms.TransformType.values()) {
-      if(itemCameraTransforms.getTransform(type) != ItemTransformVec3f.DEFAULT) {
-        builder.put(type, new TRSRTransformation(itemCameraTransforms.getTransform(type)));
+    Reader reader = getReaderForResource(location);
+    try {
+      // we abuse ModelBlock because all the deserializers are not accessible..
+      ModelBlock modelBlock = ModelBlock.deserialize(reader);
+      ItemCameraTransforms itemCameraTransforms = modelBlock.getAllTransforms();
+      ImmutableMap.Builder<ItemCameraTransforms.TransformType, TRSRTransformation> builder = ImmutableMap.builder();
+      for(ItemCameraTransforms.TransformType type : ItemCameraTransforms.TransformType.values()) {
+        if(itemCameraTransforms.getTransform(type) != ItemTransformVec3f.DEFAULT) {
+          builder.put(type, new TRSRTransformation(itemCameraTransforms.getTransform(type)));
+        }
       }
+      return builder.build();
+    } finally {
+      IOUtils.closeQuietly(reader);
     }
-    return builder.build();
   }
 
   public static ImmutableList<ResourceLocation> loadTextureListFromJson(ResourceLocation location) throws IOException {

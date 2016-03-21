@@ -60,7 +60,7 @@ public class BakedTableModel implements IBakedModel {
     this.format = format;
   }
 
-  protected IBakedModel getActualModel(String texture, List<PropertyTableItem.TableItem> items, float rotation) {
+  protected IBakedModel getActualModel(String texture, List<PropertyTableItem.TableItem> items, EnumFacing facing) {
     IBakedModel bakedModel = standard;
 
     if(texture != null) {
@@ -75,6 +75,7 @@ public class BakedTableModel implements IBakedModel {
         IModel retexturedModel = tableModel.retexture(builder.build());
 
         bakedModel = retexturedModel.bake(retexturedModel.getDefaultState(), format, textureGetter);
+        cache.put(texture, bakedModel);
       }
     }
 
@@ -92,11 +93,9 @@ public class BakedTableModel implements IBakedModel {
       //bakedModel = new MultiModel.Baked(bakedModel, pb.build());
     }
 
-    if(rotation < 360)
-      bakedModel = new TRSRBakedModel(bakedModel, 0, 0, 0, 0, (float)Math.PI * (rotation/180f), 0, 1);
-    bakedModel = new BlockItemModelWrapper(bakedModel);
-
-    cache.put(texture, bakedModel);
+    if(facing != null && facing != EnumFacing.SOUTH) {
+      bakedModel = new TRSRBakedModel(bakedModel, facing);
+    }
 
     return bakedModel;
   }
@@ -106,7 +105,7 @@ public class BakedTableModel implements IBakedModel {
     // get texture from state
     String texture = null;
     List<PropertyTableItem.TableItem> items = Collections.emptyList();
-    float rotation = 0;
+    EnumFacing face = EnumFacing.SOUTH;
 
     if(state instanceof IExtendedBlockState) {
       IExtendedBlockState extendedState = (IExtendedBlockState) state;
@@ -120,13 +119,7 @@ public class BakedTableModel implements IBakedModel {
       }
 
       if(extendedState.getUnlistedNames().contains(BlockTable.FACING)) {
-        EnumFacing face = extendedState.getValue((IUnlistedProperty<EnumFacing>) BlockTable.FACING);
-        if(face != null) {
-          rotation = 360 - face.getOpposite().getHorizontalIndex() * 90f;
-        }
-        else {
-          rotation = 360;
-        }
+        face = extendedState.getValue((IUnlistedProperty<EnumFacing>) BlockTable.FACING);
       }
     }
 
@@ -136,7 +129,7 @@ public class BakedTableModel implements IBakedModel {
     }
 
     // the model returned by getActualModel should be a simple model with no special handling
-    return getActualModel(texture, items, rotation).getQuads(state, side, rand);
+    return getActualModel(texture, items, face).getQuads(state, side, rand);
   }
 
   @Override
@@ -186,7 +179,7 @@ public class BakedTableModel implements IBakedModel {
           // get model from data
           Block block = Block.getBlockFromItem(blockStack.getItem());
           String texture = ModelHelper.getTextureFromBlock(block, blockStack.getItemDamage()).getIconName();
-          return ((BakedTableModel) originalModel).getActualModel(texture, Collections.<PropertyTableItem.TableItem>emptyList(), 0);
+          return ((BakedTableModel) originalModel).getActualModel(texture, Collections.<PropertyTableItem.TableItem>emptyList(), EnumFacing.SOUTH);
         }
       }
 

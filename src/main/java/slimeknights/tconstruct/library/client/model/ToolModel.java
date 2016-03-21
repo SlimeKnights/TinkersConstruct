@@ -60,8 +60,7 @@ public class ToolModel implements IModel {
   }
 
   @Override
-  public IBakedModel bake(IModelState state, VertexFormat format,
-                                  Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+  public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
     IBakedModel base = new ItemLayerModel(textures).bake(state, format, bakedTextureGetter);
 
     BakedMaterialModel[] partModels = new BakedMaterialModel[partBlocks.size()];
@@ -95,6 +94,6 @@ public class ToolModel implements IModel {
 
   @Override
   public IModelState getDefaultState() {
-    return TRSRTransformation.identity();
+    return ModelHelper.DEFAULT_TOOL_STATE;
   }
 }

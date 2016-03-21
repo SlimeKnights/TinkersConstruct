@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.client.model;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Iterables;
 
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -16,10 +15,12 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.TRSRTransformation;
 
+import java.util.List;
 import java.util.Map;
 
 import slimeknights.mantle.client.model.BakedSimple;
 import slimeknights.mantle.client.model.BakedWrapper;
+import slimeknights.mantle.util.ImmutableConcatList;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 
@@ -74,7 +75,7 @@ public class BakedToolModel extends BakedWrapper.Perspective {
         NBTTagList modifiers = TagUtil.getBaseModifiersTagList(stack);
 
         // get the texture for each part
-        ImmutableList.Builder<BakedQuad> quads = ImmutableList.builder();
+        ImmutableList.Builder<List<BakedQuad>> quads = ImmutableList.builder();
 
         boolean broken = toolTag.getBoolean(Tags.BROKEN);
 
@@ -91,7 +92,7 @@ public class BakedToolModel extends BakedWrapper.Perspective {
           }
 
           // todo: use an efficient collection for this. Preferably a List-List
-          quads.addAll(partModel.getQuads(null, null, 0));
+          quads.add(partModel.getQuads(null, null, 0));
         }
 
         // modifiers
@@ -99,11 +100,11 @@ public class BakedToolModel extends BakedWrapper.Perspective {
           String modId = modifiers.getStringTagAt(i);
           IBakedModel modModel = modifierParts.get(modId);
           if(modModel != null) {
-            quads.addAll(modModel.getQuads(null, null, 0));
+            quads.add(modModel.getQuads(null, null, 0));
           }
         }
 
-        return new BakedSimple(quads.build(), original.transforms, original);
+        return new BakedSimple(new ImmutableConcatList<BakedQuad>(quads.build()), original.transforms, original);
       }
       return originalModel;
     }

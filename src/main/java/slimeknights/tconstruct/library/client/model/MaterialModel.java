@@ -7,7 +7,6 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
-import net.minecraft.client.renderer.block.model.SimpleBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
@@ -89,7 +88,7 @@ public class MaterialModel implements IPatternOffset, IModel {
         }
 
         // create a new model with the colored quads
-        bakedModel2 = new BakedSimple(quads.build(),  map, bakedModel2);
+        bakedModel2 = new BakedSimple(quads.build(), map, bakedModel2);
       }
 
       bakedMaterialModel.addMaterialModel(material, bakedModel2);
@@ -110,7 +109,7 @@ public class MaterialModel implements IPatternOffset, IModel {
 
   @Override
   public IModelState getDefaultState() {
-    return TRSRTransformation.identity();
+    return ModelHelper.DEFAULT_ITEM_STATE;
   }
 
   @Override
