@@ -29,7 +29,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import slimeknights.mantle.client.model.BlockItemModelWrapper;
+import slimeknights.mantle.client.model.BakedCompositeModel;
 import slimeknights.mantle.client.model.TRSRBakedModel;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.model.ModelHelper;
@@ -81,19 +81,16 @@ public class BakedTableModel implements IBakedModel {
 
     // add all the items to display on the table
     if(items != null && !items.isEmpty()) {
-      ImmutableMap.Builder<String, IBakedModel> pb = ImmutableMap.builder();
+      ImmutableList.Builder<IBakedModel> pb = ImmutableList.builder();
       int i = 0;
       for(PropertyTableItem.TableItem item : items) {
-        pb.put(String.valueOf(i++), new TRSRBakedModel(item.model, item.x, item.y + 1f, item.z, item.r, (float) (Math.PI), 0, item.s));
+        pb.add(new TRSRBakedModel(item.model, item.x, item.y + 1f, item.z, item.r, (float) (Math.PI), 0, item.s));
       }
-      // 1.9
-      // items are only ever present on blocks, not items, we therefore can use the vanilla class
-      // since we don't have to deal with the item-transforms
-      //bakedModel = new MultipartBakedModel()
-      //bakedModel = new MultiModel.Baked(bakedModel, pb.build());
+
+      bakedModel = new BakedCompositeModel(bakedModel, pb.build());
     }
 
-    if(facing != null && facing != EnumFacing.SOUTH) {
+    if(facing != null) {
       bakedModel = new TRSRBakedModel(bakedModel, facing);
     }
 
