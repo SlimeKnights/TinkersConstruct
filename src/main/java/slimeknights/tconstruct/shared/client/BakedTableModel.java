@@ -21,13 +21,21 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.IModelState;
+import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.IRetexturableModel;
+import net.minecraftforge.client.model.SimpleModelState;
+import net.minecraftforge.client.model.TRSRTransformation;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
+
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+import javax.vecmath.Matrix4f;
 
 import slimeknights.mantle.client.model.BakedCompositeModel;
 import slimeknights.mantle.client.model.TRSRBakedModel;
@@ -39,16 +47,17 @@ import slimeknights.tconstruct.shared.block.PropertyTableItem;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 
 // 1.9 IPerspectiveAware
-public class BakedTableModel implements IBakedModel {
+public class BakedTableModel implements IPerspectiveAwareModel {
 
-  private final IBakedModel standard;
+  private final IPerspectiveAwareModel standard;
   private final IRetexturableModel tableModel;
 
   private final Map<String, IBakedModel> cache = Maps.newHashMap();
   private final Function<ResourceLocation, TextureAtlasSprite> textureGetter;
   private final VertexFormat format;
+  private final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
 
-  public BakedTableModel(IBakedModel standard, IRetexturableModel tableModel, VertexFormat format) {
+  public BakedTableModel(IPerspectiveAwareModel standard, IRetexturableModel tableModel, VertexFormat format) {
     this.standard = standard;
     this.tableModel = tableModel;
 
@@ -58,6 +67,7 @@ public class BakedTableModel implements IBakedModel {
       }
     };
     this.format = format;
+    this.transforms = ModelHelper.getTransforms(standard);
   }
 
   protected IBakedModel getActualModel(String texture, List<PropertyTableItem.TableItem> items, EnumFacing facing) {
@@ -73,8 +83,9 @@ public class BakedTableModel implements IBakedModel {
         builder.put("leg", texture);
         builder.put("legBottom", texture);
         IModel retexturedModel = tableModel.retexture(builder.build());
+        IModelState modelState = new SimpleModelState(transforms);
 
-        bakedModel = retexturedModel.bake(retexturedModel.getDefaultState(), format, textureGetter);
+        bakedModel = retexturedModel.bake(modelState, format, textureGetter);
         cache.put(texture, bakedModel);
       }
     }
@@ -82,7 +93,6 @@ public class BakedTableModel implements IBakedModel {
     // add all the items to display on the table
     if(items != null && !items.isEmpty()) {
       ImmutableList.Builder<IBakedModel> pb = ImmutableList.builder();
-      int i = 0;
       for(PropertyTableItem.TableItem item : items) {
         pb.add(new TRSRBakedModel(item.model, item.x, item.y + 1f, item.z, item.r, (float) (Math.PI), 0, item.s));
       }
@@ -159,6 +169,12 @@ public class BakedTableModel implements IBakedModel {
     return TableItemOverrideList.INSTANCE;
   }
 
+  @Override
+  public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
+    Pair<? extends IBakedModel, Matrix4f> pair = standard.handlePerspective(cameraTransformType);
+    return Pair.of(this, pair.getRight());
+  }
+
   private static class TableItemOverrideList extends ItemOverrideList {
 
     static TableItemOverrideList INSTANCE = new TableItemOverrideList();
@@ -171,12 +187,14 @@ public class BakedTableModel implements IBakedModel {
     public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
       if(originalModel instanceof BakedTableModel) {
         // read out the data on the itemstack
-        ItemStack blockStack = ItemStack.loadItemStackFromNBT(TagUtil.getTagSafe(stack).getCompoundTag(TileTable.FEET_TAG));
+        ItemStack blockStack = ItemStack
+            .loadItemStackFromNBT(TagUtil.getTagSafe(stack).getCompoundTag(TileTable.FEET_TAG));
         if(blockStack != null) {
           // get model from data
           Block block = Block.getBlockFromItem(blockStack.getItem());
           String texture = ModelHelper.getTextureFromBlock(block, blockStack.getItemDamage()).getIconName();
-          return ((BakedTableModel) originalModel).getActualModel(texture, Collections.<PropertyTableItem.TableItem>emptyList(), EnumFacing.SOUTH);
+          return ((BakedTableModel) originalModel)
+              .getActualModel(texture, Collections.<PropertyTableItem.TableItem>emptyList(), null);
         }
       }
 

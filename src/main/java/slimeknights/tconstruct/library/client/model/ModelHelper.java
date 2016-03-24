@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.block.model.ItemTransformVec3f;
 import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.TRSRTransformation;
 
 import org.apache.commons.io.IOUtils;
@@ -77,6 +78,17 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
     } finally {
       IOUtils.closeQuietly(reader);
     }
+  }
+
+  public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> getTransforms(IPerspectiveAwareModel model) {
+    ImmutableMap.Builder<ItemCameraTransforms.TransformType, TRSRTransformation> builder = ImmutableMap.builder();
+    for(ItemCameraTransforms.TransformType type : ItemCameraTransforms.TransformType.values()) {
+      TRSRTransformation transformation = new TRSRTransformation(model.handlePerspective(type).getRight());
+      if(!transformation.equals(TRSRTransformation.identity())) {
+        builder.put(type, TRSRTransformation.blockCenterToCorner(transformation));
+      }
+    }
+    return builder.build();
   }
 
   public static ImmutableList<ResourceLocation> loadTextureListFromJson(ResourceLocation location) throws IOException {

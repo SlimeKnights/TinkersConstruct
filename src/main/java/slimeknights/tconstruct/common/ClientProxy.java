@@ -203,7 +203,7 @@ public abstract class ClientProxy extends CommonProxy {
     });
 
     // We have to readd the default variant if we have custom variants, since it wont be added otherwise and therefore not loaded
-    ModelBakery.registerItemVariants(item, location);
+    ModelLoader.registerItemVariants(item, location);
 
     return location;
   }

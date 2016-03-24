@@ -89,9 +89,11 @@ public class ToolClientEvents {
       if(model instanceof IRetexturableModel) {
         IRetexturableModel tableModel = (IRetexturableModel) model;
         IBakedModel standard = event.getModelRegistry().getObject(modelVariantLocation);
-        IBakedModel finalModel = new BakedTableModel(standard, tableModel, DefaultVertexFormats.BLOCK);
+        if(standard instanceof IPerspectiveAwareModel) {
+          IBakedModel finalModel = new BakedTableModel((IPerspectiveAwareModel) standard, tableModel, DefaultVertexFormats.BLOCK);
 
-        event.getModelRegistry().putObject(modelVariantLocation, finalModel);
+          event.getModelRegistry().putObject(modelVariantLocation, finalModel);
+        }
       }
     } catch(Exception e) {
       e.printStackTrace();
