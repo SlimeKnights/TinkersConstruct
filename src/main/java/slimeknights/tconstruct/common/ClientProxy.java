@@ -1,11 +1,12 @@
 package slimeknights.tconstruct.common;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,12 +19,12 @@ import net.minecraftforge.fml.common.registry.GameData;
 
 import java.lang.reflect.Field;
 
+import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomFontRenderer;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
-import slimeknights.tconstruct.library.client.ItemBlockModelSetter;
 import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
 import slimeknights.tconstruct.library.client.model.ModifierModelLoader;
 import slimeknights.tconstruct.library.client.model.ToolModelLoader;
@@ -207,6 +208,12 @@ public abstract class ClientProxy extends CommonProxy {
     ModelBakery.registerItemVariants(item, location);
 
     return location;
+  }
+
+  protected void registerItemBlockMeta(Block block) {
+    if(block != null) {
+      ((ItemBlockMeta) Item.getItemFromBlock(block)).registerItemModels();
+    }
   }
 
   public static ResourceLocation getItemLocation(Item item) {

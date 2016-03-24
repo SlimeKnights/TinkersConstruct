@@ -4,20 +4,22 @@ import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelSlime;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.block.statemap.StateMap;
-import net.minecraft.client.renderer.entity.RenderSlime;
 import net.minecraft.client.resources.IReloadableResourceManager;
-import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
+import java.util.Map;
+
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.client.renderer.RenderTinkerSlime;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
+import slimeknights.tconstruct.world.block.BlockSlimeLeaves;
 import slimeknights.tconstruct.world.block.BlockSlimeSapling;
 import slimeknights.tconstruct.world.block.BlockTallSlimeGrass;
 import slimeknights.tconstruct.world.client.CustomStateMap;
@@ -58,6 +60,33 @@ public class WorldClientProxy extends ClientProxy {
     ModelLoader.setCustomStateMapper(TinkerWorld.slimeVinePurple3, vineMap);
 
     // items
+    registerItemBlockMeta(TinkerWorld.slimeBlock);
+    registerItemBlockMeta(TinkerWorld.slimeBlockCongealed);
+    registerItemBlockMeta(TinkerWorld.slimeDirt);
+
+    // slime grass
+    Item grass = Item.getItemFromBlock(TinkerWorld.slimeGrass);
+    for(BlockSlimeGrass.FoliageType type : BlockSlimeGrass.FoliageType.values()) {
+      for(BlockSlimeGrass.DirtType dirt : BlockSlimeGrass.DirtType.values()) {
+        String variant = String.format("%s=%s,%s=%s",
+                                       BlockSlimeGrass.SNOWY.getName(),
+                                       BlockSlimeGrass.SNOWY.getName(false),
+                                       BlockSlimeGrass.TYPE.getName(),
+                                       BlockSlimeGrass.TYPE.getName(dirt)
+                                       );
+        int meta = TinkerWorld.slimeGrass.getMetaFromState(TinkerWorld.slimeGrass.getDefaultState()
+                                                                                 .withProperty(BlockSlimeGrass.TYPE, dirt)
+                                                                                 .withProperty(BlockSlimeGrass.FOLIAGE, type));
+        ModelLoader.setCustomModelResourceLocation(grass, meta, new ModelResourceLocation(grass.getRegistryName(), variant));
+      }
+    }
+
+    // slime leaves
+    Item leaves = Item.getItemFromBlock(TinkerWorld.slimeLeaves);
+    for(BlockSlimeGrass.FoliageType type : BlockSlimeGrass.FoliageType.values()) {
+      ModelLoader.setCustomModelResourceLocation(leaves, type.getMeta(), new ModelResourceLocation(leaves.getRegistryName(), "normal"));
+    }
+
     IBlockState state = TinkerWorld.slimeSapling.getDefaultState();
     Item sapling = Item.getItemFromBlock(TinkerWorld.slimeSapling);
     ItemStack stack = new ItemStack(sapling, 1, TinkerWorld.slimeSapling.getMetaFromState(state.withProperty(BlockSlimeSapling.FOLIAGE, BlockSlimeGrass.FoliageType.BLUE)));

@@ -31,16 +31,6 @@
                 }
             }
         },
-#        "connected": {
-#            "none": {
-#            },
-#            "up": {
-#            },
-#            "down": {
-#            },
-#            "both": {
-#            }
-#        },
         "has_knob": {
             true: {
                 # that funny knob at the top
