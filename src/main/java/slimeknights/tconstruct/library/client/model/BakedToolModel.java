@@ -13,7 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.TRSRTransformation;
+import net.minecraftforge.common.model.TRSRTransformation;
 
 import java.util.List;
 import java.util.Map;

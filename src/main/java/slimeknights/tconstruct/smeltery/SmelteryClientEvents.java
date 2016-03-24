@@ -29,7 +29,6 @@ public class SmelteryClientEvents {
   @SubscribeEvent
   public void onModelBake(ModelBakeEvent event) {
     // convert casting table and basin to bakedTableModel for the item-rendering on/in them
-    //IModel model = event.modelLoader.getModel();
     wrap(event, locCastingTable);
     wrap(event, locCastingBasin);
 

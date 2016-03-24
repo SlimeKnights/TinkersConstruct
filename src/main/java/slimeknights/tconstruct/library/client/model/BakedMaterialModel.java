@@ -13,7 +13,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
-import net.minecraftforge.client.model.TRSRTransformation;
+import net.minecraftforge.common.model.TRSRTransformation;
 
 import java.util.Map;
 

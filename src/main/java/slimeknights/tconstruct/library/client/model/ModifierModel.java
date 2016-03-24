@@ -12,10 +12,10 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.IModelState;
-import net.minecraftforge.client.model.ITransformation;
 import net.minecraftforge.client.model.ItemLayerModel;
-import net.minecraftforge.client.model.TRSRTransformation;
+import net.minecraftforge.common.model.IModelState;
+import net.minecraftforge.common.model.ITransformation;
+import net.minecraftforge.common.model.TRSRTransformation;
 
 import java.util.Collection;
 import java.util.Map;
@@ -71,7 +71,7 @@ public class ModifierModel implements IModel {
   }
 
   public Map<String, IBakedModel> bakeModels(IModelState state, VertexFormat format,
-                                                     Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+                                             Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
     Map<String, IBakedModel> bakedModels = new THashMap<String, IBakedModel>();
 
     // we scale the modifier up slightly so it's always above the tool
@@ -97,7 +97,7 @@ public class ModifierModel implements IModel {
       else {
         //ItemCameraTransforms transforms = new ItemCameraTransforms(modelBlock.getThirdPersonTransform(), modelBlock.getFirstPersonTransform(), modelBlock.getHeadTransform(), modelBlock.getInGuiTransform());
         //IPerspectiveState perspectiveState = new IPerspectiveState.Impl(state, transforms);
-        IModel model = ItemLayerModel.instance.retexture(ImmutableMap.of("layer0", entry.getValue()));
+        IModel model = ItemLayerModel.INSTANCE.retexture(ImmutableMap.of("layer0", entry.getValue()));
         IBakedModel bakedModel = model.bake(state, format, bakedTextureGetter);
         bakedModels.put(entry.getKey(), bakedModel);
       }

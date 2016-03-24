@@ -11,11 +11,11 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.IModelState;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.ModelStateComposition;
-import net.minecraftforge.client.model.TRSRTransformation;
+import net.minecraftforge.common.model.IModelState;
+import net.minecraftforge.common.model.TRSRTransformation;
 
 import java.util.Collection;
 import java.util.Map;
@@ -47,7 +47,7 @@ public class MaterialModel implements IPatternOffset, IModel {
 
   @Override
   public IBakedModel bake(IModelState state, VertexFormat format,
-                                  Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+                          Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
     return bakeIt(state, format, bakedTextureGetter);
   }
 
@@ -56,7 +56,8 @@ public class MaterialModel implements IPatternOffset, IModel {
                                    Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
     // take offset of texture into account
     if(offsetX != 0 || offsetY != 0) {
-      state = new ModelStateComposition(state, TRSRTransformation.blockCenterToCorner(new TRSRTransformation(new Vector3f(offsetX/16f, -offsetY/16f, 0), null, null, null)));
+      state = new ModelStateComposition(state, TRSRTransformation
+          .blockCenterToCorner(new TRSRTransformation(new Vector3f(offsetX / 16f, -offsetY / 16f, 0), null, null, null)));
     }
     ImmutableMap<TransformType, TRSRTransformation> map = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
 
@@ -74,7 +75,7 @@ public class MaterialModel implements IPatternOffset, IModel {
     for(Map.Entry<String, TextureAtlasSprite> entry : sprites.entrySet()) {
       Material material = TinkerRegistry.getMaterial(entry.getKey());
 
-      IModel model2 = ItemLayerModel.instance.retexture(ImmutableMap.of("layer0", entry.getValue().getIconName()));
+      IModel model2 = ItemLayerModel.INSTANCE.retexture(ImmutableMap.of("layer0", entry.getValue().getIconName()));
       IBakedModel bakedModel2 = model2.bake(state, format, bakedTextureGetter);
 
       // if it's a colored material we need to color the quads. But only if the texture was not a custom texture

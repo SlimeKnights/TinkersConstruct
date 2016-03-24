@@ -19,7 +19,7 @@ import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
-import net.minecraftforge.client.model.TRSRTransformation;
+import net.minecraftforge.common.model.TRSRTransformation;
 
 import org.apache.commons.io.IOUtils;
 
