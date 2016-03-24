@@ -47,8 +47,6 @@ public abstract class ClientProxy extends CommonProxy {
     ModelLoaderRegistry.registerLoader(loader);
     ModelLoaderRegistry.registerLoader(materialLoader);
     ModelLoaderRegistry.registerLoader(modifierLoader);
-
-    //MinecraftForge.EVENT_BUS.register(new ItemBlockModelSetter());
   }
 
   public static void initRenderer() {
