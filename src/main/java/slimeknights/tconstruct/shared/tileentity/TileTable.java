@@ -3,7 +3,9 @@ package slimeknights.tconstruct.shared.tileentity;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
@@ -12,6 +14,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
@@ -75,7 +78,7 @@ public class TileTable extends TileInventory {
     PropertyTableItem.TableItems toDisplay = new PropertyTableItem.TableItems();
     if(getStackInSlot(displaySlot) != null) {
       ItemStack stack = getStackInSlot(displaySlot);
-      PropertyTableItem.TableItem item = getTableItem(stack);
+      PropertyTableItem.TableItem item = getTableItem(stack, worldObj, null);
       if(item != null) {
         toDisplay.items.add(item);
       }
@@ -85,11 +88,11 @@ public class TileTable extends TileInventory {
   }
 
   @SideOnly(Side.CLIENT)
-  public static PropertyTableItem.TableItem getTableItem(ItemStack stack) {
+  public static PropertyTableItem.TableItem getTableItem(ItemStack stack, World world, EntityLivingBase entity) {
     if(stack == null)
       return null;
 
-    IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
+    IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, world, entity);
     if(model == null) {
       return null;
     }

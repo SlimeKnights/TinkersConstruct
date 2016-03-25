@@ -104,7 +104,7 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
       GL14.glBlendColor(1f, 1f, 1f, progress);
       //GL14.glBlendColor(1f, 1f, 1f, 1f); // debug
 
-      IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
+      IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, te.getWorld(), null);
       Minecraft.getMinecraft().getRenderItem().renderItem(stack, model);
 
       GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

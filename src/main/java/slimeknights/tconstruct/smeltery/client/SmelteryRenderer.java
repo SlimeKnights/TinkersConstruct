@@ -102,7 +102,7 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
         if(isItem) {
           GlStateManager.rotate(-90, 1, 0, 0);
         }
-        IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
+        IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, smeltery.getWorld(), null);
         model = ForgeHooksClient.handleCameraTransforms(model, ItemCameraTransforms.TransformType.NONE, false);
         //Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModel(smeltery.getWorld(), model, Blocks.bedrock.getDefaultState(), pos, renderer, false);
         Minecraft.getMinecraft().getRenderItem().renderItem(stack, model);

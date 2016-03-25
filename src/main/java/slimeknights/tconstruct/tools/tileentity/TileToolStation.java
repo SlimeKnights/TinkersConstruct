@@ -48,7 +48,7 @@ public class TileToolStation extends TileTable implements IInventoryGui {
     float s = 0.46875f;
 
     for(int i = 0; i < info.positions.size(); i++) {
-      PropertyTableItem.TableItem item = getTableItem(getStackInSlot(i));
+      PropertyTableItem.TableItem item = getTableItem(getStackInSlot(i), this.worldObj, null);
       if(item != null) {
         item.x = (33 - info.positions.get(i).getX())/61f;
         item.z = (42 - info.positions.get(i).getY())/61f;

@@ -41,7 +41,7 @@ public class TilePartBuilder extends TileTable implements IInventoryGui {
     float[] x = new float[] {c, -c, c, -c};
     float[] y = new float[] {-c, -c, c, c};
     for(int i = 0; i < 4; i++) {
-      PropertyTableItem.TableItem item = getTableItem(getStackInSlot(i));
+      PropertyTableItem.TableItem item = getTableItem(getStackInSlot(i), this.worldObj, null);
       if(item != null) {
         item.x += x[i];
         item.z += y[i];

@@ -165,13 +165,13 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
     return BlockRenderLayer.CUTOUT;
   }
 
-  public boolean isFullCube()
-  {
+  @Override
+  public boolean isFullCube(IBlockState state) {
     return false;
   }
 
-  public boolean isOpaqueCube()
-  {
+  @Override
+  public boolean isOpaqueCube(IBlockState state) {
     return false;
   }
 
