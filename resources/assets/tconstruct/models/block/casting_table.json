@@ -8,7 +8,6 @@
         "particle": "tconstruct:blocks/smeltery/castingtable_top"
     },
 	"elements": [
-        // lip
         {
 		 "from": [  0, 15,  0 ],
          "to":   [ 15, 16,  1 ],
@@ -49,7 +48,6 @@
             "west":  { "uv": [ 0, 0, 15, 1 ], "texture": "#side",   "cullface": "west" }
          }
 		},
-        // top
 		{
 		 "from": [ 0, 10, 0 ],
          "to": [ 16, 15, 16 ],
@@ -63,7 +61,6 @@
          },
 		 "__comment": "Table top plate"
 		},
-        // the legs
 		{
 		 "from": [ 0, 0, 0 ],
          "to": [ 4, 10, 4 ],

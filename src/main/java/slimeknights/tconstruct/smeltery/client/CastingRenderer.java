@@ -93,13 +93,8 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
       OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)(brightness % 0x10000) / 1f,
                                             (float)(brightness / 0x10000) / 1f);
 
-
-      //GlStateManager.translate(0.5f, 0.5f, 0.5f);
       GlStateManager.translate(xzOffset, yOffset, xzOffset);
       GlStateManager.scale(xzScale, yScale, xzScale);
-      //GlStateManager.scale(1.01f, 1.01f, 1.01f); // make it a tad bigger so it renders over the liquid (will be blended)
-      //GlStateManager.scale(0.999f, 0.999f, 0.999f); // renderItem scales by 0.5
-      GlStateManager.scale(2f, 2f, 2f); // renderItem scales by 0.5
 
       // align item orientation with casting tile orientation
       GlStateManager.rotate(-90 * te.getFacing().getHorizontalIndex(), 0, 1, 0);

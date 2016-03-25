@@ -3,7 +3,7 @@
     "defaults": {
         "transform": "forge:default-block"
     },
-	"variants": {
+    "variants": {
         "type": {
             "table": {
                 "model": "tconstruct:casting_table"

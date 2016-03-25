@@ -8,7 +8,6 @@
         "particle": "tconstruct:blocks/smeltery/blockcast_top"
     },
 	"elements": [
-        // the basin itself
         {
 		 "from": [  0,  4,  0 ],
          "to":   [ 14, 16,  2 ],
@@ -49,28 +48,22 @@
             "west":  { "uv": [ 2, 0, 16,12 ], "texture": "#side",   "cullface": "west" }
          }
 		},
-        // The inner quads for the slits in the block. 4 for each side because MC format. blargh.
-        // North inner
         { "from": [7, 5, 0], "to": [7, 13, 2], "faces": { "east": { "texture": "#side" }   }},
         { "from": [9, 5, 0], "to": [9, 13, 2], "faces": { "west": { "texture": "#side" }   }},
         { "from": [7,13, 0], "to": [9, 13, 2], "faces": { "down": { "texture": "#bottom" } }},
         { "from": [7, 5, 0], "to": [9,  5, 2], "faces": { "up":   { "texture": "#top" }    }},
-        // East inner
         { "from": [14,  5, 7], "to": [16, 13, 7], "faces": { "south": { "texture": "#side" }   }},
         { "from": [14,  5, 9], "to": [16, 13, 9], "faces": { "north": { "texture": "#side" }   }},
         { "from": [14, 13, 7], "to": [16, 13, 9], "faces": { "down":  { "texture": "#bottom" } }},
         { "from": [14,  5, 7], "to": [16,  5, 9], "faces": { "up":    { "texture": "#top" }    }},
-        // South inner
         { "from": [7, 5, 14], "to": [7, 13, 16], "faces": { "east": { "texture": "#side" }   }},
         { "from": [9, 5, 14], "to": [9, 13, 16], "faces": { "west": { "texture": "#side" }   }},
         { "from": [7,13, 14], "to": [9, 13, 16], "faces": { "down": { "texture": "#bottom" } }},
         { "from": [7, 5, 14], "to": [9,  5, 16], "faces": { "up":   { "texture": "#top" }    }},
-        // West inner
         { "from": [0,  5, 7], "to": [2, 13, 7], "faces": { "south": { "texture": "#side" }   }},
         { "from": [0,  5, 9], "to": [2, 13, 9], "faces": { "north": { "texture": "#side" }   }},
         { "from": [0, 13, 7], "to": [2, 13, 9], "faces": { "down":  { "texture": "#bottom" } }},
         { "from": [0,  5, 7], "to": [2,  5, 9], "faces": { "up":    { "texture": "#top" }    }},
-        // bottom inside
 		{
 		 "from": [ 0, 2, 0 ],
          "to": [ 16, 4, 16 ],
@@ -84,7 +77,6 @@
          },
 		 "__comment": "The bottom of the basin"
 		},
-        // the legs
 		{
 		 "from": [ 0, 0, 0 ],
          "to": [ 5, 2, 5 ],
