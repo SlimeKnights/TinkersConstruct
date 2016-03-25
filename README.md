@@ -1,20 +1,16 @@
-#TINKERS' CONSTRUCT IS UNDERGOING A REWRITE
-The current 1.7.10 version of Tinkers' Construct is the final one for this iteration. Only major bugs will be fixed.
-The rework is aimed at 1.8 and has no time-plan. It'll be ready when it's done.
-
-#[Tinkers' Construct](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2218638-tinkers-construct)
+#[Tinkers' Construct](http://minecraft.curseforge.com/projects/tinkers-construct)
 
 Modify all the things, then do it again!   
 Melt down any metals you find. 	 
 Power the world with spinning wind!
 
-##Development
-Install Forge as usual, and setup your IDE as with any other Forge project. Forge Multipart, and CClib must be installed from the  Forge File Server: The DEVELOPMENT version of NEI must be installed to the same directory from [Chicken Bones Site](http://www.chickenbones.craftsaddle.org/Files/New_Versions/links.php). Copy `TCore_dummy.jar` to `forge/mcp/jars/mods/` to enable the Preloader (optional -- only needed when working on the preloader itself)
+### IMC
+Tinkers' Construct supports several IMCs to allow mods to integrate themselves. The [Wiki](https://github.com/SlimeKnights/TinkersConstruct/wiki/IMC) contains a page with further information.
+Anything that is not possible via IMC has to be integrated via Code through the API/library package.
 
-## IMC
-All IMC support and examples can be found here: https://gist.github.com/bonii-xx/e46f9d9e81e29d796b1b
+(old 1.7.10 IMCs can be found here: https://gist.github.com/bonii-xx/e46f9d9e81e29d796b1b)
 
-##Compile from Source
+##Setting up a Workspace/Compiling from Source
 Note: Git MUST be installed and in the system path to use our scripts.
 * Setup: Run [gradle]in the repository root: `gradlew[.bat] [setupDevWorkspace|setupDecompWorkspace] [eclipse|idea]`
 * Build: Run [gradle]in the repository root: `gradlew[.bat] build'
@@ -33,10 +29,9 @@ Please include the following:
 	* ForgeModLoader-client-0.log (the FML log) from the root folder of the client
 
 ##Licenses
-Most code is public domain under [Creative Commons 0](http://creativecommons.org/publicdomain/zero/1.0/). The rework will be licensed under the [MIT License](https://tldrlegal.com/license/mit-license)
+Code, Textures and binaries are licensed under the [MIT License](https://tldrlegal.com/license/mit-license).
 
-Textures and binaries are licensed under [Creative Commons 3](http://creativecommons.org/licenses/by/3.0/).
-
+You are allowed to use the mod in your modpack.
 Any modpack which uses Tinkers' Construct takes **full** responsibility for user support queries. For anyone else, we only support official builds from the main CI server, not custom built jars. We also do not take bug reports for outdated builds of Minecraft.
 
 If you have queries about any license or the above support restrictions, please drop by our IRC channel, #TinkersConstruct on irc.esper.net
