@@ -22,6 +22,7 @@ public class FluidMolten extends FluidColored {
     this.setDensity(2000); // thicker than a bowl of oatmeal
     this.setViscosity(10000); // sloooow moving
     this.setTemperature(1000); // not exactly lava, but still hot. Should depend on the material
+    this.setLuminosity(10); // glowy by default!
 
     // rare by default
     setRarity(EnumRarity.UNCOMMON);
