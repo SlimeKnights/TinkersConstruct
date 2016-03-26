@@ -138,11 +138,8 @@ public class BattleSign extends BroadSword {
     }
 
     // broken battlesign.
-    if(ToolHelper.isBroken(player.getHeldItemMainhand())) {
-      return false;
-    }
+    return !ToolHelper.isBroken(player.getHeldItemMainhand());
 
-    return true;
   }
 
   @Override

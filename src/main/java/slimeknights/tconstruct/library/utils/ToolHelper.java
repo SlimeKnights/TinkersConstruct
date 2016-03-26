@@ -167,10 +167,8 @@ public final class ToolHelper {
     if(isToolEffective(stack, state))
       return true;
 
-    if(stack.getItem() instanceof ToolCore && ((ToolCore) stack.getItem()).isEffective(state))
-      return true;
+    return stack.getItem() instanceof ToolCore && ((ToolCore) stack.getItem()).isEffective(state);
 
-    return false;
   }
 
   /**

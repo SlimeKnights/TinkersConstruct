@@ -45,7 +45,7 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
 
   @Override
   public int getMetaFromState(IBlockState state) {
-    return ((SlimeType) state.getValue(TYPE)).meta;
+    return state.getValue(TYPE).meta;
   }
 
   @Override

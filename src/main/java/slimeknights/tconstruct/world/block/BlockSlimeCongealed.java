@@ -55,7 +55,7 @@ public class BlockSlimeCongealed extends Block {
 
   @Override
   public int getMetaFromState(IBlockState state) {
-    return ((SlimeType) state.getValue(BlockSlime.TYPE)).meta;
+    return state.getValue(BlockSlime.TYPE).meta;
   }
 
   @Override

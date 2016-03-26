@@ -58,7 +58,7 @@ public class AnimatedColoredTexture extends TextureColoredTexture {
       return;
     }
     // todo: clean all this up to use the metadata of the actualTexture and therefore only run once without separation
-    AnimationMetadataSection meta = (AnimationMetadataSection) iresource.getMetadata("animation");
+    AnimationMetadataSection meta = iresource.getMetadata("animation");
 
     if(meta == null) {
       throw new TinkerAPIException(String.format(

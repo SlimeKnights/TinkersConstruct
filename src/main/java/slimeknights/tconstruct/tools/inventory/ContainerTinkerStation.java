@@ -98,7 +98,7 @@ public class ContainerTinkerStation<T extends TileEntity & IInventory> extends C
         tinkerStationBlocks.add(Pair.of(pos, state));
         ret.add(state);
         if(state.getProperties().containsKey(BlockToolTable.TABLES)) {
-          BlockToolTable.TableTypes type = (BlockToolTable.TableTypes) state.getValue(BlockToolTable.TABLES);
+          BlockToolTable.TableTypes type = state.getValue(BlockToolTable.TABLES);
           if(type != null && type == BlockToolTable.TableTypes.CraftingStation)
             hasMaster = true;
         }

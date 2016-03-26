@@ -37,7 +37,7 @@ public class TableRecipeWrapper extends ShapedOreRecipeWrapper {
   }
 
   @Override
-  public List getOutputs() {
+  public List<ItemStack> getOutputs() {
     return outputs;
   }
 }

@@ -89,7 +89,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     this.selectedTool = tool;
 
     for(int i = 0; i < tile.getSizeInventory(); i++) {
-      Slot slot = (Slot)inventorySlots.get(i);
+      Slot slot = inventorySlots.get(i);
       // set part info for the slot
       if(slot instanceof SlotToolStationIn) {
         SlotToolStationIn slotToolPart = (SlotToolStationIn) slot;
@@ -219,7 +219,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
   }
 
   private ItemStack repairTool(boolean remove) {
-    ItemStack repairable = ((Slot)inventorySlots.get(0)).getStack();
+    ItemStack repairable = inventorySlots.get(0).getStack();
 
     // modifying possible?
     if(repairable == null || !(repairable.getItem() instanceof IRepairable)) {
@@ -230,7 +230,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
   }
 
   private ItemStack replaceToolParts(boolean remove) throws TinkerGuiException {
-    ItemStack tool = ((Slot)inventorySlots.get(0)).getStack();
+    ItemStack tool = inventorySlots.get(0).getStack();
 
     if(tool == null || !(tool.getItem() instanceof TinkersItem)) {
       return null;
@@ -240,7 +240,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
   }
 
   private ItemStack modifyTool(boolean remove) throws TinkerGuiException {
-    ItemStack modifyable = ((Slot)inventorySlots.get(0)).getStack();
+    ItemStack modifyable = inventorySlots.get(0).getStack();
 
     // modifying possible?
     if(modifyable == null || !(modifyable.getItem() instanceof IModifyable)) {

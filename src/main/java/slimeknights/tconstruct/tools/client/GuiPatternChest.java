@@ -29,7 +29,7 @@ public class GuiPatternChest extends GuiTinkerStation {
 
     // we use the sideinventory class for the inventory itself
     // it doesn't contain the player inventory
-    guiInventory = new GuiScalingChest(this, (BaseContainer)container.getSubContainer(ContainerPatternChest.DynamicChestInventory.class));
+    guiInventory = new GuiScalingChest(this, container.getSubContainer(ContainerPatternChest.DynamicChestInventory.class));
     addModule(guiInventory);
   }
 

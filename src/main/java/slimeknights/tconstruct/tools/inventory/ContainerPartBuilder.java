@@ -73,7 +73,7 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
         if(!pair.getRight().getProperties().containsKey(BlockToolTable.TABLES))
           continue;
 
-        BlockToolTable.TableTypes type = (BlockToolTable.TableTypes) pair.getRight().getValue(BlockToolTable.TABLES);
+        BlockToolTable.TableTypes type = pair.getRight().getValue(BlockToolTable.TABLES);
         if(type != null) {
           if(type == BlockToolTable.TableTypes.CraftingStation)
             hasCraftingStation = true;
