@@ -138,17 +138,14 @@ public final class ToolHelper {
     }
 
     // calculate speed depending on stats
-
-    // strength = default 1
     NBTTagCompound tag = TagUtil.getToolTag(stack);
-    float strength = stack.getItem().getStrVsBlock(stack, blockState);
     float speed = tag.getFloat(Tags.MININGSPEED);
 
     if(stack.getItem() instanceof ToolCore) {
       speed *= ((ToolCore) stack.getItem()).miningSpeedModifier();
     }
 
-    return strength * speed;
+    return speed;
   }
 
   /**
