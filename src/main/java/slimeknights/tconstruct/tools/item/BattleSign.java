@@ -30,8 +30,8 @@ public class BattleSign extends BroadSword {
   }
 
   @Override
-  public int attackSpeed() {
-    return 0;
+  public double attackSpeed() {
+    return 5;
   }
 
   @Override
@@ -133,7 +133,7 @@ public class BattleSign extends BroadSword {
     }
     EntityPlayer player = (EntityPlayer) entity;
     // needs to be blocking with a battlesign
-    if(!player.isActiveItemStackBlocking() || player.getHeldItemMainhand().getItem() != this) {
+    if(!player.isActiveItemStackBlocking() || player.getActiveItemStack().getItem() != this) {
       return false;
     }
 

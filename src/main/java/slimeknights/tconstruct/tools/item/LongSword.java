@@ -30,8 +30,8 @@ public class LongSword extends BroadSword {
   }
 
   @Override
-  public int attackSpeed() {
-    return 0;
+  public double attackSpeed() {
+    return 1.3;
   }
 
   @Override

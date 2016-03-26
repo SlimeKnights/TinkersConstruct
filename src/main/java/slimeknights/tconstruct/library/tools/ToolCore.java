@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.tools;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 
 import net.minecraft.block.state.IBlockState;
@@ -8,13 +9,15 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -116,10 +119,11 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   /**
-   * Allows you to speed up the attack. 0 is standard attack. 5 is max speed. Negative values are not possible.
+   * Allows you set the attack speed. Equivalent to the vanilla attack speed.
+   * Default speed is 4, which is equal to any standard item. Value has to be greater than zero.
    */
-  public int attackSpeed() {
-    return 0;
+  public double attackSpeed() {
+    return 4;
   }
 
   /**
@@ -189,11 +193,11 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
-    if(attackSpeed() > 0) {
+    /*if(attackSpeed() > 0) {
       int speed = Math.min(5, attackSpeed());
       ToolHelper.swingItem(speed, entityLiving);
       return true;
-    }
+    }*/
     return super.onEntitySwing(entityLiving, stack);
   }
 
@@ -216,6 +220,19 @@ public abstract class ToolCore extends TinkersItem {
       target.hurtTime -= attackSpeed();
     }
     return super.hitEntity(stack, target, attacker);
+  }
+
+  @Override
+  public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+    Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+    if (slot == EntityEquipmentSlot.MAINHAND)
+    {
+      multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double)ToolHelper.getActualAttack(stack), 0));
+      multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", attackSpeed() - 4d, 0));
+    }
+
+    return multimap;
   }
 
   @Override
@@ -475,9 +492,7 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-    // we simply return false. This should be cover any cases and probably 1-2 edge cases where it shouldn't..
-    // ..but I doubt anybody will notice ;o
-    return false;
+    return !ItemStack.areItemStacksEqual(oldStack, newStack) || slotChanged;
   }
 
   /**

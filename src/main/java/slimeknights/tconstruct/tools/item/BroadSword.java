@@ -58,8 +58,8 @@ public class BroadSword extends ToolCore {
   }
 
   @Override
-  public int attackSpeed() {
-    return 0;
+  public double attackSpeed() {
+    return 1.6d; // default vanilla sword speed
   }
 
   @Override

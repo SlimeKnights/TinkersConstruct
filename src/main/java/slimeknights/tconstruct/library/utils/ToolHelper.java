@@ -503,7 +503,6 @@ public final class ToolHelper {
    * Most of this function is the same as {@link EntityPlayer#attackTargetEntityWithCurrentItem(Entity targetEntity)}
    */
   public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity) {
-    // todo: check how 1.9 does this and if we should steal it
     // nothing to do, no target?
     if(targetEntity == null || !targetEntity.canAttackWithItem() || targetEntity.hitByEntity(attacker) || !stack.hasTagCompound()) {
       return false;

@@ -56,6 +56,11 @@ public class Hatchet extends AoeToolCore {
   }
 
   @Override
+  public double attackSpeed() {
+    return 1.1f; // a bit faster than vanilla axes
+  }
+
+  @Override
   public float knockback() {
     return 1.3f;
   }
