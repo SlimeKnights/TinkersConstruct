@@ -1,6 +1,10 @@
 package slimeknights.tconstruct.gadgets.entity;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityItemFrame;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
@@ -28,6 +32,38 @@ public class EntityFancyItemFrame extends EntityItemFrame implements IEntityAddi
 
   public EntityFancyItemFrame(World worldIn) {
     super(worldIn);
+  }
+
+  @Override
+  public void dropItemOrSelf(Entity entity, boolean dropFrame) {
+    if (this.worldObj.getGameRules().getBoolean("doEntityDrops"))
+    {
+      ItemStack itemstack = this.getDisplayedItem();
+
+      if (entity instanceof EntityPlayer)
+      {
+        EntityPlayer entityplayer = (EntityPlayer)entity;
+
+        if (entityplayer.capabilities.isCreativeMode)
+        {
+          this.removeFrameFromMap(itemstack);
+          return;
+        }
+      }
+
+      // drop frame
+      if(dropFrame) {
+        this.entityDropItem(new ItemStack(TinkerGadgets.fancyFrame, 1, type.ordinal()), 0.0F);
+      }
+
+      // drop item in frame
+      if (itemstack != null)
+      {
+        itemstack = itemstack.copy();
+        this.removeFrameFromMap(itemstack);
+        this.entityDropItem(itemstack, 0.0F);
+      }
+    }
   }
 
   @Override
