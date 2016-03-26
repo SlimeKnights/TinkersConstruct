@@ -3,6 +3,7 @@ package slimeknights.tconstruct.smeltery.tileentity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
@@ -158,13 +159,12 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     tank.setCapacity(0);
     tank.setFluid(null);
 
-    if(!worldObj.isRemote && worldObj instanceof WorldServer) {
+    if(worldObj != null && !worldObj.isRemote && worldObj instanceof WorldServer) {
       TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new FluidUpdatePacket(pos, null));
     }
   }
 
-  // called only clientside to sync with the server
-  @SideOnly(Side.CLIENT)
+  // called clientside to sync with the server and on load
   public void updateFluidTo(FluidStack fluid) {
     int oldAmount = tank.getFluidAmount();
     tank.setFluid(fluid);
@@ -283,5 +283,29 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
   @Override
   public FluidTankInfo[] getTankInfo(EnumFacing from) {
     return new FluidTankInfo[]{new FluidTankInfo(tank)};
+  }
+
+  /* Saving and Loading */
+
+  @Override
+  public void writeToNBT(NBTTagCompound tags) {
+    super.writeToNBT(tags);
+
+    NBTTagCompound tankTag = new NBTTagCompound();
+    tank.writeToNBT(tankTag);
+    tags.setTag("tank", tankTag);
+
+    tags.setInteger("timer", timer);
+  }
+
+  @Override
+  public void readFromNBT(NBTTagCompound tags) {
+    super.readFromNBT(tags);
+
+    tank.readFromNBT(tags.getCompoundTag("tank"));
+
+    updateFluidTo(tank.getFluid());
+
+    timer = tags.getInteger("timer");
   }
 }
