@@ -46,7 +46,6 @@ import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.block.PropertyTableItem;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 
-// 1.9 IPerspectiveAware
 public class BakedTableModel implements IPerspectiveAwareModel {
 
   private final IPerspectiveAwareModel standard;

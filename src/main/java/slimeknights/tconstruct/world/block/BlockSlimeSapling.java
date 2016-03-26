@@ -76,30 +76,6 @@ public class BlockSlimeSapling extends BlockSapling {
     return getMetaFromState(state);
   }
 
-  // 1.9
-  /*
-  @Override
-  @SideOnly(Side.CLIENT)
-  public int getBlockColor ()
-  {
-    return 0xffffff;
-  }
-
-  // Used for the item
-  @SideOnly(Side.CLIENT)
-  @Override
-  public int getRenderColor(IBlockState state) {
-    return 0xffffff;
-  }
-
-  // Used for the block in world
-  @SideOnly(Side.CLIENT)
-  @Override
-  public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
-    return 0xffffff;
-  }
-*/
-
   @Override
   public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
     return false;
