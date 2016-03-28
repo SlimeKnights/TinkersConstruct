@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.gadgets.block;
 
+import com.google.common.collect.ImmutableMap;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -130,60 +132,25 @@ public class BlockPunji extends Block {
     }
   }
 
-  // 1.9
-  /*
-  @Override
-  public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-    EnumFacing facing = worldIn.getBlockState(pos).getValue(FACING);
-    setBlockBoundsBasedOnState(facing);
-  }
+  /* Bounds */
+  private static final ImmutableMap<EnumFacing, AxisAlignedBB> BOUNDS;
+  static {
+    ImmutableMap.Builder<EnumFacing, AxisAlignedBB> builder = ImmutableMap.builder();
+    builder.put(EnumFacing.DOWN,  new AxisAlignedBB(0.1875, 0,      0.1875,  0.8125, 0.375, 0.8125));
+    builder.put(EnumFacing.UP,    new AxisAlignedBB(0.1875, 0.625,  0.1875,  0.8125, 1,     0.8125));
+    builder.put(EnumFacing.NORTH, new AxisAlignedBB(0.1875, 0.1875, 0,       0.8125, 0.8125, 0.375));
+    builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0.1875, 0.1875, 0.625,   0.8125, 0.8125, 1));
+    builder.put(EnumFacing.EAST,  new AxisAlignedBB(0.625,  0.1875, 0.1875,  1,      0.8125, 0.8125));
+    builder.put(EnumFacing.WEST,  new AxisAlignedBB(0,      0.1875, 0.1875,  0.375,  0.8125, 0.8125));
 
-  public void setBlockBoundsBasedOnState(EnumFacing facing) {
-    float h = 0.375f;
-
-    float xMin = 0.1875f;
-    float xMax = 1f - xMin;
-    float zMin = 0.1875f;
-    float zMax = 1f - zMin;
-    float yMin = 0.1875f;
-    float yMax = 1f - yMin;
-
-    switch(facing) {
-      case DOWN:
-        yMin = 0;
-        yMax = h;
-        break;
-      case UP:
-        yMin = 1f-h;
-        yMax = 1;
-        break;
-      case SOUTH:
-        zMin = 1f-h;
-        zMax = 1;
-        break;
-      case NORTH:
-        zMax = h;
-        zMin = 0;
-        break;
-      case EAST:
-        xMin = 1f-h;
-        xMax = 1;
-        break;
-      case WEST:
-        xMax = h;
-        xMin = 0;
-        break;
-    }
-
-    this.setBlockBounds(xMin, yMin, zMin, xMax, yMax, zMax);
+    BOUNDS = builder.build();
   }
 
   @Override
-  public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
-    setBlockBoundsBasedOnState(state.getValue(FACING));
-    return super.getCollisionBoundingBox(worldIn, pos, state);
+  public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+    return BOUNDS.get(state.getValue(FACING));
   }
-*/
+
   @Override
   public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
     if(entityIn instanceof EntityLiving) {

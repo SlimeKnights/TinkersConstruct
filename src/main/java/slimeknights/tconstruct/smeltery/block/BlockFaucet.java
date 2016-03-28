@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.block;
 
 import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -14,10 +15,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -107,81 +108,23 @@ public class BlockFaucet extends BlockContainer {
 
   /* Bounds */
 
-  // 1.9
-  /*
-  @Override
-  public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-    EnumFacing facing = worldIn.getBlockState(pos).getValue(FACING);
+  private static final ImmutableMap<EnumFacing, AxisAlignedBB> BOUNDS;
+  static {
+    ImmutableMap.Builder<EnumFacing, AxisAlignedBB> builder = ImmutableMap.builder();
+    builder.put(EnumFacing.UP,    new AxisAlignedBB(0.25,  0.625, 0.25,    0.75,  1,     0.75));
+    builder.put(EnumFacing.NORTH, new AxisAlignedBB(0.25,  0.25,  0,       0.625, 0.625, 0.375));
+    builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0.25,  0.25,  0.625,   0.625, 0.625, 1.0));
+    builder.put(EnumFacing.EAST,  new AxisAlignedBB(0.625, 0.25,  0.25,    1,     0.625, 0.75));
+    builder.put(EnumFacing.WEST,  new AxisAlignedBB(0,     0.25,  0.25,    0.375, 0.625, 0.75));
+    builder.put(EnumFacing.DOWN, FULL_BLOCK_AABB);
 
-    float xMin = 0.25F;
-    float xMax = 0.75F;
-    float zMin = 0.25F;
-    float zMax = 0.75F;
-    float yMin = 0.25F;
-    float yMax = 0.625F;
-
-    switch(facing) {
-      case UP:
-        yMin = 0.625F;
-        yMax = 1.0F;
-        break;
-      case SOUTH:
-        zMin = 0.625F;
-        zMax = 1.0F;
-        break;
-      case NORTH:
-        zMax = 0.375F;
-        zMin = 0F;
-        break;
-      case EAST:
-        xMin = 0.625F;
-        xMax = 1.0F;
-        break;
-      case WEST:
-        xMax = 0.375F;
-        xMin = 0F;
-        break;
-    }
-
-    this.setBlockBounds(xMin, yMin, zMin, xMax, yMax, zMax);
+    BOUNDS = builder.build();
   }
 
   @Override
-  public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
-    float xMin = 0.25F;
-    float xMax = 0.75F;
-    float zMin = 0.25F;
-    float zMax = 0.75F;
-    float yMin = 0.25F;
-    float yMax = 0.625F;
-
-    switch(state.getValue(FACING)) {
-      case UP:
-        yMin = 0.625F;
-        yMax = 1.0F;
-        break;
-      case SOUTH:
-        zMin = 0.625F;
-        zMax = 1.0F;
-        break;
-      case NORTH:
-        zMax = 0.375F;
-        zMin = 0F;
-        break;
-      case EAST:
-        xMin = 0.625F;
-        xMax = 1.0F;
-        break;
-      case WEST:
-        xMax = 0.375F;
-        xMin = 0F;
-        break;
-    }
-
-    return AxisAlignedBB.fromBounds(pos.getX() + xMin, pos.getY() + yMin, pos.getZ() + zMin,
-                                    pos.getX() + xMax, pos.getY() + yMax, pos.getZ() + zMax);
+  public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+    return BOUNDS.get(state.getValue(FACING));
   }
-*/
 
   @Override
   public EnumBlockRenderType getRenderType(IBlockState state) {
