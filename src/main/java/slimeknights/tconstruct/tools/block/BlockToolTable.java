@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.block;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import net.minecraft.block.Block;
@@ -18,6 +19,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
@@ -149,25 +152,60 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
     return (state.getValue(TABLES)).meta;
   }
 
-  //1.9 amadornes graciously totally volunteered to do this
-  /*
+  /* Bounds */
+  private static AxisAlignedBB BOUNDS_Chest = new AxisAlignedBB(0, 0, 0, 1, 0.875, 1);
+  private static ImmutableList<AxisAlignedBB> BOUNDS_Table = ImmutableList.of(
+      new AxisAlignedBB(0, 0.75, 0, 1, 1, 1),
+      new AxisAlignedBB(0,    0, 0,    0.25, 0.75, 0.25),
+      new AxisAlignedBB(0.75, 0, 0,    1,    0.75, 0.25),
+      new AxisAlignedBB(0.75, 0, 0.75, 1,    0.75, 1),
+      new AxisAlignedBB(0,    0, 0.75, 0.25, 0.75, 1)
+  );
+
   @Override
-  public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-    if(worldIn.getBlockState(pos).getValue(TABLES).isChest) {
-      this.setBlockBounds(0, 0, 0, 1, 0.875f, 1);
+  public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+    if(state.getValue(TABLES).isChest) {
+      return BOUNDS_Chest;
     }
-    else {
-      this.setBlockBounds(0, 0, 0, 1, 1, 1);
-    }
+
+    return FULL_BLOCK_AABB;
   }
 
   @Override
-  public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
-    float y = state.getValue(TABLES).isChest ? 0.875f : 1;
-    return AxisAlignedBB.fromBounds(pos.getX(), pos.getY(), pos.getZ(),
-                                    pos.getX() + 1, pos.getY() + y, pos.getZ() + 1);
+  public RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
+    if(blockState.getValue(TABLES).isChest) {
+      return super.collisionRayTrace(blockState, worldIn, pos, start, end);
+    }
+    // basically the same BlockStairs does
+    // Raytrace through all AABBs (plate, legs) and return the nearest one
+
+    List<RayTraceResult> list = Lists.<RayTraceResult>newArrayList();
+
+    for (AxisAlignedBB axisalignedbb : BOUNDS_Table)
+    {
+      list.add(this.rayTrace(pos, start, end, axisalignedbb));
+    }
+
+    RayTraceResult raytraceresult1 = null;
+    double d1 = 0.0D;
+
+    for (RayTraceResult raytraceresult : list)
+    {
+      if (raytraceresult != null)
+      {
+        double d0 = raytraceresult.hitVec.squareDistanceTo(end);
+
+        if (d0 > d1)
+        {
+          raytraceresult1 = raytraceresult;
+          d1 = d0;
+        }
+      }
+    }
+
+    return raytraceresult1;
   }
-*/
+
   @Override
   public int getGuiNumber(IBlockState state) {
     switch(state.getValue(TABLES)) {

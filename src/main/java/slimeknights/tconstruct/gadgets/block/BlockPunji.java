@@ -40,8 +40,6 @@ public class BlockPunji extends Block {
 
   public BlockPunji() {
     super(Material.plants);
-  // 1.9
-    //this.setBlockBounds(0.125f, 0, 0.125f, 0.875f, 0.375f, 0.875f);
     this.setSoundType(SoundType.PLANT);
     this.setCreativeTab(TinkerRegistry.tabGadgets);
     this.setHardness(3.0f);
