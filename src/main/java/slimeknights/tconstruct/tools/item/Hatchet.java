@@ -4,7 +4,10 @@ import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -81,6 +84,37 @@ public class Hatchet extends AoeToolCore {
       damage = 0;
     }
     super.afterBlockBreak(stack, world, state, pos, player, damage, wasEffective);
+  }
+
+  @Override
+  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
+    boolean hit = super.dealDamage(stack, player, entity, damage);
+
+    // vanilla axe shieldbreak attack. See EntityPlayer#attackTargetEntityWithCurrentItem()
+    if(!player.worldObj.isRemote && entity instanceof EntityPlayer) {
+      EntityPlayer entityplayer = (EntityPlayer) entity;
+      ItemStack itemstack2 = player.getHeldItemMainhand();
+      ItemStack itemstack3 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : null;
+
+      // todo: possibly check for itemUseAction instead of is shield?
+      if (itemstack2 != null && itemstack3 != null && itemstack2.getItem() == this && itemstack3.getItem() == Items.shield)
+      {
+        float f3 = 0.25F + (float) EnchantmentHelper.getEfficiencyModifier(player) * 0.05F;
+
+        if (player.isSprinting())
+        {
+          f3 += 0.75F;
+        }
+
+        if (player.getRNG().nextFloat() < f3)
+        {
+          entityplayer.getCooldownTracker().setCooldown(Items.shield, 100);
+          player.worldObj.setEntityState(entityplayer, (byte)30);
+        }
+      }
+    }
+
+    return hit;
   }
 
   @Override
