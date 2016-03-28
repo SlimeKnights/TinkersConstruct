@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemBlock;
@@ -16,6 +17,7 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
@@ -93,12 +95,13 @@ public class TileTable extends TileInventory {
       return null;
 
     IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, world, entity);
-    if(model == null) {
-      return null;
+    if(model == null || model.isBuiltInRenderer()) {
+      // missing model so people don't go paranoid when their chests go missing
+      model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getModelManager().getMissingModel();
     }
 
     PropertyTableItem.TableItem item = new PropertyTableItem.TableItem(model, 0,-0.46875f,0, 0.8f, (float) (-Math.PI/2));
-    if(stack.getItem() instanceof  ItemBlock) {
+    if(stack.getItem() instanceof ItemBlock) {
       item.y = -0.3125f;
       item.s = 0.375f;
       item.r = 0;
