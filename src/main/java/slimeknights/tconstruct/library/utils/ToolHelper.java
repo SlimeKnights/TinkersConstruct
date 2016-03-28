@@ -713,63 +713,6 @@ public final class ToolHelper {
     }
   }
 
-  public static EnumActionResult useSecondaryItem(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-    int slot = getSecondaryItemSlot(player);
-
-    // last slot selected
-    if(slot == player.inventory.currentItem) {
-      return EnumActionResult.PASS;
-    }
-
-    ItemStack secondaryItem = player.inventory.getStackInSlot(slot);
-
-    // do we have an item to use?
-    if(secondaryItem == null) {
-      return EnumActionResult.PASS;
-    }
-
-    // use it
-    int oldSlot = player.inventory.currentItem;
-    player.inventory.currentItem = slot;
-    // 1.9 what to do with this?
-    EnumActionResult ret = secondaryItem.onItemUse(player, world, pos, hand, side, hitX, hitY, hitZ);
-    // might have gotten used up
-    if(secondaryItem.stackSize == 0) {
-      player.inventory.setInventorySlotContents(slot, null);
-    }
-    player.inventory.currentItem = oldSlot;
-
-    return ret;
-  }
-
-  public static int getSecondaryItemSlot(EntityPlayer player) {
-    int slot = player.inventory.currentItem;
-    int max = InventoryPlayer.getHotbarSize() - 1;
-    if(slot < max) {
-      slot++;
-    }
-
-    // find next slot that has an item in it
-    for(; slot < max; slot++) {
-      ItemStack secondaryItem = player.inventory.getStackInSlot(slot);
-      if(secondaryItem != null) {
-        if(!(secondaryItem.getItem() instanceof ToolCore) || !((ToolCore) secondaryItem.getItem()).canUseSecondaryItem()) {
-          break;
-        }
-      }
-    }
-
-    ItemStack secondaryItem = player.inventory.getStackInSlot(slot);
-    if(secondaryItem != null) {
-      if((secondaryItem.getItem() instanceof ToolCore) && ((ToolCore) secondaryItem.getItem()).canUseSecondaryItem()) {
-        return player.inventory.currentItem;
-      }
-    }
-
-    return slot;
-  }
-
-
   /* Helper Functions */
 
   static int getIntTag(ItemStack stack, String key) {

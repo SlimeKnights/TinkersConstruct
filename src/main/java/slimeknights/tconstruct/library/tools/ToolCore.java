@@ -201,24 +201,14 @@ public abstract class ToolCore extends TinkersItem {
     return super.onEntitySwing(entityLiving, stack);
   }
 
-  public boolean canUseSecondaryItem() {
-    return true;
-  }
-
-  @Override
-  public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-    if(canUseSecondaryItem()) {
-      return ToolHelper.useSecondaryItem(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
-    }
-    return super.onItemUse(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
-  }
-
   @Override
   public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+    // todo: potentially reenable the hurtresistance thing if attackspeeds go below 1
+    /*
     if(attackSpeed() > 0) {
       target.hurtResistantTime -= attackSpeed();
       target.hurtTime -= attackSpeed();
-    }
+    }*/
     return super.hitEntity(stack, target, attacker);
   }
 

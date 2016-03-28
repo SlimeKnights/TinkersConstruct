@@ -106,11 +106,6 @@ public class Scythe extends ToolCore {
   }
 
   @Override
-  public boolean canUseSecondaryItem() {
-    return false;
-  }
-
-  @Override
   public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player, EnumHand hand) {
     BlockPos start = new BlockPos(player);
 

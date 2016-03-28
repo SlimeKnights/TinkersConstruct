@@ -127,11 +127,6 @@ public class Mattock extends AoeToolCore {
   }
 
   @Override
-  public boolean canUseSecondaryItem() {
-    return false;
-  }
-
-  @Override
   public List<String> getInformation(ItemStack stack, boolean detailed) {
     TooltipBuilder info = new TooltipBuilder(stack);
 

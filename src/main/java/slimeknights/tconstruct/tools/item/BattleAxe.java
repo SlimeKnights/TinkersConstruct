@@ -5,6 +5,9 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -35,11 +38,6 @@ public class BattleAxe extends AoeToolCore {
   }
 
   @Override
-  public boolean canUseSecondaryItem() {
-    return false;
-  }
-
-  @Override
   public ImmutableList<BlockPos> getAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
     if(!ToolHelper.isToolEffective2(stack, world.getBlockState(origin))) {
       return ImmutableList.of();
@@ -60,6 +58,12 @@ public class BattleAxe extends AoeToolCore {
   @Override
   public int[] getRepairParts() {
     return new int[] {1,2};
+  }
+
+  @Override
+  public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    // todo: special action
+    return EnumActionResult.FAIL;
   }
 
   @Override

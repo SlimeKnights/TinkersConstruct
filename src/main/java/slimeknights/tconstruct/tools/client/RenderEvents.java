@@ -52,36 +52,6 @@ public class RenderEvents implements IResourceManagerReloadListener {
   private final TextureAtlasSprite[] destroyBlockIcons = new TextureAtlasSprite[10];
 
   @SubscribeEvent
-  public void onRenderGUI(RenderGameOverlayEvent.Pre event) {
-    // we're only interested in the inventory
-    if(event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR) {
-      return;
-    }
-
-    EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-    ItemStack stack = player.getHeldItemMainhand();
-    if(stack == null) {
-      return;
-    }
-
-    // do we hold a tool that supports secondary item usage?
-    if(stack.getItem() instanceof ToolCore && ((ToolCore) stack.getItem()).canUseSecondaryItem()) {
-      int slot = ToolHelper.getSecondaryItemSlot(player);
-
-      if(slot != player.inventory.currentItem) {
-        // render the special border around the secondary item that would be used
-        int x = event.getResolution().getScaledWidth() / 2 - 90 + slot * 20 + 2;
-        int y = event.getResolution().getScaledHeight() - 16 - 3;
-
-        // render a cool underlay thing
-        GlStateManager.color(1,1,1,0.5f);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(widgetsTexPath);
-        Gui.drawScaledCustomSizeModalRect(x, y, 1, 23, 22, 22, 16, 16, 256,256);
-      }
-    }
-  }
-
-  @SubscribeEvent
   public void renderExtraBlockBreak(RenderWorldLastEvent event) {
     PlayerControllerMP controllerMP = Minecraft.getMinecraft().playerController;
     EntityPlayer player = Minecraft.getMinecraft().thePlayer;
