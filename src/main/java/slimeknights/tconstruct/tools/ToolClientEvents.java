@@ -34,6 +34,7 @@ import slimeknights.tconstruct.library.client.model.ModelHelper;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.shared.client.BakedTableModel;
+import slimeknights.tconstruct.tools.block.BlockToolTable;
 
 @SideOnly(Side.CLIENT)
 public class ToolClientEvents {
@@ -54,15 +55,24 @@ public class ToolClientEvents {
   private static final String LOCATION_ToolForge = Util.resource("toolforge");
 
   // the actual locations where the models are located
-  public static final ModelResourceLocation locCraftingStation = new ModelResourceLocation(LOCATION_ToolTable, "type=craftingstation");
-  public static final ModelResourceLocation locStencilTable = new ModelResourceLocation(LOCATION_ToolTable, "type=stenciltable");
-  public static final ModelResourceLocation locPartBuilder = new ModelResourceLocation(LOCATION_ToolTable, "type=partbuilder");
-  public static final ModelResourceLocation locToolStation = new ModelResourceLocation(LOCATION_ToolTable, "type=toolstation");
+  public static final ModelResourceLocation locCraftingStation = getTableLoc(BlockToolTable.TableTypes.CraftingStation);
+  public static final ModelResourceLocation locStencilTable = getTableLoc(BlockToolTable.TableTypes.StencilTable);
+  public static final ModelResourceLocation locPartBuilder = getTableLoc(BlockToolTable.TableTypes.PartBuilder);
+  public static final ModelResourceLocation locToolStation = getTableLoc(BlockToolTable.TableTypes.ToolStation);
   public static final ModelResourceLocation locToolForge = new ModelResourceLocation(LOCATION_ToolForge, "normal");
+
+  public static final ModelResourceLocation locPatternChest = getTableLoc(BlockToolTable.TableTypes.PatternChest);
+  public static final ModelResourceLocation locPartChest = getTableLoc(BlockToolTable.TableTypes.PartChest);
 
   // Blank Pattern
   private static final ResourceLocation MODEL_BlankPattern = Util.getResource("item/pattern");
   public static final ResourceLocation locBlankPattern = Util.getResource("pattern");
+
+  private static ModelResourceLocation getTableLoc(BlockToolTable.TableTypes type) {
+    return new ModelResourceLocation(LOCATION_ToolTable, String.format("%s=%s",
+                                                                       BlockToolTable.TABLES.getName(),
+                                                                       BlockToolTable.TABLES.getName(type)));
+  }
 
   @SubscribeEvent
   public void onModelBake(ModelBakeEvent event) {
