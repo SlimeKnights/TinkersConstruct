@@ -46,7 +46,12 @@ public class BlockPunji extends Block {
     this.setCreativeTab(TinkerRegistry.tabGadgets);
     this.setHardness(3.0f);
 
-    this.setDefaultState(getBlockState().getBaseState().withProperty(FACING, EnumFacing.DOWN));
+    this.setDefaultState(getBlockState().getBaseState()
+                                        .withProperty(FACING, EnumFacing.DOWN)
+                                        .withProperty(NORTH, false)
+                                        .withProperty(EAST, false)
+                                        .withProperty(NORTHEAST, false)
+                                        .withProperty(NORTHWEST, false));
   }
 
   @Override
