@@ -75,8 +75,11 @@ public class BattleSign extends BroadSword {
   @Override
   public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
   {
-    playerIn.setActiveHand(hand);
-    return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+    if(!ToolHelper.isBroken(itemStackIn)) {
+      playerIn.setActiveHand(hand);
+      return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+    }
+    return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
   }
 
   // Extra damage reduction when blocking with a battlesign
