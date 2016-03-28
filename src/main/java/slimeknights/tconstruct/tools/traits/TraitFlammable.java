@@ -16,12 +16,12 @@ public class TraitFlammable extends AbstractTrait {
   @Override
   public void onBlock(ItemStack tool, EntityPlayer player, LivingHurtEvent event) {
     // set attacker on fire
-    if(event.source.getEntity() != null) {
-      event.source.getEntity().setFire(3);
+    if(event.getSource().getEntity() != null) {
+      event.getSource().getEntity().setFire(3);
     }
 
     // block fire damage
-    if(event.source.isFireDamage()) {
+    if(event.getSource().isFireDamage()) {
       event.setCanceled(true);
       ToolHelper.damageTool(tool, 3, player);
     }

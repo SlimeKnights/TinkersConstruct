@@ -71,14 +71,18 @@ public class ToolEvents {
 
   @SubscribeEvent
   public void onLivingDrop(LivingDropsEvent event) {
-    if(event.entityLiving instanceof EntitySkeleton && event.source.getEntity() instanceof EntityPlayer) {
-      if(((EntitySkeleton) event.entityLiving).getSkeletonType() == 1) {
+    if(event.getEntityLiving() instanceof EntitySkeleton && event.getSource().getEntity() instanceof EntityPlayer) {
+      if(((EntitySkeleton) event.getEntityLiving()).getSkeletonType() == 1) {
         float chance = 0.10f;
-        chance += 0.05f + EnchantmentHelper.getLootingModifier((EntityLivingBase) event.source.getEntity());
+        chance += 0.05f + EnchantmentHelper.getLootingModifier((EntityLivingBase) event.getSource().getEntity());
         if(random.nextFloat() < chance) {
-          EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, TinkerCommons.matNecroticBone.copy());
+          EntityItem entityitem = new EntityItem(event.getEntityLiving().worldObj,
+                                                 event.getEntityLiving().posX,
+                                                 event.getEntityLiving().posY,
+                                                 event.getEntityLiving().posZ,
+                                                 TinkerCommons.matNecroticBone.copy());
           entityitem.setDefaultPickupDelay();
-          event.drops.add(entityitem);
+          event.getDrops().add(entityitem);
         }
       }
     }

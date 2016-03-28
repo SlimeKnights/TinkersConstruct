@@ -41,7 +41,7 @@ public class ConfigSync {
   @SubscribeEvent
   @SideOnly(Side.CLIENT)
   public void playerJoinedWorld(EntityJoinWorldEvent event) {
-    if(event.entity == Minecraft.getMinecraft().thePlayer) {
+    if(event.getEntity() == Minecraft.getMinecraft().thePlayer) {
       if(needsRestart) {
         //Minecraft.getMinecraft().theWorld.sendQuittingDisconnectingPacket();
         //Minecraft.getMinecraft().getNetHandler().getNetworkManager().closeChannel(new ChatComponentText("reboot pl0x"));

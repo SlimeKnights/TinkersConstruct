@@ -14,6 +14,6 @@ public class TraitStiff extends AbstractTrait {
 
   @Override
   public void onBlock(ItemStack tool, EntityPlayer player, LivingHurtEvent event) {
-    event.ammount = Math.max(1f, event.ammount - 1f);
+    event.setAmount(Math.max(1f, event.getAmount() - 1f));
   }
 }

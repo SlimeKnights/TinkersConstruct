@@ -30,9 +30,9 @@ public class TraitStonebound extends AbstractTrait {
 
   @Override
   public void miningSpeed(ItemStack tool, PlayerEvent.BreakSpeed event) {
-    if(ToolHelper.isToolEffective2(tool, event.state)) {
+    if(ToolHelper.isToolEffective2(tool, event.getState())) {
 
-      event.newSpeed += calcBonus(tool);
+      event.setNewSpeed((float) (event.getNewSpeed() + calcBonus(tool)));
     }
   }
 

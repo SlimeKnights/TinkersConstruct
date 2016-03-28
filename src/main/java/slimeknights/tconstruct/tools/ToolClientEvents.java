@@ -137,8 +137,8 @@ public class ToolClientEvents {
   public void materialTooltip(ItemTooltipEvent event) {
     // check if the item belongs to a material
     for(Material material : TinkerRegistry.getAllMaterials()) {
-      if(material.matches(event.itemStack) != null) {
-        event.toolTip.add(TextFormatting.DARK_GRAY + material.getLocalizedName());
+      if(material.matches(event.getItemStack()) != null) {
+        event.getToolTip().add(TextFormatting.DARK_GRAY + material.getLocalizedName());
       }
     }
   }

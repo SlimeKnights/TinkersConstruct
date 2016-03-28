@@ -54,7 +54,7 @@ public class RenderEvents implements IResourceManagerReloadListener {
   @SubscribeEvent
   public void onRenderGUI(RenderGameOverlayEvent.Pre event) {
     // we're only interested in the inventory
-    if(event.type != RenderGameOverlayEvent.ElementType.HOTBAR) {
+    if(event.getType() != RenderGameOverlayEvent.ElementType.HOTBAR) {
       return;
     }
 
@@ -70,8 +70,8 @@ public class RenderEvents implements IResourceManagerReloadListener {
 
       if(slot != player.inventory.currentItem) {
         // render the special border around the secondary item that would be used
-        int x = event.resolution.getScaledWidth() / 2 - 90 + slot * 20 + 2;
-        int y = event.resolution.getScaledHeight() - 16 - 3;
+        int x = event.getResolution().getScaledWidth() / 2 - 90 + slot * 20 + 2;
+        int y = event.getResolution().getScaledHeight() - 16 - 3;
 
         // render a cool underlay thing
         GlStateManager.color(1,1,1,0.5f);
@@ -88,13 +88,14 @@ public class RenderEvents implements IResourceManagerReloadListener {
     World world = player.worldObj;
     // AOE preview
     if(player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof IAoeTool) {
-      RayTraceResult mop = player.rayTrace(controllerMP.getBlockReachDistance(), event.partialTicks);
+      RayTraceResult mop = player.rayTrace(controllerMP.getBlockReachDistance(), event.getPartialTicks());
       if(mop != null) {
         ItemStack stack = player.getHeldItemMainhand();
         ImmutableList<BlockPos> extraBlocks = ((IAoeTool) stack.getItem()).getAOEBlocks(stack, world, player, mop
             .getBlockPos());
         for(BlockPos pos : extraBlocks) {
-          event.context.drawSelectionBox(player, new RayTraceResult(new Vec3d(0, 0, 0), null, pos), 0, event.partialTicks);
+          event.getContext().drawSelectionBox(player, new RayTraceResult(new Vec3d(0, 0, 0), null, pos), 0, event
+              .getPartialTicks());
         }
       }
     }
@@ -109,7 +110,7 @@ public class RenderEvents implements IResourceManagerReloadListener {
         drawBlockDamageTexture(Tessellator.getInstance(),
                                Tessellator.getInstance().getBuffer(),
                                player,
-                               event.partialTicks,
+                               event.getPartialTicks(),
                                world,
                                ((IAoeTool) stack.getItem()).getAOEBlocks(stack, world, player, pos));
       }

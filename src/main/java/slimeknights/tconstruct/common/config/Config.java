@@ -73,7 +73,7 @@ public class Config {
 
   @SubscribeEvent
   public void update(ConfigChangedEvent.OnConfigChangedEvent event) {
-    if(event.modID.equals(TConstruct.modID)) {
+    if(event.getModID().equals(TConstruct.modID)) {
       syncConfig();
     }
   }
@@ -106,38 +106,38 @@ public class Config {
       Gameplay = configFile.getCategory(cat);
 
       prop = configFile.get(cat, "reuseStencils", reuseStencil);
-      prop.comment = "Allows to reuse stencils in the stencil table to turn them into other stencils";
+      prop.setComment("Allows to reuse stencils in the stencil table to turn them into other stencils");
       reuseStencil = prop.getBoolean();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "chestsKeepInventory", chestsKeepInventory);
-      prop.comment = "Pattern and Part chests keep their inventory when harvested.";
+      prop.setComment("Pattern and Part chests keep their inventory when harvested.");
       chestsKeepInventory = prop.getBoolean();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "enableClayCasts", claycasts);
-      prop.comment = "Adds single-use clay casts.";
+      prop.setComment("Adds single-use clay casts.");
       claycasts = prop.getBoolean();
       prop.requiresMcRestart();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "AutosmeltFortuneInteraction", autosmeltlapis);
-      prop.comment = "Fortune increases drops after harvesting a block with autosmelt";
+      prop.setComment("Fortune increases drops after harvesting a block with autosmelt");
       autosmeltlapis = prop.getBoolean();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "craftCastableMaterials", craftCastableMaterials);
-      prop.comment = "Allows to craft all tool parts of all materials in the part builder, including materials that normally have to be cast with a smeltery.";
+      prop.setComment("Allows to craft all tool parts of all materials in the part builder, including materials that normally have to be cast with a smeltery.");
       craftCastableMaterials = prop.getBoolean();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "registerAllItems", forceRegisterAll);
-      prop.comment = "Enables all items, even if the Module needed to obtain them is not active";
+      prop.setComment("Enables all items, even if the Module needed to obtain them is not active");
       forceRegisterAll = prop.getBoolean();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "obsidianAlloy", obsidianAlloy);
-      prop.comment = "Allows the creation of obsidian in the smeltery, using a bucket of lava and water.";
+      prop.setComment("Allows the creation of obsidian in the smeltery, using a bucket of lava and water.");
       obsidianAlloy = prop.getBoolean();
       prop.requiresMcRestart();
       propOrder.add(prop.getName());
@@ -150,43 +150,43 @@ public class Config {
 
       // Slime Islands
       prop = configFile.get(cat, "generateSlimeIslands", genSlimeIslands);
-      prop.comment = "If true slime islands will generate";
+      prop.setComment("If true slime islands will generate");
       genSlimeIslands = prop.getBoolean();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "generateIslandsInSuperflat", genIslandsInSuperflat);
-      prop.comment = "If true slime islands generate in superflat worlds";
+      prop.setComment("If true slime islands generate in superflat worlds");
       genIslandsInSuperflat = prop.getBoolean();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "slimeIslandRate", slimeIslandsRate);
-      prop.comment = "One in every X chunks will contain a slime island";
+      prop.setComment("One in every X chunks will contain a slime island");
       slimeIslandsRate = prop.getInt();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "magmaIslandRate", magmaIslandsRate);
-      prop.comment = "One in every X chunks will contain a magma island in the nether";
+      prop.setComment("One in every X chunks will contain a magma island in the nether");
       magmaIslandsRate = prop.getInt();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "slimeIslandBlacklist", slimeIslandBlacklist);
-      prop.comment = "Prevents generation of slime islands in the listed dimensions";
+      prop.setComment("Prevents generation of slime islands in the listed dimensions");
       slimeIslandBlacklist = prop.getIntList();
       propOrder.add(prop.getName());
 
       // Nether ore generation
       prop = configFile.get(cat, "genCobalt", genCobalt);
-      prop.comment = "If true, cobalt ore will generate in the nether";
+      prop.setComment("If true, cobalt ore will generate in the nether");
       genCobalt = prop.getBoolean();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "genArdite", genArdite);
-      prop.comment = "If true, ardite ore will generate in the nether";
+      prop.setComment("If true, ardite ore will generate in the nether");
       genArdite = prop.getBoolean();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "cobaltRate", cobaltRate);
-      prop.comment = "Approx Ores per chunk";
+      prop.setComment("Approx Ores per chunk");
       cobaltRate = prop.getInt();
       propOrder.add(prop.getName());
 
@@ -203,17 +203,17 @@ public class Config {
       ClientSide = configFile.getCategory(cat);
 
       prop = configFile.get(cat, "renderTableItems", renderTableItems);
-      prop.comment = "If true all of Tinkers' tables will render their contents on top of the table";
+      prop.setComment("If true all of Tinkers' tables will render their contents on top of the table");
       renderTableItems = prop.getBoolean();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "extraTooltips", extraTooltips);
-      prop.comment = "If true tools will show additional info in their tooltips";
+      prop.setComment("If true tools will show additional info in their tooltips");
       extraTooltips = prop.getBoolean();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "enableForgeBucketModel", enableForgeBucketModel);
-      prop.comment = "If true tools will enable the forge bucket model on startup and then turn itself off. This is only there so that a fresh install gets the buckets turned on by default.";
+      prop.setComment("If true tools will enable the forge bucket model on startup and then turn itself off. This is only there so that a fresh install gets the buckets turned on by default.");
       enableForgeBucketModel = prop.getBoolean();
       if(enableForgeBucketModel) {
         prop.set(false);

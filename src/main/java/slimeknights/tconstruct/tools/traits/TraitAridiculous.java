@@ -22,8 +22,8 @@ public class TraitAridiculous extends AbstractTrait {
   @Override
   public void miningSpeed(ItemStack tool, PlayerEvent.BreakSpeed event) {
     // speedup or slowdown depending on biome temperature. hotter areas are much faster
-    float coeff = calcAridiculousness(event.entityPlayer.worldObj, event.pos) / 10f; // /10 = 10% for a coeff of 1. But can be bigger.
-    event.newSpeed += event.originalSpeed * coeff;
+    float coeff = calcAridiculousness(event.getEntityPlayer().worldObj, event.getPos()) / 10f; // /10 = 10% for a coeff of 1. But can be bigger.
+    event.setNewSpeed(event.getNewSpeed() + event.getOriginalSpeed() * coeff);
   }
 
   @Override

@@ -40,7 +40,7 @@ public class TraitEnderference extends AbstractTrait {
 
   @SubscribeEvent
   public void onEnderTeleport(EnderTeleportEvent event) {
-    if(Enderference.getLevel(event.entityLiving) > 0) {
+    if(Enderference.getLevel(event.getEntityLiving()) > 0) {
       event.setCanceled(true);
     }
   }

@@ -89,10 +89,10 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
 
     createdTextures = 0;
     // create textures for each material where needed
-    createMaterialTextures(event.map);
+    createMaterialTextures(event.getMap());
 
     // add stencil and cast textures for all used toolparts
-    createPatterntextures(event.map);
+    createPatterntextures(event.getMap());
 
     log.debug("Generated " + createdTextures + " Textures for Materials");
   }

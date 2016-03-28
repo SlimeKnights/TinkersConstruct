@@ -23,10 +23,10 @@ public class TraitMomentum extends AbstractTrait {
 
   @Override
   public void miningSpeed(ItemStack tool, PlayerEvent.BreakSpeed event) {
-    float boost = Momentum.getLevel(event.entityPlayer);
+    float boost = Momentum.getLevel(event.getEntityPlayer());
     boost /= 80f; // 40% boost max
 
-    event.newSpeed += event.originalSpeed * boost;
+    event.setNewSpeed(event.getNewSpeed() + event.getOriginalSpeed() * boost);
   }
 
   @Override

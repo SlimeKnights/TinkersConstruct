@@ -35,21 +35,21 @@ public class ModSoulbound extends Modifier {
   // HIGH priority so we do it before other possibly death-inventory-modifying mods
   @SubscribeEvent(priority = EventPriority.HIGH)
   public void onPlayerDeath(PlayerDropsEvent event) {
-    if (event.entityPlayer == null || event.entityPlayer instanceof FakePlayer || event.isCanceled()) {
+    if (event.getEntityPlayer() == null || event.getEntityPlayer() instanceof FakePlayer || event.isCanceled()) {
       return;
     }
-    if(event.entityPlayer.worldObj.getGameRules().getBoolean("keepInventory")) {
+    if(event.getEntityPlayer().worldObj.getGameRules().getBoolean("keepInventory")) {
       return;
     }
 
-    ListIterator<EntityItem> iter = event.drops.listIterator();
+    ListIterator<EntityItem> iter = event.getDrops().listIterator();
     while (iter.hasNext()) {
       EntityItem ei = iter.next();
       ItemStack stack = ei.getEntityItem();
       // find soulbound items
       if(TinkerUtil.hasModifier(stack.getTagCompound(), this.identifier)) {
         // copy the items back into the dead players inventory
-        event.entityPlayer.inventory.addItemStackToInventory(stack);
+        event.getEntityPlayer().inventory.addItemStackToInventory(stack);
         iter.remove();
       }
     }
@@ -58,21 +58,21 @@ public class ModSoulbound extends Modifier {
   // On respawn we copy the items out of the players corpse, into the new player
   @SubscribeEvent(priority = EventPriority.HIGH)
   public void onPlayerClone(PlayerEvent.Clone evt) {
-    if (!evt.wasDeath || evt.isCanceled()) {
+    if (!evt.isWasDeath() || evt.isCanceled()) {
       return;
     }
-    if(evt.original == null || evt.entityPlayer == null || evt.entityPlayer instanceof FakePlayer) {
+    if(evt.getOriginal() == null || evt.getEntityPlayer() == null || evt.getEntityPlayer() instanceof FakePlayer) {
       return;
     }
-    if(evt.entityPlayer.worldObj.getGameRules().getBoolean("keepInventory")) {
+    if(evt.getEntityPlayer().worldObj.getGameRules().getBoolean("keepInventory")) {
       return;
     }
 
-    for (int i = 0; i < evt.original.inventory.mainInventory.length; i++) {
-      ItemStack stack = evt.original.inventory.mainInventory[i];
+    for (int i = 0; i < evt.getOriginal().inventory.mainInventory.length; i++) {
+      ItemStack stack = evt.getOriginal().inventory.mainInventory[i];
       if(stack != null && TinkerUtil.hasModifier(stack.getTagCompound(), this.identifier)) {
-        evt.entityPlayer.inventory.addItemStackToInventory(stack);
-        evt.original.inventory.mainInventory[i] = null;
+        evt.getEntityPlayer().inventory.addItemStackToInventory(stack);
+        evt.getOriginal().inventory.mainInventory[i] = null;
       }
     }
   }

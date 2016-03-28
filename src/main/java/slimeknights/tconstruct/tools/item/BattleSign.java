@@ -44,24 +44,28 @@ public class BattleSign extends BroadSword {
   public void reducedDamageBlocked(LivingHurtEvent event) {
     // don't affect unblockable or magic damage or explosion damage
     // projectiles are handled in LivingAttackEvent
-    if(event.source.isUnblockable() || event.source.isMagicDamage() || event.source.isExplosion() || event.source.isProjectile() || event.isCanceled()) {
+    if(event.getSource().isUnblockable() ||
+       event.getSource().isMagicDamage() ||
+       event.getSource().isExplosion() ||
+       event.getSource().isProjectile() ||
+       event.isCanceled()) {
       return;
     }
-    if(!shouldBlockDamage(event.entityLiving)) {
+    if(!shouldBlockDamage(event.getEntityLiving())) {
       return;
     }
 
-    EntityPlayer player = (EntityPlayer) event.entityLiving;
+    EntityPlayer player = (EntityPlayer) event.getEntityLiving();
     ItemStack battlesign = player.getHeldItemMainhand();
 
     // got hit by something: reduce damage
-    int damage = event.ammount < 2f ? 1 : Math.round(event.ammount/2f);
+    int damage = event.getAmount() < 2f ? 1 : Math.round(event.getAmount() / 2f);
     // reduce damage. After this event the damage will be halved again because we're blocking so we have to factor this in
-    event.ammount *= 0.7f;
+    event.setAmount(event.getAmount() * 0.7f);
 
     // reflect damage
-    if(event.source.getEntity() != null) {
-      event.source.getEntity().attackEntityFrom(DamageSource.causeThornsDamage(player), event.ammount/2f);
+    if(event.getSource().getEntity() != null) {
+      event.getSource().getEntity().attackEntityFrom(DamageSource.causeThornsDamage(player), event.getAmount() / 2f);
       damage = damage * 3 / 2;
     }
     ToolHelper.damageTool(battlesign, damage, player);
@@ -70,18 +74,18 @@ public class BattleSign extends BroadSword {
   @SubscribeEvent
   public void reflectProjectiles(LivingAttackEvent event) {
     // only blockable projectile damage
-    if(event.source.isUnblockable() || !event.source.isProjectile()) {
+    if(event.getSource().isUnblockable() || !event.getSource().isProjectile()) {
       return;
     }
-    if(!shouldBlockDamage(event.entityLiving)) {
+    if(!shouldBlockDamage(event.getEntityLiving())) {
       return;
     }
 
-    EntityPlayer player = (EntityPlayer) event.entityLiving;
+    EntityPlayer player = (EntityPlayer) event.getEntityLiving();
     ItemStack battlesign = player.getHeldItemMainhand();
 
     // ensure the player is looking at the projectile (aka not getting shot into the back)
-    Entity projectile = event.source.getSourceOfDamage();
+    Entity projectile = event.getSource().getSourceOfDamage();
     Vec3d motion = new Vec3d(projectile.motionX, projectile.motionY, projectile.motionZ);
     Vec3d look = player.getLookVec();
 
@@ -123,7 +127,7 @@ public class BattleSign extends BroadSword {
     }
 
     // use durability equal to the damage prevented
-    ToolHelper.damageTool(battlesign, (int)event.ammount, player);
+    ToolHelper.damageTool(battlesign, (int) event.getAmount(), player);
   }
 
   protected boolean shouldBlockDamage(Entity entity) {

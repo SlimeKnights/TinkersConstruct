@@ -31,9 +31,9 @@ public class TraitAutosmelt extends AbstractTrait {
 
   @Override
   public void blockHarvestDrops(ItemStack tool, BlockEvent.HarvestDropsEvent event) {
-    if(ToolHelper.isToolEffective(tool, event.state)) {
+    if(ToolHelper.isToolEffective(tool, event.getState())) {
       // go through the drops and replace them with their furnace'd variant if applicable
-      ListIterator<ItemStack> iter = event.drops.listIterator();
+      ListIterator<ItemStack> iter = event.getDrops().listIterator();
       while(iter.hasNext()) {
         ItemStack drop = iter.next();
         ItemStack smelted = FurnaceRecipes.instance().getSmeltingResult(drop);
@@ -52,7 +52,7 @@ public class TraitAutosmelt extends AbstractTrait {
             xp += 1f;
           }
           if(xp >= 1f) {
-            event.state.getBlock().dropXpOnBlockBreak(event.world, event.pos, (int) xp);
+            event.getState().getBlock().dropXpOnBlockBreak(event.getWorld(), event.getPos(), (int) xp);
           }
         }
       }
